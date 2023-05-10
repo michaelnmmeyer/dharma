@@ -41,7 +41,7 @@ def collect_styles(soup):
 		name = style["style:name"]
 		fmt = 0
 		color = COLORS[props.get("fo:color", "#000000")]
-		if color == "pink":
+		if color in ("pink", "violet"):
 			fmt |= APPARATUS
 		if props.get("fo:font-style") == "italic":
 			fmt |= ITALIC
@@ -68,7 +68,7 @@ def span_to_string(chunk):
 			assert 0, item
 	return "".join(buf)
 
-path = sys.argv[1]
+path = "santi.xml"
 with open(path) as f:
 	text = unicodedata.normalize("NFC", f.read())
 soup = BeautifulSoup(io.StringIO(text), "xml")
