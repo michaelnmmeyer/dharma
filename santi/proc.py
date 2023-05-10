@@ -1,4 +1,4 @@
-import sys, unicodedata, re, html, io
+import sys, unicodedata, re, html, io, os
 from bs4 import BeautifulSoup, NavigableString
 
 COLORS = {
@@ -91,11 +91,12 @@ def append(buf, s, fmt=0):
 	buf.append(html.escape(s))
 	current_fmt = fmt
 
+code = []
 for para in all_paras(soup):
 	if para.name == "h":
 		text = para.get_text().strip()
 		text = html.escape(text)
-		print(text)
+		code.append(text)
 		continue
 	assert para.name == "p"
 	buf = []
@@ -131,4 +132,29 @@ for para in all_paras(soup):
 	buf = re.sub(r"\s+", " ", buf).strip()
 	if not buf:
 		continue
-	print(buf)
+	code.append(buf)
+
+code = "\n".join(code) + "\n"
+parts = """Taji Gunung (910-12-21)
+Wuru Tunggal (912-03-08)
+Timbanan Wungkal (913-02-11)
+Pesindon I and II (914-08-14)
+Tulang Er III (914-12-30)
+Tihang (914-11-08)
+Wintang Mas II (919-10-12)
+Sugih Manek (915-09-13)
+Barahasrama (915-12-14)
+Kiringan (917-11-14)
+Lintakan (841 Śaka, 919-07-12)
+Gilikan (date lost)
+Air Kali (849-850 Śaka)
+""".strip().splitlines()
+
+locs = [code.index(p) for p in parts] + [len(code)]
+chunks = [code[locs[i]:locs[i + 1]] for i in range(len(locs) - 1)]
+
+for i, (name, chunk) in enumerate(zip(parts, chunks), 1):
+	name = "%02d_%s.txt" % (i, name.split()[0].lower())
+	print(name)
+	with open(os.path.join("texts", name), "w") as f:
+		f.write(chunk)
