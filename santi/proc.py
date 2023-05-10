@@ -1,4 +1,4 @@
-import sys, unicodedata
+import sys, unicodedata, re, html, io
 from bs4 import BeautifulSoup, NavigableString
 
 COLORS = {
@@ -27,16 +27,26 @@ def all_paras(soup):
 		return t.name == "p" or t.name == "h"
 	return soup.find_all(name=is_para)
 
-APP_STYLES = set()
+APPARATUS = 1 << 0
+ITALIC = 1 << 1
 
-def check_styles(soup):
+STYLES = {}
+
+def collect_styles(soup):
 	for style in soup.find_all("style"):
 		color = "black"
 		props = style.find("text-properties")
-		if props:
-			color = COLORS[props.get("fo:color", "#000000")]
-			if color == "pink":
-				APP_STYLES.add(style["style:name"])
+		if not props:
+			continue
+		name = style["style:name"]
+		fmt = 0
+		color = COLORS[props.get("fo:color", "#000000")]
+		if color == "pink":
+			fmt |= APPARATUS
+		if props.get("fo:font-style") == "italic":
+			fmt |= ITALIC
+		assert not name in STYLES
+		STYLES[name] = fmt
 
 def span_to_string(chunk):
 	buf = []
@@ -59,26 +69,32 @@ def span_to_string(chunk):
 	return "".join(buf)
 
 path = sys.argv[1]
-soup = BeautifulSoup(open(path), "xml")
-check_styles(soup)
+with open(path) as f:
+	text = unicodedata.normalize("NFC", f.read())
+soup = BeautifulSoup(io.StringIO(text), "xml")
+collect_styles(soup)
 
-in_app = False
+current_fmt = 0
 
-def append(buf, s, is_app=False):
-	global in_app
-	if in_app:
-		if not is_app:
-			in_app = False
-			buf.append(">")
-	else:
-		if is_app:
-			in_app = True
-			buf.append("<")
-	buf.append(s)
+def append(buf, s, fmt=0):
+	global current_fmt
+	close = current_fmt & ~fmt
+	if close & ITALIC:
+		buf.append("</i>")
+	if close & APPARATUS:
+		buf.append("</app>")
+	open = ~current_fmt & fmt
+	if open & APPARATUS:
+		buf.append("<app>")
+	if open & ITALIC:
+		buf.append("<i>")
+	buf.append(html.escape(s))
+	current_fmt = fmt
 
 for para in all_paras(soup):
 	if para.name == "h":
 		text = para.get_text().strip()
+		text = html.escape(text)
 		print(text)
 		continue
 	assert para.name == "p"
@@ -104,13 +120,15 @@ for para in all_paras(soup):
 		else:
 			assert chunk.name == "span", chunk
 			text = span_to_string(chunk)
-			if chunk.get("text:style-name") in APP_STYLES:
-				append(buf, text, True)
-			else:
-				append(buf, text)
-	append(buf, "", False)
-	buf = "".join(buf).strip().replace("\n", " ")
-	buf = unicodedata.normalize("NFC", buf)
+			fmt = STYLES[chunk["text:style-name"]]
+			append(buf, text, fmt)
+	append(buf, "", 0)
+	buf = "".join(buf).replace("\n", " ")
+	buf = buf.replace(" </app>", "</app> ")
+	buf = buf.replace(" </i>", "</i> ")
+	buf = buf.replace("<app> ", " <app>")
+	buf = buf.replace("<i> ", " <i>")
+	buf = re.sub(r"\s+", " ", buf).strip()
 	if not buf:
 		continue
 	print(buf)
