@@ -1,5 +1,17 @@
 #!/usr/bin/env python3
 
+"""
+We apparently have 4 schemas for 4 types of texts:
+
+* Inscriptions (INSSchema -> latest/Schema)
+  Is it actually only for inscriptions, or also more generic stuff?
+* Critical (CritEdSchema)
+* Diplomatic (DiplEdSchema)
+* BESTOW (in progress, so ignore for now)
+
+Share code or not? Are schemas different enough to warrant distinct parsers?
+"""
+
 import sys, re
 from bs4 import BeautifulSoup, NavigableString
 
