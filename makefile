@@ -1,8 +1,8 @@
 all:
 
 update-repos:
-	git submodule update --remote
 	git stash
+	git submodule update --remote
 	git add repos
 	git commit -m 'Update submodules'
 	git stash pop
