@@ -10,23 +10,33 @@ at the same time. This should all be doable at the command line and be quick
 enough (run as a service ?)
 
 Test the validation process. We must ensure that the files that are considered
-valid now remain remain so when we update the schema, etc. It must be kept in
-mind that some people won't modify their files anymore (left the project, etc.)
-and that we don't have access to all files, so changing things in
-backward-incompatible is _not_ OK.
+valid now remain so when we update the schema, etc. It must be kept in mind
+that some people won't modify their files anymore (left the project, etc.) and
+that we don't have access to all files, so changing things in a
+backward-incompatible way is _not_ OK.
 
 
 # Conversion
 
-Set up a XML->(almost plain) text conversion system, the basic representation
-we'll use for search, the simplest one. It should be readable. Here we don't
-try to process files that were rejected as invalid beforehand. We assume the
-files are correct in the conversion code, we don't attempt to validate things
-here, otherwise the conversion code will be too complicated and unmaintainable.
+Set up a XML->(almost plain) text conversion system, a readable representation
+of the internal representation we'll use for search, the simplest one for now.
+(Later on we'll need a more complicated search representation to support
+highlighting search results in full documents.) Here we don't try to process
+files that were rejected as invalid beforehand. We assume the files are correct
+in the conversion code, we don't attempt to validate things here, otherwise the
+conversion code will be too complicated and unmaintainable. This conversion
+code will be used at search time for highlighting search results, so it must be
+fast; probably should write it in go as well as all the server-related stuff.
 
-Add a XML->HTML conversion capability to our basic conversion system.
+Add a XML->HTML conversion capability to our basic conversion system. Should
+use an intermediate representation, but which one? Could preprocess XML files
+to keep just what we need in a convenient format, then generate the HTML from
+there. We'll need to generate the HTML at search time, so should be fast and
+written in go.
 
-Idem for XML->LaTeX conversion.
+Add a XML->LaTeX conversion. Need not be fast, can be done in python, we'll
+pregenerate stuff.
+
 
 # Extra
 
