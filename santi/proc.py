@@ -1,3 +1,5 @@
+# Remains to try to pair lemmas and apparatus together.
+
 import sys, unicodedata, re, html, io, os
 from bs4 import BeautifulSoup, NavigableString
 
