@@ -1,0 +1,43 @@
+# Validation
+
+(For now use a stub that just checks whether the file is valid XML, valid
+UTF-8, etc.)
+
+Set up some tooling for validating XML texts in the repos, with the existing
+Schematron files and maybe some extra scripts for things that need to be tested
+with real programming. Also validate the bibliographic entries they reference
+at the same time. This should all be doable at the command line and be quick
+enough (run as a service ?)
+
+Test the validation process. We must ensure that the files that are considered
+valid now remain remain so when we update the schema, etc. It must be kept in
+mind that some people won't modify their files anymore (left the project, etc.)
+and that we don't have access to all files, so changing things in
+backward-incompatible is _not_ OK.
+
+
+# Conversion
+
+Set up a XML->(almost plain) text conversion system, the basic representation
+we'll use for search, the simplest one. It should be readable. Here we don't
+try to process files that were rejected as invalid beforehand. We assume the
+files are correct in the conversion code, we don't attempt to validate things
+here, otherwise the conversion code will be too complicated and unmaintainable.
+
+Add a XML->HTML conversion capability to our basic conversion system.
+
+Idem for XML->LaTeX conversion.
+
+# Extra
+
+Figure out something for simplifying the encoding process. We already have
+Schematron quick fixes, but it'd also be useful to write some routines that
+fill automatically stuff that can be done mechanically (license, etc.) or
+propose various transformations. Maybe have a way to accept/reject a given
+transformation. Does SQF support this kind of thing? If so, does it also
+support calling external scripts, etc.?
+
+
+===
+
+Pursue at Dharma EGC p. 19
