@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
-import os, re
+import os, re, sys
 from bs4 import BeautifulSoup
+
+def complain(s):
+	print(f"BUG: {s}", file=sys.stderr)
 
 def iter_texts_in_repo(name):
 	path = os.path.join("repos", name)
@@ -42,5 +45,18 @@ def iter_texts():
 			continue
 		yield from iter_texts_in_repo(repo)
 
-for file in iter_texts():
-	print(file)
+def gather_texts():
+	unique = {}
+	for file in iter_texts():
+		base = os.path.basename(file)
+		unique.setdefault(base, []).append(file)
+	for base, files in sorted(unique.items()):
+		files.sort()
+		if len(files) > 1:
+			complain(f"several files bear the same name: {files}")
+			# Refuse to process them
+		else:
+			yield files[0]
+
+files = list(gather_texts())
+print("\n".join(files))
