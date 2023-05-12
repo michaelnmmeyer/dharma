@@ -2,6 +2,7 @@
 
 import os, re, sys
 from bs4 import BeautifulSoup
+from cleanup import cleanup_file
 
 def complain(s):
 	print(f"BUG: {s}", file=sys.stderr)
@@ -40,16 +41,13 @@ repos_to_ignore = {
 }
 
 def iter_texts():
+	unique = {}
 	for repo in os.listdir("repos"):
 		if repo in repos_to_ignore:
 			continue
-		yield from iter_texts_in_repo(repo)
-
-def gather_texts():
-	unique = {}
-	for file in iter_texts():
-		base = os.path.basename(file)
-		unique.setdefault(base, []).append(file)
+		for file in iter_texts_in_repo(repo):
+			base = os.path.basename(file)
+			unique.setdefault(base, []).append(file)
 	for base, files in sorted(unique.items()):
 		files.sort()
 		if len(files) > 1:
@@ -58,5 +56,13 @@ def gather_texts():
 		else:
 			yield files[0]
 
-files = list(gather_texts())
-print("\n".join(files))
+TEXTS_DIR = "texts.hid"
+
+os.makedirs(TEXTS_DIR, exist_ok=True)
+for file in iter_texts():
+	base = os.path.basename(file)
+	out = os.path.join(TEXTS_DIR, base)
+	with open(file) as r, open(out, "w") as w:
+		for line in cleanup_file(r):
+			w.write(line)
+
