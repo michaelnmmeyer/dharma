@@ -19,22 +19,29 @@ Should also normalize whitespace and remove weird chars, at least:
 
 import sys, unicodedata
 
-first = True
-empty = 0
-wrote = False
-for line in sys.stdin:
-	line = line.rstrip()
-	if first:
-		first = False
-		if line.startswith('\N{BOM}'):
-			line = line[1:]
-	if not line:
-		empty += 1
-		continue
-	if wrote:
-		for _ in range(empty):
-			print()
-	line = unicodedata.normalize("NFC", line)
-	print(line)
-	wrote = True
+def cleanup_file(f):
+	first = True
 	empty = 0
+	wrote = False
+	for line in f:
+		line = line.rstrip()
+		if first:
+			first = False
+			if line.startswith('\N{BOM}'):
+				line = line[1:]
+		if not line:
+			empty += 1
+			continue
+		if wrote:
+			while empty > 0:
+				yield "\n"
+				empty -= 1
+		line = unicodedata.normalize("NFC", line)
+		yield line + "\n"
+		wrote = True
+		empty = 0
+
+if __name__ == "__main__":
+	for line in cleanup_file(sys.stdin):
+		sys.stdout.write(line)
+		sys.stdout.flush()
