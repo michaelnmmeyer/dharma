@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+# When processing a text, oxygen generates zotero API calls like this:
+# https://api.zotero.org/groups/1633743/items?tag=ROD1914&format=tei
+# This is why tags are used, but can we generate another API call that uses a
+# proper primary key?
+
 import os, json, sqlite3, unicodedata, html
 import warnings
 from collections import OrderedDict
