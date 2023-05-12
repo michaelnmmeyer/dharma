@@ -13,7 +13,7 @@ Share code or not? Are schemas different enough to warrant distinct parsers?
 """
 
 import sys, re
-from bs4 import BeautifulSoup, NavigableString
+from bs4 import BeautifulSoup, NavigableString, Comment
 
 class Parser:
 	had_space = False
@@ -47,15 +47,29 @@ def parse_apparatus(p, app):
 		if elem.name == "lem":
 			parse_lemma(p, elem)
 
+def parse_para(p, para):
+	for elem in para:
+		if isinstance(elem, NavigableString):
+			emit(p, "text", elem)
+		elif elem.name == "app":
+			parse_apparatus(p, elem)
+		else:
+			assert 0, "%r" % elem
+
 def parse_body(p, soup):
 	body = soup.find("body")
-	for para in body.find_all("p"): # XXX not only p!
-		for elem in para:
-			if isinstance(elem, NavigableString):
-				emit(p, "text", elem)
-			elif elem.name == "app":
-				parse_apparatus(p, elem)
-
+	for elem in body:
+		if isinstance(elem, Comment):
+			pass
+		elif isinstance(elem, NavigableString):
+			assert not elem.strip(), "%r" % elem
+		elif elem.name == "div":
+			print(elem.get("type"))
+		elif elem.name == "p":
+			parse_para(p, elem)
+		else:
+			assert 0, "%r" % elem
+			
 soup = BeautifulSoup(sys.stdin, "xml")
 p = Parser()
 parse_body(p, soup)
