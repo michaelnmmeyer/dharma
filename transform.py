@@ -23,6 +23,9 @@ def normalize_space(s):
 	s = s.strip()
 	return re.sub(r"\s+", " ", s)
 
+def complain(elem):
+	print("? %r" % elem, file=sys.stderr)
+
 def emit(p, t, data=None):
 	if t == "text":
 		if p.had_space or re.match(r"\s+\S", data):
@@ -37,26 +40,38 @@ def emit(p, t, data=None):
 	else:
 		print(t)
 
-def parse_lemma(p, lemma):
+def process_lemma(p, lemma):
 	text = lemma.get_text()
 	emit(p, "text", text)
 	# Ignore the apparatus for now
 
-def parse_apparatus(p, app):
+def process_apparatus(p, app):
 	for elem in app:
 		if elem.name == "lem":
-			parse_lemma(p, elem)
+			lemma(p, elem)
 
-def parse_para(p, para):
+def process_para(p, para):
 	for elem in para:
 		if isinstance(elem, NavigableString):
 			emit(p, "text", elem)
 		elif elem.name == "app":
-			parse_apparatus(p, elem)
+			process_apparatus(p, elem)
 		else:
-			assert 0, "%r" % elem
+			complain(elem)
 
-def parse_body(p, soup):
+def process_div(p, div):
+	emit(p, "div", div.get("type", "null"))
+	for elem in div:
+		if isinstance(elem, Comment):
+			pass
+		elif isinstance(elem, NavigableString):
+			print(elem)
+		elif elem.name == "p":
+			process_para(p, elem)
+		else:
+			complain(elem)
+
+def process_body(p, soup):
 	body = soup.find("body")
 	for elem in body:
 		if isinstance(elem, Comment):
@@ -64,12 +79,12 @@ def parse_body(p, soup):
 		elif isinstance(elem, NavigableString):
 			assert not elem.strip(), "%r" % elem
 		elif elem.name == "div":
-			print(elem.get("type"))
+			process_div(p, elem)
 		elif elem.name == "p":
-			parse_para(p, elem)
+			process_para(p, elem)
 		else:
 			assert 0, "%r" % elem
 			
 soup = BeautifulSoup(sys.stdin, "xml")
 p = Parser()
-parse_body(p, soup)
+process_body(p, soup)
