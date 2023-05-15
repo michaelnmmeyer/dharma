@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+#
 # Borrowed from https://github.com/pamoller/xmlformatter
 #
 # Copyright (c) 2012 P. Andreas Moeller (kontakt@pamoller.com)
@@ -711,7 +713,7 @@ class Formatter:
             str = ""
             if self.preserve in [0, 1] and self.indent:
                 str += self.indent_insert()
-            str += "<?%s %s?>" % (self.arg[0], self.arg[1])
+            str += "<?%s %s?>\n" % (self.arg[0], self.arg[1])
             return str
 
         def configure(self):
@@ -893,7 +895,13 @@ def cli():
     except:
         cli_usage("Unkonwn error")
 
+    if res:
+        res += b"\n"
     if overwrite:
         formatter.enc_output(input_file, res)
     else:
         formatter.enc_output(outfile, res)
+
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(cli())
