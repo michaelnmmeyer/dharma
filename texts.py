@@ -32,6 +32,8 @@ def iter_texts_in_repo(name):
 			# Metadata
 			if file.startswith("DHARMA_mdt"):
 				continue
+			if "template" in file.lower():
+				continue
 			yield os.path.join(root, file)
 
 repos_to_ignore = {
