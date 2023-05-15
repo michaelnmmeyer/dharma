@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Ciṟṟampākkam step-stone</title>
+        <respStmt>
+          <resp>EpiDoc encoding</resp>
+          <persName ref="part:emfr">
+            <forename>Emmanuel</forename>
+            <surname>Francis</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:emfr">
+            <forename>Emmanuel</forename>
+            <surname>Francis</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Paris, CEIAS</pubPlace>
+        <idno type="filename">DHARMA_INSPallava00044</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc>
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno></idno>
+          </msIdentifier>
+          <msContents>
+            <summary>Records the foundation of a temple (kōyil) by Kumāraṉ, the nephew of Cōmāciyār.</summary>
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p></p>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-07-08" who="part:emfr">Creation of the file</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="tam-Latn">
+        <p><lb n="1"></lb><hi rend="grantha">śrī-mahārāja-parameśvara</hi>-varu<hi rend="grantha">mma</hi>ṟkku yāṇṭu talaitt-<unclear>ā</unclear> <lb break="no" n="2"></lb>vatu</p>
+        <p>tūṇāṅ-kiḻavar-uḷ ālavāyil cōmāciyā <lb break="no" n="3" rend="tb-rotated"></lb>ru maru-maḵaṉ kumā<unclear>raṉ</unclear> <gap quantity="3" reason="lost" unit="character"></gap> <supplied reason="lost">e</supplied> <lb break="no" n="4" rend="tb-rotated"></lb>ṭuppitta kō<unclear>yil</unclear></p>
+        <p><gap quantity="3" reason="illegible" unit="character"></gap> <lb n="5" rend="tb-rotated"></lb><gap quantity="3" reason="illegible" unit="character"></gap> <unclear reason="eccentric_ductus">A</unclear>ḻi<unclear reason="eccentric_ductus">vu</unclear>m <unclear>c</unclear>e <lb break="no" n="6" rend="tb-rotated"></lb>ytār taṭumāv ēṟkka</p>
+        <!--Check: lines 3-4 are tb-rotated compared to lines 1-2; line 5 is tb-rotated compared to lines 3-4; line 6 is tb-rotated compared to line 5!-->
+      </div>
+      <div type="apparatus">
+        <listApp>
+          <app loc="1">
+            <lem>talaitt-<unclear>ā</unclear><lb break="no" n="2"></lb>vatu</lem>
+            <rdg source="bib:Desai1957-1958_01">talaittā<lb break="no" n="2"></lb>vatu</rdg>
+          </app>
+          <app loc="5">
+            <lem><unclear reason="eccentric_ductus">A</unclear>ḻi<unclear reason="eccentric_ductus">vu</unclear>m</lem>
+            <rdg source="bib:Desai1957-1958_01">Aḻi<unclear>vu</unclear>m</rdg>
+            <note><bibl n="PBD">
+                <ptr target="bib:Desai1957-1958_01"></ptr>
+              </bibl>'s reading makes sense, but is not warranted on the facsimile, where one would read at once <foreign>yuḻime</foreign> or <foreign>yuḻimē</foreign>.</note>
+          </app>
+        </listApp>
+      </div>
+      <div resp="part:emfr" type="translation">
+        <p n="1-2">First year of the glorious Mahārāja Parameśvaravarman.</p>
+        <p n="3-4">The temple that Kumāraṉ, nephew (sister’s son) of Cōmāciyār in <supplied reason="explanation">that is, from</supplied> Ālavāy, <supplied reason="subaudible">one</supplied> among the <foreign>tūṇaṅ-kiḷavar</foreign>s <gap reason="lost"></gap> has built.</p>
+        <p n="5-6">He who does <supplied reason="explanation">
+            <foreign><unclear>c</unclear>eytār</foreign>
+          </supplied> harm <supplied reason="explanation">
+            <foreign>aḻivu</foreign>
+          </supplied> <gap reason="lost"></gap> will be considered like <supplied reason="explanation">
+            <foreign>ēṟkka</foreign>
+          </supplied> <gap reason="ellipsis"></gap> <supplied reason="explanation">
+            <foreign>taṭumāv</foreign>
+          </supplied>.</p>
+      </div>
+      <div type="commentary">
+        <p n="1-2"><foreign>talaitt-<unclear>ā</unclear>vatu</foreign>. See <bibl>
+            <ptr target="bib:Desai1957-1958_01"></ptr>
+            <citedRange unit="page">199</citedRange>
+            <citedRange unit="note">3</citedRange>
+          </bibl>: <quote>The expression <foreign>talaittu</foreign> from <foreign>talai</foreign> is used adjectively in the sense of 'first'. The same usage may also be noted in the familiar phrase <foreign>talaittu kuḷaṇḍai</foreign> meaning 'first child'. For epigraphic usage of the word <foreign>talai</foreign> meaning 'first,' we may note the expression <foreign>Āṉi-ttalai-ppiṟaiyāl</foreign> in the Takkōlam inscription (above, Vol. XIX, p. 87).</quote></p>
+        <p n="2"><foreign>ālavāyil</foreign>. <bibl>
+            <ptr target="bib:Desai1957-1958_01"></ptr>
+          </bibl> connects this word with <foreign>eṭuppitta</foreign> (lines 3-4), suggesting that Ālavāy is the ancient name of Ciṟṟampākkam/Teṉkāraṇai. We follow Sircar's opinion (editor's note to <bibl>
+            <ptr target="bib:Desai1957-1958_01"></ptr>
+          </bibl>) that Ālavāy is the residence of Cōmāciyār. So does <bibl n="TVM">
+            <ptr target="bib:Mahalingam1988_01"></ptr>
+            <citedRange unit="page">147</citedRange>
+            <citedRange unit="note">1</citedRange>
+          </bibl>.</p>
+        <p n="2-3"><foreign>cōmāciyāru</foreign>. See <bibl>
+            <ptr target="bib:Desai1957-1958_01"></ptr>
+            <citedRange unit="page">200</citedRange>
+            <citedRange unit="note">1</citedRange>
+          </bibl>: <quote>Sōmāśiyār may be contracted either from Sōmayājiyār or Sōmājiyār.</quote></p>
+        <p n="3"><foreign>maru-maḵaṉ</foreign>. This term means more precisely "sister's son" in the present case.</p>
+      </div>
+      <div type="bibliography">
+        <p>First edited by <bibl>
+            <ptr target="bib:Desai1957-1958_01"></ptr>
+          </bibl> (EI 32, no. 23) with a facsimile; text and summary in <bibl>
+            <ptr target="bib:Mahalingam1988_01"></ptr>
+          </bibl> (IP n° 44); re-edited and translated here for DHARMA (ERC n° 809994) by Emmanuel Francis (2020), based on the facsimile published in <bibl>
+            <ptr target="bib:Desai1957-1958_01"></ptr>
+          </bibl>.</p>
+        <listBibl type="primary">
+          <bibl n="D">
+            <ptr target="bib:Desai1957-1958_01"></ptr>
+          </bibl>
+          <bibl n="M">
+            <ptr target="bib:Mahalingam1988_01"></ptr>
+            <citedRange unit="page">146-147</citedRange>
+            <citedRange unit="item">44</citedRange>
+          </bibl>
+        </listBibl>
+        <listBibl type="secondary">
+          <bibl n="ARIE 1947-1948">
+            <ptr target="bib:ARIE1947-1948"></ptr>
+            <citedRange unit="page">12</citedRange>
+            <citedRange unit="appendix">B/1947-1948</citedRange>
+            <citedRange unit="item">83</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

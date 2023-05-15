@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Bromo Semeru 6</title>
+        <respStmt>
+          <resp>EpiDoc encoding</resp>
+          <persName ref="part:masc">
+            <forename>Marine</forename>
+            <surname>Schoettel</surname>
+          </persName>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:masc">
+            <forename>Marine</forename>
+            <surname>Schoettel</surname>
+          </persName>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Paris</pubPlace>
+        <idno type="filename">DHARMA_INSIDENKBromoSemeru6</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Marine Schoettel &amp; Arlo Griffiths</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
+        <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno></idno>
+            <!-- don't modify this -->
+          </msIdentifier>
+          <msContents>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p>Late Javanese script, typical of mountainside inscriptions. Broad simplified akṣaras lightly engraved with shallow carving.</p>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-09-02" who="part:masc">initial encoding of the inscription</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="kaw-Latn">
+        <ab><lb n="1"></lb>dhudhu <lb break="no" n="2"></lb>kuna</ab>
+      </div>
+      <div type="apparatus"></div>
+      <div resp="part:argr part:masc" type="translation">
+        <!--translation encoded as per EGD §9.2 -->
+        <p>The dukuns.</p>
+      </div>
+      <div type="commentary">
+        <p></p>
+      </div>
+      <div type="bibliography">
+        <p>This stone was probably among the group of sixteen inscribed stones at Pasru Jambe reported by Soekmono (<bibl rend="omitname">
+            <ptr target="bib:Soekmono1962_01"></ptr>
+          </bibl>). It seems no attempt was made to decipher their contents until the first readings published by Sukarto Atmodjo (<bibl rend="omitname">
+            <ptr target="bib:SukartoAtmodjo1986_01"></ptr>
+          </bibl>). These inscriptions were republished in a later survey of the Archaeological Service (<bibl rend="omitname">
+            <ptr target="bib:TitiSurtiNastiti+al1994-1995_01"></ptr>
+          </bibl>). Re-edited here by Arlo Griffiths and Marine Schoettel from pictures taken by Nigel Bullough and Arlo Griffiths (2011).</p>
+        <listBibl type="primary">
+          <bibl n="SA">
+            <ptr target="bib:SukartoAtmodjo1986_01"></ptr>
+            <citedRange unit="page">41-42</citedRange>
+          </bibl>
+          <bibl n="TSN">
+            <ptr target="bib:TitiSurtiNastiti+al1994-1995_01"></ptr>
+            <citedRange unit="page">6-7</citedRange>
+          </bibl>
+        </listBibl>
+        <listBibl type="secondary">
+          <bibl>
+            <ptr target="bib:Soekmono1962_01"></ptr>
+            <citedRange unit="page">12</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Kalasan</title>
+        <respStmt>
+          <resp>EpiDoc encoding</resp>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Lyon</pubPlace>
+        <idno type="filename">DHARMA_INSIDENKKalasan</idno>
+        <!-- Replace by filename, e.g. Pallava00001 -->
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Arlo Griffiths.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
+        <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno></idno>
+            <!-- don't modify this -->
+          </msIdentifier>
+          <msContents>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p>Brandes <bibl rend="omitname">
+                  <ptr target="bib:Brandes1886_01"></ptr>
+                  <citedRange>241-243</citedRange>
+                </bibl> summarized most of the noteworthy palaeographic aspects of the inscription. His observations concerned: (1) the shape of <foreign>t</foreign> and <foreign>m</foreign> in combination with <foreign>virāma</foreign>; (2) the shape and position of the <foreign>repha</foreign>; (3) the shape of postconsonantal <foreign>y</foreign>, and the special shape of the ligature <foreign>rya</foreign>; (4) the two allographs of the vowel marker <foreign>e</foreign>; (5) the decorative flourish sometimes given to the vowel marker <foreign>i</foreign>; (6) the shapes of <foreign>ja</foreign> and <foreign>jā</foreign>; (7) the inconsistent gemination of consonants after <foreign>r</foreign>; (8) the shape of <foreign>na</foreign>; (9) the use of <foreign>ṅ</foreign> instead of <foreign>anusvāra</foreign> before <foreign>ś</foreign> and <foreign>h</foreign>. To these I add one more: (10) the presence of two allographs of vowel marker <foreign>ū</foreign>. I will now elaborate on the above points, proceeding item by item.</p>
+              <p>(1) Special shape of <foreign>m</foreign> with virāma, represented as <foreign>M</foreign>: see stanzas II, III VII and XII. By contrast, I read n· (meaning that the basic consonant sign seems to have it normal shape and position) in puruṣān·, pārthivendrān·, ... .</p>
+              <p>(2) shape of repha: can we read rjya in st. II or not? very clear examples in lines 7 (rmma), 11 (rthi, rmma, rna)</p>
+              <p>(3) Pāla shape of rya seen throughout — check also Bosch</p>
+              <p>(4) two allographs of the marker -e: elaborate top-stroke in dakṣiṇeyam (line 9), kāle kāle and Anena puṇyena (line 12), etc.; normally a vertical strole at left.</p>
+              <p>(5) The final akṣara <foreign>ti</foreign> in <foreign>iti</foreign> at the end of line 14 is written in the extended manner commonly seen in Siddhamātr̥kā inscriptions. Brandes write 'sometimes'. Are there any other cases?</p>
+              <p>(6) Stanza VI pūjārthaṁ: I have some trouble telling this jā apart from ja signs elsewhere. Cf. e.g. in rājasiṁhena, l. 9; rājasiṅhaḥ in 11. But cf. jātārtha in l. 12. The difference seems to lie herein, that in the case of jā, the ā-mātra does not descend from the top-line, but ascends from the middle diagonal of ja.</p>
+              <p>(7) Gemination of C after r if C = m. No gemination of C after r if C = y, n, th.</p>
+              <p>(8), (9)</p>
+              <p>(10) two allographs of -ū: bhū (end line 8) and bhū in line 9.</p>
+              <!-- Damais 1952: 24 note "Au début de la strophe 8 la transcription de Brandes et de Bosch, bhura, ne convient pas paléographiquement parlant. Le petit trait transversal à gauche de l'r si c'en était un, serait placé bien trop bas et ne devrait pas toucher ce qui, dans ce cas, serait l'aksara précédent. Bhura ne voulant rien dire pour autant que nous sachions,
+c'est bien bhü qu'il faut lire, avec Bhandarkar, bien que l'aksara diffère sensiblement des autres bhû de cette inscription (lignes 11 et 14) par l'adjonction d'un trait vertical superfétatoire qui peut être considéré du même ordre que les variétés exagérément allongées de la voyelle -e que l'on trouve ici à côté de la forme courte qui est juste une petite boucle. -->
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-04-15" who="part:argr">Completed initial encoding of the edition</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="san-Latn">
+        <p><lb n="01"></lb><g subtype="siddham" type="symbol"></g><!-- the symbol stands in the margin --> <lb n="1"></lb>namo bhagavatyai ārya-tārāyai ||</p>
+        <lg met="vasantatilaka" n="1">
+          <!-- [vasantatilaka: - - ~ - ~ ~ ~ - ~ ~ - ~ - =] -->
+          <l n="a">yā tārayaty amita-duḥkha-bhavābdhi-magnaṁ</l>
+          <l n="b">lokaṁ vilokya vidhivat trividhair u<lb break="no" n="2"></lb>pāyaiḥ |</l>
+          <l n="c">sā vaḥ surendra-nara-loka-vibhūti-sāraṁ</l>
+          <l n="d">tārā di<space type="defect"></space>śatv abhimataṁ jagad-eka-tārā ||</l>
+        </lg>
+        <lg met="gīti" n="2">
+          <!-- gīti [12+18+12+18] -->
+          <l n="ab">Āva<unclear>r</unclear>jya mahārā<space type="defect"></space>jaṁ <unclear>tejaḥpuṇyā</unclear><lb break="no" n="3"></lb>paṇaṁ paṇaṁkaraṇaM |</l>
+          <l n="cd">śailendra-rāja-gurubhis tārā-<unclear>bha</unclear>vanaṁ hi kāritaṁ śrīmat· <!-- or read T? -->||</l>
+        </lg>
+        <lg met="āryā" n="3">
+          <l n="ab">gurv-ājñayā kr̥tajñais tārā-devī <lb n="4"></lb>kr̥tāpi tad-bhavanaM |</l>
+          <l n="cd">vinaya-mahāyāna-vidāṁ bhavanaṁ cāpy ārya-bhikṣūṇāM ||</l>
+        </lg>
+        <lg met="āryā" n="4">
+          <l n="ab">paṅkura-tavāna-tīripa<lb break="no" n="5"></lb>-nāmabhir ādeśatas tribhī rājñaḥ |</l>
+          <l n="cd">tārā-bhavanaṁ kāritam ida<surplus>ṁ</surplus>m api cāpy ārya-bhikṣūṇāM ||</l>
+          <!-- presence redundant anusvāra not so clear on OD photos, possinle on Leiden est., but in that case on mi rather than on da; more likely accidental hole in the stone; note also that the anusvāras in line 7 are clear circles, and not dots!   -->
+        </lg>
+        <lg met="āryā" n="5">
+          <l n="ab">rājye pravarddhamā<lb break="no" n="6"></lb>ne rājñaḥ śailendra-vaṅśa-tilakasya |</l>
+          <l n="cd">śailendra-rāja-gurubhis tārā-bhavanaṁ kr̥taṁ kr̥tibhiḥ ||</l>
+        </lg>
+        <lg met="āryā" n="6">
+          <l n="ab">śaka-nr̥pa-kālātītai<lb break="no" n="7"></lb>r varṣa-śataiḥ saptabhir mmahārājaḥ |</l>
+          <l n="cd">Akarod guru-pūjārthaṁ tārā-bhavanaṁ paṇaṁkaraṇaḥ ||</l>
+        </lg>
+        <lg met="āryā" n="7">
+          <l n="ab">grāmaḥ <space type="defect"></space>kālasa-nāmā <lb n="8"></lb>dattaḥ saṁghāya sākṣiṇaḥ kr̥tvā |</l>
+          <l n="cd">paṅkura-tavāna-tīripa-deśādhyakṣān mahā-puruṣān· ||</l>
+        </lg>
+        <lg met="āryā" n="8">
+          <l n="ab">bhū-da<lb break="no" n="9"></lb>kṣiṇeyam atulā dattā saṁghāya rāja-siṁhena |</l>
+          <l n="cd">śailendra-vaṅśa-bhūpair anuparipālyārya-santatyā ||</l>
+        </lg>
+        <lg met="uṣṇik" n="9">
+          <!-- |+-+|-+-|+ call thus sumānikā? sumānukā? -->
+          <l n="a"><lb n="10"></lb>saṇ-ḍa-paṅkurādibhiḥ</l>
+          <l n="b">san-tavānakādibhiḥ |</l>
+          <l n="c">saṇ-ḍa-tīripādibhiḥ</l>
+          <l n="d">pattibhiś ca sādhubhiḥ ||</l>
+          <!-- patti: footsoldier? checked whether P, T, and T are called patih anywhere-->
+          <!-- saṅ ḍa: see Damais 1970: 961 -->
+        </lg>
+        <p>Api ca</p>
+        <lg met="śālinī" n="10">
+          <!-- [– – – – | – ⏑ – – ⏑ – ⏓] -->
+          <l n="a"><lb n="11"></lb>sarvān evāgāminaḥ pārthivendrān·</l>
+          <l n="b">bhūyo bhūyo yācate rāja-siṅhaḥ |</l>
+          <l n="c">sāmānyo yan dharmma-setur na<lb break="no" n="12"></lb>rāṇāṁ</l>
+          <l n="d">kāle kāle pālanīyo bhavadbhiḥ ||</l>
+        </lg>
+        <lg met="upendravajrā" n="11">
+          <l n="a">Anena puṇyena vihāra-jena</l>
+          <l n="b">pratītya <!-- remove space and hyphenative to -jāta? pratītya-jāta = pratītya-samupapanna -->jātārtha-vibhāga-vi<lb break="no" n="13"></lb>jñāḥ |</l>
+          <l n="c">bhavantu sarve tri-bhavopapannā</l>
+          <!-- BHSD: "tribhava: the triple states of existence (kāma, rūpa, and arūpa)", = tridhātu — but why not simply Triple Worlds? or Past, Present and Future? -->
+          <l n="d">janā jinānām anuśāsana-jñāḥ ||</l>
+        </lg>
+        <lg met="āryā" n="12">
+          <l n="a">kariyāna-paṇaṁkaraṇaḥ śrī<lb break="no" n="14"></lb>mān abhiyācate 'tra bhāvi-nr̥pān· |</l>
+          <l n="b">bhūyo bhūyo vidhivad vihāra-paripālanārtham iti ||</l>
+        </lg>
+      </div>
+      <div type="apparatus">
+        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
+        <listApp>
+          <app loc="01">
+            <lem>
+              <g subtype="siddham" type="symbol"></g>
+            </lem>
+            <note>The <foreign>siddham</foreign> sign, ignored in all previous editions, stands slightly left of the left margin.</note>
+          </app>
+          <!--<app loc="2-3"><lem>upāyaiḥ</lem><!-\- thus Bosch, upayaiḥ Sarkar (printing error). -\-></app>-->
+          <app loc="2">
+            <lem source="bib:Bhandarkar1887_01 bib:Sarkar1971-1972_01">Āvarjya</lem>
+            <!-- or read ācakṣya? -->
+            <rdg source="bib:Bosch1928_01">Āvarja</rdg>
+            <note>Bosch' omission of <foreign>y</foreign> may be a mere lapsus, because Bhandarkar already gave the correct reading. De Casparis has proposed the reading <foreign>Āvāhya</foreign> (<bibl rend="omitname">
+                <ptr target="bib:Casparis1950_01"></ptr>
+                <citedRange unit="page">21</citedRange>
+                <citedRange unit="note">4</citedRange>
+              </bibl>) but I am unable to read the engraved text in this way.</note>
+          </app>
+          <app loc="2">
+            <lem><unclear>tejaḥpuṇyā</unclear><lb break="no" n="3"></lb>paṇaṁ</lem>
+            <rdg source="bib:Casparis1950_01">tejaḥpūrṇṇā<lb></lb>paṇaṁ</rdg>
+            <rdg source="bib:Bosch1928_01 bib:Sarkar1971-1972_01">dyāḥ pañca<lb></lb>paṇaṁ</rdg>
+            <note><bibl>
+                <ptr target="bib:Casparis1950_01"></ptr>
+                <citedRange unit="page">21</citedRange>
+                <citedRange unit="note">4</citedRange>
+              </bibl> proposed reading <foreign>tejaḥ</foreign>, which I retain, but his reading <foreign>pūrṇṇāpaṇaṁ</foreign> does not yield a clear sense and seems to be incompatible with the available photographs. The reading adopted here was proposed to me by Vincent Tournier, who further suggests that <foreign>°āpaṇaṁ</foreign> be interpreted as a poetic license equivalent to <foreign>°āpannaṁ</foreign> (which would disturb the meter and render impossible the <foreign>yamaka</foreign> <foreign>paṅaṁpaṅaṁ</foreign>).</note>
+          </app>
+          <app loc="3">
+            <lem>paṇaṁkaraṇam·</lem>
+            <rdg source="bib:Bosch1928_01 bib:Sarkar1971-1972_01">paṇaṁkaraṇaṁ</rdg>
+          </app>
+          <app loc="4">
+            <lem source="bib:Bosch1928_01">tadbhavanaM</lem>
+            <rdg source="bib:Sarkar1971-1972_01">tadbhavanaṁ</rdg>
+            <!-- Comparison with the way virāma is noted in śrīmat (l. 3) suggests that the final sign stands for m·, and that Bosch has given the correct interpretation (after Brandes?). See also pāda d of this stanza; VIId; XIIb. -->
+          </app>
+          <app loc="4">
+            <lem source="bib:Bosch1928_01">-bhikṣūṇāM</lem>
+            <rdg source="bib:Sarkar1971-1972_01">-bhikṣūṇāṁ</rdg>
+          </app>
+          <app loc="5">
+            <lem>ādeśatas tribhī</lem>
+            <rdg source="bib:Bosch1928_01 bib:Sarkar1971-1972_01">ādeśaśastribhī</rdg>
+          </app>
+          <app loc="5">
+            <lem source="bib:Sarkar1971-1972_01">ida<surplus>ṁ</surplus>m api</lem>
+            <rdg source="bib:Bosch1928_01">idam api</rdg>
+          </app>
+          <app loc="6">
+            <lem source="bib:Bosch1928_01">-vaṅśa-</lem>
+            <rdg source="bib:Sarkar1971-1972_01">-vaṁśa-</rdg>
+          </app>
+          <app loc="6">
+            <lem source="bib:Sarkar1971-1972_01">śaka-</lem>
+            <rdg source="bib:Bosch1928_01">śak</rdg>
+            <note>Bosch' reading is evidently a printing error.</note>
+          </app>
+          <app loc="8">
+            <lem source="bib:Bhandarkar1887_01">bhū-dakṣiṇeyam</lem>
+            <rdg source="bib:Bosch1928_01 bib:Sarkar1971-1972_01">bhuradakṣiṇeyam</rdg>
+            <note>Bosch and Sarkar both deny the possibility of reading <foreign>bhūdakṣiṇeyam</foreign> as does Bhandarkar. The other cases of <foreign>ū</foreign>-vocalization in the inscription <!--(CHECK ALL)-->indeed do not seem to support taking the vertical bar to the right of the <foreign>bh</foreign> as (integral part of) an <foreign>ū</foreign>, but there is a possibility that the scribe here exceptionally used a different sign for the same vowel (cf. the varying forms of <foreign>ū</foreign> in the <ref target="GunungWukir.xml">Gunung Wukir stele</ref> stele<!-- or call this Sanjaya grant? Canggal? -->, which may be relevant despite its use of a different script), or that what has been taken to be a <foreign>ra</foreign> is a scribal error. The meter here allows either two short syllables (<foreign>bhura</foreign>) or one long one (<foreign>bhū</foreign>), but the sense requires <foreign>bhūdakṣiṇeyam</foreign>.</note>
+          </app>
+          <app loc="9">
+            <lem source="bib:Sarkar1971-1972_01">-siṁhena</lem>
+            <rdg source="bib:Bosch1928_01">-siṅhena</rdg>
+            <note>Contrast the spelling in stanza X.<!--While the absence of the ṅ is certain here, it seems just possible that the superscribed nasalization mark is not the single dot (anusvāra), but the dot in crescent (anunāsika).--></note>
+          </app>
+          <app loc="9">
+            <lem source="bib:Bosch1928_01">-vaṅśa-</lem>
+            <rdg source="bib:Sarkar1971-1972_01">-vaṁśa-</rdg>
+          </app>
+          <app loc="10">
+            <lem source="bib:Casparis1950_01">saṇ-ḍa-<gap reason="ellipsis"></gap>saṇ-ḍa-</lem>
+            <rdg source="bib:Bosch1928_01 bib:Sarkar1971-1972_01">saṅ ḍa-</rdg>
+            <note>The readings adopted here were proposed in <bibl>
+                <ptr target="bib:Casparis1950_01"></ptr>
+                <citedRange unit="page">136</citedRange>
+                <citedRange unit="note">4</citedRange>
+              </bibl>.</note>
+          </app>
+          <app loc="11">
+            <lem source="bib:Bosch1928_01">-siṅhaḥ</lem>
+            <rdg source="bib:Sarkar1971-1972_01">-siṁhaḥ</rdg>
+            <note>Contrast the spelling in stanza VIII.</note>
+          </app>
+          <app loc="11">
+            <lem>yan</lem>
+            <rdg source="bib:Bosch1928_01 bib:Sarkar1971-1972_01">yaṁ</rdg>
+          </app>
+        </listApp>
+        <app loc="12">
+          <lem source="bib:Sarkar1971-1972_01">vihāra-</lem>
+          <rdg source="bib:Bosch1928_01">vīhāra-</rdg>
+          <note>Bosch' reading is presumably a printing error.</note>
+        </app>
+        <app loc="13">
+          <lem source="bib:Bosch1928_01">kariyāna-</lem>
+          <rdg source="bib:Sarkar1971-1972_01">kariyāṇa-</rdg>
+        </app>
+        <app loc="14">
+          <lem source="bib:Bosch1928_01">tra</lem>
+          <rdg source="bib:Sarkar1971-1972_01"></rdg>
+        </app>
+        <app loc="14">
+          <lem source="bib:Sarkar1971-1972_01">-nr̥pān·</lem>
+          <rdg source="bib:Bosch1928_01">-ṇr̥pān·</rdg>
+          <note>Bosch' reading is possibly a printing error.</note>
+        </app>
+        <app loc="14">
+          <lem source="bib:Sarkar1971-1972_01">vihāra-pari-</lem>
+          <rdg source="bib:Bosch1928_01">vihāraparapari-</rdg>
+          <note>Bosch' reading seems to be a printing error.</note>
+        </app>
+      </div>
+      <div resp="part:argr" type="translation">
+        <!--<head>Translation Griffiths</head>
+-->
+        <p n="1">Homage to the Noble Lady Tārā!</p>
+        <p n="1" rend="verse">As per injunction, with the three means, may she, a unique star for the world, having looked down upon the world immersed in the ocean of existence with endless suffering grant you the coveted essence of wealth in the divine and human realms!</p>
+        <p n="2" rend="verse">For the royal gurus of the Śailendras have had the illustrious Tārā temple built, after they converted <!--won over (BHSD)-->the Great King Panaṅkaran, endowed with power and merit.</p>
+        <p n="3" rend="verse">The goddess Tārā was made by the grateful <supplied reason="subaudible">gurus</supplied> at the command of their master, and <supplied reason="subaudible">they built</supplied> not only a temple for her but also an abode for the noble monks learned in the Discipline and the (scriptures of the) Great Vehicle.</p>
+        <!-- Speijer §438 on api ... api ... -->
+        <p n="4" rend="verse">And, on behalf of the king, the three called Paṅkur, Tavan and Tirip not only had this Tārā temple built, but also <supplied reason="subaudible">the abode</supplied> of the noble monks.</p>
+        <!-- ādeśa: see NWS; Vincent remembers there is a chapter on ādeśa as replacement outside of vyākaraṇa context  -->
+        <p n="5" rend="verse">The Tārā temple has been built by the virtuous gurus of the Śailendra kings during the prosperous reign of the king who is an ornament of the Śailendra dynasty.</p>
+        <p n="6" rend="verse">When seven hundred years had passed after the Śaka king, the Great King Panaṅkaran built the Tārā temple in order to honor his preceptors.</p>
+        <!-- maybe gurup. is also intended to mean 'veneration of his own guru', 'veneration of (himself as their) master' -->
+        <p n="7" rend="verse">The village called Kalasan has been given to the congregation after designating as witnesses the great men who administrate the region, namely the Paṅkur, the Tavan and the Tirip.</p>
+        <p n="8" rend="verse">This incomparable gift of grant land, made to the congregation by the Lion among Kings, of noble lineage<!-- comment on āryasantatyā taken as masc. sg. instr. -->, is to be maintained by the kings of the Śailendra dynasty,</p>
+        <p n="9" rend="verse">and by the good Patihs who are preceded by the honorable Paṅkur, preceded by the honorable Tavān <supplied reason="subaudible">and</supplied> preceded by the honorable Tirip.</p>
+        <p n="2">Moreover:</p>
+        <p n="10" rend="verse">The Lion among Kings again begs all future kings among kings, without exception, that this universal Dharma-causeway for humans, is to be maintained by you in every age!</p>
+        <p n="11" rend="verse">Thanks to this merit produced by the <supplied reason="subaudible">foundation of a</supplied> monastery, may all humans born in <supplied reason="subaudible">the one or the other of</supplied> the three states <supplied reason="explanation">
+            <foreign>tribhava-upapanna</foreign>
+          </supplied> be cognizant of the distinctions between things arisen in dependence, and knowledgable of the teachings of the Jinas!</p>
+        <p n="12" rend="verse">To this end <supplied reason="explanation">
+            <foreign>atra</foreign>
+          </supplied>, the illustrious lord <supplied reason="explanation">
+            <foreign>kariyān</foreign>
+          </supplied> Panaṅkaran again urges future king so that the monastery may be properly maintained.</p>
+      </div>
+      <div source="bib:Sarkar1971-1972_01" type="translation">
+        <head xml:lang="eng">Translation Sarkar</head>
+        <!-- somewhat normalized in terms of use of italics -->
+        <p n="1">Salutation to the divine Ārya-Tārā!</p>
+        <p n="1" rend="verse">May she, who, seeing the world immersed in the sea of existence, duly delivers it through the three means, may she, Tārā‚ the only guiding-star of the world, grant you (your) desire (consisting of) the best part of the wealth <!-- n. 34-->of the celestial and the mundane worlds.</p>
+        <p n="2" rend="verse">After persuading the great king <foreign>dyah</foreign> Pañcapaṇa, (the <foreign>rakryan</foreign>) Paṇaṁkaraṇa, the splendid temple of Tārā <!-- n. 35-->was caused to be built by the preceptors of the Śailendra-king.<!-- n. 36--></p>
+        <p n="3" rend="verse">By experts, <!-- n. 37-->at the command of the preceptors, were made (the image of) the goddess Tārā and a temple for her; so also was made an abode for the venerable monks (<foreign>bhikṣu</foreign>) who knew the Great Vehicle of Discipline.</p>
+        <p n="4" rend="verse">By the <foreign>ādeśaśastrin</foreign>-s <!-- n. 38-->of the king named <foreign>paṅkur</foreign>, <foreign>tavan</foreign> and <foreign>tirip</foreign>‚ <!-- n. 39-->this temple of Tārā as also (the abode) of the venerable monks (<foreign>bhikṣu</foreign>) were caused to be built.</p>
+        <p n="5" rend="verse">As the kingdom of the king who is the ornament of the Śailendra-dynasty was flourishing, the Tārā-temple was constructed by the accomplished preceptors of the Śailendra-king.</p>
+        <p n="6" rend="verse">When seven centuries of the era of the śaka king had elapsed, the great king, (the <foreign>rakryan</foreign>) Paṇaṁkaraṇa built the Tārā-temple for the worship of (his) preceptors (to the deity).<!-- n. 40--></p>
+        <p n="7" rend="verse">The village named Kālasa was bestowed on the congregation, after calling as witnesses the notable persons such as <foreign>paṅkur</foreign>, <foreign>tavan</foreign>‚ <foreign>tirip</foreign> and the headmen of villages.</p>
+        <p n="8" rend="verse">By the lion of kings was also bestowed on the congregation this incomparable gift in ample measure (?) <!-- n. 41-->which is to be protected by kings of the Śailendra-dynasty, by the nobility,</p>
+        <p n="9" rend="verse">by <foreign>paṅkur</foreign> and his followers, <foreign>tavan</foreign> and his followers, <foreign>tirip</foreign> and his followers, <foreign>pati</foreign>-s <!-- n. 42-->and all religious persons <!-- n. 43-->(for all ages).</p>
+        <p n="10" rend="verse">The lion of kings again and again makes this request to all the future kings, <q>this bridge of religion<!-- n. 44-->which is the common property of (all) men should be protected by you at all times.</q><!-- n. 45--></p>
+        <p n="11" rend="verse">Through the merit accruing from (the construction of) the <foreign>vihāra</foreign>‚ <!-- n. 46-->may all people who are subject to the three forms of existence (<foreign>tribhavopapannā</foreign>) and who are proficient in the teachings of the Jinas obtain a (true) insight into the division of things originating from the chain of causation.<!-- n. 47--></p>
+        <p n="12" rend="verse">The illustrious Kariyāna <!-- n. 48-->Paṇaṁkaraṇa again and again requests the future kings to maintain the <foreign>vihāra</foreign> in a proper way.</p>
+      </div>
+      <div source="bib:Bhandarkar1887_01" type="translation">
+        <head xml:lang="eng">Translation Bhandarkar</head>
+        <!-- normalized in matters of transliteration -->
+        <p n="1">Salutations to the blessed, the noble Tārā!</p>
+        <p n="1" rend="verse">May Tārā the only Saviour[1] of the Universe, who, seeing men sunk in the sea of life which is full of immeasurable misery, formally delivers them by [resorting to] the three[2] means, give you the desired essence of the glory of the world of the Lord of the gods, and of men.</p>
+        <p n="2" rend="verse">Having prevailed upon the great King Paṇaṁkaraṇa by.......the Preceptor of King Śailendra[3] caused a splendid temple of Tārā to be constructed.</p>
+        <p n="3" rend="verse">At the command of the Preceptor, the grateful ones made [an image of] the goddess Tārā and constructed that temple and also a house (monastery) for the honoured mendicant priests (Bhikṣus) who knew the Great Vehicle (Mahāyāna) of discipline.</p>
+        <p n="4" rend="verse">By the king's mandate issued in the names of Paṅkura, Tavāna, and Tīriṣa,[4] the temple of Tārā was caused to be constructed and also this (monastery) for the honoured mendicant priests.</p>
+        <p n="5" rend="verse">The meritorious Preceptor of King Śailendra constructed the temple of Tārā during the prosperous reign of the king, the son of Śailendravarma.</p>
+        <p n="6" rend="verse">The great King Paṇaṁkaraṇa built the temple of Tārā to do honour to the Preceptor, after seven hundred years of the era of the Śaka king had elapsed.</p>
+        <p n="7" rend="verse">A village of the name of Kolagśa has been granted to the congregation, the eminent men and leaders[5] of the country, Paṅkura, Tavāna, and Tīriṣa being called to witness.</p>
+        <p n="8" rend="verse">This incomparable Dakṣinā (gratuity) in the shape of land has been granted to the congregation by the lion-like king. It should be continued by the kings [of the race of] Śailendravarma to successive bodies of the honoured ones (Bhikṣus),</p>
+        <p n="9" rend="verse">and by the wise[6] Paṅkura and others, the good Tavāna and others, the wise Tīriṣa and others, and the virtuous footsoldiers.</p>
+        <p n="10" rend="verse">Moreover, the lion-like king again and again begs of all future kings, that this bridge in the shape of charities which is common to all men should be preserved by them from time to time.</p>
+        <p n="11" rend="verse">By the religious merit resulting from this monastery, may all people who follow the teaching of the Jinas derive a knowledge of the divisions of things produced by the chain[7] of causes, and attain prosperity!</p>
+        <p n="12" rend="verse">The prosperous Kaliyāna[8] Paṇaṁkaraṇa begs again and again of future kings to preserve the monastery in the proper manner.</p>
+        <!--NOTES BHANDARKAR
+1 This may also be translated as ''the only star of the Universe."
+2 The Upāyas or means are three. (See Dharmasaṁgraha , Max Müller's Ed. CXI.)
+3 Śailendra, literally means "the lord of mountains," and the phrase Śailendrarāja may be translated as "king of the mountainous country." But it must be taken here as the name of a king. He is called Śailendravarma in the sixth line, of which name the latter part varma is the usual affix of the
+names of Kṣatriyas; and his son is represented as reigning at the time when the temple was built. In the ninth line the plural of the name with the word bhūpa added to it is used, and the phrase literally means "the kings Śailendravarmas." This could be taken as the plural honorific; but at the time when the inscription was cut, Śailendra was not on the throne, but his son; wherefore the plural is to be understood in the sense of "the descendants of Śailendra." It will be seen in the remarks that I identify Śailendra with the prince Śela Prawat, whose name occurs in one of the lists given by Sir Stamford Raffles.
+4 These are un-Sanskrit names, and must be the titles in old Javanese of the leading men or officers of districts and villages resembling the hereditary officers of India. They are spoken of as Deśādhyakṣas or ‘‘leaders of the country" below.
+8 See the above note.
+6 The word which I read suṇṇa must be a word expressive of praise as sat is, which is used in connection with Tavāna, and sādhu which is applied to the Pattis. It seems to be the Prakrit of the Sanskrit sujña.
+7 Twelve things are mentioned in the Buddhistic treatises, each subsequent one of which is produced from each preceding, and this constitutes the chain of causes and effects upon which depends the worldly existence of man. When this chain is known and efforts are made to destroy the first
+link, a man is free from worldly existence and attains Nirvāṇa. The technical term by which this causation is known is Pratītyotpāda (Dharmasaṁgraha, Max Müller's Ed., pp. 9 and 43, or any other Buddhistic work).
+8 This is another name of the king. See the "Remarks."
+-->
+      </div>
+      <div type="commentary">
+        <!--commentary encoded as per section §9.3 -->
+        <!--<head>Javanese aspects</head>-->
+        <p>Sanskritization of Javanese words: De Casparis 1950: 135 n. 4; Damais 1952: 24 note</p>
+        <p>I disagree with Damais 1952: 25 note, who argues against the reading <foreign>pattibhiś</foreign>. I interpret this word as Sanskritization (with double <foreign>tt</foreign> imposed by the meter) for Old Javanese <foreign>patih</foreign>. The idea that the three compounds ending in -<foreign>ādibhiḥ</foreign> are grammatically adjectives to <foreign>pattibhis</foreign>, and express the hierarchical superiority of the Paṅkur-Tavan-Tirip triad to the <foreign>patih</foreign>s is inspired by such inscriptions as Kwak I, where the Paṅkur named <foreign>pu</foreign> Gava, the Tavān <foreign>pu</foreign> Rañjan and the Tirip <foreign>pu</foreign> Agrapiṇḍa are named at the top of a list of high officials, while several named <foreign>patih</foreign>s follow lower in the list.</p>
+        <p>upāya in BHSD; email PDS 2020-03-30: One more thing, I don't know what the three kinds of upāya are, but the late 8th-c. Vilāsavajra in his Nāmamantrārthāvalokinī commentary to the Mañjuśrīnāmasaṃgīti has this: upāyas trividhaḥ | svadoṣāpakarṣaṇaḥ sattvāvatārakaḥ kṣiprābhisambodhakaś ca || [Ms = Cambridge University Library Add. 1708, palm-leaf, ff. 115, 26 missing. 33r]</p>
+        <p>The reading <foreign>āvarjya</foreign> is not evident from the stone, but must be what was intended here, because <foreign>āvarjayati</foreign> is virtually a technical term to describe what bodhisattvas do, namely to win people over and convert them to the Buddhist path. See BSHD.</p>
+        <!--Buddhist aspects-->
+        <!-- Peter-Dániel Szántó has referred me by way of example to Prajñākaramati's BCA commentary:
+yad uktam- sarvatrācapalo mandamitasnigdhābhibhāṣaṇāt |
+āvarjayej janaṁ bhavyam ādeyaś cāpi jāyate || iti  [śikṣā. sa. kārikā-10]
+etad eva ca bodhisattvasya kṛtyaṁ yaduta sattvāvarjanaṁ nāma | yathā dharmasaṁgītisūtre āryāpriyadarśanena bodhisattvena paridīpitam
+tathā tathā bhagavan bodhisattvena pratipattavyaṃ yatsahadarśanena sattvāḥ prasīdeyuḥ | tat kasmāddhetoḥ? na bhagavan bodhisattvasyānyat karaṇīyam asti anyatra sattvāvarjanāt | sattvaparipāka eveyaṁ bhagavan bodhisattvasya dharmasaṁgītir iti ||</p>-->
+        <p>The word <foreign>kalaśa</foreign> found in the Mañjuśrīmūlakalpa has been misinterpreted by some scholars as a reference to Candi Kalasan and connected with the name <foreign>kalāsa</foreign> we read in stanza VII. Cite Griffiths 2015.</p>
+      </div>
+      <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
+        <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
+        <p>First edited with translation into Dutch by Brandes (<bibl rend="omitname">
+            <ptr target="bib:Brandes1886_01"></ptr>
+          </bibl>); edited, independently, with translation into English by Bhandarkar (<bibl rend="omitname">
+            <ptr target="bib:Bhandarkar1887_01"></ptr>
+          </bibl>); re-edited, with new Dutch translation and photo of an estampage, by Bosch (<bibl rend="omitname">
+            <ptr target="bib:Bosch1928_01"></ptr>
+            <citedRange unit="page">57-62</citedRange>
+            <citedRange unit="appendix">1</citedRange>
+            <citedRange unit="plate">2</citedRange>
+          </bibl>). Further editions have been published by Sarkar (<bibl rend="omitname">
+            <ptr target="bib:Sarkar1971-1972_01"></ptr>
+            <citedRange unit="volume">1</citedRange>
+            <citedRange unit="item">5</citedRange>
+          </bibl>, with the translation into English reproduced here); Sircar (<bibl rend="omitname">
+            <ptr target="bib:Sircar1983_01"></ptr>
+            <citedRange unit="page">694-696</citedRange>
+          </bibl>); by Long (<bibl rend="omitname">
+            <ptr target="bib:Long2014_01"></ptr>
+            <citedRange unit="page">???-???</citedRange>
+          </bibl>, with translation into English). The text is edited here once again from the OD photos and with systematic collation only of the readings published by <bibl>
+            <ptr target="bib:Bosch1928_01"></ptr>
+          </bibl> and <bibl>
+            <ptr target="bib:Sarkar1971-1972_01"></ptr>
+          </bibl>.<!--MNI D.147
+OD Number: 6366, 7465-7466--></p>
+        <listBibl type="secondary">
+          <bibl>
+            <ptr target="bib:Bosch1930_03"></ptr>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Damais1952_01"></ptr>
+            <citedRange unit="page">22-23</citedRange>
+            <citedRange unit="item">A.4</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Damais1955_01"></ptr>
+            <citedRange unit="page">240</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Damais1970_01"></ptr>
+            <citedRange unit="page">42</citedRange>
+            <citedRange unit="item">9</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Nakada1982_01"></ptr>
+            <citedRange unit="page">72-73</citedRange>
+            <citedRange unit="item">I.4</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI><!-- Sundberg, Proposed Appendix on Siwagrha (2020), uses the word palimpsests with regard to the Sivagṛa and Kalasan stones which traces of effaced text.  -->

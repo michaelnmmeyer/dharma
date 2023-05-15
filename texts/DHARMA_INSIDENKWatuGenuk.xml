@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Watu Genuk slab</title>
+        <respStmt>
+          <resp>EpiDoc Encoding</resp>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Jakarta</pubPlace>
+        <idno type="filename">DHARMA_INSIDENKWatuGenuk</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Arlo Griffiths</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
+        <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno></idno>
+            <!-- don't modify this -->
+          </msIdentifier>
+          <msContents>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p>Script indicating a dating to the late 8th or in the 9th century. One instance each of <foreign>jihvāmūlīya</foreign> (<foreign>ẖ</foreign>) and <foreign>upadhmānīya</foreign> (<foreign>ḫ</foreign>), known elsewhere in Java only in the inscriptions of Pūrṇavarman.</p>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <!-- UPDATE the link once the release is made official -->
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2023-02-03" who="part:argr">improved edition, translation</change>
+      <change status="draft" when="2023-02-01" who="part:argr">finished basic encoding</change>
+      <change status="draft" when="2023-01-31" who="part:argr">first commit of initial reading</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="san-Latn">
+        <lg met="anuṣṭubh" n="1">
+          <l n="a"><lb n="1"></lb>mahādeve mudā bhaktiḥ</l>
+          <l n="b">tridhā yasya viśeṣata<unclear>ḥ</unclear></l>
+          <l n="c"><lb n="2"></lb>sahāye v<choice>
+              <sic>e</sic>
+              <corr>ai</corr>
+            </choice> sadā bhuktiḥ</l>
+          <l n="d">sudhāmno 'sya vaśe sataḥ</l>
+        </lg>
+        <lg met="sragdharā" n="2">
+          <l n="a"><lb n="3"></lb>yaẖ kālo varṣa-māsa-prabhr̥tir iha budhair ggaṇyate vi<unclear>stareṇa</unclear></l>
+          <l n="b"><lb n="4"></lb>yad dhema ś<unclear reason="eccentric_ductus">r</unclear>eṣṭham iṣṭañ jagati <unclear>va</unclear>huvi<unclear>dhaṁ</unclear> <unclear cert="low">pū</unclear>raya <seg met="+-+=">
+              <gap quantity="4" reason="illegible" unit="character"></gap>
+            </seg></l>
+          <l n="c"><lb n="5"></lb>dampatyor yyogato yaḫ prabhavati tanayas so ya<unclear>th</unclear>ā cendriyā<unclear cert="low">ṇāṁ</unclear></l>
+          <l n="d"><lb n="6"></lb>viṣṇ<unclear cert="low">u</unclear>ṁ bhāryyāṁ sutan trīn <unclear>sa</unclear>tatam iha <unclear cert="low">mudā</unclear> kāryyasiddhyai na<unclear cert="low">māmi</unclear></l>
+        </lg>
+      </div>
+      <!-- <div type="apparatus"/>  -->
+      <div resp="part:argr" type="translation">
+        <p n="1" rend="stanza">He who, with joy, has particular devotion to Mahādeva <supplied reason="explanation">i.e., Śiva</supplied> three times <supplied reason="explanation">per day</supplied>, that good one is a fine locus <supplied reason="explanation">for Śiva, or for devotion to Śiva</supplied> and always has at will the pleasure of <supplied reason="explanation">Śiva as</supplied> a companion.</p>
+        <p n="2" rend="stanza"><supplied reason="subaudible">As</supplied> time, which the learned reckon extensively using <supplied reason="explanation">such units of measure as</supplied> years, months, etc.; <supplied reason="subaudible">as</supplied> best kind of gold which is desired in the world in its various forms ...;<note>The expression <q>best kind of gold</q> (<foreign>hema śreṣṭham ... bahuvidham</foreign>) may be an allusion to the passage of chapter 2.13 of the <title>Arthaśāstra</title> which presents a classification of types of gold. In that chapter (2.13.4), we read: <foreign>kiñjalka-varṇaṃ mr̥du snigdham anādi bhrājiṣṇu ca śreṣṭham</foreign><q>The best kind has the color of lotus filament and is soft, smooth, not sonorous, and radiant</q> (<bibl>
+              <ptr target="bib:Olivelle2013_01"></ptr>
+              <citedRange>130</citedRange>
+            </bibl>).</note> as the son who is born from the union of spouses' organs, <supplied reason="subaudible">so</supplied> I constantly bow, with joy, to the three here — Viṣṇu, his wife <supplied reason="subaudible">and</supplied> their son — for the success of undertakings.</p>
+      </div>
+      <div type="commentary">
+        <p>The text is incomplete. Traces of the very top of a 7th line are visible on the photos. Unusual cross marks occupy the space between lines 1 and 2. Extra space is left open between stanzas 1 and 2.</p>
+        <p>The interpretation of stanza II is quite uncertain, partly because of the lacuna at the end of line 4 and the uncertainty of the readings at the ends of lines 5 and 6. One has the impression that the three figures mentioned in the fourth verse quarter somehow correspond to the items Time (Viṣṇu), Gold (= Lakṣmī, Viṣṇu's wife) and Son of the preceding three verse quarters. The identification of Viṣṇu with Time is not a standard one, though one can imagine the identification being made with reference to <title>Bhagavadgītā</title> 11.32 where Kr̥ṣṇa, the <foreign>avatāra</foreign> of Viṣṇu, declares <foreign>kālo 'smi</foreign> <q>I am Time</q>. Still it is not clear who the son would be.</p>
+      </div>
+      <div type="bibliography">
+        <p>Read by Arlo Griffiths on 31st January through 3 February, 2023 from photos and a 3D model furnished respectively by Kusworo Rahadyan and by Goenawan Sambodo.</p>
+        <!--	<listBibl type="primary"/>
+           <listBibl type="secondary"/>-->
+      </div>
+    </body>
+  </text>
+</TEI>

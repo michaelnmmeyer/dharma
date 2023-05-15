@@ -1,0 +1,1177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Charter of Poh (Randusari I)</title>
+        <respStmt>
+          <resp>EpiDoc encoding</resp>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Lyon</pubPlace>
+        <idno type="filename">DHARMA_INSIDENKPoh</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Arlo Griffiths.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
+        <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno></idno>
+            <!-- don't modify this -->
+          </msIdentifier>
+          <msContents>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p>The palaeography of this inscription was commented on at length by L.-Ch. Damais (<bibl rend="omitname">
+                  <ptr target="bib:Damais1955_01"></ptr>
+                </bibl> and <bibl rend="omitname">
+                  <ptr target="bib:Damais1965_01"></ptr>
+                </bibl>). It seems uncertain whether Damais was right to identify <foreign>ḍh</foreign> in 1v1; he was certainly not right when he suggested that unaspirated <foreign>ḍ</foreign> is common in the inscription. The <foreign>cecak</foreign> is sometimes so large as to resemble <foreign>ulu</foreign> (e.g., 2r1 <foreign>sovaṁ</foreign>). <bibl>
+                  <ptr target="bib:Damais1955_01"></ptr>
+                  <citedRange>44</citedRange>
+                </bibl>: <q>Dans ce texte, le <foreign>cĕcak</foreign> est relativement gros et — ce qui est rare — il peut dans certains cas se confondre à première vue avec le <foreign>hulu</foreign> (signe vocalique pour -<foreign>i</foreign>) lorsque ce dernier est un peu plus petit qu'à la normale. Une différence subsiste cependant : alors que le <foreign>cĕcak</foreign> est nettement séparé de l'<foreign>aksara</foreign> auquel il se rapporte, le <foreign>hulu</foreign> le touche presque invariablement. Tenant compte de ces détails et de l'aide apportée par le contexte, il est rare qu'un doute subsiste.</q></p>
+              <p>Damais did not comment on the following points. (1) Although several cases of <foreign>ḍ</foreign> are found (<foreign>paḍaṁ</foreign>, <foreign>mapaḍahi</foreign>, <foreign>saṇḍaṁ</foreign>, etc.), it is remarkable that the expected <foreign>pasangan</foreign> <foreign>ḍ</foreign> is consistently realized as <foreign>d</foreign> in the words <foreign>vḍihan</foreign> and <foreign>piṇḍa</foreign>. (2) The basic punctuation sign takes the shape of a raised circle. (3) The scribe has a proclivity for <foreign>ś</foreign> where <foreign>s</foreign> or <foreign>ṣ</foreign> are expected: see the consistent spelling <foreign>śuśuk</foreign> and the spelling <foreign>sākśī</foreign>.</p>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <!-- UPDATE the link once the release is made official -->
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2021-10-28" who="part:argr">finished basic encoding of the edition and apparatus</change>
+      <change status="draft" when="2020-11-24" who="part:argr">started initial encoding of the inscription</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="kaw-Latn">
+        <pb n="1r"></pb>
+        <!--Blank outer page.-->
+        <p><pb n="1v"></pb> <lb n="1v1"></lb> <g type="dandaSerif"></g><g type="dandaSerif"></g> <g type="spiralL"></g> <g type="dandaSerif"></g><g type="dandaSerif"></g> svasti śaka-varṣātīta <num value="827">82<unclear>7</unclear></num> śravaṇa-māsa tithi trayodaśi, śukla-pakṣa, paniruAn·, pon·, budha-vāra, Aiśānya-sthāna, pūrvvāṣāḍha-nakṣatra, Aśvi-devatā, viskambha-yoga, tatkāla Ājñă śrī mahā<lb break="no" n="1v2"></lb>rāja rakai vatu kura dyaḥ balituṁ śrī dharmmodayamahāsambhu, misor· I rakryān· mapatiḥ I hino, muAṁ I rakai vvatan·, kumonnakan· Ikanaṁ vanuA I poḥ muAṁṅ anaknya vanuA ri rumasan·, riṁ nyū, kapva vatak· <lb n="1v3"></lb>kinivaṁ, śuśukan· paṅguhanya mamulus· mas· <abbr>su</abbr> <num value="4">4</num> tan ya <!--tanya<!-\- St. tanpa -\-><space type="descender"/>-->vadvāyun·, gavai<space type="descender"></space>ni vanvanya sāmas·, paknānyan· sinuśuk· muAṁ kalaṁnya sīmā saṁ hyaṁ caitya mahayva siluṁluṁ saṁ devata saṁ lumāḥ I pastika, tan· <lb n="1v4"></lb>katamāna deni saprakāraniṁ maṅilala drabya haji tikasan·, kriṁ, paḍam·, rumvān·, paraṇakan·, Air haji, tapa haji, tuha dagaṁ, manimpiki, makalaṅkaṁ, limus· galuḥ, taji, paṅaruhan·, kataṅgaran, pi<lb break="no" n="1v5"></lb>nilai, vanva I dalam·, hulun haji, <choice>
+            <orig>pamrarsi</orig>
+            <reg>pamr̥ṣi</reg>
+          </choice>, mapaḍahi, maṅiduṁ, mahaliman· Ityevamādi saprakāra kabaiḥ tan hana deyan· tumamā Iriya, saṁ hyaṁ caitya saṁ devata saṁ lumāḥ Iṁ pastika Ataḥ basa<lb break="no" n="1v6"></lb>-pramāṇā I sovarani sukhaduḥkhanya kabaiḥ, maṅasəAkan· Ikanaṁ rāma kabaiḥ I poḥ, riṁ rumasan·, riṁ nyū, pasak-pasak· I śrī mahārāja v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· jaro <abbr>yu</abbr> <num value="1">1</num> mas· pagəḥ <abbr>su</abbr> <num value="5">5</num> nini haji rakai vvatan· pu tammər <lb n="1v7"></lb>kain· jaro savlaḥ mas· <abbr>su</abbr> <num value="5">5</num><g type="ddandaHooked">.</g> I rakryān mapatiḥ I hino saṁ śrī dakṣottamabāhubajrapratipakṣakṣaya InaṁsəAn· pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· kalyāga <abbr>yu</abbr> <num value="1">1</num> <!-- St. reads "," here, but there is none -->mas· <abbr>su</abbr> <num value="1">1</num> <abbr>mā</abbr> <num value="4">4</num> I rakai halu pu vīravikrama, <lb n="1v8"></lb>rakai sirikan· pu variga saṁ samaravikrānta, rakai vka pu kutak·, saṁ pamagat· tiruAn· pu Asaṅā saṁ śiva-Astra kapuA InaṁsəAn· pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· kalyāga <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>su</abbr> <num value="1">1</num> Iṁ sovaṁ-sovaṁ, ra<lb break="no" n="1v9"></lb>kai halaran· pu tloḍuṁ, <!-- argr has finished checking the edition down to here on 2020-11-24 -->samagat· dalinan· saṁ sukha paṁgil·, rakai palar hyaṁ pu puñjaṁ, maṁhuri pu cakra, paṅkur· pu śivadhyāna, tavān· pu sūryya, tirip· pu kr̥<choice>
+            <sic>m</sic>
+            <corr>ṣ</corr>
+          </choice>ṇa vadihati pu ḍapit·, makudur <lb n="1v10"></lb>pu sambr̥da<!-- St. samvṛda -->, kapuA InaṁsəAn· pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan raṅga <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="8">8</num> Iṁ sovaṁ-sovaṁ<g type="ddanda">.</g> samagat· kinivaṁ makavanva Ikanaṁ I poḥ sinuśuk· kinivaṁ pu bnat· Anak vanva Iṁ kavu sīma kapatihan· I<lb break="no" n="1v11"></lb>naṁsə<space type="descender"></space>an· pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· kalyāga <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>su</abbr> <num value="14">14</num> kbo <num value="1">1</num> vḍus· <num value="1">1</num> pada <num value="1">1</num> saṁ kinivaṁ Anakbi pu tuṇḍuṁ kain· pinilai savlaḥ mas· <abbr>mā</abbr> <num value="8">8</num><g type="ddanda">.</g> paminaṁ I saṁ hyaṁ kudur· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="4">4</num> saṁ juru I <lb n="1v12"></lb>Ayam· təAs· <num value="2">2</num> saṁ mira-miraḥ pu rayuṁ Anak vanuA I mira-miraḥ vatak· vadihati maṁraṅkappi saṁ halaran· pu dhana<space type="descender"></space>da Anak vanuA I paṁramvan· sīma vadihati, saṁ juru I makudur· <num value="2">2</num> saṁ taṅkil· sugiḥ pu mankai Ana<lb break="no" n="1v13"></lb>k vanuA I mantyāsiḥ vatak makudur·, maṁraṅkappi saṁ maṇḍyāṅin· Anak vanuA I kahaṅatan· vatak hamyas· kapuA vinaiḥ pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="4">4</num> Iṁ sovaṁ-sovaṁ, saṁ tuhān· mamuAt· vuvus· ka<lb break="no" n="1v14"></lb>baiḥ parujar· I hino saṁ kaṇḍamuhi pu tuṅgaṁ Anak vanuA I gunuṅan· vatak· taṅkilan·, citralaikhā saṁ vatu varani pu manəsə:r· Anak vanuA I tutuganniṁ taṇḍa I taṅkilan·, parujarr i halu saṁ viṣa<add place="below">ga</add> pu damodara Anak vanuA I <lb n="1v15"></lb>paṇḍavutan· vatak tiru rāṇu, parujarr i sirikan· saṁ hujuṁ galuḥ pu Ayuddha Anak vanuA I truvanban· vatak· tiru rāṇu, citralekhā saṁ dharmmasinta pu samudra Anak vanuA I pās· tamvir·, parujarr i vka saṁ viridiḥ pu ḍaṇu A<lb break="no" n="1v16"></lb>nak vanuA I skar ttān· vatak· layu vataṁ, citralekhā saṁ halaṁ manuk pu govinda Anak vanuA I vanuA tṅaḥ vatak· vuru siki, parujar· I tiruAn· saṁ sumuḍan· ḍapunta katimamaṁ Anak vanuA I vuṅkuḍu vatak kili<lb break="no" n="1v17"></lb>pan·, kapuA vinaihan· pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="4">4</num> Iṁ soAṁ-soAṁ<g type="ddanda">.</g> parujarr i halaran· saṁ ra vanu pu batu Anak vanuA I hinapit· vatak· vka, parujarr i dalinan· saṁ varyyaṁ pu lakṣaṇa Anak vanuA <!-- argr has finished checking the edition down to here on 2021-06-22 --><lb n="1v18"></lb>I vvatan· vatak· dalinan·, parujarr i palar hyaṁ saṁ tumapal· pu baka Anak vanuA I tuṅgu manoṅan·, parujarr i maṅhuri saṁ ranuĪ pu gupura Anak vanuA I hinapit· vatak vka, parujarr i vka saṁ dadalan· pu samodaya<lb n="1v19"></lb><supplied reason="omitted">A</supplied>nak vanuA I siṁhapura vatak halu madāṁ maṅasə: I mamrati, parujarr i tavān· saṁ ḍāluk· <unclear>p</unclear><supplied reason="lost">u tu</supplied>ruy· Anak vanuA I raluA vatak· vuru siki, parujarr i tirip· saṁ ra paḍaṁ pu rāghū Anak vanuA Iy ugihan· vatak· <pb n="2r"></pb> <lb n="2r1"></lb>dalinan·, kapuA vinaiḥ pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="2">2</num> Iṁ sovaṁ<!-- this really looks more like sovi -->-sovaṁ<g type="ddandaHooked">.</g> pihujuṁni parujar saṁ mānak· katiga I paṅkur· luA si raṅhal· muAṁ si sañjaya, I tavān· muṅgi si masusū muAṁ vvatan pai <lb n="2r2"></lb>si caṅka, I tirip· panavuṅan· si lakā kapuA vinaiḥ pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="1">1</num> Iṁ sovaṁ-sovaṁ<g type="ddandaHooked">.</g> I vadihati lumaku manuśuk· saṁ pārthava Anak vanuA I taṅkilan· vatak· mamrati, I makudu<lb n="2r3"></lb>r· lumaku manuśuk· saṁṅ uttara Anak vanuA I varak-varak· vatak hino, kapuA vinaiḥ pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="2">2</num> <supplied reason="omitted">mas·</supplied> <abbr>mā</abbr> <num value="15">15</num> kahop· paṅaṅkat· panuṁsuṁ muAṁ saṅunira muliḥ Iṁ sovaṁ-sovaṁ, vadvā rakryān· mapa<lb break="no" n="2r4"></lb>tiḥ I hino paṅuraṁ milu manuśuk· saṁ marumvi pu mana Anak vanuA I marumvi vatak hino, paṅuraṁ I halu saṁ naitra Anak vanuA I paməhaṅan· vatak· manimpiki, paṅuraṁ I sirikan· rakai paṅgaṁ Anak vanuA <lb n="2r5"></lb>I siṅhapura vatak halu, paṅuraṁ I vka rakai sañjat· Anak vanuA I samalagi vatak· Asam pañjaṁ, paṅuraṁ I paṅkur· saṁ dhyāna Anak vanuA I glaṁ-glaṁ vatak· kalum varak·, kapuA vinaiḥ pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <lb n="2r6"></lb><abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="10">10</num> kahop· pavaiḥ saṅunira muliḥ Iṁ sovaṁ-sovaṁ, kinon rakai vvatan· humarappa Ikaṁ śuśukan· parujarnira saṁ ra pilaṁ Anak vanuA I tarum vajaṁ vatak hino vinaiḥ pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>i<lb break="no" n="2r7"></lb>han· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>su</abbr> <num value="1">1</num> <abbr>mā</abbr> <num value="4">4</num> juruniṁ maṁrakat· I vvatan· pu kaiśava Anak vanuA I matṅər· patīrthān·, muAṁ saṁ vluran· pu dumva, kapuA vinaiḥ pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· bvat· lvītan· sahlai mas· <abbr>mā</abbr> <num value="8">8</num> Iṁ sovaṁ-sovaṁ, <!-- argr has finished checking the edition down to here on 2021-10-17 --><lb n="2r8"></lb>saṁ ra taji maṅilala <choice>
+            <unclear>s</unclear>
+            <unclear>p</unclear>
+          </choice>ukad· bā I poḥ saṁ paṅadaggan· Anak vanuA I kahuripan· vatak· lunturan· vinaiḥ pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="8">8</num><g type="ddandaHooked">.</g> juruniṁ kanayakān· I kinivaṁ saṁ lagai Anak vanuA I <lb n="2r9"></lb>kavu kapatihan· vinaiḥ pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="4">4</num> paṅuraṁ saṁ kinivaṁ vadvānira miluA Irikaṁ śuśukan· prāṇa <num value="5">5</num> saṁ śala ramani barubuḥ Anak vanuA ri vuAṁ kalaṁ vatak kinivaṁ, muAṁ saṁ gasyak· ramani <lb n="2r10"></lb>gavaṁ Anak vanuA I vvaraṁ vatak· talaṁ, muAṁ saṁ saṁkhara ramani vidyū Anak vanuA I kilipan· vatak kilipan·, muAṁ daladap· Anak vanuA I kaṇḍaṁ vatak· valakas·, muAṁ saṁ prajña Anak vanuA I tamyaṁ vatak pa<lb break="no" n="2r11"></lb>ku vaṅi, kapuA vinaihan· pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="2">2</num> Iṁ sovaṁ-sovaṁ, paṅuraṁ saṁ ra kriṁ <num value="2">2</num> saṁ purul· ramani vudyaṁ Anak vanuA I tuṅguyuṁ vatak kinivaṁ, muAṁ saṁ gunuṁ ramani pakudān·, kapuA vinaiḥ <lb n="2r12"></lb>pasak-pasak· mas· <abbr>mā</abbr> <num value="2">2</num> Iṁ sovaṁ-sovaṁ, paṅuraṁ saṁ manimpiki pu mamvi ramani manojña Anak vanuA I tarum bajaṁ vinaiḥ pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· sahlai mas· <abbr>ku</abbr> <num value="2">2</num><g type="ddandaHooked">.</g> patiḥ I kinivaṁ nayaka saṁ ra kavu si dr̥piṁ ramani paṅalaḥ <lb n="2r13"></lb>muAṁ saṁ gəgəl· ramani tuṅgaṁ, kapuA vinaiḥhan· pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="4">4</num> kbo <num value="1">1</num> vḍus· <num value="5">5</num> patiḥ lampuran· I kavu saṁ katimahā vinaiḥ pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="4">4</num> muvaḥ patiḥ lampuran· <lb n="2r14"></lb>prāṇa <num value="3">3</num> rakai vadarā, saṁ ra luA, saṁ lmaḥ hiḍi, kapuA vinaihan· pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="2">2</num> Iṁ sovaṁ-sovaṁ, parujarniṁ patiḥ <num value="2">2</num> saṁ ra vakan· Anak vanuA I kilipan· vatak kinivaṁ, muAṁ si vahu<lb break="no" n="2r15"></lb>gyan· ramani purul· Anak vanuA I vinaṅun· vatak kinivaṁ, <!-- St. omits , -->kapuA vinaiḥ pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="2">2</num> Iṁ sovaṁ-sovaṁ, vahuta I kinivaṁ saṁ ra səAṁ saṁ barut· ramani lucir· Anak vanuA I səAṁ kavahu<lb break="no" n="2r16"></lb>tān· I kinivaṁ vinaiḥ pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="4">4</num> kbo <num value="1">1</num> vahuta lampuran· vinaiḥ pasak-pasak· <abbr>mā</abbr> <num value="6">6</num> kinabaihanya, pihujuṁniṁ vahuta <num value="2">2</num> si caṅkir Anak vanuA I səAṁ vinaiḥ v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <lb n="2r17"></lb><abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="4">4</num> muvaḥ pihujuṁniṁ vahuta saṁ purul· Anak vanuA I vinaṅun· vatak· kinivaṁ vinaiḥ pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> <supplied reason="omitted">mas·</supplied> <abbr>mā</abbr> <num value="2">2</num><g type="ddanda">.</g> rāma māgman· I poḥ Irikanaṁ vanuA sinuśuk· Anuṁ kabayan prati<lb break="no" n="2r18"></lb>śāra I kahayvaknanikaṁ vanuA I poḥ, saṁ tuha banuA si gupi ramani javil·, kalima si rəmma ramani gaṇṭiḥ, juru si saṇḍak· ramani libat·, muvaḥ juru si virat· ramani nuṅgū, si Aṅgal·, si kuyū, <lb n="2r19"></lb>parujarniṁ juru si krit·, patṅahanniṁ juru si səgəl· ramani basava, tuha kalaṁ sīsuk· ramani turus·, vinkas· si rutut· rama<unclear>ni</unclear> buhara, tuha guśali si tato ramani sāgi, gusti prāṇa <num value="6">6</num> pra<unclear>tha</unclear>ma <pb n="2v"></pb> <!-- argr has finished checking the edition down to here on 2021-10-18 --><lb n="2v1"></lb>gusti kaṇḍit· ramani buṭəl·, muvaḥ gusti si kandəl· ramani ḍuḍuk·, <unclear>muva</unclear>ḥ gusti si pula ramani varuvu, muvaḥ gusti si kirim· ramani gimuḥ, muvaḥ gusti si caṅal· ramani cakaṁ, muvaḥ gusti si jamaḥ ramani <lb n="2v2"></lb>baisus·, parujar· <num value="2">2</num> si mula ramani buddhi, muAṁ si gamana piṇ<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>a rāma māgman· prāṇa <num value="17">17</num><g type="ddandaHooked">.</g> rāma maratā I poḥ si kabya ramani sīma, si gaḍiṁ ramani hampaluṁ, si karyyut ramani capaḥ, si cuṇṭəṁ ramani <lb n="2v3"></lb>krap·, si paṇḍe ramani hiṇḍaṁ, si taṅkiraṁ ramani tambiluṁ, si katak· ramani pava<unclear>n·</unclear>, si <unclear>pa</unclear>ndət· ramani bantər·, si liṅir· ramani vələt·, si prakāra ramani kuruḥ, si kudyal· ramani tarambal·, si maṅga ramani ga<lb break="no" n="2v4"></lb>rga, si guruntuṁ ramani tatuk·, si sādha ramani dhūta, piṇ<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>a rāma maratā prāṇa <num value="14">14</num><g type="ddanda">.</g> <unclear>raiṇa</unclear>nta si <gap quantity="2" reason="illegible" unit="character"></gap> Inaṁni piṅul·, si tiris· Inaṁni <unclear>ga</unclear>ṇṭiḥ, si virikan· Inaṁni javil·, si jabvaḥ Inaṁni śuddhā, si limvayā <lb n="2v5"></lb>Inaṁni kamman·, si vulatan· Inaṁni gaḍiṁ, piṇ<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>a raiṇanta prāṇa <num value="6">6</num><g type="ddanda">.</g> rarā mabh<choice>
+            <sic>ū</sic>
+            <corr>ra</corr>
+          </choice>maṇa tinonton· si kārigna, si dariṇī, muAṁ si rumpuk·, muAṁ vəR̥-vəR̥ḥnya, si javay·, si baryyut·<g type="ddandaHooked">.</g> rāma tpi siriṁ milu sāk<choice>
+            <orig>ś</orig>
+            <reg>ṣ</reg>
+          </choice>ī <lb n="2v6"></lb>riṁ manuśuk· sĭma, kalaṁ si brita ramani taram· Anak vanuA Iṁ pulai vatak· galaṁ, tuha banva si palvak· ramani turubut· Anak vanuA ri vtuAn·, vatak kinivaṁ, juru si vaṅun· ramani vīra Anak vanuA ri dadam· sīma kudur·, <lb n="2v7"></lb>tuha banua si vapra ramani gampvar· Anak vanuA I vuAṁṅ hijo vatak· luvakan·, juru si pyaṁ ramani muṇḍu Anak vanuA I <!-- St. Iṁ -->sukup· sīma kudur·, tuha banuA si <unclear>dh</unclear>any<unclear>ā</unclear> ramani va<unclear>va</unclear><gap quantity="1" reason="illegible" unit="character"></gap> <supplied reason="omitted">Anak vanuA</supplied> ri kasisap· vatak· kayo, tuha kalaṁ <lb n="2v8"></lb>si niti ramani vḍuṁ Anak vanuA I paskaran· vatak· laṅitan·, tuha kalaṁ si saṁkhara Anak vanuA I sampū sīma haji, maṅmit· savaḥ haji iy aluhur· <num value="2">2</num> si ndandok· ramani hasin· Anak vanuA I səAṁ vahuta ri kinivaṁ, muAṁ <lb n="2v9"></lb><gap quantity="1" reason="illegible" unit="character"></gap><seg type="aksara"><seg type="body">
+              <gap quantity="1" reason="illegible" unit="component"></gap>
+            </seg>ī</seg><unclear>n</unclear>i Anak vanuA I buṅur· vatak kinivaṁ, piṇ<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>a vanuA tpi siriṁ sapuluḥ vanuA, piṇ<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>a rāma Umilu sākṣiniṁ sīma prāṇa <num value="10">10</num> kapuA vinaiḥhan· pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> <supplied reason="omitted">mas·</supplied> <abbr>mā</abbr> <num value="2">2</num> Iṁ sovaṁ-sovaṁ<g type="ddandaHooked">.</g> maṁ<lb break="no" n="2v10"></lb><unclear>kanaṁ</unclear> manuluppakan· <!-- or manulu<unclear>ṣṣ</unclear>akan· -->rāmanta vrai muAṁ kaluAṁ tinaḍaḥ saṁ vahuta hyaṁ kudur· muAṁ vadvā rakryān· saṁ paṅuraṁ kabaiḥ muAṁ rāmanta kabaiḥ, manulup· <!-- or manulu<unclear>ṣ</unclear>· -->si rapə:ṁ Anak vanuA I vaduri vatak· rumviga, vinaiḥ <lb n="2v11"></lb>v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="2">2</num><g type="ddandaHooked">.</g> maṅkana saṁ madāṁ, muAṁ saṁ maṅla prāṇa <num value="3">3</num> pu vilut· Anak vanuA I vraṁ sĭmaniṁ vihāra vaitanniṁ havān·, muAṁ saṁ janar· Anak vanuA Iṁ maho vatak· vka, muAṁ saṁ bayur· <lb n="2v12"></lb><unclear>Ana</unclear>k <unclear>v</unclear>anuA I marhyaṁ I sīma <supplied reason="omitted">śrī</supplied> mahārāja lumāḥ Iṁ śataśr̥ṅga, kapuA vinaiḥ pasak-pasak· v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="2">2</num> Iṁ sovaṁ-sovaṁ<g type="ddandaHooked">.</g> saṁ mūla vuddha <num value="2">2</num> hulu vras· ḍapunta pivvi <!-- piṣṭi? -->Anak vanuA I ra vuAṁ <lb n="2v13"></lb>vatak k<unclear>i</unclear>niva<unclear>ṁ</unclear>, muAṁ si lañot· ramani mulat· Anak vanuA I vuAṁ vulu vatak· luvakan· kapuA vinaiḥ v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>ku</abbr> <num value="2">2</num> Iṁ sovaṁ-sovaṁ, mapaḍahi matuvuṁ si pataṁ ramani turavus· Ana<lb break="no" n="2v14"></lb>k vanuA I ra poḥ vinaiḥ v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="1">1</num> <abbr>ku</abbr> <num value="1">1</num> muvaḥ mapaḍahi sy usā ramani <unclear>va</unclear>kul· Anak vanuA I hināṅan· vatak· luvakan· vinaiḥ mas· <abbr>ku</abbr> <num value="2">2</num> maR̥gaṁ si bicar· ramani viṣama Anak vanu<lb break="no" n="2v15"></lb>A I hijo vatak· <supplied reason="lost">lu</supplied><unclear>va</unclear>kan· vinaiḥ v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="1">1</num><g type="ddandaHooked">.</g> matapukan· <num value="2">
+            <unclear>2</unclear>
+          </num> si mala Anak vanuA I savyan· vatak kinivaṁ, muAṁ si parasi Anak vanuA I tira vatak· mḍaṁ kapuA vinaiḥ mas· <abbr>mā</abbr> <num value="1">1</num> <lb n="2v16"></lb>Iṁ sovaṁ-s<unclear>o</unclear>vaṁ, mabañol· jurunya <num value="2">2</num> si lugunduṁ Anak vanuA I rasuk· vatak luvakan·, muAṁ si kulika Anak vanuA I luṁlaṁ vatak· tnəp· vinaiḥ v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="6">6</num> kinabaihannya <lb n="2v17"></lb>ruAṁ juru<g type="ddandaHooked">.</g> sajiniṁ m<choice>
+            <sic>u</sic>
+            <corr>a</corr>
+          </choice>nuśuk ṣīma v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· saṁ hyaṁ brahmā <abbr>yu</abbr> <num value="1">1</num> mas· <abbr>mā</abbr> <num value="1">1</num> v<choice>
+            <orig>d</orig>
+            <reg>ḍ</reg>
+          </choice>ihan· saṁ hyaṁ śuśuk· kulumpaṁ <abbr>yu</abbr> <num value="4">4</num> mas· <abbr>mā</abbr> <num value="4">4</num> vaduṁ <num value="1">1</num> rimvas· <num value="1">1</num> patu-patuk· <num value="1">1</num> lukai <num value="1">1</num> tampilan· <num value="1">1</num> liṅgis· <num value="4">4</num> tataḥ <num value="1">1</num> <lb n="2v18"></lb>vaṁkyul· <num value="1">1</num> kris· <num value="1">1</num> kampit· <num value="1">1</num> gulumi <num value="1">1</num> pam<unclear>ā</unclear>jha <num value="1">1</num> dom· <num value="1">1</num> kurumbhāgi <num value="1">1</num> kampil· <num value="1">1</num> paṁlivətan· <num value="1">1</num> tahas· <num value="1">1</num> padyusan· <num value="1">1</num> kavaḥ <num value="1">1</num> papañjutan· <num value="1">1</num> saragi Inuman· <num value="1">1</num> saragi paivakan· <num value="1">1</num></p>
+      </div>
+      <div type="apparatus">
+        <listApp>
+          <app loc="1v1">
+            <lem source="bib:Damais1955_01">śakavarṣātīta·</lem>
+            <rdg source="bib:Stutterheim1940_01">śakavarsātīta</rdg>
+          </app>
+          <app loc="1v1">
+            <lem source="bib:Damais1955_01">pūrvvāṣāḍha-</lem>
+            <rdg source="bib:Stutterheim1940_01">pūrvvāṣāḍa-</rdg>
+            <note>See the elaborate palaeographic discussion on the disctintion <foreign>ḍ/ḍh</foreign> in <bibl>
+                <ptr target="bib:Damais1955_01"></ptr>
+                <citedRange unit="page">43-33</citedRange>
+              </bibl>.</note>
+          </app>
+          <app loc="1v1">
+            <lem source="bib:Damais1955_01">Ājñă</lem>
+            <rdg source="bib:Stutterheim1940_01">Ājñā</rdg>
+          </app>
+          <app loc="1v2">
+            <lem source="bib:Damais1955_01">rakryān·</lem>
+            <rdg source="bib:Stutterheim1940_01">rakyān·</rdg>
+          </app>
+          <app loc="1v3">
+            <lem>tan ya</lem>
+            <rdg source="bib:Stutterheim1940_01">tanpa</rdg>
+          </app>
+          <app loc="1v4">
+            <lem source="bib:Damais1955_01">paḍam·</lem>
+            <rdg source="bib:Stutterheim1940_01">padam·</rdg>
+          </app>
+          <app loc="1v5">
+            <lem>
+              <choice>
+                <orig>pamrarsi</orig>
+                <reg>pamr̥ṣi</reg>
+              </choice>
+            </lem>
+            <rdg source="bib:Damais1955_01">pamrarsi</rdg>
+            <rdg source="bib:Stutterheim1940_01">pamrasi</rdg>
+          </app>
+          <app loc="1v14">
+            <lem>viṣa<add place="below">ga</add></lem>
+            <rdg source="bib:Stutterheim1940_01">vimga</rdg>
+          </app>
+          <app loc="1v15">
+            <lem>parujarr i sirikan·</lem>
+            <rdg source="bib:Stutterheim1940_01">parujar i sirikan·</rdg>
+          </app>
+          <app loc="1v16">
+            <lem source="bib:Damais1955_01">skar ttān·</lem>
+            <rdg source="bib:Stutterheim1940_01">skarttan·</rdg>
+            <!--  cf. Panggumulan and Rukam -->
+          </app>
+          <app loc="1v18">
+            <lem>ranuĪ</lem>
+            <rdg source="bib:Stutterheim1940_01">ranugra</rdg>
+          </app>
+          <app loc="1v19">
+            <lem>ḍāluk· <unclear>p</unclear><supplied reason="lost">u tu</supplied>ruy·</lem>
+            <rdg source="bib:Stutterheim1940_01">dhāluk· pu<gap quantity="1" reason="lost" unit="character"></gap>ruy·</rdg>
+            <note>Restored after <ref target="DHARMA_INSIDENKRukam.xml">Rukam</ref> 1v16.</note>
+          </app>
+          <app loc="2r2">
+            <lem source="bib:Damais1955_01">saṁ pārthava</lem>
+            <rdg source="bib:Stutterheim1940_01">si pārthava</rdg>
+          </app>
+          <app loc="2r4">
+            <lem source="bib:Damais1955_01">saṁ naitra</lem>
+            <rdg source="bib:Stutterheim1940_01">si naitra</rdg>
+          </app>
+          <app loc="2r6">
+            <lem source="bib:Damais1955_01">saṁ ra pilaṁ</lem>
+            <rdg source="bib:Stutterheim1940_01">si rapilaṁ</rdg>
+          </app>
+          <app loc="2r7">
+            <lem>juruniṁ maṁrakat·</lem>
+            <rdg source="bib:Stutterheim1940_01">juruni maṁraṁkat·</rdg>
+          </app>
+          <app loc="2r7">
+            <lem>patīrthān·</lem>
+            <rdg source="bib:Stutterheim1940_01">patīrthan·</rdg>
+          </app>
+          <app loc="2r7">
+            <lem>lvītan·</lem>
+            <rdg source="bib:Stutterheim1940_01">lvitan·</rdg>
+          </app>
+          <app loc="2r8">
+            <lem>saṁ paṅadaggan·</lem>
+            <rdg source="bib:Stutterheim1940_01">si paṅadaggan·</rdg>
+          </app>
+          <app loc="2r8">
+            <lem source="bib:Damais1955_01">saṁ lagai</lem>
+            <rdg source="bib:Stutterheim1940_01">si lagai</rdg>
+          </app>
+          <app loc="2r9">
+            <lem source="bib:Damais1955_01">saṁ śala</lem>
+            <rdg source="bib:Stutterheim1940_01">si śala</rdg>
+          </app>
+          <app loc="2r9">
+            <lem source="bib:Damais1955_01">saṁ gasyak·</lem>
+            <rdg source="bib:Stutterheim1940_01">si gasyak·</rdg>
+          </app>
+          <app loc="2r10">
+            <lem source="bib:Damais1955_01">saṁ saṁkhara</lem>
+            <rdg source="bib:Stutterheim1940_01">si saṁkhara</rdg>
+          </app>
+          <app loc="2r10">
+            <lem source="bib:Damais1955_01">saṁ prajña</lem>
+            <rdg source="bib:Stutterheim1940_01">si prajñā</rdg>
+          </app>
+          <app loc="2r11">
+            <lem source="bib:Damais1955_01">saṁ ra kriṁ</lem>
+            <rdg source="bib:Stutterheim1940_01">sira kriṁ</rdg>
+          </app>
+          <app loc="2r11">
+            <lem source="bib:Damais1955_01">saṁ purul·</lem>
+            <rdg source="bib:Stutterheim1940_01">si purul·</rdg>
+          </app>
+          <app loc="2r11">
+            <lem source="bib:Damais1955_01">saṁ gunuṁ</lem>
+            <rdg source="bib:Stutterheim1940_01">si gunuṁ</rdg>
+          </app>
+          <app loc="2r13">
+            <lem source="bib:Damais1955_01">saṁ katimahā</lem>
+            <rdg source="bib:Stutterheim1940_01">si katimahā</rdg>
+          </app>
+          <app loc="2r14">
+            <lem source="bib:Damais1955_01">saṁ ra luA</lem>
+            <rdg source="bib:Stutterheim1940_01">si raluA</rdg>
+          </app>
+          <app loc="2r14">
+            <lem source="bib:Damais1955_01">saṁ lmaḥ hiḍi</lem>
+            <rdg source="bib:Stutterheim1940_01">si lmaḥhiḍi</rdg>
+          </app>
+          <app loc="2r14">
+            <lem>saṁ ra vakan·</lem>
+            <rdg source="bib:Stutterheim1940_01">si ravakan·</rdg>
+            <note>Stutterheim's reading was corrected in <bibl>
+                <ptr target="bib:Damais1970_01"></ptr>
+                <citedRange unit="page">607</citedRange>
+                <citedRange unit="note">1</citedRange>
+              </bibl>.</note>
+          </app>
+          <app loc="2r15">
+            <lem source="bib:Damais1955_01">saṁ ra səAṁ saṁ barut·</lem>
+            <rdg source="bib:Stutterheim1940_01">sira səAṁ si barut·</rdg>
+          </app>
+          <app loc="2r17">
+            <lem>saṁ purul·</lem>
+            <rdg source="bib:Stutterheim1940_01">si purul·</rdg>
+            <note>Stutterheim's reading was accepted in <bibl>
+                <ptr target="bib:Damais1970_01"></ptr>
+                <citedRange unit="page">763</citedRange>
+              </bibl>.</note>
+          </app>
+          <app loc="2r19">
+            <lem source="bib:Damais1955_01">sīsuk·</lem>
+            <rdg source="bib:Stutterheim1940_01">si suk·</rdg>
+          </app>
+          <app loc="2r19">
+            <lem>prāṇa·</lem>
+            <rdg source="bib:Stutterheim1940_01">praṇa</rdg>
+          </app>
+          <app loc="2r19">
+            <lem source="bib:Stutterheim1940_01">pra<unclear>tha</unclear>ma</lem>
+            <note>The reading is plausible, but we would <foreign>prima facie</foreign> read <foreign>pravama</foreign> here.</note>
+          </app>
+          <app loc="2v1">
+            <lem source="bib:Damais1955_01">ramani buṭəl·</lem>
+            <rdg source="bib:Stutterheim1940_01">rama nu buṭəl·</rdg>
+          </app>
+          <app loc="2v2">
+            <lem>sīma</lem>
+            <rdg source="bib:Stutterheim1940_01">sima</rdg>
+          </app>
+          <app loc="2v3">
+            <lem source="bib:Damais1955_01">si prakāra</lem>
+            <rdg source="bib:Stutterheim1940_01">si brakāra</rdg>
+          </app>
+          <app loc="2v4">
+            <lem source="bib:Damais1955_01">śuddhā</lem>
+            <rdg source="bib:Stutterheim1940_01">śuddha</rdg>
+          </app>
+          <app loc="2v5">
+            <lem source="bib:Damais1955_01">si vulatan·</lem>
+            <rdg source="bib:Stutterheim1940_01">si vulakan·</rdg>
+          </app>
+          <app loc="2v5">
+            <lem>rarā mabh<choice>
+                <sic>ū</sic>
+                <corr>ra</corr>
+              </choice>maṇa</lem>
+            <rdg source="bib:Stutterheim1940_01">śuddha</rdg>
+            <rdg source="bib:Damais1955_01">rarāma bhūmaṇa</rdg>
+            <note>The correction we adopt was already proposed to Stutterheim by De Casparis. See <bibl>
+                <ptr target="bib:Stutterheim1940_01"></ptr>
+                <citedRange unit="page">7</citedRange>
+                <citedRange unit="note">1</citedRange>
+              </bibl></note>
+            <!-- [fn. 1: De heer De Casparis leest: rarâ mabhramaṇa.]-->
+          </app>
+          <!--<app loc="2v6">
+<lem>vīra</lem>
+<rdg source="bib:Stutterheim1940_01">vira</rdg>
+<note>Stutterheim's reading was silently corrected in <bibl><ptr target="bib:Damais1970_01"/><citedRange unit="page">582</citedRange></bibl>.</note>
+</app>-->
+          <app loc="2v7">
+            <lem source="bib:Damais1955_01">si vapra</lem>
+            <rdg source="bib:Stutterheim1940_01">si vavā</rdg>
+          </app>
+          <app loc="2v7">
+            <lem>si <unclear>dh</unclear>any<unclear>ā</unclear></lem>
+            <rdg source="bib:Stutterheim1940_01">si <unclear>b</unclear>anya</rdg>
+            <rdg source="bib:Damais1955_01">si kanyā</rdg>
+            <note>Damais' reading seems <foreign>a priori</foreign> implausible, as one would expect <foreign>kanyā</foreign> (which means <q>maiden</q> in Sanskrit) to be a name for a woman.</note>
+          </app>
+          <!--<app loc="2v10">
+<lem>manulu<unclear>ṣṣ</unclear>akan·</lem>
+<rdg source="bib:Stutterheim1940_01">manuluppakan·</rdg>
+</app>-->
+          <!--<app loc="2v10">
+<lem>manuluṣ·</lem>
+<rdg source="bib:Stutterheim1940_01">manulup·</rdg>
+</app>
+-->
+          <app loc="2v11">
+            <lem>sĭmaniṁ</lem>
+            <rdg source="bib:Stutterheim1940_01">sīmani</rdg>
+          </app>
+          <app loc="2v11">
+            <lem source="bib:Damais1955_01">saṁ janar·</lem>
+            <rdg source="bib:Stutterheim1940_01">si janar·</rdg>
+          </app>
+          <app loc="2v11">
+            <lem source="bib:Damais1955_01">saṁ bayur·</lem>
+            <rdg source="bib:Stutterheim1940_01">si bayur·</rdg>
+          </app>
+          <app loc="2v13">
+            <lem source="bib:Damais1955_01">si pataṁ</lem>
+            <rdg source="bib:Stutterheim1940_01">si pati</rdg>
+          </app>
+          <app loc="2v14">
+            <lem source="bib:Damais1955_01">sy usā</lem>
+            <rdg source="bib:Stutterheim1940_01">syuha</rdg>
+          </app>
+          <app loc="2v14">
+            <lem source="bib:Damais1955_01">si bicar·</lem>
+            <rdg source="bib:Stutterheim1940_01">si vicar·</rdg>
+          </app>
+          <app loc="2v17">
+            <lem>m<choice>
+                <sic>u</sic>
+                <corr>a</corr>
+              </choice>nuśuk ṣīma</lem>
+            <rdg source="bib:Stutterheim1940_01">munuśuk sīma</rdg>
+          </app>
+          <app loc="2v18">
+            <lem source="bib:Damais1955_01">pam<unclear>ā</unclear>jha</lem>
+            <rdg source="bib:Stutterheim1940_01">pamāse</rdg>
+            <note><bibl>
+                <ptr target="bib:Damais1955_01"></ptr>
+                <citedRange unit="page">44</citedRange>
+                <citedRange unit="note">1</citedRange>
+              </bibl> refers to his own comments on the word <foreign>pamajha</foreign> in <bibl>
+                <ptr target="bib:Damais1952_01"></ptr>
+                <citedRange unit="page">90-91</citedRange>
+                <citedRange unit="note">1</citedRange>
+              </bibl>.</note>
+          </app>
+        </listApp>
+      </div>
+      <!-- <div type="translation">
+ 	<!-\-translation encoded as per EGD §9.2 -\->
+         </div>-->
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
+        <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
+        <p>First edited by W. F. Stutterheim (<bibl rend="omitname">
+            <ptr target="bib:Stutterheim1940_01"></ptr>
+          </bibl>) with a translation into Dutch. Numerous corrigenda of Stutterheim's edition were noted by L-Ch. Damais (<bibl rend="omitname">
+            <ptr target="bib:Damais1955_01"></ptr>
+          </bibl>). The relevant enry in H. B. Sarkar's work (<bibl rend="omitname">
+            <ptr target="bib:Sarkar1971-1972_01"></ptr>
+          </bibl>) covers only the segment of text included in <bibl>
+            <ptr target="bib:Damais1955_01"></ptr>
+          </bibl>, that is only the first two lines and the first word of the third. The text is re-edited here by Arlo Griffiths on the basis of the photographs OD 14439-14453.</p>
+        <listBibl type="primary">
+          <bibl n="S">
+            <ptr target="bib:Stutterheim1940_01"></ptr>
+          </bibl>
+          <!-- W.F. Stutterheim, INI I, 1940, 3-18 [text, plates] -->
+        </listBibl>
+        <listBibl type="secondary">
+          <bibl>
+            <ptr target="bib:OV1939"></ptr>
+            <citedRange>19, 21</citedRange>
+          </bibl>
+          <!-- p. 21: "Een en ander opgenomen in het rijksmuseum Sriwedari te Soerakarta." -->
+          <bibl>
+            <ptr target="bib:Damais1952_01"></ptr>
+            <citedRange>46-47</citedRange>
+            <citedRange unit="part">A</citedRange>
+            <citedRange unit="item">76</citedRange>
+          </bibl>
+          <bibl n="D">
+            <ptr target="bib:Damais1955_01"></ptr>
+            <citedRange>42-45</citedRange>
+          </bibl>
+          <!--
+2 a, ligne 2 : lire sang pârthawa.
+— 3 : lire sang naîtra.
+— 6 : lire sang ra pilang.
+— 8 : lire sang lagai.
+— 9 : lire sang sala et sang gasyak.
+— 10 : lire sang sangkhara et sang prajnà.
+— 1 1 : lire sang ra kring; sang purul et sang gunung.
+— i 3 : lire sang katimahà.
+— 1 à : lire sang ra lua et sang Imah hidi.
+— 1 5 : lire sang ra sěang et sang barut.
+2 b, ligne 1 i : lire sang janar et sang bayur.
+Nous proposons de plus les corrections suivantes :
+1 b, ligne a : rakryân au lieu de rakyân.
+— h : padam au lieu de padam.
+— 5 : pamrarsi au lieu de pamrasi.
+— 1 6 : skar ttân au lieu de skarttan.
+— 19 : dâluk au lieu de dhâluk.
+на, — 7 : mangrakat au lieu de mangrangkat.
+~ 19 : sxsuk (= si isuk) au lieu de si suk.
+ai, — 1 : ramani butel au lieu de rama nu buteî.
+— 3 : si prakâra au lieu de si brakâra.
+— h : inangni suddhâ au lieu de inangni suddha.
+— 5 : si wulatan au lieu de si wulakan.
+— 5 : bhûmana au lieu de bhumana.
+— 7 : si wapra au lieu de si wawâ.
+— 7 : si kanyâ au lieu de et (b)anyâ.
+— 13 : si patang au lieu de sipati.
+— lu: syusâ (= si usa) au lieu de syuha.
+— 1 â : si bicar au lieu de si wicar.
+— 18 : pamâjha au lieu de pamâse (cf. EEI, III : go, note 1). Dans cette variété d'écriture, le ma et le sa sont presque identiques.
+Aussi il faut, à la ligne 9 de ib, évidemment lire pu krsna, bien que, paléographiquement, krmna soit défendable
+ -->
+          <bibl>
+            <ptr target="bib:Damais1965_01"></ptr>
+            <citedRange>413-418</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Damais1970_01"></ptr>
+            <citedRange>51</citedRange>
+            <citedRange unit="item">128</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Sarkar1971-1972_01"></ptr>
+            <citedRange unit="volume">2</citedRange>
+            <citedRange unit="page">51-52</citedRange>
+            <citedRange unit="item">66</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Nakada1982_01"></ptr>
+            <citedRange unit="page">92-93</citedRange>
+            <citedRange unit="part">1</citedRange>
+            <citedRange unit="item">89</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Eade+Gislen2000_01"></ptr>
+            <citedRange unit="page">34-35</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI><!--
+OORKONDE VAN BALITUNG UIT 905 A.D. (RANDOESARI I)
+door DR. W. F. STUTTERHEIM.
+
+Van Pangeran Hario Hadiwidjojo te Soerakarta ontving het Hoofd van den Oudheidkundigen Dienst een tweetal koperen platen, metende 20.5 x 50 cm, op de eerste zijde onbeschreven, op de twee volgende zijden met 19 en op de laatste zijde met 18 regels oud Midden-Javaansch schrift beschreven[fn.: Foto's O.D. 14439-14453. Zie O.V. 1939 : 19, 21.].
+	De platen werden eenigen tijd geleden opgegraven in de doekoeh Plembon van de kaloerahan Randoesari, onderdistrict Prambanan, district Gondangwinangoen, regentschap Klaten, op enkele kilometers afstand dus van Prambanan.
+	Hoewel de laatste regel van plaat 2 geen sluitteeken vertoont en met de opsomming van de saji voor de plechtigheid van de inwijding van den oorkondesteen eindigt, bestaat er toch kans, dat de oorkonde slechts uit twee platen bestond. Een aanwijzing hiervoor zou kunnen zijn gelegen in het feit, dat de achterzijde van plaat 2 niet 19, doch 18 regels bevat. Zien wij echter dat de oorkonde van Kembangaroem uit 902 op elke plaat een verschillend aantal regels telt, dan lijkt genoemde kans niet groot.
+	De redactie der oorkonde is tamelijk systematisch en methodisch en maakt den inhoud overzichtelijk. Hoewel de opsteller zich niet steeds aan een en hetzelfde model voor gelijksoortige mededeelingen heeft gehouden, zijn de afwijkingen gering.
+	In de taal laten zich enkele ouderwetsche eigenaardigheden vinden, zooals de verdubbeling van den medeklinker achter een a om deze kort te doen zijn (2a : 6 humarappa, enz.), doch over het algemeen komt zij goed overeen met het tamelijk jonge jaartal, dat op het einde van de Midden-Javaansche periode ligt.
+	De spelling is tamelijk, hoewel niet overmatig, slordig. Anakwanua wisselt met anakwanwa, sowang met soang, citralekhā met citralaikhā, parujarri met parujar i enz. Het valt op, dat stelselmatig gespeld wordt wdihan en niet, zooals elders, wḍihan. Eigennamen worden soms anders dan gebruikelijk gespeld, zooals samwṛda in plaats van sāmwṛda, śiwa astra in plaats van śiwāstra, doch dit zegt niet veel.
+	Het schrift is eigenlijk vrij oud voor het late jaar en vertoont nog weinig Oost-Javaansche eigenaardigheden. Het is tamelijk rond van vormen en mist de neiging tot rechthoekige letterteekens, die wij bijvoorbeeld reeds in enkele opschriften op de tempels te Prambanan aantreffen kunnen.
+	De anuswāra is een cirkel, die somwijlen aanleiding tot verwarring met de oeloe geeft; soms moet de context uitmaken of er sang of si staat.
+	Bij de cijferteekens valt op te merken, dat 1, 2 en 3 in bouw samenhangen; het teeken voor 1 is een horizontaal boogje, dat voor 2 hetzelfde, doch met aan den rechterpoot een verticaal boogje, en dat voor 3 idem, doch met twee dergelijke verticale boogjes, aan elkaar hangende. De binnenkant dier boogjes wijst naar links. De 4 echter is een ra-teeken met een verticaal boogje onderaan hangend.
+
+[4]
+
+Transcriptie.
+
+
+[8]
+
+Vertaling.
+(1b, i) Heil! Çaka-jaren voorbijgegaan 827 (= 905 A.D.); Juli-Augustus; de dertiende van de lichte maandhelft; (dag van de zesdaagsche week:) Paniron; (dag van de vijfdaagsche week:) Pon; Woensdag; (de planeet) in het Noord-Oosten; maanhuis: Pūrwāṣāḍhā; godheid: Aświns; yoga: Wiṣkambha.
+	Dit is het tijdstip, waarop het bevel van Zijne Majesteit den Grootkoning, (2) Raka van Watukura, Dyah Balitung, Zijne Hoogheid Dharmmodayamahāśambhu, afdaalt op den Rakryān Rijksbestuurder van Hino, alsmede op de Raka van Wwatan,
+verordineerende het dorpsgebied van Poh, benevens deszelfs spruiten, de dorpsgebieden te Rumasan, te Nyū, alles ressorteerende onder (3) Kiniwang, (te worden tot) een afbaaksel, de opbrengst waarvan zuiver bedraagt (?) 4 suwarṇa goud, zonder de wadwāyun, (het aantal) bouwen van die dorpsgebieden (zijnde) 400 [fn. 1: Vgl. O.J.O. XXIV : 6 (lamwit 6 tampaḥ 3 kaḍik 28 gawai 8); K.O. XV : 12 (gawainya tamwayan domas, gawainya mangke samas). Zie ook KERN V.G. p. 44].
+	De reden van het afgebakend worden mèt de bosschen is, dat het diene tot Vrij gebied van het Heilige Monument, dat de silunglung van den Verloste, die bijgezet is te Pastika, moet sieren.
+	Niet (4) moge het betreden worden door al de soorten van lieden, die 's vorsten aandeel, de tikasan[fn. 2: De heer De Casparis vestigde mijn aandacht op het Madoereesche təkasan, zijnde een belasting van een derde der totale opbrengst. Zie T.B.G. XXXI (1886) : 509 en KILIAAN, Woordenboek s.v. Voor de overige termen zie o.a. T.B.G. LXV (1925) : 245 vlgg., juncto ibidem LXVII (1927) : 175 noot 7 en 196 vlgg.], opeischen, (zooals) kring, paḍam, rumwān, paranakan, air haji, tapahaji, de oudsten voor den handel, de schrijnwerkers, (5) pinilai, kraton-dienaren, vorstenslaven, vegers, trommelaars, zangers, olifanten-kornaks enzoovoort, al deze soorten hebben geen van allen iets te maken op het (vrijgebied), want het Heilige Monument Van den Verloste, die is bijgezet te Pastika, heerscht (6) oppermachtig over het aandeel in alle lusten en lasten ervan.
+	Alle dorpsautoriteiten van Poh, te Rumasan, te Nyū, doen als geschenken aan Zijne Majesteit den Grootkoning aanbieden een stel mannenkleeren (van de soort) jaro (en) 5 suwarṇa zuiver goud; aan 's konings grootmoeder, de Raka van Wwatan, Vrouwe Tammər, (7) een Vrouwenkleed (van de soort) jaro (en) 5 suwarṇa goud.
+	Aan den Rakryān Rijksbestuurder van Hino, Zijne Hoogheid DakṣottaMabāhubajrapratipakṣakṣaya, wordt aangeboden als geschenk een stel mannenkleeren (van de soort) kalyāga (en) 1 suwarṇa 4 māṣa goud.
+	Aan den Raka van Halu, Heer Wīrawikrama, (8) aan den Raka van Sirikan, Heer Wariga, Sang Samarawikrānta, aan den Raka van Wəka, Heer Kutak, aan den Paməgat van Tiruan, Heer Asangā, Sang Çiwa-astra, wordt gelijkelijk aangeboden als geschenk een stel mannenkleeren (van de soort) kalyāga (en) 1 suwarṇa goud per man.
+	Aan den (9) Raka van Halaran, Heer Tloḍung, aan den Samagat van Dalinan, Sang Sukhapanggil, aan den Raka van Palarhyang, Heer Puñjang, aan den Manghuri, Heer Cakra, aan den Pangkur, Heer Çiwadhyāna, aan den Tawān, Heer Sūryya, aan den Tirip, Heer Kṛmṇa, aan den Wadihati, Heer Dapit, aan den Makudur, (10) Heer Samwṛda, wordt gelijkelijk aangeboden als geschenk een stel mannenkleeren (van de soort) rangga (en) 8 māṣa goud per man.
+	Aan den Samagat van Kiniwang, dat Poh tot dorpsgebied heeft, hetwelk door Kiniwang wordt afgebakend. Heer Bnat, inwoner van Kawu, dat een vrijgebied van een patih is, wordt
+
+[9]
+
+(11) aangeboden als geschenk een stel mannenkleeren (Van de soort) kalyāga (en) 14 suwarṇa goud, 1 buffel, 1 schaap, 1 pada (rijst? [fn. 1: Zie de aanteekeningen bij de behandeling van het slot der oorkonde, alwaar pada voorkomt als maat voor bras, gepelde rijst.]); aan de echtgenoote van Kiniwang, Vrouwe Tuṇḍung, een vrouwenkleed (van de soort) pinilai (en) 8 māṣa goud.
+	Als uitnoodigingsgeschenk voor Zijne Heiligheid den Priester een stel mannenkleeren (en) 4 māṣa goud.
+	Aan de twee juru's van (12) Ayamtəas, Sang Miramirah, Heer Rayung, inwoner van Miramirah, ressorteerende onder Wadihati, (en) de adjunct Sang Halaran, Heer Dhanada, inwoner van Pangramwan, vrijgebied van Wadihati, (en) de twee juru's van Makudur, Sang Tangkilsugih, Heer Mankai, (13) inwoner van Mantyāsih, ressorteerende onder Makudur, (en) de adjunct Sang Maṇḍyāngin, inwoner van Kahangatan, ressorteerende onder Hamyas, wordt gelijkelijk als geschenk gegeven een stel mannenkleeren (en) 4 māṣa goud per man.
+	Alle hoofden, die het woord voeren, (14) de woordvoerder van Hino, Sang Kaṇḍamuhi, Heer Tunggang, inwoner van Gunungan, ressorteerende onder Tangkilan; de schrijver Sang Watuwarani, Heer Manəsə:r, inwoner van Tutuganningtaṇḍa te Tangkilan; de woordvoerder van Halu, Sang Wimga, Heer Damodara, inwoner van (15) Paṇḍawutan, ressorteerende onder Tirurāṇu; de woordvoerder van Sirikan, Sang Hujunggaluh, Heer Ayuddha, inwoner van Truwanban, ressorteerende onder Tirurāṇu; de schrijver Sang Dharmmasinta, Heer Samudra, inwoner van Pāstamwir; de woordvoerder van Wəka, Sang Wiridih, Heer Daṇu, (16) inwoner van Skarttan, ressorteerende onder Layuwatang; de schrijver Sang Halangmanuk, Heer Gowinda, inwoner van Wanuatəngah, ressorteerende onder Wurusiki; de woordvoerder van Tiruan, Sang Sumuḍan, Zijn Eerwaarde Katimamang, inwoner van Wungkuḍu, ressorteerende onder (17) Kilipan; zij krijgen gelijkelijk als geschenk een stel mannenkleeren (en) 4 māṣa goud per man.
+	De woordvoerder van Halaran, Sang Rawanu, Heer Batu, inwoner van Hinapit, ressorteerende onder Wəka; de woordvoerder van Dalinan, Sang Waryyang, Heer Laksana, inwoner (18) van Wwatan, ressorteerende onder Dalinan; de woordvoerder van Palarhyang, Sang Tumapal, Heer Baka, inwoner van Tunggumanongan; de woordvoerder van Manghuri, Sang Ranugra, Heer Gupura, inwoner van Hinapit, ressorteerende onder Wəka; de woordvoerder van Wəka, Sang Dadalan, Heer Samodaya, (19) inwoner van Singhapura, ressorteerende onder Halu, madāng, uitkomende te Mamrati; de woordvoerder van Tawān, Sang Dhāluk, Heer, . ruy, inwoner van Ralua, ressorteerende onder Wurusiki; de woordvoerder van Tirip, Sang Rapaḍang, Heer Rāghū, inwoner van Yugihan, ressorteerende onder (2a‚ 1) Dalinan; zij krijgen gelijkelijk als geschenk een stel mannenkleeren (en) 2 māṣa goud per man.
+	De boden van de woordvoerders der drie Edelen: te Pangkur-Lua, Si Ranghal en Si Sañjaya, te Tawān-Munggi, Si Masusū en Wwatanpai (2) Si Cangka, te Tirip-Panawungan, Si Lakā, krijgen gelijkelijk als geschenk een stel mannenkleeren (en) 1 māṣa goud per man.
+	Te Wadihati treedt als afbakenaar op Si Pārthawa, inwoner van Tangkilan, ressorteerende onder Mamrati, te Makudur (3) treedt als afbakenaar op Sang Nguttara, inwoner van Warakwarak, ressorteerende onder Hino; zij krijgen gelijkelijk als geschenk twee stel mannenkleeren (en) 15 māṣa goud, ongerekend (?) het geschenk bij het vertrek, bij de ontvangst en de leeftocht als zij naar huis terugkeeren, per man.
+
+[10]
+
+De dienaar van den Rakryān (4) Rijksbestuurder van Hino, de pangurang, die de afbakening bijwoont, Sang Marumwi, Heer Mana, inwoner van Marumwi, ressorteerende onder Hino; de pangurang van Halu, Si Naitra, inwoner van Paməhangan, ressorteerende onder Manimpiki; de pangurang van Sirikan, de Raka van Panggang, inwoner (5) van Singhapura, ressorteerende onder Halu; de pangurang van Wəka, de Raka van Sañjat, inwoner van Samalagi, ressorteerende onder Asampañjang; de pangurang van Pangkur, Sang Dhyāna, inwoner van Glanggang, ressorteerende onder Kalumwarak; zij krijgen gelijkelijk als geschenk een stel (6) mannenkleeren (en) 10 māṣa goud, ongerekend (?) het geven van leeftocht als zij naar huis terugkeeren, per man.
+	De Raka van Wwatan beveelt, dat bij de afbakening als haar woordvoerder optreedt Si Rapilang, inwoner van Tarumwajang, ressorteerende onder Hino, wien als geschenk wordt gegeven een stel (7) mannenkleeren (en) 1 suwarṇa, 4 māṣa goud.
+	De juru's mangrangkat te Wwatan, Heer Kaiśawa, inwoner van Matəngər Patīrthan, alsmede Sang Wluran, Heer Dumwa, krijgen gelijkelijk als geschenken een stuk mannenkleed van lwitan-stof (en) 8 māṣa goud per man.
+	(8) De rataji mangilalasukadbā te Poh, Si Pangadaggan, inwoner van Kahuripan, ressorteerende onder Lunturan, krijgt een stel mannenkleeren (en) 8 māṣa goud.
+	De juru der vroedschap van Kiniwang, Si Lagai, inwoner van (9) Kawu, dat een Vrijgebied van een patih is, krijgt als geschenk een stel mannenkleeren (en) 4 māṣa goud.
+	Van de dienaren van den pangurang, Sang Kiniwang, moeten er vijf de afbakening bijwonen. Si Çala, vader van Barubuh, inwoner van Wuangkalang, ressorteerende onder Kiniwang, en Sang Gasyak, vader van (10) Gawang, inwoner van Wwarang, ressorteerende onder Talang, en Si Sangkhara, vader van Widyū, inwoner van Kilipan, ressorteerende onder Kilipan, en Daladap, inwoner van Kaṇḍang, ressorteerende onder Walakas, en Si Prajñā, inwoner van Tamyang, ressorteerende onder (11) Pakuwangi; zij krijgen gelijkelijk als geschenken een stel mannenkleeren (en) 2 kapang goud per man.
+	De twee pangurang's kring, Si Purul, vader van Wudyang, inwoner van Tungguyung, ressorteerende onder Kiniwang, en Si Gunung, vader van Pakudān, krijgen gelijkelijk (12) als geschenk 2 māṣa goud per man.
+	De pangurang manimpiki, Heer Mamwi, vader van Manojña, inwoner van Tarumbajang, krijgt als geschenk een stuk mannenkleed (en) 2 kupang goud.
+	De patih's van Kiniwang, leden van de vroedschap, Sang Rakawu, Si Dṛping, vader van Pangalah (13) en Sang Gəgəl, vader van Tunggang, krijgen gelijkelijk als geschenk een stel mannenkleeren, 4 māṣa goud, 1 buffel, 5 schapen.
+	De patih lampuran te Kawu, Si Katimahā, krijgt als geschenk een stel mannenkleeren (en) 4 māṣa goud.
+	Voorts krijgen de (14) drie patih's lampuran, de Raka van Wadarā, Si Ralua (en) Si Lmaḥhiḍi, elk als geschenk een stel mannenkleeren (en) 2 māṣa goud per man.
+	De woordvoerders van den patih, twee man, Si Rawakan, inwoner van Kilipan, ressorteerende onder Kiniwang, en Si Wahugyan, (15) vader van Purul, inwoner van Winangun, ressorteerende onder Kiniwang, krijgen gelijkelijk als geschenk een stel mannenkleeren (en) 2 māṣa goud per man.
+	De wahuta van Kiniwang, Sira Səang, Si Barut, vader van Lucir, inwoner van Səang, dat een vrijgebied van een wahuta is, (16) in Kiniwang, krijgt als geschenk een stel mannenkleeren, 4 māṣa goud, 1 buffel.
+
+[11]
+
+De wahuta lampman krijgt als geschenk 6 māṣa in totaal. Er zijn twee boden van den wahuta; Si Cangkir, inwoner van Səang, krijgt een stel (17) mannenkleeren (en) 4 māṣa goud; voorts de bode van den wahuta Si Purul, inwoner van Winangun, ressorteerende onder Kiniwang; hij krijgt als geschenk een stel mannenkleeren (en) 2 māṣa goud.
+	De dorpsautoriteiten van Poh, voorzoover met een ambt bekleed op het gebied, dat afgebakend wordt, kabayan's en (18) pratiśāra's[fn. 1: De beteekenis van kabayan in de oorkonden is nog geheel onzeker, doch zal wel dicht liggen bij die, welke het woord op Bali in verband met het dorpsbestuur nog heeft en kan gevoeglijk worden omschreven met: functionaris in het dorpsbestuur. Waarschijnlijk hooger dan de Javaansche kabajan, wat slechts een bode is. De beteekenis van pratiśāra (lees: pratisāra ?) is zooveel als bevelhebber. Wat het in verband met het dorpsbestuur beteekend kan hebben is mij niet duidelijk.] bij het onderhoud van het dorpsgebied van Poh, zijn: de oudste over het dorpsgebied, Si Gupi, vader van Jamwil; de kalima, Si Rəmma, vader van Gaṇṭih; de juru, Si Saṇḍak, vader van Libat; voorts de juru's Si Wirat, vader van Nunggū; Si Anggal; Si Kuyū; (19) de woordvoerder van de juru's, Si Krit; de bemiddelaar van de juru's, Si Səgəl, vader van Basawa; de oudste over het boschgebied, Si Suk, vader van Turus; de gemachtigde, Si Rutut, vader van Buhara; de oudste over de smeden, Si Tato, vader van Sāgi; zes gusti's, allereerst (2b‚ 1) gusti Kaṇḍit, vader van Buṭəl; voorts gusti Si Kandəl, vader van Duḍuk; voorts gusti Si Pula, vader van Waruwu; voorts gusti Si Kirim, vader van Gimuh; voorts gusti Si Cangal, vader van Caki; voorts gusti Si Jamah, vader van (2) Baisus; twee woordvoerders, Si Mula, vader van Buddhi, en Si Gamana; totaal der met een ambt bekleede dorpsautoriteiten 17 man.
+	De dorpsautoriteiten van Poh, die niet met een ambt zijn bekleed, zijn: Si Kabya, vader van Sima; Si Gaḍing, vader van Hampalung; Si Karyyut, vader van Capah; Si Cuṇṭəng, vader van (3) Krap; Si Paṇḍe, vader van Hiṇḍang; Si Tangkirang, vader van Tambilung; Si Katak, vader van Pawan; Si Pandət, vader van Banter; Si Lingir, vader van Wələt; Si Brakāra, vader van Kuruh; Si Kudyal, vader van Tarambal; Si Mangga, vader van (4) Garga; Si Guruntung, vader van Tatuk; Si Sādha, vader van Dhūta; totaal der niet met een ambt bekleede dorpsautoriteiten 14 man.
+	De gehuwde vrouwen: Si ....., moeder van Pingul; Si Tiris, moeder van Gaṇṭih; Si Wirikan, moeder van Jawil; Si Jabwah, moeder van Çuddha; Si Limwayā, (5) moeder van Kamman; Si Wulakan, moeder van Gaḍing; totaal der gehuwde vrouwen 6 vrouwen.
+	De rarāma bhumana tinonton[fn. 2: Zie noot bij de transcriptie.]: Si Kārigna, Si Dariṇī, en Si Rumpuk met zijn verloofde. Si Jaway, Si Baryyut.
+	De dorpsautoriteiten der grensgebieden, die als getuigen (6) de afbakening van het vrijgebied bijwonen: de oudste over de bosschen Si Brita, vader van Taram, inwoner van Pulai, ressorteerende onder Galang; de oudste over het dorpsgebied Si Palwak, vader van Turubut, inwoner van Wtuan, ressorteerende onder Kiniwang; de juru Si Wangun, vader van Wira, inwoner van Dadam, een priesterlijk vrijgebied; (7) de oudste voor het dorpsgebied Si Wawā, vader van Gampwar, inwoner van Wuanghijo, ressorteerende onder Luwakan; de juru Si Pyang, vader van Muṇḍu, inwoner van Sukup, een priesterlijk vrijgebied; de oudste voor het dorpsgebied Si Banya, vader van Wawa, te Kasisap, ressorteerende onder Kayo; de oudste voor de bosschen (8) Si Niti, vader van Wḍung, inwoner van Paskaran, ressorteerende onder Langitan; de oudste voor de bosschen Si Sangkhara, inwoner van Sampū, een vorstelijk vrijgebied; twee bewakers van de vorstelijke sawah's te Yaluhur, Si Ndandok, vader van Hasin, inwoner van Səang, wahuta van Kiniwang, en (9) ....., inwoner van Bungur, ressorteerende onder Kini-
+
+[12]
+
+wang; totaal der grensgebieden 10 stuks; totaal der dorpsautoriteiten, die de afbakening van het vrijgebied als getuigen bijwonen, 10 stuks; zij krijgen gelijkelijk als geschenk een stel mannenkleeren (en) 2 māṣa per man.
+	(10) Alsdan doen de dorpsautoriteiten apen en vleermuizen met het blaasroer schieten, die zullen worden gegeten door de wahuta's, de heilige priesters en door al de dienaren van den Rakryān Sang Pangurang en door al de dorpsautoriteiten. Blaasroerschutter is Si Rapə:ng, inwoner van Waduri, ressorteerende onder Rumwiga; hij krijgt (11) een stel mannenkleeren (en) 2 māṣa goud.
+	Alsdan de rijstkookers en de koks, drie man. Heer Wilut, inwoner van Wrang, een vrijgebied van het klooster ten Oosten van de hawān, en Si Janar, inwoner van Maho, ressorteerende onder Wəka, en Si Bayur, (12) inwoner van Marhyang, in het vrijgebied van den Grootkoning, die bijgezet is op den (of: te) Çataśrngga; zij krijgen gelijkelijk als geschenken een stel mannenkleeren (en) 2 māṣa goud per man.
+	De twee mūlawuddha zijn: de chefs over de gepelde rijst. Zijn Eerwaarde Piwi, inwoner van Rawuang, (13) ressorteerende onder Kiniwang, en Si Lañot, vader van Mulat, inwoner van Wuangwulu, ressorteerende onder Luwakan; zij krijgen gelijkelijk als geschenk een stel mannenkleeren (en) 2 kupang goud per man.
+	Bespeler der paḍahi-trom en der slagkelkjes is Si Pari, vader van Turawus, inwoner (14) van Rapoh; hij krijgt een stel mannenkleeren (en) 1 māṣa, 1 kupang goud.
+	Voorts de paḍahi-trommelaar Si Uha, vader van Wakul, inwoner van Hināngan, ressorteerende onder Luwakan, krijgt 2 kupang goud.
+	De bekkenslager Si Wicar, vader van Wiṣama, inwoner (15) van Hijo, ressorteerende onder Luwakan, krijgt een stel mannenkleeren (en) 1 māṣa goud.
+	De twee maskerdansers, Si Mala, inwoner van Sawyan, ressorteerende onder Kiniwang, en Si Parasi, inwoner van Tira, ressorteerende onder Mḍang, krijgen gelijkelijk 1 māṣa goud (16) per man.
+	De twee juru's-potsenmaker Si Lugundung, inwoner van Rasuk, ressorteerende onder Luwakan, en Si Kulika, inwoner van Lunglang, ressorteerende onder Tənəp, krijgen een stel mannenkleeren (en) 6 māṣa goud (17) voor beide juru's.
+	De gaven voor het afbakenen van het vrijgebied zijn : een stel mannenkleeren (voor ?) Sang Hyang Brahmā (en) 1 māṣa goud (en) een stel mannenkleeren (voor ?) Sang Hyang Çuśuk Kulumpang (en) 2 māṣa goud, 1 groote bijl, 1 dissel, 1 steenhouwersbeitel, 1 kapmes, 1 houweel (?), 4 breekijzers, 1 fijne beitel, 1 (18) steekschopje (wiedmes?), 1 kris, 1 kampit, 1 gaffel, 1 pamāse, 1 naald, 1 mes, 1 geld- of rijstzak, 1 kookpot, 1 schaal, 1 waschbak, 1 kookpan, 1 lamp, 1 drinkgereedschap, 1 vleesch-(visch-)gereedschap.
+
+Aanteekeningen.
+Zooals men ziet bevatten de twee platen een oorkonde van koning Balitung, den hoogstwaarschijnlijk te Prambanan bijgezetten, uit talrijke oorkonden bekenden vorst, die zoowel over Midden-Java als over Oost-Java regeerde [fn. 1:  Zie over dezen vorst laatstelijk Djawa, 1940, p. 218 vlgg.].
+
+[13]
+
+De oorkonde is van 905 A.D. en valt dus tusschen die van Wonogiri uit 903 en die van den Goenoeng Kidoel van 906 of, als men een koningsoorkonde noemen wil, die van Blitar uit 907. Teneinde deze plaatsing duidelijk te maken volge hier een staat der thans bekende oorkonden van en uit den tijd van Balitung [fn. 1: Vergelijk het staatje in T.B.G. LXXIV (1934), p. 274.].
+
+No.	Jaar A.D.		Vindplaats				Literatuur
+
+1	898			Penampihan (Kediri)			O.J.O. XXI.
+2	900			Poerworedjo (Semarang) 			Jaarboek 1938 : 121.
+3	901*)			Borotengah (Bagelen)			O.J.O. XXII.
+4	901			Ponorogo (Madioen) (?)			O.J.O. XXIII.
+5	901*)			Onbekend (Midden-Java)			Onuitgegeven.
+6	902			Onbekend (Oost-Java?)			O.J.O. XXIV.
+7	902*)			Kembangaroem (Jogjakarta)		O.V. 1925 : 41.
+8	903			Wonogiri (Soerakarta)			T.B.G. 1934 : 269.
+9	905			Randoesari I (Soerakarta)			Inscr. afl. 1, 1940.
+10	905			Onbekend (Malang)			Onuitgegeven.
+11	906*)			Goenoeng Kidoel (Jogjakarta)		O.J.O. XXV.
+12	906*)			Boroboedoer (Kedoe)			O.V. 1917 : 88.
+13 	907(?)			Blitar (Kediri)				O.J.O. XXVI.
+14 	907*)			Soerakarta				O.V. 1922 : 84.
+15 	907			Telahap (Kedoe)				O.R. 1914 : 290.
+16 	907			Kedoe					T.B.G. 1927 : 172.
+17 	907			Ngadiredjo (Kedoe) = no. 16		O.J.O. CVIII.
+18 	907			Kedoe = no. 16				O.J.O. XXVII.
+19 	907			Midden-Java				Bijdragen 1937 : 441.
+20	—			Midden-Java				Bijdragen 1937 : 444.
+21	909			Penanggoengan (Soerabaja)		Jaarboek 1939 : 120.
+22	910			Soerabaja (?)				O.J.O. XXVIII.
+23	—			Onbekend				O.V. 1925 : 18.
+
+*)   = zonder koningsnaam
+
+	Helaas geeft de oorkonde geen uitsluitsel inzake het nog immer niet opgeloste probleem van Balitungs herkomst en naamswisselingen. Hier, op een Midden-Javaansche oorkonde, noemt hij zich met den naam, welken ik elders als een speciaal voor dat gebiedsdeel geldenden naam heb willen beschouwen [fn. 2: 2) T.B.G. LXXIV (1934), p. 273 vlg.]; dit zegt echter niets tegen, doch ook niets voor het Oost-Javaansch karakter van zijn anderen naam[fn. 3: De in 1938 op den Penanggoengan gevonden oorkonde van Balitung uit 909 (no. 21 van bovenstaande tabel) maakt den indruk van een latere copie te zijn, welke indruk voornamelijk door schrift, taal en inhoud wordt veroorzaakt. Dat de vorst hierin zijn zgn. Midden-Javaanschen naam draagt behoeft dus niet tegen de bedoelde theorie te pleiten.].
+	De inhoud komt in het kort hierop neer.
+	Koning Balitung vaardigt in Juli-Augustus 905 A.D. een bevel uit aan het dorp Poh en de dependances te Rumasan en Nyū, alle ressorteerende onder Kiniwang, om zichzelf tot een vrijgebied te maken voor de sang hyang caitya, die de silunglung moet sieren van den te
+
+[14]
+
+Pastika bijgezetten vorst. Volgt de opsomming van hen, die voortaan dat gebied niet mogen betreden, van de geschenken, die door de genoemde dorpen aan de autoriteiten moeten worden gegeven, van de door hen te betalen kosten van de inwijdingsplechtigheid en van de benoodigdheden daarvoor.
+	Wat onder een silunglung dient verstaan te worden is niet precies bekend, doch uit een andere oorkonde blijkt in ieder geval, dat het iets met de bijzetting van een persoon te maken had. In een oorkonde uit het Singosarische, doch betrekking hebbende op een heiligdom van den Penanggoengan, wordt namelijk een prāsāda silunglung genoemd en blijkt daaronder een bouwwerk verstaan te moeten worden, waarin overleden vorsten vereerd werden [fn. 1: T.B.G. LXV (1925), p. 210 vlg.]. Het is niet onmogelijk, dat de silunglung van tijdelijk materiaal was opgetrokken, zoodat wij onder prāsāda silunglung en caitya silunglung bouwwerken hebben te verstaan, welke een permanent karakter aan de met silunglung aangeduide heilige plek gaven. Wat een prāsāda is, kan uit de Nāgarakṛtāgama duidelijk worden — daar wordt er het bouwwerk onder verstaan, dat wij thans algemeen met den naam van tjandi aanduiden. Onder caitya dienen wij een monument in den meest algemeenen zin te verstaan; het is een ,,herinneringsteeken", dat zoowel een boom of bron als een bouwwerk kan zijn. Althans, dit is de beteekenis, welke door Kern in zijn "Manual of Indian Buddhism" wordt opgegeven, doch waarvan het niet geheel zeker is, dat zij ook steeds op Java heeft gegolden.
+	Het blijkt niet onmogelijk de ligging van het vrijgebied eenigszins nader te bepalen.
+	Desa's met den naam Rumasan en Nyū, of wat daarvan het Nieuw-Javaansche aequivalent zou kunnen zijn, worden in de buurt van de vindplaats niet gevonden en de naam Poh is een te vaak voorkomende om een zekere aanduiding te geven[fn. 2: De naam Nyū komt nog voor in O.J.O. XXIII, plaat 1. Van deze oorkonde wordt gezegd dat zij van Ponorogo afkomstig zou zijn, waaraan Brandes echter reeds twijfelde. Zien wij, dat in één adem met Nyū nog een desa Taji wordt genoemd, dan blijkt er inderdaad veel voor te zeggen te zijn de oorkonde voor afkomstig te houden uit de omgeving van Prambanan.]. Er is echter een aanwijzing te vinden, dat het vrijgebied toch in de buurt van de vindplaats moet gelegen hebben.
+	Onder de namen van de zoogenaamde wanua tpi siring, dat wil zeggen de dorpen, welke aan het vrijgebied grensden, vinden wij er namelijk een met den naam Pulai aangeduid, hetgeen met een modern Poele overeenkomt (2b : 3). Een desa Poele nu ligt recht ten Zuid-Oosten van Randoesari aan de spoorlijn naar Klaten, dus in de onmiddellijke omgeving van de vindplaats.
+	Voorts zou in den naam van een andere grensdesa, Wuanghijo, het tegenwoordige Idjo van Tjandi Idjo kunnen schuilen. Deze tjandi, waarbij zich vroeger zeker wel een desa zal bevonden hebben [fn. 3: In O.J.O. XXV wordt gesproken van de wanua i hijo, het dorp Hijo.], ligt ten Zuid-Westen van de vindplaats.
+	Ten slotte worden enkele malen menschen uit de desa Winangun genoemd, die eveneens bij de inwijding als getuigen aanwezig zijn (2a : 15, 17). Het is niet moeilijk in dit Winangun het huidige Gondangwinangoen te herkennen, dat onmiddellijk ten Oosten van de vindplaats gelegen is.
+	Misschien mogen wij, nu wij reeds enkele plaatsen hebben kunnen aanwijzen, ook in het Karangkepoh ten Noord-Oosten van de vindplaats een overblijfsel van een ouder Poh vermoeden. Wij moeten daarbij echter wel in de gedachten houden, dat Kepoh ook van Kepoeh kan stammen, wat een andere boom is dan de Poh of Mangga. Het is namelijk de Sterculia Foetida L.
+
+[15]
+
+In ieder geval blijken er voldoende aanduidingen te vinden te zijn, die ons voorloopig kunnen doen veronderstellen, dat de vindplaats inderdaad op het oude vrijgebied moet liggen, dat wil dus zeggen slechts enkele kilometers ten Oosten van Prambanan.
+	Door het ontbreken van uitvoerige mededeelingen inzake de aanleiding, welke tot het stichten van het vrijgebied heeft geleid, zijn wij niet in de gelegenheid daaromtrent veel merkwaardigs te weten te komen. De bhaṭāra sang lumāh i pastika blijft in nevelen gehuld.
+	Terloops wil ik dan ook slechts op enkele andere zaken wijzen, die de aandacht verdienen.
+	Zoo valt het op, dat op plaat 1b in regel 12 onder de geschenken wordt gesproken van een paminang — uitnoodigingsgeschenk — voor den priester, bestaande uit kleeren en geld, waarop twee functionarissen worden genoemd, de laatste waarvan (de adjunct van den eerste) afkomstig is van pangramwan sīma wadihati, d.i. vani Pangramwan, een vrijgebied behoorende tot Wadihati (dit laatste is, zooals men weet, een administratief agrarisch begrip, geen geographische aanduiding van een landstreek).
+	Een overgang van Pangramwan op Pəramwan en van dit op Pramban met herinterpretatie tot Pramban-an lijkt mij mogelijk, doch zou nader getoetst moeten worden. Mocht het resultaat gunstig zijn, dan zouden wij hier de oudste vermelding vinden van de plaats, waar zich thans de belangrijkste bouwvallen in de buurt van het onderhavige vrijgebied bevinden. De mededeeling dat Pangramwan een sīma, een vrijgebied, was, zou goed kloppen met het bij uitstek godsdienstig karakter, dat de streek om Prambanan eenmaal gehad moet hebben. Zoo ook het feit, dat bij de grensdesa's (tpisiring, 2b : 5-9) herhaaldelijk sprake is van sīma's.
+	Voor de veronderstelling, dat het Glangglang van plaat 2a, regel 5, iets met het huidige Magelang zou te maken hebben, is voorloopig geen aanleiding te vinden.
+	Voorts meen ik, dat het gebruik van het woord kalang in plaat 1b, regel 3, zou kunnen wijzen op een beteekenis van ,,bosch". Uitdrukkingen als (tuha) kalang in plaat 2a, regel 19 en 2b, regel 6 en 8, of het moderne wong kalang, zouden daarvan kunnen zijn afgeleid en dan op ambtenaren en beambten van het ,,boschwezen" kunnen slaan [fn. 1: Zie Koloniaal Tijdschrift, jaargang 27, p. 97 vlgg.]. Wij zullen dan echter wel moeten denken aan gekweekte, aangeplante djati-bosschen, in tegenstelling tot de alas, het wildhoutbosch, de rimboe.
+	Verder is er iets opmerkelijks gelegen in het feit, dat de koning zijn bevel doet afkomen (misor) op twee personen, waarvan de eerste, naar verwacht mag worden, de rakryān mapatih i hino Dakṣottama is, doch de tweede een nog onbekende persoon blijkt te zijn, die rakai wwatan genoemd wordt. Wie deze persoon kan zijn wordt duidelijk uit plaat 1b, regel 6.
+	Daar toch wordt gezegd, dat de dorpsfunctionarissen van Poh, Rumasan en Nyū aan den koning moeten aanbieden mannenkleeren (wdihan, N. Jav. bəbəd) van het patroon jaro en vijf suwarṇa's zuiver goud. Onmiddellijk daarop volgt: nini haji rakai wwatan pu tammər, en de vermelding van het geschenk aan deze persoon, nl. een kain, eveneens van het patroon jaro, en vijf suwarṇa's goud. Eerst dan volgen de geschenken aan den patih en al de overige ambtenaren, daarenboven van het voorgaande door een pada gescheiden.
+	Aan deze opeenvolging, maar tevens aan de gelijkheid van kleedpatronen en bedragen mogen wij de overtuiging ontleenen, dat de bedoelde rakai wwatan hooger in rang was dan de patih, die, zooals men weet, later den koning zou opvolgen, en hoog genoeg om in één adem met den koning genoemd te worden. In dit geval geloof ik, dat wij het voorafgaande nini haji gerust kunnen vertalen met ,,'s vorsten grootmoeder".
+
+[16]
+
+Uit het bovenstaande kunnen wij nog een verdere gevolgtrekking maken.
+	Wij weten reeds, dat de stichting geschiedde ten behoeve van de bijzettingsplaats van een vorst, die te Pastika was bijgezet. Als wij nu zien dat naast den koning ook de nini haji pu tammər ('s konings grootmoeder) geschenken krijgt van de dorpen, welke op het gebied der stichting lagen, dan zijn wij geneigd eenig nader verband te leggen tusschen deze nini haji en den vorst te Pastika. Dit verband tusschen een vorstelijke grootmoeder van 905 en een te Pastika bijgezetten vorst, die blijkens de oorkonden in ieder geval vóór 881 moet gestorven zijn, kan wel nauwelijks iets anders geweest zijn dan dat van echtgenoote en echtgenoot. Met andere woorden, als ik bedoeld verband juist heb gelegd zou koning Balitung de kleinzoon zijn geweest van den te Pastika bijgezetten koning en zou wederom een onmiskenbare continuiteit in de dynastieke opvolging zijn geconstateerd. Dat ook Balitung's opvolger Dakṣottama zich in zijn oorkonden met dezen te Pastika bijgezetten koning zal bemoeien, onderstreept mijns inziens het dynastiek karakter van bedoelde verhoudingen.
+	Het zal den aandachtigen lezer voorts opgevallen zijn, dat er verschil gemaakt wordt in de benaming van het kleed, dat de koning ten geschenke krijgt en dat, hetwelk voor de nini haji bestemd is. Het ligt voor de hand aan te nemen, dat wij hier het toenmaals bestaande verschil in benaming van een mannen- en een vrouwenkleed voor ons hebben, waarvan het eerste wdihan, het laatste kain heette. Dat deze veronderstelling juist moet zijn kan worden aangetoond door het feit, dat in de nu volgende opsomming van geschenken alle mannen wdihan's blijken te ontvangen, terwijl de eenige vrouw een kain krijgt. Dit is de in regel 11 genoemde anakbi pu tundung, die een kain van het patroon pinilai ontvangt. Dit leerzaam detail verdient de aandacht[fn. 1:  Het woord kain blijkt dus vroeger goed Javaansch geweest te zijn. Thans heet een mannen-kain: bəbəd, een vrouwen-kain: tapih. Het woord kain wordt door de huidige Javanen als uitheemsch aangevoeld.].
+	Wijders wil ik in het voorbijgaan nog wijzen op het voorkomen van een pu tloḍung als rakai halaran; kan dit, zoo vraag ik mij af, de van 919-921 regeerende latere koning Tuloḍong zijn ? Die is dan echter Raka van Layang en niet Raka van Halaran.
+	Sprekende van ambtenaren zou ik hier nadere aandacht willen wijden aan de autoriteiten, ambtenaren, beambten, burgers enz., die iets met de stichting te maken hadden en wier titel en naam werden vereeuwigd tezamen met het geschenk, dat hij of zij bij die gelegenheid in ontvangst nam.
+	In de eerste plaats de geschenken zelf. Het zijn kleeren, goud, buffels, schapen, rijst en sangu (mondkost).
+	De kleeren zijn, zooals wij boven reeds zagen, voor mannen de wdihan (thans: bəbəd), voor vrouwen de kain (thans: tapih). Eenig verder verschil heeft er echter toch nog bestaan, daar de wdihan's bijna zonder uitzondering in stellen (yu = yuga, span, stel van twee) werden gegeven, de kain's bij hlai (= vel) of wlah (= kant). Nu weten wij dat men vroeger ook een bovenkleed heeft gekend, de Indische uttarīya, dat meestal als een gevouwen sléṇḍang om de schouders werd gedragen en aldus in India nog immer gedragen wordt. Ik vermoed dus, dat met <abbr>yu</abbr> een stel van beneden- en bovenkleed werd bedoeld, doch ik begrijp dan niet goed, waarom de vrouwen het met slechts één kleed moesten stellen. Uit het huidig gebruik in India zoowel als uit de godenbeeldjes blijkt, dat men ook voor vrouwen een beneden- en bovenkleed heeft gekend. Opgemerkt moet echter worden, dat de reliefs zulk een opgevouwen bovenkleed bij vrouwen gemeenlijk niet toonen.
+	Er wordt voorts nog een duidelijk verschil gemaakt tusschen enkele soorten van wdihan's. De gewone noemt men wdihan zonder meer, doch de koning krijgt een wdihan jaro.
+
+[17]
+
+Wil dit zeggen ,,vorstelijke kain" en moeten wij lezen jero, zooveel als daləm? Of moeten wij denken aan de djaro's van pagər's en ramen, dus aan ,,stijlen" ? Dan zou het op een versieringsmotief kunnen slaan. De grootmoeder van den koning krijgt natuurlijk ook een kain jaro.
+	Een soort minder is de wdihan kalyāga, die aan den Rijksbestuurder, de vier hoogste raka's en samagat's geschonken wordt. Deze soort zou rood geweest zijn. Dan komt de wdihan rangga voor de negen lagere raka's en pamagafs, wat zooveel als ,,gekleurde kain" zou beteekenen. Dan is er nog een wdihan van lwitan-stof, welke stof ik niet ken, en tenslotte een kain pinilai, wat eveneens een mij onbekende soort is.
+	Overbodig er hier op te wijzen, dat de toekenning van bepaalde kain-soorten aan bepaalde personen niet willekeurig was en ook niet alleen met de kostbaarheid samenhing; bepaalde patronen behoorden bij bepaalde ambtenaren en titels.
+	Wat het geschonken goud betreft, zoo wordt dat op de gebruikelijke wijze aangeduid met de afkortingen <abbr>su</abbr> (= suwarṇa), <abbr>mā</abbr> (= māṣa) en ku (= kupang). Hun onderlinge verhouding staat vrijwel vast en kan als volgt worden uitgedrukt; 1 suwarṇa (= 1 tahil) = 16 <abbr>mā</abbr> = 64 ku [fn. 1: Deze verhouding geldt voor den Archipel en berust op de volgende plaatsen: v.d.T. sub vocibus tahil; mas (bug. ama = 1/16 tahil); kupang (bug. 4 upang = 1 mas) en Groeneveldt, Notes, p. 52. De Voor-Indische systemen (zie Barnett, Antiquities of India, p. 206 vlgg.) geven echter een verhouding: 1 suwarṇa = 16 māṣa = 80 raktikā's. De suwarṇa wordt daar dus niet in 64 kupang's doch in 80 raktikā's verdeeld.]). Hun waarde is uiteraard niet nauwkeurig te bepalen, ook al nemen wij aan, dat de waarde, welke in den Compagniestijd aan koepang, tahil enz. gehecht werd, overeenkwam met die uit 905 A.D.
+	Gaan wij uit van 1 tahil = 1/16 kati, dan worden de verschillende gewichten aldus: suwarṇa = 0.038601 kg, māṣa = 0.002412 kg, kupang = 0.000603 kg. Hierbij valt het op, dat het gewicht van een māṣa zeer dicht gelegen is bij het gemiddelde der te Gianjar opgegraven gouden muntjes, waarvan het lichtste 0.002145 kg, het zwaarste 0.002525 kg woog [fn. 2: O.V. 1929, p. 72.]. De bij Barnett en Monier Williams opgegeven bedragen kloppen hier niet mede en leiden tot geheel andere resultaten.
+	Het totaal gewicht der goudgeschenken (su 30, <abbr>mā</abbr> 356, ku 19) zou dan hebben bedragen 2.028159 kg aan goud.
+	Dan komen de buffels (kbo), waarvan er totaal 4, en de schapen (wḍus), waarvan er 11 worden weggegeven. Vervolgens wordt nog gesproken van 1 pada, wat ik op grond van het voorkomen van dit woord in andere oorkonden opvat als een maat voor bras, gepelde rijst, en 7 porties sangu, leeftocht, alsmede enkele niet nader gespecificeerde tractaties bij vertrek en aankomst der genoodigden.
+Het totaal der geschenken wordt dan: 187 enkele stuks kain, 2.023 kg aan goud, 4 buffels, 11 schapen, rijst en sangoe. En dit alles op te brengen door een paar dorpen in het Prambanansche ! Men behoeft zich niet af te vragen of de vrijmaking van de vorstelijke belastingen ook iets waard was.
+	Thans dan de autoriteiten, die bovengenoemde geschenken in ontvangst hadden te nemen.
+	In de eerste plaats de koning, de mahārāja, en zijn grootmoeder, wier titel Rakai Wwatan en wier naam Pu Tammər luidde. Dat zij in den gouden regen deelde, zal wel moeten worden verklaard door aan te nemen, dat de vorst, die te Pastika was bijgezet en voor wiens bijzettingsheiligdom de stichting plaats had, iets met haar te maken had. Zooals wij zagen kan het haar echtgenoot zijn geweest (16 : 6-7).
+
+[18]
+
+	Dan komt de Rijksbestuurder (rakryān mapatih) van Hino; hij neemt het bevel in ontvangst en zorgt voor de uitvoering (ib : 7).
+	Volgen de raka's van Halu, Sirikan en Wka en de pamagat van Tiruan, door hun geschenken als gelijk hoog en hooger dan de nu volgende autoriteiten gekenmerkt (1b : 7-8).
+	Deze zijn de raka's van Halaran, Palarhyang, de samagat van Dalinan, de Pangkui, Tawān, Tirip, de Wadihati en Makudur (1b : 9-10).
+	Volgt de samagat van Kiniwang, op wiens gebied de stichting lag, alsmede zijne echtgenoote (1b : 10-11).
+	Voorts de kudur (priester, die de ceremonie van de stichting zal voltrekken), de hoofden (juru) van Ayamtəas en Makudur met hun adjuncten (mangrangkappi) (1b : 11-13).
+	Dan komen de woordvoerders (parujar) van alle hooge autoriteiten, die natuurlijk niet zelf aanwezig konden zijn of, zoo zij dat al waren, toch zeker niet persoonlijk konden optreden. Het zijn de woordvoerders van de raka's en samagat's van Hino (dus van den Rijksbestuurder), van Halu, Sirikan, Wka, Tiruan, Halaran, Dalinan, Palarhyang, Manghuri, nogmaals Wka (wellicht een vergissing voor Pangkur, dat op deze plaats verwacht wordt, doch er niet staat), Tawān en Tirip. Het is opmerkelijk, dat de parujar's van de eerste vijf autoriteiten meer ontvangen dan die der laatste, geheel dus als hun chefs. De meeste dezer parujar's hebben hun schrijvers (citralekhā) bij zich (1b : 13-2a : 1).
+	Volgen de boden (?, pihujung) van de woordvoerders voor Pangkur, Tawān en Tirip; hier wordt dus weer wel van een parujar van Pangkur gesproken, wat de boven geopperde gissing inzake een vergissing van den schrijver aannemelijker maakt (2a : 1-2).
+	Vervolgens iets dergelijks voor Wadihati en Makudur, alsmede de dienaren (wadwā) van den Rijksbestuurder, de pangurang's van Hino, Halu, Sirikan, Wka en Pangkur. De tekst is hier niet duidelijk; wat onder pangurang moet woorden verstaan is evenmin zeker, doch waarschijnlijk is het een ambtenaar van de financiën. Men kende verschillende soorten, zooals uit het vervolg zal blijken (2a : 2-6).
+	Voorts een parujar voor de raka van Wwatan, alsmede twee juru's (2a : 6-7).
+	Dan komt de rataji mangilala sukadbā te Poh (de desa van het vrijgebied), een ambtenaar, wiens functie allerminst duidelijk is. Op grond van de in de oorkonden gebruikelijke term mangilala dṛwya haji en het voorkomen van de taji onder deze ,,verzoekers van 's konings eigendommen", ben ik geneigd te denken aan een permanent in de desa wonenden ambtenaar van dat soort. Misschien had hij iets met de inkomsten uit de hanengevechten en de daarop door den vorst geheven belasting te doen (2a : 8).
+	Volgt de juru (chef) van de vroedschap van Kiniwang en vijf dienaren van den pangurang van Kiniwang, alsmede twee pangurang's kring en één p. manimpiki. Ook deze beide termen komen onder de opsommingen der mangilala dṛwya haji voor. De beteekenis van kring is onbekend; manimpiki zou een schrijnwerker kunnen zijn en de p. manimpiki zou dus de ambtenaar kunnen wezen, die speciaal de belasting op het schrijnwerkersambacht hief (2a : 8-12).
+	Volgen de patih van Kiniwang en twee nayaka's (leden van de vroedschap) van Kawu, de patih lampuran van Kawu en drie verdere patih's lampman [fn. 1: l)   De samagat van Kiniwang was namelijk iemand uit Kawu (zie plaat 1b, regel 10).]). De beteekenis van deze titels is onbekend (2a : 12-14).
+	Dan volgen twee parujar's van den patih, een wahuta (onbekend welke ambtenaar) van Kiniwang, een wahuta lampuran en twee boden (pihujung's) van den wahuta (2a : 14-17).
+
+[19]
+
+	Eindelijk arriveeren wij op het gebied van de stichting zelf, want thans worden met naam en toenaam niet minder dan 17 dorpsautoriteiten (rāma māgman, met een ambt bekleede dorpsautoriteiten) van Poh opgesomd, waaronder de tuha banua (dorps-oudste), de kalima (zijn assistent; zie v. d. Tuuk sub voce lima), vier juru's (chefs), de parujar van de juru's, de patngahan (bemiddelaar ?) van de juru's, de tuha kalang (bosch-oudste), de winkas (gemachtigde, commies ?), de tuha guśali (chef der smeden), 6 gusti's (onbekend welk ambt) en 2 parujar's van de gusti's (2a : i7-2b : 2).
+	Dan komen nog enkele rāma maratā, d.w.z. de niet met een ambt bekleede dorpsautoriteiten, 14 in getal, 6 raiṇanta, gehuwde vrouwen, moeders, en 6 rāma bhumaṇa tinonton, de beteekenis van welken titel mij ontgaat. Goemana schijnt te beteekenen: zich ergens voorgoed gevestigd hebben; verwisseling van bh en g komt vaak voor (bhūmi en goemi). Tinonton is zooveel als: worden aanschouwd, bekeken (2b : 2-5).
+	Dan komen de rāma's van de grensdesa's (tpisiring), 10 man sterk. Het zijn een kalang (Pulai), drie tuha's banua (Wtuan, Wuanghijo, Kasisap), twee juru's (Dadam, Sukup), twee tuha's kalang (bosch-oudste) (Paskaran, Sampū), en voor de sawah haji (Səang, Bungur) twee bewakers (2b : 5-9).
+	Dan komt een merkwaardige passage, waarin wordt gezegd, dat iemand wordt aangewezen voor het schieten van apen en vleermuizen middels een blaasroer (tulup) ten behoeve van de spijs van de overige beambten. Het is de manulup[fn. 1: Vleermuizen (kaluang = kalong) en apen (wrai) worden in de Nāg., zang 89 : 5 niet onder de veroorloofde spijzen genoemd, doch evenmin onder de verboden spijzen. Kalong's vormen nog heden in verschillende streken van Java een lekkernij.] (2b : 9-11).
+	Volgen de madāng en de mangla, de rijstkookers en de koks, 3 in getal, twee huluwras (chefs over de gepelde rijst), één bespeler van paḍahi en tuwung (trom en slagkelkjes) en nog één paḍahi-bespeler, alsmede één bespeler der bekkens (rəgang). Het orkest bestond dus uit het van de Boroboedoer-reliefs bekende stel van trommen, slagkelkjes en bekkens (2b : 11-15) [fn. 2: Zie J. Kunst, Hindoe-Javaansche muziekinstrumenten, afb. 16.],
+	Na de muziek kunnen wij de dansen verwachten. Wij zien dan ook thans twee topèng-spelers (matapukan) en twee potsenmakers (mabañol). Het valt op dat, terwijl de topèng-spelers slechts één goudstuk krijgen, de potsenmakers er 6 krijgen, benevens kleeren[fn. 3: Topèng-spelers zijn op Bali vaak lieden van stand, potsenmakers zelden.], Ook de muzikanten krijgen maar één goudstuk, doch met kleeren (2b : 15-17).
+	Hiermede is het gansche personeel, dat op een of andere manier bij de stichting betrokken was, opgesomd.
+	De systematische opzet der oorkonde en de volledigheid op het punt namen doet de verleiding opkomen ook hieraan eenige meerdere aandacht te wijden. Toch heeft zulks eigenlijk weinig zin, indien niet tevens de in andere oorkonden voorkomende namen in een vergelijking worden betrokken, hetgeen een omvangrijke arbeid is, die beter voor later gereserveerd kan blijven. Om echter de aandacht op het onderzoek der in oorkonden voorkomende eigennamen gevestigd te houden, heb ik als bijlage 1 hierachter een alphabetische lijst laten volgen van die eigennamen, welke met si (of sang) worden ingeleid en namen zijn van desa-lieden, niet van voorname personen of autoriteiten. De namen van deze laatsten toch zullen uiteraard herhaaldelijk van uitheemschen oorsprong zijn geweest, terwijl ons op het oogenblik meer interesseeren kan wat in 905 A.D., dus ruim duizend jaren geleden, als gebruikelijke Javaansche naam in Midden-Java gold. De belangstellende lezer wordt naar bedoelde lijst verwezen.
+
+[20]
+
+	Een tweede lijst (bijlage 2) geeft de namen van dorpen, voorzoover zulks blijkt uit de voorafgaande toevoeging anakwanua i, bewoner van. Achter deze namen zijn die van het ressort vermeld, waartoe de dorpen behooren. Het valt op, dat er verschillende dorpen zijn, welke niet tot een dergelijk ressort behooren, doch een vrijgebied vormen. Zij zijn hetzij een sīma kudur (vrijgebied van een priester), hetzij een sīma kapatihan (vrijgebied van een patih), sīma kawahutān (vrijgebied van een wahuta), of sīma mahārāja (vrijgebied van den koning), dan wel een heilige bron (patīrthan), een sīma haji (vrijgebied van den vorst) of een sima wihāra (vrijgebied van een klooster). Tenslotte wordt nog gesproken van sawah haji, vorstelijke rijstvelden, welke hun eigen vertegenwoordigers hebben. Bij deze desa-namen moet nog worden opgemerkt, dat de namen Ralua, Rapoh, Rasuk en Rawuang waarschijnlijk uitvoeriger vormen zijn voor Lua, Poh, Suk en Wuang. De naam Suk komt als persoonsnaam voor (zie bijlage 1).
+	Bijlage 3 geeft dan nog afzonderlijk de plaatsnamen, welke voorafgegaan worden door watak en die dus de hoofdplaatsen van de verschillende ressorten aangeven. Wij vinden er dan ook verschillende van raka's en samagat's bekende namen onder, alsmede het niet minder bekende Mḍang, waar, naar men algemeen aanneemt, gedurende geruimen tijd de kraton gelegen zou hebben. Omtrent de ligging van deze plaats verschaft de oorkonde ons geen nader gegeven, zoodat zij nog immer duister blijft. Er komt een topèng-speler vandaan, dat wil zeggen uit het dorp Tira, dat onder Mḍang ressorteert, er echter bij de toenmalige agrarische organisatie ettelijke mijlen vandaan kan hebben gelegen.
+	Voorts wil ik nog terloops wijzen op de uitdrukking wihāra waitanning hawān van plaat 2b, regel 11, en sīma mahārāja lumaḥ ing śataśṛngga van den volgenden regel, zulks in verband met wat vroeger werd opgemerkt over den Mahawān en den haji dewatā lumāhing śataśṛngga[fn. 1: Zie T.B.G. LXXIV (1934) p. 269 vlgg. Over de ligging van den śataśṛngga kan ons deze plaats niet inlichten, daar slechts gesproken wordt van een persoon, welke afkomstig is van een vrijgebied, dat behoorde aan den op dien Honderdtop bijgezetten vorst. Dat vrijgebied heeft overal kunnen liggen.].
+	Ten slotte nog een paar opmerkingen over het slot der oorkonde.
+	Zooals men ziet bestaat dit uit de opsomming van de saji voor den afbakenaar van het vrijgebied. Zooals men weet, wordt dit woord op dergelijke plaatsen gemeenlijk vertaald met ,,benoodigdheden"[fn. 2: Zie o.a. Krom in Mededeelingen Kon. Wet. afd. Letterkunde deel 58, p. 219 vlg.]. Nu beteekent sadji in het Javaansch: gereedgemaakt, gereedgezet, doch daarbij wordt toch steeds gedacht aan een huldiging of spijziging van een gast, hetzij mensch, hetzij geest. Sadjèn gebruikt men thans zeker niet voor „gereedschap" of ,,benoodigdheid" in den zin van vele der voorwerpen uit de opsomming der oorkonde. En daar niets erop wijst, dat in het Oud-Javaansch aan een en ander een principieel verschillende beteekenis dient te worden gehecht, lijkt het mij ietwat misleidend het woord ,,benoodigdheden" te bezigen en zou ik in ieder geval liever willen spreken van ,,gaven".
+	Voorts doet zich echter de vraag voor of in het woord saji in 905 A.D. reeds iets van het magisch karakter schuilde, dat men er heden ten dage zeker in kan vinden, en of men gerechtigd zou zijn te spreken van ,,magische offergaven". Om deze vraag te kunnen beantwoorden dienen wij de beschikking te hebben over alle termen, welke op deze plaats in de oorkonden achter saji gevonden worden, waarbij ik mij uiteraard zal beperken tot de contemporaine stukken. Gelukkig zijn dit er slechts weinige[fn. 3: Namelijk: O.J.O. XII (879, Kedoe); O.J.O. XIII (879, Kedoe); O.J.O. XVI (883, onbekend, Midden-Java); O.J.O. XXIII (901, Ponorogo?); O.V. 1925, p. 41 (902, Jogjakarta); O.J.O. CII (ongedateerd, Midden-Java).]. Al deze stukken op één na zijn op Midden-Java gevonden; het eene Oost-Javaansche stuk is door koning en jaartal als Midden-Javaansch te beschouwen. Alle dateeren uit den Midden-Javaanschen tijd.
+
+[21]
+
+	Achter elken term van onderstaande opsomming der saji's wordt aangegeven waar deze voorkomt, waarbij de letter A staat voor de oorkonde uit 879, B voor die uit 879, C voor 883, D voor 901, E voor 902, F voor 905 en G voor de ongedateerde.
+	In de eerste plaats dan de omschrijving van de lijst, zooals deze in de oorkonden gegeven wordt: saji sang hyang watu kulumpang (A), saji ning watu pinakasīma (B), saji ning manusuk sīma (EF), sajini manusuk (G), terwijl C geen eigenlijke opsomming geeft en spreekt van pinakawalang halu en D midden in een zin begint met kulumpang (een voorafgaande plaat ontbreekt). Uit deze omschrijvingen blijkt, dat men sprak van saji voor ,,den heiligen steen voor het rijststampen" (watu kulumpang), voor ,,den steen, die beschouwd wordt als (de belichaming van) het gebied" en voor ,,het afbakenen" (van het gebied). Aan een verklaring van den term walang halu zal ik mij hier niet wagen; ik volsta met te verwijzen naar de beschouwingen, welke Bosch aan den term halu in verband met watu tihang heeft gewijd[fn. 1: Zie O.V. 1925 p. 46.]. Waarschijnlijk wordt met de geheele uitdrukking niet de steen zelf bedoeld, doch de ambtenaar. Mogen wij dus in de gevallen E, F en G inderdaad voorshands spreken van ,,benoodigdheden", zulks kan in ieder geval niet geschieden in de gevallen A en B. Daar kan de beteekenis wel nauwelijks een andere zijn dan „offergaven".
+	Thans dan de namen dier offergaven, uit de bovengenoemde oorkonden tot één reeks samengesteld:
+
+wdihan (zonder nadere aanduiding in ACDEF) of wdihan rangga (B) of wdihan ragi (G). Dus bəbəd's, al dan niet gekleurd (rangga = kleur) of van een patroon (ragi) voorzien. In stellen (yu = yuga). Aantallen: 1, 4 of 5.
+mas (ABDEFG), goud in mā's (= māṣa, een gewicht). Aantallen: 2, 4 of 5.
+bras, wras of wəas, gepelde rijst, 1 pāda (ABDG; kwart gewicht, eigenlijk = voet) of kadut (CE; zak van gəbang-vezels), dan wel op een schaal (D ; tamwakur mesi wəas ku 1, dus tot een hoeveelheid van 1 kuñci(?) = 8 handen vol) of hinantraän 5 (G; hantra of antra is ingewand, dus: in darmen gedaan(?)
+wsi (ABCDEG), ijzer in ikat's (ikət's) = bundel, of urā. Wsi urā zou volgens v.d.T. (s.v. ura) zooveel als ruw ijzer beteekenen. Urā beteekent zooveel als verstrooid, verspreid, versnipperd; kan bedoeld zijn: stukjes ijzerafval in de smidse? Aantallen der ikat's 1 (CEG), 5 (D) of 10 (AD). B en F hebben bsi zonder verdere toevoeging[fn. 2: Volgens mededeeling van den heer A. Gall zou bij den invoer van ijzer voor de vierkante, ongeveer een meter lange staven ijzer de uitdrukking bəsi bamboe gebezigd worden, wat zou teruggaan op de indeeling van die staven in stukjes door erop voorkomende ribben. Eén zoo'n stukje zou ikat heeten. Daar het hier gaat om uit het buitenland geïmporteerd ijzer is voorzichtigheid geboden.].
+haluhalu (AB), knots, hamer, stamper. Evenals achter wras volgt ook achter haluhalu steeds wsi. Wtinya ikat in A is zeker een verlezing voor wsinya ikat Aantallen der h. 5.
+manunggal sukat (G), onbekend. Moet men misschien lezen: manunggal?
+wadung (ABDEFG), dissel of bijl van groot formaat, een soort van groote pətèl. 1.
+rimwas of rimbas, (ABDEFG), kleinere dissel, voor het ruw behakken van boomen. 1.
+taratarah of taraḥtarah (ABG), dissel. 1.
+patuk (DE) of patukpatuk (F), beitel voor het steenhouwen. 1.
+lukai (DEF), kapmes, koeḍi. 1.
+tampilan (ABDFG), volgens Juynboll een soort van houweel? 1.
+kris (ADFG), het bekende wapen. 1.
+
+[22]
+
+twək punukan (E, alwaar het woord kris niet voorkomt), dolk met een ,,rug" of ,,bult". In ieder geval een wapen. 1.
+tatah (ABF), beitel, fijne beitel, 1.
+landuk (AB, alwaar foutief gelezen landak, DEG), hak? Madoereesch landoe — hak voor het spitten. 1.
+linggis (ABDEFG), koevoet, 1, 4 of 5.
+wangkyul (DEFG), kleine schoffel of steekschopje voor het uitwieden (Jav. wangkil). 1.
+hampit of kampit (DF), beteekenis onbekend. Hangt het samen met hapit en beteekent het zooiets als een tang of klem? 1.
+gulumi (DEFG), gaffelvormig wapen of werktuig, zooals de tjanggah of dievenvanger (v.d.T.). 1.
+gurumbhāgi (D) of kurumbhagi (EG), kurumbagi (F), mes (Mal. karampagi). 1. nakhaccheda (EG), nagelmes? 1.
+pamajha (D), onbekend (verlezing voor pamāse?). 1.
+pamāse (F), onbekend. 1.
+angkup (D), onbekend. 1.
+dan wsi panghatap (D), ijzeren dan om te dekken. Moet men dang lezen, of dandan, gereedschap? Holle: dom wsi panghatap, zie beneden sub voce dom. (T.B.G. XXVII, 1882, p. 545). 1.
+sandi (D), onbekend. 1.
+dom (EF), naald. Vergelijk de lezing-Holle in D: dom wsi panghatap, waaruit zou blijken dat de naald van ijzer was. Bronzen naalden zijn gevonden in monniksgraven (zie Jaarboek 1938, p. 128 no. 6253f, 6254f, p. 129 no. 6255h, 6257f). 1.
+buri (G), onbekend. 1.
+dāng (ABD), ketel voor het gaarstoomen van rijst, van koper. 1.
+taray, tarai (ABD), koperen schaal of bekken. 1.
+padyūsan (DF), waschbekken. 1.
+padamaran (ABEG), lampje van koper (Bali: voor den pedanda). 1.
+karantiga (D), kaars. 1.
+papañjutan (F), lamp (= padamaran). 1.
+tahas (EFG, alwaar foutief tahap), schaal, talam. 1. Deze beteekenis blijkt onmiskenbaar uit het korte opschrift op den buitenkant van den rand van een talam (archaeologische verzameling Kon. Bat. Gen. no. 6893) van het Midden-Javaansche type (met naar buiten omgebogen opstaanden rand). Dit opschrift luidt: // tahasni kuwuk (t. van Koewoek). Hiermede is dus de origineele naam vastgesteld van de bronzen borden, welke gemeenlijk met den naam talam worden aangeduid[fn. 1:  Zie Djawa 1937 p. 37, alwaar de juistheid van den naam talam in twijfel werd getrokken, en Jaarboek 1940 : 88.].
+saragi pewakan (paiwakan) (DF), visch-(vleesch-)gereedschap. 1 of 2.
+saragi pangangan (lees: panganan4?) (EG), eetgereedschap. 1.
+saragi inuman (F), drinkgereedschap. 1.
+kampil (DEF), zak voor geld of bras. 1.
+pangliwətan (F), kookpot. 1.
+kawah (F), kookpan. 1.
+sṛnti (D), onbekend. 1.
+wḍus (ADEG), schaap, levend opgeleverd blijkens wḍus prāṇa (G). 1.
+kumol (ADE), onbekend. 1.
+
+[23]
+
+taṇḍas (DE, alwaar foutief kaṇḍas), kop (van een buffel, voor het offer?), 1.
+pras mewak salaran (D), pras (E), schaal, met salaran-visch. Jav. səlar. 1.
+skul dinyun (E), s.d. mewak sarwwamāngsa (D), gekookte rijst in een pot (Jav. djoen), met allerlei soorten vleesch. 4 of 5.
+tawur hantru (D), offer voor de hantru? Zie v.d.T. sub voce. 1.
+hayam (AEG), kip. 4.
+hayam lanang (D), haan. 4.
+hantrini, hantiga (ADG), ei. 4.
+hapū salimas (D), één limas (bakje?) kalk.
+hawu salimas (D), één limas asch.
+panginangan (D), sirih-pruim, d.w.z. de ingredienten tezamen. 1.
+argha (EG), voetwaschwater. 5.
+pasilih (G), p. galuh (E), wisselkleeren, van het patroon galuh? <abbr>yu</abbr> 1.
+gandha (G), reukwerk.
+gandhalepa (E), reukzalf.
+kamwang (E), bloemen, voor het offer.
+puspākṣata (G), bloemen en rijstkorrels (akṣata), voor de offerceremonie. kamwittha (E), onbekend. Van Skṛt. wiḍa, reukzout?
+dīpa (E), lamp voor de offerceremonie. Zie boven onder padamaran.
+dhūpa (EG), wierook voor idem.
+
+	In bovenstaande lijst is de volgorde zooveel mogelijk behouden, ook al moesten enkele termen, tengevolge van de onderling verschillende plaatsing in de oorkonden, van plaats verwisselen. Zoodoende is het mogelijk enkele groote groepen te onderscheiden.
+	In de eerste plaats vinden wij steeds aan het begin de kain's en het geld, waarna onmiddellijk de bras, de gepelde rijst komt, met de wsi ikat. Ik ben geneigd in dit laatste te zien een snoer ijzeren geld, in den trant der Balische satak's (snoeren Chineesche munten, kèpèng's). Misschien moeten wij wsi ikat stellen tegenover het wsi urā van G en onder het eerste ijzergeld aan een snoer, onder het tweede los ijzergeld verstaan. Səkaroera zijn op Bali de losse bloemen in het haar van dansers, die hier en daar in de haren worden vastgehecht, alsof zij daarover los zijn uitgestrooid. Ten slotte behoeft hierbij niet meer aan een snoer gedacht te zijn en kan ikət of ikat gebruikt zijn als hulptelwoord, dus in den zin van sekət, vijftig. Wsi ikət 10 zou dan beteekenen 500 ijzeren geldstukjes. IJzeren geldstukjes zijn echter nooit opgegraven.
+	Vervolgens komt — het onbegrijpelijke haluhalu buiten beschouwing gelaten — een reeks van ijzeren werktuigen voor het omkappen van boomen, het bewerken ervan, het bewerken van kruiden en den grond, van steen, kortom, voor de werkzaamheden van de ontginning, afbakening, het bouwen van een tratag, het hakken van den oorkondesteen, enz.
+	Dan eenige wapens en messen en verschillende onbekende termen, die het onderling verband daarvan helaas verloren doen gaan.
+	Dan komen vele koperen of bronzen zaken, zooals kookpotten, kookpannen, schalen en ander gereedschap voor het toebereiden van de offerspijzen. Ook lampen voor de verlichting.
+	Voorts de ingredienten voor de offerspijzen, zooals visch, vleesch, eieren, gekookte rijst en wat men na het eten noodig heeft, zooals waschwater, sirih, reukwerk, wisselkleeren enz.
+	En tenslotte de ingredienten voor de offerceremonie van den priester, ter gelegenheid van de inwijding van den steen (watu kulumpang).
+
+[24]
+
+	Dit alles maakt den indruk van zoowel offergaven als benoodigdheden te bevatten. Willen wij dus in den term saji — waar alles onder wordt samengevat — iets terugvinden van de huidige magische beteekenis, dan dienen wij te zoeken naar een bestemming, welke zoowel met offergaven als met benoodigdheden te maken heeft.
+	Dat bloemen en wierook, boreh, rijstkorrels, reukwerk, smeersel, sirih, eieren, kippen en hanen als offergaven kunnen worden beschouwd en, ongeacht hun bestemming, als offers opgevat, lijkt mij aan weinig twijfel onderhevig. Eveneens de schapen, de gekookte rijst of ongepelde rijst en andere etenswaren, welke nog steeds bij een slamətan een rol spelen. Men vergete niet, dat de offergaven nog heden op Bali na de wijding aan de goden door de offeraars plegen te worden opgegeten.
+	Dat echter het gereedschap om dat eten te kooken en toe te bereiden mede een offergave zou uitmaken is minder vanzelfsprekend, terwijl het offeren van ijzeren gereedschappen en wapens weliswaar uit het magisch karakter van het ijzer kan worden verklaard, doch overigens uit niets blijkt, dat zij werkelijk geofferd werden.
+	Er zijn niettemin twee zaken, welke mij ertoe brengen aan te nemen, dat alles, zonder eenige uitzondering, als offer bedoeld was, nadat het voor andere doeleinden had gediend.
+	In de eerste plaats is daar de afzonderlijk genoemde taṇḍas, de kop, hoogstwaarschijnlijk van een rund, een attribuut dat nog heden ten dage bij elke inwijding van een gebouw of ander werk onmisbaar wordt geacht. Het begraven van een buffelkop onder de fundeeringen van een brug of fabriek heeft zelfs nog in recente tijden herhaaldelijk aanleiding gegeven tot het ontstaan van een plotselinge vrees der bevolking voor den tjoelik, den menschenroover, aldus nog duidelijk verradende, dat eenmaal niet de kop van een buffel, doch de schedel van een mensch tot dat doeleinde moest dienen[fn. 1: De heer Van Naersen te Soerakarta verhaalde mij hoe, toen hij voor bouwwerkzaamheden op Bali aldaar tras liet opkoopen, de bevolking groote ontsteltenis aan den dag legde. De verklaring lag in het Balische woord voor hoofd, dat eveneens tras luidt (= təṇḍas).]. Nu gebeurt het nog wel, dat men eenig huisraad en gereedschap in miniatuur mèt den kop begraaft en dit gebruik brengt mij dan op het tweede punt, dat ons de overtuiging moet schenken, dat de genoemde voorwerpen wel degelijk, na gemaakt gebruik, werden geofferd.
+	In 1935 werd door het Hoofd van den Oudheidkundigen Dienst aan den Conservator der keramische verzameling van het Koninklijk Bataviaasch Genootschap een uit noordelijk Tongking of uit Kwangsi afkomstige, groote pot van steengoed overhandigd, welke uit de 9e of vroeg 10e eeuw dateerde en in 1928 in de desa Kasimpar (od. Petoengkriono, d. Doro, res. Pekalongan) was opgegraven. In deze pot hadden zich bij de opgraving de volgende ijzeren gereedschappen bevonden (de omschrijvingen zijn van den Javaanschen vinder en kloppen dus waarschijnlijk niet steeds met de oorspronkelijke bestemming): 3 arit's, 3 bəṇḍo's (hakmes), 3 patjoel's, 3 pèntjong's (schoffel), 2 pəndèl's (dissel), 1 wadoeng (bijl), 4 prəkoel's (klein soort wadoeng), 1 kikir (vijl), 1 kajoel (kapmes voor het wieden), 2 tlakoep's (stukken beslag). De veronderstelling ligt voor de hand, dat deze ijzeren gereedschappen in de pot opzettelijk zijn begraven geworden, nadat zij eerst voor een doel hadden gediend, als in onze oorkonde vermeld.
+	In 1938 zijn verschillende van dergelijke vondsten gerapporteerd en geregistreerd, waarbij ijzeren wapens en koperen gereedschappen werden gevonden, welke vondsten om verschillende redenen eveneens aanleiding gaven tot de veronderstelling, dat zij opzettelijk in den grond waren begraven.
+
+[25]
+
+	Zoo werden in Tjikondang (Bloeboerlimbangan, Garoet) een wierookbrander en priester-schellen tezamen met patjoel-beslag, kapmessen en fragmenten van andere werktuigen van ijzer gevonden (archaeologische verzameling Kon. Bat. Gen. no. 6439-6442).
+	In Bataän (Tenggarang, Bondowoso) vond men een bronzen schep, een bronzen pan en fragmenten van brons, benevens fragmenten van ijzeren gereedschappen (no. 6443-6449).
+	In Bener (Saradan, Tjaroeban) werden gevonden, tezamen met twee kommen van steengoed uit de 13e eeuw, allerlei ijzeren landbouwgereedschap en een kris (6483-6490)[fn. 1: De opgave in Jaarboek 1939 is onjuist. No. 6483 behoort tot de vondst van 6484-6490; alles is uit de desa Bener (Saradan).].
+	In Ardjosari (Pagak, Malang) groef men ijzeren koedi's en een lanspunt op (6722-6726).
+	Een ijzeren koedi en kapmes werden, tezamen met bronzen voorwerpen (doosje, spiegel en schaal), in Toendjoeng (Klakah, Loemadjang) gevonden (6730-6735).
+	Tenslotte vond men in Ngablak (Kediri) bronzen Vaatwerk tezamen met een kris, ijzeren wapens en gereedschappen en kopergeld (gobog).
+	Zooals men ziet bestonden al deze genoemde vondsten uit voorwerpen, waarvan men zeker niet kan aannemen dat zij omrede van hun kostbaarheid opzettelijk in den bodem begraven zijn geworden. Dat zij echter bij elkaar gevonden werden, en niet verspreid, wijst ontegenzeggelijk in de richting van een opzettelijk begraven.
+	Ik zou dan ook willen aannemen dat deze vondsten en alle soortgelijke, in vroeger jaren gedaan doch helaas niet steeds nauwkeurig geregistreerd en in de verzamelingen opgenomen, afkomstig zijn van een plechtige handeling, hetzij het stichten van een vrijgebied, hetzij het bouwen van een bouwwerk, en dat zij, na eenmaal voor hun eigenlijk doel gebruikt te zijn, in den grond werden begraven.
+Dit begraven zal wel moeten worden verklaard door aan te nemen, dat zij tengevolge van de magisch-belangrijke handeling, welke met hen was verricht, niet meer in aanmerking kwamen voor dagelijksch gebruik. Waren er alleen ijzeren voorwerpen gevonden, dan zou men nog kunnen vermoeden, dat, omgekeerd, hun magische beteekenis het vrijgebied c.q. bouwwerk ten goede zou komen. De aanwezigheid van bronzen, steengoed of porceleinen vaatwerk, waaraan geen bijzondere magische beteekenis kan zijn gehecht, pleit voor het tegendeel, dat wil zeggen, voor een begraven uit angst voor hun gevaarlijken invloed tengevolge van het gebruik voor magische doeleinden.
+	Dat dit magisch karakter ten tijde van het begraven steeds duidelijk gerealiseerd werd, meen ik te moeten betwijfelen. De priesters althans zullen er waarschijnlijk een uitleg aan gegeven hebben, welke op een hooger plan stond. Zij zullen hebben beweerd, dat voorwerpen, welke eenmaal ten dienste van zulke hooge machten als Sang Hyang Brahmā en Sang Hyang Watu Kulumpang waren gebruikt, niet meer door ongewijde lieden mochten worden gehanteerd en uit de circulatie dienden genomen te worden.
+	Hoe dit ook zij, de vergelijking van de opsommingen in de oorkonden met de gebruiken bij huizenbouw eenerzijds en met de vondsten van ijzeren gereedschappen anderzijds heeft mij de overtuiging verschaft, dat de opgesomde voorwerpen zoowel saji in den zin van gereedschap, benoodigdheid, als in dien van offer waren. Eerst dienden zij tot benoodigdheid voor de afbakening van de sīma, daarna gingen zij den grond in als offers.
+
+Batavia, November 1939.
+
+[26]
+
+Bijlage 1.
+
+Alphahetische lijst van in de oorkonde van Balitung uit 905 A.D. voorkomende, met si, sang of ramani ingeleide eigennamen[fn. 1: z beteekent, dat de naam voorkomt achter rama ni, dus die van een zoon (of dochter?) is. De met sang ingeleide namen zijn cursief gedrukt. De met sang ingeleide plaatsnamen zijn niet opgenomen.].
+
+anggal
+baisus z
+bantər z
+banya
+barubuh z
+barut
+baryyut
+basawa z
+bayur
+brakāra
+brita
+buddhi z
+buhara z
+buṭəl z
+caki z
+cangal
+cangka
+cangkir
+capah z
+cuṇṭəng
+daladap
+dariṇī
+dhūta z
+dhyāna
+ḍuḍuk z
+dṛping
+gaḍing
+gamana
+gampwar z
+gaṇṭih z
+gasyak
+garga z
+gawang z
+gəgəl
+gimuh z
+gunung
+gupi
+guruntung
+hampalung z
+hasin z
+hiṇḍang z
+jamah
+janar
+jamwil z
+jaway
+kabya
+kandəl
+kaṇḍit
+kārigna
+karyyut
+katak
+katimahā
+kirim
+krap z
+krit
+kudyal
+kulika
+kuruh z
+kuyū
+lagai
+lakā
+lañot
+libat z
+lingir
+lmaḥhiḍi
+lucir z
+lugundung
+mala
+mangga
+manojña z
+masusu
+mula
+mulat z
+munḍu z
+naītra
+ndandok
+niti
+nunggū z
+pakudān z
+palwak
+paṇḍe
+pandət
+pangadaggan
+pangalah z
+parasi
+pārthawa
+pati
+pawan z
+prajñā
+pula
+purul
+purul z
+pyang
+ralua
+ranghal
+rapilang
+rapə:ng
+rawakan
+rəmma
+rumpuk
+rutut
+sādha
+sāgi z
+saṇḍak
+sangkhara
+sañjaya
+səgəl
+sima z
+suk
+śala
+tambilung z
+tangkirang
+taram z
+tarambal z
+tato
+tatuk z
+tunggang z
+turawus z
+turubut z
+turus z
+uha
+uttara
+wahugyan
+wakul z
+wangun
+waruwu z
+wawā
+wawa z
+wḍung z
+wələt z
+wicar
+widyū z
+wira z
+wirat
+wiṣama z
+wudyang z
+
+Vrouwenamen (voorafgegaan door si):
+jabwah
+limwayā
+tiris
+wirikan
+wulakan
+
+[27]
+
+Bijlage 2.
+
+Alphabetische lijst van plaatsnamen, voorafgegaan door anakwanua i (desa-namen) [fn. 1: De tusschen haakjes geplaatste namen duiden het ressort aan; zie bijlage 3.].
+
+bungur (kiniwang)
+dadam (vrijgebied)
+glangglang (kalumwarak)
+gunungan (tangkilan)
+hijo (luwakan)
+hināngan (luwakan)
+hinapit (wka)
+kahangatan (hamyas)
+kahuripan (lunturan)
+kaṇḍang (walakas)
+kasisap (kayo)
+kawu (kiniwang)
+kawu (vrijgebied)
+kilipan (kiniwang)
+kilipan (kilipan)
+lunglang (tnəp)
+maho (wka)
+matyāsih (makudur)
+marhyang (vrijgebied)
+marumwi (hino)
+matngər patīrthan (vrijgebied)
+miramirah (wadihati)
+nyū (kiniwang)
+paməhangan (manimpiki)
+paṇḍawutan (tirurāṇu)
+pangramwan (wadihati)
+paskaran (langitan)
+pāstamwir (vrijgebied ?)
+poh (kiniwang)
+pulai (galang)
+ralua (wurusiki)
+rapoh = poh
+rasuk (luwakan)
+rawuang (kiniwang)
+rumasan (kiniwang)
+samalagi (asampañjang)
+sampū (vrijgebied)
+sawyan (kiniwang)
+səang (kiniwang)
+səang kawahutān (vrijgebied ?)
+skarttan (layuwatang)
+singhapura (halu)
+sukup (vrijgebied)
+tamyang (pakuwangi)
+tangkilan (mamrati)
+tarumwajang (hino)
+tira (mḍang)
+truwanban (tirurāṇu)
+tunggurnanongan (vrijgebied ?)
+tungguyung (kiniwang)
+tutuganningtaṇḍa (tangkilan)
+waduri (rumwiga)
+wanuatngah (wurusiki)
+warakwarak (hino)
+winangun (kiniwang)
+wrang (vrijgebied)
+wtuan (kiniwang)
+wuangkalang (kiniwang)
+wuangnghijo = hijo ?
+wuangwulu (luwakan)
+wungkuḍu (kilipan)
+wwarang (galang)
+wwatan (dalinan)
+yugihan (dalinan)
+
+[28]
+
+Bijlage 3.
+
+Alphabetische lijst van plaatsnamen, voorafgegaan door watak (ressortshoofdplaatsen)
+
+asampañjang
+dalinan (zetel van den samagat Dalinan)
+galang
+halu (zetel van den rakai Halu)
+hamyas
+hino (zetel van den rakai Hino, den Rijksbestuurder)
+kalumwarak
+kayo
+kilipan
+kiniwang (zetel van den samagat Kiniwang)
+langitan
+layuwatang
+lunturan
+luwakan
+makudur (zetel van den Makudur)
+mamrati
+manimpiki
+mḍang (residentie Mḍang i bhūmi Matarām?)
+pakuwangi
+rumwiga
+tangkilan
+tirurāṇu
+tnəp
+wadihati
+walakas
+wka (zetel van den rakai Wka)
+wurusiki
+
+[29]
+
+
+ -->

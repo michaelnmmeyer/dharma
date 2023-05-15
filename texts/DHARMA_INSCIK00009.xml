@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Stela of Phú Hựu (K. 9), 561 Śaka</title>
+        <respStmt>
+          <resp>EpiDoc Encoding</resp>
+          <persName ref="part:kuch">
+            <forename>Kunthea</forename>
+            <surname>Chhom</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="http://viaf.org/viaf/66465311">
+            <forename>George</forename>
+            <surname>Cœdès</surname>
+          </persName>
+          <persName ref="part:kuch">
+            <forename>Kunthea</forename>
+            <surname>Chhom</surname>
+          </persName>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Siem Reap</pubPlace>
+        <idno type="filename">DHARMA_INSCIK00009</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Kunthea Chhom &amp; Arlo Griffiths.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
+        <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno></idno>
+            <!-- don't modify this -->
+          </msIdentifier>
+          <msContents>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p>There is a graving of a blooming lotus flower on the top of the stela and another graving of a lotus bud in the middle space of lines 5-8. There is a line of circles dividing the Sanskrit portion from the Khmer one.</p>
+              <p>The left and right textparts seem to be trial engravings which were not meant to be visible in the original context of exposition of the stone.<!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2023-03-20" who="part:kuch">Further modifications to edition</change>
+      <change status="draft" when="2023-03-08" who="part:kuch">Modifications to edition</change>
+      <change status="draft" when="2020-11-13" who="part:kuch part:argr">Finished revising the edition</change>
+      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-10-19" who="part:kuch part:argr">Started revising the edition</change>
+      <change status="draft" when="2020-08-21" who="part:kuch">Modifications to edition</change>
+      <change status="draft" when="2020-06-01" who="part:kuch">Initial encoding of the file</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="okz-Latn">
+        <lg met="śārdūlavikrīḍita" n="1" xml:lang="san-Latn">
+          <l enjamb="yes" n="a"><lb n="1"></lb>yasyādir bhuvana-traye na viditas sarvvair vva<seg met="++-+">
+              <gap quantity="4" reason="lost" unit="character"></gap>
+            </seg></l>
+          <l n="b"><lb n="2"></lb>r mmaddhyam vā nidhanañ ca loka-guru<supplied reason="lost">bhi</supplied>ẖ kāla-traya-jñair api</l>
+          <!-- @enjamb: to be discussed on March 22, 2023 -->
+          <l n="c"><lb n="3"></lb>sarvvan tena jitaṁ hareṇa vibhunā nr̥̄ṇān tamo-hāriṇā</l>
+          <l n="d"><lb n="4"></lb>śrī-vīreśvara-saṁjñakena nayatā puṁstvaṁ striyan durllabham·</l>
+        </lg>
+        <lg met="anuṣṭubh" n="2" xml:lang="san-Latn">
+          <l n="a"><lb n="5"></lb><milestone n="a" unit="column"></milestone>bhrātā rudra-purīśasya <g type="spiralR"></g></l>
+          <l n="b"><milestone n="b" unit="column"></milestone>kanīyān kula-tantu-bhr̥t·</l>
+          <l n="c"><lb n="6"></lb><milestone n="a" unit="column"></milestone>bhojaḫ pālayate samya<milestone break="no" n="b" unit="column"></milestone>k</l>
+          <l n="d"><milestone n="b" unit="column"></milestone>tamandara<space type="descender"></space>-puraṁ yadā<g type="spiralR"></g><g type="dashConvex">.</g></l>
+        </lg>
+        <lg met="anuṣṭubh" n="3" xml:lang="san-Latn">
+          <l n="a"><lb n="7"></lb><milestone n="a" unit="column"></milestone>kṣetrārāmānvitā sīmā</l>
+          <l n="b"><milestone n="b" unit="column"></milestone>sthāpitā satra-vr̥ddhaye<g type="dashConvex">.</g></l>
+          <l n="c"><lb n="8"></lb><milestone n="a" unit="column"></milestone>gaṇitā rūpa-ṣad-vāṇ<choice>
+              <sic>o</sic>
+              <corr>ai</corr>
+            </choice><milestone break="no" n="b" unit="column"></milestone>ś</l>
+          <l n="d"><milestone n="b" unit="column"></milestone>śakendrasya samās tadā<g type="dashConvex">.</g></l>
+        </lg>
+        <p><lb n="9"></lb>sre Aṁnoy· kañ·heṅ· vraḥ Añ· lāṅ· gus· Āy· ta vraḥ kamra<lb break="no" n="10"></lb>tāṅ· Añ· śrībhaṭāravīreśvara Ai cpar· pares· sre sanre <num value="100">100</num><g type="dotMid">.</g> <lb n="11"></lb>tpal· vraḥ kamratāṅ· Añ· śrībhaṭāravīra Aṁnoy· hap Añ· <lb n="12"></lb>Āy· vaṅ· Ek· <num value="1">
+            <g type="numeral">I</g>
+          </num> sre sanre <num value="80">80</num><g type="dotMid">.</g> tpal· Aṁnoy· kurāk<supplied reason="lost">·</supplied> <lb n="13"></lb>Añcan· <num value="1">
+            <g type="numeral">I</g>
+          </num> sre sanre <num value="40">40</num><space type="descender"></space><g type="dotMid">.</g> Aṁnoy· vraḥ Añ· jeṅ<unclear>·</unclear> <lb n="14"></lb>kaṁvaṅ· sre sanre <num value="20">20</num><supplied reason="omitted">
+            <g type="dotMid">.</g>
+          </supplied> Aṁnoy· tāṅ· kanmeṅ· mrasir· tpal· <num value="1">
+            <unclear cert="low">
+              <g type="numeral">I</g>
+            </unclear>
+          </num> <lb n="15"></lb>sre sanre <num value="10">10</num><supplied reason="omitted">
+            <g type="dotMid">.</g>
+          </supplied> Aṁnoy· tāṅ· kanlaḥ droṅ· pañ· dinna tpal· <lb n="16"></lb>teṁ suṅ·nāy· <num value="1">
+            <g type="numeral">I</g>
+          </num> sre sanre <num value="10">10</num><supplied reason="omitted">
+            <g type="dotMid">.</g>
+          </supplied> Aṁnoy· tāṅ· rut· tpal· ci <lb n="17"></lb>pu yāṅ· <num value="1">
+            <g type="numeral">I</g>
+          </num> sre sanre <num value="4">
+            <g type="numeral">IIII</g>
+          </num> Aṁnoy· kliṅ· guṇadeva sre sanre <num value="20">20</num><supplied reason="omitted">
+            <g type="dotMid">.</g>
+          </supplied> <lb n="18"></lb>sre vraḥ kamratāṅ· Añ· Ai kontarañ· sre sanre <num value="60">60</num><unclear>
+            <g type="dotMid">.</g>
+          </unclear> Aṁnoy· <lb n="19"></lb>poñ· mi kep· gui tpal· creṅ· sre sanre <num value="80">80</num><supplied reason="omitted">
+            <g type="dotMid">.</g>
+          </supplied> Aṁnoy· <unclear cert="low">na</unclear>ḥ taṅ·hvā<lb break="no" n="20"></lb>y· tpal· gui yoṅ· kmau <num value="1">
+            <g type="numeral">I</g>
+          </num> sre sanre <num value="60">60</num><g type="dotMid">.</g> Aṁnoy· kloñ· dmel· <lb n="21"></lb><unclear>tpa</unclear>l· karoṁ tamre <num value="1">
+            <g type="numeral">I</g>
+          </num> sre sanre <num value="10">10</num><g type="dotMid">.</g> Aṁnoy· pu neṅ· prajñāva<lb break="no" n="22"></lb>n<unclear>·</unclear> <!-- prajñāvān·? prajñāvana? prajñāva[nda]na? -->tpal<unclear>·</unclear> muni <num value="1">
+            <g type="numeral">I</g>
+          </num> sre sanre <num value="10">10</num><g type="dotMid">.</g> Aṁnoy· kloñ· tok· tpal· kandvār· <lb n="23"></lb>tok· <num value="1">
+            <g type="numeral">I</g>
+          </num> sre sanre <num value="100">100</num><unclear>
+            <g type="dotMid">.</g>
+          </unclear> Aṁnoy· pu vāṅ· taṁnok· tpal· <num value="1">
+            <g type="numeral">I</g>
+          </num> sre <unclear>sa</unclear><lb break="no" n="24"></lb><unclear>nre</unclear> <num cert="low" value="20">20</num> <g type="dotMid">.</g> Aṁnoy· poñ· din· Ai trās· sre sanre <num value="80">
+            <g type="numeral">80</g>
+          </num><unclear>
+            <g type="dotMid">.</g>
+          </unclear> Aṁno<lb break="no" n="25"></lb>y· k<unclear>l</unclear>oñ· vnaṁ Añ· tpal· teṁ tuṅ·not· Ai vnaṁ tāṅ· kloñ· <supplied reason="lost">
+            <num value="1">
+              <g type="numeral">I</g>
+            </num>
+          </supplied> <lb n="26"></lb>sre sanre <num value="20">20</num><supplied reason="omitted">
+            <g type="dotMid">.</g>
+          </supplied> Aṁnoy· poñ· kloñ· pañjas· tpal· <num value="1">
+            <g type="numeral">I</g>
+          </num> sre sa<lb break="no" n="27"></lb>nre<num cert="low" value="40">40</num><supplied reason="lost">
+            <g type="dotMid">.</g>
+          </supplied> Aṁnoy· pañ· taṅ·hvāy· tpal· gui jray· kaṁput· <num value="1">
+            <g type="numeral">I</g>
+          </num> <unclear>t</unclear>pa<lb break="no" n="28"></lb><supplied reason="lost">l·</supplied> suk· gaṁ toṅ· teṁ <num value="40">40</num> sre sanre <num value="60">60</num> Aṁnoy· sra kuṇḍa<unclear>lā</unclear> <lb n="29"></lb>Añ<unclear>·</unclear> tpal· teṁ suṅ·nāy· sin· <num value="1">
+            <g type="numeral">I</g>
+          </num> slā teṁ ta gui <num value="30">20 10</num> toṅ· teṁ <num value="20">20</num> <lb n="30"></lb>Aṁnoy· sugan· Ai tnāñ· tpal· <num value="1">
+            <g type="numeral">I</g>
+          </num> slā teṁ ta gui <num value="123">100 20<g type="numeral">III</g></num> sre <lb n="31"></lb>Ai vraḥ kantai Aṁnoy· po sramāñ· <!-- or split sra māñ·? -->sanre <num value="4">
+            <g type="numeral">IIII</g>
+          </num> sre Aṁno<lb break="no" n="32"></lb>y· śivadāsa <space></space> sanre <num value="4">
+            <g type="numeral">IIII</g>
+          </num> Aṁnoy· pu vāṅ· pañjas· Ai mu<gap quantity="1" reason="lost" unit="character"></gap> <lb n="33"></lb><gap quantity="2" reason="lost" unit="character"></gap> sre sanre <num value="4">
+            <g type="numeral">IIII</g>
+          </num><g type="dotMid">.</g></p>
+      </div>
+      <div type="apparatus">
+        <listApp>
+          <app loc="1">
+            <lem>viditas</lem>
+            <rdg source="bib:Coedes1937-1966_01">viditās</rdg>
+          </app>
+          <app loc="3">
+            <lem>nr̥̄ṇān</lem>
+            <rdg source="bib:Coedes1937-1966_01">nr̥ṇān</rdg>
+          </app>
+          <app loc="8">
+            <lem>-vāṇ<choice>
+                <sic>o</sic>
+                <corr>ai</corr>
+              </choice><milestone break="no" n="b" unit="column"></milestone>ś</lem>
+            <rdg source="bib:Coedes1937-1966_01">-vāṇaiś</rdg>
+          </app>
+          <app loc="12">
+            <lem>Ek·</lem>
+            <rdg source="bib:Coedes1937-1966_01">cak·</rdg>
+          </app>
+          <app loc="15">
+            <lem>pañ·</lem>
+            <note>There are at least 59 occurrences of this term in the Cambodian corpus. In his Pre-Angkorian Dictionary (p. 320), Ph. Jenner takes it as a variant of <foreign>poñ</foreign> <q>an honorific title for mostly males</q>. However, we are inclined to understand it as a seperate word from <foreign>poñ</foreign>. There is another occurrence in line 27.</note>
+          </app>
+          <!-- <app loc="18">
+                     <lem>kontarañ·</lem>
+                     <rdg source="bib:Coedes1937-1966_01">kon tarañ·</rdg>
+                  </app> -->
+          <app loc="27">
+            <lem>pañ·</lem>
+            <rdg source="bib:Coedes1937-1966_01">poñ·</rdg>
+          </app>
+        </listApp>
+      </div>
+      <div source="bib:Coedes1937-1966_01" type="translation" xml:lang="fra">
+        <p n="1" rend="stanza">La victoire complète est à celui dont le commencement, le milieu et la fin restent dans les trois mondes inconnus de tous les maîtres <gap reason="lost"></gap> même de ceux qui connaissent les trois époques, à ce puissant Hara, souverain des hommes, destructeur de l'obscurité, portant le nom de Śrī Vīreśvara, qui a donné à une femme la condition d'homme difficile à obtenir.</p>
+        <p n="2" rend="stanza">Alors que Bhoja, frère cadet du maître de Rudrapurī, soutien de sa lignée, gouvernait complètement Tamandarapura,</p>
+        <p n="3" rend="stanza">à ce moment-là les limites des champs et des jardins ont été fixées en vue de la prospérité de la fondation, les années du roi des Śaka étant comptées avec les <supplied reason="explanation">5</supplied> flèches, six et la forme <supplied reason="explanation">= un</supplied>.</p>
+        <p n="9-10">Rizières données par Kañheṅ Vraḥ; Añ Lāṅ Gus à V. K. A. Śrī Bhaṭāra Vīreśvara à Cpar Pares <supplied reason="explanation">"parc des cerfs"</supplied> : 100 <foreign>sanre</foreign> de rizière.</p>
+        <p n="11-12">1 jardin de V. K. A. Śrī Bhaṭāra Vīra, donné par Hap Añ à Vaṅ Cak; 80 <foreign>sanre</foreign> de rizière.</p>
+        <p n="12-13">1 jardin donné par Kurāk Añcan ; 40 <foreign>sanre</foreign> de rizière.</p>
+        <p n="13-14">Don de Vraḥ Añ Jeṅ Kamvaṅ <supplied reason="explanation">"pied de l'embarcadère"</supplied> : 20 <foreign>sanre</foreign> de rizière,</p>
+        <p n="14-15">Don de Tāṅ Kanmeṅ Mrasir : 1 jardin; 10 <foreign>sanre</foreign> de rizière.</p>
+        <p n="15-16">Don de Tāṅ Kanlaḥ et de Pañ Dinna : 1 jardin Teṁ Suṅnāy <supplied reason="explanation">"arbre Salvadora capitulata"</supplied> ; 10 <foreign>sanre</foreign> de rizière.</p>
+        <p n="16-17">Don de Tāṅ Rut: 1 jardin Ci Pu Yāṅ; 4 <foreign>sanre</foreign> de rizière.</p>
+        <p n="17">Don de l'Hindou <supplied reason="explanation">
+            <foreign>kliṅ</foreign>
+          </supplied> Guṇadeva : 20 <foreign>sanre</foreign> de rizière.</p>
+        <p n="18">Rizières du V. K. A. à Kon Tarañ : 60 <foreign>sanre</foreign> de rizière.</p>
+        <p n="19">Don de Poñ Mi, collecteur de ces <supplied reason="explanation">rizières</supplied> : jardin Creṅ; 80 <foreign>sanre</foreign> de rizière.</p>
+        <p n="19-20">Don de Naḥ <supplied reason="explanation">chargé de</supplied> présenter <supplied reason="explanation">au dieu les produits</supplied> de ce jardin : 1 <supplied reason="explanation">jardin</supplied> Yoṅ Kmau; 60 <foreign>sanre</foreign> de rizière.</p>
+        <p n="20-21">Don de Kloñ Dmel : 1 jardin Karoṁ Tamre <supplied reason="explanation">"sous l'éléphant"</supplied> ; 10 <foreign>sanre</foreign> de rizière.</p>
+        <p n="21-22">Don de Puneṅ Prajñāvan: 1 jardin Muni; 10 <foreign>sanre</foreign> de rizière.</p>
+        <p n="22-23">Don de Kloñ Tok : 1 jardin Kandvār Tok; 100 <foreign>sanre</foreign> de rizière.</p>
+        <p n="23-24">Don de Puvāṅ Taṁnok : 1 jardin; 20 <foreign>sanre</foreign> de rizière.</p>
+        <p n="24">Don de Poñ Din à Trās : 80 <foreign>sanre</foreign> de rizière.</p>
+        <p n="25">Don de Kloñ Vnaṁ Añ : 1 jardin de palmiers à sucre, à Vnaṁ Tāṅ Kloñ, 1 ; 20 <foreign>sanre</foreign> de rizière.</p>
+        <p n="26">Don de Poñ Kloñ Pañjas: 1 jardin; 40 <foreign>sanre</foreign> de <foreign>sre</foreign>.</p>
+        <p n="27-28">Don du Poñ <supplied reason="explanation">chargé de</supplied> présenter <supplied reason="explanation">au dieu</supplied> les produits de ces jardins: 1 <supplied reason="explanation">jardin</supplied> Jray Kaṁput <supplied reason="explanation">"figuier tronqué"</supplied>,1 jardin Suk Gaṁ, 40 cocotiers; 60 sanre de rizière.</p>
+        <p n="28-29">Don de Sra Kuṇḍalā Añ : 1 jardin Teṁ Suṅnāy, à nouveau, contenant 30 aréquiers, 20 cocotiers.</p>
+        <p n="30">Don de Sugan à Tnāñ : 1 jardin de 123 aréquiers.</p>
+        <p n="31">Rizière à Vraḥ Kantai, don de Po Sramāñ : 4 <foreign>sanre</foreign>.</p>
+        <p n="32">Rizière donnée par Śivadāsa : 4 <foreign>sanre</foreign>.</p>
+        <p n="32-33">Don de Puvāṅ Pañjas à Mu <gap reason="lost"></gap> : 4 <foreign>sanre</foreign> de rizière.</p>
+      </div>
+      <div type="commentary">
+        <p>Cœdès read as Puyāṅ, Puneṅ and Puvāṅ the names occurring in lines 17, 21, 23 and 32 that we tentatively analyze as consisting of an honorific particle <foreign>pu</foreign> (known in Old Cham) plus names Yāṅ, Neṅ and Vāṅ.<!-- Other possible occurrences of this same <foreign>pu</foreign>: K. 1, l. 13; K. 22 (several occurrences of Pu Yāṅ); K. 28; K. 49 (pu caḥ Añ); K. 137, l. 1; K. 163, l. 3 (pu caḥ qañ vodhisuṣṭha) K. 884 (po caḥ Sūryadat·); K. 1029, l. 7; K. 1267, l. 2. --></p>
+        <p>The name sra Kuṇḍalā figuring in line 28 here is also found in K. 719.</p>
+        <p>It seems that the word <foreign>tpal</foreign> is usually followed, directly or with some intervening words, by the numeral I. It is based on this pattern that we follow Cœdès in supplying the numeral at the end of line 25. The sole exception to the pattern is then the occurrence of <foreign>tpal</foreign> in line 19.</p>
+      </div>
+      <div type="bibliography">
+        <p>First edited by George Cœdès (<bibl rend="omitname">
+            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <citedRange unit="volume">5</citedRange>
+            <citedRange unit="page">36-38</citedRange>
+          </bibl>) with a French translation; re-edited here by Kunthea Chhom &amp; Arlo Griffiths from estampage EFEO n. 17 and photographs of the stone.</p>
+        <listBibl type="primary">
+          <bibl n="GC">
+            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <citedRange unit="volume">5</citedRange>
+            <citedRange unit="page">36-38</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI><!--
+- lotus flower at top of stela
+ lotus stalk at center of stela
+ - checkered horizontal lines separate Sanskrit from OK parts
+ -->

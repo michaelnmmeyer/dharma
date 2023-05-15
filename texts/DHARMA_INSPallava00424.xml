@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Veppūrcekkaṭi Hero-Stone no. 2</title>
+        <respStmt>
+          <resp>EpiDoc encoding</resp>
+          <persName ref="part:emfr">
+            <forename>Emmanuel</forename>
+            <surname>Francis</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:emfr">
+            <forename>Emmanuel</forename>
+            <surname>Francis</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Paris, CEIAS</pubPlace>
+        <idno type="filename">DHARMA_INSPallava00424</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc>
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno></idno>
+          </msIdentifier>
+          <msContents>
+            <summary>Hero-stone commemorating the death of Tācamāriyār.</summary>
+          </msContents>
+          <!--<physDesc>
+						<handDesc>
+							<p></p>
+						</handDesc>
+					</physDesc>-->
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2022-10-03" who="part:emfr">Creation of the file</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="tam-Latn">
+        <p><lb n="1"></lb>kō-vicaiya-naraciṅkaparumaṟk<choice>
+            <orig>i</orig>
+            <reg>u</reg>
+          </choice> yāṇṭu pattāvatu</p>
+        <p><lb n="2"></lb>mīkoṉṟai-nāṭṭu pālaikōṭṭut toṟuk koṇṭa ñāṉṟu <lb n="3"></lb>toṟu Ituvittu tācamāriyār <lb n="4"></lb>paṭṭār</p>
+      </div>
+      <!--<div type="apparatus">
+
+      		<listApp>
+
+      			<app loc="0">
+      				<lem></lem>
+      				<note></note>
+      			</app>
+
+      		</listApp>
+
+      	</div>-->
+      <div resp="part:emfr" type="translation">
+        <p n="1">Tenth year of the victorious king Narasiṃhavarman<note>That is, Narasiṃhavarman II Pallava, according to <bibl>
+              <ptr target="bib:Kasinathan1974_01"></ptr>
+            </bibl></note>.</p>
+        <p n="2-4">Tācamāriyār fell, rescuing cattle, at the time of seizing the cattle at Pālaikōṭu in the Mīkoṉṟaināṭu.</p>
+      </div>
+      <div type="commentary">
+        <p>Line beginnings not indicated by <bibl>
+            <ptr target="bib:Kasinathan1974_01"></ptr>
+          </bibl>, here after <bibl>
+            <ptr target="bib:Dayalan2005_01"></ptr>
+          </bibl>.</p>
+      </div>
+      <div type="bibliography">
+        <p>First edited in <bibl>
+            <ptr target="bib:Kasinathan1974_01"></ptr>
+          </bibl>; text in <bibl>
+            <ptr target="bib:Dayalan2005_01"></ptr>
+          </bibl>; encoded and translated here for DHARMA (ERC n° 809994) by Emmanuel Francis (2022), based on previous editions.</p>
+        <listBibl type="primary">
+          <bibl n="NK">
+            <ptr target="bib:Kasinathan1974_01"></ptr>
+            <citedRange unit="page">36</citedRange>
+            <citedRange unit="item">2</citedRange>
+          </bibl>
+          <bibl n="DD">
+            <ptr target="bib:Dayalan2005_01"></ptr>
+            <citedRange unit="volume">3</citedRange>
+            <citedRange unit="appendix">I</citedRange>
+            <citedRange unit="page">1271</citedRange>
+            <citedRange unit="item">36</citedRange>
+          </bibl>
+        </listBibl>
+        <!--<listBibl type="secondary">
+
+         		<bibl>
+         			<ptr target=/>
+         			<citedRange unit="page"></citedRange>
+         		</bibl>
+
+         	</listBibl>-->
+      </div>
+    </body>
+  </text>
+</TEI>

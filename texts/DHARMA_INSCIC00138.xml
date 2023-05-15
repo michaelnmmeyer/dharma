@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>An Thái stela (C. 138), 824 Śaka</title>
+        <respStmt>
+          <resp>EpiDoc Encoding</resp>
+          <persName ref="part:sapi">
+            <forename>Salomé</forename>
+            <surname>Pichon</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+          <persName ref="http://viaf.org/viaf/289845900">
+            <forename>Amandine</forename>
+            <surname>Lepoutre</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Paris</pubPlace>
+        <idno type="filename">DHARMA_INSCIC00138</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Arlo Griffiths &amp; Salomé Pichon.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
+        <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno></idno>
+            <!-- don't modify this -->
+          </msIdentifier>
+          <msContents>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <!-- UPDATE the link once the release is made official -->
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2023-01-13" who="part:sapi">Addition of placeName tagging</change>
+      <change when="2021-01-14" who="part:sapi">started initial encoding of the inscription</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div rendition="class:83233 maturity:00000" type="edition" xml:lang="san-Latn">
+        <ab><milestone n="A" type="pagelike" unit="face"></milestone><lb n="A01"></lb><supplied reason="lost"><g type="floretComplex"></g>namo lo</supplied>kanāthā<supplied reason="lost">ya</supplied><g type="floretComplex"></g></ab>
+        <p><lb n="A1"></lb>svasti<g type="ddandaPlain">.</g></p>
+        <!-- MAIL A DANIEL POUR CE CAS DE SVASTI A INCORPORER DANS AB. -->
+        <lg met="indravajrā" n="1">
+          <l n="a">yena <seg met="-++--+-">
+              <gap quantity="7" reason="lost" unit="character"></gap>
+            </seg><!--sapi2argr ici ai-je bien encodé la lacune de vers ? -->mūrttir</l>
+          <l n="b">vyaktaika <seg met="++--+-+=">
+              <gap quantity="8" reason="lost" unit="character"></gap>
+            </seg></l>
+          <l n="c"><seg met="++--++">
+              <gap quantity="6" reason="lost" unit="character"></gap>
+            </seg> śura <seg met="+-">
+              <gap quantity="2" reason="lost" unit="character"></gap>
+            </seg> bhaugrais</l>
+          <!--sapi2argr Commentaire rtf : śuretipautrais? -->
+          <l n="d">tasmai namaḥ <lb n="A2"></lb> kāruṇikāya nityam·<g type="ddandaPlain">.</g></l>
+        </lg>
+        <lg met="sragdharā" n="2">
+          <l n="a">
+            <seg met="++++-++------++-++-++">
+              <gap quantity="21" reason="lost" unit="character"></gap>
+            </seg>
+          </l>
+          <l n="b"><seg met="++++-++--">
+              <gap quantity="9" reason="lost" unit="character"></gap>
+            </seg>pyamātra vālabhito <lb n="A3"></lb> rakaivākrandamānā</l>
+          <l n="c"><seg met="++++">
+              <gap quantity="4" reason="lost" unit="character"></gap>
+            </seg> parāvā <seg met="--">
+              <gap quantity="2" reason="lost" unit="character"></gap>
+            </seg> vigatasukhā lohadaṇḍābhighātāḥ</l>
+          <l n="d">smr̥tvā lokeśvaran tvāṁ pra<unclear>ma</unclear><lb break="no" n="A4"></lb><unclear>thita</unclear>duritaṁ kevalaṁ mokṣam āpuḥ<g type="ddandaPlain">.</g><space></space><!-- CONTACTE DANIEL POUR LES ESPACES. --></l>
+        </lg>
+        <lg met="sragdharā" n="3">
+          <l n="a">mārair ugraiḥ parītāś ciram api manujāḥ pūrvva-karmmānuraktā</l>
+          <l n="b">nistrāṇā ni<lb break="no" n="A5"></lb><unclear>tyaduḥkhā</unclear>ḥ parama-kaluṣitāḥ kṣutpipāsābhibhūtāḥ</l>
+          <l n="c">pūrvvañ cādānadoṣāt sugata-vimukhataḥ <!--sapi2argr : Commentaire rtf: -vimukhataḥ: emend -vimukhitāḥ? -->prāpta-kāpāla-haste</l>
+          <l n="d"><lb n="A6"></lb><unclear>padmabh</unclear>r̥dvajrapāṇipraśamitanirayaṁ <unclear>b</unclear>uddhamārggaṁ samāpuḥ<g type="ddandaPlain">.</g></l>
+        </lg>
+        <lg met="āryā" n="4">
+          <l n="ab">śrī-bhadravarmma-nr̥pates tasya mato tyanta-ballabhatva<lb break="no" n="A7"></lb>matiḥ</l>
+          <l n="cd">sujanāṅghri-yugala-sevī ca <unclear>nāga</unclear>puṣpa-sthavira-nāmā<g type="ddandaHooked">.</g></l>
+        </lg>
+        <lg met="anuṣṭubh" n="5">
+          <l n="a">lokeśvarañ jagadvyāptaṁ</l>
+          <l n="b">śraddhābhāvair atiṣṭhi<lb break="no" n="A8"></lb>pat·<g type="dotMid">.</g></l>
+          <l n="c">pr̥thivīkīrttaye so smai</l>
+          <l n="d">dharmmadeśanayāhitaḥ<g type="ddandaHooked">.</g></l>
+        </lg>
+        <lg met="indravajrā" n="6">
+          <l enjamb="yes" n="a">lokapra <seg met="++">
+              <gap quantity="2" reason="lost" unit="character"></gap>
+            </seg> ntrayaśoṁśuśuddha</l>
+          <l n="b"><placeName key="Campā" subtype="country" type="region">campā</placeName>dhipas sa<lb break="no" n="A9"></lb>rvvasukhapradātā<g type="dotMid">.</g></l>
+          <l n="c">śrī-Indravarmmā sa surendravarmmā<!--sapi2argr commentaire rtf: or read sasurendravarmmā?--></l>
+          <l n="d">tadvattr̥dhameva cakāra tasmin·<g type="ddandaHooked">.</g></l>
+        </lg>
+        <lg met="āryā" n="7">
+          <l n="ab">karuṇāmr̥tarasa<lb break="no" n="A10"></lb>rasikaḥ kevalam eva prajāhitāspadakr̥t·<g type="dotMid">.</g></l>
+          <l n="cd">yo muktiṁ sa ca nikhilāṁ <placeName key="Pramuditalokeśvara" subtype="monastery" type="builtPlace">pramuditalokeśvarā</placeName><lb break="no" n="A11"></lb>yādāt·<g type="ddandaHooked">.</g></l>
+        </lg>
+        <lg met="anuṣṭubh" n="8">
+          <l n="a">vajradhātur asau pūrvvaṁ</l>
+          <l n="b">śrīśākyamuniśāsanāt·<g type="dotMid">.</g></l>
+          <l n="c">ś<choice>
+              <sic>u</sic>
+              <corr>ū</corr>
+            </choice>nyo pi vajradhr̥ddhetuḥ</l>
+          <l n="d">buddhānām āla<lb break="no" n="A12"></lb>yo bhavat·<g type="ddandaHooked">.</g></l>
+        </lg>
+        <lg met="anuṣṭubh" n="9">
+          <l enjamb="yes" n="a">padmadhātur ato loke</l>
+          <l n="b">śvarahetur jjinālayaḥ<g type="dotMid">.</g></l>
+          <l n="c">Amitābhavacoyuktyā</l>
+          <l n="d"><lb n="A13"></lb><g type="floretQuatrefoil"></g><space></space><g type="floretQuatrefoil"></g><space></space>mahāś<choice>
+              <sic>u</sic>
+              <corr>ū</corr>
+            </choice>nyo babhūva ha<g type="ddandaHooked">.</g><space></space><g type="floretQuatrefoil"></g><space></space><g type="floretQuatrefoil"></g></l>
+        </lg>
+        <lg met="anuṣṭhubh" n="10">
+          <milestone n="B" type="pagelike" unit="face"></milestone>
+          <l enjamb="yes" n="a"><lb n="B1"></lb>cakradhātur asau śunyā<!-- sapi2argr à la place de  ś<unclear>ū</unclear>nyā.--><g type="dotMid">.</g></l>
+          <l n="b">tīto v<unclear>ai</unclear><!--sapi2argr Ici le ai est plus supplied ou corrigé que unclear non ? Sur la pierre, je lis 've'.-->rocanājñayā<g type="dotMid">.</g></l>
+          <l enjamb="yes" n="c">vajrasutvasya hetuḥ syā<g type="dotMid">.</g></l>
+          <l n="d">t tr̥tīyo <lb n="B2"></lb> bhūj jinālayaḥ<g type="ddandaHooked">.</g></l>
+        </lg>
+        <lg met="anuṣṭhubh" n="11">
+          <l n="a">nāgapuṣpāhvayo bhāti<g type="dotMid">.</g></l>
+          <l n="b">sthāviras tulyaśīladhīḥ<g type="dotMid">.</g></l>
+          <l enjamb="yes" n="c">pūrvveṇa nāgapuṣpākhye<g type="dotMid">.</g></l>
+          <l n="d">nātma<lb break="no" n="B3"></lb>vaṁśena bhikṣuṇā<g type="dotMid">.</g><g type="ddandaHooked">.</g></l>
+        </lg>
+        <p>Asmai śrī<placeName key="Pramuditalokeśvara" subtype="monastery" type="builtPlace">pramuditalokeśvara</placeName>vihārāya tatpuṇyāya yat sarvvam idaṁ <lb n="B4"></lb>kṣetraṁ śrībhadravarmmadevas tadanujñayā dattavān·<g type="dotMid">.</g> punar api sa śrī Indravarmmadevaḥ sakalarājādhi<lb break="no" n="B5"></lb>rājaḥ tadanugrahasadbhāvāt· tad eva niyukta<choice>
+            <sic>m</sic>
+            <corr>vān</corr>
+          </choice>m·<g type="ddandaHooked">.</g></p>
+        <lg met="upajāti of triṣṭubh" n="12">
+          <l n="a">gate śakābde yugakarṇṇakāyaiḥ</l>
+          <l n="b">jye<lb break="no" n="B6"></lb>ṣthasya śukle navame dine yam·<g type="dotMid">.</g></l>
+          <l n="c">tena pratiṣṭhāpit<choice>
+              <sic>ayā</sic>
+              <corr>a ā</corr>
+            </choice>tmakīrttyai</l>
+          <l n="d">śrīlokanātha<lb break="no" n="B7"></lb>s tu sa jīvavāre<g type="ddandaHooked">.</g><g type="dotMid">.</g><g type="ddandaHooked">.</g></l>
+        </lg>
+        <p><placeName key="Mutiy Dai" subtype="field" type="cultivation">mutiy· dai</placeName> kṣetraṁ<g type="dotMid">.</g> <placeName key="Kravāv" subtype="field" type="cultivation">kravāv·</placeName> kṣetraṁ<g type="dotMid">.</g> <placeName key="Vuyat" subtype="field" type="cultivation">vuyat·</placeName> kṣetraṁ<g type="dotMid">.</g> <placeName key="Glāṁ" subtype="field" type="cultivation">glāṁ</placeName> kṣetraṁ<g type="dotMid">.</g> <lb n="B8"></lb><placeName key="Durī" subtype="field" type="cultivation">durī</placeName> <!-- dunī? -->kṣetraṁ<g type="dotMid">.</g> <placeName key="Vyauv" subtype="field" type="cultivation">vyauv·</placeName> kṣetraṁ<g type="dotMid">.</g> <placeName key="Klov Huviy" subtype="field" type="cultivation">klov·huviy·</placeName> kṣetraṁ<g type="dotMid">.</g> <placeName key="Jrāy" subtype="field" type="cultivation">jrāy·</placeName> kṣetraṁ<g type="dotMid">.</g> <placeName key="Tupaṁṅ" subtype="field" type="cultivation">tupaṁṅ·</placeName> kṣetraṁ<g type="dotMid">.</g><g type="ddandaHooked">.</g><g type="dotMid">.</g><g type="ddandaHooked">.</g> <lb n="B9"></lb><placeName key="Drain" subtype="field" type="cultivation">drain·</placeName> kṣetraṁ<g type="dotMid">.</g> <placeName key="Krat" subtype="field" type="cultivation">krat·</placeName> kṣetraṁ<g type="dotMid">.</g> <placeName key="Jalān Ṅauk" subtype="field" type="cultivation">jalān·ṅauk·</placeName> kṣetraṁ<g type="ddandaHooked">.</g></p>
+      </div>
+      <div type="apparatus">
+        <listApp>
+          <app loc="A3">
+            <lem>lokeśvaran tvāṁ pra<unclear>mathita</unclear>duritaṁ kevalaṁ mokṣam</lem>
+            <rdg source="bib:Huber1911_01">lokeśvara <gap quantity="8" reason="lost" unit="character"></gap> kevalamokṣam</rdg>
+          </app>
+          <app loc="A4">
+            <lem>nistrāṇā ni<unclear>tyaduḥkhā</unclear>ḥ parama°<!--sapi2argr : Puis-je utiliser ce symbole ° ?--></lem>
+            <rdg source="bib:Huber1911_01">nistrāṇā <seg met="+-+">
+                <gap quantity="3" reason="lost" unit="character"></gap>
+              </seg> parama°</rdg>
+            <note>The stone is quite worn here, but the proposed restitution seems to agree unproblematically with whatever traces remain visible.</note>
+          </app>
+          <app loc="A5">
+            <lem>prāptakāpālahaste</lem>
+            <rdg source="bib:Huber1911_01">prāpta<seg met="+-+">
+                <gap quantity="3" reason="lost" unit="character"></gap>
+              </seg></rdg>
+            <note>His scansion is deficient by two syllables.</note>
+          </app>
+          <app loc="A6">
+            <lem><unclear>padmabh</unclear>r̥dvajrapāṇi-</lem>
+            <rdg source="bib:Huber1911_01"><seg met="+++">
+                <gap quantity="3" reason="lost" unit="character"></gap>
+              </seg> vajrapāṇi-</rdg>
+            <note>The restoration was proposed by Kazuo Kano.</note>
+          </app>
+          <app loc="A6">
+            <lem>°nr̥pates</lem>
+            <rdg source="bib:Huber1911_01">°nr̥pateḥ</rdg>
+          </app>
+          <app loc="A6">
+            <lem>°ballabha°</lem>
+            <rdg source="bib:Huber1911_01">°vallabha°</rdg>
+          </app>
+          <app loc="A7">
+            <lem>°sevī ca <unclear>nāga</unclear>puṣpasthavira°</lem>
+            <rdg source="bib:Huber1911_01">°sevī nāgapuṣpasthāvira°</rdg>
+            <note>Unmetrical, presumably in part due to influence from st. XI</note>
+          </app>
+          <app loc="A8">
+            <lem>dharmmadeśanayāhitaḥ</lem>
+            <rdg source="bib:Huber1911_01">dharmmadeśanayā hitaḥ</rdg>
+          </app>
+          <app loc="A8">
+            <lem>lokapra <seg met="++">
+                <gap quantity="2" reason="lost" unit="character"></gap>
+              </seg> ntrayaśo-</lem>
+            <rdg source="bib:Huber1911_01">loka <seg met="-+-">
+                <gap quantity="3" reason="lost" unit="character"></gap>
+              </seg> yaśo-</rdg>
+            <note>There seems to be another subscript r between pra and ntra. lokaprabhāmuttra ; lokapramodāttraya- ; lokapramodamāttra- ; lokapraśānty attra ; lokapraśāstrattra.</note>
+          </app>
+          <app loc="A8">
+            <lem>-śuddha-</lem>
+            <rdg source="bib:Huber1911_01">-śuddhaḥ</rdg>
+          </app>
+          <app loc="A9">
+            <lem>tadvattr̥dhameva</lem>
+            <rdg source="bib:Huber1911_01">tadvatkr̥tam eva</rdg>
+            <note>For Huber’s second ta, the actual reading quite clearly cannot be ta. The options seem to be dha or ca. Either way, the text is unmetrical, for a long syllable is required here. One could also read ttr̥ with subscript t instead of k. On this basis, I accept a conjecture proposed by Yuko Yokochi: tadvattr̥dhameva, substandard spelling for tadvattridhāmaiva. tadvat kūṭam? ; tadvad bhr̥śam eva? ; tad vaktr̥dhāmeva ; tad vaktr̥ṇām eva ; tadvan nr̥ṇām eva ; tadvan nr̥po va</note>
+          </app>
+          <app loc="A11">
+            <lem>ś<choice>
+                <sic>u</sic>
+                <corr>ū</corr>
+              </choice>nyo</lem>
+            <rdg source="bib:Huber1911_01">śūnyo</rdg>
+          </app>
+          <app loc="A13">
+            <lem>mahāś<choice>
+                <sic>u</sic>
+                <corr>ū</corr>
+              </choice>nyo</lem>
+            <rdg source="bib:Huber1911_01">mahāśūnyo</rdg>
+          </app>
+          <app loc="B1">
+            <lem>vajrasutvasya</lem>
+            <rdg source="bib:Huber1911_01">vajrasattvasya</rdg>
+            <note>Huber’s is the expected reading (with normalized sppeling ttv), but the presence of the vocalization u is undeniable.</note>
+          </app>
+          <app loc="B3">
+            <lem>°vihārāya</lem>
+            <rdg source="bib:Huber1911_01">°viharāya</rdg>
+          </app>
+          <app loc="B5">
+            <lem>°sadbhāvāt</lem>
+            <rdg source="bib:Huber1911_01">°saṅbhāvāt</rdg>
+          </app>
+          <app loc="B7">
+            <lem>dai</lem>
+            <rdg source="bib:Huber1911_01">day</rdg>
+          </app>
+        </listApp>
+      </div>
+      <div resp="part:argr part:sapi" type="translation">
+        <p n="B7-B9">Mutiy Dai field <supplied reason="explanation">field-hut field?</supplied>; Kravāv field <supplied reason="explanation">buffaloe field</supplied>; Vuyat field; Glāṁ field<!--sapi2argr // glaṁ : lancer ?-->; Durī field<!--sapi2argr (// duri : pierre précieuse ? -->; Vyauv field; Klov Huviy <supplied reason="explanation">rattan forest field</supplied>; Jrāy field<!--sapi2argr (// jrai : figuier, Jarai ?-->; Tupaṁṅ field <supplied reason="explanation">stump field</supplied>. Drain field; Krat field <supplied reason="explanation">moral laws field?</supplied>; Jalān Ṅauk <supplied reason="explanation">road above field</supplied>.</p>
+      </div>
+      <div source="bib:Huber1911_01" type="translation" xml:lang="fra">
+        <p n="1-2" rend="stanza">
+          <supplied reason="explanation">Invocation mutilée à Avalokiteśvara, le Miséricordieux par excellence. Tel est son pouvoir que les damnés de l'Enfer n'ont qu'à invoquer son nom pour être délivrés immédiatement.</supplied>
+        </p>
+        <p n="3" rend="stanza">Des hommes, marqués par leurs péchés, demeurent sans espoir <supplied reason="subaudible">dans l'enfer</supplied>, entourés pour l'éternité des terribles serviteurs de Māra, dans une condition affreuse, torturés par la faim et la soif ; d'autres, pour ne pas avoir pratiqué la charité sur la terre, tombent loin du Sugata dans...; <supplied reason="subaudible">par l'intervention d'Avalokiteśvara</supplied> ils échappent à l'enfer que leur ouvre Vajrapāṇi et ils obtiennent le salut qu'a apporté le Buddha.</p>
+        <p n="4" rend="stanza">Le roi <foreign>śrī</foreign> Bhadravarman avait un ami qu'il honorait et chérissait entre tous, dévoué au service des hommes vertueux : il s'appelait le <foreign>sthāvira</foreign> Nāgapuṣpa.</p>
+        <p n="5" rend="stanza">Désirant répandre sa gloire sur toute la terre et se réjouissant à entendre expliquer la Loi, il batit pour Nāgapuṣpa un <supplied reason="subaudible">monastère placé sous le vocable d'</supplied>Avalokiteśvara, car le roi était plein de foi et d'amour pour lui qui est omniprésent dans le monde.</p>
+        <p n="6" rend="stanza">De même agit envers lui le protégé du roi des dieux, Indravarman, souverain du Campā, le dispensateur de tous les bienfaits, lui qui resplendit des rayons de la Gloire que lui procure <supplied reason="subaudible">la victoire sur</supplied>.... le monde.</p>
+        <p n="7" rend="stanza">Car ce roi, qui est parfumé par l'ambroisie de la miséricorde et dévoué uniquement au bien de ses sujets, a accordé plein exemption d'impôts au monastère Pramuditalokeśvara.</p>
+        <p n="8" rend="stanza">Jadis Vajradhātu, par ordre de Śākyamuni, devint un réceptacle des Buddhas, lui qui, tout en étant le Néant, est la cause efficiente de Vajradhara.</p>
+        <p n="9" rend="stanza">Ensuite Padmadhātu, qui est le Grand Néant et la cause efficiente d'Avalokiteśvara, devint, par ordre d'Amitābha, un réceptacle des Buddhas.</p>
+        <p n="10" rend="stanza">Enfin Cakradhātu, qui est le Néant transcendant et la cause efficiente de Vajrasatva, par ordre de Vairocana, fut le troisième réceptacle des Buddhas.</p>
+        <p n="11" rend="stanza">Le <foreign>sthāvira</foreign> Nāgapuṣpa, dont la piété égale l'intelligence, est célèbre par les liens de parenté qui l'unissent au <foreign>bhikṣu</foreign> Nāgapuṣpa l'ancien.</p>
+        <p n="B3-B5">Au monastère de <foreign>Śrī</foreign>-Pramuditalokeśvara, son œuvre pie, le roi Bhadravarma avait, par sa sanction, conféré des champs. Par faveur pour lui <supplied reason="explanation">Nāgapuṣpa</supplied> le roi Indravarman, roi suprême de tous les rois, a confirmé la donation de tous ces champs.</p>
+        <p n="12" rend="stanza">En śaka 824 <supplied reason="explanation">
+            <foreign>yuga-karṇa-kāya</foreign>
+          </supplied>, le neuvième jour de la quinzaine claire du mois de <foreign>jyaiṣṭha</foreign>, un jeudi, il <supplied reason="explanation">Nāgapuṣpa</supplied> consacra ce Lokanātha.</p>
+        <p n="B7-B9">
+          <supplied reason="explanation">Enumération de douze champs.</supplied>
+        </p>
+      </div>
+      <div type="commentary">
+        <p n="A01">Except for the two fleurons, which he ignored, this is how Huber read the invocation. The text was too damaged here already at the time the estampage was made to retrieve any part of the invocation with confidence, except the second fleuron.</p>
+        <p n="A1">I c. śuretipautrais?</p>
+        <p n="A3">II d. there seems to be an unwanted anusvāra inside lokeśvaran, i.e. lokeśvaṁran. check the stone.</p>
+        <p n="A3-A4">II d. or better: praśamitaduritaṁ? cf. praśamita in l. 6.</p>
+        <p n="A4-A5">III a+b. If <g type="dotMid">.</g> signs were written at the end of these two pādas, they can only be read now with much good will. It seems quite likely that none were written at all.</p>
+        <p n="A5">III c. -vimukhataḥ: emend -vimukhitāḥ?</p>
+        <p n="A9">VI c. or read sasurendravarmmā?</p>
+        <p n="A13">IX d. fleurons filling the space on both sides of the centered pāda d.</p>
+        <p n="B1">X ab. ś<unclear>ū</unclear>nyā<g type="dotMid">.</g>tīto v<unclear>ai</unclear>rocanājñayā: possibly the actual spelling was śunyātīto verocanājñayā. The stone is too worn here to be sure.</p>
+        <p n="B8">huviy·: one could possibly read huriy·.</p>
+      </div>
+      <div type="bibliography">
+        <p>First edited by E. Huber (<bibl rend="omitname">
+            <ptr target="bib:Huber1911_01"></ptr>
+            <citedRange unit="page">277-282</citedRange>
+          </bibl>). Then re-edited by R. C. Majumdar (<bibl rend="omitname">
+            <ptr target="bib:Majumdar1927_02"></ptr>
+            <citedRange unit="page">105-109</citedRange>
+          </bibl>) <!--sapi2argr Je ne suis pas certaine ici de la référence. Elle me semblait être la plus probable, mais je n'ai pas pu vérifier -->and by K.-H. Golzio (<bibl rend="omitname">
+            <ptr target="bib:Golzio2004_01"></ptr>
+            <citedRange unit="page">89-92</citedRange>
+          </bibl>). The text is re-edited here by Arlo Griffiths from the estampage EFEO n. 155a and n. 155b, with a fresh translation.</p>
+        <listBibl type="primary">
+          <bibl n="H">
+            <ptr target="bib:Huber1911_01"></ptr>
+            <citedRange unit="page">277-282</citedRange>
+          </bibl>
+        </listBibl>
+        <listBibl type="secondary">
+          <bibl>
+            <ptr target="bib:Majumdar1927_02"></ptr>
+            <citedRange unit="page">105-109</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Golzio2004_01"></ptr>
+            <citedRange unit="page">89-92</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

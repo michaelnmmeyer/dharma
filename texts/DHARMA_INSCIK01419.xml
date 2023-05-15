@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Stela of Vat Kiri Sdech Kong, Kompong Speu (K. 1419), 555 Śaka</title>
+        <respStmt>
+          <resp>EpiDoc Encoding</resp>
+          <persName ref="part:kuch">
+            <forename>Kunthea</forename>
+            <surname>Chhom</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:kuch">
+            <forename>Kunthea</forename>
+            <surname>Chhom</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Siem Reap</pubPlace>
+        <idno type="filename">DHARMA_INSCIK01419</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Kunthea Chhom.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
+        <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno></idno>
+            <!-- don't modify this -->
+          </msIdentifier>
+          <msContents>
+            <!-- describe the intellectual content of an inscription -->
+            <summary>The text is entirely in Sanskrit. It consists of twenty lines forming eleven stanzas. Arranged in two columns, the Sanskrit verses are carved in a calligraphic manner and in three prosodic meters: Upajāti of Triṣṭubh <supplied reason="explanation">st. I, II, IV, VI, VIII, IX, XI</supplied>, Indravajrā <supplied reason="explanation">st. III, V, VII</supplied> and Upendravajrā <supplied reason="explanation">st. X</supplied>. The first three stanzas contain an invocation of the gods Śiva, Śiva-Viṣṇu and Viṣṇu. Stanza IV praises king Īśānavarmman as king of kings. Stanzas V–VIII present the protagonist, a king’s servant <supplied reason="explanation">
+                <foreign>bhr̥tya</foreign>
+              </supplied> of the king called Vrau Etta, and record his installation of several divine images and donations of paddy-fields and cattle. An imprecation is pronounced in stanza IX. The last two stanzas specify that the installation of an image of Hara-Kṛṣṇa <supplied reason="explanation">Śiva-Viṣṇu</supplied> by the founder <supplied reason="explanation">Vrau Etta</supplied> happened on the first night of the lunar month of Caitra <supplied reason="explanation">March-April</supplied> of year 555 in the Śaka era, i.e. in 633 CE.</summary>
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
+      <change when="2020-06-11" who="part:kuch">Initial encoding of the file</change>
+      <change status="draft" when="2020-04-08" who="part:axja">Creation of updated template</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="san-Latn">
+        <lg met="upajāti" n="1">
+          <l enjamb="yes" n="a"><lb n="1"></lb>jayaty adhīśas sura-mauli-kūṭa<space></space></l>
+          <l n="b">cūḍā-maṇīn visphurad-unmayūkhān·</l>
+          <l enjamb="yes" n="c"><lb n="2"></lb>vijitya tan-mūrddhasu yasya pāda<space></space></l>
+          <l n="d">nakha-prabhāviṣkr̥ta-candra-kāntiḥ <unclear>
+              <g type="dDanda"></g>
+            </unclear></l>
+        </lg>
+        <lg met="upajāti" n="2">
+          <l n="a"><lb n="3"></lb>śrīśāna-viṣṇū jayatas sureśau<space></space></l>
+          <l n="b">yayoś śarīrārddha-samāgamena</l>
+          <l n="c"><lb n="4"></lb>Āvir-vvabhūvāmara-māṇaveṣu<space></space></l>
+          <l n="d">vibhutvam ekatvam anekatā ca <g type="dDanda"></g></l>
+        </lg>
+        <lg met="indravajrā" n="3">
+          <l n="a"><lb n="5"></lb>vaktreṇa dhīś śrīr urasā ca padbhyāṁ <space></space></l>
+          <l n="b"><unclear>bh</unclear>ūḫ pālitāsmat-patinātibhāgyāt·</l>
+          <l n="c"><lb n="6"></lb>kṣiptā hi dūraṁ yad ahan tv adhanyā <space></space></l>
+          <l n="d">yaṁ kīrttir ud-diśya vaded itīva <g type="dDanda"></g></l>
+        </lg>
+        <lg met="upajāti" n="4">
+          <l enjamb="yes" n="a"><lb n="7"></lb>samudra-paryyanta-suvarṇṇa-bhūmi<space></space></l>
+          <l n="b">pr̥ṣthaika-rājendra-parākrama-śrīḥ</l>
+          <l n="c"><lb n="8"></lb>samasta-sāmanta-śirodhr̥tājñaś <space></space></l>
+          <l n="d">śrīśānavarmmā jayati kṣitīśaḥ <g type="dDanda"></g></l>
+        </lg>
+        <lg met="indravajrā" n="5">
+          <l n="a"><lb n="9"></lb>tasyāpi bhr̥tyas samadhatta saṁjñāṁ <space></space></l>
+          <l n="b">vrau Etta Ity ātmagurupradiṣṭāṁ</l>
+          <l n="c"><lb n="10"></lb>tatpūrvvaje sthāpitavaty anādiṁ <space></space></l>
+          <l n="d">śrīpuṣkareśaṁ prathamaṁ surāṇāṁ <g type="dDanda"></g></l>
+        </lg>
+        <lg met="upajāti" n="6">
+          <l n="a"><lb n="11"></lb>guros svabhaktyā bhaginīṁ murāreḥ <space></space></l>
+          <l n="b">śrīśarvvagovindam atiṣṭhipat saḥ</l>
+          <l n="c"><lb n="12"></lb>svayambhudevī-bhava-keśavānāṁ <space></space></l>
+          <l n="d">tenāpi saṁsthāpita Ekabhogaḥ <unclear>
+              <g type="dDanda"></g>
+            </unclear></l>
+        </lg>
+        <lg met="indravajrā" n="7">
+          <l n="a"><lb n="13"></lb>teṣāṁ surāṇām iha bhr̥tya-saṁkhyā <space></space></l>
+          <l n="b">saṁpiṇḍitā syāt triśatī gavāñ ca</l>
+          <l n="c"><lb n="14"></lb>sā triṅśatī kṣetraka-māhiṣāṇāṁ <space></space></l>
+          <l n="d">pratyekam ārāma Iti trayāṇāṁ <g type="dDanda"></g></l>
+        </lg>
+        <lg met="upajāti" n="8">
+          <l n="a"><lb n="15"></lb>Etāni go-bhū-dhana-pūrvvakāṇi <space></space></l>
+          <l n="b">sarvvāṇi dharmmārttham upārjjitāni</l>
+          <l n="c"><lb n="16"></lb>pade kulānāṁ sva-kulaika-dīpo <space></space></l>
+          <l n="d">vrau Etta-nāmādita devatābhyaḥ <g type="dDanda"></g></l>
+        </lg>
+        <lg met="upajāti" n="9">
+          <l n="a"><lb n="17"></lb>yajvā trayāṇām iha devatānāṁ <space></space></l>
+          <l n="b">datvā dhana<unclear>ṁ</unclear> yo harati sma lobhāt·</l>
+          <l n="c"><lb n="18"></lb>saha prasūtyā niraye nimajjed <space></space></l>
+          <l n="d">āsaṁplavāt sthāvara-jaṅgamānāṁ <unclear>
+              <g type="dDanda"></g>
+            </unclear></l>
+        </lg>
+        <lg met="upendravajrā" n="10">
+          <l n="a"><lb n="19"></lb>samā śakendrasya śareṣu-vāṇair <space></space></l>
+          <l n="b">vvinirggatā caitra-sitādirātriḥ</l>
+          <l n="c"><lb n="20"></lb>yadāśvīnīśīta-karo 'nuyātrī <space></space></l>
+          <l n="d">tulodayo maithuna-bhāga-yukta<unclear>ḥ <g type="dDanda"></g>||</unclear></l>
+        </lg>
+        <lg met="upendravajrā" n="11">
+          <l enjamb="yes" n="a"><lb n="21"></lb>mīnāja-vīnā-jhaṣa-mārgga-kumbha<space></space></l>
+          <l n="b">cāpa-kramasthāś śubha-lagnadās te</l>
+          <l n="c"><lb n="22"></lb><supplied reason="lost">sū</supplied>ryyādayaś śrī-hara-kr̥ṣṇa-mūrttim <space></space></l>
+          <l n="d">atiṣṭhipat tāṁ vidhineha yajvā <unclear>
+              <g type="dDanda"></g>
+            </unclear></l>
+        </lg>
+      </div>
+      <div type="apparatus">
+        <listApp>
+          <app loc="5">
+            <lem><unclear>bh</unclear>ūḫ</lem>
+            <note>The shape of <foreign>bhū</foreign> here is different from what we see in lines 4 and 15, which can be explained as due to limitation of space in the present context; anyhow, the consonant part seems to have been engraved with hesitation, leading to its imperfect realization.</note>
+          </app>
+          <app loc="20">
+            <lem>yadāśvīnīśītakaro</lem>
+            <note>For the meter and for the sense we need to read <foreign>śvi</foreign> here.</note>
+          </app>
+        </listApp>
+      </div>
+      <div source="bib:Chhom2019_01" type="translation">
+        <p n="1" rend="stanza">Victorious is the Supreme Lord <supplied reason="subaudible">Śiva</supplied>, the radiance of whose toenails <supplied reason="explanation">
+            <foreign>pādanakhaprabhā</foreign>
+          </supplied> — vanquished the quiveringly radiant crest-jewels of the multitude of diadems of the gods — made moonlight to appear <supplied reason="explanation">
+            <foreign>āviṣkr̥tacandrakāntiḥ</foreign>
+          </supplied> on their heads <supplied reason="explanation">
+            <foreign>tanmūrddhasu</foreign>
+          </supplied>.</p>
+        <p n="2" rend="stanza">May the two Lords of the gods, <supplied reason="explanation">namely</supplied> Śrī Īśāna and <supplied reason="subaudible">Śrī</supplied> Viṣṇu, be victorious! By the uniting of their body-halves, immanence, oneness and plurality are made manifest among gods and mortals.</p>
+        <p n="3" rend="stanza">About him <supplied reason="explanation">
+            <foreign>yam uddiśya</foreign>
+          </supplied>, Fame seemed to say <supplied reason="explanation">
+            <foreign>vaded itīva</foreign>
+          </supplied>: “With his mouth, this Lord of ours protects Wisdom; with his chest Śrī; with his feet Earth, because of his great good fortune; but <supplied reason="explanation">
+            <foreign>tu</foreign>
+          </supplied> I am unlucky <supplied reason="explanation">
+            <foreign>adhanyā</foreign>
+          </supplied>, because <supplied reason="explanation">
+            <foreign>yad</foreign>
+          </supplied> I have evidently <supplied reason="explanation">
+            <foreign>hi</foreign>
+          </supplied> been cast <supplied reason="explanation">
+            <foreign>kṣiptā</foreign>
+          </supplied> far aside <supplied reason="explanation">
+            <foreign>dūram</foreign>
+          </supplied>”.</p>
+        <p n="4" rend="stanza">Victorious is the lord of the earth Śrī Īśānavarman, whose commands were carried on the head by all the vassal kings, whose glory <supplied reason="explanation">
+            <foreign>°śrīḥ</foreign>
+          </supplied> and heroism <supplied reason="explanation">
+            <foreign>°parākrama°</foreign>
+          </supplied> are those of Indra who is the unique sovereign <supplied reason="explanation">
+            <foreign>°ekarāja°</foreign>
+          </supplied> on the surface <supplied reason="explanation">
+            <foreign>°pr̥ṣṭha°</foreign>
+          </supplied> of the golden earth <supplied reason="explanation">
+            <foreign>°suvarṇabhūmi°</foreign>
+          </supplied>, up to the oceans <supplied reason="explanation">
+            <foreign>samudraparyanta°</foreign>
+          </supplied>. or whose glory <supplied reason="explanation">
+            <foreign>°śrīḥ</foreign>
+          </supplied> and heroism <supplied reason="explanation">
+            <foreign>°parākrama°</foreign>
+          </supplied> are those of a king of kings who is alone on the surface <supplied reason="explanation">
+            <foreign>°pr̥ṣṭha°</foreign>
+          </supplied> of the golden earth <supplied reason="explanation">
+            <foreign>°suvarṇabhūmi°</foreign>
+          </supplied>, up to the oceans <supplied reason="explanation">
+            <foreign>samudraparyanta°</foreign>
+          </supplied>. or whose glory <supplied reason="explanation">
+            <foreign>°śrīḥ</foreign>
+          </supplied> and heroism <supplied reason="explanation">
+            <foreign>°parākrama°</foreign>
+          </supplied> are those of a king of kings who is alone on the surface <supplied reason="explanation">
+            <foreign>°pr̥ṣṭha°</foreign>
+          </supplied> of the earth, which is of beautiful color <supplied reason="explanation">
+            <foreign>°suvarṇa°</foreign>
+          </supplied>, up to the oceans <supplied reason="explanation">
+            <foreign>samudraparyanta°</foreign>
+          </supplied>. or whose glory <supplied reason="explanation">
+            <foreign>°śrīḥ</foreign>
+          </supplied> and heroism <supplied reason="explanation">
+            <foreign>°parākrama°</foreign>
+          </supplied> are those of a king of kings who is alone on the surface <supplied reason="explanation">
+            <foreign>°pr̥ṣṭha°</foreign>
+          </supplied> of the land <supplied reason="subaudible">which is named</supplied> Suvarṇa up to the oceans <supplied reason="explanation">
+            <foreign>samudraparyanta°</foreign>
+          </supplied>.</p>
+        <p n="5" rend="stanza">Now <supplied reason="explanation">
+            <foreign>api</foreign>
+          </supplied> a servant of his received <supplied reason="explanation">
+            <foreign>samadhatta</foreign>
+          </supplied> the name Vrau Etta, which was dictated by his own spiritual master, after his <supplied reason="explanation">the servant’s</supplied> elder brother had installed Śrī Puṣkareśa, the one without beginning and the first among the gods.</p>
+        <p n="6" rend="stanza">Out of personal devotion <supplied reason="explanation">
+            <foreign>svabhaktyā</foreign>
+          </supplied> toward his spiritual master, he installed the sister <supplied reason="explanation">
+            <foreign>bhaginīm</foreign>
+          </supplied> of Murāri <supplied reason="subaudible">as well as</supplied> Śrī Śarva and <supplied reason="subaudible">Śrī</supplied> Govinda. He also <supplied reason="explanation">
+            <foreign>api</foreign>
+          </supplied> established single enjoyment <supplied reason="subaudible">of offerings</supplied> <supplied reason="explanation">
+            <foreign>ekabhogaḥ</foreign>
+          </supplied> among <supplied reason="explanation">these three deities, namely</supplied> Svayambhudevī, Bhava and Keśava.</p>
+        <p n="7" rend="stanza">‘For these <supplied reason="subaudible">three</supplied> gods <supplied reason="subaudible">installed</supplied> here, the number of servants, <supplied reason="subaudible">once</supplied> added up together <supplied reason="explanation">
+            <foreign>saṁpiṇḍitā</foreign>
+          </supplied>, shall be three hundred, and <supplied reason="subaudible">the same too</supplied> of cows; that <supplied reason="subaudible">number</supplied> for the fields and buffaloes is thirty; for each of the three individually <supplied reason="explanation">
+            <foreign>pratyekam</foreign>
+          </supplied> there is a garden.’</p>
+        <p n="8" rend="stanza">A unique lamp in his own lineage, <supplied reason="subaudible">the man</supplied> named Vrau Etta gave all these things, beginning with cows, land and wealth, to the gods in <supplied reason="subaudible">this</supplied> place belonging to good families <supplied reason="explanation">
+            <foreign>pade kulānām</foreign>
+          </supplied>, offered up <supplied reason="explanation">
+            <foreign>upārjitāni</foreign>
+          </supplied> for the sake of the meritorious foundation <supplied reason="explanation">
+            <foreign>dharmārtham</foreign>
+          </supplied>.</p>
+        <p n="9" rend="stanza">After the donor <supplied reason="explanation">
+            <foreign>yajvan</foreign>
+          </supplied> has given wealth to the three gods here, whoever, out of greed, will have <supplied reason="explanation">
+            <foreign>sma</foreign>
+          </supplied> taken away <supplied reason="explanation">
+            <foreign>harati</foreign>
+          </supplied> <supplied reason="subaudible">this wealth</supplied> will fall into hell along with his descen-dants <supplied reason="subaudible">and remain there</supplied> until the destruction of movable and immovable beings.</p>
+        <p n="10-11" rend="stanza">When the year of the Śaka king had emerged from the <supplied reason="explanation">5</supplied> arrows <supplied reason="explanation">
+            <foreign>śara</foreign>
+          </supplied>, the <supplied reason="explanation">5</supplied> arrows and the <supplied reason="explanation">5</supplied> arrows, <supplied reason="subaudible">when it was</supplied> the first night of the waxing moon of Caitra, <supplied reason="subaudible">when</supplied> the Moon was in Aśvinī, the ascendant partly linked with Gemini <supplied reason="explanation">
+            <foreign>maithuna</foreign>
+          </supplied> in Tula, <supplied reason="subaudible">while</supplied> the Sun and other planets <supplied reason="explanation">which make a moment auspicious, i.e. Moon, Mars, Mercury, Jupiter, Venus and Saturn</supplied> were <supplied reason="explanation">respectively</supplied> in Pisces <supplied reason="explanation">
+            <foreign>mīna</foreign>
+          </supplied>, Aries <supplied reason="explanation">
+            <foreign>aja</foreign>
+          </supplied>, Vīnā <supplied reason="explanation">?</supplied>, Pisces <supplied reason="explanation">
+            <foreign>jhaṣa</foreign>
+          </supplied>, Capricorn <supplied reason="explanation">
+            <foreign>mārga</foreign>
+          </supplied>, Aquarius <supplied reason="explanation">
+            <foreign>kumbha</foreign>
+          </supplied> and Sagittarius <supplied reason="explanation">
+            <foreign>cāpa</foreign>
+          </supplied> — <supplied reason="subaudible">that is when</supplied> the donor properly installed the images of Śrī, Hara and Kr̥ṣṇa here.</p>
+      </div>
+      <div type="commentary">
+        <p n="1" rend="stanza">In Angkorian epigraphs, the image of vassal kings bowing down at feet of the king and the light of the latter’s toenails mixing with the light from their crest-jewels is widely used.</p>
+        <p n="3" rend="stanza">For this construction with <foreign>yad</foreign>, compare, e.g., Raghuvaṁśa 3.25: <foreign>yad āha dhātryā prathamoditaṁ vaco yayau cāṅgulim | abhūc ca namraḥ praṇipātaśikṣayā pitur mudaṁ tena tatāna so ’rbhakaḥ</foreign>, “Because he spoke the words his nurse had spoken first, because he walked hanging on her finger, and because he bent when he was taught to bow, the child brought joy to his father.”</p>
+        <p n="4" rend="stanza">The expression <foreign>śrīśānavarmmā jayati kṣitīśaḥ</foreign> is also found in the second stanza of K. 80 <supplied reason="explanation">7th century CE, Vat Prei Veng/ Svay Chno, Dangko District, Phnom Penh</supplied>. In that stanza, King Īśānavarman is described as a glorious king of three kings <supplied reason="explanation">
+            <foreign>bhūpatrayasyoruyaśo vidhātā</foreign>
+          </supplied>, a possessor of three cities <supplied reason="explanation">
+            <foreign>bhoktā nagaratrayasya</foreign>
+          </supplied> and comparable to Lord Hara <supplied reason="explanation">Śiva</supplied>. We also learn from the last two stanzas, st. III and IV, that Vidyādeva established a hermitage <supplied reason="explanation">
+            <foreign>āśrama</foreign>
+          </supplied> and offered servants, cows and plantations of areca and coconut. This inscription seems to be composed in the same spirit as the one we edit here. A systematic study of the inscriptions under the reign of King Īśānavarman such as K. 80 is a desideratum.</p>
+        <p n="4" rend="stanza">In Khmer version, we propose other two possible interpretations as follows: whose glory <supplied reason="explanation">
+            <foreign>°śrīḥ</foreign>
+          </supplied> and heroism <supplied reason="explanation">
+            <foreign>°parākrama°</foreign>
+          </supplied> are those of a king of kings who is alone on the surface <supplied reason="explanation">
+            <foreign>°pr̥ṣṭha°</foreign>
+          </supplied> of <supplied reason="subaudible">the land called</supplied> Suvarṇabhūmi up to the oceans <supplied reason="explanation">
+            <foreign>samudraparyanta°</foreign>
+          </supplied>. or whose glory <supplied reason="explanation">
+            <foreign>°śrīḥ</foreign>
+          </supplied> and heroism <supplied reason="explanation">
+            <foreign>°parākrama°</foreign>
+          </supplied> are those of a king of kings who is alone on the surface <supplied reason="explanation">
+            <foreign>°pr̥ṣṭha°</foreign>
+          </supplied> of the earth <supplied reason="subaudible"></supplied>[which is in the] Suvarṇabhūmi up to the oceans <supplied reason="explanation">
+            <foreign>samudraparyanta°</foreign>
+          </supplied>. For a historiography of the term Suvarṇabhūmi, see our comment in the Khmer version of this article. In this volume, Vong Sotheara also discusses this term at length from a historical point of view.</p>
+        <p n="5" rend="stanza">Vrau Etta may be a name with a beneficent connotation. For a discussion on this name, see Michel Antelme’s article in Khmer in the next issue of Kambuja Suriya.</p>
+        <p n="5" rend="stanza">According to D. Goodall <supplied reason="explanation">personal communication, December 2019</supplied>, this seems to be the name of a Viṣṇu with a Śaiva-sounding element, see the remaks of A. Griffiths <supplied reason="explanation">2005</supplied> on the Vaiṣṇava theonym Tribhuvaneśvara in K. 1214. The installation of the god Puṣkareśa is also mentioned in two contemporary inscriptions, K. 121 <supplied reason="explanation">638 śaka, Preah Theat Kvan Pir, Kratie province</supplied> and K. 765 <supplied reason="explanation">601 śaka, Prasat Neang Khmau, Takeo province</supplied>.</p>
+        <p n="6" rend="stanza">D. Goodall <supplied reason="explanation">personal communication, December 2019</supplied> thinks that Svayambhudevī is the name of the goddess, who is presented as the sister of Murāri, perhaps because she is thought of as Subhadrā <supplied reason="explanation">and the last stanza might be taken to suggest that the Viṣṇu is a Kr̥ṣṇa here</supplied>, but perhaps also because Viṣṇu gives Pārvatī to Śiva when Śiva marries her <supplied reason="explanation">as represented, e.g., in South Indian Kalyāṇasundaramūrtis</supplied>, and the goddess, both in Cambodia and in Tamil Nadu, bears <foreign>cakra</foreign> and <foreign>śaṅkha</foreign> <supplied reason="explanation">even when she appears in Śaiva contexts</supplied>.</p>
+        <p n="11" rend="stanza">It is most probable that <foreign>vīnā</foreign> is to be corrected into <supplied reason="explanation">
+            <foreign>vīṇā</foreign>
+          </supplied> which generally means ‘Indian lute’ but in astrology, according to M. Monier-Williams <supplied reason="explanation">2005: 1005</supplied> it can refer to a particular configuration of the stars <supplied reason="explanation">when all planets are situated in seven houses</supplied>. Nevertheless, the meaning does not seem to fit in this context, where a name of a zodiac sign is expected.</p>
+      </div>
+      <div type="bibliography">
+        <p>Edited by Kunthea Chhom in Kambuja Suriya Journal (<bibl rend="omitname">
+            <ptr target="bib:Chhom2019_01"></ptr>
+            <citedRange unit="page">48-53</citedRange>
+          </bibl>) with an English translation.</p>
+        <listBibl type="primary">
+          <bibl n="KS">
+            <ptr target="bib:Chhom2019_01"></ptr>
+            <citedRange unit="page">48-53</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

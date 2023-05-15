@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Early Telugu inscription from Amarāvati</title>
+        <respStmt>
+          <resp>EpiDoc Encoding</resp>
+          <persName ref="part:jeth">
+            <forename>Jens Christian</forename>
+            <surname>Thomas</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName>
+            <forename>Vēṭūri</forename>
+            <surname>Prabhākaraśāstri</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Berlin</pubPlace>
+        <idno type="filename">DHARMA_INSTelugu00098</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
+        <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno></idno>
+            <!-- don't modify this -->
+          </msIdentifier>
+          <msContents>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <!-- UPDATE the link once the release is made official -->
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change when="2022-03-28" who="part:jeth">Initial encoding of the file</change>
+      <change when="2020-10-12" who="part:axja">Version 3.2 : movinng the xml:lang to the root</change>
+      <change when="2020-07-02" who="part:axja">Version 3.1: adding the encodingDesc and linking the template with the DHARMA Schema</change>
+      <change when="2020-03-18" who="part:axja">Version 2: addition of handDesc and summary</change>
+      <change status="draft" when="2019-12-18" who="part:axja">Creation of the template</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="tel-Latn">
+        <p><lb n="1"></lb>nāgabu</p>
+      </div>
+      <div resp="part:jeth" type="translation">
+        <ab>snake</ab>
+      </div>
+      <div type="commentary">
+        <p>The inscription consists of the Sanskrit word <foreign>nāga-</foreign> "snake" with the Telugu suffix -<hi rend="italic">mbu</hi>. This suffix is typical for Telugu and is attached to <foreign>tatsama</foreign> words. There is no trace of an <foreign>anusvāra</foreign>. Prabhākaraśāstri explains this as a form of haplography or the loss of the first consonant respectively (పూర్వహల్లోపము). Ramāprasād Canda edited the word as <hi rend="italic">nāga-bu</hi> so as if two words were involved and stated that <cit>
+            <quote>[t]his is probably the name of the stone-mason</quote>
+            <bibl rend="omitname">
+              <citedRange unit="page">268</citedRange>
+            </bibl>
+          </cit>. According to Prabhākaraśāstri the stone is damaged but traces of a sculpture are still visible: <cit>
+            <quote>విఱుగఁగొట్టఁబడిన మీఁది శిల్పచిత్రము గొప్ప సర్పమై యుండును [The damaged upper sculpture is a big snake (translation by Jens Thomas)]</quote>
+            <bibl rend="omitname">
+              <citedRange unit="page">934</citedRange>
+            </bibl>
+          </cit>. The stone does not bear any other inscriptions.</p>
+      </div>
+      <div type="bibliography">
+        <p>The inscription was noted in ARIE together with other (Prākṛt) inscriptions from Amarāvati that were found in the Central Museum of Madras. These inscriptions were published by Ramaprasad Chandra who added translations or short notes (the Telugu inscription has the number 30). The inscription was again published by Vēṭūri Prabhākaraśāstri together with a picture and a discussion.</p>
+        <listBibl type="primary">
+          <bibl n="RC">
+            <ptr target="bib:Chanda1919-1920_01"></ptr>
+            <citedRange unit="page">258-275</citedRange>
+            <citedRange unit="item">13</citedRange>
+          </bibl>
+          <bibl n="VP">
+            <ptr target="bib:Prabhākaraśāstri1928_01"></ptr>
+            <citedRange unit="page">933-949</citedRange>
+            <citedRange unit="item">1</citedRange>
+          </bibl>
+        </listBibl>
+        <listBibl type="secondary">
+          <bibl>
+            <ptr target="bib:ARIE1911-1914"></ptr>
+            <citedRange unit="page">54</citedRange>
+            <citedRange unit="appendix">B/1913</citedRange>
+            <citedRange unit="item">499</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Radhakrishna1971_01"></ptr>
+            <citedRange unit="page">1</citedRange>
+            <citedRange unit="item">1</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>
