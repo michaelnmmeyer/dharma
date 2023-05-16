@@ -86,4 +86,5 @@ def gather_web_pages():
 	for xml, html in sorted(tbl.items()):
 		print(xml, html, sep="\t")
 
-gather_web_pages()
+if __name__ == "__main__":
+	gather_web_pages()

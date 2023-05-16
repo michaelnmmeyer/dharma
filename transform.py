@@ -142,6 +142,7 @@ def process_body(p, soup):
 			assert 0, "%r" % elem
 	emit(p, "body")
 
-soup = BeautifulSoup(sys.stdin, "xml")
-p = Parser()
-process_body(p, soup)
+if __name__ == "__main__":
+	soup = BeautifulSoup(sys.stdin, "xml")
+	p = Parser()
+	process_body(p, soup)
