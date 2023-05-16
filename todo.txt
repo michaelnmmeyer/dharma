@@ -1,8 +1,5 @@
 # Validation
 
-(For now use a stub that just checks whether the file is valid XML, valid
-UTF-8, etc.)
-
 Set up some tooling for validating XML texts in the repos, with the existing
 Schematron files and maybe some extra scripts for things that need to be tested
 with real programming. Also validate the bibliographic entries they reference
@@ -31,23 +28,30 @@ so no reason to duplicate the data.
 
 Plenty of useless markup we can systematically remove and patch later on.
 
+
 # Conversion
 
 Set up a XML->(almost plain) text conversion system, a readable representation
 of the internal representation we'll use for search, the simplest one for now.
 (Later on we'll need a more complicated search representation to support
-highlighting search results in full documents.) Here we don't try to process
-files that were rejected as invalid beforehand. We assume the files are correct
-in the conversion code, we don't attempt to validate things here, otherwise the
-conversion code will be too complicated and unmaintainable. This conversion
-code will be used at search time for highlighting search results, so it must be
-fast; probably should write it in go as well as all the server-related stuff.
+highlighting search results in full documents.) At this stage don't try to
+process files that were rejected as invalid beforehand. We assume the files are
+correct in the conversion code, we don't attempt to validate things here,
+otherwise the conversion code will be too complicated and unmaintainable. This
+conversion code will be used at search time for highlighting search results, so
+it must be fast; probably should write it in go as well as all the
+server-related stuff.
 
 Add a XML->HTML conversion capability to our basic conversion system. Should
 use an intermediate representation, but which one? Could preprocess XML files
 to keep just what we need in a convenient format, then generate the HTML from
 there. We'll need to generate the HTML at search time, so should be fast and
 written in go.
+
+The best solution for the intermediate representation is to use a custom
+bytecode and to evaluate it differently depending on what we want to generate.
+We should store this representation in the db. The main advantage of using this
+representation is to avoid having to manipulate hairy structures.
 
 Add a XML->LaTeX conversion. Need not be fast, can be done in python, we'll
 pregenerate stuff.

@@ -30,9 +30,18 @@ def complain(elem):
 
 def emit(p, t, data=None):
 	if t == "text":
-		if p.had_space or re.match(r"\s+\S", data):
-			print("space")
-			p.had_space = False
+		if not data:
+			return
+		if p.had_space:
+			if data.strip():
+				print("space")
+				p.had_space = False
+		elif data[0].isspace():
+			if data.lstrip():
+				print("space")
+				p.had_space = False
+			else:
+				p.had_space = True
 		if re.match(r".*\S\s+$", data):
 			p.had_space = True
 		data = normalize_space(data)
@@ -108,6 +117,7 @@ def process_div(p, div):
 			pass
 		elif isinstance(elem, NavigableString):
 			assert not elem.strip(), "%r" % elem
+			emit(p, "text", " ")
 		elif elem.name == "p":
 			process_para(p, elem)
 		else:
@@ -123,6 +133,7 @@ def process_body(p, soup):
 			pass
 		elif isinstance(elem, NavigableString):
 			assert not elem.strip(), "%r" % elem
+			emit(p, "text", " ")
 		elif elem.name == "div":
 			process_div(p, elem)
 		elif elem.name == "p":
