@@ -62,7 +62,6 @@ def normalize_filter(r, w):
 
 if __name__ == "__main__":
 	import os, argparse, tempfile, shutil
-	this_dir = os.path.dirname(os.path.abspath(__file__))
 	parser = argparse.ArgumentParser(description="""Normalize text files. Print the result
 		on the standard output, unless the -i option is used, in which case input
 		files are modified in-place.""")
@@ -72,7 +71,8 @@ if __name__ == "__main__":
 	failed = False
 	if args.in_place and args.file:
 		for name in args.file:
-			with tempfile.NamedTemporaryFile(mode="w", dir=this_dir, delete=False) as tmp:
+			dir = os.path.dirname(name)
+			with tempfile.NamedTemporaryFile(mode="w", dir=dir, delete=False) as tmp:
 				try:
 					with open(name) as f:
 						ret = normalize_filter(f, tmp)
