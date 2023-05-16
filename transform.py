@@ -16,6 +16,8 @@ import sys, re
 from bs4 import BeautifulSoup, NavigableString, Comment
 
 class Parser:
+	# True if we saw a space and are waiting to see a non-blank character
+	# before emitting it
 	had_space = False
 
 # Like the eponymous function in xslt
@@ -24,12 +26,13 @@ def normalize_space(s):
 	return re.sub(r"\s+", " ", s)
 
 def complain(elem):
-	print("? %r" % elem, file=sys.stderr)
+	print("? %r" % elem)
 
 def emit(p, t, data=None):
 	if t == "text":
 		if p.had_space or re.match(r"\s+\S", data):
 			print("space")
+			p.had_space = False
 		if re.match(r".*\S\s+$", data):
 			p.had_space = True
 		data = normalize_space(data)
@@ -50,29 +53,71 @@ def process_apparatus(p, app):
 		if elem.name == "lem":
 			lemma(p, elem)
 
-def process_para(p, para):
-	for elem in para:
-		if isinstance(elem, NavigableString):
+def process_num(p, num):
+	for elem in num:
+		if isinstance(elem, Comment):
+			pass
+		elif isinstance(elem, NavigableString):
 			emit(p, "text", elem)
+		elif elem.name == "g":
+			assert elem.string
+			emit(p, "text", elem.string)
+		else:
+			assert 0, "%r" % elem
+
+def process_supplied(p, supplied):
+	for elem in supplied:
+		if isinstance(elem, Comment):
+			pass
+		elif isinstance(elem, NavigableString):
+			emit(p, "text", elem)
+		elif elem.name == "num":
+			process_num(p, elem)
+		else:
+			assert 0, "%r" % elem
+
+def process_para(p, para):
+	print("# para")
+	for elem in para:
+		if isinstance(elem, Comment):
+			pass
+		elif isinstance(elem, NavigableString):
+			emit(p, "text", elem)
+		elif elem.name == "lb":
+			n = elem["n"].strip()
+			emit(p, "line", n)
+		elif elem.name == "num":
+			process_num(p, elem)
 		elif elem.name == "app":
 			process_apparatus(p, elem)
+		elif elem.name == "unclear":
+			assert elem.string is not None
+			emit(p, "text", elem.string)
+		elif elem.name == "supplied":
+			process_supplied(p, elem)
 		else:
 			complain(elem)
+	emit(p, "para")
 
 def process_div(p, div):
-	emit(p, "div", div.get("type", "null"))
+	t = div["type"]
+	assert t in ("edition", "apparatus", "translation", "commentary", "bibliography")
+	print("# div")
 	for elem in div:
 		if isinstance(elem, Comment):
 			pass
 		elif isinstance(elem, NavigableString):
-			print(elem)
+			assert not elem.strip(), "%r" % elem
 		elif elem.name == "p":
 			process_para(p, elem)
 		else:
 			complain(elem)
+	emit(p, "div", t)
 
 def process_body(p, soup):
+	print("# body")
 	body = soup.find("body")
+	assert body
 	for elem in body:
 		if isinstance(elem, Comment):
 			pass
@@ -84,7 +129,8 @@ def process_body(p, soup):
 			process_para(p, elem)
 		else:
 			assert 0, "%r" % elem
-			
+	emit(p, "body")
+
 soup = BeautifulSoup(sys.stdin, "xml")
 p = Parser()
 process_body(p, soup)
