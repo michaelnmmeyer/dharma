@@ -60,11 +60,30 @@ def iter_texts():
 
 TEXTS_DIR = "texts.hid"
 
-os.makedirs(TEXTS_DIR, exist_ok=True)
-for file in iter_texts():
-	base = os.path.basename(file)
-	out = os.path.join(TEXTS_DIR, base)
-	with open(file) as r, open(out, "w") as w:
-		for line in cleanup_file(r):
-			w.write(line)
+def gather_texts():
+	os.makedirs(TEXTS_DIR, exist_ok=True)
+	for file in iter_texts():
+		base = os.path.basename(file)
+		out = os.path.join(TEXTS_DIR, base)
+		with open(file) as r, open(out, "w") as w:
+			for line in cleanup_file(r):
+				w.write(line)
 
+# Create a map xml->web page (for debugging)
+def gather_web_pages():
+	tbl = {os.path.basename(file): "" for file in iter_texts()}
+	for root, dirs, files in os.walk("repos"):
+		for file in files:
+			name, ext = os.path.splitext(file)
+			if ext != ".html":
+				continue
+			xml = f"{name}.xml"
+			if not xml in tbl:
+				continue
+			html = os.path.join(root, file)
+			url = "https://erc-dharma.github.io" + html[html.index("/"):]
+			tbl[xml] = url
+	for xml, html in sorted(tbl.items()):
+		print(xml, html, sep="\t")
+
+gather_web_pages()
