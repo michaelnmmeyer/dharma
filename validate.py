@@ -14,13 +14,13 @@ def validate_texts(files):
 	for line in ret.stdout.splitlines():
 		path, line, column, err_type, err_msg = tuple(
 			f.strip() for f in line.split(":", 4))
-		name = os.path.basename(path)
-		errors.setdefault(name, []).append((line, column, err_msg))
+		errors.setdefault(path, []).append((line, column, err_msg))
 	return errors
 
 files = sys.argv[1:]
 ret = validate_texts(files)
-for name, errs in sorted(ret.items()):
-	print(">>>", name)
-	for err in errs:
-		print("%s:%s: %s" % err)
+for path, errs in sorted(ret.items()):
+	path, _ = os.path.splitext(path)
+	with open(path + ".err", "w") as f:
+		for err in errs:
+			print("%s:%s: %s" % err, file=f)
