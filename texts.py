@@ -58,7 +58,7 @@ def iter_texts():
 		else:
 			yield files[0]
 
-TEXTS_DIR = "texts.hid"
+TEXTS_DIR = "texts"
 
 def gather_texts():
 	os.makedirs(TEXTS_DIR, exist_ok=True)
