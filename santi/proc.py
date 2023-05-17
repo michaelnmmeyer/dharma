@@ -76,6 +76,57 @@ with open(path) as f:
 soup = BeautifulSoup(io.StringIO(text), "xml")
 collect_styles(soup)
 
+with open("tpl.xml") as f:
+	tree = BeautifulSoup(f, "xml")
+
+# 2 = text title
+# 3/4 = main div: text (= edition) apparatus, commentary, translation
+# 5,6 = div
+
+in_introduction = True
+
+EDITORS = {
+	"TKD": "tykd",
+	"WJS": "wjsa",
+	"AG": "argr",
+}
+
+DOCS = []
+DOC = None
+DIV = None
+
+def process_header(h):
+	global DOC, DIV
+	text = h.get_text().strip()
+	if not text:
+		return
+	global in_introduction
+	if in_introduction:
+		if text != "Taji Gunung (910-12-21)":
+			return
+		in_introduction = False
+	level = int(h["text:outline-level"])
+	if level == 2:
+		DOC = {}
+		DOC["title"] = text
+		DOCS.append(DOC)
+		DIV = "introduction"
+		DOC[DIV] = []
+	elif level in (3, 4):
+		if text.startswith("Text"):
+			editors = []
+			for ed in re.findall(r"[A-Z]+", text.removeprefix("Text")):
+				editors.append(EDITORS[ed])
+			DOC["editors"] = editors
+			DIV = "edition"
+		else:
+			assert text in ("Apparatus", "Translation", "Commentary")
+			DIV = text.lower()
+		assert not DIV in DOC
+		DOC[DIV] = []
+	elif level in (5, 6):
+		pass
+
 current_fmt = 0
 
 def append(buf, s, fmt=0):
@@ -93,14 +144,11 @@ def append(buf, s, fmt=0):
 	buf.append(html.escape(s))
 	current_fmt = fmt
 
-code = []
-for para in all_paras(soup):
-	if para.name == "h":
-		text = para.get_text().strip()
-		text = html.escape(text)
-		code.append(text)
-		continue
+def process_para(para):
+	global DOC, DIV
 	assert para.name == "p"
+	if not DIV:
+		return
 	buf = []
 	for chunk in para:
 		if chunk.name in ("annotation-end", "soft-page-break", "bookmark",
@@ -125,16 +173,18 @@ for para in all_paras(soup):
 			text = span_to_string(chunk)
 			fmt = STYLES[chunk["text:style-name"]]
 			append(buf, text, fmt)
-	append(buf, "", 0)
-	buf = "".join(buf).replace("\n", " ")
-	buf = buf.replace(" </app>", "</app> ")
-	buf = buf.replace(" </i>", "</i> ")
-	buf = buf.replace("<app> ", " <app>")
-	buf = buf.replace("<i> ", " <i>")
-	buf = re.sub(r"\s+", " ", buf).strip()
 	if not buf:
-		continue
-	code.append(buf)
+		return
+	print(DOC)
+	DOC[DIV].append("".join(buf))
+
+for para in all_paras(soup):
+	if para.name == "h":
+		process_header(para)
+	else:
+		process_para(para)
+
+exit()
 
 code = "\n".join(code) + "\n"
 parts = """Taji Gunung (910-12-21)
