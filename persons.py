@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
-import io, unicodedata
+import os, io, unicodedata
 from bs4 import BeautifulSoup, Tag
-from transform import normalize_space
+from dharma.transform import normalize_space
 
+this_dir = os.path.dirname(os.path.abspath(__file__))
 path = "repos/project-documentation/DHARMA_idListMembers_v01.xml"
+path = os.path.join(this_dir, path)
 
 with open(path) as f:
 	text = unicodedata.normalize("NFC", f.read())
