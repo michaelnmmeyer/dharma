@@ -39,13 +39,15 @@ for person in soup.find_all("person"):
 def plain(ident):
 	return " ".join(persons[ident])
 
-def html(ident, root_tag):
+def xml(ident, root_tag):
 	rec = persons[ident]
 	soup = BeautifulSoup(f"<{root_tag}></{root_tag}>", "xml")
 	root = soup.find(root_tag)
 	root["ref"] = "part:%s" % ident
 	if len(rec) == 1:
-		root.name = rec[0]
+		name = soup.new_tag("name")
+		name.string = rec[0]
+		root.append(name)
 	else:
 		first = soup.new_tag("forename")
 		first.string = rec[0]

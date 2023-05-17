@@ -2,6 +2,7 @@
 
 import sys, unicodedata, re, html, io, os
 from bs4 import BeautifulSoup, NavigableString
+from dharma import persons
 
 COLORS = {
 	"#ff00ff": "pink",
@@ -112,6 +113,10 @@ def process_header(h):
 		DOCS.append(DOC)
 		DIV = "introduction"
 		DOC[DIV] = []
+		DOC["edition"] = []
+		DOC["translation"] = []
+		DOC["apparatus"] = []
+		DOC["commentary"] = []
 	elif level in (3, 4):
 		if text.startswith("Text"):
 			editors = []
@@ -122,7 +127,6 @@ def process_header(h):
 		else:
 			assert text in ("Apparatus", "Translation", "Commentary")
 			DIV = text.lower()
-		assert not DIV in DOC
 		DOC[DIV] = []
 	elif level in (5, 6):
 		pass
@@ -133,14 +137,16 @@ def append(buf, s, fmt=0):
 	global current_fmt
 	close = current_fmt & ~fmt
 	if close & ITALIC:
-		buf.append("</i>")
+		buf.append("</foreign>")
 	if close & APPARATUS:
-		buf.append("</app>")
+		#buf.append("</app>")
+		pass
 	open = ~current_fmt & fmt
 	if open & APPARATUS:
-		buf.append("<app>")
+		#buf.append("<app>")
+		pass
 	if open & ITALIC:
-		buf.append("<i>")
+		buf.append("<foreign>")
 	buf.append(html.escape(s))
 	current_fmt = fmt
 
@@ -172,11 +178,48 @@ def process_para(para):
 			assert chunk.name == "span", chunk
 			text = span_to_string(chunk)
 			fmt = STYLES[chunk["text:style-name"]]
+			if DIV == "apparatus":
+				fmt &= ~APPARATUS
 			append(buf, text, fmt)
+	append(buf, "", 0)
+	buf = "".join(buf).strip()
 	if not buf:
 		return
-	print(DOC)
-	DOC[DIV].append("".join(buf))
+	if DIV == "apparatus":
+		if buf[0].isdigit():
+			num, rest = buf.split(None, 1)
+			num = num.rstrip(".")
+			p = rest.find("◇")
+			if p < 0:
+				p = rest.find(":")
+			if p < 0:
+				lemma, notes = "???", rest
+			else:
+				lemma, notes = rest[:p], rest[p + 1:]
+				lemma = lemma.strip()
+				notes = notes.strip()
+			buf = []
+			buf.append(f'<app loc="{num}">')
+			buf.append(f'<lem>{lemma}</lem>')
+			buf.append(f'<note>{notes}</note>')
+			buf.append('</app>')
+			buf = "\n".join(buf)
+		else:
+			buf = "<!-- %s -->" % buf
+	elif DIV == "edition":
+		match = re.match(r"\s*\((.+?)\)\s*(.+)", buf)
+		if match:
+			num = match.group(1).strip()
+			rest = match.group(2).strip()
+			buf = []
+			if DOC[DIV] and DOC[DIV][-1][-1] == "-":
+				buf.append(f'<lb break="no" n="{num}"/> {rest}')
+			else:
+				buf.append(f'<lb n="{num}"/> {rest}')
+			buf = "\n".join(buf)
+	elif DIV == "translation" or DIV == "commentary":
+		buf = "<p>%s</p>" % buf
+	DOC[DIV].append(buf)
 
 for para in all_paras(soup):
 	if para.name == "h":
@@ -184,29 +227,51 @@ for para in all_paras(soup):
 	else:
 		process_para(para)
 
-exit()
 
-code = "\n".join(code) + "\n"
-parts = """Taji Gunung (910-12-21)
-Wuru Tunggal (912-03-08)
-Timbanan Wungkal (913-02-11)
-Pesindon I and II (914-08-14)
-Tulang Er III (914-12-30)
-Tihang (914-11-08)
-Wintang Mas II (919-10-12)
-Sugih Manek (915-09-13)
-Barahasrama (915-12-14)
-Kiringan (917-11-14)
-Lintakan (841 Śaka, 919-07-12)
-Gilikan (date lost)
-Air Kali (849-850 Śaka)
-""".strip().splitlines()
+TPL = open("tpl.xml").read()
 
-locs = [code.index(p) for p in parts] + [len(code)]
-chunks = [code[locs[i]:locs[i + 1]] for i in range(len(locs) - 1)]
+rets = []
+for doc in DOCS:
+	tpl = TPL
+	eds = []
+	for ed in doc["editors"]:
+		ed = persons.xml(ed, "persName")
+		eds.append(str(ed))
+	eds = "\n".join(eds)
+	buf = []
+	if doc["introduction"]:
+		buf.append("<!--")
+		buf.append("\n".join(doc["introduction"]))
+		buf.append("-->")
+	if doc["edition"]:
+		buf.append('<div type="edition" xml:lang="kaw-Latn">')
+		buf.append('<p>')
+		buf.append("\n".join(doc["edition"]))
+		buf.append('</p>')
+		buf.append('</div>')
+	if doc["apparatus"]:
+		buf.append('<div type="apparatus">')
+		buf.append("\n".join(doc["apparatus"]))
+		buf.append('</div>')
+	if doc["translation"]:
+		buf.append('<div type="translation" xml:lang="eng">')
+		buf.append("\n".join(doc["translation"]))
+		buf.append('</div>')
+	if doc["commentary"]:
+		buf.append('<div type="commentary">')
+		buf.append("\n".join(doc["commentary"]))
+		buf.append('</div>')
+	body = "\n".join(buf)
+	tpl = tpl.replace("{{title}}", doc["title"])
+	tpl = tpl.replace("{{persons}}", eds)
+	tpl = tpl.replace("{{body}}", body)
+	name = doc["title"].split()[0].lower()
+	rets.append((name, tpl))
 
-for i, (name, chunk) in enumerate(zip(parts, chunks), 1):
-	name = "%02d_%s.txt" % (i, name.split()[0].lower())
+for i, (name, contents) in enumerate(rets, 1):
+	name = "%02d_%s.xml" % (i, name)
 	print(name)
+	base, _ = os.path.splitext(name)
+	contents = contents.replace("{{filename}}", base)
 	with open(os.path.join("texts", name), "w") as f:
-		f.write(chunk)
+		f.write(contents)

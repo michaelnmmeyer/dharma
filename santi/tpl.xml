@@ -11,31 +11,11 @@
         <title>{{title}}</title>
         <respStmt>
           <resp>EpiDoc Encoding</resp>
-          <persName ref="part:tykd">
-            <name>Tyassanti Kusumo Dewanti</name>
-          </persName>
-          <persName ref="part:wjsa">
-            <forename>Wayan Jarrah</forename>
-            <surname>Sastrawan</surname>
-          </persName>
-          <persName ref="part:argr">
-            <forename>Arlo</forename>
-            <surname>Griffiths</surname>
-          </persName>
+          {{persons}}
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <persName ref="part:tykd">
-            <name>Tyassanti Kusumo Dewanti</name>
-          </persName>
-          <persName ref="part:wjsa">
-            <forename>Wayan Jarrah</forename>
-            <surname>Sastrawan</surname>
-          </persName>
-          <persName ref="part:argr">
-            <forename>Arlo</forename>
-            <surname>Griffiths</surname>
-          </persName>
+          {{persons}}
         </respStmt>
       </titleStmt>
       <publicationStmt>
@@ -57,18 +37,12 @@
             <idno></idno>
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
             <summary><!-- //// NOT MANDATORY  ////--></summary>
             <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-              <summary><p><p/></summary>
-              <handNote xml:id="Pallava00001_hand1"></handNote>
-              <handNote xml:id="Pallava00001_hand2"></handNote>
-              -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -89,34 +63,12 @@
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023" who="part:argr">Initial encoding of the inscription</change>
+      <change status="draft" when="2023" who="part:mime">Initial encoding of the inscription</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
     <body>
-      <div type="edition" xml:lang="eng"><!-- XXX fix language -->
-      	<!-- {{text}} -->
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <!-- {{apparatus}} -->
-          <!-- example, to drop -->
-          <app loc="4">
-            <lem>
-              <num value="127">100 20 7</num>
-            </lem>
-            <rdg source="bib:Coedes1937-1966_01">
-              <num value="128">100 20 8</num>
-            </rdg>
-          </app>
-        </listApp>
-      </div>
-      <div type="translation" xml:lang="eng">
-        <!-- {{translation}} -->
-      </div>
-      <div type="commentary">
-        <!-- {{commentary}} -->
-      </div>
+      {{body}}
     </body>
   </text>
 </TEI>
