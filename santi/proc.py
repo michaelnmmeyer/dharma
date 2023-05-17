@@ -220,7 +220,7 @@ def process_para(para):
 	elif DIV == "translation" or DIV == "commentary":
 		buf = "<p>%s</p>" % buf
 	DOC[DIV].append(buf)
-	
+
 def authors_list(ids):
 	if len(ids) == 1:
 		return persons.plain(ids[0])
