@@ -220,6 +220,15 @@ def process_para(para):
 	elif DIV == "translation" or DIV == "commentary":
 		buf = "<p>%s</p>" % buf
 	DOC[DIV].append(buf)
+	
+def authors_list(ids):
+	if len(ids) == 1:
+		return persons.plain(ids[0])
+	if len(ids) == 2:
+		return "%s and %s" % tuple(persons.plain(id) for id in ids)
+	if len(ids) == 3:
+		return "%s, %s and %s" % tuple(persons.plain(id) for id in ids)
+	assert 0
 
 for para in all_paras(soup):
 	if para.name == "h":
@@ -265,6 +274,7 @@ for doc in DOCS:
 	tpl = tpl.replace("{{title}}", doc["title"])
 	tpl = tpl.replace("{{persons}}", eds)
 	tpl = tpl.replace("{{body}}", body)
+	tpl = tpl.replace("{{authors_list}}", authors_list(doc["editors"]))
 	name = doc["title"].split()[0].lower()
 	rets.append((name, tpl))
 
