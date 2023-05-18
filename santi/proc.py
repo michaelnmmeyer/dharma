@@ -1,4 +1,32 @@
-# Remains to try to pair lemmas and apparatus together.
+# XXX
+# 
+# ¶ can we fill the biblio?
+# 
+# ¶ detail apparatus
+# 
+# ¶ replace:
+# _  <space/>
+# (…) <unclear>…</unclear>
+# {…} <gap reason="…"/>
+# results of this replacement will validate but will bring us a strep in the right direction
+# […] <supplied reason="lost">…</supplied>
+# ⟨…⟩ <supplied reason="omitted">…</supplied>
+# ⟨⟨…⟩⟩ <surplus>…</surplus>
+# \…/ <add place="above">…</add>
+# /…\ <add place="below">…</add>
+# 
+# After the above <gap> replacement has been carried out (with frequent
+# occurrence of numbers in the contents of {…}, is it easy to identify any
+# numbers in the edition and apparatus <div>s which are actually transliterated
+# original number signs and tag them with <num>? E.g. mahisa 2 pāja 2 vḍus· 1
+# mahisa <num value="…">2</num> pāja <num value="… ">2</num> vḍus· <num
+# value="…">1</num> It may not always be possible to insert the value of @value
+# automatically, so it would already be helpful to have plain <num> without
+# @value in our starting point: the schema will alert us that we still need to
+# encode @value.
+# 
+# Can you change your routine to generate <lb n="1.1"/> etc. instead of <lb
+# n="1.1"></lb>?
 
 import sys, unicodedata, re, html, io, os
 from bs4 import BeautifulSoup, NavigableString
@@ -9,13 +37,11 @@ COLORS = {
 
 	"#fb0207": "red",
 	"#ff0000": "red",
-	"#fb0207": "red",
 
 	"#800080": "violet",
 	"#9900ff": "violet",
 
 	"#1155cc": "blue", # hyperlink
-	"#1a73e8": "blue",
 	"#1a73e8": "blue",
 	"#0000ff": "blue",
 	"#0070c0": "blue",
@@ -129,7 +155,7 @@ def process_header(h):
 			DIV = text.lower()
 		DOC[DIV] = []
 	elif level in (5, 6):
-		pass
+		pass # XXX
 
 current_fmt = 0
 
