@@ -16,9 +16,10 @@ import sys, re
 from bs4 import BeautifulSoup, NavigableString, Comment
 
 class Parser:
-	# True if we saw a space and are waiting to see a non-blank character
-	# before emitting it
-	had_space = False
+	# drop: drop all spaces until we find some text
+	# seen: saw space and waiting to see text before emitting ' '
+	# none: waiting to see space
+	space = "drop"
 
 # Like the eponymous function in xslt
 def normalize_space(s):
@@ -28,22 +29,42 @@ def normalize_space(s):
 def complain(elem):
 	print("? %r" % elem)
 
+def language_of(node):
+	lang = "eng"
+	if isinstance(node, Comment):
+		return lang
+	if isinstance(node, NavigableString):
+		node = node.parent
+	assert isinstance(node, Tag)
+	while node:
+		have = node.get("xml:lang")
+		if have:
+			lang = have
+			break
+		node = node.parent
+	return lang
+
 def emit(p, t, data=None):
 	if t == "text":
 		if not data:
 			return
-		if p.had_space:
+		if p.space == "drop":
+			data = data.lstrip()
+		elif p.space == "seen":
 			if data.strip():
 				print("space")
-				p.had_space = False
-		elif data[0].isspace():
-			if data.lstrip():
-				print("space")
-				p.had_space = False
-			else:
-				p.had_space = True
+				p.space = "none"
+		elif p.space == "none":
+			if data[0].isspace():
+				if data.lstrip():
+					print("space")
+					p.space = "none"
+				else:
+					p.space = "seen"
+		else:
+			assert 0
 		if re.match(r".*\S\s+$", data):
-			p.had_space = True
+			p.space = "seen"
 		data = normalize_space(data)
 		if data:
 			print(t, repr(data))
@@ -85,8 +106,15 @@ def process_supplied(p, supplied):
 		else:
 			assert 0, "%r" % elem
 
-def process_para(p, para):
-	print("# para")
+def process_milestone(p, milestone):
+	assert "n" in milestone.attrs
+	assert "unit" in milestone.attrs
+	assert milestone["unit"] in ("block", "column", "face", "faces", "fragment", "item", "zone")
+	# ignore the rest for now
+	emit(p, milestone["unit"], milestone["n"])
+
+def process_p(p, para):
+	emit(p, "<para")
 	for elem in para:
 		if isinstance(elem, Comment):
 			pass
@@ -95,6 +123,9 @@ def process_para(p, para):
 		elif elem.name == "lb":
 			n = elem["n"].strip()
 			emit(p, "line", n)
+			p.space = "drop"
+		elif elem.name == "milestone":
+			process_milestone(p, elem)
 		elif elem.name == "num":
 			process_num(p, elem)
 		elif elem.name == "app":
@@ -106,12 +137,12 @@ def process_para(p, para):
 			process_supplied(p, elem)
 		else:
 			complain(elem)
-	emit(p, "para")
+	emit(p, ">para")
 
 def process_div(p, div):
 	t = div["type"]
 	assert t in ("edition", "apparatus", "translation", "commentary", "bibliography")
-	print("# div")
+	print("<div")
 	for elem in div:
 		if isinstance(elem, Comment):
 			pass
@@ -119,13 +150,13 @@ def process_div(p, div):
 			assert not elem.strip(), "%r" % elem
 			emit(p, "text", " ")
 		elif elem.name == "p":
-			process_para(p, elem)
+			process_p(p, elem)
 		else:
 			complain(elem)
-	emit(p, "div", t)
+	emit(p, ">div", t)
 
 def process_body(p, soup):
-	print("# body")
+	print("<body")
 	body = soup.find("body")
 	assert body
 	for elem in body:
@@ -137,10 +168,10 @@ def process_body(p, soup):
 		elif elem.name == "div":
 			process_div(p, elem)
 		elif elem.name == "p":
-			process_para(p, elem)
+			process_p(p, elem)
 		else:
 			assert 0, "%r" % elem
-	emit(p, "body")
+	emit(p, ">body")
 
 if __name__ == "__main__":
 	soup = BeautifulSoup(sys.stdin, "xml")
