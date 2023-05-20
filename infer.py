@@ -13,18 +13,18 @@ def all_valid_texts():
 		yield file
 
 def accumulate(elem, tbl):
-	assert elem.name, elem
-	tbl.setdefault(elem.name, set())
+	tbl.setdefault(elem.name, {"attrs": set(), "children": set()})
+	for attr in elem.attrs:
+		tbl[elem.name]["attrs"].add(attr)
 	for child in elem:
 		if isinstance(child, Comment):
 			continue
 		if isinstance(child, NavigableString):
 			if child.strip():
-				tbl[elem.name].add("*string*")
+				tbl[elem.name]["children"].add("*string*")
 			continue
 		assert isinstance(child, Tag)
-		assert child.name
-		tbl[elem.name].add(child.name)
+		tbl[elem.name]["children"].add(child.name)
 		accumulate(child, tbl)
 
 tbl = {}
@@ -33,9 +33,9 @@ for file in all_valid_texts():
 		soup = BeautifulSoup(f, "xml")
 	if not soup.TEI:
 		# XXX apparently files that don't have TEI as root are still
-		# deemed valid !
+		# deemed valid!
 		continue
 	accumulate(soup.TEI, tbl)
 
 for k, vs in sorted(tbl.items()):
-	print(k, sorted(vs))
+	print(k, vs)
