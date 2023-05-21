@@ -30,21 +30,6 @@ def normalize_space(s):
 def complain(elem):
 	print("? %r" % elem)
 
-def language_of(node):
-	lang = "eng"
-	if isinstance(node, Comment):
-		return lang
-	if isinstance(node, NavigableString):
-		node = node.parent
-	assert isinstance(node, Tag)
-	while node:
-		have = node.get("xml:lang")
-		if have:
-			lang = have
-			break
-		node = node.parent
-	return lang
-
 def emit(p, t, data=None, params={}):
 	write = sys.stdout.write
 	if t == "text":
