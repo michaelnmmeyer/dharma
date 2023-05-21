@@ -12,14 +12,15 @@ We apparently have 4 schemas for 4 types of texts:
 Share code or not? Are schemas different enough to warrant distinct parsers?
 """
 
-import sys, re
-from bs4 import BeautifulSoup, NavigableString, Comment
+import sys, re, io
+from tree import *
 
 class Parser:
 	# drop: drop all spaces until we find some text
 	# seen: saw space and waiting to see text before emitting ' '
 	# none: waiting to see space
 	space = "drop"
+	code = []
 
 # Like the eponymous function in xslt
 def normalize_space(s):
@@ -44,7 +45,8 @@ def language_of(node):
 		node = node.parent
 	return lang
 
-def emit(p, t, data=None):
+def emit(p, t, data=None, params={}):
+	write = sys.stdout.write
 	if t == "text":
 		if not data:
 			return
@@ -67,14 +69,17 @@ def emit(p, t, data=None):
 			p.space = "seen"
 		data = normalize_space(data)
 		if data:
-			print(t, repr(data))
+			print("%s %r" % (t, data))
 	elif data is not None:
-		print(t, repr(data))
+		write("%s %r" % (t, data))
+		for k, v in sorted(params.items()):
+			write(" %s %r" % (k, v))
+		write("\n")
 	else:
 		print(t)
 
 def process_lemma(p, lemma):
-	text = lemma.get_text()
+	text = lemma.text()
 	emit(p, "text", text)
 	# Ignore the apparatus for now
 
@@ -85,26 +90,26 @@ def process_apparatus(p, app):
 
 def process_num(p, num):
 	for elem in num:
-		if isinstance(elem, Comment):
+		if elem.type == "comment":
 			pass
-		elif isinstance(elem, NavigableString):
+		elif elem.type == "string":
 			emit(p, "text", elem)
 		elif elem.name == "g":
 			assert elem.string
 			emit(p, "text", elem.string)
 		else:
-			assert 0, "%r" % elem
+			complain(elem)
 
 def process_supplied(p, supplied):
 	for elem in supplied:
-		if isinstance(elem, Comment):
+		if elem.type == "comment":
 			pass
-		elif isinstance(elem, NavigableString):
+		elif elem.type == "string":
 			emit(p, "text", elem)
 		elif elem.name == "num":
 			process_num(p, elem)
 		else:
-			assert 0, "%r" % elem
+			complain(elem)
 
 def process_milestone(p, milestone):
 	assert "n" in milestone.attrs
@@ -113,17 +118,46 @@ def process_milestone(p, milestone):
 	# ignore the rest for now
 	emit(p, milestone["unit"], milestone["n"])
 
+def process_lb(p, elem):
+	brk = "yes"
+	n = None
+	for attr, val in elem.attrs.items():
+		if attr == "n":
+			n = val
+		elif attr == "brk":
+			brk = val
+		else:
+			assert 0
+	assert n
+	assert brk in ("yes", "no")
+	if brk == "yes":
+		emit(p, "text", "\n")
+	emit(p, "line", n)
+	p.space = "drop"
+
+def process_pb(p, elem):
+	assert "n" in elem.attrs and len(elem.attrs) == 1
+	n = elem["n"]
+	emit(p, "page", n)
+	p.space = "drop"
+
+def process_g(p, node):
+	assert len(node.attrs) == 1
+	assert "type" in node.attrs
+	assert node.get_text() in ("", ".")
+	emit(p, "symbol", node["type"])
+
 def process_p(p, para):
 	emit(p, "<para")
 	for elem in para:
-		if isinstance(elem, Comment):
+		if elem.type == "comment":
 			pass
-		elif isinstance(elem, NavigableString):
+		elif elem.type == "string":
 			emit(p, "text", elem)
 		elif elem.name == "lb":
-			n = elem["n"].strip()
-			emit(p, "line", n)
-			p.space = "drop"
+			process_lb(p, elem)
+		elif elem.name == "pb":
+			process_pb(p, elem)
 		elif elem.name == "milestone":
 			process_milestone(p, elem)
 		elif elem.name == "num":
@@ -135,6 +169,8 @@ def process_p(p, para):
 			emit(p, "text", elem.string)
 		elif elem.name == "supplied":
 			process_supplied(p, elem)
+		elif elem.name == "g":
+			process_g(p, elem)
 		else:
 			complain(elem)
 	emit(p, ">para")
@@ -144,9 +180,9 @@ def process_div(p, div):
 	assert t in ("edition", "apparatus", "translation", "commentary", "bibliography")
 	print("<div")
 	for elem in div:
-		if isinstance(elem, Comment):
+		if elem.type == "comment":
 			pass
-		elif isinstance(elem, NavigableString):
+		elif elem.type == "string":
 			assert not elem.strip(), "%r" % elem
 			emit(p, "text", " ")
 		elif elem.name == "p":
@@ -155,14 +191,14 @@ def process_div(p, div):
 			complain(elem)
 	emit(p, ">div", t)
 
-def process_body(p, soup):
+def process_body(p, root):
 	print("<body")
-	body = soup.find("body")
+	body = tree.find("body")
 	assert body
 	for elem in body:
-		if isinstance(elem, Comment):
+		if elem.type == "comment":
 			pass
-		elif isinstance(elem, NavigableString):
+		elif elem.type == "string":
 			assert not elem.strip(), "%r" % elem
 			emit(p, "text", " ")
 		elif elem.name == "div":
@@ -174,6 +210,6 @@ def process_body(p, soup):
 	emit(p, ">body")
 
 if __name__ == "__main__":
-	soup = BeautifulSoup(sys.stdin, "xml")
+	tree = parse(sys.argv[1])
 	p = Parser()
-	process_body(p, soup)
+	process_body(p, tree.root)
