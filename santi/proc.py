@@ -1,33 +1,3 @@
-# XXX
-# 
-# ¶ can we fill the biblio?
-# 
-# ¶ detail apparatus
-# 
-# ¶ replace:
-# _  <space/>
-# (…) <unclear>…</unclear>
-# {…} <gap reason="…"/>
-# results of this replacement will validate but will bring us a strep in the right direction
-# […] <supplied reason="lost">…</supplied>
-# ⟨…⟩ <supplied reason="omitted">…</supplied>
-# ⟨⟨…⟩⟩ <surplus>…</surplus>
-# \…/ <add place="above">…</add>
-# /…\ <add place="below">…</add>
-# 
-# After the above <gap> replacement has been carried out (with frequent
-# occurrence of numbers in the contents of {…}, is it easy to identify any
-# numbers in the edition and apparatus <div>s which are actually transliterated
-# original number signs and tag them with <num>? E.g. mahisa 2 pāja 2 vḍus· 1
-# mahisa <num value="…">2</num> pāja <num value="… ">2</num> vḍus· <num
-# value="…">1</num> It may not always be possible to insert the value of @value
-# automatically, so it would already be helpful to have plain <num> without
-# @value in our starting point: the schema will alert us that we still need to
-# encode @value.
-# 
-# Can you change your routine to generate <lb n="1.1"/> etc. instead of <lb
-# n="1.1"></lb>?
-
 import sys, unicodedata, re, html, io, os
 from bs4 import BeautifulSoup, NavigableString
 from dharma import persons
@@ -155,7 +125,7 @@ def process_header(h):
 			DIV = text.lower()
 		DOC[DIV] = []
 	elif level in (5, 6):
-		pass # XXX
+		DOC[DIV].append("<!-- %s -->" % text)
 
 current_fmt = 0
 
@@ -175,6 +145,28 @@ def append(buf, s, fmt=0):
 		buf.append("<foreign>")
 	buf.append(html.escape(s))
 	current_fmt = fmt
+
+
+# replace:
+# _  <space/>
+# (…) <unclear>…</unclear>
+# {…} <gap reason="…"/>
+# results of this replacement will validate but will bring us a strep in the right direction
+# […] <supplied reason="lost">…</supplied>
+# ⟨…⟩ <supplied reason="omitted">…</supplied>
+# ⟨⟨…⟩⟩ <surplus>…</surplus>
+# \…/ <add place="above">…</add>
+# /…\ <add place="below">…</add>
+def fix_edited_text(s):
+	s = s.replace("_", " ")
+	s = re.sub(r"\((.+?)\)", r'<unclear>\1</unclear>', s)
+	s = re.sub(r"\{(.+?)\}", r'<gap reason="\1"/>', s)
+	s = re.sub(r"\[(.+?)\]", r'<supplied reason="lost">\1</supplied>', s)
+	s = re.sub(r"⟨⟨(.+?)⟩⟩", r'<surplus>\1</surplus>', s)
+	s = re.sub(r"⟨(.+?)⟩", r'<supplied reason="omitted">\1</supplied>', s)
+	s = re.sub(r"\\([^<>]+?)/", r'<add place="above">\1</add>', s)
+	s = re.sub(r"/([^<>]+?)\\", r'<add place="below">\1</add>', s)
+	return s
 
 def process_para(para):
 	global DOC, DIV
@@ -222,7 +214,7 @@ def process_para(para):
 				lemma, notes = "???", rest
 			else:
 				lemma, notes = rest[:p], rest[p + 1:]
-				lemma = lemma.strip()
+				lemma = fix_edited_text(lemma.strip())
 				notes = notes.strip()
 			buf = []
 			buf.append(f'<app loc="{num}">')
@@ -237,12 +229,21 @@ def process_para(para):
 		if match:
 			num = match.group(1).strip()
 			rest = match.group(2).strip()
+			rest = fix_edited_text(rest)
 			buf = []
 			if DOC[DIV] and DOC[DIV][-1][-1] == "-":
 				buf.append(f'<lb break="no" n="{num}"/> {rest}')
 			else:
 				buf.append(f'<lb n="{num}"/> {rest}')
 			buf = "\n".join(buf)
+			soup = BeautifulSoup(buf, "html.parser")
+			for node in soup:
+				if not isinstance(node, NavigableString):
+					continue
+				repl = re.sub(r"(\d+)", r'<num value="\1">\1</num>', node)
+				repl = BeautifulSoup(repl, "html.parser")
+				node.replace_with(repl)
+			buf = str(soup)
 	elif DIV == "translation" or DIV == "commentary":
 		buf = "<p>%s</p>" % buf
 	DOC[DIV].append(buf)
@@ -305,7 +306,7 @@ for doc in DOCS:
 	rets.append((name, tpl))
 
 for i, (name, contents) in enumerate(rets, 1):
-	name = "%02d_%s.xml" % (i, name)
+	name = "DHARMA_INS%02d%s.xml" % (i, name.capitalize())
 	print(name)
 	base, _ = os.path.splitext(name)
 	contents = contents.replace("{{filename}}", base)
