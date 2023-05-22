@@ -109,10 +109,10 @@ def process_lb(p, elem):
 	for attr, val in elem.attrs.items():
 		if attr == "n":
 			n = val
-		elif attr == "brk":
+		elif attr == "break":
 			brk = val
 		else:
-			assert 0
+			assert 0, elem
 	assert n
 	assert brk in ("yes", "no")
 	if brk == "yes":
@@ -129,7 +129,19 @@ def process_pb(p, elem):
 def process_g(p, node):
 	assert len(node.attrs) == 1
 	assert "type" in node.attrs
-	assert node.get_text() in ("", ".")
+	# <g type="numeral">NUM</g> for numbers of some sort
+	# <g type="...">.</g> for punctuation marks
+	# <g type="...">§</g> for space fillers
+	# <g type="..."></g> in the other cases viz. for symbols
+	# 	whose functions is unclear
+	if type == "numeral":
+		pass
+	text = node.text()
+	if text == ".":
+		gtype = "punctuation"
+	elif text == "§":
+		gtype = "numeral"
+		in ("", "."), node.xml()
 	emit(p, "symbol", node["type"])
 
 def process_p(p, para):
@@ -150,8 +162,7 @@ def process_p(p, para):
 		elif elem.name == "app":
 			process_apparatus(p, elem)
 		elif elem.name == "unclear":
-			assert elem.string is not None
-			emit(p, "text", elem.string)
+			emit(p, "text", elem.text()) # XXX children?
 		elif elem.name == "supplied":
 			process_supplied(p, elem)
 		elif elem.name == "g":

@@ -7,6 +7,7 @@ from xml.sax import make_parser
 from xml.sax.handler import ContentHandler, LexicalHandler, ErrorHandler
 from xml.sax.saxutils import escape as quote_string
 from xml.sax.xmlreader import XMLReader
+from xml.etree import ElementTree
 
 __all__ = ["Error", "parse"]
 
@@ -147,13 +148,17 @@ class Comment(str, Node):
 	def xml(self):
 		return "<!-- %s -->" % quote_string(self)
 
-class Instruction(Node):
+class Instruction(dict, Node):
 	type = "instruction"
 
 	def __init__(self, target, data):
 		self.target = target
 		self.data = data or ""
-		print(self.target, ";;", self.data)
+		if self.target != "xml-model":
+			return
+		tree = ElementTree.parse(io.StringIO("<foo %s/>" % self.data))
+		root = tree.getroot()
+		self.update(root.attrib)
 
 	def repr(self):
 		return "<?%s %s?>" % (self.target, self.data)
@@ -206,7 +211,8 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	left = None
 
 	def chain(self, node):
-		self.left.right = node
+		if self.left:
+			self.left.right = node
 		node.left = self.left
 		self.left = node
 
@@ -246,7 +252,7 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 			data = String(data)
 			data.line = self.locator.getLineNumber()
 			data.column = self.locator.getColumnNumber()
-		self.chain(node)
+		self.chain(data)
 		data.parent = parent
 		data.tree = self.tree
 		parent.append(data)
@@ -306,8 +312,10 @@ def parse(thing):
 	return handler.tree
 
 if __name__ == "__main__":
+	import sys
+	if len(sys.argv) <= 1:
+		exit()
 	try:
-		import sys
 		tree = parse(sys.argv[1])
 		print(tree.text())
 	except (BrokenPipeError, KeyboardInterrupt):

@@ -64,7 +64,7 @@ def iter_texts():
 
 TEXTS_DIR = "texts"
 
-def gather_texts():
+def update_texts():
 	os.makedirs(TEXTS_DIR, exist_ok=True)
 	for file in iter_texts():
 		base = os.path.basename(file)
@@ -72,6 +72,10 @@ def gather_texts():
 		with open(file) as r, open(out, "w") as w:
 			for line in cleanup_file(r):
 				w.write(line)
+
+def list_texts():
+	for file in iter_texts():
+		print(file)
 
 # Create a map xml->web page (for debugging)
 def gather_web_pages():
@@ -90,5 +94,11 @@ def gather_web_pages():
 	for xml, html in sorted(tbl.items()):
 		print(xml, html, sep="\t")
 
+commands = {
+	"update": update_texts,
+	"list": list_texts,
+	"pages": gather_web_pages,
+}
+
 if __name__ == "__main__":
-	gather_texts()
+	commands[sys.argv[1]]()

@@ -8,6 +8,25 @@ this_dir = os.path.dirname(os.path.abspath(__file__))
 
 def schema_from_contents(file):
 	tree = parse(file)
+	ret = set()
+	for node in tree:
+		if node.type != "instruction":
+			continue
+		if node.target != "xml-model":
+			continue
+		schema = node.get("href")
+		if not schema:
+			continue
+		_, ext = os.path.splitext(schema)
+		if ext != ".rng":
+			continue
+		if not "erc-dharma" in schema:
+			continue
+		schema = os.path.basename(schema)
+		ret.add(schema)
+	assert len(ret) <= 1, "several schemas for %r" % file
+	if ret:
+		return ret.pop()
 
 def schema_from_filename(file):
 	base = os.path.basename(file)
@@ -19,6 +38,14 @@ def schema_from_filename(file):
 		schema = "DHARMA_Schema.rng"
 	else:
 		schema = None
+	return schema
+
+def schema_for_file(file):
+	one = schema_from_filename(file)
+	two = schema_from_contents(file)
+	if one and two:
+		assert one == two, "several schemas for file %r" % file
+	return one or two
 
 # For EpiDoc.
 # To test the DHARMA schemas, we must first figure out (from the files
@@ -45,14 +72,4 @@ def validate_all():
 				print("%s:%s: %s" % err, file=f)
 
 if __name__ == "__main__":
-	files = sys.argv[1:]
-	rc = 0
-	for rng in ("tei-epidoc.rng", "DHARMA_Schema.rng"):
-		ret = validate_texts(files)
-		for path, errs in sorted(ret.items()):
-			print("#", path)
-			for err in errs:
-				print("%s:%s: %s" % err)
-		if ret:
-			rc = 1
-	sys.exit(rc)
+	schema_from_contents(sys.argv[1])
