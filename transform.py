@@ -3,10 +3,31 @@
 import sys, re, io
 from dharma.tree import *
 
-# XXX use a stack in the parser, or use recursion? if we want to recover
-# (though this is another can of worms), we at least need to use some kind of
-# wrapper for calling parsing functions. within the wrapper, we should do a
-# try...catch
+"""
+
+must use a common dispatch function. call it explicitly within handlers, or use
+it in a main loop? the second solution is more economic, but then we're screwed
+if we want to take different paths depending on the current node.
+
+call(p, node):
+	if node.type == "string":
+		emit text
+	elif node.type == "tag":
+		h = handlers.get(node.name)
+		if not h:
+			complain("no handler for node")
+		else:
+			try:
+				h()
+			except Error as e:
+				complain(e)
+				# and pursue or not?
+
+
+if node the function finds the appropriate handler for the
+
+
+"""
 
 class Parser:
 	# drop: drop all spaces until we find some text
@@ -14,9 +35,9 @@ class Parser:
 	# none: waiting to see space
 	space = "drop"
 	tree = None
-	
+
 def barf(msg):
-	raise Exception(msg)		
+	raise Exception(msg)
 
 # Like the eponymous function in xslt
 def normalize_space(s):
@@ -125,11 +146,6 @@ def process_pb(p, elem):
 def process_g(p, node):
 	def fail():
 		 barf("invalid node (see STS)")
-	if len(node.attrs) != 1:
-		fail()
-	stype = node.get("type")
-	if not stype:
-		fail()
 	# <g type="...">.</g> for punctuation marks
 	# <g type="...">§</g> for space fillers
 	# <g type="..."></g> in the other cases viz. for symbols
@@ -142,6 +158,11 @@ def process_g(p, node):
 	elif text == "":
 		gtype = "unclear"
 	else:
+		fail()
+	if len(node.attrs) != 1:
+		fail()
+	stype = node.get("type")
+	if not stype:
 		fail()
 	emit(p, "symbol", f"{gtype}.{stype}")
 
