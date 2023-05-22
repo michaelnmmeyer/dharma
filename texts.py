@@ -91,4 +91,4 @@ def gather_web_pages():
 		print(xml, html, sep="\t")
 
 if __name__ == "__main__":
-	gather_web_pages()
+	gather_texts()

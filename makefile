@@ -7,4 +7,10 @@ update-repos:
 	git commit -m 'Update submodules' || true
 	git stash pop `git stash list | grep for_submodules | grep -o '^[^:]+'` || true
 
-.PHONY: all update-repos
+update-texts:
+	python3 texts.py
+	for f in texts/*.xml; do \
+		python3 xmlformat.py $$f > tmp && mv tmp $$f; \
+	done
+
+.PHONY: all update-repos update-texts

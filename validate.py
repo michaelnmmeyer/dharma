@@ -2,8 +2,23 @@
 
 import os, sys, subprocess
 from glob import glob
+from dharma.tree import parse
 
 this_dir = os.path.dirname(os.path.abspath(__file__))
+
+def schema_from_contents(file):
+	tree = parse(file)
+
+def schema_from_filename(file):
+	base = os.path.basename(file)
+	if base.startswith("DHARMA_DiplEd"):
+		schema = "DHARMA_DiplEDSchema.rng"
+	elif base.startswith("DHARMA_CritEd"):
+		schema = "DHARMA_CritEdSchema.rng"
+	elif base.startswith("DHARMA_INS"):
+		schema = "DHARMA_Schema.rng"
+	else:
+		schema = None
 
 # For EpiDoc.
 # To test the DHARMA schemas, we must first figure out (from the files

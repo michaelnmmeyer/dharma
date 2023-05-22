@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Thalner Charter of Hariṣeṇa</title>
+        <respStmt>
+          <resp>Original EpiDoc Encoding for Siddham</resp>
+          <persName ref="part:daba">
+            <forename>Dániel</forename>
+            <surname>Balogh</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>Conversion of encoding for DHARMA</resp>
+          <persName ref="part:daba">
+            <forename>Dániel</forename>
+            <surname>Balogh</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:daba">
+            <forename>Dániel</forename>
+            <surname>Balogh</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Berlin</pubPlace>
+        <idno type="filename">DHARMA_INSSiddham00193</idno>
+        <!--
+If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
+-->
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Dániel Balogh.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc>
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno/>
+          </msIdentifier>
+          <msContents>
+            <summary/>
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p/>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
+      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
+        <lb n="01"/>
+        <ab>siddhaM</ab>
+        <!--
+Siddham is more or less aligned vertically with l1, but it was quite certainly engraved subsequently in the space left blank for it. (e.g. si is a bit higher, squeezeed in above the i of śri below). There is also some empty space both to the left and right of siddham. Shrimali's edition (Shri) also has "ol̥" (presumably meant for oṁ) printed before l1 (where he puts siddham). I do not see a mangala symbol in the rubbing, but there may be one in the original plate. Mirashi_1982 (M) does not print this.
+-->
+        <p><pb n="1v"/><lb n="1"/>svasti<supplied reason="subaudible">.</supplied> vākāṭakānām ādi-dharmma-mahārā<!--
+L1. M emends to ādir. Shri cites A M Shastri (no specific reference) as calling the emendation unwarranted; I agree. Shastri (according to Shri) further says that if one does want to emend, one should go all the way and emend to āder ... rājasya... śakteḥ agni°
+--><lb break="no" n="2"/>ja-śr<choice>
+            <sic>i</sic>
+            <corr>ī</corr>
+          </choice>-vi<supplied reason="omitted">n</supplied>dhyaśakteḥ <choice>
+            <sic>syā</sic>
+            <corr>a</corr>
+          </choice>gniṣṭomāptoryyāma-vājapey<choice>
+            <sic>ā</sic>
+            <corr>a</corr>
+          </choice>-
+<lb n="3"/>jyotiṣtoma-bārhaspatya-vacanādya-kratu-varāśva<!--
+L3. M notes that vacanādya-kratu-varā° should be emended to sādyaskra-catur-a°. I believe it may be even better to emend to the usual phrase including br̥haspati-sava, which would correspond to our bārhaspatya-vaca, and then nādya-kratu would become sādyaskra-catu.
+--><lb break="no" n="4"/><space type="binding-hole"/>-<unclear>me</unclear>dha-yājina<supplied reason="omitted">ḥ</supplied> s<choice>
+            <sic>ā</sic>
+            <corr>a</corr>
+          </choice>mrāṬ viṣṇuvr̥ddha-dharmma-ma<!--
+L4 begins with an indent of about one character, presumably on account of the hole, which is not visible in the rubbing.
+--><!--
+L4. The halanta T is very clear: a slightly reduced subscript character without a headmark.
+--><lb break="no" n="5"/>hārāja-śrī-hārītī-putrasya <space/> dharmma-mahārāja-śrī<!--
+L5. M prints hāriti, emending to hāritī. The reading is clearly hārītī, correctly printed in Shri.
+--><lb break="no" n="6"/>-pravarasenasya <space/> tat-putra-pautra-prapautrasya mahā<lb break="no" n="7"/>rāja-śrī-sarvvasena-pautrasya <space/> mahārāja-śrī-deva<pb break="no" n="2r"/><lb break="no" n="8"/><unclear>sena</unclear>-putrasya <space/> vākāṭakānā<supplied reason="omitted">ṁ</supplied> mahārāja-śr<choice>
+            <sic>i</sic>
+            <corr>ī</corr>
+          </choice><!--
+L8. Shri prints vākāṭakānāmā mahā° (emending to °nāṁ mahā°). The mā is a typo.
+--><lb break="no" n="9"/>-hariṣeṇasya vacanāT<!--
+L9. The halanta T is a reduced and simplified character without a headmark.
+--></p>
+        <p>gomika-rājñānujñā<!--
+L9. Shri prints °ānujhā°; this is a typo. M has the correct reading, jñā.
+--><lb break="no" n="10"/>taṁ <space/> brāhmaṇānāṁ <space/> padañcala-sagotrāṇāM<!--
+L10. M and Shri both print brāhmaṇānā, emending to °nāṁ. I think the anusvāra is clear in the rubbing.
+--><!--
+L10. The halanta M is reduced, simplified and headless, but not really subscript.
+--><lb n="11"/><space type="binding-hole"/><surplus>c</surplus>chandoga-sabrahmacāriṇāṁ yeṣā<supplied reason="omitted">ṁ</supplied> nāmāni<!--
+L11 begins with an indent of about one character, presumably on account of the hole, which is not visible in the rubbing.
+--><!--
+L11. Shri prints °cāriyāṁ, a typo.
+--><lb n="12"/>devasvāmī gaṅgasvāmī varahasvāmī bh<surplus>bh</surplus>aṭṭāra<!--
+L12. Shri emends bhaṭṭāra to bhaṭṭāraka; M does not.
+--><lb break="no" n="13"/><unclear>svāmī</unclear> kh<unclear>udra</unclear>svāmī dharasv<choice>
+            <sic>a</sic>
+            <corr>ā</corr>
+          </choice>mīty evam-ādīnāM<!--
+L13. M reads khūḍasvāmī, Shri has khuḍasvāmī. I think the most likely reading is khudra, which seems plausible to me.
+--><!--
+L13. M reads dharasvāmī; Shri correctly reads °svamī in that name.
+--><pb n="2v"/><lb n="14"/>bhaṭṭikāpadraṁ jātikkheṭakāt pūrvveṇa vaṭālikā<!--
+L14. M reads jātī; Shri, correctly, has jāti.
+--><lb break="no" n="15"/>yā <space/> Apareṇa mayasinyā dakṣiṇa-taṭe <space/> vaṁśivā<!--
+L15. M reads vaṁśīcā, Shri has vaṁśivā. The reading is vaṁśivā.
+--><lb break="no" n="16"/>ha<unclear cert="low">ṭā</unclear>yāṁ kumāradāsavāṭakaḥ <surplus>c</surplus>chavvilānakāT<!--
+L16. M reads °halīyāṁ as clear, Shri prints the lī as unclear. It is indeed unclear and I'm quite certain it isn't lī; ṭā is a desperate guess. dā is also possible, but d generally looks like two sides of a triangle, not three sides of a box.
+--><lb n="17"/><space type="binding-hole"/>pūrvveṇa bodrakānakād apareṇa Ānarttapura-bhu<!--
+L17 begins with an indent of about one character, presumably on account of the hole, which is not visible in the rubbing.
+--><!--
+L17. Shri prints apare/. I don't know what the slash is meant to be (there is another one earlier on, definitely superfluous); the correct reading is apareṇa.
+--><lb break="no" n="18"/>kt<unclear>au</unclear> kaṁsakāraka-grāme vi<supplied reason="omitted">ṁ</supplied>śati Arddha-viṁśati <sic>Uchace</sic><!--
+L18. M reads bhuktā, Shri reads bhukte. Both emend to bhuktau. The rubbing does look like ktā, but I give benefit of the doubt and assume there was an au (or at least o) mātrā originally.
+--><!--
+L18. Shri prints uchace as if ce were an emendation of cha, but both cha and ce are there. Shri may have intended to print ce as unclear. Mirashi makes no note; Shri says "the meaning is unclear". The characters, however, are quite clear, though U could perhaps be ra and ce could be something else.
+--><lb n="19"/>ti suvarṇṇakāra-grāme Arddha-vi<supplied reason="omitted">ṁ</supplied>śati <space/> govacchetaṭi<!--
+L19. Both M and shri print taṭī at the end; I think it's taṭi, not that it matters.
+--><lb break="no" n="20"/>-grāme Arddhaṁvi<supplied reason="omitted">ṁ</supplied>śati<supplied reason="subaudible">.</supplied> Eta<unclear>d da</unclear>ttaṁ<supplied reason="subaudible">.</supplied> Uktañ ca manunāpi</p>
+        <lg met="anuṣṭubh" n="1">
+          <l n="a"><pb n="3r"/><lb n="21"/>ṣaṣṭi-varṣa-sahasrāṇi</l>
+          <l n="b">svargge modati bhūmi-daḥ</l>
+          <l n="c"><lb n="22"/>Ācchettā cānumantā ca</l>
+          <l n="d">tāny eva narake vaseT||</l>
+          <!--
+L22. The punctuation mark (which Shri prints as supplied, but M as original) seems to be a double short vertical.
+-->
+        </lg>
+        <lg met="anuṣṭubh" n="2">
+          <l n="a"><lb n="23"/>bahubhir vvasudhā bhuktā</l>
+          <l n="b">rājabhis sagarādibhiḥ</l>
+          <l n="c">yasya <lb n="24"/><space type="binding-hole"/>yasya yadā bhūmis</l>
+          <l n="d">tasya tasya tadā phala<supplied reason="omitted">M</supplied></l>
+          <!--
+L24. No punctuation at the end of the second verse.
+-->
+        </lg>
+        <p>saṁva<!--
+L24 begins with an indent of about one character, presumably on account of the hole, which is not visible in the rubbing.
+--><lb break="no" n="25"/><unclear>tsare</unclear> t<choice>
+            <sic>ri</sic>
+            <corr>r̥</corr>
+          </choice>t<choice>
+            <sic>i</sic>
+            <corr>ī</corr>
+          </choice>ye varṣā-pakṣe caturtthe divase dvāda<lb break="no" n="26"/><unclear>śe</unclear> nibaddhaM<supplied reason="subaudible">.</supplied> <space/> dūtaka<supplied reason="omitted">ḥ</supplied> s<unclear>v</unclear>āmiladevaḥ<supplied reason="subaudible">.</supplied><!--
+L26 is more widely spaced and has slightly larger characters than the others.
+--><lb n="27"/><unclear>likhita</unclear><supplied reason="omitted">ṁ</supplied> b<unclear>o</unclear>ppadevena<!--
+L27 is aligned right, beginning under s(v)ā in l26.
+--><!--
+L27. likhita is unclear; ta looks more like ti (or tā with an upward mātrā), but since both M and Shri read ta, I accept it. The name may be bappa or bāppa instead of boppa; in the rubbing I can see two antennae for o, but neither are very certain.
+--></p>
+      </div>
+      <div type="apparatus">
+        <listApp>
+          <app loc="line">
+            <lem/>
+            <rdg source="bib:AuthorYear_01"/>
+          </app>
+        </listApp>
+      </div>
+      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
+      <div type="commentary"></div>
+      <div type="bibliography">
+        <p/>
+        <listBibl type="primary">
+          <bibl n="siglum">
+            <ptr target="bib:AuthorYear_01"/>
+          </bibl>
+        </listBibl>
+        <listBibl type="secondary">
+          <bibl n="siglum">
+            <ptr target="bib:AuthorYear_01"/>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

@@ -152,7 +152,8 @@ class Instruction(Node):
 
 	def __init__(self, target, data):
 		self.target = target
-		self.data = data
+		self.data = data or ""
+		print(self.target, ";;", self.data)
 
 	def repr(self):
 		return "<?%s %s?>" % (self.target, self.data)

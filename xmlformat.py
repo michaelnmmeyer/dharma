@@ -711,9 +711,9 @@ class Formatter:
     class ProcessingInstruction(Token):
         def __unicode__(self):
             str = ""
-#             if self.preserve in [0, 1] and self.indent:
-#                 str += self.indent_insert()
-#             str += "<?%s %s?>\n" % (self.arg[0], self.arg[1])
+            if self.preserve in [0, 1] and self.indent:
+                str += self.indent_insert()
+            str += "<?%s %s?>\n" % (self.arg[0], self.arg[1])
             return str
 
         def configure(self):
