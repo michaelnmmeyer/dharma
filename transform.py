@@ -1,26 +1,22 @@
 #!/usr/bin/env python3
 
-"""
-We apparently have 4 schemas for 4 types of texts:
-
-* Inscriptions (INSSchema -> latest/Schema)
-  Is it actually only for inscriptions, or also more generic stuff?
-* Critical (CritEdSchema)
-* Diplomatic (DiplEdSchema)
-* BESTOW (in progress, so ignore for now)
-
-Share code or not? Are schemas different enough to warrant distinct parsers?
-"""
-
 import sys, re, io
 from dharma.tree import *
+
+# XXX use a stack in the parser, or use recursion? if we want to recover
+# (though this is another can of worms), we at least need to use some kind of
+# wrapper for calling parsing functions. within the wrapper, we should do a
+# try...catch
 
 class Parser:
 	# drop: drop all spaces until we find some text
 	# seen: saw space and waiting to see text before emitting ' '
 	# none: waiting to see space
 	space = "drop"
-	code = []
+	tree = None
+	
+def barf(msg):
+	raise Exception(msg)		
 
 # Like the eponymous function in xslt
 def normalize_space(s):
@@ -127,22 +123,27 @@ def process_pb(p, elem):
 	p.space = "drop"
 
 def process_g(p, node):
-	assert len(node.attrs) == 1
-	assert "type" in node.attrs
-	# <g type="numeral">NUM</g> for numbers of some sort
+	def fail():
+		 barf("invalid node (see STS)")
+	if len(node.attrs) != 1:
+		fail()
+	stype = node.get("type")
+	if not stype:
+		fail()
 	# <g type="...">.</g> for punctuation marks
 	# <g type="...">§</g> for space fillers
 	# <g type="..."></g> in the other cases viz. for symbols
 	# 	whose functions is unclear
-	if type == "numeral":
-		pass
 	text = node.text()
 	if text == ".":
 		gtype = "punctuation"
 	elif text == "§":
-		gtype = "numeral"
-		in ("", "."), node.xml()
-	emit(p, "symbol", node["type"])
+		gtype = "space-filler"
+	elif text == "":
+		gtype = "unclear"
+	else:
+		fail()
+	emit(p, "symbol", f"{gtype}.{stype}")
 
 def process_p(p, para):
 	emit(p, "<para")
@@ -208,4 +209,5 @@ def process_body(p, root):
 if __name__ == "__main__":
 	tree = parse(sys.argv[1])
 	p = Parser()
-	process_body(p, tree.root)
+	p.tree = parse(sys.argv[1])
+	process_body(p, p.tree.root)

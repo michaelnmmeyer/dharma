@@ -92,7 +92,7 @@ class Tag(list, Node):
 			list.__setitem__(self, key, value)
 		self.attrs[key] = val
 
-	def get(self, key, dflt):
+	def get(self, key, dflt=None):
 		assert isinstance(key, str)
 		return self.attrs.get(key, dflt)
 
