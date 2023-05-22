@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -46,7 +41,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -69,15 +64,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -88,16 +87,45 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="okz-Latn">
-        <p><milestone n="A" type="pagelike" unit="item"></milestone><label xml:lang="eng">Face A</label> <lb n="A1"></lb><gap quantity="6" reason="lost" unit="character"></gap> pandita<gap extent="unknown" reason="lost" unit="character"></gap> <lb n="A2"></lb><gap extent="unknown" reason="lost" unit="character"></gap> rājendra panlas sabhāpati nā do sruk<unclear>·</unclear> y<gap quantity="4" reason="lost" unit="character"></gap> <g type="dotMid">.</g> vraḥ kamrateṅ· <lb n="A3"></lb><gap quantity="5" reason="lost" unit="character"></gap> vraḥ kudaṇḍa guṇa<supplied reason="lost">doṣadarśi</supplied> vraḥ kamrateṅ· <supplied reason="omitted">Añ·</supplied> śrīmahendrapandita guṇadoṣadarśi nā do sruk· viṣṇupura <g type="dotMid">.</g> vraḥ ka<lb break="no" n="A4"></lb><supplied reason="lost">mrateṅ· Añ·</supplied> <gap extent="unknown" reason="lost" unit="character"></gap> viṇi<gap quantity="2" reason="lost" unit="character"></gap> <g type="dotMid">.</g> vraḥ kamrateṅ· Añ· rudro svat· vraḥ dharmmaśāstra nā do <g type="dotMid">.</g> vraḥ kamrateṅ· Añ· śrībhūpatī<lb break="no" n="A5"></lb>ndrapandita sabhā<supplied reason="lost">pati</supplied> <gap extent="unknown" reason="lost" unit="character"></gap> vraḥ kamrateṅ Añ śrīlaksmī<supplied reason="lost">pa</supplied>- <lb n="A6"></lb>tīndra <gap extent="unknown" reason="lost" unit="character"></gap> <supplied reason="lost">vraḥ</supplied> kamrateṅ· Añ· śrīvr̥<lb break="no" n="A7"></lb><gap extent="unknown" reason="lost" unit="character"></gap> sruk<unclear>·</unclear> phalapriya <lb n="A8"></lb><gap extent="unknown" reason="lost" unit="character"></gap> vraḥ kamrateṅ· Añ· <lb n="A9"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="A10"></lb><gap extent="unknown" reason="lost" unit="character"></gap> sruk<unclear>·</unclear> <gap quantity="3" reason="lost" unit="character"></gap> <seg subtype="body" type="component">
-            <gap quantity="1" reason="illegible" unit="component"></gap>
-          </seg>ai <gap quantity="6" reason="lost" unit="character"></gap> śrī <gap quantity="6" reason="lost" unit="character"></gap> Āy(·) <gap quantity="7" reason="lost" unit="character"></gap></p>
-        <p><milestone n="B" type="pagelike" unit="item"></milestone><label xml:lang="eng">Face B</label> <lb n="B1"></lb>pūrvva sruk<unclear>·</unclear> kra<gap quantity="1" reason="lost" unit="character"></gap>ḥ <g type="dotMid">.</g> vraḥ kamrateṅ Añ <gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B2"></lb>steṅ· śrīrājavallabha raṅvāṅ· nā trīṇi sruk<unclear>·</unclear> mūla <g type="dotMid">.</g> kaṁsteṅ· śrīvīravarmma <gap quantity="2" reason="lost" unit="character"></gap> <supplied reason="lost">sabhāpa</supplied><lb break="no" n="B3"></lb>ti stuk kaṁvis· <g type="dotMid">.</g> <gap extent="unknown" reason="lost" unit="character"></gap> <supplied reason="lost">vraḥ kamra</supplied>teṅ· Añ· śrīmahendravallabha sruk<unclear>·</unclear> phalapriya <lb n="B4"></lb>vraḥ kamrateṅ· Añ· śrīnarendrādhipativarmma <gap extent="unknown" reason="lost" unit="character"></gap> vraḥ sabhā <lb n="B5"></lb>sabhyādhikāra<gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B6"></lb><gap extent="unknown" reason="lost" unit="character"></gap></p>
-        <p><milestone n="C" type="pagelike" unit="item"></milestone><label xml:lang="eng">Face C</label> <lb n="C1"></lb>do pre sabhya<gap extent="unknown" reason="lost" unit="character"></gap> <lb n="C2"></lb>p<seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"></gap>
+        <p><milestone n="A" type="pagelike" unit="item"/><label xml:lang="eng">Face A</label>
+   <lb n="A1"/><gap quantity="6" reason="lost" unit="character"/> pandita<gap extent="unknown" reason="lost" unit="character"/>
+   <lb n="A2"/><gap extent="unknown" reason="lost" unit="character"/> rājendra panlas sabhāpati nā do sruk<unclear>·</unclear> y<gap quantity="4" reason="lost" unit="character"/> <g type="dotMid">.</g> vraḥ kamrateṅ·
+   <lb n="A3"/><gap quantity="5" reason="lost" unit="character"/> vraḥ kudaṇḍa guṇa<supplied reason="lost">doṣadarśi</supplied> vraḥ kamrateṅ· <supplied reason="omitted">Añ·</supplied> śrīmahendrapandita guṇadoṣadarśi nā do sruk· viṣṇupura <g type="dotMid">.</g> vraḥ ka<lb break="no" n="A4"/><supplied reason="lost">mrateṅ· Añ·</supplied> <gap extent="unknown" reason="lost" unit="character"/> viṇi<gap quantity="2" reason="lost" unit="character"/> <g type="dotMid">.</g> vraḥ kamrateṅ· Añ· rudro svat· vraḥ dharmmaśāstra nā do <g type="dotMid">.</g> vraḥ kamrateṅ· Añ· śrībhūpatī<lb break="no" n="A5"/>ndrapandita sabhā<supplied reason="lost">pati</supplied> <gap extent="unknown" reason="lost" unit="character"/> vraḥ kamrateṅ Añ śrīlaksmī<supplied reason="lost">pa</supplied>-
+   <lb n="A6"/>tīndra <gap extent="unknown" reason="lost" unit="character"/> <supplied reason="lost">vraḥ</supplied> kamrateṅ· Añ· śrīvr̥<lb break="no" n="A7"/><gap extent="unknown" reason="lost" unit="character"/> sruk<unclear>·</unclear> phalapriya
+   <lb n="A8"/><gap extent="unknown" reason="lost" unit="character"/> vraḥ kamrateṅ· Añ·
+   <lb n="A9"/><gap extent="unknown" reason="lost" unit="character"/>
+   <lb n="A10"/><gap extent="unknown" reason="lost" unit="character"/> sruk<unclear>·</unclear> <gap quantity="3" reason="lost" unit="character"/> <seg subtype="body" type="component">
+            <gap quantity="1" reason="illegible" unit="component"/>
+          </seg>ai <gap quantity="6" reason="lost" unit="character"/> śrī <gap quantity="6" reason="lost" unit="character"/> Āy(·) <gap quantity="7" reason="lost" unit="character"/>
+</p>
+        <p><milestone n="B" type="pagelike" unit="item"/><label xml:lang="eng">Face B</label>
+   <lb n="B1"/>pūrvva sruk<unclear>·</unclear> kra<gap quantity="1" reason="lost" unit="character"/>ḥ <g type="dotMid">.</g> vraḥ kamrateṅ Añ <gap extent="unknown" reason="lost" unit="character"/>
+   <lb n="B2"/>steṅ· śrīrājavallabha raṅvāṅ· nā trīṇi sruk<unclear>·</unclear> mūla <g type="dotMid">.</g> kaṁsteṅ· śrīvīravarmma <gap quantity="2" reason="lost" unit="character"/> <supplied reason="lost">sabhāpa</supplied><lb break="no" n="B3"/>ti stuk kaṁvis· <g type="dotMid">.</g> <gap extent="unknown" reason="lost" unit="character"/> <supplied reason="lost">vraḥ kamra</supplied>teṅ· Añ· śrīmahendravallabha sruk<unclear>·</unclear> phalapriya
+   <lb n="B4"/>vraḥ kamrateṅ· Añ· śrīnarendrādhipativarmma <gap extent="unknown" reason="lost" unit="character"/> vraḥ sabhā
+   <lb n="B5"/>sabhyādhikāra<gap extent="unknown" reason="lost" unit="character"/>
+   <lb n="B6"/><gap extent="unknown" reason="lost" unit="character"/>
+</p>
+        <p><milestone n="C" type="pagelike" unit="item"/><label xml:lang="eng">Face C</label>
+   <lb n="C1"/>do pre sabhya<gap extent="unknown" reason="lost" unit="character"/>
+   <lb n="C2"/>p<seg subtype="vowel" type="component">
+            <gap quantity="1" reason="illegible" unit="component"/>
           </seg> v<seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"></gap>
-          </seg> chol· vraḥ kaṁsteṅ· yurkoy· nu vraḥ steṅ· <supplied reason="lost">vra</supplied>ḥ kudanda guṇa<supplied reason="lost">doṣadarśi</supplied> <gap extent="unknown" reason="lost" unit="character"></gap> <lb n="C3"></lb><supplied reason="lost">cho</supplied>l· vraḥ kaṁsteṅ· vikrānta dau <unclear>śodha</unclear> <g type="dotMid">.</g> man· sru<supplied reason="lost">k· sa</supplied>ṅke pūrvva nai mratāñ· śrīpr̥thivīnarendra <gap extent="unknown" reason="lost" unit="character"></gap> kathā vraḥ <lb n="C4"></lb><gap quantity="7" reason="lost" unit="character"></gap> vraḥ kaṁsteṅ· vraḥ kudanda guṇa<supplied reason="lost">do</supplied>ṣa nu gati ta roḥh<unclear>·</unclear> neḥ man vraḥ sabhā <gap quantity="9" reason="lost" unit="character"></gap> <supplied reason="lost">sa</supplied>ṅke pūrvva nā <gap quantity="1" reason="lost" unit="character"></gap> <lb n="C5"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <supplied reason="lost">mratāñ· śrīpr̥thi</supplied>vīnarendra dār<unclear>·</unclear> prasāda ta vraḥ pāda para<supplied reason="lost">meśvara</supplied> <gap quantity="6" reason="lost" unit="character"></gap> stac<unclear>·</unclear> dau paramaśiva<lb break="no" n="C6"></lb><supplied reason="lost">pada vraḥ kamrateṅ· Añ· śrīnarendrā</supplied>dhipativarmma <gap extent="unknown" reason="lost" unit="character"></gap> dār<unclear>·</unclear> prasāda sot<unclear>·</unclear></p>
-        <p><milestone n="D" type="pagelike" unit="item"></milestone><label xml:lang="eng">Face D</label> <lb n="D1"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="D2"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <supplied reason="lost">vra</supplied>ḥ kamrateṅ· Añ· vraḥ cau kathā man· khñuṁ dai paṅgaṁ thp<supplied reason="lost">vaṅ·</supplied> <lb n="D3"></lb><gap extent="unknown" reason="lost" unit="character"></gap> uthama<gap extent="unknown" reason="lost" unit="character"></gap>na <g type="dotMid">.</g> man· vraḥ kamrateṅ· <supplied reason="omitted">Añ·</supplied> śrīsamarendra <lb n="D4"></lb><gap quantity="6" reason="lost" unit="character"></gap> dvāra nivāsa paṅgaṁ thpvaṅ· nivedana thvāy<unclear>·</unclear> cāre ta <gap quantity="11" reason="lost" unit="character"></gap> pre pr̥ṣṭha <lb n="D5"></lb><gap quantity="2" reason="lost" unit="character"></gap> pratya <gap quantity="4" reason="lost" unit="character"></gap> y pre <gap quantity="2" reason="lost" unit="character"></gap>k· las· <gap quantity="2" reason="lost" unit="character"></gap> vvaṁ Āc ti <gap quantity="3" reason="lost" unit="character"></gap> ley· <gap quantity="13" reason="lost" unit="character"></gap> viśru <lb n="D6"></lb><gap extent="unknown" reason="lost" unit="character"></gap>śasa <lb n="D7"></lb><gap extent="unknown" reason="lost" unit="character"></gap> śrī <gap quantity="2" reason="lost" unit="character"></gap> <lb n="D8"></lb><gap extent="unknown" reason="lost" unit="character"></gap></p>
+            <gap quantity="1" reason="illegible" unit="component"/>
+          </seg> chol· vraḥ kaṁsteṅ· yurkoy· nu vraḥ steṅ· <supplied reason="lost">vra</supplied>ḥ kudanda guṇa<supplied reason="lost">doṣadarśi</supplied> <gap extent="unknown" reason="lost" unit="character"/>
+   <lb n="C3"/><supplied reason="lost">cho</supplied>l· vraḥ kaṁsteṅ· vikrānta dau <unclear>śodha</unclear> <g type="dotMid">.</g> man· sru<supplied reason="lost">k· sa</supplied>ṅke pūrvva nai mratāñ· śrīpr̥thivīnarendra <gap extent="unknown" reason="lost" unit="character"/> kathā vraḥ
+   <lb n="C4"/><gap quantity="7" reason="lost" unit="character"/> vraḥ kaṁsteṅ· vraḥ kudanda guṇa<supplied reason="lost">do</supplied>ṣa nu gati ta roḥh<unclear>·</unclear> neḥ man vraḥ sabhā <gap quantity="9" reason="lost" unit="character"/> <supplied reason="lost">sa</supplied>ṅke pūrvva nā <gap quantity="1" reason="lost" unit="character"/>
+   <lb n="C5"/><gap extent="unknown" reason="lost" unit="character"/> <supplied reason="lost">mratāñ· śrīpr̥thi</supplied>vīnarendra dār<unclear>·</unclear> prasāda ta vraḥ pāda para<supplied reason="lost">meśvara</supplied> <gap quantity="6" reason="lost" unit="character"/> stac<unclear>·</unclear> dau paramaśiva<lb break="no" n="C6"/><supplied reason="lost">pada vraḥ kamrateṅ· Añ· śrīnarendrā</supplied>dhipativarmma <gap extent="unknown" reason="lost" unit="character"/> dār<unclear>·</unclear> prasāda sot<unclear>·</unclear>
+</p>
+        <p><milestone n="D" type="pagelike" unit="item"/><label xml:lang="eng">Face D</label>
+   <lb n="D1"/><gap extent="unknown" reason="lost" unit="character"/>
+   <lb n="D2"/><gap extent="unknown" reason="lost" unit="character"/> <supplied reason="lost">vra</supplied>ḥ kamrateṅ· Añ· vraḥ cau kathā man· khñuṁ dai paṅgaṁ thp<supplied reason="lost">vaṅ·</supplied>
+   <lb n="D3"/><gap extent="unknown" reason="lost" unit="character"/> uthama<gap extent="unknown" reason="lost" unit="character"/>na <g type="dotMid">.</g> man· vraḥ kamrateṅ· <supplied reason="omitted">Añ·</supplied> śrīsamarendra
+   <lb n="D4"/><gap quantity="6" reason="lost" unit="character"/> dvāra nivāsa paṅgaṁ thpvaṅ· nivedana thvāy<unclear>·</unclear> cāre ta <gap quantity="11" reason="lost" unit="character"/> pre pr̥ṣṭha
+   <lb n="D5"/><gap quantity="2" reason="lost" unit="character"/> pratya <gap quantity="4" reason="lost" unit="character"/> y pre <gap quantity="2" reason="lost" unit="character"/>k· las· <gap quantity="2" reason="lost" unit="character"/> vvaṁ Āc ti <gap quantity="3" reason="lost" unit="character"/> ley· <gap quantity="13" reason="lost" unit="character"/> viśru
+   <lb n="D6"/><gap extent="unknown" reason="lost" unit="character"/>śasa
+   <lb n="D7"/><gap extent="unknown" reason="lost" unit="character"/> śrī <gap quantity="2" reason="lost" unit="character"/>
+   <lb n="D8"/><gap extent="unknown" reason="lost" unit="character"/>
+</p>
       </div>
       <div type="apparatus">
         <listApp>
@@ -129,13 +157,13 @@
          </div> -->
       <div type="bibliography">
         <p>First edited by George Cœdès (<bibl rend="omitname">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">7</citedRange>
             <citedRange unit="page">23-25</citedRange>
           </bibl>) without translation; re-edited here by Kunthea Chhom based on the estampage EFEO n. 957.</p>
         <listBibl type="primary">
           <bibl n="GC">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">7</citedRange>
             <citedRange unit="page">23-25</citedRange>
           </bibl>

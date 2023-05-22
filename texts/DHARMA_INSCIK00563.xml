@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -46,7 +41,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -56,7 +51,8 @@
           </msContents>
           <physDesc>
             <handDesc>
-              <p>The script of this inscription is similar to that of the 7th and the 8th century CE. The vowels <foreign>ī</foreign> and <foreign>i</foreign> are very similar, a circle. Some words are written with a non-circle <foreign>i</foreign>. The top of the stela is decorated with a string of lotus petals and the bottom with a string of perles.<!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <p>The script of this inscription is similar to that of the 7th and the 8th century CE. The vowels <foreign>ī</foreign> and <foreign>i</foreign> are very similar, a circle. Some words are written with a non-circle <foreign>i</foreign>. The top of the stela is decorated with a string of lotus petals and the bottom with a string of perles.
+                        <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
               <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
 						<summary><p><p/></summary>
 						<handNote xml:id="Pallava00001_hand1"></handNote>
@@ -69,15 +65,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -91,21 +91,24 @@
       <div type="edition" xml:lang="okz-Latn">
         <lg met="anuṣṭubh" n="1" xml:lang="san-Latn">
           <!-- The meter of the pāda a and b is incorrect. -->
-          <l n="a"><lb n="1"></lb><milestone n="a" unit="column"></milestone>śrīkapilavāsudeve<choice>
+          <l n="a"><lb n="1"/><milestone n="a" unit="column"/>śrīkapilavāsudeve<choice>
               <orig>ṇ</orig>
               <reg>n</reg>
             </choice>a</l>
-          <l n="b"><milestone n="b" unit="column"></milestone>niyoga-cūmvalena yajvanā</l>
-          <l n="c"><lb n="2"></lb><milestone n="a" unit="column"></milestone>bhr̥tyena sthāpito viṣṇuḥ</l>
-          <l n="d"><milestone n="b" unit="column"></milestone>rājñā śrījayavarmmaṇā</l>
+          <l n="b"><milestone n="b" unit="column"/>niyoga-cūmvalena yajvanā</l>
+          <l n="c"><lb n="2"/><milestone n="a" unit="column"/>bhr̥tyena sthāpito viṣṇuḥ</l>
+          <l n="d"><milestone n="b" unit="column"/>rājñā śrījayavarmmaṇā</l>
         </lg>
-        <p><lb n="3"></lb>Aṁnoy· poñ· yajamāṇa ta vraḥ jmaḥ ge kñuṁ vā kdas· <lb n="4"></lb>vā dharmmāśraya <num value="1">
+        <p>
+<lb n="3"/>Aṁnoy· poñ· yajamāṇa ta vraḥ jmaḥ ge kñuṁ vā kdas·
+                   <lb n="4"/>vā dharmmāśraya <num value="1">
             <g type="numeral">I</g>
           </num> vā kandharvvagita <num value="1">
             <g type="numeral">I</g>
           </num> ta kantaiy· ku sugarbhā <num value="1">
             <g type="numeral">I</g>
-          </num> ku sulocanā <lb n="5"></lb>ku trel· <num value="1">
+          </num> ku sulocanā
+                   <lb n="5"/>ku trel· <num value="1">
             <g type="numeral">I</g>
           </num> ku jhāk· <num value="1">
             <g type="numeral">I</g>
@@ -117,17 +120,25 @@
             <g type="numeral">II</g>
           </num> sre tloṅ· <num value="10">10</num> mās· <num value="2">
             <g type="numeral">II</g>
-          </num> <lb n="6"></lb>cpar· Aṁruṅ· gi mās· <num value="3">
+          </num>
+                   <lb n="6"/>cpar· Aṁruṅ· gi mās· <num value="3">
             <g type="numeral">III</g>
           </num> kOl· <num value="2">
             <g type="numeral">II</g>
-          </num> toṅ· <num value="50">40 10</num> slā <num value="200">200</num> tmur· dnem· <num value="7">7</num> <lb n="7"></lb>vraḥ kaṁmratāṅ· Añ· nārāyaṇa ta Acas· saṁ miśrabhoga doṅ· <lb n="8"></lb>vraḥ kaṁmratāṅ· Añ· śrīkapilavāsudeva doṅ· kñuṁmma doṅ· sre <lb n="9"></lb>Aṁnoy· poñ· nideśotsāha doṅ· klo<supplied reason="omitted">ñ·</supplied> gottra Ai ta vraḥ <lb n="10"></lb>kaṁmratāṅ· Añ· nārāyana Acas· jmaḥ ge kñuṁ ku kjal<unclear>·</unclear> <lb n="11"></lb>ku kdāy· ku kañcan· <num value="1">
+          </num> toṅ· <num value="50">40 10</num> slā <num value="200">200</num> tmur· dnem· <num value="7">7</num>
+                   <lb n="7"/>vraḥ kaṁmratāṅ· Añ· nārāyaṇa ta Acas· saṁ miśrabhoga doṅ·
+                   <lb n="8"/>vraḥ kaṁmratāṅ· Añ· śrīkapilavāsudeva doṅ· kñuṁmma doṅ· sre
+                   <lb n="9"/>Aṁnoy· poñ· nideśotsāha doṅ· klo<supplied reason="omitted">ñ·</supplied> gottra Ai ta vraḥ
+                   <lb n="10"/>kaṁmratāṅ· Añ· nārāyana Acas· jmaḥ ge kñuṁ ku kjal<unclear>·</unclear>
+                   <lb n="11"/>ku kdāy· ku kañcan· <num value="1">
             <g type="numeral">I</g>
           </num> vā kaṁbhaṅ· <num value="1">
             <g type="numeral">I</g>
           </num> vā spom· <num value="1">
             <g type="numeral">I</g>
-          </num> poñ<unclear>·</unclear> <lb n="12"></lb>sāpekṣa ta ge <unclear>ta</unclear> paṁre kanloṅ· panlas· poñ· ni<lb break="no" n="13" style="text-align: center"></lb>deśotsāha <g type="spiralL">.</g></p>
+          </num> poñ<unclear>·</unclear>
+                   <lb n="12"/>sāpekṣa ta ge <unclear>ta</unclear> paṁre kanloṅ· panlas· poñ· ni<lb break="no" n="13" style="text-align: center"/>deśotsāha <g type="spiralL">.</g>
+                </p>
       </div>
       <div source="bib:Coedes1937-1966_01" type="translation" xml:lang="fra">
         <p n="1" rend="stanza">En même temps que Śrī Kapilavāsudeva et par ordre du roi Śrī Jayavarman, Viṣṇu a été érigé par le sacrificateur, serviteur <supplied reason="explanation">du roi</supplied>, qui porte l'ordre <supplied reason="explanation">du roi</supplied> en guise de couronne.</p>
@@ -142,13 +153,13 @@
          </div> -->
       <div type="bibliography">
         <p>Edited by George Cœdès (<bibl rend="omitname">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">2</citedRange>
             <citedRange unit="page">198-199</citedRange>
           </bibl>) with a French translation, reedited here by Kunthea Chhom based on the estampage EFEO n.414 and the photograph of the stone.</p>
         <listBibl type="primary">
           <bibl n="GC">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">2</citedRange>
             <citedRange unit="page">198-199</citedRange>
           </bibl>

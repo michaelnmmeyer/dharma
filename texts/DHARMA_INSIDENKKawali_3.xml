@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -44,7 +39,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -67,15 +62,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -90,25 +89,27 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="osn-Latn">
-        <p><lb n="1"></lb>Añana</p>
+        <p>
+                    <lb n="1"/>Añana
+                </p>
       </div>
       <div resp="part:adgu part:argr" type="translation">
         <p>Mind.</p>
       </div>
       <div type="commentary">
         <p>One word of uncertain reading. <bibl>
-            <ptr target="bib:Netscher1855_02"></ptr>
+            <ptr target="bib:Netscher1855_02"/>
           </bibl> read <foreign>angkana</foreign> (i.e. <foreign>Aṅkana</foreign> or <foreign>Aṁkana</foreign>) and interpreted it as <q>his/her sign</q>. Noorduyn (<bibl rend="omitname">
-            <ptr target="bib:Noorduyn1976_01"></ptr>
+            <ptr target="bib:Noorduyn1976_01"/>
           </bibl>) read <foreign>Añana</foreign>. We accept his reading, based on the assumption that it is a spelling variant for <foreign>ajñana</foreign>. In OS sources, we often find the letter <foreign>j</foreign> being dropped from this word. See e.g. SMG.38 <foreign>vuku añana</foreign> <q>knowledge section</q>, SC.14 <foreign>maṅucap kaañanaan</foreign> <q>expound the knowledge</q>.</p>
       </div>
       <div type="bibliography">
         <listBibl type="primary">
           <bibl>
-            <ptr target="bib:Netscher1855_02"></ptr>
+            <ptr target="bib:Netscher1855_02"/>
           </bibl>
           <bibl>
-            <ptr target="bib:Noorduyn1976_01"></ptr>
+            <ptr target="bib:Noorduyn1976_01"/>
           </bibl>
         </listBibl>
       </div>

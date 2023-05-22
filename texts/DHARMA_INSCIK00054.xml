@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -46,7 +41,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -69,15 +64,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -91,32 +90,44 @@
     <body>
       <div type="edition" xml:lang="okz-Latn">
         <lg met="upajāti" n="1" xml:lang="san-Latn">
-          <l n="a"><lb n="1"></lb>Ācāryya-vidyā-vinayāhvayena _</l>
+          <l n="a"><lb n="1"/>Ācāryya-vidyā-vinayāhvayena _</l>
           <l n="b">mayā punas sa<unclear>ṁ</unclear>skr̥tam atra bhaktyā</l>
-          <l enjamb="yes" n="c"><lb n="2"></lb>samasta-dāya-sthiram astu sarvva _</l>
+          <l enjamb="yes" n="c"><lb n="2"/>samasta-dāya-sthiram astu sarvva _</l>
           <l n="d">lokaika-nāthasya śivasya liṅgaṁ</l>
         </lg>
         <lg met="anuṣṭubh" n="2" xml:lang="san-Latn">
-          <l n="a"><lb n="3"></lb>kha-pañcendriyage śāke _</l>
+          <l n="a"><lb n="3"/>kha-pañcendriyage śāke _</l>
           <l n="b">rohiṇyāṁ śaśini sthite</l>
-          <l n="c"><lb n="4"></lb>śivaliṅgan tadā tena _</l>
+          <l n="c"><lb n="4"/>śivaliṅgan tadā tena _</l>
           <l n="d">devas sa<unclear>ṁ</unclear>skriyate punaḥ</l>
         </lg>
         <lg met="anuṣṭubh" n="3" xml:lang="san-Latn">
-          <l n="a"><lb n="5"></lb>sarvvasvaṁ bhāryyayā sārddhaṁ _</l>
+          <l n="a"><lb n="5"/>sarvvasvaṁ bhāryyayā sārddhaṁ _</l>
           <l n="b">yajñadattasya bhojakaḥ</l>
-          <l n="c"><lb n="6"></lb>śivadattād avāpyaitat· _</l>
+          <l n="c"><lb n="6"/>śivadattād avāpyaitat· _</l>
           <l n="d">śivaliṅgāya dattavān·</l>
         </lg>
-        <p><lb n="7"></lb><gap quantity="7" reason="lost" unit="character"></gap>sa droṅ· kñumma droṅ· daṁmriṅ· nirvvāṇa toṅ· teṁ Āy· ta gui <num value="100">100</num> <lb n="8"></lb>slā <gap quantity="5" reason="lost" unit="character"></gap> sre tel<unclear>·</unclear> poñ· śivadatta Oy· Āy ta Añ· ge phoṅ· tel· <lb n="9"></lb>Añ Oy<unclear>·</unclear> Āy· ta vraḥ kamratāṅ· Añ· śivaliṅga <space quantity="2" type="vacat" unit="character"></space> jmaḥ <space></space> kñuṁ va purṇṇamī <lb n="10"></lb><num value="1">
+        <p>
+      <lb n="7"/><gap quantity="7" reason="lost" unit="character"/>sa droṅ· kñumma droṅ· daṁmriṅ· nirvvāṇa toṅ· teṁ Āy· ta gui <num value="100">100</num>
+      <lb n="8"/>slā <gap quantity="5" reason="lost" unit="character"/> sre tel<unclear>·</unclear> poñ· śivadatta Oy· Āy ta Añ· ge phoṅ· tel·
+      <lb n="9"/>Añ Oy<unclear>·</unclear> Āy· ta vraḥ kamratāṅ· Añ· śivaliṅga <space quantity="2" type="vacat" unit="character"/> jmaḥ <space/> kñuṁ va purṇṇamī
+      <lb n="10"/><num value="1">
             <g type="numeral">I</g>
           </num> ku saṅ·hvāṅ· Añ· dai <g type="dotMid">.</g> va kandās· <g type="dotMid">.</g> va panhem· <g type="dotMid">.</g> va kaṁpoñ· <g type="dotMid">.</g> va Uttara <g type="dotMid">.</g> va cī vrau <g type="dotMid">.</g> va saṁAp· <supplied reason="lost">
             <g type="dotMid">.</g>
-          </supplied> <lb n="11"></lb>va kandos· <g type="dotMid">.</g> kantaiy· mratāṅ· śanaiścara Aṁnoy· ta vraḥ kamratāṅ· Añ· ku vñau <g type="dotMid">.</g> kñuṁ vraḥ <g type="dotMid">.</g> <lb n="12"></lb>daiy· ku Omadās· <g type="dotMid">.</g> kon ku va taEt· <g type="dotMid">.</g> ku pallavī <g type="dotMid">.</g> kñuṁ Aṁnoy· kurāk· hvār· ta vraḥ <lb n="13"></lb>va bhavadās· <g type="dotMid">.</g> Aṁnoy· va jleṅ· ta vraḥ kamratāṅ· Añ· va Et· <g type="dotMid">.</g> Aṁnoy· somakīrtti ta <lb n="14"></lb>vraḥ ku kdok· <g type="dotMid">.</g> Aṁnoy· candrodaya Āy· ta vraḥ ku yajuṅ· <g type="dotMid">.</g> Aṁnoy· Ācāryya samudra ta vraḥ <lb n="15"></lb>va trayodaśī <g type="dotMid">.</g> Aṁnoy· poñ· kantil· Āy· ta vraḥ ku devinī <g type="dotMid">.</g> va tvau <g type="dotMid">.</g> spid dik· tāṅ· <lb n="16"></lb>prajñāsen· Āy· ta Añ· kñuṁ va tkol· <g type="dotMid">.</g> damriṅ· slā teṁ ta gui <num value="100">100</num> toṅ· teṁ <num value="60">60</num> <g type="circle">.</g> Aṁ<lb break="no" n="17"></lb>noy· bhavakumāra va dharmmasāra <g type="dotMid">.</g> toṅ· slā jhe Antam· nai vraḥ kamratāṅ· Añ· daiy· <lb n="18"></lb>kaṁluṅ· gui rudrāśrama <g type="dotMid">.</g> Aṁnoy· cī soṁ Āy· ta vraḥ kamratāṅ· Añ· va tanl<unclear>ap·</unclear> <g type="dotMid">.</g></p>
+          </supplied>
+      <lb n="11"/>va kandos· <g type="dotMid">.</g> kantaiy· mratāṅ· śanaiścara Aṁnoy· ta vraḥ kamratāṅ· Añ· ku vñau <g type="dotMid">.</g> kñuṁ vraḥ <g type="dotMid">.</g>
+      <lb n="12"/>daiy· ku Omadās· <g type="dotMid">.</g> kon ku va taEt· <g type="dotMid">.</g> ku pallavī <g type="dotMid">.</g> kñuṁ Aṁnoy· kurāk· hvār· ta vraḥ
+      <lb n="13"/>va bhavadās· <g type="dotMid">.</g> Aṁnoy· va jleṅ· ta vraḥ kamratāṅ· Añ· va Et· <g type="dotMid">.</g> Aṁnoy· somakīrtti ta
+      <lb n="14"/>vraḥ ku kdok· <g type="dotMid">.</g> Aṁnoy· candrodaya Āy· ta vraḥ ku yajuṅ· <g type="dotMid">.</g> Aṁnoy· Ācāryya samudra ta vraḥ
+      <lb n="15"/>va trayodaśī <g type="dotMid">.</g> Aṁnoy· poñ· kantil· Āy· ta vraḥ ku devinī <g type="dotMid">.</g> va tvau <g type="dotMid">.</g> spid dik· tāṅ·
+      <lb n="16"/>prajñāsen· Āy· ta Añ· kñuṁ va tkol· <g type="dotMid">.</g> damriṅ· slā teṁ ta gui <num value="100">100</num> toṅ· teṁ <num value="60">60</num> <g type="circle">.</g> Aṁ<lb break="no" n="17"/>noy· bhavakumāra va dharmmasāra <g type="dotMid">.</g> toṅ· slā jhe Antam· nai vraḥ kamratāṅ· Añ· daiy·
+      <lb n="18"/>kaṁluṅ· gui rudrāśrama <g type="dotMid">.</g> Aṁnoy· cī soṁ Āy· ta vraḥ kamratāṅ· Añ· va tanl<unclear>ap·</unclear> <g type="dotMid">.</g>
+   </p>
         <lg met="anuṣṭubh" n="4" xml:lang="san-Latn">
-          <l n="a"><lb n="1"></lb>nānā-taru-gaṇākīrṇṇāṁ _</l>
+          <l n="a"><lb n="1"/>nānā-taru-gaṇākīrṇṇāṁ _</l>
           <l n="b">devāyatanam īdr̥śam· _</l>
-          <l n="c"><lb n="2"></lb>kr̥taṁ nāmābhavat tena _</l>
+          <l n="c"><lb n="2"/>kr̥taṁ nāmābhavat tena _</l>
           <l n="d">rudrāśrama Iti smr̥tam· <g type="dDandaOrn">.</g></l>
         </lg>
       </div>
@@ -135,7 +146,7 @@
         <p n="4" rend="stanza">Tel fut fait par lui ce sanctuaire rempli de groupes d'arbres variés et connu sous le nom de Rudrāśrama.</p>
       </div>
       <div source="bib:Coedes1937-1966_01" type="translation" xml:lang="fra">
-        <p n="7-9"><gap reason="lost"></gap> les esclaves du domaine; la plantation Nirvāṇa; les cocotiers qui se trouvent là au nombre de 100; les aréquiers <gap reason="lost"></gap> les champs que Poñ Śivadatta m'a donnés, tous les gens que je donne au V. K. A. Śivaliṅga ;</p>
+        <p n="7-9"><gap reason="lost"/> les esclaves du domaine; la plantation Nirvāṇa; les cocotiers qui se trouvent là au nombre de 100; les aréquiers <gap reason="lost"/> les champs que Poñ Śivadatta m'a donnés, tous les gens que je donne au V. K. A. Śivaliṅga ;</p>
         <p n="9-11">Noms des esclaves : <supplied reason="explanation">liste de 8 <foreign>va</foreign> et 1 <foreign>ku</foreign></supplied>.</p>
         <p n="11">Serviteur femme <supplied reason="explanation">
             <foreign>kantai</foreign>
@@ -154,21 +165,21 @@
       <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
         <p>First edited by Auguste Barth (<bibl rend="omitname">
-            <ptr target="bib:Barth1885_01"></ptr>
+            <ptr target="bib:Barth1885_01"/>
             <citedRange unit="page">55-58</citedRange>
           </bibl>) only the Sansskrit portion with a French translation; reedited by George Cœdès (<bibl rend="omitname">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">3</citedRange>
             <citedRange unit="page">159-162</citedRange>
-          </bibl>) with a French translation of both Sanskrit and Khmer parts but the translation of the Sanskrit part is almost identical to that of A. Barth and is not refered to here; re-edited here by Dominique Soutif and Kunthea Chhom from estampage EFEO n. 528.</p>
+          </bibl>) with a French translation of both Sanskrit and Khmer parts but the translation of the Sanskrit part is almost identical to that of A. Barth and is not refered to here; re-edited here by Dominique Soutif  and Kunthea Chhom from estampage EFEO  n. 528.</p>
         <listBibl type="primary">
           <bibl n="GC">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">3</citedRange>
             <citedRange unit="page">159-162</citedRange>
           </bibl>
           <bibl n="AB">
-            <ptr target="bib:Barth1885_01"></ptr>
+            <ptr target="bib:Barth1885_01"/>
             <citedRange unit="page">55-58</citedRange>
           </bibl>
         </listBibl>

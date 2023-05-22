@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -46,7 +41,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -69,15 +64,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -89,16 +88,29 @@
     <body>
       <div type="edition" xml:lang="okz-Latn">
         <div n="A" subtype="fragment" type="textpart">
-          <p><lb n="A1"></lb><gap quantity="3" reason="lost" unit="character"></gap>r<seg subtype="vowel" type="component">
-              <gap quantity="1" reason="illegible" unit="component"></gap>
-            </seg> <gap quantity="1" reason="lost" unit="character"></gap>r<seg subtype="vowel" type="component">
-              <gap quantity="1" reason="illegible" unit="component"></gap>
-            </seg>ṅ <gap quantity="1" reason="lost" unit="character"></gap> l<seg subtype="vowel" type="component">
-              <gap quantity="1" reason="illegible" unit="component"></gap>
-            </seg> <gap quantity="4" reason="lost" unit="character"></gap> <lb n="A2"></lb><supplied reason="lost">san·</supplied>re moy· sre Āy· ra<gap quantity="4" reason="lost" unit="character"></gap> <lb n="A3"></lb><gap quantity="1" reason="lost" unit="character"></gap> Aṁ<supplied reason="lost">vi</supplied> ta poñ· Indunāmo <gap quantity="3" reason="lost" unit="character"></gap> <lb n="A4"></lb><gap quantity="1" reason="lost" unit="character"></gap> pāda sre Aṁvi ta tāṅ· jinade<supplied reason="lost">va</supplied> <lb n="A5"></lb>kan·laḥ san·re sre Āy· stu<supplied reason="omitted">k·</supplied> An·<lb break="no" n="A6"></lb>rok· prāṇiṅ· ponna droṅ· vñora <gap quantity="2" reason="lost" unit="character"></gap> <lb n="A7"></lb><gap quantity="3" reason="lost" unit="character"></gap> tmur· <num value="12">10 <g type="numeral">II</g></num> toṅ· <num value="7">7</num></p>
+          <p>
+<lb n="A1"/><gap quantity="3" reason="lost" unit="character"/>r<seg subtype="vowel" type="component">
+              <gap quantity="1" reason="illegible" unit="component"/>
+            </seg> <gap quantity="1" reason="lost" unit="character"/>r<seg subtype="vowel" type="component">
+              <gap quantity="1" reason="illegible" unit="component"/>
+            </seg>ṅ <gap quantity="1" reason="lost" unit="character"/> l<seg subtype="vowel" type="component">
+              <gap quantity="1" reason="illegible" unit="component"/>
+            </seg> <gap quantity="4" reason="lost" unit="character"/>
+                           <lb n="A2"/><supplied reason="lost">san·</supplied>re moy· sre Āy· ra<gap quantity="4" reason="lost" unit="character"/>
+                           <lb n="A3"/><gap quantity="1" reason="lost" unit="character"/> Aṁ<supplied reason="lost">vi</supplied> ta poñ· Indunāmo <gap quantity="3" reason="lost" unit="character"/>
+                           <lb n="A4"/><gap quantity="1" reason="lost" unit="character"/> pāda sre Aṁvi ta tāṅ· jinade<supplied reason="lost">va</supplied>
+                           <lb n="A5"/>kan·laḥ san·re sre Āy· stu<supplied reason="omitted">k·</supplied> An·<lb break="no" n="A6"/>rok· prāṇiṅ· ponna droṅ· vñora <gap quantity="2" reason="lost" unit="character"/>
+                           <lb n="A7"/><gap quantity="3" reason="lost" unit="character"/> tmur· <num value="12">10 <g type="numeral">II</g></num> toṅ· <num value="7">7</num>
+                        </p>
         </div>
         <div n="B" subtype="fragment" type="textpart">
-          <p><lb n="B1"></lb><gap quantity="1" reason="lost" unit="character"></gap> ku <gap quantity="2" reason="lost" unit="character"></gap> kon· <gap quantity="1" reason="lost" unit="character"></gap> <lb n="B2"></lb><gap quantity="1" reason="lost" unit="character"></gap> voṅ<supplied reason="lost">·</supplied> dro<supplied reason="lost">ṅ·</supplied> <gap quantity="1" reason="lost" unit="character"></gap> <lb n="B3"></lb><supplied reason="lost">t</supplied>āṅ· kaṁluṅ· <gap quantity="2" reason="lost" unit="character"></gap> <lb n="B4"></lb><gap quantity="2" reason="lost" unit="character"></gap> gui san·<supplied reason="lost">re</supplied> <gap quantity="1" reason="lost" unit="character"></gap> <lb n="B5"></lb><gap quantity="7" reason="lost" unit="character"></gap></p>
+          <p>
+                           <lb n="B1"/><gap quantity="1" reason="lost" unit="character"/> ku <gap quantity="2" reason="lost" unit="character"/> kon· <gap quantity="1" reason="lost" unit="character"/>
+                           <lb n="B2"/><gap quantity="1" reason="lost" unit="character"/> voṅ<supplied reason="lost">·</supplied> dro<supplied reason="lost">ṅ·</supplied> <gap quantity="1" reason="lost" unit="character"/>
+                           <lb n="B3"/><supplied reason="lost">t</supplied>āṅ· kaṁluṅ· <gap quantity="2" reason="lost" unit="character"/>
+                           <lb n="B4"/><gap quantity="2" reason="lost" unit="character"/> gui san·<supplied reason="lost">re</supplied> <gap quantity="1" reason="lost" unit="character"/>
+                           <lb n="B5"/><gap quantity="7" reason="lost" unit="character"/>
+                        </p>
         </div>
       </div>
       <div type="apparatus">
@@ -106,19 +118,19 @@
           <listApp>
             <app loc="A3">
               <lem>Indunāmo</lem>
-              <rdg source="bib:Coedes1937-1966_01"><gap quantity="2" reason="lost" unit="character"></gap>ndhunāma</rdg>
+              <rdg source="bib:Coedes1937-1966_01"><gap quantity="2" reason="lost" unit="character"/>ndhunāma</rdg>
             </app>
             <app loc="A6">
               <lem>vñora</lem>
-              <rdg source="bib:Coedes1937-1966_01"><gap quantity="1" reason="lost" unit="character"></gap>ra</rdg>
+              <rdg source="bib:Coedes1937-1966_01"><gap quantity="1" reason="lost" unit="character"/>ra</rdg>
             </app>
           </listApp>
         </div>
       </div>
       <div source="bib:Coedes1937-1966_01" type="translation" xml:lang="fra">
-        <p n="A1-A7"><gap reason="lost"></gap> un <foreign>sanre</foreign>, rizière à <gap reason="lost"></gap> provenant du Poñ Indunāmo <gap reason="lost"></gap> rizière provenant du Tāṅ Jinadeva un demi <foreign>sanre</foreign>, rizière à Stuk Anrok, quatre <gap reason="lost"></gap> 12 boeufs, 7 cocotiers.</p>
+        <p n="A1-A7"><gap reason="lost"/> un <foreign>sanre</foreign>, rizière à <gap reason="lost"/> provenant du Poñ Indunāmo <gap reason="lost"/> rizière provenant du Tāṅ Jinadeva un demi <foreign>sanre</foreign>, rizière à Stuk Anrok, quatre <gap reason="lost"/> 12 boeufs, 7 cocotiers.</p>
         <p n="B1-B5">
-          <gap reason="lost"></gap>
+          <gap reason="lost"/>
         </p>
       </div>
       <div type="commentary">
@@ -126,13 +138,13 @@
       </div>
       <div type="bibliography">
         <p>First edited by George Cœdès (<bibl rend="omitname">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">2</citedRange>
             <citedRange unit="page">47</citedRange>
           </bibl>) with a French translation; re-edited here by Kunthea Chhom based on the estampage EFEO n.167.</p>
         <listBibl type="primary">
           <bibl n="GC">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">2</citedRange>
             <citedRange unit="page">47</citedRange>
           </bibl>

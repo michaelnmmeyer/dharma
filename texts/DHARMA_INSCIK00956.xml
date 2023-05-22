@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -46,7 +41,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -57,7 +52,7 @@
           <physDesc>
             <handDesc>
               <p>The inscription is divided into two parts: 1. Lines 1-6 are of the 6th century Śaka and 2. Lines 7-61 are of the 9th century Śaka. The letters of the first part are neatly carved whereas those in the second part are smaller and cursive.</p>
-              <p>The <foreign>virāma</foreign> is seldom applied in the 9th-century part of the inscription.</p>
+              <p>The <foreign>virāma</foreign> is seldom applied in the 9th-century part of the inscription. </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -65,15 +60,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -85,7 +84,14 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="okz-Latn">
-        <p><lb n="1"></lb>Aṁnoy· mratāñ· yajamāna ta vraḥ kamratāṅ· Añ· svayambhu <lb n="2"></lb>dhūli Añ· gui ta pamas· jnau ku kannriṁ ku tpit· tmāñ canlek va <gap quantity="1" reason="lost" unit="character"></gap> <lb n="3"></lb>kñuṁ ku taEk· kon· ku vā bhān· ku Aṁdnaḥ ku yarān· ku yaroñ· <space quantity="2" unit="character"></space> <lb n="4"></lb>ku martta qnak· kon· ku ku Anis· ku saAp· ku saAp· kto <lb n="5"></lb>kon· ku ku cvai ku kañcus· vā bhe ku kañcauṅ· ku Anrok· <lb n="6"></lb>kon· ku vā santos· qme stoy· kon· ku vā <unclear>st</unclear>oy· ku gurudaiva <lb n="7"></lb>neḥ gi ro<supplied reason="omitted">ḥ</supplied> kaṁne<choice>
+        <p>
+   <lb n="1"/>Aṁnoy· mratāñ· yajamāna ta vraḥ kamratāṅ· Añ· svayambhu
+   <lb n="2"/>dhūli Añ· gui ta pamas· jnau ku kannriṁ ku tpit· tmāñ canlek va <gap quantity="1" reason="lost" unit="character"/>
+   <lb n="3"/>kñuṁ ku taEk· kon· ku vā bhān· ku Aṁdnaḥ ku yarān· ku yaroñ· <space quantity="2" unit="character"/>
+   <lb n="4"/>ku martta qnak· kon· ku ku Anis· ku saAp· ku saAp· kto
+   <lb n="5"/>kon· ku ku cvai ku kañcus· vā bhe ku kañcauṅ· ku Anrok·
+   <lb n="6"/>kon· ku vā santos· qme stoy· kon· ku vā <unclear>st</unclear>oy· ku gurudaiva
+   <lb n="7"/>neḥ gi ro<supplied reason="omitted">ḥ</supplied> kaṁne<choice>
             <orig>t</orig>
             <reg>t·</reg>
           </choice> santāna ye<choice>
@@ -100,10 +106,12 @@
           </choice> pi<choice>
             <orig>y</orig>
             <reg>y·</reg>
-          </choice> <lb n="8"></lb>to<choice>
+          </choice>
+   <lb n="8"/>to<choice>
             <orig>y</orig>
             <reg>y·</reg>
-          </choice> mātr̥pakṣa loñ lakṣana jā senāpati kantāl vala tmāl qāy vraḥ caṁpak teṁ <lb n="9"></lb>te<choice>
+          </choice> mātr̥pakṣa loñ lakṣana jā senāpati kantāl vala tmāl qāy vraḥ caṁpak teṁ
+   <lb n="9"/>te<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
           </choice> qya<choice>
@@ -127,7 +135,8 @@
           </choice>· vala kamrateṅ· A<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
-          </choice> ta vraḥ <lb n="10"></lb>qji vraḥ pāda kamrate<choice>
+          </choice> ta vraḥ
+   <lb n="10"/>qji vraḥ pāda kamrate<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
           </choice> A<choice>
@@ -145,7 +154,8 @@
           </choice> haradhārmma ta trva<choice>
             <orig>c</orig>
             <reg>c·</reg>
-          </choice> paṁcā<unclear>m·</unclear> Aṁvi kāla <lb n="11"></lb>vraḥ pāda sta<choice>
+          </choice> paṁcā<unclear>m·</unclear> Aṁvi kāla
+   <lb n="11"/>vraḥ pāda sta<choice>
             <orig>c</orig>
             <reg>c·</reg>
           </choice> dau parameśvara gi ta nāṁ qji ye<choice>
@@ -172,7 +182,8 @@
           </choice> kantai<choice>
             <orig>y</orig>
             <reg>y·</reg>
-          </choice> <lb n="12"></lb>loñ vāsudeva lo<choice>
+          </choice>
+   <lb n="12"/>loñ vāsudeva lo<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
           </choice> lo<choice>
@@ -184,7 +195,8 @@
           </choice> satyapāla lo<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
-          </choice> śrirājaka teṅ· Indrani teṅ· vasudevi teṅ· pavitra <lb n="13"></lb>te<choice>
+          </choice> śrirājaka teṅ· Indrani teṅ· vasudevi teṅ· pavitra
+   <lb n="13"/>te<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
           </choice> Indrāni te<choice>
@@ -202,7 +214,7 @@
           </choice> A<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
-          </choice> vraḥ mū<lb break="no" n="14"></lb>l ta kanmva<choice>
+          </choice> vraḥ mū<lb break="no" n="14"/>l ta kanmva<choice>
             <orig>y</orig>
             <reg>y·</reg>
           </choice> khlo<choice>
@@ -220,7 +232,8 @@
           </choice><add place="below">śva</add><supplied reason="omitted">ra</supplied>loka ma<choice>
             <orig>n</orig>
             <reg>n·</reg>
-          </choice> vraḥ <lb n="15"></lb>pāda stac· dau parameśvara sta<choice>
+          </choice> vraḥ
+   <lb n="15"/>pāda stac· dau parameśvara sta<choice>
             <orig>c</orig>
             <reg>c·</reg>
           </choice> Ā<supplied reason="omitted">y·</supplied> r̥dva<choice>
@@ -229,7 +242,8 @@
           </choice> pandval ta mratā<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
-          </choice> śrī prathivinarendra pre thve kālyanasiddhi <lb n="16"></lb>le<choice>
+          </choice> śrī prathivinarendra pre thve kālyanasiddhi
+   <lb n="16"/>le<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
           </choice> vvaṁ Aṁpā<choice>
@@ -244,13 +258,15 @@
           </choice> vraḥ dākṣinā bhūmi sratāc· r̥dva<choice>
             <orig>l</orig>
             <reg>l·</reg>
-          </choice> nu sarvvadra<lb break="no" n="17"></lb>vya qval ta mratāñ· śrī prathivinarendra mratāñ· śrīprathivinarendra O<choice>
+          </choice> nu sarvvadra<lb break="no" n="17"/>vya qval ta mratāñ· śrī prathivinarendra mratāñ· śrīprathivinarendra O<choice>
             <orig>y</orig>
             <reg>y·</reg>
           </choice> r̥dval ta te<supplied reason="omitted">ṅ·</supplied> vasudevi O<choice>
             <orig>y</orig>
             <reg>y·</reg>
-          </choice> <lb n="18"></lb>sratāc· ta teṅ· Indrāni dep<unclear>·</unclear> nu loñ· vāsudeva ta khlai paṅgaṁ dep· paṅgaṁ thpvaṅ· nivedana le<supplied reason="lost">ṅ·</supplied> <lb n="19"></lb>kamrateṅ· kaṁtva<choice>
+          </choice>
+   <lb n="18"/>sratāc· ta teṅ· Indrāni dep<unclear>·</unclear> nu loñ· vāsudeva ta khlai paṅgaṁ dep· paṅgaṁ thpvaṅ· nivedana le<supplied reason="lost">ṅ·</supplied>
+   <lb n="19"/>kamrateṅ· kaṁtva<choice>
             <orig>n</orig>
             <reg>n·</reg>
           </choice> A<choice>
@@ -262,7 +278,7 @@
           </choice> prasāda bhūmi sratāc· r̥dval ta lo<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
-          </choice> vāsudeva nu teṅ· vasu<lb break="no" n="20"></lb>devi nu te<choice>
+          </choice> vāsudeva nu teṅ· vasu<lb break="no" n="20"/>devi nu te<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
           </choice> Indrani kaṁpi kula mratā<choice>
@@ -277,10 +293,11 @@
           </choice>panā vraḥ viṣ<choice>
             <orig>n</orig>
             <reg>ṇ</reg>
-          </choice>u Ā<lb break="no" n="21"></lb>y· r̥dvā<choice>
+          </choice>u Ā<lb break="no" n="21"/>y· r̥dvā<choice>
             <orig>l</orig>
             <reg>l·</reg>
-          </choice> Oy ta teṅ· vāsudevi man<unclear>·</unclear> mratāñ· śrī sātyayuddha nu mratāñ· śrīripumatha <lb n="22"></lb> kvan· mratā<choice>
+          </choice> Oy ta teṅ· vāsudevi man<unclear>·</unclear> mratāñ· śrī sātyayuddha nu mratāñ· śrīripumatha
+   <lb n="22"/> kvan· mratā<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
           </choice> śrīprathivinarendra gi ta O<choice>
@@ -289,7 +306,8 @@
           </choice> sru<choice>
             <orig>k</orig>
             <reg>k·</reg>
-          </choice> neḥ ta vyar<supplied reason="omitted">·</supplied> loñ· vāsudeva mūla <lb n="23"></lb>neḥ gi nu yeṅ· saṁ mūla nu mratā<choice>
+          </choice> neḥ ta vyar<supplied reason="omitted">·</supplied> loñ· vāsudeva mūla
+   <lb n="23"/>neḥ gi nu yeṅ· saṁ mūla nu mratā<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
           </choice> śrīprathivinarendra ma<choice>
@@ -298,7 +316,9 @@
           </choice> khloñ· vala kamrateṅ· A<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
-          </choice> vrahma <lb n="24"></lb>man ta pi kṣatrāndhara sahaja<add place="below">na</add> hoṅ· gi pi yeṅ· dau saṁ mūla nu mratāñ· śrīprathivinarendra <lb n="25"></lb>ta gi rāja vraḥ pāda sta<choice>
+          </choice> vrahma
+   <lb n="24"/>man ta pi kṣatrāndhara sahaja<add place="below">na</add> hoṅ· gi pi yeṅ· dau saṁ mūla nu mratāñ· śrīprathivinarendra
+   <lb n="25"/>ta gi rāja vraḥ pāda sta<choice>
             <orig>c</orig>
             <reg>c·</reg>
           </choice> dau viṣ<choice>
@@ -307,7 +327,7 @@
           </choice>uloka loñ· vrāhmanapās ta kva<choice>
             <orig>n</orig>
             <reg>n·</reg>
-          </choice> teṅ· vasude<lb break="no" n="26"></lb>vi dār· mratāñ· śrīsātyayuddha khlo<choice>
+          </choice> teṅ· vasude<lb break="no" n="26"/>vi dār· mratāñ· śrīsātyayuddha khlo<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
           </choice> mukha vraḥ tamrya lo<choice>
@@ -319,7 +339,8 @@
           </choice> phqva<choice>
             <orig>n</orig>
             <reg>n·</reg>
-          </choice> mūla <lb n="27"></lb>loñ· narāy ta kva<choice>
+          </choice> mūla
+   <lb n="27"/>loñ· narāy ta kva<choice>
             <orig>n</orig>
             <reg>n·</reg>
           </choice> te<supplied reason="lost">ṅ·</supplied> Indrān<supplied reason="omitted">i</supplied> daśādhikr̥ta paṁcāṁ te<choice>
@@ -328,7 +349,8 @@
           </choice> hya<unclear>ṅ·</unclear> narendra ta kva<choice>
             <orig>n</orig>
             <reg>n·</reg>
-          </choice> teṅ· pavitra <lb n="28"></lb>k<choice>
+          </choice> teṅ· pavitra
+   <lb n="28"/>k<choice>
             <orig>o</orig>
             <reg>e</reg>
           </choice>t ta kamrateṅ· A<choice>
@@ -337,7 +359,8 @@
           </choice> vraḥ mūla ti O<choice>
             <orig>y</orig>
             <reg>y·</reg>
-          </choice> parigraha ta vraḥ pāda kamrateṅ· Añ· <lb n="29"></lb>ta sta<choice>
+          </choice> parigraha ta vraḥ pāda kamrateṅ· Añ·
+   <lb n="29"/>ta sta<choice>
             <orig>c</orig>
             <reg>c·</reg>
           </choice> dā <choice>
@@ -349,7 +372,8 @@
           </choice> teṅ· hyaṅ· narendra ti O<choice>
             <orig>y</orig>
             <reg>y·</reg>
-          </choice> vrāhmana rājapurohita <lb n="30"></lb>ta jmaḥ mratāñ· khlo<choice>
+          </choice> vrāhmana rājapurohita
+   <lb n="30"/>ta jmaḥ mratāñ· khlo<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
           </choice> gauri vraḥ pāda kamrateṅ· Añ· ta sta<choice>
@@ -358,7 +382,8 @@
           </choice> dau <choice>
             <orig>I</orig>
             <reg>Ī</reg>
-          </choice>śvaraloka svaṁ <lb n="31"></lb>prasāda bhūmi vraḥ teṁ<choice>
+          </choice>śvaraloka svaṁ
+   <lb n="31"/>prasāda bhūmi vraḥ teṁ<choice>
             <orig>m</orig>
             <reg>m·</reg>
           </choice> cya<choice>
@@ -379,19 +404,21 @@
           </choice> sle<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
-          </choice> <lb n="32"></lb>kanlaḥ thna<choice>
+          </choice>
+   <lb n="32"/>kanlaḥ thna<choice>
             <orig>l</orig>
             <reg>l·</reg>
           </choice> viṣ<choice>
             <orig>n</orig>
             <reg>ṇ</reg>
-          </choice>u <gap quantity="2" reason="lost" unit="character"></gap> vraiyā krapā<choice>
+          </choice>u <gap quantity="2" reason="lost" unit="character"/> vraiyā krapā<choice>
             <orig>s</orig>
             <reg>s·</reg>
           </choice> kañcaḥ O<choice>
             <orig>y</orig>
             <reg>y·</reg>
-          </choice> parigraha bhūmi ta roḥ neḥ ta teṅ· <lb n="33"></lb>hya<choice>
+          </choice> parigraha bhūmi ta roḥ neḥ ta teṅ·
+   <lb n="33"/>hya<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
           </choice> narendra sratā<choice>
@@ -412,7 +439,8 @@
           </choice> dau pi tā<choice>
             <orig>c</orig>
             <reg>c·</reg>
-          </choice> vraḥ <lb n="34"></lb>tamrya ta jmaḥ vraḥ śrijaiyaśikṣadhārmma pandva<choice>
+          </choice> vraḥ
+   <lb n="34"/>tamrya ta jmaḥ vraḥ śrijaiyaśikṣadhārmma pandva<choice>
             <orig>l</orig>
             <reg>l·</reg>
           </choice> pre hau sāra tā<choice>
@@ -424,7 +452,8 @@
           </choice> vraḥ pāda sta<choice>
             <orig>c</orig>
             <reg>c·</reg>
-          </choice> <lb n="35"></lb>dau viṣṇuloka sthāpanā vraḥ vira jya<choice>
+          </choice>
+   <lb n="35"/>dau viṣṇuloka sthāpanā vraḥ vira jya<choice>
             <orig>k</orig>
             <reg>k·</reg>
           </choice> vraḥ tvā<choice>
@@ -436,7 +465,8 @@
           </choice> vraḥ dakṣiṇā bhūmi ta A<unclear>ṁ</unclear>pā<choice>
             <orig>l</orig>
             <reg>l·</reg>
-          </choice> neḥ <lb n="36"></lb>ta mratā<choice>
+          </choice> neḥ
+   <lb n="36"/>ta mratā<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
           </choice> śrīśatyāyuda ta qji ye<choice>
@@ -451,7 +481,7 @@
           </choice> pana homa thgva<choice>
             <orig>l</orig>
             <reg>l·</reg>
-          </choice> ka<lb break="no" n="37"></lb>nda<choice>
+          </choice> ka<lb break="no" n="37"/>nda<choice>
             <orig>n</orig>
             <reg>n·</reg>
           </choice> vraḥ cā<choice>
@@ -470,8 +500,8 @@
             <orig>n</orig>
             <reg>n·</reg>
           </choice> kralā sandhanipura devi Ūl<seg subtype="body" type="component">
-            <gap quantity="1" reason="illegible" unit="character"></gap>
-          </seg>ī<lb break="no" n="38"></lb>ta te<choice>
+            <gap quantity="1" reason="illegible" unit="character"/>
+          </seg>ī<lb break="no" n="38"/>ta te<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
           </choice> vraḥ jrai<choice>
@@ -480,7 +510,7 @@
           </choice> kanda<choice>
             <orig>n</orig>
             <reg>n·</reg>
-          </choice> <gap quantity="1" reason="lost" unit="character"></gap> travā<choice>
+          </choice> <gap quantity="1" reason="lost" unit="character"/> travā<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
           </choice> sandha ma<choice>
@@ -489,7 +519,8 @@
           </choice> vraḥ pāda sta<choice>
             <orig>c</orig>
             <reg>c·</reg>
-          </choice> dau viṣṇuloka <lb n="39"></lb>sta<choice>
+          </choice> dau viṣṇuloka
+   <lb n="39"/>sta<choice>
             <orig>c</orig>
             <reg>c·</reg>
           </choice> dau cā<choice>
@@ -507,7 +538,8 @@
           </choice> dau <choice>
             <orig>I</orig>
             <reg>Ī</reg>
-          </choice>śvaraloka dau <lb n="40"></lb>Ukka gi pi te<choice>
+          </choice>śvaraloka dau
+   <lb n="40"/>Ukka gi pi te<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
           </choice> hya<choice>
@@ -516,7 +548,8 @@
           </choice> narendra dau ma<choice>
             <orig>n</orig>
             <reg>n·</reg>
-          </choice> kamrateṅ· Añ· vraḥ mūla dā teṅ· pavitra ta qm<supplied reason="lost">e</supplied> teṅ· <lb n="41"></lb>hya<choice>
+          </choice> kamrateṅ· Añ· vraḥ mūla dā teṅ· pavitra ta qm<supplied reason="lost">e</supplied> teṅ·
+   <lb n="41"/>hya<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
           </choice> narendra U<choice>
@@ -534,7 +567,8 @@
           </choice> ta vrāhmana rājapurohit ta jmaḥ mratā<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
-          </choice> <lb n="42"></lb>khlo<choice>
+          </choice>
+   <lb n="42"/>khlo<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
           </choice> gauri ma<choice>
@@ -549,7 +583,8 @@
           </choice> hya<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
-          </choice> narendra <lb n="43"></lb>ta ti praveṣa vraḥ pāda kamrateṅ· A<choice>
+          </choice> narendra
+   <lb n="43"/>ta ti praveṣa vraḥ pāda kamrateṅ· A<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
           </choice> ta sta<choice>
@@ -558,7 +593,8 @@
           </choice> <choice>
             <orig>I</orig>
             <reg>Ī</reg>
-          </choice>śvaraloka dā prasāda bhūmi ldau ta <lb n="44"></lb>vraḥ pāda sta<choice>
+          </choice>śvaraloka dā prasāda bhūmi ldau ta
+   <lb n="44"/>vraḥ pāda sta<choice>
             <orig>c</orig>
             <reg>c·</reg>
           </choice> dau viṣ<choice>
@@ -579,7 +615,8 @@
           </choice> sratā<choice>
             <orig>c</orig>
             <reg>c·</reg>
-          </choice> <lb n="45"></lb>O<choice>
+          </choice>
+   <lb n="45"/>O<choice>
             <orig>y</orig>
             <reg>y·</reg>
           </choice> ta qji ye<choice>
@@ -600,7 +637,8 @@
           </choice> mā<choice>
             <orig>n</orig>
             <reg>n·</reg>
-          </choice> <lb n="46"></lb>sru<choice>
+          </choice>
+   <lb n="46"/>sru<choice>
             <orig>k</orig>
             <reg>k·</reg>
           </choice> Ā<choice>
@@ -615,7 +653,8 @@
           </choice> te<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
-          </choice> vasudevi ta ket <supplied reason="lost">ta</supplied> mratāñ· śriprathivinarendra gi ta <lb n="47"></lb>dau prapva<choice>
+          </choice> vasudevi ta ket <supplied reason="lost">ta</supplied> mratāñ· śriprathivinarendra gi ta
+   <lb n="47"/>dau prapva<choice>
             <orig>n</orig>
             <reg>n·</reg>
           </choice> dai<choice>
@@ -630,7 +669,8 @@
           </choice> vraḥ pāda <supplied reason="lost">kamrate</supplied>ṅ· Añ· ta sta<choice>
             <orig>c</orig>
             <reg>c·</reg>
-          </choice> <lb n="48"></lb>dau <choice>
+          </choice>
+   <lb n="48"/>dau <choice>
             <orig>I</orig>
             <reg>Ī</reg>
           </choice>śvaraloka sve<choice>
@@ -639,10 +679,12 @@
           </choice> vraḥ dhārmmarājya O<choice>
             <orig>y</orig>
             <reg>y·</reg>
-          </choice> jmaḥ teṅ· hyaṅ· <supplied reason="lost">jā</supplied> tāñ· kamrateṅ· Añ<unclear>·</unclear> <lb n="49"></lb>kṣitindradevi mratāñ· śrisatyāyuddha viṅ· jā senāpati kantā<choice>
+          </choice> jmaḥ teṅ· hyaṅ· <supplied reason="lost">jā</supplied> tāñ· kamrateṅ· Añ<unclear>·</unclear>
+   <lb n="49"/>kṣitindradevi mratāñ· śrisatyāyuddha viṅ· jā senāpati kantā<choice>
             <orig>l</orig>
             <reg>l·</reg>
-          </choice> vala loñ· narāy <lb n="50"></lb>kva<choice>
+          </choice> vala loñ· narāy
+   <lb n="50"/>kva<choice>
             <orig>n</orig>
             <reg>n·</reg>
           </choice> mratāñ· śriripumatha jā senāpati bhavanāga lo<choice>
@@ -654,7 +696,7 @@
           </choice> mūla jya<choice>
             <orig>k</orig>
             <reg>k·</reg>
-          </choice> sthalā sthāpa<lb break="no" n="51"></lb>nā Ā<choice>
+          </choice> sthalā sthāpa<lb break="no" n="51"/>nā Ā<choice>
             <orig>y</orig>
             <reg>y·</reg>
           </choice> sratā<choice>
@@ -675,7 +717,7 @@
           </choice> ta vraḥ Ā<choice>
             <orig>y</orig>
             <reg>y·</reg>
-          </choice> sratā<lb break="no" n="52"></lb>c de<choice>
+          </choice> sratā<lb break="no" n="52"/>c de<choice>
             <orig>p</orig>
             <reg>p·</reg>
           </choice> vraḥ pāda kamrateṅ· Añ· ta sta<choice>
@@ -690,7 +732,8 @@
           </choice>yaṅ· vravavva vnur<supplied reason="omitted">·</supplied> vraḥ kadya<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
-          </choice> <lb n="53"></lb>yogapura drāA<choice>
+          </choice>
+   <lb n="53"/>yogapura drāA<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
           </choice> sa<choice>
@@ -705,7 +748,8 @@
           </choice> ma<choice>
             <orig>n</orig>
             <reg>n·</reg>
-          </choice> srac· <lb n="54"></lb>sthāpanā ma<choice>
+          </choice> srac·
+   <lb n="54"/>sthāpanā ma<choice>
             <orig>n</orig>
             <reg>n·</reg>
           </choice> kathā kamrateṅ· A<choice>
@@ -717,7 +761,8 @@
           </choice> ta sta<choice>
             <orig>c</orig>
             <reg>c·</reg>
-          </choice> dau <lb n="55"></lb><choice>
+          </choice> dau
+   <lb n="55"/><choice>
             <orig>I</orig>
             <reg>Ī</reg>
           </choice>śvaraloka pandval ta mratā<choice>
@@ -726,7 +771,8 @@
           </choice> śrisatyayuddha nu mratāñ· śriripumatha pre dau sthāpanā r<choice>
             <orig>u</orig>
             <reg>ū</reg>
-          </choice>pa <lb n="56"></lb>Ā<choice>
+          </choice>pa
+   <lb n="56"/>Ā<choice>
             <orig>y</orig>
             <reg>y·</reg>
           </choice> va<choice>
@@ -744,12 +790,13 @@
           </choice> sappa kṣatra raṅko ta chaI<choice>
             <orig>n</orig>
             <reg>n·</reg>
-          </choice> pratidina <lb n="57"></lb><gap quantity="1" reason="lost" unit="character"></gap> thlva<choice>
+          </choice> pratidina
+   <lb n="57"/><gap quantity="1" reason="lost" unit="character"/> thlva<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
           </choice> <num atLeast="11" atMost="19">
             <g type="numeral">10</g>
-            <gap quantity="1" reason="lost" unit="character"></gap>
+            <gap quantity="1" reason="lost" unit="character"/>
           </num> kalpanā tā<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
@@ -768,16 +815,17 @@
           </choice> nai<choice>
             <orig>y</orig>
             <reg>y·</reg>
-          </choice> grā ta <gap quantity="1" reason="lost" unit="character"></gap> <lb n="58"></lb><gap quantity="1" reason="lost" unit="character"></gap> Ā<choice>
+          </choice> grā ta <gap quantity="1" reason="lost" unit="character"/>
+   <lb n="58"/><gap quantity="1" reason="lost" unit="character"/> Ā<choice>
             <orig>y</orig>
             <reg>y·</reg>
           </choice> ta kule ye<choice>
             <orig>ṅ</orig>
             <reg>ṅ·</reg>
-          </choice> ta jā svāmi dravi<gap quantity="2" reason="lost" unit="character"></gap>s ta du<choice>
+          </choice> ta jā svāmi dravi<gap quantity="2" reason="lost" unit="character"/>s ta du<choice>
             <orig>k</orig>
             <reg>k·</reg>
-          </choice> praśaṣṭa neḥ mratāñ· śrisatyayudha nu mratā<lb break="no" n="59"></lb><choice>
+          </choice> praśaṣṭa neḥ mratāñ· śrisatyayudha nu mratā<lb break="no" n="59"/><choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
           </choice> śriripumatha neḥ sya<choice>
@@ -792,7 +840,8 @@
           </choice> dau <choice>
             <orig>I</orig>
             <reg>Ī</reg>
-          </choice>śvaraloka <lb n="60"></lb><num value="749">
+          </choice>śvaraloka
+   <lb n="60"/><num value="749">
             <g type="numeral">7</g>
             <g type="numeral">4</g>
             <g type="numeral">9</g>
@@ -805,13 +854,15 @@
           </choice> qya<choice>
             <orig>k</orig>
             <reg>k·</reg>
-          </choice> jā svāmi <lb n="61"></lb>lo<choice>
+          </choice> jā svāmi
+   <lb n="61"/>lo<choice>
             <orig>ñ</orig>
             <reg>ñ·</reg>
-          </choice> haṅsa jā senāpati varākagoma sthāpanā vraḥ śaṅkara <gap quantity="3" reason="lost" unit="character"></gap>r̥dvā<choice>
+          </choice> haṅsa jā senāpati varākagoma sthāpanā vraḥ śaṅkara <gap quantity="3" reason="lost" unit="character"/>r̥dvā<choice>
             <orig>l</orig>
             <reg>l·</reg>
-          </choice> le vnur<supplied reason="omitted">·</supplied></p>
+          </choice> le vnur<supplied reason="omitted">·</supplied>
+</p>
       </div>
       <div type="apparatus">
         <listApp>
@@ -820,8 +871,8 @@
             <rdg source="bib:Coedes1937-1966_01">kandriṁ</rdg>
           </app>
           <app loc="2">
-            <lem>va <gap quantity="1" reason="lost" unit="character"></gap></lem>
-            <rdg source="bib:Coedes1937-1966_01">m<gap quantity="1" reason="lost" unit="character"></gap></rdg>
+            <lem>va <gap quantity="1" reason="lost" unit="character"/></lem>
+            <rdg source="bib:Coedes1937-1966_01">m<gap quantity="1" reason="lost" unit="character"/></rdg>
           </app>
           <app loc="3">
             <lem>ku taEt·</lem>
@@ -833,7 +884,7 @@
           </app>
           <app loc="6">
             <lem><unclear>st</unclear>oy·</lem>
-            <rdg source="bib:Coedes1937-1966_01"><gap quantity="1" reason="lost" unit="character"></gap>y·</rdg>
+            <rdg source="bib:Coedes1937-1966_01"><gap quantity="1" reason="lost" unit="character"/>y·</rdg>
           </app>
           <app loc="10">
             <lem>paṁcā<unclear>m·</unclear></lem>
@@ -855,14 +906,14 @@
                 <orig>ṅ</orig>
                 <reg>ṅ·</reg>
               </choice></lem>
-            <rdg source="bib:Coedes1937-1966_01">vraḥ <gap quantity="2" reason="lost" unit="character"></gap> sle<choice>
+            <rdg source="bib:Coedes1937-1966_01">vraḥ <gap quantity="2" reason="lost" unit="character"/> sle<choice>
                 <orig>ṅ</orig>
                 <reg>ṅ·</reg>
               </choice></rdg>
-            <note></note>
+            <note/>
           </app>
           <app loc="35">
-            <lem>dakṣiṇā</lem>
+            <lem> dakṣiṇā</lem>
             <rdg source="bib:Coedes1937-1966_01">dakṣiṇa</rdg>
           </app>
           <app loc="35">
@@ -891,9 +942,9 @@
           </app>
           <app loc="37">
             <lem>devi Ūl<seg subtype="body" type="component">
-                <gap quantity="1" reason="illegible" unit="character"></gap>
+                <gap quantity="1" reason="illegible" unit="character"/>
               </seg>ī</lem>
-            <rdg source="bib:Coedes1937-1966_01">devi <gap quantity="1" reason="lost" unit="character"></gap> tali</rdg>
+            <rdg source="bib:Coedes1937-1966_01">devi <gap quantity="1" reason="lost" unit="character"/> tali</rdg>
           </app>
           <app loc="38">
             <lem>ta te<choice>
@@ -919,9 +970,9 @@
       </div>
       <div source="bib:Coedes1937-1966_01" type="translation" xml:lang="fra">
         <note type="credit">The translation is given after <bibl>
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
           </bibl> with modification because of new reading in line 31.</note>
-        <p n="1-6">Dons du Mratāñ fondateur à V.K.A. Svayambhu Dhūli Añ : les batteuses de paddy Ku Kandriṁ, Ku Tpit; la tisseuse de vêtement <gap reason="lost"></gap> Esclaves : <supplied reason="explanation">suit une liste d'une douzaine de <foreign>ku</foreign> avec leurs enfants</supplied>.</p>
+        <p n="1-6">Dons du Mratāñ fondateur à V.K.A. Svayambhu Dhūli Añ : les batteuses de paddy Ku Kandriṁ, Ku Tpit; la tisseuse de vêtement <gap reason="lost"/> Esclaves : <supplied reason="explanation">suit une liste d'une douzaine de <foreign>ku</foreign> avec leurs enfants</supplied>.</p>
         <p n="7-10">Voici l'origine de notre lignée. Sous le règne de S. M. le roi qui est allé à Parameśvara, nos trois ancêtres en ligne maternelle furent: Loñ Lakṣaṇa qui était Senāpati du centre de l'armée <foreign>tmāl</foreign> à Vraḥ Caṁpak Teṁ ; Teṅ Ayak qui était reine <supplied reason="explanation">
             <foreign>devī</foreign>
           </supplied> et avait été emmenée à Bhavapura; Teṅ Pit qui fut donnée au Khloñ Vala Kamrateṅ Añ, saint ancêtre de S. M. le roi qui est allé à Īśvaraloka, portant le nom de Loñ Haradhārma, et inspecteur des <foreign>paṁcāṁ</foreign>.</p>
@@ -934,9 +985,9 @@
           </supplied> daignât donner à nouveau les terres de Sratāc et de R̥dvāl à Loñ Vāsudeva, à Teṅ Vāsudevī et à Teṅ Indrāṇi, et ne permît pas que la famille de Śrī Pr̥thivīnarendra les prît. Il érigea un saint Viṣṇu à R̥dval et le donna à Teṅ Vāsudevī.</p>
         <p n="21-23">Alors Mratāñ Śrī Satyāyudha et Mratāñ Śrī Ripumatha<supplied reason="explanation">na</supplied>, enfants de Mratāñ Śrī Pr̥thivīnarendra donnèrent ces deux pays. Loñ Vāsudeva, propriétaire en cet endroit, et nous-mêmes réunîmes la propriété avec celle de Mratāñ Śrī Pr̥thivīnarendra.</p>
         <p n="23-24">Alors Khloñ vala Kamrateṅ Añ consentit, en raison de notre condition naturelle de possesseur de kṣetra, à ce que nous allions réunir la propriété avec celle de Mratāñ Śrī Pr̥thivīnarendra.</p>
-        <p n="25-33">Sous le règne de S. M. le roi qui est allé au Viṣṇuloka, Loñ Vrāhmaṇapāśa, enfant de Teṅ Vāsudevī, qui avait obtenu le titre de Mratāñ Śrī Satyāyudha, <foreign>khloñ mukha</foreign> des éléphants sacrés ; Loñ Ayat, son frère cadet, <foreign>mūla</foreign>; Loñ Narāy, enfant de Teṅ Indrāṇi, dizenier des <foreign>paṁcāṁ</foreign>; Teṅ Hyaṅ Narendra, enfant de Teṅ Pavitra, née de K. A. Vraḥ Mūla et donnée en propriété à S. M. le roi qui est allé à Īśvaraloka; Teṅ Ṇau, sœur cadette de Teṅ Hyaṅ Narendra donnée au brahmane, chapelain royal, nommé Mratāñ Kloñ Gauri, de S. M. le roi qui est allé à Īśvaraloka, <supplied reason="explanation">tous ces gens</supplied> demandèrent de la faveur royale les terres de Vraḥ Teṁ Cyak, Khvit Traeḥ, Vraḥ Pi, Svāy Kraliṅ, Vraḥ Thnal Sleṅ, Kanlah Thnal, Viṣṇu <gap reason="lost"></gap> Vrai Krapās Kañcaḥ, pour donner en propriété <supplied reason="explanation">? parigraha</supplied> ces terres à Teṅ Hyaṅ Narendra de Sratāc nommé Haripura Teṁ.</p>
-        <p n="33-38">Alors S. M. le roi qui est allé au Viṣṇuloka s'en fut lâcher l'éléphant sacré nommé Śrī Jaiyaśikṣadharma, il ordonna d'appeler <supplied reason="explanation">cet</supplied> éléphant vigoureux, et de le lâcher. S. M. le roi qui est allé au Viṣṇuloka érigea Vraḥ Vīra, creusa Vraḥ Tvāt, donna en honoraires ces terres non gardées à Mratāñ Śrī Satyāyudha, notre ancêtre en ligne maternelle : terres de Paroy Panahorna, Thkval Kandan, Vraḥ Pāsa, Traṅey Trāy Trāy, Kandan Kralā, Sandhanipura, Devi<gap reason="lost"></gap>, Taliñ Oñ, Vraḥ Jraiy, Kandan <gap reason="lost"></gap>, Travāṅ Sandha.</p>
-        <p n="38-42">Alors, S. M. le roi qui est allé au Viṣṇuloka s'en fut prendre des éléphants à <gap reason="lost"></gap> Vnaṁ. S. M. le roi qui est allé à Īśvaraloka s'en fut aussi, parce que Teṅ Hyaṅ Narendra y allait. K. A. Vraḥ Mūla obtint Teṅ Pavitra, mère de Teṅ Hyaṅ Narendra, aussi. Teṅ Ṇau, sa sœur cadette, fut donnée au brahmane, chapelain du roi, nommé Mratāñ Khloñ Gauri.</p>
+        <p n="25-33">Sous le règne de S. M. le roi qui est allé au Viṣṇuloka, Loñ Vrāhmaṇapāśa, enfant de Teṅ Vāsudevī, qui avait obtenu le titre de Mratāñ Śrī Satyāyudha, <foreign>khloñ mukha</foreign> des éléphants sacrés ; Loñ Ayat, son frère cadet, <foreign>mūla</foreign>; Loñ Narāy, enfant de Teṅ Indrāṇi, dizenier des <foreign>paṁcāṁ</foreign>; Teṅ Hyaṅ Narendra, enfant de Teṅ Pavitra, née de K. A. Vraḥ Mūla et donnée en propriété à S. M. le roi qui est allé à Īśvaraloka; Teṅ Ṇau, sœur cadette de Teṅ Hyaṅ Narendra donnée au brahmane, chapelain royal, nommé Mratāñ Kloñ Gauri, de S. M. le roi qui est allé à Īśvaraloka, <supplied reason="explanation">tous ces gens</supplied> demandèrent de la faveur royale les terres de Vraḥ Teṁ Cyak, Khvit Traeḥ, Vraḥ Pi, Svāy Kraliṅ, Vraḥ Thnal Sleṅ, Kanlah Thnal, Viṣṇu <gap reason="lost"/> Vrai Krapās Kañcaḥ, pour donner en propriété <supplied reason="explanation">? parigraha</supplied> ces terres à Teṅ Hyaṅ Narendra de Sratāc nommé Haripura Teṁ.</p>
+        <p n="33-38">Alors S. M. le roi qui est allé au Viṣṇuloka s'en fut lâcher l'éléphant sacré nommé Śrī Jaiyaśikṣadharma, il ordonna d'appeler <supplied reason="explanation">cet</supplied> éléphant vigoureux, et de le lâcher. S. M. le roi qui est allé au Viṣṇuloka érigea Vraḥ Vīra, creusa Vraḥ Tvāt, donna en honoraires ces terres non gardées à Mratāñ Śrī Satyāyudha, notre ancêtre en ligne maternelle : terres de Paroy Panahorna, Thkval Kandan, Vraḥ Pāsa, Traṅey Trāy Trāy, Kandan Kralā, Sandhanipura, Devi<gap reason="lost"/>, Taliñ Oñ, Vraḥ Jraiy, Kandan <gap reason="lost"/>, Travāṅ Sandha.</p>
+        <p n="38-42">Alors, S. M. le roi qui est allé au Viṣṇuloka s'en fut prendre des éléphants à <gap reason="lost"/> Vnaṁ. S. M. le roi qui est allé à Īśvaraloka s'en fut aussi, parce que Teṅ Hyaṅ Narendra y allait. K. A. Vraḥ Mūla obtint Teṅ Pavitra, mère de Teṅ Hyaṅ Narendra, aussi. Teṅ Ṇau, sa sœur cadette, fut donnée au brahmane, chapelain du roi, nommé Mratāñ Khloñ Gauri.</p>
         <p n="42-46">Arrivé à Ldau, K. Vraḥ Mūla emmena Teṅ Pavitra, mère de Teṅ Hyaṅ Narendra, entrée au service de S. M. le roi qui est allé à l'Īśvalaloka. Il obtint la terre de Ldau de la faveur de S. M. le roi qui est allé au Viṣṇuloka, fit les cérémonies de la délimitation, planta les bornes, plaça une inscription <supplied reason="explanation">
             <foreign>praśasta</foreign>
           </supplied> à Sratāc et donna <supplied reason="explanation">la terre</supplied> à notre ancêtre nommée Teṅ Soṁ, enfant de Teṅ Pavitra, en ligne maternelle, afin que nous ayons le pays à Ldau.</p>
@@ -945,26 +996,26 @@
           </supplied> du territoire <supplied reason="explanation">
             <foreign>pramān</foreign>
           </supplied> de Sanduk. S. M. le roi qui est allé à l'Īśvaraloka ayant obtenu la sainte royauté, donna à Teṅ Hyaṅ le nom de Tāñ K. A. Kṣitīndradevī, fit de Śrī Satyāyudha un général chef de l'armée du centre, de Loñ Narāy, fils de Mratāñ Śrī Ripumatha<supplied reason="explanation">na</supplied>, un général Bhavanāga. Loñ Sān, <foreign>mūla</foreign>, creusa le sol et fonda huit <foreign>prāsāt</foreign> à Sratāc. C'est nous qui avons installé tous ces pays et les avons donnés au dieu à Sratāc.</p>
-        <p n="52-58">Ensuite, S. M. le roi qui est allé à l'Īśvaraloka donna par faveur Kañyaṅ Vravauv Vnur Vraḥ Kadyaṅ Yogapura Drāāṅ Saṅkāsara Vinlo Le Vnur Taṁrel Kr̥ṣṇa Pāt Ye Dik. Les fondations terminées, on informa K. A. Kṣitīndradevi <supplied reason="explanation">en la priant</supplied> d'inciter S. M. le roi qui est allé à l'Īśvaraloka à donner l'ordre aux Mratāñ Śrī Satyāyudha et Śrī Ripumatha<supplied reason="explanation">na</supplied> d'aller ériger une image à Vak Ek nommée Gapatikṣitīndra, de fixer la redevance de tout le <foreign>kṣatra</foreign> à 1 x <foreign>thlvaṅ</foreign> de riz cuit par jour. La fondation de Tāñ K. A. Kṣitīndradevi fut inscrite sur une feuille <gap reason="lost"></gap> nos parents <supplied reason="explanation">
+        <p n="52-58">Ensuite, S. M. le roi qui est allé à l'Īśvaraloka donna par faveur Kañyaṅ Vravauv Vnur Vraḥ Kadyaṅ Yogapura Drāāṅ Saṅkāsara Vinlo Le Vnur Taṁrel Kr̥ṣṇa Pāt Ye Dik. Les fondations terminées, on informa K. A. Kṣitīndradevi <supplied reason="explanation">en la priant</supplied> d'inciter S. M. le roi qui est allé à l'Īśvaraloka à donner l'ordre aux Mratāñ Śrī Satyāyudha et Śrī Ripumatha<supplied reason="explanation">na</supplied> d'aller ériger une image à Vak Ek nommée Gapatikṣitīndra, de fixer la redevance de tout le <foreign>kṣatra</foreign> à 1 x <foreign>thlvaṅ</foreign> de riz cuit par jour. La fondation de Tāñ K. A. Kṣitīndradevi fut inscrite sur une feuille <gap reason="lost"/> nos parents <supplied reason="explanation">
             <foreign>kule</foreign>
           </supplied> qui sont maîtres <supplied reason="explanation">
             <foreign>svāmi</foreign>
-          </supplied> des biens <gap reason="lost"></gap></p>
+          </supplied> des biens <gap reason="lost"/></p>
         <p n="58-59">Ceux qui conservent cet acte inscrit sont Mratāñ Śrī Satyāyudha et Mratāñ Śrī Ripumatha<supplied reason="explanation">na</supplied>, enfants de Mratāñ Śrī Pr̥thivīnarendra.</p>
-        <p n="59-61">Sous le règne de S. M. qui est allé à l'Īśvaraloka, 749 <foreign>śaka</foreign> on a conservé cet acte inscrit. Sous le règne de S. M. le roi qui est allé au Paramaśivaloka, Teṅ Ayak, épouse de Loñ Haṅsa qui est Senāpati Varākagoma, érigea Vraḥ Śaṅkara <gap reason="lost"></gap> R̥dvāl sur le tertre.</p>
+        <p n="59-61">Sous le règne de S. M. qui est allé à l'Īśvaraloka, 749 <foreign>śaka</foreign> on a conservé cet acte inscrit. Sous le règne de S. M. le roi qui est allé au Paramaśivaloka, Teṅ Ayak, épouse de Loñ Haṅsa qui est Senāpati Varākagoma, érigea Vraḥ Śaṅkara <gap reason="lost"/> R̥dvāl sur le tertre.</p>
       </div>
       <div type="commentary">
-        <p></p>
+        <p/>
       </div>
       <div type="bibliography">
         <p>First edited by George Cœdès (<bibl rend="omitname">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">7</citedRange>
             <citedRange unit="page">128-136</citedRange>
           </bibl>) with a French translation; re-edited here by Kunthea Chhom based on the estampage EFEO n. 1674 and the photographs of the stone K.956_1 and K.956_2.</p>
         <listBibl type="primary">
           <bibl n="GC">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">7</citedRange>
             <citedRange unit="page">128-136</citedRange>
           </bibl>

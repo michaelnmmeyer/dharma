@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -44,7 +39,8 @@
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA <note>This project has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</note><!--
-amwb : this note was not present in Baigram file (siddham IN00061= Dharma_INSBengalCharters00049); should it be removed here or should it be added in BC49? --></authority>
+amwb : this note was not present in Baigram file (siddham IN00061= Dharma_INSBengalCharters00049); should it be removed here or should it be added in BC49? -->
+				</authority>
         <pubPlace>Cambrai</pubPlace>
         <idno type="filename">DHARMA_INSBengalCharters00034</idno>
         <!--
@@ -62,14 +58,14 @@ daba : The Siddham ID will need to be retained, probably as <altIdentifier>, whe
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <summary/>
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p/>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -79,7 +75,7 @@ daba : The Siddham ID will need to be retained, probably as <altIdentifier>, whe
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
@@ -93,33 +89,34 @@ daba : The Siddham ID will need to be retained, probably as <altIdentifier>, whe
     <revisionDesc>
       <change status="draft" when="2021-09-21" who="part:amwb">Added the epigraphic lemma in the bibliography part.</change>
       <change status="draft" when="2021-08-30" who="part:amwb">Added Siddham bibliographic reference in the bibliography and its readings in the apparatus. Correction of some errors in the apparatus.</change>
-      <change status="draft" when="2021-07-12" who="part:amwb">Import of Siddham file IN00061 and started initial encoding with Arlo's edtion and remarks.</change>
+      <change status="draft" when="2021-07-12" who="part:amwb">Import of Siddham file IN00061 and started initial encoding with Arlo's edtion and remarks. </change>
       <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment).. Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="san-Latn">
-        <p><pb n="1r"></pb><lb n="1"></lb>svasti<supplied reason="subaudible">.</supplied> śr̥ṅgavera-vaitheya-pūrṇṇak<choice>
+        <p><pb n="1r"/><lb n="1"/>svasti<supplied reason="subaudible">.</supplied> śr̥ṅgavera-vaitheya-pūrṇṇak<choice>
             <sic>o</sic>
             <corr>au</corr>
-          </choice>śikāyāḥ <!--
+          </choice>śikāyāḥ<!--
 amwb: caution here ! because Arlo notes a different reading from Sircar's one : kośikāyāḥ. Need to check the plate. 2021-08-19 : from the photos, it seems to me that there is no difference between this akṣara and the one of the line 27 (koṭara)
--->bhaṭṭāraka-pādānuddhyātaḥ Āyuktakācyuto <lb n="2"></lb>'dhikaraṇañ <!--
+--> bhaṭṭāraka-pādānuddhyātaḥ Āyuktakācyuto
+<lb n="2"/>'dhikaraṇañ<!--
 amwb: added '
--->ca gulmagandhike sagohālike <!--
+--> ca gulmagandhike sagohālike<!--
 amwb : a single g instead of a double and <supplied reason="omitted">ṁ</supplied> removed according to Arlo's apparatus and arguments
--->brāhmaṇādīn <!--
+--> brāhmaṇādīn<!--
 amwb : replaced vrāhmaṇādīn by brāhmaṇādīn according to Arlo's reading
--->pradhāna-kuṭumbinaḥ <!--
-amwb : removed <unclear>b</unclear> and reported it in the app-->kuśala<!--
+--> pradhāna-kuṭumbinaḥ<!--
+amwb : removed <unclear>b</unclear> and reported it in the app--> kuśala<!--
 daba siddham : Sircar (1971) and Agrawala supply +ca after saṁggohālike. Sircar (1971:248) also notes that Gulmagandhika and a plural of Saṁgohāli are also mentioned in the Kalaikuri-Sultanpur plate (IN00074). Is there any good reason for assuming that saṁgohālika is a proper name, not a local term for village or something? Compare also the toponym Śrīgohālī in the Baigram plate (IN00061), Vaṭagohālī and Nitvagohālī in the Paharpur charter (IN00065), and particularly the phrase (upari-)nirddiṣṭa-grāma-gohālikeṣu also in the Paharpur charter. The most likely solution is that gohālī means some sort of hamlet (maybe related to gośāla?), and a saṁgohālī may be a group of hamlets. (And I think I have seen someone propose that, but I don't know where.)
---><lb n="3"></lb>m āśāsya bodhayanti<supplied reason="subaudible">.</supplied> viditam <choice>
+--><lb n="3"/>m āśāsya bodhayanti<supplied reason="subaudible">.</supplied> viditam <choice>
             <sic>b</sic>
             <corr>v</corr>
-          </choice>o <!--
+          </choice>o<!--
 amwb : added choice according to Arlo's apparatus
--->'stu yathā puṇḍravarddhaneya-mūlakav<choice>
+--> 'stu yathā puṇḍravarddhaneya-mūlakav<choice>
             <sic>a</sic>
             <corr>ā</corr>
           </choice>stukā<!--
@@ -127,24 +124,26 @@ amwb : replaced puṇḍravarddhane ya mūlakavastukā by Arlo's reading
 amwb : added choice according to Arlo's apparatus
 -->-vāstavya-kuṭu<!--
 amwb : removed <supplied reason="lost">ṭu</supplied> and reported this change in app
---><lb break="no" n="4"></lb>mbi-kṣemāka<supplied reason="omitted">ḥ</supplied> <!--
+--><lb break="no" n="4"/>mbi-kṣemāka<supplied reason="omitted">ḥ</supplied><!--
 amwb : added the visarga according to Arlo's apparatus
--->gulmagandhikā-vāstavya-bhoyilaḥ tatraiva-vāstavya-mahīdāsāv iha-vīthī-mahatta<!--
+--> gulmagandhikā-vāstavya-bhoyilaḥ tatraiva-vāstavya-mahīdāsāv iha-vīthī-mahatta<!--
 daba siddham :I include no emendations in this edition. Sircar's (1971 and 1973) emendations are plausible but far from certain. He suggests reading ye for ya in l3, kṣemākaḥ for kṣemāka in l4, and then mahīdāsas tair iha. Siddhanta (as quoted by Sircar 1971) emends to puṇḍravarddhaneyo, presumably also emends to kṣemākaḥ, and then mahīdāso iha.
 --><!--
 daba siddham :Sircar (1971:250n4) notes that Siddhanta interpreted kṣemāka as an adjective of bhoyila, meaning Śaiva. He disagrees and adds (1971:250n5) that the dual is probably used because Bhoyila and Mahīdāsa are both from the same place. He also (Sircar_1973:13) stresses that kṣemāka is not attested in lexicons as meaning Śaiva. Note, however, the persistent dual recurring in line 16 below - is it possible that there are just 2 applicants after all?
 --><!--
 amwb : removed  iha vīthī-maha<supplied reason="lost">tta</supplied> and replaced by Arlo's reading
---><lb break="no" n="5"></lb>ra-kumāradeva-gaṇḍa-prajāpati-jeṣṭhadāmā-kuṭumbi-yaśoviṣṇu-Umayaśa-hariśa<unclear>r</unclear>mma<!--
+--><lb break="no" n="5"/>ra-kumāradeva-gaṇḍa-prajāpati-jeṣṭhadāmā-kuṭumbi-yaśoviṣṇu-Umayaśa-hariśa<unclear>r</unclear>mma<!--
 amwb : replaced hariśa<unclear>rmma</unclear> by Arlo's reading
--->- <lb n="6"></lb>sarp<unclear>pa</unclear>pālita-hiraṇyagupta-kumārayaśa<supplied reason="omitted">ḥ</supplied><!--
+-->-
+<lb n="6"/>sarp<unclear>pa</unclear>pālita-hiraṇyagupta-kumārayaśa<supplied reason="omitted">ḥ</supplied><!--
 amwb : added supplied according to Arlo's apparatus
 -->-kumārabhūti-śivakuṇḍa-śivāpara-śiva-somaviṣṇu<!--
-amwb : removed somavi<unclear>ṣṇu</unclear>-->- <lb n="7"></lb>satyaviṣṇu-kaṅkuṭi-nandadāma-vīranāga-nā<add place="below">rā</add>yaṇadāsa-rudra-bhava-guha-Acyuta-kuvera-śarvvanāga-bhava<!--
+amwb : removed somavi<unclear>ṣṇu</unclear>-->-
+<lb n="7"/>satyaviṣṇu-kaṅkuṭi-nandadāma-vīranāga-nā<add place="below">rā</add>yaṇadāsa-rudra-bhava-guha-Acyuta-kuvera-śarvvanāga-bhava<!--
 amwb : replaced nā<add place="below">ra</add>yaṇadāsa by Arlo's reading: ie rā`
 --><!--
 amwb : removed the unclear -<unclear>bhava</unclear> according Arlo's reading
---><lb break="no" n="8"></lb>nāga-śrīdatta-bhavadatta-dhanaviṣṇu-guṇaratha-naradeva-purogāḥ vayañ ca vijñāpitāḥ<!--
+--><lb break="no" n="8"/>nāga-śrīdatta-bhavadatta-dhanaviṣṇu-guṇaratha-naradeva-purogāḥ vayañ ca vijñāpitāḥ<!--
 daba siddham :This list of names is reproduced as segmented by Sircar, but without his emendations (which, apart from jyeṣṭhadāma, only concern the proper in-compound forms of names ending in yaśas). Other segmentations may be possible. Sircar (1971:248) also points out that the first four names are vīthīmahattaras, while the rest are kuṭumbins.
 --><!--
 daba siddham :Note the hiatus before the names Umayaśa and Acyuta.
@@ -153,11 +152,11 @@ Kuvera is printed as Kuvāra in Sircar_1969-70 (without emendation), but the e m
 --><!--
 daba siddham :The ra of nārayaṇadāsa (which could be emended to nārāyaṇadāsa but I'm not sure if we can do a correction within an addition) is below the line, between nā and ya.
 --></p>
-        <p>Icch<supplied reason="lost">ā</supplied>maḥ <!--
+        <p>Icch<supplied reason="lost">ā</supplied>maḥ<!--
 amwb : I replaced <unclear>ā</unclear> by <supplied reason="lost">ā</supplied> because it is noted in brackets [ ] in Arlo's edition
--->dakṣi<!--
+--> dakṣi<!--
 amwb: I removed <supplied reason="lost">kṣi</supplied> from Arlo's edition
---><lb break="no" n="9"></lb>ṇā<unclear>ṅ</unclear>śaka-vīthyāṁ pecikāmra-siddhāyatane <choice>
+--><lb break="no" n="9"/>ṇā<unclear>ṅ</unclear>śaka-vīthyāṁ pecikāmra-siddhāyatane <choice>
             <sic>bhagavatānn arha<unclear>tā</unclear>n</sic>
             <corr>bhagavatām arhatāṅ</corr>
           </choice> kāritaka-vih<unclear>ā</unclear>re gulmagandhike cārhatā<choice>
@@ -167,7 +166,7 @@ amwb: I removed <supplied reason="lost">kṣi</supplied> from Arlo's edition
 amwb : replaced -vī<unclear>th</unclear>yā mecikāmra- by Arlo's reading
 --><!--
 amwb : I replaced cārhatām <unclear>pū</unclear><supplied reason="lost">jā</supplied> by Arlo's reading
---><lb break="no" n="10"></lb>rtthaṁ kāritaka-prānta-vihārik<choice>
+--><lb break="no" n="10"/>rtthaṁ kāritaka-prānta-vihārik<choice>
             <sic>a</sic>
             <corr>e</corr>
           </choice> tatraiva gulmagandhike bhagavatas sahasraraśmeḥ kāritaka-deva-kule ca bali-caru-sa<supplied reason="lost">ttra</supplied><!--
@@ -178,7 +177,7 @@ amwb : I replaced <choice><sic>vihārika</sic><corr>vihārikāyāṁ</corr></cho
 amwb : I replaced <sic>v</sic>ali by Arlo's reading
 --><!--
 amwb : 2021-08-19 : in my opinion the last akṣara of this line is tra with a single t
---><lb break="no" n="11"></lb>pravartta<choice>
+--><lb break="no" n="11"/>pravartta<choice>
             <sic>ṇ</sic>
             <corr>n</corr>
           </choice>āya khaṇḍa-phuṭṭa-pratisaṁskāra-karaṇāya gandha-dh<choice>
@@ -193,63 +192,67 @@ daba siddham :For phuṭṭa see also IN00056 and IN00061. Like Basak, Sircar al
 amwb: added choice + corr from Arlo's apparatus
 --><!--
 amwb : added choice + corr from Arlo's apparatus
---><lb break="no" n="12"></lb>vyām apratikara-khila-kṣetrasya kulya-vāpam ekaṁ krītvā dātuṁ<supplied reason="subaudible">.</supplied> yuṣmākañ ca vīthyām anuvr̥tta<supplied reason="omitted">ḥ</supplied> dvi-dīnārikyāpratikara<!--
+--><lb break="no" n="12"/>vyām apratikara-khila-kṣetrasya kulya-vāpam ekaṁ krītvā dātuṁ<supplied reason="subaudible">.</supplied> yuṣmākañ ca vīthyām anuvr̥tta<supplied reason="omitted">ḥ</supplied> dvi-dīnārikyāpratikara<!--
 amwb : removed <supplied reason="lost">ra</supplied> according to Arlo's reading
---> <lb n="13"></lb>-khila-kṣetrasya kulya-vāpa-vikraya<supplied reason="omitted">ḥ</supplied><supplied reason="subaudible">.</supplied> tad arhathāsmābhir hastād dīnāra-dvayaṁ gr̥hītvā kṣetrasya kulya-vāpam ekaṁ<!--
+-->
+<lb n="13"/>-khila-kṣetrasya kulya-vāpa-vikraya<supplied reason="omitted">ḥ</supplied><supplied reason="subaudible">.</supplied> tad arhathāsmābhir hastād dīnāra-dvayaṁ gr̥hītvā kṣetrasya kulya-vāpam ekaṁ<!--
 amwb : removed <unclear>kaṁ</unclear> according to Arlo's reading. I confirm this reading
---> <lb n="14"></lb>dātum <!--
+-->
+<lb n="14"/>dātum<!--
 amwb : removed the surplus in dā<surplus>ṁ</surplus>tum according to Arlo's reading, cf apparatus
--->iti<supplied reason="subaudible">.</supplied></p>
+--> iti<supplied reason="subaudible">.</supplied></p>
         <p>yat<choice>
             <sic>o</sic>
             <corr>a</corr>
-          </choice> <!--
+          </choice><!--
 amwb : added choice sic corr for yato
--->Etad vijñāpyam <!--
+--> Etad vijñāpyam<!--
 amwb : removed an hyphen : Etad-vijñāpyam becomes Etad vijñāpyam
--->u<supplied reason="omitted">pa</supplied>la<supplied reason="lost">bhya</supplied> <!--
+--> u<supplied reason="omitted">pa</supplied>la<supplied reason="lost">bhya</supplied><!--
 amwb : replaced vijñāpyam u<unclear reason="illegible">pa</unclear>la<unclear reason="illegible">bhya</unclear> by Arlo's reading
--->pustapāla-si<sic>ṅ</sic>hanandi-yaśodāmayor avadhāraṇayā<!--
+--> pustapāla-si<sic>ṅ</sic>hanandi-yaśodāmayor avadhāraṇayā<!--
 amwb : removed the unclear avadh<unclear reason="illegible">ā</unclear>raṇayā and inserted Arlo's reading
---><pb break="no" n="1v"></pb><lb break="no" n="15"></lb>sty ayam asma<unclear>d</unclear><!--
+--><pb break="no" n="1v"/><lb break="no" n="15"/>sty ayam asma<unclear>d</unclear><!--
 amwb: removed one unclear and another in a<unclear>yam a</unclear>smad according to Arlo's reading
--->-vīthy-anuvr̥tta <!--
+-->-vīthy-anuvr̥tta<!--
 amwb: removed <supplied reason="omitted">ḥ</supplied> at the end of the word because Arlo suggests another emendation, see apparatus
--->dvi-dīnāriky-<supplied reason="lost">āpra</supplied>tikara-khila-kṣetrasya kulya-vāpa-vikkrayas <!--
+--> dvi-dīnāriky-<supplied reason="lost">āpra</supplied>tikara-khila-kṣetrasya kulya-vāpa-vikkrayas<!--
 amwb : added a -k- in vikkrayas, see apparatus; after checking the photo I confirm thi reading
 amwb : removed ā<unclear>pra</unclear>tikara-khila and replace it by supplied lost. Indeed the pra cannot be unclear because it is a little broken part of the inscription
--->tad dīyatān na <lb n="16"></lb>virodhaḥ kaścid ity avas<unclear>th</unclear>āpya <!--
+--> tad dīyatān na
+<lb n="16"/>virodhaḥ kaścid ity avas<unclear>th</unclear>āpya<!--
 amwb : added an unclear according to Arlo's reading
--->kṣemāka-bho<unclear>yi</unclear>la<!--
+--> kṣemāka-bho<unclear>yi</unclear>la<!--
 amwb : added an unclear according to Arlo's reading
 -->-mahidāsayor hastā<unclear>t ku</unclear>lika-<!--
 amwb : added two unclear, see apparatus
 -->bhīmenopasaṁgr̥<unclear>h</unclear>ī<add place="below">ta</add>ka-dīnāra-<!--
 amwb : added add + below
---> <lb n="17"></lb>dvayam etat krītvā kṣemāka-bhoyila-mahīdāsayo ṣaḍ-droṇa-vāpāḥ śra<choice>
+-->
+<lb n="17"/>dvayam etat krītvā kṣemāka-bhoyila-mahīdāsayo ṣaḍ-droṇa-vāpāḥ śra<choice>
             <sic>va</sic>
             <corr>ma</corr>
-          </choice>ṇakācārya <!--
-amwb : added choice and corr according to Arlo's apparatus -->balakuṇḍasya samā<!--
+          </choice>ṇakācārya<!--
+amwb : added choice and corr according to Arlo's apparatus --> balakuṇḍasya samā<!--
 daba siddham :L14. I follow Sircar (and other editors) with upalabhya. Unfortunately none of these make clear if the asterisked akṣaras are restorations of lost text or editorial additions to make up for scribal omissions. To me the facsimile seems to read vi(jñāpya) #1# pa _1_ I certainly can't make out "mu" but my illegible character could be their clear mu. Then I see a pretty clear pa, which could be the right-hand edge of their mu plus their la. But in this case their "pa" must be an editorial addition for an omitted character. The empty space could be restored as bhya, and is probably a character lost to damage rather than a scribal omission.
 --><!--
 daba siddham :Sircar wants to emend to dvayena kṣetram etat krītvā, but the local legalese is clearly different.
 --><!--
 daba siddham :Note also mahidāsayo, which Sircar emends to mahidāsānāṁ, but the original intent must have been mahidāsayoḥ.
---><lb break="no" n="18"></lb>v<choice>
+--><lb break="no" n="18"/>v<choice>
             <sic>i</sic>
             <corr>e</corr>
-          </choice>śitāḥ<supplied reason="subaudible">.</supplied> bhoyilenāpi <!--
+          </choice>śitāḥ<supplied reason="subaudible">.</supplied> bhoyilenāpi<!--
 amwb : replaced bhoyilen āpi by bhoyilenāpi (maybe a typing error)
--->sāmbapurasyārttha droṇa-vāpa-dvayaṁ tatrai<unclear>kava</unclear>va-kula-samīpe <!--
+--> sāmbapurasyārttha droṇa-vāpa-dvayaṁ tatrai<unclear>kava</unclear>va-kula-samīpe<!--
 amwb : replaced tatra <unclear>ca de</unclear>vata-kula-samīpe by Arlo's reading, see apparatus
--->puṣpa-vāṭikā-tala-vā<!--
+--> puṣpa-vāṭikā-tala-vā<!--
 daba siddham :Sircar emends °arttha to °artthe, but again, the intent was probably °artthaṁ.
---><lb break="no" n="19"></lb>ṭaka-nimitta<choice>
+--><lb break="no" n="19"/>ṭaka-nimitta<choice>
             <sic>ṁñ</sic>
             <corr>ṁ</corr>
-          </choice> <!--
-amwb : added choice + corr-->ca droṇa-vāpam ekaṁ kāritam<!--
+          </choice><!--
+amwb : added choice + corr--> ca droṇa-vāpam ekaṁ kāritam<!--
 daba siddham :Sircar emends kāritam to krītam. Not sure; see my note to line 20.
 --><!--
 amwb : 2021-09-21 I removed the <supplied reason="omitted"/> inserted after the word kāritam by Daba in his edition. I don't understand what he wants to suggest by this supplied?
@@ -257,30 +260,30 @@ amwb : 2021-09-21 I removed the <supplied reason="omitted"/> inserted after the 
         <p>ity eta<supplied reason="omitted">t</supplied> kṣetraṁ gulmagandhikāyā<supplied reason="omitted">ṁ</supplied> pūrvvo<surplus>tta</surplus>tta<choice>
             <sic>rāṁyā</sic>
             <corr>rasyāṁ</corr>
-          </choice> <!--
-amwb : here I changed and corrected the encoding <choice><sic>pūrvvottattarāṁyā</sic><corr>pūrvvottarāsyāṁ</corr></choice> because the second a must be short in pūrvvottarāsyāṁ. -->diśi sapta-droṇa-vā<!--
+          </choice><!--
+amwb : here I changed and corrected the encoding <choice><sic>pūrvvottattarāṁyā</sic><corr>pūrvvottarāsyāṁ</corr></choice> because the second a must be short in pūrvvottarāsyāṁ. --> diśi sapta-droṇa-vā<!--
 daba siddham :Perhaps better gulmagandhikāyāḥ ablative instead of -yāṁ?
---><lb break="no" n="20"></lb>pāḥ<!--
+--><lb break="no" n="20"/>pāḥ<!--
 amwb : removed the unclear <unclear reason="illegible">pāḥ</unclear> + added DCS reading in apparatus
---> <unclear>dai</unclear>va-kula-samīpe <!--
+--> <unclear>dai</unclear>va-kula-samīpe<!--
 amwb : replaced rddeva-kula-samīpe by Arlo's reading
-	-->ca droṇa-vāpan ekaṁ</p>
+	--> ca droṇa-vāpan ekaṁ </p>
         <!--
 daba siddham :Sircar emends rddevakula to devakula, but wouldn't it be more plausible (though strange) to assume the original reading was °pair ddevakula?
 -->
         <!--
 daba siddham :I am far from sure that this is the correct boundary of the semantic paragraph, it's just my hunch. I also can't quite follow how the droṇa-vāpas add up - six plus two plus one seem to be mentioned above, while here we have seven and then something ambiguous. Can the intent be, "7 droṇa-vāpas to the NE of Gulmagandhikā, plus [one] near the temple [and] one that needn't be recorded here [since it is not purchased now, but had been the property of Bhoyila to begin with, cf. kāritam in l19]"? Need to devote more time to this and compare its structure to the other similar charters.
 -->
-        <p>likhya<sic>ma</sic> ttra <!--
+        <p>likhya<sic>ma</sic> ttra<!--
 amwb : replaced "ekaṁ na likhyam</p><p>atra" by Arlo's reading and reported <p> division from Arlo's translation + check the display to be sure that one can read "ekaṁ likhyama" and not "ekaṁlikhyama" because there are many comments inserted here + added sic in order to invit the reader to check the apparatus
--->sīmā pūrvveṇa puṣk<choice>
+--> sīmā pūrvveṇa puṣk<choice>
             <sic>i</sic>
             <corr>a</corr>
-          </choice>riṇyā<supplied reason="omitted">ḥ</supplied> kandara<supplied reason="omitted">ḥ</supplied> sīmā <!--
+          </choice>riṇyā<supplied reason="omitted">ḥ</supplied> kandara<supplied reason="omitted">ḥ</supplied> sīmā<!--
 amwb : replace "puṣk<choice><sic>i</sic><corr>a</corr></choice>riṇyā kandara-sīmā" by "puṣk<choice><sic>i</sic><corr>a</corr></choice>riṇyā kandara<supplied reason="omiteed">ḥ</supplied> sīmā
--->ca dakṣiṇe<!--
+--> ca dakṣiṇe<!--
 daba siddham :Sircar emends to puṣkariṇyāḥ; again, not sure. He does not emend the same in the next line.
---><lb break="no" n="21"></lb>na dhanaviṣṇu-puṣk<choice>
+--><lb break="no" n="21"/>na dhanaviṣṇu-puṣk<choice>
             <sic>i</sic>
             <corr>a</corr>
           </choice>riṇyā deva-kanda<choice>
@@ -292,28 +295,30 @@ daba siddham :Sircar notes that Siddhanta read nāguka instead of nābhraka; Sir
 daba siddham :Sircar also observes that sataka may be Sanskrit svatvaka, "proprietary right" so the phrase would mean "Nābhraka's property". Is this the etymology of satka used in later CPs? Check Sircar's glossary or somewhere.
 --><!--
 daba siddham :Sircar cites Siddhanta as reading nagokarṣaṇaka at the end of l21; the locus is not identified clearly, but probably covers the lacuna plus Sircar's ta-ku
---> <!--
+-->
+<!--
 amwb : replaced "mā <gap reason="illegible" precision="low" quantity="3" unit="character"/> ta-ku" by Arlo's reading, see apparatus
---><lb break="no" n="22"></lb>ṇḍa-<surplus>sīmā</surplus> Ity eta<supplied reason="omitted">c</supplied> catus-sīmā-niyamita-kṣetraṁ samu<supplied reason="omitted">pa</supplied>sthita-kālaṁ ye 'py anye <add place="below">vi</add>ṣaya-pataya<surplus>ya</surplus>ḥ Āyu<!--
+--><lb break="no" n="22"/>ṇḍa-<surplus>sīmā</surplus> Ity eta<supplied reason="omitted">c</supplied> catus-sīmā-niyamita-kṣetraṁ samu<supplied reason="omitted">pa</supplied>sthita-kālaṁ ye 'py anye <add place="below">vi</add>ṣaya-pataya<surplus>ya</surplus>ḥ Āyu<!--
 daba siddham :Sircar and Agrawala both read samupasthitaṁ; Sircar even supplies a daṇḍa after it, while Agrawala notes that it should be emended to samupasthita-kālīyāḥ. (Sircar observes that the term yathākālabhāvinaḥ often occurs in this context, but he seems to take just kālam as representing such a phrase.) I see no clear anusvāra, only a faint dot above and to the right of ta, so I prefer to read samupasthita in compound with kālam, as clearly found in IN00074 (Kalaikuri plate) l28.
---><lb break="no" n="23"></lb>ktakā<supplied reason="omitted">ḥ</supplied> kuṭumbino 'dhikaraṇikā vā sa<choice>
+--><lb break="no" n="23"/>ktakā<supplied reason="omitted">ḥ</supplied> kuṭumbino 'dhikaraṇikā vā sa<choice>
             <sic>m</sic>
             <corr>ṁ</corr>
-          </choice>byavahāriṇo <!--
+          </choice>byavahāriṇo<!--
 amwb :changed v in b and added choice + corr
--->bhaviṣyanti <unclear>tai</unclear>r api bhūmi-dāna-phalam a<unclear>p</unclear>e<lb break="no" n="24"></lb>kṣyākṣaya<!--
+--> bhaviṣyanti <unclear>tai</unclear>r api bhūmi-dāna-phalam a<unclear>p</unclear>e<lb break="no" n="24"/>kṣyākṣaya<!--
 amwb : I replaced a<unclear>ve</unclear>kṣyākṣaya by Arlo's reading, but when I compared the akṣara with pa and va, it seems to look loke a ve? ; I checked Sircar who notes ve in brackets [ve]. So in the apparatus I noted ve with supplied tag and not unclear
 -->-nīvyānupālanīyā<!--
 amwb : I removed "<choice><sic>nīvyānupālanīyā</sic><corr>nīvy anupālanīyā</corr></choice>" which represents Sircar's emendation. Arlo's apparatus on this point gives me the impression that he does not follow Sircar?
---> <space></space><!--
+-->
+<space/><!--
 amwb : added space according to Arlo's reading , I confirm the space after checking the photo
 --><supplied reason="subaudible">.</supplied></p>
         <p>Uktañ ca bhagavatā vyāsena</p>
         <lg met="anuṣṭubh" n="1">
           <l n="a">sva-<supplied reason="omitted">da</supplied><sic>t</sic>āṁ para-da<sic>t</sic>āṁ vā</l>
-          <l n="b">yo hareta vasundha<lb break="no" n="25"></lb>rāṁ</l>
+          <l n="b">yo hareta vasundha<lb break="no" n="25"/>rāṁ</l>
           <l n="c">sa viṣṭhāyā<supplied reason="omitted">ṁ</supplied> kr̥mir bhūtvā</l>
-          <l n="d">pitr̥bhis saha pacyate <space></space><!--
+          <l n="d">pitr̥bhis saha pacyate <space/><!--
 amwb : added a space according to Arlo's reading
 --></l>
         </lg>
@@ -325,17 +330,17 @@ amwb : added a space according to Arlo's reading
 amwb : removed Sircar's reading (ṣaṣṭiṁ varṣa-sahasrāṇi) and replaced it by Arlo's one
 amwb : 2021-11-23 added the correction according to Sircar's list of Bhūmidāna stanzas
 --></l>
-          <l n="b">svargge vasati bhūmi<lb break="no" n="26"></lb>-daḥ</l>
+          <l n="b">svargge vasati bhūmi<lb break="no" n="26"/>-daḥ</l>
           <l n="c">Ākṣeptā c<choice>
               <sic>a</sic>
               <corr>ā</corr>
-            </choice>numantā <!--
+            </choice>numantā<!--
 amwb : I removed Sircar's reading cānumantā
 amwb 2012-08-30 : I added a choice sic corr for the short a reported in canumantā
--->ca</l>
-          <l n="d">tāny eva <!--
+--> ca</l>
+          <l n="d">tāny eva<!--
 amwb : I removed the unclear in e<unclear>va</unclear>which reflected Sircar's reading
--->na<supplied reason="omitted">ra</supplied>ke vaseT<!--
+--> na<supplied reason="omitted">ra</supplied>ke vaseT<!--
 daba siddham :The facsimile is too unclear to make out the halanta form, but since the following i is a full vowel, this must be a halanta t. What is visible looks like a regular ta.
 amwb : Arlo's reading confirms Sircar's one
 --></l>
@@ -350,7 +355,7 @@ amwb : I removed Sircar's reading : ddatt<surplus>v</surplus>ā
             </choice>ya<supplied reason="omitted">te</supplied> ca punaḥ punaḥ</l>
           <l n="c">yasya<!--
 amwb : I removed Sircar's reading and reported it in the apparatus
---> <lb n="27"></lb>yasya yad<choice>
+--> <lb n="27"/>yasya yad<choice>
               <sic>a</sic>
               <corr>ā</corr>
             </choice> bhūmi<supplied reason="omitted">s</supplied></l>
@@ -359,7 +364,7 @@ amwb : I removed Sircar's reading and reported it in the apparatus
         <lg met="anuṣṭubh" n="4">
           <l n="a">vindhyāṭavīṣv anaṁbhassu</l>
           <l n="b">śuṣka-koṭara-vāsinaḥ</l>
-          <l n="c">kr̥ṣṇāha<lb break="no" n="28"></lb>yo 'bhijāyant<choice>
+          <l n="c">kr̥ṣṇāha<lb break="no" n="28"/>yo 'bhijāyant<choice>
               <sic>i</sic>
               <corr>e</corr>
             </choice><!--
@@ -371,7 +376,7 @@ amwb : I removed the unclear (<unclear>ye</unclear>)--><surplus>d</surplus></l>
 daba siddham :At the end of the verse, yed iti is Sircar's reading, which he emends to ye|| iti. I see nothing recognisable between nti and the next ti of iti. Inscribing yediti for ye iti seems like an unlikely mistake to me, so I wonder if it could instead be ced iti or ya Iti.
 -->
         </lg>
-        <p>iti <space></space><!--
+        <p>iti <space/><!--
 amwb : I added the space according to Arlo's reading , after checking the photo it seems there is really a large space equivalent to two or three akṣaras, maybe add a minima one space???
 --><supplied reason="subaudible">.</supplied> <abbr>saṁ</abbr><!--
 amwb : I added the tag abbr
@@ -379,11 +384,11 @@ amwb : I added the tag abbr
 amwb : I added the tag abbr
 --> <num value="20">
             <g type="numeral">20</g>
-          </num> likhitaṁ rudradā<unclear>se</unclear>na <!--
+          </num> likhitaṁ rudradā<unclear>se</unclear>na<!--
 amwb : I replaced Sircar's reading and added it in the apparatus
--->tāpi<lb break="no" n="29"></lb><unclear>taṁ</unclear> <!--
+--> tāpi<lb break="no" n="29"/><unclear>taṁ</unclear><!--
 amwb : I replaced Sircar's reading and added it in the apparatus
--->s<supplied reason="lost">u</supplied>si<sic>ṅ</sic>hana mi ti<!--
+--> s<supplied reason="lost">u</supplied>si<sic>ṅ</sic>hana mi ti<!--
 daba siddham :Sircar emends the end to susiṁhena iti, which makes sense. The facsimile shows nothing recognisable to me, except si and then a superscript i of what must be Sircar's mi.
 --><!--
 amwb : after checking the photo I will add a space between hana and mi
@@ -397,7 +402,7 @@ amwb : after checking the photo I will add a space between hana and mi
                 <corr>au</corr>
               </choice>śikāyāḥ</lem>
             <rdg source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">°kauśikāyāḥ</rdg>
-            <note>The place name <foreign>pūrṇṇakośikā</foreign> is regularised in Pūrṇakauśikā in the translation but it is found with the same spelling and with the same location in the territory of Śr̥ṅgavera in the <ref target="DHARMA_INSBengalCharters00033.xml">Kalaikuri-Sultanpur Plate of the Time of Kumāragupta I</ref>, line 1.</note>
+            <note>The place name <foreign>pūrṇṇakośikā</foreign> is regularised in Pūrṇakauśikā in the translation but it is found with the same spelling and with the same location in the territory of Śr̥ṅgavera  in the <ref target="DHARMA_INSBengalCharters00033.xml">Kalaikuri-Sultanpur Plate of the Time of Kumāragupta I</ref>, line 1.</note>
           </app>
           <app loc="2">
             <lem>sagohālike</lem>
@@ -408,9 +413,9 @@ amwb : I am not sure if I use the good encoding for :(saṁ)gohālike (ca*) DCS 
 -->
             <rdg source="bib:Balogh+al2019_01">sa<supplied reason="omitted">ṁ</supplied>ggohālike</rdg>
             <note>There is definitely only a single <foreign>g</foreign>. If the reading <foreign>sago</foreign>- is accepted, then the need to insert <foreign>ca</foreign> disappears. The <foreign>anusvāra</foreign> seems to have been restored by DCS on the grounds that <foreign>saṁgohāliṣu</foreign> has been read in <ref target="DHARMA_INSBengalCharters00033.xml">Kalaikuri</ref>, line 1–2: <foreign>hastiśīrṣe <supplied reason="lost">vibhītak</supplied>yāṁ <supplied reason="lost">gu</supplied>lma<supplied reason="lost">gandhi</supplied>kāyāṁ dhānyapāṭalikāyāṁ saṁgohāliṣu</foreign>. But the presence of <foreign>anusvāra</foreign> there is doubtful, and there is no <foreign>ca</foreign>; <foreign>sagohāliṣu</foreign> seems to make better sense. On the meaning of the term <foreign>gohalī</foreign>, see <bibl>
-                <ptr target="bib:Griffiths2018_02"></ptr>
+                <ptr target="bib:Griffiths2018_02"/>
                 <citedRange unit="page">40-2</citedRange>
-              </bibl>.</note>
+              </bibl>. </note>
             <!--
 amwb : I added a reference to Arlo's article 2018 on the term gohalī
 -->
@@ -427,14 +432,16 @@ amwb : I added a reference to Arlo's article 2018 on the term gohalī
             <lem>puṇḍravarddhaneya-mūlaka°</lem>
             <rdg source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">puṇḍravarddhane ya mūlaka°</rdg>
             <note>DCS reads <foreign>puṇḍravarddhane ya</foreign> and emends <foreign>puṇḍravarddhane ye</foreign>. See his discussion <bibl>
-                <ptr target="bib:Sircar1973_01"></ptr>
+                <ptr target="bib:Sircar1973_01"/>
                 <citedRange unit="page">13</citedRange>
-              </bibl>. I reject this arguments and his emendation in the light of <ref target="DHARMA_INSBengalCharters00039.xml">Mahatī-Raktamālā I</ref>, lines 4–5. For my interpretation, see the translation below, and that of <foreign>dakṣiṇāṁśakavītheya</foreign>- in the parallel passage in the <ref target="DHARMA_INSBengalCharters00052.xml">Paharpur plate</ref>. A similar -<foreign>eya</foreign> adjective without <foreign>vr̥ddhi</foreign> in the first syllable is <foreign>dugdhotikeya</foreign> in the <ref target="DHARMA_INSBengalCharters00039.xml">Mahatī-Raktamālā plate I</ref>, line 18.</note>
+              </bibl>. I reject this arguments and his emendation in the light of <ref target="DHARMA_INSBengalCharters00039.xml">Mahatī-Raktamālā I</ref>, lines 4–5. For my interpretation, see the translation below, and that of <foreign>dakṣiṇāṁśakavītheya</foreign>- in the parallel passage in the <ref target="DHARMA_INSBengalCharters00052.xml">Paharpur plate</ref>. A similar -<foreign>eya</foreign> adjective without <foreign>vr̥ddhi</foreign> in the first syllable is <foreign>dugdhotikeya</foreign> in the <ref target="DHARMA_INSBengalCharters00039.xml">Mahatī-Raktamālā plate I</ref>, line 18.
+</note>
           </app>
           <app loc="3">
-            <lem>kuṭu<lb break="no" n="4"></lb>mbi-kṣemāka<supplied reason="omitted">ḥ</supplied></lem>
+            <lem>kuṭu<lb break="no" n="4"/>mbi-kṣemāka<supplied reason="omitted">ḥ</supplied></lem>
             <rdg source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">ku<supplied reason="lost">ṭu</supplied>mbi-kṣemāka<supplied reason="omitted">ḥ</supplied></rdg>
-            <note>Furui’s photo clearly shows the <foreign>akṣara</foreign> <foreign>ṭu</foreign> that DCS restored. Restoration of <foreign>visarga</foreign> is still necessary.</note>
+            <note>Furui’s photo clearly shows the <foreign>akṣara</foreign> <foreign>ṭu</foreign> that DCS restored. Restoration of <foreign>visarga</foreign> is still necessary.
+</note>
           </app>
           <app loc="4">
             <lem>tatraiva-</lem>
@@ -442,16 +449,16 @@ amwb : I added a reference to Arlo's article 2018 on the term gohalī
             <rdg source="bib:Sircar1973_01">tatra va-</rdg>
             <rdg source="bib:Balogh+al2019_01">tatraiva</rdg>
             <note><bibl>
-                <ptr target="bib:Sircar1973_01"></ptr>
+                <ptr target="bib:Sircar1973_01"/>
               </bibl> seems to be a printing error.</note>
           </app>
           <app loc="4">
             <lem>-mahīdāsāv iha-vīthī-mahatta°</lem>
             <rdg source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">-mahīdāsāv iha vīthī-maha<supplied reason="lost">tta</supplied>°</rdg>
             <note>DCS emends -<foreign>dāsas tair iha</foreign>.<bibl>
-                <ptr target="bib:Sircar1969-1970_01"></ptr>
+                <ptr target="bib:Sircar1969-1970_01"/>
               </bibl> notes: <q>The author of the record thought of the dual number probably because Bhōyila and Mahīdāsa were residents of the same place while Kshemāka was the inhabitant of a different locality.</q>. Another possibility would be to emend -<foreign>kṣemāka-gulmagandhikāvāstavyabhoyila-tatraivavāstavya-mahīdāsair</foreign>. But comparison with lists of witness containing the expression <foreign>atraivavāstavya</foreign> in the <ref target="DHARMA_INSBengalCharters00035.xml">plate of Vainyagupta of 184 GE</ref> (<bibl>
-                <ptr target="bib:Furui2016_01"></ptr>
+                <ptr target="bib:Furui2016_01"/>
               </bibl>) suggests the emendations -<foreign>kṣemāka<hi rend="bold">ḥ</hi> gulmagandhikā-vāstavya-bhoyila<hi rend="bold">s</hi> tatraiva-vāstavya-mahīdā<hi rend="bold">saś ca I</hi>ha</foreign>- (or ...<foreign>dā<hi rend="bold">saś ce</hi>ha</foreign>-).</note>
             <!--
 amwb : as bhoyila and mahīdāsa are both originated from gulmagandhikā, the duel seems to be justified and one could imagine another emendation possible if we see ḥ at the end of bhoyila as a scribal error, we can form a long duel compound "gulmagandhikāvāstavyabhoyilatatraivavāstavyamahīdāsāv". In this case, note gulmagandhikāvāstavyabhoyila<surplus>ḥ</surplus>tatraivavāstavyamahīdāsāv in the edition.
@@ -463,7 +470,8 @@ amwb : as bhoyila and mahīdāsa are both originated from gulmagandhikā, the du
           </app>
           <app loc="5">
             <lem>-Umayaśa-</lem>
-            <note>DCS emends -<foreign>Umayaśo</foreign>-. One might expect a name like <foreign>Umāyaśas</foreign>, to be spelled <foreign>Umāyaśo</foreign> in the context, but since the same name <foreign>Umayaśa</foreign> appears in the same spelling in the <ref target="DHARMA_INSBengalCharters00033.xml">Kalaikuri-Sultanpur plate</ref>, line 4, it seems better not to emend at all.</note>
+            <note>DCS emends -<foreign>Umayaśo</foreign>-. One might expect a name like <foreign>Umāyaśas</foreign>, to be spelled <foreign>Umāyaśo</foreign> in the context, but since the same name <foreign>Umayaśa</foreign> appears in the same spelling in the <ref target="DHARMA_INSBengalCharters00033.xml">Kalaikuri-Sultanpur plate</ref>, line 4, it seems better not to emend at all.
+</note>
           </app>
           <app loc="5">
             <lem>hariśa<unclear>r</unclear>mma</lem>
@@ -484,7 +492,7 @@ amwb : as bhoyila and mahīdāsa are both originated from gulmagandhikā, the du
             <lem source="bib:Sircar1969-1970_01 bib:Balogh+al2019_01">-kaṅkuṭi-</lem>
             <rdg source="bib:Sircar1973_01">-kaṅkaṭi-</rdg>
             <note><bibl>
-                <ptr target="bib:Sircar1973_01"></ptr>
+                <ptr target="bib:Sircar1973_01"/>
               </bibl> seems to be a printing error.</note>
           </app>
           <app loc="7">
@@ -504,7 +512,8 @@ amwb : as bhoyila and mahīdāsa are both originated from gulmagandhikā, the du
           <app loc="8">
             <lem>dakṣi-</lem>
             <rdg source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">da<supplied reason="lost">kṣi</supplied>-</rdg>
-            <note>The last <foreign>akṣara</foreign> is clear on Furui’s photo.</note>
+            <note>The last <foreign>akṣara</foreign> is clear on Furui’s photo.
+</note>
           </app>
           <app loc="9">
             <lem>-vīthyāṁ pecikāmra-</lem>
@@ -519,11 +528,11 @@ amwb : as bhoyila and mahīdāsa are both originated from gulmagandhikā, the du
               </choice>
             </lem>
             <note>Emend <foreign>bhagavatām arhatāṅ</foreign>; as already emended by <bibl>
-                <ptr target="bib:Sircar1969-1970_01"></ptr>
+                <ptr target="bib:Sircar1969-1970_01"/>
               </bibl> (the representation of these words in <bibl>
-                <ptr target="bib:Sircar1973_01"></ptr>
+                <ptr target="bib:Sircar1973_01"/>
               </bibl> is erroneous) and by <bibl>
-                <ptr target="bib:Balogh+al2019_01"></ptr>
+                <ptr target="bib:Balogh+al2019_01"/>
               </bibl>. Cf. <ref target="DHARMA_INSBengalCharters00052.xml">Paharpur</ref>, line 7.</note>
           </app>
           <app loc="9">
@@ -577,8 +586,9 @@ amwb : as bhoyila and mahīdāsa are both originated from gulmagandhikā, the du
             <note>Already emended by DCS.</note>
           </app>
           <app loc="11">
-            <lem source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">°kṣaya-<supplied reason="lost">nī</supplied>-<lb break="no" n="12"></lb>vyām apratikara-</lem>
-            <note>DCS suggests to emend -<foreign>kṣayanīvyā aprati</foreign>-. In other words, the -<foreign>m</foreign>- is a hiatus bridger.</note>
+            <lem source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">°kṣaya-<supplied reason="lost">nī</supplied>-<lb break="no" n="12"/>vyām apratikara-</lem>
+            <note>DCS suggests to emend -<foreign>kṣayanīvyā aprati</foreign>-. In other words, the -<foreign>m</foreign>- is a hiatus bridger.
+</note>
           </app>
           <app loc="12">
             <lem source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">anuvr̥tta<supplied reason="omitted">ḥ</supplied></lem>
@@ -627,14 +637,15 @@ amwb : as bhoyila and mahīdāsa are both originated from gulmagandhikā, the du
           <app loc="14">
             <lem source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">-yaśodāmayor</lem>
             <note>Emend -<foreign>yaśodāmnor</foreign> as <bibl>
-                <ptr target="bib:Sircar1973_01"></ptr>
+                <ptr target="bib:Sircar1973_01"/>
               </bibl> did.</note>
           </app>
           <app loc="14">
             <lem>avadhāraṇayāsty</lem>
             <rdg source="bib:Sircar1969-1970_01 bib:Balogh+al2019_01">avadh<unclear reason="illegible">ā</unclear>raṇayāsty</rdg>
             <rdg source="bib:Sircar1973_01">ava<unclear>dhā</unclear>raṇayāsty</rdg>
-            <note>Emend <foreign>avadhāraṇayāvadhr̥tyāsty</foreign> or <foreign>avadhāraṇayāvadhr̥tam asty</foreign>? In the light of <ref target="DHARMA_INSBengalCharters00052.xml">Paharpur</ref>, lines 10–11, I presume the latter.</note>
+            <note>Emend <foreign>avadhāraṇayāvadhr̥tyāsty</foreign> or <foreign>avadhāraṇayāvadhr̥tam asty</foreign>? In the light of <ref target="DHARMA_INSBengalCharters00052.xml">Paharpur</ref>, lines 10–11, I presume the latter.
+</note>
           </app>
           <app loc="15">
             <lem>ayam asma<unclear>d</unclear></lem>
@@ -750,14 +761,14 @@ amwb : I don't understand your count : six droṇa from kṣemāka-bhoyila-mahī
             <rdg source="bib:Sircar1969-1970_01">°pāḥ rdde-devakula-samīpe</rdg>
             <rdg source="bib:Balogh+al2019_01"><unclear reason="illegible">pāḥ</unclear> rddeva-kula-samīpe</rdg>
             <note><bibl>
-                <ptr target="bib:Sircar1969-1970_01"></ptr>
-              </bibl> suggests in note : <q>. . . <foreign>vāpa ekaḥ</foreign></q>. Emend -<foreign>vāpā devakulasamīpe</foreign>.</note>
+                <ptr target="bib:Sircar1969-1970_01"/>
+              </bibl> suggests in note :<q> . . . <foreign>vāpa ekaḥ</foreign></q>. Emend -<foreign>vāpā devakulasamīpe</foreign>.</note>
           </app>
           <app loc="20">
             <lem>ekaṁ likhya<sic>ma</sic> ttra</lem>
             <rdg source="bib:Sircar1969-1970_01 bib:Balogh+al2019_01">ekaṁ na likhyam atra</rdg>
             <note><bibl>
-                <ptr target="bib:Sircar1969-1970_01"></ptr>
+                <ptr target="bib:Sircar1969-1970_01"/>
               </bibl> adds in note: read <foreign>likhyate 'tra</foreign>. <foreign>e<choice>
                   <sic>kaṁ</sic>
                   <corr>kam |</corr>
@@ -767,7 +778,7 @@ amwb : I don't understand your count : six droṇa from kṣemāka-bhoyila-mahī
                 </choice>tra</foreign> DCS 1969<!-- Maybe is it 1973? -->. There certainly is no <foreign>akṣara</foreign> <foreign>na</foreign>. The emendation to <foreign>likhyate</foreign> seems to be supported by the parallel passage in the <ref target="DHARMA_INSBengalCharters00033.xml">Kalaikuri-Sultanpur plate</ref>, lines 28–29: <foreign>likhyate ca samupasthita-kā<supplied reason="lost">laṁ</supplied><supplied reason="lost">ye 'py anye</supplied> viṣaya-patayaḥ āyuktakāḥ kuṭumbino 'dhikaraṇikā vā <choice>
                   <sic>sambya</sic>
                   <corr>saṁvya</corr>
-                </choice>vahāriṇo bhaviṣyanti tair api bhūmi-dāna-phalam avekṣya akṣaya-nīvy anupālanīyā</foreign>.</note>
+                </choice>vahāriṇo bhaviṣyanti tair api bhūmi-dāna-phalam avekṣya akṣaya-nīvy anupālanīyā</foreign>. </note>
           </app>
           <app loc="20">
             <lem source="bib:Sircar1973_01">puṣk<choice>
@@ -783,10 +794,11 @@ amwb : I don't understand your count : six droṇa from kṣemāka-bhoyila-mahī
                 <corr>a</corr>
               </choice>riṇyā kandara-</rdg>
             <note>Emend <foreign>puṣkariṇyāḥ kandaraḥ</foreign> (<bibl>
-                <ptr target="bib:Sircar1973_01"></ptr>
+                <ptr target="bib:Sircar1973_01"/>
               </bibl>); <bibl>
-                <ptr target="bib:Sircar1969-1970_01"></ptr>
-              </bibl> only emends <foreign>puṣkariṇyāḥ kandara</foreign>.</note>
+                <ptr target="bib:Sircar1969-1970_01"/>
+              </bibl> only emends <foreign>puṣkariṇyāḥ kandara</foreign>.
+</note>
           </app>
           <app loc="21">
             <lem source="bib:Sircar1973_01">-puṣk<choice>
@@ -801,35 +813,36 @@ amwb : I don't understand your count : six droṇa from kṣemāka-bhoyila-mahī
                 <corr>a</corr>
               </choice>riṇyā deva-kandara-</rdg>
             <note>Emend -<foreign>puṣkariṇyā devakandaraḥ sīmā</foreign> (<bibl>
-                <ptr target="bib:Sircar1973_01"></ptr>
+                <ptr target="bib:Sircar1973_01"/>
               </bibl>); <bibl>
-                <ptr target="bib:Sircar1969-1970_01"></ptr>
+                <ptr target="bib:Sircar1969-1970_01"/>
               </bibl> only emends <foreign>puṣkariṇyā devakandarasīmā</foreign>. The reading <foreign>deva</foreign> is uncertain and in my view rather unlikely to be correct.</note>
           </app>
           <app loc="21">
             <lem source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">nābhraka-sataka-sīmā</lem>
-            <note>Or read <foreign>nāb<hi rend="bold">hokasanta</hi>kasīmā</foreign>? DCS notes that <q>In this expression, <foreign>sataka</foreign> may be Sanskrit <foreign>svatvaka</foreign> (proprietary right), <foreign>Nābhrakasvatvaka</foreign> meaning ‘Nābhraka's property</q>. If my alternative reading is correct, then -<foreign>santaka</foreign> would express the same meaning.</note>
+            <note>Or read <foreign>nāb<hi rend="bold">hokasanta</hi>kasīmā</foreign>? DCS notes that <q>In this expression, <foreign>sataka</foreign> may be Sanskrit <foreign>svatvaka</foreign> (proprietary right), <foreign>Nābhrakasvatvaka</foreign> meaning ‘Nābhraka's property</q>. If my alternative reading is correct, then -<foreign>santaka</foreign> would express the same meaning. </note>
           </app>
           <app loc="21">
-            <lem>yāvaddāpteta-ku<lb break="no" n="22"></lb>ṇḍa-<surplus>sīmā</surplus></lem>
-            <rdg source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">mā <gap precision="low" quantity="3" reason="illegible" unit="character"></gap> ta-ku<lb break="no" n="22"></lb>ṇḍa-sīmā</rdg>
-            <note>The word <foreign>sīmā</foreign> is redundant here.</note>
+            <lem>yāvaddāpteta-ku<lb break="no" n="22"/>ṇḍa-<surplus>sīmā</surplus></lem>
+            <rdg source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">mā <gap precision="low" quantity="3" reason="illegible" unit="character"/> ta-ku<lb break="no" n="22"/>ṇḍa-sīmā</rdg>
+            <note>The word <foreign>sīmā</foreign> is redundant here.
+</note>
           </app>
           <app loc="22">
             <lem source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">Ity eta<supplied reason="omitted">c</supplied></lem>
-            <note>Already emended by DCS.</note>
+            <note>Already emended by DCS. </note>
           </app>
           <app loc="22">
             <lem>samu<supplied reason="omitted">pa</supplied>sthita-kālaṁ ye</lem>
             <rdg source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">samu<supplied reason="omitted">pa</supplied>sthitaṁ kālaṁ</rdg>
-            <note>DCS emends <foreign>samupasthitakālīyāḥ</foreign>. I emend <foreign>samupasthitakālaṁ</foreign>, after <ref target="DHARMA_INSBengalCharters00033.xml">Kalaikuri-Sultanpur plate</ref>, line 28.</note>
+            <note>DCS emends <foreign>samupasthitakālīyāḥ</foreign>. I emend <foreign>samupasthitakālaṁ</foreign>, after <ref target="DHARMA_INSBengalCharters00033.xml">Kalaikuri-Sultanpur plate</ref>, line 28.  </note>
           </app>
           <app loc="22">
             <lem source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">-pataya<surplus>ya</surplus>ḥ</lem>
             <note>Already corrected by DCS.</note>
           </app>
           <app loc="22">
-            <lem source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">Āyu<lb break="no" n="23"></lb>ktakā<supplied reason="omitted">ḥ</supplied></lem>
+            <lem source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">Āyu<lb break="no" n="23"/>ktakā<supplied reason="omitted">ḥ</supplied></lem>
             <note>Already emended by DCS.</note>
           </app>
           <app loc="23">
@@ -843,9 +856,9 @@ amwb : I don't understand your count : six droṇa from kṣemāka-bhoyila-mahī
               </choice>vyavahāriṇo</rdg>
           </app>
           <app loc="23">
-            <lem>a<unclear>p</unclear>e<lb break="no" n="24"></lb>kṣyākṣaya</lem>
-            <rdg source="bib:Sircar1969-1970_01 bib:Sircar1973_01">a<supplied reason="lost">ve</supplied><lb break="no" n="24"></lb>kṣyākṣaya-</rdg>
-            <rdg source="bib:Balogh+al2019_01">a<unclear>ve</unclear><lb break="no" n="24"></lb>kṣyākṣaya-</rdg>
+            <lem>a<unclear>p</unclear>e<lb break="no" n="24"/>kṣyākṣaya</lem>
+            <rdg source="bib:Sircar1969-1970_01 bib:Sircar1973_01">a<supplied reason="lost">ve</supplied><lb break="no" n="24"/>kṣyākṣaya-</rdg>
+            <rdg source="bib:Balogh+al2019_01">a<unclear>ve</unclear><lb break="no" n="24"/>kṣyākṣaya-</rdg>
             <note>Cf. the corresponding paragraph in <ref target="DHARMA_INSBengalCharters00049.xml">Baigram</ref> and <ref target="DHARMA_INSBengalCharters00054.xml">Nandapur</ref>.</note>
           </app>
           <app loc="24">
@@ -907,8 +920,8 @@ amwb : I don't understand your count : six droṇa from kṣemāka-bhoyila-mahī
             <rdg source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">rudradā<unclear>sena</unclear></rdg>
           </app>
           <app loc="28">
-            <lem>tāpi<lb break="no" n="29"></lb><unclear>taṁ</unclear></lem>
-            <rdg source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">tāpi<lb break="no" n="29"></lb><unclear>ta</unclear>ṁ</rdg>
+            <lem>tāpi<lb break="no" n="29"/><unclear>taṁ</unclear></lem>
+            <rdg source="bib:Sircar1969-1970_01 bib:Sircar1973_01 bib:Balogh+al2019_01">tāpi<lb break="no" n="29"/><unclear>ta</unclear>ṁ</rdg>
           </app>
           <app loc="29">
             <lem>s<supplied reason="lost">u</supplied>si<sic>ṅ</sic>hana mi ti</lem>
@@ -924,15 +937,18 @@ amwb : I don't understand your count : six droṇa from kṣemāka-bhoyila-mahī
               <foreign>vīthī</foreign>
             </supplied>, the officer Acyuta, favored by the feet of the <supplied reason="explanation">Gupta</supplied> Sovereign, and the council <supplied reason="explanation">of this territory</supplied>, greet the principal peasant householders, beginning with the Brahmins, at Gulmagandhika with its hamlets <supplied reason="explanation">
               <foreign>gohālī</foreign>
-            </supplied> and inform them:</p>
-          <p n="3-14">Be it known to you that:</p>
+            </supplied> and inform them:
+</p>
+          <p n="3-14">Be it known to you that:
+			</p>
           <p>The householder Kṣemāka residing in the habitation <supplied reason="explanation">
               <foreign>vāstuka</foreign>
             </supplied> of the capital <supplied reason="explanation">
               <foreign>mūlaka</foreign>
-            </supplied> ; Bhoyila residing in Gulmagandhikā; and Mahīdāsa residing in the same place — <supplied reason="explanation">both of these locations</supplied> appertaining to Puṇḍravardhana — <supplied reason="subaudible">by them</supplied> <!--
+            </supplied>
+				; Bhoyila residing in Gulmagandhikā; and Mahīdāsa residing in the same place — <supplied reason="explanation">both of these locations</supplied> appertaining to Puṇḍravardhana — <supplied reason="subaudible">by them</supplied><!--
 amwb : this <supplied> is not very clear for me. I understand that, by adding it, you want to express the fact that the three householders addressed first their request to the two others groups before addressing acyuta and his council?
--->have been respectfully requested</p>
+--> have been respectfully requested</p>
           <list>
             <item>- the notables of this division, <supplied reason="explanation">namely</supplied> Kumāradeva, Gaṇḍa, Prajāpati, Jyeṣṭhadāman;</item>
             <item>- the peasant householders beginning with Yaśoviṣṇu, Umayaśas, Hariśarman, Sarpapālita, Hiraṇyagupta, Kumārayaśas, Kumārabhūti, Śivakuṇḍa, Śiva, another Śiva, Somaviṣṇu, Satyaviṣṇu, Kaṅkuṭi, Nandadāman, Vīranāga, Nārāyaṇadāsa, Rudra, Bhava, Guha, Acyuta, Kubera, Śarvanāga, Bhavanāga, Śrīdatta, Bhavadatta, Dhanaviṣṇu, Guṇaratha, Naradeva;<!--
@@ -941,56 +957,69 @@ amwb: here °purogāḥ ifc. is not translated while it allows to construct the 
 2. preceded by a group consisting of two kinds of person (the notables of this division = 4 names + other householders = 28 names?)
 3. and finally "ourselves" = acyuta and his council?
 For me, these three are the subjects of vijñāpitāḥ. --></item>
-            <item>- and ourselves :</item>
+            <item>- and ourselves :
+</item>
           </list>
           <p>For offerings of <foreign>bali</foreign>, <foreign>caru</foreign> and <foreign>sattra</foreign>, for carrying out the repairs of breaches <supplied reason="explanation">
               <foreign>khaṇḍa</foreign>
             </supplied> and cracks <supplied reason="explanation">
               <foreign>phuṭṭa</foreign>
             </supplied>, <supplied reason="explanation">and</supplied> for requirements of perfumes, incense, and oil in the monastery built for the venerable Arhants in the shrine of Pecikāmrasiddhi in the Dakṣiṇāṅśaka division, and in the little peripheral monastery built for the purpose of worshipping the Arhants at Gulmagandhika, and in the temple built for the Lord Sahasraraśmi <supplied reason="explanation">i.e., Sūrya</supplied> in the same Gulmagandhika, we wish to purchase and give one <foreign>kulyavāpa</foreign> of uncultivated land without revenue charges by way of permanent endowment to be enjoyed in perpetuity. And in your division the custom is sale for two <foreign>dīnāra</foreign>s of a <foreign>kulyavāpa</foreign> of uncultivated land that is without revenue charges. Thus <supplied reason="explanation">tad</supplied>, be so kind as to take from our hand two <foreign>dīnāra</foreign>s and to give one <foreign>kulyavāpa</foreign> of land.</p>
-          <p n="14-20">Wherefore, after receiving this respectful request, and after having established through the investigation of the record-keepers Siṁhanandin and Yaśodāman that <list>
+          <p n="14-20">Wherefore, after receiving this respectful request, and after having established through the investigation of the record-keepers Siṁhanandin and Yaśodāman that
+	<list>
               <item>this sale for two <foreign>dīnāra</foreign>s of a <foreign>kulyavāpa</foreign> of uncultivated land without revenue charges is customary in our territory, so that it ought to be given</item>
               <item>there is no conflict <supplied reason="explanation">with the interest of the king</supplied></item>
-            </list> and after having purchased this <supplied reason="explanation">land</supplied> with the two <foreign>dīnāra</foreign>s received by the artisan <supplied reason="explanation">
+            </list>
+	and after having purchased this <supplied reason="explanation">land</supplied> with the two <foreign>dīnāra</foreign>s received by the artisan <supplied reason="explanation">
               <foreign>kulika</foreign>
-            </supplied> <!--
+            </supplied><!--
 amwb : I suggest another translation, see my proposition below.
--->Bhīma from the hands of Kṣemāka, Bhoyila and Mahīdāsa, <!--
+--> Bhīma from the hands of Kṣemāka, Bhoyila and Mahīdāsa,<!--
 amwb : as before, maybe "from the hands" is somewhat too literal, I suggest "in person"
--->the six <foreign>droṇavāpa</foreign>s of <!--
+--> the six <foreign>droṇavāpa</foreign>s of<!--
 amwb : to improve the syntactic structure "absolutive + etad...., ṣaḍdroṇavāpāḥ + samāviśitāḥ", I suggest to add something in ( ) and delete "the" : six <foreign>droṇavāpa</foreign>s of (this land purchased by) Kṣemāka, Bhoyila and Mahīdāsa. See below in the translation suggested
--->Kṣemāka, Bhoyila and Mahīdāsa were entrusted <supplied reason="explanation">to the monastery</supplied> of the <foreign>śramaṇaka</foreign> master Balakuṇḍa. And by Bhoyila were bought, for the purpose of <supplied reason="explanation">the temple called</supplied> Sāmbapura <!--
+--> Kṣemāka, Bhoyila and Mahīdāsa were entrusted <supplied reason="explanation">to the monastery</supplied> of the <foreign>śramaṇaka</foreign> master Balakuṇḍa. And by Bhoyila were bought, for the purpose of <supplied reason="explanation">the temple called</supplied> Sāmbapura<!--
 amwb : it could be useful to indicate in a note that one can deduce from Bhoyila's place of residence mentionned at the beginning of the inscription that this temple Sāmbapura corresponds to "the little peripheral monastery built for the purpose of worshipping the Arhants at Gulmagandhika" and that the other dronaparvan is allocated to "the temple built for the Lord Sahasraraśmi <supplied reason="explanation">i.e., Sūrya</supplied> in the same Gulmagandhika" ?
--->two <foreign>droṇavāpa</foreign>s, and for the purpose of <supplied reason="explanation">use as</supplied> a flower garden and <supplied reason="explanation">as</supplied> adjoining land<!--
+--> two <foreign>droṇavāpa</foreign>s, and for the purpose of <supplied reason="explanation">use as</supplied> a flower garden and <supplied reason="explanation">as</supplied> adjoining land<!--
 amwb : I suggest "adjacent park" see BC49 in the translation part for the word talavāṭaka : there are several mentions of the practice of dedication park or garden recorded in books of gifts
 -->, in the vicinity of the temple in that very place, one <foreign>droṇavāpa</foreign>. So <supplied reason="explanation">
               <foreign>iti</foreign>
-            </supplied> this land is seven (recte: eight) <foreign>droṇavāpa</foreign>s <!--
-amwb : here I suggest another understanding, see the translation below-->to the Northeast of Gulmagandhikā, and one <foreign>droṇavāpa</foreign> near the temple.</p>
+            </supplied> this land is seven (recte: eight) <foreign>droṇavāpa</foreign>s<!--
+amwb : here I suggest another understanding, see the translation below--> to the Northeast of Gulmagandhikā, and one <foreign>droṇavāpa</foreign> near the temple.
+	</p>
           <p n="20-24">It is written in this regard that also by those other district chiefs, officers, peasant householders or councillors who in the near future will be administrating this land, delimited by four boundaries — the boundary in the East is the hollow <supplied reason="explanation">? <foreign>kandara</foreign></supplied> of the pond; and the boundary in the South is the hollow of Dhanaviṣṇu’s pond<!--
 amwb : I know that the reading of deva is not sure but shouldn't we translate it anyway ?
--->; and the boundary in the West is Nābhrakasataka <supplied reason="explanation">?</supplied>; the boundary in the North is the ... pit — the permanent endowment is to be protected, with a view to the fruit of land donation.</p>
-          <p n="24-28">And it has been said by the Lord Vyāsa:</p>
-          <p n="1" rend="stanza">The one who would steal land given by himself or another becomes a worm in shit and is cooked with his ancestors. <note>This verse corresponds to the verse numbered 132 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
-                  <ptr target="bib:Sircar1965_03"></ptr>
+-->; and the boundary in the West is Nābhrakasataka <supplied reason="explanation">?</supplied>; the boundary in the North is the ... pit — the permanent endowment is to be protected, with a view to the fruit of land donation.
+</p>
+          <p n="24-28">And it has been said by the Lord Vyāsa: </p>
+          <p n="1" rend="stanza">The one who would steal land given by himself or another becomes a worm in shit and is cooked with his ancestors.<note>
+                    This verse corresponds to the verse numbered 132 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
+                  <ptr target="bib:Sircar1965_03"/>
                   <citedRange unit="appendix">II</citedRange>
                   <citedRange unit="page">170-200</citedRange>
-                </bibl></supplied>.</note></p>
-          <p n="2" rend="stanza">The giver of land resides sixty thousand years in heaven; the one who challenges <supplied reason="explanation">a donation</supplied> as well as the one who approves <supplied reason="explanation">of the challenge</supplied> will reside as many <supplied reason="subaudible">years</supplied> in hell. <note>This verse corresponds to the verse numbered 132 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
-                  <ptr target="bib:Sircar1965_03"></ptr>
+                </bibl></supplied>.
+                </note></p>
+          <p n="2" rend="stanza">The giver of land resides sixty thousand years in heaven; the one who challenges <supplied reason="explanation">a donation</supplied> as well as the one who approves <supplied reason="explanation">of the challenge</supplied> will reside as many <supplied reason="subaudible">years</supplied> in hell.<note>
+                    This verse corresponds to the verse numbered 132 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
+                  <ptr target="bib:Sircar1965_03"/>
                   <citedRange unit="appendix">II</citedRange>
                   <citedRange unit="page">170-200</citedRange>
-                </bibl></supplied>, except for the verb used in the <foreign>pāda</foreign> b.</note></p>
-          <p n="3" rend="stanza">This <supplied reason="subaudible">land</supplied> given by hundreds of kings is given again and again. Whoever holds land at a given time, to him does the fruit belong. <note>This verse corresponds to the verse numbered 23 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
-                  <ptr target="bib:Sircar1965_03"></ptr>
+                </bibl></supplied>, except for the verb used in the <foreign>pāda</foreign> b.
+                </note></p>
+          <p n="3" rend="stanza">This <supplied reason="subaudible">land</supplied> given by hundreds of kings is given again and again. Whoever holds land at a given time, to him does the fruit belong.<note>
+                    This verse corresponds to the verse numbered 23 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
+                  <ptr target="bib:Sircar1965_03"/>
                   <citedRange unit="appendix">II</citedRange>
                   <citedRange unit="page">170-200</citedRange>
-                </bibl></supplied>, but shows a different reading of the two first <foreign>pāda</foreign>s.</note></p>
-          <p n="4" rend="stanza">Those who steal a land donation are born <supplied reason="explanation">again</supplied> as black snakes living in dry caves in the waterless Vindhya forests. <note>This verse corresponds to the verse numbered 150 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
-                  <ptr target="bib:Sircar1965_03"></ptr>
+                </bibl></supplied>, but shows a different reading of the two first <foreign>pāda</foreign>s.
+                </note></p>
+          <p n="4" rend="stanza">Those who steal a land donation are born <supplied reason="explanation">again</supplied> as black snakes living in dry caves in the waterless Vindhya forests.<note>
+                    This verse corresponds to the verse numbered 150 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
+                  <ptr target="bib:Sircar1965_03"/>
                   <citedRange unit="appendix">II</citedRange>
                   <citedRange unit="page">170-200</citedRange>
-                </bibl></supplied>, but shows a slightlty different reading of the beginning of the <foreign>pāda</foreign> d.</note></p>
+                </bibl></supplied>, but shows a slightlty different reading of the beginning of the <foreign>pāda</foreign> d.
+                </note></p>
           <p n="28-9">Year 128, <supplied reason="explanation">month of</supplied> Caitra, day 20. Written by Rudradāsa, heated by Susiṅha.</p>
         </div>
         <div n="B" type="textpart">
@@ -999,12 +1028,15 @@ amwb : I know that the reading of deva is not sure but shouldn't we translate it
               <foreign>vīthī</foreign>
             </supplied>, the officer Acyuta, favored by the feet of the <supplied reason="explanation">Gupta</supplied> Sovereign, and the council <supplied reason="explanation">of this territory</supplied>, greet the principal peasant householders, beginning with the Brahmins, at Gulmagandhika with its hamlets <supplied reason="explanation">
               <foreign>gohālī</foreign>
-            </supplied> <note>On the meaning of the word <foreign>gohālī</foreign>, see <bibl>
-                <ptr target="bib:Griffiths2018_02"></ptr>
+            </supplied><note>
+					On the meaning of the word <foreign>gohālī</foreign>, see <bibl>
+                <ptr target="bib:Griffiths2018_02"/>
                 <citedRange unit="page">40-2</citedRange>
-              </bibl>.</note><!--
+              </bibl>.
+				</note><!--
 amwb : the difference between this paragraph and yours is the addition of this note.
---> and inform them:</p>
+--> and inform them:
+</p>
           <p n="3-14">Be the following request brought to your attention :<!--
 amwb : "following" to translate what is included by yathā
 --></p>
@@ -1012,13 +1044,17 @@ amwb : "following" to translate what is included by yathā
               <foreign>vāstuka</foreign>
             </supplied> rooted in <supplied reason="explanation">
               <foreign>mūlaka</foreign>
-            </supplied> and belonging to Puṇḍravardhana and the couple <supplied reason="subaudible">of householders</supplied> Bhoyila and Mahīdāsa residing both in the same place, i.e. Gulmagandhikā, led by <supplied reason="explanation">°<foreign>purogāḥ</foreign></supplied> <list>
+            </supplied> and belonging to Puṇḍravardhana
+				and the couple <supplied reason="subaudible">of householders</supplied> Bhoyila and Mahīdāsa residing both in the same place, i.e. Gulmagandhikā,
+				led by <supplied reason="explanation">°<foreign>purogāḥ</foreign></supplied>
+				<list>
               <item>the notables of this territory <supplied reason="explanation">
                   <foreign>iha-vithī</foreign>
                 </supplied>, <supplied reason="explanation">namely</supplied> Kumāradeva, Gaṇḍa, Prajāpati, Jyeṣṭhadāman,</item>
               <item><supplied reason="explanation">and</supplied> by the householders beginning with Yaśoviṣṇu, Umayaśas, Hariśarman, Sarpapālita, Hiraṇyagupta, Kumārayaśas, Kumārabhūti, Śivakuṇḍa, Śiva, another Śiva, Somaviṣṇu, Satyaviṣṇu, Kaṅkuṭi, Nandadāman, Vīranāga, Nārāyaṇadāsa, Rudra, Bhava, Guha, Acyuta, Kubera, Śarvanāga, Bhavanāga, Śrīdatta, Bhavadatta, Dhanaviṣṇu, Guṇaratha, Naradeva,</item>
               <item>as well as ourselves,</item>
-            </list> respectfully requested <supplied reason="explanation">
+            </list>
+				respectfully requested <supplied reason="explanation">
               <foreign>vijñāpitāḥ</foreign>
             </supplied>:<!--
 				amwb : here I don't understand why you translate (I assume your understanding is based on the fact that, at the end of the plate, only Kṣemāka, Bhoyila and Mahīdāsa are mentioned):
@@ -1028,21 +1064,27 @@ amwb : "following" to translate what is included by yathā
 				We have the same construction X-X-X-X-purogāḥ vayaṁ ca vijñāpitāḥ line 12 of Kalaikuri plate BC33
 				After searching occurrences of vijñāpitāḥ, I found that it is constructed in a regular way with an instrumental case (causative construction) as in Dhanaidaha BC31 line 7, BC39 line 8; sometimes with naḥ (so accusative, dative or gen) BC55 line 3 and BC 57 line 3 ; In the Pāla corpus the expression x-mukhena vayaṁ vijñāpatāḥ regularly occurs (Murshidabad
 line 20; Khalimpur line 49; in the ending prose part of Mahendrapāla 7th regnal year Jagajjibanpur and of grant of Gopāla II, Furui 2008, r. y. 3
-				With this translation, it is not necessary to emend a "ca" after -mahīdāsāv--></p>
-          <p n="8-13">After purchasing it, we wish give one <foreign>kulyavāpa</foreign> of uncultivated land without revenue charges by way of permanent endowment to be enjoyed in perpetuity to these <supplied reason="explanation">three</supplied> recipients <note>I consider the locative case as an indication of the destination of the gift <supplied reason="explanation">see <bibl>
-                  <ptr target="bib:Renou1975_01"></ptr>
+				With this translation, it is not necessary to emend a "ca" after -mahīdāsāv-->
+				</p>
+          <p n="8-13">After purchasing it, we wish give one <foreign>kulyavāpa</foreign> of uncultivated land without revenue charges
+					by way of permanent endowment to be enjoyed in perpetuity
+					to these <supplied reason="explanation">three</supplied> recipients<note>
+					I consider the locative case as an indication of the destination of the gift <supplied reason="explanation">see <bibl>
+                  <ptr target="bib:Renou1975_01"/>
                   <citedRange unit="item">223.C</citedRange>
                   <citedRange unit="page">310</citedRange>
-                </bibl></supplied>.</note> — <list>
+                </bibl></supplied>.
+				</note> — <list>
               <item>the monastery built for the venerable Arhants in the shrine of Pecikāmrasiddhi in the Dakṣiṇāṅśaka territory,</item>
               <item>the little peripheral monastery built for the purpose of worshipping the Arhants at Gulmagandhika</item>
               <item>and the temple built for the Lord Sahasraraśmi <supplied reason="explanation">i.e., Sūrya</supplied> in the same Gulmagandhika</item>
               <!--
 amwb : it is interesting to note that the logic followed to situate a place is to give indications from the most extensive ground to the least extensive one
 -->
-            </list> — for these <supplied reason="explanation">three</supplied> achievements: <!--
+            </list> —  for these <supplied reason="explanation">three</supplied> achievements: <!--
 amwb : "for the three achievements" translated what is included by the three dative cases
--->: <list>
+--> :
+					<list>
               <item>- offerings of <foreign>bali</foreign>, <foreign>caru</foreign> and <foreign>sattra</foreign></item>
               <item>- carrying out the repairs of breaches <supplied reason="explanation">
                   <foreign>khaṇḍa</foreign>
@@ -1050,10 +1092,15 @@ amwb : "for the three achievements" translated what is included by the three dat
                   <foreign>phuṭṭa</foreign>
                 </supplied></item>
               <item>- consuming of perfumes, incense, and oil.</item>
-            </list> And as <note>The causal relationship contained in the syntactic structure <foreign>ca ... tad</foreign><supplied reason="explanation">lines 12-3</supplied> is rendered by the synctactic construction <q>And as ...,...</q>.</note> in your territory the sale of a <foreign>kulyavāpa</foreign> of uncultivated land that is without revenue charges is customary for <supplied reason="explanation">the price of</supplied> two <foreign>dīnāra</foreign>s, be so kind as to accept from our behalf <!--
+            </list>
+					And as<note>
+						The causal relationship contained in the syntactic structure <foreign>ca ... tad</foreign><supplied reason="explanation">lines 12-3</supplied> is rendered by the synctactic construction <q>And as ...,...</q>.
+					</note>
+					in your territory the sale of a <foreign>kulyavāpa</foreign> of uncultivated land that is without revenue charges is customary for <supplied reason="explanation">the price of</supplied> two <foreign>dīnāra</foreign>s, be so kind as to accept from our behalf<!--
 amwb : or "be so kind as to accept 2 hand-delivered/hand-given dīnāra
--->two <foreign>dīnāra</foreign>s and to give one <foreign>kulyavāpa</foreign> of land.</p>
-          <p n="14-16">Wherefore, after receiving this respectful request, it has been established through the investigation of the record-keepers Siṁhanandin and Yaśodāman that :</p>
+--> two <foreign>dīnāra</foreign>s and to give one <foreign>kulyavāpa</foreign> of land.
+				</p>
+          <p n="14-16">Wherefore, after receiving this respectful request, it has been established through the investigation of the record-keepers Siṁhanandin and Yaśodāman that : </p>
           <list>
             <item>- this sale for two <foreign>dīnāra</foreign>s of a <foreign>kulyavāpa</foreign> of uncultivated land without revenue charges is customary in our territory, so that it ought to be given</item>
             <item>- there is no conflict <supplied reason="explanation">with the interest of the king</supplied>.</item>
@@ -1063,107 +1110,123 @@ amwb : I suggest to cut the long sentence in several shortest sentences to respe
           </list>
           <p n="16-20">And after having purchased this <supplied reason="explanation">land</supplied> with the two <foreign>dīnāra</foreign>s received by the chief of the guild <supplied reason="explanation">
               <foreign>kulika</foreign>
-            </supplied> <note>I choose to translate the word <foreign>kulika</foreign> by <q>chief of the guild</q> instead of <q>artisan</q> which doesn't render the high position of this man. If we consider the meaning of the unique compound with <foreign>kulika</foreign>- refered in <bibl>
-                <ptr target="bib:MonierWilliams1899_01"></ptr>
+            </supplied><note>
+					I choose to translate the word <foreign>kulika</foreign> by <q>chief of the guild</q> instead of <q>artisan</q> which doesn't render the high position of this man. If we consider the meaning of the unique compound with <foreign>kulika</foreign>- refered in <bibl>
+                <ptr target="bib:MonierWilliams1899_01"/>
               </bibl> and <bibl>
-                <ptr target="bib:Apte1890_01"></ptr>
+                <ptr target="bib:Apte1890_01"/>
                 <citedRange unit="page">887</citedRange>
-              </bibl>, <foreign>kulikavelā</foreign> is related to business and means <q>certain portions of time on each day on which it is imporper to begin any good business</q>. Consequently, in the present context, I get the feeling that this Bhīma has an official role in transactions that I try to render by the translation <q>chief of the guild</q>.</note> Bhīma in person from Kṣemāka, Bhoyila and Mahīdāsa, six <foreign>droṇavāpa</foreign>s of <supplied reason="explanation">the land purchased by</supplied> Kṣemāka, Bhoyila and Mahīdāsa were entrusted <supplied reason="explanation">to the monasteries</supplied> of the <foreign>śramaṇaka</foreign> master Balakuṇḍa<!--
+              </bibl>, <foreign>kulikavelā</foreign> is related to business and means <q>certain portions of time on each day on which it is imporper to begin any good business</q>. Consequently, in the present context, I get the feeling that this Bhīma has an official role in transactions that I try to render by the translation <q>chief of the guild</q>.
+				</note> Bhīma in person from Kṣemāka, Bhoyila and Mahīdāsa, six <foreign>droṇavāpa</foreign>s of <supplied reason="explanation">the land purchased by</supplied> Kṣemāka, Bhoyila and Mahīdāsa were entrusted <supplied reason="explanation">to the monasteries</supplied> of the <foreign>śramaṇaka</foreign> master Balakuṇḍa<!--
 amwb : according to the deduction made below about Bhoyila's place of residence and the count of drona, one could deduce that these monasteries managed by Balakuṇḍa correspond to "the monastery built for the venerable Arhants in the shrine of Pecikāmrasiddhi in the Dakṣiṇāṅśaka division" and "the little peripheral monastery built for the purpose of worshipping the Arhants at Gulmagandhika". These two places would be located in the Northeast of Gulmagandhikā
 -->, two <foreign>droṇavāpa</foreign>s were allocated <supplied reason="explanation">
               <foreign>kāritam</foreign>
             </supplied><!--
 amwb : here I don't follow the emendation krītam and conserve kāritam, because this causative seems to indicate the transformation of the use of the land by the gift made by the Bhoyila. Among the drona bought by Bhoyila, he dedicates 2 drona to Sambapura and one to the temple of the Lord Sahasraraśmi
--->precisely by Bhoyila to <supplied reason="explanation">the temple situated at</supplied> Sāmbapura <!--
+-->precisely by Bhoyila to <supplied reason="explanation">the temple situated at</supplied> Sāmbapura<!--
 amwb : Sāmbapura seems to me to be rather a name of place than a name of temple
--->- among these <supplied reason="explanation">two <foreign>droṇavāpa</foreign>s</supplied> <supplied reason="explanation">
+--> - among these <supplied reason="explanation">two <foreign>droṇavāpa</foreign>s</supplied> <supplied reason="explanation">
               <foreign>tatra</foreign>
             </supplied>, one in the vicinity of the temple (e(kava)vakulasamīpe =ekam+devakulasamīpe) and one <foreign>droṇavāpa</foreign> was earkmarked <supplied reason="explanation">by Bhoyila</supplied> for <supplied reason="explanation">using as</supplied> flower-garden and adjacent park <!--
 amwb : it could be useful to indicate in a note that one can deduce from Bhoyila's place of residence (l.4) that this temple Sāmbapura corresponds to "the little peripheral monastery built for the purpose of worshipping the Arhants at Gulmagandhika" and that the other dronaparvan is allocated to "the temple built for the Lord Sahasraraśmi <supplied reason="explanation">i.e., Sūrya</supplied> in the same Gulmagandhika" ?
--->- so <supplied reason="explanation">
+--> - so <supplied reason="explanation">
               <foreign>iti</foreign>
             </supplied> this land<!--
 amwb: I understand that the portion of text beginning by "kṣemākabhoyilamahīdāsayo ṣaḍdroṇavāpāḥ" and finishing by "kāritam" is what is included by iti
---> <supplied reason="explanation">consists of</supplied> seven <foreign>droṇavāpa</foreign>s in the Northeast of Gulmagandhikā, and one <foreign>droṇavāpa</foreign> near the temple <note>This temple may be the one built for the Lord Sahasraraśmi <supplied reason="explanation">i.e., Sūrya</supplied> mentioned as <foreign>devakula</foreign> in line 10.</note> .<!--
+--> <supplied reason="explanation">consists of</supplied> seven <foreign>droṇavāpa</foreign>s in the Northeast of Gulmagandhikā, and one <foreign>droṇavāpa</foreign> near the temple<note>
+						This temple may be the one built for the Lord Sahasraraśmi <supplied reason="explanation">i.e., Sūrya</supplied> mentioned as <foreign>devakula</foreign> in line 10.
+					</note>.<!--
 amwb : it seems rather unlikely to me that there is an error of account in an official document whose purpose is to ratify land transactions. Therefore I understand that the plate explains how the kulyavāpa purchased with 2 dīnāra is divided into droṇavāpas. As I don't know how many droṇavāpas are contained in one kulyavāpa, my hypothesis could be faulse. But I found in Dikshit 1929-1930 that in  "five droṇavāpa =  2/3 of kulyavāpa approximately" (P.60) and "A kulya, according to various ancient authorities, was equivalent to 8 dronas=Z2 ddhakas=\29i prasthas" (p.61). According to this, one kulyavāpa is equal to 7,5 droṇavāpa at minima and regularly to 8 droṇavāpa. So by noting 7+1 the scribe certifies that the transaction is regular : 2 dinara = 1 kulyavapa = 7 drona +1 drona.
 Then one can deduce that the  "droṇa-vāpan ekaṁ" near the temple (l.20) refered to the temple built for the lord Sahasraraśmi because this is the only place designated by the word "devakula" in the text. From these deductions, I suggest that this kulyavāpa purchased with 2 dīnāra consists of a sum of 7+1 :
 - seven droṇavāpas situated in the Northeast of Gulmagandhikā
 and one droṇavāpa near the temple built for the Lord Sahasraraśmi (which is not situated in the Northeast of Gulmagandhikā)
 The repartition of the droṇavāpas is not clear at all, and in order to obtain a sum of 7+1 droṇavāpas with numbers present in the plate (6, 2 and 1), we have to assume that among the three droṇavāpas which are allocated by Bhoyila, two droṇavāpas have been bought by him alone in addition to the six droṇavāpas acquired by the three Kṣemāka, Bhoyila and Mahīdāsa. In these two droṇavāpas, one could be the one allocated to the temple built for the Lord Sahasraraśmi
-					--></p>
+					--> </p>
           <p n="20-24">In this respect, it is written that the land delimited by these four boundaries — the boundary in the East is the valley <supplied reason="explanation">
               <foreign>kandara</foreign>
-            </supplied> of lotus ponds ; and the boundary in the South is the <supplied reason="explanation">divine</supplied> <note>The word "divine" tries to translate <foreign>deva</foreign>, even if its reading in line 21 is not sure.</note> valley of Dhanaviṣṇu’s pond; and the boundary in the West is Nābhrakasataka (?); the boundary in the North is the … pit — is acquired on this day (I emended samupasthitaṁ kālaṁ) : whether it is they or others, the district chiefs, officers, peasant householders or councillors who in the near future will be administrating this land, after considering the fruit of land donation, they will have to protect <supplied reason="explanation">this land</supplied> as a permanent endowment.</p>
-          <p n="24-28">And it has been said by the Lord Vyāsa:</p>
-          <p n="1" rend="stanza">The one who would steal land given by himself or another becomes a worm in excrement and is cooked with his ancestors. <note>This verse corresponds to the verse numbered 132 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
-                  <ptr target="bib:Sircar1965_03"></ptr>
+            </supplied> of lotus ponds ; and the boundary in the South is the <supplied reason="explanation">divine</supplied>
+				<note>
+				The word "divine" tries to translate <foreign>deva</foreign>, even if its reading in line 21 is not sure.
+				</note>
+				valley of Dhanaviṣṇu’s pond; and the boundary in the West is Nābhrakasataka (?); the boundary in the North is the … pit — is acquired on this day (I emended samupasthitaṁ kālaṁ) : whether it is they or others, the district chiefs, officers, peasant householders or councillors who in the near future will be administrating this land, after considering the fruit of land donation, they will have to protect <supplied reason="explanation">this land</supplied> as a permanent endowment. </p>
+          <p n="24-28">And it has been said by the Lord Vyāsa: </p>
+          <p n="1" rend="stanza">The one who would steal land given by himself or another becomes a worm in excrement and is cooked with his ancestors.<note>
+                    This verse corresponds to the verse numbered 132 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
+                  <ptr target="bib:Sircar1965_03"/>
                   <citedRange unit="appendix">II</citedRange>
                   <citedRange unit="page">170-200</citedRange>
-                </bibl></supplied>.</note></p>
-          <p n="2" rend="stanza">The giver of land resides sixty thousand years in heaven; the one who challenges <supplied reason="explanation">a donation</supplied> as well as the one who approves <supplied reason="explanation">of the challenge</supplied> will reside as many <supplied reason="subaudible">years</supplied> in hell. <note>This verse corresponds to the verse numbered 123 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
-                  <ptr target="bib:Sircar1965_03"></ptr>
+                </bibl></supplied>.
+                </note></p>
+          <p n="2" rend="stanza">The giver of land resides sixty thousand years in heaven; the one who challenges <supplied reason="explanation">a donation</supplied> as well as the one who approves <supplied reason="explanation">of the challenge</supplied> will reside as many <supplied reason="subaudible">years</supplied> in hell.<note>
+                    This verse corresponds to the verse numbered 123 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
+                  <ptr target="bib:Sircar1965_03"/>
                   <citedRange unit="appendix">II</citedRange>
                   <citedRange unit="page">170-200</citedRange>
-                </bibl></supplied>, except for the verb used in the <foreign>pāda</foreign> b.</note></p>
-          <p n="3" rend="stanza">This <supplied reason="subaudible">land</supplied> given by hundreds of kings is given again and again. Whoever holds land at a given time, to him does the fruit belong. <note>This verse corresponds to the verse numbered 23 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
-                  <ptr target="bib:Sircar1965_03"></ptr>
+                </bibl></supplied>, except for the verb used in the <foreign>pāda</foreign> b.
+                </note></p>
+          <p n="3" rend="stanza">This <supplied reason="subaudible">land</supplied> given by hundreds of kings is given again and again. Whoever holds land at a given time, to him does the fruit belong.<note>
+                    This verse corresponds to the verse numbered 23 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
+                  <ptr target="bib:Sircar1965_03"/>
                   <citedRange unit="appendix">II</citedRange>
                   <citedRange unit="page">170-200</citedRange>
-                </bibl></supplied>, but shows a different reading of the two first <foreign>pāda</foreign>s.</note></p>
-          <p n="4" rend="stanza">Those who steal a land donation are born <supplied reason="explanation">again</supplied> as black snakes living in dry caves in the waterless Vindhya forests. <note>This verse corresponds to the verse numbered 150 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
-                  <ptr target="bib:Sircar1965_03"></ptr>
+                </bibl></supplied>, but shows a different reading of the two first <foreign>pāda</foreign>s.
+                </note></p>
+          <p n="4" rend="stanza">Those who steal a land donation are born <supplied reason="explanation">again</supplied> as black snakes living in dry caves in the waterless Vindhya forests.<note>
+                    This verse corresponds to the verse numbered 150 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
+                  <ptr target="bib:Sircar1965_03"/>
                   <citedRange unit="appendix">II</citedRange>
                   <citedRange unit="page">170-200</citedRange>
-                </bibl></supplied>, but shows a slightly different reading of the beginning of the <foreign>pāda</foreign> d.</note></p>
+                </bibl></supplied>, but shows a slightly different reading of the beginning of the <foreign>pāda</foreign> d.
+                </note></p>
           <p n="28-9">Year 128, <supplied reason="explanation">month of</supplied> Caitra, day 20. Written by Rudradāsa, heated by Susiṅha.</p>
         </div>
       </div>
       <div type="commentary"></div>
       <div type="bibliography">
         <p>First reported and edited with plates in <bibl>
-            <ptr target="bib:Siddhanta1963_01"></ptr>
-          </bibl>. Siddhanta’s original edition was re-published in the <title>Journal of the Varendra Research Museum</title> 1 (1972), pp. 23-37. Re-edited in <bibl>
-            <ptr target="bib:Sircar1969-1970_01"></ptr>
+            <ptr target="bib:Siddhanta1963_01"/>
+          </bibl>. Siddhanta’s original edition was re-published in the <title>Journal of the Varendra Research Museum </title>1 (1972), pp. 23-37. Re-edited in <bibl>
+            <ptr target="bib:Sircar1969-1970_01"/>
           </bibl>. Discussed in <bibl>
-            <ptr target="bib:Sircar1973_01"></ptr>
+            <ptr target="bib:Sircar1973_01"/>
             <citedRange unit="page">8-14</citedRange>
           </bibl>, with text on 61-63. The text is reedited here by Arlo Griffiths based on the photos of the plate furnished by Ryosuke Furui. The text has been encoded by Amandine Wattelier-Bricout using a digital edition created by Dániel Balogh for the Siddham project as starting point. Since some readings differ from this previous digital edition, they are reported in the apparatus. The text has been translated by Arlo Griffiths and Amandine Wattelier-Bricout.</p>
         <listBibl type="primary">
           <bibl>
-            <ptr target="bib:Siddhanta1963_01"></ptr>
+            <ptr target="bib:Siddhanta1963_01"/>
           </bibl>
           <!--
 amwb: caution there is no title in Zotero -->
           <bibl n="DCS 1969">
-            <ptr target="bib:Sircar1969-1970_01"></ptr>
+            <ptr target="bib:Sircar1969-1970_01"/>
             <citedRange unit="page">247-252</citedRange>
           </bibl>
           <bibl>
-            <ptr target="bib:Siddhanta1972_01"></ptr>
+            <ptr target="bib:Siddhanta1972_01"/>
             <citedRange unit="page">23-37</citedRange>
           </bibl>
           <bibl n="DCS 1973">
-            <ptr target="bib:Sircar1973_01"></ptr>
+            <ptr target="bib:Sircar1973_01"/>
             <citedRange unit="page">8–14</citedRange>
             <citedRange unit="entry">61–63, pl</citedRange>
           </bibl>
           <!--
 amwb: check page-numbers and pl -->
           <bibl>
-            <ptr target="bib:Agrawala1983_02"></ptr>
+            <ptr target="bib:Agrawala1983_02"/>
             <citedRange unit="item">30</citedRange>
           </bibl>
           <bibl>
-            <ptr target="bib:Goyal1993_01"></ptr>
+            <ptr target="bib:Goyal1993_01"/>
             <citedRange unit="page">189</citedRange>
           </bibl>
           <bibl n="DB">
-            <ptr target="bib:Balogh+al2019_01"></ptr>
+            <ptr target="bib:Balogh+al2019_01"/>
             <citedRange unit="item">IN00062</citedRange>
           </bibl>
         </listBibl>
         <listBibl type="secondary">
-          <bibl></bibl>
+          <bibl/>
         </listBibl>
       </div>
     </body>

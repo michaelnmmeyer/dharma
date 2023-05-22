@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -46,7 +41,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -56,7 +51,8 @@
           </msContents>
           <physDesc>
             <handDesc>
-              <p>The letters of the lines 1-5 and 10-13 are bigger than the rest.<!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <p>The letters of the lines 1-5 and 10-13 are bigger than the rest.
+                        <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
               <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
 						<summary><p><p/></summary>
 						<handNote xml:id="Pallava00001_hand1"></handNote>
@@ -69,15 +65,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -92,7 +92,11 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="okz-Latn">
-        <p><lb n="1"></lb>Aṣṭacattālīśotta<unclear>raṣa</unclear>cchata śakaparigraha <supplied reason="lost">sa</supplied>ptamī ket<unclear>·</unclear> <supplied reason="lost">śrā</supplied><lb break="no" n="2"></lb>va<unclear>na</unclear> mratāñ· bhāska<unclear>ra</unclear>p<unclear>ā</unclear>la Oy<unclear>·</unclear> sre daṅ· kñuṁma ta <unclear>vraḥ</unclear> kamratā<supplied reason="lost">ṅ·</supplied> <lb n="3"></lb>Añ· śrīśaṅkara<unclear>ṇ</unclear>ārāya<supplied reason="lost">na</supplied> <unclear>p</unclear>uṇya mratāñ· sre vrai kalpau vī<supplied reason="lost">ja</supplied> <gap precision="low" quantity="1" reason="lost" unit="character"></gap> <lb n="4"></lb>sre tpeṅ· vīja <num value="21">20 <g type="numeral">I</g></num> sre krau dnal· mās· <num value="12">10 <g type="numeral">II</g></num> sre vrai daṁrok· mā<supplied reason="lost">s·</supplied> <gap precision="low" quantity="1" reason="lost" unit="character"></gap> <lb n="5"></lb>sre jeṅ· cdiṅ· kanlaḥ sa<unclear cert="low">ṁ</unclear>re sre rddeḥ pak· mās· <num value="1">
+        <p>
+   <lb n="1"/>Aṣṭacattālīśotta<unclear>raṣa</unclear>cchata śakaparigraha <supplied reason="lost">sa</supplied>ptamī ket<unclear>·</unclear> <supplied reason="lost">śrā</supplied><lb break="no" n="2"/>va<unclear>na</unclear> mratāñ· bhāska<unclear>ra</unclear>p<unclear>ā</unclear>la Oy<unclear>·</unclear> sre daṅ· kñuṁma ta <unclear>vraḥ</unclear> kamratā<supplied reason="lost">ṅ·</supplied>
+   <lb n="3"/>Añ· śrīśaṅkara<unclear>ṇ</unclear>ārāya<supplied reason="lost">na</supplied> <unclear>p</unclear>uṇya mratāñ· sre vrai kalpau vī<supplied reason="lost">ja</supplied> <gap precision="low" quantity="1" reason="lost" unit="character"/>
+   <lb n="4"/>sre tpeṅ· vīja <num value="21">20 <g type="numeral">I</g></num> sre krau dnal· mās· <num value="12"> 10 <g type="numeral">II</g></num> sre vrai daṁrok· mā<supplied reason="lost">s·</supplied> <gap precision="low" quantity="1" reason="lost" unit="character"/>
+   <lb n="5"/>sre jeṅ· cdiṅ· kanlaḥ sa<unclear cert="low">ṁ</unclear>re sre rddeḥ pak· mās· <num value="1">
             <g type="numeral">I</g>
           </num> je <num value="1">
             <unclear>
@@ -100,9 +104,10 @@
             </unclear>
           </num> <unclear>s</unclear>re rddal· s<seg type="aksara">
             <seg subtype="vowel" type="component">
-              <gap quantity="1" reason="illegible" unit="component"></gap>
+              <gap quantity="1" reason="illegible" unit="component"/>
             </seg>
-          </seg> <gap precision="low" quantity="2" reason="lost" unit="character"></gap> <lb n="6"></lb>sre kanlaḥ vrai mās· <num value="3">
+          </seg> <gap precision="low" quantity="2" reason="lost" unit="character"/>
+   <lb n="6"/>sre kanlaḥ vrai mās· <num value="3">
             <g type="numeral">III</g>
           </num> <unclear cert="low">
             <g type="circle">.</g>
@@ -112,7 +117,8 @@
             <g type="numeral">IIII</g>
           </num> <unclear>ku</unclear> kalpa <num value="1">
             <g type="numeral">I</g>
-          </num> ku <gap precision="low" quantity="4" reason="lost" unit="character"></gap> <lb n="7"></lb>ko<unclear>n</unclear>· <num value="1">
+          </num> ku <gap precision="low" quantity="4" reason="lost" unit="character"/>
+   <lb n="7"/>ko<unclear>n</unclear>· <num value="1">
             <g type="numeral">I</g>
           </num> pr<unclear>āpa</unclear> kon· <num value="2">
             <g type="numeral">II</g>
@@ -126,7 +132,8 @@
             <g type="numeral">I</g>
           </num> ku caṁpot· <num value="1">
             <g type="numeral">I</g>
-          </num> ko<supplied reason="lost">n·</supplied> <gap precision="low" quantity="2" reason="lost" unit="character"></gap> <lb n="8"></lb>ku tleṁ <num value="1">
+          </num> ko<supplied reason="lost">n·</supplied> <gap precision="low" quantity="2" reason="lost" unit="character"/>
+   <lb n="8"/>ku tleṁ <num value="1">
             <g type="numeral">I</g>
           </num> kon· <num value="1">
             <g type="numeral">I</g>
@@ -140,7 +147,8 @@
             <g type="numeral">I</g>
           </num> ku suvarṇṇa <num value="1">
             <g type="numeral">I</g>
-          </num> ku <gap precision="low" quantity="3" reason="lost" unit="character"></gap> <lb n="9"></lb>caṅkā <num value="1">
+          </num> ku <gap precision="low" quantity="3" reason="lost" unit="character"/>
+   <lb n="9"/>caṅkā <num value="1">
             <g type="numeral">I</g>
           </num> ku taṁ<unclear>ve</unclear> <num value="1">
             <g type="numeral">I</g>
@@ -150,7 +158,8 @@
             <g type="numeral">I</g>
           </num> ku tpāñ· <num value="1">
             <g type="numeral">I</g>
-          </num> ku traso <gap precision="low" quantity="2" reason="lost" unit="character"></gap> <lb n="10"></lb>ku raṁvuḥ <supplied reason="lost">
+          </num> ku traso <gap precision="low" quantity="2" reason="lost" unit="character"/>
+   <lb n="10"/>ku raṁvuḥ <supplied reason="lost">
             <num value="1">
               <g type="numeral">I</g>
             </num>
@@ -162,7 +171,8 @@
             </unclear>
           </num> praśastagana <num value="1">
             <g type="numeral">I</g>
-          </num> taraṅga <gap precision="low" quantity="3" reason="lost" unit="character"></gap> <lb n="11"></lb>dut· <num value="1">
+          </num> taraṅga <gap precision="low" quantity="3" reason="lost" unit="character"/>
+   <lb n="11"/>dut· <num value="1">
             <g type="numeral">I</g>
           </num> kacyon· <num value="1">
             <g type="numeral">I</g>
@@ -174,7 +184,8 @@
             <g type="numeral">I</g>
           </num> dharmmaśakti <num value="1">
             <g type="numeral">I</g>
-          </num> <gap precision="low" quantity="1" reason="lost" unit="character"></gap> <lb n="12"></lb><unclear>ka</unclear>ṁpus· <num value="1">
+          </num> <gap precision="low" quantity="1" reason="lost" unit="character"/>
+   <lb n="12"/><unclear>ka</unclear>ṁpus· <num value="1">
             <g type="numeral">I</g>
           </num> smom· <num value="1">
             <g type="numeral">I</g>
@@ -182,7 +193,8 @@
             <unclear>
               <g type="numeral">I</g>
             </unclear>
-          </num> <gap precision="low" quantity="2" reason="lost" unit="character"></gap> <lb n="13"></lb>ku kaṁvat· <num value="1">
+          </num> <gap precision="low" quantity="2" reason="lost" unit="character"/>
+   <lb n="13"/>ku kaṁvat· <num value="1">
             <unclear cert="low">
               <g type="numeral">I</g>
             </unclear>
@@ -190,19 +202,20 @@
             <unclear cert="low">
               <g type="numeral">I</g>
             </unclear>
-          </num> <unclear>kon·</unclear> <gap quantity="2" reason="lost" unit="character"></gap> dhuprīya <num value="1">
+          </num> <unclear>kon·</unclear> <gap quantity="2" reason="lost" unit="character"/> dhuprīya <num value="1">
             <g type="numeral">I</g>
           </num> kon· <num value="1">
             <g type="numeral">I</g>
           </num> kan·Ek· <num value="1">
             <g type="numeral">I</g>
-          </num> ku <gap precision="low" quantity="1" reason="lost" unit="character"></gap> <lb n="14"></lb>tni <gap quantity="1" reason="lost" unit="character"></gap> <num value="1">
+          </num> ku <gap precision="low" quantity="1" reason="lost" unit="character"/>
+   <lb n="14"/>tni <gap quantity="1" reason="lost" unit="character"/> <num value="1">
             <g type="numeral">I</g>
           </num> kon· <num value="1">
             <g type="numeral">I</g>
           </num> soc· <num value="1">
             <g type="numeral">I</g>
-          </num> ku <gap quantity="1" reason="lost" unit="character"></gap> <num value="1">
+          </num> ku <gap quantity="1" reason="lost" unit="character"/> <num value="1">
             <g type="numeral">I</g>
           </num> kon<unclear>·</unclear> <num value="2">
             <g type="numeral">II</g>
@@ -214,7 +227,8 @@
             <g type="numeral">I</g>
           </num> kon· <num value="1">
             <g type="numeral">I</g>
-          </num> <gap precision="low" quantity="2" reason="lost" unit="character"></gap> <lb n="15"></lb>kon· <num value="1">
+          </num> <gap precision="low" quantity="2" reason="lost" unit="character"/>
+   <lb n="15"/>kon· <num value="1">
             <g type="numeral">I</g>
           </num> kantek· <num value="1">
             <g type="numeral">I</g>
@@ -222,41 +236,46 @@
             <g type="numeral">I</g>
           </num> kantai pi sāt <num value="1">
             <g type="numeral">I</g>
-          </num> <gap quantity="1" reason="lost" unit="character"></gap>sṭa <gap quantity="3" reason="lost" unit="character"></gap>ṅ <gap precision="low" quantity="2" reason="lost" unit="character"></gap> <lb n="16"></lb>praṅ· <gap precision="low" quantity="7" reason="lost" unit="character"></gap> <unclear>ka</unclear>ñju<unclear>ṅ·</unclear> <num value="1">
+          </num> <gap quantity="1" reason="lost" unit="character"/>sṭa <gap quantity="3" reason="lost" unit="character"/>ṅ <gap precision="low" quantity="2" reason="lost" unit="character"/>
+   <lb n="16"/>praṅ· <gap precision="low" quantity="7" reason="lost" unit="character"/> <unclear>ka</unclear>ñju<unclear>ṅ·</unclear> <num value="1">
             <g type="numeral">I</g>
-          </num> <gap quantity="2" reason="lost" unit="character"></gap> doṣa <num value="1">
+          </num> <gap quantity="2" reason="lost" unit="character"/> doṣa <num value="1">
             <g type="numeral">I</g>
-          </num> sa <gap precision="low" quantity="2" reason="lost" unit="character"></gap> <num value="1">
+          </num> sa <gap precision="low" quantity="2" reason="lost" unit="character"/> <num value="1">
             <g type="numeral">I</g>
-          </num> klo<unclear>ñ·</unclear> <gap precision="low" quantity="2" reason="lost" unit="character"></gap> <lb n="17"></lb><unclear>ca</unclear>ndragupta <gap precision="low" quantity="4" reason="lost" unit="character"></gap>t· <num value="1">
+          </num> klo<unclear>ñ·</unclear> <gap precision="low" quantity="2" reason="lost" unit="character"/>
+   <lb n="17"/><unclear>ca</unclear>ndragupta <gap precision="low" quantity="4" reason="lost" unit="character"/>t· <num value="1">
             <g type="numeral">I</g>
-          </num> <gap quantity="1" reason="lost" unit="character"></gap> kloñ· samrapu <num value="1">
+          </num> <gap quantity="1" reason="lost" unit="character"/> kloñ· samrapu <num value="1">
             <g type="numeral">I</g>
           </num> kon· <num value="1">
             <unclear cert="low">
               <g type="numeral">I</g>
             </unclear>
-          </num> <gap precision="low" quantity="3" reason="lost" unit="character"></gap> <lb n="18"></lb>kon <num value="1">
+          </num> <gap precision="low" quantity="3" reason="lost" unit="character"/>
+   <lb n="18"/>kon <num value="1">
             <g type="numeral">I</g>
           </num> ca<unclear>ṅkā</unclear> <num value="1">
             <g type="numeral">I</g>
           </num> <unclear>ko</unclear>n· <num value="1">
             <g type="numeral">I</g>
-          </num> sa<gap quantity="2" reason="lost" unit="character"></gap> <unclear>ko</unclear>n· <num value="1">
+          </num> sa<gap quantity="2" reason="lost" unit="character"/> <unclear>ko</unclear>n· <num value="1">
             <g type="numeral">I</g>
-          </num> Avas<supplied reason="lost">·</supplied> <gap quantity="2" reason="lost" unit="character"></gap> kantya <num value="1">
+          </num> Avas<supplied reason="lost">·</supplied> <gap quantity="2" reason="lost" unit="character"/> kantya <num value="1">
             <g type="numeral">I</g>
-          </num> v<unclear>o</unclear><gap precision="low" quantity="3" reason="lost" unit="character"></gap> <lb n="19"></lb>sramol· <num value="1">
+          </num> v<unclear>o</unclear><gap precision="low" quantity="3" reason="lost" unit="character"/>
+   <lb n="19"/>sramol· <num value="1">
             <g type="numeral">I</g>
           </num> vṅe <num value="1">
             <g type="numeral">I</g>
-          </num> <gap precision="low" quantity="7" reason="lost" unit="character"></gap>kṣa <num value="1">
+          </num> <gap precision="low" quantity="7" reason="lost" unit="character"/>kṣa <num value="1">
             <g type="numeral">I</g>
           </num> tmek· <num value="1">
             <g type="numeral">I</g>
           </num> kan<unclear>·</unclear>As· <num value="1">
             <g type="numeral">I</g>
-          </num> kan<unclear>·</unclear><gap precision="low" quantity="2" reason="lost" unit="character"></gap> <lb n="20"></lb><unclear>v</unclear>ṅe <num value="1">
+          </num> kan<unclear>·</unclear><gap precision="low" quantity="2" reason="lost" unit="character"/>
+   <lb n="20"/><unclear>v</unclear>ṅe <num value="1">
             <g type="numeral">I</g>
           </num> kon· <num value="2">
             <g type="numeral">II</g>
@@ -264,57 +283,73 @@
             <g type="numeral">I</g>
           </num> ka<unclear>ñj</unclear><seg type="aksara">
             <seg subtype="vowel" type="component">
-              <gap precision="low" quantity="1" reason="illegible" unit="component"></gap>
+              <gap precision="low" quantity="1" reason="illegible" unit="component"/>
             </seg>
-          </seg><gap quantity="2" reason="lost" unit="character"></gap> <num value="1">
+          </seg><gap quantity="2" reason="lost" unit="character"/> <num value="1">
             <g type="numeral">I</g>
-          </num> <gap quantity="1" reason="lost" unit="character"></gap>kti <gap quantity="2" reason="lost" unit="character"></gap> <num value="1">
+          </num> <gap quantity="1" reason="lost" unit="character"/>kti <gap quantity="2" reason="lost" unit="character"/> <num value="1">
             <g type="numeral">I</g>
           </num> tr̥ṣa <num value="1">
             <g type="numeral">I</g>
           </num> tpās<unclear>·</unclear> <num value="1">
             <g type="numeral">I</g>
-          </num> <gap quantity="1" reason="lost" unit="character"></gap>ṅ· <gap precision="low" quantity="2" reason="lost" unit="character"></gap> <lb n="21"></lb><gap precision="low" quantity="9" reason="lost" unit="character"></gap> <num value="1">
+          </num> <gap quantity="1" reason="lost" unit="character"/>ṅ· <gap precision="low" quantity="2" reason="lost" unit="character"/>
+   <lb n="21"/><gap precision="low" quantity="9" reason="lost" unit="character"/> <num value="1">
             <g type="numeral">I</g>
-          </num> <gap quantity="4" reason="lost" unit="character"></gap><seg type="aksara">
+          </num> <gap quantity="4" reason="lost" unit="character"/><seg type="aksara">
             <seg subtype="body" type="component">
-              <gap quantity="1" reason="illegible" unit="component"></gap>
+              <gap quantity="1" reason="illegible" unit="component"/>
             </seg>
           </seg>iṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> <gap quantity="1" reason="lost" unit="character"></gap> gi <unclear>neḥ</unclear> sre daṅ· kñuṁ <gap precision="low" quantity="5" reason="lost" unit="character"></gap> <lb n="22"></lb><gap precision="low" quantity="7" reason="lost" unit="character"></gap> kloñ· <unclear>qme</unclear> mratāñ<supplied reason="lost">·</supplied> candrasena <unclear>j</unclear>aun· ta vraḥ <unclear>ka</unclear>mratā<supplied reason="lost">ṅ· Añ·</supplied> <lb n="23"></lb>śrī <supplied reason="lost">śaṅkara</supplied>ṇārāyana puṇya mratāñ· daṅ· <gap quantity="3" reason="lost" unit="character"></gap> <unclear cert="low">
+          </num> <gap quantity="1" reason="lost" unit="character"/> gi <unclear>neḥ</unclear> sre daṅ· kñuṁ <gap precision="low" quantity="5" reason="lost" unit="character"/>
+   <lb n="22"/><gap precision="low" quantity="7" reason="lost" unit="character"/> kloñ· <unclear>qme</unclear> mratāñ<supplied reason="lost">·</supplied> candrasena <unclear>j</unclear>aun· ta vraḥ <unclear>ka</unclear>mratā<supplied reason="lost">ṅ· Añ·</supplied>
+   <lb n="23"/>śrī <supplied reason="lost">śaṅkara</supplied>ṇārāyana puṇya mratāñ· daṅ· <gap quantity="3" reason="lost" unit="character"/> <unclear cert="low">
             <g type="circle">.</g>
-          </unclear> <gap quantity="1" reason="lost" unit="character"></gap> gi <gap precision="low" quantity="3" reason="lost" unit="character"></gap> <lb n="24"></lb>ya<unclear>tna</unclear> <gap quantity="1" reason="lost" unit="character"></gap> nau <unclear>q</unclear>na<unclear>k· ta</unclear> ni<unclear>ra</unclear>sta gi <supplied reason="lost">A</supplied>ṁvi lāṅ· vra<gap quantity="1" reason="lost" unit="character"></gap> <num value="1">
+          </unclear> <gap quantity="1" reason="lost" unit="character"/> gi <gap precision="low" quantity="3" reason="lost" unit="character"/>
+   <lb n="24"/>ya<unclear>tna</unclear> <gap quantity="1" reason="lost" unit="character"/> nau <unclear>q</unclear>na<unclear>k· ta</unclear> ni<unclear>ra</unclear>sta gi <supplied reason="lost">A</supplied>ṁvi lāṅ· vra<gap quantity="1" reason="lost" unit="character"/> <num value="1">
             <g type="numeral">I</g>
-          </num> Ekāvīśani<supplied reason="lost">raya</supplied> <gap precision="low" quantity="1" reason="lost" unit="character"></gap> <lb n="25"></lb>ta nāṁ <gap quantity="4" reason="lost" unit="character"></gap> <g type="circle">.</g> paṁnos· paṁjuḥ vraḥ kamratāṅ· <supplied reason="lost">Añ·</supplied> gi ta nā <gap precision="low" quantity="4" reason="lost" unit="character"></gap> <space quantity="3" unit="line"></space> <lb n="26"></lb><gap extent="unknown" reason="illegible" unit="character"></gap> <lb n="27"></lb><gap extent="unknown" reason="illegible" unit="character"></gap> <lb n="28"></lb><gap extent="unknown" reason="illegible" unit="character"></gap> <lb n="29"></lb>ku vā <gap precision="low" quantity="5" reason="lost" unit="character"></gap> <unclear>kon·</unclear> ku <gap quantity="2" reason="lost" unit="character"></gap>k· <num value="1">
+          </num> Ekāvīśani<supplied reason="lost">raya</supplied> <gap precision="low" quantity="1" reason="lost" unit="character"/>
+   <lb n="25"/>ta nāṁ <gap quantity="4" reason="lost" unit="character"/> <g type="circle">.</g> paṁnos· paṁjuḥ vraḥ kamratāṅ· <supplied reason="lost">Añ·</supplied> gi ta nā <gap precision="low" quantity="4" reason="lost" unit="character"/>
+   <space quantity="3" unit="line"/>
+   <lb n="26"/><gap extent="unknown" reason="illegible" unit="character"/>
+   <lb n="27"/><gap extent="unknown" reason="illegible" unit="character"/>
+   <lb n="28"/><gap extent="unknown" reason="illegible" unit="character"/>
+   <lb n="29"/>ku vā <gap precision="low" quantity="5" reason="lost" unit="character"/> <unclear>kon·</unclear> ku <gap quantity="2" reason="lost" unit="character"/>k· <num value="1">
             <g type="numeral">I</g>
-          </num> ku <gap quantity="1" reason="lost" unit="character"></gap> vak<unclear>·</unclear> <num value="1">
+          </num> ku <gap quantity="1" reason="lost" unit="character"/> vak<unclear>·</unclear> <num value="1">
             <g type="numeral">I</g>
-          </num> ku k<gap quantity="1" reason="lost" unit="character"></gap> d<seg type="aksara">
+          </num> ku k<gap quantity="1" reason="lost" unit="character"/> d<seg type="aksara">
             <seg subtype="vowel" type="component">
-              <gap quantity="1" reason="illegible" unit="component"></gap>
+              <gap quantity="1" reason="illegible" unit="component"/>
             </seg>
-          </seg> <gap quantity="1" reason="lost" unit="character"></gap> <num value="1">
+          </seg> <gap quantity="1" reason="lost" unit="character"/> <num value="1">
             <g type="numeral">I</g>
-          </num> vā ka<gap precision="low" quantity="1" reason="lost" unit="character"></gap> <lb n="30"></lb><unclear>vā</unclear> ka <gap precision="low" quantity="5" reason="lost" unit="character"></gap> ra <num value="1">
+          </num> vā ka<gap precision="low" quantity="1" reason="lost" unit="character"/>
+   <lb n="30"/><unclear>vā</unclear> ka <gap precision="low" quantity="5" reason="lost" unit="character"/> ra <num value="1">
             <g type="numeral">I</g>
           </num> <unclear>ku sa</unclear>mraṁpu <num value="1">
             <g type="numeral">I</g>
           </num> kon<unclear>·</unclear> kan·dip· <num value="1">
             <g type="numeral">I</g>
-          </num> vā <gap precision="low" quantity="2" reason="lost" unit="character"></gap> <lb n="31"></lb>ś<unclear>ī</unclear>la<gap quantity="2" reason="lost" unit="character"></gap> <num value="1">
+          </num> vā <gap precision="low" quantity="2" reason="lost" unit="character"/>
+   <lb n="31"/>ś<unclear>ī</unclear>la<gap quantity="2" reason="lost" unit="character"/> <num value="1">
             <g type="numeral">I</g>
           </num> vā A<supplied reason="lost">ṁ</supplied><unclear>vau</unclear> <num value="1">
             <g type="numeral">I</g>
           </num> mitragaṇa <num value="1">
             <g type="numeral">I</g>
-          </num> ku Asā <gap quantity="1" reason="lost" unit="character"></gap> <num value="1">
+          </num> ku Asā <gap quantity="1" reason="lost" unit="character"/> <num value="1">
             <unclear cert="low">
               <g type="numeral">I</g>
             </unclear>
-          </num> <unclear>vā</unclear> <gap precision="low" quantity="2" reason="lost" unit="character"></gap> <lb n="32"></lb><unclear>sre</unclear> jaṁ<supplied reason="lost">nā</supplied>hv· <gap precision="low" quantity="3" reason="lost" unit="character"></gap>p· daṅ· kloñ· prakk<supplied reason="lost">·</supplied> Ai <unclear>ka</unclear>nlaḥ vraḥ <gap precision="low" quantity="2" reason="lost" unit="character"></gap> <lb n="33"></lb>gi sre jaṁnāhv· phoṅ· <gap quantity="3" reason="lost" unit="character"></gap> mās· <num value="5">
+          </num> <unclear>vā</unclear> <gap precision="low" quantity="2" reason="lost" unit="character"/>
+   <lb n="32"/><unclear>sre</unclear> jaṁ<supplied reason="lost">nā</supplied>hv· <gap precision="low" quantity="3" reason="lost" unit="character"/>p· daṅ· kloñ· prakk<supplied reason="lost">·</supplied> Ai <unclear>ka</unclear>nlaḥ vraḥ <gap precision="low" quantity="2" reason="lost" unit="character"/>
+   <lb n="33"/>gi sre jaṁnāhv· phoṅ· <gap quantity="3" reason="lost" unit="character"/> mās· <num value="5">
             <g type="numeral">IIIII</g>
-          </num> gi neḥ kñuṁ daṅ· <gap precision="low" quantity="4" reason="lost" unit="character"></gap> <lb n="34"></lb><gap precision="low" quantity="4" reason="lost" unit="character"></gap> <unclear>A</unclear>ñ· ta vraḥ <supplied reason="lost">kamra</supplied>tāṅ· Añ· śrīśaṅkara<supplied reason="lost">nārāyaṇa</supplied></p>
+          </num> gi neḥ kñuṁ daṅ· <gap precision="low" quantity="4" reason="lost" unit="character"/>
+   <lb n="34"/><gap precision="low" quantity="4" reason="lost" unit="character"/> <unclear>A</unclear>ñ· ta vraḥ <supplied reason="lost">kamra</supplied>tāṅ· Añ· śrīśaṅkara<supplied reason="lost">nārāyaṇa</supplied>
+</p>
       </div>
       <div type="apparatus">
         <listApp>
@@ -329,7 +364,7 @@
           <app loc="14">
             <lem>soc· <num value="1">
                 <g type="numeral">I</g>
-              </num> ku <gap quantity="1" reason="lost" unit="character"></gap> <num value="1">
+              </num> ku <gap quantity="1" reason="lost" unit="character"/> <num value="1">
                 <g type="numeral">I</g>
               </num> kon<unclear>·</unclear></lem>
             <note>We may also read <foreign>soc· <unclear>kto</unclear><num value="1">
@@ -344,26 +379,26 @@
       </div>
       <div source="bib:Coedes1937-1966_01" type="translation" xml:lang="fra">
         <p n="1-3">648 <foreign>śaka</foreign>, septième jour de la lune croissante de Śrāvana, Mratāñ Bhāskarapāla donne des rizières avec des esclaves à V.K.A. Śrī Śaṅkaranārāyaṇa, œuvre pie du Mratāñ :</p>
-        <p n="3">Rizière Vrai Kalpau : <gap reason="lost"></gap> <foreign>vīja</foreign>.</p>
-        <p n="4">Rizière Tpeṅ : 21 <foreign>vīja</foreign>. Rizière Krau Dnal : 12 <foreign>mās</foreign>. Rizière Vrai Daṁrok : <gap reason="lost"></gap> <foreign>mās</foreign>.</p>
-        <p n="5">Rizière Jeṅ Cdiṅ : 1/2 sare. Rizière Rdeḥ Pak : 1 <foreign>mās</foreign>, 1 <foreign>je</foreign>. Rizière Rdal S <gap reason="lost"></gap> : <gap reason="lost"></gap></p>
+        <p n="3">Rizière Vrai Kalpau : <gap reason="lost"/> <foreign>vīja</foreign>.</p>
+        <p n="4">Rizière Tpeṅ : 21 <foreign>vīja</foreign>. Rizière Krau Dnal : 12 <foreign>mās</foreign>. Rizière Vrai Daṁrok : <gap reason="lost"/> <foreign>mās</foreign>.</p>
+        <p n="5">Rizière Jeṅ Cdiṅ : 1/2 sare. Rizière Rdeḥ Pak : 1 <foreign>mās</foreign>, 1 <foreign>je</foreign>. Rizière Rdal S <gap reason="lost"/> : <gap reason="lost"/></p>
         <p n="6">Rizière Kanlaḥ Vrai : 3 <foreign>mās</foreign>.</p>
         <p n="6-12">Esclaves femmes <supplied reason="explanation">liste d'une quinzaine de <foreign>ku</foreign> avec leurs enfants, suivie d'une quinzaine de noms de <foreign>ghoda</foreign></supplied>.</p>
         <p n="12-22">Esclaves donnés par Mratāñ Siddhigana <supplied reason="explanation">liste très ruinée</supplied>.</p>
-        <p n="22-25"><gap reason="lost"></gap> Kloñ Ame Mratāñ Candrasena offre à V.K.A. Śrī Śaṅkaranārāyaṇa; œuvres pies du Mratāñ avec <gap reason="lost"></gap>. Et ceux qui sont chassés hors de <gap reason="lost"></gap> vingt-et-un enfers <gap reason="lost"></gap> qui conduisent <gap reason="lost"></gap> Les religieux <foreign>paṁjuḥ</foreign> du dieu <gap reason="lost"></gap></p>
+        <p n="22-25"><gap reason="lost"/> Kloñ Ame Mratāñ Candrasena offre à V.K.A. Śrī Śaṅkaranārāyaṇa; œuvres pies du Mratāñ avec <gap reason="lost"/>. Et ceux qui sont chassés hors de <gap reason="lost"/> vingt-et-un enfers <gap reason="lost"/> qui conduisent <gap reason="lost"/> Les religieux <foreign>paṁjuḥ</foreign> du dieu <gap reason="lost"/></p>
       </div>
       <div type="commentary">
         <p>Les six dernières lignes, très ruinées, énumèrent des esclaves et des rizières avec indication du prix <supplied reason="explanation">jaṁnāhv</supplied>, et se terminent par le nom du dieu V.K.A. Śrī Śaṅkaranārāyaṇa.</p>
       </div>
       <div type="bibliography">
         <p>First edited by George Cœdès (<bibl rend="omitname">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">2</citedRange>
             <citedRange unit="page">146-148</citedRange>
           </bibl>) with a French translation; re-edited here by Dominique Soutif &amp; Kunthea Chhom from the estampage EFEO n. 367 and the photograph of the stone.</p>
         <listBibl type="primary">
           <bibl n="GC">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">2</citedRange>
             <citedRange unit="page">146-148</citedRange>
           </bibl>

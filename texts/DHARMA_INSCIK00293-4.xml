@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -47,7 +42,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -70,15 +65,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -89,13 +88,15 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="okz-Latn">
-        <ab><lb n="1"></lb><gap quantity="4" reason="lost" unit="character"></gap> rañ· <g type="circleSmall">.</g> <gap quantity="10" reason="lost" unit="character"></gap></ab>
+        <ab>
+<lb n="1"/><gap quantity="4" reason="lost" unit="character"/> rañ· <g type="circleSmall">.</g> <gap quantity="10" reason="lost" unit="character"/>
+</ab>
       </div>
       <div type="apparatus">
         <listApp>
           <app loc="1">
-            <lem><gap quantity="4" reason="lost" unit="character"></gap> rañ· <g type="circleSmall">.</g> <gap quantity="10" reason="lost" unit="character"></gap></lem>
-            <rdg source="bib:Coedes1928_01"><gap extent="unknown" reason="lost" unit="character"></gap> rañ· <g type="circleSmall">.</g></rdg>
+            <lem><gap quantity="4" reason="lost" unit="character"/> rañ· <g type="circleSmall">.</g> <gap quantity="10" reason="lost" unit="character"/></lem>
+            <rdg source="bib:Coedes1928_01"><gap extent="unknown" reason="lost" unit="character"/> rañ· <g type="circleSmall">.</g></rdg>
           </app>
         </listApp>
       </div>
@@ -107,28 +108,28 @@
             </div> -->
       <div type="bibliography">
         <p>Edited by George Cœdès (<bibl rend="omitname">
-            <ptr target="bib:Coedes1928_01"></ptr>
+            <ptr target="bib:Coedes1928_01"/>
             <citedRange unit="page">106</citedRange>
           </bibl>) without any translation; reedited by Kunthea Chhom (<bibl rend="omitname">
-            <ptr target="bib:Chhom2020_01"></ptr>
+            <ptr target="bib:Chhom2020_01"/>
             <citedRange unit="page">45</citedRange>
           </bibl>) in Khmer language.</p>
         <listBibl type="primary">
           <bibl n="KC">
-            <ptr target="bib:Chhom2020_01"></ptr>
+            <ptr target="bib:Chhom2020_01"/>
             <citedRange unit="page">45</citedRange>
           </bibl>
           <bibl n="GC">
-            <ptr target="bib:Coedes1928_01"></ptr>
+            <ptr target="bib:Coedes1928_01"/>
             <citedRange unit="page">106</citedRange>
           </bibl>
           <listBibl type="secondary">
             <bibl n="GC">
-              <ptr target="bib:Coedes1913_02"></ptr>
+              <ptr target="bib:Coedes1913_02"/>
               <citedRange unit="page">83-84</citedRange>
             </bibl>
             <bibl n="BPG">
-              <ptr target="bib:Groslier1973_01"></ptr>
+              <ptr target="bib:Groslier1973_01"/>
               <citedRange unit="page">87</citedRange>
             </bibl>
           </listBibl>

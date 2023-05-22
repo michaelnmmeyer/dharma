@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -42,7 +37,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -65,15 +60,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -86,11 +85,26 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="tel-Latn">
-        <p><lb n="1"></lb>svasti śrī vijayāditya-saty<unclear>ā</unclear>śray<unclear>u</unclear>nṟ-agu<lb break="no" n="2"></lb>pṛthuvī-vallabha-mahārā<lb break="no" n="3"></lb>jādhirāja-paramēśvara-bhaṭā<lb break="no" n="4"></lb>raḶ kattirāju rēṇḍ-agu Ēṇḍu <lb n="5"></lb>pṛthivī-rājya<unclear>ṁ</unclear>bu cēyaN <lb n="6"></lb>vāṇarāj<unclear>u</unclear>l<supplied reason="lost">va</supplied>ṅgan<unclear>ū</unclear>r nnāṇḍu Ēḷa <!-- four more akṣaras may have been written here. ? dhi ? ṣa --><lb n="7"></lb>caḷ<unclear>k</unclear>i mu<supplied reason="lost">tturā</supplied>jul-cañjuṇō<unclear>N</unclear><!-- ce of the edition should be wrong because the vowel should be attached to the l°; furthermore, the first ca in this very line also has quite a long head stroke towards the left so that this might be the ductus of this very scribe --> <lb n="8"></lb>I<!-- or bha? -->raṭṭa-pāṟa s<unclear>ā</unclear>rmadiyāri <add place="inline">kāśyapagōtra</add><!-- this seems to be added later, since it is smaller and fit into empty space; plus the ending -ki is wrong on gōtra --><lb break="no" n="9"></lb>ki rāca<!-- the ca here also shows a left bent of the vertical strkoe like the other ca's (even that in composition) so that the reading ce is wrong in all these instances -->māna<unclear>ṁ</unclear>bu pannavīsa I<!-- has to be checked; is there an akṣara before it? -->cciri <lb n="10"></lb>cammayuḷu palmak<!-- is it kk? -->aḷu paṭṭi <lb n="11"></lb>Ēnugu kanṟirlakuṟu pāṟa tāḻka<lb break="no" n="12"></lb>ḍa<!-- the place name is tāḻa-kaḍa 'palmyra tree place' -->pāṟa kavisiya-pāṟa Inakera <!-- ??? -->sā<lb break="no" n="13"></lb>kṣi kān... paḍiye pannasa yirajadamaku<!-- unclear --> <lb n="14"></lb>pulpogu ? māranasā ? pekanekasiddhi <lb n="15"></lb><!-- bhisira --> <lb n="16"></lb> māṟuntu <lb n="17"></lb>Ip-pannasa ḻaccuvānṟ<unclear>u</unclear> <lb n="18"></lb>vāraṇāsiyu vē<lb break="no" n="19"></lb>layu ḻaccina<unclear>vā</unclear>nṟ agu<!-- at the side/on the second face?:
+        <p>
+               <lb n="1"/>svasti śrī vijayāditya-saty<unclear>ā</unclear>śray<unclear>u</unclear>nṟ-agu<lb break="no" n="2"/>pṛthuvī-vallabha-mahārā<lb break="no" n="3"/>jādhirāja-paramēśvara-bhaṭā<lb break="no" n="4"/>raḶ kattirāju rēṇḍ-agu Ēṇḍu
+               <lb n="5"/>pṛthivī-rājya<unclear>ṁ</unclear>bu cēyaN
+               <lb n="6"/>vāṇarāj<unclear>u</unclear>l<supplied reason="lost">va</supplied>ṅgan<unclear>ū</unclear>r nnāṇḍu Ēḷa <!-- four more akṣaras may have been written here. ? dhi ? ṣa -->
+               <lb n="7"/>caḷ<unclear>k</unclear>i mu<supplied reason="lost">tturā</supplied>jul-cañjuṇō<unclear>N</unclear><!-- ce of the edition should be wrong because the vowel should be attached to the l°; furthermore, the first ca in this very line also has quite a long head stroke towards the left so that this might be the ductus of this very scribe -->
+               <lb n="8"/>I<!-- or bha? -->raṭṭa-pāṟa s<unclear>ā</unclear>rmadiyāri <add place="inline">kāśyapagōtra</add><!-- this seems to be added later, since it is smaller and fit into empty space; plus the ending -ki is wrong on gōtra --><lb break="no" n="9"/>ki rāca<!-- the ca here also shows a left bent of the vertical strkoe like the other ca's (even that in composition) so that the reading ce is wrong in all these instances -->māna<unclear>ṁ</unclear>bu pannavīsa I<!-- has to be checked; is there an akṣara before it? -->cciri
+               <lb n="10"/>cammayuḷu palmak<!-- is it kk? -->aḷu  paṭṭi
+               <lb n="11"/>Ēnugu kanṟirlakuṟu pāṟa tāḻka<lb break="no" n="12"/>ḍa<!-- the place name is tāḻa-kaḍa 'palmyra tree place' -->pāṟa kavisiya-pāṟa Inakera<!-- ??? -->  sā<lb break="no" n="13"/>kṣi kān... paḍiye pannasa yirajadamaku<!-- unclear -->
+               <lb n="14"/>pulpogu ? māranasā ? pekanekasiddhi
+               <lb n="15"/><!-- bhisira -->
+               <lb n="16"/>    māṟuntu
+               <lb n="17"/>Ip-pannasa ḻaccuvānṟ<unclear>u</unclear>
+               <lb n="18"/>vāraṇāsiyu vē<lb break="no" n="19"/>layu ḻaccina<unclear>vā</unclear>nṟ agu
+
+               <!-- at the side/on the second face?:
                1.
                2.si Icciri
                3.
-               --></p>
+               -->
+            </p>
       </div>
       <div type="apparatus">
         <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
@@ -110,12 +124,12 @@
       <div type="bibliography">
         <p></p>
         <listBibl type="primary">
-          <bibl n="siglum"></bibl>
+          <bibl n="siglum"/>
           <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
         </listBibl>
         <listBibl type="secondary">
-          <bibl></bibl>
-          <bibl></bibl>
+          <bibl/>
+          <bibl/>
         </listBibl>
       </div>
     </body>

@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -46,7 +41,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -70,15 +65,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -98,25 +97,35 @@
         <div n="A" type="textpart">
           <head xml:lang="eng">Inscription exposed</head>
           <lg met="sragdharā" n="1">
-            <l n="a"><lb n="A1"></lb><milestone n="a" unit="column"></milestone>yāte kāle śakānāṁ nava-tanu-viṣayair mmādhave ṣo<choice>
+            <l n="a"><lb n="A1"/><milestone n="a" unit="column"/>yāte kāle śakānāṁ nava-tanu-viṣayair mmādhave ṣo<choice>
                 <orig>d</orig>
                 <corr>ḍ</corr>
               </choice>aśāhe</l>
-            <l n="b"><milestone n="b" unit="column"></milestone>jīvaś cāpe 'ja-sūryyo bhr̥gu-śaśi-tanayau tāvurākhye vilagne</l>
-            <l n="c"><lb n="A2"></lb><milestone n="a" unit="column"></milestone>sauro mīnendra-yāyī kṣiti-tanaya-yute karkkaṭe maitram indu<milestone break="no" n="b" unit="column"></milestone>r</l>
+            <l n="b"><milestone n="b" unit="column"/>jīvaś cāpe 'ja-sūryyo bhr̥gu-śaśi-tanayau tāvurākhye vilagne</l>
+            <l n="c"><lb n="A2"/><milestone n="a" unit="column"/>sauro mīnendra-yāyī kṣiti-tanaya-yute karkkaṭe maitram indu<milestone break="no" n="b" unit="column"/>r</l>
             <l n="d">vviṣṇvīśāv eka-mūrttī kuśalita-yaminā sthāpitāv atra yuktyā<g type="dDanda">.</g></l>
           </lg>
         </div>
         <div n="B" subtype="trial" type="textpart">
           <head xml:lang="eng">Trials unexposed. Left of the main text</head>
-          <ab><lb n="B1"></lb>yo bhāratasya pada ma <lb n="B2"></lb>pa ya <lb n="B3"></lb>ya <unclear cert="low">na</unclear> <lb n="B4"></lb>yo bhāratasya tana<choice>
+          <ab>
+                      <lb n="B1"/>yo bhāratasya pada ma
+                      <lb n="B2"/>pa ya
+                      <lb n="B3"/>ya <unclear cert="low">na</unclear>
+                         <lb n="B4"/>yo bhāratasya tana<choice>
               <unclear>pā</unclear>
               <unclear>ha</unclear>
-            </choice></ab>
+            </choice>
+                         </ab>
         </div>
         <div n="C" subtype="trial" type="textpart">
           <head xml:lang="eng">Trials unexposed. Right of the main text</head>
-          <ab><lb n="C1"></lb>yā <lb n="C2" rend="bt-rotated"></lb>namaḥ <lb n="C3"></lb>na <lb n="C4"></lb>yama</ab>
+          <ab>
+                      <lb n="C1"/>yā
+                      <lb n="C2" rend="bt-rotated"/>namaḥ
+                      <lb n="C3"/>na
+                      <lb n="C4"/>yama
+                         </ab>
         </div>
       </div>
       <div type="apparatus">
@@ -188,12 +197,12 @@
          </div> -->
       <div type="bibliography">
         <p>First edited by Auguste Barth (<bibl rend="omitname">
-            <ptr target="bib:Barth1885_01"></ptr>
+            <ptr target="bib:Barth1885_01"/>
             <citedRange unit="page">74-75</citedRange>
           </bibl>) with a French translation; re-edited here by Gerdi Gerschheimer and Kunthea Chhom from photos of the estampage EFEO n. 726 and AMPP 000943.</p>
         <listBibl type="primary">
           <bibl n="AB">
-            <ptr target="bib:Barth1885_01"></ptr>
+            <ptr target="bib:Barth1885_01"/>
             <citedRange unit="page">74-75</citedRange>
           </bibl>
         </listBibl>

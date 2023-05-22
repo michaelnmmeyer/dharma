@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -39,7 +34,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -62,15 +57,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -85,13 +84,20 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="osn-Latn">
-        <p><lb n="1"></lb>ø Ini pəR̥ti<supplied reason="omitted">ṁ</supplied> <lb break="no" n="2"></lb>gal· nu Atis· <lb break="no" n="3"></lb>ti rasa</p>
-        <p>Aya ma nu <lb n="4"></lb>ṅəsi ḍayəḥ Ivə <lb n="5"></lb>Ulaḥ bvatvaḥ bisi <lb n="6"></lb>kvakvaro</p>
+        <p>
+                    <lb n="1"/>ø Ini pəR̥ti<supplied reason="omitted">ṁ</supplied>
+                    <lb break="no" n="2"/>gal· nu Atis·
+                    <lb break="no" n="3"/>ti rasa </p>
+        <p>Aya ma nu
+                    <lb n="4"/>ṅəsi ḍayəḥ Ivə
+                    <lb n="5"/>Ulaḥ bvatvaḥ bisi
+                    <lb n="6"/>kvakvaro
+                </p>
       </div>
       <div type="apparatus">
         <app loc="1">
           <!--1. pəR̥ti‹ṁ›gal· TSN ◇ pəR̥tiṁgal· RK. — 5. bvatvaḥ ◇ botoḥ TSN RK. — 6. kvakvaro ◇ kokoro TSN RK. -->
-          <lem source="bib:TitiSurtiNastiti1996_01">pəR̥ti<supplied reason="omitted">ṁ</supplied><lb break="no" n="2"></lb>gal·</lem>
+          <lem source="bib:TitiSurtiNastiti1996_01">pəR̥ti<supplied reason="omitted">ṁ</supplied><lb break="no" n="2"/>gal·</lem>
           <rdg source="bib:RichadianaKartakusuma2005_01">pəR̥tiṁgal·</rdg>
         </app>
         <app loc="5">
@@ -109,43 +115,44 @@
           </supplied>. If one resides here, one should not gamble: it will lead to suffering.</p>
       </div>
       <div type="commentary">
-        <p n="1"><foreign>pəR̥ti‹ṁ›gal</foreign> ◇ The prefix <foreign>pərə-</foreign>, <foreign>prə</foreign> or <foreign>pra</foreign> is not commonly used in OS. So far we have encountered <foreign>prəbakti</foreign> <q>devotion, worship</q> and <foreign>prətapa</foreign> <q>ascetic</q>. All instances are nouns, whether designating agents (<foreign>prətapa</foreign>) or actions (<foreign>prəbakti</foreign>). It must be noted that the base <foreign>tiṅgal</foreign> in OS (as in MdS and MdJ) never seems to have the meaning <q>to reside, to live (in a place)</q> familiar from Malay, but rather means <q>to be left behind</q>. We have the impression that <foreign>prətiṅgal</foreign> here has a meaning similar to MdS <foreign>titinggal</foreign> <q>relic, inheritance</q> and to that expressed by <foreign>tapak-valar</foreign> in <ref target="DHARMA_INSIDENKKawali_1a.xml">Kawa1a</ref>. Compare how in Malay the expression <foreign>jejak</foreign> has the same meaning as <foreign>peninggalan</foreign>.</p>
-        <p n="2-3"><foreign>Atis·ti</foreign> ◇ Cf. <title>Sasana Mahaguru</title> 32: <foreign>nu ka‹ṅ›ken joṅ ta ma, na gəiṅ atisti pasanta</foreign> <q>what is comparable to a seaboat is the stable and peaceful mind</q>. It is not clear whom <foreign>nu Atis·ti rasa</foreign> refers to, whether it is the same as <foreign>nu sia mulia tapa</foreign> in <ref target="DHARMA_INSIDENKKawali_1a.xml">Kawa1a</ref>, i.e., King Wastu, another former king (or kings), or the hermit (or hermits). In our opinion, the first and second are the most plausible interpretations. However, the third interpretation need not be incompatible with the other two as kings themselves may be ascetics. Cf. <title>Carita Parahyaṅan</title> 11a, 39a, 24b, passages which narrate how several kings became ascetics (<foreign>ṅarajarəsi</foreign>).</p>
-        <p n="4"><foreign>ivə</foreign> ◇ A variant of <foreign>iyə</foreign> <q>this, here</q>, MdS <foreign>ieu</foreign>. Cf. <title>Carita Parahyaṅan</title> 12r <foreign>ivə keh pamalaan ai‹ṅ›, təhər bava ku kita kədə-kədə</foreign>! <q>this is my punishment, so you take <supplied reason="subaudible">him</supplied> with force</q>.</p>
+        <p n="1"> <foreign>pəR̥ti‹ṁ›gal</foreign> ◇ The prefix <foreign>pərə-</foreign>, <foreign>prə</foreign> or <foreign>pra</foreign> is not commonly used in OS. So far we have encountered <foreign>prəbakti</foreign> <q>devotion, worship</q> and <foreign>prətapa</foreign> <q>ascetic</q>. All instances are nouns, whether designating agents (<foreign>prətapa</foreign>) or actions (<foreign>prəbakti</foreign>). It must be noted that the base <foreign>tiṅgal</foreign> in OS (as in MdS and MdJ) never seems to have the meaning <q>to reside, to live (in a place)</q> familiar from Malay, but rather means <q>to be left behind</q>. We have the impression that <foreign>prətiṅgal</foreign> here has a meaning similar to MdS <foreign>titinggal</foreign> <q>relic, inheritance</q> and to that expressed by <foreign>tapak-valar</foreign> in <ref target="DHARMA_INSIDENKKawali_1a.xml">Kawa1a</ref>. Compare how in Malay the expression <foreign>jejak</foreign> has the same meaning as <foreign>peninggalan</foreign>.</p>
+        <p n="2-3"> <foreign>Atis·ti</foreign> ◇ Cf. <title>Sasana Mahaguru</title> 32: <foreign>nu ka‹ṅ›ken joṅ ta ma, na gəiṅ atisti pasanta</foreign> <q>what is comparable to a seaboat is the stable and peaceful mind</q>. It is not clear whom <foreign>nu Atis·ti rasa</foreign> refers to, whether it is the same as <foreign>nu sia mulia tapa</foreign> in <ref target="DHARMA_INSIDENKKawali_1a.xml">Kawa1a</ref>, i.e., King Wastu, another former king (or kings), or the hermit (or hermits). In our opinion, the first and second are the most plausible interpretations. However, the third interpretation need not be incompatible with the other two as kings themselves may be ascetics. Cf. <title>Carita Parahyaṅan</title> 11a, 39a, 24b, passages which narrate how several kings became ascetics (<foreign>ṅarajarəsi</foreign>).</p>
+        <p n="4"> <foreign>ivə</foreign> ◇ A variant of <foreign>iyə</foreign> <q>this, here</q>, MdS <foreign>ieu</foreign>. Cf. <title>Carita Parahyaṅan</title> 12r <foreign>ivə keh pamalaan ai‹ṅ›, təhər bava ku kita kədə-kədə</foreign>! <q>this is my punishment, so you take <supplied reason="subaudible">him</supplied> with force</q>.</p>
       </div>
       <div type="bibliography">
-        <p>This inscription was accidentally discovered on 3 October 1995 by Sopar, the caretaker of the site (<bibl>
-            <ptr target="bib:TitiSurtiNastiti1996_01"></ptr>
+        <p>This inscription was accidentally discovered on 3 October 1995 by Sopar, the caretaker of the site  (<bibl>
+            <ptr target="bib:TitiSurtiNastiti1996_01"/>
             <citedRange unit="page">19</citedRange>
           </bibl>). A decipherment of the text was published for the first time by Titi Surti Nastiti (<bibl rend="omitname">
-            <ptr target="bib:TitiSurtiNastiti1996_01"></ptr>
+            <ptr target="bib:TitiSurtiNastiti1996_01"/>
           </bibl>) and reproduced in Titi Surti Nastiti &amp; Hasan Djafar (<bibl rend="omitname">
-            <ptr target="bib:TitiSurtiNastiti+HasanDjafar_2016"></ptr>
+            <ptr target="bib:TitiSurtiNastiti+HasanDjafar_2016"/>
           </bibl>), while Richadiana Kartakusuma (<bibl rend="omitname">
-            <ptr target="bib:RichadianaKartakusuma2005_01"></ptr>
-          </bibl>) offered a slightly different reading.</p>
+            <ptr target="bib:RichadianaKartakusuma2005_01"/>
+          </bibl>) offered a slightly different reading.
+</p>
         <listBibl type="primary">
           <bibl n="TSN">
-            <ptr target="bib:TitiSurtiNastiti1996_01"></ptr>
+            <ptr target="bib:TitiSurtiNastiti1996_01"/>
             <citedRange>26</citedRange>
           </bibl>
           <bibl n="RK">
-            <ptr target="bib:RichadianaKartakusuma2005_01"></ptr>
+            <ptr target="bib:RichadianaKartakusuma2005_01"/>
             <citedRange>50</citedRange>
           </bibl>
         </listBibl>
         <listBibl>
           <bibl>
-            <ptr target="bib:DirmanSurachmat1986_01"></ptr>
+            <ptr target="bib:DirmanSurachmat1986_01"/>
           </bibl>
           <bibl>
-            <ptr target="bib:NandangRusnandar1999_01"></ptr>
+            <ptr target="bib:NandangRusnandar1999_01"/>
           </bibl>
           <bibl>
-            <ptr target="bib:MachiSuhadi1999_01"></ptr>
+            <ptr target="bib:MachiSuhadi1999_01"/>
           </bibl>
           <bibl>
-            <ptr target="bib:DjadjaSukardjaS2002_01"></ptr>
+            <ptr target="bib:DjadjaSukardjaS2002_01"/>
           </bibl>
         </listBibl>
       </div>

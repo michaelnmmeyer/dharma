@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -46,7 +41,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -69,15 +64,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -88,14 +87,37 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="okz-Latn">
-        <p xml:lang="san-Latn"><lb n="1"></lb>lokādeya vo <gap quantity="4" reason="lost" unit="character"></gap> sa <gap quantity="2" reason="lost" unit="character"></gap> <lb n="2"></lb>te kamvuna <gap quantity="2" reason="lost" unit="character"></gap> keśava <gap quantity="3" reason="lost" unit="character"></gap> <lb n="3"></lb>va <gap quantity="1" reason="lost" unit="character"></gap> ga <gap quantity="1" reason="lost" unit="character"></gap>mbiṇi <gap quantity="4" reason="lost" unit="character"></gap> <lb n="4"></lb>govārdhasnasvāminaṁ tasmin<unclear>·</unclear> va <gap quantity="1" reason="lost" unit="character"></gap> <lb n="5"></lb><supplied reason="lost">nārā</supplied>yaṇā <gap quantity="4" reason="lost" unit="character"></gap> sri cā <gap quantity="1" reason="lost" unit="character"></gap> rū<lb break="no" n="6"></lb>pa hari <gap quantity="2" reason="lost" unit="character"></gap> tvā maṇi <gap quantity="1" reason="lost" unit="character"></gap> trivi<lb break="no" n="7"></lb>kramapada sri rodravārmmā <gap quantity="3" reason="lost" unit="character"></gap><lb break="no" n="8"></lb>ḥ <gap quantity="2" reason="lost" unit="character"></gap> guha <gap quantity="4" reason="lost" unit="character"></gap>ṇakṣa <lb n="9"></lb>saiyala kamb<supplied reason="lost">u</supplied>guyasthāpya <gap quantity="1" reason="lost" unit="character"></gap> <lb n="10"></lb>ni rudranāmā yāsmin saṅsthāpi<lb break="no" n="11"></lb>tā <gap quantity="2" reason="lost" unit="character"></gap> dhārmmikaṁ sri rodravārmmaṇā</p>
-        <p><lb n="12"></lb>mana sraca rājā supratisthā harika<lb break="no" n="13"></lb>mvujendra ta guhā māna vraḥ nr̥paññā <lb n="14"></lb>pandvala pre <gap quantity="2" reason="lost" unit="character"></gap> caṁneka nu <lb n="15"></lb>Upaddhi nā vraḥ hari <gap quantity="5" reason="lost" unit="character"></gap> <lb n="16"></lb>sruka bhāga caṁnāṁ ti Oya toya <lb n="17"></lb>viṣṇup<choice>
+        <p xml:lang="san-Latn">
+   <lb n="1"/>lokādeya vo <gap quantity="4" reason="lost" unit="character"/> sa <gap quantity="2" reason="lost" unit="character"/>
+   <lb n="2"/>te kamvuna <gap quantity="2" reason="lost" unit="character"/> keśava <gap quantity="3" reason="lost" unit="character"/>
+   <lb n="3"/>va <gap quantity="1" reason="lost" unit="character"/> ga <gap quantity="1" reason="lost" unit="character"/>mbiṇi <gap quantity="4" reason="lost" unit="character"/>
+   <lb n="4"/>govārdhasnasvāminaṁ tasmin<unclear>·</unclear> va <gap quantity="1" reason="lost" unit="character"/>
+   <lb n="5"/><supplied reason="lost">nārā</supplied>yaṇā <gap quantity="4" reason="lost" unit="character"/> sri cā <gap quantity="1" reason="lost" unit="character"/> rū<lb break="no" n="6"/>pa hari <gap quantity="2" reason="lost" unit="character"/> tvā maṇi <gap quantity="1" reason="lost" unit="character"/> trivi<lb break="no" n="7"/>kramapada sri rodravārmmā <gap quantity="3" reason="lost" unit="character"/><lb break="no" n="8"/>ḥ <gap quantity="2" reason="lost" unit="character"/> guha <gap quantity="4" reason="lost" unit="character"/>ṇakṣa
+   <lb n="9"/>saiyala kamb<supplied reason="lost">u</supplied>guyasthāpya <gap quantity="1" reason="lost" unit="character"/>
+   <lb n="10"/>ni rudranāmā yāsmin saṅsthāpi<lb break="no" n="11"/>tā <gap quantity="2" reason="lost" unit="character"/> dhārmmikaṁ sri rodravārmmaṇā
+</p>
+        <p>
+                      <lb n="12"/>mana sraca rājā supratisthā harika<lb break="no" n="13"/>mvujendra ta guhā māna vraḥ nr̥paññā
+                      <lb n="14"/>pandvala pre <gap quantity="2" reason="lost" unit="character"/> caṁneka nu
+                      <lb n="15"/>Upaddhi nā vraḥ hari <gap quantity="5" reason="lost" unit="character"/>
+                      <lb n="16"/>sruka bhāga caṁnāṁ ti Oya toya
+                      <lb n="17"/>viṣṇup<choice>
             <orig>u</orig>
             <reg>ū</reg>
-          </choice>jā ti duka sruka vnura laṅkā <lb n="18"></lb><gap quantity="2" reason="lost" unit="character"></gap> sni praveca sraca bhāga vraḥ duka taṁ<lb break="no" n="19"></lb>nāla neḥ phoṅa syaṅ sādhu nare<lb break="no" n="20"></lb>ndra <gap quantity="1" reason="lost" unit="character"></gap> vaddhi nā vraḥ harikaṁmv<supplied reason="lost">u</supplied>nākhya <lb n="21"></lb>vāmā kṣetra giripāda <gap quantity="2" reason="lost" unit="character"></gap> ti viṣaya <lb n="22"></lb>senagiri pāścimā rājā sri rodravā<lb break="no" n="23"></lb>rmmā ta dau <gap quantity="5" reason="lost" unit="character"></gap> ti jyak sa <gap quantity="2" reason="lost" unit="character"></gap> <lb n="24"></lb>neḥ jā <gap quantity="2" reason="lost" unit="character"></gap>narendra <gap quantity="3" reason="lost" unit="character"></gap> śriliṅga<lb break="no" n="25"></lb>mukha nā giri prā <gap quantity="1" reason="lost" unit="character"></gap> travāṅa khpvara can<gap quantity="2" reason="lost" unit="character"></gap>nti <lb n="26"></lb><gap quantity="1" reason="lost" unit="character"></gap> dau lvaḥ sā giriprisṭhā kuṁ māna ta <gap quantity="2" reason="lost" unit="character"></gap> ta je<supplied reason="lost">ṅa</supplied> <lb n="27"></lb>vnaṁ giri <gap quantity="1" reason="lost" unit="character"></gap> pati vraḥ śrī rodravārmmā gi ta <lb n="28"></lb>Oya toya viṣṇup<choice>
+          </choice>jā ti duka sruka vnura laṅkā
+                      <lb n="18"/><gap quantity="2" reason="lost" unit="character"/> sni praveca sraca bhāga vraḥ duka taṁ<lb break="no" n="19"/>nāla neḥ phoṅa syaṅ sādhu nare<lb break="no" n="20"/>ndra <gap quantity="1" reason="lost" unit="character"/> vaddhi nā vraḥ harikaṁmv<supplied reason="lost">u</supplied>nākhya
+                      <lb n="21"/>vāmā kṣetra giripāda <gap quantity="2" reason="lost" unit="character"/> ti viṣaya
+                      <lb n="22"/>senagiri pāścimā rājā sri rodravā<lb break="no" n="23"/>rmmā ta dau <gap quantity="5" reason="lost" unit="character"/> ti jyak sa <gap quantity="2" reason="lost" unit="character"/>
+                      <lb n="24"/>neḥ jā <gap quantity="2" reason="lost" unit="character"/>narendra <gap quantity="3" reason="lost" unit="character"/> śriliṅga<lb break="no" n="25"/>mukha nā giri prā <gap quantity="1" reason="lost" unit="character"/> travāṅa khpvara can<gap quantity="2" reason="lost" unit="character"/>nti
+                      <lb n="26"/><gap quantity="1" reason="lost" unit="character"/> dau lvaḥ sā giriprisṭhā kuṁ māna ta <gap quantity="2" reason="lost" unit="character"/> ta je<supplied reason="lost">ṅa</supplied>
+                      <lb n="27"/>vnaṁ giri <gap quantity="1" reason="lost" unit="character"/> pati vraḥ śrī rodravārmmā gi ta
+                      <lb n="28"/>Oya toya viṣṇup<choice>
             <orig>u</orig>
             <reg>ū</reg>
-          </choice>jā ti duka <gap quantity="2" reason="lost" unit="character"></gap> <lb n="29"></lb><gap quantity="1" reason="lost" unit="character"></gap> sri rodravārmmā ta ta <gap quantity="2" reason="lost" unit="character"></gap> śri guṇāsane <lb n="30"></lb><gap quantity="4" reason="lost" unit="character"></gap> kāttā saurisahāsrama sthira<lb break="no" n="31"></lb>kr̥ti pujā <gap quantity="4" reason="lost" unit="character"></gap> vārnṇā suniyu<lb break="no" n="32"></lb>kti dhārmmā</p>
+          </choice>jā ti duka <gap quantity="2" reason="lost" unit="character"/>
+                      <lb n="29"/><gap quantity="1" reason="lost" unit="character"/> sri rodravārmmā ta ta <gap quantity="2" reason="lost" unit="character"/> śri guṇāsane
+                      <lb n="30"/><gap quantity="4" reason="lost" unit="character"/> kāttā saurisahāsrama sthira<lb break="no" n="31"/>kr̥ti pujā <gap quantity="4" reason="lost" unit="character"/> vārnṇā suniyu<lb break="no" n="32"/>kti dhārmmā
+                   </p>
       </div>
       <div type="apparatus">
         <listApp>
@@ -116,13 +138,13 @@
       </div>
       <div type="bibliography">
         <p>First edited by George Cœdès (<bibl rend="omitname">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">2</citedRange>
             <citedRange unit="page">155-156</citedRange>
           </bibl>) without translation; re-edited here by Kunthea Chhom based on the estampage EFEO n. 368.</p>
         <listBibl type="primary">
           <bibl n="GC">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">2</citedRange>
             <citedRange unit="page">155-156</citedRange>
           </bibl>

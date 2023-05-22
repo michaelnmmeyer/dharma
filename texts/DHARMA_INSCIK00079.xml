@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -50,7 +45,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -60,7 +55,8 @@
           </msContents>
           <physDesc>
             <handDesc>
-              <p>The top of the inscription is decorated with few dozens of circles engraved between two horizontal lines. The letters of the Sanskrit portion are aligned by spacing and are slightly bigger than those of the Khmer portion.<!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <p>The top of the inscription is decorated with few dozens of circles engraved between two horizontal lines. The letters of the Sanskrit portion are aligned by spacing and are slightly bigger than those of the Khmer portion.
+                        <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
               <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
 						<summary><p><p/></summary>
 						<handNote xml:id="Pallava00001_hand1"></handNote>
@@ -73,15 +69,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -97,53 +97,60 @@
     <body>
       <div type="edition" xml:lang="okz-Latn">
         <lg met="anuṣṭubh" n="1" xml:lang="san-Latn">
-          <l enjamb="yes" n="a"><lb n="1"></lb><milestone n="a" unit="column"></milestone>Asti manvādi-bhūpāla</l>
-          <l n="b"><milestone n="b" unit="column"></milestone>-varṇṇa-muṣṭir yyaśo-nidhiḥ</l>
-          <l n="c"><lb n="2"></lb><milestone n="a" unit="column"></milestone>rājā śrī-bhavavarmmeti</l>
-          <l n="d"><milestone n="b" unit="column"></milestone>tapasā dhāraṇādditiḥ</l>
+          <l enjamb="yes" n="a"><lb n="1"/><milestone n="a" unit="column"/>Asti manvādi-bhūpāla</l>
+          <l n="b"><milestone n="b" unit="column"/>-varṇṇa-muṣṭir yyaśo-nidhiḥ</l>
+          <l n="c"><lb n="2"/><milestone n="a" unit="column"/>rājā śrī-bhavavarmmeti</l>
+          <l n="d"><milestone n="b" unit="column"/>tapasā dhāraṇādditiḥ</l>
         </lg>
         <lg met="upajāti" n="2" xml:lang="san-Latn">
-          <l n="a"><lb n="3"></lb><milestone n="a" unit="column"></milestone>mukhartu-vānai<supplied reason="omitted">r</supplied> gaṇite śakā<choice>
+          <l n="a"><lb n="3"/><milestone n="a" unit="column"/>mukhartu-vānai<supplied reason="omitted">r</supplied> gaṇite śakā<choice>
               <orig>p</orig>
               <corr>b</corr>
             </choice>de</l>
-          <l n="b"><milestone n="b" unit="column"></milestone>jhaṣodaye kaṇya-gatārddha-candre</l>
-          <l n="c"><lb n="4"></lb><milestone n="a" unit="column"></milestone>puṣyasya kr̥ṣṇe divaso dasārddhe</l>
-          <l n="d"><milestone n="b" unit="column"></milestone>pratiṣṭhitaṁ devi-caturbhujākhyaṁ</l>
+          <l n="b"><milestone n="b" unit="column"/>jhaṣodaye kaṇya-gatārddha-candre</l>
+          <l n="c"><lb n="4"/><milestone n="a" unit="column"/>puṣyasya kr̥ṣṇe divaso dasārddhe</l>
+          <l n="d"><milestone n="b" unit="column"/>pratiṣṭhitaṁ devi-caturbhujākhyaṁ</l>
         </lg>
         <lg met="anuṣṭubh" n="3" xml:lang="san-Latn">
-          <l n="a"><lb n="5"></lb><milestone n="a" unit="column"></milestone>bhaktyā bhagavataś śaṁbhu<milestone break="no" n="b" unit="column"></milestone>r</l>
+          <l n="a"><lb n="5"/><milestone n="a" unit="column"/>bhaktyā bhagavataś śaṁbhu<milestone break="no" n="b" unit="column"/>r</l>
           <l n="b">pitāmātror vvimuktaye</l>
-          <l enjamb="yes" n="c" real="++-+---+"><lb n="6"></lb><milestone n="a" unit="column"></milestone>devī-yathārttha-caritai<milestone break="no" n="b" unit="column"></milestone>s</l>
+          <l enjamb="yes" n="c" real="++-+---+"><lb n="6"/><milestone n="a" unit="column"/>devī-yathārttha-caritai<milestone break="no" n="b" unit="column"/>s</l>
           <l n="d">sthāpitaṁ yaminā bhuvi</l>
         </lg>
-        <p><lb n="7"></lb>Aṁnoy· mratāñ· Iśānapavitra ta kpoñ· kaṁmratāṅ· Añ· sre jeṅ· sruk· Aṁ<lb break="no" n="8"></lb>noy· tāṅ· ci paAñ· jnāhv· gui canlek· yugala yau <num value="2">
+        <p>
+<lb n="7"/>Aṁnoy· mratāñ· Iśānapavitra ta kpoñ· kaṁmratāṅ· Añ· sre jeṅ· sruk· Aṁ<lb break="no" n="8"/>noy· tāṅ· ci paAñ· jnāhv· gui canlek· yugala yau <num value="2">
             <g type="numeral">II</g>
           </num> vlaḥ <num value="1">
             <g type="numeral">I</g>
-          </num> sre man· jāhv· Aṁvi ta vraḥ <lb n="9"></lb>kaṁmratāṅ· Añ· kaṁmratāṅ· sruk· nā jlaṅ· kOl· Aṁruṅ· gui mā je <num value="2">
+          </num> sre man· jāhv· Aṁvi ta vraḥ
+   <lb n="9"/>kaṁmratāṅ· Añ· kaṁmratāṅ· sruk· nā jlaṅ· kOl· Aṁruṅ· gui mā je <num value="2">
             <g type="numeral">II</g>
-          </num> srū man dār· jnā<lb break="no" n="10"></lb>hv· gui tloṅ· <num value="10">10</num> dmār gui poñ· śveta srū man dār· sin· tloṅ· <num value="10">10</num> dmār gui poñ· cpoṅ· p<supplied reason="lost">o</supplied><lb break="no" n="11"></lb>ñ· vreṅ· canlek· yugala yau <num value="1">
+          </num> srū man dār· jnā<lb break="no" n="10"/>hv· gui tloṅ· <num value="10">10</num> dmār gui poñ· śveta srū man dār· sin· tloṅ· <num value="10">10</num> dmār gui poñ· cpoṅ· p<supplied reason="lost">o</supplied><lb break="no" n="11"/>ñ· vreṅ· canlek· yugala yau <num value="1">
             <g type="numeral">I</g>
-          </num> Am·val· yau I dmār gui po<unclear>ña</unclear> rtu canlek· yuga<unclear>la s</unclear>in· <lb n="12"></lb>yau I dmār gui poñ· somavin· poñ· śubhaṅkara sre sin· panlassa neḥ sre nā jlaṅ· <lb n="13"></lb>kOl· mā je <num value="2">
+          </num> Am·val· yau I dmār gui po<unclear>ña</unclear> rtu canlek· yuga<unclear>la s</unclear>in·
+   <lb n="12"/>yau I dmār gui poñ· somavin· poñ· śubhaṅkara sre sin· panlassa neḥ sre nā jlaṅ·
+   <lb n="13"/>kOl· mā je <num value="2">
             <g type="numeral">II</g>
           </num> <g type="circleSmall">.</g> sre vnāk· srahvan· tloṅ· <num value="1">
             <g type="numeral">I</g>
           </num> sre Aṁnoy· poñ· syāṁ je <num value="2">
             <g type="numeral">II</g>
-          </num> jnāhv· <lb n="14"></lb>gui canlek· A<supplied reason="lost">ṁ</supplied>val· yau <num value="1">
+          </num> jnāhv·
+   <lb n="14"/>gui canlek· A<supplied reason="lost">ṁ</supplied>val· yau <num value="1">
             <g type="numeral">I</g>
           </num> vlaḥ <num value="1">
             <g type="numeral">I</g>
           </num> sre Aṁnoy· poñ· guṇadeva tloṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> jnāhv· gui <lb n="15"></lb>canlek· yugala yau <num value="3">
+          </num> jnāhv· gui
+   <lb n="15"/>canlek· yugala yau <num value="3">
             <g type="numeral">III</g>
           </num> Aṁval· yau <num value="1">
             <g type="numeral">I</g>
           </num> sre Aṁnoy· poñ· yuṅ· tloṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="16"></lb>jnāhv· gui canlek· yugala yau <num value="1">
+          </num>
+   <lb n="16"/>jnāhv· gui canlek· yugala yau <num value="1">
             <g type="numeral">I</g>
           </num> Aṁval· vlaḥ <num value="1">
             <g type="numeral">I</g>
@@ -151,25 +158,29 @@
             <g type="numeral">III</g>
           </num> je <num value="2">
             <g type="numeral">II</g>
-          </num> sre stu<lb break="no" n="17"></lb>k· t<unclear>l</unclear>os· A<supplied reason="lost">ṁ</supplied>noy· poñ· laḥ Añ· tloṅ· <num value="2">
+          </num> sre stu<lb break="no" n="17"/>k· t<unclear>l</unclear>os· A<supplied reason="lost">ṁ</supplied>noy· poñ· laḥ Añ· tloṅ· <num value="2">
             <g type="numeral">II</g>
           </num> jnāhv· gui prak· so liṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> klo<lb break="no" n="18"></lb>ñ<unclear>·</unclear> jhe vraiy· Oy· gui noḥ sre sot· ta vraḥ kloñ· dār· ṇibha canla<lb break="no" n="19"></lb>kka droṅ· poñ· śivacandra kon· kloñña Aṁval· yau <num value="1">
+          </num> klo<lb break="no" n="18"/>ñ<unclear>·</unclear> jhe vraiy· Oy· gui noḥ sre sot· ta vraḥ kloñ· dār· ṇibha canla<lb break="no" n="19"/>kka droṅ· poñ· śivacandra kon· kloñña Aṁval· yau <num value="1">
             <g type="numeral">I</g>
           </num> vlaḥ I tmur· phem· <num value="1">
             <g type="numeral">I</g>
-          </num> srū <lb n="20"></lb>tloṅ· <num value="3">
+          </num> srū
+   <lb n="20"/>tloṅ· <num value="3">
             <g type="numeral">III</g>
           </num> poñ· mano dār· canlek· Ukka yugala yau <num value="1">
             <g type="numeral">I</g>
-          </num> tmeṅ· gui man· gui <lb n="21"></lb>noḥ sre tel· Oy· <space quantity="2" unit="character"></space> ta vraḥ poñ<supplied reason="omitted">·</supplied> rudrabhava sre Aṁnoy· poñ· <lb n="22"></lb>Ap· ta vraḥ je <num value="2">
+          </num> tmeṅ· gui man· gui
+   <lb n="21"/>noḥ sre tel· Oy· <space quantity="2" unit="character"/> ta vraḥ poñ<supplied reason="omitted">·</supplied> rudrabhava sre Aṁnoy· poñ·
+   <lb n="22"/>Ap· ta vraḥ je <num value="2">
             <g type="numeral">II</g>
           </num> jnāhv· gui canlek· Aṁval· vlaḥ <num value="1">
             <g type="numeral">I</g>
-          </num> sre Aṁnoy· Ācā<lb break="no" n="23"></lb>ryya dharmmaśuddha ta vraḥ je <num value="1">
+          </num> sre Aṁnoy· Ācā<lb break="no" n="23"/>ryya dharmmaśuddha ta vraḥ je <num value="1">
             <g type="numeral">I</g>
-          </num> sre Am·noy· poñ· vidyākumā<supplied reason="lost">ra ta</supplied> vra<supplied reason="lost">ḥ</supplied> <lb n="24"></lb>je <num value="2">
+          </num> sre Am·noy· poñ· vidyākumā<supplied reason="lost">ra ta</supplied> vra<supplied reason="lost">ḥ</supplied>
+   <lb n="24"/>je <num value="2">
             <g type="numeral">II</g>
           </num> sre praṅ· kantāl· tloṅ· <num value="1">
             <g type="numeral">I</g>
@@ -177,7 +188,8 @@
             <g type="numeral">9</g>
           </num> je <num value="1">
             <g type="numeral">I</g>
-          </num> <g type="circleSmall">.</g></p>
+          </num> <g type="circleSmall">.</g>
+</p>
       </div>
       <div type="apparatus">
         <listApp>
@@ -191,7 +203,7 @@
           </app>
           <app loc="8">
             <lem>Eja</lem>
-            <rdg source="bib:Coedes1937-1966_01"><gap quantity="1" reason="lost" unit="character"></gap>ja</rdg>
+            <rdg source="bib:Coedes1937-1966_01"><gap quantity="1" reason="lost" unit="character"/>ja</rdg>
           </app>
           <app loc="9">
             <lem>maṇḍakī</lem>
@@ -256,13 +268,13 @@
       <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
         <p>First edited by George Coedes (<bibl rend="omitname">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">2</citedRange>
             <citedRange unit="page">69-72</citedRange>
           </bibl>) with a French translation; re-edited here by Dominique Soutif and Kunthea Chhom from the estampage EFEO n. 173.</p>
         <listBibl type="primary">
           <bibl n="GC">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">2</citedRange>
             <citedRange unit="page">69-72</citedRange>
           </bibl>

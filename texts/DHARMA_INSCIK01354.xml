@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -42,7 +37,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -60,15 +55,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -83,27 +82,51 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="okz-Latn">
-        <p><milestone n="A" unit="face"></milestone> <lb n="A1"></lb><num value="841">841</num> <unclear>
+        <p>
+                    <milestone n="A" unit="face"/>
+                    <lb n="A1"/><num value="841">841</num> <unclear>
             <g type="ddanda">.</g>
-          </unclear> śaka <space type="unclassified"></space> nu m<choice>
+          </unclear> śaka <space type="unclassified"/> nu m<choice>
             <sic>nā</sic>
             <corr>ān·</corr>
-          </choice> vraḥ śā<unclear>sa</unclear><supplied reason="lost">na</supplied> <lb n="A2"></lb><unclear>dhū</unclear>li jeṅa vraḥ kaṁmrateṅ<unclear>·</unclear> Añ· śr<choice>
+          </choice> vraḥ śā<unclear>sa</unclear><supplied reason="lost">na</supplied>
+
+                    <lb n="A2"/><unclear>dhū</unclear>li jeṅa vraḥ kaṁmrateṅ<unclear>·</unclear> Añ· śr<choice>
             <sic>i</sic>
             <corr>ī</corr>
-          </choice> <sic>yaśo</sic> <lb n="A3"></lb>harṣavarmmadeva ta steñ· Amarāvati <lb n="A4"></lb>ta Ā<unclear>bhya</unclear>ntarale<choice>
+          </choice> <sic>yaśo</sic>
+
+                    <lb n="A3"/>harṣavarmmadeva ta steñ· Amarāvati
+
+                    <lb n="A4"/>ta Ā<unclear>bhya</unclear>ntarale<choice>
             <sic>k</sic>
             <corr>kh</corr>
           </choice>a <unclear>nu</unclear> mra<add place="below">tā</add><supplied reason="omitted">ñ·</supplied> śri <unclear>n</unclear><choice>
             <orig>a</orig>
             <corr>r̥</corr>
-          </choice>pe<!-- Unexpected stroke here, probably accidental-->ndravikra<lb break="no" n="A5"></lb>ma ta <gap quantity="1" reason="illegible" unit="character"></gap>ñ· <seg subtype="body" type="component">
-            <gap quantity="1" reason="illegible" unit="component"></gap>
-          </seg>ā <unclear>n</unclear>ā dova ti pre Oy<unclear>·</unclear> sruk<unclear>·</unclear> <lb n="A6"></lb>sr<supplied reason="lost">e</supplied> viṅa ta <gap quantity="2" reason="illegible" unit="character"></gap> kan·mya<supplied reason="omitted">ṅ·</supplied> paṁmre daṁr<choice>
+          </choice>pe<!-- Unexpected stroke here, probably accidental-->ndravikra<lb break="no" n="A5"/>ma ta <gap quantity="1" reason="illegible" unit="character"/>ñ· <seg subtype="body" type="component">
+            <gap quantity="1" reason="illegible" unit="component"/>
+          </seg>ā <unclear>n</unclear>ā dova ti pre Oy<unclear>·</unclear> sruk<unclear>·</unclear>
+
+                    <lb n="A6"/>sr<supplied reason="lost">e</supplied> viṅa ta <gap quantity="2" reason="illegible" unit="character"/> kan·mya<supplied reason="omitted">ṅ·</supplied> paṁmre daṁr<choice>
             <sic>a</sic>
             <corr>i</corr>
-          </choice>ṅ· vra<unclear>ḥ</unclear> <lb n="A7"></lb><gap quantity="1" reason="illegible" unit="character"></gap> <unclear>kā</unclear> nu ta paṁpāta mula gi punyāśraiya</p>
-        <p><milestone n="B" unit="face"></milestone> <lb n="B1"></lb>ta vraḥ kamrate<unclear>ṅ· Añ· śi</unclear>vapāda ka<unclear>l</unclear>pa<lb break="no" n="B2"></lb>nā vāp· śiva śri <gap precision="low" quantity="6" reason="lost" unit="character"></gap> <unclear>la</unclear> <lb n="B3"></lb><gap quantity="2" reason="lost" unit="character"></gap> kñuṁ toy· <supplied reason="lost">khnet·</supplied> <gap quantity="4" reason="lost" unit="character"></gap> <unclear>ra</unclear> <lb n="B4"></lb>pi <unclear>Ame</unclear> bhāja <unclear>to</unclear>y· <unclear>r</unclear>ṇ<supplied reason="lost">oc·</supplied> <gap quantity="1" reason="lost" unit="character"></gap> <num value="20">20</num><g type="danda">.</g> thm<supplied reason="lost">u</supplied>r <lb n="B5"></lb>k<supplied reason="lost">r</supplied>a<unclear>p</unclear><supplied reason="lost">i</supplied> <gap precision="low" quantity="10" reason="lost" unit="character"></gap> na <gap quantity="1" reason="illegible" unit="character"></gap> <lb n="B6"></lb><gap precision="low" quantity="3" reason="illegible" unit="character"></gap></p>
+          </choice>ṅ· vra<unclear>ḥ</unclear>
+
+                    <lb n="A7"/><gap quantity="1" reason="illegible" unit="character"/> <unclear>kā</unclear> nu ta paṁpāta mula gi punyāśraiya
+               </p>
+        <p>
+                    <milestone n="B" unit="face"/>
+                    <lb n="B1"/>ta vraḥ kamrate<unclear>ṅ· Añ· śi</unclear>vapāda ka<unclear>l</unclear>pa<lb break="no" n="B2"/>nā vāp· śiva śri <gap precision="low" quantity="6" reason="lost" unit="character"/> <unclear>la</unclear>
+
+                    <lb n="B3"/><gap quantity="2" reason="lost" unit="character"/> kñuṁ toy· <supplied reason="lost">khnet·</supplied> <gap quantity="4" reason="lost" unit="character"/> <unclear>ra</unclear>
+
+                    <lb n="B4"/>pi <unclear>Ame</unclear> bhāja <unclear>to</unclear>y· <unclear>r</unclear>ṇ<supplied reason="lost">oc·</supplied> <gap quantity="1" reason="lost" unit="character"/> <num value="20">20</num><g type="danda">.</g> thm<supplied reason="lost">u</supplied>r
+
+                    <lb n="B5"/>k<supplied reason="lost">r</supplied>a<unclear>p</unclear><supplied reason="lost">i</supplied> <gap precision="low" quantity="10" reason="lost" unit="character"/> na <gap quantity="1" reason="illegible" unit="character"/>
+
+                   <lb n="B6"/><gap precision="low" quantity="3" reason="illegible" unit="character"/>
+                </p>
       </div>
       <div type="apparatus">
         <app loc="A1">
@@ -111,7 +134,7 @@
             <num value="841">841</num>
           </lem>
           <note>La cursivité des chiffres inscrits nous a d’abord invitée à penser que la date liminaire était 856 <foreign>śaka</foreign> (934/5 de n. è.). Si la lecture de l’unité des centaines est certaine (8), celle des dizaines peut prêter à confusion. Elle affecte une forme plus ambiguë, propre aux 4 et 5 durant la période angkorienne. Un critère identifié pour les distinguer est la présence d’une barre verticale au-dessus du corps du caractère, généralement attribuée au 5 (voir <bibl>
-              <ptr target="bib:Soutif2008_01"></ptr>
+              <ptr target="bib:Soutif2008_01"/>
               <citedRange unit="page">56</citedRange>
             </bibl>). L’absence de cette caractéristique dans le cas qui nous occupe ici nous invite à considérer le chiffre comme étant en réalité un 4. Enfin, le chiffre des unités prend la forme d’une spirale dextrogyre, dont l’extrémité remonte légèrement vers la gauche, évoquant certaines occurrences du 6 mais que l’on rencontre aussi, certes peu souvent, pour noter le 1. Ces corrections faites, nous obtenons la date de 841 <foreign>śaka</foreign>, soit 919/20 de notre ère.</note>
         </app>
@@ -122,31 +145,31 @@
       </div>
       <div resp="part:chch" type="translation" xml:lang="fra">
         <p n="A1-6">En 841 <foreign>śaka</foreign> il y eut une ordonnance de Sa Majesté Śrī Yaśo(?)-Harṣavarman <supplied reason="subaudible">I</supplied> adressée au <foreign>steñ</foreign> Amarāvati, au secrétaire (<foreign>abhyantaralekha</foreign> ?)<note>Ce terme rare ne se trouve ailleurs dans d’autres inscriptions du Cambodge ancien. Il serait peut-être à rapprocher du terme <foreign>abhyantaralekhin</foreign> qu’on ne rencontre que dans une seule autre inscription du Xe siècle de notre ère (<ref target="K0136.xml">K. 136</ref>, st. XXIV), et qui désigne un « secrétaire » (<bibl>
-              <ptr target="bib:Bhattacharya1964_02"></ptr>
+              <ptr target="bib:Bhattacharya1964_02"/>
               <citedRange unit="page">30</citedRange>
-            </bibl>).</note> et au <foreign>mratāñ</foreign> Śrī Nr̥pendravikrama <gap reason="lost"></gap> de deuxième catégorie <supplied reason="explanation">
+            </bibl>).</note> et au <foreign>mratāñ</foreign> Śrī Nr̥pendravikrama <gap reason="lost"/> de deuxième catégorie <supplied reason="explanation">
             <foreign>nā dova</foreign>
           </supplied>, chargés de de donner de nouveau des villages et des rizières.</p>
-        <p n="A6"><gap reason="lost"></gap> le corps des pages <supplied reason="explanation">
+        <p n="A6"> <gap reason="lost"/> le corps des pages <supplied reason="explanation">
             <foreign>kanmyaṅ pamre</foreign>
-          </supplied> des plantations du dieu <gap reason="lost"></gap></p>
-        <p n="A7-B2"><gap reason="lost"></gap> de détruire les propriétés qui <supplied reason="subaudible">sont les</supplied> fondations pieuses <supplied reason="explanation">
+          </supplied> des plantations du dieu <gap reason="lost"/></p>
+        <p n="A7-B2"> <gap reason="lost"/> de détruire les propriétés qui <supplied reason="subaudible">sont les</supplied> fondations pieuses <supplied reason="explanation">
             <foreign>puṇyāśraya</foreign>
-          </supplied> du Seigneur <foreign>vraḥ kamrateṅ añ</foreign> Śivapāda, la fondation de <gap reason="lost"></gap></p>
-        <p n="B3">le(s) serviteur(s) de la quinzaine claire <gap reason="lost"></gap></p>
-        <p n="B4-5">Ame Bhāja ; quinzaine sombre <gap reason="lost"></gap> 20 ; bœufs, buffles <gap reason="lost"></gap></p>
+          </supplied> du Seigneur <foreign>vraḥ kamrateṅ añ</foreign> Śivapāda, la fondation de <gap reason="lost"/></p>
+        <p n="B3"> le(s) serviteur(s) de la quinzaine claire <gap reason="lost"/></p>
+        <p n="B4-5">Ame Bhāja ; quinzaine sombre <gap reason="lost"/> 20 ; bœufs, buffles <gap reason="lost"/></p>
         <p n="B6">
-          <gap quantity="1" reason="lost" unit="line"></gap>
+          <gap quantity="1" reason="lost" unit="line"/>
         </p>
       </div>
       <div type="bibliography">
         <p>First edited by Chloé Chollet in her MA thesis (<bibl rend="omitname">
-            <ptr target="bib:Chollet2019_01"></ptr>
+            <ptr target="bib:Chollet2019_01"/>
             <citedRange unit="page">84</citedRange>
           </bibl>).</p>
         <listBibl type="primary">
           <bibl n="CC">
-            <ptr target="bib:Chollet2019_01"></ptr>
+            <ptr target="bib:Chollet2019_01"/>
             <citedRange unit="page">84</citedRange>
           </bibl>
         </listBibl>

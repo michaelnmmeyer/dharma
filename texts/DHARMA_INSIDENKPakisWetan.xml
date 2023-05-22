@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,7 +36,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -64,15 +59,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -82,7 +81,7 @@
       <change status="draft" when="2020-04-10" who="part:ekba">revised the apparatus</change>
       <change status="draft" when="2020-04-10" who="part:ekba">updated the line numbering</change>
       <change status="draft" when="2020-03-27" who="part:axja">adding the handDesc template</change>
-      <change status="draft" when="2020-02-07" who="part:ekba">Revised the bibliography proposed by Arlo Griffiths</change>
+      <change status="draft" when="2020-02-07" who="part:ekba">Revised the bibliography  proposed by Arlo Griffiths</change>
       <change status="draft" when="2020-01-29" who="part:ekba">applied corrections proposed by Arlo Griffiths</change>
       <change status="draft" when="2020-01-28" who="part:argr">first complete round of revisions</change>
       <change status="draft" when="2020-01-25" who="part:ekba">applied corrections proposed by Daniel Balogh and Arlo Griffiths</change>
@@ -92,17 +91,22 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="kaw-Latn">
-        <pb n="1r"></pb>
+        <pb n="1r"/>
         <!--Blank outer page.-->
-        <p xml:lang="san-Latn"><pb n="1v"></pb> <lb n="1v1"></lb><g type="ddandaOrnate"></g><g type="circleTarget"></g><g type="ddandaOrnate"></g> Om̐ namaś śivāya <g type="ddandaOrnate"></g></p>
-        <p>svasti śaka-varṣātĭta, <num value="1188">1188</num>, māgha-māsa, tīthi, trayodaśī śu<lb break="no" n="1v2"></lb>kla-pakṣa, <abbr>vā</abbr>, <abbr>va</abbr>, <abbr>Aṁ</abbr>, vāra, mahatal·, dakṣiṇastha-grahacāra, puṣ<choice>
+        <p xml:lang="san-Latn"><pb n="1v"/>
+<lb n="1v1"/><g type="ddandaOrnate"/><g type="circleTarget"/><g type="ddandaOrnate"/> Om̐ namaś śivāya <g type="ddandaOrnate"/></p>
+        <p>svasti śaka-varṣātĭta, <num value="1188">1188</num>, māgha-māsa, tīthi, trayodaśī śu<lb break="no" n="1v2"/>kla-pakṣa,
+<abbr>vā</abbr>, <abbr>va</abbr>, <abbr>Aṁ</abbr>, vāra, mahatal·, dakṣiṇastha-grahacāra, puṣ<choice>
             <sic>p</sic>
             <corr>y</corr>
-          </choice>ā-nakṣatra, jīva-devatā, Ā⌈<lb break="no" n="1v3"></lb>gneya-maṇḍala, śobhana-yauga, baruṇa-muhūrtta, Agni-parvveśa, tetila-kāraṇa, kumbha-rāśi,</p>
-        <p part="I">I<lb break="no" n="1v4"></lb>rika divaśany ājñā śrī mahārāja, <foreign xml:lang="san-Latn">śrī lauka-vijaya, praśāsta-jagad-īśvarānindita-parăkramānivā<lb break="no" n="1v5"></lb>ryya-vĭryyālaṅghanĭya</foreign>, kr̥tanagara nāma-rājābhiṣeka, makamaṅgalyājñā <foreign xml:lang="san-Latn">śrī sakala-rājāśra<g type="squiggleVertical">§</g><lb break="no" n="1v6"></lb>ya, samast<choice>
+          </choice>ā-nakṣatra, jīva-devatā, Ā⌈<lb break="no" n="1v3"/>gneya-maṇḍala, śobhana-yauga, baruṇa-muhūrtta, Agni-parvveśa, tetila-kāraṇa, kumbha-rāśi,</p>
+        <p part="I">I<lb break="no" n="1v4"/>rika divaśany ājñā śrī mahārāja, <foreign xml:lang="san-Latn">śrī lauka-vijaya, praśāsta-jagad-īśvarānindita-parăkramānivā<lb break="no" n="1v5"/>ryya-vĭryyālaṅghanĭya</foreign>, kr̥tanagara nāma-rājābhiṣeka, makamaṅgalyājñā <foreign xml:lang="san-Latn">śrī sakala-rājāśra<g type="squiggleVertical">§</g><lb break="no" n="1v6"/>ya,
+samast<choice>
               <orig>ā</orig>
               <reg>a</reg>
-            </choice>-kṣatriya-cūḍāmaṇi-patita-caraṇāravinda</foreign>, bhaṭāra jaya śrī viṣṇuvarddhana nāma-devā<lb break="no" n="1v7"></lb>bhiṣeka, tinaḍaḥ de rakryan mahāmantrī hiṇo, rakryan mahāmantrī sirikan·, rakryan mahāmantrī halu <lb n="1v8"></lb>, Umisor i para taṇḍa rakryan riṁ pakirakirān· makabehan·, rakryan mapatiḥ, rakryan dəmuṁ, rakrya<lb break="no" n="1v9"></lb>n kanuruhan saṁ mantrī nayavid iṅgitajñā, mapasəṅgahan saṁ rāmapati, tan kavuntat· saṁ pamgət i tirvan· <lb n="1v10"></lb>, saṁ pamgət iṅ kaṇḍamuhi, saṁ pamgət i maṁhuri, I pisorny ājñā śrī mahārāja, An makamaṅgalyājñā bha</p>
+            </choice>-kṣatriya-cūḍāmaṇi-patita-caraṇāravinda</foreign>, bhaṭāra jaya śrī viṣṇuvarddhana nāma-devā<lb break="no" n="1v7"/>bhiṣeka, tinaḍaḥ de rakryan mahāmantrī hiṇo, rakryan mahāmantrī sirikan·, rakryan mahāmantrī halu
+<lb n="1v8"/>, Umisor i para taṇḍa rakryan riṁ pakirakirān· makabehan·, rakryan mapatiḥ, rakryan dəmuṁ, rakrya<lb break="no" n="1v9"/>n kanuruhan saṁ mantrī nayavid iṅgitajñā, mapasəṅgahan saṁ rāmapati, tan kavuntat· saṁ pamgət i tirvan·
+<lb n="1v10"/>, saṁ pamgət iṅ kaṇḍamuhi, saṁ pamgət i maṁhuri, I pisorny ājñā śrī mahārāja, An makamaṅgalyājñā bha</p>
       </div>
       <div type="apparatus">
         <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
@@ -143,7 +147,7 @@
           </app>
           <app loc="1v9">
             <lem source="bib:Krom1911_04 bib:Boechari1985-1986_01">nayavid iṅgitajña</lem>
-            <note>Cf. KR 11.49 <foreign>kapīndra sugrīva vəruh riṅ iṅgita</foreign>; RY 6.9: <foreign>mahāprajña rikaṅ nayeṅgita</foreign>. See also <ref target="Adanadan.xml">Adan-Adan</ref> <foreign>suśīlendikajñasarvvanayānitidakṣa</foreign>.</note>
+            <note>Cf. KR 11.49 <foreign>kapīndra sugrīva vəruh riṅ iṅgita</foreign>; RY 6.9: <foreign>mahāprajña rikaṅ nayeṅgita</foreign>. See also <ref target="Adanadan.xml">Adan-Adan </ref><foreign>suśīlendikajñasarvvanayānitidakṣa</foreign>.</note>
           </app>
           <app loc="1v10">
             <lem>bha</lem>
@@ -155,71 +159,72 @@
         <!--translation encoded as per EG §9.2 -->
         <p>Om! Homage to Śiva! Hail! In the elapsed Śaka year 1188, month of Māgha, thirteenth <foreign>tithi</foreign> of the waxing fortnight, Vās, Vagai, Tuesday, <supplied reason="explanation">
             <foreign>wuku</foreign>
-          </supplied> Mahatal; <foreign>grahacāra</foreign> in the South; lunar mansion Puṣya; deity Jīva; <foreign>maṇḍala</foreign> in the Southeast; conjunction Śobhana; <foreign>muhūrta</foreign> Varuṇa; regent of the astronomical node Agni; <foreign>karaṇa</foreign> Tetila; zodiac sign Aquarius.</p>
-        <p>That was the time that the instruction of the king — the ‘conqueror of the world’, ‘insurmountable due to his heroism which is inavertible by the indisputable courage of a lauded world-ruler’ — whose royal consecration-name is Śrī Kr̥tanagara, under the auspices of an instruction of ‘the refuge of all kings’, ‘whose lotus feet were descended upon by the crest jewels of all noblemen’, the lord whose deity-consecration name was Jaya Śrī Viṣṇuvardhana, was received by His Excellency <!-- Arlo to self: maybe revise use of His Excelleny and H.E." -->the great minister of Hino; H.E. the great minister of Sirikan; H.E. the great minister of Halu. It came down to all the high officers <supplied reason="explanation">
+          </supplied> Mahatal; <foreign>grahacāra</foreign> in the South; lunar mansion Puṣya; deity Jīva; <foreign>maṇḍala</foreign> in the Southeast; conjunction Śobhana; <foreign>muhūrta</foreign> Varuṇa; regent of the astronomical node Agni; <foreign>karaṇa</foreign> Tetila; zodiac sign Aquarius. </p>
+        <p>That was the time that the instruction of the king — the ‘conqueror of the world’, ‘insurmountable due to his heroism which is inavertible by the indisputable courage of a lauded world-ruler’ — whose royal consecration-name is Śrī Kr̥tanagara, under the auspices of an instruction of ‘the refuge of all kings’, ‘whose lotus feet were descended upon by the crest jewels of all noblemen’, the lord whose deity-consecration name was Jaya Śrī Viṣṇuvardhana, was received by His Excellency<!-- Arlo to self: maybe revise use of His Excelleny and H.E." --> the great minister of Hino; H.E. the great minister of Sirikan; H.E. the great minister of Halu. It came down to all the high officers <supplied reason="explanation">
             <foreign>taṇḍa rakryan</foreign>
-          </supplied> of the council: H.E. the Counselor; H.E. of Dmuṅ; H.E. of Kanuruhan, the secretary knowledgeable in politics and expert in covert matters, bearing the title Rāmapati. Not left behind were: the Paməgat of Tiruan, the Paməgat of Kaṇḍamuhi, the Paməgat of Maṅhuri. At the desending of the instruction of his majesty the king, which was under the auspices of an instruction of <supplied reason="lost">Lord Jaya Śrī Viṣṇuvardhana</supplied></p>
+          </supplied> of the council: H.E. the Counselor; H.E. of Dmuṅ; H.E. of Kanuruhan, the secretary knowledgeable in politics and expert in covert matters, bearing the title Rāmapati. Not left behind were: the Paməgat of Tiruan, the Paməgat of Kaṇḍamuhi, the Paməgat of Maṅhuri. At the desending of the instruction of his majesty the king, which was under the auspices of an instruction of <supplied reason="lost">Lord Jaya Śrī Viṣṇuvardhana</supplied>
+</p>
       </div>
       <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
         <!--bibliography encoded as per section §9.4 -->
         <p>First edited by Krom (<bibl rend="omitname">
-            <ptr target="bib:krom1911_04"></ptr>
+            <ptr target="bib:krom1911_04"/>
           </bibl>); re-edited by Damais (<bibl rend="omitname">
-            <ptr target="bib:Damais1955_01"></ptr>
+            <ptr target="bib:Damais1955_01"/>
           </bibl>); edited again by Boechari (<bibl rend="omitname">
-            <ptr target="bib:Boechari1985-1986_01"></ptr>
+            <ptr target="bib:Boechari1985-1986_01"/>
           </bibl>); re-edited here by Arlo Griffiths from a Photo of OD 2155 and estampage in Kern Institute collection, Leiden University Library.</p>
         <listBibl type="primary">
           <bibl n="K">
-            <ptr target="bib:krom1911_04"></ptr>
+            <ptr target="bib:krom1911_04"/>
             <citedRange unit="appendix">61</citedRange>
             <citedRange unit="page">117-123</citedRange>
           </bibl>
           <bibl n="D">
-            <ptr target="bib:Damais1955_01"></ptr>
+            <ptr target="bib:Damais1955_01"/>
             <citedRange unit="page">78</citedRange>
             <citedRange unit="item">A.172</citedRange>
           </bibl>
           <bibl n="B">
-            <ptr target="bib:Boechari1985-1986_01"></ptr>
+            <ptr target="bib:Boechari1985-1986_01"/>
             <citedRange unit="page">109-110</citedRange>
             <citedRange unit="item">E.47</citedRange>
           </bibl>
         </listBibl>
         <listBibl type="secondary">
           <bibl>
-            <ptr target="bib:NBG49_1911"></ptr>
+            <ptr target="bib:NBG49_1911"/>
             <date>1911</date>
             <citedRange unit="volume">49</citedRange>
             <citedRange unit="page">121</citedRange>
           </bibl>
           <bibl>
-            <ptr target="bib:NBG50_1912"></ptr>
+            <ptr target="bib:NBG50_1912"/>
             <date>1912</date>
             <citedRange unit="volume">50</citedRange>
             <citedRange unit="page">77</citedRange>
           </bibl>
           <bibl>
-            <ptr target="bib:Damais1952_01"></ptr>
+            <ptr target="bib:Damais1952_01"/>
             <citedRange unit="page">72-73</citedRange>
             <citedRange unit="item">A.172</citedRange>
           </bibl>
           <bibl>
-            <ptr target="bib:Damais1962_03"></ptr>
+            <ptr target="bib:Damais1962_03"/>
             <citedRange unit="page">414</citedRange>
             <citedRange unit="note">6</citedRange>
           </bibl>
           <bibl>
-            <ptr target="bib:MuhammadYamin1962_01"></ptr>
+            <ptr target="bib:MuhammadYamin1962_01"/>
             <citedRange unit="page">173-175</citedRange>
           </bibl>
           <bibl>
-            <ptr target="bib:NurhadiMagetsari+al1979_01"></ptr>
+            <ptr target="bib:NurhadiMagetsari+al1979_01"/>
             <citedRange unit="page">183</citedRange>
           </bibl>
           <bibl>
-            <ptr target="bib:Eade+Gislen2000_01"></ptr>
+            <ptr target="bib:Eade+Gislen2000_01"/>
             <citedRange unit="page">99-100</citedRange>
           </bibl>
         </listBibl>

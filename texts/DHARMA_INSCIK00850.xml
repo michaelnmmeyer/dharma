@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -46,7 +41,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -69,15 +64,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -88,36 +87,52 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="okz-Latn">
-        <p><lb n="1"></lb><gap quantity="3" reason="lost" unit="character"></gap><num value="7">7</num> śaka pūrṇṇamī khneta phālguṇa saura<lb break="no" n="2"></lb><supplied reason="lost">vāra</supplied> <gap quantity="2" reason="lost" unit="character"></gap> mvaya thmā thṅgaiya gi nu vraḥ yanapati pa <lb n="3"></lb><gap quantity="2" reason="lost" unit="character"></gap> thvāya caṁnāṁ kālpanā nu bhūmi ti jauva cu<lb break="no" n="4"></lb><supplied reason="lost">ña</supplied> Aṁvi nā lvek ta khloña travāṅa raṁcyeka pradhāna <lb n="5"></lb>sruka nu gvena sgoṅa gi sre nu caṁ n<seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"></gap>
-          </seg><gap quantity="1" reason="lost" unit="character"></gap><seg subtype="body" type="component">
-            <gap quantity="1" reason="illegible" unit="component"></gap>
-          </seg>ai jā viddhi n<unclear>e</unclear><supplied reason="lost">ḥ</supplied> <lb n="6"></lb><gap quantity="1" reason="lost" unit="character"></gap> thvāya ta vraḥ pāda kamrateṅa Aña śrīdharan<supplied reason="lost">ī</supplied><lb break="no" n="7"></lb>ndravarmmadeva jā vraḥ rājadhārmma caṁ tvaṅa mvaya teṁ <lb n="8"></lb>caṁnāṁ kālpanā ta gi nā saṅkrānta raṅka liḥ <num value="5">5</num> qva<lb break="no" n="9"></lb>ra <num value="2">2</num> striya pamasa vraḥ gandha tarāpa <gap quantity="2" reason="illegible" unit="character"></gap> ta gi <g type="dotMid">.</g> te<lb break="no" n="10"></lb>ṅ saṁ teṅa traiya teṅa gaṅa puruṣa ta paṁmre <lb n="11"></lb>saṅkrānta loña siddhakaryya loña prāṁ vasa<lb break="no" n="12"></lb>na neḥ nā khneta <g type="circle">.</g> nā pakṣa rṇṇoca raṅka caṁnāṁ <lb n="13"></lb>nā saṅkrānta liḥ <num value="5">5</num> qvara <num value="2">2</num> striya pamasa vraḥ <lb n="14"></lb>gandha teṅa ratna teṅ sudhivasa puruṣa ta paṁ<lb break="no" n="15"></lb> mre saṅkrānta loña vau loña caṁ qva <lb n="16"></lb>loña nila loña janpada <g type="circle">.</g> qnak ta taṅa <lb n="17"></lb>neḥ phoṅa nuv· nā kalpananā t<choice>
+        <p>
+<lb n="1"/><gap quantity="3" reason="lost" unit="character"/><num value="7">7</num> śaka pūrṇṇamī khneta phālguṇa saura<lb break="no" n="2"/><supplied reason="lost">vāra</supplied> <gap quantity="2" reason="lost" unit="character"/> mvaya thmā thṅgaiya gi nu vraḥ yanapati pa
+   <lb n="3"/><gap quantity="2" reason="lost" unit="character"/> thvāya caṁnāṁ kālpanā nu bhūmi ti jauva cu<lb break="no" n="4"/><supplied reason="lost">ña</supplied> Aṁvi nā lvek ta khloña travāṅa raṁcyeka pradhāna
+   <lb n="5"/>sruka nu gvena sgoṅa gi sre nu caṁ n<seg subtype="vowel" type="component">
+            <gap quantity="1" reason="illegible" unit="component"/>
+          </seg><gap quantity="1" reason="lost" unit="character"/><seg subtype="body" type="component">
+            <gap quantity="1" reason="illegible" unit="component"/>
+          </seg>ai jā viddhi n<unclear>e</unclear><supplied reason="lost">ḥ</supplied>
+   <lb n="6"/><gap quantity="1" reason="lost" unit="character"/> thvāya ta vraḥ pāda kamrateṅa Aña śrīdharan<supplied reason="lost">ī</supplied><lb break="no" n="7"/>ndravarmmadeva jā vraḥ rājadhārmma caṁ tvaṅa mvaya teṁ
+   <lb n="8"/>caṁnāṁ kālpanā ta gi nā saṅkrānta raṅka liḥ <num value="5">5</num> qva<lb break="no" n="9"/>ra <num value="2">2</num> striya pamasa vraḥ gandha tarāpa <gap quantity="2" reason="illegible" unit="character"/> ta gi <g type="dotMid">.</g> te<lb break="no" n="10"/>ṅ saṁ teṅa traiya teṅa gaṅa puruṣa ta paṁmre
+   <lb n="11"/>saṅkrānta loña siddhakaryya loña prāṁ vasa<lb break="no" n="12"/>na neḥ nā khneta <g type="circle">.</g> nā pakṣa rṇṇoca raṅka caṁnāṁ
+   <lb n="13"/>nā saṅkrānta liḥ <num value="5">5</num> qvara <num value="2">2</num> striya pamasa vraḥ
+   <lb n="14"/>gandha teṅa ratna teṅ sudhivasa puruṣa ta paṁ<lb break="no" n="15"/> mre saṅkrānta loña vau loña caṁ qva
+   <lb n="16"/>loña nila loña janpada <g type="circle">.</g> qnak ta taṅa
+   <lb n="17"/>neḥ phoṅa nuv· nā kalpananā t<choice>
             <unclear>a</unclear>
             <unclear>i</unclear>
-          </choice> kamra<lb break="no" n="18"></lb>teṅa <choice>
+          </choice> kamra<lb break="no" n="18"/>teṅa <choice>
             <orig>j</orig>
             <reg>ja</reg>
           </choice>g<choice>
             <orig>ā</orig>
             <reg>a</reg>
-          </choice>t ta gi <add place="below">ta</add> paripālna nau ru qnaka ta <lb n="19"></lb>la<gap quantity="1" reason="illegible" unit="character"></gap> kalpanā ta roḥ neḥ phoṅa ta <lb n="20"></lb>kamrateṅ <choice>
+          </choice>t ta gi <add place="below">ta</add> paripālna nau ru qnaka ta
+   <lb n="19"/>la<gap quantity="1" reason="illegible" unit="character"/> kalpanā ta roḥ neḥ phoṅa ta
+   <lb n="20"/>kamrateṅ <choice>
             <orig>j</orig>
             <reg>ja</reg>
           </choice>g<choice>
             <orig>ā</orig>
             <reg>a</reg>
-          </choice>ta śivapūra neḥ Aṁpāla <lb n="21"></lb>do<gap quantity="1" reason="illegible" unit="character"></gap> rājakālābhijña<seg subtype="body" type="component">
-            <gap quantity="1" reason="illegible" unit="component"></gap>
-          </seg>rā<gap quantity="1" reason="illegible" unit="character"></gap> lvaḥ <lb n="22"></lb>śiva <gap quantity="1" reason="illegible" unit="character"></gap> tvānta leṅ <seg subtype="body" type="component">
-            <gap quantity="1" reason="illegible" unit="component"></gap>
-          </seg>yan ta paṅ<gap quantity="1" reason="illegible" unit="character"></gap> <lb n="23"></lb><gap quantity="10" reason="lost" unit="character"></gap></p>
+          </choice>ta śivapūra neḥ Aṁpāla
+   <lb n="21"/>do<gap quantity="1" reason="illegible" unit="character"/> rājakālābhijña<seg subtype="body" type="component">
+            <gap quantity="1" reason="illegible" unit="component"/>
+          </seg>rā<gap quantity="1" reason="illegible" unit="character"/> lvaḥ
+   <lb n="22"/>śiva <gap quantity="1" reason="illegible" unit="character"/> tvānta leṅ <seg subtype="body" type="component">
+            <gap quantity="1" reason="illegible" unit="component"/>
+          </seg>yan ta paṅ<gap quantity="1" reason="illegible" unit="character"/>
+   <lb n="23"/><gap quantity="10" reason="lost" unit="character"/>
+</p>
       </div>
       <div type="apparatus">
         <listApp>
           <app loc="1">
             <lem>
-              <gap quantity="3" reason="lost" unit="character"></gap>
+              <gap quantity="3" reason="lost" unit="character"/>
               <num value="7">7</num>
             </lem>
             <note>Cœdès suggests that the date might be 1077 śaka.</note>
@@ -125,7 +140,7 @@
           <app loc="5">
             <lem>n<unclear>e</unclear><supplied reason="lost">ḥ</supplied></lem>
             <rdg source="bib:Coedes1937-1966_01">n<seg subtype="vowel" type="component">
-                <gap quantity="1" reason="illegible" unit="component"></gap>
+                <gap quantity="1" reason="illegible" unit="component"/>
               </seg></rdg>
           </app>
           <app loc="17">
@@ -153,20 +168,20 @@
         </listApp>
       </div>
       <div source="bib:Coedes1937-1966_01" type="translation" xml:lang="fra">
-        <p n="1-23"><gap reason="lost"></gap>7 <foreign>śaka</foreign>, pleine lune de Phālguna, samedi, à un <gap reason="lost"></gap> du jour, Vraḥ Yanapati <gap reason="lost"></gap> donne les prestations fixées pour la terre achetée de <gap reason="lost"></gap> du Khloñ Travāṅ Raṁcyak, chef du pays <gap reason="lost"></gap>. Les rizières et <gap reason="lost"></gap> offrir à Sa Majesté Śrī Dharaṇīndravarmadeva, conformément à la loi royale, un cocotier. Prestations fixées pour le <foreign>saṅkrānta</foreign>: 5 <foreign>liḥ</foreign>, 2 <foreign>avar</foreign> de riz décortiqué; broyeuses de parfum, continuellement <supplied reason="explanation">suivent les noms de trois <foreign>teṅ</foreign></supplied>; hommes de service du <foreign>saṅkrānta</foreign> <supplied reason="explanation">deux <foreign>loñ</foreign></supplied> résidant là pendant la quinzaine claire. Pour la quinzaine obscure: prestations pour le <foreign>saṅkrānta</foreign>: 5 <foreign>liḥ</foreign> et 2 <foreign>avar</foreign> de riz décortiqué; broyeuses de parfum <supplied reason="explanation">deux <foreign>teṅ</foreign></supplied>, hommes de service du <foreign>saṅkrānta</foreign> <supplied reason="explanation">quatre <foreign>loñ</foreign></supplied>. Tous ces gens faisant partie de la fondation en faveur de ce dieu-ci, ainsi que tous les gens faisant partie des fondations en faveur de tous ces dieux de Śivapura <supplied reason="explanation">la suite est inintelligible</supplied>.</p>
+        <p n="1-23"><gap reason="lost"/>7 <foreign>śaka</foreign>, pleine lune de Phālguna, samedi, à un <gap reason="lost"/> du jour, Vraḥ Yanapati <gap reason="lost"/> donne les prestations fixées pour la terre achetée de <gap reason="lost"/> du Khloñ Travāṅ Raṁcyak, chef du pays <gap reason="lost"/>. Les rizières et <gap reason="lost"/> offrir à Sa Majesté Śrī Dharaṇīndravarmadeva, conformément à la loi royale, un cocotier. Prestations fixées pour le <foreign>saṅkrānta</foreign>: 5 <foreign>liḥ</foreign>, 2 <foreign>avar</foreign> de riz décortiqué; broyeuses de parfum, continuellement <supplied reason="explanation">suivent les noms de trois <foreign>teṅ</foreign></supplied>; hommes de service du <foreign>saṅkrānta</foreign> <supplied reason="explanation">deux <foreign>loñ</foreign></supplied> résidant là pendant la quinzaine claire. Pour la quinzaine obscure: prestations pour le <foreign>saṅkrānta</foreign>: 5 <foreign>liḥ</foreign> et 2 <foreign>avar</foreign> de riz décortiqué; broyeuses de parfum <supplied reason="explanation">deux <foreign>teṅ</foreign></supplied>, hommes de service du <foreign>saṅkrānta</foreign> <supplied reason="explanation">quatre <foreign>loñ</foreign></supplied>. Tous ces gens faisant partie de la fondation en faveur de ce dieu-ci, ainsi que tous les gens faisant partie des fondations en faveur de tous ces dieux de Śivapura <supplied reason="explanation">la suite est inintelligible</supplied>.</p>
       </div>
       <!-- <div type="commentary">
             <p></p>
          </div> -->
       <div type="bibliography">
         <p>First edited by George Cœdès (<bibl rend="omitname">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">1</citedRange>
             <citedRange unit="page">268</citedRange>
           </bibl>) with a French translation; re-edited here by Kunthea Chhom based on the estampage EFEO n. 1105.</p>
         <listBibl type="primary">
           <bibl n="GC">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">1</citedRange>
             <citedRange unit="page">268</citedRange>
           </bibl>

@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -20,9 +15,9 @@
           <resp>intellectual authorship of edition</resp>
           <!-- Or the editor if only minor adjustments have been made -->
           <persName>
-            <forename></forename>
+            <forename/>
             <!-- NOT YET CLEAR WHOSE EDITION WILL FORM THE BASIS -->
-            <surname></surname>
+            <surname/>
           </persName>
         </respStmt>
       </titleStmt>
@@ -32,7 +27,11 @@
         <idno type="filename">DHARMA_INSTelugu00002</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+                            Licence. To view a copy of the licence, visit
+                            https://creativecommons.org/licenses/by/4.0/ or send a letter to
+                            Creative Commons, 444 Castro Street, Suite 900, Mountain View,
+                            California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
           </licence>
         </availability>
@@ -44,7 +43,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -69,7 +68,7 @@
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
@@ -88,13 +87,23 @@
     <body>
       <div type="edition" xml:lang="tel-Latn">
         <!-- update the @xml:lang value, see EGD §7.2-->
-        <p><milestone n="A" type="pagelike" unit="face"></milestone> <lb n="1"></lb>śrī niravadyuṇḍu<lb n="2"></lb>sitta<unclear>jāta</unclear> samuṇḍu śiva<lb n="3"></lb>padavara<unclear>bhakta</unclear> sēviUṇḍ <!-- the original edition has to be checked! The picture in NI seems to show sēvitu° so that it might simply be a printing mistake in Radhakrishna -->a<lb n="4"></lb>khiluṇḍ anrata ripu ba<lb n="5"></lb>luṇḍ āhavarā dharaṇḍ a<lb n="6"></lb>yōgya sighasanuṇḍ a<lb n="7"></lb>gaṇita <choice>
+        <p>
+                <milestone n="A" type="pagelike" unit="face"/>
+                <lb n="1"/>śrī niravadyuṇḍu<lb n="2"/>sitta<unclear>jāta</unclear> samuṇḍu śiva<lb n="3"/>padavara<unclear>bhakta</unclear> sēviUṇḍ<!-- the original edition has to be checked! The picture in NI seems to show sēvitu° so that it might simply be a printing mistake in Radhakrishna --> a<lb n="4"/>khiluṇḍ anrata ripu ba<lb n="5"/>luṇḍ āhavarā dharaṇḍ a<lb n="6"/>yōgya sighasanuṇḍ a<lb n="7"/>gaṇita <choice>
             <orig>da</orig>
             <reg>dā</reg>
-          </choice>nā sanaṇḍu ga<unclear>ja</unclear> <milestone n="B" type="pagelike" unit="face"></milestone> <lb n="8"></lb><gap quantity="1" reason="undefined" unit="line"></gap> <lb n="9"></lb>layuṇḍu <gap quantity="1" reason="undefined" unit="character"></gap> <!-- this might not be correct! But the edition is followed here for now. This holds good for all the gap-instances -->hagaṇḍ <!-- this reading seems to be wrong -->a<lb n="10"></lb>na paṇḍuraṁgu vvi<gap quantity="1" reason="undefined" unit="character"></gap>Aṇiyu <!-- on the picture there is no trace of ⟨A⟩! -->gānci<lb n="11"></lb>koladi lēni koṭṭaṁbul vo<choice>
+          </choice>nā sanaṇḍu ga<unclear>ja</unclear>
+                <milestone n="B" type="pagelike" unit="face"/>
+                <lb n="8"/><gap quantity="1" reason="undefined" unit="line"/>
+                <lb n="9"/>layuṇḍu <gap quantity="1" reason="undefined" unit="character"/><!-- this might not be correct! But the edition is followed here for now. This holds good for all the gap-instances --> hagaṇḍ<!-- this reading seems to be wrong --> a<lb n="10"/>na paṇḍuraṁgu vvi<gap quantity="1" reason="undefined" unit="character"/>Aṇiyu<!-- on the picture there is no trace of ⟨A⟩! --> gānci<lb n="11"/>koladi lēni koṭṭaṁbul vo<choice>
             <orig>di</orig>
             <reg>ḍi</reg>
-          </choice>ci <lb n="12"></lb>goṇake nalāta pakṣapāti<lb n="13"></lb>salalita<gap quantity="1" reason="undefined" unit="character"></gap>padarga <milestone n="C" type="pagelike" unit="face"></milestone> <lb n="14"></lb><gap quantity="3" reason="undefined" unit="character"></gap>na<gap quantity="1" reason="undefined" unit="character"></gap> <lb n="15"></lb>tārōṇa vi<unclear>da</unclear><!-- the editors also reckon ⟨ḍa⟩ to be an option -->na goravla vra</p>
+          </choice>ci
+                <lb n="12"/>goṇake nalāta pakṣapāti<lb n="13"/>salalita<gap quantity="1" reason="undefined" unit="character"/>padarga
+                <milestone n="C" type="pagelike" unit="face"/>
+                <lb n="14"/><gap quantity="3" reason="undefined" unit="character"/>na<gap quantity="1" reason="undefined" unit="character"/>
+                <lb n="15"/>tārōṇa vi<unclear>da</unclear><!-- the editors also reckon ⟨ḍa⟩ to be an option -->na goravla vra
+            </p>
       </div>
       <div type="apparatus">
         <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
@@ -102,15 +111,20 @@
           <!-- one <app> for each apparatus entry -->
           <app loc="1">
             <lem>niravadyuṇḍu</lem>
-            <rdg source="bib:Butterworth+VenugopaulChetty1990_02">niravadyuṇḍu<gap quantity="2" reason="undefined" unit="character"></gap></rdg>
+            <rdg source="bib:Butterworth+VenugopaulChetty1990_02">niravadyuṇḍu<gap quantity="2" reason="undefined" unit="character"/></rdg>
           </app>
         </listApp>
       </div>
       <div source="bib:Sastri1969_01" type="translation">
-        <p>Paṇḍraṁgu, the faultless, the equal of Manmatha (in beauty), worshipper of the excellent feet of Śiva, the mighty, strong against the enemy of untruth, (powerful) in battle (as) Rāma, the occupant of the throne of Ayōdhya, respected for (his) numerous gifts. l. 10-11. the favourite of Goṇikenalla, having subdued innumerable forts...</p>
+        <p>
+ 	         Paṇḍraṁgu, the faultless, the equal of Manmatha (in beauty), worshipper of the excellent feet of Śiva, the mighty, strong against the enemy of untruth, (powerful) in battle (as) Rāma, the occupant of the throne of Ayōdhya, respected for (his) numerous gifts.
+ 	         l. 10-11. the favourite of Goṇikenalla, having subdued innumerable forts...
+ 	     </p>
       </div>
       <div type="commentary">
-        <p>K. M. Sastri's translation follows the edition in BVC.</p>
+        <p>
+                K. M. Sastri's translation follows the edition in BVC.
+            </p>
       </div>
       <div type="bibliography">
         <!--bibliography encoded as per section §9.4 -->
@@ -118,14 +132,14 @@
         <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
         <listBibl type="primary">
           <bibl n="BVC">
-            <ptr target="bib:Butterworth+VenugopaulChetty1990_02"></ptr>
+            <ptr target="bib:Butterworth+VenugopaulChetty1990_02"/>
             <citedRange unit="page">544-545</citedRange>
             <citedRange unit="item">31-32</citedRange>
           </bibl>
           <!-- has to be completed -->
         </listBibl>
         <listBibl type="secondary">
-          <bibl></bibl>
+          <bibl/>
           <!-- has to be completed: Sastri, Radha Krishna etc. -->
         </listBibl>
       </div>

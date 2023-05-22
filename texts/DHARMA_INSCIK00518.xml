@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -46,7 +41,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -56,7 +51,7 @@
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p/>
               <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
 						<summary><p><p/></summary>
 						<handNote xml:id="Pallava00001_hand1"></handNote>
@@ -69,15 +64,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -90,32 +89,97 @@
       <div type="edition" xml:lang="okz-Latn">
         <div n="B" type="textpart">
           <head xml:lang="eng">Face</head>
-          <p xml:lang="san-Latn"><lb n="B1"></lb><gap quantity="6" reason="lost" unit="character"></gap><unclear>lakṣm</unclear>īś śrī<gap quantity="2" reason="lost" unit="character"></gap> <lb n="B2"></lb><gap quantity="6" reason="lost" unit="character"></gap> <unclear>yuvā</unclear>nāṁ vyā<gap quantity="1" reason="lost" unit="character"></gap> <lb n="B3"></lb><gap quantity="5" reason="lost" unit="character"></gap>saundarryahāriṇe <lb n="B4"></lb><gap quantity="3" reason="lost" unit="character"></gap>jātaḥ pu<unclear>ṁ</unclear>mānam<gap quantity="2" reason="lost" unit="character"></gap>deva<gap quantity="2" reason="lost" unit="character"></gap> <lb n="B5"></lb><gap quantity="3" reason="lost" unit="character"></gap>vrāhmaṇī<gap quantity="8" reason="lost" unit="character"></gap> <lb n="B6"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B7"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B8"></lb><gap quantity="4" reason="lost" unit="character"></gap>liṅga<gap quantity="4" reason="lost" unit="character"></gap>sān sa<unclear>d</unclear>ā <gap quantity="2" reason="lost" unit="character"></gap> <lb n="B9"></lb>liṅga<gap quantity="7" reason="lost" unit="character"></gap>pi<gap quantity="3" reason="lost" unit="character"></gap> <lb n="B10"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B11"></lb><gap quantity="11" reason="lost" unit="character"></gap>karuṇā<gap quantity="2" reason="lost" unit="character"></gap> <lb n="B12"></lb><gap quantity="9" reason="lost" unit="character"></gap><unclear>l</unclear><seg subtype="vowel" type="component">
-              <gap quantity="1" reason="illegible" unit="character"></gap>
+          <p xml:lang="san-Latn">
+                   <lb n="B1"/><gap quantity="6" reason="lost" unit="character"/><unclear>lakṣm</unclear>īś śrī<gap quantity="2" reason="lost" unit="character"/>
+                   <lb n="B2"/><gap quantity="6" reason="lost" unit="character"/> <unclear>yuvā</unclear>nāṁ vyā<gap quantity="1" reason="lost" unit="character"/>
+                   <lb n="B3"/><gap quantity="5" reason="lost" unit="character"/>saundarryahāriṇe
+                   <lb n="B4"/><gap quantity="3" reason="lost" unit="character"/>jātaḥ pu<unclear>ṁ</unclear>mānam<gap quantity="2" reason="lost" unit="character"/>deva<gap quantity="2" reason="lost" unit="character"/>
+                   <lb n="B5"/><gap quantity="3" reason="lost" unit="character"/>vrāhmaṇī<gap quantity="8" reason="lost" unit="character"/>
+                   <lb n="B6"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B7"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B8"/><gap quantity="4" reason="lost" unit="character"/>liṅga<gap quantity="4" reason="lost" unit="character"/>sān sa<unclear>d</unclear>ā <gap quantity="2" reason="lost" unit="character"/>
+                   <lb n="B9"/>liṅga<gap quantity="7" reason="lost" unit="character"/>pi<gap quantity="3" reason="lost" unit="character"/>
+                   <lb n="B10"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B11"/><gap quantity="11" reason="lost" unit="character"/>karuṇā<gap quantity="2" reason="lost" unit="character"/>
+                   <lb n="B12"/><gap quantity="9" reason="lost" unit="character"/><unclear>l</unclear><seg subtype="vowel" type="component">
+              <gap quantity="1" reason="illegible" unit="character"/>
             </seg><seg subtype="body" type="component">
-              <gap quantity="1" reason="illegible" unit="character"></gap>
-            </seg>otta<unclear>rā</unclear><gap quantity="1" reason="lost" unit="character"></gap> <lb n="B13"></lb><gap quantity="9" reason="lost" unit="character"></gap><unclear>ta</unclear>pāpana<gap quantity="1" reason="lost" unit="character"></gap> <lb n="B14"></lb><gap quantity="8" reason="lost" unit="character"></gap><seg subtype="body" type="component">
-              <gap quantity="1" reason="illegible" unit="character"></gap>
+              <gap quantity="1" reason="illegible" unit="character"/>
+            </seg>otta<unclear>rā</unclear><gap quantity="1" reason="lost" unit="character"/>
+                   <lb n="B13"/><gap quantity="9" reason="lost" unit="character"/><unclear>ta</unclear>pāpana<gap quantity="1" reason="lost" unit="character"/>
+                   <lb n="B14"/><gap quantity="8" reason="lost" unit="character"/><seg subtype="body" type="component">
+              <gap quantity="1" reason="illegible" unit="character"/>
             </seg>ātipi<unclear>ta</unclear>n<seg subtype="vowel" type="component">
-              <gap quantity="1" reason="illegible" unit="character"></gap>
-            </seg><gap quantity="1" reason="lost" unit="character"></gap> <lb n="B15"></lb><gap quantity="8" reason="lost" unit="character"></gap>ṇyāsik<seg subtype="body" type="component">
-              <gap quantity="1" reason="illegible" unit="character"></gap>
+              <gap quantity="1" reason="illegible" unit="character"/>
+            </seg><gap quantity="1" reason="lost" unit="character"/>
+                   <lb n="B15"/><gap quantity="8" reason="lost" unit="character"/>ṇyāsik<seg subtype="body" type="component">
+              <gap quantity="1" reason="illegible" unit="character"/>
             </seg><seg subtype="vowel" type="component">
-              <gap quantity="1" reason="illegible" unit="character"></gap>
-            </seg><gap quantity="1" reason="lost" unit="character"></gap> <lb n="B16"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B17"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B18"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B19"></lb>E<gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B20"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B21"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B22"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B23"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B24"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B25"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B26"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B27"></lb><gap extent="unknown" reason="lost" unit="character"></gap> <lb n="B28"></lb><gap extent="unknown" reason="lost" unit="character"></gap></p>
+              <gap quantity="1" reason="illegible" unit="character"/>
+            </seg><gap quantity="1" reason="lost" unit="character"/>
+                   <lb n="B16"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B17"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B18"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B19"/>E<gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B20"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B21"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B22"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B23"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B24"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B25"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B26"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B27"/><gap extent="unknown" reason="lost" unit="character"/>
+                   <lb n="B28"/><gap extent="unknown" reason="lost" unit="character"/>
+                </p>
         </div>
         <div n="C" type="textpart">
           <head xml:lang="eng">Face</head>
-          <p><lb n="C1"></lb><gap quantity="2" reason="lost" unit="character"></gap> nepra <gap quantity="4" reason="lost" unit="character"></gap> <lb n="C2"></lb><gap quantity="2" reason="lost" unit="character"></gap> <seg subtype="body" type="component">
-              <gap quantity="1" reason="illegible" unit="character"></gap>
-            </seg>ā<unclear>ṅ</unclear>śī <gap quantity="5" reason="lost" unit="character"></gap> <lb n="C3"></lb><gap quantity="1" reason="lost" unit="character"></gap> tranika <gap quantity="5" reason="lost" unit="character"></gap> <lb n="C4"></lb>pūjā nā vraḥ <gap quantity="4" reason="lost" unit="character"></gap> <lb n="C5"></lb>qnak ti Oy<unclear>·</unclear> <supplied reason="lost">ta kamrate</supplied><lb break="no" n="C6"></lb>ṅ· jagat<unclear>·</unclear> <gap quantity="4" reason="lost" unit="character"></gap> <lb n="C7"></lb>phoṅ· <gap quantity="5" reason="lost" unit="character"></gap> <lb n="C8"></lb>śivaliṅga <gap quantity="5" reason="lost" unit="character"></gap> <lb n="C9"></lb><gap extent="unknown" reason="illegible" unit="character"></gap> <lb n="C10"></lb><gap extent="unknown" reason="illegible" unit="character"></gap> <lb n="C11"></lb><gap extent="unknown" reason="illegible" unit="character"></gap> <lb n="C12"></lb><gap extent="unknown" reason="illegible" unit="character"></gap> <lb n="C13"></lb><gap extent="unknown" reason="illegible" unit="character"></gap> <lb n="C14"></lb>teṅ· <gap quantity="6" reason="lost" unit="character"></gap> <lb n="C15"></lb>teṅ· <gap quantity="6" reason="lost" unit="character"></gap> <lb n="C16"></lb>teṅ· <unclear>ś</unclear>i<gap quantity="5" reason="lost" unit="character"></gap> <lb n="C17"></lb>teṅ· <gap quantity="6" reason="lost" unit="character"></gap> <lb n="C18"></lb>teṅ· <gap quantity="6" reason="lost" unit="character"></gap> <lb n="C19"></lb>teṅ· <gap quantity="6" reason="lost" unit="character"></gap> <lb n="C20"></lb>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"></gap> <lb n="C21"></lb>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"></gap> <lb n="C22"></lb>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"></gap> <lb n="C23"></lb>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"></gap> <lb n="C24"></lb>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"></gap> <lb n="C25"></lb>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"></gap> <lb n="C26"></lb>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"></gap> <lb n="C27"></lb>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"></gap></p>
+          <p>
+                         <lb n="C1"/><gap quantity="2" reason="lost" unit="character"/> nepra <gap quantity="4" reason="lost" unit="character"/>
+                         <lb n="C2"/><gap quantity="2" reason="lost" unit="character"/> <seg subtype="body" type="component">
+              <gap quantity="1" reason="illegible" unit="character"/>
+            </seg>ā<unclear>ṅ</unclear>śī <gap quantity="5" reason="lost" unit="character"/>
+                         <lb n="C3"/><gap quantity="1" reason="lost" unit="character"/> tranika <gap quantity="5" reason="lost" unit="character"/>
+                         <lb n="C4"/>pūjā nā vraḥ <gap quantity="4" reason="lost" unit="character"/>
+                         <lb n="C5"/>qnak ti Oy<unclear>·</unclear> <supplied reason="lost">ta kamrate</supplied><lb break="no" n="C6"/>ṅ· jagat<unclear>·</unclear> <gap quantity="4" reason="lost" unit="character"/>
+                         <lb n="C7"/>phoṅ· <gap quantity="5" reason="lost" unit="character"/>
+                         <lb n="C8"/>śivaliṅga <gap quantity="5" reason="lost" unit="character"/>
+                         <lb n="C9"/><gap extent="unknown" reason="illegible" unit="character"/>
+                         <lb n="C10"/><gap extent="unknown" reason="illegible" unit="character"/>
+                         <lb n="C11"/><gap extent="unknown" reason="illegible" unit="character"/>
+                         <lb n="C12"/><gap extent="unknown" reason="illegible" unit="character"/>
+                         <lb n="C13"/><gap extent="unknown" reason="illegible" unit="character"/>
+                         <lb n="C14"/>teṅ· <gap quantity="6" reason="lost" unit="character"/>
+                         <lb n="C15"/>teṅ· <gap quantity="6" reason="lost" unit="character"/>
+                         <lb n="C16"/>teṅ· <unclear>ś</unclear>i<gap quantity="5" reason="lost" unit="character"/>
+                         <lb n="C17"/>teṅ· <gap quantity="6" reason="lost" unit="character"/>
+                         <lb n="C18"/>teṅ· <gap quantity="6" reason="lost" unit="character"/>
+                         <lb n="C19"/>teṅ· <gap quantity="6" reason="lost" unit="character"/>
+                         <lb n="C20"/>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"/>
+                         <lb n="C21"/>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"/>
+                         <lb n="C22"/>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"/>
+                         <lb n="C23"/>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"/>
+                         <lb n="C24"/>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"/>
+                         <lb n="C25"/>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"/>
+                         <lb n="C26"/>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"/>
+                         <lb n="C27"/>teṅ<unclear>·</unclear> <gap quantity="6" reason="lost" unit="character"/>
+                      </p>
         </div>
         <div n="D" type="textpart">
           <head xml:lang="eng">Face</head>
-          <p><lb n="D1"></lb>ri qnaka ta soka <lb n="D2"></lb>nicāya qnaka <lb n="D3"></lb>neḥ phoṅa leṅ kaṁ<lb break="no" n="D4"></lb>mrateṅa jagata <lb n="D5"></lb>qnaka noḥ dau ta <lb n="D6"></lb>naraka lvaḥ kalpa <lb n="D7"></lb>ko<choice>
+          <p>
+                         <lb n="D1"/>ri qnaka ta soka
+                         <lb n="D2"/>nicāya qnaka
+                         <lb n="D3"/>neḥ phoṅa leṅ kaṁ<lb break="no" n="D4"/>mrateṅa jagata
+                         <lb n="D5"/>qnaka noḥ dau ta
+                         <lb n="D6"/>naraka lvaḥ kalpa
+                         <lb n="D7"/>ko<choice>
               <orig>t</orig>
               <reg>ṭ</reg>
-            </choice>i nu santāna <lb n="D8"></lb>phoṅa hetu lapa <lb n="D9"></lb>kalpaṇā <g type="dDandaOrn">.</g></p>
+            </choice>i nu santāna
+                         <lb n="D8"/>phoṅa hetu lapa
+                         <lb n="D9"/>kalpaṇā <g type="dDandaOrn">.</g>
+                      </p>
         </div>
       </div>
       <div type="apparatus">
@@ -123,65 +187,65 @@
           <head xml:lang="eng">Face</head>
           <listApp>
             <app loc="B2">
-              <lem><gap quantity="6" reason="lost" unit="character"></gap> <unclear>yuvā</unclear>nāṁ vyā<gap quantity="1" reason="lost" unit="character"></gap></lem>
+              <lem><gap quantity="6" reason="lost" unit="character"/> <unclear>yuvā</unclear>nāṁ vyā<gap quantity="1" reason="lost" unit="character"/></lem>
               <rdg source="bib:Coedes1937-1966_01">
-                <gap extent="unknown" reason="lost" unit="character"></gap>
+                <gap extent="unknown" reason="lost" unit="character"/>
               </rdg>
             </app>
             <app loc="B3">
-              <lem><gap quantity="5" reason="lost" unit="character"></gap>saundarryahāriṇe</lem>
-              <rdg source="bib:Coedes1937-1966_01"><gap extent="unknown" reason="lost" unit="character"></gap> saundarryahāriṇ<gap quantity="2" reason="lost" unit="character"></gap></rdg>
+              <lem><gap quantity="5" reason="lost" unit="character"/>saundarryahāriṇe</lem>
+              <rdg source="bib:Coedes1937-1966_01"><gap extent="unknown" reason="lost" unit="character"/> saundarryahāriṇ<gap quantity="2" reason="lost" unit="character"/></rdg>
             </app>
             <app loc="B4">
-              <lem><gap quantity="3" reason="lost" unit="character"></gap>jātaḥ pu<unclear>ṁ</unclear>mānam<gap quantity="2" reason="lost" unit="character"></gap>deva<gap quantity="2" reason="lost" unit="character"></gap></lem>
-              <rdg source="bib:Coedes1937-1966_01"><gap quantity="2" reason="lost" unit="character"></gap> deva</rdg>
+              <lem><gap quantity="3" reason="lost" unit="character"/>jātaḥ pu<unclear>ṁ</unclear>mānam<gap quantity="2" reason="lost" unit="character"/>deva<gap quantity="2" reason="lost" unit="character"/></lem>
+              <rdg source="bib:Coedes1937-1966_01"><gap quantity="2" reason="lost" unit="character"/> deva</rdg>
             </app>
             <app loc="B5">
-              <lem><gap quantity="3" reason="lost" unit="character"></gap>vrāhmaṇī<gap quantity="8" reason="lost" unit="character"></gap></lem>
-              <rdg source="bib:Coedes1937-1966_01"><gap extent="unknown" reason="lost" unit="character"></gap> vrāhmaṇa <gap extent="unknown" reason="lost" unit="character"></gap></rdg>
+              <lem><gap quantity="3" reason="lost" unit="character"/>vrāhmaṇī<gap quantity="8" reason="lost" unit="character"/></lem>
+              <rdg source="bib:Coedes1937-1966_01"><gap extent="unknown" reason="lost" unit="character"/> vrāhmaṇa <gap extent="unknown" reason="lost" unit="character"/></rdg>
             </app>
             <app loc="B8">
-              <lem><gap quantity="4" reason="lost" unit="character"></gap>liṅga<gap quantity="4" reason="lost" unit="character"></gap>sān sa<unclear>d</unclear>ā <gap quantity="2" reason="lost" unit="character"></gap></lem>
+              <lem><gap quantity="4" reason="lost" unit="character"/>liṅga<gap quantity="4" reason="lost" unit="character"/>sān sa<unclear>d</unclear>ā <gap quantity="2" reason="lost" unit="character"/></lem>
               <rdg source="bib:Coedes1937-1966_01">
-                <gap extent="unknown" reason="lost" unit="character"></gap>
+                <gap extent="unknown" reason="lost" unit="character"/>
               </rdg>
             </app>
             <app loc="B9">
-              <lem>liṅga<gap quantity="7" reason="lost" unit="character"></gap>pi<gap quantity="3" reason="lost" unit="character"></gap></lem>
+              <lem>liṅga<gap quantity="7" reason="lost" unit="character"/>pi<gap quantity="3" reason="lost" unit="character"/></lem>
               <rdg source="bib:Coedes1937-1966_01">
-                <gap extent="unknown" reason="lost" unit="character"></gap>
+                <gap extent="unknown" reason="lost" unit="character"/>
               </rdg>
             </app>
             <app loc="B12">
-              <lem><gap quantity="9" reason="lost" unit="character"></gap><unclear>l</unclear><seg subtype="vowel" type="component">
-                  <gap quantity="1" reason="illegible" unit="character"></gap>
+              <lem><gap quantity="9" reason="lost" unit="character"/><unclear>l</unclear><seg subtype="vowel" type="component">
+                  <gap quantity="1" reason="illegible" unit="character"/>
                 </seg><seg subtype="body" type="component">
-                  <gap quantity="1" reason="illegible" unit="character"></gap>
-                </seg>otta<unclear>rā</unclear><gap quantity="1" reason="lost" unit="character"></gap></lem>
+                  <gap quantity="1" reason="illegible" unit="character"/>
+                </seg>otta<unclear>rā</unclear><gap quantity="1" reason="lost" unit="character"/></lem>
               <rdg source="bib:Coedes1937-1966_01">
-                <gap extent="unknown" reason="lost" unit="character"></gap>
+                <gap extent="unknown" reason="lost" unit="character"/>
               </rdg>
             </app>
             <app loc="B13">
-              <lem><gap quantity="9" reason="lost" unit="character"></gap><unclear>ta</unclear>pāpana<gap quantity="1" reason="lost" unit="character"></gap></lem>
+              <lem><gap quantity="9" reason="lost" unit="character"/><unclear>ta</unclear>pāpana<gap quantity="1" reason="lost" unit="character"/></lem>
               <rdg source="bib:Coedes1937-1966_01">
-                <gap extent="unknown" reason="lost" unit="character"></gap>
+                <gap extent="unknown" reason="lost" unit="character"/>
               </rdg>
             </app>
             <app loc="B14">
-              <lem><gap quantity="8" reason="lost" unit="character"></gap><seg subtype="body" type="component">
-                  <gap quantity="1" reason="illegible" unit="character"></gap>
+              <lem><gap quantity="8" reason="lost" unit="character"/><seg subtype="body" type="component">
+                  <gap quantity="1" reason="illegible" unit="character"/>
                 </seg>ātipi<unclear>ta</unclear>n<seg subtype="vowel" type="component">
-                  <gap quantity="1" reason="illegible" unit="character"></gap>
-                </seg><gap quantity="1" reason="lost" unit="character"></gap></lem>
+                  <gap quantity="1" reason="illegible" unit="character"/>
+                </seg><gap quantity="1" reason="lost" unit="character"/></lem>
               <rdg source="bib:Coedes1937-1966_01">
-                <gap extent="unknown" reason="lost" unit="character"></gap>
+                <gap extent="unknown" reason="lost" unit="character"/>
               </rdg>
             </app>
             <app loc="B19">
-              <lem>E<gap extent="unknown" reason="lost" unit="character"></gap></lem>
+              <lem>E<gap extent="unknown" reason="lost" unit="character"/></lem>
               <rdg source="bib:Coedes1937-1966_01">
-                <gap extent="unknown" reason="lost" unit="character"></gap>
+                <gap extent="unknown" reason="lost" unit="character"/>
               </rdg>
             </app>
           </listApp>
@@ -190,11 +254,11 @@
           <head xml:lang="eng">Face</head>
           <listApp>
             <app loc="C2">
-              <lem><gap quantity="2" reason="lost" unit="character"></gap> <seg subtype="body" type="component">
-                  <gap quantity="1" reason="illegible" unit="character"></gap>
-                </seg>ā<unclear>ṅ</unclear>śī <gap quantity="5" reason="lost" unit="character"></gap></lem>
-              <rdg source="bib:Coedes1937-1966_01">rā<gap quantity="1" reason="lost" unit="character"></gap>ś<seg subtype="vowel" type="component">
-                  <gap quantity="1" reason="illegible" unit="character"></gap>
+              <lem><gap quantity="2" reason="lost" unit="character"/> <seg subtype="body" type="component">
+                  <gap quantity="1" reason="illegible" unit="character"/>
+                </seg>ā<unclear>ṅ</unclear>śī <gap quantity="5" reason="lost" unit="character"/></lem>
+              <rdg source="bib:Coedes1937-1966_01">rā<gap quantity="1" reason="lost" unit="character"/>ś<seg subtype="vowel" type="component">
+                  <gap quantity="1" reason="illegible" unit="character"/>
                 </seg></rdg>
             </app>
             <app loc="C5">
@@ -202,7 +266,7 @@
                 <supplied reason="lost">ta kamrate</supplied>
               </lem>
               <rdg source="bib:Coedes1937-1966_01">
-                <gap quantity="4" reason="lost" unit="character"></gap>
+                <gap quantity="4" reason="lost" unit="character"/>
               </rdg>
             </app>
           </listApp>
@@ -217,13 +281,13 @@
       </div>
       <div type="bibliography">
         <p>First edited by George Cœdès (<bibl rend="omitname">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">2</citedRange>
             <citedRange unit="page">75-76</citedRange>
           </bibl>) with a French translation of the face D; re-edited here by Kunthea Chhom from the estampage EFEO n. 294.</p>
         <listBibl type="primary">
           <bibl n="GC">
-            <ptr target="bib:Coedes1937-1966_01"></ptr>
+            <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">2</citedRange>
             <citedRange unit="page">75-76</citedRange>
           </bibl>

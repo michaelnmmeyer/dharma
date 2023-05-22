@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -46,7 +41,7 @@
           <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno></idno>
+            <idno/>
             <!-- don't modify this -->
           </msIdentifier>
           <msContents>
@@ -69,15 +64,19 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"></schemaRef>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
@@ -92,50 +91,56 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="okz-Latn">
-        <ab><milestone n="S" type="pagelike" unit="item"></milestone><label xml:lang="eng">Southern Doorjamb</label> <lb n="S1"></lb><g type="gomutraInitial">.</g> <g type="dDandaOrn">.</g> śrī siddhi svasti jaya <g type="dDandaOrn">.</g></ab>
+        <ab><milestone n="S" type="pagelike" unit="item"/><label xml:lang="eng">Southern Doorjamb</label>
+<lb n="S1"/><g type="gomutraInitial">.</g> <g type="dDandaOrn">.</g> śrī siddhi svasti jaya <g type="dDandaOrn">.</g>
+</ab>
         <lg met="upajāti" n="1" xml:lang="san-Latn">
           <l n="a">śaśāṅka-candrāṣṭa-śakāpta-rājyas _</l>
           <l n="b">sa śrīyaśovarmma-narendra-rājaḥ _</l>
-          <l n="c"><lb n="S2"></lb>svasthāpitāyādita kiṅkarādi _</l>
+          <l n="c"><lb n="S2"/>svasthāpitāyādita kiṅkarādi _</l>
           <l n="d">sarvvan tad asmai parameśvarāya <g type="dDandaOrn">.</g></l>
         </lg>
         <lg met="upajāti" n="2" xml:lang="san-Latn">
-          <l enjamb="yes" n="a">sa cāgra<lb break="no" n="S3"></lb>yāyī dadatāṁ samastāṁ _</l>
+          <l enjamb="yes" n="a">sa cāgra<lb break="no" n="S3"/>yāyī dadatāṁ samastāṁ _</l>
           <l n="b">s tān bhāvinaḥ kambuja-bhūpatīndrān _</l>
-          <l n="c">punaḥ punar yyāca<lb break="no" n="S4"></lb>ta Ity ayaṁ va _</l>
+          <l n="c">punaḥ punar yyāca<lb break="no" n="S4"/>ta Ity ayaṁ va _</l>
           <l n="d">s svadharmma-setuḥ paripālanīyaḥ <g type="dDandaOrn">.</g></l>
         </lg>
         <lg met="upajāti" n="3" xml:lang="san-Latn">
           <l n="a">Avaimi ye sthāsnu-yaśaś-śarīrā _</l>
-          <l n="b"><lb n="S5"></lb>jihāsavo sūn api dharmma-hetoḥ _</l>
+          <l n="b"><lb n="S5"/>jihāsavo sūn api dharmma-hetoḥ _</l>
           <l n="c">bhavanta uccaiś-śirasāṁ variṣṭhā _</l>
-          <l n="d">devasvam iccheyu<lb break="no" n="S6"></lb>r apīdr̥śās te <g type="dDandaOrn">.</g></l>
+          <l n="d">devasvam iccheyu<lb break="no" n="S6"/>r apīdr̥śās te <g type="dDandaOrn">.</g></l>
         </lg>
         <lg met="upajāti" n="4" xml:lang="san-Latn">
           <l n="a">prāyas sthite goptari sanmukhā ye _</l>
           <l n="b">chidre sura-dravya-harās tu santi _</l>
-          <l n="c"><lb n="S7"></lb>Idan tato rakṣata sadyuge 'pi _</l>
+          <l n="c"><lb n="S7"/>Idan tato rakṣata sadyuge 'pi _</l>
           <l n="d">rāhur jjahāraiva sudhāṁ surābhaḥ <g type="dDandaOrn">.</g></l>
         </lg>
         <lg met="upajāti" n="5" xml:lang="san-Latn">
-          <l n="a">yathā ca rāhupramu<lb break="no" n="S8"></lb>khān vijitya _</l>
+          <l n="a">yathā ca rāhupramu<lb break="no" n="S8"/>khān vijitya _</l>
           <l n="b">rarakṣa devān amr̥tañ ca viṣnuḥ _</l>
           <l enjamb="yes" n="c">tathā bhavanto pi nihatya caurā _</l>
-          <l n="d">n suraṁ sura<lb break="no" n="S9"></lb>svaṁ paripālayantu <g type="dDandaOrn">.</g></l>
+          <l n="d">n suraṁ sura<lb break="no" n="S9"/>svaṁ paripālayantu <g type="dDandaOrn">.</g></l>
         </lg>
         <lg met="upajāti" n="6" xml:lang="san-Latn">
           <l n="1">jñātañ ca satyaṁ mr̥tir eva yācñā _</l>
-          <l n="2">rājño viśeṣeṇa tathāpi<lb n="S10"></lb>sāstu _</l>
+          <l n="2">rājño viśeṣeṇa tathāpi<lb n="S10"/>sāstu _</l>
           <l n="3">dharmmasya hetor mmaraṇaṁ hi śastaṁ _</l>
           <l n="4">satām atas tyāgina Eva yāce <g type="dDandaOrn">.</g></l>
         </lg>
         <lg met="upajāti" n="7" xml:lang="san-Latn">
-          <l enjamb="yes" n="a">kumāra-mantri-pramu<lb break="no" n="S11"></lb>khaiś ca punya _</l>
+          <l enjamb="yes" n="a">kumāra-mantri-pramu<lb break="no" n="S11"/>khaiś ca punya _</l>
           <l n="b">n nivedanādyena tad eva rakṣyam _</l>
           <l n="c">yuṣmāsu bhāraḥ paripālanādi _</l>
-          <l n="d">s snigdheṣu<lb n="S12"></lb>vitvatsu kr̥to hi rājñā <g type="dDandaOrn">.</g> <g type="circleTarget">.</g> <g type="dDandaOrn">.</g></l>
+          <l n="d">s snigdheṣu<lb n="S12"/>vitvatsu kr̥to hi rājñā <g type="dDandaOrn">.</g> <g type="circleTarget">.</g> <g type="dDandaOrn">.</g></l>
         </lg>
-        <p><lb n="S12"></lb><num value="815">815</num> śaka pañcamī roc· Āṣādha vyar<unclear>·</unclear> Antvaṅ· dikk<unclear>·</unclear> sracti <lb n="S13"></lb>Arddharātra Āy vnek· Ādityavāra Uttarabhadranakṣatra nu dhūlī jeṅ· vraḥ kamra<lb break="no" n="S14"></lb>teṅ· Añ· śrī yaśovarmmadeva ta svey· vraḥ rājya ta gi <num value="811">811</num> <lb n="S15"></lb>śaka sthāpanā vraḥ kamrateṅ· Añ· śrīndarvarmmeśvara vraḥ jaṁnvan· qnak· paṁre <lb n="S16"></lb>toy· knetta taṁrvac· tai kaṁpit· <num value="1">
+        <p>
+<lb n="S12"/><num value="815">815</num> śaka pañcamī roc· Āṣādha vyar<unclear>·</unclear> Antvaṅ· dikk<unclear>·</unclear> sracti
+<lb n="S13"/>Arddharātra Āy vnek· Ādityavāra Uttarabhadranakṣatra nu dhūlī jeṅ· vraḥ kamra<lb break="no" n="S14"/>teṅ· Añ· śrī yaśovarmmadeva ta svey· vraḥ rājya ta gi <num value="811">811</num>
+<lb n="S15"/>śaka sthāpanā vraḥ kamrateṅ· Añ· śrīndarvarmmeśvara vraḥ jaṁnvan· qnak· paṁre
+<lb n="S16"/>toy· knetta taṁrvac· tai kaṁpit· <num value="1">
             <g type="numeral">I</g>
           </num> rmmāṁ tai laṁvan· <num value="1">
             <g type="numeral">I</g>
@@ -143,7 +148,7 @@
             <g type="numeral">I</g>
           </num> tai ṅāk· <num value="1">
             <g type="numeral">I</g>
-          </num> caṁryyā<lb break="no" n="S17"></lb>ṅ· tai manohara śrī <num value="1">
+          </num> caṁryyā<lb break="no" n="S17"/>ṅ· tai manohara śrī <num value="1">
             <g type="numeral">I</g>
           </num> tai Aṅgaṁ <num value="1">
             <g type="numeral">I</g>
@@ -153,7 +158,8 @@
             <g type="numeral">I</g>
           </num> tai man· <num value="1">
             <g type="numeral">I</g>
-          </num> tai <lb n="S18"></lb>mālikā <num value="1">
+          </num> tai
+<lb n="S18"/>mālikā <num value="1">
             <g type="numeral">I</g>
           </num> tai padma <num value="1">
             <g type="numeral">I</g>
@@ -165,7 +171,8 @@
             <g type="numeral">I</g>
           </num> tai kan·Ū <num value="1">
             <g type="numeral">I</g>
-          </num> tai <lb n="S19"></lb>kliṅ· <num value="1">
+          </num> tai
+<lb n="S19"/>kliṅ· <num value="1">
             <g type="numeral">I</g>
           </num> tai candan· <num value="1">
             <g type="numeral">I</g>
@@ -179,7 +186,8 @@
             <g type="numeral">I</g>
           </num> tai pnvar· <num value="1">
             <g type="numeral">I</g>
-          </num> tai <lb n="S20"></lb>vin· <num value="1">
+          </num> tai
+<lb n="S20"/>vin· <num value="1">
             <g type="numeral">I</g>
           </num> tai van· <num value="1">
             <g type="numeral">I</g>
@@ -191,7 +199,8 @@
             <g type="numeral">I</g>
           </num> tai kānti <num value="1">
             <g type="numeral">I</g>
-          </num> tai <lb n="S21"></lb>sundarī <num value="1">
+          </num> tai
+<lb n="S21"/>sundarī <num value="1">
             <g type="numeral">I</g>
           </num> sī śaśī <num value="1">
             <g type="numeral">I</g>
@@ -203,7 +212,8 @@
             <g type="numeral">I</g>
           </num> tai sān· <num value="1">
             <g type="numeral">I</g>
-          </num> tmiṅ· <lb n="S22"></lb>vīṇa tai svasti <num value="1">
+          </num> tmiṅ·
+<lb n="S22"/>vīṇa tai svasti <num value="1">
             <g type="numeral">I</g>
           </num> tai Amara <num value="1">
             <g type="numeral">I</g>
@@ -213,7 +223,8 @@
             <g type="numeral">I</g>
           </num> tmiṅ· cko tai Utpala <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="S23"></lb>caṁryyāṅ· stutī tai padmā <num value="1">
+          </num>
+<lb n="S23"/>caṁryyāṅ· stutī tai padmā <num value="1">
             <g type="numeral">I</g>
           </num> tai dharaṇī <num value="1">
             <g type="numeral">I</g>
@@ -221,7 +232,8 @@
             <g type="numeral">I</g>
           </num> varī sī can·cān· <num value="1">
             <g type="numeral">I</g>
-          </num> pamek· <lb n="S24"></lb>sī siddhivara <num value="1">
+          </num> pamek·
+<lb n="S24"/>sī siddhivara <num value="1">
             <g type="numeral">I</g>
           </num> cmāṁ pjuḥ sī siddhivara <num value="1">
             <g type="numeral">I</g>
@@ -229,7 +241,8 @@
             <g type="numeral">I</g>
           </num> cmāṁ mās· prak· sī kandhū <num value="1">
             <g type="numeral">I</g>
-          </num> Ābhaṣa gvāl· <lb n="S25"></lb>kanhiṁ <num value="1">
+          </num> Ābhaṣa gvāl·
+<lb n="S25"/>kanhiṁ <num value="1">
             <g type="numeral">I</g>
           </num> tai Ādhya <num value="1">
             <g type="numeral">I</g>
@@ -239,7 +252,8 @@
             <g type="numeral">I</g>
           </num> mālākāra gvāl· kan·As· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="S26"></lb>gvāl· kañcū <num value="1">
+          </num>
+<lb n="S26"/>gvāl· kañcū <num value="1">
             <g type="numeral">I</g>
           </num> tai kan·hyaṅ· <num value="1">
             <g type="numeral">I</g>
@@ -249,7 +263,7 @@
             <g type="numeral">I</g>
           </num> gvāl· vīra <num value="1">
             <g type="numeral">I</g>
-          </num> chattra<lb break="no" n="S27"></lb>dhāra sī kañjā <num value="1">
+          </num> chattra<lb break="no" n="S27"/>dhāra sī kañjā <num value="1">
             <g type="numeral">I</g>
           </num> sī kanteṅ· <num value="1">
             <g type="numeral">I</g>
@@ -257,7 +271,7 @@
             <g type="numeral">I</g>
           </num> lmāṁ vraḥ pitai sī krau <num value="1">
             <g type="numeral">I</g>
-          </num> caṁryyāṅ· śikha<lb break="no" n="S28"></lb>rā gvāl· tgap· <num value="1">
+          </num> caṁryyāṅ· śikha<lb break="no" n="S28"/>rā gvāl· tgap· <num value="1">
             <g type="numeral">I</g>
           </num> gvāl· kaṁsar· <num value="1">
             <g type="numeral">I</g>
@@ -267,13 +281,14 @@
             <g type="numeral">I</g>
           </num> cmāṁ vraḥ vleṅ· sī kaṁpit· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="S29"></lb>cmāṁ kanloṅ· sī kamalabhāva <num value="1">
+          </num>
+<lb n="S29"/>cmāṁ kanloṅ· sī kamalabhāva <num value="1">
             <g type="numeral">I</g>
           </num> pratihāra sī taṅker· <num value="1">
             <g type="numeral">I</g>
           </num> pamos· gvāl· kaṁpit· <num value="1">
             <g type="numeral">I</g>
-          </num> mahā<lb break="no" n="S30"></lb>nasa sī laṁṅāc· <num value="1">
+          </num> mahā<lb break="no" n="S30"/>nasa sī laṁṅāc· <num value="1">
             <g type="numeral">I</g>
           </num> sī kaṁbhān· <num value="1">
             <g type="numeral">I</g>
@@ -285,7 +300,8 @@
             <g type="numeral">I</g>
           </num> sī taṅkū <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="S31"></lb>sī kandhap· <num value="1">
+          </num>
+<lb n="S31"/>sī kandhap· <num value="1">
             <g type="numeral">I</g>
           </num> lap· cnāṅ· <num value="1">
             <g type="numeral">I</g>
@@ -295,7 +311,8 @@
             <g type="numeral">I</g>
           </num> turyya sī cpoṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="S32"></lb>sī kaṁvraḥ <num value="1">
+          </num>
+<lb n="S32"/>sī kaṁvraḥ <num value="1">
             <g type="numeral">I</g>
           </num> sī kñuṁ <num value="1">
             <g type="numeral">I</g>
@@ -305,7 +322,7 @@
             <g type="numeral">I</g>
           </num> vannara sī kañcū <num value="1">
             <g type="numeral">I</g>
-          </num> cmāṁ śālā gvāl· kaṁpa<lb break="no" n="S33"></lb>s· <num value="1">
+          </num> cmāṁ śālā gvāl· kaṁpa<lb break="no" n="S33"/>s· <num value="1">
             <g type="numeral">I</g>
           </num> rmmes· raṅko lap· kañcū <num value="1">
             <g type="numeral">I</g>
@@ -315,7 +332,7 @@
             <g type="numeral">I</g>
           </num> lap· kan·As· <num value="1">
             <g type="numeral">I</g>
-          </num> ma<lb break="no" n="S34"></lb>hāvrīhi tai kaṁpit· <num value="1">
+          </num> ma<lb break="no" n="S34"/>hāvrīhi tai kaṁpit· <num value="1">
             <g type="numeral">I</g>
           </num> sī rat· saṁAp· <num value="1">
             <g type="numeral">I</g>
@@ -323,7 +340,7 @@
             <g type="numeral">I</g>
           </num> tai kaṁvī <num value="1">
             <g type="numeral">I</g>
-          </num> sī pau ka<lb break="no" n="S35"></lb>ñcī <num value="1">
+          </num> sī pau ka<lb break="no" n="S35"/>ñcī <num value="1">
             <g type="numeral">I</g>
           </num> sī rat· caṁĀl· <num value="1">
             <g type="numeral">I</g>
@@ -333,7 +350,7 @@
             <g type="numeral">I</g>
           </num> tai saṁAp· sot· <num value="1">
             <g type="numeral">I</g>
-          </num> tai ka<lb break="no" n="S36"></lb>ñcū <num value="1">
+          </num> tai ka<lb break="no" n="S36"/>ñcū <num value="1">
             <g type="numeral">I</g>
           </num> tai saṁAp· sot· <num value="1">
             <g type="numeral">I</g>
@@ -343,7 +360,8 @@
             <g type="numeral">I</g>
           </num> tai kañjoṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="S37"></lb>tai tkep· <num value="1">
+          </num>
+<lb n="S37"/>tai tkep· <num value="1">
             <g type="numeral">I</g>
           </num> dmuk· varṣā tai vraḥ dharmma <num value="1">
             <g type="numeral">I</g>
@@ -351,7 +369,8 @@
             <g type="numeral">I</g>
           </num> sī rat· Indubhāva <num value="1">
             <g type="numeral">I</g>
-          </num> tai rat· <lb n="S38"></lb>kdeṅ· <num value="1">
+          </num> tai rat·
+<lb n="S38"/>kdeṅ· <num value="1">
             <g type="numeral">I</g>
           </num> lap· śrī ratna <num value="1">
             <g type="numeral">I</g>
@@ -361,7 +380,7 @@
             <g type="numeral">I</g>
           </num> tai kanti I tai kañjuṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> tai ka<lb break="no" n="S39"></lb>nleṅ· <num value="1">
+          </num> tai ka<lb break="no" n="S39"/>nleṅ· <num value="1">
             <g type="numeral">I</g>
           </num> tai krau <num value="1">
             <g type="numeral">I</g>
@@ -375,7 +394,8 @@
             <g type="numeral">I</g>
           </num> tai kan·har· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="S40"></lb>tai tleṁ <num value="1">
+          </num>
+<lb n="S40"/>tai tleṁ <num value="1">
             <g type="numeral">I</g>
           </num> tai kandhī <num value="1">
             <g type="numeral">I</g>
@@ -387,7 +407,8 @@
             <g type="numeral">I</g>
           </num> tai kaṁpit· <num value="1">
             <g type="numeral">I</g>
-          </num> tai pau <lb n="S41"></lb>panheṁ <num value="1">
+          </num> tai pau
+<lb n="S41"/>panheṁ <num value="1">
             <g type="numeral">I</g>
           </num> tai rat· jvik· <num value="1">
             <g type="numeral">I</g>
@@ -399,7 +420,8 @@
             <g type="numeral">I</g>
           </num> tai rat· Umā <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="S42"></lb>tai kaṁpaṅ· <num value="1">
+          </num>
+<lb n="S42"/>tai kaṁpaṅ· <num value="1">
             <g type="numeral">I</g>
           </num> tai kandhuṁ <num value="1">
             <g type="numeral">I</g>
@@ -409,7 +431,8 @@
             <g type="numeral">I</g>
           </num> tai kanlap· <num value="1">
             <g type="numeral">I</g>
-          </num> tai pau <lb n="S43"></lb>panlas· <num value="1">
+          </num> tai pau
+<lb n="S43"/>panlas· <num value="1">
             <g type="numeral">I</g>
           </num> sī rat· kaṁpit· <num value="1">
             <g type="numeral">I</g>
@@ -419,7 +442,8 @@
             <g type="numeral">I</g>
           </num> tai qgat· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="S44"></lb>tai pau <num value="1">
+          </num>
+<lb n="S44"/>tai pau <num value="1">
             <g type="numeral">I</g>
           </num> sī rat· kanteṅ· <num value="1">
             <g type="numeral">I</g>
@@ -429,7 +453,8 @@
             <g type="numeral">I</g>
           </num> sī rucibhāva <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="S45"></lb>sī tmyaṅ· <num value="1">
+          </num>
+<lb n="S45"/>sī tmyaṅ· <num value="1">
             <g type="numeral">I</g>
           </num> tai kaṁvaḥ <num value="1">
             <g type="numeral">I</g>
@@ -439,7 +464,7 @@
             <g type="numeral">I</g>
           </num> tai kanrau <num value="1">
             <g type="numeral">I</g>
-          </num> sī kante<lb break="no" n="S46"></lb>ṅ· <num value="1">
+          </num> sī kante<lb break="no" n="S46"/>ṅ· <num value="1">
             <g type="numeral">I</g>
           </num> tai kan·Aṁ <num value="1">
             <g type="numeral">I</g>
@@ -451,7 +476,8 @@
             <g type="numeral">I</g>
           </num> tai kansoṁ <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="S47"></lb>tai Anāda I tai pau I <g type="circleTarget">.</g> cmāṁ tpal· gho kandai <num value="1">
+          </num>
+<lb n="S47"/>tai Anāda I tai pau I <g type="circleTarget">.</g> cmāṁ tpal· gho kandai <num value="1">
             <g type="numeral">I</g>
           </num> sī candradāsa <num value="1">
             <g type="numeral">I</g>
@@ -459,7 +485,7 @@
             <g type="numeral">I</g>
           </num> lap· cneṁ <num value="1">
             <g type="numeral">I</g>
-          </num> qnak· paṁ<lb break="no" n="S48"></lb>re kloñ· vnaṁ sī caṁdak· vraḥ <num value="1">
+          </num> qnak· paṁ<lb break="no" n="S48"/>re kloñ· vnaṁ sī caṁdak· vraḥ <num value="1">
             <g type="numeral">I</g>
           </num> sī kansoṁ <num value="1">
             <g type="numeral">I</g>
@@ -469,47 +495,56 @@
             <g type="numeral">I</g>
           </num> lap· cak·cok· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="S49"></lb>tai knak· <num value="1">
+          </num>
+<lb n="S49"/>tai knak· <num value="1">
             <g type="numeral">I</g>
           </num> tai rat· pnos· <num value="1">
             <g type="numeral">I</g>
           </num> gvāl· krau <num value="1">
             <g type="numeral">I</g>
-          </num> qnak· paṁre paṁnvas· smiṅ· tai <gap quantity="3" reason="lost" unit="character"></gap> śaśī <num value="1">
+          </num> qnak· paṁre paṁnvas· smiṅ· tai <gap quantity="3" reason="lost" unit="character"/> śaśī <num value="1">
             <g type="numeral">I</g>
-          </num> gvā<lb break="no" n="S50"></lb>l· vrahey· <num value="1">
+          </num> gvā<lb break="no" n="S50"/>l· vrahey· <num value="1">
             <g type="numeral">I</g>
           </num> tai sūlāṁ <num value="1">
             <g type="numeral">I</g>
           </num> gvāl· jvay· <num value="1">
             <g type="numeral">I</g>
-          </num> <gap quantity="13" reason="lost" unit="character"></gap> <num value="1">
+          </num> <gap quantity="13" reason="lost" unit="character"/> <num value="1">
             <g type="numeral">I</g>
-          </num> gvāl· <lb n="S51"></lb>jāṁ <num value="1">
+          </num> gvāl·
+<lb n="S51"/>jāṁ <num value="1">
             <g type="numeral">I</g>
           </num> tai crāy· <num value="1">
             <g type="numeral">I</g>
           </num> gho thvāy <num value="1">
             <g type="numeral">I</g>
-          </num> cralo <supplied reason="lost">qnak· paṁre</supplied> <gap quantity="11" reason="lost" unit="character"></gap> rat· <lb n="S52"></lb><gap quantity="1" reason="lost" unit="character"></gap>y· <num value="1">
+          </num> cralo <supplied reason="lost">qnak· paṁre</supplied> <gap quantity="11" reason="lost" unit="character"/> rat·
+<lb n="S52"/><gap quantity="1" reason="lost" unit="character"/>y· <num value="1">
             <g type="numeral">I</g>
           </num> sī kaṁvis· <num value="1">
             <g type="numeral">I</g>
-          </num> gvāl· kaṁpit· <gap quantity="14" reason="lost" unit="character"></gap> <num value="1">
+          </num> gvāl· kaṁpit· <gap quantity="14" reason="lost" unit="character"/> <num value="1">
             <g type="numeral">I</g>
-          </num> gvāl· <lb n="S53"></lb><gap quantity="3" reason="lost" unit="character"></gap> sot· <num value="1">
+          </num> gvāl·
+<lb n="S53"/><gap quantity="3" reason="lost" unit="character"/> sot· <num value="1">
             <g type="numeral">I</g>
-          </num> tai vra <gap quantity="16" reason="lost" unit="character"></gap> gvāl·</p>
-        <ab><milestone n="N" type="pagelike" unit="item"></milestone><label xml:lang="eng">Northern Doorjamb</label> <lb n="N1"></lb><g type="gomutraInitial">.</g> <g type="dDandaOrn">.</g> śrī siddhi svasti jaya <g type="circle">.</g></ab>
+          </num> tai vra <gap quantity="16" reason="lost" unit="character"/> gvāl·
+</p>
+        <ab><milestone n="N" type="pagelike" unit="item"/><label xml:lang="eng">Northern Doorjamb</label>
+    <lb n="N1"/><g type="gomutraInitial">.</g> <g type="dDandaOrn">.</g> śrī siddhi svasti jaya <g type="circle">.</g>
+</ab>
         <lg met="śārdūlavikrīḍita" n="1" xml:lang="san-Latn">
-          <l n="a">vāṇaikāṣṭa-śake śuceś śitidine ṣaṣṭhe jhaṣārddhaṁ<lb n="N2"></lb> vidhau _</l>
+          <l n="a">vāṇaikāṣṭa-śake śuceś śitidine ṣaṣṭhe jhaṣārddhaṁ<lb n="N2"/> vidhau _</l>
           <l n="b">siṅhañ candra-sute vr̥ṣaṁ sabhr̥guje lagne kulīraṁ ravau _</l>
-          <l n="c">cāpan deva<lb break="no" n="N3"></lb>gurau tulāṁ saravije bhaume gate sthāpitā _</l>
-          <l n="d">gaurīśa-pratimās samaṁ svara<lb break="no" n="N4"></lb>citās tāś śrīyaśovarmmaṇā <g type="dDandaOrn">.</g> <g type="circleTarget">.</g> <g type="dDandaOrn">.</g></l>
+          <l n="c">cāpan deva<lb break="no" n="N3"/>gurau tulāṁ saravije bhaume gate sthāpitā _</l>
+          <l n="d">gaurīśa-pratimās samaṁ svara<lb break="no" n="N4"/>citās tāś śrīyaśovarmmaṇā <g type="dDandaOrn">.</g> <g type="circleTarget">.</g> <g type="dDandaOrn">.</g></l>
         </lg>
-        <p><lb n="N4"></lb>qnak· paṁre toy· rṇnocca rmmāṁ tai cpoṅ· <num value="1">
+        <p>
+<lb n="N4"/>qnak· paṁre toy· rṇnocca rmmāṁ tai cpoṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="N5"></lb>tai kan·hyaṅ· <num value="1">
+          </num>
+<lb n="N5"/>tai kan·hyaṅ· <num value="1">
             <g type="numeral">I</g>
           </num> tai smaṅ· pai <num value="1">
             <g type="numeral">I</g>
@@ -517,7 +552,7 @@
             <g type="numeral">I</g>
           </num> tai māy· qnaḥ <num value="1">
             <g type="numeral">I</g>
-          </num> tai tna<lb break="no" n="N6"></lb>k· <num value="1">
+          </num> tai tna<lb break="no" n="N6"/>k· <num value="1">
             <g type="numeral">I</g>
           </num> tai dharaṇī <num value="1">
             <g type="numeral">I</g>
@@ -531,7 +566,7 @@
             <g type="numeral">I</g>
           </num> tai sumanta <num value="1">
             <g type="numeral">I</g>
-          </num> tai tha<lb break="no" n="N7"></lb>r· <num value="1">
+          </num> tai tha<lb break="no" n="N7"/>r· <num value="1">
             <g type="numeral">I</g>
           </num> tai patiḥ <num value="1">
             <g type="numeral">I</g>
@@ -545,7 +580,8 @@
             <g type="numeral">I</g>
           </num> tai kañ·yas· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="N8"></lb>tai hiraṇ· <num value="1">
+          </num>
+<lb n="N8"/>tai hiraṇ· <num value="1">
             <g type="numeral">I</g>
           </num> tai sukoA· sot· <num value="1">
             <g type="numeral">I</g>
@@ -555,7 +591,8 @@
             <g type="numeral">I</g>
           </num> tmoṅ· tai Aṁdeṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="N9"></lb>tai pansaṁ <num value="1">
+          </num>
+<lb n="N9"/>tai pansaṁ <num value="1">
             <g type="numeral">I</g>
           </num> tai krauñ· <num value="1">
             <g type="numeral">I</g>
@@ -563,7 +600,7 @@
             <g type="numeral">I</g>
           </num> gandharvva tai pnos <num value="1">
             <g type="numeral">I</g>
-          </num> tmiṅ· kinnara tai ratnavā<lb break="no" n="N10"></lb>sa <num value="1">
+          </num> tmiṅ· kinnara tai ratnavā<lb break="no" n="N10"/>sa <num value="1">
             <g type="numeral">I</g>
           </num> tai brāhmaṇī <num value="1">
             <g type="numeral">I</g>
@@ -575,19 +612,20 @@
             <g type="numeral">I</g>
           </num> tai yuṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> tmiṅ· lā<lb break="no" n="N11"></lb>v· tai raṁṅas· <num value="1">
+          </num> tmiṅ· lā<lb break="no" n="N11"/>v· tai raṁṅas· <num value="1">
             <g type="numeral">I</g>
           </num> tmiṅ· trisarī tai kañcan· <num value="1">
             <g type="numeral">I</g>
           </num> caṁryyāṅ· stutī tai ṅāk· <num value="1">
             <g type="numeral">I</g>
-          </num> <g type="circleTarget">.</g> kloñ· <lb n="N12"></lb>sruk· sī śrī <num value="1">
+          </num> <g type="circleTarget">.</g> kloñ·
+<lb n="N12"/>sruk· sī śrī <num value="1">
             <g type="numeral">I</g>
           </num> varī sī somakara <num value="1">
             <g type="numeral">I</g>
           </num> pamek· sī cke kanloṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> cmāṁ pjuḥ sī can·cā<lb break="no" n="N13"></lb>n· <num value="1">
+          </num> cmāṁ pjuḥ sī can·cā<lb break="no" n="N13"/>n· <num value="1">
             <g type="numeral">I</g>
           </num> pīle sī kaṁvaṅ· <num value="1">
             <g type="numeral">I</g>
@@ -597,7 +635,7 @@
             <g type="numeral">I</g>
           </num> tai Aṁdeṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> tai ca<lb break="no" n="N14"></lb>turikā <num value="1">
+          </num> tai ca<lb break="no" n="N14"/>turikā <num value="1">
             <g type="numeral">I</g>
           </num> smañ· gvāl· saṁAp· <num value="1">
             <g type="numeral">I</g>
@@ -605,7 +643,7 @@
             <g type="numeral">I</g>
           </num> gvāl· kan·sat· <num value="1">
             <g type="numeral">I</g>
-          </num> gvāl· śrī<lb break="no" n="N15"></lb>puran· <num value="1">
+          </num> gvāl· śrī<lb break="no" n="N15"/>puran· <num value="1">
             <g type="numeral">I</g>
           </num> tai kanteṅ· <num value="1">
             <g type="numeral">I</g>
@@ -615,7 +653,8 @@
             <g type="numeral">I</g>
           </num> chattradhāra sī kanloñ <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="N16"></lb>sī qdit· <num value="1">
+          </num>
+<lb n="N16"/>sī qdit· <num value="1">
             <g type="numeral">I</g>
           </num> sī padmaruci <num value="1">
             <g type="numeral">I</g>
@@ -623,7 +662,8 @@
             <g type="numeral">I</g>
           </num> caṁryyāṅ· śīkharā gvāl· saṁAp· <num value="1">
             <g type="numeral">I</g>
-          </num> gvāl· <lb n="N17"></lb>Aṁdeṅ· <num value="1">
+          </num> gvāl·
+<lb n="N17"/>Aṁdeṅ· <num value="1">
             <g type="numeral">I</g>
           </num> gandharvva sī kñuṁ <num value="1">
             <g type="numeral">I</g>
@@ -631,7 +671,7 @@
             <g type="numeral">I</g>
           </num> cmāṁ kanloṅ· sī śrī <num value="1">
             <g type="numeral">I</g>
-          </num> pratīhāra sī jñā<lb break="no" n="N18"></lb>nadhara <num value="1">
+          </num> pratīhāra sī jñā<lb break="no" n="N18"/>nadhara <num value="1">
             <g type="numeral">I</g>
           </num> pamos· gvāl· kaṁpañ· <num value="1">
             <g type="numeral">I</g>
@@ -643,7 +683,7 @@
             <g type="numeral">I</g>
           </num> sī śrī <num value="1">
             <g type="numeral">I</g>
-          </num> pattra<lb break="no" n="N19"></lb>kāra sī panlas· <num value="1">
+          </num> pattra<lb break="no" n="N19"/>kāra sī panlas· <num value="1">
             <g type="numeral">I</g>
           </num> sī kañjoṅ· <num value="1">
             <g type="numeral">I</g>
@@ -653,7 +693,7 @@
             <g type="numeral">I</g>
           </num> tai panlas· <num value="1">
             <g type="numeral">I</g>
-          </num> cmāṁ dvār· sī caṁ<lb break="no" n="N20"></lb>lau <num value="1">
+          </num> cmāṁ dvār· sī caṁ<lb break="no" n="N20"/>lau <num value="1">
             <g type="numeral">I</g>
           </num> turyya sī cappi hau <num value="1">
             <g type="numeral">I</g>
@@ -665,7 +705,8 @@
             <g type="numeral">I</g>
           </num> gvāl· kan·sip· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="N21"></lb>vannāra sī kañcū <num value="1">
+          </num>
+<lb n="N21"/>vannāra sī kañcū <num value="1">
             <g type="numeral">I</g>
           </num> cmāṁ śālā gvāl· kanteṅ· <num value="1">
             <g type="numeral">I</g>
@@ -673,7 +714,8 @@
             <g type="numeral">I</g>
           </num> lap· krau <num value="1">
             <g type="numeral">I</g>
-          </num> lap· <lb n="N22"></lb>kaṁpat· <num value="1">
+          </num> lap·
+<lb n="N22"/>kaṁpat· <num value="1">
             <g type="numeral">I</g>
           </num> lap· suketa <num value="1">
             <g type="numeral">I</g>
@@ -683,7 +725,7 @@
             <g type="numeral">I</g>
           </num> tai ksai <num value="1">
             <g type="numeral">I</g>
-          </num> lap· paṁ<lb break="no" n="N23"></lb>ryyāk· <num value="1">
+          </num> lap· paṁ<lb break="no" n="N23"/>ryyāk· <num value="1">
             <g type="numeral">I</g>
           </num> tai kaṁpas· <num value="1">
             <g type="numeral">I</g>
@@ -693,7 +735,7 @@
             <g type="numeral">I</g>
           </num> tai rat· Anāyaka <num value="1">
             <g type="numeral">I</g>
-          </num> tai paṁna<lb break="no" n="N24"></lb>ṅ· <num value="1">
+          </num> tai paṁna<lb break="no" n="N24"/>ṅ· <num value="1">
             <g type="numeral">I</g>
           </num> sī pau saṁAp· <num value="1">
             <g type="numeral">I</g>
@@ -705,7 +747,7 @@
             <g type="numeral">I</g>
           </num> sī rat· kan·sip· <num value="1">
             <g type="numeral">I</g>
-          </num> cmāṁ ha<lb break="no" n="N25"></lb>jaya tai kan·As· <num value="1">
+          </num> cmāṁ ha<lb break="no" n="N25"/>jaya tai kan·As· <num value="1">
             <g type="numeral">I</g>
           </num> tai kañ·yeṅ· <num value="1">
             <g type="numeral">I</g>
@@ -715,7 +757,8 @@
             <g type="numeral">I</g>
           </num> sī pau tge <num value="1">
             <g type="numeral">I</g>
-          </num> lap· <lb n="N26"></lb>kan·Aṁ <num value="1">
+          </num> lap·
+<lb n="N26"/>kan·Aṁ <num value="1">
             <g type="numeral">I</g>
           </num> dmuk· varṣā tai kmau <num value="1">
             <g type="numeral">I</g>
@@ -725,7 +768,8 @@
             <g type="numeral">I</g>
           </num> tai kaṁpas· <num value="1">
             <g type="numeral">I</g>
-          </num> sī rat· <lb n="N27"></lb>kañcañ· <num value="1">
+          </num> sī rat·
+<lb n="N27"/>kañcañ· <num value="1">
             <g type="numeral">I</g>
           </num> tai krau <num value="1">
             <g type="numeral">I</g>
@@ -739,7 +783,8 @@
             <g type="numeral">I</g>
           </num> tai kbuṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="N28"></lb>tai candra <num value="1">
+          </num>
+<lb n="N28"/>tai candra <num value="1">
             <g type="numeral">I</g>
           </num> sī pau śrī <num value="1">
             <g type="numeral">I</g>
@@ -751,7 +796,8 @@
             <g type="numeral">I</g>
           </num> sī rat· kaṁpañ· <num value="1">
             <g type="numeral">I</g>
-          </num> tai <lb n="N29"></lb>kan·Ū <num value="1">
+          </num> tai
+<lb n="N29"/>kan·Ū <num value="1">
             <g type="numeral">I</g>
           </num> tai pau <num value="1">
             <g type="numeral">I</g>
@@ -763,7 +809,7 @@
             <g type="numeral">I</g>
           </num> tai rat· kanteṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> tai kali<lb break="no" n="N30"></lb>ha <num value="1">
+          </num> tai kali<lb break="no" n="N30"/>ha <num value="1">
             <g type="numeral">I</g>
           </num> tai pau laṅgāy· <num value="1">
             <g type="numeral">I</g>
@@ -775,7 +821,7 @@
             <g type="numeral">I</g>
           </num> sī rat· kañ·yeṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> gvā<lb break="no" n="N31"></lb>l· kañjen· <num value="1">
+          </num> gvā<lb break="no" n="N31"/>l· kañjen· <num value="1">
             <g type="numeral">I</g>
           </num> tai kañjū <num value="1">
             <g type="numeral">I</g>
@@ -785,7 +831,8 @@
             <g type="numeral">I</g>
           </num> tai saṁAp· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="N32"></lb>tai kanOn· <num value="1">
+          </num>
+<lb n="N32"/>tai kanOn· <num value="1">
             <g type="numeral">I</g>
           </num> sī pau Antis· <num value="1">
             <g type="numeral">I</g>
@@ -797,7 +844,8 @@
             <g type="numeral">I</g>
           </num> tai kañjā <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="N33"></lb>tai pandan· <num value="1">
+          </num>
+<lb n="N33"/>tai pandan· <num value="1">
             <g type="numeral">I</g>
           </num> sī rat· kañcū <num value="1">
             <g type="numeral">I</g>
@@ -807,7 +855,8 @@
             <g type="numeral">I</g>
           </num> cmāṁ cpar· dvaṅ· tqoṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="N34"></lb>sī kaṁvai <num value="1">
+          </num>
+<lb n="N34"/>sī kaṁvai <num value="1">
             <g type="numeral">I</g>
           </num> tai kanteṅ· <num value="1">
             <g type="numeral">I</g>
@@ -817,7 +866,8 @@
             <g type="numeral">I</g>
           </num> tai kanqū <num value="1">
             <g type="numeral">I</g>
-          </num> lap· <lb n="N35"></lb>kesara <num value="1">
+          </num> lap·
+<lb n="N35"/>kesara <num value="1">
             <g type="numeral">I</g>
           </num> tai kqek· <num value="1">
             <g type="numeral">I</g>
@@ -827,7 +877,8 @@
             <g type="numeral">I</g>
           </num> tai pau vrahey· <num value="1">
             <g type="numeral">I</g>
-          </num> tai <lb n="N36"></lb>kantrī <num value="1">
+          </num> tai
+<lb n="N36"/>kantrī <num value="1">
             <g type="numeral">I</g>
           </num> gvāl· tgap· <num value="1">
             <g type="numeral">I</g>
@@ -837,7 +888,8 @@
             <g type="numeral">I</g>
           </num> cmāṁ tpal· sī sneha <num value="1">
             <g type="numeral">I</g>
-          </num> qnak· paṁre <lb n="N37"></lb>paṁnvas· smiṅ· ghoda yaṅ· <num value="1">
+          </num> qnak· paṁre
+<lb n="N37"/>paṁnvas· smiṅ· ghoda yaṅ· <num value="1">
             <g type="numeral">I</g>
           </num> gvāl· ghoṅ· <num value="1">
             <g type="numeral">I</g>
@@ -845,7 +897,8 @@
             <g type="numeral">I</g>
           </num> tai joṅ· <num value="1">
             <g type="numeral">I</g>
-          </num> gvāl· <lb n="N38"></lb>ñoṅ· <num value="1">
+          </num> gvāl·
+<lb n="N38"/>ñoṅ· <num value="1">
             <g type="numeral">I</g>
           </num> gvāl· kañjes· <num value="1">
             <g type="numeral">I</g>
@@ -855,7 +908,8 @@
             <g type="numeral">I</g>
           </num> gvāl· sarac· <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="N39"></lb>cralo qnak· paṁre gvāl· kaṁpat· <num value="1">
+          </num>
+<lb n="N39"/>cralo qnak· paṁre gvāl· kaṁpat· <num value="1">
             <g type="numeral">I</g>
           </num> sī pitaradāsa <num value="1">
             <g type="numeral">I</g>
@@ -863,7 +917,8 @@
             <g type="numeral">I</g>
           </num> sī jvāda <num value="1">
             <g type="numeral">I</g>
-          </num> <lb n="N40"></lb>gho kansip· <num value="1">
+          </num>
+<lb n="N40"/>gho kansip· <num value="1">
             <g type="numeral">I</g>
           </num> tai saṁAp· <num value="1">
             <g type="numeral">I</g>
@@ -871,17 +926,19 @@
             <g type="numeral">I</g>
           </num> sī rat· <num value="1">
             <g type="numeral">I</g>
-          </num> <g type="circleTarget">.</g> <g type="dDandaOrn">.</g> piṇda sī <num value="35">20 10 5</num> tai <num value="87">80 7</num> <lb n="N41"></lb>gvāl· <num value="20">20</num> lap· <num value="12">10 <g type="numeral">II</g></num> sī rat· <num value="13">10 <g type="numeral">III</g></num> tai rat· <num value="3">
+          </num> <g type="circleTarget">.</g> <g type="dDandaOrn">.</g> piṇda sī <num value="35">20 10 5</num> tai <num value="87">80 7</num>
+<lb n="N41"/>gvāl· <num value="20">20</num> lap· <num value="12">10 <g type="numeral">II</g></num> sī rat· <num value="13">10 <g type="numeral">III</g></num> tai rat· <num value="3">
             <g type="numeral">III</g>
           </num> sī pau <num value="6">
             <g type="numeral">6</g>
           </num> tai pau <num value="7">
             <g type="numeral">7</g>
-          </num> psaṁ <num value="182">100 80<g type="numeral">II</g></num> <g type="circleTarget">.</g></p>
+          </num> psaṁ <num value="182">100 80<g type="numeral">II</g></num> <g type="circleTarget">.</g>
+</p>
         <lg met="upajāti" n="2" xml:lang="san-Latn">
-          <l n="a"><lb n="N42"></lb>asyāsumanto haraṇaṁ haranti _</l>
+          <l n="a"><lb n="N42"/>asyāsumanto haraṇaṁ haranti _</l>
           <l n="b">ye te narendrād iha yātanārhāḥ _</l>
-          <l n="c"><lb n="N43"></lb>yamād amutrāpi ca pālayanti _</l>
+          <l n="c"><lb n="N43"/>yamād amutrāpi ca pālayanti _</l>
           <l n="d">ye yāntu te dhāma śivaṁ śivasya <g type="dDandaOrn">.</g></l>
         </lg>
       </div>
@@ -908,7 +965,7 @@
             <rdg source="bib:Pou2001_01">tūryya</rdg>
           </app>
           <app loc="S34">
-            <lem>mahāvrīhi</lem>
+            <lem> mahāvrīhi</lem>
             <rdg source="bib:Pou2001_01">mahāvrīhī</rdg>
           </app>
           <app loc="S43">
@@ -995,7 +1052,8 @@
         <p n="S47-53"><supplied reason="explanation">Cinquième partie</supplied> Serviteurs du chef du temple : 2 <foreign>sī</foreign>, 3 <foreign>tai</foreign>, 1 <foreign>lap</foreign>, 1 <foreign>tai rat</foreign>, 1 <foreign>gvāl</foreign> ; serviteurs des religieux-officiants : x <foreign>tai</foreign>, y <foreign>gvāl</foreign>, z <foreign>gho</foreign>... ; <foreign>cralo qnak paṃre</foreign> : x <foreign>tai</foreign>, y <foreign>gvāl</foreign>, z <foreign>gho</foreign>...</p>
       </div>
       <div source="bib:Soutif2009_03" type="translation" xml:lang="fra">
-        <p n="N5-40">Serviteurs pour la quinzaine sombre : <list>
+        <p n="N5-40">Serviteurs pour la quinzaine sombre :
+                    <list>
             <item>cette liste ne comporte pas d’inspectrice.</item>
             <item>chanteuses : 20 <foreign>tai</foreign> et non 22.</item>
             <item>joueurs de percussions : 3 <foreign>tai</foreign> et non 3 <foreign>tai</foreign>, 1 <foreign>sī</foreign> ;</item>
@@ -1023,33 +1081,33 @@
       <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
         <p>The Sanskrit part is first edited by Abel Bergaigne (<bibl rend="omitname">
-            <ptr target="bib:Bergaigne1893_01"></ptr>
+            <ptr target="bib:Bergaigne1893_01"/>
             <citedRange unit="page">319</citedRange>
           </bibl>) with a French translation; reedited by Kamaleswar Bhattacharya (<bibl rend="omitname">
-            <ptr target="bib:Bhattacharya2009_01"></ptr>
+            <ptr target="bib:Bhattacharya2009_01"/>
             <citedRange unit="page">69-75</citedRange>
           </bibl>) with an English translation of the preliminary benedictory formula and the 9 verses. The Khmer part is first edited by Saveros Pou (<bibl rend="omitname">
-            <ptr target="bib:Pou2001_01"></ptr>
+            <ptr target="bib:Pou2001_01"/>
             <citedRange unit="page">62</citedRange>
           </bibl>) with a French translation of only the Southern doorjamb; reedited by Dominique Soutif (<bibl rend="omitname">
-            <ptr target="bib:Soutif2009_03"></ptr>
+            <ptr target="bib:Soutif2009_03"/>
             <citedRange unit="page">473-477</citedRange>
           </bibl>) with a French translation of both of the doorjambs.</p>
         <listBibl type="primary">
           <bibl n="KB">
-            <ptr target="bib:Bhattacharya2009_01"></ptr>
+            <ptr target="bib:Bhattacharya2009_01"/>
             <citedRange unit="page">69-75</citedRange>
           </bibl>
           <bibl n="DS">
-            <ptr target="bib:Soutif2009_03"></ptr>
+            <ptr target="bib:Soutif2009_03"/>
             <citedRange unit="page">473-477</citedRange>
           </bibl>
           <bibl n="SP">
-            <ptr target="bib:Pou2001_01"></ptr>
+            <ptr target="bib:Pou2001_01"/>
             <citedRange unit="page">62</citedRange>
           </bibl>
           <bibl n="AB">
-            <ptr target="bib:Bergaigne1893_01"></ptr>
+            <ptr target="bib:Bergaigne1893_01"/>
             <citedRange unit="page">319</citedRange>
           </bibl>
         </listBibl>
