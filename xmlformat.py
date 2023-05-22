@@ -34,14 +34,14 @@ __version__ = "0.2.4"
 
 DEFAULT_BLANKS = False
 DEFAULT_COMPRESS = False
-DEFAULT_SELFCLOSE = False
-DEFAULT_CORRECT = True
+DEFAULT_SELFCLOSE = True
+DEFAULT_CORRECT = False
 DEFAULT_INDENT = 2
 DEFAULT_INDENT_CHAR = " "
 DEFAULT_INLINE = True
 DEFAULT_ENCODING_INPUT = None
 DEFAULT_ENCODING_OUTPUT = None
-DEFAULT_EOF_NEWLINE = False
+DEFAULT_EOF_NEWLINE = True
 
 
 class Formatter:
@@ -895,8 +895,6 @@ def cli():
     except:
         cli_usage("Unkonwn error")
 
-    if res:
-        res += b"\n"
     if overwrite:
         formatter.enc_output(input_file, res)
     else:

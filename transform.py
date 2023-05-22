@@ -13,7 +13,7 @@ Share code or not? Are schemas different enough to warrant distinct parsers?
 """
 
 import sys, re, io
-from tree import *
+from dharma.tree import *
 
 class Parser:
 	# drop: drop all spaces until we find some text

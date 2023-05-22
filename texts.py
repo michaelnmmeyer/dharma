@@ -7,6 +7,8 @@ from cleanup import cleanup_file
 def complain(s):
 	print(f"BUG: {s}", file=sys.stderr)
 
+files_to_ignore = {"DHARMA_BestAuthorities.xml"}
+
 def iter_texts_in_repo(name):
 	path = os.path.join("repos", name)
 	for root, dirs, files in os.walk(path):
@@ -33,6 +35,8 @@ def iter_texts_in_repo(name):
 			if file.startswith("DHARMA_mdt"):
 				continue
 			if "template" in file.lower():
+				continue
+			if file in files_to_ignore:
 				continue
 			yield os.path.join(root, file)
 
