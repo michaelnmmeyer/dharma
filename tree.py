@@ -83,7 +83,7 @@ class Node(object):
 		if not match:
 			raise Error("expect %r to have a child node %s" % (self, name))
 		return match
-	
+
 	def location(self):
 		path = self.tree.path or "<none>"
 		line = self.line is None and "?" or self.line

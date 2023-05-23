@@ -24,8 +24,6 @@ def dispatch(p, node):
 	except Error as e:
 		complain(p, e)
 		return # could try to recover, better bail for now
-	for kid in node:
-		dispatch(p, kid)
 
 class Parser:
 	# drop: drop all spaces until we find some text
@@ -86,7 +84,7 @@ def process_lemma(p, lemma):
 def process_apparatus(p, app):
 	for elem in app:
 		if elem.name == "lem":
-			lemma(p, elem)
+			process_lemma(p, elem)
 
 def process_num(p, num):
 	for elem in num:
@@ -161,7 +159,7 @@ def process_p(p, para):
 def process_div(p, div):
 	t = div["type"]
 	assert t in ("edition", "apparatus", "translation", "commentary", "bibliography")
-	print("<div")
+	emit(p, "<div")
 	for elem in div:
 		dispatch(p, elem)
 	emit(p, ">div", t)
@@ -178,7 +176,7 @@ def process_text(p, node):
 def process_TEI(p, node):
 	# ignore the header for now
 	dispatch(p, node.child("text"))
-		
+
 for name, obj in copy.copy(globals()).items():
 	if not name.startswith("process_"):
 		continue
