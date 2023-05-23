@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
 
 # XXX apparently possible to annotate nodes in relaxng with java code; can we
-# also do that with python?
+# also do that with python? relaxng has a shorthand for documentation
+# annotations: it interprets lines starting with '##' as documentation and
+# outputs it in the generated XML. we can use that.
+#
+# or we can generate the code from an ODD file. or better yet, we can generate
+# the ODD file from the code. in this case should annotate functions
+# appropriately and have some predefined routines that can be mapped easily to
+# ODD elements for the things that ODD can actually validate. look at what ODD
+# can actually represent and adjust.
 
 import sys, re, io, copy
 from dharma.tree import *
