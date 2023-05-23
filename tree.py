@@ -55,8 +55,8 @@ class Node(object):
 	prev = None
 	left = None
 	right = None
-	space = "default"
-	lang = "eng"
+	space = "default"	# xml:space
+	lang = ("eng", "Latn")	# xml:lang
 
 	def find(self, name):
 		if not isinstance(self, Tag):
@@ -220,7 +220,14 @@ class Tree(list, Node):
 def patch_tree(tree):
 	def patch_node(node, lang, space):
 		if node.type == "tag":
-			lang = node.get("xml:lang", lang)
+			have = node.get("xml:lang")
+			if have:
+				fields = have.split("-")
+				assert 1 <= len(fields) <= 2
+				if len(fields) == 1:
+					lang = (fields[0], None)
+				else:
+					lang = tuple(fields)	
 			space = node.get("xml:space", space)
 			for child in node:
 				patch_node(child, lang, space)

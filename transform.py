@@ -10,6 +10,13 @@
 # appropriately and have some predefined routines that can be mapped easily to
 # ODD elements for the things that ODD can actually validate. look at what ODD
 # can actually represent and adjust.
+#
+# in any case, should have both the schema and the processing code in the same
+# file, so that we don't have to do checks several times.
+#
+# the only useful use of ODD/rng is help screens and autocompletion in oXygen
+# and co. how does it work exactly? context-sensitive or not? yes it is, more
+# complicated for us.
 
 import sys, re, io, copy
 from dharma.tree import *
@@ -31,7 +38,6 @@ def dispatch(p, node):
 		f(p, node)
 	except Error as e:
 		complain(p, e)
-		return # could try to recover, better bail for now
 
 class Parser:
 	# drop: drop all spaces until we find some text
@@ -48,8 +54,8 @@ def normalize_space(s):
 	s = s.strip()
 	return re.sub(r"\s+", " ", s)
 
-def complain(p, elem):
-	print("? %r" % elem)
+def complain(p, msg):
+	print("? %s" % msg)
 
 def emit(p, t, data=None, params={}):
 	write = sys.stdout.write
