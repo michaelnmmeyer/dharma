@@ -37,6 +37,14 @@ class Error(Exception):
 		problem.append(cursor)
 		return "\n".join(problem)
 
+# Node types are: Tag, Comment, String, Instruction, Tree. Tree is not really a
+# node, but we define it as one nonetheless because we want it to have the same
+# basic methods. Tree is the XML document proper: it holds processing
+# instructions, the root node, and comments that appear outside of the root
+# node. The only reason we need it is precisely so that we can keep track of
+# everything that is outside the document's root (in particular processing
+# instructions) and can thus reproduce it in full, including comments.
+
 class Node(object):
 	type = None
 	parent = None
