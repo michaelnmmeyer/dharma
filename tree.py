@@ -70,6 +70,20 @@ class Node(object):
 			if match:
 				return match
 
+	def child(self, name):
+		if not isinstance(self, Tag):
+			raise Exception("bad internal call")
+		match = None
+		for node in self:
+			if not isinstance(node, Tag):
+				continue
+			if node.name == name:
+				assert not match
+				match = node
+		if not match:
+			raise Error("expect %r to have a child node %s" % (self, name))
+		return match
+	
 	def location(self):
 		path = self.tree.path or "<none>"
 		line = self.line is None and "?" or self.line

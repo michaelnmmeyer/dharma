@@ -1,33 +1,31 @@
 #!/usr/bin/env python3
 
-import sys, re, io
+# XXX apparently possible to annotate nodes in relaxng with java code; can we
+# also do that with python?
+
+import sys, re, io, copy
 from dharma.tree import *
 
-"""
+HANDLERS = {} # we fill this below
 
-must use a common dispatch function. call it explicitly within handlers, or use
-it in a main loop? the second solution is more economic, but then we're screwed
-if we want to take different paths depending on the current node.
-
-call(p, node):
+def dispatch(p, node):
+	if node.type == "comment" or node.type == "instruction":
+		return
 	if node.type == "string":
-		emit text
-	elif node.type == "tag":
-		h = handlers.get(node.name)
-		if not h:
-			complain("no handler for node")
-		else:
-			try:
-				h()
-			except Error as e:
-				complain(e)
-				# and pursue or not?
-
-
-if node the function finds the appropriate handler for the
-
-
-"""
+		emit(p, "text", node)
+		return
+	assert node.type == "tag"
+	f = HANDLERS.get(node.name)
+	if not f:
+		complain(p, "no handler for %r, ignoring it" % node)
+		return
+	try:
+		f(p, node)
+	except Error as e:
+		complain(p, e)
+		return # could try to recover, better bail for now
+	for kid in node:
+		dispatch(p, kid)
 
 class Parser:
 	# drop: drop all spaces until we find some text
@@ -44,7 +42,7 @@ def normalize_space(s):
 	s = s.strip()
 	return re.sub(r"\s+", " ", s)
 
-def complain(elem):
+def complain(p, elem):
 	print("? %r" % elem)
 
 def emit(p, t, data=None, params={}):
@@ -92,26 +90,11 @@ def process_apparatus(p, app):
 
 def process_num(p, num):
 	for elem in num:
-		if elem.type == "comment":
-			pass
-		elif elem.type == "string":
-			emit(p, "text", elem)
-		elif elem.name == "g":
-			assert elem.string
-			emit(p, "text", elem.string)
-		else:
-			complain(elem)
+		dispatch(p, elem)
 
 def process_supplied(p, supplied):
 	for elem in supplied:
-		if elem.type == "comment":
-			pass
-		elif elem.type == "string":
-			emit(p, "text", elem)
-		elif elem.name == "num":
-			process_num(p, elem)
-		else:
-			complain(elem)
+		dispatch(p, elem)
 
 def process_milestone(p, milestone):
 	assert "n" in milestone.attrs
@@ -166,31 +149,13 @@ def process_g(p, node):
 		fail()
 	emit(p, "symbol", f"{gtype}.{stype}")
 
+def process_unclear(p, node):
+	emit(p, "text", node.text()) # XXX children?
+
 def process_p(p, para):
 	emit(p, "<para")
 	for elem in para:
-		if elem.type == "comment":
-			pass
-		elif elem.type == "string":
-			emit(p, "text", elem)
-		elif elem.name == "lb":
-			process_lb(p, elem)
-		elif elem.name == "pb":
-			process_pb(p, elem)
-		elif elem.name == "milestone":
-			process_milestone(p, elem)
-		elif elem.name == "num":
-			process_num(p, elem)
-		elif elem.name == "app":
-			process_apparatus(p, elem)
-		elif elem.name == "unclear":
-			emit(p, "text", elem.text()) # XXX children?
-		elif elem.name == "supplied":
-			process_supplied(p, elem)
-		elif elem.name == "g":
-			process_g(p, elem)
-		else:
-			complain(elem)
+		dispatch(p, elem)
 	emit(p, ">para")
 
 def process_div(p, div):
@@ -198,37 +163,30 @@ def process_div(p, div):
 	assert t in ("edition", "apparatus", "translation", "commentary", "bibliography")
 	print("<div")
 	for elem in div:
-		if elem.type == "comment":
-			pass
-		elif elem.type == "string":
-			assert not elem.strip(), "%r" % elem
-			emit(p, "text", " ")
-		elif elem.name == "p":
-			process_p(p, elem)
-		else:
-			complain(elem)
+		dispatch(p, elem)
 	emit(p, ">div", t)
 
-def process_body(p, root):
+def process_body(p, node):
 	print("<body")
-	body = tree.find("body")
-	assert body
-	for elem in body:
-		if elem.type == "comment":
-			pass
-		elif elem.type == "string":
-			assert not elem.strip(), "%r" % elem
-			emit(p, "text", " ")
-		elif elem.name == "div":
-			process_div(p, elem)
-		elif elem.name == "p":
-			process_p(p, elem)
-		else:
-			assert 0, "%r" % elem
+	for elem in node:
+		dispatch(p, elem)
 	emit(p, ">body")
+
+def process_text(p, node):
+	dispatch(p, node.child("body"))
+
+def process_TEI(p, node):
+	# ignore the header for now
+	dispatch(p, node.child("text"))
+		
+for name, obj in copy.copy(globals()).items():
+	if not name.startswith("process_"):
+		continue
+	name = name.removeprefix("process_")
+	HANDLERS[name] = obj
 
 if __name__ == "__main__":
 	tree = parse(sys.argv[1])
 	p = Parser()
 	p.tree = parse(sys.argv[1])
-	process_body(p, p.tree.root)
+	dispatch(p, p.tree.root)
