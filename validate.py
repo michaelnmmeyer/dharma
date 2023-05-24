@@ -3,6 +3,19 @@
 # XXX too slow to call jing for each file! perform just one call for each
 # distinct schema and pass several files
 
+"""
+The following should be ignored when inferring the rng schema:
+
+texts/DHARMA_CritEdJatiMula.xml
+texts/DHARMA_INSIDENKKurungan.xml
+texts/DHARMA_INSIDENKMunggut.xml
+texts/DHARMA_INSIDENKTajiGunung.xml
+texts/DHARMA_INSSII04.xml
+texts/DHARMA_INSSII01.xml
+texts/DHARMA_INSSII02.xml
+texts/DHARMA_INSSII03.xml
+"""
+
 
 # We have 4 schemas for 4 types of texts:
 # * Inscriptions (INSSchema -> latest/Schema)
