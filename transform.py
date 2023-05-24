@@ -14,7 +14,7 @@ def dispatch(p, node):
 	if node.type == "comment" or node.type == "instruction":
 		return
 	if node.type == "string":
-		emit(p, "text", node)
+		emit(p, "text", node, {"lang": node.lang})
 		return
 	assert node.type == "tag"
 	f = HANDLERS.get(node.name)
@@ -68,11 +68,14 @@ def emit(p, t, data=None, params={}):
 			p.space = "seen"
 		data = normalize_space(data)
 		if data:
-			print("%s %r" % (t, data))
+			write("%s %r" % (t, data))
+			for k, v in sorted(params.items()):
+				write(" :%s %r" % (k, v))
+			write("\n")
 	elif data is not None:
 		write("%s %r" % (t, data))
 		for k, v in sorted(params.items()):
-			write(" %s %r" % (k, v))
+			write(" :%s %r" % (k, v))
 		write("\n")
 	else:
 		print(t)
@@ -105,18 +108,27 @@ def process_milestone(p, milestone):
 def process_lb(p, elem):
 	brk = "yes"
 	n = None
+	# On alignement, EGD §7.5.2
+	align = "left" # assumption
+	if not "n" in elem.attrs:
+		raise Error(node, "attribute @n is required")
 	for attr, val in elem.attrs.items():
 		if attr == "n":
 			n = val
 		elif attr == "break":
+			if brk not in ("yes", "no"):
+				raise Error(node, "bad value for @break")
 			brk = val
+		elif attr == "style":
+			m = re.match(r"^text-align:\s*(right|center|left|justify)\s*$", val)
+			if not m:
+				raise Error(node, "bad value for @style")
+			align = m.group(1)
 		else:
 			assert 0, elem
-	assert n
-	assert brk in ("yes", "no")
 	if brk == "yes":
 		emit(p, "text", "\n")
-	emit(p, "line", n)
+	emit(p, "line", n, {"align": align})
 	p.space = "drop"
 
 def process_pb(p, elem):

@@ -17,6 +17,8 @@ attribute_tbl = str.maketrans({
 	"&": "&amp;",
 })
 
+IDS_MAP = {}
+
 # We don't use xml.sax.saxutils.quoteattr because it tries to use ' as
 # demilitor.
 def quote_attribute(s):
@@ -81,7 +83,7 @@ class Node(object):
 				assert not match
 				match = node
 		if not match:
-			raise Error("expect %r to have a child node %s" % (self, name))
+			raise Error("expected %r to have a child node %s" % (self, name))
 		return match
 
 	def location(self):
@@ -216,7 +218,7 @@ class Tree(list, Node):
 	def find(self, name):
 		return self.root.find(name)
 
-# For inheritable props
+# For inheritable props (xml:lang, xml:space) and xml:id
 def patch_tree(tree):
 	def patch_node(node, lang, space):
 		if node.type == "tag":
@@ -230,6 +232,19 @@ def patch_tree(tree):
 			space = node.get("xml:space", space)
 			for child in node:
 				patch_node(child, lang, space)
+			id = node.get("xml:id")
+			if id:
+				have = IDS_MAP.get(id)
+				if have:
+					# XXX not really reliable
+					if have.tree.path == node.tree.path and \
+						have.line == node.line and \
+						have.column == node.column:
+						pass
+					else:
+						raise Error(node, "duplicated id (also found in %r)" % have)
+				else:
+					IDS_MAP[id] = node
 		node.lang = lang
 		node.space = space
 	patch_node(tree.root, tree.lang, tree.space)
