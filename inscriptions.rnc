@@ -1,0 +1,1143 @@
+default namespace = ""
+namespace ns1 = "http://www.tei-c.org/ns/1.0"
+
+start =
+  element doc {
+    (text
+     | em
+     | lb
+     | pb
+     | table
+     | element h0 { text }
+     | element h1 { (text | em | i | lb | pb | ref)+ }
+     | element h2 { (text | i | lb | pb)+ }
+     | element h3 { (text | de | em | i | lb | pb | ref)+ }
+     | element hi {
+         (text | ch | de | em | gr | i | lb | pb | ref | ta)+
+       }
+     | element lg {
+         element l { de }+
+       }
+     | element p {
+         (text
+          | ch
+          | de
+          | em
+          | gr
+          | i
+          | ins
+          | lb
+          | pb
+          | ref
+          | ta
+          | table
+          | element greek { text })+
+       })+
+  }
+  | element ns1:TEI {
+      attribute xml:id { xsd:NCName }?,
+      attribute xml:lang { xsd:NCName }?,
+      attribute xml:space { xsd:NCName }?,
+      element ns1:teiHeader {
+        attribute xml:lang { xsd:NCName }?,
+        element ns1:fileDesc {
+          ns1.titleStmt,
+          ns1.editionStmt?,
+          ns1.publicationStmt,
+          element ns1:sourceDesc {
+            (ns1.bibl | ns1.p)?,
+            element ns1:biblFull {
+              ns1.titleStmt, ns1.editionStmt, ns1.publicationStmt
+            }?,
+            element ns1:msDesc {
+              element ns1:msIdentifier {
+                ns1.repository,
+                ns1.idno,
+                element ns1:altIdentifier {
+                  attribute type { xsd:NCName },
+                  element ns1:settlement { text }?,
+                  (ns1.repository
+                   | element ns1:institution { xsd:NCName })?,
+                  ns1.idno,
+                  ns1.note?
+                }*
+              },
+              element ns1:msContents { ns1.summary }?,
+              element ns1:physDesc {
+                (ns1.ab
+                 | element ns1:objectDesc {
+                     element ns1:supportDesc {
+                       element ns1:support { ns1.p }
+                     },
+                     element ns1:layoutDesc {
+                       element ns1:layout { (text | ns1.p)+ }
+                     }
+                   })?,
+                element ns1:handDesc {
+                  ns1.summary?,
+                  element ns1:handNote {
+                    attribute xml:id { xsd:NCName }?,
+                    (text | ns1.foreign | ns1.supplied)+
+                  }*,
+                  ns1.ab?,
+                  ns1.p*
+                }?,
+                element ns1:decoDesc {
+                  element ns1:decoNote { text }
+                }?
+              }?,
+              element ns1:history {
+                element ns1:origin {
+                  element ns1:origDate {
+                    attribute notAfter { xsd:integer },
+                    attribute notBefore { xsd:integer },
+                    text
+                  }
+                },
+                element ns1:provenance {
+                  attribute type { xsd:NCName },
+                  (ns1.date | ns1.p)
+                }+
+              }?
+            }?
+          }
+        },
+        element ns1:profileDesc {
+          element ns1:langUsage {
+            element ns1:language {
+              attribute ident { xsd:NCName },
+              xsd:NCName
+            }+
+          }
+        }?,
+        element ns1:encodingDesc {
+          element ns1:projectDesc { ns1.p },
+          element ns1:schemaRef {
+            attribute key { xsd:NCName },
+            attribute type { xsd:NCName },
+            attribute url { xsd:anyURI }
+          },
+          element ns1:listPrefixDef {
+            element ns1:prefixDef {
+              attribute ident { xsd:NCName },
+              attribute matchPattern { text },
+              attribute replacementPattern { xsd:anyURI },
+              ns1.p
+            }+
+          },
+          element ns1:tagsDecl {
+            attribute partial { xsd:boolean },
+            element ns1:rendition {
+              attribute scheme { xsd:NCName },
+              attribute xml:id { xsd:NCName },
+              text
+            }+
+          }?
+        }*,
+        element ns1:revisionDesc {
+          element ns1:change {
+            attribute status { xsd:NCName }?,
+            attribute when { xsd:NMTOKEN },
+            attribute who { xsd:anyURI },
+            text
+          }+
+        }?
+      },
+      element ns1:facsimile {
+        element ns1:graphic {
+          attribute n { xsd:integer }?,
+          attribute url { xsd:anyURI },
+          attribute xml:id { xsd:NCName }?,
+          ns1.desc?
+        }+
+      }?,
+      element ns1:text {
+        attribute xml:space { xsd:NCName }?,
+        element ns1:body { ns1.div+ }
+      }
+    }
+ns1.titleStmt =
+  element ns1:titleStmt {
+    (text
+     | ns1.author
+     | ns1.respStmt
+     | ns1.title
+     | element ns1:editor {
+         attribute role { xsd:NCName }?,
+         (text | ns1.persName)+
+       }
+     | element ns1:principal { ns1.persName })+
+  }
+ns1.editionStmt =
+  element ns1:editionStmt {
+    ns1.p
+    | (element ns1:edition { text },
+       ns1.respStmt+)
+  }
+ns1.publicationStmt =
+  element ns1:publicationStmt {
+    element ns1:authority { (text | ns1.note)+ },
+    ns1.pubPlace*,
+    ns1.idno,
+    element ns1:availability {
+      element ns1:licence {
+        attribute target { xsd:anyURI },
+        ns1.p+
+      }
+    }?,
+    ns1.date?
+  }
+ns1.bibl =
+  element ns1:bibl {
+    attribute n { text }?,
+    attribute rend { xsd:NCName }?,
+    (text
+     | ns1.author
+     | ns1.bibl
+     | ns1.date
+     | ns1.foreign
+     | ns1.hi
+     | ns1.note
+     | ns1.ptr
+     | ns1.pubPlace
+     | ns1.ref
+     | ns1.seg
+     | ns1.title
+     | element ns1:biblScope { text }
+     | element ns1:citedRange {
+         attribute unit { xsd:NCName }?,
+         (text | ns1.foreign | ns1.supplied)+
+       }
+     | element ns1:publisher { text })+
+  }
+ns1.p =
+  element ns1:p {
+    attribute corresp { text }?,
+    attribute n { text }?,
+    attribute part { xsd:NCName }?,
+    attribute rend { xsd:NCName }?,
+    attribute xml:lang { xsd:NCName }?,
+    (text
+     | ns1.abbr
+     | ns1.add
+     | ns1.bibl
+     | ns1.certainty
+     | ns1.choice
+     | ns1.cit
+     | ns1.corr
+     | ns1.damage
+     | ns1.date
+     | ns1.del
+     | ns1.foreign
+     | ns1.fw
+     | ns1.g
+     | ns1.gap
+     | ns1.handShift
+     | ns1.hi
+     | ns1.l
+     | ns1.label
+     | ns1.lb
+     | ns1.lg
+     | ns1.list
+     | ns1.measure
+     | ns1.milestone
+     | ns1.name
+     | ns1.note
+     | ns1.num
+     | ns1.orig
+     | ns1.pb
+     | ns1.persName
+     | ns1.placeName
+     | ns1.ptr
+     | ns1.q
+     | ns1.quote
+     | ns1.ref
+     | ns1.reg
+     | ns1.roleName
+     | ns1.rs
+     | ns1.s
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.subst
+     | ns1.supplied
+     | ns1.surname
+     | ns1.surplus
+     | ns1.title
+     | ns1.unclear
+     | element ns1:code { xsd:NCName }
+     | element ns1:dimensions {
+         element ns1:width {
+           attribute unit { xsd:NCName },
+           xsd:integer
+         },
+         element ns1:height {
+           attribute unit { xsd:NCName },
+           xsd:integer
+         },
+         element ns1:depth {
+           attribute unit { xsd:NCName },
+           xsd:integer
+         }
+       }
+     | element ns1:gi { xsd:NCName }
+     | element ns1:material { text }
+     | element ns1:objectType { xsd:NCName }
+     | element ns1:stage {
+         attribute rend { xsd:NCName },
+         xsd:NCName
+       }
+     | element ns1:term {
+         (text
+          | ns1.add
+          | ns1.gap
+          | ns1.milestone
+          | ns1.space
+          | ns1.supplied
+          | ns1.unclear)+
+       }
+     | element ns1:unit { xsd:NCName })+
+  }
+ns1.repository = element ns1:repository { text }
+ns1.idno =
+  element ns1:idno {
+    attribute type { xsd:NCName }?,
+    text
+  }
+ns1.note =
+  element ns1:note {
+    attribute resp { xsd:NMTOKEN }?,
+    attribute source { xsd:anyURI }?,
+    attribute target { text }?,
+    attribute type { xsd:NCName }?,
+    (text
+     | ns1.add
+     | ns1.bibl
+     | ns1.choice
+     | ns1.cit
+     | ns1.foreign
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.list
+     | ns1.milestone
+     | ns1.note
+     | ns1.num
+     | ns1.p
+     | ns1.placeName
+     | ns1.ptr
+     | ns1.q
+     | ns1.quote
+     | ns1.ref
+     | ns1.seg
+     | ns1.sic
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.title
+     | ns1.unclear)+
+  }
+ns1.summary =
+  element ns1:summary {
+    (text
+     | ns1.foreign
+     | ns1.gap
+     | ns1.hi
+     | ns1.p
+     | ns1.ref
+     | ns1.supplied)+
+  }
+ns1.ab =
+  element ns1:ab {
+    attribute n { text }?,
+    attribute part { xsd:NCName }?,
+    attribute rend { xsd:NCName }?,
+    attribute xml:id { xsd:NCName }?,
+    attribute xml:lang { text }?,
+    (text
+     | ns1.abbr
+     | ns1.add
+     | ns1.choice
+     | ns1.del
+     | ns1.foreign
+     | ns1.fw
+     | ns1.g
+     | ns1.gap
+     | ns1.handShift
+     | ns1.hi
+     | ns1.label
+     | ns1.lb
+     | ns1.lg
+     | ns1.milestone
+     | ns1.note
+     | ns1.num
+     | ns1.orig
+     | ns1.pb
+     | ns1.persName
+     | ns1.placeName
+     | ns1.reg
+     | ns1.roleName
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.subst
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear
+     | element ns1:expan {
+         ns1.abbr,
+         element ns1:ex { xsd:NCName }
+       })+
+  }
+ns1.foreign =
+  element ns1:foreign {
+    attribute xml:lang { xsd:NCName }?,
+    (text
+     | ns1.abbr
+     | ns1.add
+     | ns1.choice
+     | ns1.del
+     | ns1.foreign
+     | ns1.fw
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.milestone
+     | ns1.name
+     | ns1.note
+     | ns1.num
+     | ns1.orig
+     | ns1.pb
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.subst
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.supplied =
+  element ns1:supplied {
+    attribute cert { xsd:NCName }?,
+    attribute evidence { xsd:NCName }?,
+    attribute reason { xsd:NCName }?,
+    (text
+     | ns1.abbr
+     | ns1.bibl
+     | ns1.choice
+     | ns1.corr
+     | ns1.foreign
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.milestone
+     | ns1.note
+     | ns1.num
+     | ns1.persName
+     | ns1.placeName
+     | ns1.q
+     | ns1.quote
+     | ns1.ref
+     | ns1.roleName
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.supplied
+     | ns1.title
+     | ns1.unclear)+
+  }
+ns1.date =
+  element ns1:date {
+    attribute calendar { xsd:NMTOKEN }?,
+    attribute datingMethod { xsd:NMTOKEN }?,
+    attribute from { xsd:integer }?,
+    attribute notAfter-custom { xsd:integer }?,
+    attribute notBefore-custom { xsd:integer }?,
+    attribute to { xsd:integer }?,
+    attribute when { xsd:date }?,
+    attribute when-custom { xsd:integer }?,
+    (text
+     | ns1.abbr
+     | ns1.choice
+     | ns1.lb
+     | ns1.num
+     | ns1.rs
+     | ns1.surplus)+
+  }
+ns1.desc =
+  element ns1:desc { (text | ns1.bibl | ns1.foreign | ns1.ptr)+ }
+ns1.div =
+  element ns1:div {
+    attribute n { text }?,
+    attribute rend { xsd:NCName }?,
+    attribute rendition { text }?,
+    attribute resp { xsd:anyURI }?,
+    attribute source { xsd:anyURI }?,
+    attribute subtype { xsd:NCName }?,
+    attribute type { xsd:NCName }?,
+    attribute xml:id { xsd:NCName }?,
+    attribute xml:lang { text }?,
+    attribute xml:space { xsd:NCName }?,
+    (text
+     | ns1.ab
+     | ns1.app
+     | ns1.bibl
+     | ns1.div
+     | ns1.fw
+     | ns1.gap
+     | ns1.label
+     | ns1.lb
+     | ns1.lg
+     | ns1.list
+     | ns1.listApp
+     | ns1.listBibl
+     | ns1.milestone
+     | ns1.note
+     | ns1.p
+     | ns1.pb
+     | ns1.quote
+     | ns1.space
+     | element ns1:head {
+         attribute xml:lang { xsd:NCName }?,
+         (text
+          | ns1.choice
+          | ns1.foreign
+          | ns1.hi
+          | ns1.lb
+          | ns1.note
+          | ns1.num
+          | ns1.pb
+          | ns1.unclear)+
+       }
+     | element ns1:table {
+         element ns1:row {
+           element ns1:cell {
+             attribute rows { xsd:integer }?,
+             (text
+              | ns1.hi
+              | ns1.lb
+              | ns1.lg
+              | ns1.note
+              | ns1.p
+              | ns1.pb
+              | ns1.s
+              | ns1.unclear)+
+           }+
+         }+
+       })+
+  }
+de = element de { (text | ch | lb | ref | ta)+ }
+ref =
+  element ref {
+    attribute t { xsd:NMTOKEN }
+  }
+pb =
+  element pb {
+    attribute n { xsd:NMTOKEN }
+  }
+ch = element ch { empty }
+lb =
+  element lb {
+    attribute break { xsd:NCName }?
+  }
+em = element em { (text | ch | i | lb | pb | ref)+ }
+i = element i { (text | em | lb | pb | ref)+ }
+gr = element gr { (text | ch | lb | ref)+ }
+ta = element ta { (text | ch | lb | pb | ref)+ }
+table =
+  element table {
+    attribute n { xsd:NMTOKEN },
+    ins
+  }
+ins = element ins { text }
+ns1.title =
+  element ns1:title {
+    attribute type { xsd:NCName }?,
+    (text
+     | ns1.abbr
+     | ns1.foreign
+     | ns1.gap
+     | ns1.hi
+     | ns1.note
+     | ns1.supplied)+
+  }
+ns1.author = element ns1:author { text }
+ns1.persName =
+  element ns1:persName {
+    attribute key { xsd:NCName }?,
+    attribute ref { xsd:anyURI }?,
+    attribute subtype { xsd:NCName }?,
+    attribute type { xsd:NCName }?,
+    attribute xml:id { xsd:NCName }?,
+    (text
+     | ns1.choice
+     | ns1.foreign
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.name
+     | ns1.persName
+     | ns1.placeName
+     | ns1.roleName
+     | ns1.supplied
+     | ns1.surname
+     | ns1.surplus
+     | ns1.unclear
+     | element ns1:forename { text })+
+  }
+ns1.respStmt =
+  element ns1:respStmt {
+    ns1.name?,
+    (ns1.persName
+     | element ns1:resp { text })+
+  }
+ns1.pubPlace = element ns1:pubPlace { text }
+ns1.seg =
+  element ns1:seg {
+    attribute cert { xsd:NCName }?,
+    attribute met { text }?,
+    attribute rend { xsd:NCName }?,
+    attribute subtype { xsd:NCName }?,
+    attribute type { xsd:NCName }?,
+    attribute xml:lang { xsd:NCName }?,
+    (text
+     | ns1.bibl
+     | ns1.choice
+     | ns1.foreign
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.measure
+     | ns1.milestone
+     | ns1.note
+     | ns1.placeName
+     | ns1.seg
+     | ns1.space
+     | ns1.supplied
+     | ns1.unclear)+
+  }
+ns1.ref =
+  element ns1:ref {
+    attribute n { xsd:NCName }?,
+    attribute target { xsd:anyURI }?,
+    (text | ns1.ptr | ns1.seg | ns1.title)+
+  }
+ns1.ptr =
+  element ns1:ptr {
+    attribute target { text }?,
+    text
+  }
+ns1.hi =
+  element ns1:hi {
+    attribute rend { xsd:NCName },
+    (text
+     | ns1.add
+     | ns1.choice
+     | ns1.foreign
+     | ns1.g
+     | ns1.gap
+     | ns1.lb
+     | ns1.milestone
+     | ns1.pb
+     | ns1.seg
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.abbr =
+  element ns1:abbr {
+    (text
+     | ns1.choice
+     | ns1.foreign
+     | ns1.lb
+     | ns1.reg
+     | ns1.sic
+     | ns1.space
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.reg =
+  element ns1:reg {
+    (text
+     | ns1.abbr
+     | ns1.g
+     | ns1.hi
+     | ns1.lb
+     | ns1.supplied
+     | ns1.unclear)+
+  }
+ns1.quote =
+  element ns1:quote {
+    attribute rend { xsd:NCName }?,
+    (text
+     | ns1.ab
+     | ns1.bibl
+     | ns1.foreign
+     | ns1.hi
+     | ns1.l
+     | ns1.label
+     | ns1.lg
+     | ns1.list
+     | ns1.note
+     | ns1.p
+     | ns1.ref
+     | ns1.supplied
+     | ns1.title
+     | ns1.unclear)+
+  }
+ns1.space =
+  element ns1:space {
+    attribute extent { xsd:NCName }?,
+    attribute quantity { xsd:integer }?,
+    attribute type { xsd:NCName }?,
+    attribute unit { xsd:NCName }?
+  }
+ns1.del =
+  element ns1:del {
+    attribute rend { xsd:NCName }?,
+    (text
+     | ns1.choice
+     | ns1.g
+     | ns1.gap
+     | ns1.lb
+     | ns1.seg
+     | ns1.unclear)+
+  }
+ns1.num =
+  element ns1:num {
+    attribute atLeast { xsd:integer }?,
+    attribute atMost { xsd:integer }?,
+    attribute cert { xsd:NCName }?,
+    attribute value { text }?,
+    (text
+     | ns1.add
+     | ns1.choice
+     | ns1.g
+     | ns1.gap
+     | ns1.lb
+     | ns1.num
+     | ns1.supplied
+     | ns1.unclear)+
+  }
+ns1.corr =
+  element ns1:corr {
+    (text
+     | ns1.corr
+     | ns1.g
+     | ns1.hi
+     | ns1.num
+     | ns1.supplied
+     | ns1.unclear)+
+  }
+ns1.roleName =
+  element ns1:roleName {
+    attribute subtype { xsd:NCName }?,
+    attribute type { xsd:NCName }?,
+    (text
+     | ns1.choice
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.milestone
+     | ns1.placeName
+     | ns1.space
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.name = element ns1:name { text }
+ns1.measure =
+  element ns1:measure {
+    attribute commodity { xsd:NCName }?,
+    attribute quantity { xsd:integer },
+    attribute subtype { xsd:NCName }?,
+    attribute type { xsd:NCName },
+    (text | ns1.g | ns1.gap | ns1.lb | ns1.num | ns1.supplied)+
+  }
+ns1.list =
+  element ns1:list {
+    attribute rend { xsd:NCName }?,
+    (ns1.label
+     | element ns1:item {
+         attribute n { xsd:NCName }?,
+         (text
+          | ns1.abbr
+          | ns1.add
+          | ns1.bibl
+          | ns1.choice
+          | ns1.foreign
+          | ns1.g
+          | ns1.gap
+          | ns1.hi
+          | ns1.lb
+          | ns1.list
+          | ns1.note
+          | ns1.orig
+          | ns1.p
+          | ns1.pb
+          | ns1.q
+          | ns1.ref
+          | ns1.seg
+          | ns1.space
+          | ns1.subst
+          | ns1.supplied
+          | ns1.surplus
+          | ns1.title
+          | ns1.unclear)+
+       })+
+  }
+ns1.subst = element ns1:subst { ns1.del, ns1.add }
+ns1.add =
+  element ns1:add {
+    attribute place { xsd:NCName }?,
+    attribute rend { xsd:NCName }?,
+    (text
+     | ns1.abbr
+     | ns1.choice
+     | ns1.del
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.num
+     | ns1.persName
+     | ns1.placeName
+     | ns1.space
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.handShift =
+  element ns1:handShift {
+    attribute new { text }
+  }
+ns1.milestone =
+  element ns1:milestone {
+    attribute break { xsd:NCName }?,
+    attribute n { xsd:NMTOKEN },
+    attribute type { xsd:NCName }?,
+    attribute unit { xsd:NCName },
+    attribute xml:id { xsd:NCName }?
+  }
+ns1.gap =
+  element ns1:gap {
+    attribute extent { xsd:NMTOKEN }?,
+    attribute precision { xsd:NCName }?,
+    attribute quantity { text }?,
+    attribute qunantity { xsd:integer }?,
+    attribute reason { xsd:NCName },
+    attribute unit { xsd:NCName }?,
+    (ns1.certainty | ns1.desc)?
+  }
+ns1.unclear =
+  element ns1:unclear {
+    attribute cert { xsd:NCName }?,
+    attribute reason { text }?,
+    (text | ns1.g | ns1.hi | ns1.seg)+
+  }
+ns1.surname = element ns1:surname { text }
+ns1.fw =
+  element ns1:fw {
+    attribute n { xsd:NMTOKEN }?,
+    attribute place { xsd:NCName },
+    attribute rend { xsd:NCName }?,
+    (ns1.g | ns1.gap | ns1.num | ns1.supplied)
+  }
+ns1.sic =
+  element ns1:sic {
+    (text
+     | ns1.add
+     | ns1.choice
+     | ns1.corr
+     | ns1.foreign
+     | ns1.g
+     | ns1.hi
+     | ns1.lb
+     | ns1.num
+     | ns1.orig
+     | ns1.pb
+     | ns1.seg
+     | ns1.space
+     | ns1.subst
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.cit = element ns1:cit { ns1.q | (ns1.bibl | ns1.quote)+ }
+ns1.damage = element ns1:damage { (text | ns1.supplied | ns1.unclear)+ }
+ns1.rs =
+  element ns1:rs {
+    attribute ana { xsd:NCName }?,
+    attribute key { xsd:NCName }?,
+    attribute n { xsd:integer }?,
+    attribute nymRef { xsd:NCName }?,
+    attribute ref { xsd:NMTOKEN }?,
+    attribute role { xsd:NCName }?,
+    attribute subtype { xsd:NCName }?,
+    attribute type { xsd:NCName }?,
+    (text
+     | ns1.choice
+     | ns1.lb
+     | ns1.persName
+     | ns1.roleName
+     | ns1.rs
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.placeName =
+  element ns1:placeName {
+    attribute key { text }?,
+    attribute next { text }?,
+    attribute prev { text }?,
+    attribute ref { xsd:NMTOKEN }?,
+    attribute subtype { xsd:NCName }?,
+    attribute type { xsd:NCName }?,
+    attribute xml:id { xsd:NCName }?,
+    (text
+     | ns1.add
+     | ns1.choice
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.milestone
+     | ns1.seg
+     | ns1.space
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.choice =
+  element ns1:choice {
+    (ns1.corr | ns1.orig | ns1.reg | ns1.sic | ns1.unclear)+
+  }
+ns1.lg =
+  element ns1:lg {
+    attribute corresp { text }?,
+    attribute met { text }?,
+    attribute n { xsd:integer }?,
+    attribute part { xsd:NCName }?,
+    attribute rend { xsd:NCName }?,
+    attribute type { xsd:NCName }?,
+    attribute xml:lang { xsd:NCName }?,
+    ns1.certainty?,
+    (ns1.fw
+     | ns1.l
+     | ns1.label
+     | ns1.lb
+     | ns1.lg
+     | ns1.milestone
+     | ns1.pb
+     | ns1.space)+,
+    ns1.note?
+  }
+ns1.orig =
+  element ns1:orig {
+    (text
+     | ns1.add
+     | ns1.choice
+     | ns1.corr
+     | ns1.g
+     | ns1.hi
+     | ns1.lb
+     | ns1.reg
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.subst
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.lb =
+  element ns1:lb {
+    attribute break { xsd:NCName }?,
+    attribute n { text }?,
+    attribute rend { xsd:NCName }?,
+    attribute style { text }?
+  }
+ns1.q =
+  element ns1:q {
+    attribute xml:lang { xsd:NCName }?,
+    (text
+     | ns1.bibl
+     | ns1.foreign
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lg
+     | ns1.list
+     | ns1.note
+     | ns1.q
+     | ns1.ref
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.supplied
+     | ns1.title
+     | ns1.unclear)+
+  }
+ns1.s =
+  element ns1:s { (text | ns1.choice | ns1.hi | ns1.lb | ns1.unclear)+ }
+ns1.pb =
+  element ns1:pb {
+    attribute break { xsd:NCName }?,
+    attribute n { text }?
+  }
+ns1.l =
+  element ns1:l {
+    attribute enjamb { xsd:NCName }?,
+    attribute met { text }?,
+    attribute n { text }?,
+    attribute part { xsd:NCName }?,
+    attribute real { text }?,
+    (text
+     | ns1.add
+     | ns1.choice
+     | ns1.corr
+     | ns1.del
+     | ns1.foreign
+     | ns1.fw
+     | ns1.g
+     | ns1.gap
+     | ns1.handShift
+     | ns1.hi
+     | ns1.label
+     | ns1.lb
+     | ns1.milestone
+     | ns1.note
+     | ns1.num
+     | ns1.orig
+     | ns1.pb
+     | ns1.persName
+     | ns1.placeName
+     | ns1.roleName
+     | ns1.rs
+     | ns1.s
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.subst
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear
+     | element ns1:w {
+         attribute part { xsd:NCName },
+         xsd:NCName
+       })+
+  }
+ns1.certainty =
+  element ns1:certainty {
+    attribute locus { xsd:NCName },
+    attribute match { text }
+  }
+ns1.label =
+  element ns1:label {
+    attribute xml:lang { xsd:NCName }?,
+    (text | ns1.foreign | ns1.supplied)+
+  }
+ns1.surplus =
+  element ns1:surplus {
+    (text
+     | ns1.abbr
+     | ns1.add
+     | ns1.choice
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.num
+     | ns1.space
+     | ns1.supplied
+     | ns1.unclear)+
+  }
+ns1.g =
+  element ns1:g {
+    attribute subtype { xsd:NCName }?,
+    attribute type { xsd:NCName }?,
+    text
+  }
+ns1.listApp =
+  element ns1:listApp {
+    attribute corresp { text }?,
+    (ns1.app | ns1.listApp)+
+  }
+ns1.app =
+  element ns1:app {
+    attribute loc { text }?,
+    (text
+     | ns1.note
+     | element ns1:lem {
+         attribute rend { xsd:NCName }?,
+         attribute resp { xsd:NMTOKEN }?,
+         attribute source { text }?,
+         (text
+          | ns1.abbr
+          | ns1.add
+          | ns1.choice
+          | ns1.corr
+          | ns1.del
+          | ns1.foreign
+          | ns1.fw
+          | ns1.g
+          | ns1.gap
+          | ns1.hi
+          | ns1.l
+          | ns1.lb
+          | ns1.milestone
+          | ns1.name
+          | ns1.num
+          | ns1.orig
+          | ns1.pb
+          | ns1.persName
+          | ns1.seg
+          | ns1.sic
+          | ns1.space
+          | ns1.subst
+          | ns1.supplied
+          | ns1.surplus
+          | ns1.unclear)+
+       }
+     | element ns1:rdg {
+         attribute rend { xsd:NCName }?,
+         attribute resp { xsd:NMTOKEN }?,
+         attribute source { xsd:anyURI }?,
+         attribute xml:id { xsd:NCName }?,
+         (text
+          | ns1.abbr
+          | ns1.add
+          | ns1.bibl
+          | ns1.choice
+          | ns1.corr
+          | ns1.damage
+          | ns1.del
+          | ns1.foreign
+          | ns1.fw
+          | ns1.g
+          | ns1.gap
+          | ns1.hi
+          | ns1.lb
+          | ns1.milestone
+          | ns1.name
+          | ns1.num
+          | ns1.orig
+          | ns1.pb
+          | ns1.reg
+          | ns1.seg
+          | ns1.sic
+          | ns1.space
+          | ns1.subst
+          | ns1.supplied
+          | ns1.surplus
+          | ns1.unclear)+
+       })+
+  }
+ns1.listBibl =
+  element ns1:listBibl {
+    attribute type { xsd:NCName }?,
+    (ns1.bibl | ns1.listBibl)*
+  }

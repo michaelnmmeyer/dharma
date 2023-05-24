@@ -1,22 +1,9 @@
 #!/usr/bin/env python3
 
-# XXX apparently possible to annotate nodes in relaxng with java code; can we
-# also do that with python? relaxng has a shorthand for documentation
-# annotations: it interprets lines starting with '##' as documentation and
-# outputs it in the generated XML. we can use that.
-#
-# or we can generate the code from an ODD file. or better yet, we can generate
-# the ODD file from the code. in this case should annotate functions
-# appropriately and have some predefined routines that can be mapped easily to
-# ODD elements for the things that ODD can actually validate. look at what ODD
-# can actually represent and adjust.
-#
-# in any case, should have both the schema and the processing code in the same
-# file, so that we don't have to do checks several times.
-#
-# the only useful use of ODD/rng is help screens and autocompletion in oXygen
-# and co. how does it work exactly? context-sensitive or not? yes it is, more
-# complicated for us.
+# See if we can use trang for inferring a global schema
+# The basic command is:
+# java -jar validation/trang.jar texts/DHARMA_INSVengi*.xml out.rnc
+
 
 import sys, re, io, copy
 from dharma.tree import *

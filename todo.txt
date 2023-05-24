@@ -1,21 +1,10 @@
-The schema can be inferred from the file name:
-DHARMA_DiplEd
-DHARMA_CritEd
-DHARMA_INS
-But check that the schemas these files use is actually the one we expect.
-
-But we have two exceptions:
-DHARMA_MS_Descr_Or3429.xml
-DHARMA_Sircar1965.xml
-
-
 == Plans
 
 # Validation
 
 Should have a useful validation, something that gives us guarantees about the
 ability to process files and to do something with them. TEI and EpiDoc are so
-generic that it's not possible to have useful tool.
+generic that it's not possible to have useful tools.
 
 Set up some tooling for validating XML texts in the repos, with the existing
 Schematron files and maybe some extra scripts for things that need to be tested
@@ -44,6 +33,26 @@ https://github.com/erc-dharma/project-documentation/blob/master/DHARMA_idListMem
 so no reason to duplicate the data.
 
 Plenty of useless markup we can systematically remove and patch later on.
+
+XXX apparently possible to annotate nodes in relaxng with java code; can we
+also do that with python? relaxng has a shorthand for documentation
+annotations: it interprets lines starting with '##' as documentation and
+outputs it in the generated XML. we can use that.
+
+or we can generate the code from an ODD file. or better yet, we can generate
+the ODD file from the code. in this case should annotate functions
+appropriately and have some predefined routines that can be mapped easily to
+ODD elements for the things that ODD can actually validate. look at what ODD
+can actually represent and adjust.
+
+in any case, should have both the schema and the processing code in the same
+file, so that we don't have to do checks several times.
+
+the only useful use of ODD/rng is help screens and autocompletion in oXygen and
+co. how does it work exactly? context-sensitive or not? yes it is, more
+complicated for us.
+
+In fact it's simpler not to work with ODD at all and just use relaxng.
 
 
 # Conversion

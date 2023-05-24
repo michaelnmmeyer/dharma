@@ -222,8 +222,7 @@ def patch_tree(tree):
 		if node.type == "tag":
 			have = node.get("xml:lang")
 			if have:
-				fields = have.split("-")
-				assert 1 <= len(fields) <= 2
+				fields = have.rsplit("-", 1)
 				if len(fields) == 1:
 					lang = (fields[0], None)
 				else:
