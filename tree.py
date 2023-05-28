@@ -228,7 +228,7 @@ def patch_tree(tree):
 				if len(fields) == 1:
 					lang = (fields[0], None)
 				else:
-					lang = tuple(fields)	
+					lang = tuple(fields)
 			space = node.get("xml:space", space)
 			for child in node:
 				patch_node(child, lang, space)
