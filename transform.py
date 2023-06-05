@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 
-# See if we can use trang for inferring a global schema
-# The basic command is:
-# java -jar validation/trang.jar texts/DHARMA_INSVengi*.xml out.rnc
-
-
 import sys, re, io, copy
 from dharma.tree import *
 
@@ -128,7 +123,7 @@ def process_lb(p, elem):
 			assert 0, elem
 	if brk == "yes":
 		emit(p, "text", "\n")
-	emit(p, "line", n, {"align": align})
+	emit(p, "<phys:line", n, {"align": align})
 	p.space = "drop"
 
 def process_pb(p, elem):
@@ -136,6 +131,15 @@ def process_pb(p, elem):
 	n = elem["n"]
 	emit(p, "page", n)
 	p.space = "drop"
+
+def process_choice(p, node):
+	"choice = element choice { (corr | orig | reg | sic | unclear)+ }"
+	for elem in node:
+		if elem.type == "comment":
+			continue
+		if not elem.type == "tag":
+			raises Error(node, "expected an element")
+		dispatch(p, elem)
 
 def process_g(p, node):
 	def fail():
@@ -176,6 +180,13 @@ def process_div(p, div):
 	for elem in div:
 		dispatch(p, elem)
 	emit(p, ">div", t)
+
+def process_foreign(p, node):
+	assert len(node.attrs) == 0
+	emit(p, "<i")
+	for elem in node:
+		dispatch(p, elem)
+	emit(p, ">i")
 
 def process_body(p, node):
 	print("<body")

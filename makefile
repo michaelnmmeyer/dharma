@@ -19,4 +19,7 @@ inscriptions.rnc: $(wildcard texts/DHARMA_INS*.xml)
 global.rnc: $(wildcard texts/DHARMA_*.xml)
 	java -jar validation/trang.jar $^ $@
 
+%.rng: %.rnc
+	java -jar validation/trang.jar $^ $@
+
 .PHONY: all update-repos update-texts
