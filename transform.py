@@ -138,7 +138,7 @@ def process_choice(p, node):
 		if elem.type == "comment":
 			continue
 		if not elem.type == "tag":
-			raises Error(node, "expected an element")
+			raise Error(node, "expected an element")
 		dispatch(p, elem)
 
 def process_g(p, node):

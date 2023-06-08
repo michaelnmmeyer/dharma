@@ -158,7 +158,7 @@ def append(buf, s, fmt=0):
 # \…/ <add place="above">…</add>
 # /…\ <add place="below">…</add>
 def fix_edited_text(s):
-	s = s.replace("_", " ")
+	s = s.replace("_", "<space/>")
 	s = re.sub(r"\((.+?)\)", r'<unclear>\1</unclear>', s)
 	s = re.sub(r"\{(.+?)\}", r'<gap reason="\1"/>', s)
 	s = re.sub(r"\[(.+?)\]", r'<supplied reason="lost">\1</supplied>', s)
