@@ -28,6 +28,22 @@ texts/DHARMA_INSSII03.xml
 # DHARMA_MS_Descr_Or3429.xml
 # DHARMA_Sircar1965.xml
 
+# For conversion and validation:
+# https://teigarage.tei-c.org
+#
+# For editing an ODD:
+# https://roma2.tei-c.org/
+#
+# For converting ODD XML->RNG:
+# * curl -F fileToConvert=@DHARMA_INSSchema_v01.xml https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/relaxng%3Aapplication%3Axml-relaxng
+# * ~/Programs/TEI/Stylesheets/bin/teitorelaxng --oxygenlib=~/.oxygen/lib --localsource=/home/michael/Programs/TEI/TEI/P5/Source/guidelines-en.xml  ~/Downloads/DHARMA_BESTOW_v01.xml ~/Downloads/foo.rng
+#
+# For validating TEI:
+# * (buggy) curl -F fileToConvert=@DHARMA_INSSchema_v01.xml https://teigarage.tei-c.org/ege-webservice/Validation/TEI%3Atext%3Axml
+# * java -jar ./project-documentation/schema/validationTools/jing.jar http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng $f
+# * java -jar ./project-documentation/schema/validationTools/jing.jar https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng $f
+
+
 import os, sys, subprocess
 from glob import glob
 from dharma.tree import parse, Error
