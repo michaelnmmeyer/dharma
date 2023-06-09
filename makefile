@@ -13,6 +13,14 @@ update-texts:
 		python3 xmlformat.py $$f > tmp && mv tmp $$f; \
 	done
 
+live:
+	rsync --compress --bwlimit=100k --progress \
+		--no-whole-file --inplace --archive --xattrs --partial \
+		--exclude=.git --exclude=repos \
+		. beta:dharma
+
+.PHONY: all update-repos update-texts live
+
 inscriptions.rnc: $(wildcard texts/DHARMA_INS*.xml)
 	java -jar validation/trang.jar $^ $@
 
@@ -21,5 +29,3 @@ global.rnc: $(wildcard texts/DHARMA_*.xml)
 
 %.rng: %.rnc
 	java -jar validation/trang.jar $^ $@
-
-.PHONY: all update-repos update-texts

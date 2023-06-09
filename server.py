@@ -1,7 +1,12 @@
-import os, sqlite3, json
+import os, sqlite3, json, socket
+from wsgiref.simple_server import WSGIServer
 from dharma import bottle
 
+BOTTLE_RELOAD = True
+
 if os.getenv("HOST") == "beta":
+	# Production server
+	BOTTLE_RELOAD = False
 	DB = sqlite3.connect("github-log.sqlite")
 	DB.executescript("""
 	pragma journal_mode = wal;
@@ -13,7 +18,7 @@ if os.getenv("HOST") == "beta":
 	""")
 	@bottle.post("/github-event")
 	def handle_github():
-		doc = json.dumps(request.json, ensure_ascii=False, separators=(",", ":"))
+		doc = json.dumps(bottle.request.json, ensure_ascii=False, separators=(",", ":"))
 		DB.execute("insert into logs values(strftime('%s', 'now'), ?)", (doc,))
 		DB.commit()
 
@@ -21,4 +26,9 @@ if os.getenv("HOST") == "beta":
 def index():
 	return "Under construction\n"
 
-bottle.run(host="localhost", port=8023, reloader=True)
+class Server(WSGIServer):
+	def server_bind(self):
+		self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+		super().server_bind()
+
+bottle.run(host="localhost", port=8023, reloader=BOTTLE_RELOAD, server_class=Server)
