@@ -117,7 +117,10 @@ def validate_all():
 			schema = None # XXX what to report?
 		if schema:
 			schemas.setdefault(schema, set()).add(file)
-	errors = validate_texts(files)
+	# We don't validate files against epidoc at this stage. If our schemas
+	# are correct, our texts should also validate against epidoc. It's
+	# something we must check internally, this doesn't concern the user.
+	errors = {}
 	for schema, texts in sorted(schemas.items()):
 		for text, errs in validate_texts(sorted(texts), schema).items():
 			errors.setdefault(text, set()).update(errs)
