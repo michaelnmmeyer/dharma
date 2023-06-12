@@ -492,7 +492,7 @@ class Formatter:
 
         def attribute(self, key, value):
             if key and value:
-                return ' %s="%s"' % (key, value)
+                return ' %s="%s"' % (key, value.replace("&", "&amp;"))
             elif key:
                 return ' %s=""' % (key)
             return ""
