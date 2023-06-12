@@ -100,7 +100,7 @@ def validate_texts(files, schema="tei-epidoc.rng"):
 	for line in ret.stdout.splitlines():
 		path, line, column, err_type, err_msg = tuple(
 			f.strip() for f in line.split(":", 4))
-		errors.setdefault(path, set()).add((line, column, err_msg))
+		errors.setdefault(path, set()).add((int(line), int(column), err_msg))
 	return errors
 
 def validate_all():
@@ -125,7 +125,7 @@ def validate_all():
 		path, _ = os.path.splitext(path)
 		with open(path + ".err", "w") as f:
 			for err in sorted(errs):
-				print("%s:%s: %s" % err, file=f)
+				print("%s:%s:%s" % err, file=f)
 
 if __name__ == "__main__":
 	validate_all()

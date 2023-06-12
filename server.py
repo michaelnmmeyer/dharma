@@ -3,6 +3,8 @@ from datetime import datetime
 from wsgiref.simple_server import WSGIServer
 from dharma import bottle
 
+this_dir = os.path.dirname(os.path.abspath(__file__))
+
 if os.getenv("HOST") == "beta":
 	# Production server
 	BOTTLE_RELOAD = False
@@ -11,7 +13,7 @@ else:
 	BOTTLE_RELOAD = True
 	DEBUG = True
 
-DB_PATH = os.getenv("DB_PATH") or "github-log.sqlite"
+DB_PATH = os.getenv("DB_PATH") or os.path.join(this_dir, "github-log.sqlite")
 
 DB = sqlite3.connect(DB_PATH)
 DB.executescript("""
@@ -43,6 +45,45 @@ def show_commit_log():
 			url = commit["url"]
 			commits.append({"repo": repo, "date": date, "author": author, "hash": hash, "url": url})
 	return bottle.template("commit-log.tpl", commits=commits)
+
+@bottle.route("/texts")
+def show_texts():
+	path = os.path.join(this_dir, "texts")
+	texts = []
+	files = os.listdir(path)
+	files.sort()
+	err = False
+	for f in files:
+		name, ext = os.path.splitext(f)
+		if ext == ".err":
+			err = True
+			continue # the xml comes just after this one
+		elif ext == ".xml":
+			texts.append((name, err))
+			err = False
+		else:
+			assert 0
+	return bottle.template("texts.tpl", texts=texts)
+
+@bottle.route("/texts/<name>")
+def show_text(name):
+	path = os.path.join(this_dir, "texts", name)
+	if os.path.abspath(path) != path:
+		abort(400, "Fishy request")
+	if not os.path.exists(path + ".xml"):
+		abort(404, "Not found")
+	try:
+		with open(path + ".err") as f:
+			errs = []
+			for line in f:
+				line = line.rstrip()
+				fields = line.split(":", 2)
+				errs.append(fields)
+	except FileNotFoundError:
+		errs = None
+	if errs:
+		return bottle.template("invalid-text.tpl", errors=errs)
+	return bottle.static_file(path + ".xml", root="/")
 
 @bottle.post("/github-event")
 def handle_github():
