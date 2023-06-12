@@ -27,7 +27,7 @@ create table if not exists logs(
 
 @bottle.route("/")
 def index():
-	return "Under construction\n"
+	return bottle.template("index.tpl")
 
 @bottle.route("/commit-log")
 def show_commit_log():
@@ -82,7 +82,7 @@ def show_text(name):
 	except FileNotFoundError:
 		errs = None
 	if errs:
-		return bottle.template("invalid-text.tpl", errors=errs)
+		return bottle.template("invalid-text.tpl", errors=errs, text_id=name)
 	return bottle.static_file(path + ".xml", root="/")
 
 @bottle.post("/github-event")

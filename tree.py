@@ -1,6 +1,13 @@
 # We could use lxml.etree, xml.etree, or bs4. We don't because we want to track
-# accurate file locations. This is not feasible with these libs. Using our own
-# code is also convenient for adding attributes or methods to nodes.
+# accurate file locations (line + column). An annoyance of bs4 is that it tries
+# to fix invalid files, this is great for some use cases but we don't want
+# that. Using our code is also convenient for adding extra attributes or
+# methods to nodes.
+
+# XXX for showing errors when rendering the text, should add to the node that
+# poses a problem an "error" attribute that is a non-empty string if the node
+# is invalid; we can highlight the node and generate a pop-up or something when
+# rendering the text.
 
 import re, io
 from xml.sax import make_parser

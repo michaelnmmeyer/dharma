@@ -14,6 +14,10 @@ enough (run as a service ?)
 
 Should use a layered validation process: first test basic textual conformance
 (encoding, etc.), then XML, then TEI, then EpiDoc, then finally our schemas.
+No, each file should be tested against a single schema for the "normal"
+validation process; we should test other schemas too, but only internally, for
+consistency. If your schemas are correct, then all our files should validate
+against TEI and EpiDoc.
 
 Test the validation process. We must ensure that the files that are considered
 valid now remain so when we update the schema, etc. It must be kept in mind
@@ -34,26 +38,20 @@ so no reason to duplicate the data.
 
 Plenty of useless markup we can systematically remove and patch later on.
 
-XXX apparently possible to annotate nodes in relaxng with java code; can we
-also do that with python? relaxng has a shorthand for documentation
-annotations: it interprets lines starting with '##' as documentation and
-outputs it in the generated XML. we can use that.
+It's pointless to use ODD as a schema format. The format sucks. We only need
+RNG. RNG is sane. We need it for help screens and autocompletion in oXygen and
+co.; if we don't use it directly, we must at least be able to generate a RNG
+file from our schema.
 
-or we can generate the code from an ODD file. or better yet, we can generate
-the ODD file from the code. in this case should annotate functions
-appropriately and have some predefined routines that can be mapped easily to
-ODD elements for the things that ODD can actually validate. look at what ODD
-can actually represent and adjust.
+* Possible to annotate nodes in relaxng with java code; can we also do that
+  with python? relaxng has a shorthand for documentation annotations: it
+  interprets lines starting with '##' as documentation and outputs it in the
+  generated XML. we can use that.
+* In any case, should have both the schema and the processing code in the same
+  file, so that we don't have to do checks several times.
 
-in any case, should have both the schema and the processing code in the same
-file, so that we don't have to do checks several times.
-
-the only useful use of ODD/rng is help screens and autocompletion in oXygen and
-co. how does it work exactly? context-sensitive or not? yes it is, more
-complicated for us.
-
-In fact it's simpler not to work with ODD at all and just use relaxng.
-
+Maybe the best way to write the grammar is to have both a normal XML schema
+that matches nodes and an abstract grammar for defining actions.
 
 # Conversion
 

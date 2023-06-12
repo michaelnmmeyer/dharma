@@ -16,7 +16,7 @@ update-texts:
 live:
 	rsync --compress --bwlimit=100k --progress \
 		--no-whole-file --inplace --archive --xattrs --partial \
-		--exclude=.git --exclude=repos \
+		--exclude=.git --exclude=repos --exclude=github-log.sqlite \
 		. beta:dharma
 
 .PHONY: all update-repos update-texts live

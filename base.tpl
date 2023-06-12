@@ -6,4 +6,4 @@
 <body>
   {{!base}}
 </body>
-</html> 
+</html>

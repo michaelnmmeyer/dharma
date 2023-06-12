@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+# XXX how does jing counts columns? UTF-16 units? bytes? code points? Same
+# question for python's xml.sax library. Note that we use jing instead of lxml
+# for validating RNG schemas because lxml apparently can't process our current
+# schemas (because of the embedded schematron stuff? or because we use XPath v.
+# 2?
+
 """
 The following should be ignored when inferring the rng schema:
 
@@ -31,6 +37,7 @@ texts/DHARMA_INSSII03.xml
 # https://roma2.tei-c.org/
 #
 # For converting ODD XML->RNG:
+# It's faster to do it online than locally because java takes forever to start.
 # * curl -F fileToConvert=@DHARMA_INSSchema_v01.xml https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/relaxng%3Aapplication%3Axml-relaxng
 # * ~/Programs/TEI/Stylesheets/bin/teitorelaxng --oxygenlib=~/.oxygen/lib --localsource=/home/michael/Programs/TEI/TEI/P5/Source/guidelines-en.xml  ~/Downloads/DHARMA_BESTOW_v01.xml ~/Downloads/foo.rng
 #
