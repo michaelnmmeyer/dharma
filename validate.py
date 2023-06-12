@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-# XXX too slow to call jing for each file! perform just one call for each
-# distinct schema and pass several files
-
 """
 The following should be ignored when inferring the rng schema:
 
@@ -15,7 +12,6 @@ texts/DHARMA_INSSII01.xml
 texts/DHARMA_INSSII02.xml
 texts/DHARMA_INSSII03.xml
 """
-
 
 # We have 4 schemas for 4 types of texts:
 # * Inscriptions (INSSchema -> latest/Schema)
@@ -43,12 +39,9 @@ texts/DHARMA_INSSII03.xml
 # * java -jar ./project-documentation/schema/validationTools/jing.jar http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng $f
 # * java -jar ./project-documentation/schema/validationTools/jing.jar https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng $f
 
-
 import os, sys, subprocess
 from glob import glob
 from dharma.tree import parse, Error
-
-sys.stdout.reconfigure(line_buffering=True)
 
 this_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -86,54 +79,52 @@ def schema_from_filename(file):
 		schema = None
 	return schema
 
+# To test the DHARMA schemas, we must first figure out (from the files
+# themselves?) which schema we should use.
 def schema_for_file(file):
+	print("determining schema of %r" % file)
 	one = schema_from_filename(file)
-	two = schema_from_contents(file)
+	#two = schema_from_contents(file) # XXX too long to compute
+	two = None
 	if one and two:
 		assert one == two, "several schemas for file %r" % file
 	return one or two
 
-# For EpiDoc.
-# To test the DHARMA schemas, we must first figure out (from the files
-# themselves?) which schema we should use.
-def validate_texts(files, rng="tei-epidoc.rng"):
+def validate_texts(files, schema="tei-epidoc.rng"):
 	jar = os.path.join(this_dir, "validation/jing.jar")
-	rng = os.path.join(this_dir, "validation", rng)
-	ret = subprocess.run(["java", "-jar", jar, rng] + files,
-		encoding="UTF-8", stdout=subprocess.PIPE)
+	schema = os.path.join(this_dir, "validation", schema)
+	cmd = ["java", "-jar", jar, schema] + files
+	print(*cmd, file=sys.stderr)
+	ret = subprocess.run(cmd, encoding="UTF-8", stdout=subprocess.PIPE)
 	errors = {}
 	for line in ret.stdout.splitlines():
 		path, line, column, err_type, err_msg = tuple(
 			f.strip() for f in line.split(":", 4))
-		errors.setdefault(path, []).append((line, column, err_msg))
+		errors.setdefault(path, set()).add((line, column, err_msg))
 	return errors
 
 def validate_all():
-	texts = []
-	path = os.path.join(this_dir, "texts")
-	for root, dirs, files in os.walk(path):
-		for file in files:
-			_, ext = os.path.splitext(file)
-			if ext != ".xml":
-				continue
-			text = os.path.join(root, file)
-			try:
-				schema = schema_for_file(text)
-			except Error:
-				schema = None
-			texts.append((text, schema))
-	errs = {}
-	for (text, schema) in texts:
-		print(text)
-		e = validate_texts([text]).get(text, [])
+	schemas = {}
+	files = glob(os.path.join(this_dir, "texts", "*.xml"))
+	files.sort()
+	for file in files:
+		_, ext = os.path.splitext(file)
+		if ext != ".xml":
+			continue
+		try:
+			schema = schema_for_file(file)
+		except Error:
+			schema = None # XXX what to report?
 		if schema:
-			e += validate_texts([text], schema).get(text, [])
-		if e:
-			errs[text] = e
-	for path, errs in sorted(errs.items()):
+			schemas.setdefault(schema, set()).add(file)
+	errors = validate_texts(files)
+	for schema, texts in sorted(schemas.items()):
+		for text, errs in validate_texts(sorted(texts), schema).items():
+			errors.setdefault(text, set()).update(errs)
+	for path, errs in sorted(errors.items()):
 		path, _ = os.path.splitext(path)
 		with open(path + ".err", "w") as f:
-			for err in errs:
+			for err in sorted(errs):
 				print("%s:%s: %s" % err, file=f)
 
 if __name__ == "__main__":
