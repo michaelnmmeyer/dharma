@@ -38,7 +38,7 @@ def show_commit_log():
 		repo = os.path.basename(doc["repository"]["full_name"])
 		date = datetime.fromtimestamp(date).strftime("%d/%m/%y %H:%M")
 		for commit in doc["commits"]:
-			if commit["author"]["email"] == "github-actions@github.com":
+			if commit["author"]["email"] in ("github-actions@github.com", "readme-bot@example.com"):
 				continue
 			author = commit["author"]["username"]
 			hash = commit["id"]

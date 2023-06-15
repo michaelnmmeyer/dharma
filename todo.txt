@@ -43,15 +43,14 @@ RNG. RNG is sane. We need it for help screens and autocompletion in oXygen and
 co.; if we don't use it directly, we must at least be able to generate a RNG
 file from our schema.
 
-* Possible to annotate nodes in relaxng with java code; can we also do that
-  with python? relaxng has a shorthand for documentation annotations: it
-  interprets lines starting with '##' as documentation and outputs it in the
-  generated XML. we can use that.
+* Possible to annotate nodes in relaxng. It interprets lines starting with '##'
+  as documentation and outputs it in the generated XML. We can use that.
 * In any case, should have both the schema and the processing code in the same
-  file, so that we don't have to do checks several times.
+  file, so that we don't have to do the same checks several times.
 
 Maybe the best way to write the grammar is to have both a normal XML schema
-that matches nodes and an abstract grammar for defining actions.
+that matches nodes and an abstract grammar for defining actions. The abstract
+grammar would be non-deterministic, we can't formalize everything.
 
 # Conversion
 

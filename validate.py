@@ -4,7 +4,11 @@
 # question for python's xml.sax library. Note that we use jing instead of lxml
 # for validating RNG schemas because lxml apparently can't process our current
 # schemas (because of the embedded schematron stuff? or because we use XPath v.
-# 2?
+# 2? try to remove the schematron stuff and see how it goes)
+
+# XXX possible to check the compatibility of several relaxng schemas? so that
+# instead of validating all files against several schemas, we can just check if
+# our own schema is compatible with TEI and epidoc.
 
 """
 The following should be ignored when inferring the rng schema:
