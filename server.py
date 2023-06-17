@@ -85,6 +85,30 @@ def show_text(name):
 		return bottle.template("invalid-text.tpl", errors=errs, text_id=name)
 	return bottle.static_file(path + ".xml", root="/")
 
+@bottle.route("/parallels/verses")
+def show_parallel_verses():
+	conn = sqlite3.connect("ngram.sqlite")
+	verses = []
+	for id, file, verse, text, count in conn.execute("""SELECT id, file, verse, orig, count
+		FROM verses where count > 0
+	"""):
+		verses.append((id, file, verse, text.replace("\n", "<br/>"), count))
+	conn.close()
+	return bottle.template("verses.tpl", verses=verses)
+
+@bottle.route("/parallels/verses/<id>")
+def show_verse_parallels(id):
+	conn = sqlite3.connect("ngram.sqlite")
+	loc = conn.execute("SELECT file, verse FROM verses where id = ?", (id,)).fetchone()
+	if not loc:
+		abort(404, "No such verse")
+	loc = " ".join(loc)
+	verses = []
+	for (id, file, verse, orig, coeff) in conn.execute("""SELECT id, file, verse, orig, coeff
+		FROM verses JOIN verses_jaccard ON id = id2 WHERE id1 = ? ORDER BY coeff DESC""", (id,)):
+		verses.append((id, file, verse, orig.replace("\n", "<br/>"), coeff))
+	return bottle.template("verse_parallels.tpl", verses=verses, loc=loc)
+
 @bottle.post("/github-event")
 def handle_github():
 	doc = json.dumps(bottle.request.json, ensure_ascii=False, separators=(",", ":"))

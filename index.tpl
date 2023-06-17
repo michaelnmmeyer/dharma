@@ -3,4 +3,5 @@
 <ul>
    <li><a href="/commit-log">Commit log</a></li>
    <li><a href="/texts">Texts</a></li>
+   <li><a href="/parallels/verses">Verse Parallels</a></li>
 </ul>
