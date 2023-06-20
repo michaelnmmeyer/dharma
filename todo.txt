@@ -2,9 +2,9 @@
 
 # Validation
 
-Should have a useful validation, something that gives us guarantees about the
-ability to process files and to do something with them. TEI and EpiDoc are so
-generic that it's not possible to have useful tools.
+Should have a useful validation process, something that gives us guarantees
+about the ability to process files and to do something with them. TEI and
+EpiDoc are so generic that it's not possible to have useful tools.
 
 Set up some tooling for validating XML texts in the repos, with the existing
 Schematron files and maybe some extra scripts for things that need to be tested
@@ -51,6 +51,24 @@ file from our schema.
 Maybe the best way to write the grammar is to have both a normal XML schema
 that matches nodes and an abstract grammar for defining actions. The abstract
 grammar would be non-deterministic, we can't formalize everything.
+
+For the grammar, could use https://we-like-parsers.github.io/pegen
+Can probably convert RNG<->PEG without loss of information and automate this.
+But need to add a special syntax for tags, attributes, and content types viz.
+
+   text
+   xsd:anyURI
+   xsd:boolean
+   xsd:decimal
+   xsd:integer
+   xsd:NCName
+   xsd:NMTOKEN
+
+Should have:
+
+   tag.div, ...
+   attr.type, ...
+   data.text, ...
 
 # Conversion
 
