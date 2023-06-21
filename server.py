@@ -1,6 +1,5 @@
-import os, sqlite3, json, socket
+import os, sqlite3, json, sys
 from datetime import datetime
-from wsgiref.simple_server import WSGIServer
 from dharma import bottle
 
 this_dir = os.path.dirname(os.path.abspath(__file__))
@@ -115,9 +114,20 @@ def handle_github():
 	DB.execute("insert into logs values(strftime('%s', 'now'), ?)", (doc,))
 	DB.commit()
 
-class Server(WSGIServer):
-	def server_bind(self):
-		self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
-		super().server_bind()
+class ServerAdapter(bottle.ServerAdapter):
+	def run(self, handler):
+		import socket
+		from wsgiref.simple_server import make_server, WSGIServer
+		class Server(WSGIServer):
+			def server_bind(self):
+				self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+				super().server_bind()
+		server = make_server(self.host, self.port, handler, server_class=Server)
+		try:
+			server.serve_forever()
+		finally:
+			print("Shutting down", file=sys.stderr)
+			server.server_close()
 
-bottle.run(host="localhost", port=8023, debug=DEBUG, reloader=BOTTLE_RELOAD, server_class=Server)
+if __name__ == "__main__":
+	bottle.run(host="localhost", port=8023, debug=DEBUG, reloader=BOTTLE_RELOAD, server=ServerAdapter)
