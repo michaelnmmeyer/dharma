@@ -100,13 +100,12 @@ def show_parallel_verses():
 
 @bottle.route("/parallels/verses/<id>")
 def show_verse_parallels(id):
-	conn = sqlite3.connect("ngram.sqlite")
 	loc = NGRAM_DB.execute("SELECT file, verse FROM verses where id = ?", (id,)).fetchone()
 	if not loc:
 		abort(404, "No such verse")
 	loc = " ".join(loc)
 	verses = []
-	for (id, file, verse, orig, coeff) in conn.execute("""SELECT id, file, verse, orig, coeff
+	for (id, file, verse, orig, coeff) in NGRAM_DB.execute("""SELECT id, file, verse, orig, coeff
 		FROM verses JOIN verses_jaccard ON id = id2 WHERE id1 = ? ORDER BY coeff DESC""", (id,)):
 		verses.append((id, file, verse, orig.replace("\n", "<br/>"), coeff))
 	return bottle.template("verse_parallels.tpl", verses=verses, loc=loc)
