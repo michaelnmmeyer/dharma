@@ -51,6 +51,15 @@ trap cleanup EXIT
 if ! test -d $commit; then
 	git worktree add --detach $commit $commit
 fi
-lock=$(mktemp -p $commit)
+lock=$(mktemp -p $commit pid.$$.XXX)
 cd $commit
-python3 server.py || true
+HOST=beta screen -S $commit -d -m python3 server.py
+
+cd $here
+find -type f -name "pid.*" -not -path "./$commit/*" | \
+	sed -En "s,.*pid\.([0-9]+).*,\1,p" | \
+	while read pid; do
+		echo "Killing $pid ($commit)" > /dev/stderr
+		pkill -P $pid
+	done
+sleep infinity

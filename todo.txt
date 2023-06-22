@@ -1,15 +1,48 @@
 == Plans
 
+Make backups of the dbs!
+
+
 # Validation
+
+Must be able to show all most recent files together with their validation
+status. Be able to sort by repo, validation status, last mod date, name (add
+up/down arrows to each of these columns).
 
 For each text we validate, must keep track of:
 
+* file hash
+* full path, relative to the root of the repo
+* repo name
 * commit hash of the repo the file belongs to
 * name of the schema against which it's validated and commit hash of
-  project-documentation
-* commit hash of my repo
+  the corresponding project-documentation
+* commit hash of my repo (the actual validation code)
+* when we validated the file
 
+I don't think it's necessary to do things at the file level. Even moreso
+because files can be deleted/added. It's simpler to proceed repo per repo. Each
+time we have a github push, revalidate everything in the corresponding repo.
 
+Must hold a lock while revalidating stuff. Does bottle use multiple threads? or
+processes? For flask, see
+https://flask.palletsprojects.com/en/2.3.x/patterns/celery/
+
+The simpler method is to run an extra python process for all the stuff related
+to updates, and send it some basic commands. This way we can test things
+easily. Should have a single queue, this is sufficient given the rythm of
+updates. We can also send it commands from cron scripts, etc. This process can
+remain connected to the commit log and decide what to do. Though we shouldn't
+rely on what github says, they make no promise on the API stability. We just
+need to know that repository X has been modified, then we run our stuff. Every
+now and then, we should do a global update in case we missed events or if
+github didn't send them to us. At a minimum, should do a global update at
+startup.
+
+The only data we need to pass to the update script is the name of the updated
+repo (or "all" for updating all repos). When we see that a repo changed, we
+update it locally with git and see if stuff actually changed and what changed.
+If the queue overflows, should just clear it and then run a global update.
 
 ---
 
