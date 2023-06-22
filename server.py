@@ -4,15 +4,18 @@ from dharma import bottle
 
 this_dir = os.path.dirname(os.path.abspath(__file__))
 
+# XXX configure somewhere else?
 if os.getenv("HOST") == "beta":
 	# Production server
 	BOTTLE_RELOAD = False
 	DEBUG = False
+	DB_DIR = "/home/michael/dharma.db"
 else:
 	BOTTLE_RELOAD = True
 	DEBUG = True
+	DB_DIR = this_dir
 
-DB_PATH = os.getenv("DB_PATH") or os.path.join(this_dir, "github-log.sqlite")
+DB_PATH = os.path.join(DB_DIR, "github-log.sqlite")
 
 DB = sqlite3.connect(DB_PATH)
 DB.executescript("""
@@ -23,6 +26,8 @@ create table if not exists logs(
 	data text
 );
 """)
+
+NGRAM_DB = sqlite3.connect(os.path.join(DB_DIR, "ngram.sqlite"))
 
 @bottle.route("/")
 def index():
@@ -86,13 +91,11 @@ def show_text(name):
 
 @bottle.route("/parallels/verses")
 def show_parallel_verses():
-	conn = sqlite3.connect("ngram.sqlite")
 	verses = []
-	for id, file, verse, text, count in conn.execute("""SELECT id, file, verse, orig, count
+	for id, file, verse, text, count in NGRAM_DB.execute("""SELECT id, file, verse, orig, count
 		FROM verses where count > 0
 	"""):
 		verses.append((id, file, verse, text.replace("\n", "<br/>"), count))
-	conn.close()
 	return bottle.template("verses.tpl", verses=verses)
 
 @bottle.route("/parallels/verses/<id>")

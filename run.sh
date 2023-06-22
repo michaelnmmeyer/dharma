@@ -5,7 +5,7 @@
 # Before using this script, clone the bare repo on the production server, and copy
 # this script within it:
 #
-# 	git clone --bare git@github.com:michaelnmmeyer/dharma.git
+# 	git clone --bare https://github.com/michaelnmmeyer/dharma.git
 #	cd dharma.git
 #	wget https://raw.githubusercontent.com/michaelnmmeyer/dharma/master/run.sh
 #
@@ -34,13 +34,16 @@ set -e
 
 commit=$1
 if test -z $commit; then
-	commit=$(git rev-parse HEAD)
+	commit=HEAD
 fi
-git fetch origin '*:*'
+commit=$(git rev-parse --short $commit)
+git fetch origin "*:*"
 lock=""
+here=$PWD
 
 function cleanup() {
-	rm -f $commit/$lock 2> /dev/null || true
+	cd $here
+	rm -f $lock 2> /dev/null || true
 	git worktree remove $commit 2> /dev/null || true
 }
 trap cleanup EXIT
@@ -49,4 +52,5 @@ if ! test -d $commit; then
 	git worktree add --detach $commit $commit
 fi
 lock=$(mktemp -p $commit)
-python3 $commit/server.py
+cd $commit
+python3 server.py || true
