@@ -101,7 +101,7 @@ def show_parallel_verses():
 @bottle.route("/parallels/verses/<id>")
 def show_verse_parallels(id):
 	conn = sqlite3.connect("ngram.sqlite")
-	loc = conn.execute("SELECT file, verse FROM verses where id = ?", (id,)).fetchone()
+	loc = NGRAM_DB.execute("SELECT file, verse FROM verses where id = ?", (id,)).fetchone()
 	if not loc:
 		abort(404, "No such verse")
 	loc = " ".join(loc)
