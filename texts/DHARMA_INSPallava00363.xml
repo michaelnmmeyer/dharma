@@ -4,172 +4,176 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Mahābalipuram Gopis’ churn word</title>
-        <respStmt>
-          <resp>EpiDoc encoding</resp>
-          <persName ref="part:emfr">
-            <forename>Emmanuel</forename>
-            <surname>Francis</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:emfr">
-            <forename>Emmanuel</forename>
-            <surname>Francis</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Paris, CEIAS</pubPlace>
-        <idno type="filename">DHARMA_INSPallava00363</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Mahābalipuram Gopis’ churn word</title>
+            <respStmt>
+               <resp>EpiDoc encoding</resp>
+               <persName ref="part:emfr">
+                  <forename>Emmanuel</forename>
+                  <surname>Francis</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName ref="part:emfr">
+                  <forename>Emmanuel</forename>
+                  <surname>Francis</surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Paris, CEIAS</pubPlace>
+            <idno type="filename">DHARMA_INSPallava00363</idno>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
 							Licence. To view a copy of the licence, visit
 							https://creativecommons.org/licenses/by/4.0/ or send a letter to
 							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
 							California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <msDesc>
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-          </msIdentifier>
-          <msContents>
-            <summary>Isolated name.</summary>
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p/>
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                  <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+               </msIdentifier>
+               <msContents>
+                  <summary>Isolated name.</summary>
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p/>
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
                         under the European Union's Horizon 2020 research and innovation programme (grant
                         agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
                             ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
                             <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-03-16" who="part:emfr">Creation of the file</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="san-Latn">
-        <p>
-          <lb n="1"/>
-          <hi rend="grantha"><unclear>śrī</unclear>-k<choice>
-              <unclear>a</unclear>
-              <unclear>ā</unclear>
-            </choice>viti</hi>
-        </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1">
-            <lem>k<choice>
-                <unclear>a</unclear>
-                <unclear>ā</unclear>
-              </choice>viti</lem>
-            <rdg source="bib:ARIE1959-1960">k<unclear>ā</unclear>viti</rdg>
-            <rdg source="bib:Jouveau-Dubreuil1916_01">kadhīti</rdg>
-            <rdg source="bib:Mahalingam1988_01">k<unclear>a</unclear>viti</rdg>
-            <note>There is on the stone some mark that could be the glyph for <foreign>-ā</foreign>. Whether the inscription was not deeply engraved or has been worn out, both readings are possible, even though <foreign>kāviti</foreign> makes more sense. On the figures published by Jouveau-Dubreuil the reading is <foreign>kaviti</foreign>.</note>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:emfr" type="translation">
-        <p>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:emfr" when="2020-03-16" status="draft">Creation of the file</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+      <body>
+
+         <div type="edition" xml:lang="san-Latn">
+<p>
+<lb n="1"/><hi rend="grantha"><unclear>śrī</unclear>-k<choice><unclear>a</unclear><unclear>ā</unclear></choice>viti</hi>
+            </p></div>
+
+      	<div type="apparatus">
+      		<listApp>
+
+      			<app loc="1">
+      				<lem>k<choice><unclear>a</unclear><unclear>ā</unclear></choice>viti</lem>
+      				<rdg source="bib:ARIE1959-1960">k<unclear>ā</unclear>viti</rdg>
+      				<rdg source="bib:Jouveau-Dubreuil1916_01">kadhīti</rdg>
+      				<rdg source="bib:Mahalingam1988_01">k<unclear>a</unclear>viti</rdg>
+      				<note>There is on the stone some mark that could be the glyph for <foreign>-ā</foreign>. Whether the inscription was not deeply engraved or has been worn out, both readings are possible, even though <foreign>kāviti</foreign> makes more sense. On the figures published by Jouveau-Dubreuil the reading is <foreign>kaviti</foreign>.</note>
+      			</app>
+
+      		</listApp>
+      	</div>
+
+      	<div type="translation" resp="part:emfr">
+
+      		<p>
       			The glorious Kāviti.
-      		</p>
-      </div>
-      <div resp="part:emfr" type="translation" xml:lang="fra">
-        <p>
+      		</p></div>
+
+      	<div type="translation" xml:lang="fra" resp="part:emfr">
+
+      		<p>
       			L'illustre Kāviti.
       		</p>
-      </div>
-      <div type="commentary">
-        <p>This inscription is found on a cistern excavated in a rock in front of the "Trimūrti cave". This cistern is nowadays called the Gopi's Churn in reference to Kṛṣṇa narratives. The inscription itself consist in four syllables in Grantha script. It appears to be a name, either a graffiti or a signature. It is not clear if it has a closer connexion with the cistern on which it is engraved.</p>
-        <!--Put as <summary> in the teiHeader?-->
-        <p>காவிதி kāviti has an entry in the Madras Tamil Lexicon:
-<cit>
-            <quote>n. 1. Ancient title bestowed on Vēḷāḷas by Pāṇḍya kings; வேளாளர்க்குப் பாண்டியர் கொடுத்துவந்த ஒரு பட்டம். (தொல். பொ. 30, உரை.) 2. Title conferred on Vaiśya ladies; வைசியமாதர்பெறும் பட்டவகை. எட்டி காவிதிப் பட் டந்தாங்கிய மயிலியன் மாதர் (பெருங். இலாவாண. 3, 144). 3. Minister; மந்திரி. (திவா.) 4. Accountant caste; கணக்கர் சாதி. (சூடா.) 5. Collector of revenues; வரிதண்டும் அரசாங்கத்தலைவர்.</quote>
-            <bibl>
-              <ptr target="bib:MTL"/>
-              <citedRange unit="entry"/>
-              <citedRange unit="page">903</citedRange>
-            </bibl>
-          </cit></p>
-        <!--Update ref to MTL-->
-        <p>A certain poet named Peruṅkāviti Caṭaiyaṉpaḷḷi composed the verse in <ref target="INSPallava00119.xml">INSPallava00119</ref>, see line 13.</p>
-        <p><bibl>
-            <ptr target="bib:Lockwood1993_01"/>
-            <citedRange unit="page">163</citedRange>
-          </bibl> suggested that <foreign>kāviti</foreign>, which he reads <foreign>kaviti</foreign>, in fact represents what would be pronounced <foreign>gaviti</foreign> in Tamil and makes it meaning <foreign>gokula</foreign>. It seems that this interpretation is based on the assumption that the name Gopis' churn has some relevance to the Pallava period, which one may doubt like in the case of other landmarks of Mahābalipuram recently (18th/19th century) renamed after Kṛṣṇa, e.g. the nearby Kṛṣṇa's butter ball.</p>
-      </div>
-      <div type="bibliography">
-        <p>
-         		First reported in <bibl>
-            <ptr target="bib:ARIE1959-1960"/>
-          </bibl>; text in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP no. 363); re-edited here for DHARMA (ERC n° 809994) by Emmanuel Francis (2020), based on autopsy and photographs (2017).
+      	</div>
+
+         <div type="commentary">
+<p>This inscription is found on a cistern excavated in a rock in front of the "Trimūrti cave". This cistern is nowadays called the Gopi's Churn in reference to Kṛṣṇa narratives. The inscription itself consist in four syllables in Grantha script. It appears to be a name, either a graffiti or a signature. It is not clear if it has a closer connexion with the cistern on which it is engraved.</p> <!--Put as <summary> in the teiHeader?-->
+<p>காவிதி kāviti has an entry in the Madras Tamil Lexicon:
+<cit><quote>n. 1. Ancient title bestowed on Vēḷāḷas by Pāṇḍya kings; வேளாளர்க்குப் பாண்டியர் கொடுத்துவந்த ஒரு பட்டம். (தொல். பொ. 30, உரை.) 2. Title conferred on Vaiśya ladies; வைசியமாதர்பெறும் பட்டவகை. எட்டி காவிதிப் பட் டந்தாங்கிய மயிலியன் மாதர் (பெருங். இலாவாண. 3, 144). 3. Minister; மந்திரி. (திவா.) 4. Accountant caste; கணக்கர் சாதி. (சூடா.) 5. Collector of revenues; வரிதண்டும் அரசாங்கத்தலைவர்.</quote><bibl><ptr target="bib:MTL"/><citedRange unit="entry"/><citedRange unit="page">903</citedRange></bibl></cit></p><!--Update ref to MTL-->
+<p>A certain poet named Peruṅkāviti Caṭaiyaṉpaḷḷi composed the verse in <ref target="INSPallava00119.xml">INSPallava00119</ref>, see line 13.</p>
+<p><bibl><ptr target="bib:Lockwood1993_01"/><citedRange unit="page">163</citedRange></bibl> suggested that <foreign>kāviti</foreign>, which he reads <foreign>kaviti</foreign>, in fact represents what would be pronounced <foreign>gaviti</foreign> in Tamil and makes it meaning <foreign>gokula</foreign>. It seems that this interpretation is based on the assumption that the name Gopis' churn has some relevance to the Pallava period, which one may doubt like in the case of other landmarks of Mahābalipuram recently (18th/19th century) renamed after Kṛṣṇa, e.g. the nearby Kṛṣṇa's butter ball.</p>
+         </div>
+
+         <div type="bibliography">
+
+         	<p>
+         		First reported in <bibl><ptr target="bib:ARIE1959-1960"/></bibl>; text in <bibl><ptr target="bib:Mahalingam1988_01"/></bibl> (IP no. 363); re-edited here for DHARMA (ERC n° 809994) by Emmanuel Francis (2020), based on autopsy and photographs (2017).
          	</p>
-        <listBibl type="primary">
-          <bibl n="GJD1">
+
+
+         	<listBibl type="primary">
+
+         		<bibl n="GJD1">
          			<ptr target="bib:Jouveau-Dubreuil1916_01"/>
          			<citedRange unit="plate">XXXI, B</citedRange> (facing page 64).
          		</bibl>
-          <bibl n="GJD2">
+
+         		<bibl n="GJD2">
          			<ptr target="bib:Jouveau-Dubreuil1916-1917_01"/>
          			<citedRange unit="plate">XXXI, B</citedRange> (facing page 59).
          		</bibl>
-          <bibl n="TVM">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="item">363</citedRange>
-            <citedRange unit="page">762</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="ARIE 1959-1960">
-            <ptr target="bib:ARIE1959-1960"/>
-            <citedRange unit="page">73</citedRange>
-            <citedRange unit="appendix">B/1959-1960</citedRange>
-            <citedRange unit="item">266</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Lockwood1993_01"/>
-            <citedRange unit="page">163</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
+
+         		<bibl n="TVM">
+         			<ptr target="bib:Mahalingam1988_01"/>
+         			<citedRange unit="item">363</citedRange>
+         			<citedRange unit="page">762</citedRange>
+         		</bibl>
+
+         	</listBibl>
+
+         	<listBibl type="secondary">
+
+         		<bibl n="ARIE 1959-1960">
+         			<ptr target="bib:ARIE1959-1960"/>
+         			<citedRange unit="page">73</citedRange>
+         			<citedRange unit="appendix">B/1959-1960</citedRange>
+         			<citedRange unit="item">266</citedRange>
+         		</bibl>
+
+         		<bibl>
+         			<ptr target="bib:Lockwood1993_01"/>
+         			<citedRange unit="page">163</citedRange>
+         		</bibl>
+         	</listBibl>
+
+
+         </div>
+
+      </body>
   </text>
 </TEI>

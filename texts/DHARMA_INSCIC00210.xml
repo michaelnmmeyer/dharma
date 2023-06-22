@@ -4,327 +4,307 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Hòn Đỏ Pillar (C. 210), 972 Śaka</title>
-        <respStmt>
-          <resp>EpiDoc Encoding</resp>
-          <persName ref="part:sapi">
-            <forename>Salomé</forename>
-            <surname>Pichon</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <!--dois-je ajouter Amandine Lepoutre ici ?-->
-          <persName ref="part:argr">
-            <forename>Arlo</forename>
-            <surname>Griffiths</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Paris</pubPlace>
-        <idno type="filename">DHARMA_INSCIC00210</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Hòn Đỏ Pillar (C. 210), 972 Śaka</title>
+                <respStmt>
+                   <resp>EpiDoc Encoding</resp>
+                   <persName ref="part:sapi">
+                      <forename>Salomé</forename>
+                      <surname>Pichon</surname>
+                   </persName>
+                </respStmt>
+                <respStmt>
+                   <resp>intellectual authorship of edition</resp><!--dois-je ajouter Amandine Lepoutre ici ?-->
+                   <persName ref="part:argr">
+                      <forename>Arlo</forename>
+                      <surname>Griffiths</surname>
+                   </persName>
+                </respStmt>
+            </titleStmt>
+            <publicationStmt>
+                <authority>DHARMA</authority>
+                <pubPlace>Paris</pubPlace>
+                <idno type="filename">DHARMA_INSCIC00210</idno>
+                <availability>
+                    <licence target="https://creativecommons.org/licenses/by/4.0/">
+                        <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
                             Licence. To view a copy of the licence, visit
                             https://creativecommons.org/licenses/by/4.0/ or send a letter to
                             Creative Commons, 444 Castro Street, Suite 900, Mountain View,
                             California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Arlo Griffiths &amp; Salomé Pichon.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
-        <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
-          </msIdentifier>
-          <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p>Exceptional form of <foreign>virāma</foreign>, in l. D4, and exceptional form of -<foreign>ā</foreign> on face D.</p>
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2021-08-23" who="part:sapi">Initial encoding of the inscription</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="san-Latn">
-        <ab><milestone n="A" type="pagelike" unit="face"/><lb n="A01"/><g type="ddandaPlain"/><g type="eye"/><!-- ou circleConcentric ?--><g type="ddandaPlain"/> svasti<g type="ddandaPlain"/><g type="eye"/><!-- ou circleConcentric ?--><g type="ddandaPlain"/></ab>
-        <lg met="śārdūlavikrīḍita" n="1">
-          <l n="a"><lb n="A1"/>tasya śrī parameśvarasya n<choice>
-              <sic>ra</sic>
-              <corr>r̥</corr>
-            </choice><lb n="A2"/>pater<!--Ici j'ai modifié le rtf et l'édition. Il y était inscrit directement nr̥pater alors qu'ici je lis plutôt un -ra souscrit qu'il faudrait corrigé en -r̥--> bbhrātrīsutas sadguṇī </l>
-          <l n="b">nāmnā śrī yu<lb n="A3"/>varāja Eva supr̥thagbhāvādikarmmodyamaḥ</l>
-          <l n="c">nā<lb n="A4"/>nādānamakhotsavas tv api śive yoge śiva<lb n="A5"/><unclear>sth</unclear><supplied reason="lost">e</supplied> padāny</l>
-          <l n="d">apy ātmānam ayan tato dhikataras so <lb n="A6"/>śnoti sanmānase<g type="ddandaPlain">.</g><g type="spiralR">.</g><g type="ddandaPlain">.</g></l>
-        </lg>
-        <lg met="anuṣṭubh" n="2">
-          <l n="a">karaśelavilair yyu<lb n="A7"/>kte</l>
-          <l n="b">śakarāje śilāmayam·</l>
-          <l n="c">liṅgaṁ sustham araṅ kī<lb n="A8"/>rttyai</l>
-          <l n="d"><unclear>s</unclear>thāpayām āsa so dhikaḥ<g type="ddandaPlain">.</g><g type="spiralR">.</g><g type="ddandaPlain">.</g></l>
-        </lg>
-        <p xml:lang="ocm-Latn"><milestone n="B" type="pagelike" unit="face"/>
-           <lb n="B1"/><supplied reason="lost">ma</supplied>dā pu lyam̃ śrī yuvarāja mahāsenāpati yam̃<lb break="no" n="B2"/>ṅ· kumvan· yām̃ po ku parameśvaravarmmadeva du<lb break="no" n="B3"/><unclear>na</unclear>n· trā kevaladharmma dauk· rajan· puṇyadāna ṅan·
-           <lb n="B4"/>hitāhi<unclear>ta</unclear>vastu kam̃n· bhāva ni<unclear>m̃</unclear> sadākāla dunan· tum̃ sarvvaśāstrā<lb break="no" n="B5"/>gama sidaḥ śaivasaugatasiddhāntakulā<unclear>vdhi</unclear>ma dunan· kevala
-           <lb n="B6"/>d<unclear>au</unclear>k· rajan· gurubhakti ṅan· śivabhakti maddan· yogadhyānasamā<lb break="no" n="B7"/>dhi Upak· vela Udā<unclear>sī</unclear>na suhetu <unclear>du</unclear>nan<unclear>·</unclear> kmaiṅ· ya
+                        <p>Copyright (c) 2019-2025 by Arlo Griffiths &amp; Salomé Pichon.</p>
+                    </licence>
+                </availability>
+                <date from="2019" to="2025">2019-2025</date>
+            </publicationStmt>
+            <sourceDesc><!-- only the handDesc can be filled in at this stage -->
+                <msDesc><!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+                    <msIdentifier>
+                        <repository>DHARMAbase</repository>
+                        <idno/><!-- don't modify this -->
+                    </msIdentifier>
+                    <msContents><!-- describe the intellectual content of an inscription -->
+                        <summary><!-- //// NOT MANDATORY  ////--></summary> <!-- offers the possibility to give a summary of the inscription's content -->
+                    </msContents>
+                    <physDesc>
+                        <handDesc>
+                            <p>Exceptional form of <foreign>virāma</foreign>, in l. D4, and exceptional form of -<foreign>ā</foreign> on face D.</p>
+                        </handDesc>
+                    </physDesc>
+                </msDesc>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <projectDesc>
+                <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+            </projectDesc>
+            <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/><!-- UPDATE the link once the release is made official -->
+            <listPrefixDef>
+                <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+                    <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+                </prefixDef>
+                <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+                    <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+                </prefixDef>
+            </listPrefixDef>
+        </encodingDesc>
+        <revisionDesc>
+              <change who="part:sapi" when="2021-08-23" status="draft">Initial encoding of the inscription</change>
+        </revisionDesc>
+    </teiHeader>
+    <text xml:space="preserve">
+      <body>
+         <div type="edition" xml:lang="san-Latn">
+           <ab><milestone type="pagelike" unit="face" n="A"/><lb n="A01"/><g type="ddandaPlain"/><g type="eye"/><!-- ou circleConcentric ?--><g type="ddandaPlain"/> svasti<g type="ddandaPlain"/><g type="eye"/><!-- ou circleConcentric ?--><g type="ddandaPlain"/></ab>
+           <lg n="1" met="śārdūlavikrīḍita">
+             <l n="a"><lb n="A1"/>tasya śrī parameśvarasya n<choice><sic>ra</sic><corr>r̥</corr></choice><lb n="A2"/>pater<!--Ici j'ai modifié le rtf et l'édition. Il y était inscrit directement nr̥pater alors qu'ici je lis plutôt un -ra souscrit qu'il faudrait corrigé en -r̥--> bbhrātrīsutas sadguṇī </l>
+             <l n="b">nāmnā śrī yu<lb n="A3"/>varāja Eva supr̥thagbhāvādikarmmodyamaḥ</l>
+             <l n="c">nā<lb n="A4"/>nādānamakhotsavas tv api śive yoge śiva<lb n="A5"/><unclear>sth</unclear><supplied reason="lost">e</supplied> padāny</l>
+             <l n="d">apy ātmānam ayan tato dhikataras so <lb n="A6"/>śnoti sanmānase<g type="ddandaPlain">.</g><g type="spiralR">.</g><g type="ddandaPlain">.</g></l>
+           </lg>
+           <lg n="2" met="anuṣṭubh">
+             <l n="a">karaśelavilair yyu<lb n="A7"/>kte</l>
+             <l n="b">śakarāje śilāmayam·</l>
+             <l n="c">liṅgaṁ sustham araṅ kī<lb n="A8"/>rttyai</l>
+             <l n="d"><unclear>s</unclear>thāpayām āsa so dhikaḥ<g type="ddandaPlain">.</g><g type="spiralR">.</g><g type="ddandaPlain">.</g></l>
+           </lg>
+           <p xml:lang="ocm-Latn"><milestone type="pagelike" unit="face" n="B"/>
+           <lb n="B1"/><supplied reason="lost">ma</supplied>dā pu lyam̃ śrī yuvarāja mahāsenāpati yam̃<lb
+           n="B2" break="no"/>ṅ· kumvan· yām̃ po ku parameśvaravarmmadeva du<lb
+           n="B3" break="no"/><unclear>na</unclear>n· trā kevaladharmma dauk· rajan· puṇyadāna ṅan·
+           <lb n="B4"/>hitāhi<unclear>ta</unclear>vastu kam̃n· bhāva ni<unclear>m̃</unclear> sadākāla dunan· tum̃ sarvvaśāstrā<lb
+           n="B5" break="no"/>gama sidaḥ śaivasaugatasiddhāntakulā<unclear>vdhi</unclear>ma dunan· kevala
+           <lb n="B6"/>d<unclear>au</unclear>k· rajan· gurubhakti ṅan· śivabhakti maddan· yogadhyānasamā<lb
+           n="B7" break="no"/>dhi Upak· vela Udā<unclear>sī</unclear>na suhetu <unclear>du</unclear>nan<unclear>·</unclear> kmaiṅ· ya
            <lb n="B8"/> śa dauk· palavvīk· di loka <unclear>nim̃ t</unclear>ra
-           <lb n="B9"/>dunan· makmaim̃ nīrvvāṇapada <choice>
-            <unclear>ta</unclear>
-            <unclear>ku</unclear>
-          </choice> yam̃ Ajarā maraṇa kaivalya<milestone n="C" type="pagelike" unit="face"/>
+           <lb n="B9"/>dunan· makmaim̃ nīrvvāṇapada <choice><unclear>ta</unclear><unclear>ku</unclear></choice> yam̃ Ajarā maraṇa kaivalya<milestone type="pagelike" unit="face" n="C"/>
            <lb n="C1"/>nirvvikāra paramānandana niṣprapañca si jem̃ dunan·
            <lb n="C2"/>Utsāha dauk· di vastu nan· sadākāla Upak· vela
            <lb n="C3"/>Udāsīna sā nimiśamātra mam̃n· la Oḥ suhetu Urām̃ panrām̃
            <lb n="C4"/>nim̃ ñu Adhama paputau Urām̃ di nagara nim̃ si jem̃ ra vā
            <lb n="C5"/>vala marai mak· tmuv· nagara niy· niśśeṣa Aviḥ mam̃n·
-           <lb n="C6"/>ra pratiṣṭhā liṅga jayastambha dvā niy· di A<lb n="C7"/>jvañ· sauy· tra di huluv· glai cnyā la<lb break="no" n="C8"/>c· Uttarabhāga deḥ bharuv· ra vriy·
+           <lb n="C6"/>ra pratiṣṭhā liṅga jayastambha dvā niy· di A<lb
+           n="C7"/>jvañ· sauy· tra di huluv· glai cnyā la<lb
+           n="C8" break="no"/>c· Uttarabhāga deḥ bharuv· ra vriy·
            <lb n="C9"/>dāna kam̃n· brāhmaṇa tapasmī bhikṣu
-           <lb n="C10"/>ṅan· hīnadīnānātha Avista<milestone n="D" type="pagelike" unit="face"/>
+           <lb n="C10"/>ṅan· hīnadīnānātha Avista<milestone type="pagelike" unit="face" n="D"/>
            <lb n="D1"/>bharuv· ra vrok· nau vijai
-           <lb n="D2"/>di huriy· sapluḥ dvā klaṁ vulān· pā<lb break="no" n="D3"/>k· di śakarāja <num value="972">972</num> kāla ra prati<lb break="no" n="D4"/>ṣṭhā liṅga niy·<g type="ddandaPlain">.</g><g type="spiralR">.</g><g type="ddandaPlain">.</g>
+           <lb n="D2"/>di huriy· sapluḥ dvā klaṁ vulān· pā<lb
+           n="D3" break="no"/>k· di śakarāja <num value="972">972</num> kāla ra prati<lb
+           n="D4" break="no"/>ṣṭhā liṅga niy·<g type="ddandaPlain">.</g><g type="spiralR">.</g><g type="ddandaPlain">.</g>
            </p>
-        <p xml:lang="ocm-Latn">
-             nan·vvana śrī yuva<lb break="no" n="D5"/>rāja sāna ya mahāsenāpati kāla na<supplied reason="lost">n·</supplied><!--sapi2argr J'ai transcrit le n_ par n· sans certitude.-->
-             <lb n="D6"/>ṅan· hr̥ rūpa sukūla tyāga karuṇā pa<gap quantity="1" reason="lost" unit="character"/><!--sapi2argr Ici j'ai modifié dans le rtf et dans l'édition la fin de la ligne. Originellement il y était proposé pa-, mais je crois distinguer un morceau de caractère après le pa.-->
-             <lb n="D7"/><gap quantity="2" reason="lost" unit="character"/> pi <gap quantity="1" reason="lost" unit="character"/> yogadhyānasamādhi śila<lb break="no" n="D8"/>paḥ <space/> <g type="dandaPlain">.</g> kāla ri phap· drim̃ ṅan·
-             <lb n="D9"/>ma <gap precision="low" quantity="2" reason="lost" unit="character"/> vyalī yaśa <gap quantity="1" reason="lost" unit="character"/>raive bo<lb break="no" n="D10"/>dhisa<unclear>t</unclear><supplied reason="lost">v</supplied>a na mam̃n· <supplied reason="lost">
-            <g type="ddandaPlain">.</g>
-          </supplied><g type="eye">.</g><!-- ou circleConcentric ?--><g type="ddandaPlain">.</g>
+           <p xml:lang="ocm-Latn">
+             nan·vvana śrī yuva<lb
+             n="D5" break="no"/>rāja sāna ya mahāsenāpati kāla na<supplied reason="lost">n·</supplied><!--sapi2argr J'ai transcrit le n_ par n· sans certitude.-->
+             <lb n="D6"/>ṅan· hr̥ rūpa sukūla tyāga karuṇā pa<gap reason="lost" quantity="1" unit="character"/><!--sapi2argr Ici j'ai modifié dans le rtf et dans l'édition la fin de la ligne. Originellement il y était proposé pa-, mais je crois distinguer un morceau de caractère après le pa.-->
+             <lb n="D7"/><gap reason="lost" quantity="2" unit="character"/> pi <gap reason="lost" quantity="1" unit="character"/> yogadhyānasamādhi śila<lb
+             n="D8" break="no"/>paḥ <space/> <g type="dandaPlain">.</g> kāla ri phap· drim̃ ṅan·
+             <lb n="D9"/>ma <gap reason="lost" quantity="2" unit="character" precision="low"/> vyalī yaśa <gap reason="lost" quantity="1" unit="character"/>raive bo<lb
+             n="D10" break="no"/>dhisa<unclear>t</unclear><supplied reason="lost">v</supplied>a na mam̃n· <supplied reason="lost"><g type="ddandaPlain">.</g></supplied><g type="eye">.</g><!-- ou circleConcentric ?--><g type="ddandaPlain">.</g>
            </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="A1">
-            <lem>n<choice>
-                <sic>ra</sic>
-                <corr>r̥</corr>
-              </choice>pater</lem>
-            <rdg source="bib:Schweyer2009_01">nr̥pater</rdg>
-          </app>
-          <app loc="A3">
-            <lem>supr̥thagbhāvādikarmmodyamaḥ</lem>
-            <rdg source="bib:Schweyer2009_01">supr̥thag bhāvādi karmmo dyamaḥ</rdg>
-          </app>
-          <app loc="A4">
-            <lem>nānādānamakhotsavas</lem>
-            <rdg source="bib:Schweyer2009_01">nānādānamalotsavas</rdg>
-            <note>With note indicating that one would have to read <foreign>mahotsavas</foreign>; being based on a wrong reading, we may forget this proposal.</note>
-          </app>
-          <app loc="A4">
-            <lem>śiva<unclear>sth</unclear><supplied reason="lost">e</supplied></lem>
-            <rdg source="bib:Schweyer2009_01">śiva<gap quantity="1" reason="lost" unit="character"/></rdg>
-          </app>
-          <app loc="A5">
-            <lem>padāny apy ātmānam</lem>
-            <rdg source="bib:Schweyer2009_01">sadānyapyātmānam</rdg>
-          </app>
-          <app loc="A5">
-            <lem>ayan tato</lem>
-            <rdg source="bib:Schweyer2009_01">ayantato</rdg>
-            <note>With note indicating that one would have to read <foreign>ayatnata</foreign>, which is ungrammatical and anyhow unnecessary.</note>
-          </app>
-          <app loc="A5">
-            <lem>dhikataras</lem>
-            <rdg source="bib:Schweyer2009_01">dhikat<supplied reason="lost">v</supplied>aṁ</rdg>
-            <note>Her proposition was unmetrical.</note>
-          </app>
-          <app loc="A6">
-            <lem>karaśelavilair</lem>
-            <rdg source="bib:Schweyer2009_01">karaśailavilair</rdg>
-            <note>It is possible that the little stroke below the vocalization of what we read as śe is indeed intended to make it <foreign>śai</foreign>, in which case it would have to be noted how differently the two cases of ai-vocalization in this compound have been written. We prefer to assume the mentioned little stroke is accidental, and to observe the inconsistency of orthography rather than of the shape of signs.</note>
-          </app>
-          <app loc="B1">
-            <lem>yam̃ṅ·</lem>
-            <rdg source="bib:Schweyer2009_01">năṅ</rdg>
-          </app>
-          <app loc="B4">
-            <lem>bhāva ni<unclear>m̃</unclear></lem>
-            <rdg source="bib:Schweyer2009_01">bhāvani</rdg>
-          </app>
-          <app loc="B5">
-            <lem>-kulā<unclear>vdhi</unclear>ma</lem>
-            <rdg source="bib:Schweyer2009_01">
-              <unclear>kulāgdhima</unclear>
-            </rdg>
-            <note>Read -<foreign>kulāgama</foreign> or -<foreign>kulāvdhimada</foreign>?</note>
-          </app>
-          <app loc="B7">
-            <lem>Upak</lem>
-            <rdg source="bib:Schweyer2009_01">ra pak</rdg>
-          </app>
-          <app loc="B7">
-            <lem>Udā<unclear>sī</unclear>na suhetu <unclear>du</unclear>nan<unclear>·</unclear> kmaiṅ·</lem>
-            <rdg source="bib:Schweyer2009_01">ra rā <gap quantity="2" reason="lost" unit="character"/> puho ṅa <gap quantity="2" reason="lost" unit="character"/> kmeṅ</rdg>
-          </app>
-          <app loc="B8">
-            <lem><unclear>t</unclear>ra</lem>
-            <rdg source="bib:Schweyer2009_01">trā</rdg>
-          </app>
-          <app loc="B9">
-            <lem>makmaim̃</lem>
-            <rdg source="bib:Schweyer2009_01">makmĕ</rdg>
-          </app>
-          <app loc="B9">
-            <lem>nīrvvāṇapada</lem>
-            <rdg source="bib:Schweyer2009_01">nīivvāṇapada</rdg>
-            <note>Typing error?</note>
-          </app>
-          <app loc="B9">
-            <lem><choice>
-                <unclear>ta</unclear>
-                <unclear>ku</unclear>
-              </choice> yam̃</lem>
-            <rdg source="bib:Schweyer2009_01">kaya</rdg>
-          </app>
-          <app loc="B9">
-            <lem>Ajarā maraṇa kaivalya</lem>
-            <rdg source="bib:Schweyer2009_01"><gap quantity="1" reason="lost" unit="character"/> jārāparaṇa kevala<g type="ddandaPlain">.</g></rdg>
-          </app>
-          <app loc="C1">
-            <lem>nirvvikāraparamānandana</lem>
-            <rdg source="bib:Schweyer2009_01"><unclear>nirvvitā ra pamo</unclear>nandana</rdg>
-          </app>
-          <app loc="C3">
-            <lem>Udāsīna sā</lem>
-            <rdg source="bib:Schweyer2009_01"><gap quantity="1" reason="lost" unit="character"/>dāsīna ha</rdg>
-          </app>
-          <app loc="C9">
-            <lem>tapasmī</lem>
-            <rdg source="bib:Schweyer2009_01">tapasvī</rdg>
-            <note>The intended meaning is no doubt <foreign>tapasvī</foreign>, but the stone clearly reads <foreign>tapasmī</foreign>.</note>
-          </app>
-          <app loc="C9">
-            <lem>bhikṣu</lem>
-            <rdg source="bib:Schweyer2009_01">bhiksu</rdg>
-          </app>
-          <app loc="C10">
-            <lem>hīnadīnānātha</lem>
-            <rdg source="bib:Schweyer2009_01">hinadīnānāta</rdg>
-          </app>
-          <app loc="D1">
-            <lem>vijai</lem>
-            <rdg source="bib:Schweyer2009_01">vije</rdg>
-          </app>
-          <app loc="D3">
-            <lem>
-              <num value="972">972</num>
-            </lem>
-            <rdg source="bib:Schweyer2009_01">
-              <num value="279">279</num>
-            </rdg>
-            <note>The fact that AVS misrepresents the order of the numbers also in her edition of C. 156 in the same article suggests this is no accident.</note>
-          </app>
-          <app loc="D3">
-            <lem>pratiṣṭhā</lem>
-            <rdg source="bib:Schweyer2009_01">pratiṣṭā</rdg>
-          </app>
-          <app loc="D4">
-            <lem>nan·vvana</lem>
-            <rdg source="bib:Schweyer2009_01">nanvvan</rdg>
-            <note>The word <foreign>navvan</foreign> occurs several times in the corpus. We seem to have a spelling mistake for that word.</note>
-          </app>
-          <app loc="D5">
-            <lem>sāna ya</lem>
-            <rdg source="bib:Schweyer2009_01">sānaya</rdg>
-          </app>
-          <app loc="D5">
-            <lem>mahāsenāpati</lem>
-            <rdg source="bib:Schweyer2009_01">mahāsenāpatī</rdg>
-          </app>
-          <app loc="D5">
-            <lem>na<supplied reason="lost">n·</supplied> ṅan· hr̥ rūpa sukūla</lem>
-            <rdg source="bib:Schweyer2009_01">na <gap quantity="4" reason="lost" unit="character"/> pa su kūla</rdg>
-            <note>Understand <foreign>hr̥</foreign> as <foreign>hrī</foreign>, <foreign>sukūla</foreign> as <foreign>sukula</foreign>.</note>
-          </app>
-          <app loc="D6">
-            <lem>tyāga karuṇā pa<gap quantity="1" reason="lost" unit="character"/></lem>
-            <rdg source="bib:Schweyer2009_01">tyāga <gap quantity="5" reason="lost" unit="character"/></rdg>
-          </app>
-          <app loc="D7">
-            <lem><gap quantity="2" reason="lost" unit="character"/> pi <gap quantity="1" reason="lost" unit="character"/></lem>
-            <rdg source="bib:Schweyer2009_01">ra<seg type="aksara"><seg subtype="body" type="component">
-                  <gap quantity="1" reason="illegible" unit="component"/>
-                </seg>i</seg> si <gap quantity="1" reason="lost" unit="character"/></rdg>
-          </app>
-          <app loc="D7">
-            <lem>śilapaḥ <space/> <g type="dandaPlain">.</g> kāla</lem>
-            <rdg source="bib:Schweyer2009_01">sila <gap quantity="3" reason="lost" unit="character"/> pa <gap quantity="4" reason="lost" unit="character"/> kāla</rdg>
-            <note>Inspection of the stone suggests that no <foreign>akṣaras</foreign> were ever written where AVS supposes lacunae.</note>
-          </app>
-          <app loc="D8">
-            <lem>ri phap· drim̃ ṅan·</lem>
-            <rdg source="bib:Schweyer2009_01">di <gap quantity="1" reason="lost" unit="character"/>p· drĭ <gap reason="lost"/></rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:argr part:sapi" type="translation"><!--translation encoded as per EGD §9.2 --></div>
-      <div type="commentary">
-        <p n="C10">Inspection of the stone shows that no sign is missing at the beginning of this lign, but that an irregularity of the stone explains the shift of the margin.</p>
-        <p n="D9-D10">AVS has not read these lines.</p>
-      </div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <p>First edited with translation into French by Anne-Valérie Schweyer (<bibl rend="omitname">
-            <ptr target="bib:Schweyer2009_01"/>
-            <citedRange unit="page">25-33</citedRange>
-          </bibl>). The inscription is re-edited here by Arlo Griffiths and Salomé Pichon based on autopsy and the EFEO estampages n. 1878, n. 1879, n. 1880, n. 1881 and n. 1882.</p>
-        <listBibl type="primary">
-          <bibl n="S">
-            <ptr target="bib:Schweyer2009_01"/>
-            <citedRange unit="page">25-33</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:Jacques1975-1976_01"/>
-            <!--sapi2argrJe l'ai ajouté mais ne suis pas sûre qu'il la mentionne dans l'article. En tout cas je ne la vois pas.-->
-            <citedRange unit="page">948-953</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Schweyer2005_03"/>
-            <citedRange unit="page">36-47</citedRange>
-            <note>Referred to as C. 211.</note>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
+         </div>
+         <div type="apparatus">
+               <listApp>
+                 <app loc="A1">
+                 <lem>n<choice><sic>ra</sic><corr>r̥</corr></choice>pater</lem>
+                 <rdg source="bib:Schweyer2009_01">nr̥pater</rdg>
+                 </app>
+                 <app loc="A3">
+                 <lem>supr̥thagbhāvādikarmmodyamaḥ</lem>
+                 <rdg source="bib:Schweyer2009_01">supr̥thag bhāvādi karmmo dyamaḥ</rdg>
+                 </app>
+                 <app loc="A4">
+                 <lem>nānādānamakhotsavas</lem>
+                 <rdg source="bib:Schweyer2009_01">nānādānamalotsavas</rdg>
+                 <note>With note indicating that one would have to read <foreign>mahotsavas</foreign>; being based on a wrong reading, we may forget this proposal.</note>
+                 </app>
+                 <app loc="A4">
+                 <lem>śiva<unclear>sth</unclear><supplied reason="lost">e</supplied></lem>
+                 <rdg source="bib:Schweyer2009_01">śiva<gap reason="lost" quantity="1" unit="character"/></rdg>
+                 </app>
+                 <app loc="A5">
+                 <lem>padāny apy ātmānam</lem>
+                 <rdg source="bib:Schweyer2009_01">sadānyapyātmānam</rdg>
+                 </app>
+                 <app loc="A5">
+                 <lem>ayan tato</lem>
+                 <rdg source="bib:Schweyer2009_01">ayantato</rdg>
+                 <note>With note indicating that one would have to read <foreign>ayatnata</foreign>, which is ungrammatical and anyhow unnecessary.</note>
+                 </app>
+                 <app loc="A5">
+                 <lem>dhikataras</lem>
+                 <rdg source="bib:Schweyer2009_01">dhikat<supplied reason="lost">v</supplied>aṁ</rdg>
+                 <note>Her proposition was unmetrical.</note>
+                 </app>
+                 <app loc="A6">
+                 <lem>karaśelavilair</lem>
+                 <rdg source="bib:Schweyer2009_01">karaśailavilair</rdg>
+                 <note>It is possible that the little stroke below the vocalization of what we read as śe is indeed intended to make it <foreign>śai</foreign>, in which case it would have to be noted how differently the two cases of ai-vocalization in this compound have been written. We prefer to assume the mentioned little stroke is accidental, and to observe the inconsistency of orthography rather than of the shape of signs.</note>
+                 </app>
+                 <app loc="B1">
+                 <lem>yam̃ṅ·</lem>
+                 <rdg source="bib:Schweyer2009_01">năṅ</rdg>
+                 </app>
+                 <app loc="B4">
+                 <lem>bhāva ni<unclear>m̃</unclear></lem>
+                 <rdg source="bib:Schweyer2009_01">bhāvani</rdg>
+                 </app>
+                 <app loc="B5">
+                 <lem>-kulā<unclear>vdhi</unclear>ma</lem>
+                 <rdg source="bib:Schweyer2009_01"><unclear>kulāgdhima</unclear></rdg>
+                 <note>Read -<foreign>kulāgama</foreign> or -<foreign>kulāvdhimada</foreign>?</note>
+                 </app>
+                 <app loc="B7">
+                 <lem>Upak</lem>
+                 <rdg source="bib:Schweyer2009_01">ra pak</rdg>
+                 </app>
+                 <app loc="B7">
+                 <lem>Udā<unclear>sī</unclear>na suhetu <unclear>du</unclear>nan<unclear>·</unclear> kmaiṅ·</lem>
+                 <rdg source="bib:Schweyer2009_01">ra rā <gap reason="lost" quantity="2" unit="character"/> puho ṅa <gap reason="lost" quantity="2" unit="character"/> kmeṅ</rdg>
+                 </app>
+                 <app loc="B8">
+                 <lem><unclear>t</unclear>ra</lem>
+                 <rdg source="bib:Schweyer2009_01">trā</rdg>
+                 </app>
+                 <app loc="B9">
+                 <lem>makmaim̃</lem>
+                 <rdg source="bib:Schweyer2009_01">makmĕ</rdg>
+                 </app>
+                 <app loc="B9">
+                 <lem>nīrvvāṇapada</lem>
+                 <rdg source="bib:Schweyer2009_01">nīivvāṇapada</rdg>
+                 <note>Typing error?</note>
+                 </app>
+                 <app loc="B9">
+                 <lem><choice><unclear>ta</unclear><unclear>ku</unclear></choice> yam̃</lem>
+                 <rdg source="bib:Schweyer2009_01">kaya</rdg>
+                 </app>
+                 <app loc="B9">
+                 <lem>Ajarā maraṇa kaivalya</lem>
+                 <rdg source="bib:Schweyer2009_01"><gap reason="lost" quantity="1" unit="character"/> jārāparaṇa kevala<g type="ddandaPlain">.</g></rdg>
+                 </app>
+                 <app loc="C1">
+                 <lem>nirvvikāraparamānandana</lem>
+                 <rdg source="bib:Schweyer2009_01"><unclear>nirvvitā ra pamo</unclear>nandana</rdg>
+                 </app>
+                 <app loc="C3">
+                 <lem>Udāsīna sā</lem>
+                 <rdg source="bib:Schweyer2009_01"><gap reason="lost" quantity="1" unit="character"/>dāsīna ha</rdg>
+                 </app>
+                 <app loc="C9">
+                 <lem>tapasmī</lem>
+                 <rdg source="bib:Schweyer2009_01">tapasvī</rdg>
+                 <note>The intended meaning is no doubt <foreign>tapasvī</foreign>, but the stone clearly reads <foreign>tapasmī</foreign>.</note>
+                 </app>
+                 <app loc="C9">
+                 <lem>bhikṣu</lem>
+                 <rdg source="bib:Schweyer2009_01">bhiksu</rdg>
+                 </app>
+                 <app loc="C10">
+                 <lem>hīnadīnānātha</lem>
+                 <rdg source="bib:Schweyer2009_01">hinadīnānāta</rdg>
+                 </app>
+                 <app loc="D1">
+                 <lem>vijai</lem>
+                 <rdg source="bib:Schweyer2009_01">vije</rdg>
+                 </app>
+                 <app loc="D3">
+                 <lem><num value="972">972</num></lem>
+                 <rdg source="bib:Schweyer2009_01"><num value="279">279</num></rdg>
+                 <note>The fact that AVS misrepresents the order of the numbers also in her edition of C. 156 in the same article suggests this is no accident.</note>
+                 </app>
+                 <app loc="D3">
+                 <lem>pratiṣṭhā</lem>
+                 <rdg source="bib:Schweyer2009_01">pratiṣṭā</rdg>
+                 </app>
+                 <app loc="D4">
+                 <lem>nan·vvana</lem>
+                 <rdg source="bib:Schweyer2009_01">nanvvan</rdg>
+                 <note>The word <foreign>navvan</foreign> occurs several times in the corpus. We seem to have a spelling mistake for that word.</note>
+                 </app>
+                 <app loc="D5">
+                 <lem>sāna ya</lem>
+                 <rdg source="bib:Schweyer2009_01">sānaya</rdg>
+                 </app>
+                 <app loc="D5">
+                 <lem>mahāsenāpati</lem>
+                 <rdg source="bib:Schweyer2009_01">mahāsenāpatī</rdg>
+                 </app>
+                 <app loc="D5">
+                 <lem>na<supplied reason="lost">n·</supplied> ṅan· hr̥ rūpa sukūla</lem>
+                 <rdg source="bib:Schweyer2009_01">na <gap reason="lost" quantity="4" unit="character"/> pa su kūla</rdg>
+                 <note>Understand <foreign>hr̥</foreign> as <foreign>hrī</foreign>, <foreign>sukūla</foreign> as <foreign>sukula</foreign>.</note>
+                 </app>
+                 <app loc="D6">
+                 <lem>tyāga karuṇā pa<gap reason="lost" quantity="1" unit="character"/></lem>
+                 <rdg source="bib:Schweyer2009_01">tyāga <gap reason="lost" quantity="5" unit="character"/></rdg>
+                 </app>
+                 <app loc="D7">
+                 <lem><gap reason="lost" quantity="2" unit="character"/> pi <gap reason="lost" quantity="1" unit="character"/></lem>
+                 <rdg source="bib:Schweyer2009_01">ra<seg type="aksara"><seg type="component" subtype="body"><gap reason="illegible" quantity="1" unit="component"/></seg>i</seg> si <gap reason="lost" quantity="1" unit="character"/></rdg>
+                 </app>
+                 <app loc="D7">
+                 <lem>śilapaḥ <space/> <g type="dandaPlain">.</g> kāla</lem>
+                 <rdg source="bib:Schweyer2009_01">sila <gap reason="lost" quantity="3" unit="character"/> pa <gap reason="lost" quantity="4" unit="character"/> kāla</rdg>
+                 <note>Inspection of the stone suggests that no <foreign>akṣaras</foreign> were ever written where AVS supposes lacunae.</note>
+                 </app>
+                 <app loc="D8">
+                 <lem>ri phap· drim̃ ṅan·</lem>
+                 <rdg source="bib:Schweyer2009_01">di <gap reason="lost" quantity="1" unit="character"/>p· drĭ <gap reason="lost"/></rdg>
+                 </app>
+               </listApp>
+         </div>
+         <div type="translation" resp="part:argr part:sapi">
+ 	<!--translation encoded as per EGD §9.2 -->
+         </div>
+         <div type="commentary">
+            <p n="C10">Inspection of the stone shows that no sign is missing at the beginning of this lign, but that an irregularity of the stone explains the shift of the margin.</p>
+            <p n="D9-D10">AVS has not read these lines.</p>
+         </div>
+        <div type="bibliography">
+	<!--bibliography encoded as per section §9.4 -->
+           <p>First edited with translation into French by Anne-Valérie Schweyer (<bibl rend="omitname"><ptr target="bib:Schweyer2009_01"/><citedRange unit="page">25-33</citedRange></bibl>). The inscription is re-edited here by Arlo Griffiths and Salomé Pichon based on autopsy and the EFEO estampages n. 1878, n. 1879, n. 1880, n. 1881 and n. 1882.</p>
+           <listBibl type="primary">
+             <bibl n="S">
+             <ptr target="bib:Schweyer2009_01"/>
+             <citedRange unit="page">25-33</citedRange>
+             </bibl>
+       </listBibl>
+            <listBibl type="secondary">
+              <bibl>
+                <ptr target="bib:Jacques1975-1976_01"/><!--sapi2argrJe l'ai ajouté mais ne suis pas sûre qu'il la mentionne dans l'article. En tout cas je ne la vois pas.-->
+                <citedRange unit="page">948-953</citedRange>
+              </bibl>
+              <bibl>
+              <ptr target="bib:Schweyer2005_03"/>
+              <citedRange unit="page">36-47</citedRange>
+              <note>Referred to as C. 211.</note>
+              </bibl>
+            </listBibl>
+        </div>
+      </body>
   </text>
 </TEI>

@@ -4,231 +4,172 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Kawali I (b)</title>
-        <!--Change the title of the file, e.g. Raktamālā grant of the time of Budhagupta, year 159-->
-        <respStmt>
-          <!-- add an element respStmt for each person involved -->
-          <resp>intellectual authorship of edition</resp>
-          <!-- this may be the same as the creator of the file -->
-          <persName ref="part:adgu">
-            <name>Aditia Gunawan</name>
-            <!-- Input Arlo -->
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Paris</pubPlace>
-        <idno type="filename">DHARMA_INSIDENKKawali_1b</idno>
-        <!-- Replace by filename, e.g. Pallava00001 -->
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Aditia Gunawan &amp; Arlo Griffiths.</p>
-            <!-- Replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
-        <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
-          </msIdentifier>
-          <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Kawali I (b)</title>
+            <!--Change the title of the file, e.g. Raktamālā grant of the time of Budhagupta, year 159-->
+            <respStmt><!-- add an element respStmt for each person involved -->
+               <resp>intellectual authorship of edition</resp>
+               <!-- this may be the same as the creator of the file -->
+               <persName ref="part:adgu">
+                     <name>Aditia Gunawan</name>
+                     <!-- Input Arlo -->
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Paris</pubPlace>
+            <idno type="filename">DHARMA_INSIDENKKawali_1b</idno>
+            <!-- Replace by filename, e.g. Pallava00001 -->
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+                  <p>Copyright (c) 2019-2025 by Aditia Gunawan &amp; Arlo Griffiths.</p>
+                  <!-- Replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc><!-- only the handDesc can be filled in at this stage -->
+            <msDesc><!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+                  <!-- don't modify this -->
+               </msIdentifier>
+               <msContents><!-- describe the intellectual content of an inscription -->
+                  <summary><!-- //// NOT MANDATORY  ////--></summary>
+                  <!-- offers the possibility to give a summary of the inscription's content -->
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+                     <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
 						<summary><p><p/></summary>
 						<handNote xml:id="Pallava00001_hand1"></handNote>
 						<handNote xml:id="Pallava00001_hand2"></handNote>
 					 -->
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
                         under the European Union's Horizon 2020 research and innovation programme (grant
                         agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
                             ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
                             <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2021-04-10" who="part:adgu">Updating lang, apparatus, and bibliography</change>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-05-18" who="part:adgu">revision second round</change>
-      <change status="draft" when="2020-03-27" who="part:axja">adding the handDesc template</change>
-      <change status="draft" when="2020-01-09" who="part:axja">Update the template</change>
-      <!-- add a <change> for each change to the file, the first change should replace this one and record your creation of a file using this template. -->
-      <change status="draft" when="2019" who="part:adgu">Initial Encoding</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="osn-Latn">
-        <lg met="Octosyllabic" n="1">
-          <l n="a"><milestone n="1" unit="face"/><lb n="1"/>hayuA ḍiponaḥ-p<unclear>o</unclear><add place="below">naḥ</add></l>
-          <l n="b"><milestone n="2" unit="face"/>hayuA ḍicavuḥ-cavu<unclear>ḥ</unclear></l>
-          <l n="c"><milestone n="3" unit="face"/>IA neker Iña Ager</l>
-          <l n="d"><milestone n="4" unit="face"/>Iña ni<supplied reason="omitted">ñ</supplied>cak· Iña R̥<supplied reason="omitted">m</supplied>pag·</l>
-        </lg>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="3">
-            <lem source="bib:Noorduyn1988_01 bib:HasanDjafar1991_01 bib:TitiSurtiNastiti1996_01">IA</lem>
-            <rdg source="bib:RichadianaKartakusuma2005_01">Iña</rdg>
-            <note><foreign>IA</foreign> is presumbaly an equivalent of <foreign>ya</foreign> in Kebantenan.</note>
-          </app>
-          <app loc="3">
-            <lem source="bib:Noorduyn1988_01 bib:HasanDjafar1991_01 bib:TitiSurtiNastiti1996_01">Ager</lem>
-            <rdg source="bib:RichadianaKartakusuma2005_01">A<choice>
-                <orig>g</orig>
-                <reg>ṅg</reg>
-              </choice>er</rdg>
-          </app>
-          <app loc="4">
-            <lem source="bib:Noorduyn1988_01 bib:HasanDjafar1991_01 bib:TitiSurtiNastiti1996_01">Iña R̥<supplied reason="omitted">m</supplied>pag·</lem>
-            <rdg source="bib:RichadianaKartakusuma2005_01">IA R̥<supplied reason="omitted">m</supplied>pag·</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:Noorduyn1988_01" type="translation">
-        <p>
-          <l>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+          <change who="part:adgu" when="2021-04-10" status="draft">Updating lang, apparatus, and bibliography</change>
+          <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:adgu" when="2020-05-18" status="draft">revision second round</change>
+         <change who="part:axja" when="2020-03-27" status="draft">adding the handDesc template</change>
+         <change who="part:axja" when="2020-01-09" status="draft">Update the template</change>
+         <!-- add a <change> for each change to the file, the first change should replace this one and record your creation of a file using this template. -->
+         <change who="part:adgu" when="2019" status="draft">Initial Encoding</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+        <body>
+            <div type="edition" xml:lang="osn-Latn">
+                <lg met="Octosyllabic" n="1">
+                    <l n="a"><milestone n="1" unit="face"/><lb n="1"/>hayuA ḍiponaḥ-p<unclear>o</unclear><add place="below">naḥ</add></l>
+                    <l n="b"><milestone n="2" unit="face"/>hayuA ḍicavuḥ-cavu<unclear>ḥ</unclear></l>
+                    <l n="c"><milestone n="3" unit="face"/>IA neker Iña Ager</l>
+                    <l n="d"><milestone n="4" unit="face"/>Iña ni<supplied reason="omitted">ñ</supplied>cak· Iña R̥<supplied reason="omitted">m</supplied>pag·</l>
+                </lg>
+            </div>
+            <div type="apparatus">
+                <listApp>
+                    <app loc="3">
+                        <lem source="bib:Noorduyn1988_01 bib:HasanDjafar1991_01 bib:TitiSurtiNastiti1996_01">IA</lem>
+                        <rdg source="bib:RichadianaKartakusuma2005_01">Iña</rdg>
+                        <note><foreign>IA</foreign> is presumbaly an equivalent of <foreign>ya</foreign> in Kebantenan.</note>
+                    </app>
+                    <app loc="3">
+                        <lem source="bib:Noorduyn1988_01 bib:HasanDjafar1991_01 bib:TitiSurtiNastiti1996_01">Ager</lem>
+                        <rdg source="bib:RichadianaKartakusuma2005_01">A<choice><orig>g</orig><reg>ṅg</reg></choice>er</rdg>
+                    </app>
+                    <app loc="4">
+                        <lem source="bib:Noorduyn1988_01 bib:HasanDjafar1991_01 bib:TitiSurtiNastiti1996_01">Iña R̥<supplied reason="omitted">m</supplied>pag·</lem>
+                        <rdg source="bib:RichadianaKartakusuma2005_01">IA R̥<supplied reason="omitted">m</supplied>pag·</rdg>
+                    </app>
+                </listApp>
+            </div>
+            <div type="translation" source="bib:Noorduyn1988_01">
+               <p>
+                   <l>
                     <lb n="1"/>It should no be defied
                     <lb n="2"/>it should be treated wantonly
                     <lb n="3"/>anyone striking it will fall prone
                     <lb n="4"/>anyone kicking it will fall to the ground
-                </l>
-        </p>
-      </div>
-      <div type="commentary">
-        <p>Lateral faces (1 = top, 2 = right, 3 = bottom, 4 = left). We have accepted Noorduyn’s translation which seems perfectly adequate. See also his valuable comments on the translation (<bibl rend="omitname">
-            <ptr target="bib:Noorduyn1988_01"/>
-            <citedRange>310</citedRange>
-          </bibl>). We would like to add about the occurrence of <foreign>IA</foreign> in line 3 that this word can be understood as <foreign>iya</foreign> or <foreign>ya</foreign>, and can stand as 3rd person pronoun (cf. Keba2.3 &amp; 4 on <foreign>ya</foreign> standing for <foreign>iña</foreign>). It is interesting to note that the equivalent word <foreign>iya</foreign> appears <foreign>passim</foreign> in <title>Amanat Galuṅguṅ</title>, a text which originates from the eastern part of West Java, and may share dialectal features with the language of the Kawali inscriptions. See for example <title>Amanat Galuṅguṅ</title> 14: <foreign>asiṅ iya nu mənaṅkə<supplied reason="omitted">n</supplied> na kabuyutan na galuṅguṅ, iya sakti tapa, iya jaya praṅ</foreign> <q>whoever is he who acquires the sanctuary of Galunggung, he will be powerful in asceticism, he will be victorious in battle</q>.
+                </l></p>
+            </div>
+            <div type="commentary">
+                <p>Lateral faces (1 = top, 2 = right, 3 = bottom, 4 = left). We have accepted Noorduyn’s translation which seems perfectly adequate. See also his valuable comments on the translation (<bibl rend="omitname"><ptr target="bib:Noorduyn1988_01"/><citedRange>310</citedRange></bibl>). We would like to add about the occurrence of <foreign>IA</foreign> in line 3 that this word can be understood as <foreign>iya</foreign> or <foreign>ya</foreign>, and can stand as 3rd person pronoun (cf. Keba2.3 &amp; 4 on <foreign>ya</foreign> standing for <foreign>iña</foreign>). It is interesting to note that the equivalent word <foreign>iya</foreign> appears <foreign>passim</foreign> in <title>Amanat Galuṅguṅ</title>, a text which originates from the eastern part of West Java, and may share dialectal features with the language of the Kawali inscriptions. See for example <title>Amanat Galuṅguṅ</title> 14: <foreign>asiṅ iya nu mənaṅkə<supplied reason="omitted">n</supplied> na kabuyutan na galuṅguṅ, iya sakti tapa, iya jaya praṅ</foreign> <q>whoever is he who acquires the sanctuary of Galunggung, he will be powerful in asceticism, he will be victorious in battle</q>.
 </p>
-      </div>
-      <div type="bibliography">
-        <p>First read by Friederich (<bibl rend="omitname">
-            <ptr target="bib:Friederich1855_01"/>
-            <citedRange unit="page">175-177</citedRange>
-          </bibl>) and then by Pleyte (<bibl rend="omitname">
-            <ptr target="bib:Pleyte1911_01"/>
-            <citedRange>197</citedRange>
-          </bibl>) but their readings contained numerous mistakes so we exclude them from our apparatus. Our edition, like those of Hasan Djafar (<bibl rend="omitname">
-            <ptr target="bib:HasanDjafar1991_01"/>
-          </bibl>1991) and Titi Surti Nastiti (<bibl rend="omitname">
-            <ptr target="bib:TitiSurtiNastiti1996_01"/>
-          </bibl>), follows that of Noorduyn (<bibl rend="omitname">
-            <ptr target="bib:Noorduyn1976_01"/>
-          </bibl> and <bibl rend="omitname">
-            <ptr target="bib:Noorduyn1988_01"/>
-            <citedRange>309-310</citedRange>
-          </bibl>), which we have found to be flawless by consulting our own photographs. Noorduyn was the first to observe that this text is in verse form. Richadiana Kartakusuma (<bibl rend="omitname">
-            <ptr target="bib:RichadianaKartakusuma2005_01"/>
-            <citedRange>49</citedRange>
-          </bibl>) has a different readings from her predecessors.
+            </div>
+            <div type="bibliography">
+<p>First read by Friederich (<bibl rend="omitname"><ptr target="bib:Friederich1855_01"/><citedRange unit="page">175-177</citedRange></bibl>) and then by Pleyte (<bibl rend="omitname"><ptr target="bib:Pleyte1911_01"/><citedRange>197</citedRange></bibl>) but their readings contained numerous mistakes so we exclude them from our apparatus. Our edition, like those of Hasan Djafar (<bibl rend="omitname"><ptr target="bib:HasanDjafar1991_01"/></bibl>1991) and Titi Surti Nastiti (<bibl rend="omitname"><ptr target="bib:TitiSurtiNastiti1996_01"/></bibl>), follows that of Noorduyn (<bibl rend="omitname"><ptr target="bib:Noorduyn1976_01"/></bibl> and <bibl rend="omitname"><ptr target="bib:Noorduyn1988_01"/><citedRange>309-310</citedRange></bibl>), which we have found to be flawless by consulting our own photographs. Noorduyn was the first to observe that this text is in verse form. Richadiana Kartakusuma (<bibl rend="omitname"><ptr target="bib:RichadianaKartakusuma2005_01"/><citedRange>49</citedRange></bibl>) has a different readings from her predecessors.
 </p>
-        <listBibl type="primary">
-          <bibl>
-            <ptr target="bib:Friederich1855_01"/>
-            <citedRange unit="page">175-177</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Pleyte1911_01"/>
-            <citedRange unit="page">97</citedRange>
-          </bibl>
-          <bibl n="N">
-            <ptr target="bib:Noorduyn1988_01"/>
-            <citedRange unit="page">309-310</citedRange>
-          </bibl>
-          <bibl n="HD">
-            <ptr target="bib:HasanDjafar1991_01"/>
-            <citedRange unit="page">6</citedRange>
-          </bibl>
-          <bibl n="TSN">
-            <ptr target="bib:TitiSurtiNastiti1996_01"/>
-            <citedRange unit="page">1-13</citedRange>
-          </bibl>
-          <bibl n="RK">
-            <ptr target="bib:RichadianaKartakusuma2005_01"/>
-            <citedRange unit="page">49</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:Raffles1817_01"/>
-            <citedRange unit="page">58</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:NBG02_1864"/>
-            <date>1864</date>
-            <citedRange unit="volume">2</citedRange>
-            <citedRange unit="page">186, 255</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:NBG04_1866"/>
-            <date>1866</date>
-            <citedRange unit="volume">4</citedRange>
-            <citedRange unit="page">118</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Pleyte1913_01"/>
-            <citedRange>295</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:ROD"/>
-            <date>1915</date>
-            <citedRange unit="page">95-96</citedRange>
-            <citedRange unit="item">291</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Casparis1975_01"/>
-            <citedRange unit="page">54-56</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:DirmanSurachmat1986_01"/>
-          </bibl>
-          <bibl>
-            <ptr target="bib:NandangRusnandar1999_01"/>
-          </bibl>
-          <bibl>
-            <ptr target="bib:MachiSuhadi1999_01"/>
-          </bibl>
-          <bibl>
-            <ptr target="bib:DjadjaSukardjaS2002_01"/>
-          </bibl>
-          <!-- one <bibl/> per item of secondary bibliography -->
-        </listBibl>
-      </div>
-    </body>
-  </text>
+
+                <listBibl type="primary">
+                <bibl>
+                    <ptr target="bib:Friederich1855_01"/><citedRange unit="page">175-177</citedRange>
+                </bibl>
+                    <bibl>
+                    <ptr target="bib:Pleyte1911_01"/><citedRange unit="page">97</citedRange>
+                </bibl>
+               <bibl n="N">
+                   <ptr target="bib:Noorduyn1988_01"/><citedRange unit="page">309-310</citedRange>
+               </bibl>
+               <bibl n="HD">
+                   <ptr target="bib:HasanDjafar1991_01"/><citedRange unit="page">6</citedRange>
+               </bibl>
+                <bibl n="TSN">
+                    <ptr target="bib:TitiSurtiNastiti1996_01"/><citedRange unit="page">1-13</citedRange>
+                </bibl>
+               <bibl n="RK">
+                   <ptr target="bib:RichadianaKartakusuma2005_01"/><citedRange unit="page">49</citedRange>
+               </bibl>
+            </listBibl>
+
+           <listBibl type="secondary">
+              <bibl><ptr target="bib:Raffles1817_01"/><citedRange unit="page">58</citedRange></bibl>
+            <bibl><ptr target="bib:NBG02_1864"/><date>1864</date><citedRange unit="volume">2</citedRange><citedRange unit="page">186, 255</citedRange></bibl>
+            <bibl><ptr target="bib:NBG04_1866"/><date>1866</date><citedRange unit="volume">4</citedRange><citedRange unit="page">118</citedRange></bibl>
+             <bibl><ptr target="bib:Pleyte1913_01"/><citedRange>295</citedRange></bibl>
+             <bibl><ptr target="bib:ROD"/><date>1915</date><citedRange unit="page">95-96</citedRange><citedRange unit="item">291</citedRange></bibl>
+            <bibl><ptr target="bib:Casparis1975_01"/><citedRange unit="page">54-56</citedRange></bibl>
+                              <bibl><ptr target="bib:DirmanSurachmat1986_01"/></bibl>
+               <bibl><ptr target="bib:NandangRusnandar1999_01"/></bibl>
+               <bibl><ptr target="bib:MachiSuhadi1999_01"/></bibl>
+               <bibl><ptr target="bib:DjadjaSukardjaS2002_01"/></bibl>
+    <!-- one <bibl/> per item of secondary bibliography -->
+           </listBibl>
+        </div>
+        </body>
+    </text>
 </TEI>

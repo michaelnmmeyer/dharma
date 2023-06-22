@@ -4,427 +4,355 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Uttiramērūr, donation, time of Kampavarman, year 15</title>
-        <respStmt>
-          <resp>EpiDoc encoding</resp>
-          <persName ref="part:emfr">
-            <forename>Emmanuel</forename>
-            <surname>Francis</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:emfr">
-            <forename>Emmanuel</forename>
-            <surname>Francis</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Paris, CEIAS</pubPlace>
-        <idno type="filename">DHARMA_INSPallava00218</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Uttiramērūr, donation, time of Kampavarman, year 15</title>
+            <respStmt>
+               <resp>EpiDoc encoding</resp>
+               <persName ref="part:emfr">
+                  <forename>Emmanuel</forename>
+                  <surname>Francis</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName ref="part:emfr">
+                  <forename>Emmanuel</forename>
+                  <surname>Francis</surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Paris, CEIAS</pubPlace>
+            <idno type="filename">DHARMA_INSPallava00218</idno>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
 							Licence. To view a copy of the licence, visit
 							https://creativecommons.org/licenses/by/4.0/ or send a letter to
 							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
 							California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <msDesc>
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-          </msIdentifier>
-          <msContents>
-            <summary/>
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p/>
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                  <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+               </msIdentifier>
+               <msContents>
+                  <summary/>
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p/>
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
                         under the European Union's Horizon 2020 research and innovation programme (grant
                         agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
                             ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
                             <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-05-09" who="part:emfr">Creation of the file</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tam-Latn">
-        <!--Add <milestone unit="block" n="a"/> instead of ‡-->
-        <ab>
-          <lb n="1"/>
-          <hi rend="grantha">
-            <supplied reason="lost">svasti śrī</supplied>
-          </hi>
-        </ab>
-        <p>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:emfr" when="2020-05-09" status="draft">Creation of the file</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+      <body>
+
+      	<div type="edition" xml:lang="tam-Latn">
+      		<!--Add <milestone unit="block" n="a"/> instead of ‡-->
+
+      		<ab>
+      			<lb n="1"/><hi rend="grantha"><supplied reason="lost">svasti śrī</supplied></hi>
+      		</ab>
+      		<p>
       			kō-vicaiya-kam·pa-va<hi rend="grantha">rmma</hi>ṟ·kku ‡ yāṇ·ṭu pa‡ti‡ṉ aint-āvatu
       		</p>
-        <p>
+      		<p>
       			<unclear>kā</unclear>liyūr-k-kōṭṭattu ‡ taṉ kūṟ‡ṟu Uttara<hi rend="grantha">meru</hi>-c-catu<hi rend="grantha"><unclear>r</unclear>vve</hi>ti-maṅkalat
-      			<lb break="no" n="2"/><supplied reason="lost">tu</supplied> <gap precision="low" quantity="3" reason="illegible" unit="character"/>l Aṅkāṭi tēvaṉtai kaḻu‡kkuṉṟa‡ṉ-ēṉ Eḻut<unclear>tu</unclear>
+      			<lb n="2" break="no"/><supplied reason="lost">tu</supplied> <gap reason="illegible" quantity="3" unit="character" precision="low"/>l Aṅkāṭi tēvaṉtai kaḻu‡kkuṉṟa‡ṉ-ēṉ Eḻut<unclear>tu</unclear>
       		</p>
-        <p>
+      		<p>
       			kāliyūr-k-kōṭṭat‡tu taṉ ‡ kūṟṟu Ut=ta<hi rend="grantha">rameru-c-ca</hi>tu<hi rend="grantha">rvve</hi>ti-maṅkalattu
       			<lb n="3"/><supplied reason="lost">vayiramē</supplied>ka-taṭākattukku-<hi rend="grantha"><surplus>d</surplus> dha<supplied reason="omitted">r</supplied>mma</hi>m āka nā‡ṉ nūṟ‡ṟuk kaḻañcu poṉṉum Iru-patte‡ṇ kāṭi ne‡llum kuṭuttēṉ
       		</p>
-        <p>
-      			I<choice>
-            <orig>ṉ</orig>
-            <reg>n</reg>
-          </choice>-nūṟṟu-k ka
-      			<lb break="no" n="4"/><supplied reason="lost">ḻañcu</supplied> <unclear>po</unclear>⌉ṉṉālum Iru<supplied reason="lost">pat</supplied>t’ eṇ-kāṭi nellā‡lum Ā‡ṭṭāṇṭu-tōṟum nilamum <choice>
-            <sic>n</sic>
-            <corr>ñ</corr>
-          </choice>āy<choice>
-            <sic>a</sic>
-            <corr>i</corr>
-          </choice>ṟum Uḷḷa ‡ tuṇaiyu‡m poli-y ūṭṭu kaḻañciṉ vāy Iraṇṭu
+      		<p>
+      			I<choice><orig>ṉ</orig><reg>n</reg></choice>-nūṟṟu-k ka
+      			<lb n="4" break="no"/><supplied reason="lost">ḻañcu</supplied> <unclear>po</unclear>⌉ṉṉālum Iru<supplied reason="lost">pat</supplied>t’ eṇ-kāṭi nellā‡lum Ā‡ṭṭāṇṭu-tōṟum nilamum <choice><sic>n</sic><corr>ñ</corr></choice>āy<choice><sic>a</sic><corr>i</corr></choice>ṟum Uḷḷa ‡ tuṇaiyu‡m poli-y ūṭṭu kaḻañciṉ vāy Iraṇṭu
       			<lb n="5"/><supplied reason="lost">mañcāṭi</supplied>-<unclear>p</unclear> palicai-y āka tiraḷ patiṉ kaḻañcu ‡ poṉṉu‡mu-k-kāṭi nār-nellum
       		</p>
-        <p>
+      		<p>
       			Ip-patiṉ kaḻa‡ñcu po‡ṉṉum mu-k-kāṭi I<unclear>ṟai</unclear> nellum Iv
-      			<lb break="no" n="6"/><supplied reason="lost">vayiramē</supplied><unclear>ka</unclear>-taṭākattukkē-y vai<choice>
-            <sic>yy</sic>
-            <corr>k</corr>
-          </choice>āci mutal <unclear>ā</unclear>‡ka Iraṇṭu ‡ tiṅkaḷ Akappaṭa patiṉ kaḻañcu poṉ‡ṉum mu‡-k-kāṭi <unclear reason="eccentric_ductus">I</unclear><choice>
-            <orig>r</orig>
-            <reg>ṟ</reg>
-          </choice>ai nellum Aṭṭi-k kuḻi kutti-k <unclear>ka</unclear>
-      			<lb break="no" n="7"/><supplied reason="lost">rai mē</supplied><unclear>l-ē</unclear>y Aṭṭiv<choice>
-            <orig>iy</orig>
-            <reg>i</reg>
-          </choice>ppārkaḷ āka
+      			<lb n="6" break="no"/><supplied reason="lost">vayiramē</supplied><unclear>ka</unclear>-taṭākattukkē-y vai<choice><sic>yy</sic><corr>k</corr></choice>āci mutal <unclear>ā</unclear>‡ka Iraṇṭu ‡ tiṅkaḷ Akappaṭa patiṉ kaḻañcu poṉ‡ṉum mu‡-k-kāṭi <unclear reason="eccentric_ductus">I</unclear><choice><orig>r</orig><reg>ṟ</reg></choice>ai nellum Aṭṭi-k kuḻi kutti-k <unclear>ka</unclear>
+      			<lb n="7" break="no"/><supplied reason="lost">rai mē</supplied><unclear>l-ē</unclear>y Aṭṭiv<choice><orig>iy</orig><reg>i</reg></choice>ppārkaḷ āka
       		</p>
-        <p>
-      			Ippa‡ricu <hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>‡m āka-k kuṭuttēṉ tēvaṉtai kaḻukkuṉ‡ṟa<choice>
-            <orig>n</orig>
-            <reg>ṉ</reg>
-          </choice>-ēṉ
+      		<p>
+      			Ippa‡ricu <hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>‡m āka-k kuṭuttēṉ tēvaṉtai kaḻukkuṉ‡ṟa<choice><orig>n</orig><reg>ṉ</reg></choice>-ēṉ
       		</p>
-        <p>
+      		<p>
       			sa‡bhaiyōmum Ip-paric-ē-y ivv-ēri-k
-      			<lb break="no" n="8"/>kē-y Ip-pat<unclear>i</unclear>ṉ kaḻañcu poṉṉum Im-mu-k=kāṭi I<unclear>ṟai</unclear> nel‡lum Iv‡v-er<unclear>i</unclear>kk-ēy <hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>m āka kuḻi kutti <choice>
-            <unclear>kaḷ</unclear>
-            <unclear>karai</unclear>
-          </choice> mē<choice>
-            <orig>ll</orig>
-            <reg>l</reg>
-          </choice>ē ‡ Aṭṭuvō‡m āṉōm Āṭṭāṇṭu-tōṟum Aṭṭi
-      			<lb break="no" n="9"/>vippōm āṉōm <hi rend="grantha">sabhai</hi>yōm
+      			<lb n="8" break="no"/>kē-y Ip-pat<unclear>i</unclear>ṉ kaḻañcu poṉṉum Im-mu-k=kāṭi I<unclear>ṟai</unclear> nel‡lum Iv‡v-er<unclear>i</unclear>kk-ēy <hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>m āka kuḻi kutti <choice><unclear>kaḷ</unclear><unclear>karai</unclear></choice> mē<choice><orig>ll</orig><reg>l</reg></choice>ē ‡ Aṭṭuvō‡m āṉōm Āṭṭāṇṭu-tōṟum Aṭṭi
+      			<lb n="9" break="no"/>vippōm āṉōm <hi rend="grantha">sabhai</hi>yōm
       		</p>
-        <p>
-      			Itu ‡ Aṉṟ’ eṉ‡ṟār I-<hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>m Iṟakkiṉa pāvattil-p pa‡ṭuvār‡ka<choice>
-            <orig>ḷḷ</orig>
-            <reg>ḷ</reg>
-          </choice> āka-p
+      		<p>
+      			Itu ‡ Aṉṟ’ eṉ‡ṟār I-<hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>m Iṟakkiṉa pāvattil-p pa‡ṭuvār‡ka<choice><orig>ḷḷ</orig><reg>ḷ</reg></choice> āka-p
       		</p>
-        <p>
+      		<p>
       			paṇitt<unclear>ō</unclear>ṃ <hi rend="grantha">sabhai</hi>yō
-      			<lb break="no" n="10"/>m</p>
-        <p>
-      			I-<hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>ttai ra<choice>
-            <sic>t</sic>
-            <corr>k</corr>
-          </choice>ṣittār <hi rend="grantha">śrī-pāda</hi>m Eṉ ‡ <unclear>ṟa</unclear>lai mē<choice>
-            <orig>l‡l</orig>
-            <reg>l</reg>
-          </choice>aṉa
+      			<lb n="10" break="no"/>m</p>
+      		<p>
+      			I-<hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>ttai ra<choice><sic>t</sic><corr>k</corr></choice>ṣittār <hi rend="grantha">śrī-pāda</hi>m Eṉ ‡ <unclear>ṟa</unclear>lai mē<choice><orig>l‡l</orig><reg>l</reg></choice>aṉa
       		</p>
-        <p>
+      		<p>
       			I<unclear>vvai</unclear> Eḻuttu veṭṭinēṉ ciṟṟalaṉ ‡ makaṉ tē‡vaṭiyēṉ <g type="finalGomutra">.</g>
       		</p>
-      </div>
-      <div type="apparatus">
-        <!--compare readings in SII, IP-->
-        <listApp>
-          <app loc="1">
-            <lem>
-              <hi rend="grantha">
-                <supplied reason="lost">svasti śrī</supplied>
-              </hi>
-            </lem>
-            <note>Obvious restoration, not made by <bibl>
-                <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-              </bibl> nor by <bibl>
-                <ptr target="bib:Mahalingam1988_01"/>
-              </bibl>.</note>
-          </app>
-          <app loc="1">
-            <lem>pa‡ti‡ṉ</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01">pa<unclear>ti</unclear>ṉ</rdg>
-            <note>The character <foreign>ti</foreign> is clearly engraved on the perpendicular side of the pilaster, which is an integral part of the block. This is the only occurrence in this inscription of a character is engraved on the perpendicular side of such a pilaster.</note>
-          </app>
-          <app loc="1">
-            <lem>Uttara<hi rend="grantha">meru</hi>-c-catu<hi rend="grantha"><unclear>r</unclear>vve</hi>ti°</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01">Uttara<hi rend="grantha">meru-c-ca</hi>tu<hi rend="grantha">rvveti</hi>°</rdg>
-            <note/>
-          </app>
-          <app loc="3">
-            <lem>°taṭākattukku-<hi rend="grantha"><surplus>d</surplus> dha<supplied reason="omitted">r</supplied>mma</hi>m āka nā‡ṉ</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01">°taṭākattu<unclear>k</unclear>ku <hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi> <gap quantity="3" reason="lost" unit="character"/><!--lost>undefined!--> ṉ</rdg>
-          </app>
-          <app loc="4">
-            <lem>Iru<supplied reason="lost">pat</supplied>t’</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01">Irupatt’</rdg>
-            <note>The stone appears to have suffered recent damage.</note>
-          </app>
-          <app loc="5">
-            <lem><supplied reason="lost">mañcāṭi</supplied>-<unclear>p</unclear></lem>
-            <note>This restoration implied in <bibl>
-                <ptr target="bib:Mahalingam1988_01"/>
-              </bibl>'s summary is very likely.</note>
-          </app>
-          <app loc="6">
-            <lem>vai<choice>
-                <sic>yy</sic>
-                <corr>k</corr>
-              </choice>āci</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01">vaiyāci</rdg>
-          </app>
-          <app loc="6">
-            <lem><unclear reason="eccentric_ductus">I</unclear><choice>
-                <orig>r</orig>
-                <reg>ṟ</reg>
-              </choice>ai</lem>
-            <!--Check reading in situ; could well be i[r>ṟ]ai.-->
-            <rdg source="bib:SubrahmanyaAiyer1928_01">Irai</rdg>
-            <rdg source="bib:Mahalingam1988_01">Iṟai</rdg>
-          </app>
-          <app loc="6">
-            <lem><unclear>ka</unclear><supplied reason="lost">rai mē</supplied><unclear>l-ē</unclear>y</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01"><unclear>ka</unclear> <gap quantity="8" reason="lost" unit="character"/><!--lost>undefined!--> <unclear>la</unclear>y</rdg>
-            <rdg source="bib:SubrahmanyaAiyer1928_01"><unclear>ka</unclear> <gap quantity="8" reason="lost" unit="character"/><!--lost>undefined!--> <unclear>k=kapaṭṭā</unclear>lēy</rdg>
-            <rdg source="bib:Mahalingam1988_01"><unclear>ka</unclear> <gap quantity="8" reason="lost" unit="character"/><!--lost>undefined!--> <unclear>l</unclear>y</rdg>
-            <note>The first <bibl>
-                <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-              </bibl>'s reading is that of his first reading of line 7, the second that of his second reading of line 7, that is, his line 8. The reading by <bibl>
-                <ptr target="bib:Mahalingam1988_01"/>
-              </bibl> appears to be a typo in reproducing <bibl>
-                <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-              </bibl>'s second reading.</note>
-          </app>
-          <app loc="7">
-            <lem><hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>‡m</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01"><hi rend="grantha">dharmma</hi>‡m</rdg>
-          </app>
-          <app loc="8">
-            <lem>I<unclear>ṟai</unclear> nel‡lum Iv‡v-er<unclear>i</unclear>kk-ēy</lem>
-            <!--Check reading in situ; could well be irai > iṟai. Cf. same word, above lines.-->
-            <rdg source="bib:SubrahmanyaAiyer1928_01">Irai Ce <!--Update C=consonant to markup!--> <gap quantity="1" reason="lost" unit="character"/><!--lost>undefined!--> lum Iv<unclear>v-eri</unclear>kk-ēy</rdg>
-          </app>
-          <app loc="8">
-            <lem><hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>m āka kuḻi</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01"><hi rend="grantha">dharmma</hi>m āka kuḻi</rdg>
-            <note>As the <foreign>u</foreign> in <foreign>ku</foreign> extends below the preceding character <foreign>ka</foreign>, one could alternatively read <foreign><hi rend="grantha">dharmma</hi>m āk=kuḻi</foreign>, which does not however make sense.</note>
-          </app>
-          <app loc="8">
-            <lem>
-              <choice>
-                <unclear>kaḷ</unclear>
-                <unclear>karai</unclear>
-              </choice>
-            </lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01">karai</rdg>
-            <note>I read <foreign>kaḷ</foreign> on pictures, but the correct reading must be <foreign>karai</foreign>.</note>
-            <!--Update: check in situ!-->
-          </app>
-          <app loc="8">
-            <lem>Āṭṭāṇṭu-tōṟum Aṭṭi<lb break="no" n="9"/>vippōm</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01">Āṭṭāṇ <gap quantity="4" reason="lost" unit="character"/><!--lost>undefined!--><lb break="no" n="9"/>vippōm</rdg>
-          </app>
-          <app loc="9">
-            <lem>I-<hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>m</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01">I-<hi rend="grantha">dharmmam</hi></rdg>
-            <!--Update: final Grantha m!!-->
-          </app>
-          <app loc="9">
-            <lem>pāvattil-p</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01"><unclear>p</unclear><supplied reason="omitted">ā</supplied>vat<surplus>ā</surplus>til-p</rdg>
-          </app>
-          <app loc="9">
-            <lem>paṇitt<unclear>ō</unclear>ṃ <hi rend="grantha">sabhai</hi>yō<lb break="no" n="10"/>m</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01">paṇit <gap quantity="4" reason="lost" unit="character"/><!--lost>undefined!--></rdg>
-          </app>
-          <app loc="10">
-            <lem>I-<hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>ttai</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01">I-<hi rend="grantha">dharmma</hi>ttai</rdg>
-          </app>
-          <app loc="10">
-            <lem>Eṉ ‡ ṟalai</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01">Eṉ <unclear>ṟa</unclear>lai</rdg>
-          </app>
-          <app loc="10">
-            <lem>mē<choice>
-                <orig>l‡l</orig>
-                <reg>l</reg>
-              </choice>aṉa</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01">mēl<unclear>liṉa</unclear></rdg>
-          </app>
-          <app loc="10">
-            <lem>ciṟṟalaṉ</lem>
-            <rdg source="bib:SubrahmanyaAiyer1928_01"><unclear>pi</unclear>ṭṭayaṉ</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:emfr" type="translation">
-        <p n="1">
-          <seg cert="low">Prosperity! Fortune!</seg>
-          <!--OK for translation of <supplied>?-->
-        </p>
-        <p n="1">
+
+      	</div>
+
+         <div type="apparatus">
+         	<!--compare readings in SII, IP-->
+         	<listApp>
+
+         		<app loc="1">
+         			<lem><hi rend="grantha"><supplied reason="lost">svasti śrī</supplied></hi></lem>
+         			<note>Obvious restoration, not made by <bibl><ptr target="bib:SubrahmanyaAiyer1928_01"/></bibl> nor by <bibl><ptr target="bib:Mahalingam1988_01"/></bibl>.</note>
+         		</app>
+
+         		<app loc="1">
+         			<lem>pa‡ti‡ṉ</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">pa<unclear>ti</unclear>ṉ</rdg>
+         			<note>The character <foreign>ti</foreign> is clearly engraved on the perpendicular side of the pilaster, which is an integral part of the block. This is the only occurrence in this inscription of a character is engraved on the perpendicular side of such a pilaster.</note>
+         		</app>
+
+         		<app loc="1">
+         			<lem>Uttara<hi rend="grantha">meru</hi>-c-catu<hi rend="grantha"><unclear>r</unclear>vve</hi>ti°</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">Uttara<hi rend="grantha">meru-c-ca</hi>tu<hi rend="grantha">rvveti</hi>°</rdg>
+         			<note/>
+         		</app>
+
+         		<app loc="3">
+         			<lem>°taṭākattukku-<hi rend="grantha"><surplus>d</surplus> dha<supplied reason="omitted">r</supplied>mma</hi>m āka nā‡ṉ</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">°taṭākattu<unclear>k</unclear>ku <hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi> <gap reason="lost" quantity="3" unit="character"/><!--lost>undefined!--> ṉ</rdg>
+         		</app>
+
+         		<app loc="4">
+         			<lem>Iru<supplied reason="lost">pat</supplied>t’</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">Irupatt’</rdg>
+         			<note>The stone appears to have suffered recent damage.</note>
+         		</app>
+
+         		<app loc="5">
+         			<lem><supplied reason="lost">mañcāṭi</supplied>-<unclear>p</unclear></lem>
+         			<note>This restoration implied in <bibl><ptr target="bib:Mahalingam1988_01"/></bibl>'s summary is very likely.</note>
+         		</app>
+
+         		<app loc="6">
+         			<lem>vai<choice><sic>yy</sic><corr>k</corr></choice>āci</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">vaiyāci</rdg>
+         		</app>
+
+         		<app loc="6">
+         			<lem><unclear reason="eccentric_ductus">I</unclear><choice><orig>r</orig><reg>ṟ</reg></choice>ai</lem><!--Check reading in situ; could well be i[r>ṟ]ai.-->
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">Irai</rdg>
+         			<rdg source="bib:Mahalingam1988_01">Iṟai</rdg>
+         		</app>
+
+         		<app loc="6">
+         			<lem><unclear>ka</unclear><supplied reason="lost">rai mē</supplied><unclear>l-ē</unclear>y</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01"><unclear>ka</unclear> <gap reason="lost" quantity="8" unit="character"/><!--lost>undefined!--> <unclear>la</unclear>y</rdg>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01"><unclear>ka</unclear> <gap reason="lost" quantity="8" unit="character"/><!--lost>undefined!--> <unclear>k=kapaṭṭā</unclear>lēy</rdg>
+         			<rdg source="bib:Mahalingam1988_01"><unclear>ka</unclear> <gap reason="lost" quantity="8" unit="character"/><!--lost>undefined!--> <unclear>l</unclear>y</rdg>
+         			<note>The first <bibl><ptr target="bib:SubrahmanyaAiyer1928_01"/></bibl>'s reading is that of his first reading of line 7, the second that of his second reading of line 7, that is, his line 8. The reading by <bibl><ptr target="bib:Mahalingam1988_01"/></bibl> appears to be a typo in reproducing <bibl><ptr target="bib:SubrahmanyaAiyer1928_01"/></bibl>'s second reading.</note>
+         		</app>
+
+         		<app loc="7">
+         			<lem><hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>‡m</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01"><hi rend="grantha">dharmma</hi>‡m</rdg>
+         		</app>
+
+         		<app loc="8">
+         			<lem>I<unclear>ṟai</unclear> nel‡lum Iv‡v-er<unclear>i</unclear>kk-ēy</lem><!--Check reading in situ; could well be irai > iṟai. Cf. same word, above lines.-->
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">Irai Ce <!--Update C=consonant to markup!--> <gap reason="lost" quantity="1" unit="character"/><!--lost>undefined!--> lum Iv<unclear>v-eri</unclear>kk-ēy</rdg>
+         		</app>
+
+         		<app loc="8">
+         			<lem><hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>m āka kuḻi</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01"><hi rend="grantha">dharmma</hi>m āka kuḻi</rdg>
+         			<note>As the <foreign>u</foreign> in <foreign>ku</foreign> extends below the preceding character <foreign>ka</foreign>, one could alternatively read <foreign><hi rend="grantha">dharmma</hi>m āk=kuḻi</foreign>, which does not however make sense.</note>
+         		</app>
+
+         		<app loc="8">
+         			<lem><choice><unclear>kaḷ</unclear><unclear>karai</unclear></choice></lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">karai</rdg>
+         			<note>I read <foreign>kaḷ</foreign> on pictures, but the correct reading must be <foreign>karai</foreign>.</note><!--Update: check in situ!-->
+         		</app>
+
+         		<app loc="8">
+         			<lem>Āṭṭāṇṭu-tōṟum Aṭṭi<lb n="9" break="no"/>vippōm</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">Āṭṭāṇ <gap reason="lost" quantity="4" unit="character"/><!--lost>undefined!--><lb n="9" break="no"/>vippōm</rdg>
+         		</app>
+
+         		<app loc="9">
+         			<lem>I-<hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>m</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">I-<hi rend="grantha">dharmmam</hi></rdg><!--Update: final Grantha m!!-->
+         		</app>
+
+         		<app loc="9">
+         			<lem>pāvattil-p</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01"><unclear>p</unclear><supplied reason="omitted">ā</supplied>vat<surplus>ā</surplus>til-p</rdg>
+         		</app>
+
+         		<app loc="9">
+         			<lem>paṇitt<unclear>ō</unclear>ṃ <hi rend="grantha">sabhai</hi>yō<lb n="10" break="no"/>m</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">paṇit <gap reason="lost" quantity="4" unit="character"/><!--lost>undefined!--></rdg>
+         		</app>
+
+         		<app loc="10">
+         			<lem>I-<hi rend="grantha">dha<supplied reason="omitted">r</supplied>mma</hi>ttai</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">I-<hi rend="grantha">dharmma</hi>ttai</rdg>
+         		</app>
+
+         		<app loc="10">
+         			<lem>Eṉ ‡ ṟalai</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">Eṉ <unclear>ṟa</unclear>lai</rdg>
+         		</app>
+
+         		<app loc="10">
+         			<lem>mē<choice><orig>l‡l</orig><reg>l</reg></choice>aṉa</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01">mēl<unclear>liṉa</unclear></rdg>
+         		</app>
+
+         		<app loc="10">
+         			<lem>ciṟṟalaṉ</lem>
+         			<rdg source="bib:SubrahmanyaAiyer1928_01"><unclear>pi</unclear>ṭṭayaṉ</rdg>
+         		</app>
+
+         	</listApp>
+
+         </div>
+
+         <div type="translation" resp="part:emfr">
+
+         	<p n="1">
+         		<seg cert="low">Prosperity! Fortune!</seg><!--OK for translation of <supplied>?-->
+         	</p>
+
+         	<p n="1">
          		Fifteenth year of the victorious king Kampavikramavarman.
          	</p>
-        <p n="1-2">
-         		Writing/Writ of I, Tēvaṉtai Kaḻukkuṉṟaṉ of the <gap reason="lost"/> <seg cert="low">market</seg><!--Check!--> <supplied reason="explanation">
-            <foreign>aṅkāṭi</foreign>
-          </supplied> of Uttaramērucaturvedimaṅgala in Kāliyūrkkōṭṭam, in the division of the same name.
+
+         	<p n="1-2">
+         		Writing/Writ of I, Tēvaṉtai Kaḻukkuṉṟaṉ of the <gap reason="lost"/> <seg cert="low">market</seg><!--Check!--> <supplied reason="explanation"><foreign>aṅkāṭi</foreign></supplied> of Uttaramērucaturvedimaṅgala in Kāliyūrkkōṭṭam, in the division of the same name.
          	</p>
-        <p n="2-3">
-         		I <supplied reason="explanation">
-            <foreign>nāṉ</foreign>
-          </supplied> have given one hundred <foreign>kaḻañcu</foreign>s of gold and twenty-eight <foreign>kāṭi</foreign>s of paddy as pious gift for the Vayiramēkam (Skt. vajra-megha) tank of Uttaramērucaturvedimaṅgala in Kāliyūrkkōṭṭam, in the division of the same name.
+         	<p n="2-3">
+         		I <supplied reason="explanation"><foreign>nāṉ</foreign></supplied> have given one hundred <foreign>kaḻañcu</foreign>s of gold and twenty-eight <foreign>kāṭi</foreign>s of paddy as pious gift for the Vayiramēkam (Skt. vajra-megha) tank of Uttaramērucaturvedimaṅgala in Kāliyūrkkōṭṭam, in the division of the same name.
          	</p>
-        <p n="3-5">
-         		With these four hundred <foreign>kaḻañcu</foreign>s of gold and and twenty-eight <foreign>kāṭi</foreign>s of paddy, each and every year, as long as the earth and the sun <supplied reason="subaudible">last</supplied> <supplied reason="explanation"><foreign>nilamum ñāyiṟum uḷḷa tuṇaiyum</foreign>, literally “up to the extent which is that of the earth and the sun”</supplied>, whereas the interest rate is <supplied reason="explanation">
-            <foreign>palicai-y āka</foreign>
-          </supplied> two <seg cert="low"><foreign>mañcāṭi</foreign>s</seg> <supplied reason="subaudible">per</supplied> <foreign>kaḻañcu</foreign> <supplied reason="explanation">
-            <foreign>kaḻañciṉ vāy iraṇṭu mañcāṭi</foreign>
-          </supplied> <supplied reason="subaudible">yielding</supplied> earning interest <supplied reason="explanation">
-            <foreign>poli-y ūṭṭu</foreign>
-          </supplied>,
-<supplied reason="subaudible">there is thus</supplied> a total <supplied reason="explanation">
-            <foreign>tiraḷ</foreign>
-          </supplied> of ten <foreign>kaḻañcu</foreign>s of gold and three <foreign>kāṭi</foreign>s of ... <!--update: nār = fibrous?--> paddy <supplied reason="explanation">
-            <foreign>nār-nel</foreign>
-          </supplied>.
+         	<p n="3-5">
+         		With these four hundred <foreign>kaḻañcu</foreign>s of gold and and twenty-eight <foreign>kāṭi</foreign>s of paddy, each and every year, as long as the earth and the sun <supplied reason="subaudible">last</supplied> <supplied reason="explanation"><foreign>nilamum ñāyiṟum uḷḷa tuṇaiyum</foreign>, literally “up to the extent which is that of the earth and the sun”</supplied>, whereas the interest rate is <supplied reason="explanation"><foreign>palicai-y āka</foreign></supplied> two <seg cert="low"><foreign>mañcāṭi</foreign>s</seg> <supplied reason="subaudible">per</supplied> <foreign>kaḻañcu</foreign> <supplied reason="explanation"><foreign>kaḻañciṉ vāy iraṇṭu mañcāṭi</foreign></supplied> <supplied reason="subaudible">yielding</supplied> earning interest <supplied reason="explanation"><foreign>poli-y ūṭṭu</foreign></supplied>,
+<supplied reason="subaudible">there is thus</supplied> a total <supplied reason="explanation"><foreign>tiraḷ</foreign></supplied> of ten <foreign>kaḻañcu</foreign>s of gold and three <foreign>kāṭi</foreign>s of ... <!--update: nār = fibrous?--> paddy <supplied reason="explanation"><foreign>nār-nel</foreign></supplied>.
          	</p>
-        <p n="5-7">
-<supplied reason="subaudible">With</supplied> these ten <foreign>kaḻañcu</foreign>s of gold and three <foreign>kāṭi</foreign>s of taxable paddy, let <supplied reason="subaudible">the members of the assembly</supplied> sabhaiyars) be those who have the silt removed <supplied reason="explanation">kuḻi kutti aṭṭi viyppārkaḷ</supplied> [[IP: for deepening and raising the bunds]]<!--Update!--> for this Vayiramēkam (Skt. vajra-megha) tank, so that two lunar months <supplied reason="explanation">
-            <foreign>tiṅkaḷ</foreign>
-          </supplied> be included <supplied reason="explanation">
-            <foreign>akappaṭa</foreign>
-          </supplied> beginning in the Vaikāci <supplied reason="explanation">month</supplied> <supplied reason="explanation">that is, the term is fixed for two months starting from Vaikāci month</supplied><!--transfer to commentary-->,
+         	<p n="5-7">
+<supplied reason="subaudible">With</supplied> these ten <foreign>kaḻañcu</foreign>s of gold and three <foreign>kāṭi</foreign>s of taxable paddy, let <supplied reason="subaudible">the members of the assembly</supplied> sabhaiyars) be those who have the silt removed <supplied reason="explanation">kuḻi kutti aṭṭi viyppārkaḷ</supplied> [[IP: for deepening and raising the bunds]]<!--Update!--> for this Vayiramēkam (Skt. vajra-megha) tank, so that two lunar months <supplied reason="explanation"><foreign>tiṅkaḷ</foreign></supplied> be included <supplied reason="explanation"><foreign>akappaṭa</foreign></supplied> beginning in the Vaikāci <supplied reason="explanation">month</supplied> <supplied reason="explanation">that is, the term is fixed for two months starting from Vaikāci month</supplied><!--transfer to commentary-->,
 by remitting/contributing <supplied reason="explanation">aṭṭi, literally “by pouring, putting”</supplied> ten <foreign>kaḻañc</foreign>us of gold and and three <foreign>kāṭi</foreign>s of taxable paddy.
          	</p>
-        <p n="7">
-In this wise <supplied reason="explanation">
-            <foreign>ipparicu</foreign>
-          </supplied>, have I, Tēvaṉtai Kaḻukkuṉṟaṉ, given <supplied reason="subaudible">these</supplied> as pious gift.
+         	<p n="7">
+In this wise <supplied reason="explanation"><foreign>ipparicu</foreign></supplied>, have I, Tēvaṉtai Kaḻukkuṉṟaṉ, given <supplied reason="subaudible">these</supplied> as pious gift.
          	</p>
-        <p n="7-9">
-<supplied reason="subaudible">As for</supplied> We, the members of the assembly, in this wise, for this tank, so that these ten <foreign>kaḻañcu</foreign>s of gold and these three <foreign>kāṭi</foreign>s of taxable paddy be a pious gift for this tank, We, the members of the assembly, will, each and every year, remove <supplied reason="explanation">
-            <foreign>aṭṭuvōm āṉōm</foreign>
-          </supplied> the silt <supplied reason="explanation">
-            <foreign>kuḻi kutti</foreign>
-          </supplied> and have <supplied reason="subaudible">it</supplied> removed <supplied reason="explanation">
-            <foreign>aṭṭivippōm āṉōm</foreign>
-          </supplied> [[add literal translation?]]<!--Update!--> above the banks <supplied reason="explanation">
-            <foreign>karai mēl-ē</foreign>
-          </supplied>.
+         	<p n="7-9">
+<supplied reason="subaudible">As for</supplied> We, the members of the assembly, in this wise, for this tank, so that these ten <foreign>kaḻañcu</foreign>s of gold and these three <foreign>kāṭi</foreign>s of taxable paddy be a pious gift for this tank, We, the members of the assembly, will, each and every year, remove <supplied reason="explanation"><foreign>aṭṭuvōm āṉōm</foreign></supplied> the silt <supplied reason="explanation"><foreign>kuḻi kutti</foreign></supplied> and have <supplied reason="subaudible">it</supplied> removed <supplied reason="explanation"><foreign>aṭṭivippōm āṉōm</foreign></supplied> [[add literal translation?]]<!--Update!--> above the banks <supplied reason="explanation"><foreign>karai mēl-ē</foreign></supplied>.
          	</p>
-        <p n="9">
+         	<p n="9">
 Those who say “This is not <supplied reason="subaudible">so</supplied>”, let them undergo the sin of injuring this pious gift.
          	</p>
-        <p n="9-10">
+         	<p n="9-10">
          		<supplied reason="subaudible">Thus</supplied> have We, the members of the assembly, declared.
          	</p>
-        <p n="10">
+         	<p n="10">
          		Those who protect this pious gift, their feet are on my head.
          	</p>
-        <p n="10">
+         	<p n="10">
          		I, Tēvaṭi, son of Ciṟṟalaṉ, have engraved these letters/this writ.
          	</p>
-      </div>
-      <div type="commentary">
-        <p>
+
+         </div>
+
+         <div type="commentary">
+         	<p>
          		On three superposed rows of blocks, some displaying projecting pilasters, of the southern base of the smaller platform of the Vaikuṇṭhaperumāḷ temple. The first row (lines 1–2) is made of 3 blocks. The second row (lines 3–7) is made of 2 blocks. The third row (lines 8–10) is made of 3 blocks. The milestone unit is however "area" since in the first row a character (<foreign>ti</foreign> in <foreign>pattiṉ</foreign>) is engraved on the perpendicular side of the pilaster, which is an integral part of the block.
+         	</p><!--Update: transfer to teiHeader!-->
+         	<p>
+         		<bibl><ptr target="bib:SubrahmanyaAiyer1928_01"/></bibl>, followed by <bibl><ptr target="bib:Mahalingam1988_01"/></bibl> edit 11 lines of text whereas there are only 10 lines. The reason is that <bibl><ptr target="bib:SubrahmanyaAiyer1928_01"/></bibl>'s lines 7 and 8 are in fact two readings of the same line 7, included in the edition due to oversight.
          	</p>
-        <!--Update: transfer to teiHeader!-->
-        <p>
-         		<bibl>
-            <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-          </bibl>, followed by <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> edit 11 lines of text whereas there are only 10 lines. The reason is that <bibl>
-            <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-          </bibl>'s lines 7 and 8 are in fact two readings of the same line 7, included in the edition due to oversight.
+         	<p>
+         		<bibl><ptr target="bib:SubrahmanyaAiyer1928_01"/></bibl> and <bibl><ptr target="bib:Mahalingam1988_01"/></bibl> locate the lacunae at the end of the lines, while the examination in situ makes it clear that the lacunae are in the beginning of lines, as the fragmentary blocks are blocks a and d, the left parts of which are lost, not the blocks c and f. Furthermore, these lacunae on the edges of blocks concern only lines 1–7, not lines 1–9. The lacunae are longer in lines 1-2 (block a) than in lines 3–7 (block d). Restorations of these lacunae are made in the present edition, while <bibl><ptr target="bib:SubrahmanyaAiyer1928_01"/></bibl> and <bibl><ptr target="bib:Mahalingam1988_01"/></bibl> do not suggest any restoration except at the beginning of the second reading of line 7, that is, their line 8.
          	</p>
-        <p>
-         		<bibl>
-            <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-          </bibl> and <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> locate the lacunae at the end of the lines, while the examination in situ makes it clear that the lacunae are in the beginning of lines, as the fragmentary blocks are blocks a and d, the left parts of which are lost, not the blocks c and f. Furthermore, these lacunae on the edges of blocks concern only lines 1–7, not lines 1–9. The lacunae are longer in lines 1-2 (block a) than in lines 3–7 (block d). Restorations of these lacunae are made in the present edition, while <bibl>
-            <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-          </bibl> and <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> do not suggest any restoration except at the beginning of the second reading of line 7, that is, their line 8.
-         	</p>
-        <p>Note the notarial/administrative style, replete with redundances and repetions.</p>
-      </div>
-      <div type="bibliography">
-        <p>
-First edited by <bibl>
-            <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-          </bibl> (SII 6, no. 375); text and summary in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP no. 218); re-edited here, with substantial revisions, and first translated for DHARMA (ERC n° 809994) by Emmanuel Francis (2020) from autopsy and photographs (2019).
+         	<p>Note the notarial/administrative style, replete with redundances and repetions.</p>
+         </div>
+
+         <div type="bibliography">
+
+            <p>
+First edited by <bibl><ptr target="bib:SubrahmanyaAiyer1928_01"/></bibl> (SII 6, no. 375); text and summary in <bibl><ptr target="bib:Mahalingam1988_01"/></bibl> (IP no. 218); re-edited here, with substantial revisions, and first translated for DHARMA (ERC n° 809994) by Emmanuel Francis (2020) from autopsy and photographs (2019).
             </p>
-        <listBibl type="primary">
-          <bibl n="KVSA">
-            <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-            <citedRange unit="page">172</citedRange>
-            <citedRange unit="item">375</citedRange>
-          </bibl>
-          <bibl n="TVM">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="page">553</citedRange>
-            <citedRange unit="item">218</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="ARIE 1897-1898">
-            <ptr target="bib:ARIE1897-1898"/>
-            <citedRange unit="page">18</citedRange>
-            <citedRange unit="appendix">B/1898</citedRange>
-            <citedRange unit="item">90</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
+
+            <listBibl type="primary">
+
+            	<bibl n="KVSA">
+            		<ptr target="bib:SubrahmanyaAiyer1928_01"/>
+            		<citedRange unit="page">172</citedRange>
+            		<citedRange unit="item">375</citedRange>
+            	</bibl>
+            	<bibl n="TVM">
+            		<ptr target="bib:Mahalingam1988_01"/>
+            		<citedRange unit="page">553</citedRange>
+            		<citedRange unit="item">218</citedRange>
+            	</bibl>
+
+            </listBibl>
+
+            <listBibl type="secondary">
+
+            	<bibl n="ARIE 1897-1898">
+            		<ptr target="bib:ARIE1897-1898"/>
+            		<citedRange unit="page">18</citedRange>
+            		<citedRange unit="appendix">B/1898</citedRange>
+            		<citedRange unit="item">90</citedRange>
+            	</bibl>
+
+           </listBibl>
+
+         </div>
+
+      </body>
   </text>
 </TEI>

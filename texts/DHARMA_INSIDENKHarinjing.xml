@@ -4,139 +4,159 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>The Harinjing Charter</title>
-        <respStmt>
-          <resp>EpiDoc Encoding</resp>
-          <persName ref="part:argr">
-            <forename>Arlo</forename>
-            <surname>Griffiths</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:ekba">
-            <name>Eko Bastiawan</name>
-          </persName>
-          <persName ref="part:argr">
-            <forename>Arlo</forename>
-            <surname>Griffiths</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Jakarta</pubPlace>
-        <idno type="filename">DHARMA_INSIDENKHarinjing</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Eko Bastiawan &amp; Arlo Griffiths</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
-        <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
-          </msIdentifier>
-          <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+    <teiHeader>
+        <fileDesc>
+        	<titleStmt>
+        		<title>The Harinjing Charter</title>
+        		<respStmt>
+        			<resp>EpiDoc Encoding</resp>
+        			<persName ref="part:argr">
+        				<forename>Arlo</forename>
+        				<surname>Griffiths</surname>
+        			</persName>
+        		</respStmt>
+        		<respStmt>
+        			<resp>intellectual authorship of edition</resp>
+        			<persName ref="part:ekba">
+        				<name>Eko Bastiawan</name>
+        			</persName>
+        			<persName ref="part:argr">
+        				<forename>Arlo</forename>
+        				<surname>Griffiths</surname>
+        			</persName>
+        		</respStmt>
+        	</titleStmt>
+        	<publicationStmt>
+        		<authority>DHARMA</authority>
+        		<pubPlace>Jakarta</pubPlace>
+        		<idno type="filename">DHARMA_INSIDENKHarinjing</idno>
+        		<availability>
+        			<licence target="https://creativecommons.org/licenses/by/4.0/">
+        				<p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+        				<p>Copyright (c) 2019-2025 by Eko Bastiawan &amp; Arlo Griffiths</p>
+        			</licence>
+                </availability>
+                <date from="2019" to="2025">2019-2025</date>
+            </publicationStmt>
+            <sourceDesc><!-- only the handDesc can be filled in at this stage -->
+                <msDesc><!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+                    <msIdentifier>
+                        <repository>DHARMAbase</repository>
+                        <idno/><!-- don't modify this -->
+                    </msIdentifier>
+                    <msContents><!-- describe the intellectual content of an inscription -->
+                        <summary><!-- //// NOT MANDATORY  ////--></summary> <!-- offers the possibility to give a summary of the inscription's content -->
+                    </msContents>
+                    <physDesc>
+                        <handDesc>
+                            <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+                            <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
 						<summary><p><p/></summary>
 						<handNote xml:id="Pallava00001_hand1"></handNote>
 						<handNote xml:id="Pallava00001_hand2"></handNote>
 					 -->
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2023-01-08" who="part:argr">first commit of draft encoding</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="kaw-Latn">
-        <p><milestone n="A" type="pagelike" unit="face"/><label xml:lang="eng">Front</label>
-<lb n="A1"/>// svasti śaka-varṣātīta <num value="706">706</num> caitra<lb break="no" n="A2"/>-māsa tithi Ekādaśī śukla-pakṣa vāra <abbr>ha</abbr><supplied reason="omitted">,</supplied> <abbr>va</abbr><supplied reason="omitted">,</supplied> <abbr>ca</abbr><supplied reason="omitted">,</supplied> tatkā<lb break="no" n="A3"/>la bhagavanta dhārī I culaṅgi sumăkṣyakan· sīmaniran· mŭla ḍavu<lb break="no" n="A4"/>han· gavainira kali I hariñjiṁ hana ta L̥maḥ ḍapūbhī saṁṅ apatiḥ A<lb break="no" n="A5"/>tuha kāmbaḥ deni kali hinəlyan· L̥maḥ satampaḥ de bhagavanta dhārī pa<lb break="no" n="A6"/>məgət· saṁ paṅgumulan· parttaya saṁ kamalagyan· Anu<unclear>ṁ</unclear> hinanākan· rika kāla va<lb break="no" n="A7"/>huta saṁ laḍihan· pituṁtuṁ ḍaman vaca panigran· ḍaman gundu parvuvus· saṁṅ apatih ḍa<lb break="no" n="A8"/>man· gundu vinəkas· ḍama<supplied reason="omitted">n·</supplied> gandhaṁ parvuvus· ḍaman· gaməl· lavan· ḍaman cali gusti
-<lb n="A9"/>ḍapu landap· tuha ḍihulu ḍapu gundur· Avatan·, kacur huler ḍapu kḍakan· Apkan· ḍa<lb break="no" n="A10"/>pu Undun· hulu kuvu ḍapu santan· vuAṁṅ atuha saṁ vula<unclear>va</unclear>n· lavan· ḍapu patət tuha vəR̥ḥ ḍaman·
+                        </handDesc>
+                    </physDesc>
+                </msDesc>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <projectDesc>
+                <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+            </projectDesc>
+            <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/><!-- UPDATE the link once the release is made official -->
+            <listPrefixDef>
+                <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+                    <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+                </prefixDef>
+                <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
+                    <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
+                </prefixDef>
+            </listPrefixDef>
+        </encodingDesc>
+        <revisionDesc>
+        	<change who="part:argr" when="2023-01-08" status="draft">first commit of draft encoding</change>
+        </revisionDesc>
+    </teiHeader>
+    <text xml:space="preserve">
+      <body>
+         <div type="edition" xml:lang="kaw-Latn">
+<p><milestone type="pagelike" unit="face" n="A"/><label xml:lang="eng">Front</label>
+<lb n="A1"/>// svasti śaka-varṣātīta <num value="706">706</num> caitra<lb
+n="A2" break="no"/>-māsa tithi Ekādaśī śukla-pakṣa vāra <abbr>ha</abbr><supplied reason="omitted">,</supplied> <abbr>va</abbr><supplied reason="omitted">,</supplied> <abbr>ca</abbr><supplied reason="omitted">,</supplied> tatkā<lb
+n="A3" break="no"/>la bhagavanta dhārī I culaṅgi sumăkṣyakan· sīmaniran· mŭla ḍavu<lb
+n="A4" break="no"/>han· gavainira kali I hariñjiṁ hana ta L̥maḥ ḍapūbhī saṁṅ apatiḥ A<lb
+n="A5" break="no"/>tuha kāmbaḥ deni kali hinəlyan· L̥maḥ satampaḥ de bhagavanta dhārī pa<lb
+n="A6" break="no"/>məgət· saṁ paṅgumulan· parttaya saṁ kamalagyan· Anu<unclear>ṁ</unclear> hinanākan· rika kāla va<lb
+n="A7" break="no"/>huta saṁ laḍihan· pituṁtuṁ ḍaman vaca panigran· ḍaman gundu parvuvus· saṁṅ apatih ḍa<lb
+n="A8" break="no"/>man· gundu vinəkas· ḍama<supplied reason="omitted">n·</supplied> gandhaṁ parvuvus· ḍaman· gaməl· lavan· ḍaman cali gusti
+<lb n="A9"/>ḍapu landap· tuha ḍihulu ḍapu gundur· Avatan·, kacur huler ḍapu kḍakan· Apkan· ḍa<lb
+n="A10" break="no"/>pu Undun· hulu kuvu ḍapu santan· vuAṁṅ atuha saṁ vula<unclear>va</unclear>n· lavan· ḍapu patət tuha vəR̥ḥ ḍaman·
 <lb n="A11"/>glar· variga ḍaman· Udaya citralaikha ḍapunta vaca nāhan· sira nāma I paraḍaḥ Anuṁ hinanākan·
 <lb n="A12"/>rikaṁ kāla // nāma I bagu vinkas· ḍapu tahani gusti ḍapu Utu tuha ḍihulu ḍapu garbu vka vuA<unclear>ṁ</unclear>
-<lb n="A13"/>matuha saṁ kasaṅer lāvaṇ ḍapu tivul· Avatas· ḍaman· vanyāga Apəkan· ḍaman· buhuṁ hulai<lb break="no" n="A14"/>r· ḍaman· sampanna parvuvus saṁ majalu vsi lavan· ḍaman· baṅun· variga ḍapu taji tuha vəR̥ḥ ḍaman· dahara<lb break="no" n="A15"/>nī tuha buru ḍaman· kuñjaṁ tuhălas· ḍaman vacaṇa lāvan· ḍaman· vikar· tuha kalaṁ ḍama<space/>n· vanuA
+<lb n="A13"/>matuha saṁ kasaṅer lāvaṇ ḍapu tivul· Avatas· ḍaman· vanyāga Apəkan· ḍaman· buhuṁ hulai<lb
+n="A14" break="no"/>r· ḍaman· sampanna parvuvus saṁ majalu vsi lavan· ḍaman· baṅun· variga ḍapu taji tuha vəR̥ḥ ḍaman· dahara<lb
+n="A15" break="no"/>nī tuha buru ḍaman· kuñjaṁ tuhălas· ḍaman vacaṇa lāvan· ḍaman· vikar· tuha kalaṁ ḍama<space/>n· vanuA
 <lb n="A16"/>parvuvus· ḍaman· lampuyaṁ vada huma ḍaman· vaca tuha paḍahi si śurita lāvan· si <unclear>k</unclear>āryya kulapati I
 <lb n="A17"/>hariñjiṁ ḍapunta maṇḍi kulapati I lalatəṁ ḍapu Aman· kulapati I bubul· ḍapunta kuruṅan· tpi siriṁ Anuṁ
 <lb n="A18"/>sākṣī ḍaman· guntar· I garaga ḍaman· damən· nāhan· sira Aligrāma săkṣinira săkṣyakan· Ikana sīmanira mūla
 <lb n="A19"/>ḍavuhan· // kuṇaṁ tinaḍaḥ bhaga<add place="below">va</add>nta I ramanta gavai sakvah v<unclear>v</unclear>aṁ <unclear>n</unclear>ī<unclear>l</unclear>a śya<unclear>m</unclear>aḥ varaṅan· biru kavəR̥han· Inuman·
-<lb n="A20"/>Amunuhatasamada Avaknira sira kuṇaṁ yan· gavai . I . sabya ... salviranira // nihan ta vr̥ddhinira mu . An· saṁ pa<lb break="no" n="A21"/>mgat· lasun deni ... bhagavanta ḍapu landap· saṁ gānta <unclear>t</unclear>an· manu<gap quantity="1" reason="illegible" unit="character"/>l<unclear>l</unclear>an· pu mudha ḍapu ru<gap quantity="1" reason="illegible" unit="character"/> ḍapu ḍali
+<lb n="A20"/>Amunuhatasamada Avaknira sira kuṇaṁ yan· gavai . I . sabya ... salviranira // nihan ta vr̥ddhinira mu . An· saṁ pa<lb
+n="A21" break="no"/>mgat· lasun deni ... bhagavanta ḍapu landap· saṁ gānta <unclear>t</unclear>an· manu<gap reason="illegible" quantity="1" unit="character"/>l<unclear>l</unclear>an· pu mudha ḍapu ru<gap reason="illegible" quantity="1" unit="character"/> ḍapu ḍali
 <lb n="A22"/>ḍapu hadyan ḍapu sūra ḍaman· kuñjaṁ panigran· saṁ taruk· nihan ta ri tajam vina I saṁ garbha I saṁ pa<unclear>r</unclear>avisa
-<lb n="A23"/>I saṁ kavu I saṁ kara I saṁ <gap quantity="3" reason="illegible" unit="character"/><unclear>m</unclear>· I <gap quantity="3" reason="illegible" unit="character"/> I saṁ sala I saṅṅaṁ nāha kavr̥ddhini gave bhagavanta I
-<lb n="A24"/>culaṅgi // o // <gap quantity="14" reason="illegible" unit="character"/>· I bagu I kukap· I vatu valu I tu<lb break="no" n="A25"/>ru maṅalap· <gap quantity="17" reason="illegible" unit="character"/>·<unclear>ra</unclear>lan· tpi siriṁnya vatək·
-<milestone n="b" type="pagelike" unit="face"/><label xml:lang="eng">Proper left</label>
-<lb n="b1"/>raṅga Aṅgəhan· taṅkil· sugi<unclear>ḥ</unclear> paṇḍa<lb break="no" n="b2"/>m<unclear>v</unclear>an· nāhan· sakveḥnikaṁ vanuA ka<lb break="no" n="b3"/>samvahan· deni gavai bhagavanta dhărī //</p>
-        <p><milestone n="C" type="pagelike" unit="face"/><label xml:lang="eng">Back</label>
+<lb n="A23"/>I saṁ kavu I saṁ kara I saṁ <gap reason="illegible" quantity="3" unit="character"/><unclear>m</unclear>· I <gap reason="illegible" quantity="3" unit="character"/> I saṁ sala I saṅṅaṁ nāha kavr̥ddhini gave bhagavanta I
+<lb n="A24"/>culaṅgi // o // <gap reason="illegible" quantity="14" unit="character"/>· I bagu I kukap· I vatu valu I tu<lb
+n="A25" break="no"/>ru maṅalap· <gap reason="illegible" quantity="17" unit="character"/>·<unclear>ra</unclear>lan· tpi siriṁnya vatək·
+<milestone type="pagelike" unit="face" n="b"/><label xml:lang="eng">Proper left</label>
+<lb n="b1"/>raṅga Aṅgəhan· taṅkil· sugi<unclear>ḥ</unclear> paṇḍa<lb
+n="b2" break="no"/>m<unclear>v</unclear>an· nāhan· sakveḥnikaṁ vanuA ka<lb
+n="b3" break="no"/>samvahan· deni gavai bhagavanta dhărī //</p>
+<p><milestone type="pagelike" unit="face" n="C"/><label xml:lang="eng">Back</label>
 <lb n="C1"/>// svasti śaka-varṣātīta <num value="843">843</num>
 <lb n="C2"/>Aśuji-māsa tithi pañcadaśī śukla-pakṣa vāra ha<supplied reason="omitted">,</supplied> U<supplied reason="omitted">,</supplied>
-<lb n="C3"/>bu<supplied reason="omitted">,</supplied> nakṣatra Uttarabhadravāda, Ahnibudhna-devatā<supplied reason="omitted">,</supplied> dhr̥va-yoga ta<lb break="no" n="C4"/>tkāla Ajñā śrī mahārāja rake layaṁ dyaḥ tuloḍoṁ tinadaḥ rakryăn·
-<lb n="C5"/>mapatiḥ I hino mahāmantrī śrī ketudhara manimantaprabhā prabhuśaktitri<lb break="no" n="C6"/>vikrama Umiṅsor iṁ rakryăn· mapatiḥ halu vka sirikan· kalu varak· tiruAn· muAṁ
-<lb n="C7"/>pamgat· bavaṁ tiruAn· hala<supplied reason="lost">ran·</supplied> kumonnakan· śāṣana saṁ devata lumāḥ I tvak· ka<lb break="no" n="C8"/>pagəhaknani vka bhagavanta dhārī saṁ magavai kali I hariñjiṁ Ikanaṁ tan· kolāhala
+<lb n="C3"/>bu<supplied reason="omitted">,</supplied> nakṣatra Uttarabhadravāda, Ahnibudhna-devatā<supplied reason="omitted">,</supplied> dhr̥va-yoga ta<lb
+n="C4" break="no"/>tkāla Ajñā śrī mahārāja rake layaṁ dyaḥ tuloḍoṁ tinadaḥ rakryăn·
+<lb n="C5"/>mapatiḥ I hino mahāmantrī śrī ketudhara manimantaprabhā prabhuśaktitri<lb
+n="C6" break="no"/>vikrama Umiṅsor iṁ rakryăn· mapatiḥ halu vka sirikan· kalu varak· tiruAn· muAṁ
+<lb n="C7"/>pamgat· bavaṁ tiruAn· hala<supplied reason="lost">ran·</supplied> kumonnakan· śāṣana saṁ devata lumāḥ I tvak· ka<lb
+n="C8" break="no"/>pagəhaknani vka bhagavanta dhārī saṁ magavai kali I hariñjiṁ Ikanaṁ tan· kolāhala
 <lb n="C9"/>deni patiḥ vahuta rāma muAṁ tan· katāmā<add place="below">na</add> deniṁ saprakāraniṁ maṅila<supplied reason="omitted">la</supplied> dr̥bya haji
-<lb n="C10"/>kriṁ paḍamm apuy· tapa haji Air haji tuhān· tuha dagaṁ tuhā huñjamman· maṁhuri kutak ma<lb break="no" n="C11"/>payuṁṅan <unclear>pa</unclear>kalaṅkaṁ pamaṇikan· limus· galuḥ paṅaruhan· manimpiki malañjaṁ lca halu va<lb break="no" n="C12"/>rak· v<supplied reason="lost">u</supplied>ṁkal· tajaṁ* paranakan· kḍi valyan· vidu maṁṅiduṁ siṅgaḥ mamr̥si hulun· haji vata<lb break="no" n="C13"/>k· ri jro Ityevammādi saprakārani maṅilala dr̥bya haji miśra paramiśra tan tamātaḥ I
-<lb n="C14"/>sthā<supplied reason="omitted">na</supplied>ni vka bhagavanta dhārī I culaṅgi saṁ girigil· muĀṁ Ikāṁ kabikuAn· mūla sa<unclear>da</unclear>mā ma<lb break="no" n="C15"/>kaṅaran· I vulahya Iṁ varuk· Iṁ śambuṁ Iṁ vila kevala pamasaṁnya mās· su <num value="1">1</num> maparaḥ
+<lb n="C10"/>kriṁ paḍamm apuy· tapa haji Air haji tuhān· tuha dagaṁ tuhā huñjamman· maṁhuri kutak ma<lb
+n="C11" break="no"/>payuṁṅan <unclear>pa</unclear>kalaṅkaṁ pamaṇikan· limus· galuḥ paṅaruhan· manimpiki malañjaṁ lca halu va<lb
+n="C12" break="no"/>rak· v<supplied reason="lost">u</supplied>ṁkal· tajaṁ* paranakan· kḍi valyan· vidu maṁṅiduṁ siṅgaḥ mamr̥si hulun· haji vata<lb
+n="C13" break="no"/>k· ri jro Ityevammādi saprakārani maṅilala dr̥bya haji miśra paramiśra tan tamātaḥ I
+<lb n="C14"/>sthā<supplied reason="omitted">na</supplied>ni vka bhagavanta dhārī I culaṅgi saṁ girigil· muĀṁ Ikāṁ kabikuAn· mūla sa<unclear>da</unclear>mā ma<lb
+n="C15" break="no"/>kaṅaran· I vulahya Iṁ varuk· Iṁ śambuṁ Iṁ vila kevala pamasaṁnya mās· su <num value="1">1</num> maparaḥ
 <lb n="C16"/>I śrī mahārāja mijil· Āṅkən· cetra kaśraḥ I saṁ pamgat· Āsiṁ juru I khaḍiri Ikaṁ ri vilaṁ
-<lb n="C17"/>mās· <num value="3">3</num> vinijillakannya byayani masa rinapi I vulahya mās· <num value="1">1</num> vinijillakannya ḍa<lb break="no" n="C18"/>lānnira ggavaiyakan· Ikaṇaṁ dharmma kali I hariñjiṁ nāhan· balāśramani maṅatag ma<lb break="no" n="C19"/>ṅkana piṅsornnikaṇaṁ Ājñă haji kinonnakan· hatguhakna tan· kolaḥh-ulaḥha tka ri dlāhaniṁ
-<lb n="C20"/>dlāha kuṇaṁ yan· hana patih vahuta rāma muAṁ maṅilala dr̥bya haji tan· parabyapāra I sthānani vka bha<lb break="no" n="C21"/>gavanta dhārī ya saṁkānani pramādanya salvirnni laṅghana riṅ ăjñă haji lviranya nigrahān· ya ri mās· <abbr>kā</abbr> <num value="1">1</num>
+<lb n="C17"/>mās· <num value="3">3</num> vinijillakannya byayani masa rinapi I vulahya mās· <num value="1">1</num> vinijillakannya ḍa<lb
+n="C18" break="no"/>lānnira ggavaiyakan· Ikaṇaṁ dharmma kali I hariñjiṁ nāhan· balāśramani maṅatag ma<lb
+n="C19" break="no"/>ṅkana piṅsornnikaṇaṁ Ājñă haji kinonnakan· hatguhakna tan· kolaḥh-ulaḥha tka ri dlāhaniṁ
+<lb n="C20"/>dlāha kuṇaṁ yan· hana patih vahuta rāma muAṁ maṅilala dr̥bya haji tan· parabyapāra I sthānani vka bha<lb
+n="C21" break="no"/>gavanta dhārī ya saṁkānani pramādanya salvirnni laṅghana riṅ ăjñă haji lviranya nigrahān· ya ri mās· <abbr>kā</abbr> <num value="1">1</num>
 <lb n="C22"/><abbr>su</abbr> <num value="2">2</num> matanya deyanikanaṁ <add place="above">tan· hana maṅilala</add> patiḥ vahuta rama kabeḥ kayatnāknan·nya soninikeṁ surat·
 <lb n="C23"/>praśasti śāṣana śrī maharāja // o //</p>
-        <p>muvaḥ śaka <num value="849">849</num> caitra-masa tithi pratipāda śukla
-<lb n="C24"/>văra, <abbr>vā</abbr>, <abbr>U</abbr>, <abbr>bu</abbr>, tatkalani vka bhagavanta dhārī mintonakan· Anugraha saṁ lumāḥ ri tva<lb break="no" n="C25"/>k· tinaḍaḥ rakai hino pu ketu makasambandha pakon· saṁ pamgat· momaḥh-umaḥha ta<lb break="no" n="C26"/>n· rake sumba saṁ pamgat· Āṅgəḥhan· saṁ parpāt· sira ta kumonnakan· Ikaṁ prasasti Umnaḥhakna ya vuṁ<lb break="no" n="C27"/>kal· kveḥni vka bhagavanta dhārī ri culaṅgi saṁ givil· saṁ trayī saṁ <unclear>s</unclear>ḍa<unclear>k</unclear>· saṁ pulas· ri vila<unclear>ṁ</unclear> saṁ banat·
+<p>muvaḥ śaka <num value="849">849</num> caitra-masa tithi pratipāda śukla
+<lb n="C24"/>văra, <abbr>vā</abbr>, <abbr>U</abbr>, <abbr>bu</abbr>, tatkalani vka bhagavanta dhārī mintonakan· Anugraha saṁ lumāḥ ri tva<lb
+n="C25" break="no"/>k· tinaḍaḥ rakai hino pu ketu makasambandha pakon· saṁ pamgat· momaḥh-umaḥha ta<lb
+n="C26" break="no"/>n· rake sumba saṁ pamgat· Āṅgəḥhan· saṁ parpāt· sira ta kumonnakan· Ikaṁ prasasti Umnaḥhakna ya vuṁ<lb
+n="C27" break="no"/>kal· kveḥni vka bhagavanta dhārī ri culaṅgi saṁ givil· saṁ trayī saṁ <unclear>s</unclear>ḍa<unclear>k</unclear>· saṁ pulas· ri vila<unclear>ṁ</unclear> saṁ banat·
 <lb n="C28"/>saṁ durak· riṁ sambuṁ saṁ ṅavrit· saṁ Uvir· riṁ vulahya saṁ vaseḥ saṁ bayakā riṁ varuk· saṁ vadhī saṁ k<unclear>i</unclear>nāṁ nāhan·
-<milestone n="d" type="pagelike" unit="face"/><label xml:lang="eng">Proper right</label>
+<milestone type="pagelike" unit="face" n="d"/><label xml:lang="eng">Proper right</label>
 <lb n="d1"/>kveḥnira vka bhagavanta dhārī Umnaḥhakannikaṁ
-<lb n="d2"/>prasaṣṭi ri<unclear>ṁ</unclear> vuṅkal· kunaṁ ta kveḥ saṁ lumāḥ riṁ tva<lb break="no" n="d3"/>k· Āsiṁ Umulaḥh-ulaḥ Ikaṁ <add place="above">
-            <unclear>A</unclear>
-          </add>nugraha saṁ hyaṁ su<lb break="no" n="d4"/>kram upadrava ya<unclear>n hană</unclear>siṅ <unclear>ma</unclear>tuhha – –<unclear>jñā</unclear> I <gap quantity="3" reason="illegible" unit="character"/><lb break="no" n="d5"/><unclear>trī katadaḥ</unclear> // o //</p>
-      </div>
-      <div type="apparatus">
-        <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
-        <listApp>
-          <!-- one <app> for each apparatus entry -->
-          <app loc="line">
-            <!-- update the value of @loc.-->
-            <lem><!-- fill in a lemma here --></lem>
-            <rdg source="bib:SteinCallenfels1934_01"><!-- update the @source value, fill in variant reading here --></rdg>
-          </app>
-          <!--
+<lb n="d2"/>prasaṣṭi ri<unclear>ṁ</unclear> vuṅkal· kunaṁ ta kveḥ saṁ lumāḥ riṁ tva<lb
+n="d3" break="no"/>k· Āsiṁ Umulaḥh-ulaḥ Ikaṁ <add place="above"><unclear>A</unclear></add>nugraha saṁ hyaṁ su<lb
+n="d4" break="no"/>kram upadrava ya<unclear>n hană</unclear>siṅ <unclear>ma</unclear>tuhha – –<unclear>jñā</unclear> I <gap reason="illegible" quantity="3" unit="character"/><lb
+n="d5" break="no"/><unclear>trī katadaḥ</unclear> // o //</p>
+         </div>
+         <div type="apparatus">
+           <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
+               <listApp><!-- one <app> for each apparatus entry -->
+                  <app loc="line"><!-- update the value of @loc.-->
+                     <lem><!-- fill in a lemma here --></lem>
+                     <rdg source="bib:SteinCallenfels1934_01"><!-- update the @source value, fill in variant reading here --></rdg>
+                  </app>
+<!--
 [11] 706 ◇ D, 709 StC HT. StC proposes the alternative reading 706.
 [12] dhārī I culaṅgi ◇ D, bārī I vulaṅgi StC HT. Cf. Paradah I (2A21) kamūlan· lor· si Amrīta, I cūlaṅgi kulapati si pulap·.
 [13] sīmaniran· ◇ D HT, simaniran· StC.
@@ -257,23 +277,24 @@
 [128] Āsiṁ ◇ Asiṁ StC HT.
 [129] \(A)/nugraha ◇ nugraha StC HT.
  -->
-        </listApp>
-      </div>
-      <div resp="part:argr" type="translation"><!--translation encoded as per EGD §9.2 --></div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
-        <listBibl type="primary">
-          <bibl n="vSC">
-            <ptr target="bib:SteinCallenfels1934_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
-        </listBibl>
-      </div>
-    </body>
+               </listApp>
+         </div>
+         <div type="translation" resp="part:argr">
+ 	<!--translation encoded as per EGD §9.2 -->
+         </div>
+         <div type="commentary">
+            <!--commentary encoded as per section §9.3 -->
+         </div>
+        <div type="bibliography">
+	<!--bibliography encoded as per section §9.4 -->
+           <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
+        	<listBibl type="primary">
+				<bibl n="vSC"><ptr target="bib:SteinCallenfels1934_01"/></bibl>
+			</listBibl>
+           <listBibl type="secondary">
+              <bibl/><!-- one <bibl/> per item of secondary bibliography -->
+           </listBibl>
+        </div>
+      </body>
   </text>
 </TEI>

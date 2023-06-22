@@ -4,175 +4,204 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Tiruneṭuṅkalam, donation, time of Tantippōttaraiyaṉ, year 2</title>
-        <respStmt>
-          <resp>EpiDoc encoding</resp>
-          <persName ref="part:emfr">
-            <forename>Emmanuel</forename>
-            <surname>Francis</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:emfr">
-            <forename>Emmanuel</forename>
-            <surname>Francis</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Paris, CEIAS</pubPlace>
-        <idno type="filename">DHARMA_INSPallava00497</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>Tiruneṭuṅkalam, donation, time of Tantippōttaraiyaṉ, year 2</title>
+				<respStmt>
+					<resp>EpiDoc encoding</resp>
+					<persName ref="part:emfr">
+						<forename>Emmanuel</forename>
+						<surname>Francis</surname>
+					</persName>
+				</respStmt>
+				<respStmt>
+					<resp>intellectual authorship of edition</resp>
+					<persName ref="part:emfr">
+						<forename>Emmanuel</forename>
+						<surname>Francis</surname>
+					</persName>
+				</respStmt>
+			</titleStmt>
+			<publicationStmt>
+				<authority>DHARMA</authority>
+				<pubPlace>Paris, CEIAS</pubPlace>
+				<idno type="filename">DHARMA_INSPallava00497</idno>
+				<availability>
+					<licence target="https://creativecommons.org/licenses/by/4.0/">
+						<p>This work is licenced under the Creative Commons Attribution 4.0 Unported
 							Licence. To view a copy of the licence, visit
 							https://creativecommons.org/licenses/by/4.0/ or send a letter to
 							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
 							California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <msDesc>
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-          </msIdentifier>
-          <msContents>
-            <summary>Donation of gold for daily food offering for a god's temple.</summary>
-          </msContents>
-          <!--<physDesc>
+						<p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
+					</licence>
+				</availability>
+				<date from="2019" to="2025">2019-2025</date>
+			</publicationStmt>
+			<sourceDesc>
+				<msDesc>
+					<msIdentifier>
+						<repository>DHARMAbase</repository>
+						<idno/>
+					</msIdentifier>
+					<msContents>
+						<summary>Donation of gold for daily food offering for a god's temple.</summary>
+					</msContents>
+					<!--<physDesc>
 						<handDesc>
 							<p></p>
 						</handDesc>
 					</physDesc>-->
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+				</msDesc>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<projectDesc>
+				<p>The project DHARMA has received funding from the European Research Council (ERC)
 					under the European Union's Horizon 2020 research and innovation programme (grant
 					agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+			</projectDesc>
+			<schemaRef type="guide" key="EGDv01"
+				url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+			<listPrefixDef>
+				<prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)"
+					replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+					<p>Public URIs with the prefix bib to point to a Zotero Group Library named
 						ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+				</prefixDef>
+				<prefixDef ident="part" matchPattern="([a-z]+)"
+					replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+					<p>Internal URIs using the part prefix to point to person elements in the
 							<ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2022-10-10" who="part:emfr">Creation of the file</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tam-Latn">
-        <ab>
-          <lb n="1"/>
-          <hi rend="grantha">svasti śrī</hi>
-        </ab>
-        <p>
+				</prefixDef>
+			</listPrefixDef>
+		</encodingDesc>
+		<revisionDesc>
+			<change who="part:emfr" when="2022-10-10" status="draft">Creation of the file</change>
+		</revisionDesc>
+	</teiHeader>
+	<text xml:space="preserve">
+      <body>
+
+      	<div type="edition" xml:lang="tam-Latn">
+
+      		<ab>
+      			<lb n="1"/><hi rend="grantha">svasti śrī</hi>
+
+      		</ab>
+      		<p>
       			tanti-p-pōttarai<supplied reason="lost">yaṟku yā</supplied>
-      			<lb break="no" n="2"/>ṇṭu Iraṇṭ-āvatu
+      			<lb n="2" break="no"/>ṇṭu Iraṇṭ-āvatu
       		</p>
-        <p>
+
+      		<p>
       			maṟpiṭuku vi<unclear>ḻ</unclear>u
-      			<lb break="no" n="3"/>p-pē<supplied reason="omitted">ra</supplied>raiya<supplied reason="omitted">ṉ</supplied>-āyiṉa cattaṉ utai
-      			<lb break="no" n="4"/>yāṅkuraṉ tiru-neṭuṅkaḷattu
-      			<lb break="no" n="5"/>-p paṭāra<supplied reason="omitted">r</supplied>kku Oḻukkavi vaitta
+      			<lb n="3" break="no"/>p-pē<supplied reason="omitted">ra</supplied>raiya<supplied reason="omitted">ṉ</supplied>-āyiṉa cattaṉ utai
+      			<lb n="4" break="no"/>yāṅkuraṉ tiru-neṭuṅkaḷattu
+      			<lb n="5" break="no"/>-p paṭāra<supplied reason="omitted">r</supplied>kku Oḻukkavi vaitta
       			<lb n="6"/>poṉ patiṉ aiṅ-kaḻañcu
       		</p>
-        <p>
+      		<p>
       			O<unclear reason="eccentric_ductus">lō</unclear>c
-      			<lb break="no" n="7"/>ca<supplied reason="omitted">ṉ</supplied> vaitta {symbol} cēntaṉ vaitta
+      			<lb n="7" break="no"/>ca<supplied reason="omitted">ṉ</supplied> vaitta {symbol} cēntaṉ vaitta
       			<lb n="8"/>poṉ <num value="6">6</num>ṅ kaḻañcu <unclear>cāṉantami</unclear>
-      			<lb break="no" n="9"/>cānti vaitta poṉ <num value="6">6</num>ṅ kaḻañcu
+      			<lb n="9" break="no"/>cānti vaitta poṉ <num value="6">6</num>ṅ kaḻañcu
       		</p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="2">
-            <lem>vi<unclear>ḻ</unclear>u
-      			<lb break="no" n="3"/>p-pē<supplied reason="omitted">ra</supplied>raiya<supplied reason="omitted">ṉ</supplied>-āyiṉa</lem>
-            <rdg source="bib:Cankita+al_1998">vi<unclear>ḻu</unclear>
-      			<lb break="no" n="3"/>ppēraiya<supplied reason="omitted">ṉ</supplied>-āyiṉa</rdg>
-          </app>
-          <app loc="5">
-            <lem>-p paṭāra<supplied reason="omitted">r</supplied>kku</lem>
-            <rdg source="bib:Cankita+al_1998"><gap quantity="2" reason="undefined" unit="character"/>paṭāra<supplied reason="omitted">r</supplied>kku</rdg>
-          </app>
-          <app loc="6">
-            <lem>O<unclear reason="eccentric_ductus">lo</unclear>c
-      			<lb break="no" n="7"/>ca<supplied reason="omitted">ṉ</supplied></lem>
-            <rdg source="bib:Cankita+al_1998">Oloc
-      			<lb break="no" n="7"/>ca</rdg>
-          </app>
-          <app loc="7">
-            <lem>{symbol}</lem>
-            <rdg source="bib:Cankita+al_1998">
-              <num value="0.5">
-                <unclear>½</unclear>
-              </num>
-            </rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:emfr" type="translation">
-        <p n="1">
+
+      	</div>
+
+         <div type="apparatus">
+
+         	<listApp>
+
+         		<app loc="2">
+         			<lem>vi<unclear>ḻ</unclear>u
+      			<lb n="3" break="no"/>p-pē<supplied reason="omitted">ra</supplied>raiya<supplied reason="omitted">ṉ</supplied>-āyiṉa</lem>
+         			<rdg source="bib:Cankita+al_1998">vi<unclear>ḻu</unclear>
+      			<lb n="3" break="no"/>ppēraiya<supplied reason="omitted">ṉ</supplied>-āyiṉa</rdg>
+         		</app>
+
+         		<app loc="5">
+         			<lem>-p paṭāra<supplied reason="omitted">r</supplied>kku</lem>
+         			<rdg source="bib:Cankita+al_1998"><gap reason="undefined" quantity="2" unit="character"/>paṭāra<supplied reason="omitted">r</supplied>kku</rdg>
+         		</app>
+
+         		<app loc="6">
+         			<lem>O<unclear reason="eccentric_ductus">lo</unclear>c
+      			<lb n="7" break="no"/>ca<supplied reason="omitted">ṉ</supplied></lem>
+         			<rdg source="bib:Cankita+al_1998">Oloc
+      			<lb n="7" break="no"/>ca</rdg>
+         		</app>
+
+         		<app loc="7">
+         			<lem>{symbol}</lem>
+         			<rdg source="bib:Cankita+al_1998"><num value="0.5"><unclear>½</unclear></num></rdg>
+         		</app>
+
+         	</listApp>
+
+         </div>
+
+         <div type="translation" resp="part:emfr">
+
+         	<p n="1">
          		Prosperity! Fortune!
          	</p>
-        <p n="1-2">
+
+         	<p n="1-2">
          		Second year of Tantippōttaraiyaṉ<note>That is, the Pallava king Dantivarman.</note>.
          	</p>
-        <p n="2-6">
-         		The gold that Cattaṉ Utaiyāṅkuraṉ aliasViḷuppēraraiyaṉ has given <supplied reason="subaudible">as</supplied> daily food offering <supplied reason="explanation">
-            <foreign>oḻukkavi</foreign>
-          </supplied> for the <foreign>paṭārar</foreign> of the Tiruneṭuṅkalam: fifteen <foreign>kaḻañcu</foreign>s.
+
+         	<p n="2-6">
+         		The gold that Cattaṉ Utaiyāṅkuraṉ aliasViḷuppēraraiyaṉ has given <supplied reason="subaudible">as</supplied> daily food offering <supplied reason="explanation"><foreign>oḻukkavi</foreign></supplied> for the <foreign>paṭārar</foreign> of the Tiruneṭuṅkalam: fifteen <foreign>kaḻañcu</foreign>s.
          	</p>
-        <p n="6-9">
+
+         	<p n="6-9">
          		...
          	</p>
-      </div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p>
-First edited by <bibl>
-            <ptr target="bib:Cankita+al_1998"/>
-          </bibl> (Varalāṟu 8, no. 3); re-edited and translated here for DHARMA (ERC n° 809994) by Emmanuel Francis (2022), based on previous edition(s) and, for lines 1-7, on photographs (2016) kindly provided by Valérie Gillet.
+
+         </div>
+
+         <div type="commentary">
+
+         </div>
+
+         <div type="bibliography">
+
+            <p>
+First edited by <bibl><ptr target="bib:Cankita+al_1998"/></bibl> (Varalāṟu 8, no. 3); re-edited and translated here for DHARMA (ERC n° 809994) by Emmanuel Francis (2022), based on previous edition(s) and, for lines 1-7, on photographs (2016) kindly provided by Valérie Gillet.
             </p>
-        <listBibl type="primary">
-          <bibl n="C">
-            <ptr target="bib:Cankita+al_1998"/>
-            <citedRange unit="item">3.3</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="N">
-            <ptr target="bib:Nalini2016_01"/>
-          </bibl>
-          <!--<bibl n="ARIE">
+
+         	<listBibl type="primary">
+
+         		<bibl n="C">
+         			<ptr target="bib:Cankita+al_1998"/>
+         			<citedRange unit="item">3.3</citedRange>
+         		</bibl>
+
+
+
+         	</listBibl>
+
+         	<listBibl type="secondary">
+
+         		<bibl n="N">
+         			<ptr target="bib:Nalini2016_01"/>
+         		</bibl>
+
+         		<!--<bibl n="ARIE">
          			<ptr target="bib:ARIE"/>
          			<citedRange unit="page"></citedRange>
          			<citedRange unit="appendix"></citedRange>
          			<citedRange unit="item"></citedRange>
          		</bibl>         -->
-        </listBibl>
-      </div>
-    </body>
+
+         	</listBibl>
+
+         </div>
+
+      </body>
   </text>
 </TEI>

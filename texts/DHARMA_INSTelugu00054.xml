@@ -4,110 +4,117 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Land donation under the rule of Vijayādityasatyāśraya and Bali-Indrabāṇarāju</title>
-        <respStmt>
-          <resp>Creation of file</resp>
-          <persName ref="part:jeth">
-            <forename>Jens Christian</forename>
-            <surname>Thomas</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:jeth">
-            <!-- OR: DELETE IF SOMBODY ELSE'S EDITION -->
-            <forename><!-- XXXXXXX --></forename>
-            <surname><!-- XXXXXXX --></surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Berlin</pubPlace>
-        <idno type="filename">DHARMA_INSTelugu00054</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <p><!-- not to be filled in at this stage --></p>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Land donation under the rule of Vijayādityasatyāśraya and Bali-Indrabāṇarāju</title>
+            <respStmt>
+               <resp>Creation of file</resp>
+               <persName ref="part:jeth">
+                  <forename>Jens Christian</forename>
+                  <surname>Thomas</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName ref="part:jeth"><!-- OR: DELETE IF SOMBODY ELSE'S EDITION -->
+                  <forename><!-- XXXXXXX --></forename>
+                  <surname><!-- XXXXXXX --></surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Berlin</pubPlace>
+            <idno type="filename">DHARMA_INSTelugu00054</idno>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+                  <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc>
+            <p><!-- not to be filled in at this stage --></p>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
                         under the European Union's Horizon 2020 research and innovation programme (grant
                         agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
                             ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
                             <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-06-30" who="part:jeth">Creation of the file</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tel-Latn">
-        <p>
-              <milestone n="A" type="pagelike" unit="face"/>
-               <lb n="1"/><gap quantity="1" reason="undefined" unit="line"/>
-               <lb n="2"/><gap precision="low" quantity="3" reason="undefined" unit="character"/>bhadi maṟutuḍlu Icciri svadattaṁ <unclear>paradattaṁ vā</unclear>
-               <lb n="3"/>yō ha<gap precision="low" quantity="9" reason="undefined" unit="character"/>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:jeth" when="2020-06-30" status="draft">Creation of the file</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+      <body>
+         <div type="edition" xml:lang="tel-Latn">
+            <p>
+              <milestone type="pagelike" unit="face" n="A"/>
+               <lb n="1"/><gap reason="undefined" unit="line" quantity="1"/>
+               <lb n="2"/><gap reason="undefined" unit="character" quantity="3" precision="low"/>bhadi maṟutuḍlu Icciri svadattaṁ <unclear>paradattaṁ vā</unclear>
+               <lb n="3"/>yō ha<gap reason="undefined" unit="character" quantity="9" precision="low"/>
             </p>
-        <p>
-               <lb n="4"/>svasti śrī vijayādityasatyāśraya śrī prithuvīvallabha mahārājādhirā<lb break="no" n="5"/>ja-paramēśvara-bhaṭāra<unclear>ḷa</unclear>ku vijayarājyasa<unclear>ṁ</unclear>vatsaraṁbuḷ irubādi<unclear>mūṁ</unclear>ḍu prava<lb break="no" n="6"/><unclear>r</unclear>ttilla balikulatilaka narasiṁhabāṇādhirājapri<unclear>ya</unclear>nuta-vikramā<lb break="no" n="7"/>ditya-bali-I<unclear>ndra</unclear>bāṇarāju<unclear>la</unclear> turumaraviṣayaṁbu yēḷuvāri <unclear>māmōri</unclear>
-              <milestone n="B" type="pagelike" unit="face"/>
-               <lb n="8"/><gap quantity="1" reason="undefined" unit="line"/>
-               <lb n="9"/><gap quantity="1" reason="undefined" unit="line"/>
-               <lb n="10"/><gap quantity="1" reason="undefined" unit="line"/>
-               <lb n="11"/><gap quantity="1" reason="undefined" unit="line"/>
+            <p>
+               <lb n="4"/>svasti śrī vijayādityasatyāśraya śrī prithuvīvallabha mahārājādhirā<lb n="5" break="no"/>ja-paramēśvara-bhaṭāra<unclear>ḷa</unclear>ku vijayarājyasa<unclear>ṁ</unclear>vatsaraṁbuḷ irubādi<unclear>mūṁ</unclear>ḍu prava<lb n="6" break="no"/><unclear>r</unclear>ttilla balikulatilaka narasiṁhabāṇādhirājapri<unclear>ya</unclear>nuta-vikramā<lb n="7" break="no"/>ditya-bali-I<unclear>ndra</unclear>bāṇarāju<unclear>la</unclear> turumaraviṣayaṁbu yēḷuvāri <unclear>māmōri</unclear>
+              <milestone type="pagelike" unit="face" n="B"/>
+               <lb n="8"/><gap reason="undefined" unit="line" quantity="1"/>
+               <lb n="9"/><gap reason="undefined" unit="line" quantity="1"/>
+               <lb n="10"/><gap reason="undefined" unit="line" quantity="1"/>
+               <lb n="11"/><gap reason="undefined" unit="line" quantity="1"/>
                <lb n="12"/>pullagiceṟuna cika<unclear>ṭṭa</unclear> pulla<unclear>ṁ</unclear>buna rācamāna<unclear>ṁ</unclear>buna
-               <lb n="13"/>U<gap precision="low" quantity="1" reason="undefined" unit="character"/>lu kōvubōḷu Anantaśōbhuḷu <unclear>tyā</unclear>valla kāma<gap precision="low" quantity="4" reason="undefined" unit="character"/>
-               <lb n="14"/><gap quantity="1" reason="undefined" unit="line"/>
+               <lb n="13"/>U<gap reason="undefined" unit="character" quantity="1" precision="low"/>lu kōvubōḷu Anantaśōbhuḷu <unclear>tyā</unclear>valla kāma<gap reason="undefined" unit="character" quantity="4" precision="low"/>
+               <lb n="14"/><gap reason="undefined" unit="line" quantity="1"/>
             </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="3">
-            <lem>yō ha<gap precision="low" quantity="9" reason="undefined" unit="character"/></lem>
-            <note>The number of dots does not reflect the actual number of necessary characters. For the completion of the second <foreign>pāda</foreign> six more syllables are necessary, and 16 more for <foreign>pādas</foreign> c and d.</note>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:jeth" type="translation"><!--Yet to be provided --></div>
-      <div type="commentary">
-        <p>
+         </div>
+         <div type="apparatus">
+               <listApp>
+                  <app loc="3">
+                     <lem>yō ha<gap reason="undefined" unit="character" quantity="9" precision="low"/></lem>
+                     <note>The number of dots does not reflect the actual number of necessary characters. For the completion of the second <foreign>pāda</foreign> six more syllables are necessary, and 16 more for <foreign>pādas</foreign> c and d.</note>
+                  </app>
+               </listApp>
+         </div>
+         <div type="translation" resp="part:jeth">
+ 	<!--Yet to be provided -->
+         </div>
+         <div type="commentary">
+            <p>
               Lines 1-3 of face A appear to reflect a separate inscription that ends in one of the typical Sanskrit imprecation <foreign>ślokas</foreign>. Without consulting the stone or estampage, however, this can not be fully clearified. The editors did not mention anything about different script ductus.
             </p>
-      </div>
-      <div type="bibliography">
-        <p>
+         </div>
+        <div type="bibliography">
+          <p>
            The inscription was noted in
           </p>
-        <listBibl type="secondary">
-          <bibl/>
-          <bibl/>
-        </listBibl>
-      </div>
-    </body>
+           <listBibl type="secondary">
+              <bibl/>
+              <bibl/>
+           </listBibl>
+        </div>
+      </body>
   </text>
 </TEI>

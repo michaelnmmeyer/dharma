@@ -4,524 +4,449 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Uruvupalli grant, time of Siṃhavarman, year 11</title>
-        <respStmt>
-          <resp>EpiDoc encoding</resp>
-          <persName ref="part:emfr">
-            <forename>Emmanuel</forename>
-            <surname>Francis</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:emfr">
-            <forename>Emmanuel</forename>
-            <surname>Francis</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Paris, CEIAS</pubPlace>
-        <idno type="filename">DHARMA_INSPallava00006</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>Uruvupalli grant, time of Siṃhavarman, year 11</title>
+				<respStmt>
+					<resp>EpiDoc encoding</resp>
+					<persName ref="part:emfr">
+						<forename>Emmanuel</forename>
+						<surname>Francis</surname>
+					</persName>
+				</respStmt>
+				<respStmt>
+					<resp>intellectual authorship of edition</resp>
+					<persName ref="part:emfr">
+						<forename>Emmanuel</forename>
+						<surname>Francis</surname>
+					</persName>
+				</respStmt>
+			</titleStmt>
+			<publicationStmt>
+				<authority>DHARMA</authority>
+				<pubPlace>Paris, CEIAS</pubPlace>
+				<idno type="filename">DHARMA_INSPallava00006</idno>
+				<availability>
+					<licence target="https://creativecommons.org/licenses/by/4.0/">
+						<p>This work is licenced under the Creative Commons Attribution 4.0 Unported
 							Licence. To view a copy of the licence, visit
 							https://creativecommons.org/licenses/by/4.0/ or send a letter to
 							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
 							California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Sylvain Brocquet &amp; Emmanuel Francis.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <msDesc>
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-          </msIdentifier>
-          <msContents>
-            <summary>Grant (<foreign>devabhoga</foreign>), with the eigtheen exemptions,
+						<p>Copyright (c) 2019-2025 by Sylvain Brocquet &amp; Emmanuel Francis.</p>
+					</licence>
+				</availability>
+				<date from="2019" to="2025">2019-2025</date>
+			</publicationStmt>
+			<sourceDesc>
+				<msDesc>
+					<msIdentifier>
+						<repository>DHARMAbase</repository>
+						<idno/>
+					</msIdentifier>
+					<msContents>
+						<summary>Grant (<foreign>devabhoga</foreign>), with the eigtheen exemptions,
 							of the village of Uruvupalli to the temple (<foreign>devakula</foreign>)
 							of Viṣṇuhāradeva, built by the general Viṣṇuvarman, at Kaṇḍukūra, for
 							the increase of life and force.</summary>
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p>The <foreign>virāma</foreign> is sometimes oddly located.</p>
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+					</msContents>
+					<physDesc>
+						<handDesc>
+							<p>The <foreign>virāma</foreign> is sometimes oddly located.</p>
+						</handDesc>
+					</physDesc>
+				</msDesc>
+			</sourceDesc>
+		</fileDesc>
+		<encodingDesc>
+			<projectDesc>
+				<p>The project DHARMA has received funding from the European Research Council (ERC)
 					under the European Union's Horizon 2020 research and innovation programme (grant
 					agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+			</projectDesc>
+			<schemaRef type="guide" key="EGDv01"
+				url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+			<listPrefixDef>
+				<prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)"
+					replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+					<p>Public URIs with the prefix bib to point to a Zotero Group Library named
 						ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+				</prefixDef>
+				<prefixDef ident="part" matchPattern="([a-z]+)"
+					replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+					<p>Internal URIs using the part prefix to point to person elements in the
 							<ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding
+				</prefixDef>
+			</listPrefixDef>
+		</encodingDesc>
+		<revisionDesc>
+			<change who="part:axja" when="2020-11-03" status="draft"
+				>Updating toward the encoding
 				template v03</change>
-      <change status="draft" when="2020-03-29" who="part:emfr">Creation of the file</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div rendition="class:36768 maturity:83213" type="edition" xml:lang="tam-Latn">
-        <div n="A" type="textpart" xml:lang="san-Latn">
-          <head xml:lang="eng">Seal</head>
-          <p>
-            <lb n="1"/>
-            <gap precision="low" quantity="10" reason="illegible" unit="character"/>
-            <lb n="2"/>
-            <gap precision="low" quantity="10" reason="illegible" unit="character"/>
-          </p>
-        </div>
-        <div n="B" type="textpart" xml:lang="san-Latn">
-          <head xml:lang="eng">Plates</head>
-          <pb n="1r"/>
-          <p>
+			<change who="part:emfr" when="2020-03-29" status="draft">Creation of the file</change>
+		</revisionDesc>
+	</teiHeader>
+	<text xml:space="preserve">
+      <body>
+
+<div type="edition" xml:lang="tam-Latn" rendition="class:36768 maturity:83213">
+
+<div type="textpart" xml:lang="san-Latn" n="A">
+<head xml:lang="eng">Seal</head>
+
+<p>
+	<lb n="1"/><gap reason="illegible" quantity="10" unit="character" precision="low"/>
+	<lb n="2"/><gap reason="illegible" quantity="10" unit="character" precision="low"/>
+</p>
+
+</div>
+
+<div type="textpart" xml:lang="san-Latn" n="B">
+
+<head xml:lang="eng">Plates</head>
+
+	<pb n="1r"/>
+
+<p>
 	<pb n="1v"/>
-	<fw n="1v" place="left">
-              <g type="numeral">1</g>
-            </fw>
+	<fw place="left" n="1v">1</fw>
 	<lb n="1"/>jitaṃ bhagavatā
 </p>
-          <p>
+
+<p>
 	śrī-vijaya-palakkaḍa-sthānāt parama-brahmaṇyasya sva
-	<lb break="no" n="2"/>bāhu-balārjitorjita-kṣātra-tapo-nidheḥ vihita-sarvva-maryyādasya
+	<lb n="2" break="no"/>bāhu-balārjitorjita-kṣātra-tapo-nidheḥ vihita-sarvva-maryyādasya
 	<lb n="3"/>sthiti-<space type="binding-hole"/>sthitasyāmitātmano mahārajasya śrī-skandavarmmaṇaḥ
 	<lb n="4"/>prapautrasyā<supplied reason="omitted">r</supplied>ccita-śakti-siddhi-sampannasya pratāpopanata-rāja
 
 	<pb n="2r"/>
 
-	<lb break="no" n="5"/>maṇḍalasya mahārājasya vasudhā-talaika-vīrasya śrī-vīravarmmaṇaḥ pau
-	<lb break="no" n="6"/>trasya <space type="binding-hole"/> deva-dvija-guru-vṛddhopacāyino vivṛddha-vinayasyāneka-go-hi
-	<lb break="no" n="7"/>raṇya-<space type="binding-hole"/>bhūmy-ādi-pradānaiḥ pravṛddha-dharmma-sañcayasya prajā-pālana
-	<lb break="no" n="8"/>dakṣasya loka-pālānāṃ pañcamasya loka-pālasya satyātmano mahā
+	<lb n="5" break="no"/>maṇḍalasya mahārājasya vasudhā-talaika-vīrasya śrī-vīravarmmaṇaḥ pau
+	<lb n="6" break="no"/>trasya <space type="binding-hole"/> deva-dvija-guru-vṛddhopacāyino vivṛddha-vinayasyāneka-go-hi
+	<lb n="7" break="no"/>raṇya-<space type="binding-hole"/>bhūmy-ādi-pradānaiḥ pravṛddha-dharmma-sañcayasya prajā-pālana
+	<lb n="8" break="no"/>dakṣasya loka-pālānāṃ pañcamasya loka-pālasya satyātmano mahā
 
 	<pb n="2v"/>
-	<fw n="2v" place="left">
-              <g type="numeral">2</g>
-            </fw>
+	<fw place="left" n="2v">2</fw>
 
-	<lb break="no" n="9"/>tmano mahārājasya śrī-skandavarmmaṇaḥ putrasya bhagavad-bhakti-sadbhāva
-	<lb break="no" n="10"/>saṃbhāvita-sarvva-kalyā<choice>
-              <sic>n</sic>
-              <corr>ṇ</corr>
-            </choice>asya prajā-saṃrañjana-paripālanodyoga-sata
-	<lb break="no" n="11"/>ta-sa<space type="binding-hole"/>tra-vrata-d<choice>
-              <sic>ita</sic>
-              <corr>ī</corr>
-            </choice>kṣitasya Aneka-samar-sāhasāvamardda-la
-	<lb break="no" n="12"/>bdha-vijaya-yaśa<supplied reason="omitted">ḥ</supplied>-prakāśasya kali-yuga-doṣāvasanna-dharmmoddharaṇa-nitya-sa
+	<lb n="9" break="no"/>tmano mahārājasya śrī-skandavarmmaṇaḥ putrasya bhagavad-bhakti-sadbhāva
+	<lb n="10" break="no"/>saṃbhāvita-sarvva-kalyā<choice><sic>n</sic><corr>ṇ</corr></choice>asya prajā-saṃrañjana-paripālanodyoga-sata
+	<lb n="11" break="no"/>ta-sa<space type="binding-hole"/>tra-vrata-d<choice><sic>ita</sic><corr>ī</corr></choice>kṣitasya Aneka-samar-sāhasāvamardda-la
+	<lb n="12" break="no"/>bdha-vijaya-yaśa<supplied reason="omitted">ḥ</supplied>-prakāśasya kali-yuga-doṣāvasanna-dharmmoddharaṇa-nitya-sa
 
 	<pb n="3r"/>
 
 	<lb n="13"/>nnaddhasya rāja-rṣi-guṇa-sarvva-sandoha-vijigīśor ddharmma-vijigīṣor bhagavat-pādā
-	<lb break="no" n="14"/>nuddhyātasya bappa-bhaṭṭāraka-mahārāja-pāda-bhaktasya parama-bhāgavatasya
-	<lb n="15"/>bhāra<space type="binding-hole"/>dvāja-sagotrasya sva-vikkramākrāntānya-nṛpa-śrī-nilayānā<orig>m</orig> yath<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>
-	<lb break="no" n="16"/>vad āhṛtāśvamedh<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>nām pallavānā<orig>m</orig> dharmma-yuvamahārāja-śrī-viṣṇugopava
+	<lb n="14" break="no"/>nuddhyātasya bappa-bhaṭṭāraka-mahārāja-pāda-bhaktasya parama-bhāgavatasya
+	<lb n="15"/>bhāra<space type="binding-hole"/>dvāja-sagotrasya sva-vikkramākrāntānya-nṛpa-śrī-nilayānā<orig>m</orig> yath<choice><sic>a</sic><corr>ā</corr></choice>
+	<lb n="16" break="no"/>vad āhṛtāśvamedh<choice><sic>a</sic><corr>ā</corr></choice>nām pallavānā<orig>m</orig> dharmma-yuvamahārāja-śrī-viṣṇugopava
 
 	<pb n="3v"/>
-	<fw n="3v" place="left">
-              <g type="numeral">3</g>
-            </fw>
+	<fw place="left" n="3v">3</fw>
 
-	<lb break="no" n="17"/>rmmaṇo vacanena muṇḍarāṣṭre Uruvupalliye grāmeyakā<surplus>ḥ</surplus> vaktavyāḥ
+	<lb n="17" break="no"/>rmmaṇo vacanena muṇḍarāṣṭre Uruvupalliye grāmeyakā<surplus>ḥ</surplus> vaktavyāḥ
 </p>
-          <p>
+
+<p>
 	Etasmin grāma
-	<lb break="no" n="18"/>sīme <space type="binding-hole"/> dviśataṃ sima-nivarttanāni
+	<lb n="18" break="no"/>sīme <space type="binding-hole"/> dviśataṃ sima-nivarttanāni
 </p>
-          <p>
-	Eteṣāṃ nivarttanānām Avadhayaḥ <choice>
-              <orig>Apa
-	<lb break="no" n="19"/>raṃ diśi</orig>
-              <reg>Apara-diśi</reg>
-            </choice> <space type="binding-hole"/> kaṇḍukūra-grāmasya sīmāvadhiḥ <choice>
-              <orig>dakṣiṇaṃ diśi</orig>
-              <reg>dakṣiṇa-diśi</reg>
-            </choice> suprayoga-nadī
-	<lb n="20"/>Avadhiḥ <choice>
-              <orig>pūrvv<sic>ā</sic>n diśi</orig>
-              <reg>pūrvva-diśi</reg>
-            </choice> Avadhiḥ pūrvva-dakṣiṇ<choice>
-              <sic>āk</sic>
-              <corr>ot</corr>
-            </choice>taraṃ mahā-patha-pā<supplied reason="omitted">r</supplied>śve śilā
+
+<p>
+	Eteṣāṃ nivarttanānām Avadhayaḥ <choice><orig>Apa
+	<lb n="19" break="no"/>raṃ diśi</orig><reg>Apara-diśi</reg></choice> <space type="binding-hole"/> kaṇḍukūra-grāmasya sīmāvadhiḥ <choice><orig>dakṣiṇaṃ diśi</orig><reg>dakṣiṇa-diśi</reg></choice> suprayoga-nadī
+	<lb n="20"/>Avadhiḥ <choice><orig>pūrvv<sic>ā</sic>n diśi</orig><reg>pūrvva-diśi</reg></choice> Avadhiḥ pūrvva-dakṣiṇ<choice><sic>āk</sic><corr>ot</corr></choice>taraṃ mahā-patha-pā<supplied reason="omitted">r</supplied>śve śilā
 
 	<pb n="4r"/>
 
-	<lb n="21"/>Etasyā<surplus>ḥ</surplus> Uttaraṃ gatvā ciñc<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>vṛkṣaḥ tataḥ Uttaraṃ gatvā kurupūra-grāmasya kaṇḍukū
-	<lb break="no" n="22"/>ra-grāmasya ca pathi śilā tata<orig>ḥ</orig> Uttaraṃ gatvā śilopalayam tata<orig>ḥ</orig> Uttaraṃ ga
-	<lb break="no" n="23"/>tvā k<choice>
-              <sic>a</sic>
-              <corr>u</corr>
-            </choice>ru<space type="binding-hole"/>pūra-grāme br<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>hmaṇānā<orig>m</orig> hala-kṣetrasyāvadhau śilā <choice>
-              <orig>Uttar<sic>ā</sic>ṃ di
-	<lb break="no" n="24"/>śi</orig>
-              <reg>Uttara-diśi</reg>
-            </choice> Avadhiḥ śilopalaya-vṛto mahā-ciñc<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>-vṛkṣaḥ tata<orig>ḥ A</orig>para-diśaṃ gatvā
+	<lb n="21"/>Etasyā<surplus>ḥ</surplus> Uttaraṃ gatvā ciñc<choice><sic>a</sic><corr>ā</corr></choice>vṛkṣaḥ tataḥ Uttaraṃ gatvā kurupūra-grāmasya kaṇḍukū
+	<lb n="22" break="no"/>ra-grāmasya ca pathi śilā tata<orig>ḥ</orig> Uttaraṃ gatvā śilopalayam tata<orig>ḥ</orig> Uttaraṃ ga
+	<lb n="23" break="no"/>tvā k<choice><sic>a</sic><corr>u</corr></choice>ru<space type="binding-hole"/>pūra-grāme br<choice><sic>a</sic><corr>ā</corr></choice>hmaṇānā<orig>m</orig> hala-kṣetrasyāvadhau śilā <choice><orig>Uttar<sic>ā</sic>ṃ di
+	<lb n="24" break="no"/>śi</orig><reg>Uttara-diśi</reg></choice> Avadhiḥ śilopalaya-vṛto mahā-ciñc<choice><sic>a</sic><corr>ā</corr></choice>-vṛkṣaḥ tata<orig>ḥ A</orig>para-diśaṃ gatvā
 
 	<pb n="4v"/>
-	<fw n="4v" place="left">
-              <g type="numeral">4</g>
-            </fw>
+	<fw place="left" n="4v">4</fw>
 
 	<lb n="25"/>koṇḍamuruvudu-grāmasya sīmāntam avadhiḥ
 </p>
-          <p>
-	Evaṃ caturṇā<orig>m</orig> sīmāvadhīnāṃ <choice>
-              <orig>maddhye sī
-	<lb break="no" n="26"/>masya</orig>
-              <reg>maddhya-sīmasya</reg>
-            </choice> <choice>
-              <sic>ta<orig>d</orig>viśata</sic>
-              <reg>tad-dviśataṃ</reg>
-            </choice> nivarttanāni kaṇḍukūre viṣṇu-varmma-senāpati-kṛta-viṣṇuhāra-devaku<!--check if orig allowed within sic-->
-	<lb break="no" n="27"/>lāya <space type="binding-hole"/> deva-bhogaṃ kṛtvā Aṣṭādaśa-jātibhiḥ parihārair upet<choice>
-              <sic>ā</sic>
-              <corr>aṃ</corr>
-            </choice> Asmad-āyur-bala
-	<lb break="no" n="28"/>varddhanīyam asmābhiḥ sampradattaṃ
+
+<p>
+	Evaṃ caturṇā<orig>m</orig> sīmāvadhīnāṃ <choice><orig>maddhye sī
+	<lb n="26" break="no"/>masya</orig><reg>maddhya-sīmasya</reg></choice> <choice><sic>ta<orig>d</orig>viśata</sic><reg>tad-dviśataṃ</reg></choice> nivarttanāni kaṇḍukūre viṣṇu-varmma-senāpati-kṛta-viṣṇuhāra-devaku<!--check if orig allowed within sic-->
+	<lb n="27" break="no"/>lāya <space type="binding-hole"/> deva-bhogaṃ kṛtvā Aṣṭādaśa-jātibhiḥ parihārair upet<choice><sic>ā</sic><corr>aṃ</corr></choice> Asmad-āyur-bala
+	<lb n="28" break="no"/>varddhanīyam asmābhiḥ sampradattaṃ
 </p>
-          <p>
+
+<p>
 	tad avagamya tasmin viṣaye sarvvāyuktakāḥ sarvva-naiyyokā<orig>ḥ</orig>
 	<lb n="29"/>rāja-vallābhāḥ sañcarantakāś ca tat-sīma<orig>m</orig> sarvva-pairihāraiḥ pariharantu parihārayantu ca
 </p>
-          <p>
+
+<p>
 	<pb n="5r"/>
 	<lb n="30"/>yaś cedam asmac-chāsanam atikrāmet sa pāpaś śārīra-<supplied reason="omitted">da</supplied>ṇḍam arhati
 </p>
-          <p>
+
+<p>
 	Api cārṣa-ślokāḥ
 </p>
-          <lg met="anuṣṭubh" n="1">
-            <l n="a"><lb n="31"/>bhūmi-dānāt paran dānaṃ</l>
-            <l n="b">na bhūtan na bhaviṣyati</l>
-            <l n="c">tasyaiva haraṇa-pāp<choice>
-                <sic>a</sic>
-                <corr>ān</corr>
-              </choice></l>
-            <l n="d">na bhūta<supplied reason="omitted">ṃ</supplied> na bhaviṣyati</l>
-          </lg>
-          <lg met="anuṣṭubh" n="2">
-            <l n="a"><lb n="32"/>sva-dattā<supplied reason="omitted">ṃ</supplied> <space type="binding-hole"/> para-dattāṃ vā</l>
-            <l n="b">yo hareta vasundh<choice>
-                <sic>u</sic>
-                <corr>a</corr>
-              </choice>rām</l>
-            <l n="c">gavāṃ śata-sahasrasya</l>
-            <l n="d">hantuḫ pibati du<lb break="no" n="33"/>ṣkṛtam</l>
-          </lg>
-          <p>
-	siṃhavarmma-m<choice>
-              <sic>ā</sic>
-              <corr>a</corr>
-            </choice>hārājasya vijaya-saṃvatsare Ekādaśe pauṣya-māse kṛṣṇa-pakṣe
-	<lb n="34" style="text-align: right"/>daśamyām <space/> mayā dattā <choice>
-              <sic>tāṃpra</sic>
-              <corr>tāmra</corr>
-            </choice>-paṭṭikā
+
+
+<lg n="1" met="anuṣṭubh">
+	<l n="a"><lb n="31"/>bhūmi-dānāt paran dānaṃ</l>
+	<l n="b">na bhūtan na bhaviṣyati</l>
+	<l n="c">tasyaiva haraṇa-pāp<choice><sic>a</sic><corr>ān</corr></choice></l>
+	<l n="d">na bhūta<supplied reason="omitted">ṃ</supplied> na bhaviṣyati</l>
+</lg>
+
+<lg n="2" met="anuṣṭubh">
+	<l n="a"><lb n="32"/>sva-dattā<supplied reason="omitted">ṃ</supplied> <space type="binding-hole"/> para-dattāṃ vā</l>
+	<l n="b">yo hareta vasundh<choice><sic>u</sic><corr>a</corr></choice>rām</l>
+	<l n="c">gavāṃ śata-sahasrasya</l>
+	<l n="d">hantuḫ pibati du<lb n="33" break="no"/>ṣkṛtam</l></lg>
+
+<p>
+	siṃhavarmma-m<choice><sic>ā</sic><corr>a</corr></choice>hārājasya vijaya-saṃvatsare Ekādaśe pauṣya-māse kṛṣṇa-pakṣe
+	<lb n="34" style="text-align: right"/>daśamyām <space/> mayā dattā <choice><sic>tāṃpra</sic><corr>tāmra</corr></choice>-paṭṭikā
 
 </p>
-          <pb n="5v"/>
-        </div>
-      </div>
-      <div type="apparatus">
-        <div n="A" type="textpart" xml:lang="san-Latn"></div>
-        <div n="B" type="textpart" xml:lang="san-Latn">
-          <listApp>
-            <app loc="1">
-              <lem>śrī</lem>
-              <note>The word <foreign>śrī</foreign> could be considered a  second auspicious opening formula (see translations in <bibl>
-                  <ptr target="bib:Fleet1876_02"/>
-                </bibl> and in <bibl>
-                  <ptr target="bib:Brocquet1997_01"/>
-                </bibl>), but it appears to be an honorific prefix to the issuing placename as in <foreign>vijaya-śrī-palakkaḍa-sthānāt</foreign> (<ref target="INSPallava00007.xml">INSPallava00007</ref>) and <foreign>śrīmad-vijaya-daśanapurādhiṣṭ<supplied reason="omitted">h</supplied>ānāt</foreign> (<ref target="INSPallava00247.xml">INSPallava00247</ref>).</note>
-            </app>
-            <app loc="1">
-              <lem>palakkaḍa</lem>
-              <rdg source="bib:Fleet1876_02">palakkada</rdg>
-              <rdg source="bib:Mahalingam1988_01">palakka<choice>
-                  <sic>d</sic>
-                  <corr>ḍ</corr>
-                </choice>a</rdg>
-            </app>
-            <app loc="4">
-              <lem>prapautrasyā<unclear>r</unclear>ccita°</lem>
-              <rdg source="bib:Fleet1876_02">prapautrasyārccita</rdg>
-              <note>The vowel <foreign>i</foreign> in <foreign>rcci</foreign>, which is postcript, shows no inclusion of a <foreign>repha</foreign>.</note>
-            </app>
-            <app loc="10">
-              <lem>saṃbhāvita°</lem>
-              <note>The <foreign>anusvāra</foreign> in <foreign>saṃ</foreign> is above the next character <foreign>bhā</foreign>. This is probably due, as pointed out to me by Daniel Balogh, to the fact that the character <foreign>tma</foreign> (line 9), right above <foreign>sa</foreign>, leaves no sufficient space for the <foreign>anusvāra</foreign>.</note>
-            </app>
-            <app loc="10">
-              <lem>°saṃrañjana°</lem>
-              <rdg source="bib:Mahalingam1988_01">°saṃ<choice>
-                  <sic>rañjana</sic>
-                  <corr>rakṣaṇa</corr>
-                </choice>°</rdg>
-              <note>This emendation is rejected in <bibl>
-                  <ptr target="bib:Brocquet1997_01"/>
-                  <citedRange unit="page">378</citedRange>
-                  <citedRange unit="note">503</citedRange>
-                </bibl>.<!--Update? Add quotation?--></note>
-            </app>
-            <app loc="11">
-              <lem>°satra°</lem>
-              <note>Editors generally correct the text to °satya°. This appears unnecessary as both readings are attested in other inscriptions and both are meaningful. See <bibl n="EF">
-                  <ptr target="bib:Francis2013_03"/>
-                  <citedRange unit="page">138-139</citedRange>
-                </bibl></note>
-            </app>
-            <app loc="11">
-              <lem>°d<choice>
-                  <sic>ita</sic>
-                  <corr>ī</corr>
-                </choice>kṣitasya</lem>
-              <note>The word dita-kṣita, "torn and decayed" is meaningful, but not in the context. Furthermore this epithet is formulaic and there are parallels in, e.g. INSPallava#####<!--Update!-->. See <bibl>
-                  <ptr target="bib:Mahalingam1988_01"/>
-                  <citedRange unit="page">46</citedRange>
-                  <citedRange unit="note">1</citedRange>
-                </bibl>.</note>
-            </app>
-            <app loc="16">
-              <lem>°yuvamahārāja-śrī°</lem>
-              <rdg source="bib:Fleet1876_02">°yuvamahārāja<supplied reason="omitted">sya</supplied> śrī°</rdg>
-              <note>This correction by Fleet appears unnecessary.</note>
-            </app>
-            <app loc="19">
-              <lem>kaṇḍukūra°</lem>
-              <rdg source="bib:Fleet1876_02">°k<choice>
-                  <sic>e</sic>
-                  <corr>a</corr>
-                </choice>ṇḍukūra°</rdg>
-              <rdg source="bib:Brocquet1997_01">°k<choice>
-                  <sic>e</sic>
-                  <corr>a</corr>
-                </choice>ṇḍukūra°</rdg>
-              <note>Fleet's correction is tentative. Brocquet reads <foreign>keṇḍukūra</foreign>, which he emends to <foreign>kaṇḍukūra</foreign>, because of the other occurrences of this placename (lines 21 and 26). However, in these three instances, the reading is clearly <foreign>kaṇḍukūra</foreign>.</note>
-            </app>
-            <app loc="21">
-              <lem>kurupūra°</lem>
-              <rdg source="bib:Fleet1876_02">k<choice>
-                  <sic>a</sic>
-                  <corr>u</corr>
-                </choice>rupūra°</rdg>
-              <rdg source="bib:Brocquet1997_01">k<choice>
-                  <sic>u</sic>
-                  <corr>a</corr>
-                </choice>rupūra°</rdg>
-              <note>Fleet's correction is tentative. The same placename is written <foreign>karupūra</foreign>, line 23. See <bibl>
-                  <ptr target="bib:Brocquet1997_01"/>
-                  <citedRange unit="page">379</citedRange>
-                  <citedRange unit="note">511</citedRange>
-                </bibl>.<!--Update? Add quotation?--></note>
-            </app>
-            <app loc="21">
-              <lem>kaṇḍukūra°</lem>
-              <rdg source="bib:Fleet1876_02">k<choice>
-                  <sic>a</sic>
-                  <corr>e</corr>
-                </choice>ṇḍukūra°</rdg>
-              <note>Fleet's correction is tentative.</note>
-            </app>
-            <app loc="23">
-              <lem>k<choice>
-                  <sic>a</sic>
-                  <corr>u</corr>
-                </choice>ru<space type="binding-hole"/>pūra°</lem>
-              <rdg source="bib:Fleet1876_02">k<choice>
-                  <sic>a</sic>
-                  <corr>u</corr>
-                </choice>rupūra°</rdg>
-              <note>Fleet's correction is tentative. </note>
-            </app>
-            <app loc="25">
-              <lem>koṇḍamuruvudu°</lem>
-              <rdg source="bib:Fleet1876_02">koṇḍamuruvu<choice>
-                  <sic>d</sic>
-                  <corr>ḍ</corr>
-                </choice>u°.</rdg>
-              <note>Fleet's correction is tentative.</note>
-            </app>
-            <app loc="26">
-              <lem>kaṇḍukūre</lem>
-              <rdg source="bib:Fleet1876_02">k<choice>
-                  <sic>a</sic>
-                  <corr>e</corr>
-                </choice>ṇḍukūre</rdg>
-            </app>
-            <app loc="28">
-              <lem>°naiyyokā<orig>ḥ</orig></lem>
-              <rdg source="bib:Fleet1876_02">
-                <choice>
-                  <sic>naiyyokāḥ</sic>
-                  <corr>niyuktā</corr>
-                </choice>
-              </rdg>
-              <note>See <bibl>
-                  <ptr target="bib:Buehler1892_01"/>
-                  <citedRange unit="page">8</citedRange>
-                  <citedRange unit="note">13</citedRange>
-                </bibl><!--quote Bühler (EI 1, 8n13) propose naiyika. Cf. neyika dans IP 3.--></note>
-            </app>
-            <app loc="30">
-              <lem>cārṣa-ślokāḥ</lem>
-              <rdg source="bib:Fleet1876_02">cāpi ślokāḥ</rdg>
-            </app>
-            <app loc="31">
-              <lem>paran</lem>
-              <rdg source="bib:Fleet1876_02">par<choice>
-                  <sic>u</sic>
-                  <corr>a</corr>
-                </choice>n</rdg>
-            </app>
-            <app loc="31">
-              <lem>bhūta<supplied reason="omitted">ṃ</supplied></lem>
-              <rdg source="bib:Fleet1876_02">bhūtaṃ</rdg>
-            </app>
-            <app loc="32">
-              <lem>sva-dattā</lem>
-              <note>The <foreign>ā</foreign> in <foreign>tā</foreign> is very slightly engraved due to the proximity of the binding hole.</note>
-            </app>
-            <app loc="32">
-              <lem>para-dattāṃ vā</lem>
-              <rdg source="bib:Fleet1876_02">para-dattā<supplied reason="omitted">ṃ</supplied> vā</rdg>
-              <note>The <foreign>anusvāra</foreign> at the end of <foreign>°dattāṃ</foreign> is above the next character <foreign>vā</foreign>.</note>
-              <!--Update? Read dattā vāṃ and correct to dattāṃ vā? -->
-            </app>
-            <app loc="34">
-              <lem>mayā dattā</lem>
-              <rdg source="bib:Brocquet1997_01">mayādattā</rdg>
-              <note>That is, <foreign>mayā</foreign> + <foreign>ādattā</foreign> (“seized by me”), although Brocquet's translation is correct (“J'ai émis”).</note>
-            </app>
-          </listApp>
-        </div>
-      </div>
-      <div resp="part:emfr" type="translation">
-        <p>English translation to be added after finalisation of the French translation.</p>
-        <!--Update!-->
-      </div>
-      <div resp="part:sybr" type="translation" xml:lang="fra">
-        <p n="1">Le Bienheureux est vainqueur !</p>
-        <p n="1">Depuis le camp victorieux de Śrī-Palakkaḍa :</p>
-        <p n="2-4">l’arrière petit-fils du Grand Roi Śrī-Skandavarman, très pieux trésor d’austérité, qui conquit et affermit son titre royal par la force de son bras, qui assura le respect de toutes les lois, qui respecta l’Ordre, et qui se montra infiniment magnanime;</p>
-        <p n="4-6">le petit-fils du Grand Roi Śrī-Vīravarman, dont on respecta la puissance et le succès, dont la majesté fit plier le cercle des rois, héros unique sur la surface de la terre;</p>
-        <p n="6-9">le fils du Grand Roi Śrī-Skandavarman, qui honora les dieux, les prêtres, les maîtres et les anciens, qui pratiqua la plus sévère discipline, qui, par de multiples dons, notamment de vaches, d’or et de terres, augmenta son capital dharmique, qui se montra habile à protéger ses sujets, qui fut, parmi les Gardiens du monde, le cinquième Gardien du Monde, qui se montra vrai et magnanime;</p>
-        <p n="9-17">Śrī-Viṣṇugopavarman, Prince Héritier des Pallava selon le <foreign>dharma</foreign>, qui se rendirent maîtres des richesses et des palais des autres rois, vaincus par leur valeur, et accomplirent selon les rites le sacrifice du cheval - lui-même dont la réelle dévotion envers le Bienheureux engendre pour tous la prospérité, qu’un voeu sincère pour toujours consacre avec zèle au bonheur et à la sécurité de ses sujets, qu’illustre la gloire d’avoir, dans plus d’un combat, remporté la victoire en écrasant la témérité, qui, à chaque instant, est prêt à soutenir le <foreign>dharma</foreign> que ruinent les péchés de l’âge Kali, qui souhaite conquérir l’ensemble des vertus des rois ascètes, qui souhaite conquérir le <foreign>dharma</foreign>, qui jouit de la faveur des pieds du Bienheureux, qui offre sa dévotion aux pieds de Bappa, l’illustre Grand Roi, qui se montre un sectateur passionné du Bienheureux, et qui appartient au <foreign>gotra</foreign> de Bharadvāja, ordonne qu’on adresse aux villageois d’Uruvupalliya, dans le Muṇḍa-rāṣṭra, ce commandement de sa bouche:</p>
-        <p> lines 17-18: etasmin grāmasīme dviśataṃ sima-nivarttanāni; Dans les limites de ce village, se trouvent 200 nivartana >>> Dans les limites de ce village, il y a en tout (sima-) deux cents nivartana. As we have sima and not sīma!</p>
-        <!--check translation: 2 fois le même §; conflit de versions?-->
-        <p n="18-25">"Dans les limites de ce village, se trouvent 200 <foreign>nivartana</foreign> [[A MODIFIER: etasmin grāmasīme dviśataṃ sima-nivarttanāni;>>> Dans les limites de ce village, il y a en tout (sima-) deux cents nivartana. As we have sima and not sīma!]]; de ces <foreign>nivartana</foreign>, voici les limites : à l’ouest, la limite sera la frontière du village de Kaṇḍukūra. Au Sud, la rivière Suprayoga servira de limite. A l’Est, la limite sera la suivante : du sud-est vers le Nord, le rocher qui se trouve au bord de la grand-route; en allant vers le nord de celui-ci, le tamarinier; en allant encore vers le Nord, le rocher qui se trouve sur le chemin des villages de Karupūra et de Kaṇḍukūra; en allant encore plus vers le Nord, le tas de pierres; en allant vers le nord à partir de là, le rocher qui se trouve à la limite du champ cultivé appartenant aux brahmanes du village de Karupūra. Au Nord, la limite sera le grand tamarinier entouré d’un tas de pierres; à partir de là et en allant vers l’ouest, la frontière du village de Koṇḍamuruvuḍu fera office de limite.</p>
-        <p n="25-28">Ces 200 <foreign>nivartana</foreign> d’un terrain situé entre ces quatre limites, nous en faisons don, après les avoir convertis en <foreign>deva-bhoga</foreign> et assortis des dix-huit sortes d’exemption, au temple de Viṣṇuhāradeva, édifié par le général Viṣṇuvarman, à Kaṇḍukūra - pour l’accroissement de la durée de notre vie et celui de notre puissance.</p>
-        <p n="28-29">Que par conséquent tous les <foreign>āyuktaka</foreign>, tous les <foreign>niyukta</foreign> [[A MODIFIER: le texte est sarvva-naiyyokā¡ḥ!]], les <foreign>rāja-vallabha</foreign> et les <foreign>sañcarantaka</foreign> se rendent dans cette province [[A MODIFIER: tad avagamya]], respectent et fassent respecter ce terrain, avec toutes ses exemptions.</p>
-        <p n="30">Et quiconque transgressera ce commandement émanant de nous est un criminel qui encourt un châtiment corporel.</p>
-        <p n="30">Et il y a encore des stances : [[A MODIFIER: le texte est api cārṣa-ślokāḥ et non api cāpi ślokāḥ]]</p>
-        <p n="1" rend="stanza">
-          <l>Hormis le don de terre, d’autre don</l>
-          <l>Il n’y eut point et n’y aura point;</l>
-          <l>Hormis le crime de s’en emparer,</l>
-          <l>Il n’y en eut point et n’y en aura point.</l>
-        </p>
-        <p n="2" rend="stanza">
-          <l>Donnée par soi ou donnée par autrui,</l>
-          <l>Quiconque s’approprie une terre</l>
-          <l>Du meurtrier de cent mille vaches</l>
-          <l>Prend sur lui le crime.</l>
-        </p>
-        <p n="33-34">J’ai émis ces tablettes de cuivre le dixième jour de la quinzaine sombre du mois Pauṣya, en la onzième AR victorieux du Grand Roi Siṃhavarman."</p>
-      </div>
-      <div type="commentary">
-        <p>
-In <bibl>
-            <ptr target="bib:Fleet1876_02"/>
-          </bibl>, the numbering of plates is wrong. This edition was prepared with rubbings of Elliot's collection and Fleet was mislead by the fact that plate 1 recto and plate 5 verso, as they were blank, were not rubbed. This was pointed to us by Andrew Grout of the Edinburgh University Library, where the plates are today kept.
+
+	<pb n="5v"/>
+</div>
+</div>
+
+      	<div type="apparatus">
+
+      		<div type="textpart" xml:lang="san-Latn" n="A">
+
+      		</div>
+
+      		<div type="textpart" xml:lang="san-Latn" n="B">
+      			<listApp>
+
+      				<app loc="1">
+      					<lem>śrī</lem>
+      					<note>The word <foreign>śrī</foreign> could be considered a  second auspicious opening formula (see translations in <bibl><ptr target="bib:Fleet1876_02"/></bibl> and in <bibl><ptr target="bib:Brocquet1997_01"/></bibl>), but it appears to be an honorific prefix to the issuing placename as in <foreign>vijaya-śrī-palakkaḍa-sthānāt</foreign> (<ref target="INSPallava00007.xml">INSPallava00007</ref>) and <foreign>śrīmad-vijaya-daśanapurādhiṣṭ<supplied reason="omitted">h</supplied>ānāt</foreign> (<ref target="INSPallava00247.xml">INSPallava00247</ref>).</note>
+      				</app>
+
+      				<app loc="1">
+      					<lem>palakkaḍa</lem>
+      					<rdg source="bib:Fleet1876_02">palakkada</rdg>
+      					<rdg source="bib:Mahalingam1988_01">palakka<choice><sic>d</sic><corr>ḍ</corr></choice>a</rdg>
+      				</app>
+
+      				<app loc="4">
+      					<lem>prapautrasyā<unclear>r</unclear>ccita°</lem>
+      					<rdg source="bib:Fleet1876_02">prapautrasyārccita</rdg>
+      					<note>The vowel <foreign>i</foreign> in <foreign>rcci</foreign>, which is postcript, shows no inclusion of a <foreign>repha</foreign>.</note>
+      				</app>
+
+      				<app loc="10">
+      					<lem>saṃbhāvita°</lem>
+      					<note>The <foreign>anusvāra</foreign> in <foreign>saṃ</foreign> is above the next character <foreign>bhā</foreign>. This is probably due, as pointed out to me by Daniel Balogh, to the fact that the character <foreign>tma</foreign> (line 9), right above <foreign>sa</foreign>, leaves no sufficient space for the <foreign>anusvāra</foreign>.</note>
+      				</app>
+
+      				<app loc="10">
+      					<lem>°saṃrañjana°</lem>
+      					<rdg source="bib:Mahalingam1988_01">°saṃ<choice><sic>rañjana</sic><corr>rakṣaṇa</corr></choice>°</rdg>
+      					<note>This emendation is rejected in <bibl><ptr target="bib:Brocquet1997_01"/><citedRange unit="page">378</citedRange><citedRange unit="note">503</citedRange></bibl>.<!--Update? Add quotation?--></note>
+      				</app>
+
+      				<app loc="11">
+      					<lem>°satra°</lem>
+      					<note>Editors generally correct the text to °satya°. This appears unnecessary as both readings are attested in other inscriptions and both are meaningful. See <bibl n="EF">
+            		<ptr target="bib:Francis2013_03"/><citedRange unit="page">138-139</citedRange></bibl></note>
+
+      				</app>
+
+      				<app loc="11">
+      					<lem>°d<choice><sic>ita</sic><corr>ī</corr></choice>kṣitasya</lem>
+      					<note>The word dita-kṣita, "torn and decayed" is meaningful, but not in the context. Furthermore this epithet is formulaic and there are parallels in, e.g. INSPallava#####<!--Update!-->. See <bibl><ptr target="bib:Mahalingam1988_01"/><citedRange unit="page">46</citedRange><citedRange unit="note">1</citedRange></bibl>.</note>
+      				</app>
+
+      				<app loc="16">
+      					<lem>°yuvamahārāja-śrī°</lem>
+      					<rdg source="bib:Fleet1876_02">°yuvamahārāja<supplied reason="omitted">sya</supplied> śrī°</rdg>
+      					<note>This correction by Fleet appears unnecessary.</note>
+      				</app>
+
+      				<app loc="19">
+      					<lem>kaṇḍukūra°</lem>
+      					<rdg source="bib:Fleet1876_02">°k<choice><sic>e</sic><corr>a</corr></choice>ṇḍukūra°</rdg>
+      					<rdg source="bib:Brocquet1997_01">°k<choice><sic>e</sic><corr>a</corr></choice>ṇḍukūra°</rdg>
+      					<note>Fleet's correction is tentative. Brocquet reads <foreign>keṇḍukūra</foreign>, which he emends to <foreign>kaṇḍukūra</foreign>, because of the other occurrences of this placename (lines 21 and 26). However, in these three instances, the reading is clearly <foreign>kaṇḍukūra</foreign>.</note>
+      				</app>
+
+      				<app loc="21">
+      					<lem>kurupūra°</lem>
+      					<rdg source="bib:Fleet1876_02">k<choice><sic>a</sic><corr>u</corr></choice>rupūra°</rdg>
+      					<rdg source="bib:Brocquet1997_01">k<choice><sic>u</sic><corr>a</corr></choice>rupūra°</rdg>
+      					<note>Fleet's correction is tentative. The same placename is written <foreign>karupūra</foreign>, line 23. See <bibl><ptr target="bib:Brocquet1997_01"/><citedRange unit="page">379</citedRange><citedRange unit="note">511</citedRange></bibl>.<!--Update? Add quotation?--></note>
+      				</app>
+
+      				<app loc="21">
+      					<lem>kaṇḍukūra°</lem>
+      					<rdg source="bib:Fleet1876_02">k<choice><sic>a</sic><corr>e</corr></choice>ṇḍukūra°</rdg>
+      					<note>Fleet's correction is tentative.</note>
+      				</app>
+
+      				<app loc="23">
+      					<lem>k<choice><sic>a</sic><corr>u</corr></choice>ru<space type="binding-hole"/>pūra°</lem>
+      					<rdg source="bib:Fleet1876_02">k<choice><sic>a</sic><corr>u</corr></choice>rupūra°</rdg>
+      					<note>Fleet's correction is tentative. </note>
+      				</app>
+
+      				<app loc="25">
+      					<lem>koṇḍamuruvudu°</lem>
+      					<rdg source="bib:Fleet1876_02">koṇḍamuruvu<choice><sic>d</sic><corr>ḍ</corr></choice>u°.</rdg>
+      					<note>Fleet's correction is tentative.</note>
+      				</app>
+
+      				<app loc="26">
+      					<lem>kaṇḍukūre</lem>
+      					<rdg source="bib:Fleet1876_02">k<choice><sic>a</sic><corr>e</corr></choice>ṇḍukūre</rdg>
+      				</app>
+
+      				<app loc="28">
+      					<lem>°naiyyokā<orig>ḥ</orig></lem>
+      					<rdg source="bib:Fleet1876_02"><choice><sic>naiyyokāḥ</sic><corr>niyuktā</corr></choice></rdg>
+      					<note>See <bibl><ptr target="bib:Buehler1892_01"/><citedRange unit="page">8</citedRange><citedRange unit="note">13</citedRange></bibl><!--quote Bühler (EI 1, 8n13) propose naiyika. Cf. neyika dans IP 3.--></note>
+      				</app>
+
+      				<app loc="30">
+      					<lem>cārṣa-ślokāḥ</lem>
+      					<rdg source="bib:Fleet1876_02">cāpi ślokāḥ</rdg>
+      				</app>
+
+      				<app loc="31">
+      					<lem>paran</lem>
+      					<rdg source="bib:Fleet1876_02">par<choice><sic>u</sic><corr>a</corr></choice>n</rdg>
+      				</app>
+
+      				<app loc="31">
+      					<lem>bhūta<supplied reason="omitted">ṃ</supplied></lem>
+      					<rdg source="bib:Fleet1876_02">bhūtaṃ</rdg>
+      				</app>
+
+      				<app loc="32">
+      					<lem>sva-dattā</lem>
+      					<note>The <foreign>ā</foreign> in <foreign>tā</foreign> is very slightly engraved due to the proximity of the binding hole.</note>
+      				</app>
+
+      				<app loc="32">
+      					<lem>para-dattāṃ vā</lem>
+      					<rdg source="bib:Fleet1876_02">para-dattā<supplied reason="omitted">ṃ</supplied> vā</rdg>
+      					<note>The <foreign>anusvāra</foreign> at the end of <foreign>°dattāṃ</foreign> is above the next character <foreign>vā</foreign>.</note><!--Update? Read dattā vāṃ and correct to dattāṃ vā? -->
+      				</app>
+
+      				<app loc="34">
+      					<lem>mayā dattā</lem>
+      					<rdg source="bib:Brocquet1997_01">mayādattā</rdg>
+      					<note>That is, <foreign>mayā</foreign> + <foreign>ādattā</foreign> (“seized by me”), although Brocquet's translation is correct (“J'ai émis”).</note>
+      				</app>
+
+      			</listApp>
+      		</div>
+
+      	</div>
+
+      	<div type="translation" resp="part:emfr">
+      		<p>English translation to be added after finalisation of the French translation.</p><!--Update!-->
+      	</div>
+
+      	<div type="translation" xml:lang="fra" resp="part:sybr">
+
+      		<p n="1">Le Bienheureux est vainqueur !</p>
+      		<p n="1">Depuis le camp victorieux de Śrī-Palakkaḍa :</p>
+      		<p n="2-4">l’arrière petit-fils du Grand Roi Śrī-Skandavarman, très pieux trésor d’austérité, qui conquit et affermit son titre royal par la force de son bras, qui assura le respect de toutes les lois, qui respecta l’Ordre, et qui se montra infiniment magnanime;</p>
+      		<p n="4-6">le petit-fils du Grand Roi Śrī-Vīravarman, dont on respecta la puissance et le succès, dont la majesté fit plier le cercle des rois, héros unique sur la surface de la terre;</p>
+      		<p n="6-9">le fils du Grand Roi Śrī-Skandavarman, qui honora les dieux, les prêtres, les maîtres et les anciens, qui pratiqua la plus sévère discipline, qui, par de multiples dons, notamment de vaches, d’or et de terres, augmenta son capital dharmique, qui se montra habile à protéger ses sujets, qui fut, parmi les Gardiens du monde, le cinquième Gardien du Monde, qui se montra vrai et magnanime;</p>
+      		<p n="9-17">Śrī-Viṣṇugopavarman, Prince Héritier des Pallava selon le <foreign>dharma</foreign>, qui se rendirent maîtres des richesses et des palais des autres rois, vaincus par leur valeur, et accomplirent selon les rites le sacrifice du cheval - lui-même dont la réelle dévotion envers le Bienheureux engendre pour tous la prospérité, qu’un voeu sincère pour toujours consacre avec zèle au bonheur et à la sécurité de ses sujets, qu’illustre la gloire d’avoir, dans plus d’un combat, remporté la victoire en écrasant la témérité, qui, à chaque instant, est prêt à soutenir le <foreign>dharma</foreign> que ruinent les péchés de l’âge Kali, qui souhaite conquérir l’ensemble des vertus des rois ascètes, qui souhaite conquérir le <foreign>dharma</foreign>, qui jouit de la faveur des pieds du Bienheureux, qui offre sa dévotion aux pieds de Bappa, l’illustre Grand Roi, qui se montre un sectateur passionné du Bienheureux, et qui appartient au <foreign>gotra</foreign> de Bharadvāja, ordonne qu’on adresse aux villageois d’Uruvupalliya, dans le Muṇḍa-rāṣṭra, ce commandement de sa bouche:</p>
+
+      		<p> lines 17-18: etasmin grāmasīme dviśataṃ sima-nivarttanāni; Dans les limites de ce village, se trouvent 200 nivartana &gt;&gt;&gt; Dans les limites de ce village, il y a en tout (sima-) deux cents nivartana. As we have sima and not sīma!</p>
+<!--check translation: 2 fois le même §; conflit de versions?-->
+      		<p n="18-25">"Dans les limites de ce village, se trouvent 200 <foreign>nivartana</foreign> [[A MODIFIER: etasmin grāmasīme dviśataṃ sima-nivarttanāni;&gt;&gt;&gt; Dans les limites de ce village, il y a en tout (sima-) deux cents nivartana. As we have sima and not sīma!]]; de ces <foreign>nivartana</foreign>, voici les limites : à l’ouest, la limite sera la frontière du village de Kaṇḍukūra. Au Sud, la rivière Suprayoga servira de limite. A l’Est, la limite sera la suivante : du sud-est vers le Nord, le rocher qui se trouve au bord de la grand-route; en allant vers le nord de celui-ci, le tamarinier; en allant encore vers le Nord, le rocher qui se trouve sur le chemin des villages de Karupūra et de Kaṇḍukūra; en allant encore plus vers le Nord, le tas de pierres; en allant vers le nord à partir de là, le rocher qui se trouve à la limite du champ cultivé appartenant aux brahmanes du village de Karupūra. Au Nord, la limite sera le grand tamarinier entouré d’un tas de pierres; à partir de là et en allant vers l’ouest, la frontière du village de Koṇḍamuruvuḍu fera office de limite.</p>
+      		<p n="25-28">Ces 200 <foreign>nivartana</foreign> d’un terrain situé entre ces quatre limites, nous en faisons don, après les avoir convertis en <foreign>deva-bhoga</foreign> et assortis des dix-huit sortes d’exemption, au temple de Viṣṇuhāradeva, édifié par le général Viṣṇuvarman, à Kaṇḍukūra - pour l’accroissement de la durée de notre vie et celui de notre puissance.</p>
+      		<p n="28-29">Que par conséquent tous les <foreign>āyuktaka</foreign>, tous les <foreign>niyukta</foreign> [[A MODIFIER: le texte est sarvva-naiyyokā¡ḥ!]], les <foreign>rāja-vallabha</foreign> et les <foreign>sañcarantaka</foreign> se rendent dans cette province [[A MODIFIER: tad avagamya]], respectent et fassent respecter ce terrain, avec toutes ses exemptions.</p>
+      		<p n="30">Et quiconque transgressera ce commandement émanant de nous est un criminel qui encourt un châtiment corporel.</p>
+
+      		<p n="30">Et il y a encore des stances : [[A MODIFIER: le texte est api cārṣa-ślokāḥ et non api cāpi ślokāḥ]]</p>
+
+      		<p rend="stanza" n="1">
+      			<l>Hormis le don de terre, d’autre don</l>
+      			<l>Il n’y eut point et n’y aura point;</l>
+      			<l>Hormis le crime de s’en emparer,</l>
+      			<l>Il n’y en eut point et n’y en aura point.</l>
       		</p>
-        <p n="18-24">
+
+      		<p rend="stanza" n="2">
+      			<l>Donnée par soi ou donnée par autrui,</l>
+      			<l>Quiconque s’approprie une terre</l>
+      			<l>Du meurtrier de cent mille vaches</l>
+      			<l>Prend sur lui le crime.</l>
+      		</p>
+
+<p n="33-34">J’ai émis ces tablettes de cuivre le dixième jour de la quinzaine sombre du mois Pauṣya, en la onzième AR victorieux du Grand Roi Siṃhavarman."</p>
+
+      	</div>
+
+      	<div type="commentary">
+
+      		<p>
+In <bibl><ptr target="bib:Fleet1876_02"/></bibl>, the numbering of plates is wrong. This edition was prepared with rubbings of Elliot's collection and Fleet was mislead by the fact that plate 1 recto and plate 5 verso, as they were blank, were not rubbed. This was pointed to us by Andrew Grout of the Edinburgh University Library, where the plates are today kept.
+      		</p>
+      		<p n="18-24">
 Note the recurrent unstandard forms with <foreign>diśi</foreign>.
       		</p>
-        <p n="24">
-      			<foreign>śilopalaya-vṛto</foreign>. <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="page">46</citedRange>
-            <citedRange unit="note">2</citedRange>
-          </bibl> suggests that <foreign>śilopalaya</foreign> is equivalent to the Kannaḍa <foreign>guḍḍe</foreign>, that is, a heap of stones above a grave, used as a landmark.
+      		<p n="24">
+      			<foreign>śilopalaya-vṛto</foreign>. <bibl><ptr target="bib:Mahalingam1988_01"/><citedRange unit="page">46</citedRange><citedRange unit="note">2</citedRange></bibl> suggests that <foreign>śilopalaya</foreign> is equivalent to the Kannaḍa <foreign>guḍḍe</foreign>, that is, a heap of stones above a grave, used as a landmark.
       		</p>
-        <p n="28">
+      		<p n="28">
       			<foreign>tad avagamya</foreign>. Brocquet 1997 p383n524: "On peut aussi comprendre: Que tous les ... se trouvant dans cette province en prennent acte, et ... Toutefois, les "fonctionnaires" royaux dont il s’agit semblent plutôt appartenir à l’entourage immédiat du souverain, et se déplacer dans le royaume pour transmettre ou exécuter ses ordres - notamment les sañcarantaka, dont le titre est dérivé de la racine CAR-, se déplacer; il est donc peu vraisemblable qu’ils se trouvent déjà sur place, et qu’il faille prendre ava-GAM- dans le sens de "prendre acte". Noter que dans l’inscr. N° 5, le mot avagamya est omis après le locatif". But, as this is formulaic, one could understand that this order addresses any officer, who would, in the future, visit the place.
-      		</p>
-        <!--Update!-->
-      </div>
-      <div type="bibliography">
-        <p>First edited by <bibl>
-            <ptr target="bib:Fleet1876_02"/>
-          </bibl> (SOCI no. 12) with facsimile and English translation; text and summary in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP no. 6); text and French translation in <bibl>
-            <ptr target="bib:Brocquet1997_01"/>
-          </bibl> (B no. 3); re-edited here for DHARMA (ERC n° 809994) by Sylvain Brocquet &amp; Emmanuel Francis (2020), based on autopsy and photographs of the original plates in Edinburgh University Library (2017).
+      		</p><!--Update!-->
+
+      	</div>
+
+         <div type="bibliography">
+<p>First edited by <bibl><ptr target="bib:Fleet1876_02"/></bibl> (SOCI no. 12) with facsimile and English translation; text and summary in <bibl><ptr target="bib:Mahalingam1988_01"/></bibl> (IP no. 6); text and French translation in <bibl><ptr target="bib:Brocquet1997_01"/></bibl> (B no. 3); re-edited here for DHARMA (ERC n° 809994) by Sylvain Brocquet &amp; Emmanuel Francis (2020), based on autopsy and photographs of the original plates in Edinburgh University Library (2017).
             </p>
-        <listBibl type="primary">
-          <bibl n="JFF">
-            <ptr target="bib:Fleet1876_02"/>
-          </bibl>
-          <bibl n="TVM">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="page">45-48</citedRange>
-            <citedRange unit="item">6</citedRange>
-          </bibl>
-          <bibl n="SB">
-            <ptr target="bib:Brocquet1997_01"/>
-            <citedRange unit="page">377-383</citedRange>
-            <citedRange unit="item">3</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="GB">
-            <ptr target="bib:Buehler1892_01"/>
-          </bibl>
-          <bibl n="EF">
-            <ptr target="bib:Francis2013_03"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
+
+            <listBibl type="primary">
+
+            	<bibl n="JFF">
+            		<ptr target="bib:Fleet1876_02"/>
+            	</bibl>
+
+            	<bibl n="TVM">
+            		<ptr target="bib:Mahalingam1988_01"/>
+            		<citedRange unit="page">45-48</citedRange>
+            		<citedRange unit="item">6</citedRange>
+            	</bibl>
+
+            	<bibl n="SB">
+            		<ptr target="bib:Brocquet1997_01"/>
+            		<citedRange unit="page">377-383</citedRange>
+            		<citedRange unit="item">3</citedRange>
+            	</bibl>
+
+            </listBibl>
+
+            <listBibl type="secondary">
+
+            	<bibl n="GB">
+            		<ptr target="bib:Buehler1892_01"/>
+            	</bibl>
+
+            	<bibl n="EF">
+            		<ptr target="bib:Francis2013_03"/>
+            	</bibl>
+
+           </listBibl>
+
+         </div>
+
+      </body>
   </text>
 </TEI>

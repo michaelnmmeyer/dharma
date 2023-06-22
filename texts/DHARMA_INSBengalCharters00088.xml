@@ -4,340 +4,289 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Khalimpur Plate of Dharmapāla, year 32</title>
-        <respStmt>
-          <resp>EpiDoc Encoding</resp>
-          <persName ref="part:amwb">
-            <forename>Amandine</forename>
-            <surname>Wattelier-Bricout</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:amwb">
-            <forename>Amandine</forename>
-            <surname>Wattelier-Bricout</surname>
-          </persName>
-          <persName ref="part:argr">
-            <forename>Arlo</forename>
-            <surname>Griffiths</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Cambrai</pubPlace>
-        <idno type="filename">DHARMA_INSBengalCharters00088</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Khalimpur Plate of Dharmapāla, year 32</title>
+                <respStmt>
+                    <resp>EpiDoc Encoding</resp>
+                    <persName ref="part:amwb">
+                        <forename>Amandine</forename>
+                        <surname>Wattelier-Bricout</surname>
+                    </persName>
+                </respStmt>
+                <respStmt>
+                    <resp>intellectual authorship of edition</resp>
+                    <persName ref="part:amwb">
+                        <forename>Amandine</forename>
+                        <surname>Wattelier-Bricout</surname>
+                    </persName>
+                	<persName ref="part:argr">
+                		<forename>Arlo</forename>
+                		<surname>Griffiths</surname>
+                	</persName>
+                </respStmt>
+            </titleStmt>
+            <publicationStmt>
+                <authority>DHARMA</authority>
+                <pubPlace>Cambrai</pubPlace>
+                <idno type="filename">DHARMA_INSBengalCharters00088</idno>
+                <availability>
+                    <licence target="https://creativecommons.org/licenses/by/4.0/">
+                        <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
                             Licence. To view a copy of the licence, visit
                             https://creativecommons.org/licenses/by/4.0/ or send a letter to
                             Creative Commons, 444 Castro Street, Suite 900, Mountain View,
                             California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Amandine Wattelier-Bricout &amp; Arlo Griffiths.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
-        <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
-          </msIdentifier>
-          <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+                        <p>Copyright (c) 2019-2025 by Amandine Wattelier-Bricout &amp; Arlo Griffiths.</p>
+                    </licence>
+                </availability>
+                <date from="2019" to="2025">2019-2025</date>
+            </publicationStmt>
+            <sourceDesc><!-- only the handDesc can be filled in at this stage -->
+                <msDesc><!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+                    <msIdentifier>
+                        <repository>DHARMAbase</repository>
+                        <idno/><!-- don't modify this -->
+                    </msIdentifier>
+                    <msContents><!-- describe the intellectual content of an inscription -->
+                        <summary><!-- //// NOT MANDATORY  ////--></summary> <!-- offers the possibility to give a summary of the inscription's content -->
+                    </msContents>
+                    <physDesc>
+                        <handDesc>
+                            <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+                            <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
 						<summary><p><p/></summary>
 						<handNote xml:id="Pallava00001_hand1"></handNote>
 						<handNote xml:id="Pallava00001_hand2"></handNote>
 					 -->
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change when="2022-01-31" who="part:amwb">Corrections according to argr's comments</change>
-      <change when="2021-10-06" who="part:argr">Corrections to the transliteration</change>
-      <change when="2021-09-30" who="part:amwb">Reading the plate with the facsimile of the Journal of the Asiatic Society of Bengal vol LXIII Part I 1894.</change>
-      <change when="2021-09-24" who="part:amwb">Creation of the file and start of encoding the text based on Kielhorn1896-1897_03.</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div source="bib:Kielhorn1896-1897_03" type="edition" xml:lang="san-Latn">
-        <p><!--
+                        </handDesc>
+                    </physDesc>
+                </msDesc>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <projectDesc>
+                <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+            </projectDesc>
+            <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/><!-- UPDATE the link once the release is made official -->
+            <listPrefixDef>
+                <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+                    <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+                </prefixDef>
+                <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+                    <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+                </prefixDef>
+            </listPrefixDef>
+        </encodingDesc>
+        <revisionDesc>
+            <change when="2022-01-31" who="part:amwb">Corrections according to argr's comments</change>
+            <change when="2021-10-06" who="part:argr">Corrections to the transliteration</change>
+            <change when="2021-09-30" who="part:amwb">Reading the plate with the facsimile of the Journal of the Asiatic Society of Bengal vol LXIII Part I 1894.</change>
+            <change when="2021-09-24" who="part:amwb">Creation of the file and start of encoding the text based on Kielhorn1896-1897_03.</change>
+        </revisionDesc>
+    </teiHeader>
+    <text xml:space="preserve">
+      <body>
+         <div type="edition" xml:lang="san-Latn" source="bib:Kielhorn1896-1897_03">
+             <p><!--
 amwb 2021-09-24: in Kielhorn's edition, I am not sure that the simple daṇḍa and double daṇḍa in the verse part are original or not. In the verse part, there is no supplied daṇda. In the prose part, it seems that he noted original daṇdas and supplied omitted daṇḍa in line 38, 40, 43, 49, 56, 57, 58. Consequently I assume that the daṇḍa in the verse part are original but we need to check that by reading the plate.
 In the prose part, there is only one double daṇḍa and I have encoded both simple and double as original. As the EDG recommends to use only one punctuation mark, if the daṇḍa are not original, think about change all of them in <supplied reason="subaudible">.</supplied>
              --><!--
 amwb 2021-10-01 : first, I reproduced Kielhorn's edition in the edition part ; now I have included some of my own readings based on the facsimile ; it is necessary to change all the tag for the danda and ddanda when I check how encoding the different shapes I have encountered. In the same way, I need to check hoz encoding the M in this plate by compring the different photos I have taken. For the moment, I have not proposed any improvements of the text.
 -->
-                 <pb n="1r"/><lb n="1"/><g type="spiralL"/><!--
+                 <pb
+n="1r"/><lb
+n="1"/><g type="spiralL"/><!--
 amwb :  it is a spiral matching BL4 of the table found in the part "discussion" of the Symbol Taxonomy
 --> svasti<supplied reason="subaudible">.</supplied>
-<lg met="vasantatilakā" n="1">
-            <l n="a">sarvvajñatāṁ śriya<space type="feature"/>m iva sthiram āsthitasya</l>
-            <l n="b">vajrāsa<lb break="no" n="2"/>nasya vahu-māra-kulopalambhāḥ<unclear>
-                <g type="danda">.</g>
-              </unclear><space type="feature"/></l>
-            <l n="c">devyā mahā-karuṇayā paripā<lb break="no" n="3"/>litāni</l>
-            <l n="d">rakṣantu vo daśa valāni <space type="feature"/> diśo jayanti<g type="ddandaStrokeLeft">.</g></l>
-          </lg>
-<lg met="mālinī" n="2">
-            <l n="a">śriya Iva subhagā<lb break="no" n="4"/>yāḥ sambhavo vāri-rāśiś</l>
-            <l n="b">śaśadhara Iva bhāso viśvam āhlādayantyāḥ<g type="danda">.</g></l>
-            <l n="c">prakr̥tir avanipānāṁ santater uttamāyā</l>
-            <l n="d">A<lb break="no" n="5"/>jani dayita-viṣṇuḥ sarvva-vidyāvadātaḥ<g type="ddandaStrokeLeft">.</g></l>
-          </lg>
-<lg met="anuṣṭubh" n="3">
-            <l n="a">Āsīd ā sāgarād urvvīṁ</l>
-            <l n="b">gurvvībhiḥ kīrttibhiḥ kr̥tī<g type="danda">.</g></l>
-            <l n="c">maṇḍayan<unclear>·</unclear><lb n="6"/>khaṇḍitārātiḥ</l>
-            <l n="d">ślāghyaḥ śrī-vapyaṭas tataḥ<g type="ddandaStrokeLeft">.</g></l>
-            <!--
+<lg n="1" met="vasantatilakā">
+      <l n="a">sarvvajñatāṁ śriya<space type="feature"/>m iva sthiram āsthitasya</l>
+      <l n="b">vajrāsa<lb n="2" break="no"/>nasya vahu-māra-kulopalambhāḥ<unclear><g type="danda">.</g></unclear><space type="feature"/></l>
+      <l n="c">devyā mahā-karuṇayā paripā<lb n="3" break="no"/>litāni</l>
+      <l n="d">rakṣantu vo daśa valāni <space type="feature"/> diśo jayanti<g type="ddandaStrokeLeft">.</g></l>
+</lg>
+<lg n="2" met="mālinī">
+      <l n="a">śriya Iva subhagā<lb n="4" break="no"/>yāḥ sambhavo vāri-rāśiś</l>
+      <l n="b">śaśadhara Iva bhāso viśvam āhlādayantyāḥ<g type="danda">.</g></l>
+      <l n="c">prakr̥tir avanipānāṁ santater uttamāyā</l>
+      <l n="d">A<lb n="5" break="no"/>jani dayita-viṣṇuḥ sarvva-vidyāvadātaḥ<g type="ddandaStrokeLeft">.</g></l>
+</lg>
+<lg n="3" met="anuṣṭubh">
+      <l n="a">Āsīd ā sāgarād urvvīṁ</l>
+      <l n="b">gurvvībhiḥ kīrttibhiḥ kr̥tī<g type="danda">.</g></l>
+      <l n="c">maṇḍayan<unclear>·</unclear> <lb n="6"/>khaṇḍitārātiḥ</l>
+      <l n="d">ślāghyaḥ śrī-vapyaṭas tataḥ<g type="ddandaStrokeLeft">.</g></l><!--
 argr: is any alternative reading of the name imaginable?
 	vudhyaṭas?
--->
-            <!--
+--><!--
 amwb : comparing the akṣara "vu" line 58 it seems to me that here it is likely a "va", but I agree with you and think "dhya" is possible (I compared with several dhya in the plate).
 -->
-          </lg>
-<lg met="śārdūlavikrīḍita" n="4">
-            <l n="a">mātsya-nyāyam apohituṁ prakr̥tibhi<supplied reason="omitted">r</supplied><!--
+</lg>
+<lg n="4" met="śārdūlavikrīḍita">
+       <l n="a">mātsya-nyāyam apohituṁ prakr̥tibhi<supplied reason="omitted">r</supplied><!--
 argr: I really don't see the repha and think Kielhorn may have supplied it silently
  --><!--
 amwb : I agree with you and added a supplied omitted
            --> lakṣmyāḥ karaṅ grāhitaḥ</l>
-            <l n="b">śrī-gopā<lb break="no" n="7"/>la Iti kṣitīśa-śirasāṁ cūḍā-maṇis tat-sutaḥ<g type="danda">.</g></l>
-            <l n="c">yasyānukriyate sanātana-yaśo-rāśir diśām āśaye</l>
-            <l n="d">śvetimnā ya<lb break="no" n="8"/>di paurṇṇamāsa-rajanī jyotsnātibhāra-śriyā<g type="ddandaStrokeLeft">.</g></l>
-          </lg>
-<lg met="śārdūlavikrīḍita" n="5">
-            <l n="a">śītāṁśor iva rohiṇī hutabhujaḥ svāheva tejo-nidheḥ</l>
-            <!--
+       <l n="b">śrī-gopā<lb n="7" break="no"/>la Iti kṣitīśa-śirasāṁ cūḍā-maṇis tat-sutaḥ<g type="danda">.</g></l>
+       <l n="c">yasyānukriyate sanātana-yaśo-rāśir diśām āśaye</l>
+       <l n="d">śvetimnā ya<lb n="8" break="no"/>di paurṇṇamāsa-rajanī jyotsnātibhāra-śriyā<g type="ddandaStrokeLeft">.</g></l>
+</lg>
+<lg n="5" met="śārdūlavikrīḍita">
+       <l n="a">śītāṁśor iva rohiṇī hutabhujaḥ svāheva tejo-nidheḥ</l><!--
 argr: if tejo-nidhi were a name here — we shouldn't hyphenate it, just like we don't hyphenate Hutabhuj. but maybe it is just an epithet with Agni? see guhyaka-pater in next pāda. Kielhorn gives no note, and seems to ignore the word in translation. —
 -->
-            <l n="b">śarvāṇī<lb break="no" n="9"/>va śivasya guhyaka-pater bhadreva bhadrātmajā<g type="danda">.</g></l>
-            <l n="c">paulomīva purandarasya dayitā śrī-deddadevīty abhūd</l>
-            <l n="d">devī tasya vino<lb break="no" n="10"/>da-bhūr mura-ripor lakṣmīr iva kṣmā-pateḥ<g type="ddandaStrokeLeft">.</g></l>
-          </lg>
-<lg met="sragdharā" n="6">
-            <l n="a">tābhyāṁ śrī-dharmmapālaḥ samajani sujana-stūyamānāvadānaḥ</l>
-            <l n="b">svāmī bhūmī<lb break="no" n="11"/>patīnām<!--
+       <l n="b">śarvāṇī<lb n="9" break="no"/>va śivasya guhyaka-pater bhadreva bhadrātmajā<g type="danda">.</g></l>
+       <l n="c">paulomīva purandarasya dayitā śrī-deddadevīty abhūd</l>
+       <l n="d">devī tasya vino<lb n="10" break="no"/>da-bhūr mura-ripor lakṣmīr iva kṣmā-pateḥ<g type="ddandaStrokeLeft">.</g></l>
+</lg>
+<lg n="6" met="sragdharā">
+       <l n="a">tābhyāṁ śrī-dharmmapālaḥ samajani sujana-stūyamānāvadānaḥ</l>
+       <l n="b">svāmī bhūmī<lb n="11" break="no"/>patīnām<!--
 amwb : kielhorn's note: 'originally patīnāṁ seems to have been engraved'
 amwb : the reading of the plate shows that there is a point over the nā but it is not the circle used in this plate to note the anusvāra; so in my opinion there is no anusvāra
 argr: yes, but Kielhorn seems to have meant that the dot shape could be the result of incomplete erasure of a circle shape. Anyhow, I have added the information to the apparatus.
 argr: I have just learned that bhūmīpati is an attested form besides bhūmipati, so no need to use <orig>; since we don't treat other such words for 'king' as compound, I have removed the hyphen here too (though I agree this feels like a compound)
---> akhila-vasumatī-maṇḍalaṁ śāsad ekaḥ<supplied reason="omitted">
-                <g type="danda">.</g>
-              </supplied></l>
-            <!--
+--> akhila-vasumatī-maṇḍalaṁ śāsad ekaḥ<supplied reason="omitted"><g type="danda">.</g></supplied></l><!--
 amwb : I removed the original danda reported by Kielhorn <g type="danda">.</g>. See photo śāsadekaḥca l11.png
 argr: good, but we need to supply it then, as the pattern in this text is is mark the end of the first hemistich with a single danda. I don't think it is necessary to dedicate an apparatus entry to this tiny improvement upon K's edition
 how to parse śāsad ekaḥ?
 emend śāsan ekaḥ
 -->
-            <l n="c">catvāras tīra-majjat-kari-gaṇa-caraṇa-nyasta-mudrāḥ samudrā</l>
-            <l n="d">yātrāṁ ya<lb break="no" n="12"/>sya kṣamante na bhuvana-parikhā vi<choice>
-                <sic>śv</sic>
-                <corr>ṣv</corr>
-              </choice>ag āśā jigīṣoḥ<g type="ddandaStrokeLeft">.</g></l>
-          </lg>
-<lg met="sragdharā" n="7">
-            <l n="a">yasminn uddāma-līlā-calita-vala-bhare dig-jayāya pravr̥tte</l>
-            <!--
+       <l n="c">catvāras tīra-majjat-kari-gaṇa-caraṇa-nyasta-mudrāḥ samudrā</l>
+       <l n="d">yātrāṁ ya<lb n="12" break="no"/>sya kṣamante na bhuvana-parikhā vi<choice><sic>śv</sic><corr>ṣv</corr></choice>ag āśā jigīṣoḥ<g type="ddandaStrokeLeft">.</g></l>
+</lg>
+<lg n="7" met="sragdharā">
+       <l n="a">yasminn uddāma-līlā-calita-vala-bhare dig-jayāya pravr̥tte</l><!--
 argr: or can we read -kare?
  -->
-            <l n="b">yāntyā<supplied reason="omitted">ṁ</supplied><lb n="13"/><unclear>v</unclear>iśvambharāyāṁ calita-giri-tiraścīnatāṁ tad-vaśena<g type="danda">.</g></l>
-            <!--
+       <l n="b">yāntyā<supplied reason="omitted">ṁ</supplied> <lb n="13"/><unclear>v</unclear>iśvambharāyāṁ calita-giri-tiraścīnatāṁ tad-vaśena<g type="danda">.</g></l><!--
 argr: you had yāntyā<lb n="13"/><choice><orig><unclear>m v</unclear></orig><reg>ṁ v</reg></choice>iśvambharāyāṁ
 argr: the slightly unclear vi seems to me identical to the one in vi<choice><sic>śv</sic><corr>ṣv</corr></choice>ag in the previous line
 argr: I interpret K's note "Read yāntyāṁ vi° as intending basically the same result after editorial intervention as the one my reading yields.
 argr: although again we might well decide that none of this requires an apparatus entry, I have created one nonetheless
  -->
-            <l n="c">bhārābhugnāvamajjan-maṇi-vidhura-śiraś-cakra-sāhāyakārthaṁ<!--
+       <l n="c">bhārābhugnāvamajjan-maṇi-vidhura-śiraś-cakra-sāhāyakārthaṁ<!--
 amwb : i don't see the r of rthaṁ see photo sāhāyakāthaṁśeṣe l13.png
 argr: I think it is the triangle shape including the headline. In many varieties of Pala-period script, rephas can be integrated in this way into the aksara suspended from the headline — so I think we can remove <supplied>; see also Kielhorn's remark on the special shape of rtha (p. 244).
    --><!--
 amwb : agree : i removed the supplied --></l>
-            <l n="d">śeṣe<lb break="no" n="14"/>ṇodasta-doṣṇā tvaritataram adhodhas tam evānuyātaM<g type="ddandaStrokeLeft">.</g></l>
-          </lg>
-<lg met="mandākrāntā" n="8">
-            <l n="a">yat-prasthāne pracalita-valāsphālanād ullaladbhir</l>
-            <l n="b">dhūlī-pūraiḥ pihi<lb break="no" n="15"/>ta-sakala-vyomabhir bhūta-dhātryāḥ<g type="danda">.</g></l>
-            <!--
+       <l n="d">śeṣe<lb n="14" break="no"/>ṇodasta-doṣṇā tvaritataram adhodhas tam evānuyātaM<g type="ddandaStrokeLeft">.</g></l>
+</lg>
+<lg n="8" met="mandākrāntā">
+       <l n="a">yat-prasthāne pracalita-valāsphālanād ullaladbhir</l>
+       <l n="b">dhūlī-pūraiḥ pihi<lb n="15" break="no"/>ta-sakala-vyomabhir bhūta-dhātryāḥ<g type="danda">.</g></l><!--
 argr: the txt file correctly had dhūlī-pūraiḥ which you must have changed to dhūlī-puraiḥ, but the reading is clearly pū
  -->
-            <l n="c">samprāptāyāḥ parama-tanutāṁ cakravālaṁ phaṇānāṁ<!--
+       <l n="c">samprāptāyāḥ parama-tanutāṁ cakravālaṁ phaṇānāṁ<!--
 amwb : I am not sure that there is really an anusvāra here as before line11... there is a little point but not a circle. If I encounter other cases, it would be possible that sometimes the anusvāra is noted only with a point instead of a circle, see photo phaṇānaṁ ma or phaṇānama l15.png
 argr: yes, I am inclined to admit that two allographs of anusvāra were available to the scribe
        --></l>
-            <l n="d">magnonmīlan-maṇi phaṇipater lā<lb break="no" n="16"/>ghavād ullalāsa<g type="ddandaStrokeLeft">.</g></l>
-          </lg>
-<lg met="anuṣṭubh" n="9">
-            <l n="a">viruddha-viṣaya-kṣobhād</l>
-            <l n="b">yasya kopāgnir aurvavaT<g type="danda">.</g></l>
-            <l n="c">Anirvr̥ti prajajvāla</l>
-            <l n="d">catur-ambhodhi-vāritaḥ<g type="ddandaStrokeLeft">.</g></l>
-          </lg>
-<lg met="śārdūlavikrīḍita" n="10">
-            <l n="a"><lb n="17"/>ye 'bhūvaN pr̥thu-rāma-rāghava-nala-prāyā dharitrī-bhujas</l>
-            <l n="b">tān ekatra didr̥kṣuṇeva nicitān· sarvāN samam vedhasā<g type="danda">.</g></l>
-            <l n="c">dhva<lb break="no" n="18"/>stāśeṣa-narendra-māna-mahimā śrī-dharmmapālaḥ kalau</l>
-            <l n="d">lola-śrī-kariṇī-nivandhana-mahāstambhaḥ samuttambhitaḥ<g type="ddandaStrokeLeft">.</g></l>
-            <!-- argr: I have trouble recognizing lau and lo in kalau lola — are any alternative readings imaginable? -->
-          </lg>
-<lg met="sragdharā" n="11">
-            <l n="a">yāsāṁ<lb n="19"/>nāsīra-dhūlī-dhavala-daśa-diśāṁ drāg apaśyann iyattāṁ</l>
-            <l n="b">dhatte māndhātr̥-sainya-vyatikara-cakito dhyāna-tandrīm mahendraḥ<g type="danda">.</g></l>
-            <l n="c"><lb n="20"/>tāsām apy āhavecchā-pulakita-vapuṣām vāhinīnām vidhātuṁ<!--
+       <l n="d">magnonmīlan-maṇi phaṇipater lā<lb n="16" break="no"/>ghavād ullalāsa<g type="ddandaStrokeLeft">.</g></l>
+</lg>
+<lg n="9" met="anuṣṭubh">
+       <l n="a">viruddha-viṣaya-kṣobhād</l>
+       <l n="b">yasya kopāgnir aurvavaT<g type="danda">.</g></l>
+       <l n="c">Anirvr̥ti prajajvāla</l>
+       <l n="d">catur-ambhodhi-vāritaḥ<g type="ddandaStrokeLeft">.</g></l>
+</lg>
+<lg n="10" met="śārdūlavikrīḍita">
+       <l n="a"><lb n="17"/>ye 'bhūvaN pr̥thu-rāma-rāghava-nala-prāyā dharitrī-bhujas</l>
+       <l n="b">tān ekatra didr̥kṣuṇeva nicitān· sarvāN samam vedhasā<g type="danda">.</g></l>
+       <l n="c">dhva<lb n="18" break="no"/>stāśeṣa-narendra-māna-mahimā śrī-dharmmapālaḥ kalau</l>
+       <l n="d">lola-śrī-kariṇī-nivandhana-mahāstambhaḥ samuttambhitaḥ<g type="ddandaStrokeLeft">.</g></l>
+<!-- argr: I have trouble recognizing lau and lo in kalau lola — are any alternative readings imaginable? -->
+</lg>
+<lg n="11" met="sragdharā">
+       <l n="a">yāsāṁ<lb n="19"/>nāsīra-dhūlī-dhavala-daśa-diśāṁ drāg apaśyann iyattāṁ</l>
+       <l n="b">dhatte māndhātr̥-sainya-vyatikara-cakito dhyāna-tandrīm mahendraḥ<g type="danda">.</g></l>
+       <l n="c"><lb n="20"/>tāsām apy āhavecchā-pulakita-vapuṣām vāhinīnām vidhātuṁ<!--
    amwb : here anusvāra seems to be noted by a single point and not by a circle see photo dhātuṁ l20.png
    argr: are you sure there is an anuvāra? the edition states that the reading is m to be normalized as ṁ
    amwb : all the m followed by sa in the plate are noted by an anusvāra and here I don't see msa but tuṁ + sa
 --></l>
-            <l n="d">sāhāyyaṁ yasya vāhvor nikhila-ripu-kula-dhvaṁsinor nā<lb break="no" n="21"/>vakāśaḥ<g type="ddandaStrokeLeft">.</g></l>
-          </lg>
-<lg met="sragdharā" n="12">
-            <l n="a">bhojair matsyaiḥ sa-madraiḥ kuru-yadu-yavanāvanti-gandhāra-kīrair</l>
-            <l n="b">bhūpair vyālola-mauli-praṇati-pariṇataiḥ<lb n="22"/>sādhu saṅgīryamānaḥ<g type="danda">.</g></l>
-            <l n="c">hr̥ṣyat-pañcāla-vr̥ddhoddhr̥ta-kanakamaya-svābhiṣekoda-kumbho</l>
-            <l n="d">dattaḥ śrī-k<choice>
-                <sic>a</sic>
-                <corr>ā</corr>
-              </choice>nyakuvjas sa-lalita-ca<lb break="no" n="23"/>lita-bhrū-latā-lakṣma yena<g type="ddandaStrokeLeft">.</g></l>
-          </lg>
-<lg met="śārdūlavikrīḍita" n="13">
-            <l n="a">gopaiḥ sīmni vanecarair vana-bhuvi grāmopakaṇṭhe janaiḥ</l>
-            <l n="b">krīḍadbhi<supplied reason="omitted">ḥ</supplied> praticatvaraṁ śiśu-gaṇaiḥ<lb n="24"/>pratyāpaṇa<unclear>m</unclear><!--
+       <l n="d">sāhāyyaṁ yasya vāhvor nikhila-ripu-kula-dhvaṁsinor nā<lb n="21" break="no"/>vakāśaḥ<g type="ddandaStrokeLeft">.</g></l>
+</lg>
+<lg n="12" met="sragdharā">
+       <l n="a">bhojair matsyaiḥ sa-madraiḥ kuru-yadu-yavanāvanti-gandhāra-kīrair</l>
+       <l n="b">bhūpair vyālola-mauli-praṇati-pariṇataiḥ<lb n="22"/>sādhu saṅgīryamānaḥ<g type="danda">.</g></l>
+       <l n="c">hr̥ṣyat-pañcāla-vr̥ddhoddhr̥ta-kanakamaya-svābhiṣekoda-kumbho</l>
+       <l n="d">dattaḥ śrī-k<choice><sic>a</sic><corr>ā</corr></choice>nyakuvjas sa-lalita-ca<lb break="no" n="23"/>lita-bhrū-latā-lakṣma yena<g type="ddandaStrokeLeft">.</g></l>
+</lg>
+<lg n="13" met="śārdūlavikrīḍita">
+        <l n="a">gopaiḥ sīmni vanecarair vana-bhuvi grāmopakaṇṭhe janaiḥ</l>
+        <l n="b">krīḍadbhi<supplied reason="omitted">ḥ</supplied> praticatvaraṁ śiśu-gaṇaiḥ<lb n="24"/>pratyāpaṇa<unclear>m</unclear><!--
 amwb : totally lost for me
 argr: I can recognize vestiges of both consonants in the ligature mma, but neither is perfectly clear, so I'd edited <unclear> also on the m of māna
---> māna<choice>
-                <sic>p</sic>
-                <corr>v</corr>
-              </choice>aiḥ<g type="danda">.</g></l>
-            <l n="c">līlā-veśmani pañjarodara-śukair udgītam ātma-stavaṁ</l>
-            <l n="d">yasyākarṇṇayatas trapāvivalitānamraṁ sa<lb break="no" n="25"/>daivānanaM<g type="ddandaStrokeLeft">.</g></l>
-          </lg>
-sa khalu bhāgīrathīpatha-pravarttamāna-nānāvidha-nau-vāṭaka-sampādita-setu-vandha-nihita-śaila-śi<lb break="no" n="26"/>khara-śreṇi-vibhramāTN<!-- argr: instead of t  in <sic> and n in <corr>, it should be T and N
+--> māna<choice><sic>p</sic><corr>v</corr></choice>aiḥ<g type="danda">.</g></l>
+        <l n="c">līlā-veśmani pañjarodara-śukair udgītam ātma-stavaṁ</l>
+        <l n="d">yasyākarṇṇayatas trapāvivalitānamraṁ sa<lb n="25" break="no"/>daivānanaM<g type="ddandaStrokeLeft">.</g></l>
+</lg>
+sa khalu bhāgīrathīpatha-pravarttamāna-nānāvidha-nau-vāṭaka-sampādita-setu-vandha-nihita-śaila-śi<lb
+n="26" break="no"/>khara-śreṇi-vibhramāTN<!-- argr: instead of t  in <sic> and n in <corr>, it should be T and N
 amwb : I replaced <choice><sic>t</sic><corr>n</corr></choice> by TN but I'm not sure if it was what you suggested
---> niratiśaya-ghana-ghanāghana-ghaṭā-śyāmāyamāna-vāsara-lakṣmī-samāravdha-santata-jalada-sa<lb break="no" n="27"/>maya-sandehāT<!-- argr: in prose context, as here, I do not favor such "corrections" which affect a feature that is typical of Sanskrit prose, namely the non application of sandhi rules, which are not mandatory even for classical grammarians, as far as I know — and the final consonant should be transliterated as T instead of t, so let us encode -sandehāT Udīcīnāneka-
+--> niratiśaya-ghana-ghanāghana-ghaṭā-śyāmāyamāna-vāsara-lakṣmī-samāravdha-santata-jalada-sa<lb
+n="27" break="no"/>maya-sandehāT<!-- argr: in prose context, as here, I do not favor such "corrections" which affect a feature that is typical of Sanskrit prose, namely the non application of sandhi rules, which are not mandatory even for classical grammarians, as far as I know — and the final consonant should be transliterated as T instead of t, so let us encode -sandehāT Udīcīnāneka-
 amwb : all the corrections reproduced K's edition
---> Udīcīnāneka-narapati-prābhr̥tī-kr̥tāprameya-haya-vāhinī-khara-khurotkhāta-dhūlī-dhūsarita-di<lb break="no" n="28"/>g-antarālāT parameśvara-sevā-samāyāta-samasta-jamvūdvīpa-bhūpālānanta-pādāta-bhara-namad-avaneḥ pāṭalipu<lb break="no" n="29"/>tra-samāvāsita-śrīmaj-jayaskandhāvārāT @@@@@paramasaugato mahārājādhirāja-śrī-gopāladeva-pādānudhyātaḥ pa<lb break="no" n="30"/>rameśvaraḥ paramabhaṭṭārako mahārājādhirājaḥ śrīmāN<!--
+--> Udīcīnāneka-narapati-prābhr̥tī-kr̥tāprameya-haya-vāhinī-khara-khurotkhāta-dhūlī-dhūsarita-di<lb
+n="28" break="no"/>g-antarālāT parameśvara-sevā-samāyāta-samasta-jamvūdvīpa-bhūpālānanta-pādāta-bhara-namad-avaneḥ pāṭalipu<lb
+n="29" break="no"/>tra-samāvāsita-śrīmaj-jayaskandhāvārāT @@@@@paramasaugato mahārājādhirāja-śrī-gopāladeva-pādānudhyātaḥ pa<lb
+n="30" break="no"/>rameśvaraḥ paramabhaṭṭārako mahārājādhirājaḥ śrīmāN<!--
 amwb Here the glyph is really different see photo śrīmāN l30.png
---> dharmmapāladevaḥ kuśalī<g type="ddanda">.</g><!-- amwb : the same shape as other double dandas --> śrī-puṇḍravarddhana-bhu<lb break="no" n="31"/>kty-antaḥpāti-vyāghrataṭī-maṇḍala-sam<choice>
-            <orig>v</orig>
-            <reg>b</reg>
-          </choice>addha-mahantāprakāśavi<choice>
-            <sic>ś</sic>
-            <corr>ṣ</corr>
-          </choice>aye krauñcaśvabhra-nāma-grāmo '!sya<!--
+--> dharmmapāladevaḥ kuśalī<g type="ddanda">.</g><!-- amwb : the same shape as other double dandas --> śrī-puṇḍravarddhana-bhu<lb
+n="31" break="no"/>kty-antaḥpāti-vyāghrataṭī-maṇḍala-sam<choice><orig>v</orig><reg>b</reg></choice>addha-mahantāprakāśavi<choice><sic>ś</sic><corr>ṣ</corr></choice>aye krauñcaśvabhra-nāma-grāmo '!sya<!--
 amwb : the avagraha is original see photo mo avagraha sya l31.png
---> ca sīm<subst>
-            <del rend="corrected">o</del>
-            <add place="overstrike">ā</add>
-          </subst><!--
+--> ca sīm<subst><del rend="corrected">o</del><add place="overstrike">ā</add></subst><!--
 amwb : caution here. Kielhorn tells in note that simo was originally engraved . For the moment, I have encoded this information according to the §4.4.3 od EDG with mo as something deleted by the scribe and mā as something added over (sī<del rend="corrected">mo</del><add place="overstrike">mā</add>) but we need to check the plate to exactly encode how mo is corrected into mā
 amwb : after reading §4.4.1 et 4.4.3 EGD, it seems to me that the o could be cross-hatched and the mark of long a is already present when one wants to write a o so I follows the example given in 4.4.3D
---> pāści<lb break="no" n="32"/>mena gaṅginikā<g type="danda">.</g><!--
+--> pāści<lb
+n="32" break="no"/>mena gaṅginikā<g type="danda">.</g><!--
 amwb : the shape of this single danda differs from others; it looks like the first danda of double danda in this plate see photo danda l32.png
---> Uttareṇa kādam<choice>
-            <orig>v</orig>
-            <reg>b</reg>
-          </choice>arī-devakulikā kharjjūra-vr̥̥kṣaś ca<g type="danda">.</g><!--
+--> Uttareṇa kādam<choice><orig>v</orig><reg>b</reg></choice>arī-devakulikā kharjjūra-vr̥̥kṣaś ca<g type="danda">.</g><!--
 amwb : the shape of this single danda differs from others; it looks like the first danda of double danda in this plate see photo danda l32 bis.png
---> pūrvvottareṇa rājaputtra-devaṭakr̥̥tāliḥ<g type="danda">.</g> <choice>
-            <orig>v</orig>
-            <reg>b</reg>
-          </choice>ī<!--
+--> pūrvvottareṇa rājaputtra-devaṭakr̥̥tāliḥ<g type="danda">.</g> <choice><orig>v</orig><reg>b</reg></choice>ī<!--
 amwb : here Kielhorn does not regularise bīja ? I regularise as recommended in EGD app F table 10
---><lb n="33"/>japūrakaṅ gatvā praviṣṭā<g type="danda">.</g><!--
+--><lb
+n="33"/>japūrakaṅ gatvā praviṣṭā<g type="danda">.</g><!--
 amwb : the shape of this single danda differs from others; it looks like the first danda of double danda in this plate see photo danda l33.png
 --> pūrvveṇa viṭakāliḥ khātaka-yānikāṁ*<!--
 amwb : kielhorn notes yānikā<unclear>ṁ</unclear> but here the anusvāra is clear; actually due to the above-akṣara (v.r), the sribe did not form a complete circle but only a semicircle see photo anusvāra semicircle l33.png; So I have encoded it as mentionned in §3.3.11 of the Translitteration Guide
 --> gatvā praviṣṭā<g type="danda">.</g><!--
 amwb : the shape of this single danda differs from others; it looks like the first danda of double danda in this plate see photo danda l33 bis.png
---> jam<choice>
-            <orig>v</orig>
-            <reg>b</reg>
-          </choice>ū-yānikām ākramya jam<choice>
-            <orig>v</orig>
-            <reg>b</reg>
-          </choice>ū-yānaka<supplied reason="omitted">ṁ</supplied><!--
+--> jam<choice><orig>v</orig><reg>b</reg></choice>ū-yānikām ākramya jam<choice><orig>v</orig><reg>b</reg></choice>ū-yānaka<supplied reason="omitted">ṁ</supplied><!--
 amwb : Kielhorn notes <unclear>ṁ</unclear> but I think there is no anusvāra So I modify the edition and add this in app
---><pb n="1v"/><lb n="34"/>gatā<g type="danda">.</g><!--
+--><pb
+
+
+n="1v"/><lb
+n="34"/>gatā<g type="danda">.</g><!--
 amwb : th shape of this single danda differs from others; it looks like the first danda of double danda in this plate see photo danda l34.png
---> tato <choice>
-            <sic>ni</sic>
-            <corr>niḥ</corr>
-          </choice>sr̥̥tya<!--
+--> tato <choice><sic>ni</sic><corr>niḥ</corr></choice>sr̥̥tya<!--
 amwb : Kielhorn tells here that some corrections no doubt are necessary in the following lines but he doesn't understand the texte properly
---> puṇyārāma<space quantity="18" unit="character"/><!--
+--> puṇyārāma<space unit="character" quantity="18"/><!--
 amwb : the space is due to the attachment point of the seal. I have created an issue on this question and I'm waiting the answer to encode this correctly. I have suggested type="sealattachmentpoint"
--->-<choice>
-            <orig>v</orig>
-            <reg>b</reg>
-          </choice>ilvārddha<choice>
-            <sic>śro</sic>
-            <corr>sro</corr>
-          </choice>tikā<unclear cert="low">ṁ</unclear> <g type="danda">.</g><!--
+-->-<choice><orig>v</orig><reg>b</reg></choice>ilvārddha<choice><sic>śro</sic><corr>sro</corr></choice>tikā<unclear cert="low">ṁ</unclear> <g type="danda">.</g><!--
 amwb : danda with a regular shape
---> tato 'pi <choice>
-            <sic>ni</sic>
-            <corr>niḥ</corr>
-          </choice>sr̥̥tya na<lb break="no" n="35"/>lacarmma<unclear>ṭ-o</unclear>tta<!--
+--> tato 'pi <choice><sic>ni</sic><corr>niḥ</corr></choice>sr̥̥tya na<lb
+n="35" break="no"/>lacarmma<unclear>ṭ-o</unclear>tta<!--
 amwb : from my reading of the facsimile I am not sure that it is written tta I have compared with other double tt and it seems to me it would be written varānta
 -->rāntaṁ<!--
 amwb : I have removed the danda noted by Kielhorn because there is no trace of a single danda
---> gatā nala<unclear>ca</unclear>rmma<space quantity="18" unit="character"/><!--
+--> gatā nala<unclear>ca</unclear>rmma<space unit="character" quantity="18"/><!--
 amwb : the space is due to the attachment point of the seal. I have created an issue on this question and I'm waiting the answer to encode this correctly. I have suggested type="sealattachmentpoint"
 -->ṭāT<!--
 amwb : here one can observe a sandhi break => actually it is a symbol for T
---> dakṣiṇena nāmuṇḍikāpi<unclear>he</unclear><lb break="no" n="36"/><unclear cert="low">sadūmmi</unclear>kāyāḥ<g type="danda">.</g><!--
+--> dakṣiṇena nāmuṇḍikāpi<unclear>he</unclear><lb
+n="36" break="no"/><unclear cert="low">sadūmmi</unclear>kāyāḥ<g type="danda">.</g><!--
 amwb : the shape of this single danda differs from others; it looks like the first danda of double danda in this plate see photo danda l36.png
 --> khaṇḍamuṇḍamukhaṁ khaṇḍamukhā<!--
 amwb : in the file Post-Gupta-Bengal-around.txt the text is khaṇḍamukhā[d] ; from the reading of the plate based on the facsimile there is no d so it should be a suggested correction but I don't know by whom
---> vedasa<choice>
-            <orig>v</orig>
-            <corr>b</corr>
-          </choice>ilvikā veda<choice>
-            <orig>v</orig>
-            <corr>b</corr>
-          </choice>ilvikāto rohitavāṭiḥ piṇḍāraviṭijoṭikā-sīmā<lb n="37"/>U<unclear>kt</unclear>ārajoṭasya dakṣiṇāntaḥ<!--
+--> vedasa<choice><orig>v</orig><corr>b</corr></choice>ilvikā veda<choice><orig>v</orig><corr>b</corr></choice>ilvikāto rohitavāṭiḥ piṇḍāraviṭijoṭikā-sīmā<lb
+n="37"/>U<unclear>kt</unclear>ārajoṭasya dakṣiṇāntaḥ<!--
 amwb : Kielhorn tells in note that it might possibly be read dakṣiṇāntaṁ  => it looks like a visarga not a anusvāra
---> grāma-<choice>
-            <orig>v</orig>
-            <corr>b</corr>
-          </choice>ilvasya ca dakṣiṇāntaḥ<g type="danda">.</g><!--
+--> grāma-<choice><orig>v</orig><corr>b</corr></choice>ilvasya ca dakṣiṇāntaḥ<g type="danda">.</g><!--
 amwb : Kielhorn tells in note that it might possibly be read dakṣiṇāntaṁ => it looks like a visarga not a anusvāra
 --> devikā-sīmā viṭi<g type="danda">.</g><!--
 amwb : the shape of this single danda differs from others; it looks like the first danda of double danda in this plate see photo danda l37.png
@@ -345,372 +294,269 @@ amwb : the shape of this single danda differs from others; it looks like the fir
 amwb : the shape of this single danda differs from others; it looks like the first danda of double danda in this plate see photo danda l37 bis.png
 --> Evam māḍhāśāmmalī<!--
 amwb . in the file Post-Gupta-Bengal-around.txt, the alternative reading (or ˚śālmalī) is suggested it would be an interested correction. In all the case, I read śāmmalī on the facsimile
---> nā<lb break="no" n="38"/>ma grāmaḥ<supplied reason="subaudible">.</supplied> Asya cottareṇa gaṅginikā sīmā tataḥ pūrvveṇārdha<choice>
-            <sic>śro</sic>
-            <corr>sro</corr>
-          </choice>tikayā Āmrayānakolarddhayānika<choice>
-            <sic>ṅ</sic>
-            <corr>ṁ</corr>
-          </choice> gataḥ ta<lb break="no" n="39"/>to 'pi dakṣiṇena kālikāśvabhraḥ<g type="danda">.</g><!--
+--> nā<lb
+n="38" break="no"/>ma grāmaḥ<supplied reason="subaudible">.</supplied> Asya cottareṇa gaṅginikā sīmā tataḥ pūrvveṇārdha<choice><sic>śro</sic><corr>sro</corr></choice>tikayā Āmrayānakolarddhayānika<choice><sic>ṅ</sic><corr>ṁ</corr></choice> gataḥ ta<lb
+n="39" break="no"/>to 'pi dakṣiṇena kālikāśvabhraḥ<g type="danda">.</g><!--
 amwb : danda with a regular shape
---> Ato 'pi nisr̥tya śrī-phala<unclear>bh</unclear>iṣ<unclear>u</unclear>kaṁ yāvat paścimena tato 'pi <choice>
-            <orig>v</orig>
-            <reg>b</reg>
-          </choice>ilvaṅgorddha<choice>
-            <sic>śro</sic>
-            <corr>sro</corr>
-          </choice>ti<lb break="no" n="40"/>kayā gaṅginikāṁ praviṣṭā<g type="danda">.</g><!--
+--> Ato 'pi nisr̥tya śrī-phala<unclear>bh</unclear>iṣ<unclear>u</unclear>kaṁ yāvat paścimena tato 'pi <choice><orig>v</orig><reg>b</reg></choice>ilvaṅgorddha<choice><sic>śro</sic><corr>sro</corr></choice>ti<lb
+n="40" break="no"/>kayā gaṅginikāṁ praviṣṭā<g type="danda">.</g><!--
 amwb : the shape of this single danda differs from others; it looks like the first danda of double danda in this plate see photo danda l40.png
 --> pālitake sīmā dakṣiṇena kāṇā dvīpikā<g type="danda">.</g><!--
 amwb : danda with a regular shape
---> pūrvveṇa koṇṭhiyā srotaḥ<supplied reason="subaudible">.</supplied> Uttareṇa<lb n="41"/>gaṅginikā<g type="danda">.</g><!--
+--> pūrvveṇa koṇṭhiyā srotaḥ<supplied reason="subaudible">.</supplied> Uttareṇa<lb
+n="41"/>gaṅginikā<g type="danda">.</g><!--
 amwb : the shape of this single danda differs from others; it looks like the first danda of double danda in this plate see photo danda l41.png
 --> paścimena jenandāyikā<g type="danda">.</g><!--
 amwb : the shape of this single danda differs from others; it looks like the first danda of double danda in this plate see photo danda l41 bis.png
 --> Etad-grāma-saṁ<!--
 amwb : Kielhorn reads saṁ but for me it looks like saḥ ; there is a circle at the right of the akṣara sa and below the circle another glyph which is not a second circle. The shape is exactly the same as the two dakṣiṇāntaḥ or dakṣiṇāntaṁ line 37. See photo saṁpā or saḥpā l42.png
--->pārīṇa-parakarmmakr̥<choice>
-            <sic>d</sic>
-            <corr>d-d</corr>
-          </choice><!--
+-->pārīṇa-parakarmmakr̥<choice><sic>d</sic><corr>d-d</corr></choice><!--
 amwb : the facsimile is not very legible at this place but it is possible to read ddvī see photo karmmakṛdvī or ddvī l41.png
 -->vīpaḥ<g type="danda">.</g><!--
 amwb : the shape of this single danda differs from others; it looks like the first danda of double danda in this plate see photo danda l41 ter.png
---> sthālīkkaṭaviṣaya<lb break="no" n="42"/>sam<choice>
-            <orig>v</orig>
-            <reg>b</reg>
-          </choice>addhāmraṣaṇḍikāmaṇḍalāntaḥpāti-gopippalī-grāmasya sīmāḥ<g type="danda">.</g><!--
+--> sthālīkkaṭaviṣaya<lb
+n="42" break="no"/>sam<choice><orig>v</orig><reg>b</reg></choice>addhāmraṣaṇḍikāmaṇḍalāntaḥpāti-gopippalī-grāmasya sīmāḥ<g type="danda">.</g><!--
 amwb . a danda with a regular shape
---> pūrvve<choice>
-            <sic>ṇa U</sic>
-            <corr>ṇo</corr>
-          </choice>dragrāma-maṇḍala-paścima-sīmā<g type="danda">.</g><!--
+--> pūrvve<choice><sic>ṇa U</sic><corr>ṇo</corr></choice>dragrāma-maṇḍala-paścima-sīmā<g type="danda">.</g><!--
 amwb : a danda with a regular shape
---> dakṣi<lb break="no" n="43"/>ṇena jolakaḥ<supplied reason="subaudible">.</supplied> paścimena vesānikākhyā khāṭikā<g type="danda">.</g><!--
+--> dakṣi<lb
+n="43" break="no"/>ṇena jolakaḥ<supplied reason="subaudible">.</supplied> paścimena vesānikākhyā khāṭikā<g type="danda">.</g><!--
 amwb : regular shape with a little tail at the bottom see photo danda tail l43.png
 --> Uttareṇodragrāma-maṇḍala-sīmā-vyavasthito go-mārgaḥ<g type="danda">.</g><!--
 amwb : the shape of this single danda differs from others; it looks like the first danda of double danda in this plate see photo rgaḥ danda l43.png
---> eṣu ca<lb break="no" n="44"/>tu<choice>
-            <sic>ruṣu</sic>
-            <corr>rṣu</corr>
-          </choice> grāmeṣu samupagatāN sarvvān eva rāja-rājānaka-rājaputra-rājāmātya-senāpati-viṣayapati-bhogapati-ṣaṣṭhādhi<!--
+--> eṣu ca<lb
+n="44" break="no"/>tu<choice><sic>ruṣu</sic><corr>rṣu</corr></choice> grāmeṣu samupagatāN sarvvān eva rāja-rājānaka-rājaputra-rājāmātya-senāpati-viṣayapati-bhogapati-ṣaṣṭhādhi<!--
 amwb in the file Post-Gupta-Bengal-around.txt, it is written ṣaṣṭhādi but on the facsimile it is dhi without doubt
---><lb break="no" n="45"/>kr̥ta-daṇḍaśakti-dāṇḍapāśika-cauroddharaṇika-daussādhasādhanika-dūta-khola-gamāgamikābhitvaramāṇa-hastyaśvagomahiṣyajā<lb break="no" n="46"/>vikādhyakṣa><!--
+--><lb
+n="45" break="no"/>kr̥ta-daṇḍaśakti-dāṇḍapāśika-cauroddharaṇika-daussādhasādhanika-dūta-khola-gamāgamikābhitvaramāṇa-hastyaśvagomahiṣyajā<lb
+n="46" break="no"/>vikādhyakṣa><!--
 amwb ; the facsimile is not very legible but I am not sure to read the kṣa in vikādhyakṣa, it is possible but just ka is also possible
--->-n<unclear>au</unclear>kādhyakṣa-<choice>
-            <orig>v</orig>
-            <reg>b</reg>
-          </choice>alādhyakṣa-tarika-śaulkika-gaulmika-tadāyuktaka-viniyuktakādi-rājapādopajīvino 'nyāṁś cākīrtti<lb break="no" n="47"/><choice>
-            <sic>tāN cā</sic>
-            <corr>tāṁś cā</corr>
-          </choice>ṭabhaṭajātīyāN yathākālādhyāsino jyeṣṭhakāyastha-mahāmahattara-mahattara-dāśagrāmikādi-viṣayavyavahāriṇaḥ<lb n="48"/>sa-karaṇāN prativāsinaḥ<!--
+-->-n<unclear>au</unclear>kādhyakṣa-<choice><orig>v</orig><reg>b</reg></choice>alādhyakṣa-tarika-śaulkika-gaulmika-tadāyuktaka-viniyuktakādi-rājapādopajīvino 'nyāṁś cākīrtti<lb
+n="47" break="no"/><choice><sic>tāN cā</sic><corr>tāṁś cā</corr></choice>ṭabhaṭajātīyāN yathākālādhyāsino jyeṣṭhakāyastha-mahāmahattara-mahattara-dāśagrāmikādi-viṣayavyavahāriṇaḥ<lb
+n="48"/>sa-karaṇāN prativāsinaḥ<!--
 amwb : here the glyph used is the same as the one for which there is an hesitation between ḥ or ṁ See the photo vāsinaḥ or vāsinaṁ l48.png and compare with line 41 saṁpārīṇa and the two dakṣiṇāntaṁ l37
---> kṣetrakarāṁś ca <choice>
-            <orig>v</orig>
-            <reg>b</reg>
-          </choice>rāhmaṇa-mānanā-pūrvvakaṁ yathārham mānayati <choice>
-            <orig>v</orig>
-            <reg>b</reg>
-          </choice>odhayati samājñāpayati ca<g type="danda">.</g><!--
+--> kṣetrakarāṁś ca <choice><orig>v</orig><reg>b</reg></choice>rāhmaṇa-mānanā-pūrvvakaṁ yathārham mānayati <choice><orig>v</orig><reg>b</reg></choice>odhayati samājñāpayati ca<g type="danda">.</g><!--
 amwb : I can't say if the shape is regular or not because the facsimile is not very legible here
---> matam astu<lb n="49"/>bhavatāM<supplied reason="subaudible">.</supplied> mahāsāmantādhipati-śrī-nārāyaṇavarmmaṇā dūtaka-yuvarāja-śrī-tribhuvanapāla-mukhena vayam eva<choice>
-            <orig>m</orig>
-            <reg>ṁ</reg>
-          </choice> vijñāpitāḥ yathā '!smā<!--
+--> matam astu<lb
+n="49"/>bhavatāM<supplied reason="subaudible">.</supplied> mahāsāmantādhipati-śrī-nārāyaṇavarmmaṇā dūtaka-yuvarāja-śrī-tribhuvanapāla-mukhena vayam eva<choice><orig>m</orig><reg>ṁ</reg></choice> vijñāpitāḥ yathā '!smā<!--
 amwb : Kielhorn reports an avagraha yathā 'smā ; indeed in the facsimile I see an avagraha with the same shape as the other one seen in this plate ; However I am not sure to read yathā see photo yathā avagraha smā l49 ?.png
---><lb break="no" n="50"/>bhir mmātā-pitror ātmanaś ca puṇyābhivr̥ddhaye śubha sthalyāN devakulaṅ kārita<choice>
-            <sic>t</sic>
-            <corr>n</corr>
-          </choice> tatra pratiṣṭhāpita-bhagavan-n<unclear>u</unclear>nna-nārāyaṇa-bhaṭṭārakāya tatpra<lb break="no" n="51"/>tipālaka-lāṭadvija-devārccakādi-pādamūla-sametāya pūjopasthānādi-karmmaṇe caturo grāmāN Atratya-haṭṭikā-talapāṭaka<lb break="no" n="52"/>-sametān dadātu deva Iti<g type="danda">.</g><!--
+--><lb
+n="50" break="no"/>bhir mmātā-pitror ātmanaś ca puṇyābhivr̥ddhaye śubha sthalyāN devakulaṅ kārita<choice><sic>t</sic><corr>n</corr></choice> tatra pratiṣṭhāpita-bhagavan-n<unclear>u</unclear>nna-nārāyaṇa-bhaṭṭārakāya tatpra<lb
+n="51" break="no"/>tipālaka-lāṭadvija-devārccakādi-pādamūla-sametāya pūjopasthānādi-karmmaṇe caturo grāmāN Atratya-haṭṭikā-talapāṭaka<lb
+n="52" break="no"/>-sametān dadātu deva Iti<g type="danda">.</g><!--
 amwb : danda with the other shape see photo Iti danda l52.png
 --> tato '!smābhis<!--
 amwb : the avagraha is original see photo tato avagraha smā l52.png
---> tadīya-vijña<choice>
-            <sic>ptyā Ete</sic>
-            <corr>ptyaita</corr>
-          </choice> Upari-likhitakāś catvāro grāmās talapāṭaka-haṭṭikā-sametāḥ sva<lb break="no" n="53"/>-sīmā-paryantāḥ soddeśāḥ sadaśāpacār<choice>
-            <sic>āḥ</sic>
-            <corr>ā</corr>
-          </choice> Akiṁcitpragrāhyāḥ<del rend="strikeout">
-            <g type="danda">.</g>
-          </del><!--
+--> tadīya-vijña<choice><sic>ptyā Ete</sic><corr>ptyaita</corr></choice> Upari-likhitakāś catvāro grāmās talapāṭaka-haṭṭikā-sametāḥ sva<lb
+n="53" break="no"/>-sīmā-paryantāḥ soddeśāḥ sadaśāpacār<choice><sic>āḥ</sic><corr>ā</corr></choice> Akiṁcitpragrāhyāḥ<del rend="strikeout"><g type="danda">.</g></del><!--
 amwb the addition of the tag del is the consequence of the note 7 of Kielhorn; Maybe remove this del because I only see the danda... see photo hyāḥ dandastrikeout? pa l53.png
---> parihr̥ta-sarvvapīḍ<choice>
-            <sic>āḥ</sic>
-            <corr>ā</corr>
-          </choice> bhūmicchidra-nyāyena candrārka-kṣiti-samakālaṁ<lb n="54"/>tathaiva prati<choice>
-            <sic>ṣṭhāpitāḥ</sic>
-            <corr>pāditāḥ</corr>
-          </choice><g type="danda">.</g><!--
+--> parihr̥ta-sarvvapīḍ<choice><sic>āḥ</sic><corr>ā</corr></choice> bhūmicchidra-nyāyena candrārka-kṣiti-samakālaṁ<lb
+n="54"/>tathaiva prati<choice><sic>ṣṭhāpitāḥ</sic><corr>pāditāḥ</corr></choice><g type="danda">.</g><!--
 amwb regular shape
---> yato bhavadbhis sarvvair eva bhūmer ddāna-phala-gauravād apaharaṇe ca mahānarakapāt-ādi-bhayād dānam idam anumo<lb break="no" n="55"/>dya paripālanīyaM<g type="danda">.</g><!--
+--> yato bhavadbhis sarvvair eva bhūmer ddāna-phala-gauravād apaharaṇe ca mahānarakapāt-ādi-bhayād dānam idam anumo<lb
+n="55" break="no"/>dya paripālanīyaM<g type="danda">.</g><!--
 amwb the same shape as before for M and regular shape for danda see photo M danda l55.png
---> prativāsibhiḥ kṣetrakaraiś cājñāśravaṇa-vidheyair bhūtvā samucita-kara-piṇḍakādi-sarvvapratyāyopanayaḥ kārya<lb n="56"/>Iti<g type="ddanda">.</g><!--
+--> prativāsibhiḥ kṣetrakaraiś cājñāśravaṇa-vidheyair bhūtvā samucita-kara-piṇḍakādi-sarvvapratyāyopanayaḥ kārya<lb
+n="56"/>Iti<g type="ddanda">.</g><!--
 amwb . the first danda looks like ra and the second is a simple vertical line as the double danda on the obverse
 -->
-<lg met="anuṣṭubh" n="14">
-            <l n="a"><choice>
-                <orig>v</orig>
-                <reg>b</reg>
-              </choice>ahubhir vasudhā dattā</l>
-            <l n="b">rājabhis sagarādibhiḥ</l>
-            <l n="c">yasya yasya yadā bhūmis</l>
-            <l n="d">tasya tasya tadā phalaM<g type="danda">.</g><!--
+<lg n="14" met="anuṣṭubh">
+    <l n="a"><choice><orig>v</orig><reg>b</reg></choice>ahubhir vasudhā dattā</l>
+    <l n="b">rājabhis sagarādibhiḥ</l>
+    <l n="c">yasya yasya yadā bhūmis</l>
+    <l n="d">tasya tasya tadā phalaM<g type="danda">.</g><!--
 amwb the same shape as before for M and regular shape for danda see photo phalaM danda l56.png
 --></l>
-          </lg><lg met="anuṣṭubh" n="15">
-            <l n="a">ṣaṣṭim varṣa-sahasrāṇi</l>
-            <l n="b">svarge mo<lb break="no" n="57"/>dati bhūmi-daḥ</l>
-            <l n="c">Ākṣeptā cānumantā ca</l>
-            <l n="d">tāny eva narake vaseT<g type="ddanda">.</g><!--
+</lg><lg n="15" met="anuṣṭubh">
+    <l n="a">ṣaṣṭim varṣa-sahasrāṇi</l>
+    <l n="b">svarge mo<lb
+n="57" break="no"/>dati bhūmi-daḥ</l>
+    <l n="c">Ākṣeptā cānumantā ca</l>
+    <l n="d">tāny eva narake vaseT<g type="ddanda">.</g><!--
 amwb here we really have a t with virāma  Photo T ddanda l57
  --></l>
-          </lg>
-<lg met="anuṣṭubh" n="16">
-            <l n="a">sva-dattām para-dattā<choice>
-                <orig>m</orig>
-                <corr>ṁ</corr>
-              </choice></l>
-            <l n="b">vā yo hareta vasundharā<unclear>m</unclear><!--
+</lg>
+<lg n="16" met="anuṣṭubh">
+    <l n="a">sva-dattām para-dattā<choice><orig>m</orig><corr>ṁ</corr></choice></l>
+    <l n="b">vā yo hareta vasundharā<unclear>m</unclear><!--
 amwb ; here I don't follow Kielhorn's edition and read N. I have added this change in app. See photo vasundharāN l57.png
 --></l>
-            <l n="c">sa viṣṭhāyāṅ kr̥mir bhūtvā</l>
-            <l n="d">pitr̥<lb break="no" n="58"/>bhis saha pacyate<g type="ddanda">.</g><!--
+    <l n="c">sa viṣṭhāyāṅ kr̥mir bhūtvā</l>
+    <l n="d">pitr̥<lb
+n="58" break="no"/>bhis saha pacyate<g type="ddanda">.</g><!--
 amwb . the first danda looks like ra and the second is a simple vertical line as the double danda on the obverse
 --></l>
-          </lg>
-<lg met="puṣpitāgrā" n="17">
-            <!--
+</lg>
+<lg n="17" met="puṣpitāgrā"><!--
 amwb : 12 morae and then 13 morae
 -->
-            <l n="a">Iti kamaladalām<choice>
-                <orig>v</orig>
-                <reg>b</reg>
-              </choice>u-<choice>
-                <orig>v</orig>
-                <reg>b</reg>
-              </choice>indu-lolāṁ<!--
+    <l n="a">Iti kamaladalām<choice><orig>v</orig><reg>b</reg></choice>u-<choice><orig>v</orig><reg>b</reg></choice>indu-lolāṁ<!--
 amwb : I am wondering why Kielhorn regularise amvu into ambu and does not for vindu (bindu), I add this regularisation
 --></l>
-            <l n="b">śriyam anucintya manuṣya-jīvitañ ca</l>
-            <l n="c">sakalam idam udāhr̥tañ ca <choice>
-                <orig>vudhvā</orig>
-                <reg>buddhvā</reg>
-              </choice></l>
-            <l n="d">na hi puru<lb break="no" n="59"/>ṣaiḥ para-kīrttayo vilopyā<supplied reason="omitted">ḥ</supplied><g type="ddanda">.</g><!--
+    <l n="b">śriyam anucintya manuṣya-jīvitañ ca</l>
+    <l n="c">sakalam idam udāhr̥tañ ca <choice><orig>vudhvā</orig><reg>buddhvā</reg></choice></l>
+    <l n="d">na hi puru<lb
+n="59" break="no"/>ṣaiḥ para-kīrttayo vilopyā<supplied reason="omitted">ḥ</supplied><g type="ddanda">.</g><!--
 amwb . the double danda is somewhat strange see photo vilopyā ddanda l59.png
 --></l>
-          </lg>
-<lg met="śikharinī" n="18">
-            <!--
+</lg>
+<lg n="18" met="śikharinī"><!--
 amwb : 17 morae
 -->
-            <l n="a">taḍit-tulyā lakṣmī<supplied reason="omitted">s</supplied> tanur api ca dīpānala-samā<surplus>
-                <g type="danda">.</g>
-              </surplus><!--
+    <l n="a">taḍit-tulyā lakṣmī<supplied reason="omitted">s</supplied> tanur api ca dīpānala-samā<surplus><g type="danda">.</g></surplus><!--
 amwb . danda regular shape
     --></l>
-            <l n="b">bhavo duḥkhaikāntaḥ<!--
+    <l n="b">bhavo duḥkhaikāntaḥ<!--
 amwb : it is possible to hesitate between duḥkhaikāntaḥ and duḥkhaikāntaṁ as in other cases where we encounter this glyph see photo duḥkhaikāntaḥ or duḥkhaikāntaṁ l59.png
 --> para-kr̥tim akīrtti<supplied reason="omitted">ḥ</supplied> kṣapayatāM<!--
 amwb : need to compare all M . See photo kṣapayatāM l59.png
 --></l>
-            <l n="c">yaśā<lb break="no" n="60"/><choice>
-                <orig>n</orig>
-                <reg>ṁ</reg>
-              </choice>sy ācandrārkka<supplied reason="omitted">ṁ</supplied> niyatam avatām atra ca nṛpāḥ</l>
-            <l n="d">ka<choice>
-                <sic>v</sic>
-                <corr>r</corr>
-              </choice>iṣyante<!--
+    <l n="c">yaśā<lb
+n="60" break="no"/><choice><orig>n</orig><reg>ṁ</reg></choice>sy ācandrārkka<supplied reason="omitted">ṁ</supplied> niyatam avatām atra ca nṛpāḥ</l>
+    <l n="d">ka<choice><sic>v</sic><corr>r</corr></choice>iṣyante<!--
 amwb ; Here I don't follow Kielhorn's edition I read kaviṣyante. So I add this modification in the apparatus. See photo ka<choice><sic>v</sic><corr>r</corr></choice>iṣyante l60.png
-    --><choice>
-                <orig>v</orig>
-                <reg>b</reg>
-              </choice>uddhvā yad abhirucitaṁ kim pravacanaiḥ<g type="ddanda">.</g></l>
-          </lg>
-Abhi<space type="defect"/>varddhamāna-vijayarājye<lb n="61"/>sa<choice>
-            <orig>m</orig>
-            <reg>ṁ</reg>
-          </choice>vaT<!--
+    --> <choice><orig>v</orig><reg>b</reg></choice>uddhvā yad abhirucitaṁ kim pravacanaiḥ<g type="ddanda">.</g></l>
+</lg>
+Abhi<space type="defect"/>varddhamāna-vijayarājye<lb
+n="61"/>sa<choice><orig>m</orig><reg>ṁ</reg></choice>vaT<!--
 amwb : see photo samvaT l61.png
---> <num value="32">32</num> mārga-din<choice>
-            <sic>āni</sic>
-            <corr>e</corr>
-          </choice> <num value="12">12</num><g type="ddanda">.</g> <gap quantity="5" reason="illegible" unit="character"/><!--
+--> <num value="32">32</num> mārga-din<choice><sic>āni</sic><corr>e</corr></choice> <num value="12">12</num><g type="ddanda">.</g> <gap reason="illegible" unit="character" quantity="5"/><!--
 amwb : here there is a big space since the last line is written at the bottom of the plate. I need to search how encoding this in theEGD
 -->
-<lg met="anuṣṭubh" n="19">
-            <l n="a"><lb n="62"/>śrī-bhogaṭasya pautreṇa</l>
-            <l n="b">śrīmat-subhaṭasūnunā<g type="danda">.</g><!--
+<lg n="19" met="anuṣṭubh">
+    <l n="a"><lb
+n="62"/>śrī-bhogaṭasya pautreṇa</l>
+    <l n="b">śrīmat-subhaṭasūnunā<g type="danda">.</g><!--
 amwb ; danda with regular shape
 --></l>
-            <l n="c">śrīmatā tātaṭeneda<choice>
-                <orig>ṁ</orig>
-                <reg>m</reg>
-              </choice></l>
-            <l n="d">Utkīrṇaṁ guṇaśālinā<g type="ddanda">.</g><!--
+    <l n="c">śrīmatā tātaṭeneda<choice><orig>ṁ</orig><reg>m</reg></choice></l>
+    <l n="d">Utkīrṇaṁ guṇaśālinā<g type="ddanda">.</g><!--
 amwb : here the double danda has another shape: the first danda looks like J see photo
  --></l>
-          </lg>
+</lg>
              </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1">
-            <lem>
-              <g type="spiraL"/>
-            </lem>
-            <rdg source="bib:Kielhorn1896-1897_03">Oṁ</rdg>
-            <note>Kielhorn notes that what he interprets as <foreign>Oṁ</foreign> is expressed by a symbol.</note>
-          </app>
-          <app loc="2">
-            <lem>°lambhāḥ<unclear>
-                <g type="danda">.</g>
-              </unclear></lem>
-            <!--<rdg source="bib:Kielhorn1896-1897_03">°lambhāḥ<g type="danda">.</g></rdg>-->
-            <note>Correct <foreign>°labdhāḥ</foreign>?</note>
-          </app>
-          <app loc="11">
-            <lem source="bib:Kielhorn1896-1897_03">bhūmī<lb break="no" n="11"/>patīnām</lem>
-            <note>Kielhorn notes: <q>Originally <foreign>patīnāṁ</foreign> seems to have been engraved</q>. The rubbing of  the plate shows a dot over the <foreign>nā</foreign> but it is not the circle shape used in this script to note the <foreign>anusvāra</foreign>; so we are inclined to treat the dot as accidental.</note>
-          </app>
-          <!--              <app loc="11">
+         </div>
+         <div type="apparatus">
+               <listApp>
+	<app loc="1">
+                     <lem><g type="spiraL"/></lem>
+                     <rdg source="bib:Kielhorn1896-1897_03">Oṁ</rdg>
+	      <note>Kielhorn notes that what he interprets as <foreign>Oṁ</foreign> is expressed by a symbol.</note>
+                  </app>
+
+                  <app loc="2">
+                     <lem>°lambhāḥ<unclear><g type="danda">.</g></unclear></lem>
+                     <!--<rdg source="bib:Kielhorn1896-1897_03">°lambhāḥ<g type="danda">.</g></rdg>-->
+		<note>Correct <foreign>°labdhāḥ</foreign>?</note>
+                  </app>
+ 	    <app loc="11">
+                       <lem source="bib:Kielhorn1896-1897_03">bhūmī<lb n="11" break="no"/>patīnām</lem>
+	        <note>Kielhorn notes: <q>Originally <foreign>patīnāṁ</foreign> seems to have been engraved</q>. The rubbing of  the plate shows a dot over the <foreign>nā</foreign> but it is not the circle shape used in this script to note the <foreign>anusvāra</foreign>; so we are inclined to treat the dot as accidental.</note>
+                   </app>
+     <!--              <app loc="11">
                        <lem>ekaḥ</lem><!-\-
                        amwb . there is no trace of a danda
                        -\->
                        <rdg source="bib:Kielhorn1896-1897_03">ekaḥ<g type="danda">.</g></rdg>
                    </app>-->
-          <!-- argr: I have hidden this apparatus entry, as said above. You can remove all of this comment once you've taken note of it. -->
-          <app loc="13">
-            <lem>°kā<supplied reason="omitted">r</supplied>thaṁ</lem>
-            <rdg source="bib:Kielhorn1896-1897_03">°kārthaṁ</rdg>
-          </app>
-          <app loc="12">
-            <lem>yāntyā<supplied reason="omitted">ṁ</supplied> <lb n="13"/><unclear>v</unclear>iśvambharāyāṁ</lem>
-            <rdg source="bib:Kielhorn1896-1897_03">yāntyā<lb n="13"/><choice>
-                <orig>
-                  <unclear>m v</unclear>
-                </orig>
-                <reg>ṁ v</reg>
-              </choice>iśvambharāyāṁ</rdg>
-          </app>
-          <app loc="16">
-            <lem>Anirvr̥ti</lem>
-            <rdg source="bib:Kielhorn1896-1897_03">Ani<surplus>r</surplus>vr̥t<supplied reason="omitted">t</supplied>i</rdg>
-          </app>
-          <app loc="22">
-            <lem>śrī-kany<choice>
-                <sic>a</sic>
-                <corr>ā</corr>
-              </choice>°</lem>
-            <rdg source="bib:Kielhorn1896-1897_03">śrī-k<choice>
-                <sic>a</sic>
-                <corr>ā</corr>
-              </choice>nya°</rdg>
-          </app>
-          <app loc="33">
-            <lem>-yānikāṁ*</lem>
-            <rdg source="bib:Kielhorn1896-1897_03">-yānikā<unclear>ṁ</unclear></rdg>
-          </app>
-          <app loc="33">
-            <lem>-yānaka<supplied reason="omitted">ṁ</supplied></lem>
-            <rdg source="bib:Kielhorn1896-1897_03">-yānaka<unclear>ṁ</unclear></rdg>
-          </app>
-          <app loc="35">
-            <lem>°rāntaṁ</lem>
-            <rdg source="bib:Kielhorn1896-1897_03">°rāntaṁ<g type="danda">.</g></rdg>
-          </app>
-          <app loc="57">
-            <lem>vasundharāN</lem>
-            <rdg source="bib:Kielhorn1896-1897_03">vasundharā<unclear>m</unclear></rdg>
-          </app>
-          <app loc="60">
-            <lem>ka<choice>
-                <sic>v</sic>
-                <corr>r</corr>
-              </choice>iṣyante</lem>
-            <rdg source="bib:Kielhorn1896-1897_03">kariṣyante</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:Kielhorn1896-1897_03" type="translation">
-        <p n="1">Om. Hail!</p>
-        <p n="1" rend="stanza">May the ten powers of Vajrāsana who has firmly attained, as to fortune, to omniscience, <supplied reason="explanation">those powers</supplied> which, cherished by his consort- great compassion, conquer the regions where many hosts of the Evil one are seen, protect you!
+<!-- argr: I have hidden this apparatus entry, as said above. You can remove all of this comment once you've taken note of it. -->
+                   <app loc="13">
+                       <lem>°kā<supplied reason="omitted">r</supplied>thaṁ</lem>
+                       <rdg source="bib:Kielhorn1896-1897_03">°kārthaṁ</rdg>
+                   </app>
+	<app loc="12">
+	   <lem>yāntyā<supplied reason="omitted">ṁ</supplied> <lb n="13"/><unclear>v</unclear>iśvambharāyāṁ</lem>
+	   <rdg source="bib:Kielhorn1896-1897_03">yāntyā<lb n="13"/><choice><orig><unclear>m v</unclear></orig><reg>ṁ v</reg></choice>iśvambharāyāṁ</rdg>
+	</app>
+<app loc="16">
+<lem>Anirvr̥ti</lem>
+<rdg source="bib:Kielhorn1896-1897_03">Ani<surplus>r</surplus>vr̥t<supplied reason="omitted">t</supplied>i</rdg>
+</app>
+                   <app loc="22">
+                       <lem>śrī-kany<choice><sic>a</sic><corr>ā</corr></choice>°</lem>
+                       <rdg source="bib:Kielhorn1896-1897_03">śrī-k<choice><sic>a</sic><corr>ā</corr></choice>nya°</rdg>
+                   </app>
+                   <app loc="33">
+                       <lem>-yānikāṁ*</lem>
+                       <rdg source="bib:Kielhorn1896-1897_03">-yānikā<unclear>ṁ</unclear></rdg>
+                   </app>
+                   <app loc="33">
+                       <lem>-yānaka<supplied reason="omitted">ṁ</supplied></lem>
+                       <rdg source="bib:Kielhorn1896-1897_03">-yānaka<unclear>ṁ</unclear></rdg>
+                   </app>
+                   <app loc="35">
+                       <lem>°rāntaṁ</lem>
+                       <rdg source="bib:Kielhorn1896-1897_03">°rāntaṁ<g type="danda">.</g></rdg>
+                   </app>
+                   <app loc="57">
+                       <lem>vasundharāN</lem>
+                       <rdg source="bib:Kielhorn1896-1897_03">vasundharā<unclear>m</unclear></rdg>
+                   </app>
+                   <app loc="60">
+                       <lem>ka<choice><sic>v</sic><corr>r</corr></choice>iṣyante</lem>
+                       <rdg source="bib:Kielhorn1896-1897_03">kariṣyante</rdg>
+                   </app>
+               </listApp>
+         </div>
+         <div type="translation" source="bib:Kielhorn1896-1897_03">
+<p n="1">Om. Hail!</p>
+            <p n="1" rend="stanza">May the ten powers of Vajrāsana who has firmly attained, as to fortune, to omniscience, <supplied reason="explanation">those powers</supplied> which, cherished by his consort- great compassion, conquer the regions where many hosts of the Evil one are seen, protect you!
                 <seg rend="pun">May the forces of <supplied reason="explanation">Dharmapāla,</supplied> seated on his diamond throne, wbo, as he has attained to fortune, has firmly attained to omniscience, <supplied reason="explanation">those forces</supplied> which, cherished by his most compassionate queen, conquer the ten regions where murderous hosts are seen in great number, guard you</seg>!</p>
-        <p n="2" rend="stanza">As the sea is the birth-place of the blessed goddess of fortune, and the moon the source of that lustre which gladdens the universe, so Dayitaviṣṇu, bright with all learning, became the progenitor of the foremost line of kings.
+             <p n="2" rend="stanza">As the sea is the birth-place of the blessed goddess of fortune, and the moon the source of that lustre which gladdens the universe, so Dayitaviṣṇu, bright with all learning, became the progenitor of the foremost line of kings.
 </p>
-        <p n="3" rend="stanza">From him sprang the illustrious Vapyaṭa, who, full of piety, as far as the ocean embellished the earth with massive temples, and became famous as the destroyer of adversaries</p>
-        <p n="4" rend="stanza">His son was the crest-jewel of the heads of kings, the glorious Gopāla, whom the people made take the hand of Fortune, to put an end to the practice of fishes; whose everlasting great fame the glorious mass of moonlight on a fullmoon-night seeks to rival by its whiteness in the sky.</p>
-        <p n="5" rend="stanza">As Rohiṇī is the beloved of the Moon, Svāhā of the Sacrificial Fire, Śarvāṇī of Śiva, and Bhadrā of the lord of the Guhyakas; as the daughter of Puloman is of Purandara, and Lakṣmī of Mura's foe, so the illustrious Deddadevī, a daughter of the Bhadra king, became the queen of that brilliant ruler of the earth, to him a source of joy.</p>
-        <p n="6" rend="stanza">From them was born the glorious Dharmapāla, whose achievements are praised by the good, a master of kings who alone is ruling the entire orb of the earth; whose progress when he is about to conquer the quarters all round, the four oceans, marked by the footprints of the arrays of his elephants that bathe on their shores, patiently permit, being no longer fosses of the earth.</p>
-        <p n="7" rend="stanza">When, with his ponderous army marching with unbounded glee, he proceeds to conquer the regions, and when the earth thereby slides down as if the mountains on it were marching, Śeṣa hurriedly follows him, always exactly beneath him, with his arms raised to support the circle of his heads, hurt by the jewels that sink into them, bent down by the weight.</p>
-        <!-- When he -->
-        <p n="8" rend="stanza">When, on his setting forth, the whole sky is covered with the masses of dust, cast up by the stamping of his marching army, and the earth thereby is reduced to a minute size, then, on account of its light weight, the circle of the hoods of the serpent-king springs up, with the jewels, that had sunk into them, reappearing.</p>
-        <p n="9" rend="stanza">The fire of his wrath, stirred up when he finds himself opposed, like the submarine fire, blazes up unceasingly, checked <supplied reason="subaudible">only</supplied> by the four oceans.</p>
-        <!--
+             <p n="3" rend="stanza">From him sprang the illustrious Vapyaṭa, who, full of piety, as far as the ocean embellished the earth with massive temples, and became famous as the destroyer of adversaries</p>
+             <p n="4" rend="stanza">His son was the crest-jewel of the heads of kings, the glorious Gopāla, whom the people made take the hand of Fortune, to put an end to the practice of fishes; whose everlasting great fame the glorious mass of moonlight on a fullmoon-night seeks to rival by its whiteness in the sky.</p>
+             <p n="5" rend="stanza">As Rohiṇī is the beloved of the Moon, Svāhā of the Sacrificial Fire, Śarvāṇī of Śiva, and Bhadrā of the lord of the Guhyakas; as the daughter of Puloman is of Purandara, and Lakṣmī of Mura's foe, so the illustrious Deddadevī, a daughter of the Bhadra king, became the queen of that brilliant ruler of the earth, to him a source of joy.</p>
+             <p n="6" rend="stanza">From them was born the glorious Dharmapāla, whose achievements are praised by the good, a master of kings who alone is ruling the entire orb of the earth; whose progress when he is about to conquer the quarters all round, the four oceans, marked by the footprints of the arrays of his elephants that bathe on their shores, patiently permit, being no longer fosses of the earth.</p>
+             <p n="7" rend="stanza">When, with his ponderous army marching with unbounded glee, he proceeds to conquer the regions, and when the earth thereby slides down as if the mountains on it were marching, Śeṣa hurriedly follows him, always exactly beneath him, with his arms raised to support the circle of his heads, hurt by the jewels that sink into them, bent down by the weight.</p>
+<!-- When he -->
+             <p n="8" rend="stanza">When, on his setting forth, the whole sky is covered with the masses of dust, cast up by the stamping of his marching army, and the earth thereby is reduced to a minute size, then, on account of its light weight, the circle of the hoods of the serpent-king springs up, with the jewels, that had sunk into them, reappearing.</p>
+             <p n="9" rend="stanza">The fire of his wrath, stirred up when he finds himself opposed, like the submarine fire, blazes up unceasingly, checked <supplied reason="subaudible">only</supplied> by the four oceans.</p>
+<!--
 "agitated because of his territory being obstructed"
 Aurva's anger is controlled by one ocean, Dharmapāla's by four
 reading anirvṛti we can translate "without [any possibility of] exctinction -->
-        <p n="10" rend="stanza">Desirous, as it were, of seeing collected together in one place such kings of old as Pr̥thu, Rāma, the descendant of Raghu, and Nala, the Creator in this Kali-age set up the glorious Dharmapāla, who has humbled the great conceit of all rulers, as a mighty post to which to fasten that elephant — the fickle goddess of fortune.</p>
-        <p n="11" rend="stanza">For those armies of his,- not seeing at once how large they are, because the ten regions are whitened by the dust of their van-guard, the great Indra, afraid of what might happen to the armies of Māndhātr̥, exhausts himself in conjectures,- for them even, thrilled as they are with eagerness to fight, there is no chance of rendering assistance to his arms, which <supplied reason="subaudible">alone</supplied> annihilate the whole host of his adversaries.</p>
-        <p n="12" rend="stanza">With a sign of his gracefully moved eye-brows he installed the illustrious king of Kanyākubja, who readily was accepted by the Bhoja, Matsya, Madra, Kuru, Yadu, Yavana, Avanti, Gandhāra and Kīra kings, bowing down respectfully with their diadems trembling, and for whom his own golden coronation jar was lifted up by the delighted elders of Pañcāla.</p>
-        <!-- -lakṣma: neuter form used as adverb.
+             <p n="10" rend="stanza">Desirous, as it were, of seeing collected together in one place such kings of old as Pr̥thu, Rāma, the descendant of Raghu, and Nala, the Creator in this Kali-age set up the glorious Dharmapāla, who has humbled the great conceit of all rulers, as a mighty post to which to fasten that elephant — the fickle goddess of fortune.</p>
+             <p n="11" rend="stanza">For those armies of his,- not seeing at once how large they are, because the ten regions are whitened by the dust of their van-guard, the great Indra, afraid of what might happen to the armies of Māndhātr̥, exhausts himself in conjectures,- for them even, thrilled as they are with eagerness to fight, there is no chance of rendering assistance to his arms, which <supplied reason="subaudible">alone</supplied> annihilate the whole host of his adversaries.</p>
+             <p n="12" rend="stanza">With a sign of his gracefully moved eye-brows he installed the illustrious king of Kanyākubja, who readily was accepted by the Bhoja, Matsya, Madra, Kuru, Yadu, Yavana, Avanti, Gandhāra and Kīra kings, bowing down respectfully with their diadems trembling, and for whom his own golden coronation jar was lifted up by the delighted elders of Pañcāla.</p>
+<!-- -lakṣma: neuter form used as adverb.
 Kanyakubja is capital of Pancala country: see wikipedia
   -->
-        <p n="13" rend="stanza">Hearing his praises sung by the cowherds on the borders, by the foresters in the forests, by the villagers on the outskirts of villages, by the playing groups of children in every courtyard, in every market by the guardians of the weights, and in pleasure-houses by the parrots in the cages, he always bashfully turns aside and bows down his face.</p>
-        <!-- "children at every crossroads"
+<p n="13" rend="stanza">Hearing his praises sung by the cowherds on the borders, by the foresters in the forests, by the villagers on the outskirts of villages, by the playing groups of children in every courtyard, in every market by the guardians of the weights, and in pleasure-houses by the parrots in the cages, he always bashfully turns aside and bows down his face.</p>
+<!-- "children at every crossroads"
 "by men on every market"
 Daniel: "my first intuition would be that the līlā-veśman is not a brothel but e.g. a garden gazebo or suchlike."
 Csaba D.: "līlāveśman is perhaps a synonym of līlāgāra / līlāgṛha / līlāgeha, and I would also think it is a pavilion or belvedere in a garden where all sorts of pleasurable activities can take place."
 -->
-        <p n="25-29">Now—from his royal camp of victory, pitched at Pāṭaliputra, where the manifold fleets of boats proceeding on the path of the Bhāgīrathī make it seem as if a series of mountain-tops had been sunk to build another causeway <supplied reason="subaudible">for Rāma's passage</supplied>; where, the brightness of daylight being darkened by densely packed arrays of rutting elephants, the rainy season <supplied reason="explanation">with its masses of black clouds</supplied> might be taken constantly to prevail; where the firmament is rendered grey by the dust, dug up by the hard hoofs of unlimited troops of horses presented by many kings of the north; and where the earth is bending beneath the weight of the innumerable foot-soldiers of all the kings of Jambūdvīpa, assembled to render homage to their supreme lord; - the devout worshipper of Sugata, the <foreign>parameśvara</foreign> <foreign>paramabhaṭṭāraka</foreign> <foreign>mahārājādhirāja</foreign>, the glorious Dharmapāladeva, who meditates on the feet of the <foreign>mahārājādhirāja</foreign>, the glorious Gopāladeva, being in good health,-</p>
-        <p n="30-42">In the Mahantāprakāśa district <supplied reason="explanation">
-            <foreign>viṣaya</foreign>
-          </supplied>, which belongs to the Vyāghrataṭī <foreign>maṇḍala</foreign> within the prosperous Puṇḍravardhana <foreign>bhukti</foreign>, is the village named Krauñcaśvabhra. Its boundary on the west is Gaṅginikā; on the north it is the small temple of Kādambarī and a date tree; on the north-east the dike made by the <foreign>rājaputra</foreign> Devaṭa; <seg cert="low">it goes to and enters a citron grove</seg>; on the east it is the dike of Viṭaka, <gap reason="ellipsis"/><supplied reason="explanation">Here need to reproduce the text not translated</supplied>. Also the village named Māḍhāśāmmalī. On the north its boundary is Gaṅginikā; from there, on the east, <gap reason="ellipsis"/><supplied reason="explanation">Here need to reproduce the text not translated</supplied>; from there again, on the south, it is Kālikāśvabhra, proceeding thence as far as <gap reason="ellipsis"/><supplied reason="explanation">Here need to reproduce the text not translated</supplied>; on the west, from there again, <gap reason="ellipsis"/><supplied reason="explanation">Here need to reproduce the text not translated</supplied> it enters Gaṅginikā. At Pālitaka the boundary on the south is the small island of Kāṇā; on the east the river Koṇṭhiyā; on the north Gaṅginikā; on the west Jenandāyikā. On the island <seg cert="low">the funeral rites of this village are performed</seg>. Of the village. of Gopippalī, which is within the Āmraṣaṇḍikā <foreign>maṇḍala</foreign> belonging to the Sthālīkkaṭa district <supplied reason="explanation">
-            <foreign>viṣaya</foreign>
-          </supplied>, the boundaries are, on the east the western
-boundary of the Udragrāma <foreign>maṇḍala</foreign>, on the south a <seg cert="low">
-            <foreign>jolaka</foreign>
-          </seg>, on the west the <seg cert="low">
-            <foreign>khāṭikā</foreign>
-          </seg> named Vesanikā, on the north the cattle-path running on the borders of the Udragrāma <foreign>maṇḍala</foreign>.</p>
-        <p n="43-47">To all the people assembled at these four villages, the <foreign>rājan</foreign>s, <foreign>rājanaka</foreign>s, <foreign>rājaputra</foreign>s, <foreign>rājāmātya</foreign>s, <foreign>senāpati</foreign>s, <foreign>viṣayapati</foreign>s, <foreign>bhogapati</foreign>s, <foreign>ṣaṣṭhādhikr̥ta</foreign>s, <foreign>daṇḍaśakti</foreign>s, <foreign>dāṇḍapāśika</foreign>s, <foreign>cauroddharaṇika</foreign>s, <foreign>dauḥsādhasādhanika</foreign>s, <foreign>dūta</foreign>s, <foreign>khola</foreign>s, <foreign>gamāgamika</foreign>s, <foreign>abhitvaramāṇa</foreign>s, inspectors of elephants, horses, cows, buffalo-cows, goats and sheep, inspectors of boats, inspectors of the forces, <foreign>tarika</foreign>s, <foreign>śaulkika</foreign>s, <foreign>gaulmika</foreign>s, <foreign>tadāyuktaka</foreign>s, <foreign>viniyuktaka</foreign>s and other dependants of the king's feet, and to the others not specially named, to those belonging to the irregular and regular troops as they may be present from time to time, to the <foreign>jyeṣṭhakāyastha</foreign>s, <foreign>mahāmahattara</foreign>s, <foreign>mahattara</foreign>s, <foreign>daśagrāmika</foreign>s and other district officers, including the <foreign>karaṇa</foreign>s, and to the resident cultivators,- to all these, especially honouring the Brāhmaṇas,he pays due respect, makes known, and issues these commands : -</p>
-        <p n="48-49">Be it known to you that the <foreign>mahāsamantādhipati</foreign>, the illustrious Nārāyaṇavarman, by the mouth of the <foreign>dūtaka</foreign>, the <foreign>yuvarāja</foreign> Tribhuvanapāla, has preferred to us the following request:</p>
-        <p n="49-55">For the increase of our parents' and our own merit we have had a temple built at Śubhasthalī. To the holy lord N<supplied reason="subaudible">u</supplied>nna-Nārāyana who has been installed there <supplied reason="subaudible">by us</supplied>, and to the Lāṭa Brāhmaṇas, priests and other attendants who wait upon him, may it please your Majesty to grant four villages, with their <foreign>haṭṭikā</foreign> and <foreign>talapāṭaka</foreign>, for the performance of worship and other rites." Thereupon, at his request, we accordingly have assigned the above-written four villages, together with the <foreign>talapāṭaka</foreign> and <foreign>haṭṭikā</foreign>, up to their proper boundaries, with all their localities, with <supplied reason="subaudible">the fines for</supplied> the ten offences, not in any way to be interfered with, exempt from all molestation, in accordance with the maxim of <foreign>bhumicchidra</foreign>, for as long as the moon, the snn and the earth endure. Wherefore all of you, out of respect for the merit resulting from a gift of land, and afraid of falling into the great hell and of other evils consequent on the resumption of it, should applaud and preserve this gift. And the resident cultivators, being ready to obey our commands, should make over <supplied reason="subaudible">to the donees</supplied> the customary taxes, means of snbsistence, and all other kinds of revenue.</p>
-        <p n="56">
-          <supplied reason="explanation">Here follow five benedictive and imprecatory verses.</supplied>
-        </p>
-        <p n="60">In the increasing reign of victory, the year 32, 12 days of Mārga.</p>
-        <p n="62">This was engraved by the skilful Tātaṭa, the son of the worthy Subhaṭa and son's son of the worthy Bhogaṭa.</p>
-      </div>
-      <div type="commentary"><!--
+             <p n="25-29">Now—from his royal camp of victory, pitched at Pāṭaliputra, where the manifold fleets of boats proceeding on the path of the Bhāgīrathī make it seem as if a series of mountain-tops had been sunk to build another causeway <supplied reason="subaudible">for Rāma's passage</supplied>; where, the brightness of daylight being darkened by densely packed arrays of rutting elephants, the rainy season <supplied reason="explanation">with its masses of black clouds</supplied> might be taken constantly to prevail; where the firmament is rendered grey by the dust, dug up by the hard hoofs of unlimited troops of horses presented by many kings of the north; and where the earth is bending beneath the weight of the innumerable foot-soldiers of all the kings of Jambūdvīpa, assembled to render homage to their supreme lord; - the devout worshipper of Sugata, the <foreign>parameśvara</foreign> <foreign>paramabhaṭṭāraka</foreign> <foreign>mahārājādhirāja</foreign>, the glorious Dharmapāladeva, who meditates on the feet of the <foreign>mahārājādhirāja</foreign>, the glorious Gopāladeva, being in good health,-</p>
+             <p n="30-42">In the Mahantāprakāśa district <supplied reason="explanation"><foreign>viṣaya</foreign></supplied>, which belongs to the Vyāghrataṭī <foreign>maṇḍala</foreign> within the prosperous Puṇḍravardhana <foreign>bhukti</foreign>, is the village named Krauñcaśvabhra. Its boundary on the west is Gaṅginikā; on the north it is the small temple of Kādambarī and a date tree; on the north-east the dike made by the <foreign>rājaputra</foreign> Devaṭa; <seg cert="low">it goes to and enters a citron grove</seg>; on the east it is the dike of Viṭaka, <gap reason="ellipsis"/><supplied reason="explanation">Here need to reproduce the text not translated</supplied>. Also the village named Māḍhāśāmmalī. On the north its boundary is Gaṅginikā; from there, on the east, <gap reason="ellipsis"/><supplied reason="explanation">Here need to reproduce the text not translated</supplied>; from there again, on the south, it is Kālikāśvabhra, proceeding thence as far as <gap reason="ellipsis"/><supplied reason="explanation">Here need to reproduce the text not translated</supplied>; on the west, from there again, <gap reason="ellipsis"/><supplied reason="explanation">Here need to reproduce the text not translated</supplied> it enters Gaṅginikā. At Pālitaka the boundary on the south is the small island of Kāṇā; on the east the river Koṇṭhiyā; on the north Gaṅginikā; on the west Jenandāyikā. On the island <seg cert="low">the funeral rites of this village are performed</seg>. Of the village. of Gopippalī, which is within the Āmraṣaṇḍikā <foreign>maṇḍala</foreign> belonging to the Sthālīkkaṭa district <supplied reason="explanation"><foreign>viṣaya</foreign></supplied>, the boundaries are, on the east the western
+boundary of the Udragrāma <foreign>maṇḍala</foreign>, on the south a <seg cert="low"><foreign>jolaka</foreign></seg>, on the west the <seg cert="low"><foreign>khāṭikā</foreign></seg> named Vesanikā, on the north the cattle-path running on the borders of the Udragrāma <foreign>maṇḍala</foreign>.</p>
+             <p n="43-47">To all the people assembled at these four villages, the <foreign>rājan</foreign>s, <foreign>rājanaka</foreign>s, <foreign>rājaputra</foreign>s, <foreign>rājāmātya</foreign>s, <foreign>senāpati</foreign>s, <foreign>viṣayapati</foreign>s, <foreign>bhogapati</foreign>s, <foreign>ṣaṣṭhādhikr̥ta</foreign>s, <foreign>daṇḍaśakti</foreign>s, <foreign>dāṇḍapāśika</foreign>s, <foreign>cauroddharaṇika</foreign>s, <foreign>dauḥsādhasādhanika</foreign>s, <foreign>dūta</foreign>s, <foreign>khola</foreign>s, <foreign>gamāgamika</foreign>s, <foreign>abhitvaramāṇa</foreign>s, inspectors of elephants, horses, cows, buffalo-cows, goats and sheep, inspectors of boats, inspectors of the forces, <foreign>tarika</foreign>s, <foreign>śaulkika</foreign>s, <foreign>gaulmika</foreign>s, <foreign>tadāyuktaka</foreign>s, <foreign>viniyuktaka</foreign>s and other dependants of the king's feet, and to the others not specially named, to those belonging to the irregular and regular troops as they may be present from time to time, to the <foreign>jyeṣṭhakāyastha</foreign>s, <foreign>mahāmahattara</foreign>s, <foreign>mahattara</foreign>s, <foreign>daśagrāmika</foreign>s and other district officers, including the <foreign>karaṇa</foreign>s, and to the resident cultivators,- to all these, especially honouring the Brāhmaṇas,he pays due respect, makes known, and issues these commands : -</p>
+             <p n="48-49">Be it known to you that the <foreign>mahāsamantādhipati</foreign>, the illustrious Nārāyaṇavarman, by the mouth of the <foreign>dūtaka</foreign>, the <foreign>yuvarāja</foreign> Tribhuvanapāla, has preferred to us the following request:</p>
+             <p n="49-55">For the increase of our parents' and our own merit we have had a temple built at Śubhasthalī. To the holy lord N<supplied reason="subaudible">u</supplied>nna-Nārāyana who has been installed there <supplied reason="subaudible">by us</supplied>, and to the Lāṭa Brāhmaṇas, priests and other attendants who wait upon him, may it please your Majesty to grant four villages, with their <foreign>haṭṭikā</foreign> and <foreign>talapāṭaka</foreign>, for the performance of worship and other rites." Thereupon, at his request, we accordingly have assigned the above-written four villages, together with the <foreign>talapāṭaka</foreign> and <foreign>haṭṭikā</foreign>, up to their proper boundaries, with all their localities, with <supplied reason="subaudible">the fines for</supplied> the ten offences, not in any way to be interfered with, exempt from all molestation, in accordance with the maxim of <foreign>bhumicchidra</foreign>, for as long as the moon, the snn and the earth endure. Wherefore all of you, out of respect for the merit resulting from a gift of land, and afraid of falling into the great hell and of other evils consequent on the resumption of it, should applaud and preserve this gift. And the resident cultivators, being ready to obey our commands, should make over <supplied reason="subaudible">to the donees</supplied> the customary taxes, means of snbsistence, and all other kinds of revenue.</p>
+             <p n="56"><supplied reason="explanation">Here follow five benedictive and imprecatory verses.</supplied></p>
+             <p n="60">In the increasing reign of victory, the year 32, 12 days of Mārga.</p>
+             <p n="62">This was engraved by the skilful Tātaṭa, the son of the worthy Subhaṭa and son's son of the worthy Bhogaṭa.</p>
+         </div>
+         <div type="commentary">
+            <!--
             amwb : I reported here the remark on sandhi line 4  (*iḥ + śa => iś śa) and reproduced Arlo's comment because it could be useful for the description of the plate (argr: I don't think it is infrequent in those spelling tradition where the use of visarga is limited to sentence-final position. I think spelling norms were not so fixed in early medieval Bengal, but in Cambodia, for instance, spelling -ś ś- is the clear norm.)
             amwb : line 15 : two allographs to note the anusvāra see argr's remarks
             amwb: line 28 : according to argr, it is necessary to reproduce what Kielhorn said about the final consonants in this plate
-            --></div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
-        <listBibl type="primary">
-          <bibl n="B">
-            <ptr target="bib:Batavyal1894_01"/>
-          </bibl>
-          <bibl n="K">
-            <ptr target="bib:Kielhorn1896-1897_03"/>
-          </bibl>
-          <bibl n="S">
-            <ptr target="bib:Sircar1983_01"/>
-            <citedRange unit="page">63-70</citedRange>
-            <citedRange unit="book">1</citedRange>
-            <citedRange unit="entry">15</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
-        </listBibl>
-      </div>
-    </body>
+            -->
+         </div>
+        <div type="bibliography">
+	<!--bibliography encoded as per section §9.4 -->
+           <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
+        	<listBibl type="primary">
+	  <bibl n="B"><ptr target="bib:Batavyal1894_01"/></bibl>
+	  <bibl n="K"><ptr target="bib:Kielhorn1896-1897_03"/></bibl>
+	  <bibl n="S"><ptr target="bib:Sircar1983_01"/><citedRange unit="page">63-70</citedRange><citedRange unit="book">1</citedRange><citedRange unit="entry">15</citedRange></bibl>
+	</listBibl>
+           <listBibl type="secondary">
+              <bibl/><!-- one <bibl/> per item of secondary bibliography -->
+           </listBibl>
+        </div>
+      </body>
   </text>
 </TEI>

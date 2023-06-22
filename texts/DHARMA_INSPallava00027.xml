@@ -4,174 +4,201 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Maṇṭakapaṭṭu, time of Mahendravarman I</title>
-        <respStmt>
-          <resp>EpiDoc encoding</resp>
-          <persName ref="part:emfr">
-            <forename>Emmanuel</forename>
-            <surname>Francis</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:emfr">
-            <forename>Emmanuel</forename>
-            <surname>Francis</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Paris, CEIAS</pubPlace>
-        <idno type="filename">DHARMA_INSPallava00027</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Maṇṭakapaṭṭu, time of Mahendravarman I</title>
+            <respStmt>
+               <resp>EpiDoc encoding</resp>
+               <persName ref="part:emfr">
+                  <forename>Emmanuel</forename>
+                  <surname>Francis</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName ref="part:emfr">
+                  <forename>Emmanuel</forename>
+                  <surname>Francis</surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Paris, CEIAS</pubPlace>
+            <idno type="filename">DHARMA_INSPallava00027</idno>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
 							Licence. To view a copy of the licence, visit
 							https://creativecommons.org/licenses/by/4.0/ or send a letter to
 							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
 							California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <msDesc>
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-          </msIdentifier>
-          <msContents>
-            <summary>A Sanskrit verse recording the foundation of a cave-temple by
+                  <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+               </msIdentifier>
+               <msContents>
+                  <summary>A Sanskrit verse recording the foundation of a cave-temple by
 							Vicitracitta (Mahendravarman I Pallava) around 600/625 CE.</summary>
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p/>
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p/>
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
                         under the European Union's Horizon 2020 research and innovation programme (grant
                         agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
                             ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
                             <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-06-26" who="part:emfr">Creation of the file</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="san-Latn">
-        <lg met="gīti" n="1">
-          <!--Check EGD-->
-          <l n="ab" real="+--+--+---+---+-+-++-">
-         			<lb n="1"/>etad aniṣṭakam adruma<unclear>m</unclear> alo<lb break="no" n="2"/>ham asudhaṃ <unclear>v</unclear>i<unclear>citra</unclear>cittena
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:emfr" when="2020-06-26" status="draft">Creation of the file</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+      <body>
+
+         <div type="edition" xml:lang="san-Latn">
+
+         	<lg n="1" met="gīti"><!--Check EGD-->
+
+         		<l n="ab" real="+--+--+---+---+-+-++-">
+         			<lb n="1"/>etad aniṣṭakam adruma<unclear>m</unclear> alo<lb n="2" break="no"/>ham asudhaṃ <unclear>v</unclear>i<unclear>citra</unclear>cittena
          		</l>
-          <l n="cd" real="++-+-++++--+-+-+--+">
-         			<lb n="3"/>nirmmāpitan nṛpe<unclear>ṇa</unclear> brahme<lb break="no" n="4"/>śvara-viṣṇu-lakṣitāyatanaM
+         		<l n="cd" real="++-+-++++--+-+-+--+">
+         			<lb n="3"/>nirmmāpitan nṛpe<unclear>ṇa</unclear> brahme<lb n="4" break="no"/>śvara-viṣṇu-lakṣitāyatanaM
          		</l>
-        </lg>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1">
-            <lem>alo<lb break="no" n="2"/>ham</lem>
-            <rdg source="bib:GopinathaRao1923-1924_01"><unclear>alo</unclear><lb break="no" n="2"/>ham</rdg>
-          </app>
-          <app loc="2">
-            <lem><unclear>v</unclear>i<unclear>citra</unclear>cittena</lem>
-            <rdg source="bib:GopinathaRao1923-1924_01"><unclear>vicitraci</unclear>ttena</rdg>
-          </app>
-          <app loc="4">
-            <lem>°lakṣitāyatanaM</lem>
-            <rdg source="bib:GopinathaRao1923-1924_01">°la<unclear>kṣi</unclear>tāyatanaM</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:emfr" type="translation"><!--TO BE ADDED--></div>
-      <div resp="part:sybr part:emfr" type="translation" xml:lang="fra">
-        <p n="1" rend="stanza">
-          <l>Sans briques, sans bois,</l>
-          <l>Sans métal, sans mortier, le roi Vicitracitta,</l>
-          <l>Fit construire ce temple,</l>
-          <l>Qui porte les marques de Brahmā, Īśvara et Viṣṇu.</l>
-        </p>
-      </div>
-      <div type="commentary"><!--Update!--></div>
-      <div type="bibliography">
-        <p>
-First edited and translated by <bibl>
-            <ptr target="bib:GopinathaRao1923-1924_01"/>
-          </bibl>, with a poor facsimile (EI 17, no. 5); text and summary in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP no. 27); text and translation in <bibl>
-            <ptr target="bib:Filliozat1984_01"/>
-          </bibl> and in <bibl>
-            <ptr target="bib:Brocquet1997_01"/>
-          </bibl> (B no. 22); re-edited here for DHARMA (ERC n° 809994) by Sylvain Brocquet &amp; Emmanuel Francis (2020), based on autopsy and photographs (2008, 2009).
+
+            </lg>
+
+         </div>
+
+<div type="apparatus">
+
+	<listApp>
+
+		<app loc="1">
+			<lem>alo<lb n="2" break="no"/>ham</lem>
+			<rdg source="bib:GopinathaRao1923-1924_01"><unclear>alo</unclear><lb n="2" break="no"/>ham</rdg>
+		</app>
+
+		<app loc="2">
+			<lem><unclear>v</unclear>i<unclear>citra</unclear>cittena</lem>
+			<rdg source="bib:GopinathaRao1923-1924_01"><unclear>vicitraci</unclear>ttena</rdg>
+		</app>
+
+		<app loc="4">
+			<lem>°lakṣitāyatanaM</lem>
+			<rdg source="bib:GopinathaRao1923-1924_01">°la<unclear>kṣi</unclear>tāyatanaM</rdg>
+		</app>
+
+	</listApp>
+
+</div>
+
+      	<div type="translation" resp="part:emfr">
+      		<!--TO BE ADDED-->
+      	</div>
+
+      	<div type="translation" xml:lang="fra" resp="part:sybr part:emfr">
+
+      		<p rend="stanza" n="1">
+      			<l>Sans briques, sans bois,</l>
+      			<l>Sans métal, sans mortier, le roi Vicitracitta,</l>
+      			<l>Fit construire ce temple,</l>
+      			<l>Qui porte les marques de Brahmā, Īśvara et Viṣṇu.</l>
+      		</p>
+
+      	</div>
+
+      	<div type="commentary"><!--Update!-->
+
+      	</div>
+
+      	<div type="bibliography">
+
+            <p>
+First edited and translated by <bibl><ptr target="bib:GopinathaRao1923-1924_01"/></bibl>, with a poor facsimile (EI 17, no. 5); text and summary in <bibl><ptr target="bib:Mahalingam1988_01"/></bibl> (IP no. 27); text and translation in <bibl><ptr target="bib:Filliozat1984_01"/></bibl> and in <bibl><ptr target="bib:Brocquet1997_01"/></bibl> (B no. 22); re-edited here for DHARMA (ERC n° 809994) by Sylvain Brocquet &amp; Emmanuel Francis (2020), based on autopsy and photographs (2008, 2009).
             </p>
-        <listBibl type="primary">
-          <bibl n="TVGR">
-            <ptr target="bib:GopinathaRao1923-1924_01"/>
-          </bibl>
-          <bibl n="PSF">
-            <ptr target="bib:Filliozat1984_01"/>
-            <citedRange unit="page">102-104</citedRange>
-          </bibl>
-          <bibl n="TVM">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="page">117</citedRange>
-            <citedRange unit="item">27</citedRange>
-          </bibl>
-          <bibl n="SB">
-            <ptr target="bib:Brocquet1997_01"/>
-            <citedRange unit="page">476-477</citedRange>
-            <citedRange unit="item">22</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="ARIE 1904-1905">
-            <ptr target="bib:ARIE1904-1905"/>
-            <citedRange unit="page">33, 39</citedRange>
-            <citedRange unit="appendix">B/1905</citedRange>
-            <citedRange unit="item">56</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Srinivasan1964_01"/>
-            <citedRange unit="page">47</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Francis2013_01"/>
-            <citedRange unit="page">272</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Francis2017_01"/>
-            <citedRange unit="page">511</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
+
+      		<listBibl type="primary">
+
+      			<bibl n="TVGR">
+      				<ptr target="bib:GopinathaRao1923-1924_01"/>
+      			</bibl>
+      			<bibl n="PSF">
+      				<ptr target="bib:Filliozat1984_01"/>
+      				<citedRange unit="page">102-104</citedRange>
+      			</bibl>
+      			<bibl n="TVM">
+      				<ptr target="bib:Mahalingam1988_01"/>
+      				<citedRange unit="page">117</citedRange>
+      				<citedRange unit="item">27</citedRange>
+      			</bibl>
+      			<bibl n="SB">
+      				<ptr target="bib:Brocquet1997_01"/>
+      				<citedRange unit="page">476-477</citedRange>
+      				<citedRange unit="item">22</citedRange>
+      			</bibl>
+
+      		</listBibl>
+
+      		<listBibl type="secondary">
+
+      			<bibl n="ARIE 1904-1905">
+      				<ptr target="bib:ARIE1904-1905"/>
+      				<citedRange unit="page">33, 39</citedRange>
+      				<citedRange unit="appendix">B/1905</citedRange>
+      				<citedRange unit="item">56</citedRange>
+      			</bibl>
+      			<bibl>
+      				<ptr target="bib:Srinivasan1964_01"/>
+      				<citedRange unit="page">47</citedRange>
+      			</bibl>
+      			<bibl>
+      				<ptr target="bib:Francis2013_01"/>
+      				<citedRange unit="page">272</citedRange>
+      			</bibl>
+      			<bibl>
+      				<ptr target="bib:Francis2017_01"/>
+      				<citedRange unit="page">511</citedRange>
+      			</bibl>
+      		</listBibl>
+
+      	</div>
+
+      </body>
   </text>
 </TEI>

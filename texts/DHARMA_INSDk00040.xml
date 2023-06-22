@@ -4,579 +4,294 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Sirpur Plates of Śivagupta, Year 48</title>
-        <respStmt>
-          <resp>EpiDoc Encoding</resp>
-          <persName ref="part:nabo">
-            <forename>Natasja</forename>
-            <surname>Bosma</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:nabo">
-            <forename>Natasja</forename>
-            <surname>Bosma</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Berlin</pubPlace>
-        <idno type="filename">DHARMA_INSDk00040</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Sirpur Plates of Śivagupta, Year 48</title>
+                <respStmt>
+                    <resp>EpiDoc Encoding</resp>
+                    <persName ref="part:nabo">
+                        <forename>Natasja</forename>
+                        <surname>Bosma</surname>
+                    </persName>
+                </respStmt>
+                <respStmt>
+                    <resp>intellectual authorship of edition</resp>
+                    <persName ref="part:nabo">
+                        <forename>Natasja</forename>
+                        <surname>Bosma</surname>
+                    </persName>
+                </respStmt>
+            </titleStmt>
+            <publicationStmt>
+                <authority>DHARMA</authority>
+                <pubPlace>Berlin</pubPlace>
+                <idno type="filename">DHARMA_INSDk00040</idno>
+                <availability>
+                    <licence target="https://creativecommons.org/licenses/by/4.0/">
+                        <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
                             Licence. To view a copy of the licence, visit
                             https://creativecommons.org/licenses/by/4.0/ or send a letter to
                             Creative Commons, 444 Castro Street, Suite 900, Mountain View,
                             California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Natasja Bosma.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <!-- not to be filled in at this stage -->
-        <msDesc>
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-          </msIdentifier>
-          <msContents>
-            <summary/>
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p/>
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        <p>Copyright (c) 2019-2025 by Natasja Bosma.</p>
+                    </licence>
+                </availability>
+                <date from="2019" to="2025">2019-2025</date>
+            </publicationStmt>
+            <sourceDesc><!-- not to be filled in at this stage -->
+                <msDesc>
+                    <msIdentifier>
+                        <repository>DHARMAbase</repository>
+                        <idno/>
+                    </msIdentifier>
+                    <msContents>
+                        <summary/>
+                    </msContents>
+                    <physDesc>
+                        <handDesc>
+                            <p/>
+                        </handDesc>
+                    </physDesc>
+                </msDesc>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <projectDesc>
+                <p>The project DHARMA has received funding from the European Research Council (ERC)
                     under the European Union's Horizon 2020 research and innovation programme (grant
                     agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+            </projectDesc>
+            <schemaRef type="guide"
+                key="EGDv01"
+                url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+            <listPrefixDef>
+                <prefixDef ident="bib"
+                    matchPattern="([a-zA-Z0-9\-\_]+)"
+                    replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+                    <p>Public URIs with the prefix bib to point to a Zotero Group Library named
                         ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+                </prefixDef>
+                <prefixDef ident="part"
+                    matchPattern="([a-z]+)"
+                    replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+                    <p>Internal URIs using the part prefix to point to person elements in the
                         <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2020-08-11" who="part:nabo">Adding translation</change>
-      <change status="draft" when="2020-08-04" who="part:nabo">Adding text and translation</change>
-      <change status="draft" when="2020-07-13" who="part:nabo">Initial encoding of the file</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="san-Latn">
-        <div n="A" type="textpart">
-          <head xml:lang="eng">Seal</head>
-          <lg met="anuṣṭubh" n="1">
-            <l n="ab">rājña<supplied reason="omitted">ḥ</supplied> śrīharṣaguptasya sūno<supplied reason="omitted">ḥ</supplied> sadguṇaśālina<supplied reason="omitted">ḥ</supplied></l>
-            <l n="cd">śāsanaṁ śivaguptasya sthitam ā bhuvanasthite<supplied reason="omitted">ḥ</supplied></l>
-          </lg>
-        </div>
-        <div n="B" type="textpart">
-          <head xml:lang="eng">Plates</head>
-          <pb n="1r"/>
-          <p><pb n="1v"/><lb n="1v1"/><g subtype="spiralR" type="symbol"/> svasty aśeṣakṣit<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>śavidyābhyāsaviśeṣāsāditamahanīyavina<lb break="no" n="1v2"/>yasampatsampāditasakalaviji<sic>g</sic>īṣuguṇo guṇavatsamāśraya<supplied reason="omitted">ḥ</supplied> pra<lb break="no" n="1v3"/>kṛṣṭataraśauryyaprajñāprabhāvasambhāvitamahābhyudaya<supplied reason="omitted">ḥ</supplied> kārttikeya Iva<lb n="1v4"/>kṛt<supplied reason="omitted">t</supplied>ivāsa<space type="binding-hole"/><choice>
-              <orig>ś</orig>
-              <reg>s</reg>
-            </choice>o rājñaḥ śr<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>harṣadevasya <choice>
-              <orig>ś</orig>
-              <reg>s</reg>
-            </choice><choice>
-              <sic>u</sic>
-              <corr>ū</corr>
-            </choice>nu<supplied reason="omitted">ḥ</supplied> somava<choice>
-              <orig>ṅ</orig>
-              <reg>ṁ</reg>
-            </choice>śasambhava<choice>
-              <orig>t</orig>
-              <reg>ḥ</reg>
-            </choice> paramamā<lb break="no" n="1v5"/>heśvaro mātāpitṛpādānudhyātaḥ śr<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>mahāśivaguptarāja<supplied reason="omitted">ḥ</supplied> kuśal<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice><g type="ddandaHooked"/><lb n="1v6"/>cullāṭasīmābhogīyabh<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>ṇḍāgārāśvatthakapratibaddhadevapadrūllake<g type="dandaPlain"/> br<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice><lb break="no" n="1v7"/>hmaṇā<supplied reason="omitted">ṁ</supplied> samp<choice>
-              <sic>u</sic>
-              <corr>ū</corr>
-            </choice>jya tatpratinivāsinaś ca sapradhānān anyān api<pb n="2r"/><lb n="2r1"/>samāhartṛsannidhātṛprabhṛt<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>n asmatpādopaj<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>vinaḥ sar<choice>
-              <orig>bv</orig>
-              <reg>vv</reg>
-            </choice>arājapuru<lb break="no" n="2r2"/>ṣā<choice>
-              <orig>t</orig>
-              <reg>n</reg>
-            </choice> samājñāpayati<g type="dandaPlain"/></p>
-          <p>viditam astu bhavatā<choice>
-              <orig>ḥ</orig>
-              <reg>ṁ</reg>
-            </choice> yathāsmābhiḥ sampraty a<supplied reason="omitted">yaṁ</supplied> grāmaḥ<lb n="2r3"/>san<choice>
-              <sic>a</sic>
-              <corr>i</corr>
-            </choice>dhiḥ sopanidhiḥ sar<choice>
-              <orig>bv</orig>
-              <reg>vv</reg>
-            </choice>akarādānasametaḥ sar<choice>
-              <orig>bv</orig>
-              <reg>vv</reg>
-            </choice>ap<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>ḍāvivarjjitaḥ sadaśā<lb break="no" n="2r4"/>parādhaḥ pra<space type="binding-hole"/>tiṣiddhacāṭabhaṭapraveśaḥ śr<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>puratalapratiṣṭh<choice>
-              <sic>a</sic>
-              <corr>i</corr>
-            </choice>taśr<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>bāle<lb break="no" n="2r5"/>śvarabhaṭṭārakama<choice>
-              <orig>ṭ</orig>
-              <reg>ṭh</reg>
-            </choice>ikāttaḥpātipratyāyanaśr<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>madamaradev<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>kāritāma<lb break="no" n="2r6"/>reśvarāyatanadevabhaṭṭārakapratiṣṭhāyāṁ nandapur<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>yaśr<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>madaghoraśivā<lb break="no" n="2r7"/>paranāmad<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>rghācāryyapraśiṣyebhyaḥ śr<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice><choice>
-              <orig>b</orig>
-              <reg>v</reg>
-            </choice>yāpaśivācāryyaśiṣyebhyo <supplied reason="omitted">a</supplied>straśi<pb break="no" n="2v"/><lb break="no" n="2v1"/>vabhagavatpādebhyo gurupujāyāṁ śiṣyapraśiṣyāṇāṁ yāga<choice>
-              <orig>daśattra</orig>
-              <reg>dīkṣāvyākhyānasattra</reg>
-            </choice>catu<lb break="no" n="2v2"/>ṣṭa<choice>
-              <orig>v</orig>
-              <reg>y</reg>
-            </choice>apravarttanāyāsyā eva vijñaptyāmarade<choice>
-              <orig>b</orig>
-              <reg>v</reg>
-            </choice>yā mātāpitror ātmanaś ca pu<lb break="no" n="2v3"/>ṇyābhi<choice>
-              <orig>b</orig>
-              <reg>v</reg>
-            </choice>ṛddhaye samakālopabhogārtha<surplus>ṁ</surplus>m udakapūr<choice>
-              <orig>bv</orig>
-              <reg>vv</reg>
-            </choice>aka<surplus>ṁ</surplus>m ācandratārak<surplus>k</surplus>ā<lb break="no" n="2v4"/>rkka<supplied reason="omitted">ṁ</supplied> tām<surplus>b</surplus>raśā<space type="binding-hole"/>sanena pratipādita Ity</p>
-          <p>avagamyāsya yathocita<supplied reason="omitted">ṁ</supplied> bho<lb break="no" n="2v5"/>gabhāgādikam upanayanto bhavantaḥ sukhaṁ prativasantu<g type="ddandaHooked"/> bhāvinaś ca bh<sic>ū</sic><lb break="no" n="2v6"/><supplied reason="omitted">mi</supplied>pālān uddiśyedam abh<choice>
-              <sic>ī</sic>
-              <corr>i</corr>
-            </choice>dh<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>yate<g type="dandaPlain"/></p>
-          <lg met="vasantatilakā" n="1">
-            <l n="a">bhūmipradā divi lalanti patanti <lb n="2v7"/>hanta</l>
-            <l n="b">hṛtvā mah<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice><supplied reason="omitted">ṁ</supplied> nṛpatayo narake nṛśa<choice>
-                <orig>t</orig>
-                <reg>ṁ</reg>
-              </choice>s<choice>
-                <sic>a</sic>
-                <corr>ā</corr>
-              </choice>T<g type="dandaPlain"/></l>
-            <l n="c">Etad <supplied reason="omitted">d</supplied>vaya<supplied reason="omitted">ṁ</supplied> parika<pb break="no" n="3v"/><lb break="no" n="3v1"/>layya calāñ ca lakṣm<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>m</l>
-            <l n="d">āyus tathā kuruta yad bhavatām abh<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>ṣṭa<supplied reason="omitted">ṁ</supplied><g type="dandaPlain"/></l>
-          </lg>
-          <ab>Api ca</ab>
-          <lg met="anuṣṭubh" n="2">
-            <l n="ab"><lb n="3r2"/>rakṣāpālanayos tāvat phalaṁ sugatidurggat<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice></l>
-            <l n="cd">ko nā<supplied reason="omitted">ma</supplied> svarggam u<choice>
-                <orig>cchri</orig>
-                <reg>tsṛ</reg>
-              </choice>jya nara<lb break="no" n="3r3"/>kaṁ pratipadyate<g type=" ddandaHooked"/></l>
-          </lg>
-          <p><choice>
-              <orig>b</orig>
-              <reg>v</reg>
-            </choice>yāsag<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>tā<supplied reason="omitted">ṁ</supplied>ś cātra ślokān udāharanti<g type="dandaPlain"/></p>
-          <lg met="indravajrā" n="3">
-            <l n="a">Agner apatya<supplied reason="omitted">ṁ</supplied> <lb n="3r4"/>prathama<supplied reason="omitted">ṁ</supplied> su<space type="binding-hole"/>varṇṇa<supplied reason="omitted">ṁ</supplied></l>
-            <l n="b">bhūr <choice>
-                <orig>bv</orig>
-                <reg>vv</reg>
-              </choice>aiṣṇav<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice> sūryyasutā<surplus>ṁ</surplus>ś ca gāvaḥ</l>
-            <l n="c">dattās trayas tena bha<lb break="no" n="3r5"/>vanti lokā</l>
-            <l n="d">yaḥ kāñcanaṁ gāñ ca mah<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>ñ ca dadyāT<g type="dandaPlain"/></l>
-          </lg>
-          <lg met="anuṣṭubh" n="4">
-            <l n="ab">ṣaṣṭivarṣasaha<choice>
-                <orig>ś</orig>
-                <reg>s</reg>
-              </choice>rāṇi <lb n="3r6"/>svargge modati bhūmidaḥ</l>
-            <l n="cd"><choice>
-                <sic>A</sic>
-                <corr>Ā</corr>
-              </choice>cchettā cānumantā ca tāny eva narake va<choice>
-                <orig>ś</orig>
-                <reg>s</reg>
-              </choice>eT<g type="dandaPlain"/></l>
-          </lg>
-          <lg met="anuṣṭubh" n="5">
-            <l n="ab"><lb n="3r7"/>bahubhir vvasudhā dattā rājabhiḥ sagarādibhiḥ</l>
-            <l n="cd">yasya yasya yadā bh<choice>
-                <sic>u</sic>
-                <corr>ū</corr>
-              </choice>mi<pb break="no" n="3v"/><lb break="no" n="3v1"/>s tasya tasya tadā phalaṁ</l>
-          </lg>
-          <lg met="anuṣṭubh" n="6">
-            <l n="ab">svadattā<supplied reason="omitted">ṁ</supplied> paradat<supplied reason="omitted">t</supplied><choice>
-                <sic>a</sic>
-                <corr>ā</corr>
-              </choice>m <choice>
-                <orig>b</orig>
-                <reg>v</reg>
-              </choice>ā yatnād rakṣa yudhiṣṭhira<surplus>ḥ</surplus></l>
-            <l n="cd"><lb n="3v2"/>mah<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice><supplied reason="omitted">ṁ</supplied> mah<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>bhṛtā<supplied reason="omitted">ṁ</supplied> śreṣṭha<surplus>ḥ</surplus> dānā<surplus>t</surplus>c chreyo 'nupālanaṁ<g type="ddandaHooked"/></l>
-          </lg>
-          <p>pravarddhamānavija<lb break="no" n="3v3"/>yarājye sam<choice>
-              <orig>b</orig>
-              <reg>v</reg>
-            </choice>atsare aṣ<choice>
-              <orig>ṭh</orig>
-              <reg>ṭ</reg>
-            </choice>acatv<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>ri<choice>
-              <orig>ṅ</orig>
-              <reg>ṁ</reg>
-            </choice>śe phalguṇadin<choice>
-              <sic>a</sic>
-              <corr>e</corr>
-            </choice> <num value="25"> 2 5</num> Aṅkenāpi sam<choice>
-              <orig>b</orig>
-              <reg>v</reg>
-            </choice>a<lb break="no" n="3v4"/>t<choice>
-              <orig>ch</orig>
-              <reg>s</reg>
-            </choice>aru <num value="48">4 8</num> Utk<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>rṇṇa<supplied reason="omitted">ṁ</supplied> tām<surplus>b</surplus>rapaṭ<supplied reason="omitted">ṭ</supplied><choice>
-              <sic>i</sic>
-              <corr>a</corr>
-            </choice>ka<supplied reason="omitted">ṁ</supplied> golāyyasya <choice>
-              <orig>ś</orig>
-              <reg>s</reg>
-            </choice><choice>
-              <sic>u</sic>
-              <corr>ū</corr>
-            </choice>nunā nāgadeveneti<g type="dandaPlain"/></p>
-        </div>
-      </div>
-      <div type="apparatus">
-        <div n="A" type="textpart">
-          <head xml:lang="eng">Seal</head>
-        </div>
-        <div n="B" type="textpart">
-          <head xml:lang="eng">Plates</head>
-          <app loc="1v1">
-            <lem>°kṣit<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>śa°</lem>
-            <rdg source="bib:Jain+al2005_01">°kṣit<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>ṣa°</rdg>
-          </app>
-          <app loc="1v1">
-            <lem>°mahanīya°</lem>
-            <rdg source="bib:Jain+al2005_01">°mahan<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>ya°</rdg>
-          </app>
-          <app loc="1v2">
-            <lem>°viji<sic>g</sic>īṣu°</lem>
-            <rdg source="bib:Jain+al2005_01">°viji<choice>
-                <orig>ś</orig>
-                <reg>g</reg>
-              </choice>īṣu°</rdg>
-            <note>The letter <foreign>ga</foreign> slightly deviates from its regular shape because of an additional horizontal stroke below the box-shaped head of the letter. Contrary to the horizontal stroke of the letter <foreign>śa</foreign>, which is positioned in the middle of the character, this stroke is inscribed immediately below the box. Therefore, it is more likely that the stroke was added by mistake.</note>
-          </app>
-          <app loc="1v4">
-            <lem>śr<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>°</lem>
-            <rdg source="bib:Jain+al2005_01">śrī°</rdg>
-          </app>
-          <app loc="1v4">
-            <lem>somava<choice>
-                <orig>ṅ</orig>
-                <reg>ṁ</reg>
-              </choice>śa°</lem>
-            <rdg source="bib:Jain+al2005_01">somavaṅsa°</rdg>
-          </app>
-          <app loc="1v5">
-            <lem>śr<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>°</lem>
-            <rdg source="bib:Jain+al2005_01">śrī°</rdg>
-          </app>
-          <app loc="1v6">
-            <lem>cullāṭa°</lem>
-            <rdg source="bib:Jain+al2005_01">callāṭa°</rdg>
-          </app>
-          <app loc="2r4">
-            <lem>śr<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>°</lem>
-            <rdg source="bib:Jain+al2005_01">śrī°</rdg>
-          </app>
-          <app loc="2r4">
-            <lem>°śr<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>°</lem>
-            <rdg source="bib:Jain+al2005_01">°śrī°</rdg>
-          </app>
-          <app loc="2r5">
-            <lem>°śr<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>°</lem>
-            <rdg source="bib:Jain+al2005_01">°śrī°</rdg>
-          </app>
-          <app loc="2r6">
-            <lem>°śr<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>°</lem>
-            <rdg source="bib:Jain+al2005_01">°śrī°</rdg>
-          </app>
-          <app loc="2r7">
-            <lem>śr<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>°</lem>
-            <rdg source="bib:Jain+al2005_01">śrī°</rdg>
-          </app>
-          <app loc="2r7">
-            <lem><supplied reason="omitted">a</supplied>stra°</lem>
-            <rdg source="bib:Jain+al2005_01">ratra°</rdg>
-          </app>
-          <app loc="2v2">
-            <lem>yāga<choice>
-                <orig>daśattra</orig>
-                <reg>dīkṣāvyākhyānasattra</reg>
-              </choice>catu<lb break="no" n="2v2"/>ṣṭa<choice>
-                <orig>v</orig>
-                <reg>y</reg>
-              </choice>apravarttanāyāsyā</lem>
-            <note>The word <foreign>catuṣṭaya</foreign> denotes a set of four and <foreign>sattra</foreign>, teaching, initiations and offering ceremonies are a common combination in records related to the Bāleśvara complex.</note>
-          </app>
-          <app loc="2v2">
-            <lem>vijñaptyā°</lem>
-            <rdg source="bib:Jain+al2005_01">vijñaptayā°</rdg>
-          </app>
-          <app loc="2v6">
-            <lem>uddiśyedam</lem>
-            <rdg source="bib:Jain+al2005_01">uddiṣyedam</rdg>
-          </app>
-          <app loc="2v6">
-            <lem>abh<choice>
-                <sic>ī</sic>
-                <corr>i</corr>
-              </choice>dh<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>yate</lem>
-            <rdg source="bib:Jain+al2005_01">abhidhiyate</rdg>
-          </app>
-          <app loc="2v7">
-            <lem>mah<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice><supplied reason="omitted">ṁ</supplied></lem>
-            <rdg source="bib:Jain+al2005_01">mahī</rdg>
-          </app>
-          <app loc="3r1">
-            <lem>lakṣm<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>m</lem>
-            <rdg source="bib:Jain+al2005_01">kṣmīm</rdg>
-          </app>
-          <app loc="3r3">
-            <lem>°<choice>
-                <orig>b</orig>
-                <reg>v</reg>
-              </choice>yāsag<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>tā<supplied reason="omitted">ṁ</supplied>ś</lem>
-            <rdg source="bib:Jain+al2005_01">°byāsagītāś</rdg>
-          </app>
-          <app loc="3r4">
-            <lem><choice>
-                <orig>bv</orig>
-                <reg>vv</reg>
-              </choice>aiṣṇav<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice></lem>
-            <rdg source="bib:Jain+al2005_01">bvaiṣṇavī</rdg>
-          </app>
-          <app loc="3r5">
-            <lem>mah<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>ñ</lem>
-            <rdg source="bib:Jain+al2005_01">mahīñ</rdg>
-          </app>
-          <app loc="3r7">
-            <lem>bh<choice>
-                <sic>u</sic>
-                <corr>ū</corr>
-              </choice>mi<pb break="no" n="3v"/><lb break="no" n="3v1"/>s</lem>
-            <rdg source="bib:Jain+al2005_01">bhūmi<pb break="no" n="3v"/><lb break="no" n="3v1"/>s</rdg>
-          </app>
-          <app loc="3v4">
-            <lem>Utk<choice>
-                <sic>i</sic>
-                <corr>ī</corr>
-              </choice>rṇṇa<supplied reason="omitted">ṁ</supplied></lem>
-            <rdg source="bib:Jain+al2005_01">Utkīrṇṇa</rdg>
-          </app>
-          <app loc="3v4">
-            <lem>°<g type="dandaPlain"/></lem>
-            <rdg source="bib:Jain+al2005_01">°<g type="ddandaPlain"/></rdg>
-          </app>
-        </div>
-      </div>
-      <div resp="part:nabo" type="translation">
-        <div n="A" type="textpart">
-          <head xml:lang="eng">Seal</head>
-          <p>The charter of Śivagupta, son of the illustrious king Harṣagupta, who is possessed of good qualities, endures as long as the existence of the world</p>
-        </div>
-        <div n="B" type="textpart">
-          <head xml:lang="eng">Plates</head>
-          <p n="1v1-2r2">Success! Hail! The illustrious and great king Śivagupta who has been born in the Lunar Dynasty as the son of a king, the illustrious Harṣadeva, like Kārttikeya is of Kṛttivāsas <supplied reason="explanation">i.e., Śiva</supplied>; who is entirely devoted to Maheśvara; who is favoured by his father and mother; and who is in good health: He has acquired all the qualities of a conqueror through the perfection of praiseworthy discipline, effected in particular by implementing all the "political sciences"; he is a refuge for the virtuous; and his great prosperity has been brought about by his superior valour, intelligence, and strength! After having saluted the Brahmins in the village of Devapadrūllaka attached to Bhaṇḍāgāra-Aśvatthaka in the Cullāṭasīmā <foreign>bhoga</foreign>, <supplied reason="subaudible">the king</supplied> issues <supplied reason="subaudible">the following command</supplied> to all royal officers who are dedicated to our service, beginning with the collector and the receiver; and to the other inhabitants of that <supplied reason="subaudible">village</supplied> with their headman:</p>
-          <p n="2r2-2v4">Let it be known to you that by means of <supplied reason="subaudible">this</supplied> copperplate charter and preceded by a libation of water, this village has been granted by us today for the increase of religious merit of father, mother, and ourselves, to the venerable Astraśiva, pupil of the venerable <foreign>ācārya</foreign> Vyāpaśiva and grand-pupil of the venerable <foreign>ācārya</foreign> Dīrgha of Nandapura, whose other name is Aghoraśiva. <supplied reason="subaudible">The grant of the village</supplied> was in honour of the teacher <supplied reason="subaudible">and took place</supplied> on the occasion of the installation of the <foreign>devabhaṭṭāraka</foreign> in the Amareśvara temple, which was erected by the illustrious <supplied reason="subaudible">queen</supplied> Amaradevī in the <foreign>maṭhikā</foreign> of the illustrious Bāleśvara-bhaṭṭāraka temple, the latter being established in the plains of Śrīpura. <supplied reason="subaudible">The grant</supplied>), which is meant to be enjoyed as long as the moon, the stars, and the sun will endure, was issued at the request of Amaradevī for the purpose of <supplied reason="subaudible">financing</supplied> a <foreign>sattra</foreign>, teaching, initiations and offering ceremonies for the pupils and grand-pupils <supplied reason="subaudible">and</supplied> comes along with <supplied reason="subaudible">the right to</supplied> hidden treasures and deposits; <supplied reason="subaudible">the right to collect</supplied> all taxes <supplied reason="subaudible">payable to the king</supplied>; the exemption from all kinds of unpaid labour; <supplied reason="subaudible">the right to</supplied> punish and realise fines for the ten offences; and the exemption from being entered by irregular or regular troops.</p>
-          <p n="2v4-2v6">Having taken note of that, you should render the proper <supplied reason="subaudible">shares of</supplied> periodical offerings, produce, and the like to the donee, while living happily <supplied reason="subaudible">in this village</supplied>. And this is said for the instruction of the future kings:</p>
-          <p n="2v6-3r1" rend="stanza"><supplied reason="subaudible">Kings</supplied> who donate land sport in heaven, <supplied reason="subaudible">but</supplied> look, kings who have taken land fall into hell for their wickedness. After having taken to heart these two rules and taken hold of Lakṣmī, you should live you life as you wish!</p>
-          <ab n="3r1">And also:</ab>
-          <p n="3r2-3r3" rend="stanza">Fortune and misfortune are truly the fruit of protecting and not protecting <supplied reason="subaudible">the land</supplied>; who then discards heaven and resorts to hell?</p>
-          <p n="3r3">And in this respect they quote the <supplied reason="subaudible">following</supplied> stanzas sung by Vyāsa:</p>
-          <p n="3r3-3r5" rend="stanza">Gold is the first child of Agni, land is born of Viṣṇu, and cows are the offspring of Sūrya: <supplied reason="subaudible">Therefore</supplied>, whoever would give gold, a cow, and land would give the three worlds</p>
-          <p n="3r5-3r6" rend="stanza">A giver of land rejoices in heaven for sixty thousand years; he who confiscates it or allows <supplied reason="subaudible">another to confiscate it</supplied> will dwell for the same period in hell!</p>
-          <p n="3r7-3v1" rend="stanza">The earth has been granted by many kings, beginning with Sagara; whoever possesses the land at any time, to him belong the fruits at that time!</p>
-          <p n="3v1-3v2" rend="stanza">O Yudhiṣṭhira, zealously protect the land which was given by yourself or by others! O best of kings, protection is superior to giving!</p>
-          <p n="3v2-3v4">On the day 25 of the month of Phalguṇa, in the forty-eighth year of the increasingly victorious reign <supplied reason="subaudible">of Śivagupta</supplied>, in numbers: Year 48, the copperplate charter has been engraved by Nāgadeva, son of Golāyya.</p>
-        </div>
-      </div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p>First edited by Jain <foreign>et al.</foreign> <bibl rend="omitname">
-            <ptr target="bib:Jain+al2005_01"/>
-            <citedRange>196-217</citedRange>
-          </bibl> from the original plates; published again by Bosma <bibl rend="omitname">
-            <ptr target="bib:Bosma2013_01"/>
-          </bibl>; re-edited here by Natasja Bosma from the original plates (edition of the seal based on Jain).</p>
-        <listBibl type="primary">
-          <bibl n="NB">
-            <ptr target="bib:Bosma2013_01"/>
-          </bibl>
-          <bibl n="BJ">
-            <ptr target="bib:Jain+al2005_01"/>
-            <citedRange>196-217</citedRange>
-          </bibl>
+                </prefixDef>
+            </listPrefixDef>
+        </encodingDesc>
+        <revisionDesc>
+            <change who="part:nabo" when="2020-08-11" status="draft">Adding translation</change>
+            <change who="part:nabo" when="2020-08-04" status="draft">Adding text and translation</change>
+            <change who="part:nabo" when="2020-07-13" status="draft">Initial encoding of the file</change>
+        </revisionDesc>
+    </teiHeader>
+    <text xml:space="preserve">
+      <body>
+         <div type="edition" xml:lang="san-Latn">
+             <div type="textpart" n="A"><head xml:lang="eng">Seal</head>
+                  <lg n="1" met="anuṣṭubh">
+                     <l n="ab">rājña<supplied reason="omitted">ḥ</supplied> śrīharṣaguptasya sūno<supplied reason="omitted">ḥ</supplied> sadguṇaśālina<supplied reason="omitted">ḥ</supplied></l>
+                     <l n="cd">śāsanaṁ śivaguptasya sthitam ā bhuvanasthite<supplied reason="omitted">ḥ</supplied></l>
+                 </lg></div>
+             <div type="textpart" n="B"><head xml:lang="eng">Plates</head>
+                    <pb n="1r"/>
+                    <p><pb n="1v"/><lb n="1v1"/><g type="symbol" subtype="spiralR"/> svasty aśeṣakṣit<choice><sic>i</sic><corr>ī</corr></choice>śavidyābhyāsaviśeṣāsāditamahanīyavina<lb
+                           n="1v2" break="no"/>yasampatsampāditasakalaviji<sic>g</sic>īṣuguṇo guṇavatsamāśraya<supplied reason="omitted">ḥ</supplied> pra<lb
+                           n="1v3" break="no"/>kṛṣṭataraśauryyaprajñāprabhāvasambhāvitamahābhyudaya<supplied reason="omitted">ḥ</supplied> kārttikeya Iva<lb
+                           n="1v4"/>kṛt<supplied reason="omitted">t</supplied>ivāsa<space type="binding-hole"/><choice><orig>ś</orig><reg>s</reg></choice>o rājñaḥ śr<choice><sic>i</sic><corr>ī</corr></choice>harṣadevasya <choice><orig>ś</orig><reg>s</reg></choice><choice><sic>u</sic><corr>ū</corr></choice>nu<supplied reason="omitted">ḥ</supplied> somava<choice><orig>ṅ</orig><reg>ṁ</reg></choice>śasambhava<choice><orig>t</orig><reg>ḥ</reg></choice> paramamā<lb
+                           n="1v5" break="no"/>heśvaro mātāpitṛpādānudhyātaḥ śr<choice><sic>i</sic><corr>ī</corr></choice>mahāśivaguptarāja<supplied reason="omitted">ḥ</supplied> kuśal<choice><sic>i</sic><corr>ī</corr></choice><g type="ddandaHooked"/><lb
+                           n="1v6"/>cullāṭasīmābhogīyabh<choice><sic>a</sic><corr>ā</corr></choice>ṇḍāgārāśvatthakapratibaddhadevapadrūllake<g type="dandaPlain"/> br<choice><sic>a</sic><corr>ā</corr></choice><lb
+                           n="1v7" break="no"/>hmaṇā<supplied reason="omitted">ṁ</supplied> samp<choice><sic>u</sic><corr>ū</corr></choice>jya tatpratinivāsinaś ca sapradhānān anyān api<pb n="2r"/><lb
+                           n="2r1"/>samāhartṛsannidhātṛprabhṛt<choice><sic>i</sic><corr>ī</corr></choice>n asmatpādopaj<choice><sic>i</sic><corr>ī</corr></choice>vinaḥ sar<choice><orig>bv</orig><reg>vv</reg></choice>arājapuru<lb
+                           n="2r2" break="no"/>ṣā<choice><orig>t</orig><reg>n</reg></choice> samājñāpayati<g type="dandaPlain"/></p> <p>viditam astu bhavatā<choice><orig>ḥ</orig><reg>ṁ</reg></choice> yathāsmābhiḥ sampraty a<supplied reason="omitted">yaṁ</supplied> grāmaḥ<lb
+                           n="2r3"/>san<choice><sic>a</sic><corr>i</corr></choice>dhiḥ sopanidhiḥ sar<choice><orig>bv</orig><reg>vv</reg></choice>akarādānasametaḥ sar<choice><orig>bv</orig><reg>vv</reg></choice>ap<choice><sic>i</sic><corr>ī</corr></choice>ḍāvivarjjitaḥ sadaśā<lb
+                           n="2r4" break="no"/>parādhaḥ pra<space type="binding-hole"/>tiṣiddhacāṭabhaṭapraveśaḥ śr<choice><sic>i</sic><corr>ī</corr></choice>puratalapratiṣṭh<choice><sic>a</sic><corr>i</corr></choice>taśr<choice><sic>i</sic><corr>ī</corr></choice>bāle<lb
+                           n="2r5" break="no"/>śvarabhaṭṭārakama<choice><orig>ṭ</orig><reg>ṭh</reg></choice>ikāttaḥpātipratyāyanaśr<choice><sic>i</sic><corr>ī</corr></choice>madamaradev<choice><sic>i</sic><corr>ī</corr></choice>kāritāma<lb
+                           n="2r6" break="no"/>reśvarāyatanadevabhaṭṭārakapratiṣṭhāyāṁ nandapur<choice><sic>i</sic><corr>ī</corr></choice>yaśr<choice><sic>i</sic><corr>ī</corr></choice>madaghoraśivā<lb
+                           n="2r7" break="no"/>paranāmad<choice><sic>i</sic><corr>ī</corr></choice>rghācāryyapraśiṣyebhyaḥ śr<choice><sic>i</sic><corr>ī</corr></choice><choice><orig>b</orig><reg>v</reg></choice>yāpaśivācāryyaśiṣyebhyo <supplied reason="omitted">a</supplied>straśi<pb n="2v" break="no"/><lb
+                           n="2v1" break="no"/>vabhagavatpādebhyo gurupujāyāṁ śiṣyapraśiṣyāṇāṁ yāga<choice><orig>daśattra</orig><reg>dīkṣāvyākhyānasattra</reg></choice>catu<lb
+                           n="2v2" break="no"/>ṣṭa<choice><orig>v</orig><reg>y</reg></choice>apravarttanāyāsyā eva vijñaptyāmarade<choice><orig>b</orig><reg>v</reg></choice>yā mātāpitror ātmanaś ca pu<lb
+                           n="2v3" break="no"/>ṇyābhi<choice><orig>b</orig><reg>v</reg></choice>ṛddhaye samakālopabhogārtha<surplus>ṁ</surplus>m udakapūr<choice><orig>bv</orig><reg>vv</reg></choice>aka<surplus>ṁ</surplus>m ācandratārak<surplus>k</surplus>ā<lb
+                           n="2v4" break="no"/>rkka<supplied reason="omitted">ṁ</supplied> tām<surplus>b</surplus>raśā<space type="binding-hole"/>sanena pratipādita Ity</p> <p>avagamyāsya yathocita<supplied reason="omitted">ṁ</supplied> bho<lb
+                           n="2v5" break="no"/>gabhāgādikam upanayanto bhavantaḥ sukhaṁ prativasantu<g type="ddandaHooked"/> bhāvinaś ca bh<sic>ū</sic><lb
+                           n="2v6" break="no"/><supplied reason="omitted">mi</supplied>pālān uddiśyedam abh<choice><sic>ī</sic><corr>i</corr></choice>dh<choice><sic>i</sic><corr>ī</corr></choice>yate<g type="dandaPlain"/></p>
+                                    <lg n="1" met="vasantatilakā">
+                                        <l n="a">bhūmipradā divi lalanti patanti <lb n="2v7"/>hanta</l>
+                                        <l n="b">hṛtvā mah<choice><sic>i</sic><corr>ī</corr></choice><supplied reason="omitted">ṁ</supplied> nṛpatayo narake nṛśa<choice><orig>t</orig><reg>ṁ</reg></choice>s<choice><sic>a</sic><corr>ā</corr></choice>T<g type="dandaPlain"/></l>
+                                        <l n="c">Etad <supplied reason="omitted">d</supplied>vaya<supplied reason="omitted">ṁ</supplied> parika<pb n="3v" break="no"/><lb n="3v1" break="no"/>layya calāñ ca lakṣm<choice><sic>i</sic><corr>ī</corr></choice>m</l>
+                                        <l n="d">āyus tathā kuruta yad bhavatām abh<choice><sic>i</sic><corr>ī</corr></choice>ṣṭa<supplied reason="omitted">ṁ</supplied><g type="dandaPlain"/></l></lg>
+                            <ab>Api ca</ab>
+                                    <lg n="2" met="anuṣṭubh">
+                                        <l n="ab"><lb n="3r2"/>rakṣāpālanayos tāvat phalaṁ sugatidurggat<choice><sic>i</sic><corr>ī</corr></choice></l>
+                                        <l n="cd">ko nā<supplied reason="omitted">ma</supplied> svarggam u<choice><orig>cchri</orig><reg>tsṛ</reg></choice>jya nara<lb n="3r3" break="no"/>kaṁ pratipadyate<g type=" ddandaHooked"/></l></lg>
+                           <p><choice><orig>b</orig><reg>v</reg></choice>yāsag<choice><sic>i</sic><corr>ī</corr></choice>tā<supplied reason="omitted">ṁ</supplied>ś cātra ślokān udāharanti<g type="dandaPlain"/></p>
+                                    <lg n="3" met="indravajrā">
+                                        <l n="a">Agner apatya<supplied reason="omitted">ṁ</supplied> <lb n="3r4"/>prathama<supplied reason="omitted">ṁ</supplied> su<space type="binding-hole"/>varṇṇa<supplied reason="omitted">ṁ</supplied></l>
+                                        <l n="b">bhūr <choice><orig>bv</orig><reg>vv</reg></choice>aiṣṇav<choice><sic>i</sic><corr>ī</corr></choice> sūryyasutā<surplus>ṁ</surplus>ś ca gāvaḥ</l>
+                                        <l n="c">dattās trayas tena bha<lb n="3r5" break="no"/>vanti lokā</l>
+                                        <l n="d">yaḥ kāñcanaṁ gāñ ca mah<choice><sic>i</sic><corr>ī</corr></choice>ñ ca dadyāT<g type="dandaPlain"/></l></lg>
+                                    <lg n="4" met="anuṣṭubh">
+                                        <l n="ab">ṣaṣṭivarṣasaha<choice><orig>ś</orig><reg>s</reg></choice>rāṇi <lb n="3r6"/>svargge modati bhūmidaḥ</l>
+                                        <l n="cd"><choice><sic>A</sic><corr>Ā</corr></choice>cchettā cānumantā ca tāny eva narake va<choice><orig>ś</orig><reg>s</reg></choice>eT<g type="dandaPlain"/></l></lg>
+                                    <lg n="5" met="anuṣṭubh">
+                                        <l n="ab"><lb n="3r7"/>bahubhir vvasudhā dattā rājabhiḥ sagarādibhiḥ</l>
+                                        <l n="cd">yasya yasya yadā bh<choice><sic>u</sic><corr>ū</corr></choice>mi<pb n="3v" break="no"/><lb n="3v1" break="no"/>s tasya tasya tadā phalaṁ</l></lg>
+                                    <lg n="6" met="anuṣṭubh">
+                                        <l n="ab">svadattā<supplied reason="omitted">ṁ</supplied> paradat<supplied reason="omitted">t</supplied><choice><sic>a</sic><corr>ā</corr></choice>m <choice><orig>b</orig><reg>v</reg></choice>ā yatnād rakṣa yudhiṣṭhira<surplus>ḥ</surplus></l>
+                                        <l n="cd"><lb n="3v2"/>mah<choice><sic>i</sic><corr>ī</corr></choice><supplied reason="omitted">ṁ</supplied> mah<choice><sic>i</sic><corr>ī</corr></choice>bhṛtā<supplied reason="omitted">ṁ</supplied> śreṣṭha<surplus>ḥ</surplus> dānā<surplus>t</surplus>c chreyo 'nupālanaṁ<g type="ddandaHooked"/></l></lg>
+                           <p>pravarddhamānavija<lb
+                            n="3v3"  break="no"/>yarājye sam<choice><orig>b</orig><reg>v</reg></choice>atsare aṣ<choice><orig>ṭh</orig><reg>ṭ</reg></choice>acatv<choice><sic>a</sic><corr>ā</corr></choice>ri<choice><orig>ṅ</orig><reg>ṁ</reg></choice>śe phalguṇadin<choice><sic>a</sic><corr>e</corr></choice> <num value="25"> 2 5</num> Aṅkenāpi sam<choice><orig>b</orig><reg>v</reg></choice>a<lb
+                            n="3v4"  break="no"/>t<choice><orig>ch</orig><reg>s</reg></choice>aru <num value="48">4 8</num> Utk<choice><sic>i</sic><corr>ī</corr></choice>rṇṇa<supplied reason="omitted">ṁ</supplied> tām<surplus>b</surplus>rapaṭ<supplied reason="omitted">ṭ</supplied><choice><sic>i</sic><corr>a</corr></choice>ka<supplied reason="omitted">ṁ</supplied> golāyyasya <choice><orig>ś</orig><reg>s</reg></choice><choice><sic>u</sic><corr>ū</corr></choice>nunā nāgadeveneti<g type="dandaPlain"/></p></div></div>
+         <div type="apparatus">
+               <div type="textpart" n="A"><head xml:lang="eng">Seal</head></div>
+               <div type="textpart" n="B"><head xml:lang="eng">Plates</head>
+                  <app loc="1v1">
+                      <lem>°kṣit<choice><sic>i</sic><corr>ī</corr></choice>śa°</lem>
+                      <rdg source="bib:Jain+al2005_01">°kṣit<choice><sic>i</sic><corr>ī</corr></choice>ṣa°</rdg>
+                  </app>
+                   <app loc="1v1">
+                      <lem>°mahanīya°</lem>
+                      <rdg source="bib:Jain+al2005_01">°mahan<choice><sic>i</sic><corr>ī</corr></choice>ya°</rdg>
+                  </app>
+                   <app loc="1v2">
+                      <lem>°viji<sic>g</sic>īṣu°</lem>
+                      <rdg source="bib:Jain+al2005_01">°viji<choice><orig>ś</orig><reg>g</reg></choice>īṣu°</rdg>
+                       <note>The letter <foreign>ga</foreign> slightly deviates from its regular shape because of an additional horizontal stroke below the box-shaped head of the letter. Contrary to the horizontal stroke of the letter <foreign>śa</foreign>, which is positioned in the middle of the character, this stroke is inscribed immediately below the box. Therefore, it is more likely that the stroke was added by mistake.</note>
+                  </app>
+                   <app loc="1v4">
+                      <lem>śr<choice><sic>i</sic><corr>ī</corr></choice>°</lem>
+                      <rdg source="bib:Jain+al2005_01">śrī°</rdg>
+                  </app>
+                   <app loc="1v4">
+                      <lem>somava<choice><orig>ṅ</orig><reg>ṁ</reg></choice>śa°</lem>
+                      <rdg source="bib:Jain+al2005_01">somavaṅsa°</rdg>
+                  </app>
+                   <app loc="1v5">
+                      <lem>śr<choice><sic>i</sic><corr>ī</corr></choice>°</lem>
+                      <rdg source="bib:Jain+al2005_01">śrī°</rdg>
+                  </app>
+                   <app loc="1v6">
+                      <lem>cullāṭa°</lem>
+                      <rdg source="bib:Jain+al2005_01">callāṭa°</rdg>
+                  </app>
+                   <app loc="2r4">
+                      <lem>śr<choice><sic>i</sic><corr>ī</corr></choice>°</lem>
+                      <rdg source="bib:Jain+al2005_01">śrī°</rdg>
+                  </app>
+                   <app loc="2r4">
+                      <lem>°śr<choice><sic>i</sic><corr>ī</corr></choice>°</lem>
+                      <rdg source="bib:Jain+al2005_01">°śrī°</rdg>
+                  </app>
+                   <app loc="2r5">
+                      <lem>°śr<choice><sic>i</sic><corr>ī</corr></choice>°</lem>
+                      <rdg source="bib:Jain+al2005_01">°śrī°</rdg>
+                  </app>
+                   <app loc="2r6">
+                      <lem>°śr<choice><sic>i</sic><corr>ī</corr></choice>°</lem>
+                      <rdg source="bib:Jain+al2005_01">°śrī°</rdg>
+                  </app>
+                   <app loc="2r7">
+                      <lem>śr<choice><sic>i</sic><corr>ī</corr></choice>°</lem>
+                      <rdg source="bib:Jain+al2005_01">śrī°</rdg>
+                  </app>
+                   <app loc="2r7">
+                      <lem><supplied reason="omitted">a</supplied>stra°</lem>
+                      <rdg source="bib:Jain+al2005_01">ratra°</rdg>
+                  </app>
+                   <app loc="2v2">
+                      <lem>yāga<choice><orig>daśattra</orig><reg>dīkṣāvyākhyānasattra</reg></choice>catu<lb n="2v2" break="no"/>ṣṭa<choice><orig>v</orig><reg>y</reg></choice>apravarttanāyāsyā</lem>
+                      <note>The word <foreign>catuṣṭaya</foreign> denotes a set of four and <foreign>sattra</foreign>, teaching, initiations and offering ceremonies are a common combination in records related to the Bāleśvara complex.</note>
+                  </app>
+                   <app loc="2v2">
+                      <lem>vijñaptyā°</lem>
+                      <rdg source="bib:Jain+al2005_01">vijñaptayā°</rdg>
+                  </app>
+                   <app loc="2v6">
+                      <lem>uddiśyedam</lem>
+                      <rdg source="bib:Jain+al2005_01">uddiṣyedam</rdg>
+                  </app>
+                   <app loc="2v6">
+                      <lem>abh<choice><sic>ī</sic><corr>i</corr></choice>dh<choice><sic>i</sic><corr>ī</corr></choice>yate</lem>
+                      <rdg source="bib:Jain+al2005_01">abhidhiyate</rdg>
+                  </app>
+                   <app loc="2v7">
+                      <lem>mah<choice><sic>i</sic><corr>ī</corr></choice><supplied reason="omitted">ṁ</supplied></lem>
+                      <rdg source="bib:Jain+al2005_01">mahī</rdg>
+                  </app>
+                   <app loc="3r1">
+                      <lem>lakṣm<choice><sic>i</sic><corr>ī</corr></choice>m</lem>
+                      <rdg source="bib:Jain+al2005_01">kṣmīm</rdg>
+                  </app>
+                   <app loc="3r3">
+                      <lem>°<choice><orig>b</orig><reg>v</reg></choice>yāsag<choice><sic>i</sic><corr>ī</corr></choice>tā<supplied reason="omitted">ṁ</supplied>ś</lem>
+                      <rdg source="bib:Jain+al2005_01">°byāsagītāś</rdg>
+                  </app>
+                   <app loc="3r4">
+                      <lem><choice><orig>bv</orig><reg>vv</reg></choice>aiṣṇav<choice><sic>i</sic><corr>ī</corr></choice></lem>
+                      <rdg source="bib:Jain+al2005_01">bvaiṣṇavī</rdg>
+                  </app>
+                   <app loc="3r5">
+                      <lem>mah<choice><sic>i</sic><corr>ī</corr></choice>ñ</lem>
+                      <rdg source="bib:Jain+al2005_01">mahīñ</rdg>
+                  </app>
+                   <app loc="3r7">
+                      <lem>bh<choice><sic>u</sic><corr>ū</corr></choice>mi<pb n="3v" break="no"/><lb n="3v1" break="no"/>s</lem>
+                      <rdg source="bib:Jain+al2005_01">bhūmi<pb n="3v" break="no"/><lb n="3v1" break="no"/>s</rdg>
+                  </app>
+                   <app loc="3v4">
+                      <lem>Utk<choice><sic>i</sic><corr>ī</corr></choice>rṇṇa<supplied reason="omitted">ṁ</supplied></lem>
+                      <rdg source="bib:Jain+al2005_01">Utkīrṇṇa</rdg>
+                  </app>
+                   <app loc="3v4">
+                      <lem>°<g type="dandaPlain"/></lem>
+                      <rdg source="bib:Jain+al2005_01">°<g type="ddandaPlain"/></rdg>
+                  </app>
+                  </div></div>
+         <div type="translation" resp="part:nabo">
+                    <div type="textpart" n="A"><head xml:lang="eng">Seal</head>
+                    <p>The charter of Śivagupta, son of the illustrious king Harṣagupta, who is possessed of good qualities, endures as long as the existence of the world</p></div>
+             <div type="textpart" n="B"><head xml:lang="eng">Plates</head>
+                    <p n="1v1-2r2">Success! Hail! The illustrious and great king Śivagupta who has been born in the Lunar Dynasty as the son of a king, the illustrious Harṣadeva, like Kārttikeya is of Kṛttivāsas <supplied reason="explanation">i.e., Śiva</supplied>; who is entirely devoted to Maheśvara; who is favoured by his father and mother; and who is in good health: He has acquired all the qualities of a conqueror through the perfection of praiseworthy discipline, effected in particular by implementing all the "political sciences"; he is a refuge for the virtuous; and his great prosperity has been brought about by his superior valour, intelligence, and strength! After having saluted the Brahmins in the village of Devapadrūllaka attached to Bhaṇḍāgāra-Aśvatthaka in the Cullāṭasīmā <foreign>bhoga</foreign>, <supplied reason="subaudible">the king</supplied> issues <supplied reason="subaudible">the following command</supplied> to all royal officers who are dedicated to our service, beginning with the collector and the receiver; and to the other inhabitants of that <supplied reason="subaudible">village</supplied> with their headman:</p>
+                    <p n="2r2-2v4">Let it be known to you that by means of <supplied reason="subaudible">this</supplied> copperplate charter and preceded by a libation of water, this village has been granted by us today for the increase of religious merit of father, mother, and ourselves, to the venerable Astraśiva, pupil of the venerable <foreign>ācārya</foreign> Vyāpaśiva and grand-pupil of the venerable <foreign>ācārya</foreign> Dīrgha of Nandapura, whose other name is Aghoraśiva. <supplied reason="subaudible">The grant of the village</supplied> was in honour of the teacher <supplied reason="subaudible">and took place</supplied> on the occasion of the installation of the <foreign>devabhaṭṭāraka</foreign> in the Amareśvara temple, which was erected by the illustrious <supplied reason="subaudible">queen</supplied> Amaradevī in the <foreign>maṭhikā</foreign> of the illustrious Bāleśvara-bhaṭṭāraka temple, the latter being established in the plains of Śrīpura. <supplied reason="subaudible">The grant</supplied>), which is meant to be enjoyed as long as the moon, the stars, and the sun will endure, was issued at the request of Amaradevī for the purpose of <supplied reason="subaudible">financing</supplied> a <foreign>sattra</foreign>, teaching, initiations and offering ceremonies for the pupils and grand-pupils <supplied reason="subaudible">and</supplied> comes along with <supplied reason="subaudible">the right to</supplied> hidden treasures and deposits; <supplied reason="subaudible">the right to collect</supplied> all taxes <supplied reason="subaudible">payable to the king</supplied>; the exemption from all kinds of unpaid labour; <supplied reason="subaudible">the right to</supplied> punish and realise fines for the ten offences; and the exemption from being entered by irregular or regular troops.</p>
+                    <p n="2v4-2v6">Having taken note of that, you should render the proper <supplied reason="subaudible">shares of</supplied> periodical offerings, produce, and the like to the donee, while living happily <supplied reason="subaudible">in this village</supplied>. And this is said for the instruction of the future kings:</p>
+                    <p n="2v6-3r1" rend="stanza"><supplied reason="subaudible">Kings</supplied> who donate land sport in heaven, <supplied reason="subaudible">but</supplied> look, kings who have taken land fall into hell for their wickedness. After having taken to heart these two rules and taken hold of Lakṣmī, you should live you life as you wish!</p>
+                    <ab n="3r1">And also:</ab>
+                    <p n="3r2-3r3" rend="stanza">Fortune and misfortune are truly the fruit of protecting and not protecting <supplied reason="subaudible">the land</supplied>; who then discards heaven and resorts to hell?</p>
+                    <p n="3r3">And in this respect they quote the <supplied reason="subaudible">following</supplied> stanzas sung by Vyāsa:</p>
+                    <p n="3r3-3r5" rend="stanza">Gold is the first child of Agni, land is born of Viṣṇu, and cows are the offspring of Sūrya: <supplied reason="subaudible">Therefore</supplied>, whoever would give gold, a cow, and land would give the three worlds</p>
+                    <p n="3r5-3r6" rend="stanza">A giver of land rejoices in heaven for sixty thousand years; he who confiscates it or allows <supplied reason="subaudible">another to confiscate it</supplied> will dwell for the same period in hell!</p>
+                    <p n="3r7-3v1" rend="stanza">The earth has been granted by many kings, beginning with Sagara; whoever possesses the land at any time, to him belong the fruits at that time!</p>
+                    <p n="3v1-3v2" rend="stanza">O Yudhiṣṭhira, zealously protect the land which was given by yourself or by others! O best of kings, protection is superior to giving!</p>
+                    <p n="3v2-3v4">On the day 25 of the month of Phalguṇa, in the forty-eighth year of the increasingly victorious reign <supplied reason="subaudible">of Śivagupta</supplied>, in numbers: Year 48, the copperplate charter has been engraved by Nāgadeva, son of Golāyya.</p></div></div>
+        <div type="commentary">
+            </div>
+        <div type="bibliography">
+        	    <p>First edited by Jain <foreign>et al.</foreign> <bibl rend="omitname"><ptr target="bib:Jain+al2005_01"/><citedRange>196-217</citedRange></bibl> from the original plates; published again by Bosma <bibl rend="omitname"><ptr target="bib:Bosma2013_01"/></bibl>; re-edited here by Natasja Bosma from the original plates (edition of the seal based on Jain).</p>
+            <listBibl type="primary">
+                <bibl n="NB">
+                   <ptr target="bib:Bosma2013_01"/>
+                </bibl>
+                <bibl n="BJ">
+                  <ptr target="bib:Jain+al2005_01"/>
+                  <citedRange>196-217</citedRange>
+               </bibl>
+           </listBibl>
+           <listBibl type="secondary">
+               <bibl>
+                   <ptr target="bib:Bosma2018_01"/>
+                  <citedRange>37, 46, 78, 253</citedRange>
+              </bibl>
+               <bibl>
+                   <ptr target="bib:Shastri1992_03"/>
+              </bibl>
+               <bibl>
+                   <ptr target="bib:Shastri1995_02"/>
+                  <citedRange>196-217</citedRange>
+              </bibl>
         </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:Bosma2018_01"/>
-            <citedRange>37, 46, 78, 253</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Shastri1992_03"/>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Shastri1995_02"/>
-            <citedRange>196-217</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
+        </div>
+      </body>
   </text>
 </TEI>

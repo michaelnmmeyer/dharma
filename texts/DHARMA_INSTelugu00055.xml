@@ -4,166 +4,140 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>A pannavīśa of Immaḍi Īto during the reign of Uttamāditya-cōḻa-mahārāju</title>
-        <respStmt>
-          <resp>Creation of file</resp>
-          <persName ref="part:jeth">
-            <forename>Jens Christian</forename>
-            <surname>Thomas</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName>
-            <forename>K. A. </forename>
-            <surname>Nilakanta Sastri</surname>
-          </persName>
-          <persName>
-            <forename>M.</forename>
-            <surname>Venkataramayya</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Berlin</pubPlace>
-        <idno type="filename">DHARMA_INSTelugu00055</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <p><!-- not to be filled in at this stage --></p>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>A pannavīśa of Immaḍi Īto during the reign of Uttamāditya-cōḻa-mahārāju</title>
+            <respStmt>
+               <resp>Creation of file</resp>
+               <persName ref="part:jeth">
+                  <forename>Jens Christian</forename>
+                  <surname>Thomas</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName>
+                  <forename>K. A. </forename>
+                  <surname>Nilakanta Sastri</surname>
+               </persName>
+               <persName>
+                  <forename>M.</forename>
+                  <surname>Venkataramayya</surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Berlin</pubPlace>
+            <idno type="filename">DHARMA_INSTelugu00055</idno>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+                  <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc>
+            <p><!-- not to be filled in at this stage --></p>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
                         under the European Union's Horizon 2020 research and innovation programme (grant
                         agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
                             ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
                             <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-06-29" who="part:jeth">Creation of the file</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tel-Latn">
-        <p>
-              <milestone n="A" type="pagelike" unit="face"/>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:jeth" when="2020-06-29" status="draft">Creation of the file</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+      <body>
+         <div type="edition" xml:lang="tel-Latn">
+            <p>
+              <milestone type="pagelike" unit="face" n="A"/>
                <lb n="1"/>svasti śrī
-               <lb n="2"/>Uttamā<lb break="no" n="3"/>ditya-cō<lb break="no" n="4"/>ḻa-mahā<lb break="no" n="5"/>rāju pri<lb break="no" n="6"/>thivirājya<unclear>ṁ</unclear>
+               <lb n="2"/>Uttamā<lb n="3" break="no"/>ditya-cō<lb n="4" break="no"/>ḻa-mahā<lb n="5" break="no"/>rāju pri<lb n="6" break="no"/>thivirājya<unclear>ṁ</unclear>
                <lb n="7"/>cēya
                <lb n="8"/>Immaḍi
-               <lb n="9"/>Īto Icci<lb break="no" n="10"/>na pannavī<lb break="no" n="11"/>śa kōsiya
-               <lb n="12"/>paṟa cēdi<lb break="no" n="13"/>śarmma<choice>
-            <orig>ko</orig>
-            <reg>ki</reg>
-          </choice>cciri
-              <milestone n="B" type="pagelike" unit="face"/>
-               <lb n="14"/>Eya<unclear>ra</unclear><lb break="no" n="15"/>kallu kuḻa
+               <lb n="9"/>Īto Icci<lb n="10" break="no"/>na pannavī<lb n="11" break="no"/>śa kōsiya
+               <lb n="12"/>paṟa cēdi<lb n="13" break="no"/>śarmma<choice><orig>ko</orig><reg>ki</reg></choice>cciri
+              <milestone type="pagelike" unit="face" n="B"/>
+               <lb n="14"/>Eya<unclear>ra</unclear><lb n="15" break="no"/>kallu kuḻa
                <lb n="16"/>gaṭṭuḷu
-               <lb n="17"/>vendaraṁbu<lb break="no" n="18"/>ḷu vēṇa<lb break="no" n="19"/>vōja<lb break="no" n="20"/>nṟu cakṣi
-               <lb n="21"/><unclear>dē</unclear>niki va<lb break="no" n="22"/>kraṁbu va<lb break="no" n="23"/><milestone n="C" type="pagelike" unit="face"/><gap quantity="1" reason="undefined" unit="line"/>
-               <lb n="24"/>pañcama<lb break="no" n="25"/>hāpāta<lb break="no" n="26"/>kunṟugu
-               <lb n="27"/>kacēṟu pā<lb break="no" n="28"/><choice>
-            <orig>ḻa</orig>
-            <reg>ṟa</reg>
-          </choice> Eṟama
+               <lb n="17"/>vendaraṁbu<lb n="18" break="no"/>ḷu vēṇa<lb n="19" break="no"/>vōja<lb n="20" break="no"/>nṟu cakṣi
+               <lb n="21"/><unclear>dē</unclear>niki va<lb n="22" break="no"/>kraṁbu va<lb n="23" break="no"/><milestone type="pagelike" unit="face" n="C"/><gap reason="undefined" unit="line" quantity="1"/>
+               <lb n="24"/>pañcama<lb n="25" break="no"/>hāpāta<lb n="26" break="no"/>kunṟugu
+               <lb n="27"/>kacēṟu pā<lb n="28" break="no"/><choice><orig>ḻa</orig><reg>ṟa</reg></choice> Eṟama
                <lb n="29"/><unclear>vṟā</unclear>siri
                <lb n="30"/>koṭṭali
-               <lb n="31"/>kuṇaṇḍā<lb break="no" n="32"/>ḷuvānṟu
+               <lb n="31"/>kuṇaṇḍā<lb n="32" break="no"/>ḷuvānṟu
                <lb n="33"/>koṭṭe
             </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1">
-            <lem>śrī</lem>
-            <note>The subscript ⟨r⟩ is written in an ornate manner and looks like the vocalic form.</note>
-          </app>
-          <app loc="9">
-            <lem>Īto</lem>
-            <note>The editors state in a note that this word could also be read as <foreign>ratō</foreign> (<bibl>
-                <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/>
-                <citedRange unit="page">241</citedRange>
-                <citedRange unit="note">1</citedRange>
-              </bibl>).</note>
-          </app>
-          <app loc="10">
-            <lem>pannavī<lb break="no" n="11"/>śa</lem>
-            <note>There might be a misprint in the edition in that the accent of the ⟨ś⟩ can be found after the ⟨a⟩. On the other hand the misprint might be this accent itself and what has to be read is ⟨sa⟩.</note>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:NilakantaSastri+Venkataramayya1947-1948_01" type="translation">
-        <p>
+         </div>
+         <div type="apparatus">
+               <listApp>
+                  <app loc="1">
+                     <lem>śrī</lem>
+                     <note>The subscript ⟨r⟩ is written in an ornate manner and looks like the vocalic form.</note>
+                  </app>
+                  <app loc="9">
+                     <lem>Īto</lem>
+                     <note>The editors state in a note that this word could also be read as <foreign>ratō</foreign> (<bibl><ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/><citedRange unit="page">241</citedRange><citedRange unit="note">1</citedRange></bibl>).</note>
+                  </app>
+                  <app loc="10">
+                     <lem>pannavī<lb n="11" break="no"/>śa</lem>
+                     <note>There might be a misprint in the edition in that the accent of the ⟨ś⟩ can be found after the ⟨a⟩. On the other hand the misprint might be this accent itself and what has to be read is ⟨sa⟩.</note>
+                  </app>
+               </listApp>
+         </div>
+         <div type="translation" source="bib:NilakantaSastri+Venkataramayya1947-1948_01">
+ 	        <p>
  	           Hail! Prosperity! While Uttamāditya-Chōḻamahārāja was ruling the earth, Irmmaḍi<note>The edition reads <foreign>Immaḍi</foreign>; yet, the editors seem to interpret this word as coming from <foreign>iru-maḍi</foreign> (with graphemic duplication of the consonant after the lost repha) rather than <foreign>inu-maḍi</foreign> with assimilation of the dental nasal. The latter is more probable.</note> Itō gave to Chēdiśarmmā, the Brāhmaṇa of Kōsiya, (<hi rend="italic">i.e.</hi>, of the Kauśika-<hi rend="italic">gōtra</hi>) a <hi rend="italic">pannavīsa</hi>, Eya[ra]kallu-Kula-gaṭṭuḷu and Vendaraṁbuḷu-Vēṇavōjanṟu being the witnesses. He who destroys this (<hi rend="italic">gift</hi>) becomes guilty of the five great sins. Eṟama, the Brāhmaṇa (?) of Kacēṟu wrote this. (<hi rend="italic">This is</hi>) engraved by the <hi rend="italic">Koṭṭali</hi>, Kuṇaṇḍāḷuvānṟu.
  	        </p>
-      </div>
-      <div source="bib:Sastri1969_01" type="translation">
-        <p>
+         </div>
+         <div type="translation" source="bib:Sastri1969_01">
+            <p>
                Hail! Prosperity! While Uttamāditya-Cōḻamahārāja was ruling the earth, Immadi Īto gave to Cēdiśarmma, the brahmin of Kōsiya, (i.e. of the Kauśika gōtra) a <hi rend="italic">pannavīsa</hi>, Eya(ra)kallu-Kuḻa gaṭṭuḷu, Vendaraṁbuḷu and Vēṇavōjanṟu being the witnesses. He who destroys this (gift) becomes guilty of the five great sins. Eṟama, the brahmin (?) of Kacēṟu wrote this. (This is) engraved by the engraver (<hi rend="italic">koṭṭali</hi>) Kuṇaṇḍāḷuvānṟu.
             </p>
-      </div>
-      <div type="commentary">
-        <p>
-               The word ⟨Immaḍi⟩ very probably means 'double' or 'twofold'and comes from <foreign>inumaḍi</foreign>. This word can still be found in older dictionaries but is obsolete today. Sircar suggested that attributes like <foreign>immaḍi</foreign>, <foreign>mummuḍi</foreign> ('threefold') etc. were <cit>
-            <quote>prefixed to the names of certain kings in order to distinguish them from their predecessors bearing the same name</quote>
-            <bibl>
-              <ptr target="bib:Sircar1966_01"/>
-              <citedRange unit="page">131</citedRange>
-            </bibl>
-          </cit>.<!-- The index number has to be changed perhaps! -->
+         </div>
+         <div type="commentary">
+            <p>
+               The word ⟨Immaḍi⟩ very probably means 'double' or 'twofold'and comes from <foreign>inumaḍi</foreign>. This word can still be found in older dictionaries but is obsolete today. Sircar suggested that attributes like <foreign>immaḍi</foreign>, <foreign>mummuḍi</foreign> ('threefold') etc. were <cit><quote>prefixed to the names of certain kings in order to distinguish them from their predecessors bearing the same name</quote><bibl><ptr target="bib:Sircar1966_01"/><citedRange unit="page">131</citedRange></bibl></cit>.<!-- The index number has to be changed perhaps! -->
             </p>
-      </div>
-      <div type="bibliography">
-        <p>
-           The inscription was noted in A. R. No. 297 of 1937-1938 <!-- has to be adjusted to the @target --> and first published by K. A. Nilakanta Sastri and M. Venkataramayya with translation, annotations and a picture (<bibl rend="omitname">
-            <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/>
-            <citedRange unit="page">240-242</citedRange>
-            <citedRange unit="item">42 J</citedRange>
-          </bibl>). K. M. Sastri, while relying on this edition, re-edited the text and provided another translation (<bibl rend="omitname">
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">297-299</citedRange>
-            <citedRange unit="item">24</citedRange>
-          </bibl>).
+         </div>
+        <div type="bibliography">
+          <p>
+           The inscription was noted in A. R. No. 297 of 1937-1938 <!-- has to be adjusted to the @target --> and first published by K. A. Nilakanta Sastri and M. Venkataramayya with translation, annotations and a picture (<bibl rend="omitname"><ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/><citedRange unit="page">240-242</citedRange><citedRange unit="item">42 J</citedRange></bibl>). K. M. Sastri, while relying on this edition, re-edited the text and provided another translation (<bibl rend="omitname"><ptr target="bib:Sastri1969_01"/><citedRange unit="page">297-299</citedRange><citedRange unit="item">24</citedRange></bibl>).
           </p>
-        <listBibl type="secondary">
-          <bibl>A. R. No. 297 of 1937-1938 <!-- has to be adjusted to the @target --></bibl>
-          <bibl>
-            <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/>
-            <citedRange unit="page">240-242</citedRange>
-            <citedRange unit="item">42 J</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">297-299</citedRange>
-            <citedRange unit="item">24</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
+           <listBibl type="secondary">
+              <bibl>A. R. No. 297 of 1937-1938 <!-- has to be adjusted to the @target --></bibl>
+              <bibl><ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/><citedRange unit="page">240-242</citedRange><citedRange unit="item">42 J</citedRange></bibl>
+              <bibl><ptr target="bib:Sastri1969_01"/><citedRange unit="page">297-299</citedRange><citedRange unit="item">24</citedRange></bibl>
+           </listBibl>
+        </div>
+      </body>
   </text>
 </TEI>

@@ -1,218 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- <?xml version="1.0" encoding="UTF-8"?> --><?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Kon Klor ablution tank, 836-876 Śaka (C. 167)</title>
-        <respStmt>
-          <resp>EpiDoc Encoding</resp>
-          <persName ref="part:sapi">
-            <forename>Salomé</forename>
-            <surname>Pichon</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:argr">
-            <forename>Arlo</forename>
-            <surname>Griffiths</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Paris</pubPlace>
-        <idno type="filename">DHARMA_INSCIC00167</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Kon Klor ablution tank, 836-876 Śaka (C. 167)</title>
+            <respStmt>
+               <resp>EpiDoc Encoding</resp>
+               <persName ref="part:sapi">
+                  <forename>Salomé</forename>
+                  <surname>Pichon</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName ref="part:argr">
+                  <forename>Arlo</forename>
+                  <surname>Griffiths</surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Paris</pubPlace>
+            <idno type="filename">DHARMA_INSCIC00167</idno>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
 							Licence. To view a copy of the licence, visit
 							https://creativecommons.org/licenses/by/4.0/ or send a letter to
 							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
 							California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Arlo Griffiths &amp; Salomé Pichon.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
-        <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
-          </msIdentifier>
-          <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p>Describe remarkable difference of lettering styles between Sanskrit and Old Cham parts.
+                  <p>Copyright (c) 2019-2025 by Arlo Griffiths &amp; Salomé Pichon.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc><!-- only the handDesc can be filled in at this stage -->
+            <msDesc><!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+                  <!-- don't modify this -->
+               </msIdentifier>
+               <msContents><!-- describe the intellectual content of an inscription -->
+                  <summary><!-- //// NOT MANDATORY  ////--></summary>
+                  <!-- offers the possibility to give a summary of the inscription's content -->
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p>Describe remarkable difference of lettering styles between Sanskrit and Old Cham parts.
 								See if shape of <foreign>visarga</foreign> (two tildes the one atop the other: E6) is also found in other Indrapura inscriptions.
 								Some akṣaras pa (in E1, pandaṁ; E6 bhogopabhoga) comprise a thin horizontal stroke parting from the top of the left vertical stroke that can be mistaken for a -ā vowel marker.
 							</p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+                     <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
 						<summary><p><p/></summary>
 						<handNote xml:id="Pallava00001_hand1"></handNote>
 						<handNote xml:id="Pallava00001_hand2"></handNote>
 -->
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2023-01-16" who="part:sapi">Addition of placeName tagging</change>
-      <change status="draft" when="2020-12-09" who="part:argr part:sapi">Continuing translation of old Cam part</change>
-      <change status="draft" when="2020-12-02" who="part:argr part:sapi">Continuing translation of old Cam part</change>
-      <change status="draft" when="2020-11-25" who="part:argr part:sapi">Started translation of old Cam part</change>
-      <change status="draft" when="2020-11-18" who="part:argr part:sapi">Multiple small edits</change>
-      <change status="draft" when="2020-11-04" who="part:argr">Resolved validation problems; multiple small edits</change>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-11-02" who="part:sapi">Adding bibliography</change>
-      <change status="draft" when="2020-10-21" who="part:sapi">Revisions of the file</change>
-      <change status="draft" when="2020-10-20" who="part:sapi">Initial encoding of the inscription</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="san-Latn">
-        <ab><milestone n="A" type="pagelike" unit="face"/><lb n="A1"/>svasti <g type="danda">.</g><g type="floretQuatrefoil"/> <g type="danda">.</g></ab>
-        <lg met="anuṣṭubh" n="1">
-          <l n="a">śrī-Indravarmmaṇo rājño</l>
-          <l n="b">mahīndrādhipatir vvaram·<g type="danda">.</g></l>
-          <l n="c">bhaktyā padāmvujaṁ d<choice>
-              <sic>ī</sic>
-              <corr>i</corr>
-            </choice>vyaṁ<g type="danda">.</g></l>
-          <l n="d">vandati śrīmato bhavān<unclear>·</unclear><g type="ddandaOrnate">.</g><!--sapi2argr : Ici j'ai bien lu la note suggérant le manque de ponctuation, donc je ne suis pas sûre de mon interprétation de ces <> en double danda. --></l>
-        </lg>
-        <lg met="āryā" n="2">
-          <l n="ab">dhī-bhāj jita-ripu-vala-<unclear>v</unclear><supplied reason="lost">ān·</supplied> <lb n="A2"/>ruciratayā śaṁ prajāsu sa śrīmat·<g type="danda">.</g></l>
-          <l n="cd">rākendur iva mahīndrā<g type="danda">.</g>dhipatir ayaṁ prāptavān avanau<g type="ddanda">.</g></l>
-        </lg>
-        <lg met="anuṣṭubh" n="3">
-          <l n="a">cūrṇṇāṅkita-<choice>
-              <unclear>vadane ye</unclear>
-              <unclear>vadanāyai</unclear>
-            </choice><g type="danda">.</g></l>
-          <!-- argr2sapi: check EDG if if doesn't rather recommend limiting <choice> to the syllables in question, even if more than one word is concerned -->
-          <l n="b">prabhātaḥ svavanau pri<lb break="no" n="A3"/>ye<g type="danda">.</g></l>
-          <l n="c"><foreign xml:lang="ocm-Latn">lyaṅ·</foreign>-Indrabhūmi-subhadre<g type="danda">.</g></l>
-          <l n="d"><unclear>bha</unclear>dre sadam gir asya te<g type="ddanda">.</g></l>
-        </lg>
-        <lg met="vasantatilakā" n="4">
-          <l n="a">śrī-Indravarmma-nr̥pater adhikāñ ca kīrttiṁ<g type="danda">.</g></l>
-          <l n="b">paśyan vibhūti-viditaḥ kutala-sthitā<choice>
-              <orig>y</orig>
-              <reg>ṁ</reg>
-            </choice> yaḥ<g type="danda">.</g></l>
-          <l n="c">tanreṅ-purī<milestone n="B" type="pagelike" unit="face"/><lb break="no" n="B1"/>ndra Iti so yam imā<unclear>ṁ</unclear> mahātmā<g type="danda">.</g></l>
-          <l n="d">kīrttiṁ svikāṁ dhavalatāṁ prati karttum icchet·<g type="danda">.</g><g type="ddanda">.</g><!--sapi2argr Mon choix de symboles pour ce triple danda peut-être questionné. Devrais-je mettre trois danda simples ? --></l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="5">
-          <l n="a">śākābde rasa-loka-maṅgala-yute jīve tula-sthe bhr̥<lb break="no" n="B2"/>gau<g type="danda">.</g></l>
-          <l n="b">me<choice>
-              <sic>ś</sic>
-              <corr>ṣ</corr>
-            </choice>a-sthe 'pi ca bauddh<choice>
-              <sic>am</sic>
-              <corr>a</corr>
-            </choice> eva ca bhavān m<choice>
-              <sic>ā</sic>
-              <corr>a</corr>
-            </choice>hīndralokeśvara<choice>
-              <sic>m·</sic>
-              <corr>ḥ</corr>
-            </choice><g type="danda">.</g></l>
-          <l n="c">candre kany<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>-gate ca yo nava-niśānt<choice>
-              <unclear>ā</unclear>
-              <unclear>a</unclear>
-            </choice>ṁ sthāpitaḥ kīrttaye<g type="danda">.</g></l>
-          <l n="d">me<choice>
-              <sic>śen</sic>
-              <corr>ṣeṇ</corr>
-            </choice>āpi <placeName key="Mahīndrapūraṇapura" subtype="town" type="settlement">mahī<lb break="no" n="B3"/>ndrapūraṇa-pure</placeName> vaiśākha-śuklasya saḥ<g type="danda">.</g><g type="ddanda">.</g></l>
-        </lg>
-        <lg met="anuṣṭubh" n="6">
-          <l n="a">puṇyaṁ śubham upanītaṁ<g type="danda">.</g></l>
-          <l n="b">svāmvāyāy idam eva ca<g type="danda">.</g></l>
-          <l n="c"><foreign xml:lang="ocm-Latn">pu-pov-ku-kunukuḥ</foreign>-devyai<g type="danda">.</g></l>
-          <l n="d">tena tribhuvanādhikam·</l>
-        </lg>
-        <lg met="āryā" n="7">
-          <l n="ab"><milestone n="C" type="pagelike" unit="face"/><lb n="C1"/>śrī-Indravarmma-nr̥pati<g type="danda">.</g>r yyaś cājñā<supplied reason="omitted">ṁ</supplied> <foreign xml:lang="ocm-Latn">pov-ku</foreign>-mahīndrādhipatau<g type="danda">.</g></l>
-          <l n="cd">sarvvāṁ muktiṁ kr̥payā <g type="danda">.</g>mahīndralok<supplied reason="lost">e</supplied>śvarāyādāt·<g type="danda">.</g><g type="ddanda">.</g></l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="8">
-          <l n="a">tāṁ muktiṁ sakalāṁ tatas tava subha<lb break="no" n="C2"/>drā-saṁjñakāyāy adā<g type="danda">.</g>t</l>
-          <l n="b">sat-kīrtty-ābharaṇaugham eva ca bhavām̐s <placeName key="Tanreṅpurī" subtype="town" type="settlement">tanreṅ-purīndro</placeName> yuvā<g type="danda">.</g></l>
-          <l n="c">tasyai ketaka-reṇu-reṇu-vadanāyai prīty-anāśāya yaḥ<g type="danda">.</g></l>
-          <l n="d">sau<lb break="no" n="C3"/><supplied reason="lost">bhā</supplied>gye sati <unclear>s</unclear>au-viśāla-nayanāyai cāvalāyai sadā<g type="danda">.</g><g type="floretQuatrefoil"/> <g type="danda">.</g></l>
-        </lg>
-        <p xml:lang="ocm-Latn">humā hali<g type="danda">.</g>
-	<placeName key="Kedvuk" subtype="field" type="cultivation">kedvuk·</placeName><g type="danda">.</g>
-	<placeName key="Cuvair Bhoja" subtype="field" type="cultivation">cuvair· bhoja</placeName><!-- or moja? dhoja? --><g type="danda">.</g>
-	<placeName key="Lahaur" subtype="field" type="cultivation">lahaur·</placeName><g type="danda">.</g>
-	<placeName key="Pitau Janreḥ" subtype="field" type="cultivation">pitau janreḥ</placeName><g type="danda">.</g>
-	humā <placeName key="Puṅ Manat Ikān Pu" subtype="field" type="cultivation"><unclear>p</unclear>uṅ· manat·
-<milestone n="D" type="pagelike" unit="face"/><lb n="D1"/>Ikān· <unclear>p</unclear>u</placeName><g type="danda">.</g>
-	<placeName key="Curiḥ" subtype="field" type="cultivation">curiḥ</placeName><g type="danda">.</g>
-	<placeName key="Diṅin" subtype="field" type="cultivation">diṅin·</placeName><g type="danda">.</g>
-	<placeName key="Aṅauy" subtype="field" type="cultivation">Aṅau<unclear>y</unclear>·</placeName><g type="danda">.</g>
-	<placeName key="Lāc" subtype="field" type="cultivation"><unclear>lā</unclear>c·</placeName><g type="danda">.</g>
-	<placeName key="Luvauṅ" subtype="field" type="cultivation">luvauṅ·</placeName><g type="danda">.</g>
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:sapi" when="2023-01-16" status="draft">Addition of placeName tagging</change>
+         <change who="part:argr part:sapi" when="2020-12-09" status="draft">Continuing translation of old Cam part</change>
+         <change who="part:argr part:sapi" when="2020-12-02" status="draft">Continuing translation of old Cam part</change>
+         <change who="part:argr part:sapi" when="2020-11-25" status="draft">Started translation of old Cam part</change>
+         <change who="part:argr part:sapi" when="2020-11-18" status="draft">Multiple small edits</change>
+         <change who="part:argr" when="2020-11-04" status="draft">Resolved validation problems; multiple small edits</change>
+         <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:sapi" when="2020-11-02" status="draft">Adding bibliography</change>
+         <change who="part:sapi" when="2020-10-21" status="draft">Revisions of the file</change>
+         <change who="part:sapi" when="2020-10-20" status="draft">Initial encoding of the inscription</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+      <body>
+         <div type="edition" xml:lang="san-Latn">
+	<ab><milestone type="pagelike" unit="face" n="A"/><lb n="A1"/>svasti <g type="danda">.</g><g type="floretQuatrefoil"/> <g type="danda">.</g></ab>
+<lg n="1" met="anuṣṭubh">
+	<l n="a">śrī-Indravarmmaṇo rājño</l>
+	<l n="b">mahīndrādhipatir vvaram·<g type="danda">.</g></l>
+	<l n="c">bhaktyā padāmvujaṁ d<choice><sic>ī</sic><corr>i</corr></choice>vyaṁ<g type="danda">.</g></l>
+	<l n="d">vandati śrīmato bhavān<unclear>·</unclear><g type="ddandaOrnate">.</g><!--sapi2argr : Ici j'ai bien lu la note suggérant le manque de ponctuation, donc je ne suis pas sûre de mon interprétation de ces <> en double danda. --></l>
+</lg>
+<lg n="2" met="āryā">
+	<l n="ab">dhī-bhāj jita-ripu-vala-<unclear>v</unclear><supplied reason="lost">ān·</supplied> <lb n="A2"/>ruciratayā śaṁ prajāsu sa śrīmat·<g type="danda">.</g></l>
+	<l n="cd">rākendur iva mahīndrā<g type="danda">.</g>dhipatir ayaṁ prāptavān avanau<g type="ddanda">.</g></l>
+</lg>
+<lg n="3" met="anuṣṭubh">
+	<l n="a">cūrṇṇāṅkita-<choice><unclear>vadane ye</unclear><unclear>vadanāyai</unclear></choice><g type="danda">.</g></l><!-- argr2sapi: check EDG if if doesn't rather recommend limiting <choice> to the syllables in question, even if more than one word is concerned -->
+	<l n="b">prabhātaḥ svavanau pri<lb n="A3" break="no"/>ye<g type="danda">.</g></l>
+	<l n="c"><foreign xml:lang="ocm-Latn">lyaṅ·</foreign>-Indrabhūmi-subhadre<g type="danda">.</g></l>
+	<l n="d"><unclear>bha</unclear>dre sadam gir asya te<g type="ddanda">.</g></l>
+</lg>
+<lg n="4" met="vasantatilakā">
+	<l n="a">śrī-Indravarmma-nr̥pater adhikāñ ca kīrttiṁ<g type="danda">.</g></l>
+	<l n="b">paśyan vibhūti-viditaḥ kutala-sthitā<choice><orig>y</orig><reg>ṁ</reg></choice> yaḥ<g type="danda">.</g></l>
+	<l n="c">tanreṅ-purī<milestone type="pagelike" unit="face" n="B"/><lb n="B1" break="no"/>ndra Iti so yam imā<unclear>ṁ</unclear> mahātmā<g type="danda">.</g></l>
+	<l n="d">kīrttiṁ svikāṁ dhavalatāṁ prati karttum icchet·<g type="danda">.</g><g type="ddanda">.</g><!--sapi2argr Mon choix de symboles pour ce triple danda peut-être questionné. Devrais-je mettre trois danda simples ? --></l>
+</lg>
+<lg n="5" met="śārdūlavikrīḍita">
+	<l n="a">śākābde rasa-loka-maṅgala-yute jīve tula-sthe bhr̥<lb n="B2" break="no"/>gau<g type="danda">.</g></l>
+	<l n="b">me<choice><sic>ś</sic><corr>ṣ</corr></choice>a-sthe 'pi ca bauddh<choice><sic>am</sic><corr>a</corr></choice> eva ca bhavān m<choice><sic>ā</sic><corr>a</corr></choice>hīndralokeśvara<choice><sic>m·</sic><corr>ḥ</corr></choice><g type="danda">.</g></l>
+	<l n="c">candre kany<choice><sic>a</sic><corr>ā</corr></choice>-gate ca yo nava-niśānt<choice><unclear>ā</unclear><unclear>a</unclear></choice>ṁ sthāpitaḥ kīrttaye<g type="danda">.</g></l>
+	<l n="d">me<choice><sic>śen</sic><corr>ṣeṇ</corr></choice>āpi <placeName type="settlement" subtype="town" key="Mahīndrapūraṇapura">mahī<lb n="B3" break="no"/>ndrapūraṇa-pure</placeName> vaiśākha-śuklasya saḥ<g type="danda">.</g><g type="ddanda">.</g></l>
+</lg>
+<lg n="6" met="anuṣṭubh">
+	<l n="a">puṇyaṁ śubham upanītaṁ<g type="danda">.</g></l>
+	<l n="b">svāmvāyāy idam eva ca<g type="danda">.</g></l>
+	<l n="c"><foreign xml:lang="ocm-Latn">pu-pov-ku-kunukuḥ</foreign>-devyai<g type="danda">.</g></l>
+	<l n="d">tena tribhuvanādhikam·</l>
+</lg>
+<lg n="7" met="āryā">
+	<l n="ab"><milestone type="pagelike" unit="face" n="C"/><lb n="C1"/>śrī-Indravarmma-nr̥pati<g type="danda">.</g>r yyaś cājñā<supplied reason="omitted">ṁ</supplied> <foreign xml:lang="ocm-Latn">pov-ku</foreign>-mahīndrādhipatau<g type="danda">.</g></l>
+	<l n="cd">sarvvāṁ muktiṁ kr̥payā <g type="danda">.</g>mahīndralok<supplied reason="lost">e</supplied>śvarāyādāt·<g type="danda">.</g><g type="ddanda">.</g></l>
+</lg>
+<lg n="8" met="śārdūlavikrīḍita">
+	<l n="a">tāṁ muktiṁ sakalāṁ tatas tava subha<lb n="C2" break="no"/>drā-saṁjñakāyāy adā<g type="danda">.</g>t</l>
+	<l n="b">sat-kīrtty-ābharaṇaugham eva ca bhavām̐s <placeName type="settlement" subtype="town" key="Tanreṅpurī">tanreṅ-purīndro</placeName> yuvā<g type="danda">.</g></l>
+	<l n="c">tasyai ketaka-reṇu-reṇu-vadanāyai prīty-anāśāya yaḥ<g type="danda">.</g></l>
+	<l n="d">sau<lb n="C3" break="no"/><supplied reason="lost">bhā</supplied>gye sati <unclear>s</unclear>au-viśāla-nayanāyai cāvalāyai sadā<g type="danda">.</g><g type="floretQuatrefoil"/> <g type="danda">.</g></l>
+</lg>
+<p xml:lang="ocm-Latn">humā hali<g type="danda">.</g>
+	<placeName type="cultivation" subtype="field" key="Kedvuk">kedvuk·</placeName><g type="danda">.</g>
+	<placeName type="cultivation" subtype="field" key="Cuvair Bhoja">cuvair· bhoja</placeName><!-- or moja? dhoja? --><g type="danda">.</g>
+	<placeName type="cultivation" subtype="field" key="Lahaur">lahaur·</placeName><g type="danda">.</g>
+	<placeName type="cultivation" subtype="field" key="Pitau Janreḥ">pitau janreḥ</placeName><g type="danda">.</g>
+	humā <placeName type="cultivation" subtype="field" key="Puṅ Manat Ikān Pu"><unclear>p</unclear>uṅ· manat·
+<milestone type="pagelike" unit="face" n="D"/><lb n="D1"/>Ikān· <unclear>p</unclear>u</placeName><g type="danda">.</g>
+	<placeName type="cultivation" subtype="field" key="Curiḥ">curiḥ</placeName><g type="danda">.</g>
+	<placeName type="cultivation" subtype="field" key="Diṅin">diṅin·</placeName><g type="danda">.</g>
+	<placeName type="cultivation" subtype="field" key="Aṅauy">Aṅau<unclear>y</unclear>·</placeName><g type="danda">.</g>
+	<placeName type="cultivation" subtype="field" key="Lāc"><unclear>lā</unclear>c·</placeName><g type="danda">.</g>
+	<placeName type="cultivation" subtype="field" key="Luvauṅ">luvauṅ·</placeName><g type="danda">.</g>
 	kaun· vauk· ndāk· <unclear>k</unclear>laur·<!-- as in pirak kā in next line, we seem to have here a sloppy k -->
 	dandau vukī Avista humā nan·<g type="dotMid">.</g>
-<lb n="D2"/>cluṅ· dhuṅ· ṅauk· dlai klov· nan·<unclear>
-            <g type="danda">.</g>
-          </unclear>
+<lb n="D2"/>cluṅ· dhuṅ· ṅauk· dlai klov· nan·<unclear><g type="danda">.</g></unclear>
 	lamvov·<g type="danda">.</g>
 	kravāv·<g type="danda">.</g>
 	hulun·<g type="danda">.</g>
 	limān·<g type="danda">.</g>
-	māḥ pirak kā Ājñā pov· ku mahī<lb break="no" n="D3"/>ndrādhipatiḥ <space/> grāc· vuḥ di vihāra śrīmahīndralokeśvara<g type="danda">.</g> yām̃ pu pov· kuv· kā vrim̃ vihāra nim̃ mata<lb break="no" n="D4"/>ndāḥ sarvvataḥ riṁ narim̃ nau Oḥ jem̃ si top· hulun· dravya vihāra nim̃ kā Ājñā pov· ku Atat· di Inā
-<milestone n="E" type="pagelike" unit="face"/><lb n="E1"/>Oḥ jem̃ si<!-- is there an unclear m̃? --> kluñ· dauk kan· satyodakānna man·<g type="danda">.</g>
+	māḥ pirak kā Ājñā pov· ku mahī<lb n="D3" break="no"/>ndrādhipatiḥ <space/> grāc· vuḥ di vihāra śrīmahīndralokeśvara<g type="danda">.</g> yām̃ pu pov· kuv· kā vrim̃ vihāra nim̃ mata<lb n="D4" break="no"/>ndāḥ sarvvataḥ riṁ narim̃ nau Oḥ jem̃ si top· hulun· dravya vihāra nim̃ kā Ājñā pov· ku Atat· di Inā
+<milestone type="pagelike" unit="face" n="E"/><lb n="E1"/>Oḥ jem̃ si<!-- is there an unclear m̃? --> kluñ· dauk kan· satyodakānna man·<g type="danda">.</g>
 	sim̃ ya rakṣā nagara tanrem̃ Aṅgāḥ tum̃ ra pandaṁ man·<g type="danda">.</g>
 <!-- C. 106: ājñā yāṅ· pu pov· ku śrījayasiṅhavarmmadeva • vriy· yāṅ· pov· ku si(4)niy· mataṇḍāḥ avis· pat· • oḥ jeṅ· si kluñ· oḥ jeṅ· si top· anna tauṅ· tamr̥yāla niv· di kāra urāṅ· -->
-	nim̃ vukan trā nasim̃ sa<lb break="no" n="E2"/>nraum̃<g type="danda">.</g> sa <unclear>ma</unclear>ruy·<!-- sanraum̃| sa/sā/so maruy·? --> pāt· limān· pāt· rocibhavya<!-- read
+	nim̃ vukan trā nasim̃ sa<lb n="E2" break="no"/>nraum̃<g type="danda">.</g> sa <unclear>ma</unclear>ruy·<!-- sanraum̃| sa/sā/so maruy·? --> pāt· limān· pāt· rocibhavya<!-- read
 				| saci-? | sakhi-? -gavya? separate words? -->
 	pu vinai Ājñā pov· ku mahīndrādhipatiḥ
 	kā vrim̃ kan· pu vinai subhadrā
 <!--  taḥ proṅ· bhogopabhoga si matmuv· va drim̃ (•) tra Inā Amā drim̃ di svargga <<[quatrefoil]>> -->
 	<lb n="E3"/>sim̃ ya rakṣā nagara nim̃· Aṅgā<add place="above">ḥ</add> tuy· ra pandaṁ manna sā sanraum̃ nasim̃ sā caruv· tapai ya jem̃ lo nariy· ṅan· ya jem̃<g type="danda">.</g> dvā ta<!-- dvāta? -->
 	<lb n="E4"/>matandāḥ niy· nāma<g type="danda">.</g> siy· ya pamataḥ<g type="danda">.</g> Asov· lūḥ<g type="danda">.</g> Asov· hitaṁ pāt· matā ñu ndoy· Inā ñū Inā Amā
-	<lb n="E5"/>gaṁp· gotra ñū lac· dauk· di Avīcī Annan· naraka taṁl· yuga Antaḥ pralaya<g type="danda">.</g> siy· ya Oḥ pama<lb break="no" n="E6"/>taḥ proṅ· bhogopabhoga si matmuv· va drim̃ tra Inā Amā drim̃ di svargga<g type="ddanda">.</g><g type="floretQuatrefoil"/> <g type="ddanda">.</g>
+	<lb n="E5"/>gaṁp· gotra ñū lac· dauk· di Avīcī Annan· naraka taṁl· yuga Antaḥ pralaya<g type="danda">.</g> siy· ya Oḥ pama<lb n="E6" break="no"/>taḥ proṅ· bhogopabhoga si matmuv· va drim̃ tra Inā Amā drim̃ di svargga<g type="ddanda">.</g><g type="floretQuatrefoil"/> <g type="ddanda">.</g>
 </p>
-      </div>
-      <div type="apparatus"/>
-      <!--<!-\-apparatus encoded as per EGD §9.1, basic elements for apparatus below-\->
+         </div>
+         <div type="apparatus"/>
+           <!--<!-\-apparatus encoded as per EGD §9.1, basic elements for apparatus below-\->
                <listApp><!-\- one <app> for each apparatus entry -\->
                   <app loc="line"><!-\- update the value of @loc.-\->
                      <lem><!-\- fill in a lemma here -\-></lem>
@@ -220,44 +191,26 @@
                   </app>
                </listApp>
          </div>-->
-      <div resp="part:argr part:sapi" type="translation">
-        <p n="1">Hail!</p>
-        <p n="1" rend="stanza">Milord <supplied reason="explanation">bhavān</supplied><note>The solecistic uninflected use of <foreign>bhavān</foreign> in the Sanskrit portion seems to be an attempt at rendering the titulature <foreign>ājñā pov ku mahīndrādhipati</foreign> observed in the Cam portion.</note> Mahīndrādhipati praises, with devotion, the excellent, divine lotus-feet of the illustrious King Śrī Indravarman.</p>
-        <p n="2" rend="stanza">This Mahīndrādhipati here, endowed with intelligence, having defeated the army of the enemies, has obtained peace and wealth on earth for the people by his brilliance, like the full moon.</p>
-        <p n="3" rend="stanza">The two dear ones with powdered faces, who shine on the beautiful earth — princess Indrabhūmi<note>If we adopt Cam word order, this name can mean the same as Mahīndra. We presume that this is Mahīndrādhipati's mother.</note> and Subhadrā<note>The Cam portion makes explicitly clear that this is Mahīndrādhipati's wife.</note> —, they are his good ladies.</p>
-        <p n="4" rend="stanza">Seeing the superior glory of the King Śrī Indravarman, established on the surface of the earth, he, known for his power, magnanimous, desired<note>The use of optative forms to express past tense is seen more often in Campā inscriptions.</note> to render his own glory as king of Tanreṅpurī towards whiteness.</p>
-        <p n="5" rend="stanza">In the Śaka year counted by the (6) aromas, the (7 or 3) worlds and the (8) signs of good omen <supplied reason="explanation">i.e. in 876 or 836</supplied>, when Jupiter was in Libra, Venus in Aries, the Moon in Virgo, <supplied reason="subaudible">the Sun</supplied> in Aries, at the end of the ninth <supplied reason="explanation">
-            <foreign>tithi</foreign>
-          </supplied> of the <supplied reason="subaudible">waxing</supplied> fortnight of Vaiśākha, has been installed milord Mahīndralokeśvara, the Buddhist one, at Mahīndrapūraṇapura, for the sake of glory <supplied reason="explanation">of the founder, Mahīndrādhipati</supplied>.</p>
-        <p n="6" rend="stanza">This beautiful pious work, which excels in the three worlds, has been assigned to his own mother, milady <supplied reason="explanation">
-            <foreign>pu pov ku</foreign>
-          </supplied> Kunukuḥ Devī, by him.</p>
-        <p n="7" rend="stanza">The King Śrī Indravarman graciously gave to milord <supplied reason="explanation">
-            <foreign>ājñā pov ku</foreign>
-          </supplied> Mahīndrādhipati<note>Titles starting with (uninflected) <foreign>ājñā</foreign> figure in several contemporary Sanskrit inscriptions: C.67;  C. 90 D, l. 19+22; C. 106 A, l. 12; C. 142, st. XXIII, XXIV; B, l. 15; C, l. 6, 14. This same titulature is given to Mahīndrādhipati in the Cam portion.</note> a complete <supplied reason="explanation">fiscal</supplied> exemption in favor of Mahīndralokeśvara.<note>Awards of <foreign>mukti</foreign> to gods also at C.~106, st. IX; C.~108 E, st.~II; C.~138, st.~VII; C.~141, l.~30.</note></p>
-        <p n="8" rend="stanza">Then milord the crown prince (<foreign>indro yuvā</foreign> = <foreign>yuvarājā</foreign>) of Tanreṅpurī, gave your<note>This is presumably addressed to the divine figure on whose pedestal this inscription is engraved. For similar usage of a sudden second person pronoun addressed to the god, see C. 216 A, l. 16 (<foreign>tvayi</foreign>).</note> complete (fiscal) exemption <supplied reason="subaudible">and</supplied> a flood of ornaments in the form of a good reputation, to her called Subhadrā, whose face was powdered with <foreign>ketaka</foreign> powder, whose eyes were extraordinarily wide, a weak woman, in order for <supplied reason="explanation">their</supplied> love never to be destroyed, as long as she was enjoying conjugal fertility.</p>
-        <p n="C3-D3">Which rice fields? Kedvuk, Cuvair Bhoja, Lahaur <supplied reason="explanation">
-            <q>Evening</q>
-          </supplied>, Pitau Janreh.
-				 Rice fields Puṅ Manat fish Pu, Curih, Diṅin <supplied reason="explanation">
-            <q>Cold</q>
-          </supplied>, Aṅauy, Lāc, Luvauṅ.
+<div type="translation" resp="part:argr part:sapi">
+<p n="1">Hail!</p>
+<p rend="stanza" n="1">Milord <supplied reason="explanation">bhavān</supplied><note>The solecistic uninflected use of <foreign>bhavān</foreign> in the Sanskrit portion seems to be an attempt at rendering the titulature <foreign>ājñā pov ku mahīndrādhipati</foreign> observed in the Cam portion.</note> Mahīndrādhipati praises, with devotion, the excellent, divine lotus-feet of the illustrious King Śrī Indravarman.</p>
+<p rend="stanza" n="2">This Mahīndrādhipati here, endowed with intelligence, having defeated the army of the enemies, has obtained peace and wealth on earth for the people by his brilliance, like the full moon.</p>
+<p rend="stanza" n="3">The two dear ones with powdered faces, who shine on the beautiful earth — princess Indrabhūmi<note>If we adopt Cam word order, this name can mean the same as Mahīndra. We presume that this is Mahīndrādhipati's mother.</note> and Subhadrā<note>The Cam portion makes explicitly clear that this is Mahīndrādhipati's wife.</note> —, they are his good ladies.</p>
+<p rend="stanza" n="4">Seeing the superior glory of the King Śrī Indravarman, established on the surface of the earth, he, known for his power, magnanimous, desired<note>The use of optative forms to express past tense is seen more often in Campā inscriptions.</note> to render his own glory as king of Tanreṅpurī towards whiteness.</p>
+<p rend="stanza" n="5">In the Śaka year counted by the (6) aromas, the (7 or 3) worlds and the (8) signs of good omen <supplied reason="explanation">i.e. in 876 or 836</supplied>, when Jupiter was in Libra, Venus in Aries, the Moon in Virgo, <supplied reason="subaudible">the Sun</supplied> in Aries, at the end of the ninth <supplied reason="explanation"><foreign>tithi</foreign></supplied> of the <supplied reason="subaudible">waxing</supplied> fortnight of Vaiśākha, has been installed milord Mahīndralokeśvara, the Buddhist one, at Mahīndrapūraṇapura, for the sake of glory <supplied reason="explanation">of the founder, Mahīndrādhipati</supplied>.</p>
+<p rend="stanza" n="6">This beautiful pious work, which excels in the three worlds, has been assigned to his own mother, milady <supplied reason="explanation"><foreign>pu pov ku</foreign></supplied> Kunukuḥ Devī, by him.</p>
+<p rend="stanza" n="7">The King Śrī Indravarman graciously gave to milord <supplied reason="explanation"><foreign>ājñā pov ku</foreign></supplied> Mahīndrādhipati<note>Titles starting with (uninflected) <foreign>ājñā</foreign> figure in several contemporary Sanskrit inscriptions: C.67;  C. 90 D, l. 19+22; C. 106 A, l. 12; C. 142, st. XXIII, XXIV; B, l. 15; C, l. 6, 14. This same titulature is given to Mahīndrādhipati in the Cam portion.</note> a complete <supplied reason="explanation">fiscal</supplied> exemption in favor of Mahīndralokeśvara.<note>Awards of <foreign>mukti</foreign> to gods also at C.~106, st. IX; C.~108 E, st.~II; C.~138, st.~VII; C.~141, l.~30.</note></p>
+<p rend="stanza" n="8">Then milord the crown prince (<foreign>indro yuvā</foreign> = <foreign>yuvarājā</foreign>) of Tanreṅpurī, gave your<note>This is presumably addressed to the divine figure on whose pedestal this inscription is engraved. For similar usage of a sudden second person pronoun addressed to the god, see C. 216 A, l. 16 (<foreign>tvayi</foreign>).</note> complete (fiscal) exemption <supplied reason="subaudible">and</supplied> a flood of ornaments in the form of a good reputation, to her called Subhadrā, whose face was powdered with <foreign>ketaka</foreign> powder, whose eyes were extraordinarily wide, a weak woman, in order for <supplied reason="explanation">their</supplied> love never to be destroyed, as long as she was enjoying conjugal fertility.</p>
+<p n="C3-D3">Which rice fields? Kedvuk, Cuvair Bhoja, Lahaur <supplied reason="explanation"><q>Evening</q></supplied>, Pitau Janreh.
+				 Rice fields Puṅ Manat fish Pu, Curih, Diṅin <supplied reason="explanation"><q>Cold</q></supplied>, Aṅauy, Lāc, Luvauṅ.
 				 Kaun, marshes, plains, brush, ponds, hills, all those ricefields.
 				 The <foreign>cluṅ dhuṅ</foreign> above these forests <supplied reason="subaudible">and</supplied> brushes.
 				 Bovines, buffaloes, slaves, elephants, gold, silver.
-				 Then <foreign>ājñā</foreign> P.K. Mahīndrādhipati offered <supplied reason="explanation">
-            <foreign>grāc</foreign>
-          </supplied> <supplied reason="subaudible">and</supplied> gave them to the monastery of Śrī Mahīndralokeśvara.</p>
-        <p n="D3-E6">The Y.P.P.K. then allowed this monastery to cancel <supplied reason="explanation">payment of taxes</supplied> in every way <supplied reason="explanation">
-            <foreign>sarvataḥ</foreign>
-          </supplied>, from all perspectives <supplied reason="explanation">? <foreign>riṁ nariy nau</foreign></supplied>. May no-one steal the slaves owned by this monastery.
+				 Then <foreign>ājñā</foreign> P.K. Mahīndrādhipati offered <supplied reason="explanation"><foreign>grāc</foreign></supplied> <supplied reason="subaudible">and</supplied> gave them to the monastery of Śrī Mahīndralokeśvara.</p>
+				 <p n="D3-E6">The Y.P.P.K. then allowed this monastery to cancel <supplied reason="explanation">payment of taxes</supplied> in every way <supplied reason="explanation"><foreign>sarvataḥ</foreign></supplied>, from all perspectives <supplied reason="explanation">? <foreign>riṁ nariy nau</foreign></supplied>. May no-one steal the slaves owned by this monastery.
          Then <foreign>ājñā</foreign> P.K. transferred <supplied reason="subaudible">the merit?</supplied> to his mother.
-         May no-one destroy <supplied reason="explanation">
-            <foreign>kluñ</foreign>
-          </supplied> <foreign>dauk kan</foreign> <supplied reason="explanation">?</supplied> the truth-water and food either.
-Whoever protects the country <supplied reason="explanation">
-            <foreign>nagara</foreign>
-          </supplied> of Tanreṅ <foreign>aṅgāḥ tum̃</foreign>.<!--<foreign>aṅgāḥ</foreign>
+         May no-one destroy <supplied reason="explanation"><foreign>kluñ</foreign></supplied> <foreign>dauk kan</foreign> <supplied reason="explanation">?</supplied> the truth-water and food either.
+Whoever protects the country <supplied reason="explanation"><foreign>nagara</foreign></supplied> of Tanreṅ <foreign>aṅgāḥ tum̃</foreign>.<!--<foreign>aṅgāḥ</foreign>
   connection with the word gah 'direction'?
   Old Javanese:
     @aṅgĕh@}¶ fixed place, position, location; proper place, proper function (condition, way of); personal relationship (esp. within the family)
@@ -269,88 +222,68 @@ One <foreign>sanrauṅ</foreign> of cooked rice. <!-- une sorte de cuillère peu
 Four <foreign>maruy</foreign>. <!--note cam lexicon : Is there any connection with ruy, paruy in MdC?-->
 Four elephants.
 <foreign>rocibhavya</foreign>
-<!--The luminous being <supplied reason="subaudible">that is</supplied>--> the noble woman <supplied reason="explanation">
-            <foreign>pu vinai</foreign>
-          </supplied> of <foreign>ājñā</foreign> P.K. Mahīndrādhipati then gave <foreign>kan</foreign> the noble woman Subhadrā.
+<!--The luminous being <supplied reason="subaudible">that is</supplied>--> the noble woman <supplied reason="explanation"><foreign>pu vinai</foreign></supplied> of <foreign>ājñā</foreign> P.K. Mahīndrādhipati then gave <foreign>kan</foreign> the noble woman Subhadrā.
 Who protects this country, <foreign>aṅgāḥ tuy</foreign> he offers provisions <foreign>man</foreign>: one <foreign>sanrauṅ</foreign> of cooked rice<!--ici sanraum̃ et nasim̃ sont inversés comparé à l. E1-->, one <foreign>caru tapai</foreign> which <foreign>jem̃ lo nariy ṅan ya jem̃</foreign>.
 He who breaks <supplied reason="subaudible">the resources of Śrī Mahīndralokeśvara</supplied>: a mutilated dog <supplied reason="subaudible">or</supplied> a four-eyed black dog mounts his mother.
 His parents <supplied reason="subaudible">and</supplied> relatives will fall <supplied reason="subaudible">and</supplied> remain
 <!-- A&C p. 229 s.v. dauk cite a phrase abih hai lac dauk "c'est fini ou reste-t-il encore?" -->
 in the Avīci, that is hell, until the end of the aeon, the destruction.
 He who does not break the immense resources <supplied reason="subaudible">of Śrī Mahīndralokeśvara</supplied>: he is going to meet his uncles/aunts and his parents in heaven.</p>
-      </div>
-      <div resp="part:argr part:sapi" type="translation" xml:lang="fra">
-        <p n="1">Salut !</p>
-        <p n="1" rend="stanza">Mon seigneur <supplied reason="explanation">bhavān</supplied> Mahīndrādhipati loue, avec dévotion, les pieds lotus excellents, divins, du fortuné roi Śrī Indravarman.</p>
-        <p n="2" rend="stanza">Mon seigneur-ci, Mahīndrādhipati, détenteur d’intelligence, a obtenu pour les gens sur la terre la paix fortunée, grace à sa brilliance ... ayant vaincu l’armée des ennemis, comme <supplied reason="subaudible">l’a obtenue</supplied> la lumière de la pleine lune.</p>
-        <p n="3" rend="stanza">Les deux chéries aux visages poudrés, qui rayonnent sur la belle terre — Lyaṅ Indrabhūmi and Subhadrā — sont ses deux bonnes dames.</p>
-        <p n="4" rend="stanza">Constatant la gloire supérieure du roi Śrī Indravarman, établie sur la surface de la terre, lui, connu pour son pouvoir, d’un grand esprit, désirait de rendre sa propre réputation en tant que Roi de Tanreṅpurī vers la blancheur.</p>
-        <p n="5" rend="stanza">Dans l’an śaka compté par les <supplied reason="subaudible">6</supplied> aromes, les <supplied reason="subaudible">7 ou 3</supplied> mondes et les <supplied reason="subaudible">8</supplied> signes de bonne augure <supplied reason="explanation">876 ou 836</supplied>, quand Jupiter était dans Libra, Bhr̥gu <supplied reason="explanation">Venus</supplied> dans le Bélier, la Lune dans Virgo, <supplied reason="subaudible">le soleil</supplied> dans le Bélier, à l’aube du neuf de la <supplied reason="subaudible">quinzaine</supplied> croissante de Vaiśākha, a été érigé mon Seigneur le Mahīndralokeśvara bouddhique, à Mahīndrapūraṇapura, en vue de la gloire <supplied reason="subaudible">du fondateur, Mahīndrādhipati</supplied>.</p>
-        <p n="6" rend="stanza">Cette belle oeuvre pie, supérieure dans les trois mondes, a été offerte par lui à sa propre mère Pu Pov Ku Kunukuḥ Devī.</p>
-        <p n="7" rend="stanza">Le roi Śrī Indravarman a gracieusement donné à mon seigneur <supplied reason="explanation">ājñā pov ku</supplied> Mahīndrādhipati, l’exemption <supplied reason="subaudible">fiscale</supplied> complète au bénéfice de Mahīndralokeśvara.</p>
-        <p n="8" rend="stanza">Alors mon seigneur le Dauphin <supplied reason="explanation">indra ... yuvā = yuvarājā</supplied> de Tanreṅpurī, a donné votre entière exemption <supplied cert="low" reason="subaudible">et?</supplied> une multitude d’ornements en forme d’une bonne réputation à cette <supplied reason="subaudible">princesse</supplied> nommée Subhadrā, dont le visage était poudré du poudre du Ketaka, dont les yeux était extraordinairement <supplied reason="explanation">sau°</supplied> larges, une faible femme, pour que <supplied reason="subaudible">leur</supplied> amour ne soit jamais détruite, tant qu’elle jouissait de la fertilité conjugale.</p>
-      </div>
-      <div type="commentary">
-        <p n="A1">bhavān· : the right half of the virāma doesn't appear on the photograph of the estampage, but the same word can be found in stanzas V et VIII.</p>
-        <p n="A2">Note the lack of punctuation at the end of this stanza, as well as the problematic interpretation of the beggining of the next. There is however a lack of final punctuation elsewhere (end of stanza III and VI) : the two facts might not be related to one another.</p>
-        <p n="A1-A2">What looks like the remains of a letter at the end of line A1 on one estampage, looks like a scratch on another. However, we need a gu syllable, to form the word guru.</p>
-        <p n="A3">gir asya te : may needs a correction in sadamvike sya te or sadamvikasya te.</p>
-        <p n="C3">(s)au°: understand su° ? We could also read yau.</p>
-      </div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
-        <p>First inventoried by H. Parmentier (<bibl rend="omitname">
-            <ptr target="bib:Parmentier1909_01"/>
-            <citedRange unit="page">564</citedRange>
-          </bibl>). First mentioned in the <foreign>Chronique</foreign> section of (<bibl>
-            <ptr target="bib:BEFEO019_1919"/>
-            <citedRange unit="page">103</citedRange>
-          </bibl>), then by G. Cœdès (<bibl rend="omitname">
-            <ptr target="bib:Coedes1923_01"/>
-            <citedRange unit="page">37</citedRange>
-          </bibl>),
-and finally by L. Finot (<bibl rend="omitname">
-            <ptr target="bib:Finot1925_02"/>
-            <citedRange unit="volume">1</citedRange>
-            <citedRange unit="page">234</citedRange>
-          </bibl>)<!--sapi2argr J'ai ici rajouté une entrée pour Finot-->. Later on evoked by K.-H. Golzio (<bibl rend="omitname">
-            <ptr target="bib:Golzio2004_01"/>
-            <citedRange unit="page">115</citedRange>
-          </bibl>), and N. Chutiwongs (<bibl rend="omitname">
-            <ptr target="bib:Chutiwongs2005_01"/>
-            <citedRange unit="page">75/78</citedRange>
-          </bibl>)<!--sapi2argr Comment signifier deux mentions sur deux pages différentes ? -->. First edited by Arlo Griffiths from EFEO estampage n.0291.</p>
-        <listBibl type="primary">
-          <bibl n="P">
-            <ptr target="bib:Parmentier1909_01"/>
-            <citedRange unit="page">564</citedRange>
-          </bibl>
-          <bibl n="BEFEO">
-            <ptr target="bib:BEFEO019_1919"/>
-            <citedRange unit="page">103</citedRange>
-          </bibl>
-          <bibl n="C">
-            <ptr target="bib:Coedes1923_01"/>
-            <citedRange unit="page">37</citedRange>
-          </bibl>
-          <bibl n="F">
-            <ptr target="bib:Finot1925_02"/>
-            <citedRange unit="volume">1</citedRange>
-            <citedRange unit="page">234</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:Golzio2004_01"/>
-            <citedRange unit="page">115</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Chutiwongs2005_01"/>
-            <citedRange unit="page">75/78</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
+</div>
+<div type="translation" xml:lang="fra" resp="part:argr part:sapi">
+<p n="1">Salut !</p>
+ <p rend="stanza" n="1">Mon seigneur <supplied reason="explanation">bhavān</supplied> Mahīndrādhipati loue, avec dévotion, les pieds lotus excellents, divins, du fortuné roi Śrī Indravarman.</p>
+<p rend="stanza" n="2">Mon seigneur-ci, Mahīndrādhipati, détenteur d’intelligence, a obtenu pour les gens sur la terre la paix fortunée, grace à sa brilliance ... ayant vaincu l’armée des ennemis, comme <supplied reason="subaudible">l’a obtenue</supplied> la lumière de la pleine lune.</p>
+<p rend="stanza" n="3">Les deux chéries aux visages poudrés, qui rayonnent sur la belle terre — Lyaṅ Indrabhūmi and Subhadrā — sont ses deux bonnes dames.</p>
+<p rend="stanza" n="4">Constatant la gloire supérieure du roi Śrī Indravarman, établie sur la surface de la terre, lui, connu pour son pouvoir, d’un grand esprit, désirait de rendre sa propre réputation en tant que Roi de Tanreṅpurī vers la blancheur.</p>
+<p rend="stanza" n="5">Dans l’an śaka compté par les <supplied reason="subaudible">6</supplied> aromes, les <supplied reason="subaudible">7 ou 3</supplied> mondes et les <supplied reason="subaudible">8</supplied> signes de bonne augure <supplied reason="explanation">876 ou 836</supplied>, quand Jupiter était dans Libra, Bhr̥gu <supplied reason="explanation">Venus</supplied> dans le Bélier, la Lune dans Virgo, <supplied reason="subaudible">le soleil</supplied> dans le Bélier, à l’aube du neuf de la <supplied reason="subaudible">quinzaine</supplied> croissante de Vaiśākha, a été érigé mon Seigneur le Mahīndralokeśvara bouddhique, à Mahīndrapūraṇapura, en vue de la gloire <supplied reason="subaudible">du fondateur, Mahīndrādhipati</supplied>.</p>
+				 <p rend="stanza" n="6">Cette belle oeuvre pie, supérieure dans les trois mondes, a été offerte par lui à sa propre mère Pu Pov Ku Kunukuḥ Devī.</p>
+				 <p rend="stanza" n="7">Le roi Śrī Indravarman a gracieusement donné à mon seigneur <supplied reason="explanation">ājñā pov ku</supplied> Mahīndrādhipati, l’exemption <supplied reason="subaudible">fiscale</supplied> complète au bénéfice de Mahīndralokeśvara.</p>
+				 <p rend="stanza" n="8">Alors mon seigneur le Dauphin <supplied reason="explanation">indra ... yuvā = yuvarājā</supplied> de Tanreṅpurī, a donné votre entière exemption <supplied reason="subaudible" cert="low">et?</supplied> une multitude d’ornements en forme d’une bonne réputation à cette <supplied reason="subaudible">princesse</supplied> nommée Subhadrā, dont le visage était poudré du poudre du Ketaka, dont les yeux était extraordinairement <supplied reason="explanation">sau°</supplied> larges, une faible femme, pour que <supplied reason="subaudible">leur</supplied> amour ne soit jamais détruite, tant qu’elle jouissait de la fertilité conjugale.</p>
+</div>
+         <div type="commentary">
+          <p n="A1">bhavān· : the right half of the virāma doesn't appear on the photograph of the estampage, but the same word can be found in stanzas V et VIII.</p>
+					<p n="A2">Note the lack of punctuation at the end of this stanza, as well as the problematic interpretation of the beggining of the next. There is however a lack of final punctuation elsewhere (end of stanza III and VI) : the two facts might not be related to one another.</p>
+					<p n="A1-A2">What looks like the remains of a letter at the end of line A1 on one estampage, looks like a scratch on another. However, we need a gu syllable, to form the word guru.</p>
+					<p n="A3">gir asya te : may needs a correction in sadamvike sya te or sadamvikasya te.</p>
+					<p n="C3">(s)au°: understand su° ? We could also read yau.</p>
+         </div>
+        <div type="bibliography">
+	<!--bibliography encoded as per section §9.4 -->
+	<!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
+           <p>First inventoried by H. Parmentier (<bibl rend="omitname"><ptr target="bib:Parmentier1909_01"/><citedRange unit="page">564</citedRange></bibl>). First mentioned in the <foreign>Chronique</foreign> section of (<bibl><ptr target="bib:BEFEO019_1919"/><citedRange unit="page">103</citedRange></bibl>), then by G. Cœdès (<bibl rend="omitname"><ptr target="bib:Coedes1923_01"/><citedRange unit="page">37</citedRange></bibl>),
+and finally by L. Finot (<bibl rend="omitname"><ptr target="bib:Finot1925_02"/><citedRange unit="volume">1</citedRange><citedRange unit="page">234</citedRange></bibl>)<!--sapi2argr J'ai ici rajouté une entrée pour Finot-->. Later on evoked by K.-H. Golzio (<bibl rend="omitname"><ptr target="bib:Golzio2004_01"/><citedRange unit="page">115</citedRange></bibl>), and N. Chutiwongs (<bibl rend="omitname"><ptr target="bib:Chutiwongs2005_01"/><citedRange unit="page">75/78</citedRange></bibl>)<!--sapi2argr Comment signifier deux mentions sur deux pages différentes ? -->. First edited by Arlo Griffiths from EFEO estampage n.0291.</p>
+        	<listBibl type="primary">
+						<bibl n="P">
+						<ptr target="bib:Parmentier1909_01"/>
+						<citedRange unit="page">564</citedRange>
+						</bibl>
+						<bibl n="BEFEO">
+						<ptr target="bib:BEFEO019_1919"/>
+						<citedRange unit="page">103</citedRange>
+						</bibl>
+						<bibl n="C">
+						<ptr target="bib:Coedes1923_01"/>
+						<citedRange unit="page">37</citedRange>
+						</bibl>
+						<bibl n="F">
+						<ptr target="bib:Finot1925_02"/>
+						<citedRange unit="volume">1</citedRange>
+						<citedRange unit="page">234</citedRange>
+						</bibl>
+
+			</listBibl>
+           <listBibl type="secondary">
+	<bibl>
+						<ptr target="bib:Golzio2004_01"/>
+						<citedRange unit="page">115</citedRange>
+						</bibl>
+	<bibl>
+	<ptr target="bib:Chutiwongs2005_01"/>
+	<citedRange unit="page">75/78</citedRange>
+	</bibl>
+           </listBibl>
+        </div>
+      </body>
   </text>
 </TEI>

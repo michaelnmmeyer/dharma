@@ -4,105 +4,108 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title><!-- ADD TITEL HERE --></title>
-        <respStmt>
-          <resp>EpiDoc Encoding</resp>
-          <persName ref="part:jeth">
-            <forename>Jens Christian</forename>
-            <surname>Thomas</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:jeth">
-            <forename>Jens Christian</forename>
-            <surname>Thomas</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Berlin</pubPlace>
-        <idno type="filename">DHARMA_INSTelugu00041</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
-        <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
-          </msIdentifier>
-          <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title><!-- ADD TITEL HERE --></title>
+            <respStmt>
+               <resp>EpiDoc Encoding</resp>
+               <persName ref="part:jeth">
+                  <forename>Jens Christian</forename>
+                  <surname>Thomas</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName ref="part:jeth">
+                  <forename>Jens Christian</forename>
+                  <surname>Thomas</surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Berlin</pubPlace>
+            <idno type="filename">DHARMA_INSTelugu00041</idno>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+                  <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc><!-- only the handDesc can be filled in at this stage -->
+            <msDesc><!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+                  <!-- don't modify this -->
+               </msIdentifier>
+               <msContents><!-- describe the intellectual content of an inscription -->
+                  <summary><!-- //// NOT MANDATORY  ////--></summary>
+                  <!-- offers the possibility to give a summary of the inscription's content -->
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+                     <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
 						<summary><p><p/></summary>
 						<handNote xml:id="Pallava00001_hand1"></handNote>
 						<handNote xml:id="Pallava00001_hand2"></handNote>
 					 -->
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
                         under the European Union's Horizon 2020 research and innovation programme (grant
                         agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
                             ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
                             <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2021-01-22" who="part:jeth">Minor additions</change>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-05" who="part:jeth">Creation of the file</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tel-Latn">
-        <p>
-               <lb n="1"/>svasti śrī vijayāditya-saty<unclear>ā</unclear>śray<unclear>u</unclear>nṟ-agu<lb break="no" n="2"/>pṛthuvī-vallabha-mahārā<lb break="no" n="3"/>jādhirāja-paramēśvara-bhaṭā<lb break="no" n="4"/>raḶ kattirāju rēṇḍ-agu Ēṇḍu
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:jeth" when="2021-01-22" status="draft">Minor additions</change>
+         <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:jeth" when="2020-08-05" status="draft">Creation of the file</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+      <body>
+         <div type="edition" xml:lang="tel-Latn">
+            <p>
+               <lb n="1"/>svasti śrī vijayāditya-saty<unclear>ā</unclear>śray<unclear>u</unclear>nṟ-agu<lb n="2" break="no"/>pṛthuvī-vallabha-mahārā<lb n="3" break="no"/>jādhirāja-paramēśvara-bhaṭā<lb n="4" break="no"/>raḶ kattirāju rēṇḍ-agu Ēṇḍu
                <lb n="5"/>pṛthivī-rājya<unclear>ṁ</unclear>bu cēyaN
                <lb n="6"/>vāṇarāj<unclear>u</unclear>l<supplied reason="lost">va</supplied>ṅgan<unclear>ū</unclear>r nnāṇḍu Ēḷa <!-- four more akṣaras may have been written here. ? dhi ? ṣa -->
                <lb n="7"/>caḷ<unclear>k</unclear>i mu<supplied reason="lost">tturā</supplied>jul-cañjuṇō<unclear>N</unclear><!-- ce of the edition should be wrong because the vowel should be attached to the l°; furthermore, the first ca in this very line also has quite a long head stroke towards the left so that this might be the ductus of this very scribe -->
-               <lb n="8"/>I<!-- or bha? -->raṭṭa-pāṟa s<unclear>ā</unclear>rmadiyāri <add place="inline">kāśyapagōtra</add><!-- this seems to be added later, since it is smaller and fit into empty space; plus the ending -ki is wrong on gōtra --><lb break="no" n="9"/>ki rāca<!-- the ca here also shows a left bent of the vertical strkoe like the other ca's (even that in composition) so that the reading ce is wrong in all these instances -->māna<unclear>ṁ</unclear>bu pannavīsa I<!-- has to be checked; is there an akṣara before it? -->cciri
+               <lb n="8"/>I<!-- or bha? -->raṭṭa-pāṟa s<unclear>ā</unclear>rmadiyāri <add place="inline">kāśyapagōtra</add><!-- this seems to be added later, since it is smaller and fit into empty space; plus the ending -ki is wrong on gōtra --><lb n="9" break="no"/>ki rāca<!-- the ca here also shows a left bent of the vertical strkoe like the other ca's (even that in composition) so that the reading ce is wrong in all these instances -->māna<unclear>ṁ</unclear>bu pannavīsa I<!-- has to be checked; is there an akṣara before it? -->cciri
                <lb n="10"/>cammayuḷu palmak<!-- is it kk? -->aḷu  paṭṭi
-               <lb n="11"/>Ēnugu kanṟirlakuṟu pāṟa tāḻka<lb break="no" n="12"/>ḍa<!-- the place name is tāḻa-kaḍa 'palmyra tree place' -->pāṟa kavisiya-pāṟa Inakera<!-- ??? -->  sā<lb break="no" n="13"/>kṣi kān... paḍiye pannasa yirajadamaku<!-- unclear -->
+               <lb n="11"/>Ēnugu kanṟirlakuṟu pāṟa tāḻka<lb n="12" break="no"/>ḍa<!-- the place name is tāḻa-kaḍa 'palmyra tree place' -->pāṟa kavisiya-pāṟa Inakera<!-- ??? -->  sā<lb n="13" break="no"/>kṣi kān... paḍiye pannasa yirajadamaku<!-- unclear -->
                <lb n="14"/>pulpogu ? māranasā ? pekanekasiddhi
                <lb n="15"/><!-- bhisira -->
                <lb n="16"/>    māṟuntu
                <lb n="17"/>Ip-pannasa ḻaccuvānṟ<unclear>u</unclear>
-               <lb n="18"/>vāraṇāsiyu vē<lb break="no" n="19"/>layu ḻaccina<unclear>vā</unclear>nṟ agu
+               <lb n="18"/>vāraṇāsiyu vē<lb n="19" break="no"/>layu ḻaccina<unclear>vā</unclear>nṟ agu
 
                <!-- at the side/on the second face?:
                1.
@@ -110,33 +113,37 @@
                3.
                -->
             </p>
-      </div>
-      <div type="apparatus">
-        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
-        <listApp>
-          <!-- one <app> for each apparatus entry -->
-          <app loc="line">
-            <!-- Update the value of @loc.-->
-            <lem><!-- fill in a lemma here --></lem>
-            <rdg source="bib:AuthorYear_01"><!-- update the @source value, fill in variant reading here --></rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:jeth" type="translation"><!--Yet to be provided --></div>
-      <div type="commentary">
-        <p><!-- the akṣaras ⟨thi⟩ and ⟨dhi⟩ of lines 2 and 3 differ in that the former contains a vertical stroke reaching from the right to the left side, while the latter is empty or may contain a dot. The ⟨thi⟩ in line 5, however, also shows a mere dot so that the same word may have been written differently in the same inscription or the graphemic difference between the two akṣaras was nil with a variation of a dot and a stroke. The halanta ⟨Ḷ⟩ of line 4 is formed via a saw-toothed horizontal line on the head of the akṣara; halanta ⟨N⟩ of line 5 on the other hand only seems to be marked by its small size and possibly the lack of the horizontal "head stroke"; vaṅganūr in line 6 seems to be written in a similar manner as in EI XXX, 14 in that the ⟨nū⟩ is written with an ⟨°ū⟩ that consists of two half circles added to the left of the ⟨n°⟩. --></p>
-      </div>
-      <div type="bibliography">
-        <p></p>
-        <listBibl type="primary">
-          <bibl n="siglum"/>
-          <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl/>
-          <bibl/>
-        </listBibl>
-      </div>
-    </body>
+         </div>
+         <div type="apparatus">
+           <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
+               <listApp><!-- one <app> for each apparatus entry -->
+                  <app loc="line"><!-- Update the value of @loc.-->
+                     <lem><!-- fill in a lemma here --></lem>
+                     <rdg source="bib:AuthorYear_01"><!-- update the @source value, fill in variant reading here --></rdg>
+                  </app>
+               </listApp>
+         </div>
+         <div type="translation" resp="part:jeth">
+ 	<!--Yet to be provided -->
+         </div>
+         <div type="commentary">
+            <p>
+              <!-- the akṣaras ⟨thi⟩ and ⟨dhi⟩ of lines 2 and 3 differ in that the former contains a vertical stroke reaching from the right to the left side, while the latter is empty or may contain a dot. The ⟨thi⟩ in line 5, however, also shows a mere dot so that the same word may have been written differently in the same inscription or the graphemic difference between the two akṣaras was nil with a variation of a dot and a stroke. The halanta ⟨Ḷ⟩ of line 4 is formed via a saw-toothed horizontal line on the head of the akṣara; halanta ⟨N⟩ of line 5 on the other hand only seems to be marked by its small size and possibly the lack of the horizontal "head stroke"; vaṅganūr in line 6 seems to be written in a similar manner as in EI XXX, 14 in that the ⟨nū⟩ is written with an ⟨°ū⟩ that consists of two half circles added to the left of the ⟨n°⟩. -->
+            </p>
+         </div>
+        <div type="bibliography">
+          <p>
+
+          </p>
+          <listBibl type="primary">
+				<bibl n="siglum"/><!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
+			</listBibl>
+
+           <listBibl type="secondary">
+              <bibl/>
+              <bibl/>
+           </listBibl>
+        </div>
+      </body>
   </text>
 </TEI>

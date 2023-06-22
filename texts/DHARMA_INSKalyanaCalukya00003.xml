@@ -3,203 +3,188 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Kalleśvara Temple Inscription at Bagali 2</title>
-        <!--Change the title of the file, e.g. Raktamālā grant of the time of Budhagupta, year 159-->
-        <!-- Add your name in the respStmt matching your involvement -->
-        <respStmt>
-          <resp>EpiDoc Encoding</resp>
-          <!-- Work done in the file, e.g. editor ...-->
-          <persName ref="part:sagu">
-            <!-- Update the id -->
-            <forename>Samana</forename>
-            <!-- Fill in your  names — it is possible to use only <name> instead of <foreame> and <surname> -->
-            <surname>Gururaja</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <!-- This may be the same as the creator of the file -->
-          <persName ref="http://viaf.org/viaf/77694568">
-            <!-- Update the id -->
-            <name>R. Shama Shastry</name>
-            <!-- Fill in the name of the responsible scholar — it possible to use only <name> instead of <foreame> and <surname> -->
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace><!-- Fill in here the place or places where the encoding has been done --></pubPlace>
-        <idno type="filename">DHARMA_INSKalyanaCalukya00003</idno>
-        <!-- Replace by filename, e.g. Pallava00001 -->
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Kalleśvara Temple Inscription at Bagali 2</title>
+                <!--Change the title of the file, e.g. Raktamālā grant of the time of Budhagupta, year 159-->
+                <!-- Add your name in the respStmt matching your involvement -->
+                <respStmt>
+                    <resp>EpiDoc Encoding</resp>
+                    <!-- Work done in the file, e.g. editor ...-->
+                    <persName ref="part:sagu"><!-- Update the id -->
+                        <forename>Samana</forename>
+                        <!-- Fill in your  names — it is possible to use only <name> instead of <foreame> and <surname> -->
+                        <surname>Gururaja</surname>
+                    </persName>
+                </respStmt>
+                <respStmt>
+                    <resp>intellectual authorship of edition</resp>
+                    <!-- This may be the same as the creator of the file -->
+                    <persName ref="http://viaf.org/viaf/77694568"><!-- Update the id -->
+                        <name>R. Shama Shastry</name>
+                        <!-- Fill in the name of the responsible scholar — it possible to use only <name> instead of <foreame> and <surname> -->
+                    </persName>
+                </respStmt>
+            </titleStmt>
+            <publicationStmt>
+                <authority>DHARMA</authority>
+                <pubPlace><!-- Fill in here the place or places where the encoding has been done --></pubPlace>
+                <idno type="filename">DHARMA_INSKalyanaCalukya00003</idno>
+                <!-- Replace by filename, e.g. Pallava00001 -->
+                <availability>
+                    <licence target="https://creativecommons.org/licenses/by/4.0/">
+                        <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
                             Licence. To view a copy of the licence, visit
                             https://creativecommons.org/licenses/by/4.0/ or send a letter to
                             Creative Commons, 444 Castro Street, Suite 900, Mountain View,
                             California, 94041, USA.</p>
-            <p>Copyright (c) 2022 by Samana
+                        <p>Copyright (c) 2022 by Samana
                             Gururaja.</p>
-            <!-- replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2022</date>
-      </publicationStmt>
-      <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
-        <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
-          </msIdentifier>
-          <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+                        <!-- replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
+                    </licence>
+                </availability>
+                <date from="2019" to="2025">2022</date>
+            </publicationStmt>
+            <sourceDesc><!-- only the handDesc can be filled in at this stage -->
+                <msDesc><!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+                    <msIdentifier>
+                        <repository>DHARMAbase</repository>
+                        <idno/>
+                        <!-- don't modify this -->
+                    </msIdentifier>
+                    <msContents><!-- describe the intellectual content of an inscription -->
+                        <summary><!-- //// NOT MANDATORY  ////--></summary>
+                        <!-- offers the possibility to give a summary of the inscription's content -->
+                    </msContents>
+                    <physDesc>
+                        <handDesc>
+                            <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+                            <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
 						<summary><p><p/></summary>
 						<handNote xml:id="Pallava00001_hand1"></handNote>
 						<handNote xml:id="Pallava00001_hand2"></handNote>
 					 -->
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change when="2020-10-12" who="part:axja">Version 3.2 : movinng the xml:lang to the root</change>
-      <change when="2020-07-02" who="part:axja">Version 3.1: adding the encodingDesc and linking the template with the DHARMA Schema</change>
-      <change when="2020-03-18" who="part:axja">Version 2: addition of handDesc and summary</change>
-      <change status="draft" when="2019-12-18" who="part:axja">Creation of the
+                        </handDesc>
+                    </physDesc>
+                </msDesc>
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <projectDesc>
+                <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+            </projectDesc>
+            <schemaRef type="guide"
+                key="EGDv01"
+                url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+            <!-- UPDATE the link once the release is made official -->
+            <listPrefixDef>
+                <prefixDef ident="bib"
+                    matchPattern="([a-zA-Z0-9\-\_]+)"
+                    replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+                    <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+                </prefixDef>
+                <prefixDef ident="part"
+                    matchPattern="([a-z]+)"
+                    replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
+                    <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
+                </prefixDef>
+            </listPrefixDef>
+        </encodingDesc>
+        <revisionDesc>
+            <change who="part:axja" when="2020-10-12">Version 3.2 : movinng the xml:lang to the root</change>
+            <change who="part:axja" when="2020-07-02">Version 3.1: adding the encodingDesc and linking the template with the DHARMA Schema</change>
+            <change who="part:axja" when="2020-03-18">Version 2: addition of handDesc and summary</change>
+            <change who="part:axja" when="2019-12-18" status="draft">Creation of the
                 template</change>
-      <!-- replace this by a line that has you as @who, that has the @date on which you finished the first basic encoding of the file, and that has the following description of what was finished on that date: "Initial encoding of the file." Then add a <change> entry for each significant change to the file. -->
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="san-Latn">
-        <!-- update the @xml:lang value, see EGD §7.2-->
-        <!--edition encoded as per EGD §§2−7-->
-        <ab><lb n="1"/>svasti<supplied reason="omitted">
-            <g type="ddanda">.</g>
-          </supplied></ab>
-        <p>sakanr̥pa-kālātīta-saṁvatsara-sataṁgaḷ
+            <!-- replace this by a line that has you as @who, that has the @date on which you finished the first basic encoding of the file, and that has the following description of what was finished on that date: "Initial encoding of the file." Then add a <change> entry for each significant change to the file. -->
+        </revisionDesc>
+    </teiHeader>
+    <text xml:space="preserve">
+      <body>
+         <div type="edition" xml:lang="san-Latn"><!-- update the @xml:lang value, see EGD §7.2-->
+            <!--edition encoded as per EGD §§2−7-->
+            <ab><lb n="1"/>svasti<supplied reason="omitted"><g type="ddanda">.</g></supplied></ab>
+             <p>sakanr̥pa-kālātīta-saṁvatsara-sataṁgaḷ
                  <lb n="2"/><num value="903">903</num> neya khara-saṁvatsaraṁ pravartise tadvari
-                 <lb break="no" n="3"/>ṣābhyantarade māgha suddha paṁcamī maṁgaḷavāra
-                 <lb break="no" n="4"/>d’ andu śrī-pr̥thvī-vallabha-mahārājādhirāja-paramēśvara
-                 <lb break="no" n="5"/>n ellaram-aruḷaṁ teri-viḷāsaṁ madha-gaja-mallan āne-veḍaṁ
-                 <lb break="no" n="6"/>ga-śrī-kannara-dēvana māḍida maryyāde Eleya pēṟige E
-                 <lb break="no" n="7"/>raḍu paṅa-vaḍḍaṁ suṁka-samucchaya naḍevudu</p>
-        <p>kōgaḻiy’ aynū
-                 <lb break="no" n="8"/>ṟuvan-āditya-varmm’ arasar āḷuttavire suṁkad’ anyāya peṟcida
-                 <lb break="no" n="9"/>ḍe bāḷguḷiy’ayvadiṁbaruṁ siddhaseṭṭi sōbhanayya mallayya
-                 <lb break="no" n="10"/>seṭṭi aṇnamman intavar pramukhavāgi taṁbuliga sāsirvvaruṁ A
-                 <lb break="no" n="11"/>ynūrvvaruṁ pōgi śrīpr̥thvī-vallabha-mahārājādhirāja-pa
-                 <lb break="no" n="12"/>ramēśvara-parama-bhaṭṭārakaṁ satyāśraya-kuḷa-tilaka-cāḷu
-                 <lb break="no" n="13"/>kyābharaṅaṁ srīmad-āhavamalla-dēvara śrīpādagaḷge śāṣṭāṁga
-                 <lb break="no" n="14"/>m eṟagi poḍevaṭṭu binnapaṁ-geydaḍe kannaradēvana marryādeya
-                 <lb break="no" n="15"/>l’ āda suṁkada marryādeyuṁ tappade naḍayim-endu biṭṭan-int’ ī
+                 <lb n="3" break="no"/>ṣābhyantarade māgha suddha paṁcamī maṁgaḷavāra
+                 <lb n="4" break="no"/>d’ andu śrī-pr̥thvī-vallabha-mahārājādhirāja-paramēśvara
+                 <lb n="5" break="no"/>n ellaram-aruḷaṁ teri-viḷāsaṁ madha-gaja-mallan āne-veḍaṁ
+                 <lb n="6" break="no"/>ga-śrī-kannara-dēvana māḍida maryyāde Eleya pēṟige E
+                 <lb n="7" break="no"/>raḍu paṅa-vaḍḍaṁ suṁka-samucchaya naḍevudu</p><p>kōgaḻiy’ aynū
+                 <lb n="8" break="no"/>ṟuvan-āditya-varmm’ arasar āḷuttavire suṁkad’ anyāya peṟcida
+                 <lb n="9" break="no"/>ḍe bāḷguḷiy’ayvadiṁbaruṁ siddhaseṭṭi sōbhanayya mallayya
+                 <lb n="10" break="no"/>seṭṭi aṇnamman intavar pramukhavāgi taṁbuliga sāsirvvaruṁ A
+                 <lb n="11" break="no"/>ynūrvvaruṁ pōgi śrīpr̥thvī-vallabha-mahārājādhirāja-pa
+                 <lb n="12" break="no"/>ramēśvara-parama-bhaṭṭārakaṁ satyāśraya-kuḷa-tilaka-cāḷu
+                 <lb n="13" break="no"/>kyābharaṅaṁ srīmad-āhavamalla-dēvara śrīpādagaḷge śāṣṭāṁga
+                 <lb n="14" break="no"/>m eṟagi poḍevaṭṭu binnapaṁ-geydaḍe kannaradēvana marryādeya
+                 <lb n="15" break="no"/>l’ āda suṁkada marryādeyuṁ tappade naḍayim-endu biṭṭan-int’ ī
                  <lb n="16"/>sthitiyaṁ tappi koṇḍutaṁ vāṇarāsiyuṁ kavileyuṁ kurukṣētramu
-                 <lb break="no" n="17"/>man-aḻida paṁca-mahā-pātakaṁ <g type="spiral">.</g></p>
-        <lg met="śālinī" n="1">
-          <l n="a">sāmānyōyaṁ <lb n="18"/>dharmasētu<supplied reason="omitted">ḥ</supplied> nr̥pāṇāṁ</l>
-          <l n="b">kālē kālē pālinīyō bhavadbhiḥ<g type="danda">.</g></l>
-          <l n="c">sarvvānē<lb break="no" n="19"/>tān-bhāginaḥ pārtthivēṁdrānu</l>
-          <l n="d">bhūyō bhūyo yācatē rāmabhadraḥ <g type="ddanda">..</g></l>
-        </lg>
-        <lg met="anuṣṭubh" n="2">
-          <l n="a"><lb n="20"/>sva-dattaṁ para-dattaṁ vā</l>
-          <l n="b">yō harēti vasundharā<supplied reason="omitted">ṁ</supplied><g type="danda">.</g></l>
-          <l n="c">ṣaṣṭir-varṣa-sahasrāṇi</l>
-          <l n="d">viṣṭāyāṁ <lb n="21"/>jāyatē kr̥miḥ <g type="danda">.</g></l>
-        </lg>
-        <p>yayvadiṁbaruṁ sāsirvvaru(ṁ)v’ irdu bārikēcaṁge koṭṭaru<g type="danda">.</g></p>
-        <p><supplied reason="omitted">vo</supplied>
+                 <lb n="17" break="no"/>man-aḻida paṁca-mahā-pātakaṁ <g type="spiral">.</g></p>
+                 <lg n="1" met="śālinī">
+                    <l n="a">sāmānyōyaṁ <lb n="18"/>dharmasētu<supplied reason="omitted">ḥ</supplied> nr̥pāṇāṁ</l>
+                    <l n="b">kālē kālē pālinīyō bhavadbhiḥ<g type="danda">.</g></l>
+                    <l n="c">sarvvānē<lb n="19" break="no"/>tān-bhāginaḥ pārtthivēṁdrānu</l>
+                    <l n="d">bhūyō bhūyo yācatē rāmabhadraḥ <g type="ddanda">..</g></l>
+                 </lg>
+                <lg n="2" met="anuṣṭubh">
+                    <l n="a"><lb n="20"/>sva-dattaṁ para-dattaṁ vā</l>
+                    <l n="b">yō harēti vasundharā<supplied reason="omitted">ṁ</supplied><g type="danda">.</g></l>
+                    <l n="c">ṣaṣṭir-varṣa-sahasrāṇi</l>
+                    <l n="d">viṣṭāyāṁ <lb n="21"/>jāyatē kr̥miḥ <g type="danda">.</g></l>
+                </lg>
+             <p>yayvadiṁbaruṁ sāsirvvaru(ṁ)v’ irdu bārikēcaṁge koṭṭaru<g type="danda">.</g></p>
+             <p><supplied reason="omitted">vo</supplied>
              <lb n="22"/>kkalalu hāga talevoṟege bēḷe <g type="danda">.</g></p>
-        <ab>candōja māḍida <supplied reason="omitted">
-            <g type="ddanda">..</g>
-          </supplied></ab>
-      </div>
-      <div type="apparatus">
-        <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
-        <listApp>
-          <!-- one <app> for each apparatus entry -->
-          <app loc="line">
-            <!-- update the value of @loc.-->
-            <lem><!-- fill in a lemma here --></lem>
-            <rdg source="bib:AuthorYear_01"><!-- update the @source value, fill in variant reading here --></rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:sagu" type="translation">
-        <p n="1">Benediction</p>
-        <p n="1-7">A multitude of years having elapsed since the time of king Śaka, the boundary made by the auspicious
+             <ab>candōja māḍida <supplied reason="omitted"><g type="ddanda">..</g></supplied></ab>
+              </div>
+         <div type="apparatus">
+           <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
+               <listApp><!-- one <app> for each apparatus entry -->
+                  <app loc="line"><!-- update the value of @loc.-->
+                     <lem><!-- fill in a lemma here --></lem>
+                     <rdg source="bib:AuthorYear_01"><!-- update the @source value, fill in variant reading here --></rdg>
+                  </app>
+               </listApp>
+         </div>
+         <div type="translation" resp="part:sagu">
+             <p n="1">Benediction</p>
+             <p n="1-7">A multitude of years having elapsed since the time of king Śaka, the boundary made by the auspicious
                  Kannaradēva — the lord of the earth, king of kings, supreme lord, he who blesses everyone, <foreign>teri-viḷāsaṃ</foreign>,
                  the one who wrestles intoxicated elephants, the one with the grace of an elephant — during the khara samvatsara of 903,
                  in the very middle of the year, on Tuesday during the bright fortnight of Magha,
                  <supplied reason="subaudible">stated that</supplied> for the distribution of the <supplied reason="subaudible">betel</supplied> leaves
                  there was to proceed the collection of two <seg cert="low">units</seg> (<foreign>vaḍḍa</foreign>) of money (<foreign>paṇa</foreign>)</p>
-        <p n="7-17">When the five hundred <supplied reason="subaudible">
-            <foreign>mahājanas</foreign>
-          </supplied> of Kōgali and king Ādityavarma were ruling, as soon as the violation of the boundary increased,
-                 the five hundred of Bāḷguḷi, the thousand <seg cert="low">
-            <supplied reason="subaudible">leaders</supplied>
-          </seg> of the betel leaf
+             <p n="7-17">When the five hundred <supplied reason="subaudible"><foreign>mahājanas</foreign></supplied> of Kōgali and king Ādityavarma were ruling, as soon as the violation of the boundary increased,
+                 the five hundred of Bāḷguḷi, the thousand <seg cert="low"><supplied reason="subaudible">leaders</supplied></seg> of the betel leaf
                  merchants — with members such as Siddhaseṭṭi, Sōbhanayya, Mallayyaseṭṭi and Aṇnaman promiment among them — and the five hundred, went to
                  Āhavamalla Dēva — lord of the earth, king of kings, supreme lord, most venerated,
                  the ornament to the family of Satyāśraya, ornament to the Cāḷukyas — and having prostrated themselves before his auspicious feet, stretching their abdomens forward,
                  as soon as they made a respectful petition, he declared that the boundaries that were set for the collection of the toll under the jurisdiction of Kannaradēva would proceed.
                  Having said this, he who defaults on this state of affairs (<foreign>sthiti</foreign>) will incur the five great sins of destroying Varanāsi, brown cows, and Kurukṣētra.</p>
-        <p n="17-19" rend="stanza">This <supplied reason="subaudible">grant</supplied> which is a bridge of <foreign>dharma</foreign> for kings, from time to time is to be protected/maintained by you,
+            <p rend="stanza" n="17-19">This <supplied reason="subaudible">grant</supplied> which is a bridge of <foreign>dharma</foreign> for kings, from time to time is to be protected/maintained by you,
                 all the kings who are partaking of it, [as] requested again and again by Rāmabhadra.</p>
-        <p n="19-21" rend="stanza">Whether given by oneself or another, he who robs/destroys that which is another’s,
+             <p rend="stanza" n="19-21">Whether given by oneself or another, he who robs/destroys that which is another’s,
                for sixty thousand years he will be born as a worm in excrement</p>
-        <p n="21">the five hundred and the thousand being present, they gave this to Bārikēca</p>
-        <p n="21-22">
-          <seg cert="low">pulses for the quarter headload of the farmers</seg>
-        </p>
-        <p n="22">made by Candōja</p>
-      </div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
-        <listBibl type="primary">
-          <bibl n="S">
-            <ptr target="bib:Shama+Rao1939_01"/>
-            <citedRange unit="page">46-47</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
-        </listBibl>
-      </div>
-    </body>
+             <p n="21">the five hundred and the thousand being present, they gave this to Bārikēca</p>
+             <p n="21-22"><seg cert="low">pulses for the quarter headload of the farmers</seg></p>
+             <p n="22">made by Candōja</p>
+          </div>
+         <div type="commentary">
+            <!--commentary encoded as per section §9.3 -->
+         </div>
+        <div type="bibliography">
+	<!--bibliography encoded as per section §9.4 -->
+           <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
+        	<listBibl type="primary">
+			<bibl n="S"><ptr target="bib:Shama+Rao1939_01"/><citedRange unit="page">46-47</citedRange></bibl>
+			</listBibl>
+           <listBibl type="secondary">
+              <bibl/><!-- one <bibl/> per item of secondary bibliography -->
+           </listBibl>
+        </div>
+      </body>
   </text>
 </TEI>

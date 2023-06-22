@@ -4,135 +4,136 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>kusambyan</title>
-        <!--Change the title of the file, e.g. Raktamālā grant of the time of Budhagupta, year 159-->
-        <respStmt>
-          <!-- add an element respStmt for each person involved -->
-          <resp>intellectual authorship of edition</resp>
-          <!-- this may be the same as the creator of the file -->
-          <persName ref="part:ekba">
-            <!-- update the id -->
-            <name>Eko Bastiawan</name>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace><!-- fill in here the place or places where the encoding has been done --></pubPlace>
-        <idno type="filename">DHARMA_INSIDENKKusambyan</idno>
-        <!-- Replace by filename, e.g. Pallava00001 -->
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Eko Bastiawan.</p>
-            <!-- Replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
-        <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
-          </msIdentifier>
-          <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>kusambyan</title>
+            <!--Change the title of the file, e.g. Raktamālā grant of the time of Budhagupta, year 159-->
+            <respStmt><!-- add an element respStmt for each person involved -->
+               <resp>intellectual authorship of edition</resp>
+               <!-- this may be the same as the creator of the file -->
+               <persName ref="part:ekba"><!-- update the id -->
+                     <name>Eko Bastiawan</name>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace><!-- fill in here the place or places where the encoding has been done --></pubPlace>
+            <idno type="filename">DHARMA_INSIDENKKusambyan</idno>
+            <!-- Replace by filename, e.g. Pallava00001 -->
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+                  <p>Copyright (c) 2019-2025 by Eko Bastiawan.</p>
+                  <!-- Replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc><!-- only the handDesc can be filled in at this stage -->
+            <msDesc><!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+                  <!-- don't modify this -->
+               </msIdentifier>
+               <msContents><!-- describe the intellectual content of an inscription -->
+                  <summary><!-- //// NOT MANDATORY  ////--></summary>
+                  <!-- offers the possibility to give a summary of the inscription's content -->
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+                     <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
 						<summary><p><p/></summary>
 						<handNote xml:id="Pallava00001_hand1"></handNote>
 						<handNote xml:id="Pallava00001_hand2"></handNote>
 					 -->
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
                         under the European Union's Horizon 2020 research and innovation programme (grant
                         agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
                             ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
                             <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-03-27" who="part:axja">adding the handDesc template</change>
-      <change status="draft" when="2020-01-09" who="part:axja">Update the template</change>
-      <!-- add a <change> for each change to the file, the first change should replace this one and record your creation of a file using this template. -->
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="oj">
-        <ab>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:axja" when="2020-03-27" status="draft">adding the handDesc template</change>
+         <change who="part:axja" when="2020-01-09" status="draft">Update the template</change>
+         <!-- add a <change> for each change to the file, the first change should replace this one and record your creation of a file using this template. -->
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+        <body>
+            <div type="edition" xml:lang="oj">
+                <ab>
                     <pb n="east face"/>
-<lb n="1"/><gap precision="low" quantity="3" reason="illegible" unit="character"/> <!--{traces of 2 or 3 akṣaras, rest entirely lost} shall we put in aparatus?-->
-<lb n="2"/><gap precision="low" quantity="3" reason="lost" unit="character"/>bhaṭāra hyaṁ °ivak·<gap precision="low" quantity="16" reason="lost" unit="character"/> <!--{about 16 akṣaras wholly or partly lost} shall we put in aparatus? -->
-<lb n="3"/> <gap precision="low" quantity="3" reason="lost" unit="character"/>°aṅkən· pūrṇnamaniṅ asujimāsa, kabhaktyananikanaṁ karāmān· °i kusambyan· sapasuk ṣĭ<lb break="no" n="4"/>ma kabeḥ, mapaknā paṅtrananiṁ <unclear>sa</unclear>mahayvanya <unclear>samanā</unclear>ryyāyatana bhaṭāra hyaṁ °ivak· °i kusambya<lb break="no" n="5"/>n·, kaharan· puṣpabalyopacāra, tila, tela, dhūpa, <unclear>gandhakṣa</unclear> nivedyādi prakāra, pūjā<lb break="no" n="6"/>knanyāṅkən· pūrṇnamani °asujimāsa, °i bhaṭāra hyaṅ ivak· °i kusambyan·, maṅkana rasani paṁhyaṁ<lb break="no" n="7"/>nikanaṁ karāmān· °i kusambyan· sapasuk ṣīma kabeḥ °i pāduka śrī mahārāja, kunaṁ saṅkā
-<lb n="8"/>ri gəṁni kāruṇyānumoda śrī mahārāja °i sapaṁhyaṁnikanaṁ karāmān· °i kusambyan· maka<lb break="no" n="9"/>hetu ri ka<unclear>do</unclear>nani mahābhārani giṇakāyotsāhanyan· tanakapālalaṅalaṁ suṣṭubha<lb break="no" n="10"/>kti dāśabhuta sakucumba, makato(ḥ) svajīvītanyan· pamrihakən· pāduka śrī mahārāja
+<lb n="1"/><gap reason="illegible" quantity="3" precision="low" unit="character"/> <!--{traces of 2 or 3 akṣaras, rest entirely lost} shall we put in aparatus?-->
+<lb n="2"/><gap reason="lost" quantity="3" precision="low" unit="character"/>bhaṭāra hyaṁ °ivak·<gap reason="lost" quantity="16" unit="character" precision="low"/> <!--{about 16 akṣaras wholly or partly lost} shall we put in aparatus? -->
+<lb n="3"/> <gap reason="lost" quantity="3" precision="low" unit="character"/>°aṅkən· pūrṇnamaniṅ asujimāsa, kabhaktyananikanaṁ karāmān· °i kusambyan· sapasuk ṣĭ<lb n="4" break="no"/>ma kabeḥ, mapaknā paṅtrananiṁ <unclear>sa</unclear>mahayvanya <unclear>samanā</unclear>ryyāyatana bhaṭāra hyaṁ °ivak· °i kusambya<lb n="5" break="no"/>n·, kaharan· puṣpabalyopacāra, tila, tela, dhūpa, <unclear>gandhakṣa</unclear> nivedyādi prakāra, pūjā<lb n="6" break="no"/>knanyāṅkən· pūrṇnamani °asujimāsa, °i bhaṭāra hyaṅ ivak· °i kusambyan·, maṅkana rasani paṁhyaṁ<lb n="7" break="no"/>nikanaṁ karāmān· °i kusambyan· sapasuk ṣīma kabeḥ °i pāduka śrī mahārāja, kunaṁ saṅkā
+<lb n="8"/>ri gəṁni kāruṇyānumoda śrī mahārāja °i sapaṁhyaṁnikanaṁ karāmān· °i kusambyan· maka<lb n="9" break="no"/>hetu ri ka<unclear>do</unclear>nani mahābhārani giṇakāyotsāhanyan· tanakapālalaṅalaṁ suṣṭubha<lb n="10" break="no"/>kti dāśabhuta sakucumba, makato(ḥ) svajīvītanyan· pamrihakən· pāduka śrī mahārāja
 <lb n="11"/>riṁ samarakāryya, ṅūni ri kālanikanaṁ śatru si cbek·, °an tamolaḥ mandəl· makadatvan·
-<lb n="12"/>°i madaṇḍər·, yatikānuvuhak(ə)n· pūrvva°r̥ṇāsamasama ri manaḥni l(b)uni pāduka śrī mahā<lb break="no" n="13"/>rāja, kāraṇanyan· °inubha(ya)n ata sapaṁhyaṁnikanaṁ karāmān· °i kusambyan· sapasak thani
+<lb n="12"/>°i madaṇḍər·, yatikānuvuhak(ə)n· pūrvva°r̥ṇāsamasama ri manaḥni l(b)uni pāduka śrī mahā<lb n="13" break="no"/>rāja, kāraṇanyan· °inubha(ya)n ata sapaṁhyaṁnikanaṁ karāmān· °i kusambyan· sapasak thani
 <lb n="14"/>kabeḥ, de śrī mahārāja, makaciḥna ri sampunya vineḥ makmitana saṁ hyaṅ ājñā haji prasasti
 <lb n="15"/><unclear>simā ri pagəḥ makarasa</unclear>, sumima thāninya (°i) kusambyan· makabhaktyana bhaṭāra hyaṁ
                     <pb n="west face"/>
 <lb n="1"/>................................... rakryan pa.......................................................................
-<lb n="2"/><gap quantity="22" reason="lost" unit="character"/>hamba rakryan· stri haji, ma<gap quantity="3" reason="lost" unit="character"/>
+<lb n="2"/><gap reason="lost" unit="character" quantity="22"/>hamba rakryan· stri haji, ma<gap reason="lost" quantity="3" unit="character"/>
 <lb n="3"/>[rakryā]n· śr<unclear>ī </unclear>parameśvarī, tka rikana[ṁ] mamanaḥ, magalaḥ, magaṇḍi, mahalimān·, makuda, maka[rapa ka-]
 <lb n="4"/>[ruṅa]n·, maṁhvan· °l̥mbu, maṁhvan· haturan· pādu haturan· bāṁ pa<unclear>ba</unclear>raka, lāvan· <unclear>barā</unclear>mi ri saṁ hyaṅ ā(jña) [ha]-
 <lb n="5"/>ji °umarā ri para<unclear reason="eccentric_ductus">d</unclear>eśa ma°l̥pas· nasta, maṁ<unclear>lampak</unclear>ən· saṁ hyaṁ <unclear>juvu</unclear>ḥ, <unclear>°ametyā</unclear>ka, °inaṁ muṅga bahan(·) {1}
-<lb n="6"/>ṅkal·, ma<unclear>k</unclear>armma candana °uṇḍahagi lañca, °uṇḍahagi pasagi, sarbvaṅtilan·, <unclear>°a</unclear>sarpān· posadhān·, vā<lb break="no" n="7"/>tu kriyā, parahasyan·, °amet akar· davudavutan·, °aṅiṅū – –, °aṅiṅū puyuḥ, mvaṁṅ ayam savuṁ,
+<lb n="6"/>ṅkal·, ma<unclear>k</unclear>armma candana °uṇḍahagi lañca, °uṇḍahagi pasagi, sarbvaṅtilan·, <unclear>°a</unclear>sarpān· posadhān·, vā<lb n="7" break="no"/>tu kriyā, parahasyan·, °amet akar· davudavutan·, °aṅiṅū – –, °aṅiṅū puyuḥ, mvaṁṅ ayam savuṁ,
 <lb n="8"/>hayam· tgəl·, karuṁ, maṅilvakən· saṁ hyaṁ drabya haji<unclear>, </unclear>baniṁ, baḍavaṁ, kura<unclear>,</unclear> <unclear>vuhaya, vuṅtanus</unclear>·, tumūt·
-<lb n="9"/>°an· śrī mahārāja, °an· kapvāta sira <unclear>pa</unclear>matəkyəna, tan deyən· baryyabaryya śīla molahulaḥ, ta<lb break="no" n="10"/>n· paṅalapa <unclear reason="eccentric_ductus">sa</unclear>linaraṅan ikanaṁ tanayan thāni, tan· pamraṅa k(ayu)kayu, priṁ, pt(u)ṁ, ham(p)yal·,  sarvva<unclear>ph</unclear>ala, mū<lb break="no" n="11"/>laphala, nyu, pucaṁ, səR̥ḥ, tka riṁ vnaṁvnaṁ prakāra, lāvan· ri tan· padam(ə)l·damlanira vistăra, mvaṁ puri<unclear>ḥ</unclear>
+<lb n="9"/>°an· śrī mahārāja, °an· kapvāta sira <unclear>pa</unclear>matəkyəna, tan deyən· baryyabaryya śīla molahulaḥ, ta<lb n="10" break="no"/>n· paṅalapa <unclear reason="eccentric_ductus">sa</unclear>linaraṅan ikanaṁ tanayan thāni, tan· pamraṅa k(ayu)kayu, priṁ, pt(u)ṁ, ham(p)yal·,  sarvva<unclear>ph</unclear>ala, mū<lb n="11" break="no"/>laphala, nyu, pucaṁ, səR̥ḥ, tka riṁ vnaṁvnaṁ prakāra, lāvan· ri tan· padam(ə)l·damlanira vistăra, mvaṁ puri<unclear>ḥ</unclear>
 <lb n="12"/>ṅūniv(e)ḥ tan· s(i)ra medi tahan· sirpasirrurari <unclear>pak</unclear>mitan· sa......vananta ta sima tkanika[naṁ]
 <lb n="13"/>va<unclear>rg</unclear>a <unclear>mū</unclear>la smi °i kusambyan·, mva[ṁ] tan· <unclear>ma</unclear>na<unclear>h</unclear> i tikusa, kevalā tarima dāna (ju)ga sira, tumaṅgapani
-<lb n="14"/><unclear>sapasaṁ</unclear>nikanaṁ <unclear>va</unclear>rgga mūla sīma °i kusambyan· <unclear>sāmya mīṅkanā</unclear> yathāśakti sakavnaṅ <unclear>umpyāpāra de lokabho</unclear><lb break="no" n="15"/><unclear>na ni ka ? vākyanira mīlaṁ, °umiṅguḥ saṅkāṅāpura</unclear> śrī mahārāja, °irikanaṁ vargga mūla sĭma °i kusambya<unclear>n</unclear>·
+<lb n="14"/><unclear>sapasaṁ</unclear>nikanaṁ <unclear>va</unclear>rgga mūla sīma °i kusambyan· <unclear>sāmya mīṅkanā</unclear> yathāśakti sakavnaṅ <unclear>umpyāpāra de lokabho</unclear><lb n="15" break="no"/><unclear>na ni ka ? vākyanira mīlaṁ, °umiṅguḥ saṅkāṅāpura</unclear> śrī mahārāja, °irikanaṁ vargga mūla sĭma °i kusambya<unclear>n</unclear>·
 <lb n="16"/>sama<unclear>ṅkana kulaṁ</unclear> deyakna saṁ purapradhāna saṁ mahutnaṅanikanaṁ vargga mūla °i kusambyan·, X
 <lb n="17"/>ta <unclear>mra</unclear> ta sira mobhaya hiṁ X tran· grasan· paka_giḥhan· pabhokakonaravān· XXX
                     <pb n="north/south face"/>
 <lb n="1"/>/// <unclear>nugraha</unclear>
 <lb n="2"/>/// ? ? ? ?
-<lb n="3"/>/// (sī)ma °i kusa<lb break="no" n="4"/>m(b)ya[n·] (sa)pasuk ṣīma kabe<lb break="no" n="5"/>ḥ kapagəhaknanyan tamo<lb break="no" n="6"/>laḥ °i <unclear>mānakara</unclear>nya <unclear>so</unclear>vaṁ<lb break="no" n="7"/>sovaṁ tan· kolahu<lb break="no" n="8"/>laha de saṅ anāgata pra<lb break="no" n="9"/>bhu mvaṁ saṅ anāgata vineḥ
-<lb n="10"/>madaṇḍər· ṅuniveḥ °i<lb break="no" n="11"/>kanaṁ vineḥ ma(k)urug· sa ?
+<lb n="3"/>/// (sī)ma °i kusa<lb n="4" break="no"/>m(b)ya[n·] (sa)pasuk ṣīma kabe<lb n="5" break="no"/>ḥ kapagəhaknanyan tamo<lb n="6" break="no"/>laḥ °i <unclear>mānakara</unclear>nya <unclear>so</unclear>vaṁ<lb n="7" break="no"/>sovaṁ tan· kolahu<lb n="8" break="no"/>laha de saṅ anāgata pra<lb n="9" break="no"/>bhu mvaṁ saṅ anāgata vineḥ
+<lb n="10"/>madaṇḍər· ṅuniveḥ °i<lb n="11" break="no"/>kanaṁ vineḥ ma(k)urug· sa ?
 <lb n="12"/>pararthāknaniraṁ lirananiṅ ? ?
-<lb n="13"/><unclear>naprabhāsantāgana</unclear>kanaṁ va<lb break="no" n="14"/>rgga mūla sima °i kusambya[n·]
+<lb n="13"/><unclear>naprabhāsantāgana</unclear>kanaṁ va<lb n="14" break="no"/>rgga mūla sima °i kusambya[n·]
 <lb n="15"/>mirākīt· saṁn simanirakṣa
-<lb n="16"/><unclear>kasa</unclear> ri maṇiratnasiṅhāsa<lb break="no" n="17"/>na makaḍatvan· °i huripan·
+<lb n="16"/><unclear>kasa</unclear> ri maṇiratnasiṅhāsa<lb n="17" break="no"/>na makaḍatvan· °i huripan·
 <lb n="18"/>? hāpvan· hana ? ? ?
           <pb n="south/north face"/>
 <lb n="1"/>mālamapā ? ? ? // + +
 <lb n="2"/>tan· tmvaṁ sāma --ma
 <lb n="3"/>yan· ji—na-- sāpā/// + +
-<lb n="4"/>saṁsārā sajīvakā<unclear>lā ma</unclear><lb break="no" n="5"/>ṅkana tmahanani<unclear>kāṅ vaṁ</unclear> °anyā<lb break="no" n="6"/>ya °umulahulaḥ °ikeṁ
-<lb n="7"/>sīma °i kusambyan· °anu<lb break="no" n="8"/>graha śrī mahārāja °iri<lb break="no" n="9"/>kanaṁ vargga mūla s<unclear>ĭ</unclear>ma °i ku<lb break="no" n="10"/>sambyan·, °i vruhanira ka<lb break="no" n="11"/>dā prayatna, °ata<unclear>ḥ</unclear> //
+<lb n="4"/>saṁsārā sajīvakā<unclear>lā ma</unclear><lb n="5" break="no"/>ṅkana tmahanani<unclear>kāṅ vaṁ</unclear> °anyā<lb n="6" break="no"/>ya °umulahulaḥ °ikeṁ
+<lb n="7"/>sīma °i kusambyan· °anu<lb n="8" break="no"/>graha śrī mahārāja °iri<lb n="9" break="no"/>kanaṁ vargga mūla s<unclear>ĭ</unclear>ma °i ku<lb n="10" break="no"/>sambyan·, °i vruhanira ka<lb n="11" break="no"/>dā prayatna, °ata<unclear>ḥ</unclear> //
 
                 </ab>
-      </div>
-      <!--<div type="apparatus">
+            </div>
+            <!--<div type="apparatus">
                 <!-\-apparatus encoded as per EG §9.1, basic elements for apparatus below-\->
                 <listApp><!-\- one <app> for each apparatus entry -\->
                     <app loc="line"><!-\- Update the value of @loc.-\->
@@ -141,19 +142,20 @@
                     </app>
                 </listApp>
             </div>-->
-      <!--<div type="translation">
+            <!--<div type="translation">
                 <!-\-translation encoded as per EG §9.2 -\->
             </div>-->
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
-        <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
-        <listBibl type="secondary">
-          <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
-        </listBibl>
-      </div>
-    </body>
-  </text>
+            <div type="commentary">
+                <!--commentary encoded as per section §9.3 -->
+            </div>
+            <div type="bibliography">
+                <!--bibliography encoded as per section §9.4 -->
+                <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
+                <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
+                <listBibl type="secondary">
+                    <bibl/><!-- one <bibl/> per item of secondary bibliography -->
+                </listBibl>
+            </div>
+        </body>
+    </text>
 </TEI>

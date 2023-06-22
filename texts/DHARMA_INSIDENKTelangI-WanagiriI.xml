@@ -1,295 +1,175 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Telang I / Wanagiri I (825 Ś, 904-01-11)</title>
-        <respStmt>
-          <resp>EpiDoc Encoding</resp>
-          <persName ref="part:wjsa">
-            <forename>Wayan Jarrah</forename>
-            <surname>Sastrawan</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:wjsa">
-            <forename>Wayan Jarrah</forename>
-            <surname>Sastrawan</surname>
-          </persName>
-          <persName ref="part:argr">
-            <forename>Arlo</forename>
-            <surname>Griffiths</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Paris</pubPlace>
-        <idno type="filename">DHARMA_INSIDENKTelangI-WanagiriI</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+<?xml version="1.0" encoding="UTF-8"?> <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?> <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?> <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?> <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?> <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Telang I / Wanagiri I (825 Ś, 904-01-11)</title>
+            <respStmt>
+               <resp>EpiDoc Encoding</resp>
+               <persName ref="part:wjsa">
+                  <forename>Wayan Jarrah</forename>
+                 <surname>Sastrawan</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName ref="part:wjsa">
+                  <forename>Wayan Jarrah</forename>
+                 <surname>Sastrawan</surname>
+               </persName>
+               <persName ref="part:argr">
+                  <forename>Arlo</forename>
+                  <surname>Griffiths</surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Paris</pubPlace>
+            <idno type="filename">DHARMA_INSIDENKTelangI-WanagiriI</idno>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
                                             Licence. To view a copy of the licence, visit
                                             https://creativecommons.org/licenses/by/4.0/ or send a letter to
                                             Creative Commons, 444 Castro Street, Suite 900, Mountain View,
                                             California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Jarrah Sastrawan &amp; Arlo Griffiths.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <msDesc>
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-          </msIdentifier>
-          <msContents>
-            <summary/>
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p/>
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change when="2022-08-16" who="part:axja">Transforming docx into xml</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition">
-        <div type="textpart">
-          <head xml:lang="eng">Plate 1 verso. </head>
-          <p><lb n="1v1"/> <gap quantity="11" reason="lost" unit="character"/> <unclear>poṣa</unclear>-māsa t<supplied reason="lost">i</supplied>th<supplied reason="lost">i</supplied> ṣaṣṭ<supplied reason="lost">i</supplied> kr̥ṣṇa, vu, ka, bu, vāra hastā-nakṣatra brahma-yo<unclear>ga</unclear> tatkā<unclear>lani</unclear> Ājñă śr<supplied reason="lost">ī</supplied> ma<unclear>hārā</unclear>ja rake vatu ku<supplied reason="lost">ra d</supplied>ya<supplied reason="lost">ḥ bali</supplied>tu<supplied reason="lost">ṁ</supplied> <unclear>śr</unclear><supplied reason="lost">ī</supplied> <unclear>dha</unclear><supplied reason="lost">r</supplied>mm<supplied reason="lost">odaya</supplied> <gap extent="unknown" reason="lost"/>
-<lb n="1v2"/> <gap extent="unknown" reason="lost"/> <unclear>śrī</unclear> dakṣottama bāhubajrapratipakṣakṣaya, kumon· rake vlar· pu sudarśana sumiddhākna sot· haji devata lumāḥ Iṁ śataśr̥ṅga, magavaya kamalir· m<supplied reason="lost">uAṁ</supplied> <gap extent="unknown" reason="lost"/>
-<lb n="1v3"/> <gap extent="unknown" reason="lost"/> <unclear>luAḥ</unclear> Iṁ paparahuAn·, ri huvusnikana<unclear>ṁ</unclear>​ gavai rake vlar· kamalir· 1 kamulān· 3 paṁlivattanya 1 tkan· pasak· 1 parahu 2 giliranya 2 tinañān· Ikanaṁ rāma Iṁ <gap extent="unknown" reason="lost"/>
-<lb n="1v4"/> <gap extent="unknown" reason="lost"/>-jar· ya tan· vuAra paṅguhan·<unclear>,</unclear> Inujaran· saṁ huvusan· pu valuḥ Anak vanuA I manṅahi, de rakryān· mapatiḥ kinon· Umarpaṇākna Ikanaṁ vanuA I tlaṁ muAṁ Iṁ mahe <gap extent="unknown" reason="lost"/>
-<lb n="1v5"/> <supplied reason="lost">saṁ hu</supplied><gap extent="unknown" reason="lost"/>vusan· makakmitana Ikanaṁ kamulān· muAṁ parahu, Umantassakna saṁ mahavān· pratidina<supplied reason="omitted">,</supplied> paṅguhanya mas· mā 7 pasaṁniṁ kalaṁ mā 2 piṇḍa mā 9 Iṁ satahun·, paknānya <gap extent="unknown" reason="lost"/>
-<lb n="1v6"/> <gap extent="unknown" reason="lost"/> maparaha I maṅmit· kamulān, buat-thajyanikanaṁ rāma UmahāyuA Asi<supplied reason="omitted">ṁ</supplied> mananā rikanaṁ dharma, Umāryya yan· vatak· huvusan·, tar vihaṁ saṁ huvusan· An· maṅka- <gap extent="unknown" reason="lost"/>
-<lb n="1v7"/> <supplied reason="lost">rakryā</supplied><gap extent="unknown" reason="lost"/>n· halu pu vīravikrama varahan· muAṁ rakryān· sirikan· pu samaravikrānta, rakryān· vka pu kutak· pu bhāsvara, tiruAn· saṁ śivāstra, palar hyaṁ pu puñjaṁ, halaran· pu <gap extent="unknown" reason="lost"/>
-<lb n="1v8"/> <gap extent="unknown" reason="lost"/> <unclear>pu</unclear> cakra, paṅkur· pu rañjan·, tavān· pu pañjaluAn·, tirip· pu viṣṇu, Aṅin-aṅin· pu nohan·, vadihati pu ḍapit·‚ makudur· pu sāmvr̥da, maṅayubhāgya sira kabai<supplied reason="lost">ḥ</supplied> <gap extent="unknown" reason="lost"/>
-<lb n="1v9"/> <gap extent="unknown" reason="lost"/> ta kinon· rake vlar· Umarahaṁ vahuta patiḥ muAṁ Anak vanuA I tpi siriṁnikanaṁ vanuA I tlaṁ Iṁ mahe, Iṁ paparahuAn·, maṅayubhāgya Ikanaṁ rāma maka<supplied reason="lost">baihan·</supplied> <gap extent="unknown" reason="lost"/>
-<lb n="1v10"/> <gap extent="unknown" reason="lost"/> manaḍaha, maṅinum·<unclear>,</unclear> maparimvaṅi, Irikana<unclear>ṁ</unclear> yan· paparaḥ Ikanaṁ pasak-pasak·, patiḥ vuṅkurul· si manuṁsuṁ mas· mā 4 vḍihan· yu 1 patiḥ lampura<unclear>n·</unclear> <gap extent="unknown" reason="lost"/>
-<lb n="1v11"/> <supplied reason="lost">va</supplied><gap extent="unknown" reason="lost"/>raṁ-varaṁ si vaṅkər·, mas· mā 4 vḍihan· yu 1 vahuta juru si R̥but· mas· mā 4 vḍihan· yu 1 pihujuṁniṁ vahuta si janta pirak· mā 8 vḍihan· yu 1 pa<gap extent="unknown" reason="lost"/>
-<lb n="1v12"/> <supplied reason="lost">vḍiha</supplied><gap extent="unknown" reason="lost"/>n· yu 1 parujar·niṁ patiḥ varaṁ-varaṁ si priṁ pirak· mā 8 vḍihan· yu 1 kalaṁ rikaṁ vanva I kalimvayan· pirak· mā 2 kalaṁ I poḥ mas· ku 2 kalaṁ I vakuṁ, si vu<unclear>ga</unclear><gap extent="unknown" reason="lost"/>
-<lb n="1v13"/> <gap extent="unknown" reason="lost"/> rikanaṁ susukan· sīma saṁ paṅirahan·, I m<gap quantity="3" reason="lost" unit="character"/>r· saṁ kerava vinəḥ pirak· dhā 1 v<supplied reason="lost">ḍ</supplied>ihan· yu 1 valandaniranuliḥ pirak·, mā 8 sovaṁ, Anuṁ <gap extent="unknown" reason="lost"/></p>
-        </div>
-        <div type="textpart">
-          <head xml:lang="eng">Plate 2. recto.</head>
-          <p>
-<lb n="2r1"/> <gap quantity="2" reason="lost" unit="character"/> ri tlaṁ gustī, si bharata ramani bahutī, kala<unclear>ṁ</unclear> si vgil· ramani gadit·, kalima si ḍaval· ramani vujil·, vinkas si gahata ramani kaṇḍyal·, variga tamvu...ta ramani vatū rāma maratā…
+                  <p>Copyright (c) 2019-2025 by Jarrah Sastrawan &amp; Arlo Griffiths.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+               </msIdentifier>
+               <msContents>
+                  <summary/>
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p/>
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:axja" when="2022-08-16">Transforming docx into xml</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+           <body>
+                   <div type="edition">
+<div type="textpart">
+   <head xml:lang="eng">Plate 1 verso. </head>
+   <p><lb n="1v1"/> <gap reason="lost" unit="character" quantity="11"/> <unclear>poṣa</unclear>-māsa t<supplied reason="lost">i</supplied>th<supplied reason="lost">i</supplied> ṣaṣṭ<supplied reason="lost">i</supplied> kr̥ṣṇa, vu, ka, bu, vāra hastā-nakṣatra brahma-yo<unclear>ga</unclear> tatkā<unclear>lani</unclear> Ājñă śr<supplied reason="lost">ī</supplied> ma<unclear>hārā</unclear>ja rake vatu ku<supplied reason="lost">ra d</supplied>ya<supplied reason="lost">ḥ bali</supplied>tu<supplied reason="lost">ṁ</supplied> <unclear>śr</unclear><supplied reason="lost">ī</supplied> <unclear>dha</unclear><supplied reason="lost">r</supplied>mm<supplied reason="lost">odaya</supplied> <gap reason="lost" extent="unknown"/>
+<lb n="1v2"/> <gap reason="lost" extent="unknown"/> <unclear>śrī</unclear> dakṣottama bāhubajrapratipakṣakṣaya, kumon· rake vlar· pu sudarśana sumiddhākna sot· haji devata lumāḥ Iṁ śataśr̥ṅga, magavaya kamalir· m<supplied reason="lost">uAṁ</supplied> <gap reason="lost" extent="unknown"/>
+<lb n="1v3"/> <gap reason="lost" extent="unknown"/> <unclear>luAḥ</unclear> Iṁ paparahuAn·, ri huvusnikana<unclear>ṁ</unclear>​ gavai rake vlar· kamalir· 1 kamulān· 3 paṁlivattanya 1 tkan· pasak· 1 parahu 2 giliranya 2 tinañān· Ikanaṁ rāma Iṁ <gap reason="lost" extent="unknown"/>
+<lb n="1v4"/> <gap reason="lost" extent="unknown"/>-jar· ya tan· vuAra paṅguhan·<unclear>,</unclear> Inujaran· saṁ huvusan· pu valuḥ Anak vanuA I manṅahi, de rakryān· mapatiḥ kinon· Umarpaṇākna Ikanaṁ vanuA I tlaṁ muAṁ Iṁ mahe <gap reason="lost" extent="unknown"/>
+<lb n="1v5"/> <supplied reason="lost">saṁ hu</supplied><gap reason="lost" extent="unknown"/>vusan· makakmitana Ikanaṁ kamulān· muAṁ parahu, Umantassakna saṁ mahavān· pratidina<supplied reason="omitted">,</supplied> paṅguhanya mas· mā 7 pasaṁniṁ kalaṁ mā 2 piṇḍa mā 9 Iṁ satahun·, paknānya <gap reason="lost" extent="unknown"/>
+<lb n="1v6"/> <gap reason="lost" extent="unknown"/> maparaha I maṅmit· kamulān, buat-thajyanikanaṁ rāma UmahāyuA Asi<supplied reason="omitted">ṁ</supplied> mananā rikanaṁ dharma, Umāryya yan· vatak· huvusan·, tar vihaṁ saṁ huvusan· An· maṅka- <gap reason="lost" extent="unknown"/>
+<lb n="1v7"/> <supplied reason="lost">rakryā</supplied><gap reason="lost" extent="unknown"/>n· halu pu vīravikrama varahan· muAṁ rakryān· sirikan· pu samaravikrānta, rakryān· vka pu kutak· pu bhāsvara, tiruAn· saṁ śivāstra, palar hyaṁ pu puñjaṁ, halaran· pu <gap reason="lost" extent="unknown"/>
+<lb n="1v8"/> <gap reason="lost" extent="unknown"/> <unclear>pu</unclear> cakra, paṅkur· pu rañjan·, tavān· pu pañjaluAn·, tirip· pu viṣṇu, Aṅin-aṅin· pu nohan·, vadihati pu ḍapit·‚ makudur· pu sāmvr̥da, maṅayubhāgya sira kabai<supplied reason="lost">ḥ</supplied> <gap reason="lost" extent="unknown"/>
+<lb n="1v9"/> <gap reason="lost" extent="unknown"/> ta kinon· rake vlar· Umarahaṁ vahuta patiḥ muAṁ Anak vanuA I tpi siriṁnikanaṁ vanuA I tlaṁ Iṁ mahe, Iṁ paparahuAn·, maṅayubhāgya Ikanaṁ rāma maka<supplied reason="lost">baihan·</supplied> <gap reason="lost" extent="unknown"/>
+<lb n="1v10"/> <gap reason="lost" extent="unknown"/> manaḍaha, maṅinum·<unclear>,</unclear> maparimvaṅi, Irikana<unclear>ṁ</unclear> yan· paparaḥ Ikanaṁ pasak-pasak·, patiḥ vuṅkurul· si manuṁsuṁ mas· mā 4 vḍihan· yu 1 patiḥ lampura<unclear>n·</unclear> <gap reason="lost" extent="unknown"/>
+<lb n="1v11"/> <supplied reason="lost">va</supplied><gap reason="lost" extent="unknown"/>raṁ-varaṁ si vaṅkər·, mas· mā 4 vḍihan· yu 1 vahuta juru si R̥but· mas· mā 4 vḍihan· yu 1 pihujuṁniṁ vahuta si janta pirak· mā 8 vḍihan· yu 1 pa<gap reason="lost" extent="unknown"/>
+<lb n="1v12"/> <supplied reason="lost">vḍiha</supplied><gap reason="lost" extent="unknown"/>n· yu 1 parujar·niṁ patiḥ varaṁ-varaṁ si priṁ pirak· mā 8 vḍihan· yu 1 kalaṁ rikaṁ vanva I kalimvayan· pirak· mā 2 kalaṁ I poḥ mas· ku 2 kalaṁ I vakuṁ, si vu<unclear>ga</unclear><gap reason="lost" extent="unknown"/>
+<lb n="1v13"/> <gap reason="lost" extent="unknown"/> rikanaṁ susukan· sīma saṁ paṅirahan·, I m<gap reason="lost" unit="character" quantity="3"/>r· saṁ kerava vinəḥ pirak· dhā 1 v<supplied reason="lost">ḍ</supplied>ihan· yu 1 valandaniranuliḥ pirak·, mā 8 sovaṁ, Anuṁ <gap reason="lost" extent="unknown"/></p></div>
+<div type="textpart">
+   <head xml:lang="eng">Plate 2. recto.</head>
+   <p>
+<lb n="2r1"/> <gap reason="lost" unit="character" quantity="2"/> ri tlaṁ gustī, si bharata ramani bahutī, kala<unclear>ṁ</unclear> si vgil· ramani gadit·, kalima si ḍaval· ramani vujil·, vinkas si gahata ramani kaṇḍyal·, variga tamvu...ta ramani vatū rāma maratā…
 <lb n="2r2"/>nira si gahiṁ ramani hinān·, si guḍir· ramani tiṇḍiḥ, si bṅal· ramani krānti, maṅla si jantur· ramani nalu, makari si gaṇḍal· ramani nabha, maveḥ kamvaṁ si timvul· ramani dayī, nahan· <supplied reason="lost">cihnānikanaṁ vanuA I</supplied>
 <lb n="2r3"/> tlaṁ I mahe Iṁ paparahuAn· An· pakabuAt-thajya Ikanaṁ kamulān· muAṁ parahu, Umāri An· vatak· huvusan·, muAṁ tan· katamāna de saṁ mānak· katrīṇi <unclear>paṅku</unclear>r· tavān· tirip· <unclear>muAṁ</unclear> <supplied reason="lost">saprakara</supplied>
 <lb n="2r4"/>niṁ maṅilala drabya haji kabaiḥ kriṁ, paḍam apuy·, pamaṇikan·, maṇiga, lva, malandaṁ, ma<supplied reason="omitted">ṁ</supplied>huri makalaṅkaṁ, tapa haji, Air haji, vidu<surplus>,</surplus> maṅiduṁ, tuha paḍahi, kḍi, valyan·, paranakan·, <unclear>sambal sumbu-</unclear>
 <lb n="2r5"/>l· vatak· I dalam·, siṅgaḥ pamr̥ṣi, hulun· haji Ityevamāḍi<unclear>,</unclear> tan· tamā Irikanaṁ vanuA ri tlaṁ, Iṁ mahe, Iṁ paparahuAn·, Ikanaṁ dharma Ataḥ parānani saprakārani sukha-duḥkhanya kabaiḥ
-<lb n="2r6"/> deyanya mavaiḥ manṅahana parmasan· Iṁ kataṇḍān·, Ājñă haji<supplied reason="omitted">,</supplied> kinonnakan· Ikanaṁ masamvyavahāra ṅkāna hīṁhīṅana kvaihanya, paṇḍai mas· paṇḍai vsi, tamvaga gaṅsa prakāra <gap quantity="4" reason="lost" unit="character"/>
+<lb n="2r6"/> deyanya mavaiḥ manṅahana parmasan· Iṁ kataṇḍān·, Ājñă haji<supplied reason="omitted">,</supplied> kinonnakan· Ikanaṁ masamvyavahāra ṅkāna hīṁhīṅana kvaihanya, paṇḍai mas· paṇḍai vsi, tamvaga gaṅsa prakāra <gap reason="lost" unit="character" quantity="4"/>
 <lb n="2r7"/> Iṁ satuhān· tluṁ tuhān· Iṁ sasīma<unclear>,</unclear> yan paṅulaṁ kboAnya 20 sapi 40 vḍus· 80 Aṇḍaḥ savantayan· Iṁ satuhān· tluṁ tuhān· Iṁ sasīma, guluṅan· tluṁ pasaṁ<unclear>,</unclear> maṅaraḥ tluṁ lumpaṁ, macadar· pataṁ <unclear>paca-</unclear>
 <lb n="2r8"/>daran·, parahu 1 suṁharanya 3 tan· patuṇḍāna, Ikanaṁ samaṅkana tan· knā deniṁ maṅilala drabya haji<supplied reason="omitted">,</supplied> yāpvan· pinikul· dagaṅanya, kady aṅgānniṁ mabasana, masayaṁ, makacapuri, kapas·, vuṅkuḍu<unclear>,</unclear>
 <lb n="2r9"/> garam·, vəAs·, paḍat·, lṅa, vsi-vsi, tamvaga gaṅsa Ityevamādi saprakāraniṁ duAl· pinikul· kalima bantal· Iṁ satuhān· piku-pikulananya, tluṁ tuhān· Iṁ sasīma, yāpuAn· lviḥ saṅka
-<lb n="2r10"/> riṁ samaṅkana, knāna Ikana sakalviḥnya de saṁ maṅilala <choice>
-              <sic>soddhāra hadi</sic>
-              <corr>soddhāra haji</corr>
-            </choice>, kunaṁ  Ikanaṁ mañamvul·, maṁlākha, mañavriṁ, maṅapus·, mamubut·, maṅubar·, mamukat·, vuṅkuḍu, manahab· manuk·, mamisa-
-<lb n="2r11"/>ṇḍuṁ, maṅanam-anam·, maṁgula, maṁhapū Ityevamādi, kapuA ya tribhāgān·, sabhāga Umarā riṁ maṅilala drabya haji, sabhāga Umarā riṁ dharma, sabhāga Umarā riṁ makmitan· dharma<supplied reason="omitted">,</supplied> samaṅkana yan· vuA<gap quantity="2" reason="lost" unit="character"/>
+<lb n="2r10"/> riṁ samaṅkana, knāna Ikana sakalviḥnya de saṁ maṅilala <choice><sic>soddhāra hadi</sic><corr>soddhāra haji</corr></choice>, kunaṁ  Ikanaṁ mañamvul·, maṁlākha, mañavriṁ, maṅapus·, mamubut·, maṅubar·, mamukat·, vuṅkuḍu, manahab· manuk·, mamisa-
+<lb n="2r11"/>ṇḍuṁ, maṅanam-anam·, maṁgula, maṁhapū Ityevamādi, kapuA ya tribhāgān·, sabhāga Umarā riṁ maṅilala drabya haji, sabhāga Umarā riṁ dharma, sabhāga Umarā riṁ makmitan· dharma<supplied reason="omitted">,</supplied> samaṅkana yan· vuA<gap reason="lost" unit="character" quantity="2"/>
 <lb n="2r12"/>ntas irikanaṁ luAḥ kaniṣṭha, maddhyama<add place="above">,</add> Uttama, saluIranikanaṁ Inantasakanya tan· pintāna Ataḥ Upahan·, yāpvan· paminta Ataḥ saUpahan· saluIrni mahāpātaka  paṅguhanya, mataṅya <unclear>de-</unclear>
 <lb n="2r13"/>yanikanaṁ Anak vanuA I tlaṁ, Iṁ mahe, Iṁ paparahuAn· kabaiḥ prayatnā ya ri soninikeṁ praśasti, yathānyan· svasthā //</p>
-        </div>
-      </div>
-      <div type="apparatus">
-        <app loc="1v3">
-          <lem>
-            <unclear>luAḥ</unclear>
-          </lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">Aḥ</rdg>
-          <note>Not sure how to represent this in the apparatus: I can barely read luAḥ but it's a sure bet given the parallel in Telang II, whereas TSN's Aḥ obscures the intended meaningdoes her hyphen mean "one aksaras not read"? if so you could note down <gap quantity="1" reason="lost" unit="character"/>Aḥ TSNNo the hyphen is mine, she gives: "Aḥ [...] Iṁ" with no indication of lost syllables to the left of Aḥ. So I guess we represent her reading just as Aḥ instead. Yes,if no indication of lost syllables, then just cite Aḥ but add a note like this: "Neither S nor T gives any indication of lost syllables to the left." (I haven't check if this is true for S.)</note>
-        </app>
-        <app loc="1v3">
-          <lem>tinañān· Ikanaṁ</lem>
-          <rdg source="bib:Stutterheim1934_04">tinañānikanaṁ</rdg>
-          <rdg source="bib:TitiSurtiNastiti2015_01">tinañānnikanaṁ</rdg>
-        </app>
-        <app loc="1v4">
-          <lem>paṅguhan·</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">saṅgahan·</rdg>
-        </app>
-        <app loc="1v4">
-          <lem source="bib:Stutterheim1934_04">Umarpaṇākna</lem>
-          <rdg source="bib:TitiSurtiNastiti2015_01">Umaparṇnākna</rdg>
-        </app>
-        <app loc="1v5">
-          <lem source="bib:Stutterheim1934_04">makakmitana</lem>
-          <rdg source="bib:TitiSurtiNastiti2015_01">makakmitan·</rdg>
-        </app>
-        <app loc="1v6">
-          <lem>maparaha</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">muAṁ parāna</rdg>
-        </app>
-        <app loc="1v6">
-          <lem source="bib:Stutterheim1934_04">maṅmit·</lem>
-          <rdg source="bib:TitiSurtiNastiti2015_01">maṅkmit·</rdg>
-        </app>
-        <app loc="1v6">
-          <lem>Asi<supplied reason="omitted">ṁ</supplied> mananā</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">Asimananā</rdg>
-          <note>Even though our reading is technically the same as theirs is it not worth including this apparatus entry to make clear that we parse it differently?ok. I'd like to see an apparatus note referring to TSN, EB &amp; AG's Airlangga article and the lexicographic note on nanā, mananā offered there, in justification of our reading.</note>
-        </app>
-        <app loc="1v7">
-          <lem source="bib:Stutterheim1934_04">rakryān· vka</lem>
-          <rdg source="bib:TitiSurtiNastiti2015_01">rakryan· vka</rdg>
-        </app>
-        <app loc="1v9">
-          <lem>ta kinon·</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">
-            <gap quantity="1" reason="lost" unit="character"/>
-          </rdg>
-        </app>
-        <app loc="1v9">
-          <lem>Umarahaṁ</lem>
-          <rdg source="bib:Stutterheim1934_04">Umarajaṁ</rdg>
-          <rdg source="bib:TitiSurtiNastiti2015_01">Umaraṁ</rdg>
-          <note>Titi Surti Nastiti comments “citralekha tidak menulis aksara ja di antara na dan ra. Seharusnya kata itu berbunyi Umajara<supplied reason="omitted">ṁ</supplied>”. But Umarahaṁ is an unobjectionable sequence not in need of emendation.Now I see that the situation is complicated by the reading in Telang II 1r7. We'll need to decide what this passage means and then take final editorial decisions regarding both passages.</note>
-        </app>
-        <app loc="1v10">
-          <lem source="bib:Stutterheim1934_04">maparimvaṅi</lem>
-          <rdg source="bib:TitiSurtiNastiti2015_01">Aparimvaṅi</rdg>
-        </app>
-        <app loc="1v12">
-          <lem>si priṁ</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">su griṁ</rdg>
-        </app>
-        <app loc="1v13">
-          <lem>rikaṁ vanva</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">rika vanuA</rdg>
-        </app>
-        <app loc="1v12">
-          <lem>si vu<unclear>ga</unclear></lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">si vu<gap quantity="11" reason="lost" unit="character"/></rdg>
-        </app>
-        <app loc="1v13">
-          <lem source="bib:Stutterheim1934_04">m<gap quantity="3" reason="lost" unit="character"/>r·</lem>
-          <rdg source="bib:TitiSurtiNastiti2015_01">mā<gap extent="unknown" reason="lost"/>r·</rdg>
-        </app>
-        <app loc="1v13">
-          <lem source="bib:TitiSurtiNastiti2015_01">valandaniranuliḥ</lem>
-          <rdg source="bib:Stutterheim1934_04">valandi ranuliḥ</rdg>
-        </app>
-        <app loc="2r1">
-          <lem>kaṇḍyal·</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">kañjyal·</rdg>
-        </app>
-        <app loc="2v4">
-          <lem source="bib:Stutterheim1934_04">makalaṅkaṁ</lem>
-          <rdg source="bib:TitiSurtiNastiti2015_01">pakalaṅkaṁ</rdg>
-        </app>
-        <app loc="2v5">
-          <lem source="bib:TitiSurtiNastiti2015_01">paranakan·</lem>
-          <rdg source="bib:Stutterheim1934_04">paranakkan·</rdg>
-        </app>
-        <app loc="2r5">
-          <lem>kabaiḥ</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">
-            <gap quantity="3" reason="lost" unit="character"/>
-          </rdg>
-        </app>
-        <app loc="2r6">
-          <lem>Ājñă</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">Ājñā</rdg>
-        </app>
-        <app loc="2r6">
-          <lem source="bib:TitiSurtiNastiti2015_01">prakāra</lem>
-          <rdg source="bib:Stutterheim1934_04">prakāraḥ</rdg>
-        </app>
-        <app loc="2r7">
-          <lem source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">yan·</lem>
-          <note>The left lobe of the ya- resembles a ma- suggesting that the scribe mistakenly engraved a ma- as dittography of the previous akṣara before correcting the mistake.</note>
-        </app>
-        <app loc="2r7">
-          <lem>tluṁ lumpaṁ</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">tlu<supplied reason="omitted">ṁ</supplied> lumpaṁ</rdg>
-        </app>
-        <app loc="2r7">
-          <lem>macadar·</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">macaḍar·</rdg>
-        </app>
-        <app loc="2r8">
-          <lem>pacadaran·</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">pacaḍaran</rdg>
-        </app>
-        <app loc="2r8">
-          <lem source="bib:Stutterheim1934_04">maṅilala</lem>
-          <rdg source="bib:TitiSurtiNastiti2015_01">māṅilala</rdg>
-        </app>
-        <app loc="2r8">
-          <lem source="bib:TitiSurtiNastiti2015_01">vuṅku<unclear>ḍu</unclear></lem>
-          <rdg source="bib:Stutterheim1934_04">cuṅkuḍu</rdg>
-          <note>Stutterheim offered vuṅkuḍu as an alternative.</note>
-        </app>
-        <app loc="2r10">
-          <lem source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">soddhāra hadi</lem>
-        </app>
-        <app loc="2r10">
-          <lem>manahab·</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">manuhab·</rdg>
-        </app>
-        <app loc="2r11">
-          <lem source="bib:TitiSurtiNastiti2015_01">mamisaṇḍuṁ</lem>
-          <rdg source="bib:Stutterheim1934_04">maməsaṇḍuṁ</rdg>
-        </app>
-        <app loc="2r11">
-          <lem>vuAa-</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">vuAat</rdg>
-          <note>ma-vuAt mantas irikanaṁ luAḥ is elegant, but can we really see -t ma- here?I don't see it. Personally, I am guessing vuAra paṅa- or vuAraṁ ma-. I suspect we want a noun with paN- or a nominalized verb form mantas "one who crosses".</note>
-        </app>
-        <app loc="2r12">
-          <lem>kaniṣṭha</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">kaniṣṭa</rdg>
-        </app>
-        <app loc="2r12">
-          <lem>saluIrni</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">saluṅguḥ</rdg>
-        </app>
-      </div>
-      <div type="commentary">
-        <p>Each plate is inscribed on one side, and each side contains 13 lines. The format of this charter seems to be like a book, with outer sides left blank. We therefore number the first inscribed side 1 verso and the second side 2 recto. Plate 2 recto ends with the word <foreign>svastha</foreign>, indicating that the text concludes here and no plates are missing from the set. TSN mistakenly merges the two lines 2r5 and 2r6, with the result that she misnumbers lines 2r7–13 as 2r6–12.</p>
-      </div>
-      <div type="bibliography">
-        <p>Read by Wayan Jarrah Sastrawan and Arlo Griffiths in October 2021 on the basis of photographs taken by Arlo Griffiths in 2013.</p>
-        <listBibl type="primary">
-          <bibl n="S">
-            <ptr target="bib:Stutterheim1934_04"/>
-            <citedRange>269–295</citedRange>
-          </bibl>
-          <bibl n="T">
-            <ptr target="bib:TitiSurtiNastiti2015_01"/>
-            <citedRange>25–35</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-      <!-- <div>
+</div>
+                   </div>
+                       <div type="apparatus">
+                         <app loc="1v3"><lem><unclear>luAḥ</unclear></lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">Aḥ</rdg><note>Not sure how to represent this in the apparatus: I can barely read luAḥ but it's a sure bet given the parallel in Telang II, whereas TSN's Aḥ obscures the intended meaningdoes her hyphen mean "one aksaras not read"? if so you could note down <gap reason="lost" unit="character" quantity="1"/>Aḥ TSNNo the hyphen is mine, she gives: "Aḥ [...] Iṁ" with no indication of lost syllables to the left of Aḥ. So I guess we represent her reading just as Aḥ instead. Yes,if no indication of lost syllables, then just cite Aḥ but add a note like this: "Neither S nor T gives any indication of lost syllables to the left." (I haven't check if this is true for S.)</note></app>
+                         <app loc="1v3"><lem>tinañān· Ikanaṁ</lem><rdg source="bib:Stutterheim1934_04">tinañānikanaṁ</rdg><rdg source="bib:TitiSurtiNastiti2015_01">tinañānnikanaṁ</rdg></app>
+<app loc="1v4"><lem>paṅguhan·</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">saṅgahan·</rdg></app>
+<app loc="1v4"><lem source="bib:Stutterheim1934_04">Umarpaṇākna</lem><rdg source="bib:TitiSurtiNastiti2015_01">Umaparṇnākna</rdg></app>
+<app loc="1v5"><lem source="bib:Stutterheim1934_04">makakmitana</lem><rdg source="bib:TitiSurtiNastiti2015_01">makakmitan·</rdg></app>
+<app loc="1v6"><lem>maparaha</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">muAṁ parāna</rdg></app>
+<app loc="1v6"><lem source="bib:Stutterheim1934_04">maṅmit·</lem><rdg source="bib:TitiSurtiNastiti2015_01">maṅkmit·</rdg></app>
+<app loc="1v6"><lem>Asi<supplied reason="omitted">ṁ</supplied> mananā</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">Asimananā</rdg><note>Even though our reading is technically the same as theirs is it not worth including this apparatus entry to make clear that we parse it differently?ok. I'd like to see an apparatus note referring to TSN, EB &amp; AG's Airlangga article and the lexicographic note on nanā, mananā offered there, in justification of our reading.</note></app>
+<app loc="1v7"><lem source="bib:Stutterheim1934_04">rakryān· vka</lem><rdg source="bib:TitiSurtiNastiti2015_01">rakryan· vka</rdg></app>
+<app loc="1v9"><lem>ta kinon·</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01"><gap reason="lost" unit="character" quantity="1"/></rdg></app>
+<app loc="1v9"><lem>Umarahaṁ</lem><rdg source="bib:Stutterheim1934_04">Umarajaṁ</rdg><rdg source="bib:TitiSurtiNastiti2015_01">Umaraṁ</rdg><note>Titi Surti Nastiti comments “citralekha tidak menulis aksara ja di antara na dan ra. Seharusnya kata itu berbunyi Umajara<supplied reason="omitted">ṁ</supplied>”. But Umarahaṁ is an unobjectionable sequence not in need of emendation.Now I see that the situation is complicated by the reading in Telang II 1r7. We'll need to decide what this passage means and then take final editorial decisions regarding both passages.</note></app>
+<app loc="1v10"><lem source="bib:Stutterheim1934_04">maparimvaṅi</lem><rdg source="bib:TitiSurtiNastiti2015_01">Aparimvaṅi</rdg></app>
+<app loc="1v12"><lem>si priṁ</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">su griṁ</rdg></app>
+<app loc="1v13"><lem>rikaṁ vanva</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">rika vanuA</rdg></app>
+<app loc="1v12"><lem>si vu<unclear>ga</unclear></lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">si vu<gap reason="lost" unit="character" quantity="11"/></rdg></app>
+<app loc="1v13"><lem source="bib:Stutterheim1934_04">m<gap reason="lost" unit="character" quantity="3"/>r·</lem><rdg source="bib:TitiSurtiNastiti2015_01">mā<gap reason="lost" extent="unknown"/>r·</rdg></app>
+<app loc="1v13"><lem source="bib:TitiSurtiNastiti2015_01">valandaniranuliḥ</lem><rdg source="bib:Stutterheim1934_04">valandi ranuliḥ</rdg></app>
+<app loc="2r1"><lem>kaṇḍyal·</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">kañjyal·</rdg></app>
+<app loc="2v4"><lem source="bib:Stutterheim1934_04">makalaṅkaṁ</lem><rdg source="bib:TitiSurtiNastiti2015_01">pakalaṅkaṁ</rdg></app>
+<app loc="2v5"><lem source="bib:TitiSurtiNastiti2015_01">paranakan·</lem><rdg source="bib:Stutterheim1934_04">paranakkan·</rdg></app>
+<app loc="2r5"><lem>kabaiḥ</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01"><gap reason="lost" unit="character" quantity="3"/></rdg></app>
+<app loc="2r6"><lem>Ājñă</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">Ājñā</rdg></app>
+<app loc="2r6"><lem source="bib:TitiSurtiNastiti2015_01">prakāra</lem><rdg source="bib:Stutterheim1934_04">prakāraḥ</rdg></app>
+<app loc="2r7"><lem source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">yan·</lem><note>The left lobe of the ya- resembles a ma- suggesting that the scribe mistakenly engraved a ma- as dittography of the previous akṣara before correcting the mistake.</note></app>
+<app loc="2r7"><lem>tluṁ lumpaṁ</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">tlu<supplied reason="omitted">ṁ</supplied> lumpaṁ</rdg></app>
+<app loc="2r7"><lem>macadar·</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">macaḍar·</rdg></app>
+<app loc="2r8"><lem>pacadaran·</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">pacaḍaran</rdg></app>
+<app loc="2r8"><lem source="bib:Stutterheim1934_04">maṅilala</lem><rdg source="bib:TitiSurtiNastiti2015_01">māṅilala</rdg></app>
+<app loc="2r8"><lem source="bib:TitiSurtiNastiti2015_01">vuṅku<unclear>ḍu</unclear></lem><rdg source="bib:Stutterheim1934_04">cuṅkuḍu</rdg><note>Stutterheim offered vuṅkuḍu as an alternative.</note></app>
+<app loc="2r10"><lem source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">soddhāra hadi</lem></app>
+<app loc="2r10"><lem>manahab·</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">manuhab·</rdg></app>
+<app loc="2r11"><lem source="bib:TitiSurtiNastiti2015_01">mamisaṇḍuṁ</lem><rdg source="bib:Stutterheim1934_04">maməsaṇḍuṁ</rdg></app>
+<app loc="2r11"><lem>vuAa-</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">vuAat</rdg> <note>ma-vuAt mantas irikanaṁ luAḥ is elegant, but can we really see -t ma- here?I don't see it. Personally, I am guessing vuAra paṅa- or vuAraṁ ma-. I suspect we want a noun with paN- or a nominalized verb form mantas "one who crosses".</note></app>
+<app loc="2r12"><lem>kaniṣṭha</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">kaniṣṭa</rdg></app>
+<app loc="2r12"><lem>saluIrni</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">saluṅguḥ</rdg></app></div>
+               <div type="commentary">
+                 <p>Each plate is inscribed on one side, and each side contains 13 lines. The format of this charter seems to be like a book, with outer sides left blank. We therefore number the first inscribed side 1 verso and the second side 2 recto. Plate 2 recto ends with the word <foreign>svastha</foreign>, indicating that the text concludes here and no plates are missing from the set. TSN mistakenly merges the two lines 2r5 and 2r6, with the result that she misnumbers lines 2r7–13 as 2r6–12.</p>
+               </div>
+             <div type="bibliography">
+               <p>Read by Wayan Jarrah Sastrawan and Arlo Griffiths in October 2021 on the basis of photographs taken by Arlo Griffiths in 2013.</p>
+               <listBibl type="primary">
+
+                    <bibl n="S">
+                      <ptr target="bib:Stutterheim1934_04"/>
+                      <citedRange>269–295</citedRange>
+                    </bibl>
+                    <bibl n="T">
+                      <ptr target="bib:TitiSurtiNastiti2015_01"/>
+                      <citedRange>25–35</citedRange>
+                    </bibl>
+                </listBibl>
+             </div>
+            <!-- <div>
                     <head>Provenance</head>
                     <p>The four plates that make up Telang I and Telang II were discovered in 1933 in a yard belonging to Yap Bio Ging, now part of dusun Jatirejo, kelurahan Wonoboyo, kecamatan Wonogiri, kabupaten Wonogiri in Central Java. These plates were given to Mangkunegara VII and remain part of the collection of the Perpustakaan Museum Mangkunegaran in Solo (Titi Surti Nastiti 2015: 25–26). Arlo Griffiths photographed the plates at the kraton library on 23 April, 2013.</p>
                 </div>
@@ -297,6 +177,8 @@
                     <head>Artefact</head>
                     <p>Dimensions: Plate 1: 39 x 18 cm, plate 2: 44 x 18 cm. </p>
                 </div> -->
-    </body>
-  </text>
+
+
+           </body>
+                     </text>
 </TEI>

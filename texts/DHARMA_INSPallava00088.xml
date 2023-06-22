@@ -4,204 +4,228 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Cāttamaṅkalam (3)</title>
-        <respStmt>
-          <resp>EpiDoc encoding</resp>
-          <persName ref="part:emfr">
-            <forename>Emmanuel</forename>
-            <surname>Francis</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:emfr">
-            <forename>Emmanuel</forename>
-            <surname>Francis</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Paris, CEIAS</pubPlace>
-        <idno type="filename">DHARMA_INSPallava00088</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Cāttamaṅkalam (3)</title>
+            <respStmt>
+               <resp>EpiDoc encoding</resp>
+               <persName ref="part:emfr">
+                  <forename>Emmanuel</forename>
+                  <surname>Francis</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName ref="part:emfr">
+                  <forename>Emmanuel</forename>
+                  <surname>Francis</surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Paris, CEIAS</pubPlace>
+            <idno type="filename">DHARMA_INSPallava00088</idno>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
 							Licence. To view a copy of the licence, visit
 							https://creativecommons.org/licenses/by/4.0/ or send a letter to
 							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
 							California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <msDesc>
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-          </msIdentifier>
-          <msContents>
-            <summary/>
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p/>
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                  <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+               </msIdentifier>
+               <msContents>
+                  <summary/>
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p/>
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
 					under the European Union's Horizon 2020 research and innovation programme (grant
 					agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
 						ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
 							<ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-10-08" who="part:emfr">Creation of the file</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tam-Latn">
-        <!--Check § split-->
-        <ab>
-          <lb n="1"/>
-          <hi rend="grantha">śrī</hi>
-        </ab>
-        <p>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:emfr" when="2020-10-08" status="draft">Creation of the file</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+      <body>
+
+      	<div type="edition" xml:lang="tam-Latn">
+<!--Check § split-->
+      		<ab>
+      			<lb n="1"/><hi rend="grantha">śrī</hi>
+      		</ab>
+      		<p>
       			nanti-p-pōttaraicarkku
       			<lb n="2"/>yāṇṭu Aimpattāṟ-āvatu
       		</p>
-        <p>
+      		<p>
       			<lb n="3"/>viḻukkattu-c ciṉaṟiyār makaḷār
       			<lb n="4"/>pūṇṭa mūppāvai-k kācu patiṉ E
-      			<lb break="no" n="5"/>ḻu kaḻañcu poṉ
+      			<lb n="5" break="no"/>ḻu kaḻañcu poṉ
       		</p>
-        <p>
+      		<p>
       			Ip-paḷḷikku
       			<lb n="6"/>kaḻañciṉāl uḻakk’ arici vaikal
-      			<lb n="7"/><gap quantity="2" reason="undefined" unit="character"/>kaṟ ūṭṭuvār
+      			<lb n="7"/><gap reason="undefined" quantity="2" unit="character"/>kaṟ ūṭṭuvār
       		</p>
-        <p>
+      		<p>
       			ivv-aṟam pavaṇa
       			<lb n="8"/><unclear>nti</unclear>yu vaitta paṇam Ūrōṅ kā
-      			<lb break="no" n="9"/>ppōm āṉōm
+      			<lb n="9" break="no"/>ppōm āṉōm
       		</p>
-      </div>
-      <div type="apparatus">
-        <!--Fuse identical readings by different editors-->
-        <listApp>
-          <app loc="3">
-            <lem>viḻukkattu-c</lem>
-            <rdg source="bib:Sampath1968_01">viḻukkattu</rdg>
-            <rdg source="bib:Nagaswamy1970_02">viḻukkattu-c</rdg>
-            <rdg source="bib:Mahalingam1988_01">viḻukkattu</rdg>
-          </app>
-          <app loc="3">
-            <lem>ciṉaṟiyār</lem>
-            <rdg source="bib:Sampath1968_01">ciṉaṭiyār</rdg>
-            <rdg source="bib:Nagaswamy1970_02">ciṉaṟiyār</rdg>
-            <rdg source="bib:Mahalingam1988_01">cīṉaṟiyār</rdg>
-            <note>IP fn2 @ cīṉaṟiyār: “It should be read as Ci(Ji)ṉaṭiyār.” Sampath fn3: “jinadiyar means Samanas (or) it may refer to a Jaina ascetic.”</note>
-            <!--Update!-->
-          </app>
-          <app loc="4">
-            <lem>mūppāvaik kācu patiṉ E<lb break="no" n="5"/>ḻu</lem>
-            <rdg source="bib:Sampath1968_01">mūppāvai<surplus>tta</surplus>kkācu patiṉ eḻu</rdg>
-            <rdg source="bib:Nagaswamy1970_02">mūppāvaik kācu patiṉ E<lb break="no" n="5"/>ḻu</rdg>
-            <rdg source="bib:Mahalingam1988_01">mū<unclear>ppā</unclear> vaitta kkācu patiṉ ē<lb break="no" n="5"/>ḻu</rdg>
-            <note>Sampath = surplus. Not clear. = My interpretation --- IP fn 3 @ mū[ppā]: “The readings are doubtful.”</note>
-            <!--Update!-->
-          </app>
-          <app loc="5">
-            <lem>poṉ</lem>
-            <rdg source="bib:Sampath1968_01">mēl</rdg>
-            <rdg source="bib:Nagaswamy1970_02">poṉ</rdg>
-            <rdg source="bib:Mahalingam1988_01">poṉ</rdg>
-          </app>
-          <app loc="7">
-            <lem><gap quantity="2" reason="undefined" unit="character"/>kaṟ ūṭṭuvār</lem>
-            <rdg source="bib:Sampath1968_01">koṟaṭṭuvar</rdg>
-            <rdg source="bib:Nagaswamy1970_02"><gap quantity="2" reason="undefined" unit="character"/>kaṟ ūṭṭuvār</rdg>
-            <rdg source="bib:Mahalingam1988_01"><gap quantity="3" reason="undefined" unit="character"/><unclear>ka</unclear>ṟ ūṭṭuvār</rdg>
-          </app>
-          <app loc="7">
-            <lem>pavaṇa<lb n="8"/><unclear>nti</unclear>yu</lem>
-            <rdg source="bib:Sampath1968_01">pavaṉa<lb n="8"/>ṭiyār</rdg>
-            <rdg source="bib:Nagaswamy1970_02">pavaṇa<lb n="8"/><unclear>nti</unclear>yu</rdg>
-            <rdg source="bib:Mahalingam1988_01">pavaṇa<lb n="8"/><unclear>nti</unclear>yār</rdg>
-          </app>
-          <app loc="8">
-            <lem>Ūrōṅ</lem>
-            <rdg source="bib:Sampath1968_01">Ūrōm</rdg>
-            <rdg source="bib:Nagaswamy1970_02">Ūrōṅ</rdg>
-            <rdg source="bib:Mahalingam1988_01">Ūrōṅ</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:emfr" type="translation">
-        <!--Check/Update translation + if necessary encode properly "..."-->
-        <!--add @n to p-->
-        <p>Fortune!</p>
-        <p>Fifty-sixth year of Nantippōttaraicar.</p>
-        <p>ADD TRANSLATION</p>
-      </div>
-      <div resp="part:emfr" type="translation" xml:lang="fra"></div>
-      <div type="commentary">
-        <p n="6">Sampath fn4: vaikal means daily.</p>
-        <!--Update!-->
-        <p n="7">IP: …[ka]ṟ ūṭṭuvār. Fn4: “This word, not fully read, obviously stands for an administrative or supervisory body like varigar.” --- Sampath fn5: aṭṭuvar = camaippar.</p>
-        <!--Update!-->
-      </div>
-      <div type="bibliography">
-        <p>
-First edited by <bibl>
-            <ptr target="bib:Sampath1968_01"/>
-          </bibl>; re-edited by <bibl>
-            <ptr target="bib:Nagaswamy1970_02"/>
-          </bibl>; text and summary in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP no. 88); encoded here for DHARMA (ERC n° 809994) by Emmanuel Francis (2020), based on previous editions.
+
+      	</div>
+
+      	<div type="apparatus">
+      		<!--Fuse identical readings by different editors-->
+      		<listApp>
+
+      			<app loc="3">
+      				<lem>viḻukkattu-c</lem>
+      				<rdg source="bib:Sampath1968_01">viḻukkattu</rdg>
+      				<rdg source="bib:Nagaswamy1970_02">viḻukkattu-c</rdg>
+      				<rdg source="bib:Mahalingam1988_01">viḻukkattu</rdg>
+      			</app>
+
+      			<app loc="3">
+      				<lem>ciṉaṟiyār</lem>
+      				<rdg source="bib:Sampath1968_01">ciṉaṭiyār</rdg>
+      				<rdg source="bib:Nagaswamy1970_02">ciṉaṟiyār</rdg>
+      				<rdg source="bib:Mahalingam1988_01">cīṉaṟiyār</rdg>
+      				<note>IP fn2 @ cīṉaṟiyār: “It should be read as Ci(Ji)ṉaṭiyār.” Sampath fn3: “jinadiyar means Samanas (or) it may refer to a Jaina ascetic.”</note><!--Update!-->
+      			</app>
+
+      			<app loc="4">
+      				<lem>mūppāvaik kācu patiṉ E<lb n="5" break="no"/>ḻu</lem>
+      				<rdg source="bib:Sampath1968_01">mūppāvai<surplus>tta</surplus>kkācu patiṉ eḻu</rdg>
+      				<rdg source="bib:Nagaswamy1970_02">mūppāvaik kācu patiṉ E<lb n="5" break="no"/>ḻu</rdg>
+      				<rdg source="bib:Mahalingam1988_01">mū<unclear>ppā</unclear> vaitta kkācu patiṉ ē<lb n="5" break="no"/>ḻu</rdg>
+      				<note>Sampath = surplus. Not clear. = My interpretation --- IP fn 3 @ mū[ppā]: “The readings are doubtful.”</note><!--Update!-->
+      			</app>
+
+      			<app loc="5">
+      				<lem>poṉ</lem>
+      				<rdg source="bib:Sampath1968_01">mēl</rdg>
+      				<rdg source="bib:Nagaswamy1970_02">poṉ</rdg>
+      				<rdg source="bib:Mahalingam1988_01">poṉ</rdg>
+      			</app>
+
+      			<app loc="7">
+      				<lem><gap reason="undefined" quantity="2" unit="character"/>kaṟ ūṭṭuvār</lem>
+      				<rdg source="bib:Sampath1968_01">koṟaṭṭuvar</rdg>
+      				<rdg source="bib:Nagaswamy1970_02"><gap reason="undefined" quantity="2" unit="character"/>kaṟ ūṭṭuvār</rdg>
+      				<rdg source="bib:Mahalingam1988_01"><gap reason="undefined" quantity="3" unit="character"/><unclear>ka</unclear>ṟ ūṭṭuvār</rdg>
+      			</app>
+
+      			<app loc="7">
+      				<lem>pavaṇa<lb n="8"/><unclear>nti</unclear>yu</lem>
+      				<rdg source="bib:Sampath1968_01">pavaṉa<lb n="8"/>ṭiyār</rdg>
+      				<rdg source="bib:Nagaswamy1970_02">pavaṇa<lb n="8"/><unclear>nti</unclear>yu</rdg>
+      				<rdg source="bib:Mahalingam1988_01">pavaṇa<lb n="8"/><unclear>nti</unclear>yār</rdg>
+      			</app>
+
+      			<app loc="8">
+      				<lem>Ūrōṅ</lem>
+      				<rdg source="bib:Sampath1968_01">Ūrōm</rdg>
+      				<rdg source="bib:Nagaswamy1970_02">Ūrōṅ</rdg>
+      				<rdg source="bib:Mahalingam1988_01">Ūrōṅ</rdg>
+      			</app>
+
+      		</listApp>
+
+      	</div>
+
+      	<div type="translation" resp="part:emfr">
+      		<!--Check/Update translation + if necessary encode properly "..."-->
+      		<!--add @n to p-->
+      		<p>Fortune!</p>
+      		<p>Fifty-sixth year of Nantippōttaraicar.</p>
+      		<p>ADD TRANSLATION</p>
+
+      	</div>
+
+         <div type="translation" xml:lang="fra" resp="part:emfr">
+
+         </div>
+
+      	<div type="commentary">
+      		<p n="6">Sampath fn4: vaikal means daily.</p><!--Update!-->
+      		<p n="7">IP: …[ka]ṟ ūṭṭuvār. Fn4: “This word, not fully read, obviously stands for an administrative or supervisory body like varigar.” --- Sampath fn5: aṭṭuvar = camaippar.</p><!--Update!-->
+      	</div>
+
+         <div type="bibliography">
+
+            <p>
+First edited by <bibl><ptr target="bib:Sampath1968_01"/></bibl>; re-edited by <bibl><ptr target="bib:Nagaswamy1970_02"/></bibl>; text and summary in <bibl><ptr target="bib:Mahalingam1988_01"/></bibl> (IP no. 88); encoded here for DHARMA (ERC n° 809994) by Emmanuel Francis (2020), based on previous editions.
             </p>
-        <listBibl type="primary">
-          <bibl n="MDS">
-            <ptr target="bib:Sampath1968_01"/>
-            <citedRange unit="page">159</citedRange>
-          </bibl>
-          <bibl n="RN">
-            <ptr target="bib:Nagaswamy1970_02"/>
-            <citedRange unit="page">124</citedRange>
-          </bibl>
-          <bibl n="IP 74">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="page">287-288</citedRange>
-            <citedRange unit="item">88</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl></bibl>
-        </listBibl>
-      </div>
-    </body>
+
+            	<listBibl type="primary">
+
+            		<bibl n="MDS">
+            			<ptr target="bib:Sampath1968_01"/>
+            			<citedRange unit="page">159</citedRange>
+            		</bibl>
+            		<bibl n="RN">
+            			<ptr target="bib:Nagaswamy1970_02"/>
+            			<citedRange unit="page">124</citedRange>
+            		</bibl>
+            		<bibl n="IP 74">
+            			<ptr target="bib:Mahalingam1988_01"/>
+            			<citedRange unit="page">287-288</citedRange>
+            			<citedRange unit="item">88</citedRange>
+            		</bibl>
+
+        	</listBibl>
+
+        	<listBibl type="secondary">
+
+        		<bibl>
+        		</bibl>
+
+        	</listBibl>
+
+         </div>
+
+      </body>
   </text>
 </TEI>

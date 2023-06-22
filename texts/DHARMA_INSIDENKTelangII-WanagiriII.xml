@@ -1,175 +1,145 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Telang II / Wanagiri II (825 Ś, 904-01-11)</title>
-        <respStmt>
-          <resp>EpiDoc Encoding</resp>
-          <persName ref="part:wjsa">
-            <forename>Wayan Jarrah</forename>
-            <surname>Sastrawan</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:wjsa">
-            <forename>Wayan Jarrah</forename>
-            <surname>Sastrawan</surname>
-          </persName>
-          <persName ref="part:argr">
-            <forename>Arlo</forename>
-            <surname>Griffiths</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Paris</pubPlace>
-        <idno type="filename">DHARMA_INSIDENKTelangII-WanagiriII</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+<?xml version="1.0" encoding="UTF-8"?> <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?> <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?> <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?> <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?> <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Telang II / Wanagiri II (825 Ś, 904-01-11)</title>
+            <respStmt>
+               <resp>EpiDoc Encoding</resp>
+               <persName ref="part:wjsa">
+                  <forename>Wayan Jarrah</forename>
+                  <surname>Sastrawan</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName ref="part:wjsa">
+                  <forename>Wayan Jarrah</forename>
+                  <surname>Sastrawan</surname>
+               </persName>
+               <persName ref="part:argr">
+                  <forename>Arlo</forename>
+                  <surname>Griffiths</surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Paris</pubPlace>
+            <idno type="filename">DHARMA_INSIDENKTelangII-WanagiriII</idno>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
                                             Licence. To view a copy of the licence, visit
                                             https://creativecommons.org/licenses/by/4.0/ or send a letter to
                                             Creative Commons, 444 Castro Street, Suite 900, Mountain View,
                                             California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Jarrah Sastrawan &amp; Arlo Griffiths.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <msDesc>
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-          </msIdentifier>
-          <msContents>
-            <summary/>
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p/>
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change when="2022-08-16" who="part:axja">Transforming docx into xml</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition">
-        <div type="textpart">
-          <head xml:lang="eng">Plate 1. recto. </head>
-          <p><lb n="1r1"/> × svasti śaka-varṣatīta 825 poṣa-māsa tithi ṣaṣṭi kr̥ṣṇa, vu, ka, vu, vāra, tatkālani Ăjñă śrī mahārāja rakai vatu kura dyaḥ balitu<unclear>ṁ</unclear>
+                  <p>Copyright (c) 2019-2025 by Jarrah Sastrawan &amp; Arlo Griffiths.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+               </msIdentifier>
+               <msContents>
+                  <summary/>
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p/>
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:axja" when="2022-08-16">Transforming docx into xml</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+           <body>
+                   <div type="edition">
+
+                      <div type="textpart"><head xml:lang="eng">Plate 1. recto. </head>
+                           <p><lb n="1r1"/> × svasti śaka-varṣatīta 825 poṣa-māsa tithi ṣaṣṭi kr̥ṣṇa, vu, ka, vu, vāra, tatkālani Ăjñă śrī mahārāja rakai vatu kura dyaḥ balitu<unclear>ṁ</unclear>
 <lb n="1r2"/> śrī dharmmodaya mahā-sambhu, tumurun· I rakryān· mapatiḥ I hino pu dakṣa bāhubajraprahipakṣakṣaya, rakai halu pu vīravikra
-<lb break="no" n="1r3"/>ma, rake sirikan· pu samaravikrānta, rake vka pu bhāsvara, <choice>
-              <sic>hiruAn·</sic>
-              <corr>tiruAn·</corr>
-            </choice> pu śivāstra, maṁhuri pu cakra, vadihati pu ḍapit·, makudur·
+<lb n="1r3" break="no"/>ma, rake sirikan· pu samaravikrānta, rake vka pu bhāsvara, <choice><sic>hiruAn·</sic><corr>tiruAn·</corr></choice> pu śivāstra, maṁhuri pu cakra, vadihati pu ḍapit·, makudur·
 <lb n="1r4"/> pu sāmvr̥da, kumon· rake vlar· pu sudarśana, sumiddhākna sot· saṁ devata lumāḥ Iṁ śataśr̥ṅga, magavaya kamalir· muAṁ kamulā
-<lb break="no" n="1r5"/>n muAṁ parahu, Irikanaṁ luAḥ Iṁ paparahuAn·, I huvus·nikana gavai rakai vlar kamalir· 1 Umaḥ kamulān· 3 paṁlivtanya 1 tkan·
+<lb n="1r5" break="no"/>n muAṁ parahu, Irikanaṁ luAḥ Iṁ paparahuAn·, I huvus·nikana gavai rakai vlar kamalir· 1 Umaḥ kamulān· 3 paṁlivtanya 1 tkan·
 <lb n="1r6"/> pasək· 1 giliran· 2 parahu 2 dadi Ikanaṁ vanuA I tlaṁ muAṁ I mahai, I paparahuAn· kapuA vatak· huvusan· Inalap· śīmānīkana<unclear>ṁ</unclear>
-<lb n="1r7"/>kamulān·, muAṁ parahu, Uməntassakna saṁ mahārddhika buAt-thajyanya, ma⟨ṁ⟩kana Ājñăā śrī mahārāja, kinon· rakai vlar·, Umarajaṁ vahuta pa<supplied reason="omitted">tiḥ</supplied></p>
-        </div>
-        <div type="textpart">
-          <head xml:lang="eng">Plate 1. verso </head>
-          <p>
-            <foreign>Illegible.</foreign>
-          </p>
-        </div>
-        <div type="textpart">
-          <head xml:lang="eng">Plate 2. recto </head>
-        </div>
-        <div type="textpart">
-          <head xml:lang="eng">Plate 2. verso </head>
-          <p><lb n="2v1"/>-di tiṇḍiḥ, vadvā rarai si vul· ramani krānti, maṅla si jantur· ramani nalu, makari si kaṇḍal· ramani naga, mavaiḥ kam<unclear>va</unclear>ṁ si tamvul· 4 pa
-<lb break="no" n="2v2"/>-nima Iṁ </p>
-        </div>
-      </div>
-      <div type="apparatus">
-        <app loc="1r2">
-          <lem source="bib:Stutterheim1934_04">-prahi-</lem>
-          <rdg source="bib:TitiSurtiNastiti2015_01">-prati-</rdg>
-          <rdg>Corr. -prati-.</rdg>
-        </app>
-        <app loc="1r3">
-          <lem>hiruAn·</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">tiruAn</rdg>
-        </app>
-        <app loc="2v1">
-          <lem>-di tiṇḍiḥ</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">-ni tiṇḍiḥ</rdg>
-        </app>
-        <app loc="2v1">
-          <lem>si vul·</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">si bṅal·</rdg>
-        </app>
-        <app loc="2v1">
-          <lem>kaṇḍal·</lem>
-          <rdg source="bib:Stutterheim1934_04">gāṇḍal</rdg>
-          <rdg source="bib:TitiSurtiNastiti2015_01">gaṇḍal·</rdg>
-        </app>
-        <app loc="2v1">
-          <lem>naga</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">nabha</rdg>
-        </app>
-        <app loc="2v1">
-          <lem>tamvul· 4 pa-</lem>
-          <rdg source="bib:Stutterheim1934_04">timbul· rama</rdg>
-          <rdg source="bib:TitiSurtiNastiti2015_01">tamvul· rama-</rdg>
-        </app>
-        <app loc="2v2">
-          <lem>-nima Iṁ</lem>
-          <rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">-ni da I</rdg>
-        </app>
-      </div>
-      <div type="commentary">
-        <p>Based on the assumption that the river mentioned in the text is the Solo River, Stutterheim identified two toponyms in the text with modern places, all in present-day kabupaten Wonogiri: tlaṁ as Teleng village in kecamatan Manyaran, and paparuhuan as Praon hamlet to the west of Mount Gandul (Stutterheim 1934: 282–283). Titi Surti Nastiti cast doubt on these identifications, arguing that they were too far distant to have been considered a single sīma (2015: 33–34). She came to the view that the most likely identifications were: tlaṁ as Teleng hamlet, Sendang village, kecamatan Giriworyo and paparahuan as Jatiroto hamlet, Wonoboyo village, kecamatan Wonogiri on the bank of the Solo river, all in kabupaten Wonogiri. </p>
-      </div>
-      <div type="bibliography">
-        <p>Read by Wayan Jarrah Sastrawan and Arlo Griffiths in October 2021 on the basis of photographs taken by Arlo Griffiths in 2013.</p>
-        <listBibl type="primary">
-          <bibl n="S">
-            <ptr target="bib:Stutterheim1934_04"/>
-            <citedRange>269–295</citedRange>
-          </bibl>
-          <bibl n="T">
-            <ptr target="bib:TitiSurtiNastiti2015_01"/>
-            <citedRange>25–35</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-      <!--
+<lb n="1r7"/>kamulān·, muAṁ parahu, Uməntassakna saṁ mahārddhika buAt-thajyanya, ma⟨ṁ⟩kana Ājñăā śrī mahārāja, kinon· rakai vlar·, Umarajaṁ vahuta pa<supplied reason="omitted">tiḥ</supplied></p></div>
+
+<div type="textpart">
+   <head xml:lang="eng">Plate 1. verso </head>
+                      <p><foreign>Illegible.</foreign></p>
+</div>
+                      <div type="textpart">
+                         <head xml:lang="eng">Plate 2. recto </head>
+                      </div>
+<div type="textpart">
+                         <head xml:lang="eng">Plate 2. verso </head>
+<p><lb n="2v1"/>-di tiṇḍiḥ, vadvā rarai si vul· ramani krānti, maṅla si jantur· ramani nalu, makari si kaṇḍal· ramani naga, mavaiḥ kam<unclear>va</unclear>ṁ si tamvul· 4 pa
+<lb n="2v2" break="no"/>-nima Iṁ </p>
+</div>
+                   </div>
+                       <div type="apparatus">
+<app loc="1r2"><lem source="bib:Stutterheim1934_04">-prahi-</lem><rdg source="bib:TitiSurtiNastiti2015_01">-prati-</rdg><rdg>Corr. -prati-.</rdg></app>
+<app loc="1r3"><lem>hiruAn·</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">tiruAn</rdg></app>
+<app loc="2v1"><lem>-di tiṇḍiḥ</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">-ni tiṇḍiḥ</rdg></app>
+<app loc="2v1"><lem>si vul·</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">si bṅal·</rdg></app>
+<app loc="2v1"><lem>kaṇḍal·</lem><rdg source="bib:Stutterheim1934_04">gāṇḍal</rdg><rdg source="bib:TitiSurtiNastiti2015_01">gaṇḍal·</rdg></app>
+<app loc="2v1"><lem>naga</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">nabha</rdg></app>
+<app loc="2v1"><lem>tamvul· 4 pa-</lem><rdg source="bib:Stutterheim1934_04">timbul· rama</rdg><rdg source="bib:TitiSurtiNastiti2015_01">tamvul· rama-</rdg></app>
+<app loc="2v2"><lem>-nima Iṁ</lem><rdg source="bib:Stutterheim1934_04 bib:TitiSurtiNastiti2015_01">-ni da I</rdg></app></div>
+
+                <div type="commentary">
+                    <p>Based on the assumption that the river mentioned in the text is the Solo River, Stutterheim identified two toponyms in the text with modern places, all in present-day kabupaten Wonogiri: tlaṁ as Teleng village in kecamatan Manyaran, and paparuhuan as Praon hamlet to the west of Mount Gandul (Stutterheim 1934: 282–283). Titi Surti Nastiti cast doubt on these identifications, arguing that they were too far distant to have been considered a single sīma (2015: 33–34). She came to the view that the most likely identifications were: tlaṁ as Teleng hamlet, Sendang village, kecamatan Giriworyo and paparahuan as Jatiroto hamlet, Wonoboyo village, kecamatan Wonogiri on the bank of the Solo river, all in kabupaten Wonogiri. </p>
+                </div>
+
+                   <div type="bibliography">
+                    <p>Read by Wayan Jarrah Sastrawan and Arlo Griffiths in October 2021 on the basis of photographs taken by Arlo Griffiths in 2013.</p>
+                      <listBibl type="primary">
+                    <bibl n="S">
+                      <ptr target="bib:Stutterheim1934_04"/>
+                      <citedRange>269–295</citedRange>
+                    </bibl>
+                    <bibl n="T">
+                      <ptr target="bib:TitiSurtiNastiti2015_01"/>
+                      <citedRange>25–35</citedRange>
+                    </bibl>
+                </listBibl>
+                </div>
+               <!--
                <div>
                     <head>Artefact</head>
                     <p>This inscription consists of two plates, but due to corrosion it is not possible to determine whether they constitute a single continuous text. Stutterheim (1934: xx) considered the two plates to contain a single text, while Machi Suhadi &amp; Sukarto (1986: 53) considered plate 2 as a separate inscription designated Wonoboyo. However, Titi Surti Nastiti argued that plate 2 was not a continuation of plate 1, but constitutes part of a third copy of the text, which she designated Telang III  (2015: 32).<note place="comment">We are currently siding with Stutterheim, but may need to revise that after looking closely at plate 2 recto</note></p>
                     <p>The verso side of plate 1 is inscribed but so badly corroded that it is illegible. The recto side of plate 2 is also corroded, though the text is still faintly visible. Plate 1 has a single cord hole in the top left corner and plate 2 has two cord holes in the top left and top right corners (seen from the recto side in both cases).</p>
                 </div>
                -->
-    </body>
-  </text>
+           </body>
+                     </text>
 </TEI>

@@ -4,490 +4,278 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>Jaḷayūru grant of Viṣṇuvardhana III</title>
-        <!--Alt title "Ipur, Viṣṇuvardhana III" in PEM's corpus. "Ipur Plates of Viṣṇuvardhana III" in PEM's corpus. Ipur is not the findspot but the place where the plates were in a collection when Hultzsch edited them. The findspot is an unspecified village of Kistna District. -->
-        <respStmt>
-          <resp>Encoding</resp>
-          <persName ref="part:daba">
-            <forename>Dániel</forename>
-            <surname>Balogh</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:daba">
-            <forename>Dániel</forename>
-            <surname>Balogh</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Berlin</pubPlace>
-        <idno type="filename">DHARMA_INSVengiCalukya00016</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Jaḷayūru grant of Viṣṇuvardhana III</title>
+            <!--Alt title "Ipur, Viṣṇuvardhana III" in PEM's corpus. "Ipur Plates of Viṣṇuvardhana III" in PEM's corpus. Ipur is not the findspot but the place where the plates were in a collection when Hultzsch edited them. The findspot is an unspecified village of Kistna District. -->
+            <respStmt>
+               <resp>Encoding</resp>
+               <persName ref="part:daba">
+                  <forename>Dániel</forename>
+                  <surname>Balogh</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName ref="part:daba">
+                  <forename>Dániel</forename>
+                  <surname>Balogh</surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Berlin</pubPlace>
+            <idno type="filename">DHARMA_INSVengiCalukya00016</idno>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
               Licence. To view a copy of the licence, visit
               https://creativecommons.org/licenses/by/4.0/ or send a letter to
               Creative Commons, 444 Castro Street, Suite 900, Mountain View,
               California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Dániel Balogh.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
-        <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
-          <msIdentifier>
-            <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
-            <!--<altIdentifier type="PEM"><idno type="corpus">CalE25</idno></altIdentifier>-->
-          </msIdentifier>
-          <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
-          </msContents>
-          <physDesc>
-            <handDesc>
-              <p><!--Halantas.  -->
+                  <p>Copyright (c) 2019-2025 by Dániel Balogh.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc><!-- only the handDesc can be filled in at this stage -->
+            <msDesc><!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+                  <!-- don't modify this -->
+                  <!--<altIdentifier type="PEM"><idno type="corpus">CalE25</idno></altIdentifier>-->
+               </msIdentifier>
+               <msContents><!-- describe the intellectual content of an inscription -->
+                  <summary><!-- //// NOT MANDATORY  ////--></summary>
+                  <!-- offers the possibility to give a summary of the inscription's content -->
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p><!--Halantas.  -->
 Original punctuation. There seems to be a punctuation mark resembling a visarga/colon in line 12, though Hultzsch only prints supplied punctuation here. The clear punctuation mark in line 22 (also printed by Hultzsch as supplied) is a short vertical bar, floating at about middle height.
                 <!--Other palaeographic observations.  --><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+                     <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
                 <summary><p><p/></summary>
                 <handNote xml:id="Pallava00001_hand1"></handNote>
                 <handNote xml:id="Pallava00001_hand2"></handNote>
               -->
-            </handDesc>
-          </physDesc>
-        </msDesc>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
                         under the European Union's Horizon 2020 research and innovation programme (grant
                         agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
                             ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
                             <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-14" who="part:daba">Encoded hand description, bibliography and commentary from earlier comments</change>
-      <change status="draft" when="2020-06-11" who="part:daba">Initial encoding of the file</change>
-      <!-- Add a <change> entry for each significant change to the file. -->
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+        <change who="part:daba" when="2020-08-14" status="draft">Encoded hand description, bibliography and commentary from earlier comments</change>
+        <change who="part:daba" when="2020-06-11" status="draft">Initial encoding of the file</change>
+         <!-- Add a <change> entry for each significant change to the file. -->
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
     <body>
-      <div rendition="class:83225 maturity:83213" type="edition" xml:lang="san-Latn">
-        <div n="A" type="textpart">
-          <head xml:lang="eng">Seal</head>
-          <ab><lb n="1"/>śrī-viṣamasiddhi</ab>
-        </div>
-        <div n="B" type="textpart">
-          <head xml:lang="eng">Plates</head>
-          <pb n="1r"/>
-          <p><pb n="1v"/><lb n="1"/>svasti<supplied reason="subaudible">.</supplied> śrīmatā<supplied reason="omitted">ṁ</supplied> sakala-bhuvana-saṁst<choice>
-              <sic>u</sic>
-              <corr>ū</corr>
-            </choice>yamāna-mānavya-sagotrā<lb break="no" n="2"/>ṇ<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice><supplied reason="omitted">ṁ</supplied> <orig>hāriti</orig>-putrāṇ<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice><supplied reason="omitted">ṁ</supplied> kauśikī-vara-prasāda-labdha-rājy<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>nāṁ māt<choice>
-              <orig>ri</orig>
-              <reg>r̥</reg>
-            </choice>-ga<lb break="no" n="3"/>ṇa<space type="binding-hole"/>-paripālitānā<supplied reason="omitted">ṁ</supplied> bhagavan-nārāyaṇa-prasāda-sam<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>sādita<lb break="no" n="4"/>-va<space type="binding-hole"/>r<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>ha-lāñ<choice>
-              <sic>c</sic>
-              <corr>ch</corr>
-            </choice>anānā<supplied reason="omitted">ṁ</supplied> Aśvamedhāvabh<choice>
-              <orig>ri</orig>
-              <reg>r̥</reg>
-            </choice>tha-snāna-pavi<supplied reason="omitted">trī</supplied>-k<choice>
-              <orig>ri</orig>
-              <reg>r̥</reg>
-            </choice>ta-vapuṣāṁ <lb n="5"/><choice>
-              <orig>ch</orig>
-              <reg>c</reg>
-            </choice>aḷu<space type="binding-hole"/>kyānā<supplied reason="omitted">ṁ</supplied> kulam ala<supplied reason="omitted">ṁ</supplied>kariṣṇo<supplied reason="omitted">ḥ</supplied> śrī-viṣṇuvarddhana-mahārāja<lb break="no" n="6"/>sya sūnor aneka-samara-sa<supplied reason="omitted">ṁ</supplied>ghaṭṭopalabdha-yu<supplied reason="omitted">d</supplied>dha-vijaya-ya<lb break="no" n="7"/>śaḥ-pras<choice>
-              <sic>u</sic>
-              <corr>ū</corr>
-            </choice>ty-<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>moda-gandhā<choice>
-              <sic>d</sic>
-              <corr>dh</corr>
-            </choice>ivāsita-sakala-di<orig>g</orig>-maṇḍalasya śrī<pb break="no" n="2r"/><lb break="no" n="8"/>-vijayasiddh<choice>
-              <orig>i</orig>
-              <reg>eḥ</reg>
-            </choice> priya-tanaya<supplied reason="omitted">ḥ</supplied> sva-vikram<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>krānta-mah<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>-maṇḍal<choice>
-              <orig>asya</orig>
-              <reg>aḥ</reg>
-            </choice> Ari<lb break="no" n="9"/>-timira-pra<choice>
-              <orig>ḷ</orig>
-              <reg>l</reg>
-            </choice>ay<unclear>ā</unclear>ditya<supplied reason="omitted">ḥ</supplied> yuvati-jana-ma<choice>
-              <sic>kh</sic>
-              <corr>k</corr>
-            </choice>aradhvaja<supplied reason="omitted">ḥ</supplied> vidva<choice>
-              <sic>kt</sic>
-              <corr>t-k</corr>
-            </choice>avi-vipra-vandita<supplied reason="omitted">ḥ</supplied> <choice>
-              <orig>pā</orig>
-              <reg>prā</reg>
-            </choice><lb break="no" n="10"/><choice>
-              <orig>ṭaka</orig>
-              <reg>rthaka</reg>
-            </choice><space type="binding-hole"/>-jana-kāmadhenu<supplied reason="omitted">ḥ</supplied> ni<supplied reason="omitted">r</supplied><choice>
-              <orig>macchājy</orig>
-              <reg>mātsary</reg>
-            </choice><unclear>ā</unclear>lasya-<choice>
-              <orig>naiṣṭūrjya</orig>
-              <reg>naiṣṭhurya</reg>
-            </choice><supplied reason="omitted">ḥ</supplied> <choice>
-              <orig>riṣya</orig>
-              <reg>riṣṭa</reg>
-            </choice>-paiś<choice>
-              <orig>ū</orig>
-              <reg>u</reg>
-            </choice>nya<lb break="no" n="11"/>-rahi<space type="binding-hole"/>ta<supplied reason="omitted">ḥ</supplied> strī-<choice>
-              <sic>bh</sic>
-              <corr>b</corr>
-            </choice>ā<choice>
-              <orig>ḷ</orig>
-              <reg>l</reg>
-            </choice>a-v<choice>
-              <orig>ri</orig>
-              <reg>r̥</reg>
-            </choice>ddha-buddha-praha<supplied reason="omitted">r</supplied>ṣaṇ<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>ya-r<choice>
-              <sic>u</sic>
-              <corr>ū</corr>
-            </choice>pa<supplied reason="omitted">ḥ</supplied> śrī-viṣṇuva<supplied reason="omitted">r</supplied>ddhana-ma<lb break="no" n="12"/>hār<unclear>ā</unclear>j<choice>
-              <orig>asya</orig>
-              <reg>aḥ</reg>
-            </choice> evam ā<choice>
-              <sic>ñy</sic>
-              <corr>jñ</corr>
-            </choice>āpayati<unclear>
-              <g type="indistinct">.</g>
-            </unclear></p>
-          <p>kom<unclear>ū</unclear>ra-v<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>stavy<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>ya Ātr<choice>
-              <orig>i</orig>
-              <reg>e</reg>
-            </choice>ya-go<lb break="no" n="13"/>trāya <choice>
-              <orig>reṇya</orig>
-              <reg>hiraṇya</reg>
-            </choice>keśi-sūtrāya Agniśarmmaṇa<supplied reason="omitted">ḥ</supplied> <choice>
-              <orig>pavu</orig>
-              <reg>pau</reg>
-            </choice>trāya tāḻiśa<pb break="no" n="2v"/><lb break="no" n="14"/>rmmaṇa<supplied reason="omitted">ḥ</supplied> putrāya keśavaśarmmaṇ<choice>
-              <orig>a</orig>
-              <reg>e</reg>
-            </choice> pḻolnāṇḍu-viṣaye jaḷayūru n<unclear>ā</unclear>ma<lb n="15"/>grām<unclear>e</unclear> paścima-diśāyā<supplied reason="omitted">ṁ</supplied> Eliyeṟu-nad<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>-pa<unclear>śc</unclear>imata<supplied reason="omitted">ḥ</supplied> prabhākara-kṣetr<orig>a</orig><lb break="no" n="16"/>-<orig>U</orig>t<unclear>t</unclear>a<unclear>r</unclear>ata<unclear>ḥ</unclear> kākaṇḍivāḍa-kṣetra-pū<supplied reason="omitted">r</supplied>vvata<supplied reason="omitted">ḥ</supplied> valmī<unclear>ka</unclear>-dakṣiṇata Eta<orig>t-c</orig>a<lb break="no" n="17"/>tu<space type="binding-hole"/>r-avadhi vi<unclear>ṁśat</unclear>i-khaṇḍikā-<choice>
-              <sic>b</sic>
-              <corr>v</corr>
-            </choice>r<choice>
-              <sic>i</sic>
-              <corr>ī</corr>
-            </choice>hi-bīja-paripramāṇa<unclear>ṁ</unclear> kṣe<lb break="no" n="18"/>tra<supplied reason="omitted">ṁ</supplied> <choice>
-              <orig>śakraṁti</orig>
-              <reg>saṁkrānti</reg>
-            </choice>-nimitte <choice>
-              <sic>O</sic>
-              <corr>U</corr>
-            </choice>daka-pū<unclear>r</unclear>v<unclear>va</unclear><supplied reason="omitted">ṁ</supplied> <unclear>da</unclear>tta<unclear>ṁ</unclear><supplied reason="subaudible">.</supplied> g<choice>
-              <orig>ri</orig>
-              <reg>r̥</reg>
-            </choice>ha-s<choice>
-              <sic>t</sic>
-              <corr>th</corr>
-            </choice>ānaṁ puṣpa-vā<choice>
-              <sic>ś</sic>
-              <corr>ṭ</corr>
-            </choice>i<lb break="no" n="19"/>k<unclear>ā</unclear>-sahita<supplied reason="omitted">ṁ</supplied><supplied reason="subaudible">.</supplied> sarvva-kara-parihāre<supplied reason="omitted">ṇa</supplied><supplied reason="subaudible">.</supplied> prava<supplied reason="omitted">r</supplied>ddhamāna-vijaya-rā<pb break="no" n="3r"/><lb break="no" n="20"/>jya-saṁva<choice>
-              <orig>cha</orig>
-              <reg>tsa</reg>
-            </choice>re <orig>viṁśati-trir varṣeṁ</orig> śrī-maṁ<choice>
-              <orig>gh</orig>
-              <reg>g</reg>
-            </choice>i-<choice>
-              <orig>duvarāja</orig>
-              <reg>yuvarāja</reg>
-            </choice>-priya-<choice>
-              <orig>duhita</orig>
-              <reg>duhitrā</reg>
-            </choice> <lb n="21"/>śrī-<orig>prithivipo<unclear>ś</unclear>ī</orig>-<choice>
-              <orig>nāma</orig>
-              <reg>nāmnyā</reg>
-            </choice> <orig>datta</orig></p>
-          <lg met="anuṣṭubh" n="1">
-            <l n="a">bahu<choice>
-                <sic>b</sic>
-                <corr>bh</corr>
-              </choice>ir vvasu<choice>
-                <sic>d</sic>
-                <corr>dh</corr>
-              </choice>ā dattā</l>
-            <l n="b">bahu<choice>
-                <sic>b</sic>
-                <corr>bh</corr>
-              </choice>iś cānu<lb break="no" n="22"/>pā<space type="binding-hole"/>litā</l>
-            <l n="c">yasya yasya yadā bhūmi<supplied reason="omitted">s</supplied></l>
-            <l n="d">tasya tasya tadā <choice>
-                <sic>b</sic>
-                <corr>ph</corr>
-              </choice>ala<supplied reason="omitted">ṁ</supplied>|</l>
-          </lg>
-          <lg met="anuṣṭubh" n="2">
-            <l n="a">sva-da<lb break="no" n="23"/>ttāṁ para-dattā<supplied reason="omitted">ṁ</supplied> vā<surplus>ṁ</surplus></l>
-            <l n="b">y<surplus>y</surplus>o <choice>
-                <orig>hareriti</orig>
-                <reg>hareta</reg>
-              </choice> vasundharā<unclear>ṁ</unclear></l>
-            <l n="c">śaṣṭi<orig>r</orig> varṣa-sahasrāṇi</l>
-            <l n="d">viṣ<choice>
-                <sic>ṭ</sic>
-                <corr>ṭh</corr>
-              </choice><unclear>ā</unclear><lb break="no" n="24"/>yāṁ jāyate k<choice>
-                <orig>ra</orig>
-                <reg>r̥</reg>
-              </choice>mi<supplied reason="omitted">ḥ</supplied></l>
-          </lg>
-          <p>
-<choice>
-              <orig>Āñyapti</orig>
-              <reg>Ājñaptiḥ</reg>
-            </choice> <foreign xml:lang="kan">kaḍa-Eṟeya</foreign> vātaṭṭa-<orig>nāma</orig><supplied reason="subaudible">.</supplied> <choice>
-              <orig>tinasya</orig>
-              <reg>tenāsya</reg>
-            </choice> g<choice>
-              <orig>ri</orig>
-              <reg>r̥</reg>
-            </choice><lb break="no" n="25"/>ha-s<choice>
-              <sic>t</sic>
-              <corr>th</corr>
-            </choice>āna<supplied reason="omitted">ṁ</supplied> datta<supplied reason="omitted">ṁ</supplied>
+
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83213">
+<div type="textpart" n="A"><head xml:lang="eng">Seal</head>
+  <ab><lb
+n="1"/>śrī-viṣamasiddhi</ab>
+</div>
+<div type="textpart" n="B"><head xml:lang="eng">Plates</head>
+<pb
+
+n="1r"/>
+<p><pb
+
+n="1v"/><lb
+n="1"/>svasti<supplied reason="subaudible">.</supplied> śrīmatā<supplied reason="omitted">ṁ</supplied> sakala-bhuvana-saṁst<choice><sic>u</sic><corr>ū</corr></choice>yamāna-mānavya-sagotrā<lb
+n="2" break="no"/>ṇ<choice><sic>a</sic><corr>ā</corr></choice><supplied reason="omitted">ṁ</supplied> <orig>hāriti</orig>-putrāṇ<choice><sic>a</sic><corr>ā</corr></choice><supplied reason="omitted">ṁ</supplied> kauśikī-vara-prasāda-labdha-rājy<choice><sic>a</sic><corr>ā</corr></choice>nāṁ māt<choice><orig>ri</orig><reg>r̥</reg></choice>-ga<lb
+n="3" break="no"/>ṇa<space type="binding-hole"/>-paripālitānā<supplied reason="omitted">ṁ</supplied> bhagavan-nārāyaṇa-prasāda-sam<choice><sic>a</sic><corr>ā</corr></choice>sādita<lb
+n="4" break="no"/>-va<space type="binding-hole"/>r<choice><sic>a</sic><corr>ā</corr></choice>ha-lāñ<choice><sic>c</sic><corr>ch</corr></choice>anānā<supplied reason="omitted">ṁ</supplied> Aśvamedhāvabh<choice><orig>ri</orig><reg>r̥</reg></choice>tha-snāna-pavi<supplied reason="omitted">trī</supplied>-k<choice><orig>ri</orig><reg>r̥</reg></choice>ta-vapuṣāṁ <lb
+n="5"/><choice><orig>ch</orig><reg>c</reg></choice>aḷu<space type="binding-hole"/>kyānā<supplied reason="omitted">ṁ</supplied> kulam ala<supplied reason="omitted">ṁ</supplied>kariṣṇo<supplied reason="omitted">ḥ</supplied> śrī-viṣṇuvarddhana-mahārāja<lb
+n="6" break="no"/>sya sūnor aneka-samara-sa<supplied reason="omitted">ṁ</supplied>ghaṭṭopalabdha-yu<supplied reason="omitted">d</supplied>dha-vijaya-ya<lb
+n="7" break="no"/>śaḥ-pras<choice><sic>u</sic><corr>ū</corr></choice>ty-<choice><sic>a</sic><corr>ā</corr></choice>moda-gandhā<choice><sic>d</sic><corr>dh</corr></choice>ivāsita-sakala-di<orig>g</orig>-maṇḍalasya śrī<pb
+
+n="2r" break="no"/><lb
+n="8" break="no"/>-vijayasiddh<choice><orig>i</orig><reg>eḥ</reg></choice> priya-tanaya<supplied reason="omitted">ḥ</supplied> sva-vikram<choice><sic>a</sic><corr>ā</corr></choice>krānta-mah<choice><sic>i</sic><corr>ī</corr></choice>-maṇḍal<choice><orig>asya</orig><reg>aḥ</reg></choice> Ari<lb
+n="9" break="no"/>-timira-pra<choice><orig>ḷ</orig><reg>l</reg></choice>ay<unclear>ā</unclear>ditya<supplied reason="omitted">ḥ</supplied> yuvati-jana-ma<choice><sic>kh</sic><corr>k</corr></choice>aradhvaja<supplied reason="omitted">ḥ</supplied> vidva<choice><sic>kt</sic><corr>t-k</corr></choice>avi-vipra-vandita<supplied reason="omitted">ḥ</supplied> <choice><orig>pā</orig><reg>prā</reg></choice><lb
+n="10" break="no"/><choice><orig>ṭaka</orig><reg>rthaka</reg></choice><space type="binding-hole"/>-jana-kāmadhenu<supplied reason="omitted">ḥ</supplied> ni<supplied reason="omitted">r</supplied><choice><orig>macchājy</orig><reg>mātsary</reg></choice><unclear>ā</unclear>lasya-<choice><orig>naiṣṭūrjya</orig><reg>naiṣṭhurya</reg></choice><supplied reason="omitted">ḥ</supplied> <choice><orig>riṣya</orig><reg>riṣṭa</reg></choice>-paiś<choice><orig>ū</orig><reg>u</reg></choice>nya<lb
+n="11" break="no"/>-rahi<space type="binding-hole"/>ta<supplied reason="omitted">ḥ</supplied> strī-<choice><sic>bh</sic><corr>b</corr></choice>ā<choice><orig>ḷ</orig><reg>l</reg></choice>a-v<choice><orig>ri</orig><reg>r̥</reg></choice>ddha-buddha-praha<supplied reason="omitted">r</supplied>ṣaṇ<choice><sic>i</sic><corr>ī</corr></choice>ya-r<choice><sic>u</sic><corr>ū</corr></choice>pa<supplied reason="omitted">ḥ</supplied> śrī-viṣṇuva<supplied reason="omitted">r</supplied>ddhana-ma<lb
+n="12" break="no"/>hār<unclear>ā</unclear>j<choice><orig>asya</orig><reg>aḥ</reg></choice> evam ā<choice><sic>ñy</sic><corr>jñ</corr></choice>āpayati<unclear><g type="indistinct">.</g></unclear></p>
+
+<p>kom<unclear>ū</unclear>ra-v<choice><sic>a</sic><corr>ā</corr></choice>stavy<choice><sic>a</sic><corr>ā</corr></choice>ya Ātr<choice><orig>i</orig><reg>e</reg></choice>ya-go<lb
+n="13" break="no"/>trāya <choice><orig>reṇya</orig><reg>hiraṇya</reg></choice>keśi-sūtrāya Agniśarmmaṇa<supplied reason="omitted">ḥ</supplied> <choice><orig>pavu</orig><reg>pau</reg></choice>trāya tāḻiśa<pb
+
+n="2v" break="no"/><lb
+n="14" break="no"/>rmmaṇa<supplied reason="omitted">ḥ</supplied> putrāya keśavaśarmmaṇ<choice><orig>a</orig><reg>e</reg></choice> pḻolnāṇḍu-viṣaye jaḷayūru n<unclear>ā</unclear>ma<lb
+n="15"/>grām<unclear>e</unclear> paścima-diśāyā<supplied reason="omitted">ṁ</supplied> Eliyeṟu-nad<choice><sic>i</sic><corr>ī</corr></choice>-pa<unclear>śc</unclear>imata<supplied reason="omitted">ḥ</supplied> prabhākara-kṣetr<orig>a</orig><lb
+n="16" break="no"/>-<orig>U</orig>t<unclear>t</unclear>a<unclear>r</unclear>ata<unclear>ḥ</unclear> kākaṇḍivāḍa-kṣetra-pū<supplied reason="omitted">r</supplied>vvata<supplied reason="omitted">ḥ</supplied> valmī<unclear>ka</unclear>-dakṣiṇata Eta<orig>t-c</orig>a<lb
+n="17" break="no"/>tu<space type="binding-hole"/>r-avadhi vi<unclear>ṁśat</unclear>i-khaṇḍikā-<choice><sic>b</sic><corr>v</corr></choice>r<choice><sic>i</sic><corr>ī</corr></choice>hi-bīja-paripramāṇa<unclear>ṁ</unclear> kṣe<lb
+n="18" break="no"/>tra<supplied reason="omitted">ṁ</supplied> <choice><orig>śakraṁti</orig><reg>saṁkrānti</reg></choice>-nimitte <choice><sic>O</sic><corr>U</corr></choice>daka-pū<unclear>r</unclear>v<unclear>va</unclear><supplied reason="omitted">ṁ</supplied> <unclear>da</unclear>tta<unclear>ṁ</unclear><supplied reason="subaudible">.</supplied> g<choice><orig>ri</orig><reg>r̥</reg></choice>ha-s<choice><sic>t</sic><corr>th</corr></choice>ānaṁ puṣpa-vā<choice><sic>ś</sic><corr>ṭ</corr></choice>i<lb
+n="19" break="no"/>k<unclear>ā</unclear>-sahita<supplied reason="omitted">ṁ</supplied><supplied reason="subaudible">.</supplied> sarvva-kara-parihāre<supplied reason="omitted">ṇa</supplied><supplied reason="subaudible">.</supplied> prava<supplied reason="omitted">r</supplied>ddhamāna-vijaya-rā<pb
+
+n="3r" break="no"/><lb
+n="20" break="no"/>jya-saṁva<choice><orig>cha</orig><reg>tsa</reg></choice>re <orig>viṁśati-trir varṣeṁ</orig> śrī-maṁ<choice><orig>gh</orig><reg>g</reg></choice>i-<choice><orig>duvarāja</orig><reg>yuvarāja</reg></choice>-priya-<choice><orig>duhita</orig><reg>duhitrā</reg></choice> <lb
+n="21"/>śrī-<orig>prithivipo<unclear>ś</unclear>ī</orig>-<choice><orig>nāma</orig><reg>nāmnyā</reg></choice> <orig>datta</orig></p>
+<lg n="1" met="anuṣṭubh">
+<l n="a">bahu<choice><sic>b</sic><corr>bh</corr></choice>ir vvasu<choice><sic>d</sic><corr>dh</corr></choice>ā dattā</l>
+<l n="b">bahu<choice><sic>b</sic><corr>bh</corr></choice>iś cānu<lb
+n="22" break="no"/>pā<space type="binding-hole"/>litā</l>
+<l n="c">yasya yasya yadā bhūmi<supplied reason="omitted">s</supplied></l>
+<l n="d">tasya tasya tadā <choice><sic>b</sic><corr>ph</corr></choice>ala<supplied reason="omitted">ṁ</supplied>|</l>
+</lg>
+<lg n="2" met="anuṣṭubh">
+<l n="a">sva-da<lb
+n="23" break="no"/>ttāṁ para-dattā<supplied reason="omitted">ṁ</supplied> vā<surplus>ṁ</surplus></l>
+<l n="b">y<surplus>y</surplus>o <choice><orig>hareriti</orig><reg>hareta</reg></choice> vasundharā<unclear>ṁ</unclear></l>
+<l n="c">śaṣṭi<orig>r</orig> varṣa-sahasrāṇi</l>
+<l n="d">viṣ<choice><sic>ṭ</sic><corr>ṭh</corr></choice><unclear>ā</unclear><lb
+n="24" break="no"/>yāṁ jāyate k<choice><orig>ra</orig><reg>r̥</reg></choice>mi<supplied reason="omitted">ḥ</supplied></l></lg>
+
+<p>
+<choice><orig>Āñyapti</orig><reg>Ājñaptiḥ</reg></choice> <foreign xml:lang="kan">kaḍa-Eṟeya</foreign> vātaṭṭa-<orig>nāma</orig><supplied reason="subaudible">.</supplied> <choice><orig>tinasya</orig><reg>tenāsya</reg></choice> g<choice><orig>ri</orig><reg>r̥</reg></choice><lb
+n="25" break="no"/>ha-s<choice><sic>t</sic><corr>th</corr></choice>āna<supplied reason="omitted">ṁ</supplied> datta<supplied reason="omitted">ṁ</supplied>
 </p>
-          <pb n="3v"/>
-        </div>
-      </div>
-      <div type="apparatus">
-        <div n="A" type="textpart">
-          <head xml:lang="eng">Seal</head>
-        </div>
-        <div n="B" type="textpart">
-          <head xml:lang="eng">Plates</head>
-          <listApp>
-            <app loc="7">
-              <lem>-di<orig>g</orig>-maṇḍalasya</lem>
-              <note>In <foreign>gm</foreign>, the <foreign>g</foreign> is formed as a downward curve of the left arm of a regularly placed <foreign>ma</foreign>. The likely reason is that this is the last line of the plate, right on the bottom edge, where a regularly composed ligature would not have fit. But correction from an initially engraved <foreign>ma</foreign> is also possible.</note>
-            </app>
-            <app loc="9">
-              <lem>-vandita<supplied reason="omitted">ḥ</supplied> <choice>
-                  <orig>pā</orig>
-                  <reg>prā</reg>
-                </choice><lb/><choice>
-                  <orig>ṭaka</orig>
-                  <reg>rthaka</reg>
-                </choice>-</lem>
-              <note>Hultzsch emends/standardises the same reading to <foreign>-vandi-pāṭhaka-</foreign>, which is perfectly plausible. I believe my suggestion is slightly more likely even though it involves a larger alteration to <foreign>pāṭaka</foreign>. Earlier Eastern Cālukya kings described as <foreign>kāmadhenu</foreign> direct their generosity at the needy and Brahmins (<ref target="DHARMA_INSVengiCalukya00002.xml">Cīpurupalle plates</ref>, line 5); supplicants (<ref target="DHARMA_INSVengiCalukya00003.xml">Timmapuram plates</ref>, line 9); and seekers of protection (<ref target="DHARMA_INSVengiCalukya00004.xml">Peṇukapaṟu grant</ref>, line 7; probably also <ref target="DHARMA_INSVengiCalukya00013.xml">Koṇeki grant</ref>, line 9). </note>
-            </app>
-            <app loc="10">
-              <lem>ni<supplied reason="omitted">r</supplied><choice>
-                  <orig>macchājy</orig>
-                  <reg>mātsary</reg>
-                </choice><unclear>ā</unclear> <gap reason="ellipsis"/> <choice>
-                  <orig>riṣya</orig>
-                  <reg>riṣṭa</reg>
-                </choice>-</lem>
-              <note>Hultzsch emends/standardises the same reading to <foreign>mātsaryālasya-naiṣṭhuryāriṣṭa-</foreign>, which is again plausible. But again, I find it unlikely that <foreign>ni</foreign> was engraved superfluously (Hultzsch segments his text to read <foreign>kāmadhenuni</foreign>, which he emends to <foreign>kāmadhenur</foreign>) and prefer to assume that this syllable is part of the intended text. If so, then the compound ending with <foreign>rahita<supplied reason="omitted">ḥ</supplied></foreign> must be separate from the one beginning with <foreign>ni<supplied reason="omitted">r</supplied></foreign>. The point of separation then must be where shown in my standardisation, as the first three words are definitely undesirable internal qualities, while the latter two (regardless of whether one construes <foreign>riṣṭa</foreign> or <foreign>ariṣṭa</foreign>) may be understood as malevolent external influences (though admittedly, <foreign>paiśunya</foreign> could also be an internal quality).</note>
-            </app>
-            <app loc="12">
-              <lem>kom<unclear>ū</unclear>ra-</lem>
-              <rdg source="bib:Hultzsch1925-1926_03">kommara-</rdg>
-              <note>Though I am not entirely certain about <foreign>mū</foreign>, the subscript part of this character differs quite strikingly from a subscript <foreign>m</foreign>; compare <foreign>śarmmaṇa</foreign> in the previous line.</note>
-            </app>
-            <app loc="13">
-              <lem>Agni°</lem>
-              <note>I adopt Hultzsch's plausible reading but note that it could also be <foreign>Agni°</foreign>.</note>
-            </app>
-            <app loc="18">
-              <lem>-pū<unclear>r</unclear>v<unclear>va</unclear><supplied reason="omitted">ṁ</supplied> <unclear>da</unclear>tta<unclear>ṁ</unclear></lem>
-              <note>None of the characters shown here as unclear (following Hultzsch) are visible in the scanned estampage. Hultzsch distinctly marks one <foreign>anusvāra</foreign> as supplied, so I assume that he did see at least traces of the characters he shows as unclear. However, many characters shown as unclear in his edition must in fact be restorations (and are silently shown as such here), so here too the notation may be a typographic error.</note>
-            </app>
-            <app loc="18">
-              <lem>g<choice>
-                  <orig>ri</orig>
-                  <reg>r̥</reg>
-                </choice>ha-</lem>
-              <rdg source="bib:Hultzsch1925-1926_03">g<choice>
-                  <sic>riṁ</sic>
-                  <corr>r̥</corr>
-                </choice>ha-</rdg>
-            </app>
-            <app loc="21">
-              <lem>-<orig>prithivipo<unclear>ś</unclear>ī</orig>-</lem>
-              <rdg source="bib:Hultzsch1925-1926_03">-p<choice>
-                  <orig>ri</orig>
-                  <reg>r̥</reg>
-                </choice>thiv<choice>
-                  <sic>i</sic>
-                  <corr>ī</corr>
-                </choice>pothī-</rdg>
-              <note>Hultzsch remarks that the character he reads as <foreign>th</foreign> is not quite the expected shape, but only goes on to state that it cannot be <foreign>ṟ</foreign>, as read in ARIE, because that character looks different in lines 15 and 24 of this grant (with which I fully agree). He adds in his discussion that the second member of the name may be a misspelling of <foreign>potī</foreign>, the feminine of <foreign>pota</foreign>, which is known to have formed part of the names of Pallava kings (see also the commentary). Krishna Rao (<bibl rend="omitname">
-                  <ptr target="bib:Hultzsch1925-1926_03"/>
-                </bibl>) insists that the correct reading is <foreign>poṟī</foreign>, while also admitting that <foreign>ṟ</foreign> looks different elsewhere in the plates. His justification is that he considers <foreign>poṟī</foreign> to be a feminine derivative of the old Telugu word <foreign>poṟadu</foreign> meaning a youth. My own reading is tentative and may perhaps be excluded on the basis of a clearer facsimile, but in my scanned estampage, the character definitely appears to be <foreign>ś</foreign>, with the legs curled more distinctively than elsewhere. It has no headmark, but this is also true of several other instances of <foreign>ś</foreign> in the plates (e.g. l20). If Sanskrit names are to be sought, <foreign>pośī</foreign> may be a non-standard spelling of <foreign>poṣī</foreign> (for <foreign>poṣiṇī</foreign>).</note>
-            </app>
-          </listApp>
-        </div>
-      </div>
-      <div resp="part:daba" type="translation">
-        <div n="A" type="textpart">
-          <head xml:lang="eng">Seal</head>
-        </div>
-        <div n="B" type="textpart">
-          <head xml:lang="eng">Plates</head>
-          <p n="1-12">Greetings. The dear son of His Majesty King <supplied reason="explanation">
-              <foreign>mahārāja</foreign>
-            </supplied> Vijayasiddhi <supplied reason="explanation">Maṅgi Yuvarāja</supplied>, who perfumed the complete circle of the quarters with pleasant fragrance from the efflorescence of his glory <supplied reason="subaudible">achieved by</supplied> martial victory attained in the clash of many a battle and who was the son of His Majesty King <supplied reason="explanation">
-              <foreign>mahārāja</foreign>
-            </supplied> Viṣṇuvardhana <supplied reason="explanation">II</supplied> who was eager to adorn the lineage of the majestic Chaḷukyas—who are of the Mānavya <foreign>gotra</foreign> which is praised by the entire world, who are sons of Hāriti, who attained kingship by the grace of Kauśikī’s boon, who are protected by the band of Mothers, who acquired the Boar emblem by the grace of the divine Nārāyaṇa, and whose bodies have been hallowed through washing in the purificatory ablutions <supplied reason="explanation">
-              <foreign>avabhr̥tha</foreign>
-            </supplied> of the Aśvamedha sacrifice—His Majesty King <supplied reason="explanation">
-              <foreign>mahārāja</foreign>
-            </supplied> Viṣṇuvardhana <supplied reason="explanation">III</supplied>, who has conquered the disc of the earth through his own valour, who is a doomsday sun to the darkness of his enemies, a crocodile-bannered <supplied reason="subaudible">god of love</supplied> to young ladies, praised by sages, poets and Brahmins, a cow of plenty <supplied reason="explanation">
-              <foreign>kāmadhenu</foreign>
-            </supplied> to supplicants, without envy, sloth and cruelty, free from ill omens and slander, and whose figure delights women, the young, the aged and the wise, commands as follows.</p>
-          <p n="12-21">In the Pḻolnāṇḍu district <supplied reason="explanation">
-              <foreign>viṣaya</foreign>
-            </supplied>, at the village named Jaḷayūru, in the western direction <supplied reason="explanation">of that village</supplied>, a field sufficient for <supplied reason="explanation">sowing</supplied> twenty <foreign>khaṇḍikā</foreign>s of rice seed,  with these four boundaries—to the west of the Eliyeṟu river, to the north of the Prabhākara field, to the east of the Kākaṇḍivāḍa field, to the south of a termite mound—has been donated on the occasion of a passage of the sun <supplied reason="explanation">
-              <foreign>saṁkrānti</foreign>
-            </supplied>, <supplied reason="subaudible">the donation being</supplied> sanctified by <supplied reason="explanation">a libation of</supplied> water, to Keśavaśarman, a resident of Komūra of the Ātreya gotra, an adherent of the Hiraṇyakeśi <foreign>sūtra</foreign>, son of Tāḻiśarman and grandson of Agniśarman. A homestead plot <supplied reason="subaudible">was also granted</supplied>, together with a flower garden. With exemption from all taxes. In year twenty-three of the years of the progressive triumphant reign. <supplied reason="subaudible">It was</supplied> given by the dear daughter of His Majesty <seg cert="low">Maṅgi Yuvarāja</seg>, named Her Highness Pr̥thivīpośī.</p>
-          <p n="1" rend="stanza">Many <supplied reason="explanation">kings</supplied> have granted land, and many have preserved it <supplied reason="explanation">as formerly granted</supplied>. Whosoever at any time owns the land, the fruit <seg rend="pun">reward <supplied reason="explanation">accrued of granting it</supplied></seg> belongs to him at that time.</p>
-          <p n="2" rend="stanza">He who would seize land, whether given by himself or by another, shall be born as a worm in faeces for sixty thousand years.</p>
-          <p n="24-25">The executor <supplied reason="explanation">
-              <foreign>ājñapti</foreign>
-            </supplied> is the castellan <supplied reason="explanation">
-              <foreign>kaḍa-eṟeya</foreign>
-            </supplied><note>The term <foreign>kaḍa-eṟeya</foreign> and its Sanskrit equivalent <foreign>kaṭaka-rāja</foreign> is normally understood to mean a chief officer of the royal camp (cf. <bibl>
-                <ptr target="bib:Fleet1902-1903_01"/>
-                <citedRange>183-185</citedRange>
-              </bibl> and <bibl>
-                <ptr target="bib:Sircar1966_01"/>
-                <citedRange unit="entry">kaṭaka-rāja</citedRange>
-              </bibl>). However, as it seems to denote a very high hereditary office in the Cālukyan court, I believe it had in this case no direct association with any army camps.</note> named Vātaṭṭa. It is by him that the homestead land of this <supplied reason="subaudible">donation</supplied> was given.
+<pb
+
+n="3v"/>
+</div>
+</div>
+
+
+
+
+
+<div type="apparatus">
+  <div type="textpart" n="A"><head xml:lang="eng">Seal</head>
+  </div>
+  <div type="textpart" n="B"><head xml:lang="eng">Plates</head>
+    <listApp>
+      <app loc="7">
+        <lem>-di<orig>g</orig>-maṇḍalasya</lem>
+        <note>In <foreign>gm</foreign>, the <foreign>g</foreign> is formed as a downward curve of the left arm of a regularly placed <foreign>ma</foreign>. The likely reason is that this is the last line of the plate, right on the bottom edge, where a regularly composed ligature would not have fit. But correction from an initially engraved <foreign>ma</foreign> is also possible.</note>
+      </app>
+      <app loc="9">
+        <lem>-vandita<supplied reason="omitted">ḥ</supplied> <choice><orig>pā</orig><reg>prā</reg></choice><lb/><choice><orig>ṭaka</orig><reg>rthaka</reg></choice>-</lem>
+        <note>Hultzsch emends/standardises the same reading to <foreign>-vandi-pāṭhaka-</foreign>, which is perfectly plausible. I believe my suggestion is slightly more likely even though it involves a larger alteration to <foreign>pāṭaka</foreign>. Earlier Eastern Cālukya kings described as <foreign>kāmadhenu</foreign> direct their generosity at the needy and Brahmins (<ref target="DHARMA_INSVengiCalukya00002.xml">Cīpurupalle plates</ref>, line 5); supplicants (<ref target="DHARMA_INSVengiCalukya00003.xml">Timmapuram plates</ref>, line 9); and seekers of protection (<ref target="DHARMA_INSVengiCalukya00004.xml">Peṇukapaṟu grant</ref>, line 7; probably also <ref target="DHARMA_INSVengiCalukya00013.xml">Koṇeki grant</ref>, line 9). </note>
+      </app>
+      <app loc="10">
+        <lem>ni<supplied reason="omitted">r</supplied><choice><orig>macchājy</orig><reg>mātsary</reg></choice><unclear>ā</unclear> <gap reason="ellipsis"/> <choice><orig>riṣya</orig><reg>riṣṭa</reg></choice>-</lem>
+        <note>Hultzsch emends/standardises the same reading to <foreign>mātsaryālasya-naiṣṭhuryāriṣṭa-</foreign>, which is again plausible. But again, I find it unlikely that <foreign>ni</foreign> was engraved superfluously (Hultzsch segments his text to read <foreign>kāmadhenuni</foreign>, which he emends to <foreign>kāmadhenur</foreign>) and prefer to assume that this syllable is part of the intended text. If so, then the compound ending with <foreign>rahita<supplied reason="omitted">ḥ</supplied></foreign> must be separate from the one beginning with <foreign>ni<supplied reason="omitted">r</supplied></foreign>. The point of separation then must be where shown in my standardisation, as the first three words are definitely undesirable internal qualities, while the latter two (regardless of whether one construes <foreign>riṣṭa</foreign> or <foreign>ariṣṭa</foreign>) may be understood as malevolent external influences (though admittedly, <foreign>paiśunya</foreign> could also be an internal quality).</note>
+      </app>
+      <app loc="12">
+        <lem>kom<unclear>ū</unclear>ra-</lem>
+        <rdg source="bib:Hultzsch1925-1926_03">kommara-</rdg>
+        <note>Though I am not entirely certain about <foreign>mū</foreign>, the subscript part of this character differs quite strikingly from a subscript <foreign>m</foreign>; compare <foreign>śarmmaṇa</foreign> in the previous line.</note>
+      </app>
+      <app loc="13">
+        <lem>Agni°</lem>
+        <note>I adopt Hultzsch's plausible reading but note that it could also be <foreign>Agni°</foreign>.</note>
+      </app>
+      <app loc="18">
+        <lem>-pū<unclear>r</unclear>v<unclear>va</unclear><supplied reason="omitted">ṁ</supplied> <unclear>da</unclear>tta<unclear>ṁ</unclear></lem>
+        <note>None of the characters shown here as unclear (following Hultzsch) are visible in the scanned estampage. Hultzsch distinctly marks one <foreign>anusvāra</foreign> as supplied, so I assume that he did see at least traces of the characters he shows as unclear. However, many characters shown as unclear in his edition must in fact be restorations (and are silently shown as such here), so here too the notation may be a typographic error.</note>
+      </app>
+      <app loc="18">
+        <lem>g<choice><orig>ri</orig><reg>r̥</reg></choice>ha-</lem>
+        <rdg source="bib:Hultzsch1925-1926_03">g<choice><sic>riṁ</sic><corr>r̥</corr></choice>ha-</rdg>
+      </app>
+      <app loc="21">
+        <lem>-<orig>prithivipo<unclear>ś</unclear>ī</orig>-</lem>
+        <rdg source="bib:Hultzsch1925-1926_03">-p<choice><orig>ri</orig><reg>r̥</reg></choice>thiv<choice><sic>i</sic><corr>ī</corr></choice>pothī-</rdg>
+        <note>Hultzsch remarks that the character he reads as <foreign>th</foreign> is not quite the expected shape, but only goes on to state that it cannot be <foreign>ṟ</foreign>, as read in ARIE, because that character looks different in lines 15 and 24 of this grant (with which I fully agree). He adds in his discussion that the second member of the name may be a misspelling of <foreign>potī</foreign>, the feminine of <foreign>pota</foreign>, which is known to have formed part of the names of Pallava kings (see also the commentary). Krishna Rao (<bibl rend="omitname"><ptr target="bib:Hultzsch1925-1926_03"/></bibl>) insists that the correct reading is <foreign>poṟī</foreign>, while also admitting that <foreign>ṟ</foreign> looks different elsewhere in the plates. His justification is that he considers <foreign>poṟī</foreign> to be a feminine derivative of the old Telugu word <foreign>poṟadu</foreign> meaning a youth. My own reading is tentative and may perhaps be excluded on the basis of a clearer facsimile, but in my scanned estampage, the character definitely appears to be <foreign>ś</foreign>, with the legs curled more distinctively than elsewhere. It has no headmark, but this is also true of several other instances of <foreign>ś</foreign> in the plates (e.g. l20). If Sanskrit names are to be sought, <foreign>pośī</foreign> may be a non-standard spelling of <foreign>poṣī</foreign> (for <foreign>poṣiṇī</foreign>).</note>
+      </app>
+
+
+
+    </listApp>
+  </div>
+
+</div>
+
+
+
+
+<div type="translation" resp="part:daba">
+  <div type="textpart" n="A"><head xml:lang="eng">Seal</head>
+  </div>
+  <div type="textpart" n="B"><head xml:lang="eng">Plates</head>
+<p n="1-12">Greetings. The dear son of His Majesty King <supplied reason="explanation"><foreign>mahārāja</foreign></supplied> Vijayasiddhi <supplied reason="explanation">Maṅgi Yuvarāja</supplied>, who perfumed the complete circle of the quarters with pleasant fragrance from the efflorescence of his glory <supplied reason="subaudible">achieved by</supplied> martial victory attained in the clash of many a battle and who was the son of His Majesty King <supplied reason="explanation"><foreign>mahārāja</foreign></supplied> Viṣṇuvardhana <supplied reason="explanation">II</supplied> who was eager to adorn the lineage of the majestic Chaḷukyas—who are of the Mānavya <foreign>gotra</foreign> which is praised by the entire world, who are sons of Hāriti, who attained kingship by the grace of Kauśikī’s boon, who are protected by the band of Mothers, who acquired the Boar emblem by the grace of the divine Nārāyaṇa, and whose bodies have been hallowed through washing in the purificatory ablutions <supplied reason="explanation"><foreign>avabhr̥tha</foreign></supplied> of the Aśvamedha sacrifice—His Majesty King <supplied reason="explanation"><foreign>mahārāja</foreign></supplied> Viṣṇuvardhana <supplied reason="explanation">III</supplied>, who has conquered the disc of the earth through his own valour, who is a doomsday sun to the darkness of his enemies, a crocodile-bannered <supplied reason="subaudible">god of love</supplied> to young ladies, praised by sages, poets and Brahmins, a cow of plenty <supplied reason="explanation"><foreign>kāmadhenu</foreign></supplied> to supplicants, without envy, sloth and cruelty, free from ill omens and slander, and whose figure delights women, the young, the aged and the wise, commands as follows.</p>
+<p n="12-21">In the Pḻolnāṇḍu district <supplied reason="explanation"><foreign>viṣaya</foreign></supplied>, at the village named Jaḷayūru, in the western direction <supplied reason="explanation">of that village</supplied>, a field sufficient for <supplied reason="explanation">sowing</supplied> twenty <foreign>khaṇḍikā</foreign>s of rice seed,  with these four boundaries—to the west of the Eliyeṟu river, to the north of the Prabhākara field, to the east of the Kākaṇḍivāḍa field, to the south of a termite mound—has been donated on the occasion of a passage of the sun <supplied reason="explanation"><foreign>saṁkrānti</foreign></supplied>, <supplied reason="subaudible">the donation being</supplied> sanctified by <supplied reason="explanation">a libation of</supplied> water, to Keśavaśarman, a resident of Komūra of the Ātreya gotra, an adherent of the Hiraṇyakeśi <foreign>sūtra</foreign>, son of Tāḻiśarman and grandson of Agniśarman. A homestead plot <supplied reason="subaudible">was also granted</supplied>, together with a flower garden. With exemption from all taxes. In year twenty-three of the years of the progressive triumphant reign. <supplied reason="subaudible">It was</supplied> given by the dear daughter of His Majesty <seg cert="low">Maṅgi Yuvarāja</seg>, named Her Highness Pr̥thivīpośī.</p>
+<p rend="stanza" n="1">Many <supplied reason="explanation">kings</supplied> have granted land, and many have preserved it <supplied reason="explanation">as formerly granted</supplied>. Whosoever at any time owns the land, the fruit <seg rend="pun">reward <supplied reason="explanation">accrued of granting it</supplied></seg> belongs to him at that time.</p>
+<p rend="stanza" n="2">He who would seize land, whether given by himself or by another, shall be born as a worm in faeces for sixty thousand years.</p>
+<p n="24-25">The executor <supplied reason="explanation"><foreign>ājñapti</foreign></supplied> is the castellan <supplied reason="explanation"><foreign>kaḍa-eṟeya</foreign></supplied><note>The term <foreign>kaḍa-eṟeya</foreign> and its Sanskrit equivalent <foreign>kaṭaka-rāja</foreign> is normally understood to mean a chief officer of the royal camp (cf. <bibl><ptr target="bib:Fleet1902-1903_01"/><citedRange>183-185</citedRange></bibl> and <bibl><ptr target="bib:Sircar1966_01"/><citedRange unit="entry">kaṭaka-rāja</citedRange></bibl>). However, as it seems to denote a very high hereditary office in the Cālukyan court, I believe it had in this case no direct association with any army camps.</note> named Vātaṭṭa. It is by him that the homestead land of this <supplied reason="subaudible">donation</supplied> was given.
 </p>
-        </div>
-      </div>
-      <div source="bib:Estienne-Monod2008_01" type="translation" xml:lang="fra">
-        <div n="A" type="textpart">
-          <head xml:lang="eng">Seal</head>
-        </div>
-        <div n="B" type="textpart">
-          <head xml:lang="eng">Plates</head>
-          <p n="1-12">Prospérité ! l’illustre grand roi Viṣṇuvardhana, fils aimé de l’illustre Vijayasiddhi,<note>Nommé Sarvalokāśraya in insc. nos 23 et 24, ou Maṁgi in insc. nos 26 à 56.</note> dont la gloire <supplied reason="subaudible">obtenue</supplied> dans les combats victorieux, remportés dans les heurts des nombreuses batailles, répandait son parfum engendré par la joie, sur le cercle de tous les horizons, <supplied reason="subaudible">lui-même</supplied> fils de l’illustre grand roi Viṣṇuvardhana, ornement de la lignée des Calukya, illustres, du même <foreign>gotra</foreign> que les descendants de Manu honorés dans le monde entier, fils de Hārīti, dont le royaume fut obtenu par l’excellente faveur de Kauśikī, protégés par la troupe des Mères, dont les corps furent purifiés par les bains purificatoires de l’aśvamedha, porteurs du signe du sanglier, obtenu par la faveur du bienheureux Nārāyaṇa, <supplied reason="subaudible">l’illustre grand roi Viṣṇuvardhana,</supplied> qui a soumis le cercle de la terre par sa bravoure, soleil dissipant les ténèbres que sont les ennemis, Makaradhvaja pour les jeunes filles, vache des désirs pour les savants, les poètes, les prêtres, les adorateurs et les récitants, dépourvu de jalousie, de mollesse, d’échec, de dureté, de médisance, lui dont la beauté fait le ravissement des femmes, des jeunes gens, des anciens, et des sages, ordonne ceci :</p>
-          <p n="12-24">l’illustre fille aimée de l’illustre Maṁgi Yuvarāja<note>Selon Hultzsch ce Maṁgi n’est pas le roi Cālukya mentionné précédemment mais un roi Pallava.</note>, nommée Pr̥thivī Pothī, donne à Keśavasarman, habitant à Kommara, du gotra des Ātreya, qui suit les sūtra de Hiraṇyakeśin, petit-fils d’Agniśarman, fils de Tāḻiśarman, à l’occasion de Saṁkrānti, après avoir fait une libation d’eau, dans le viṣaya de Pḻolnāṇḍu, à l’ouest du village nommé Jaḷayūru, un terrain, dont les quatre limites sont  à l’ouest de la rivière Eliyeṟu, au nord du terrain de Prabhākara, à l’est du terrain de Kākaṇḍivāḍa, au sud de la fourmilière, <supplied reason="subaudible">terrain</supplied> où l’on peut semer vingt <foreign>khaṇḍikā</foreign> de riz, et une maison avec un jardin, exempté de toute taxe, en la vingt-troisième année de <supplied reason="subaudible">notre</supplied> auguste règne.</p>
-          <p n="1" rend="stanza">Beaucoup ont donné une terre, beaucoup l’ont protégée,
+  </div>
+</div>
+
+
+
+<div type="translation" xml:lang="fra" source="bib:Estienne-Monod2008_01">
+  <div type="textpart" n="A"><head xml:lang="eng">Seal</head>
+  </div>
+  <div type="textpart" n="B"><head xml:lang="eng">Plates</head>
+<p n="1-12">Prospérité ! l’illustre grand roi Viṣṇuvardhana, fils aimé de l’illustre Vijayasiddhi,<note>Nommé Sarvalokāśraya in insc. nos 23 et 24, ou Maṁgi in insc. nos 26 à 56.</note> dont la gloire <supplied reason="subaudible">obtenue</supplied> dans les combats victorieux, remportés dans les heurts des nombreuses batailles, répandait son parfum engendré par la joie, sur le cercle de tous les horizons, <supplied reason="subaudible">lui-même</supplied> fils de l’illustre grand roi Viṣṇuvardhana, ornement de la lignée des Calukya, illustres, du même <foreign>gotra</foreign> que les descendants de Manu honorés dans le monde entier, fils de Hārīti, dont le royaume fut obtenu par l’excellente faveur de Kauśikī, protégés par la troupe des Mères, dont les corps furent purifiés par les bains purificatoires de l’aśvamedha, porteurs du signe du sanglier, obtenu par la faveur du bienheureux Nārāyaṇa, <supplied reason="subaudible">l’illustre grand roi Viṣṇuvardhana,</supplied> qui a soumis le cercle de la terre par sa bravoure, soleil dissipant les ténèbres que sont les ennemis, Makaradhvaja pour les jeunes filles, vache des désirs pour les savants, les poètes, les prêtres, les adorateurs et les récitants, dépourvu de jalousie, de mollesse, d’échec, de dureté, de médisance, lui dont la beauté fait le ravissement des femmes, des jeunes gens, des anciens, et des sages, ordonne ceci :</p>
+<p n="12-24">l’illustre fille aimée de l’illustre Maṁgi Yuvarāja<note>Selon Hultzsch ce Maṁgi n’est pas le roi Cālukya mentionné précédemment mais un roi Pallava.</note>, nommée Pr̥thivī Pothī, donne à Keśavasarman, habitant à Kommara, du gotra des Ātreya, qui suit les sūtra de Hiraṇyakeśin, petit-fils d’Agniśarman, fils de Tāḻiśarman, à l’occasion de Saṁkrānti, après avoir fait une libation d’eau, dans le viṣaya de Pḻolnāṇḍu, à l’ouest du village nommé Jaḷayūru, un terrain, dont les quatre limites sont  à l’ouest de la rivière Eliyeṟu, au nord du terrain de Prabhākara, à l’est du terrain de Kākaṇḍivāḍa, au sud de la fourmilière, <supplied reason="subaudible">terrain</supplied> où l’on peut semer vingt <foreign>khaṇḍikā</foreign> de riz, et une maison avec un jardin, exempté de toute taxe, en la vingt-troisième année de <supplied reason="subaudible">notre</supplied> auguste règne.</p>
+<p rend="stanza" n="1">Beaucoup ont donné une terre, beaucoup l’ont protégée,
 celui qui possède la terre en possède le fruit.</p>
-          <p n="2" rend="stanza">Qu’elle soit donnée par lui ou par un autre, celui qui prend une terre
+<p rend="stanza" n="2">Qu’elle soit donnée par lui ou par un autre, celui qui prend une terre
 renaît ver de terre dans les excréments pendant soixante mille ans.</p>
-          <p n="24-25">L’exécuteur est le chef de camp<note>Le terme <foreign>kaḍa-eṟeyo</foreign> est selon Hultzsch l’équivalent kannaḍa de <foreign>kaṭakarāja</foreign>, Ep. Ind., XVIII, p. 60, n. 10.</note> nommé Vātaṭṭa. Il donne la maison à celui-ci.
+<p n="24-25">L’exécuteur est le chef de camp<note>Le terme <foreign>kaḍa-eṟeyo</foreign> est selon Hultzsch l’équivalent kannaḍa de <foreign>kaṭakarāja</foreign>, Ep. Ind., XVIII, p. 60, n. 10.</note> nommé Vātaṭṭa. Il donne la maison à celui-ci.
 </p>
-        </div>
-      </div>
-      <div type="commentary">
-        <p>The publication of these plates includes no image of the seal, so I reproduce its text as reported by Hultzsch in the text of his article, without indication of any unclarity.</p>
-        <p>Hultzsch identifies "Maghiṁduvarāja" (line 20) as the Pallava king Mahendravarman III and assumes that his daughter was a queen of Viṣṇuvardhana III. As Krishna Rao (<bibl rend="omitname">
-            <ptr target="bib:Hultzsch1925-1926_03"/>
-          </bibl>) points out, Maṁghiduvarāja (with the <foreign>anusvāra</foreign> to be read with <foreign>ma</foreign>) must be Maṅgi Yuvarāja, and thus his daughter is a sister of Viṣṇuvardhana III. Compare also the apparent spelling <foreign>magiṁyuvarāja</foreign> in line 11 of the <ref target="DHARMA_INSVengiCalukya00031.xml">Śrīpūṇḍi grant of Tāḻa II</ref>, with the <foreign>anusvāra</foreign> to the right of the vowel marker in <foreign>giṁ</foreign>. Why Hultzsch does not advocate this view, or even mention it as a possibility, is a mystery, especially in view of the fact that it is he who, in the same volume of Epigraphia Indica (<bibl>
-            <ptr target="bib:Hultzsch1925-1926_02"/>
-            <citedRange>258</citedRange>
-          </bibl>) asserts that <foreign>duvarāja</foreign> is a Dravidian <foreign>tadbhava</foreign> form of <foreign>yuvarāja</foreign>, and that the Pr̥thividuvarāja mentioned in the <ref n="tfb-badamicalukya-epigraphy" target="CalE04-Kopparam-Pulakesin.xml">Kopparam plates of Pulakeśin II</ref> must be Pr̥thivīyuvarāja, i.e. Viṣṇuvardhana I. Sircar (in <bibl>
-            <ptr target="bib:Majumdar1960_01"/>
-            <citedRange>254</citedRange>
-          </bibl>) asserts the same view and dismisses identification with Mahendravarman III.</p>
-      </div>
-      <div type="bibliography">
-        <p>Reported in <bibl>
-            <ptr target="bib:ARIE1919-1920"/>
-            <citedRange unit="page">12</citedRange>
-            <citedRange unit="appendix">A/1919-1920</citedRange>
-            <citedRange unit="item">10</citedRange>
-          </bibl> with a description at <bibl>
-            <ptr target="bib:ARIE1919-1920"/>
-            <citedRange>99-100</citedRange>
-          </bibl>. Edited from estampages by E. Hultzsch (<bibl rend="omitname">
-            <ptr target="bib:Hultzsch1925-1926_03"/>
-          </bibl>) with a summary of contents, with estampages of the plates, no image of the seal. Some of Hultzsch's readings were corrected by B. V. Krishna Rao (<bibl rend="omitname">
-            <ptr target="bib:KrishnaRao1926-1927_01"/>
-          </bibl>). The present edition by Dániel Balogh is based on a collation of Hultzsch's text with his facsimiles.</p>
-        <listBibl type="primary">
-          <bibl n="EH">
-            <ptr target="bib:Hultzsch1925-1926_03"/>
-          </bibl>
-          <!-- one <bibl/> per item of primary bibliography -->
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:ARIE1919-1920"/>
-            <citedRange unit="page">12</citedRange>
-            <citedRange unit="appendix">A/1919-1920</citedRange>
-            <citedRange unit="item">10</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:KrishnaRao1926-1927_01"/>
-          </bibl>
-        </listBibl>
-      </div>
+
+  </div>
+</div>
+
+
+
+
+<div type="commentary">
+<p>The publication of these plates includes no image of the seal, so I reproduce its text as reported by Hultzsch in the text of his article, without indication of any unclarity.</p>
+<p>Hultzsch identifies "Maghiṁduvarāja" (line 20) as the Pallava king Mahendravarman III and assumes that his daughter was a queen of Viṣṇuvardhana III. As Krishna Rao (<bibl rend="omitname"><ptr target="bib:Hultzsch1925-1926_03"/></bibl>) points out, Maṁghiduvarāja (with the <foreign>anusvāra</foreign> to be read with <foreign>ma</foreign>) must be Maṅgi Yuvarāja, and thus his daughter is a sister of Viṣṇuvardhana III. Compare also the apparent spelling <foreign>magiṁyuvarāja</foreign> in line 11 of the <ref target="DHARMA_INSVengiCalukya00031.xml">Śrīpūṇḍi grant of Tāḻa II</ref>, with the <foreign>anusvāra</foreign> to the right of the vowel marker in <foreign>giṁ</foreign>. Why Hultzsch does not advocate this view, or even mention it as a possibility, is a mystery, especially in view of the fact that it is he who, in the same volume of Epigraphia Indica (<bibl><ptr target="bib:Hultzsch1925-1926_02"/><citedRange>258</citedRange></bibl>) asserts that <foreign>duvarāja</foreign> is a Dravidian <foreign>tadbhava</foreign> form of <foreign>yuvarāja</foreign>, and that the Pr̥thividuvarāja mentioned in the <ref n="tfb-badamicalukya-epigraphy" target="CalE04-Kopparam-Pulakesin.xml">Kopparam plates of Pulakeśin II</ref> must be Pr̥thivīyuvarāja, i.e. Viṣṇuvardhana I. Sircar (in <bibl><ptr target="bib:Majumdar1960_01"/><citedRange>254</citedRange></bibl>) asserts the same view and dismisses identification with Mahendravarman III.</p></div>
+
+
+
+<div type="bibliography">
+  <p>Reported in <bibl><ptr target="bib:ARIE1919-1920"/><citedRange unit="page">12</citedRange><citedRange unit="appendix">A/1919-1920</citedRange><citedRange unit="item">10</citedRange></bibl> with a description at <bibl><ptr target="bib:ARIE1919-1920"/><citedRange>99-100</citedRange></bibl>. Edited from estampages by E. Hultzsch (<bibl rend="omitname"><ptr target="bib:Hultzsch1925-1926_03"/></bibl>) with a summary of contents, with estampages of the plates, no image of the seal. Some of Hultzsch's readings were corrected by B. V. Krishna Rao (<bibl rend="omitname"><ptr target="bib:KrishnaRao1926-1927_01"/></bibl>). The present edition by Dániel Balogh is based on a collation of Hultzsch's text with his facsimiles.</p>
+  <listBibl type="primary">
+    <bibl n="EH"><ptr target="bib:Hultzsch1925-1926_03"/></bibl>
+<!-- one <bibl/> per item of primary bibliography -->
+  </listBibl>
+  <listBibl type="secondary">
+    <bibl><ptr target="bib:ARIE1919-1920"/><citedRange unit="page">12</citedRange><citedRange unit="appendix">A/1919-1920</citedRange><citedRange unit="item">10</citedRange></bibl>
+    <bibl><ptr target="bib:KrishnaRao1926-1927_01"/></bibl>
+  </listBibl>
+</div>
+
+
+
     </body>
   </text>
 </TEI>

@@ -4,166 +4,142 @@
 <?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>
-        <title>A Pannasa of Erigal Dugarāju during the reign of Cōḻamahārāju</title>
-        <respStmt>
-          <resp>Creation of file</resp>
-          <persName ref="part:jeth">
-            <forename>Jens Christian</forename>
-            <surname>Thomas</surname>
-          </persName>
-        </respStmt>
-        <respStmt>
-          <resp>intellectual authorship of edition</resp>
-          <persName ref="part:jeth">
-            <forename>Jens Christian</forename>
-            <surname>Thomas</surname>
-          </persName>
-        </respStmt>
-      </titleStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority>
-        <pubPlace>Berlin</pubPlace>
-        <idno type="filename">DHARMA_INSTelugu00015</idno>
-        <availability>
-          <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
-          </licence>
-        </availability>
-        <date from="2019" to="2025">2019-2025</date>
-      </publicationStmt>
-      <sourceDesc>
-        <p><!-- not to be filled in at this stage --></p>
-      </sourceDesc>
-    </fileDesc>
-    <encodingDesc>
-      <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>A Pannasa of Erigal Dugarāju during the reign of Cōḻamahārāju</title>
+            <respStmt>
+               <resp>Creation of file</resp>
+               <persName ref="part:jeth">
+                  <forename>Jens Christian</forename>
+                  <surname>Thomas</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName ref="part:jeth">
+                  <forename>Jens Christian</forename>
+                  <surname>Thomas</surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Berlin</pubPlace>
+            <idno type="filename">DHARMA_INSTelugu00015</idno>
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+                  <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc>
+            <p><!-- not to be filled in at this stage --></p>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
                         under the European Union's Horizon 2020 research and innovation programme (grant
                         agreement no 809994).</p>
-      </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <listPrefixDef>
-        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
                             ERC-DHARMA whose data are open to the public.</p>
-        </prefixDef>
-        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
                             <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
-        </prefixDef>
-      </listPrefixDef>
-    </encodingDesc>
-    <revisionDesc>
-      <change when="2021-08-31" who="part:jeth">Changing the translation</change>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-06-23" who="part:jeth">Creation of the file</change>
-    </revisionDesc>
-  </teiHeader>
-  <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tel-Latn">
-        <p>
-              <lb n="1"/>svasti śrī cōḻamahā<lb break="no" n="2"/>rājull<choice>
-            <orig>ī</orig>
-            <reg>ē</reg>
-          </choice>ḷaN ErigaL
-              <lb n="3"/>dugarājuL Iccina pa<lb break="no" n="4"/><unclear>n</unclear>nāsa kocciya pāṟa <unclear>r</unclear>ē<lb break="no" n="5"/>vasarmmārikiN tēni ḻa<lb break="no" n="6"/>ccinavānṟu pañcamahā<lb break="no" n="7"/>pātakasaṁyyuktunṟu <supplied reason="omitted">A</supplied>gu
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change when="2021-08-31" who="part:jeth">Changing the translation</change>
+         <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:jeth" when="2020-06-23" status="draft">Creation of the file</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+      <body>
+         <div type="edition" xml:lang="tel-Latn">
+            <p>
+              <lb n="1"/>svasti śrī cōḻamahā<lb n="2" break="no"/>rājull<choice><orig>ī</orig><reg>ē</reg></choice>ḷaN ErigaL
+              <lb n="3"/>dugarājuL Iccina pa<lb n="4" break="no"/><unclear>n</unclear>nāsa kocciya pāṟa <unclear>r</unclear>ē<lb n="5" break="no"/>vasarmmārikiN tēni ḻa<lb n="6" break="no"/>ccinavānṟu pañcamahā<lb n="7" break="no"/>pātakasaṁyyuktunṟu <supplied reason="omitted">A</supplied>gu
               <lb n="8"/><unclear>As</unclear>ibhairuvu likhita<supplied reason="lost">ṁ</supplied>
             </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="2">
-            <lem>°rājull<choice>
-                <orig>ī</orig>
-                <reg>ē</reg>
-              </choice>ḷaN</lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">°rājullēḷaN</rdg>
-            <note>The akṣara 〈llī〉 shows the usual form of the long 〈ī〉 on top of 〈l〉. While this spelling could reflect a dialectal pecularity of the place and time (<foreign>īḷan</foreign> instead of <foreign>ēḷan</foreign>), a similar spelling of 〈le〉 appears in the Aihoḷe inscription of the reign of Pulakeśin II (<bibl>
-                <ptr target="bib:Fleet1879_02"/>
-              </bibl>).</note>
-          </app>
-          <app loc="2">
-            <lem>ErigaL</lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">Eriga<unclear>L</unclear></rdg>
-            <note>The helanta 〈L〉 differs from 〈la〉 in that the right vertical stroke that normally would bow towards the left over the akṣara stops as a straight vertical line and thus sort of resembles the la-characters of the 2nd and 3rd c. AD.</note>
-          </app>
-          <app loc="3">
-            <lem>pa<lb break="no" n="4"/><unclear>n</unclear>nāsa</lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">pa<lb break="no" n="4"/><unclear>n</unclear>nasa</rdg>
-          </app>
-          <app loc="4">
-            <lem><unclear>r</unclear>ē<lb break="no" n="5"/>vasarmmārikiN</lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01"><unclear>re</unclear><lb break="no" n="5"/>va<choice>
-                <orig>s</orig>
-                <reg>ś</reg>
-              </choice>armmārikiN</rdg>
-          </app>
-          <app loc="7">
-            <lem>saṁyyuktunṟu <supplied reason="omitted">A</supplied>gu</lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">saṁyyuktunṟugu</rdg>
-            <note>Confer °pātakun<supplied reason="lost">ṟ</supplied>u Agu (<bibl>
-                <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/>
-                <citedRange unit="page">228-229</citedRange>
-                <citedRange unit="item">42 C</citedRange>
-                <citedRange unit="line">8</citedRange>
-              </bibl>).</note>
-          </app>
-          <app loc="8">
-            <lem><unclear>As</unclear>ibhairuvu</lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">Asivairuvu</rdg>
-            <note>Since /bh/ in skt. words merges with /v/ in a lot instances in Telugu (<foreign>vallabha</foreign>- ~ <foreign>vallava</foreign>-) both °<foreign>bhairuvu</foreign> and °<foreign>vairuvu</foreign> would go back to skt. <foreign>bhairava</foreign>-. The phonological realization in Telugu (°<foreign>bhairuvu</foreign>) could have synchronically been interpreted as corresponding to skt. u-stems that obtain the Telugu ending -vu (as <foreign>guruvu</foreign>). That may be the reason why there is no suffix -nṟu.</note>
-          </app>
-          <app loc="8">
-            <lem>likhita<supplied reason="lost">ṁ</supplied></lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">likhitaṁ</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:Sastri1969_01" type="translation">
-        <p>
+         </div>
+         <div type="apparatus">
+               <listApp>
+                  <app loc="2">
+                     <lem>°rājull<choice><orig>ī</orig><reg>ē</reg></choice>ḷaN</lem>
+                     <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">°rājullēḷaN</rdg>
+                     <note>The akṣara 〈llī〉 shows the usual form of the long 〈ī〉 on top of 〈l〉. While this spelling could reflect a dialectal pecularity of the place and time (<foreign>īḷan</foreign> instead of <foreign>ēḷan</foreign>), a similar spelling of 〈le〉 appears in the Aihoḷe inscription of the reign of Pulakeśin II (<bibl><ptr target="bib:Fleet1879_02"/></bibl>).</note>
+                  </app>
+                  <app loc="2">
+                     <lem>ErigaL</lem>
+                     <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">Eriga<unclear>L</unclear></rdg>
+                     <note>The helanta 〈L〉 differs from 〈la〉 in that the right vertical stroke that normally would bow towards the left over the akṣara stops as a straight vertical line and thus sort of resembles the la-characters of the 2nd and 3rd c. AD.</note>
+                  </app>
+                  <app loc="3">
+                     <lem>pa<lb n="4" break="no"/><unclear>n</unclear>nāsa</lem>
+                     <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">pa<lb n="4" break="no"/><unclear>n</unclear>nasa</rdg>
+                  </app>
+                  <app loc="4">
+                     <lem><unclear>r</unclear>ē<lb n="5" break="no"/>vasarmmārikiN</lem>
+                     <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01"><unclear>re</unclear><lb n="5" break="no"/>va<choice><orig>s</orig><reg>ś</reg></choice>armmārikiN</rdg>
+                  </app>
+                  <app loc="7">
+                     <lem>saṁyyuktunṟu <supplied reason="omitted">A</supplied>gu</lem>
+                     <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">saṁyyuktunṟugu</rdg>
+                     <note>Confer °pātakun<supplied reason="lost">ṟ</supplied>u Agu (<bibl><ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/><citedRange unit="page">228-229</citedRange><citedRange unit="item">42 C</citedRange><citedRange unit="line">8</citedRange></bibl>).</note>
+                  </app>
+                  <app loc="8">
+                     <lem><unclear>As</unclear>ibhairuvu</lem>
+                     <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">Asivairuvu</rdg>
+                     <note>Since /bh/ in skt. words merges with /v/ in a lot instances in Telugu (<foreign>vallabha</foreign>- ~ <foreign>vallava</foreign>-) both °<foreign>bhairuvu</foreign> and °<foreign>vairuvu</foreign> would go back to skt. <foreign>bhairava</foreign>-. The phonological realization in Telugu (°<foreign>bhairuvu</foreign>) could have synchronically been interpreted as corresponding to skt. u-stems that obtain the Telugu ending -vu (as <foreign>guruvu</foreign>). That may be the reason why there is no suffix -nṟu.</note>
+                  </app>
+                  <app loc="8">
+                     <lem>likhita<supplied reason="lost">ṁ</supplied></lem>
+                     <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">likhitaṁ</rdg>
+                  </app>
+               </listApp>
+         </div>
+         <div type="translation" source="bib:Sastri1969_01">
+            <p>
                Hail! Prosperity! While Cōḻa-Mahārāja was ruling, Erigal-Dugarāja gave a pannasa to Rēvaśarmma, a brahmin of Kocciya (i. e. Kauśika gotra). He who obstructs (the gift) will incur the five great sins. (This is) written by Asivairuvu.
             </p>
-      </div>
-      <div resp="part:jeth" type="translation">
-        <p>
+         </div>
+         <div type="translation" resp="part:jeth">
+ 	        <p>
  	           Svasti! A pannasa given by Erigal Dugarāju to the brahmin Rēvasarmma of Kocci while Śrī Cōḻamahārāju was ruling. Who (so ever) annuls it deserves to have (the outcome of) the five great sins. Written (by) Asibhairuvu. <!-- The translation 'deserves to have' might be quite good insofar it renders both meanings of yukta-, that are attested in Te as well, namely 'being fit or worthy of sth' and 'being connected to something'. It also sort of conveys the non-past agu. -->
  	        </p>
-      </div>
-      <div type="commentary">
-        <p></p>
-      </div>
-      <div type="bibliography">
-        <p>
-           The inscription was noted in A. R. No. 310 of 1935-1936 <!-- has to be adjusted to the @target --> and first edited by Nilakanta Sastri and Venkataramayya with a picture and annotations (<bibl rend="omitname">
-            <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/>
-            <citedRange unit="page">229-230</citedRange>
-            <citedRange unit="item">42 D</citedRange>
-          </bibl>). Based on this edition K. M. Sastri re-edited the text and provided a translation (<bibl rend="omitname">
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">284</citedRange>
-            <citedRange unit="item">7</citedRange>
-          </bibl>).
+         </div>
+         <div type="commentary">
+            <p>
+
+            </p>
+         </div>
+        <div type="bibliography">
+          <p>
+           The inscription was noted in A. R. No. 310 of 1935-1936 <!-- has to be adjusted to the @target --> and first edited by Nilakanta Sastri and Venkataramayya with a picture and annotations (<bibl rend="omitname"><ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/><citedRange unit="page">229-230</citedRange><citedRange unit="item">42 D</citedRange></bibl>). Based on this edition K. M. Sastri re-edited the text and provided a translation (<bibl rend="omitname"><ptr target="bib:Sastri1969_01"/><citedRange unit="page">284</citedRange><citedRange unit="item">7</citedRange></bibl>).
           </p>
-        <listBibl type="secondary">
-          <bibl>A. R. No. 310 of 1935-1936 <!-- has to be adjusted to the @target --></bibl>
-          <bibl>
-            <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/>
-            <citedRange unit="page">229-230</citedRange>
-            <citedRange unit="item">42 D</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">284</citedRange>
-            <citedRange unit="item">7</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
+           <listBibl type="secondary">
+              <bibl>A. R. No. 310 of 1935-1936 <!-- has to be adjusted to the @target --></bibl>
+              <bibl><ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/><citedRange unit="page">229-230</citedRange><citedRange unit="item">42 D</citedRange></bibl>
+              <bibl><ptr target="bib:Sastri1969_01"/><citedRange unit="page">284</citedRange><citedRange unit="item">7</citedRange></bibl>
+           </listBibl>
+        </div>
+      </body>
   </text>
 </TEI>
