@@ -13,13 +13,12 @@ update-texts:
 		python3 xmlformat.py $$f > tmp && mv tmp $$f; \
 	done
 
-live:
-	rsync --compress --bwlimit=100k --progress \
-		--no-whole-file --inplace --archive --xattrs --partial \
-		--exclude=.git --exclude=repos --exclude='*.sqlite' \
-		. beta:dharma
+validate:
+	rm -f texts/*
+	python3 texts.py update
+	python3 validate.py
 
-.PHONY: all update-repos update-texts live
+.PHONY: all update-repos update-texts validate
 
 inscriptions.rnc: $(wildcard texts/DHARMA_INS*.xml)
 	java -jar validation/trang.jar $^ $@
