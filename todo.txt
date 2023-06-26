@@ -34,8 +34,9 @@ easily. Should have a single queue, this is sufficient given the rythm of
 updates. We can also send it commands from cron scripts, etc. This process can
 remain connected to the commit log and decide what to do. Though we shouldn't
 rely on what github says, they make no promise on the API stability. We just
-need to know that repository X has been modified, then we run our stuff. Every
-now and then, we should do a global update in case we missed events or if
+need to know that repository X has been modified, then we run our stuff.
+
+Every now and then, we should do a global update in case we missed events or if
 github didn't send them to us. At a minimum, should do a global update at
 startup.
 
@@ -43,6 +44,15 @@ The only data we need to pass to the update script is the name of the updated
 repo (or "all" for updating all repos). When we see that a repo changed, we
 update it locally with git and see if stuff actually changed and what changed.
 If the queue overflows, should just clear it and then run a global update.
+Should just use a socket, without extra buffer management (but set a reasonable
+buf size), and then send it repo names, one per line. The write side must be
+non-blocking. On the read side, we deduplicate stuff (and take care of "all")
+to reduce the amount of stuff to do.
+
+Must put the various repos somewhere not in the main repo viz. don't track them
+at all, don't use submodules. Pass the location of the "repos" dir with an env
+var or something, like for the dbs directory. Maybe create a python config file
+to clarify things.
 
 ---
 
