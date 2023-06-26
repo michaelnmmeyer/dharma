@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Sundhara Stone Inscription of Amsuvarma</title>
+            <respStmt>
+               <resp>Original EpiDoc Encoding for Siddham, following published edition unless otherwise noted in comments</resp>
+               <persName ref="part:cski">
+                  <forename>Csaba</forename>
+                  <surname>Kiss</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>Conversion of encoding for DHARMA</resp>
+               <persName ref="part:daba">
+                  <forename>Dániel</forename>
+                  <surname>Balogh</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName><!--
+The original editor(s).
+--></persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Berlin</pubPlace>
+            <idno type="filename">DHARMA_INSSiddham02044</idno>
+            <!--
+If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
+-->
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+                  <p>Copyright (c) 2019-2025 by Dániel Balogh.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+               </msIdentifier>
+               <msContents>
+                  <summary/>
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p/>
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+         <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+<body>
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211"><!--
+Comments below by Csaba Kiss are offered "as is" and do not represent a thoroughly researched or considered opinion.
+--><p><lb
+n="1"/>svasti kailāsa-kūṭa-bhavanād bhagavat-paśupati-<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->bhaṭṭāraka-pādā</supplied><!--
+L1. B. omits <supplied reason="undefined">bhaṭṭārakapāda</supplied> (sic)
+--><lb
+n="2" break="no"/>nugr̥<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->hīto</supplied> bappa-pādānudhyātaḥ śrī-<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->mahā-sāmantāṁśuvarmā</supplied>
+<lb
+n="3"/>kuśalī vartamāna-bhaviṣyato mā <gap reason="illegible" precision="low" quantity="10" unit="character"/> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ku</supplied><!--
+L2. B. omits <supplied reason="undefined">kuśalī</supplied>
+--><!--
+L2. B. omits mā. Probably to be restored as mā<supplied reason="undefined">ṭiṅ-grāma-kuṭumbino yathārhaṁ</supplied>
+--><lb
+n="4" break="no"/>śalam ābhāṣya samājñāpayati viditam bhavatu bhavatāṁ <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->yathāsmābhi</supplied><!--
+L4. B. omils <supplied reason="undefined">ku</supplied>śalam ābhāṣya
+--><!--
+L4. yathāsmābhi: Certain integration. It is omitted by B.
+--><lb
+n="5" break="no"/>r māṭin-deva-kulam ardha-vinipatiteṣṭakāpaṅkti-vivara-praviṣṭa<!--
+L5. beginning of line: B. reads - - nr̥pakulam atha°
+--><lb
+n="6" break="no"/>-nakula-kulākulita-mūṣikā-sārtha-dūra-vighaṭita-nirava<!--
+L6. B. has °mūṣika - - pura vighaṭita nirava
+--><lb
+n="7" break="no"/>śeṣa-dvāraka-vāṭa-vātāyanādi-jīrṇa-dāru-saṅghātaṁ yatnataḥ
+<lb
+n="8"/>pratisaṁskārya tasya dī<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->rgha</supplied>tara-paścāt-kāla-sausthitya-nimittaṁ
+<lb
+n="9"/>tad-akṣaya-nīvi-pratibaddham evaṁ māṭiṅ-grāmasya dakṣiṇato rāja<!--
+L9. B.: °nimiṭṭa (9) <supplied reason="undefined">ma</supplied>kṣaya
+--><lb
+n="10"/>bhogyatām āpannaṁ viṁśatikayā catuḥ-ṣaṣṭi-mānikā-piṇḍakāṁ kṣe<lb
+n="11" break="no"/>tram dakṣiṇa-paścimataś ca ṣaṇ-mānikā-piṇḍakam māṭiṅ-grāma-pā<!--
+L11. B. has viṁśatikaya - - ṣaṣṭimānikapiṇḍakāṁ kṣe (11) tram. °piṇḍakāṁ is a probable mistake for °piṇḍakaṁ
+--><lb
+n="12" break="no"/>ñcālikebhyaḥ pratipāditam evaṁ-vedibhir na kaiścid asmat-pāda-
+<lb
+n="13"/>pratibaddha-jīvanair anyair vāyan dharmādhikāro <supplied reason="subaudible">’</supplied>nyathā karaṇīyo<!--
+L13. B.: karaṇīya<supplied reason="undefined">ḥ</supplied>
+--><lb
+n="14"/>yas tv etām ājñām ullaṅghyānyathā kuryāt kārayed vā taṁ vayan na ma<lb
+n="15" break="no"/>rṣayiṣyāmo bhaviṣyadbhir api bhūpatibhir dharma-gurubhir dharmādhi<!--
+L15.  B.: mā<supplied reason="undefined">rṣa</supplied>yayiṣyāmo; B.: bhavaṣyidbhir
+--><lb
+n="16" break="no"/>kāra-pratipālanādr̥tair bhavitavyam saṁvaT <num value="34"><g type="numeral">30</g> 4</num> prathama-pauṣa-
+<lb
+n="17"/>śukla-dvitīyāyām dūtako <supplied reason="subaudible">’</supplied>tra mahā-balādhyakṣa-vindusvāmī||
+</p>
+</div>
+		<div type="apparatus">
+			<listApp>
+				<app loc="line">
+				<lem/>
+				<rdg source="bib:AuthorYear_01"/>
+				</app>
+			</listApp>
+		</div>
+		<div type="translation" source="bib:AuthorYear_01"><!--Indicate @resp or change @source when a translation is added -->
+		</div>
+		<div type="commentary">
+		</div>
+		<div type="bibliography">
+			<p/>
+			<listBibl type="primary">
+				<bibl n="siglum"><ptr target="bib:AuthorYear_01"/></bibl>
+			</listBibl>
+			<listBibl type="secondary">
+				<bibl n="siglum"><ptr target="bib:AuthorYear_01"/></bibl>
+			</listBibl>
+		</div>
+		</body>
+</text>
+</TEI>

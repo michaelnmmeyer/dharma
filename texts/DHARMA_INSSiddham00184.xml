@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Masod Charter of Pravarasena II, Year 19</title>
+            <respStmt>
+               <resp>Original EpiDoc Encoding for Siddham</resp>
+               <persName ref="part:daba">
+                  <forename>Dániel</forename>
+                  <surname>Balogh</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>Conversion of encoding for DHARMA</resp>
+               <persName ref="part:daba">
+                  <forename>Dániel</forename>
+                  <surname>Balogh</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName ref="part:daba">
+                  <forename>Dániel</forename>
+                  <surname>Balogh</surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Berlin</pubPlace>
+            <idno type="filename">DHARMA_INSSiddham00184</idno>
+            <!--
+If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
+-->
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+                  <p>Copyright (c) 2019-2025 by Dániel Balogh.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+               </msIdentifier>
+               <msContents>
+                  <summary/>
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p/>
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+         <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+		<body>
+			<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211"><!--
+Shastri and Gupta's edition is referred to as SG, Shrimali's edition as Shri. Shrimali's edition is based on SG, but does not appear to be 100% identical - perhaps it represents another stage in Shastri's work. In my notes I only refer to Shri separately when that edition differs from SG.
+--><!--
+SG's commentary (Shastri_Gupta_1983a:108) says "The characters, like those of practically all the Vākāṭaka records[p114n1: Pune plates of PvG are the only known exception], belong to the box-headed variety of the Central India alphabets with southern peculiarities and share the general character of those employed for the other records of the time of Pravarasēna II." I disagree; even to my poor palaeographic eye, this script looks later and more "southern" than any Vākāṭaka plate I have yet seen. Subscript y-s have a peculiar rounded form (with the same curve as a subscript r) [this form of subscript y also occurs in the Miregaon plates, #IN00185, but not all the time there. Shastri-Kawadkar_2000:136 say the Miregaon plates are palaeographically very similar to the Riddhapur plates so recheck those too for this form. Note also that the Miregaon plates vary several forms of some other letters too]. Dha has little buttocks like in later southern scripts. ja is rounded. ba has a notch on the left-hand side and possibly on the bottom too. Is this an attempt by a later person to imitate Vākāṭaka script? Yes, this is pretty much what Vajpeyi_1988 says, though I don't entirely egree with his reasoning (e.g. his problems "why the engraving began with the second side of the first plate" and "why no proper system was adopted for engraving identical number of lines on them" are not problems at all).
+--><!--
+Also, in the photos, most characters on some plates seem to have ghosts: the lines of a character have fainter shadows to the left of the actual line. I'm not sure if this is an artefact of bad photography (long exposure and a slight movement of the plate or the camera) or if these characters were scratched onto the plate and then engraved not over, but next to the scratches. Probably the former.
+--><ab><lb
+n="01"/>siddhaM<supplied reason="subaudible">.</supplied>
+<lb
+n="02"/>d<choice><sic>ri</sic><corr>r̥</corr></choice>ṣṭ<choice><sic>i</sic><corr>aM</corr></choice></ab><!--
+l. i-ii. SG read driṣṭi first (noting that it is in the margin) and siddham second, taking it as a regular part of line 1. But siddham is slightly higher than l1, and all regular lines begin at the same horizontal position after the right-hand edge of siddham. So in my interpretation siddham and driṣṭi are in a separate block at the top left. Also, SG read siddhaṁ, though the halanta M is clear.
+--><p><pb
+
+n="1v"/><lb
+n="1"/>svasti pravarapurād<supplied reason="subaudible">.</supplied> Agniṣṭomāpto<unclear>r</unclear>yyāmokthya-ṣoḍaśy-atirātra<surplus>ḥ</surplus>-
+<lb
+n="2"/>vājapeya-br̥hasp<choice><sic>i</sic><corr>a</corr></choice>ti-sava sādya<unclear>s</unclear>kra<surplus>tu</surplus>-catur-aśvam<choice><sic>a</sic><corr>e</corr></choice>dha-yājinaḥ<!--
+L2. SG read sādyakra, emending to skra. The s part is unclear, but there is definitely something above the k part.
+--><!--
+L2. SG note that there is a superfluous slanting stroke above the ji of yājinaḥ. I see no such thing at all.
+--><lb
+n="3"/>viṣṇu<space type="binding-hole"/>vr̥ddha-sagotrasya sam<surplus>b</surplus>rājaḥ vākāṭakānām mahā<!--
+L3. SG read vākaṭakānāṁ, but the ā of kā is clear, especially in the photo in Shastri_1997.
+--><lb
+n="4" break="no"/>rāja-śr<choice><sic>i</sic><corr>ī</corr></choice>-pravarasenasya sūno<unclear cert="low">ḥ</unclear> sūno<unclear cert="low">ḥ</unclear> Atya<unclear>nt</unclear>a-svāmi-mahābhai<!--
+L4. Starting with śri here, this document seems always to use i instead of ī. As far as I can see, this is almost entirely consistent (though in many cases SG read ī where that is expected), yet in l28 (tintīṇika and nadī), there are two definite ī-s. (See also comment to that line.)
+--><!--
+L4. The nt in atyanta looks like tt or, possibly, nn, or even tn. I give the scribe the benefit of doubt.
+--><lb
+n="5" break="no"/>rava-bhaktasya <choice><sic>asam<unclear>bh</unclear>āra</sic><corr>aṁsa-bhāra</corr></choice>-sanniveśita-śiva-l<choice><sic>a</sic><corr>i</corr></choice>ṅgodvahana-śiva<!--
+L5. SG read liṅgo°, but I see no i mātrā, only the curling top of la, compare e.g. amala-jala in l7.
+--><pb
+
+n="2r" break="no"/><lb
+n="6" break="no"/>s<choice><sic>ū</sic><corr>u</corr></choice>parituṣṭa-samutpādita-rāja-vaṁśānā<supplied reason="omitted">ṁ</supplied> parākkramādhig<choice><sic>i</sic><corr>a</corr></choice>ta-bhāg<choice><sic>i</sic><corr>ī</corr></choice>ratthy-a<lb
+n="7" break="no"/>mala-jala-mūrddh<surplus>n</surplus>ābhiṣiktānā<unclear>ṁ</unclear> daśāśvamedhāva<add place="below">bhr̥</add>tha-snāt<choice><sic>a</sic><corr>ā</corr></choice>nā<supplied reason="omitted">ṁ</supplied> bhāraśivānā<supplied reason="omitted">ṁ</supplied><!--
+L7. nā at the end of the line looks more like ṇa to me. It doesn't seem to have a proper boxhead.
+--><lb
+n="8"/>mahārāja-<space type="binding-hole"/>śr<choice><sic>i</sic><corr>ī</corr></choice>-bhavanāga-dauhitrasya gautam<choice><sic>i</sic><corr>ī</corr></choice>pu<supplied reason="omitted">tra</supplied>sya putrasya
+<lb
+n="9"/>vāk<unclear>ā</unclear>ṭakanā<surplus>r</surplus>m mahārāja-śr<choice><sic>i</sic><corr>ī</corr></choice>-rudrasenasya sūnor atya<unclear>n</unclear>ta-m<choice><sic>a</sic><corr>ā</corr></choice>heśvarasya<!--
+L9. SG print rudrasenasyā, apparently a typo.
+--><!--
+L9. nta here looks definitely like tta (which is what SG read), but I give the scribe the benefit of doubt again.
+--><lb
+n="10"/>satyārjjava-kāru<choice><sic>n</sic><corr>ṇ</corr></choice>ya-śauryya-vikkrama-naya-vinaya-m<choice><sic>a</sic><corr>ā</corr></choice>hātmya-dh<choice><sic>i</sic><corr>ī</corr></choice>ma<sic>tv</sic>a-pātra-gata-
+						<pb
+
+n="2v"/><lb
+n="11"/>bhaktitva-dharmma-vijayitva-mano-n<surplus>n</surplus>airmmaly<unclear>ā</unclear>di-guṇais samupet<choice><sic>e</sic><corr>a</corr></choice>asya varṣa-śata<lb
+n="12" break="no"/>m abhivarddhamāna-kośa-daṇḍa-sādhana-sa<unclear>n</unclear>tāna-putra-<choice><sic>pautra</sic><corr>pautriṇaḥ</corr></choice><space/> yudhiṣṭhira-vr̥tte<!--
+L12. The space after pautra may perhaps hide a visarga.
+--><lb
+n="13" break="no"/>r vvākāṭakānā<surplus>r</surplus>m mahārāja-śr<choice><sic>i</sic><corr>ī</corr></choice>-pr̥thiv<choice><sic>i</sic><corr>ī</corr></choice>ṣeṇasya sūno<supplied reason="omitted">r</supplied> bhagavataś cakkra<!--
+L13. SG print °nāmmmahā instead of nārmmahā, a typo. Shri reads °nām mahā. The repha is clear.
+--><!--
+L13. The hole is between l13 and l14, but it does not affect the placement of the characters noticeably. The end of the curl of nā in l13 is slightly truncated, and rmmā is preceded by a very small space.
+--><lb
+n="14"/>pāṇeḫ prasād<choice><sic>au</sic><corr>o</corr></choice>pārjjita-śr<choice><sic>i</sic><corr>ī</corr></choice>-samudayasy<choice><sic>aṇa</sic><corr>āne</corr></choice>ka-saṅgr<unclear>ā</unclear>ma-vijayinaḥ<!--
+L14. SG read samudayasyānaka. I see no ā mātrā with sy, and the next character looks like ṇa (though it could be a badly formed nā; definitely not na or ne).
+--><lb
+n="15"/>ṣaḍ-guṇārppaṇa-praśasta-vākāṭaka-va<sic>ṅ</sic>śālaṅkāra-bhūtasya v<choice><sic>a</sic><corr>ā</corr></choice>kāṭakān<choice><sic>a</sic><corr>ā</corr></choice><!--
+L15. SG read vaṅśa, but vaṅśā is clear: the vowel mātrā is at the top rather than the right side. (The ṅ portion, however, is tiny, which is strange especially with a huge ṅ component in ṅk just a few characters further on.)
+--><!--
+L15. As SG note, the phrase ṣad-guṇa ... bhūtasya is so far unique to this grant. Shri says the whole thing from aneka is unique.
+--><pb
+
+n="3r" break="no"/><lb
+n="16" break="no"/>m mahārāja-śr<choice><sic>i</sic><corr>ī</corr></choice>-rudrasenasya sūno<unclear>r</unclear> mmahārājādhirāja-śr<choice><sic>i</sic><corr>ī</corr></choice>-devagupta-s<choice><sic>ū</sic><corr>u</corr></choice>t<choice><sic>a</sic><corr>t</corr></choice><unclear>yā</unclear><supplied reason="omitted">ṁ</supplied><!--
+L16-17. SG read sūtayā in l16 and mprabhāvati in l17. But there is definitely no m in l17.
+--><lb
+n="17"/>m prabhāvat<sic>i</sic>guptāyām utpannasya śambho<unclear>ḫ</unclear> prasāda- <choice><sic>ś</sic><corr>dh</corr></choice>r̥t<choice><sic>i</sic><corr>a</corr></choice>-kārtta-yugasya-vāk<unclear>āṭa</unclear><!--
+L17. SG transliterate śambhoḥ. I see no visarga, but the following pra has a double box head, which was probably meant for an upadhmānīya.
+--><lb
+n="18" break="no"/>kānām parama-<space type="binding-hole"/>māheśvara mahārāja-śr<choice><sic>i</sic><corr>ī</corr></choice>-pravarasenasya vacanā<supplied reason="omitted">T</supplied><!--
+L18. There is space for about two characters at the end of l18, but apparently the scribe felt the semantic boundary and didn't want to inscribe the first character or two of the next block here.
+--></p>
+<p><lb
+n="19"/>padmapurasyāpara-mārgge matsakadrahan nām<surplus>n</surplus>a grāmaḥ<supplied reason="subaudible">.</supplied> Asya cāparottara-pārśve<!--
+L19. SG emend to nāmnā but I prefer nāma.
+--><lb
+n="20"/>rāja-mānika-mānena bh<choice><sic>u</sic><corr>ū</corr></choice>mi-śa<subst><del rend="corrected">tā<unclear>ny aṣṭa</unclear></del><add place="overstrike">ta-<unclear>ttriya</unclear>ḥ</add></subst> <choice><sic>a</sic><corr>ā</corr></choice>ryya-mahādev<choice><sic>i</sic><corr>ī</corr></choice>-vijñ<choice><sic>ā</sic><corr>a</corr></choice>p<supplied reason="omitted">t</supplied>yā<supplied reason="subaudible">.</supplied> pr<choice><sic>ā</sic><corr>a</corr></choice>tigrāh<unclear>i</unclear><!--
+L20. SG read śata-traya, emending to trayaṁ and noting that traya was first engraved as naṣya, but part of the subscript n is visible. This is quite certainly not the case, though my reading is very shaky. After śa, tā is certain and very clear, but the ā mātrā could be post- or pre-correction. The next character has something on top that must be an i mātrā, but it is not a proper one, being horizontally narrow and not looping back to the left of the character. This could be explained if this mātrā is post-correction, and the ā mātrā of tā was already in place. The body of the character looks like n, but it has a little stroke slanting down to the left, so it could be a badly formed tt or, more likely, a correction from n to tt. Finally, it has a bottom part which definitely looks like a subscript r, but I am certain that there is more to it, faintly but distinctly visible in the plate in Shastri_1997. This faint line turns the bottom part into the peculiar circular form of subscript y used throughout this inscription. My best guess is that it was first inscribed as nya, then changed into ttri by erasing part of the subscript y, adding a stroke for a lower t, and adding an i mātrā at the top. The problem with this interpretation is that there seems to be a faint vertical line through the entire character, from the erased left-hand line of the subscript y all the way to the top, where it connects with the left-hand side of the apparent i mātrā. Proceeding to the next character, it does look like a plausible ya right now, but it has a c-like little curve below it. This curve is absolutely nothing like any part of a subscript y, so the pre-correction form cannot have been ṣya, but it could very well have been ṣṭa. Finally, there is a definite visarga following the character. I believe that an original śatāny aṣṭa was changed to śata-ttriyaḥ (for śata-ttrayam). Increasing the amount of land would intuitively make more sense, but the subscript y of nya is so faint that it must have been erased (beaten or sanded out), so it must be part of the pre-correction form.
+--><!--
+L20. SG read bhāryya-mahādevi, emending to bhāryyā. But the first character is absolutely not bh; it's a or, possibly but less likely, su (or even, but unlikely, "8" corrected to a or su). So I think the intent was āryya-mahādevī.
+--><!--
+L20. SG emend to mahādevīṁ vijñāpyāpratigrāhi(naś). This seems to make no sense. I think the intent was mahādevī-vijñaptyā, and we'd expect dattāni, atisr̥ṣṭāni or something equivalent at this point, but the word was omitted. I do not supply such a word because its gender agreement would be governed by the problematic corrected word earlier in this line. A sentence would end here, and we'd have a new sentence starting with pratigrāhinaś, rather than the awkward apratigrāha thing, which would make even less sense here than it might in #IN00183:20. SG may in fact have thought about vijñapti as I do, in spite of their edited text, since in their summary of the content (Shastri_Gupta_1983a:110) they say "given at the request of the chief queen ..." They do, however, insist on apratigrāha (ibid), "Mahāpurusha who is described as the non-acceptor of donations (apratigrāhin)", which is plainly wrong, since the word is in the plural and obviously serves as the commencement of the list of names.
+--><pb
+
+n="3v" break="no"/><lb
+n="21" break="no"/>ṇaś cātra mah<unclear>ā</unclear>pu<supplied reason="omitted">ru</supplied>ṣasyā<unclear>ṁ</unclear>śa-dvaya<supplied reason="omitted">ṁ</supplied> brāhmaṇ<choice><sic>a</sic><corr>ā</corr></choice>ś c<choice><sic>ā</sic><corr>a</corr></choice> <space/> kauṇḍi<choice><sic>ṇ</sic><corr>n</corr></choice>ya-sagotraś catu<!--
+L21. SG read mahapuṣa and emend to mahāpuruṣa. The ā of hā is in fact almost certainly there in the plate. I accept the emendation, though I find it a bit doubtful, as there seems to be a visarga after pu. It is quite faint and there may be correction here and in hāpu.
+--><!--
+L21. I also accept SG's emendation of brāhmaṇaś to brāhmaṇāś, but again retain some doubt. SG read ca, though the ā is very clear. There is a small space before ścā and a larger space after it (only the latter transcribed in the edition). Can it be that everything after atra and before kauṇḍiṇya is a correction, written over something so carefully deleted that no recognisable trace remains?
+--><lb
+n="22" break="no"/>rvveda boppāryya bhāradvāja-<supplied reason="omitted">sa</supplied>gotra viṣṇ<unclear>u</unclear>vārya bhāradvāja ratyāryya<!--
+L22. SG note that bo in boppārya is "extremely doubtful" and "based merely on the fact that the names beginning with Boppa and Bappa are common in the Vākāṭaka records", but I don't see why. The character is clear.
+--><!--
+L22. SG supply visargas after each name (though not after the gotra names, even if not followed by sagotra - they space some of these and hyphenate the rest to the person names). I refrain from doing so; the intent is clear, these stem forms are meant to stand for nominatives.
+--><!--
+L22. ṣṇu actually looks like ṣṇḍa or a weird ṣṇa, definitely not a proper ṣṇu. But I accept SG's reading because the spelling viṣṇuvārya fits in with śriyāryya in l24.
+--><!--
+L22. SG read bhāradvājāratyāryya and show the name as Aratyāryya in their commentary. But I'm certain the character before ra is ja (with a curvy top), not jā, which would have an ā mātrā curling back over the letter.
+--><lb
+n="23"/>parāśara <space type="binding-hole"/> bhavāryya parāśara bhavaputrāryya bh<unclear>ā</unclear>radvāja golāryya<!--
+L23. SG read bhāradvāja-gollāryya, but I can only see an ā mātrā with bh if I very much want to, and I definitely see no trace of a second l.
+--><lb
+n="24"/>bh<unclear>ā</unclear>radvāja sriyāryya <space/> kāsyapa-sagotra boppāryya kauśika nārāyaṇāryya<!--
+L24. The space (like others below) must serve to delimit persons, but several items early on the list are not spaced.
+--><lb
+n="25"/>kauśika Acalāryya <space/> kauṇḍi<choice><sic>ṇ</sic><corr>n</corr></choice>ya devāryya <space/> kauṇḍi<choice><sic>ṇ</sic><corr>n</corr></choice>ya dāmāryya
+						<pb
+
+n="4r"/><lb
+n="26"/>kauśika keś<choice><sic>i</sic><corr>a</corr></choice>vāryya <space/> vatsa kumārāryya <space/> kāśyapa dāmāryya kauṇḍi<choice><sic>ṇ</sic><corr>n</corr></choice>ya<!--
+L26. SG print vatsa kumārāryya twice, a typo. The dittography is also present in Shri.
+--><!--
+L26. SG print Kāśyapa-Padāmāryya (with this capitalisation, so not a typo), but correctly write Dāmāryya in their commentary. The dittography is likewise there in Shri.
+--><lb
+n="27"/>golāryya <space/> kāśyapa gol<choice><sic>a</sic><corr>ā</corr></choice>ryya <space/> gautama koṭṭ<unclear>ā</unclear>ryya <space/> gautama rudrāryya<supplied reason="subaudible">.</supplied><!--
+L27. Though in all probability meant for koṭṭāryya, the ṭṭ does not have a proper ā mātrā but one that curves back over the top, like i.
+--><lb
+n="28"/>rā<unclear>ja</unclear>tintī<space type="binding-hole"/>ṇika-nadī-gartta-sabhā-madhye vāṭaka-bhūmi<unclear>ḥ</unclear><!--
+L28. SG note that this line is "boldly engraved as compared to other lines." This is not at all apparent on either facsimile that I have. However, the characters do seem more widely spaced here, and not as confidently and prettily formed as the rest of the plate. Also, now that I think about it, the subscript y in dhye is a regular type, completely unlike the circular subscript y-s elsewhere in the document. Add to this that long ī mātrās are not used anywhere in the text but here, where we have two specimens. So I am practically certain that this line is in a different hand than the rest. Probably it was left blank to fill out later - though, just possibly, earlier content may have been thoroughly erased here, as SG note in their commentary that only 19 names (plus Mahāpuruṣa, if that is a name) are listed, while l29 talks about 25 plots.
+--><!--
+L28. SG read rājatintiṇika, which I accept apart from correcting to ntī, which is clear (especially in the photo in #Shastri_1997). The character they read as ja is also problematic; it is quite faint and does not really look like ja. It could perhaps be ṅgā or bdha or ṭṭha, but these are no more likely than the simpler ja.
+--><lb
+n="29"/>Evam b<supplied reason="omitted">r</supplied>āhma<sic>ṇaṇa devāśesyaha</sic> pañcavi<supplied reason="omitted">ṁ</supplied>śatyā<sic>vvā</sic>ṭakaḥ grāmasy<choice><sic>a</sic><corr>ā</corr></choice>para-pā<unclear>r</unclear>śv<unclear>e</unclear><!--
+L29. SG read brāhmaṇaṇa, but there is no r. The two ṇa-s are true; the second is slightly pushed downward by the bottom of the hole and followed by a small space. They do not attemt to restore or interpret bāhmaṇaṇa devāśesyaha and do not see a problem with vvāṭaka (which they space from pañcaviṁśatyā). In their commentary (Shastri_Gupta_1983a:110) they say "The land was divided in all into twenty-five house-sites (vāṭaka)". I have no plausible reconstruction for the whole passage and can only offer the following suggestions. brāhmaṇaṇa is probably meant to be brāhmaṇānāṁ, though brāhmaṇena is also a possibility, closer to the inscribed text but apparently less appropriate in the context. devāśesyaha, I think, involves aṁśa and either saha or iha (devāṁśasyeha? devāṁśena saha? devy-aṁśena saha?). As for vvāṭaka, the doubling must be due to a preceding anusvāra, even if it is not actually there in the plate. So the intent would have been °viṁśatyāṁ vāṭakaḥ. Also, this bit talks about the aparpārśva of the village, while the beginning of the executive part had aparottara-pārśva. So maybe we have cultivable plots in the NW and separate house sites in the W? Or this is not about 25 plots, but another village, called something like pañcaviṁśatyā-vāṭaka? And, as Vajpeyi_1988 points out, the term could very well refer to a cluster of villages, like pravaraśvara-ṣadviṣati-vāṭaka in #IN00160:8.
+--><lb
+n="30"/>datta<unclear>ḥ</unclear><supplied reason="subaudible">.</supplied> <space type="descender"/> yato smat-sa<unclear>n</unclear>takā<supplied reason="omitted">ḥ</supplied> sarvvāddhyakṣa-niyoga-niyuktā Ājñā-sañcār<unclear>i</unclear>
+<lb
+n="31"/>kula-putrādhikr̥tā bhaṭāś ch<choice><sic>a</sic><corr>ā</corr></choice>trāś ca <choice><sic>vr̥ṣita</sic><corr>viśruta</corr></choice>-<choice><sic>pūrvyama<space/>jñ<unclear>ā</unclear>yā</sic><corr>pūrvvayājñayā</corr></choice>jñāpa<add place="below">y<unclear>i</unclear>tavy<unclear>ā</unclear><supplied reason="omitted">ḥ</supplied><supplied reason="subaudible">.</supplied></add><!--
+L31. vr̥ṣita must be the engraver's error for vyuṣita, but I stick to the ultimate correction viśruta.
+--><!--
+L31. SG read pūrvyathajñāyā. The character after vya is ma, not tha. The space after that, not noted by SG, may contain a deleted character; all that is visible is a short horizontal at headline height, like the top side of a boxhead. I would conjecture that pūrvyamayā was first inscribed, as in #IN00168 (pūrvvamayā there). I restore to the standard pūrvvayājñayā, but pūrvvam ājñayā may have been the intent. The ā of jñā after the space is not complete, it only curves to the top, but not over the top to the front.
+--><!--
+L31. yitavyā is inscribed in the bottom margin, starting below ma (of the problematic bit) and ending before the first jñā. SG's edition numbers this addition separately, as line 32, so subsequent lines in my edition bear a number one less than they do in SG's. The plate in Shastri_1997 numbers the lines as I do, with l32 at the top of 4verso.
+--><pb
+
+n="4v"/><lb
+n="32"/>yathe<supplied reason="omitted">hā</supplied> <subst><del rend="corrected"><unclear cert="low">hā</unclear></del><add place="overstrike">s<unclear>m</unclear>ā</add></subst>bhir ātmano dharmmāyur-bba<choice><sic>lamai</sic><corr>lai</corr></choice>śvaryya-vivr̥ddhaye Ih<choice><sic>e</sic><corr>ā</corr></choice>mutra-hitā<!--
+L32. The phrase viditam astu vaḥ is missing. This, combined with the was yitavyāḥ was squeezed into the bottom of the previous page, may indicate that the plate is not original. However, the missing bit is between two sides of a single plate, so this is not very likely. Given that all plates seem to be in the same hand except for l28, there was probably no copying or substitution.
+--><!--
+L32. smā seems to be a correction from something else, possibly from hā, which is now missing. The subscript part looks like y and was perhaps corrected in two stages, from hā to syā, then to smā. The original could also have been vā, pā or several other things.
+--><!--
+L32. the reading balamaiśvaryya, without vijaya, also occurs in IN00167:15 and IN00173:2-3.
+--><lb
+n="33" break="no"/>rttham ātmānugrahāya v<subst><del rend="corrected">au</del><add place="overstrike">ai</add></subst>jayike dharmma-sthā<choice><sic>ṇ</sic><corr>n</corr></choice>e A-bhaṭa cch<choice><sic>a</sic><corr>ā</corr></choice>tra-prāveśya<supplied reason="omitted">ḥ</supplied><!--
+L33. SG just read vaujayike and correct, but in fact the strokes are there both for au and ai.
+--><!--
+L33. The order of components seems to be rather messed up. What's the list of privileges doing here? And see l40, where we get the actual donation, which should have come here, and l42 where we have the beginning of the privilege list...
+--><lb
+n="34"/>A-pārampara-go-bal<choice><sic>i</sic><corr>ī</corr></choice>vardda<supplied reason="omitted">ḥ</supplied> A-puṣpa-kṣ<choice><sic>i</sic><corr>ī</corr></choice>ra-sandoha<supplied reason="omitted">ḥ</supplied> A-cārā<choice><sic>ś</sic><corr>s</corr></choice>ana-
+<lb
+n="35"/>carmmāṅgāra<supplied reason="omitted">ḥ</supplied> <space type="binding-hole"/> a-lavaṇa-klinna-<sic>kleṇi</sic>-<surplus>k</surplus><unclear>kh</unclear>anaka<supplied reason="omitted">ḥ</supplied> sarvva-v<choice><sic>e</sic><corr>i</corr></choice>ṣṭi-parihāra<!--
+L35. SG read ktanaka, emending to khanakaḥ. This seems like an unlikely mistake, and I think the character was intended to be kkha.
+--><!--
+L35. SG print ā-sarvva, but there is no ā.
+--><lb
+n="36" break="no"/>-parihr̥ta<supplied reason="omitted">ḥ</supplied> <space/> sa-<surplus>pari</surplus>k<choice><sic>li</sic><corr>l̥</corr></choice>ptopa<surplus>ri</surplus>k<choice><sic>li</sic><corr>l̥</corr></choice>pta<supplied reason="omitted">ḥ</supplied> <space/> ā-candrāditya-kāl<choice><sic>i</sic><corr>ī</corr></choice>ya<supplied reason="omitted">ḥ</supplied> putra<!--
+L36. The phrase with parikl̥pta is strange. It also occurs in IN00173:6, the Mansar fragment generally thought to be Pravarasena II's.
+--><pb
+
+n="5r" break="no"/><lb
+n="37" break="no"/>-pautrānug<choice><sic>a</sic><corr>ā</corr></choice>m<choice><sic>a</sic><corr>ī</corr></choice> bhuñjatā<supplied reason="omitted">ṁ</supplied> <space/> na kenaci<supplied reason="omitted">d</supplied> vy<choice><sic>a</sic><corr>ā</corr></choice>ghātaẖ karttavya<space/>s sarvva-kriyābhi<supplied reason="omitted">ḥ</supplied> sa<supplied reason="omitted">ṁ</supplied>rakṣi<!--
+L37. SG read °ghātaḥ kartavyas, but the correct reading is °ghātax karttavyas. Note also that there is a space after tavya, so perhaps a more accurate standardisation would be to supply a visarga and delete one of the s-s.
+--><lb
+n="38" break="no"/>tavyaḥ parivarddhayitavyaś ca<supplied reason="subaudible">.</supplied><space/> yaś cāsmac-chā<choice><sic>ś</sic><corr>s</corr></choice>an<choice><sic>o</sic><corr>a</corr></choice>m agaṇayamāna<supplied reason="omitted">ḥ</supplied> svalpām api
+<lb
+n="39"/>paribādhā<supplied reason="omitted">ṁ</supplied> ku<space type="binding-hole"/>ryyāt <choice><sic>kārayitā</sic><corr>kārayeta</corr></choice> vā <space/> tasya brāhmaṇ<unclear>ai</unclear>r āv<choice><sic>a</sic><corr>e</corr></choice>ditasya sa-daṇḍa<!--
+L39. SG read tkariyitā, and that is pretty much what the text looks like in the JESI photo, but in the photo in Shastri_1997 I can well believe that it is (more or less) correctly tkārayitā. The vowel mark between tk and r is definitely connected with a horizontal to tk, though I must admit it also seems to curve onto the top of r.
+--><!--
+L39. SG read brāhmaṇār, but the vowel is definitely not a regular ā. I think we can assume it was meant to be ai.
+--><lb
+n="40" break="no"/>-nigrahaṅ kuryyā<space type="binding-hole"/>ma| Ap<choice><sic>u</sic><corr>ū</corr></choice>rvv<choice><sic>a</sic><corr>ā</corr></choice>-datt<supplied reason="omitted">y</supplied>ā Udaka-p<choice><sic>u</sic><corr>ū</corr></choice>rvvam atisr̥ṣṭa<supplied reason="subaudible">.</supplied> U<space type="descender"/>citā<supplied reason="omitted">ṁ</supplied>ś cāsya<!--
+L40. SG read nigrahaṁ, but the text is with ṅku.
+--><!--
+L40. The punctuation mark seems to be a double horizontal, the top one very short. (It may, instead, be a curve like a J without serif, turned 90° clockwise.)
+--><!--
+L40. Now the order of components begins to be seriously jumbled up. Compare l33 and l42.
+--><!--
+L40. SG leave dattā uncorrected, but this was evidently meant to be datyā, ultimately standardised to dattyā.
+--><!--
+L40. SG read udakapuvvam (emending to °pūrvvam), but the correct reading is rvva. Shri also reads puvvam but emends to pūvvam, so the omission of r seems to be a typo here.
+--><!--
+L40. SG emend to atisr̥ṣṭā, probably to agree with their "apūrvva-dattā". I prefer not to emend, since we cannot be certain what this should agree with. The most likely emendation is [+ḥ].
+--><lb
+n="41"/>p<choice><sic>u</sic><corr>ū</corr></choice>rvva-rājānumatā<supplied reason="omitted">ṁ</supplied>ś cāturvv<choice><sic><unclear>e</unclear></sic><corr>ai</corr></choice>dya-maryy<choice><sic>a</sic><corr>ā</corr></choice>dā-parihār<choice><sic>a</sic><corr>ā</corr></choice>n vitar<choice><sic>a</sic><corr>ā</corr></choice>maḥ<supplied reason="subaudible">.</supplied> tad yathā <choice><sic>su</sic><corr>a</corr></choice>-kara<!--
+L41. grāma or agrahāra is missing before maryyādā.
+--><!--
+L41. the visarga of vitarāmaḥ consists of two pretty large crescents, practically like a figure 3. Still, it's probably a visarga, not a punctuation mark. SG do observe in their commentary that the visarga takes many and varied forms in this document.
+--><!--
+L41. a-kara is actually written as sukara. I'm all for benefit of doubt, but this is not a, even if that is what it was obviously intended to be.
+--><lb
+n="42" break="no"/>-dāy<choice><sic>i</sic><corr>ī</corr></choice> da<choice><sic>ndo</sic><corr>ṇḍa</corr></choice>-nigraha<choice><sic>kka</sic><corr>ṅ ku</corr></choice>ryyāma| Api ca dharmmādhikaraṇe <space/> At<choice><sic>i</sic><corr>ī</corr></choice>tā<surplus>su</surplus>neka<!--
+L42. Wow, here we have the beginning of the list of privileges (cf. l33 and l40), then a snippet of the threat from l39-40!
+--><!--
+L42. SG read nigraha kuryyama, emending to nigrahaṁ kuryyāmaḥ. The ā of ryyā is clear, and the preceding character is not ku but kka. I think it was meant to be ṅku, in which case we don't need to add an anusvāra, but a badly written ku (or, more likely kū) is also a possibility. The correct form is, I believe, kuryāma, not kuryāmaḥ, so there is no need to add a visarga. There actually is a pair of dots (short dashes like horizontal commas) after ma, but I take this to be punctuation. It could, instead, be an erroneous original visarga.
+--><!--
+L42. api ca dharmmādhikaraṇe would normally be asmiṁś ca dharmmādara-karaṇe but we do have a parallel for dharmmādhi° in IN00168:26 (also Pravarasena II).
+--><!--
+L42. The superfluous su (probably meant to be A) before neka at the end of the line is not shown in SG's edition, but they do note that the reading should be emended to atītāneka, so they probably saw this.
+--><pb
+
+n="5v" break="no"/><lb
+n="43" break="no"/>-rājattā <space/> senāpat<choice><sic>o</sic><corr>au</corr></choice> kātyāya<choice><sic>ṇa</sic><corr>ne</corr></choice> de<subst><del rend="corrected"><unclear cert="low">ya</unclear></del><add place="overstrike"><unclear cert="low">va</unclear></add></subst> <choice><sic>sa<unclear>khā</unclear></sic><corr>sva</corr></choice>-mukhājñ<choice><sic>ā</sic><corr>a</corr></choice>pt<choice><sic>e</sic><corr>i</corr></choice><supplied reason="omitted">ḥ</supplied> prabha<!--
+L43. OK, now the bit with rājattā is the beginning of the phrase rāja-datta-saṁcintana etc, but then we just have a space and then a completely different bit of text. Did the guy who forged these plates jumble up the specimen they were copying from?
+--><!--
+L43. SG read senāpato kātyāṇādayo, emending to senāpati-kātyānādayo. The omission of ya after yā (both in SG and Shri) seems to be a typo. I'm pretty sure we should emend to senāpatau kātyāyane, but not certain at all about the next bit, which may or may not belong here. In any case, the vowel mātrā between ṇ and d certainly belongs to d, so its ṇade, not ṇāda. The next character does look like ya, but it is not a proper ya and was probably corrected; the right-hand limb is much fainter. We'd expect likhitam somewhere around here.
+--><!--
+L43. I keep SG's reading of sakhā. sa is clear, but the next character is malformed. The alleged ā mātrā is very vague in the photos and may not exist at all. The body of the character does not have a box at the bottom, just a horizontal stroke extending from the stem, and a very short vertical extending down from the end of the horizontal (so we have the left and top sides of the box) - rather like a mirrored £ sign without the cross-stroke and with a little vertical extension at the bottom. SG emend to sva (no emendation in Shri), which is probably what this was intended for. Or: can it be that we have a second name here? senāpatau kātyāyane devasakha-mukhājñaptiḥ?
+--><!--
+L43. and now for something completely different: a bit from the middle of the eṣyat-kāla thing.
+--><lb
+n="44" break="no"/>viṣ<unclear>ṇ</unclear>u-gaurav<choice><sic>a</sic><corr>ā</corr></choice>d <surplus>vā</surplus> bhaviṣy<choice><sic>a</sic><corr>ā</corr></choice><supplied reason="omitted">n</supplied> <choice><sic>vijñāpayi<unclear>vyā</unclear></sic><corr>vijñāpayāmaḥ</corr></choice><supplied reason="subaudible">.</supplied> vyāsa-g<choice><sic>i</sic><corr>ī</corr></choice>tau <space/> cātra ślok<choice><sic>o</sic><corr>au</corr></choice> pra<!--
+L44. For vijñāpayivyā, SG read vijñāpayitavyā (which is wrong, though it is not entirely impossible that this vyā has been corrected to ta, but then vyāsa gets shortened by a vyā) and emend to vijñāpayitavyāḥ (Shri to °vyaḥ), which does not match the standard text.
+--><!--
+L44. The space is to make room for mu above.
+--><lb
+n="45" break="no"/>mā<choice><sic>ni</sic><corr>ṇī</corr></choice>-karttavy<choice><sic>a</sic><corr>au</corr></choice><supplied reason="subaudible">.</supplied> <space type="binding-hole"/>
+</p>
+<lg n="1" met="anuṣṭubh">
+<l n="a">s<supplied reason="omitted">v</supplied>a-dattā<supplied reason="omitted">ṁ</supplied> para-dattā<supplied reason="omitted">ṁ</supplied> vā</l>
+<l n="b"><choice><sic>j</sic><corr>y</corr></choice>o h<choice><sic>e</sic><corr>a</corr></choice>ret<choice><sic>e</sic><corr>a</corr></choice> vas<choice><sic>ū</sic><corr>u</corr></choice>ndharā<supplied reason="omitted">ṁ</supplied></l>
+<l n="c">gav<choice><sic>o</sic><corr>ā</corr></choice><supplied reason="omitted">ṁ</supplied> śata-saha<lb
+n="46" break="no"/>srasya</l>
+<l n="d">ha<supplied reason="omitted">n</supplied>tu<unclear>ḥ</unclear> piba<unclear>t</unclear>i <subst><del rend="corrected"><unclear>do</unclear></del><add place="overstrike"><unclear>du</unclear></add></subst>ṣkr̥ta<supplied reason="omitted">ṁ</supplied><unclear>|</unclear></l><!--
+L45. The pa of para has a downward extension of its vertical, like pu with an unhooked u.
+--><!--
+L45. SG read vansundharā, but this is wrong, what they saw as n is the left leg of s, and what they saw as the left leg of a subscript s is the mark of long ū.
+--><!--
+L46. SG read hantuf pibati but I don't think there is an upadhmānīya here, just a tiny speck of noise above the boxhead of p. Shri reads hantuḥ pibatiḥ, which may in fact be right: there are faint visarga-like marks after both ntu and ti. I apply benefit of doubt and assume the one after ntu is a visarga, while the second is noise.
+--><!--
+L46. There is a faint double dot after ṣkr̥ta, which I take to be punctuation.
+--></lg>
+<lg n="2" met="anuṣṭubh">
+<l n="a">ṣaṣṭi-va<choice><sic>riṣa</sic><corr>rṣa</corr></choice>-sah<choice><sic>ā</sic><corr>a</corr></choice>srāṇi</l>
+<l n="b">s<unclear>v</unclear>argg<unclear>e</unclear> modati bhū<supplied reason="omitted">mi</supplied>-da<supplied reason="omitted">ḥ</supplied></l>
+<l n="c">ācche<lb
+n="47" break="no"/>ttā cānuma<unclear>n</unclear>tā ca</l>
+<l n="d">tāny eva <space type="descender"/> narake <supplied reason="omitted">va</supplied>se<supplied reason="omitted">T</supplied></l>
+</lg>
+<p><choice><sic>variṣa</sic><corr>varṣe</corr></choice> ek<choice><sic>ū</sic><corr>o</corr></choice><choice><sic>ṇa</sic><corr>na</corr></choice>vi<supplied reason="omitted">ṁ</supplied>śad varṣā-pakṣ<choice><sic>a</sic><corr>e</corr></choice> dvit<choice><sic><unclear>i</unclear></sic><corr>ī</corr></choice>y<choice><sic>a</sic><corr>e</corr></choice><!--
+L47. SG read ekuna, but I think the second character is kū; the second is certainly ṇa.
+--><!--
+L47. SG in their initial edition read triṁśad, later (Shastri_Gupta_1984) correcting to viṁśad. They note that these characters are very faint - but they are perfectly clear in the facsimile (is this because the facsimile was retouched by hand? hopefully not).
+--><lb
+n="48"/>divas<choice><sic>a</sic><corr>e</corr></choice> p<choice><sic>ā</sic><corr>a</corr></choice>ñcam<choice><sic>a</sic><corr>e</corr></choice><!--
+L47-48. I correct terms in the date to locatives (following SG, mostly), but this may be overzealous and perhaps the stem forms should be left intact.
+--></p>
+
+			</div>
+				<div type="apparatus">
+			<listApp>
+				<app loc="line">
+				<lem/>
+				<rdg source="bib:AuthorYear_01"/>
+				</app>
+			</listApp>
+		</div>
+		<div type="translation" source="bib:AuthorYear_01"><!--Indicate @resp or change @source when a translation is added -->
+		</div>
+		<div type="commentary">
+		</div>
+		<div type="bibliography">
+			<p/>
+			<listBibl type="primary">
+				<bibl n="siglum"><ptr target="bib:AuthorYear_01"/></bibl>
+			</listBibl>
+			<listBibl type="secondary">
+				<bibl n="siglum"><ptr target="bib:AuthorYear_01"/></bibl>
+			</listBibl>
+		</div>
+		</body>
+	</text>
+</TEI>

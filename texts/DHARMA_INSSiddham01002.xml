@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Rajim Temple Construction of Vilāsatuṅga</title>
+            <respStmt>
+               <resp>Original EpiDoc Encoding for Siddham, following published edition unless otherwise noted in comments</resp>
+               <persName ref="part:cski">
+                  <forename>Csaba</forename>
+                  <surname>Kiss</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>Conversion of encoding for DHARMA</resp>
+               <persName ref="part:daba">
+                  <forename>Dániel</forename>
+                  <surname>Balogh</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName><!--
+The original editor(s).
+--></persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Berlin</pubPlace>
+            <idno type="filename">DHARMA_INSSiddham01002</idno>
+            <!--
+If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
+-->
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+                  <p>Copyright (c) 2019-2025 by Dániel Balogh.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+               </msIdentifier>
+               <msContents>
+                  <summary/>
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p/>
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+         <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+		<body>
+			<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211"><!--
+Comments below by Csaba Kiss and Dániel Balogh (BD) are offered "as is" and do not represent a thoroughly researched or considered opinion.
+--><!--
+Mirashi, V. V., 'Rajim stone inscription of Vilāsatuṅga', Epigraphia Indica,
+vol XXVI, (1941-42), pp. 49-58.
+It was given as vol XXIV on the GoogleMap site, which must be a typo.
+--><lb
+n="1"/><p><gap reason="illegible" extent="unknown" unit="character"/>
+					</p><!--
+BD: Use proper lacuna markup instead of asterisks. (Or, if you want to use the hybrid markup, ### means illegible (but not completely destroyed) text of unknown extent.)
+--><!--
+BD: Mirashi believes there may have been an invocation to Vishnu before the first verse. I find his reading of the fragments of v1 uncertain, and his identification of the metre as mandākrāntā very tentative. (A good look at the original stone may be fruitful, there are some promising traces in the rubbing.) If the first verse was sragdharā instead of mandākrāntā, then there was almost certainly nothing (or at most a mangala symbol) before it.
+--><lg n="1" met="mandākrāntā">
+<l n="a"><seg met="++++-----++-++-++"><gap reason="illegible" quantity="17" unit="character"/></seg></l>
+<l n="b"><seg met="++++-----++-++"><gap reason="illegible" quantity="14" unit="character"/></seg> caritraḥ|</l>
+
+
+<l n="c">prāptakṣīṇānupa <seg met="---++-++-++"><gap reason="illegible" quantity="11" unit="character"/></seg></l>
+<l n="d"><seg met="++++-----++-++-++"><gap reason="illegible" quantity="17" unit="character"/></seg></l>
+</lg>
+<lg n="2" met="sragdharā">
+<l n="a"><seg met="++++-++------++-++-++"><gap reason="illegible" quantity="21" unit="character"/></seg></l>
+<l n="b"><seg met="+++"><gap reason="illegible" quantity="3" unit="character"/></seg>
+<lb
+n="2"/><seg met="+-++------++-+"><gap reason="illegible" quantity="14" unit="character"/></seg><unclear>ptāri</unclear>cakra<choice><sic>ṁ</sic><corr>M</corr></choice>|</l>
+
+
+<l n="c">ni<unclear>rmma</unclear>thya <unclear>kṣīra-sindhuṁ</unclear>
+vyadadhad a<unclear>ma</unclear>ra<unclear>tāṁ</unclear><!--
+L2. v2c Mirashi: correct form would be: vyadadhād
+-->samprahr̥ṣṭaḥ surāṇām</l>
+<l n="d">prāpta-śrīr yyaḥ sa diśyāc chriyam
+anupahatām āyur apy ūrjji<unclear>tepaN</unclear>|</l><!--
+L2. v2d Mirashi would expect apy ūrjjitaṁ vaḥ
+--></lg>
+<lg n="3" met="śārdūlavikrīḍita">
+<l n="a">ramye dhāvana-melaha-pravikasan nīlo<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->tpala</supplied><!--
+L2. v3a. Mirashi: melaha(na?)
+--><seg met="+-"><gap reason="illegible" quantity="2" unit="character"/></seg> lāṁ </l><!--
+v3a. Mirashi: restore śyāmalāṁ.
+--><!--
+BD: lāṁ is actually clear at the end of 3a, so I've put it in the text. This is probably an accident in M's edition; he would not have been so bold as to restore śyāmalāṁ if he had not read this lāṁ. There are also convincing traces of śyā.
+-->
+<l n="b"><seg met="+"><gap reason="illegible" quantity="1" unit="character"/></seg> hr̥dyānupa<unclear>māṁ</unclear>
+							<seg met="-+--"><gap reason="illegible" quantity="4" unit="character"/></seg><!--
+Mirashi's hr̥dyānupa[māṁ . = . .] is ambiguous.
+--><!--
+BD: Yes, this is a very annoying convention, but it is not entirely illogical. A closing bracket near the beginning of a line means everything from the beginning of the line to the bracket is unclear. An opening bracket near the end of a line means everything from the bracket to the end is unclear. I've added unclear markup to māṁ; you'll need to add supplied tags to the prosodic notation.
+--><!--
+BD: Mirashi's reading is definitely incorrect here. hr̥ comes immediately after lāṁ, there is no intervening syllable. Therefore "nupa" cannot be correct, as it would be unmetrical. The traces in the rubbing look nothing like nupa. The reading of the beginning of the next line is also problematic. I suggest <l>hr̥dy<unclear>ā</unclear>[# =..=.=...]<lb
+n="3" />rā [# ==]<unclear cert="low">tma</unclear><unclear>sau</unclear>khyocitāM</l>. But at this point I stop trying to re-edit the text. Takes too much time.
+--><lb
+n="3"/><unclear cert="low">varāha</unclear>
+							<seg met="+-"><gap reason="illegible" quantity="2" unit="character"/></seg> saukhyocitāM|</l><!--
+How to interpret Mirashi's question marks in cases such as '[abc ?]' ?
+--><!--
+BD: This corresponds to <unclear cert="low">Abc</unclear>. I've now added this to the "Converting CII" section of the input guide.
+-->
+<l n="c">protphullā<choice><sic><unclear>mvu</unclear></sic><corr>mbu</corr></choice>-ruha-sthita-dvija-va<unclear>rāṁ</unclear> <choice><sic>vi</sic><corr>bi</corr></choice>bhrac chriyaṁ sārasīṁ</l>
+<l n="d">santāpa-pra<choice><sic>śma</sic><corr>śama</corr></choice>-kṣamaḥ sa
+jagataḥ <unclear>śaśvat</unclear>-sukhāyāstu vaḥ||</l><!--
+BD: I think śma for śama is an unlikely mistake; instead, what we probably have is praśa, with a ma inserted below the line (ancient addition).
+--><!--
+BD: Original double daṇḍa at end!
+--></lg>
+<lg n="4" met="śārdūlavikrīḍita">
+<l n="a">kas tvaṁ devi hariḥ spr̥śasy apasara kroḍī-kr̥taḥ kakṣayā</l>
+<l n="b"><seg met="+++"><gap reason="illegible" quantity="3" unit="character"/></seg> nipuṇā mukha <unclear>pra</unclear>
+							<seg met="--"><gap reason="illegible" quantity="2" unit="character"/></seg><lb
+n="4"/><seg met="++"><gap reason="illegible" quantity="2" unit="character"/></seg>nnatiṁ sā kṣamā|</l><!--
+BD: There are plenty of almost-legible traces here, e.g. kā sai is almost certain at the beginning of 4b. Mirashi's readings area again problematic. This inscription would be worth re-editing.
+--><!--
+BD: Original daṇḍa here! (Check edition for original dandas passim, I'll stop commenting on them now.)
+-->
+<l n="c"><choice><sic>hi</sic><corr>te</corr></choice> vāgbhir nna <unclear>tu</unclear> karmmaṇā
+prakaṭitaṁ dhi<unclear cert="low">g mā</unclear>ñ ca kā <unclear>me</unclear> ratiḥ</l><!--
+Mirashi hi(te?) and dhi[gmā?]
+--><!--
+BD: hi(te?) is marked up correctly, it's Mirashi's tentative correction, but we have no special markup for tentative correction. (So normally, if I think a correction is good, I mark it up as a correction; when not so plausible, I just note it in a comment.) I'm not convinced with either hi as original reading or te as correction, but I'm not re-editing the text. (I need to keep telling myself that.) Use unclear cert="low" for gmā and put a space between g and m.
+-->
+<l n="d">satyan naḥ śriyam ity apāsta-rabhasāṁ śliṣyan prabhuḥ pātu vaḥ||</l>
+</lg>
+<lg n="5" met="sragdharā">
+<l n="a">śīryyac-chailendra-śr̥ṅga-prapatana-rabhasā<unclear>d</unclear> udyad
+ambhodhi-vīci</l>
+<l n="b"><unclear>vyā</unclear>saṅgā <seg met="+"><gap reason="illegible" quantity="1" unit="character"/></seg> <unclear>sahe</unclear>locchalad ati
+							<seg met="--++-++"><gap reason="illegible" quantity="7" unit="character"/></seg>
+<lb
+n="5"/><seg met="-"><gap reason="illegible" quantity="1" unit="character"/></seg> ghoraM|</l><!--
+BD: I'd put a space after °occhalad.
+-->
+<l n="c">uccair yyogīndra-līlā-viracita-vapuṣo vyasta-candrārkka-tāraṁ</l>
+<l n="d">yasyābhūd viśva-madhyāt kṣaya Iva sa <choice><sic>va</sic><corr>ba</corr></choice>li-śrī-nihantā hari<unclear>r vvaḥ</unclear>||</l>
+</lg>
+<lg n="6" met="upagīti"><certainty match="../@met" locus="value"/>
+<l n="a">jayati prathita-mahī-bhr̥<unclear>t-tu</unclear>ṅga-śiro-nihita-nijapādaḥ|</l>
+
+
+<l n="b">nityodita-pratāp<choice><sic>o</sic><corr>aḥ</corr></choice>
+							<unclear cert="low">pūrṇṇā</unclear>dityo
+							<seg met="===="><gap reason="illegible" quantity="4" unit="character"/></seg></l><!--
+For **** Mirashi says: sg. like dbhavo vaṁśaḥ is needed
+--><!--
+Mirashi says it is an Āryā. It is probably the upagīti variant.
+--><!--
+BD: Yes, unclear cert="low" for pūrṇṇā. For the asterisks, use proper lacuna markup, number of characters uncertain, approximately 4. I agree with upagīti.
+--></lg>
+<lg n="7" met="vasantatilakā"><!--
+BD: Pls spell vasantatilakā, not vasantatilakā. (See table of metres.)
+--><lb
+n="6"/>
+<l n="a"><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ā</supplied>sīd
+vilāsi-nija-rūpa-jita-smaro <supplied reason="subaudible">’</supplied>pi</l>
+<l n="b">śāntātmanām bhuvi sadā spr̥haṇīya-vr̥ttaḥ|</l>
+
+
+<l n="c" enjamb="yes">khyāto nr̥po nala Iti
+praṇatāri-cakra</l>
+<l n="d">-cūḍāmaṇi-bhramara-cum<choice><sic>v</sic><corr>b</corr></choice>ita-pāda-padmaḥ||</l>
+</lg>
+<lg n="8" met="śārdūlavikrīḍita">
+<l n="a">tasyābhūn ni<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ja</supplied>
+							<seg met="+-+---+++-+"><gap reason="illegible" quantity="11" unit="character"/></seg> bhū-bhr̥to</l>
+<l n="b">vindhyasye<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->va</supplied> na<unclear>ga</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->sya</supplied> <lb
+n="7"/><seg met="+---"><gap reason="illegible" quantity="4" unit="character"/></seg><unclear cert="low">ra-dr̥</unclear>ṣṭātikāntonnateḥ|</l>
+
+
+<l n="c">pr̥thvī-rāja Iti kramopacayinīṁ <choice><sic>v</sic><corr>b</corr></choice>bhrac chriyaṁ
+nirmmalāṁ</l> <!--
+BD: There's an unnecessary </l> After </choice>
+--><!--
+BD: °bhrac chriyaṁ space, not hyphen.
+--><!--
+The pdf looks like reading pr̥thvārāja, but that is just an error.
+-->
+<l n="d">sevyaḥ sarvva-janasya pāpa-vigamād revā-pravāhopamaḥ||</l>
+</lg>
+<lg n="9" met="śārdūlavikrīḍita">
+<l n="a"><seg met="+++"><gap reason="illegible" quantity="3" unit="character"/></seg> va jugupsitaḥ <unclear>sa</unclear>ma-<unclear cert="low">guṇaiḥ</unclear>
+							<seg met="++-++-+"><gap reason="illegible" quantity="7" unit="character"/></seg> </l>
+<l n="b"><seg met="+++--+-+--"><gap reason="illegible" quantity="10" unit="character"/></seg> va<unclear>dhai</unclear>r yotas sa yo dhi <seg met="-+"><gap reason="illegible" quantity="2" unit="character"/></seg>|</l><!--
+yotas is suspicious.
+--><!--
+BD: Perhaps dhairya+u something. I've had a quick look at the rubbing and can't offer anything better offhand; I agree vadhairyotassayodhi is unlikely.
+--><lb
+n="8"/>
+<l n="c"><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ni</supplied>ścintyāti-kali-prapāta-malinām ālokya
+loka-sthitiṁ</l>
+<l n="d">dhātrā sarvva-guṇaiḥ kr̥taḥ kṣiti-patir mmā <seg met="+"><gap reason="illegible" quantity="1" unit="character"/></seg> <unclear>tr̥</unclear> <seg met="++-"><gap reason="illegible" quantity="3" unit="character"/></seg> maḥ||</l><!--
+v8d Mirashi: ending probably māndhātr̥-rājopamaḥ.
+--></lg>
+<lg n="10" met="śārdūlavikrīḍita">
+<l n="a">tasyoccai<unclear cert="low">r llapudhe</unclear>śvara-vyati<unclear>kara-vyāptātma</unclear>-kāryo
+							<seg met="-+"><gap reason="illegible" quantity="2" unit="character"/></seg></l><!--
+Mirashi has a ? after rllapudhe, which is blurred in the pdf anyway, and is
+uncertain.
+--><!--
+BD: cert="low". Can't offer a better reading. vyatikara should not be hyphenated.
+-->
+<l n="b"><unclear>mi</unclear>trāṇāṁ <seg met="--+-+---+++-++-+"><gap reason="illegible" quantity="16" unit="character"/></seg>|</l>
+
+
+<l n="c"><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->vi</supplied>khyāto himavān ivā <seg met="--"><gap reason="illegible" quantity="2" unit="character"/></seg>
+<lb
+n="9"/><seg met="-"><gap reason="illegible" quantity="1" unit="character"/></seg>
+daḥ putraḥ patir bhū-bhr̥tāṁ</l>
+<l n="d">dhatte nāma virūparāja Iti yo dig-vandi-vr̥nda<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->stutaM</supplied>||</l>
+</lg>
+<lg n="11" met="śārdūlavikrīḍita">
+<l n="a"><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->rū</supplied>peṇāpratimaḥ <unclear>śru</unclear>tena
+ca <seg met="-"><gap reason="illegible" quantity="1" unit="character"/></seg> pāṁ satyānvitas tyā
+							<seg met="-+"><gap reason="illegible" quantity="2" unit="character"/></seg> </l><!--
+v11a. Mirashi: context would require sg. like śrutena vimalaḥ.
+Anyway, one syllable is missing after ca [. inserted] .
+--><!--
+BD: M restores tyāgināM at the end of 11b.
+-->
+<l n="b"><unclear cert="low">śauryya</unclear>syāyatana<unclear>m bhayaṁ param i</unclear>ti
+							<seg met="++-++-+"><gap reason="illegible" quantity="7" unit="character"/></seg>|</l>
+
+
+						<l n="c"/><l n="d"><seg met="+++--+-+---+++-++"><gap reason="illegible" quantity="17" unit="character"/></seg> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->gu</supplied>ṇair</l>
+<l n="e">yyasyoccai<unclear>r manu</unclear> <seg met="+-+"><gap reason="illegible" quantity="3" unit="character"/></seg> <lb
+n="10"/><seg met="-"><gap reason="illegible" quantity="1" unit="character"/></seg> sakalaṁ kīrttir jjagad bhrāmyate||</l>
+</lg>
+<lg n="12" met="śārdūlavikrīḍita">
+<l n="a">śatru-ghno <supplied reason="subaudible">’</supplied>ti<choice><sic>v</sic><corr>b</corr></choice>alena <seg met="+-"><gap reason="illegible" quantity="2" unit="character"/></seg><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->mada</supplied>no da<unclear>rppe</unclear>ṇa kīrttyā <seg met="-+"><gap reason="illegible" quantity="2" unit="character"/></seg> </l>
+<l n="b"><seg met="+"><gap reason="illegible" quantity="1" unit="character"/></seg> ntyā-rāma-tanu<choice><sic>r vvu</sic><corr>r bbu</corr></choice>dhaḥ
+pr̥thu-raṇe bhīṣmaḥ pratāpena ca|</l>
+
+
+<l n="c"><seg met="+++--+-+---+++-++-+"><gap reason="illegible" quantity="19" unit="character"/></seg> </l>
+<l n="d"><seg met="+++--+-+---+++-+"><gap reason="illegible" quantity="16" unit="character"/></seg> pyaḥ kr̥taḥ||</l>
+</lg>
+<lg n="13" met="āryā">
+<l n="ab">prati<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->pa</supplied><lb
+n="11" break="no"/><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->rvo</supplied>daya-bhājaḥ savitur i <seg met="++"><gap reason="illegible" quantity="2" unit="character"/></seg>
+dgamānurāga-dharaḥ|</l>
+
+
+<l n="cd"><seg met="=="><gap reason="illegible" quantity="2" unit="character"/></seg> ṇaparā
+							<seg met="========"><gap reason="illegible" quantity="8" unit="character"/></seg>||</l>
+</lg>
+<lg n="14" met="upajāti"><!--
+Or possibly even upendravajrā.
+-->
+<l n="a">vilāsinas tuṅgata<unclear>mā</unclear> <seg met="-++"><gap reason="illegible" quantity="3" unit="character"/></seg></l>
+<l n="b">vilāsatuṅgaḥ <seg met="--+-++"><gap reason="illegible" quantity="6" unit="character"/></seg>|</l>
+
+
+<l n="c"><seg met="=+-++--+-++"><gap reason="illegible" quantity="11" unit="character"/></seg> </l>
+<l n="d"><seg met="=+-++--+-++"><gap reason="illegible" quantity="11" unit="character"/></seg> </l>
+</lg>
+<lg n="15" met="śārdūlavikrīḍita">
+<l n="a"><seg met="++"><gap reason="illegible" quantity="2" unit="character"/></seg> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->kha</supplied><unclear>ḍga</unclear>latābhighāta <seg met="--"><gap reason="illegible" quantity="2" unit="character"/></seg><lb
+n="12"/><seg met="+"><gap reason="illegible" quantity="1" unit="character"/></seg>
+							<unclear>śaṅkā</unclear>ri-vr̥ndām bhuvaṁ</l>
+<l n="b">paśyemān na samāsty anena
+vijayādhī<unclear cert="low">śaṁ</unclear> stu<unclear cert="low">vaṁ</unclear>te <supplied reason="subaudible">’</supplied>nyataḥ|</l>
+
+
+<l n="c">pa <seg met="++--+-+---+++-++-+"><gap reason="illegible" quantity="18" unit="character"/></seg></l>
+<l n="d">manye dhīr api <seg met="+-+-"><gap reason="illegible" quantity="4" unit="character"/></seg> <unclear cert="low">vasu</unclear>dhā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ṁ</supplied> kālena
+							<unclear>nā</unclear> <seg met="+-+"><gap reason="illegible" quantity="3" unit="character"/></seg></l>
+</lg>
+<lg n="16" met="upajāti">
+<l n="a"><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ma</supplied>tvā sva-de<unclear>hānta</unclear>ritena <seg met="++"><gap reason="illegible" quantity="2" unit="character"/></seg></l>
+<l n="b"><seg met="++-"><gap reason="illegible" quantity="3" unit="character"/></seg> <unclear>varṇṇa</unclear>ntya<unclear>mu</unclear>dhākhi<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->lāni</supplied>|</l>
+<l n="a" enjamb="yes"><lb
+n="13"/><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->a</supplied>ntas tam uddiśya vidhāna<unclear>dr̥</unclear>ṣṭa</l>
+<l n="b">-dān<choice><sic>ā</sic><corr>a</corr></choice>kriyā<unclear>bhi</unclear>r nnanu sadya Eva</l><!--
+Metric problem: ṭṭa could be dr̥.
+--><!--
+BD: Definitely dr̥.
+-->
+<lg n="17" met="upajāti">
+<l n="a">yatho<unclear cert="low">cca</unclear>pi <seg met="+--"><gap reason="illegible" quantity="3" unit="character"/></seg> bhūta-lo<unclear>ke</unclear></l>
+<l n="b">pu<unclear>nā</unclear> <seg met="-++--"><gap reason="illegible" quantity="5" unit="character"/></seg> m eva <unclear>rājñā</unclear>M|</l>
+
+
+<l n="c">yugasya ya <seg met="+--+-++"><gap reason="illegible" quantity="7" unit="character"/></seg> </l>
+<l n="d">pūrttam pra<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->paśya</supplied>nti paraṁ smr̥tijñāḥ||</l>
+</lg>
+<lg n="18" met="upajāti">
+<l n="a"><seg met="=+-++--+-"><gap reason="illegible" quantity="9" unit="character"/></seg> je<unclear>bhyaḥ</unclear></l>
+<l n="b">cāturya-śā<unclear cert="low">stra</unclear> <seg met="--+"><gap reason="illegible" quantity="3" unit="character"/></seg> <lb
+n="14"/><seg met="-"><gap reason="illegible" quantity="1" unit="character"/></seg> bhāvāT</l>
+
+
+<l n="c">dharmmasya mūlaṁ ca yaśā vadanti</l>
+<l n="d"><seg met="=+-"><gap reason="illegible" quantity="3" unit="character"/></seg> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ta</supplied>smāt tad-upārjanīyaM||</l>
+</lg>
+<lg n="19" met="indravajrā">
+<l n="a">matvā calaṁ jīvitam alpa-sāraṁ</l>
+<l n="b"><choice><sic><unclear>v</unclear></sic><corr>b</corr></choice><unclear>uddhvā</unclear> kvacit kīrttanam eva kāyam|</l>
+
+
+<l n="c">kīrttiḥ sthirā yasya sa <unclear>jī</unclear>va-loke</l>
+<l n="d">tat puṇya-mūrttiś ci<unclear>ra-jīva</unclear> eva</l>
+</lg>
+<lg n="20" met="sragdharā">
+<l n="a"><seg met="++++-"><gap reason="illegible" quantity="5" unit="character"/></seg> rājñā daśa-vadana-bhujotkṣi<unclear>pta</unclear>kai<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->lāsa-</supplied>
+<lb
+n="15"/><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->śr̥</supplied>ṅga</l>
+<l n="b">śrī-hāri <unclear>sve</unclear>na dhāmnā
+sphurad-amala-sudhā<unclear>ni</unclear>tya-na<unclear cert="low">vye</unclear>ndunedaM|</l>
+</lg>
+<l n="c">devasyāśeṣa-duḥkha-prabhava-bhaya-nudaḥ kāritaṁ sthānam uccair</l>
+<l n="d">vviṣṇoḥ puṇyābhivr̥ddhyai <unclear>tri</unclear>daśa-jana-sukhātithya-bhājaḥ sutasya||</l>
+</lg>
+<lg n="21" met="sragdharā">
+<l n="a">prātar-<choice><sic>vv</sic><corr>bb</corr></choice>ālārkka-rocir
+vyatikara-vilasac-cāru-vāmādharābhāṁ</l>
+<l n="b"><choice><sic>v</sic><corr>b</corr></choice>ibhrāṇaṁ bhūmi-bhājāṁ <seg met="--"><gap reason="illegible" quantity="2" unit="character"/></seg> <lb
+n="16"/><seg met="-"><gap reason="illegible" quantity="1" unit="character"/></seg><!--
+v21b. Mirashi: lost akṣaras may be su-vi and śa
+--><unclear>da</unclear>m amalaṁ dr̥śyate dr̥ṣṭir asyāM|</l>
+
+
+<l n="c">yad dūrād eva siddhair aparam ati-mahad-bhūṣaṇaṁ bhūri-dhāmnaḥ</l>
+<l n="d">puṇyādhāraṁ sumeroḥ śikharam iva <unclear>pa</unclear>tal-lola-gaṅgā-pravāhaM||</l>
+</lg>
+<lg n="22" met="śārdūlavikrīḍita">
+<l n="a">agre tāvad upapramāṇa-<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->kara</supplied>ṇaṁ prakhyāta <seg met="++-+"><gap reason="illegible" quantity="4" unit="character"/></seg></l>
+<l n="b">kleśa-prāya<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->m idaṁ</supplied> vyayena mahatā sambhāra-sampā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->danaM</supplied></l>
+
+
+<lb
+n="17"/>
+<l n="c">tat-siddher ala<unclear cert="low">m utsu</unclear>khasya<!--
+utsukha? phps utsuka?
+--><!--
+BD: definitely not k in the rubbing; utsukha is very plausible, though not completely clear. I think ut + noun combinations are OK, "one whose happiness is up?"
+-->punar apy ā<unclear>bho</unclear>ga-cintā parā</l>
+<l n="d">loke sarvva-lalāma-kīrttana-kr̥tām āyāsa Evāditaḥ||</l><!--
+BD: probably kr̥tām SPACE āyāsa, but I'm not sure of the parsing.
+--></lg>
+<lg n="23" met="upajāti">
+<l n="a">karttur vvaraṁ pālayitā mato me</l>
+<l n="b">pā<unclear>lyaṁ</unclear> nirāyāsam ape <seg met="-++"><gap reason="illegible" quantity="3" unit="character"/></seg>|</l><!--
+pdf is blurred, pāsyaṁ is just a guess.
+--><!--
+BD: Corrected to pālyaṁ, though my scan isn't entirely clear either.
+-->
+<l n="c">sarvvo tilobhā <seg met="--+"><gap reason="illegible" quantity="3" unit="character"/></seg> paraṁ yat</l>
+<l n="d">sadarśatāṁ yāti <seg met="-+"><gap reason="illegible" quantity="2" unit="character"/></seg> pi rājñā<choice><sic>ṁ</sic><corr>M</corr></choice>||</l>
+</lg>
+<lg n="24" met="śārdūlavikrīḍita">
+<l n="a">vidhvastaiḥ pa <seg met="-+"><gap reason="illegible" quantity="2" unit="character"/></seg> <lb
+n="18"/><seg met="-"><gap reason="illegible" quantity="1" unit="character"/></seg> renna ca parāḥ pāpātmanāṁ sampadaḥ</l>
+<l n="b">sādhūnām api pūrvva-puṇya-vihitā dr̥śyanta Evojj<supplied reason="omitted">v</supplied>alāḥ|</l><!--
+BD: inscription: evojvalāḥ correction evojjvalāḥ. Supplying a j, not a v.
+-->
+<l n="c">tasmād dharmma-phala-prapañca-racitaṁ dr̥ṣṭvā vici<unclear>traṁ</unclear>
+							<seg met="-+"><gap reason="illegible" quantity="2" unit="character"/></seg> </l><!--
+ddharmma is blurred
+--><!--
+v24c. Mirashi: restore jagat [for . = ]
+-->
+<l n="d">tat tattvaṁ puruṣeṇa yena guṇinā <seg met="++-"><gap reason="illegible" quantity="3" unit="character"/></seg>
+vi<unclear>kka</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->mya</supplied>te||</l><!--
+v24d. vikkamyate? kram?
+--><!--
+BD: Looks like kka in my EI scan too. Nothing discernible in the rubbing: v is possible but unclear, i is clear, the next character is completely lost; the next one could perhaps be mya, but it has a pretty clear repha above it, so more likely rmma, possibly ryya. I fail to understand why Mirashi marked up "kka" as unclear but "mya" as supplied.
+--></lg>
+<lg n="25" met="śārdūlavikrīḍita">
+<l n="a">matvaivaṁ sva-śarīrakañ ca kr̥tibhi<unclear>r vvi</unclear>dva<unclear>dbhi</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->r</supplied> a<lb
+n="19" break="no"/><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->py a</supplied>sthiraṁ</l>
+<l n="b">lelāloka <seg met="-+-+"><gap reason="illegible" quantity="4" unit="character"/></seg> sukham api pratyūha-jālāvr̥taM|</l><!--
+lelāstoka and jālā are blurred and are just guesses.
+--><!--
+BD: My scan is cleare: lelāloka (corrected in text). I can't interpret this; perhaps it's a typo for lolāloka? The rubbing of the inscription is illegible. jālā is correct.
+-->
+<l n="c">śrutvā śakra-puras-sarā<unclear>ś ca</unclear> vibhavaiḥ puṇyātmabhiḥ sevitāḥ</l><!--
+BD: My EI scan reads purassarā, not sma. Corrected in text.
+-->
+<l n="d">kāryyaḥ kīrtta<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->na</supplied>-dāna-pālana-vidhau dharmmasya
+yatnaḥ <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->paraḥ</supplied></l>
+</lg>
+<lg n="26" met="śārdūlavikrīḍita">
+<l n="a"><seg met="+++-"><gap reason="illegible" quantity="4" unit="character"/></seg> vikāsino matima<unclear>tāṁ</unclear> bhāsanti
+bhā<choice><sic>co</sic><corr>vā</corr></choice> <seg met="-+"><gap reason="illegible" quantity="2" unit="character"/></seg> </l>
+<lb
+n="20"/>
+<l n="b"><seg met="+++"><gap reason="illegible" quantity="3" unit="character"/></seg> <unclear cert="low">yu</unclear>ta-dugdha-si<unclear cert="low">ktha</unclear>
+dhavalā <seg met="++"><gap reason="illegible" quantity="2" unit="character"/></seg> <unclear>ti</unclear> vakṣaḥ<unclear>sthale</unclear>|</l><!--
+v26a and b. Mirashi the first two pādas must have started with yāvat; v26a. bhāsanti for correct bhāsante
+-->
+<l n="c">yāvad gandha-vaho vi <seg met="+"><gap reason="illegible" quantity="1" unit="character"/></seg> nti ca jagat tāvat prayatnād imāṅ</l> <!--
+BD: prayatnād imāṅ space.
+-->
+<l n="d">kīrttim pālayataḥ priyā <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->nara</supplied>-pater nyāsāsthayā sa<unclear>j-ja</unclear>nāḥ||</l><!--
+BD: The rubbing is unclear, but vi = nti should probably be read as vi = tti: we expect a singular verb agreeing with gandha-vaho. (vibhartti, perhaps? not an action I'd associate with the wind but who knows.)
+--></lg>
+<lg n="27" met="anuṣṭubh">
+<l n="a">bhr̥tyo mittram apa<unclear>tyaṁ</unclear><seg met="-"><gap reason="illegible" quantity="1" unit="character"/></seg></l>
+<l n="b"><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->abhū</supplied>t tasyaiva bhūpateḥ|</l>
+
+
+<l n="c">durgga-gola Iti <seg met="+="><gap reason="illegible" quantity="2" unit="character"/></seg> </l><!--
+v27c. Mirashi: restore prājñaḥ
+--><lb
+n="21"/>
+<l n="d"><seg met="====-+-="><gap reason="illegible" quantity="8" unit="character"/></seg> </l>
+</lg>
+<lg n="28" met="praharṣiṇī">
+<l n="a"><seg met="+++----"><gap reason="illegible" quantity="7" unit="character"/></seg><unclear>to</unclear> nya-mārga-mātraṁ</l>
+<l n="b">vijñeyā praviracitā praśasti <seg met="++"><gap reason="illegible" quantity="2" unit="character"/></seg>|</l><!--
+nya in nyamārga is blurred and uncertain
+--><!--
+v28b. Mirashi for the last two =s: restore r eṣā
+-->
+<l n="c">rājñe <seg met="+--"><gap reason="illegible" quantity="3" unit="character"/></seg>
+vacanā vi<unclear>jā</unclear>ta-bhāvā</l>
+<l n="d">sad-vr̥ttety ati-mahatādareṇa mānyā||</l><!--
+v28d. (sa)dvr̥ is blurred and is just a guess.
+--><!--
+BD: None too clear in my scan either but I agree dvr̥ is almost certain. Rubbing is unclear but sadvr̥ is plausible.
+--></lg>
+<lg n="29" met="anuṣṭubh">
+<l n="a">jalaha<unclear>sti</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->su</supplied><unclear>te</unclear>neyaṁ</l>
+<l n="b">praśastiḥ śilpa-śāli<unclear>nā</unclear> </l>
+
+
+<lb
+n="22"/>
+<l n="c">utkīrṇṇā sūtra-dhāreṇa</l>
+<l n="d"><unclear>sādhunā</unclear> durggahastinā||</l>
+</lg>
+			</div>
+				<div type="apparatus">
+			<listApp>
+				<app loc="line">
+				<lem/>
+				<rdg source="bib:AuthorYear_01"/>
+				</app>
+			</listApp>
+		</div>
+		<div type="translation" source="bib:AuthorYear_01"><!--Indicate @resp or change @source when a translation is added -->
+		</div>
+		<div type="commentary">
+		</div>
+		<div type="bibliography">
+			<p/>
+			<listBibl type="primary">
+				<bibl n="siglum"><ptr target="bib:AuthorYear_01"/></bibl>
+			</listBibl>
+			<listBibl type="secondary">
+				<bibl n="siglum"><ptr target="bib:AuthorYear_01"/></bibl>
+			</listBibl>
+		</div>
+		</body>
+	</text>
+</TEI>

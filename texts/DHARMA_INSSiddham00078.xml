@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Khoh Charter 2 of Hastin, year 163</title>
+            <respStmt>
+               <resp>Original EpiDoc Encoding for Siddham</resp>
+               <persName ref="part:daba">
+                  <forename>Dániel</forename>
+                  <surname>Balogh</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>Conversion of encoding for DHARMA</resp>
+               <persName ref="part:daba">
+                  <forename>Dániel</forename>
+                  <surname>Balogh</surname>
+               </persName>
+            </respStmt>
+            <respStmt>
+               <resp>intellectual authorship of edition</resp>
+               <persName ref="part:daba">
+                  <forename>Dániel</forename>
+                  <surname>Balogh</surname>
+               </persName>
+            </respStmt>
+         </titleStmt>
+         <publicationStmt>
+            <authority>DHARMA</authority>
+            <pubPlace>Berlin</pubPlace>
+            <idno type="filename">DHARMA_INSSiddham00078</idno>
+            <!--
+If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
+-->
+            <availability>
+               <licence target="https://creativecommons.org/licenses/by/4.0/">
+                  <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+                  <p>Copyright (c) 2019-2025 by Dániel Balogh.</p>
+               </licence>
+            </availability>
+            <date from="2019" to="2025">2019-2025</date>
+         </publicationStmt>
+         <sourceDesc>
+            <msDesc>
+               <msIdentifier>
+                  <repository>DHARMAbase</repository>
+                  <idno/>
+               </msIdentifier>
+               <msContents>
+                  <summary/>
+               </msContents>
+               <physDesc>
+                  <handDesc>
+                     <p/>
+                  </handDesc>
+               </physDesc>
+            </msDesc>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <projectDesc>
+            <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
+         </projectDesc>
+         <schemaRef type="guide"
+                    key="EGDv01"
+                    url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+         <listPrefixDef>
+            <prefixDef ident="bib"
+                       matchPattern="([a-zA-Z0-9\-\_]+)"
+                       replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+               <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
+            </prefixDef>
+            <prefixDef ident="part"
+                       matchPattern="([a-z]+)"
+                       replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+               <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+            </prefixDef>
+         </listPrefixDef>
+      </encodingDesc>
+      <revisionDesc>
+         <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+         <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+         <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      </revisionDesc>
+   </teiHeader>
+   <text xml:space="preserve">
+		<body>
+			<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+
+				<div type="textpart" n="A"><head xml:lang="eng">Seal</head>
+					<ab><lb
+n="1"/>śrī-mahārāja-hastinaḥ<!--
+Note that this is only reported text. The only seal of Hastin of which we have at least a copy if not the seal itself (IN00079) has śrīr mmahārāja-hastinaḥ. Also, Cunningham (1879:12) translates the seal text of these plates as "The fortunate King Hastin" while translating that of IN00079 as "Of the fortunate Hastin" (or the other way round). Compare the seal impression in IN00091, which reads śrī-hasti-rājñaḥ - maybe this is what Cunningham saw on this seal?
+--></ab>
+				</div>
+				<div type="textpart" n="B"><head xml:lang="eng">Plates</head>
+<p><pb
+
+n="1v"/><!--
+This is not explicitly stated anywhere I've read, but I assume that double plates, each inscribed on one face only, use 1verso and 2 recto, with the blank side of each plate facing outward. For this particular set, the third plate seems to be an afterthought, so the same arrangement may hold for the first two plates.
+--><lb
+n="1"/>namo mahādevāya|<supplied reason="subaudible">.</supplied> svasti<supplied reason="subaudible">.</supplied> ttri-ṣaṣṭy-<space type="binding-hole"/>uttare bda-śate gupta-nr̥pa-rājya-bhuktau<!--
+The punctuation sign is a single horizontal dash, as are others in this inscription unless otherwise noted.
+--><lb
+n="2"/>mahāśvayuja-s<sic>ā</sic>ṁvat<unclear>s</unclear>are caittra-māsa-<space type="binding-hole"/>śukla-pakṣa-dvitīy<choice><sic>a</sic><corr>ā</corr></choice>yām<supplied reason="subaudible">.</supplied> Asy<choice><sic>a</sic><corr>ā</corr></choice><sic>n</sic> divasa<!--
+For the samvatsara, Fleet_1888:102n1 notes that Cunningham (ASIR 9) had thought the date was a mistake for 173, since we know from IN00077 that 156 was a mahāvaiśākha, so 163 ought to be a mahāmārgaśīrṣa (while 161 and 173 were mahāśvayujas, and 209 is confirmed as mahāśvayuja by the Khoh plate of Saṁkṣobha GE209.) Fleet thinks it unlikely that ṣaṣṭy could be a mistake for saptaty, and suggests that perhaps the year is really 161, but the composer accidentally wrote 162 and the engraver accidentally engraved 163 [this is what Fleet seems to say, but it looks like an unlikely coincidence to me], or that the Jovian cycle needs to be reconsidered, or that the officials were simply ignorant of the actual position of Jupiter.
+--><!--
+Fleet prints sāṁvatyare and emends to saṁvatsare. I think we can safely assume that the subscript character was meant to be sa; it does not curve left as far as a ya would, and has a noticeable if short left limb.
+--><lb
+n="3" break="no"/>-pūrvv<choice><sic>a</sic><corr>ā</corr></choice>yā<supplied reason="omitted">ṁ</supplied> nr̥pati-parivrājaka-kulotpannena mahārāja-devāḍhya-pranapt<supplied reason="omitted">r</supplied>ā<lb
+n="4"/>mahārāja-śrī-prabhañjana-naptrā mahārāja-dāmodara-sutena go-sahasra<lb
+n="5" break="no"/>-hasty-aśva-hiraṇyāneka-bhūmi-pradena guru-pitr̥-mātr̥-pūj<choice><sic>a</sic><corr>ā</corr></choice>-<subst><del rend="corrected">na</del><add place="inline">ta</add></subst>tpareṇā<!--
+For the wrongly inscribed na (which is not struck out), the correct ta is inscribed as a sort of reduced-size superscript between ja and na.
+--><lb
+n="6" break="no"/>tyanta-deva-brāhmaṇa-bhaktena naika-samara-śata-vijayinā sva-va<sic>n</sic>śāmoda-ka<lb
+n="7" break="no"/>reṇa mahārāja-śrī-hastinā sva-puṇyāpyāyanārtham agnisv<choice><sic>a</sic><corr>ā</corr></choice>mi-puttra-bharadvāja<lb
+n="8"/>sagottra-vāj<sic>i</sic>saneya-sabrahmac<choice><sic>a</sic><corr>ā</corr></choice>r<subst><del rend="corrected">u</del><add place="inline">u</add></subst>ṇe devasvāmine śarvvasvāmine ca<!--
+The r of cāriṇe has both an u and an i mātrā. I assume the former was corrected without deletion to the latter. Fleet simply transcribes it as °caruïṇe, emending to °cāriṇe.
+--><!--
+Fleet also sees correction in devasvāmine, in which, he says, the final e was first engraved as ai and then corrected by partial erasure of the upper stroke of ai.
+--><lb
+n="9"/>gorisvāmine vāj<sic>i</sic>saneya-sabrahmacāriṇe kautsa-sagottrāya di<lb
+n="10" break="no"/>vākarasvāmine ca sv<choice><sic>a</sic><corr>ā</corr></choice>tisvāmine vāj<sic>a</sic>saneya-sabr<choice><sic>ā</sic><corr>a</corr></choice>hmacāriṇe bhārgga<lb
+n="11" break="no"/>va-sagottrāya varuṇaśarmma<sic>ṇaḥ</sic> bappasvāmine vāsula-sagottr<choice><sic>a</sic><corr>ā</corr></choice>ya <lb
+n="12"/>kaṭha-sabrahmacāriṇe kumāradeva<sic>reva</sic> vāj<sic>i</sic>saneya-sabrahmacāri<!--
+Fleet emends kumāradevareva to kumāradevāya, which is logical, but the mistake seems very strange.
+--><lb
+n="13" break="no"/><sic>na</sic> māt<unclear>r̥</unclear>śarmma<sic>ḥ</sic> nāgaśa<supplied reason="omitted">r</supplied>mma rukharadeva<sic>ḥ</sic> kaud<unclear>r</unclear>avadeva<sic>ḥ</sic> viṣṇ<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->u</supplied>deva<sic>ḥ</sic><!--
+The list of names seems to deteriorate as it progresses. First we just had a genitive among the datives, but now we have a mixture of nominative and compound, as well as more and more grammatical and spelling errors.
+--><!--
+The first character of rukharadeva looks more like a damaged śa than ru to me, and the second character is also quite different from kha in likhita, l28. Could this be śaṅkaradeva? (The second character doesn't look like ṅka either, but I have no better guess.)
+--><pb
+
+n="2r"/><lb
+n="14"/>devanāga-kumārasena <gap reason="illegible" quantity="1" unit="character"/> rudraśarmma <space type="binding-hole"/>deva<unclear cert="low">dā</unclear>ṅga<unclear cert="low">rāḥ</unclear> lamvoṣṭha deda<unclear>mita</unclear><!--
+After kumārasena there is something that Fleet takes to be "some letter ... engraved and then cancelled", which may be right. Alternatively, it could be a punctuation character. Fleet also prints a superfluous punctuation character between rudraśarmma and the next name, but only a dot is visible in the rubbing, in the middle of a rather long space. That space is above the hole and, with the ring attached, this bit of the plate would have been next to impossible to read, so I believe this is just blank space.
+--><!--
+The name devadāṅgarāḥ is Fleet's reading except for the visarga, which he does not have. He does, however, suggest that the name may be intended for devadāṅgiraḥ; I think the reading may in fact be °ṅgarāḥ for °ṅgirāḥ. I'm very skeptical about dā, however; it does slightly resemble dā in l25 (tadā), but there is a very clear vertical limb on the right here, so it looks much more like pa/pā, ma/mā or ba.
+--><!--
+The last name, dedamita, is also problematic. Fleet suggests it may have been meant as devamitra, which sounds plausible. The second character may in fact be va (with the right-hand stroke lost); the next one could be mi, pi or bi, and the last seems to have an e mātrā over it.
+--><lb
+n="15"/>mah<unclear>ā</unclear>deva guṇṭhaka Ity evam-ādibhyo <choice><sic>brāhmaṇebhyottare</sic><corr>brāhmaṇebhya Uttare</corr></choice> paṭṭe korppari<lb
+n="16" break="no"/>kāgrahāraḥ sodraṅgaḥ soparikaraḥ A-cāṭa-bhaṭa-prāveśyo tisr̥ṣṭa<!--
+Fleet reads a superfluous avagraha at the end of l16. On the facsimile, this is just a pair of minuscule dots, far less conspicuous than other visargas, so I ignore them.
+--><lb
+n="17" break="no"/>s</p>
+<p>tasyāghāṭāḥ<supplied reason="subaudible">.</supplied> pūrvveṇa korppara-garttā| Uttareṇānimuktaka-koṇakaḥ|<!--
+The n in °ānimuktaka° is quite clear but I think emending to °ātimuktaka° would be quite plausible.
+--><!--
+Fleet does not read (or supply) a punctuation sign at the end of l17, but there is a clear dash in between the two dots of the visarga, a practice found in some other inscriptions as well, so I'm assuming there is actual original puncutation here.
+--><lb
+n="18"/>vaṅgara-grāmakasya dakṣiṇa-p<unclear>ā</unclear>rśve valaka-maddhyema vr̥kaḥ Amvrāta-saṁtāra<!--
+Fleet emends the end of the line to °maddhyame vr̥kaḥ amrāta-saṁbhārakaḥ (this latter is tentative; kaḥ is in the next line). Most of this is plausible, but vr̥kaḥ is quite annoying and should clearly be emended to vr̥kṣaḥ. Actually, there are a couple of spots below ka in the facsimile, which may be traces of a subscript ṣa, and further, Fleet may actually have read vr̥kṣaḥ (so vr̥kaḥ may be a typo in CII); if he _had_ read vr̥kaḥ, I expect he would have commented on it.
+--><lb
+n="19" break="no"/>kaḥ| paścimena nāgasarī| dakṣiṇena balavarmma-paricchedaḥ<!--
+After kaḥ at he beginning of l19, Fleet reads no punctuation (but supplies a daṇḍa). Though the facsimile is not as clear as at the end of l17, I'm pretty sure we have another specimen of a dash combined with a visarga. After paricchedaḥ, I can't see the visarga but believe Fleet that there was one; there may also have been a dash with it.
+--></p>
+<p>tad asma<lb
+n="20" break="no"/><supplied reason="omitted">t</supplied>-kulotthair mmat-pāda-<choice><sic>m</sic><corr>p</corr></choice>iṇḍopajīvibhi<subst><del rend="corrected">r nna</del><add place="overstrike">r vvā</add></subst> kālāntareṣv api na vyāghātaḥ kāryya<supplied reason="omitted">ḥ</supplied><supplied reason="subaudible">.</supplied>
+<lb
+n="21"/>Evam <choice><sic>ājñāpta</sic><corr>ājñapte</corr></choice> yo nyathā kuryyā<choice><sic>n</sic><corr>t</corr></choice> tam ahaṁ dehāntara-gato pi mahatāvadhyāne<lb
+n="22" break="no"/>na <choice><sic>nirddahed</sic><corr>nirddaheyam</corr></choice><supplied reason="subaudible">.</supplied> uktañ ca bhagavatā paramarṣiṇā veda-vyāsena|
+</p>
+<lg n="1" met="anuṣṭubh">
+<l n="a">pūrvva-dattā<unclear>ṁ</unclear> <lb
+n="23"/>dvijātibhyo</l>
+<l n="b">yatnād rakṣ<surplus>y</surplus>a yudhiṣṭhira<surplus>ḥ</surplus>|<!--
+Again, Fleet prints no original, only supplied punctuation at the end of the half-verse, but there is a clear dash between the dots of the superfluous visarga.
+--></l>
+<l n="c">mahī<unclear>ṁ</unclear> mah<unclear>i</unclear>matāṁ śreṣṭha</l>
+<l n="d">dānāc chre<lb
+n="24" break="no"/>yo nupālanaṁ|</l>
+</lg>
+<lg n="2" met="anuṣṭubh">
+<l n="a">bahubhir vvasudhā bhuktā</l>
+<l n="b">rājabhiḥ sagarādibhiḥ<!--
+Here I see no dash in the visarga, but there may have been one. I assume there's no original punctuation.
+--></l>
+<l n="c"><choice><sic>s</sic><corr>y</corr></choice>asya ya<lb
+n="25" break="no"/><surplus>ya</surplus>sya yadā bhūmis</l>
+<l n="d">tasya <supplied reason="omitted">tasya</supplied> tadā phala<unclear>M</unclear><!--
+At the end of v2 Fleet reads "phalan" (emending to phalam) and no punctuation. The character after la doesn't look like n to me and I assume it's a halanta m, slightly smaller than a regular ma, and with the left vertical lost to damage. Alternatively, it could be a punctuation dash with some random scratches around it, in which case we'd have to assume an anusvāra, now invisible, above the preceding la.
+--></l>
+</lg>
+<lg n="3" met="anuṣṭubh">
+<l n="a">sva-dattā<supplied reason="omitted">ṁ</supplied> para-dattāṁ vā</l>
+<l n="b">yo hare<lb
+n="26" break="no"/>ta vasundharā<unclear>ṁ||</unclear></l><!--
+At the end of this half-verse Fleet reads °dharāḥ (emending to dharām) and no punctuation. To me his visarga looks like a double dash (the two visargas in l24 above are also dash-like, but these dashes here are markedly longer and more curved), and there is a small dot that may be an anusvāra over the rā.
+-->
+<l n="c">sa viṣṭh<choice><sic>a</sic><corr>ā</corr></choice>yā<supplied reason="omitted">ṁ</supplied> kr̥mir bhūtvā</l>
+<l n="d">pi<sic>tra</sic>bhi<supplied reason="omitted">ḥ</supplied> saha pacyate</l>
+</lg>
+<lg n="4" met="anuṣṭubh">
+<l n="a"><pb
+
+n="3r"/><lb
+n="27"/>ṣaṣṭ<supplied reason="lost">iṁ</supplied> <unclear>va</unclear><supplied reason="lost">r</supplied><choice><sic>vv</sic><corr>ṣ</corr></choice>a-sahasrāṇi</l>
+<l n="b">svargge modati bh<choice><sic>u</sic><corr>ū</corr></choice>mida<supplied reason="omitted">ḥ</supplied></l><!--
+Fleet reads a visarga here; I don't see one, but the end of the da sort of bulges, which may be one of the dots of a damaged visarga.
+-->
+<l n="c">ācchet<supplied reason="omitted">t</supplied>ā <lb
+n="28"/>cānumant<choice><sic>a ma</sic><corr>ā ca</corr></choice></l>
+<l n="d"><choice><sic>na</sic><corr>tā</corr></choice>ny eva narake vase<supplied reason="omitted">T</supplied><!--
+Fleet reads ma tany eva, but the second character in this sequence is very definitely na.
+--></l>
+</lg>
+<p>likhitañ ca vakkrām<choice><sic>a</sic><corr>ā</corr></choice>tya-prana<lb
+n="29" break="no"/>ptr<surplus>anatr</surplus>ā bhogika-naradatta-napt<unclear>r</unclear>ā bhogika-ravidatta-putre<sic>n</sic>a mahā<!--
+On the reading pranaptranatrā, Fleet comments, "mistakes of this kind would occur through the engraver not spacing the aksharas out as far as they were spaced in the painted arrangement on the copper. He would thus come to engrave naptra (for naptrâ) two aksharas before the place intended for it; and he then ... repeated the aksharas, by engraving the painted marks still remaining on the plate." This sounds rather convoluted to me; simple eyeskip (perhaps by whoever painted on the copper while looking at a cloth original) seems more likely, with the little twist of the missing p in the second iteration. However, also compare IN00079/18, where we have five generations listed and the genealogy begins with a very similar expression.
+--><!--
+Fleet prints the r of (the last) naptrā as supplied; I think it was probably there in the original, but it's damaged as well as mingled with the superscript r of rya in the next line.
+--><lb
+n="30" break="no"/>-sāndhivigrahika-s<choice><sic>u</sic><corr>ū</corr></choice>ryadat<supplied reason="omitted">t</supplied>ena<choice><sic>ḥ</sic><corr>|</corr></choice> bhagraho dūtaka<supplied reason="omitted">ḥ</supplied></p>
+				</div>
+			</div>
+				<div type="apparatus">
+			<listApp>
+				<app loc="line">
+				<lem/>
+				<rdg source="bib:AuthorYear_01"/>
+				</app>
+			</listApp>
+		</div>
+		<div type="translation" source="bib:AuthorYear_01"><!--Indicate @resp or change @source when a translation is added -->
+		</div>
+		<div type="commentary">
+		</div>
+		<div type="bibliography">
+			<p/>
+			<listBibl type="primary">
+				<bibl n="siglum"><ptr target="bib:AuthorYear_01"/></bibl>
+			</listBibl>
+			<listBibl type="secondary">
+				<bibl n="siglum"><ptr target="bib:AuthorYear_01"/></bibl>
+			</listBibl>
+		</div>
+		</body>
+	</text>
+</TEI>
