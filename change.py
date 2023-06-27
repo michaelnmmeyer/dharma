@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, subprocess
 
 FIFO_ADDR = "change.hid"
 
@@ -56,11 +56,20 @@ tfd-nusantara-philology
 tfd-sanskrit-philology
 """.strip().split()
 
-def update_repo(name):
-	subprocess.run(["git", "-C",  f"repos/{name}", "pull"], check=True)
+def command(*cmd):
+	print(*cmd, file=sys.stderr)
+	subprocess.run(cmd, check=True)
 
-def handle(name):
+def update_repo(name):
+	command("git", "-C",  f"repos/{name}", "pull")
+
+def clone_all():
+	for name in REPOS:
+		command("git", "clone", f"git@github.com:erc-dharma/{name}.git", f"repos/{name}")
+
+def handle_change(name):
 	print(name)
+	update_repo(name)
 
 def read_changes(fd):
 	buf = ""
@@ -71,13 +80,12 @@ def read_changes(fd):
 		buf += data.decode("ascii")
 	names = set(buf.splitlines())
 	if "ALL" in names:
-		handle("ALL")
-		return
+		names = REPOS
 	for name in names:
 		if not name in REPOS:
 			print("junk %r" % name, file=sys.stderr)
 			continue
-		handle(name)
+		handle_change(name)
 
 def main():
 	try:
