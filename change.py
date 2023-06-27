@@ -67,10 +67,6 @@ def clone_all():
 	for name in REPOS:
 		command("git", "clone", f"git@github.com:erc-dharma/{name}.git", f"repos/{name}")
 
-def handle_change(name):
-	print(name)
-	update_repo(name)
-
 def read_changes(fd):
 	buf = ""
 	while True:
@@ -83,22 +79,37 @@ def read_changes(fd):
 		names = REPOS
 	for name in names:
 		if not name in REPOS:
-			print("junk %r" % name, file=sys.stderr)
+			print("EV junk %r" % name, file=sys.stderr)
 			continue
-		handle_change(name)
+		print(f"EV {name}", file=sys.stderr)
+		update_repo(name)
 
 def main():
+	if not os.path.exists("repos"):
+		os.mkdir("repos")
+		clone_all()
 	try:
-		os.unlink(FIFO_ADDR)
-	except FileNotFoundError:
+		os.mkfifo(FIFO_ADDR)
+	except FileExistsError:
 		pass
-	os.mkfifo(FIFO_ADDR)
 	while True:
 		fd = os.open(FIFO_ADDR, os.O_RDONLY)
 		try:
 			read_changes(fd)
 		finally:
 			os.close(fd)
+
+# To be used by the client
+def notify(name):
+	try:
+		os.mkfifo(FIFO_ADDR)
+	except FileExistsError:
+		pass
+	fd = os.open(FIFO_ADDR, os.O_RDWR | os.O_NONBLOCK)
+	try:
+		os.write(fd, name.encode("ascii") + b"\n")
+	finally:
+		os.close(fd)
 
 if __name__ == "__main__":
 	main()

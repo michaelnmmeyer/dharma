@@ -2,22 +2,10 @@
 
 import os, sqlite3, json, sys
 from datetime import datetime
-import bottle
 
-this_dir = os.path.dirname(os.path.abspath(__file__))
+from dharma import config, bottle, change
 
-# XXX configure somewhere else?
-if os.getenv("HOST") == "beta":
-	# Production server
-	BOTTLE_RELOAD = False
-	DEBUG = False
-	DB_DIR = "/home/michael/dharma.db"
-else:
-	BOTTLE_RELOAD = True
-	DEBUG = True
-	DB_DIR = this_dir
-
-DB_PATH = os.path.join(DB_DIR, "github-log.sqlite")
+DB_PATH = os.path.join(config.DB_DIR, "github-log.sqlite")
 
 DB = sqlite3.connect(DB_PATH)
 DB.executescript("""
@@ -29,7 +17,7 @@ create table if not exists logs(
 );
 """)
 
-NGRAM_DB = sqlite3.connect(os.path.join(DB_DIR, "ngram.sqlite"))
+NGRAM_DB = sqlite3.connect(os.path.join(config.DB_DIR, "ngram.sqlite"))
 
 @bottle.route("/")
 def index():
@@ -46,6 +34,8 @@ def show_commit_log():
 		for commit in doc["commits"]:
 			if commit["author"]["email"] in ("github-actions@github.com", "readme-bot@example.com"):
 				continue
+			if not "username" in commit["author"]:
+				continue
 			author = commit["author"]["username"]
 			hash = commit["id"]
 			url = commit["url"]
@@ -54,7 +44,7 @@ def show_commit_log():
 
 @bottle.route("/texts")
 def show_texts():
-	path = os.path.join(this_dir, "texts")
+	path = os.path.join(config.this_dir, "texts")
 	texts = []
 	files = os.listdir(path)
 	files.sort()
@@ -73,7 +63,7 @@ def show_texts():
 
 @bottle.route("/texts/<name>")
 def show_text(name):
-	path = os.path.join(this_dir, "texts", name)
+	path = os.path.join(config.this_dir, "texts", name)
 	if os.path.abspath(path) != path:
 		abort(400, "Fishy request")
 	if not os.path.exists(path + ".xml"):
@@ -114,9 +104,12 @@ def show_verse_parallels(id):
 
 @bottle.post("/github-event")
 def handle_github():
-	doc = json.dumps(bottle.request.json, ensure_ascii=False, separators=(",", ":"))
+	js = bottle.request.json
+	doc = json.dumps(js, ensure_ascii=False, separators=(",", ":"))
 	DB.execute("insert into logs values(strftime('%s', 'now'), ?)", (doc,))
 	DB.commit()
+	repo = js["repository"]["name"]
+	change.notify(repo)
 
 class ServerAdapter(bottle.ServerAdapter):
 	def run(self, handler):
@@ -134,4 +127,4 @@ class ServerAdapter(bottle.ServerAdapter):
 			server.server_close()
 
 if __name__ == "__main__":
-	bottle.run(host="localhost", port=8023, debug=DEBUG, reloader=BOTTLE_RELOAD, server=ServerAdapter)
+	bottle.run(host=config.HOST, port=config.PORT, debug=config.DEBUG, reloader=not config.DEBUG, server=ServerAdapter)

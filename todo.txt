@@ -1,9 +1,9 @@
-== Plans
+XXX use relative imports or instead "import dharma.xx"?
+
 
 Make backups of the dbs!
 
-
-# Validation
+# Validation and change detection
 
 Must be able to show all most recent files together with their validation
 status. Be able to sort by repo, validation status, last mod date, name (add
@@ -23,10 +23,6 @@ For each text we validate, must keep track of:
 I don't think it's necessary to do things at the file level. Even moreso
 because files can be deleted/added. It's simpler to proceed repo per repo. Each
 time we have a github push, revalidate everything in the corresponding repo.
-
-Must hold a lock while revalidating stuff. Does bottle use multiple threads? or
-processes? For flask, see
-https://flask.palletsprojects.com/en/2.3.x/patterns/celery/
 
 The simpler method is to run an extra python process for all the stuff related
 to updates, and send it some basic commands. This way we can test things
@@ -53,6 +49,12 @@ Must put the various repos somewhere not in the main repo viz. don't track them
 at all, don't use submodules. Pass the location of the "repos" dir with an env
 var or something, like for the dbs directory. Maybe create a python config file
 to clarify things.
+
+---
+
+An an
+
+
 
 ---
 
