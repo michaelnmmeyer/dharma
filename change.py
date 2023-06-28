@@ -81,9 +81,9 @@ def read_changes(fd):
 		names = REPOS
 	for name in names:
 		if not name in REPOS:
-			print("EV junk %r" % name, file=sys.stderr)
+			print("junk repo name: %r" % name, file=sys.stderr)
 			continue
-		print(f"EV {name}", file=sys.stderr)
+		print(f"updating {name}", file=sys.stderr)
 		update_repo(name)
 
 def main():

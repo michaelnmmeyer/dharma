@@ -25,7 +25,7 @@ CREATE TABLE bibliography(
 );
 """
 
-conn = sqlite3.connect(os.path.join(config.DB_DIR, "biblio.sqlite"))
+conn = sqlite3.connect(os.path.join(config.DBS_DIR, "biblio.sqlite"))
 
 def sort_value(val):
 	if not isinstance(val, dict):

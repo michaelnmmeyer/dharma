@@ -1,42 +1,4 @@
-rm tfd-nusantara-philology/batak ; Roberta Zollo (identifiant DHARMA: rozo) ;
-s'il y a des choses
-/home/michael/programs/dharma/repos/tfd-nusantara-philology/index-batak-critical.html
-/home/michael/programs/dharma/repos/tfd-nusantara-philology/index-batak-diplomatic.html
----
 ajouter XSLT pour em. Sanderson ; éditer schéma + guide
-
-
-
-
----
-
-must keep track of older commits to aid fixing invalid references that were
-valid at some point
-
-table 'commits'
-* primary key: repo name + commit hash
-* repo name
-* commit hash
-* commit date
-* push date (if unknown, use the commit date)
-should have a way to extract easily the latest commit hash of a repo given its
-name
-
-table 'texts' for enumerating texts, containing
-* primary key: text name + repo name + commit hash
-* text name without the extension
-* repo name + commit hash (for joining with 'commits')
-* full path of the text within the repo, without a leading slash, and including
-  the file name with the XML extension
-* absolute location of the corresponding HTML file that appears on github.io
-  (absolute because the HTML might appear in a repo other than the source one,
-  I don't know)
-
-When a repo is updated, we gather all texts within the repo, delete records
-from 'texts' where repo=the repo, and insert newer records.
-
-
-
 
 ---
 
@@ -44,22 +6,89 @@ XXX use relative imports or instead "import dharma.xx"?
 
 Make backups of the dbs!
 
+---
+
+must keep track of older commits to aid fixing invalid references that were
+valid at some point
+
+table 'commits'
+(primary key: repo name + commit hash)
+* repo name
+* commit hash (full)
+* commit date
+* push date (if unknown, use the commit date)
+should have a way to extract easily the latest commit hash of a repo given its
+name
+
+table 'texts' for enumerating texts, containing:
+(primary key: text name + repo name + commit hash)
+XXX how to check that texts are unique at anny given point)
+* text name without the extension viz. text id
+* repo name + commit hash (for joining with 'commits')
+* full path of the text within the repo, without a leading slash, and including
+  the file name with the XML extension.
+* location of the corresponding HTML file within the repo
+With this information, we can extract a particular version of a text from the
+appropriate repo, we can also link to it on github.
+
+table 'validation' for error messages; this must be separated from texts
+because there can be several different validations for a single file
+(primary key: text name + repo name + commit hash)
+* text name without the extension
+* repo name + commit hash
+* hash of the commit of my repo that was used for validation. note that we must
+  add schemas to our repo
+* valid flag (null if unknown, otherwise true or false)
+* if invalid, summary of errors in some json format
+* when we validated the file
+
+Should also have a table where we hold the names of all XML files (texts as
+well as metadata files), to make sure texts are unique.
+
+pragma foreign_keys = on;
+pragma journal_mode = wal;
+pragma page_size = 8192;
+
+create table commits(
+   repo text,
+   commit_hash text,
+   commit_date integer,
+   push_date integer,
+   primary key(repo, commit_hash)
+);
+
+create table texts(
+   name text,
+   repo text,
+   commit_hash text,
+   xml_path text,
+   html_path text,
+   primary key(name, repo, commit_hash),
+   foreign key(repo, commit_hash) references commits(repo, commit_hash)
+);
+
+create table validation(
+   name text,
+   repo text,
+   commit_hash text,
+   code_hash text,
+   valid boolean,
+   errors json,
+   primary key(name, repo, commit_hash),
+   foreign key(name, repo, commit_hash) references texts(name, repo,
+      commit_hash),
+);
+
+---
+
 # Validation and change detection
 
 Must be able to show all most recent files together with their validation
 status. Be able to sort by repo, validation status, last mod date, name (add
 up/down arrows to each of these columns).
 
-For each text we validate, must keep track of:
-
-* file hash
-* full path, relative to the root of the repo
-* repo name
-* commit hash of the repo the file belongs to
-* name of the schema against which it's validated and commit hash of
-  the corresponding project-documentation
-* commit hash of my repo (the actual validation code)
-* when we validated the file
+When a repo is updated, we gather all texts within the repo, delete records
+from 'texts' where repo=the repo, and insert newer records.
 
 I don't think it's necessary to do things at the file level. Even moreso
 because files can be deleted/added. It's simpler to proceed repo per repo. Each

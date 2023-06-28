@@ -5,7 +5,7 @@ from datetime import datetime
 
 from dharma import config, bottle, change
 
-GIT_DB = sqlite3.connect(os.path.join(config.DB_DIR, "github-log.sqlite"))
+GIT_DB = sqlite3.connect(os.path.join(config.DBS_DIR, "github-log.sqlite"))
 GIT_DB.executescript("""
 pragma journal_mode = wal;
 pragma synchronous = normal;
@@ -15,7 +15,7 @@ create table if not exists logs(
 );
 """)
 
-NGRAM_DB = sqlite3.connect(os.path.join(config.DB_DIR, "ngram.sqlite"))
+NGRAM_DB = sqlite3.connect(os.path.join(config.DBS_DIR, "ngram.sqlite"))
 
 @bottle.route("/")
 def index():
