@@ -4,12 +4,22 @@ import os, re, sys
 from bs4 import BeautifulSoup
 from cleanup import cleanup_file
 
+from dharma import config
+
 def complain(s):
 	print(f"BUG: {s}", file=sys.stderr)
 
 files_to_ignore = {"DHARMA_BestAuthorities.xml"}
 
+repos_to_ignore = {
+	"digital-areal",
+	"mdt-authorities",
+	"project-documentation",
+}
+
 def iter_texts_in_repo(name):
+	if name in repos_to_ignore:
+		return
 	path = os.path.join("repos", name)
 	for root, dirs, files in os.walk(path):
 		# There are generated files in
@@ -40,17 +50,9 @@ def iter_texts_in_repo(name):
 				continue
 			yield os.path.join(root, file)
 
-repos_to_ignore = {
-	"digital-areal",
-	"mdt-authorities",
-	"project-documentation",
-}
-
 def iter_texts():
 	unique = {}
-	for repo in os.listdir("repos"):
-		if repo in repos_to_ignore:
-			continue
+	for repo in os.listdir(config.REPOS_DIR):
 		for file in iter_texts_in_repo(repo):
 			base = os.path.basename(file)
 			unique.setdefault(base, []).append(file)

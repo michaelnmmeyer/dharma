@@ -1,6 +1,8 @@
 import os, sys, subprocess
 
-FIFO_ADDR = "change.hid"
+from dharma import config
+
+FIFO_ADDR = os.path.join(config.REPOS_DIR, "change.hid")
 
 REPOS = """
 aditia-phd

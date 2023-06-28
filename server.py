@@ -5,10 +5,8 @@ from datetime import datetime
 
 from dharma import config, bottle, change
 
-DB_PATH = os.path.join(config.DB_DIR, "github-log.sqlite")
-
-DB = sqlite3.connect(DB_PATH)
-DB.executescript("""
+GIT_DB = sqlite3.connect(os.path.join(config.DB_DIR, "github-log.sqlite"))
+GIT_DB.executescript("""
 pragma journal_mode = wal;
 pragma synchronous = normal;
 create table if not exists logs(
@@ -26,7 +24,7 @@ def index():
 @bottle.route("/commit-log")
 def show_commit_log():
 	commits = []
-	for date, doc in DB.execute("select date, data from logs order by date desc"):
+	for date, doc in GIT_DB.execute("select date, data from logs order by date desc"):
 		doc = json.loads(doc)
 		ret = {}
 		repo = os.path.basename(doc["repository"]["full_name"])
@@ -97,7 +95,7 @@ def show_verse_parallels(id):
 		abort(404, "No such verse")
 	loc = " ".join(loc)
 	verses = []
-	for (id, file, verse, orig, coeff) in NGRAM_DB.execute("""SELECT id, file, verse, orig, coeff
+	for id, file, verse, orig, coeff in NGRAM_DB.execute("""SELECT id, file, verse, orig, coeff
 		FROM verses JOIN verses_jaccard ON id = id2 WHERE id1 = ? ORDER BY coeff DESC""", (id,)):
 		verses.append((id, file, verse, orig.replace("\n", "<br/>"), coeff))
 	return bottle.template("verse_parallels.tpl", verses=verses, loc=loc)
@@ -106,8 +104,8 @@ def show_verse_parallels(id):
 def handle_github():
 	js = bottle.request.json
 	doc = json.dumps(js, ensure_ascii=False, separators=(",", ":"))
-	DB.execute("insert into logs values(strftime('%s', 'now'), ?)", (doc,))
-	DB.commit()
+	GIT_DB.execute("insert into logs values(strftime('%s', 'now'), ?)", (doc,))
+	GIT_DB.commit()
 	repo = js["repository"]["name"]
 	change.notify(repo)
 
@@ -127,4 +125,5 @@ class ServerAdapter(bottle.ServerAdapter):
 			server.server_close()
 
 if __name__ == "__main__":
-	bottle.run(host=config.HOST, port=config.PORT, debug=config.DEBUG, reloader=not config.DEBUG, server=ServerAdapter)
+	bottle.run(host=config.HOST, port=config.PORT, debug=config.DEBUG,
+		reloader=not config.DEBUG, server=ServerAdapter)

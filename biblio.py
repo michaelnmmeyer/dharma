@@ -8,9 +8,9 @@
 import os, json, sqlite3, unicodedata, html
 import warnings
 from collections import OrderedDict
-
 from pyzotero import zotero
 from bs4 import BeautifulSoup, Tag, MarkupResemblesLocatorWarning
+from dharma import config
 
 LIBRARY_ID = 1633743
 LIBRARY_TYPE = "group"
@@ -25,7 +25,7 @@ CREATE TABLE bibliography(
 );
 """
 
-conn = sqlite3.connect("biblio.sqlite")
+conn = sqlite3.connect(os.path.join(config.DB_DIR, "biblio.sqlite"))
 
 def sort_value(val):
 	if not isinstance(val, dict):

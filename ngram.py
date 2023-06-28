@@ -2,8 +2,9 @@ import os, sys, sqlite3
 from glob import glob
 from bs4 import BeautifulSoup
 from dharma.transform import normalize_space
+from dharma import config
 
-conn = sqlite3.connect("ngram.sqlite")
+conn = sqlite3.connect(os.path.join(config.DB_DIR, "ngram.sqlite"))
 
 def normalize(s):
 	buf = []
