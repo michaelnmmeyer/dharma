@@ -1,5 +1,46 @@
-XXX use relative imports or instead "import dharma.xx"?
+rm tfd-nusantara-philology/batak ; Roberta Zollo (identifiant DHARMA: rozo) ;
+s'il y a des choses
+/home/michael/programs/dharma/repos/tfd-nusantara-philology/index-batak-critical.html
+/home/michael/programs/dharma/repos/tfd-nusantara-philology/index-batak-diplomatic.html
+---
+ajouter XSLT pour em. Sanderson ; éditer schéma + guide
 
+
+
+
+---
+
+must keep track of older commits to aid fixing invalid references that were
+valid at some point
+
+table 'commits'
+* primary key: repo name + commit hash
+* repo name
+* commit hash
+* commit date
+* push date (if unknown, use the commit date)
+should have a way to extract easily the latest commit hash of a repo given its
+name
+
+table 'texts' for enumerating texts, containing
+* primary key: text name + repo name + commit hash
+* text name without the extension
+* repo name + commit hash (for joining with 'commits')
+* full path of the text within the repo, without a leading slash, and including
+  the file name with the XML extension
+* absolute location of the corresponding HTML file that appears on github.io
+  (absolute because the HTML might appear in a repo other than the source one,
+  I don't know)
+
+When a repo is updated, we gather all texts within the repo, delete records
+from 'texts' where repo=the repo, and insert newer records.
+
+
+
+
+---
+
+XXX use relative imports or instead "import dharma.xx"?
 
 Make backups of the dbs!
 

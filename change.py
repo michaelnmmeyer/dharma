@@ -63,7 +63,7 @@ def command(*cmd):
 	subprocess.run(cmd, check=True)
 
 def update_repo(name):
-	command("git", "-C",  f"repos/{name}", "pull")
+	command("git", "-C",  os.path.join(config.REPOS_DIR, name), "pull")
 
 def clone_all():
 	for name in REPOS:
@@ -77,7 +77,7 @@ def read_changes(fd):
 			break
 		buf += data.decode("ascii")
 	names = set(buf.splitlines())
-	if "ALL" in names:
+	if "all" in names:
 		names = REPOS
 	for name in names:
 		if not name in REPOS:
