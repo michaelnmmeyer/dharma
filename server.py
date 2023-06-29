@@ -24,11 +24,12 @@ def index():
 @bottle.route("/commit-log")
 def show_commit_log():
 	commits = []
-	for date, doc in GIT_DB.execute("select date, data from logs order by date desc"):
+	for (doc,) in GIT_DB.execute("select data from logs order by date desc"):
 		doc = json.loads(doc)
 		ret = {}
 		repo = os.path.basename(doc["repository"]["full_name"])
-		date = datetime.fromtimestamp(date).strftime("%d/%m/%y %H:%M")
+		push_date = doc["repository"]["pushed_at"]
+		push_date = datetime.fromtimestamp(push_date).strftime("%d/%m/%y %H:%M")
 		for commit in doc["commits"]:
 			if commit["author"]["email"] in ("github-actions@github.com", "readme-bot@example.com"):
 				continue
@@ -37,7 +38,7 @@ def show_commit_log():
 			author = commit["author"]["username"]
 			hash = commit["id"]
 			url = commit["url"]
-			commits.append({"repo": repo, "date": date, "author": author, "hash": hash, "url": url})
+			commits.append({"repo": repo, "date": push_date, "author": author, "hash": hash, "url": url})
 	return bottle.template("commit-log.tpl", commits=commits)
 
 @bottle.route("/texts")
