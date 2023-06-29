@@ -20,7 +20,7 @@ repos_to_ignore = {
 def iter_texts_in_repo(name):
 	if name in repos_to_ignore:
 		return
-	path = os.path.join("repos", name)
+	path = os.path.join(config.REPOS_DIR, name)
 	for root, dirs, files in os.walk(path):
 		# There are generated files in
 		# repos/tfc-nusantara-epigraphy/workflow-output/editedxml
@@ -80,9 +80,9 @@ def list_texts():
 		print(file)
 
 # Create a map xml->web page (for debugging)
-def gather_web_pages():
-	tbl = {os.path.basename(file): "" for file in iter_texts()}
-	for root, dirs, files in os.walk("repos"):
+def gather_web_pages(texts):
+	tbl = {text: None for text in texts}
+	for root, dirs, files in os.walk(config.REPOS_DIR):
 		for file in files:
 			name, ext = os.path.splitext(file)
 			if ext != ".html":
@@ -91,15 +91,20 @@ def gather_web_pages():
 			if not xml in tbl:
 				continue
 			html = os.path.join(root, file)
-			url = "https://erc-dharma.github.io" + html[html.index("/"):]
-			tbl[xml] = url
+			tbl[xml] = html
+	return tbl
+
+def cmd_pages():
+	tbl = gather_web_pages(iter_texts())
 	for xml, html in sorted(tbl.items()):
+		xml = os.path.basename(xml)
+		html = "https://erc-dharma.github.io" + html[html.index("/"):]
 		print(xml, html, sep="\t")
 
 commands = {
 	"update": update_texts,
 	"list": list_texts,
-	"pages": gather_web_pages,
+	"pages": cmd_pages,
 }
 
 if __name__ == "__main__":

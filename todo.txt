@@ -45,40 +45,6 @@ because there can be several different validations for a single file
 Should also have a table where we hold the names of all XML files (texts as
 well as metadata files), to make sure texts are unique.
 
-pragma foreign_keys = on;
-pragma journal_mode = wal;
-pragma page_size = 8192;
-
-create table commits(
-   repo text,
-   commit_hash text,
-   commit_date integer,
-   push_date integer,
-   primary key(repo, commit_hash)
-);
-
-create table texts(
-   name text,
-   repo text,
-   commit_hash text,
-   xml_path text,
-   html_path text,
-   primary key(name, repo, commit_hash),
-   foreign key(repo, commit_hash) references commits(repo, commit_hash)
-);
-
-create table validation(
-   name text,
-   repo text,
-   commit_hash text,
-   code_hash text,
-   valid boolean,
-   errors json,
-   primary key(name, repo, commit_hash),
-   foreign key(name, repo, commit_hash) references texts(name, repo,
-      commit_hash),
-);
-
 ---
 
 # Validation and change detection

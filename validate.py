@@ -52,6 +52,7 @@ texts/DHARMA_INSSII03.xml
 
 import os, sys, subprocess
 from glob import glob
+from dharma import config, texts
 from dharma.tree import parse, Error
 
 this_dir = os.path.dirname(os.path.abspath(__file__))
@@ -101,27 +102,23 @@ def schema_for_file(file):
 		assert one == two, "several schemas for file %r" % file
 	return one or two
 
-def validate_texts(files, schema="tei-epidoc.rng"):
+def validate_against(schema, files):
 	jar = os.path.join(this_dir, "validation/jing.jar")
 	schema = os.path.join(this_dir, "validation", schema)
-	cmd = ["java", "-jar", jar, schema] + files
+	cmd = ["java", "-jar", jar, schema] + sorted(files)
 	print(*cmd, file=sys.stderr)
 	ret = subprocess.run(cmd, encoding="UTF-8", stdout=subprocess.PIPE)
-	errors = {}
+	errors = {file: set() for file in files}
 	for line in ret.stdout.splitlines():
 		path, line, column, err_type, err_msg = tuple(
 			f.strip() for f in line.split(":", 4))
-		errors.setdefault(path, set()).add((int(line), int(column), err_msg))
+		errors[path].add((int(line), int(column), err_msg))
 	return errors
 
-def validate_all():
+def validate(files):
 	schemas = {}
-	files = glob(os.path.join(this_dir, "texts", "*.xml"))
-	files.sort()
+	files = sorted(files)
 	for file in files:
-		_, ext = os.path.splitext(file)
-		if ext != ".xml":
-			continue
 		try:
 			schema = schema_for_file(file)
 		except Error:
@@ -132,13 +129,21 @@ def validate_all():
 	# are correct, our texts should also validate against epidoc. It's
 	# something we must check internally, this doesn't concern the user.
 	errors = {}
-	for schema, texts in sorted(schemas.items()):
-		for text, errs in validate_texts(sorted(texts), schema).items():
+	for schema, texts in schemas.items():
+		for text, errs in validate_against(schema, texts).items():
 			errors.setdefault(text, set()).update(errs)
+	return {text: sorted(errs) for text, errs in errors.items()}
+
+def validate_repo(name):
+	return validate(texts.iter_texts_in_repo(name))
+
+def validate_all():
+	files = glob(os.path.join(this_dir, "texts", "*.xml"))
+	errors = validate(files)
 	for path, errs in sorted(errors.items()):
 		path, _ = os.path.splitext(path)
 		with open(path + ".err", "w") as f:
-			for err in sorted(errs):
+			for err in errs:
 				print("%s:%s:%s" % err, file=f)
 
 if __name__ == "__main__":
