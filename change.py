@@ -88,13 +88,14 @@ create table if not exists validation(
 	code_hash text,
 	valid boolean,
 	errors json,
+	when_validated integer,
 	primary key(name, repo, commit_hash),
 	foreign key(name, repo, commit_hash) references texts(name, repo, commit_hash)
 );
 """
 
-TEXT_DB = sqlite3.connect(TEXT_DB_PATH)
-TEXT_DB.executescript(SCHEMA)
+TEXTS_DB = sqlite3.connect(TEXT_DB_PATH)
+TEXTS_DB.executescript(SCHEMA)
 
 def command(*cmd):
 	print(*cmd, file=sys.stderr)
@@ -104,13 +105,13 @@ def update_repo(name):
 	command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull")
 
 def latest_commit_in_repo(name):
-	r = command("git", "-C", os.path.join(config.REPOS_DIR, name), "log", "-1", "--format=%T %at")
+	r = command("git", "-C", os.path.join(config.REPOS_DIR, name), "log", "-1", "--format=%H %at")
 	hash, date = r.stdout.strip().split()
 	date = int(date)
 	return hash, date
 
 def handle_changes(name):
-	conn = TEXT_DB
+	conn = TEXTS_DB
 	conn.execute("begin immediate")
 	commit_hash, date = latest_commit_in_repo(name)
 	if conn.execute("select 1 from commits where repo = ? and commit_hash = ?", (name, commit_hash)).fetchone():
@@ -120,10 +121,11 @@ def handle_changes(name):
 		(name, commit_hash, date))
 	state = validate.validate_repo(name)
 	paths = texts.gather_web_pages(state)
+	repo_dir = os.path.join(config.REPOS_DIR, name)
 	for xml_path, html_path in sorted(paths.items()):
-		xml_path = os.path.relpath(xml_path, config.REPOS_DIR)
+		xml_path = os.path.relpath(xml_path, repo_dir)
 		if html_path:
-			html_path = os.path.relpath(html_path, config.REPOS_DIR)
+			html_path = os.path.relpath(html_path, repo_dir)
 		else:
 			assert html_path is None
 		file_id = os.path.basename(os.path.splitext(xml_path)[0])
@@ -134,8 +136,8 @@ def handle_changes(name):
 		valid = not errors
 		errors = json.dumps(errors)
 		file_id = os.path.basename(os.path.splitext(text)[0])
-		conn.execute("""insert into validation(name, repo, commit_hash, code_hash, valid, errors)
-			values(?, ?, ?, ?, ?, ?)""", (file_id, name, commit_hash, code_hash, valid, errors))
+		conn.execute("""insert into validation(name, repo, commit_hash, code_hash, valid, errors, when_validated)
+			values(?, ?, ?, ?, ?, ?, strftime('%s', 'now'))""", (file_id, name, commit_hash, code_hash, valid, errors))
 	conn.execute("commit")
 
 def clone_all():

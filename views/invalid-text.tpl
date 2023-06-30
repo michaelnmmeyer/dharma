@@ -1,5 +1,9 @@
-% rebase("base.tpl", title=text_id)
-<h1>{{text_id}}</h1>
+% rebase("base.tpl", title=text["name"])
+<h1>{{text["name"]}}</h1>
+<p>Committed {{text['readable_commit_date']}} in
+<a href="https://github.com/erc-dharma/{{text['repo']}}/commit/{{text['commit_hash']}}">{{text["commit_hash"][:7]}}...</a>
+</p>
+<p>Validated {{text['readable_when_validated']}}.</p>
 <table>
 <thead>
 <tr>
@@ -8,10 +12,9 @@
 </tr>
 </thead>
 <tbody>
-% for line, col, msg in errors:
+% for line, col, msg in text["errors"]:
 <tr>
-   <td><a
-   href="https://github.com/michaelnmmeyer/dharma/blob/master/texts/{{text_id}}.xml#L{{line}}">{{line}}:{{col}}</a></td>
+   <td><a href="{{github_url}}#L{{line}}">{{line}}:{{col}}</a></td>
    <td>{{msg}}</td>
 </tr>
 % end
