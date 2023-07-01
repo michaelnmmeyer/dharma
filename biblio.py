@@ -3,29 +3,32 @@
 # When processing a text, oxygen generates zotero API calls like this:
 # https://api.zotero.org/groups/1633743/items?tag=ROD1914&format=tei
 # This is why tags are used, but can we generate another API call that uses a
-# proper primary key?
+# proper primary key? Yes, use:
+# https://api.zotero.org/groups/1633743/items/ZZH5G8PB?format=tei
 
-import os, json, sqlite3, unicodedata, html
+import os, json, sqlite3, unicodedata, html, re, time
 import warnings
 from collections import OrderedDict
-from pyzotero import zotero
+import requests
 from bs4 import BeautifulSoup, Tag, MarkupResemblesLocatorWarning
 from dharma import config
 
 LIBRARY_ID = 1633743
-LIBRARY_TYPE = "group"
 MY_API_KEY = "ojTBU4SxEQ4L0OqUhFVyImjq"
 
 SCHEMA = """
-PRAGMA journal_mode=WAL;
+pragma page_size = 8192;
+pragma journal_mode = wal;
 
-CREATE TABLE bibliography(
-	key TEXT PRIMARY KEY NOT NULL,
-	json TEXT NOT NULL
+create table if not exists bibliography(
+	key text primary key not null,
+	version integer not null,
+	json json not null
 );
 """
 
 conn = sqlite3.connect(os.path.join(config.DBS_DIR, "biblio.sqlite"))
+conn.executescript(SCHEMA)
 
 def sort_value(val):
 	if not isinstance(val, dict):
@@ -37,16 +40,45 @@ def to_json(val):
 	val = sort_value(val)
 	return json.dumps(val, separators=(",", ":"), ensure_ascii=False)
 
-def download():
-	conn.execute("DROP TABLE IF EXISTS bibliography")
-	conn.executescript(SCHEMA)
-	lib = zotero.Zotero(LIBRARY_ID, LIBRARY_TYPE, MY_API_KEY)
-	bib = lib.everything(lib.top())
-	for entry in bib:
+def zotero_items(max_version):
+	s = requests.Session()
+	s.headers["Zotero-API-Version"] = "3"
+	s.headers["Zotero-API-Key"] = MY_API_KEY
+	r = s.get(f"https://api.zotero.org/groups/{LIBRARY_ID}/items?since={max_version}")
+	latest_version = -1
+	while True:
+		if r.status_code == 304:
+			return
+		wait = max( # in seconds
+			0,
+			int(r.headers.get("Backoff", 0)),
+			int(r.headers.get("Retry-After", 0)))
+		if r.status_code != 200:
+			if not wait or wait > 20:
+				return # will try later
+		new_version = int(r.headers["Last-Modified-Version"])
+		if latest_version < 0:
+			latest_version = new_version
+		entries = r.json()
+		assert isinstance(entries, list)
+		for entry in entries:
+			if entry["version"] > latest_version:
+				continue
+			yield entry
+		next = re.search(r'<([^>]+)>;\s*rel="next"', r.headers.get("Link", ""))
+		if not next:
+			break
+		time.sleep(wait)
+		r = s.get(next.group(1))
+
+def update():
+	conn.execute("begin immediate")
+	(max_version,) = conn.execute("select ifnull(max(version), 0) from bibliography").fetchone()
+	for entry in zotero_items(max_version):
 		doc = to_json(entry)
-		conn.execute("INSERT INTO bibliography VALUES(?, ?)", (entry["key"], doc))
-	conn.commit()
-	conn.close()
+		conn.execute("""insert or replace into bibliography(key, version, json)
+			values(?, ?, ?)""", (entry["key"], entry["version"], doc))
+	conn.execute("commit")
 
 # See https://www.zotero.org/support/kb/rich_text_bibliography
 valid_tags = {
@@ -98,7 +130,7 @@ def check_string_value(soup, entry):
 
 def check_entries():
 	warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
-	for (entry,) in conn.execute("SELECT json FROM bibliography"):
+	for (entry,) in conn.execute("select json from bibliography"):
 		entry = json.loads(entry)
 		for val in all_string_values(entry):
 			then = val
@@ -119,4 +151,5 @@ def check_entries():
 				print("%s: ligatures: %r" % (entry["key"], val))
 			# Deal with quotes here or later?
 
-check_entries()
+if __name__ == "__main__":
+	check_entries()
