@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Hero stone in context of a brahmahatyā</title>
+        <respStmt>
+          <resp>Creation of file</resp>
+          <persName ref="part:jeth">
+            <forename>Jens Christian</forename>
+            <surname>Thomas</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName>
+            <forename>H.</forename>
+            <surname>Krishna Sastri</surname>
+            <!-- H. Krishna Sastri is the editor of SII V. He appears to be the editor of all the inscriptions as well.-->
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Berlin</pubPlace>
+        <idno type="filename">DHARMA_INSTelugu00013</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <p><!-- not to be filled in at this stage --></p>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-03-26" who="part:jeth">Creation of the file</change>
+      <change status="draft" when="2020-06-05" who="part:jeth">Adding translation and commentary</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="tel-Latn">
+        <p>
+              <lb n="1"/>kēdārarāśipaṇḍitu<lb break="no" n="2"/>lakuṁ brahmahatya śrā<unclear>pi</unclear><lb break="no" n="3"/>ñci poḍici koṇi caccina<lb break="no" n="4"/>candrarāśi<unclear>bha</unclear>ṭārala rūpu
+            </p>
+      </div>
+      <div type="apparatus"></div>
+      <div resp="part:jeth" type="translation">
+        <p>
+ 	       This is the picture of <foreign>Candrarāsibhaṭāra</foreign> who accused (someone) of brahmicide of <foreign>Kēdārarāśipaṇḍitulu</foreign>, got in close combat, slew (him), and died.
+ 	      </p>
+      </div>
+      <div type="commentary">
+        <p>
+              The text follows the edition of H. Krishna Sastri in <bibl rend="omitname">
+            <ptr target="bib:KrishnaSastri1925_01"/>
+            <citedRange unit="page">21</citedRange>
+            <citedRange unit="item">58</citedRange>
+          </bibl> in absence of a picture.
+              Following the entry in A. R. No. 471 of 1893 <!-- @target has to be added --> Krishna Sastri edited the text which was written on two faces on a stone slab as one entry with continuous line numbering although the two faces evidently display two distinct inscriptions. They are given here as 58a and 58b respectively.
+              The term <foreign>rūpu</foreign> probably refers to a carving that depicts <foreign>Candrarāśibhaṭāra</foreign>. However, mention of such a picture is neither made in A. R. <!-- has to be adjusted to the @target --> nor in <bibl>
+            <ptr target="bib:KrishnaSastri1925_01"/>
+          </bibl>.
+              The spelling <foreign>śrāpiñci</foreign> (line 2-3) is a mistake for <foreign>śāpiñci</foreign>. Besides 'to curse' <foreign>śāpiñcu </foreign> can also mean 'to accuse' (e. g. <bibl>
+            <ptr target="bib:Sītārāmācāryulu1922_01"/>
+            <citedRange unit="page">752, 754</citedRange>
+          </bibl> '<foreign>tiṭṭu</foreign>' which also means '<foreign>niṁdiṁcu</foreign>' (<bibl>
+            <ptr target="bib:Reḍḍi1989_01"/>
+            <citedRange unit="page">381</citedRange>
+          </bibl>)).
+               <!-- It may be noted, however, that śrāpaṁ (శ్రాపం) is found in a google search even today, albeit seldom, and that this form can also sometimes be met with in Hindi. It is a hypersanscritism to the early existence of which this inscription furnishes evidence. Therefore, the spelling, albeit etymologically incorrect, has to be accepted as correct in the form of a loanword in Telugu.  -->
+              The verb <foreign>koṇu</foreign> means 'to take' in most instances but also the meanings 'to prick, peirce, strike down' are attested. The expression <foreign>caccina</foreign> 'died' is remarkable since this intransitive verb is not the standard for denoting death in a battle.
+              Hence, one <hi rend="italic">could</hi> surmise that he died a natural death (long) after his successful revenge.
+            </p>
+      </div>
+      <div type="bibliography">
+        <p>
+           The text was noted in A. R. No. 471 of 1893 <!-- @target has to be added --> and edited by H. Krishna Sastri in <bibl rend="omitname">
+            <ptr target="bib:KrishnaSastri1925_01"/>
+            <citedRange unit="page">21</citedRange>
+            <citedRange unit="item">58</citedRange>
+          </bibl> without a picture. The text was re-edited by K. M. Sastri (<bibl rend="omitname">
+            <ptr target="bib:Sastri1969_01"/>
+            <citedRange unit="page">345</citedRange>
+            <citedRange unit="item">97</citedRange>
+          </bibl>) on basis of SII with some errors and without translation.
+          </p>
+        <listBibl type="secondary">
+          <bibl>A. R. No. 471 of 1893 <!-- has to be adjusted to the @target --></bibl>
+          <bibl>
+            <ptr target="bib:KrishnaSastri1925_01"/>
+            <citedRange unit="page">21</citedRange>
+            <citedRange unit="item">58</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Sastri1969_01"/>
+            <citedRange unit="page">345</citedRange>
+            <citedRange unit="item">97</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

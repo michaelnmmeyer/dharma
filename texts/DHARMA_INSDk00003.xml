@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Stray Rawan Plate of Narendra, undated</title>
+        <respStmt>
+          <resp>EpiDoc Encoding</resp>
+          <persName ref="part:nabo">
+            <forename>Natasja</forename>
+            <surname>Bosma</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:nabo">
+            <forename>Natasja</forename>
+            <surname>Bosma</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Berlin</pubPlace>
+        <idno type="filename">DHARMA_INSDk00003</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+                            Licence. To view a copy of the licence, visit
+                            https://creativecommons.org/licenses/by/4.0/ or send a letter to
+                            Creative Commons, 444 Castro Street, Suite 900, Mountain View,
+                            California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Natasja Bosma.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <!-- not to be filled in at this stage -->
+        <msDesc>
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno/>
+          </msIdentifier>
+          <msContents>
+            <summary/>
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p/>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-05-19" who="part:nabo">Minor changes</change>
+      <change status="draft" when="2020-05-17" who="part:nabo">Initial encoding of the file</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="san-Latn">
+        <pb n="1r"/>
+        <p part="I"><pb n="1v"/>
+                    <lb n="1v1"/><g type="spiralR"/> svasti śarabhapurāt paramabhāgavato mātāpitṛpādānuddhyāta<lb break="no" n="1v2"/>ś śrīmahārājanarendra<supplied reason="omitted">ḥ</supplied> maṇṭarājabhukt<choice>
+            <sic>o</sic>
+            <corr>au</corr>
+          </choice> torāmake brāhmaṇādī<supplied reason="omitted">n</supplied> prati<lb break="no" n="1v3"/>vāsi<space type="binding-hole"/>kuṭumbinas samājñāpayati</p>
+        <p>viditam astu vo yathāsmābhir vva<lb break="no" n="1v4"/>ṭapadrakīyakāritakadevakule bhagavate śrīdharasvāmine mātṛ<surplus>i</surplus>rā<lb break="no" n="1v5"/>jakulānā<supplied reason="omitted">ṁ</supplied> puṇyābhivṛddhaye khaṇḍasphuṭitasaṁskārabalicaru<lb break="no" n="1v6"/>sa<supplied reason="omitted">t</supplied>t<choice>
+            <sic>ṛ</sic>
+            <corr>ra</corr>
+          </choice></p>
+      </div>
+      <div type="apparatus">
+        <app loc="1v2">
+          <lem>°bhukt<choice>
+              <sic>o</sic>
+              <corr>au</corr>
+            </choice></lem>
+          <rdg source="bib:UshaJain1979_01">°bhukto</rdg>
+          <rdg source="bib:Shastri1995_02">°bhuktau</rdg>
+        </app>
+        <app loc="1v2">
+          <lem>brāhmaṇādī<supplied reason="omitted">n</supplied></lem>
+          <rdg source="bib:UshaJain1979_01">brāhmaṇādi°</rdg>
+          <rdg source="bib:Shastri1995_02">brāhmaṇādī<supplied reason="omitted">n</supplied></rdg>
+        </app>
+      </div>
+      <div resp="part:nabo" type="translation">
+        <p n="1v1-1v3">Success! Hail! From Śarabhapura the illustrious Mahārāja Narendra, who is entirely devoted to Viṣṇu and favoured by his father and mother, issues <supplied reason="subaudible">the following command</supplied> to the landholders, beginning with the Brahmins, settled <supplied reason="subaudible">in the village of</supplied> Torāmaka situated in the Maṇṭarāja <foreign>bhukti</foreign>:</p>
+        <p n="1v3-1v6">Let it be known to you that <supplied reason="subaudible">this village has been granted</supplied> by us for the increase of religious merit of mother <supplied reason="subaudible">and other members of</supplied> the royal family, to the Lord Śrīdharasvāmin in the temple constructed at Vaṭapadraka, <supplied reason="subaudible">in order to finance</supplied> the repair of the temple’s broken and cracked parts, the performance of <foreign>bali</foreign> and <foreign>caru</foreign> offerings, charitable feeding</p>
+      </div>
+      <div type="commentary">
+        <p>This stray plate was likely the first copperplate of a complete set of three plates. It is commonly referred to as `Rawan’ plate, but the original providence of the plate may have been Malhār.</p>
+        <p>The grant recorded in this inscription was made in facour of the <foreign>mātṛrājakula</foreign>, which was interpreted by Usha Jain <bibl rend="omitname">
+            <ptr target="bib:UshaJain1979_01"/>
+          </bibl> as `the family of Mātṛrāja'. However, Shastri <bibl rend="omitname">
+            <ptr target="bib:Shastri1995_02"/>
+            <citedRange>12-13</citedRange>
+          </bibl> is probably right to suggest that the expression may refer to the (royal) family of Narendra's mother or, because of the plural, to his mother and (other) members of the royal family. Cf., <bibl>
+            <ptr target="bib:Bosma2018_01"/>
+            <citedRange>99-100</citedRange>
+          </bibl></p>
+      </div>
+      <div type="bibliography">
+        <p>First edited by Bajpai <bibl rend="omitname">
+            <ptr target="bib:Bajpai1977_01"/>
+          </bibl> and Usha Jain <bibl rend="omitname">
+            <ptr target="bib:UshaJain1979_01"/>
+          </bibl> from the original plate; edited again by Shastri <bibl rend="omitname">
+            <ptr target="bib:Shastri1995_02"/>
+            <citedRange>12-13</citedRange>
+          </bibl> from the published photographs; re-edited here by Natasja Bosma from a photograph of the original.</p>
+        <listBibl type="primary">
+          <bibl n="SB">
+            <ptr target="bib:Bajpai1977_01"/>
+          </bibl>
+          <bibl n="AMS">
+            <ptr target="bib:Shastri1995_02"/>
+            <citedRange>12-13</citedRange>
+          </bibl>
+          <bibl n="KUJ">
+            <ptr target="bib:UshaJain1979_01"/>
+          </bibl>
+        </listBibl>
+        <listBibl type="secondary">
+          <bibl>
+            <ptr target="bib:Bosma2018_01"/>
+            <citedRange>99-100, 231-232</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

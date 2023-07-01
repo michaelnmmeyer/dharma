@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Ajanta Cave 16 Inscription of Varahadeva</title>
+        <respStmt>
+          <resp>Original EpiDoc Encoding for Siddham</resp>
+          <persName ref="part:daba">
+            <forename>Dániel</forename>
+            <surname>Balogh</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>Conversion of encoding for DHARMA</resp>
+          <persName ref="part:daba">
+            <forename>Dániel</forename>
+            <surname>Balogh</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:daba">
+            <forename>Dániel</forename>
+            <surname>Balogh</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Berlin</pubPlace>
+        <idno type="filename">DHARMA_INSSiddham00178</idno>
+        <!--
+If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
+-->
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Dániel Balogh.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc>
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno/>
+          </msIdentifier>
+          <msContents>
+            <summary/>
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p/>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
+      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
+        <lg met="upajāti" n="1">
+          <l enjamb="yes" n="a"><lb n="1"/>Udīrṇṇa-loka-traya-doṣa-vahni</l>
+          <l n="b">-nirvvāp<unclear>a</unclear>ṇ<unclear>a</unclear><seg subtype="consonant" type="component">
+              <gap quantity="1" reason="illegible" unit="component"/>
+            </seg>i <seg met="--+-+=">
+              <gap quantity="6" reason="illegible" unit="character"/>
+            </seg> </l>
+          <!--
+L1. Bühler: nirvvāpaṇā, Mirashi: nirvvāpiṇa[+ṁ]. Neither Bühler nor Mirashi prints the i attached to the following consonant, though the i mātrā is clear.
+-->
+          <l n="c"><seg met="=+-++-=">
+              <gap quantity="7" reason="illegible" unit="character"/>
+            </seg> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->a</supplied><unclear>bh</unclear>ipraṇamya</l>
+          <!--
+L2. Previous editors read ti praṇamya, Mirashi printing tiṁ (I see no anusvāra) and supplying yatiṁ (but also noting that the Cave 27 inscription refers to the Buddha as muni, not yati). I'm pretty sure it's bhi, giving [#a]bhipraṇamya. Compare the bh of prabhāva in l3.
+-->
+          <l n="d">pūrvvāṁ pravakṣye kṣitipānupūrvv<unclear>ī</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->M</supplied></l>
+        </lg>
+        <lg met="upajāti" n="2">
+          <l n="a"><lb n="2"/>mahā-vimarddeṣv abhivr̥ddha-śaktiḥ</l>
+          <l n="b">kruddhas surair apy anivāryya-<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->vīryíaḥ</supplied></l>
+          <l n="c"><seg met="=+-++">
+              <gap quantity="5" reason="illegible" unit="character"/>
+            </seg> <unclear cert="low">ra</unclear>ṇa-dāna-śaktiḥ</l>
+          <!--
+L2. Mirashi reads raṇa as clear; Bühler only reads ṇa. I don't see ra in Indraji's facsimile, but it may be there in Mirashi's.
+-->
+          <l n="d">dvijaḫ prakāso bhuvi vindhyaśa<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->kt</supplied><unclear>i</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ḥ</supplied></l>
+          <!--
+L2. ktiḥ obviously needs to be supplied at the end, but it was probably engraved after some space. The part of the line below pū in l1 seems to be undamaged and blank, but I think I can see most of a smallish i mātrā between the bottoms of pū and rvvī.
+-->
+        </lg>
+        <lg met="upajāti" n="3">
+          <l n="a"><lb n="3"/>purandaropendra-sama-prabhāvaḥ</l>
+          <l n="b">sva-bāhu-vī<unclear>r</unclear>y<unclear>yārj</unclear>j<unclear>i</unclear>ta<unclear>sa</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->rvva-lokaḥ</supplied></l>
+          <!--
+L3. both Bühler and Mirashi print sarvvalokaḥ as unclear, but I see no trace at all of rvvalokaḥ in either facsimile.
+-->
+          <l n="c"><seg met="=+-++--+">
+              <gap quantity="8" reason="illegible" unit="character"/>
+            </seg> <unclear cert="low">ṭa</unclear>kānāṁ</l>
+          <!--
+L3. Mirashi prints ṭakānāṁ as clear and notes "these three aksharas are fairly clear". ṭa is not impossible, but nor is it recognisable in either facsimile. Mirashi tentatively supplies uddhr̥ta-kaṇṭakānāṁ, which sounds good.
+-->
+          <l n="d">babhūva vākāṭaka-va<sic>ṅ</sic>śa-<space type="descender"/>ke<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->tuḥ</supplied></l>
+          <!--
+L3. Mirashi prints ketuḥ as clear, but nothing is visible of tuḥ.
+-->
+        </lg>
+        <lg met="upajāti" n="4">
+          <l enjamb="yes" n="a"><lb n="4"/>raṇe<choice>
+              <unclear>ṣu </unclear>
+              <unclear> sva-</unclear>
+            </choice>haryy-u<unclear>ddha</unclear>ta-reṇujāla</l>
+          <!--
+L4. sva is Bühler's reading; Mirashi, following Indraji, reads ṣu, which seems marginally more likely.
+-->
+          <!--
+L4. Bühler reads utthita; Mirashi's uddhata seems much more likely.
+-->
+          <l n="b">-sañcchāditā<unclear>r</unclear>k<unclear>ka</unclear><unclear cert="low">s sa ca karmma</unclear>-<seg met="+=">
+              <gap quantity="2" reason="illegible" unit="character"/>
+            </seg></l>
+          <!--
+L4. Mirashi prints °ārkkas sa ca as clear and karmma as tentatively read (but not as supplied).
+-->
+          <l n="c"><seg met="=+-++--+">
+              <gap quantity="8" reason="illegible" unit="character"/>
+            </seg> <unclear>n arāt</unclear>īn</l>
+          <l n="d"><unclear>kr̥</unclear>tvābh<unclear>i</unclear>vāda-pravaṇā<unclear>ṁ</unclear>ś ca<space/>kāra</l>
+          <!--
+L4. Mirashi prints bhivāda is tentatively read, but the characters are clear except for the i, which is probably there, but is reduced to fit into the space below bhū in l3.
+-->
+          <!--
+L4. The space may be to accommodate ke in l3, but that character does not really hang down into this line. However, the vowel of lī in l5 does come up quite a bit, so if the text was chalked/painted before being engraved, this space may be to accommodate that ī.
+-->
+        </lg>
+        <lg met="upajāti" n="5">
+          <!--
+The two extant lines are pure upendravajrā, but since we have a string of upajātis, this verse is also identified as upajāti. There are a few other stanzas below, pure indra/upendravajrā (e.g. v15), which are also classified as upajāti for the same reason.
+-->
+          <l n="a"><lb n="5"/><unclear cert="low">vini</unclear>rjj<unclear>i</unclear>tāri<unclear>s-sura</unclear>-rāja-kāryye</l>
+          <!--
+L5. Both B and M print vini as unclear, but nothing of these characters is recognisable in the facsimiles. Also, there is very little space before rjji in the line, and some of that is compromised by ra hanging down from l4. There is, however, quite a bit of space, badly damaged, at the end of l4, so one or both characters of vini may actually have been there. (So far, each verse has occupied exactly one line, but that breaks later on, so it may have broken here too.)
+-->
+          <!--
+L5. Both B and M print rji, but the double j appears quite clear in Indraji's facsimile.
+-->
+          <!--
+L5. B reads kāryyaś cakāra; Mirashi's kāryye seems much better. What B read as ś is probably just a slightly large boxhead, and the e mātrā is plausible.
+-->
+          <l n="b">cakāra puṇyeṣu paraṁ praya<unclear>tnaṁ</unclear></l>
+          <l n="c">
+            <seg met="=+-++--+-+=">
+              <gap quantity="11" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <l n="d">
+            <seg met="=+-++--+-+=">
+              <gap quantity="11" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+        </lg>
+        <lg met="gītikā" n="6">
+          <!--
+The metre has been discussed by several scholars (see references in metadata table); Venkatasubbiah calls it Gītikā, but I am not sure this should be adopted. The same(?) metre also occurs in IN00111, Tusam Rock Inscription of Somatrata.
+-->
+          <l enjamb="yes" n="a"><unclear cert="low">ari</unclear>-narendra-mauli-vinyasta</l>
+          <!--
+L5. B prints ari as unclear, M prints it as supplied.
+-->
+          <l n="b">-maṇi-kiraṇālīḍha-kramāmbujaḥ</l>
+          <!--
+If I analyse the metre correctly, the correct reading must be kiraṇalīḍha, not kiraṇālīḍha.
+-->
+          <l n="c"><lb n="6"/>pravarasenas tasya putro bhūd</l>
+          <l n="d">vikasan-navendīvarekṣaṇa<unclear>ḥ</unclear></l>
+        </lg>
+        <lg met="gītikā" n="7">
+          <l n="a">ravimayūkhad<unclear>ā</unclear> <gap precision="low" quantity="4" reason="illegible" unit="character"/></l>
+          <l n="b">
+            <gap precision="low" quantity="10" reason="illegible" unit="character"/>
+          </l>
+          <l n="c"><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->sa</supplied><unclear cert="low">rvva</unclear>sena<unclear>ḫ</unclear> pravarasenasya</l>
+          <!--
+L6. At the beginning of v7c Bühler reads [#ru](dra)senaf; Mirashi convincingly argues for reading/restoring the name as sarvvasena. He prints (sarvva)senaḥ; I believe upadhmānīya is more likely than visarga. The prosody of the line is quite different from Kielhorn's schema for this metre.
+-->
+          <l n="d">jita-sarvva-senas suto bhavaT</l>
+          <!--
+L6. The halanta T is a very small subscript character but not simplified.
+-->
+        </lg>
+        <lg met="gītikā" n="8">
+          <l n="a"><lb n="7"/><gap precision="low" quantity="4" reason="illegible" unit="character"/> pārtthivendrasya</l>
+          <!--
+L7. M reads (satputraḥ) before pārtthivendrasya, noting that "this word was omitted in all previous transcripts". Nothing is discernible in the facsimile, and satputraḥ is quite incompatible with what we expect by way of metre. B suggests tanayas tasya for the lacuna, which is not impossible: it might fit in the space, and although we'd expect a light syllable in place of "yas t", there are other instances in these verses where a nominative ending followed by a consonant passes for a light syllable, as if these guys pronounced tanaya tasya instead of tanayas tasya.
+-->
+          <l n="b"><unclear cert="low">pra</unclear>śa<unclear cert="low">śā</unclear><unclear>sa</unclear> dharmmeṇa medinī<unclear>M</unclear></l>
+          <!--
+L7. Mirashi reads praśaśāsa as clear, while B prints only śā as unclear. I see nothing apart from śa. The reading fits the metre and is probably correct.
+-->
+          <!--
+L7. there may, possibly, be a halanta M at the end of v8b; B and M both print (m), not (ṁ).
+-->
+          <l n="c">kuntalendra<unclear cert="low">ṁ</unclear> vi<supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->ndhya</supplied> <gap precision="low" quantity="3" reason="illegible" unit="character"/></l>
+          <!--
+L7. B and M both read kuntalendraṁ vi(jitya), but neither the anusvāra nor jitya are discernible, and I'm pretty certain vijitya is their conjecture, not their actual reading. It is, however, probably unmetrical; we'd expect a double consonant after vi, followed by a light syllable. Given that the genealogy likes to pun on names (and I buy Mirashi's Vindhyasena in the next quarter), I think vindhya would be a good guess for the word beginning with vi.
+-->
+          <l n="d">
+            <unclear>śrī vi</unclear>
+            <unclear cert="low">ndhyasenaḥ</unclear>
+            <gap precision="low" quantity="4" reason="illegible" unit="character"/>
+          </l>
+          <!--
+L7. At the beginning of v8d, B reads (pr̥)thivī(ṣeṇaḥ). I follow Mirashi, whose arguments for Vindhyasena at this point seem convincing. Beyond that, śrī vi does look more likely from the facsimile than thivī, and there doesn't seem to be enough space for more than 4 characters after vi in v8c, while in B's reading we'd need at least four characters including his °jitya to complete pāda c, then pr̥, and possibly even some space before pr̥. The characters ndhyase are sort of recognisable in Mirashi's rubbing, though not in Indraji's one. Mirashi prints śrīvindhyasenaḥ as clear.
+-->
+        </lg>
+        <lg met="gītikā" n="9">
+          <l n="a">pravarase<unclear cert="low">nas ta</unclear>sya putro bhūt</l>
+          <l n="b">pravarorjjitodāraśāsana<unclear>ḫ</unclear></l>
+          <l n="c">pravara<lb break="no" n="8"/><gap precision="low" quantity="7" reason="illegible" unit="character"/></l>
+          <l n="d">
+            <gap precision="low" quantity="10" reason="illegible" unit="character"/>
+          </l>
+        </lg>
+        <lg met="upajāti" n="10">
+          <l n="a"><unclear>tas</unclear>yātmaja<gap quantity="1" reason="illegible" unit="character"/><unclear>ma</unclear> <seg met="-+-+=">
+              <gap quantity="5" reason="illegible" unit="character"/>
+            </seg></l>
+          <!--
+L8. M reads tasyātmajaḥ; I see no visarga, but do see what B read as ma
+-->
+          <l n="b"><seg met="=+-++-">
+              <gap quantity="6" reason="illegible" unit="character"/>
+            </seg> <unclear>m a</unclear>vāpya rājyam</l>
+          <l n="c">aṣṭābdako yaḫ praśaśāsa samyaK</l>
+          <!--
+L8. M prints myak as unclear, which it is in his rubbing, but, mya is clear in Indraji's rubbing and printed as such by B. A tiny subscript halanta K is also visible in both rubbings.
+-->
+        </lg>
+        <lg met="upajāti" n="11">
+          <l n="a"><lb n="9"/>ta<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->syā</supplied><unclear>tmajo</unclear> bhūn-naradeva<supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->-saṁjñas</supplied></l>
+          <!--
+L9. B prints tasyā(tmajo), while M has [#tasyā](tmajo). My markup reflects what I see on Indraji's facsimile.
+-->
+          <!--
+L9. saṁjñas is my tentative conjecture.
+-->
+          <l n="b"><seg met="=+-++">
+              <gap quantity="5" reason="illegible" unit="character"/>
+            </seg> <unclear>bhu</unclear>vi devasenaḥ</l>
+          <l n="c">yasyopabhogair lalitair-vvi<seg met="+=">
+              <gap quantity="2" reason="illegible" unit="character"/>
+            </seg></l>
+          <!--
+L9. M reads °gair lla. There seems to be no subscript l in Indraji's facsimile, but there is something there in Mirashi's one.
+-->
+          <l n="d"><gap quantity="1" reason="illegible" unit="character"/> devarājasya <unclear>pa</unclear><seg met="+-+">
+              <gap quantity="3" reason="illegible" unit="character"/>
+            </seg> bhūḥ</l>
+        </lg>
+        <lg met="upajāti" n="12">
+          <l n="a">puṇyānubhāvāt-kṣitipasya <lb n="10"/><unclear cert="low">tasya</unclear></l>
+          <!--
+L10. at the end of v12a, B reads an unclear tasya (putting it at the end of l9, but this is impossible). Mirashi reads unclear samya at the beginning of l10, supplying k to get samyak. Nothing is visible in the facsimile, but given the similarity of B and M's readings, they may have seen something.
+-->
+          <l n="b">
+            <seg met="=+-++--+-+=">
+              <gap quantity="11" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <l n="c"><seg met="=+-++">
+              <gap quantity="5" reason="illegible" unit="character"/>
+            </seg> ya guṇādhivās<unclear>aḥ</unclear></l>
+          <!--
+L10. M does not print the ya before guṇādhi, though it is clear in both rubbings.
+-->
+          <!--
+L10. B reads guṇādhivāso; I can't see an o mātrā so I follow Mirashi.
+-->
+          <l n="d"><seg met="=+">
+              <gap quantity="2" reason="illegible" unit="character"/>
+            </seg> <unclear cert="low">v</unclear>i-kośo bhuvi hastibhojaḥ</l>
+          <!--
+L10. Neither B nor M print the i mātrā before kośo.
+-->
+        </lg>
+        <lg met="upajāti" n="13">
+          <l n="a">pra<seg met="+-++">
+              <gap quantity="4" reason="illegible" unit="character"/>
+            </seg>ḫ pr̥thu-pīna-vakṣās</l>
+          <l n="b">saroruhākṣaẖ kṣapi<lb break="no" n="11"/><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->tā</supplied><unclear cert="low">ri-pakṣaḥ</unclear> </l>
+          <!--
+L10-11. The reading kṣapitāripakṣaḥ is Mirash's, who says ripakṣa is "fairly clear". My facsimile only has white noise, but the reading is convincing, the verse obviously plays on kṣ sounds.
+-->
+          <l n="c">
+            <seg met="=+-++--+-">
+              <gap quantity="9" reason="illegible" unit="character"/>
+            </seg>
+            <unclear cert="low">bāhur</unclear>
+          </l>
+          <l n="d">dig-gandha-hasti-pratimo babhūva</l>
+          <!--
+L11. Bāhur is again Mirashi's reading alone.
+-->
+        </lg>
+        <lg met="upajāti" n="14">
+          <l n="a">hito vinītaḥ pra<unclear>ṇa</unclear>y<unclear>a</unclear>-<unclear cert="low">pradhāno</unclear></l>
+          <!--
+L11. M prints the whole of praṇayapradhāno as unclear, though praṇaya is quite clear, while pradhāno is absolutely indiscernible and not read by B.
+-->
+          <l n="b">mano-nukūlo nuvidhāna-varttī</l>
+          <l n="c">niratyaya<lb break="no" n="12"/>-<seg met="+-">
+              <gap quantity="2" reason="illegible" unit="character"/>
+            </seg><unclear>sa</unclear><choice>
+              <unclear>no</unclear>
+              <unclear>ṇa</unclear>
+            </choice><seg met="-+=">
+              <gap quantity="3" reason="illegible" unit="character"/>
+            </seg></l>
+          <!--
+L12. neither B nor M print the stray letters discernible amid the noise at the beginning of the line. The position of these letters with respect to the metre is uncertain, there is no way to tell exactly how many characters precede/follow them.
+-->
+          <l n="d"><seg met="=+-+">
+              <gap quantity="4" reason="illegible" unit="character"/>
+            </seg>y<unclear>a</unclear><seg met="--+-">
+              <gap quantity="4" reason="illegible" unit="character"/>
+            </seg>kaś ca</l>
+        </lg>
+        <lg met="upajāti" n="15">
+          <l n="a">ta<unclear>thai</unclear>va lokasya hitāśayatvāt</l>
+          <!--
+L12. B reads loka-suhitā°, noting that this is unmetrical and proposing to read loke suhitā° or lokeṣu hitā°. M. reads lokasya, and sya appears quite clear in both facsimiles.
+-->
+          <l n="b">sukhena samyak-<unclear>p</unclear>aripālanena</l>
+          <l n="c"><unclear cert="low">piteva</unclear> māteva sakheva nityaṁ</l>
+          <!--
+L12. M prints piteva as clear, while B does not read it at all. It is absolutely indiscernible in the facsimile, but was my first thought too. I marks it up as unclear and tentatively read, hoping that Mirashi would have marked it in some way if this were merely conjecture.
+-->
+          <l n="d">priyo-bhigamyaś ca babhūva<lb n="13"/><seg met="+=">
+              <gap quantity="2" reason="illegible" unit="character"/>
+            </seg></l>
+          <!--
+L13. Mirashi supplies satyam for the end of v15, but I see nothing confirming this.
+-->
+        </lg>
+        <lg met="upajāti" n="16">
+          <l n="a">
+            <seg met="=+-++--+-+=">
+              <gap quantity="11" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <!--
+-->
+          <l n="b">
+            <seg met="=+-++--+-+=">
+              <gap quantity="11" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <l n="c">svasthas samāveśya sa tatra rājā</l>
+          <l n="d"><unclear>sasañ</unclear>ja bhogeṣu yatheṣṭa-ceṣṭaḥ</l>
+        </lg>
+        <lg met="mālabhāriṇī" n="17">
+          <!--
+B and M both identify the metre as aupacchandasika, but the extant part of it is pure mālabhāriṇī, not a loose aupacchandasika.
+-->
+          <l n="a">atha tasya suto babhū<lb n="14"/><unclear cert="low">va</unclear> <unclear>rā</unclear>j<unclear>ā</unclear></l>
+          <!--
+L14. B prints (va rājā) as unclear, while M prints it as clear. I mark up what I see.
+-->
+          <l n="b">
+            <unclear cert="low">lamara</unclear>
+            <seg met="+--+-+-+=">
+              <gap quantity="9" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <!--
+L14. The first characters of v17b look like lāmara. B and M transcribe nothing here and lāmara is unmetrical. Perhaps lamara? lā seems to use a simplified l later in this line (but not in e.g. l18). But what is lamara, unless it's alam, in sandhi with quarter a? Lamaka is a name and may also mean "lover, a gallant", but this is tenuous.
+-->
+          <l n="c">hari-r<unclear>ā</unclear>ma-hara-smare<unclear>ndu</unclear>-kāntir hariṣeṇo hari-vikkrama-pratāpaḥ</l>
+          <!--
+L14. B reads smareva, emending to smarendra. Mirashi says the character in question "is clearly ndu". It definitely looks like va in Indraji's facsimile, but there are traces below it that may belong to ndu, and Mirashi's reading certainly makes the best sense. Mirashi's rubbing could be ndu, though it looks more like ndra.
+-->
+        </lg>
+        <lg met="vaṁśastha" n="18">
+          <l enjamb="yes" n="a">sa kuntalāvanti-kaliṅga-kosala</l>
+          <l n="b">-trikūṭa-lāṭ-āndhra<lb break="no" n="15"/>-<seg met="-">
+              <gap quantity="1" reason="illegible" unit="character"/>
+            </seg><unclear>īma</unclear><unclear cert="low">-jān</unclear> <unclear>i</unclear><unclear cert="low">mān</unclear></l>
+          <!--
+L15. At the beginning Mirashi reads .=. jān imān; Bühler does not read anything here. In Indraji's rubbing only two i mātrās are visible, the first, which is probably ī, below the j(ā) of l14, the second below below my tentative ma. In Mirashi's rubbing there does seem to be a pretty clear m, but that is right after the first i mātrā, and if Mirashi wanted to read jān imān there, then there would have been no room for three more characters before that. So, if I accept Mirashi's reading, it must fit with what I see as recorded above. Could this be something + sīmajān?
+-->
+          <l n="c">
+            <seg met="-+-++--">
+              <gap quantity="7" reason="illegible" unit="character"/>
+            </seg>
+            <unclear cert="low">śaury</unclear>
+            <unclear>ya-v</unclear>
+            <unclear cert="low">i</unclear>
+            <unclear>śr</unclear>
+            <unclear cert="low">u</unclear>
+            <unclear>tān</unclear>
+          </l>
+          <!--
+L15. śauryya-viśrutān api is again Mirashi's reading; Bühler only prints pi and that is all I can see in Indraji's rubbing, but Mirashi's does seem to have more. The first three syllables of quarter c should probably be restored as cakāra.
+-->
+          <l n="d"><unclear>a</unclear>pi sva-nirddeśa-<unclear cert="low">va</unclear><unclear>śāna</unclear>ti-<unclear>s</unclear><unclear cert="low">th</unclear><unclear>i</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->tā</supplied><unclear>N</unclear></l>
+          <!--
+L15. at the end of v18d M reads nirddeśa-guṇāti..., printing it as clear. Bühler has nothing here. Looking at M's rubbing, I think there is one more character between śa and what he reads as gu. That character is probably va, and M's gu is probably śā. My tentative reading is nirddeśa-vaśānati-sthitān; I could also imagine nirddeśa-vaśān abhi-something.
+-->
+        </lg>
+        <lg met="mālabhāriṇī" n="19">
+          <!--
+B and M both identify the metre as aupacchandasika, but the extant part of it is pure mālabhāriṇī, not a loose aupacchandasika.
+-->
+          <l n="a">prathito bhuvi hastibhoja-sūnus</l>
+          <l n="b">sacivas tasya mahīpater bbabhūva</l>
+          <l n="c">sakala-kṣiti<lb break="no" n="16"/>-<seg met="+-+-+">
+              <gap quantity="5" reason="illegible" unit="character"/>
+            </seg><unclear cert="low">ya</unclear></l>
+          <l n="d">
+            <unclear>prava</unclear>
+            <unclear cert="low">ra</unclear>
+            <seg met="--+-+-++">
+              <gap quantity="8" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <!--
+L16. Neither B nor M reads anything in the lacuna at the beginning of l16, but I think there may be a ya (discernible only in Indraji's rubbing), followed by the fairly clear word pravara (in both rubbings).
+-->
+        </lg>
+        <lg met="upajāti" n="20">
+          <l n="a"><unclear cert="low">api pra</unclear>jeṣṭa<unclear>ḥ</unclear> sthira-dhīra-cetās</l>
+          <!--
+L16. M reads the beginning of v20 as (rāja)prajeṣṭaḥ. Bühler only reads from jeṣṭa, which is all that is visible in Indraji's rubbing. Looking at M's rubbing though, the characters are almost recognisable, and I think rāja is very unlikely (even though M says it is "fairly clear in the new estampage"); it is almost certainly api, though this sounds a bit lame at the beginning of a verse. But then, rāja-prajeṣṭaḥ is at least as lame.
+-->
+          <l n="b">tyāga-<unclear>kṣamaudā</unclear>ryya-guṇair upeta<supplied reason="omitted">ḥ</supplied></l>
+          <l n="c">dharmmeṇa dharmma-pravaṇaś-śaśāsa</l>
+          <l n="d">deśaṁ yaśaḫ-puṇya-guṇāṁśu<lb break="no" n="17"/>-<seg met="+=">
+              <gap quantity="2" reason="illegible" unit="character"/>
+            </seg></l>
+          <!--
+L17. M proposes to restore śubhraḥ at the end of v20. This seems unlikely on the basis of his rubbing. I would, very tentatively, propose mālī.
+-->
+        </lg>
+        <lg met="mālabhāriṇī" n="21">
+          <!--
+B and M both identify the metre as aupacchandasika, but the extant part of it is pure mālabhāriṇī, not a loose aupacchandasika.
+-->
+          <l n="a">
+            <seg met="--+--+-+-+=">
+              <gap quantity="11" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <l n="b">prati puṇyopacayaṁ paraṁ cakāra</l>
+          <l n="c">yata ūrddhvam <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->i</supplied><unclear>māṁ</unclear> sahā<unclear>ya</unclear>-dharmmā</l>
+          <!--
+L17. Note the very rare initial ū, very clear in both rubbings.
+-->
+          <!--
+L17. I follow M's reading in v21cd, which is quite plausible on the basis of his rubbing, though not as clear as he would have it. B reads yata ūrddhvam adas sahāya-dharmmā-parito. I'm not sure how Mirashi construes his sentence; he seems to translate sahāya-dharmmā as if it were dharmma-sahāyaḥ. The characters dharmmā are only discernible in Indraji's rubbing. The next two characters after that are very unclear in both rubbings, and to me the second looks much more like su than ra in M's rubbing. Can this be sasuto? And construe lokagurau with something else? And possibly read dharmmaḥ (or dharmmāṁ, agreeing with kārām?). The word kārā is also opaque, as noted by both B and M.
+-->
+          <l n="d"><unclear cert="low">nira</unclear>to loka-gurau cakāra kārā<unclear>M</unclear></l>
+        </lg>
+        <lg met="upajāti" n="22">
+          <l n="a">āyur-vvayo-vitta-sakhā<choice>
+              <sic>ṇ</sic>
+              <corr>n</corr>
+            </choice>i<lb n="18"/><seg met="+=">
+              <gap quantity="2" reason="illegible" unit="character"/>
+            </seg></l>
+          <l n="b"><seg met="=+-++--">
+              <gap quantity="7" reason="illegible" unit="character"/>
+            </seg><unclear cert="low">cañca</unclear>lāni</l>
+          <!--
+L18. I accept M's cañcalāni in v22b, but I believe this is his conjectural restoration rather than a reading.
+-->
+          <l n="c">u<unclear>ddiśya</unclear> mātā-pitarāv udāraṁ</l>
+          <l n="d">nyavīviśad veśma yatī<unclear>ndra-sevyaM</unclear></l>
+          <!--
+L18. M prints nyavīśad but this must be a typo.
+-->
+        </lg>
+        <lg met="mālabhāriṇī" n="23">
+          <!--
+B and M both identify the metre as aupacchandasika, but the extant part of it is pure mālabhāriṇī, not a loose aupacchandasika.
+-->
+          <l n="a"><unclear>sajalā</unclear>mbu<unclear>da</unclear>-<unclear cert="low">vr̥nda</unclear>-<unclear>lambi</unclear>tāgre</l>
+          <l n="b">bhujagendrādhyuṣite mahīdharendre</l>
+          <!--
+L18. B reads sajalāmbuda ... ddhitāgre bhujagendrādv yuṣite (sic). I accept M's reading, which is very plausible. dhyu is actually clear in Indraji's rubbing and dv yu is probably a typo in Bühler.
+-->
+          <l n="c">
+            <lb n="19"/>
+            <seg met="--+--+-+-+=">
+              <gap quantity="11" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <l n="d"><seg met="-">
+              <gap quantity="1" reason="illegible" unit="character"/>
+            </seg> <seg subtype="consonant" type="component">
+              <gap quantity="1" reason="illegible" unit="component"/>
+            </seg>i<choice>
+              <unclear>ka</unclear>
+              <unclear>ra</unclear>
+            </choice>-śrī-patinā śarā nikuñje</l>
+          <!--
+L19. Mirashi reads (?vī)ra-śrīpatinā. vī would be unmetrical, but the i mātrā is quite visible - so it must be a short i. The consonant is not recognisable.
+-->
+          <!--
+L19. M. reads dharā instead of B's śarā. I find the latter more likely, even from Mirashi's rubbing.
+-->
+        </lg>
+        <lg met="vaṁśastha" n="24">
+          <l enjamb="yes" n="a">gavākṣa-niryyūha-suvīthi-vedikā</l>
+          <l n="b">-<unclear>su</unclear>rendra-kanyā-pratimādy-alaṅkr̥taM</l>
+          <!--
+L19. The halanta M, very clear in Indraji's rubbing, is a small subscript character.
+-->
+          <l n="c">manohara-stambha-vibhaṅga<lb break="no" n="20"/>-<unclear cert="low">meduraṁ</unclear></l>
+          <!--
+L20. meduraṁ at the end of v24c is Bühler's reading. As Mirashi notes, the characters are completely gone. Mirashi wants to supply bhūṣitam here, but I believe B must have had some reason for reading meduram, even if he showed it as unclear, and the reading feels nicer, more interesting than bhūṣitam.
+-->
+          <l n="d"><unclear cert="low">ni</unclear><unclear>veśitābhyanta</unclear>ra-caitya-mandira<unclear>M</unclear></l>
+          <!--
+L20. B reads ...uddhura-caitya, which is unlikely and unmetrical. bhyantara is more or less recognisable in Indraji's rubbing; M's rubbing shows traces of more.
+-->
+        </lg>
+        <lg met="upajāti" n="25">
+          <l n="a">ma<seg met="+-++">
+              <gap quantity="4" reason="illegible" unit="character"/>
+            </seg>-tala-sanniviṣṭa<unclear>ṁ</unclear></l>
+          <!--
+L20. M does not read the ma at the beginning of v25, though the character is quite clear and cannot be what M reads as the halanta M at the end of v24.
+-->
+          <l n="b">vi<unclear>tāna</unclear> <seg met="++-">
+              <gap quantity="3" reason="illegible" unit="character"/>
+            </seg> mano-<unclear cert="low">bhi</unclear>rāmaṁ</l>
+          <l n="c"><seg met="=+">
+              <gap quantity="2" reason="illegible" unit="character"/>
+            </seg> prakāmāmbu-mahā-nidhāna<unclear>ṁ</unclear></l>
+          <!--
+L20. B reads ...ñcāmvu-mahā in v25c.
+-->
+          <l n="d">nāgendra-veśmādibhir a<lb break="no" n="21"/><seg met="-+=">
+              <gap quantity="3" reason="illegible" unit="character"/>
+            </seg></l>
+          <!--
+L21. M wants to restore apy alaṅkr̥tam at the end of v25 (and gives the metre of the lacuna accordingly), but this is unmetrical; the present verse is an upajāti, not a vaṁśastha like the previous one. I'd suggest atyudāram, but other solutions could be thought of.
+-->
+        </lg>
+        <lg met="praharṣiṇī" n="26">
+          <l n="a"><seg met="+++">
+              <gap quantity="3" reason="illegible" unit="character"/>
+            </seg> <unclear>r m</unclear>m<unclear>a</unclear>hat<unclear cert="low">i</unclear> sam<unclear>ī</unclear>raṇ<unclear>e</unclear> <unclear>sa</unclear><unclear cert="low">mantāt</unclear></l>
+          <l n="b">
+            <seg met="+++">
+              <gap quantity="3" reason="illegible" unit="character"/>
+            </seg>
+            <unclear cert="low">vividha-vilāsa</unclear>
+            <seg met="+-+=">
+              <gap quantity="4" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <!--
+L21. B only reads samaraṇā in v26a and nothing in 26b; I follow M, but my markup reflects what I see as clear/unclear. Perhaps instead of mahati, something ending in ×ma + hata?
+-->
+          <l n="c">grīṣmārkkasya ca kiraṇopatā<unclear>pa</unclear>-ta<unclear>ptaṁ</unclear></l>
+          <l n="d">sarva-rtu-prathita-sukhopabhoga-yoga<unclear>M</unclear></l>
+        </lg>
+        <lg met="mālabhāriṇī" n="27">
+          <!--
+B and M both identify the metre as aupacchandasika, but the extant part of it is pure mālabhāriṇī, not a loose aupacchandasika.
+-->
+          <l n="a"><lb n="22"/><seg met="--+-">
+              <gap quantity="4" reason="illegible" unit="character"/>
+            </seg> <unclear>su</unclear>rendra-mandirāṇā<unclear>ṁ</unclear></l>
+          <!--
+L22. I can't see how four syllables can fit before surendra in l22. There seems to be room for no more than one syllable. But the metre is practically certain from the extant bits, so we do need that many syllables, unless some of them are at the end of l21. Also, the following lines also need quite a bit at the beginning, so maybe it's just that more and more is lost at the beginning as we approach the bottom
+-->
+          <l n="b">ruciman-<unclear>ma</unclear>ndara-kanda<unclear cert="low">rānurūpaM</unclear></l>
+          <l n="c">
+            <seg met="--+--+-+-++=">
+              <gap quantity="12" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <l n="d"><seg met="--++-">
+              <gap quantity="5" reason="illegible" unit="character"/>
+            </seg> <unclear cert="low">janair</unclear> yathepsita<seg met="=">
+              <gap quantity="1" reason="illegible" unit="character"/>
+            </seg></l>
+          <!--
+L22. B reads ...ha(ṁ) yathepsita in v22c and correctly shows an illegible syllable after that. Mirashi reads janair yathepsitaṁ (emending to yathepsitaM) and puts the end of the verse here - but this would be unmetrical, and there is at least one character after ta. His janair is possible but far from clear; also, I'd expect a doubling of y after r. Indraji's facsimile has a pretty clear kha before ye, and kha is not impossible from Mirashi's rubbing either. I'd tentatively read makha(ṁ) or m(u)kha(ṁ) instead of janair.
+-->
+        </lg>
+        <lg met="viyoginī" n="28">
+          <certainty locus="value" match="../@met"/>
+          <!--
+B and M both identify the metre as aupacchandasika, but the lines seem to be one syllable shorter, so the metre is vaitālīya; in particular,quarter a seems to be a viyoginī..
+-->
+          <l n="a">a<unclear>s</unclear>ama<unclear>s</unclear>ya virocane girer</l>
+          <!--
+L22. B reads asama-(prati)rocane girer-vaka. The s characters look more like p-s; I wonder if this could in face be aham apy something. Probably not. Both B and M print rv, though rvv is clear in both rubbings. Neither virocana nor pratirocana seem to make a lot of sense. I think the reading could be virohaṇe instead of virocane, but that still isn't very good unless it's used instead of adhirohaṇe, which would be unmetrical.
+-->
+          <l n="b">vvika<lb break="no" n="23"/><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->la</supplied><seg met="+--">
+              <gap quantity="3" reason="illegible" unit="character"/>
+            </seg> ka-śram<unclear>ā</unclear><unclear cert="low">nta</unclear>k<unclear>ā</unclear></l>
+          <!--
+L23. B reads sramā(sic, typo for ś) . kā . [|] laya ... . M reads śramāntakatayā, which is unmetrical. I give my best readings/restorations.
+-->
+          <l n="c">
+            <unclear cert="low">bhavatīva para</unclear>
+            <seg met="-+-=">
+              <gap quantity="4" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <!--
+L23. Neither B nor M read anything in v28c; I think the characters I read are pretty likely.
+-->
+          <l n="d">
+            <seg met="--++--+-+-=">
+              <gap quantity="11" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+        </lg>
+        <lg met="vasantatilakā" n="29">
+          <l n="a"><seg met="++-">
+              <gap quantity="3" reason="illegible" unit="character"/>
+            </seg> <unclear cert="low">viśāla</unclear><unclear>m it</unclear>i yasya janena nāma</l>
+          <!--
+L23. viśālam iti is M's reading, he shows it as clear. B only reads from yasya.
+-->
+          <l n="b">prīti-prasāda-vikaca-praṇa<unclear>yena</unclear> cakre</l>
+          <l enjamb="yes" n="c"><unclear>eta</unclear><unclear cert="low">sya</unclear><lb n="24"/><seg met="+---+">
+              <gap quantity="5" reason="illegible" unit="character"/>
+            </seg> <unclear cert="low">r</unclear><unclear>laya</unclear>naṁ sur<unclear>endra</unclear></l>
+          <!--
+L23. etasya is M's, B only reads eta.
+-->
+          <!--
+L24. Only M reads the r before layana. He also suggests that the preceding two characters may have been gire, but this is probably a conjecture, not a tentative reading.
+-->
+          <l n="d">-mauli-prabhopa<unclear>cita</unclear><unclear cert="low">maṅgala-saṁgra</unclear>hāya</l>
+          <!--
+L24. B shows prabho as unclear, but the characters are clear in M's rubbing.
+-->
+          <!--
+L24. maṅgala-saṁgra is read by M alone, shown even by him as unclear.
+-->
+        </lg>
+        <lg met="upajāti" n="30">
+          <l n="a">nivedya saṅghāya <seg met="-+-">
+              <gap quantity="3" reason="illegible" unit="character"/>
+            </seg> bha<unclear>ktyā</unclear></l>
+          <!--
+L24. bhaktyā at the end of v30a is M's; B just reads gya here. That is indeed what the character looks like, but M's ktyā is plausible. Mirashi suggests suveśma for the restoration of the lacuna. This sounds very good, but it's probably conjecture, not a reading.
+-->
+          <l n="b">sa-bandhu-varggas sa varāhadevaḥ</l>
+          <l n="c">nr̥-deva-saukhyāny a<unclear>nubhūya</unclear><lb n="25"/><seg met="+=">
+              <gap quantity="2" reason="illegible" unit="character"/>
+            </seg></l>
+          <!--
+L25. M restores the end of v30c as samyak. This is possible, but probably not based on anything M actually read; also, he seems a bit too fond of restoring lacunae with samyak. One or both of the two characters missing here may actually be at the end of l24, but more likely they are broken off at the beginning of l25.
+-->
+          <l n="d"><seg met="=+">
+              <gap quantity="2" reason="illegible" unit="character"/>
+            </seg><unclear>ṇa</unclear> śāstā sugata-praśastaḥ</l>
+          <!--
+L25. Mirashi restores the beginning of v30d as dharmmeṇa, plausible.
+-->
+        </lg>
+        <lg met="śārdūlavikrīḍita" n="31">
+          <l n="a">sāndrāmbhoda-bhujaṅga-bhoga-<unclear cert="low">ni</unclear><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->karai</supplied>r yyāva<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->t</supplied> <seg met="-++-=">
+              <gap quantity="5" reason="illegible" unit="character"/>
+            </seg></l>
+          <l n="b"><seg met="++">
+              <gap quantity="2" reason="illegible" unit="character"/>
+            </seg> <unclear cert="low">nūtna</unclear>-manaś-śilāla-kapilair yyāvat karair bhā<space/>svaraḥ</l>
+          <!--
+L25.In v31ab, ryyāvat and nūtna are M's readings; B just reads a "ma" somewhere between bhoga and the next bit, and "nna" for M's tna.
+-->
+          <!--
+L25. nikarair is M's restoration of the lacuna; he shows only bhoga and ryyā° as readings, but ni is actually quite recognisable in his rubbing, so the restoration is convincing.
+-->
+          <!--
+L25. M reads manaḥśilāla, but śś is quite clear in Indraji's rubbing and there doesn't seem to be room for a visarga, so this may be a typo in M.
+-->
+          <!--
+L25. The space in bhāsvaraḥ is not noted by other editors. There is a vertical crack running here, which may already have been present when the stone was first engraved - but in lines 24 and 26 the same crack runs right through letters, so this is probably not the reason for the space. There may be a deleted character in the space.
+-->
+          <l n="c">tāva<unclear>c che</unclear><lb break="no" n="26"/><seg met="--+-+---+++-+">
+              <gap quantity="13" reason="illegible" unit="character"/>
+            </seg> sevyatām</l>
+          <!--
+L25. che at the end of l25 is read by both B and M, but the reading doesn't look plausible in M's rubbing. There seems to be a definite i mātrā over the character.
+-->
+          <l n="d">antar-mmaṇḍapa-ratna<unclear>m e</unclear>tad amalaṁ ratna-tra<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->yo</supplied><unclear>dbhā</unclear>vita<unclear>ṁ||</unclear></l>
+          <!--
+L26. At the end of v31 there is a pretty clear double dot, not noted by B or M. Since a visarga is unlikely, I take this to be punctuation.
+-->
+        </lg>
+        <lg met="mālinī" n="32">
+          <l n="a">vividha-layana-sānus sevyamāno mahadbhir</l>
+          <l n="b">girir aya<lb break="no" n="27"/><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->m</supplied> <seg met="--+++-++-+">
+              <gap quantity="10" reason="illegible" unit="character"/>
+            </seg> ddhyaḥ</l>
+          <l n="c">jagad api ca samasta-vyasta-doṣa-prahāṇā<unclear>d</unclear></l>
+          <!--
+L27. B reads yad api instead of jagad api, but this is probably a typo; jagad is clear in both rubbings.
+-->
+          <!--
+L27. M reads samastaṁ, but no anusvāra is visible in either rubbing so I keep B's reading.
+-->
+          <l n="d">v<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->i</supplied>śatu padam aśokaṁ nirjvaraṁ śāntam āryya<unclear>M</unclear></l>
+          <!--
+L27. Not that it matters much, but B reads an unclear anusvāra at the very end. There may indeed be one, but M reads a clear halanta M, and I see some traces that may belong to this character. Since I'd expect a proper halanta character at least at the end of the whole inscription, I prefer this version.
+-->
+        </lg>
+      </div>
+      <div type="apparatus">
+        <listApp>
+          <app loc="line">
+            <lem/>
+            <rdg source="bib:AuthorYear_01"/>
+          </app>
+        </listApp>
+      </div>
+      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
+      <div type="commentary"></div>
+      <div type="bibliography">
+        <p/>
+        <listBibl type="primary">
+          <bibl n="siglum">
+            <ptr target="bib:AuthorYear_01"/>
+          </bibl>
+        </listBibl>
+        <listBibl type="secondary">
+          <bibl n="siglum">
+            <ptr target="bib:AuthorYear_01"/>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

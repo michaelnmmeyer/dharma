@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Poḍāgaḍh Foundation of Viṣṇu Footprint of Skandavarman</title>
+        <respStmt>
+          <resp>Original EpiDoc Encoding for Siddham, following published edition unless otherwise noted in comments</resp>
+          <persName ref="part:cski">
+            <forename>Csaba</forename>
+            <surname>Kiss</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>Conversion of encoding for DHARMA</resp>
+          <persName ref="part:daba">
+            <forename>Dániel</forename>
+            <surname>Balogh</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName><!--
+The original editor(s).
+--></persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Berlin</pubPlace>
+        <idno type="filename">DHARMA_INSSiddham01004</idno>
+        <!--
+If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
+-->
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Dániel Balogh.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc>
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno/>
+          </msIdentifier>
+          <msContents>
+            <summary/>
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p/>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
+      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
+        <!--
+Comments below by Csaba Kiss and Dániel Balogh (BD) are offered "as is" and do not represent a thoroughly researched or considered opinion.
+-->
+        <p><lb n="1"/>siddhaM||
+</p>
+        <!--
+BD: don't enclose <lg> in <p>! P and LG are structurally equivalent, p for prose, lg for verse.
+-->
+        <lg met="āryā" n="1">
+          <l n="ab">hariṇā jitaṁ jayati jeṣyatī<unclear>ty e</unclear>ṣā guṇa-stutir nna <unclear>hi sā</unclear></l>
+          <l n="cd">nanu bhagavā<unclear>n eva</unclear>
+<lb n="2"/>jayo jetavyaṁ cādhijetā <unclear>ca</unclear>||</l>
+        </lg>
+        <!--
+Is the above really a "variety of the Āryā metre"? Only one mora is missing.
+-->
+        <!--
+BD: I've thought for a bit about this, but can't find a good solution. I'm pretty sure it is indeed āryā, but either it is unmetrical (in addition to the missing mora, there is no caesura in the first line), or it is incorrectly read/inscribed. I can't improve the reading or offer a plausible emendation.
+-->
+        <lg met="anuṣṭubh" n="2">
+          <l n="a">śrī-nalānvaya-mukkhyasya</l>
+          <l n="b">vikkrama-kṣapita-dviṣaḥ</l>
+          <!--
+BD: lb tag goes inside the l! Always on the lowest structural level, with the text. (as you did for line 4).
+-->
+          <l n="c"><lb n="3"/>nr̥pater
+bhavadattasya</l>
+          <l n="d">sat-putreṇ<choice>
+              <unclear>ānya-saṁsthitāM</unclear>
+              <unclear>ānya-saṁsthitāM</unclear>
+            </choice>||<!--
+v2d FN.: "It is also possible to read as satputreṇāvyavasthitāM"
+--><!--
+BD: Indeed, the two seem equally plausible in the rubbing. I suggest marking this up as an ambiguous reading, preferably with the whole of ānya-saṁsthitāM/āvyavasthitām in it.
+--></l>
+        </lg>
+        <lg met="anuṣṭubh" n="3">
+          <l n="a">bhraṣṭām ākr̥ṣya rājarddhiṁ</l>
+          <l n="b"><lb n="4"/>śūnyām āvāsya puṣkarīM</l>
+          <l n="c">pituḫ pitāmahānāñ ca</l>
+          <l n="d">jananyāẖ <choice>
+              <sic>kri</sic>
+              <corr>kr̥</corr>
+            </choice>tinā <unclear>tataḥ</unclear></l>
+        </lg>
+        <lg met="anuṣṭubh" n="4">
+          <l n="a"><lb n="5"/>kr̥tvā
+dha<unclear>rmmā</unclear>rthane bhyāśā<choice>
+              <sic>n</sic>
+              <corr>m</corr>
+            </choice></l>
+          <l n="b">idam ātma-hitaiṣiṇā</l>
+          <l n="c">pāda-mūlaṁ kr̥taṁ viṣṇo</l>
+          <l n="d">rājñā śrī<unclear>skandava</unclear>
+<lb break="no" n="6"/>rmmaṇā||</l>
+        </lg>
+        <lg met="anuṣṭubh" n="5">
+          <l n="a">pūjārtham asya caiveha</l>
+          <l n="b">sodakam bhūri-dakṣiṇaM</l>
+          <l n="c">puruṣāya puraṁ <unclear>da</unclear><seg met="+">
+              <gap quantity="1" reason="illegible" unit="character"/>
+            </seg></l>
+          <l n="d"><seg met="====">
+              <gap quantity="4" reason="illegible" unit="character"/>
+            </seg><!--
+Editor's conjecture: ttam| atrācandrā
+--><!--
+BD: This is messy. 1. Yes, gaps in metrical verse should always be represented with metrical pattern (in SUPPLIED tags). 2. Supplied text CANNOT be used as an alternative to sic in a choice element. sic only pairs with corr in choice. 3. The supplied text CANNOT contain </l><l>, this would be an overlap. If such a thing were necessary (but it is not, here), then you would need to close the supplied tag, then close the structural tag and open a new one, then open another supplied tag. 4. Since the editor's restoration is conjectural (though plausible), I would just show the gap (with prosody) in the edition, and give the restoration in a comment, as you have done below.
+--><lb break="no" n="7"/>rkka-tārak<choice>
+              <sic>ā</sic>
+              <corr>a</corr>
+            </choice><unclear>M</unclear>||</l>
+          <!--
+v5cd. FN. "Read tārakam." The Ed. restores pādas cd as: puruṣāya puraṁ dattam atrācandrārkkatārakam. All this I have marked up.
+-->
+        </lg>
+        <lg met="anuṣṭubh" n="6">
+          <l n="a">satropabhojyaṁ viprāṇāṁ</l>
+          <l n="b">yatīnāñ ca viśeṣata<unclear>ḥ</unclear></l>
+          <!--
+v6a. satvopabhojyaṁ is the Ed.'s correction.
+-->
+          <l n="c"><unclear>dīnānām a</unclear>py anāthānāṁ</l>
+          <l n="d"><seg met="====">
+              <gap quantity="4" reason="illegible" unit="character"/>
+            </seg>
+<lb n="8"/>ca sarvvaśaḥ||</l>
+        </lg>
+        <lg met="anuṣṭubh" n="7">
+          <l n="a">apraveśyaṁ bhaṭaiś cedaṁ</l>
+          <l n="b">sadā kara-visarjjitaM</l>
+          <l n="c">śrī<unclear>cakradro</unclear>ṇa-putr<choice>
+              <sic>a</sic>
+              <corr>ā</corr>
+            </choice>ya</l>
+          <l n="d"><seg met="====">
+              <gap quantity="4" reason="illegible" unit="character"/>
+            </seg>
+<lb n="9"/>yathocita<supplied reason="omitted">M</supplied>||</l>
+        </lg>
+        <lg met="anuṣṭubh" n="8">
+          <l n="a">sthitiś ceyaṁ puro baddhā</l>
+          <l n="b">dharmyā stambhe nive<unclear>śi</unclear>tā</l>
+          <l n="c">yaś cemāṁ hrāpaye<unclear>t saṁ</unclear>sthām mahāpā<unclear>ta</unclear><seg met="-+-+">
+              <gap quantity="4" reason="illegible" unit="character"/>
+            </seg><!--
+v8d. mahāpātakam aśnute is the Ed.'s restoration.
+--></l>
+        </lg>
+        <lg met="vaṁśastha" n="9">
+          <l n="a"><lb n="10"/>vyatikramed yo hi mahīpate<supplied reason="omitted">ḥ</supplied> sthiti<unclear>M</unclear></l>
+          <l n="b">kulādhamaḫ pārtthiva-kilbiṣam pibe<supplied reason="omitted">t</supplied></l>
+          <l n="c"><lb n="11"/>samanviyād yaś ca <unclear>narendra</unclear>-sat-pathaM</l>
+          <l n="d">sa vāsudevāśra<unclear>ya</unclear>m āpnuyāc cira<supplied reason="omitted">M</supplied>||</l>
+        </lg>
+        <lg met="anuṣṭubh" n="10">
+          <l n="a"><lb n="12"/>dvādaśe bde narendreṇa</l>
+          <l n="b">mādhave māsi cottame</l>
+          <l n="c"><unclear>sapta-viṁśe</unclear> dine puṇye</l>
+          <l n="d"><lb n="13"/>stambho yaṁ <unclear>gā</unclear>hitas svayaM||</l>
+        </lg>
+        <lg met="anuṣṭubh" n="11">
+          <l n="a">prīti-bhāgavate<unclear>nai</unclear>vaM</l>
+          <l n="b">bhartuḫ priya<unclear>cā</unclear><seg met="+-+">
+              <gap quantity="3" reason="illegible" unit="character"/>
+            </seg> </l>
+          <!--
+Ed.: "Read [sthi]tir bhāgavatenaiṣā"
+cā is suspicious; unmetrical
+-->
+          <l n="c"><lb n="14"/>senāpatinā kal<choice>
+              <unclear>pitā </unclear>
+              <unclear>yāṇa-</unclear>
+            </choice></l>
+          <l n="d">mālinehālpa-buddhinā||</l>
+          <!--
+Ed.: "Reading is kalyāṇamāli-" CHECK
+-->
+          <!--
+CsK: I suppose that mālineha is just a typo.
+-->
+          <!--
+BD: This is again a bit messy and should be re-edited carefully. For now, just keep the text as printed. The editorial comment with sthitir etc should only be mentioned in a comment, as you do above. Keep the unclear cā, and add prosody to the gap. The readings kalpitā/kalyāṇa are not a sic/sic pair (there's no such thing as a sic/sic choice). Ambiguous readings must be marked up as a choice between two unclear elements. Change that, and we are fine: Krishnamacharlu read kalpitā, his editor read kalyāṇa; both seem possible. At the end, revert to mālineha, without a correction. Here are some thoughts on this. 1. kalyāṇa is much more likely imo than kalpitā. The guy's name was thus kalyāṇamālin. 2. If we accept this, then the reading "sthitir bhāgavatenaiṣā" is rubbish: we don't need a feminine subject. Instead, the subject remains stambho yaṁ from the previous verse. (This would also imply that narendreṇa in v10 is incorrect, perhaps narendrasya would be better.) 3. I can't make out anything at the end of l13, but my intuition says we should restore bhartuf priya-cikīrṣayā. 4. kalyāṇamālihenālpa resolves to kalyāṇamālinā*iha*alpa. I guess he calls himself dim-witted out of false modesty. It's a bit strange, but I can't get a meaningful parsing with analpa or nālpa, and "linehā" is quite clear in the rubbing.
+CsK Yes, of course, too much Aiśa in my mind (mālin = mālina), although iha is a bit strange here.
+-->
+        </lg>
+        <lg met="anuṣṭubh" n="12">
+          <l n="a">
+            <seg met="====">
+              <gap quantity="4" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <l n="b"><lb n="15"/>likhitaṁ <unclear>cau</unclear>li-sūnunā</l>
+          <l n="c">bhaktyā <unclear>jāṁ</unclear>turadāsena</l>
+          <l n="d">
+            <seg met="====-+-+">
+              <gap quantity="8" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <!--
+Metrical problem? Two pādas swapped?
+-->
+          <!--
+BD: I think the lost text in l14 is just one quarter of a śloka, not a full half. So v12 would be: pāda a: lost; pāda b: likhitaṁ...; c: bhaktyā...; d: lost. And v13: a: ājena...; b: nirguṇena...; c: lost; d: lost. Please mark up like this and note that Krishnamacharlu does it differently, but seems to be wrong. (I'm not quite sure two pādas can fit in the lost part of l.16, but this seems to be the only plausible solution. There may actually be a line 17 too, with a few characters.)
+-->
+        </lg>
+        <lg met="anuṣṭubh" n="13">
+          <l n="a"><lb n="16"/><unclear>ā</unclear>jena viśvarūpe<choice>
+              <sic>n</sic>
+              <corr>ṇ</corr>
+            </choice>a</l>
+          <l n="b">nirguṇena gu<unclear>ṇaiṣiṇā</unclear></l>
+          <l n="c">
+            <seg met="====-++=">
+              <gap quantity="8" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+          <l n="d">
+            <seg met="====-+-=">
+              <gap quantity="8" reason="illegible" unit="character"/>
+            </seg>
+          </l>
+        </lg>
+        <!--
+Krishnamacharlu presents verses 12 and 13 differently.
+-->
+      </div>
+      <div type="apparatus">
+        <listApp>
+          <app loc="line">
+            <lem/>
+            <rdg source="bib:AuthorYear_01"/>
+          </app>
+        </listApp>
+      </div>
+      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
+      <div type="commentary"></div>
+      <div type="bibliography">
+        <p/>
+        <listBibl type="primary">
+          <bibl n="siglum">
+            <ptr target="bib:AuthorYear_01"/>
+          </bibl>
+        </listBibl>
+        <listBibl type="secondary">
+          <bibl n="siglum">
+            <ptr target="bib:AuthorYear_01"/>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

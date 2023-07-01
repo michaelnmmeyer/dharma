@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title><!-- ADD TITEL HERE --></title>
+        <respStmt>
+          <resp>Encoding template for inscription</resp>
+          <persName ref="part:jeth">
+            <forename>Jens Christian</forename>
+            <surname>Thomas</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:jeth">
+            <forename>Jens Christian</forename>
+            <surname>Thomas</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Berlin</pubPlace>
+        <idno type="filename">DHARMA_INSTelugu00062</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+                     Licence. To view a copy of the licence, visit
+                     https://creativecommons.org/licenses/by/4.0/ or send a letter to
+                     Creative Commons, 444 Castro Street, Suite 900, Mountain View,
+                     California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
+        <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno/>
+            <!-- don't modify this -->
+          </msIdentifier>
+          <msContents>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-07-07" who="part:jeth">Creation of the file</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="tel-Latn">
+        <p>
+              <lb n="1"/>svasti śrī raccayillu<lb break="no" n="2"/><unclear>ṁ</unclear> jeṟuvuḷu guḷḷu gu<supplied cert="unknown" reason="undefined">ca</supplied><lb break="no" n="3"/>pōṟērivi Ip-prati<unclear>ma</unclear> vī<lb break="no" n="4"/>ri pedda koḍuku niḍumrāni kayya<lb break="no" n="5"/>ṁbuna jaccinavānṟu
+              <lb n="6"/>iru-gaṇḍug āṟla paṭṭu sēnu
+              <lb n="7"/>bhaṭaraḷaku ra<unclear>ṭṭō</unclear>ḍi yiccinadi
+            </p>
+      </div>
+      <div type="apparatus">
+        <listApp>
+          <app loc="1">
+            <lem>raccayillu<lb break="no" n="2"/><unclear>ṁ</unclear></lem>
+            <rdg source="bib:Radhakrishna1971_01">raccayillu<lb break="no" n="2"/><unclear>O</unclear></rdg>
+            <note>The reading of B. Radhakrishna (i.e. ⟨O⟩) seems to be a printing mistake at first glance (and this might indeed be the case here). Yet, initial ⟨O⟩ in "archaic Telugu" - and that is what the script is described as - is quite similar to ⟨gu⟩ and this reading would make sense insofar as it could represent one of the several forms of the so called conjunctive or connective particle. It may be noted, though, that while this suffix is attested with a glide, the form is attested as ⟨vu⟩ and not ⟨gu⟩.</note>
+          </app>
+          <app loc="2">
+            <lem>jeṟuvuḷu</lem>
+            <rdg source="bib:RamayyaPantulu1948_01">jeṟuvu</rdg>
+          </app>
+          <app loc="2">
+            <lem>guḷḷu gu<supplied cert="unknown" reason="undefined">ca</supplied><lb break="no" n="3"/>pōṟērivi</lem>
+            <rdg source="bib:Radhakrishna1971_01">guḷḷu gu<lb break="no" n="3"/>pōṟērivi</rdg>
+            <rdg source="bib:RamayyaPantulu1948_01">guḷlugu<gap precision="low" quantity="1" reason="undefined" unit="character"/> <lb n="3"/>pō<unclear>ḍē</unclear>rivi</rdg>
+            <note>The text of J. Ramayya Pantulu is edited in modern Telugu script where the retroflex double /ḷḷ/ is normally represented via ⟨ḷl⟩. The reading of B. Radhakrishna, however, makes clear that ⟨ḷḷ⟩ was written which was to be expected. The element <foreign>pōṟ(i)</foreign>- can be found in several proper nouns but it is always attributed or itself attribute. Hence, there is a certain probablility that the last <foreign>akṣara</foreign> and another probably lost <foreign>akṣara</foreign> (B. Radhakrishna does not insert a dot in his edition) of line 2 form this attribute. In reference to <bibl>
+                <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/>
+                <citedRange unit="page">244</citedRange>
+              </bibl> (<foreign>kūcapōṟi</foreign>-) I have tentatively supplied the <foreign>akṣara</foreign> ⟨ca⟩ to form <foreign>guca</foreign>- (i.e. <foreign>gūca</foreign>) without claiming that both names refer to the same person. The form <foreign>pōṟēri</foreign> comes from *pōṟi-yāri with the so called honorific suffix in gen. case</note>
+          </app>
+          <app loc="4">
+            <lem>niḍumrāni</lem>
+            <rdg source="bib:RamayyaPantulu1948_01">niḍumrani</rdg>
+          </app>
+          <app loc="6">
+            <lem>āṟla</lem>
+            <rdg source="bib:RamayyaPantulu1948_01">āḍla</rdg>
+          </app>
+          <app loc="7">
+            <lem>ra<unclear>ṭṭō</unclear>ḍi</lem>
+            <rdg>ra<unclear>ṭṭo</unclear>ḍi</rdg>
+            <!-- has to be clarified -->
+            <note>The inscription is of old age (confer forms like <unclear>āṟla</unclear> and the information about the archaic script) wherefore we can assume a long vowel which is a contraction of the diphthong as a result of the loss of the intervocalic /g/: <foreign>raṭṭōḍi</foreign> from <foreign>raṭṭaguḍi</foreign>/<foreign>raṭṭakuḍi</foreign> (attested).</note>
+          </app>
+        </listApp>
+      </div>
+      <div source="bib:Sastri1969_01" type="translation">
+        <p>
+               Hail. Prosperity. The court-house, the tank and the temple belong to (i.e. are endowed by) Pōḍēri. This sculpture is of his eldest son who died in the battle of Niḍumranu. The raṭṭoḍi gave land sowable with two <hi rend="italic">gaṇḍus</hi> of paddy to the God.
+            </p>
+      </div>
+      <div resp="part:jeth" type="translation">
+        <p></p>
+      </div>
+      <div type="commentary">
+        <p>
+              My reading consists in small changes on grammatical grounds which were done without consulting the original in absence of a picture in the editions. The basic reading is due to J. Ramayya Pantulu and the corrections of B. Radhakrishna.
+              The content seems to be quite heterogeneous but there is no reason to assume originally distinct inscriptions here. An inner connection might be produced by the assumption that the <foreign>raṭṭōḍi</foreign> is identical with <foreign>Pōḍēru</foreign>.
+              The <foreign>anusvāra</foreign> in the beginning of lines 2 and 5 shows that the anusvāra was written on top of the <foreign>akṣara</foreign> that it was meant to be pronounced before as it is the case in some inscriptions.
+            </p>
+      </div>
+      <div type="bibliography">
+        <p></p>
+        <listBibl type="primary">
+          <bibl n="siglum"/>
+          <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
+        </listBibl>
+        <listBibl type="secondary">
+          <bibl>A. R. No. 306 of 1920 <!-- has to be adjusted to the @target --></bibl>
+          <bibl>
+            <ptr target="bib:RamayyaPantulu1948_01"/>
+            <citedRange unit="page">16</citedRange>
+            <citedRange unit="item">34</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Radhakrishna1971_01"/>
+            <citedRange unit="page">47-48</citedRange>
+            <citedRange unit="item">67</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Sastri1969_01"/>
+            <citedRange unit="page">327</citedRange>
+            <citedRange unit="item">53</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

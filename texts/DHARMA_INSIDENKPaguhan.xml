@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Paguhan</title>
+        <respStmt>
+          <resp>EpiDoc encoding</resp>
+          <persName ref="part:masc">
+            <forename>Marine</forename>
+            <surname>Schoettel</surname>
+          </persName>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:masc">
+            <forename>Marine</forename>
+            <surname>Schoettel</surname>
+          </persName>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Paris</pubPlace>
+        <idno type="filename">DHARMA_INSIDENKPaguhan</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send
+                            a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Marine Schoettel &amp; Arlo Griffiths</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
+        <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno/>
+            <!-- don't modify this -->
+          </msIdentifier>
+          <msContents>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p>The <foreign>layar</foreign> is used in the Indonesian mode;  the <foreign>visarga</foreign> has an odd shape throughout, almost connected to the previous akṣara; no distinction is made between long and short vowels except in the word <foreign>śuklāpakṣā</foreign>. The number tentatively read as 8 in the date cannot be reconciled any other known number shape of the same period, but 8 would seem to be the most plausible reading. Reconsider all cases of <foreign>anusvāra</foreign> in this inscription and in Pamintihan.
+		<!-- Check with Damais and Sidomulyo's articles on Troloyo gravestones.--><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-06-23" who="part:masc">changes in the bibliography and translation</change>
+      <change status="draft" when="2020-05-18" who="part:masc">second round of corrections reacting on AG's suggestions (translation nl)</change>
+      <change status="draft" when="2020-05-18" who="part:argr">second revision</change>
+      <change status="draft" when="2020-05-15" who="part:masc">adding translation nl</change>
+      <change status="draft" when="2020-03-27" who="part:masc">adapting line numbering system and app loc references to new EG recommandations</change>
+      <change status="draft" when="2020-03-27" who="part:axja">adding the handDesc template</change>
+      <change status="draft" when="2020-02-04" who="part:masc">further corrections made during encoding session</change>
+      <change status="draft" when="2020-02-03" who="part:masc">corrections following AG's suggestions and initial encoding of translation and bibliography</change>
+      <change status="draft" when="2020-01-29" who="part:argr">first revision</change>
+      <change status="draft" when="2020-01-29" who="part:masc">initial encoding of the inscription, div edition</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="kaw-Latn">
+        <pb n="1r"/>
+        <!--Blank outer page.-->
+        <pb n="1v"/>
+        <fw n="1v" place="left" rend="tb-rotated">
+          <num value="1">1</num>
+        </fw>
+        <p>
+ <lb n="1v1"/>// śvasti sakavarsatita // I śaka // <num value="1338">133<unclear>8</unclear></num> //</p>
+        <p><lb n="1v2"/>sama<unclear>ṁ</unclear>kana divasani L̥bu<!-- argr2masc: shall we edit L̥bu-talampakanira? I see that Poerbatjkaraka in his Calon Arang edition tends to do so. masc2argr: We could do it, as this is some kind of Old Javanese compound, in particular one that translates images themselves found in Skt compounds (if that was Poerbatjkaraka's rationale?). But would it not bring some confusion to treat the OJ in more or less the same way we split up Sanskrit compounds?--> talampakanira ri talo<lb break="no" n="1v3"/>nan·, hanimbal· varukira baṭara ri paguhan·, sa<unclear>ṁ</unclear> li<pb break="no" n="2r"/><lb break="no" n="2r1"/>na ri<unclear>ṁ</unclear> pramalaya,</p>
+        <p>ka<unclear>taṁ</unclear>gapan· denira saṅ aṅu<lb break="no" n="2r2"/>cap· gave riṁ gəḍoṁ di<unclear>ṁ</unclear>diva<!-- or follow Bosch' diṁdi(ṅ)va?-->,</p>
+        <p>sira patiḥ səmut·, sira
+ <lb n="2r3"/>saṅ arya pagəḥ, sira saṅ arya guna, sira patiḥ riṁ pagu<pb break="no" n="2v"/><fw n="2v" place="left" rend="tb-rotated">
+            <num value="2">2</num>
+          </fw><lb break="no" n="2v1"/>han·, sira patiḥ səR̥g·, sira patiḥ tem·beṁ,
+    <lb n="2v2"/>saṅ anaṁgapi pisis·, guṅ i pisis· //
+    <lb n="2v3"/>// <num value="200000">200000</num> // roṁ kəṭi roṁ kəṭi
+<pb n="3r"/>
+    <fw n="3r" place="left" rend="tb-rotated">
+            <num value="3">3</num>
+          </fw>
+    <lb n="3r1"/>gənəp·,</p>
+        <p> padu kalivon·, tr<subst>
+            <del>i</del>
+            <add>a</add>
+          </subst>ayodasi,<!-- Arlo:
+        indeed, why not simply trayodasi? --> suklā<lb break="no" n="3r2"/>-pakṣā, riṅ asuji, maṣa // haparab·
+    <lb n="3r3"/>sa<supplied reason="omitted">ṁ</supplied> kavasa //
+</p>
+      </div>
+      <div type="apparatus">
+        <!-- argr2masc: Bosch's and Damais' reading need to be represented systematically -->
+        <listApp>
+          <app loc="1v1">
+            <lem>
+              <num value="1338">133<unclear>8</unclear></num>
+            </lem>
+            <rdg source="bib:Bosch1924_01">1388</rdg>
+            <note>The correct reading of the date as 1338 given in <ptr target="bib:TBG"/> indicates that the
+                          reading found in <ptr target="bib:Bosch1924_01"/>, also attributed to Bosch in <bibl>
+                <ptr target="bib:Damais1952_01"/>
+                <citedRange>78-79</citedRange>
+                <citedRange unit="item">A.205</citedRange>
+              </bibl>,<!-- argr2masc: but Damais actually reads 1338... So please modify this note. masc2argr: I have modified it - but I'm not removing the comment yet if you want to check the revision.--> was in all probability a printing mistake.</note>
+          </app>
+          <app loc="2r3">
+            <lem>riṁ</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:Bosch1924_01">ri</rdg>
+          </app>
+          <app loc="2r2">
+            <lem source="bib:Boechari1985-1986_01">di<unclear>ṁ</unclear>diva</lem>
+            <rdg source="bib:Bosch1924_01">diṁdi<unclear>ṁ</unclear>va</rdg>
+          </app>
+          <app loc="2v1">
+            <lem>səR̥g</lem>
+            <rdg source="bib:Bosch1924_01 bib:Boechari1985-1986_01">siR̥g</rdg>
+          </app>
+          <app loc="3v1">
+            <!-- argr2masc: I think this whole app entry can be removed -->
+            <lem>tr<subst>
+                <del>i</del>
+                <add>a</add>
+              </subst>ayodasi</lem>
+            <rdg source="bib:Boechari1985-1986_01">trayodasi</rdg>
+            <rdg source="bib:Damais1955_01">triyodasi</rdg>
+          </app>
+          <app loc="3r3">
+            <lem source="bib:Damais1955_01">sa<supplied reason="omitted">ṁ</supplied> kavasa</lem>
+            <!-- Or encode as normalisation?-->
+            <rdg source="bib:Bosch1924_01 bib:Boechari1985-1986_01">sakavasa</rdg>
+          </app>
+        </listApp>
+      </div>
+      <div resp="part:masc part:argr" type="translation">
+        <!--translation encoded as per EGD §9.2 -->
+        <p>Hail! In the elapsed Śaka year 1338: such was the time that His Majesty of Talonan <seg cert="low">took over <supplied reason="explanation">
+              <foreign>hanimbal</foreign>
+            </supplied></seg><!--maybe it could be "exchanged", although that meaning is not found in OJED, see in commentary--> the piece of land <supplied reason="explanation">
+            <foreign>varukira</foreign>
+          </supplied> of the Lord at Paguhan, he who was released in the
+     Highest Abode <supplied reason="explanation">or at Paramālaya</supplied>. <supplied reason="subaudible">The order</supplied> was received by <q>those who discuss the works</q> <supplied reason="explanation">
+            <foreign>denira saṅ aṅucap gave</foreign>
+          </supplied> at the stone building Diṅdiva. The <foreign>patih</foreign> Səmut, the <foreign>ārya</foreign> Pagəh <supplied reason="explanation">the Venerable Pagəh</supplied>, the <foreign>ārya</foreign> Guna <!--make a choice, streamline those Venerables and use commentary--><supplied reason="explanation">the Venerable Guna</supplied>, the <foreign>patih</foreign> at Paguhan <supplied reason="explanation">by the master at Paguhan</supplied>, the <foreign>patih</foreign> Sərəg, the <foreign>patih</foreign> at Tembeṅ,
+     <supplied reason="explanation">those are</supplied> the people who received <supplied reason="explanation"> a sum of money in copper</supplied>coins <supplied reason="explanation">
+            <foreign>pisis</foreign>
+          </supplied>. The amount of coins: 200.000, two hundred
+     thousand, two hundred thousand in total <supplied reason="explanation">
+            <foreign>gənəp</foreign>
+          </supplied>, on Kliwon, the thirteenth <supplied reason="explanation">day</supplied> of the waxing fortnight, the month of Asuji, <supplied reason="subaudible">signed by</supplied> the one named Spellbound <supplied reason="explanation"><foreign>saṅ</foreign> Kavasa</supplied>.</p>
+      </div>
+      <div source="bib:Bosch1924_01" type="translation" xml:lang="ndl">
+        <p>Heil! Śaka-jaren verloopen, in het Śaka jaar 1338. Aldus is het tijdstip, dat Zijne Hoogheid van Talonan in ontvangst nam de storting (?) ten behoeve van den <foreign>bhaṭāra</foreign> van Paguhan, die overleden is te Pramalaya, ontvangen door de <supplied reason="explanation">ambtenaren</supplied> <foreign>aṅucap gave</foreign> in het huis Diṅdi<supplied cert="low" reason="omitted">ṅ</supplied>va, de <foreign>patih</foreign> Səmut, de <foreign>ārya</foreign> Pagəh, de <foreign>ārya</foreign> Guna, de <foreign>patih</foreign> van Paguhan, de <foreign>patih</foreign> Sirəg, de <foreign>patih</foreign> Tembeṅ, <supplied reason="explanation">zijn zij</supplied> die het geld ontvingen; de hoeveelheid van het geld is 200.000, twee honderd duizend, twee honderd duizend totaal; <supplied reason="subaudible">op</supplied> Kaliwon, den 13den van de lichte maandhelft, in de maand Asuji. Zich noemende <sic>Sakavasa</sic>.</p>
+      </div>
+      <div type="commentary">
+        <p>The language of this inscription </p>
+        <!-- make a note that the language of this inscription is closer to Middle Javanese, kəṭi: not the same as kaṭi (contra what is cited under OJED 821), not a weight unit in this inscription, in Sanskrit there are the words lakṣa and koṭi have been <app loc="1v1">
+              <lem>L̥bu talampaka-</lem>
+              <note>This title is used in works in Middle Javanese such as Calon Arang (paragraph 147).</note>
+              Commentary on aṅucap gave which is a hapax
+            </app>-->
+      </div>
+      <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
+        <p>First edited by F.D.K. Bosch (<bibl rend="omitname">
+            <ptr target="bib:Bosch1924_01"/>
+            <citedRange unit="page">104-105</citedRange>
+          </bibl>); dating
+                formula re-edited by Damais (<bibl rend="omitname">
+            <ptr target="bib:Damais1955_01"/>
+            <citedRange unit="page">110-111</citedRange>
+            <citedRange unit="item">A.205</citedRange>
+          </bibl>); edited again by Boechari
+                (<bibl rend="omitname">
+            <ptr target="bib:Boechari1985-1986_01"/>
+            <citedRange unit="page">119</citedRange>
+            <citedRange unit="item">E.60</citedRange>
+          </bibl>).
+                Re-edited here by Marine Schoettel and Arlo Griffiths from photographs by Georges Groslier (EFEO Paris GROB03770 and GROB03771).</p>
+        <listBibl type="primary">
+          <bibl n="B1">
+            <ptr target="bib:Boechari1985-1986_01"/>
+            <citedRange unit="page">119</citedRange>
+            <citedRange unit="item">E.60</citedRange>
+          </bibl>
+          <bibl n="B2">
+            <ptr target="bib:Bosch1924_01"/>
+            <citedRange unit="page">104-105</citedRange>
+          </bibl>
+        </listBibl>
+        <listBibl type="secondary">
+          <bibl>
+            <ptr target="bib:TBG64_1924"/>
+            <date>1924</date>
+            <citedRange unit="volume">64</citedRange>
+            <citedRange unit="page">619, 658-659</citedRange>
+          </bibl>
+          <!--mas2argr: I have tried to adapt the example given for E.16 p. 130 in the EG, while creating in an entry in the J collection in Zotero. Is this alright?-->
+          <bibl>
+            <ptr target="bib:Damais1952_01"/>
+            <citedRange>78-79</citedRange>
+            <citedRange unit="item">A.205</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Damais1955_01"/>
+            <citedRange>110-111</citedRange>
+            <citedRange unit="item">A.205</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

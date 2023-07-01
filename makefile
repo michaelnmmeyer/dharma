@@ -4,8 +4,10 @@ update-texts:
 	rm -f texts/*
 	python3 texts.py update
 	for f in texts/*.xml; do \
-		python3 xmlformat.py < $$f > tmp && mv tmp $$f; \
+		python3 xmlformat.py $$f > tmp && mv tmp $$f; \
 	done
+	git add texts
+	git commit -m "Update texts"
 
 .PHONY: all update-texts
 

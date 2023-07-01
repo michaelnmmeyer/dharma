@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<!--Last xsl transformation: 2017-05-17T13:36:55.949+02:00
+Data source: 'iksvaku-inscriptions/metadata/EIAD-inventory.xlsx'
+- - - - - - - - -
+[1] Inventory no. EIAD: 175
+[2] Raghunath no.:
+[3] Srinivasan & Sankaranarayanan no.:
+[4] Tsukamoto no.:
+[5] Lüders no.:
+[6] Support : 5 copper plates, 1 blank
+[7] (Faces:) Lines: 45
+[8] H: 6.4
+[9] W: 19
+[10] D: 0.2
+[11] H:
+[12] W:
+[13] Language(s): Sanskrit
+[14] Original locality: Tummalagudem, Ramannapeta Tk., Nalgonda Dt.
+[15] Present locality: Archaeological Museum Panagal, P-7175
+[16] Primary bibliography: Sastri in Bharati 1965. — Rama Rao Journal Indian History vol. 44. — Sankaranarayanan 1974: 15-20.
+[17] Secondary bibliography: Sankaranarayanan 1977: 172-5 (VIII). — Hanumantha Rao et al. 1998: 202-7. — Rama Rao Journal Indian History vol. 44: 683ff.
+[18] Visual documentation: Sastri in Bharati 1965. — Sankaranarayanan 1974, pl. VI-VIII.
+[19] Substance of inscription: Gift of one village to the queen's vihāra under Vikramendravarman II
+[20] Remarks:
+[21] : VK4 Velpuru
+--><TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Copper plates from Tummalagudem (set II) — reign of Vikramendravarman II,
+                    year 11</title>
+        <respStmt>
+          <resp>EpiDoc Encoding</resp>
+          <persName ref="part:jodo">
+            <forename>John</forename>
+            <surname>Doe</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:jodo">
+            <forename>John</forename>
+            <surname>Doe</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>Conversion of encoding for DHARMA</resp>
+          <persName ref="part:jodo">
+            <forename>John</forename>
+            <surname>Doe</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Paris</pubPlace>
+        <idno type="filename">DHARMA_INSEIAD00175</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+                        Licence. To view a copy of the licence, visit
+                        https://creativecommons.org/licenses/by/4.0/ or send a letter to
+                        Creative Commons, 444 Castro Street, Suite 900, Mountain View,
+                        California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by .</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <biblFull>
+          <titleStmt>
+            <title>Copper plates from Tummalagudem (set II) — reign of Vikramendravarman II,
+                    year 11</title>
+            <principal>
+              <persName ref="part:argr">
+                <forename>Arlo</forename>
+                <surname>Griffiths</surname>
+              </persName>
+            </principal>
+            <editor role="general">
+              <persName ref="part:argr">
+                <forename>Arlo</forename>
+                <surname>Griffiths</surname>
+              </persName>
+            </editor>
+            <editor role="general">
+              <persName ref="part:vito">
+                <forename>Vincent</forename>
+                <surname>Tournier</surname>
+              </persName>
+            </editor>
+            <editor role="contributor">
+              <persName ref="http://viaf.org/viaf/107394149">
+                <forename>Stefan</forename>
+                <surname>Baums</surname>
+              </persName>
+            </editor>
+            <editor role="contributor">
+              <persName ref="http://viaf.org/viaf/22395449">
+                <forename>Ingo</forename>
+                <surname>Strauch</surname>
+              </persName>
+            </editor>
+            <respStmt>
+              <resp>assistance with XML encoding and metadata
+                        verification</resp>
+              <persName ref="part:chch">
+                <forename>Chloé</forename>
+                <surname>Chollet</surname>
+              </persName>
+            </respStmt>
+            <respStmt>
+              <resp>assistance with XML encoding and metadata
+                        verification</resp>
+              <persName ref="part:masc">
+                <forename>Marine</forename>
+                <surname>Schoettel</surname>
+              </persName>
+            </respStmt>
+            <respStmt>
+              <resp>digital humanities consultant</resp>
+              <persName ref="part:emmo">
+                <forename>Emmanuelle</forename>
+                <surname>Morlock</surname>
+              </persName>
+            </respStmt>
+            <respStmt>
+              <resp>digital humanities consultant</resp>
+              <persName ref="part:anol">
+                <forename>Andrew</forename>
+                <surname>Ollett</surname>
+              </persName>
+            </respStmt>
+          </titleStmt>
+          <editionStmt>
+            <p>First digital edition made by École française d'Extrême-Orient (Paris, France), realized in collaboration with the HiSoMA Research Centre (Lyon, France) and hosted by TGIR Huma-Num (France) as <ref target="http://hisoma.huma-num.fr/exist/apps/EIAD/index2.html">Early Inscriptions of Āndhradeśa, in 2015-2017.</ref>
+                  </p>
+          </editionStmt>
+          <publicationStmt>
+            <authority>Early Inscriptions of Āndhradeśa</authority>
+            <idno type="filename">DHARMA_INSEIAD00175</idno>
+            <availability>
+              <licence target="http://creativecommons.org/licenses/by/3.0/">
+                <p>Copyright (c) 2017 by Stefan Baums, Arlo Griffiths, Ingo Strauch and
+                            Vincent Tournier.</p>
+                <p>This work is licensed under the Creative Commons Attribution 3.0 Unported
+                            License. To view a copy of this license, visit
+                            http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative
+                            Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041,
+                            USA.</p>
+              </licence>
+            </availability>
+          </publicationStmt>
+        </biblFull>
+        <msDesc>
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno/>
+            <altIdentifier type="EIAD">
+              <institution>EFEO</institution>
+              <idno>EIAD 175</idno>
+            </altIdentifier>
+            <altIdentifier type="museum-inventory">
+              <repository>Archaeological Museum Panagal</repository>
+              <idno>P-7175</idno>
+            </altIdentifier>
+          </msIdentifier>
+          <msContents>
+            <summary/>
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p/>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-10-01" who="part:axja">EIAD file transformed to follow the DHARMA encoding structure. Metadata extracted to be checked and updated according DHARMA workflow. Done through XSLT.</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="san-Latn">
+        <pb n="1b"/>
+        <lg met="Anuṣṭubh" n="1">
+          <l n="a"><lb n="1"/>dīp<unclear>t</unclear>yā diṅmaṇḍalaṁ vyāptaṁ </l>
+          <l n="b">yasya bālārkkatejasaḥ </l>
+          <l n="c">satyāśrayasuta<supplied reason="omitted">ḥ</supplied> śrīmān </l>
+          <l n="d">sa jayaty uttamāśrayaḥ </l>
+        </lg>
+        <ab><lb n="2"/>svasti bhagavacchrīparvvatasvāmipādānuddhyānāvaptaprajāparīpālanādhikārāṇāṁ brahmakṣatra<lb break="no" n="3"/>tejobhr̥tāṁ viṣṇuvikramanayasampadāṁ viṣṇukuṇḍīnāṁ ṣaḍabhijñaprātihāryyadarśa<lb break="no" n="4"/>nānu<space type="binding-hole"/>grahajanitasugataśāsanābhiprasādasya vibudhabhavanapratisparddhiśobhā<lb break="no" n="5"/>sa<unclear>m</unclear>u<space type="binding-hole"/>dayānekamahāvihārapratiṣṭhāpanādhigatānantabrāhmapuṇyasaṁbhārasya mahā<lb break="no" n="6"/>rājaśrīgovindavarmmaṇaḥ putrasyaikādaśāśvamedhabahusuvarṇṇapauṇḍarīkavājapeya<lb break="no" n="7"/>kratusahasrasarvvamedharājasūyapuruṣamedhādyā<unclear>ha</unclear>raṇāt samyaganuṣṭhitaśrutivi<lb break="no" n="8"/><pb n="2a"/>hitāśeṣaduṣkarakāmyakarmm<unclear>ā</unclear>nuṣṭhānasya prāgdakṣiṇāparāmbhonidhirevāsaritsalilavala<lb break="no" n="9"/>yavibhūṣaṇāyā<supplied reason="omitted">ḥ</supplied> bhuvo bhartur mmahārājaśrīmādhavavarmma<unclear>ṇa</unclear>ḥ priyaputrasya vākāṭakamahā<lb break="no" n="10"/>devīsutasya mahākaveḥ paramasaugatasya mahārājaśrīvikramendrasya sūnor ane<lb break="no" n="11"/>kacā<space type="binding-hole"/>turddantavijayādhigatāśeṣacakkravarttikṣetrādhipatyasya sphuradkhaḍga<lb break="no" n="12"/>kara<space type="binding-hole"/>sahasrāvalīparigatasvabhujadinakaraprabhāvaviddhvastāśeṣadāyāda<lb break="no" n="13"/>maṇḍalaghanatimirapaṭalasya śrīndrabhaṭṭārakavarmmaṇaḥ <!--I stopped here-->priyasūnus tadanurūpa<lb break="no" n="14"/>śauryyātiśayasamastarājariṣiguṇasampadyogasāmartthyāt prakr̥timaṇḍalena <lb n="15"/><pb n="2b"/><fw place="marginleft">
+            <num value="2">2</num>
+          </fw>śaiśava °evāropitarājyabhāraḥ paramadhārmmiko dharmmavijayī praṇatānekasāmantama<lb break="no" n="16"/>kuṭamaṇimayūkhodbhāsitavaracaraṇayugaḷaḥ śrīmān vikramendrabhaṭṭārakavarmmānā<lb break="no" n="17"/>gatakālabhāvinaḥ svaparavaṁśālaṁkārabhūtān sarvvān eva rājariṣīn anurūpe<lb break="no" n="18"/>ṇa sa<space type="binding-hole"/>tkr̥tyettham avabodhayati yathā prathitaprabhāvānyarājavaṁśasātmī<lb break="no" n="19"/>bhūta<space type="binding-hole"/>pr̥thivīpatipadaprasahyāharaṇavyaktaniratiśayamahimānaṁ śrīmā<lb break="no" n="20"/>dhavarājābhidhānaṁ sutacchalena manoharākārabaddhaṁ nayaparākramādiguṇasando<lb break="no" n="21"/>ham abhiprajātāyā viṣṇukuṇḍikulabahumataikasaṁbandhitābhikhyātamāhātmya<lb break="no" n="22"/><pb n="3a"/>m aśeṣasāmantakulatilakāyamānābhijanam avikalaguṇamaṇikiraṇanika<lb break="no" n="23"/>ravicchuritavipuladigantarālaṁ śrīpr̥thivīmūlarājavaṁśam utpattiparigraheṇa <lb n="24"/>śriyeva sāgaram alaṁkr̥tavatyā prativiṣayam atibahuprakāramanoramo<lb break="no" n="25"/>dāra<space type="binding-hole"/>karmmādbhutastūpavihāracūḍāmaṇibhir alaṁkr̥tasakaladakṣiṇā<lb break="no" n="26"/>patha<space type="binding-hole"/>sya śrīpārvvateyapūrvvāparakṣitipatiparaṁparāhāramaddhyaniru<lb break="no" n="27"/>pamavirājitayā kaustubhāyamānayaśojanmanaḥ guṇarūpasaṁpadbhi<lb break="no" n="28"/><pb n="3b"/><fw place="marginleft">
+            <num value="3">3</num>
+          </fw>r anugatagovindasya śrīgo<supplied reason="omitted">vi</supplied>ndarājasya mūrttimatī<unclear>ṁ</unclear> śriyaṁ praty aviṣayīkr̥tama<lb break="no" n="29"/>norathayā paramabhaṭṭārikamahādevyā śrīmadindrapuram uccair alaṁkarttukāma<lb break="no" n="30"/>yeva pratiṣṭhāpite śrīmati paramabhaṭṭārikāmahāvihāre smābhi<supplied reason="omitted">ḥ</supplied> pravarddhamā<lb break="no" n="31"/>navi<space type="binding-hole"/>jayarājyasaṁvatsaraikādaśe kārttikamāsakr̥ṣṇapakṣāṣṭa<lb break="no" n="32"/>myā<unclear>ṁ</unclear> cāturddiśāryyavarabhikṣusaṁghaparibhogāya sarvvadāna<unclear>sah</unclear>i<lb break="no" n="33"/>tas sarvvābādhaparihāreṇa °irundoṟo nāma grāmo dattaḥ <space quantity="7" unit="character"/><lb n="34"/>sa sa<unclear>r</unclear>vvair e<unclear>va</unclear> rājariṣibh<unclear>i</unclear>ḥ śrutismr̥tisadācārānuvr̥<unclear>t</unclear>t<unclear>i</unclear>bhiḥ samyakpari<lb break="no" n="35"/>pālanīyaḥ yaś cātra lobhapramādājñānakṣudraparivāradoṣavaśād dharmma<lb break="no" n="36"/>vilopāya pravartteta tasyemāni smr̥tivihitāni pātakāni bhavanti <g>||</g></ab>
+        <lg met="Anuṣṭubh" n="2">
+          <l n="a">nigghna<pb n="4a"/><lb break="no" n="37"/>tāṁ <space type="binding-hole"/>bhartr̥govipra </l>
+          <l n="b">bālayoṣidvipaścitaḥ </l>
+          <l n="c">yā gatis sā bhaved vr̥<lb break="no" n="38"/>ttiṁ <space type="binding-hole"/></l>
+          <l n="d">harataḥ śāsanāṁkitām· <g>||</g></l>
+        </lg>
+        <lg met="Anuṣṭubh" n="3">
+          <l n="a">bahubhir vvasudhā dattā </l>
+          <l n="b">bahubhiś cānupā<lb break="no" n="39"/>litā </l>
+          <l n="c">yasya yasya yadā bhūmis </l>
+          <l n="d">tasya tasya tadā phalam· <g>||</g></l>
+        </lg>
+        <lg met="Anuṣṭubh" n="4">
+          <l n="a">ṣaṣṭi<unclear>ṁ</unclear> <lb n="40"/><pb n="4b"/><fw place="marginleft">
+              <num value="4">4</num>
+            </fw>varṣasahasrāṇi <space quantity="2" unit="character"/></l>
+          <l n="b">svargge tiṣṭhati bhūmidaḥ </l>
+          <l n="c">°ākṣept<unclear>ā</unclear> cānumantā ca </l>
+          <l n="d">tāny eva <lb n="41"/>narake vaset· <g>||</g></l>
+        </lg>
+        <lg met="Śārdūlavikrīḍita" n="5">
+          <l n="a">kr̥tvā pallavabhaṁgapelavabalaṁ siṁhāhvayaṁ pallavaṁ </l>
+          <l n="b"><unclear>pra</unclear>ty<unclear>ā</unclear><lb break="no" n="42"/>vr̥tya yadāgataḥ prathamataś śakrābhidhānaṁ puraṁ </l>
+          <l n="c">prādāc chāsanam uttamāśraya <lb n="43"/>°iti <space type="binding-hole"/>khyātas tadedaṁ nr̥paḥ </l>
+          <l n="d">sāṣṭāśīticatuḥśate śakapates saṁva<lb break="no" n="44"/>tsarāṇāṁ gate <g>||</g></l>
+        </lg>
+        <lg met="Upajāti" n="6">
+          <l n="a">yenoddhr̥tā bhartr̥kulasya lakṣmīr </l>
+          <l n="b">adhaḫ patantī nayavi<lb break="no" n="45"/>kramābhyā<supplied reason="omitted">m·</supplied> </l>
+          <l n="c">°ājñāpanākhyātakulaprasūtaḥ </l>
+          <l n="d">śrīmūlarājaḥ sa nr̥peṣu mukhyaḥ <g>||</g></l>
+        </lg>
+      </div>
+      <div type="apparatus">
+        <listApp>
+          <app loc="1">
+            <lem>uttamāśrayaḥ</lem>
+            <rdg source="bib:Venkataramanayya1974a eiad-bibl:Mirashi1982c">uttamāśraya<supplied reason="omitted">ḥ</supplied></rdg>
+            <note>The visarga is actually visible on the photo.</note>
+          </app>
+          <app loc="3">
+            <lem>-prātihāryya-</lem>
+            <rdg source="bib:Mirashi1982c">-prātihāryya-</rdg>
+            <rdg source="bib:Venkataramanayya1974a">-prātihārya-</rdg>
+          </app>
+          <app loc="8">
+            <lem>parāmbhonidhir</lem>
+            <rdg source="bib:Venkataramanayya1974a eiad-bibl:Mirashi1982c">-parāmbunidhir-</rdg>
+            <!-- CC: I changed those rdg according to Sankaranarayanam and Mirashi's versions -->
+            <!--<rdg source="eiad-bibl:Mirashi1982c">-parāmbunidhir-</rdg>-->
+          </app>
+          <app loc="7">
+            <lem>-ā<unclear>ha</unclear>raṇāt</lem>
+            <!-- CC : I changed the lem according to the edition-->
+            <rdg source="bib:Venkataramanayya1974a">-āharahas-</rdg>
+            <rdg source="bib:Mirashi1982c">-āharahas-</rdg>
+          </app>
+          <app loc="9">
+            <lem>bhartur</lem>
+            <rdg source="bib:Venkataramanayya1974a eiad-bibl:Mirashi1982c">bharttur</rdg>
+          </app>
+          <app loc="10">
+            <lem>paramasaugatasya</lem>
+            <!-- CC : I changed the lem according to the edition-->
+            <note>The first akṣara is damaged and what is left of it might also be read
+                            as <foreign>
+                <unclear>sa</unclear>
+              </foreign>; naturally, <foreign>pa</foreign> is expected here.</note>
+          </app>
+          <app loc="11">
+            <lem>-cakkravartti-</lem>
+            <rdg source="bib:Venkataramanayya1974a eiad-bibl:Mirashi1982c">-cakkravarti-</rdg>
+          </app>
+          <app loc="11">
+            <lem source="bib:Venkataramanayya1974a eiad-bibl:Mirashi1982c">sphurad-</lem>
+            <note>Both suggest to emend <foreign xml:lang="san-Latn">sphurat-</foreign>.</note>
+          </app>
+          <app loc="12">
+            <lem source="bib:Venkataramanayya1974a eiad-bibl:Mirashi1982c">-prabhāvavi-</lem>
+            <note><bibl>
+                <ptr target="bib:Mirashi1982c"/>
+              </bibl> proposes to emend <foreign xml:lang="san-Latn">-prabhāvi-</foreign>.</note>
+          </app>
+          <app loc="15">
+            <lem source="bib:Mirashi1982c">śaiśava</lem>
+            <rdg source="bib:Venkataramanayya1974a">saisava</rdg>
+          </app>
+          <app loc="17">
+            <lem>-ālaṁkāra-</lem>
+            <rdg source="bib:Venkataramanayya1974a">-ālaṅkāra-</rdg>
+            <rdg source="bib:Mirashi1982c">-ālaṁkāra-</rdg>
+          </app>
+          <app loc="20–21">
+            <lem>sandoham</lem>
+            <note>Mirashi notes (<bibl><ptr target="bib:Mirashi1982c"/>:
+                            <citedRange>136</citedRange></bibl>): <cit>
+                <quote>Some word like Mādhavaṁ denoting Vishnu is inadvertently
+                                    omitted here. The intended sense is that the Paramabhaṭṭārikā
+                                    Mahādevī was the mother of God Mādhava (Vishnu), who has
+                                    incarnated himself in the guise of (her son) Mādhavavarman
+                                    I.</quote>
+              </cit></note>
+          </app>
+          <app loc="21">
+            <lem source="bib:Venkataramanayya1974a eiad-bibl:Mirashi1982c">abhiprajātāyā</lem>
+            <note><bibl>
+                <ptr target="bib:Venkataramanayya1974a"/>
+              </bibl> suggests to read <foreign xml:lang="san-Latn">abhiprajātayā</foreign>.</note>
+          </app>
+          <app loc="21">
+            <lem>-saṁbandhi-</lem>
+            <rdg source="bib:Venkataramanayya1974a Mirashi1982c">-sambandhi-</rdg>
+          </app>
+          <app loc="21">
+            <lem source="bib:Venkataramanayya1974a eiad-bibl:Mirashi1982c">-ābhikhyāta</lem>
+            <!-- CC : I changed the lem according to the edition-->
+            <note>The shape of the akṣara <foreign>khyā</foreign> is curious,
+                            when compared to that of the <foreign>khyā</foreign> in the
+                            last line of this record. It might be the case that a <foreign>khkhyā</foreign> was intended.</note>
+          </app>
+          <app loc="25">
+            <lem source="bib:Mirashi1982c">cūḍāmaṇibhir</lem>
+            <rdg source="bib:Venkataramanayya1974a">cūlāmaṇibhir</rdg>
+          </app>
+          <app loc="27">
+            <lem>virājitayā</lem>
+            <!-- CC : I changed the lem according to the edition-->
+            <rdg source="bib:Venkataramanayya1974a">virājitaya</rdg>
+            <rdg source="bib:Mirashi1982c">virājitayā</rdg>
+          </app>
+          <app loc="27">
+            <lem>-yaśojanmanaḥ</lem>
+            <rdg source="bib:Venkataramanayya1974a eiad-bibl:Mirashi1982c">-yasojanmanaḥ</rdg>
+          </app>
+          <app loc="30">
+            <lem>smābhi<supplied reason="omitted">ḥ</supplied></lem>
+            <rdg source="bib:Venkataramanayya1974a">smābhi<unclear>ḥ</unclear></rdg>
+            <rdg source="bib:Mirashi1982c">smābhiḥ</rdg>
+          </app>
+          <app loc="32">
+            <lem source="bib:Venkataramanayya1974a eiad-bibl:Mirashi1982c">sarvvadāna-</lem>
+            <note>One has the impression the engraver may have written <foreign xml:lang="san-Latn">svarvvadāna-</foreign>, and if so he may have
+                            attempted to cancel the first subscript <foreign>-v-</foreign>.
+                            We expect <foreign xml:lang="san-Latn">sarvvādāna</foreign> here,
+                            although we don’t see the marker of the <foreign>-ā</foreign>
+                            attached to the repha in the photo of the plates.</note>
+          </app>
+          <app loc="33">
+            <lem source="bib:Mirashi1982c">sarvvābādhaparihāreṇa</lem>
+            <rdg source="bib:Venkataramanayya1974a">sarvvabri<supplied reason="lost">bā</supplied>dh<unclear>ā</unclear>parihāreṇa</rdg>
+            <note><bibl>
+                <ptr target="bib:Venkataramanayya1974a"/>
+              </bibl> however clearly mistook the vocalic marker of the <foreign>ā</foreign>, in <foreign>vvā</foreign>, with
+                            an <foreign>i</foreign> attached to the following akṣara. The
+                            same reading <foreign xml:lang="san-Latn">sarvvābādhaparihāreṇa</foreign> is also found in EIAD <ref target="DHARMA_INSEIAD00187.xml">187</ref>, l. 13.</note>
+          </app>
+          <app loc="34">
+            <lem>
+              <space quantity="7" unit="character"/>
+            </lem>
+            <note>The engraver left unengraved enough space of 7 akṣaras, as he reached
+                            the end of the sentence.</note>
+          </app>
+          <app loc="34">
+            <lem>sa<unclear>r</unclear>vvair ev<unclear>a</unclear></lem>
+            <rdg source="bib:Venkataramanayya1974a">sarvvair eva</rdg>
+            <rdg source="bib:Mirashi1982c">sarvver eva</rdg>
+          </app>
+          <app loc="34">
+            <lem>rājariṣibh<unclear>i</unclear>ḥ</lem>
+            <!-- CC : I changed the lem according to the edition-->
+            <note><bibl>
+                <ptr target="bib:Venkataramanayya1974a"/>
+              </bibl> proposes to emend <foreign xml:lang="san-Latn">rājar̥ṣibhiḥ</foreign>, whereas <bibl>
+                <ptr target="bib:Mirashi1982c"/>
+              </bibl> proposes <foreign xml:lang="san-Latn">rājarṣibhiḥ</foreign>.</note>
+          </app>
+          <app loc="36">
+            <lem>nigghnatāṁ</lem>
+            <note>The expected reading is <foreign>ghna</foreign>.</note>
+          </app>
+          <app loc="38–39">
+            <lem>cānupālitā</lem>
+            <note><bibl>
+                <ptr target="bib:Venkataramanayya1974a"/>
+              </bibl> and <bibl>
+                <ptr target="bib:Mirashi1982c"/>
+              </bibl> mistakenly read the the <foreign>pā</foreign> at the
+                            beginning of l. 39.</note>
+          </app>
+          <app loc="39">
+            <lem source="bib:Venkataramanayya1974a eiad-bibl:Mirashi1982c">bhūmis</lem>
+            <note>The vocalization <foreign>-ū-</foreign> includes a
+                            superfluous second rightward horizontal stroke.</note>
+          </app>
+          <app loc="40">
+            <lem><space quantity="2" unit="character"/> svargge</lem>
+            <note>The reason for leaving a space after the first pāda of this verse
+                            seems to be that two akṣaras were written by the engraver, before being
+                            erased.</note>
+          </app>
+          <app loc="44-45">
+            <lem>nayavikramābhyā<supplied reason="omitted">m·</supplied></lem>
+            <note>What may appear to be the <foreign>m·</foreign> that we
+                            expect, placed below the <foreign>bhyā</foreign> in the black
+                            and white picture of the plate published by <bibl>
+                <ptr target="bib:Venkataramanayya1974a"/>
+              </bibl> does not appear to be one upon closer inspection.</note>
+          </app>
+        </listApp>
+      </div>
+      <div type="translation">
+        <p n="1" rend="stanza">Victorious is he, whose lustre has pervaded [all] directions of the compass, he who is resplendent as the young sun, this illustrious Uttamāśraya, son of Satyāśraya.</p>
+        <p>Hail!</p>
+        <p n="2-16"> The illustrious
+                    Vikramendrabhaṭṭārakavarman, who was entrusted with the burden of kingship, as
+                    he was still a child, by the council of the ministers, on account of his
+                    accomplishment in and dedication to all the virtues of royal seers [and of] his
+                    superior heroism worthy of his [father], who is extremely righteous (<foreign xml:lang="san-Latn">paramadhārmika</foreign>) and a conqueror through Dharma
+                        (<foreign xml:lang="san-Latn">dharmavijayin</foreign>), the pair of whose
+                    excellent feet is illuminated by the rays of the gems of the diadems of many
+                    neighboring rulers as they bow [to him]; who belongs to the Viṣṇukuṇḍins—who
+                    have obtained the legitimacy (<foreign xml:lang="san-Latn">adhikāra</foreign>)
+                    to protect their subjects thanks to the blessings received at the feet of the
+                    Bhagavant Śrīparvatasvāmin, who abound in the glory of [both] the brahmins and
+                    kṣatriyas and who, like Viṣṇu, are accomplished in prowess and political skill
+                        (<foreign xml:lang="san-Latn">naya</foreign>)—; the beloved son of
+                    Śrī-Indrabhaṭṭārakavarman—who acquired the sovereignty over the whole domain of
+                    a cakravartin by means of victories in innumerable four-tusked (i.e. elephant)
+                    [combats], by whom the veil of dense darkness [constituted by] the circle of
+                    other heirs [to the throne] was entirely dispelled, by means of the power of the
+                    sun that was [lying in] his own hand, and spread through the rows of rays [in
+                    the form of] the glittering swords [of his army]—, the son of the great king
+                    Śrī-Vikramendravarman [I]—who was the son of a great Vākāṭaka queen, was a great
+                    poet and a devout worshipper of the Sugata—; the beloved son of the great king
+                    Śrī-Mādhavavarman—who perfectly carried out the accomplishment of all difficult,
+                    desire-fulfilling, rites prescribed by the śruti because of his performance of
+                    eleven Aśvamedhas, Bahusuvarṇas, and Pauṇḍarikas, a thousand of Kratus, the
+                    Sarvamedha, the royal consecration, and human sacrifice, who was the lord of
+                    earth adorned with the ring of the waters formed by the Revā (i.e. the Narmadā)
+                    [in the north] as well as of the oceans in the east, south, and west; the son of
+                    the mahārāja Śrī-Govindavarman— the Śrī-Govindavarman, whose trust in the
+                    Teaching of the Sugata was born from the favour of a miraculous vision of Him
+                    who is endowed with the six super-knowledges (<foreign xml:lang="san-Latn">ṣaḍabhijña</foreign>, i.e. the Buddha), whose accumulation of boundless
+                    Brāhma-merit has been obtained through the foundation of many <foreign xml:lang="san-Latn">mahāvihāra</foreign>s that produced a brilliance
+                    rivalling with that of the residences of the gods (or: their temples); after
+                    dutifully honoring all royal seers, who will be true ornaments in the his own or
+                    in other dynasties, informs in this respect:</p>
+        <p n="18-21"> ‘She who gave birth under the pretext
+                    of a son, to the [very] heap of virtues [like] political wisdom/restraint,
+                    endowed with charming personality, bearing the glorious name Mādhavarāja and
+                    having an unsurpassed might, manifest in forcibly seizing the royal seats (i.e.,
+                    cities) that had been completely beneficial to other royal families of reputed
+                    might;</p>
+        <p n="21-24"> who (Paramabhaṭṭārikāmahādevī), by
+                    taking birth, adorned the Śrī-Pr̥thivīmūla family—just as Śrī (Lakṣmī) [did] the
+                    ocean—which, by the abundance of rays of lights causes the extensive quarters of
+                    space to shine; whose greatness is manifest in (its) honorable and unique
+                    marriage-relationship with the Viṣṇukuṇḍi family; and [therefore] whose noble
+                    descent stands in the foremost among the family of all feudatories/neighboring
+                    kings;</p>
+        <p n="24-29"> on account of whom (Paramabhaṭṭārikā)
+                    the glorious Govindarāja resembling Govinda (Viṣṇu) by virtues, beauty and
+                    wealth, did not crave for Śrī having corporeal body, who gave rise to the fame
+                    that resembled the <foreign xml:lang="san-Latn">kaustubha</foreign> gem that
+                    shines uniquely at the centre of the necklace in the form of the row of kings of
+                    the past and future of the family [sprung] from the Śrīparvata; and who
+                    beautified the whole of the Dakṣiṇāpatha by varied attractive and sublime works
+                    viz., the wonderful <foreign xml:lang="san-Latn">stūpa</foreign>s and
+                    monasteries [built] in every district;</p>
+        <p n="29-30"> in the glorious
+                    Paramabhaṭṭārikāmahāvihāra founded by the <foreign xml:lang="san-Latn">mahādevī</foreign> Paramabhaṭṭārikā as if she was desirous of highly
+                    beautifying the glorious Indrapura;</p>
+        <p n="30-33"> on the eleventh year of the
+                    increasingly victorious reign, on the eighth lunar day of the dark fortnight of
+                    the month of Kārtika, the village named Irundora is gifted by us with the
+                    exemption from all obstacles and with all the constituents of the gift (or with
+                    all custom-duties) for the enjoyment of the universal congregation of the
+                    excellent monks.</p>
+        <p n="34-36"> [This gift] may also be well protected
+                    by all the sage-kings following [the path] of the <foreign xml:lang="san-Latn">śruti</foreign>, <foreign xml:lang="san-Latn">smr̥ti</foreign>, and
+                        <foreign xml:lang="san-Latn">sadācāra</foreign>. Whosoever, being victim of
+                    greed, carelessness, or the wickedness of [his] mean servants, proceeds on this
+                    [gift] with a view to destroy the charity, to him will accrue these sins
+                    enjoined in the <foreign xml:lang="san-Latn">smr̥ti</foreign>s.’</p>
+        <p n="2" rend="stanza">The destiny of those who slay their master, a cow, a
+                    brahmin, a child, a woman or a learned man, will be the one of him who seizes
+                    the livelihood that is marked by a (royal) charter.</p>
+        <p n="3" rend="stanza">By numerous [kings], land has been given; and by many it
+                    has been protected. Whoever holds land at a given moment, to him does the fruit
+                    then belong.</p>
+        <p n="4" rend="stanza">The giver of land revels in heaven for sixty thousand years;
+                    the one who seizes [land] as well as the one who approves (of the seizing) will
+                    reside as many [years] in hell.</p>
+        <p n="41-44"> Having made the Pallava named Siṁha as
+                    weak as a fragment of the sprout and having returned back and come first to
+                    Śakrapura, the king widely known as Uttamāśraya, issued this edict when four
+                    hundred and eighty-eight years of the lot of the Śakas have elapsed.</p>
+        <p n="44-45"> The <foreign xml:lang="san-Latn">ājñāpana</foreign> [of this charter] is that Śrīmūlarāja who is born of a
+                    reputed family; who is the foremost among the kings; and by whom the down-fallen
+                    fortune of the family of the overlord is restored by means of political wisdom
+                    and valor.</p>
+      </div>
+      <!--<div type="commentary">
+                <listApp>
+                    <app loc="lineNumber">
+                        <note><!-@loc = number of the line commented here in the note element.</note>
+                    </app>
+                    </listApp>
+            </div>-->
+      <div type="bibliography">
+        <p>First described and edited by Sastri in Bharati 1965
+                    <!-- I don't have this bibliographical reference-->, followed by <bibl><ptr target="bib:Rama_Rao1965"/>: <citedRange>733–8</citedRange></bibl>, <bibl><ptr target="bib:Venkataramanayya1974a"/>:
+                            <citedRange>15–20</citedRange></bibl> and <bibl><ptr target="bib:Mirashi1982c"/>: <citedRange>135–8</citedRange></bibl>. Re-edited here from published documentation and after autopsy of the
+                    plates.</p>
+        <listBibl type="primary">
+          <bibl/>
+        </listBibl>
+        <listBibl type="secondary">
+          <!--<bibl>
+						<ptr target="eiad-bibl:Rama_Rao1966"/>: <citedRange>683ff</citedRange>
+					</bibl> AG 20170905: I presume this was mistaken reference to the Rama Rao 1965 entry recorded above-->
+          <bibl>
+            <ptr target="bib:ARIE"/>
+            <citedRange>1968-69: 2, no. A.3</citedRange>
+          </bibl>
+          <bibl><ptr target="bib:Sankaranarayanan1977a"/>: <citedRange>172–5 (no.
+                            VIII)</citedRange></bibl>
+          <bibl><ptr target="bib:Hanumantha_Rao1998"/>: <citedRange>202–7</citedRange></bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Ālaṅkuppam hero-stone</title>
+        <respStmt>
+          <resp>EpiDoc encoding</resp>
+          <persName ref="part:emfr">
+            <forename>Emmanuel</forename>
+            <surname>Francis</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:emfr">
+            <forename>Emmanuel</forename>
+            <surname>Francis</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Paris, CEIAS</pubPlace>
+        <idno type="filename">DHARMA_INSPallava00435</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
+							Licence. To view a copy of the licence, visit
+							https://creativecommons.org/licenses/by/4.0/ or send a letter to
+							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
+							California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <msDesc>
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno/>
+          </msIdentifier>
+          <msContents>
+            <summary>Hero-stone erected in honour of Cattima Vakilavaṉ
+							Vīraiyar.</summary>
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p>Early Tamil script.</p>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-07-05" who="part:emfr">Creation of the file</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="tam-Latn">
+        <p>
+          <lb n="01"/>
+          <hi rend="grantha">śrī</hi>
+        </p>
+        <p><lb n="1"/>kō-vi<supplied reason="omitted">cai</supplied>ya-<hi rend="grantha">da</hi>nti-vikk<unclear>i</unclear>rama-paru
+      			<lb break="no" n="2"/>ma<unclear>r</unclear>kku yāṇṭu patiṉ nā
+      			<lb break="no" n="3"/>lk-āvatu</p>
+        <p>Aṭaiyāṟu-nāṭu ma
+      			<lb break="no" n="4"/>l<unclear>ai</unclear>yaṉṉār āḷa Orukil maṇaṟ
+      			<lb break="no" n="5"/>-c-cuṉai mēṟ paṭai vara Ūr Aḻiy<unclear>ā</unclear>
+      			<lb break="no" n="6"/>maiy kāttu paṭṭāṉ catti
+      			<lb n="7"/>ma <unclear>va</unclear>kilavaṉ v<choice>
+            <orig>i</orig>
+            <reg>ī</reg>
+          </choice>raiyar-k <unclear>kal</unclear>
+      			<lb n="8"/>pe <space type="ascender"/>ṉṉ<unclear>ai</unclear><!--update: the ascender is not a character, but part of an image--></p>
+      </div>
+      <div type="apparatus">
+        <listApp>
+          <!--Update: compare other editions' readings-->
+          <app loc="1">
+            <lem>ma
+<lb break="no" n="4"/>l<unclear>ai</unclear>yaṉṉār</lem>
+            <rdg source="bib:ARIE2000-2001">maliyaṉṉār</rdg>
+            <!--IAR not displayed!-->
+            <!-- I have a display in the tooltip as well as siglum. Can you clarify please?-->
+          </app>
+        </listApp>
+      </div>
+      <div resp="part:emfr" type="translation">
+        <p n="01">Prosperity!</p>
+        <p n="1-3">Fourteenth <supplied reason="subaudible">year</supplied> of the victorious king Dantivikramavarman.</p>
+        <p n="4-8">Stone <supplied reason="explanation">
+            <foreign>kal</foreign>
+          </supplied> <supplied reason="subaudible">for</supplied> Cattima Vakilavaṉ Vīraiyar, who fell protecting the village without arm <supplied reason="explanation">
+            <foreign>aḻiyāmai</foreign>
+          </supplied> <supplied reason="explanation">for it, that is, the village</supplied>, while Malaiyaṉ <supplied reason="explanation">
+            <foreign>malaiyaṉṉār</foreign>
+          </supplied> was ruling over the Aṭaiyāṟunāṭu <supplied reason="subaudible">and</supplied> while an army was coming at once <supplied reason="explanation"><foreign>orukil</foreign> = <foreign>orukāl</foreign>?</supplied> on Maṇarccuṉai <gap reason="ellipsis"/> <supplied reason="explanation">
+            <foreign>peṉṉai</foreign>
+          </supplied></p>
+      </div>
+      <div type="commentary"></div>
+      <div type="bibliography">
+        <p>
+First edited in <bibl>
+            <ptr target="bib:Avanam"/>
+          </bibl> (Āvaṇam 11, no. 2); text in <bibl n="DD">
+            <ptr target="bib:Dayalan2005_01"/>
+          </bibl>; re-edited here for DHARMA (ERC n° 809994) by Emmanuel Francis (2020), based on the estampage published in <bibl>
+            <ptr target="bib:ARIE2000-2001"/>
+          </bibl>.
+            </p>
+        <listBibl type="primary">
+          <bibl n="Āvaṇam">
+            <ptr target="bib:Avanam"/>
+            <citedRange unit="volume">11 (July 2000)</citedRange>
+            <citedRange unit="item">2</citedRange>
+          </bibl>
+          <bibl n="DD">
+            <ptr target="bib:Dayalan2005_01"/>
+            <citedRange unit="volume">3</citedRange>
+            <citedRange unit="appendix">I</citedRange>
+            <citedRange unit="page">1289</citedRange>
+            <citedRange unit="item">54</citedRange>
+          </bibl>
+          <bibl n="ARIE 2000-2001">
+            <ptr target="bib:ARIE2000-2001"/>
+            <citedRange unit="page">4, 94</citedRange>
+            <citedRange unit="appendix">B/2000-2001</citedRange>
+            <citedRange unit="item">461</citedRange>
+            <citedRange unit="plate">IV</citedRange>
+          </bibl>
+        </listBibl>
+        <listBibl type="secondary">
+          <!--<bibl n="IAR 2000-2001"><!-\-update zotero-\->
+            		<ptr target="bib:IAR2000-2001"/>
+            		<citedRange unit="page">169</citedRange>
+            		<citedRange unit="item">21</citedRange>
+            		Update ZST
+            	</bibl>   -->
+          <bibl/>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

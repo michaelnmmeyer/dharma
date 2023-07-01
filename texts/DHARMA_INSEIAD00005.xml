@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<!--
+Author: @emma_morlock - Last revision: 2017-02-26
+
+Data source: 'iksvaku-inscriptions/metadata/EIAD-inventory_1-50.xlsx'
+- - - - - - - - -
+[1] Inventory no. EIAD: 5
+[2] Raghunath no.: 5
+[3] Srinivasan & Sankaranarayanan no.: 14
+[4] Tsukamoto no.: Naga 14
+[5] Lüders no.:
+[6] Support : Āyaka pillar
+[7] (Faces:) Lines: 12
+[8] H: ?
+[9] W: 46
+[10] D: 30
+[11] H: 88
+[12] W: 56
+[13] Language(s): MIA
+[14] Original locality: Nagarjunakonda Site-1, West side of the Mahācaitya
+[15] Present locality: NM 301, 502
+[16] Primary bibliography: Vogel 1929-30a: 14, 19-20 (C2).
+[17] Secondary bibliography: Raghunath 2001: 74 (5).
+[18] Visual documentation: estampage Leiden N6 (bottom), N7 (top). — Vogel; Raghunath.
+[19] Substance of inscription: erection of a stone pillar
+[20] Remarks: The rubbings shown by Raghunath under his 5 and 6 together belong to our
+                        EIAD005.
+
+
+--><TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Āyaka pillar from site 1 at Nagarjunakonda — reign of Siri-Vīrapurisadatta, year
+               6</title>
+        <respStmt>
+          <resp>EpiDoc Encoding</resp>
+          <persName ref="part:jodo">
+            <forename>John</forename>
+            <surname>Doe</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:jodo">
+            <forename>John</forename>
+            <surname>Doe</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>Conversion of encoding for DHARMA</resp>
+          <persName ref="part:jodo">
+            <forename>John</forename>
+            <surname>Doe</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Paris</pubPlace>
+        <idno type="filename">DHARMA_INSEIAD00005</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+                        Licence. To view a copy of the licence, visit
+                        https://creativecommons.org/licenses/by/4.0/ or send a letter to
+                        Creative Commons, 444 Castro Street, Suite 900, Mountain View,
+                        California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by .</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <biblFull>
+          <titleStmt>
+            <title>Āyaka pillar from site 1 at Nagarjunakonda — reign of Siri-Vīrapurisadatta, year
+               6</title>
+            <principal>
+              <persName ref="part:argr">
+                <forename>Arlo</forename>
+                <surname>Griffiths</surname>
+              </persName>
+            </principal>
+            <editor role="general">
+              <persName ref="part:argr">
+                <forename>Arlo</forename>
+                <surname>Griffiths</surname>
+              </persName>
+            </editor>
+            <editor role="general">
+              <persName ref="part:vito">
+                <forename>Vincent</forename>
+                <surname>Tournier</surname>
+              </persName>
+            </editor>
+            <editor role="contributor">
+              <persName ref="http://viaf.org/viaf/107394149">
+                <forename>Stefan</forename>
+                <surname>Baums</surname>
+              </persName>
+            </editor>
+            <editor role="contributor">
+              <persName ref="http://viaf.org/viaf/22395449">
+                <forename>Ingo</forename>
+                <surname>Strauch</surname>
+              </persName>
+            </editor>
+            <respStmt>
+              <resp>assistance with XML encoding and metadata
+                        verification</resp>
+              <persName ref="part:chch">
+                <forename>Chloé</forename>
+                <surname>Chollet</surname>
+              </persName>
+            </respStmt>
+            <respStmt>
+              <resp>assistance with XML encoding and metadata
+                        verification</resp>
+              <persName ref="part:masc">
+                <forename>Marine</forename>
+                <surname>Schoettel</surname>
+              </persName>
+            </respStmt>
+            <respStmt>
+              <resp>digital humanities consultant</resp>
+              <persName ref="part:emmo">
+                <forename>Emmanuelle</forename>
+                <surname>Morlock</surname>
+              </persName>
+            </respStmt>
+            <respStmt>
+              <resp>digital humanities consultant</resp>
+              <persName ref="part:anol">
+                <forename>Andrew</forename>
+                <surname>Ollett</surname>
+              </persName>
+            </respStmt>
+          </titleStmt>
+          <editionStmt>
+            <p>First digital edition made by École française d'Extrême-Orient (Paris, France), realized in collaboration with the HiSoMA Research Centre (Lyon, France) and hosted by TGIR Huma-Num (France) as <ref target="http://hisoma.huma-num.fr/exist/apps/EIAD/index2.html">Early Inscriptions of Āndhradeśa, in 2015-2017.</ref>
+                  </p>
+          </editionStmt>
+          <publicationStmt>
+            <authority>Early Inscriptions of Āndhradeśa</authority>
+            <idno type="filename">DHARMA_INSEIAD00005</idno>
+            <availability>
+              <licence target="http://creativecommons.org/licenses/by/3.0/">
+                <p>Copyright (c) 2017 by Stefan Baums, Arlo Griffiths, Ingo Strauch and Vincent
+                     Tournier.</p>
+                <p>This work is licensed under the Creative Commons Attribution 3.0 Unported
+                     License. To view a copy of this license, visit
+                     http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative
+                     Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041,
+                     USA.</p>
+              </licence>
+            </availability>
+          </publicationStmt>
+        </biblFull>
+        <msDesc>
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno/>
+            <altIdentifier type="EIAD">
+              <institution>EFEO</institution>
+              <idno>EIAD 5</idno>
+            </altIdentifier>
+            <altIdentifier type="museum-inventory">
+              <repository>Nagarjunakonda Museum</repository>
+              <idno>301, 502</idno>
+            </altIdentifier>
+          </msIdentifier>
+          <msContents>
+            <summary/>
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p/>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-10-01" who="part:axja">EIAD file transformed to follow the DHARMA encoding structure. Metadata extracted to be checked and updated according DHARMA workflow. Done through XSLT.</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="pra-Latn">
+        <ab><lb n="1"/>sidhaṁ namo bhagavato devarājasakatasa saṁma<surplus>saṁma</surplus>saṁbudhasa dhātuvara<lb break="no" n="2"/>parigahitasa mahācetiye mahārajasa virūpakhapatimahāsenaparigahitasa <lb n="3"/>°agihotāgiṭho<surplus>giṭho</surplus>mavājapeyāsamedhayājisa hiraṇakoṭigosata<lb break="no" n="4"/>sahasahalasatasahasapadāyisa savathesu °apatihatasaṁkapasa <lb n="5"/>vāsiṭhīputasa °ikhākusa siricātamūlasa sodaraya bhaginiya haṁma<lb break="no" n="6"/>siriṁṇikāya bālikā raṁño sirivirapurisadatasa bhayā mahādevi bapisiriṁṇikā <lb n="7"/>°apano mātaraṁ haṁmasiriṇikaṁ parinam<supplied reason="omitted">e</supplied>tuna °atane ca nivāṇasaṁpatisa<supplied reason="omitted">ṁ</supplied>pādake <lb n="8"/>°imaṁ selathaṁbhaṁ patiṭhapitaṁ °acari<unclear>yā</unclear>naṁ °aparamahāvinaseliyānaṁ suparigahita<supplied reason="omitted">ṁ</supplied> <lb n="9"/>°imaṁ mahācetiyanavakamaṁ paṁṇagāmavathavānaṁ dīghamajhimapaṁdamātukadesa<supplied reason="omitted">kavā</supplied>cakānaṁ <lb n="10"/>°a<supplied reason="omitted">ca</supplied>rayāna °ayirahaghāna °aṁtevāsikena dīghama<supplied reason="omitted">jhima</supplied>nigayadharena bhadaṁtānaṁdena <lb n="11"/>niṭhapita °ima navakama mahācetiya khaṁbhā ca ṭhapitā ti raṁño s<supplied reason="omitted">i</supplied>riviripurisadatasa <lb n="12"/><space quantity="11" unit="character"/><!-- AG: or should we put quantity="1" unit="facet"? -->saṁva 6 vāpa 6 diva 10 </ab>
+      </div>
+      <div type="apparatus">
+        <listApp>
+          <app loc="5">
+            <lem>-mūlasa</lem>
+            <note>The shape of the <foreign>ū</foreign> is unusual, with the length
+                     marker stemming from the centre of the akṣara.</note>
+          </app>
+          <app loc="5">
+            <lem>sodaraya</lem>
+            <rdg source="bib:Vogeld">sodarāya</rdg>
+            <note>Understand <foreign xml:lang="pra-Latn">sodarāya</foreign>.</note>
+          </app>
+          <app loc="7">
+            <lem>parinam<supplied reason="omitted">e</supplied>tuna °atane</lem>
+            <note>In his n. 10, Vogel proposes to read <foreign xml:lang="pra-Latn">parināmetūna<supplied reason="lost">ṁ</supplied> °atano</foreign>. While
+                     it indeed seems necessary to emend <foreign xml:lang="pra-Latn">atano</foreign>, the spelling <foreign xml:lang="pra-Latn">parināmetuna</foreign> is found in the same context in at least four other
+                     inscriptions (EIAD <ref target="DHARMA_INSEIAD00012.xml">12</ref>, l. 7; <ref target="DHARMA_INSEIAD00014.xml">14</ref>, l. 8; <ref target="DHARMA_INSEIAD00018.xml">18</ref>, l. 8;
+                        <ref target="DHARMA_INSEIAD00019.xml">19</ref>, l. 9) and so must be accepted as
+                     intentional.</note>
+          </app>
+          <app loc="7">
+            <lem>-sa<supplied reason="omitted">ṁ</supplied>pādake</lem>
+            <rdg source="bib:Vogeld">-saṁpādake</rdg>
+          </app>
+          <app loc="8">
+            <lem>selathaṁbhaṁ</lem>
+            <note>Emend <foreign xml:lang="pra-Latn">selakhaṁbhaṁ</foreign>? The compound is
+                     normally with <foreign xml:lang="pra-Latn">-khaṁbha</foreign>.</note>
+          </app>
+          <app loc="8">
+            <lem>patiṭhapitaṁ</lem>
+            <rdg source="bib:Vogeld">patithapitaṁ</rdg>
+          </app>
+          <app loc="9">
+            <lem>-paṁdamātuka-</lem>
+            <note>Emend <foreign>-paṁcamātuka-</foreign>, as in EIAD <ref target="DHARMA_INSEIAD00006.xml">6</ref>, l. 11.</note>
+          </app>
+          <app loc="10">
+            <lem>°a<supplied reason="omitted">ca</supplied>rayāna</lem>
+            <rdg source="bib:Vogeld">°arayāna<unclear>ṁ</unclear></rdg>
+            <note>Vogel proposes to emend <foreign xml:lang="pra-Latn">ācariyānaṁ</foreign>.
+                     This is supported by EIAD <ref target="DHARMA_INSEIAD00006.xml">6</ref>, l. 11, but <foreign xml:lang="pra-Latn">°acariyāna<supplied reason="omitted">ṁ</supplied></foreign> is also a possibility that is supported internally (by l. 8 of the
+                     present inscription).</note>
+          </app>
+          <app loc="10">
+            <lem>°ayirahaghāna</lem>
+            <rdg source="bib:Vogeld">°ayirahaghāna<unclear>ṁ</unclear></rdg>
+            <note>Understand <foreign xml:lang="pra-Latn">°ayirahaṁghānaṁ</foreign>, cf. <ref target="DHARMA_INSEIAD00006.xml">6</ref>, l. 11.</note>
+          </app>
+          <app loc="10">
+            <lem>dīghama<supplied reason="omitted">jhima</supplied>nigayadharena</lem>
+            <rdg source="bib:Vogeld">dīghamanigayadharena</rdg>
+            <note>The restitution was already proposed by Vogel in a note, with reference to
+                        <ref target="DHARMA_INSEIAD00006.xml">6</ref>, l. 12.</note>
+          </app>
+          <app loc="11">
+            <lem>niṭhapita °ima navakama mahācetiya</lem>
+            <rdg source="bib:Vogeld">niṭhapita<unclear>ṁ</unclear>
+                        ima<unclear>ṁ</unclear> navakama<unclear>ṁ</unclear>
+                        mahācetiya<unclear>ṁ</unclear></rdg>
+            <note>The parallel in <ref target="DHARMA_INSEIAD00006.xml">6</ref>, l. 12, shows that <foreign xml:lang="pra-Latn">nithapitaṁ °imaṁ navakamaṁ mahācetiyaṁ</foreign> is
+                     indeed to be understood, but we hesitate to assume involuntary omission of four
+                     anusvāras in a row.</note>
+          </app>
+          <app loc="11">
+            <lem>khaṁbhā</lem>
+            <rdg source="bib:Vogeld">khambhā</rdg>
+          </app>
+        </listApp>
+      </div>
+      <div type="translation">
+        <p n="1-2"> Success! Homage to the Bhagavant, worshipped
+               by the king(s) of the gods, the Perfect Buddha who is ensconced in the excellent
+               relic [or: element (i.e., <foreign xml:lang="san-Latn">nirvāṇadhātu</foreign>)]!</p>
+        <p n="2-11"> At the Great Shrine, the Great Queen
+               Bapisiriṇṇikā — child of Hammasiriṇṇikā, uterine sister of Great King Vāsiṭṭhīputta
+               Siri-Cāntamūla the Ikṣvāku, favored by Mahāsena who has Virūpākṣa as his lord,
+               sacrificer of the Agnihotra, the Agniṣṭoma, the Vājapeya and the Aśvamedha, giver of
+               tens of millions of (pieces of) gold, hundreds of thousands of cows and hundreds of
+               thousands of plows (of land), whose will is unimpeded in all matters; wife of king
+               Siri-Vīrapurisadatta — having dedicated (the merit) to her own mother Hammasiriṇṇikā
+               and for accomplishing the fortune of <foreign xml:lang="san-Latn">nirvāṇa</foreign>
+               for herself established this stone pillar. This construction of the Great Shrine has
+               been firmly received by the Aparamahāvinaseliya teachers. This construction[, namely
+               this] Great Shrine has been completed and the pillars established by the venerable
+               Ānanda, preserver of the Long and Middle Divisions, pupil of the master, the noble
+               Haṅgha, resident of the village Paṇṇa, the instructor and transmitter of the Long and
+               Middle (Divisions) and the Five Matrices. </p>
+        <p n="11-12"> In the 6th year of King
+               Siri-Vīrapurisadatta, in the 6th fortnight of the rainy season, on the 10th day.</p>
+      </div>
+      <div type="commentary">
+        <p n="5">
+          <term>-mūlasa</term>
+          <note>the shape of the <foreign>-ū</foreign> is unusual, with the length
+                     marker stemming from the centre of the akṣara.</note>
+        </p>
+        <p n="9-10">
+          <term>paṁṇagāmavathavānaṁ ... °ayirahaghāna</term>
+          <note>We interpret this sequence in the genitive plural as a <foreign xml:lang="pra-Latn">pluralis majestatis</foreign>, considering that the term
+                        <foreign xml:lang="pra-Latn">antevāsika</foreign> (fem. <foreign xml:lang="pra-Latn">antevāsinī</foreign>) as a rule follows the name of a
+                     single individual. Genetive plurals are similarly used in the Kanaganahalli
+                     corpus. See <bibl><ptr target="bib:Nakanishi2014"/>: <citedRange>42–43</citedRange>, no.
+                        II.1,3–4; <citedRange>91</citedRange>, no. III.2,2</bibl>. Vogel translated
+                     instead “a disciple of the Masters od the Ārya-saṅgha who are resident in
+                     Paṁṇagāma and who are preachers and preceptors of the <foreign xml:lang="pra-Latn">Dīgha</foreign> and <foreign xml:lang="pra-Latn">Majjhima-(nikāyas)</foreign>, and of the five <foreign xml:lang="pra-Latn">Mātṛkas</foreign>.” Cf. <bibl><ptr target="bib:Vogeld"/>: <citedRange>20</citedRange>.</bibl> On the
+                     basis of this interpretation, Lamotte saw in the occurrence of <foreign xml:lang="pra-Latn">ayirahaṅgha</foreign> and that of EIAD <ref target="DHARMA_INSEIAD00006.xml">6</ref>, l. 11, hints that the Aparamahāvinaseliyas
+                     represented themselves as Mahāsāṅghikas. Cf. <bibl><ptr target="bib:Lamotte1958"/>: <citedRange>580, 582</citedRange>.
+                        Our thanks to Petra Kieffer-Pülz for her useful comments (e-mail, 27
+                        november 2018) which led us to revise our interpretation of the passage.
+                     </bibl></note>
+        </p>
+      </div>
+      <div type="bibliography">
+        <p>First described and edited by <bibl><ptr target="bib:Vogeld"/>: <citedRange>14, 19-20 (C2)</citedRange></bibl>. Edited again, from the EI estampage, by <bibl><ptr target="bib:Sircar1942"/>: <citedRange>222-4</citedRange></bibl> and <bibl><ptr target="bib:Sircar1965"/>: <citedRange>231-3</citedRange></bibl>. Re-edited here from the Leiden estampage sheets and after autopsy of the
+               fragments of the stone.</p>
+        <listBibl type="primary">
+          <bibl/>
+        </listBibl>
+        <listBibl type="secondary">
+          <bibl><ptr target="bib:Srinivasan1979a"/>: <citedRange>no. 14</citedRange></bibl>
+          <bibl><ptr target="bib:Tsukamoto1996"/>: <citedRange>no. Naga 14</citedRange></bibl>
+          <bibl><ptr target="bib:Raghunath2001"/>: <citedRange>74 (no. 5)</citedRange></bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Stela inscription of Phươc Thiện</title>
+        <respStmt>
+          <resp>EpiDoc Encoding</resp>
+          <persName ref="part:sapi">
+            <forename>Salomé</forename>
+            <surname>Pichon</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffths</surname>
+          </persName>
+          <persName ref="part:sapi">
+            <forename>Salomé</forename>
+            <surname>Pichon</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>Conversion of encoding for DHARMA</resp>
+          <persName ref="part:sapi">
+            <forename>Salomé</forename>
+            <surname>Pichon</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Paris</pubPlace>
+        <idno type="filename">DHARMA_INSCIC00217</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+                        Licence. To view a copy of the licence, visit
+                        https://creativecommons.org/licenses/by/4.0/ or send a letter to
+                        Creative Commons, 444 Castro Street, Suite 900, Mountain View,
+                        California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Arlo Griffiths and Salomé Pichon.</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <biblFull>
+          <titleStmt>
+            <title>Stela inscription of Phươc Thiện</title>
+            <editor>Arlo Griffiths</editor>
+          </titleStmt>
+          <editionStmt>
+            <p>First digital edition made by École française d'Extrême-Orient (EFEO), realized in collaboration with the Institute for the Study of the Ancient World (ISAW) at New York University as <ref target="https://isaw.nyu.edu/publications/inscriptions/campa/index.html">The Corpus of the Inscriptions of Campā, in 2010-2012.</ref>
+                  </p>
+          </editionStmt>
+          <publicationStmt>
+            <authority>École française d'Extrême-Orient (EFEO)</authority>
+            <idno type="filename">DHARMA_INSCIC00217</idno>
+            <availability>
+              <licence target="http://creativecommons.org/licenses/by/3.0/">
+                <p>Copyright (c) 2012 by Arlo Griffiths.</p>
+                <p>This work is licensed under the Creative Commons Attribution 3.0 Unported
+                            License. To view a copy of this license, visit
+                            http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative
+                            Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041,
+                            USA.</p>
+              </licence>
+            </availability>
+          </publicationStmt>
+        </biblFull>
+        <msDesc>
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno/>
+            <altIdentifier type="campa">
+              <idno>C. 217</idno>
+            </altIdentifier>
+            <altIdentifier type="majumdar-nr">
+              <idno>(none)</idno>
+              <!-- AG: do you approve of this way of encoding the fact that this inscription does not figure in Majumdar's list? -->
+            </altIdentifier>
+            <altIdentifier type="museum-inventory">
+              <settlement>Phan Rang</settlement>
+              <repository>BTNT</repository>
+              <idno>1440/Đ.13</idno>
+            </altIdentifier>
+          </msIdentifier>
+          <msContents>
+            <summary/>
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p/>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-09-14" who="part:axja">Campa file transformed to follow the DHARMA encoding structure. Metadata extracted to be checked and updated according DHARMA workflow. Done through XSLT.</change>
+    </revisionDesc>
+  </teiHeader>
+  <facsimile>
+    <graphic url="C0217_1_BP_2008.jpg">
+      <desc>Photograph showing face A of inscription <ptr/>. Taken in the Phan Rang Museum by Bertrand Porte on . Reproduced by permission.</desc>
+    </graphic>
+    <graphic url="EFEOB-est.n1883_A.jpg">
+      <desc>Photograph of EFEO estampage n. 1883.</desc>
+    </graphic>
+    <graphic url="EFEOB-est.n1884_B.jpg">
+      <desc>Photograph of EFEO estampage n. 1884.</desc>
+    </graphic>
+  </facsimile>
+  <text xml:space="preserve">
+    <body>
+      <div rendition="class:83233 maturity:83213" type="edition" xml:lang="san-Latn">
+        <div n="A" rend="break-verse-lines" type="textpart">
+          <head xml:lang="eng">Face A.</head>
+          <ab>oṁ</ab>
+          <!-- A: we have the convention of not counting the lines of invocations. I thought it might be useful to mark the kind of <ab> explicitly. We want this kind of <ab> at the center line. -->
+          <ab>
+            <lb n="1"/>
+            <g type="siddham"/>
+          </ab>
+          <lg met="anuṣṭubh" n="1">
+            <l n="ab">śrīvr̥ddheśvaranāthasya saśryutpanneśvarasya ca</l>
+            <l n="cd"><lb n="2"/>sthāpanobhayakośasya kr̥tā śrīsatyavarmmaṇā <g>||</g></l>
+          </lg>
+          <lg met="anuṣṭubh" n="2">
+            <l n="ab"><lb n="3"/>sā śryādidevanāthasya liṅgasaṁsthāpanākarot</l>
+            <l n="cd"><lb n="4"/>kr̥tā tena <unclear>śa</unclear>raccandramayūkhavimalaṁ yaśaḥ <g>||</g></l>
+          </lg>
+          <lg met="indravajrā" n="3">
+            <l n="1"><lb n="5"/>śrīsatyadeveśvaranātham eṣa</l>
+            <l n="2">śrīsatyavarmmā śarakhādripūrṇṇe</l>
+            <l n="3"><lb n="6"/>śāke śuceś śukladaśāhayukte </l>
+            <l n="4">śrāddhaḥ pratiṣṭhāpitavān subhaktyā <g>||</g></l>
+          </lg>
+          <lg met="śārdūlavikrīḍita" n="4">
+            <l n="1"><lb n="7"/>trailokyan tanubhis tanoti sakalaṁ sūkṣmo pi yo jo <w part="I">ṣṭabhi</w></l>
+            <lb break="no" n="8"/>
+            <l n="2"><w part="F">r</w> ggīrvvāṇāḥ parameṣṭhyajaprabhr̥tayo yan te
+                            rccayanti prabhum</l>
+            <l n="3"><lb n="9"/>yaḥ krodhena tamālapatrapadabhūnetrāgnilakṣmījahā</l>
+            <l n="4"><lb n="10"/>śrīmān adbhutaceṣṭitas sa jayati śrīsatyadeveśvaraḥ <g>||</g></l>
+          </lg>
+          <lg met="anuṣṭubh" n="5">
+            <l n="ab"><lb n="11"/>śrīsatyavarmmaṇo rājño bhūmau vikasitaṁ yaśaḥ</l>
+            <l n="cd"><lb n="12"/>atiśete nr̥pān anyāñ jyotir indor <choice>
+                <reg>uḍūn</reg>
+                <orig>udūn</orig>
+              </choice> iva <g>||</g> </l>
+          </lg>
+          <!-- AG: a correction is made here with <reg>. Do we not want to do such corrections in apparatus? See also another <reg> below. -->
+        </div>
+        <div n="B" rend="break-none" type="textpart">
+          <head xml:lang="eng">Face B.</head>
+          <p>
+                            <lb n="1"/>anekasvaguṇabhūṣaṇabharaparimantharitaramyā
+                            <lb break="no" n="2"/>paghanaḥ ghanāghana iva svavikramavaśīkr̥tasakalabhuvanas tri
+                            <lb break="no" n="3"/>bhuvanapatir iva sakalalokapālanatacaraṇasaroruhaḥ saroru
+                            <lb break="no" n="4"/>hāsana iva sakalajagaddhitakāraṇo mahāyajñahutavahaśikhābhuja
+                            <lb break="no" n="5"/>sahasrasamutkhātaduss<unclear>v</unclear>āntāhitajanaḥ
+                            janapadamaryyādāsaṁpadāspa
+                            <lb break="no" n="6"/><supplied reason="lost">da</supplied>m apagatadoṣāṁ
+                            jalanidhijalataraṅgamekhalāṁ rājanvatīṁ vasuma
+                            <lb break="no" n="7"/><supplied reason="lost">t</supplied>īm anurañjayan·
+                            praṇatajanabhaktiphalasaṁpatpradāyī śrīsa
+                            <lb break="no" n="8"/><supplied reason="lost">tyava</supplied>rmmā
+                            trailokyanagarārambhamūlastambham aśeṣabhuvanamaṇda
+                            <lb break="no" n="9"/><supplied reason="lost">lasyā</supplied>bhyudayakāriṇaṁ
+                            kr̥tasvarggā<choice>
+              <reg>rohaṇa</reg>
+              <orig>rohana</orig>
+            </choice>saupānaṁ bhagavantan tu
+                            <lb n="10"/> śrīmukhaliṅgaṁ saha śrīkuṭhāravāsinyā punaḥ
+                            pratiṣṭhāpitavān<supplied reason="lost">·</supplied>
+                            <g>||</g>
+                        </p>
+          <p>
+                            <lb n="11"/><gap quantity="1" reason="lost" unit="character"/>ṅ·koṣṭhāgāraṁ
+                            devapurakoṣṭhāgāraṁ tañjokoṣṭhāgāraṁ
+                            <lb n="12"/> śrīsatyavarmmā śrīsatyadeveśvarāya dattavān tad ye haranti
+                            narake patantu
+                        </p>
+        </div>
+      </div>
+      <div type="apparatus">
+        <listApp>
+          <app loc="V">
+            <lem>udūn</lem>
+            <note>read <foreign>uḍūn</foreign>.</note>
+          </app>
+          <app loc="9">
+            <lem>°rohana°</lem>
+            <note>read <foreign>°rohaṇa°</foreign>.</note>
+          </app>
+        </listApp>
+        <!-- AG: these <app>s may need to be split up by textpart. -->
+      </div>
+      <div type="translation">
+        <p>I. The installation of a sheath for both of them, Śrī Vr̥ddheśvaranātha and Śrī
+                    Utpanneśvara, has been carried out by Śrī Satyavarman.</p>
+        <p>II. This installation of the liṅga of the Primordial God (Śiva), carried out by
+                    him (Satyavarman), has produced glory immaculate like the rays of the moon in
+                    autumn.</p>
+        <p>III. This pious Śrī Satyavarman has, with great devotion, established Śrī
+                    Satyadeveśvaranātha in the elapsed (<foreign>pūrṇa</foreign>) Śaka [year] 705 (5
+                    [arrows], 0 [ether], 7 [mountains]), on the tenth day of the waxing [fortnight]
+                        (<foreign>śukladaśāhayukte</foreign>) of [the month] Śuci.</p>
+        <p>IV. The Un-born (Śiva), who spans the totality of the triple world with his eight
+                    bodies, even though he is subtle; the lord (<foreign>prabhu</foreign>) to whom
+                    the gods (<foreign>gīrvāṇa</foreign>) — the Supreme (Viṣṇu) and the Un-born
+                    (Brahmā) and so forth — render homage; he who has killed in wrath the son of
+                    Lakṣmī (i.e. Kāma) with the fire of his eye that is situated at the place of
+                    the <foreign>tilaka</foreign> (<foreign>tamālapatra-pada-bhū</foreign>); this
+                    illustrious Śrī Satyadeveśvara, whose workings are miraculous, is
+                    victorious.</p>
+        <p>V. The glory of the king Śrī Satyavarman, spread out over the earth, surpasses
+                [that of] other kings, as the light of the moon [that of] the stars.</p>
+        <p>Just as the Cloud (i.e. Indra), his beautiful limbs are rendered very slow by the weight of the ornaments which are his numerous vitues; like the Lord of the Three World (i.e. Viṣṇu as Trivikrama), he has subdued the entire world by his valor (<foreign>vikrama</foreign>); like the one whose seat is a lotus (i.e. Brahmā), he has lotus-feet to which all kings bow down;
+                 he is the benefactor of the entire world; he has radically exterminated (<foreign>samutkhāta</foreign>), with the thousand arms that are the flames (<foreign>hutavaha-śikhā</foreign>) of the great sacrifices (that he had performed), the ennemies (<foreign>ahita-jana</foreign>) of evil heart (<foreign>duḥsvānta</foreign>); he causes joy to the Earth, abode of the abundance [which is the result] of the customs of the land [being carefully observed], whose defaults have fled (when he threatened them), who has for belt the waves of the ocean, being governed by a good king; he grants to those who bow before him the abundance of fruits of their devotion; [this] Śrī Satyavarman has also (<foreign>tu</foreign>) reinstalled, with the Lady who abides in Kuṭhāra, the Lord Śrī Mukhaliṅga, who was the base-pillar at the beginning [of the construction] of the City of the Three World, who provides the prosperity of the entire circle of worlds, and who has created a ladder to climb to heaven.
+                </p>
+        <p>
+                   Śrī Satyavarman has given to Śrī Satyadeveśvara the silo of [?]ṅ, the silo of Devapura, the silo of Tañjo. May those who steal it fall in hell!
+                </p>
+      </div>
+      <div type="translation" xml:lang="fra">
+        <div type="textpart">
+          <p>I. L’installation d’un étui pour les deux, Śrī Vr̥ddheśvaranātha et Śrī
+                        Utpanneśvara, a été exécutée par Śrī Satyavarman.<note>Suivant la correction
+                            proposée dans <bibl>
+                <ptr target="bib:Griffiths+al2008-2009_01"/>
+                <citedRange unit="page">298</citedRange>
+              </bibl>.
+                            Notre traduction de 2007 était: "L’installation de Śrī Vr̥ddheśvaranātha
+                            avec Śrī Utpanneśvara, [et] d'un étui pour chacun d'eux, a été exécutée
+                            par Śrī Satyavarman."</note></p>
+          <p>II. Cette installation du linga du Dieu Primordial (Siva), exécutée par lui
+                        (Satyavarman), a produit une gloire immaculée comme les rayons de la lune en
+                        automne.</p>
+          <p>III. Ce pieux Śrī Satyavarman a établi, avec une grande dévotion, Śrī
+                        Satyadeveśvaranātha en [l’an] évolu (<foreign>pūrṇa</foreign>) śaka 705 (5 [flèches], 0
+                        [éther], 7 [monts]), le dixième jour [de la quinzaine] claire
+                        (<foreign>śukladaśāhayukte</foreign>) [du mois] de Suci.</p>
+          <p>IV. Le Non-né (Siva), qui étend l’intégralité du triple monde avec ses huit
+                        corps, bien qu’il soit subtil ; le maître (<foreign>prabhu</foreign>) à qui ces dieux
+                        (<foreign>gīrvāṇaḥ</foreign>) — à commencer par le Suprême (Viṣṇu) et le Non-né (Brahmā) —
+                        rendent hommage ; lui qui, en fureur, a tué le fils de Lakṣmī (c.-à-d. Kāma)
+                        par le feu de son oeil qui se trouve à l’endroit du tilaka
+                        (<foreign>tamālapatra-pada-bhū</foreign>) ; ce fortuné Śrī Satyadevesvara, à la geste
+                        merveilleuse, est victorieux.</p>
+          <p>V. La gloire du roi Śrī Satyavarman, épanouie sur la terre, dépasse [celle
+                        des] autres rois, comme la lumière de la lune [celle des] étoiles.</p>
+        </div>
+        <div type="textpart">
+          <p>Tel le Nuage (c.-à-d. Indra), ses beaux membres sont rendus très lents par le
+                        poids des ornements que sont ses multiples vertus ; tel le Seigneur des
+                        Trois Mondes (c.-à-d. Viṣṇu en tant que Trivikrama), il a soumis le monde
+                        entier par sa valeur (<foreign>vikrama</foreign>) ; tel Celui dont le Siège est un lotus
+                        (c.-à-d. Brahmā), il a des poids-lotus devant lesquels tous les rois se
+                        prosternent ; il est le bienfaiteur du monde entier ; il a exterminé
+                        radicalement (<foreign>samutkhāta</foreign>), avec les mille bras que sont les flammes
+                        (<foreign>hutavaha-śikhā</foreign>) des grands sacrifices (qu’il faisait exécuter), les ennemis
+                        (<foreign>ahita-jana</foreign>) au coeur mauvais (<foreign>duḥsvānta</foreign>) ; il gratifie la terre, demeure de
+                        la plénitude [qui est le résultat] des moeurs du pays, [la terre] dont les
+                        défauts se sont enfuis (quand il les menaçait), qui a pour ceinture les
+                        vagues de l’océan, qui est gouvernée par un bon roi ; il accorde à ceux qui
+                        se prosternent [devant lui] la plénitude des fruits de leur dévotion ; [ce]
+                        Śrī Satyavarman a également (tu) réinstallé, avec la Dame qui demeure à
+                        Kuṭhāra, le Seigneur Śrī Mukhaliṅga qui était le pilier de base lors du
+                        début [de la construction] de la Ville des Trois Mondes, qui fait la
+                        prospérité du cercle entier des terres et qui a créé une échelle pour monter
+                        au ciel.</p>
+        </div>
+        <div type="textpart">
+          <p>Śrī Satyavarman a donné à Śrī Satyadevesvara le silo de [?]n, le silo de
+                        Devapura, le silo de Tañjo. Que ceux qui s’en saisissent tombent dans
+                        l’enfer.</p>
+        </div>
+      </div>
+      <div type="bibliography">
+        <p>First published in <ptr target="bib:Griffiths+Southworth2007_01"/>, whence the present edition, with one correction based on our publication <bibl>
+            <ptr target="bib:Griffiths+al2008-2009_01"/>
+          </bibl>.</p>
+        <listBibl type="primary">
+          <bibl/>
+        </listBibl>
+        <listBibl type="secondary">
+          <bibl>
+            <ptr target="bib:NguyễnDuyTỳ+LêMinhPhong1993_01"/>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

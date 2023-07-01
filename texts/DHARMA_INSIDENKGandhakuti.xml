@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Gandhakuti</title>
+        <respStmt>
+          <resp>EpiDoc encoding</resp>
+          <persName ref="part:ekba">
+            <name>Eko Bastiawan</name>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Malang</pubPlace>
+        <idno type="filename">DHARMA_INSIDENKGandhakuti</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Eko Bastiawan &amp; Arlo Griffiths</p>
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
+        <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno/>
+            <!-- don't modify this -->
+          </msIdentifier>
+          <msContents>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-04-13" who="part:ekba">updated apparatus</change>
+      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-07-06" who="part:ekba">Revised the initial encoding</change>
+      <change status="draft" when="2020-04-10" who="part:ekba">updated the line numbering</change>
+      <change status="draft" when="2020-03-27" who="part:axja">adding the handDesc template</change>
+      <change status="draft" when="2020-02-11" who="part:ekba">Improvements</change>
+      <change status="draft" when="2020-02-07" who="part:ekba">Added the bibliography</change>
+      <change status="draft" when="2020-01-31" who="part:ekba">Revised the initial encoding</change>
+      <change status="draft" when="2020-01-09" who="part:axja">Update the template</change>
+      <change status="draft" when="2019" who="part:ekba">Initial encoding</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="kaw-Latn">
+        <p>
+<pb n="1r"/>
+<lb n="1r1"/><g type="circleTarget"/> <g type="dashDoubledot"/><g type="circleTarget"/> svasti śakavarṣătĭtta , I saka, <num value="964">964</num>, mărgga<supplied reason="omitted">śira</supplied>măśa, tithi, navamĭ sūklapakṣa, tuṁ, pa, bu, vāra, vuyai Uta Aṣṭade<lb break="no" n="1r2"/>śa, Uttarabhadravadanakṣatra, Ahibuddhādevata, vāra Ika ta divaśa turunya, nugrahanira Aji pāduka mpuṅku saṁ pina<lb break="no" n="1r3"/>khacatraniṁ bhuvaṇa, śevakasaptati mpu mogha mr<choice>
+            <orig>a</orig>
+            <reg>ār</reg>
+          </choice>th<choice>
+            <orig>ā</orig>
+            <reg>a</reg>
+          </choice>n<choice>
+            <orig>a</orig>
+            <reg>ā</reg>
+          </choice>kən· kaha<surplus>kaha</surplus>yvaknaniṁ bhūvaṇa, tlas· karuhun di:rghayūraro<g type="squiggleVertical">§</g><lb break="no" n="1r4"/>gya haji pāduka mpūṅku, tumurun· tan pahāmbāl· turuny anugrahanira, matəkəta sira L̥̄maḥ, Irikaṁ rāma I kambaṁ śrī, ma<lb break="no" n="1r5"/>s <abbr>sū</abbr> <num value="10">10</num>, <abbr>mā</abbr> <num value="10">10</num>, ri lmaḥniṁ paniklan· sūsūr· mpū bhoma, turuny anugrahanira, vkanira Innahaknira ri dharmma gandhakuṭi Iṁ kā<pb break="no" n="1v"/><fw n="1v" place="left">
+            <num value="1">1</num>
+          </fw><lb break="no" n="1v1"/>mbaṁ śrī, denira Aji pāduka mpūṅku, Ika Um<choice>
+            <sic>guṁ</sic>
+            <corr>uṅgu</corr>
+          </choice> riṁ dharmma gandhakuṭi Iṁ kambaṁ śrī, vkanira vnaṁṅāṅāṅgva payuṁ kut limo, vnaṁ Apayūṁṅa pa<lb break="no" n="1v2"/>gut· sūsūn· putiḥ, vnaṁ Aṅāṅgva savatək i jro nāgara kabaiḥ, vnaṁ Agilaṁgilaṁ gaḍiṁ, vnaṁṅ amaṅana rājamaṅśa, kadyaṅganiṁ vḍus gu<lb break="no" n="1v3"/>ntiṁ, baḍavaṁ, karuṁ puliḥ, karuṁ matiṅ gantuṅan·, taluvaḥ, Asu sər·, Avavara sĕmpal·, Apalaṅka binubut· riṁ balai, ma<add place="below" rend="mark">ra</add>bya ḍa<lb break="no" n="1v4"/>yaṁ, Ahuluna ḍayaṁ, pujut· jə:ṅgi, Amu<choice>
+            <orig><unclear>ṁ</unclear>puh a</orig>
+            <reg>puhā</reg>
+          </choice>ṅrahana, Aṁguntiṅamupuheṁ tumpər·, tan sikaran deniṁ Air aji, vnaṁ Ariṁriṁ banantən·
+<lb n="1v5"/>Avidhanāga banantən·, Apa<choice>
+            <orig>tarā</orig>
+            <reg>ṭāra</reg>
+          </choice>ṇa banantən·, Asurāga maR̥mpva, Aj<choice>
+            <orig>ə:nva</orig>
+            <reg>nva ha</reg>
+          </choice>laṁ, Askara tuñjuṁ sinivak·, mavijākuniṁ, Anā<pb break="no" n="2r"/><lb break="no" n="2r1"/>ṇḍaṅa vali, ḍulaṁ paṁṇḍarahan·, Adodota tuñjuṁ Ijo, kuñit sadaṅan·, navagraha, pasiliḥ galuḥ, pras vataṁ, Aṅuṅku<lb break="no" n="2r2"/>ṅa curiṁ tluṁ vṅi, pras vataṁ silih asiḥ, buntər·, majnū kanaka smutadulur·, maskar ama<choice>
+            <orig>th</orig>
+            <reg>v</reg>
+          </choice>aca, jaruju kunaṁ, Apayuṅa k<choice>
+            <orig>ə</orig>
+            <reg>u</reg>
+          </choice>t limo pagut·, ta<lb break="no" n="2r3"/>n sikaran <choice>
+            <sic>ta de</sic>
+            <corr>de</corr>
+          </choice> raksana vali, Apan· vkanira Aji pāduka mpuṅku, Inastityakən muṅgva riṁ dharmma gandhakuṭi Iṁ kambaṁ śrī, vnaṁ katmvananiṁ stri<g type="filler">§</g>
+<lb n="2r4"/>laraṅan·, burvan saki saṅkanya kunaṁ, sakavvaṅanya, <choice>
+            <sic>mvaṁ n</sic>
+            <corr>mon</corr>
+          </choice> huluna rak<choice>
+            <sic>s</sic>
+            <corr>ry</corr>
+          </choice>an·, rājaputra, rājaputri, kulaputra kulaputri, tan sika<lb break="no" n="2r5"/>ran <supplied reason="omitted">t</supplied>a saṁ hyaṁ dharmma gandhakuṭi Iṁ kambaṁ śri, sūsūk· dharmma Aji pādukā mpūṅku, Apan parṇnaḥ saṁ hyaṁ pathāni gilaṁgilaṁ, parṇnaḥ saṁ hyaṁ dharmma
+<pb n="2v"/>
+ <fw n="2v" place="left">
+            <num value="2">2</num>
+          </fw>
+ <lb n="2v1"/>Inanakĕn de bhaṭāra prājapati, tan kahavāta sira deni doṣānya saṅke saṅkanya, maṅkana tiṅkaḥ saṁ hyaṁ dharmma gandhakuṭi riṁ kambaṁ śri, su<lb break="no" n="2v2"/>suk· dharmma paniklan susurira Aji pādukā mpuṅku, katmva de santāna prātisantānira, Anak putu buyut· cicik muniṁ pituṁ
+<lb n="2v3"/>Aṅ<unclear>ś</unclear>a siraji pādukā mpuṅku, saṁ muṅgu Iṁ dharmma gandhakuṭi Iṁ kambaṁ śrī, nihan turuni Anugrahanira, paniṁkahnira Aji pādukā
+<lb n="2v4"/>mpuṅku, kunəṁ ri s<unclear>ḍ</unclear>əṅanyan parasrayaṁnaniṅ ahutaṁ saṅke saṁkanya, yan satahil hutaṁnikaṁ vvaṁ, <abbr>mā</abbr> <num value="2">2</num>, panatalanya, ya<supplied reason="omitted">n</supplied> sor saṅkeri<lb break="no" n="2v5"/>ka, saya<choice>
+            <orig>ta</orig>
+            <reg>thā</reg>
+          </choice>sambhava panatalanya, maṅkana rāṣany ajñā pāduka śrī mahărājā Aji pāduka mpuṅku, vnaṅ aṅ<choice>
+            <sic>
+              <orig>k</orig>
+              <corr>g</corr>
+            </sic>
+          </choice>untiṁ rarai riṁ palaṅka sūsū<pb break="no" n="3r"/><fw n="3r" place="left">
+            <num value="3">3</num>
+          </fw><lb break="no" n="3r1"/>n binubut·, tan kaknana vulu paravulu, ludan tutan·, ḍampulan· lañcuran·, hopan·, kipaḥ-kipaḥ, tuluṁ byət·, pi<lb break="no" n="3r2"/>nta palaku, Aṅśa pratya<choice>
+            <sic>kṣ</sic>
+            <corr>ṅś</corr>
+          </choice>a, ḍaṇḍa kuḍaṇḍa, skar tahun·, pamavaṣya, sūṁsūṁ paṅuraṁ, sūṁsūṁ partaya nāyāka, kriṁ limbakavaḥ,
+<lb n="3r3"/>paḍəm· limus· galuḥ, manimpiki, salyūt·, taṅkil· tr̥pan·, L̥̄bə<subst>
+            <del rend="corrected">b</del>
+            <add place="overstrike">L̥̄</add>
+          </subst>b·, sipat· vilu<del rend="strikeout">·</del><add place="below" rend="mark">t·</add>, pjaḥ lek·, palamak·,
+<lb n="3r4"/>tpuṁ kavuṁ, misra paramisra, misra hino, hulun haji, tapa haji, sambal·, sumbul·, kaR̥<surplus>ṁ</surplus>R̥ṅan· siṅgaḥ pabr̥si, ramanaṁ, rakā<lb break="no" n="3r5"/>dut·, bhūpati panarapati, valu rumambat iṁ natar·, raḥ kasavur iṁ natar·, vaṅkai kabunan·, paliḥ kuvu, Amijilakən·
+<lb n="3r6"/>vuryyaniṁ kikir·, malandaṁ, L̥̄ca, kutak·, taṅkil·, kataṅgaran·, piniṅhai, maṅugai, maguñjo, makalākalā, mā<pb break="no" n="3v"/><fw n="3v" place="left">
+            <num value="3">3</num>
+          </fw><lb break="no" n="3v1"/>nahāb·, manambər·, manuk·, duhitək·, vli havu, vli vaduṁ, vli pañjut·, vli kadut·, juru jalu, juru kuruṁ, juru gusali, juru nambi,
+<lb n="3v2"/>juru kuṇḍi, juru juḍi, juru jalir·, juru Uñjaman·, pjaḥ tan pamayaṁ, vilaṁ thani, mati tibā, mati kaL̥̄bu, mati sināhut iṁ
+<lb n="3v3"/>Ulā, mati siniṅhat iṁ sapi, matiyaṅipi, mati sinambər iṁ glap·, mabaṁ vriṁ, maṅuri, maṅilāla, maṇiga, manuṁkal vuṁkuḍu,
+<lb n="3v4"/>Amahaṁ, pahavuhavu, Avaruga Inantun·, pobhaya, parājabhāya, paṅinaṅin·, Aṁluputaknamuk·, tan paṁlaṅutakna mastaka ya<lb break="no" n="3v5"/>n poliḥ maliṁ, vnaṁ Apadagaṅa, Aṅulaṁ sapi, satuhan·, Aṅulaṁ kbo, satuhan·, Aṅulaṁ vḍus·, satuhan·, Aṅavari satuhan·, A<pb break="no" n="4r"/><lb break="no" n="4r1"/>parahu satuhan·, Apadagaṅa satuhan·, madr̥vya paṇḍe satuhan·, Amalantən satuhan·, huṇḍahagi satuhan·, Ity<choice>
+            <sic>a</sic>
+            <corr>e</corr>
+          </choice>vamadi,
+<lb n="4r2"/>salviniṁ magə:gəkarmma, caturpaḍa satuhan· sovaṁ, yapvan· L̥̄viḥ saṅkerikā, knana ya dr̥vyaji, deni baṇigrama baṇigrami, maṅkana rā<lb break="no" n="4r3"/>ṣany anugrahaji păduka mpuṅku, katmva deniṁ santana prātisantānanira, Ika ta kabeḥ, vnaṁ savatə:k i jro nāgāra kabeḥ, ta<lb break="no" n="4r4"/>n sikṣān de saṅ anăgata vali, tlas· karuhun saṅ anăgata prābhū, yapvan hana tan pamisiṁgiḥ ṣārāṣani turuny anugraha ha<lb break="no" n="4r5"/>ji pāduka mpuṅku, tan· vuruṁ ḍaṇḍan de saṁ hyaṁ catulokaphāla, Indra, yama, baruṇa kuv<unclear>ai</unclear>ra, Agneya, neriti, bayabya,
+<lb n="4r6"/>Aisanya, kunaṁ yan hana mabakamibika, joḥ tasmāt· karbvat· karmmaknanya, kadi bvatniṁ Akāsa lavan· pr̥thivi maṅkana bvata<pb break="no" n="4v"/><fw n="4v" place="left">
+            <num value="4">4</num>
+          </fw><lb break="no" n="4v1"/>na papānya, yan padyusa mareṁ baṅavan ṣaṅanən i vuhaya, tuviran·, yan pareṁ săgara katarahana, buntəL̥̄niṁ tarahan·, sahu<lb break="no" n="4v2"/>təniṁ Ulā L̥̄mpe, Ulā buyutan·, Ulā yan·, lumakva riṁṅ udan sāmbəR̥niṁ glap·, hudan tan udan· ya yan sambəR̥niṁ glap·, luma<lb break="no" n="4v3"/>ku riṁ guṇuṁ kalbu riṁ juraṁ paraṁ, tan tike Umaḥnya, lbvakna riṁ tambra, riṁ kavaḥ pupuhən iṁ gadā vsi, harvakna riṁ curiga, de saṁ kiṁkarabala,
+ <lb n="4v4"/>dalihən tan sakolaḥnya, pabaṁbaṁṅatvək· pādukanira, Ujar hajyakna, taḍahə<supplied reason="omitted">n</supplied> saṁ hyaṁ yamarājădi, paṅanən iṁ pisăca, pa<lb break="no" n="4v5"/>ṅanən i răkṣasa, kaṭap<choice>
+            <orig>ŭṭ</orig>
+            <reg>ūt</reg>
+          </choice>anădi, sakvehniṁkaṁ Avamāna ṅavaghāta, ṅāpakāra ṅāpakāriḥ, I ṣārasani turuny anugrā-
+<lb n="4v6"/>ha Aji pāduka mpuṁku, Om̐ nāmo buddhāya, nama śivăya, manamarṣāya, namo brahmāṇaya <g type="circleTarget"/><g type="dashDoubledot"/><g type="circleTarget"/><g type="dashDoubledot"/><g subtype="gomutraFinal" type="symbol"/>
+</p>
+      </div>
+      <div type="apparatus">
+        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
+        <listApp>
+          <app loc="1r1">
+            <lem source="bib:Boechari1985-1986_01">śakavarṣătĭtta</lem>
+            <rdg source="bib:NinnySusantiTejowasono2003_01">śakavarṣătĭta</rdg>
+          </app>
+          <app loc="1r1">
+            <lem>saka</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">śaka</rdg>
+          </app>
+          <app loc="1r1">
+            <lem>navamĭ sūklapakṣa</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">navamī śūklapakṣa</rdg>
+          </app>
+          <app loc="1r1-1r2">
+            <lem>Aṣṭadeśa</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">Aṣtadeśa</rdg>
+          </app>
+          <app loc="1r1-1r2">
+            <lem>Ahibuddhādevata</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">Ahibududdhādevāta</rdg>
+          </app>
+          <app loc="1r2">
+            <lem source="bib:NinnySusantiTejowasono2003_01">divaśa</lem>
+            <rdg source="bib:Boechari1985-1986_01">divasa</rdg>
+          </app>
+          <app loc="1r2-1r3">
+            <lem>pinakhacatraniṁ</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">pinakacatraniṁ</rdg>
+          </app>
+          <app loc="1r3">
+            <lem>bhūvaṇa</lem>
+            <rdg source="bib:Boechari1985-1986_01">bhuvana</rdg>
+            <rdg source="bib:NinnySusantiTejowasono2003_01">bhuvaṇa</rdg>
+          </app>
+          <app loc="1r3-1r4">
+            <lem>di:rghayūrarogya</lem>
+            <rdg source="bib:Boechari1985-1986_01">dirghayuroragya</rdg>
+            <rdg source="bib:NinnySusantiTejowasono2003_01">dirghayūrarogya</rdg>
+          </app>
+          <app loc="1r4">
+            <lem source="bib:NinnySusantiTejowasono2003_01">mpūṅku</lem>
+            <rdg source="bib:Boechari1985-1986_01">mpuṅku</rdg>
+          </app>
+          <app loc="1r4">
+            <lem>turuny anugrahanira</lem>
+            <rdg source="bib:Boechari1985-1986_01">turunnyanugraha nira</rdg>
+            <rdg source="bib:NinnySusantiTejowasono2003_01">turunyannugraha nira</rdg>
+            <note><foreign>tumurun· tan pahāmbāl· turuny anugrahanira</foreign>: it seems that either the word <foreign>tumurun</foreign> or the word <foreign>turuny</foreign> is redundant. But it must be noted how often <foreign>turuny anugraha</foreign> appears in this corpus without a clear difference of meaning from <foreign>anugraha</foreign> itself. This means the redundancy is probably only apparent.</note>
+          </app>
+          <app loc="1r4">
+            <lem source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">matəkəta</lem>
+            <note><foreign>matəkəta</foreign>: emend <foreign>mitəkəta</foreign>? <foreign>mitəkət ta</foreign>? <foreign>mitəkəti</foreign>? <foreign>mitəkətana</foreign>?</note>
+          </app>
+          <app loc="1r4">
+            <lem source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">L̥̄maḥ</lem>
+            <note><foreign>L̥̄maḥ</foreign>: it seems this word is redundant or displaced. Ought it to have stood next to the indication of its price <foreign>mas sū 10 mā 10</foreign>?</note>
+          </app>
+          <app loc="1r4-1r5">
+            <lem>mas <abbr>sū</abbr> <num value="10">10</num></lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">ma sū 10</rdg>
+            <note>Neither Boechari nor Ninie has recognized that the plate shows a trace of expected double <foreign>s</foreign>, to make <foreign>mas sū</foreign>. Either the scribe intended <foreign>s su</foreign>, or he was copying from a source which had this, but he misinterpreted and produced something that looks like <foreign>sū</foreign>. Cf. the shape of pasangan <foreign>s</foreign> in <foreign>nsi</foreign> in Iv4 <foreign>tan sikaran</foreign>; <foreign>tsa</foreign> in IIr1 <foreign>kuñit sadaṅan</foreign>.</note>
+          </app>
+          <app loc="1r5">
+            <lem>
+              <abbr>mā</abbr>
+              <num value="10">10</num>
+            </lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">ma 10</rdg>
+          </app>
+          <app loc="1r5">
+            <lem source="bib:NinnySusantiTejowasono2003_01">mpū</lem>
+            <rdg source="bib:Boechari1985-1986_01">mpu</rdg>
+          </app>
+          <app loc="1r5">
+            <lem source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">turuny anugrahanira</lem>
+            <note><foreign>turuny anugrahanira</foreign>: are these words redundant?</note>
+          </app>
+          <app loc="1v1">
+            <lem source="bib:NinnySusantiTejowasono2003_01">mpūṅku</lem>
+            <rdg source="bib:Boechari1985-1986_01">mpuṅku</rdg>
+          </app>
+          <app loc="1v1">
+            <lem>Ika Um<choice>
+                <sic>guṁ</sic>
+                <corr>uṅgu</corr>
+              </choice></lem>
+            <rdg source="bib:Boechari1985-1986_01">Um[uṅ]gu</rdg>
+            <rdg source="bib:NinnySusantiTejowasono2003_01">Umgu</rdg>
+            <note>Cf. 2r3 <foreign>muṅgva riṁ dharmma gandhakuṭi</foreign> and 2v3 <foreign>saṁ muṅgu Iṁ dharmma gandhakuṭi</foreign>.</note>
+          </app>
+          <app loc="1v1">
+            <lem>Apayūṁṅa</lem>
+            <rdg source="bib:Boechari1985-1986_01">Apayuṁṅa</rdg>
+            <rdg source="bib:NinnySusantiTejowasono2003_01">Apayuṁṅa</rdg>
+          </app>
+          <app loc="1v2">
+            <lem>Aṅāṅgva</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">Aṅaṅgva</rdg>
+            <rdg source="bib:NinnySusantiTejowasono2003_01">Anaṅgva</rdg>
+          </app>
+          <app loc="1v2">
+            <lem>rājamaṅśa</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">rājāmaṅśa</rdg>
+          </app>
+          <app loc="1v4">
+            <lem>Amu<choice>
+                <orig><unclear>ṁ</unclear>puh a</orig>
+                <reg>puhā</reg>
+              </choice>ṅrahana</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">Amupuh aṅrahana</rdg>
+            <note>Cf. <ref target="kakurugan.xml">Kakurugan</ref> 5r4: <foreign>Añjamaha rare kavula</foreign>, <foreign>Amupuha kavula</foreign>, and <ref target="Kancana.xml">Kancana</ref> 8r5–8r6: <foreign>hañjamaha kavula amupuha kavula aṁguntiṁa hulun miṁgat, vnaṅ amupuhăṅrahana kavula yan· sahadosa</foreign>.</note>
+          </app>
+          <app loc="1v5">
+            <lem>Apa<choice>
+                <orig>tarā</orig>
+                <reg>ṭāra</reg>
+              </choice>ṇa</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">Apatarāṇa</rdg>
+            <note>See <title>OJED</title><foreign>paṭāraṇa</foreign>.</note>
+          </app>
+          <app loc="1v5">
+            <lem>Aj<choice>
+                <orig>ə:nva</orig>
+                <reg>nva ha</reg>
+              </choice>laṁ</lem>
+            <rdg source="bib:Boechari1985-1986_01">Ajə:nvalaṁ</rdg>
+            <rdg source="bib:NinnySusantiTejowasono2003_01">Ajə:ṁvalaṁ</rdg>
+            <note>Cf. <ref target="kakurugan.xml">Kakurugan</ref> 5r1.</note>
+          </app>
+          <app loc="1v5">
+            <lem source="bib:NinnySusantiTejowasono2003_01">tuñjuṁ sinivak·</lem>
+            <rdg source="bib:Boechari1985-1986_01">tuñjuṁ, sinivak·</rdg>
+            <note>Boechari reads a "," here, but I think the hook is part of <foreign>ñ</foreign>.</note>
+          </app>
+          <app loc="2r1">
+            <lem source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">kuñit sadaṅan·</lem>
+            <note>The term does not figure in any other source known to us. Emendations that have occurred to us: <foreign>kuñit puḍaṅan</foreign>, <foreign>kuñit paḍaṅan</foreign>, <foreign>kuñit saṇḍaṅan</foreign>. But none of these yields a known term either.</note>
+          </app>
+          <app loc="2r2">
+            <lem>maskar ama<choice>
+                <orig>th</orig>
+                <reg>v</reg>
+              </choice>aca</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">maskara matacha</rdg>
+            <note>Cf. <ref target="Madhawapura.xml">Madhawapura</ref> 7v4 <foreign>Askar· katakataṁ, Amavaca</foreign>. Although the word is unknown elsewhere, we tentatively assume <foreign>amavaca</foreign> is intended also in the present context.</note>
+          </app>
+          <app loc="2r2">
+            <lem>k<choice>
+                <orig>ə</orig>
+                <reg>u</reg>
+              </choice>t</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">kət</rdg>
+            <note>Cf. 1v1 above.</note>
+          </app>
+          <app loc="2r2-2r3">
+            <lem>tan sikaran <choice>
+                <sic>ta de</sic>
+                <corr>de</corr>
+              </choice></lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">tan sikaran ta de</rdg>
+          </app>
+          <app loc="2r3">
+            <lem>raksana</lem>
+            <note>Understand <foreign>rakṣaṇa</foreign>?</note>
+          </app>
+          <app loc="2r3">
+            <lem>Inastityakən</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">Inastyakən</rdg>
+          </app>
+          <app loc="2r3-2r4">
+            <lem source="bib:Boechari1985-1986_01">vnaṁ katmvananiṁ stri laraṅan·, burvan saki saṅkanya kunaṁ</lem>
+            <!--ekba: NST's PDF is unclear-->
+            <note>This segment is to be compared with <ref target="Bimalasrama.xml">Bimalasrama</ref> <foreign>vnaṁ katm<supplied reason="omitted">v</supplied>ani stri laraṅan· rare kavula tuU sasaṅkasaṅkananya</foreign>. Emend <foreign>sakiṁ</foreign>?
+</note>
+          </app>
+          <app loc="2r4">
+            <lem><choice>
+                <sic>mvaṁ n</sic>
+                <corr>mon</corr>
+              </choice> huluna rak<choice>
+                <sic>s</sic>
+                <corr>ry</corr>
+              </choice>an·</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">mvaṁ nhuluna rakṣan·</rdg>
+            <note><foreign>mon huluna rakryan·</foreign>: cf. Bimalasrama <foreign>mon· hulunani rājāputra hulunani rājāputri</foreign>. Cf. Baru for the phrase <foreign>hamba rakryan· rājaputra, rājaputrī</foreign>.
+</note>
+          </app>
+          <app loc="2r4">
+            <lem source="bib:NinnySusantiTejowasono2003_01">kulaputra</lem>
+            <rdg source="bib:Boechari1985-1986_01">kulaputra,</rdg>
+          </app>
+          <app loc="2r4-2r5">
+            <lem>sikaran <supplied reason="omitted">t</supplied>a</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">sikarana</rdg>
+            <note>Cf. 1v4 and 2r3.</note>
+          </app>
+          <app loc="2r5">
+            <lem>dharmma</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">dharmma ma</rdg>
+            <rdg source="bib:NinnySusantiTejowasono2003_01"/>
+            <!--ekba: NST's PDF is unclear-->
+            <note>Boechari  adds another syllable <foreign>ma</foreign> at the end of line 5, but this must be a misprint.</note>
+          </app>
+          <app loc="2v1">
+            <lem>doṣānya</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">doṣanya</rdg>
+          </app>
+          <app loc="2v1">
+            <lem>śri</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">śrī</rdg>
+          </app>
+          <app loc="2v4">
+            <lem>parasrayaṁnaniṅ</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">para suyananiṅ</rdg>
+          </app>
+          <app loc="2v4">
+            <lem source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">panatalanya</lem>
+            <note>Cf. <foreign>tatalən</foreign> in <ref target="kakurugan.xml">Kakurugan</ref></note>
+          </app>
+          <app loc="2v4">
+            <lem>ya<supplied reason="omitted">n</supplied></lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">ya</rdg>
+          </app>
+          <app loc="2v5">
+            <lem>saya<choice>
+                <orig>ta</orig>
+                <reg>thā</reg>
+              </choice>sambhava</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">sayata, sambhava </rdg>
+            <rdg source="bib:NinnySusantiTejowasono2003_01">sayata sambhava </rdg>
+            <note>The dot read as punctuation sign by Boechari is actually part of the serif of <foreign>ta</foreign>. Cf. <foreign>sasambhava</foreign> in <ref target="simaanglayang.xml">Sima Anglayang</ref> 14r-14v.</note>
+          </app>
+          <app loc="2v5">
+            <lem>panatalanya</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">panatalannya</rdg>
+          </app>
+          <app loc="2v5">
+            <lem>ajñā</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">ajña</rdg>
+          </app>
+          <app loc="2v5">
+            <lem>mahărājā</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">mahārāja</rdg>
+          </app>
+          <app loc="2v5">
+            <lem>aṅ<choice>
+                <sic>
+                  <orig>k</orig>
+                  <corr>g</corr>
+                </sic>
+              </choice>untiṁ</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">aṅkuntiṁ</rdg>
+          </app>
+          <app loc="3r1">
+            <lem source="bib:NinnySusantiTejowasono2003_01">paravulu</lem>
+            <rdg source="bib:Boechari1985-1986_01">parahulu</rdg>
+          </app>
+          <app loc="3r1">
+            <lem>kipaḥ-kipaḥ</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">kipaḥ</rdg>
+          </app>
+          <app loc="3r1">
+            <lem>tuluṁ</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">tulun</rdg>
+          </app>
+          <app loc="3r2">
+            <lem>pratya<choice>
+                <sic>kṣ</sic>
+                <corr>ṅś</corr>
+              </choice>a</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">pratyaṅśa</rdg>
+          </app>
+          <app loc="3r2">
+            <lem>salyūt·</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">salyut·</rdg>
+          </app>
+          <app loc="3r5">
+            <lem>bhūpati </lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">bhupati</rdg>
+          </app>
+          <app loc="3r6">
+            <lem>maguñjo </lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">maguñje</rdg>
+            <note>This was read <foreign>maguñjuṁ</foreign> by Holle and Brandes.</note>
+          </app>
+          <app loc="3v3">
+            <lem source="bib:Boechari1985-1986_01">maṅilāla</lem>
+            <rdg source="bib:NinnySusantiTejowasono2003_01">maṅilala</rdg>
+          </app>
+          <app loc="3v3">
+            <lem source="bib:Boechari1985-1986_01">maṇiga</lem>
+            <rdg source="bib:NinnySusantiTejowasono2003_01">maniga</rdg>
+          </app>
+          <app loc="3v4">
+            <lem>Aṁluputaknamuk·</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">Aṅluputaknamuk·</rdg>
+          </app>
+          <app loc="3v4">
+            <lem>paṁlaṅutakna</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">paṅlaṅutakna</rdg>
+          </app>
+          <app loc="3v5">
+            <lem>poliḥ</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">polih</rdg>
+          </app>
+          <app loc="3v5">
+            <lem>Apadagaṅa</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">Apadagana</rdg>
+          </app>
+          <app loc="3v5-4r1">
+            <lem>satuhan·, Aparahu</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">satuhan· parahu</rdg>
+          </app>
+          <app loc="4r1">
+            <lem>Apadagaṅa</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">Apagaṅa</rdg>
+          </app>
+          <app loc="4r1">
+            <lem>madr̥vya</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">adr̥vya</rdg>
+          </app>
+          <app loc="4r1">
+            <lem>Ity<choice>
+                <sic>a</sic>
+                <corr>e</corr>
+              </choice>vamadi</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">Ityavamadi</rdg>
+          </app>
+          <app loc="4r2">
+            <lem>salviniṁ</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">salvir</rdg>
+          </app>
+          <app loc="4r2">
+            <lem>saṅkerikā</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">saṁkerikā</rdg>
+          </app>
+          <app loc="4r2">
+            <lem>baṇigrami</lem>
+            <rdg source="bib:Boechari1985-1986_01">banigrami</rdg>
+            <rdg source="bib:NinnySusantiTejowasono2003_01">baṇigrama</rdg>
+          </app>
+          <app loc="4r2">
+            <lem>maṅkana</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">maṁkana</rdg>
+          </app>
+          <app loc="4r4">
+            <lem>ṣārāṣani</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">ṣāraṣāni</rdg>
+          </app>
+          <app loc="4r5">
+            <lem>ḍaṇḍan</lem>
+            <rdg source="bib:Boechari1985-1986_01">daṇḍan</rdg>
+            <rdg source="bib:NinnySusantiTejowasono2003_01">daṇḍa</rdg>
+          </app>
+          <app loc="4r5">
+            <lem>catulokaphāla</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">catulokāphāla</rdg>
+          </app>
+          <app loc="4r5">
+            <lem>baruṇa</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">baruna</rdg>
+          </app>
+          <app loc="4r6">
+            <lem>tasmāt·</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">tasmat·</rdg>
+          </app>
+          <app loc="4v1">
+            <lem>mareṁ</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">mare</rdg>
+          </app>
+          <app loc="4v1">
+            <lem>baṅavan</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">banavan</rdg>
+          </app>
+          <app loc="4v1">
+            <lem>ṣaṅanən</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">saṅanən</rdg>
+          </app>
+          <app loc="4v1">
+            <lem>kataṁrahana</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">katarahana</rdg>
+          </app>
+          <app loc="4v2">
+            <lem>sāmbəR̥niṁ</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">sambəR̥n iṁ</rdg>
+          </app>
+          <app loc="4v4">
+            <lem source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">taḍahə<supplied reason="omitted">n</supplied></lem>
+          </app>
+          <app loc="4v4-4v5">
+            <lem>paṅanən i răkṣasa</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">paṅanən ni răksasa</rdg>
+          </app>
+          <app loc="4v6">
+            <lem>brahmāṇaya</lem>
+            <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">brahmānaya</rdg>
+          </app>
+        </listApp>
+      </div>
+      <!-- <div type="translation">
+                <!-\-translation encoded as per EG §9.2 -\->
+            </div>-->
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
+        <p>First edited by Holle (<bibl rend="omitname">
+            <ptr target="bib:Holle1883_01"/>
+            <citedRange unit="page">479-483</citedRange>
+          </bibl>); followed by Brandes and Krom (<bibl rend="omitname">
+            <ptr target="bib:Brandes1913_01"/>
+            <citedRange unit="page">141-143</citedRange>
+          </bibl>); then by Boechari (<bibl rend="omitname">
+            <ptr target="bib:Boechari1985-1986_01"/>
+            <citedRange unit="page">72-75</citedRange>
+            <citedRange unit="item">E.23</citedRange>
+          </bibl>); edited again by Ninny Susanti Tejowasono (<bibl rend="omitname">
+            <ptr target="bib:NinnySusantiTejowasono2003_01"/>
+            <citedRange unit="page">456-467</citedRange>
+            <citedRange unit="item">no.15</citedRange>
+          </bibl>); re-edited here by Arlo Griffiths from photos of the rubbing kept in Leiden.</p>
+        <listBibl type="secondary">
+          <bibl>
+            <ptr target="bib:NBG20_1882"/>
+            <date>1882</date>
+            <citedRange unit="volume">20</citedRange>
+            <citedRange unit="page">17, 63</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Brandes1889_01"/>
+            <citedRange>112</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Verbeek1891_01"/>
+            <citedRange>9, 250</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:ROC"/>
+            <date>1905-1906</date>
+            <citedRange unit="page">120</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Krom1911_01"/>
+            <citedRange>249</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:NBG49_1911"/>
+            <date>1911</date>
+            <citedRange unit="volume">49</citedRange>
+            <citedRange unit="page">XXV</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:ROD"/>
+            <date>1915</date>
+            <citedRange unit="page">177</citedRange>
+            <citedRange unit="item">no.1612</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Krom1931_01"/>
+            <citedRange>270</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:SoesadjatMintowaloejo1949_01"/>
+            <citedRange unit="page">270</citedRange>
+            <citedRange unit="item">no. 23a-d</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Damais1952_01"/>
+            <citedRange unit="page">64-65</citedRange>
+            <citedRange unit="item">A.142</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Damais1955_01"/>
+            <citedRange unit="page">67</citedRange>
+            <citedRange unit="item">A.142</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Boechari1968_01"/>
+            <citedRange>13</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:NurhadiMagetsari+al1979_01"/>
+            <citedRange>68</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Boechari1990_01"/>
+            <citedRange>127</citedRange>
+          </bibl>
+          <bibl>
+            <ptr target="bib:Eade+Gislen2000_01"/>
+            <citedRange>76</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Ngadoman</title>
+        <respStmt>
+          <resp>EpiDoc encoding</resp>
+          <persName ref="part:masc">
+            <forename>Marine</forename>
+            <surname>Schoettel</surname>
+          </persName>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+        <respStmt>
+          <resp>intellectual authorship of edition</resp>
+          <persName ref="part:masc">
+            <forename>Marine</forename>
+            <surname>Schoettel</surname>
+          </persName>
+          <persName ref="part:argr">
+            <forename>Arlo</forename>
+            <surname>Griffiths</surname>
+          </persName>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority>
+        <pubPlace>Paris</pubPlace>
+        <idno type="filename">DHARMA_INSIDENKNgadoman</idno>
+        <availability>
+          <licence target="https://creativecommons.org/licenses/by/4.0/">
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send
+                            a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Marine Schoettel &amp; Arlo Griffiths</p>
+            <!-- argr2masc: do you have any thoughts about the situations in which and reasons why it might be decided not to follow alphabetical order in listing author names? (I do, and don't necessarily object to the order I see you have chosen here (and under <respStmt>), but I want to make sure you are aware of this subject, which can be quite sensitive.)  -->
+          </licence>
+        </availability>
+        <date from="2019" to="2025">2019-2025</date>
+      </publicationStmt>
+      <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
+        <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
+          <msIdentifier>
+            <repository>DHARMAbase</repository>
+            <idno/>
+            <!-- don't modify this -->
+          </msIdentifier>
+          <msContents>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
+          </msContents>
+          <physDesc>
+            <handDesc>
+              <p>Tidy monumental script<!-- argr2masc: here, the discussion in van der Molen 1983: 95–98 could be cited // masc2argr: wat is een slinger? It seems Willem's argument revolves partly around this feature of the akṣaras but "pendulum" makes no sense in this context. -->, with characters deeply engraved. However, some vowel marks (<foreign>hulu</foreign>, <foreign>taling tarung</foreign> for vocalization o) are not as deeply engraved as others and are only faintly visible. For particularities of this script type, among which a quadrangular <foreign>hulu</foreign> opened on the right, see <bibl>
+                  <ptr target="bib:Casparis1975_01"/>
+                  <citedRange unit="page">53-54, 65</citedRange>
+                </bibl>. This author believes that this inscription's script can be considered a continuation of Majapahit's chancery script, <cit>
+                  <quote>reduced to its essentials</quote>
+                </cit>. Willem van der Molen rather argues that this inscription belongs to a writing tradition distinct from that of Majapahit, as well as from more ancient East-Javanese scripts. He makes the interesting point that this script has more in common with that used in inscriptions of the Central Javanese period, showing that a number of akṣaras do not display innovations that occurred through the East-Javanese period (<bibl rend="omitname">
+                  <ptr target="bib:Molen1983_01"/>
+                  <citedRange unit="page">96-98</citedRange>
+                </bibl>.)</p>
+              <p> In this inscription, note the two different shapes of <foreign>pasangan</foreign> y. It also seems that the boundary between words is emphasized by insertion of a slightly larger space.</p>
+              <p>de manifester des formes plus récentes de l'ancienne écriture javanaise, qui ne peuvent être reliées à ce qui aboutit finalement à la nouvelle écriture javanaise.</p>
+            </handDesc>
+          </physDesc>
+        </msDesc>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>The project DHARMA has received funding from the European Research Council (ERC)
+                        under the European Union's Horizon 2020 research and innovation programme (grant
+                        agreement no 809994).</p>
+      </projectDesc>
+      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <listPrefixDef>
+        <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
+                            ERC-DHARMA whose data are open to the public.</p>
+        </prefixDef>
+        <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
+          <p>Internal URIs using the part prefix to point to person elements in the
+                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+        </prefixDef>
+      </listPrefixDef>
+    </encodingDesc>
+    <revisionDesc>
+      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
+      <change status="draft" when="2020-09-30" who="part:masc">Changes in apparatus and edition following argr's comments</change>
+      <change status="draft" when="2020-09-16" who="part:argr">finished first round of comments</change>
+      <change status="draft" when="2020-09-15" who="part:masc">answer to comments and change in apparatus</change>
+      <change status="draft" when="2020-08-14" who="part:argr">started first round of revisions</change>
+      <change status="draft" when="2020-08-13" who="part:masc">adding translation</change>
+      <change status="draft" when="2020-08-10" who="part:masc">initial encoding of the inscription</change>
+    </revisionDesc>
+  </teiHeader>
+  <text xml:space="preserve">
+    <body>
+      <div type="edition" xml:lang="kaw-Latn">
+        <p>
+  <lb n="1"/>Om̐ sri sarasoti kr̥ta, vukir ha<choice>
+            <orig>d</orig>
+            <reg>rd</reg>
+          </choice>i damaluṁ Uri<lb break="no" n="2"/>piṁ buhana hañakra murusa patirtan paL̥maran· hapan yaṁ
+ <lb n="3"/>vidi ha<unclear>m</unclear>ideni yaṁ raditya yaṁ vulan· hanəL̥ I hala-hayu <lb break="no" n="4"/>ni deva-manusa yaṁ hanut ya<unclear>ṁ</unclear> hagave bajaran tapak taṁt<unclear>u</unclear> ka<choice>
+            <orig>b</orig>
+            <reg>mb</reg>
+          </choice>aḥha<!-- argr2masc: (...) see examples near top of p. 97 of EGD — but if we restore the nasal here, shouldn't we do so everywhere there is a subaudible nasal? if we reduce ḥh to h, should we not also reduce other such geminate spellings? masc2argr: I think we should try to restore the subaudible nasal everywhere we can (as this seems to be a feature of the particular writing tradition we are dealing with here), but I have not found other instances where this is applicable in this first portion of text. As for reducing the geminate spelling, I would now be tempted to leave the text as it is because I feel gemination at word boundary is very frequent throughout all the Majapahit period, irrespective of the context (e.g. also in royal charters in "pure" Old Javanese). -->
+  <lb n="5"/>d<unclear>e</unclear>ni deva-manusa muva<unclear>ḥ</unclear> saṁ tu<unclear>mo</unclear>n saṁṅ amanah aR̥ṅə luputa
+  <lb n="6"/>riṁ<!-- argr2masc: the i is clear enough on one of the photos, certaonly clearer than taling/tarung of tumon in the previous line! masc2argr: It appears clearly on the reproduction published by de Casparis indeed. Should we try to record somehow the fact that the engraving is more shallow however (that is, inside the edition per se as well as in the metadata)?--> Ila-Ila paḍa kadəlana tutur-jati</p>
+        <p>yen ana ṅa<choice>
+            <orig>b</orig>
+            <reg>mb</reg>
+          </choice>aḥ<!-- argr2masc: see that you have followed EGD here in appliyng normalization only to the phonemese concerned! contrast case above. But I ask again: if we normalize in some cases, we ought do so more consistently. --> ta<lb break="no" n="7"/>n pabəkəla patik vənaṁ tan pabaktaha histri pituṁ ha<unclear>ja</unclear>ma<!-- argr2masc: I find the ja almost equally clear as the one in bajaran in line 4; from our translation, it seems you have accepted the idea that we have a form of jamah, meaning that we could again restore a subaudible nasal and supply a missing akṣara ha to get hañjamaha. Or else read/emend hajamatan as hajamahan? See next comment. --> <unclear>t</unclear>an vava<lb break="no" n="8"/>don avastu, sri syat i sakavarsa <g type="linga"/><!-- argr2masc: the linga here is certainly not a punctuation sign, which your use of <g>.</g> implies; please re-read EGD 4.2; if we want to treat the linga as a text-internal synbol at all, then we'd have to follow the rule "non-alphabetic glyphs that do not clearly fall into any of the above categories (§4.2.6) are not transliterated with any character, but represented by the empty element  <g/> with an appropriate @type". But we could also encode a <space type="ascender"> or simply state in an <app> <note> that the space between sakavarsa and I is filled by the linga that is part of the stone's iconographic program. See also my comment at bottom of file.  --></p>
+        <ab>
+          <num value="1371">1371</num>
+        </ab>
+      </div>
+      <div type="apparatus">
+        <!-- argr2masc: please check again whether all variants from the texts given by Cohen Stuat 1872, 1875 and De Casparis (1975) are duly recorded.-->
+        <listApp>
+          <app loc="1">
+            <lem source="bib:CohenStuart1872_01">Om̐</lem>
+            <note>The <foreign>anunāsika</foreign> is noted with a sign identical to the <foreign>layar</foreign> used elsewhere in this inscription. See <bibl>
+                <ptr target="bib:CohenStuart1872_01"/>
+                <citedRange unit="page">279</citedRange>
+              </bibl>.</note>
+          </app>
+          <app loc="1">
+            <lem>ha<choice>
+                <orig>d</orig>
+                <reg>rd</reg>
+              </choice>i damaluṁ</lem>
+            <!-- argr2masc: used <supplied> for inserting the layar? masc2argr: I am not convinced that this should be considered a case of omission.-->
+            <rdg source="bib:CohenStuart1872_01">hadi damaluṁ</rdg>
+            <!--Should we try to record somehow that Cohen Stuart was already hesitating, as he adds in his edition of 1872 "(of umalung?)"". I'm not sure how to convert the editor's markup here.-->
+            <rdg source="bib:CohenStuart1875_01 bib:Casparis1975_01">hadi Umaluṁ</rdg>
+            <note>Damaluṅ is one of the names anciently given to Mt. Merbabu and the term <foreign>hardi</foreign>, albeit part of the toponym, is to be distinguished from the proper noun. The colocations <foreign>Ardi Damaluṅ</foreign> or <foreign>Hardi Pamrihan</foreign> are commonly used to refer to this mountain in the colophons of Merapi-Merbabu manuscripts (as for instance in L 187, L 53, L 220, Mal-Pol 165). See <bibl>
+                <ptr target="bib:KuntaraWiryamartana1993_01"/>
+                <citedRange unit="page">505</citedRange>
+              </bibl>.</note>
+          </app>
+          <app loc="1">
+            <lem source="bib:CohenStuart1872_01 bib:Casparis1975_01">Uri<lb break="no" n="2"/>piṁ</lem>
+            <rdg source="bib:CohenStuart1875_01">Ūripiṁ</rdg>
+            <note>Cohen Stuart already hesitated to read <foreign>ūripiṁ</foreign> in his first edition, and recorded the uncertain reading thus: <cit>
+                <quote>u(û?)riping</quote>
+              </cit>.</note>
+          </app>
+          <app loc="2">
+            <lem source="bib:CohenStuart1872_01 bib:CohenStuart1875_01">hañakra</lem>
+            <rdg source="bib:Casparis1975_01">Añakra</rdg>
+          </app>
+          <app loc="3">
+            <lem>ha<unclear>m</unclear>ideni</lem>
+            <rdg source="bib:CohenStuart1872_01 bib:CohenStuart1875_01">ha<unclear>n</unclear>ideni</rdg>
+            <!--I interpret Cohen Stuart's uncertainties expressed as "hanidèni (?)" as bearing particularly on the akṣara m/n-->
+            <rdg source="bib:Casparis1975_01">hani deni</rdg>
+          </app>
+          <app loc="4">
+            <!--masc: I'm not sure this entry is really necessary as we might as well interpret CS' reading of geminate h as a visarga.-->
+            <lem source="bib:Casparis1975_01">ka<choice>
+                <orig>b</orig>
+                <reg>mb</reg>
+              </choice>aḥha</lem>
+            <rdg source="bib:CohenStuart1872_01 bib:CohenStuart1875_01">kabahha</rdg>
+          </app>
+          <app loc="8">
+            <lem>sri syat i</lem>
+            <rdg source="bib:CohenStuart1872_01 bib:CohenStuart1875_01 bib:Casparis1975_01">sri syati</rdg>
+            <note>Understand Skt. <foreign>śrī syāt</foreign>. The spelling, however, is that of Middle Javanese, where long and short vowels are no longer differentiated, just as dental and palatal sibilants. The present linguistic context probably explains the irregularity of finding <foreign>t</foreign> before the vowel <foreign>i</foreign> instead of <foreign>d</foreign>.</note>
+          </app>
+        </listApp>
+      </div>
+      <div resp="part:masc part:argr" type="translation">
+        <!--translation encoded as per EGD §9.2 -->
+        <p>Om. Made by Śrī Sarasvatī. The mountain Hardi Damaluṅ, the life of the Earth, was churning. The bathing place of Paləmaran would overflow, for God Vidhi <supplied reason="explanation">i.e. Brahmā?</supplied> gave instructions <supplied reason="explanation">
+            <foreign>amidhyani</foreign>
+          </supplied> to the Sun and the Moon to illuminate the bad and good of divine men, those who seek, those who make a line of succession. The established sacred site will be entered by divine men. And those <supplied reason="explanation">
+            <foreign>paḍa</foreign>
+          </supplied> who watch, who are intent, who listen, will be free from defilement, will be invested with memory of <supplied reason="subaudible">former</supplied> births. Should anyone enter, he shall not come provided with live-stock, shall not bring wives <foreign>pituṅ</foreign> to have intercourse with, shall not be obsessed with sex <supplied reason="subaudible">nor</supplied> owning possessions <supplied reason="explanation">
+            <foreign>avastu</foreign>
+          </supplied>. May there be Fortune! In the Śaka year 1371.</p>
+      </div>
+      <div type="commentary">
+        <p n="6">The term <foreign>tutur-jati</foreign> is an Old Javanese (semi-)translation of the Sanskrit <foreign>jātismara</foreign>. It refers to the ability to recollect or remember one's former births. <bibl>
+            <ptr target="bib:Schopen1982_01"/>
+          </bibl> has shown that this <q>old yogic attainment</q>, found in early Buddhist <foreign>sūtra</foreign>s within lists of superknowledges acquired through meditational techniques, has been reconceptualized in later (<q>medieval</q>) Mahāyāna literature as a fruit of one's religious merit and merit-making activities.</p>
+      </div>
+      <div type="bibliography">
+        <p>First edited by A.B. Cohen Stuart (<bibl rend="omitname">
+            <ptr target="bib:CohenStuart1872_01"/>
+          </bibl>) with extensive notes on vocabulary but without a translation, soon after re-edited by the same author  (<bibl rend="omitname">
+            <ptr target="bib:CohenStuart1875_01"/>
+          </bibl>). This second edition was republished with minor modifications by de Casparis (<bibl rend="omitname">
+            <ptr target="bib:Casparis1975_01"/>
+          </bibl>). Re-edited here by Arlo Griffiths and Marine Schoettel from published photos as well as photographic documentation provided by the Museum voor Volkenkunde.</p>
+        <listBibl type="primary">
+          <bibl n="CS1">
+            <ptr target="bib:CohenStuart1872_01"/>
+            <citedRange unit="page">277</citedRange>
+          </bibl>
+          <bibl n="CS2">
+            <ptr target="bib:CohenStuart1875_01"/>
+            <citedRange unit="page">36</citedRange>
+            <citedRange unit="item">27</citedRange>
+          </bibl>
+          <bibl n="C">
+            <ptr target="bib:Casparis1975_01"/>
+            <citedRange unit="page">96</citedRange>
+          </bibl>
+        </listBibl>
+      </div>
+    </body>
+  </text>
+</TEI><!-- argrmasc: as a reminder, I note here that the presence of the cartouche, corncer circles, and the linga must be recorded in metadata
+Adding that: several times in this inscription some expected layars are invisible (case of non-spelling?), or simply have not been written. This may well be a more pervasive feature of the writing tradition this inscription pertains to. So too the pervasive phenomenon of denasalisation of clusters with the structure NC (on this phenomenon, see Noorduyn & Teeuw 2006). -->
