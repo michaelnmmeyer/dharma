@@ -6,6 +6,7 @@
 <tr>
    <th>Identifier</th>
    <th>Status</th>
+   <th>HTML</th>
    <th>Repository</th>
    <th>Commit date</th>
    <th>Commit hash</th>
@@ -20,8 +21,12 @@
    <td>🐛</td>
 % end
    <td>
+% if text["html_path"]:
+   <a href="https://erc-dharma.github.io/{{text['repo']}}/{{text['html_path']}}">🔗</a>
+% end
+   </td>
+   <td>
    <a href="https://github.com/erc-dharma/{{text['repo']}}">{{text["repo"]}}</a>
-   {{text['html_path']}}
    </td>
    <td>{{text["readable_commit_date"]}}</td>
    <td>

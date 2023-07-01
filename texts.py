@@ -87,11 +87,10 @@ def gather_web_pages(texts):
 			name, ext = os.path.splitext(file)
 			if ext != ".html":
 				continue
-			xml = f"{name}.xml"
-			if not xml in tbl:
+			if not name in tbl:
 				continue
 			html = os.path.join(root, file)
-			tbl[xml] = html
+			tbl[name] = html
 	return tbl
 
 def cmd_pages():

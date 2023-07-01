@@ -130,10 +130,11 @@ def handle_changes(name):
 			(name, commit_hash, date))
 	state = validate.validate_repo(name)
 	if not have_commit:
-		paths = texts.gather_web_pages(state)
+		xml_paths = {os.path.basename(os.path.splitext(xml_name)[0]): xml_name for xml_name in state}
+		paths = texts.gather_web_pages(xml_paths)
 		repo_dir = os.path.join(config.REPOS_DIR, name)
-		for xml_path, html_path in sorted(paths.items()):
-			xml_path = os.path.relpath(xml_path, repo_dir)
+		for xml_name, html_path in sorted(paths.items()):
+			xml_path = os.path.relpath(xml_paths[xml_name], repo_dir)
 			if html_path:
 				html_path = os.path.relpath(html_path, repo_dir)
 			else:
