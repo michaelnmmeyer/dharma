@@ -20,6 +20,12 @@ SCHEMA = """
 pragma page_size = 8192;
 pragma journal_mode = wal;
 
+create table if not exists meta(
+	key text primary key not null,
+	value
+);
+insert or ignore into meta values('latest_version', 0);
+
 create table if not exists bibliography(
 	key text primary key not null,
 	version integer not null,
@@ -29,6 +35,7 @@ create table if not exists bibliography(
 
 conn = sqlite3.connect(os.path.join(config.DBS_DIR, "biblio.sqlite"))
 conn.executescript(SCHEMA)
+conn.commit()
 
 def sort_value(val):
 	if not isinstance(val, dict):
@@ -40,24 +47,24 @@ def to_json(val):
 	val = sort_value(val)
 	return json.dumps(val, separators=(",", ":"), ensure_ascii=False)
 
-def zotero_items(max_version):
+def zotero_items(max_version, ret):
 	s = requests.Session()
 	s.headers["Zotero-API-Version"] = "3"
 	s.headers["Zotero-API-Key"] = MY_API_KEY
 	r = s.get(f"https://api.zotero.org/groups/{LIBRARY_ID}/items?since={max_version}")
-	latest_version = -1
+	latest_version = 0
 	while True:
-		if r.status_code == 304:
-			return
 		wait = max( # in seconds
 			0,
 			int(r.headers.get("Backoff", 0)),
 			int(r.headers.get("Retry-After", 0)))
 		if r.status_code != 200:
 			if not wait or wait > 20:
-				return # will try later
+				# Will try later.
+				latest_version = max_version
+				break
 		new_version = int(r.headers["Last-Modified-Version"])
-		if latest_version < 0:
+		if not latest_version:
 			latest_version = new_version
 		entries = r.json()
 		assert isinstance(entries, list)
@@ -70,14 +77,18 @@ def zotero_items(max_version):
 			break
 		time.sleep(wait)
 		r = s.get(next.group(1))
+	ret.append(latest_version)
 
 def update():
 	conn.execute("begin immediate")
-	(max_version,) = conn.execute("select ifnull(max(version), 0) from bibliography").fetchone()
-	for entry in zotero_items(max_version):
+	(max_version,) = conn.execute("select value from meta where key = 'latest_version'").fetchone()
+	ret = []
+	for entry in zotero_items(max_version, ret):
 		doc = to_json(entry)
 		conn.execute("""insert or replace into bibliography(key, version, json)
 			values(?, ?, ?)""", (entry["key"], entry["version"], doc))
+	assert len(ret) == 1
+	conn.execute("update meta set value = ? where key = 'latest_version'", (ret[0],))
 	conn.execute("commit")
 
 # See https://www.zotero.org/support/kb/rich_text_bibliography

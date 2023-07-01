@@ -2,7 +2,7 @@ set -e
 
 if test -z $WITHIN_DOCKER; then
 	echo "Running docker" > /dev/stderr
-	sudo docker run -t -i -p 8023:8023 \
+	sudo docker run -t -i --net=host \
 		-v ~/programs/dharma/repos:/dharma/repos \
 		-v ~/programs/dharma/dbs:/dharma/dbs dharma
 else
