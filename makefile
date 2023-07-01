@@ -13,12 +13,7 @@ image:
 	git rev-parse HEAD > version.txt
 	sudo docker build -t dharma .
 
-upload: image
-	sudo docker save dharma > dharma.tar
-	sudo chown michael dharma.tar
-	rsync --progress --no-whole-file --compress --compress-choice=zstd --inplace dharma.tar beta:
-
-.PHONY: all update-texts image upload
+.PHONY: all update-texts image
 
 inscriptions.rnc: $(wildcard texts/DHARMA_INS*.xml)
 	java -jar validation/trang.jar $^ $@

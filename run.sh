@@ -7,6 +7,6 @@ if test -z $WITHIN_DOCKER; then
 		-v ~/programs/dharma/dbs:/dharma/dbs dharma
 else
 	echo "Running python"
-	python3 change.py &> change.log &
+	python3 change.py &> repos/change.log &
 	python3 server.py
 fi
