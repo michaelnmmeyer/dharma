@@ -1,5 +1,5 @@
-import os, sys, subprocess, sqlite3, json, select
-from dharma import config, validate, texts
+import os, sys, subprocess, sqlite3, json, select, errno, logging
+from dharma import config, validate, texts, biblio
 
 FIFO_ADDR = os.path.join(config.REPOS_DIR, "change.hid")
 
@@ -97,14 +97,17 @@ create table if not exists validation(
 TEXTS_DB = sqlite3.connect(TEXT_DB_PATH)
 TEXTS_DB.executescript(SCHEMA)
 
-def command(*cmd):
+def command(*cmd, **kwargs):
 	print(*cmd, file=sys.stderr)
-	return subprocess.run(cmd, encoding="UTF-8", capture_output=True, check=True)
+	kwargs.setdefault("capture_output", True)
+	kwargs.setdefault("check", True)
+	return subprocess.run(cmd, encoding="UTF-8", **kwargs)
 
-code_hash = command("git", "rev-parse", "HEAD").stdout.strip()
+with open("version.txt") as f:
+	code_hash = f.read().strip()
 
 def update_repo(name):
-	command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull")
+	command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
 
 def latest_commit_in_repo(name):
 	r = command("git", "-C", os.path.join(config.REPOS_DIR, name), "log", "-1", "--format=%H %at")
@@ -152,7 +155,17 @@ def handle_changes(name):
 
 def clone_all():
 	for name in REPOS:
-		command("git", "clone", f"git@github.com:erc-dharma/{name}.git", os.path.join(config.REPOS_DIR, name))
+		path = os.path.join(config.REPOS_DIR, name)
+		try:
+			os.rmdir(path)
+		except FileNotFoundError:
+			pass
+		except OSError as e:
+			if e.errno == errno.ENOTEMPTY:
+				continue
+			raise
+		command("git", "clone", f"git@github.com:erc-dharma/{name}.git", path,
+			capture_output=False)
 
 def read_changes(fd):
 	buf = ""
@@ -169,26 +182,31 @@ def read_changes(fd):
 		name = buf[:end].rstrip("/")
 		buf = buf[end + 1:]
 		if name == "all":
-			names = REPOS
-		elif not name in REPOS:
-			print("junk repo name: %r" % name, file=sys.stderr)
-			continue
-		else:
-			names = [name]
-		for name in names:
+			for name in REPOS:
+				update_repo(name)
+				handle_changes(name)
+			biblio.update()
+		elif name == "bib":
+			logging.info("updating biblio...")
+			biblio.update()
+			logging.info("updated biblio")
+		elif name in REPOS:
 			update_repo(name)
 			handle_changes(name)
+		else:
+			logging.warning("junk command: %r" % name)
 
 def main():
 	try:
 		os.mkdir(config.REPOS_DIR)
-		clone_all()
 	except FileExistsError:
 		pass
+	clone_all()
 	try:
 		os.mkfifo(FIFO_ADDR)
 	except FileExistsError:
 		pass
+	logging.info("ready")
 	fd = os.open(FIFO_ADDR, os.O_RDONLY)
 	try:
 		read_changes(fd)

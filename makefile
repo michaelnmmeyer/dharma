@@ -9,13 +9,16 @@ update-texts:
 	git add texts
 	git commit -m "Update texts"
 
-upload:
+image:
+	git rev-parse HEAD > version.txt
 	sudo docker build -t dharma .
-	sudo docker save dharma | zstd --rsyncable > dharma.tar.zst
-	sudo chown michael dharma.tar.zst
-	rsync --progress --no-whole-file --inplace dharma.tar.zst beta:
 
-.PHONY: all update-texts upload
+upload: image
+	sudo docker save dharma > dharma.tar
+	sudo chown michael dharma.tar
+	rsync --progress --no-whole-file --compress --compress-choice=zstd --inplace dharma.tar beta:
+
+.PHONY: all update-texts image upload
 
 inscriptions.rnc: $(wildcard texts/DHARMA_INS*.xml)
 	java -jar validation/trang.jar $^ $@
