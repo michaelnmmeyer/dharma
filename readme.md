@@ -2,6 +2,17 @@
 
 This is the newest code for the dharma project.
 
+To install and run it, you need docker, git, make and python. Clone this
+repository into `~/`. Make sure you have admin access to the dharma
+repositories on github. Build the container with:
+
+	make image
+
+Copy the dharma databases (not available yet!) into `~/dharma/dbs`. Finally, run
+the container with:
+
+	bash run.sh
+
 The overall architecture is as simple as feasible. We use two main processes: a
 server process and an update process.
 
