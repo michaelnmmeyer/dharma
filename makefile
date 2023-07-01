@@ -1,11 +1,13 @@
 all:
 
-validate:
+update-texts:
 	rm -f texts/*
 	python3 texts.py update
-	python3 validate.py
+	for f in texts/*.xml; do \
+		python3 xmlformat.py < $$f > tmp && mv tmp $$f; \
+	done
 
-.PHONY: all validate
+.PHONY: all update-texts
 
 inscriptions.rnc: $(wildcard texts/DHARMA_INS*.xml)
 	java -jar validation/trang.jar $^ $@

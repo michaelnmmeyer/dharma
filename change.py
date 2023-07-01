@@ -101,6 +101,8 @@ def command(*cmd):
 	print(*cmd, file=sys.stderr)
 	return subprocess.run(cmd, encoding="UTF-8", capture_output=True, check=True)
 
+code_hash = command("git", "rev-parse", "HEAD").stdout.strip()
+
 def update_repo(name):
 	command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull")
 
@@ -114,24 +116,31 @@ def handle_changes(name):
 	conn = TEXTS_DB
 	conn.execute("begin immediate")
 	commit_hash, date = latest_commit_in_repo(name)
-	if conn.execute("select 1 from commits where repo = ? and commit_hash = ?", (name, commit_hash)).fetchone():
-		conn.execute("rollback")
-		return
-	conn.execute("insert into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
-		(name, commit_hash, date))
+	have_commit = False
+	if conn.execute("select 1 from commits where repo = ? and commit_hash = ?",
+		(name, commit_hash)).fetchone():
+		have_commit = True
+		if conn.execute("select 1 from validation where repo = ? and commit_hash = ? and code_hash = ?",
+			(name, commit_hash, code_hash)):
+			# No need to revalidate
+			conn.commit()
+			return
+	if not have_commit:
+		conn.execute("insert into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
+			(name, commit_hash, date))
 	state = validate.validate_repo(name)
-	paths = texts.gather_web_pages(state)
-	repo_dir = os.path.join(config.REPOS_DIR, name)
-	for xml_path, html_path in sorted(paths.items()):
-		xml_path = os.path.relpath(xml_path, repo_dir)
-		if html_path:
-			html_path = os.path.relpath(html_path, repo_dir)
-		else:
-			assert html_path is None
-		file_id = os.path.basename(os.path.splitext(xml_path)[0])
-		conn.execute("insert into texts(name, repo, commit_hash, xml_path, html_path) values(?, ?, ?, ?, ?)",
-			(file_id, name, commit_hash, xml_path, html_path))
-	code_hash = command("git", "rev-parse", "HEAD").stdout.strip()
+	if not have_commit:
+		paths = texts.gather_web_pages(state)
+		repo_dir = os.path.join(config.REPOS_DIR, name)
+		for xml_path, html_path in sorted(paths.items()):
+			xml_path = os.path.relpath(xml_path, repo_dir)
+			if html_path:
+				html_path = os.path.relpath(html_path, repo_dir)
+			else:
+				assert html_path is None
+			file_id = os.path.basename(os.path.splitext(xml_path)[0])
+			conn.execute("insert into texts(name, repo, commit_hash, xml_path, html_path) values(?, ?, ?, ?, ?)",
+				(file_id, name, commit_hash, xml_path, html_path))
 	for text, errors in sorted(state.items()):
 		valid = not errors
 		errors = json.dumps(errors)

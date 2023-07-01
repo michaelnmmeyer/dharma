@@ -59,8 +59,8 @@ def show_texts():
 		(select repo, commit_hash, commit_date
 			from commits group by repo having max(commit_date)
 			order by commit_date desc)
-		select name, repo, commit_hash, strftime('%Y-%m-%d %H:%M', commit_date, 'auto', '+2 hours') as readable_commit_date, valid
-			from latest_commits natural join validation
+		select name, repo, commit_hash, strftime('%Y-%m-%d %H:%M', commit_date, 'auto', '+2 hours') as readable_commit_date, valid, html_path
+			from latest_commits natural join validation natural join texts
 			order by name"""))
 	conn.execute("commit")
 	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows)

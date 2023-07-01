@@ -21,6 +21,7 @@
 % end
    <td>
    <a href="https://github.com/erc-dharma/{{text['repo']}}">{{text["repo"]}}</a>
+   {{text['html_path']}}
    </td>
    <td>{{text["readable_commit_date"]}}</td>
    <td>
