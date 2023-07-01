@@ -4,7 +4,8 @@ This is the newest code for the dharma project.
 
 To install and run it, you need docker, git, make and python. Clone this
 repository into `~/`. Make sure you have admin access to the dharma
-repositories on github. Build the container with:
+repositories on github, and copy your private key to `~/dharma/ssh_key`. Then
+build the container with:
 
 	make image
 
