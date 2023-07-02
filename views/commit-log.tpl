@@ -1,5 +1,9 @@
 % rebase("base.tpl", title="Commit log")
+
+<div class="body">
 <h1>Commit log</h1>
+</div>
+
 <table>
 <thead>
 <tr>

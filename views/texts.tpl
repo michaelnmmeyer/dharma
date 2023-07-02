@@ -1,6 +1,10 @@
 % rebase("base.tpl", title="Texts")
+
+<div class="body">
 <h1>Texts</h1>
 <p>Last updated {{last_updated}}.</p>
+</div>
+
 <table>
 <thead>
 <tr>
@@ -23,6 +27,8 @@
    <td>
 % if text["html_path"]:
    <a href="https://erc-dharma.github.io/{{text['repo']}}/{{text['html_path']}}">🔗</a>
+% else:
+   ∅
 % end
    </td>
    <td>

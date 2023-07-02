@@ -25,7 +25,7 @@ NGRAM_DB = sqlite3.connect(os.path.join(config.DBS_DIR, "ngram.sqlite"))
 
 @bottle.route("/")
 def index():
-	return bottle.template("index.tpl")
+	return bottle.template("index.tpl", code_hash=config.CODE_HASH)
 
 def is_robot(email):
 	return email in ("readme-bot@example.com", "github-actions@github.com")

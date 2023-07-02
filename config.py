@@ -4,7 +4,7 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 HOST = "0.0.0.0"
 PORT = 8023
-DEBUG = False
+DEBUG = bool(os.environ.get("DEBUG", False))
 DBS_DIR = os.path.join(THIS_DIR, "dbs")
 REPOS_DIR = os.path.join(THIS_DIR, "repos")
 

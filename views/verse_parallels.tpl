@@ -1,4 +1,7 @@
 % rebase("base.tpl", title="Parallels of %s" % loc)
+
+<div class="body">
+
 <h1>Parallels of {{loc}}</h1>
 
 % for id, file, verse, text, coeff in verses:
@@ -7,3 +10,5 @@
 {{!text}}
 </p>
 % end
+
+</div>
