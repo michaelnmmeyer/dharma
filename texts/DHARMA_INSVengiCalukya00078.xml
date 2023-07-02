@@ -1,15 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
       <titleStmt>
         <title>Korumelli grant of the Eastern Cālukya Rājarāja I</title>
-        <!--ALT TITLE: Korumelli plates; Korumilli grant; Korumilli plates. The name of the village is korumelli in the grant; the modern spelling of the findspot is Korumilli in Google Maps.-->
         <respStmt>
           <resp>Encoding</resp>
           <persName ref="part:daba">
@@ -42,30 +35,20 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
               <p>Halantas. Final T (e.g. l13, l18) is a regular ta with just a wiggly tail (upward and to the right) instead of a V-shaped headmark. Final N (e.g. l16, l43) is a much reduced and simplified na without a headmark, while in l46 it is an extremely simplified and reduced na with a wiggly tail. In l46, ka is erroneously inscribed instead of final K, and l47 has ta instead of final T.</p>
               <p>Original punctuation marks are simple straight vertical, generally slightly shorter than a character body is tall; occasionally very short. The opening symbol consists of two concentric circles; the outer circle has four wavy appendages in the cardinal directions, and four dots spaced in the intercardinals.</p>
               <p>Other palaeographic observations. Anusvāras are placed at median height after the character to which they belong. They may be moved to the next line (l27) or across a binding hole (l37). Vowel markers are generally just small extensions, outward and down, on the left, right or both sides, of the V-shaped headmark, when such a headmark exists in a consonant. Dependent au, when distinguished from o, has a taller right hump (e.g. lines 25, 26, 32; see also o corrected to au in line 7). Subscript consonants are as a rule simplified, and are often ambiguous outside context, e.g. ṣṣa looks like ṣva. Repeatedly (lines 77, 78, 92, 96, 103), a combination of short <foreign>u</foreign> and <foreign>ā</foreign> (attached to the headmark, not to the end of the <foreign>u</foreign> marker) is used to represent long <foreign>ū</foreign>. (But compare the properly written <foreign>kūṁdavā</foreign> in line 61.) Since this double <foreign>uā</foreign> marker is not a plausible scribal mistake, it is probably a deliberately employed alternate notation; nonetheless, I mark it up as erroneous usage.
-                      <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-                <summary><p><p/></summary>
-                <handNote xml:id="Pallava00001_hand1"></handNote>
-                <handNote xml:id="Pallava00001_hand2"></handNote>
-              -->
+                      </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -91,7 +74,6 @@
     </encodingDesc>
     <revisionDesc>
       <change status="draft" when="2021-12-02" who="part:daba">Initial encoding of the file</change>
-      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -762,9 +744,8 @@
           <p><pb n="4v"/><lb n="93"/>tasm<choice>
               <sic>e</sic>
               <corr>ai</corr>
-            </choice>
+            </choice> 
 <list>
-              <!--DB CHECK need to do something about this. We are not supposed to use lists in the edition, but it also doesn't really qualify as verse; or rather it does, but it is so different from the Sanskrit metrical stanzas in the rest of the text that it should not be numbered along with them.-->
               <item>samasta-janatā-viśeṣa-guṇā<surplus>ṁ</surplus>ya<g type="comma">.</g></item>
               <item>rai-suta<unclear>r</unclear>ppita-mahīdeva-deva-gaṇāya<g type="comma">.</g></item>
               <item>viprānva<lb break="no" n="94"/>yābdhi-śaśabhr̥t-pr<choice>

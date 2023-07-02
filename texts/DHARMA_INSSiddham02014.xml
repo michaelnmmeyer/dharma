@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -25,18 +19,13 @@
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <persName><!--
-The original editor(s).
---></persName>
+          <persName></persName>
         </respStmt>
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham02014</idno>
-        <!--
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -89,9 +78,6 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
   <text xml:space="preserve">
     <body>
       <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <!--
-Comments below by Csaba Kiss are offered "as is" and do not represent a thoroughly researched or considered opinion.
--->
         <lg met="anuṣṭubh" n="1">
           <l n="a">
             <lb n="1"/>
@@ -122,9 +108,6 @@ Comments below by Csaba Kiss are offered "as is" and do not represent a thorough
           <l n="b">pratideha-ni<unclear cert="low">mr̥</unclear> <seg met="-=">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg> </l>
-          <!--
-v2b. CHECK  Gnoli gives: pratidehanimr̥ - , but then how can it be an anuṣṭubh?
--->
           <l n="c">
             <lb n="4"/>
             <seg met="====-++=">
@@ -156,9 +139,6 @@ v2b. CHECK  Gnoli gives: pratidehanimr̥ - , but then how can it be an anuṣṭ
             </seg> śinīvakāntar <seg met="=">
               <gap quantity="1" reason="lost" unit="character"/>
             </seg> </l>
-          <!--
-v3d: Gnoli actually gives: kāntar. (with dot), but the * will do here.
--->
         </lg>
         <lg met="anuṣṭubh" n="4">
           <l n="a">
@@ -239,15 +219,8 @@ v3d: Gnoli actually gives: kāntar. (with dot), but the * will do here.
           <l n="d"><seg met="====-">
               <gap quantity="5" reason="lost" unit="character"/>
             </seg> darugnam</l>
-          <!--
-v7. Gnoli thinks that this is an anuṣṭubh. How? CHECK
-"L." thinks that this is an upajāti (and, as a matter of fact, vv. 7-20), which might be OK.
--->
         </lg>
-        <p><!--
-This paragraph is probably verse:"verses" 8-10.
-Metre to be figured out. CHECK
---><lb n="15"/><gap precision="low" quantity="12" reason="illegible" unit="character"/> sa prabuddhya
+        <p><lb n="15"/><gap precision="low" quantity="12" reason="illegible" unit="character"/> sa prabuddhya
 <lb n="16"/><gap precision="low" quantity="14" reason="illegible" unit="character"/> jeyuḥ
 <lb n="17"/><gap precision="low" quantity="1" reason="illegible" unit="character"/> mārtaṇḍa <gap precision="low" quantity="12" reason="illegible" unit="character"/>
 <lb n="18"/><gap precision="low" quantity="2" reason="illegible" unit="character"/> raye <gap precision="low" quantity="10" reason="illegible" unit="character"/> mittha
@@ -255,9 +228,6 @@ Metre to be figured out. CHECK
 <lb n="20"/><gap precision="low" quantity="2" reason="illegible" unit="character"/> kim iha s<unclear cert="low">v</unclear>asti-vācya-śeṣa <gap precision="low" quantity="3" reason="illegible" unit="character"/> kathitan na <gap precision="low" quantity="6" reason="illegible" unit="character"/>
 </p>
         <lg met="upajāti" n="11">
-          <!--
-For the time being, I follow Gnoli's numbering.
--->
           <l n="a"><lb n="21"/><seg met="=+">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg> parān nāstikatām prapannais</l>
@@ -280,22 +250,19 @@ For the time being, I follow Gnoli's numbering.
           <l n="b">anādi-niṣṭhaṁ <seg met="--+-+">
               <gap quantity="5" reason="lost" unit="character"/>
             </seg> <unclear cert="low">ṣa</unclear> ca</l>
-          <!--
-v12b. hypermetrical? ca is suspicious CHECK
--->
           <l n="c"><lb n="24"/><seg met="=+">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg> kathaṁ veda Ihābhaviṣyat</l>
-          <l n="d">tvam bhāratādiṁ yadi nā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->rac</supplied>iṣyaḥ</l>
+          <l n="d">tvam bhāratādiṁ yadi nā<supplied reason="lost">rac</supplied>iṣyaḥ</l>
         </lg>
         <lg met="upajāti" n="13">
-          <l n="a"><lb n="25"/><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->pra</supplied>māṇa-śuddhyā viditārttha-tatvaḥ</l>
+          <l n="a"><lb n="25"/><supplied reason="lost">pra</supplied>māṇa-śuddhyā viditārttha-tatvaḥ</l>
           <l n="b">prakampyamānam <seg met="--+-+">
               <gap quantity="5" reason="lost" unit="character"/>
             </seg> ṣṭhaiḥ</l>
           <l n="c"><lb n="26"/><seg met="=">
               <gap quantity="1" reason="lost" unit="character"/>
-            </seg> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->dha</supplied>rmmam ittha<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ṁ</supplied> jagato hitaiṣī</l>
+            </seg> <supplied reason="lost">dha</supplied>rmmam ittha<supplied reason="lost">ṁ</supplied> jagato hitaiṣī</l>
           <l n="d">na prātaniṣyad yadi <seg met="+-++">
               <gap quantity="4" reason="lost" unit="character"/>
             </seg> ḥ</l>
@@ -313,9 +280,6 @@ v12b. hypermetrical? ca is suspicious CHECK
           <l n="d">kathan tad asthātum iha <seg met="+-+">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg> pa<unclear cert="low">ḥ</unclear></l>
-          <!--
-v14d. This is how Gnoli give this line, but in this way it is hypermetrical. CHECK
--->
         </lg>
         <lg met="upajāti" n="15">
           <l n="a"><lb n="29"/><seg met="=+">
@@ -327,7 +291,7 @@ v14d. This is how Gnoli give this line, but in this way it is hypermetrical. CHE
           <l n="c"><lb n="30"/><seg met="=+">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg> tvam eva prativetsi samyaṅ</l>
-          <l n="d">na veditānyo bhuvi kaści<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->d asti</supplied></l>
+          <l n="d">na veditānyo bhuvi kaści<supplied reason="lost">d asti</supplied></l>
         </lg>
         <lg met="upajāti" n="16">
           <l n="a"><lb n="31"/><seg met="=+">
@@ -336,7 +300,7 @@ v14d. This is how Gnoli give this line, but in this way it is hypermetrical. CHE
           <l n="b">stutyeṣu vācām dvitaya <seg met="-+=">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg> </l>
-          <l n="c"><lb n="32"/><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->stu</supplied>tir guṇānāṁ vidhinā na satvān</l>
+          <l n="c"><lb n="32"/><supplied reason="lost">stu</supplied>tir guṇānāṁ vidhinā na satvān</l>
           <l n="d">na cānuvādas tvayi <seg met="+-++">
               <gap quantity="4" reason="lost" unit="character"/>
             </seg> </l>
@@ -370,63 +334,39 @@ v14d. This is how Gnoli give this line, but in this way it is hypermetrical. CHE
             </seg> </l>
         </lg>
         <lg met="upajāti" n="19">
-          <l n="a"><lb n="37"/><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->vi</supplied>pāṭya mohān amr̥taṁ vyasr̥kṣat</l>
-          <l n="b">svayañ ca dharmmādi jagaty a<unclear cert="low">tī</unclear>ṣṭha<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->T</supplied></l>
+          <l n="a"><lb n="37"/><supplied reason="lost">vi</supplied>pāṭya mohān amr̥taṁ vyasr̥kṣat</l>
+          <l n="b">svayañ ca dharmmādi jagaty a<unclear cert="low">tī</unclear>ṣṭha<supplied reason="lost">T</supplied></l>
           <l n="c"><lb n="38"/><seg met="=+">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg>  tvayāgāj jagati pratiṣṭhān</l>
           <l n="d">tvam eva dharmmaṁ vividhān atiṣṭhi<seg subtype="consonant" type="component">
               <gap quantity="1" reason="illegible" unit="component"/>
             </seg> </l>
-          <!--
-v19d. atiṣṭhi probably for vidhivānvatiṣṭha(ḥ) (Gnoli)
--->
         </lg>
         <lg met="upajāti" n="20">
           <l n="a"><lb n="39"/><seg met="=+-">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg> van duṣpratipādam etat</l>
-          <!--
-v20a. Gnoli gives *== , which must be wrong. CHECK
--->
-          <l n="b">svarggādi śabdopanibandhamā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->tram</supplied></l>
+          <l n="b">svarggādi śabdopanibandhamā<supplied reason="lost">tram</supplied></l>
           <l n="c"><lb n="40"/><seg met="=+-">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg> d astīti jano grahīṣyad</l>
-          <l n="d">bhavān ihaivaṁ yadi na vya<unclear cert="low">ne</unclear>kṣya<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->t</supplied></l>
-          <!--
-v20d. L.: vyanakṣya<supplied reason="undefined">t</supplied>
--->
+          <l n="d">bhavān ihaivaṁ yadi na vya<unclear cert="low">ne</unclear>kṣya<supplied reason="lost">t</supplied></l>
         </lg>
         <lg met="rucirā" n="21">
           <l n="a"><lb n="41"/><seg met="-+-">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg> tā kumatibhir aṁhasāvr̥taiḥ</l>
-          <l n="b">kutarkkikaiḥ katham api saugatād<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ibhiḥ</supplied></l>
-          <!--
-v21b. L.: saugatair a *
--->
+          <l n="b">kutarkkikaiḥ katham api saugatād<supplied reason="lost">ibhiḥ</supplied></l>
           <l n="c"><lb n="42"/><seg met="-+">
               <gap quantity="2" reason="lost" unit="character"/>
-            </seg> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->t</supplied>vayi prathita-giri <unclear cert="low">prabhāv</unclear> iyam</l>
-          <!--
-v21c. ed.: prabhāv is uncertain.
--->
+            </seg> <supplied reason="lost">t</supplied>vayi prathita-giri <unclear cert="low">prabhāv</unclear> iyam</l>
           <l n="d">payo-nidhau sarid iva vindati sthitim</l>
-          <!--
-v21d. L.: vindate
--->
         </lg>
         <lg met="śikhariṇī" n="22">
-          <!--
-CHECK CORRECT metre chart, where it is given as śikharinī
--->
           <l n="a"><lb n="43"/><seg met="-+++++">
               <gap quantity="6" reason="lost" unit="character"/>
             </seg> d viniyata-pādārtthādyanugamāt</l>
-          <!--
-v22a. Unmetrical, should it read padārttha- ?
--->
           <l n="b">tava śrutvā kāvyaṁ sapadi manuṣāgamya <seg met="--=">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg> </l>
@@ -437,12 +377,6 @@ v22a. Unmetrical, should it read padārttha- ?
             </seg> da <seg met="--">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg> paramārtthānusaraṇe</l>
-          <!--
-v22c.  L.: .=== (rtthatvādahana)
--->
-          <!--
-v22c. should the markup rather be: rtyya## <seg met="="><gap reason="lost" quantity="1" unit="character" /></seg>, to show that it is a long syllable?
--->
           <l n="d">dadhāty uccair mmohaṁ sapadi gata-vidyeṣ<seg subtype="consonant" type="component">
               <gap quantity="1" reason="illegible" unit="component"/>
             </seg>a<seg subtype="consonant" type="component">
@@ -450,23 +384,14 @@ v22c. should the markup rather be: rtyya## <seg met="="><gap reason="lost" quant
             </seg>i <seg met="-=">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg> </l>
-          <!--
-v22d. L.: vidyeṣṭani
--->
         </lg>
         <lg met="śikhariṇī" n="23">
-          <!--
-CHECK CORRECT metre chart, where it is given as śikharinī
--->
           <l n="a"><lb n="45"/><seg met="-+++">
               <gap quantity="4" reason="lost" unit="character"/>
             </seg> śāstre manu-yama-br̥haspaty-uśanasāṁ</l>
           <l n="b">vidhānaṁ kr̥tyānām asugama-padāṁ loka <seg met="--=">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg> </l>
-          <!--
-v23b.  L.: kr̥tyānām aśa .. padāṁ
--->
           <l n="c"><lb n="46"/><seg met="-+++">
               <gap quantity="4" reason="lost" unit="character"/>
             </seg> naivaṁ prativiṣayam ādhūya nipuṇaṁ</l>
@@ -478,61 +403,31 @@ v23b.  L.: kr̥tyānām aśa .. padāṁ
           <l n="a"><lb n="47"/><seg met="+++">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg> n nr̥pa-caritānuvādi-bhāvāt</l>
-          <l n="b">pādādeḥ pratiniyatan tataś ca kāvya<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->M</supplied></l>
-          <!--
-v24b.  L.: pāṭhādeḥ
--->
+          <l n="b">pādādeḥ pratiniyatan tataś ca kāvya<supplied reason="lost">M</supplied></l>
           <l n="c"><lb n="48"/><seg met="+++">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg> r anukathanād apīha śāstraṁ</l>
-          <!--
-v24c. L.: (te)r
--->
-          <l n="d">tvaṁ śakter idam api bhāratādy akārṣī<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ḥ</supplied></l>
+          <l n="d">tvaṁ śakter idam api bhāratādy akārṣī<supplied reason="lost">ḥ</supplied></l>
         </lg>
         <lg met="praharṣiṇī" n="25">
           <l n="a"><lb n="49"/><seg met="+++">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg> bhava-jala-dhau vivarttamānān</l>
-          <l n="b">rāgādi-prapata-dhiyaḥ pragāḍhamo<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->hān</supplied></l>
+          <l n="b">rāgādi-prapata-dhiyaḥ pragāḍhamo<supplied reason="lost">hān</supplied></l>
           <l n="c"><lb n="50"/><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg> yāstvim iti vidhāya mukti-mārggaṁ</l>
-          <!--
-v25c. Scan is blurred, but seems like ==. at the beginning of this line.
--->
-          <!--
-v25c. L.: yastam
--->
-          <l n="d">sācīnām bhuvi puruṣāṅ karoṣi mant<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->raiḥ</supplied></l>
-          <!--
-v25d. ed.: "25 The reading sācīnām (meaning?) seems to me to be certain:
-L. reads jācīnām"
--->
+          <l n="d">sācīnām bhuvi puruṣāṅ karoṣi mant<supplied reason="lost">raiḥ</supplied></l>
         </lg>
         <lg met="mañjubhāṣiṇī" n="26">
-          <!--
-CHECK ADD metre to list
-..=.=...=.=.=
--->
-          <l n="a"><lb n="51"/>su<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->kh</supplied>i<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->nā</supplied> vivikta-vacasā tvayā satā</l>
-          <!--
-v26a. L. omits sukhinā
--->
+          <l n="a"><lb n="51"/>su<supplied reason="lost">kh</supplied>i<supplied reason="lost">nā</supplied> vivikta-vacasā tvayā satā</l>
           <l n="b">kr̥payā parārttha-viniveśi-buddhinā</l>
-          <l n="c"><lb n="52"/>ja<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ga</supplied>to hitāya sukr̥te ha bhārate</l>
+          <l n="c"><lb n="52"/>ja<supplied reason="lost">ga</supplied>to hitāya sukr̥te ha bhārate</l>
           <l n="d">bhuvi vāṅmayaṁ sakalam eva darśśitam</l>
         </lg>
         <lg met="mālinī" n="27">
           <l n="a"><lb n="53"/>vidita-vividha-dharmmo veditā vāṅmayānān</l>
           <l n="b">niravadhikam amitthyā-śānta-rāgādi-doṣaM</l>
-          <!--
-v27b. L. reads amitthyāśāṅgarāgādidoṣ(am) and adds in a note:
-"La lecture du composé qui termine le premier vers est embarrassante, mais il semble
-pourtant contenir une série de mots à double entente:
-doṣa 'péché' et 'nuit' (doṣā); rāga 'passion' et 'rougeur' (du crépuscule);
-āśā 'espérance' et 'horizon'"
--->
           <l n="c"><lb n="54"/><seg met="---">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg> rava-parārtthas tad bhāvān moha-jālan</l>
@@ -540,12 +435,9 @@ doṣa 'péché' et 'nuit' (doṣā); rāga 'passion' et 'rougeur' (du crépuscu
         </lg>
         <lg met="malinī" n="28">
           <l n="a"><lb n="55"/>prativiṣaya-niyogāt pālakatvāc ca tāsān</l>
-          <l n="b">nipuṇa-tad-avabodhāt tad-vivekād adoṣ<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->āt</supplied></l>
+          <l n="b">nipuṇa-tad-avabodhāt tad-vivekād adoṣ<supplied reason="lost">āt</supplied></l>
           <l n="c"><lb n="56"/>jagati tad-upadeśāt tvaṁ mithas tad-vibhāgād</l>
           <l n="d">upahita Iva mūrttis tryātmanām attra vācām</l>
-          <!--
-v28 upahita: L.: upacita; 28 L. reads tryātmanā mantravācām and adds in a note:"Tryātmanā, si la lecture en est exacte, est un mot nouveau qui semble signifier 'celui qui a pour essence les trois: Brahma, Viṣṇu, Śiva, ou la trayī' - M. Barth me suggére la correction tryātmanāṁ mantravācām 'le triple Veda'"
--->
         </lg>
         <lg met="sragdharā" n="29">
           <l n="a"><lb n="57"/>sauksmyā<supplied reason="omitted">d</supplied> durbbodham īśaṁ sthitam api sakalaṁ lokam āvr̥tya tanvā</l>
@@ -556,9 +448,6 @@ v28 upahita: L.: upacita; 28 L. reads tryātmanā mantravācām and adds in a no
         <lg met="sragdharā" n="30">
           <l n="a"><lb n="60"/>pratyādhāra-sthitatvāt pr̥thag api na pr̥thak tat-svarūpāviśeṣāt</l>
           <l n="b">nityaṁ dharmmair ayogā<lb break="no" n="61"/>t punar api na tathā sarvva-kālāpratīteḥ</l>
-          <!--
-v30b. L. suggests correcting sarvakālapratīteḥ
--->
           <l n="c">nāśotpādādy-ayogāt sthitam api <lb n="62"/>jagatas sarvva-gaṁ vyāpi-bhāvāt</l>
           <l n="d">caitanyaṁ rūpa-pakṣa-sthitam api kathaye<lb break="no" n="63"/>t ko nu loke tvad-anyaḥ</l>
         </lg>
@@ -587,13 +476,7 @@ v30b. L. suggests correcting sarvakālapratīteḥ
           <l n="a">tad aham iti nunūṣad bhinna-saṁsāra<lb break="no" n="71"/>-bandham</l>
           <l n="b">vitamasam arajaskaṁ tvāṅ garīyāṁsam ādyam</l>
           <l n="c">katham api pari <lb break="no" n="72"/>laghvīṁ svān nibadhnāmi vācam</l>
-          <!--
-v34c. L. reads paralaghvīm and adds in a note: "au lieu de paralaghvīṁ lire plutôt parilaghvīṁ"
--->
           <l n="d">tad iha pitari me tvaṁ saṁpadas saṁvidhatsva</l>
-          <!--
-v34d.  saṁvidhatsva from corrigenda
--->
         </lg>
         <p><lb n="73"/>bhagavato dvaipāyanasya stotraṅ kr̥tam anuparameṇa
 </p>
@@ -606,7 +489,7 @@ v34d.  saṁvidhatsva from corrigenda
           </app>
         </listApp>
       </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
+      <div source="bib:AuthorYear_01" type="translation"></div>
       <div type="commentary"></div>
       <div type="bibliography">
         <p/>

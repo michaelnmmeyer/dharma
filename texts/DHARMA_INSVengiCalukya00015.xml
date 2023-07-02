@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,29 +35,18 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
-            <!--<altIdentifier type="PEM"><idno type="corpus">CalE24</idno></altIdentifier>-->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p>Halantas. M occurs in lines 19, 21, 23, 28 and 30. The one in 19 looks like ma, slightly simplified and only slightly reduced in size; the others are much smaller and more simplified, and raised.
-                <!--Original punctuation.  --><!--Other palaeographic observations.  --><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-                <summary><p><p/></summary>
-                <handNote xml:id="Pallava00001_hand1"></handNote>
-                <handNote xml:id="Pallava00001_hand2"></handNote>
-              -->
+              <p>Halantas. M occurs in lines 19, 21, 23, 28 and 30. The one in 19 looks like ma, slightly simplified and only slightly reduced in size; the others are much smaller and more simplified, and raised. 
+                </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -91,7 +74,6 @@
       <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
       <change status="draft" when="2020-08-14" who="part:daba">Encoded hand description, bibliography and commentary from earlier comments</change>
       <change status="draft" when="2020-06-09" who="part:daba">Initial encoding of the file</change>
-      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -128,7 +110,7 @@
             </choice>stavy<unclear>ā</unclear>ya <lb n="10"/>kauṇḍinya-gotrāya taittirīyāyāpastaṁba-sūtrāya guṁjadevaśarmmaṇa<supplied reason="omitted">ḥ</supplied> pautrāya sarvva<lb break="no" n="11"/>-kratu-yājino devaśarmmaṇaḥ putrāya catur-vveda-pāragāya sarvva-śāstra-viśāradāya <lb n="12"/>śrī-Eṟa<space type="binding-hole"/>droṇaśarmmaṇe</p>
           <ab>karmma-rāṣṭra-viṣaya-nivāsi-ku<add place="below" rend="mark">ṭu</add>ṁbina<add place="inline">ḥ</add> bhavad-viṣaye sarvvān i<lb break="no" n="13"/>ttha<space type="binding-hole"/>m ājñāpayati</ab>
           <p>jyaiṣṭhyāṁ paurṇṇamāsyāṁ saṁkrānti-kāle bhūmidāna-nimitte <lb n="14"/>gobbaḍi-vijñāpanāt karmma-rāṣṭre peṇukapaṟu nāma grāme tasya grā<lb break="no" n="15"/>masyottara-pūrvvasyān diśi kṣetran dattam</p>
-          <p>asya kṣetrasya pūrvvato <supplied reason="subaudible">’</supplied>vadhiḥ niḍugaṭṭa-taṭā<lb break="no" n="16"/>ka<orig>ḥ</orig><supplied reason="subaudible">.</supplied>
+          <p>asya kṣetrasya pūrvvato <supplied reason="subaudible">’</supplied>vadhiḥ niḍugaṭṭa-taṭā<lb break="no" n="16"/>ka<orig>ḥ</orig><supplied reason="subaudible">.</supplied> 
 dakṣiṇato <supplied reason="subaudible">’</supplied>vadhiḥ pūsa-boḷa-kṣetrāntaḥ<supplied reason="subaudible">.</supplied>
 pa<del>ści</del>ścimato <supplied reason="subaudible">’</supplied>vadhiḥ dego <gap precision="low" quantity="6" reason="illegible" unit="character"/><lb n="17"/><unclear>na</unclear>kupovu panthāḥ<supplied reason="subaudible">.</supplied>
 Uttarato <supplied reason="subaudible">’</supplied>vadhiḥ maṣakhāvadhiḥ<supplied reason="subaudible">.</supplied></p>
@@ -350,7 +332,7 @@ ceux qui prennent un brahmadeya renaissent serpents noirs !<foreign>Il est rare 
       </div>
       <div type="commentary">
         <p> I adopt the reading of the seal as shown by Hultzsch, without indication of unclarity, in the introduction to his edition. In the scan of the photo in EI18, I can only make out vestiges of vva..ddh.</p>
-        <p>The executive part of the charter, lines 8 to 21, is chaotic. The segmentation given in my edition and translation seems the best to me, since it comes close to coherence. Nonetheless, the king addresses his audience twice (line 9 and line 13); the word <foreign>bhavad-viṣaye</foreign> is out of sequence (but is probably meant to be where my translation has “in your district”), and the portion about water sources, the paddy field and a gap in the hill (lines 19 to 21) is unclear. I feel quite certain that the donation consists of two separate fields, each listed with four boundaries. The paddy field was probably donated to the same recipient at an earlier time, though Hultzsch understands <foreign>prāg-apavarga</foreign> to mean “ending in the east.” The phrase “to the east of the Tāla pond” may describe the paddy field rather than the well. I believe the gap in the hill was explicitly stated to be part of the donated property, perhaps on account of its importance for logistics; but it is also possible that it is the location of the paddy field.
+        <p>The executive part of the charter, lines 8 to 21, is chaotic. The segmentation given in my edition and translation seems the best to me, since it comes close to coherence. Nonetheless, the king addresses his audience twice (line 9 and line 13); the word <foreign>bhavad-viṣaye</foreign> is out of sequence (but is probably meant to be where my translation has “in your district”), and the portion about water sources, the paddy field and a gap in the hill (lines 19 to 21) is unclear. I feel quite certain that the donation consists of two separate fields, each listed with four boundaries. The paddy field was probably donated to the same recipient at an earlier time, though Hultzsch understands <foreign>prāg-apavarga</foreign> to mean “ending in the east.” The phrase “to the east of the Tāla pond” may describe the paddy field rather than the well. I believe the gap in the hill was explicitly stated to be part of the donated property, perhaps on account of its importance for logistics; but it is also possible that it is the location of the paddy field. 
 </p>
       </div>
       <div type="bibliography">
@@ -369,7 +351,6 @@ ceux qui prennent un brahmadeya renaissent serpents noirs !<foreign>Il est rare 
           <bibl n="EH">
             <ptr target="bib:Hultzsch1925-1926_05"/>
           </bibl>
-          <!-- one <bibl/> per item of primary bibliography -->
         </listBibl>
         <listBibl type="secondary">
           <bibl>

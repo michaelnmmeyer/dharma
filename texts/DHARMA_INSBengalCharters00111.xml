@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -12,27 +6,22 @@
                 </title>
         <respStmt>
           <resp>EpiDoc Encoding</resp>
-          <!-- Work done in the file, e.g. editor ...-->
           <persName ref="part:ryfu">
-            <!-- Update the id -->
             <forename>Ryosuke</forename>
-            <!-- Fill in your  names — it is possible to use only <name> instead of <foreame> and <surname> -->
             <surname>Furui</surname>
           </persName>
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
           <persName ref="part:ryfu">
-            <!-- Update the id -->
             <forename>Ryosuke</forename>
-            <!-- Fill in the name of the responsible scholar — it possible to use only <name> instead of <foreame> and <surname> -->
             <surname>Furui</surname>
           </persName>
         </respStmt>
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
-        <pubPlace><!-- Fill in here the place or places where the encoding has been done --></pubPlace>
+        <pubPlace></pubPlace>
         <idno type="filename">DHARMA_INSBengalCharters00111</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
@@ -43,33 +32,22 @@
                             California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Ryosuke
                             Furui.</p>
-            <!-- replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -80,7 +58,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -103,7 +80,7 @@
           <head xml:lang="eng">Plate</head>
           <pb n="1r"/>
           <lb n="1"/>
-          <p><g type="spiralL"/><!-- siddham --> svasti<g type="danda">.</g></p>
+          <p><g type="spiralL"/> svasti<g type="danda">.</g></p>
           <lg met="sragdharā" n="1">
             <l n="a">maitrīṅ kāruṇya-ratna-pramudita-hr̥dayaḥ pre<lb break="no" n="2"/>yasīṁ sandadhānaḥ</l>
             <l n="b">samyak-samvodhi-vidyā-sarid-amala-jala<lb break="no" n="3"/>-kṣālitājñāna-paṅkaḥ<g type="danda">.</g></l>
@@ -187,7 +164,7 @@
             </choice>ddha-śāntivārika-<unclear>bha</unclear><lb break="no" n="43"/>ṭṭaputra-śrī-līlākarāya śāsanī-kr̥tya dattaḥ yato bhavadbhiḥ sarvvair eva dānam idam anumantavyaM bhāvibhir api bhūpati<lb break="no" n="44"/>bhir bhūmer ddāna-phala-gauravād apaharaṇe mahā-naraka-pāta-bhayāc c<choice>
               <sic>a</sic>
               <corr>ā</corr>
-            </choice>numodya paripālanīyaṁ* prativāsibhiḥ kṣetra-karai<unclear>ś cā</unclear><lb break="no" n="45"/>jñā-śravaṇa-vidheyī-bhūya sarvva-pratyāyopanayaḥ kārya Iti
+            </choice>numodya paripālanīyaṁ* prativāsibhiḥ kṣetra-karai<unclear>ś cā</unclear><lb break="no" n="45"/>jñā-śravaṇa-vidheyī-bhūya sarvva-pratyāyopanayaḥ kārya Iti                     
                  </p>
           <p n="45">samvaT <num value="4">4</num> phālguna-dine <num value="4">4</num></p>
           <p n="45">tathātra dharmmānuśāsana-ślokāḥ</p>
@@ -338,7 +315,7 @@
           <p n="12" rend="stanza">After thus considering wealth and human life fragile as a drop of water on lotus petal, also after knowing all that is said, the meritorious deeds of others should not be destroyed by human beings.</p>
         </div>
       </div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="commentary"></div>
       <div type="bibliography">
         <p>First notified by Gouriswar Bhattacharya<bibl rend="omitname">
             <ptr target="bib:Bhattacharya1996_02"/>

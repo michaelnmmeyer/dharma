@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -36,27 +30,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -97,7 +81,6 @@
     <body>
       <div type="edition" xml:lang="kaw-Latn">
         <pb n="1r"/>
-        <!--Blank outer page.-->
         <p xml:lang="san-Latn"><pb n="1v"/>
 <lb n="1v1"/><g type="ddandaOrnate"/><g type="circleTarget"/><g type="ddandaOrnate"/> Om̐ namaś śivāya <g type="ddandaOrnate"/></p>
         <p>svasti śaka-varṣātĭta, <num value="1188">1188</num>, māgha-māsa, tīthi, trayodaśī śu<lb break="no" n="1v2"/>kla-pakṣa,
@@ -114,9 +97,7 @@ samast<choice>
 <lb n="1v10"/>, saṁ pamgət iṅ kaṇḍamuhi, saṁ pamgət i maṁhuri, I pisorny ājñā śrī mahārāja, An makamaṅgalyājñā bha</p>
       </div>
       <div type="apparatus">
-        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
         <listApp>
-          <!-- one <app> for each apparatus entry -->
           <app loc="1v2">
             <lem>puṣ<choice>
                 <sic>p</sic>
@@ -161,18 +142,16 @@ samast<choice>
         </listApp>
       </div>
       <div resp="part:argr" type="translation">
-        <!--translation encoded as per EG §9.2 -->
         <p>Om! Homage to Śiva! Hail! In the elapsed Śaka year 1188, month of Māgha, thirteenth <foreign>tithi</foreign> of the waxing fortnight, Vās, Vagai, Tuesday, <supplied reason="explanation">
             <foreign>wuku</foreign>
           </supplied> Mahatal; <foreign>grahacāra</foreign> in the South; lunar mansion Puṣya; deity Jīva; <foreign>maṇḍala</foreign> in the Southeast; conjunction Śobhana; <foreign>muhūrta</foreign> Varuṇa; regent of the astronomical node Agni; <foreign>karaṇa</foreign> Tetila; zodiac sign Aquarius. </p>
-        <p>That was the time that the instruction of the king — the ‘conqueror of the world’, ‘insurmountable due to his heroism which is inavertible by the indisputable courage of a lauded world-ruler’ — whose royal consecration-name is Śrī Kr̥tanagara, under the auspices of an instruction of ‘the refuge of all kings’, ‘whose lotus feet were descended upon by the crest jewels of all noblemen’, the lord whose deity-consecration name was Jaya Śrī Viṣṇuvardhana, was received by His Excellency<!-- Arlo to self: maybe revise use of His Excelleny and H.E." --> the great minister of Hino; H.E. the great minister of Sirikan; H.E. the great minister of Halu. It came down to all the high officers <supplied reason="explanation">
+        <p>That was the time that the instruction of the king — the ‘conqueror of the world’, ‘insurmountable due to his heroism which is inavertible by the indisputable courage of a lauded world-ruler’ — whose royal consecration-name is Śrī Kr̥tanagara, under the auspices of an instruction of ‘the refuge of all kings’, ‘whose lotus feet were descended upon by the crest jewels of all noblemen’, the lord whose deity-consecration name was Jaya Śrī Viṣṇuvardhana, was received by His Excellency the great minister of Hino; H.E. the great minister of Sirikan; H.E. the great minister of Halu. It came down to all the high officers <supplied reason="explanation">
             <foreign>taṇḍa rakryan</foreign>
           </supplied> of the council: H.E. the Counselor; H.E. of Dmuṅ; H.E. of Kanuruhan, the secretary knowledgeable in politics and expert in covert matters, bearing the title Rāmapati. Not left behind were: the Paməgat of Tiruan, the Paməgat of Kaṇḍamuhi, the Paməgat of Maṅhuri. At the desending of the instruction of his majesty the king, which was under the auspices of an instruction of <supplied reason="lost">Lord Jaya Śrī Viṣṇuvardhana</supplied>
 </p>
       </div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="commentary"></div>
       <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
         <p>First edited by Krom (<bibl rend="omitname">
             <ptr target="bib:krom1911_04"/>
           </bibl>); re-edited by Damais (<bibl rend="omitname">

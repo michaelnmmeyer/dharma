@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,27 +35,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -105,9 +89,9 @@
               </choice>
             </num>4</date> śaka nū mān vraḥ śāsaṇa dhūli vraḥ pāda dhūli jeṅ· vraḥ kaṁmrateṅ·
 <lb n="2"/>Añ· Ekādaśi roc· caitra candravāra nu Oy· vraḥ supātra ta mra<lb break="no" n="3"/>tāñ· śrivikramasaṇnāha ti pre dau sthāpanā ta gi sruk· <placeName key="Phdai" subtype="village" type="settlement">phdai</placeName>
-<lb n="4"/>Āya <placeName key="Vrai Vyak" subtype="undetermined">vrai vyak·</placeName><!-- sous district ? forêt de Vyak?-->
-pramāna śri <placeName key="Īndrapūra" subtype="district" type="region">Īndrapūra</placeName><!-- ajoute le Śri à la key? --> nau ruva dravya nu khñuṁma sru<lb break="no" n="5"/>k· sre ta ti mratāña śrivikramasannāha nu mratāña khlo<lb break="no" n="6"/>ña mahāpūrūṣa Oy· ta vraḥ <g type="dotMid">.</g> siddhi sruka <placeName key="Thkval Dham" subtype="village" type="settlement">thkval· <unclear>dham·</unclear></placeName> Amraḥ
-<lb n="7"/>4 <g type="circle">.</g> sruka <placeName key="Vnur" subtype="village" type="settlement">vnura</placeName> <seg type="desc"><!-- ajouter la ref -->ti paścima Aṁvi ta gi muṁ travāṅ· <placeName key="Vraḥ Svāy" subtype="tank" type="hydrographic">vraḥ svāy·</placeName><lb n="8"/>to<supplied reason="omitted">y·</supplied> purvva gi thnval· travāṅ· <placeName key="Veṅ" subtype="tank" type="hydrographic">veṅ·</placeName> ti purvva toy· dakṣiṇa lvoḥ
+<lb n="4"/>Āya <placeName key="Vrai Vyak" subtype="undetermined">vrai vyak·</placeName>
+pramāna śri <placeName key="Īndrapūra" subtype="district" type="region">Īndrapūra</placeName> nau ruva dravya nu khñuṁma sru<lb break="no" n="5"/>k· sre ta ti mratāña śrivikramasannāha nu mratāña khlo<lb break="no" n="6"/>ña mahāpūrūṣa Oy· ta vraḥ <g type="dotMid">.</g> siddhi sruka <placeName key="Thkval Dham" subtype="village" type="settlement">thkval· <unclear>dham·</unclear></placeName> Amraḥ
+<lb n="7"/>4 <g type="circle">.</g> sruka <placeName key="Vnur" subtype="village" type="settlement">vnura</placeName> <seg type="desc">ti paścima Aṁvi ta gi muṁ travāṅ· <placeName key="Vraḥ Svāy" subtype="tank" type="hydrographic">vraḥ svāy·</placeName><lb n="8"/>to<supplied reason="omitted">y·</supplied> purvva gi thnval· travāṅ· <placeName key="Veṅ" subtype="tank" type="hydrographic">veṅ·</placeName> ti purvva toy· dakṣiṇa lvoḥ
 <lb n="9"/>travaṅ· <placeName key="It" subtype="tank" type="hydrographic">Itta</placeName> ti Uttara lvoḥ ta gi phluva Amraḥ</seg> <gap quantity="2" reason="lost" unit="character"/>
 <lb n="10"/>si Anrok· si caṁlau si kaṁpit· si Andaha sruk<unclear>·</unclear>
 <lb n="11"/><placeName key="Sukhagrāma" subtype="village" type="settlement">sukhagrāma</placeName> <g type="circle">.</g> sruk· <placeName key="Tralau" subtype="village" type="settlement">tralau</placeName> sruk· <placeName key="Saṁvega" subtype="village" type="settlement">saṁvega</placeName> sruk <placeName key="Puruṣapura" subtype="village" type="settlement">puruṣa<lb break="no" n="12"/>pura</placeName> sruk· <gap quantity="3" reason="lost" unit="character"/> sruk· <placeName key="Thnal" subtype="village" type="settlement">thnal</placeName><unclear>·</unclear> sruk<unclear>·</unclear> <placeName key="Arinivāsa" subtype="village" type="settlement"><supplied reason="omitted">A</supplied>rinivāsa</placeName> sruk<unclear>·</unclear>
@@ -139,18 +123,9 @@ pramāna śri <placeName key="Īndrapūra" subtype="district" type="region">Īnd
             <unclear>kh</unclear>
           </choice>not· si kanlān· si pan·hem· <num value="1">I</num> si śaśāṅka si kaṁvai
 <lb n="30"/>tai kandhom· vrau ti duñ· tai bhava ti tvar· nu khñum <g type="circle">.</g>
-                    <!-- KC: To check estampage the punctuation marks and numerals. -->
+                    
                 </p>
       </div>
-      <!--<div type="apparatus">
-           <!-\-apparatus encoded as per EG §9.1, basic elements for apparatus below-\->
-               <listApp><!-\- one <app> for each apparatus entry -\->
-                  <app loc="line"><!-\- Update the value of @loc.-\->
-                     <lem><!-\- fill in a lemma here -\-></lem>
-                     <rdg source="bib:AuthorYear_01"><!-\- update the @source value, fill in variant reading here -\-></rdg>
-                  </app>
-               </listApp>
-         </div>-->
       <div source="bib:Coedes1937-1966_01" type="translation" xml:lang="fra">
         <p n="1-4">En 8<gap reason="lost"/>4 <foreign>śaka</foreign>, il y eut un ordre de Sa Majesté, du onzième jour de la lune décroissante de Caitra, un lundi, offrant un beau vase à Mratāñ Śrī Vikramasannāha qui est chargé d'aller faire des fondations au pays de Phdai, à Vrai Vyak, territoire <supplied reason="explanation">
             <foreign>pramāna</foreign>

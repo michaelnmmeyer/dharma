@@ -1,15 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
       <titleStmt>
         <title>Pañcapāka grant of Bhīma I</title>
-        <!--ALT TITLE: This is probably the same charter as the one called Paṇḍipāka grant in secondary literature.-->
         <respStmt>
           <resp>EpiDoc Encoding</resp>
           <persName ref="part:daba">
@@ -42,31 +35,20 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
-            <!--<altIdentifier type="PEM"><idno type="corpus">CalE53</idno></altIdentifier>-->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
               <p>Halantas. Final N (e.g. l6, l7) is a simplified na without a headmark. Final T (l39) is a slightly reduced ta with an elongated vertical stem without a headmark. Final M (l44, l45) is a stylised ma (lacking the right limb), with an extension that begins horizontally and then turns sharply upward.</p>
               <p>Original punctuation marks are short, straight verticals with small serifs. The closing gomūtra symbol is a series of 4 diminishing bars (in addition to the first two, which I interpret as a separate double daṇḍa). The fourth bar is only a dot, and this is followed by a final dot from which a flourish extends right and then up, vaguely resembling a tick mark.</p>
               <p>Other palaeographic observations. Anusvāra is normally at the top right of the character to which it belongs, but sometimes (e.g. l1 sagotrāṇāṁ) above the next character. There is a probable instance of rare jh in line 35. This subscript component begins with a shape resembling ka or ña. Attached to this, on its right-hand side, slightly below the crossbar, there is a wavy horizontal line which then turns upward at a soft right angle. In addition, there is a circle like an <foreign>anusvāra</foreign>, placed to the right of this additional stroke, on a level with its horizontal component. The circle may be irrelevant, but it does not look like random damage. Dependent o is always written with two separate strokes.
-              <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-          <summary><p><p/></summary>
-          <handNote xml:id="Pallava00001_hand1"></handNote>
-          <handNote xml:id="Pallava00001_hand2"></handNote>
-        -->
+              </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -77,7 +59,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -89,7 +70,6 @@
     </encodingDesc>
     <revisionDesc>
       <change status="draft" when="2021-11-04" who="part:daba">Initial encoding of the file</change>
-      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -415,7 +395,6 @@
         <p>A "Paṇḍipāka grant," probably identical to the present one, is said to be published in <title>Journal of the Telugu Academy</title> vol. 11 pp. 256-257 (not traced), and to be described in <title>Mad. Govt. MSS. Library Catalogue</title> 15-6-36, pp. 185-91 (not traced). The present edition has been prepared for DHARMA by Dániel Balogh on the basis of inked rubbings in Sir Walter Elliot's collection.<note>Scans of these impressions were obtained by Emmanuel Francis from the Edinburgh University Library and supplemented by Andrew Grout.</note> Elliot may have prepared an edition that never reached publication (see his note in the commentary).</p>
         <listBibl type="primary">
           <bibl n="XX"/>
-          <!-- one <bibl/> per item of primary bibliography -->
         </listBibl>
         <listBibl type="secondary">
           <bibl/>

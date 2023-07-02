@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,31 +35,20 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
-            <!--<altIdentifier type="PEM"><idno type="corpus">CalE21</idno></altIdentifier>-->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
               <p>Halantas. M: a small and raised J shape with the bottom closed into a loop (or not); almost as small as an anusvāra and at the same position, but with a tail rising on the right. E.g. L2 abhivarddhitānāM, l4 sthitīnāM, l12 sarvveṣāM. N: reduced with long stem (like a lambda). E.g. l32, peNbidi-boyasya.</p>
               <p>Original punctuation. The opening symbol is a dextrorse spiral of about 1 full turn, with a tail at the bottom right. L17 onward, in the list, a plain double vertical is used with some consistency, but often omitted, and sometimes replaced by a single plain vertical, e.g. l22, muyyarddhaṁśaḥ|; l33, Ekkaṁśaḥ| and regularly 5r (but then the double bar dominates again). A triple vertical bar is used at the end of the second (last) stanza, before the colophon.</p>
               <p>Other palaeographic observations. Fleet (p. 186): "The anusvāra is written usually above the line, but is sometimes irregularly palced; and in a few cases it is written on the bottom line,—e.g., in Ciṁthūr-boyasya, l. 24; Aṁjaśarmmaṇa, ll. 28 and 29-30, Veṁṇiśarmaṇa, l. 34, and Maṁdu-boyasya, l. 59." In l2 rddhi, the repha is fully inside vowel mark, probably because stū above would have interfered with a regular execution.
-<!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-                <summary><p><p/></summary>
-                <handNote xml:id="Pallava00001_hand1"></handNote>
-                <handNote xml:id="Pallava00001_hand2"></handNote>
-              -->
+</p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -93,7 +76,6 @@
       <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
       <change status="draft" when="2020-08-14" who="part:daba">Encoded hand description, bibliography and commentary from earlier comments</change>
       <change status="draft" when="2020-04-28" who="part:daba">Initial encoding of the file</change>
-      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -393,7 +375,7 @@ who was eager to adorn the family of the majestic Caḷukyas—who are of the M�
               <item>to Kappaśarman of the Kauṇḍilya <foreign>gotra</foreign>, son of Kandaśarman the son of Āla-boya<note>Fleet notes that <foreign>boya</foreign> appears to be a surname or class name, and is at least in some cases attached to village names. The term occurs in a similar manner in the <ref target="DHARMA_INSVengiCalukya00013.xml">Koṇeki grant</ref>, about which Narasimhaswami (<bibl rend="omitname">
                     <ptr target="bib:Narasimhaswami1955-1956_01"/>
                     <citedRange>77</citedRange>
-                  </bibl>) remarks that it has been linked to the Sanskrit word <foreign>bhogika</foreign> and that it also occurs in a charter of Indravarman reported in ARIE 1921-22, Appendix A/2 and p. 97<!--NOT TRACED-->. Hultzsch (<bibl rend="omitname">
+                  </bibl>) remarks that it has been linked to the Sanskrit word <foreign>bhogika</foreign> and that it also occurs in a charter of Indravarman reported in ARIE 1921-22, Appendix A/2 and p. 97. Hultzsch (<bibl rend="omitname">
                     <ptr target="bib:Hultzsch1905-1906_10"/>
                     <citedRange>233</citedRange>
                   </bibl>)</note>, in his commentary on the <ref target="DHARMA_INSVengiCalukya00050.xml">Cendalūr Plates of Maṅgi Yuvarāja</ref>, believes it is equivalent to Sanskrit <foreign>vāstavya</foreign>.</item>
@@ -572,7 +554,7 @@ celui qui possède la terre en possède le fruit.</p>
       </div>
       <div type="commentary">
         <p> The opening symbol is slightly above the level of line 1 and outside the margin (in fact mostly on the raised rim), so I encode it as a separate line. The first five plates have six lines on each inscribed face; the last two have 4 to 5. The first four lines on 4 recto are very closely spaced, giving rise to some unusually composed characters (see apparatus). There is also plenty of surface roughness on this page (whereas all others are mostly pristine), and some marks that may be traces of erased characters. It seems possible that this plate was first engraved with four rather uneven lines, taking up approximately the page area now covered by five lines, and that subsequently, these four lines were struck out and the five extant lines were engraved over them, finally adding the sixth line.</p>
-        <p>Can the instances of kauṇḍilya in this text be scribal errors for śāṇḍilya? kau looks a bit like śā and the engraver could have mistaken a pre-written text that way. The instance in l17 actually seems to contain the strokes for ś except for the loop on the left leg, which has migrated to the right leg to pretend to be the loop of k.
+        <p>Can the instances of kauṇḍilya in this text be scribal errors for śāṇḍilya? kau looks a bit like śā and the engraver could have mistaken a pre-written text that way. The instance in l17 actually seems to contain the strokes for ś except for the loop on the left leg, which has migrated to the right leg to pretend to be the loop of k. 
 </p>
       </div>
       <div type="bibliography">
@@ -585,13 +567,12 @@ celui qui possède la terre en possède le fruit.</p>
             <citedRange unit="page">49</citedRange>
             <citedRange unit="appendix">A/1962-1963</citedRange>
             <citedRange unit="item">15</citedRange>
-          </bibl>. The present edition by Dániel Balogh is based on a collation of Fleet's text with his published facsimiles, with photographs of the plates from the British Library (done for part of the text by Arlo Griffiths and later repeated in full by Dániel Balogh), and inked impressions from Sir Walter Elliot's collection<note>Scans of these impressions were obtained by Emmanuel Francis from the Edinburgh University Library, the Bibliothèque nationale de France and the British Museum.</note>, which appear to have been taken prior to cleaning the plates and offer no new insights.
+          </bibl>. The present edition by Dániel Balogh is based on a collation of Fleet's text with his published facsimiles, with photographs of the plates from the British Library (done for part of the text by Arlo Griffiths and later repeated in full by Dániel Balogh), and inked impressions from Sir Walter Elliot's collection<note>Scans of these impressions were obtained by Emmanuel Francis from the Edinburgh University Library, the Bibliothèque nationale de France and the British Museum.</note>, which appear to have been taken prior to cleaning the plates and offer no new insights. 
   </p>
         <listBibl type="primary">
           <bibl n="JFF">
             <ptr target="bib:Fleet1878_02"/>
           </bibl>
-          <!-- one <bibl/> per item of primary bibliography -->
         </listBibl>
         <listBibl type="secondary">
           <bibl>

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -46,18 +40,13 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
@@ -94,7 +83,7 @@
       <div type="edition" xml:lang="kaw-Latn">
         <pb n="1r"/>
         <p>
-           <lb n="1r1"/><gap extent="unknown" reason="lost" unit="character"/>śrī rājasanāgara<!--supply comma here?--> maṅkana ya ta dvāra-nava-rana-<gap extent="unknown" reason="lost" unit="character"/>
+           <lb n="1r1"/><gap extent="unknown" reason="lost" unit="character"/>śrī rājasanāgara maṅkana ya ta dvāra-nava-rana-<gap extent="unknown" reason="lost" unit="character"/>
            <lb n="1r2"/><gap extent="unknown" reason="lost" unit="character"/>ja, kumaliliranāṁ saṁjñāniṁ tuha-tuha, <unclear>I</unclear>kaṁ <unclear>p</unclear>añji paṅalaḥ, makamaṅgalyājñā p<choice>
             <orig>a</orig>
             <reg>ā</reg>
@@ -126,7 +115,6 @@
           <app loc="1r3">
             <lem source="bib:Bosch1917_01">°viṣṇuvārddhan<unclear>ī</unclear></lem>
             <rdg source="bib:Boechari1985-1986_01">°viṣṇuvārddhanā></rdg>
-            <!--I'm not sure how to interpret the diacritic on this akṣara in PKMN-->
           </app>
           <app loc="1r3">
             <lem>rājñyābhiṣekā</lem>
@@ -156,7 +144,6 @@
         </listApp>
       </div>
       <div resp="part:argr part:masc" type="translation">
-        <!--translation encoded as per EGD §9.2 -->
         <p>inheriting the title of his ancestors, namely the byname <supplied reason="explanation">
             <foreign>pañji</foreign>
           </supplied> Paṅalah <supplied reason="explanation">

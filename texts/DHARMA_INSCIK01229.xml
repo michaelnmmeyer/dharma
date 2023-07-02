@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -40,27 +34,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!--//// NB: the msIdentifier had to be added for validation purposes///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!--//// NOT MANDATORY ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -91,7 +75,6 @@
       <change status="draft" when="2020-04-08" who="part:axja">Update template 2</change>
       <change status="draft" when="2020-01-09" who="part:axja">Update template</change>
       <change status="draft" when="2019" who="part:kuch">Creation of the file</change>
-      <!-- add a <change> for each change to the file, the first change should replace this one and record your creation of a file using this template. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -217,7 +200,7 @@
               <unclear>c</unclear>
               <unclear>j</unclear>
             </choice>ibhuk·
-<lb n="C49"/>vāp· heṁ sruk· travāṅ gol· <g type="dotMid">.</g> vāp· vaktraśiva sruk· jeṅ·
+<lb n="C49"/>vāp· heṁ sruk· travāṅ gol· <g type="dotMid">.</g> vāp· vaktraśiva sruk· jeṅ· 
 <lb n="C50"/>vrai <g type="dotMid">.</g> vāp· vāsudeva sruk· Indrapada <g type="dotMid">.</g> neḥ grāmavr̥<lb break="no" n="C51"/>ddha ta qaṁpalla neḥha syaṅ ta dau nā saṅ gol· ta gi bhūmi sre
 <lb n="C52"/>samrok· Aṅgāl· <g type="dotMid">.</g> syaṅ ta Anuma<choice>
               <sic>tha</sic>
@@ -291,7 +274,7 @@
             <lem>ka<unclear>ñ</unclear><seg subtype="body" type="component">
                 <gap quantity="1" reason="illegible" unit="component"/>
               </seg>i</lem>
-            <note>The missing consonnant should be c <!-- proposed by KC -->.</note>
+            <note>The missing consonnant should be c .</note>
           </app>
           <app loc="A44">
             <lem>p<unclear>a</unclear>n<supplied reason="lost">dval· vraḥ śā</supplied>sana</lem>
@@ -441,8 +424,6 @@
         <p n="d12-d15"><foreign>pek</foreign> : <foreign>si</foreign> Kañja, <foreign>si</foreign> Phsok, <foreign>si</foreign> Sday ; cuisinières : <foreign>tai</foreign> Kaṃvañ, <foreign>tai</foreign> Śrāddha, <foreign>tai</foreign> Gandha, <foreign>tai</foreign> Thqyak.</p>
         <p n="d16-d20"><supplied reason="subaudible">Ils constituent</supplied> les honoraires royaux au moment de l’initiation royale de Sa Majesté le Vraḥ Kamrateṅ Añ au bassin <supplied reason="explanation">travāṅ</supplied> du bain, Śrī Jayavarmadeva.</p>
       </div>
-      <!-- <div type="commentary">
-         </div> -->
       <div type="bibliography">
         <p>Edited by Dominique Soutif (<bibl rend="omitname">
             <ptr target="bib:Soutif2009_03"/>

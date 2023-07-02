@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -35,9 +29,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00141</idno>
-        <!--
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -103,18 +94,6 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
             <gap extent="unknown" reason="lost" unit="character"/>
           </l>
           <l n="d"><gap extent="unknown" reason="lost" unit="character"/> <unclear cert="low">rikṣayo</unclear><unclear>gaM</unclear>||</l>
-          <!--
-The beginning of the extant part is badly damaged. I transcribe Cunningham's eye copy except that I read yo instead of his ya (and Fleet's tentative la), and gaM with Fleet instead of his gala. (Note that v8 in l6 ends with an anusvāra, not a halanta M, so maybe we have something else here too?) Thaplyal reads r (printed as र्, so perhaps he saw a superscript r here?), followed by dots, then a tentative kṣa and la, and a "clear" gaM.
--->
-          <!--
-The punctuation character is a double vertical.
--->
-          <!--
-With Fleet, I assume that verse punctuation was consistently a single daṇḍa at half-verses and a double one at verse ends (though there is no single punctuation at the end of l4 - but this could have been omitted because of the line end). The bit before the double daṇḍa in l1 does not look like the end of a śārdūlavikrīḍita. However, with 72 lost characters, a śārdūlavikrīḍita would be a perfect fit for the lost section. But assuming a prose invocation at the beginning, the verse could be a little shorter. If it's śārdūla, then my conjecture yogam cannot stand; we'd need a long vowel for the kṣ and a short one for the y.
--->
-          <!--
-At the beginning of l2 we probably have 16 + 2*19 + 15 + 1 syllables lost, which gives 72 (as estimated by Fleet) if we add 2 punctuation characters. At the beginning of l3, we have 15 + 2*19 + 16 characters, which gives 71 with 2 punctuation marks. In l4 we have 3*19 + 12, which is 70 with a punctuation mark. In l5: 2*12 + 2*19 + 4 (+2) = 68. L6: 4 + 3*19 + 5 (+2) = 68. L7: 7 + 2*19 + 18 (+1) = 64. L8: 11 + 2*19 + 14 (+2) = 65. L9: 2*21 + 19 + 5 = 66. L10: 5 + 3*19 + 5 (+2) = 71
--->
         </lg>
         <lg met="śārdūlavikrīḍita" n="2">
           <l n="a">dorbhyām <unclear>ā</unclear>tma-bhuvo dhanuḥ saha-bhuvā kṣattreṇa lavdhātmanā</l>
@@ -140,9 +119,6 @@ At the beginning of l2 we probably have 16 + 2*19 + 15 + 1 syllables lost, which
             </seg>
           </l>
           <l n="b"><supplied reason="lost">u</supplied>dayini mukharāṇāṁ bhūbhujām anvavāye|</l>
-          <!--
-The punctuation character transcribed as a single daṇḍa is a short horizontal dash, probably curving slightly down.
--->
           <l n="c">sakala-puruṣa-śakti-vyakta-śārṅga-pratāpo</l>
           <l n="d">
             <lb n="3"/>
@@ -168,9 +144,6 @@ The punctuation character transcribed as a single daṇḍa is a short horizonta
               <gap quantity="16" reason="lost" unit="character"/>
             </seg>karmmaṇā</l>
           <l n="d">yājñaṁ dh<unclear>ū</unclear>ma-vitāna-megha-nivahaḥ puṇyaṁ vitene divi<supplied reason="lost">||</supplied><g type="ornament"/></l>
-          <!--
-There is floral ornamentation for the span of about 2 characters to fill out line 3 to the right margin.
--->
         </lg>
         <lg met="śārdūlavikrīḍita" n="5">
           <l n="a">
@@ -415,9 +388,7 @@ There is floral ornamentation for the span of about 2 characters to fill out lin
             <gap quantity="1" reason="illegible" unit="component"/>
           </seg><seg subtype="vowel" type="component">
             <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <unclear cert="low">d</unclear>i<unclear cert="low">bh</unclear>i<unclear>ḥ</unclear><!--
-Fleet only reads ḥ ya in line 11; I add vowels and a few tentative consonants from Cunningham's eye copy. Most of the vowels are also visible in the rubbing, but they are far from certain. And of course any of the e-s could be o or ai instead (perhaps this should be marked up properly). The text is probably in verse, and there is likely to be a quarter-end after the iḥ. The vowels as read here would almost (but not exactly) allow the last 8 characters of a śārdūla line, plus one full śārdūla line. But we expect about 65-70 characters to be lost; of this the end of the previous verse accounts for 4(+1 punctuation character), the first 11 characters of the assumed śārdūla gives a total of 26, leaving us with 39-44 to account for. Assuming śārdūla lines, we'd then get 38(+1 punctuation) completely lost in between, so it is possible but far from probable that verse 14 is also a śārdūlavikrīḍita, and what we have in l11 is its very end.
---></ab>
+          </seg> <unclear cert="low">d</unclear>i<unclear cert="low">bh</unclear>i<unclear>ḥ</unclear></ab>
       </div>
       <div type="apparatus">
         <listApp>
@@ -427,7 +398,7 @@ Fleet only reads ḥ ya in line 11; I add vowels and a few tentative consonants 
           </app>
         </listApp>
       </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
+      <div source="bib:AuthorYear_01" type="translation"></div>
       <div type="commentary"></div>
       <div type="bibliography">
         <p/>

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,27 +35,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -105,7 +89,7 @@
             <gap quantity="1" reason="illegible" unit="component"/>
           </seg><unclear>r̥</unclear><seg subtype="body" type="component">
             <gap quantity="1" reason="illegible" unit="component"/>
-          </seg>ādeva <num value="1">I</num> tai rat· kaṁvai <num value="1">I</num> tai <unclear>lek</unclear>· <num value="1">I</num> <unclear>tai</unclear> kanlaṅ· <num value="1">I</num> gho daiva
+          </seg>ādeva <num value="1">I</num> tai rat· kaṁvai <num value="1">I</num> tai <unclear>lek</unclear>· <num value="1">I</num> <unclear>tai</unclear> kanlaṅ· <num value="1">I</num> gho daiva 
 <lb n="5"/>gho cpo<supplied reason="lost">ṅ·</supplied> <num value="1">I</num> gho keṅ· <num value="1">I</num> gho daiva sot· <num value="1">I</num> <unclear>tai kaṁ</unclear>vī <num value="1">I</num> tai kaṁvrau <num value="1">I</num>
 <lb n="6"/>tai pau <num value="1">I</num> sī rat· <num value="1">I</num> tai rat· <num value="1">I</num> gvāl· pandan· <num value="1">I</num> gvāl kan·Añ· <num value="1">I</num> tai kaṁpit· <num value="1">I</num> sī ka<lb break="no" n="7"/>nso <num value="1">I</num> tai preṅ· <num value="1">I</num> tai pau <num value="1">I</num> <g type="circle">.</g> vnvak· ta gi sruk· hastipattana pramān·
 <lb n="8"/>śreṣṭhapura Amraḥ ka<seg subtype="body" type="component">
@@ -123,7 +107,7 @@
 <lb n="13"/>kansu <num value="1">I</num> <g type="circle">.</g> psok· śambhupura man· duk· ta gi sruk· ca<gap quantity="2" reason="lost" unit="character"/>gve knvak· A<lb break="no" n="14"/>mraḥ srac· ta bhāgya <num value="1">I</num> gho madhura <num value="1">I</num> tai kan·hat· <num value="1">I</num> tai panlas· <num value="1">I</num> tai
 <lb n="15"/>pau kñuṁ <num value="1">I</num> tai rat kbuṅ· <num value="1">I</num> lap· kaṁvaḥ <num value="1">I</num> tai kañjai <num value="1">I</num> sī pau kanleṅ· <num value="1">I</num> gvāl· kle<lb break="no" n="16"/>ṅ· <g type="circleTarget">.</g> piṇda sruk· <num value="6">6</num> Amraḥ <num value="10">10</num> gho <num value="41">40 I</num> tai <num value="59">40 10 9</num> gval· <num value="15">10 5</num>
 <lb n="17"/>lap· <num value="11">10 I</num> sī rat· <num value="9">9</num> tai rat· <num value="9">9</num> sī pau <num value="14">10 4</num> tai pau <num value="8">8</num> <g type="circle">.</g> psaṁ <num value="100">100</num>
-<lb n="18"/><num value="96">80 10 6</num> <g type="circleTarget">.</g>
+<lb n="18"/><num value="96">80 10 6</num> <g type="circleTarget">.</g>               
                 </p>
       </div>
       <div type="apparatus">
@@ -136,9 +120,7 @@
           </app>
         </listApp>
       </div>
-      <!-- <div type="translation">
-         </div> -->
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="commentary"></div>
       <div type="bibliography">
         <p>Edited by Dominique Soutif (<bibl rend="omitname">
             <ptr target="bib:Soutif2009_03"/>

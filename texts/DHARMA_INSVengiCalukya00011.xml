@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,19 +35,13 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
-            <!--<altIdentifier type="PEM"><idno type="corpus">CalE20</idno></altIdentifier>-->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
@@ -61,14 +49,9 @@
               <p>Original punctuation. The opening symbol is a dextrorse spiral of about 1.5 full turns, with a tail at the top left.</p>
               <p>Other palaeographic observations. In the correction in line 10, the omitted character is added right above the spot where it must go, and a kākapada in the shape of a + sign is inserted right below that spot. In l20, sū looks like sya with a short loop: instead of adding a stroke to the well-shaped u marker, the entire bottom of the well is bent to the left.</p>
               <p>Le and lo are written in the cursive form (as used in earlier / more northerly scripts?): instead of attaching markers to the sides of a fully rounded la, the stem is not bent to the left and down, but curved at the top sharply back in le (l11 sakalendur) and the curve extended beyond the stem in lo (l2 loka).</p>
-              <p>The anusvāra is shifted to the right in l7 pijaṁrita, encoded as a scribal error since normally the anusvāra is in its expected position.
-
-                <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-                <summary><p><p/></summary>
-                <handNote xml:id="Pallava00001_hand1"></handNote>
-                <handNote xml:id="Pallava00001_hand2"></handNote>
-              -->
+              <p>The anusvāra is shifted to the right in l7 pijaṁrita, encoded as a scribal error since normally the anusvāra is in its expected position. 
+                
+                </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -96,7 +79,6 @@
       <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
       <change status="draft" when="2020-08-14" who="part:daba">Encoded hand description, bibliography and commentary from earlier comments</change>
       <change status="draft" when="2020-04-23" who="part:daba">Initial encoding of the file</change>
-      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -269,13 +251,12 @@ To wit, in this village, in the fifth year of my victory <supplied reason="expla
             <citedRange unit="page">49</citedRange>
             <citedRange unit="appendix">A/1962-1963</citedRange>
             <citedRange unit="item">16</citedRange>
-          </bibl>. The present edition by Dániel Balogh is based on a collation of Fleet's text with his published facsimiles and inked impressions from Sir Walter Elliot's collection.<note>Scans of these impressions were obtained by Emmanuel Francis from the Edinburgh University Library, the Bibliothèque nationale de France and the British Museum.</note>
+          </bibl>. The present edition by Dániel Balogh is based on a collation of Fleet's text with his published facsimiles and inked impressions from Sir Walter Elliot's collection.<note>Scans of these impressions were obtained by Emmanuel Francis from the Edinburgh University Library, the Bibliothèque nationale de France and the British Museum.</note> 
   </p>
         <listBibl type="primary">
           <bibl n="JFF">
             <ptr target="bib:Fleet1878_01"/>
           </bibl>
-          <!-- one <bibl/> per item of primary bibliography -->
         </listBibl>
         <listBibl type="secondary">
           <bibl>
@@ -288,7 +269,6 @@ To wit, in this village, in the fifth year of my victory <supplied reason="expla
             <citedRange unit="appendix">A/1962-1963</citedRange>
             <citedRange unit="item">16</citedRange>
           </bibl>
-          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

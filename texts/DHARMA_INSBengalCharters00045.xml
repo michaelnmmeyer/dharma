@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -42,27 +36,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -101,9 +85,9 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="san-Latn">
-        <p><lb n="1"/><g type="spiralR"/><!-- siddham -->namo vuddhāya<g type="ddanda">.</g></p>
+        <p><lb n="1"/><g type="spiralR"/>namo vuddhāya<g type="ddanda">.</g></p>
         <lg met="śārdūlavikrīḍita" n="1">
-          <l n="a">bhāvābhāva-vicāra-cāra-dha<unclear>valāl</unclear><!-- ryfu2argr: dhavalāloka plausible, in view of the space between two "la"s-->oka-traya-trāyaka<unclear>ḥ</unclear><surplus>
+          <l n="a">bhāvābhāva-vicāra-cāra-dha<unclear>valāl</unclear>oka-traya-trāyaka<unclear>ḥ</unclear><surplus>
               <g type="danda">.</g>
             </surplus></l>
           <l n="b">dur-vvāra-smara-vikramākṣata-tapaḥ prauḍhi-pravr̥ddho<lb break="no" n="2"/>dayaḥ<g type="danda">.</g> </l>
@@ -116,13 +100,6 @@
           <l n="a">Aisā<unclear>m sth</unclear>itīśa-saśarā<unclear>nvayana</unclear>tva-janmā<surplus>
               <g type="danda">.</g>
             </surplus></l>
-          <!-- argr2ryfu: śra-sānti error for śrī-śānti? or maybe śra-sāstri error for śrī-śāstr̥?
-                       or Aisām vi
-                       maybe tī instead of dhī?
-                       va of śarāva maybe rather a conjunct?
-                        read rāṣṭraphalatvajanmā?
-ā                    -->
-          <!-- ryfu2argr: Tried to reconstruct in this way. Meaning unclear.-->
           <l n="b">ra<unclear>tna-tra</unclear>ya-p<unclear>r</unclear>aṇati-sañcita-puṇya-kośaḥ<g type="danda">.</g></l>
           <l n="c">dānārttha-rakta-hr̥d-a<supplied reason="lost">bh</supplied>ijita-śa<pb break="no" n="4"/>tru-cak<unclear>raḥ</unclear><surplus>
               <unclear>
@@ -164,34 +141,27 @@
           <l n="a">candrāvadāta-<unclear>su</unclear><lb break="no" n="8"/>viśāla-yaśo-vitāna<unclear>ḥ</unclear></l>
           <l n="b"><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
-            </seg><!-- argr2ryfu: maybe the last vowel of the gap can be supplied as follows <supplied reason="lost">o</supplied>, but it depends on whether udita is fitting in the context --><!-- ryfu2argr: yasyo most suitable in the context, but cannot ascertain, so leave as it is.-->ditākhila-nabho bh<unclear>u</unclear>vanā<unclear>ṅga</unclear>ṇena<g type="danda">.</g></l>
+            </seg>ditākhila-nabho bh<unclear>u</unclear>vanā<unclear>ṅga</unclear>ṇena<g type="danda">.</g></l>
           <l n="c">sandhopakāra-karaṇārppita-mānase<supplied reason="lost">na</supplied> </l>
-          <l n="d"><unclear>dha</unclear><!-- ryfu2argr: compare with "dha" in the next line. -->nyena dāna-patinātra sata<seg met="-">
+          <l n="d"><unclear>dha</unclear>nyena dāna-patinātra sata<seg met="-">
               <gap quantity="1" reason="illegible" unit="character"/>
-            </seg><!-- ryfu2argr: In metrical term, what is lost here is a conjunct ending with a short vowel. --><lb n="9"/>naiva<g type="ddanda">.</g></l>
-          <!-- argr2ryfu: none of the following yields a sense, but I just not the kinds of syllabic structures we are looking for
-		dāna-patinā+atra sagopinaiva
-		dāna-patinā+atra satāpinaiva
-		dāna-patinā+atra satambinaiva
-	-->
-          <!-- ryfu2argr: ab can make a sense by supplying 'yasyo', as translated below, but cd difficult with instrumental structure only. -->
+            </seg><lb n="9"/>naiva<g type="ddanda">.</g></l>
         </lg>
         <lg met="vasantatilakā" n="6">
           <l n="a">dharmmātmakaḥ <choice>
               <orig>ś</orig>
               <reg>s</reg>
-            </choice>aka<unclear>la</unclear>-sattva-ritaika-<!-- arge2ryfu: I don't understand this sequence. Maybe rita = r̥ta 'virtue, fathfulness', though this word has rather a Vedic than a classical Sanskrit ring (but is not unattested in class. Skt.). Do you clearly see ttv or is there actually only tv? What about reading sañcarita?  --><!-- ryfu2argr: santvarita possible, but does not make sense. Take rita for r̥ta seems to be the best so far. -->pātraḥ<surplus>
+            </choice>aka<unclear>la</unclear>-sattva-ritaika-pātraḥ<surplus>
               <g type="danda">.</g>
             </surplus></l>
-          <l n="b">pātrānurūpa-pari<unclear>poṣi</unclear><!-- ryfy2argr: paripoṣita 'nourished' most probable and suitable for a vessel. -->ta-dīna-lokaḥ<g type="danda">.</g></l>
+          <l n="b">pātrānurūpa-pari<unclear>poṣi</unclear>ta-dīna-lokaḥ<g type="danda">.</g></l>
           <l n="c">lokeśa-pāda-sarasīruha-bhakti-śīlaḥ<surplus>
               <unclear>
                 <g type="danda">.</g>
               </unclear>
             </surplus></l>
-          <l n="d"><unclear>śīl</unclear>ā<!-- argr2ryfu: on the photos I am looking at, I cannot read anything after bhakti-śīlaḥ, so I don't understand why you single out the ā as relatively clear, and suggest you may want to use <supplied reason="lost">śīlā</supplied> for the end of line 9 --><!-- ryfu2argr: see the relevant part of the photograph DSC_0034 provided by me. Some strokes constituting śīla visible but slight, except a vertical stroke constituting ā at the end, which is rather clear. So I put in this way.--><lb break="no" n="10"/>nvitaḥ parama-kāruṇikas tapasvī<g type="ddanda">.</g></l>
+          <l n="d"><unclear>śīl</unclear>ā<lb break="no" n="10"/>nvitaḥ parama-kāruṇikas tapasvī<g type="ddanda">.</g></l>
         </lg>
-        <!-- ryfu2argr: this stanza is inetresting in connecting padas by beginning it with the last word of the previous one, and it also support the reconstruction of  śīlā at the end of line 9. -->
         <lg met="āryā" n="7">
           <l n="ab">sthaviraḥ kuśala-nivāsaḥ prajñā-vala-kalpita-nikhila-śama-mārggaḥ<g type="danda">.</g></l>
           <l n="cd">mañjuśrījñāna Idaṁ<g type="danda">.</g> <unclear>cakāra ru</unclear><lb break="no" n="11"/>ciraṁ mahādvāraṁ<g type="ddanda">.</g></l>
@@ -261,7 +231,7 @@
         <p n="7" rend="stanza">Mañjuśrījñāna, the elder, the abode of benevolence and having the way of tranquility prepared by the power of wisdom, made this radiant great gate.</p>
         <p n="8" rend="stanza">In the ninth year of the king Gopāla, this <supplied reason="subaudible">inscription</supplied> was accomplished by Maṇḍanaśara, the son of Vanaśara, having wisdom and holding the heaven.</p>
       </div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="commentary"></div>
       <div type="bibliography">
         <p>First edited unsatisfactorily by S. C. Mukherji <bibl rend="omitname">
             <ptr target="bib:Mukherji2001_01"/>

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -25,18 +19,13 @@
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <persName><!--
-The original editor(s).
---></persName>
+          <persName></persName>
         </respStmt>
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham01012</idno>
-        <!--
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -89,22 +78,11 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
   <text xml:space="preserve">
     <body>
       <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <!--
-Comments below by Csaba Kiss and Dániel Balogh (BD) are offered "as is" and do not represent a thoroughly researched or considered opinion.
--->
-        <!--
-Fleet, J. F., Corpus Inscriptionum Indicarum Vol 3:
-Inscriptions of the Early Gupta Kings and their Successors,
-The Superintendent of Government Printing, Calcutta, 1888, pp. 191-195
--->
         <div n="A" type="textpart">
           <head xml:lang="eng">Seal</head>
           <lg met="anuṣṭubh" n="1">
             <lb n="1"/>
             <l n="a">prasa<surplus>ṁ</surplus>nna-<unclear>tanayasyedaṁ</unclear></l>
-            <!--
-seal.1. D. Balogh: Fleet and Shastri both read prasanna-hr̥dayasaiva, marking only r̥da (Shastri only da) as unclear. The facsimile in Shastri is illegible (I can faintly make out prasa ... sy but nothing else). Given the parallel seals, not known to Fleet, I'm convinced the correct reading is prasanna-tanayasyedaṁ. Sircar_1959-60f:156 suggests the same.
--->
             <l n="b">vikkramākkrā<unclear>ṁ</unclear>tta-vidviṣa<unclear>ḥ</unclear></l>
             <lb n="2"/>
             <l n="c">śrīmato jayarājasya</l>
@@ -114,9 +92,7 @@ seal.1. D. Balogh: Fleet and Shastri both read prasanna-hr̥dayasaiva, marking o
         <div n="B" type="textpart">
           <head xml:lang="eng">Plates</head>
           <p><pb n="1v"/>svasti<supplied reason="subaudible">.</supplied>
-śarabha-purā<surplus>T</surplus>d<!--
-L1. Fleet: T of purāt is small and shallow.
--->vikkramopanata-sāma<choice>
+śarabha-purā<surplus>T</surplus>dvikkramopanata-sāma<choice>
               <sic>ṁ</sic>
               <corr>n</corr>
             </choice><surplus>t</surplus>ta-cūḍā-maṇ<unclear>i</unclear>-prabhā-prasekā<surplus>ṁ</surplus><lb break="no" n="2"/>mbu-dh<choice>
@@ -129,9 +105,7 @@ ripu-vilāsinī-sīma<choice>
             </choice><surplus>t</surplus>toddharaṇa-hetu
 <lb n="3"/>r vasu-vasudhā-go-prada<surplus>ḥ</surplus>ḫ parama-bhāgavato
 mātā-pitr̥-pā<lb break="no" n="4"/>dānuddhyāta<surplus>ḥ</surplus>ś śrī-mahā-jayarājaḥ
-pūrvva-rāṣṭrīya-pamvāṁ-prati<!--
-L4. Fleet suggests pamvāyāṁ for pamvāṁ.
---><lb break="no" n="5"/>vāsi-kuṭu<surplus>ṁ</surplus>mbina<surplus>ḥ</surplus>s
+pūrvva-rāṣṭrīya-pamvāṁ-prati<lb break="no" n="5"/>vāsi-kuṭu<surplus>ṁ</surplus>mbina<surplus>ḥ</surplus>s
 samājñāpayati|
 </p>
           <p>viditam astu vo yathā<pb break="no" n="2r"/><lb break="no" n="6"/>smābhir ayaṁ grāma<surplus>|</surplus>s tridaśapati-sadana-sukha-pratiṣṭhā-karo yāva<lb break="no" n="7"/>d ravi-śaśi-tārā-kiraṇa-pratihata-ghorāndhakāraṁ
@@ -139,15 +113,10 @@ jaga<supplied reason="omitted">d a</supplied>vatiṣṭhate<lb break="no" n="8"/
               <sic>i</sic>
               <corr>a</corr>
             </choice>saneya-kauṇḍinya-sagotraḥ brahmadeva-
-<lb n="10"/>svāmine|<!--
-L10. This seems to be a sign which seems either a visarga or another daṇḍa.
-Shastri has ||(|)
--->mātā-pitror ātmanaś ca puṇy<choice>
+<lb n="10"/>svāmine|mātā-pitror ātmanaś ca puṇy<choice>
               <sic>e</sic>
               <corr>ā</corr>
-            </choice>bhivr̥<supplied reason="omitted">d</supplied>dhaye||<!--
-L10. Shastri again ||(|) and many times below.
--->udaka-pūrva<supplied reason="omitted">ṁ</supplied>
+            </choice>bhivr̥<supplied reason="omitted">d</supplied>dhaye||udaka-pūrva<supplied reason="omitted">ṁ</supplied>
 						<pb n="2v"/><lb n="11"/>tām<surplus>b</surplus>ra-śāsanenātis<choice>
               <sic>ra</sic>
               <corr>r̥</corr>
@@ -159,9 +128,7 @@ L10. Shastri again ||(|) and many times below.
 						<choice>
               <sic>upanayaṁttā</sic>
               <corr>upanayantaḥ</corr>
-            </choice><!--
-L12. Fleet apparently emends to upanayaṁttaḥ, probably a mistake. Shastri: upanayaṁttā(yantaḥ)
--->sukhaṁ prativa<supplied reason="omitted">t</supplied>sya<lb break="no" n="13"/>
+            </choice>sukhaṁ prativa<supplied reason="omitted">t</supplied>sya<lb break="no" n="13"/>
 tha|| bhaviṣyataś ca bhūmipān anudarśayati||
 </p>
           <lg met="vasantatilakā" n="1">
@@ -182,9 +149,6 @@ bhuvaṁ bhavatu vo ma<supplied reason="omitted">ti</supplied>r e
 vyāsa-gītāṁś cātra<lb break="no" n="17"/>ślokān udāharaṁ<surplus>t</surplus>ti||
 </p>
           <lg met="indravajrā" n="2">
-            <!--
-Garuḍapurāṇa 2.42.4
--->
             <l n="a">agner apatyaṁ prathamaṁ suvarṇṇa<supplied reason="omitted">ṁ</supplied></l>
             <l n="b">bhūr vvaiṣṇavī sū
 <lb break="no" n="18"/>ryya-sut<choice>
@@ -241,7 +205,7 @@ mārgaśira <num value="25"><g type="numeral">20</g> 5</num></p>
           </app>
         </listApp>
       </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
+      <div source="bib:AuthorYear_01" type="translation"></div>
       <div type="commentary"></div>
       <div type="bibliography">
         <p/>

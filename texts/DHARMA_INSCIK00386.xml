@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -19,7 +13,6 @@
         <respStmt>
           <resp>intellectual authorship of edition</resp>
           <persName ref="http://viaf.org/viaf/66465311">
-            <!-- To change the viaf number to Barth's  -->
             <forename>Auguste</forename>
             <surname>Barth</surname>
           </persName>
@@ -42,27 +35,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -466,22 +449,12 @@
           </lg>
           <lg met=" sragdharā" n="47">
             <l n="a"><lb n="D21"/><supplied reason="lost"><g type="circleTarget">.</g> nānā</supplied>-<unclear>d</unclear>ivyāṅganābhir vvi<unclear>ra</unclear>cita-<unclear>ratibhir bhūri-divyopabho</unclear><supplied reason="lost">g</supplied><unclear>ai</unclear><supplied reason="lost">r</supplied></l>
-            <!-- % KC : Pāda a bhūridivyopabhogair : The final r belongs to the line D24. Not sure if it is to be encoded enjamb="yes". -->
             <l n="b"><lb n="D22"/><supplied reason="lost">divye</supplied><unclear>yur di</unclear>vyadehā divi ditidanujāṁs te<unclear>jasā</unclear> tejaya<unclear>ntaḥ</unclear></l>
             <l n="c"><lb n="D23"/><supplied reason="lost">dā</supplied>r<unclear>ḍh</unclear>yan nītvā samantād acalitam aniśaṁ rakṣayā svaḥprayā<unclear>ṇe</unclear></l>
             <l n="d"><lb n="D24"/><supplied reason="lost">ye</supplied> niśrenīkariṣyanty akuśaladalanaṁ puṇya<unclear>m etan madī</unclear>yam·</l>
           </lg>
         </div>
       </div>
-      <!-- <div type="apparatus">
-               <listApp>
-                  <app loc="A3">
-                     <lem>vaidūryya</lem>
-                     <rdg source="bib:Finot1903_01">vaiḍūryya</rdg>
-                  </app>
-
-               </listApp>
-         </div> -->
       <div source="bib:Barth1903_02" type="translation" xml:lang="fra">
         <note>Cf. K. 368 for translation of other stanzas.</note>
         <p n="47" rend="stanza">Goûtant les voluptés que leur offrirent les troupes de femmes célestes, comblés de jouissances célestes, puissent-ils s'ébattre au ciel, revêtus d'un corps céleste, illuminant de leur éclat les enfants de Diti et de Danu, ceux qui, la rendant absolument solide, inébranlable, par une protection constante, se feront une échelle, pour montrer au ciel, de cette mienne bonne œuvre destructrice du péché!</p>
@@ -496,7 +469,6 @@
             <ptr target="bib:Barth1903_02"/>
             <citedRange unit="page">460-466</citedRange>
           </bibl>) with a French translation by referring to the almost identical inscription K. 368; reedited here by Kunthea Chhom from the estampage EFEO n. 200.</p>
-        <!-- The estampage EFEO n200 concerning the face C is unfortunately unavailable. -->
         <listBibl type="primary">
           <bibl n="AB">
             <ptr target="bib:Barth1903_02"/>

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -35,9 +29,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00195</idno>
-        <!--
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -91,48 +82,24 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     <body>
       <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
         <lg met="puṣpitāgrā" n="1">
-          <!--
-The edition follows #Bakker_Isaacson_1993 (BI) as revised in #Bakker_forthcoming, unless otherwise noted. For a detailed commentary on readings, restorations and alternatives, see #Bakker_Isaacson_1993:16-25.
--->
-          <l n="a"><lb n="1"/><supplied reason="lost">sa ja</supplied><unclear>ya</unclear>ti sajalāmbud<unclear>o</unclear>darā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->bhaḥ</supplied></l>
-          <!--
-L1. BI observe that there may have been room for a maṅgala symbol at the beginning, but such is not found either in IN00178 or IN00179 (being, along with IN00180, the only other known Vākāṭaka stone inscriptions written entirely in verse).
--->
+          <l n="a"><lb n="1"/><supplied reason="lost">sa ja</supplied><unclear>ya</unclear>ti sajalāmbud<unclear>o</unclear>darā<supplied reason="lost">bhaḥ</supplied></l>
           <l n="b"><seg met="--">
               <gap quantity="2" reason="illegible" unit="character"/>
-            </seg><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->sa</supplied>miti-<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->p</supplied>rasarājya-<seg met="+">
+            </seg><supplied reason="lost">sa</supplied>miti-<supplied reason="lost">p</supplied>rasarājya-<seg met="+">
               <gap quantity="1" reason="illegible" unit="character"/>
             </seg>na<seg met="+=">
               <gap quantity="2" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L1. Conjecture °ābho surasamiti°?
--->
-          <l n="c"><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ra</supplied><unclear cert="low">ṇa</unclear>-<unclear cert="low">ma</unclear>kha-samayaidhitāṅga-<unclear>śo</unclear><unclear cert="low">bha</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ḥ</supplied></l>
-          <!--
-L1. BI offer raṇa as a "tentative suggestion", but ṇa is at least as clear as the following ma, and traces do suggest ra, so this seems to be a very likely reading.
--->
-          <!--
-L1. BI do not read śobha in v1b, but I feel śo is almost clear, and bha is quite probable in their photo.
--->
+          <l n="c"><supplied reason="lost">ra</supplied><unclear cert="low">ṇa</unclear>-<unclear cert="low">ma</unclear>kha-samayaidhitāṅga-<unclear>śo</unclear><unclear cert="low">bha</unclear><supplied reason="lost">ḥ</supplied></l>
           <l n="d"><seg met="----+">
               <gap quantity="5" reason="illegible" unit="character"/>
-            </seg>bhaya-lo<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->la</supplied>-dr̥ṣṭi-<unclear>dr̥</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ṣṭa</supplied>ḥ</l>
+            </seg>bhaya-lo<supplied reason="lost">la</supplied>-dr̥ṣṭi-<unclear>dr̥</unclear><supplied reason="lost">ṣṭa</supplied>ḥ</l>
         </lg>
         <lg met="upajāti" n="2">
           <certainty locus="value" match="../@met"/>
-          <l n="a"><unclear cert="low">mure</unclear><unclear>ṇa</unclear> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->rā</supplied>jarṣi-sa<seg met="+-+=">
+          <l n="a"><unclear cert="low">mure</unclear><unclear>ṇa</unclear> <supplied reason="lost">rā</supplied>jarṣi-sa<seg met="+-+=">
               <gap quantity="4" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L1. BI note that the reading mureṇa would mean that this verse is still mythological rather than genealogical, which is problematic because v3 implies that a king or dynasty has been introduced before. Bakker_1997:163 proposes to read dūreṇa, but ū seems unlikely from the photo. Since most of this verse is lost, one could assume that it contained a metaphor that uses Mura as an analogue of someone defeated by a king introduced in the lost part.
--->
-          <!--
-L1. BI note that rṣi is not quite the form one would expect (compare l13), but still the most likely reading.
--->
-          <!--
-L1. Bakker_1997:163 proposes to restore samudraguptaḥ in v2a, but Bakker (2012) rejects the idea later on.
--->
           <l n="b">
             <seg met="=+-">
               <gap quantity="3" reason="illegible" unit="character"/>
@@ -155,41 +122,17 @@ L1. Bakker_1997:163 proposes to restore samudraguptaḥ in v2a, but Bakker (2012
         <lg met="upajāti" n="3">
           <l enjamb="yes" n="a"><lb n="2"/><seg met="=+">
               <gap quantity="2" reason="illegible" unit="character"/>
-            </seg>-<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->pra</supplied>bhāvod<choice>
+            </seg>-<supplied reason="lost">pra</supplied>bhāvod<choice>
               <unclear>g</unclear>
               <unclear>dh</unclear>
-            </choice>ata-<unclear>pā</unclear>da-<unclear>pī</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ṭha</supplied></l>
-          <!--
-L2. Bakker_1997:163 offers the reconstruction tīkṣṇa for the beginning of v3. There are plenty of other possibilities.
--->
-          <!--
-L2. BI print pra as unclear but I see no recognisable trace except a vertical on the right.
--->
-          <!--
-L2. BI read °odgata as clear; I think °oddhata is at least as likely and perhaps better in context.
--->
-          <!--
-L2. pā and pī are almost clear.
--->
-          <!--
-L2. I follow BI in assuming that v3ab is one long compound, thus supplying ṭha- at the end of 3a. However, I think it's also quite possible that 2a was a locative qualifying pāde in 3d, and 2b was a separate plural genitive qualifying nr̥pāṇām. (See also my note below.)
--->
-          <l n="b">-<unclear>pra</unclear><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->bhā</supplied>-<unclear>dhr̥</unclear>ti-<unclear>sthā</unclear>lana<seg met="+">
+            </choice>ata-<unclear>pā</unclear>da-<unclear>pī</unclear><supplied reason="lost">ṭha</supplied></l>
+          <l n="b">-<unclear>pra</unclear><supplied cert="low" reason="lost">bhā</supplied>-<unclear>dhr̥</unclear>ti-<unclear>sthā</unclear>lana<seg met="+">
               <gap quantity="1" reason="illegible" unit="character"/>
             </seg><unclear>ñc</unclear>i<seg met="+=">
               <gap quantity="2" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L2. I adopt all BI's readings in v3b for want of a better reading. They propose to resrore prabhā on the grounds that would provide assonance with prabhāva in 3a and be consonant with the frequent usage of (pra)+√bhā in the inscription. In the photo, the illegible character seems to have a loop at the left. Also, pra is unclear, though very likely. In dhr̥ti they show r̥ as clear, but in the photo it looks more like a subscript r, and the character could be well be pra (dh is definitely narrower in dhi later on in this line). Their sthā seems to have a loop at the left and is in my opinion more likely to be ṣṭhā, which would give pratiṣṭhā instead of the unintelligible dhr̥ti-sthālana. But even if we do read pratiṣṭhā, I cannot make sense of lana, which is quite clear. Emend to laya, giving us pratiṣṭhā+ālaya? Or perhaps read lava? Further, the character read as ñci looks more like ñchi, but that would seem improbable in the context. I would hazard reading/restoring X X prabhāvoddhata-pāda-pīṭhe / prabhā-pratiṣṭhā-lava-vañcitānām, interpreting 3b as "(kings) divested (vañcita) of their meagre (lava) glory and status / of the [last] shreds of their glory and status."
--->
-          <!--
-L2. I must note that the damaged area after (ñc)i is large enough to accommodate four characters. Still, more than two would be metrically imposible - was there perhaps punctuation and space?
--->
-          <l n="c">yasyottamāṅgair bbalayo kriyant<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->e</supplied></l>
-          <!--
-L2. I follow BI in restoring kriyante, but given the sandhi in bbalayo, perhaps kriyanta (for akriyanta) is the correct restoration.
--->
-          <l n="d"><unclear>pā</unclear>de <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->sa</supplied>-cūḍā-maṇibhir nr̥<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->pānāM</supplied></l>
+          <l n="c">yasyottamāṅgair bbalayo kriyant<supplied reason="lost">e</supplied></l>
+          <l n="d"><unclear>pā</unclear>de <supplied reason="lost">sa</supplied>-cūḍā-maṇibhir nr̥<supplied reason="lost">pānāM</supplied></l>
         </lg>
         <lg met="upajāti" n="4">
           <l n="a">tasyodadhi-prānta-<seg met="-">
@@ -197,12 +140,6 @@ L2. I follow BI in restoring kriyante, but given the sandhi in bbalayo, perhaps 
             </seg>l<unclear>a</unclear><seg met="-+=">
               <gap quantity="3" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L2. BI offer °prānta-balasya as a restoration in 4a, but note that this is palaeographically unlikely. Bakker_1997:163 suggests °prānta-palāyamānām. I think the illegible character before l looks most like va or perhaps vi. (BI also note that this character may have had an i mātrā.) Perhaps vilaṅghitasya? Or vilāsa-something?
--->
-          <!--
-L3.
--->
           <l n="b">
             <seg met="=+">
               <gap quantity="2" reason="illegible" unit="character"/>
@@ -223,39 +160,18 @@ L3.
           </l>
         </lg>
         <lg met="upajāti" n="5">
-          <l n="a"><lb n="3"/><gap quantity="1" reason="illegible" unit="character"/> d<unclear>e</unclear>vateva pratipūjya<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->mān</supplied><unclear>ā</unclear></l>
-          <!--
-L3. For the lacuna BI offer sā; Bakker_1997:164 offers yā.
--->
-          <l n="b"><unclear>p</unclear>itur gr̥<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->he</supplied> <seg met="+">
+          <l n="a"><lb n="3"/><gap quantity="1" reason="illegible" unit="character"/> d<unclear>e</unclear>vateva pratipūjya<supplied reason="lost">mān</supplied><unclear>ā</unclear></l>
+          <l n="b"><unclear>p</unclear>itur gr̥<supplied reason="lost">he</supplied> <seg met="+">
               <gap quantity="1" reason="illegible" unit="character"/>
             </seg> <unclear>prat</unclear>i<unclear>ṣ</unclear>i<seg met="-+=">
               <gap quantity="3" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L3. Bakker_1997:164 proposes pitur gr̥hītā, but Bakker (2010) rejects this.
--->
-          <!--
-L3. For the end of 5b, BI offer pratiṣiddha or possibly pratiṣikta; Bakker_1997:164 tentatively restores pratiṣiddha-śakteḥ. BI say the main image is "that of a young girl growing up and increasing in brightness like a flame shooting up from a fire on which ghee has been poured." I might add that perhaps the image is that of the girl growing up in his father's house, then flaring up into a flame _after_ she married into another house (even sikta could be taken as a hint at her marriage). Can this be about Prabhāvatīguptā, or does she only enter the picture later? If we read ṣī instead of ṣi, we could have pratiṣīdamānā or, rejecting pra (which is not recognisable in the photo), viṣīdamānā. This would fit in very nicely with my interpretation, though it must be admitted the character after (ṣ)I has a hook below it, looking like the bottom of k, but possibly a partially preserved dh. On a different note, if I stick with my understanding that this is about her marriage, and accept my take on 5c, then we lack a verbal form saying she got married. This can't fit in c or d, so perhaps restore pitur gr̥hāt, followed by something to this effect?
--->
-          <!--
-L3. The lacuna between 5b and 5c is again longer than required for the letters - punctuation and/or space?
--->
           <l n="c"><seg met="=+">
               <gap quantity="2" reason="illegible" unit="character"/>
-            </seg> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->yay</supplied>au vr̥d<unclear>dh</unclear>i<unclear>kaṁ</unclear> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->cāna</supplied>lasya</l>
-          <!--
-L3. For the beginning of 5c, Bakker_1997:164 offers the conjectures kanyā or śuddhā.
--->
-          <!--
-L3. BI's reading/restoration vr̥ddhikaṁ cānalasya is unmetrical, and there doesn't seem to be enough space for cāna between ka(ṁ) and la. The word vr̥ddhika is also rather awkward. I have no solution for the problem, but could it be possible to read vr̥ddhikarīṁ? What seems to be an anusvāra over ka may be meant for rī. My proposed rī is itself indiscernible, but it is just possible that there was a long vertical with a circle on top here. We would then need to assume one more character after this, which must be quite narrow and yield a meaning ful word with lasya. On a hunch I would propose kulasya. The substantive qualified by vr̥ddhikarī could be the first two syllables of 5c, and a word meaning fire (e.g. vahneḥ) could be at the end of 5d.
--->
-          <l n="d">prājyājya-s<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->i</supplied>ktasya śikheva <seg met="+=">
+            </seg> <supplied reason="lost">yay</supplied>au vr̥d<unclear>dh</unclear>i<unclear>kaṁ</unclear> <supplied reason="lost">cāna</supplied>lasya</l>
+          <l n="d">prājyājya-s<supplied reason="lost">i</supplied>ktasya śikheva <seg met="+=">
               <gap quantity="2" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L3. BI suggest śuddhā as a possible restoration at the end of v5, expecting an adjective qualifying both the flame and the girl. As above, I would (just as tentatively) suggest vahneḥ.
--->
         </lg>
         <lg met="upajāti" n="6">
           <l n="a">tāṁ <seg met="+-">
@@ -263,12 +179,6 @@ L3. BI suggest śuddhā as a possible restoration at the end of v5, expecting an
             </seg> nābhyunnata- <seg met="+-+=">
               <gap quantity="4" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L3. Again we have more space than required between śikheva and tāṁ - there may have been punctuation and/or space here.
--->
-          <!--
-L3. To BI's musings that there is no way to decide if nābhyunnata includes the negative na, or an instrumental ending, or even an a-stem in compoun, I would add yet another possibility: that this is a description of the lady's beauty, and we have something+nābhi (nimna-nābhi), followed in compound with unnata+something.
--->
           <l n="b">
             <seg met="=+">
               <gap quantity="2" reason="illegible" unit="character"/>
@@ -293,22 +203,10 @@ L3. To BI's musings that there is no way to decide if nābhyunnata includes the 
           <l n="b">jāteṣu <seg met="++--+">
               <gap quantity="5" reason="illegible" unit="character"/>
             </seg>nvite<unclear>ṣu</unclear></l>
-          <!--
-L4. BI propose to restore putreṣu guṇānviteṣu in 7b; or, at any rate, a substantive meaning son and a qualifier to that word. There may be faint traces of p after jāteṣu, and ṇā is very plausible, though far from certain, before nvi. Nothing in between is recognisable, though the second character in the lacuna may have had a subscript y, in which case it was not putreṣu.
--->
-          <!--
-L4. The space between 7b and 7c is again larger than necessary, and there may be visible punctuation here, looking like a horizontal dash after ṣu. Also, nviteṣu is widely spaced and te is extended horizontally, with a large Kannada-type pr̥ṣṭhamātrā.
--->
-          <l n="c">y<unclear>a</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->vīya</supplied>sī <unclear>ca</unclear>ndra<unclear>ma</unclear>saḫ <unclear>p</unclear>ra<unclear>bhe</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->va</supplied></l>
+          <l n="c">y<unclear>a</unclear><supplied reason="lost">vīya</supplied>sī <unclear>ca</unclear>ndra<unclear>ma</unclear>saḫ <unclear>p</unclear>ra<unclear>bhe</unclear><supplied reason="lost">va</supplied></l>
           <l n="d"><seg subtype="consonant" type="component">
               <gap quantity="1" reason="illegible" unit="component"/>
-            </seg><unclear>ā</unclear>muṇḍa-nāmnī tana<unclear cert="low">y</unclear>ā <unclear>ba</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->bhūva</supplied></l>
-          <!--
-L4. BI suggest the name may have been Cāmuṇḍā (the shortening permitted by Pāṇini 6.3.36 and common in Vākāṭaka inscriptions). Bakker_1997:164 prefers to restore sā muṇḍa-, taking the name to be Muṇḍā and linking it to Mo(nd)asvāmin in #IN00182:2. The idea is very attractive, but I find sā extremely awkward; if the name had been Muṇḍā, then sā could have been avoided very easily (e.g. muṇḍābhibhānā). The traces of an ā mātrā are indeed quite distinct; the character itself could be just about anything that does not go outside the middle box area.
--->
-          <!--
-L4. At the end of v7, yā babhūva is plausible but in the photo, only an ā mātrā is recognisable. Nothing is visible of y; there are faint traces that may be ba.
--->
+            </seg><unclear>ā</unclear>muṇḍa-nāmnī tana<unclear cert="low">y</unclear>ā <unclear>ba</unclear><supplied reason="lost">bhūva</supplied></l>
         </lg>
         <lg met="upajāti" n="8">
           <l n="a"><seg met="=+-">
@@ -319,12 +217,6 @@ L4. At the end of v7, yā babhūva is plausible but in the photo, only an ā mā
             </choice>mi <seg met="-+-+=">
               <gap quantity="5" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L4. There is space for about 4-5 characters between the estimated end of babhūva in v7 and the first extant character, le, in v8. Again, there may have been punctuation in here.
--->
-          <!--
-L4. I adopt BI's tentative reading lekhāmi (which they only interpret to the extent that it contans the noun lekhā, presumably in a comparison to a sliver of the moon in the continued description of the lady's beauty). However, I personally find khā not very likely; the second extant character seems to be ṇa. If so, then the string leṇami would begin at the fifth syllable of the quarter, not at the fourth. This would mean that there is no lekhā, but an instrumental of a word that contains an r to account for the cerebralisation. (The string could also begin at the third syllable, but I find that less likely both on the basis of available space and because I can't think of a two syllable word ending in la and beginning with r.)
--->
           <l n="b">
             <seg met="=+">
               <gap quantity="2" reason="illegible" unit="character"/>
@@ -346,23 +238,11 @@ L4. I adopt BI's tentative reading lekhāmi (which they only interpret to the ex
         </lg>
         <lg met="upajāti" n="9">
           <l n="a"><lb n="5"/><unclear>sa</unclear>daiva devas tri-samudra-nāthas</l>
-          <l n="b">sa candragu<unclear>ptaḫ pari</unclear><unclear cert="low">pū</unclear>rṇṇa-<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->v</supplied><unclear>r̥</unclear>ttaḥ</l>
-          <!--
-L5. The characters read as pūrṇṇavr̥ttaḥ are spaced widely.
--->
-          <l n="c"><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->dadau prajā</supplied>nām adhi<unclear>pa</unclear>s su<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->tāṁ tā</supplied>ṁ</l>
-          <!--
-L5. BI note that the reading paripūrṇṇa-vr̥ttaḥ, of which they are "fairly confident", may be a pun on the moon. To this I might add that, taken in conjunction with sadaiva, this actually says CG was better than the moon, being always paripūrṇa.
--->
-          <!--
-L5. As BI observe, the beginning of 9c almost certainly contained a verb meaning "gave", e.g. dadau. In addition, it may have contained the beginning of a feminine adjective in the accusative agreeing with the girl, or, much more likely, a masculine plural genitive such as prajānām (as proposed in Bakker_1997:164).
--->
-          <l n="d">śrī-<unclear>ru</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->dra</supplied>senāya <unclear>g</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->u</supplied>ṇā<seg met="=+-++--+-+=">
+          <l n="b">sa candragu<unclear>ptaḫ pari</unclear><unclear cert="low">pū</unclear>rṇṇa-<supplied reason="lost">v</supplied><unclear>r̥</unclear>ttaḥ</l>
+          <l n="c"><supplied cert="low" reason="lost">dadau prajā</supplied>nām adhi<unclear>pa</unclear>s su<supplied reason="lost">tāṁ tā</supplied>ṁ</l>
+          <l n="d">śrī-<unclear>ru</unclear><supplied reason="lost">dra</supplied>senāya <unclear>g</unclear><supplied reason="lost">u</supplied>ṇā<seg met="=+-++--+-+=">
               <gap quantity="11" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L5. BI propose to restore the end of v9 as guṇākarāya. My guess would be guṇānvitāya; other solutions must also be possible; in the photo guṇā is very unclear.
--->
         </lg>
         <lg met="upajāti" n="10">
           <l n="a">
@@ -375,9 +255,6 @@ L5. BI propose to restore the end of v9 as guṇākarāya. My guess would be gu�
               <gap quantity="6" reason="illegible" unit="character"/>
             </seg>
           </l>
-          <!--
-L5. BI note that the character after ve may be t, and there may be another t two or three syllables after lī. (lī is damaged but quite recognisable below the mi of the previous line) The tentative second t seems to me to be the second character after lī, and may be n rather than t.
--->
           <l n="b">
             <seg met="=+">
               <gap quantity="2" reason="illegible" unit="character"/>
@@ -399,10 +276,7 @@ L5. BI note that the character after ve may be t, and there may be another t two
         </lg>
         <lg met="upajāti" n="11">
           <l n="a"><lb n="6"/>su-durvvahāṁ rājya-dhuraṁ samagrāṁ</l>
-          <l n="b">dhurandhara<unclear>s</unclear>y<unclear>e</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->va</supplied> su-puṅgavasya</l>
-          <!--
-L6. There is empty space of at least two characters after puṅgavasya, and no trace of punctuation though the surface seems to be undamaged here.
--->
+          <l n="b">dhurandhara<unclear>s</unclear>y<unclear>e</unclear><supplied reason="lost">va</supplied> su-puṅgavasya</l>
           <l n="c">
             <seg met="=+-+">
               <gap quantity="4" reason="illegible" unit="character"/>
@@ -412,18 +286,12 @@ L6. There is empty space of at least two characters after puṅgavasya, and no t
               <gap quantity="6" reason="illegible" unit="character"/>
             </seg>
           </l>
-          <!--
-L6. Bakker_1997:164 offers prajādhipasyā to restore the beginning of 11c.
--->
-          <l n="d"><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->gha</supplied>ṭo<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->tka</supplied>co nāma suto <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->babhūva</supplied></l>
+          <l n="d"><supplied reason="lost">gha</supplied>ṭo<supplied reason="lost">tka</supplied>co nāma suto <supplied reason="lost">babhūva</supplied></l>
         </lg>
         <lg met="upajāti" n="12">
           <l n="a"><gap quantity="1" reason="illegible" unit="character"/> m aṅganāpā <seg met="--+-+=">
               <gap quantity="6" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L6. As BI note, a low vertical, probably an u mātrā, can be seen below, probably, the 5th character after pā. The body of the character is indistinct.
--->
           <l n="b">
             <seg met="=+-">
               <gap quantity="3" reason="illegible" unit="character"/>
@@ -445,12 +313,9 @@ L6. As BI note, a low vertical, probably an u mātrā, can be seen below, probab
         </lg>
         <lg met="upajāti" n="13">
           <l n="a"><lb n="7"/>tām bhāgineyīm atha rāja-rājo</l>
-          <l n="b">dr̥<unclear>ṣ</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ṭvā</supplied> <seg met="-++--">
+          <l n="b">dr̥<unclear>ṣ</unclear><supplied reason="lost">ṭvā</supplied> <seg met="-++--">
               <gap quantity="5" reason="illegible" unit="character"/>
-            </seg> veśma-lak<unclear>ṣm</unclear>ī<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->M</supplied></l>
-          <!--
-L7. The space after lakṣmī is again at least two characters wide; it may, possibly, include a halanta M and/or punctuation.
--->
+            </seg> veśma-lak<unclear>ṣm</unclear>ī<supplied reason="lost">M</supplied></l>
           <l n="c"><seg met="=+-++--+-+">
               <gap quantity="10" reason="illegible" unit="character"/>
             </seg><unclear>d</unclear>y<seg subtype="vowel" type="component">
@@ -458,13 +323,7 @@ L7. The space after lakṣmī is again at least two characters wide; it may, pos
             </seg><seg subtype="consonant" type="component">
               <gap quantity="1" reason="illegible" unit="component"/>
             </seg></l>
-          <!--
-L7. To make the notation clear, (d)y is recognisable at the end of 13c, but its vowel is not. This is followed by one more character, completely destroyed, which was probably a consonant with an u vowel that belongs to the next quarter.
--->
-          <l n="d"><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->u</supplied>pāsya pāṇi-grahaṇaṁ cak<unclear>āra</unclear></l>
-          <!--
-L7. The verse is followed by space of about 2 characters; there may or may not be punctuation at the beginning of that space.
--->
+          <l n="d"><supplied reason="lost">u</supplied>pāsya pāṇi-grahaṇaṁ cak<unclear>āra</unclear></l>
         </lg>
         <lg met="upajāti" n="14">
           <l n="a">devendra-<choice>
@@ -475,10 +334,7 @@ L7. The verse is followed by space of about 2 characters; there may or may not b
             </seg> <seg subtype="consonant" type="component">
               <gap quantity="1" reason="illegible" unit="component"/>
             </seg><unclear>ya</unclear>m</l>
-          <!--
-L6. As BI note, a low vertical, probably an u mātrā, can be seen below, probably, the 5th character after pā. The body of the character is indistinct.
--->
-          <l n="b">amā<supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->tya</supplied><seg met="++">
+          <l n="b">amā<supplied cert="low" reason="lost">tya</supplied><seg met="++">
               <gap quantity="2" reason="illegible" unit="character"/>
             </seg><seg met="--+-+=">
               <gap quantity="6" reason="lost" unit="character"/>
@@ -495,13 +351,10 @@ L6. As BI note, a low vertical, probably an u mātrā, can be seen below, probab
           </l>
         </lg>
         <lg met="upajāti" n="15">
-          <l n="a"><lb n="8"/>śuddhair vvacobhir vviduṣāṁ man<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ā</supplied><unclear>ṁ</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->si</supplied></l>
+          <l n="a"><lb n="8"/>śuddhair vvacobhir vviduṣāṁ man<supplied reason="lost">ā</supplied><unclear>ṁ</unclear><supplied reason="lost">si</supplied></l>
           <l n="b"><unclear>p</unclear><unclear cert="low">r</unclear>ī <seg met="+-++">
               <gap quantity="4" reason="lost" unit="character"/>
-            </seg> <unclear>mbu</unclear>ruhekṣaṇ<unclear>ā</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->nāM</supplied></l>
-          <!--
-L8. BI propose to restore the lacuna in 15b as prīṇāti nīlā°. As they observe, the structure of the verse is that someone - presumably the king - does something - presumably pleases - a series of X-s by a series of Y-s, with some of the X-s being themselves structures of "the Z of X". Now restoring prīṇāti nīlā° would leave us without a Z of the ladies as well as without a Y to please them with. A Z is required here on account of the genitive (though, as BI note, manāṁsi may apply here too); the Y may have been omitted but this would have been strange. All in all, I'd rather restore prītyā, and assume that the remaining syllables told us what the Z of the ladies was, probably in the plural accusative masculine (°ān ambu°) or neuter (°āny ambu°). Possibly: prītyāśayān amburuhekṣaṇānāM. The verb meaning "please" would then have to have been in pāda c along with the subject, which, in my opinion, is a very plausible structure for the stanza as a whole.
--->
+            </seg> <unclear>mbu</unclear>ruhekṣaṇ<unclear>ā</unclear><supplied reason="lost">nāM</supplied></l>
           <l n="c">
             <seg met="=+-++--+-+=">
               <gap quantity="11" reason="lost" unit="character"/>
@@ -509,17 +362,11 @@ L8. BI propose to restore the lacuna in 15b as prīṇāti nīlā°. As they obs
             <unclear>s</unclear>
           </l>
           <l n="d">sādhūn dhanaughair yyaśasā ca lokāN</l>
-          <!--
-L8. The halanta N is clear: it is a reduced subscript character with a discernible nailhead and with a line above. It is followed by a space of 2-3 characters.
--->
         </lg>
         <lg met="upajāti" n="16">
           <l n="a"><unclear>sa</unclear> <seg met="+-++--+">
               <gap quantity="7" reason="illegible" unit="character"/>
-            </seg><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ma</supplied><unclear>h</unclear>īpa</l>
-          <!--
-L8. I place mahīpa in the metre where BI place it, but I think it is at least as likely that its position is (sa) =.==. mahīpa =*, which would probably mean mahīpatīnām or mahīpatibhyaḥ at the end of the quarter, and only the first one or two characters of the next quarter damaged as opposed to irretrievably lost.
--->
+            </seg><supplied reason="lost">ma</supplied><unclear>h</unclear>īpa</l>
           <l n="b">
             <seg met="=+-++">
               <gap quantity="5" reason="illegible" unit="character"/>
@@ -544,23 +391,11 @@ L8. I place mahīpa in the metre where BI place it, but I think it is at least a
           <l n="b"><seg met="=+-++-">
               <gap quantity="6" reason="illegible" unit="character"/>
             </seg> purandareṇa</l>
-          <!--
-L9. Could the first two characters of 17b be lobhā?
--->
           <l n="c"><unclear>t</unclear><seg met="=+-">
               <gap quantity="3" reason="illegible" unit="character"/>
             </seg> <unclear>t</unclear><seg met="++--+">
               <gap quantity="5" reason="illegible" unit="character"/>
             </seg><unclear>s sa</unclear>mānāṁ</l>
-          <!--
-L9. There seems to be a space of about 1 character between 17b and c.
--->
-          <!--
-L9. The vowel of the first (t) is probably e or ai.
--->
-          <!--
-L9. BI read my second (t) as (y). I see no y in this gap, but feel that a t is rather clear. Its place may be the second, rather than the third character after the first (t).
--->
           <l n="d">bhrātā balāt svaṁ gr̥ham ā<unclear>n</unclear>ināya</l>
         </lg>
         <lg met="upajāti" n="18">
@@ -587,15 +422,9 @@ L9. BI read my second (t) as (y). I see no y in this gap, but feel that a t is r
         </lg>
         <lg met="upajāti" n="19">
           <l n="a"><lb n="10"/>tattraiva yān yān manujendra-pu<unclear>t</unclear>rī</l>
-          <!--
-L10. BI print tatraiva, but the spelling is tattraiva.
--->
           <l n="b"><seg met="=+-">
               <gap quantity="3" reason="illegible" unit="character"/>
-            </seg> <unclear>dha</unclear><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->rmma-pra</supplied>savān akā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->rṣ</supplied>īT</l>
-          <!--
-L10. The halanta T is fairly clear, a small subscript form, possibly with a line above and to the right of it.
--->
+            </seg> <unclear>dha</unclear><supplied cert="low" reason="lost">rmma-pra</supplied>savān akā<supplied reason="lost">rṣ</supplied>īT</l>
           <l n="c"><seg met="=+">
               <gap quantity="2" reason="illegible" unit="character"/>
             </seg><unclear>ṇa te</unclear><unclear cert="low">ṣā</unclear><unclear>ṁ</unclear><seg met="--">
@@ -631,21 +460,12 @@ L10. The halanta T is fairly clear, a small subscript form, possibly with a line
           </l>
         </lg>
         <lg met="anuṣṭubh" n="21">
-          <!--
-L11. V21 is a ra-vipulā.
--->
           <l n="a"><lb n="11"/>prabhāvati-svāminaṁ ca</l>
-          <l n="b">loka-nā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->tha</supplied>m a<unclear>thā</unclear><seg met="-=">
+          <l n="b">loka-nā<supplied reason="lost">tha</supplied>m a<unclear>thā</unclear><seg met="-=">
               <gap quantity="2" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L11. As BI note, the unclear (th)ā could also be dhā; they prefer thā because it affords more plausible restorations, such as athādarāt. I would add that the vowel could be o instead of ā (though, as BI note in another context, the arms of o normally curve upward instead of starting out horizontally), so adho is also a possibility. Also, the next character seems to have an i mātrā, which would rule out athādarāt. Bakker_1997:166 offers athālaye.
--->
           <l n="c">puṇyam akṣaya<unclear>m</unclear> u<unclear>dd</unclear>iśya</l>
-          <l n="d">mā <gap quantity="3" reason="illegible" unit="character"/> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->a</supplied>k<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ā</supplied><unclear>raya</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->T</supplied></l>
-          <!--
-L11. For the lacuna in 21d, Bakker_1997:166 offers mātuḥ; later (Bakker 2010) elaborated into mātuḥ śubham akārayat.
--->
+          <l n="d">mā <gap quantity="3" reason="illegible" unit="character"/> <supplied reason="lost">a</supplied>k<supplied reason="lost">ā</supplied><unclear>raya</unclear><supplied reason="lost">T</supplied></l>
         </lg>
         <lg met="anuṣṭubh" n="22">
           <l n="a">
@@ -656,12 +476,6 @@ L11. For the lacuna in 21d, Bakker_1997:166 offers mātuḥ; later (Bakker 2010)
           <l n="b">jagad-utpattinā<seg met="-=">
               <gap quantity="2" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L11. While BI print the metrical pattern of lost anuṣṭubh lines using only anceps for the whole of the odd pādas (to account for the possibility of vipulās), I prefer to give the simplified pathyā formula.
--->
-          <!--
-L11. As BI note, utpattinā may be an instrumental or a compound with the latter member beginning with nā.
--->
           <l n="c">
             <seg met="====-++=">
               <gap quantity="8" reason="illegible" unit="character"/>
@@ -697,30 +511,15 @@ L11. As BI note, utpattinā may be an instrumental or a compound with the latter
         </lg>
         <lg met="anuṣṭubh" n="24">
           <l n="a"><lb n="12"/>suda<unclear>r</unclear>śanaṁ taḍāgaṁ ca</l>
-          <l n="b">deva<unclear>ñ</unclear> caiva sudar<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->śana</supplied><unclear>M</unclear></l>
-          <!--
-L12. There is a space after taḍāgaṁ, with a smudge in it that is probably an aborted and partially erased character, possibly de.
--->
-          <!--
-L12. The halanta M is unclear but quite recognisable, a small and simplified subscript character, probably without a line above.
--->
+          <l n="b">deva<unclear>ñ</unclear> caiva sudar<supplied reason="lost">śana</supplied><unclear>M</unclear></l>
           <l n="c">kadalī-vāṭaka-grāme</l>
-          <l n="d">kārayit<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->v</supplied>āti<supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->bhā</supplied>vatī</l>
-          <!--
-L12. As BI discuss in detail, Jamkhedkar and Shastri had read kārayitā, assuming a male agent. The restoration kārayitvā is plausible as there is damage immediately below the t (or also acceptable as an emendation), is metrically correct (unlike kārayitā, which would make the second and third syllable simultaneously short), and is plausible in the context.
--->
-          <!--
-L12. The restoration atibhāvatī is again reasonable; the ā is in fact almost certain.
--->
+          <l n="d">kārayit<supplied reason="lost">v</supplied>āti<supplied cert="low" reason="lost">bhā</supplied>vatī</l>
         </lg>
         <lg met="anuṣṭubh" n="25">
           <l n="a"><gap quantity="4" reason="illegible" unit="character"/> <unclear>pī</unclear>ta-keśā</l>
-          <l n="b">puṇyam u<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ddiśya</supplied><seg met="+-=">
+          <l n="b">puṇyam u<supplied reason="lost">ddiśya</supplied><seg met="+-=">
               <gap quantity="3" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L12. BI propose to understand pītakeśa as an epithet (unattested elsewhere) of Narasiṁha, and the word in apposition to the lady, who has installed (or somethinged) an image of Narasiṁha.
--->
           <l n="c">
             <seg met="====-++=">
               <gap quantity="8" reason="illegible" unit="character"/>
@@ -735,9 +534,6 @@ L12. BI propose to understand pītakeśa as an epithet (unattested elsewhere) of
               <gap quantity="5" reason="lost" unit="character"/>
             </seg>
           </l>
-          <!--
-L12. The position of the unclear pā in the metrical scheme is of course inaccurate. BI note in their commentary that it is "well after where one would expect verse 25 to have ended", yet in their edition they put it at the beginning of the fourth quarter of v25, which I follow with this caveat.
--->
         </lg>
         <lg met="anuṣṭubh" n="26">
           <l n="a">
@@ -762,43 +558,22 @@ L12. The position of the unclear pā in the metrical scheme is of course inaccur
           </l>
         </lg>
         <lg met="anuṣṭubh" n="27">
-          <l n="a"><lb n="13"/>Arddhaṁ brahmārppa<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ṇaṁ</supplied> puṇyaṁ</l>
+          <l n="a"><lb n="13"/>Arddhaṁ brahmārppa<supplied reason="lost">ṇaṁ</supplied> puṇyaṁ</l>
           <l n="b"><seg subtype="consonant" type="component">
               <gap quantity="1" reason="illegible" unit="component"/>
             </seg>r̥ <gap quantity="3" reason="illegible" unit="character"/> ṇa <seg met="+-">
               <gap quantity="2" reason="illegible" unit="character"/>
             </seg> nī</l>
-          <!--
-L13. Lines from 13 onward are on the lower block. The vertical space between l12 and l13 is about twice as much as that between lines within a block.
--->
-          <!--
-L13. The consonant of r̥ may be dh; the character before ṇa may be ka or ra. Bakker_1997:166 offers the conjecture śālinī for the end, later (Bakker_forthcoming?) expanding to kr̥pā-karuṇa-śālinī.
--->
-          <!--
-L13. There is space of about 2 characters between 27b and c.
--->
-          <l n="c">mātā-pitr̥bhy<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ām</supplied> <seg met="===">
+          <l n="c">mātā-pitr̥bhy<supplied reason="lost">ām</supplied> <seg met="===">
               <gap quantity="3" reason="illegible" unit="character"/>
             </seg></l>
           <l n="d"><seg met="====">
               <gap quantity="4" reason="illegible" unit="character"/>
-            </seg><unclear cert="low">ṣ</unclear>kr<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->i</supplied>yodbhavaM||</l>
-          <!--
-L13. 13c could be a bha-vipulā (..* for the lacuna) or a ma-vipulā (==*, with a casesura after bhyām, which we have). BI propose to restore arddhaṁ ca, in the ma-vipulā pattern.
--->
-          <!--
-L13. BI reason that krayodbhava or vikrayodbhava would be less likely and thus restore kriyodbhava, which seems perfectly logical. I would add that the first character of the ligature with kr does not seem to be either s or ṅ, so I believe the most likely candidate is ṣ. Jihvāmūlīya would also be a possibility but that would probably be higher up and would not push the k so far down.
--->
-          <!--
-L13. The halanta M is simplified subscript, possibly with a line above.
--->
-          <!--
-L13. For the first time in the inscription, we have clear original punctuation here. It is a double vertical, full height, and almost certainly with a hook at the top left.
--->
+            </seg><unclear cert="low">ṣ</unclear>kr<supplied reason="lost">i</supplied>yodbhavaM||</l>
         </lg>
         <lg met="anuṣṭubh" n="28">
-          <l enjamb="yes" n="a"><unclear>ja</unclear>gatas <unclear>sth</unclear>i<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->t</supplied>i-sa<sic>ṅ</sic>hāra</l>
-          <l n="b">-kāraṇasyā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->m</supplied>itauja<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->saḥ</supplied></l>
+          <l enjamb="yes" n="a"><unclear>ja</unclear>gatas <unclear>sth</unclear>i<supplied reason="lost">t</supplied>i-sa<sic>ṅ</sic>hāra</l>
+          <l n="b">-kāraṇasyā<supplied reason="lost">m</supplied>itauja<supplied reason="lost">saḥ</supplied></l>
           <l n="c"><unclear>ār</unclear>ṣ<unclear>ama</unclear><seg met="=-++=">
               <gap quantity="5" reason="illegible" unit="character"/>
             </seg></l>
@@ -807,9 +582,6 @@ L13. For the first time in the inscription, we have clear original punctuation h
               <gap quantity="8" reason="illegible" unit="character"/>
             </seg>
           </l>
-          <!--
-L13. Instead of ārṣama, the beginning of 28c could conceivably also be bhūṣaṇa. Bakker_1997:166 is inclined to read ārṣad* instead.
--->
         </lg>
         <lg met="anuṣṭubh" n="29">
           <l n="a">
@@ -834,30 +606,18 @@ L13. Instead of ārṣama, the beginning of 28c could conceivably also be bhū�
           </l>
         </lg>
         <lg met="anuṣṭubh" n="30">
-          <l n="a"><lb n="14"/>prāsādaṁ dayi<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->t</supplied><unclear>ā</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->dh</supplied>ātur</l>
+          <l n="a"><lb n="14"/>prāsādaṁ dayi<supplied reason="lost">t</supplied><unclear>ā</unclear><supplied reason="lost">dh</supplied>ātur</l>
           <l n="b">vvicintya tam aśāśvataM</l>
-          <!--
-L14. See #Bakker_Isaacson_1993:63 for their reasoning in favour of the restoration dayitādhātur and its interpretation.
--->
-          <!--
-L14. The halanta M is small and subscript as before, with no line above. There is no punctuation, but there is a space of about 1 character.
--->
-          <l n="c">mātur eva samuddi<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->śya</supplied></l>
-          <l n="d"><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->pu</supplied>ṇyaugham agha-varjjitā</l>
-          <!--
-L14. The end of v30 is quite undamaged but rather dark on the photo; there may be punctuation here, perhaps a single vertical, followed by a small space.
--->
+          <l n="c">mātur eva samuddi<supplied reason="lost">śya</supplied></l>
+          <l n="d"><supplied reason="lost">pu</supplied>ṇyaugham agha-varjjitā</l>
         </lg>
         <lg met="anuṣṭubh" n="31">
           <l n="a">śil<unclear>ā</unclear> <gap quantity="1" reason="illegible" unit="character"/> <seg subtype="consonant" type="component">
               <gap quantity="1" reason="illegible" unit="component"/>
-            </seg><unclear>ś</unclear>ila-saṅ<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->k</supplied>āśaṁ</l>
+            </seg><unclear>ś</unclear>ila-saṅ<supplied reason="lost">k</supplied>āśaṁ</l>
           <l n="b"><unclear>c</unclear>irā<unclear>ya</unclear> <seg met="=-+-=">
               <gap quantity="5" reason="illegible" unit="character"/>
             </seg></l>
-          <!--
-L14. BI say the fourth character of v31 seems to be a ligature with a subscript ś or g (or, less likely, t), probably with the vowel i though the circle is smaller than a regular i mātrā.
--->
           <l n="c">
             <seg met="====-++=">
               <gap quantity="8" reason="illegible" unit="character"/>
@@ -894,31 +654,16 @@ L14. BI say the fourth character of v31 seems to be a ligature with a subscript 
         <lg met="anuṣṭubh" n="33">
           <l n="a"><lb n="15"/>Āloka-sthāyinī<unclear>ñ ce</unclear>māṅ</l>
           <l n="b">kīrttim prakhyāpayiṣyatā</l>
-          <!--
-L15. There may be a short horizontal dash at the end of 33b.
--->
-          <!--
-L15.
--->
-          <l n="c">tayā <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->pari</supplied>g<unclear>r̥</unclear>hī<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->te</supplied>na</l>
-          <l n="d">tad-ājñānuvidhā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->yin</supplied>ā</l>
+          <l n="c">tayā <supplied reason="lost">pari</supplied>g<unclear>r̥</unclear>hī<supplied reason="lost">te</supplied>na</l>
+          <l n="d">tad-ājñānuvidhā<supplied reason="lost">yin</supplied>ā</l>
         </lg>
         <lg met="anuṣṭubh" n="34">
-          <l n="a">kāvya<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ṁ ma</supplied>haj jay<unclear>a</unclear>-<seg met="+">
+          <l n="a">kāvya<supplied reason="lost">ṁ ma</supplied>haj jay<unclear>a</unclear>-<seg met="+">
               <gap quantity="1" reason="illegible" unit="character"/>
             </seg><unclear cert="low">daṁ</unclear></l>
           <l n="b"><seg met="====-">
               <gap quantity="5" reason="illegible" unit="character"/>
             </seg>g<unclear>ena</unclear> <unclear cert="low">ca</unclear></l>
-          <!--
-L15. I follow BI in putting gena ca at the end of 34b, but I personally think this is not possible; there are only two, at most three characters between what looks like daṁ and this string. As for the reading, it seems to me that na could also be ṇa, and ca could be just about anything with a loopy thing on the bottom left.
--->
-          <!--
-L15.
--->
-          <!--
-L15.
--->
           <l n="c">
             <seg met="====-++=">
               <gap quantity="8" reason="illegible" unit="character"/>
@@ -930,9 +675,6 @@ L15.
             </seg>
           </l>
         </lg>
-        <!--
-L15.
--->
       </div>
       <div type="apparatus">
         <listApp>
@@ -942,7 +684,7 @@ L15.
           </app>
         </listApp>
       </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
+      <div source="bib:AuthorYear_01" type="translation"></div>
       <div type="commentary"></div>
       <div type="bibliography">
         <p/>

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -35,9 +29,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00039</idno>
-        <!--
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -93,37 +84,19 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <ab>
           <lb n="01"/>
           <unclear cert="low">siddham</unclear>
-          <!--
-None of the editions I've seen print this, but there are clearly two small akṣaras above and beginning slightly to the left of line 1. They look like si and ddha (but could be just about anything else as well), with possibly a halanta m merged into the superscript r of varṣa in l1.
--->
         </ab>
         <lg met="āryā" n="1">
-          <!--
-Agrawala (following Sircar) says the metre of the first stanza is udgīti, and to achieve this, he breaks the line before bhūmiṁ and notes that sacatuḥ should be read metri causa as saccatuḥ. I'm not very good at āryā types, but in my perception that is a mess; the stanza is a perfect āryā as read by Bhandarkar.
--->
-          <l n="ab"><lb n="1"/>varṣa-śate guptānāṁ sa-catuḥ-paṁcāśad-uttare bhūmiṁ<!--
-Agrawala prints a single daṇḍa at the end of the first half-verse as original, but I see nothing there.
---></l>
-          <l n="cd">rakṣati kumāragupte māse jyeṣṭhe <unclear>dv</unclear>i<unclear>t</unclear>ī<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->yā</supplied>yāM||<!--
-The punctuation sign is two horizontal strokes, possibly connected around the middle with a vertical bar.
---></l>
+          <l n="ab"><lb n="1"/>varṣa-śate guptānāṁ sa-catuḥ-paṁcāśad-uttare bhūmiṁ</l>
+          <l n="cd">rakṣati kumāragupte māse jyeṣṭhe <unclear>dv</unclear>i<unclear>t</unclear>ī<supplied reason="lost">yā</supplied>yāM||</l>
         </lg>
         <lg met="āryā" n="2">
           <certainty locus="value" match="../@met"/>
           <l n="a"><lb n="2"/>bhakty-<unclear>ā</unclear>varjjita-manasā yatinā pūjārtham abhayamitreṇa</l>
-          <l n="b">pratimāpratimasya guṇai<unclear>r a</unclear>pa<unclear>re</unclear>yaṁ <unclear>kā</unclear>ritā śāstuḥ||<!--
-This punctuation sign looks just like a blotch, but is probably identical to the first one. Again, no mark in the middle of the verse.
---></l>
+          <l n="b">pratimāpratimasya guṇai<unclear>r a</unclear>pa<unclear>re</unclear>yaṁ <unclear>kā</unclear>ritā śāstuḥ||</l>
         </lg>
         <lg met="āryā" n="3">
-          <l n="ab"><lb n="3"/>mātā-pitr̥-guru-pū<unclear>rvvaḥ</unclear> puṇyenānena sa<sic>tv</sic>a-kāyo yaM<!--
-Bhandarkar prints "mātā-pitr̥-guru-pūrttiḥ puṇyenānena satvakāyayom" (sic, must be a misprint for kāyo yam) for this line. Instead of pūrttiḥ, Daya Ram Sahni suggested pūrvvaiḥ. This is cited in Hargreaves_1920:124n1 (an editorial note; the editor is Sir John Marshall) and in Bhandarkar_1981:321n1 (again an editorial note, so Chhabra or Gai). (However, the former cites Sahni as suggesting pūrvviḥ, the latter as pūrvvaiḥ.) Both notes say this "is a better reading." Agrawala and Sircar say Sahni said pūrvviḥ, showing pūrvvaiḥ as Sircar's suggestion. In any case, I disagree with all and feel that mātāpitr̥gurupūrvvaḥ (agreeing with kāyo) is clearly the correct reading; what they see as i or ai over the ligature must be just a fault of the stone.
---><!--
-The halanta m is a reduced m with a horizontal bar above it.
---></l>
-          <l n="cd">labhatām abhimatam upaśama-ma<unclear>h</unclear><unclear cert="low">āvaha</unclear> <gap precision="low" quantity="4" reason="illegible" unit="character"/> <unclear>sukhāya</unclear>||<!--
-In the unclear final bit, Agrawala (following Sircar) reads upaśama-#i ##### nāM and notes that Gupte had read -yām. Sircar's proposed restoration (also cited by Agrawala) is: upaśamaṁ hitasukhaṁ tadeva bhavatu sattvānām, which seems unmetrical to me unless we assume that anusvāras don't lengthen their vowel, which they do in Sanskrit. And even if they don't, the verse would thereby become a gīti, (which Agrawala and Sircar say it is), but since the first two are āryā (pace Sircar and Agrawala), there's no reason to assume that the third would be in a different metre. In any case, Sircar's suggestion is imo far too long to fit the physical space. Here I largely follow Bhandarkar, whose suggested mah is quite clear after upaśama, and I accept his āvaha for want of anything better. This is followed by 4 or 5 characters. The end, which Bhandarkar reads as prayām (unmetrical), I'm inclined to see as sukhāya, or sukhaM (what others saw as yā or nā is imo khā, with the left hook damaged).
---></l>
+          <l n="ab"><lb n="3"/>mātā-pitr̥-guru-pū<unclear>rvvaḥ</unclear> puṇyenānena sa<sic>tv</sic>a-kāyo yaM</l>
+          <l n="cd">labhatām abhimatam upaśama-ma<unclear>h</unclear><unclear cert="low">āvaha</unclear> <gap precision="low" quantity="4" reason="illegible" unit="character"/> <unclear>sukhāya</unclear>||</l>
         </lg>
       </div>
       <div type="apparatus">
@@ -134,7 +107,7 @@ In the unclear final bit, Agrawala (following Sircar) reads upaśama-#i ##### n�
           </app>
         </listApp>
       </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
+      <div source="bib:AuthorYear_01" type="translation"></div>
       <div type="commentary"></div>
       <div type="bibliography">
         <p/>

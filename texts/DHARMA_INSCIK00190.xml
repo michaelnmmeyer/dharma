@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -18,7 +12,6 @@
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <!--sapi2argr dois-je ajouter  Barth et Bergaigne ainsi que Cœdès ?-->
           <persName ref="part:dogo">
             <forename>Dominic</forename>
             <surname>Goodall</surname>
@@ -46,27 +39,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -77,7 +60,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -194,7 +176,6 @@
           <l n="d">śaṅke keśavavakṣasi<g type="ddandaOrnate">.</g></l>
         </lg>
         <lg met="anuṣṭubh" n="16">
-          <!-- SEE THIS COLUMN BREAK c-d -->
           <l n="a"><lb n="A16"/><milestone n="a" unit="column"/>yam asāmānyasaundaryyaṁ</l>
           <l n="b"><milestone n="b" unit="column"/>sr̥ṣṭvā sraṣṭānvacintayat·</l>
           <l n="c"><milestone n="c" unit="column"/>Upamānam ayañ cet syā<milestone break="no" n="d" unit="column"/>d</l>
@@ -207,7 +188,6 @@
           <l n="d"><milestone n="d" unit="column"/>saṁpūrṇno na parodayaiḥ<g type="ddandaOrnate">.</g></l>
         </lg>
         <lg met="anuṣṭubh" n="18">
-          <!--sapi2argr Note rtf : [a. na-vipulā: - ⏑ - - ⏑ ⏑ ⏑ -]-->
           <l n="a"><lb n="A18"/><milestone n="a" unit="column"/>tasya rājye munivaro</l>
           <l n="b"><milestone n="b" unit="column"/>munivandyāṅghripaṅkajaḥ</l>
           <l enjamb="yes" n="c"><milestone n="c" unit="column"/>nāmnā somaśivaś śāstra</l>
@@ -226,14 +206,12 @@
           <l n="d"><milestone n="d" unit="column"/>dayayānyān apāyayat·<g type="ddandaOrnate">.</g></l>
         </lg>
         <lg met="anuṣṭubh" n="21">
-          <!--sapi2argr Note rtf : [c. na-vipulā: ⏑ - ⏑ - ⏑ ⏑ ⏑ -]-->
           <l enjamb="yes" n="a"><lb n="A21"/><milestone n="a" unit="column"/>galanmadhurasākāra</l>
           <l n="b"><milestone n="b" unit="column"/>-śabdaśāstramanohare</l>
           <l n="c"><milestone n="c" unit="column"/>sarasvatī madhukarī</l>
           <l n="d"><milestone n="d" unit="column"/>yasyāsyābje ratābhavat·<g type="ddandaOrnate">.</g></l>
         </lg>
         <lg met="anuṣṭubh" n="22">
-          <!--sapi2argr Note rtf : [c. na-vipulā: ⏑ - ⏑ - ⏑ ⏑ ⏑ -]-->
           <l enjamb="yes" n="a"><lb n="A22"/><milestone n="a" unit="column"/>devatāguruviprāryyā</l>
           <l n="b"><milestone n="b" unit="column"/>-tithipūjāvidhau kr̥tī</l>
           <l n="c"><milestone n="c" unit="column"/>garīyasām api guru<milestone break="no" n="d" unit="column"/>r</l>
@@ -246,7 +224,6 @@
           <l n="d"><milestone n="d" unit="column"/>pūjāvr̥ddhyā vyavarddhayat·<g type="ddandaOrnate">.</g></l>
         </lg>
         <lg met="anuṣṭubh" n="24">
-          <!--sapi2argr Note rtf : [a. bha-vipulā: ⏑ - ⏑ - - ⏑ ⏑ - ]-->
           <l n="a"><lb n="A24"/><milestone n="a" unit="column"/>sa cātra samyag vidhinā</l>
           <l n="b"><milestone n="b" unit="column"/>śrībhadreśvaram ākhyayā</l>
           <l n="c"><milestone n="c" unit="column"/>śailendumūrttiśākābde</l>
@@ -272,7 +249,6 @@
           <l n="d"><milestone n="d" unit="column"/>darś<unclear>ś</unclear>endor iva dr̥śyate<g type="ddandaOrnate">.</g></l>
         </lg>
         <lg met="anuṣṭubh" n="28">
-          <!-- sapi2argr note rtf: [a. na-vipulā : ⏑ - ⏑ - ⏑ ⏑ ⏑ - ]-->
           <l n="a"><lb n="B2"/><milestone n="a" unit="column"/>vibhāti dhūrjjaṭijaṭā</l>
           <l n="b"><milestone n="b" unit="column"/>gala<unclear>d</unclear>gaṅgāmvuvindubhiḥ</l>
           <l enjamb="yes" n="c"><milestone n="c" unit="column"/>taddhāramauktikaiś candra</l>
@@ -285,7 +261,6 @@
           <l n="d"><milestone n="d" unit="column"/>-roṣavahnyudgamā Iva<g type="ddandaOrnate">.</g></l>
         </lg>
         <lg met="anuṣṭubh" n="30">
-          <!-- sapi2argr note rtf : [c. na-vipulā : - - - - ⏑ ⏑ ⏑ - ] -->
           <l n="a"><lb n="B4"/><milestone n="a" unit="column"/>namo stu haraye yasya</l>
           <l n="b"><milestone n="b" unit="column"/>padaḥ padmāṅkaśāyinaḥ</l>
           <l n="c"><milestone n="c" unit="column"/>bhābhis tannābhir abhava<milestone break="no" n="d" unit="column"/>d</l>
@@ -352,7 +327,6 @@
           <l n="d"><milestone n="d" unit="column"/>tathāpi na tu vismayaḥ<g type="ddandaOrnate">.</g></l>
         </lg>
         <lg met="anuṣṭubh" n="39">
-          <!-- SEE THIS COLUMN BREAK -->
           <l n="a"><lb n="B13"/><milestone n="a" unit="column"/>saddharmmanirater yyasya</l>
           <l n="b"><milestone n="b" unit="column"/>padarājyena cakrire</l>
           <l n="c"><milestone n="c" unit="column"/>Upasarggāḥ kriyāyoge</l>
@@ -363,7 +337,7 @@
            <lb n="C2"/>śivapura nu vraḥ kaṁmrateṅ·
            <lb n="C3"/>Añ śivaliṅga <seg type="desc">toy· dakṣi<lb break="no" n="C4"/>ṇa neḥ vnaṁ neh· Aṁvi rlaṁ <placeName subtype="wetland" type="hydrographic">ka<lb break="no" n="C5"/><gap quantity="1" reason="lost" unit="character"/> koh·</placeName> prasap· rlaṁ <placeName key="Jvik" subtype="wetland" type="hydrographic">jvik·</placeName> lva<lb break="no" n="C6"/>h· chok· <placeName key="Khadira" subtype="grove" type="naturalPlace">khadira</placeName> prasap·
            <lb n="C7"/>vnur· khluṅ· <g type="circleConcentric">.</g> toy· dakṣiṇa
-           <lb n="C8"/>neḥ sre neha sot· Aṁ<lb n="C9"/>vi chdiṅ· jmala sre <placeName key="Aṁlau" subtype="field" type="cultivation">Aṁlau</placeName> cho<lb n="C10"/>k· vrāl· vrai <placeName key="Vyā" subtype="forest" type="naturalPlace">vyā</placeName><placeName key="Canlattai" type="undetermined">canlattai</placeName><!-- ou village --><lb n="C11"/><placeName key="Śivakṣetra" subtype="village" type="settlement">śivakṣetra</placeName><!-- peut être un field? ou undetermined? --> sthalā pa<lb n="C12"/>k· lvah· Aṅ·veya
+           <lb n="C8"/>neḥ sre neha sot· Aṁ<lb n="C9"/>vi chdiṅ· jmala sre <placeName key="Aṁlau" subtype="field" type="cultivation">Aṁlau</placeName> cho<lb n="C10"/>k· vrāl· vrai <placeName key="Vyā" subtype="forest" type="naturalPlace">vyā</placeName><placeName key="Canlattai" type="undetermined">canlattai</placeName><lb n="C11"/><placeName key="Śivakṣetra" subtype="village" type="settlement">śivakṣetra</placeName> sthalā pa<lb n="C12"/>k· lvah· Aṅ·veya
            <lb n="C13"/>chdiṅ· saṁroya sre
            <lb n="C14"/>nā Āśrama Āy·
            <lb n="C15"/><placeName key="Canlattai" type="undetermined">canlattai</placeName>sot lva<lb break="no" n="C16"/>h· prasap· <placeName key="Paṁnik" type="undetermined">paṁnikka</placeName><g type="circleConcentric">.</g><lb n="C17"/>toy· Uttara neḥ
@@ -371,8 +345,8 @@
            <lb n="C19"/>paścima lvah· ta gi
            <lb n="C20"/>travāṅ· vrai <placeName key="Trapeka" subtype="forest" type="naturalPlace">tra<lb break="no" n="C21"/>peka</placeName> sre <placeName key="Krateṅ" subtype="field" type="cultivation">krateṅ·</placeName><lb n="C22"/>toy· pūrvva lvah·
            <lb n="C23"/>vrai <placeName key="Laṁpona" subtype="forest" type="naturalPlace">laṁpona</placeName> lvah·
-           <lb n="C24"/><placeName key="Mat Dlaiy" type="undetermined">mat· dlaiya</placeName><!-- undetermined? --> toy·
-           <lb n="C25"/>Uttara travāṅ· <placeName key="Trāc" subtype="tank" type="hydrographic">trā<lb break="no" n="C26"/>c·</placeName> lvah· vnaṁ <placeName key="Kan It" subtype="temple" type="builtPlace">kan·qItta</placeName><!-- or a hill? --><g type="spiralR">.</g></seg>
+           <lb n="C24"/><placeName key="Mat Dlaiy" type="undetermined">mat· dlaiya</placeName> toy·
+           <lb n="C25"/>Uttara travāṅ· <placeName key="Trāc" subtype="tank" type="hydrographic">trā<lb break="no" n="C26"/>c·</placeName> lvah· vnaṁ <placeName key="Kan It" subtype="temple" type="builtPlace">kan·qItta</placeName><g type="spiralR">.</g></seg>
            <lb n="C27"/>nauva noḥ ta mān· pra<lb break="no" n="C28"/>yoja ta gi neḥ bhū<lb break="no" n="C29"/>vana ta roha neḥ
            <lb n="C30"/>Aṁvi gm<unclear>u</unclear>ma dau syaṅ·
            <lb n="C31"/>nai vraḥ kaṁmrateṅ· Añ· nau qnak ta yok· neḥ
@@ -525,12 +499,9 @@
       </div>
       <div resp="part:sapi" type="translation" xml:lang="fra">
         <p n="C1-C7">La rizière du <foreign>vraḥ kamrateṅ añ</foreign> Śivapura et du <foreign>vraḥ kamrateṅ añ</foreign> Śivaliṅga suit au sud ce sanctuaire à partir de ce marécage <supplied reason="explanation">terrain innondé ?</supplied> Ka<gap reason="illegible"/>koh touche le marécage Jvik <supplied reason="explanation">marécage aux lotus</supplied> jusqu'au bosquet Khadira <supplied reason="explanation">bosquet de catechus</supplied>. Elle touche la butte Khluṅ <supplied reason="explanation">la butte des arbres <foreign>dipterocarpus tuberculatus</foreign></supplied>.</p>
-        <p n="C7-C16">Également suivant le sud de cette rizière, <supplied reason="subaudible">on suit</supplied> à partir de la rivière Jmal <supplied reason="explanation">la rivière tressée</supplied>, de la rizière Aṁlau,<!-- Aṁlau, conjecture de Jenner : perhaps for *qaṁnau, pfx /?ǝN-/ + *lau = dwelling, house, abode. Saveros Pou n'est pas si sûre.--> du bosquet Vrāl <supplied reason="explanation">bosquet des arbustes <foreign>colona auriculata</foreign></supplied>, de la forêt Vyā, de Canlattai, de Śivakṣetra<!-- hapax --> <supplied reason="subaudible">et</supplied> de la colline Pak <supplied reason="explanation">la colline brisée</supplied>, jusqu'à l'autre côté de la rivière Saṃroy <supplied reason="subaudible">et</supplied> la rizière située dans l'<foreign>āśrama</foreign> également à Canlattai, jusqu'à toucher Paṁnikka.</p>
-        <p n="C17-C26">On suit au nord ce sanctuaire. On suit à l'ouest jusqu'au réservoir, la forêt Trapeka <supplied reason="subaudible">et</supplied> la rizière Krateṅ. On suit à l'est jusqu'à la forêt Laṁpona<!-- hapax -->, jusqu'à Mat Dlaiy. On suit au nord le réservoir Trāc <supplied reason="explanation">le réservoir des arbres <foreign>dipterocarpus intricatus</foreign></supplied> jusqu'à le sanctuaire Kan Itta <supplied reason="explanation">le sanctuaire qui tient des briques</supplied>.</p>
-        <p n="C27-C33">Au sujet de ceux qui sont affectées à ces terres susmentionnées, sont<!-- syaṅ : la plus vieille occurence d'après Jenner. --> à partir de maintenant les possessions de <foreign>vraḥ kamrateṅ añ</foreign>. Au sujet des hommes qui s'emparent de ces rizières <supplied reason="subaudible">et les</supplied> donnent à autre <supplied reason="subaudible">sont</supplied>, à partir de maintenant, ils vont en enfer avec des membres de <supplied reason="subaudible">leur</supplied> famille. Au sujet de ceux qui protègent ces <supplied reason="subaudible">terres</supplied>, ils...</p>
-        <!--QUESTIONS
-              L'expression toy· dakṣiṇa neḥ X neh
-            Est ce que le neh est un démonstratif contenant implicitement le mot rizière : cette à traduire comme "cette rizière", en mimétisme avec le texte sanskrit ?-->
+        <p n="C7-C16">Également suivant le sud de cette rizière, <supplied reason="subaudible">on suit</supplied> à partir de la rivière Jmal <supplied reason="explanation">la rivière tressée</supplied>, de la rizière Aṁlau, du bosquet Vrāl <supplied reason="explanation">bosquet des arbustes <foreign>colona auriculata</foreign></supplied>, de la forêt Vyā, de Canlattai, de Śivakṣetra <supplied reason="subaudible">et</supplied> de la colline Pak <supplied reason="explanation">la colline brisée</supplied>, jusqu'à l'autre côté de la rivière Saṃroy <supplied reason="subaudible">et</supplied> la rizière située dans l'<foreign>āśrama</foreign> également à Canlattai, jusqu'à toucher Paṁnikka.</p>
+        <p n="C17-C26">On suit au nord ce sanctuaire. On suit à l'ouest jusqu'au réservoir, la forêt Trapeka <supplied reason="subaudible">et</supplied> la rizière Krateṅ. On suit à l'est jusqu'à la forêt Laṁpona, jusqu'à Mat Dlaiy. On suit au nord le réservoir Trāc <supplied reason="explanation">le réservoir des arbres <foreign>dipterocarpus intricatus</foreign></supplied> jusqu'à le sanctuaire Kan Itta <supplied reason="explanation">le sanctuaire qui tient des briques</supplied>.</p>
+        <p n="C27-C33">Au sujet de ceux qui sont affectées à ces terres susmentionnées, sont à partir de maintenant les possessions de <foreign>vraḥ kamrateṅ añ</foreign>. Au sujet des hommes qui s'emparent de ces rizières <supplied reason="subaudible">et les</supplied> donnent à autre <supplied reason="subaudible">sont</supplied>, à partir de maintenant, ils vont en enfer avec des membres de <supplied reason="subaudible">leur</supplied> famille. Au sujet de ceux qui protègent ces <supplied reason="subaudible">terres</supplied>, ils...</p>
       </div>
       <div source="bib:Barth+Bergaigne1885-1893_01" type="translation" xml:lang="fra">
         <p n="A01">Om ! Fortune ! Succès ! Bonheur ! Victoire !</p>
@@ -589,7 +560,6 @@
           </bibl>). The inscription is re-edited here by Dominic Goodall, Gerdi Gerschheimer and Salomé Pichon based on autopsy and the EFEO estampages n. 760.</p>
         <listBibl type="primary">
           <bibl n="BB">
-            <!--sapi2argr Est-ce le bon sigle ?-->
             <ptr target="bib:Barth+Bergaigne1885-1893_01"/>
             <citedRange unit="page">331-346</citedRange>
           </bibl>

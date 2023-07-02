@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -49,27 +43,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -80,7 +64,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -98,7 +81,6 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="san-Latn">
-        <!-- VERIFIER l'ENCODAGE DES LANGUES -->
         <ab><milestone n="A" type="pagelike" unit="face"/>
              <lb n="A01"/><milestone n="a" unit="column"/><g type="initialGomutra"/><g type="ddandaPlain"/> śrī siddhi svasti jaya <milestone n="b" unit="column"/>namaḥ parameśvarāya
            </ab>
@@ -116,7 +98,6 @@
         </lg>
         <lg met="anuṣṭubh" n="3">
           <l n="a"><lb n="A3"/><milestone n="a" unit="column"/>navarandhrādrirājyastha<milestone break="no" n="b" unit="column"/>s</l>
-          <!--sapi Lire nuva° ?? -->
           <l n="b">so bhavat kamvujeśvaraḥ</l>
           <l n="c"><milestone n="c" unit="column"/>śrīndravarmmā trivarggeṇa</l>
           <l n="d"><milestone n="d" unit="column"/>varddhayan harṣayan prajāḥ</l>
@@ -134,7 +115,6 @@
           <l n="d"><milestone n="b" unit="column"/>dvābhyām eva parāṅmukhena śaraṇaṁ prāptena jīvārthinā</l>
         </lg>
         <lg met="upajāti" n="6">
-          <!-- COLUMN ?? -->
           <l n="a"><lb n="A8"/><milestone n="a" unit="column"/>yenābhiṣikto vidhinā mahendra<milestone break="no" n="b" unit="column"/>s</l>
           <l n="b">svayambhuvāropitadevarājyaḥ</l>
           <l n="c"><milestone n="c" unit="column"/>tenābhiṣeka<supplied reason="omitted">ṁ</supplied> guṇavān anekaṁ</l>
@@ -172,14 +152,12 @@
         </lg>
         <lg met="anuṣṭubh" n="12">
           <l n="a"><lb n="A14"/><milestone n="a" unit="column"/>Adhyāste yasya hr̥dayaṁ</l>
-          <!-- note rtf: [pāda a : na-vipulā : - - - - ⏑ ⏑ ⏑ -  -->
           <l n="b"><milestone n="b" unit="column"/>naiva kāmo nirantaram·</l>
           <l enjamb="yes" n="c"><milestone n="c" unit="column"/>tatsannihitacandrārddha</l>
           <l n="d"><milestone n="d" unit="column"/>-cūdāmaṇibhayād iva</l>
         </lg>
         <lg met="anuṣṭubh" n="13">
           <l n="a"><lb n="A15"/><milestone n="a" unit="column"/>kṣīrodasāramathanā<milestone break="no" n="b" unit="column"/>d</l>
-          <!-- [pāda a : na-vipulā : - - ⏑ - ⏑ ⏑ ⏑ - ] -->
           <l n="b">āharantaṁ śriyaṁ harim·</l>
           <l n="c"><milestone n="c" unit="column"/>jahāseva prabhūtaśrī<milestone break="no" n="d" unit="column"/>r</l>
           <l n="d">yyo bhūbhr̥nmathanena tu</l>
@@ -222,7 +200,6 @@
         </lg>
         <lg met="anuṣṭubh" n="20">
           <l n="a"><lb n="A22"/><milestone n="a" unit="column"/>yena saundaryyavijito</l>
-          <!-- note rtf: [pāda a : na-vipulā : - ⏑ - - ⏑ ⏑ ⏑ - ] -->
           <l n="b"><milestone n="b" unit="column"/>jātalajja iva dhruvam·</l>
           <l n="c"><milestone n="c" unit="column"/>līno manasi lokānā<milestone break="no" n="d" unit="column"/>m</l>
           <l n="d">adyāpi makaradhvaja<unclear>ḥ</unclear></l>
@@ -247,7 +224,6 @@
         </lg>
         <lg met="anuṣṭubh" n="24">
           <l n="a"><lb n="A26"/><milestone n="a" unit="column"/>yaśovataṅsena sadā</l>
-          <!-- note du rtf: [pāda a and pāda c : bha-vipulā : ⏑ - ⏑ - - ⏑ ⏑ - ] -->
           <l n="b"><milestone n="b" unit="column"/>rañjitā yena digvadhūḥ</l>
           <l n="c"><milestone n="c" unit="column"/>vaśīkr̥tā mantravalai<milestone break="no" n="d" unit="column"/>s</l>
           <l n="d">svayandattakarābhavat·</l>
@@ -256,14 +232,12 @@
           <l n="a"><lb n="A27"/><milestone n="a" unit="column"/>saṁrakṣati kṣitiṁ yatra</l>
           <l n="b"><milestone n="b" unit="column"/>śaureś śauklyam bhaved yadi</l>
           <l n="c"><milestone n="c" unit="column"/>Idaṁ yugaṁ kr̥tayugaṁ</l>
-          <!-- note du rtf: [pāda c : na-vipulā : ⏑ - ⏑ - ⏑ ⏑ ⏑ - ] -->
           <l n="d"><milestone n="d" unit="column"/>yathaivābhāti sarvvathā</l>
         </lg>
         <lg met="anuṣṭubh" n="26">
           <l n="a"><lb n="A28"/><milestone n="a" unit="column"/>dānaṁ yasyāpi sarvvatra</l>
           <l n="b"><milestone n="b" unit="column"/>viśeṣeṇa guṇādhike</l>
           <l n="c"><milestone n="c" unit="column"/>prāyaśas tuṅgaśikhare</l>
-          <!-- note du rtf: [pāda c : na-vipulā : - ⏑ - - ⏑ ⏑ ⏑ - ] -->
           <l n="d"><milestone n="d" unit="column"/>girau varṣati vāsava<unclear>ḥ</unclear></l>
         </lg>
         <lg met="anuṣṭubh" n="27">
@@ -273,7 +247,6 @@
           <l n="d">ekan trailokyatr̥ptaye</l>
         </lg>
         <lg met="śārdūlavikrīḍita" n="28">
-          <!-- MARK-UP COLUMN A-B?? -->
           <l n="a"><lb n="A30"/><milestone n="a" unit="column"/>candravyomavasūpalakṣitaśake māghasya yāmye dine</l>
           <l n="b"><milestone n="b" unit="column"/>śukle kumbhavr̥ṣāntataulamakarālyabjājagehāgate</l>
           <l n="c"><lb n="A31"/><milestone n="a" unit="column"/>sūryyādau pratimās svaśilparacitā Īśasya devyāś ca tāḥ</l>
@@ -289,7 +262,6 @@
           <l n="a"><lb n="A33"/><milestone n="a" unit="column"/>śivikā Ātapatrāṇi</l>
           <l n="b"><milestone n="b" unit="column"/>sauvarṇnā rājatā ghaṭāḥ</l>
           <l n="c"><milestone n="c" unit="column"/>vicitrarūpā vahavo</l>
-          <!-- note du rtf: [pāda c : bha-vipulā : ⏑ - ⏑ - - ⏑ ⏑ - ] -->
           <l n="d"><milestone n="d" unit="column"/>hr̥dyā viracitās tathā</l>
         </lg>
         <lg met="anuṣṭubh" n="31">
@@ -338,7 +310,6 @@
           <l n="d"><milestone n="d" unit="column"/>-kedārā rāmamaṇḍalāḥ</l>
         </lg>
         <lg met="anuṣṭubh" n="38">
-          <!-- note du rtf: Cœdès understands gaṇikāḥ to refer to "cornacs".  Is this a possible interpretation?  -->
           <l n="a"><lb n="A41"/><milestone n="a" unit="column"/>gavāṁ vahusahasrāṇi</l>
           <l n="b"><milestone n="b" unit="column"/>mahiṣāś chāgalā api</l>
           <l n="c"><milestone n="c" unit="column"/>dviradendrās sagaṇikā</l>
@@ -514,9 +485,8 @@
         <p n="B30-B31">Total des gens de la chapelle du sud, fournis par 3 pays : 4 <foreign>aṁraḥ</foreign>, 30 <foreign>aṁraḥ gho</foreign>, 16 gardiens de bestiaux, 2 piqueurs, 46 femmes, 10 <foreign>lap</foreign>, 5 garçons en âge de marcher, 8 filles en âge de marcher, 7 garçons au sein, 3 filles au sein, 1 <foreign>si a</foreign>, 2 <foreign>tai a</foreign>, ensemble 130.</p>
         <p n="B31">1 jardin assigné aux 2 chapelles.</p>
       </div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="commentary"></div>
       <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
         <p>First edited in French by George Cœdès (<bibl rend="omitname">
             <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">1</citedRange>
@@ -531,7 +501,6 @@
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

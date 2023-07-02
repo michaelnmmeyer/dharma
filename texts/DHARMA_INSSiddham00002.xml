@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -35,9 +29,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00002</idno>
-        <!--
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -92,9 +83,6 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
       <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
         <lg met="vasantatilakā" n="1">
           <certainty locus="value" match="../@met"/>
-          <!--
-The beginning of the text is entirely broken away. The inscription has exactly 1 pāda per line (up to line 24, except ls 9-10 where 9 contains the first 2 syllables of the next pāda), and the verses are numbered, so there should be 6 lost lines before the first partially preserved line. But it may be better to number just the extant lines; there may have been some prose before the first stanza.
--->
           <l n="a">
             <lb n="1"/>
             <gap extent="unknown" reason="lost" unit="character"/>
@@ -130,84 +118,56 @@ The beginning of the text is entirely broken away. The inscription has exactly 1
             </seg> suvarṇṇa-dāne</l>
           <l n="d"><lb n="8"/><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
-            </seg> ritā nr̥patayaḥ pr̥thu-rāghavādyāḥ <num value="2">2</num><!--
-Bhandarkar reconstructs the beginning as saṁvāritā. Agrawal_1986:10-11 suggests vismāritā. Agrawal_1986:15 also mentions that saṁvāritā is Sircar's reconstruction, while Sadhu Ram had suggested nyakkāritā. Agrawala considers the former irrelevant and the latter too blunt. I tend to agree.
---></l>
+            </seg> ritā nr̥patayaḥ pr̥thu-rāghavādyāḥ <num value="2">2</num></l>
         </lg>
         <lg met="vasantatilakā" n="3">
           <l enjamb="yes" n="a"><lb n="9"/><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
-            </seg> babhūva dhanadāntaka-tuṣṭi-kopa<!--
-Bhandarkar reconstructs the beginning as rājā.
---><!--
-Fleet:_1888:19 observes that the perfect tense probably indicates that one or more of SG's ancestors were described here; he also notes that the names of none of his successors can be fitted into the lacunae in l11-24, so the inscription is of SG's time. Agrawal_1986_10-12 argues that the inscription is posthumous, since babhūva must clearly go with SG and successors may well have been mentioned in verses completely lost after the end of the extant portion. While this is possible, I donn't think a successor's inscription would have dwelt so long on SG, and I don't believe the perfect must necessarily imply, especially in metrical verse, a distant past.
---></l>
+            </seg> babhūva dhanadāntaka-tuṣṭi-kopa</l>
           <l n="b">-tulyaḥ<lb n="10"/><seg met="-+-">
               <gap quantity="3" reason="lost" unit="character"/>
-            </seg> ma-nayena samudraguptaḥ<!--
-Bhandarkar reconstructs sad-āgama at the beginning of line 10; Sircar offers parākrama, while Agrawala suggests sa vikkrama.
---></l>
+            </seg> ma-nayena samudraguptaḥ</l>
           <l n="c"><lb n="11"/><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
-            </seg> pya pārtthiva-gaṇas sakalaḥ pr̥thivyāM<!--
-Sircar reconstructs the first 3 syllables as yaṁ prāpya, Bhandarkar as ājñāpya
---></l>
+            </seg> pya pārtthiva-gaṇas sakalaḥ pr̥thivyāM</l>
           <l n="d"><lb n="12"/><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
-            </seg> <unclear>sva</unclear>-rājya-vibhava-<unclear>ddh</unclear>rutam āsthito bhūt <num value="3">3</num><!--
-Sircar reconstructs the first 3 syllables as paryasta, Bhandarkar as yena sva-
---></l>
+            </seg> <unclear>sva</unclear>-rājya-vibhava-<unclear>ddh</unclear>rutam āsthito bhūt <num value="3">3</num></l>
         </lg>
         <lg met="vasantatilakā" n="4">
           <l n="a"><lb n="13"/><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
-            </seg> <unclear>va bha</unclear>kti-naya-vikkrama-toṣitena<!--
-Sircar reconstructs the first 3 syllables as tātena, Bhandarkar as pitraiva
---></l>
+            </seg> <unclear>va bha</unclear>kti-naya-vikkrama-toṣitena</l>
           <l n="b"><lb n="14"/><seg met="+">
               <gap quantity="1" reason="lost" unit="character"/>
             </seg> rāja-śabda-vibhavair abhiṣecanādyaiḥ</l>
           <l n="c"><lb n="15"/><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
-            </seg> nitāḥ parama-tuṣti-puraskr̥tena<!--
-nitāḥ sic, Bhandarkar emends to nitaḥ, restores saṁmānitaḥ (probably Sircar too, not checked)
---></l>
+            </seg> nitāḥ parama-tuṣti-puraskr̥tena</l>
           <l n="d"><lb n="16"/><seg met="++-">
               <gap quantity="3" reason="lost" unit="character"/>
-            </seg> vo nr̥patir aprativāryya-vīryyaḥ <num value="4">4</num><!--
-Sircar reconstructs the first 4 syllables as so yaṁ dhruvo, Bhandarkar as bhūvāsavo
---></l>
+            </seg> vo nr̥patir aprativāryya-vīryyaḥ <num value="4">4</num></l>
         </lg>
         <lg met="vasantatilakā" n="5">
           <l n="a"><lb n="17"/><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
-            </seg> sya pauruṣa-parākkrama-datta-śulkā<!--
-Sircar reconstructs the first 3 syllables as dattāsya, Bhandarkar śrīr asya and argues against reading the verse as about his wife. Agrawal_1986:16 says this interpretation with śrī had come from Mirashi, and Sadhu Ram had argued against it saying the verse must be about a human being. Agrawala cites personifications of śrī from poetry to underline the point that it is about śrī. Everybody seems to ignore that there appears to be a character kaṁ or kraṁ at the end of l16 which, if not noise, belongs to the beginning of this quarter (in which case l9 is not the only one where the pāda end does not coincide with a line end).
---></l>
+            </seg> sya pauruṣa-parākkrama-datta-śulkā</l>
           <l n="b"><lb n="18"/><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
-            </seg> śva-ratna-dhana-dhānya-samr̥ddhi-yuktā<!--
-Bhandarkar (following Sircar) reconstructs the first 3 syllables as hasty-aśva
---></l>
+            </seg> śva-ratna-dhana-dhānya-samr̥ddhi-yuktā</l>
           <l enjamb="yes" n="c"><lb n="19"/><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
-            </seg> ṅgr̥heṣu muditā bahu-putra-pautra<!--
-Bhandarkar (following Sircar) reconstructs the beginning as nityaṅ gr̥heṣu
---></l>
+            </seg> ṅgr̥heṣu muditā bahu-putra-pautra</l>
           <l n="d"><lb break="no" n="20"/>-<supplied reason="lost">sa</supplied>ṅkrāmiṇī kulavadhū<sic>ḥ</sic> vratinī niviṣṭā <num value="5">5</num></l>
         </lg>
         <lg met="vasantatilakā" n="6">
           <l n="a"><lb n="21"/><supplied cert="low" reason="lost">yasyo</supplied>rjjitaṁ samara-karmma parākrameddhaṁ</l>
           <l n="b"><lb n="22"/><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
-            </seg> yaśaḥ suvipulam paribambhramīti<!--
-Sircar reconstructs the first 2 syllables as pr̥thvyāṁ, Bhandarkar as śuklaṁ/śukraṁ
---></l>
+            </seg> yaśaḥ suvipulam paribambhramīti</l>
           <l n="c"><lb n="23"/><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
-            </seg> ṇi yasya ripavaś ca raṇorjjitāni<!--
-Sircar reconstructs the first 2 syllables as kāryāṇi, Bhandarkar as karmāṇi (if we do give conjectures in XML, I'd rather double the consonant after y) and anyway, why not vīryāṇi or something else while we are at it?
---></l>
+            </seg> ṇi yasya ripavaś ca raṇorjjitāni</l>
           <l n="d"><lb n="24"/><supplied reason="lost">sva</supplied>pnāntareṣv api vicintya paritrasanti <num value="6">6</num></l>
         </lg>
         <lg met="vasantatilakā" n="7">
@@ -219,22 +179,14 @@ Sircar reconstructs the first 2 syllables as kāryāṇi, Bhandarkar as karmā�
           </l>
           <l n="b"><seg met="+">
               <gap quantity="1" reason="lost" unit="character"/>
-            </seg> <unclear>pta</unclear>ḥ sva-bhoga-nagarairikiṇa-pradeśe<!--
-Bhandarkar reconstructs the beginning of the second pāda as prāptaḥ. Lielukhine has stambhaḥ, with sta marked as conjecture and mbha as an uncertain reading. This is probably not from Sircar, since Bhandarkar does not note this as Sircar's reading
---><!--
-Bhandarkar p224n1: Fleet observes that because of the lacunae, "sva" in l25 might refer to some feudatory rather then Samudra. Bhandarkar disagrees because "the lacunae can very well be filled up" as he wants to - but I think can is far from equal to must and Fleet's caution is due
---></l>
+            </seg> <unclear>pta</unclear>ḥ sva-bhoga-nagarairikiṇa-pradeśe</l>
           <l n="c">
             <lb n="26"/>
             <seg met="++-+---+--+-+=">
               <gap quantity="14" reason="lost" unit="character"/>
             </seg>
           </l>
-          <l n="d"><supplied reason="lost">saṁ</supplied><unclear>sth</unclear>āpitas sva-yaśasaḥ paribr̥<sic>ṅ</sic>hanārttham <num value="7">7</num><!--
-saṁsth is marked as unclear, not conjectural in Bhandarkar, but in fact there is no trace of saṁ and sthā is none too clear either
---><!--
-Bhandarkar does not print the 7 at the end of this line, but it's very clearly there. Fleet 1888 does print it and Bhandarkar does mention it in text p221.
---></l>
+          <l n="d"><supplied reason="lost">saṁ</supplied><unclear>sth</unclear>āpitas sva-yaśasaḥ paribr̥<sic>ṅ</sic>hanārttham <num value="7">7</num></l>
         </lg>
         <lg met="vasantatilakā" n="8">
           <l n="a">
@@ -263,9 +215,6 @@ Bhandarkar does not print the 7 at the end of this line, but it's very clearly t
         <p>
           <gap extent="unknown" reason="lost" unit="character"/>
         </p>
-        <!--
-I've added one lost half-verse to complete the stanza and supplied its number, which would have been there in the original. Any number of further verses may have been lost.
--->
       </div>
       <div type="apparatus">
         <listApp>
@@ -275,7 +224,7 @@ I've added one lost half-verse to complete the stanza and supplied its number, w
           </app>
         </listApp>
       </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
+      <div source="bib:AuthorYear_01" type="translation"></div>
       <div type="commentary"></div>
       <div type="bibliography">
         <p/>

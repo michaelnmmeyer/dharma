@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,27 +35,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -72,7 +56,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -90,7 +73,7 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="san-Latn">
-        <ab><milestone n="A" type="pagelike" unit="face"/><lb n="A01"/><g type="ddandaPlain"/><g type="spiralR"/><g type="ddandaPlain"/> svasti<g type="ddandaPlain"/><g type="eye"/><!-- ou circleConcentric ?--><g type="ddandaPlain"/></ab>
+        <ab><milestone n="A" type="pagelike" unit="face"/><lb n="A01"/><g type="ddandaPlain"/><g type="spiralR"/><g type="ddandaPlain"/> svasti<g type="ddandaPlain"/><g type="eye"/><g type="ddandaPlain"/></ab>
         <lg met="anuṣṭubh" n="1">
           <l n="a"><lb n="A1"/>nāmnā śrī yuvarājo yas</l>
           <l n="b">senāprabhu<lb n="A2"/>r atiṣṭhipat·</l>
@@ -101,7 +84,6 @@
             </choice>dryātmaśakādhipe</l>
         </lg>
         <lg met="12/15/12/15" n="2">
-          <!--copier/coller de ce qui est sur le rtf-->
           <l n="a"><lb n="A3"/><g type="ddandaPlain"/><g type="spiralR"/><g type="ddandaPlain"/> sakalajanamanobhirāma<choice>
               <unclear>bha</unclear>
               <unclear>ca</unclear>
@@ -115,9 +97,9 @@
            <lb n="B4"/>ra vā vala marai karim̃ bharuv· ra ktap· vala dadam̃n· pagā ra vrim̃ pu lyam̃ śrī yuvarāja mahāsenāpatī yam̃ṅ· kumaun· yām̃ po ku śrī pa<lb break="no" n="B5"/>rameśvaravarmmadeva dunan· senāpatī pramukha nau Andap· ra nvak· nagara nim̃ mam̃n· ya dom̃ vala panrām̃ dinan· kā mr̥suḥ ra kyāp· jauḥ pa<lb break="no" n="B6"/>raspara sa pak· sā nau dam̃p· di ya doṁ mahāvivara guhā ṅan· śikhara parvva<choice>
             <sic>k</sic>
             <corr>t</corr>
-          </choice>a yam̃ṅ· Ativyūha mam̃ṅ· ra vrim̃ vala tūy· nau di dadam̃ṅ· dadam̃ṅ· diśa mam̃ṅ· vala<!--vérifier terminaison--> nan·
+          </choice>a yam̃ṅ· Ativyūha mam̃ṅ· ra vrim̃ vala tūy· nau di dadam̃ṅ· dadam̃ṅ· diśa mam̃ṅ· vala nan·
            <lb n="B7"/>kā mak· Urām̃ nagara panrām̃ nim̃ niśśeṣa ṅan· lamvauv· kruvāv hulun· limān· Avista suhetu yām̃ po ku śrī parameśvaravarmmadeva dharmmarāja<milestone n="C" type="pagelike" unit="face"/>
-           <lb n="C1"/>mam̃n· ra kaḥ Arddhabhāga Urām̃ di nan· Amnā vrim̃ daut· <!--note rtf : daut·: corriger dauk·?--> pajem̃ nagara
+           <lb n="C1"/>mam̃n· ra kaḥ Arddhabhāga Urām̃ di nan· Amnā vrim̃ daut·  pajem̃ nagara
            <lb n="C2"/>na <gap quantity="8" reason="lost" unit="character"/> <unclear>r</unclear>a vā nau vuḥ di radam̃n· devālaya vihāra kuṭī śāla Araṇyāśrayakaraṇa
            <lb n="C3"/>jane ra dharmma padā la navvan· pu lyam̃ śrī yuvarāja mahāsenāpatī ra ndok· vatuv· di dadam̃n· vala padhā du<lb break="no" n="C4"/>nan· ra pratiṣṭhā liṅga ga ni<unclear>ṁ</unclear> ṅan· di Ajvañ· sauy· ha muhūrtti karaṇa jayastambha tra hetu dunan· śivabha<lb break="no" n="C5"/>kti rim̃ mam̃n· hake Urām̃ nagara ni<unclear>ṁ</unclear> velayaḥ madā mvoḥ cihna rūpa liṅga nim̃ madā vloṁ mam̃n· kdā pi Anumāna su
            <lb n="C6"/>dam̃r· janma jmai Adhama di ya doṁ pu pom̃ tana rayā di nagara campa ya mam̃jem̃ Andap· niy· nau
@@ -224,7 +206,7 @@
         <p n="A5-C6">Or, les hommes de cette cité de Panrāṅ étaient vicieux, malfaisants, stupides, toujours en révolte contre tous les souverains qui régnèrent dans l'Etat de Champa. On arrivera ainsi au roi Parameśvaravarmadeva Dharmarāja. Les rebelles proclamèrent roi un homme du pays. Comme le roi Parameśvaravarman était actif et avait des sujets nombreux, il conduisit à diverses reprises de nouvelles troupes... et il ordonna au <foreign>yuvarāja mahāsenāpati</foreign>, son neveu <supplied reason="explanation">?</supplied>, <supplied reason="subaudible">avec</supplied> tous les généraux, d'aller soumettre <supplied reason="explanation">?</supplied> cette cité. Toutes les troupes de Panrāṅ combattirent. Il les chassa; il les écrasa les unes et les autres, une à une <supplied reason="explanation">?</supplied> ; elles allèrent se cacher dans les trous, les cavernes, les rochers. Et S. A., qui avait une nombreuse armée, les fit poursuivre par ses troupes dans toutes les directions. Et ces troupes prirent tous les gens de Panrāṅ avec les bœufs, les buffles, les esclaves, les éléphants, au profit du roi Parameśvaravarmadeva Dharmarāja. Il... la moitié de ces gens.... il leur donna l'ordre de demeurer pour relever la ville ; il donna <supplied reason="subaudible">l'autre moitié</supplied> aux temples, aux monastères, aux habitations de religieux, aux sâlâs, aux ermitages, pour se créer du mérite <supplied reason="explanation">?</supplied>...
            Alors le <foreign>yuvarāja</foreign> demanda des pierres aux diverses troupes et il érigea ce <foreign>liṅga</foreign>... et aussitôt <supplied reason="subaudible">après</supplied> il éleva une colonne de victoire. Et à cause de sa piété envers Śiva, lorsque les gens de ce pays virent les marques et la beauté de ce <foreign>liṅga</foreign>... la résolution naquit en eux de renoncer à leurs révoltes contre les rois du Champa qui étaient toujours victorieux <supplied reason="explanation">?</supplied>.</p>
       </div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="commentary"></div>
       <div type="bibliography">
         <p>First edited with translation into French by L. Finot (<bibl rend="omitname">
             <ptr target="bib:Finot1903_04"/>

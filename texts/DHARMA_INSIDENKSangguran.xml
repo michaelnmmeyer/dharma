@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,26 +35,20 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
               <p>
-                <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. -->
                 <list rend="bulleted">
                   <item>ornamental flourishes on <foreign>cakra</foreign>s in lines <foreign>sarvvatra</foreign> and <foreign>lokaḥ</foreign> (A2), <foreign>nakṣatra</foreign> (A3), <foreign>pratidina</foreign> (A9), <foreign>rakryān</foreign> (A10), <foreign>miśra-paramiśra</foreign> (A11), <foreign>kriṁ</foreign> (A12 — the ornament takes up an unusual amount of space in the line here), <foreign>bhrāṣṭa</foreign> (B36), <foreign>prakāra</foreign> (B42)</item>
-                  <item>ornamental <foreign>tarung</foreign> on <foreign>bhaṭāra</foreign> (A10), <foreign>kevalā</foreign> (A17),<!--  --> <foreign>tibākan·</foreign> (B37), <foreign>saṅa-saṅān·</foreign> (B41)</item>
+                  <item>ornamental <foreign>tarung</foreign> on <foreign>bhaṭāra</foreign> (A10), <foreign>kevalā</foreign> (A17), <foreign>tibākan·</foreign> (B37), <foreign>saṅa-saṅān·</foreign> (B41)</item>
                 </list>
               </p>
             </handDesc>
@@ -73,7 +61,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -96,7 +83,6 @@
           <ab>
             <milestone n="A" type="pagelike" unit="face"/>
             <label>Front</label>
-            <!-- §5.4. -->
             <lb n="A1"/>
             <unclear><g type="ddandaCross"/> <g type="circleLarge"/> <g type="ddandaCross"/> Avighnam astu <g type="ddandaCross"/></unclear>
           </ab>
@@ -114,13 +100,13 @@
           <p>Irikā divasani Ājñă śrī mahārāja, rakai paṅkaja dyaḥ vava śrī vijayalokanāmo<choice>
               <sic>s</sic>
               <corr>t</corr>
-            </choice>tuṅga, tinaḍaḥ rakryān·<!-- B S read "," here but it's probably just a sratch --> mapatiḥ I hino <unclear>pu si</unclear><lb break="no" n="A5"/><unclear>ṇḍo</unclear>k· śrī Īśānavikrama, Umiṅsor· I <abbr>samgat·</abbr> momah-umaḥ kāliḥ maḍaṇḍər· pu padma‚ Aṅgəhan· pu kuṇḍala, kumonakan· Ikanaṁ va<lb break="no" n="A6"/><unclear>nu</unclear>A I saṁ<space type="defect"/>guran· vatak· vaharu‚ gavai <abbr>mā</abbr> <num value="2">2</num> p<choice>
+            </choice>tuṅga, tinaḍaḥ rakryān· mapatiḥ I hino <unclear>pu si</unclear><lb break="no" n="A5"/><unclear>ṇḍo</unclear>k· śrī Īśānavikrama, Umiṅsor· I <abbr>samgat·</abbr> momah-umaḥ kāliḥ maḍaṇḍər· pu padma‚ Aṅgəhan· pu kuṇḍala, kumonakan· Ikanaṁ va<lb break="no" n="A6"/><unclear>nu</unclear>A I saṁ<space type="defect"/>guran· vatak· vaharu‚ gavai <abbr>mā</abbr> <num value="2">2</num> p<choice>
               <sic>u</sic>
               <corr>a</corr>
             </choice>ṅguhan· tapak· mas· <abbr>su</abbr> <num value="6">6</num> sīmān· susukan· denīkanaṁ punta I manañjuṁ maṅaran· ḍaṅ ācāryya <unclear>ḍa</unclear><lb break="no" n="A7"/><gap quantity="1" reason="illegible" unit="character"/>li<unclear>ci</unclear>khya‚ muAṁ si dahil· <space quantity="3" type="unclassified" unit="character"/> <unclear>s</unclear>y aṅgudī, səpət·, ḍa pu jambaṁ, kəsək·, ḍa pu bhairava, basya‚ lukiṁ‚ bhaṇḍa‚ tamblaṁ, haḍaṁ‚ cigər·‚ ḍa pu ruyut·
 <lb n="A8"/>vilaṁ, kañju, durdig·, suji sugas·, Arpaṇākna I bhaṭāra I saṁ hyaṁ prasāda kabha<space quantity="2" type="unclassified" unit="character"/>ktyan· Iṁ sīma kajuru-gusalyan· I manañjuṁ, paknānya sīma punpuna<lb break="no" n="A9"/>na bhaṭāra, Umahayva Asiṁ samananā I saṁ hyaṁ dharmma <space type="defect"/> saṅkānaniṁ śiva-caru-nivedya I bhaṭāra prātidina,</p>
           <p>maṅkana Iṣṭa-<space type="descender"/>prayojana śrī mahā<lb break="no" n="A10"/>rāja muAṁ rakryān· mapatiḥ rikanaṁ vanuA I saṅguran· Inarpaṇnākan· I bhaṭāra I saṁ hyaṁ prāsāda kabhaktyan· Iṁ sīma kajuru-gusalyan· I manañjuṁ
-<lb n="A11"/>māri <supplied reason="omitted">vatak·</supplied> vaharu<supplied reason="omitted">,</supplied> parṇnahanya svatantra tan· katamāna deniṁ patiḥ va<space type="defect"/>huta muAṁ saprakāraniṁ maṅilala drabya haji Iṁ daṅū‚ miśra para-miśra vulu-vulu
+<lb n="A11"/>māri <supplied reason="omitted">vatak·</supplied> vaharu<supplied reason="omitted">,</supplied> parṇnahanya svatantra tan· katamāna deniṁ patiḥ va<space type="defect"/>huta muAṁ saprakāraniṁ maṅilala drabya haji Iṁ daṅū‚ miśra para-miśra vulu-vulu 
 <lb n="A12"/>prakāra, paṅuraṁ<unclear>,</unclear> kriṁ, paḍam·, manimpiki, paranakan·, limus galuḥ‚ paṅa<unclear>ru</unclear>han·, taji‚ vatu tajam·‚ sukun·‚ halu varak·‚ rakadut·<supplied reason="omitted">,</supplied>
 <lb n="A13"/>pinilai, kataṅgaran·, tapa haji, Air haji, malandaṁ, L̥ca, L̥blab·‚ kalaṁkaṁ, kutak·‚ taṅkil·, tr̥pan·, salvit·‚ tuha dagaṁ, juru gusali‚
 <lb n="A14"/>tuhān <supplied reason="omitted">n</supplied>ambi, tuhān huñjaman·, tuhān juḍi‚ juru jalir·, pamaṇikan·, miśra hino‚ vli hapū, vli vaduṁ‚ vli tambaṁ‚ vli pañjut·‚ vli haR̥ṁ‚ pabisar·‚ palamak·<supplied reason="omitted">,</supplied>
@@ -130,7 +116,7 @@
 <lb n="A21"/>mañaṁvriṁ, maṁlākha, maṅubar·‚ matarub·‚ maṅapus·‚ manūla vu<space type="defect"/>ṅkuḍu‚ maṁgula‚ maṁdyun·‚ maṁhapū‚ mamubut·‚ maṁluruṁ‚ maga<space type="descender"/>vai
 <lb n="A22"/>ruṅki, payuṁ vlū, mopiḥ‚ Akajaṁ, magavai <space type="defect"/> kī<space type="defect"/>sī<supplied reason="omitted">,</supplied> maṅanam-a<space type="descender"/>nam·, manavaṁ, manahəb·, mamisaṇḍuṁ manuk·‚ makala-kalā
 <lb n="A23"/>kapva ya tribhāgā<space type="descender"/>n· dra<unclear>b</unclear>ya-hajinya, sadūmān· Umarā <space type="defect"/> I bha<space type="defect"/>ṭāra, sadūman· Umarā I saṁ makmitan· sīma, sadūman maparaha I saṁ maṅilala drabya haji,</p>
-          <p><lb n="A24"/>kapva Ikanaṁ masambyavahāra hana ṅkāna hiniṁ-hīṅan· kv<unclear>ai</unclear>hanya<supplied reason="omitted">,</supplied> Anuṁ tan· knā de saṁ maṅilala drabya ha<space type="descender"/>ji‚ tluṁ tuhān· Iṁ sasambyavahāra Iṁ sasī<lb break="no" n="A25"/>ma, yan paṅulaṁ kbo <num value="20">20</num> sapi <num value="40">40</num> vḍus· <num value="80">80</num> Aṇḍaḥ savantayan·‚ maguluṅan· tluṁ pasaṁ, maṅaraḥ tluṁ lumpaṁ‚ paṇḍai sobuba<space type="descender"/>n·‚ paḍahi tluṁ taṁ<lb break="no" n="A26"/>kilan·‚ <unclear>ma</unclear>titiḥ sakulit·, Uṇḍahagi satuhān·, macadar pataṁ pacadaran·, pa<space type="defect"/>rahu <num value="1">1</num> masuṁhara <num value="3">3</num> tan patuṇḍāna,
+          <p><lb n="A24"/>kapva Ikanaṁ masambyavahāra hana ṅkāna hiniṁ-hīṅan· kv<unclear>ai</unclear>hanya<supplied reason="omitted">,</supplied> Anuṁ tan· knā de saṁ maṅilala drabya ha<space type="descender"/>ji‚ tluṁ tuhān· Iṁ sasambyavahāra Iṁ sasī<lb break="no" n="A25"/>ma, yan paṅulaṁ kbo <num value="20">20</num> sapi <num value="40">40</num> vḍus· <num value="80">80</num> Aṇḍaḥ savantayan·‚ maguluṅan· tluṁ pasaṁ, maṅaraḥ tluṁ lumpaṁ‚ paṇḍai sobuba<space type="descender"/>n·‚ paḍahi tluṁ taṁ<lb break="no" n="A26"/>kilan·‚ <unclear>ma</unclear>titiḥ sakulit·, Uṇḍahagi satuhān·, macadar pataṁ pacadaran·, pa<space type="defect"/>rahu <num value="1">1</num> masuṁhara <num value="3">3</num> tan patuṇḍāna, 
 yāpvan pinikul· dagaṁnya ka<lb break="no" n="A27"/>dy a<unclear>ṅgā</unclear>niṁ mabasana, ma<unclear>sayaṁ</unclear>, makacapuri, maṅuñjal·, maṅavari, kapas·‚ vuṅku<unclear>ḍ</unclear>u, vsi, tambaga‚ gaṁsa‚ timaḥ, paḍat·, pamaja, vuyaḥ‚ lṅa‚ bras·, gu<unclear>la</unclear><supplied reason="omitted">,</supplied>
 <lb n="A28"/>bsar·‚ kasumba, saprakāraniṁ dval· pinikul· kalima vantal· Iṁ satuhān· pikul-pikulananya Iṁ sasīma <space type="defect"/> <unclear>I</unclear>kanaṁ samaṅkana tan· knāna de saṁ maṅila<lb break="no" n="A29"/>la drabya haji, saparānanya sadeśanya, ndān· makmitana ya tulis· maṅkai lvīranya‚ yāpvan· lbiḥ saṅkā rikanaṁ sapaṁhīṁ Iriya‚ knāna <choice>
               <orig>ś</orig>
@@ -148,27 +134,19 @@ yāpvan pinikul· dagaṁnya ka<lb break="no" n="A27"/>dy a<unclear>ṅgā</uncl
 <lb n="A37"/>valaiṁ saṁ <choice>
               <unclear>bhū</unclear>
               <unclear>ra</unclear>
-            </choice>te, <gap quantity="2" reason="illegible" unit="character"/> saṁ vari<space type="descender"/>ṅin·,
-<!-- in Sindok file
-- several occurrences of vatu valaiṁ saṁ ra mājha
-- one occurrence of vatu valaIṁ saṁ variṅin·
- -->
+            </choice>te, <gap quantity="2" reason="illegible" unit="character"/> saṁ vari<space type="descender"/>ṅin·, 
+
 paṅura<unclear>ṁ</unclear> I vadihati saṁ ra vuṅu, manuṅgu saṁ hovaṅka, paṅuraṁ I makudur· saṁ ra kvəl·‚ manuṅgu saṁ <unclear>ku</unclear><milestone break="no" n="B" type="pagelike" unit="face"/><label>Back</label><lb break="no" n="B3"/>lumpaṁ‚ vinaiḥ pasak-pasak· pirak· <abbr>mā</abbr> <num value="1">1</num>, vḍihan· <abbr>yu</abbr> <num value="1">1</num> sovaṁ-sovaṁ, saṁ tuhān· I pakaraṇān· makabaihan· juru <unclear>ka</unclear><supplied reason="lost">na</supplied><unclear>ya</unclear>kā<space type="defect"/>n·
 <lb n="B4"/>I hino <abbr>samgat·</abbr> guṇuṅan· pu tun·tun·‚ juru vadvā rarai, saṁ ra guyu‚ juru kalula pu vali, kaṇḍamuhi saṁ geṣṭa, parujar· I siri<lb break="no" n="B5"/>kan· hujuṁ galuḥ, I vka viri<space type="descender"/>diḥ, I kanuruhan· saṁ rokat, I sbaṁ saṁ vimala‚ I bavaṁ saṁ jalaṁ, I maḍaṇḍər· saṁ cakra, ryy āṅgəhan· saṁ tu<lb break="no" n="B6"/>han·, I tiruAn· sumuḍan· ḍa punta saṅgama, I hujuṁ saṁ pavuduka<space type="descender"/>n· vinaiḥ pasak-pasak· pira<space type="descender"/>k· <abbr>dhā</abbr> <num value="2">2</num> <abbr>mā</abbr> <num value="8">8</num> kinabaihanira, saṁ citrale<supplied reason="omitted">kha</supplied>
 <lb n="B7"/>I hino pasak-pasak· <abbr>dhā</abbr> <num value="2">2</num> <abbr>mā</abbr> <num value="8">8</num> kinabai<unclear>han</unclear>i<unclear>ra</unclear>, patiḥ juru kāliḥ vasaḥ saṁ kulumpaṁ, kuci saṁ ra kavil·<unclear>,</unclear> pasak-pasak· <abbr>dhā</abbr> <num value="1">1</num> <abbr>mā</abbr> <num value="4">4</num> sovaṁ-so<lb break="no" n="B8"/>vaṁ, parujarnya piṁsor hyaṁ paskaran·, pasak-pasak· pirak· <abbr>
               <unclear>mā</unclear>
             </abbr> <num value="5">
               <unclear>5</unclear>
-            </num> sovaṁ-sovaṁ, lumaku manusuk· I vadihati saṁ kamala, <unclear>l</unclear>umaku manusuk· I makudur· saṁ taja<lb break="no" n="B9"/><unclear>m·</unclear> <space type="defect"/> I su<unclear>su</unclear>han· saṁṅ astuti saṁ balā, I tapa haji saṁ pacintān· vinaiḥ pasak-pasak· <abbr>dhā</abbr> <num value="1">1</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> sovaṁ-sovaṁ, patiḥ I kanuruhan·
+            </num> sovaṁ-sovaṁ, lumaku manusuk· I vadihati saṁ kamala, <unclear>l</unclear>umaku manusuk· I makudur· saṁ taja<lb break="no" n="B9"/><unclear>m·</unclear> <space type="defect"/> I su<unclear>su</unclear>han· saṁṅ astuti saṁ balā, I tapa haji saṁ pacintān· vinaiḥ pasak-pasak· <abbr>dhā</abbr> <num value="1">1</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> sovaṁ-sovaṁ, patiḥ I kanuruhan· 
 <seg type="aksara"><seg subtype="body" type="component">
                 <gap quantity="1" reason="lost" unit="component"/>
               </seg>i</seg>
-<gap quantity="4" reason="illegible" unit="character"/><!--
-rejected restitution based on parallels: [saṁ maṅhambin·]
-	rejected because vowel -i is visible on first aksara
-other options: si maṅhambin·, piṅhai maṅhambin·, hiraṅya maṅhambin·
-	Gulung-Gulung (3) kanuruhan saṁ jāta saṁ maṅhambi(4)n saṁ hiraṇya,
- --> saṁ <unclear>jā</unclear>ta
+<gap quantity="4" reason="illegible" unit="character"/> saṁ <unclear>jā</unclear>ta
 <lb n="B10"/>patiḥ I hujuṁ saṁ kahyunan·, patiḥ <supplied reason="omitted">I</supplied> vaharu saṁ nīla‚ patiḥ I tugaran· saṁ <space type="defect"/> mala, patiḥ <unclear>p</unclear>amgat· I vaharu saṁ gambo‚ patiḥ paṅkur· saṁ maṅka, saṁ raṅga vinaiḥ pasak-pasak· <abbr>dhā</abbr> <num value="1">1</num> vḍi<lb break="no" n="B11"/>han· <abbr>yu</abbr> <num value="1">1</num> sovaṁ-sovaṁ, patiḥ lampuran· saṁ prasama, pasak-pasak· pirak· <abbr>mā</abbr> <num value="8">8</num> vḍihan· hlai <num value="1">1</num> parujar patiḥ si manohara pa<space type="descender"/>sak-pasak· <abbr>dhā</abbr> <num value="1">1</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num><supplied reason="omitted">,</supplied> parujar patiḥ I ka<lb break="no" n="B12"/>nuru<space type="defect"/>han· si ja<space type="defect"/>lu<space type="defect"/>k·, si rambət‚ parujar patiḥ I vaharu si bṅal·<supplied reason="omitted">,</supplied> si tañjak·, si cacu‚ pasak-pasak· pirak· <abbr>mā</abbr> <num value="8">8</num> vḍihan· hlai <num value="1">1</num> sovaṁ-sovaṁ, <unclear>va</unclear><supplied reason="lost">hu</supplied>ta I vaharu si ba<lb break="no" n="B13"/>lu<space type="defect"/>syak· <space type="defect"/> si kəndul·, tuha kalaṁ‚ vinaiḥ pasak-pasak· <abbr>dhā</abbr> <num value="1">1</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> sovaṁ-sovaṁ, piluṅgaḥ si rāji‚ si bantan·‚ <sic>piṇḍat·</sic> <unclear>vi</unclear><supplied reason="lost">naiḥ</supplied> vḍihan· hlai <num value="1">1</num>
 <lb n="B14"/>sovaṁ<space type="defect"/>-sovaṁ, rāma <space type="defect"/> tpi si<space type="descender"/>riṁ milu pinakasākṣīniṁ manusuk· sĭma<supplied reason="omitted">,</supplied> I tugaran· gusti si lakṣita, tuha kalaṁ si yogya‚ vinaiḥ pasak-pasa<space type="descender"/>k· pirak·
 <lb n="B15"/><abbr>mā</abbr> <num value="8">8</num> vḍihan· <abbr>
@@ -197,7 +175,7 @@ other options: si maṅhambin·, piṅhai maṅhambin·, hiraṅya maṅhambin·
             </choice>a maṅinum· siddhu‚ ciñca, kilaṁ
 <lb n="B44"/><unclear>tu</unclear>Ak· piṁtiga sovaṁ‚ vinuvuhan· tambul· Inañjapan· k<unclear>u</unclear>ravu kurima, Asam· dvadval·, kapva madulur malariḥ, Umaṁsə: taṁ jnu, skar·, rujak·<supplied reason="omitted">,</supplied> <unclear>Ana</unclear><space type="descender"/>bəḥ ta saṁ
 <lb n="B45"/><unclear>ma</unclear>tuvuṁ<supplied reason="lost">,</supplied> <unclear>maṁḍ</unclear>iri ta sira kabaiḥ patiḥ pramu<unclear>kha</unclear>, manambaḥ humarap· I sārah-araḥni<unclear>ṁ</unclear> kahanā<space type="descender"/>n· śrī mahărāja, muAṁ rakryān· mapa<space type="descender"/>tiḥ, I tlasniṁ manambaḥ maṅi<milestone break="no" n="c" type="pagelike" unit="face"/><label>Proper right</label><lb break="no" n="c1"/><supplied reason="lost">gal· rā</supplied><unclear>vaṇa</unclear>-hasta, sampun· saṅkap· Ika<supplied reason="lost">naṁ</supplied>
-<lb n="c2"/><unclear>I</unclear>nig<unclear>ə</unclear>laka<space type="descender"/>n· maluṅguḥ <unclear>sira</unclear> muvaḥ vinu<unclear>vu</unclear><lb break="no" n="c3"/><supplied reason="lost">ha</supplied>n· tambul· linarihan· piṇḍuA so<lb break="no" n="c4"/><unclear>vaṁ,</unclear> Umaṁs<unclear>ə</unclear>: taṁ baṁlus· linarihan· muva<supplied reason="lost">ḥ</supplied>
+<lb n="c2"/><unclear>I</unclear>nig<unclear>ə</unclear>laka<space type="descender"/>n· maluṅguḥ <unclear>sira</unclear> muvaḥ vinu<unclear>vu</unclear><lb break="no" n="c3"/><supplied reason="lost">ha</supplied>n· tambul· linarihan· piṇḍuA so<lb break="no" n="c4"/><unclear>vaṁ,</unclear> Umaṁs<unclear>ə</unclear>: taṁ baṁlus· linarihan· muva<supplied reason="lost">ḥ</supplied> 
 <lb n="c5"/>matlasan· <unclear>s</unclear>ira kabaiḥ kapuA muliḥ I<lb break="no" n="c6"/>y umaḥnira, I kahlammanya gumanti Ikanaṁ r<supplied reason="lost">ā</supplied><lb break="no" n="c7"/><unclear>ma</unclear> I saṅguran· <unclear>mu</unclear>Aṁ Ikanaṁ punta I manañjuṁ
 <lb n="c8"/>lāvan· saṁ Umyāpāra Ikanaṁ susuka<space type="descender"/>n·
 <lb n="c9"/><supplied reason="lost">s</supplied>ĭ<unclear>ma</unclear> vinaiḥ manaḍaha, Ikanaṁ mabaṅo<lb break="no" n="c10"/><supplied reason="lost">l·</supplied> si lulut· si spat· si hiraṁ kapva
@@ -220,7 +198,6 @@ other options: si maṅhambin·, piṅhai maṅhambin·, hiraṅya maṅhambin·
         </div>
       </div>
       <div type="apparatus">
-        <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
         <div n="1" subtype="zone" type="textpart">
           <head xml:lang="eng">Main text</head>
           <listApp>
@@ -230,34 +207,14 @@ other options: si maṅhambin·, piṅhai maṅhambin·, hiraṅya maṅhambin·
                   <ptr target="bib:Eade+Gislen2000_01"/>
                 </bibl> point out that <foreign>hastā</foreign> is a problematic reading, because the lunar mansion expected here is <foreign>śrāvaṇa</foreign>, and find it <q>hard to imagine that this text originally read “Hasta”.</q> But there is no doubt that <foreign>hastā</foreign> is engraved.</note>
             </app>
-            <!--              <app loc="A4">
-                     <lem>mapatiḥ I hino <unclear>pu si</unclear><lb n="A5" break="no"/><unclear>ṇḍo</unclear>k· śrī Īśānavikrama</lem>
-	      <rdg source="bib:Brandes1913_01 bib:Sarkar1971-1972_01">mapatiḥ I hino <gap reason="undefined" extent="unknown"/><lb n="A5" break="no"/><gap reason="undefined" extent="unknown"/> śrī Īśānavikrama</rdg>
-                  </app>-->
             <app loc="A5">
               <lem>Ikanaṁ va<lb break="no" n="A6"/><unclear>nu</unclear>A I saṁ<space type="defect"/>guran· vatak· vaharu</lem>
-              <!--<rdg source="bib:Brandes1913_01">Ikanaṁ <lb n="A6" break="no"/> <gap reason="undefined" extent="unknown"/> I saṁguran· <gap reason="undefined" extent="unknown"/> vaharu</rdg>
-<rdg source="bib:Sarkar1971-1972_01">Ikanaṁ vanuA <lb n="A6" break="no"/>I saṁguran· vatək· vaharu</rdg>-->
               <note>The correct reading of this passage was furnished by Krom <bibl rend="omitname">
                   <ptr target="bib:Krom1931_01"/>
                   <citedRange unit="page">241</citedRange>
                   <citedRange unit="note">4</citedRange>
-                </bibl><!-- though without indication of the line break, hence Sarkar's error on the place of <foreign>vanuA</foreign>-->.</note>
+                </bibl>.</note>
             </app>
-            <!--<app loc="A6">
-                     <lem>gavai <abbr>ma</abbr> <num value="2">2</num> p<choice><sic>u</sic><corr>a</corr></choice>ṅguhan·</lem>
-	      <rdg source="bib:Brandes1913_01">kabaih <gap reason="undefined" extent="unknown"/>han</rdg>
-	      <rdg source="bib:Sarkar1971-1972_01">gavai <gap reason="undefined" extent="unknown"/>han</rdg>
-<note>Krom's reading of this passage <bibl rend="omitname"><ptr target="bib:Krom1931_01"/><citedRange unit="page">241</citedRange><citedRange unit="note">4</citedRange></bibl> ends with the word <foreign>gavai</foreign>.</note>
-                  </app>-->
-            <!--<app loc="A6">
-                     <lem>mas· <abbr>su</abbr> <num value="6">6</num> sīmān·</lem>
-	      <rdg source="bib:Brandes1913_01 bib:Sarkar1971-1972_01">mas· <unclear>su</unclear> halīmān·</rdg>
-                  </app>-->
-            <!--<app loc="A6">
-                     <lem>ḍaṅ ācāryya <unclear>ḍa</unclear><lb n="A7" break="no"/><gap reason="illegible" unit="character" quantity="1"/>li<unclear>ci</unclear>khya</lem>
-	      <rdg source="bib:Brandes1913_01 bib:Sarkar1971-1972_01">ḍaṅ āryya <lb n="A7"/><gap reason="undefined" extent="unknown"/><unclear>kya</unclear></rdg>
-                  </app>-->
             <app loc="B13">
               <lem>
                 <sic>piṇḍat·</sic>
@@ -265,19 +222,13 @@ other options: si maṅhambin·, piṅhai maṅhambin·, hiraṅya maṅhambin·
               <rdg source="bib:Brandes1913_01 bib:Sarkar1971-1972_01">piṇḍa <unclear>ti</unclear></rdg>
               <note>The reading <foreign>piṇḍat·</foreign> is clear but a scribal error is suspected. Emend <foreign>si ṇḍat</foreign>? Or else <foreign>si piṇḍat·</foreign>? Or <foreign>piṇḍa 2</foreign>? Or <foreign>piṇḍa</foreign>?</note>
             </app>
-            <!--
-<app loc="4">
-                     <lem></lem>
-	      <rdg source="bib:Brandes1913_01 bib:Sarkar1971-1972_01"></rdg>
-                  </app>
--->
           </listApp>
         </div>
         <div n="2" subtype="zone" type="textpart">
           <head xml:lang="eng">Extra lines at bottom of A and top of B</head>
         </div>
       </div>
-      <div resp="part:argr" type="translation"><!--translation encoded as per EGD §9.2 --></div>
+      <div resp="part:argr" type="translation"></div>
       <div type="commentary">
         <p>The same opening stanza is also found in the <ref target="DHARMA_INSIDENKSugihManek.xml">Sugih Manek</ref> charter. See <bibl>
             <ptr target="bib:Kern1915_01"/>
@@ -285,12 +236,8 @@ other options: si maṅhambin·, piṅhai maṅhambin·, hiraṅya maṅhambin·
         <p>The lowest line of face A and the uppermost two lines of face B are less neatly engraved and much less easily readable than all other lines. Moreover, these three lines turn out to disrupt the originally planned layout. That the text as originally planned flows from the 37th physical line of face A to the 3rd physical line of face B is revealed by comparison with parallel passages in inscriptions of the Sindok corpus (Linggasuntan A33–37, Gulung-Gulung B6–10, Jeru-Jeru A25–27, Turyan A26–28, Masahar B6–8). It remains unclear whether the additional lines form a single insertion or two, and where the lines of text are to be inserted.</p>
       </div>
       <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <p>Reading of a few lines by Cohen Stuart, based on an eye-copy; reading of the whole text, but based on unsatisfactory visual documentation and hence with numerous gaps and uncertainties, by Brandes; the first 7 lines read with small improvements by Damais, based on consultation of photographs; Brandes' text reproduced, with minor modifications based mainly on Krom's publications (but ignoring Damais' improvements), by Sarkar, who consulted no visual documentation<!-- ; the mentioned sources were compiled in the publication by Hasan Djafar, who consulted no visual documentation-->. Since all publications of the whole inscription go back to Brandes' reading that had to rely on unsatisfactory visual documentation, the text is re-edited here (without recording variant readings in previous
-editions) <!--
-Edhie Wurjantoro’s work (2011) entitled “Prasasti Berbahasa Jawa Kuno Abad VIII–X Masehi: Bukan Koleksi Museum Nasional (Alih Aksara dan Terjemahan)” No. 53, pp.254–269. https://sharedocs.huma-num.fr/wl/?id=cnleBFkU7fHBy1GoLEo5C0tDahjI1LVK
-It states that the transcription is based on Hasan Djafar’s “Prasasti Sangguran (Minto Stone) Tahun 850 Śaka (= 2 Agustus 928), karangan untuk Dep Budpar 2010”.
--->
+        <p>Reading of a few lines by Cohen Stuart, based on an eye-copy; reading of the whole text, but based on unsatisfactory visual documentation and hence with numerous gaps and uncertainties, by Brandes; the first 7 lines read with small improvements by Damais, based on consultation of photographs; Brandes' text reproduced, with minor modifications based mainly on Krom's publications (but ignoring Damais' improvements), by Sarkar, who consulted no visual documentation. Since all publications of the whole inscription go back to Brandes' reading that had to rely on unsatisfactory visual documentation, the text is re-edited here (without recording variant readings in previous
+editions) 
  by Arlo Griffiths and Wayan Jarrah Sastrawan, after direct inspection of the stone at the Minto residence (Scotland, UK) 12–14 June 2022, complemented by a 3D photogrammetry model produced by Adeline Levivier.</p>
         <listBibl type="primary">
           <bibl n="CS">
@@ -401,13 +348,6 @@ It states that the transcription is based on Hasan Djafar’s “Prasasti Sanggu
           <bibl>
             <ptr target="bib:HasanDjafar2010_02"/>
           </bibl>
-          <!--
-NBG L, 1912 ¾ Bijl. IX CLXXXIII (no.852-856);
-TBG LXX:223f;
-BKI 73:30f, 109, 273-275I;
-B.R. Chatterji 1967 History of Indonesia-Early and Medieval :156f;
-Hasan Djafar, Prasasti Sangguran (Minto Stone) Tahun 850 Śaka (= 2 Agustus 928), karangan untuk Dep Budpar 2010. Alih aksara menurut Hasan Djafar.
- -->
         </listBibl>
       </div>
     </body>

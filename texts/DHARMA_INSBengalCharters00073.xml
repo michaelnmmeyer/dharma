@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -11,20 +5,15 @@
         <title>Jagajjibanpur Plate of Mahendrapāla, year 7</title>
         <respStmt>
           <resp>EpiDoc Encoding</resp>
-          <!-- Work done in the file, e.g. editor ...-->
           <persName ref="part:ryfu">
             <forename>Ryosuke</forename>
-            <!-- Fill in your  names — it is possible to use only <name> instead of <foreame> and <surname> -->
             <surname>Furui</surname>
           </persName>
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <!-- This may be the same as the creator of the file -->
           <persName ref="part:ryfu">
-            <!-- Update the id -->
             <forename>Ryosuke</forename>
-            <!-- Fill in the name of the responsible scholar — it possible to use only <name> instead of <foreame> and <surname> -->
             <surname>Furui</surname>
           </persName>
         </respStmt>
@@ -42,33 +31,22 @@
                             California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Ryosuke
                             Furui.</p>
-            <!-- replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -79,7 +57,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -98,13 +75,11 @@
       <change when="2021-09-30" who="part:ryfu">break="no" added to lb.</change>
       <change when="2021-09-21" who="part:ryfu">Translation and Bibliography completed.</change>
       <change when="2021-09-20" who="part:ryfu">Initial encoding</change>
-      <!-- replace this by a line that has you as @who, that has the @date on which you finished the first basic encoding of the file, and that has the following description of what was finished on that date: "Initial encoding of the file." Then add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="san-Latn">
-        <!-- update the @xml:lang value, see EGD §7.2-->
         <div n="A" type="textpart">
           <head xml:lang="eng">Seal</head>
           <ab><lb n="1"/>śrī-mahendrapāla-devaḥ</ab>
@@ -113,7 +88,7 @@
           <head xml:lang="eng">Plate</head>
           <pb n="1r"/>
           <lb n="1"/>
-          <p><g type="spiralL"/><!-- siddham --> svasti<g type="danda">.</g></p>
+          <p><g type="spiralL"/> svasti<g type="danda">.</g></p>
           <lg met="śārdūlavikrīḍita" n="1">
             <l n="a">śrīmā<choice>
                 <sic>m</sic>
@@ -281,7 +256,7 @@
               <corr>nu</corr>
             </choice>dhyātaḥ<lb n="30"/> paramasaugataḥ parameśvaraḥ paramabhaṭṭārako mahārājādhirājaḥ śrīmāN mahendrapāla-devaḥ kuśalī<g type="ddandaStrokeLeft">.</g> śrī-puṇḍravarddhana<lb break="no" n="31"/>-bhuktau<g type="dandaStrokeLeft">.</g> kuddālakhātaka-viṣaye nandadīrghikoddraṅge sīmā<g type="dandaStrokeLeft">.</g> tattra pūrvveṇa ṭaṅgila-nady-arddha-śrotaḥ paricchinnā dakṣiṇenāpi kuvja-gha<lb break="no" n="32"/>ṭikā !'rddha-śrotikayā kāsiggaḍa-vandhāka-madhyena nārāyaṇa-vāsīya-pūrvva-sīmāvadhiḥ<g type="dandaStrokeLeft">.</g> paścimenāpi golayi-nirjjhare<lb break="no" n="33"/>ṇājagara-vāsakāvakhātena vālmika-stūpenāśvattha-vr̥kṣeṇa svalpa-nandādhāra-paścima-pāṭena vilva-vr̥kṣeṇa vijjaṭa-vandhā<lb break="no" n="34"/>kaṁ paścima-ṣaṇ-ṇalāntarāmalakī-vr̥kṣa-paryantaḥ<g type="dandaStrokeLeft">.</g> Uttareṇāpy ataḥ pūrvvāmukho<del rend="strikeout">śca</del>ttara-kuṇḍā dakṣiṇena nandāsurālyā<lb n="35"/>  ṭaṅgilārddha-śroto 'vadhiḥ<g type="dandaStrokeLeft">.</g> Evan niyamita-sīmni samupagatāṁ* sarvvān eva rājanaka-rājaputtra-kumārāmātya-bhuktipa<lb break="no" n="36"/>ti-viṣayapati<g type="dandaStrokeLeft">.</g> senāpaty-uparika-tad-āyuktaka<g type="dandaStrokeLeft">.</g> viniyuktaka-dāṇḍika-daṇḍapāśika<g type="dandaStrokeLeft">.</g> cauroddharaṇika<g type="dandaStrokeLeft">.</g> dau<supplied reason="omitted">s</supplied>sādhyasādha<lb break="no" n="37"/>nika-khola-dūta-gamāgamikā<surplus>ṁ</surplus>bhitvaramāṇa-hastyaśvoṣṭranauvalavyāpr̥taka-gomahiṣyajāvikāvaḍavādhyakṣādi-rāja-pādopajīvi<lb break="no" n="38"/>no !'nyāṅś <supplied reason="omitted">c</supplied>a cāṭa-bhaṭa-jātīyāN yathā-kālādhyāsi-viṣaya-vyavahāriṇaḥ sa-karaṇāN vrāhmaṇa-mānanā-pūrvvakaṁ* prativāsi<lb break="no" n="39"/>naḥ kṣettra-karāṅś <supplied reason="omitted">c</supplied>a yathārham mānayati vodhayati samādiśati ca<supplied reason="omitted">
               <g type="danda">.</g>
-            </supplied>
+            </supplied>                 
             </p>
           <p>matam astu bhavatāṁ<g type="dandaStrokeLeft">.</g> mahāsenāpati-śrī-vajradevena <space quantity="1" unit="character"/> dūtaka-mu<lb break="no" n="40"/>khena vayam vijñāpitāḥ<g type="dandaStrokeLeft">.</g> yathā mātā-pittror ātmanaḥ sakalasya ca satvarāśeḥ puṇyābhivr̥ddhaye nandadīrghikodraṅge mayā vi
         <pb break="no" n="1v"/><lb break="no" n="41"/>hāraḥ kāritaḥ tattra yathopari-likhita-nandadīrghikodraṅgaṁ* bhagavato vuddha-bhaṭṭārakasya prajñāpāramitādi-sakala<lb break="no" n="42"/>-dharmma-nettrī-sthānasya Āryāvaivarttika-vodhisatva-gaṇasyāṣṭa-mahāpuruṣa-pudgalārya-bhikṣu-saṁghasya yathārhaṁ pūjana-lekha<lb break="no" n="43"/>nādy-arthaṁ* cīvara-piṇḍapāta-śayanā<choice>
@@ -302,7 +277,7 @@
             </supplied><lb n="49"/> bhāvibhir api bhūpatibhir bhūmer ddāna-phala-gauravād apaharaṇe mahān naraka-pāta-bhayāc ca dānam idam anumodya parip<choice>
               <sic>a</sic>
               <corr>ā</corr>
-            </choice>lanīyam i<lb break="no" n="50"/>ti<g type="dandaStrokeLeft">.</g>
+            </choice>lanīyam i<lb break="no" n="50"/>ti<g type="dandaStrokeLeft">.</g>                
             </p>
           <p>samvat· <num value="7">7</num> vaiśākha-dine <num value="2">2</num><supplied reason="omitted">
               <g type="danda">.</g>
@@ -524,9 +499,7 @@
       <div type="apparatus">
         <div n="B" type="textpart">
           <head xml:lang="eng">Plate</head>
-          <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
           <listApp>
-            <!-- one <app> for each apparatus entry -->
             <app loc="3">
               <lem>kṣāntimā<unclear>ṁ*</unclear></lem>
               <rdg source="bib:Bhattacharya2005-2006_01">kṣāntimān</rdg>
@@ -807,9 +780,8 @@
           <p n="73">This edict was engraved by sāmanta illustrious Māhaṭa.</p>
         </div>
       </div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="commentary"></div>
       <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
         <p>First published by K. V. Ramesh and S. Subramonia Iyer<bibl rend="omitname">
             <ptr target="bib:Ramesh+SubramoniaIyer1977-1978_01"/>
           </bibl> and then re-edited by S. C. Mukherji<bibl rend="omitname">

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -45,27 +39,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -76,7 +60,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -121,7 +104,7 @@
             <orig>va</orig>
             <reg>u</reg>
           </choice>rācāryya ta qcas· paṅgaṁ thpvaṅ·
-             <lb n="11"/>nivedana ta dhūli vraḥ pāda dhuli<!--sapi2argr Devrais-je le corriger en ū?--> jeṅ· vraḥ kaṁ<lb break="no" n="12"/>mrateṅ· Añ· ta stac· dau paramarudraloka ta gi<g type="circleHigh">.</g>
+             <lb n="11"/>nivedana ta dhūli vraḥ pāda dhuli jeṅ· vraḥ kaṁ<lb break="no" n="12"/>mrateṅ· Añ· ta stac· dau paramarudraloka ta gi<g type="circleHigh">.</g>
              <lb n="13"/><num value="847">847</num> śakka<g type="circleMed">.</g> pi phsaṁ siddhāyata nu vraḥ kaṁmrateṅ·
              <lb n="14"/>Añ· jagat· liṅgapūra cāṁ caṁnāṁ yajña thṅāy· vraḥha
              <lb n="15"/>liḥ <num value="2">II</num> vraḥ vasana yau <num value="1">I</num> mvāy· chnāṁ<g type="circleMed">.</g> bhāja nu du<lb break="no" n="16"/>k<unclear>·</unclear> <num value="1">I</num> paryyaṅ· parivāra <num value="1">I</num> lṅo parivāra <num value="1">I</num> pratidiṇa
@@ -135,7 +118,7 @@
             <g type="circleMed">.</g>
           </unclear> si kr̥s·<unclear>
             <g type="circleMed">.</g>
-          </unclear> si dha<lb break="no" n="24"/>rmma<g type="circleMed">.</g> si kaṁprvat·<g type="circleMed">.</g> <add place="above">si śrī si A<gap quantity="1" reason="illegible" unit="character"/><!--sapi2argr Ici un signe vraiment énigmatique semble se trouver entre le A et le si. C'est peut être ce que Cœdès à transcrit avec "-"--> si vrau</add> si cām· l<unclear>v</unclear>an·<unclear>
+          </unclear> si dha<lb break="no" n="24"/>rmma<g type="circleMed">.</g> si kaṁprvat·<g type="circleMed">.</g> <add place="above">si śrī si A<gap quantity="1" reason="illegible" unit="character"/> si vrau</add> si cām· l<unclear>v</unclear>an·<unclear>
             <g type="circleMed">.</g>
           </unclear> kaṁpāñ· l<unclear>v</unclear>an·<unclear>
             <g type="circleHigh">.</g>
@@ -230,4 +213,4 @@
       </div>
     </body>
   </text>
-</TEI><!-- Line 30 is situated at the beggining of the inscription, above line 1. See EGD 3.3.4 for how to encode such situations.-->
+</TEI>

@@ -1,15 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
       <titleStmt>
         <title>Elavaṟṟu grant of Amma II</title>
-        <!--ALT TITLE: Masulipatam plates of Bhīma II.-->
         <respStmt>
           <resp>Encoding</resp>
           <persName ref="part:daba">
@@ -42,31 +35,20 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
-            <!--<altIdentifier type="PEM"><idno type="corpus">CalE44</idno></altIdentifier>-->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
               <p>Halantas. Final T is s full-sized stylised ta (a spiral without a headmark) plus a curling tail on top like an inverted cedilla, e.g. l7 apālayaT. It may also be smaller in size and raised, as in l37 āsīT. Final N is a simplified but full-size character somewhat resembling na without a headmark, and the curled tail, e.g. l11 sāN.</p>
               <p>Original punctuation marks are straight verticals with a small hook or a wedge-like headmark at the top. The opening symbol is a flower comprised of a circle, four petals in the cardinal directions, and four spikes in the intercardinals, all detached from the centre.</p>
-              <p>Other palaeographic observations. Anusvāra is normally written inline at headline height. It may be separated from the preceding consonant as in l16-17 tri/ṁśataṁ, but this is not visible in my scanned facsimile. Dependent o is normally written with two separate strokes. Cursive o (marked in the text with an XML comment but not encoded) is rare, occurring in l10 kokkili (which may have been intended for kaukkili) and l52 Aho.
-                <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-                <summary><p><p/></summary>
-                <handNote xml:id="Pallava00001_hand1"></handNote>
-                <handNote xml:id="Pallava00001_hand2"></handNote>
-              -->
+              <p>Other palaeographic observations. Anusvāra is normally written inline at headline height. It may be separated from the preceding consonant as in l16-17 tri/ṁśataṁ, but this is not visible in my scanned facsimile. Dependent o is normally written with two separate strokes. Cursive o (marked in the text with an XML comment but not encoded) is rare, occurring in l10 kokkili (which may have been intended for kaukkili) and l52 Aho.              
+                </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -93,7 +75,6 @@
     <revisionDesc>
       <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
       <change status="draft" when="2020-10-28" who="part:daba">Initial encoding of the file</change>
-      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -121,7 +102,7 @@
             </choice>a-snāna-pavitrīkr̥ta-vapuṣāṁ cā<lb break="no" n="6"/>lukyānāṁ kulam alaṁkariṣṇoḥ satyāśraya-vallabhendrasya bhrātā ku<lb break="no" n="6"/>bja-viṣṇuvarddhano <supplied reason="subaudible">’</supplied>ṣṭādaśa varṣāṇi veṁgī-deśam apālayaT<g type="ddandaSerif">.</g> tad-ātma<pb break="no" n="2r"/><lb break="no" n="8"/>jo jayasiṁhas trayastriṁśataṁ<g type="dandaSerif">.</g> tad-anujendrarāja-nandano viṣṇuva<lb break="no" n="9"/>rddhano nava<g type="dandaSerif">.</g> tat-sūnur mm<choice>
               <sic>ā</sic>
               <corr>a</corr>
-            </choice>ṁgi-yuvarājaḥ paṁcaviṁśatiṁ<g type="dandaSerif">.</g> tat-putro <lb n="10"/>jayasiṁ<space type="binding-hole"/>has trayodaśa<g type="dandaSerif">.</g> tad-avarajaḥ ko<!--cursive o-->kkiliḥ ṣaṇ mā<lb break="no" n="11"/>sāN<g type="dandaSerif">.</g> ta<space type="binding-hole"/>sya jyeṣṭho bhrātā viṣṇuvarddhanas tam uccāṭya sapta<lb break="no" n="12"/>triṁśataṁ<g type="dandaSerif">.</g> <space type="binding-hole"/> tat-putro vijayāditya-bhaṭṭārako <supplied reason="subaudible">’</supplied>ṣṭādaśa<g type="dandaSerif">.</g> tat-su<lb break="no" n="13"/>to viṣṇuvarddh<choice>
+            </choice>ṁgi-yuvarājaḥ paṁcaviṁśatiṁ<g type="dandaSerif">.</g> tat-putro <lb n="10"/>jayasiṁ<space type="binding-hole"/>has trayodaśa<g type="dandaSerif">.</g> tad-avarajaḥ kokkiliḥ ṣaṇ mā<lb break="no" n="11"/>sāN<g type="dandaSerif">.</g> ta<space type="binding-hole"/>sya jyeṣṭho bhrātā viṣṇuvarddhanas tam uccāṭya sapta<lb break="no" n="12"/>triṁśataṁ<g type="dandaSerif">.</g> <space type="binding-hole"/> tat-putro vijayāditya-bhaṭṭārako <supplied reason="subaudible">’</supplied>ṣṭādaśa<g type="dandaSerif">.</g> tat-su<lb break="no" n="13"/>to viṣṇuvarddh<choice>
               <sic>ā</sic>
               <corr>a</corr>
             </choice>naḥ ṣaṭtriṁśataṁ<g type="dandaSerif">.</g> tat-suto vijayāditya-narendra-mr̥ga<lb break="no" n="14"/>rājaś cāṣṭacatvāriṁśataṁ<g type="dandaSerif">.</g> tat-sutaḥ kali-<supplied reason="omitted">viṣṇu</supplied>varddhano <supplied reason="subaudible">’</supplied><orig>ddh</orig>yarddha-varṣ<choice>
@@ -256,7 +237,7 @@
               </choice>na-vivekinī dhīr</l>
             <l n="b">anindya-cāritra-parā hi ceṣṭā</l>
             <l n="c">A-śeṣa-bho<lb break="no" n="52"/>gopanata<orig>m</orig> manaś ca</l>
-            <l n="d">Aho<!--cursive o--> mahat koramiyasya puṇyaṁ<g type="ddandaSerif">.</g></l>
+            <l n="d">Aho mahat koramiyasya puṇyaṁ<g type="ddandaSerif">.</g></l>
           </lg>
           <p>tasmai koramiya-nāmne suvarṇṇa<lb break="no" n="53"/>-bhāṇḍāgāra-śrīkaraṇa-mukhyāya Elavaṟṟu nāma grāmas sarvva-kara-parihāreṇāgrahārī<lb break="no" n="54"/>kr̥tyodaka-pū<space type="binding-hole"/><unclear reason="eccentric_ductus">rvva</unclear>m uttarāyaṇa-nimitte <supplied reason="subaudible">’</supplied>smābhir ddatta Iti viditam astu vaḥ<g type="dandaSerif">.</g></p>
           <p>Asyāvadhayaḥ<supplied reason="subaudible">.</supplied> <lb n="55"/>pū<space type="binding-hole"/><unclear reason="eccentric_ductus">rvva</unclear>taḥ goma<space type="binding-hole"/>ḍuvu sīmā<g type="dandaSerif">.</g> Āgneyataḥ ḍagguṁbaṟti sīmā<g type="dandaSerif">.</g> dakṣiṇataḥ Iṇṭhūri sīmā<g type="dandaSerif">.</g> nairr̥<lb break="no" n="56"/>ti-paścimābhyāṁ preṁpaṟti sīmā<g type="dandaSerif">.</g> vāyavyataḥ tuṟimiṇḍi sīmā<g type="dandaSerif">.</g> Uttareśānābhyāṁ Amutunūri sīmā<supplied reason="omitted">
@@ -613,12 +594,11 @@ Il a été gravé par Jontācārya.
       <div type="bibliography">
         <p>Edited from the original by Fleet (<bibl rend="omitname">
             <ptr target="bib:Fleet1883_08"/>
-          </bibl>), with a translation and with facsimiles. The present edition by Dániel Balogh is based on a collation of Fleet's edition with his published facsimiles.<note>All my scans of IA12 are quite poor. Though Fleet says the plates are in perfect preservation, my scans of 3r and 4v are illegible in many places (where I simply adopt Fleet's reading), and the other plates far from perfect. Checking a printed Indian Antiquary 12 may help.<!--In particular: l45 after vāgmitā; l46 from nāgaraka onward; l47 after prasaṁgāt; all of l48 to l50--></note></p>
+          </bibl>), with a translation and with facsimiles. The present edition by Dániel Balogh is based on a collation of Fleet's edition with his published facsimiles.<note>All my scans of IA12 are quite poor. Though Fleet says the plates are in perfect preservation, my scans of 3r and 4v are illegible in many places (where I simply adopt Fleet's reading), and the other plates far from perfect. Checking a printed Indian Antiquary 12 may help.</note></p>
         <listBibl type="primary">
           <bibl n="JFF">
             <ptr target="bib:Fleet1883_08"/>
           </bibl>
-          <!-- one <bibl/> per item of primary bibliography -->
         </listBibl>
         <listBibl type="secondary">
           <bibl/>

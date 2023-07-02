@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -37,33 +31,22 @@
                             California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Arlo
                             Griffiths.</p>
-            <!-- replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -74,7 +57,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -93,7 +75,6 @@
       <div type="edition" xml:lang="san-Latn">
         <div n="A" type="textpart">
           <head xml:lang="eng">Obverse</head>
-          <!-- j'ai mis obverse et reverse dans des div différentes pcq numérotation 1à 6 dans chaque pour rendre la lecture de l'apparat correcte  -->
           <pb n="1r"/>
           <p>
                 <lb n="1"/><gap extent="unknown" reason="lost" unit="character"/>pitrā śivanandinā<gap quantity="1" reason="illegible" unit="character"/> <gap extent="unknown" reason="lost" unit="character"/>
@@ -129,7 +110,7 @@
                   <sic>a</sic>
                   <corr>r̥</corr>
                 </choice>hya</lem>
-              <note>The intended reading may have been <foreign><supplied reason="lost">upa</supplied>saṅgr̥hya</foreign>. Although not occurring in the published <ref target="DHARMA_INSBengalCharters00049.xml">Baigram plate</ref>, there are several occurrences in related inscriptions. See, e.g, <!--"in this article" j'ai supprimé--> the <ref target="DHARMA_INSBengalCharters00057.xml">Raktamālā grant #2</ref>, line 9 and the <ref target="DHARMA_INSBengalCharters00051.xml">Tāvīra grant</ref>, line 10.
+              <note>The intended reading may have been <foreign><supplied reason="lost">upa</supplied>saṅgr̥hya</foreign>. Although not occurring in the published <ref target="DHARMA_INSBengalCharters00049.xml">Baigram plate</ref>, there are several occurrences in related inscriptions. See, e.g,  the <ref target="DHARMA_INSBengalCharters00057.xml">Raktamālā grant #2</ref>, line 9 and the <ref target="DHARMA_INSBengalCharters00051.xml">Tāvīra grant</ref>, line 10.
 </note>
             </app>
           </listApp>
@@ -156,12 +137,11 @@
           </listApp>
         </div>
       </div>
-      <div resp="part:argr" type="translation"><!--translation encoded as per EGD §9.2 --></div>
+      <div resp="part:argr" type="translation"></div>
       <div type="commentary">
-        <!--commentary encoded as per section §9.3 -->
         <div n="A" type="textpart">
           <head xml:lang="eng">Introduction</head>
-          <p>I found this fragment by chance during perusal of the Museums of India website, which indicates that it is preserved at the Indian Museum, Kolkata, under accession number A20050/9085.<note>http://museumsofindia.gov.in/repository/record/im_kol-A20050-9085-18.<!-- sans doute y a t il un moyen d'en faire un lien? avec ptr? --> Accessed in May 2018.</note>  Subsequently, I learned from Ryosuke Furui that he has seen the fragment in that very museum, and was able to make the photographs that he has kindly allowed me to publish here. The website indicates dimensions	4.9 × 4.7 cm, and provenance from Baigram in Bangladesh. Although no mention of this fragment is known to me from any printed publication of the colonial or post-colonial periods, the information about provenance is borne out by several correspondences with the known Baigram plate.</p>
+          <p>I found this fragment by chance during perusal of the Museums of India website, which indicates that it is preserved at the Indian Museum, Kolkata, under accession number A20050/9085.<note>http://museumsofindia.gov.in/repository/record/im_kol-A20050-9085-18. Accessed in May 2018.</note>  Subsequently, I learned from Ryosuke Furui that he has seen the fragment in that very museum, and was able to make the photographs that he has kindly allowed me to publish here. The website indicates dimensions	4.9 × 4.7 cm, and provenance from Baigram in Bangladesh. Although no mention of this fragment is known to me from any printed publication of the colonial or post-colonial periods, the information about provenance is borne out by several correspondences with the known Baigram plate.</p>
         </div>
         <div n="B" type="textpart">
           <head xml:lang="eng">Observations</head>

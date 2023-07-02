@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -43,22 +37,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p>The basic punctuation sign in this inscription (<g type="crescentMid">.</g>) takes the form of a crescent opten to the bottom at median height above the line.<!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <p>The basic punctuation sign in this inscription (<g type="crescentMid">.</g>) takes the form of a crescent opten to the bottom at median height above the line.</p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -86,7 +75,6 @@
       <change status="draft" when="2020-09-07" who="part:ekba">updated up to 8v7</change>
       <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
       <change status="draft" when="2020-10-10" who="part:ekba ">encoded plate 5, 8, and 9</change>
-      <!--         <change who="part:ekba " when="2020-05-19" status="draft">continued tagging the lines of text and added apparatus</change>-->
       <change status="draft" when="2020-05-18" who="part:ekba part:argr">started tagging the lines of text</change>
       <change status="draft" when="2020-04-10" who="part:ekba">updated the line numbering</change>
       <change status="draft" when="2020-03-27" who="part:axja">adding the handDesc template</change>
@@ -115,7 +103,7 @@
             <corr>ṅ</corr>
           </choice>ku śeva sogata R̥ṣi mahăbrāhmaṇa, kapagəhaknanira hlam· tka ri dlāhaniṁ dlāha<unclear>,</unclear> pra<lb break="no" n="4v7"/>tyeka taṇḍa rakryān· ri pakira-kirān·<add place="above">,</add> pinakasākṣīrikaṁ kāla, samgət· laṅka pu liṅir·, samgət· maṁhuryy aṅilala pu candragomi, samgət·
                <pb n="5r"/>
-<lb n="5r1"/>tirvan· pu puṇḍarīka, samgət· lucəm· kabayan· pu <supplied reason="omitted">mi</supplied>naghnapāda, samgət· tugaran· kabayān· pu vuṅsu, rakryan· lasun· mapapan· pu maṅuṇḍuḥ, rakrya<lb break="no" n="5r2"/>n· ram·ram· kabayan· pu Aśmara<supplied reason="omitted">nā</supplied>tha, rakryan· lasun· vuṅkal· pu niṅhal· makădi <add place="below">ra</add>kryan· kanuruhan· pu dharmmamūrtti narot<supplied reason="omitted">t</supplied>ama dānaśŭra pasək·
+<lb n="5r1"/>tirvan· pu puṇḍarīka, samgət· lucəm· kabayan· pu <supplied reason="omitted">mi</supplied>naghnapāda, samgət· tugaran· kabayān· pu vuṅsu, rakryan· lasun· mapapan· pu maṅuṇḍuḥ, rakrya<lb break="no" n="5r2"/>n· ram·ram· kabayan· pu Aśmara<supplied reason="omitted">nā</supplied>tha, rakryan· lasun· vuṅkal· pu niṅhal· makădi <add place="below">ra</add>kryan· kanuruhan· pu dharmmamūrtti narot<supplied reason="omitted">t</supplied>ama dānaśŭra pasək· 
 <lb n="5r3"/>, <abbr>su</abbr> <num value="1">1</num>, <abbr>mā</abbr> <num value="4">
             <unclear>4</unclear>
           </num>, kinabehanira, likita samgət· laṅka pu liṅir· <g type="ddandaOrnate">.</g> <g type="circleTarget">.</g> <g type="ddandaOrnate">.</g> pratyekaniṁ maveḥ skar māsa I baṇigrāma para vulu I kanuruhan· I valaṇḍit·
@@ -158,7 +146,7 @@
           </choice> jamuju, pañjlaṁ, vuṅkuḍu, ma<add place="below">kă</add>di bra<lb break="no" n="8r6"/>s·, ya Ikā Inuhutakən·, sa<choice>
             <sic>h</sic>
             <corr>v</corr>
-          </choice>tunya riṁ lāgi, yan mirica kulak katipadhara<!-- argr: here and below, apply choice/orig/reg to all cases of kati to get kāṭi-->, miricā sakul iṅ sarehan·, hadas kati kulakanya, pa<lb break="no" n="8r7"/>ñjlaṁ, jamuju, vuṅkuḍu, kacaṁ, vuyaḥ pasagi kula<supplied reason="omitted">ka</supplied>nya, Anādin sukat sālaranya, sovaṁ-sovaṁ mvaṅ ikaṁ jasun cinaktan ya Ika kātyakna tum<pb break="no" n="8v"/><fw n="8v" place="left">
+          </choice>tunya riṁ lāgi, yan mirica kulak katipadhara, miricā sakul iṅ sarehan·, hadas kati kulakanya, pa<lb break="no" n="8r7"/>ñjlaṁ, jamuju, vuṅkuḍu, kacaṁ, vuyaḥ pasagi kula<supplied reason="omitted">ka</supplied>nya, Anādin sukat sālaranya, sovaṁ-sovaṁ mvaṅ ikaṁ jasun cinaktan ya Ika kātyakna tum<pb break="no" n="8v"/><fw n="8v" place="left">
             <num value="8">8</num>
           </fw><lb break="no" n="8v1"/>tana sārgghanya, tan pahavana kulak katinikā maṅkana sireṁ pabrasan mājara sira ri panəṅgəknira, tan pakulaka sor sakeṅ ka<lb break="no" n="8v2"/>ti, kapaṅgiha <choice>
             <sic>mvaṁ</sic>
@@ -189,7 +177,7 @@
 <lb n="9v5"/>-<unclear>ma</unclear> para vulu ri kanuruhan·, mvaṁ para vargga I manañjuṁ, yan hana sira para panəṅgək· praladdha, A-
 <lb n="9v6"/>-ikāṅ antukniṁ manipat·, tan hanāniṁ vehən agəm gulā, maṅkana velāni tiṅkaḥnya tapāra-
 <lb n="9v7"/>-t·, mvaṁ sireṁ patrusan prayatna || Ujar haji tinaḍaḥ rakryan mahāmantri I hino, Umi<supplied reason="lost">ṅsor</supplied>-
-
+ 
 <pb n="13r"/><lb n="13r1"/>rāja, ya ta dvahanyan· sakāma-kāmāpravr̥tti, vnaṁ mapadaga<unclear>ṁ</unclear> Adoḥ sa<unclear>ṅk</unclear>ā ri gri<unclear>tanya</unclear> kalen· saṁkā ri vnaṁ manumbas· bhăṇḍa Aḍəgan·, lāvan ta vaneḥ maṁdadya<lb break="no" n="13r2"/>kan· prihati I baṇigrăma para vulu pañcadeśa<unclear>,</unclear> ri hananikāṁ mada<unclear>gaṁ</unclear> sampun· maniddhakan· drabya haji katapa-hajyan·, ya tikāmet· paṅalapan a<unclear>n</unclear>ya<lb break="no" n="13r3"/>sā<add place="above">ra</add> <add place="below">sa</add>mbal· sumbul·, tumiṅgalakan· ri sa<unclear>m</unclear>pun yāṅalap· Uṇḍi katapa-hajyan·, marapvan· tinisan· deni <choice>
             <sic>pabalap</sic>
             <corr>paṅalapan</corr>
@@ -304,8 +292,6 @@
           </app>
           <app loc="4v1">
             <lem/>
-            <!--ekba2argr: Please suggest what to be inserted here-->
-            <!-- argr2ekba: best to make it a <note> in the translation. -->
             <note>Cf. <ref target="DHARMA_INSIDENKKusambyan.xml">Kusambyan</ref> B32 and <ref target="DHARMA_INSIDENKAdulengen.xml">Adulengen</ref> 3r1–2 <foreign>tan pagavayakna puriḥ, mvaṁ vistăra, kevala sapūrvva-sthitinya sakapaṅgih riṁ muhun· malama juga pagəhaknanya lāvan tan· pintana saprakāra</foreign>.</note>
           </app>
           <app loc="4v1">
@@ -414,17 +400,11 @@
             <lem>sampu binuddhi</lem>
             <note>Corr. <foreign>sampu<supplied reason="omitted">n·</supplied> śinuddhi</foreign>?</note>
           </app>
-          <!-- don't encode footnotes  293-295, 297, 299-301, 303-304, 306–307, 316, 318-322 -->
         </listApp>
       </div>
-      <!--<div type="translation">
-                <!-\-translation encoded as per EG §9.2 -\->
-            </div>-->
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="commentary"></div>
       <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
-        <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
+        <p></p>
         <listBibl type="primary">
           <bibl n="TSN">
             <ptr target="bib:TitiSurtiNastiti2016_01"/>
@@ -436,7 +416,6 @@
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

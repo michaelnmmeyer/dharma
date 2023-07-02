@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -45,18 +39,13 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
@@ -71,7 +60,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -94,7 +82,7 @@
       <div type="edition" xml:lang="okz-Latn">
         <p>
              <lb n="1"/><g type="gomutraInitial"/><g type="ddandaPlain"/> <num value="813">813</num> śaka nu dhūlī jeṅ· kaṁsteṅ· Añ· śrī Īśvaravarmma jvan·
-             <lb n="2"/>qnak· ta gi Iśvarāśrama<!--Le deuxième  Iśvarāśrama a pour initial un -I au lieu d'un -Ī. Suppléer?--> pi cāṁ caṁnāṁ ta vraḥ kamrateṅ· <unclear>Añ· ta</unclear> pa<lb break="no" n="3"/>rameśvara pratidina raṅko liḥ <num value="4">4</num> bhājana <num value="1">I</num> ṅanna jyaṅ· <num value="4">
+             <lb n="2"/>qnak· ta gi Iśvarāśrama pi cāṁ caṁnāṁ ta vraḥ kamrateṅ· <unclear>Añ· ta</unclear> pa<lb break="no" n="3"/>rameśvara pratidina raṅko liḥ <num value="4">4</num> bhājana <num value="1">I</num> ṅanna jyaṅ· <num value="4">
             <unclear>4</unclear>
           </num> liṅ <gap quantity="1" reason="illegible" unit="character"/> pā<lb break="no" n="4"/>da <num value="1">I</num> sliṅ· <num value="1">I</num> vodi <num value="1">I</num> ṅanna jyaṅ· <num value="10">10</num> <g type="circleTarget">.</g> vnvak· ta gi sruk· paṁnvas· pramān· <unclear>Īśā</unclear><lb break="no" n="5"/>napura Aṁraḥ kantai <num value="1">I</num> gho vimalādhara <num value="1">I</num> gho mr̥takṣara <num value="1">I</num> gho srac ta daiva <num value="1">I</num> gvāl·
              <lb n="6"/>purākr̥ta <num value="1">I</num> <surplus>tai <num value="1">I</num></surplus> <unclear>gho</unclear> <num value="1">I</num> piṇda Aṁraḥ <num value="1">I</num> nu Aṁraḥha gho <num value="5">5</num> gvāl· <num value="1">I</num> tai <num value="1">I</num> psaṁ <num value="7">7</num><g type="circleTarget">.</g> qnak·
@@ -174,9 +162,9 @@
           </p>
         <p n="4-6">Le force de travail du village de Paṁnva du <foreign>pramān</foreign> <gap quantity="2" reason="lost" unit="character"/>napura : 1 <foreign>aṁraḥ</foreign> femme ; 1 <foreign>gho</foreign> Vimalādhara ; 1 <foreign>gho</foreign> Mr̥tākṣara ; 1 <foreign>gho</foreign> Srac Ta Daiva ; 1 <foreign>gho</foreign> Purākr̥ta ; 1 <foreign>tai</foreign> ; 1 <foreign>gho</foreign>. Total : 1 <foreign>aṁraḥ</foreign> <supplied reason="subaudible">féminin</supplied> et 5 <foreign>aṁraḥ gho</foreign> ; 1 <foreign>gvāl</foreign>, 1 <foreign>tai</foreign> ; en tout : 7<gap quantity="2" reason="lost" unit="character"/>.
           </p>
-        <p n="7-8">Les serviteurs saisis pour les ordonner de servir <!--les donner au service--> le sanctuaire : 1 <foreign>gho</foreign> Pandan ; 1 <foreign>gho</foreign> Pravā<gap quantity="3" reason="lost" unit="character"/> 1 Kansū ; 1 <foreign>tai</foreign> Vakula ; en tout : 4.
+        <p n="7-8">Les serviteurs saisis pour les ordonner de servir  le sanctuaire : 1 <foreign>gho</foreign> Pandan ; 1 <foreign>gho</foreign> Pravā<gap quantity="3" reason="lost" unit="character"/> 1 Kansū ; 1 <foreign>tai</foreign> Vakula ; en tout : 4.
           </p>
-        <p n="8-11">Les gens saisis au village de Snāc Le du <foreign>pramān</foreign> d’Uttamapura <!--sapi2argr ici, le fait qu'il y ait un chiffre 1 après le prāman me semble étonnant.--> : 1 <foreign>gho</foreign> Cpoṅ ; 1 <foreign>gho</foreign> Pandan ; 1 <foreign>gvāl</foreign> Kañcai ; 1 <foreign>gvāl</foreign> Kaṁ<gap quantity="1" reason="lost" unit="character"/> ; 1 <foreign>gvāl</foreign> Pnos ; 1 <foreign>gvāl</foreign> Pnos additionnel ; 1 <foreign>gvāl</foreign> Kaṁpit ; 1 <foreign>gvāl</foreign> Kaṁpit additionnel ; <foreign>gvāl</foreign><gap quantity="2" reason="lost" unit="character"/> ; au total : 9.
+        <p n="8-11">Les gens saisis au village de Snāc Le du <foreign>pramān</foreign> d’Uttamapura  : 1 <foreign>gho</foreign> Cpoṅ ; 1 <foreign>gho</foreign> Pandan ; 1 <foreign>gvāl</foreign> Kañcai ; 1 <foreign>gvāl</foreign> Kaṁ<gap quantity="1" reason="lost" unit="character"/> ; 1 <foreign>gvāl</foreign> Pnos ; 1 <foreign>gvāl</foreign> Pnos additionnel ; 1 <foreign>gvāl</foreign> Kaṁpit ; 1 <foreign>gvāl</foreign> Kaṁpit additionnel ; <foreign>gvāl</foreign><gap quantity="2" reason="lost" unit="character"/> ; au total : 9.
           </p>
         <p n="11">Les gens saisis au village de Vraḥ So, du <foreign>prāman</foreign> de Vikrānta : <foreign>gho</foreign> <gap quantity="2" reason="lost" unit="character"/>
           </p>

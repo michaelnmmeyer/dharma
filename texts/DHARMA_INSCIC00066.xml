@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,18 +35,13 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
@@ -67,7 +56,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -111,7 +99,6 @@
         </lg>
         <lg met="mālinī" n="2">
           <l n="a"><lb n="A2"/>nutam api sura-<unclear>var</unclear>ṇnair yyakṣa-gandharvva-daityair<space/></l>
-          <!-- daba asks if we can read sura-<unclear>var</unclear>ggair -->
           <l n="b">ddivi <seg met="----+++-++-+=">
               <gap quantity="13" reason="illegible" unit="character"/>
             </seg></l>
@@ -129,18 +116,14 @@
             </seg>
           </l>
         </lg>
-        <ab><!-- probably 2 stanzas, one mid-length and one long (e.g. mālinī + sragdharā) -->
-              <!-- email daba 2021-10-25
-              Given the fragmentary readings, anything about the metre is also just guesswork. I cannot think of a common metre that could fit bhadreśvara after 8 syllables, but I guess we must allow for a largish margin of uncertainty. As you must have checked, mālinī would accommodate this word with 10 preceding syllables. A pr̥thvī stanza would have 13 syllables before this word, which is perhaps a bit too much, but no out of the question. And a śārdūlavikrīḍita would have 12 syllables before it. A few mid-length metres not occurring elsewhere in the text may also be possible, but perhaps less likely (e.g. mandākrāntā with 12 preceding syllables, or mālinī with 10). The string ravacanam̐ buddhi fits in many metres. In sragdharā it would be preceded by 14 syllables. If I follow your reasoning correctly, then line A1 consists of exactly one full pr̥thvī, so 68 akṣaras. A2 would then have a mālinī of 60 syllables, hence your estimate of 8 more lost at the end. (But if this is how you have thought, then why is the estimated length of the lacuna only 45 in A3, where I’d expect 64? And why only 43 in A4, where I’d expect 62?) Assuming we have another mālinī here, we need that 8 to be 10, then bhadreśvara at the beginning of A3. We need another 46 characters in A3 to complete that mālinī (so 50 accounted for in that line), leaving us with about 18 characters. If A4 ravacanam̐ buddhi belongs to a sragdharā, then those 18 have to be 15 instead, which is within plausibility. We would then need another 5 characters to finish the first quarter of this sragdharā, and another 63 to complete the stanza. I would expect the illegible part to consist of 62 characters or so, I.e. only about 6 characters of that sragdharā need to go over into A5. This leaves most of A5 (about 62 characters by my count) unaccounted for.
-              If I haven’t gone astray in counting syllables (which I may well have), then I would say 3 (or even more) stanzas are, after all, more likely than 2. I agree with you that the first of those 3 are very likely to be a mālinī, since any other likely metre would need more syllables at the end of A2. All this said without considering āryā types, which also occur later on, so they could occur here too. I suggest that for the time being you stick to what you have, using <ab> and keeping Finot’s(?) stanza numbering unless I’m mistaken that lines A3 to A5 should cover a total of about 204 syllables, with about 8 more at the end of A2 belonging to the unidentifiable section. So a grand total of 212, add or take quite a lot.
-             -->
+        <ab>
+              
               <gap precision="low" quantity="8" reason="lost" unit="character"/>
               <lb n="A3"/>bhadreśvara<gap precision="low" quantity="45" reason="illegible" unit="character"/>
               <lb break="no" n="A4"/>ravacanam̐ buddhi<gap precision="low" quantity="43" reason="illegible" unit="character"/>
               <lb n="A5"/><gap precision="low" quantity="50" reason="illegible" unit="character"/>
             </ab>
         <lg met="sragdharā" n="6">
-          <!-- from here on, probably reduce all stanza numbers by 1 -->
           <l n="a">
             <seg met="++++-++------++-++-++">
               <gap quantity="21" reason="lost" unit="character"/>
@@ -189,27 +172,27 @@
             </seg> pravaram anupamam̐ te vilabdhvā<seg met="-++">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg></l>
-          <l n="c"><lb n="A10"/>santāna<unclear>ṁ</unclear><!-- check. the sa is quite unclear --> prāpnuvanti sva<unclear>yam iva sahas</unclear>ā svam̐ punar yānti lokam̐</l>
-          <l n="d"><unclear>śambhur jjānāti cai</unclear>vam̐ prahasi<unclear>tam̐</unclear> mahorojam̐ <unclear>E</unclear>vam̐ vravīti <!--sapi2argr Ici, je n'ai pas mis le double danda que je ne vois pas sur l'estampage.--></l>
+          <l n="c"><lb n="A10"/>santāna<unclear>ṁ</unclear> prāpnuvanti sva<unclear>yam iva sahas</unclear>ā svam̐ punar yānti lokam̐</l>
+          <l n="d"><unclear>śambhur jjānāti cai</unclear>vam̐ prahasi<unclear>tam̐</unclear> mahorojam̐ <unclear>E</unclear>vam̐ vravīti </l>
         </lg>
         <lg met="sragdharā" n="10">
-          <l n="a">santānam̐ <unclear>sarv</unclear>va-devāḥ surucira-<unclear>manas</unclear>ā<!-- can we read -manaso? --> labdhavanta<seg met="-+">
+          <l n="a">santānam̐ <unclear>sarv</unclear>va-devāḥ surucira-<unclear>manas</unclear>ā labdhavanta<seg met="-+">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg> <lb n="A11"/>smāt</l>
           <l n="b">sañcintyaivañ ca <unclear>śam</unclear>bhus smi<unclear>ta-mu</unclear>kha-nayanaḥ preṣitoroja Eva</l>
           <l n="c">sa tva<unclear>ṁ</unclear> śrīmān uroja sphuṭatara-suyaśāḥ śrīnidhiḥ kṣmāñ ca yāhi</l>
           <l n="d">grāhyam̐ rājyañ ca <seg met="++-">
               <gap quantity="3" reason="lost" unit="character"/>
-            </seg><lb n="A12"/> guru-<unclear>ca</unclear>raṇa-rajaś śambhubhadreśvarasya<g type="circleConcentricOval">.</g><!--sapi2argr Ce symbole ressemble également à l'eye de l'inscription C. 171.--></l>
+            </seg><lb n="A12"/> guru-<unclear>ca</unclear>raṇa-rajaś śambhubhadreśvarasya<g type="circleConcentricOval">.</g></l>
         </lg>
         <lg met="sragdharā" n="11">
           <l n="a">rājyam̐ sa prāpta<unclear>vā</unclear>m̐<unclear>ś cā</unclear>pratiharata Idam̐ liṅgam īśasya kāryyam̐</l>
           <l n="b">loke sam̐sthāpitan te sakala-nr̥patibhir dhāryyamā<choice>
               <sic>n</sic>
               <corr>ṇ</corr>
-            </choice>am̐ śirobhiḥ<!--sapi2argr Ici, je n'ai pas mis le danda que je ne vois pas sur l'estampage.--></l>
-          <l n="c">Evo<lb break="no" n="A13"/>rojaḥ prati<supplied reason="omitted">ja</supplied>jñe<!-- this emendation, by Finot, renders the pāda unmetrical --> svayam iha ka<unclear>tha</unclear>yan svātmanaḥ kīrtt<supplied reason="lost">i</supplied>m etām̐</l>
-          <l n="d">dik-śreṣṭham̐ syāc ca liṅgañ jagad-upakara<unclear>ṇād bhūr-bhuva</unclear>s-svas-sudīptam·<g type="circleConcentricOval">.</g><!--sapi2argr idem pour ce symbole--></l>
+            </choice>am̐ śirobhiḥ</l>
+          <l n="c">Evo<lb break="no" n="A13"/>rojaḥ prati<supplied reason="omitted">ja</supplied>jñe svayam iha ka<unclear>tha</unclear>yan svātmanaḥ kīrtt<supplied reason="lost">i</supplied>m etām̐</l>
+          <l n="d">dik-śreṣṭham̐ syāc ca liṅgañ jagad-upakara<unclear>ṇād bhūr-bhuva</unclear>s-svas-sudīptam·<g type="circleConcentricOval">.</g></l>
         </lg>
         <lg met="śārdūlavikrīḍita" n="12">
           <l n="a">mokṣe liṅgam udīritan tad adhiśasyeśāt purā <lb n="A14"/>yad bhr̥gus</l>
@@ -221,13 +204,13 @@
           <l n="a"><lb n="A15"/>svargga-sthāḥ parameśvarāt tu ca varam̐ devā na mokṣe cyute</l>
           <l n="b">tenopādadire surāhita-kr̥tāś ślāghyair vvihīnās sadā</l>
           <l n="c">loka-sthāś ca surā nr̥pā bhagavato bhadreśvarāt tu kṣitau</l>
-          <l n="d"><unclear>ta</unclear>smāt na prabhavanti te sura-nr̥pāś śrīvarddhamānās tadā<g type="circleConcentricOval">.</g><!--sapi2argr idem pour ce symbole--></l>
+          <l n="d"><unclear>ta</unclear>smāt na prabhavanti te sura-nr̥pāś śrīvarddhamānās tadā<g type="circleConcentricOval">.</g></l>
         </lg>
         <lg met="mālinī" n="14">
           <l n="a">stuti-nilaya-nidhīnāṅ kīrtti-rāśer atītam̐</l>
           <l n="b">stavanam abhimatārtha<unclear>m̐</unclear> maṅgalam̐ syāt munīnām·</l>
           <l n="c">janayati nr̥patīnām̐ sam̐padaṁ ta<lb break="no" n="A17"/>sya tasmai</l>
-          <l n="d">jagata Iha namo bhū<unclear>c cha</unclear>mbhubhadreśvarāya<g type="circleConcentricOval">.</g><!--sapi2argr Ici j'ai remplacé le double danda du rtf par un [fleuron].--></l>
+          <l n="d">jagata Iha namo bhū<unclear>c cha</unclear>mbhubhadreśvarāya<g type="circleConcentricOval">.</g></l>
         </lg>
         <lg met="indravajrā" n="15">
           <l enjamb="yes" n="a">yas sva-prabhāvātiśayāt sureśa</l>
@@ -236,7 +219,7 @@
               <corr>i</corr>
             </choice>bhutvam āpnoti yaśobhir eva</l>
           <l n="c">tasmai stuti<supplied reason="lost">r</supplied> mme bhavatu sva-bhaktyā</l>
-          <l n="d">śrī śambhubhadre<lb break="no" n="A18"/>śvara-viśrutāya<g type="circleConcentricOval">.</g><!--sapi2argr symbole--></l>
+          <l n="d">śrī śambhubhadre<lb break="no" n="A18"/>śvara-viśrutāya<g type="circleConcentricOval">.</g></l>
         </lg>
         <lg met="upajāti" n="16">
           <l n="a">virājito deva-gaṇair anekaiś</l>
@@ -256,16 +239,15 @@
         </lg>
         <lg met="āryā" n="19">
           <l n="ab">tasmāj jajñe rājā śrīdhiś śrī-rudravarmma-nāmā yaḥ</l>
-          <l n="cd">tasya sutaḥ khyāta-yaśāś<!--sapi2argr Ici, Finot le lit 'khyātayaśāḥ'--> śrī-sahito bhadravarmma-vibhuḥ<g type="circleConcentricOval">.</g><!--sapi2argr Le symbole est plus gros que les autres et coupé à moitié par l'estampage.--></l>
+          <l n="cd">tasya sutaḥ khyāta-yaśāś śrī-sahito bhadravarmma-vibhuḥ<g type="circleConcentricOval">.</g></l>
         </lg>
         <lg met="āryā" n="20">
-          <l n="ab"><lb n="A21"/>śrī-Indravarmma-viditas<!-- Ici, Finot lit śrīndravarmmaviditas, sans distinguer le I indépendant--> sūnuś śrī-bhadravarmmaṇas tasya</l>
-          <l n="cd">māheśvara-prabhāvāc campā-nagare nr̥po bhavati<g type="circleConcentricOval">.</g><!--sapi2argr symbole--></l>
+          <l n="ab"><lb n="A21"/>śrī-Indravarmma-viditas sūnuś śrī-bhadravarmmaṇas tasya</l>
+          <l n="cd">māheśvara-prabhāvāc campā-nagare nr̥po bhavati<g type="circleConcentricOval">.</g></l>
         </lg>
         <lg met="āryā" n="21">
           <l n="ab">tebhyas santānebhyo rājyam̐ jātam̐ nr̥pasya sam̐pūrṇṇam̐</l>
-          <!-- argr: if we keep sam̐pūrṇṇam̐, it means the engraver was inconsistent, because above we had a case of rṇn -->
-          <l n="cd">na pitāmahe<lb break="no" n="A22"/>na dattam̐ pitrā ca tathā na dattan te<g type="circleConcentricOval">.</g><!--sapi2argr symbole--><!-- argr: le symbole semble assez petit ici --></l>
+          <l n="cd">na pitāmahe<lb break="no" n="A22"/>na dattam̐ pitrā ca tathā na dattan te<g type="circleConcentricOval">.</g></l>
         </lg>
         <lg met="anuṣṭubh" n="22">
           <l n="a">tapaḥ-<unclear>pha</unclear>la-viśeṣāc ca</l>
@@ -287,7 +269,7 @@
             </seg>
           </l>
         </lg>
-        <p><!-- Il s'agit ici assez clairement de prose. The passages in C. 142 ans C. 149 where the compound jananībhūmi occurs are both in prose. -->
+        <p>
               <gap precision="low" quantity="3" reason="lost" unit="character"/>svāmī<space/> jananī-bhūmi<lb break="no" n="A24"/>-<unclear>prapann</unclear>e
               <gap precision="low" quantity="11" reason="illegible" unit="character"/>
               <gap precision="low" quantity="27" reason="lost" unit="character"/>n<unclear>amra</unclear>s<unclear>ya</unclear>
@@ -324,33 +306,28 @@
           <l n="d"><seg met="==">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg><lb n="B4"/> yatnena cetasā<g type="circleConcentricOval">.</g></l>
-          <!-- argr2sapi: tu avais -linga<unclear>ṁ</unclear>, j'ai corrigé en -l<unclear>i</unclear>ṅga<unclear>ṁ</unclear> avec <unclear> et ṅ -->
         </lg>
         <lg met="anuṣṭubh" n="28">
           <l n="a">Imañ ca paramam̐ loke</l>
           <l n="b">buddha-santāna-jam̐ varam·</l>
           <l n="c">Aham̐ lokeśvaram̐ kartum̐</l>
           <l n="d">jagatām̐ syām vimuktaye<g type="circleConcentricOval">.</g></l>
-          <!-- argr2sapi: intéressant (pour moi) d'observer que nous trouvons dans B4 les deux formes de ka, dans kartum̐ (supra) et dans karuṇātmakāḥ (infrs). Ce genre de variation au sein même d'un seul texte sanskrit est-il fréquent dans le corpus Indrapura?-->
-          <!-- sapi2argr: La forme du ka avec jambage central allongé et recourbé est loin d'être fréquente dans le corpus! Ici, j'ai également l'impression que le -ta souscrit de vimuktaye a quelque peu contraint le scribe d'abandonner cet effet.-->
         </lg>
         <lg met="śārdūlavikrīḍita" n="29">
           <l n="a">ke devāḥ karuṇātmakāḥ pr̥thu-dhiyātrā<lb break="no" n="B5"/>ṇesu satveṣu ca</l>
           <l n="b">lokeśas satatam̐ kr̥pātimatimāṅ kṣāntyā tv ajeyo 'bhavat·</l>
           <l n="c">Eva<unclear>m</unclear> yo nr̥patir vvicintya hr̥dayair dharmmasya jijñāsayā</l>
-          <!-- argr2sapi: je ne vois pas d'autre possibiliuté que de lire ici Eva<unclear>m</unclear> yo, donc avec m au lieu de ṁ. Cf. l'orthographe syām vimuktaye dans la ligne précédente. Si tu es d'accord, et si Finot ne lisait pas comme ça, tu ajouteras une entrée apparat? -->
           <l n="d">lokeśam̐ paramārtha-tatva-viśa<lb break="no" n="B6"/>do hastena so 'vākarot·<g type="circleConcentricOval">.</g></l>
         </lg>
         <lg met="śārdūlavikrīḍita" n="30">
           <l n="a">pūrvvaṁ bhūmir iyam̐ prakr̥ṣṭa-satatā śobhena pūrṇṇā ciran</l>
           <l n="b">tasyām̐ ye manujā maharddhi-dhanino jātāḥ kulaiś cottamāḥ</l>
-          <l n="c">labdhvā tena nr̥pam̐<!-- argr2sapi: tu avais nrpam̐ --> kva <lb n="B7"/>cic ca dhaninas tasyāñ ca rājābhavat tv</l>
+          <l n="c">labdhvā tena nr̥pam̐ kva <lb n="B7"/>cic ca dhaninas tasyāñ ca rājābhavat tv</l>
           <l n="d">ekas tvam̐ pr̥thivīndravarmma-vidito devendra-kalpaḥ kṣitau<g type="circleConcentricOval">.</g></l>
         </lg>
         <lg met="mālinī" n="31">
           <l n="a">kva cid api valabhij-jo brahma-jo viṣṇu-jaś ca</l>
           <l n="b">kva cid api bhujagendraś śaṅkaraś ca <lb n="B8"/>kva cid vā</l>
-          <!-- argr2sapi: je comprends pas bien la forme de dvā; on penserait à un dmā bâclé> -->
           <l n="c">kva cid r̥ṣi-ravi-candro pāmpatir bahni-rūpaḥ</l>
           <l n="d">kva cid abhayada-vimvas satva-mokṣād vabhūva<g type="circleConcentricOval">.</g></l>
         </lg>
@@ -368,31 +345,17 @@
         </lg>
         <lg met="śārdūlavikrīḍita" n="34">
           <l n="a"><lb n="B11"/>yāvad dharmma-nayena rakṣati divam̐ devendra Iṣṭyājñayā</l>
-          <!-- argr2sapi: ne devrions-nous pas lire Iṣṭvājñayā ou Iṣṭyajñayā? Mais il semble bien que nous ayons besoin de ājñayā pour obtenir un bon sens. -->
-          <!--sapi2argr Il me semble qu'un -ya souscrit un peu serré pourrait être discerné, mais qu'en effet le -ā est beaucoup plus problématique.-->
           <l n="b">yāvac cāmbu-nidhir jjalāni saritām̐ gāmbhīryyato dhārayan·</l>
           <l n="c">yāvad vāyu-dharo śaśā<add place="above">ṅ</add>ka-ravikau tārā-ga<lb break="no" n="B12"/>ṇāṅso 'pi vā</l>
-          <!-- argr2sapi: je mettrais ici: śaśā<add place="above">ṅ</add>ka -->
           <l n="d">tāvad buddha-dhuram̐ padañ ca nayatu śrīdhīrarājā sadā<g type="circleConcentricOval">.</g></l>
-          <!-- argr2sapi: je trouve tāvad suffisamment clair sur les photos BnF -->
         </lg>
         <lg met="indravajrā" n="35">
           <l n="a">lakṣmīndrabhūmīśvara-viśruto yo</l>
           <l n="b">grāmo 'pi nāmnā tridaśottamaujāḥ</l>
           <l n="c">sandarśi<lb break="no" n="B13"/>to bhūpatinā ca pūrvvam̐</l>
-          <!-- argr2sapi: je suis assez peu sûr de la présence de ṁ -->
-          <!--sapi2argr J'ai corrigé en -m̐, qui me semble assez clair sur l'estampage encré.-->
           <l n="d">paścāt <unclear>k</unclear>avīndraiḥ stutibhiḥ pratītaḥ<g type="circleConcentricOval">.</g></l>
         </lg>
         <lg met="sragdharā" n="36">
-          <!--
-                  argr2sapi
-                   - we have to ponder the various emendations proposed by Majumdar on p. 80 in footnote
-                   - did Daniel Balogh send us an email commenting on this stanza?
-	    - enjambment between pādas c and d treated as per EGD v2 (gdoc draft) §2.3.6
-                   - lokeśas sthāpito 'pi (corr. lokeśe sthāpite 'pi?) īśvara-guṇa-nipuṇo vismayo nāpy akāryy
-                      atra asevi iha ājñayā na a-vinamita-matinā duṣṭa-vākyañ ca dharmme
-                -->
           <l n="a">maryādābhedināpi śruti-vacana-pad<choice>
               <sic>o</sic>
               <corr>ā</corr>
@@ -405,10 +368,8 @@
           <l n="d">āsevīhājñayānāvinami<lb break="no" n="B15"/>ta-matinā duṣṭa-vākyañ ca dharmme <g type="circleConcentricOval">.</g></l>
         </lg>
         <lg met="śārdūlavikrīḍita" n="37">
-          <l enjamb="yes" n="a">loke so 'py asamo narendra-yaśasā tvam̐<!-- argr2sapi: tvam̐ ? --> jñāna-buddhi-dyuti</l>
+          <l enjamb="yes" n="a">loke so 'py asamo narendra-yaśasā tvam̐ jñāna-buddhi-dyuti</l>
           <l n="b">-prakhyāti-śruti-nīti-kīrtti-gatibhiś śrī-sam̐padāla<lb break="no" n="B16"/>ṅkr̥taḥ</l>
-          <!-- argr2sapi: je en vois pas de dotMid sur l'estampage BnF. Nous pourrions douter plus globalement de la présence de ce signe dans cette inscription. Revérifer tous les cas. S'il n'y en a que 2 ou 3, chacun incertain, alors considérons qu'il n'y en a pas. -->
-          <!--sapi2argr J'ai enlevé les deux dotMid de l'inscription. Mais celui de la stance 36, à la fin du pāda a, après duḥkhārttacittā qui semble visible sur les deux types d'estampage.-->
           <l n="c">saumyāṅgāra-vr̥haspatīndu-dinakr̥t-kāvyārkajaiḥ pālitaś</l>
           <l n="d">śrīmāñ chrī-jaya-Indravarmma-vidito dedīpyate prajñayā<g type="circleConcentricOval">.</g></l>
         </lg>
@@ -424,34 +385,30 @@
             </choice> dvandva-jīvodaya-bhr̥guja-yute kāvyavāre 'jabhūje</l>
           <l n="c">kaulīrendau ca puṣye śuci-sita-divase pañcame śrī-vivr̥ddhe</l>
           <l n="d">sa śrīmān indravarmmā sva<lb break="no" n="B19"/>bhayadam adhikam̐ svājñayātiṣṭhipad yaḥ<g type="circleConcentricOval">.</g></l>
-          <!-- argr2sapi: j'ignore si Finot lisait vraiment sṭh, ou si absence de point sous s est involontaire, mais il me semble que nous puissions lire simplement svājñayātiṣṭhipad ici -->
         </lg>
-        <p>Atha<!-- argr2sapi: avons-nous des th à comparer? j'avoue que je lirais facilement Ata --><!--sapi2argr Je lis personnellement tha. Cf. C1, et surtout C5.--> sa Eva narapatiś śrī-jaya-Indravarmmā mahārājādhirājo 'neka-pūrvva-janmāntara-tapaḥ-phala<lb break="no" n="B20"/>-viśeṣāt samadhigata-campādhirājo<!-- argr2sapi: faut-il comprendre -campādhirājyo, donc supply y? -->
+        <p>Atha sa Eva narapatiś śrī-jaya-Indravarmmā mahārājādhirājo 'neka-pūrvva-janmāntara-tapaḥ-phala<lb break="no" n="B20"/>-viśeṣāt samadhigata-campādhirājo
               daiva-prasāda-yogāt sakala-diṅ-maṇḍalākāśa-vyāpy-aneka-buddhi-prakarṣa-sam̐pad atula-kīrttiḥ
-                kīrtti-sam̐padaś śrī-samudayā<lb break="no" n="B21"/>bhivarddhita-citta-pras<unclear>āda</unclear>-nayana-vadanaś śrī-maheśvara-loka-san<unclear>t</unclear>āna<!-- argr2sapi: sanmāna? mais santāna semble mieux faire sens... -->-jādi-<unclear>p</unclear>rabhava<unclear>ś śrī candra</unclear><!-- argr2sapi: sur l'estampage BnF, je lis plutôt ś śrī au lieu de te, après quoi peut-être candra ou bhadra pour les deux premiers aksara du gap --><!--sapi2argr Je lis plus candra et ai corrigé l'apparatus en fonction.--><gap precision="low" quantity="7" reason="lost" unit="character"/>viśr<supplied reason="lost">u</supplied>taś śrī<!-- argr2sapi: je pense que nous avons -viśr<supplied reason="lost">u</supplied>taś śrī-, -->
-                -lak<unclear>ṣm</unclear><!-- argr2sapi: je metrais le k dehors et le m dedans le <unclear>-->mīndrabh<unclear>ūm</unclear>ī<unclear>śvara</unclear>grāmasvāmi-bhūtas
+                kīrtti-sam̐padaś śrī-samudayā<lb break="no" n="B21"/>bhivarddhita-citta-pras<unclear>āda</unclear>-nayana-vadanaś śrī-maheśvara-loka-san<unclear>t</unclear>āna-jādi-<unclear>p</unclear>rabhava<unclear>ś śrī candra</unclear><gap precision="low" quantity="7" reason="lost" unit="character"/>viśr<supplied reason="lost">u</supplied>taś śrī
+                -lak<unclear>ṣm</unclear>mīndrabh<unclear>ūm</unclear>ī<unclear>śvara</unclear>grāmasvāmi-bhūtas
               sakala-bhuva<lb break="no" n="B22"/>na-guru-vareṣṭo 'bhavad iti<g type="circleConcentricOval">.</g>
-<!-- 2021-12-20 argr has reached here -->
-              punar api tathaiva <!-- argr2sapi: l'encodage qui suit n'est pas satisfaisant, car l'aṣara devant de gap n'est pas complet — il en manque au moins une voyelle, voire consonne souscrite plus voyelle; et je ne vois pas du tout le ṇa qui suivrait; dans le contexte d'Avalokiteśvara, dont le mantra est le ṣaḍakṣara « oṁ maṇi padme hūṁ », on pourrait ici songer à reconstruire ṣaḍakṣara, mais aucune certitude... -->ṣaṣ<gap quantity="1" reason="lost" unit="character"/><unclear>ṇa</unclear><gap precision="low" quantity="21" reason="lost" unit="character"/><gap precision="low" quantity="4" reason="illegible" unit="character"/>ji<gap precision="low" quantity="2" reason="illegible" unit="character"/><seg type="aksara"><seg subtype="body" type="component">
+
+              punar api tathaiva ṣaṣ<gap quantity="1" reason="lost" unit="character"/><unclear>ṇa</unclear><gap precision="low" quantity="21" reason="lost" unit="character"/><gap precision="low" quantity="4" reason="illegible" unit="character"/>ji<gap precision="low" quantity="2" reason="illegible" unit="character"/><seg type="aksara"><seg subtype="body" type="component">
               <gap quantity="1" reason="lost" unit="component"/>
-            </seg>au</seg> <!-- argr2sapi: le 5e des 8 est presque certainement ji, le 8e porte presque certainement la voyelle -i -->
-              śrī-<!-- argr2sapi: mettre Avaloki avec majuscule -->Avaloki<lb break="no" n="B23"/>teśva<unclear>ra</unclear><supplied reason="lost">m imam̐</supplied><!-- argr2sapi: il me semble fort probable que la stèle avait -teśvaram imam̐ et je préconise de modifier l'encodage en fonction --> <unclear>śr</unclear>ī-<supplied reason="lost">I<!-- argr2sapi: cet akṣara étant partiellement conservé, il ne faut pas mettre supplied reason="lost" mais unclear; pour l'aṣara qui suit, supprimer de d dans dra, car nous avons déjà nd juste avant --></supplied>nd<supplied reason="lost">ra</supplied>varmma<supplied reason="lost">d</supplied>e<supplied reason="lost">va</supplied><gap precision="low" quantity="44" reason="lost" unit="character"/>nidhir adhi
+            </seg>au</seg> 
+              śrī-Avaloki<lb break="no" n="B23"/>teśva<unclear>ra</unclear><supplied reason="lost">m imam̐</supplied> <unclear>śr</unclear>ī-<supplied reason="lost">I</supplied>nd<supplied reason="lost">ra</supplied>varmma<supplied reason="lost">d</supplied>e<supplied reason="lost">va</supplied><gap precision="low" quantity="44" reason="lost" unit="character"/>nidhir adhi
               <lb n="B24"/><gap quantity="1" reason="lost" unit="line"/>
               <lb n="B25"/>dhva-dvayam̐ <unclear>s</unclear>u<unclear>varṇṇa</unclear><gap precision="low" quantity="52" reason="lost" unit="character"/>
               </p>
         <lg met="anuṣṭubh" n="40">
           <milestone n="c" type="pagelike" unit="face"/>
-          <!-- argr2sapi: sauf si le EGD préconise autre chose, je mettrais des petites lettres c et d pour les faces latérales, dans les <milestone type="pagelike" unit="face"/> ainsi que dans tous les <lb> -->
           <l n="a"><lb n="c1"/><seg met="====-">
               <gap quantity="5" reason="lost" unit="character"/>
             </seg><unclear>dha</unclear>rmmārthaṁ</l>
-          <!-- argr2sapi: à partir d'ici, le lapicide cesse d'exmployer m̐ et met des simples ṁ — remarque à reporter dans handNote -->
           <l n="b">vihāras sthāpito<lb n="c2"/><seg met="-=">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg></l>
           <l n="c"><unclear>rā</unclear>jño na tv ākarādānād</l>
           <l n="d">bhikṣu-saṅgha<lb break="no" n="c3"/>-<supplied reason="lost">prayo</supplied>janam·<g type="ddandaPlain">.</g></l>
-          <!-- argr2sapi: c'est un simple ddanda pour moi, revérifier tous les cas de ddandaHooked -->
         </lg>
         <lg met="anuṣṭubh" n="41">
           <l n="a">paribhogāni sarvvā<choice>
@@ -467,12 +424,11 @@
           <l n="b">'nākarādāna-santa<lb break="no" n="c7"/>tiḥ<space/></l>
           <l n="c">bhikṣu-saṅghopabhogārtho<space/></l>
           <l n="d">vihā<lb break="no" n="c8"/>ras sthāpitas sadā<g type="ddandaPlain">.</g><g type="dandaPlain">.</g></l>
-          <!-- argr2sapi: c'est danda + simple ddanda pour moi -->
         </lg>
         <lg met="śārdūlavikrīḍita" n="43">
           <l n="a">bhiksūṇāñ ca dhanā<lb break="no" n="c9"/>ni tāni sakalāny evañ ca ra<unclear>kṣ</unclear>anti ye</l>
           <l n="b"><lb n="c10"/>vidvad-brāhmaṇa-tāpasa-kṣitipati-jñātyā<lb break="no" n="c11"/>dayo bhuktaye</l>
-          <l n="c">bauddhaṁ mokṣa-padaṁ<!-- argr2sapi: en fait il me semble maintenant évident qu'il faille lire mokṣapadaṁ (cf. buddha-padaṁ en st. XLVII), sans besoin de correction; ajouter entrée apparat si Finot et Majumdar avaient autre chose; par acquis de conscience, mentionner que mokṣapuraṁ figure en effet dans d22 --> sa<lb break="no" n="c12"/>mīyur asamaṁ sarvve ca te vāndhavair</l>
+          <l n="c">bauddhaṁ mokṣa-padaṁ sa<lb break="no" n="c12"/>mīyur asamaṁ sarvve ca te vāndhavair</l>
           <l n="d">yye <lb n="c13"/> gr̥h<choice>
               <sic>n</sic>
               <corr>ṇ</corr>
@@ -491,13 +447,11 @@
           <l n="d">narakaṁ vai pa<lb break="no" n="c19"/>tantu na<g type="circleConcentricOval">.</g></l>
         </lg>
         <lg met="upajāti" n="46">
-          <!-- argr2sapi: cette valeur de @met n'est pas admise dans EGD, App. B. Il faut mettre simplement "upajāti". Il faut bien que tu t'assures toujours, en encodant, le la conformité des valeurs de @met -->
           <l n="a">haranti sarvvā<choice>
               <sic>n</sic>
               <corr>ṇ</corr>
             </choice>i dhanāni <lb n="c20"/>tāni<space/></l>
           <l n="b">ye kṣatriyā vātha nr̥pā <lb n="c21"/>dvijā vā<space/></l>
-          <!-- argr2sapi: on pourrait lire ḥ ou dotMid en fin de <l>, mais on n'en veut pas, donc ignorons -->
           <l n="c">sarvve ca te nārakam e<lb break="no" n="c22"/>va duḥkhaṁ<space/></l>
           <l n="d">mātrā ca pitrā ca pata<lb break="no" n="c23"/>ntu nityam·<g type="circleConcentricOval">.</g></l>
         </lg>
@@ -505,7 +459,7 @@
           <l n="a">rakṣanti <choice>
               <sic>t</sic>
               <corr>y</corr>
-            </choice>e<!-- argr2sapi: appliquer le <choice> à la seule lettre t/y --> tāni dha<lb break="no" n="c24"/>nāni sarvve<space/></l>
+            </choice>e tāni dha<lb break="no" n="c24"/>nāni sarvve<space/></l>
           <l n="b">saṅghopabhogā<lb break="no" n="c25"/>ya mamāpi vācā<space/></l>
           <l n="c">kṣetraṁ suva<lb break="no" n="c26"/>rṇṇaṁ rajatañ ca kaṅsaṁ<space/></l>
           <l n="d">dāsādibhi<lb break="no" n="c27"/>r buddha-padaṁ samīyuḥ<g type="circleConcentricOval">.</g></l>
@@ -513,9 +467,6 @@
         <lg met="indravajrā" n="48">
           <l n="a">tyaktvā <lb n="c28"/>vaco me ca haranti ke cit<space/></l>
           <l n="b">nr̥p<supplied reason="lost">ā</supplied><lb break="no" n="c29"/>dayo vipra-dhaneśvarāś ca<space/></l>
-          <!-- argr2sapi: le début de la <l> me semble suffisamment clair, donc je mettrais nr̥p<supplied reason="lost">ā</supplied>; la ligature tnr̥ à la transition des deux <l> étant très insolite (car normalement t devant n doit devenir n), il me semble qu'une entrée apparat avec <lem><l>ke cit</l><l>nr̥p<supplied reason="lost">ā</supplied></supplied><lb n="C29" break="no"/>dayo</lem> et <note>The stone shows the <foreign>akṣara</foreign> <foreign>tnr̥</foreign> at the <foreign>pāda</foreign> boundary.</note> est à sa place.
-Voir le projet de note sous <p n="C28"...
-              -->
           <l n="c">Aṣṭ<unclear>au</unclear> <lb n="c30"/>samīyur nnarakān samastān<space/></l>
           <l n="d">pitrā <lb n="c31"/>ca mātrā ca sabandhu-varggaiḥ<g type="circleConcentricOval">.</g></l>
         </lg>
@@ -526,10 +477,7 @@ Voir le projet de note sous <p n="C28"...
             </seg><placeName key="Lāy" subtype="field" type="cultivation">lāy·</placeName>-kṣetraṁ <placeName key="Aso" subtype="field" type="cultivation">Aso</placeName>-ksetraṁ</l>
           <l n="b"><placeName key="Gamr̥yāṅ" subtype="field" type="cultivation">gamr̥<lb break="no" n="d2"/><unclear>yā</unclear>ṅ</placeName>-kṣetraṁ tathaiva<space/></l>
           <l n="c"><placeName key="Jrauṅ Apaṅ Salavaṅ" subtype="field" type="cultivation">jrauṅ·-Apaṅ·<lb break="no" n="d3"/>-salavaṅ</placeName>-ksetraṁ<space/></l>
-          <l n="d">sadamandiṅ<!--
-                  sapi2argr saṁdamandiṅ ?
-                  argr2sapi possible, mais il ya pas mal de "faux" anusvāras sur faces d et d, donc tout dépend de si nous pouvons trouver un sens pour le toponyme plutôt dans l'une ou dans l'autre hypothèse de lecture. 3e et 4e options: saṁ Umandiṅ, saUmandiṅ.
-                --> dhanya-dvayaṁ</l>
+          <l n="d">sadamandiṅ dhanya-dvayaṁ</l>
         </lg>
         <lg met="anuṣṭubh" n="50">
           <l n="a"><lb n="d4"/><placeName key="Damanuv Vlur Candāṅ" subtype="field" type="cultivation">damanuv·-vlur·-candāṅ</placeName>-kṣetraṁ</l>
@@ -537,34 +485,26 @@ Voir le projet de note sous <p n="C28"...
               <sic>a</sic>
               <corr>e</corr>
             </choice><lb break="no" n="d5"/>traṁ vataiṅ· tathā<space/></l>
-          <l n="c">ṅauk·-Amvil·-cva<unclear>ḥ</unclear><!--
-                    sapi2argr cvaḥ ?
-                    argr2sapi oui c'est possible, et peut-être même probable, car cvaḥ se trouve souvent dans la délimitation des terres; donc si un mot cva n'existe pas...
-                  --><lb break="no" n="d6"/>-<placeName key="Patāk" subtype="field" type="cultivation">patāk·</placeName>-kṣetraṁ<space/></l>
+          <l n="c">ṅauk·-Amvil·-cva<unclear>ḥ</unclear><lb break="no" n="d6"/>-<placeName key="Patāk" subtype="field" type="cultivation">patāk·</placeName>-kṣetraṁ<space/></l>
           <l n="d"><placeName key="Raṅaul" subtype="field" type="cultivation">raṅaul·</placeName>-kṣetraṁ Atau<lb break="no" n="d7"/>r· sivaḥ</l>
         </lg>
         <lg met="anuṣṭubh" n="51">
-          <l n="a"><placeName key="Lvuk Tandreṁ Lvuk Kavov" subtype="field" type="cultivation">lvuk·-tandreṁ<!-- argr2sapi: tandrīṁ? -->-lvuk-kavov·</placeName>-kṣetraṁ</l>
-          <!-- argr2sapi: maybe possible and better to read karvov·? at least the fact that we expect an r and that this might be a way to get it should be mentioned in an apparatus note -->
+          <l n="a"><placeName key="Lvuk Tandreṁ Lvuk Kavov" subtype="field" type="cultivation">lvuk·-tandreṁ-lvuk-kavov·</placeName>-kṣetraṁ</l>
           <l n="b"><lb n="d8"/>vamanauṅ· ca Avam̃ tathā<space/></l>
-          <!-- argr2sapi: add to handNote that m̃ is used in this part of the text.  -->
           <l n="c">kṣetrā<lb break="no" n="d9"/>ṇy etāni sarvvāṇi</l>
           <l n="d">lokeśāya <lb n="d10"/>nr̥po 'dadat·<g type="circleConcentricOval">.</g></l>
         </lg>
         <p>Api ca yaś śrī-I<lb break="no" n="d11"/>ndravarmmā kṣetrāni sadhanyāni dāsī-dā<lb break="no" n="d12"/>sān sarajata-suvarṇṇa-kaṅsa-loha<lb break="no" n="d13"/>-tāmrādīni dravyāṇi śrī-lakṣmīndralo<lb break="no" n="d14"/>keśvarāya bhikṣu-saṅgha-paribhogā<lb break="no" n="d15"/>ya dharmma-santati-paripūraṇārthāya da<lb break="no" n="d16"/>ttavān
-              iti<g type="dashTriple">.</g><!--
-                sapi2argr Ici j'ai inventé un symbole à partir de la taxonomie mais je ne suis pas sûre
-                argr2sapi en effet le symbole semble différent de ce que nous avons vu jusqu'ici. il faudra envoyer une clipping et la proposition dashTriple à Daniel
-              --> ye rājānaḥ kṣatriy<supplied reason="lost">ā vā</supplied>
+              iti<g type="dashTriple">.</g> ye rājānaḥ kṣatriy<supplied reason="lost">ā vā</supplied>
                 <lb n="d17"/>brāhmaṇā vāmāty<unclear>ā</unclear> vā <gap quantity="2" reason="lost" unit="character"/>
-                <!-- argr2sapi: le -ā de la fin de vāmātyā n'est pas clair pour moi; mettre dans <unclear>? -->
+                
                 <lb n="d18"/>vā va<choice>
             <sic>n</sic>
             <corr>ṇ</corr>
           </choice>ijo vā haranti nāśayant<unclear>i</unclear> <gap quantity="1" reason="lost" unit="character"/>
-                <lb n="d19"/>ḍhayanti<!-- argr2sapi: voir le projet de note dans Commentary. Autre possibilité: restituer draḍhayanti et traduire "arrêter". --> vā te sarvve mahārauravaṁ ga<lb break="no" n="d20"/>cchantu<g type="circleConcentricOval">.</g> punar api te rakṣanti pari<lb break="no" n="d21"/>pālayanti Āviṣkurvvanti sarvve sva<lb break="no" n="d22"/>rgga-puraṁ mokṣa-purañ ca yatheṣṭaṁ
+                <lb n="d19"/>ḍhayanti vā te sarvve mahārauravaṁ ga<lb break="no" n="d20"/>cchantu<g type="circleConcentricOval">.</g> punar api te rakṣanti pari<lb break="no" n="d21"/>pālayanti Āviṣkurvvanti sarvve sva<lb break="no" n="d22"/>rgga-puraṁ mokṣa-purañ ca yatheṣṭaṁ
                 <lb n="d23"/>gacchantu bhavantas sarvve<g type="circleConcentricOval"/><g type="circleConcentricOval"/>
-                <!-- argr2sapi: ici peut-être opter pour <g type="circleConcentricOval"/> donc comme synbole et pas comme ponctuation? -->
+                
               </p>
       </div>
       <div type="apparatus">
@@ -583,11 +523,6 @@ Voir le projet de note sous <p n="C28"...
                 <corr>ā</corr>
               </choice> tena</lem>
             <note>Emendation proposed to us by Yuko Yokochi.</note>
-            <!--
-  a. śrutivacanapado tena: correct śrutivacanapadā tena (proposed by Yuko Yokochi).
-	c. °nipuno: understand °nipuṇo (Finot).
-	d. °nāvi: perhaps emend °nāmi (proposed by Diwakar Acharya).
-	The multiple emendations proposed by Majumdar, p. 80 (note) are unnecessary. -->
           </app>
           <app loc="A20">
             <lem>khyāta-yaśāś</lem>
@@ -707,7 +642,6 @@ Voir le projet de note sous <p n="C28"...
               <l>nr̥p<supplied reason="lost">ā</supplied>dayo</l>
             </lem>
             <note>The stone shows the <foreign>akṣara</foreign> <foreign>tnr̥</foreign> at the <foreign>pāda</foreign> boundary. Or: The engraver has not used a virāma at the end of pāda, but apparently written the akṣara tnr̥, although the estampage is not entirely clear on this point.</note>
-            <!-- sapi2argr Deux façons de dire la même chose pour que tu puisses sélectionner.-->
           </app>
           <app loc="d5">
             <lem>cva<unclear>ḥ</unclear></lem>
@@ -737,18 +671,15 @@ Voir le projet de note sous <p n="C28"...
         <p n="37" rend="stanza">‘By him, who followed the path of the Vedic instructions—although he transgressed the boundaries [of morality]? no, he always observed the boundaries [of morality] (maryādā-abhedinā) (or: he breached the boundaries [of enemy territory])—the characteristic of thinking of those whose minds are afflicted with sufferings (duḥkha-ārta-cit-tā) was never abandoned. People of dim vision (or: with unreliable leaders) seeking refuge were dear [to him], even if they were enemies. The Lokeśa was made here [by him] to be established (i.e. fixed in one place)—although he (the Lokeśa) was complete with supernatural abilities (such as moving at will)? no, he was complete with lordly virtues (such as compassion)—but not (nāpi) to be free of provoking astonishment (avismaya).
 	[reading anāmi and duṣṭa°:] [Lokeśa] was served here [by him]. Being a man of humble thoughts, with his (royal) ordinance he made people of spoiled words (= speakers of non-Sanskritic languages), too (ca), inclined to Dharma.’
 	[reading anāvi and aduṣṭa°:] [Lokeśa] was served here at his command and praised by [him] of humble thoughts; and also the unspoiled teaching on Dharma (i.e. the Buddha’s teaching) [was served and praised by him].’</p>
-        <p n="40" rend="stanza">… in view of the Dharma, and not for the king’s tax collection, a monastery has been founded <supplied reason="subaudible">by me</supplied>, for the benefit of the community of monks. <!--Before: ... a vihāra was established for the sake of Dharma, exempted of royal taxes, for the profit of the monks’ community.--></p>
-        <!--sapi2argr Pas trop sûre de la traduction exacte de « na tv ākarādānād » comme : exempted of royal taxes. À propos de ākarādānād, voir Griffiths et al. 2012: 228 n. 101.-->
-        <p n="41" rend="stanza">I have placed in the monastery all means of subsistence for the use of the community of monks, and for the benefit of beings. <!-- Before:  By me was established in the <foreign>vihāra</foreign> all the means of subsistence for the sake of the enjoyment of the monks’ community and for the profit of beings.--></p>
+        <p n="40" rend="stanza">… in view of the Dharma, and not for the king’s tax collection, a monastery has been founded <supplied reason="subaudible">by me</supplied>, for the benefit of the community of monks. </p>
+        <p n="41" rend="stanza">I have placed in the monastery all means of subsistence for the use of the community of monks, and for the benefit of beings. </p>
         <p n="42" rend="stanza">It is not for the king’s subsistence; it is without continuity of <supplied reason="explanation">the king’s</supplied> tax collection; it is for the benefit of the community of monks that this monastery is founded in perpetuity.
-            <!--Before: The <foreign>vihāra</foreign> is always established, not for the sake of the enjoyment of the king, nor for the continuation of taxes, <supplied reason="subaudible">but</supplied> for the sake of the enjoyment of the monks’ community.--></p>
+            </p>
         <p n="43" rend="stanza">May those — wise brahmins, ascetics, relatives of the king, etc. — who protect all these possessions for the monks’ use under these conditions reach the incomparable State of Release as a Buddha’s, and may all those who take them away and destroy them personally fall into the dreaded hell, along with their relatives!
-           <!--The sage, brahmans, ascetics, <foreign>akṣitipatijñātyā</foreign> and so on, who protect in such a manner these goods of the monks, attained the unequalled city of the buddhist liberation and with <foreign>vāndhavair</foreign>.
-           Those who steal and destroy voluntarily will fall into the dreadful hell.--></p>
-        <!--sapi2argr Encore quelques hésitations sur akṣitipatijñātyā et vāndhavair.-->
-        <p n="49" rend="stanza">Lāy field<!--sapi2argr // laya: gingembre ?-->, Aso field <supplied reason="explanation">dog field?</supplied>
-             <!--sapi2argr (//asov: chien ?)-->, Gamr̥yāṅ field. Similarly, Jrauṅ Apaṅ Salavaṅ field <supplied reason="explanation">straighten the straw <foreign>salavaṅ</foreign>?</supplied> <foreign>sadamandiṅ dhanyadvayaṁ</foreign>.</p>
-        <p n="50" rend="stanza">Damanuv Vlur Candāṅ field<!-- sapi2argr damanuv // daman : peine, difficulté, anciennement ?-->, Dandān field<!--sapi2argr // dandau: étang, mare ?--> au-dessus du <foreign>amvil</foreign> du district, Patāk field<!--sapi2argr(// patak: carde ?)-->, Raṅaul field <foreign>ataur sivaḥ</foreign>.</p>
+           </p>
+        <p n="49" rend="stanza">Lāy field, Aso field <supplied reason="explanation">dog field?</supplied>
+             , Gamr̥yāṅ field. Similarly, Jrauṅ Apaṅ Salavaṅ field <supplied reason="explanation">straighten the straw <foreign>salavaṅ</foreign>?</supplied> <foreign>sadamandiṅ dhanyadvayaṁ</foreign>.</p>
+        <p n="50" rend="stanza">Damanuv Vlur Candāṅ field, Dandān field au-dessus du <foreign>amvil</foreign> du district, Patāk field, Raṅaul field <foreign>ataur sivaḥ</foreign>.</p>
         <p n="51" rend="stanza">Lvuk Tandreṁ Lvuk Kavov field <supplied reason="explanation">plantation <foreign>tandreṁ</foreign> plantation <foreign>kavov</foreign> field?</supplied> and <foreign>Avam̐</foreign>: the king gave all these fields to Lokeśa.</p>
       </div>
       <div source="bib:Finot1904_01" type="translation" xml:lang="fra">
@@ -772,7 +703,6 @@ Voir le projet de note sous <p n="C28"...
         <p n="21" rend="stanza">C'est ainsi que la royauté se transmit dans sa plénitude à ce roi : elle ne lui fut point donnée par son grand'père ni donnée par son père.</p>
         <p n="22" rend="stanza">C'est par l'excellence de son ascétisme, par la puissance de sa pure intelligence qu'il devint roi... non par son père ou son grand'père.</p>
         <p n="23-24" rend="stanza">C'est de Bhadreśvara que le roi Indravarman reçut la royauté ; car ainsi... d'Uroja.............. seigneur par la grâce de la Terre Mère.....</p>
-        <!--sapi2argr À partir ce là, Finot repart de la stance I, face B. Pour ma part, j'ai gardé la numérotation de la translittération ci-dessus.-->
         <p n="25" rend="stanza">........ par l'intelligence....... l'auguste roi Hari l'a érigé.</p>
         <p n="26" rend="stanza">À l'Être auguste qui habite le Malaya, délivrance du monde et...... des hommes.......... <supplied reason="subaudible">un <foreign>liṅga</foreign></supplied> sous forme de <foreign>kośa</foreign>.... magnifique, au visage d'or, fut promptement érigé de nouveau par le sage roi.</p>
         <p n="27" rend="stanza">C'est par cette succession de rois que m'est parvenu ce <foreign>liṅga</foreign> de Śaṁbhu ; je l'ai fait...... par l'effort de ma pensée.</p>
@@ -846,4 +776,4 @@ Voir le projet de note sous <p n="C28"...
       </div>
     </body>
   </text>
-</TEI><!-- Inversion des estampages C et D.-->
+</TEI>

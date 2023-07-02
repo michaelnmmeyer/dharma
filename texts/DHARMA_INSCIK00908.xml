@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -37,18 +31,13 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
@@ -56,12 +45,7 @@
                   <ptr target="bib:Coedes1941_01"/>
                   <citedRange unit="page">255</citedRange>
                 </bibl>), the script is the same as that of Ta Prohm stela which is of square form (écriture anguleuse), the characteristic of the reign of Jayavarman VII.
-                        <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+                        </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -590,7 +574,6 @@
               <orig>dd</orig>
               <corr>ḍ</corr>
             </choice>itāḥ</l>
-          <!-- kuch: piṇ(dd)itāḥ -->
         </lg>
         <lg met="anuṣṭubh" n="75">
           <l n="a"><lb n="C5"/><milestone n="a" unit="column"/><g type="circleTarget">.</g> Abhavat pramukhās teṣā<milestone break="no" n="b" unit="column"/>n</l>
@@ -866,7 +849,6 @@
               <orig>dd</orig>
               <corr>ḍ</corr>
             </choice>itāḥ</l>
-          <!-- kuch: piṇ<unclear>dd</unclear>itāḥ -->
           <l n="c">
             <milestone n="c" unit="column"/>
             <seg met="====-++=">
@@ -1714,11 +1696,11 @@
         <p n="43" rend="stanza">1 dieu dans la maison <foreign>āyasthāna</foreign> nommée Viśvakarman; tous ces dieux totalisent 515.</p>
         <p n="44" rend="stanza">Pour le service des dieux à commencer par Lokeśvara, les parts quotidiennes sont :
 Riz à cuire: 75 <foreign>khārikā</foreign>, 1/2 <foreign>droṇa</foreign> ;</p>
-        <p n="45" rend="stanza">Sésames: 1 <foreign>khārikā</foreign>, 5 <foreign>prastha</foreign>, 2 <foreign>kuduva</foreign> ;
+        <p n="45" rend="stanza">Sésames: 1 <foreign>khārikā</foreign>, 5 <foreign>prastha</foreign>, 2 <foreign>kuduva</foreign> ; 
 Pois : 2 <foreign>droṇa</foreign>, 4 <foreign>prastha</foreign>, 2 <foreign>kuduva</foreign> ;</p>
         <p n="46" rend="stanza">Beurre fondu: 1 <foreign>ghaṭikā</foreign>, 13 <foreign>prastha</foreign> ;
 Lait caillé: 1 <foreign>ghaṭikā</foreign>, 14 <foreign>prastha</foreign>, 2 <foreign>kuduva</foreign> ;</p>
-        <p n="47" rend="stanza">Lait frais: 29 <foreign>prastha</foreign>, 2 <foreign>kuduva</foreign> ;
+        <p n="47" rend="stanza">Lait frais: 29 <foreign>prastha</foreign>, 2 <foreign>kuduva</foreign> ; 
 Miel: 21 <foreign>prastha</foreign> ;
 Mélasse: 19 <foreign>prastha</foreign> ;</p>
         <p n="48" rend="stanza">Huile de sésame: б <foreign>prastha</foreign>, 3 <foreign>kuduva</foreign> ;
@@ -1738,9 +1720,9 @@ Riz à cuire de qualité supérieure: 5.386 <foreign>khārī</foreign>, 10 <fore
 Pois: la même quantité augmentée de 13 <foreign>prastha</foreign>, 3 <foreign>droṇa</foreign> <supplied reason="explanation">= 75 <foreign>khārikā</foreign>, 2 <foreign>droṇa</foreign>, 13 <foreign>prastha</foreign>, 2 <foreign>kuduva</foreign></supplied> ;</p>
         <p n="57" rend="stanza">Beurre fondu: 75 <foreign>ghaṭikā</foreign>, 9 <foreign>prastha</foreign> ;
 Lait caillé: 68 <foreign>ghaṭikā</foreign>, 1 <foreign>āḍhaka</foreign>, 2 <foreign>kuduva</foreign> ;</p>
-        <p n="58" rend="stanza">Lait frais: 79 <foreign>ghaṭikā</foreign>, 7 <foreign>prastha</foreign>, 2 <foreign>kuduva</foreign> ;
+        <p n="58" rend="stanza">Lait frais: 79 <foreign>ghaṭikā</foreign>, 7 <foreign>prastha</foreign>, 2 <foreign>kuduva</foreign> ; 
 Miel: 75 <foreign>ghaṭikā</foreign>, 1 <foreign>prastha</foreign> ;</p>
-        <p n="59" rend="stanza">Mélasse : 60 <foreign>ghaṭikā</foreign>, 4 <foreign>prastha</foreign>, 2 <foreign>kuduva</foreign> ;
+        <p n="59" rend="stanza">Mélasse : 60 <foreign>ghaṭikā</foreign>, 4 <foreign>prastha</foreign>, 2 <foreign>kuduva</foreign> ; 
 Huile de sésame : 53 <foreign>ghaṭikā</foreign>, 10 <foreign>prastha</foreign> ;</p>
         <p n="60" rend="stanza">Huile de fruit convenant comme accessoire des ablutions: 13 <foreign>ghaṭikā</foreign>, 4 <foreign>prastha</foreign>.</p>
         <p n="61" rend="stanza">Le total annuel des parts pour le service des dieux, a une double origine, vu sa quantité. <supplied reason="subaudible">Voici</supplied> ce qui provient des prestations des villages:</p>
@@ -1751,7 +1733,7 @@ Pois: la même quantité diminuée de 10 <foreign>khārī</foreign>, 1 <foreign>
         <p n="65-66" rend="stanza">Beurre fondu: 545 <foreign>ghaṭikā</foreign>, 7 1/2 <foreign>prastha</foreign> ;
 Lait caillé: 778 <foreign>ghaṭī</foreign>, 10 <foreign>prastha</foreign> ;
 Lait frais: 639, 6 <foreign>prastha</foreign> ;</p>
-        <p n="67" rend="stanza">Miel: 454 <foreign>ghaṭikā</foreign>, 5 <foreign>prastha</foreign> ;
+        <p n="67" rend="stanza">Miel: 454 <foreign>ghaṭikā</foreign>, 5 <foreign>prastha</foreign> ; 
 Mélasse: la même quantité diminuée de 3 <foreign>ghaṭī</foreign> <supplied reason="explanation">= 451 <foreign>ghaṭikā</foreign>, 5 <foreign>prastha</foreign></supplied> ;</p>
         <p n="68" rend="stanza">Huile de sésame: 315 <foreign>ghaṭī</foreign>, 3 <foreign>prastha</foreign> ;
 Huile d'arbre: 119 <foreign>ghaṭī</foreign>, 8 <foreign>prastha</foreign> ;</p>
@@ -1780,17 +1762,17 @@ Miel: 386 <foreign>ghaṭī</foreign>, 6 <foreign>prastha</foreign>, 2 <foreign>
 Huile de sésame: 6 <foreign>ghaṭikā</foreign>, 4 <foreign>prastha</foreign> ;</p>
         <p n="83" rend="stanza">3.712 paires de vêtements des dieux et autres; 113 lits ;</p>
         <p n="84" rend="stanza">323 moustiquaires en soie de Chine; 22 coussins ;</p>
-        <p n="85" rend="stanza">23 nattes <supplied reason="explanation">?</supplied> de Chine ;
+        <p n="85" rend="stanza">23 nattes <supplied reason="explanation">?</supplied> de Chine ; 
 Poivre : 1 <foreign>khārikā</foreign>, 12 <foreign>prastha</foreign> ;</p>
-        <p n="86" rend="stanza">Cire: 2 <foreign>bhāra</foreign>, 2 <foreign>tulā</foreign>, 11 1/2 <foreign>kaṭṭikā</foreign> ;
+        <p n="86" rend="stanza">Cire: 2 <foreign>bhāra</foreign>, 2 <foreign>tulā</foreign>, 11 1/2 <foreign>kaṭṭikā</foreign> ; 
 Sel : 4 <foreign>khārī</foreign>, x <foreign>droṇa</foreign> ;</p>
         <p n="87" rend="stanza">Santal : 1 <foreign>bhāra</foreign>, 5 <supplied reason="subaudible">
             <foreign>tulā</foreign>
           </supplied> ;
 Oléorésine de pin: 1 <foreign>bhāra</foreign>, 3 <foreign>tulā</foreign>, <gap reason="lost"/></p>
-        <p n="88" rend="stanza">Bois d'aigle : 1 <foreign>bhāra</foreign>, 6 <foreign>tulā</foreign>, <gap reason="lost"/>
+        <p n="88" rend="stanza">Bois d'aigle : 1 <foreign>bhāra</foreign>, 6 <foreign>tulā</foreign>, <gap reason="lost"/> 
 Camphre: 3 <foreign>kaṭṭī</foreign>, x <foreign>māṣa</foreign>, <gap reason="lost"/></p>
-        <p n="89" rend="stanza"><gap reason="lost"/>: 6 <foreign>kaṭṭikā</foreign>, 10 <foreign>paṇa</foreign> ;
+        <p n="89" rend="stanza"><gap reason="lost"/>: 6 <foreign>kaṭṭikā</foreign>, 10 <foreign>paṇa</foreign> ; 
 Fils de soie : 3 <foreign>kaṭṭī</foreign>, <gap reason="lost"/></p>
         <p n="90" rend="stanza">Anneaux et <foreign>gobhikṣā</foreign> en or: 2 <foreign>māṣa</foreign>, 3 <foreign>pāda</foreign>, 12 <gap reason="lost"/></p>
         <p n="91" rend="stanza">Boîtes, vases aiguières <gap reason="lost"/> 8 <foreign>paṇa</foreign>, 3 <foreign>pāda</foreign> <gap reason="lost"/>, 8 <foreign>bimbaka</foreign> ;</p>
@@ -1806,7 +1788,7 @@ Argent: 137 <foreign>bhāra</foreign>, 2 <foreign>kaṭṭikā</foreign> ;</p>
         <p n="99" rend="stanza">112.300 perles;
 Cuivre : 73 <foreign>bhāra</foreign>, 1 <foreign>tulā</foreign>, 3 <foreign>kaṭṭī</foreign>.</p>
         <p n="100" rend="stanza">Bronze: 16.X10 <foreign>bhāra</foreign>, 2 <foreign>tulā</foreign>, 1 <foreign>kaṭṭī</foreign>, 10 <foreign>paṇa</foreign> ;</p>
-        <p n="101" rend="stanza">Bols en or: 200 <foreign>bhāra</foreign>, 3 <foreign>tulā</foreign>, 3 <foreign>kaṭṭī</foreign> ;
+        <p n="101" rend="stanza">Bols en or: 200 <foreign>bhāra</foreign>, 3 <foreign>tulā</foreign>, 3 <foreign>kaṭṭī</foreign> ; 
 Etain : 900 <foreign>bhāra</foreign>, 2 <foreign>tulā</foreign>, 5 <foreign>kaṭṭī</foreign> ;</p>
         <p n="102" rend="stanza">Plomb : 924 <foreign>bhāra</foreign> ;
 Fer : 460 <foreign>bhāra</foreign>, 4 <foreign>tulā</foreign>, 3 <foreign>kaṭṭī</foreign> ;</p>
@@ -1842,16 +1824,16 @@ Fer : 460 <foreign>bhāra</foreign>, 4 <foreign>tulā</foreign>, 3 <foreign>ka�
         <p n="131" rend="stanza">Pois : 2.923 <foreign>khārī</foreign>;
 Sésames : la même quantité diminuée de 378 <supplied reason="explanation">= 2.545 kh.</supplied> ;</p>
         <p n="132" rend="stanza">Beurre fondu : 1.664 <foreign>ghaṭī</foreign>, 10 <foreign>prastha</foreign>, 2 <foreign>kuduva</foreign> ;</p>
-        <p n="133-135" rend="stanza">Lait caillé et lait frais : 1.766 <foreign>ghaṭī</foreign>, 3 <foreign>prastha</foreign> de chaque ;
+        <p n="133-135" rend="stanza">Lait caillé et lait frais : 1.766 <foreign>ghaṭī</foreign>, 3 <foreign>prastha</foreign> de chaque ; 
 Miel et mélasse: 1.693 <foreign>ghaṭī</foreign>, 6 <foreign>prastha</foreign> de chaque ;
-Huile de sésame: 514 <foreign>ghaṭī</foreign>, 2 <foreign>prastha</foreign> ;
+Huile de sésame: 514 <foreign>ghaṭī</foreign>, 2 <foreign>prastha</foreign> ; 
 Huile de fruit: 236 <foreign>ghaṭī</foreign>, 4 1/2 <foreign>prastha</foreign> ;</p>
         <p n="136" rend="stanza">Oléorásine de pin : 2 <foreign>bhāra</foreign>, 5 <foreign>tulā</foreign>, 2 <foreign>kaṭṭikā</foreign>, 10 <foreign>paṇa</foreign> ;</p>
         <p n="137" rend="stanza">Bois d'aigle : même poids;
-Santal : 1 <foreign>bhāra</foreign>, 1 <foreign>tulā</foreign>, 1 <foreign>kaṭṭī</foreign>, 18 <foreign>paṇa</foreign>;
+Santal : 1 <foreign>bhāra</foreign>, 1 <foreign>tulā</foreign>, 1 <foreign>kaṭṭī</foreign>, 18 <foreign>paṇa</foreign>; 
 Camphre : 1 <foreign>tulā</foreign>, 1 1/2 <foreign>kaṭṭī</foreign>, 5<foreign>paṇa</foreign> ;</p>
         <p n="138-140" rend="stanza">Styrax: 4 <foreign>tulā</foreign>, 14 <foreign>kaṭṭikā</foreign>, 3 <foreign>paṇa</foreign> ;
-Cire : 3.200 <foreign>bhāra</foreign>, 3 <foreign>kaṭṭī</foreign>, 10 <foreign>paṇa</foreign> ;
+Cire : 3.200 <foreign>bhāra</foreign>, 3 <foreign>kaṭṭī</foreign>, 10 <foreign>paṇa</foreign> ; 
 75.525 vêtements pour les dieux, etc.;
 1.666 lits, etc.</p>
         <p n="141" rend="stanza">Le roi et les propriétaires de villages ont donné pieusement: 8.176 villages ;</p>
@@ -1864,7 +1846,7 @@ Or pour la fabrication des <foreign>prāsāda</foreign> et autres objets, des co
         <p n="146" rend="stanza">Argent: 121 <foreign>bhāra</foreign>, 12 <foreign>kaṭṭikā</foreign>, 10 <foreign>paṇa</foreign> ;</p>
         <p n="147" rend="stanza">Cuivre: 323 <foreign>bhāra</foreign>, 1 <foreign>tulā</foreign>, 1 <foreign>kaṭṭikā</foreign>, 5 <foreign>paṇa</foreign> ;</p>
         <p n="148" rend="stanza">Bronze: 5.360 <foreign>bhāra</foreign>, 2 <foreign>tulā</foreign>, 2 <foreign>kaṭṭī</foreign> ;</p>
-        <p n="149" rend="stanza">Bols en or: 200 <foreign>bhāra</foreign>, 1 <foreign>kaṭṭī</foreign>, 16 <foreign>paṇa</foreign> ;
+        <p n="149" rend="stanza">Bols en or: 200 <foreign>bhāra</foreign>, 1 <foreign>kaṭṭī</foreign>, 16 <foreign>paṇa</foreign> ; 
 Etain: 14 <foreign>bhāra</foreign>, 2 <foreign>tulā</foreign>, 4 <foreign>kaṭṭikā</foreign> ;</p>
         <p n="150" rend="stanza">Plomb: 1.200 <foreign>bhāra</foreign>, 5 <foreign>tulā</foreign> ;
 Fer: 2.000 <foreign>bhāra</foreign>, 7 <foreign>tulā</foreign>, 6 <foreign>kaṭṭī</foreign> ;</p>
@@ -1884,12 +1866,12 @@ Fer: 2.000 <foreign>bhāra</foreign>, 7 <foreign>tulā</foreign>, 6 <foreign>ka�
 Or ; 4 <foreign>pala</foreign>, 2 <foreign>kaṭṭī</foreign> ;
 Argent : 14 <foreign>kaṭṭī</foreign> ;
 Etain blanc: 4 <foreign>tulā</foreign> ;
-459 paires de vêtements de dieux, etc. ;
+459 paires de vêtements de dieux, etc. ; 
 Riz à cuire : 100 <foreign>khārikā</foreign> ;
 143 boîtes de parfums ;</p>
-        <p n="164" rend="stanza">Beurre fondu, miel, mélasse : 1 <foreign>ghaṭī</foreign>, 10 <foreign>prastha</foreign> de chaque ;
+        <p n="164" rend="stanza">Beurre fondu, miel, mélasse : 1 <foreign>ghaṭī</foreign>, 10 <foreign>prastha</foreign> de chaque ; 
 Cire d'abeille: 1 <foreign>tulā</foreign>, 5 <foreign>kaṭṭikā</foreign> ;</p>
-        <p n="165" rend="stanza">Oléorésine de pin et bois d'aigle : 5 <foreign>tulā</foreign> de chaque ;
+        <p n="165" rend="stanza">Oléorésine de pin et bois d'aigle : 5 <foreign>tulā</foreign> de chaque ; 
 Lait caillé et lait frais : 1 <foreign>ghaṭikā</foreign>, 10 <foreign>prastha</foreign> de chaque.</p>
         <p n="166" rend="stanza">Les brâhmanes, à commencer par Śrī Sūryabhaṭṭa, le roi de Java, le roi des Yavana, les deux rois des Chams portent chaque jour avec piété l'eau des ablutions.</p>
         <p n="167" rend="stanza">On raconte que le chasseur Ajitendra ayant offert au Buddha une seule planche en bois obtint au ciel la suprématie comme Bhairavāsura; que dira-t-on de ce roi qui respectueusement offre en abondance au Buddha, aux dieux, aux brâhmanes et aux ascètes, en guise de trônes, des <foreign>prāsāda</foreign> en or, en pierre et en ivoire?</p>

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,28 +35,22 @@
             <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send
                             a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Marine Schoettel &amp; Arlo Griffiths</p>
-            <!-- argr2masc: do you have any thoughts about the situations in which and reasons why it might be decided not to follow alphabetical order in listing author names? (I do, and don't necessarily object to the order I see you have chosen here (and under <respStmt>), but I want to make sure you are aware of this subject, which can be quite sensitive.)  -->
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p>Tidy monumental script<!-- argr2masc: here, the discussion in van der Molen 1983: 95–98 could be cited // masc2argr: wat is een slinger? It seems Willem's argument revolves partly around this feature of the akṣaras but "pendulum" makes no sense in this context. -->, with characters deeply engraved. However, some vowel marks (<foreign>hulu</foreign>, <foreign>taling tarung</foreign> for vocalization o) are not as deeply engraved as others and are only faintly visible. For particularities of this script type, among which a quadrangular <foreign>hulu</foreign> opened on the right, see <bibl>
+              <p>Tidy monumental script, with characters deeply engraved. However, some vowel marks (<foreign>hulu</foreign>, <foreign>taling tarung</foreign> for vocalization o) are not as deeply engraved as others and are only faintly visible. For particularities of this script type, among which a quadrangular <foreign>hulu</foreign> opened on the right, see <bibl>
                   <ptr target="bib:Casparis1975_01"/>
                   <citedRange unit="page">53-54, 65</citedRange>
                 </bibl>. This author believes that this inscription's script can be considered a continuation of Majapahit's chancery script, <cit>
@@ -117,19 +105,18 @@
  <lb n="3"/>vidi ha<unclear>m</unclear>ideni yaṁ raditya yaṁ vulan· hanəL̥ I hala-hayu <lb break="no" n="4"/>ni deva-manusa yaṁ hanut ya<unclear>ṁ</unclear> hagave bajaran tapak taṁt<unclear>u</unclear> ka<choice>
             <orig>b</orig>
             <reg>mb</reg>
-          </choice>aḥha<!-- argr2masc: (...) see examples near top of p. 97 of EGD — but if we restore the nasal here, shouldn't we do so everywhere there is a subaudible nasal? if we reduce ḥh to h, should we not also reduce other such geminate spellings? masc2argr: I think we should try to restore the subaudible nasal everywhere we can (as this seems to be a feature of the particular writing tradition we are dealing with here), but I have not found other instances where this is applicable in this first portion of text. As for reducing the geminate spelling, I would now be tempted to leave the text as it is because I feel gemination at word boundary is very frequent throughout all the Majapahit period, irrespective of the context (e.g. also in royal charters in "pure" Old Javanese). -->
+          </choice>aḥha
   <lb n="5"/>d<unclear>e</unclear>ni deva-manusa muva<unclear>ḥ</unclear> saṁ tu<unclear>mo</unclear>n saṁṅ amanah aR̥ṅə luputa
-  <lb n="6"/>riṁ<!-- argr2masc: the i is clear enough on one of the photos, certaonly clearer than taling/tarung of tumon in the previous line! masc2argr: It appears clearly on the reproduction published by de Casparis indeed. Should we try to record somehow the fact that the engraving is more shallow however (that is, inside the edition per se as well as in the metadata)?--> Ila-Ila paḍa kadəlana tutur-jati</p>
+  <lb n="6"/>riṁ Ila-Ila paḍa kadəlana tutur-jati</p>
         <p>yen ana ṅa<choice>
             <orig>b</orig>
             <reg>mb</reg>
-          </choice>aḥ<!-- argr2masc: see that you have followed EGD here in appliyng normalization only to the phonemese concerned! contrast case above. But I ask again: if we normalize in some cases, we ought do so more consistently. --> ta<lb break="no" n="7"/>n pabəkəla patik vənaṁ tan pabaktaha histri pituṁ ha<unclear>ja</unclear>ma<!-- argr2masc: I find the ja almost equally clear as the one in bajaran in line 4; from our translation, it seems you have accepted the idea that we have a form of jamah, meaning that we could again restore a subaudible nasal and supply a missing akṣara ha to get hañjamaha. Or else read/emend hajamatan as hajamahan? See next comment. --> <unclear>t</unclear>an vava<lb break="no" n="8"/>don avastu, sri syat i sakavarsa <g type="linga"/><!-- argr2masc: the linga here is certainly not a punctuation sign, which your use of <g>.</g> implies; please re-read EGD 4.2; if we want to treat the linga as a text-internal synbol at all, then we'd have to follow the rule "non-alphabetic glyphs that do not clearly fall into any of the above categories (§4.2.6) are not transliterated with any character, but represented by the empty element  <g/> with an appropriate @type". But we could also encode a <space type="ascender"> or simply state in an <app> <note> that the space between sakavarsa and I is filled by the linga that is part of the stone's iconographic program. See also my comment at bottom of file.  --></p>
+          </choice>aḥ ta<lb break="no" n="7"/>n pabəkəla patik vənaṁ tan pabaktaha histri pituṁ ha<unclear>ja</unclear>ma <unclear>t</unclear>an vava<lb break="no" n="8"/>don avastu, sri syat i sakavarsa <g type="linga"/></p>
         <ab>
           <num value="1371">1371</num>
         </ab>
       </div>
       <div type="apparatus">
-        <!-- argr2masc: please check again whether all variants from the texts given by Cohen Stuat 1872, 1875 and De Casparis (1975) are duly recorded.-->
         <listApp>
           <app loc="1">
             <lem source="bib:CohenStuart1872_01">Om̐</lem>
@@ -143,9 +130,7 @@
                 <orig>d</orig>
                 <reg>rd</reg>
               </choice>i damaluṁ</lem>
-            <!-- argr2masc: used <supplied> for inserting the layar? masc2argr: I am not convinced that this should be considered a case of omission.-->
             <rdg source="bib:CohenStuart1872_01">hadi damaluṁ</rdg>
-            <!--Should we try to record somehow that Cohen Stuart was already hesitating, as he adds in his edition of 1872 "(of umalung?)"". I'm not sure how to convert the editor's markup here.-->
             <rdg source="bib:CohenStuart1875_01 bib:Casparis1975_01">hadi Umaluṁ</rdg>
             <note>Damaluṅ is one of the names anciently given to Mt. Merbabu and the term <foreign>hardi</foreign>, albeit part of the toponym, is to be distinguished from the proper noun. The colocations <foreign>Ardi Damaluṅ</foreign> or <foreign>Hardi Pamrihan</foreign> are commonly used to refer to this mountain in the colophons of Merapi-Merbabu manuscripts (as for instance in L 187, L 53, L 220, Mal-Pol 165). See <bibl>
                 <ptr target="bib:KuntaraWiryamartana1993_01"/>
@@ -166,11 +151,9 @@
           <app loc="3">
             <lem>ha<unclear>m</unclear>ideni</lem>
             <rdg source="bib:CohenStuart1872_01 bib:CohenStuart1875_01">ha<unclear>n</unclear>ideni</rdg>
-            <!--I interpret Cohen Stuart's uncertainties expressed as "hanidèni (?)" as bearing particularly on the akṣara m/n-->
             <rdg source="bib:Casparis1975_01">hani deni</rdg>
           </app>
           <app loc="4">
-            <!--masc: I'm not sure this entry is really necessary as we might as well interpret CS' reading of geminate h as a visarga.-->
             <lem source="bib:Casparis1975_01">ka<choice>
                 <orig>b</orig>
                 <reg>mb</reg>
@@ -185,7 +168,6 @@
         </listApp>
       </div>
       <div resp="part:masc part:argr" type="translation">
-        <!--translation encoded as per EGD §9.2 -->
         <p>Om. Made by Śrī Sarasvatī. The mountain Hardi Damaluṅ, the life of the Earth, was churning. The bathing place of Paləmaran would overflow, for God Vidhi <supplied reason="explanation">i.e. Brahmā?</supplied> gave instructions <supplied reason="explanation">
             <foreign>amidhyani</foreign>
           </supplied> to the Sun and the Moon to illuminate the bad and good of divine men, those who seek, those who make a line of succession. The established sacred site will be entered by divine men. And those <supplied reason="explanation">
@@ -225,5 +207,4 @@
       </div>
     </body>
   </text>
-</TEI><!-- argrmasc: as a reminder, I note here that the presence of the cartouche, corncer circles, and the linga must be recorded in metadata
-Adding that: several times in this inscription some expected layars are invisible (case of non-spelling?), or simply have not been written. This may well be a more pervasive feature of the writing tradition this inscription pertains to. So too the pervasive phenomenon of denasalisation of clusters with the structure NC (on this phenomenon, see Noorduyn & Teeuw 2006). -->
+</TEI>

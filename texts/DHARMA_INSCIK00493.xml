@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -45,27 +39,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
               <p>Tentative conclusion by Arlo Griffiths regarding the paleography of I versus Ī:
                         - no śikhā is used for forming Ī until the Angkorian period
                         - double wavy line seems normally to express short I, and only something clearly different can be Ī, so the reading of K. 30 has to be changed to Iśvara-, and then corrected back to Īśvara- with
@@ -117,13 +101,9 @@
       <div type="edition" xml:lang="okz-Latn">
         <ab><lb n="1"/>svasti <g type="spiralR">.</g>
 </ab>
-        <!-- if we follow est. n 250, it would have to be <supplied reason="lost">sva</supplied>st<supplied reason="lost">i</supplied>-->
         <lg met="anuṣṭubh" n="1" xml:lang="san-Latn">
           <l n="a"><lb n="1"/><milestone n="a" unit="column"/>jayaty umārddha-kāyo 'pi</l>
           <l n="b"><milestone n="b" unit="column"/>yogināṁ prabhavo <supplied cert="low" reason="lost">bhava</supplied>ḥ <g type="dDandaOrn">.</g></l>
-          <!-- if we follow est. n 250, it would have to be  prabha<unclear>v</unclear>
-      or restore [yata]ḥ?
- -->
           <l n="c"><lb n="2"/><milestone n="a" unit="column"/>parābabhūva yaṁ prāpya</l>
           <l n="d"><milestone n="b" unit="column"/>manmatho loka-<unclear>m</unclear>anmathaḥ <g type="dDandaOrn">.</g></l>
         </lg>
@@ -155,14 +135,12 @@
           <l n="a"><lb n="11"/><milestone n="a" unit="column"/>siṅhodaye vr̥ṣārddhendau</l>
           <l n="b"><milestone n="b" unit="column"/>kr̥ṣṇa-dvādaśake śuceḥ <g type="dDandaOrn">.</g></l>
           <l n="c"><lb n="12"/><milestone n="a" unit="column"/>śrīmān āmrātakeśo 'yaṁ</l>
-          <!-- if we follow est. n 250, it would have to be <supplied reason="lost">śr</supplied>īmān? -->
           <l n="d"><milestone n="b" unit="column"/>sthito nava-munīṣubhiḥ <g type="dDandaOrn">.</g></l>
         </lg>
         <lg met="anuṣṭubh" n="7" xml:lang="san-Latn">
           <l n="a"><lb n="13"/><milestone n="a" unit="column"/><supplied reason="lost">ya</supplied><unclear>d a</unclear>smin· śraddhayā dattaṁ</l>
           <l n="b"><milestone n="b" unit="column"/>kṣetra-dāsādikan dhanam· <g type="dDandaOrn">.</g></l>
           <l n="c"><lb n="14"/><milestone n="a" unit="column"/><supplied reason="lost">yo ha</supplied>ret sa naro yāyā<milestone break="no" n="b" unit="column"/>d</l>
-          <!-- normalize to yāyān? -->
           <l n="d">narakān eka-viṅśatim· <g type="dDandaOrn">.</g></l>
         </lg>
         <p xml:lang="san-Latn">
@@ -174,11 +152,10 @@ Etad api śrīmatā śrījayavarmma<lb break="no" n="18"/><supplied reason="lost
 yad api ca jñānacandreṇopārjjitaṁ tat sarvaṁ śrīmad-āmrātake<lb break="no" n="19"/>śvarasy<choice>
             <unclear>e</unclear>
             <unclear>o</unclear>
-          </choice><!-- plz check the sye on the stone; maybe restore -syopabhoktavyam·? --><gap quantity="4" reason="lost" unit="character"/>vyam· <g type="circle">.</g>
+          </choice><gap quantity="4" reason="lost" unit="character"/>vyam· <g type="circle">.</g>
 </p>
         <p>
-      <lb n="19"/>poñ· bhāvinaya<!-- plz consult Dominic to ask whether he finds Bhāvinaya a plausible name of the type Bhāravi, Bhāsarvajña, etc.; also ask about bhāteja in line 23 and bhāśleṣma in l. 24 --><!-- Dominic's reply: The place where I have written about Bhā-, Bhāva- and Bhava- is pp. 26–28 of the UDAYA article of 2017 on K. 1049.
-At the time, I knew of no pre-Angkorian instances of names in -rāśi, but, as you know, that has now changed with the discovery of K. 1352. --> ktiṅ· krapi canmat· <num value="1">I</num> sre Aṁnoy· poñ· ta gui mās· <gap quantity="1" reason="lost" unit="character"/>
+      <lb n="19"/>poñ· bhāvinaya ktiṅ· krapi canmat· <num value="1">I</num> sre Aṁnoy· poñ· ta gui mās· <gap quantity="1" reason="lost" unit="character"/>
 <lb n="20"/>sre phalada <supplied reason="lost">ma</supplied><unclear>n·</unclear> jāhv· ta kurāk· jmeṅ· doṅ· poñ· vidyāśakti sare kanlaḥ jnāhv· gui kñuṁ kantai <num value="2">II</num>
    <lb n="21"/>caṁdak· <num value="1">I</num> canlek<supplied reason="lost">· yu</supplied>gala yau <num value="3">III</num><g type="circle">.</g> nu man· poñ· chāñ· ktiṅṅa sre poñ· tel· poñ· mat<unclear>i</unclear>śakti
 <lb n="22"/><unclear>ta</unclear> paṁre <unclear>t</unclear>eṁ gui laṅas· Ai ka<unclear>ñj</unclear>rap· qvac· purandarapura soṅ· ktiṅ· ra gui ge qnak· vraḥ kanmeṅ· dā<unclear>r·</unclear>
@@ -226,7 +203,7 @@ At the time, I knew of no pre-Angkorian instances of names in -rāśi, but, as y
             <lem>śrīmad-āmrātake<lb break="no" n="19"/>śvarasy<choice>
                 <unclear>e</unclear>
                 <unclear>o</unclear>
-              </choice><!-- plz check sye on the stone; maybe restore -syopabhoktavyam·? --><gap quantity="4" reason="lost" unit="character"/>vyam·</lem>
+              </choice><gap quantity="4" reason="lost" unit="character"/>vyam·</lem>
             <rdg source="bib:Coedes1937-1966_01">śrīmad-āmrātake<lb break="no" n="19"/>śvarasye<gap quantity="4" reason="lost" unit="character"/>vyam·</rdg>
             <note>Perhaps restore <foreign>śrīmad-āmrātakeśvarasyo<supplied reason="lost">pabhokta</supplied>vyam·</foreign>.</note>
           </app>
@@ -258,26 +235,24 @@ At the time, I knew of no pre-Angkorian instances of names in -rāśi, but, as y
         <p n="3" rend="stanza">His minister, of faultless character, born of an eminent family, honored among scholars, renowned as virtuous knower of the virtues of those who have virtues, is called Jñānacandra.</p>
         <p n="4" rend="stanza">He has installed here with devotion the illustrious Āmrātakeśvara <supplied reason="subaudible">wishing</supplied> that <supplied reason="explanation">yathā</supplied> he have devotion towards Śiva in every birth.</p>
         <p n="5" rend="stanza">Here <supplied reason="subaudible">he has established</supplied> also the Eastern Lord <supplied reason="subaudible">named</supplied> the illustrious Rudramahālaya. Both temples are one from the perspective of their endowment.</p>
-        <!-- several occurrences of Rudramahālaya in Sanderson 2003-04 -->
-        <p n="6" rend="stanza"><supplied reason="subaudible">In the year reckoned with</supplied> nine, sages <supplied reason="explanation">7</supplied>, arrows <supplied reason="explanation">5</supplied>, <supplied reason="explanation">i.e., in 579 Śaka</supplied>, when the rising <supplied reason="subaudible">of the Sun</supplied> was in Leo, the Moon <supplied reason="subaudible">having passed</supplied> half of Taurus<!-- Bill Mak's remark: Better to understand 'middle of Taurus, i.e. 15 degree'. You never know which half of the moon. -->,
+        <p n="6" rend="stanza"><supplied reason="subaudible">In the year reckoned with</supplied> nine, sages <supplied reason="explanation">7</supplied>, arrows <supplied reason="explanation">5</supplied>, <supplied reason="explanation">i.e., in 579 Śaka</supplied>, when the rising <supplied reason="subaudible">of the Sun</supplied> was in Leo, the Moon <supplied reason="subaudible">having passed</supplied> half of Taurus,
               on twelfth waning of Śuci <supplied reason="explanation">i.e., the month Jyeṣṭha</supplied>, this illustrious Āmrātakeśa was standing.</p>
         <p n="7" rend="stanza">He who takes away the wealth consisting in fields, servants, etc., offered with reverence to this <supplied reason="subaudible">deity</supplied>, must go to the twenty-one hells.</p>
         <p n="15-19"><gap reason="lost"/> two fields of Śrī Vyomeśvara near <gap reason="lost"/> offered to this Āmrātakeśvara. The purchasing of these two fields <gap reason="lost"/> homage given to this Śrī Vyomeśvara. This also was <gap reason="lost"/> by the illustrious Śrī Jayavarman <gap reason="lost"/> Whatever was acquired by Jñānacandra has to be <gap reason="lost"/> of the illustrious Āmrātakeśvara.</p>
-        <!-- maybe restore -opabhoktavyam· in previous sentence and adjust translation as well as apparatus-->
         <p n="19-21">Poñ Bhāvinaya owed 1 ungelded water buffalo. Paddy-fields offered by the Poñ in its place <supplied reason="explanation">
             <foreign>ta gui</foreign>
           </supplied> <supplied reason="subaudible">amounting to</supplied> <gap reason="lost"/> <foreign>mās</foreign> <supplied reason="explanation">units</supplied>:
             the paddy-field <supplied reason="explanation">called</supplied> Phalada which he purchased from Kurāk Jmeṅ and Poñ Vidyāśakti, measuring a half <foreign>sare</foreign>, for the price of two female servants, 1 <foreign>caṁdak</foreign> <supplied reason="subaudible">and</supplied> 3 <foreign>yau</foreign> of paired cloth for lower garments.</p>
         <p n="21-23">Now <supplied reason="explanation">
             <foreign>nu man</foreign>
-          </supplied><!-- DPAK PA2107 --> Poñ Chāñ owed to the Poñ <supplied reason="explanation">i.e., Bhāvinaya</supplied> the paddy-field, a debt which Poñ Matiśakti, <supplied reason="subaudible">his</supplied> former servant as <supplied reason="explanation">gui</supplied> a <foreign>laṅas</foreign> (?) at Kañjrap Avac <supplied reason="subaudible">under</supplied> Purandarapura,
+          </supplied> Poñ Chāñ owed to the Poñ <supplied reason="explanation">i.e., Bhāvinaya</supplied> the paddy-field, a debt which Poñ Matiśakti, <supplied reason="subaudible">his</supplied> former servant as <supplied reason="explanation">gui</supplied> a <foreign>laṅas</foreign> (?) at Kañjrap Avac <supplied reason="subaudible">under</supplied> Purandarapura,
             paid off on his behalf <supplied reason="explanation">
             <foreign>ra gui</foreign>
           </supplied> <supplied reason="subaudible">by the following donation</supplied>:
             the personnel of the Young God, also on his behalf <supplied reason="explanation">
             <foreign>ta gui ukka</foreign>
           </supplied>, received paired cloth for lower garments <supplied reason="subaudible">to the amount of</supplied> 4 <foreign>yau</foreign>.</p>
-        <p n="23-31">Now the return of interest <supplied reason="explanation">? <foreign>kara</foreign></supplied> to them was:<!-- this translation very doubtul, add commentary about spelling saṅ kara instead of saṅ·kara; but difficult to take it as a single word — kuch please add a commentary suggestion the connection with Mod. Khm. saṅ kār -->
+        <p n="23-31">Now the return of interest <supplied reason="explanation">? <foreign>kara</foreign></supplied> to them was:
             <list>
             <item>The paddy-field of the tank of Bhāteja, purchased from the Poñ <supplied reason="explanation">i.e., Bhāvinaya</supplied>, as well as the paddy-field given by the Poñ for religious merit <supplied reason="explanation">
                 <foreign>dharma-pradāna</foreign>
@@ -289,7 +264,7 @@ At the time, I knew of no pre-Angkorian instances of names in -rāśi, but, as y
             <item>The paddy-field of Mratāñ Bhākusuma which he gave to the God Maṇi at Ka Vraḥ Pañ.</item>
             <item>The paddy-field which he purchased from the personnel of the Old God — which he offered as additional <supplied reason="explanation">
                 <foreign>quk</foreign>
-              </supplied> provision <supplied reason="explanation">? <foreign>knip</foreign></supplied> to the God — <supplied reason="subaudible">in exchange for</supplied> offering a <foreign>satra kanqāk</foreign>.<!-- cf. K. 726 A15-17: sre Ai ñeṅ stuk trāc Aṁvi ta bhadrakīrtti bhadraśānti bhadracan (16) mādhava tvaḥ kumāranan kvuṅ dharmmaviradhe sanme ni pañjāhv gi Oy satra (A17) vraḥ kloñ ge sru jnāhv gi mūlya prak taṁliṅ I --></item>
+              </supplied> provision <supplied reason="explanation">? <foreign>knip</foreign></supplied> to the God — <supplied reason="subaudible">in exchange for</supplied> offering a <foreign>satra kanqāk</foreign>.</item>
             <item>The paddy-field of Poñ Vāṅ, a gift from Cī Añ and Poñ Bhānuprasiddhi.</item>
             <item>The paddy-field <supplied reason="subaudible">called/at</supplied> Lvāṅ Saṅke, a gift from Poñ Matipraśānti.
 It was the paddy-field of Poñ Chāñ with Poñ Cī. They asked it back. The Poñs gave it to Mratāñ Medhāvindu, princely adviser. The Mratāñ gave it to the God.</item>
@@ -297,10 +272,6 @@ It was the paddy-field of Poñ Chāñ with Poñ Cī. They asked it back. The Po�
           </list>
        </p>
       </div>
-      <!-- kuch: a. The Khmer text does not mention the name Jñānacandra of the Sanskrit text.
-              b. kara is enigmatic word. The expression soṅ ktiṅ "return the debt" should be compared with saṅ kara "return kara".
-              c. The begining of the Khmer text should be split as follows: L. 19- 21 poñ bhāvinaya ... yau III; l. 21-23 nu man ... ta ge/
-           -->
       <div source="bib:Coedes1937-1966_01" type="translation" xml:lang="fra">
         <p n="1">Bonheur!</p>
         <p n="1" rend="stanza">Victorieux est Celui qui, bien que possédant la moitié du corps d'Umā, est le premier des ascètes, Celui à l'approche de qui succomba Manmatha <supplied reason="explanation">l'Amour</supplied> agitant l'esprit du monde.</p>

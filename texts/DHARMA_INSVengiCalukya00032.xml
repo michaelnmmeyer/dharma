@@ -1,15 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
       <titleStmt>
         <title>Diggubaṟṟu grant of Bhīma II</title>
-        <!--ALT TITLE: Pāganavaram plates of Bhīma II-->
         <respStmt>
           <resp>Encoding</resp>
           <persName ref="part:daba">
@@ -42,19 +35,13 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
-            <!--<altIdentifier type="PEM"><idno type="corpus">CalE41</idno></altIdentifier>-->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
@@ -62,12 +49,7 @@
               <p>Original punctuation marks are pairs of straight verticals about the height of a character body, usually, but not always, with a small hook at the top, bending at a right angle to the left. Final N is also a full-size na without headmark, with a vertical tail curving to the right (not a sinuous one). E.g. l11 māsāN.</p>
               <p>Other palaeographic observations. Dependent o is sometimes formed with the modern/cursive single stroke that starts at the top left of a consonant, turns up and right, has a notch in the middle, then bends down on the right and extends below the headline. Fleet reads some of these as au and emends (e.g. l1 sagautrānāṁ, l47 gautama-gautra), but reads others as the expected o (e.g. l11 kokkili, jyeṣṭho). I prefer, in most instances, to read the ambiguous grapheme as the expected vowel. On a few occasions, where o is expected yet the stroke is particularly asymmetrical (the right hump being much larger) and/or its tail extends particularly far down, I read au and normalise to o. (These include l11 kaukkili, where I think au was definitely intended by the scribe. Is this a Sanskrit derivation of the name from kokila?) Instances where I read the ambiguous stroke as o are marked in the XML with a comment. See also the apparatus to tāḷadhipopo in line 26.</p>
               <p>Sandhi of a final s with an initial ṣ is written as a double ṣ, clearly not a jihvāmūlīya. E.g. l11 kokkiliṣ ṣaṇ; l13 varddhanaṣ ṣaṭ. Upadhmānīya is used repeatedly and is in shape identical to ṟa, though slightly smaller. Its use is quite consistent; the only visarga before p is in line 61 where a sentence end is to be understood after asyāvadhayaḥ. On two other occasions, visarga/upadhmānīya is omitted before p (l10 yuvarāja paṁca; l39 hetu pradveṣi, falling on a pāda boundary).
-                <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-                <summary><p><p/></summary>
-                <handNote xml:id="Pallava00001_hand1"></handNote>
-                <handNote xml:id="Pallava00001_hand2"></handNote>
-              -->
+                </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -94,7 +76,6 @@
     <revisionDesc>
       <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
       <change status="draft" when="2020-10-02" who="part:daba">Initial encoding of the file</change>
-      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -110,7 +91,7 @@
           <p><pb n="1v"/><lb n="1"/>svasti<supplied reason="subaudible">.</supplied> śrīmatāṁ sakala-bhuvana-saṁstūy<choice>
               <sic>ā</sic>
               <corr>a</corr>
-            </choice>māna-mānavya-sago<!--cursive o--><lb break="no" n="2"/>trānāṁ hārīti-putrāṇāṁ kauśikī-vara-prasāda-labdha-rājyānāṁ mā<lb break="no" n="3"/>t<choice>
+            </choice>māna-mānavya-sago<lb break="no" n="2"/>trānāṁ hārīti-putrāṇāṁ kauśikī-vara-prasāda-labdha-rājyānāṁ mā<lb break="no" n="3"/>t<choice>
               <orig>ru</orig>
               <reg>r̥</reg>
             </choice>-gaṇa-paripālitānāṁ svāmi-<supplied reason="omitted">ma</supplied>hāsena-pādānudhyātānāṁ bhagava<lb break="no" n="4"/>n-nārāya<space type="binding-hole"/>ṇa-prasāda-samāsādita-vara-varāha-lāṁ<choice>
@@ -144,7 +125,7 @@
             </unclear> tasya dvaimāturaḥ k<choice>
               <orig>au</orig>
               <reg>o</reg>
-            </choice>kkili<orig>ṣ</orig> ṣaṇ māsāN<g type="ddandaSerif">.</g> tasya jye<lb break="no" n="12"/>ṣṭho<!--cursive o--> bhrātā vi<space type="binding-hole"/>ṣṇuva<supplied reason="omitted">r</supplied>ddhanas sapta<orig>tt</orig>riṁśataM<g type="ddandaSerif">.</g> tat-suto<!--cursive o--> vija<lb break="no" n="13"/>yāditya-bha<space type="binding-hole"/>ṭṭ<unclear>ā</unclear>rako<!--cursive o--> <supplied reason="subaudible">’</supplied>ṣṭādaśa<g type="ddandaSerif">.</g> tat-sūn<choice>
+            </choice>kkili<orig>ṣ</orig> ṣaṇ māsāN<g type="ddandaSerif">.</g> tasya jye<lb break="no" n="12"/>ṣṭho bhrātā vi<space type="binding-hole"/>ṣṇuva<supplied reason="omitted">r</supplied>ddhanas sapta<orig>tt</orig>riṁśataM<g type="ddandaSerif">.</g> tat-suto vija<lb break="no" n="13"/>yāditya-bha<space type="binding-hole"/>ṭṭ<unclear>ā</unclear>rako <supplied reason="subaudible">’</supplied>ṣṭādaśa<g type="ddandaSerif">.</g> tat-sūn<choice>
               <sic>ū</sic>
               <corr>u</corr>
             </choice><choice>
@@ -202,7 +183,7 @@
             <l enjamb="yes" n="c">Āru<lb break="no" n="22"/>hyo<choice>
                 <orig>j</orig>
                 <reg>jj</reg>
-              </choice>vala-hema-kalpita-tulā-ko<!--cursive o-->ṭiṁ vadānyo jaya</l>
+              </choice>vala-hema-kalpita-tulā-koṭiṁ vadānyo jaya</l>
             <l n="d">-staṁbhaṁ <lb n="23"/>k<choice>
                 <sic>i</sic>
                 <corr>ī</corr>
@@ -219,7 +200,7 @@
             </surplus> bālam uccāṭya <lb n="26"/>tāḷ<choice>
               <sic>a</sic>
               <corr>ā</corr>
-            </choice>dhi<surplus>po<!--cursive o--></surplus>po māsam ekaM<g type="ddandaSerif">.</g> ta<supplied reason="omitted">ṁ</supplied> yudhi vinihatya punaś c<unclear>ā</unclear><lb break="no" n="27"/>lukya-bhīma-bhūpātmajo<!--cursive o--> vikramāditya-rājaḥ Ekādaśa mā<lb break="no" n="28"/>sān bhuvam a<space type="binding-hole"/>nvapālayaT<g type="ddandaSerif">.</g></p>
+            </choice>dhi<surplus>po</surplus>po māsam ekaM<g type="ddandaSerif">.</g> ta<supplied reason="omitted">ṁ</supplied> yudhi vinihatya punaś c<unclear>ā</unclear><lb break="no" n="27"/>lukya-bhīma-bhūpātmajo vikramāditya-rājaḥ Ekādaśa mā<lb break="no" n="28"/>sān bhuvam a<space type="binding-hole"/>nvapālayaT<g type="ddandaSerif">.</g></p>
           <lg met="śārdūlavikrīḍita" n="2">
             <l n="a">ta<choice>
                 <sic>b</sic>
@@ -235,7 +216,7 @@
                 <corr>u</corr>
               </choice><supplied reason="omitted">r</supplied> bbhaṭas</l>
             <l n="b">san māsā<lb break="no" n="30"/>ṣṭakam āvad eva vasudhāṁ vyāpādya taṁ saṁyuge</l>
-            <l n="c">tāḷa-jye<lb break="no" n="31"/>ṣṭha-suto<!--cursive o--> <supplied reason="subaudible">’</supplied>tha malla-nr̥patis saptānvapād vatsar<choice>
+            <l n="c">tāḷa-jye<lb break="no" n="31"/>ṣṭha-suto <supplied reason="subaudible">’</supplied>tha malla-nr̥patis saptānvapād vatsar<choice>
                 <sic>a</sic>
                 <corr>ā</corr>
               </choice>n</l>
@@ -265,7 +246,7 @@
                 <corr>a</corr>
               </choice><space type="binding-hole"/>tyām</l>
             <l n="b">atyādityo jagati vijayāditya <lb break="no" n="37"/>Ājījana<space type="binding-hole"/>d yaM</l>
-            <l n="c">dharmmendrāgni-trinayana-dhaneśo<!--cursive o-->da<lb break="no" n="38"/>keśādi-dha<supplied reason="omitted">r</supplied>mma<supplied reason="omitted">ṁ</supplied></l>
+            <l n="c">dharmmendrāgni-trinayana-dhaneśoda<lb break="no" n="38"/>keśādi-dha<supplied reason="omitted">r</supplied>mma<supplied reason="omitted">ṁ</supplied></l>
             <l n="d">senā-nāthan tripura-mathanaḥ kanyakāyā<supplied reason="omitted">ṁ</supplied> ya<unclear>th</unclear>ā<unclear cert="low">huḥ</unclear></l>
           </lg>
           <lg met="indravajrā" n="5">
@@ -285,7 +266,7 @@
                 <sic>nn</sic>
                 <corr>ṇṇ</corr>
               </choice>a-sakala-janatā<unclear>ṁ ca<g type="ddandaSerif">.</g></unclear></l>
-            <l n="cd"><lb n="42"/>rājani dharmma-tanūje yathā manu-pro<!--cursive o-->kta-dharmma-saṁpanne<g type="dandaSerif">.</g></l>
+            <l n="cd"><lb n="42"/>rājani dharmma-tanūje yathā manu-prokta-dharmma-saṁpanne<g type="dandaSerif">.</g></l>
           </lg>
           <p>sa<orig>s</orig> sa<lb break="no" n="43"/>rvva-lokāśraya-śrī-viṣṇuvarddhana-mahārāj<choice>
               <sic>a</sic>
@@ -316,11 +297,11 @@
             </choice>ye<surplus>r</surplus>ttham ājñ<orig>a</orig>payati</p>
           <p>viditam astu vaḥ</p>
           <lg met="śārdūlavikrīḍita" n="7">
-            <l n="a">śrīmān gautama-go<!--cursive o-->tra<lb break="no" n="48"/>-jo dvija-varas sad-vartma-gaḫ puṇya-bhāg</l>
+            <l n="a">śrīmān gautama-gotra<lb break="no" n="48"/>-jo dvija-varas sad-vartma-gaḫ puṇya-bhāg</l>
             <l n="b">nād<choice>
                 <sic>ā</sic>
                 <corr>a</corr>
-              </choice>tte vasudhām api kṣiti<pb break="no" n="4v"/><lb break="no" n="49"/>-talādhīśais su-vaṁśo<!--cursive o-->d<choice>
+              </choice>tte vasudhām api kṣiti<pb break="no" n="4v"/><lb break="no" n="49"/>-talādhīśais su-vaṁśod<choice>
                 <sic>dh</sic>
                 <corr>bh</corr>
               </choice>avaiḥ</l>
@@ -339,13 +320,13 @@
             <l n="a">tad-ātmajo dik-prathito guṇaughair</l>
             <l n="b">dvijendra-vaṁśā<supplied reason="omitted">ṁ</supplied>ba<lb break="no" n="52"/>ra-pūrṇṇa-ca<space type="binding-hole"/>ndraḥ</l>
             <l n="c">Anūna-d<choice>
-                <sic>o<!--cursive o--></sic>
+                <sic>o</sic>
                 <corr>ā</corr>
-              </choice>nā<surplus>ccita-bandhu-</surplus><unclear>r</unclear>ccita-bandhu-mitro<!--cursive o--></l>
+              </choice>nā<surplus>ccita-bandhu-</surplus><unclear>r</unclear>ccita-bandhu-mitro</l>
             <l n="d"><lb n="53"/>mahā-guṇ<choice>
                 <sic>ai</sic>
                 <corr>o</corr>
-              </choice> <space type="binding-hole"/> mādhava-so<!--cursive o-->ma-y<choice>
+              </choice> <space type="binding-hole"/> mādhava-soma-y<choice>
                 <sic>a</sic>
                 <corr>ā</corr>
               </choice>j<choice>
@@ -364,7 +345,7 @@
                 <sic>bh</sic>
                 <corr>c</corr>
               </choice>a pāra-dr̥ś<supplied reason="omitted">v</supplied>ā</l>
-            <l enjamb="yes" n="c">śruti-smr̥ti-pro<!--cursive o-->kta-sa<lb break="no" n="55"/>masta-vastu-</l>
+            <l enjamb="yes" n="c">śruti-smr̥ti-prokta-sa<lb break="no" n="55"/>masta-vastu-</l>
             <l n="d">viśuddha-dhīm<choice>
                 <sic>a</sic>
                 <corr>ā</corr>
@@ -382,7 +363,7 @@
           <lg met="upendravajrā" n="11">
             <l n="a">śuddhānvayaś śu<lb break="no" n="58"/>ddhatara-pravr̥tti<supplied reason="omitted">r</supplied></l>
             <l n="b">nniyukta-karmmaṇy upadhā-viśuddhaḥ</l>
-            <l n="c">satām matas sad-bahu<lb break="no" n="59"/>-po<!--cursive o-->ṣya-v<choice>
+            <l n="c">satām matas sad-bahu<lb break="no" n="59"/>-poṣya-v<choice>
                 <sic>ā</sic>
                 <corr>a</corr>
               </choice>rggas</l>
@@ -906,7 +887,6 @@ renaît ver de terre dans excréments pendant soixante mille ans.
           <bibl n="JFF">
             <ptr target="bib:Fleet1884_03"/>
           </bibl>
-          <!-- one <bibl/> per item of primary bibliography -->
         </listBibl>
         <listBibl type="secondary">
           <bibl>

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -35,9 +29,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00033</idno>
-        <!--
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -91,9 +82,6 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     <body>
       <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
         <lg met="vaṁśamālā" n="1">
-          <!--
-Bhandarkar notes that the metre is faulty in the first and third pādas, where the first syllable should be short. I disagree and see the stanza as a 12-syllable (jagatī-type) upajāti (for which I use the name vaṁśamālā) rather than a vaṁśastha. (Agrawala simply lists it as an upajāti, which is a bit misleading since one would think of triṣṭubh upajāti, but his consideration is probably the same as mine.)
--->
           <l n="a"><lb n="1"/>dr̥pt-āri-darpa-praṇudaḥ pr̥thu-śriyaḥ</l>
           <l n="b">sva-va<sic>ṅ</sic>śa-ketoḥ sakal-āvanī-pateḥ|</l>
           <l n="c">rājādhirājy-ādbhuta-puṇya-<unclear>karmaṇaḥ</unclear></l>
@@ -101,7 +89,7 @@ Bhandarkar notes that the metre is faulty in the first and third pādas, where t
             <seg met="=+-++--+-+-=">
               <gap quantity="12" reason="illegible" unit="character"/>
             </seg>
-            <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->||</supplied>
+            <supplied reason="lost">||</supplied>
           </l>
         </lg>
         <lg met="upajāti" n="2">
@@ -140,12 +128,7 @@ Bhandarkar notes that the metre is faulty in the first and third pādas, where t
             </seg> gdhaṁ</l>
           <l n="b">viṣṇoś ca pāda-kamale samavāpya tatra|</l>
           <l n="c">Artha-vyayena <lb n="3"/>mahatā mahatā ca kālen</l>
-          <!--
-Note the vowel saṁdhi between pādas c and d - not quite sure if and how this should be marked up.
--->
-          <l n="d">ātma-prabhāva-nata-paura-janena tena|<!--
-Note alternative segmentation as ātma-prabhā*avanata
---></l>
+          <l n="d">ātma-prabhāva-nata-paura-janena tena|</l>
         </lg>
         <lg met="vasantatilakā" n="5">
           <l n="a">cakraṁ bibharti ripu <seg met="+--+-+=">
@@ -165,9 +148,7 @@ Note alternative segmentation as ātma-prabhā*avanata
         </lg>
         <lg met="āryā" n="6">
           <l n="ab"><lb n="4"/>kāritam avakra-matinā cakrabhr̥taḥ cakrapālitena gr̥haṁ|</l>
-          <l n="cd">varṣa-śate ṣṭātriṁśe guptānāṁ kāla <gap precision="low" quantity="4" reason="illegible" unit="character"/><!--
-The stanza may in fact be a gīti rather than āryā, which is probably why Agrawala puts a query next to the metre name. Bhandarkar just marks it up as āryā. The length of the lacuna is my estimate based on the assumption that it's āryā (and on the fact that Bhandarkar prints 8 dots for it). The actual physical extent of the damage may be a clue to whether we have an āryā or a gīti here. Sircar conjectures krama-gaṇite for the lacuna, which seems unmetrical to me unless we go by the assumption that kr does not count as a double consonant. Bühler 1891:222 suggests restoring vigaṇanayā.
---></l>
+          <l n="cd">varṣa-śate ṣṭātriṁśe guptānāṁ kāla <gap precision="low" quantity="4" reason="illegible" unit="character"/></l>
         </lg>
         <lg met="vasantatilakā" n="7">
           <l n="a">
@@ -182,9 +163,7 @@ The stanza may in fact be a gīti rather than āryā, which is probably why Agra
           </l>
           <l n="c"><seg met="+">
               <gap quantity="1" reason="illegible" unit="character"/>
-            </seg> <unclear>ā</unclear>rtham utthitam ivorjayato calasya<!--
-Bhandarkar offers no conjecture for the beginning of this pāda and reads (a) as the first vowel. Agrawala proposes spardhārtham and cites Sircar as proposing sārthartham, which seems unlikely.
---></l>
+            </seg> <unclear>ā</unclear>rtham utthitam ivorjayato calasya</l>
           <l n="d"><lb n="5"/>kurvat prabhutvam iva bhāti purasya mūrdhni||</l>
         </lg>
         <lg met="vasantatilakā" n="8">
@@ -212,7 +191,7 @@ Bhandarkar offers no conjecture for the beginning of this pāda and reads (a) as
           </app>
         </listApp>
       </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
+      <div source="bib:AuthorYear_01" type="translation"></div>
       <div type="commentary"></div>
       <div type="bibliography">
         <p/>

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,28 +35,18 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
               <p>The seal is engraved in relief. The scribe does not distinguish b/v and we find v throughout. The scribe uses T and M but also n·. The regular form of ā-mātrā is used in <foreign>ṇā</foreign>. The scribe does not seem to be entirely consistent on distinguishing e/ai. An ornamental form of <foreign>sti</foreign> is used in <foreign>svasti</foreign> (line 1).
-<!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+</p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -73,7 +57,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -100,7 +83,7 @@
         </div>
         <div n="B" type="textpart">
           <head xml:lang="eng">Plate</head>
-          <p><lb n="1"/><g type="spiral"/><!-- siddham --> <space quantity="3" unit="character"/> svasti śrīmaj-jaya-skandhāvārāT varddhamāna-pura-vāsakāT</p>
+          <p><lb n="1"/><g type="spiral"/> <space quantity="3" unit="character"/> svasti śrīmaj-jaya-skandhāvārāT varddhamāna-pura-vāsakāT</p>
           <lg met="vasantatilakā" n="1">
             <lb n="2"/>
             <l n="a">yo dharma-ratna-kiraṇair apavidhya sāndra<supplied reason="omitted">ṁ</supplied></l>
@@ -125,22 +108,22 @@
               </choice>ṇārthavit tanayaḥ</l>
             <l n="cd">nāmnā śrī-dhanadattaḥ <lb n="7"/>prakaṭita-mahimānvayo yo 'bhūT|| </l>
           </lg>
-          <lg met="anuṣṭubh" n="4">
+          <lg met="anuṣṭubh" n="4">
             <l enjamb="yes" n="a">tasya gaurī mahā-bhūbhr̥t</l>
             <l n="b">-sutā vudha<lb break="no" n="8"/>-guru-stutā</l>
             <l n="c">patnī vindu-ratir nāma</l>
             <l n="d">yā vabhūva śiva-priyā|| </l>
           </lg>
           <lg met="śārdūlavikrīḍita" n="5">
-            <l enjamb="yes" n="a">tasyā bhoga<!-- or understand or tasya+ābhoga-? --><lb break="no" n="9"/>-nidāna-dāna-salil<choice>
+            <l enjamb="yes" n="a">tasyā bhoga<lb break="no" n="9"/>-nidāna-dāna-salil<choice>
                 <orig>e</orig>
                 <reg>ai</reg>
-              </choice>r<!-- argr2ryfu: do you agree on reading le? --> ārdrī-kr̥torjad-bhuja-</l>
+              </choice>r ārdrī-kr̥torjad-bhuja-</l>
             <l n="b">sphūrjad-vajra-valārjitāji-vija<lb break="no" n="10"/>ya-prājya-pratāpo mahān·| </l>
             <l n="c">saumyaḥ sūnr̥ta-vāg arāti-bhaya-kr̥d vikhyāta<lb break="no" n="11"/>-kīrttir yaśo</l>
             <l n="d">jyotsnāhāra-tuṣāra-kunda-dhavalaṁ yo yātavān ātmajaḥ|| </l>
           </lg>
-          <lg met="anuṣṭubh" n="6">
+          <lg met="anuṣṭubh" n="6">
             <l n="a"><lb n="12"/>yaś ca kurvañ jagat-tuṣṭyai</l>
             <l n="b">hiraṇya-kaśi<unclear>p</unclear>u-kṣayaM| </l>
             <l n="c">nāvalamvitavān mā<lb break="no" n="13"/>yān</l>
@@ -156,18 +139,15 @@ parama-sau<space quantity="2" type="defect" unit="character"/>gato mātā-pitr̥
       <div type="apparatus">
         <div n="A" type="textpart">
           <listApp>
-            <!-- one <app> for each apparatus entry -->
             <app loc="line">
-              <!-- update the value of @loc.-->
-              <lem><!-- fill in a lemma here --></lem>
-              <rdg source="bib:AuthorYear_01"><!-- update the @source value, fill in variant reading here --></rdg>
+              <lem></lem>
+              <rdg source="bib:AuthorYear_01"></rdg>
             </app>
           </listApp>
         </div>
         <div n="B" type="textpart">
           <head xml:lang="eng">Plate</head>
           <listApp>
-            <!-- one <app> for each apparatus entry -->
             <app loc="3">
               <lem>anayat s<choice>
                   <sic>u</sic>
@@ -193,7 +173,6 @@ parama-sau<space quantity="2" type="defect" unit="character"/>gato mātā-pitr̥
             </app>
           </listApp>
         </div>
-        <!-- end of textpart B -->
       </div>
       <div resp="part:argr" type="translation">
         <div n="A" type="textpart">
@@ -211,7 +190,6 @@ parama-sau<space quantity="2" type="defect" unit="character"/>gato mātā-pitr̥
               <foreign>api</foreign>
             </supplied> is a great king <supplied reason="explanation">mahān prabhuḥ</supplied>, gentle, soft-spoken, terrifying to enemies; of renowned fame, because he has obtained glory as white as moonlight, pearl garland, snow and jasmine, being of immense dignity due to his battle victories gained through the power of the cracking thunderbolts that are his strong arms, moistened by the oceans of <supplied reason="explanation">water libated on the occasion of so numerous</supplied> gifts that cause enjoyment <supplied reason="explanation">of merit</supplied>,  and because to please the world, he
 <supplied reason="subaudible">like the</supplied> victor of demons <supplied reason="explanation"><foreign>dānava-ari</foreign>, i.e. Viṣṇu</supplied>, brought about the death of Hiraṇyakaśipu <seg rend="pun">he, <supplied reason="subaudible">like unto</supplied> gift water <supplied reason="explanation">dāna-vāri</supplied>,<note>In order to lend a second meaning to <foreign>dāna-vārir</foreign>, I am forced to assume poet licence in the form of masculine gender for normally neuter <foreign>vāri</foreign>, which seems plausible if the king himself is asyndetically compared to water.</note> caused <supplied reason="explanation">his own supplies of</supplied> gold <supplied reason="explanation">hiraṇya</supplied> and food <supplied reason="explanation">kaśipu</supplied> to diminish</seg> <supplied reason="subaudible">but</supplied> without taking recourse to deception!</p>
-          <!-- Daniel Balogh comments: Interpreting dāna-vārir as bahuvrīhi would dispose of the gender problem. "he who possesses donation water" is not very nice, but it works, and I think it is more likely than a comparison of the king to that water. -->
           <p n="14-17">That one, agreeable to everyone's minds and adorned with the numerous qualities of a <supplied reason="subaudible">king</supplied> who is approachable <supplied reason="explanation">
               <foreign>ābhigāmika</foreign>
             </supplied>, as is well known, is the devout Buddhist <supplied reason="explanation">parama-saugata</supplied>, blessed by the feet of his parents, the supreme lord <supplied reason="explanation">parameśvara</supplied>, the overlord of great kings <supplied reason="explanation">mahārāja-adhirāja</supplied> prosperous Kāntideva, being in good health <supplied reason="explanation">
@@ -220,18 +198,14 @@ parama-sau<space quantity="2" type="defect" unit="character"/>gato mātā-pitr̥
               <foreign>harikelā-maṇḍala</foreign>
             </supplied> of this, which is beneficial to themselves: <q>May it be known to you</q></p>
         </div>
-        <!-- end of textpart B -->
       </div>
       <div type="commentary">
-        <!--commentary encoded as per section §9.3 -->
         <p n="2" rend="stanza">Can this Bhadradatta be identified with the one who figures in the <ref target="DHARMA_INSBengalCharters00018.xml">Metal Vase of Devātideva, year 72</ref>?</p>
         <p n="5" rend="stanza">The theme <foreign>dānam bhoga-nidānam</foreign> is encountered also in the <ref target="DHARMA_INSBengalCharters00040.xml">Plate of Devātideva, year 12</ref>, stanza II.</p>
         <p n="13-14">The royal virtues called <foreign>ābhigāmika</foreign> are listed in Kauṭilya's <title>Arthaśāstra</title> 6.1.3: <foreign>mahākulīno daivabuddhisattvasampanno vr̥ddhadarśī dhārmikaḥ satyavāg avisaṁvādakaḥ kr̥tajñaḥ sthūlalakṣo mahotsāho 'dīrghasūtraḥ śakyasāmanto dr̥ḍhabuddhir akṣudrapariṣatko vinayakāma ity ābhigāmikā guṇāḥ</foreign>.</p>
         <p n="14-16">The formulaics of the prose paragraph closely resembles that seen in the <ref target="DHARMA_INSArakan00001.xml">Odein stela of Dharmavijaya, year 2</ref>.</p>
       </div>
       <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
         <p>The inscription was first edited by R.C. Majumdar (<bibl rend="omitname">
             <ptr target="bib:Majumdar1941-1942_01"/>
           </bibl>) with an English translation and photo of an estampage; it is re-edited here by Arlo Griffiths from the same photo of an estampage plus a photo of the plate.</p>
@@ -261,4 +235,4 @@ parama-sau<space quantity="2" type="defect" unit="character"/>gato mātā-pitr̥
       </div>
     </body>
   </text>
-</TEI><!-- the text ends without being completed and does not cover the whole of the obverse of the plate. -->
+</TEI>

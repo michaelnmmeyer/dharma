@@ -1,15 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
       <titleStmt>
         <title>Pedda-Gāḻidipaṟṟu grant of Amma II</title>
-        <!--ALT TITLE: Masulipatam Plates of Amma II -->
         <respStmt>
           <resp>EpiDoc Encoding</resp>
           <persName ref="part:daba">
@@ -42,31 +35,20 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
-            <!--<altIdentifier type="PEM"><idno type="corpus">CalE49</idno></altIdentifier>-->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
               <p>Halantas. T is written with ta and a virāma according to KR, while a special sign is used for N (l9, l15, l17).</p>
               <p>Original punctuation marks. Single punctuation marks are straight verticals with a serif on top; I assume the case is the same in the plates for which no facsimiles are available.</p>
               <p>Other palaeographic observations. Anusvāra is normally to the right of the character to which it belongs, but in the Telugu boundary descriptions it seems to be on top of the next character (however, none of these are clear). ḍ and d are often indistinguishable; in the Telugu words I blindly follow KR's choice between these two, except for the name of the granted village where I disagree with them (see the apparatus to lines 56 and 61).
-              <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-          <summary><p><p/></summary>
-          <handNote xml:id="Pallava00001_hand1"></handNote>
-          <handNote xml:id="Pallava00001_hand2"></handNote>
-        -->
+              </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -77,7 +59,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -89,7 +70,6 @@
     </encodingDesc>
     <revisionDesc>
       <change status="draft" when="2020-11-27" who="part:daba">Initial encoding of the file</change>
-      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -160,7 +140,7 @@
                 <corr>t</corr>
               </choice>ibalaṁ drohiṇo <supplied reason="subaudible">’</supplied>py antakābh<orig>o</orig><g type="dandaSerif">.</g></l>
             <l n="c">dviḍ-bhīmo rāṣṭra<lb break="no" n="20"/>kūṭa-prabala-bala-tamas-saṁharo dvādaśābdaṁ</l>
-            <l n="d">rājyaṁ kr̥tvāgama<orig>t saḥ<g type="dandaSerif">.</g></orig> pranịhita-su-<unclear>ya</unclear>śo dharmma-santāna-varggaḥ<g type="ddandaSerif">.</g></l>
+            <l n="d">rājyaṁ kr̥tvāgama<orig>t saḥ<g type="dandaSerif">.</g></orig> pranịhita-su-<unclear>ya</unclear>śo dharmma-santāna-varggaḥ<g type="ddandaSerif">.</g></l>
           </lg>
           <lg met="sragdharā" n="6">
             <l n="a">vi<lb break="no" n="21"/>ṣṇoḥ padmeva śaṁbhor iva giri-tanayā yasya devī sa-paṭṭā<g type="dandaSerif">.</g></l>
@@ -205,13 +185,13 @@
             <l n="d">rā<unclear>jad-rā</unclear><unclear cert="low">jā</unclear><unclear>dh</unclear>irājas sa <unclear>ja</unclear><lb break="no" n="30"/>yati vijayāditya-<unclear>devo</unclear> <supplied reason="subaudible">’</supplied><unclear>mma</unclear>rājaḥ<g type="dandaSerif">.</g></l>
           </lg>
           <ab>gadya<unclear>M</unclear><g type="dandaSerif">.</g></ab>
-          <p>sa jagatī-patir ammarājo rāja-mahendra<supplied reason="omitted">ḥ</supplied> bhogīndra-saha<lb break="no" n="31"/>sra-bhogopahā<space type="binding-hole"/>sī d<unclear>īrggha</unclear>-daḳṣiṇaika-b<choice>
+          <p>sa jagatī-patir ammarājo rāja-mahendra<supplied reason="omitted">ḥ</supplied> bhogīndra-saha<lb break="no" n="31"/>sra-bhogopahā<space type="binding-hole"/>sī d<unclear>īrggha</unclear>-daḳṣiṇaika-b<choice>
               <sic>a</sic>
               <corr>ā</corr>
             </choice>hu-sandh<choice>
               <orig>ri</orig>
               <reg>r̥</reg>
-            </choice>ta-viśva-viśvaṁbharā-bhāraḥ<g type="dandaSerif">.</g>
+            </choice>ta-viśva-viśvaṁbharā-bhāraḥ<g type="dandaSerif">.</g> 
 nārāyaṇa <lb n="32"/>Iva nirantarāna<space type="binding-hole"/>nta-bhogāspadaḥ<g type="dandaSerif">.</g> vidhur iva sukha-virājitaḥ<g type="dandaSerif">.</g> pitāmaha Iva kama<lb break="no" n="33"/>lāsanaḥ<g type="dandaSerif">.</g> g<unclear>i</unclear><space type="binding-hole"/><del><unclear>r</unclear>i</del>riśa Iva dharādhara-sutārādhitaḥ<g type="dandaSerif">.</g> rat<unclear>n</unclear>ākara I<unclear>va</unclear> sa<unclear>ma</unclear>sta<lb break="no" n="34"/>-śaraṇāgata-bhūbhr̥d-āśrayaḥ<g type="dandaSerif">.</g> suvarṇṇācala Iva suvarṇṇottuṁgodayaḥ<g type="dandaSerif">.</g> himācala <lb break="no" n="35"/>Iva siṁhāsanollāsita-camarī-vāla-vyajana-virājamā<unclear>na</unclear>-līlaḥ<g type="ddandaSerif">.</g></p>
           <p>sa sama<lb break="no" n="36"/>sta-bhuvanāśraya-śrī-vijayāditya-mahārāj<choice>
               <sic>a</sic>
@@ -1044,7 +1024,6 @@ It may also be relevant that flags of one sort or another feature almost univers
           <bibl n="KR">
             <ptr target="bib:KrishnaRao1937-1938_01"/>
           </bibl>
-          <!-- one <bibl/> per item of primary bibliography -->
         </listBibl>
         <listBibl type="secondary">
           <bibl>

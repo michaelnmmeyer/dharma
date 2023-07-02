@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -16,7 +10,6 @@
             <surname>Furui</surname>
           </persName>
           <persName ref="part:argr">
-            <!-- Update the id -->
             <forename>Arlo</forename>
             <surname>Griffiths</surname>
           </persName>
@@ -24,12 +17,10 @@
         <respStmt>
           <resp>intellectual authorship of edition</resp>
           <persName ref="part:ryfu">
-            <!-- Update the id -->
             <forename>Ryosuke</forename>
             <surname>Furui</surname>
           </persName>
           <persName ref="part:argr">
-            <!-- Update the id -->
             <forename>Arlo</forename>
             <surname>Griffiths</surname>
           </persName>
@@ -47,33 +38,22 @@
                             Creative Commons, 444 Castro Street, Suite 900, Mountain View,
                             California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Ryosuke Furui.</p>
-            <!-- replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -84,7 +64,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -112,7 +91,7 @@
           <head xml:lang="eng">Plate</head>
           <pb n="1r"/>
           <lb n="1"/>
-          <p><g type="spiralL"/><!-- siddham --> svasti<g type="dandaStrokeLeft">.</g></p>
+          <p><g type="spiralL"/> svasti<g type="dandaStrokeLeft">.</g></p>
           <lg met="śārdūlavikrīḍita" n="1">
             <l n="a">siddhārthasya parārtha-susthita<lb break="no" n="2"/>-mateḥ sa-nmārgam abhyasyatas</l>
             <l n="b">siddhis siddhim a<lb break="no" n="3"/>nuttarām bhagavatas tasya prajāsu kriyāt·<g type="dandaStrokeLeft">.</g></l>
@@ -144,7 +123,7 @@
             <l n="a"><lb n="8"/>śāstrārtha-bhājā calato 'nuśāsya</l>
             <l n="b">varṇṇān pratiṣṭhāpayatā sva-dharmme<g type="dandaSerif">.</g></l>
             <l n="c">śrī-dharmmapālena sutena so 'bhūt</l>
-            <l n="d">svarga-sthitānām anr̥ṇaḥ<lb n="9"/> pitr̥̄ṇām·<g type="ddandaSerif">.</g></l>
+            <l n="d">svarga-sthitānām anr̥ṇaḥ<lb n="9"/> pitr̥̄ṇām·<g type="ddandaSerif">.</g></l>
           </lg>
           <lg met="aupacchandasika" n="6">
             <l n="a">Acalair iva jaṅgamair yadīyair</l>
@@ -240,7 +219,7 @@
             </supplied> yato bhavadbhiḥ sarvvair eva bhūmer dāna-phala-gauravād apaharaṇe mahā-na<space quantity="2" unit="character"/>raka-pāta-bhayāc ca dānam i<lb break="no" n="45"/>dam anumodya pā<unclear>la</unclear>nīyaṁ prativāsibhiḥ kṣetrakaraiś cājñā-śravaṇa-vidheyair bhūtvā samucita-kara-<unclear>hira</unclear>ṇya-<unclear>m</unclear>eyādi-sarvva-pratyāyopana<lb break="no" n="46"/>yaḥ k<choice>
               <sic>a</sic>
               <corr>ā</corr>
-            </choice>rya Iti<g type="danda">.</g>
+            </choice>rya Iti<g type="danda">.</g>                 
              </p>
           <p><unclear>sa</unclear>mvaT <num value="33">33</num> mārga-dine <num value="21">21</num><g type="danda">.</g></p>
           <p>tathā ca dharmānuśā<choice>
@@ -386,7 +365,7 @@
           <p n="20" rend="stanza">In the excellent injunction, the king, knowing merit, made his own son, illustrious Rājyapāla, who shared purity of both lineages, who acquired merit of himself, whose deed was similar to himself, and whose position as a crown-prince was firm, the messenger here.</p>
         </div>
       </div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="commentary"></div>
       <div type="bibliography">
         <p>First edited and published by Franz Kielhorn<bibl rend="omitname">
             <ptr target="bib:Kielhorn1892_02"/>
@@ -403,7 +382,6 @@
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

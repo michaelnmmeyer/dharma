@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,28 +35,18 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
               <p>The <foreign>akṣara</foreign>s are of the rounded caracteristic form of the 9th and 10th centuries.
-                        <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+                        </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -382,7 +366,7 @@
             <l n="a"><lb n="B15"/><milestone n="a" unit="column"/>vaiṣṇavīṁ pratimām aśma</l>
             <l n="b"><milestone n="b" unit="column"/>saronāthasya sadmani</l>
             <l n="c"><lb n="B16"/><milestone n="a" unit="column"/>bhūyo bhūrivibhām <placeName key="Bhīmapura" next="#placename1_b" subtype="town" type="settlement" xml:id="placename1_a">bhīma</placeName></l>
-            <l n="d"><milestone n="b" unit="column"/><placeName key="Bhīmapura" prev="#placename1" subtype="town" type="settlement" xml:id="placename1_b">pure</placeName><!-- Comment effacer le message d'erreur? --> kātyāyinī-tanum·</l>
+            <l n="d"><milestone n="b" unit="column"/><placeName key="Bhīmapura" prev="#placename1" subtype="town" type="settlement" xml:id="placename1_b">pure</placeName> kātyāyinī-tanum·</l>
           </lg>
           <lg met="anuṣṭubh" n="19" xml:lang="san-Latn">
             <l n="a"><lb n="B17"/><milestone n="a" unit="column"/><seg met="==">
@@ -661,24 +645,24 @@
         </div>
         <div n="2" type="textpart">
           <head xml:lang="eng">Dais</head>
-          <p><!-- sapi Ajouter les virama ? kuch: To discuss in meeting; also the problem of symbol <g type="unidentified".</g> -->
-      <lb n="A25"/><gap quantity="2" reason="lost" unit="character"/> sruk<supplied reason="lost">·</supplied> <gap quantity="2" reason="lost" unit="character"/> <seg type="desc">bhūmi toy<supplied reason="lost">·</supplied> pūrvva <gap extent="unknown" reason="lost" unit="character"/><g type="unidentified">.</g> dakṣiṇa gi thnal<!-- kuch: <supplied reason="lost">·</supplied> ? --> ta
+          <p>
+      <lb n="A25"/><gap quantity="2" reason="lost" unit="character"/> sruk<supplied reason="lost">·</supplied> <gap quantity="2" reason="lost" unit="character"/> <seg type="desc">bhūmi toy<supplied reason="lost">·</supplied> pūrvva <gap extent="unknown" reason="lost" unit="character"/><g type="unidentified">.</g> dakṣiṇa gi thnal ta
       <lb n="A26"/><gap quantity="2" reason="lost" unit="character"/><g type="unidentified">.</g> Uttara saṁdip<supplied reason="lost">·</supplied> kaṁveṅ</seg> <gap quantity="18" reason="lost" unit="character"/> ta gi sruk<supplied reason="lost">·</supplied> si <num value="28">20 8</num> tai <supplied reason="lost">
               <num value="36">30 6</num>
             </supplied>
       <lb n="A27"/><supplied reason="lost">phsaṁ</supplied> phoṅṅa <num value="64">60 4</num> <unclear>
               <g type="circle">.</g>
-            </unclear> sruk<supplied reason="lost">·</supplied> <placeName key="Vrai Kak" subtype="village" type="settlement">vrai kak<supplied reason="lost">·</supplied></placeName> qnak<!-- kuch: <supplied reason="lost">·</supplied>? --> ta gi si <num value="5">5</num> tai <gap quantity="5" reason="lost" unit="character"/> Aṁvval<supplied reason="lost">·</supplied> <seg type="desc">bhūmi toy pūrvva lvah<!-- kuch: lvaha or <supplied reason="lost">·</supplied>? --><gap quantity="3" reason="lost" unit="character"/><lb n="A28"/><supplied reason="lost">da</supplied>kṣiṇa lvah<!-- kuch: lvaha or <supplied reason="lost">·</supplied>÷ --> travāṅ<supplied reason="lost">·</supplied><placeName key="Canlo" subtype="tank" type="hydrographic">canlo</placeName><gap quantity="1" reason="lost" unit="character"/><g type="unidentified">.</g> paścima lvah<!-- kuch: lvaha or <supplied reason="lost">·</supplied>? --> phlū <gap quantity="5" reason="lost" unit="character"/>nvikka <g type="unidentified">.</g> Uttara lvah<!-- kuch: lvaha or <supplied reason="lost">·</supplied>? --> travāṅ<supplied reason="lost">·</supplied><placeName key="Thlā" subtype="tank" type="hydrographic">thlā</placeName></seg> <gap quantity="2" reason="lost" unit="character"/>
-      <lb n="A29"/><gap quantity="2" reason="lost" unit="character"/> <num value="11">10 I</num> pau <num value="2">2</num> phsaṁ <num value="22">20 2</num> <g type="unidentified">.</g> qnak<!-- kuch: <supplied reason="lost">·</supplied>? --> ta paṁre nā Āśrama si <num value="8">8</num> tai <num value="3">3</num> kvan<supplied reason="lost">·</supplied> <gap quantity="4" reason="lost" unit="character"/> <g type="unidentified">.</g> sruk<supplied reason="lost">·</supplied> <placeName key="Thmī" subtype="village" type="settlement">thmī</placeName> qnak<!-- kuch: <supplied reason="lost">·</supplied>? --> ta gi sī <num value="4">4</num> tai <gap quantity="2" reason="lost" unit="character"/>
+            </unclear> sruk<supplied reason="lost">·</supplied> <placeName key="Vrai Kak" subtype="village" type="settlement">vrai kak<supplied reason="lost">·</supplied></placeName> qnak ta gi si <num value="5">5</num> tai <gap quantity="5" reason="lost" unit="character"/> Aṁvval<supplied reason="lost">·</supplied> <seg type="desc">bhūmi toy pūrvva lvah<gap quantity="3" reason="lost" unit="character"/><lb n="A28"/><supplied reason="lost">da</supplied>kṣiṇa lvah travāṅ<supplied reason="lost">·</supplied><placeName key="Canlo" subtype="tank" type="hydrographic">canlo</placeName><gap quantity="1" reason="lost" unit="character"/><g type="unidentified">.</g> paścima lvah phlū <gap quantity="5" reason="lost" unit="character"/>nvikka <g type="unidentified">.</g> Uttara lvah travāṅ<supplied reason="lost">·</supplied><placeName key="Thlā" subtype="tank" type="hydrographic">thlā</placeName></seg> <gap quantity="2" reason="lost" unit="character"/>
+      <lb n="A29"/><gap quantity="2" reason="lost" unit="character"/> <num value="11">10 I</num> pau <num value="2">2</num> phsaṁ <num value="22">20 2</num> <g type="unidentified">.</g> qnak ta paṁre nā Āśrama si <num value="8">8</num> tai <num value="3">3</num> kvan<supplied reason="lost">·</supplied> <gap quantity="4" reason="lost" unit="character"/> <g type="unidentified">.</g> sruk<supplied reason="lost">·</supplied> <placeName key="Thmī" subtype="village" type="settlement">thmī</placeName> qnak ta gi sī <num value="4">4</num> tai <gap quantity="2" reason="lost" unit="character"/>
       <lb n="A30"/><gap quantity="1" reason="lost" unit="character"/> qnak<supplied reason="lost">·</supplied> Āśrama nai<supplied reason="lost">r̥</supplied>tī daṁnep<supplied reason="lost">·</supplied> jvanna ta gi sruk<supplied reason="lost">·</supplied> pvānna <num value="122">100 20 2</num> <g type="unidentified">.</g> vraḥ cucyanna liḥ <num value="2">2</num> cuḥ Āy<supplied reason="lost">·</supplied> <gap quantity="3" reason="lost" unit="character"/>
-      <lb n="A31"/><gap quantity="2" reason="lost" unit="character"/> ta Āśrama <g type="unidentified">.</g> nivandhana chloñ<supplied reason="lost">·</supplied> ta mukhya ta pvānna srū thlvaṅ<supplied reason="lost">·</supplied> <num value="2">2</num> je <num value="2">2</num> mimvāy<supplied reason="lost">·</supplied> qnak<supplied reason="lost">·</supplied> <g type="unidentified">.</g> chloñ<supplied reason="lost">·</supplied> kāri ta vyar<!-- kuch: vyara or <supplied reason="lost">·</supplied>? --> <gap quantity="2" reason="lost" unit="character"/>
-      <lb n="A32"/><gap quantity="2" reason="lost" unit="character"/> thlvaṅ<supplied reason="lost">·</supplied> <num value="5">5</num> mimvāy<supplied reason="lost">·</supplied> qnak<supplied reason="lost">·</supplied> <g type="unidentified">.</g> Abhyāgata ta lvaḥ<!-- kuch: Is this a typo of lvah? Or is it what is on the stone? --> ta gi Āśrama paṁre toy<supplied reason="lost">·</supplied> śakti <gap quantity="4" reason="lost" unit="character"/>
+      <lb n="A31"/><gap quantity="2" reason="lost" unit="character"/> ta Āśrama <g type="unidentified">.</g> nivandhana chloñ<supplied reason="lost">·</supplied> ta mukhya ta pvānna srū thlvaṅ<supplied reason="lost">·</supplied> <num value="2">2</num> je <num value="2">2</num> mimvāy<supplied reason="lost">·</supplied> qnak<supplied reason="lost">·</supplied> <g type="unidentified">.</g> chloñ<supplied reason="lost">·</supplied> kāri ta vyar <gap quantity="2" reason="lost" unit="character"/>
+      <lb n="A32"/><gap quantity="2" reason="lost" unit="character"/> thlvaṅ<supplied reason="lost">·</supplied> <num value="5">5</num> mimvāy<supplied reason="lost">·</supplied> qnak<supplied reason="lost">·</supplied> <g type="unidentified">.</g> Abhyāgata ta lvaḥ ta gi Āśrama paṁre toy<supplied reason="lost">·</supplied> śakti <gap quantity="4" reason="lost" unit="character"/>
       <lb n="A33"/><gap quantity="2" reason="lost" unit="character"/>dana saṁ nu kuṭi nair̥tiya <g type="unidentified">.</g> gi caṁnāṁ roḥha kalpanā yajamāna <g type="unidentified">.</g> sruk<supplied reason="lost">·</supplied> man<supplied reason="lost">·</supplied> jvan<supplied reason="lost">·</supplied> <gap quantity="2" reason="lost" unit="character"/>
-      <lb n="A34"/><gap quantity="2" reason="lost" unit="character"/> <supplied reason="lost">pu</supplied>ṇḍarikākṣa man<supplied reason="lost">·</supplied> sthāpanā Āy<supplied reason="lost">·</supplied> sruk<supplied reason="lost">·</supplied> <placeName key="Vrai Anlam" subtype="village" type="settlement">vrai Anlam</placeName> <g type="unidentified">.</g> <seg type="desc">bhūmi ti pūrvva lvah<!-- kuch: lvaha or <supplied reason="lost">·</supplied>? --> travāṅ <placeName key="Jrau" subtype="tank" type="hydrographic">jrau</placeName><gap quantity="2" reason="lost" unit="character"/><lb n="A35"/><supplied reason="lost">pa</supplied>ścima lvah<!-- kuch: lvaha or <supplied reason="lost">·</supplied>? --> travāṅ<supplied reason="lost">·</supplied><placeName key="Trapek" subtype="tank" type="hydrographic">trapekka</placeName><g type="unidentified">.</g> Aṁvi travāṅ<supplied reason="lost">·</supplied><placeName key="Trapek" subtype="river" type="hydrographic">trapekka</placeName> dai ti Uttara lvah<!-- kuch: lvaha or <supplied reason="lost">·</supplied>? --> prasap<supplied reason="lost">·</supplied><gap quantity="2" reason="lost" unit="character"/><lb n="A36"/><gap quantity="2" reason="lost" unit="character"/> ta gi muṁ sthalā paścimagneya dau pūrvva lvah<!-- kuch: lvaha or <supplied reason="lost">·</supplied>? --><placeName key="Śivaruci" type="undetermined">śivaruci
-      <!-- un village ? --></placeName></seg> qnak<supplied reason="lost">·</supplied> gi si <num value="24">20 4</num>
+      <lb n="A34"/><gap quantity="2" reason="lost" unit="character"/> <supplied reason="lost">pu</supplied>ṇḍarikākṣa man<supplied reason="lost">·</supplied> sthāpanā Āy<supplied reason="lost">·</supplied> sruk<supplied reason="lost">·</supplied> <placeName key="Vrai Anlam" subtype="village" type="settlement">vrai Anlam</placeName> <g type="unidentified">.</g> <seg type="desc">bhūmi ti pūrvva lvah travāṅ <placeName key="Jrau" subtype="tank" type="hydrographic">jrau</placeName><gap quantity="2" reason="lost" unit="character"/><lb n="A35"/><supplied reason="lost">pa</supplied>ścima lvah travāṅ<supplied reason="lost">·</supplied><placeName key="Trapek" subtype="tank" type="hydrographic">trapekka</placeName><g type="unidentified">.</g> Aṁvi travāṅ<supplied reason="lost">·</supplied><placeName key="Trapek" subtype="river" type="hydrographic">trapekka</placeName> dai ti Uttara lvah prasap<supplied reason="lost">·</supplied><gap quantity="2" reason="lost" unit="character"/><lb n="A36"/><gap quantity="2" reason="lost" unit="character"/> ta gi muṁ sthalā paścimagneya dau pūrvva lvah<placeName key="Śivaruci" type="undetermined">śivaruci
+      </placeName></seg> qnak<supplied reason="lost">·</supplied> gi si <num value="24">20 4</num>
    <lb n="B25"/>tai <num value="29">20 9</num> gvāl· <num value="1">I</num> rat· <num value="2">II</num> pau <num value="4">4</num> phsaṁ <num value="60">60</num> <unclear>
               <g type="circle">.</g>
-            </unclear> sruk· <placeName key="Ransī Gvāl" subtype="village" type="settlement">ransī gvāl·</placeName> <g type="circle">.</g> <seg type="desc">bhūmi toy· pūrvva Issa piṅ<supplied reason="lost">·</supplied><g type="unidentified">.</g> dakṣiṇa lvah<!-- kuch: lvaha or <supplied reason="lost">·</supplied>? --> can<lb break="no" n="B26"/>hvar· prasap· <placeName key="Jnāṅ" type="undetermined">jnāṅṅa</placeName><g type="circle">.</g> paścima lvah· ta gi <placeName key="Lañjāy" type="undetermined">lañjāyya</placeName><g type="circle">.</g> Uttara lvah· canhvar· muṁ <placeName key="Panliṅ" type="undetermined">panli<unclear>ṅṅa</unclear></placeName><unclear>
+            </unclear> sruk· <placeName key="Ransī Gvāl" subtype="village" type="settlement">ransī gvāl·</placeName> <g type="circle">.</g> <seg type="desc">bhūmi toy· pūrvva Issa piṅ<supplied reason="lost">·</supplied><g type="unidentified">.</g> dakṣiṇa lvah can<lb break="no" n="B26"/>hvar· prasap· <placeName key="Jnāṅ" type="undetermined">jnāṅṅa</placeName><g type="circle">.</g> paścima lvah· ta gi <placeName key="Lañjāy" type="undetermined">lañjāyya</placeName><g type="circle">.</g> Uttara lvah· canhvar· muṁ <placeName key="Panliṅ" type="undetermined">panli<unclear>ṅṅa</unclear></placeName><unclear>
                 <g type="circle">.</g>
               </unclear></seg> qnak ta gi si <num value="17">10 7</num> tai <num value="26">20 6</num> pau <num value="5">5</num>
       <lb n="B27"/>phsaṁ <num value="48">40 8</num> <g type="circle">.</g> qnak ta tāṁ Aṁvau si <num value="5">5</num> tai <num value="5">5</num> phsaṁ <num value="10">10</num> <g type="circle">.</g> qnak ta paṁre si <num value="7">7</num> tai <num value="6">6</num> kvan· <num value="2">II</num> phsaṁ <num value="15">10 5</num> <unclear>
@@ -688,13 +672,13 @@
       <lb n="B30"/>ta pamek· nu mahānasa yappa liḥ <num value="2">II</num> dau ta chloñ· pūjā liḥ <num value="1">I</num> ta qnak· vraḥ liḥ <gap quantity="1" reason="lost" unit="character"/> pūjā vraḥ kamrateṅ· Añ·
       <lb n="B31"/>puṇḍarikākṣa chloñ· ta phjuḥ krau ta vyara nivandhana mimvāy· qnak· srū thlvaṅ· <num value="10">10</num> <gap quantity="1" reason="lost" unit="character"/> chloñ· kāri ta vyara ta taṁ<gap quantity="1" reason="lost" unit="character"/>
       <lb n="B32"/>hā śucyanna mimvāy· qnak· thlvaṅ· <num value="2">II</num> je <num value="2">II</num>  <g type="circle">.</g> khñuṁ vraḥ kamrateṅ· Añ· puṇḍari<supplied reason="lost">kākṣa</supplied> <gap quantity="2" reason="lost" unit="character"/> qnak· Āśrama velā di<lb break="no" n="B33"/>k· vraḥ rājyaśriya dau paṅgaṁma <g type="circle">.</g> dau qnak· <num value="2">II</num> <g type="circle">.</g> kulapati Āśrama nair̥tīya gi <gap quantity="3" reason="lost" unit="character"/> <supplied reason="lost">pū</supplied>jā vraḥ kamrateṅ· Añ·
-      <lb n="B34"/>puṇḍarikākṣa <g type="circleTarget">.</g> vraḥ kamrateṅ· Añ· Āy· stuk· <placeName key="Veṅ" subtype="pond" type="hydrographic">veṅ·</placeName><!-- ou village? ou undetermined? --> saṁ gaṇa nu kaṁsteṅ· jagat· piṅ· thmo velā dvādaśī
+      <lb n="B34"/>puṇḍarikākṣa <g type="circleTarget">.</g> vraḥ kamrateṅ· Añ· Āy· stuk· <placeName key="Veṅ" subtype="pond" type="hydrographic">veṅ·</placeName> saṁ gaṇa nu kaṁsteṅ· jagat· piṅ· thmo velā dvādaśī
       <lb n="B35"/>rmmāṁ <num value="2">II</num> caṁryyāṅ· <num value="5">5</num> pile <num value="1">I</num> Uḥ dik· sroṅ· mahānasa <g type="circle">.</g> mok· thve saṁvibhāga <num value="1">I</num> liḥ <num value="4">4</num> cuḥ śāla <g type="circle">.</g> bhūmi vraḥ kamra<lb break="no" n="B36"/>teṅ· Añ· stuk· <placeName key="Veṅ" subtype="pond" type="hydrographic">veṅ·</placeName> <unclear>
               <g type="circle">.</g>
-            </unclear> <seg type="desc">toy· Agneya vraḥ <measure commodity="field" quantity="4" type="volume">sre 4</measure><!-- ou alors que autour du 4? --><g type="circle">.</g> dakṣiṇa srukka Aṁvi ta gi jeṅ· kaṁve<supplied reason="lost">ṅ·</supplied> lvah· travāṅ· <placeName key="Thmī" subtype="tank" type="hydrographic">thmī</placeName><lb n="C25"/>paścima <g type="unidentified">.</g> phlū dau <placeName key="Mokṣālaya" type="undetermined">mokṣālaya</placeName><!-- qu'est ce que ceci ? un temple ou un village ? undetermined? --> dakṣiṇa <placeName key="Svāy Thvun" type="undetermined">svāy thvunn</placeName> viñ lvah prasap sre teṅ sakk sre jeṅ <gap quantity="3" reason="lost" unit="character"/><lb n="C26"/><placeName key="Thlān Slāp" type="undetermined">thlān slāp</placeName><g type="unidentified">.</g></seg></p>
-          <p>sre <placeName key="Kansev" subtype="field" type="cultivation">kansev</placeName> <seg type="desc">ti pūrvva tarāp phlū toy paścima <placeName key="Bhadrapura" subtype="town" type="settlement">bhadrapura</placeName><!-- ou village ? ou undetermined?--> dau lvah ta gi phlū <placeName key="Mādhavapura" subtype="village" type="settlement">mādhava</placeName><lb n="C27"/>Aṁvī ta gi phlū <placeName key="Mādhavapura" subtype="village" type="settlement">mādhavapura</placeName><!--  Pour l'instant hypothèse du village car Mādhavapura est décrit dans la partie sanskrite comme un grāme. --> dau paścima lvah ta gi <placeName key="Ransī Jor" type="undetermined">ransī jor</placeName><!-- ou alors "les bambous alignés" --><g type="unidentified">.</g> Aṁvi ta gi <placeName key="Ransī Jor" type="undetermined">ransī jor</placeName> lvah ta muṁ travāṅ <placeName key="Gamryāṅ" subtype="tank" type="hydrographic">gamryā<supplied reason="lost">ṅ</supplied></placeName><supplied reason="lost">ti</supplied><lb n="C28"/>Īśāna <g type="unidentified">.</g> Aṁvī ta gi muṁ travāṅ <placeName key="Gamryāṅ" subtype="tank" type="hydrographic">gamryāṅ</placeName> ti vāyavya dau paścima chloṅṅ <placeName key="Subhava" type="undetermined">subhava</placeName> lvah <placeName key="Khnap It" type="undetermined">khnap It</placeName><g type="unidentified">.</g> Aṁvī <placeName key="Khnap It" type="undetermined"><supplied reason="lost">khnap</supplied><lb n="C29"/>Itt</placeName> dau dakṣiṇa lvah travāṅ <placeName key="Viṅvneṅ" subtype="tank" type="hydrographic">viṅvneṅ</placeName><g type="unidentified">.</g> Aṁvī travāṅ <placeName key="Viṅvneṅ" subtype="tank" type="hydrographic">viṅvneṅ</placeName> dau pūrvva lvah ta gi thnal chloñ dharmmapāla ta dau <placeName key="Amr̥tapura" subtype="town" type="settlement"><supplied reason="lost">A</supplied><lb break="no" n="C30"/>mr̥tapura</placeName><!-- ou village ? undetermined? --><g type="unidentified">.</g> ti dakṣiṇa gī pralāy ta dau <placeName key="Subhava" type="undetermined">subhava</placeName><g type="unidentified">.</g> Aṁvī muṁ travāṅ <placeName key="Gol" subtype="tank" type="hydrographic">gol</placeName> ti Agneya dau lvah travāṅ <placeName key="Jaitaraṅga" subtype="tank" type="hydrographic">jaitaraṅga</placeName><lb n="C31"/><gap quantity="2" reason="lost" unit="character"/>ippa paṅgvay qme śrīteja dau lvah kaṁvaṅ jhe ti dakṣiṇa <placeName key="Dharmapaṭṭana" subtype="village" type="settlement">dharmmapaṭṭana</placeName><measure quantity="100" type="unitLength">śata <num value="1">I</num></measure><!-- unité non précisée --> caṁṅāy gus gi ta bhūmi <placeName key="Dharmapaṭṭana" subtype="village" type="settlement">dharmma<lb break="no" n="C32"/>paṭṭana</placeName><!-- Ajouter land à la liste des type region? --><g type="unidentified">.</g> Amvī ta gi <placeName key="Saṁpar Cyak" type="undetermined">saṁpar cyakk</placeName> dau vāyavya lvah travāṅ <placeName key="Gol" subtype="tank" type="hydrographic">gol</placeName><g type="unidentified">.</g> Aṁvī muṁ travāṅ <placeName key="Gol" subtype="tank" type="hydrographic">gol</placeName> lvah pvār<!-- toponyme? Or pool? --> Aṁvī ta gi pvār lvah
-      <lb n="C33"/>travāṅ <placeName key="Khmoc" subtype="tank" type="hydrographic">khmoc</placeName> dakṣiṇa vnur<!-- toponyme? or mound? --><gap quantity="3" reason="lost" unit="character"/> dau paścima lvah ta gi pvār paścimaka nairr̥ti dakṣiṇa <placeName key="Svāy" type="undetermined">svāy</placeName><!-- toponyme? ou manguier? --><gap quantity="2" reason="lost" unit="character"/> ta lvah phlū v<gap quantity="1" reason="lost" unit="character"/><lb n="C34"/><placeName key="Vryaṅ" type="undetermined">vryaṅṅ</placeName><g type="unidentified">.</g> ti pūrvva lvah chdiṅṅ <g type="unidentified">.</g> Aṁvī travāṅ <placeName key="Gol" subtype="tank" type="hydrographic">gol</placeName> ta Īśāna lvah ta pvār <gap quantity="2" reason="lost" unit="character"/>vikrama <g type="unidentified">.</g> pūrvva gi paṅgvay vāp dā nu ste<lb break="no" n="C35"/>ñ Ass dau Īśāna dau ka vāp dā steñ Ass <g type="unidentified">.</g></seg> sre <placeName key="Suṅnāy Dol" subtype="field" type="cultivation">suṅnāy dol</placeName> ti vāp cakra Oy thnvar sre qnak stuk <placeName key="Veṅ" subtype="pond" type="hydrographic">ve<lb break="no" n="C36"/>ṅ</placeName> Āy vrai vihāra<!-- un village nommé Vrai vihāra? Une forêt nommée vihāra? La forêt du vihāra? --> <g type="unidentified">.</g> khñuṁ vraḥ kamrateṅ Añ Āy kantāl si <num value="111">100 10 I</num> tai <num value="200">200</num> gvāl <num value="20">20</num> lap <num value="10">10</num> rat <num value="56">40 10 6</num> pau <num value="19">10 9</num>
-   <lb n="C37"/>velā pañcamī dvādaśī mahotsava phoṅ<supplied reason="lost">·</supplied> cuñ<supplied reason="lost">·</supplied> Añjeñ<supplied reason="lost">·</supplied> dik<supplied reason="lost">·</supplied> qnak<!-- kuch: <supplied reason="lost">·</supplied>? --> kuṭi nair̥ti nāṁ yajña liḥ <num cert="low" value="2">2</num> chloṅ<supplied reason="lost">·</supplied> ta siṅ<!-- kuch: <supplied reason="lost">·</supplied>? --> ta cuñ<supplied reason="lost">·</supplied> Añjeñ<supplied reason="lost">·</supplied> dik<supplied reason="lost">·</supplied>
+            </unclear> <seg type="desc">toy· Agneya vraḥ <measure commodity="field" quantity="4" type="volume">sre 4</measure><g type="circle">.</g> dakṣiṇa srukka Aṁvi ta gi jeṅ· kaṁve<supplied reason="lost">ṅ·</supplied> lvah· travāṅ· <placeName key="Thmī" subtype="tank" type="hydrographic">thmī</placeName><lb n="C25"/>paścima <g type="unidentified">.</g> phlū dau <placeName key="Mokṣālaya" type="undetermined">mokṣālaya</placeName> dakṣiṇa <placeName key="Svāy Thvun" type="undetermined">svāy thvunn</placeName> viñ lvah prasap sre teṅ sakk sre jeṅ <gap quantity="3" reason="lost" unit="character"/><lb n="C26"/><placeName key="Thlān Slāp" type="undetermined">thlān slāp</placeName><g type="unidentified">.</g></seg></p>
+          <p>sre <placeName key="Kansev" subtype="field" type="cultivation">kansev</placeName> <seg type="desc">ti pūrvva tarāp phlū toy paścima <placeName key="Bhadrapura" subtype="town" type="settlement">bhadrapura</placeName> dau lvah ta gi phlū <placeName key="Mādhavapura" subtype="village" type="settlement">mādhava</placeName><lb n="C27"/>Aṁvī ta gi phlū <placeName key="Mādhavapura" subtype="village" type="settlement">mādhavapura</placeName> dau paścima lvah ta gi <placeName key="Ransī Jor" type="undetermined">ransī jor</placeName><g type="unidentified">.</g> Aṁvi ta gi <placeName key="Ransī Jor" type="undetermined">ransī jor</placeName> lvah ta muṁ travāṅ <placeName key="Gamryāṅ" subtype="tank" type="hydrographic">gamryā<supplied reason="lost">ṅ</supplied></placeName><supplied reason="lost">ti</supplied><lb n="C28"/>Īśāna <g type="unidentified">.</g> Aṁvī ta gi muṁ travāṅ <placeName key="Gamryāṅ" subtype="tank" type="hydrographic">gamryāṅ</placeName> ti vāyavya dau paścima chloṅṅ <placeName key="Subhava" type="undetermined">subhava</placeName> lvah <placeName key="Khnap It" type="undetermined">khnap It</placeName><g type="unidentified">.</g> Aṁvī <placeName key="Khnap It" type="undetermined"><supplied reason="lost">khnap</supplied><lb n="C29"/>Itt</placeName> dau dakṣiṇa lvah travāṅ <placeName key="Viṅvneṅ" subtype="tank" type="hydrographic">viṅvneṅ</placeName><g type="unidentified">.</g> Aṁvī travāṅ <placeName key="Viṅvneṅ" subtype="tank" type="hydrographic">viṅvneṅ</placeName> dau pūrvva lvah ta gi thnal chloñ dharmmapāla ta dau <placeName key="Amr̥tapura" subtype="town" type="settlement"><supplied reason="lost">A</supplied><lb break="no" n="C30"/>mr̥tapura</placeName><g type="unidentified">.</g> ti dakṣiṇa gī pralāy ta dau <placeName key="Subhava" type="undetermined">subhava</placeName><g type="unidentified">.</g> Aṁvī muṁ travāṅ <placeName key="Gol" subtype="tank" type="hydrographic">gol</placeName> ti Agneya dau lvah travāṅ <placeName key="Jaitaraṅga" subtype="tank" type="hydrographic">jaitaraṅga</placeName><lb n="C31"/><gap quantity="2" reason="lost" unit="character"/>ippa paṅgvay qme śrīteja dau lvah kaṁvaṅ jhe ti dakṣiṇa <placeName key="Dharmapaṭṭana" subtype="village" type="settlement">dharmmapaṭṭana</placeName><measure quantity="100" type="unitLength">śata <num value="1">I</num></measure> caṁṅāy gus gi ta bhūmi <placeName key="Dharmapaṭṭana" subtype="village" type="settlement">dharmma<lb break="no" n="C32"/>paṭṭana</placeName><g type="unidentified">.</g> Amvī ta gi <placeName key="Saṁpar Cyak" type="undetermined">saṁpar cyakk</placeName> dau vāyavya lvah travāṅ <placeName key="Gol" subtype="tank" type="hydrographic">gol</placeName><g type="unidentified">.</g> Aṁvī muṁ travāṅ <placeName key="Gol" subtype="tank" type="hydrographic">gol</placeName> lvah pvār Aṁvī ta gi pvār lvah
+      <lb n="C33"/>travāṅ <placeName key="Khmoc" subtype="tank" type="hydrographic">khmoc</placeName> dakṣiṇa vnur<gap quantity="3" reason="lost" unit="character"/> dau paścima lvah ta gi pvār paścimaka nairr̥ti dakṣiṇa <placeName key="Svāy" type="undetermined">svāy</placeName><gap quantity="2" reason="lost" unit="character"/> ta lvah phlū v<gap quantity="1" reason="lost" unit="character"/><lb n="C34"/><placeName key="Vryaṅ" type="undetermined">vryaṅṅ</placeName><g type="unidentified">.</g> ti pūrvva lvah chdiṅṅ <g type="unidentified">.</g> Aṁvī travāṅ <placeName key="Gol" subtype="tank" type="hydrographic">gol</placeName> ta Īśāna lvah ta pvār <gap quantity="2" reason="lost" unit="character"/>vikrama <g type="unidentified">.</g> pūrvva gi paṅgvay vāp dā nu ste<lb break="no" n="C35"/>ñ Ass dau Īśāna dau ka vāp dā steñ Ass <g type="unidentified">.</g></seg> sre <placeName key="Suṅnāy Dol" subtype="field" type="cultivation">suṅnāy dol</placeName> ti vāp cakra Oy thnvar sre qnak stuk <placeName key="Veṅ" subtype="pond" type="hydrographic">ve<lb break="no" n="C36"/>ṅ</placeName> Āy vrai vihāra <g type="unidentified">.</g> khñuṁ vraḥ kamrateṅ Añ Āy kantāl si <num value="111">100 10 I</num> tai <num value="200">200</num> gvāl <num value="20">20</num> lap <num value="10">10</num> rat <num value="56">40 10 6</num> pau <num value="19">10 9</num>
+   <lb n="C37"/>velā pañcamī dvādaśī mahotsava phoṅ<supplied reason="lost">·</supplied> cuñ<supplied reason="lost">·</supplied> Añjeñ<supplied reason="lost">·</supplied> dik<supplied reason="lost">·</supplied> qnak kuṭi nair̥ti nāṁ yajña liḥ <num cert="low" value="2">2</num> chloṅ<supplied reason="lost">·</supplied> ta siṅ ta cuñ<supplied reason="lost">·</supplied> Añjeñ<supplied reason="lost">·</supplied> dik<supplied reason="lost">·</supplied>
    <lb n="D25"/>Lost.
    <lb n="D26"/><gap quantity="3" reason="lost" unit="character"/> <num value="18">10 8</num> <g type="unidentified">.</g> khñuṁ vraḥ <gap extent="unknown" reason="lost" unit="character"/>
       <lb n="D27"/><gap quantity="3" reason="lost" unit="character"/> kamrateṅ<supplied reason="lost">·</supplied> Añ<supplied reason="lost">·</supplied> śrī <gap extent="unknown" reason="lost" unit="character"/>
@@ -707,7 +691,7 @@
       <lb n="D34"/>chloñ· kāra niva<supplied reason="lost">ndhana</supplied> <gap quantity="5" reason="lost" unit="character"/> chloñ<supplied reason="lost">·</supplied> rājadvāra <gap quantity="3" reason="lost" unit="character"/> neḥ mvāy· toy<unclear>·</unclear> <gap quantity="3" reason="lost" unit="character"/>
       <lb n="D35"/>ta nivandhana thlvaṅ<supplied reason="lost">·</supplied> <num value="10">10</num> <unclear>
               <g type="circle">.</g>
-            </unclear> sre vraḥ kamrateṅ· Añ· devāriñjaya <g type="circle">.</g> <seg type="desc">toy· pū<supplied reason="lost">rvva</supplied><lb n="D36"/>lvah·<!-- kuch: Can this be representative of the rest? --> ta tī prasap· sre <placeName key="Aṁlau Ta Vāṅ" subtype="field" type="cultivation">Aṁlau ta vāṅṅa</placeName><g type="circle">.</g> paścima lvoḥ travāṅ· <placeName key="Thlā" subtype="tank" type="hydrographic">thlā</placeName> Uttara lvoḥ travā<supplied reason="lost">ṅ·</supplied><gap quantity="1" reason="lost" unit="character"/><lb n="D37"/><gap quantity="2" reason="lost" unit="character"/>ḥha vraḥ pāda <g type="circle">.</g></seg> gi nā dauv· yajña <g type="circle">.</g> chloñ· ta mukhya velā cur· Aṁvī paṁre saEkra <gap quantity="1" reason="lost" unit="character"/>
+            </unclear> sre vraḥ kamrateṅ· Añ· devāriñjaya <g type="circle">.</g> <seg type="desc">toy· pū<supplied reason="lost">rvva</supplied><lb n="D36"/>lvah· ta tī prasap· sre <placeName key="Aṁlau Ta Vāṅ" subtype="field" type="cultivation">Aṁlau ta vāṅṅa</placeName><g type="circle">.</g> paścima lvoḥ travāṅ· <placeName key="Thlā" subtype="tank" type="hydrographic">thlā</placeName> Uttara lvoḥ travā<supplied reason="lost">ṅ·</supplied><gap quantity="1" reason="lost" unit="character"/><lb n="D37"/><gap quantity="2" reason="lost" unit="character"/>ḥha vraḥ pāda <g type="circle">.</g></seg> gi nā dauv· yajña <g type="circle">.</g> chloñ· ta mukhya velā cur· Aṁvī paṁre saEkra <gap quantity="1" reason="lost" unit="character"/>
    </p>
         </div>
         <div n="3" type="textpart">
@@ -875,81 +859,6 @@
         </div>
       </div>
       <div type="apparatus">
-        <!-- <div type="textpart" n="1"><head xml:lang="eng">Body of the stela</head>
-               <listApp>
-                  <app loc="C9">
-                     <lem></lem>
-                     <rdg source="bib:Coedes1937-1966_01"></rdg>
-                  </app>
-                  </listApp>
-                   </div>
-                   <div type="textpart" n="2"><head xml:lang="eng">Dais</head>
-               <listApp>
-                  <app loc="B27">
-                     <lem><unclear><g type="unidentified">.</g></unclear></lem>
-                     <note>The type of the glyph is hypothetic as it not available on EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                  <app loc="B27">
-                     <lem>daṁnep·</lem>
-                     <note>The <foreign>virāma</foreign> is hypothetic as it not available on EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                  <app loc="B28">
-                     <lem>kamrateṅ· Añ·</lem>
-                     <note>The <foreign>virāma</foreign> is hypothetic as it not available on EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                  <app loc="B29">
-                     <lem><g type="unidentified">.</g></lem>
-                     <note>The type of the glyph is hypothetic as it is not available on the estampage EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                  <app loc="B29">
-                     <lem>dov·</lem>
-                     <note>The <foreign>virāma</foreign> is hypothetic as it not available on EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                  <app loc="B30">
-                     <lem>kamrateṅ· Añ·</lem>
-                     <note>The <foreign>virāma</foreign> is hypothetic as it not available on EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                  <app loc="B31">
-                     <lem>chloñ·</lem>
-                     <note>The <foreign>virāma</foreign> is hypothetic as it not available on EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                  <app loc="B32">
-                     <lem> qnak·</lem>
-                     <note>The <foreign>virāma</foreign> is hypothetic as it not available on EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                  <app loc="B33">
-                     <lem>k·</lem>
-                     <note>The <foreign>virāma</foreign> is hypothetic as it not available on EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                  <app loc="B33">
-                     <lem>kamrateṅ· Añ·</lem>
-                     <note>The <foreign>virāma</foreign> is hypothetic as it not available on EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                  <app loc="B34">
-                     <lem>pin·</lem>
-                     <note>The <foreign>virāma</foreign> is hypothetic as it not available on EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                  <app loc="B35">
-                     <lem><g type="unidentified">.</g></lem>
-                     <note>The type of the glyph is hypothetic as it is not available on the estampage EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                  <app loc="B36">
-                     <lem>teṅ·</lem>
-                     <note>The <foreign>virāma</foreign> is hypothetic as it not available on EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                  <app loc="B36">
-                     <lem>lvah· travāṅ·</lem>
-                     <note>The <foreign>virāma</foreign> is hypothetic as it not available on EFEOB_est.n0728_A_fragment4.</note>
-                  </app>
-                                    <app loc="D36">
-                     <lem>lvah·</lem>
-                     <note>The <foreign>virāma</foreign> is hypothetic as it is not available on the estampage EFEOB_est.n0728_D_fragment1.</note>
-                  </app>
-
-                  <app loc="D37">
-                     <lem><g type="unidentified">.</g></lem>
-                     <note>The type of the glyph is hypothetic as it is not available on the estampage EFEOB_est.n0728_D_fragment1.</note>
-                  </app> -->
         <listApp>
           <app loc="D37">
             <lem>cur·</lem>
@@ -1050,8 +959,6 @@
         <p n="C9">Cœdès proposes to correct it to <foreign>jananīñ</foreign>.</p>
         <p n="C26-C30">The exact same toponyms - Subhava, Bhadrapura, Mādhavapura, Dharmapaṭṭana - can be found in the inscription <ref target="DHARMA_INSCIK00760.xml">K. 760</ref>. In the sanskrit part of K. 56, the toponym Mādhavapura is qualified as a <foreign>grāma</foreign>, which is why it was tagged as a village.</p>
       </div>
-      <!--
-                   -->
       <div type="bibliography">
         <p>First edited by George Cœdès (<bibl rend="omitname">
             <ptr target="bib:Coedes1937-1966_01"/>

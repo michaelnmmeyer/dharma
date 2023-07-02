@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -19,7 +13,6 @@
         <respStmt>
           <resp>intellectual authorship of edition</resp>
           <persName ref="part:ryfu">
-            <!-- Update the id -->
             <forename>Ryosuke</forename>
             <surname>Furui</surname>
           </persName>
@@ -43,27 +36,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -74,7 +57,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -95,7 +77,6 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="san-Latn">
-        <!-- update the @xml:lang value, see EGD §7.2-->
         <div n="A" type="textpart">
           <head xml:lang="eng">Seal</head>
           <ab><lb n="1"/>śrī-śrīcandra-deva<unclear>ḥ</unclear></ab>
@@ -104,7 +85,7 @@
           <head xml:lang="eng">Plate</head>
           <pb n="1r"/>
           <lb n="1"/>
-          <p><g type="spiralL"/><!-- siddham --> svasti<g type="danda">.</g></p>
+          <p><g type="spiralL"/> svasti<g type="danda">.</g></p>
           <lg met="vasantatilakā" n="1">
             <l n="a">vandyo jinas sa bhagavāN karuṇaika-pātran</l>
             <l n="b">dharmmo 'py asau vi<lb break="no" n="2"/>jayate jagad-eka-dīpaḥ<g type="danda">.</g></l>
@@ -222,7 +203,7 @@
             </choice>antrādhikr̥ta<g type="commaSmall">.</g> mahāsarvvādhikr̥ta<g type="commaSmall">.</g> mahāvalā<lb break="no" n="31"/>dhikaraṇika<g type="commaSmall">.</g> mahāvyūhapati<g type="commaSmall">.</g> maṇḍalapati<g type="commaSmall">.</g> koṭṭapāla<g type="commaSmall">.</g> daussādhasādhanika<g type="commaSmall">.</g> cauroddharaṇika<g type="commaSmall">.</g> nauvalahastyaśvagomahi<lb break="no" n="32"/>ṣyajāvikādivyāpr̥taka<g type="commaSmall">.</g> gaulmika<g type="commaSmall">.</g> śaulkika<g type="commaSmall">.</g> dāṇḍika<g type="commaSmall">.</g> dāṇḍapā<choice>
               <orig>s</orig>
               <corr>ś</corr>
-            </choice>ika<g type="commaSmall">.</g> dāṇḍanāyaka<g type="commaSmall">.</g> viṣayapaty-ādīn anyāṁś ca rāja-pādo<lb break="no" n="33"/>pajīvino 'dhyakṣa-pracār-oktān ihākīrttitāN<g type="commaSmall">.</g> cāṭa-bhaṭa-jātīyāN<g type="commaSmall">.</g> janapadāN kṣetrakarāṁś ca vrāhmaṇottarāN<g type="commaSmall">.</g> yathārhaṁ mānaya<lb break="no" n="34"/>ti<g type="commaSmall">.</g> vodhayati<g type="commaSmall">.</g> samājñāpayati ca<g type="commaSmall">.</g>
+            </choice>ika<g type="commaSmall">.</g> dāṇḍanāyaka<g type="commaSmall">.</g> viṣayapaty-ādīn anyāṁś ca rāja-pādo<lb break="no" n="33"/>pajīvino 'dhyakṣa-pracār-oktān ihākīrttitāN<g type="commaSmall">.</g> cāṭa-bhaṭa-jātīyāN<g type="commaSmall">.</g> janapadāN kṣetrakarāṁś ca vrāhmaṇottarāN<g type="commaSmall">.</g> yathārhaṁ mānaya<lb break="no" n="34"/>ti<g type="commaSmall">.</g> vodhayati<g type="commaSmall">.</g> samājñāpayati ca<g type="commaSmall">.</g>                 
              </p>
           <p>matam astu bhavatāṁ<g type="commaSmall">.</g> viṣayān etāN pūrvveṇa vr̥hat-koṭṭāli sīmā<g type="commaSmall">.</g> dakṣiṇena maṇi-nadī sīmā<g type="commaSmall">.</g> paści<unclear>me</unclear><lb break="no" n="35"/>na jujjū-khātaka kāṣṭhaparṇṇī-khātaka vetraghaṭī-nadī sīmā<g type="commaSmall">.</g> Uttareṇa kosiyāra-nadī sīmā<g type="commaSmall">.</g> Ity evaṁ catus-sīmā-paryantāN śrī-śrī<lb break="no" n="36"/>-candrapurābhidhānaṁ vrahmāpuram parikalpya<g type="commaSmall">.</g> EtasmiN śrīcandrapure<g type="commaSmall">.</g> vrahmaṇe<g type="commaSmall">.</g> Etan-maṭha-prativaddha-candra-vyākhyānopadhyāyasya da<lb break="no" n="37"/>śa-droṇika-daśa-pāṭakāḥ<g type="danda">.</g> daśa-cchātrāṇāṁ pāli-phuṭṭakārthaṁ daśa-pāṭakāḥ Apūrvva-pañca-vrāhmaṇānāṁ praty-aham bhaktan dātum pañca-pā<lb break="no" n="38"/>ṭakāḥ<g type="commaSmall">.</g> Etad-adhiṣṭhāya-kārayitur vrāhmaṇasya pāṭakaḥ<g type="danda">.</g> gaṇakasya pāṭakaḥ<g type="danda">.</g> kāyasthasya sārddha-pāṭaka-dvayaṁ<g type="danda">.</g> mālākāra-catuṣṭa<lb break="no" n="39"/>yasya<g type="commaSmall">.</g> tailika-dvayasya<g type="commaSmall">.</g> kumbhakāra-dvayasya<g type="commaSmall">.</g> pañca-kāhalikānāṁ<g type="commaSmall">.</g> śaṅkha-vādaka-dvayasya<g type="commaSmall">.</g> ḍhakkā-vāda-dvayasya<g type="commaSmall">.</g> Aṣṭa-drāgaḍikā<lb break="no" n="40"/>nāṁ<g type="commaSmall">.</g> dvāviṅśati-karmmakara-carmmakārāṇāñ ca<g type="commaSmall">.</g> pratyekaṁ<g type="commaSmall">.</g> Arddha-pāṭakaḥ<g type="danda">.</g> naṭasya pāṭaka-dvayaṁ<g type="commaSmall">.</g> sūtradhāra-dvayasya<g type="commaSmall">.</g> sthapati-dvayasya<g type="commaSmall">.</g> karmmakā<lb break="no" n="41"/>ra-dvayasya ca<g type="commaSmall">.</g> pratyekaṁ pāṭaka-dvayaṁ<g type="danda">.</g> Aṣṭa-veṭṭikānāṁ pratyekaṁ pādona-pāṭakaḥ<g type="danda">.</g> navakarmma-nimittañ ca sapta-catvāriṅśat-pāṭakāḥ<g type="commaSmall">.</g> E<lb break="no" n="42"/>vam anena niyamena viṅśaty-adhika-pāṭaka-śataṁ<g type="commaSmall">.</g> tathā deśāntarīya-maṭha-catuṣṭaye<g type="commaSmall">.</g> vaṅgāla-maṭha-catuṣṭaye ca<g type="commaSmall">.</g> vaiśvānara-yogeśvara<lb break="no" n="43"/>-jaimani-mahākālebhyaś ca<g type="commaSmall">.</g> Eṣām ubhayeṣāṁ maṭha-prativaddha-r̥g-yajus- sāmātharvvopādhyāyānām aṣṭānāṁ pratyekaṁ daśa-pāṭakāḥ<g type="commaSmall">.</g> pra<lb break="no" n="44"/>ti-maṭha-pañca-cchātrāṇāṁ pañca-pāṭakāḥ<g type="danda">.</g> mālākāra-nāpita-tailika-rajakānāṁ<g type="commaSmall">.</g> <unclear>A</unclear>ṣṭa-karmmakara-carmmakārāṇāñ ca<g type="commaHigh">.</g> pratyekaṁ<g type="commaSmall">.</g> Ardha<lb break="no" n="45"/>-pāṭakaḥ<g type="danda">.</g> veṭṭikā-dvayasya pratyekaṃ pādona-pāṭakaḥ<g type="danda">.</g> prati-maṭhan navakarmma-nimittañ ca daśa-pāṭakāḥ<g type="danda">.</g> prati-maṭha-catuṣṭaye ca<g type="danda">.</g> ma<lb break="no" n="46"/>hattara-vrāhmaṇasya<g type="commaSmall">.</g> pāṭaka-dvayaṁ<g type="commaSmall">.</g> vārikasya sārddha-pāṭakaḥ kāyasthasya sārddha-pāṭaka-dvayaṁ<g type="danda">.</g> gaṇakasya pāṭakaḥ<g type="danda">.</g> v<surplus>y</surplus>aidyasya pāṭa<lb break="no" n="47"/>ka-trayaṁ<g type="commaSmall">.</g> Evam anena niyamena<g type="commaSmall">.</g> Aśīty-uttara-pāṭaka-śata-dvayaṁ<g type="danda">.</g> vāvusadatta<g type="commaSmall">.</g> harṣa<g type="commSmall">.</g> śekhara<g type="commaSmall">.</g> viśvarūpa<g type="danda">.</g> bhānudatta<g type="commaSmall">.</g> Īśāna<g type="commaSmall">.</g><lb n="48"/> dhanyanāga<g type="commaSmall">.</g> nandayaśaḥ<g type="commaSmall">.</g> caṅga<g type="commaSmall">.</g> govarddhana<g type="commaSmall">.</g> siṅghadata<g type="commaSmall">.</g> kamalanandi<g type="commaSmall">.</g> savitāra<g type="commaSmall">.</g> māṇikya<g type="commaSmall">.</g> kāmuka<unclear>
               <g type="commaSmall">.</g>
@@ -237,7 +218,7 @@
             </choice>taka-mukhena<g type="commaSmall">.</g> bhagavantam vuddha-bhaṭṭārakam uddiśya<g type="commaSmall">.</g> <choice>
               <sic>s</sic>
               <corr>m</corr>
-            </choice>ātā-pitror ātmanaś ca puṇya-yaśo 'bhivr̥ddhaye<g type="commaSmall">.</g> śrāvaṇa-ravi-saṅkrāntau<g type="commaSmall">.</g> vidhivad udaka<lb break="no" n="56"/>-pūrvvakaṁ kr̥tvā<g type="danda">.</g> Ā-candrārkka-kṣiti-sama-kālaṁ yāvaT<g type="commaHigh">.</g> bhūmi-cchidra-nyāyena<g type="commaSmall">.</g> tāmra-śāsanī-kr̥tya pradattā Asmābhiḥ<g type="danda">.</g> yato bhavadbhir jjanapadaiḥ<lb n="57"/> kṣetrakarair vvrāhmaṇaiś ca vidheyī-bhūya yathā-dīyamāna-pratyāyopanayaḥ kāryaḥ<g type="danda">.</g> yathā-kāla-bhāvi-bhoga-patibhir api bhūmer ddāna-phala-gau<lb break="no" n="58"/>ravāT<g type="danda">.</g> Apaharaṇe mahā-naraka-pāta-bhayāc ca<g type="commaSmall">.</g> dānam idaṁ samyag anumodyānupālanīyam iti<g type="ddanda">.</g>
+            </choice>ātā-pitror ātmanaś ca puṇya-yaśo 'bhivr̥ddhaye<g type="commaSmall">.</g> śrāvaṇa-ravi-saṅkrāntau<g type="commaSmall">.</g> vidhivad udaka<lb break="no" n="56"/>-pūrvvakaṁ kr̥tvā<g type="danda">.</g> Ā-candrārkka-kṣiti-sama-kālaṁ yāvaT<g type="commaHigh">.</g> bhūmi-cchidra-nyāyena<g type="commaSmall">.</g> tāmra-śāsanī-kr̥tya pradattā Asmābhiḥ<g type="danda">.</g> yato bhavadbhir jjanapadaiḥ<lb n="57"/> kṣetrakarair vvrāhmaṇaiś ca vidheyī-bhūya yathā-dīyamāna-pratyāyopanayaḥ kāryaḥ<g type="danda">.</g> yathā-kāla-bhāvi-bhoga-patibhir api bhūmer ddāna-phala-gau<lb break="no" n="58"/>ravāT<g type="danda">.</g> Apaharaṇe mahā-naraka-pāta-bhayāc ca<g type="commaSmall">.</g> dānam idaṁ samyag anumodyānupālanīyam iti<g type="ddanda">.</g>               
              </p>
           <p>samvaT <num value="5">5</num> vaiśākha-dine <num value="5">5</num></p>
           <p>tathā ca dharmmā<lb break="no" n="59"/>n<unclear>u</unclear><choice>
@@ -587,9 +568,8 @@
           <p n="65"><supplied reason="subaudible">Confirmed by</supplied> sandhi<supplied reason="subaudible">vigrahika</supplied>.</p>
         </div>
       </div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="commentary"></div>
       <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
         <p>First published by Kamalakanta Gupta (Chaudhury)<bibl rend="omitname">
             <ptr target="bib:GuptaChaudhury1966_01"/>
           </bibl> and republished in his collection of inscriptions<bibl rend="omitname">
@@ -631,7 +611,6 @@
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

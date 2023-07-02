@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -26,10 +20,6 @@
             <forename>George</forename>
             <surname>Cœdès</surname>
           </persName>
-          <!--<persName ref="part:kuch">
-                  <forename>Kunthea</forename>
-                  <surname>Chhom</surname>
-               </persName>-->
         </respStmt>
       </titleStmt>
       <publicationStmt>
@@ -45,18 +35,13 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
@@ -111,7 +96,6 @@
               <orig>n</orig>
               <reg>ṇ</reg>
             </choice>ibhiḥ</l>
-          <!-- argr: this pāda is incomprehensible to me? maybe some normalization/correction is necessary -->
           <l n="d"><milestone n="d" unit="column"/>vikramair adharīkr̥tā</l>
         </lg>
         <lg met="anuṣṭubh" n="3" xml:lang="san-Latn">
@@ -139,9 +123,9 @@
           <l n="d"><milestone n="d" unit="column"/>yāvad arkkendu-tārakāḥ</l>
         </lg>
         <p>
-   <lb n="A6"/>saṇ-ṇavaty-uttara-pañcaśata śaka-parigraha Ai mandira purandarapura pañcamī ket∙ kārtti<lb break="no" n="A7"/>ka pūrvvāṣāḍha-nakṣatra Aṅgāra-dina-vāra Ājñā vraḥ kamratāṅ∙ Añ∙ nī vraḥ kamra<lb break="no" n="A8"/>tāṅ∙ Añ∙ śrī Utpanneśvara ta Ai <supplied reason="lost">c</supplied>n<supplied reason="lost">ar</supplied> punya vraḥ kamratāṅ∙ Añ∙ Aṁnoy∙ tāṅ∙
-<lb n="A9"/>Añ∙ kloñ∙ raṅ<supplied reason="lost">k</supplied>o doṅ∙ poñ∙ varāhasena Ai ta vraḥ kamratāṅ∙ Añ∙ Aṁvi
-<lb n="A10"/>kāla vraḥ kaṁratāṅ∙ Añ∙ śrī raudravarmma dāsa dāsī go mahiṣa kṣetrārā<lb break="no" n="A11"/>mādi gi parimaṇḍala gi sre Aṁvi dik∙ hera loḥ vrai taṁpoṅṅa loḥ thalā
+   <lb n="A6"/>saṇ-ṇavaty-uttara-pañcaśata śaka-parigraha Ai mandira purandarapura pañcamī ket∙ kārtti<lb break="no" n="A7"/>ka pūrvvāṣāḍha-nakṣatra Aṅgāra-dina-vāra Ājñā vraḥ kamratāṅ∙ Añ∙ nī vraḥ kamra<lb break="no" n="A8"/>tāṅ∙ Añ∙ śrī Utpanneśvara ta Ai <supplied reason="lost">c</supplied>n<supplied reason="lost">ar</supplied> punya vraḥ kamratāṅ∙ Añ∙ Aṁnoy∙ tāṅ∙ 
+<lb n="A9"/>Añ∙ kloñ∙ raṅ<supplied reason="lost">k</supplied>o doṅ∙ poñ∙ varāhasena Ai ta vraḥ kamratāṅ∙ Añ∙ Aṁvi 
+<lb n="A10"/>kāla vraḥ kaṁratāṅ∙ Añ∙ śrī raudravarmma dāsa dāsī go mahiṣa kṣetrārā<lb break="no" n="A11"/>mādi gi parimaṇḍala gi sre Aṁvi dik∙ hera loḥ vrai taṁpoṅṅa loḥ thalā 
 <lb n="A12"/>can∙ cara loḥ travāṅ∙ pās∙ kmauhv<choice>
             <orig>a</orig>
             <reg>·</reg>
@@ -151,19 +135,19 @@
 <lb n="A13"/>poñ∙ totil<choice>
             <orig>a</orig>
             <reg>·</reg>
-          </choice> gui taṅ∙ Ājñā vraḥ kamratāṅ∙ Añ∙ Oy∙ gui
-<lb n="A14"/>sr<unclear>u</unclear>k∙ ple draṅ∙ vnas∙ nu poñ∙ jon∙ bhuti śreṣṭhāśrama
+          </choice> gui taṅ∙ Ājñā vraḥ kamratāṅ∙ Añ∙ Oy∙ gui 
+<lb n="A14"/>sr<unclear>u</unclear>k∙ ple draṅ∙ vnas∙ nu poñ∙ jon∙ bhuti śreṣṭhāśrama 
 </p>
         <p>
    <lb n="B1"/><milestone n="B" type="pagelike" unit="face"/><label xml:lang="eng">Face B</label> loḥ travaṅ∙ poñ∙ viṣ<supplied reason="lost">ṇu</supplied>kīrtti loḥ travaṅ<supplied reason="lost">·</supplied> pās∙ tāṅ∙ kanmeṅṅa loḥ gūha po Aṁ<lb break="no" n="B2"/><unclear>pa</unclear>kka vnaṁ vrai vnur∙ caṁno<supplied reason="lost">ṁ</supplied> tmur∙ cdiṅ∙ qnak∙ ta paṅgaṁ nī dai gi tel∙ Ājñā vraḥ kamratā<lb break="no" n="B3"/>ṅ∙ Añ∙ prasiddha Ai ta vraḥ kamratāṅ∙ Añ∙ śrī Utpanneśvara ta Ai cnar∙ smaṁ śresthā<lb break="no" n="B4"/>śrama jmon<choice>
             <orig>a</orig>
             <reg>·</reg>
-          </choice> bhūti gi voṁ saṁ dhanvipura ge ta hau saṁpol∙ ta gi ge ta ckop∙
-<lb n="B5"/>Ucita saṁvatsara ta gi ge ta soṁ gi nā Adhikāra ge ta hau qnak∙ lvāṅ∙ ta gi
-<lb n="B6"/>ge ta hau vyavahāra dai ta gi ge ta dār∙ dranap∙ ghoṣaṇā ta gi ge ta ca<lb break="no" n="B7"/>p∙ rddeḥ dok∙ tmur∙ krapi kñuṁ ta gi ge ta cracur∙ vraneṅ∙ chat∙ duk∙ snā<lb break="no" n="B8"/>ṅ∙ naṁ pitai kaṁluṅ<unclear>∙</unclear> Aṅgaṇa vraḥ kamratāṅ∙ Añ∙ paṁnos∙ gi ta
-<lb n="B9"/>tve pūjā vraḥ kamratāṅ∙ Añ∙ paṁnos∙ ta pos∙ ta gi noḥ vnaṁ
-<lb n="B10"/>vraḥ kamratāṅ∙ Añ∙ satva ta siṅ∙ ta gi vojā ple qnak∙ paribha<lb break="no" n="B11"/>va Āgama Aṁvi ta gi noḥ sruk∙ vraḥ kamratāṅ∙ Añ∙ nu tve pūjā
-<lb n="B12"/>vraḥ kamratāṅ∙ Añ∙ ge ta soṁ gi ge ta dap∙ gi ge ta pre roḥ
+          </choice> bhūti gi voṁ saṁ dhanvipura ge ta hau saṁpol∙ ta gi ge ta ckop∙ 
+<lb n="B5"/>Ucita saṁvatsara ta gi ge ta soṁ gi nā Adhikāra ge ta hau qnak∙ lvāṅ∙ ta gi 
+<lb n="B6"/>ge ta hau vyavahāra dai ta gi ge ta dār∙ dranap∙ ghoṣaṇā ta gi ge ta ca<lb break="no" n="B7"/>p∙ rddeḥ dok∙ tmur∙ krapi kñuṁ ta gi ge ta cracur∙ vraneṅ∙ chat∙ duk∙ snā<lb break="no" n="B8"/>ṅ∙ naṁ pitai kaṁluṅ<unclear>∙</unclear> Aṅgaṇa vraḥ kamratāṅ∙ Añ∙ paṁnos∙ gi ta 
+<lb n="B9"/>tve pūjā vraḥ kamratāṅ∙ Añ∙ paṁnos∙ ta pos∙ ta gi noḥ vnaṁ 
+<lb n="B10"/>vraḥ kamratāṅ∙ Añ∙ satva ta siṅ∙ ta gi vojā ple qnak∙ paribha<lb break="no" n="B11"/>va Āgama Aṁvi ta gi noḥ sruk∙ vraḥ kamratāṅ∙ Añ∙ nu tve pūjā 
+<lb n="B12"/>vraḥ kamratāṅ∙ Añ∙ ge ta soṁ gi ge ta dap∙ gi ge ta pre roḥ 
 <lb n="B13"/>gi sot∙ ge cer∙ Ājñā vraḥ kamratāṅ∙ Añ∙ ge daṇḍa
 </p>
       </div>

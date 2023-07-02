@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,24 +35,18 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
               <p>A relavitely irregular hand. Bergaigne: <q>L'écriture n'est pas celle des inscriptions de Vikrāntavarman. Elle manque tout à fait, non seulement d'élégance, mais de régularité [...] Cependant, les caractères, pris isolément, sont aussi semblables que possible à ceux du VIIIe siècle śaka, tels qu'on le recontre dans les inscriptions de Satyavarman et d'Indravarman Ier</q>. Can it be identified with the one responsible for C. 14 and C. 25? If so, my comment on non-royal = less professional in commentary needs to be revised.</p>
               <p>The space between lines 7 and 8 where the engraver forgot to write the second half of stanza IV is marked by a kākapada within a circle; the same mark, at the start of line 15, indicates the addition written as the bottom of the text.</p>
-              <!-- Bergaigne, p. 237-238 : “La première moitié du dernier çloka occupe la septième ligne, avec un intervalle entre les deux pādas. Mais la seconde moitié avait été oubliée par le graveur qui l’a ajoutée, avec un signe de renvoi, après la partie tchame, sur deux lignes comprenant chacune un pāda, la quatorzième et la quinzième de l’inscription.” En fait il s’agit des l. 15 et 16. -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -108,7 +96,6 @@
               </subst></l>
             <l n="b"><milestone n="b" unit="zone"/>jina-śaṅkarayos tayoḥ<g type="ddanda">.</g></l>
             <l n="c" real="+-+++--+"><lb n="4"/><milestone n="a" unit="zone"/>pūjanārthaṁ prakurute</l>
-            <!-- bha-vipulā! -->
             <l n="d"><milestone n="b" unit="zone"/>tāṅ gatiṁ pragataś śubhām·</l>
           </lg>
           <lg met="upajāti" n="3">
@@ -174,9 +161,6 @@
                 </choice>ṅke</rdg>
               <note>Unmetrical. Bergaigne's reading as a single compound emended to <foreign>daśamastakāṅke</foreign>, where Daśamastaka is interpreted a toponym, does not seem plausible. The fact that the Cham numerical expression <foreign>pāt-pluḥ</foreign>, in the preceding <foreign>pāda</foreign>, means <q>four ten</q>, i.e. <q>forty</q>, may be relevant in searching for a solution. Presuming that it is, I interpret the text as intended to convey <foreign>masta</foreign> in the (alas virtually unattested) meaning <q>measured</q>, and would resolve the metrical irregularity in one of the following ways: emend <q>mastam aṅke</q>, resolve sandi as <foreign>masta Aṅke</foreign> (wrong sandhi intended to express the locative absolute that should be <foreign>maste 'ṅke</foreign>), or resolve sandhi in the same way but keep a compound (<foreign>masta-Aṅke</foreign>). Other possibilities: emend to obtain the word <foreign>hasta</foreign> or <foreign>vyāma</foreign>.</note>
             </app>
-            <!-- corr. mastam aṅke, masta Aṅke "measured ... in the unit (aṅka) of khārī
-ma<choice><sic>stā</sic><corr>sta A</corr></choice>ṅke
--->
             <app loc="8">
               <lem>pralauṅ·</lem>
               <rdg source="bib:Aymonier1891_01">praloṅ·</rdg>
@@ -204,19 +188,15 @@ ma<choice><sic>stā</sic><corr>sta A</corr></choice>ṅke
             </app>
           </listApp>
         </div>
-        <!-- end of textpart -->
       </div>
-      <!-- end of apparatus -->
       <div resp="part:argr" type="translation">
         <p n="1" rend="stanza">Of the two kings, Vikrānta<supplied reason="subaudible">varman</supplied> and Īśvaraloka, the one renowned by the name Samanta, was the commander. This meritorious work is deemed to be his.</p>
-        <!-- ECIC II, 295: "De ces deux rois, V. et Ī., celui qui est célèbre sous le nom de Samanta était le chef. Cette oeuvre pie est considérée comme la sienne -->
         <p n="2" rend="stanza">He fashions the two monasteries and the two temples of the Jina and of Śaṅkara, in order to worship the two. He has set out to this beautiful destination.</p>
         <p n="3" rend="stanza">On the one hand <supplied reason="explanation">
             <foreign>tu</foreign>
           </supplied>, the sugarcane field is counted as forty, on the other <supplied reason="explanation">
             <foreign>tu</foreign>
           </supplied> the ricefield as ten, when the number is measured by the <foreign>khārī</foreign>. He wishes much noble enjoyment in the afterlife. He gave <supplied reason="subaudible">them</supplied> only to the Jina with purity of mind.</p>
-        <!-- alternative (also see commentary): The sugarcane fields are counted to be forty; the ricefields are ten <foreign>khārī</foreign>s;  in the ten ... number. He wishes much (enjoyment) in the after life, (so) beautiful in mind he gave its noble enjoyment only to the Jina. -->
         <p n="4" rend="stanza">Samanta's son, the elder called Buddhanirvāṇa, carried out the composition of the poem for men on earth to know it.</p>
         <p n="9-14">The field Pralauṅ, the field Padaiṅ — this is the Śaka <supplied reason="subaudible">year</supplied> of the donation of those two fields: 751. God Mandara on the mountain. The Devarakṣa monastery on the river. God Praṇaveśvara at Mandauḥ. This monastery. All of it is one meritorious work of the gentleman <supplied reason="explanation">
             <foreign>pu pov</foreign>
@@ -233,8 +213,7 @@ ma<choice><sic>stā</sic><corr>sta A</corr></choice>ṅke
             <citedRange unit="page">179</citedRange>
             <citedRange unit="entry"><foreign>tabău</foreign>, etc.</citedRange>
           </bibl>). The words <foreign>humā</foreign> and <foreign>pāt pluḥ</foreign> mean, respectively, <q>field</q> and <q>forty</q> in Old Cham.
-<!-- Dhātupāṭha, PW (whence MW) records a class-IV root mas, 'to measure, mete', and derived nominal forms masa, masana, masti. MW further records a ppp masta 'measured'.
-In Böhtlingk's edition of the Aṣṭādhyāyī, in the appendix giving the Dhātupāṭha, I indeed find "masī parimāṇe (pariṇāme)" as entry 4.112. -->
+
 Regarding the second half of the stanza, it is likely that <foreign>ārya</foreign> is practically equivalent in meaning to <q>Buddhist</q>, while the word bhoga may express the technical meaning <q>economic resource</q>. An alternative translation could therefore be as follows:
 <q>He wishes much <supplied reason="subaudible">enjoyment</supplied> in the afterlife, <supplied reason="subaudible">so</supplied> beautiful in mind he gave the Buddhist resource only to the Jina</q>.</p>
         <p n="13-14">The final sentence <foreign>Avista nan· sā pu pov· puṇya</foreign> is hard to parse. I tentatively assume that we must read <foreign>pu-pov-puṇya</foreign> as though it were a Sanskrit possessive compound, even though only the element <foreign>puṇya</foreign> is from Sanskrit and the sentence as a whole is formulated in Old Cham.</p>
@@ -256,7 +235,6 @@ Regarding the second half of the stanza, it is likely that <foreign>ārya</forei
             <ptr target="bib:Golzio2004_01"/>
             <citedRange unit="page">55-56</citedRange>
           </bibl>), with translation into English. The text is re-edited and freshly translated here by Arlo Griffiths, based on the available estampages and autopsy of the stone.</p>
-        <!-- model from C. 87: First published, with French translation, in Finot 1904d: 925-928; whence, with English translation, in Majumdar 1927: 28-31; whence Golzio 2004: 21-23. Newly edited in Đà Nẵng Catalog: 229-233, whence the present edition. -->
         <listBibl type="primary">
           <bibl n="A">
             <ptr target="bib:Aymonier1891_01"/>
@@ -308,7 +286,4 @@ Regarding the second half of the stanza, it is likely that <foreign>ārya</forei
       </div>
     </body>
   </text>
-</TEI><!-- layoutDesc
-- the Sanskrit stanzas are lain out in two columns
-- besides the exposed part forming the inscription proper, the lower part of the estampage revelas some trial engravings that would not have been visible in the original exposition of the stone, and are indeed hidden again in the manner the stone is exposed at the Hanoi Museum
- -->
+</TEI>

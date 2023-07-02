@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -35,9 +29,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00204</idno>
-        <!--
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -90,21 +81,9 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
   <text xml:space="preserve">
     <body>
       <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <!--
-This digital edition by Dániel Balogh is based on #Sircar_1953-54b:127-132 (SI) and #SadhuRam_1957 (SR), verified against Sircar's rubbing. Version of January 2019. Comments below are offered "as is" and do not represent a thoroughly researched or considered opinion.
--->
         <lg met="anuṣṭubh" n="1">
-          <!--
-The first verse may, as SI notes, have been preceded by a mangala symbol.
--->
           <l n="a"><lb n="1"/><supplied cert="low" reason="lost">jitaṁ bhaga</supplied><unclear>vatā te</unclear>na</l>
           <l n="b"><sic>garutma</sic>-ratha-yāyinā|</l>
-          <!--
-L1. The punctuation mark is a slightly curved horizontal.
--->
-          <!--
-L1. For garutma, the author must have assumed that the stem is garutman, not garumat.
--->
           <l n="c">trailokyā<unclear>ma</unclear><unclear cert="low">la</unclear> <seg subtype="consonant" type="component">
               <gap quantity="1" reason="illegible" unit="component"/>
             </seg><unclear cert="low">i</unclear><seg subtype="conjunct" type="component">
@@ -114,43 +93,19 @@ L1. For garutma, the author must have assumed that the stem is garutman, not gar
             </seg></l>
           <l n="d"><lb n="2"/><seg met="===">
               <gap quantity="3" reason="lost" unit="character"/>
-            </seg><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->cakra-</supplied>pāṇinā||</l>
-          <!--
-L1. SI reads only trailokyāma; SR has trailokyāma * #i #e.
--->
-          <!--
-L1. The position of the line break with respect to the lost characters is uncertain here and below.
--->
-          <!--
-L2. SI suggests Viṣṇunā cakrapāṇinā for the lacuna. SR actually shows cakra as an unclear reading, though his intent may have been to indicate a conjecture (as below, where SR repeatedly "reads" more than SI).
--->
-          <!--
-L2. The end-verse punctuation mark is a double vertical without a hook.
--->
+            </seg><supplied cert="low" reason="lost">cakra-</supplied>pāṇinā||</l>
         </lg>
         <lg met="anuṣṭubh" n="2">
           <l n="a">jitvā ripu-balaṁ saṁ<choice>
               <sic>kkh</sic>
               <corr>khy</corr>
             </choice>e</l>
-          <l n="b">ramyaṁ pura<supplied reason="omitted">ṁ</supplied> daśā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->hva</supplied><supplied reason="lost">yaṁ|</supplied></l>
-          <!--
-L2. SI restores daśādikaṁ, reading di as clear; SR prints daśāhvayaṁ with hva as clear and yaṁ as unclear. #Trivedi_1956 also mentions the reading daśāhvayam, but it is not clear if he read or conjectured this. Daśāhvayaṁ seems semantically more plausible to me; both are equally feasible in the rubing so this needs autopsy or at least a better reproduction than what is available.
--->
-          <l n="c"><lb n="3"/><supplied cert="low" reason="lost">praśāsati</supplied> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->na</supplied>ra-<unclear>v</unclear>yāgghre</l>
+          <l n="b">ramyaṁ pura<supplied reason="omitted">ṁ</supplied> daśā<supplied reason="lost">hva</supplied><supplied reason="lost">yaṁ|</supplied></l>
+          <l n="c"><lb n="3"/><supplied cert="low" reason="lost">praśāsati</supplied> <supplied reason="lost">na</supplied>ra-<unclear>v</unclear>yāgghre</l>
           <l n="d">narendrādityavarddhane||</l>
-          <!--
-L3. SI suggests pālayati or praśāsati for the lacuna. The former is unmetrical, but the latter is plausible.
--->
-          <!--
-L3. Both SI and SR print na of nara as a reading (SI as unclear), but nothing is visible in the rubbing.
--->
-          <!--
-L3. The compounds nr̥pa-viśvavarmmā in l14 and nr̥pa-bandhuvarmmā in l15 of the Silk Weaver Inscription IN00040 may be a parallel for construing narendra+ādityavardhana rather than narendrāditya as a name.
--->
         </lg>
         <lg met="anuṣṭubh" n="3">
-          <l n="a">āsīn māna<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->vag</supplied>o<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->tra</supplied><seg met="=">
+          <l n="a">āsīn māna<supplied reason="lost">vag</supplied>o<supplied reason="lost">tra</supplied><seg met="=">
               <gap quantity="1" reason="lost" unit="character"/>
             </seg></l>
           <l n="b"><lb n="4"/><seg met="====-">
@@ -159,50 +114,29 @@ L3. The compounds nr̥pa-viśvavarmmā in l14 and nr̥pa-bandhuvarmmā in l15 of
               <sic>ṇ</sic>
               <corr>n</corr>
             </choice>aḥ</l>
-          <!--
-L3. SI proposes to restore the end of l3 as mānavagotrasya to arrive at something resembling the family name Mānavāyani. Since o is quite clear (though not read by SI), I accept mānavagotra, but I prefer to omit the case ending from the restoration.
--->
-          <!--
-L4. SI says the character before va may be sya. Only traces of va are visible in the rubbing, and nothing of sya.
--->
           <l n="c">rāṣṭravarddha<choice>
               <sic>ṇ</sic>
               <corr>n</corr>
             </choice>a-sat-putr<sic>aḥ</sic></l>
-          <l n="d">yaśogupto narā<unclear cert="low">dh</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ipa</supplied><supplied reason="lost">ḥ||</supplied></l>
+          <l n="d">yaśogupto narā<unclear cert="low">dh</unclear><supplied reason="lost">ipa</supplied><supplied reason="lost">ḥ||</supplied></l>
         </lg>
         <lg met="anuṣṭubh" n="4">
           <l n="a"><lb n="5"/><seg met="===">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg><seg met="=">
               <gap quantity="1" reason="illegible" unit="character"/>
-            </seg><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->ta</supplied><unclear cert="low">nū</unclear><unclear>je</unclear>na</l>
+            </seg><supplied cert="low" reason="lost">ta</supplied><unclear cert="low">nū</unclear><unclear>je</unclear>na</l>
           <l n="b">śrī-mahārāja-gauriṇā<unclear>||</unclear></l>
-          <!--
-L5. SI proposes to restore "something like" tasyānena tanūjena. I feel tanūjena is plausible, but the rest is entirely conjectural.
--->
-          <!--
-L5. The punctuation mark after gauriṇā is not a simple horizontal: it starts out as a dash at midline height, but then curves down and becomes vertical, going almost as deep as the descender of ri. SI describes it as "a daṇḍa with its upper part curved towards the left" and transcribes it as a double daṇḍa, taking it as the end of stanza 4. I follow Sircar's breakdown because it matches the semantic content of the stanzas, and because the vestiges in line 11 do not seem to consitute a half-anuṣṭubh, so they are probably a prose closer.
--->
         </lg>
         <lg met="anuṣṭubh" n="5">
-          <l n="a">yasya mātāmahaḥ śr<unclear>ī</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->mān</supplied></l>
+          <l n="a">yasya mātāmahaḥ śr<unclear>ī</unclear><supplied reason="lost">mān</supplied></l>
           <l n="b"><lb n="6"/><seg met="===">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg><seg met="=">
               <gap quantity="1" reason="illegible" unit="character"/>
             </seg><unclear cert="low">ḥ</unclear> <unclear>prat</unclear>āpavā<unclear>N</unclear></l>
-          <!--
-L6. Before pratāpavāN, SR reads (gu)ptaḥ. SI says the name may have ended with nta. Nothing is discernible in the rubbing.
--->
-          <!--
-L6. I cannot make out the halanta N and see punctuation, but there is space for either or both. There is also a mark above this space that doesn't seem to be part of either l5 or l6 (unless it's mmahārāja in l5, but this is not likely from the traces).
--->
           <l n="c">hari<unclear>śū</unclear>reti vikkhyātā</l>
           <l n="d">jananī ca pativra<unclear>t</unclear>ā<unclear>||</unclear></l>
-          <!--
-L6. SI describes the punctuation mark near the end of l6 as a slightly curved horizontal stroke. To me it looks more like the one in l5, with a strong vertical component - but the rubbing is unclear.
--->
         </lg>
         <lg met="anuṣṭubh" n="6">
           <l n="a"><seg met="==">
@@ -211,44 +145,23 @@ L6. SI describes the punctuation mark near the end of l6 as a slightly curved ho
               <gap quantity="2" reason="lost" unit="character"/>
             </seg><unclear>sa</unclear>māsādya</l>
           <l n="b">taptvā tapam anuttamaṁ</l>
-          <!--
-L6-7. SI tentatively restores the lacuna as vaidhavyañ ca or vārdhakyañ ca.
--->
-          <l n="c">da<sic>tv</sic>ā dānaṁ dvije<unclear>bhya</unclear><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->ś ca</supplied></l>
+          <l n="c">da<sic>tv</sic>ā dānaṁ dvije<unclear>bhya</unclear><supplied cert="low" reason="lost">ś ca</supplied></l>
           <l n="d"><lb n="8"/><seg met="====">
               <gap quantity="4" reason="lost" unit="character"/>
-            </seg><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->d</supplied>ivaṅ gatā|</l>
-          <!--
-L7. SI reads dvijebhyaḥ and suggests sā for the illegible character. SR reads dvijebhyo and has no restoration. I think dvijebhyaś ca is the most likely restoration; the traces of the last character seem quite complex.
--->
-          <!--
-L8. The punctuation mark after gatā is a single curved horizontal. SI transcribes it as a double daṇḍa because he wants a verse end here.
--->
+            </seg><supplied reason="lost">d</supplied>ivaṅ gatā|</l>
         </lg>
         <lg met="anuṣṭubh" n="7">
           <l n="a">yena k<unclear>ū</unclear>pās ta<choice>
               <sic>ṭh</sic>
               <corr>ṭ</corr>
             </choice>ākāni</l>
-          <l n="b">maṇḍapāś ca mano<unclear cert="low">harāḥ</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->|</supplied></l>
-          <!--
-L8. SI and SR both read taṭākāni, but their "ṭ" is a full circle in the rubbing so it must be ṭh.
--->
+          <l n="b">maṇḍapāś ca mano<unclear cert="low">harāḥ</unclear><supplied reason="lost">|</supplied></l>
           <l n="c"><lb n="9"/><seg met="====">
               <gap quantity="4" reason="lost" unit="character"/>
             </seg><seg met="-">
               <gap quantity="1" reason="illegible" unit="character"/>
             </seg>vr̥ddhy-artthaṁ</l>
           <l n="d">grāmeṣu nagareṣu ca|</l>
-          <!--
-L9. SI tentatively restores kāritā puṇya-vr̥ddhy-arthaṁ (sic; he must have intended kāritāḥ). The character before vr̥ seems to have a superscript repha (though perhaps a vertical ā mātrā), so perhaps dharmma instead of puṇya; kāritāḥ is plausible.
--->
-          <!--
-L9. SI reads artha(ṁ), but tth is clear in the rubbing.
--->
-          <!--
-L9. The punctuation mark after ca is a single curved horizontal. SI transcribes it as a double daṇḍa because he wants a verse end here.
--->
         </lg>
         <lg met="anuṣṭubh" n="8">
           <l n="a">tenedaṁ nagarābhyā<unclear>śe</unclear></l>
@@ -257,31 +170,14 @@ L9. The punctuation mark after ca is a single curved horizontal. SI transcribes 
             </seg><seg met="-">
               <gap quantity="1" reason="illegible" unit="character"/>
             </seg>vr̥ddhaye|</l>
-          <!--
-L9. SR reads °ābhyāśe where SI reads °ābhyāse. The rubbing is inconclusive, but ś is perhaps more likely.
--->
-          <!--
-L9-10. SI suggests the restoration mātuḥ puṇyābhivr̥ddhaye.
--->
-          <!--
-L10. The punctuation mark after vr̥ddhaye is again a single curved horizontal.
--->
           <l n="c">khānita<sic>ṁs</sic> sar<unclear>v</unclear>v<unclear>a-sa</unclear><sic>
               <unclear>tv</unclear>
             </sic>ā<unclear>nāṁ</unclear></l>
-          <l n="d">sukha-pe<unclear>yo ja</unclear>lā<supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->śa</supplied><lb n="11"/><supplied reason="lost">yaḥ||</supplied></l>
-          <!--
-L10. The gender of the subject seems to shift. We begin with idaṁ in l9, which SI emends to ayaṁ. Then we get khānitaṁs, of which SI keeps khānitas. (SR actually reads khānitas, without the anusvāra. A dot is very conspicuous in the rubbing.) Finally we have peyo which, however, is unclear, and the restoration jalāśayaḥ which, while very logical, is quite uncertain. Therefore I prefer not to emend the initial neuters to masculine, and actually emend the ṁs to neuter as I feel this emendation is more in line with the nature of the mistakes ttasya/stasya IN00203:8 and 9. The masculine at the end stays, pending autopsy.
--->
-          <!--
-L10. SR reads sukhahetor jjalāśa(yaḥ). The suggestion is nice but unlikely on the basis of the rubbing where pe is quite clear and rjja does not seem possible.
--->
+          <l n="d">sukha-pe<unclear>yo ja</unclear>lā<supplied cert="low" reason="lost">śa</supplied><lb n="11"/><supplied reason="lost">yaḥ||</supplied></l>
         </lg>
-        <p><gap precision="low" quantity="3" reason="lost" unit="character"/> <gap quantity="1" reason="illegible" unit="character"/> p<unclear cert="low">radaṁ</unclear><gap precision="low" quantity="6" reason="illegible" unit="character"/><unclear cert="low">teva</unclear> <unclear>m</unclear>ā<unclear cert="low">t</unclear>ā-<unclear cert="low">p</unclear>i<unclear cert="low">t</unclear><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->r</supplied><unclear>o</unclear><seg subtype="consonant" type="component">
+        <p><gap precision="low" quantity="3" reason="lost" unit="character"/> <gap quantity="1" reason="illegible" unit="character"/> p<unclear cert="low">radaṁ</unclear><gap precision="low" quantity="6" reason="illegible" unit="character"/><unclear cert="low">teva</unclear> <unclear>m</unclear>ā<unclear cert="low">t</unclear>ā-<unclear cert="low">p</unclear>i<unclear cert="low">t</unclear><supplied cert="low" reason="lost">r</supplied><unclear>o</unclear><seg subtype="consonant" type="component">
             <gap quantity="1" reason="illegible" unit="component"/>
-          </seg>?4<!--
-L11. In the last line, SR reads * * pra ... *e * mā *ā *i * ... ... while SI reads .. .. .. prada .. .. teva mātā-pitro. Mātāpitro is quite plausible and could be the beginning of the last quarter. However, SI's dotting implies only two akṣaras illegible between prada and teva, but this is flat impossible. Even if yaḥ or whatever the last syllable of the second quarter is extends to this line, the only way to make the beginning of line 11 into quarter c of a śloka is to assume that there was some blank space before it, or that some of the vestiges between "prada" and "teva" are space fillers. As to the vestiges themselves, 1. pa is visible in the rubbing, but nothing subscribed to it. I accept pr since SR and SI agree on it. 2. The next character has a large dot above it which is probably an anusvāra, though not read as such by either editor. (I wonder if 1-2 could be puṇyaṁ or pūrvvā instead of prada.) 3. There follow probably 4 entirely illegible characters. 5. Then perhaps something with an o mātrā. 6. Then probably something narrow and vertical such as ra or ka. 7. Then Sircar's te, of which the e is certain; ne or something else may be possible; 8. Sircar's va could be a visarga or punctuation or a space.
---></p>
+          </seg>?4</p>
       </div>
       <div type="apparatus">
         <listApp>
@@ -291,7 +187,7 @@ L11. In the last line, SR reads * * pra ... *e * mā *ā *i * ... ... while SI r
           </app>
         </listApp>
       </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
+      <div source="bib:AuthorYear_01" type="translation"></div>
       <div type="commentary"></div>
       <div type="bibliography">
         <p/>

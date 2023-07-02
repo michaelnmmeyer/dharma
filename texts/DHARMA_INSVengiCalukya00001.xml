@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -22,10 +16,6 @@
             <forename>John Faithfull</forename>
             <surname>Fleet</surname>
           </persName>
-          <!--DB 20200316. CHECK This is a preliminary encoding based only on PEM's etext. I do not at the moment have access to the published edition. In addition to checking readings, the following need attention:
-            lb elements
-            there is probably a seal attached to this one, so textparts will need to be created
-            -->
         </respStmt>
       </titleStmt>
       <publicationStmt>
@@ -41,28 +31,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
-            <!--<altIdentifier type="PEM"><idno type="corpus">CalE10</idno></altIdentifier>-->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!--Halantas.  --><!--Original punctuation.  --><!--Other palaeographic observations. --><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-            <summary><p><p/></summary>
-            <handNote xml:id="Pallava00001_hand1"></handNote>
-            <handNote xml:id="Pallava00001_hand2"></handNote>
-           -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -95,24 +74,23 @@
   <text xml:space="preserve">
     <body>
       <div rendition="class:83225 maturity:83213" type="edition" xml:lang="san-Latn">
-        <!--CHECK there is probably a seal, with the text biṭṭarasa. Textparts need to be set up for that.-->
         <pb n="1r"/>
-        <p><pb n="1v"/><!--CHECK I assume the first page is 1v.-->
-om<!--CHECK probably a glyph instead--> svasti<supplied reason="subaudible">.</supplied> svāmi-mahāsena-pādānuddhyātānāṁ mānavya-sagotrāṇāṁ h<unclear>ā</unclear>rītī-putrāṇāṁ māt<orig>ri</orig>-gaṇa-prasāda-parirakṣita-bhujārggalānāṁ kṣīrodadhi-śayana-suptotthita-prasāda-parilabdha-varāha-lāñcchanānāṁ <orig>calikyānāṁ</orig> vaṁśe saṁbhūtaḥ śakti-traya-saṁpannaḥ</p>
+        <p><pb n="1v"/>
+om svasti<supplied reason="subaudible">.</supplied> svāmi-mahāsena-pādānuddhyātānāṁ mānavya-sagotrāṇāṁ h<unclear>ā</unclear>rītī-putrāṇāṁ māt<orig>ri</orig>-gaṇa-prasāda-parirakṣita-bhujārggalānāṁ kṣīrodadhi-śayana-suptotthita-prasāda-parilabdha-varāha-lāñcchanānāṁ <orig>calikyānāṁ</orig> vaṁśe saṁbhūtaḥ śakti-traya-saṁpannaḥ</p>
         <lg met="āryā" n="1">
           <l n="ab">jayati raṇavikrama-n<orig>ri</orig>po nirasta-ripu-n<orig>ri</orig>pati-śaurrya-mada-rāgaḥ</l>
           <l n="cd">kaliyuga-khala-nirmathanaiḥ satyāśraya-bhāvitaś caritaiḥ</l>
         </lg>
         <lg met="anuṣṭubh" n="2">
-          <l n="a">abhavat tasya sa<!--CHECK typo? sat?-->-kīrtti<supplied reason="omitted">ḥ</supplied></l>
+          <l n="a">abhavat tasya sa-kīrtti<supplied reason="omitted">ḥ</supplied></l>
           <l n="b">kīrttivarmā sthira-sthiti<supplied reason="omitted">ḥ</supplied></l>
           <l n="c">suta<supplied reason="omitted">ḥ</supplied> sucaritādhāra<supplied reason="omitted">ḥ</supplied></l>
-          <l n="d">kr̥ta-kr̥tyaḥ pati<supplied reason="omitted">ḥ</supplied> kṣiteḥ//<!--CHECK does this stand for original punctuation?-->
+          <l n="d">kr̥ta-kr̥tyaḥ pati<supplied reason="omitted">ḥ</supplied> kṣiteḥ//
    </l>
         </lg>
         <lg met="anuṣṭubh" n="3">
           <l n="a">tasya putro mahātejā<supplied reason="omitted">ḥ</supplied></l>
-          <l n="b">kandarp<!--CHECK single p?-->a Iva mūrttimān<!--CHECK halanta or ligature?--></l>
+          <l n="b">kandarpa Iva mūrttimān</l>
           <l n="c">dharmma-jñaś ca kr̥ta-jñaś ca</l>
           <l n="d">pārttha-tulya-parākkrama<supplied reason="omitted">ḥ</supplied></l>
         </lg>
@@ -128,11 +106,11 @@ om<!--CHECK probably a glyph instead--> svasti<supplied reason="subaudible">.</s
           </choice>neka-sāmanta-praṇata-makuṭa-cūḍāmaṇi-nigh<orig>ri</orig>ṣṭa-caraṇāravindena sakala-mahī-maṇḍala-tilaka-bhūtena śrī-p<orig>ri</orig>thivī-vallabha-viṣṇuvarddhana-yuvarāja-viṣamasiddhinā kurumarathyāvasthitena mātā-pitror ātmanaś ca puṇyāvāptaye kārttika-paurṇṇamāsyāṁ veda-vedāṅga-pāragā<choice>
             <sic>n</sic>
             <corr>ṇ</corr>
-          </choice>āṁ gh<orig>ri</orig>ta-kauśika-sagotrāṇāṁ viśvāmitravaT<!--CHECK --> lakṣmaṇasvāmi-putrāṇāṁ acalasvāmi-vedasvāmi-devasvāmi<supplied reason="omitted">nāṁ</supplied> ādityasvāmi-nāgakumāra-sahitānāṁ putra-pautrādīnā<orig>ṁ</orig> avyāsaṁgenācandrārka-kṣiti-sthiti-<orig>samakālā</orig> bali-caru-vaiśvadevāgnihotra-havana-pañca-mahāyajñotsarpaṇārttham<!--CHECK --> <pb n="2v"/>śrī-nilaya-bhoge aṇopalyāgrāhārasyottarataḥ bhīmarathī-dakṣiṇa-taṭe alandatīrtthaṁ nāma grāmo vidhivad udaka-pūrvvam datta<supplied reason="omitted">ḥ</supplied><supplied reason="subaudible">.</supplied></p>
-        <p>viditam astu sarvveṣāṁ paryyanta-viṣayapati-sāmanta-grāmabhogika-mahattarādināṁ <unclear>A<!--CHECK. Perhaps not an unclear a, but one that PEM wanted to supply? But if so, it should not be supplied since we have apraveśyaḥ. --></unclear>cāta-bhaṭa-kusīdādinā<orig>ṁ</orig> A<!--CHECK -->praveśyaḥ sarvvādāna-viśuddhety avagamya cala-pavana-preritodadhi-jala-taraṅga-cañcalaṁ jīva-lokam anuprekṣya tasmāl lopo na kāryyaḥ<supplied reason="subaudible">.</supplied> yo vājñāna-timira-paṭalāv<orig>ri</orig>ta-mati<choice>
+          </choice>āṁ gh<orig>ri</orig>ta-kauśika-sagotrāṇāṁ viśvāmitravaT lakṣmaṇasvāmi-putrāṇāṁ acalasvāmi-vedasvāmi-devasvāmi<supplied reason="omitted">nāṁ</supplied> ādityasvāmi-nāgakumāra-sahitānāṁ putra-pautrādīnā<orig>ṁ</orig> avyāsaṁgenācandrārka-kṣiti-sthiti-<orig>samakālā</orig> bali-caru-vaiśvadevāgnihotra-havana-pañca-mahāyajñotsarpaṇārttham <pb n="2v"/>śrī-nilaya-bhoge aṇopalyāgrāhārasyottarataḥ bhīmarathī-dakṣiṇa-taṭe alandatīrtthaṁ nāma grāmo vidhivad udaka-pūrvvam datta<supplied reason="omitted">ḥ</supplied><supplied reason="subaudible">.</supplied></p>
+        <p>viditam astu sarvveṣāṁ paryyanta-viṣayapati-sāmanta-grāmabhogika-mahattarādināṁ <unclear>A</unclear>cāta-bhaṭa-kusīdādinā<orig>ṁ</orig> Apraveśyaḥ sarvvādāna-viśuddhety avagamya cala-pavana-preritodadhi-jala-taraṅga-cañcalaṁ jīva-lokam anuprekṣya tasmāl lopo na kāryyaḥ<supplied reason="subaudible">.</supplied> yo vājñāna-timira-paṭalāv<orig>ri</orig>ta-mati<choice>
             <sic>d</sic>
             <corr>r</corr>
-          </choice> ācchi<unclear>ṁ<!--CHECK or supplied? --></unclear>dyād ācchidyamānaṁ yo vānumode<supplied reason="omitted">ta</supplied> sa pañcabhir mahā-pātakai<supplied reason="omitted">ḥ</supplied> samyukto bhaviṣyatīti<supplied reason="subaudible">.</supplied> uktañ ca bhagavatā vedavyāsena vya<!--CHECK -->sena//<!--CHECK punctuation --></p>
+          </choice> ācchi<unclear>ṁ</unclear>dyād ācchidyamānaṁ yo vānumode<supplied reason="omitted">ta</supplied> sa pañcabhir mahā-pātakai<supplied reason="omitted">ḥ</supplied> samyukto bhaviṣyatīti<supplied reason="subaudible">.</supplied> uktañ ca bhagavatā vedavyāsena vyasena//</p>
         <lg met="anuṣṭubh" n="5">
           <l n="a">ṣaṣṭiṁ varṣṣa-sahasrāṇi</l>
           <l n="b">svargge tiṣṭhati bhūmidaḥ</l>
@@ -146,7 +124,7 @@ om<!--CHECK probably a glyph instead--> svasti<supplied reason="subaudible">.</s
               <sic>a</sic>
               <corr>is</corr>
             </choice></l>
-          <l n="d">tasya tasya tadā phalaM<!--CHECK --></l>
+          <l n="d">tasya tasya tadā phalaM</l>
         </lg>
         <lg met="anuṣṭubh" n="7">
           <l met="na-vipulā" n="a" real="++++---+">tād<orig>ri</orig>k puṇyaṁ na dadatāṁ</l>
@@ -157,11 +135,11 @@ om<!--CHECK probably a glyph instead--> svasti<supplied reason="subaudible">.</s
         <lg met="anuṣṭubh" n="8">
           <l n="a">pūrvva-dattāṁ dvijātibhyo</l>
           <l n="b">yatnād rakṣa yudhiṣṭhira<surplus>ḥ</surplus></l>
-          <l n="c">mahīm<!--CHECK --> mah<orig>i<!--CHECK --></orig>matāṁ śreṣṭha</l>
-          <l n="d">dānā<supplied reason="omitted">c</supplied> chreyo <supplied reason="subaudible">’</supplied>nupālanaM<!--CHECK --></l>
+          <l n="c">mahīm mah<orig>i</orig>matāṁ śreṣṭha</l>
+          <l n="d">dānā<supplied reason="omitted">c</supplied> chreyo <supplied reason="subaudible">’</supplied>nupālanaM</l>
         </lg>
         <lg met="anuṣṭubh" n="9">
-          <l n="a">brahma-sve mā mat<orig>ī<!--CHECK --></orig>ṁ kuryyā<supplied reason="omitted">ḥ</supplied></l>
+          <l n="a">brahma-sve mā mat<orig>ī</orig>ṁ kuryyā<supplied reason="omitted">ḥ</supplied></l>
           <l n="b">prānaiḥ kaṇṭha-gatair api</l>
           <l n="c">agni-dagdhāni rohanti</l>
           <l n="d">brahma-dagdhaṁ na rohati</l>
@@ -175,7 +153,7 @@ om<!--CHECK probably a glyph instead--> svasti<supplied reason="subaudible">.</s
         <lg met="anuṣṭubh" n="11">
           <l n="a">viṁddhyāṭavīṣv atoyāsu</l>
           <l n="b">śuṣka-koṭara-vāsinaḥ</l>
-          <l n="c">kr̥<!--CHECK is this ri like everywhere else?-->ṣṇāhayo <supplied reason="subaudible">’</supplied>bhijāyante</l>
+          <l n="c">kr̥ṣṇāhayo <supplied reason="subaudible">’</supplied>bhijāyante</l>
           <l n="d">bhūmidānāpahāriṇaḥ</l>
         </lg>
         <p>śrī-mahārājasya pravarddhamānaka-saṁvatsare aṣṭame śāsanaṁ likhitam iti<supplied reason="subaudible">.</supplied>
@@ -185,7 +163,6 @@ om<!--CHECK probably a glyph instead--> svasti<supplied reason="subaudible">.</s
       <div type="apparatus">
         <listApp>
           <app loc="x">
-            <!--CHECK -->
             <lem>tena <choice>
                 <sic>mā</sic>
                 <corr>A</corr>
@@ -193,18 +170,16 @@ om<!--CHECK probably a glyph instead--> svasti<supplied reason="subaudible">.</s
             <note>PEM etext: tenāneka; note: tena māneka ou lire tenaivam aneka. Is the latter also Fleet's suggestion or is it PEM's? I think my emendation, without correcting the sandhi, is the most likely scribal error.  </note>
           </app>
           <app loc="x">
-            <!--CHECK -->
             <lem>devasvāmi<supplied reason="omitted">nāṁ</supplied> </lem>
             <note>PEM etext supplied as above. Is this from Fleet? What's the reason for supplying this right here? Who are LS's sons and who are they together with? PEM's translation assumes all 5 are his sons.  </note>
           </app>
         </listApp>
       </div>
       <div source="bib:Fleet" type="translation">
-        <!--CHECK -->
         <p n="1"></p>
       </div>
       <div source="bib:Estienne-Monod2008_01" type="translation" xml:lang="fra">
-        <p n="1"><!--CHECK give numbers to all paras-->Om ! Prospérité ! A celui qui a acquis les trois pouvoirs,<note>Les trois pouvoirs constitutifs de la royauté : <foreign>utsāha</foreign>, l’audace, <foreign>prabhu</foreign>, la puissance, <foreign>mantra</foreign>, les conseils, cf. <title>Arthaśāstra</title>, 6, 2, 33.</note> né dans la lignée des Calukya, qui méditent aux pieds du seigneur Mahāsena, du même gotra que les descendants de Manu, fils de Hārītī, dont les bras sont des barres de portes, protégés par la faveur de la troupe des Mères, qui ont gagné de porter la marque du sanglier par la faveur <supplied reason="subaudible">du dieu</supplied> qui dort, allongé sur l’océan de lait,</p>
+        <p n="1">Om ! Prospérité ! A celui qui a acquis les trois pouvoirs,<note>Les trois pouvoirs constitutifs de la royauté : <foreign>utsāha</foreign>, l’audace, <foreign>prabhu</foreign>, la puissance, <foreign>mantra</foreign>, les conseils, cf. <title>Arthaśāstra</title>, 6, 2, 33.</note> né dans la lignée des Calukya, qui méditent aux pieds du seigneur Mahāsena, du même gotra que les descendants de Manu, fils de Hārītī, dont les bras sont des barres de portes, protégés par la faveur de la troupe des Mères, qui ont gagné de porter la marque du sanglier par la faveur <supplied reason="subaudible">du dieu</supplied> qui dort, allongé sur l’océan de lait,</p>
         <p n="1" rend="stanza">Victoire au roi Raṇavikrama, dont la vaillance, l’enthousiasme et la fougue anéantirent les rois ennemis, lui qui devint Satyāśraya en accomplissant le barattement des méchants du Kaliyuga !</p>
         <p n="2" rend="stanza">Son fils, pourvu de gloire, fut Kīrtivarman, riche d’une ferme constance,
 réceptacle de nobles actions, qui accomplit son devoir, souverain de la terre.</p>
@@ -212,10 +187,10 @@ réceptacle de nobles actions, qui accomplit son devoir, souverain de la terre.<
 lui qui connaissait autant le dharma que les bienfaits, avait un courage comparable à celui de Pārtha.</p>
         <p n="4" rend="stanza">Comme pour éradiquer l’orgueil des hommes qui vivent des armes,
 lui, Bībhatsu, fut placé dans le monde par le créateur.</p>
-        <p>Celui-ci, dont les pieds de lotus sont frottés par les maîtres joyaux des diadèmes des nombreux feudataires inclinés, devenu l’ornement du cercle entier de la terre, le prince héritier illustre Pr̥thivī Vallabha Viṣṇuvardhana, <supplied reason="subaudible">alias</supplied> Viṣamasiddhi, résidant à Kurumarathī<!--CHECK surely Kuruma-rathyā?-->, afin d’acquérir des mérites pour sa mère, son père et lui-même, lors de la pleine lune du mois de Kārtika, donne à Acalasvami, Vedasvāmi et Devasvāmi, ainsi qu’à Ādityasvāmi et Nāgakumāra, qui sont les fils de Lakṣmaṇasvāmi, - appartenant aux Viśvāmitra, qui connaissent l’ensemble des Veda et Vedāṅga, du <foreign>gotra</foreign> de Ghr̥takauśika, - et à leurs fils et petit-fils, aussi longtemps que dureront la lune, le soleil, la terre, afin d’accomplir les cinq grands sacrifices que sont le bali, le caru, le vaiśvadeva, l’agnihotra<note>Sur ces sacrifices, cf. insc. n°2. Le <foreign>bali</foreign>, le <foreign>caru</foreign> et le <foreign>vaiśvadeva</foreign> sont aussi mentionnés in insc. nos 2 et 7. Sur l’<foreign>agnihotra</foreign> cf. insc. n° 7.</note> et le havana,<note>Sur ce sacrifice, cf. ŚBr. KātyŚr., références données in Monier-Williams.</note> dans le <foreign>bhoga</foreign> de Śrīnilaya, au nord de l’<foreign>agrahāra</foreign> d’Aṇopalya, sur la rive sud de la Bhīmarathī, le village nommé Alandatīrttha, après avoir fait une libation d’eau qui convient.</p>
+        <p>Celui-ci, dont les pieds de lotus sont frottés par les maîtres joyaux des diadèmes des nombreux feudataires inclinés, devenu l’ornement du cercle entier de la terre, le prince héritier illustre Pr̥thivī Vallabha Viṣṇuvardhana, <supplied reason="subaudible">alias</supplied> Viṣamasiddhi, résidant à Kurumarathī, afin d’acquérir des mérites pour sa mère, son père et lui-même, lors de la pleine lune du mois de Kārtika, donne à Acalasvami, Vedasvāmi et Devasvāmi, ainsi qu’à Ādityasvāmi et Nāgakumāra, qui sont les fils de Lakṣmaṇasvāmi, - appartenant aux Viśvāmitra, qui connaissent l’ensemble des Veda et Vedāṅga, du <foreign>gotra</foreign> de Ghr̥takauśika, - et à leurs fils et petit-fils, aussi longtemps que dureront la lune, le soleil, la terre, afin d’accomplir les cinq grands sacrifices que sont le bali, le caru, le vaiśvadeva, l’agnihotra<note>Sur ces sacrifices, cf. insc. n°2. Le <foreign>bali</foreign>, le <foreign>caru</foreign> et le <foreign>vaiśvadeva</foreign> sont aussi mentionnés in insc. nos 2 et 7. Sur l’<foreign>agnihotra</foreign> cf. insc. n° 7.</note> et le havana,<note>Sur ce sacrifice, cf. ŚBr. KātyŚr., références données in Monier-Williams.</note> dans le <foreign>bhoga</foreign> de Śrīnilaya, au nord de l’<foreign>agrahāra</foreign> d’Aṇopalya, sur la rive sud de la Bhīmarathī, le village nommé Alandatīrttha, après avoir fait une libation d’eau qui convient.</p>
         <p>Que ceci soit connu de tous les chefs de <foreign>viṣaya</foreign> voisins, les feudataires, les chefs de villages, les chefs de familles,<note>D. C. Sircar, 1966, p. 191 : chef de village, famille, communauté.</note> etc. ; l’entrée <supplied reason="subaudible">de ce village</supplied> est interdite aux troupes régulières et irrégulières ainsi qu’aux usuriers, etc., <supplied reason="subaudible">ayant déclaré</supplied> qu’il était libre de tout impôt, ayant compris que le monde vivant est instable comme les vagues de l’océan, agité par un vent instable,<note>Même idée in insc. n°7.</note> et veillant à ce qu’aucune transgression ne soit effectuée.
 Le bienheureux Vyāsa, compilateur des Veda, a dit :
-Que celui qui, l’esprit obscurci par le voile ténébreux de l’ignorance, transgresse (cet édit), ou approuve qu’il soit transgressé, soit lié aux cinq grands crimes !<!--PEM probably says this after Vyasa because she thinks the iti goes with the uktam, but surely that is not the case. --></p>
+Que celui qui, l’esprit obscurci par le voile ténébreux de l’ignorance, transgresse (cet édit), ou approuve qu’il soit transgressé, soit lié aux cinq grands crimes !</p>
         <p n="5" rend="stanza">Le donateur de la terre séjourne soixante mille ans dans le ciel,
 que celui qui interrompt (la donation) et celui qui l’approuve demeurent aussi longtemps en enfer !</p>
         <p n="6" rend="stanza">Beaucoup de rois ont joui de la terre, à commencer par Sagara,
@@ -236,8 +211,6 @@ ceux qui s’emparent d’une donation de terre renaissent comme serpents noirs.
         <p>CHECK: EDITION INCOMPLETE, NEEDS WORK</p>
       </div>
       <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
         <p>First edited in rudimentary form by Ball Gangadhar Shastree (<bibl>
             <ptr target="bib:Shastree1844_01"/>
             <citedRange unit="item">1</citedRange>
@@ -248,11 +221,10 @@ ceux qui s’emparent d’une donation de terre renaissent comme serpents noirs.
             <ptr target="bib:Shastree1844_01"/>
             <citedRange unit="item">1</citedRange>
           </bibl>
-          <bibl n="JFF"><!--Fleet--></bibl>
+          <bibl n="JFF"></bibl>
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,27 +35,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p>The inscription was published without a picture. According to ARIE the inscription is written in "archaic characters".<!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p>The inscription was published without a picture. According to ARIE the inscription is written in "archaic characters".</p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -99,20 +83,19 @@
                <lb n="6"/>kalavanṟu
             </p>
       </div>
-      <div type="apparatus"><!--apparatus encoded as per EG §9.1, basic elements for apparatus below--></div>
+      <div type="apparatus"></div>
       <div resp="part:jeth" type="translation">
-        <!--The translation is yet sort of preliminary -->
         <p>Svasti! Upp(ā)ḍula Cākala, "hero" of Śrī Puliyāḍi, son of the ruler of this Madūru, is (here) at the confluence of the Kuṇḍu (river).</p>
       </div>
       <div type="commentary">
         <p>
-               The text is given as in the edition but spaces have been added where a word boundary was deemed probable. The translation follows a slightly emended text.
+               The text is given as in the edition but spaces have been added where a word boundary was deemed probable. The translation follows a slightly emended text. 
                The personal name puliya<unclear>ḍi</unclear>ya seems to be Puliyāḍi, lit. "smoeone who is like a tiger" (with the Kannaḍa suffix -āḍi/āḷi). The suffix -ya is a genitive and "Kannaḍism" as can be often found in the earlier inscriptions.
                Makanṟu (later magaḍu), lit. "a man", can denote different things: a son, husband, hero, or ruler. I opted for "hero" since Cākala seems to have been a subordinate of Puliyāḍi, and since koḍuku is used for "son" later. It may be noted, however, that magaḍu (in its earlier spellings) is attested as "son" in the old Telugu inscriptions and that three generations are sometimes mentioned, e. g. in INSTelugu00083 (<bibl>
             <ptr target="bib:RamayyaPantulu1948_01"/>
             <citedRange unit="page">337</citedRange>
             <citedRange unit="item">621</citedRange>
-          </bibl>). Therefore, it is also possible that Cākala was the grandson of Puliyāḍi.<!-- perhaps more here on the use of magaḍu as "son" with names that seem to be of Kannaḍa origin; furthermore, it is questionable in regard to INSTelugu00083 whether really the name of the hero is omitted in favour of the father's and grandfather's name (my translation reflects this). In Telugu maga seems to predominantly denote a "male" whereas in Kannaḍa it denotes a "son" and "male"; in Tamil it seems to rather denote a "child, infant". The semantics have to be settled -->
+          </bibl>). Therefore, it is also possible that Cākala was the grandson of Puliyāḍi.
                Emmu<unclear>du</unclear>ru <hi rend="italic">might</hi> be equivalent to im-Madūru 'this Madūru'. The inscription was found in Kāmanūru and a village named Madūru is situated approximately 4 km to the south-east of Kāmanūru. Another village of that name can be found in a distance of approximately 50 km. Hence, the qualification "this Madūru" may have been meaningful.
                Since dental ⟨da⟩ and retroflex ⟨ḍa⟩ can be very similar in the older script, Uppa<unclear>du</unclear>la was interpreted as Uppāḍula and gu<unclear>da</unclear>liya as gūḍaliya. The vowel lenght is added in reference to the place name Uppāḍa (that probably is not the place referred to in the inscription). Gūḍaliya is probably an inflected form of kūḍali 'joining, union', confer Kannaḍa kūḍal 'confluence of a river'. The suffix -ya was interpreted as locative although the regular form should have been -na.
                Guṇḍu is the name of the river (Kuṇḍēru) that flows in the south and west of Kāmanūru. According to ARIE the inscription was found "in the bed of the stream at Kâmanûru". At this location there is a confluence of the Kuṇḍēru with another smaller river the name of which I could not find. It is possible, however, that this smaller river was (or is) also called Kuṇḍu wherefore only this single name was mentioned.
@@ -135,7 +118,7 @@
               <ptr target="bib:Sastri1969_01"/>
               <citedRange unit="page">334</citedRange>
             </bibl>
-          </cit>.
+          </cit>.   
           </p>
         <listBibl type="primary">
           <bibl n="RP">

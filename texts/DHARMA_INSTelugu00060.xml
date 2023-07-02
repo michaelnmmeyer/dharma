@@ -1,14 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title><!-- ADD TITEL HERE --></title>
+        <title></title>
         <respStmt>
           <resp>EpiDoc Encoding</resp>
           <persName ref="part:jeth">
@@ -41,27 +35,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -72,7 +56,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -92,13 +75,13 @@
       <div type="edition" xml:lang="tel-Latn">
         <p>
               <milestone n="A" type="pagelike" unit="face"/>
-               <lb n="A1"/><supplied reason="lost">svasti śrī prithivi-va</supplied><lb break="no" n="A2"/><supplied reason="lost">llava-vijayāditya</supplied><lb break="no" n="A3"/><supplied reason="lost">cōḻa-rājuḶ Iru</supplied><lb break="no" n="A4"/><supplied reason="lost">vā</supplied>d<supplied reason="lost">i</supplied>r<supplied reason="lost">e</supplied>ṅdu ca<supplied reason="lost">ṁ</supplied>va<lb break="no" n="A5"/>ccaraṁbuḶ pravartta<lb break="no" n="a6"/>llaN vāṇarājuL pā<lb break="no" n="A7"/><unclear>bu</unclear>ḻigga Ēḷucu palla<lb break="no" n="A8"/>vādi<supplied cert="low" reason="omitted">tya</supplied>rājula kūcapō<!-- or is it pā? --><lb break="no" n="A9"/>ṟa<!-- or is it ṟi? -->yāri tāṁbuL cō<lb break="no" n="A10"/>ḻa mahārājula Amma<milestone n="B" type="pagelike" unit="face"/><lb n="B1"/><gap quantity="1" reason="lost" unit="character"/><unclear>m</unclear>ukha<!-- the following akṣaras have to read yet -->
-               <lb n="B2"/>ḻaḷu<unclear>ru</unclear> kucapā<!-- or is it pō --><unclear>ṟa</unclear>ki
+               <lb n="A1"/><supplied reason="lost">svasti śrī prithivi-va</supplied><lb break="no" n="A2"/><supplied reason="lost">llava-vijayāditya</supplied><lb break="no" n="A3"/><supplied reason="lost">cōḻa-rājuḶ Iru</supplied><lb break="no" n="A4"/><supplied reason="lost">vā</supplied>d<supplied reason="lost">i</supplied>r<supplied reason="lost">e</supplied>ṅdu ca<supplied reason="lost">ṁ</supplied>va<lb break="no" n="A5"/>ccaraṁbuḶ pravartta<lb break="no" n="a6"/>llaN vāṇarājuL pā<lb break="no" n="A7"/><unclear>bu</unclear>ḻigga Ēḷucu palla<lb break="no" n="A8"/>vādi<supplied cert="low" reason="omitted">tya</supplied>rājula kūcapō<lb break="no" n="A9"/>ṟayāri tāṁbuL cō<lb break="no" n="A10"/>ḻa mahārājula Amma<milestone n="B" type="pagelike" unit="face"/><lb n="B1"/><gap quantity="1" reason="lost" unit="character"/><unclear>m</unclear>ukha
+               <lb n="B2"/>ḻaḷu<unclear>ru</unclear> kucapā<unclear>ṟa</unclear>ki   
                <lb n="B3"/>natū Icci ttra
-               <lb n="B4"/>rāca<unclear>m</unclear><supplied reason="lost">ā</supplied><lb break="no" n="B5"/><supplied reason="lost">na</supplied><unclear>ṁ</unclear>bunaN Ēbhādi maṟu<lb break="no" n="B6"/>ntuṟlu nēla Alaghacinta U<lb break="no" n="B7"/><unclear>ttara</unclear>ṁbun ka<!-- the akṣara nka is seldom but is attested (see indoskript) -->ṭṭu<!-- the element kaṭṭu appears at least twice in other names -->  ṇṭ lya gōtrasya p<choice>
+               <lb n="B4"/>rāca<unclear>m</unclear><supplied reason="lost">ā</supplied><lb break="no" n="B5"/><supplied reason="lost">na</supplied><unclear>ṁ</unclear>bunaN Ēbhādi maṟu<lb break="no" n="B6"/>ntuṟlu nēla Alaghacinta U<lb break="no" n="B7"/><unclear>ttara</unclear>ṁbun kaṭṭu  ṇṭ lya gōtrasya p<choice>
             <sic>a</sic>
             <orig>e</orig>
-          </choice><lb break="no" n="B8"/>nbāṟa <!-- some akṣaras are lacking here -->
+          </choice><lb break="no" n="B8"/>nbāṟa 
                <lb n="B9"/>sarmārik iccina <unclear>da</unclear>ti<milestone n="C" type="pagelike" unit="face"/><lb n="C1"/>svadatāṁ<milestone n="D" type="pagelike" unit="face"/><lb n="D4"/>yā<supplied reason="lost">ṁ</supplied> j<unclear>ā</unclear><lb break="no" n="D5"/>y<choice>
             <orig>ā</orig>
             <reg>a</reg>
@@ -126,7 +109,7 @@
           </app>
         </listApp>
       </div>
-      <div resp="part:jeth" type="translation"><!--Yet to be provided --></div>
+      <div resp="part:jeth" type="translation"></div>
       <div type="commentary">
         <p>
               The numbering of the faces of the inscription offered by the editors might be wrong. Two reasons can be adduced: 1) When comparing the structure and content with other inscriptions there is too much space on the allegedly lost second face for too less possible information. Furthermore, the end of the imprecation is found on the fourth face with a width of two <foreign>akṣaras</foreign> per line. If the third face was indeed the third one, the beginning of the imprecation ought to be found on that very face; yet, the twenty lacking syllables (six syllables are lost on the fourth face) would make up almost three full lines (with seven to eight <foreign>akṣaras</foreign> per line). On the other hand, the estampage indicates that the narrow faces on both sides of the stone contained two <foreign>akṣaras</foreign> per line and that, if they followed the writing on the front side, 10 lines are to be expected on the face. Ten lines times two <foreign>akṣaras</foreign> makes 20 <foreign>akṣaras</foreign>, the number that we need. Therefore, it is very probable in my opinion that face three is face two and the lost face two is face three that can be fully reconstructed. The reconstruction of this face and of the three missing lines on the first face follows the copy of Colin Mackenzie's manuscript that the editors also used and also printed in their edition. Since certain flaws cannot be unambiguously attributed to either C. Mackenzie or the scribe the supplied text is given in the form it can be expected according to other inscriptions.
@@ -136,7 +119,6 @@
         <p></p>
         <listBibl type="primary">
           <bibl n="siglum"/>
-          <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
         </listBibl>
         <listBibl type="secondary">
           <bibl/>

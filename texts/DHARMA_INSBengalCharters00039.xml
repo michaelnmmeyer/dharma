@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -41,17 +35,13 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno type="filename">DHARMA_INSBengalCharters00039</idno>
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
@@ -70,7 +60,6 @@
                     agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named
@@ -122,12 +111,7 @@
             </choice>-ṣaṣṭy-uttara-śata-sāmbatsare para<lb break="no" n="7"/>ma-devair dugdhotikā-vāstavya-brāhmaṇānāṁ sva-puṇyābhivṛddhaye govarddhanaka-grāmo garu<choice>
               <sic>ptaṁ</sic>
               <corr>ṭṭā</corr>
-            </choice><!--
-possible mais pta fotemenet probable aussi voir photo garuptaa.m?-l7.png + attention Dubey pta aussi en revanche ligne 11 je lis .t.ta garu.t.taa-l11.png
-                         --><!--
-amwb : by checking again the photo, it seems to me likely that in line 7 it is written -ptaa see also graamogaru(ptaa)pa-l7.png
-According to your note in the app, I removed garu<unclear>ṭṭā</unclear> and encoded garu<choice><sic>ptaṁ</sic><corr>ṭṭā</corr></choice>
--->pa-ś<unclear>ā</unclear>sanenātisṛṣṭa<unclear>ḥ</unclear><supplied reason="omitted">.</supplied><lb n="8"/>tan mayā <unclear>pū</unclear>jyoparika-brahmadattaḥ <space quantity="2" unit="character"/> 'dhikaraṇe vijñāpitaḥ<supplied reason="subaudible">.</supplied></p>
+            </choice>pa-ś<unclear>ā</unclear>sanenātisṛṣṭa<unclear>ḥ</unclear><supplied reason="omitted">.</supplied><lb n="8"/>tan mayā <unclear>pū</unclear>jyoparika-brahmadattaḥ <space quantity="2" unit="character"/> 'dhikaraṇe vijñāpitaḥ<supplied reason="subaudible">.</supplied></p>
           <p>mama govarddhanaka-grām<choice>
               <sic>a</sic>
               <corr>e</corr>
@@ -138,26 +122,16 @@ According to your note in the app, I removed garu<unclear>ṭṭā</unclear> and
               <sic>ā</sic>
               <corr>a</corr>
             </choice><lb break="no" n="12"/>-kṣetra <gap quantity="2" reason="illegible" unit="character"/><unclear>dattaka</unclear> <space/> na vinaśyeta tathā <unclear>pra</unclear>sādaḥ kriyatām iti<supplied reason="subaudible">.</supplied></p>
-          <p>yataḥ Evaṁ<!-- dans ton edition 2015 °evaṁvijñāpato collé, faut il le signaler dans l'apparat + lecture différente puisqu'on a °evaṁvijñāpatopala(b) suivi de 7 tirets?--> vijñāp<choice>
+          <p>yataḥ Evaṁ vijñāp<choice>
               <sic>a</sic>
               <corr>i</corr>
-            </choice>to <gap quantity="11" reason="lost" unit="character"/><!-- attention ici dans 2015 tu avais ajouté pala cad vijñāpatopala...doit-on l'ajouter dans l'apparat?
---><!--
-amwb : after checking again the plate, it is possible to read evaṁvijñāpato<unclear>pala</unclear><gap reason="lost" quantity="7" unit="character"/>
---></p>
-          <p><pb n="1v"/><lb n="13"/>Ādeśo d<unclear>ā</unclear>kam<!--
-je propose une correction de dakam en dākam MW474 "ici quel est le donneur approprié?", en plus sur photo possible de voir un trait au dessus confondu avec fissure de la plaque--><!--
-amwb : files named BC39-l13-Ādeśo dāka? 1.png BC39-l13-Ādeśo dāka? 2.png BC39-l13-Ādeśo dāka? 3.png
---> atra yuktam iti<supplied reason="subaudible">.</supplied></p>
+            </choice>to <gap quantity="11" reason="lost" unit="character"/></p>
+          <p><pb n="1v"/><lb n="13"/>Ādeśo d<unclear>ā</unclear>kam atra yuktam iti<supplied reason="subaudible">.</supplied></p>
           <p> <space/> tadadhikara<choice>
               <orig>n</orig>
               <reg>ṇ</reg>
             </choice>ena jñāpita <space/> Etat-kṣetra-pariva<unclear>r</unclear>ttena nānya-grāmo dīyatām iti<supplied reason="subaudible">.</supplied></p>
-          <p>yata <gap quantity="11" reason="lost" unit="character"/><lb n="14"/>deśoparika-svāmicandrasyādeśo dattaḥ<supplied reason="omitted">.</supplied> tava maddhyamaṣaṇḍikānān dhana<supplied reason="omitted">ḥ</supplied> prati pratipālana<supplied reason="omitted">ḥ</supplied> prativāsana<supplied reason="omitted">ḥ</supplied> pratyāya<supplied reason="omitted">ḥ</supplied> sādhunā yasa<!--
-pour moi ce n'est pas un sa- car boucle non fermée
---><!--
-amwb : see photo yasa? ya a? l14.png
---><gap quantity="9" reason="lost" unit="character"/><lb n="15"/>kautsa-sa-gotra-vājasaneya-brāhmaṇa-nandabhūtiṣyaitat tāmra-paṭṭa-parivarttanānyatra grāme viṣayādhikaraṇa <space quantity="3" unit="character"/> kṣetraṁ dāpayi<unclear>ṣya</unclear><supplied reason="lost">sīti</supplied><supplied reason="subaudible">.</supplied></p>
+          <p>yata <gap quantity="11" reason="lost" unit="character"/><lb n="14"/>deśoparika-svāmicandrasyādeśo dattaḥ<supplied reason="omitted">.</supplied> tava maddhyamaṣaṇḍikānān dhana<supplied reason="omitted">ḥ</supplied> prati pratipālana<supplied reason="omitted">ḥ</supplied> prativāsana<supplied reason="omitted">ḥ</supplied> pratyāya<supplied reason="omitted">ḥ</supplied> sādhunā yasa<gap quantity="9" reason="lost" unit="character"/><lb n="15"/>kautsa-sa-gotra-vājasaneya-brāhmaṇa-nandabhūtiṣyaitat tāmra-paṭṭa-parivarttanānyatra grāme viṣayādhikaraṇa <space quantity="3" unit="character"/> kṣetraṁ dāpayi<unclear>ṣya</unclear><supplied reason="lost">sīti</supplied><supplied reason="subaudible">.</supplied></p>
           <p><unclear>ya</unclear>ta<unclear>ḥ</unclear><lb n="16"/>Etad-ādeśād asmāka<supplied reason="omitted">ṁ</supplied> pūjya-svāmicandrasyādeśo dattaḥ<supplied reason="omitted">.</supplied> mama paramadaivatoparikapādebhy<choice>
               <sic>o jñā</sic>
               <corr>a ājñā</corr>
@@ -165,7 +139,7 @@ amwb : see photo yasa? ya a? l14.png
           <p> mahatī-rakta-mālā-grahārika-brāhmaṇa-nandabhūti<lb break="no" n="17"/>r vvijñāpayati<supplied reason="omitted">.</supplied> sādhunā govarddhanaka-grāmeya-samudaya-vāhyāpratikara-khila-kṣetra<supplied reason="omitted">ṁ</supplied> krītvā yan mama dattakaṁ tad adhunā parama-de<choice>
               <sic>vai Ā</sic>
               <corr>vair Ā</corr>
-            </choice>deśādatta<unclear>ṁ</unclear><!-- Absolument vérifier la lecture car dans rtf edition datta(ṁ); rtf apparat dattaḥ et dans 2015 dattaṁ dans édition et datt(ā); perso je vois datta peut être un trait au dessus pour a long? --><lb n="18"/>Eṣāṁ dugdhotikeya-brāhmaṇānā<supplied reason="omitted">ṁ</supplied> govarddhanaka-grām<choice>
+            </choice>deśādatta<unclear>ṁ</unclear><lb n="18"/>Eṣāṁ dugdhotikeya-brāhmaṇānā<supplied reason="omitted">ṁ</supplied> govarddhanaka-grām<choice>
               <sic>e</sic>
               <corr>o</corr>
             </choice> mayā<choice>
@@ -239,7 +213,6 @@ amwb : see photo yasa? ya a? l14.png
               </bibl> was helpful as a starting point for editing the text, but I have not deemed it useful to report any of the numerous variants of reading between my edition and that of the two Indian scholars. I leave it to the interested reader to compare their edition (which is unaccompanied by any translation) with mine and judge the merits of each. In this apparatus, I only mention the corrected or emended readings proposed by <bibl>
                 <ptr target="bib:Dubey+Acharya2014_01"/>
               </bibl> with which I agree.</note>
-            <!-- La dernière phrase est un ajout de ma part que tu dois valider ou modifier à ton goût et peut-être ajouter and those which are discussed into the commentary...  -->
           </app>
           <app loc="1">
             <lem>mahat<unclear>ī</unclear></lem>
@@ -277,19 +250,16 @@ amwb : see photo yasa? ya a? l14.png
           </app>
           <app loc="4">
             <lem>mmamātīta-</lem>
-            <!--<rdg source="bib:Dubey+Acharya2014_01">mmamā taita</rdg>-->
             <note><bibl>
                 <ptr target="bib:Dubey+Acharya2014_01"/>
               </bibl> emended <foreign>mama tātaiḥ</foreign>. See <foreign>mayā</foreign> in line 8. Or read <foreign>mama</foreign> in every instance? </note>
           </app>
           <app loc="4">
             <lem>yathānu<surplus>r</surplus>vṛtta-</lem>
-            <!--<rdg source="bib:Dubey+Acharya2014_01">yathā <choice><orig>na</orig><corr>ni</corr></choice>vṛttavikraya-</rdg><!-\- vérifier que c'est le bon encodage pour noter  yathā navṛttavikraya° Dubey and Acharya, emended to yathā nivṛttavikraya°-\->-->
             <note>If there really is a <foreign>repha</foreign>, then emend <foreign>yathānuvṛtta-</foreign>. Our reading is supported by the <ref target="DHARMA_INSBengalCharters00056.xml">Damodarpur copper-plate</ref>, line 7 <foreign>vikrayo 'nuvṛttaḥ</foreign>.</note>
           </app>
           <app loc="4">
             <lem>puṇḍra<lb n="5"/>varddhaneya-</lem>
-            <!--<rdg source="bib:Dubey+Acharya2014_01">puṇḍravarddhane <choice><sic>ya</sic><supplied reason="omitted">ḥ</supplied></choice></rdg><!-\- pas sur que ce soit le bon encodage -\->-->
             <note>Cf. perhaps the <ref target="DHARMA_INSBengalCharters00034.xml">Jagadishpur plate of the Gupta Year 128</ref>, line 3, although <bibl>
                 <ptr target="bib:Sircar1969-1970_01"/>
               </bibl>, there read <foreign>puṇḍravarddhane ya</foreign>, emending <foreign>ya</foreign> to <foreign>ye</foreign> (and explicitly rejecting the reading <foreign>puṇḍravarddhaneya</foreign>).</note>
@@ -299,14 +269,8 @@ amwb : see photo yasa? ya a? l14.png
                 <sic>o</sic>
                 <corr>ā</corr>
               </choice>d d<unclear>ī</unclear>nārān</lem>
-            <!-- <rdg source="bib:Dubey+Acharya2014_01">-suvarcca<choice><orig>sadatto ddi</orig><corr>se datta di</corr></choice>nārān</rdg><!-\- pas sur que ce soit le bon encodage -\->-->
             <note>To us it seems likely that the engraver actually wrote <foreign>dī</foreign>, as is required. Several parallels in the Gupta corpus suggest that we need an ablative ending before <foreign>dīnārān</foreign>. The obvious emendation is <foreign>suvarcasadattād</foreign>. Cf. line 9.</note>
           </app>
-          <!--<app loc="5">
-                       <lem>upasaṁgṛhya</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">upa<choice><orig>sa</orig><reg>saṅ</reg></choice>gṛhya</rdg><!-\- pas sur que ce soit le bon encodage -\->
-                       <note>An <foreign>anusvāra</foreign> seems quite clearly present.</note>
-                   </app>-->
           <app loc="6">
             <lem source="bib:Dubey+Acharya2014_01">-bhogy<choice>
                 <sic>o</sic>
@@ -316,21 +280,12 @@ amwb : see photo yasa? ya a? l14.png
                 <ptr target="bib:Dubey+Acharya2014_01"/>
               </bibl>.</note>
           </app>
-          <!--
-                       amwb : I included the emendation within the edition and removed this app
-                       <app loc="6">
-                       <lem>adhunaikānna-ṣaṣṭy-uttara-</lem>
-                      <!-\- <rdg source="bib:Dubey+Acharya2014_01">adhunaikāntam <choice><sic>asy</sic><corr>aśīty</corr></choice>-uttara-</rdg><!-\\- pas sur que ce soit le bon encodage -\\->-\->
-                       <note>Emend <foreign>adhunaikonaṣaṣṭyuttara-</foreign> (cf. line 26).</note>
-                   </app>
-                   -->
           <app loc="7">
             <lem>-devair dugdhotikā-</lem>
             <rdg source="bib:Dubey+Acharya2014_01">-devair-Puśvotika-</rdg>
             <note>The reading of <bibl>
                 <ptr target="bib:Dubey+Acharya2014_01"/>
               </bibl> reflects an impossible sandhi.</note>
-            <!-- Note réécrite pour être explicite à revoir -->
           </app>
           <app loc="7">
             <lem>-brāhmaṇānāṁ</lem>
@@ -350,11 +305,7 @@ amwb : see photo yasa? ya a? l14.png
                 <sic>gū</sic>
                 <corr>gu</corr>
               </choice>ptāpa-</rdg>
-            <!-- J'ai conservé cette lecture de Dubey_acharya car tu en parles dans ton commentaire de ce terme, cela m'a paru utile que la divergence de lecture apparaisse dans l'apparat pour appuyer tes propos en commentaire...à toi d'en juger -->
             <note>The word <foreign>garuṭṭāpa</foreign> actually looks like <foreign>garuptaṁpa-</foreign> and would not have been identifiable without the parallel in line 11.</note>
-            <!--
-amwb : by reading to this note, it appears to me that the tag unclear should be removed and replaced by a choice sic corr. I made this on 2021-11-09
--->
           </app>
           <app loc="7">
             <lem>-ś<unclear>ā</unclear>sanenātisṛṣṭa<unclear>ḥ</unclear></lem>
@@ -363,18 +314,6 @@ amwb : by reading to this note, it appears to me that the tag unclear should be 
                 <ptr target="bib:Dubey+Acharya2014_01"/>
               </bibl> emended to <foreign>-śāsanenaniṣṭaṁ</foreign>, presumably an involuntary error for <foreign>-śāsanenāniṣṭaṁ</foreign>.</note>
           </app>
-          <!-- <app loc="8">
-                       <lem>tan mayā</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">tasya <choice><sic>ya</sic><corr>yaḥ</corr></choice></rdg>
-                   </app>
-                   <app loc="8">
-                       <lem>-dattaḥ <space/> <space/> dhi-</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">datta adhi</rdg>
-                   </app>
-                   <app loc="8">
-                       <lem>-karaṇe vijñāpitaḥ</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">-karaṇa<supplied reason="omitted">ṁ</supplied> vijñāpita<supplied reason="omitted">ḥ</supplied></rdg>
-                   </app>-->
           <app loc="9">
             <lem>samudaya-</lem>
             <rdg source="bib:Griffiths2015_02">s<choice>
@@ -382,31 +321,6 @@ amwb : by reading to this note, it appears to me that the tag unclear should be 
                 <corr>a</corr>
               </choice>mudaya</rdg>
           </app>
-          <!-- <app loc="10">
-                       <lem>dattaka <space/> sa ca</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">dattaka<supplied reason="omitted">ṁ</supplied> sarvva<supplied reason="omitted">ṁ</supplied></rdg>
-                   </app>
-                   <app loc="10">
-                       <lem>govarddhanaka-grāma</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">govarddhanakagrā<choice><sic>ma</sic><corr>me</corr></choice></rdg>
-                   </app>
-                   <app loc="10">
-                       <lem>parama-devaiḥ sva</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">paramadevaiśca</rdg>
-                   </app>
-                   <app loc="11">
-                       <lem>dugdhotik<unclear>ā</unclear>-</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">puśvotika-</rdg>
-                   </app>
-                   <app loc="11">
-                       <lem>-śāsanenātisṛṣṭaḥ</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">-śāsanenātisraṣṭuṁ</rdg>
-                   </app>
-                   <app loc="11">
-                       <lem>g<choice><sic>a</sic><corr>u</corr></choice>ruṭṭāpa-</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">guUptāpa</rdg>
-                       <note>Cf. line 7.</note>
-                   </app>-->
           <app loc="12">
             <lem> Evaṁ vijñāp<choice>
                 <sic>a</sic>
@@ -425,38 +339,21 @@ amwb : by reading to this note, it appears to me that the tag unclear should be 
                 <ptr target="bib:Griffiths2015_02"/>
               </bibl>, the translation was based on the conjecture <foreign>ādeśo dattaḥ kim atra yuktam</foreign>. A new examination of the plate leads to the possibility to read a <foreign>ā</foreign> for <foreign>dākam</foreign> which makes sense in the sentence. </note>
           </app>
-          <!--              <app loc="13">
-                       <lem>tadadhikara<choice><orig>n</orig><reg>ṇ</reg></choice>ena<!-\- dans l'apparat rtf tu indiques karan[e]na -\-> jñāpita</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">tadadhika bhavāna jñāpita<supplied reason="omitted">ṁ</supplied></rdg>
-                       <note>Note <foreign>n</foreign> for <foreign>ṇ</foreign> (<foreign>-karaṇena</foreign>) as in line 21.</note>
-                   </app>
-                   <app loc="13">
-                       <lem>Etat-kṣetra-</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">Evaṁ bhūkṣetra-</rdg>
-                   </app>-->
           <app loc="13">
             <lem>-pariva<unclear>r</unclear>ttena</lem>
             <rdg source="bib:Griffiths2015_02">parivartt<unclear>e</unclear>na</rdg>
-            <!--<rdg source="bib:Dubey+Acharya2014_01">vartana<supplied reason="lost">ṁ*</supplied></rdg>-->
             <note><foreign>-pariva<unclear>r</unclear>ttena nanya-</foreign>: emend <foreign>-parivarttenanya-</foreign>? Alas, too much of the context here is damaged to be sure what meaning was intended.</note>
           </app>
           <app loc="13">
             <lem>nānya-grāmo dīyatām iti</lem>
-            <!--<rdg source="bib:Dubey+Acharya2014_01">nānya<supplied reason="lost">ṁ*</supplied> grāmodāyakam ata</rdg>-->
             <rdg source="bib:Griffiths2015_02">nānya-grāmo dīyatām <unclear>i</unclear>t<unclear>i</unclear></rdg>
           </app>
-          <!--<app loc="14">
-                       <lem>-candrasyādeśo</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">candr<choice><sic>a</sic><corr>ā</corr></choice>ryy-ādeśo</rdg>
-                   </app>-->
           <app loc="15">
             <lem>-bhūtiṣyaitat</lem>
-            <!--<rdg source="bib:Dubey+Acharya2014_01">bhūtisyetat</rdg>-->
             <note><foreign>bhūtiṣya</foreign> <supplied reason="explanation">indistinguishable graphically from <foreign>bhūtisya</foreign></supplied> is a substandard gen. sg. form which ought to have been <foreign>bhūteḥ</foreign> in chaste Sanskrit.</note>
           </app>
           <app loc="15">
             <lem>-varttanānyatra</lem>
-            <!--<rdg source="bib:Dubey+Acharya2014_01">-vartananyatra</rdg>-->
             <note>Emend <foreign>-varttenānyatra</foreign>? Cf. lines 13 and 18.</note>
           </app>
           <app loc="15">
@@ -469,10 +366,6 @@ amwb : by reading to this note, it appears to me that the tag unclear should be 
                 <ptr target="bib:Dubey+Acharya2014_01"/>
               </bibl> read <foreign>yataḥ</foreign> at the end of the line, but this reading cannot be confirmed.</note>
           </app>
-          <!--<app loc="15">
-                       <lem>-karaṇa</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">-kāriṇa<supplied reason="omitted">ḥ</supplied></rdg>
-                   </app>-->
           <app loc="15">
             <lem>kṣetraṁ</lem>
             <rdg source="bib:Dubey+Acharya2014_01">kṣetra<supplied reason="omitted">ṁ</supplied></rdg>
@@ -490,22 +383,11 @@ amwb : by reading to this note, it appears to me that the tag unclear should be 
                 <sic>a</sic>
                 <corr>ā</corr>
               </choice>deśo</rdg>
-            <!-- ref apparat ajouté après comparaison 2015 et rtf -->
           </app>
-          <!--<app loc="16">
-                       <lem>-pādebhy<choice><sic>o jñā</sic><corr>a ājñā</corr></choice></lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">-pādāsyājñā</rdg>
-                   </app>-->
           <app loc="16">
             <lem>dattaḥ mahatī-</lem>
-            <!-- lemme plus long que dans rtf pour éviter la confusion dattaḥ 2x dans l.16 -->
             <rdg source="bib:Griffiths2015_02">datt<unclear>ā</unclear> mahatī-</rdg>
           </app>
-          <!--<app loc="16-17">
-                       <lem>-nandabhūti<lb
-                         n="17" break="no"/>r vvi-</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">-nandabhūti<supplied reason="omitted">ḥ</supplied> vi-</rdg>
-                   </app>-->
           <app loc="17">
             <lem>-kṣetra<supplied reason="omitted">ṁ</supplied></lem>
             <note>As already suggested by <bibl>
@@ -519,28 +401,10 @@ amwb : by reading to this note, it appears to me that the tag unclear should be 
           </app>
           <app loc="17">
             <lem>-datta<unclear>ṁ</unclear></lem>
-            <!-- A revoir car noté dattaḥ dans apparat rtf, confusion avec la ligne 16?-->
             <rdg source="bib:Griffiths2015_02">-datt<unclear>ā</unclear></rdg>
           </app>
-          <!--    <app loc="17"><!-\- A revoir aussi car inclusion du dattaṁ précédent tu proposais emend °devair ādeśo datta-\->
-                       <lem>-de<choice><sic>vai Ā</sic><corr>vair Ā</corr></choice>deśādatt<unclear>ṁ</unclear></lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">-devo ādeśa<supplied reason="omitted">ḥ</supplied> datto</rdg>
-                   </app>-->
-          <!--<app loc="18">
-                       <lem>dugdhotikeya-</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">puśvotikāya-</rdg>
-                   </app>
-                   <app loc="18">
-                       <lem>-brāhmaṇā<choice><sic>nā</sic><corr>nāṁ</corr></choice></lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">-brāhmaṇān</rdg>
-                   </app>
-                   <app loc="18">
-                       <lem>-grām<choice><sic>e</sic><corr>o</corr></choice> mayā<choice><sic>n</sic><corr>t</corr></choice>isṛṣṭas</lem>
-                       <rdg source="bib:Dubey+Acharya2014_01">-grāme mayā ni<supplied reason="omitted">ḥ</supplied>śulkaṁ</rdg>
-                   </app>-->
           <app loc="18">
             <lem>tat-parivarttena</lem>
-            <!--<rdg source="bib:Dubey+Acharya2014_01">tatparivartana<supplied reason="omitted">ṁ</supplied></rdg>-->
             <note>The first two <foreign>akṣara</foreign>s seem to bear <foreign>e-mātra</foreign>s <supplied reason="explanation">
                 <foreign>tetpe</foreign>
               </supplied>, but perhaps these are accidental strokes.</note>
@@ -560,7 +424,6 @@ amwb : by reading to this note, it appears to me that the tag unclear should be 
                 <sic><unclear>s</unclear>ai</sic>
                 <corr>svai</corr>
               </choice>r anyatra</lem>
-            <!--<rdg source="bib:Dubey+Acharya2014_01">vijñāpito pa-purasyatra</rdg>-->
             <rdg source="bib:Griffiths2015_02">vijñāpitopalabdhāt sair anyatra</rdg>
             <note>Or read <foreign>-labdhāt kair</foreign>? Or <foreign>-labdhātmair</foreign>?</note>
           </app>
@@ -569,7 +432,6 @@ amwb : by reading to this note, it appears to me that the tag unclear should be 
                 <sic>dhar</sic>
                 <corr>ta</corr>
               </choice>dādeśād asmā<supplied reason="omitted">kaṁ</supplied></lem>
-            <!-- <rdg source="bib:Dubey+Acharya2014_01">evad(m)-ādeśād asmā[d*]</rdg>-->
             <note>We rather emend <foreign>Etadādeśād asmākaṁ</foreign>, after the sequence in line 16.</note>
           </app>
           <app loc="20">
@@ -590,9 +452,7 @@ amwb : by reading to this note, it appears to me that the tag unclear should be 
               </bibl> and <bibl>
                 <ptr target="bib:Bhandarkar1927-1936_01"/>
                 <citedRange unit="item">1201</citedRange>
-              </bibl>)<!--
-                           amwb : not sure it matches with Fl. No. 31; Bh. No. 1201
-                       -->, plate 1, lines 14–15: <foreign>te yūyam evopalabhyājñāśravaṇa-vidheyā bhūtvā samucita-bhāga-bhoga-kara-hiraṇyāvātāy<supplied reason="lost">ā</supplied>dipratyāyān upaneṣyatha</foreign>. Read -<foreign>°nupreṣita</foreign>-?
+              </bibl>), plate 1, lines 14–15: <foreign>te yūyam evopalabhyājñāśravaṇa-vidheyā bhūtvā samucita-bhāga-bhoga-kara-hiraṇyāvātāy<supplied reason="lost">ā</supplied>dipratyāyān upaneṣyatha</foreign>. Read -<foreign>°nupreṣita</foreign>-?
 </note>
           </app>
           <app loc="21">
@@ -612,7 +472,6 @@ amwb : by reading to this note, it appears to me that the tag unclear should be 
           </app>
           <app loc="21">
             <lem><unclear>pa</unclear>riniyamya</lem>
-            <!-- <rdg source="bib:Dubey+Acharya2014_01">pārineyasya(pāriṇāyyaṁ ?)</rdg>-->
             <note>Cf. <ref target="DHARMA_INSBengalCharters00049.xml">Baigram plate</ref>, line 19 <foreign>niyamya</foreign> and <ref target="DHARMA_INSBengalCharters00054.xml">Nandapur plate</ref>, lines 14–15.</note>
           </app>
           <app loc="22">
@@ -664,15 +523,15 @@ amwb : by reading to this note, it appears to me that the tag unclear should be 
         </div>
         <div n="B" type="textpart">
           <head xml:lang="eng">Plate</head>
-          <p n="1-2"> Hail! From the Mahatī-Raktamālā <supplied reason="explanation">‘Major Red Garland’</supplied> <foreign>agrahāra</foreign>,
+          <p n="1-2"> Hail! From the Mahatī-Raktamālā <supplied reason="explanation">‘Major Red Garland’</supplied> <foreign>agrahāra</foreign>, 
                  the princely advisor <supplied reason="explanation">
               <foreign>kumārāmātya</foreign>
-            </supplied> Yūthapati,
+            </supplied> Yūthapati, 
                  graced by the feet of the Supreme Lord <supplied reason="explanation">
               <foreign>paramabhaṭṭāraka</foreign>
-            </supplied>,
-                 <supplied reason="explanation">i.e. king Budhagupta</supplied>,
-                 as well as the council, inform the householders both modest and prominent, etc.,<!-- je me demande si on ne pourrait pas comprendre le sa- dans le sens donné par Renou §83 voir aussi BengalCharters57 : il indique comme sens de sa- sam- "complet total" ici on pourrait comprendre "avec la totalité des propriétaires (aussi bien) pauvres et riches" et le ādi renforce l'idée de totalité -->
+            </supplied>, 
+                 <supplied reason="explanation">i.e. king Budhagupta</supplied>, 
+                 as well as the council, inform the householders both modest and prominent, etc., 
                  consisting chiefly of Brahmins,<note>
                      The expression <foreign>brāhmaṇottarān</foreign> occurs in several other plates: <ref target="DHARMA_INSBengalCharters00049.xml">Baigram Charter of the Time of Kumāragupta I</ref>, line 2; <ref target="DHARMA_INSBengalCharters00051.xml">A grant of land in the Tāvīra district</ref>, line 6 ; <ref target="DHARMA_INSBengalCharters00052.xml">Paharpur Charter of the Time of Budhagupta</ref>, line 3; <ref target="DHARMA_INSBengalCharters00054.xml">Nandapur Plate of 169 GE</ref>, line 1 and <ref target="DHARMA_INSBengalCharters00057.xml">A second grant concerning the Raktamālā</ref>, line 2. The translation suggested here corresponds to the specific meaning of the compound <foreign>brāhmaṇottara</foreign>- reported by <bibl>
                 <ptr target="bib:Apte1890_01"/>
@@ -685,55 +544,46 @@ amwb : by reading to this note, it appears to me that the tag unclear should be 
                 <ptr target="bib:MonierWilliams1899_01"/>
                 <citedRange unit="page">178</citedRange>
               </bibl> for the word -<foreign>uttara</foreign><foreign>in fine compositi</foreign>, the translation would be <q>followed by Brahmins</q>.
-                 </note><!--
-amwb : I replaced "Brahmins being foremost among them" by "consisting chiefly of Brahmins"
-uttara ifc plutôt le sens de followed by or consisting of voir BengakCharters57 et 51 (MW p.178 col1 et Apte p.408 n°8...voir consisting chiefly of Brahmins Apte p.1174) et dans ce cas cela a une implication importante selon laquelle les propriétaires terriens seraient davantage des brahmanes?
--->
+                 </note> 
                  at Khuḍḍī-Raktamālikā <supplied reason="explanation">‘Minor Red Garland’</supplied>:</p>
-          <p n="2-3">‘Nandabhūti, Brahmin of the Vājasaneya <supplied reason="explanation">school of the Yajurveda</supplied> and Kautsa gotra,
-	    belonging to the community of <supplied reason="subaudible">Brahmins</supplied> studying the four Vedas of the Mahatī-Raktamālā <foreign>agrahāra</foreign>
+          <p n="2-3">‘Nandabhūti, Brahmin of the Vājasaneya <supplied reason="explanation">school of the Yajurveda</supplied> and Kautsa gotra, 
+	    belonging to the community of <supplied reason="subaudible">Brahmins</supplied> studying the four Vedas of the Mahatī-Raktamālā <foreign>agrahāra</foreign> 
 	    within the Kuddālakhāta <supplied reason="explanation">‘Spade-dug’</supplied> settlement <supplied reason="explanation">
               <foreign>adhivāsa</foreign>
             </supplied> informs <supplied reason="subaudible">us, as follows</supplied>:</p>
           <p n="3-8">In the elapsed year one hundred and fifty seven <supplied reason="explanation">of the Gupta era</supplied>,
-	    <supplied reason="explanation">to me</supplied><!--
-	    amwb : I added this supplied
-	    --> were given by <supplied reason="explanation">your</supplied><!--
-	    amwb : I added this supplied
-	    --> Honors <supplied reason="explanation">i.e. Yūthapati and his council</supplied><!--
-	    amwb : I added this supplied
-	    -->,
-	    after <supplied reason="subaudible">your Honors</supplied> had received <foreign>dīnāra</foreign>s from the <foreign>mahāmātra</foreign> of Puṇḍravardhana <supplied reason="explanation">named</supplied> Suvarcasadatta,
+	    <supplied reason="explanation">to me</supplied> were given by <supplied reason="explanation">your</supplied> Honors <supplied reason="explanation">i.e. Yūthapati and his council</supplied>,
+	    after <supplied reason="subaudible">your Honors</supplied> had received <foreign>dīnāra</foreign>s from the <foreign>mahāmātra</foreign> of Puṇḍravardhana <supplied reason="explanation">named</supplied> Suvarcasadatta, 
 	    by the procedure of sale in accordance with custom,
 	    two <foreign>kulyavāpa</foreign>s
 	    <note> On this measure, see <bibl>
                 <ptr target="bib:Maity1970_01"/>
                 <citedRange unit="page">52–59</citedRange>
               </bibl>.</note>
-	    of uncultivated land,
-	    without revenue charges and yielding no tax,
-	    in the village Govardhanaka,
-	    as a permanent endowment to be enjoyed in perpetuity.
+	    of uncultivated land, 
+	    without revenue charges and yielding no tax, 
+	    in the village Govardhanaka, 
+	    as a permanent endowment to be enjoyed in perpetuity. 
 	    The Supreme Lord <supplied reason="explanation">
               <foreign>paramadeva</foreign>
             </supplied> has now,
-	    in the year one hundred and fifty-nine, for the sake of the increase of his own merit,
-	    granted that <supplied reason="subaudible">land</supplied>,
-	    <supplied reason="explanation">i.e.</supplied> the village Govardhanaka,<note> Or, if one emends <foreign>-grāme</foreign>: ‘in the village Govardhanaka’.</note>
+	    in the year one hundred and fifty-nine, for the sake of the increase of his own merit, 
+	    granted that <supplied reason="subaudible">land</supplied>, 
+	    <supplied reason="explanation">i.e.</supplied> the village Govardhanaka,<note> Or, if one emends <foreign>-grāme</foreign>: ‘in the village Govardhanaka’.</note> 
 	    with a <foreign>garuṭṭāpa</foreign> charter,<note>See my discussion of the term <foreign>garuṭṭāpa</foreign> below.</note>
-	    to the Brahmins residing in Dugdhotikā.
+	    to the Brahmins residing in Dugdhotikā. 
 	    Therefore <supplied reason="explanation">
               <foreign>tad</foreign>
-            </supplied> the honorable governor Brahmadatta was informed by me<!-- Nandabhūti --> in the <gap quantity="2" reason="lost" unit="character"/> council <supplied reason="explanation">as follows</supplied>:</p>
+            </supplied> the honorable governor Brahmadatta was informed by me in the <gap quantity="2" reason="lost" unit="character"/> council <supplied reason="explanation">as follows</supplied>:</p>
           <p n="8-12">
             <q>Two <foreign>kulyavāpas</foreign> of uncultivated land,
 	    without revenue charges and yielding no tax, in the village Govardhanaka,
 	    were given to me by the <foreign>mahāmātra</foreign> of Puṇḍravardhana <supplied reason="explanation">named</supplied> Suvarcasadatta,
 	    for the purpose of the regular performance of the five great sacrifices in favor of <supplied reason="subaudible">his</supplied> mother and father,
-	    as a permanent endowment.
+	    as a permanent endowment. 
 	    And the Supreme Lord has, for the increase of his own merit,
 	    granted that village Govardhanaka, with a <foreign>garuṭṭāpa</foreign> charter,
-	    to the Brahmins residing in Dugdhotikā.
+	    to the Brahmins residing in Dugdhotikā. 
 	    Therefore, in order that the copper-plate field gifted to me <gap quantity="11" reason="lost" unit="character"/> not be lost,
 	    may a grant be made <supplied reason="subaudible">to me</supplied>!.</q>
           </p>
@@ -742,9 +592,7 @@ uttara ifc plutôt le sens de followed by or consisting of voir BengakCharters57
                 <foreign>ādeśa</foreign>
               </supplied> was made known by his council about what is the appropriate donor <supplied reason="explanation">
                 <foreign>dāka</foreign>
-              </supplied> in this case :<!--
-	amwb : new translation based on my own reading if the plate (dākam-) ; the previous translation was :  an instruction <supplied reason="explanation"><foreign>ādeśa</foreign></supplied> was given <supplied reason="subaudible">by Brahmadatta to determine</supplied> ‘what is fitting in this case?’ It was made known by his council
-	-->‘Let no other<note>
+              </supplied> in this case :‘Let no other<note>
 	        Or, if the emendation <foreign>-parivarttenānya-</foreign> is adopted: ‘Let another …’. Making this emendation seems required by what follows.
 	    </note>
 	    village be given in donation by exchange for this field.</q>
@@ -753,50 +601,50 @@ uttara ifc plutôt le sens de followed by or consisting of voir BengakCharters57
 	    to the country’s governor Svāmicandra:
 	    <note> The lacuna at the beginning of this sentence may perhaps be filled in with: ‘In consequence of this having been thus reported and understood’ (see my note on line 13 above). An alternative translation for the preserved part of the sentence could be: ‘was given the <supplied reason="subaudible">following</supplied> instruction of the country’s governor Svāmicandra: …’. But since we have a sequence of instructions, while both source and recipient of the instructions are expressed in the genitive, as we see in line 16, it seems best to interpret Svāmicandra here as the recipient.</note>
 	    <q>Your protection for the  wealth of the <supplied reason="subaudible">inhabitants of</supplied> Madhyamaṣaṇḍika,
-	    <supplied reason="subaudible">your</supplied> lodging <supplied reason="subaudible">of them</supplied>,
+	    <supplied reason="subaudible">your</supplied> lodging <supplied reason="subaudible">of them</supplied>, 
 	    <supplied reason="subaudible">your</supplied> tribute <gap quantity="9" reason="lost" unit="character"/>
 	    by the reliable <supplied reason="explanation">
                 <foreign>sādhunā</foreign>
-              </supplied><gap quantity="9" reason="lost" unit="character"/> in exchange for this copper-plate field,
+              </supplied><gap quantity="9" reason="lost" unit="character"/> in exchange for this copper-plate field, 
 	    you will have a field in another village be given by <space quantity="4" unit="character"/> of the district council to Nandabhūti,
 	    Brahmin of the Vājasaneya <supplied reason="explanation">school</supplied> and Kautsa gotra.</q>.</p>
-          <p n="15-16">In accordance with this instruction,
-	    an instruction of the honorable Svāmicandra has been given to us:
-	    <q>To me, a <supplied reason="explanation">royal</supplied> order has been given
+          <p n="15-16">In accordance with this instruction, 
+	    an instruction of the honorable Svāmicandra has been given to us: 
+	    <q>To me, a <supplied reason="explanation">royal</supplied> order has been given 
 	    from his excellency <supplied reason="explanation">Brahmadatta</supplied>
-	    the governor of <supplied reason="explanation">king Budhagupta</supplied>
+	    the governor of <supplied reason="explanation">king Budhagupta</supplied> 
 	    the devout worshiper of the Lord <supplied reason="explanation">
                 <foreign>paramadaivata</foreign>
               </supplied></q>:</p>
           <p n="16-19">
-            <q>Nandabhūti, Brahmin of the Vājasaneya <supplied reason="explanation">school</supplied> and Kautsa gotra,
-	    of the Mahatī-Raktamālā <foreign>agrahāra</foreign> informs:
-	    <q>The uncultivated land, without revenue charges and yielding no tax, in the village Govardhanaka,
-	    which the reliable one had bought and given to me,
+            <q>Nandabhūti, Brahmin of the Vājasaneya <supplied reason="explanation">school</supplied> and Kautsa gotra, 
+	    of the Mahatī-Raktamālā <foreign>agrahāra</foreign> informs: 
+	    <q>The uncultivated land, without revenue charges and yielding no tax, in the village Govardhanaka, 
+	    which the reliable one had bought and given to me, 
 	    that has now been given by the Supreme Lord in accordance with an instruction.
-	    The village Govardhanaka has been released by me
-	    to those Brahmins of Dugdhotikā.
-	    May a grant be made so that there will be a copper-plate-field elsewhere in exchange for it.</q>
-	    In consequence of the understanding of this information,
-	    you will have <supplied reason="subaudible">a copper-plate field</supplied>
+	    The village Govardhanaka has been released by me 
+	    to those Brahmins of Dugdhotikā. 
+	    May a grant be made so that there will be a copper-plate-field elsewhere in exchange for it.</q> 
+	    In consequence of the understanding of this information, 
+	    you will have <supplied reason="subaudible">a copper-plate field</supplied> 
 	    in another village be given by your own <supplied reason="subaudible">subordinates</supplied>.</q>
           </p>
           <p n="19-22">
-            <q>In accordance with this instruction,
-	    in exchange for the permanent endowment belonging to the village Govardhanaka,
-	    we have given a pair of <foreign>kulyavāpa</foreign>s of uncultivated land in Khuḍḍī-Raktamālikā,
+            <q>In accordance with this instruction, 
+	    in exchange for the permanent endowment belonging to the village Govardhanaka, 
+	    we have given a pair of <foreign>kulyavāpa</foreign>s of uncultivated land in Khuḍḍī-Raktamālikā, 
 	    without revenue charges and yielding no tax. 2 <foreign>
                 <abbr>ku</abbr>
                 <supplied reason="omitted">lyavāpa</supplied>
-              </foreign>.
-	    Having understood <supplied reason="subaudible">this</supplied>,
+              </foreign>. 
+	    Having understood <supplied reason="subaudible">this</supplied>, 
 	    for this reason <supplied reason="explanation">
                 <foreign>itas</foreign>
               </supplied> together with this dispatched <supplied reason="subaudible">member of</supplied> council who enjoys our confidence <supplied reason="subaudible">and</supplied>
-	    with the householders of the good families of the district,
-	    you there yourself will give <supplied reason="subaudible">them</supplied>
+	    with the householders of the good families of the district, 
+	    you there yourself will give <supplied reason="subaudible">them</supplied> 
 	    after dividing and demarcating
-	    <note>The meaning of <foreign>pariniyamya</foreign> follows from the comparison between the two passages in <foreign>caturddiśo niyamya</foreign> and <foreign>caturddiṅniyamitasaṁmānaṁ kr̥tvā</foreign> in the <ref target="DHARMA_INSBengalCharters00050.xml">Baigram</ref> and <ref target="DHARMA_INSBengalCharters00054.xml">Nandapur</ref> plates cited in my note on the reading <foreign>pariniyamya</foreign>, and the consequent comparison of those two passages with the present one.</note>
+	    <note>The meaning of <foreign>pariniyamya</foreign> follows from the comparison between the two passages in <foreign>caturddiśo niyamya</foreign> and <foreign>caturddiṅniyamitasaṁmānaṁ kr̥tvā</foreign> in the <ref target="DHARMA_INSBengalCharters00050.xml">Baigram</ref> and <ref target="DHARMA_INSBengalCharters00054.xml">Nandapur</ref> plates cited in my note on the reading <foreign>pariniyamya</foreign>, and the consequent comparison of those two passages with the present one.</note> 
 	    <supplied reason="subaudible">them</supplied> with eight by nine <foreign>nala</foreign> of the governmental <supplied cert="low" reason="explanation">?, <foreign>naitika</foreign></supplied> cubit of Kuddālakhāta.
 	    <note>Instead of <foreign>naitika</foreign>, reading <foreign>nītika</foreign> could give a similar sense derived from <foreign>nīti</foreign>, but it is imaginable (in view of the ambiguity of the sandhi <foreign>ito n-</foreign>) that the intended word is <foreign>anaitika</foreign>/<foreign>anītika</foreign>, while at least the latter option would in turn be susceptible to two interpretations: <foreign>an-ītika</foreign> (see <bibl>
                   <ptr target="bib:Edgerton1953_01"/>
@@ -815,28 +663,28 @@ uttara ifc plutôt le sens de followed by or consisting of voir BengakCharters57
                   <ptr target="bib:Sircar1965_03"/>
                   <citedRange unit="appendix">II</citedRange>
                   <citedRange unit="page">170-200</citedRange>
-                </bibl></supplied>, except for the verb used in the <foreign>pāda</foreign> b.
+                </bibl></supplied>, except for the verb used in the <foreign>pāda</foreign> b. 
                 </note></p>
           <p n="2" rend="stanza">The one who would steal land given by himself or another becomes a worm in excrement and is cooked with his ancestors.<note>
                     This verse corresponds to the verse numbered 132 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
                   <ptr target="bib:Sircar1965_03"/>
                   <citedRange unit="appendix">II</citedRange>
                   <citedRange unit="page">170-200</citedRange>
-                </bibl></supplied>.
+                </bibl></supplied>. 
                 </note></p>
           <p n="3" rend="stanza">You, Yudhiṣṭhira, most excellent of kings, must strenuously protect land previously given to brahmins. Safeguarding is even better than giving.<note>
                     This verse corresponds to the verse numbered 131 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
                   <ptr target="bib:Sircar1965_03"/>
                   <citedRange unit="appendix">II</citedRange>
                   <citedRange unit="page">170-200</citedRange>
-                </bibl></supplied>, but shows a different reading of its first <foreign>pāda</foreign>.
+                </bibl></supplied>, but shows a different reading of its first <foreign>pāda</foreign>. 
                 </note></p>
           <p n="4" rend="stanza">Yama, Varuṇa, Vāyu, Śakra, Śukra, Br̥haspati, Candra, Āditya and the Grahas: they all rejoice in one who gives land!<note>
                     This verse corresponds to the verse numbered 4 among the Stanzas on Bhūmidāna listed by Sircar <supplied reason="explanation">see <bibl>
                   <ptr target="bib:Sircar1965_03"/>
                   <citedRange unit="appendix">II</citedRange>
                   <citedRange unit="page">170-200</citedRange>
-                </bibl></supplied>; with different readings in each <foreign>pāda</foreign>.
+                </bibl></supplied>; with different readings in each <foreign>pāda</foreign>. 
                 </note></p>
           <p n="25-26">Written by the scribe Āryadāsa, heated by the record-keeper Manorathadāsa. Year 159, Jyeṣṭha day 8.</p>
         </div>
@@ -875,7 +723,7 @@ uttara ifc plutôt le sens de followed by or consisting of voir BengakCharters57
                 <ptr target="bib:Yano1994_01"/>
                 <citedRange unit="page">229</citedRange>
               </bibl>.
-                 </note> It is also uncertain whether the system for day-numbering was continuous <supplied reason="explanation">from 1 through 30</supplied> or resumed from 1 at the second <foreign>pakṣa</foreign> <supplied reason="explanation">1–15+1–15</supplied>. Given these facts, three <foreign>prima facie</foreign> equally viable conversions may be obtained using the Pancanga program developed by Michio Yano and Makoto Fushimi (http://www.cc.kyoto-su.ac.jp/~yanom/pancanga/)<!-- il doit certainement y avoir un moyen de créer un lien hypertexte vers le site mais je n'ai pas trouvé dans le guide, sans doute avec balise ptr? -->, in which the years are reckoned as <foreign>atīta</foreign>:</p>
+                 </note> It is also uncertain whether the system for day-numbering was continuous <supplied reason="explanation">from 1 through 30</supplied> or resumed from 1 at the second <foreign>pakṣa</foreign> <supplied reason="explanation">1–15+1–15</supplied>. Given these facts, three <foreign>prima facie</foreign> equally viable conversions may be obtained using the Pancanga program developed by Michio Yano and Makoto Fushimi (http://www.cc.kyoto-su.ac.jp/~yanom/pancanga/), in which the years are reckoned as <foreign>atīta</foreign>:</p>
           <p><foreign>pūrṇimānta</foreign>: 478 5 11 Thursday, 400 Śaka, Nija-Jyaiṣṭha, <foreign>kr̥ṣṇapakṣa</foreign> 8</p>
           <p><foreign>pūrṇimānta</foreign>/<foreign>amānta</foreign>: 478 5 25 Thursday, 400 Śaka, Nija-Jyaiṣṭha, <foreign>śuklapakṣa</foreign> 8 </p>
           <p><foreign>amānta</foreign>: 478 6 9 Friday, 400 Śaka, Nija-Jyaiṣṭha <foreign>kr̥ṣṇapakṣa</foreign> 8 </p>
@@ -939,7 +787,7 @@ uttara ifc plutôt le sens de followed by or consisting of voir BengakCharters57
             </bibl> who read <choice>
               <sic>gū</sic>
               <corr>gu</corr>
-            </choice>ptāpa-<!-- J'ai noté ce que j'ai mis dans l'apparat qui correspond à ce que je lis dans l'article en ligne de Dubey et Acharya. Dans l'article de 2015, tu notes la lecture de la façon suivante : <foreign>gu°upta</foreign>, à toi de choisir comment noter cette lecture  -->. The first <foreign>akṣara</foreign> cannot be <foreign>gu</foreign>, because the medial <foreign>u</foreign> when attached to <foreign>g</foreign> normally turns to the right and returns upward (as it does with <foreign>tu</foreign> and <foreign>bhu</foreign>). The <foreign>akṣara</foreign> here is simply <foreign>ga</foreign>, as is confirmed by the <foreign>ga</foreign> in <foreign>bhagavatā</foreign> in line 22, showing exactly the same shape. The <foreign>akṣara</foreign>s <foreign>ru</foreign> and <foreign>U</foreign> are very close to each other in this script — cf. their shapes in <foreign>Uktañ</foreign> (line 22) and <foreign>varuṇā</foreign> (line 24). While the reading of the third <foreign>akṣara</foreign> is difficult in line 7, it is unmistakably <foreign>ṭṭā</foreign> in line 11; a hypothetical reading <foreign>ga Uṭṭā</foreign> would defy understanding, whereas for my preferred reading <foreign>garuṭṭāpa</foreign>, I can offer the following interpretation. I propose to take it as a compound <foreign>garuṭ</foreign>+<foreign>tāpa</foreign>, with <foreign>garuṭ</foreign> an apparently unique stem hypostatized from the common words <foreign>garuḍa</foreign> and <foreign>garut</foreign>-<foreign>mant</foreign>, and <foreign>tāpa</foreign> somehow related to the word <foreign>tāpita</foreign> that is commonly found on early Bengal copper plates,<note>The formula with <foreign>likhitaṁ</foreign> and <foreign>tāpitaṁ</foreign> is found in the <ref target="DHARMA_INSBengalCharters00034.xml">Jagadishpur plate</ref>, lines 27–28. The <ref target="DHARMA_INSBengalCharters00031.xml">Dhanaida plate</ref> ends in line 17 after a lacuna with <gap reason="lost"/><foreign>ya<supplied reason="lost">ṁ</supplied><supplied cert="low" reason="subaudible">su</supplied><!--(?) vérifier que cet encodage permet de rendre le (?) qui suivait le su--> śrībhadrena<unclear>ṇa</unclear> utkīrṇṇaṁ sthambheśvara-dāse<supplied reason="lost">na</supplied></foreign>, where <foreign>utkīrṇṇaṁ</foreign> stands in the sense of <foreign>likhitaṁ</foreign>, and one may speculate that a <foreign>tāpitaṁ</foreign> has been lost in the lacuna. Further occurrences are found, shortly after the Gupta period, in the Mallasarul and Jayarampur plates (for which, see the table on p. 15 below)<!-- Attention inclure quand numero sera attribué à ces deux inscriptions + ici référence table sans doute à supprimer --> and in the <ref target="DHARMA_INSBengalCharters00063.xml">plate of Pradyumnabandhu’s year 5</ref>, line 18.</note>
+            </choice>ptāpa-. The first <foreign>akṣara</foreign> cannot be <foreign>gu</foreign>, because the medial <foreign>u</foreign> when attached to <foreign>g</foreign> normally turns to the right and returns upward (as it does with <foreign>tu</foreign> and <foreign>bhu</foreign>). The <foreign>akṣara</foreign> here is simply <foreign>ga</foreign>, as is confirmed by the <foreign>ga</foreign> in <foreign>bhagavatā</foreign> in line 22, showing exactly the same shape. The <foreign>akṣara</foreign>s <foreign>ru</foreign> and <foreign>U</foreign> are very close to each other in this script — cf. their shapes in <foreign>Uktañ</foreign> (line 22) and <foreign>varuṇā</foreign> (line 24). While the reading of the third <foreign>akṣara</foreign> is difficult in line 7, it is unmistakably <foreign>ṭṭā</foreign> in line 11; a hypothetical reading <foreign>ga Uṭṭā</foreign> would defy understanding, whereas for my preferred reading <foreign>garuṭṭāpa</foreign>, I can offer the following interpretation. I propose to take it as a compound <foreign>garuṭ</foreign>+<foreign>tāpa</foreign>, with <foreign>garuṭ</foreign> an apparently unique stem hypostatized from the common words <foreign>garuḍa</foreign> and <foreign>garut</foreign>-<foreign>mant</foreign>, and <foreign>tāpa</foreign> somehow related to the word <foreign>tāpita</foreign> that is commonly found on early Bengal copper plates,<note>The formula with <foreign>likhitaṁ</foreign> and <foreign>tāpitaṁ</foreign> is found in the <ref target="DHARMA_INSBengalCharters00034.xml">Jagadishpur plate</ref>, lines 27–28. The <ref target="DHARMA_INSBengalCharters00031.xml">Dhanaida plate</ref> ends in line 17 after a lacuna with <gap reason="lost"/><foreign>ya<supplied reason="lost">ṁ</supplied><supplied cert="low" reason="subaudible">su</supplied> śrībhadrena<unclear>ṇa</unclear> utkīrṇṇaṁ sthambheśvara-dāse<supplied reason="lost">na</supplied></foreign>, where <foreign>utkīrṇṇaṁ</foreign> stands in the sense of <foreign>likhitaṁ</foreign>, and one may speculate that a <foreign>tāpitaṁ</foreign> has been lost in the lacuna. Further occurrences are found, shortly after the Gupta period, in the Mallasarul and Jayarampur plates (for which, see the table on p. 15 below) and in the <ref target="DHARMA_INSBengalCharters00063.xml">plate of Pradyumnabandhu’s year 5</ref>, line 18.</note> 
     as it is here in line 25, and for which <bibl>
               <ptr target="bib:Sircar1966_01"/>
               <citedRange unit="page">338</citedRange>
@@ -952,7 +800,7 @@ uttara ifc plutôt le sens de followed by or consisting of voir BengakCharters57
             </bibl>), which although invoking Viṣṇu (<foreign>caturbhuja</foreign>) on the surface, may perhaps also be read as applying to the king. Hence I propose that <foreign>garuṭṭāpa-śāsana</foreign> means ‘a charter with <supplied reason="subaudible">the imperial</supplied> Garuḍa seal’, and refer to <bibl>
               <ptr target="bib:Raven1994_01"/>
               <citedRange unit="figure">15-24</citedRange>
-            </bibl><!-- s'assurer que figure peut fonctionner pour planches --> and <bibl>
+            </bibl> and <bibl>
               <ptr target="bib:Willis2009_01"/>
               <citedRange unit="page">31</citedRange>
               <citedRange unit="figure">19</citedRange>
@@ -978,7 +826,6 @@ uttara ifc plutôt le sens de followed by or consisting of voir BengakCharters57
               <citedRange unit="note">5</citedRange>
             </bibl>. At least one other contemporary plate was issued from an <foreign>agrahāra</foreign>, namely the <ref target="DHARMA_INSBengalCharters00054.xml">Nandapur plate</ref>, from the Amvilagrāma <foreign>agrahāra</foreign>. It was apparently a common practice for the council (<foreign>adhikaraṇa</foreign>) to hold seat in such Brahmin settlements.</p>
           <p>The toponym Madhyamaṣaṇḍika, found both in the seal legend and in line 14, may perhaps be connected with Ṣaṇḍadvīpa in line 6 of the <ref target="DHARMA_INSBengalCharters00063.xml">plate of the time of Pradyumnabandhu</ref>.</p>
-          <!-- Ici reformulation avec un renvoi vers INSBengalCharters00063 -->
         </div>
       </div>
       <div type="bibliography">

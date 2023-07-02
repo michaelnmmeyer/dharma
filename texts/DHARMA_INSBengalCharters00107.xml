@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -12,19 +6,14 @@
         <respStmt>
           <resp>EpiDoc Encoding</resp>
           <persName ref="part:ryfu">
-            <!-- Update the id -->
             <forename>Ryosuke</forename>
-            <!-- Fill in your  names — it is possible to use only <name> instead of <foreame> and <surname> -->
             <surname>Furui</surname>
           </persName>
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <!-- This may be the same as the creator of the file -->
           <persName ref="part:ryfu">
-            <!-- Update the id -->
             <forename>Ryosuke</forename>
-            <!-- Fill in the name of the responsible scholar — it possible to use only <name> instead of <foreame> and <surname> -->
             <surname>Furui</surname>
           </persName>
         </respStmt>
@@ -42,33 +31,22 @@
                             California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Ryosuke
                             Furui.</p>
-            <!-- replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -79,7 +57,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -107,7 +84,7 @@
           <head xml:lang="eng">Plate</head>
           <pb n="1r"/>
           <lb n="1"/>
-          <p><g type="spiralL"/><!-- siddham --> svasti</p>
+          <p><g type="spiralL"/> svasti</p>
           <lg met="sragdharā" n="1">
             <l n="a">śrīmad-gopāla-vaṅśojjvala-tila<lb break="no" n="2"/>katayā khyātimān· sārvva-bhaumo</l>
             <l n="b">vibhrad vī<lb break="no" n="3"/>ryam valañ ca praśamita-viṣamoddāma<lb n="4"/>-kandarppa-doṣaḥ<g type="danda">.</g></l>
@@ -330,7 +307,7 @@
             </choice>ika<g type="danda">.</g><lb n="54"/> <unclear>śau</unclear>lkika<g type="danda">.</g> gaulmika<g type="danda">.</g> kṣetrapa<g type="danda">.</g> prāntapāla<g type="danda">.</g> koṭṭapāla<g type="danda">.</g> khaṇḍarakṣa<g type="danda">.</g> tad-āyuktaka<g type="danda">.</g> viniyuktaka<g type="danda">.</g> hastyaśvoṣṭravalavyāpr̥taka<g type="danda">.</g> kiśoravaḍa<lb break="no" n="55"/>vāgomahiṣyajāvikādhyakṣa<g type="danda">.</g> dūta-pr<choice>
               <sic>a</sic>
               <corr>e</corr>
-            </choice>ṣaṇika<g type="danda">.</g> gamāgamika<g type="danda">.</g> Abhitvaramāṇa<g type="danda">.</g> viṣayapati<g type="danda">.</g> tarika<g type="danda">.</g> gauḍa-mālava-khaṣa-hūṇa-kulika<lb break="no" n="56"/>-karṇṇāṭa-lāṭa-cāṭa<g type="danda">.</g> bhaṭa-sevakādīn anyāṁś cā<supplied reason="omitted">kī</supplied>rttitān·<g type="danda">.</g> rāja-pādopajīvinaḥ prativāsino vrāhmaṇottarāN<g type="danda">.</g> mahattama-kuṭumvi<g type="dandaStrokeLeft">.</g> me<lb break="no" n="57"/>dāndhra-caṇḍāla-paryantāN yathārhaṁ mānayati vodhayati samādiśati ca<g type="danda">.</g>
+            </choice>ṣaṇika<g type="danda">.</g> gamāgamika<g type="danda">.</g> Abhitvaramāṇa<g type="danda">.</g> viṣayapati<g type="danda">.</g> tarika<g type="danda">.</g> gauḍa-mālava-khaṣa-hūṇa-kulika<lb break="no" n="56"/>-karṇṇāṭa-lāṭa-cāṭa<g type="danda">.</g> bhaṭa-sevakādīn anyāṁś cā<supplied reason="omitted">kī</supplied>rttitān·<g type="danda">.</g> rāja-pādopajīvinaḥ prativāsino vrāhmaṇottarāN<g type="danda">.</g> mahattama-kuṭumvi<g type="dandaStrokeLeft">.</g> me<lb break="no" n="57"/>dāndhra-caṇḍāla-paryantāN yathārhaṁ mānayati vodhayati samādiśati ca<g type="danda">.</g>                     
                  </p>
           <p>viditam astu bhavatān·<g type="danda">.</g> mahādevī-śrī-māhaṭā-bhaṭṭārikayā dūta<lb break="no" n="58"/>ka-mukhena vaya<unclear>ṁ</unclear> śrāvitāḥ yathāsmad-vārāṇasīya-śrī-māhaṭeśvarasya<g type="danda">.</g> Aṅgāgarttikā-vāsantikā-grāmau<g type="danda">.</g> tathā Asmad-<choice>
               <sic>ā</sic>
@@ -350,7 +327,7 @@
             </choice>mantavyaM bhāvibhir api bhū-patibhir bhūmer ddāna-phala-gauravād apaharaṇe mahā-naraka-pāta-bhayāc ca dāna<lb break="no" n="64"/>m idam a<supplied reason="omitted">nu</supplied>modya paripālanīyaṁ p<unclear>r</unclear>ativāsibhiḥ kṣettra-karaiś cājñā-śravaṇa-vidheyair bhūtvā sam<choice>
               <sic>ū</sic>
               <corr>u</corr>
-            </choice>cita-sarvva-pratyāyopanayaḥ kā<unclear>r</unclear>ya Iti<g type="danda">.</g>
+            </choice>cita-sarvva-pratyāyopanayaḥ kā<unclear>r</unclear>ya Iti<g type="danda">.</g>                    
                  </p>
           <p>samvaT <num value="3">3</num> Āśvina-ś<choice>
               <sic>ū</sic>

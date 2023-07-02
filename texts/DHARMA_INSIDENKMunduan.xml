@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -44,23 +38,18 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
               <p>The basic punctuation signs has the shape of a small circle at height of top-line.
-<!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+</p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -71,7 +60,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -93,33 +81,24 @@
     <body>
       <div type="edition" xml:lang="kaw-Latn">
         <pb n="1r"/>
-        <!--Blank outer page.-->
         <p><pb n="1v"/>
-<lb n="1v1"/><g type="ddandaCross"/> svasti śaka-varṣātīta <num value="728">728</num> māgha-māsa navami śukla-pakṣa<g type="circle">.</g> <abbr>ha</abbr><g type="circle">.</g> <abbr>U</abbr><g type="circle">.</g> <abbr>vr̥</abbr><g type="circle">.</g> vāra<g type="circle">.</g> tatkāla rakai patapān· pu manuku<g type="circle">.</g> sumusu<supplied reason="lost">k ika</supplied><lb break="no" n="1v2"/>naṁ lmaḥ I muṇḍuAn· muAṁ I haji huma<g type="circle">.</g> padmaknira I vaduĀnira saṁ patoran·<g type="circle">.</g> buAt-hajyanya makmitana<!-- read ī? --> vivi ramvai<g type="circle">.</g> ya makna p<gap quantity="2" reason="lost" unit="character"/><!-- not sure about p, and the definition of the extent of the gap to be made more accurate, in terms of parts of akṣaras rather than whole akṣaras. At most, there is one more whole akṣara after the one that begins with p, if that reading is correct. what about reading maknā, maknāna, maknā I?
-
-maybe read:
-	ramvaiya makmi[tana]
-	ramvaiya makmi[ta]
-	ramvaiya makā[nta]
-	ramvaiya maka[lvā]
--->
+<lb n="1v1"/><g type="ddandaCross"/> svasti śaka-varṣātīta <num value="728">728</num> māgha-māsa navami śukla-pakṣa<g type="circle">.</g> <abbr>ha</abbr><g type="circle">.</g> <abbr>U</abbr><g type="circle">.</g> <abbr>vr̥</abbr><g type="circle">.</g> vāra<g type="circle">.</g> tatkāla rakai patapān· pu manuku<g type="circle">.</g> sumusu<supplied reason="lost">k ika</supplied><lb break="no" n="1v2"/>naṁ lmaḥ I muṇḍuAn· muAṁ I haji huma<g type="circle">.</g> padmaknira I vaduĀnira saṁ patoran·<g type="circle">.</g> buAt-hajyanya makmitana vivi ramvai<g type="circle">.</g> ya makna p<gap quantity="2" reason="lost" unit="character"/>
 <lb n="1v3"/>luAni kuramvit· saṁ hyaṁ taṇḍa I patapān· I dlāhaniṁ dlāha<g type="circle">.</g> ṅaranyan· pakmitan· vivi saṁ madmak·<g type="circle">.</g> dadi ya magavai pomaha<supplied reason="lost">n·</supplied>
 <lb n="1v4"/>I vindu-vindunikanaṁ lmaḥ<g type="circle">.</g> y<choice>
             <orig>ā</orig>
             <reg>a</reg>
-          </choice> ta<!-- or understand ya+ata? --> prastāvanyan· I vala vindu ṅaranikana pomahanya<g type="circle">.</g> matəhər· ya Inanugrahān· tan· ka<lb break="no" n="1v5"/>tamāna deniṁ Er baraṅan·<g type="circle">.</g> muAṁ saprakāraniṁ maṅilala saparānya maduAl· mavli<g type="circle">.</g> ṅunivaiḥ yan· hana sukha-duḥ<unclear>kha</unclear><lb break="no" n="1v6"/>nya Ityevamādi tan· katamāna Ataḥ ya<g type="circle">.</g> nahan· paṅanugraha rakai patapān· pu manuku I vaduĀnira <unclear>sa</unclear>ṁ <supplied reason="lost">pato</supplied><lb break="no" n="1v7"/>ran· muAṁ I sakvaiḥnikanaṁ Umuṅgu rikanaṁ I vala vindu<g type="circle">.</g> yāpuAn· hana Umulaḥ-Ulaḥ Ike paṅanugraha <unclear>d</unclear><supplied reason="lost">lāhaniṁ</supplied>
+          </choice> ta prastāvanyan· I vala vindu ṅaranikana pomahanya<g type="circle">.</g> matəhər· ya Inanugrahān· tan· ka<lb break="no" n="1v5"/>tamāna deniṁ Er baraṅan·<g type="circle">.</g> muAṁ saprakāraniṁ maṅilala saparānya maduAl· mavli<g type="circle">.</g> ṅunivaiḥ yan· hana sukha-duḥ<unclear>kha</unclear><lb break="no" n="1v6"/>nya Ityevamādi tan· katamāna Ataḥ ya<g type="circle">.</g> nahan· paṅanugraha rakai patapān· pu manuku I vaduĀnira <unclear>sa</unclear>ṁ <supplied reason="lost">pato</supplied><lb break="no" n="1v7"/>ran· muAṁ I sakvaiḥnikanaṁ Umuṅgu rikanaṁ I vala vindu<g type="circle">.</g> yāpuAn· hana Umulaḥ-Ulaḥ Ike paṅanugraha <unclear>d</unclear><supplied reason="lost">lāhaniṁ</supplied>
 <pb n="2r"/><lb n="2r1"/>dlāha pañca-mahā-pātaka paṅguhanya<g type="circle">.</g></p>
         <p>patiḥ I patapān· rikanaṁ kāla<g type="circle">.</g> kayumvuṅan· saṁ rupyan·<g type="circle">.</g> mantyasiḥ vaduĀ ra<unclear>kai</unclear>
-<lb n="2r2"/>patapān· saṁ paliṇḍuA<g type="circle">.</g> partaya saṁ pagəḥ kapuA vinaiḥ pasak-pasak· pirak· <abbr>dhā</abbr> <num value="1">1</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> soAṁ-soAṁ l<unclear>va</unclear><!-- it seems easier to read lu than lva — if lu were correct, it would impose caution with regard to Damais' claim (1970: 700 n. 2) that Lva in Tri Tepusan II is a mistake for Lu  -->
+<lb n="2r2"/>patapān· saṁ paliṇḍuA<g type="circle">.</g> partaya saṁ pagəḥ kapuA vinaiḥ pasak-pasak· pirak· <abbr>dhā</abbr> <num value="1">1</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> soAṁ-soAṁ l<unclear>va</unclear>
 <lb n="2r3"/><unclear>pa</unclear><choice>
             <sic>ṇḍāka</sic>
             <corr>ṇḍak·</corr>
-          </choice><!-- what looks like tarung might be misplaced virāma, so read paṇḍāka and correct paṇḍak·? --> Er baraṅan· pirak· <abbr>mā</abbr> <num value="8">8</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> soAṁ-soAṁ<g type="circle">.</g> vahuta ptir· paṇḍakyan· pirak· <abbr>dhā</abbr> <num value="1">1</num> vḍihan· <abbr>yu</abbr> <num>1</num> soA<supplied reason="lost">ṁ</supplied><lb break="no" n="2r4"/>-soAṁ<g type="circle">.</g> pituṁtuṁnya <num value="4">4</num> pirak· <abbr>mā</abbr> <num value="4">4</num> soAṁ-soAṁ<g type="circle">.</g> rāma I muṇḍuAn· si bunā<g type="circle">.</g> kalima si <unclear>s</unclear>ruka<!-- looks more like pruka, but reading sruka i.a. for the reason explained in Commentary --><g type="circle">.</g> juru muR̥<unclear>ṁ</unclear> si klat·<g type="circle">.</g> sa<lb break="no" n="2r5"/><gap quantity="1" reason="lost" unit="character"/><unclear>l</unclear>· si kulinā<g type="circle">.</g> ḍaṇḍa muR̥ṁ sy andhani<g type="circle">.</g> kaṇḍaṅan· lamvəs· si tija<g type="circle">.</g> kalima I haji huma si sruva<g type="circle">.</g> juru si niṁ<g type="circle">.</g> parvuvu<unclear>s·</unclear>
-<lb n="2r6"/><gap quantity="3" reason="lost" unit="character"/><g type="circle">.</g> maṇḍər paraṁ si guṇī<g type="circle">.</g> Ikana kabaiḥ kapuA vinaiḥ pasək-pasək· pirak· vḍihan· kāyānurŭpa<g type="circle">.</g> sumurat·
+          </choice> Er baraṅan· pirak· <abbr>mā</abbr> <num value="8">8</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> soAṁ-soAṁ<g type="circle">.</g> vahuta ptir· paṇḍakyan· pirak· <abbr>dhā</abbr> <num value="1">1</num> vḍihan· <abbr>yu</abbr> <num>1</num> soA<supplied reason="lost">ṁ</supplied><lb break="no" n="2r4"/>-soAṁ<g type="circle">.</g> pituṁtuṁnya <num value="4">4</num> pirak· <abbr>mā</abbr> <num value="4">4</num> soAṁ-soAṁ<g type="circle">.</g> rāma I muṇḍuAn· si bunā<g type="circle">.</g> kalima si <unclear>s</unclear>ruka<g type="circle">.</g> juru muR̥<unclear>ṁ</unclear> si klat·<g type="circle">.</g> sa<lb break="no" n="2r5"/><gap quantity="1" reason="lost" unit="character"/><unclear>l</unclear>· si kulinā<g type="circle">.</g> ḍaṇḍa muR̥ṁ sy andhani<g type="circle">.</g> kaṇḍaṅan· lamvəs· si tija<g type="circle">.</g> kalima I haji huma si sruva<g type="circle">.</g> juru si niṁ<g type="circle">.</g> parvuvu<unclear>s·</unclear>
+<lb n="2r6"/><gap quantity="3" reason="lost" unit="character"/><g type="circle">.</g> maṇḍər paraṁ si guṇī<g type="circle">.</g> Ikana kabaiḥ kapuA vinaiḥ pasək-pasək· pirak· vḍihan· kāyānurŭpa<g type="circle">.</g> sumurat· 
 <lb n="2r7"/><supplied reason="lost">Ikanaṁ tā</supplied><unclear>m</unclear><supplied reason="lost">r</supplied><unclear>a</unclear>prasasti citralekha rakai patapān· saṁ minaṅa vinaiḥ pirak· <abbr>mā</abbr> <num value="8">8</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num><g type="ddandaHooked"/><g type="spiral"/></p>
       </div>
       <div type="apparatus">
-        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
         <listApp>
           <app loc="1v1">
             <lem source="bib:Nakada1986_01">728</lem>
@@ -151,10 +130,6 @@ maybe read:
             <lem source="bib:Nakada1986_01">luAni</lem>
             <rdg source="bib:Oemar1970_01">luAni<unclear>ṁ</unclear></rdg>
           </app>
-          <!--<app loc="1v3">
-                      <lem source="bib:Nakada1986_01">ṅaranyan·</lem>
-                      <note>Understand<foreign>ṅaran nyan</foreign>?</note>
-                      </app> -->
           <app loc="1v3">
             <lem source="bib:Oemar1970_01">pomaha<supplied reason="lost">n·</supplied></lem>
             <rdg source="bib:Nakada1986_01">pomahān·</rdg>
@@ -248,24 +223,22 @@ maybe read:
         </listApp>
       </div>
       <div resp="part:argr" type="translation">
-        <!--translation encoded as per EG §9.2 -->
         <p n="1v1-2r1">Hail! Elapsed Śaka year 728, month of Māgha, ninth <supplied reason="explanation">
             <foreign>tithi</foreign>
-          </supplied> of the waxing fortnight, Hariyaṅ, Umanis, Thursday. At thatv time the <foreign>rakai</foreign> of Patapān <supplied reason="explanation">called</supplied> <foreign>pu</foreign> Manuku demarcated the land of Muṇḍuan and of Haji Huma, his gift as apanage to his servant <supplied reason="explanation">called</supplied> <foreign>saṅ</foreign> Patoran.
-<!-- tor 'to serve dishes'!!! -->
+          </supplied> of the waxing fortnight, Hariyaṅ, Umanis, Thursday. At thatv time the <foreign>rakai</foreign> of Patapān <supplied reason="explanation">called</supplied> <foreign>pu</foreign> Manuku demarcated the land of Muṇḍuan and of Haji Huma, his gift as apanage to his servant <supplied reason="explanation">called</supplied> <foreign>saṅ</foreign> Patoran. 
+
 
 His royal corvée will be to guard the bearded goats <supplied reason="explanation">
             <foreign>vivi rambai</foreign>
-          </supplied>
-<!-- or understand vivir ambe 'spread out the bed'? -->
-<gap reason="omitted"/> the width of the <foreign>kuramvit</foreign> of the holy banner of Patapān down to the future’s future. As its name is ‘The place for guarding of the goats by the apanage holder’, so he made a dwelling at the <foreign>vindu-vindu</foreign>s of the land. That is the reason that the dwelling is called ‘Vala Vindu’.
+          </supplied> 
+
+<gap reason="omitted"/> the width of the <foreign>kuramvit</foreign> of the holy banner of Patapān down to the future’s future. As its name is ‘The place for guarding of the goats by the apanage holder’, so he made a dwelling at the <foreign>vindu-vindu</foreign>s of the land. That is the reason that the dwelling is called ‘Vala Vindu’. 
 
 His/Their name, insofar as he guard/they guard the goats, is apanage holder.
 
 Thereupon he was given the grant that <supplied reason="subaudible">the land</supplied> may not be entered by the Er Baraṅan, and by all kinds of exploiters wherever they go to trade. Especially if there are any <supplied reason="explanation">fines to be imposed for</supplied> ‘vicissitudes of life’ <supplied reason="explanation">
             <foreign>sukha-duḥkha</foreign>
           </supplied>, etc., it may still not be entered <supplied reason="subaudible">by them</supplied>. Thus was the grant of the <foreign>rakai</foreign> of Patapān <foreign>pu</foreign> Manuku to his servant Patoran, and to all who reside in Vala Vindu. If there are who disturb this grant, their reward <supplied reason="subaudible">into</supplied> the future’s future is <supplied reason="subaudible">that of</supplied> the five great sins.</p>
-        <!-- hana umulah-uk;ah: check Z whether absence of nominalizin moprheme is described -->
         <p n="2r1">The ministers of Patapān at that time were the Kayumvuṅan <supplied reason="subaudible">called</supplied> <foreign>saṅ</foreign> Rupyan <supplied reason="subaudible">and</supplied> the Mantyasih, servant of the <foreign>rakai</foreign> of Patapān, <supplied reason="subaudible">called</supplied> <foreign>saṅ</foreign> Paliṇḍua; the Partaya <supplied reason="subaudible">called</supplied> <foreign>saṅ</foreign> Pagəh. All of them were given gifts of 1 <foreign>dhāraṇa</foreign>s of silver, 1 pair of cloth per person. The Lva Paṇḍak <supplied reason="subaudible">and</supplied> the Er Baraṅan <supplied reason="subaudible">were given</supplied> 8 <foreign>māṣa</foreign>s of silver, 1 pair of cloth per person. The Wahuta Pətir <supplied reason="subaudible">and</supplied> the Paṇḍakyan <supplied reason="subaudible">were given</supplied> 1 <foreign>dhāraṇa</foreign> of silver, 1 pair of cloth per person. Their 4 assistants <supplied reason="explanation">
             <foreign>pituṅtuṅ</foreign>
           </supplied> 4 <foreign>māṣa</foreign>s of silver per person. The headman of Muṇḍuan <supplied reason="subaudible">named</supplied> <foreign>si</foreign> Bunā; the Kalima <foreign>si</foreign> Sruka; the Juru Murəṅ <foreign>si</foreign> Klat; the Sa<gap reason="lost"/>l <foreign>si</foreign> Kulinā; the Ḍaṇḍa Murəṅ <foreign>si</foreign> Andhani; the Kaṇḍaṅan Lamvəs <foreign>si</foreign> Tija; the Kalima of Haji Huma <foreign>si</foreign> Sruva; the Juru <foreign>si</foreign> Niṅ; the Parvuvus <gap reason="lost"/>; the Maṇḍər Paraṅ <foreign>si</foreign> Guṇī — all of them they were given gifts in silver and cloth in accordance with their efforts <supplied reason="explanation">
@@ -273,44 +246,19 @@ Thereupon he was given the grant that <supplied reason="subaudible">the land</su
           </supplied>. The scribe of <foreign>rakai</foreign> of Patapān who wrote this copper-decree, <supplied reason="explanation">called</supplied> <foreign>saṅ</foreign> Minaṅa, was given 8 <foreign>māṣa</foreign>s of silver, 1 pair of cloth.</p>
       </div>
       <div type="commentary">
-        <!--commentary encoded as per section §9.3 -->
         <p n="1v3">The noun <foreign>kuramvit</foreign> must lay at the basis of the place name Kuramvitan attested in a few inscriptions.  cf. Kurambitan 791
-	<!--perhaps it is derived from an (unattested) base <foreign>kamvit</foreign>. -->
+	
 	Is there a connection with the word <foreign>kerambit</foreign> meaning <q>small sickle</q> in Malay?</p>
         <p n="1v4"><foreign>vala vindu</foreign>: <foreign>vindu</foreign> in modern Javanese can mean 'well'.</p>
         <p n="1v5">Er Baraṅan: cf. Air Baraṅan in the Mantyasih inscriptions. The meaning <q>by all kinds of exploiters wherever they go to trade</q> seems unusual.</p>
-        <!-- the Er Barańan occurs again at the end! -->
-        <!-- Marine: "[as well as] all others who trade" -->
-        <!-- Jarrah: see katamana as equivalent to kaknāna 'not affected by' . Though OJED doesn't make it clear, in ModJav tama and kena are equivalent -->
-        <!-- Madhawapura, Plate B, Frankfurt 4. OJO DDV. “… tan kaknāna dravya haji saparanyan adval avli, -->
         <p n="2r4"><foreign>pituṅtuṅ</foreign>: the meaning is unlikely to be <q>chief</q>, as tentatively proposed in OJED; rather, the words <foreign>pihujuṅ</foreign> and <foreign>piluṅgah</foreign> seems to be quasi synonyms.</p>
         <p n="2r1-2r3">On the toponyms figuring here, see <bibl>
             <ptr target="bib:Casparis1950_01"/>
             <citedRange unit="page">151-160</citedRange>
           </bibl>.</p>
         <p n="2r4-2r5">Note that the two <foreign>kalima</foreign>s bear the names Sruka and Sruva, which are evidently (derived from) the Sanskrit words for two types of ritual spoons, the <foreign>sruk</foreign> and the <foreign>sruva</foreign>. This parallelism of names suggests a strong connection of some sort between the two persons in question, despite their affiliation with two different villages.</p>
-        <!-- message from Jarrah:
-	Here are the excerpts I mentioned in the seminar today of Balitung-era inscriptions that mention the various vanua belonging to the watak Patapān.
-
-Mantyasih I
-	recto 2. [...] kumonakannikanang vanua i mantyāsiḥviniḥ ni savaḥnya satū. muang a 3. lasnya i muṇḍuan. i kayu pañjang. muang pomahan ing kuning
-vanua kagunturanpasavahanya ri vunutkvaiḥ ni viniḥnya satū hamat 18 hop savaḥ kanayakān. muang alasnya i susuṇḍara. i wukir sumving. kapua va(4)tak patapān.
-
-Mantyasih II
-	recto 9. [...] kumonnakannikanang vanua i (10) mantyasih vini(h) ni sava(h)nya satū‚ muang alasnya (11) i muṇḍ(u)an, i kayu paṇḍa (!), muang pomahan (12) ikūni vanua katung(gu)an (!)pasavaḥhanya ri vunut (13) kvaiḥ ni viniḥ nya salĕ maḍā tan pa guḥ ka(14)nayakan, muang alasnya i susuṇḍa(ra) (15) kapva vatak patapan
-
-Kasugihan
-	recto 5. mangrangkpi sang ladga anak vanua i haji huma vatak patapān
-
-Rukam
-	I. 21. [...] i pamigaran watak patapān kalima si gahata rama ni si mpiḥ muaŋ guśti si śiwaṅgīta rama ni satyaka winaiḥ pasak pasak wḍihan yu 1 pira
-22. k mā 4 sowaŋ sowaŋ i mantyāsiḥ watak patapān kalima si puñjaŋ rama ni bahad muaŋ gusti si karā rama ni labdha winaiḥ pasak pasak wḍihan yu 1 pirak ma 4 sowaŋ iŋ wūn galuḥ wata
-23. k khalān kalima si pĕgiŋ rama ni hawaŋ muaŋ marhyaŋ si gaḍagan rama ni katwan winaiḥ pasak pasak wḍihan yu 1 pirak mā 4 sowaŋ i wunut watak patapānkalima si waṅun
-24. rama ni panimuan muaŋ winkas si mamwaŋ rama ni dhanañjaya winaiḥ pasak pasak wḍihan yu 1 pirak mā 4 sowaŋ i wuat gunuŋ watak patapān
- -->
       </div>
       <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
         <p>First presented by Moh. Oemar at a conference in Yogyakarta (<bibl rend="omitname">
             <ptr target="bib:Oemar1970_01"/>
           </bibl>) and then more formally published by K. Nakada (<bibl rend="omitname">
@@ -329,7 +277,6 @@ Rukam
             <ptr target="bib:Lombard1971_01"/>
             <citedRange unit="page">286</citedRange>
           </bibl>
-          <!-- summary of Moh. Oemar's paper -->
           <bibl>
             <ptr target="bib:Nakada1982_01"/>
             <citedRange unit="page">74-75</citedRange>
@@ -341,7 +288,6 @@ Rukam
             <citedRange unit="page">349</citedRange>
             <citedRange unit="note">13</citedRange>
           </bibl>
-          <!-- Incoherence between date 748 Ś = 826 CE read by Moh. Oemar and mention of Rakai Patapan Pu Manuku whose other occurrences on inscriptions date to 850 and 853. Problem becomes worse if one reads 728 Ś! -->
           <bibl/>
         </listBibl>
       </div>

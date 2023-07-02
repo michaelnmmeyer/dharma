@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -37,27 +31,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -88,7 +72,6 @@
       <change status="draft" when="2020-04-08" who="part:axja">Update template 2</change>
       <change status="draft" when="2020-01-09" who="part:axja">Update template</change>
       <change status="draft" when="2019" who="part:kuch">Creation of the file</change>
-      <!-- add a <change> for each change to the file, the first change should replace this one and record your creation of a file using this template. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -109,7 +92,7 @@
 <lb n="A6"/><gap extent="unknown" reason="lost" unit="character"/> <num value="60">60</num> sre Ai cpot· vaṁrah· gi <num value="180">100 80</num>
 <lb n="A7"/><gap extent="unknown" reason="lost" unit="character"/> makuṭa <num value="1">I</num> tmo ta gi <num value="7">7</num> tmo ta gi dālima <num value="6">6</num>
 <lb n="A8"/><gap extent="unknown" reason="lost" unit="character"/> <unclear>si</unclear>ṅhāsana dhuvāy· <num value="1">I</num> klas· <num value="1">I</num> sanda<unclear>l</unclear>·
-<lb n="A9"/><gap extent="unknown" reason="lost" unit="character"/> <num cert="low" value="2">II</num> carā danhu<unclear>ṁ</unclear> <num value="1">I</num> jagar· <num value="4">IIII</num> ca<unclear>ṁ</unclear>hoy· <num value="1">I</num>
+<lb n="A9"/><gap extent="unknown" reason="lost" unit="character"/> <num cert="low" value="2">II</num> carā danhu<unclear>ṁ</unclear> <num value="1">I</num> jagar· <num value="4">IIII</num> ca<unclear>ṁ</unclear>hoy· <num value="1">I</num> 
 <lb n="A10"/><gap extent="unknown" reason="lost" unit="character"/> <unclear>s·</unclear> prak· <num value="2">II</num> kapora<unclear>ḥ</unclear> prak· <num value="1">I</num> satra vraḥ
 <lb n="A11"/><gap extent="unknown" reason="lost" unit="character"/> <supplied reason="lost">śivali</supplied>ṅga raṅko je <num value="1">I</num> liḥ <num value="5">IIIII</num> caṁren· tṅai
 <lb n="A12"/><supplied reason="lost">vraḥ</supplied> <gap extent="unknown" reason="lost" unit="character"/> Or· <num value="4">IIII</num> <gap quantity="4" reason="lost" unit="character"/> <num value="5">IIIII</num> A<supplied reason="lost">ṁ</supplied>lo <unclear>rū</unclear><choice>
@@ -149,8 +132,6 @@
                         </p>
         </div>
       </div>
-      <!-- <div type="apparatus">
-         </div> -->
       <div source="bib:Pottier+Soutif2014_01" type="translation" xml:lang="fra">
         <p n="A1-A5"><supplied reason="subaudible">Liste de serviteurs incomplète: sont conservés les noms d'une femme âgée, <foreign>Oṅ</foreign>, de quinze femmes, <foreign>ku</foreign>, de cinq personnes dont le sexe et la classe d'âge ne sont pas précisés ou pour lesquelles l'information est perdue et d'un enfant de sexe féminin, <foreign>kon ku</foreign></supplied>.</p>
         <p n="A6"><gap reason="lost"/> 60 <gap reason="lost"/> Rizière à Cpot de 180 <foreign>vaṁrah</foreign>.</p>
@@ -159,8 +140,6 @@
         <p n="A13-A15">1 pichet <supplied reason="subaudible">de type</supplied> <foreign>kandin</foreign>; x plats en cuivre; <gap reason="lost"/> ornements des serviteurs du dieu; 1 <foreign>sla pavitra</foreign> gravé<supplied reason="explanation">e</supplied> en repoussé ...</p>
         <p n="B1-B3">1 <gap reason="lost"/> <foreign>dhātu</foreign> 1 <foreign>ples</foreign>; 2 enveloppes de ch<supplied reason="explanation">a/o</supplied>t <gap reason="lost"/>; 2 <gap reason="lost"/> en or <foreign>vra<supplied reason="explanation">jā</supplied>y</foreign>; 2 cymbales en cuivre.</p>
       </div>
-      <!-- <div type="commentary">
-         </div> -->
       <div type="bibliography">
         <p>Edited by Christophe Pottier and Dominique Soutif (<bibl rend="omitname">
             <ptr target="bib:Pottier+Soutif2014_01"/>

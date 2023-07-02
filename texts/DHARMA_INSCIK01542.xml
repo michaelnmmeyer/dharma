@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -45,22 +39,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -71,7 +60,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -94,58 +82,41 @@
           <l n="c"><lb n="2"/>nyā<supplied reason="lost">yeṣu</supplied> kovida-tapas svaya<unclear>śaḥ</unclear> prakāśaṁ</l>
           <l n="d">pūrṇṇendu-maṇdala-nibhaṁ bhuva<unclear>n</unclear>e <supplied reason="lost">vitene <g type="ddandaOrnate">.</g></supplied></l>
         </lg>
-        <!--%. chch : correspond à la stance X de K. 1450.
-%. kovidatapas : kovidataras dans K. 1450. Note %dogo : Il faut probablement comprendre kovidataras.
-%. maṇdala : mandala dans K. 1450.-->
         <lg met="indravajrā" n="2">
           <l n="a"><lb n="3"/>śrī-sū<supplied reason="lost">ry</supplied>yavarmmeśvara-pāda-<supplied reason="lost">padmaṁ</supplied></l>
           <l n="b">mūrddhoddharat svarṇṇa-mayaṁ sva-rūpa<supplied reason="lost">ṁ</supplied></l>
           <l n="c"><lb n="4"/><supplied reason="lost">bha</supplied>ktyā nya<supplied reason="lost">dhā</supplied>t kṣetra-catuṣṭaye yo</l>
           <l n="d">liṅgāntike śrī-śikharīśvarādau <g type="ddandaOrnate">.</g></l>
-          <!--%. chch : correspond à la stance XI de K. 1450.-->
         </lg>
         <lg met="upendravajrā" n="3">
           <l n="a"><lb n="5"/>dvi-dhātma<supplied reason="lost">mūrttā I</supplied>va nandi-kālau</l>
           <l n="b">hiraṇmayau nitya-siṣeviṣo yaḥ</l>
           <l n="c"><lb n="6"/>śivānti<supplied reason="lost">k</supplied>e śr<unclear>ī</unclear>śikharīśva<supplied reason="lost">rā</supplied>drau</l>
           <l n="d">sa-kiṅkara-grāma-bhuvau nyadhatta <g type="ddandaOrnate">.</g></l>
-          <!--%. chch : correspond à la stance XII de K. 1450.
--->
         </lg>
         <lg met="" n="4">
           <l n="a"><lb n="7"/>hiraṇya-śr̥ṅgākhyanagādi-deśe</l>
           <l n="b">hiraṇya-śūle racitāṅga-yaṣṭau</l>
           <l n="c"><lb n="8"/>śilā-<unclear>m</unclear>aye kīrttilalā<unclear>ma</unclear> liṅgaṁ</l>
           <l n="d">prāsāda-ba<unclear>ś</unclear>aṁ samatiṣṭhipad yaḥ <g type="ddandaOrnate">.</g></l>
-          <!--%. prāsādaba(ś)aṁ : Il faut peut-être comprendre prāsādadeśe ? (DG)
--->
-          <!--%. Perhaps: In such places as Mount Golden-Peaked, once a golden trident had had a stick-like body fashioned for it, in a temple (prāsādadése ?) made of stone, he installed a liṅga that was [as it were] a jewel of his fame.-->
         </lg>
         <lg met="indravajrā" n="5">
           <l n="a"><lb n="9"/>prāsāda-varyyeṣu śilā-mayeṣu</l>
           <l n="b">yeneṣṭikāḍhyeṣu ca rañjiteṣu</l>
           <l n="c"><lb n="10"/><supplied reason="lost">va</supplied>huṣ<unclear>v ane</unclear><supplied reason="lost">ka</supplied><unclear>ṁ</unclear> śiva-liṅgam arccā</l>
           <l n="d">nya<unclear>dh</unclear>āyi bhaktyā parameśvarāneḥ <g type="ddandaOrnate">.</g></l>
-          <!--%. chch : correspond à la stance XIII de K. 1450.
-%. [va]huṣ(v ane)[ka](ṁ) : + Cām anekaṁ dans K. 1450.
-%. parameśvarāneḥ : parameśvarād(au) dans K. 1450. Note %dogo : Je pense qu'il faut lire parameśvarāneḥ, mais comprendre parameśvarādeḥ.
-%. dogo : In many excellent stone temples, rich with [elements made of] brick, decorated, he installed many a liṅga, [and also many a] statue, of Parameśvara and others, out of devotion.-->
         </lg>
         <lg met="upajāti" n="6">
           <l enjamb="yes" n="a"><lb n="11"/>śilā-mayiṁ hema-<unclear>ma</unclear>yim anekā</l>
           <l n="b">m arccāṁ harāde<unclear>r vvah</unclear>u hema-liṅgam·</l>
           <l n="c"><lb n="12"/><supplied reason="lost">phalapr</supplied>iyādye bhavane nya<unclear>dh</unclear>atta</l>
           <l n="d">bhadreśvarā<unclear>dye</unclear> <supplied reason="lost">ca k</supplied>r̥tāśramo yaḥ <g type="ddandaOrnate">.</g></l>
-          <!--%. chch : correspond à la stance XIV de K. 1450.
--->
         </lg>
         <lg met="upajāti" n="7">
           <l n="a"><lb n="13"/>sā<unclear>ṣṭā</unclear>-<supplied reason="lost">daśā</supplied>ṅga-kra<supplied reason="lost">tum agra</supplied>-pujāṁ</l>
           <l n="b">suvarṇṇa-dolān dhavalātapattram·</l>
           <l enjamb="yes" n="c"><lb n="14"/>rai-rupya-rat<unclear>n</unclear>ādi <unclear>dhanaṁ</unclear> subhūṣā</l>
           <l n="d">m īśe yathā-kālam adān mudā yaḥ <g type="ddandaOrnate">.</g></l>
-          <!--%. chch : correspond à la stance XV de K. 1450.
-%. rairupya : comprendre rairūpya.-->
         </lg>
       </div>
       <div type="apparatus"></div>

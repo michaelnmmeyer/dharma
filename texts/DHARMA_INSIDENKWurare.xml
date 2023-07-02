@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -37,27 +31,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -91,7 +75,6 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="san-Latn">
-        <!--edition encoded as per EG §§2−7-->
         <lg met="anuṣṭubh" n="1">
           <l n="a"><milestone n="A" unit="column"/><lb n="1"/>// Ādau namāmi sarba-jñaṁ,</l>
           <l n="b">jñāna-kāyan tathāgataṁ,</l>
@@ -102,7 +85,7 @@
           <l n="a"><lb n="2"/>// Anv atas sarvva-siddhim vā,</l>
           <l n="b">vande ’haṅ gauravāt sadā,</l>
           <l n="c">śaka-kālam idaṁ vakṣye,</l>
-          <l n="d">rāja-kīrtti-prakāśanaṁ<!-- anusvāra seems to be normal here -->, <num value="2">2</num>, //</l>
+          <l n="d">rāja-kīrtti-prakāśanaṁ, <num value="2">2</num>, //</l>
         </lg>
         <lg met="anuṣṭubh" n="3">
           <l n="a"><lb n="3"/>// <choice>
@@ -125,41 +108,38 @@
         <lg met="anuṣṭubh" n="5">
           <l n="a"><lb n="5"/>// ratnākara-pramāṇān tu,</l>
           <l n="b">dvaidhī-kr̥tya yavāvanīm̐,</l>
-          <!-- special ṁ! -->
           <l enjamb="yes" n="c">kṣiti-bhedana-sāmarthya,</l>
-          <l n="d">kumbha-bajrodakena vai, <num value="5">5</num><!-- no comma written here — should I supply one? --> //</l>
+          <l n="d">kumbha-bajrodakena vai, <num value="5">5</num> //</l>
         </lg>
         <lg met="anuṣṭubh" n="6">
           <l n="a"><lb n="6"/>// paraspara-virodhena,</l>
           <l n="b">nr̥payor yuddha-kāṁkṣiṇoḥ,</l>
           <l n="c">Etasmāj jāṅgalety eṣā,</l>
-          <l n="d">paṁjalu-viṣayā<!-- is might be possible to read vijayā; would it also be desirable? cf. paṅjalu jayati on MNI stela --> smr̥tā, <num value="6">6</num><!-- again, no comma written --> //</l>
+          <l n="d">paṁjalu-viṣayā smr̥tā, <num value="6">6</num> //</l>
         </lg>
         <lg met="anuṣṭubh" n="7">
           <l n="a"><lb n="7"/> // kin tu yasmāt· rarakṣemām̐,</l>
-          <!-- special ṁ! -->
           <l n="b">jaya-śrī-viṣṇu<space quantity="2" type="defect" unit="character"/>varddhanaḥ,</l>
-          <l n="c">śrī-jayavarddhanī-bhāryyo<!-- no comma written here --></l>
-          <l n="d">jagannāthottamaḥ prabhuḥ, <num value="7">7</num><!-- no comma written here --> //</l>
+          <l n="c">śrī-jayavarddhanī-bhāryyo</l>
+          <l n="d">jagannāthottamaḥ prabhuḥ, <num value="7">7</num> //</l>
         </lg>
         <lg met="anuṣṭubh" n="8">
-          <l n="a"><milestone n="C" unit="column"/><lb n="8"/><!-- no // written here — should I supply? -->Ājanmapariśuddhāṅgaḥ,</l>
+          <l n="a"><milestone n="C" unit="column"/><lb n="8"/>Ājanmapariśuddhāṅgaḥ,</l>
           <l n="b">kr̥pāluḥ dharmma-tatparaḥ,</l>
           <l n="c">pārthivānandanaṅ kr̥tvā,</l>
-          <l n="d">śuddha-kīrtti-parākramāt· <num value="8">8</num> //<!-- no commas before and after // --></l>
+          <l n="d">śuddha-kīrtti-parākramāt· <num value="8">8</num> //</l>
         </lg>
         <lg met="anuṣṭubh" n="9">
-          <l n="a"><lb n="9"/><!-- no // written here -->Ekī-kr̥tya punar bhūm<choice>
+          <l n="a"><lb n="9"/>Ekī-kr̥tya punar bhūm<choice>
               <orig>ī</orig>
               <reg>i</reg>
             </choice>m̐,</l>
-          <!-- special anusvāra! -->
-          <l n="b">prīty-arthañ jagatāṁ<!-- normal anusvāra? --> sadā,</l>
+          <l n="b">prīty-arthañ jagatāṁ sadā,</l>
           <l n="c">dharmma-saṁrakṣaṇārtham vā,</l>
-          <l n="d">pitrādi-sthāpanāya ca, <num value="9">9</num><!-- no comma here --> //</l>
+          <l n="d">pitrādi-sthāpanāya ca, <num value="9">9</num> //</l>
         </lg>
         <lg met="anuṣṭubh" n="10">
-          <l n="a"><lb n="10"/><!-- no // written here -->yathaiva kṣiti-rājendra,ś</l>
+          <l n="a"><lb n="10"/>yathaiva kṣiti-rājendra,ś</l>
           <l n="b">śrī-harivarddhanātmajaḥ,</l>
           <l n="c">śrī-jayavarddhanī-putraḥ,</l>
           <l n="d">catur-dvīpeśvaro muniḥ, <num value="10">10</num> //</l>
@@ -168,7 +148,7 @@
           <l n="a"><lb n="11"/>Aśeṣa-tatva-sampūrṇno,</l>
           <l n="b">dharmma-śāstra-vidām varaḥ,</l>
           <l n="c">jīrṇnoddhāra-kriyodyukto,</l>
-          <l n="d">dharmma-śāsana-deśakaḥ, <num value="11">11</num><!-- no comma here --> //</l>
+          <l n="d">dharmma-śāsana-deśakaḥ, <num value="11">11</num> //</l>
         </lg>
         <lg met="anuṣṭubh" n="12">
           <l n="a"><milestone n="D" unit="column"/><lb n="12"/>śrī-jñānaśivabajrā<choice>
@@ -180,8 +160,8 @@
           <l n="d">sambodhi-jñāna-pāragaḥ, <num value="12">12</num> //</l>
         </lg>
         <lg met="anuṣṭubh" n="13">
-          <l n="a"><lb n="13"/>subhaktyā tam̐<!-- special ṁ! --> pratiṣṭhāpya,</l>
-          <l n="b">svayam pūrvvam pratiṣṭhita<unclear>m̐</unclear><!-- can the special anusvāra be confirmed on the stone? -->,</l>
+          <l n="a"><lb n="13"/>subhaktyā tam̐ pratiṣṭhāpya,</l>
+          <l n="b">svayam pūrvvam pratiṣṭhita<unclear>m̐</unclear>,</l>
           <l n="c">śmaśāne vurare-nāmni,</l>
           <l n="d">mahākṣobhyānurūpataḥ, <num value="13">13</num> //</l>
         </lg>
@@ -204,19 +184,19 @@
               <orig>k</orig>
               <reg>kh</reg>
             </choice>yāte kuvera-parvveśe,</l>
-          <l n="d">tulā-<unclear>rāśy-a</unclear>bhisaṁyute <lb n="16*" rend="tb-upright"/><!-- this value of @n to be validated and perhaps explicitly allowed in EG --> <num value="16">16</num></l>
+          <l n="d">tulā-<unclear>rāśy-a</unclear>bhisaṁyute <lb n="16*" rend="tb-upright"/> <num value="16">16</num></l>
         </lg>
         <lg met="anuṣṭubh" n="17">
-          <l n="a"><lb n="17"/>hitāya sarba-satvānām̐<!-- special anusvāra -->,</l>
+          <l n="a"><lb n="17"/>hitāya sarba-satvānām̐,</l>
           <l n="b">prāg eva nr̥pates sadā,</l>
           <l n="c">sa-putra-potra-dārasya,</l>
-          <l n="d">kṣity-ekībhāva-kāraṇāt·,<!-- presence of comma to be confirmed --> <num value="17">17</num> //</l>
+          <l n="d">kṣity-ekībhāva-kāraṇāt·, <num value="17">17</num> //</l>
         </lg>
         <lg met="anuṣṭubh" n="18">
-          <l n="a"><lb n="18"/>Athāsya dāsa-bhūto ’haṁ<!-- apparently a normal anusvāra -->,</l>
+          <l n="a"><lb n="18"/>Athāsya dāsa-bhūto ’haṁ,</l>
           <l n="b">nādajño nāma kīrttitaḥ,</l>
           <l n="c">vidyā-hīno ’pi sammūḍho,</l>
-          <l n="d">dharmma-kriy<supplied reason="omitted">ā</supplied><!-- the long ā invisible on estampage; can it be confirmed on the stoe -->sv atatparaḥ, <num value="18">18</num> //</l>
+          <l n="d">dharmma-kriy<supplied reason="omitted">ā</supplied>sv atatparaḥ, <num value="18">18</num> //</l>
         </lg>
         <lg met="anuṣṭubh" n="19">
           <l n="a"><lb n="19"/>dharmmādhyakṣatvam āsādya,</l>
@@ -224,12 +204,11 @@
           <l n="c"><choice>
               <orig>s</orig>
               <reg>ś</reg>
-            </choice>aka-kālaṁ<!-- presence of ā to be verified on stone --> samu<unclear>ddhr̥tya</unclear>,</l>
+            </choice>aka-kālaṁ samu<unclear>ddhr̥tya</unclear>,</l>
           <l n="d">mad-rājānujñayā punaḥ, <num value="19">19</num> ||</l>
         </lg>
       </div>
       <div type="apparatus">
-        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
         <listApp>
           <app loc="2">
             <lem source="bib:Kern1917_02">śaka-kālam</lem>
@@ -247,7 +226,7 @@
                 <citedRange unit="note">1</citedRange>
                 <citedRange unit="page">79</citedRange>
                 <citedRange unit="note">3</citedRange>
-              </bibl><!-- how to handle such separate page numbers with separate note numbers? -->) on the distinction <foreign>ṣth/ṣṭ</foreign> in Javanese inscriptions.</note>
+              </bibl>) on the distinction <foreign>ṣth/ṣṭ</foreign> in Javanese inscriptions.</note>
           </app>
           <app loc="3">
             <lem>bharāḍasaṁjñakaḥ</lem>
@@ -281,16 +260,15 @@
           </app>
         </listApp>
       </div>
-      <div resp="part:argr" type="translation"><!--translation encoded as per EG §9.2 --></div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div resp="part:argr" type="translation"></div>
+      <div type="commentary"></div>
       <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
         <p>First edited by Kern (<bibl rend="omitname">
             <ptr target="bib:Kern1910_01"/>
           </bibl>), whose article was re-edited with corrections in <bibl>
             <ptr target="bib:Kern1917_02"/>
             <citedRange>187-197</citedRange>
-          </bibl><!-- or cite as invididual article with its separate shorttitle? -->; edited again by Poerbatjaraka (<bibl rend="omitname">
+          </bibl>; edited again by Poerbatjaraka (<bibl rend="omitname">
             <ptr target="bib:Poerbatjaraka1922_02"/>
           </bibl>). The subsequent editions published by Chatterjee &amp; Chakravarti (<bibl rend="omitname">
             <ptr target="bib:Chatterjee+Chakravarti1933_01"/>
@@ -298,17 +276,10 @@
           </bibl>, with translation into English) and Sircar (<bibl rend="omitname">
             <ptr target="bib:Sircar1983_01"/>
             <citedRange>700-702</citedRange>
-          </bibl>) ignore Poerbatjaraka's work and most of the secondary bibliography. None of the previous editions very accurately represents the punctuation of the original. Re-edited here directly from the stone and from the EFEO estampages; my apparatus is positive only for the significant variant readings observed in the editions by Kern (1917) and Poerbatjaraka.<!-- EFEO n. 2195-2198 --></p>
+          </bibl>) ignore Poerbatjaraka's work and most of the secondary bibliography. None of the previous editions very accurately represents the punctuation of the original. Re-edited here directly from the stone and from the EFEO estampages; my apparatus is positive only for the significant variant readings observed in the editions by Kern (1917) and Poerbatjaraka.</p>
         <listBibl type="secondary">
           <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
-          <!-- Verbeek 1891: 10-->
-          <!-- Brandes NBG 1898 36 81 -->
-          <!-- Brandes TBG 1906 48 54 -->
-          <!-- Knebel, ROC 1907: 204, 205 -->
-          <!-- Krom T. B. G. dl. 52 blz. 191, OV 1914: 206, Krom 1916: 306-307 -->
           <bibl>Krom, <ptr target="bib:OV"/><date>1913</date><citedRange unit="page">34</citedRange></bibl>
-          <!-- Bosch T. B. G. 58 blz. 442. -->
           <bibl>
             <ptr target="bib:Bosch1919_01"/>
             <citedRange>442-443</citedRange>
@@ -323,11 +294,8 @@
             <citedRange unit="page">79</citedRange>
             <citedRange unit="item">A.174</citedRange>
           </bibl>
-          <!-- Damais -->
-          <!-- Nakada -->
-          <!-- Hadi Sidomulyo, Gomperts et al. -->
         </listBibl>
       </div>
     </body>
   </text>
-</TEI><!-- normal anusvāra: crescent shape or circle??? --><!-- special anusvāra: circle plus crescent shape -->
+</TEI>

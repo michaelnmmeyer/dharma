@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -35,9 +29,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00207</idno>
-        <!--
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -90,19 +81,10 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
   <text xml:space="preserve">
     <body>
       <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <!--
-This inscription is digitally edited by Dániel Balogh from photographs of the original stone (taken at Mandsaur Museum in February 2017). The commentary makes reference to the edition of #Mirashi_1982-83 (M), the commentary of #Sircar_1984b (S), and the report of #Wakankar_1981 (W). Version of January 2019. Comments below are offered "as is" and do not represent a thoroughly researched or considered opinion.
--->
-        <!--
-The size of the lacuna at the beginning of lines is 22 to 50 akṣaras according to #Mirashi_1982-83, and 24 to 38 according to #Sircar_1984b. I am convinced that this is impossible; on metrical grounds we must assume a much larger gap and posit about one additional verse per line compared to Mirashi's numbering of stanzas. Hence verse numbers in this edition diverge from Mirashi's.
--->
         <ab>
           <lb n="1"/>
           <gap precision="low" quantity="42" reason="lost" unit="character"/>
         </ab>
-        <!--
-L1. The lost text before the first partially extant verse probably included a maṅgala symbol or, as restored by Mirashi, by the word siddham. This may have been followed by a stanza in anuṣṭubh (32 characters) or upajāti (44 characters), probably also in honour of Viṣṇu.
--->
         <lg met="vasantatilakā" n="1">
           <l n="a">
             <seg met="++-+---+--+-+=">
@@ -112,24 +94,12 @@ L1. The lost text before the first partially extant verse probably included a ma
           <l n="b"><seg met="++-+">
               <gap quantity="4" reason="lost" unit="character"/>
             </seg><unclear cert="low">p</unclear>y <unclear>apar</unclear>itarkkita-kāraṇāya<space/></l>
-          <!--
-L1. M reads **m atarkkita at the beginning. This may be a typo as pari is quite clear. The preceding character may have been py, in which case an instrumental ending in ā followed by api is a likely guess.
--->
           <l n="c">vedopaveda-nidhaye sura-sattamāya</l>
-          <l n="d">goptre namo <supplied reason="subaudible">’</supplied>stu jaga<unclear cert="low">ta</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ḥ puru</supplied>ṣottamāya||</l>
-          <!--
-L1. The restoration jagataḥ puruṣottamāya is M's, who prints all of it as clearly read. It is a very plausible restoration, but a restoration nonetheless.
--->
-          <!--
-L1. Punctuation signs transcribed as || are a double vertical, with a hook on the first one. Punctuation signs transcribed as | are horizontal dashes. Double verticals are quite consistent at verse ends; the short horizontal is not visible at every half-verse, but there do appear spaces there, and very faint dashes are not impossible.
--->
+          <l n="d">goptre namo <supplied reason="subaudible">’</supplied>stu jaga<unclear cert="low">ta</unclear><supplied reason="lost">ḥ puru</supplied>ṣottamāya||</l>
         </lg>
         <lg met="vasantatilakā" n="2">
           <l n="a">ajñāna-doṣa-timirākula-dr̥ṣṭi-mārggās</l>
           <l n="b">saṁsāra-dharmma-patanaṁ vyasanair <unclear>u</unclear>petāḥ|</l>
-          <!--
-L1. M reads patana-vyasanair. The u of ru is very faint, but almost certainly present, and required by sense.
--->
           <l n="c">
             <lb n="2"/>
             <seg met="++-+---+--+-+=">
@@ -144,9 +114,6 @@ L1. M reads patana-vyasanair. The u of ru is very faint, but almost certainly pr
           </l>
         </lg>
         <lg met="uncertain" n="3">
-          <!--
-L2. The metre of v3 is probably upajāti on the basis of the estimated length of the lacuna.
--->
           <l n="a">
             <gap precision="low" quantity="11" reason="lost" unit="character"/>
           </l>
@@ -158,9 +125,6 @@ L2. The metre of v3 is probably upajāti on the basis of the estimated length of
             <gap precision="low" quantity="11" reason="lost" unit="character"/>
           </l>
           <l n="d"><gap precision="low" quantity="8" reason="lost" unit="character"/>jñadevaḥ||</l>
-          <!--
-L2. M conjectures that the name at the end of v4 (his v2) was yajñadevaḥ. This seems probable, but the vestige of the bottom part of the right edge of the preceding character does not seem to have the  slanted bottom stroke of y.
--->
         </lg>
         <lg met="upajāti" n="4">
           <l n="a">s<choice>
@@ -168,23 +132,8 @@ L2. M conjectures that the name at the end of v4 (his v2) was yajñadevaḥ. Thi
               <corr>au</corr>
             </choice>myaḥ śarat-soma Ivāvatīrṇṇas</l>
           <l n="b">tasmāt suto <supplied reason="subaudible">’</supplied>jāyata vīrasomaḥ<space/></l>
-          <!--
-L2. M reads (or at least prints) tasmāttatejāyata. He may have intended tasmāt tato jāyata. My reading is certain.
--->
-          <!--
-L2. Could this Vīrasoma have any connection to Puṇyasoma of Gauri's lineage?
--->
-          <l n="c">svapne <supplied reason="subaudible">’</supplied><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->p</supplied><unclear cert="low">i ya</unclear><unclear>s</unclear>y<unclear>o</unclear>paśama-pradhānañ</l>
-          <!--
-L2. M reads svapne pi yasyaiva śama-pradhānañ, printing only pi ya as unclear, and the rest as clear. The restoration pi ya seems more than likely; however, paśama is clear and therefore the vowel of sy must be o.
--->
+          <l n="c">svapne <supplied reason="subaudible">’</supplied><supplied reason="lost">p</supplied><unclear cert="low">i ya</unclear><unclear>s</unclear>y<unclear>o</unclear>paśama-pradhānañ</l>
           <l n="d">ceto vikāran na gataṁ ka<unclear>dāc</unclear>iT||</l>
-          <!--
-L2. dā of kadācit may be a correction over something else, perhaps tha (for kathaṁcit?). But the apparent superfluous lines may also be just damage.
--->
-          <!--
-L2. The halanta T is a small subscript character, probably with a line above it.
--->
         </lg>
         <lg met="upajāti" n="5">
           <l n="a">asmin kalāv apy avadāta-karmmā</l>
@@ -228,30 +177,18 @@ L2. The halanta T is a small subscript character, probably with a line above it.
           <l n="d"><seg met="+-+--">
               <gap quantity="5" reason="lost" unit="character"/>
             </seg> <unclear>i</unclear> bhāskaravarmmā||</l>
-          <!--
-L3. The character before bhā seems to have an i mātrā (this is not noted by Mirashi), which also fits the svāgatā template. I am tempted to conjecturally restore bhuvi.
--->
         </lg>
         <lg met="svāgatā" n="7">
           <l n="a">yasya bāhu-bala-nirjjita-darppaḥ</l>
           <l n="b">pradruto ripu-jano gahanāsu|</l>
           <l n="c">praskhalac-caraṇa-bha<unclear>gn</unclear>a-talā<unclear>su</unclear></l>
-          <!--
-L3. Mirashi reads or prints caraṇa-vasrutalākṣo, which doesn't make sense. Neither M nor S give a translation, so they may not have understood this bit. I am quite certain of my reading, though the last character of the quarter looks, at a glance, more like mro or pro than su. I believe the strokes that look like a subscript r and an o mātrā are damage, and the centre of the s is weathered, but su is still the most plausible reading.
--->
           <l n="d">bambhramīti giri-durgga-guhāsu||</l>
-          <!--
-L3. M reads dugga, emending to durgga. The repha is clear, but its top is level with the tops of regular letters; the upper g is slightly lower than expected, and the lower g is of course subscript.
--->
         </lg>
         <lg met="upajāti" n="8">
           <certainty locus="value" match="../@met"/>
           <l n="a">a<unclear>bhy</unclear>udgama<sic>n</sic> tasya <lb n="4"/><seg met="-+-+=">
               <gap quantity="5" reason="lost" unit="character"/>
             </seg></l>
-          <!--
-L3. M reads abhyudgamann asya. The character is not nn, compare e.g. vikāran na in l2 and nāgān nagendra in l8. Nt in ananta (l21) is not quite the same either but seems much more likely. Understand abhyudgamaṁ tasya.
--->
           <l n="b">
             <seg met="=+-++--+-+=">
               <gap quantity="11" reason="lost" unit="character"/>
@@ -283,32 +220,14 @@ L3. M reads abhyudgamann asya. The character is not nn, compare e.g. vikāran na
             <supplied reason="lost">|</supplied>
           </l>
           <l n="c"><unclear>ja</unclear>g<unclear>mu</unclear>ḥ praṇāśam arayo <supplied reason="subaudible">’</supplied>bhisamīkṣya vaktran</l>
-          <!--
-L4. Mirashi does not read jagmuḥ at the beginning of l4. gmu is practically clear (for the subscript m, compare e.g. l2, tasmāt), and the top two prongs of the preceding ja are visible.
--->
           <l n="d">trāsād dharer iva mr̥gā druta-śāba-yū<unclear>th</unclear>āḥ||</l>
-          <!--
-L4. M reads druta-gā bayūdhāḥ and emends to druta-gā babhūvuḥ. My reading is certain. The cross-stroke of śā is faint but visible in the original stone. thā is malformed: it is open at the top and lacks a cross-stroke or dot in the centre (compare priyātithi in l8), but it is still definitely thā, not dhā (which should be pointed at the bottom). My reading feels a bit awkward (though far less so than Mirashi's), but I think it can be safely interpreted to mean "Upon seeing [whose, restore yasya or possibly tasya somewhere in ab] face, [his] enemies perished, as deer, whose young have fled in droves, [perish upon seeing] a lion's [face].
--->
         </lg>
         <lg met="upajāti" n="10">
           <l n="a"><unclear>s</unclear>a vīryavān aulikari-pradhānañ</l>
-          <!--
-L4. ry uses regular r with subscript y here and elsewhere.
--->
-          <!--
-L4. Mirashi argues that the dynasty of this inscription cannot have been Aulikara. His chief argument is that here "sa" is the king of this dynasty (Bhāskaravarman in M's opinion, but since there is more text between here and Bh's name above, it could be his successor instead), and the Aulikari king is in the accusative, so our king must have "defeated a great king of the Aulikara family." I would find it very strange to see an enemy king praised as jitāriṣaḍvarggam and varaṁ nr̥pāṇām. Praising the defeated enemy is OK as a form of oblique self-praise, but this would involve praise of his prowess, not of his personal excellence. (Actually Mirashi himself, 1982-83:71, wonders why the Aulikari is described as jitāriṣaḍvargga if he was an enemy.) So I'm quite certain that the missing verb is not "defeated" but something else, e.g. "begat." Mirashi's other argument is that if these kings were Aulikaras, then "that family would have been glorified in the beginning [...] and not mentioned incidentally as is done here." But with my revision, we have much more lost text than M assumed; verses 2-3 could have devoted plenty of words to glorifying the dynasty before introducing (jña)deva. Also, Mirashi's reasoning seems faulty, since if they were _not_ Aulikaras, we would still expect praise for their dynasty at the beginning. Sircar believes that our king probably "propitiated the Aulikarin king as a vassal," which is also a possibility. Wakankar_1981:279 thinks Bhāskaravarman himself was an Aulikara, but this is based on his reading which is inaccurate (sa vīryavān aulikarī pradhāna jitāriṣaḍvargya upendravīra).
--->
           <l n="b">jitāri-ṣaḍ-varggam upendra-vīryaM</l>
-          <!--
-L4. M reads vīryaḥ. The halanta M is damaged but quite certain in the stone and the accusative fits the semantics better since we have vīryavān in the nominative in pāda a. The M also explains why there is no punctuation mark here.
--->
           <l n="c">varaṁ nr̥pāṇām ajitā<lb break="no" n="5"/><seg met="-+=">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg></l>
-          <!--
-L4. M reads ajito at the end; ajitā is certain.
--->
           <l n="d">
             <seg met="=+-++--+-+=">
               <gap quantity="11" reason="lost" unit="character"/>
@@ -316,9 +235,6 @@ L4. M reads ajito at the end; ajitā is certain.
           </l>
         </lg>
         <lg met="uncertain" n="11">
-          <!--
-L4. Based on the estimated length of the lacuna and the prosodic context, the metre of the lost verse was probably either upajāti (44 syllables) or mālabhāriṇī (46 syllables).
--->
           <l n="a">
             <gap precision="low" quantity="11" reason="lost" unit="character"/>
           </l>
@@ -335,45 +251,18 @@ L4. Based on the estimated length of the lacuna and the prosodic context, the me
           </l>
         </lg>
         <lg met="mālabhāriṇī" n="12">
-          <!--
-L5. M labels v12 and 13 (his 8 and 9) as udgatā, which seems to be wrong; udgatā is a viṣama metre while this verse is an ardhasama, namely mālabhāriṇī; what's left of the next verse also fits this template. M furthermore gives the prosody of the lacuna in 13a as something that is neither udgatā nor mālabhāriṇī.
--->
           <l n="a"><seg met="--+--+">
               <gap quantity="6" reason="lost" unit="character"/>
             </seg> <supplied reason="lost">u</supplied>dāra-vr̥ttān</l>
-          <!--
-L5. I believe vr̥ttān must be understood to stand for vr̥ttāṁ, singular feminine accusative, not masculine plural. There have been several instances above of using nasal consonants instead of anusvāra. There are some vestiges of the top right part of a character before dā, which permit an m, and I think another feminine accusative may have been there. But a compound is not out of the question either.
--->
           <l n="b">dayitāṁ rūpa-guṇānvayair a<unclear>h</unclear>ī<unclear>n</unclear>āM</l>
-          <!--
-L5. M prints vayitāṁ instead of dayitāṁ, apparently a typo (or did he read and construe udāra+vr̥tta+anvayitām?). In any case, nda is clear, and a word straddling the pāda boundary is improbable. Sircar specifically mentions dayitā as a word of the text. However, Wakankar reads vr̥ttābhyāryatāṁ kūpa-guṇānvayair, sic, and thinks the king's merits are compared to a well, perhaps because a well was constructed to commemorate the victory. The character rū does look a bit like kka or kū, but rū must be the correct reading.
--->
-          <!--
-L5. M reads (or prints) rūpaguṇānvayai rahitāM, which does not make sense and is also unmetrical. Sircar's commentary talks of "the vanquisher of enemies [...] happy in receiving a suitable dayitā or wife"; Mirashi does not even give a summary - probably neither of them tried to interpret this bit. My reading is quite certain.
--->
-          <!--
-L5. The halanta m is a small subscript character with a line above, which seems to double as punctuation.
--->
           <l n="c">jahr̥ṣe jita-sarvva-śattru-pakṣo</l>
-          <!--
-L5. M reads (or prints) hita instead of jita. The reading is clear.
--->
-          <!--
-L5. M reads śatru; śattru is clear.
--->
           <l n="d">niyataḥ siddhim ivepsitām upetya||</l>
         </lg>
         <lg met="mālabhāriṇī" n="13">
           <l n="a">pramadābhimatā ca <unclear>sai</unclear>va ta<unclear>s</unclear>ya</l>
-          <!--
-L5. M reads pramadābhimatāva(saṁ)vatasya. I don't know if he thought this reading meaningful; I cannot interpret it. In the stone, ca is clear. My reading (construe pramadā abhimatā ca sā eva tasya) is certain in spite of some damage to the text.
--->
           <l n="b">dvipadendra-pravarasya<lb n="6"/><seg met="+-+=">
               <gap quantity="4" reason="lost" unit="character"/>
             </seg><supplied reason="lost">|</supplied></l>
-          <!--
-L5. M reads (or prints) pracarasya at the end of l5. pravarasya is clear.
--->
           <l n="c">
             <seg met="--+--+-+-+=">
               <gap quantity="11" reason="lost" unit="character"/>
@@ -407,32 +296,17 @@ L5. M reads (or prints) pracarasya at the end of l5. pravarasya is clear.
           <l n="d"><seg met="+++">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg><supplied cert="low" reason="lost">ja</supplied>ga<unclear>t</unclear>i kumāravarmma-nāmā||</l>
-          <!--
-L6. M only reads ti at the beginning of the line, but Wakankar_1981:279 correctly reports "gati kumāravarmma-nāmā". Mirashi may have ignored the clear ga in order to fit this fragment to the mālabhāriṇī metre, which the syllable ga rules out.
--->
-          <!--
-L6. The t near the beginning has a cross-stroke that doesn't seem like damage. The character may be corrected from ś or something else; still, t is practically certain.
--->
         </lg>
         <lg met="praharṣiṇī" n="15">
           <l n="a">bālatve manujapatis sa yauvarājyam</l>
           <l n="b">prāpyāpi vyapagata-matsarāvale<unclear>p</unclear>a<unclear>ḥ|</unclear></l>
-          <!--
-L6. The visarga and dash after avalepa is damaged, but still definitely visible in the original.
--->
           <l n="c">sañjahre bhuvi viduṣām manāṁsi sūryyo</l>
           <l n="d">bhūtānāṁ rasam iva jaṅgama<lb n="7"/><seg met="-+=">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg><supplied reason="lost">||</supplied></l>
-          <!--
-L7. I would conjecture sthirāṇāM for the lacuna.
--->
         </lg>
         <lg met="praharṣiṇī" n="16">
           <certainty locus="value" match="../@met"/>
-          <!--
-L7. The length of the lacuna implies a full lost stanza here, probably in the same metre as the preceding and following verses.
--->
           <l n="a">
             <gap precision="low" quantity="13" reason="lost" unit="character"/>
           </l>
@@ -456,35 +330,11 @@ L7. The length of the lacuna implies a full lost stanza here, probably in the sa
               <unclear>th</unclear>
             </choice>i-dhairyyaṅ</l>
           <l n="b">kurvvāṇaṅ kr̥ta-yuga-pārthivānukāraM</l>
-          <!--
-L7. M reads only from dhairyyaṅ onward, but the i mātrā is clear at the beginning, and the consonant below is probably ś or th.
--->
-          <!--
-Note how ryy, with superscript r, tripartite y plus subscript y, alternates with ry consisting of regular r plus subscript y - interesting.
--->
-          <!--
-L7. M reads °nukāraḥ as clear, but the word definitely ends with a halanta m, completely clear in the stone. It also makes better sense as the object of kurvvāṇaṅ; °nukāraḥ would have to be understood as a bahuvrīhi, which cannot logically qualify jīvalokaḥ and so would require one more masculine nominative in the lacuna (which should also include a masculine accusative governing kurvvāṇaṅ).
--->
-          <!--
-L7. M prints yugra instead of yuga, typo.
--->
-          <!--
-L7. The halanta M with line above doubles as punctuation.
--->
           <l n="c">sarvveti praśamam upetya jīva-lokas</l>
-          <!--
-L7. M emends sarvveti to sarvvo pi. While the emendation makes sense, the alleged error seems unlikely in this generally correct inscription. I have no good solution. The word atipraśama may be involved, but that is sort of awkward. More likely sarvveti is correct, and the subject of the lost sentence enclosed in the iti is feminine, e.g. "Wow, the entire earth obeys him" - thinking this, all living beings carried on etc.
--->
           <l n="d">sad-dharmmam pratidinam edhayām babhūva||</l>
         </lg>
         <lg met="vasantatilakā" n="18">
           <l n="a">taṅ kr̥ṣṇa-sūnur ativīryya-made<unclear>na</unclear> matto</l>
-          <!--
-L7. M reads taṁ, but the reading is taṅkr̥ṣṇa.
--->
-          <!--
-L7. Wakankar_1981 believes Kr̥ṣṇa(varman) was the son of Bhāskaravarman. This can be dismissed.
--->
           <l n="b">
             <lb n="8"/>
             <seg met="++-+---+--+-+=">
@@ -519,23 +369,11 @@ L7. Wakankar_1981 believes Kr̥ṣṇa(varman) was the son of Bhāskaravarman. T
           <l n="c"><seg met="++-">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg><supplied cert="low" reason="lost">kā</supplied><unclear>rṣṇ</unclear>im api cāśu cakāra rājā</l>
-          <!--
-L8. M reads rṣṇi as clear. It is not, but the reading is reasonably certain. M restores pārṣṇim, Sircar offers vr̥ṣṇim. I tend to prefer kārṣṇim, referring to the kr̥ṣṇa-sūnu mentioned above. M takes it for granted that it was the kr̥ṣṇa-sūnu mentioned above whom the king "made a dear guest of death." I have doubts about this in light of api and my hypothesis that this text does not belong to the same stanza. Still, kārṣṇi would be very appropriate.
--->
           <l n="d">mr̥tyoḥ priyātithim upendra-samo narendraM||</l>
-          <!--
-L8. M reads narendraḥ at the end, Sircar correctly has narendraM. The reading is clear in the stone, and putting upendra and narendra in contrast also sounds better than having them in apposition.
--->
-          <!--
-L8. The halanta M with line above is followed by a regular double vertical.
--->
         </lg>
         <lg met="vasantatilakā" n="20">
           <l n="a">jagrāha cāsya mada-seka-malāṅka-gaṇḍān</l>
           <l n="b">nāgān nagendra-śikharāṇy ativarṣmato ye|</l>
-          <!--
-L8. M prints the daṇḍa at the end of l8 as supplied, but I think it's visible in the rubbing.
--->
           <l n="c">
             <lb n="9"/>
             <seg met="++-+---+--+-+=">
@@ -570,19 +408,10 @@ L8. M prints the daṇḍa at the end of l8 as supplied, but I think it's visibl
           <l n="d"><seg met="++-+---+--+">
               <gap quantity="11" reason="lost" unit="character"/>
             </seg><unclear cert="low">ṣa-</unclear>dhārī||</l>
-          <!--
-L9. The traces before dhārī may belong to s or m instead of ṣ.
--->
         </lg>
         <lg met="vasantatilakā" n="22">
           <l n="a">yenāsamāna-niyata-kkratu-dīkṣitena</l>
-          <!--
-L9. For my yenāsamāna, M reads yenāsahasra (all of which he prints as clear), which just doesn't make sense. My reading is clear. I don't have a good interpretation of asamāna-niyata-kkratu-dīkṣita, but passable ones can be found.
--->
           <l n="b">san-mānitā dvija-varā vividhārtha-dānaiḥ|</l>
-          <!--
-L9. M reads vividhārttha; the stone has rth with a repha at regular top height, and the th slightly subscript, just like pārthiva a few characters further on.
--->
           <l n="c">yaḥ pūrvva-pārthiva-jana-pratimāna-bhūto</l>
           <l n="d">bhūtopakāra-karaṇeṣv abhava<unclear>t p</unclear>iteva||</l>
         </lg>
@@ -621,27 +450,12 @@ L9. M reads vividhārttha; the stone has rth with a repha at regular top height,
           <l n="b"><seg met="++-+---+--+">
               <gap quantity="11" reason="lost" unit="character"/>
             </seg><unclear cert="low">tsa</unclear>veva</l>
-          <!--
-L10. M only reads veva. The preceding character is badly damaged, but it seems to be a ligature. tsa is my best guess for it; nma would also be possible but I can't think how that would make a word here. With tsa, something with utsava comes readily to mind, e.g. °mahotsaveva (assuming a bahuvrīhi qualifying a feminine subject) would fit the metre.
--->
           <l n="c">prītyā kṣaṇena <unclear>v</unclear>i<unclear>ka</unclear>san-nayanā vibhāti</l>
           <l n="d">sūryodayonmiṣita-padma-vaneva vāpī||</l>
-          <!--
-L10. ryo has regular r plus subscript y.
--->
-          <!--
-L10. M reads vanena, but vaneva is clear.
--->
-          <!--
-L10. Sircar believes v25 (his v15) is about "Kumāravarman's marriage with a beautiful girl."
--->
         </lg>
         <lg met="vasantatilakā" n="25">
           <l n="a">rūpam mano-nayana-hāri navaṁ vayaś ca</l>
           <l n="b">rājyam mahad viṣaya-bhoga-ratis samastā|</l>
-          <!--
-L10. M prints rājyaṁ, but the stone has rājyam ma°.
--->
           <l n="c">
             <lb n="11"/>
             <seg met="++-+---+--+-+=">
@@ -654,9 +468,6 @@ L10. M prints rājyaṁ, but the stone has rājyam ma°.
             </seg>
             <supplied reason="lost">||</supplied>
           </l>
-          <!--
-L10-11. Sircar believes v26 (his v16) is about Kumāravarman's happy life after marriage.
--->
         </lg>
         <lg met="vasantatilakā" n="26">
           <certainty locus="value" match="../@met"/>
@@ -685,14 +496,8 @@ L10-11. Sircar believes v26 (his v16) is about Kumāravarman's happy life after 
         </lg>
         <lg met="vasantatilakā" n="27">
           <l n="a"><supplied reason="lost">yā</supplied><unclear>te</unclear>na tad-vaśam api pratik<unclear>āra</unclear>-mandam</l>
-          <!--
-L11. M does not read the damaged first character. Before it, I tentatively restore yā, interpreting the verse to mean that the hero (Kumāravarman?) was captured by an enemy but managed to escape.
--->
           <l n="b">utsāha-śakti-sahitena mahā-mahimnā|</l>
-          <l enjamb="yes" n="c">tīrtvāri-sāgaram ane<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ka-ga</supplied>jendra-vāji</l>
-          <!--
-L11. Mirashi reads tīrtvāri-mārga-ripu-(matta)-gajendra, which makes no sense. My reading is certain except where otherwise indicated. The character ka and most of ga are obliterated by a chip in the stone; unless this happened since Mirashi saw it, his tta-ga is a restoration, not a reading. (Mirashi's own rubbing only has a large white spot here.) The extant right-hand edge of the second character seems too angular for g; nonetheless, gajendra is beyond doubt.
--->
+          <l enjamb="yes" n="c">tīrtvāri-sāgaram ane<supplied reason="lost">ka-ga</supplied>jendra-vāji</l>
           <l n="d">-saṅghaṭṭa-saṅkulam api pravaṇā kr̥tā śrīḥ||</l>
         </lg>
         <lg met="vasantatilakā" n="28">
@@ -733,31 +538,10 @@ L11. Mirashi reads tīrtvāri-mārga-ripu-(matta)-gajendra, which makes no sense
               <gap quantity="1" reason="illegible" unit="component"/>
             </seg>i <unclear>gr̥h</unclear>ya<unclear>m</unclear>āṇaM|</l>
           <l n="c">Akkramya sarvva-bali<unclear>no</unclear> raṇa-karkkaśena</l>
-          <!--
-L12. M reads the beginning of the line as tr̥pyamāṇaM. My reading gr̥hya is certain, though the hook of h (along with the top left part of m) is chipped off.
--->
-          <!--
-L12. It is worth noting that here we have a halanta M with line above, followed by a punctuation dash. Above, the punctuation dash has not been used when a halfverse ended in a halanta character (l5, ahīnāM; l7, pārthivānukāraM).
--->
-          <!--
-L12. M reads sarvvam api te. Wakankar_1981:279 reports sarva-balino, which is almost certainly correct, though no is damaged and may be a correction from something else.
--->
           <l n="d"><unclear>p</unclear>rāpta<sic>n</sic> daśāhvayam arāti-janāpradhr̥ṣyaM||</l>
-          <!--
-L12. M reads prāptaṁ nr̥śāhvayam. Sircar presumably read this correctly, since he mentions daśāhvayam (=Daśapura) in his commentary. The reading is unambiguous on the stone, there is no anusvāra. #Wakankar_1981:278 says the inscription speaks about the conquest of a "नृषाम्बयपुर". He says the place is possibly identical to modern निम्बाहेड़ा. On p279 he reports the reading prāptaṁ nr̥ṣāmvayapurāti janāna pravaśya (sic, in Devanagari).
--->
-          <!--
-L12. M prints arātijanāpradhr̥śya and offers no comment. The halanta M is clear, though it is in a slightly raised position, possibly because of the tail of the subscript y of the previous character.
--->
         </lg>
         <lg met="vasantatilakā" n="30">
           <l n="a">dasyu-pratāpa-vinivr̥tta-sukhāśrayo hi</l>
-          <!--
-L12. Mirashi reads tasya pratāpa. dasyu is absolutely clear and unambiguous in the stone, and is correctly reported by W. Sircar has no comment on this. Can this be a Huna reference? Wakankar himself thinks so. Unfortunately most of the context is lost, and vinivr̥tta is open to several interpretations. In order of my decreasing preference: the substrate of his well-being was 1: removed from him by the ferocity of barbarians (dasyūnāṁ pratāpena vinivr̥ttaḥ apagataḥ sukhāśrayo yasya saḥ) / 2: liberated from the ferocity of barbarians (dasyūnāṁ pratāpād vinivr̥ttaḥ muktaḥ...) / 3: returned to him thanks to the ferocity of barbarians (dasyūnāṁ pratāpena vinivr̥ttaḥ punaḥ prāptaḥ ...). 1 seems to sit well with vyāmugdha-etc, but one would expect a transitive or causative verb, not an intransitive one.
--->
-          <!--
-L12. M reads sukhāśraye.
--->
           <l n="b">vyāmugdha-sarvva-karaṇo<lb n="13"/><seg met="--+-+=">
               <gap quantity="6" reason="lost" unit="character"/>
             </seg><supplied reason="lost">|</supplied></l>
@@ -794,26 +578,14 @@ L12. M reads sukhāśraye.
           <l n="d"><seg met="++-+---">
               <gap quantity="7" reason="lost" unit="character"/>
             </seg> <supplied reason="lost">ca</supplied><unclear>ndra</unclear>masaṁ raṇeṣu||</l>
-          <!--
-L13. M reads the first two fully extant characters as samaṁ. The stone clearly has masaṁ. The traces of the preceding character indicate ndra almost unambiguously, so the restoration candramasaṁ is quite solid.
--->
         </lg>
         <lg met="vasantatilakā" n="32">
           <l n="a">unmārgga-yāna-gamanābhimukhe nr̥-loke</l>
-          <!--
-L13. M prints unmārggayā na gamanābhimukhe. While I don't have a good idea to interpret yāna + gamana, I still feel this analysis is much more likely than a feminine instrumental.
--->
           <l n="b">sad-dharmma-mukti-kaluṣī-kr̥ta-jīva-loke|</l>
           <l n="c">yaḥ kalkali-kṣitipa-candra Iva kṣitīndras</l>
-          <!--
-L13. M says nothing about kalkali. Sircar's commentary says "comparable to the Kālkali king" without further details. The reading is ka, not kā. According to MW, kalkala is the name of a people in the Viṣṇupurāṇa (PWG: the ref is VP 193). There is also a neuter noun kalkana meaning meanness, wickedness. There is an adjective akalkala, apparently a variant of akalkana, meaning not deceitful, honourable. There is an anusvāra-like dot after ka, and a sort of kākapāda sign like ˇ below the baseline between ka and lka. The dot may well be damage (there are many similar ones, though most seem shallower), but the wedge was almost certainly carved. This dot is probably what Sircar saw as an ā, but it is definitely not connected to k. The wedge is above vo in nijaniketamivopanītā in the following line but is less likely to belong to that line. Can kalkali be a variant of Kalki? Or do we assume a hapax kalkalin, from kalkala, meaning deceitful/wicked, and take this to mean that he was like a moon compared to the other kings who are all mean? (This would be very much like what Yaśodharman says about himself.)
--->
           <l n="d">tāruṇya-kāla-vidhureṇa<lb n="14"/><seg met="-+-+=">
               <gap quantity="5" reason="lost" unit="character"/>
             </seg><supplied reason="lost">||</supplied></l>
-          <!--
-L13. Sircar talks about a "reference to the victor's youthfulness", probably because of tāruṇya-kāla in this verse.
--->
         </lg>
         <lg met="vasantatilakā" n="33">
           <certainty locus="value" match="../@met"/>
@@ -849,29 +621,11 @@ L13. Sircar talks about a "reference to the victor's youthfulness", probably bec
           <l n="b"><seg met="++-+---">
               <gap quantity="7" reason="lost" unit="character"/>
             </seg>lopahatāpi la<unclear>kṣ</unclear>mīḥ|</l>
-          <!--
-L14. Before lo, a vertical stroke remains of the top right corner of the previous character. I think the most likely restoration would be ba, pa, ma, sa and perhaps others may also be possible. balopahatā sounds plausible.
--->
-          <!--
-L14. M prints the daṇḍa after lakṣmīḥ as supplied, but it is visible in the rubbing.
--->
           <l n="c">bhrānteva yoṣid avikhaṇḍita-śubbhra-vr̥ttā</l>
-          <!--
-L14. M reads bhrāntaṁ vayo pi bhuvi khaṇḍita-supravr̥ttā, which makes no sense at all. My reading is certain and fits the context perfectly.
--->
           <l n="d">gottrāntarān nija-niketam ivopanītā||</l>
-          <!--
-L14. M reads bhrāntāntarān. Sircar's commentary (this is verse 21 by his [and Mirashi's] count) correctly has gotrāntara. (he probably standardised the spelling).
--->
-          <!--
-L14. M reads ivoparīva at the end of this stanza. My reading is certain, and Sircar's reference to a marriage may mean that he read as I do.
--->
         </lg>
         <lg met="vasantatilakā" n="35">
           <l n="a">yaḥ pauṇḍarīka-savanopagato mahadbhiḥ</l>
-          <!--
-L14. M (p71) says the pauṇḍarīka is an eleven-day soma sacrifice.
--->
           <l n="b">
             <lb n="15"/>
             <seg met="++-+---+--+-+=">
@@ -913,22 +667,10 @@ L14. M (p71) says the pauṇḍarīka is an eleven-day soma sacrifice.
             <unclear cert="low">au</unclear>
           </l>
           <l n="d">vr̥ttāni veda-mahatāṁ pr̥thutām anaiṣīT||</l>
-          <!--
-L15. The character preceding vr̥ may have had an au mātrā; there are traces of a slanted stroke at the top right, and a vertical one to the left of that.
--->
-          <!--
-L15. The halanta T is strange: it looks like a ttta ligature, slightly reduced in size and with a line above. The line is slightly above headline level, the bottom of the lower part is at or just below baseline.
--->
         </lg>
         <lg met="vasantatilakā" n="37">
           <l n="a">lakṣmī-nidhes tridaśa-nātha-samāna-śakter</l>
-          <!--
-L15. M reads lakṣmī-nidhe sthira-mano viṣamāna-śakter, with a bracketed question mark after viṣamāna. Sircar's commentary mentions the king's being "an equal to Indra in power," so he probably read tridaśa-nātha-samāna correctly.
--->
           <l n="b">ddaṇḍānatorjjita-ripu-sthira-dharm<unclear>m</unclear>a-buddheḥ</l>
-          <!--
-L15. No half-verse punctuation mark here.
--->
           <l n="c">yasyādhipatyam avalokya nivr̥tta<lb break="no" n="16"/>-<seg met="+=">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg></l>
@@ -968,24 +710,9 @@ L15. No half-verse punctuation mark here.
           <l n="a"><seg met="++-+---+--">
               <gap quantity="10" reason="lost" unit="character"/>
             </seg> <supplied cert="low" reason="lost">n</supplied><unclear cert="low">ā</unclear>panītā</l>
-          <!--
-L16. Before the first extant character, a vowel mark slanting to top right is visible. It probably belonged to o, since ā is more often horizontal (and angled down), but there are instances of a slanted ā mātrā (e.g. mahatāṁ in l15, prāpte in l18). On the basis of the rest of the verse, nāpanītā may be most likely.
--->
           <l n="b">tejaḥ śaśāṅka-vimalaṁ na yaśo bibheda|</l>
-          <!--
-L16. Given the rest of the verse, 39b is probably to be understood as "His bravery, spotless like the moon, did not outshine (bibheda) his glory."
--->
-          <!--
-L16. The punctuation after 40b is visible in the rubbing though M prints it as supplied.
--->
           <l n="c">jātaṁ mano dyutimato na madāvaliptan</l>
           <l n="d">dharmyā sthitiś ca mahato <supplied reason="subaudible">’</supplied>pi gatā <unclear>na</unclear> nāśaM||</l>
-          <!--
-L16. M reads dhairyyasthitiś.
--->
-          <!--
-L16. M reads (vi)nāśanaM. The character before nā is damaged, but it definitely doesn't have an i mātrā and is almost certainly na. In addition, nāśana is unmetrical and must be a typo in M's edition. The halanta M looks more like a simplified ṣa character, but it must be M. The line above it is slightly above headline height.
--->
         </lg>
         <lg met="vasantatilakā" n="40">
           <certainty locus="value" match="../@met"/>
@@ -1025,32 +752,14 @@ L16. M reads (vi)nāśanaM. The character before nā is damaged, but it definite
           <l n="c"><seg met="++-+---+--">
               <gap quantity="10" reason="lost" unit="character"/>
             </seg>naṁ visr̥ṣṭaṁ</l>
-          <!--
-L17. M reads na visr̥ṣṭa at the beginning of l17, which is unmetrical. The omission of the anusvāras, both of which are clear, may be a typo. There are some traces remaining before naṁ, but I cannot interpret them.
--->
           <l n="d">jāt<unclear>o</unclear> na k<unclear>opa-va</unclear>śa-gaḥ pra<unclear>bhur a</unclear>smi yasmāT||</l>
-          <!--
-L17. M reads kopa-vaśataḥ.
--->
-          <!--
-L17. The halanta T is, like above, in the shape of a tt ligature. The line above it is not discernible here, but there probably was one.
--->
         </lg>
         <lg met="vasantatilakā" n="42">
           <l n="a">tenānurūpa-caritātiśaye<unclear>na</unclear> loke</l>
-          <!--
-L17. M reads tenā(nya)r(ū)pa; tenānurūpa is clear.
--->
           <l n="b">mānuṣyakaṁ samavalokya <unclear>v</unclear>iśīryamāṇa<unclear>M</unclear></l>
-          <!--
-L17. rya consists of r + subscript y.
--->
           <l n="c">lak<unclear>ṣ</unclear>myāś ca citta<lb n="18"/><seg met="--+--+-+=">
               <gap quantity="9" reason="lost" unit="character"/>
             </seg></l>
-          <!--
-L17. M reads vitta at the end of the line. citta is certain.
--->
           <l n="d">
             <seg met="++-+---+--+-+=">
               <gap quantity="14" reason="lost" unit="character"/>
@@ -1079,31 +788,13 @@ L17. M reads vitta at the end of the line. citta is certain.
           <l n="d"><seg met="+++--+-+---+">
               <gap quantity="12" reason="lost" unit="character"/>
             </seg> bh<unclear>o</unclear>gārṇṇavo <supplied reason="subaudible">’</supplied>cīkaraT||</l>
-          <!--
-L18. M's reading for the beginning of l18 is dhārṇṇavo cīkarat. Sircar read the name as bhogārṇṇavo, which is correct (bhāgārṇṇavo may be possible but doesn't sound plausible).
--->
-          <!--
-L18. The halanta T again looks like a tt ligature, with line above.
--->
         </lg>
         <lg met="mandākrāntā" n="44">
           <l n="a">prāpte kāle vakula-kusuma-bhrānta-matta-dvirephe</l>
           <l n="b">dhārā-pāta-kṣubhita-salilāvarttinī<unclear>ṣ</unclear>v <unclear>ā</unclear>pagāsu<unclear cert="low">|</unclear></l>
-          <!--
-L18. M reads salilāvarttinī dvīpagāsu. The writing is damaged but my reading is certain.
--->
-          <!--
-L18. Obscured caesura in salilā-varttinīṣv.
--->
-          <!--
-L18. The punctuation mark after su is faint and possibly it is just damage. If there is no punctuation mark, there still is a space here.
--->
           <l n="c"><unclear>me</unclear>ghānīka-dhvani-parigate <lb n="19"/><seg met="+-++-+=">
               <gap quantity="7" reason="lost" unit="character"/>
             </seg></l>
-          <!--
-L18. M reads - - nāka. meghānīka is certain.
--->
           <l n="d">
             <seg met="++++-----++-++-+=">
               <gap quantity="17" reason="lost" unit="character"/>
@@ -1138,93 +829,30 @@ L18. M reads - - nāka. meghānīka is certain.
             </seg><seg subtype="consonant" type="component">
               <gap quantity="1" reason="illegible" unit="component"/>
             </seg><unclear>ād v</unclear>ikāriṇi jana-ślāghāspade sarvvataḥ|</l>
-          <!--
-L19. M reads only from kāriṇi. I'm quite certain of dvi, though part of d is damaged, and of the subscript v, only the right-hand vertical survives, with a hint of an angle at the bottom. (ddhi is possible but doesn't seem to fit the context) The vestigial ā mātrā before it is faint but very likely.
--->
-          <!--
-L19. M prints sarvvalaḥ, probably a typo. The word is followed by a clear halfverse mark, which M does not print.
--->
-          <!--
-L19. Sircar's understanding of the stanza is that "the king (Kumāravarman) himself placed some one greatly devoted to himself (i.e. Bhogārṇava) who was at first the officer to look after the manufacture of articles and did his job satisfactorily, in charge of dealing with the removal of the bad name attached possibly to Daśapura as a city infested by thieves and robbers." I have no idea where his officer to look after manufacture of articles comes from. Did he read the beginning of the line as [*a]dhikāriṇi? Manufacturing is still in a fog.
--->
           <l n="c">bhakty-āvarjjita-citta-vr̥ttir akarod yatnaṁ kr̥tau svāmino</l>
-          <!--
-L19. I construe bhakti+āvarjjita, but bhaktyā āvarjjita is also possible.
--->
-          <!--
-L19. M reads yuktaṁ for yatnaṁ. What looks a bit like an u attached to dy is in fact part of the subscript n in tna.
--->
-          <!--
-L19. M reads kr̥te. kr̥tau is clear.
--->
           <l n="d">rājñā taskara-duṣṭa-cāṭa-śamane yas sa<unclear>nn</unclear>iyu<unclear>kta</unclear>ḥ s<unclear>vaya</unclear>ṁ||</l>
-          <!--
-L19. The double daṇḍa at the end does not have a hook, it is just a pair of verticals.
--->
         </lg>
         <ab>
           <gap precision="low" quantity="92" reason="lost" unit="character"/>
         </ab>
-        <!--
-L19. On the basis of the estimated size of the lacuna (ca. 92 characters in addition to the missing beginning of v49) I assume a pair of 11-syllable stanzas lost here. Other alternatives are possible, such a single very long stanza (e.g. sragdharā), or a combination of metres e.g. anuṣṭubh and vasantatilakā. Marked up as an anonymous block.
--->
         <lg met="vasantatilakā" n="47">
           <l n="a"><seg met="++-+---+">
               <gap quantity="8" reason="lost" unit="character"/>
             </seg> <unclear cert="low">vyaka</unclear>-sattamena</l>
-          <!--
-L20. Before sa at the beginning of the extant text, ka is damaged but probable (ra is also possible); the preceding character almost certainly has a subscript y and probably a triangular body, most likely v or dh.
--->
-          <!--
-L20. M prints an original punctuation mark after sattamena, but this is a mistake.
--->
           <l n="b">bhogārṇṇava-priyatayābhisamīkṣya pāttraM</l>
-          <!--
-L20. M actually prints bhogīrṇṇava and priyatuyā, both must be typos. also pātraṁ, though pāttram is clear. M may have wanted an anusvāra because he took this to be pāda c of a verse.
--->
           <l n="c">svarggaika-deśa Iva nettra-mano-<supplied reason="subaudible">’</supplied>nu<unclear>kū</unclear>lo</l>
-          <!--
-L20. M reads svargge kaṭāśa Iva temamanena jāle (sic) and prints an original double daṇḍa after his jāle. My reading is certain.
--->
           <l n="d">datto viśāla-yaśase hari<unclear>de</unclear>va<lb break="no" n="21"/>-<seg met="+=">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg><supplied reason="lost">||</supplied></l>
-          <!--
-L20. M reads datte.
--->
-          <!--
-L20. M reads haritā at the end of the line. The last character is clearly va; the preceding one is damaged but looks like d, with traces of an e mātrā. Sircar also read Harideva. (Could this be tied to Harideva of the Tumain inscription? Probably not.)
--->
         </lg>
-        <!--
-L20. Sircar believes that v49 (his v30-31) says Bhogārṇava was "favoured by the king by the creation of the grant of a village or a group of villages for Harideva who was very probably the priest of Bhogārṇava's temple. I don't know where he sees this.
--->
         <ab>
           <gap precision="low" quantity="90" reason="lost" unit="character"/>
         </ab>
-        <!--
-L18. The size of the lacuna must again be about 90 characters in addition to what is missing from the beginning of v50 and the end of v49. Any combination of prose, varṇavr̥tta and mātrāvr̥tta is possible so I mark it up as an anonymous block.
--->
         <lg met="āryā" n="48">
-          <!--
-L21. M identifies the metre as upagīti, which is not possible with his reading bhavyā ca nannatanayena. The whole of the second half and what remains of the first half corresponds to āryā.
--->
           <l n="ab"><gap precision="low" quantity="10" reason="lost" unit="character"/> <unclear>ṣ</unclear><unclear cert="low">ṭ</unclear>ār<unclear>th</unclear>ā bhartry-ananta-tanayena|</l>
-          <!--
-L21. M's reading is bhavyā ca nanna-tanayena, which is impossible. According to Sircar's summary of the closing stanza, "the pūrvā was composed by Lakṣmaṇagupta, son of Bhartr̥ (Bhaṭṭi)-Ananta out of his love for the king." He probably read bhartryananta correctly, but standardised it for his summary. The reading ṣṭārthā is quite certain, though the ṭ is eroded. If correct, this would have been preceded by a single syllable and a caesura before that, e.g. spaṣṭārthā.
--->
-          <!--
-L21. The punctuation after tanayena is strange: there is both a dash and a vertical, forming the top and right side of a box. One or the other of the strokes may be damage. I think the dash is probably engraved. The space after it (assuming the vertical stroke is a scratch) is slightly larger than after other dash punctuation marks.
--->
           <l n="cd"><unclear>l</unclear>akṣmaṇaguptena kr̥tā p<unclear>ū</unclear>rvveyan narapatiprītyā||</l>
         </lg>
         <p>bhartr̥-cella-prakāśa-nāmnā| siddhir astu||<g type="closer"/></p>
-        <!--
-L21. The final punctuation is the normal double hooked vertical.
--->
-        <!--
-L21. The closer symbol is a vertically oriented śaṅkha, with the mouth and peaked edge pointing downward and the apex upward.
--->
       </div>
       <div type="apparatus">
         <listApp>
@@ -1234,7 +862,7 @@ L21. The closer symbol is a vertically oriented śaṅkha, with the mouth and pe
           </app>
         </listApp>
       </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
+      <div source="bib:AuthorYear_01" type="translation"></div>
       <div type="commentary"></div>
       <div type="bibliography">
         <p/>

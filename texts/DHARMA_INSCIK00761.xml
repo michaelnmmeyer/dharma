@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -45,28 +39,18 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p>Long <foreign>ī</foreign> is not distinguished from short <foreign>i</foreign> in this text.<!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <p>Long <foreign>ī</foreign> is not distinguished from short <foreign>i</foreign> in this text.</p>
               <p>The four sides of the possibly square stone are inscribed with one or two lines. The stone has been broken into fragments; only two of them are available to us. The side which is beleived to be complete and the begining of the text is called Face A. Moving in circumambulatory direction, what we call Face B is inscribed with one line of about 12 syllables are partly ligible. The right part of the face is lost. The next side, Face C, is completely lost. Always in anti-circumambulatory direction, the last side, Face D, has two lines. Only the right part is preserved. About 15 syllables in each line are partly legible.</p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -100,7 +84,7 @@
       <div type="edition" xml:lang="san-Latn">
         <div n="A" type="textpart">
           <head xml:lang="eng">Top</head>
-          <p><!-- <milestone type="pagelike" unit="face" n="A"/> -->
+          <p>
                       <lb n="1"/><g type="spiralR">.</g> <num value="555">555</num> śaka</p>
         </div>
         <div n="B" type="textpart">
@@ -121,18 +105,15 @@
             </l>
           </lg>
           <lg met="anusṭubh" n="2">
-            <l n="a"><lb n="A2"/><unclear>gaṅgādh</unclear><!--</seg>-->r̥taḥ prāgdiśi yo</l>
+            <l n="a"><lb n="A2"/><unclear>gaṅgādh</unclear>r̥taḥ prāgdiśi yo</l>
             <l n="b">'sti simā tatākayujaṁ</l>
             <l n="c"><unclear>me namo</unclear> yama/isyāṁ <unclear cert="low">A</unclear>syā<unclear cert="low">ṁ</unclear></l>
-            <!-- sīmoya? sīmāya? -->
             <l n="d">praticyāṁ p<choice>
                 <orig>ra</orig>
                 <reg>r̥</reg>
               </choice>thu-mā<unclear>rgge</unclear>na</l>
-            <!-- should be pratīcyāṁ, no? prathu-mā(rgge)na -->
           </lg>
           <lg met="anusṭubh" n="3">
-            <!-- the metrical structure is extremely uncertain here -->
             <l n="a">
               <milestone n="b" type="pagelike" unit="face"/>
               <lb n="b1"/>
@@ -158,7 +139,6 @@
               </seg>ra <gap quantity="1" reason="lost" unit="character"/>ndāmi vr̥taḥ Udicyā<seg met="+-+">
                 <gap quantity="3" reason="illegible" unit="character"/>
               </seg></l>
-            <!-- % Le caractère qui suit vr̥ta° est complexe; on peut peut-être lire ñca ou ñcā. GC -->
           </lg>
           <lg met="anuṣṭubh" n="4">
             <milestone n="C" type="pagelike" unit="face"/>
@@ -212,11 +192,8 @@
                 <orig>ā</orig>
                 <reg>a</reg>
               </choice>rkendū</l>
-            <!-- or just yātanā? -->
             <l n="d">kalpanā hāpnuyā<add place="above">nāḥ</add></l>
-            <!-- kalpanā[m i]hā -->
           </lg>
-          <!-- % ($spiralR sa)rvveṣu: - - rmmeṣu GC. -->
         </div>
       </div>
       <div type="apparatus">

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -45,18 +39,13 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
@@ -99,7 +88,7 @@
         <p><milestone n="A" type="pagelike" unit="face"/><lb n="A1"/><g type="dandaOrnate"/><g type="ddandaHooked"/> śrīy<choice>
             <orig>a</orig>
             <reg>·</reg>
-          </choice> <!--sapi2argr À moins que "īy" soit à considérer comme un redoublement de "voyelles" --> s<choice>
+          </choice>  s<choice>
             <sic>a</sic>
             <corr>i</corr>
           </choice>ddh<choice>
@@ -124,7 +113,7 @@
 <lb n="A22"/>vraḥ <unclear>kralā Arccana nu</unclear> karmmāntara yā<space type="descender"/>vat· vraḥ
 <lb n="A23"/>candrāditya mān· <supplied reason="lost">dau vvaṁ</supplied> Āc ti mān nā svatantra
 <lb n="A24"/>ta <space type="descender"/> dai ti <supplied reason="lost">leṅ khloñ· khmuk·</supplied> vraḥ <supplied reason="lost">kralā</supplied> Arccaṇa
-<lb n="A25"/>nu khloñ· <supplied reason="lost">karmmāntara pradvān· dau <g type="dotMid"/><!-- Ici le texte est complètement illisible. Cependant, Cœdès, qui a eu accès à une version mieux conservée de l'inscription (cf commentary), semble y avoir discerné un glyph, qu'il a mis entre crochets. J'ai donc conservé sa lecture tout en inscrivant "supplied".--> nau rūpa paṁ</supplied>nvās·
+<lb n="A25"/>nu khloñ· <supplied reason="lost">karmmāntara pradvān· dau <g type="dotMid"/> nau rūpa paṁ</supplied>nvās·
 <lb n="A26"/>ta mān· vi<supplied reason="lost">dyā nu śila nu Ācāra phoṅ· re</supplied>s·
 <lb n="A27"/>ta neḥ varṇṇa <supplied reason="lost">ta vyar·</supplied> gi ta <supplied reason="lost">Ac cval jā</supplied> Ā<milestone n="B" type="pagelike" unit="face"/><lb break="no" n="B1"/>cāryya<supplied reason="lost">homa</supplied> Ācāryya caturācāryya pradhā<lb break="no" n="B2"/>na <g type="dotMid"/> nau <unclear>Aṁpalla</unclear> <supplied reason="lost">ku</supplied>le ta strī<space type="descender"/>jana Oy ta qnak ta U<lb break="no" n="B3"/>ttama pi śivabhakti <g type="dotMid"/> <space/> vvaṁ Āc ti qnak· ta hīnajāti yo<lb break="no" n="B4"/><supplied reason="lost">k· dau</supplied> p<choice>
             <sic>a</sic>
@@ -201,7 +190,7 @@
 <lb n="D7"/>teṅ<supplied reason="lost">·</supplied> mās·
 <lb n="D8"/>teṅ· des·
 <lb n="D9"/>teṅ· pau
-<lb n="D10"/>teṅ· lyaṅ· <!--sapi2argr Ici, ni Cœdès, ni Dominique Soutif ne semblent avoir pu donner une lecture de ce dernier terme. Je ne suis donc pas certaine de la mienne. -->
+<lb n="D10"/>teṅ· lyaṅ· 
 <lb n="D11"/>teṅ· <space type="descender"/> vrā
 <lb n="D12"/>teṅ· vai
 <lb n="D13"/>teṅ qyak·
@@ -307,7 +296,6 @@
           <bibl>
             <ptr target="bib:Finot1915_01"/>
             <citedRange unit="volume">15</citedRange>
-            <!--sapi2argr Ici, il s'agit du volume XV, n°2. Dois-je préciser le "2", et si oui, comment ? -->
             <citedRange unit="page">25</citedRange>
           </bibl>
         </listBibl>

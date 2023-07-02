@@ -1,7 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_DiplEDSchema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_DiplEDSchema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -33,7 +29,6 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- Give your witness an unique identifier -->
         <msDesc>
           <msIdentifier>
             <settlement>Bhubaneswar</settlement>
@@ -41,20 +36,12 @@
             <repository>Palmleaf Manuscripts</repository>
             <idno>Dh/95</idno>
           </msIdentifier>
-          <!-- the msContents isn't mandatory
-                                <msItem>
-                                    <author>Śāntarakṣita</author>
-                                    <title>Vipañcitārthā</title>
-                                </msItem>
-                            </msContents> -->
           <physDesc>
             <objectDesc>
-              <!-- Here you can give a physical description of the manuscript in prose-->
               <p>Palm-leaf manuscript. 167 leaves in Oriya script. Apparently written in ... CE.</p>
             </objectDesc>
           </physDesc>
           <history>
-            <!-- Here you can decribe the history of the manuscript in prose. Use <origDate> and <origPlace> to emphasize the place and date of creation -->
             <p>Purchased in 1956 from a certain Narasingha Misra.</p>
           </history>
         </msDesc>
@@ -62,12 +49,9 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <!-- Part mandatory -->
         <p>This project has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
-        <!-- Optionally add here a second <p> to describe the specifics of the subproject that has led to this edition. -->
       </projectDesc>
       <editorialDecl>
-        <!-- As stated in the EGC, this element shall be used only if your edition follows principles that are different from or more fine-grained than those established in the project's guides. Among the following elements, you may keep only the ones your need for your edition. If you use one, its contents must be contained in at least one <p> of free text. If you don't need any <editorialDecl> at all, you may eventually remove this entire section of the file. -->
         <correction>
           <p/>
         </correction>
@@ -79,29 +63,18 @@
         </punctuation>
       </editorialDecl>
       <samplingDecl>
-        <!-- To be kept only to explain in prose the method to choose the corpus, e.g. ommission of the material ...-->
         <p/>
       </samplingDecl>
-      <!--schemaRef  will need to be added once a  official realase is done -->
-      <!-- variantEncoding is a  mandatory element. You have to select one of the two solutions given in DHARMA depending how you chave chosen to encode your apparatus. If inline, select @method="parallel-segmentation" as per section §5 of EGC, but if you are encoding your apparatus after any section, mostly being stanza, use  @method="location-referenced".
-
-			<variantEncoding method="parallel-segmentation" location="internal"/>
-			<variantEncoding method="location-referenced" location="internal"/>.
-
-			Note that the current by default behaviour is set on parallel-segmentation -->
       <variantEncoding location="internal" method="parallel-segmentation"/>
     </encodingDesc>
     <profileDesc>
       <langUsage>
-        <!-- choose the language(s) of your text, remove the others -->
         <language ident="san-Latn">Sanskrit, romanized</language>
         <language ident="ori-Latn">Oriya, romanized</language>
       </langUsage>
       <textClass>
         <keywords>
-          <!-- In due course we will can use this element to declare keywords as <term>s, but at the moment please ignore <keywords>  -->
           <term/>
-          <!-- Ignore this element for the time being. -->
         </keywords>
       </textClass>
     </profileDesc>
@@ -112,12 +85,12 @@
   <text xml:lang="san-Latn" xml:space="preserve">
     <body>
       <div>
-        <ab><!-- beginning of diplomatic edition -->
+        <ab>
  <pb n="153r"/>
-<!-- image00124  -->
+
     <lb n="153r1"/>yaẏa punarāgamanāya ca|| Om̐ namo Anantāẏa svasthānaṁ gacha|| kalaśadevatāsvasthānaṁ gacha|| pīṭhadevatāsvasthānaṁ gacha|| varddhinyāẏaisvasthānaṁ gacha|| pārśvadevatāsvasthānaṁ gacha|| va<unclear>stravi</unclear>bhyo svasthānaṁ gacha|| Om̐ Agnidevatāsvasthānaṁ gacha|| kalaśe caturdaśadevatāṁsvasthānaṁ gacha|| navaśaktisvasthānaṁ gaccha|| Indrādibhyo svasthānaṁ gacha|| viśvaksenāya svasthānaṁ gacha|| ghaṭadevatāvisarjanaṁ|| <g type="floret"/> || tata Ācāryaṁ Āsanād dvigandapu
 <lb break="no" n="153r2"/>ṣpādibhiḥ vastrayugmakuṇḍalamudrikābhiḥ saṁpūjya|| || Anantasvasthānaṁ gacha|| Iti sapuṣpābhyāṁ hastābhyāṁ  <space type="binding-hole"/> deviṁ dhyāẏan·|| dakṣiṇanāsāpuṭena hr̥tpadmaṁ naẏet·|| || saṁhāramudrāṁ darśaẏitvā|| sa
-<lb break="no" n="153r3"/>māpinī<damage>m</damage>u<damage>d</damage>ra<damage>ẏ</damage>ā namaskuryāt·||
+<lb break="no" n="153r3"/>māpinī<damage>m</damage>u<damage>d</damage>ra<damage>ẏ</damage>ā namaskuryāt·|| 
 <foreign xml:lang="ori-Latn">vāmadakṣiṇa ducci hastapr̥ṣṭha duhe Ekatra karitāṅgu<add place="below">ḷi</add>mānaṅkuṁ paraspare yo<space type="binding-hole"/>ṛi kari yugaḷa khiva|| namaskāra kariva|| Ehi samāpinīmudrā helā||</foreign> || vaḷir vibhīṣaṇo bhī<del rend="strikeout">sma</del>
 <lb break="no" n="153r4"/>ṣmaḥ pra<unclear>drācadāma</unclear>raḥ dā'rśunaḥ|| kapiḷaś <damage>c</damage>ām<damage>v</damage>arīṣaś ca vasurdāyusutaḥ śivaḥ|| viśvakseno dhruvo krūraḥ sanakādyāsurarṣayaḥ|| prasādaṁ vāsudevasya sarve gr̥hṇantu vaiṣṇavāḥ|| Iti mantreṇa prasādaṁ bhūmau
 <pb n="153v"/><fw n="153v" place="left">
@@ -126,7 +99,7 @@
             <num value="153">153</num>
           </fw>
 <lb n="153v1"/>kṣipya|| Om̐ śrī<unclear>ś</unclear> ca <unclear>ta</unclear>c ca lakṣmīś ca patnyārṣahorātre pārśvena yatrāṇirūpamaśvinau vyāttaṁ|| Iṣṇaṁ niśāśāmumma Iṣāṇaḥ sarvalokaṁ ma Iṣāṇa|| Iti svaśirasi nirmālyagrahaṇaṁ|| pūrvavac ca Ācāryaṁ gandhapuṣpādibhi
-<lb n="153v2"/>saṁpūjya <gap quantity="1" reason="illegible" unit="character"/>sa<unclear>na</unclear>ṁ vadāmi vadiṣya|| pādāsana Arccya|| gandha<supplied reason="omitted">pu</supplied>ṣpaṁ datvā|| pūrvokta Anantapratimāṁ dadyāt·|| yugmavastraṁ dadyāt·|| kuṇḍaḷamudrikāṁ dadyāt·|| dhenudakṣiṇāṁ dadyāt·|| vrāhmaṇaṁ vada<unclear>nt</unclear>u svasti <num value="3">3</num>|| <foreign xml:lang="ori-Latn">Āgare
+<lb n="153v2"/>saṁpūjya <gap quantity="1" reason="illegible" unit="character"/>sa<unclear>na</unclear>ṁ vadāmi vadiṣya|| pādāsana Arccya|| gandha<supplied reason="omitted">pu</supplied>ṣpaṁ datvā|| pūrvokta Anantapratimāṁ dadyāt·|| yugmavastraṁ dadyāt·|| kuṇḍaḷamudrikāṁ dadyāt·|| dhenudakṣiṇāṁ dadyāt·|| vrāhmaṇaṁ vada<unclear>nt</unclear>u svasti <num value="3">3</num>|| <foreign xml:lang="ori-Latn">Āgare 
 <lb n="153v3"/>lekhā Achi puṇyāhavācanaṁ||</foreign> Āśīrvādaḥ|| tataḥ caturdaśavrāhmaṇabhojanaṁ|| vrāhmaṇabhojanā<space type="binding-hole"/>nantaraṁ tebhyo vrāhmaṇebhyo caturdaśakalaśān· phaḷayajñopavītadakṣiṇāsahitān· da
 <lb break="no" n="153v4"/>dyāt·|| <g type="floret"/>|| yathāśaktivrāhmaṇabhojanaṁ|| <foreign xml:lang="ori-Latn">kichi nohile caturdaśavrāhmaṇabhojana niścaẏa karāIba||</foreign> svaẏaṁ vandubhi saha Ekaṁ pūpaṁ bhuñjīta|| <g type="floret"/>|| Ity anantaUdyāpanavidhiḥ samāptaṁ|| <g type="floret"/>|| govindaratha
 <lb n="153v5"/>śarmāvrāhmaṇapustaka Udyāpanavidhi va<unclear>hu</unclear>saṁgrahe likhitaṁ|| <g type="floret"/> <g type="beast"/> <g type="beast"/> <g type="beast"/>|| <add place="below">Indriyasparśaḥ||</add> <foreign xml:lang="ori-Latn">prathamare</foreign> ghaṇṭāsaṁskāraḥ|| Āsanaśuddhi bhūtaśuddhi praṇava|| mātr̥kā|| vaR̥
@@ -140,7 +113,7 @@
           </fw><fw n="154v" place="right">
             <num value="154">154</num>
           </fw>
-    <lb n="154v1"/><!-- elements of Anantapūjā continue -->
+    <lb n="154v1"/>
     <lb n="154v5"/>... Ity ananta Udyā<supplied reason="omitted">pa</supplied><add place="below">na</add>vidhi sa<supplied reason="omitted">mā</supplied>ptaṁ||
 <pb n="155r"/>
     <lb n="155r1"/>Atha somanāthavratapūjā likhyate|| prathamataḥ vaR̥ṇapūjā

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -45,28 +39,18 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
               <p>There is a carving of lotus on the top of the stela with a line of decorative flowers. The letters of the first three lines are bigger than the rest.
-                        <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+                        </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -106,7 +90,7 @@
    <lb n="3"/><unclear>sr</unclear><supplied reason="lost">e</supplied> stuk· kan·lāṅ· sre kloñ· naṁ sre jnaṅ· taṁve mo <gap quantity="3" reason="lost" unit="character"/>
    <lb n="4"/><unclear>sr</unclear><supplied reason="lost">e</supplied> Ai trava<supplied reason="omitted">ṅ</supplied>· kurāk· sre teṁ Agasti Ai ta kpoñ· stau doṅ· vraḥ kaṁmra<supplied reason="lost">tāṅ·</supplied> <gap quantity="3" reason="lost" unit="character"/>
    <lb n="5"/>puṇya A<unclear>j</unclear>ī poñ· tāṅ· vraḥ śrī gaṇapat<unclear>ī</unclear> puṇya poñ· vrahmakumā<supplied reason="lost">ra</supplied> <gap quantity="3" reason="lost" unit="character"/>
-   <lb n="6"/>sre Aṁnoy· ta vraḥ tṅai luc· vraḥha sre travaṅ· kandin· sre jnaṅ· pnā <gap quantity="1" reason="lost" unit="character"/> <supplied reason="lost">poñ vrahma</supplied>ku<lb break="no" n="7"/>māra doṅ· ge kñuṁma tel· poñ· Oy· ta vraḥ kaṁmratāṅ· Añ· śrī ganapatī <gap quantity="3" reason="lost" unit="character"/>
+   <lb n="6"/>sre Aṁnoy· ta vraḥ tṅai luc· vraḥha sre travaṅ· kandin· sre jnaṅ· pnā <gap quantity="1" reason="lost" unit="character"/> <supplied reason="lost">poñ vrahma</supplied>ku<lb break="no" n="7"/>māra doṅ· ge kñuṁma tel· poñ· Oy· ta vraḥ kaṁmratāṅ· Añ· śrī ganapatī <gap quantity="3" reason="lost" unit="character"/> 
    <lb n="8"/>ge kñuṁ poñ· tāṅ· tel· Oy· ta vraḥ svayaṁbhu ge vraḥ phoṅ· te<unclear>l·</unclear> <gap quantity="3" reason="lost" unit="character"/>
    <lb n="9"/>kaṁmratāṅ· Añ· śrī jayahvarmma Oy· ta poñ· Īśvaracita nu poñ· paṁ<supplied reason="lost">re ta gi pramatha</supplied><lb break="no" n="10"/>gaṇa ge ta dap· gi ge ta pre roḥ gi ge ta cer· Ājñā vraḥ kaṁmratāṅ· Añ· <supplied reason="lost">ge daṇḍa</supplied>
    <lb n="11"/>mratāñ· kuruṅ· vikramapura pre mratāñ· kloñ· rājagraha caṁ<gap extent="unknown" reason="lost" unit="character"/>
@@ -123,10 +107,7 @@
           </app>
         </listApp>
       </div>
-      <!--<div type="translation">
- 	<!-\-translation encoded as per EG §9.2 -\->
-         </div>-->
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="commentary"></div>
       <div type="bibliography">
         <p>First edited by George Cœdès (<bibl rend="omitname">
             <ptr target="bib:Coedes1937-1966_01"/>

@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -45,23 +39,18 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. -->
-The script, hardly anywhere nicely preserved in this inscription, is the form of Late Northeastern Brāhmī typical for inscriptions issued in Bengal during the reign of Śaśāṅka. However, one exceptional aspect of the script observed on this plate is its repeated use of the <foreign>upadhmānīya</foreign> and <foreign>jihvāmūlīya</foreign> signs, that we have not found so far in other inscriptions of early Bengal.<!--Alas, the plate’s poor state of physical preservation does not allow us to be entirely sure of the precise shapes of the signs in this scribe’s hand, but the traces that remain (see figure 1) are compatible with some of the shapes shown in Singh 1991, plate 178. We would not, out of context, have been able to distinguish jihvāmūlīya fron ṅ, and yet the akṣaras that we read ḫku (twice in line 8, once in line 11) show an upper part clearly distinct from the shape of ṅ in śaśāṅka (line 6). --></p>
+              <p>
+The script, hardly anywhere nicely preserved in this inscription, is the form of Late Northeastern Brāhmī typical for inscriptions issued in Bengal during the reign of Śaśāṅka. However, one exceptional aspect of the script observed on this plate is its repeated use of the <foreign>upadhmānīya</foreign> and <foreign>jihvāmūlīya</foreign> signs, that we have not found so far in other inscriptions of early Bengal.</p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -152,17 +141,12 @@ The script, hardly anywhere nicely preserved in this inscription, is the form of
                 </choice>kā</orig>
               <reg>varṣikā</reg>
             </choice>
-<!-- four encoding choices:
-1. pāñcavarṣ<choice><orig>aI</orig><reg>ayi</reg></choice>kā (plus a note)
-2. pāñcavarṣ<choice><orig>aI</orig><reg>i</reg></choice>kā (plus a note explaining that aI is probably a non-standard way of writing the non-standard form with ayi)
-3. pāñca<choice><orig>varṣ<choice><sic>aI</sic><corr>ayi</corr></choice>kā</orig><reg>varṣikā</reg></choice>
-4. pāñcavarṣ<choice><sic>aI</sic><corr>i</corr></choice>kā
- --> Ity ābhis sīmābhir viṅśatik<unclear>ā</unclear>rṣāpaṇyabh<unclear>o</unclear>gādā<unclear>na</unclear>m upa<unclear>lavdha</unclear>n tattra na kena <choice>
+ Ity ābhis sīmābhir viṅśatik<unclear>ā</unclear>rṣāpaṇyabh<unclear>o</unclear>gādā<unclear>na</unclear>m upa<unclear>lavdha</unclear>n tattra na kena <choice>
               <orig>
                 <unclear>cc</unclear>
               </orig>
               <reg>c</reg>
-            </choice>it svalp<unclear>āpy ā</unclear>vādhā
+            </choice>it svalp<unclear>āpy ā</unclear>vādhā 
 <lb n="18"/><unclear>bhāvyā</unclear></p>
           <p>kāraṇaṁ</p>
           <lg met="anuṣṭubh" n="1">
@@ -201,7 +185,7 @@ The script, hardly anywhere nicely preserved in this inscription, is the form of
                   <ptr target="bib:Griffiths2015_02"/>
                   <citedRange unit="page">35</citedRange>
                   <citedRange unit="note">24</citedRange>
-                </bibl> and on the seal of  the <ref target="tfbBengalCharters00069.xml">Tipperah plate of Lokanātha</ref><!-- (Basak 1919–20: 302)-->.</note>
+                </bibl> and on the seal of  the <ref target="tfbBengalCharters00069.xml">Tipperah plate of Lokanātha</ref>.</note>
             </app>
           </listApp>
         </div>
@@ -217,7 +201,7 @@ The script, hardly anywhere nicely preserved in this inscription, is the form of
                   <sic>thīyā</sic>
                   <corr>thyā</corr>
                 </choice>ḫ prāk-</lem>
-              <note>The assumption of an akṣara <foreign>ḫprā</foreign>, with the <foreign>upadhmānīya</foreign> sign which is not otherwise attested in the epigraphy of Bengal, admittedly lends a tentative character to our choice of reading and interpretation. However, there are two cases of <foreign>ḫpā</foreign> in the <!-- argr: value of target to be filled in when the Śailodbhava inscriptions will have been encoded. --><ref target="...">Ganjam plates</ref> dated to the reign of Śaśāṅka, from Southern Orissa, lines 5 and 17.</note>
+              <note>The assumption of an akṣara <foreign>ḫprā</foreign>, with the <foreign>upadhmānīya</foreign> sign which is not otherwise attested in the epigraphy of Bengal, admittedly lends a tentative character to our choice of reading and interpretation. However, there are two cases of <foreign>ḫpā</foreign> in the <ref target="...">Ganjam plates</ref> dated to the reign of Śaśāṅka, from Southern Orissa, lines 5 and 17.</note>
             </app>
             <app loc="3">
               <lem>nimn<orig>
@@ -256,9 +240,9 @@ The script, hardly anywhere nicely preserved in this inscription, is the form of
                     <unclear>cc</unclear>
                   </orig>
                   <reg>c</reg>
-                </choice>it svalp<unclear>āpy ā</unclear>vādhā
+                </choice>it svalp<unclear>āpy ā</unclear>vādhā 
 <lb n="18"/><unclear>bhāvyā</unclear></lem>
-              <note>It seems the engraver has written <foreign>ccit</foreign> rather than expected <foreign>cit</foreign>. For similar phraseology, from the Licchavi corpus, closely related to Śaśāṅka in time and place, we may cite the <!-- argr: value of target to be filled in when the Licchavi inscriptions will have been encoded for DHARMA. --><ref target="...">Ādi-Nārāyaṇa Temple Inscription of Thankot</ref><!--Regmi 1983, vol. I, no. 20--> (lines 20–21, 25–27): <foreign>na kena cid asmat-pādopajīvinā svalpāpy ābādhā kartavyā <gap reason="ellipsis"/> ye ’py āgāmino rājāno ’smad-vaṁśyā bhaviṣyanti te ’py enām asmad-dattām bhūmim anumoditum arhanti yatkāraṇaṁ bahubhir vvasudhā <gap reason="ellipsis"/></foreign>; and the <!-- argr: value of target to be filled in when the Licchavi inscriptions will have been encoded for DHARMA. --><ref target="...">Luñjhya (Patan Palace) Inscription</ref> <!--(Regmi 1983, vol. I, no. 116,--> lines 12–13): <foreign>alpāpi bādhā na kāryā</foreign>.  Cf. also <foreign>na kena cid vādhā kāraṇīyā</foreign> in the <!-- argr: value of target to be filled in when these northern Orissa inscriptions will have been encoded for DHARMA. --><ref target="...">Soro plate of Bhānu, year 5</ref> <!--(Majumdar 1935–36: 203)--> (line 12).  In view of these and numerous other parallels, the gerundive <foreign>bhāvyā</foreign> is surprising in our context. But it is impossible to read either <foreign>kāry(y)ā</foreign> or <foreign>kart(t)avyā</foreign>, whereas <foreign>bhāvyā</foreign> seems a permissible reading.</note>
+              <note>It seems the engraver has written <foreign>ccit</foreign> rather than expected <foreign>cit</foreign>. For similar phraseology, from the Licchavi corpus, closely related to Śaśāṅka in time and place, we may cite the <ref target="...">Ādi-Nārāyaṇa Temple Inscription of Thankot</ref> (lines 20–21, 25–27): <foreign>na kena cid asmat-pādopajīvinā svalpāpy ābādhā kartavyā <gap reason="ellipsis"/> ye ’py āgāmino rājāno ’smad-vaṁśyā bhaviṣyanti te ’py enām asmad-dattām bhūmim anumoditum arhanti yatkāraṇaṁ bahubhir vvasudhā <gap reason="ellipsis"/></foreign>; and the <ref target="...">Luñjhya (Patan Palace) Inscription</ref>  lines 12–13): <foreign>alpāpi bādhā na kāryā</foreign>.  Cf. also <foreign>na kena cid vādhā kāraṇīyā</foreign> in the <ref target="...">Soro plate of Bhānu, year 5</ref>  (line 12).  In view of these and numerous other parallels, the gerundive <foreign>bhāvyā</foreign> is surprising in our context. But it is impossible to read either <foreign>kāry(y)ā</foreign> or <foreign>kart(t)avyā</foreign>, whereas <foreign>bhāvyā</foreign> seems a permissible reading.</note>
             </app>
             <app loc="20">
               <lem>
@@ -278,31 +262,27 @@ The script, hardly anywhere nicely preserved in this inscription, is the form of
             <foreign>maṅgala</foreign>
           </supplied> and longevity <supplied reason="explanation">
             <foreign>āyus</foreign>
-          </supplied> that prosper during a full hundred years, who was, like the king of the gods <supplied reason="explanation">i.e., Indra</supplied>, self-installed as cause of the taming of the five classes and life-stages of the Brahmins, Kṣatriyas, Vaiśyas, Śūdras, and so on, on the earth that is surrounded, as it were, by a girdle <supplied reason="subaudible">formed</supplied> by the four great oceans, whose decorations are conches, wish-jewels and pearls, that are <gap reason="lost"/><!-- argr: "illegible" would correspond better to our edition -->; <supplied reason="subaudible">on the earth</supplied> that is beautified by the three great peaks, <supplied reason="subaudible">namely</supplied> the Himavant, the Vindhya and Kailāsa, and additionally beautified by the rivers spreading out everywhere to the East and West of the Bhāgīrathī <supplied reason="explanation">i.e., the Ganges</supplied>, which removes the suffering of reincarnation <supplied reason="subaudible">that consists in</supplied> birth, aging, death, fear and sorrow.</p>
+          </supplied> that prosper during a full hundred years, who was, like the king of the gods <supplied reason="explanation">i.e., Indra</supplied>, self-installed as cause of the taming of the five classes and life-stages of the Brahmins, Kṣatriyas, Vaiśyas, Śūdras, and so on, on the earth that is surrounded, as it were, by a girdle <supplied reason="subaudible">formed</supplied> by the four great oceans, whose decorations are conches, wish-jewels and pearls, that are <gap reason="lost"/>; <supplied reason="subaudible">on the earth</supplied> that is beautified by the three great peaks, <supplied reason="subaudible">namely</supplied> the Himavant, the Vindhya and Kailāsa, and additionally beautified by the rivers spreading out everywhere to the East and West of the Bhāgīrathī <supplied reason="explanation">i.e., the Ganges</supplied>, which removes the suffering of reincarnation <supplied reason="subaudible">that consists in</supplied> birth, aging, death, fear and sorrow.</p>
         <p n="6-10">On this day, in this month and year, the <foreign>antaraṅga</foreign> <supplied reason="subaudible">called</supplied> Nāgabhaṭagomin, son of Rādhā, addressed the <foreign>kuṭumbin</foreign>s residing in Meḍḍakhāta, together with the office <supplied reason="explanation">of the princely advisor</supplied>, <supplied reason="subaudible">namely</supplied> the <foreign>mahāpradhāna</foreign> Rāmaprabhu, the <foreign>mahāmahattara</foreign>s Virahadeva, Kaṣkuka, Yajñuka, Vappuka, Vicitra, Udayadagdha, Guṇadāsa, Vargapāla, Uṣṭhita, etc.: <q>By your kindness, I wish to carry out some meritorious work <supplied reason="explanation">
               <foreign>śreyas</foreign>
             </supplied></q>. He was addressed by them: <q>Please do as said!</q></p>
         <p n="10-15">Therefore, with a view to the assent from the <foreign>nau-mahattara</foreign> <supplied reason="subaudible">and</supplied> <foreign>bhogapatika</foreign> <supplied reason="subaudible">named</supplied> Vidagdha, he purchased from these residents, together with the office, the village, which needed to be ascertained as waste <supplied reason="subaudible">land</supplied>, called Kumudavillikā, for eighty <foreign>kārṣāpaṇa</foreign>s, and, after duly gratifying them with garments, food and beverages, gave it to the noble Brahmins of the Kāṇva School, of various <foreign>gotra</foreign>s, steeped in ascetic practice and study, led by Yogeśvara, that is: Śrī Yogeśvara, of the Bharadvājagotra; Surabhisvāmin, of the Kātyāyanagotra; Dāmayaśasvāmin, Gotrayaśasvāmin, and Rājñayaśyasvāmin of the Maudgalyagotra; Mādhavasvāmin of the Dhanañjayagotra; Līlasvāmin of the Bharadvājagotra; Rudrasvāmin of the <gap reason="lost"/> <foreign>gotra</foreign>; Bhogayaśasvāmin, Vidagdhasvāmin and Budhasvāmin — <supplied reason="subaudible">he gave it</supplied> to them by way of edict in copper.</p>
-        <p n="15-18">It boundary to the east is Suktravarddhārṣaka, to the south <gap reason="lost"/><!-- argr: "illegible" would correspond better to our edition -->, to the west Gomayakhaṇḍa, to the north Śākrārṣāvakratāyā. And <supplied reason="subaudible">based on the finding</supplied> that they are quinquennial, with these boundaries a revenue entitlement worth twenty <foreign>kārṣāpaṇa</foreign>s was obtained. No one should make even a small encroachment upon it.</p>
+        <p n="15-18">It boundary to the east is Suktravarddhārṣaka, to the south <gap reason="lost"/>, to the west Gomayakhaṇḍa, to the north Śākrārṣāvakratāyā. And <supplied reason="subaudible">based on the finding</supplied> that they are quinquennial, with these boundaries a revenue entitlement worth twenty <foreign>kārṣāpaṇa</foreign>s was obtained. No one should make even a small encroachment upon it.</p>
         <p n="18">The reason is:</p>
         <p n="1" rend="stanza">By numerous <supplied reason="subaudible">kings</supplied>, land has been given; and by many it has been protected. Whoever holds land at a given moment, to him does the fruit then belong.</p>
         <p n="2" rend="stanza">The giver of land resides sixty thousand years in heaven; the one who challenges <supplied reason="subaudible">a donation</supplied> as well as the one who approves <supplied reason="subaudible">of the challenge</supplied> will reside as many <supplied reason="subaudible">years</supplied> in hell.</p>
         <p n="3" rend="stanza">The one who would steal land given by himself or another becomes a worm in his own excrement and is cooked with his ancestors.</p>
       </div>
       <div type="commentary">
-        <p>The use of the word <foreign>kāraṇaṁ</foreign> in line 18 to introduce the traditional admonitory stanzas is also found in the <ref target="BengalCharters00066.xml">Asiatic Society grant of Bhavadeva, year 2</ref><!--(Sircar 1951: 94) --> (line 61).</p>
+        <p>The use of the word <foreign>kāraṇaṁ</foreign> in line 18 to introduce the traditional admonitory stanzas is also found in the <ref target="BengalCharters00066.xml">Asiatic Society grant of Bhavadeva, year 2</ref> (line 61).</p>
       </div>
       <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
         <p>Previously unpublished. Edited here from photographs and RTIs by Ryosuke Furui &amp; Arlo Griffiths.</p>
         <listBibl type="primary">
           <bibl/>
-          <!-- one <bibl/> per item of primary bibliography -->
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

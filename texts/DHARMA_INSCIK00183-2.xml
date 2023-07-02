@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -53,27 +47,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -84,7 +68,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -105,16 +88,16 @@
            <lb n="1"/><unclear>sru</unclear>k· bhavā <gap precision="low" quantity="5" reason="illegible" unit="character"/> <gap precision="low" quantity="8" reason="lost" unit="character"/>
            <lb n="2"/><gap precision="low" quantity="8" reason="illegible" unit="character"/><gap precision="low" quantity="8" reason="lost" unit="character"/>
            <lb n="3"/><gap precision="low" quantity="8" reason="illegible" unit="character"/><gap precision="low" quantity="8" reason="lost" unit="character"/>
-           <lb n="4"/><num value="2">2</num><!-- sapi2argr Le 2 est unclear. --> tai <num value="12">10<num value="2">2</num></num><!-- sapi2argr Le 2 est unclear --> <gap precision="low" quantity="5" reason="illegible" unit="character"/><gap precision="low" quantity="8" reason="lost" unit="character"/>
+           <lb n="4"/><num value="2">2</num> tai <num value="12">10<num value="2">2</num></num> <gap precision="low" quantity="5" reason="illegible" unit="character"/><gap precision="low" quantity="8" reason="lost" unit="character"/>
            <lb n="5"/><gap quantity="2" reason="illegible" unit="character"/> sru<supplied reason="lost">k·</supplied> <gap quantity="4" reason="illegible" unit="character"/>ṅ· si ta <gap precision="low" quantity="8" reason="lost" unit="character"/>
-           <lb n="6"/><num value="4">4</num> tai <gap quantity="4" reason="illegible" unit="character"/> s<supplied reason="lost">i</supplied> <num value="10">10</num><!-- sapi2argr le 10 est unclear --> <supplied reason="lost">g</supplied>v<supplied reason="lost">al·</supplied> <gap precision="low" quantity="7" reason="lost" unit="character"/>
+           <lb n="6"/><num value="4">4</num> tai <gap quantity="4" reason="illegible" unit="character"/> s<supplied reason="lost">i</supplied> <num value="10">10</num> <supplied reason="lost">g</supplied>v<supplied reason="lost">al·</supplied> <gap precision="low" quantity="7" reason="lost" unit="character"/>
            <lb n="7"/><gap precision="low" quantity="13" reason="illegible" unit="character"/> g<unclear>v</unclear>āl· <gap quantity="1" reason="illegible" unit="character"/>
            <lb n="8"/>tai <gap quantity="6" reason="illegible" unit="character"/> tai rat· <gap quantity="3" reason="illegible" unit="character"/> <unclear>sru</unclear><supplied reason="lost">k·</supplied>
            <lb n="9"/><gap quantity="2" reason="illegible" unit="character"/> phsa<unclear>ṁ</unclear> <num value="10">10</num> <gap quantity="1" reason="illegible" unit="character"/><unclear>
             <g type="circleMed">.</g>
           </unclear> lvan<unclear>·</unclear> gho <num value="6">6</num> <gap quantity="6" reason="illegible" unit="character"/>
            <lb n="10"/><gap quantity="4" reason="illegible" unit="character"/> <unclear>ph</unclear>sa<unclear>ṁ</unclear> <gap quantity="1" reason="illegible" unit="character"/><g type="circleMed">.</g> sruk· <unclear>thā</unclear>r· so <gap quantity="5" reason="illegible" unit="character"/>
-           <lb n="11"/><gap quantity="6" reason="illegible" unit="character"/> ph<supplied reason="lost">s</supplied>aṁ <num value="7">7</num><!-- sapi2argr le 7 est unclear. --><g type="circleMed">.</g> sru<unclear>k·</unclear> laṅl<unclear>o</unclear><supplied reason="lost">ṅ·</supplied> <gap quantity="4" reason="illegible" unit="character"/>
+           <lb n="11"/><gap quantity="6" reason="illegible" unit="character"/> ph<supplied reason="lost">s</supplied>aṁ <num value="7">7</num><g type="circleMed">.</g> sru<unclear>k·</unclear> laṅl<unclear>o</unclear><supplied reason="lost">ṅ·</supplied> <gap quantity="4" reason="illegible" unit="character"/>
            <lb n="12"/><gap quantity="3" reason="illegible" unit="character"/> <unclear>ph</unclear>sa<supplied reason="lost">ṁ</supplied> <gap quantity="1" reason="illegible" unit="character"/> <unclear>
             <g type="circleMed">.</g>
           </unclear> sruk· <unclear>ta</unclear>nnot· chveṅ· <gap quantity="4" reason="illegible" unit="character"/>
@@ -179,9 +162,8 @@
           <app loc="6">
             <lem>tai <gap quantity="4" reason="illegible" unit="character"/> s<supplied reason="lost">i</supplied> <num value="10">10</num> <supplied reason="lost">g</supplied>v<supplied reason="lost">al·</supplied></lem>
             <rdg source="bib:Chhom2011_01">tai <gap reason="undefined"/></rdg>
-            <rdg source="bib:Jacques2014_01">tai <num value="9">9</num><!-- sapi2argr le 9 est unclear --> <gap reason="undefined"/>  <num value="2">2</num> <gap reason="undefined"/></rdg>
+            <rdg source="bib:Jacques2014_01">tai <num value="9">9</num> <gap reason="undefined"/>  <num value="2">2</num> <gap reason="undefined"/></rdg>
             <note>Bourdonneau et al: tai <gap reason="undefined"/></note>
-            <!-- VERIFIER CELA!!! -->
           </app>
           <app loc="7">
             <lem>g<unclear>v</unclear>āl·</lem>
@@ -311,7 +293,6 @@
                 <gap quantity="1" reason="undefined" unit="component"/>
               </seg>oṅ·</rdg>
             <note>Bourdonneau et al: <gap reason="undefined"/><gap quantity="2" reason="undefined" unit="character"/></note>
-            <!--Vérifier!! -->
           </app>
           <app loc="20">
             <lem><unclear>gh</unclear>o <gap quantity="2" reason="illegible" unit="character"/> <unclear>gh</unclear>o</lem>
@@ -322,13 +303,11 @@
             <rdg source="bib:Chhom2011_01">gvāl· <gap reason="undefined"/> gvāl· <gap reason="undefined"/></rdg>
             <rdg source="bib:Jacques2014_01">gvāl hari <gap quantity="1" reason="undefined" unit="character"/> ṅ gvāl <unclear>jā</unclear> <gap quantity="1" reason="undefined" unit="character"/></rdg>
             <note>Bourdonneau et al: gvāl· <gap reason="undefined"/> gvāl· <gap reason="undefined"/></note>
-            <!--Vérifier!! -->
           </app>
           <app loc="22">
             <lem>gvāl· <gap quantity="2" reason="illegible" unit="character"/></lem>
             <rdg source="bib:Chhom2011_01">gvāl· <unclear>dhar</unclear>mma</rdg>
             <note>Bourdonneau et al: gvāl· <unclear>dhar</unclear>mma</note>
-            <!--Vérifier!! -->
           </app>
           <app loc="24">
             <lem>tai <unclear>Ā</unclear>j<unclear>ya</unclear> t<unclear>ai</unclear></lem>
@@ -360,7 +339,6 @@
             <lem>si ra<supplied reason="lost">t·</supplied></lem>
             <rdg source="bib:Chhom2011_01">si <gap reason="undefined"/></rdg>
             <note>Bourdonneau et al: si <gap reason="undefined"/></note>
-            <!--Vérifier!! -->
           </app>
           <app loc="29">
             <lem>paṇdan·</lem>
@@ -389,7 +367,7 @@
           </supplied>, ---------------------------------------------------, total __. Sruk Vāp __ ----------------------------------------------------, total 7. Sruk Laṅleṅ ---------------------------------------------------, total__. Sruk -----------------------------------------------------------------------------</p>
         <p n="15-29">---------------- Tai ____, Tai Hyaṅ, Tai Tīrtha, Tai Kanleṅ <supplied reason="subaudible">accompanied by</supplied> a baby girl, Tai Phnos, Tai Khmau with a baby girl, Lap Thlāy, Lap ___, Lap Narāyana, Tai Gmās, Gho Śrī, Gho __, Gho __, Gho Kaṁvrau, Gho Pavitra, Gho --------------------------, Gho Kaṁbhū, Gho Thgok, Gho __, Gho Thleṁ, Gho Kanso, Gvāl __, ------, Gvāl __, Gvāl Chpoṅ, Gvāl Kanteṅ, Gvāl Dharmma, Tai Phkā Cok, Tai Kaṁpit, Tai Kanhyaṅ, another Tai Kanhyaṅ, Tai Khmau, Tai Ājya with a baby girl, Tai Prāṇa, Tai Jvik, Tai Raṁnnoc, Tai Kaṁvi, Tai Saṁṛddhi, Tai Kaṁpit, Tai ------ with a baby girl, Tai Gandha with a baby girl, Tai ------- with a baby girl, Tai Ratna Śrīya with a baby girl, Si ---, <supplied reason="subaudible">Tai</supplied> Paṇdan with a daughter at the age of running, named Kandan, Tai Kaṁpa_, Tai __.</p>
       </div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="commentary"></div>
       <div type="bibliography">
         <p>First edited in English by Kunthea Chhom with translation (<bibl rend="omitname">
             <ptr target="bib:Chhom2011_01"/>
@@ -410,7 +388,6 @@
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

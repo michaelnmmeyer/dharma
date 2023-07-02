@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -25,18 +19,13 @@
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <persName><!--
-The original editor(s).
---></persName>
+          <persName></persName>
         </respStmt>
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham01004</idno>
-        <!--
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier>
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -89,41 +78,22 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
   <text xml:space="preserve">
     <body>
       <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <!--
-Comments below by Csaba Kiss and Dániel Balogh (BD) are offered "as is" and do not represent a thoroughly researched or considered opinion.
--->
         <p><lb n="1"/>siddhaM||
 </p>
-        <!--
-BD: don't enclose <lg> in <p>! P and LG are structurally equivalent, p for prose, lg for verse.
--->
         <lg met="āryā" n="1">
           <l n="ab">hariṇā jitaṁ jayati jeṣyatī<unclear>ty e</unclear>ṣā guṇa-stutir nna <unclear>hi sā</unclear></l>
           <l n="cd">nanu bhagavā<unclear>n eva</unclear>
 <lb n="2"/>jayo jetavyaṁ cādhijetā <unclear>ca</unclear>||</l>
         </lg>
-        <!--
-Is the above really a "variety of the Āryā metre"? Only one mora is missing.
--->
-        <!--
-BD: I've thought for a bit about this, but can't find a good solution. I'm pretty sure it is indeed āryā, but either it is unmetrical (in addition to the missing mora, there is no caesura in the first line), or it is incorrectly read/inscribed. I can't improve the reading or offer a plausible emendation.
--->
         <lg met="anuṣṭubh" n="2">
           <l n="a">śrī-nalānvaya-mukkhyasya</l>
           <l n="b">vikkrama-kṣapita-dviṣaḥ</l>
-          <!--
-BD: lb tag goes inside the l! Always on the lowest structural level, with the text. (as you did for line 4).
--->
           <l n="c"><lb n="3"/>nr̥pater
 bhavadattasya</l>
           <l n="d">sat-putreṇ<choice>
               <unclear>ānya-saṁsthitāM</unclear>
               <unclear>ānya-saṁsthitāM</unclear>
-            </choice>||<!--
-v2d FN.: "It is also possible to read as satputreṇāvyavasthitāM"
---><!--
-BD: Indeed, the two seem equally plausible in the rubbing. I suggest marking this up as an ambiguous reading, preferably with the whole of ānya-saṁsthitāM/āvyavasthitām in it.
---></l>
+            </choice>||</l>
         </lg>
         <lg met="anuṣṭubh" n="3">
           <l n="a">bhraṣṭām ākr̥ṣya rājarddhiṁ</l>
@@ -153,24 +123,14 @@ dha<unclear>rmmā</unclear>rthane bhyāśā<choice>
             </seg></l>
           <l n="d"><seg met="====">
               <gap quantity="4" reason="illegible" unit="character"/>
-            </seg><!--
-Editor's conjecture: ttam| atrācandrā
---><!--
-BD: This is messy. 1. Yes, gaps in metrical verse should always be represented with metrical pattern (in SUPPLIED tags). 2. Supplied text CANNOT be used as an alternative to sic in a choice element. sic only pairs with corr in choice. 3. The supplied text CANNOT contain </l><l>, this would be an overlap. If such a thing were necessary (but it is not, here), then you would need to close the supplied tag, then close the structural tag and open a new one, then open another supplied tag. 4. Since the editor's restoration is conjectural (though plausible), I would just show the gap (with prosody) in the edition, and give the restoration in a comment, as you have done below.
---><lb break="no" n="7"/>rkka-tārak<choice>
+            </seg><lb break="no" n="7"/>rkka-tārak<choice>
               <sic>ā</sic>
               <corr>a</corr>
             </choice><unclear>M</unclear>||</l>
-          <!--
-v5cd. FN. "Read tārakam." The Ed. restores pādas cd as: puruṣāya puraṁ dattam atrācandrārkkatārakam. All this I have marked up.
--->
         </lg>
         <lg met="anuṣṭubh" n="6">
           <l n="a">satropabhojyaṁ viprāṇāṁ</l>
           <l n="b">yatīnāñ ca viśeṣata<unclear>ḥ</unclear></l>
-          <!--
-v6a. satvopabhojyaṁ is the Ed.'s correction.
--->
           <l n="c"><unclear>dīnānām a</unclear>py anāthānāṁ</l>
           <l n="d"><seg met="====">
               <gap quantity="4" reason="illegible" unit="character"/>
@@ -194,9 +154,7 @@ v6a. satvopabhojyaṁ is the Ed.'s correction.
           <l n="b">dharmyā stambhe nive<unclear>śi</unclear>tā</l>
           <l n="c">yaś cemāṁ hrāpaye<unclear>t saṁ</unclear>sthām mahāpā<unclear>ta</unclear><seg met="-+-+">
               <gap quantity="4" reason="illegible" unit="character"/>
-            </seg><!--
-v8d. mahāpātakam aśnute is the Ed.'s restoration.
---></l>
+            </seg></l>
         </lg>
         <lg met="vaṁśastha" n="9">
           <l n="a"><lb n="10"/>vyatikramed yo hi mahīpate<supplied reason="omitted">ḥ</supplied> sthiti<unclear>M</unclear></l>
@@ -215,25 +173,11 @@ v8d. mahāpātakam aśnute is the Ed.'s restoration.
           <l n="b">bhartuḫ priya<unclear>cā</unclear><seg met="+-+">
               <gap quantity="3" reason="illegible" unit="character"/>
             </seg> </l>
-          <!--
-Ed.: "Read [sthi]tir bhāgavatenaiṣā"
-cā is suspicious; unmetrical
--->
           <l n="c"><lb n="14"/>senāpatinā kal<choice>
               <unclear>pitā </unclear>
               <unclear>yāṇa-</unclear>
             </choice></l>
           <l n="d">mālinehālpa-buddhinā||</l>
-          <!--
-Ed.: "Reading is kalyāṇamāli-" CHECK
--->
-          <!--
-CsK: I suppose that mālineha is just a typo.
--->
-          <!--
-BD: This is again a bit messy and should be re-edited carefully. For now, just keep the text as printed. The editorial comment with sthitir etc should only be mentioned in a comment, as you do above. Keep the unclear cā, and add prosody to the gap. The readings kalpitā/kalyāṇa are not a sic/sic pair (there's no such thing as a sic/sic choice). Ambiguous readings must be marked up as a choice between two unclear elements. Change that, and we are fine: Krishnamacharlu read kalpitā, his editor read kalyāṇa; both seem possible. At the end, revert to mālineha, without a correction. Here are some thoughts on this. 1. kalyāṇa is much more likely imo than kalpitā. The guy's name was thus kalyāṇamālin. 2. If we accept this, then the reading "sthitir bhāgavatenaiṣā" is rubbish: we don't need a feminine subject. Instead, the subject remains stambho yaṁ from the previous verse. (This would also imply that narendreṇa in v10 is incorrect, perhaps narendrasya would be better.) 3. I can't make out anything at the end of l13, but my intuition says we should restore bhartuf priya-cikīrṣayā. 4. kalyāṇamālihenālpa resolves to kalyāṇamālinā*iha*alpa. I guess he calls himself dim-witted out of false modesty. It's a bit strange, but I can't get a meaningful parsing with analpa or nālpa, and "linehā" is quite clear in the rubbing.
-CsK Yes, of course, too much Aiśa in my mind (mālin = mālina), although iha is a bit strange here.
--->
         </lg>
         <lg met="anuṣṭubh" n="12">
           <l n="a">
@@ -248,12 +192,6 @@ CsK Yes, of course, too much Aiśa in my mind (mālin = mālina), although iha i
               <gap quantity="8" reason="illegible" unit="character"/>
             </seg>
           </l>
-          <!--
-Metrical problem? Two pādas swapped?
--->
-          <!--
-BD: I think the lost text in l14 is just one quarter of a śloka, not a full half. So v12 would be: pāda a: lost; pāda b: likhitaṁ...; c: bhaktyā...; d: lost. And v13: a: ājena...; b: nirguṇena...; c: lost; d: lost. Please mark up like this and note that Krishnamacharlu does it differently, but seems to be wrong. (I'm not quite sure two pādas can fit in the lost part of l.16, but this seems to be the only plausible solution. There may actually be a line 17 too, with a few characters.)
--->
         </lg>
         <lg met="anuṣṭubh" n="13">
           <l n="a"><lb n="16"/><unclear>ā</unclear>jena viśvarūpe<choice>
@@ -272,9 +210,6 @@ BD: I think the lost text in l14 is just one quarter of a śloka, not a full hal
             </seg>
           </l>
         </lg>
-        <!--
-Krishnamacharlu presents verses 12 and 13 differently.
--->
       </div>
       <div type="apparatus">
         <listApp>
@@ -284,7 +219,7 @@ Krishnamacharlu presents verses 12 and 13 differently.
           </app>
         </listApp>
       </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
+      <div source="bib:AuthorYear_01" type="translation"></div>
       <div type="commentary"></div>
       <div type="bibliography">
         <p/>

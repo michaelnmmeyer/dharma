@@ -1,33 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
       <titleStmt>
         <title>Baragaon Plates of the Time of Janamejaya RY 13</title>
-        <!--Change the title of the file, e.g. Raktamālā grant of the time of Budhagupta, year 159-->
-        <!-- Add your name in the respStmt matching your involvement -->
         <respStmt>
           <resp>EpiDoc Encoding</resp>
-          <!-- Work done in the file, e.g. editor ...-->
           <persName ref="part:amwb">
-            <!-- Update the id -->
             <forename>Amandine</forename>
-            <!-- Fill in your  names — it is possible to use only <name> instead of <foreame> and <surname> -->
             <surname>Wattelier-Bricout</surname>
           </persName>
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <!-- This may be the same as the creator of the file -->
           <persName ref="part:amwb">
-            <!-- Update the id -->
             <forename>Amandine</forename>
-            <!-- Fill in the name of the responsible scholar — it possible to use only <name> instead of <foreame> and <surname> -->
             <surname>Wattelier-Bricout</surname>
           </persName>
         </respStmt>
@@ -36,7 +22,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Aubervilliers</pubPlace>
         <idno type="filename">DHARMA_INSSomavamsin00040</idno>
-        <!-- Replace by filename, e.g. Pallava00001 -->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
@@ -46,33 +31,22 @@
                             California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Amandine
                             Wattelier-Bricout.</p>
-            <!-- replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -83,7 +57,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -95,14 +68,11 @@
     </encodingDesc>
     <revisionDesc>
       <change status="draft" when="2023-06-14" who="part:amwb">Creation of the file</change>
-      <!-- replace this by a line that has you as @who, that has the @date on which you finished the first basic encoding of the file, and that has the following description of what was finished on that date: "Initial encoding of the file." Then add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="san-Latn">
-        <!-- for the moment, the text reproduced is the one from Pratnakirti edition -->
-        <!--edition encoded as per EGD §§2−7-->
         <pb n="1v"/>
         <p><lb n="1"/>svasti<g type="danda">.</g> jita-śrī-puṇḍarīkākṣaḥ namaste viśvavihāri<lb n="2"/>namaste tu riṣikeśa mahāpuruśa-pu<supplied reason="omitted">r</supplied>vvaja <g type="danda">.</g> Aneka-guṇa-gaṇālaṁkṛta<lb break="no" n="3"/>-janopa-bhogāmarādhipa-purīva jagate vikhyāta-nāmnaḥ śrī<lb break="no" n="4"/>-manivadapāṭikāt-parama-sauraḥ rāṣṭrakula-ttilaka-samadhiga<lb break="no" n="5"/>ta-pañca-mahāśabda-mahāsāmantādhipati-rāṇaka-śrī-pṛthi<lb break="no" n="6"/>vivigraha-śrī-vāmanavigraha-sutaḥ śrī-vyāghrarājasya naptā ku<lb break="no" n="7"/>śalī kāsamvadā-viṣaya-pratibaddha-sakamrā-grāma-brhāhmaṇā<supplied reason="omitted">n</supplied><lb n="8"/>sampūjya tat-pratinivāsi-kuṭumbinas-tad-viṣayī-janasa<lb break="no" n="9"/>dā yathā kālādhyāsinaḥ samāhatṛ-sannidhātṛ-da<supplied reason="omitted">ṇḍa</supplied>
              <pb n="2r"/>
@@ -135,13 +105,11 @@
           </choice>tiriyam-asmadīya-dha<supplied reason="omitted">r</supplied>mma-gau<lb break="no" n="24"/>ravad-asmād-anurodhāye svadatir-iyānupālanīyā ttathā coktaṁ<lb n="25"/>dharmma-śāstre</p>
         <lg corresp="#Sircar1965_st0023" met="anuṣṭubh" n="1">
           <l n="a">bahubhir vvasudhā dattā</l>
-          <!-- bhuktā in Sircar -->
           <l n="b">rājabhiḥ sagarādibhiḥ</l>
           <l n="c">ya<lb break="no" n="26"/>sya yasya yadā bhūm<choice>
               <sic>i</sic>
               <corr>ī</corr>
             </choice></l>
-          <!-- bhūmis in Sircar -->
           <l n="d">tasya tasya tadā phalam</l>
         </lg>
         <lg corresp="#Sircar1965_st0085" met="anuṣṭubh" n="2">
@@ -160,9 +128,7 @@
               <corr>o</corr>
             </choice>dati bhūmidaḥ</l>
           <l n="c"><unclear>lākṣeptā</unclear><lb n="29"/>cānumantā cca</l>
-          <!-- ācchettā in Sircar -->
           <l n="d">tāny eva narakaṁ vaset</l>
-          <!-- narake in Sircar -->
         </lg>
         <lg corresp="#Sircar1965_st0005" met="indravajrā" n="4">
           <l n="a">agn<choice>
@@ -172,35 +138,29 @@
               <sic>ann</sic>
               <corr>arṇ</corr>
             </choice>aṁ</l>
-          <l n="b">bhū<supplied reason="omitted">r</supplied><!-- I added the r supplied not present in Nayak's edition --><lb n="30"/>vaiṣṇavī sūrya-sutāś ca gāvaḥ</l>
+          <l n="b">bhū<supplied reason="omitted">r</supplied><lb n="30"/>vaiṣṇavī sūrya-sutāś ca gāvaḥ</l>
           <l n="c">ya kāñcanaṁ gāvā ca tu mahī ca dadyā</l>
-          <!-- Sircar in pada d ya kāñcanaṁ gāṁ ca mahīṁ ca dadyāt -->
           <l n="d">da
                         <pb n="3r"/>
                         <lb break="no" n="31"/>ttā srayas tena bhavanti lokā</l>
-          <!-- Sircar this pada is c and with trayas instead of srayas  -->
         </lg>
         <lg corresp="#Sircar1965_st0029" met="anuṣṭubh" n="5">
-          <l n="a">bhūmi<supplied reason="omitted">ṁ</supplied><!-- I added the <supplied reason="omitted">ṁ</supplied> --> yaḥ pratigṛhṇ<choice>
+          <l n="a">bhūmi<supplied reason="omitted">ṁ</supplied> yaḥ pratigṛhṇ<choice>
               <sic>a</sic>
               <corr>ā</corr>
             </choice><surplus>n</surplus>ti</l>
           <l n="b">ya<choice>
               <sic>c</sic>
               <corr>ś</corr>
-            </choice> ca bhūmi<supplied reason="omitted">ṁ</supplied><!-- I added the <supplied reason="omitted">ṁ</supplied> --> pra<lb break="no" n="32"/>yachati</l>
+            </choice> ca bhūmi<supplied reason="omitted">ṁ</supplied> pra<lb break="no" n="32"/>yachati</l>
           <l n="c">ubhau tau puṇya<surplus>ya</surplus>-karmāṇau</l>
-          <!-- I added the surplus -->
           <l n="d">niyatau svargga-gāminau</l>
         </lg>
         <lg corresp="#Sircar1965_st0020" met="anuṣṭubh" n="6">
           <l n="a">Ā<lb break="no" n="33"/>sphoṭayanti pitaraḥ</l>
           <l n="b">pravalpanti pitāmahā<supplied reason="omitted">ḥ</supplied></l>
-          <!-- pravalpanti typo for pravalganti ? I added <supplied reason="omitted">ḥ</supplied> -->
           <l n="c">bhūmidātā kule<lb n="34"/>jātā</l>
-          <!-- Sircar bhūmido 'smat-kule jātaḥ -->
           <l n="d">dānas trātā bhaviṣyati</l>
-          <!-- Sircar sa nas trātā bhaviṣyati -->
         </lg>
         <lg corresp="#Sircar1965_st0004" met="anuṣṭubh" n="7">
           <l n="a">Ādityo varuṇo viṣṇuḥ</l>
@@ -208,28 +168,20 @@
               <sic>a</sic>
               <corr>o</corr>
             </choice> hutāśanaḥ</l>
-          <!-- I added the <supplied reason="omitted">s</supplied> + choice a/o -->
           <l n="c">śūlapāṇiś tu bhagavān</l>
-          <!-- Sircar ca instead of tu -->
           <l n="d">abhinandanti bhūmida<choice>
               <sic>ḥ</sic>
               <corr>M</corr>
             </choice></l>
-          <!-- Sircar pratinandanti -->
         </lg>
         <lg corresp="#Sircar1965_st0013" met="anuṣṭubh" n="8">
-          <!-- See variation mentioned in Sircar's note and Caution also close to Sircar100 -->
           <l n="a"><lb n="36"/>Anyāyena tu hṛtā bhūmir</l>
-          <!-- Unmetrical  Sircar13 anyāyena hṛtā bhūmir // Sircar100 nyāyenopārjitā bhūmir -->
           <l n="b">anyāyena tu hāritā</l>
-          <!-- Sircar13 hāritā vānumoditā / Sircar 100 anyāyenāpahāritā-->
           <l n="c">harate hā<lb break="no" n="37"/>rataś caiva</l>
-          <!-- Sircar13 atītāgāmi-pāpānāṁ / Sircar 100 haranto hārayantaś ca -->
           <l n="d"><choice>
               <sic>ta</sic>
               <corr>sa</corr>
             </choice> hanyāt saptamaṁ kulam</l>
-          <!--13 Sircar dahaty ā-saptamaṁ kulam / Sircar 100 hiṁsanty ā-saptamaṁ kulam -->
         </lg>
         <lg corresp="#Sircar1965_st0064" met="anuṣṭubh" n="9">
           <l n="a">Harate hārayed yas tu</l>
@@ -237,7 +189,6 @@
               <sic>ā</sic>
               <corr>o</corr>
             </choice>-vṛtaḥ</l>
-          <!-- I added choice -->
           <l n="c">sa vaddho vāruṇ<choice>
               <sic>e</sic>
               <corr>aiḥ</corr>
@@ -246,46 +197,34 @@
               <corr>aiḥ</corr>
             </choice></l>
           <l n="d">tiryag-<surplus>s</surplus>yoniṣu gacchati</l>
-          <!-- I added surplus -->
         </lg>
         <lg corresp="#Sircar1965_st0132" met="anuṣṭubh" n="10">
           <l n="a"><lb n="39"/>s<supplied reason="omitted">v</supplied>a-dattāṁ para-dattāṁ vā</l>
           <l n="b">yo hared vasundharā<supplied reason="omitted">m</supplied></l>
-          <!-- I added supplied omitted -->
           <l n="c">sa viṣṭhāyāṁ kṛmir bhutvā</l>
           <l n="d">
             <lb n="40"/>
             <gap extent="unknown" reason="lost"/>
           </l>
-          <!-- Sircar pitṛbhiḥ saha pacyate -->
         </lg>
         <lg met="anuṣṭubh" n="11">
           <l n="a"><gap extent="unknown" reason="lost"/>sahasrāṇi</l>
-          <!-- likely Sircar 137 with variation taḍāgānāṁ sahasreṇa -->
           <l n="b">aśvamedha-śatāni ca</l>
-          <!-- likely Sircar 137 with variation vājapeya-śatena ca -->
           <l n="c">
             <lb n="41"/>
             <gap extent="unknown" reason="lost"/>
           </l>
-          <!-- likely Sircar 137 with variation gavāṁ koṭi-pradānena -->
           <l n="d">hantana śudhyati</l>
-          <!-- likely Sircar 137 with variation bhūmi-hartā na śudhyati -->
         </lg>
         <lg met="" n="12">
-          <!-- likely Sircar1965_st0055 -->
           <l n="a">suvarnnam ekam</l>
-          <!-- likely Sircar1965_st0055 <l n="a">gām ekāṁ svarṇam ekaṁ vā</l> -->
           <l n="b">
             <pb n="3v"/>
             <lb n="42"/>
             <gap extent="unknown" reason="lost"/>
           </l>
-          <!-- likely Sircar1965_st0055 <l n="b">bhūmer apy ardham aṅgulam</l> -->
           <l n="c">haran narakam yāti</l>
-          <!-- likely Sircar1965_st0055 <l n="c">haran narakam āyāti</l> -->
           <l n="d">yāvad—ā-hū<lb break="no" n="43"/>ta-saṁplavam</l>
-          <!-- likely Sircar1965_st0055 <l n="d">yāvad—ā-bhūta-saṁplavam</l> -->
         </lg>
         <lg corresp="#Sircar1965_st0117" met="śālinī" n="13">
           <l n="a">sāmānyo 'yaṁ dha<supplied reason="omitted">r</supplied>mma-setur nṛpāṇāṁ</l>
@@ -293,17 +232,14 @@
               <sic>ā</sic>
               <corr>o</corr>
             </choice> bhavadbhiḥ</l>
-          <!-- I added choice  -->
           <l n="c">sarvān<surplus>y</surplus> etān bhā<choice>
               <sic>d</sic>
               <corr>v</corr>
             </choice>inaḥ pā<supplied reason="omitted">r</supplied>thivendrān</l>
-          <!-- I added surplus + choice -->
           <l n="d"><lb n="45"/>bhūyo <num value="2">2</num> yācate rāmabhadr<choice>
               <sic>ā</sic>
               <corr>a</corr>
             </choice>ḥ</l>
-          <!-- the two is intended for the repetition of bhūyo -->
         </lg>
         <lg corresp="#Sircar1965_st0071" met="puṣpitāgrā" n="14">
           <l n="a">Iti kamala-dalāmbu-bindu<lb break="no" n="46"/>-lolāṁ</l>
@@ -315,30 +251,24 @@
                  phālguna-māsa-prathama-pakṣa-tithi-navamyā Ādityadine<lb n="49"/>mūlā-nakṣatre śrī-<persName>janamejayasya</persName> tasya rājya-trayodaśā-var<surplus>i</surplus>ṣe<lb n="50"/>likhitam idaṁ kāyasta-<persName>haradattena</persName> kesavenutkīrṇṇam idaṁ śāsanam iti</p>
       </div>
       <div type="apparatus">
-        <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
         <listApp>
-          <!-- one <app> for each apparatus entry -->
           <app loc="line">
-            <!-- update the value of @loc.-->
-            <lem><!-- fill in a lemma here --></lem>
-            <rdg source="bib:Nayak2012_01"><!-- update the @source value, fill in variant reading here --></rdg>
+            <lem></lem>
+            <rdg source="bib:Nayak2012_01"></rdg>
           </app>
         </listApp>
       </div>
-      <div resp="part:amwb" type="translation"><!--translation encoded as per EGD §9.2 --></div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div resp="part:amwb" type="translation"></div>
+      <div type="commentary"></div>
       <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
+        <p></p>
         <listBibl type="primary">
           <bibl n="N">
             <ptr target="bib:Nayak2012_01"/>
           </bibl>
-          <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

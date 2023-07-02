@@ -1,15 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
       <titleStmt>
         <title>Ākulamannaṇḍu grant of Bhīma II</title>
-        <!--ALT TITLE: Masulipatam plates of Bhīma II.-->
         <respStmt>
           <resp>Encoding</resp>
           <persName ref="part:daba">
@@ -42,31 +35,20 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
-            <!--<altIdentifier type="PEM"><idno type="corpus">CalE43</idno></altIdentifier>-->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
               <p>Halantas. Final N is a raised and reduced na shape with a sinuous tail like a repha, e.g. l9 māsāN, l15 mAsAn. Final M is a small raised circle with a sinuous stroke at the top right, e.g. l7 triṁśataM (which may also have a curved left arm in addition to the top stroke), l8 viṁśatiM etc. Final T is the shape and size of a regular ta, but with a repha-like sinuous vertical stroke instead of a headmark (identical to ta according to Kielhorn, but this is inaccurate), e.g. l7 layaT; l17 apalayaT.</p>
               <p>Original punctuation marks are straight verticals with a small hook or a wedge-like headmark at the top.</p>
-              <p>Other palaeographic observations. Anusvāra is normally at headline height to the right of the character to which it belongs. It can also occur above the next character, as in l17 meḻāṁbā. The <ref target="DHARMA_INSVengiCalukya00030.xml">Ārumbāka grant of Bādapa</ref> likewise puts anusvāra on top of the next character in (vernacular?) names ending in āṁbā, but not in other circumstances. As Kielhorn points out, the vowel marker for o is sometimes cursive, very similar to and not clearly distinguishable from that for au. The non-cursive o of two separate strokes also occurs. Cursive o-s are marked in the text by an XML comment but not otherwise indicated in the edition. They probably differ from au in having a slightly shorter tail, compare kau in l2 and ko in l8. Initial I in l22 Ittham looks strange to me; Kielhorn calls it a "later form" .
-                <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-                <summary><p><p/></summary>
-                <handNote xml:id="Pallava00001_hand1"></handNote>
-                <handNote xml:id="Pallava00001_hand2"></handNote>
-              -->
+              <p>Other palaeographic observations. Anusvāra is normally at headline height to the right of the character to which it belongs. It can also occur above the next character, as in l17 meḻāṁbā. The <ref target="DHARMA_INSVengiCalukya00030.xml">Ārumbāka grant of Bādapa</ref> likewise puts anusvāra on top of the next character in (vernacular?) names ending in āṁbā, but not in other circumstances. As Kielhorn points out, the vowel marker for o is sometimes cursive, very similar to and not clearly distinguishable from that for au. The non-cursive o of two separate strokes also occurs. Cursive o-s are marked in the text by an XML comment but not otherwise indicated in the edition. They probably differ from au in having a slightly shorter tail, compare kau in l2 and ko in l8. Initial I in l22 Ittham looks strange to me; Kielhorn calls it a "later form" .                  
+                </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -93,7 +75,6 @@
     <revisionDesc>
       <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
       <change status="draft" when="2020-10-14" who="part:daba">Initial encoding of the file</change>
-      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -112,7 +93,7 @@
             </choice>-lā<space type="binding-hole"/>ṁ<choice>
               <sic>c</sic>
               <corr>ch</corr>
-            </choice>anekṣaṇa-kṣaṇa-vaśīkr̥tārāti-maṇḍalānām a<unclear>śvamedh</unclear>āva<lb break="no" n="5"/>bhr̥tha-snāna<space type="binding-hole"/>-<orig>pavitrita</orig>-vapuṣāṁ cālukyānāṁ kulam ala<unclear>ṁkari</unclear>ṣṇos sa<lb break="no" n="6"/>tyāśraya-vallabhendrasya bhrātā kubja-viṣṇuvarddhano <supplied reason="subaudible">’</supplied>ṣṭādaśa varṣ<unclear>ā</unclear>ṇi <unclear>veṁgī-maṇḍa</unclear>lam a<unclear>nvapā</unclear><lb break="no" n="7"/>layaT<g type="ddandaSerif">.</g> tad-ātmajo jayasiṁhas trayastriṁśataM<g type="ddandaSerif">.</g> tad-anujendra<supplied reason="lost">rāja</supplied>-nandano viṣṇu<supplied reason="omitted">varddha</supplied>no <lb n="8"/>nava<g type="ddandaSerif">.</g> tat-sūnu<supplied reason="omitted">r</supplied> mmaṁgi-yuvarājaḥ pañcaviṁśatiM<g type="ddandaSerif">.</g> tat-<unclear>pu</unclear>tr<unclear>o ja</unclear><supplied reason="lost">ya</supplied><unclear>siṁ</unclear>has trayastri<unclear>ṁ</unclear><pb break="no" n="2r"/><lb break="no" n="9"/>śata<unclear reason="eccentric_ductus">M</unclear><g type="ddandaSerif">.</g> tat-sutaḥ ko<!--cursive o-->kkili<supplied reason="omitted">ḥ</supplied> ṣaṇ māsāN<g type="ddandaSerif">.</g> tasya jyeṣṭho<!--cursive o--> bhrātā vi<unclear>ṣṇu</unclear><supplied reason="lost">va</supplied>r<supplied reason="lost">ddha</supplied>nas tam uccā<lb break="no" n="10"/>ṭya saptatriṁśataM<g type="ddandaSerif">.</g> tat-putro vijayāditya-bhaṭṭ<unclear>ā</unclear>rakaḥ aṣṭādaśa<g type="ddandaSerif">.</g> tat-putro vi<lb break="no" n="11"/>ṣṇuvarddhanaṣ <choice>
+            </choice>anekṣaṇa-kṣaṇa-vaśīkr̥tārāti-maṇḍalānām a<unclear>śvamedh</unclear>āva<lb break="no" n="5"/>bhr̥tha-snāna<space type="binding-hole"/>-<orig>pavitrita</orig>-vapuṣāṁ cālukyānāṁ kulam ala<unclear>ṁkari</unclear>ṣṇos sa<lb break="no" n="6"/>tyāśraya-vallabhendrasya bhrātā kubja-viṣṇuvarddhano <supplied reason="subaudible">’</supplied>ṣṭādaśa varṣ<unclear>ā</unclear>ṇi <unclear>veṁgī-maṇḍa</unclear>lam a<unclear>nvapā</unclear><lb break="no" n="7"/>layaT<g type="ddandaSerif">.</g> tad-ātmajo jayasiṁhas trayastriṁśataM<g type="ddandaSerif">.</g> tad-anujendra<supplied reason="lost">rāja</supplied>-nandano viṣṇu<supplied reason="omitted">varddha</supplied>no <lb n="8"/>nava<g type="ddandaSerif">.</g> tat-sūnu<supplied reason="omitted">r</supplied> mmaṁgi-yuvarājaḥ pañcaviṁśatiM<g type="ddandaSerif">.</g> tat-<unclear>pu</unclear>tr<unclear>o ja</unclear><supplied reason="lost">ya</supplied><unclear>siṁ</unclear>has trayastri<unclear>ṁ</unclear><pb break="no" n="2r"/><lb break="no" n="9"/>śata<unclear reason="eccentric_ductus">M</unclear><g type="ddandaSerif">.</g> tat-sutaḥ kokkili<supplied reason="omitted">ḥ</supplied> ṣaṇ māsāN<g type="ddandaSerif">.</g> tasya jyeṣṭho bhrātā vi<unclear>ṣṇu</unclear><supplied reason="lost">va</supplied>r<supplied reason="lost">ddha</supplied>nas tam uccā<lb break="no" n="10"/>ṭya saptatriṁśataM<g type="ddandaSerif">.</g> tat-putro vijayāditya-bhaṭṭ<unclear>ā</unclear>rakaḥ aṣṭādaśa<g type="ddandaSerif">.</g> tat-putro vi<lb break="no" n="11"/>ṣṇuvarddhanaṣ <choice>
               <sic>v</sic>
               <corr>ṣ</corr>
             </choice>aṭtriṁśataM<g type="ddandaSerif">.</g> tat-s<choice>
@@ -132,7 +113,7 @@
             </choice>gra-sūnur <choice>
               <sic>ā</sic>
               <corr>a</corr>
-            </choice>mma<supplied reason="omitted">rā</supplied>jas sapta va<unclear>rṣāṇ</unclear>i<g type="ddandaSerif">.</g> tat-suta<supplied reason="omitted">ṁ</supplied> vijayādityaṁ kr̥ta-<unclear>kaṇṭh</unclear>i<lb break="no" n="16"/>kā-paṭṭa-bandhābhiṣekaM<g type="ddandaSerif">.</g> bālam uccāṭya tāḷādhipo<!--cursive o--> māsam ekaM<g type="ddandaSerif">.</g> cā<unclear>lukya-bhī</unclear>ma-tanayo <pb n="2v"/><lb n="17"/>vikramāditya-rāja Ek<choice>
+            </choice>mma<supplied reason="omitted">rā</supplied>jas sapta va<unclear>rṣāṇ</unclear>i<g type="ddandaSerif">.</g> tat-suta<supplied reason="omitted">ṁ</supplied> vijayādityaṁ kr̥ta-<unclear>kaṇṭh</unclear>i<lb break="no" n="16"/>kā-paṭṭa-bandhābhiṣekaM<g type="ddandaSerif">.</g> bālam uccāṭya tāḷādhipo māsam ekaM<g type="ddandaSerif">.</g> cā<unclear>lukya-bhī</unclear>ma-tanayo <pb n="2v"/><lb n="17"/>vikramāditya-rāja Ek<choice>
               <sic>a</sic>
               <corr>ā</corr>
             </choice>daśa m<choice>
@@ -150,7 +131,7 @@
           </lg>
           <lg met="anuṣṭubh" n="2">
             <l met="na-vipulā" n="a" real="++++---+">Utkhātoddha<orig>tt</orig>a-ripuṇā</l>
-            <l n="b">pratiro<!--cursive o--><lb break="no" n="19"/>pita-bandhunā<g type="dandaSerif">.</g></l>
+            <l n="b">pratiro<lb break="no" n="19"/>pita-bandhunā<g type="dandaSerif">.</g></l>
             <l n="c">kundendu-dhavalaṁ yena</l>
             <l n="d">nītan daśa diśo yaśaḥ</l>
           </lg>
@@ -190,12 +171,12 @@
             </choice>payati<g type="ddandaSerif">.</g></p>
           <lg met="anuṣṭubh" n="4">
             <l enjamb="yes" n="a">vaṁgipaṟṟu-mahāgrāma</l>
-            <l n="b">-vāstavyo go<!--cursive o-->tamānvayaḥ</l>
+            <l n="b">-vāstavyo gotamānvayaḥ</l>
             <l n="c">t<choice>
                 <sic>yā</sic>
                 <corr>ū</corr>
               </choice><supplied reason="omitted">r</supplied>kkiya-kramako nāmnā</l>
-            <l n="d">tu<lb break="no" n="24"/>rāṣāḍ-vibhavo<!--cursive o--> <supplied reason="subaudible">’</supplied>jani<g type="ddandaSerif">.</g></l>
+            <l n="d">tu<lb break="no" n="24"/>rāṣāḍ-vibhavo <supplied reason="subaudible">’</supplied>jani<g type="ddandaSerif">.</g></l>
           </lg>
           <lg met="anuṣṭubh" n="5">
             <l enjamb="yes" n="a" real="+--+++--">tasya tanūjo mādhava</l>
@@ -204,11 +185,11 @@
                 <sic>ne</sic>
                 <corr>ñ</corr>
               </choice> jagad-āna<lb break="no" n="25"/>ndī</l>
-            <l n="d">vibhavair udito<!--cursive o-->ditaiḥ</l>
+            <l n="d">vibhavair uditoditaiḥ</l>
           </lg>
           <lg met="anuṣṭubh" n="6">
-            <l met="bha-vipulā" n="a" real="++-++--+">śrī-viddamayya-kramako<!--cursive o--></l>
-            <l n="b">viprāṇāṁ utsavo<!--cursive o-->dayaḥ</l>
+            <l met="bha-vipulā" n="a" real="++-++--+">śrī-viddamayya-kramako</l>
+            <l n="b">viprāṇāṁ utsavodayaḥ</l>
             <l n="c">tanayo brahma-va<pb break="no" n="3r"/><lb break="no" n="26"/><unclear>r</unclear>cca<unclear>svī</unclear></l>
             <l n="d">tasyāpy <unclear>ata</unclear>nu-p<unclear reason="eccentric_ductus">au</unclear>ruṣaḥ<g type="ddandaSerif">.</g></l>
           </lg>
@@ -228,8 +209,8 @@
             <l n="d">punāty ā saptamaṁ kulaṁ<g type="ddandaSerif">.</g></l>
           </lg>
           <lg met="anuṣṭubh" n="8">
-            <l n="a">yat-putra-p<unclear reason="eccentric_ductus">au</unclear>tr<unclear>ā</unclear> vaṭavo<!--cursive o--></l>
-            <l n="b">vāra-go<!--cursive o--><lb break="no" n="28"/>ṣṭh<unclear>i</unclear>ṣu vāgminaḥ</l>
+            <l n="a">yat-putra-p<unclear reason="eccentric_ductus">au</unclear>tr<unclear>ā</unclear> vaṭavo</l>
+            <l n="b">vāra-go<lb break="no" n="28"/>ṣṭh<unclear>i</unclear>ṣu vāgminaḥ</l>
             <l n="c">paṁca-vārī<supplied reason="omitted">ṁ</supplied> samāpayya<g type="dandaSerif">.</g></l>
             <l n="d">saṁpūjyante mahā<unclear>janai</unclear>ḥ<g type="dandaSerif">.</g></l>
           </lg>
@@ -239,7 +220,7 @@
               </seg><seg met="-">
                 <gap quantity="1" reason="lost" unit="character"/>
               </seg>m anuṣṭhā<lb break="no" n="29"/>na<unclear>ṁ</unclear></l>
-            <l n="b">punānaṁ mānavo<!--cursive o--> nayaḥ</l>
+            <l n="b">punānaṁ mānavo nayaḥ</l>
             <l n="c">Abhyāso hi nirāyāso</l>
             <l n="d">vedānā<unclear>ṁ</unclear> praṇavasya <unclear>ca<g type="ddandaSerif">.</g></unclear></l>
           </lg>
@@ -536,7 +517,6 @@ renaît ver de terre dans les excréments pendant soixante mille ans.</p>
             <citedRange unit="page">134-139</citedRange>
             <citedRange unit="item">E</citedRange>
           </bibl>
-          <!-- one <bibl/> per item of primary bibliography -->
         </listBibl>
         <listBibl type="secondary">
           <bibl>

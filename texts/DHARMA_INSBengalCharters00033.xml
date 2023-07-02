@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -40,12 +34,6 @@
             <forename>Arlo</forename>
             <surname>Griffiths</surname>
           </persName>
-          <!-- amwb : maybe add it if we integrate some of my readings and emendations
-					<persName ref="part:amwb">
-						<forename>Amandine</forename>
-						<surname>Wattelier-Bricout</surname>
-					</persName>
-					-->
         </respStmt>
       </titleStmt>
       <publicationStmt>
@@ -53,10 +41,6 @@
 				</authority>
         <pubPlace>Cambrai</pubPlace>
         <idno type="filename">DHARMA_INSBengalCharters00033</idno>
-        <!--
-The Siddham ID will need to be retained, probably as <altIdentifier>, when a DHARMA filename is assigned.
-amwb : replaced IN00074 by filename dharma
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -87,7 +71,6 @@ amwb : replaced IN00074 by filename dharma
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -109,212 +92,59 @@ amwb : replaced IN00074 by filename dharma
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="san-Latn">
-        <p><pb n="1r"/><!--
-daba siddham : The editions of Sircar_1943a, Sanyal and Agrawala (who may be copying Sircar SI) differ in many small details, e.g. over what they show as clear and unclear. I'm keeping track only of major editorial differences, and mark the text up according to my reading of the facsimile.
---><lb n="1"/>svasti<supplied reason="subaudible">.</supplied> śr̥ṅgavera-vaitheya-pūrṇṇak<choice>
+        <p><pb n="1r"/><lb n="1"/>svasti<supplied reason="subaudible">.</supplied> śr̥ṅgavera-vaitheya-pūrṇṇak<choice>
             <sic>o</sic>
             <corr>au</corr>
-          </choice>śikāyāḥ<!--
-amwb : in my opinion we can remove the unclear on i / 21-09-2021 : I removed pūrṇṇakoś<unclear>i</unclear>kāyāḥ and replaced it by my own reading
-amwb : replaced siddham's reading "k<unclear>au</unclear>ś<unclear>i</unclear>k<unclear>ā</unclear>yāḥ" by Arlo's one
---> Āyuktakācyutadāso 'dhikaraṇañ<!--
-amwb : replaced Āyuktakā<unclear>cyuta</unclear>dās<unclear>o</unclear> 'dh<supplied reason="lost">i</supplied>kara<unclear>ṇañ by Arlo's reading
-+ added in the apparatus the two different readings from DCS and NBS
---> ca hastiśīrṣe <unclear>vibhītak</unclear>y<unclear>āṁ gulmagandhi</unclear><!--
-amwb : replaced  ha</unclear>stiśīrṣe <unclear>vibhītak</unclear>y<unclear>āṁ gulmagandhi</unclear>kā<unclear>yā</unclear>ṁ by Arlo's reading
-amwb : e is clear in hastiśīrṣe
---><lb break="no" n="2"/>kāyāṁ dhānyapāṭalikāyāṁ<!--
-amwb : replaced <unclear>dhā</unclear>nyapāṭalikāyāṁ by Arlo's reading.
---> saṁgohāl<sic>i</sic>ṣu<!--
-amwb : replaced sa<unclear>ṁ</unclear>gohāl<sic>i</sic>ṣu by Arlo's reading
---> brāhmaṇādīn grāma-k<unclear>u</unclear>ṭumbina<unclear>ḥ k</unclear>uśalam<!--
-amwb: I replaced kuṭumbi<unclear reason="illegible">naḥ k</unclear>uśalam by Arlo's reading
---> anuvarṇya bodhayanti<supplied reason="subaudible">.</supplied></p>
-        <!--
-amwb : replaced bo<unclear>dhayant</unclear>i by Arlo's reading
--->
+          </choice>śikāyāḥ Āyuktakācyutadāso 'dhikaraṇañ ca hastiśīrṣe <unclear>vibhītak</unclear>y<unclear>āṁ gulmagandhi</unclear><lb break="no" n="2"/>kāyāṁ dhānyapāṭalikāyāṁ saṁgohāl<sic>i</sic>ṣu brāhmaṇādīn grāma-k<unclear>u</unclear>ṭumbina<unclear>ḥ k</unclear>uśalam anuvarṇya bodhayanti<supplied reason="subaudible">.</supplied></p>
         <p><unclear reason="illegible">vi</unclear>ditam bo
-<lb n="3"/>bhaviṣyati yathā Iha-vīthī-kulika-bhīma-kāyastha-prabhucandra-rudradāsa-devadatta-lakṣmmaṇa-k<supplied reason="lost">āntide</supplied>va<!--
-amwb : I read lakṣmmaṇa with two m See photo
-amwb : replaced kā<unclear>ntide</unclear>va by Arlo's reading
--->-śambhudatta-kr̥ṣṇa<lb break="no" n="4"/>dāsa-pustapāla-si<sic>ṅ</sic>hanandi<!--
-amwb : replaced si<sic><unclear>ṅha</unclear></sic>nandi by Arlo's reading
--->-yaśodāmabhiḥ vīthī-mahattara-kumāradeva-gaṇḍa-prajāpati-Umayaśa-rāmaśarmma<!--
-amwb : replaced -Uma<unclear>yaśa-rā</unclear> by Arlo's reading-->-jyeṣ<unclear>ṭha</unclear><!--
-amwb : replaced jyeṣṭha by Arlo's reading--><lb break="no" n="5"/>dāma-svāmicandra-harisi<sic>ṅ</sic>ha-kuṭumbi-yaśoviṣṇu-kumāraviṣṇu-kumārabhava-kumārabhūti-kumāra-ya<unclear>śagu</unclear>pta-vailinaka-<!--
-daba siddham :As Sanyal's editor notes, the first character of l5 actually looks like do, not dā.
---><!--
-daba siddham :The segmentation of the names may be different in places; editors seem to agree on most. I'd expect a guy called kumārayaśas after all the kumāra-somethings.
---><!--
-daba siddham : At the end, Sircar reads ya(?śa)#1#stavai(?khi)lina(?ka); Sanyal sees ya(śogu)pta-vailinandi while Agrawala has ya(śogu)pta-vailinaka. Sanyal's editor also remarks that the last character does not look like ndi.
---><!--
-amwb : replaced ya<unclear cert="low">śogu</unclear>pta-vailina<unclear cert="low">ka</unclear> by Arlo's reading
---><lb n="6"/>śivakuṇḍa-vasuśivāparaśiva-dāmarudra-prabhamitra-kr̥ṣṇamitra-maghaśarmma-īśvaracandra-rudra-bhavasvāmi<unclear>deva</unclear><!--
-amwb : for vasuśivāparaśiva I read vaSAśivāparaśiva see compare photos su l6 and su l7
---><!--
-daba siddham : For prabhamitra, Sanyal and Agrawala read prabhumitra. I agree with Sanyal's editor: the character is definitely bha; compare prabhu in l3 and bhava in l8.
---><!--
-daba siddham : At the end I follow the reading suggested by Sanyal's editor and adopted by Agrawala. Sanyal himself read bhavanā(tha)#1#, while Sircar read nothing after bhava. Segmentation is arbitrary.
---><!--
-daba siddham : I think an initial ī is rare enough to deserve comment. Initial i in this inscription looks like :| while this ī character is :|° (single dot, not circle, to the right of the bar).
---><!--
-amwb : replaced bhava<unclear>svā</unclear><unclear cert="low">mideva</unclear> by Arlo's reading and added in apparatus the different readings
---><lb n="7"/>śrīnātha-hariśarmma-guptaśarmma-suśarmma-hari-Alātasvāmi-brahmasvāmi-mahāsenabhaṭṭa-ṣaṣṭhirā<supplied reason="lost">ta</supplied>-gu<gap quantity="5" reason="illegible" unit="character"/><supplied reason="lost">śa</supplied><!--
-daba siddham : Editors readings for the end of the line - Sircar_1943a: svā(?mya) #3# (?rū)paśa - Sanyal: ṣaṣṭhirā(ma)-gu . . . . (śa) - Agrawala: ṣaṣṭhi(rāta) ga #3# śa (proposing to restore Gaṇapati or Guhapati). I can imagine a number of other possibilities, e.g. svāmi for ṣaṣṭhi; datta and śarmma for the next two characters; and bra[#hm]aśa for the last 3.
---><!--
-amwb : replaced bhaṭṭa-<unclear>ṣaṣṭhirā</unclear><unclear reason="illegible">ma</unclear>-<unclear>gu</unclear> by Arlo's reading and added in apparatus the different readings
---><lb break="no" n="8"/>rmma-Uṇṭaśarmma-kr̥ṣṇadatta-nandadāma-bhavadatta-Ahiśarmma-somaviṣṇu<!--
-amwb: replaced s<unclear>o</unclear>maviṣṇu- by Arlo's reading
--->-lakṣmmaṇaśar<unclear>mma</unclear>-kānti-dhovvoka-kṣemaśar<unclear>mma</unclear>-śu<!--
-amwb : as in line 3, I read lakṣmmaṇa with a double m see photo
---><!--
-daba siddham : For uṇṭaśarmma, Sircar reads ruṣṭaśarmma. Both seem equally possible and this is at least meaningful.
---><!--
-daba siddham : Sircar and Agrawala read #?2# dhovvoka; Sanyal has dhaivvaka, and his editor says the reading seems to be kānti-dhovvoka.
---><!--
-amwb : replaced śa<unclear>r</unclear><unclear reason="illegible">mma</unclear>-<unclear cert="low">kānti-dho</unclear>vv<unclear>oka</unclear>-kṣemaśarmma by Arlo's reading and added in apparatus the different readings
---><lb break="no" n="9"/>kkraśarmma-sarp<unclear>pa</unclear>pālita<!--
-amwb : replaced sarp<unclear>p</unclear>apālita by Arlo's reading and added in apparatus the different readings
--->-kaṅkuṭi-viśvaśaṅkara-jayasvāmi-kaivarttaśarmma-himaśarmma-purandara-jayaviṣṇu-Uma <gap precision="low" quantity="1" reason="illegible" unit="character"/><!--
-amwb : replaced <unclear>p</unclear>u<unclear>ran</unclear>da<unclear>ra-ja</unclear>yaviṣṇu-<unclear cert="low">uma</unclear> by Arlo's reading and added the different readings in apparatus
--->
+<lb n="3"/>bhaviṣyati yathā Iha-vīthī-kulika-bhīma-kāyastha-prabhucandra-rudradāsa-devadatta-lakṣmmaṇa-k<supplied reason="lost">āntide</supplied>va-śambhudatta-kr̥ṣṇa<lb break="no" n="4"/>dāsa-pustapāla-si<sic>ṅ</sic>hanandi-yaśodāmabhiḥ vīthī-mahattara-kumāradeva-gaṇḍa-prajāpati-Umayaśa-rāmaśarmma-jyeṣ<unclear>ṭha</unclear><lb break="no" n="5"/>dāma-svāmicandra-harisi<sic>ṅ</sic>ha-kuṭumbi-yaśoviṣṇu-kumāraviṣṇu-kumārabhava-kumārabhūti-kumāra-ya<unclear>śagu</unclear>pta-vailinaka-<lb n="6"/>śivakuṇḍa-vasuśivāparaśiva-dāmarudra-prabhamitra-kr̥ṣṇamitra-maghaśarmma-īśvaracandra-rudra-bhavasvāmi<unclear>deva</unclear><lb n="7"/>śrīnātha-hariśarmma-guptaśarmma-suśarmma-hari-Alātasvāmi-brahmasvāmi-mahāsenabhaṭṭa-ṣaṣṭhirā<supplied reason="lost">ta</supplied>-gu<gap quantity="5" reason="illegible" unit="character"/><supplied reason="lost">śa</supplied><lb break="no" n="8"/>rmma-Uṇṭaśarmma-kr̥ṣṇadatta-nandadāma-bhavadatta-Ahiśarmma-somaviṣṇu-lakṣmmaṇaśar<unclear>mma</unclear>-kānti-dhovvoka-kṣemaśar<unclear>mma</unclear>-śu<lb break="no" n="9"/>kkraśarmma-sarp<unclear>pa</unclear>pālita-kaṅkuṭi-viśvaśaṅkara-jayasvāmi-kaivarttaśarmma-himaśarmma-purandara-jayaviṣṇu-Uma <gap precision="low" quantity="1" reason="illegible" unit="character"/>
 <lb n="10"/>si<sic>ṅ</sic>hatta-bonda-nārāya<choice>
             <sic>n</sic>
             <corr>ṇ</corr>
-          </choice>adāsa-vīranāga-rājyanāga-guhamahi-bhavanātha-guhaviṣṇu-śarvva--yaśoviṣṇu-ṭakkakuladāma<gap reason="illegible"/>va-<!--
-daba siddham : All editors emend siṅhatta to siṅhadatta.
---><!--
-daba siddham : Sanyal's editor says it's ṭakka, not taṅka. Sircar reads śarvvaviṣṇuvi #3# kuladāsa #2#. The character after vi is indiscernible, but certainly a ligature. The one after that (ta/ṭa) is just a trace, could be ṭa, not ta, perhaps dha or ba.The next one is imo definitely not ṅka; could be ssa or kṣa. Then kuladāma seems plausible, though it looks more like dī and sa is possible instead of ma. Sanyal also reads a va at the very end of the line, which I cannot see.
---><!--
-amwb : replaced ya<unclear cert="low">śo</unclear>vi<unclear>ṣṇu-taṅ</unclear>ka-kuladāma <gap reason="illegible" precision="low" quantity="2" unit="character"/> by Arlo's reading and added the different readings in apparatus
---><lb n="11"/>śrīguhaviṣṇu<!--
-amwb : I replaced śrīgu<unclear>ha</unclear>viṣṇu by Arlo's reading but I did not mention it in the apparatus because DCS, NBS and Arlo are in agreement
--->-rāmasvāmi-kāmanakuṇḍa<!--
-amwb : I replaced kā<unclear>ma</unclear>nakuṇḍa by Arlo's reading but I did not mention it in the apparatus because DCS, NBS and Arlo are in agreement
--->-ratibhadra-Acyutabhadra-loḍhaka-prabhakīrtti<!--
-amwb I read prabha on the plate see photo
-amwb : I didn't replace prabhakīrtti by Arlo's reading but I added the different readings in the apparatus
--->-jayada<unclear cert="low">tta</unclear>-kāluka<!--
-amwb : I replaced jayada<unclear cert="low">tta</unclear>-<unclear>ko</unclear>bha<unclear cert="low">ka</unclear>- by Arlo's reading and added the different readings in the apparatus
--->-Acyuta-naradeva-bhava<!--
-daba siddham : For the name I tentatively read as kobhaka, Sircar (uncertainly) and Agrawala (certainly) have kālaka, Sanyal just has kā..., and his editor suggests kāluka. Perhaps combine to koluka? lu is more plausible than la.
---><lb n="12"/>-bha<unclear>va</unclear>rakṣita<!--
-amwb : I replaced by Arlo's reading see apparatus
--->-piccakuṇḍa-pravarakuṇḍa-śarvvadāsa-gopāla-purog<unclear>ā</unclear>ḥ<!--
-amwb : I replaced purogāḥ by Arlo's reading and added the different readings in app
---> vayaṁ ca vijñāpitāḥ<supplied reason="omitted">.</supplied></p>
-        <p>Iha vīthyām apratikara-khila-kṣettra<!--
-amwb : for me the last akṣara could be ttra as in the line 13 see photos
---><lb break="no" n="13"/>sya śaśvat-kālopabhogāyākṣaya-nīvyā dvi-dīnārikya-khila-kṣettra-kulya-<choice>
+          </choice>adāsa-vīranāga-rājyanāga-guhamahi-bhavanātha-guhaviṣṇu-śarvva--yaśoviṣṇu-ṭakkakuladāma<gap reason="illegible"/>va-<lb n="11"/>śrīguhaviṣṇu-rāmasvāmi-kāmanakuṇḍa-ratibhadra-Acyutabhadra-loḍhaka-prabhakīrtti-jayada<unclear cert="low">tta</unclear>-kāluka-Acyuta-naradeva-bhava<lb n="12"/>-bha<unclear>va</unclear>rakṣita-piccakuṇḍa-pravarakuṇḍa-śarvvadāsa-gopāla-purog<unclear>ā</unclear>ḥ vayaṁ ca vijñāpitāḥ<supplied reason="omitted">.</supplied></p>
+        <p>Iha vīthyām apratikara-khila-kṣettra<lb break="no" n="13"/>sya śaśvat-kālopabhogāyākṣaya-nīvyā dvi-dīnārikya-khila-kṣettra-kulya-<choice>
             <sic>b</sic>
             <corr>v</corr>
-          </choice>āpa<!--
-amwb : I replaced by Arlo's reading and added different readings in app
--->-vikraya-maryādayā Icchemahi prati
-<lb n="14"/>prati mātā-pitroḥ puṇyābhivr̥ddhaye pauṇḍravarddhanaka-cāturvvidya<!--
-amwb : I replaced cāturvvedya by Arlo's reading and added in app
--->-vāj<sic>i</sic>saneya-caraṇābhyantara-brāhmaṇa-deva<lb break="no" n="15"/>bhaṭṭa-Amaradatta-mahāsenadattānāṁ pañca-mahāyajña-pravarttanāya nava-kulya-<choice>
+          </choice>āpa-vikraya-maryādayā Icchemahi prati
+<lb n="14"/>prati mātā-pitroḥ puṇyābhivr̥ddhaye pauṇḍravarddhanaka-cāturvvidya-vāj<sic>i</sic>saneya-caraṇābhyantara-brāhmaṇa-deva<lb break="no" n="15"/>bhaṭṭa-Amaradatta-mahāsenadattānāṁ pañca-mahāyajña-pravarttanāya nava-kulya-<choice>
             <sic>b</sic>
             <corr>v</corr>
-          </choice>āpān krītvā<!--
-amwb : I replaced bāpā<unclear>n kr</unclear>ītvā by Arlo's reading but I did not add in apparatus because  DCS, NBS and Arlo are in agreement
---> dātuṁ<supplied reason="subaudible">.</supplied> Ebhir evopa<!--
-amwb : I replaced evo<unclear>pa</unclear> by Arlo's reading but I did not add in apparatus because  DCS, NBS and Arlo are in agreement
---><lb break="no" n="16"/>ri-nirddiṣṭaka-grāmeṣu khila-kṣettrāṇi<!--
-amwb : I replaced khila-kṣetrāṇi by Arlo's reading
---> vidyante tad arhathāsmattaḥ Aṣṭādaśa-dīnārān gr̥hīt<supplied reason="lost">v</supplied>ā Etān nava-kulya-<choice>
+          </choice>āpān krītvā dātuṁ<supplied reason="subaudible">.</supplied> Ebhir evopa<lb break="no" n="16"/>ri-nirddiṣṭaka-grāmeṣu khila-kṣettrāṇi vidyante tad arhathāsmattaḥ Aṣṭādaśa-dīnārān gr̥hīt<supplied reason="lost">v</supplied>ā Etān nava-kulya-<choice>
             <sic>b</sic>
             <corr>v</corr>
-          </choice><supplied reason="lost">āpā</supplied><!--
-amwb : I replaced nava-kulya-b<unclear>ā</unclear><supplied reason="lost">pā</supplied> by Arlo's reading and added readings in app
---><pb break="no" n="1v"/><lb break="no" n="17"/>n<surplus>y</surplus> anumodayituṁ<!--
-amwb : I replaced anumoday<unclear reason="illegible">i</unclear>tu<unclear reason="illegible">ṁ</unclear> by Arlo's reading and added readings in app
---></p>
-        <p>yataḥ Eṣā<unclear reason="illegible">ṁ</unclear> kulika-bhīmādīnāṁ<!--
-amwb : I replaced bhīm-ād<unclear>ī</unclear>nāṁ bya Arlo's reading but I did not add in apparatus because  DCS, NBS and Arlo are in agreement
---> vijñāpyam upalabhya pustapāla-si<sic>ṅ</sic>hanandi-yaśo<supplied reason="lost">dāmnoś cā</supplied><!--
-daba siddham : The restoration of the illegibly corroded end of the line is shared by all editors (though Sanyal spells "dāmnośca a", presumably to account for the space of 4-5 characters). I could also imagine dāmnor a; the ca seems superfluous to me.
---><lb break="no" n="18"/>vadhāraṇayāvadhr̥t<choice>
+          </choice><supplied reason="lost">āpā</supplied><pb break="no" n="1v"/><lb break="no" n="17"/>n<surplus>y</surplus> anumodayituṁ</p>
+        <p>yataḥ Eṣā<unclear reason="illegible">ṁ</unclear> kulika-bhīmādīnāṁ vijñāpyam upalabhya pustapāla-si<sic>ṅ</sic>hanandi-yaśo<supplied reason="lost">dāmnoś cā</supplied><lb break="no" n="18"/>vadhāraṇayāvadhr̥t<choice>
             <sic>ā</sic>
             <corr>o '</corr>
-          </choice>sty<!--
-amwb : I replaced dhāraṇayāvadhr̥to sty by Arlo's reading and added the readings in app, I also added choice=sic=corr
---> ayam iha-vīthyām apratikara-khila-kṣettrasya śaśvat-kālopabhogāyākṣayanīvyā dvi-dī<unclear>nā</unclear><!--
-daba siddham : The character ttra is quite unclear but it does seem to be ttra, whereas above kṣetra was repeatedly spelt with a single t.
---><!--
-daba siddham : The gā in bhogāya is funny. The character was obviously intended as gā, so I'm transcribing it as such, but it looks (almost but not quite) like gra. The intent is probably an ā mātrā attached to the lower right.
---><!--
-amwb : I added DCS and NBS readings in app
---><!--
-amwb  I added an hyphen missing between iha and vīthyām
---><lb break="no" n="19"/>rikya-kulya-<choice>
+          </choice>sty ayam iha-vīthyām apratikara-khila-kṣettrasya śaśvat-kālopabhogāyākṣayanīvyā dvi-dī<unclear>nā</unclear><lb break="no" n="19"/>rikya-kulya-<choice>
             <sic>b</sic>
             <corr>v</corr>
-          </choice>āpa-vikkrayo 'nuvr̥ttas tad dīyatāṁ nāsti vi<surplus>ḥ</surplus>rodhaḥ<!--
-amwb : it seems there is a visarga after vi ? See photo virodhaḥ or viḥrodhaḥ l19.png
---> kaścid<supplied reason="subaudible">.</supplied> ity avasthāpya kulika-bhīmādibhyo Aṣṭāda<unclear>śa</unclear><!--
-amwb : I replaced Aṣṭādaśa by Arlo's reading and added different readings in app
--->
-<lb n="20"/>dīnārān upasa<sic>ṅ</sic>haritakān<!--
-amwb : I am not sure of the i in sa<sic>ṅ</sic>harita maybe sa<sic>ṅ</sic>harīta or sa<sic>ṅ</sic>haraita, see photo saṅharita or saṅha =rī =rai= ta ? l20.png
---> āyīkr̥tya hastiśīrṣa-vibhītakyāṁ dhānyapāṭalikā-<unclear>gu</unclear><supplied reason="lost">lma</supplied><unclear>ga</unclear>ndhikā<!--
-amwb : I replaced kā-<unclear>gu</unclear><unclear reason="illegible">lma</unclear><unclear>ga</unclear>ndhikā by Arlo's reading and added diferetn readings in app
--->-grāmeṣu khanī<gap quantity="2" reason="illegible" unit="character"/><!--
-daba siddham : Agrawala attempts to reconstruct the end as viṣikhā-nadyāṁ (dyāṁ in the next line, that is). Earlier editors just transcribe a lacuna after grāmeṣu. I think the second vowel mātrā is ī, not i. The last character is absolutely illegible. I might hazard vibhītakyādyāṁ, but this doesn't really make sense.
---><!--
-amwb : I replaced <unclear>v</unclear>i<unclear>bh</unclear>ī<unclear cert="low">ta</unclear> <gap reason="illegible" quantity="1" unit="character"/> by Arlo's reading and added different readings in app
---><lb break="no" n="21"/>dyāṁ dakṣiṇoddeśeṣu Aṣṭau kulya-<choice>
+          </choice>āpa-vikkrayo 'nuvr̥ttas tad dīyatāṁ nāsti vi<surplus>ḥ</surplus>rodhaḥ kaścid<supplied reason="subaudible">.</supplied> ity avasthāpya kulika-bhīmādibhyo Aṣṭāda<unclear>śa</unclear>
+<lb n="20"/>dīnārān upasa<sic>ṅ</sic>haritakān āyīkr̥tya hastiśīrṣa-vibhītakyāṁ dhānyapāṭalikā-<unclear>gu</unclear><supplied reason="lost">lma</supplied><unclear>ga</unclear>ndhikā-grāmeṣu khanī<gap quantity="2" reason="illegible" unit="character"/><lb break="no" n="21"/>dyāṁ dakṣiṇoddeśeṣu Aṣṭau kulya-<choice>
             <sic>b</sic>
             <corr>v</corr>
           </choice>āpāḥ dhānyapāṭalik<choice>
             <sic>a</sic>
             <corr>ā</corr>
-          </choice>-grāmasya<!--
-amwb : here siddham has dhānyapāṭalikā-grāmasya with long ā as Sanyal1955-1956_01 ; Arlo has dhānyapāṭalika-grāmasya with short a as bib:Sircar1943_02 ; I conserve Arlo reading and add a choice-sic-corr see apparatus
---> paścimottaroddeśe<unclear>ṣv ā</unclear>dyakhāta<!--
-amwb : I replaced <gap reason="illegible" quantity="1" unit="character"/> dy<unclear>o</unclear> <gap reason="illegible" quantity="1" unit="character"/> <unclear>ta- by Arlo's reading and added different readings in app
--->-parikhā-veṣṭi<unclear>ta</unclear><!--
-daba siddham : The "mo" of paścimottara looks rather like ṇa. Compare l11 of IN00026 (Damodarpur plate 1) where the reading is paścinattar° emended to paścimottar° - that could be the same case. In l7 of the present inscription, mo looks the same, so this is not a "typo" here.
---><!--
-daba siddham : For the damaged bit near the end of l21, Sircar reads (?sadyaḥkhāta); Sanyal: (ā)dyakhāta; Agrawala: (ṣvā)dyakhāta. The first unclear character is imo completely unrecognisable; dy may or may not have a vowel mātrā above it; the next unclear character looks to me quite different from khā just a few characters onward in this line; after that, ta seems to have something below it (tsa? tma?) and the subscript thing also seems to be connected to pa, unless it's ma or something else (though parikhā makes good sense). I could also imagine ādyapathaḥ (or [°ddeśe]ṇādyapathaḥ, as in l23 below. In this case the visarga seems to be a later insertion, wedged below (tha) and the following pa and slightly below the regular placement.
---><!--
-amwb : I removed <unclear>pa</unclear>rikhā-veṣṭi<unclear>ta</unclear> and did not mention in app because three others are in agreement
---><lb break="no" n="22"/><sic>m</sic>-uttar<unclear>e</unclear>ṇa<!--
-amwb : re is clear for me see photo
---> vāṭā-nadī paścimena gulmagandhikā-grāma-<sic>sīmānam</sic> iti kulya-<choice>
+          </choice>-grāmasya paścimottaroddeśe<unclear>ṣv ā</unclear>dyakhāta-parikhā-veṣṭi<unclear>ta</unclear><lb break="no" n="22"/><sic>m</sic>-uttar<unclear>e</unclear>ṇa vāṭā-nadī paścimena gulmagandhikā-grāma-<sic>sīmānam</sic> iti kulya-<choice>
             <sic>b</sic>
             <corr>v</corr>
-          </choice>āpa<add place="above">m</add> eko<!--
-amwb : I replaced kulya-bāpa<unclear>m eko</unclear> by Arlo's reading and added different readings in app
-BUT i am not sure to have really well understand what Arlo means by kulyabāpa-m-eko. After checking the plate, it appears to me that we can clearly see the beginning of m- and then the plate is scratched and we see the ko. See photo kulya-bāpameko BC33 l22.png
---> gulm<sic>ā</sic>gandhikāyāṁ pūrvv<unclear>e</unclear><!--
-amwb : I replaced pūrvv<unclear>e</unclear> by Arlo's reading but did not mention in app because all three are in agreement
---><lb break="no" n="23"/>ṇādyapathaḥ paścima-pradeśe droṇa-<choice>
+          </choice>āpa<add place="above">m</add> eko gulm<sic>ā</sic>gandhikāyāṁ pūrvv<unclear>e</unclear><lb break="no" n="23"/>ṇādyapathaḥ paścima-pradeśe droṇa-<choice>
             <sic>b</sic>
             <corr>v</corr>
           </choice>āpa-dvayaṁ hastiśīrṣa-prāveśya-tāpasa<supplied reason="lost">potta</supplied>ke dayitāpottake ca vi<lb break="no" n="24"/>bhītak<choice>
             <sic>a</sic>
             <corr>ī</corr>
-          </choice>-prāveśya-citravātaṅgare<!--
-amwb : I added a choice-sic-corr for the word vibhītaka, see app and translation
---> c<choice>
+          </choice>-prāveśya-citravātaṅgare c<choice>
             <sic>ā</sic>
             <corr>ai</corr>
-          </choice>va<!--
-amwb : I replaced <unclear>yāva</unclear><supplied reason="omitted">t</supplied> by Arlo's reading and added different readings in app ; I added an emendation for cāva
---> kulya-<choice>
+          </choice>va kulya-<choice>
             <sic>b</sic>
             <corr>v</corr>
           </choice>āpāḥ sapta droṇa-<choice>
             <sic>b</sic>
             <corr>v</corr>
-          </choice>āpāḥ ṣaṬ Eṣu<!--
-amwb : I replaced ṣat eṣu by Arlo's reading and added different readings in app
---> yathopari-nirddiṣṭaka-grāma-pra<!--
-daba siddham : Sanyal's editor notes that yāva appears to be written on an erasure and is doubtful. There may indeed be correction here, perhaps "yāvat" corrected to "eva ku"; I could also imagine a scenario where the text first inscribed was kulyabā, corrected to yāva ku.
---><lb break="no" n="25"/>deśeṣv eṣāṁ kulika-bhīma-kāyastha-prabhucandra-rudradāsādīnāṁ mātā-pitroḥ puṇyābhivr̥ddhaye brā<unclear>hmaṇa</unclear><!--
-amwb : I replaced brā<unclear>hmaṇa</unclear> by Arlo's reading and did not mention it in app because all three are in agreement
--->
+          </choice>āpāḥ ṣaṬ Eṣu yathopari-nirddiṣṭaka-grāma-pra<lb break="no" n="25"/>deśeṣv eṣāṁ kulika-bhīma-kāyastha-prabhucandra-rudradāsādīnāṁ mātā-pitroḥ puṇyābhivr̥ddhaye brā<unclear>hmaṇa</unclear>
 <lb n="26"/>devabhaṭṭasya kulya-<choice>
             <sic>b</sic>
             <corr>v</corr>
@@ -329,19 +159,7 @@ amwb : I replaced brā<unclear>hmaṇa</unclear> by Arlo's reading and did not m
             <sic>b</sic>
             <corr>v</corr>
           </choice>āpāni pradattāni</p>
-        <p>tad yuṣmākaṁ <gap quantity="3" reason="illegible" unit="character"/> <unclear cert="low">ni</unclear><unclear>vedya</unclear><!--
-daba siddham : At the end, Agrawala prints nivedya as clear and emends ti at the beginning of the next line to te. (This is also the reading/emendation suggested by Sanyal's editor.) Previous editors read nothing after yuṣmākaṁ. The suggestion is plausible. I could also imagine reading bhi instead of ti at the beginning of the next line, to give us abhilikhyate - but then we need a different reading for this line end here.
---><lb break="no" n="28"/>ti likhyate ca<supplied reason="subaudible">.</supplied> samupasthita-kāla<supplied reason="lost">ṁ</supplied> ye 'py a<unclear>n</unclear>ye<!--
-amwb : I replaced -kāla<unclear>m a</unclear>py anye by Arlo's reading and added different readings in app
---> viṣayapatayaḥ Āyuktakāḥ kuṭumbino 'dhikaraṇikā vā sam<unclear>bya</unclear>va<!--
-daba siddham : See note to prev line for the ti at the beginning of l28.
---><!--
-daba siddham : For kālam apy, Sanyal's editor proposes the alternative kālaṁ ye py (he actually says kālaṁ yē=apy=anye, but I don't think ye apy is possible from the facsimile).
---><!--
-amwb : I replaced by Arlo's reading and added the different readings see app
---><lb break="no" n="29"/>hāriṇo bhaviṣyanti tair api bhūmi-dāna-phalam avekṣya Akṣaya-nīvy anupālanīyā<supplied reason="subaudible">.</supplied> Uktañ ca mahābhārate<!--
-amwb : I replaced mahā<unclear>bhā</unclear>ra<unclear>te by Arlo's reading but I did not mention in app because all three are in agreement
---> bhagava<lb break="no" n="30"/>tā vyāsena</p>
+        <p>tad yuṣmākaṁ <gap quantity="3" reason="illegible" unit="character"/> <unclear cert="low">ni</unclear><unclear>vedya</unclear><lb break="no" n="28"/>ti likhyate ca<supplied reason="subaudible">.</supplied> samupasthita-kāla<supplied reason="lost">ṁ</supplied> ye 'py a<unclear>n</unclear>ye viṣayapatayaḥ Āyuktakāḥ kuṭumbino 'dhikaraṇikā vā sam<unclear>bya</unclear>va<lb break="no" n="29"/>hāriṇo bhaviṣyanti tair api bhūmi-dāna-phalam avekṣya Akṣaya-nīvy anupālanīyā<supplied reason="subaudible">.</supplied> Uktañ ca mahābhārate bhagava<lb break="no" n="30"/>tā vyāsena</p>
         <lg met="anuṣṭubh" n="1">
           <l n="a">sva-dattāṁ para-dattām <choice>
               <sic>b</sic>
@@ -349,83 +167,39 @@ amwb : I replaced mahā<unclear>bhā</unclear>ra<unclear>te by Arlo's reading bu
             </choice>ā</l>
           <l n="b">yo hare<supplied reason="omitted">ta</supplied> vasundharāṁ</l>
           <l n="c">sa viṣṭhāyāṁ k<sic>ri</sic>mir bhūtvā</l>
-          <l n="d">pi<unclear>tr̥</unclear>bhiḥ<!--
-amwb : I replaced pi<unclear>tr̥bhiḥ</unclear> by Arlo's readding and added the different readings in app
---> saha pacyat<choice>
+          <l n="d">pi<unclear>tr̥</unclear>bhiḥ saha pacyat<choice>
               <sic>ai</sic>
               <corr>e</corr>
-            </choice><!--
-amwb : I replaced pa<unclear reason="illegible">cyate</unclear> by Arlo's reading and added the different readings in app; I also addded the tag sic
-	--></l>
+            </choice></l>
         </lg>
         <lg met="anuṣṭubh" n="2">
-          <l n="a">ṣaṣṭiṁ varṣa-sahasrāṇi<!--
-amwb : I replaced <unclear reason="illegible">ṣa</unclear><unclear>ṣṭiṁ varṣa-sahasrā</unclear><unclear reason="illegible">ṇi</unclear> by Arlo's reading and added different readings in app
---></l>
+          <l n="a">ṣaṣṭiṁ varṣa-sahasrāṇi</l>
           <l n="b"><lb n="31"/>svargge vasati bhūmidaḥ</l>
-          <l n="c">Ākṣeptā cānuma<unclear>ntā ca</unclear><!--
-amwb : I replaced cānuma<unclear reason="illegible">ntā</unclear> ca by Arlo's and completed app
---></l>
-          <l n="d">tāny eva narake vaseT<!--
- daba siddham :The halanta T does not look very different from a regular ta, but perhaps it is sightly lower, and the top of it is linked to the left to the previous character.
---></l>
+          <l n="c">Ākṣeptā cānuma<unclear>ntā ca</unclear></l>
+          <l n="d">tāny eva narake vaseT</l>
         </lg>
         <lg met="anuṣṭubh" n="3">
-          <l n="a">kr̥śāya kr̥śa-<unclear>vr̥ttā</unclear>ya<!--
-amwb : I added the unclear and compelted app
---></l>
+          <l n="a">kr̥śāya kr̥śa-<unclear>vr̥ttā</unclear>ya</l>
           <l n="b">vr̥tti-kṣīṇāya sīda<unclear reason="illegible">te</unclear></l>
           <l n="c"><unclear>bhūmiṁ</unclear> <lb n="32"/>vr̥ttikarī<sic>n</sic> da<sic>tv</sic>ā</l>
-          <l n="d">sukhī<!--
-amwb : I replaced <unclear reason="illegible">ukh</unclear>ī and completed app
---> bhavati kāmada<supplied reason="omitted">ḥ</supplied><!--
-amwb : I removed <supplied reason="omitted">ḥ</supplied> because Arlo does not seem to emend it
---></l>
+          <l n="d">sukhī bhavati kāmada<supplied reason="omitted">ḥ</supplied></l>
         </lg>
         <lg met="anuṣṭubh" n="4">
           <l n="a">bahubhi<unclear>r vasudhā</unclear> bhuktā</l>
           <l n="b">bhujyate ca punaḥ punaḥ</l>
-          <!--
-amwb : removed punaḥ puna<supplied reason="omitted">ḥ</supplied> and replaced it by Arlo's reading and add in apparatus; Checked and agree with Arlo
--->
           <l n="c">yasya yasya yadā bhūmi<unclear>s</unclear></l>
-          <l n="d"><unclear>ta</unclear>sya tasya<!--
-amwb : I changed according to Arlo's reading cf app
---> <lb n="33"/>tadā<!--
-amwb : I removed the unclear and did not mention in app
---> phalaṁ</l>
+          <l n="d"><unclear>ta</unclear>sya tasya <lb n="33"/>tadā phalaṁ</l>
         </lg>
         <lg met="anuṣṭubh" n="5">
           <l n="a">pūrvva-dattāṁ dvijātibhyo</l>
-          <l n="b">yatnād rakṣ<surplus>y</surplus>a yudhiṣṭhira<!--
-amwb : I removed <unclear reason="illegible">yu</unclear><unclear>dhi</unclear>ṣṭhira because all three are able to read it --></l>
+          <l n="b">yatnād rakṣ<surplus>y</surplus>a yudhiṣṭhira</l>
           <l n="c">mahīm mah<choice>
               <sic>i</sic>
               <corr>ī</corr>
             </choice>matāṁ śreṣṭha</l>
-          <l n="d">dānāc chreyo 'nu<unclear>pālanam</unclear><!--
-daba siddham : Sanyal reads the end as pālanam Iti, supplying daṇḍas in between. His editor notes that it seems to be pālanam=iti. I can make out na, and there is something that looks like an i mātrā after it, which probably belongs to mi.
---><!--
-amwb : I removed siddham's reading see apparatus
---></l>
+          <l n="d">dānāc chreyo 'nu<unclear>pālanam</unclear></l>
         </lg>
-        <p><unclear>iti</unclear><supplied reason="subaudible">.</supplied><!--
-amwb : here there is a problem : Daniel notes <unclear cert="low">likhitaṁ</unclear> with the following comment, but neither Arlo, nor DCS, nor NBS mention this???
---> <!--
-daba siddham : I'm pretty sure there are 3 or 4 further characters after the end of the verse. None of the previous editors transcribe or mention it. It looks like #isatina, but I'm transcribing it as a very tentative likhitaṁ.
---><lb n="34"/>saMvvaT<!--
-amwb : I removed sa<unclear>ṁ</unclear> <del><unclear cert="low">mba</unclear></del><sic>vv</sic>aT <space/> and added Arlo's reading
---> <num value="120">100 20 1</num> <space quantity="6" unit="character"/><!--
-amwb : here Arlo does not mention a space????? and Arlo reads the number 1, not present in siddham file
---> vaiśākha <abbr>di</abbr> <num value="1">1</num><!--
-daba siddham : Line 34 is squeezed into very little vertical space and contains characters only in two places, near the centre of the line and near the end. The word sa(ṁ)vvat begins below ma of mahīm; vaiśākha begins below the yo of chreyo.
---><!--
-daba siddham : Between sa(ṁ) and vvat there is another character that Sircar_1943a:24n44 takes to be a deleted character, perhaps mba. Other editors do not mention it.
---><!--
-daba siddham : The halanta T of saṁvvat is again linked at the top to the previous character.
---><!--
-daba siddham : Sircar and Agrawala read the date as 120. But N. B. Sanyal in Sen_1942:xii.n says it is 121, and Sanyal_1955-56 reiterates 121. Sircar_1943a:26n says he is aware of the faint scratches Sanyal sees as "1" but these are much further away from 20 than 20 is from 100 and thus they cannot be a third numeral. Sanyal_1955-56:66n3 insists that "The sign is distinct in the original" (to which he had access, while Sircar worked from inked impressions alone), while Sanyal's editor (ibid.) says "The reading 20 1 seems be [sic] supported neither by the original nor by the impressions" But this needs checking in hardcopy; my digital versions are badly scanned at the critical point and the note may not in fact say "20 1" but something else, and may have the missing "to" after seems. In my opinion the sign does look quite distinct, but I agree completely with Sircar that if it were a 1 rather than an accidental scratch, it would be much closer to the 20. The character above the place where the 1 should be (tāṁ of mahimatāṁ) does extend down to this line, but there would have been plenty of space below it to fit in a horizontal dash. I should also add that this line is much longer than the 1 after vaiśākha at the end of this line and the 2-s above in this plate, which again implies that it's an accidental scratch.
---></p>
+        <p><unclear>iti</unclear><supplied reason="subaudible">.</supplied> <lb n="34"/>saMvvaT <num value="120">100 20 1</num> <space quantity="6" unit="character"/> vaiśākha <abbr>di</abbr> <num value="1">1</num></p>
       </div>
       <div type="apparatus">
         <listApp>
@@ -434,9 +208,6 @@ daba siddham : Sircar and Agrawala read the date as 120. But N. B. Sanyal in Sen
                 <sic>o</sic>
                 <corr>au</corr>
               </choice>śikāyāḥ</lem>
-            <!--amwb : here is arlo's reading :
-						<lem>°koś<unclear>i</unclear>kāyāḥ</lem>
-					-->
             <rdg source="bib:Sircar1943_02 bib:Sanyal1955-1956_01">k<unclear>au</unclear>ś<unclear>i</unclear>kāyāḥ</rdg>
             <rdg source="bib:Balogh+al2019_01">k<unclear>au</unclear>ś<unclear>i</unclear>k<unclear>ā</unclear>yāḥ</rdg>
             <note><bibl>
@@ -484,15 +255,11 @@ daba siddham : Sircar and Agrawala read the date as 120. But N. B. Sanyal in Sen
             <note><bibl>
                 <ptr target="bib:Sircar1943_02"/>
               </bibl> proposes to emend this to <foreign>bhavatu</foreign>. But use of future forms in the meaning of imperative is found throughout the corpus, notably in <ref target="DHARMA_INSBengalCharters00039.xml">Mahatī-Raktamālā I</ref>.</note>
-            <!--
-					amwb : do you refer to line 19 of this plate?
-					-->
           </app>
           <app loc="3">
             <lem>-lakṣmmaṇa-</lem>
             <rdg source="bib:Sircar1943_02 bib:Sanyal1955-1956_01 bib:Balogh+al2019_01">-lakṣmaṇa-</rdg>
           </app>
-          <!--amwb : added it is my  own reading -->
           <app loc="3">
             <lem>-k<supplied reason="lost">āntide</supplied>va-vaśambhudatta-</lem>
             <rdg source="bib:Sircar1943_02">-kā<gap quantity="2" reason="illegible" unit="character"/><supplied cert="low" reason="lost">vinayada</supplied>vatta-</rdg>
@@ -532,12 +299,6 @@ daba siddham : Sircar and Agrawala read the date as 120. But N. B. Sanyal in Sen
                 <ptr target="bib:Sircar1943_02"/>
               </bibl> suggests the alternative reading -<foreign>khilinaka</foreign>- instead of -<foreign>vailinaka</foreign>-.</note>
           </app>
-          <!-- amwb : for me the "su" is not really clear it could be as "sa" as "su"
-					<app loc="6">
-					<lem>va<unclear>su</unclear>śivāparaśiva</lem>
-					<rdg source="bib:Sircar1943_02 bib:Sanyal1955-1956_01 bib:Balogh+al2019_01">vasuśivāparaśiva</rdg>
-				</app>
-				-->
           <app loc="6">
             <lem>-bhavasvāmi<unclear>deva</unclear>-</lem>
             <rdg source="bib:Sircar1943_02">-bhava<gap quantity="4" reason="illegible" unit="character"/></rdg>
@@ -563,7 +324,6 @@ daba siddham : Sircar and Agrawala read the date as 120. But N. B. Sanyal in Sen
             <lem>-lakṣmmaṇa-</lem>
             <rdg source="bib:Sircar1943_02 bib:Sanyal1955-1956_01 bib:Balogh+al2019_01">-lakṣmmaṇa-</rdg>
           </app>
-          <!--amwb : added it is my  own reading -->
           <app loc="8">
             <lem>śar<unclear>mma</unclear>-kānti-dhovvoka-kṣemaśar<unclear>mma</unclear>-</lem>
             <rdg source="bib:Sircar1943_02">śarmma-kīrttiviṣṇu-kramaśarmma-</rdg>
@@ -605,9 +365,6 @@ daba siddham : Sircar and Agrawala read the date as 120. But N. B. Sanyal in Sen
           <app loc="11">
             <lem source="bib:Sircar1943_02 bib:Balogh+al2019_01">-prabhakīrtti-</lem>
             <rdg source="bib:Sanyal1955-1956_01">-prabhukīrtti-</rdg>
-            <!--
-						amwb : I read prabha as  bib:Sircar1943_02 bib:Balogh+al2019_01 so I change the app
-					-->
           </app>
           <app loc="11">
             <lem>-jayadatta-kāluka-Acyuta-</lem>
@@ -634,7 +391,6 @@ daba siddham : Sircar and Agrawala read the date as 120. But N. B. Sanyal in Sen
             <lem>khila-kṣettra</lem>
             <rdg source="bib:Sircar1943_02 bib:Sanyal1955-1956_01 bib:Balogh+al2019_01">khila-kṣetra</rdg>
           </app>
-          <!--amwb : added, it is my own reading -->
           <app loc="13">
             <lem>-kṣettra-kulya-<choice>
                 <sic>b</sic>
@@ -651,9 +407,6 @@ daba siddham : Sircar and Agrawala read the date as 120. But N. B. Sanyal in Sen
             <note><bibl>
                 <ptr target="bib:Sircar1943_02"/>
               </bibl> suggests reading <foreign>icchāmaḥ</foreign>. Indeed the use of an optative with the verb iṣ- seems quite redundant, but as the form is correct, I suggest seeing the redundant use as intentional and translating it by using an intensity adverb. See translation part</note>
-            <!--
-amwb : I added this app with this note and this suggestion
--->
           </app>
           <app loc="14">
             <lem source="bib:Sircar1943_02">-cāturvvidya-</lem>
@@ -686,8 +439,6 @@ amwb : I added this app with this note and this suggestion
                 <ptr target="bib:Sanyal1955-1956_01"/>
               </bibl> already suggests the emendation <foreign>navakulyavāpān</foreign>.</note>
           </app>
-          <!--
-				amwb : I added this note and the emendation inside the edition-->
           <app loc="17">
             <lem>anumodayituṁ</lem>
             <rdg source="bib:Sircar1943_02">anu<supplied reason="lost">po</supplied>dayituṁ</rdg>
@@ -714,17 +465,12 @@ amwb : I added this app with this note and this suggestion
             <lem>vi<surplus>ḥ</surplus>rodhaḥ</lem>
             <rdg source="bib:Sircar1943_02 bib:Sanyal1955-1956_01 bib:Balogh+al2019_01">virodhaḥ</rdg>
           </app>
-          <!--amwb : added it is my own reading-->
           <app loc="19">
             <lem>°dibhyo Aṣṭāda<unclear>śa</unclear></lem>
             <rdg source="bib:Sircar1943_02">°di<supplied reason="lost">bhyo Aṣṭādaśa</supplied></rdg>
             <rdg source="bib:Sanyal1955-1956_01 bib:Balogh+al2019_01">°dibhyo Aṣṭādaśa</rdg>
           </app>
           <app loc="20">
-            <!--
-				amwb : Check the photo because I read upasa<sic>ṅ</sic>haritakān with long i or ai
-				amwb : In the note, it is my own emendation. Its relevance should be discussed with Arlo
-				-->
             <lem>upasa<sic>ṅ</sic>haritakān</lem>
             <note>Emend <foreign>upasaṁhr̥takān</foreign> or <foreign>upasaṁhāritakān</foreign>? <bibl>
                 <ptr target="bib:Sircar1943_02"/>
@@ -743,9 +489,6 @@ amwb : I added this app with this note and this suggestion
             <rdg source="bib:Balogh+al2019_01">-grāmeṣu <unclear>v</unclear>i<unclear>bh</unclear>ī<unclear cert="low">ta</unclear> <gap quantity="1" reason="illegible" unit="character"/><lb break="no" n="21"/>dyāṁ</rdg>
           </app>
           <app loc="21">
-            <!--
-				amwb : I conserve Arlo's reading but I add a choice-sic-corr with the note
-				-->
             <lem>dhānyapāṭalik<choice>
                 <sic>a</sic>
                 <corr>ā</corr>
@@ -789,20 +532,14 @@ amwb : I added this app with this note and this suggestion
             <rdg source="bib:Balogh+al2019_01">pūrvv<unclear>e</unclear></rdg>
           </app>
           <app loc="23">
-            <!--
-				amwb : here it is my own suggestion, it should be discussed with Arlo
-				-->
             <lem>vi<lb break="no" n="24"/>bhītak<choice>
                 <sic>a</sic>
                 <corr>ī</corr>
               </choice>-</lem>
-            <note>I assume <foreign>vibhītaka</foreign>- is a scribal error for <foreign>vibhītakī</foreign>:
+            <note>I assume <foreign>vibhītaka</foreign>- is a scribal error for <foreign>vibhītakī</foreign>: 
 					Indeed this village name is twice spelled <foreign>vibhītakī</foreign> in lines 1 and 20.</note>
           </app>
           <app loc="24">
-            <!--
-				amwb : here it is my own emendation. Its relevance should be discussed with Arlo
-				-->
             <lem>c<choice>
                 <sic>ā</sic>
                 <corr>ai</corr>
@@ -975,14 +712,14 @@ amwb : I added this app with this note and this suggestion
           </supplied>, i.e. in Vibhītakā,<note>
 					As the previous translations of this inscription show it, there are several possibilities to interpret <foreign>hastiśīrṣe</foreign>. The translation of <bibl>
               <ptr target="bib:Sircar1943_02"/>
-            </bibl> is somewhat unclear. Indeed, in his translation of the line 1, he reads <foreign>hastiśīrṣavibhītakyāṁ</foreign> and translates <q>residing in Hastiśīrṣavibhītakī</q>. In line 20, his translation of <foreign>hastiśīrṣa-vibhītakyāṁ</foreign> by <q>Hastiśīrṣavibhītakī</q> might be supported by the singular locative. But in lines 23-24, the text compells him to consider Hastiśīrṣa an independant place name. At the end of his translation, he adds a note and criticizes the understanding of the place names suggested by Sanyal : <quote>It will be seen from the note that Sanyal has failed to decipher many important passages of the record including several geographical names. His suggestion regarding the two villages Hastiśīrṣa and Vibhītakī is not supported by the passage <foreign>hastiśīrṣa-vibhītakyāṁ</foreign> of the text.</quote>
+            </bibl> is somewhat unclear. Indeed, in his translation of the line 1, he reads <foreign>hastiśīrṣavibhītakyāṁ</foreign> and translates <q>residing in Hastiśīrṣavibhītakī</q>. In line 20, his translation of <foreign>hastiśīrṣa-vibhītakyāṁ</foreign> by <q>Hastiśīrṣavibhītakī</q> might be supported by the singular locative. But in lines 23-24, the text compells him to consider Hastiśīrṣa an independant place name. At the end of his translation, he adds a note and criticizes the understanding of the place names suggested by Sanyal : <quote>It will be seen from the note that Sanyal has failed to decipher many important passages of the record including several geographical names. His suggestion regarding the two villages Hastiśīrṣa and Vibhītakī is not supported by the passage <foreign>hastiśīrṣa-vibhītakyāṁ</foreign> of the text.</quote> 
 Indeed <bibl>
               <ptr target="bib:Sanyal1955-1956_01"/>
               <citedRange unit="page">58-9</citedRange>
             </bibl> doesn't follow <bibl>
               <ptr target="bib:Sircar1943_02"/>
-            </bibl>'s understanding and he considers Hastiśīrṣa and Vibhītakī two different names of village.
-					To clarify the problem, I give below the three contexts where the word <foreign>hastiśīrṣa</foreign> appears in the text :
+            </bibl>'s understanding and he considers Hastiśīrṣa and Vibhītakī two different names of village. 
+					To clarify the problem, I give below the three contexts where the word <foreign>hastiśīrṣa</foreign> appears in the text : 
 					<list rend="numbered">
               <item>in association with the place name Vibhītakī, but not in compound: <foreign>hastiśīrṣe vibhītakyāṁ</foreign>, line 1</item>
               <item>in association and in compound with the place name Vibhītakī: <foreign>hastiśīrṣavibhītakyāṁ</foreign>, line 20</item>
@@ -992,7 +729,7 @@ Indeed <bibl>
               <ptr target="bib:Sanyal1955-1956_01"/>
             </bibl> did. A second possibility is to see <foreign>hastiśīrṣa</foreign> as a compound indicating a large aera. This interpretation is based on my previous observation according to which the geographical indication is presented from the larger to the smaller entity. So it could be possible to consider <foreign>śīrṣa</foreign>- a word used in a geographical manner to indicate that some place is near another larger place and <foreign>hasti</foreign>- a name of place like Hastināpura? If so, the translation could be <q>in the upper part of Hasti</q>, <q>collateral of Hasti</q>, <q>close or next to Hasti</q>. A third possibility could be to consider <foreign>hastiśīrṣa</foreign> a compound composed by the derivated word of the constellation name Hasta followed by <foreign>śīrṣa</foreign>, like in the compound <foreign>mārgaśīrṣa</foreign><q>the month under the constellation of Mr̥ga</q><supplied reason="explanation">i.e. november-september</supplied> which is recorded in <ref>
               <ptr target="bib:MonierWilliams1899_01"/>
-            </ref> and by several inscriptions (for example: <ref target="http://siddham.uk/inscription/in00090">Betul Charter of Samksobha, year 199</ref>, line 3)<!-- amwb : I also found mārgaśīrṣa in in the Kesaribedā Donation of Arthapati line 13 (siddham IN1003) and in Kauvatal Charter of Sudevarāja line 24 -->. But the irregular derivation in <foreign>hastiśīrṣa</foreign> and the context of its use do not allow a such interpretation.
+            </ref> and by several inscriptions (for example: <ref target="http://siddham.uk/inscription/in00090">Betul Charter of Samksobha, year 199</ref>, line 3). But the irregular derivation in <foreign>hastiśīrṣa</foreign> and the context of its use do not allow a such interpretation.
 				</note>
 				in Gulmagandhikā, in Dhānyapāṭikā, as well as in their hamlets <supplied reason="explanation">
             <foreign>sagohāliṣu</foreign>
@@ -1000,11 +737,11 @@ Indeed <bibl>
 					On the meaning of gohālī, see <bibl>
               <ptr target="bib:Griffiths2018_02"/>
               <citedRange unit="page">40-2</citedRange>
-            </bibl></note>
-				and inform them :
+            </bibl></note> 
+				and inform them : 
 			</p>
         <p n="2-12">
-				It will be known by you that
+				It will be known by you that 
 				the chief of the guild <supplied reason="explanation">
             <foreign>kulika</foreign>
           </supplied> Bhīma,<note>
@@ -1015,33 +752,23 @@ Indeed <bibl>
             <foreign>pustapāla</foreign>
           </supplied> Siṁhanandin and Yaśodāman, all belonging to this territory <supplied reason="explanation">
             <foreign>vīthī</foreign>
-          </supplied>,
+          </supplied>, 
 				preceded by the territory-chiefs <supplied reason="explanation">
             <foreign>vīthīmahattara</foreign>
           </supplied> Kumāradeva, Gaṇḍaprajāpati, Umayaśas, Rāmaśarman, Jyeṣṭhadāman, Svāmicandra and Harisiṁha, <supplied reason="explanation">preceded by</supplied> the householders <supplied reason="explanation">
             <foreign>kuṭumbi</foreign>
-          </supplied> Yaśoviṣṇu, Kumāraviṣṇu, Kumārabhava, Kumārabhūti, Kumāra, Yaśagupta, Vailinaka, Śivakuṇḍa, Vasuśiva, Aparaśiva, Dāmarudra, Prabhamitra, Kr̥ṣṇamitra, Maghaśarman, Iśvaracandra, Rudrabhava, Svāmideva, Śrīnātha, Hariśarman, Guptaśarman, Suśarman, Hari, Alātasvāmin, Brahmasvāmin, Mahāsenabhaṭṭa, Ṣaṣṭhirāta, Gu _ _ _, _ _ śarman, Uṇṭaśarman, Kr̥ṣṇadatta, Nandadāman, Bhavadatta, Ahiśarman, Somaviṣṇu, Lakṣmaṇaśarman, Kāntidhovvoka, Kṣemaśarman, Śukraśarman, Sarppapālita, Kaṅkuṭi, Viśvaśaṅkara, Jayasvāmin, Kaivarttaśarman, Himaśarman, Purandara, Jayaviṣṇu, Uma. . . ,<!--
-Check the quantity of the gap
-amwb 2021-08-30: probably a loss of two ak.saras
-				--> Siṁhatta, Bonda, Nārāyanadāsa, Vīranāga, Rājyanāga, Guhamahi, Bhavanātha, Guhaviṣṇu, Śarva, Yaśoviṣṇu, Ṭakkakuladāma . . . . va,<!--
-Check the quantity of the gap and maybe suppose two names (the end of Ṭakkakuladāma.., ...va,)
-amwb 2021-08-30: probably a loss of only one
-				-->
-				Śrīguhaviṣṇu, Rāmasvāmin, Kāmanakuṇḍa, Ratibhadra, Acyutabhadra, Loḍhaka, Prabhakīrti,<!--
-amwb : prabhukīrti for Arlo
---> Jayadatta, Kāluka, Acyuta, Naradeva, Bhava, Bhavarakṣita, Piccakuṇḍa, Pravarakuṇḍa, Śarvadāsa and Gopāla, as well as ourselves inform :
+          </supplied> Yaśoviṣṇu, Kumāraviṣṇu, Kumārabhava, Kumārabhūti, Kumāra, Yaśagupta, Vailinaka, Śivakuṇḍa, Vasuśiva, Aparaśiva, Dāmarudra, Prabhamitra, Kr̥ṣṇamitra, Maghaśarman, Iśvaracandra, Rudrabhava, Svāmideva, Śrīnātha, Hariśarman, Guptaśarman, Suśarman, Hari, Alātasvāmin, Brahmasvāmin, Mahāsenabhaṭṭa, Ṣaṣṭhirāta, Gu _ _ _, _ _ śarman, Uṇṭaśarman, Kr̥ṣṇadatta, Nandadāman, Bhavadatta, Ahiśarman, Somaviṣṇu, Lakṣmaṇaśarman, Kāntidhovvoka, Kṣemaśarman, Śukraśarman, Sarppapālita, Kaṅkuṭi, Viśvaśaṅkara, Jayasvāmin, Kaivarttaśarman, Himaśarman, Purandara, Jayaviṣṇu, Uma. . . , Siṁhatta, Bonda, Nārāyanadāsa, Vīranāga, Rājyanāga, Guhamahi, Bhavanātha, Guhaviṣṇu, Śarva, Yaśoviṣṇu, Ṭakkakuladāma . . . . va,
+				Śrīguhaviṣṇu, Rāmasvāmin, Kāmanakuṇḍa, Ratibhadra, Acyutabhadra, Loḍhaka, Prabhakīrti, Jayadatta, Kāluka, Acyuta, Naradeva, Bhava, Bhavarakṣita, Piccakuṇḍa, Pravarakuṇḍa, Śarvadāsa and Gopāla, as well as ourselves inform :
 			</p>
         <p n="12-15">
 				In accordance of the rule allowable in this territory <supplied reason="explanation">
             <foreign>vīthī</foreign>
-          </supplied> that the sale of one <foreign>kulyavāpa</foreign> of waste land in exchange of two <foreign>dīnāra</foreign>s is used for a permanent endowment of a waste land without revenue charges to be enjoyed in perpetuity,<!--
-I translate the instrumental akṣayanīvyā by the expression 'is used for' and the dative śaśvatkālopabhogāya by 'to be...'. Among all the inscriptions I have encoded, it is the first time I found this kind of construction
---> we really wish,<note>
-					The redundant use of the optative mode with the verb <foreign>iṣ</foreign>- is rendered in the translation by the addition of an intensity adverb.
-				</note>
+          </supplied> that the sale of one <foreign>kulyavāpa</foreign> of waste land in exchange of two <foreign>dīnāra</foreign>s is used for a permanent endowment of a waste land without revenue charges to be enjoyed in perpetuity, we really wish,<note>
+					The redundant use of the optative mode with the verb <foreign>iṣ</foreign>- is rendered in the translation by the addition of an intensity adverb.  
+				</note> 
 				in order to increase the merit of both mothers and fathers of each of us,<note>
 					I attribute to the repetition of <foreign>prati</foreign> a distributive function and translate it by 'each of us'.
-				</note>
+				</note> 
 				after purchasing nine <foreign>kulyavāpa</foreign>s <supplied reason="explanation">of waste land</supplied>, give <supplied reason="subaudible">this land</supplied> for the purpose of the performance of the five great sacrifices to the brahmins <supplied reason="explanation">named</supplied> Devabhaṭṭa, Amaradatta and Mahāsenadatta residing in Puṇdravardhana and belonging to the Vājasaneya school.</p>
         <p n="15-17">
 				Precisely in the above-mentionned villages, there are lands recognised as waste by those who are following <supplied reason="explanation"><foreign>ebhis</foreign>, i.e. the record-keepers?</supplied>.<note>
@@ -1074,10 +801,10 @@ I translate the instrumental akṣayanīvyā by the expression 'is used for' and
               <item>consider <foreign>śīrṣa</foreign>- as an geographical indication and translate <q>in Vibhītakī next to Hasti</q></item>
               <item>analyse the singular as a scribal error and correct it by a duel form : <foreign>hastiśīrṣavibhītakyor</foreign><q>in both Hastiśīrṣa and Vibhītakī</q></item>
               <item>as Arlo suggests, read <foreign>vibhītakī</foreign> in order to have a long compound <foreign>hastiśīrṣa-vibhītakī-dhānyapāṭalikā-gulmagandhikā-grameṣu</foreign><q>in the villages Hastiśīrṣa, Vibhītakī, Dhānyapāṭalikā and Gulmagandhikā</q></item>
-            </list></note>
+            </list></note> 
 				in the villages Dhānyapāṭalikā and Gulmagandhikā,<note>
 				Here one would have prefered a dual instead of a plural.
-			</note> in Khanī<gap quantity="2" reason="lost" unit="character"/>dī:
+			</note> in Khanī<gap quantity="2" reason="lost" unit="character"/>dī: 
 				<list>
             <item>one <foreign>kulyavāpa</foreign> is located in the north-west of the village Dhānyapāṭalikā surrounded by a recently excavated ditch, with Vāṭā river in the north <supplied reason="explanation">and</supplied> bordered by the village Gulmagandhikā the in the west;</item>
             <item>two <foreign>droṇavāpa</foreign>s are located in the west in Gulmagandhikā with the first road at the east;</item>
@@ -1150,14 +877,7 @@ I translate the instrumental akṣayanīvyā by the expression 'is used for' and
      </note></p>
         <p n="34">Year 121, <supplied reason="explanation">month of</supplied> Vaiśakha, day 1.</p>
       </div>
-      <div type="commentary"><!--
-			amwb : concerning the punctuation marks in the inscription, I totally agree Daniel's suggestions, but I will add some other marks. Here follow my suggestions :
-			- wrap by a tag <p> from line 2 beginning with to (vi)ditam to line 12 after vijñāpitāḥ
-			- add line 16  <supplied reason="subaudible">.</supplied> between vidyante and tad
-			- add line 18 <supplied reason="subaudible">.</supplied> between ayam and iha
-			- I would like add line 19 <supplied reason="subaudible">.</supplied> between 'nuvr̥ttas and tad, but if I do this, the samdhi will not be correct
-			- add line 24 <supplied reason="subaudible">.</supplied> between ṣaṬ and Eṣu
-			--></div>
+      <div type="commentary"></div>
       <div type="bibliography">
         <p>First reported <supplied reason="explanation">in passing, by Sanyal</supplied> in <bibl>
             <ptr target="bib:Sen1942_01"/>
@@ -1179,9 +899,6 @@ I translate the instrumental akṣayanīvyā by the expression 'is used for' and
           </bibl> and the photos taken in 2019. The text has been encoded by Amandine Wattelier-Bricout using a digital edition created by Dániel Balogh for the Siddham project as starting point. The text has been translated for the first time by <bibl>
             <ptr target="bib:Sircar1943_02"/>
           </bibl>. Here a new translation including editorial changes has been suggested by Amandine Wattelier-Bricout and still need to be discussed with Arlo Griffiths.</p>
-        <!--
-amwb : Need to change the end of the text when the translation will have been discussed with Arlo
--->
         <listBibl type="primary">
           <bibl>
             <ptr target="bib:Sen1942_01"/>

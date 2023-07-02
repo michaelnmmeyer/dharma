@@ -1,22 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
       <titleStmt>
         <title>Kawali I (b)</title>
-        <!--Change the title of the file, e.g. Raktamālā grant of the time of Budhagupta, year 159-->
         <respStmt>
-          <!-- add an element respStmt for each person involved -->
           <resp>intellectual authorship of edition</resp>
-          <!-- this may be the same as the creator of the file -->
           <persName ref="part:adgu">
             <name>Aditia Gunawan</name>
-            <!-- Input Arlo -->
           </persName>
         </respStmt>
       </titleStmt>
@@ -24,38 +14,26 @@
         <authority>DHARMA</authority>
         <pubPlace>Paris</pubPlace>
         <idno type="filename">DHARMA_INSIDENKKawali_1b</idno>
-        <!-- Replace by filename, e.g. Pallava00001 -->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Aditia Gunawan &amp; Arlo Griffiths.</p>
-            <!-- Replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -85,7 +63,6 @@
       <change status="draft" when="2020-05-18" who="part:adgu">revision second round</change>
       <change status="draft" when="2020-03-27" who="part:axja">adding the handDesc template</change>
       <change status="draft" when="2020-01-09" who="part:axja">Update the template</change>
-      <!-- add a <change> for each change to the file, the first change should replace this one and record your creation of a file using this template. -->
       <change status="draft" when="2019" who="part:adgu">Initial Encoding</change>
     </revisionDesc>
   </teiHeader>
@@ -133,7 +110,7 @@
         <p>Lateral faces (1 = top, 2 = right, 3 = bottom, 4 = left). We have accepted Noorduyn’s translation which seems perfectly adequate. See also his valuable comments on the translation (<bibl rend="omitname">
             <ptr target="bib:Noorduyn1988_01"/>
             <citedRange>310</citedRange>
-          </bibl>). We would like to add about the occurrence of <foreign>IA</foreign> in line 3 that this word can be understood as <foreign>iya</foreign> or <foreign>ya</foreign>, and can stand as 3rd person pronoun (cf. Keba2.3 &amp; 4 on <foreign>ya</foreign> standing for <foreign>iña</foreign>). It is interesting to note that the equivalent word <foreign>iya</foreign> appears <foreign>passim</foreign> in <title>Amanat Galuṅguṅ</title>, a text which originates from the eastern part of West Java, and may share dialectal features with the language of the Kawali inscriptions. See for example <title>Amanat Galuṅguṅ</title> 14: <foreign>asiṅ iya nu mənaṅkə<supplied reason="omitted">n</supplied> na kabuyutan na galuṅguṅ, iya sakti tapa, iya jaya praṅ</foreign> <q>whoever is he who acquires the sanctuary of Galunggung, he will be powerful in asceticism, he will be victorious in battle</q>.
+          </bibl>). We would like to add about the occurrence of <foreign>IA</foreign> in line 3 that this word can be understood as <foreign>iya</foreign> or <foreign>ya</foreign>, and can stand as 3rd person pronoun (cf. Keba2.3 &amp; 4 on <foreign>ya</foreign> standing for <foreign>iña</foreign>). It is interesting to note that the equivalent word <foreign>iya</foreign> appears <foreign>passim</foreign> in <title>Amanat Galuṅguṅ</title>, a text which originates from the eastern part of West Java, and may share dialectal features with the language of the Kawali inscriptions. See for example <title>Amanat Galuṅguṅ</title> 14: <foreign>asiṅ iya nu mənaṅkə<supplied reason="omitted">n</supplied> na kabuyutan na galuṅguṅ, iya sakti tapa, iya jaya praṅ</foreign> <q>whoever is he who acquires the sanctuary of Galunggung, he will be powerful in asceticism, he will be victorious in battle</q>. 
 </p>
       </div>
       <div type="bibliography">
@@ -155,7 +132,7 @@
           </bibl>), which we have found to be flawless by consulting our own photographs. Noorduyn was the first to observe that this text is in verse form. Richadiana Kartakusuma (<bibl rend="omitname">
             <ptr target="bib:RichadianaKartakusuma2005_01"/>
             <citedRange>49</citedRange>
-          </bibl>) has a different readings from her predecessors.
+          </bibl>) has a different readings from her predecessors. 
 </p>
         <listBibl type="primary">
           <bibl>
@@ -226,7 +203,6 @@
           <bibl>
             <ptr target="bib:DjadjaSukardjaS2002_01"/>
           </bibl>
-          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

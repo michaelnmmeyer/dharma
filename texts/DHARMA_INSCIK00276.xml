@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -45,22 +39,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
-            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -71,7 +60,6 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -89,17 +77,17 @@
     <body>
       <div type="edition" xml:lang="okz-Latn">
         <p>
-<lb n="1"/><g type="ddandaOrnate">.</g> Oṁ namaś śivādibhyo gurubhyaḥ deva-śrīyogīśvarapanditasyodaya-siddhir astu <g type="ddandaHooked">.</g>
-<lb n="2"/>jaṁnvan· vraḥ kamrateṅ· Añ· śrīyogīśvarapandita sruk· vnur· kaṁdvāt· vi<lb break="no" n="3"/>ṣaya vyādhapura<g type="dotMid">.</g> ta kamrateṅ· jagat liṅgapura<g type="dotMid">.</g> mukha vas· mvāya<g type="dotMid">.</g> vraḥ triśū<lb break="no" n="4"/>la laṅgau mvāy· bhāra ti sthāpanā ti Īśāna<g type="floretComplex">.</g> ta kanloṅ kamrateṅ· Añ· Aṅve
+<lb n="1"/><g type="ddandaOrnate">.</g> Oṁ namaś śivādibhyo gurubhyaḥ deva-śrīyogīśvarapanditasyodaya-siddhir astu <g type="ddandaHooked">.</g> 
+<lb n="2"/>jaṁnvan· vraḥ kamrateṅ· Añ· śrīyogīśvarapandita sruk· vnur· kaṁdvāt· vi<lb break="no" n="3"/>ṣaya vyādhapura<g type="dotMid">.</g> ta kamrateṅ· jagat liṅgapura<g type="dotMid">.</g> mukha vas· mvāya<g type="dotMid">.</g> vraḥ triśū<lb break="no" n="4"/>la laṅgau mvāy· bhāra ti sthāpanā ti Īśāna<g type="floretComplex">.</g> ta kanloṅ kamrateṅ· Añ· Aṅve 
 <lb n="5"/>danle ti pratiṣṭhā vraḥ kamrateṅ· Añ· śrītripuradahaneśvara kanakāṅga stac· pa<lb break="no" n="6"/>ñcotsava Aṁvala nu bhagavatī jvan· hemadolā mvāya<g type="floretComplex">.</g> ta kamrateṅ jagat· va<lb n="7"/>k Ek· śivikā mvāya ti sthāpanā vraḥ kamrateṅ· Añ· śrīnātakeśvara daśabhu<lb break="no" n="8"/>ja nu samastābharaṇa ta gi nu bhoga ta Ampāll neḥha<g type="circleMed">.</g> hemakaraṅka mvāya jyaṅ·
-<lb n="9"/>vyara liṅ tappa<g type="dotMid">.</g> khāl mās· mvāya liṅ tappa<g type="circleMed">.</g> rupyakaraṅka mvāya jyāṅ piya liṅ tappa<g type="dotMid">.</g>
-<lb n="10"/>rupyapratigraha mvāya jyaṅ tappa mvāya<g type="dotMid">.</g> rupyakalaśa mvāya jyaṅ· pramvāya li<lb break="no" n="11"/>ṅ tappa<g type="circleMed">.</g> vudi prāk· mvāya jyaṅ· pramvāya liṅ tappa<g type="circleMed">.</g> rupyabhājana mvāya jyaṅ· praṁpi<lb break="no" n="12"/>ya<g type="circleMed">.</g> rupyakamandalu mvāya liṅ tappa<g type="circleMed">.</g> māyūracchatra<g type="dotMid">.</g> gaṇā toy· Aṁpeṇa gi ta
-<lb n="13"/>paṁre<g type="floretComplex">.</g> ta kamrateṅ jagat· śrīcāmpeśvara ti pratiṣṭhā vraḥ kamrateṅ· Añ· śrī<lb break="no" n="14"/>tribhuvanañjaya Aṁvala n<supplied reason="omitted">u</supplied> bhagavatī śrīya kanakāṅga stac pañcotsava<g type="circleMed">.</g>
-<lb n="15"/>hemadolā mvāya Arddhalo mvāy kanakāṅga<g type="dotMid">.</g> sitacchatra<g type="floretComplex">.</g> ta kamrateṅ jaga<lb break="no" n="16"/>t kaṁdvāt· dik ti jau bhūmi bhadrāvidyāvīra caṁ caṁnāṁ śvetatandulādi yathāvibhava <g type="ddandaHooked">.</g>
-<lb n="17"/>ta kamrateṅ jagat· śrījayaksetra suvarṇnabhājana mvāya Aṅguliyaka
-<lb n="18"/>praṁvyala<g type="dotMid">.</g> vraḥ Anroñ· sarvvadanta<g type="circleMed">.</g> sitacchatra sarvvadanta<g type="circleMed">.</g> ratna tappa sūryya<lb break="no" n="19"/>kāntādi vudi padigaḥ pvānna<g type="circleMed">.</g> tamrya mvāya<g type="floretComplex">.</g> ta kamrateṅ· jagat· vnaṁ pūrvva ti
+<lb n="9"/>vyara liṅ tappa<g type="dotMid">.</g> khāl mās· mvāya liṅ tappa<g type="circleMed">.</g> rupyakaraṅka mvāya jyāṅ piya liṅ tappa<g type="dotMid">.</g> 
+<lb n="10"/>rupyapratigraha mvāya jyaṅ tappa mvāya<g type="dotMid">.</g> rupyakalaśa mvāya jyaṅ· pramvāya li<lb break="no" n="11"/>ṅ tappa<g type="circleMed">.</g> vudi prāk· mvāya jyaṅ· pramvāya liṅ tappa<g type="circleMed">.</g> rupyabhājana mvāya jyaṅ· praṁpi<lb break="no" n="12"/>ya<g type="circleMed">.</g> rupyakamandalu mvāya liṅ tappa<g type="circleMed">.</g> māyūracchatra<g type="dotMid">.</g> gaṇā toy· Aṁpeṇa gi ta 
+<lb n="13"/>paṁre<g type="floretComplex">.</g> ta kamrateṅ jagat· śrīcāmpeśvara ti pratiṣṭhā vraḥ kamrateṅ· Añ· śrī<lb break="no" n="14"/>tribhuvanañjaya Aṁvala n<supplied reason="omitted">u</supplied> bhagavatī śrīya kanakāṅga stac pañcotsava<g type="circleMed">.</g> 
+<lb n="15"/>hemadolā mvāya Arddhalo mvāy kanakāṅga<g type="dotMid">.</g> sitacchatra<g type="floretComplex">.</g> ta kamrateṅ jaga<lb break="no" n="16"/>t kaṁdvāt· dik ti jau bhūmi bhadrāvidyāvīra caṁ caṁnāṁ śvetatandulādi yathāvibhava <g type="ddandaHooked">.</g> 
+<lb n="17"/>ta kamrateṅ jagat· śrījayaksetra suvarṇnabhājana mvāya Aṅguliyaka 
+<lb n="18"/>praṁvyala<g type="dotMid">.</g> vraḥ Anroñ· sarvvadanta<g type="circleMed">.</g> sitacchatra sarvvadanta<g type="circleMed">.</g> ratna tappa sūryya<lb break="no" n="19"/>kāntādi vudi padigaḥ pvānna<g type="circleMed">.</g> tamrya mvāya<g type="floretComplex">.</g> ta kamrateṅ· jagat· vnaṁ pūrvva ti 
 <lb n="20"/>pratiṣṭhā vraḥ kamrateṅ· Añ· śrītribhuvanañjaya stac· pañcotsava<g type="floretComplex">.</g>
-<lb n="21"/>ta kamrateṅ jagat· chpār· ransi<g type="circleMed">.</g> vraḥ pītha sarvvadanta<g type="circleMed">.</g> gangin sarvvadanta suvarṇnara<lb break="no" n="22"/>cita<g type="floretComplex">.</g> ta kamrateṅ jagat· hemaśr̥ṅga duk· thniṁ vraḥ Arccā<g type="circleMed">.</g> pañcaśūla<g type="circleMed">.</g> ra<lb break="no" n="23"/>ṇamarddaṇa ta rmmāṁ<g type="floretComplex">.</g> ta kamrateṅ jagat· śrīnarendragrāma vraḥ sruk· bhīmapura man gi
+<lb n="21"/>ta kamrateṅ jagat· chpār· ransi<g type="circleMed">.</g> vraḥ pītha sarvvadanta<g type="circleMed">.</g> gangin sarvvadanta suvarṇnara<lb break="no" n="22"/>cita<g type="floretComplex">.</g> ta kamrateṅ jagat· hemaśr̥ṅga duk· thniṁ vraḥ Arccā<g type="circleMed">.</g> pañcaśūla<g type="circleMed">.</g> ra<lb break="no" n="23"/>ṇamarddaṇa ta rmmāṁ<g type="floretComplex">.</g> ta kamrateṅ jagat· śrīnarendragrāma vraḥ sruk· bhīmapura man gi 
 <lb n="24"/>ta sthāpaka jvan· rupyakalaśa mvāya jyaṅ· praṁpiya<g type="floretComplex">.</g> rupyakaraṅka mvāya jyaṅ piya
 <lb n="25"/>sruk· jāgrāma vraḥ dakṣiṇā ti jvan· viṅ· jā caṁnāma <g type="floretComplex">.</g> <g type="ddandaOrnate">.</g>
 </p>
@@ -121,7 +109,7 @@
             <foreign>dakṣiṇā</foreign>
           </supplied>, il le donne pour le service des fournitures.</p>
       </div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
+      <div type="commentary"></div>
       <div type="bibliography">
         <p>Auguste Barth published the first Sanskrit line with the French translation (<bibl rend="omitname">
             <ptr target="bib:Barth1885_01"/>
