@@ -130,4 +130,4 @@ class ServerAdapter(bottle.ServerAdapter):
 
 if __name__ == "__main__":
 	bottle.run(host=config.HOST, port=config.PORT, debug=config.DEBUG,
-		reloader=not config.DEBUG, server=ServerAdapter)
+		reloader=config.DEBUG, server=ServerAdapter)
