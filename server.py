@@ -27,6 +27,9 @@ NGRAM_DB = sqlite3.connect(os.path.join(config.DBS_DIR, "ngram.sqlite"))
 def index():
 	return bottle.template("index.tpl")
 
+def is_robot(email):
+	return email in ("readme-bot@example.com", "github-actions@github.com")
+
 @bottle.route("/commit-log")
 def show_commit_log():
 	commits = []
@@ -37,11 +40,9 @@ def show_commit_log():
 		push_date = doc["repository"]["pushed_at"]
 		push_date = datetime.fromtimestamp(push_date).strftime("%d/%m/%y %H:%M")
 		for commit in doc["commits"]:
-			if commit["author"]["email"] in ("github-actions@github.com", "readme-bot@example.com"):
+			if is_robot(commit["author"]["email"]):
 				continue
-			if not "username" in commit["author"]:
-				continue
-			author = commit["author"]["username"]
+			author = commit["author"].get("username") or commit["author"]["name"]
 			hash = commit["id"]
 			url = commit["url"]
 			commits.append({"repo": repo, "date": push_date, "author": author, "hash": hash, "url": url})
@@ -55,13 +56,11 @@ def show_texts():
 		select strftime('%Y-%m-%d %H:%M', max(when_validated), 'auto', '+2 hours')
 		from validation
 	""").fetchone()
-	rows = list(conn.execute("""with latest_commits as
-		(select repo, commit_hash, commit_date
-			from commits group by repo having max(commit_date)
-			order by commit_date desc)
-		select name, repo, commit_hash, strftime('%Y-%m-%d %H:%M', commit_date, 'auto', '+2 hours') as readable_commit_date, valid, html_path
-			from latest_commits natural join validation natural join texts
-			order by name"""))
+	rows = list(conn.execute("""
+		select name, repo, commit_hash, strftime('%Y-%m-%d %H:%M', commit_date, 'auto', '+2 hours') as readable_commit_date,
+			valid, html_path
+		from latest_commits natural join validation natural join texts
+		order by name"""))
 	conn.execute("commit")
 	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows)
 
@@ -109,6 +108,8 @@ def handle_github():
 	doc = json.dumps(js, ensure_ascii=False, separators=(",", ":"))
 	GIT_DB.execute("insert into logs values(strftime('%s', 'now'), ?)", (doc,))
 	GIT_DB.commit()
+	if all(is_robot(commit["author"]["email"]) for commit in js["commits"]):
+		return
 	repo = js["repository"]["name"]
 	change.notify(repo)
 

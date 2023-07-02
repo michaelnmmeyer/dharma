@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 set -e
 
 if test -z $WITHIN_DOCKER; then
@@ -7,7 +9,7 @@ if test -z $WITHIN_DOCKER; then
 		-v ~/dharma/dbs:/dharma/dbs \
 		dharma
 else
-	echo "Running python"
+	echo "Running python" > /dev/stderr
 	python3 change.py &> repos/change.log &
 	python3 server.py
 fi

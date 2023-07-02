@@ -55,8 +55,6 @@ from glob import glob
 from dharma import config, texts
 from dharma.tree import parse, Error
 
-this_dir = os.path.dirname(os.path.abspath(__file__))
-
 def schema_from_contents(file):
 	tree = parse(file)
 	ret = set()
@@ -103,8 +101,8 @@ def schema_for_file(file):
 	return one or two
 
 def validate_against(schema, files):
-	jar = os.path.join(this_dir, "validation/jing.jar")
-	schema = os.path.join(this_dir, "validation", schema)
+	jar = os.path.join(config.THIS_DIR, "validation/jing.jar")
+	schema = os.path.join(config.THIS_DIR, "validation", schema)
 	cmd = ["java", "-jar", jar, schema] + sorted(files)
 	print(*cmd, file=sys.stderr)
 	ret = subprocess.run(cmd, encoding="UTF-8", stdout=subprocess.PIPE)
@@ -138,7 +136,7 @@ def validate_repo(name):
 	return validate(texts.iter_texts_in_repo(name))
 
 def validate_all():
-	files = glob(os.path.join(this_dir, "texts", "*.xml"))
+	files = glob(os.path.join(config.THIS_DIR, "texts", "*.xml"))
 	errors = validate(files)
 	for path, errs in sorted(errors.items()):
 		path, _ = os.path.splitext(path)

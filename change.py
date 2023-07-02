@@ -71,6 +71,14 @@ create table if not exists commits(
 	primary key(repo, commit_hash)
 );
 
+create view if not exists latest_commits(
+	repo,
+	commit_hash,
+	commit_date
+) as select repo, commit_hash, commit_date
+	from commits group by repo having max(commit_date)
+	order by commit_date desc;
+
 create table if not exists texts(
 	name text,
 	repo text,
@@ -89,7 +97,7 @@ create table if not exists validation(
 	valid boolean,
 	errors json,
 	when_validated integer,
-	primary key(name, repo, commit_hash),
+	primary key(name, repo, commit_hash, code_hash),
 	foreign key(name, repo, commit_hash) references texts(name, repo, commit_hash)
 );
 """
@@ -102,9 +110,6 @@ def command(*cmd, **kwargs):
 	kwargs.setdefault("capture_output", True)
 	kwargs.setdefault("check", True)
 	return subprocess.run(cmd, encoding="UTF-8", **kwargs)
-
-with open("version.txt") as f:
-	code_hash = f.read().strip()
 
 def update_repo(name):
 	command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
@@ -124,9 +129,9 @@ def handle_changes(name):
 		(name, commit_hash)).fetchone():
 		have_commit = True
 		if conn.execute("select 1 from validation where repo = ? and commit_hash = ? and code_hash = ?",
-			(name, commit_hash, code_hash)):
+			(name, commit_hash, config.CODE_HASH)).fetchone():
 			# No need to revalidate
-			conn.commit()
+			conn.execute("commit")
 			return
 	if not have_commit:
 		conn.execute("insert into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
@@ -149,8 +154,8 @@ def handle_changes(name):
 		valid = not errors
 		errors = json.dumps(errors)
 		file_id = os.path.basename(os.path.splitext(text)[0])
-		conn.execute("""insert into validation(name, repo, commit_hash, code_hash, valid, errors, when_validated)
-			values(?, ?, ?, ?, ?, ?, strftime('%s', 'now'))""", (file_id, name, commit_hash, code_hash, valid, errors))
+		conn.execute("""insert or replace into validation(name, repo, commit_hash, code_hash, valid, errors, when_validated)
+			values(?, ?, ?, ?, ?, ?, strftime('%s', 'now'))""", (file_id, name, commit_hash, config.CODE_HASH, valid, errors))
 	conn.execute("commit")
 
 def clone_all():
@@ -182,10 +187,12 @@ def read_changes(fd):
 		name = buf[:end].rstrip("/")
 		buf = buf[end + 1:]
 		if name == "all":
+			logging.info("updating everything...")
 			for name in REPOS:
 				update_repo(name)
 				handle_changes(name)
 			biblio.update()
+			logging.info("updated everything")
 		elif name == "bib":
 			logging.info("updating biblio...")
 			biblio.update()
@@ -222,4 +229,7 @@ def notify(name):
 		os.close(fd)
 
 if __name__ == "__main__":
-	main()
+	try:
+		main()
+	except KeyboardInterrupt:
+		pass

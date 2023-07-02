@@ -1,10 +1,15 @@
-import os
+import os, logging
 
-this_dir = os.path.dirname(os.path.abspath(__file__))
-in_production = os.getenv("HOST") == "beta"
+THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 HOST = "0.0.0.0"
 PORT = 8023
 DEBUG = False
-DBS_DIR = os.path.join(this_dir, "dbs")
-REPOS_DIR = os.path.join(this_dir, "repos")
+DBS_DIR = os.path.join(THIS_DIR, "dbs")
+REPOS_DIR = os.path.join(THIS_DIR, "repos")
+
+LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
+logging.basicConfig(level=LOG_LEVEL)
+
+with open(os.path.join(THIS_DIR, "version.txt")) as f:
+	CODE_HASH = f.read().strip()
