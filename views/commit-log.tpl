@@ -18,7 +18,9 @@
 <tr>
    <td>{{commit["date"]}}</td>
    <td>{{commit["author"]}}</td>
-   <td>{{commit["repo"]}}</td>
+   <td><a
+   href="https://github.com/erc-dharma/{{commit['repo']}}">{{commit["repo"]}}</a>
+   </td>
    <td><a href="{{commit['url']}}">{{commit["hash"]}}</a></td>
 </tr>
 % end

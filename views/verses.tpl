@@ -23,9 +23,11 @@ parallel)
 %else:
 parallels)
 %end
-<p>
-{{!text}}
-</p>
+<div class="verse">
+% for line in text:
+<p class="verse">{{line}}</p>
+% end
+</div>
 </li>
 % end
 </ul>
