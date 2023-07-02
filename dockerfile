@@ -13,7 +13,8 @@ COPY ssh_key /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/id_rsa
 ENV PYTHONPATH=$PYTHONPATH:/
 ENV WITHIN_DOCKER=1
-ADD . /dharma
-WORKDIR /dharma
+ENV DHARMA_HOME=/dharma
+ADD . $DHARMA_HOME
+WORKDIR $DHARMA_HOME
 EXPOSE 8023
 CMD bash run.sh
