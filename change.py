@@ -97,7 +97,7 @@ create table if not exists validation(
 	valid boolean,
 	errors json,
 	when_validated integer,
-	primary key(name, repo, commit_hash, code_hash),
+	primary key(name, repo, commit_hash),
 	foreign key(name, repo, commit_hash) references texts(name, repo, commit_hash)
 );
 """
