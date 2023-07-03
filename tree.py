@@ -116,7 +116,7 @@ class Node(object):
 			if not isinstance(node, Tag):
 				continue
 			if node.name == name:
-				:
+				if match:
 					raise Error("expected %r to have a single child node %s but have many" % (self, name))
 				match = node
 		if not match:

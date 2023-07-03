@@ -21,7 +21,7 @@
 	   text-decoration: none;
    }
    div.verse {
-      margin-block-start: 0.3em;
+      margin-block-start: 0.3em; /* not good! */
       margin-block-end: 1em;
    }
    p.verse {
@@ -30,6 +30,15 @@
       text-indent: -1rem ;
       margin-block-start: 0em;
       margin-block-end: 0em;
+   }
+   table {
+      border-collapse: collapse;
+   }
+   td, th {
+      padding: 0.4em;
+   }
+   table tr:nth-child(odd) {
+      background-color: #eff0f1;
    }
    </style>
 </head>
