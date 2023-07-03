@@ -198,8 +198,10 @@ def read_changes(fd):
 			biblio.update()
 			logging.info("updated biblio")
 		elif name in REPOS:
+			logging.info("updating single repo...")			
 			update_repo(name)
 			handle_changes(name)
+			logging.info("updated single repo")
 		else:
 			logging.warning("junk command: %r" % name)
 
