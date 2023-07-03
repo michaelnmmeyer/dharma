@@ -9,6 +9,11 @@
 # is invalid; we can highlight the node and generate a pop-up or something when
 # rendering the text.
 
+"""
+Should have something for xpath
+
+"""
+
 import re, io
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler, LexicalHandler, ErrorHandler
@@ -56,14 +61,21 @@ class Error(Exception):
 
 class Node(object):
 	type = None
-	parent = None
+	# The tree this node belongs to.
 	tree = None
+	# Location in the source file
 	line = None
 	column = None
-	next = None
-	prev = None
-	left = None
-	right = None
+	# Stuff for navigating the tree. We use the same names as in XPath.
+	parent = None # None iff this is the tree itself
+	# Sibling nodes
+	preceding_sibling = None
+	following_sibling = None
+	# Sibling nodes in document order (following, preceding)
+	preceding = None
+	following = None
+	# Special XML attributes: xml:space, xml:lang. Should not fill them
+	# explicitly, use a fake attribute with a decorator
 	space = "default"	# xml:space
 	lang = ("eng", "Latn")	# xml:lang
 
@@ -129,11 +141,11 @@ class Tag(list, Node):
 
 	def append(self, node):
 		if len(self) > 0:
-			self[-1].next = node
-			node.prev = self[-1]
+			self[-1].following_sibling = node
+			node.preceding_sibling = self[-1]
 		else:
-			node.prev = None
-		node.next = None
+			node.preceding_sibling = None
+		node.following_sibling = None
 		super().append(node)
 
 	def text(self):
@@ -258,13 +270,13 @@ def patch_tree(tree):
 
 class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	tree = None
-	left = None
+	preceding = None
 
 	def chain(self, node):
-		if self.left:
-			self.left.right = node
-		node.left = self.left
-		self.left = node
+		if self.preceding:
+			self.preceding.following = node
+		node.preceding = self.preceding
+		self.preceding = node
 
 	def setDocumentLocator(self, locator):
 		self.locator = locator
@@ -294,10 +306,10 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 		assert len(data) > 0
 		parent = self.stack[-1]
 		if len(parent) > 0 and isinstance(parent[-1], String):
-			prev = parent.pop()
-			data = String(prev + data)
-			data.line = prev.line
-			data.column = prev.column
+			preceding_sibling = parent.pop()
+			data = String(preceding_sibling + data)
+			data.line = preceding_sibling.line
+			data.column = preceding_sibling.column
 		else:
 			data = String(data)
 			data.line = self.locator.getLineNumber()
