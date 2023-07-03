@@ -29,8 +29,6 @@ attribute_tbl = str.maketrans({
 	"&": "&amp;",
 })
 
-IDS_MAP = {}
-
 # We don't use xml.sax.saxutils.quoteattr because it tries to use ' as
 # demilitor.
 def quote_attribute(s):
@@ -68,16 +66,35 @@ class Node(object):
 	column = None
 	# Stuff for navigating the tree. We use the same names as in XPath.
 	parent = None # None iff this is the tree itself
-	# Sibling nodes
 	preceding_sibling = None
 	following_sibling = None
-	# Sibling nodes in document order (following, preceding)
 	preceding = None
 	following = None
-	# Special XML attributes: xml:space, xml:lang. Should not fill them
-	# explicitly, use a fake attribute with a decorator
-	space = "default"	# xml:space
-	lang = ("eng", "Latn")	# xml:lang
+	# Special XML attributes.
+	_space = None	# xml:space
+	_lang = None	# xml:lang
+
+	@property
+	def space(self):
+		node = self
+		while not node._space:
+			node = node.parent
+		return node._space
+
+	@space.setter
+	def space(self, value):
+		self._space = value
+
+	@property
+	def lang(self):
+		node = self
+		while not node._lang:
+			node = node.parent
+		return node._lang
+
+	@lang.setter
+	def lang(self, value):
+		self._lang = value
 
 	def find(self, name):
 		if not isinstance(self, Tag):
@@ -99,7 +116,8 @@ class Node(object):
 			if not isinstance(node, Tag):
 				continue
 			if node.name == name:
-				assert not match
+				:
+					raise Error("expected %r to have a single child node %s but have many" % (self, name))
 				match = node
 		if not match:
 			raise Error("expected %r to have a child node %s" % (self, name))
@@ -215,6 +233,9 @@ class Tree(list, Node):
 	root = None
 	source = None
 
+	_space = "default"
+	_lang = ("eng", "Latn")
+
 	def __init__(self):
 		self.tree = self
 		self.line = 1
@@ -239,34 +260,22 @@ class Tree(list, Node):
 
 # For inheritable props (xml:lang, xml:space) and xml:id
 def patch_tree(tree):
-	def patch_node(node, lang, space):
-		if node.type == "tag":
-			have = node.get("xml:lang")
-			if have:
-				fields = have.rsplit("-", 1)
-				if len(fields) == 1:
-					lang = (fields[0], None)
-				else:
-					lang = tuple(fields)
-			space = node.get("xml:space", space)
-			for child in node:
-				patch_node(child, lang, space)
-			id = node.get("xml:id")
-			if id:
-				have = IDS_MAP.get(id)
-				if have:
-					# XXX not really reliable
-					if have.tree.path == node.tree.path and \
-						have.line == node.line and \
-						have.column == node.column:
-						pass
-					else:
-						raise Error(node, "duplicated id (also found in %r)" % have)
-				else:
-					IDS_MAP[id] = node
-		node.lang = lang
-		node.space = space
-	patch_node(tree.root, tree.lang, tree.space)
+	def patch_node(node):
+		if node.type != "tag":
+			return
+		have = node.get("xml:lang")
+		if have:
+			fields = have.rsplit("-", 1)
+			if len(fields) == 1:
+				node.lang = (fields[0], None)
+			else:
+				node.lang = tuple(fields)
+		space = node.get("xml:space")
+		if space:
+			node.space = space
+		for child in node:
+			patch_node(child)
+	patch_node(tree.root)
 
 class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	tree = None

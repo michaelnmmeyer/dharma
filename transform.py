@@ -197,9 +197,32 @@ def process_body(p, node):
 def process_text(p, node):
 	dispatch(p, node.child("body"))
 
+def process_respStmt(p, node):
+# 	<respStmt>
+# 		<resp>Encoding</resp>
+# 		<persName ref="part:daba">
+# 			<forename>Dániel</forename>
+# 			<surname>Balogh</surname>
+# 		</persName>
+# 	</respStmt>
+	for elem in node:
+		dispatch(p, elem)
+
+def process_titleStmt(p, node):
+	for elem in node:
+		dispatch(p, elem)
+
+def process_fileDesc(p, node):
+	for elem in node:
+		dispatch(p, elem)
+
+def process_teiHeader(p, node):
+	for elem in node:
+		dispatch(p, elem)
+
 def process_TEI(p, node):
-	# ignore the header for now
-	dispatch(p, node.child("text"))
+	dispatch(p, node.child("teiHeader"))
+	# dispatch(p, node.child("text"))
 
 for name, obj in copy.copy(globals()).items():
 	if not name.startswith("process_"):

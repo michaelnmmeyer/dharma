@@ -1,5 +1,3 @@
-ajouter XSLT pour em. Sanderson ; éditer schéma + guide
-
 ---
 
 // delete processing instructions + <?xml...
@@ -9,7 +7,8 @@ ajouter XSLT pour em. Sanderson ; éditer schéma + guide
     <fileDesc>
       <titleStmt>...</titleStmt>
       <editor ref="part:anac">
-        // delete contents
+        // delete contents; but only when we have filedesc/editor! there is
+        // also an editor field in the bibliography
       </editor>
       <respStmt>
         <resp>Creation of the file</resp>
@@ -25,13 +24,20 @@ ajouter XSLT pour em. Sanderson ; éditer schéma + guide
         <pubPlace>KEEP THIS</pubPlace>
       </publicationStmt>
       <sourceDesc>
-        // Only keep if there is non-blank text
+        // Only keep if there is non-blank text. We have bibliographies here biblFull
       </sourceDesc>
     </filedesc>
-      <encodingDesc>...</encodingDesc> // Delete completely
-      <revisionDesc>...</revisionDesc> // Delete completely
+    <encodingDesc>...</encodingDesc> // Delete completely
+    <revisionDesc>...</revisionDesc> // Delete completely
   </teiHeader>
   <text xml:space="preserve"> // delete this @
+
+---
+
+
+ajouter XSLT pour em. Sanderson ; éditer schéma + guide
+
+
 
 ---
 
@@ -59,7 +65,7 @@ Test the validation process. We must ensure that the files that are considered
 valid now remain so when we update the schema, etc. It must be kept in mind
 that some people won't modify their files anymore (left the project, etc.) and
 that we don't have access to all files, so changing things in a
-backward-incompatible way is _not_ OK.
+backward-incompatible way is not OK, unless we DIO.
 
 Need to normalize:
 
@@ -70,7 +76,18 @@ Need to normalize:
 
 We already have a mapping in
 https://github.com/erc-dharma/project-documentation/blob/master/DHARMA_idListMembers_v01.xml
-so no reason to duplicate the data.
+so no reason to duplicate the data. Must use the notation x:y for referring to
+xml:id in files. To follow existing conventions allow x to be not a file name
+(viz. name without the extension), but optionally a custom shorter prefix,
+which we add to a global map. The prefix could even refer to a set of files,
+not to a single file, but it's more annoying to check where it comes from. For
+now we have the following prefixes:
+
+	bib		OK
+	part		=project-documentation/DHARMA_idListMembers_v01.xml
+
+	Plenty of other prefixes! look for @xml:id, @ref, and the ptr mess in
+	TEI. Should use a single system.
 
 Plenty of useless markup we can systematically remove and patch later on.
 
