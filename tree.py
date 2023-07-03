@@ -96,18 +96,6 @@ class Node(object):
 	def lang(self, value):
 		self._lang = value
 
-	def find(self, name):
-		if not isinstance(self, Tag):
-			return
-		if self.name == name:
-			return self
-		for node in self:
-			if not isinstance(node, Tag):
-				continue
-			match = node.find(name)
-			if match:
-				return match
-
 	def child(self, name):
 		if not isinstance(self, Tag):
 			raise Exception("bad internal call")
@@ -254,9 +242,6 @@ class Tree(list, Node):
 
 	def text(self):
 		return self.root.text()
-
-	def find(self, name):
-		return self.root.find(name)
 
 # For inheritable props (xml:lang, xml:space) and xml:id
 def patch_tree(tree):
