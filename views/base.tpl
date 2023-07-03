@@ -7,18 +7,14 @@
    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital@0;1&display=swap" rel="stylesheet">
    <style>
    body {
-      margin: 0 auto;
+      margin: 1rem;
       font-family: 'Noto Sans', sans-serif;
    }
-   .body {
-      margin: auto;
-      max-width: 40rem;
-   }
    menu {
+      padding: 0;
       display: flex;
       gap: 2rem;
       list-style: none;
-      padding: 0;
       font-size: larger;
 	}
 	a {

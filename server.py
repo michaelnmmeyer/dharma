@@ -99,8 +99,7 @@ def show_verse_parallels(id):
 	verses = []
 	for id, file, verse, orig, coeff in NGRAM_DB.execute("""SELECT id, file, verse, orig, coeff
 		FROM verses JOIN verses_jaccard ON id = id2 WHERE id1 = ? ORDER BY coeff DESC""", (id,)):
-		print((id, file, verse, orig.splitlines(), coeff))
-	exit()
+		verses.append((id, file, verse, orig.splitlines(), coeff))
 	return bottle.template("verse_parallels.tpl", verses=verses, loc=loc)
 
 @bottle.post("/github-event")

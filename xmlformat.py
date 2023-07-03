@@ -589,13 +589,7 @@ class Formatter:
 
     class Comment(Token):
         def __unicode__(self):
-            str = ""
-            if self.preserve in [0, 1] and self.indent:
-                str += self.indent_insert()
-            str += "<!--%s-->" % re.sub(
-                r"^[\r\n]+$", "\n", re.sub(r"^[\r\n]+", "\n", self.arg[0])
-            )
-            return str
+            return ""
 
         def configure(self):
             super(Formatter.Comment, self).configure()
@@ -710,11 +704,7 @@ class Formatter:
 
     class ProcessingInstruction(Token):
         def __unicode__(self):
-            str = ""
-            if self.preserve in [0, 1] and self.indent:
-                str += self.indent_insert()
-            str += "<?%s %s?>\n" % (self.arg[0], self.arg[1])
-            return str
+            return ""
 
         def configure(self):
             super(Formatter.ProcessingInstruction, self).configure()
@@ -767,14 +757,7 @@ class Formatter:
                 self.formatter.encoding_internal = self.arg[1]
 
         def __unicode__(self):
-            str = "<?xml%s%s" % (
-                self.attribute("version", self.arg[0]),
-                self.attribute("encoding", self.formatter.encoding_effective),
-            )
-            if self.arg[2] > -1:
-                str += self.attribute("standalone", "yes")
-            str += "?>\n"
-            return str
+            return ""
 
 
 def cli_usage(msg=""):

@@ -2,97 +2,41 @@ ajouter XSLT pour em. Sanderson ; éditer schéma + guide
 
 ---
 
-XXX use relative imports or instead "import dharma.xx"?
-
-Make backups of the dbs!
-
----
-
-must keep track of older commits to aid fixing invalid references that were
-valid at some point
-
-table 'commits'
-(primary key: repo name + commit hash)
-* repo name
-* commit hash (full)
-* commit date
-* push date (if unknown, use the commit date)
-should have a way to extract easily the latest commit hash of a repo given its
-name
-
-table 'texts' for enumerating texts, containing:
-(primary key: text name + repo name + commit hash)
-XXX how to check that texts are unique at anny given point)
-* text name without the extension viz. text id
-* repo name + commit hash (for joining with 'commits')
-* full path of the text within the repo, without a leading slash, and including
-  the file name with the XML extension.
-* location of the corresponding HTML file within the repo
-With this information, we can extract a particular version of a text from the
-appropriate repo, we can also link to it on github.
-
-table 'validation' for error messages; this must be separated from texts
-because there can be several different validations for a single file
-(primary key: text name + repo name + commit hash)
-* text name without the extension
-* repo name + commit hash
-* hash of the commit of my repo that was used for validation. note that we must
-  add schemas to our repo
-* valid flag (null if unknown, otherwise true or false)
-* if invalid, summary of errors in some json format
-* when we validated the file
-
-Should also have a table where we hold the names of all XML files (texts as
-well as metadata files), to make sure texts are unique.
+// delete processing instructions + <?xml...
+<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  // delete these TEI @ (other @ are significant)
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>...</titleStmt>
+      <editor ref="part:anac">
+        // delete contents
+      </editor>
+      <respStmt>
+        <resp>Creation of the file</resp>
+          <persName ref="part:kuch">
+            // Delete contents
+          </persName>
+          ...
+        </resp>
+      </respStmt>
+      <publicationStmt>
+        <authority>DHARMA</authority> // not always DHARMA! check
+        // Within this, only keep <pubPlace>, delete everything else
+        <pubPlace>KEEP THIS</pubPlace>
+      </publicationStmt>
+      <sourceDesc>
+        // Only keep if there is non-blank text
+      </sourceDesc>
+    </filedesc>
+      <encodingDesc>...</encodingDesc> // Delete completely
+      <revisionDesc>...</revisionDesc> // Delete completely
+  </teiHeader>
+  <text xml:space="preserve"> // delete this @
 
 ---
 
-# Validation and change detection
 
-Must be able to show all most recent files together with their validation
-status. Be able to sort by repo, validation status, last mod date, name (add
-up/down arrows to each of these columns).
-
-When a repo is updated, we gather all texts within the repo, delete records
-from 'texts' where repo=the repo, and insert newer records.
-
-I don't think it's necessary to do things at the file level. Even moreso
-because files can be deleted/added. It's simpler to proceed repo per repo. Each
-time we have a github push, revalidate everything in the corresponding repo.
-
-The simpler method is to run an extra python process for all the stuff related
-to updates, and send it some basic commands. This way we can test things
-easily. Should have a single queue, this is sufficient given the rythm of
-updates. We can also send it commands from cron scripts, etc. This process can
-remain connected to the commit log and decide what to do. Though we shouldn't
-rely on what github says, they make no promise on the API stability. We just
-need to know that repository X has been modified, then we run our stuff.
-
-Every now and then, we should do a global update in case we missed events or if
-github didn't send them to us. At a minimum, should do a global update at
-startup.
-
-The only data we need to pass to the update script is the name of the updated
-repo (or "all" for updating all repos). When we see that a repo changed, we
-update it locally with git and see if stuff actually changed and what changed.
-If the queue overflows, should just clear it and then run a global update.
-Should just use a socket, without extra buffer management (but set a reasonable
-buf size), and then send it repo names, one per line. The write side must be
-non-blocking. On the read side, we deduplicate stuff (and take care of "all")
-to reduce the amount of stuff to do.
-
-Must put the various repos somewhere not in the main repo viz. don't track them
-at all, don't use submodules. Pass the location of the "repos" dir with an env
-var or something, like for the dbs directory. Maybe create a python config file
-to clarify things.
-
----
-
-An an
-
-
-
----
+# Validation
 
 Should have a useful validation process, something that gives us guarantees
 about the ability to process files and to do something with them. TEI and
