@@ -16,7 +16,13 @@ image:
 
 .PHONY: all update-texts image
 
-inscriptions.rnc: $(wildcard texts/DHARMA_INS*.xml)
+inscription.rnc: $(wildcard texts/DHARMA_INS*.xml)
+	java -jar validation/trang.jar $^ $@
+
+diplomatic.rnc: $(wildcard texts/DHARMA_DiplEd*.xml)
+	java -jar validation/trang.jar $^ $@
+
+critical.rnc: $(wildcard texts/DHARMA_CritEd*.xml)
 	java -jar validation/trang.jar $^ $@
 
 global.rnc: $(wildcard texts/DHARMA_*.xml)

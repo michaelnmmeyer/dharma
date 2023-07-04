@@ -6,31 +6,36 @@ start =
     attribute type { xsd:NCName }?,
     attribute xml:id { xsd:NCName }?,
     attribute xml:lang { xsd:NCName }?,
-    attribute xml:space { xsd:NCName }?,
     element teiHeader {
       attribute xml:lang { xsd:NCName }?,
       element fileDesc {
         titleStmt,
-        editionStmt?,
         publicationStmt,
         element sourceDesc {
-          element biblFull {
-            titleStmt, editionStmt?, publicationStmt
+          element listWit {
+            element witness {
+              attribute xml:id { xsd:NCName },
+              (text | abbr | bibl | msDesc)+
+            }+
           }?,
-          (bibl | msDesc | p)?,
-          listWit?,
-          listBibl?
+          (listBibl | p)?,
+          element biblFull {
+            titleStmt,
+            element editionStmt { p }?,
+            publicationStmt
+          }?,
+          msDesc?
         }
       },
       element encodingDesc {
         element projectDesc { p+ },
-        element editorialDecl {
-          element correction { p },
-          element normalization { p+ },
-          element punctuation { p },
-          element interpretation { p }?
-        }?,
-        element samplingDecl { p }?,
+        (element editorialDecl {
+           element correction { p },
+           element normalization { p+ },
+           element punctuation { p },
+           element interpretation { p }?
+         },
+         element samplingDecl { p })?,
         element schemaRef {
           attribute key { xsd:NCName },
           attribute type { xsd:NCName },
@@ -48,23 +53,14 @@ start =
             p
           }+
         }?,
-        (element charDecl {
-           element glyph {
-             attribute xml:id { xsd:NCName },
-             element mapping {
-               attribute type { xsd:NCName },
-               text
-             }?
-           }+
-         }
-         | element tagsDecl {
-             attribute partial { xsd:boolean },
-             element rendition {
-               attribute scheme { xsd:NCName },
-               attribute xml:id { xsd:NCName },
-               text
-             }+
-           })?
+        element tagsDecl {
+          attribute partial { xsd:boolean },
+          element rendition {
+            attribute scheme { xsd:NCName },
+            attribute xml:id { xsd:NCName },
+            text
+          }+
+        }?
       }*,
       element profileDesc {
         element langUsage {
@@ -78,61 +74,87 @@ start =
         }?
       }?,
       element revisionDesc {
-        element listChange { change }
-        | change+
-      }?
+        element change {
+          attribute status { xsd:NCName }?,
+          attribute when { xsd:NMTOKEN },
+          attribute who { xsd:anyURI },
+          text
+        }+
+      }
     },
     element facsimile {
       element graphic {
-        attribute n { xsd:integer }?,
         attribute url { xsd:anyURI },
         attribute xml:id { xsd:NCName }?,
         desc?
       }+
     }?,
     element text {
-      attribute xml:lang { text }?,
-      attribute xml:space { xsd:NCName }?,
-      element body {
-        attribute n { xsd:anyURI }?,
-        (listBibl | \div+ | ab+ | p+)
-      }
+      attribute xml:lang { xsd:NCName }?,
+      attribute xml:space { xsd:NCName },
+      element body { \div+ | ab+ }
     }
   }
 titleStmt =
   element titleStmt {
-    (text
-     | author
-     | editor
-     | respStmt
-     | title
-     | element funder { text }
-     | element principal { persName })+
-  }
-editionStmt =
-  element editionStmt {
-    p
-    | (element edition { text },
-       respStmt+)
+    title+,
+    author?,
+    editor*,
+    element respStmt {
+      (persName
+       | element resp { text })+
+    }*
   }
 publicationStmt =
   element publicationStmt {
-    element authority { (text | note)+ }?,
-    (date
-     | idno
-     | pubPlace
-     | publisher
-     | element availability {
-         element licence {
-           attribute target { xsd:anyURI },
-           p+
-         }
-       })*
+    element authority { (text | note)+ },
+    pubPlace*,
+    publisher?,
+    idno,
+    element availability {
+      element licence {
+        attribute target { xsd:anyURI },
+        p+
+      }
+    },
+    date?
+  }
+abbr =
+  element abbr {
+    attribute type { xsd:NCName }?,
+    (text
+     | choice
+     | foreign
+     | hi
+     | lb
+     | reg
+     | sic
+     | space
+     | supplied
+     | unclear)+
+  }
+bibl =
+  element bibl {
+    attribute n { text }?,
+    attribute rend { xsd:NCName }?,
+    (text
+     | author
+     | bibl
+     | date
+     | foreign
+     | hi
+     | note
+     | ptr
+     | ref
+     | seg
+     | element citedRange {
+         attribute unit { xsd:NCName }?,
+         (text | foreign | supplied)+
+       })+
   }
 msDesc =
   element msDesc {
     element msIdentifier {
-      element country { xsd:NCName }?,
       settlement?,
       institution?,
       repository?,
@@ -148,48 +170,42 @@ msDesc =
       }*
     },
     element msContents {
-      summary?,
-      element msItem {
-        attribute n { xsd:integer }?,
-        (author | locus)?,
-        title?,
-        (p
-         | element colophon { quote*, note? })?
-      }*
+      (summary
+       | element msItem {
+           author?,
+           p?,
+           title?,
+           element colophon { quote*, note? }?
+         })?
     }?,
     element physDesc {
       (ab
        | element objectDesc {
-           attribute form { xsd:NCName }?,
-           (p+
-            | (element supportDesc {
-                 attribute material { xsd:NCName }?,
-                 element support {
-                   (text | dimensions | material | objectType | p)+
-                 },
-                 element extent { (text | dimensions)+ }?
-               },
-               element layoutDesc {
-                 element layout { (text | foreign | g | p)+ }
-               }))
-         }
-       | p*),
+           (element supportDesc {
+              element support {
+                (text | dimensions | material | objectType | p)+
+              }
+            },
+            element layoutDesc {
+              element layout { (text | p)+ }
+            })
+           | p+
+         })?,
+      element scriptDesc { p }?,
+      p*,
       element handDesc {
-        (ab | summary)?,
-        (p*
-         | element handNote {
-             attribute scriptRef { text }?,
-             attribute xml:id { xsd:NCName }?,
-             (text | abbr | foreign | height | p | supplied)+
-           }*)
+        summary?,
+        element handNote {
+          attribute scriptRef { text }?,
+          attribute xml:id { xsd:NCName }?,
+          (text | abbr | foreign | height | p | supplied)+
+        }*,
+        ab?,
+        p*
       }?,
-      (element bindingDesc {
-         element binding { p }
-       }
-       | element decoDesc {
-           element decoNote { text }
-         }
-       | element scriptDesc { p })?
+      element decoDesc {
+        element decoNote { text }
+      }?
     }?,
     element history {
       (p
@@ -207,36 +223,12 @@ msDesc =
           }+))?
     }?
   }
-bibl =
-  element bibl {
-    attribute n { text }?,
-    attribute rend { xsd:NCName }?,
-    (text
-     | author
-     | bibl
-     | date
-     | foreign
-     | hi
-     | note
-     | ptr
-     | pubPlace
-     | publisher
-     | ref
-     | seg
-     | title
-     | element biblScope { text }
-     | element citedRange {
-         attribute unit { xsd:NCName }?,
-         (text | foreign | supplied)+
-       })+
-  }
 p =
   element p {
     attribute corresp { text }?,
     attribute n { text }?,
     attribute part { xsd:NCName }?,
     attribute rend { xsd:NCName }?,
-    attribute type { xsd:NCName }?,
     attribute xml:id { xsd:NCName }?,
     attribute xml:lang { xsd:NCName }?,
     (text
@@ -281,8 +273,6 @@ p =
      | ref
      | reg
      | roleName
-     | rs
-     | s
      | seg
      | sic
      | space
@@ -293,55 +283,41 @@ p =
      | term
      | title
      | unclear
-     | element code { xsd:NCName }
-     | element gi { xsd:NCName }
+     | element rs {
+         attribute ana { xsd:NCName }?,
+         attribute nymRef { xsd:NCName }?,
+         attribute ref { xsd:NMTOKEN }?,
+         attribute role { xsd:NCName }?,
+         attribute subtype { xsd:NCName }?,
+         attribute type { xsd:NCName }?,
+         (text | choice | persName | roleName)+
+       }
      | element stage {
          attribute rend { xsd:NCName },
          xsd:NCName
        }
      | element unit { xsd:NCName })+
   }
-listWit =
-  element listWit {
-    element witness {
-      attribute xml:id { xsd:NCName },
-      (text | abbr | bibl | listBibl | listWit | msDesc)+
-    }+
-  }
 listBibl =
   element listBibl {
     attribute type { xsd:NCName }?,
     ((bibl | listBibl)*
      | element biblStruct {
-         attribute corresp { xsd:anyURI }?,
-         attribute type { xsd:NCName }?,
-         attribute xml:id { xsd:NCName }?,
+         attribute corresp { xsd:anyURI },
+         attribute type { xsd:NCName },
+         attribute xml:id { xsd:NCName },
          element monogr {
-           (author | editor | title)+,
-           element imprint { (date | pubPlace | publisher)+ }
+           title,
+           editor*,
+           author?,
+           element imprint { pubPlace, publisher, date }
          }
        }*)
   }
 term =
   element term {
     attribute xml:lang { text }?,
-    (text
-     | add
-     | app
-     | gap
-     | milestone
-     | pb
-     | sic
-     | space
-     | supplied
-     | unclear)+
-  }
-change =
-  element change {
-    attribute status { xsd:NCName }?,
-    attribute when { xsd:NMTOKEN },
-    attribute who { xsd:anyURI },
-    text
+    (text | app | pb | sic)+
   }
 desc = element desc { (text | bibl | foreign | ptr)+ }
 \div =
@@ -354,51 +330,31 @@ desc = element desc { (text | bibl | foreign | ptr)+ }
     attribute resp { xsd:anyURI }?,
     attribute source { xsd:anyURI }?,
     attribute subtype { xsd:NCName }?,
-    attribute type { text }?,
+    attribute type { xsd:NCName }?,
     attribute xml:id { xsd:NCName }?,
-    attribute xml:lang { text }?,
-    attribute xml:space { xsd:NCName }?,
-    (text
-     | ab
+    attribute xml:lang { xsd:NCName }?,
+    (ab
      | app
-     | bibl
      | \div
      | fw
      | gap
-     | l
      | label
      | lb
      | lg
      | \list
      | listApp
-     | listBibl
      | milestone
      | note
      | p
      | pb
      | quote
-     | space
      | element head {
          attribute type { xsd:NCName }?,
          attribute xml:lang { xsd:NCName }?,
-         (text
-          | choice
-          | foreign
-          | hi
-          | lb
-          | note
-          | num
-          | pb
-          | unclear)+
-       }
-     | element table {
-         element row {
-           element cell {
-             attribute rows { xsd:integer }?,
-             (text | hi | lb | lg | note | p | pb | s | unclear)+
-           }+
-         }+
-       })+
+         (text | foreign | hi)+
+       })*,
+    listBibl*,
+    bibl*
   }
 ab =
   element ab {
@@ -423,7 +379,6 @@ ab =
      | hi
      | label
      | lb
-     | lg
      | \list
      | milestone
      | note
@@ -432,7 +387,6 @@ ab =
      | pb
      | persName
      | placeName
-     | q
      | reg
      | roleName
      | seg
@@ -441,11 +395,7 @@ ab =
      | subst
      | supplied
      | surplus
-     | unclear
-     | element expan {
-         abbr,
-         element ex { xsd:NCName }
-       })+
+     | unclear)+
   }
 title =
   element title {
@@ -459,8 +409,7 @@ author = element author { (text | forename | name | surname)+ }
 editor =
   element editor {
     attribute ref { xsd:NMTOKEN }?,
-    attribute role { xsd:NCName }?,
-    (text | forename | name | persName | surname)+
+    (text | forename | name | surname)+
   }
 persName =
   element persName {
@@ -480,29 +429,21 @@ persName =
      | persName
      | placeName
      | roleName
+     | sic
      | supplied
      | surname
      | surplus
      | unclear)+
   }
-respStmt =
-  element respStmt {
-    name?,
-    (persName
-     | element resp { text })+
-  }
 note =
   element note {
-    attribute copyOf { xsd:anyURI }?,
+    attribute copyOf { xsd:NMTOKEN }?,
     attribute corresp { xsd:anyURI }?,
-    attribute n { xsd:integer }?,
     attribute rend { xsd:NCName }?,
-    attribute resp { xsd:anyURI }?,
+    attribute resp { xsd:NMTOKEN }?,
     attribute sameAs { xsd:anyURI }?,
     attribute source { xsd:anyURI }?,
-    attribute target { text }?,
     attribute type { xsd:NCName }?,
-    attribute xml:lang { xsd:NCName }?,
     (text
      | abbr
      | add
@@ -516,23 +457,22 @@ note =
      | lb
      | lg
      | \list
-     | milestone
      | note
      | num
      | p
-     | placeName
+     | pb
      | ptr
      | q
      | quote
      | ref
      | seg
      | sic
-     | space
      | supplied
      | surplus
      | title
      | unclear)+
   }
+pubPlace = element pubPlace { text }
 publisher = element publisher { text }
 idno =
   element idno {
@@ -541,86 +481,43 @@ idno =
   }
 date =
   element date {
-    attribute calendar { xsd:NMTOKEN }?,
-    attribute datingMethod { xsd:NMTOKEN }?,
     attribute from { xsd:integer }?,
     attribute notAfter-custom { xsd:integer }?,
     attribute notBefore-custom { xsd:integer }?,
     attribute to { xsd:integer }?,
     attribute when { xsd:NMTOKEN }?,
-    attribute when-custom { xsd:integer }?,
-    (text | abbr | choice | lb | num | rs | surplus)+
+    (text | num)+
   }
-pubPlace = element pubPlace { text }
-settlement = element settlement { text }
-institution = element institution { text }
-repository = element repository { text }
-summary =
-  element summary { (text | foreign | gap | hi | p | ref | supplied)+ }
-locus =
-  element locus {
-    attribute from { xsd:NMTOKEN }?,
-    attribute to { xsd:NMTOKEN }?,
-    attribute type { xsd:NCName }?,
-    text
-  }
-quote =
-  element quote {
-    attribute corresp { xsd:NMTOKEN }?,
-    attribute rend { xsd:NCName }?,
-    attribute type { xsd:NCName }?,
-    attribute xml:id { xsd:NCName }?,
-    attribute xml:lang { xsd:NCName }?,
+choice = element choice { (corr | orig | reg | sic | unclear)+ }
+sic =
+  element sic {
     (text
-     | ab
-     | bibl
+     | add
+     | app
      | choice
-     | del
+     | corr
      | foreign
      | g
-     | gap
      | hi
-     | l
-     | label
-     | lg
-     | \list
-     | listApp
-     | note
-     | p
-     | ref
+     | lb
+     | num
+     | orig
+     | pb
+     | seg
      | space
+     | subst
      | supplied
-     | term
-     | title
+     | surplus
      | unclear)+
   }
-objectType = element objectType { text }
-dimensions =
-  element dimensions {
-    attribute scope { xsd:NCName }?,
-    attribute type { xsd:NCName }?,
-    attribute unit { xsd:NCName }?,
-    (height
-     | element width {
-         attribute unit { xsd:NCName }?,
-         xsd:NMTOKEN
-       })*,
-    element depth {
-      attribute unit { xsd:NCName },
-      xsd:integer
-    }?
-  }
-material = element material { text }
 foreign =
   element foreign {
-    attribute type { xsd:NCName }?,
     attribute xml:lang { xsd:NCName }?,
     (text
      | abbr
      | add
      | app
      | choice
-     | del
      | foreign
      | fw
      | g
@@ -628,12 +525,10 @@ foreign =
      | hi
      | lb
      | milestone
-     | name
      | note
      | num
      | orig
      | pb
-     | ptr
      | seg
      | sic
      | space
@@ -643,39 +538,18 @@ foreign =
      | term
      | unclear)+
   }
-g =
-  element g {
-    attribute ref { text }?,
-    attribute subtype { xsd:NCName }?,
-    attribute type { text }?,
-    text
-  }
-abbr =
-  element abbr {
+space =
+  element space {
+    attribute extent { xsd:NCName }?,
+    attribute quantity { xsd:integer }?,
     attribute type { xsd:NCName }?,
-    (text
-     | choice
-     | foreign
-     | hi
-     | lb
-     | reg
-     | sic
-     | space
-     | supplied
-     | surplus
-     | unclear)+
-  }
-height =
-  element height {
-    attribute unit { xsd:NCName }?,
-    xsd:NMTOKEN
+    attribute unit { xsd:NCName }?
   }
 supplied =
   element supplied {
     attribute cert { xsd:NCName }?,
     attribute evidence { xsd:NCName }?,
-    attribute reason { xsd:NCName }?,
-    attribute resp { xsd:NMTOKEN }?,
+    attribute reason { xsd:NCName },
     (text
      | abbr
      | add
@@ -708,6 +582,42 @@ supplied =
      | title
      | unclear)+
   }
+reg = element reg { (text | abbr | g | hi | lb | supplied | unclear)+ }
+unclear =
+  element unclear {
+    attribute cert { xsd:NCName }?,
+    attribute reason { text }?,
+    attribute rend { xsd:NCName }?,
+    (text | g)+
+  }
+lb =
+  element lb {
+    attribute break { xsd:NCName }?,
+    attribute n { text }?,
+    attribute rend { xsd:NCName }?,
+    attribute style { text }?
+  }
+hi =
+  element hi {
+    attribute rend { xsd:NCName },
+    (text
+     | add
+     | choice
+     | foreign
+     | g
+     | gap
+     | lb
+     | milestone
+     | seg
+     | supplied
+     | surplus
+     | unclear)+
+  }
+ptr =
+  element ptr {
+    attribute rend { xsd:NCName }?,
+    attribute target { text }?
+  }
 seg =
   element seg {
     attribute cert { xsd:NCName }?,
@@ -715,7 +625,6 @@ seg =
     attribute rend { xsd:NCName }?,
     attribute subtype { xsd:NCName }?,
     attribute type { xsd:NCName }?,
-    attribute xml:lang { xsd:NCName }?,
     (text
      | bibl
      | choice
@@ -730,7 +639,6 @@ seg =
      | milestone
      | note
      | placeName
-     | ref
      | seg
      | space
      | supplied
@@ -740,44 +648,58 @@ ref =
   element ref {
     attribute n { xsd:NCName }?,
     attribute target { xsd:anyURI }?,
-    attribute type { xsd:NCName }?,
     (text | ptr | seg | title)+
   }
-ptr =
-  element ptr {
+settlement = element settlement { text }
+institution = element institution { text }
+repository = element repository { text }
+summary =
+  element summary { (text | foreign | gap | hi | p | ref | supplied)+ }
+quote =
+  element quote {
+    attribute corresp { xsd:NMTOKEN }?,
     attribute rend { xsd:NCName }?,
-    attribute target { text }?,
-    text
-  }
-hi =
-  element hi {
-    attribute rend { xsd:NCName },
     attribute type { xsd:NCName }?,
+    attribute xml:id { xsd:NCName }?,
+    attribute xml:lang { xsd:NCName }?,
     (text
-     | add
+     | ab
+     | app
+     | bibl
      | choice
+     | del
      | foreign
      | g
      | gap
      | hi
-     | lb
-     | milestone
+     | l
+     | lg
+     | listApp
      | note
-     | orig
-     | pb
-     | seg
      | space
      | supplied
-     | surplus
+     | term
+     | title
      | unclear)+
   }
-reg = element reg { (text | abbr | g | hi | lb | supplied | unclear)+ }
-space =
-  element space {
-    attribute extent { xsd:NCName }?,
-    attribute quantity { xsd:integer }?,
-    attribute type { xsd:NCName }?,
-    attribute unit { xsd:NCName }?
+objectType = element objectType { text }
+dimensions =
+  element dimensions {
+    (element width {
+       attribute unit { xsd:NCName }?,
+       xsd:NMTOKEN
+     },
+     height)?,
+    element depth {
+      attribute unit { xsd:NCName },
+      xsd:integer
+    }?
+  }
+material = element material { text }
+height =
+  element height {
+    attribute unit { xsd:NCName }?,
+    xsd:NMTOKEN
   }
 del =
   element del {
@@ -789,7 +711,6 @@ del =
      | del
      | g
      | gap
-     | hi
      | lb
      | note
      | seg
@@ -827,21 +748,18 @@ roleName =
      | hi
      | lb
      | milestone
-     | name
      | placeName
-     | space
      | supplied
      | surplus
      | unclear)+
   }
-name = element name { (text | add | choice | lb | unclear)+ }
+name = element name { text }
 measure =
   element measure {
     attribute commodity { xsd:NCName }?,
     attribute quantity { xsd:integer },
-    attribute subtype { xsd:NCName }?,
     attribute type { xsd:NCName },
-    (text | g | gap | lb | num | supplied)+
+    (text | gap | lb | num | supplied)+
   }
 \list =
   element list {
@@ -857,7 +775,6 @@ measure =
           | foreign
           | g
           | gap
-          | hi
           | lb
           | \list
           | note
@@ -878,9 +795,8 @@ measure =
 subst = element subst { del, add }
 add =
   element add {
-    attribute place { text }?,
+    attribute place { text },
     attribute rend { xsd:NCName }?,
-    attribute resp { xsd:NMTOKEN }?,
     (text
      | abbr
      | add
@@ -892,7 +808,6 @@ add =
      | hi
      | lb
      | num
-     | persName
      | placeName
      | space
      | supplied
@@ -908,59 +823,49 @@ app =
     attribute loc { text }?,
     attribute rend { xsd:NCName }?,
     attribute type { xsd:NCName }?,
-    (text
-     | note
-     | element lem {
-         attribute cert { xsd:NCName }?,
-         attribute hand { text }?,
-         attribute rend { xsd:NCName }?,
-         attribute resp { xsd:NMTOKEN }?,
-         attribute source { text }?,
-         attribute type { xsd:NCName }?,
-         attribute wit { text }?,
-         (text
-          | abbr
-          | add
-          | app
-          | choice
-          | corr
-          | del
-          | foreign
-          | fw
-          | g
-          | gap
-          | hi
-          | l
-          | lb
-          | lg
-          | milestone
-          | name
-          | note
-          | num
-          | orig
-          | p
-          | pb
-          | persName
-          | q
-          | seg
-          | sic
-          | space
-          | subst
-          | supplied
-          | surplus
-          | term
-          | unclear)+
-       }
+    element lem {
+      attribute hand { text }?,
+      attribute rend { xsd:NCName }?,
+      attribute source { text }?,
+      attribute type { xsd:NCName }?,
+      attribute wit { text }?,
+      (text
+       | abbr
+       | add
+       | app
+       | choice
+       | del
+       | foreign
+       | fw
+       | g
+       | gap
+       | hi
+       | l
+       | lb
+       | milestone
+       | num
+       | orig
+       | p
+       | pb
+       | persName
+       | seg
+       | sic
+       | space
+       | subst
+       | supplied
+       | surplus
+       | term
+       | unclear)+
+    }*,
+    (note
      | element rdg {
          attribute cause { xsd:NCName }?,
          attribute hand { text }?,
          attribute rend { xsd:NCName }?,
-         attribute resp { xsd:NMTOKEN }?,
          attribute source { xsd:anyURI }?,
          attribute type { xsd:NCName }?,
          attribute varSeq { xsd:integer }?,
          attribute wit { text }?,
-         attribute xml:id { xsd:NCName }?,
          (text
           | abbr
           | add
@@ -975,9 +880,7 @@ app =
           | gap
           | hi
           | lb
-          | locus
           | milestone
-          | name
           | note
           | num
           | orig
@@ -992,6 +895,11 @@ app =
           | unclear
           | element lacunaEnd { empty }
           | element lacunaStart { empty }
+          | element locus {
+              attribute from { xsd:NMTOKEN },
+              attribute to { xsd:NMTOKEN },
+              attribute type { xsd:NCName }
+            }
           | element span {
               attribute type { xsd:NCName }
             })+
@@ -999,76 +907,26 @@ app =
      | element witDetail {
          attribute type { xsd:NCName },
          attribute wit { text }
-       })+
+       })*
   }
 gap =
   element gap {
-    attribute extent { xsd:NMTOKEN }?,
+    attribute extent { xsd:NCName }?,
     attribute precision { xsd:NCName }?,
     attribute quantity { text }?,
-    attribute reason { text }?,
+    attribute reason { xsd:NCName }?,
     attribute unit { xsd:NCName }?,
     (certainty | desc)?
   }
 surname = element surname { text }
 fw =
   element fw {
-    attribute n { xsd:NMTOKEN }?,
-    attribute place { xsd:NCName }?,
+    attribute n { xsd:NMTOKEN },
+    attribute place { xsd:NCName },
     attribute rend { xsd:NCName }?,
-    (text | g | gap | num | supplied)+
-  }
-sic =
-  element sic {
-    (text
-     | add
-     | app
-     | choice
-     | corr
-     | foreign
-     | g
-     | hi
-     | lb
-     | note
-     | num
-     | orig
-     | pb
-     | seg
-     | space
-     | subst
-     | supplied
-     | surplus
-     | unclear)+
+    (text | num | supplied)+
   }
 cit = element cit { q | (bibl | quote)+ }
-unclear =
-  element unclear {
-    attribute cert { xsd:NCName }?,
-    attribute reason { text }?,
-    attribute rend { xsd:NCName }?,
-    attribute type { xsd:NCName }?,
-    (text | add | app | g | gap | hi | note | pb | q | seg | unclear)+
-  }
-rs =
-  element rs {
-    attribute ana { xsd:NCName }?,
-    attribute key { xsd:NCName }?,
-    attribute n { xsd:integer }?,
-    attribute nymRef { xsd:NCName }?,
-    attribute ref { xsd:NMTOKEN }?,
-    attribute role { xsd:NCName }?,
-    attribute subtype { xsd:NCName }?,
-    attribute type { xsd:NCName }?,
-    (text
-     | choice
-     | lb
-     | persName
-     | roleName
-     | rs
-     | supplied
-     | surplus
-     | unclear)+
-  }
 damage = element damage { (text | supplied | unclear)+ }
 placeName =
   element placeName {
@@ -1086,30 +944,26 @@ placeName =
      | hi
      | lb
      | milestone
-     | name
      | seg
      | space
      | supplied
      | surplus
      | unclear)+
   }
-choice = element choice { (corr | orig | reg | sic | unclear)+ }
 lg =
   element lg {
     attribute corresp { text }?,
     attribute met { text }?,
-    attribute n { xsd:decimal }?,
+    attribute n { xsd:integer }?,
     attribute part { xsd:NCName }?,
     attribute rend { xsd:NCName }?,
-    attribute type { xsd:NCName }?,
     attribute xml:id { xsd:NCName }?,
     attribute xml:lang { xsd:NCName }?,
-    (app | certainty)?,
-    (fw | l | label | lb | lg | milestone | note | pb | space)*
+    certainty?,
+    (l | label | lb | lg | milestone | note | pb | space)+
   }
 listApp =
   element listApp {
-    attribute corresp { text }?,
     attribute type { xsd:NCName }?,
     (app | listApp)+
   }
@@ -1136,22 +990,12 @@ milestone =
     attribute break { xsd:NCName }?,
     attribute n { xsd:NMTOKEN },
     attribute type { xsd:NCName }?,
-    attribute unit { xsd:NCName },
-    attribute xml:id { xsd:NCName }?
-  }
-lb =
-  element lb {
-    attribute break { xsd:NCName }?,
-    attribute edRef { text }?,
-    attribute n { text }?,
-    attribute rend { xsd:NCName }?,
-    attribute style { text }?
+    attribute unit { xsd:NCName }
   }
 q =
   element q {
     attribute xml:lang { xsd:NCName }?,
     (text
-     | app
      | bibl
      | foreign
      | g
@@ -1160,7 +1004,6 @@ q =
      | lg
      | \list
      | note
-     | pb
      | q
      | ref
      | seg
@@ -1170,7 +1013,6 @@ q =
      | title
      | unclear)+
   }
-s = element s { (text | choice | hi | lb | unclear)+ }
 pb =
   element pb {
     attribute break { xsd:NCName }?,
@@ -1182,7 +1024,7 @@ l =
   element l {
     attribute enjamb { xsd:NCName }?,
     attribute met { text }?,
-    attribute n { text }?,
+    attribute n { xsd:NMTOKEN }?,
     attribute part { xsd:NCName }?,
     attribute real { text }?,
     (text
@@ -1192,7 +1034,6 @@ l =
      | corr
      | del
      | foreign
-     | fw
      | g
      | gap
      | handShift
@@ -1207,19 +1048,13 @@ l =
      | persName
      | placeName
      | roleName
-     | rs
-     | s
      | seg
      | sic
      | space
      | subst
      | supplied
      | surplus
-     | unclear
-     | element w {
-         attribute part { xsd:NCName },
-         xsd:NCName
-       })+
+     | unclear)+
   }
 certainty =
   element certainty {
@@ -1237,15 +1072,19 @@ surplus =
      | abbr
      | add
      | choice
-     | foreign
      | g
      | gap
      | hi
      | lb
      | num
      | space
-     | supplied
      | term
      | unclear)+
+  }
+g =
+  element g {
+    attribute subtype { xsd:NCName }?,
+    attribute type { text }?,
+    text
   }
 forename = element forename { text }

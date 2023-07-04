@@ -4,5 +4,5 @@ from dharma.transform import normalize_space
 
 for file in sorted(iglob("texts/*.xml")):
 	soup = BeautifulSoup(open(file), "xml")
-	for tag in soup.fileDesc.titleStmt.find_all("editor"):
-		print(file,normalize_space(tag.get_text().strip()))
+	for tag in soup.titleStmt.find_all("title"):
+		print(normalize_space(tag.get_text().strip()))
