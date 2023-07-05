@@ -2,6 +2,7 @@ all:
 
 update-texts:
 	rm -f texts/*
+	rsync --progress 'beta:dharma/dbs/texts.sqlite*' dbs/
 	sqlite3 dbs/texts.sqlite "select printf('repos/%s/%s', repo, xml_path) \
 		from texts natural join latest_commits natural join validation \
 		where valid order by name" | while read f; do \
