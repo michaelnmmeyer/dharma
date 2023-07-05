@@ -25,6 +25,12 @@ diplomatic.rnc: $(wildcard texts/DHARMA_DiplEd*.xml)
 critical.rnc: $(wildcard texts/DHARMA_CritEd*.xml)
 	java -jar validation/trang.jar $^ $@
 
+critical_translation.rnc: $(wildcard texts/DHARMA_CritEd*_trans*.xml)
+	java -jar validation/trang.jar $^ $@
+
+critical_edition.rnc: $(filter-out $(wildcard texts/DHARMA_CritEd*_trans*.xml),$(wildcard texts/DHARMA_CritEd*.xml))
+	java -jar validation/trang.jar $^ $@
+
 global.rnc: $(wildcard texts/DHARMA_*.xml)
 	java -jar validation/trang.jar $^ $@
 
