@@ -111,6 +111,50 @@ class Node(object):
 			raise Error("expected %r to have a child node %s" % (self, name))
 		return match
 
+	def children(self, name):
+		if not isinstance(self, Tag) and not isinstance(self, Tree):
+			return
+		for node in self:
+			if not isinstance(node, Tag):
+				continue
+			if node.name == name:
+				yield node
+
+	def descendants(self, name):
+		if not isinstance(self, Tag) and not isinstance(self, Tree):
+			return
+		for node in self:
+			if not isinstance(node, Tag):
+				continue
+			if node.name == name:
+				yield node
+			yield from node.descendants(name)
+
+	def xpath(self, path):
+		assert len(path) > 0
+		if path[0] == "/":
+			roots = [self.tree]
+			path = path[1:]
+		else:
+			roots = [self]
+		while path:
+			end = path.find("/")
+			if end == 0:
+				path = path[1:]
+				end = path.find("/")
+				if end < 0:
+					end = len(path)
+				name = path[:end]
+				path = path[end + 1:]
+				roots = [node for root in roots for node in root.descendants(name)]
+				continue
+			if end < 0:
+				end = len(path)
+			name = path[:end]
+			roots = [node for root in roots for node in root.children(name)]
+			path = path[end + 1:]
+		return roots
+
 	def location(self):
 		path = self.tree.path or "<none>"
 		line = self.line is None and "?" or self.line
@@ -373,7 +417,7 @@ if __name__ == "__main__":
 		exit()
 	try:
 		tree = parse(sys.argv[1])
-		print(tree.text())
+		print(tree.xml())
 	except (BrokenPipeError, KeyboardInterrupt):
 		pass
 	except Error as err:
