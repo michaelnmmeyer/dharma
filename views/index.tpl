@@ -8,6 +8,6 @@ Version <a
 href="https://github.com/michaelnmmeyer/dharma/commit/{{code_hash}}">{{code_hash}}</a>.
 </p>
 
-<p>All dates are in CEST (UTC+2).</p>
+<p>All dates are in CET.</p>
 </div>
 

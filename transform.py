@@ -221,8 +221,8 @@ def process_teiHeader(p, node):
 		dispatch(p, elem)
 
 def process_TEI(p, node):
-	dispatch(p, node.child("teiHeader"))
-	# dispatch(p, node.child("text"))
+	#dispatch(p, node.child("teiHeader"))
+	dispatch(p, node.child("text"))
 
 for name, obj in copy.copy(globals()).items():
 	if not name.startswith("process_"):

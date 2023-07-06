@@ -38,7 +38,7 @@ def show_commit_log():
 		ret = {}
 		repo = os.path.basename(doc["repository"]["full_name"])
 		push_date = doc["repository"]["pushed_at"]
-		push_date = datetime.fromtimestamp(push_date).strftime("%d/%m/%y %H:%M")
+		(push_date,) = TEXTS_DB.execute("select strftime('%Y-%m-%d %H:%M', ?, 'auto', 'localtime')", (push_date,)).fetchone()
 		for commit in doc["commits"]:
 			if is_robot(commit["author"]["email"]):
 				continue
@@ -53,11 +53,11 @@ def show_texts():
 	conn = TEXTS_DB
 	conn.execute("begin")
 	(last_updated,) = conn.execute("""
-		select strftime('%Y-%m-%d %H:%M', max(when_validated), 'auto', '+2 hours')
+		select strftime('%Y-%m-%d %H:%M', max(when_validated), 'auto', 'localtime')
 		from validation
 	""").fetchone()
 	rows = list(conn.execute("""
-		select name, repo, commit_hash, strftime('%Y-%m-%d %H:%M', commit_date, 'auto', '+2 hours') as readable_commit_date,
+		select name, repo, commit_hash, strftime('%Y-%m-%d %H:%M', commit_date, 'auto', 'localtime') as readable_commit_date,
 			valid, html_path
 		from latest_commits natural join validation natural join texts
 		order by name"""))
@@ -69,8 +69,8 @@ def show_text(repo, hash, name):
 	conn = TEXTS_DB
 	row = conn.execute("""
 		select name, repo, commit_hash, code_hash, errors, xml_path, html_path,
-			strftime('%Y-%m-%d %H:%M', commit_date, 'auto', '+2 hours') as readable_commit_date,
-			strftime('%Y-%m-%d %H:%M', when_validated, 'auto', '+2 hours') as readable_when_validated
+			strftime('%Y-%m-%d %H:%M', commit_date, 'auto', 'localtime') as readable_commit_date,
+			strftime('%Y-%m-%d %H:%M', when_validated, 'auto', 'localtime') as readable_when_validated
 		from validation natural join commits natural join texts
 		where repo = ? and name = ? and commit_hash = ?
 	""", (repo, name, hash)).fetchone()
