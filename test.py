@@ -2,7 +2,13 @@ from bs4 import BeautifulSoup
 from glob import iglob
 from dharma.transform import normalize_space
 
-for file in sorted(iglob("texts/*.xml")):
+critical = sorted(iglob("texts/DHARMA_CritEd*"))
+critical_edition = [f for f in critical if not "_trans" in f]
+critical_translation = [f for f in critical if "_trans" in f]
+
+for file in sorted(critical_edition):
 	soup = BeautifulSoup(open(file), "xml")
-	for tag in soup.titleStmt.find_all("title"):
-		print(normalize_space(tag.get_text().strip()))
+	for tag in soup.find_all("div"):
+		if not tag.attrs.get("type"):
+			print(tag)
+			print("---")

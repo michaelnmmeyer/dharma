@@ -87,17 +87,19 @@ class Node(object):
 		return match
 
 	def children(self, name):
+		ret = []
 		if not isinstance(self, Tag) and not isinstance(self, Tree):
-			return
+			return ret
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
-			if node.name == name:
-				yield node
+			if not name or node.name == name:
+				ret.append(node)
+		return ret
 
 	def descendants(self, name):
 		if not isinstance(self, Tag) and not isinstance(self, Tree):
-			return
+			return ret
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
@@ -148,6 +150,8 @@ class Tag(list, Node):
 	def __repr__(self):
 		ret = "<%s" % self.name
 		for k, v in sorted(self.attrs.items()):
+			if isinstance(v, tuple):
+				v = "-".join(v)
 			ret += ' %s="%s"' % (k, quote_attribute(v))
 		ret += ">"
 		return ret
@@ -175,7 +179,9 @@ class Tag(list, Node):
 			if isinstance(value, str):
 				value = value.split("-")
 			assert isinstance(value, list) or isinstance(value, tuple)
-			assert len(value) == 2
+			assert 1 <= len(value) <= 2
+			if len(value) == 1:
+				value = (value[0], "Latn")
 			value = tuple(value)
 		self.attrs[key] = value
 
@@ -202,6 +208,8 @@ class Tag(list, Node):
 	def xml(self):
 		buf = ["<%s" % self.name]
 		for k, v in sorted(self.attrs.items()):
+			if isinstance(v, tuple):
+				v = "-".join(v)
 			buf.append(' %s="%s"' % (k, quote_attribute(v)))
 		if len(self) == 0:
 			buf.append("/>")
@@ -219,9 +227,9 @@ class String(str, Node):
 		return quote_string(self)
 
 	def text(self):
-		if self.space == "preserve":
+		if self.parent["space"] == "preserve":
 			return self
-		assert self.space == "default"
+		assert self.parent["space"] == "default"
 		self = self.strip()
 		self = re.sub(r"\s{2,}", " ", self)
 		return self

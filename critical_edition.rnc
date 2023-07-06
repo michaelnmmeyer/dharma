@@ -263,7 +263,9 @@ term =
     attribute met { text }?,
     attribute n { xsd:NMTOKEN }?,
     attribute rend { xsd:NCName }?,
-    attribute type { xsd:NCName }?,
+    attribute type {
+       "canto" | "chapter" | "dyad" | "group" |
+       "interpolation" | "metrical" | "liminal" | "section" }?,
     attribute xml:id { xsd:NCName }?,
     (\div
      | lg

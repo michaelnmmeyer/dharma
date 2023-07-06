@@ -9,7 +9,7 @@ def dispatch(p, node):
 	if node.type == "comment" or node.type == "instruction":
 		return
 	if node.type == "string":
-		emit(p, "text", node, {"lang": node.lang})
+		emit(p, "text", node, {"lang": node.parent["lang"]})
 		return
 	assert node.type == "tag"
 	f = HANDLERS.get(node.name)
@@ -27,6 +27,10 @@ class Parser:
 	# none: waiting to see space
 	space = "drop"
 	tree = None
+	div_level = 0
+
+	# For HTML output
+	heading_shift = 1
 
 def barf(msg):
 	raise Exception(msg)
@@ -127,13 +131,12 @@ def process_lb(p, elem):
 	p.space = "drop"
 
 def process_pb(p, elem):
-	assert "n" in elem.attrs and len(elem.attrs) == 1
 	n = elem["n"]
 	emit(p, "page", n)
 	p.space = "drop"
+	# XXX incomplete
 
 def process_choice(p, node):
-	"choice = element choice { (corr | orig | reg | sic | unclear)+ }"
 	for elem in node:
 		if elem.type == "comment":
 			continue
@@ -174,55 +177,49 @@ def process_p(p, para):
 	emit(p, ">para")
 
 def process_div(p, div):
-	t = div["type"]
-	assert t in ("edition", "apparatus", "translation", "commentary", "bibliography")
-	emit(p, "<div")
-	for elem in div:
-		dispatch(p, elem)
-	emit(p, ">div", t)
+	p.div_level += 1
+	emit(p, "<div>")
+	type = div.attrs.get("type")
+	if type in ("chapter", "title"):
+		n = div.attrs.get("n")
+		head = div.child("head")
+		assert not head.previous_sibling
+		if n:
+			title = "%s %s: %s" % (type.title(), n, head.text()) # XXX not .text()!
+		else:
+			title = "%s: %s" % (type.title(), head.text()) # XXX not .text()!
+		emit(p, "html", "<h%d>" % (p.div_level + p.heading_shift))
+		emit(p, "title", title)
+		emit(p, "html", "</h%d>" % (p.div_level + p.heading_shift))
+	elif type in ("dyad", "liminal"):
+		pass # TODO
+	elif type == "metrical":
+		assert div.parent.name == "div"
+		# TODO
+	elif not type:
+		# Invocation or colophon
+		ab = div.child("ab")
+		assert not ab.previous_sibling
+		type = ab["type"]
+		assert type in ("invocation", "colophon")
+		emit(p, ab["type"])
+	else:
+		assert 0, div
+	emit(p, "</div>")
+	p.div_level -= 1
 
-def process_foreign(p, node):
-	assert len(node.attrs) == 0
-	emit(p, "<i")
-	for elem in node:
-		dispatch(p, elem)
-	emit(p, ">i")
 
-def process_body(p, node):
-	print("<body")
-	for elem in node:
-		dispatch(p, elem)
-	emit(p, ">body")
-
-def process_text(p, node):
-	dispatch(p, node.child("body"))
-
-def process_respStmt(p, node):
-# 	<respStmt>
-# 		<resp>Encoding</resp>
-# 		<persName ref="part:daba">
-# 			<forename>Dániel</forename>
-# 			<surname>Balogh</surname>
-# 		</persName>
-# 	</respStmt>
-	for elem in node:
-		dispatch(p, elem)
-
-def process_titleStmt(p, node):
-	for elem in node:
-		dispatch(p, elem)
-
-def process_fileDesc(p, node):
-	for elem in node:
-		dispatch(p, elem)
-
-def process_teiHeader(p, node):
-	for elem in node:
-		dispatch(p, elem)
+def process_body(p, body):
+	for div in body:
+		if div.type == "string":
+			assert not div.text().strip()
+		else:
+			assert div.type == "tag"
+			assert div.name == "div"
+			dispatch(p, div)
 
 def process_TEI(p, node):
-	#dispatch(p, node.child("teiHeader"))
-	dispatch(p, node.child("text"))
+	dispatch(p, node.xpath("text/body")[0])
 
 for name, obj in copy.copy(globals()).items():
 	if not name.startswith("process_"):
