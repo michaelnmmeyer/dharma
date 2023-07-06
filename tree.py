@@ -70,31 +70,6 @@ class Node(object):
 	following_sibling = None
 	preceding = None
 	following = None
-	# Special XML attributes.
-	_space = None	# xml:space
-	_lang = None	# xml:lang
-
-	@property
-	def space(self):
-		node = self
-		while not node._space:
-			node = node.parent
-		return node._space
-
-	@space.setter
-	def space(self, value):
-		self._space = value
-
-	@property
-	def lang(self):
-		node = self
-		while not node._lang:
-			node = node.parent
-		return node._lang
-
-	@lang.setter
-	def lang(self, value):
-		self._lang = value
 
 	def child(self, name):
 		if not isinstance(self, Tag):
@@ -166,7 +141,9 @@ class Tag(list, Node):
 
 	def __init__(self, name, attrs):
 		self.name = name
-		self.attrs = dict(attrs)
+		self.attrs = {}
+		for key, value in attrs.items():
+			self[key] = value
 
 	def __repr__(self):
 		ret = "<%s" % self.name
@@ -178,12 +155,29 @@ class Tag(list, Node):
 	def __getitem__(self, key):
 		if isinstance(key, int):
 			return list.__getitem__(self, key)
-		return self.attrs[key]
+		key = key.removeprefix("xml:")
+		if key != "lang" and key != "space":
+			return self.attrs[key]
+		node = self
+		while not node.attrs.get(key):
+			node = node.parent
+		return node.attrs[key]
 
-	def __setitem__(self, key, val):
+	def __setitem__(self, key, value):
 		if isinstance(key, int):
 			list.__setitem__(self, key, value)
-		self.attrs[key] = val
+		# We use three @ in the xml namespace: @lang, @space, @id.
+		# @lang is also a TEI @, but we don't use it. @id and @space
+		# are not TEI @. So it's ok to use a single namespace fo
+		# everything.
+		key = key.removeprefix("xml:")
+		if key == "lang":
+			if isinstance(value, str):
+				value = value.split("-")
+			assert isinstance(value, list) or isinstance(value, tuple)
+			assert len(value) == 2
+			value = tuple(value)
+		self.attrs[key] = value
 
 	def get(self, key, dflt=None):
 		assert isinstance(key, str)
@@ -265,13 +259,11 @@ class Tree(list, Node):
 	root = None
 	source = None
 
-	_space = "default"
-	_lang = ("eng", "Latn")
-
 	def __init__(self):
 		self.tree = self
 		self.line = 1
 		self.column = 0
+		self.attrs = {"space": "default", "lang": ("eng", "Latn")}
 
 	def __repr__(self):
 		if self.path:
