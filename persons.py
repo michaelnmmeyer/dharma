@@ -4,6 +4,60 @@ import os, io, unicodedata
 from bs4 import BeautifulSoup, Tag
 from dharma.transform import normalize_space
 
+"""
+To dump a list of all contributors:
+
+	for repo in repos/*; do
+		test -d $repo || continue;
+		git -C $repo log --format='%aN'
+	done | sort -u
+"""
+
+ID_TO_GIT = {
+	"adgu": ["Aditia Gunawan", "aditiagunawan"],
+	"adle": ["alevivier"],
+	"amwb": ["amandinebricout"],
+	"anac": ["andreaacri"],
+	"anol": ["Andrew Ollett"],
+	"ansc": ["AnneSchmiedchen"],
+	"argr": ["Arlo Griffiths", "arlogriffiths"],
+	"axja": ["ajaniak", "Axelle Janiak"],
+	"chch": ["Chloé"],
+	"cski": ["csabakissgit"],
+	"daba": ["danbalogh"],
+	"dogo": ["Dominic Goodall"],
+	"doso": ["Soutif"],
+	"ekba": ["ekobastiawan"],
+	"emfr": ["ManuFrancis", "manufrancis"],
+	"flde": ["Florinda De Simini"],
+	"ilnu": ["ilhamkang"],
+	"jeth": ["jensthomas"],
+	"kuch": ["CHHOM Kunthea", "kunthea"],
+	"masc": ["Marine", "Marine Schoettel", "marine.schoettel@efeo.net", "m-schoettel"],
+	"mime": ["Michaël Meyer"],
+	"nabo": ["Natasja", "NatasjaSB"],
+	"nimi": ["nmirnig"],
+	"nlsy": ["nicholaslua"],
+	"nuha": ["nurmaliahabibah"],
+	"rozo": ["RobertaGitHub"],
+	"ryfu": ["ryosukefurui"],
+	"sagu": ["Samana Gururaja", "samana218"],
+	"sapi": ["salomepichon"],
+	"tilu": ["Tim Lubin", "Tim"],
+	"tykd": ["tyassanti"],
+	"utve": ["UthayaVeluppillai", "Uthaya Veluppillai"],
+	"vagi": ["valeriegillet", "Valérie Gillet"],
+	"vito": ["Vincent Tournier", "tourniervincent"],
+	"wjsa": ["wayanjarrah"],
+	"zapa": ["zakariyaaminullah", "Zakariya Pamuji Aminullah"],
+}
+
+GIT_TO_ID = {}
+for key, values in ID_TO_GIT.items():
+	for value in values:
+		assert not value in GIT_TO_ID
+		GIT_TO_ID[value] = key
+
 this_dir = os.path.dirname(os.path.abspath(__file__))
 path = "repos/project-documentation/DHARMA_idListMembers_v01.xml"
 path = os.path.join(this_dir, path)
