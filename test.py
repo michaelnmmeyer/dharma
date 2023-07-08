@@ -2,13 +2,69 @@ from bs4 import BeautifulSoup
 from glob import iglob
 from dharma.transform import normalize_space
 
+all = sorted(iglob("texts/DHARMA_*"))
 critical = sorted(iglob("texts/DHARMA_CritEd*"))
 critical_edition = [f for f in critical if not "_trans" in f]
 critical_translation = [f for f in critical if "_trans" in f]
 
-for file in sorted(critical_edition):
+LANGS = """
+ara
+ban
+cja
+cjm
+deu
+eng
+fra
+ind
+jav
+jpn
+kan
+kaw
+khm
+mya
+ndl
+obr
+ocm
+okz
+omx
+omy
+ori
+osn
+pli
+pyx
+san
+sas
+tam
+tel
+tgl
+und
+vie
+xhm
+zlm
+""".strip().split() + """
+kan-Latn
+kaw-Latn
+khm-Latn
+ocm-Latn
+okz-Latn
+omy-Latn
+ori-Latn
+osn-Latn
+pli-Latn
+pli-Thai
+pra-Latn
+san-Latn
+san-Thai
+tam-Latn
+tam-Taml
+tel-Latn
+tha-Thai
+xhm-Latn
+""".strip().split()
+
+for file in sorted(all):
 	soup = BeautifulSoup(open(file), "xml")
-	for tag in soup.find_all("div"):
-		if not tag.attrs.get("type"):
-			print(tag)
-			print("---")
+	for tag in soup.find_all(**{"xml:lang": True}):
+		lang = tag["xml:lang"]
+		if not lang in LANGS or True:
+			print(lang)

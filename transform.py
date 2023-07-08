@@ -178,48 +178,110 @@ def process_p(p, para):
 
 def process_div(p, div):
 	p.div_level += 1
-	emit(p, "<div>")
+	emit(p, "html", "<div>")
 	type = div.attrs.get("type")
 	if type in ("chapter", "title"):
+		title = type.title()
 		n = div.attrs.get("n")
-		head = div.child("head")
-		assert not head.previous_sibling
 		if n:
-			title = "%s %s: %s" % (type.title(), n, head.text()) # XXX not .text()!
-		else:
-			title = "%s: %s" % (type.title(), head.text()) # XXX not .text()!
+			title += " %s" % n
+		head = div.first_child("head")
+		if head:
+			title += ": %s" % head.text() # XXX not .text()!
 		emit(p, "html", "<h%d>" % (p.div_level + p.heading_shift))
 		emit(p, "title", title)
 		emit(p, "html", "</h%d>" % (p.div_level + p.heading_shift))
 	elif type in ("dyad", "liminal"):
-		pass # TODO
+		pass
+		# TODO
 	elif type == "metrical":
-		assert div.parent.name == "div"
+		assert p.div_level > 1, '<div type="metrical"> can only be used as a child of another <div>'
 		# TODO
 	elif not type:
 		# Invocation or colophon
-		ab = div.child("ab")
-		assert not ab.previous_sibling
+		ab = div.first_child("ab")
 		type = ab["type"]
 		assert type in ("invocation", "colophon")
 		emit(p, ab["type"])
 	else:
 		assert 0, div
-	emit(p, "</div>")
+	emit(p, "html", "</div>")
 	p.div_level -= 1
 
+# The full table is at:
+# https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab
+# For scripts see:
+# https://www.unicode.org/iso15924/iso15924.txt
+
+LANGS = """
+ara
+ban
+cja
+cjm
+deu
+eng
+fra
+ind
+jav
+jpn
+kan
+kaw
+khm
+mya
+ndl
+obr
+ocm
+okz
+omx
+omy
+ori
+osn
+pli
+pyx
+san
+sas
+tam
+tel
+tgl
+und
+vie
+xhm
+zlm
+""".strip().split() + """
+kan-Latn
+kaw-Latn
+khm-Latn
+ocm-Latn
+okz-Latn
+omy-Latn
+ori-Latn
+osn-Latn
+pli-Latn
+pli-Thai
+pra-Latn
+san-Latn
+san-Thai
+tam-Latn
+tam-Taml
+tel-Latn
+tha-Thai
+xhm-Latn
+""".strip().split()
+
+"""
+texts/DHARMA_CritEdSvayambhu.xml
+texts/DHARMA_INSCIK00139.xml
+"""
 
 def process_body(p, body):
-	for div in body:
-		if div.type == "string":
-			assert not div.text().strip()
-		else:
-			assert div.type == "tag"
-			assert div.name == "div"
-			dispatch(p, div)
+	for div in body.children():
+		assert div.type == "tag"
+		assert div.name == "div"
+		dispatch(p, div)
 
 def process_TEI(p, node):
-	dispatch(p, node.xpath("text/body")[0])
+	dispatch(p, node.child("text").child("body"))
+	dispatch(p, body)
 
 for name, obj in copy.copy(globals()).items():
 	if not name.startswith("process_"):

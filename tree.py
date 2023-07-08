@@ -72,21 +72,25 @@ class Node(object):
 	following = None
 
 	def child(self, name):
-		if not isinstance(self, Tag):
-			raise Exception("bad internal call")
-		match = None
+		if not isinstance(self, Tag) and not isinstance(self, Tree):
+			return
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
 			if node.name == name:
-				if match:
-					raise Error("expected %r to have a single child node %s but have many" % (self, name))
-				match = node
-		if not match:
-			raise Error("expected %r to have a child node %s" % (self, name))
-		return match
+				return node
 
-	def children(self, name):
+	def first_child(self, name):
+		if not isinstance(self, Tag) and not isinstance(self, Tree):
+			return
+		for node in self:
+			if not isinstance(node, Tag):
+				continue
+			if node.name == name:
+				return node
+			return
+
+	def children(self, name=None):
 		ret = []
 		if not isinstance(self, Tag) and not isinstance(self, Tree):
 			return ret
@@ -162,6 +166,7 @@ class Tag(list, Node):
 		key = key.removeprefix("xml:")
 		if key != "lang" and key != "space":
 			return self.attrs[key]
+		# XXX what about <foreign> rel. to @lang? also see EGD p. 120
 		node = self
 		while not node.attrs.get(key):
 			node = node.parent
