@@ -25,7 +25,10 @@ NGRAM_DB = sqlite3.connect(os.path.join(config.DBS_DIR, "ngram.sqlite"))
 
 @bottle.route("/")
 def index():
-	return bottle.template("index.tpl", code_hash=config.CODE_HASH)
+	r = change.command("git", "show", "--no-patch", "--format=%at", config.CODE_HASH)
+	date = int(r.stdout.strip())
+	(date,) = TEXTS_DB.execute("select strftime('%Y-%m-%d %H:%M', ?, 'auto', 'localtime')", (date,)).fetchone()
+	return bottle.template("index.tpl", code_hash=config.CODE_HASH, code_date=date)
 
 def is_robot(email):
 	return email in ("readme-bot@example.com", "github-actions@github.com")
@@ -112,6 +115,10 @@ def handle_github():
 		return
 	repo = js["repository"]["name"]
 	change.notify(repo)
+
+@bottle.get("/<filename:path>")
+def handle_static(filename):
+	return bottle.static_file(filename, root=config.STATIC_DIR)
 
 class ServerAdapter(bottle.ServerAdapter):
 	def run(self, handler):
