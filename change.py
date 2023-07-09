@@ -109,7 +109,13 @@ def command(*cmd, **kwargs):
 	print(*cmd, file=sys.stderr)
 	kwargs.setdefault("capture_output", True)
 	kwargs.setdefault("check", True)
-	return subprocess.run(cmd, encoding="UTF-8", **kwargs)
+	try:
+		ret = subprocess.run(cmd, encoding="UTF-8", **kwargs)
+	except subprocess.CalledProcessError:
+		sys.stderr.write(ret.stderr)
+		sys.stderr.flush()
+		raise
+	return ret
 
 def update_repo(name):
 	command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
@@ -198,7 +204,7 @@ def read_changes(fd):
 			biblio.update()
 			logging.info("updated biblio")
 		elif name in REPOS:
-			logging.info("updating single repo...")			
+			logging.info("updating single repo...")
 			update_repo(name)
 			handle_changes(name)
 			logging.info("updated single repo")

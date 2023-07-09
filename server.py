@@ -25,9 +25,7 @@ NGRAM_DB = sqlite3.connect(os.path.join(config.DBS_DIR, "ngram.sqlite"))
 
 @bottle.route("/")
 def index():
-	r = change.command("git", "show", "--no-patch", "--format=%at", config.CODE_HASH)
-	date = int(r.stdout.strip())
-	(date,) = TEXTS_DB.execute("select strftime('%Y-%m-%d %H:%M', ?, 'auto', 'localtime')", (date,)).fetchone()
+	(date,) = TEXTS_DB.execute("select strftime('%Y-%m-%d %H:%M', ?, 'auto', 'localtime')", (config.CODE_DATE,)).fetchone()
 	return bottle.template("index.tpl", code_hash=config.CODE_HASH, code_date=date)
 
 def is_robot(email):

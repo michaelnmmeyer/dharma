@@ -13,4 +13,5 @@ LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(level=LOG_LEVEL)
 
 with open(os.path.join(THIS_DIR, "version.txt")) as f:
-	CODE_HASH = f.read().strip()
+	CODE_HASH = f.readline().strip()
+	CODE_DATE = int(f.readline().strip())

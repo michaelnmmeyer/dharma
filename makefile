@@ -13,6 +13,7 @@ update-texts:
 
 image:
 	git rev-parse HEAD > version.txt
+	git show --no-patch --format=%at HEAD >> version.txt
 	sudo docker build -t dharma .
 
 .PHONY: all update-texts image
