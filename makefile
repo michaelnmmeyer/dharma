@@ -24,9 +24,6 @@ inscription.rnc: $(wildcard texts/DHARMA_INS*.xml)
 diplomatic.rnc: $(wildcard texts/DHARMA_DiplEd*.xml)
 	java -jar validation/trang.jar $^ $@
 
-critical.rnc: $(wildcard texts/DHARMA_CritEd*.xml)
-	java -jar validation/trang.jar $^ $@
-
 critical_translation.rnc: $(wildcard texts/DHARMA_CritEd*_trans*.xml)
 	java -jar validation/trang.jar $^ $@
 

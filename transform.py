@@ -281,7 +281,6 @@ def process_body(p, body):
 
 def process_TEI(p, node):
 	dispatch(p, node.child("text").child("body"))
-	dispatch(p, body)
 
 for name, obj in copy.copy(globals()).items():
 	if not name.startswith("process_"):

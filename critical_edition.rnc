@@ -136,7 +136,7 @@ start =
     },
     element text {
       attribute xml:lang { xsd:NCName },
-      attribute xml:space { "preserve" },
+      attribute xml:space { xsd:NCName },
       element body { \div+ }
     }
   }
@@ -263,9 +263,7 @@ term =
     attribute met { text }?,
     attribute n { xsd:NMTOKEN }?,
     attribute rend { xsd:NCName }?,
-    attribute type {
-       "canto" | "chapter" | "dyad" | "group" |
-       "interpolation" | "metrical" | "liminal" | "section" }?,
+    attribute type { xsd:NCName }?,
     attribute xml:id { xsd:NCName }?,
     (\div
      | lg
