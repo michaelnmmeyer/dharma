@@ -589,7 +589,13 @@ class Formatter:
 
     class Comment(Token):
         def __unicode__(self):
-            return ""
+            str = ""
+            if self.preserve in [0, 1] and self.indent:
+                str += self.indent_insert()
+            str += "<!--%s-->" % re.sub(
+                r"^[\r\n]+$", "\n", re.sub(r"^[\r\n]+", "\n", self.arg[0])
+            )
+            return str
 
         def configure(self):
             super(Formatter.Comment, self).configure()

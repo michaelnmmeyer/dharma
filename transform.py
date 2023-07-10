@@ -223,7 +223,7 @@ def process_div(p, div):
 			emit(p, "html", "</h%d>" % (p.div_level + p.heading_shift + 1))
 		else:
 			# If we have @met, could use it as a search attribute. Is it often used?
-			pass	
+			pass
 	else:
 		assert not div.attrs.get("rend")
 		assert not div.attrs.get("met")
