@@ -2,6 +2,7 @@
 
 import sys, re, io, copy
 from dharma.tree import *
+from dharma import prosody
 
 HANDLERS = {} # we fill this below
 
@@ -179,8 +180,8 @@ def process_p(p, para):
 def process_div(p, div):
 	p.div_level += 1
 	emit(p, "html", "<div>")
-	type = div.attrs.get("type")
-	if type in ("chapter", "title"):
+	type = div.attrs.get("type", "")
+	if type in ("chapter", "canto"):
 		title = type.title()
 		n = div.attrs.get("n")
 		if n:
@@ -191,20 +192,41 @@ def process_div(p, div):
 		emit(p, "html", "<h%d>" % (p.div_level + p.heading_shift))
 		emit(p, "title", title)
 		emit(p, "html", "</h%d>" % (p.div_level + p.heading_shift))
-	elif type in ("dyad", "liminal"):
+	elif type == "dyad":
 		pass
 		# TODO
 	elif type == "metrical":
+		# Group of verses that share the same meter. Don't exploit this for now.
 		assert p.div_level > 1, '<div type="metrical"> can only be used as a child of another <div>'
-		# TODO
+	elif type == "interpolation":
+		# Ignore for now.
+		pass
 	elif not type:
-		# Invocation or colophon
+		# Invocation or colophon?
 		ab = div.first_child("ab")
-		type = ab["type"]
-		assert type in ("invocation", "colophon")
-		emit(p, ab["type"])
+		if ab:
+			type = ab["type"]
+			assert type in ("invocation", "colophon")
+			emit(p, ab["type"])
 	else:
 		assert 0, div
+	# Render the meter
+	if type != "chapter":
+		rend = div.attrs.get("rend", "")
+		assert rend == "met" or not rend
+		if rend:
+			met = div["met"]
+			emit(p, "html", "<h%d>" % (p.div_level + p.heading_shift + 1))
+			if met.isalpha():
+				pros = prosody.items[met]
+				emit(p, "blank", "%s: %s" % (met.title(), pros))
+			emit(p, "html", "</h%d>" % (p.div_level + p.heading_shift + 1))
+		else:
+			# If we have @met, could use it as a search attribute. Is it often used?
+			pass	
+	else:
+		assert not div.attrs.get("rend")
+		assert not div.attrs.get("met")
 	emit(p, "html", "</div>")
 	p.div_level -= 1
 

@@ -3,8 +3,6 @@ default namespace = "http://www.tei-c.org/ns/1.0"
 start =
   element TEI {
     attribute type { xsd:NCName },
-    attribute xml:id { xsd:NCName },
-    attribute xml:lang { xsd:NCName },
     element teiHeader {
       element fileDesc {
         element titleStmt {
@@ -33,7 +31,6 @@ start =
         element sourceDesc {
           element listWit {
             element witness {
-              attribute xml:id { xsd:NCName },
               (text
                | abbr
                | bibl
@@ -58,7 +55,6 @@ start =
                        p
                        | element handNote {
                            attribute scriptRef { text },
-                           attribute xml:id { xsd:NCName },
                            abbr?,
                            p*
                          }
@@ -72,7 +68,6 @@ start =
             element biblStruct {
               attribute corresp { xsd:anyURI },
               attribute type { xsd:NCName },
-              attribute xml:id { xsd:NCName },
               element monogr {
                 title,
                 editor*,
@@ -135,7 +130,6 @@ start =
       }
     },
     element text {
-      attribute xml:lang { xsd:NCName },
       attribute xml:space { "preserve" },
       element body { \div+ }
     }
@@ -145,7 +139,6 @@ title =
     attribute level { xsd:NCName }?,
     attribute subtype { xsd:NCName }?,
     attribute type { xsd:NCName }?,
-    attribute xml:lang { xsd:NCName }?,
     text
   }
 editor =
@@ -165,8 +158,6 @@ idno =
 p =
   element p {
     attribute n { xsd:integer }?,
-    attribute xml:id { xsd:NCName }?,
-    attribute xml:lang { xsd:NCName }?,
     (text
      | abbr
      | app
@@ -212,8 +203,6 @@ quote =
   element quote {
     attribute rend { xsd:NCName }?,
     attribute type { xsd:NCName }?,
-    attribute xml:id { xsd:NCName }?,
-    attribute xml:lang { xsd:NCName }?,
     (text
      | app
      | del
@@ -255,18 +244,14 @@ note =
   }
 term =
   element term {
-    attribute xml:lang { text }?,
     (text | app | pb | sic)+
   }
 \div =
   element div {
     attribute met { text }?,
     attribute n { xsd:NMTOKEN }?,
-    attribute rend { xsd:NCName }?,
-    attribute type {
-       "canto" | "chapter" | "dyad" | "group" |
-       "interpolation" | "metrical" | "liminal" | "section" }?,
-    attribute xml:id { xsd:NCName }?,
+    attribute rend { "met" }?,
+    attribute type { "canto" | "chapter" | "dyad" | "interpolation" | "metrical" }?,
     (\div
      | lg
      | listApp
@@ -275,13 +260,10 @@ term =
      | quote
      | element ab {
          attribute type { xsd:NCName }?,
-         attribute xml:id { xsd:NCName }?,
-         attribute xml:lang { xsd:NCName }?,
          (text | app | hi | pb | supplied)+
        }
      | element head {
          attribute type { xsd:NCName }?,
-         attribute xml:lang { xsd:NCName }?,
          (text | foreign | hi)+
        })*,
     app?
@@ -312,7 +294,6 @@ pb =
 sic = element sic { (text | app)+ }
 foreign =
   element foreign {
-    attribute xml:lang { xsd:NCName }?,
     (text | add | app | g | hi | lb | pb | term | unclear)+
   }
 supplied =
@@ -407,8 +388,6 @@ lg =
     attribute met { xsd:NCName }?,
     attribute n { xsd:integer }?,
     attribute rend { xsd:NCName }?,
-    attribute xml:id { xsd:NCName }?,
-    attribute xml:lang { xsd:NCName }?,
     (note
      | element l {
          attribute enjamb { xsd:NCName }?,
