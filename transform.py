@@ -202,9 +202,9 @@ def process_div(p, div):
 		# Ignore for now.
 		pass
 	elif not type:
-		# Invocation or colophon?
 		ab = div.first_child("ab")
 		if ab:
+			# Invocation or colophon?
 			type = ab["type"]
 			assert type in ("invocation", "colophon")
 			emit(p, ab["type"])

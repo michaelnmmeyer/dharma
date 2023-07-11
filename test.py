@@ -6,6 +6,7 @@ all = sorted(iglob("texts/DHARMA_*"))
 critical = sorted(iglob("texts/DHARMA_CritEd*"))
 critical_edition = [f for f in critical if not "_trans" in f]
 critical_translation = [f for f in critical if "_trans" in f]
+inscriptions = [f for f in all if "DHARMA_INS" in f]
 
 LANGS = """
 ara
@@ -62,9 +63,7 @@ tha-Thai
 xhm-Latn
 """.strip().split()
 
-for file in sorted(all):
+for file in sorted(inscriptions):
 	soup = BeautifulSoup(open(file), "xml")
 	for tag in soup.find_all(**{"xml:lang": True}):
-		lang = tag["xml:lang"]
-		if not lang in LANGS or True:
-			print(lang)
+		print(tag["xml:lang"])
