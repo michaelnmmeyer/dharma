@@ -109,16 +109,18 @@ def command(*cmd, **kwargs):
 	print(*cmd, file=sys.stderr)
 	kwargs.setdefault("capture_output", True)
 	kwargs.setdefault("check", True)
+	ret = None
 	try:
 		ret = subprocess.run(cmd, encoding="UTF-8", **kwargs)
 	except subprocess.CalledProcessError:
-		sys.stderr.write(ret.stderr)
-		sys.stderr.flush()
+		if ret:
+			sys.stderr.write(ret.stderr)
+			sys.stderr.flush()
 		raise
 	return ret
 
 def update_repo(name):
-	command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
+	return command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
 
 def latest_commit_in_repo(name):
 	r = command("git", "-C", os.path.join(config.REPOS_DIR, name), "log", "-1", "--format=%H %at")
