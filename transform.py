@@ -22,6 +22,10 @@ def dispatch(p, node):
 	except Error as e:
 		complain(p, e)
 
+def dispatch_children(p, node):
+	for child in node:
+		dispatch(p, child)
+
 class Parser:
 	# drop: drop all spaces until we find some text
 	# seen: saw space and waiting to see text before emitting ' '
@@ -42,7 +46,7 @@ def normalize_space(s):
 	return re.sub(r"\s+", " ", s)
 
 def complain(p, msg):
-	print("? %s" % msg)
+	print("? %s" % msg, file=sys.stderr)
 
 def emit(p, t, data=None, params={}):
 	write = sys.stdout.write
@@ -91,12 +95,10 @@ def process_apparatus(p, app):
 			process_lemma(p, elem)
 
 def process_num(p, num):
-	for elem in num:
-		dispatch(p, elem)
+	dispatch_children(p, num)
 
 def process_supplied(p, supplied):
-	for elem in supplied:
-		dispatch(p, elem)
+	dispatch_children(p, supplied)
 
 def process_milestone(p, milestone):
 	assert "n" in milestone.attrs
@@ -138,12 +140,7 @@ def process_pb(p, elem):
 	# XXX incomplete
 
 def process_choice(p, node):
-	for elem in node:
-		if elem.type == "comment":
-			continue
-		if not elem.type == "tag":
-			raise Error(node, "expected an element")
-		dispatch(p, elem)
+	dispatch_children(p, node)
 
 def process_g(p, node):
 	def fail():
@@ -172,25 +169,47 @@ def process_unclear(p, node):
 	emit(p, "text", node.text()) # XXX children?
 
 def process_p(p, para):
-	emit(p, "<para")
-	for elem in para:
-		dispatch(p, elem)
-	emit(p, ">para")
+	emit(p, "para<")
+	dispatch_children(p, para)
+	emit(p, "para>")
+
+def process_head(p, head):
+	emit(p, "head<", params={"level": p.div_level})
+	for elem in head:
+		if elem.type == "tag":
+			if elem.name == "foreign":
+				emit(p, "html", "<i>")
+				emit(p, "text", elem.text())
+				emit(p, "html", "</i>")
+			elif elem.name == "hi":
+				# TODO
+				pass
+			else:
+				assert 0
+		elif elem.type == "string":
+			emit(p, "text", elem)
+		elif elem.type == "comment":
+			pass
+		else:
+			assert 0
+	emit(p, "head>")
 
 def process_div(p, div):
 	p.div_level += 1
+	ignore = None
 	emit(p, "html", "<div>")
 	type = div.attrs.get("type", "")
 	if type in ("chapter", "canto"):
-		title = type.title()
+		emit(p, "html", "<h%d>" % (p.div_level + p.heading_shift))
+		emit(p, "text", type.title())
 		n = div.attrs.get("n")
 		if n:
-			title += " %s" % n
+			emit(p, "text", " %s" % n)
 		head = div.first_child("head")
 		if head:
-			title += ": %s" % head.text() # XXX not .text()!
-		emit(p, "html", "<h%d>" % (p.div_level + p.heading_shift))
-		emit(p, "title", title)
+			emit(p, "text", ": ")
+			process_head(p, head)
+			ignore = head
 		emit(p, "html", "</h%d>" % (p.div_level + p.heading_shift))
 	elif type == "dyad":
 		pass
@@ -218,7 +237,8 @@ def process_div(p, div):
 			met = div["met"]
 			emit(p, "html", "<h%d>" % (p.div_level + p.heading_shift + 1))
 			if met.isalpha():
-				pros = prosody.items[met]
+				pros = prosody.items.get(met)
+				assert pros, "meter %r absent from prosodic patterns file" % met
 				emit(p, "blank", "%s: %s" % (met.title(), pros))
 			emit(p, "html", "</h%d>" % (p.div_level + p.heading_shift + 1))
 		else:
@@ -227,6 +247,10 @@ def process_div(p, div):
 	else:
 		assert not div.attrs.get("rend")
 		assert not div.attrs.get("met")
+	for elem in div:
+		if elem == ignore:
+			continue
+		dispatch(p, elem)
 	emit(p, "html", "</div>")
 	p.div_level -= 1
 
@@ -289,11 +313,6 @@ tel-Latn
 tha-Thai
 xhm-Latn
 """.strip().split()
-
-"""
-texts/DHARMA_CritEdSvayambhu.xml
-texts/DHARMA_INSCIK00139.xml
-"""
 
 def process_body(p, body):
 	for div in body.children():

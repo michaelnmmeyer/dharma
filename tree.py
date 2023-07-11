@@ -182,12 +182,10 @@ class Tag(list, Node):
 		key = key.removeprefix("xml:")
 		if key == "lang":
 			if isinstance(value, str):
-				value = value.split("-")
+				value = value.rsplit("-", 1)
 			assert isinstance(value, list) or isinstance(value, tuple)
 			assert 1 <= len(value) <= 2
-			if len(value) == 1:
-				value = (value[0], "Latn")
-			value = tuple(value)
+			value = value[0]
 		self.attrs[key] = value
 
 	def get(self, key, dflt=None):
