@@ -35,17 +35,22 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -56,6 +61,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -73,7 +79,7 @@
     <body>
       <div rendition="class:83233 maturity:00000" type="edition" xml:lang="ocm-Latn">
         <p><lb n="1"/><unclear>yā</unclear>ṅ· pu poṁ vihāra <gap quantity="3" reason="illegible" unit="character"/>· siy· bhikṣukarmma|
-<lb n="2"/><unclear cert="low">ma</unclear>ḥ sa<unclear cert="low">nī</unclear>y<unclear>·</unclear> kasa<space type="descender"/>kaiḥ <gap quantity="1" reason="illegible" unit="character"/> saṁha <unclear cert="low">si</unclear><unclear>y</unclear>· vi<unclear>h</unclear><supplied reason="lost">ā</supplied>ra padh<unclear>i</unclear>luv·
+<lb n="2"/><unclear cert="low">ma</unclear>ḥ sa<unclear cert="low">nī</unclear>y<unclear>·</unclear> kasa<space type="descender"/>kaiḥ <gap quantity="1" reason="illegible" unit="character"/> saṁha<!-- understand saṅgha? or edit sapa, or saṁpa, or Ais· paXs· (paṅap seems impossible) --> <unclear cert="low">si</unclear><unclear>y</unclear>· vi<unclear>h</unclear><supplied reason="lost">ā</supplied>ra padh<unclear>i</unclear>luv·
 <lb n="3"/>kadā vaḥ <choice>
             <unclear>na</unclear>
             <unclear>ta</unclear>
@@ -82,16 +88,19 @@
             <unclear>U</unclear>
           </choice> <gap quantity="1" reason="illegible" unit="character"/>· <gap quantity="2" reason="illegible" unit="character"/>· <unclear>mara</unclear> <unclear cert="low">daiva</unclear> bhi<supplied reason="lost">kṣu</supplied>karmma di vihāra</p>
       </div>
-      <div type="apparatus"></div>
-      <div resp="part:argr" type="translation"></div>
-      <div type="commentary"></div>
+      <div type="apparatus"><!--apparatus encoded as per EGD §9.1, basic elements for apparatus below--></div>
+      <div resp="part:argr" type="translation"><!--translation encoded as per EGD §9.2 --></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
         <p>Previously unpublished. Edited by Arlo Griffiths from EFEO estampage n. 2091.</p>
         <listBibl type="primary">
           <bibl n="siglum"/>
+          <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
+          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

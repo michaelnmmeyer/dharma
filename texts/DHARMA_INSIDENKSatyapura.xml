@@ -31,17 +31,23 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
               <p>The hand seems similar to inscriptions of the late fourteenth century, early fifteenth, albeit with less flourish than those of the Eastern kraton. <foreign>Cakra</foreign>s and <foreign>virama</foreign>s descending below the x-line are particularly emphasized, stretching in long horizontal threads below the line.</p>
+              <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -74,7 +80,7 @@
     <body>
       <div type="edition" xml:lang="kaw-Latn">
         <pb n="15r"/>
-        <p part="F"><lb n="15r1"/>vat  ikaṁ vvaṁ tan magəhakən tan akmit ike saṁ hyaṅ ājñā haji praśāsti, kmitani saṁ hyaṁ dharmmeṅ satyapurā, sāvakanya, mon br<choice>
+        <p part="F"><lb n="15r1"/>vat <!--possibility of starting with break="no" here?, and restoring yāvat?--> ikaṁ vvaṁ tan magəhakən tan akmit ike saṁ hyaṅ ājñā haji praśāsti, kmitani saṁ hyaṁ dharmmeṅ satyapurā, sāvakanya, mon br<choice>
             <orig>a</orig>
             <reg>ā</reg>
           </choice>hmaṇa,
@@ -98,13 +104,14 @@
 <foreign xml:lang="san-Latn">yāvac chandraś cha sūryyaś cha, bhuvanāni prakāśate</foreign> // den kadi <choice>
             <orig>lavasaṁ</orig>
             <reg>lavas saṁ</reg>
-          </choice> 
+          </choice> <!--add normalization with <choice><orig>lavasaṁ</orig><reg>lavas saṁ</reg></choice>?-->
 <lb n="15v3"/>hyaṁ candrāditya, sumnəṅ aṇḍabhuvana, maṅkana lavasanikaṁ vvaṅ amuktya saṁsāra riṅ ihatra paratra, phalanyan anyā<unclear>y</unclear>apravr̥tti<lb break="no" n="15v4"/>nya, yan ahyun anirṇnakna saṁ hyaṅ ājñā haji praśāsti, śrī vikramavarddhanalăñchaṇa, kmitanikanaṁ dharmmeṁ satyapurā, maṅkana
 <lb n="15v5"/>rasany ānugraha pāduka śrī mahārāja // 0 //
 </p>
         <ab>Om̐ vāgīśvaryyai namaḥ, siddhir astu, O<supplied reason="lost">ṁ</supplied> // o //</ab>
       </div>
       <div type="apparatus">
+        <!--MS: Brandes' readings still need to be added-->
         <listApp>
           <app loc="15r1">
             <lem>vat</lem>
@@ -124,6 +131,7 @@
           </app>
           <app loc="15r2-3">
             <lem>tasmāt</lem>
+            <!--I think what I did here complies with the EG which recommends not indicating the <lb> element in the lemma, but I'm not sure - and I do not understand this sentence from the EG "preferably, create separate lemmas for a problematic locus extending across a boundary between such containers", and whether it is relevant to the present scenario.-->
             <rdg source="bib:Boechari1985-1986_01">smat</rdg>
             <note>Boechari altogether omits akṣara <foreign>ta</foreign> standing at the end of line 2.</note>
           </app>
@@ -150,6 +158,7 @@
               <foreign xml:lang="san-Latn">chandraś cha</foreign>
             </lem>
             <rdg source="bib:Boechari1985-1986_01">candraś ca</rdg>
+            <!-- MS: Should the <foreign> tags also be used in the rdg?-->
           </app>
           <app loc="15v2">
             <lem>
@@ -194,12 +203,15 @@
         </listApp>
       </div>
       <div resp="part:masc" type="translation">
+        <!--translation encoded as per EG §9.2 -->
         <p>Whenever there are people who do not comply, do not guard, the contents of the holy royal decree in the form of a charter, which is given in custody to the holy royal foundation at Satyapurā, whatever be their condition, whether brahmins, <foreign xml:lang="san-Latn">kṣatriya</foreign>s, traders or farmers, servants, <foreign xml:lang="kaw-Latn">piṅhe</foreign>s, <foreign xml:lang="san-Latn">vahuta</foreign> chiefs, any man whatever his position, inasmuch as he tampers with the stability of the Great King's grant, on that account he will suffer the results of his actions,</p>
       </div>
       <div type="commentary">
+        <!--commentary encoded as per section §9.3 -->
         <p/>
       </div>
       <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
         <p>First edited by Brandes (<bibl rend="omitname">
             <ptr target="bib:Brandes1913_01"/>
             <citedRange unit="page">255-256</citedRange>

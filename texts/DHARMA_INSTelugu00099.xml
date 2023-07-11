@@ -14,6 +14,7 @@
           <resp>intellectual authorship of edition</resp>
           <persName>
             <forename>Mallampalli</forename>
+            <!-- Fill in the name of the responsible scholar — it possible to use only <name> instead of <foreame> and <surname> -->
             <surname>Sōmaśēkhara Śarma</surname>
           </persName>
         </respStmt>
@@ -35,19 +36,29 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. -->
                                 The inscription contains halantas. However, they are not always discernible purely based on their shape which might be due to the quality of the published picture. Halanta N is written slightly smaller (apart from <foreign>akuN</foreign> in line 4 where the N is very small) and lacks the horizontal line on top of the <foreign>akṣara</foreign>. Halanta M is still rudimentarily visible on the picture but can not be clearly delineated from ⟨ma⟩ in line 1 and 4. The <foreign>akṣara</foreign> ⟨ḻa⟩ is written in the standard form in line 3 (i. e. resembling a softly drawn w with inwardly curled edges) but is written with the curled edges drawn right into the middle so that they meet (like in the process of cellular meiosis) in line 1. The <foreign>akṣara</foreign> ⟨le⟩ is written with the vowel element almost forming a circle on top. This form of ⟨le⟩ albeit unusual can be found in several other inscriptions.
                             </p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -58,6 +69,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -79,7 +91,7 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="tel-Latn">
-        <p>
+        <p><!-- the picture has to be seen regarding halantas etc. -->
                  <milestone n="A" type="facelike" unit="face"/>
                  <lb n="1"/>svasti śrī sōḻa-mahārājull ēḷaN In-puḻōli
                  <lb n="2"/>Aṇapōtulu rēvaṇakālu puddaṇakālu Iccina pa<lb break="no" n="3"/>nnasa pen-pāṟa IśaṟēnikiN tēni ḻaccinavānṟu <unclear>pa</unclear><lb break="no" n="4"/><supplied reason="lost">ñca</supplied>mahāpā<unclear>ta</unclear>kunṟ akuN
@@ -138,8 +150,8 @@
       </div>
       <div resp="part:jeth" type="translation">
         <p>
-                 Svasti! While Cōḻa-Mahārāja was ruling, a pannasa given to the great brahmin (<foreign>pen-pāṟa</foreign>) Īśaṟēnṟu by Aṇapōtulu, Rēvaṇakālu and Puddaṇakālu (inhabitants) of this city. 
-                 Whoever impedes it will be (guilty) of the five great sins. Written by Asivairuvu.
+                 Svasti! While Cōḻa-Mahārāja was ruling, a pannasa given to the great brahmin (<foreign>pen-pāṟa</foreign>) Īśaṟēnṟu by Aṇapōtulu, Rēvaṇakālu and Puddaṇakālu (inhabitants) of this city.<!-- The city should be added in brackets; Poṭladurti or Mālepāḍu --> 
+                 Whoever impedes<!-- lit. destroys; better translation? --> it will be (guilty) of the five great sins. Written by Asivairuvu.
              </p>
       </div>
       <div source="bib:Sastri1969_01" type="translation">
@@ -168,7 +180,7 @@
           </bibl>). In this case the donation would have been made by the ruler and the two other persons could have been <foreign>ājñaptis</foreign> although the syntax would be a little bit odd. It may be noted that in Sōmaśēkhara Śarma's Telugu translation <foreign>Aṇapōtulu</foreign> is written (with long ō), probably by mistake. As it seems to me the inscription provides the usual formula <hi rend="italic">XYZ ēḷaN</hi> which only refers to the reign of a ruler so that the agents (donors) are the three other persons. 
                  The name <foreign>Aṇapōtulu</foreign> is a honorific plural and seems to consist of <foreign>a(ṇ)ṇa</foreign> 'elder brother' (normally used as second element in names) and <foreign>pōtu</foreign> 'male'. The same elements in a different order can be found in the name of the poet <foreign>Pōtana</foreign> (with later decerebralization).
                  The place that is referred to in the inscription (<foreign>In-puḻōlu</foreign> 'this city') must be either Poṭladurti or Mālēpāḍu because the inscription was found near the road between these two villages.
-                 
+                 <!-- MORE -->
                  Another inscription that mentions the rule of Cōḻa-Mahārāja and the scribe Asivairuvu is DHARMA_INSTelugu00015.
              </p>
       </div>

@@ -31,17 +31,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -74,7 +84,7 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="okz-Latn">
-        <p><lb n="1"/> <supplied reason="lost">// </supplied> vraḥ tise bhūmi Āy· c<unclear>aṁ</unclear><gap quantity="4" reason="lost" unit="character"/> nu chok· <unclear>q</unclear>m<unclear>e</unclear> <unclear>ka</unclear><seg type="aksara"><seg subtype="body" type="component">
+        <p><lb n="1"/> <supplied reason="lost">// <!--vérifier nature ddanda sur estampage--></supplied> vraḥ tise bhūmi Āy· c<unclear>aṁ</unclear><gap quantity="4" reason="lost" unit="character"/> nu chok· <unclear>q</unclear>m<unclear>e</unclear> <unclear>ka</unclear><seg type="aksara"><seg subtype="body" type="component">
               <gap quantity="1" reason="illegible" unit="component"/>
             </seg>r<seg subtype="vowel" type="component">
               <gap quantity="1" reason="illegible" unit="component"/>
@@ -82,14 +92,16 @@
       </div>
       <div type="apparatus">
         <listApp>
+          <!-- one <app> for each apparatus entry -->
           <app loc="line">
-            <lem></lem>
-            <rdg source="bib:AuthorYear_01"></rdg>
+            <!-- Update the value of @loc.-->
+            <lem><!-- fill in a lemma here --></lem>
+            <rdg source="bib:AuthorYear_01"><!-- update the @source value, fill in variant reading here --></rdg>
           </app>
         </listApp>
       </div>
-      <div resp="part:chch" type="translation" xml:lang="fra"></div>
-      <div type="commentary"></div>
+      <div resp="part:chch" type="translation" xml:lang="fra"><!--translation encoded as per EG §9.2 --></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
         <p>First edited by Jean Baptiste Chevance (<bibl rend="omitname">
             <ptr target="bib:Chevance2014_01"/>

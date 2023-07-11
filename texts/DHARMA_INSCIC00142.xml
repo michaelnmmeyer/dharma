@@ -17,6 +17,7 @@
             <surname>Griffiths</surname>
           </persName>
           <persName ref="http://viaf.org/viaf/289845900">
+            <!--sapi2argr Ai-je mis le bon pseudonyme ? -->
             <forename>Amandine</forename>
             <surname>Lepoutre</surname>
           </persName>
@@ -39,17 +40,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -60,6 +71,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -112,7 +124,7 @@
         </lg>
         <lg met="vasantatilaka" n="4">
           <l enjamb="yes" n="a">Ākāśa-maṇḍalam atītya mahīm aneka<g type="dotMid">.</g></l>
-          <l n="b">bhūtādhikāra-parivārita-maṇḍalā<unclear>bha</unclear>ḥ<g type="dotMid">.</g></l>
+          <l n="b">bhūtādhikāra-parivārita-maṇḍalā<unclear>bha</unclear>ḥ<!-- sapi2argr sur la pierre, cela ressemble beaucoup à 'va' --><g type="dotMid">.</g></l>
           <l enjamb="yes" n="c">yal-liṅgam indu-dina<lb break="no" n="A6"/>kr̥d-graha-sevitābha<g type="dotMid">.</g></l>
           <l n="d">datta-kramāgata-sukhodayam atra pāyāt·<g type="ddandaPlain">.</g></l>
         </lg>
@@ -135,7 +147,7 @@
           <l n="d">śaktaṁ na yasya yadaniṣṭavara-prasādāt·<g type="ddandaPlain">.</g></l>
         </lg>
         <lg met="śārdūlavikrīḍita" n="8">
-          <l n="a">yo vijñāya murāripadma-varajāva-jñāna-doṣodgati
+          <l n="a">yo vijñāya murāripadma-varajāva-jñāna-doṣodgati<!-- sapi2argr °jñāna°: °jñānaṁ (sapi). Pour l'instant je ne touche à rien à cause de la métrique. SOIT CORRIGER, SOIT IL N'Y EST PAS.-->
              <g type="dotMid">.</g></l>
           <l n="b">prāle<lb break="no" n="A11"/>yaglapitānanāmvuja-nibhau provāca vāṇīm imām·<g type="dotMid">.</g></l>
           <l n="c">he govinda-sarojajau kim aparaṁ sāddhvā yuvābhyāṁ manā<g type="dotMid">.</g>g</l>
@@ -180,19 +192,20 @@
               <unclear>ṭ</unclear>
               <unclear>p</unclear>
             </choice>abhuvi śriyā<g type="dotMid">.</g></l>
-          <l n="c">sukhāsīno namaskāra<g type="dotMid">.</g></l>
+          <l n="c">sukhāsīno<!--sapi2argr sukhāsīṁno. Pour l'instant je ne touche à rien. CORRIGER OU IL n'y est pas.--> namaskāra<g type="dotMid">.</g></l>
           <l n="d">dhanān naḥ pā<lb n="A18"/><g type="floretQuatrefoil"/><g type="ddandaOrnate">.</g> tu sādhvasāt·<g type="ddandaOrnate">.</g><g type="floretQuatrefoil"/></l>
+          <!--sapi2argr les deux signes encadrant les ddanda ne sont pas vraiment des floretQuatrefoil. Il s'agit plutôt de motifs décoratifs végétaux disposés de manière symétrique, rétrécissant à mesure qu'ils s'écartent vers le bord. -->
         </lg>
         <lg met="pr̥thvī" n="15">
           <milestone n="B" type="pagelike" unit="face"/>
           <l n="a"><lb n="B1"/><seg met="-+---+-">
               <gap quantity="7" reason="lost" unit="character"/>
-            </seg><unclear>m</unclear>ā kali-kalaṅka-kālojjhitā<g type="dotMid">.</g></l>
+            </seg><!--sapi2argr Ici c'est la première fois que j'encode une lacune de vers, et je ne suis pas sûre de l'avoir fait correctement.--><unclear>m</unclear>ā kali-kalaṅka-kālojjhitā<g type="dotMid">.</g></l>
           <l n="b">mahā-jana-gaṇa-pra<seg met="+-">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg><lb n="B2"/><seg met="--+">
               <gap quantity="3" reason="lost" unit="character"/>
-            </seg> sti campāhvayā<g type="dotMid">.</g></l>
+            </seg> sti campāhvayā<g type="dotMid">.</g><!-- sapi2argr Ici le terme n'existe pas dans la taxonomy mais il s'agit d'un dotHigh --></l>
           <l n="c">vibhūti-paribhoga-sampad-ucitā su-tejasvinā<g type="dotMid">.</g></l>
           <l n="d">purāṇa-bhr̥gu-śāsanena kila rakṣitā yena <seg met="+">
               <gap quantity="1" reason="lost" unit="character"/>
@@ -220,6 +233,7 @@
         </lg>
         <lg met="anuṣṭubh" n="19">
           <l n="a">śrī-sampadaṁ vicitrārthām</l>
+          <!--sapi2argr on the stone i read, °ārthādhi but I understand the logic. Difference between ‘ma’ and ‘dha’: very similar characters but the ‘body’ of the ‘ma’ is opened on the right, and the body of the ‘dha’ is opened in the middle. Cf. comparison with °mahāsām, on the same line. -->
           <l n="b">irādhīśa-prasādataḥ<g type="dotMid">.</g></l>
           <l n="c">Amā<lb break="no" n="B7"/>tyo vāpa yaś cājñā</l>
           <l n="d">mahāsāmantasaṁjñakaḥ<g type="dandaPlain">.</g></l>
@@ -236,7 +250,7 @@
         <lg met="anuṣṭubh" n="21">
           <l n="a">Ity etāni ca yasyaiva</l>
           <l n="b">rājājñā-suprayatnataḥ<g type="dotMid">.</g></l>
-          <l n="c">dūrllabhānīhaloke 'nyai<g type="dotMid">.</g>r</l>
+          <l n="c">dūrllabhānīha<!-- sapi2argr dūrllabhānīhaṁ. Il y a un anusvara net sur la pierre.-->loke 'nyai<g type="dotMid">.</g>r</l>
           <l n="d">api prādān mahīpatiḥ<g type="ddandaPlain">.</g></l>
         </lg>
         <p>
@@ -273,9 +287,11 @@
               <gap precision="low" quantity="3" reason="lost" unit="line"/>
             </p>
         <p xml:lang="san-Latn">
+          <!--sapi2argr : Comment encoder la présence sur deux lignes d'une lacune de stance ?-->
           <gap precision="low" quantity="2" reason="lost" unit="line"/>
         </p>
         <lg met="anuṣṭubh" n="26">
+          <!--sapi2argr Ai-je bien fait de numéroter la stance ainsi ? -->
           <l n="a"><seg met="===">
               <gap extent="unknown" reason="lost" unit="character"/>
             </seg><lb n="C6"/>nujā yasya<g type="dotMid">.</g></l>
@@ -287,29 +303,31 @@
             <sic>a</sic>
             <corr>ā</corr>
           </choice>nujñayā śrīmahārudradevaḥ pratiṣṭhāpito
-              <lb n="C9"/>maddhyataḥ gagaṇadvimaṅgalaśake pitur ājñā sārthavāhanā<lb break="no" n="C10"/>mnaḥ śrī Indravarmmanr̥patimahādevyā śrīrudravarmmabhūpabhrā<lb break="no" n="C11"/>trīyayāsya sahodarasya pratirūpataḥ pitari tadbhaktyai sva<lb break="no" n="C12"/>jananībhūmau<g type="ddandaPlain">.</g> Atha tenottarata Iyaṁ bhagavatī prati<lb break="no" n="C13"/>ṣṭhāpitā khavahnitanuśake mātur at<choice>
+              <lb n="C9"/>maddhyataḥ gagaṇadvimaṅgalaśake pitur ājñā sārthavāhanā<lb break="no" n="C10"/>mnaḥ śrī Indravarmmanr̥patimahādevyā śrīrudravarmmabhūpabhrā<lb break="no" n="C11"/>trīyayāsya sahodarasya pratirūpataḥ pitari tadbhaktyai sva<lb break="no" n="C12"/>jananībhūmau<g type="ddandaPlain">.</g> Atha<!-- sapi2argr sur la pierre je lis Aṁtha.--> tenottarata Iyaṁ bhagavatī prati<lb break="no" n="C13"/>ṣṭhāpitā khavahnitanuśake mātur at<choice>
             <sic>i</sic>
             <corr>ī</corr>
           </choice>takalpasantānaku<lb break="no" n="C14"/>lodbhavāyāḥ pu pov· ku rudrapurasaṁjñikāyā devīgaṇa<lb break="no" n="C15"/>patikumārān imān devān pratiṣṭhāpayantyāś candrāgnitanu<lb break="no" n="C16"/>śake pratirūpato mātari tadbhaktaye svabhūmau<g type="ddandaHooked">.</g> Api<lb break="no" n="C17"/>cāmātya Ājñā jayendrapatināmeti dakṣiṇata I<lb break="no" n="C18"/>maṁ śrīmahāśivaliṅgeśvaradevam asthāpayan navadvimaṅga<lb break="no" n="C19"/>laśake parameśvarapūjārtham iha jananībhūmau svakī<lb break="no" n="C20"/>rttaye veti<g type="ddandaPlain">.</g>
             </p>
         <p xml:lang="ocm-Latn"><milestone n="D" type="pagelike" unit="face"/><gap precision="low" quantity="5" reason="lost" unit="line"/>
-            <lb n="D6"/><gap extent="unknown" reason="lost" unit="character"/>vaṅun· vulān· limā <unclear>nā ru</unclear><gap extent="unknown" reason="lost" unit="character"/> 
+            <lb n="D6"/><gap extent="unknown" reason="lost" unit="character"/>vaṅun· vulān· limā <unclear>nā ru</unclear><gap extent="unknown" reason="lost" unit="character"/> <!--sapi2argr C'est moi ai ajouté nā ru mais je ne suis pas sûre du tout -->
             <lb n="D7"/><gap extent="unknown" reason="lost" unit="character"/>Udyāna nau nagara li<gap extent="unknown" reason="lost" unit="character"/>
             <lb n="D8"/><gap precision="low" quantity="8" reason="illegible" unit="character"/>vriy· muñī krauṅ· <gap extent="unknown" reason="lost" unit="character"/>
             <lb n="D9"/><gap extent="unknown" reason="lost" unit="character"/>Andap· yāṅ· pov· ku si<unclear>niy·</unclear><gap extent="unknown" reason="lost" unit="character"/>
             <lb n="D10"/><supplied reason="lost">yāṅ·</supplied> pov· ku <unclear>siniy·</unclear> matandāḥ pakar· sarvvākarādāna sarvva pat·
-            <lb n="D11"/>matandāḥ ya siy· urāṅ· nāma pamataḥ matandāḥ niy· Urāṅ· nan· la<lb break="no" n="D12"/>c· di naraka<g type="dotMid">.</g> ya siy· Urāṅ nāma tan· pamataḥ matandāḥ niy·
+            <lb n="D11"/>matandāḥ ya siy· urāṅ· nāma pamataḥ matandāḥ niy· Urāṅ· nan· la<lb break="no" n="D12"/>c· di naraka<g type="dotMid">.</g> ya siy· Urāṅ nāma tan·<!-- sapi2argr ou ta(ṁ)n·? --> pamataḥ matandāḥ niy·
             <lb n="D13"/>Urāṅ· nan· nau dauk· di svargga yathā Iṣṭa driy·<g type="dotMid">.</g> rājā<lb break="no" n="D14"/>jñā na laṅghanīyā bhavadbhiḥ<g type="dotMid">.</g>
           </p>
         <lg met="anuṣṭubh" n="27">
+          <!--sapi2argr : Où indiquer le <xml:lang="san-Latn"> ?-->
+          <!--sapi2argr Ai-je bien fait de numéroter la stance ainsi ? -->
           <l n="a"><unclear>AI</unclear>ndavī yā kalā yāvad</l>
           <l n="b">yāvat sū<lb break="no" n="D15"/>ryyakarāvalī<g type="dotMid">.</g></l>
           <l n="c">dīpamānāsti rodasyo<g type="dotMid">.</g></l>
           <l n="d">r asmiṁs tāvad sumukti<lb break="no" n="D16"/>kā<g type="ddandaPlain">.</g></l>
         </lg>
         <p xml:lang="ocm-Latn">yāṅ· pu pov· ku siniy· ranakṣā Urāṅ· viśeṣa tapaḥ
-              <lb n="D17"/>maAnan· driy· yāṅ· pov· ku di yāṅ· yaṁṅ· sandhyā di yā<lb break="no" n="D18"/>ṅ· pu pov· ku śrīśānabhadreśvara<g type="dotMid">.</g> kintu gaṁp· kamiy· yaṅ· yaja<lb break="no" n="D19"/>māna yāṅ· pov· ku siniy· kā driy· yajamāna yāṅ· pov·
-              <lb n="D20"/>ku siniy· paknā dharmma niy· siy· srauṅ· punya va kamiy·
+              <lb n="D17"/>maAnan· driy· yāṅ· pov· ku di yāṅ· yaṁṅ· sandhyā di yā<lb break="no" n="D18"/>ṅ· pu pov· ku śrīśānabhadreśvara<g type="dotMid">.</g><!-- sapi2argr Pas de terme dans la taxonomy mais on voit trois points verticaux. --> kintu gaṁp· kamiy· yaṅ· yaja<!-- sapi2argr Could we read yajā ? --><lb break="no" n="D19"/>māna yāṅ· pov· ku siniy· kā driy· yajamāna yāṅ· pov·
+              <lb n="D20"/>ku siniy· paknā dharmma niy· siy· srauṅ· punya va<!-- sapi2argr à la place de  <choice><unclear>u</unclear><unclear>va</unclear></choice>--> kamiy·
               <lb n="D21"/>paknā kaṁn· Urāṅ· tapaḥ viśeṣa sidaḥ luniy· napāy·
               <lb n="D22"/>hetu jeṅ· daḥ sunan· Urāṅ· tapaḥ viśeṣa nan· tan madā<g type="crossPlus">.</g>
               <lb n="D23"/>humā <placeName key="Vandrauv" subtype="field" type="cultivation">vandrauv·</placeName> <seg type="desc">nariy· tu<unclear>ṁ</unclear><choice>
@@ -335,6 +353,7 @@
           <app loc="A16">
             <lem>nude stāc</lem>
             <rdg source="bib:Huber1911_01">’nudostāc</rdg>
+            <!--sapi2argr ' ou q ?-->
             <note>with note “Corr. dosthāc”. There is clearly no do but de, there is no elision to be marked with an apostrophe, and no correction is necessary for the akṣara stā.</note>
           </app>
           <app loc="B1">
@@ -378,6 +397,7 @@
           </app>
           <app loc="B6">
             <lem>vicitrārthām irādhīśa-</lem>
+            <!-- sapi2argr: faut-il garder le °-->
             <rdg source="bib:Huber1911_01">vicitrārthādhirādhīśa-</rdg>
             <note>Huber emends to vicitrārthādhir adhīśa°, which does not seem to yield any sense, and ignores the pāda-boundary. Cf. C. 149, st. XII, for another attestion of the word irā ‘Earth’.</note>
           </app>
@@ -430,10 +450,10 @@
       <div resp="part:argr part:sapi" type="translation">
         <p n="D16-D18">The Y.P.P.K. here will guard the pious men <supplied reason="explanation">
             <foreign>urāṅ viśeṣa tapaḥ</foreign>
-          </supplied> who are the people the Y.P.K. at the temple who are <supplied reason="subaudible">charged of</supplied> the cult at Y.P.P.K. Śrīśāna Bhadreśvara.</p>
-        <p n="D18-D22">But the family of the women who worship the Y.P.K. here and the people worshiping the Y.P.K. here, in accordance with this <foreign>dharma</foreign> where reside the virtue of women, in accordance with the <foreign>kaṁn</foreign> of the pious men that are <foreign>luniy napāy</foreign> due to being <foreign>sunan</foreign> the pious men <foreign>tan</foreign> there are:</p>
-        <p n="D23-D26">Vandrauv fields from <foreign>tugau</foreign> up to the top of the water <foreign>draṁ</foreign>. All these fields he then gives at Y.P.K. Śrīmahārudra with this water <foreign>draṁ</foreign> and this water, these earth, forest, brush all go precisely <foreign>vlim̃</foreign>, and the object two silver <foreign>curav</foreign>, one silver vase.</p>
-        <p n="B20-B21">One silver tray, one copper ?, three copper <foreign>tralāy</foreign> all these objets and <foreign>vlim̃</foreign> precisely the Y.P.P.K. Śrī Jayasimhavarman who...</p>
+          </supplied> who are the people the Y.P.K. at the temple<!--sapi2argr : une nouvelle fois, on pourrait plutôt traduire yāṅ par temple que par dieu.--> who are <supplied reason="subaudible">charged of</supplied> the cult<!--sapi2argr: je me suis dit que sandhyā était certainement relié à à sandiy ou sandyām. La définition de A&C, p. 476 (pdf p. 552) ne semblait pas aller.--> at Y.P.P.K. Śrīśāna Bhadreśvara.</p>
+        <p n="D18-D22">But the family of the women who worship the Y.P.K. here and<!--sapi2argr traduction de kā ?--> the people worshiping the Y.P.K. here, in accordance with this <foreign>dharma</foreign> where reside the virtue of women, in accordance with the <foreign>kaṁn</foreign> of the pious men<!--sapi2argr Urāṅ· tapaḥ viśeṣa : ordre des mots inversé par rapport à D16--> that are <foreign>luniy napāy</foreign> due to being <foreign>sunan</foreign> the pious men <foreign>tan</foreign> there are:</p>
+        <p n="D23-D26">Vandrauv fields<!--sapi2argr Ou lire candrauv ?--> from <foreign>tugau</foreign> up to the top of the water <foreign>draṁ</foreign>. All these fields he then gives at Y.P.K. Śrīmahārudra with this water <foreign>draṁ</foreign> and this water, these earth, forest, brush<!--sapi2argr ou : cette forêt Tanaḥ Glai--> all go precisely <foreign>vlim̃</foreign>, and the object two silver <foreign>curav</foreign>, one silver vase.</p>
+        <p n="B20-B21">One silver tray, one copper ?, three copper <foreign>tralāy</foreign> all these objets and <foreign>vlim̃</foreign> precisely<!--sapi2argr Inversion de <foreign>vlim̃</foreign> et kintu par rapport à L. D26--> the Y.P.P.K. Śrī Jayasimhavarman who...</p>
       </div>
       <div source="bib:Huber1911_01" type="translation" xml:lang="fra">
         <p n="A1">Adoration à Çiva ! Bonheur !</p>
@@ -444,7 +464,7 @@
         <p n="5" rend="stanza">Ceux qui honorent une seule fois les Liṅgas de Çiva, voient leurs désirs, au moment même où ils entrent dans leur cœur, réalisés aussitôt ; ils iront au ciel, où les <foreign>yogi</foreign> du dieu et ses troupes divines chanteront leurs louanges et où ils seront honorés, tels des dieux, par les dieux eux-mêmes.</p>
         <p n="6" rend="stanza">Jadis Viṣṇu, fonçant sont la forme d'un sanglier, voulut atteindre dans ses profondeur insondables l'extrémité inférieure du Liṅga <supplied reason="explanation">victoire à lui</supplied> : malgré tous ses efforts et bien qu'il fût doué du suprême <foreign>yoga</foreign>, il ne le put, car il n'avait pas sollicité la faveur du dieu.</p>
         <p n="7" rend="stanza">L'orgueilleux Brahma, dans son ignorance, voulait connaître où était en haut la fin du Liṅga : bien que flamboyant de l'énergie qu'il puise dans sa méditation, il ne le put, car il n'avait pas sollicité la faveur du dieu.</p>
-        <p n="8" rend="stanza">Là-dessus Çiva fit entendre ces paroles à l'adresse de Viṣṇu et de Brahma, qui avaient perdu la splendeur de lotus de leurs visages, fané qu'il était par cette gelée : la faute qu'ils avaient commise en manquant de respect au dieu : "O Viṣṇu et Brahma ! En cherchant les extrémités du Liṅga, qu'avez-vous donc atteint ? Rendez-moi hommage, si vous voulez que je vous sois propice."</p>
+        <p n="8" rend="stanza">Là-dessus Çiva fit entendre ces paroles à l'adresse de Viṣṇu et de Brahma, qui avaient perdu la splendeur de lotus de leurs visages, fané qu'il était par cette gelée : la faute qu'ils avaient commise en manquant de respect au dieu : "O Viṣṇu et Brahma ! En cherchant les extrémités du Liṅga, qu'avez-vous donc atteint ? Rendez-moi hommage, si vous voulez que je vous sois propice."<!--sapi2argr Comment noter les guillemets ? --></p>
         <p n="9" rend="stanza">Entendant son auguste parole, Viṣṇu et Brahma, pleins de respect, s'inclinèrent devant le dieu suprême.</p>
         <p n="10" rend="stanza">Et ils dirent, tandis que les lotus de leurs visages resplendissaient de nouveau d'un éclat surpassant celui du Soleil : "Tu es le Puissant, le Dieu des Dieux ; daigne nous accorder ce que nous désirons."</p>
         <p n="11" rend="stanza">Alors Çiva se manifesta, montrant son visage qui sortit du milieu du Linga, resplendissant de l'éclat du Feu, de la Lune et du Soleil qui sont ses trois yeux.</p>
@@ -481,7 +501,7 @@
       </div>
       <div type="commentary">
         <p n="A01">svasti: this element, of which Huber was still able to discern the subscript t, is now entirely effaced.</p>
-        <p n="A1-A2">I b.°ta<unclear>māṁsīddhatejāṁsi nityam<g type="dotMid">.</g></unclear>: all of this was still vaguely legible on the estampage, but the stone itself is currently so damaged that nothing more can be read after ddha on l. 1, and the first few signs of l. 2 are presently also too weathered to be read.</p>
+        <p n="A1-A2">I b.°ta<unclear>māṁsīddhatejāṁsi nityam<g type="dotMid">.</g></unclear><!--sapi2argr : écrire le signe de ponctuation avec g type ? (Même question pour les dotMit plus haut) -->: all of this was still vaguely legible on the estampage, but the stone itself is currently so damaged that nothing more can be read after ddha on l. 1, and the first few signs of l. 2 are presently also too weathered to be read.</p>
         <p n="A2">I c. pūrvvāpra°: pūrvvapra° Huber, but the estampage seems to show rvvā, unless the apparent ā is actually an ornamental continuation of the r in pra.</p>
         <p n="A4">IV b. maṇḍalā<unclear>bha</unclear>ḥ: the problematic akṣara prima facie looks most like va, but one may assume here a slightly compressed bha.</p>
         <p n="A5">IV d. atra: attra? Contrast simple tra in jaitra, l. 7 as well as clear ttr in vettrā l. 7.</p>
@@ -499,6 +519,7 @@
         <p n="B13">XXIV a+b. Apparently no <g type="dotMid">.</g> signs are noted at the end of these pādas.</p>
         <p n="C8">°matibhir: Huber gave this (the correct) reading in his text, but added a note “Le lapicide a écrit mātibhr̥ir”, which shows that Huber was confused by the elaborate subscript m of the following akṣara.</p>
         <p n="D15">XXVII c. rodasyor: in a note. Huber proposes “Corr. rodasor”, but this would go against the meter and rodasyor is anyhow an acceptable form.</p>
+        <!--sapi2argr Peut être à insérer dans l'apparatus, mais comment ?-->
         <p n="D23-D26">The last four lines, of which the final two were left untransliterated by Huber, constitute an addition, continued at the bottom of B.</p>
       </div>
       <div type="bibliography">
@@ -526,5 +547,6 @@
         </listBibl>
       </div>
     </body>
+    <!--sapi2argr Je ne comprends pas l'erreur qu'on m'affiche ici.-->
   </text>
 </TEI>

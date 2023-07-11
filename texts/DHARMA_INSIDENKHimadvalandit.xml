@@ -36,18 +36,28 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
               <p>The difference between the markers ulu (-i) and pepet (-ə) lies in i having a small opening below, while -ə is opened on the right side and curls back inwards.
-                  	The shape of ḍ is seen in ḍapur, that of dh in dharmma. No distinction is made between ḍ and dh in pasangan position.</p>
+                  	The shape of ḍ is seen in ḍapur, that of dh in dharmma. No distinction is made between ḍ and dh in pasangan position.<!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -97,7 +107,7 @@
 <lb n="1r5"/>valaṇḍit·, kevala svat<choice>
             <orig>ā</orig>
             <reg>a</reg>
-          </choice>ntra, tan hana viśeṣa heṅūni ri puhun malama, <unclear>ma</unclear>suruhan pūjā-pūjān sapu-sapuAn·, rumakṣaṁ vuAṁ matī<lb break="no" n="1r6"/>rthāṅabhakti ṅkāne saṁ hyaṁ dharmma kabuyutan·, saṁsiptanya, kevala tan hanātaḥ paknanya lena sira, saṅsip<supplied reason="omitted">t</supplied>a rasa saṁ hyaṁ rājapraśāsti, ke<lb break="no" n="1r7"/>valāmraśāstākən kasvatantran saṁ hyaṁ dharmma kabuyutan·, pramāṇe saL̥bak·-vukir ikaṁ vanuA ri valaṇḍit·, tuhun paknanikaṁ napuṅsa de sa<lb break="no" n="1r8"/>ṅ upapati samudāya, makādi saṁ pamgət i tiruAn·, mapañji pativasa, muAṁ saṁ mantrī samudāya, makādi rake mapatiḥ riṁ jaṅgala kaḍiri
+          </choice>ntra, tan hana viśeṣa heṅūni ri puhun malama, <unclear>ma</unclear>suruhan pūjā-pūjān sapu-sapuAn·, rumakṣaṁ vuAṁ matī<lb break="no" n="1r6"/>rthāṅabhakti ṅkāne saṁ hyaṁ dharmma kabuyutan·, saṁsiptanya, kevala tan hanātaḥ paknanya lena sira, saṅsip<supplied reason="omitted">t</supplied>a rasa saṁ hyaṁ rājapraśāsti, ke<lb break="no" n="1r7"/>valāmraśāstākən kasvatantran saṁ hyaṁ dharmma kabuyutan·, pramāṇe saL̥bak·-vukir ikaṁ vanuA ri valaṇḍit·, tuhun paknanikaṁ napuṅsa<!-- paknanikanaṁ puṅsa? paknanikaṁ napuṅ sade?  --> de sa<lb break="no" n="1r8"/>ṅ upapati samudāya, makādi saṁ pamgət i tiruAn·, mapañji pativasa, muAṁ saṁ mantrī samudāya, makādi rake mapatiḥ riṁ jaṅgala kaḍiri
 <pb n="1v"/>
 <lb n="1v1"/>pu mada, kunəṁ yan· hana thāny aṅrud<choice>
             <orig>ḍ</orig>
@@ -131,6 +141,7 @@
           </choice>dhīkāra, vkas· taṅan saṁ vaṅśādhipati pamgə<supplied reason="omitted">t i</supplied> tiruAn· //</p>
       </div>
       <div type="apparatus">
+        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
         <listApp>
           <app loc="1v1">
             <lem>samban<choice>
@@ -147,6 +158,14 @@
             <rdg source="bib:Casparis1940_01">riniṁ</rdg>
             <note>Or should we edit <foreign>ri<supplied reason="omitted">ṅgit·</supplied>niṁ</foreign>?</note>
           </app>
+          <!--<app loc="1r4">
+	<lem>suṅan</lem>
+	<rdg source="bib:Casparis1940_01">sūṅan</rdg>
+</app>-->
+          <!-- <app loc="1r4">
+                     <lem>samudāya</lem>
+                     <rdg source="bib:Casparis1940_01">samūdāya</rdg>
+                  </app>-->
           <app loc="1v1">
             <lem>aṅrud<choice>
                 <orig>ḍ</orig>
@@ -154,6 +173,10 @@
               </choice>a</lem>
             <rdg source="bib:Casparis1940_01">aṅruddha</rdg>
           </app>
+          <!--<app loc="1v2">
+                     <lem>vruḥ</lem>
+                     <rdg source="bib:Casparis1940_01">vruh</rdg>
+                  </app>-->
           <app loc="1v2">
             <lem>lab<choice>
                 <orig>ḍ</orig>
@@ -182,11 +205,16 @@
           </app>
         </listApp>
       </div>
+      <!-- <div type="translation">
+ 	<!-/- translation encoded as per EG §9.2 -/->
+         </div> -->
       <div type="commentary">
+        <!--commentary encoded as per section §9.3 -->
         <p>Given the mention of Gajah Mada among the people who issued the document, this inscription is datable to before 1364 CE. The latter took his function as <foreign>patih</foreign> of Janggala and Kediri presumably only after 1331, as he was still called <foreign>patih</foreign> of Daha in an edict of 1330/1 (Padelegan III). Compare with the Batur charter where Gajah Mada has exactly the same title (and Canggu).</p>
         <p>The place names Himad (or Həmad) and Valandit are known at least since Sindok's time, see among others his inscriptions of 929 CE (OJO XXXVIII, Linggasuntan (OJO XXXIX), XLIII, LI). Valandit in particular appears to have been prominent as the locus of a cult to the god Brahmā, perhaps venerated as an ancestor. In LI, there is mention of a <foreign>bhaṭāra i saṅ hyaṅ svayambhuva i valaṇḍit</foreign>. For Valandit see also DV 77.2a (in a list of Tantric Buddhist establishments, but transcribed as Palaṇḍit), and the Valandit A and B inscriptions of 1381/2 and 1405/6 CE.</p>
       </div>
       <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
         <p>First edited by J.G. de Casparis (<bibl rend="omitname">
             <ptr target="bib:Casparis1940_01"/>
           </bibl>) with translation into Dutch; this edition reproduced, with translation into Indonesian and new commentary, by Muhammad Yamin (<bibl rend="omitname">
@@ -204,6 +232,10 @@
             <citedRange unit="page">83-87</citedRange>
           </bibl>
         </listBibl>
+        <!-- 
+Leiden University Library, Prof. F.H. van Naerssen collection, LOr. 27190
+OD 14462–14463, photos Worsley
+ -->
       </div>
     </body>
   </text>

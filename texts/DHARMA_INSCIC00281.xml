@@ -2,7 +2,7 @@
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>Lintel in group A of Mỹ Sơn (C.181)</title>
+        <title>Lintel in group A of Mỹ Sơn (C. 281)</title>
         <respStmt>
           <resp>EpiDoc Encoding</resp>
           <persName ref="part:sapi">
@@ -33,23 +33,35 @@
                             https://creativecommons.org/licenses/by/4.0/ or send a letter to
                             Creative Commons, 444 Castro Street, Suite 900, Mountain View,
                             California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Salomé Pichon.</p>
+            <p>Copyright (c) 2019-2025 by Arlo Griffiths and Salomé Pichon.</p>
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p>Elegantly slanting script typical of the inscriptions of Prakāśadharman-Vikrāntavarman (cf. <bibl>
+                  <ptr target="bib:Goodall+Griffiths2013_01"/>
+                </bibl>).</p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -60,6 +72,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -88,26 +101,30 @@
       <div type="apparatus">
         <listApp>
           <app loc="1">
-            <lem>śrī-śarvvānyām</lem>
-            <note>cf. śrī śarvvāṇyāṁ in C. 96 (st. XXIII).</note>
+            <lem>śrī-śarvvāṇyā</lem>
+            <note>Cf. <foreign>śrī śarvvāṇyāṁ</foreign> in <ref target="DHARMA_INSCIC00096.xml">C. 96</ref> (st. XXIII).</note>
           </app>
           <app loc="1">
             <lem>ā bhuvas sthiteḥ</lem>
-            <note>We find <foreign>stheyād ā bhuvanasthiter</foreign> in C. 96 (st. XXX) and <foreign>stheyād ā bhuvanasthiteḥ</foreign> in C. 97, but the present expression is known from K. 1352 (st. IV).</note>
+            <note>We find <foreign>stheyād ā bhuvanasthiter</foreign> in <ref target="DHARMA_INSCIC00096.xml">C. 96</ref> (st. XXX) and <foreign>stheyād ā bhuvanasthiteḥ</foreign> in <ref target="DHARMA_INSCIC00097.xml">C. 97</ref>, but the present expression is known from <ref target="DHARMA_INSCIK01352.xml">K. 1352</ref> (st. IV).</note>
           </app>
         </listApp>
       </div>
       <div resp="part:argr" type="translation">
         <p n="1" rend="stanza">The crystalline <foreign>liṅga</foreign> of Śarva <supplied reason="explanation">i.e. Śiva</supplied> forever venerated here with her own devotion by the queen Śrī Śarvāṇī, may it remain as long as the earth remains!</p>
       </div>
-      <div type="commentary"></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
-        <p>Unpublished inscription freshly edited by Arlo Griffiths and Salomé Pichon, with an english translation.</p>
-        <listBibl type="primary">
-          <bibl n="siglum"/>
-        </listBibl>
+        <!--bibliography encoded as per section §9.4 -->
+        <p>Unpublished inscription freshly edited by Arlo Griffiths and Salomé Pichon, with an English translation.</p>
+        <!--<listBibl type="primary">
+				<bibl n="siglum"/>
+			</listBibl>-->
         <listBibl type="secondary">
-          <bibl/>
+          <bibl>
+            <ptr target="bib:Goodall+Griffiths2013_01"/>
+            <citedRange unit="page">419-440</citedRange>
+          </bibl>
         </listBibl>
       </div>
     </body>

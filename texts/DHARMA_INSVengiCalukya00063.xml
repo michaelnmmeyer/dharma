@@ -35,20 +35,30 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
               <p>Halantas. Final M (e.g. l3, l8) is a small circle with a hook on top (a stylised, reduced ma) with a slightly sinuous vertical tail. Final N (e.g. l9) is a reduced na with a slightly sinuous tail on the right-hand side of the stem. Final T (e.g. l17) is likewise a reduced ta with a tail attached on the right.</p>
               <p>Original punctuation marks are plain verticals.</p>
               <p>Other palaeographic observations. Anusvāra is normally at head height after the character to which it belongs; occasionally atop the next character, e.g. l19 aṁbhodhi; l28 velaṁbaṟṟu. Initial O occurs in line 1; initial Ī in l31.
-                      </p>
+                      <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+                <summary><p><p/></summary>
+                <handNote xml:id="Pallava00001_hand1"></handNote>
+                <handNote xml:id="Pallava00001_hand2"></handNote>
+              -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -74,6 +84,7 @@
     </encodingDesc>
     <revisionDesc>
       <change status="draft" when="2021-05-21" who="part:daba">Initial encoding of the file</change>
+      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -172,6 +183,8 @@
               <rdg source="bib:Venkataramanayya1974_06">-vedāṁga-</rdg>
               <note>The <foreign>anusvāra</foreign> is to the right of <foreign>ga</foreign>.</note>
             </app>
+            <!--
+-->
           </listApp>
         </div>
       </div>

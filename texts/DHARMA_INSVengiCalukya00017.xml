@@ -35,13 +35,19 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
+            <!--<altIdentifier type="PEM"><idno type="corpus">CalE26</idno></altIdentifier>-->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
@@ -49,7 +55,12 @@
               <p>Original punctuation. The opening symbol, transliterated by Gai as "siddham", looks rather like a circle in the scanned estampage, but is probably a a sinistrorse spiral with a tail on the left. The double dots used copiously for punctuation resemble visargas, but in my perception they are more widely spaced (the lower one is below the baseline). They were read as visargas by Hultzsch where they occur at a point where a visarga would be expected. But since they also occur at many points where an anusvāra would be expected, and never in conjunction with an actually written anusvāra, I think it is more likely that when the same glyph occurs at a point where a visarga is normally expected, but a punctuation mark is also expected by the logic of this inscription, then it is a punctuation mark, and the visarga is omitted. Since many of these glyphs occur at points where neither an anusvāra nor a visarga is expected, we can be certain that they can function as punctuation marks, and it is most parsimonious to assume that all their instances between phrases are such. However, at some points the same glyph does occur within a phrase, and at such points I do read it is a visarga, e.g. l15, devaśarmmaṇaḥ pautrāya; l16 kumāraśarmmaṇaḥ putrāya; the directions in ll20-22, e.g. pūrvvataḥ. A particularly problematic spot for punctuation is stanza 1, the boundary of lines c and d, where we have bhūmiḥstasya. In other circumstances I would see a superfluous visarga here; but here, we have the same glyph at the end of each non-final pāda. However, interpreting this one as a punctuation mark leaves me with no choice but to supply a visarga and suppress the s. The punctuation mark at the end of v1 is a single dot at median height.</p>
               <p>Other palaeographic observations. Anusvāra is frequently moved to the right, so it is on top of the consonant before which it is to be understood. This is not indicated in the edition. Examples: l5 alaṁkariṣṇo, l10 °ālaṁkr̥taḥ; l25 sva-dattāṁ para. In l7, cakra-vikramasya, both the subscript r-s start to the right of the descender of their k, so that the curve of the subscript r resembles a bowl below the main character. 
                 
-                </p>
+                <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+                <summary><p><p/></summary>
+                <handNote xml:id="Pallava00001_hand1"></handNote>
+                <handNote xml:id="Pallava00001_hand2"></handNote>
+              -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -77,6 +88,7 @@
       <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
       <change status="draft" when="2020-08-14" who="part:daba">Encoded hand description, bibliography and commentary from earlier comments</change>
       <change status="draft" when="2020-06-12" who="part:daba">Initial encoding of the file</change>
+      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -425,6 +437,7 @@ celui qui possède la terre en possède le fruit.</p>
             <ptr target="bib:Gai1965-1966_01"/>
             <citedRange>297-300</citedRange>
           </bibl>
+          <!-- one <bibl/> per item of primary bibliography -->
         </listBibl>
         <listBibl type="secondary">
           <bibl>

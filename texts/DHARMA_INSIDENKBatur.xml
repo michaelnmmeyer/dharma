@@ -31,17 +31,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -52,6 +62,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -70,10 +81,11 @@
       <div type="edition" xml:lang="kaw-Latn">
         <div n="A" subtype="fragment" type="textpart">
           <head xml:lang="eng">Largest fragment (E.50)</head>
+          <!--Check Groslier's photos for museum's inventory number whether a,b,c or 50, a, b-->
           <p part="M">
 <pb n="Ar"/>
-<lb n="Ar1"/><gap quantity="4" reason="lost" unit="character"/><foreign xml:lang="san-Latn">-sambhāra-samārtthya</foreign>, rakryan apatiḥ riṁ kahuripan·, mpu taṇḍiṁ, <foreign xml:lang="san-Latn">naya-vīnaya-guṇānurūpāntaḥpura-rakṣa</foreign>
-<lb n="Ar2"/><supplied reason="lost">, rakryan də</supplied>muṁ mpu kapat·, <foreign xml:lang="san-Latn">śūra-sapatna-mar<choice>
+<lb n="Ar1"/><gap quantity="4" reason="lost" unit="character"/><foreign xml:lang="san-Latn">-sambhāra-samārtthya</foreign>, rakryan apatiḥ riṁ kahuripan·, mpu taṇḍiṁ, <foreign xml:lang="san-Latn">naya-vīnaya-guṇānurūpāntaḥpura-rakṣa</foreign><!--I am not entirely certain the compound actually ends there, although rakṣa is a plausible final term-->
+<lb n="Ar2"/><supplied reason="lost">, rakryan də</supplied>muṁ mpu kapat·,<!--make a note in the apparatus for Krom's additions--> <foreign xml:lang="san-Latn">śūra-sapatna-mar<choice>
                 <orig>ddh</orig>
                 <reg>rd</reg>
               </choice>ana</foreign>, rakryan kanuruhan·, mpu pakis·, <foreign xml:lang="san-Latn">vairi-bala-vīrāntaka</foreign>, rakryan·
@@ -83,13 +95,13 @@
               </choice>a-pra<choice>
                 <orig>n</orig>
                 <reg>ṇ</reg>
-              </choice>āśa</foreign>, rakryan tuməṅguṁ, mpu nala, <foreign xml:lang="san-Latn">sādhu-rakṣaṇāsādhu-nigraha-tatpara</foreign>, makapurassa<lb break="no" n="Ar4"/><supplied reason="lost">ra rakryan apatiḥ riṁ</supplied> jaṅgala kaḍiri, mpu mada, <foreign xml:lang="san-Latn">raṇa-maddhyāryy-anukūla-karaṇa</foreign>, <foreign xml:lang="san-Latn">para-sainya-śiraḥ-kapāla-gan<unclear>v</unclear>otpāna-ma<lb break="no" n="Ar5"/><gap precision="low" quantity="3" reason="lost" unit="character"/>yendhikopāya-samārtthya</foreign>, sākṣāt praṇālāmratisubaddhakən paṁḍiri śrī mahārāja sinivi riṁ sayavadv<choice>
+              </choice>āśa</foreign>, rakryan tuməṅguṁ, mpu nala, <foreign xml:lang="san-Latn">sādhu-rakṣaṇāsādhu-nigraha-tatpara</foreign>, makapurassa<lb break="no" n="Ar4"/><supplied reason="lost">ra rakryan apatiḥ riṁ</supplied> jaṅgala kaḍiri, mpu mada, <foreign xml:lang="san-Latn">raṇa-maddhyāryy-anukūla-karaṇa</foreign>, <foreign xml:lang="san-Latn">para-sainya-śiraḥ-kapāla-gan<unclear>v</unclear>otpāna<!--em. something here, either utpāda or utpanna, and garva/gardha (pride, arrogance?)-->-ma<lb break="no" n="Ar5"/><gap precision="low" quantity="3" reason="lost" unit="character"/>yendhikopāya-samārtthya</foreign>, sākṣāt praṇālāmratisubaddhakən paṁḍiri śrī mahārāja sinivi riṁ sayavadv<choice>
               <orig>i</orig>
               <reg>ī</reg>
             </choice>pa-ma<lb break="no" n="Ar6"/><supplied reason="lost">ṇḍala-dvī</supplied>pāntara, makan<choice>
               <orig>ā</orig>
               <reg>a</reg>
-            </choice>ryyama  saṁ <foreign xml:lang="san-Latn">nyāy<choice>
+            </choice>ryyama <!--makanaryama, see parallels in AVj 48.2, etc. But does this refer back or forward? Probably this designation is better suited to the apatih Gajah Mada than to the samgəts--> saṁ <foreign xml:lang="san-Latn">nyāy<choice>
                 <sic>a</sic>
                 <corr>ā</corr>
               </choice>nyāya-vyavahāra-vicchedaka</foreign>, saṁ pamgət i tiruAn·, ḍaṅ ācāryya śi<pb break="no" n="Av"/><lb break="no" n="Av1"/><supplied reason="lost">
@@ -125,22 +137,22 @@
 <lb break="no" n="2"/><supplied reason="lost">śī</supplied> <gap quantity="2" reason="lost" unit="character"/><supplied reason="lost">pakṣa</supplied><gap precision="low" quantity="15" reason="lost" unit="character"/> maṇḍa<supplied reason="omitted">le</supplied> sāgara, Iriṅən· tkap· saṁ hyaṁ maṇḍale talun·,
 <lb n="3"/><gap precision="low" quantity="23" reason="lost" unit="character"/> para kaky atuṅgu batur i talun·, makadon enaka
 <lb n="4"/><gap precision="low" quantity="19" reason="lost" unit="character"/><unclear>pā</unclear>duka śrī mahārāja, maṅkana rasani paṅhayubhagya pādu<lb break="no" n="5"/><supplied cert="low" reason="lost">ka śrī mahārāja</supplied> <gap precision="low" quantity="14" reason="lost" unit="character"/>ha, kunəṁ tiṅkaha para kaky aṅiriṅa ri saṁ hyaṁ maṇḍalan pa<lb break="no" n="6"/><gap precision="low" quantity="22" reason="lost" unit="character"/>ya pariśuddha, tumutakna palupv i saṁ siddha puruṣa ṅūni, ma-
-
+<!--masc: how should we represent that this is a "no break" page break?-->
 </p>
         </div>
         <div n="C" subtype="fragment" type="textpart">
           <head xml:lang="eng">Small fragment (E.50c)</head>
           <p>
 <pb n="Cr"/>
-<lb n="1"/><gap extent="unknown" reason="lost" unit="character"/> Cihan·, bhadravāda māsa, pañcadaś<choice>
+<lb n="1"/><gap extent="unknown" reason="lost" unit="character"/> Cihan·,<!--masc: Is this the correct way to encode that only the vocalic mark is legible?--> bhadravāda māsa, pañcadaś<choice>
               <orig>i</orig>
               <reg>ī</reg>
             </choice> śuklapak<unclear>ṣa</unclear> <gap extent="unknown" reason="lost" unit="character"/>
-<lb n="2"/><gap extent="unknown" reason="lost" unit="character"/> ri saṁ hyaṁ kabuyutaniṁ kalihan·, kapvātu<gap extent="unknown" reason="lost" unit="character"/>
+<lb n="2"/><gap extent="unknown" reason="lost" unit="character"/> ri saṁ hyaṁ kabuyutaniṁ kalihan·, kapvātu<gap extent="unknown" reason="lost" unit="character"/><!--masc: Supply atuṅgu batur?-->
 <lb n="3"/><gap extent="unknown" reason="lost" unit="character"/> <unclear>ma</unclear>ṇḍale saḍeṁ, traha <gap extent="unknown" reason="lost" unit="character"/>
 <lb n="4"/><gap extent="unknown" reason="lost" unit="character"/> Caṁ ma<gap extent="unknown" reason="lost" unit="character"/>
 <lb n="5"/><gap precision="low" quantity="40" reason="lost" unit="character"/>
-<lb n="6"/><gap precision="low" quantity="40" reason="lost" unit="character"/>
+<lb n="6"/><gap precision="low" quantity="40" reason="lost" unit="character"/><!--masc: tentative encoding of lost lines-->
 <pb n="Cv"/>
 <lb n="1"/><gap extent="unknown" reason="lost" unit="character"/>ya, Amratha<unclear>na</unclear><supplied reason="lost">k</supplied>na<gap extent="unknown" reason="lost" unit="character"/>
 <lb n="2"/><gap extent="unknown" reason="lost" unit="character"/>āya, tan hananiṁ virodha ri dlāhan<supplied reason="lost">iṁ dlāha</supplied><gap extent="unknown" reason="lost" unit="character"/>
@@ -152,11 +164,21 @@
         </div>
       </div>
       <div type="apparatus">
+        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
         <listApp>
+          <!-- one <app> for each apparatus entry -->
+          <!--<app loc="Ar1">
+                      <lem>-sambhāra-</lem>
+                       <rdg source="bib:Boechari1985-1986_01">sambhara-</rdg>
+                      </app> rule is that you only use ° at a position where it is not hyphenatable-->
           <app loc="Ar1">
             <lem>rakryan</lem>
             <rdg source="bib:Boechari1985-1986_01">rakryyan</rdg>
           </app>
+          <!--<app loc="Ar1">
+                      <lem>°vīnaya°</lem>
+                      <rdg source="bib:Boechari1985-1986_01">vinaya</rdg>
+                  </app>-->
           <app loc="Ar1">
             <lem>guṇānurūpāntaḥ°</lem>
             <rdg source="bib:Boechari1985-1986_01">guṇārūpāntaḥ</rdg>
@@ -191,12 +213,14 @@
         </listApp>
       </div>
       <div resp="part:argr" type="translation">
+        <!--translation encoded as per EG §9.2 -->
         <p>
              TRANSLATION
 </p>
       </div>
-      <div type="commentary"></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 spelling --></div>
       <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
         <p>First edited by Brandes; edited again by Boechari
             (<bibl rend="omitname">
             <ptr target="bib:Boechari1985-1986_01"/>

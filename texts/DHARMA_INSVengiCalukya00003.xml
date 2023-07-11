@@ -34,19 +34,30 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
+            <!--<altIdentifier type="PEM"><idno type="corpus">CalE12</idno></altIdentifier>-->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p>
+              <p><!--Halantas.  -->
                 Original punctuation. For the hooked dash in the incipit, Hultzsch says this resembles the symbol called in Tamil piḷḷaiyār-śuḻi. It is a slightly sinuous dash with a downward hook on its left-hand end. L11: apparently a triple plain vertical after māhārājaḥ; perhaps a single vertical after viṣaye (but see apparatus). 
-                </p>
+                <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+            <summary><p><p/></summary>
+            <handNote xml:id="Pallava00001_hand1"></handNote>
+            <handNote xml:id="Pallava00001_hand2"></handNote>
+           -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -74,6 +85,7 @@
       <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
       <change status="draft" when="2020-08-14" who="part:daba">Encoded hand description, bibliography and commentary from earlier comments</change>
       <change status="draft" when="2020-03-27" who="part:daba">Initial encoding of the file</change>
+      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -257,7 +269,7 @@
           </bibl> with a description at <bibl>
             <ptr target="bib:ARIE1907-1908"/>
             <citedRange>48-49</citedRange>
-          </bibl>. Edited from inked impressions by E. Hultzsch (<bibl rend="omitname">
+          </bibl>.<!--CHECK: According to bib:Gai1986_01 (Dynastic List), p 33 item 170, these plates were also reported as Copper Plate 60 of 1957. There is no Number 60 among the copper plates in ARIE 1957-58, and there seems to be no ARIE volume for 1956-57, or if there is one, perhaps it was omitted from the reprint.--> Edited from inked impressions by E. Hultzsch (<bibl rend="omitname">
             <ptr target="bib:Hultzsch1907-1908_07"/>
           </bibl>) with partial estampages<note>Only estampages of 1v and 2r are included in the 1981 reprint of <title>Epigraphia Indica</title>; there is no image of 2v, nor of the seal.</note> and translation. Re-reported in <bibl>
             <ptr target="bib:ARIE1956-1957"/>
@@ -270,6 +282,7 @@
           <bibl n="EH">
             <ptr target="bib:Hultzsch1907-1908_07"/>
           </bibl>
+          <!-- one <bibl/> per item of primary bibliography -->
         </listBibl>
         <listBibl type="secondary">
           <bibl>
@@ -282,6 +295,7 @@
             <ptr target="bib:ARIE1907-1908"/>
             <citedRange>48-49</citedRange>
           </bibl>
+          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

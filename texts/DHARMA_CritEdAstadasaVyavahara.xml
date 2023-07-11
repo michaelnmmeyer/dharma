@@ -1,4 +1,5 @@
 <TEI type="edition" xml:id="id" xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <!-- update the @xml:id at the base with the DHARMA ID, see FNC. -->
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -48,14 +49,25 @@
       </publicationStmt>
       <sourceDesc>
         <listWit>
+          <!-- One witness for each manuscript. Update the content -->
           <witness xml:id="L882">
             <abbr type="siglum">MS</abbr>
+            <!-- Fill in the abbr @type="siglum" with the expected display for the witness siglum. Use <hi> with @rend for superscript and subscript -->
             <msDesc>
               <msIdentifier>
                 <settlement>Jakarta</settlement>
                 <institution>Perpustakaan Nasional Republik Indonesia</institution>
                 <idno>L882</idno>
               </msIdentifier>
+              <!--	<msContents>
+								<msItem>
+									<author>...</author>
+									<title>...</title>
+									<colophon>
+										<quote></quote>
+									</colophon>
+								</msItem>
+							</msContents> -->
               <physDesc>
                 <objectDesc>
                   <p>This manuscript is a <foreign>lontar</foreign> (<foreign>ləmpiran</foreign>), 44 cm long, extending over 37 folios. Folio numbering in the left margin of the verso of each folio. Four lines per side. Three binding holes; rectangular space kept free around central hole.</p>
@@ -78,9 +90,12 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
+        <!-- Part mandatory -->
         <p>This project has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <!-- Optionally add here a second <p> to describe the specifics of the subproject that has led to this edition. -->
       </projectDesc>
       <editorialDecl>
+        <!-- As stated in the EGC, this element shall be used only if your edition follows principles that are different from or more fine-grained than those established in the project's guides. Among the following elements, you may keep only the ones your need for your edition. If you use one, its contents must be contained in at least one <p> of free text. If you don't need any <editorialDecl> at all, you may eventually remove this entire section of the file. -->
         <correction>
           <p/>
         </correction>
@@ -95,10 +110,19 @@
         </interpretation>
       </editorialDecl>
       <samplingDecl>
+        <!-- To be kept only to explain in prose the method to choose the corpus, e.g. ommission of the material ...-->
         <p/>
       </samplingDecl>
       <schemaRef key=" EGCv01" type="guide" url="https://docs.google.com/document/d/15HFxHJTOzIU1UDyVrB2yQYJ5wI6JyEshEkYgg5qwj8M/edit#"/>
+      <!-- Will need to be updated once a more official realase is done -->
+      <!-- variantEncoding is a mandatory element. You have to select one of the two solutions given in DHARMA depending how you chave chosen to encode your apparatus. If inline, select @method="parallel-segmentation" as per section §5 of EGC, but if you are encoding your apparatus after any section, mostly being stanza, use @method="location-referenced".
+
+			<variantEncoding method="parallel-segmentation" location="internal"/>
+			<variantEncoding method="location-referenced" location="internal"/>.
+
+			Note that the current by default behaviour is set on parallel-segmentation -->
       <variantEncoding location="internal" method="parallel-segmentation"/>
+      <!-- Part mandatory -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -127,7 +151,9 @@
       </langUsage>
       <textClass>
         <keywords>
+          <!-- In due course we will can use this element to declare keywords as <term>s, but at the moment please ignore <keywords> -->
           <term/>
+          <!-- Ignore this element for the time being. -->
         </keywords>
       </textClass>
     </profileDesc>
@@ -177,6 +203,13 @@ balaṅ, sahasā, ṅa, strī<app>
             <rdg wit="#L882">dyuttamavvana:</rdg>
             <note>The gloss might suggest that the Sanskrit was interpreted by the author as having a connection with the OJ verb <foreign>mahvan</foreign>.</note>
           </app>, ṅa, totohan, prāṇi, <num value="20">20</num>.</p>
+        <!--Svayambhu
+5.1 lvirnya: teṣām ādyam r̥ṇādānam, tan kasahuraniṅ hutaṅ, hādiniṅ vyavahāra. nikṣepa, tan kavehaniṅ patuvava. asvāmivikraya, hadval tan dravya. sambhūya ca samutthānam, tan kaduman ulihiṅ kinabehan. dattasyānapakarma ca, *karuddhāniṅ huvus vinehakən.
+5.2 vetanasya na ca dānam, tan kavehaniṅ upahan. samvidaś ca vyatikramaḥ, advā riṁ samaya. krayavikrayānuśayo, alarāmbəknyān <padvalnya,> pamlinya kunaṅ. vivādaḥ svāmipālayoḥ, vivādaniṅ *pinaṅvanakən mvaṅ maṅvan.
+5.3 sīmāvivādadharmaś ca, kaücapaniṅ vatəs. pāruṣye daṇḍavācike, ḍaṇḍaniṅ sāhasa, vākpāruṣya. steyam, pavr̥ttiniṅ maliṅ. sāhasam, ulah sāhasa. <strī>saṁgrahaṇam eva ca, ulah tan yogya riṅ <strī, strīpuṁdharmo, dharmaniṅ> laki-strī.
+5.4 vibhāgaś ca, kadumaniṅ dravya. dyūtam, totohan tan prāṇi. āhvānam, totohan prāṇi. padāny aṣṭādaśaitāni, nahan ta vvalu vlas lvirnya. vyavahārasthitāni ha, byakta pinakasthānaniṅ vyavahāra.-->
+        <!--
+ -->
         <p n="2">muvah aṣṭaduṣṭa, lvirnya, <term xml:lang="san-Latn">hiṁsaka</term>, amatyani, <term xml:lang="san-Latn">codakah</term>, ṅa, akon <app>
             <lem type="norm">amatyani</lem>
             <rdg wit="#L882">āmateni</rdg>
@@ -187,6 +220,9 @@ balaṅ, sahasā, ṅa, strī<app>
             <note>Sārasamuccaya (Or5037 21v) <foreign>iṅśakah codakah bhektah bhojvekah saha carakah tasnadah tatrah aṣṭo duṣṭa ri ti smṛtah</foreign>.</note>
           </app>
         </listApp>
+        <!--
+KM riṅ aṣṭaduṣṭa kaṅ tətəlu adoṣa pati | kaṅ lilima adoṣa artha katuturəna deniṅ harəp vəruha patutuṅgalane | əndi ta kaṅ adoṣa pati ? (2) riṅ voṅ amateni voṅ tan padoṣa | doṣa pati || riṅ akon amatenana voṅ tan padoṣa | doṣa pati || riṅ anatoni voṅ tan padoṣa | doṣa pati || (3) əndi ta kaṅ lilima adoṣa hartha || sapaṅan lāvan duṣṭa | samitra lāvan duṣṭa | sapaduluran saparane lāvan duṣṭa | aveh gənah riṅ duṣṭa | atuluṅ duṣṭa | iku ta kaṅ lilima paḍa adoṣa artha || nora vənaṅ doṣanana pati denira saṅ amava bhumi || amateni voṅ tan padoṣa | akon amatenana voṅ tan padoṣa | anatoni voṅ tan padoṣa || duṣṭa tətəlu iku | yan sayəkti sacihna | katəlu ḍəṇḍa pati | arane katlu duṣṭa atoh avake | yan amalaku huripən iṅ saṅ amava bhumi | katəlu ḍəṇḍanən pataṅ lakṣa vivijinən iṅ duṣṭa satuṅgalsatuṅgal kahilaṅane doṣane || (4) hana dene kaṅ sapaṅan lāvan duṣṭa | sadulur lāvan duṣṭa | amitra lāvan duṣṭa | aveh gənah riṅ duṣṭa | iku kalima paḍa ḍəṇḍanən aṅroṅ lakṣa denira saṅ amava bhumi (HH: amitra lāvan duṣṭa || atuluṅ duṣṭa || aveh gənah riṅ duṣṭa | iku kalima paḍa ḍəṇḍanən | denira saṅ amava bhumi | aṅroṅ lakṣa riṅ voṅ duṣṭa satuṅgalsatuṅgal |) yen huvus (HH: vuvus) enak kasāpekṣan deniṅ sākṣi kaduṣṭane ||
+-->
         <p n="3">mvah ikaṅ duṣṭa <app>
             <lem type="emn">traya</lem>
             <rdg wit="#L882">triya</rdg>
@@ -195,6 +231,9 @@ balaṅ, sahasā, ṅa, strī<app>
             <lem type="norm">katəmvan</lem>
             <rdg wit="#L882">katamon</rdg>
           </app> deniṅ sākṣi.</p>
+        <!-- 
+SS aṣṭacora arannya kartah ṅa añoloṅ, karahita ṅarannya akon, nirduṣṭa ṅa anuduhakən, aṣṭanadah ṅa gənah iṅ maliṅ, ñata ṅa vəruh yen maliṅ, saka ṅa samitra lan maliṅ, tatrah ṅa atuluṅ riṅ maliṅ, gopta ṅa anaṅidakən maliṅ tətəlu kaṅ riṅ ayun daṇḍa pataṅ lakṣa kaṅ lilima [43r] roṅ lakṣa śāsananya. ana vvaṅ amupuh svana ndan maliṅ śīla ikaṅ svana mati taya denya mupuh vehakəna vaṅke nikaṅ svana mariṅ saṅ madṛvya kunaṅ aniṅal api kaṅ svana de saṅ amupuh daṇḍa ya ma ga yapvan dṛvyaniṅ vva (vvaṅ??) uttama daṇḍa ya ma 5 śāsananya. ana vvaṅ uvus alaky arabi aṅer iṅ kakanya uvus adum dṛvya pəjah tan panak tan alapana pakraṅ ləmbvanusu riṅ ....
+ -->
         <p n="5">mvah aṣṭacorah, ṅa, <term xml:lang="san-Latn">kartā</term>, ṅa, lumkas maliṅ, <term xml:lang="san-Latn">
             <app>
               <lem type="emn">kārayitā</lem>
@@ -210,7 +249,7 @@ balaṅ, sahasā, ṅa, strī<app>
               <lem type="emn">śakhi</lem>
               <rdg wit="#L882">śaka</rdg>
             </app>
-          </term>, ṅa, samitra lavan maliṅ, <term xml:lang="san-Latn">jñātā</term>, ṅa, vruh, <term xml:lang="san-Latn">trātā</term>, ṅa, matuluṅ maliṅ, <term xml:lang="san-Latn">goptā</term>, ṅa, maniṅidakən maliṅ, yekā ta tuturaniṅ aṣṭacorah.</p>
+          </term>, ṅa, samitra lavan maliṅ, <term xml:lang="san-Latn">jñātā</term>, ṅa, vruh, <term xml:lang="san-Latn">trātā</term>, ṅa, matuluṅ maliṅ, <term xml:lang="san-Latn">goptā</term>, ṅa, maniṅidakən<!-- mañiṅidakən? --> maliṅ, yekā ta tuturaniṅ aṣṭacorah.</p>
         <listApp type="parallels">
           <app>
             <note corresp="txt:VraŚā.30"><title>Vratiśāsana</title> 30: <foreign>kartā kārayitā bhoktā nirdeṣṭā sthānadeśakaḥ | trātā jñātā ca goptā ca aṣṭacauravidhāḥ smr̥tāḥ ||</foreign>.</note>
@@ -219,17 +258,17 @@ balaṅ, sahasā, ṅa, strī<app>
         <p n="6">mvah ikaṅ kartā kārayitā, <app>
             <lem type="norm">təkanya</lem>
             <rdg wit="#L882">tkane</rdg>
-          </app> lamun sahacihna sopakāraniṅ maliṅ patyana ika, sanak rabinya, dravyanya, <app>
+          </app><!-- probably punctuation ... kartāa, kārayitā təkanya, ...  --> lamun sahacihna sopakāraniṅ maliṅ patyana ika, sanak rabinya, dravyanya, <app>
             <lem type="norm">akukuda</lem>
             <rdg wit="#L882">hakukudḍa:</rdg>
-          </app> pasuk paḍaləm de saṅ prabhu. mvah sanak rabiniṅ kārayitā, ika tan vənaṅ kukudən, ḍaṇḍanən, 10000, <pb edRef="#L882" n="2v"/>riṅ tuṅgal-tuṅgal, <app>
+          </app> pasuk paḍaləm de saṅ prabhu.<!-- MS ,, --> mvah sanak rabiniṅ kārayitā, ika tan vənaṅ kukudən, ḍaṇḍanən, 10000, <pb edRef="#L882" n="2v"/>riṅ tuṅgal-tuṅgal, <app>
             <lem type="emn">lamun samakāryanya</lem>
             <rdg cause="dittography" wit="#L882">lamun samaka:ryyanya, lamun samaka:ryyan∙</rdg>
           </app> jarahən kukudən sanak bhāryā mvaṅ sadravyanya.</p>
         <p n="7">mvah ikaṅ <app>
             <lem type="norm">ṣaṭcorah</lem>
             <rdg wit="#L882">śadcoraḥ</rdg>
-          </app>, ḍaṇḍa, 20000, sanak rabinya tan yogya ḍaṇḍanən. kunaṅ yan marakṣa, matuluṅ, maṅakvakən<supplied reason="implied">,</supplied> ma<sic>ñ</sic>iṅidakən, ḍaṇḍa, 40000. kunaṅ yan jñātā, ikaṅ vruh yan maliṅ, śaka, mənəṅ tan <app>
+          </app>, ḍaṇḍa, 20000, sanak rabinya tan yogya ḍaṇḍanən. kunaṅ yan marakṣa, matuluṅ, maṅakvakən<supplied reason="implied">,</supplied> ma<sic>ñ</sic>iṅidakən<!-- maniṅidakən? -->, ḍaṇḍa, 40000. kunaṅ yan jñātā, ikaṅ vruh yan maliṅ, śaka,<!-- lem type="emn">śakhi</lem><rdg wit="#L882">śaka</rdg></app> --> mənəṅ tan <app>
             <lem type="emn">maṅakvakən</lem>
             <rdg wit="#L882">maṅalvakən</rdg>
           </app> maliṅ, ḍaṇḍa, 20000. kunaṅ yan luput saṅkerika tan <app>
@@ -237,6 +276,7 @@ balaṅ, sahasā, ṅa, strī<app>
             <rdg wit="#L882">ḍaṇḍakən∙</rdg>
           </app>.</p>
       </div>
+      <!-- end of div type chapter -->
       <div n="2" type="dyad">
         <quote type="base-text" xml:lang="san-Latn">
           <lg met="anuṣṭubh">
@@ -464,13 +504,15 @@ mvah hana vvaṅ madola dravya,, mvah hana vvaṅ hatuku dravya yan ana kaluputa
 [15r4] tuṅgal, ika ta maṅaṅsulənā salah tuṅgal, sapuluh vṅi lavasnya haṅsulakəna, kunəṅ ikaṅ madola tuku, yan alot kavaṅsulaniṅ dravya, ri turuṅ i gnəp sapuluh vṅi, ḍaṇḍa
 <pb edRef="#L882" n="15v"/>
 [15v1] teka de saṅ prabhu, sadsata paṇa ḍaṇḍanya, 12000,, yan livat pva sapuluh vṅi, tan vənaṅ mamaṅsulakəna salah tuṅgal ||
-
+<!-- this corresponds to MDh 8.223 / Svayambhu 211  -->
  kunaṅ vvaṅ madol-atuku vənaṅ-vənaṅ, paśu, kuda, kbo, sapi, ku-
 [15v2] naṅ yan hana kaluputanya, riṅ madval atuku, salah tuṅgalnya, kar:vātṅah-lek lavasnya, vənaṅ maṅaṅsulakəna, yan lot kavaṅsulanya, salah tuṅgal, ḍaṇḍa pva de saṅ prabhu, sadsata paṇā, 1200
 [15v3] 0, yan livat pva kar:vātṅah lek padolnya patukunya, tan vənaṅ maṅsulakəna, liṅiṅ śāstra || 0 || 
 aśaṇa, ñca, paśuna, ñca, tripakṣadapyanam bavet, viparyaye tu daṇḍasyat, manūṣyanan tu
 [15v4] vatsarāt || 
-
+<!-- unidentified verse, also underlying Svayambhu 211
+	cf. 
+aśvānāñ ca paśūnañ ca, tripakṣād arpaṇam bhavet, viparyaye tu daṇḍaḥ syāt, manūṣyanan tu vatsarāt -->
 mvah saśaṇaniṅ madol-atuku, yan pasu satimahandinā hiṅanya, yan vvaṅ, daśadaśih, satahun hiṅannya vənaṅ maṅsulakəna, ika ta salah tuṅgal, yan hana kaluputanya, pa⌈-
 <pb edRef="#L882" n="16r"/>
 [16r1] dolnya, patukunya, yan alot pavaṅsulnya, salah tuṅgala, ya ta ḍaṇḍa de saṅ prabhu, sadsata paṇa, 12000,, yan livat sake hiṅanya salah tuṅgal, tan vənaṅ hika kavaṅsulanya

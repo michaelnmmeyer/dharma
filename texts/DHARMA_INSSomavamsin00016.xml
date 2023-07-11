@@ -1,19 +1,28 @@
 <TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+  <!-- update the @xml:id at the base with the DHARMA ID, see FNC. -->
   <teiHeader>
     <fileDesc>
       <titleStmt>
         <title>Jatesinga-Dungri (also known as Mārañja-Mura) Plates of Mahāśivagupta III Yayāti, Year 3</title>
+        <!--Change the title of the file, e.g. Raktamālā grant of the time of Budhagupta, year 159-->
+        <!-- Add your name in the respStmt matching your involvement -->
         <respStmt>
           <resp>EpiDoc Encoding</resp>
+          <!-- Work done in the file, e.g. editor ...-->
           <persName ref="part:amwb">
+            <!-- Update the id -->
             <forename>Amandine</forename>
+            <!-- Fill in your  names — it is possible to use only <name> instead of <foreame> and <surname> -->
             <surname>Wattelier-Bricout</surname>
           </persName>
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
+          <!-- This may be the same as the creator of the file -->
           <persName ref="part:amwb">
+            <!-- Update the id -->
             <forename>Amandine</forename>
+            <!-- Fill in the name of the responsible scholar — it possible to use only <name> instead of <foreame> and <surname> -->
             <surname>Wattelier-Bricout</surname>
           </persName>
         </respStmt>
@@ -22,6 +31,7 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSomavamsin00016</idno>
+        <!-- Replace by filename, e.g. Pallava00001 -->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
@@ -31,22 +41,33 @@
                      California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Amandine
                      Wattelier-Bricout.</p>
+            <!-- replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -57,6 +78,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -77,17 +99,26 @@
       <change when="2023-05-19" who="part:amwb">Addition of the correspondances of the final stanzas according to Sircar's list</change>
       <change status="draft" when="2022-08-18" who="part:amwb">Implementation of some persName-tags without reference numbers</change>
       <change when="2022-07-20" who="part:amwb">Creation of the file</change>
+      <!-- replace this by a line that has you as @who, that has the @date on which you finished the first basic encoding of the file, and that has the following description of what was finished on that date: "Initial encoding of the file." Then add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
+  <!-- Part to be used only, if you want to declare and link some photos with your encoding -->
   <facsimile>
     <graphic url="filename.jpg" xml:id="photo1"/>
+    <!-- graphic should take at least an attribute @url containing either the https where the photo is stored or the filename of the file itself. An @xml:id can be declared if you want to link part of your encoding with a facsimile using the attribute @facs. -->
+    <!-- If you want to provide a description, use the following pattern 
+      <graphic url="filename.jpg" xml:id="photo1">
+      <desc>Some description</desc>
+      </graphic>-->
   </facsimile>
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="san-Latn">
+        <!-- update the @xml:lang value, see EGD §7.2-->
+        <!--edition encoded as per EGD §§2−7-->
         <pb n="1v"/>
         <p>
-               <lb n="1"/>Oṁ svasty apagata<choice>
+               <lb n="1"/>Oṁ<!-- expressed by a symbol check the plate if possible Here I have encoded the text edited by Rajaguru but I have to check it with Shastri's edition and others it seems there are a lot of different readings --> svasty apaga<!-- Rajaguru svasty adapaga -->ta<choice>
             <sic>v</sic>
             <corr>b</corr>
           </choice>ahalakalikaluṣadharmmadharmmāmṛtavimalaśiśirakiraṇāvaliparighaṭitacandra<choice>
@@ -142,6 +173,9 @@
      <lb n="32"/>sagarādibhiḥ<g type="danda">.</g></l>
           <l n="c">yasya yasya yadā bhūmis</l>
           <l n="d">tasya tasya tadā phalaṁ<g type="danda">.</g></l>
+          <!-- 
+    amwb: Sircar 23 
+    -->
         </lg>
         <lg corresp="#Sircar1965_st0085" met="anuṣṭubh" n="2">
           <l n="a">mā bhūd a-phala-śaṅkā vaḥ</l>
@@ -151,6 +185,9 @@
               <corr>t</corr>
             </choice> phalam ānantyaṁ</l>
           <l n="d">para-dattānupālane<g type="danda">.</g></l>
+          <!-- 
+    amwb : Sircar 85
+    -->
         </lg>
         <lg corresp="#Sircar1965_st0123" met="anuṣṭubh" n="3">
           <l n="a">ṣa<choice>
@@ -160,6 +197,8 @@
           <l n="b">svargge modati bhūmidaḥ<g type="danda">.</g></l>
           <l n="c">Ākṣeptā cānumantā ca</l>
           <l n="d">tāny eva narake vaseT<g type="danda">.</g></l>
+          <!-- 
+   amwb : Sircar 123  -->
         </lg>
         <lg corresp="#Sircar1965_st0029" met="anuṣṭubh" n="4">
           <l n="a">bhūmiṁ ya<supplied reason="omitted">ḥ</supplied> prati<lb break="no" n="35"/>gṛh<choice>
@@ -174,38 +213,58 @@
               <corr>c</corr>
             </choice>a bhūmiṁ prayacchati<g type="danda">.</g></l>
           <l n="c">tāv ubhau puṇya-karmmāṇau</l>
+          <!-- inversion ubhau tau Caution I have deleted Rajaguru's correction -->
           <l n="d">niyataṁ svargga-gāminau<g type="ddanda">.</g></l>
+          <!-- 
+amwb : Sircar 29 
+-->
         </lg>
         <lg corresp="#Sircar1965_st0020" met="anuṣṭubh" n="5">
           <l n="a">Āsphoṭaya
                       <pb n="3r"/><lb break="no" n="36"/><supplied reason="omitted">nti pita</supplied>raḥ</l>
           <l n="b">pravalga<surplus>ya</surplus>nti pitāmahāḥ<supplied reason="omitted">.</supplied></l>
           <l n="c">bhūmi-dātā kule jāta<supplied reason="omitted">ḥ</supplied></l>
+          <!-- Rajaguru  jāt<choice><sic>a</sic><corr>ā</corr></choice>-->
           <l n="d">sa nas trātā bhaviṣyati<g type="danda">.</g></l>
+          <!-- 
+                    amwb : Sircar 20
+                    -->
         </lg>
         <lg corresp="#Sircar1965_st0055" met="anuṣṭubh" n="6">
           <l n="a">suvarṇṇa<unclear>m ekaṁ</unclear><lb n="37"/>gām ekāṁ</l>
           <l n="b">bhūmer apy arddham aṅgulaṁ<g type="danda">.</g></l>
           <l n="c">haran narakam āp<supplied reason="omitted">n</supplied>oti</l>
+          <!-- I correct with āpnoti Rajaguru corrects ā<choice><sic>po</sic><corr>yā</corr></choice>ti -->
           <l n="d">yāvad ābhūta-saṁplavaṁ<g type="ddanda">.</g></l>
+          <!-- 
+   amwb Sircar 55 
+   -->
         </lg>
         <lg corresp="#Sircar1965_st0132" met="anuṣṭubh" n="7">
           <l n="a">sva-dattāṁ para-dattā<unclear>m vā</unclear></l>
           <l n="b"><lb n="38"/>yo hareta vasundharāṁ<supplied reason="omitted">.</supplied></l>
           <l n="c">sa viṣṭhāyāṁ kṛmir bhūtvā</l>
           <l n="d">pitṛbhiḥ saha pacyate<g type="danda">.</g></l>
+          <!-- 
+    amwb : Sircar 132 
+    -->
         </lg>
         <lg corresp="#Sircar1965_st0064" met="anuṣṭubh" n="8">
           <l n="a">harate hāray<choice>
               <sic>eta</sic>
               <corr>ed</corr>
             </choice> yas tu</l>
+          <!-- I introduce the correction not present in rajaguru -->
           <l n="b"><unclear>manda-vu</unclear><lb break="no" n="39"/>ddhis tamo-vṛtaḥ<supplied reason="omitted">.</supplied></l>
           <l n="c">sa vaddho vāruṇaiḥ</l>
           <l n="d">pāśais tiryya<choice>
               <sic>k</sic>
               <corr>g</corr>
             </choice>-yoniṣu jāyate<g type="danda">.</g></l>
+          <!-- 
+    amwb : Sircar 64
+    -yoniṁ ca gacchati is the reading in Sircar Bhumi stanzas  
+    -->
         </lg>
         <lg corresp="#Sircar1965_st0117" met="śālinī" n="9">
           <l n="a">sāmānyo 'yaṁ dharmma-setu<unclear>r nṛ</unclear><lb break="no" n="40"/>pāṇāṁ</l>
@@ -214,19 +273,31 @@
               <sic>o</sic>
               <corr>aḥ</corr>
             </choice> pārthivendrāN</l>
+          <!-- amwb I add the correction (sandhi); here as in Soma3-4 and 13 but in Soma1-2 bhūpatīndrāN -->
           <l n="d">bhūyo bhūyo yāca<unclear>te</unclear><lb n="41"/>rāmacnadraḥ<g type="ddanda">.</g></l>
+          <!-- 
+    amwb : Sircar 117 
+    rāmabhadraḥ in soma13 but in soma1-2-3-4 rāmacandraḥ 
+    -->
         </lg>
         <lg corresp="#Sircar1965_st0090" met="anuṣṭubh" n="10">
           <l n="a">Asmadvaśānvaye kāle</l>
+          <!-- Sircar 90 asmin vaṁśe kṣayakṣīṇe -->
           <l n="b">yaḥ kaścinnṛpatir bhaveT<supplied reason="omitted">.</supplied></l>
+          <!-- Sircar 90 yo 'nyo rājā bhaviṣyati -->
           <l n="c">tasyāhaṁ tasmād āyāda</l>
+          <!-- Sircar 90 tasyāhaṁ pādalagno 'smi -->
           <l n="d">yomasmin yayā<lb n="42"/>ti prāyata<supplied reason="omitted">.</supplied></l>
+          <!-- Sircar 90 mayā dattaṁ na lopayet -->
         </lg>
         <lg corresp="#Sircar1965_st0071" met="puṣpitāgrā" n="11">
           <l n="a">Iti kamala-dalāmbu-vindu-lolāṁ</l>
           <l n="b">śriyam anucintya manuṣya-jīvitañ ca<supplied reason="omitted">.</supplied></l>
           <l n="c"><lb n="43"/>sa-kalam idam udāhṛtaṁ ca vuddhvā</l>
           <l n="d">na hi puruṣaiḥ para-kīrttayo vilopyāḥ<g type="danda">.</g></l>
+          <!-- 
+amwb : Sircar 71
+-->
         </lg>
         <p>
    <roleName>śrī</roleName>-<persName type="king">mahāśiva<lb break="no" n="44"/>gupta</persName>-<roleName>śrī</roleName>-<persName>yayāti</persName>-<roleName>rāja-deva</roleName>-pāda<unclear>pra</unclear>varddhamānavijayarājye samvatsare tṛtīya vaiśā<choice>
@@ -241,8 +312,11 @@
           </choice>nā <persName>siṁhadatta</persName>-bh<supplied reason="omitted">r</supplied>ātṛ-sutena <roleName>rāṇaka</roleName>-<roleName>śrī</roleName>-<persName>rudradattena</persName><supplied reason="omitted">.</supplied></p>
       </div>
       <div type="apparatus">
+        <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
         <listApp>
+          <!-- one <app> for each apparatus entry -->
           <app loc="1">
+            <!-- update the value of @loc.-->
             <lem source="bib:Rajaguru1966_01">°kaluṣa°</lem>
             <rdg source="bib:Shastri1995_02">kal<choice>
                 <sic>a</sic>
@@ -273,11 +347,23 @@
           </app>
         </listApp>
       </div>
-      <div type="translation"></div>
-      <div type="commentary"></div>
+      <div resp="part:amwb" type="translation">
+        <p>I reproduce here the translation given by <bibl>
+            <ptr target="bib:Mazumdar1916_01"/>
+          </bibl> of the line 1 to 18.</p>
+        <!-- Rajaguru1966 p. 223-224 translates the lines 18 to 31  -->
+        <p>Om (in symbol) Svasti[^](a)[*]. a. From whom removed are the many sins of the Kali-age (Plate 1, line 1), b. who has been sanctified by the pure water of the confluence of the rivers Mahānadi (line 3) and Telā (line 2) which water is adorned with the liquid eddies crested with foam-flowers (line 2) which glitter with moonbeams (lines 1 and 2) as are made of the purest cooling rays (line 1) and are like the nectar of Dharma itself (line 1), c. who is devoted to -the works of merit or Dharma, d. who caused many men to build (line 4) many temples for various gods and the Maṇḍapa (royal pavilion) in the Arāma or park for Vihāra (pleasurable recreation) together with Udyāna or garden (line 4), e. whose charming person (Vapur-Manohara) has been dyed yellow (Dhusarita) by the pollen grains of the sweet-scented-flowers-hanging in bunches and tossing [in the breeze] (line 5) under the shade of flower-trees of various kinds (line 4), f. who is followed and surrounded by friends and companions (line 6) who are Vidagdha Bhujanga (line 5) (crafty libertines) , g. who dallies with (line 8) loveliest girls (Vara-kaminī) radiant like the kuvalaya-lotus (line 7) whose lotus-like faces bloom and glow with amorous charms (Vibhrama) arising from lustful and delight-giving desires (line 6) and whose glances were delightful because of the playful movements of the eyebrows (line 7), h. whose <foreign>uras</foreign> (breast) grows eager with desires by the music of many birds, i. who makes it the fit occasion for his leisure by coming out of his house (line 9) on hearing the sound of the peacocks (line 8) which is like the sound of the <foreign>tūrya</foreign> (trumpet) (line 9), j. who dwells (line 11) at Pattana Subarnapura (line 10) [where exists the goddess] Bhagabati Panchāmbarā Bhadrāmbikā (line 10)— who at the prayer of all people for their desired-for boons grants them in her mercy (lines 9 and 10), k. who is exceedingly mighty (Atisaya-ūrjita) in his victorious campaigns, l. who is bent, as it were, with the weight of his own prowess (line 11), m. whose footstool (Padapithol) is kissed by the crest-jewels (line 12) of the head-gears of all the Nripatis or Subordinate Kings (line 11), n. who in character resembles such renowned (Prathita) Kings as Nala, Nahusa, Māndhātā, Dilīpa, Bharata and Bhagīratha (line 12 and line 1 on Plate 2), o. who has conquered Karnāta, Lāta, the lord of Gujrāt (gurjesvara), p. who is the conqueror of Dravīda country, q. who is the paramour of the Bhū (the world) (Plate 2, line 1), r. who has taken off like a lustful lover (Lampatah) the tinkling waist girdle (kanchī) [of a girl] — that is to say, who has denuded the kanchī country of its glory
+(plate 2 lines 1 and 2), s. who has been elected in a Svayaṃvara as their lord by the countries of Kalinga, Kongada, Utkala and kosala (plate 2 line 2), t. whose body has been cooled by the wind in the sky (Umbara) raised in the victorious assault against the noted countries of Gauda and Rādha (plate 2, lines 2 and 3), u. who is the full moon in the pure sky of Vanga {Bengal) and v. who has become the lord of the Trikalinga countries by having conquered them with his own arms (plate 2 lines 3 and 4) — he it is Śrī Mahāśivagupta Śrī Yajātideva, w. who is Mahārājādhīrāja and overlord (Parameśvara), x. whose feat many Rājanyas (minor rājās) worship by bowing themselves down, and y. who himself meditates upon the feet of Śrī Mahābhavagupta who was a great devout worshipper of Maheśvara and was highly honourable (P. Bhattaraka), — is present here in peace (<foreign>kuśalī</foreign>) (plate 2 lines 4-6).</p>
+        <!--translation encoded as per EGD §9.2 -->
+      </div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --><!-- Rajaguru's notes : plates discovered in 1912 at the boundary of two villages named Jatesinga and Dungri now Balangir district 
+               Shastri1995_01 p.189-90 : D.R. Bhandarkar is inclined to ascribe the Jatesinga-Dungari Plates to Śivagupta, the first member of the Somavaṁśa known fro, the records of his son Mahābhavagupta I Janamejaya. But this view cannot be accepted in viez of the mention in it of Rudradatta, nephew of Siṁhadatta, as holding the office of Mahāsāndhivigrahin which proves indisputably that the grant must be attributed to the post=Bhīmaratha period. Noreover the description f the ;ilitary successes of Yayāti in the present record tallies well with what is stated about him in the later records of he family. 
+            --></div>
       <div type="bibliography">
-        <p></p>
+        <!--bibliography encoded as per section §9.4 -->
+        <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --><!-- First edition Mazumdar JBORS vol 2 1916 pp 45-55  --></p>
         <listBibl type="primary">
+          <!-- Don't forget adding ARIE 1964-65 CP4 published in BC MAzumbar  JBORS vol ii (1) 1916 p 45-59 and plates and DR Bhandarkar Indian Antiquary vol LXI p 241 -->
           <bibl n="R">
             <ptr target="bib:Rajaguru1966_01"/>
             <citedRange unit="page">218-224</citedRange>
@@ -286,6 +372,7 @@
             <ptr target="bib:Shastri1995_02"/>
             <citedRange unit="page">276-284</citedRange>
           </bibl>
+          <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
         </listBibl>
         <listBibl type="secondary">
           <bibl>
@@ -304,6 +391,7 @@
             <ptr target="bib:Acharya2014_01"/>
             <citedRange unit="page">268</citedRange>
           </bibl>
+          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

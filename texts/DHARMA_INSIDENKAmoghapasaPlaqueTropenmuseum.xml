@@ -35,17 +35,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -56,6 +66,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -80,15 +91,28 @@
 <lb n="6"/>śrī-mahārājādhirājaḥ śrī-kr̥<lb break="no" n="7"/>tanagara-vikrama-jñāna-vajro<lb break="no" n="8"/>ttuṁga-deva-mahārājaḥ yad a<lb break="no" n="9"/>tra puṇyan tad bhavatv ācāryyo<lb break="no" n="10"/>pādhyāya-mātā-pitr̥-pūrvvaṁ<lb break="no" n="11"/>gamaṁ kr̥tvā sakala-satva-rāśe<lb break="no" n="12"/>r anuttara-jñāna-phalāvāptaya 
 <lb n="13"/>Iti||</p>
       </div>
-      <div resp="part:argr" type="translation"></div>
-      <div type="commentary"></div>
+      <!--<div type="apparatus">
+           <!-\-apparatus encoded as per EGD §9.1, basic elements for apparatus below-\->
+               <listApp><!-\- one <app> for each apparatus entry -\->
+                  <app loc="line"><!-\- update the value of @loc.-\->
+                     <lem><!-\- fill in a lemma here -\-></lem>
+                     <rdg source="bib:AuthorYear_01"><!-\- update the @source value, fill in variant reading here -\-></rdg>
+                  </app>
+               </listApp>
+         </div>-->
+      <div resp="part:argr" type="translation"><!--translation encoded as per EGD §9.2 --></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
-        <p></p>
+        <!--bibliography encoded as per section §9.4 -->
+        <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
+        <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
         <listBibl type="primary">
           <bibl n="siglum"/>
+          <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
+          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

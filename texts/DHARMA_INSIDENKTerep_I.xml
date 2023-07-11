@@ -30,17 +30,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -76,6 +86,7 @@
     <body>
       <div type="edition" xml:lang="kaw-Latn">
         <pb n="1r"/>
+        <!--Blank outer page.-->
         <p><pb n="1v"/>
 <lb n="1v1"/><g type="ddandaOrnate">.</g>,, <g type="circleHigh">.</g> ,,<g type="ddandaOrnate">.</g>svasti śakavarṣātīta, <num value="954">954</num>, kărttikamāsa, tithi pañcadaśi śuklapakṣa, <abbr>vā</abbr>, <abbr>U</abbr>, <abbr>śa</abbr>, vāra tolu,
 <lb n="1v2"/>bharaṇīnakṣatra, siddhayoga, valavakāraṇa, prajāpatidevatā, Agneyamaṇḍala, mr̥cchikarāśi <unclear>la</unclear><lb break="no" n="1v3"/>gna śvetamuhŭrtta, </p>
@@ -112,11 +123,17 @@
           </app>
         </listApp>
       </div>
-      <div type="commentary"></div>
+      <!-- <div type="translation">
+                <!-\-translation encoded as per EG §9.2 -\->
+            </div>-->
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
-        <p></p>
+        <!--bibliography encoded as per section §9.4 -->
+        <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
+        <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
         <listBibl type="secondary">
           <bibl/>
+          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

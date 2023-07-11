@@ -3,6 +3,8 @@
     <fileDesc>
       <titleStmt>
         <title>Cīṟkāḻi, donation, time of Vīrarājendra, year 7</title>
+        <!--Change the title of the file, e.g. Raktamālā grant of the time of Budhagupta, year 159-->
+        <!-- Add your name in the respStmt matching your involvement -->
         <respStmt>
           <resp>EpiDoc Encoding</resp>
           <persName ref="part:utve">
@@ -12,6 +14,7 @@
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
+          <!-- This may be the same as the creator of the file -->
           <persName ref="part:utve">
             <forename>Uthaya</forename>
             <surname>Veluppillai</surname>
@@ -20,8 +23,9 @@
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
-        <pubPlace></pubPlace>
+        <pubPlace><!-- Fill in here the place or places where the encoding has been done --></pubPlace>
         <idno type="filename">DHARMA_INSCirkali00002</idno>
+        <!-- Replace by filename, e.g. Pallava00001 -->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
@@ -31,22 +35,33 @@
 							California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by John
 						Doe.</p>
+            <!-- replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,6 +74,7 @@
 					agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named
@@ -132,7 +148,9 @@
 </p>
       </div>
       <div type="apparatus">
+        <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
         <listApp>
+          <!-- one <app> for each apparatus entry -->
           <app loc="4">
             <lem>cāmu
 <lb break="no" n="5"/><supplied reason="undefined">tāyam</supplied></lem>
@@ -140,10 +158,14 @@
           </app>
         </listApp>
       </div>
-      <div resp="part:utve" type="translation"></div>
-      <div type="commentary"></div>
+      <div resp="part:utve" type="translation"><!--translation encoded as per EGD §9.2 --></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
         <p>Summary in ARIE; encoded, edited and translated here for DHARMA (ERC n°809994) by Uthaya Veluppillai (2022), based on the examination of the transcript kept in ASI, Mysore.</p>
+        <!--<listBibl type="primary">
+				<bibl n="siglum"/><!-\- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -\->
+			</listBibl>-->
         <listBibl type="secondary">
           <bibl>
             <ptr target="bib:ARIE1918-1919"/>

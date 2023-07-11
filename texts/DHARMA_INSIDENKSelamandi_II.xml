@@ -32,17 +32,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -94,7 +104,9 @@
         <p>kaṁ rajamūdra yen uvus kavaca kagugona dene si darani pihagmane,<lb n="1v7"/>titi, ka, <num value="2">2</num>, I śakā, <num value="1318">1318</num>,</p>
       </div>
       <div type="apparatus">
+        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
         <listApp>
+          <!-- one <app> for each apparatus entry -->
           <app loc="1r5">
             <lem><unclear>p</unclear>ekṣakna</lem>
             <rdg source="bib:Boechari1985-1986_01">mekṣakna</rdg>
@@ -102,8 +114,9 @@
         </listApp>
       </div>
       <div type="translation"></div>
-      <div type="commentary"></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
         <p>First edited by Cohen Stuart, re-edited by Boechari (<bibl rend="omitname">
             <ptr target="bib:Boechari1985-1986_01"/>
             <citedRange unit="page">87</citedRange>
@@ -120,4 +133,4 @@
       </div>
     </body>
   </text>
-</TEI>
+</TEI><!-- To be understtod in connection with Walandit A (E. 28), Patapan I (E. 57), Sailamandi, Renek, Biluluk, Tirah (E. 58) -->

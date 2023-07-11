@@ -2,7 +2,7 @@
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title></title>
+        <title><!-- ADD TITEL HERE --></title>
         <respStmt>
           <resp>EpiDoc Encoding</resp>
           <persName ref="part:jeth">
@@ -35,17 +35,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -56,6 +66,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -73,6 +84,7 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="tel-Latn">
+        <!-- the following is at least two distinct inscriptions!! -->
         <p>
                <lb n="1"/>svasti śrī<unclear>ma</unclear>sarvvalōku<unclear>A</unclear>sraya
                <lb n="2"/>sraya śrī viṣṇuvarddhana-ma<lb break="no" n="3"/>hārājulaku pravarttamāna-vijayarājya-saṁ<lb break="no" n="4"/>vachsarambuḶ muppadimūnṟ-aku<unclear>n ē</unclear>ṇḍu
@@ -135,17 +147,17 @@
           </app>
         </listApp>
       </div>
-      <div resp="part:jeth" type="translation"></div>
+      <div resp="part:jeth" type="translation"><!--Yet to be provided --></div>
       <div type="commentary">
         <p>
-               
+               <!-- These are at least two distinct inscriptions on the stone! Line 9: kaviḷala- against kavilaḷa- is hard to understand if the akṣaras are not totally blurred! -->
                The width of the missing parts follows the number of dots in the editions (one <foreign>akṣara</foreign> per dot); this, however, is but a very approximate value.
                Interestingly, the line numbering differs between the two editors, the first line being split into two by J. Ramayya Pantulu who omits line 10 according to N. Lakshminarayan Rao.
             </p>
       </div>
       <div type="bibliography">
         <p>
-            The inscription was noted in A. R. No. 169 of 1917 and first published by J. Ramayya Pantulu with few metadata and without translation and picture (<bibl rend="omitname">
+            The inscription was noted in A. R. No. 169 of 1917<!-- has to be adjusted to the @target --> and first published by J. Ramayya Pantulu with few metadata and without translation and picture (<bibl rend="omitname">
             <ptr target="bib:RamayyaPantulu1948_01"/>
             <citedRange unit="page">112</citedRange>
             <citedRange unit="item">217</citedRange>
@@ -156,9 +168,10 @@
           </p>
         <listBibl type="primary">
           <bibl n="siglum"/>
+          <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
         </listBibl>
         <listBibl type="secondary">
-          <bibl>A. R. No. 169 of 1917</bibl>
+          <bibl>A. R. No. 169 of 1917<!-- has to be adjusted to the @target --></bibl>
           <bibl>
             <ptr target="bib:RamayyaPantulu1948_01"/>
             <citedRange unit="page">112</citedRange>

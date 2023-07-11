@@ -31,18 +31,28 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
               <p>The script seems negligent, especially the first ten lines.
-                        </p>
+                        <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -102,10 +112,19 @@
 <lb n="20"/>Añ· śrīp<supplied reason="lost">u</supplied>ṣ<supplied reason="lost">kara</supplied><gap extent="unknown" reason="lost" unit="character"/>            
                 </p>
       </div>
+      <!--<div type="apparatus">
+           <!-\-apparatus encoded as per EG §9.1, basic elements for apparatus below-\->
+               <listApp><!-\- one <app> for each apparatus entry -\->
+                  <app loc="line"><!-\- Update the value of @loc.-\->
+                     <lem><!-\- fill in a lemma here -\-></lem>
+                     <rdg source="bib:AuthorYear_01"><!-\- update the @source value, fill in variant reading here -\-></rdg>
+                  </app>
+               </listApp>         
+         </div>-->
       <div source="bib:Coedes1936_01" type="translation" xml:lang="fra">
         <p n="1-20">En <foreign>śaka</foreign> <gap reason="lost"/> mois de Puṣya, un dimanche, le Kaṁrek K.A. Śambhuvarmadeva érige le Saint K.A. Śrī Puṣkarākṣadeva <gap reason="lost"/>, le seigneur <foreign>purohita</foreign>, quotidiennement <gap reason="lost"/> le Bienheureux <gap reason="lost"/> 4 vêtements 1 <foreign>jyaṅ</foreign>, 5 <gap reason="lost"/> 2 groupes <gap reason="lost"/> 4 groupes, 5 mesures de riz décortiqué <gap reason="lost"/> fleurs, fruits. <gap reason="lost"/> 90. Sa majesté le roi <gap reason="lost"/> le 11e jour de la lune croissante de Puṣya, un dimanche, le Kaṁrek K.A. Śrī Śambhuvarmadeva érige le Seigneur Śrī Puṣkarākṣa <gap reason="lost"/></p>
       </div>
-      <div type="commentary"></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
         <p>Edited by George Cœdès (<bibl rend="omitname">
             <ptr target="bib:Coedes1936_01"/>

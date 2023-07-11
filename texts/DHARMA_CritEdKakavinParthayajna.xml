@@ -10,7 +10,7 @@
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
-        <pubPlace></pubPlace>
+        <pubPlace><!-- fill in here the place or places where the encoding has been done --></pubPlace>
         <idno type="filename">DHARMA_CritEdKakavinParthayajna</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
@@ -32,6 +32,7 @@
           <witness xml:id="EdZ">
             <abbr type="siglum">Ed<hi rend="superscript">Z</hi>
                   </abbr>
+            <!-- <bibl><ptr target="bib:.../></bibl> Zoetmulder, Sekar Iniket, Drukproef-->
           </witness>
           <witness xml:id="L">
             <abbr type="siglum">L</abbr>
@@ -43,6 +44,7 @@
                 <idno>Or. 5024</idno>
               </msIdentifier>
               <msContents>
+                <!-- the msContents isn't mandatory -->
                 <msItem>
                   <colophon>
                     <quote/>
@@ -51,16 +53,21 @@
               </msContents>
               <physDesc>
                 <objectDesc>
+                  <!-- Here you can give a physical description of the manuscript in prose-->
                   <p>Palm-leaf manuscript. ... leaves in Balinese script. Copied in ...</p>
                 </objectDesc>
                 <handDesc>
                   <handNote scriptRef="class:38769 maturity:83215" xml:id="La">
+                    <!-- update the content of the @xml:id and the @scriptRef -->
                     <abbr type="hand">L<hi rend="superscript">1</hi>H<hi rend="subscript">1</hi></abbr>
+                    <!-- Give the abbreviation siglum for the hand build on siglum-of-the-manuscript_H1, the number being incremental -->
                     <p>The only hand of the manuscript, neat Balinese script</p>
+                    <!-- provide a description of the hand -->
                   </handNote>
                 </handDesc>
               </physDesc>
               <history>
+                <!-- Here you can decribe the history of the manuscript in prose. Use <origDate> and <origPlace> to emphasize the place and date of creation -->
                 <p>...</p>
               </history>
             </msDesc>
@@ -74,12 +81,14 @@
                 <idno>Peti 53 No L 845</idno>
               </msIdentifier>
               <msContents>
+                <!-- the msContents isn't mandatory -->
                 <msItem>
                   <colophon/>
                 </msItem>
               </msContents>
               <physDesc>
                 <objectDesc>
+                  <!-- Here you can give a physical description of the manuscript in prose-->
                   <p>Palm-leaf manuscript. ... leaves in Balinese script. Copied in ...</p>
                 </objectDesc>
                 <handDesc>
@@ -87,6 +96,7 @@
                 </handDesc>
               </physDesc>
               <history>
+                <!-- Here you can decribe the history of the manuscript in prose. Use <origDate> and <origPlace> to emphasize the place and date of creation -->
                 <p>...</p>
               </history>
             </msDesc>
@@ -96,9 +106,12 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
+        <!-- Part mandatory -->
         <p>This project has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
+        <!-- Optionally add here a second <p> to describe the specifics of the subproject that has led to this edition. -->
       </projectDesc>
       <editorialDecl>
+        <!-- As stated in the EGC, this element shall be used only if your edition follows principles that are different from or more fine-grained than those established in the project's guides. Among the following elements, you may keep only the ones your need for your edition. If you use one, its contents must be contained in at least one <p> of free text. If you don't need any <editorialDecl> at all, you may eventually remove this entire section of the file. -->
         <correction>
           <p/>
         </correction>
@@ -113,10 +126,13 @@
         </interpretation>
       </editorialDecl>
       <samplingDecl>
+        <!-- To be kept only to explain in prose the method to choose the corpus, e.g. ommission of the material ...-->
         <p/>
       </samplingDecl>
       <schemaRef key=" EGCv01" type="guide" url="https://docs.google.com/document/d/15HFxHJTOzIU1UDyVrB2yQYJ5wI6JyEshEkYgg5qwj8M/edit#"/>
+      <!-- Will need to be updated once a more official realase is done -->
       <variantEncoding location="internal" method="location-referenced"/>
+      <!-- Part mandatory -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -142,7 +158,9 @@
       </langUsage>
       <textClass>
         <keywords>
+          <!-- In due course we will can use this element to declare keywords as <term>s, but at the moment please ignore <keywords>  -->
           <term/>
+          <!-- Ignore this element for the time being. -->
         </keywords>
       </textClass>
     </profileDesc>
@@ -177,6 +195,12 @@
             <rdg wit="#P">rī</rdg>
           </app>
         </listApp>
+        <!--  <lg n="1">
+                    <l n="a">oṁ <app><lem type="emn">rudrāya</lem><rdg wit="#EdSSA #EdZ #L #P">rudrākṣa</rdg></app> namo ’stu te mara panəmbaha ra putu bhaṭāra nityaśa</l>
+                    <l n="b">saṅ muṅgv iṅ tələṅ iṅ hiḍəp saṅ atiśūnya tuhu-tuhu jagatpramodita</l>
+                    <l n="c">mvaṅ sakvehnira paṇḍitādhika viveka rinacananiki <app><lem wit="#EdZ">svarastuti</lem><rdg wit="#EdSSA #L">svarāstuti</rdg></app></l>
+                    <l n="d">saṅ vijñātmaka riṅ laṅə̄ kavi vənaṅ tuladana saguritnireṅ sabha</l>
+                </lg>-->
         <lg n="2" xml:id="kakavin_01.02">
           <l n="a">mevəh ṅvaṅ mucape kadarśitan i sarvagatanira haneṅ jagaddhita,</l>
           <l n="b">ndan sūkṣmā sumilib riṅ aṇḍajana kokiraniran atirūpa vīryavān,</l>
@@ -202,6 +226,12 @@
             <rdg wit="#EdZ">lanāṅundaṅ</rdg>
           </app>
         </listApp>
+        <!--
+                    <l>mevəh ṅvaṅ mucape kadarśitan i sarvagatanira haneṅ jagaddhita</l>
+                    <l>ndan <app><lem wit="#EdZ">sūkṣmān</lem><rdg wit="#EdSSA #L ">sūkṣmā</rdg></app> sumilib riṅ aṇḍajana kokiraniran atirūpa vīryavān</l>
+                    <l>saṅ tvasniṅ lara raga <app><lem wit="#EdSSA #L">sariniṅ</lem><rdg wit="#EdZ">sarisiṅ</rdg></app> unaṅ saṅ amisani rarasniṅ aṅrəṅə̄</l>
+                    <l>saṅ sākṣāt <app><lem wit="#EdZ #L">pinakesiniṅ</lem><rdg wit="#EdSSA">pinakakesiniṅ</rdg></app> manah akuṅ rahina vəṅi <app><lem wit="#EdSSA #L">lanāṅudaṅ</lem><rdg wit="#EdZ">lanāṅundaṅ</rdg></app> lulut</l>
+                -->
         <lg n="3" xml:id="kakavin_01.03">
           <l n="a">yekīṅ ambək aṅel śumakti ri viyoganiṅ alara kəneṅ smarānala,</l>
           <l n="b">paṅdeniṅ lara rāga yeki tumuvuh ri hati mamunah aṅgəsəṅ manah,</l>
@@ -222,6 +252,13 @@
             <rdg wit="#L">aṅgәsə̄ṅ</rdg>
           </app>
         </listApp>
+        <!--
+                              <l>yekiṅ ambək aṅel śumakti ri <app><lem wit="#EdZ #EdSSA">viyoganiṅ</lem><rdg wit="#L">viyogganiṅ</rdg></app> alara kəneṅ smarānala</l>
+                    <l>paṅdeniṅ lara rāga yeki tumuvuh ri hati mamunah <app><lem wit="#EdZ #EdSSA">aṅgəsəṅ</lem><rdg wit="#L">aṅgәsə̄ṅ</rdg></app> manah</l>
+                    <l>tṛṣṇāgə̄ṅ sumaput pətəṅ təmahaniṅ rahina pati gagap-gagap tutur</l>
+                    <l>kāmārtha pva ya hetuniṅ mapəniṅan mamulaṅuni ri saṅ huvus licin</l>
+                </lg>
+                -->
         <lg n="4" xml:id="kakavin_01.04">
           <l n="a">yāṅde rañca ri citta maṅkin alaṅə̄ təkapiṅ alara śoka kāsyasih,</l>
           <l n="b">ṅhiṅ vikvā jugaṅ enakānusupa riṅ vana tumulusa tan kabañcana,</l>
@@ -251,6 +288,12 @@
             <rdg wit="#L #P">malәsāvak ājñana</rdg>
           </app>
         </listApp>
+        <!--
+                     <l>yāṅde rañca ri citta maṅkin alaṅə̄ təkap iṅ alara śoka kāsyasih</l>
+                    <l>ṅhiṅ <app><lem wit="#EdZ ">vikvā jugaṅ</lem><rdg wit="#L #EdSSA">vikvāṅ</rdg></app> enakānusupa riṅ vana <app><lem wit="#L #EdSSA">tumulusa</lem><rdg wit="#EdZ">tulusa</rdg></app> tan kabañcana</l>
+                    <l>śaktyāṅuṅsira siddhaniṅ manəmu sandhi <app><lem wit="#EdSSA #L">kalәpasәn</lem><rdg wit="#EdZ">kalәpasan</rdg></app> i patyaniṅ tiga</l>
+                    <l>ṅhiṅ <app><lem wit="#EdZ #EdSSA">tekā</lem><rdg wit="#L">tekāk</rdg></app> palakun ri pādanira saṅ yativara <app><lem wit="#EdZ">maləsvāvakājñana</lem><rdg wit="#EdSSA">malesāvak ajñāna</rdg><rdg wit="#L">malәsāvak ājñana</rdg></app></l>
+                    -->
       </div>
       <div met="pramitākṣarā" n="2" rend="met" type="canto" xml:id="kakavin_02">
         <note type="prosody">--+-+---+--=</note>
@@ -763,6 +806,7 @@
           <l n="c">kəṭəṅ masimsim tuli yan pakaṅsi,</l>
           <l n="d">ikaṅ samaṅkā pva dələ̄n təkapta.</l>
         </lg>
+        <!-- <note>Z var kәkәṅ</note> -->
         <listApp type="apparatus">
           <app loc="b">
             <lem wit="#EdZ #EdSSA #L">mamaṅāniṅ</lem>
@@ -829,6 +873,7 @@
           <l n="a">təṅah vəṅi huvus lumiṅsir i səḍəṅnira mavuvus i saṅ dhanañjaya,</l>
           <l n="b">ḍatəṅ ta siraṅ ārya nāma vidurāṅlavad i sapaṅutusni saṅ kaka,</l>
           <l n="c">sagadgada manah nirāsəmu taṅis maməkulakən i saṅ yudhiṣṭhira,</l>
+          <!-- <note>[vidura]</note>-->
           <l n="d">uḍūh anaku māsku tan sipi vəlasku ri kita lalu tan sih iṅ vidhi.</l>
         </lg>
         <listApp type="apparatus">
@@ -869,6 +914,7 @@
           <l n="c">huvus manaravaṅ təkapnya vəkasan paranani paraniṅ nirātmaka,</l>
           <l n="d">təkā pva təkaniṅ pasārani patinya dadi ya manasar mareṅ hala.</l>
         </lg>
+        <!-- L paraniṃ ante corr; paranani pc -->
         <listApp type="apparatus">
           <app loc="d">
             <lem wit="#EdZ #L">pasārani</lem>
@@ -1011,6 +1057,7 @@
           <l n="c">kita teki vastuni huripnikaṅ sarāt,</l>
           <l n="d">ya dumehnikaṅ jana kabeh paḍālara.</l>
         </lg>
+        <!-- kiteki vastuni huripiṅ sarāt kabeh, here more variants in the entire verse K ms?-->
         <lg n="3" xml:id="kakavin_07.03">
           <l n="a">syapa teki tan mavәlase kiteṅ sarāt,</l>
           <l n="b">ri kasajjananta tuvi yan binañcana,</l>
@@ -1053,6 +1100,7 @@
           <l n="c">kagiriṅ tikaṅ vvaṅ aṅucap ta yāpәpәr,</l>
           <l n="d">mamilәt vuvusnya dumalih mamatyana.</l>
         </lg>
+        <!-- kośvan SSA  -->
         <lg n="8" xml:id="kakavin_07.08">
           <l n="a">hana len kadurjananikāgave kadaṅ,</l>
           <l n="b">maṅucap ri mūlanika ṅūni riṅ vaneh,</l>
@@ -1219,6 +1267,7 @@
       </div>
       <div met="praharaṇakalikā" n="8" rend="met" type="canto" xml:id="kakavin_08">
         <note type="prosody">------+------=</note>
+        <!-- [14] [śakvari group; not found elsewhere in oj] -->
         <lg n="1" xml:id="kakavin_08.01">
           <l n="a">kaṅariṅasana kasnika matәguh apәs,</l>
           <l n="b">kapanasana tikādbhuta matәguh akas,</l>
@@ -1278,6 +1327,7 @@
             <lem wit="#EdZ">muna</lem>
             <rdg wit="#EdSSA">mūna</rdg>
           </app>
+          <!-- hәniṅ mavanira ri dalәm -->
           <app loc="d">
             <lem type="emn">tahā</lem>
             <rdg wit="#EdZ">taha</rdg>
@@ -1306,12 +1356,14 @@
           <l n="c">vvaṅ atika maṅalem ri guṇanika lәvih,</l>
           <l n="d">vvaṅ atika saṅ asuṅ mamiguṇani guṇa.</l>
         </lg>
+        <!-- siṅ vaṅa teka vihikan -->
         <lg n="10" xml:id="kakavin_08.10">
           <l n="a">syapa karika vinastu lәviha ya tәmәn,</l>
           <l n="b">masuṅa varah anugrahana kavijayan,</l>
           <l n="c">pamulikana bhaṭāra masuṅa karatun,</l>
           <l n="d">saṅ aṅaran ikā siṅ vvaṅ atika vulikәn</l>
         </lg>
+        <!-- vara manugrahana -->
         <listApp type="apparatus">
           <app loc="d">
             <lem wit="#EdZ">ika</lem>
@@ -1433,6 +1485,7 @@
           <l n="c">sәḍәṅ iṅ avamanan deniṅ musuhteka mūrkha,</l>
           <l n="d">sukha pәjaha siluṅluṅ taṅkulak len laras hrū.</l>
         </lg>
+        <!-- kadhīranta -->
         <listApp type="apparatus">
           <app loc="b">
             <lem wit="#EdZ">kadhīranyan</lem>
@@ -1456,6 +1509,9 @@
           <l n="c">tuvi ṅaranira saṅ dvaipāyaneṅ rāt kavīryan, </l>
           <l n="d">sira ta vәkas i dharma hyaṅ śivan vus pralabdha.</l>
         </lg>
+        <!-- sira ta mata Z var -->
+        <!-- <note>ṅkan gp</note> -->
+        <!-- <note>prasasta gp</note></l> -->
         <listApp type="apparatus">
           <app loc="b">
             <lem wit="#EdZ">paranyan</lem>
@@ -1604,6 +1660,7 @@
           <l n="c">vahv aṅluṅ sakilan gaḍuṅnika lavan katirah aṅurukəl suṅutnika</l>
           <l n="d">aṅhiṅ kəmbaṅ ikaṅ mənur mvaṅ asanāṅruhuni ri pasəkarnikaṅ vuṅū</l>
         </lg>
+        <!-- [ed: ragakusuma] -->
         <lg n="2" xml:id="kakavin_11.02">
           <l n="a">rəmrəm traṅ manisihnisih vahu mayat javuh ika malilaṅ kapāvanan</l>
           <l n="b">gəntər dohnya ləyəp tunenaṅənaṅən vahu lumarap ikaṅ taṭit ləṅit</l>
@@ -1658,6 +1715,7 @@
           <l n="c">lāvan yan humuvah kənaṅ tulam amaṅkvakəna kusuma jaṅga sampəta</l>
           <l n="d">len tekaṅ bakakak puḍak pamapasanya mabulakana piṅgir iṅ nadī.</l>
         </lg>
+        <!-- Z tilam? -->
         <listApp type="apparatus">
           <app loc="d">
             <lem wit="#EdZ">mabulakana</lem>
@@ -1702,6 +1760,7 @@
           <l n="a">śīghrā śīrṇa pətəṅnikaṅ hati dumehnira maṅaṅənaṅən lumampaha</l>
           <l n="b">samy ādan maṅadəg təlas lumaku tan hana maṅavara rāmya tūt havan</l>
           <l n="c">məntas riṅ valahar matīrtha sira sampun arahup aradin tikuṅ hala</l>
+          <!-- EdZ stops here -->
           <l n="d">tūt mārga hana siṅgulan lәbalәban kamaṅi kapur avor pakis ḍaḍu.</l>
         </lg>
         <lg n="14" xml:id="kakavin_11.14">
@@ -1731,6 +1790,7 @@
           <l n="c">barabat barā mahurahan gulunika masavit valaṅ gayār,</l>
           <l n="d">umәnәṅ caṅaknya mavәdi raray aṅaruhi riṅ tәgal humuṅ.</l>
         </lg>
+        <!-- valaṅnika manūt ... mavurahan (same meaning in Z s.v. vurah, hurah) -->
         <lg n="4" xml:id="kakavin_12.04">
           <l n="a">halivat sirerika sumәṅka ta lakunira tan madoh dahat,</l>
           <l n="b">pagagan sәḍәṅ vinulatan tanәmanika kabeh paḍāhijo,</l>
@@ -1749,6 +1809,7 @@
           <l n="c">tinanәm tikaṅ kayu puriṅ jinajar i tәpiniṅ pagәrpagәr,</l>
           <l n="d">mayanāsinaṅ vuṅa talinya vuṅa vari mabāṅ hanāputih.</l>
         </lg>
+        <!-- mapabānyvan -->
         <listApp type="apparatus">
           <app loc="b">
             <lem type="emn">mapabañvan</lem>
@@ -1946,6 +2007,9 @@
           <l n="c">niyatanika pasevan honyaṅ gopura maruhur</l>
           <l n="d">vvara ta vini ri saṇḍiṅniṅ kontən maṅucapucap.</l>
         </lg>
+        <!--  PYñ 13.8:
+170273<P>iniṅĕt-iṅĕt ira lwir tiṅkah niṅ puraṇa tikā /
+170274<P>patapan arĕcĕp (better the var. pura katika). -->
         <listApp type="apparatus">
           <app loc="a">
             <lem type="emn">pura katika</lem>
@@ -1960,6 +2024,8 @@
             <lem type="emn">vini ri</lem>
             <rdg wit="#EdSSA #EdZ">vinuri</rdg>
           </app>
+          <!-- 274122<P>PYñ 13.8: wyara ta winuri (r. wini ri? widu
+274123<P>ri?) saṇḍiṅ nī (r. niṅ?) maṅucap-ucap. -->
           <app loc="d">
             <lem type="emn">vvara</lem>
             <rdg wit="#EdZ #EdSSA">vyara</rdg>
@@ -2609,6 +2675,7 @@
       </div>
       <div met="-+---+-+---+--+-=" n="22" rend="met" type="canto" xml:id="kakavin_22">
         <note type="prosody">-+---+-+---+--+-=</note>
+        <!--<div type="canto" rend="met" n="22" met="Atyaṣṭi group" xml:id="kakavin_22">  -->
         <lg n="1" xml:id="kakavin_22.01">
           <l n="a">narendra kumətər manambəṅ irikaṅ variṅin magə̄ṅ</l>
           <l n="b">təhər makiḍukus kəmulnira mələs vəḍihan putih</l>
@@ -2921,6 +2988,7 @@
           <l n="c">“yapvan sāk ri yave daləm sahananiṅ musuh paravaśa</l>
           <l n="d">“kesyan taṅ bhuvanekavīra ratu cakravarti saphala</l>
         </lg>
+        <!-- Z has pasārasāran atikā -->
       </div>
       <div met="drutavilambita" n="26" rend="met" type="canto" xml:id="kakavin_26">
         <note type="prosody">---+--+--+-=</note>
@@ -2930,6 +2998,7 @@
           <l n="c">“mala limaṅ lali lolita met lara</l>
           <l n="d">“tamah anūt malulut si rajah tumūt</l>
         </lg>
+        <!-- SSA: malali maṅlali; also Z, but with  "mala limaṅ lali?" in parentheses-->
         <lg n="2" xml:id="kakavin_26.02">
           <l n="a">“ya tumuvuh maṅikū rikanaṅ dadi</l>
           <l n="b">“dadi dadinya daridra lanāṅdasih</l>
@@ -3223,6 +3292,7 @@
           <l n="c">gәluṅnya kinusutkusutnya minahā linukalukar inambәt iṅ vuhәl,</l>
           <l n="d">mukhanya sinabuknya riṅ sarinikaṅ kusuma surabi maṅlare hati.</l>
         </lg>
+        <!-- Z sapayuṅpayuṅ (? not in transcript)-->
         <lg n="6" xml:id="kakavin_29.06">
           <l n="a">ikaṅ saviji raśmiraśminika yan gumuyu vaśavaśitva riṅ manis,</l>
           <l n="b">tәkanya hapaṅus pilih tuhatuhanya mamarahi mapet raras hati,</l>
@@ -3663,6 +3733,7 @@
       </div>
       <div met="-+---+-+---+--+--=" n="35" rend="met" type="canto" xml:id="kakavin_35">
         <note type="prosody">-+---+-+---+--+--=</note>
+        <!--<div type="canto" rend="met" n="35" met="dhṛti group" xml:id="kakavin_35">  -->
         <lg n="1" xml:id="kakavin_35.01">
           <l n="a">nahan ta vacananyan aṅgrәgut aṅuṇḍa gunuṅ maruhur,</l>
           <l n="b">narendra mamapag riṅ astra śara bahni murub dumilah,</l>
@@ -3675,6 +3746,7 @@
             <rdg wit="#EdSSA">maṅibәki</rdg>
           </app>
         </listApp>
+        <!-- Z has no text here, but the reading of the etext is maṅibәkiṅ -->
         <lg n="2" xml:id="kakavin_35.02">
           <l n="a">gәsәṅ sahananiṅ tahәn ri tәpiniṅ hulusan kahava,</l>
           <l n="b">tәkapnikanaṅ astra bahni dumudug tәka riṅ viyati,</l>
@@ -3756,6 +3828,8 @@
       </div>
       <div met="--+--+--+-+=" n="36" rend="met" type="canto" xml:id="kakavin_36">
         <note type="prosody">--+--+--+-+=</note>
+        <!-- <div type="canto" rend="met" n="36" met="jagatī group" xml:id="kakavin_36">
+                 -->
         <lg n="1" xml:id="kakavin_36.01">
           <l n="a">nṛpaputra madan sira yoga sandhi,</l>
           <l n="b">matutur pavarah hyaṅ anaṅga ṅūni,</l>
@@ -3811,6 +3885,7 @@
           <l n="c">sira teki vәkasniṅ anṛṣṭi siddhi,</l>
           <l n="d">ya dumehnika yan matakut katona,</l>
         </lg>
+        <!-- end 26 April 2023 -->
         <lg n="7" xml:id="kakavin_36.07">
           <l n="a">malayū tikanaṅ kalā keraṅan ya,</l>
           <l n="b">masәnə̄ tan amor ya riṅ antarikṣa,</l>
@@ -3938,6 +4013,7 @@
           <l n="c">yekāsәkәl ri hati luh tәmahanya tan dva,</l>
           <l n="d">madrәs vәtunya ri matāmuharosah aṅlih.</l>
         </lg>
+        <!-- transcript has kala -->
         <lg n="10" xml:id="kakavin_37.10">
           <l n="a">maṅkin sirāṅisәkisәk sәsәgәn tan ampәt,</l>
           <l n="b">kāṅәn sarāmyaniṅ amukti tәkapnireka,</l>
@@ -4343,6 +4419,8 @@
       </div>
       <div met="---++--+-+=" n="42" rend="met" type="canto" xml:id="kakavin_42">
         <note type="prosody">---++--+-+=</note>
+        <!--  <div type="canto" rend="met" n="42" met="triṣṭubh group" xml:id="kakavin_42">
+                [tristapa?]-->
         <lg n="1" xml:id="kakavin_42.01">
           <l n="a">“hana ta ya vvaṅ sukha tan pamukti</l>
           <l n="b">“hana mamukti ndan aṅel kahīnan</l>
@@ -4424,6 +4502,8 @@
       </div>
       <div met="--+-+---+-+=" n="44" rend="met" type="canto" xml:id="kakavin_44">
         <note type="prosody">--+-+---+-+=</note>
+        <!-- <div type="canto" rend="met" n="44" met="jagatī group" xml:id="kakavin_44">
+                 -->
         <lg n="1" xml:id="kakavin_44.01">
           <l n="a">nā vuvus munīndra ri saṅ ārya pārtha</l>
           <l n="b">mamuhun ta saṅ nṛpati śīghra luṅhā</l>

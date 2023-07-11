@@ -35,17 +35,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -97,6 +107,14 @@
    <lb n="14"/><gap quantity="1" reason="lost" unit="character"/> vaḥ vun· sre vraiy· krāy· sre prasān· <gap quantity="2" reason="lost" unit="character"/>
 </p>
       </div>
+      <!-- <div type="apparatus">
+               <listApp>
+                  <app loc="6">
+                     <lem/>
+                     <rdg source="bib:Coedes1937-1966_01"/>
+                  </app>
+               </listApp>         
+         </div> -->
       <div source="bib:Coedes1937-1966_01" type="translation" xml:lang="fra">
         <p n="1-4">Dons de Mratāñ Kumārasvāmi à V.K.A. Tilakeśvara; c'est son Tāñ qui sacrifie au dieu. Kloñ Poñ, Kloñ Saṁvok de Caṁkār Li, Tāṅ Kanmeṅ <supplied reason="explanation">"le jeune"</supplied>, ils sacrifient au dieu, ils descendent aux fêtes.</p>
         <p n="4-12">Esclaves du dieu <supplied reason="explanation">sur une liste de <foreign>vā</foreign> et <foreign>ku</foreign> avec leurs enfants</supplied>.</p>

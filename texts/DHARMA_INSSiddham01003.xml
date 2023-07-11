@@ -19,13 +19,18 @@
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <persName></persName>
+          <persName><!-- 
+The original editor(s). 
+--></persName>
         </respStmt>
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham01003</idno>
+        <!-- 
+If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
+-->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -78,19 +83,34 @@
   <text xml:space="preserve">
     <body>
       <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <p><pb n="1v"/><lb n="1"/>svasti<supplied reason="subaudible">.</supplied>
+        <!-- 
+Comments below by Csaba Kiss and Dániel Balogh (BD) are offered "as is" and do not represent a thoroughly researched or considered opinion. 
+-->
+        <p><pb n="1v"/><!-- 
+BD: Better to keep the pb tag inside the p element. Only put pb outside p/ab/lg when there is marginal text that needs to be handled with textpart divs. 
+--><lb n="1"/>svasti<supplied reason="subaudible">.</supplied>
 puṣkaryyāḥ maheśvara-mahāsenātisr̥ṣṭa-rājyavibha<supplied reason="omitted">va</supplied>ḥ
 tri-pat<unclear>ā</unclear><lb break="no" n="2"/>kā-dhvajaḥ nala-nr̥pati-kulānvayaḥ
 śrī-mahārājārtthapati-bhaṭṭārakaḥ
 <lb n="3"/>keselaka-grāme brāhma<choice>
             <sic>ne</sic>
             <corr>ṇo</corr>
-          </choice>ttarānkuṭumbinaś śīrṣakañ cājñāpaya<supplied reason="omitted">ti</supplied></p>
-        <p><pb n="2r"/><lb n="4"/>yūyam asmābhi<unclear>ḥ</unclear>kautsa-sagotrāya durgg<choice>
+          </choice>ttarān<!-- 
+brāhmaṇottarān is the Ed.'s reading. The printed text reads
+brāhmam-ettarān [? scan blurred] 
+--><!-- 
+BD: I think Sircar wanted to print brāhmanettarān (but ended up with me), which seems to be the original reading; emend ne to ṇo. 
+-->kuṭumbinaś śīrṣakañ cājñāpaya<supplied reason="omitted">ti</supplied></p>
+        <p><pb n="2r"/><lb n="4"/>yūyam asmābhi<unclear>ḥ</unclear><!-- 
+L4. FN "The Rithapur inscription [IN01001] has also this reading. The reading intended seems to be yathāyaṁ." ? 
+-->kautsa-sagotrāya durgg<choice>
             <sic>a</sic>
             <corr>ā</corr>
           </choice>ryyāya
-ravirāryyāya ravidattāryyāyap<choice>
+ravirāryyāya ravidattāryyāya<!-- 
+L4. FN: "After this name [ravidattāryya], the upper part of a letter, which may be an ill-formed cha [i.e. ca] is visible. Below this and the preceding letter, there are traces of three akṣaras which look like māttarā. Whether this is meant for a correction in the line or for the insertion of a new name in the list of the donees cannot be satisfactorily determined."
+BD: Pls. quote Sircar's fn on ravirāryyāya. The "rā" looks very strange, seems to be a correction from something with ū, perhaps pū. 
+-->p<choice>
             <sic>ū</sic>
             <corr>u</corr>
           </choice>tra-pauttrika<supplied reason="omitted">M</supplied>
@@ -131,6 +151,9 @@ parituṣṭ<choice>
           </choice>r datta<supplied reason="omitted">ḥ</supplied><supplied reason="subaudible">.</supplied>
 yaḥ kaściT vyapeta-dharmmā
 </p>
+        <!-- 
+BD: Better to put the pb tab inside the lg, right before the lb. 
+-->
         <lg met="anuṣṭubh" n="1">
           <l n="a"><pb n="3r"/><lb n="10"/>rāgā<supplied reason="omitted">d</supplied> drohāt pralobhād vā</l>
           <l n="b">grāme kiñcit pralopayet</l>
@@ -141,13 +164,18 @@ yaḥ kaściT vyapeta-dharmmā
 <lb n="11"/>yuktaḥ</l>
           <l n="d">pañcabhi<supplied reason="omitted">r</supplied> nnarakaṁ vrajet</l>
         </lg>
-        <p>uktañ ca</p>
+        <p><!-- 
+BD: Enclose the prose in p (or ab). 
+-->uktañ ca</p>
         <lg met="anuṣṭubh" n="2">
           <l n="a">ṣaṣṭ<choice>
               <sic>ī</sic>
               <corr>iṁ</corr>
             </choice>
 varṣa-sahasrāṇi</l>
+          <!-- 
+ṣaṣtiṁ sic!; rather ṣaṣti- 
+-->
           <lb n="12"/>
           <l n="b">s<unclear>va</unclear>rgge nandati bhūmidaḥ</l>
           <l n="c">Ākṣeptā c<choice>
@@ -159,16 +187,41 @@ varṣa-sahasrāṇi</l>
               <corr>ed</corr>
             </choice></l>
         </lg>
+        <!-- 
+Not crystal clear if the FN here ("Read vaset [2*] iti.") means that it is an emendation or a re-evaluation of the facsimile. 
+-->
+        <!-- 
+BD: Means emendation. For some reason "read x" is standard usage for emendation. 
+-->
+        <!-- 
+BD: open a p tag here and close it at the end. 
+-->
         <p><pb n="3v"/><choice>
             <sic>ati</sic>
             <corr>iti</corr>
-          </choice><supplied reason="subaudible">.</supplied> <lb n="13"/>saṁvva 7mārggaśīrṣa-mās<choice>
+          </choice><supplied reason="subaudible">.</supplied> <lb n="13"/>saṁvva 7<!-- 
+FN: "The figure has been so formed as to look like the letter re." 
+-->mārggaśīrṣa-mās<choice>
             <sic>a</sic>
             <corr>i</corr>
-          </choice>amāvāsyāMlikhita<supplied reason="omitted">ṁ</supplied> sva-mu<choice>
+          </choice><!-- 
+Not crystal clear if the FN here ("Read māsi.") means that it is an emendation or a re-evaluation of the facsimile. 
+--><!-- 
+BD: Means emendation, as above. I find the emendation overzealous though; the intent was, I'm pretty sure, not the locative of the rare word mās, but a form of the much more common word māsa. Either meant to be in compound, but without sandhi, or meant to be locative, with non standard sandhi. 
+-->amāvāsyāM<!-- 
+L13 FN after amāvasyāM: "The the first two akṣaras of the following word have cursive form." 
+--><!-- 
+BD: The comment should include precise location info in such cases. 
+-->likhita<supplied reason="omitted">ṁ</supplied> sva-mu<choice>
             <sic>h</sic>
             <corr>kh</corr>
-          </choice>ā<lb break="no" n="14"/>jñāptena rahasyādhikr̥ta-cullena<g type="closer"/></p>
+          </choice>ā<lb break="no" n="14"/>jñāptena rahasyādhikr̥ta-cullena<g type="closer"/><!-- 
+FN: "Read mukh-ājñaptena." The Ed. adds: "The form ājñaptena is also correct" see vol. XXVII p.44 n.6 
+--><!-- 
+BD: Sircar prints °ādhikr̥tena, but the plate clearly has °ādhikr̥ta. I've corrected the text. 
+--><!-- 
+BD: Add <g type="closer" /> instead of the double daṇḍa at the end. (See footnote 6.) 
+--></p>
       </div>
       <div type="apparatus">
         <listApp>
@@ -178,7 +231,7 @@ varṣa-sahasrāṇi</l>
           </app>
         </listApp>
       </div>
-      <div source="bib:AuthorYear_01" type="translation"></div>
+      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
       <div type="commentary"></div>
       <div type="bibliography">
         <p/>

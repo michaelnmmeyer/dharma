@@ -34,22 +34,33 @@
                             Creative Commons, 444 Castro Street, Suite 900, Mountain View,
                             California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Arlo Griffiths &amp; Salomé Pichon.</p>
+            <!-- replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -60,6 +71,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -78,7 +90,7 @@
   <text xml:space="preserve">
     <body>
       <div rendition="class:83233 maturity:00000" type="edition" xml:lang="san-Latn">
-        <ab><milestone n="A" type="pagelike" unit="face"/><lb n="O1"/><g type="floretComplex"/><g type="ddandaOrnate">.</g>Om̐ namaś śivāya<g type="ddandaOrnate">.</g><g type="floretComplex"/>
+        <ab><milestone n="A" type="pagelike" unit="face"/><lb n="O1"/><g type="floretComplex"/><g type="ddandaOrnate">.</g><!--sapi2argr : Même ici dois-je inscrire les danda de cette manière ou mettre simplement <g type="ddandaOrnate/> -->Om̐ namaś śivāya<g type="ddandaOrnate">.</g><g type="floretComplex"/>
          <lb n="A1"/><g type="ddandaHooked">.</g> svasti<g type="dotMid"/></ab>
         <lg met="anuṣṭubh" n="1">
           <l n="a">trailokye jayati śreṣṭhas</l>
@@ -95,6 +107,10 @@
           <l n="c">nānādāno vividha-vibhavaḥ kīrtti-kalpa-drumo yas</l>
           <l n="d">tad-dhemāḍhyas surajatamayo bhūtale sthāpitaś ca<g type="ddandaHooked">.</g></l>
         </lg>
+        <!--sapi2argr Vérifier. Dans la stance II, il écrit le ḍh. Comparer la paléographie.
+            IId -dhemāḍhyas
+            IIIc gā<choice><sic>dh</sic><corr>ḍh</corr></choice>a-
+          -->
         <lg met="śārdūlavikrīḍita" n="3">
           <lb n="A4"/>
           <l n="a">tasya śrī-jayasiṅhavarmma-nr̥pater yyo daṇḍa-vāso bhaṭo</l>
@@ -111,7 +127,7 @@
           <l n="c">mukha-vijita-<choice>
               <sic>bhar</sic>
               <corr>rav</corr>
-            </choice>ir bibhartti lakṣmīṁ</l>
+            </choice>ir<!-- argr2sapi: please check again, almost unimagimable that ravir would be miswritten as bharir, while v/bh and r/v are similar in Cham script --><!-- sapi2argr My correction comes from a comment on the rtf; °bharir: °varir Finot. Corr. °ravir (as already proposed by Finot, although based on the wrong reading °varir). After cheking the stone, I also read °varir on the stone. --> bibhartti lakṣmīṁ</l>
           <l n="d">niśi sakalān nabhavird divā mukhena<g type="ddandaHooked">.</g></l>
         </lg>
         <lg met="śārdūlavikrīḍita" n="5">
@@ -123,27 +139,27 @@
         </lg>
         <lg met="upajāti" n="6">
           <lb n="A9"/>
-          <l n="a">śrī-rudramaddhyeśvaram adbhutāṅgaṁ</l>
+          <l n="a">śrī-rudramaddhyeśvaram<!--sapi encoder en place? --> adbhutāṅgaṁ</l>
           <l n="b">sa dharmma-kāṅkṣī śiva-tatva-sevī</l>
           <l enjamb="yes" n="c">tad-bhaktaye śrī-jayasiṅhavarmma</l>
           <l n="d">-prasādataḥ sthāpita<lb break="no" n="A10"/>vān dharitryām·<g type="ddandaHooked">.</g><g type="floretComplex"/><g type="dotMid"/></l>
         </lg>
         <p xml:lang="ocm-Latn">yāṅ· pov· ku siniy· ranakṣā yāṅ guru pu pov· ku di yāñ·<g type="dotMid"/> taṁl· thun· pāt· slauv· vrāḥ
          <lb n="A11"/>sā vlaḥ kaIn· kaṁn· yāṅ· guru pu pov· ku man· jmāy· top· Urāṅ· yāṅ· niy· vāra yo tavun· driy·<g type="dotMid"/><g type="floretComplex"/><g type="ddandaHooked">.</g>
-         <lb n="A12"/>niy· kanadhā sanupaḥ ntrā mad<unclear>d</unclear>an· Ājñā yāṅ· pu pov· ku śrījayasiṅhavarmmadeva<g type="dotMid"/> maddan· Urāṅ tapaḥ
+         <lb n="A12"/>niy· kanadhā sanupaḥ ntrā mad<unclear>d</unclear>an·<!--sapi2argr Je ne suis pas sûre de l'encoding de ce commentaire --> Ājñā yāṅ· pu pov· ku śrījayasiṅhavarmmadeva<g type="dotMid"/> maddan· Urāṅ tapaḥ
          <lb n="A13"/>pāt· driy·<g type="dotMid"/> siy· vr̥liy· Urāṅ· yaṁṅ· marakṣā sarvvadravya yāṅ· pu pov· ku śrīrudramaddhyeśvara tra
          <lb n="A14"/>yāṅ· pov· ku śrīśivaliṅgeśvara tra<g type="dotMid"/> hulun· lamvov· kravāv· humā māḥ pirak· pasrauṅ· ya nan· Avi
          <lb n="A15"/>sta karaṇa panūjā yāṅ· pu pov· ku tra Udakāna tra<g type="dotMid"/> Ur<choice>
             <sic>ā</sic>
             <corr>āṅ·</corr>
           </choice> nan nau svargga maddan· Inā Amā Aviskāla<g type="floretComplex"/>
-         <milestone n="B" type="pagelike" unit="face"/><lb n="B1"/>ya siy· vr̥liy· Urāṅ· nan trā ya maAmrait· ya mapaka ro driy· top· dravya
+         <milestone n="B" type="pagelike" unit="face"/><lb n="B1"/>ya siy· vr̥liy· Urāṅ· nan trā ya maAmrait·<!-- sapi2argr sur la pierre, la voyelle -ai peut aussi être lue -e.  --> ya mapaka ro driy· top· dravya
          <lb n="B2"/>nan· Avista Urāṅ· nan· lac· di mahāraurava Anan naraka<g type="dotMid"/>ya doṁ javālamvījut· Asov· vañāk· ñū
          <lb n="B3"/>ṇḍauy· Inā Urāṅ· nan·<g type="ddandaHooked">.</g> Ājñā yāṅ· pu pov· ku śrījayasiṅhavarmmadeva<g type="dotMid"/> vriy· yāṅ· pov· ku si<lb break="no" n="B4"/>niy· mataṇḍāḥ Avis· pat· • Oḥ jeṅ· si kluñ· Oḥ jeṅ· si top· Anna tauṅ· tamr̥yāla niv· di kāra Urāṅ·
          <lb n="B5"/>Añjām· ya Oḥ jeñ· vela Aṅgap· samū nan· lagaiḥ di pa<subst>
             <del rend="corrected">nu</del>
             <add place="overstrike">na</add>
-          </subst>kai tra di sanupaḥ deḥ tra<g type="dotMid"/><g type="floretComplex"/><g type="ddandaHooked">.</g>
+          </subst>kai<!--sapi2argr Comment encoder cette correction de nu en na ?--> tra di sanupaḥ deḥ tra<g type="dotMid"/><g type="floretComplex"/><g type="ddandaHooked">.</g>
          </p>
         <p xml:lang="san-Latn">śrīvr̥ddheśvare
          <lb n="B6"/>pūrvvaṁ prapitāmahena sthāpite para-cakra-bhinne yaṁ śrī-śivaliṅgeśaṁ yo muniś śivācāryya-nāmadheyaḥ
@@ -162,25 +178,26 @@
           <l n="d">śivācāryyeṇa dhīmatā<g type="ddandaHooked">.</g></l>
         </lg>
         <lg met="indravajrā" n="9">
+          <!-- sapi2argr Ici il n'y avait pas d'indication de mètre -->
           <l n="a">śrī-rudramaddhyeśvara Iddha-siddhiḥ</l>
           <l n="b">siddheśvaraś śrī-śi<lb break="no" n="B10"/>valiṅga-devaḥ</l>
           <l n="c">tābhyāṁ nr̥paś śrī-jayasiṅhavarmmā</l>
           <l n="d">prādāt sa muktiṁ kr̥payā samastām·<g type="ddandaHooked">.</g></l>
         </lg>
-        <p xml:lang="ocm-Latn">humā nvaus·
+        <p xml:lang="ocm-Latn">humā nvaus·<!-- sapi2argr sur la pierre, ça ressemble à cvaus·. -->
           <lb n="B11"/>timuḥ Ājñā yāṅ· pu pov· ku śrījayasiṅhavarmmadeva<g type="dotMid"/>ra vriy· vuḥ di yāṅ· pov· ku siniy· rumaṅ·
           <lb n="B12"/><seg type="desc">humā ṅauk· rayā taṁl· vavaḥ krauṅ· nayauna riy· vavaḥ krauṅ· taṁl· smrāṅ· dakṣina yāṅ·<g type="dotMid"/><g type="ddandaHooked">.</g></seg>
           <lb n="B13"/>niy· mūla humā<g type="dotMid">.</g> humā <unclear>rayā</unclear> 1<g type="danda">.</g> Amvil· 2<g type="danda">.</g> ratvauk· 6<g type="danda">.</g> dandau kumvuṅ·<g type="danda">.</g> humā kumvuṅ· 1<g type="danda">.</g> ṅauk· sāṅ· 1<g type="danda">.</g> humā mvaṅ· 2<g type="danda">.</g>
           <lb n="B14"/>ṅauk· sāṅ· yvan· 2<g type="danda">.</g> pitau cumlaṅ· 1<g type="danda">.</g> Ajauñ· 1<g type="danda">.</g> humā cvaḥ 5<g type="danda">.</g> laṅā 1<g type="danda">.</g> humā camvāṅ· 3<g type="danda">.</g> sagor· 1<g type="danda">.</g>
           <lb n="B15"/>vvac· 1<g type="danda">.</g> taliṅi 1<g type="danda">.</g> humā Ikū Asov· 1<g type="danda">.</g> humā proṅ· 1<g type="danda">.</g> ndoṅ· 1<g type="danda">.</g> knām· 2<g type="danda">.</g> kandep· 1<g type="danda">.</g> srumai 1<g type="danda">.</g>
-          <lb n="B16"/>pagārasramvat·<g type="danda">.</g> humā kahas· 1<g type="danda">.</g> humā mvaṅ· 5<g type="danda">.</g> nagaren· 9<g type="danda">.</g> humā ticain· 1<g type="danda">.</g> vvil· 1<g type="danda">.</g> ralāṅ· 3<g type="danda">.</g> laṅā 1<g type="danda">.</g>
+          <lb n="B16"/>pagārasramvat·<!-- sapi2argr On pourrait aussi lire sagārasramvat·. --><g type="danda">.</g> humā kahas· 1<g type="danda">.</g> humā mvaṅ· 5<g type="danda">.</g> nagaren· 9<g type="danda">.</g> humā ticain· 1<g type="danda">.</g> vvil· 1<g type="danda">.</g> ralāṅ· 3<g type="danda">.</g> laṅā 1<g type="danda">.</g>
           <lb n="B17"/>kara mās· 3<g type="danda">.</g> ṅauk· rayā 1<g type="danda">.</g>vo 2<g type="danda">.</g> humā tupen· 1<g type="danda">.</g>likūk· 1<g type="danda">.</g> humā En· 3<g type="danda">.</g>harā 1<g type="danda">.</g> kara kaṁp· 3<g type="danda">.</g>
           <lb n="B18"/>ratvauk· 3<g type="danda">.</g> Alauṅ· 1<g type="danda">.</g> ṅauk· sāṅ· 1<g type="danda">.</g> humā vvār· 1<g type="danda">.</g> humā Agrās· 1<g type="danda">.</g> humā dandrāḥ 1<g type="danda">.</g> yok· nan· 1<g type="danda">.</g>
           <milestone n="C" type="pagelike" unit="face"/><lb n="C1"/><g type="ddandaHooked">.</g><g type="ddandaHooked">.</g> Urāṅ· ya rakṣā puṇya niy· <unclear>yā</unclear> jeṅ·
           <lb n="C2"/>si vā Anāk· vinai marai dauk· Aṅguy·
           <lb n="C3"/>dravya yāṅ· niy·<g type="danda">.</g> vela Aṅgap· samū nan·
           <lb n="C4"/>lagaiḥ di sanupaḥ tra di panakai deḥ tra<g type="dotMid">.</g>
-          <lb n="C5"/>humā Arām· 1<g type="danda">.</g> sipāy· 1<g type="danda">.</g> cluṅ· 1<g type="danda">.</g>
+          <lb n="C5"/>humā Arām· 1<g type="danda">.</g> sipāy· 1<g type="danda">.</g> cluṅ·<!--sapi2argr Ici je n'ai pas compris la note du rtf sur le terme cluṅ·--> 1<g type="danda">.</g>
           <lb n="C6"/>ricaṁm· 1<g type="danda">.</g> humā vavaḥ krauṅ· 1<g type="danda">.</g> Avaṁk·
           <lb n="C7"/>5<g type="danda">.</g> vunuk· 2<g type="danda">.</g> vvil· 1<g type="danda">.</g> ñjuṅ· 1<g type="danda">.</g>
           <lb n="C8"/>vvaik· 2<g type="danda">.</g> klvā 3<g type="danda">.</g> cumlaṅ· 1<g type="danda">.</g> Alau<lb break="no" n="C9"/>ṅ· 3<g type="danda">.</g> kuñīk· 1<g type="danda">.</g> kalicya 1<g type="danda">.</g> sa<lb break="no" n="C10"/>vauṅ· 1<g type="danda">.</g> Alauk· 2<g type="danda">.</g> humā parā
@@ -336,9 +353,11 @@
           </bibl>). Work in progress...</p>
         <listBibl type="primary">
           <bibl n="siglum"/>
+          <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
+          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

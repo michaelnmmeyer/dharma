@@ -3,6 +3,7 @@
     <fileDesc>
       <titleStmt>
         <title>Koṟṟapaṟṟu grant of Vijayāditya II</title>
+        <!--ALT TITLE: British Museum plates of Vijayāditya II-->
         <respStmt>
           <resp>Encoding</resp>
           <persName ref="part:daba">
@@ -35,21 +36,32 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
+            <!--<altIdentifier type="PEM"><idno type="corpus">CalE30</idno></altIdentifier>-->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
               <p>Halantas. T in l49 vaseT; possibly M in l52 likhitaM (following Fleet; Hultzsch reads ṁ there). CHECK a facsimile for both when available. 
-                </p>
+                <!--Original punctuation.  --></p>
               <p>Other palaeographic observations. The position of anusvāra varies: it is normally at or slightly above headline height after the character to which belongs, e.g. l1 sagotrāṇāṁ, but sometimes it is above the character to which it belongs, e.g. l2 rājyānāṁ. This latter positioning may be an enforced choice, as in the case of rājyānāṁ the descender of stū in the previous line would have prevented putting the anusvāra inline. Pending the examination of photos of the original or a better facsimile than Sir Walter Elliot's Edinburgh rubbings, I accept Fleet's reading of A in many places where Ā would be expected. My impression is that many of these (e.g. l39 Apastamba) are in fact Ā, with a stroke at the top right distinguishing them from A even if that stroke does not bend noticeably downward. Some of those initial A-s are, however, definitely A, e.g. l49 Akṣeptā.
                 
-                </p>
+                <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+                <summary><p><p/></summary>
+                <handNote xml:id="Pallava00001_hand1"></handNote>
+                <handNote xml:id="Pallava00001_hand2"></handNote>
+              -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -77,6 +89,7 @@
       <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
       <change status="draft" when="2020-08-14" who="part:daba">Encoded hand description, bibliography and commentary from earlier comments</change>
       <change status="draft" when="2020-06-22" who="part:daba">Initial encoding of the file</change>
+      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -84,7 +97,7 @@
       <div rendition="class:83225 maturity:83213" type="edition" xml:lang="san-Latn">
         <div n="A" type="textpart">
           <head xml:lang="eng">Seal</head>
-          <ab><lb n="1"/>śri-tribhuvanāṁkuśa</ab>
+          <ab><lb n="1"/>śri<!--CHECK-->-tribhuvanāṁkuśa</ab>
         </div>
         <div n="B" type="textpart">
           <head xml:lang="eng">Plates</head>
@@ -691,14 +704,14 @@ l’excellent roi Nr̥pa Rudra est l’exécuteur de ce don.</p>
             <ptr target="bib:Hultzsch1890_01"/>
             <citedRange unit="page">31-36</citedRange>
             <citedRange unit="item">35</citedRange>
-          </bibl>), with a translation skipping some details and an estampage. Also edited from the original plates by J. F. Fleet (<bibl rend="omitname">
+          </bibl>), with a translation skipping some details and an estampage.<!--CHECK?--> Also edited from the original plates by J. F. Fleet (<bibl rend="omitname">
             <ptr target="bib:Fleet1891_04"/>
-          </bibl>), with an abstract of the contents and an estampage. Subsequently noticed in <bibl>
+          </bibl>), with an abstract of the contents and an estampage<!--CHECK?-->. Subsequently noticed in <bibl>
             <ptr target="bib:ARIE1962-1963"/>
             <citedRange unit="page">49</citedRange>
             <citedRange unit="appendix">A/1962-63</citedRange>
             <citedRange unit="item">18</citedRange>
-          </bibl>. The present edition by Dániel Balogh is based on a collation of the above editions with inked impressions made by Sir Walter Elliot.<note>There is no facsimile in any of my scans of SII1 or IA20, though PEM's metadata say a facsimile is present in both editions. This needs checking. The Edinburgh volume of Elliot's impressions includes these plates, but I have no photo of folio 71, which should have the impressions of 3r, 3v and 4r. These pages were collated with the rubbings in the Bibliothèque nationale de France.</note>
+          </bibl>. The present edition by Dániel Balogh is based on a collation of the above editions with inked impressions made by Sir Walter Elliot.<note>There is no facsimile in any of my scans of SII1 or IA20, though PEM's metadata say a facsimile is present in both editions. This needs checking. The Edinburgh volume of Elliot's impressions includes these plates, but I have no photo of folio 71, which should have the impressions of 3r, 3v and 4r. These pages were collated with the rubbings in the Bibliothèque nationale de France.<!--The original plates are in the BL, Ind Ch 23 - collate when images are available.--></note>
   </p>
         <listBibl type="primary">
           <bibl n="EH">
@@ -709,6 +722,7 @@ l’excellent roi Nr̥pa Rudra est l’exécuteur de ce don.</p>
           <bibl n="JFF">
             <ptr target="bib:Fleet1891_04"/>
           </bibl>
+          <!-- one <bibl/> per item of primary bibliography -->
         </listBibl>
         <listBibl type="secondary">
           <bibl>

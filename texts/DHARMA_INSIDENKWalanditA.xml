@@ -32,17 +32,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -91,12 +101,20 @@
 <lb break="no" n="1v1"/>n uvus <unclear>kavaca, kagugona</unclear> dene kaṁ voṁ valaṇḍit·, tithi, māsa, <abbr>ka</abbr>, <num value="5">5</num>, śiraḥ <num value="3">3</num>, //
 </p>
       </div>
-      <div type="translation"></div>
+      <!--<div type="apparatus">
+           <!-\-apparatus encoded as per EG §9.1, basic elements for apparatus below-\->
+           <!-\-See Pigeaud's suggestions for emendations in vol II JFC-\->
+               <listApp><!-\- one <app> for each apparatus entry -\->
+<app/>
+               </listApp>
+         </div>-->
+      <div type="translation"><!--translation encoded as per EG §9.2 --><!--It  shall  be  known  by  those  who  act  as  claimants  of  titileman  (dues  claimable  at  new moon) at Walandit, that Our command with respect to the districts of Walandit, Mamanggis, Lili, Jebing, Kacaba, inasmuch as they shall be exempt in respect to the 3.claimants  of  titileman,  because  of  that  district  of  Walandit  is  a  hila-hila (sacred) district, of Spirits’ servants, (worshipping) the honored holy 4.mountain  Brahma,  therefore  now  shall  have  an interdict all people living in the shade of the district of Walandit: 5.no <foreign>titileman</foreign> shall be requested from them.  Let  they  not  be  examined, because the district is hila-hila (sacred). This <supplied reason="subaudible">document bearing the</supplied> Royal seal <supplied reason="explanation"><foreign>rājamūdra</foreign></supplied>, once it has been read, is to be kept by those people of Walandit. Tithi, fifth month (Margashirsa, ~Nov/Dec), [year] unit 3. --></div>
       <div type="commentary">
         <p>This inscription is composed in a variety of Middle Javanese language attested in a small group of charters of the turn of the fifteenth century (Patapan, Sailamandi, Renek, Biluluk). In its phonology, the Old Javanese diphthongs <foreign>ya</foreign> and <foreign>wa</foreign> have systematically been collapsed to the Middle Javanese <foreign>e</foreign> and <foreign>o</foreign>.</p>
         <p>Gunung Brāhma is of course Mount Bromo in the Tengger Massif.</p>
       </div>
       <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
         <p>First edited by Brandes, then reedited by Boechari (<bibl rend="omitname">
             <ptr target="bib:Boechari1985-1986_01"/>
             <citedRange unit="page">112</citedRange>
@@ -113,4 +131,4 @@
       </div>
     </body>
   </text>
-</TEI>
+</TEI><!-- To be understtod in connection with Walandit B (E. 28), Patapan I (E. 57), Sailamandi, Renek, Biluluk, Tirah (E. 58) -->

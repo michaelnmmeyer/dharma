@@ -35,18 +35,28 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
               <p>The <foreign>akṣara</foreign>s are characteristic of the seventh century CE.
-                        </p>
+                        <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -164,6 +174,42 @@
             </seg>ha ca</l>
         </lg>
       </div>
+      <!-- <div type="apparatus">
+               <listApp>
+                  <app loc="3">
+                     <lem></lem>
+                     <note></note>
+                  </app>
+                  <app loc="8">
+                     <lem></lem>
+                     <note></note>
+                  </app>
+                  <app loc="10">
+                     <lem></lem>
+                     <note></note>
+                  </app>
+                  <app loc="14">
+                     <lem></lem>
+                     <note></note>
+                  </app>
+                  <app loc="19">
+                     <lem></lem>
+                     <note></note>
+                  </app>
+                  <app loc="19">
+                     <lem></lem>
+                     <note></note>
+                  </app>
+                  <app loc="20">
+                     <lem>Urusampatvalśāvāpti</lem>
+                     <note> </note>
+                  </app>
+                  <app loc="20">
+                     <lem></lem>
+                     <note></note>
+                  </app>
+               </listApp>         
+         </div> -->
       <div source="bib:Coedes1937-1966_01" type="translation" xml:lang="fra">
         <p n="1" rend="stanza">Les ayant consacrés à nouveau, le même érigea avec toute la richesse <supplied reason="explanation">requise</supplied>, deux liṅgas dans <supplied reason="explanation">le temple du</supplied> vénérable Āmrātakeśvara.</p>
         <p n="2" rend="stanza">Un <foreign>liṅga</foreign> à chignon de Somaśarman, Hari, ces <supplied reason="explanation">dieux</supplied> et <gap reason="lost"/>: celui qui voudrait ravir le bien des dieux donné par lui à ces <supplied reason="explanation">divinités</supplied>,</p>
@@ -188,9 +234,9 @@
             <citedRange unit="volume">3</citedRange>
             <citedRange unit="page">159-163</citedRange>
           </bibl>) numbers the stanzas from number V onward, considering this inscription to be the continuation of the inscription <ref target="DHARMA_INSCIK00054.xml">K. 54</ref>.</p>
-        <p n="3">Note that here Barth prints and interprets <foreign>somaśarmā jaṭā liṅgaṁ</foreign> as 3 words, while Cœdès prints and interprets <foreign>somaśarmmājaṭāliṅgaṁ</foreign> as a single compound. This seems less plausible, both grammatically and from the point of view of sense, than assuming <foreign>somaśarmmā</foreign> to be a regular nominative <supplied reason="explanation">and therefore parallel to <foreign>hariś</foreign></supplied>. Barth's and Cœdès' different interpretations and explanations are interesting, and Cœdès is doubtlessly right about the <foreign>jaṭāliṅga</foreign>; but it seems to me probable that Somaśarman referred to a <foreign>liṅga</foreign> or a statue of the Somaśarman form of Śiva ! Cf. <ref target="DHARMA_INSCIK00359.xml">K. 359</ref>, st. III <supplied reason="explanation">where Barth has mistakenly assumed Somaśarman to be the name of the donor</supplied>.</p>
-        <p n="8">Cœdès mistakenly prints <foreign>bhutvā</foreign>; but the estampage has <foreign>bhūtvā</foreign>.</p>
-        <p n="10">The second <foreign>pāda</foreign> is hypermetrical and we must therefore adopt Barthes proposal, followed by Cœdès, to understand <foreign>yad dalāgreṣv</foreign> <supplied reason="explanation">instead of <foreign>yattadalāgreṣv</foreign></supplied>. Barth and, following him, Cœdès understand 3 sentences here: 1. <foreign>raktatvaṁ</foreign> is destroyed <supplied reason="explanation">
+        <p n="3"><!-- kuch: dogo's remark. -->Note that here Barth prints and interprets <foreign>somaśarmā jaṭā liṅgaṁ</foreign> as 3 words, while Cœdès prints and interprets <foreign>somaśarmmājaṭāliṅgaṁ</foreign> as a single compound. This seems less plausible, both grammatically and from the point of view of sense, than assuming <foreign>somaśarmmā</foreign> to be a regular nominative <supplied reason="explanation">and therefore parallel to <foreign>hariś</foreign></supplied>. Barth's and Cœdès' different interpretations and explanations are interesting, and Cœdès is doubtlessly right about the <foreign>jaṭāliṅga</foreign>; but it seems to me probable that Somaśarman referred to a <foreign>liṅga</foreign> or a statue of the Somaśarman form of Śiva ! Cf. <ref target="DHARMA_INSCIK00359.xml">K. 359</ref>, st. III <supplied reason="explanation">where Barth has mistakenly assumed Somaśarman to be the name of the donor</supplied>.</p>
+        <p n="8"><!-- kuch: dogo's remark. -->Cœdès mistakenly prints <foreign>bhutvā</foreign>; but the estampage has <foreign>bhūtvā</foreign>.</p>
+        <p n="10"><!-- kuch: dogo's remark. -->The second <foreign>pāda</foreign> is hypermetrical and we must therefore adopt Barthes proposal, followed by Cœdès, to understand <foreign>yad dalāgreṣv</foreign> <supplied reason="explanation">instead of <foreign>yattadalāgreṣv</foreign></supplied>. Barth and, following him, Cœdès understand 3 sentences here: 1. <foreign>raktatvaṁ</foreign> is destroyed <supplied reason="explanation">
             <foreign>vinaṣṭaṁ</foreign>
           </supplied>; 2. it starts to come into being again <supplied reason="explanation">
             <foreign>bhavati punas</foreign>
@@ -214,10 +260,10 @@
             <foreign>atyantaśuklā</foreign>
           </supplied>." The idea that the lotusses of the tank, once red, have now, since the restoration of the tank, become white, could still be considered to be present in this verse <supplied reason="explanation">since Lakṣmī = lotusses</supplied>, just as it is in the next.</p>
         <p n="11">The spiral symbol is probaly used for aliging the right end of the <foreign>pāda</foreign>.</p>
-        <p n="19">Barth and Cœdès both print <foreign>tr̥tīyāhni</foreign> in <foreign>pāda</foreign> a, but the estampage clearly has <foreign>tr̥tīyehni</foreign>.</p>
-        <p n="19">The restitution in <foreign>pāda</foreign> d is that proposed by Barth.</p>
-        <p n="20">Barth and Cœdès print <foreign>pāda</foreign> c in this form and add a note: "Lire °sampadval°." They seem to take <foreign>valśa</foreign> <supplied reason="explanation">"twig, branch"</supplied> to mean effectively "moisson".</p>
-        <p n="20">One could consider restoring <foreign>pāda</foreign> d to read: °<foreign>nirāśas tatra ceha ca</foreign> "If one does not plant meritorious deeds as a seed in the field of merit that is Maheśvara, then there can be no hope of attaining an abundant crop in the next world <supplied reason="explanation">
+        <p n="19"><!-- kuch: dogo's remark. -->Barth and Cœdès both print <foreign>tr̥tīyāhni</foreign> in <foreign>pāda</foreign> a, but the estampage clearly has <foreign>tr̥tīyehni</foreign>.</p>
+        <p n="19"><!-- kuch: dogo's remark. -->The restitution in <foreign>pāda</foreign> d is that proposed by Barth.</p>
+        <p n="20"><!-- kuch: dogo's remark. -->Barth and Cœdès print <foreign>pāda</foreign> c in this form and add a note: "Lire °sampadval°." They seem to take <foreign>valśa</foreign> <supplied reason="explanation">"twig, branch"</supplied> to mean effectively "moisson".</p>
+        <p n="20"><!-- kuch: dogo's remark. -->One could consider restoring <foreign>pāda</foreign> d to read: °<foreign>nirāśas tatra ceha ca</foreign> "If one does not plant meritorious deeds as a seed in the field of merit that is Maheśvara, then there can be no hope of attaining an abundant crop in the next world <supplied reason="explanation">
             <foreign>tatra</foreign>
           </supplied> or in this one <supplied reason="explanation">
             <foreign>iha</foreign>

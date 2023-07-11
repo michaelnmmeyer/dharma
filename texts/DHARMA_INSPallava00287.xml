@@ -1,4 +1,6 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<!--<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>--><!--REMOVE comment when encoding a new inscriptions!!!--><TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -78,9 +80,9 @@
       <div type="edition" xml:lang="tam-Latn">
         <p>
 		<gap precision="low" quantity="4" reason="lost" unit="line"/>	
-		
+		<!-- Check! Encoding or display issue?? Passage à la ligne désiré après display "[ca. 4 lines lost]"-->
 		<lb n="5"/><gap precision="low" quantity="3" reason="undefined" unit="character"/> maru-mak
-		
+		<!-- Check! Line numbering from 1 or from 5?-->
 		<lb break="no" n="6"/><supplied reason="undefined">kaḷ poṉ</supplied>ṉarampaṉā
 		<lb break="no" n="7"/><supplied reason="undefined">ṉār vā</supplied>ṇa-kō-Araicaru
 		<lb n="8"/><supplied reason="undefined">maru-mak</supplied>kaḷ kantaviṇṇa
@@ -92,15 +94,19 @@
 		<lb break="no" n="14"/>mi kal
 	</p>
       </div>
-      <div type="apparatus"></div>
+      <div type="apparatus"><!--<listApp>
+         		<app loc="3">
+         			<lem></lem>         			
+         		</app>  	
+         	</listApp>--></div>
       <div resp="part:emfr" type="translation">
         <p n="1-14">
       			<gap precision="low" quantity="4" reason="lost" unit="line"/>
-      			
+      			<!--Display or encoding issue? Fusion of parentheses of perentheses undesirable here-->
       			<supplied reason="subaudible">This is</supplied> the stone <supplied reason="subaudible">of</supplied> Tāḷaccāmi, the son <supplied reason="subaudible">of</supplied> Vaḷiyappūṟār, the servant <supplied reason="subaudible">of</supplied> Poṉṉarampaṉār, <supplied reason="subaudible">he who fell</supplied> when Poṉṉarampaṉār, the nephew <supplied reason="undefined">of the royal Bāṇa king</supplied>, went <supplied reason="explanation">
             <foreign>ceṉṟu</foreign>
           </supplied> <gap reason="ellipsis"/> <supplied reason="explanation">
-            <foreign>*<unclear>ṟa</unclear>la-p-puñci</foreign>
+            <foreign>*<!--Check! <gap/> not allowed within <supplied/>--><unclear>ṟa</unclear>la-p-puñci</foreign>
             <note>This phrase designates either the place of the fight or a complement to the action expressed by <foreign>ceṉṟu</foreign> (<foreign>puñci</foreign>, "having gathered") or both.</note>
           </supplied> <seg cert="low">
             <supplied reason="subaudible">against</supplied>
@@ -110,7 +116,7 @@
       <div resp="part:emfr" type="translation" xml:lang="fra"></div>
       <div type="commentary">
         <p>
-         		Poṉṉarampaṉār and Kantaviṇṇaṉār are mentioned in several other inscriptions (IP 282, 283, 285), on the basis of which the present inscription is interpreted and its missing text supplied.
+         		Poṉṉarampaṉār and Kantaviṇṇaṉār are mentioned in several other inscriptions (IP 282, 283, 285<!--Update cross-ref-->), on the basis of which the present inscription is interpreted and its missing text supplied.
          	</p>
       </div>
       <div type="bibliography">
@@ -132,6 +138,17 @@
             <citedRange unit="item">287</citedRange>
           </bibl>
         </listBibl>
+        <!--<listBibl type="secondary">
+        		
+        		CHESK if mentioned in this publication.
+        		
+        		<bibl n="D"><!-\-Check Zotero encoding: IAR-\->
+        			<ptr target="bib:Deshpande1975_01"/>
+        			<citedRange unit="page">59</citedRange>
+        			<citedRange unit="item">40</citedRange>
+        		</bibl>
+        		        		        		
+        	</listBibl>-->
       </div>
     </body>
   </text>

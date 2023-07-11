@@ -24,8 +24,9 @@
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
-        <pubPlace></pubPlace>
+        <pubPlace><!-- Fill in here the place or places where the encoding has been done --></pubPlace>
         <idno type="filename">DHARMA_INSCIK01151</idno>
+        <!-- Replace by filename, e.g. Pallava00001 -->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
@@ -39,17 +40,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -60,6 +71,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -77,8 +89,8 @@
     <body>
       <div type="edition" xml:lang="okz-Latn">
         <p><milestone n="A" type="pagelike" unit="face"/>
-             <lb n="A1"/><g type="gomutraInitial"/><num value="864">864</num> śaka pi ket· jye<lb break="no" n="A2"/>ṣṭha candravāra nu mān· vraḥ śāsana dhūlī vraḥ pā<lb break="no" n="A3"/>da dhūlī jeṅ· vraḥ kamrateṅ· Añ· ta vraḥ kamra<lb break="no" n="A4"/>teṅ· Añ· śrīśānavarmma ta vraḥ kamrateṅ· Añ·
-             <lb n="A5"/>śrī jayendravarmma ta dhūlī jeṅ· kaṁsteṅ· Añ· śrī rā<lb break="no" n="A6"/>jendravarmma ta kaṁsteṅ· Añ· śrī rājapativarmma ta kaṁ<lb break="no" n="A7"/>steṅ· Añ· caturācāryya pre <unclear>cār· I</unclear>ss· caṁ<unclear>n</unclear>āṁ pra<lb break="no" n="A8"/><unclear>t</unclear>yaya mok· pandval· vraḥ śāsana ta <gap quantity="2" reason="lost" unit="character"/> Añ·
+             <lb n="A1"/><g type="gomutraInitial"/><num value="864">864</num><!--sapi2argr Ou alors 865?--> śaka pi ket· jye<lb break="no" n="A2"/>ṣṭha candravāra nu mān· vraḥ śāsana dhūlī vraḥ pā<lb break="no" n="A3"/>da dhūlī jeṅ· vraḥ kamrateṅ· Añ· ta vraḥ kamra<lb break="no" n="A4"/>teṅ· Añ· śrīśānavarmma ta vraḥ kamrateṅ· Añ·
+             <lb n="A5"/>śrī jayendravarmma ta dhūlī jeṅ· kaṁsteṅ· Añ· śrī rā<lb break="no" n="A6"/>jendravarmma ta kaṁsteṅ· Añ· śrī rājapativarmma ta kaṁ<lb break="no" n="A7"/>steṅ· Añ· caturācāryya pre <unclear>cār· I</unclear>ss· caṁ<unclear>n</unclear>āṁ<!--sapi2argr : caṁcāṁ ?--> pra<lb break="no" n="A8"/><unclear>t</unclear>yaya mok· pandval· vraḥ śāsana ta <gap quantity="2" reason="lost" unit="character"/> Añ·
              <lb n="A9"/>śrī narakesarī khloñ· mukha dalma<unclear>k·</unclear> <gap quantity="1" reason="lost" unit="character"/> khloñ
              <lb n="A10"/>Amr̥ta nu khloñ· lkhā vaśo <gap quantity="2" reason="lost" unit="character"/> sruk· sre
              <lb n="A11"/>bhūmyākara khñuṁ thmur· krapi tamrya dravya phoṅ· nai
@@ -111,7 +123,7 @@
              <lb n="Ba21"/>si pau <num value="2">II</num>
              <lb n="Ba22"/>si pau <num value="1">I</num>
              <milestone n="b" unit="column"/>
-             <lb n="Bb5"/>si ka<unclear>ṇ·</unclear>qĀ
+             <lb n="Bb5"/>si ka<unclear>ṇ·</unclear>qĀ<!--sapi2argr l'encoding guide semble dire que je devrais mettre Bb23 ou quelque chose dans le genre mais pour l'instant j'ai choisi ce format. Changer ?-->
              <lb n="Bb6"/>si kañ·cī
              <lb n="Bb7"/>si pau mvay ti
              <lb n="Bb8"/>tai pan·las·
@@ -317,7 +329,7 @@
         <p n="B1-B4">Qu'elle ne dépende point du responsable des éléphants, ni du responsable du district ; mais qu'elle dépende de K.A. le professeur Vraḥ Guru ; substitut de <gap quantity="10" reason="lost" unit="character"/> à Pūrva <gap quantity="8" reason="lost" unit="character"/></p>
         <p n="B4-B22">Ecoutant ces rapports:</p>
       </div>
-      <div type="commentary"></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
         <p>First edited in French by Saveros Pou (<bibl rend="omitname">
             <ptr target="bib:Pou2001_01"/>
@@ -331,6 +343,7 @@
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
+          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

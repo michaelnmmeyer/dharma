@@ -39,13 +39,18 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
@@ -61,6 +66,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -78,8 +84,8 @@
     <body>
       <div type="edition" xml:lang="okz-Latn">
         <p>
-             <lb n="1"/><g type="gomutraInitial"/>ta rāja vraḥ pāda kamrateṅ· Añ·
-             <lb n="2"/>rudraloka <g type="dashTriple">.</g><num value="821">821</num> śaka vraḥ kamra<lb break="no" n="3"/>teṅ<choice>
+             <lb n="1"/><g type="gomutraInitial"/><!--sapi2argr En réalité, je n'ai aucune idée de ce que symbole peut bien être.-->ta rāja vraḥ pāda kamrateṅ· Añ·
+             <lb n="2"/>rudraloka <g type="dashTriple">.</g><!--sapi2argr Invention de ma part d'un nouveau terme pour décrire les symboles.--><num value="821">821</num> śaka vraḥ kamra<lb break="no" n="3"/>teṅ<choice>
             <orig>a</orig>
             <reg>·</reg>
           </choice> Añ<choice>
@@ -143,7 +149,7 @@
             </choice><placeName key="Aṁvil" subtype="tank" type="hydrographic">Aṁvil<choice>
                 <orig>a</orig>
                 <reg>·</reg>
-              </choice></placeName><g type="dashDoubledot">.</g></seg>pāpāṇya
+              </choice></placeName><g type="dashDoubledot">.</g></seg><!--sapi2argr Encore moins sûre qu'à la ligne 2.-->pāpāṇya
              <lb n="13"/>guru droḥha rājya droha śiva droha vraṁ<lb break="no" n="14"/>hmātyā mān ta Anak ta paṁpāt<choice>
             <orig>a</orig>
             <reg>·</reg>
@@ -186,12 +192,12 @@
         <p n="7-12">Pour le culte divin : 2 paniers de riz. <supplied reason="subaudible">Gens qui sont chargés du service</supplied> : Vāp Vrahma, Teṅ Candrāṇī et treize de leurs parents, durant la quinzaine obscure ; Vāp So, Teṅ Subhadrā et treize de leurs parents <supplied reason="subaudible">durant la quinzaine</supplied> claire. <supplied reason="subaudible">Limites</supplied> des terres : à l'est, étang de Vadrāva ; au sud, village de Craluḥ ; à l'ouest, Ch------ ; au nord, étang des Tamariniers ; au nord-est, ---.</p>
         <p n="13-14">Les gens qui détruiront cette œuvre, qu'ils reçoivent <supplied reason="subaudible">les châtiments réservés à ceux</supplied> qui molestent leurs guru, leur souverain et Śiva, et qui tuent les brāhmanes.</p>
       </div>
-      <div type="commentary"></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
         <p>First edited in French by Saveros Pou (<bibl rend="omitname">
             <ptr target="bib:Pou2001_01"/>
             <citedRange unit="page">91-92</citedRange>
-          </bibl>). Re-edited here by Salomé Pichon based on EFEO estampage n. 1396.</p>
+          </bibl>).<!--sapi2argr Apparemment il y a une autre ref de Saveros Pou mais je ne trouve pas le tome 2 des NIC seul ni sur la Bulac, ni ailleurs sur Internet.--> Re-edited here by Salomé Pichon based on EFEO estampage n. 1396.</p>
         <listBibl type="primary">
           <bibl n="P">
             <ptr target="bib:Pou2001_01"/>
@@ -200,6 +206,7 @@
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
+          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

@@ -39,18 +39,28 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
               <p>The <foreign>akṣara</foreign>s are characteristic of the ninth century.
-                        </p>
+                        <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -75,6 +85,7 @@
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
+      <change status="draft" when="2023-07-10" who="part:kuch">Adding modification to apparatus and commentary</change>
       <change status="draft" when="2023-03-20" who="part:kuch">Further modifications to edition</change>
       <change status="draft" when="2023-03-14" who="part:kuch">Modifications to edition</change>
       <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
@@ -192,14 +203,6 @@
       </div>
       <div type="apparatus">
         <listApp>
-          <app loc="9">
-            <lem>sphuratphaladhanas</lem>
-            <note>Dominic Goodall : In pāda b, Barth adds a note that records that the estampage clearly reads <foreign>°phalaphaṇas</foreign> <supplied reason="explanation">in place of <foreign>°phaladhanas</foreign></supplied>. The stanza should therefore read: <foreign>mādyaddviṣaddviradakumbhavilapraveśaraktas sphuratphalaphaṇas sphuṭamauktikaughaiḥ dhārāpracaṇḍadaśano yudhi yasya caṇḍo dorddaṇḍacandanalatāsilatoragendraḥ </foreign>.</note>
-          </app>
-          <app loc="12">
-            <lem><unclear>ma</unclear>nuvat sunayān ayajñaḥ</lem>
-            <note>Dominic Goodall : Difficult to know what to transcribe for this last <foreign>pāda</foreign>, for there seems to be some <foreign>sa-bhaṅgaśleṣa</foreign>. Bergaigne prints <foreign>yo gān jugopa</foreign>, but Barth's note points out that we require the sense of <foreign>yo gāñ jugopa</foreign> <supplied reason="explanation">"who protected the earth"</supplied> for one reading, but the sense of <foreign>yo agān jugopa</foreign> <supplied reason="explanation">"who protected the mountains"</supplied> for the other. According to Barth, however, the estampage actually reads: <foreign>yo gāñ jugopa</foreign> ! There are, according to him, traces in the estampage of the <foreign>ma</foreign> <supplied reason="explanation">of <foreign>manuvat</foreign></supplied> that Bergaigne must not have seen, so we should perhaps transcribe: <unclear>ma</unclear>nuvat <supplied reason="explanation">rather than <supplied reason="lost">ma</supplied>nuvat</supplied> ! As for <foreign>sunayān ayajñaḥ</foreign>, this split fits one sense, but the other sense requires : <foreign>sunayānayajñaḥ</foreign> !</note>
-          </app>
           <app loc="12">
             <lem>yasyātivistīrṇ<choice>
                 <orig>n</orig>
@@ -207,16 +210,10 @@
               </choice>a</lem>
             <rdg source="bib:Bergaigne1893_01">yasyātivistīrṇṇa</rdg>
           </app>
-          <app loc="13">
-            <lem>
-              <supplied reason="lost">nūnaṁ</supplied>
-            </lem>
-            <note>Dominic Goodall : Barth, in his note to Bergaigne's edition, proposed restoring the damaged syllables to : <foreign>tat kiṁ</foreign>, but the restitution I have inserted <supplied reason="explanation">of <supplied reason="lost">nūnaṁ</supplied></supplied> is based on the occurrence of exactly this verse in K. 713 <supplied reason="explanation">stanza X</supplied> and in K. 826 <supplied reason="explanation">stanza XII</supplied> !</note>
-          </app>
-          <app loc="17">
-            <lem>vyadiśad</lem>
-            <note>Probablement, à cause du mètre, pour le seul usité <foreign>vyādiśad</foreign>.</note>
-          </app>
+          <!-- <app loc="17">
+                     <lem>vyadiśad</lem>
+                      <note>Probablement, à cause du mètre, pour le seul usité <foreign>vyādiśad</foreign>.</note>
+                  </app> -->
         </listApp>
       </div>
       <div source="bib:Bergaigne1893_01" type="translation" xml:lang="fra">
@@ -239,6 +236,14 @@
       <div type="commentary">
         <p>The space which separates the <foreign>pāda</foreign>s b and c of the first five lines is bigger than those between the <foreign>pāda</foreign>s a and b, as well as c and d. From the sixth line onward, the scribe apperently failed to arrange the stanzas in columns.</p>
         <p>The text is relatively well aligned on the left, but not on the right.</p>
+        <p n="9">In pāda b, Barth adds a note that the estampage clearly reads <foreign>°phalaphaṇas</foreign> <supplied reason="explanation">in place of <foreign>°phaladhanas</foreign></supplied>.</p>
+        <!-- DG's comment. -->
+        <p n="12">Regarding the expression <foreign><unclear>ma</unclear>nuvat sunayān ayajñaḥ</foreign>, it is difficult to know what to transcribe for this last <foreign>pāda</foreign>, for there seems to be some <foreign>sa-bhaṅgaśleṣa</foreign>. Bergaigne prints <foreign>yo gān jugopa</foreign>, but Barth's note points out that we require the sense of <foreign>yo gāñ jugopa</foreign> <supplied reason="explanation">"who protected the earth"</supplied> for one reading, but the sense of <foreign>yo agān jugopa</foreign> <supplied reason="explanation">"who protected the mountains"</supplied> for the other. According to Barth, however, the estampage actually reads: <foreign>yo gāñ jugopa</foreign> ! There are, according to him, traces in the estampage of the <foreign>ma</foreign> <supplied reason="explanation">of <foreign>manuvat</foreign></supplied> that Bergaigne must not have seen, so we should perhaps transcribe: <unclear>ma</unclear>nuvat <supplied reason="explanation">rather than <supplied reason="lost">ma</supplied>nuvat</supplied> ! As for <foreign>sunayān ayajñaḥ</foreign>, this split fits one sense, but the other sense requires : <foreign>sunayānayajñaḥ</foreign>!</p>
+        <!-- DG's comment -->
+        <p n="13">Regarding the expression <foreign>
+            <supplied reason="lost">nūnaṁ</supplied>
+          </foreign>, Barth, in his note to Bergaigne's edition, proposed restoring the damaged syllables to : <foreign>tat kiṁ</foreign>, but the restitution I have inserted <supplied reason="explanation">of <supplied reason="lost">nūnaṁ</supplied></supplied> is based on the occurrence of exactly this verse in <ref target="DHARMA_INSCIK00209.xml">K. 713</ref> <supplied reason="explanation">stanza X</supplied> and in <ref target="DHARMA_INSCIK00209.xml">K. 826</ref> <supplied reason="explanation">stanza XII</supplied> !</p>
+        <!-- DG's comment -->
       </div>
       <div type="bibliography">
         <p>First edited by Abel Bergaigne (<bibl rend="omitname">

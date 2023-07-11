@@ -31,17 +31,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -151,15 +161,17 @@
           <app loc="10">
             <lem>vaṅ·</lem>
             <rdg source="bib:Coedes1937-1966_01">veṅ·</rdg>
+            <!--   <note>The toponym can be translated as "</note>-->
           </app>
           <app loc="12">
             <lem>prasāna</lem>
             <rdg source="bib:Coedes1937-1966_01">prasāda</rdg>
+            <!-- <note></note>-->
           </app>
         </listApp>
       </div>
       <div resp="part:chch" type="translation" xml:lang="fra">
-        <p n="1" rend="stanza">Dans <supplied reason="subaudible">l’année</supplied> <foreign>śaka</foreign> <supplied reason="subaudible">marquée par</supplied> les <supplied reason="explanation">9</supplied> ouvertures, la lune <supplied reason="explanation">1</supplied> et les <supplied reason="explanation">6</supplied> ennemis, ce Soma, qui portait son propre pot à eau dans sa main-lotus  a donné par dévotion ce <foreign>tapovana</foreign> pourvu de terres nombreuses dans le pays de Gaṁryāṅ au porteur de crâne qui est une voie directe au <foreign>dharma</foreign> <supplied reason="explanation">Śiva</supplied>.</p>
+        <p n="1" rend="stanza">Dans <supplied reason="subaudible">l’année</supplied> <foreign>śaka</foreign> <supplied reason="subaudible">marquée par</supplied> les <supplied reason="explanation">9</supplied> ouvertures, la lune <supplied reason="explanation">1</supplied> et les <supplied reason="explanation">6</supplied> ennemis, ce Soma, qui portait son propre pot à eau dans sa main-lotus <!--(ou avec kapalini?) - chercher les cas de pradat dans les inscriptions du Cambodge, voir si ailleurs identifié comme les mains bénéficiaire -\--> a donné par dévotion ce <foreign>tapovana</foreign> pourvu de terres nombreuses dans le pays de Gaṁryāṅ au porteur de crâne qui est une voie directe au <foreign>dharma</foreign> <supplied reason="explanation">Śiva</supplied>.</p>
         <p n="3-6">Les limites de la rizière de Gaṁryāṅ sont : la borne du sud-ouest est celle au milieu de la rive du bassin ; la borne du sud-est jouxte la rizière <supplied reason="subaudible">qui est</supplied> un bien foncier <supplied reason="explanation">
             <foreign>caṁnāṁ</foreign>
           </supplied> <supplied reason="subaudible">du Buddha de</supplied> Chpār Ransi ; <supplied reason="subaudible">la rizière de Gaṁryāṅ</supplied> s’étend le long de la grande chaussée à l’ouest du village de Jrai Vān et va jusqu’à la borne du nord-est qui touche la rizière de Dalmāk Rpes ; à partir de cette dernière <supplied reason="subaudible">borne</supplied>, elle va jusqu’à la borne en pierre du nord-ouest, suivant au nord, d’un bout à l'autre, l’établissement de Vicakṣa.</p>
@@ -181,7 +193,7 @@
         <p n="13-15"> Le règlement concernant ces terres les remet à l'autorité de Tai <gap reason="lost"/>, Tai Kaṁpan, Tai Kaṁvrau, Tai Kaṁpit, Tai <gap reason="lost"/> et des serviteurs du dieu ; qu'on n'exige d'eux ni service royal, ni prestations de ricin ; qu'ils ne soient en aucune façon au service des religieux résidant <supplied reason="subaudible">dans l'ermitage</supplied> ni du chef des serviteurs du dieu :</p>
         <p n="16"> Telle est la fondation du donateur qui a ces terres et ces gens.</p>
       </div>
-      <div type="commentary"></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
         <p>First edited by George Cœdès (<bibl rend="omitname">
             <ptr target="bib:Coedes1937-1966_01"/>

@@ -35,17 +35,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -56,6 +66,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -105,16 +116,17 @@
           <l n="ab">caraṇāmvuja-surabhirajasi<g type="circleSmall">.</g> pavitritāśeṣa-loka Iha ya <seg met="-+">
               <gap precision="low" quantity="2" reason="lost" unit="character"/>
             </seg></l>
+          <!-- rtf : ya (1/2}: ya ~ - or ya -, if ya is guru.-->
           <l n="cd"><lb n="A5"/><seg met="--">
               <gap precision="low" quantity="2" reason="lost" unit="character"/>
-            </seg> te natir aśuciharā<g type="dotMid">.</g> rajanikarakaleva sā sudhiyā <g type="dashLong">.</g></l>
+            </seg><!-- rtf : {1/2}: ~ ~ or, less likely, just one syllable -.--><!--sapi2argrOn the stone, you can see a part of aksara that could be a 'sa' or 'la'?--> te natir aśuciharā<g type="dotMid">.</g> rajanikarakaleva sā sudhiyā <g type="dashLong">.</g><!--rtf : —: the unusual punctuation sign has the shape of an em-dash.--></l>
         </lg>
         <lg met="rucirā" n="3">
           <l n="a"><seg met="-">
               <gap quantity="1" reason="lost" unit="character"/>
             </seg><lb n="A6"/><seg met="+">
               <gap quantity="1" reason="lost" unit="character"/>
-            </seg><supplied reason="lost">ṅ</supplied>garāga-sura-bhimalīmasam̃ rates</l>
+            </seg><supplied reason="lost">ṅ</supplied>garāga-sura-bhimalīmasam̃<!--changer pour un anuvasra candra-bindu --> rates</l>
           <l n="b">smarasya vakṣa Iva muni-prapūjitam·<g type="dotMid">.</g></l>
           <l n="c">prayāga <seg met="+-">
               <gap quantity="2" reason="lost" unit="character"/>
@@ -122,6 +134,7 @@
               <gap quantity="1" reason="lost" unit="character"/>
             </seg>m iva satkriyādibhir</l>
           <l n="d">vvirājate bhuvanaguroḥ padadvayam·<g type="ddandaPlain">.</g></l>
+          <!-- rtf: 	a. This pāda is unmetrical, for it shows a sequence of five short syllables (gasurabhima) for the required four. -->
         </lg>
         <lg met="āryā" n="4">
           <l n="ab">mādhavikam iva cara<unclear>ṇa</unclear><seg met="-">
@@ -137,6 +150,7 @@
             </seg><lb break="no" n="A9"/><supplied reason="lost">m a</supplied>r<unclear>p</unclear>payatu mudam̐ mudarthibhyaḥ<g type="ddandaPlain">.</g></l>
         </lg>
         <lg met="gaṇacchandas" n="5">
+          <!--rtf: N.N. The meter of this stanza is a gaṇacchandas and its structure is: 3 gaṇas, 6 gaṇas | 3 gaṇas, 6 gaṇas ||. If the second half of each half has 5 gaṇas instead of 6 gaṇas, it is called Āryāgīti and known in the Indian Sanskrit literature. We see here a sort of extended form of Āryāgīti, which seems to be very uncommon.-->
           <l n="ab">gaja-vāji-puruṣa-kalaśa<g type="dotMid">.</g>vyajana-ghaṭac-chatra <seg met="+-">
               <gap quantity="2" reason="lost" unit="character"/>
             </seg><lb n="A10"/><seg met="+">
@@ -149,8 +163,8 @@
             </seg> nr̥ṇām̃ śriyam avatāt·<g type="ddandaPlain">.</g></l>
         </lg>
         <lg met="vasantatilaka" n="6">
-          <l enjamb="yes" n="a">rudrasya sam̐stutir iyam̐ <unclear>ph</unclear>ala<unclear>kā</unclear>maṇavā<g type="floretQuatrefoil">.</g></l>
-          <l n="b"><lb n="A12"/><unclear>thā</unclear> rāja-paṇḍita-<unclear>bh</unclear>r̥tavasum iva <unclear>da</unclear> pravaktum·<g type="dotMid">.</g></l>
+          <l enjamb="yes" n="a">rudrasya sam̐stutir iyam̐ <unclear>ph</unclear>ala<unclear>kā</unclear><!-- sapi2argr. Sur ce (ph)ala(kā): L'on pourrait aussi lire malatā, dhalatā. De plus, il semblerait qu'un marqueur de voyelle -ai ait été gravé au dessus du kā/tā mais de manière très légère.-->maṇavā<g type="floretQuatrefoil">.</g></l>
+          <l n="b"><lb n="A12"/><unclear>thā</unclear><!-- sapi2argr à la place de thā on pourrait lire deux aksara. OU entre thā et rā, il semblerait y avoir un autre aksara. --> rāja-paṇḍita-<unclear>bh</unclear>r̥tavasum<!--sapi2argr ou kr̥tavasum? --> iva <unclear>da</unclear> pravaktum·<g type="dotMid">.</g></l>
           <l n="c"><unclear>kṣ</unclear>īreṇa miśritapa<unclear>ya</unclear>ḥ <lb n="A13"/> <seg type="aksara"><seg subtype="body" type="component">
                 <gap quantity="1" reason="illegible" unit="component"/>
               </seg>i</seg> <seg met="-+-++">
@@ -158,8 +172,9 @@
             </seg><g type="dotMid">.</g></l>
           <l n="d">na <seg met="+-+---+--+-+">
               <gap quantity="12" reason="lost" unit="character"/>
-            </seg> jāt·<g type="floretQuatrefoil">.</g></l>
+            </seg> jāt·<g type="floretQuatrefoil">.</g><!-- sapi2argr n(ām)am̃(candra bindu) CiCe CCuCi {6} (vā)jāt· --></l>
         </lg>
+        <!-- numérotation des lignes B1-B3? Il y a-t-il vraiment une ligne B1 aussi de B2? -->
         <ab>
           <milestone n="B" type="pagelike" unit="face"/>
           <lb n="B1"/>
@@ -168,6 +183,7 @@
         <lg met="indravajrā" n="7">
           <l n="a">
             <lb n="B2"/>
+            <!-- sapi2argr à propos de B2: {11} CnV v(a)[r]ṇn(a) {7} CpV {11}? -->
             <seg met="++-++--+-++">
               <gap quantity="11" reason="lost" unit="character"/>
             </seg>
@@ -204,7 +220,7 @@
           <l n="a">kīrttiṁ sthitām api mahāmvunidheś ca pāre</l>
           <l n="b">puṇyodayam̐ kr̥tavato bhuvi rājamā<unclear>
               <g type="floretQuatrefoil">.</g>
-            </unclear><lb n="B6"/>rggam·</l>
+            </unclear><!-- sapi2argr Sur cette face, il semble y avoir plusieurs floret à la droite des lignes. J'en ai ajouté un pour l'exemple mais dois-je le supprimer ou à l'inverse, inscrire les autres?. --><lb n="B6"/>rggam·</l>
           <l n="c">manye guṇā dinakarāṅśusamās tamondhe</l>
           <l n="d">yānty asya kim̐ punar ime svapure prakīrṇṇāḥ<g type="ddandaPlain">.</g></l>
         </lg>
@@ -231,7 +247,7 @@
         <lg met="sragdharā" n="14">
           <l n="a">yatra śrīśākarāje mvarakucatanubhiḥ prāptakā<lb n="B14"/>le vr̥ṣasthe</l>
           <l n="b">candrā<unclear>tharvārkka</unclear>candrau pra<unclear>tha</unclear>mabhavagate ketuke mīnaśukre</l>
-          <l n="c">cāpārkkau taula<lb n="B15"/>rāhau mr̥ga<unclear>pat</unclear>i<unclear>sam</unclear>i<unclear>t</unclear>e <unclear>gīrath</unclear>e maithunaire</l>
+          <l n="c">cāpārkkau taula<lb n="B15"/>rāhau mr̥ga<unclear>pat</unclear>i<unclear>sam</unclear>i<unclear>t</unclear>e <unclear>gīrath</unclear>e<!-- sapi2argr sur la pierre, le gīrathe est illisible--> maithunaire</l>
           <l n="d"><unclear>ś</unclear>raddhāḍhyai sthāpito yais svapitr̥vinataye <lb n="B16"/>śrī mahārudradevaḥ<unclear>
               <g type="ddandaPlain">.</g>
             </unclear></l>
@@ -239,8 +255,8 @@
         <p>śrī<unclear>mahā</unclear>rudradevo py <gap quantity="8" reason="illegible" unit="character"/> ścasmadbhaktyā tiṣṭhaty asam̐ <milestone n="C" type="pagelike" unit="face"/>
            <lb n="C1"/><gap precision="low" quantity="17" reason="lost" unit="character"/>
            <lb n="C2"/><gap precision="low" quantity="17" reason="lost" unit="character"/>
-           <lb n="C3"/><gap quantity="3" reason="illegible" unit="character"/> v<unclear>o</unclear> yama mukt<supplied reason="lost">i</supplied><unclear>s</unclear> sakalā su<unclear>ta</unclear> <gap quantity="3" reason="illegible" unit="character"/>
-           <lb n="C4"/>dāttā<unclear>ṁ</unclear> śrīmahārudre<g type="ddandaPlain">.</g>
+           <lb n="C3"/><gap quantity="3" reason="illegible" unit="character"/> v<unclear>o</unclear><!-- sapi2argr À la place de (vā) --> yama mukt<supplied reason="lost">i</supplied><unclear>s</unclear> sakalā su<unclear>ta</unclear><!-- sapi2argr à la place de su(s) --> <gap quantity="3" reason="illegible" unit="character"/>
+           <lb n="C4"/>dāttā<unclear>ṁ</unclear><!-- sapi2argr sur la pierre je ne vois pas l'anusvara, mais cela pourrait être cause de l'entaille profonde située au dessus du caractère. --> śrīmahārudre<g type="ddandaPlain">.</g>
             </p>
         <p xml:lang="ocm-Latn">
             niy· dom̐ hum<supplied reason="lost">ā yāṅ·</supplied>
@@ -251,24 +267,24 @@
             </seg>au</seg> <gap quantity="4" reason="illegible" unit="character"/>n<unclear>d</unclear>r <gap quantity="2" reason="illegible" unit="character"/> vyā <gap precision="low" quantity="6" reason="lost" unit="character"/>
           </p>
         <p>
-            <lb n="C8"/><supplied reason="lost">sa</supplied><unclear>t</unclear>yadharmmavivr̥ddhyai śrī<g type="dotMid">.</g>mahārudre p<supplied reason="lost">r</supplied>a<unclear>d</unclear>attavān·<g type="ddandaPlain">.</g>
+            <lb n="C8"/><supplied reason="lost">sa</supplied><unclear>t</unclear>yadharmmavivr̥ddhyai śrī<g type="dotMid">.</g>mahārudre p<supplied reason="lost">r</supplied>a<unclear>d</unclear>attavān·<!-- sapi2argr Je lis plutôt sadattavān·--><g type="ddandaPlain">.</g>
             </p>
         <p xml:lang="ocm-Latn"><gap precision="low" quantity="5" reason="lost" unit="character"/>
-            <lb n="C9"/><gap quantity="1" reason="lost" unit="character"/>k· <gap quantity="2" reason="illegible" unit="character"/>r· pvak· <unclear>taṁl· ja</unclear>k· <gap quantity="2" reason="illegible" unit="character"/> <unclear>taṁl·</unclear> <gap quantity="1" reason="lost" unit="character"/><unclear>da taṁ</unclear>l· ha<unclear>jai</unclear> <gap precision="low" quantity="5" reason="lost" unit="character"/>
-            <lb n="C10"/>na<unclear>ḥ</unclear> <gap quantity="7" reason="illegible" unit="character"/> kāla vanuḥ yām̃ pu pov· ku śrī ja<supplied reason="lost">yasiṅhavarmmadeva</supplied>
+            <lb n="C9"/><gap quantity="1" reason="lost" unit="character"/>k· <gap quantity="2" reason="illegible" unit="character"/>r· pvak·<!-- sapi2argr sur la pierre, je lis svak· --> <unclear>taṁl· ja</unclear>k· <gap quantity="2" reason="illegible" unit="character"/> <unclear>taṁl·</unclear> <gap quantity="1" reason="lost" unit="character"/><unclear>da taṁ</unclear>l· ha<unclear>jai</unclear> <gap precision="low" quantity="5" reason="lost" unit="character"/><!-- sapi2argr à la place de:  pvak· {2 akṣ.}k· {5 akṣ.}l· ha(jai) {4/5 akṣ.} -->
+            <lb n="C10"/>na<unclear>ḥ</unclear><!-- sapi2argra: ajout --> <gap quantity="7" reason="illegible" unit="character"/> kāla vanuḥ yām̃ pu pov· ku śrī ja<supplied reason="lost">yasiṅhavarmmadeva</supplied>
             <lb n="C11"/><supplied reason="lost">Avi</supplied><unclear>sta ra</unclear> pin nan· kā vuḥ di yāṅ pov ku śrī mahārudrā<gap precision="low" quantity="5" reason="lost" unit="character"/>
-            <lb n="C12"/><unclear>katutau</unclear>l· Ajauñ· Andāt· <unclear>n</unclear>iy<unclear>·</unclear> <gap quantity="9" reason="illegible" unit="character"/><milestone n="D" type="pagelike" unit="face"/>
+            <lb n="C12"/><unclear>katutau</unclear>l· Ajauñ·<!-- sapi2argr à la place de Ajauk --> Andāt·<!--sapi2argr je ne crois pas trop à cette lecture, sans pouvoir en proposer une autre. sdāt? Adāt? --> <unclear>n</unclear>iy<unclear>·</unclear> <gap quantity="9" reason="illegible" unit="character"/><milestone n="D" type="pagelike" unit="face"/>
             <lb n="D1"/><gap precision="low" quantity="25" reason="lost" unit="character"/>
             <lb n="D2"/><gap precision="low" quantity="25" reason="lost" unit="character"/>
             <lb n="D3"/><gap precision="low" quantity="25" reason="lost" unit="character"/>
-            <lb n="D4"/><supplied reason="lost">urāṅ· ta</supplied>paḥ viśeṣa nan· trā vela k<unclear>āṁm</unclear>it· yajamāna <unclear>ha</unclear><gap quantity="2" reason="lost" unit="character"/>
+            <lb n="D4"/><supplied reason="lost">urāṅ· ta</supplied>paḥ viśeṣa nan· trā vela k<unclear>āṁm</unclear>it·<!-- sapi2argr doute sur cette lecture. ka..cit·? --> yajamāna <unclear>ha</unclear><gap quantity="2" reason="lost" unit="character"/>
             <lb n="D5"/><gap quantity="3" reason="lost" unit="character"/> <unclear>vā</unclear> hulun· yām̃ nau pamauṅ· Anavasta si Urāṅ· kā Aṅgap· di hu<lb break="no" n="D6"/><supplied reason="lost">mā yām̃</supplied> pov· ku sinim̃ knā si Urāṅ· tapaḥ viśeṣa nan· suvāk· di pu pom̃ ta<lb break="no" n="D7"/><supplied reason="lost">na rayā</supplied> sakalarājādhirāja sim̃ ra thuv· si tatap· tuy· matandāḥ si <unclear>U</unclear><lb break="no" n="D8"/><supplied reason="lost">rāṅ·</supplied> <gap quantity="2" reason="lost" unit="character"/> <unclear>na</unclear> yām̃ pom̃ ku sinim̃ tuy yathākrama Anatat· Oḥ jem̃ si paka
             <lb n="D9"/><gap quantity="3" reason="lost" unit="character"/> Artha sidaḥ yajamāna yām̃ pu yajo<unclear>gg</unclear>ā nan· pūtra<g type="dotMid">.</g> ya <gap precision="low" quantity="2" reason="lost" unit="character"/>
-            <lb n="D10"/><gap quantity="3" reason="lost" unit="character"/> yā dhātu<g type="dotMid">.</g> Urām̃ nan· pūjā yām̃ nan· Urām̃ nan· sidaḥ yajamā<lb break="no" n="D11"/><supplied reason="lost">na</supplied> <gap quantity="2" reason="lost" unit="character"/> pi ca<g type="dotMid">.</g> so mr̥dūni kulāni so gap· dharmma sā drim̃ dvā drim̃ vañā<lb break="no" n="D12"/><supplied reason="lost">k·</supplied> <gap quantity="3" reason="lost" unit="character"/> <unclear>mira</unclear> yuṣmābhiḥ <unclear>knā</unclear> rupo Imaiṅ  svabhāva ta cim̃ <unclear>la</unclear><gap quantity="2" reason="lost" unit="character"/>
-            <lb n="D13"/><gap quantity="11" reason="lost" unit="character"/><g type="dandaPlain">.</g> <unclear>satā</unclear>ṅ· ka cim̃ kā vuḥ yām̃ <unclear>pu</unclear>
-            <lb n="D14"/><gap quantity="9" reason="lost" unit="character"/>ṅ· <unclear>p</unclear>una nim̃ <gap quantity="2" reason="illegible" unit="character"/> <unclear>n</unclear>iy· loka nim̃<g type="dotMid">.</g>
-            <lb n="D15"/><gap quantity="7" reason="lost" unit="character"/><unclear>ka</unclear> <gap quantity="1" reason="illegible" unit="character"/>ci<unclear>t</unclear>· <gap quantity="2" reason="illegible" unit="character"/> kā<unclear>rā</unclear>na tuy· <unclear>su</unclear>bhāva <unclear>ka</unclear>
-            <lb n="D16"/><gap quantity="4" reason="lost" unit="character"/> nan· <gap quantity="3" reason="illegible" unit="character"/> <unclear>jem̃</unclear> <gap quantity="1" reason="illegible" unit="character"/> <unclear>jā</unclear>m̃ rac· dharma<unclear>lagapi go</unclear>
+            <lb n="D10"/><gap quantity="3" reason="lost" unit="character"/> yā dhātu<g type="dotMid">.</g> Urām̃ nan· pūjā yām̃ nan· Urām̃ nan· sidaḥ yajamā<lb break="no" n="D11"/><supplied reason="lost">na</supplied> <gap quantity="2" reason="lost" unit="character"/> pi ca<g type="dotMid">.</g> so mr̥dūni kulāni so gap· dharmma sā drim̃ dvā drim̃ vañā<lb break="no" n="D12"/><supplied reason="lost">k·</supplied><!-- sapi2argr vanā[k·]: ajout --> <gap quantity="3" reason="lost" unit="character"/> <unclear>mira</unclear> yuṣmābhiḥ <unclear>knā</unclear> rupo<!--sapi2argr à la place de (su)rupo. --> Imaiṅ <!-- à la place de Imauḥ--> svabhāva ta cim̃ <unclear>la</unclear><!-- sapi2argr ta cim̃ (la): au lieu de (ta)...... --><gap quantity="2" reason="lost" unit="character"/>
+            <lb n="D13"/><gap quantity="11" reason="lost" unit="character"/><g type="dandaPlain">.</g> <unclear>satā</unclear>ṅ· ka cim̃<!-- sapi2argr au lieu de kami --> kā vuḥ yām̃ <unclear>pu</unclear>
+            <lb n="D14"/><gap quantity="9" reason="lost" unit="character"/>ṅ· <unclear>p</unclear>una nim̃<!-- sapi2argr ṅ· (p)una nim̃: ajout --> <gap quantity="2" reason="illegible" unit="character"/> <unclear>n</unclear>iy· loka nim̃<!-- sapi2argr au lieu de loka ni --><g type="dotMid">.</g>
+            <lb n="D15"/><gap quantity="7" reason="lost" unit="character"/><unclear>ka</unclear> <gap quantity="1" reason="illegible" unit="character"/>ci<unclear>t</unclear>· <gap quantity="2" reason="illegible" unit="character"/> kā<unclear>rā</unclear>na tuy· <unclear>su</unclear>bhāva <unclear>ka</unclear><!-- sapi2argr toute cette ligne est un ajout. -->
+            <lb n="D16"/><gap quantity="4" reason="lost" unit="character"/> nan· <gap quantity="3" reason="illegible" unit="character"/> <unclear>jem̃</unclear> <gap quantity="1" reason="illegible" unit="character"/> <unclear>jā</unclear>m̃ rac· dharma<unclear>lagapi go</unclear><!-- sapi2argr lagapi go: revoir cette lecture. -->
             </p>
       </div>
       <div type="apparatus">
@@ -345,6 +361,7 @@
             Rāhu, in Libra; when Jupiter had collided with Leo; when Mars <supplied reason="explanation">
             <foreign>aira</foreign>
           </supplied> was in Gemini — <supplied reason="subaudible">at that time</supplied> Śrī Mahārudradeva was established by them, who were full of faith, to pay homage to their own parents.</p>
+        <!-- sapi2argr Dois-je faire correspondre les paragraphes de la partie cam (faces B-C-D) de la traduction du catalogue de Danang avec les paragraphe de l’édition ? -->
         <p n="B16">Śrī Mahārudradeva abides by our devotion <gap reason="lost"/></p>
         <p n="C1-C4"><gap reason="lost"/> a complete <supplied reason="subaudible">fiscal</supplied> exemption <gap reason="lost"/> He gave it to Śrī Mahārudra.</p>
         <p n="C4-C5">All these are the rice fields of my lord the god Mahārudra:</p>
@@ -380,12 +397,14 @@
           </bibl>). The inscription is re-edited here by Arlo Griffiths and Salomé Pichon based on autopsy and the EFEO estampages n. 2117, n. 2118, n. 2119 and n. 2120.</p>
         <listBibl type="primary">
           <bibl n="G">
+            <!--sapi2argr quel sigle ici ?-->
             <ptr target="bib:Griffiths+al2012_01"/>
             <citedRange unit="page">263-270</citedRange>
           </bibl>
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
+          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

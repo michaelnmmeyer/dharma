@@ -35,17 +35,26 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno type="filename">DHARMA_INSBengalCharters00051</idno>
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -56,6 +65,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -72,6 +82,8 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="san-Latn">
+        <!-- update the @xml:lang value, see EGD §7.2-->
+        <!--edition encoded as per EGD §§2−7-->
         <pb n="1r"/>
         <p>
                  <lb n="1"/><unclear>sva</unclear>s<unclear>t</unclear><supplied reason="lost">i</supplied><supplied reason="omitted">.</supplied></p>
@@ -79,7 +91,7 @@
                  <lb break="no" n="2"/>sena-viṣṇudeva-satyaghoṣa-sat<unclear>va</unclear>rakṣita-vanadāma-jayaviṣ<unclear>ṇu</unclear>-prabhudāma-kuṭumbi-satyaviṣṇu-skandaviṣṇu-praiyaviṣṇu
                  <lb break="no" n="3"/>-valapāla-guṇadeva-guṇaśarmma-bhavadeva-kuṇḍakr̥ṣ<unclear>ṇ</unclear>a<unclear>Ā</unclear><gap quantity="1" reason="lost" unit="character"/> cirātaviṣṇu-śambhukīrtti-<unclear>bhakt</unclear>idāma-manaḥkr̥ṣṇa-kṣemarudra-bhavadāma
                  <lb break="no" n="4"/>-lakṣ<unclear>m</unclear>a<supplied reason="lost">ṇa-</supplied><unclear>mittra</unclear>soma-valadāsa-jayadāsa-ś<unclear>u</unclear>ṅgadāma-vyāghraśarmma-sthāvaradāma-yaśodāma-dāmodaradāma-kumāradāma-ga<gap quantity="1" reason="lost" unit="character"/> 
-                 <lb n="5"/>dāma-Adbhutaviṣṇu-rājyasiṅha-Upen<unclear>dra</unclear>pāla-premasiṅ<unclear>ha</unclear>-kr̥ṣṇasoma-rājyasoma-bhavadāma-purogāś ca viṣayakuṭumbina<supplied reason="lost">ḥ</supplied> 
+                 <lb n="5"/>dāma-Adbhutaviṣṇu-rājyasiṅha-Upen<unclear>dra</unclear>pāla-premasiṅ<unclear>ha</unclear>-kr̥ṣṇasoma-rājyasoma-bhavadāma-purogāś ca viṣayakuṭumbina<supplied reason="lost">ḥ</supplied><!-- revoir à la relecture de la tablette si c'est lost ou omitted --> 
                  <lb n="6"/>vidalaka-sannāhakuṭumbakayor brāhmaṇottarān sa-kṣudra-pradhānādi-kuṭumbinaḥ <space/> kuśalam āśāsya bodhayanti likhanti 
                  <lb n="7"/>ca<supplied reason="omitted">.</supplied></p>
         <p><unclear>Ihā</unclear>smān tāvīra-viṣaya-pati-dvīpasomas sva-puttra-varāhasomena vijñāpayati yuṣmākam iha-viṣaye dvi-dīnā
@@ -147,6 +159,7 @@
           <app loc="2">
             <lem>-praiya°</lem>
             <note>Emend -priya-?</note>
+            <!-- en raison du point d'interrogation, je n'ai pas encodé <choice><sic><corr></choice> ici -->
           </app>
           <app loc="9">
             <lem>-vājisaneya-<supplied reason="omitted">rā</supplied><unclear>j</unclear>āmātya-</lem>
@@ -199,7 +212,7 @@
             <note>The sign here read as 50 appears to have a somewhat different shape from that seen in the <ref target="DHARMA_INSBengalCharters00039.xml">Raktamālā grant #1</ref> (see <bibl>
                 <ptr target="bib:Griffiths2018_02"/>
                 <citedRange unit="figure">10</citedRange>
-              </bibl> and the <ref target="DHARMA_INSBengalCharters00052.xml">Paharpur plate</ref> . But no other sign for any of the multiples of 10 seems to be more plausible.
+              </bibl> and the <ref target="DHARMA_INSBengalCharters00052.xml">Paharpur plate</ref> <!--(fig. 11) je supprime cette référence-->. But no other sign for any of the multiples of 10 seems to be more plausible.
 </note>
           </app>
           <app loc="22">
@@ -212,12 +225,14 @@
         <p n="1-7">Hail! From <gap quantity="4" reason="lost" unit="character"/>,  the officer <gap quantity="1" reason="lost" unit="character"/> -candra, 
                  the council and the landholders of the district — 
                  led by the notables <supplied reason="lost">names of about six persons undeterminable due to damage</supplied>
-                 -virudra, Brahmasena, Viṣṇudeva, Satyaghoṣa, Sattvarakṣita, Vanadāman, Jayaviṣṇu and Prabhudāman;
-                  and by the landholders Satyaviṣṇu, Skandaviṣṇu, Praiyaviṣṇu (?),
+                 -virudra<!--
+                     amwb : I added the syllable vi- in order to find all legible akṣaras in the translation
+                 -->, Brahmasena, Viṣṇudeva, Satyaghoṣa, Sattvarakṣita, Vanadāman, Jayaviṣṇu and Prabhudāman;
+                 <!-- en français le ; ne pourrait pas fonctionner d'un point de vue syntaxique, il faudrait une simple virgule et pour plus de clarté, ajouter après and <supplied reason="subaudible">led</supplied> --> and by the landholders Satyaviṣṇu, Skandaviṣṇu, Praiyaviṣṇu (?)<!-- peut-être ajouter une note qui renvoie à l'apparat ou mentionne l'émendation priya?   -->,
                  Balapāla, Guṇadeva, Guṇaśarman, Bhavadeva, Kuṇḍakr̥ṣṇa, Ā<gap quantity="1" reason="lost" unit="character"/>cirātaviṣṇu (?),
                  <note>Cf. the name of the <foreign>uparika</foreign> Cirātadatta in <ref target="DHARMA_INSBengalCharters00047.xml">Damodarpur #1</ref>.</note>
 Śambhukīrtti, Bhaktidāman (?), Manaḥkr̥ṣṇa, Kṣemarudra,
-Bhavadāman, Lakṣmaṇa, Mitrasoma, Baladāsa, Jayadāsa,
+Bhavadāman, Lakṣmaṇa<!-- c'est le seul nom non composé?! -->, Mitrasoma, Baladāsa, Jayadāsa,
 Śuṅgadāman, Vyāghraśarman, Sthāvaradāman, Yaśodāman, 
 Dāmodaradāman, Kumāradāman, Ga<gap quantity="1" reason="lost" unit="character"/>dāman (?),
                  <note>I initially thought that gu<supplied reason="lost">ha</supplied>- could be read at the end of line 4, in which case we would have had here the same name as that of the Brahmin beneficiary Guhadāman of this grant — and a possible case of beneficiary’s membership of council. But it now seems unlikely to me that the last legible <foreign>akṣara</foreign> on line 4 is <foreign>gu</foreign>.</note> 
@@ -236,7 +251,7 @@ Dāmodaradāman, Kumāradāman, Ga<gap quantity="1" reason="lost" unit="characte
               <ptr target="bib:MonierWilliams1899_01"/>
               <citedRange unit="page">178</citedRange>
             </bibl> for the word -<foreign>uttara</foreign><foreign>in fine compositi</foreign>, the translation would be <q>followed by Brahmins</q>.
-                 </note> inform them and write:
+                 </note><!-- amwb ;: I replaced "Brahmins being foremost among them" by this translation, see my remarks for BC39 and BC57pour cette expression brāhmaṇottarān sakṣudrapradhānādikuṭumbinaḥ même rmq qu'en 39 et 57 "all landholders including modest and prominent followed by the Brahmins"  --> inform them and write:
 </p>
         <p n="7-10">Dvīpasoma, chief of the Tāvīra district, 
     through his own son Varāhasoma, petitions us here: 
@@ -248,11 +263,14 @@ Dāmodaradāman, Kumāradāman, Ga<gap quantity="1" reason="lost" unit="characte
         with this very procedure and for the purpose of <supplied reason="explanation">my</supplied> own merit being increased, 
         be so kind as to take from me forty-four <foreign>dīnāra</foreign>s 
         and give twenty-two <foreign>kulyavāpa</foreign>s of waste land that yields no tax 
-        to the Brahmin Guhadāman, a <supplied reason="subaudible">royal</supplied> adviser and Vājasaneyin belonging to the Kāśyapa <foreign>gotra</foreign>, 
+        to the Brahmin Guhadāman, a <supplied reason="subaudible">royal</supplied><!--
+amwb : ici je mettrai royal en supplied reason omitted pour montrer que c'est une restauration, mais ne faudrait-il pas mentionner que sans cette restauration le composé se traduirai a minister born from a Vājasaneyin... qui reste malgré tout possible même si l'hypothese rājāmātya est sans doute plus convaincante; 
+amwb : it is also possible to consider the meaning "relative, belonging to the same house or family" for amātya; in this case the translation could be 'Brahmin Guhadāman, a relative of the king' or 'Brahmin Guhadāman, belonging to the royal family'. In my opinion, we have to mention this possibility in a note
+        --> adviser and Vājasaneyin belonging to the Kāśyapa <foreign>gotra</foreign>, 
         residing at Gacīkuṇṭaka (?), for the purpose of the regular performance of the five great sacrifices.</q>
 </p>
-        <p n="11-16">Because it has appeared from the certification of the record-keepers Sumati and Vīrasiṁha: 
-                 <q>Indeed <supplied reason="explanation">asti</supplied>, the custom in our district is sale of waste land as permanent endowment to be enjoyed in perpetuity with a <foreign>kulyavāpa</foreign> for <supplied reason="explanation">the price of</supplied> two <foreign>dīnāra</foreign>s, 
+        <p n="11-16">Because it has appeared from the certification of the record-keepers Sumati and Vīrasiṁha:<!-- revoir la construction syntaxique en anglais: Because ...: "indeed....made". Therefore... pose pb. Peut-être qqch comme "from the certification of the record-keepers Sumati and Vīrasiṁha it makes obvious/attests that : "indeed...., let the gift be made". Therefore,...  --> 
+                 <q>Indeed <supplied reason="explanation">asti</supplied>, the custom in our district is sale of waste land as permanent endowment to be enjoyed in perpetuity with a <foreign>kulyavāpa</foreign> for <supplied reason="explanation">the price of</supplied> two <foreign>dīnāra</foreign>s,<!-- pour "the custom in our district is sale of waste land as permanent endowment to be enjoyed in perpetuity with a <foreign>kulyavāpa</foreign> for <supplied reason="explanation">the price of</supplied> two <foreign>dīnāra</foreign>s"; j'inverserai sujet et attribut du sujet car on perd le ayam dans la traduction qui semble avoir pour fonction "this kind of sale" : indeed this kind of sale of waste land as permanent endowment to be enjoyed in perpetuity with a <foreign>kulyavāpa</foreign> for <supplied reason="explanation">the price of</supplied> two <foreign>dīnāra</foreign>s is a custom in our district --> 
                      so that <supplied reason="explanation">tad</supplied> there is no conflict whatsoever <supplied reason="explanation">with the interests of the king</supplied> when this Dvīpasoma, chief of the Tāvīra district, respectfully requests <supplied reason="explanation">such a sale</supplied> through his own son Varāhasoma, <supplied reason="explanation">but on the contrary</supplied> only the sixth share of the merit for his majesty,<note>
 		The king usually takes a sixth of each transaction as it is mentionned in <title>Manusmr̥ti</title> 7.131-132. In a case of land donation, the benefit for the king is only meritorious and due to his act of protection. It is mentioned by the verse I.331 from Yājñavalkya's <title>Dharmaśāstra</title>:
 		<q>
@@ -323,6 +341,7 @@ Dāmodaradāman, Kumāradāman, Ga<gap quantity="1" reason="lost" unit="characte
       </div>
       <div type="bibliography">
         <p>First edited by Arlo Griffiths. Re-edited here with small improvements based on direct inspection of the plate. The text has been encoded by Amandine Wattelier-Bricout.</p>
+        <!-- vérifier si cela convient -->
         <listBibl type="primary">
           <bibl n="G">
             <ptr target="bib:Griffiths2018_02"/>

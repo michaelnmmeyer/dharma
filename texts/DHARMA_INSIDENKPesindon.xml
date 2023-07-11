@@ -35,7 +35,8 @@
             <idno/>
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
@@ -65,13 +66,17 @@
   </teiHeader>
   <text xml:space="preserve">
     <body>
+      <!--
+No other visual documentation of these plates is available than the aforementioned facsimile. Facing the impossibility of inspecting the original plates and the ambiguity presented by this facsimile, we reluctantly decided to adopt the numbering according to the facsimile in Holle (1879), which is already applied by Damais (1955). The edition presented below is based on Damais’ edition, controlled by the facsimiles in Holle (1879) and Kern (1917).
+The justification for Damais’ decision to follow the facsimile in Holle (1879) is explained in Damais 1952: 52, n.1: “Nous n’avons pas consulté les plaques originales au Musée de Djakarta et nous ne connaissons pas de photographies, mais il est certain que le fac-similé de l’article de Holle dans <foreign>TBG</foreign>, 25, 1879, face à la page 464 est plus près de l’original.” English translation is as follows: “We have not consulted the original plates in the Jakarta Museum and are not aware of any photographs, but it is certain that the facsimile of Holle’s article in TBG, 25, 1879, page 464 is closer to the original”.
+-->
       <div type="edition" xml:lang="kaw-Latn">
         <p>
-
+<!-- Plate I (silver) -->
 <lb n="1r1"/> // svaṣti śaka-varsātĭta <num value="836">836</num> śrăvana-măsa tiṭhi pacammi
 <lb n="1r2"/> kr̥ṣna-pakṣa tu po Ā vāra tatkā<supplied reason="omitted">la</supplied> ḍaṁ hyaṁ guru sivi-
 <lb break="no" n="1r3"/> ta sumoce Avak·nira, plat· bvas· saha rabi sakalan·ḍu, kanyā /
-
+<!-- Plate II (gold) -->
 <lb n="1r1"/> // svaśti śaka-varsătĭta <num value="836">836</num> śrăvana-mă-
 <lb break="no" n="1r2"/> śa tiṭhi pacami kr̥ṣṇa-pakṣa tu po Ā
 <lb n="1r3"/> vāra tatkā<supplied reason="omitted">la</supplied> ḍaṁ hyaṁ gu<add place="below">ru</add> sivita sumoce
@@ -79,6 +84,8 @@
 </p>
       </div>
       <div type="apparatus">
+        <!-- The siglum K refers to Kern’s edition and the siglum D refers to Damais’. -->
+        <!-- Plate I (silver) -->
         <app loc="1r1">
           <lem>836</lem>
           <note>D, 826 K. Damais (1955: 50), said that from epigraphical and calendrical point of view, it is impossible to accept Kern’s reading. After having calculated and converted it to the CE year, Damais concluded that the number for the tens must be read as 3. When we refer to the <foreign>Tableau comparatif des chiffres indonésiens</foreign> (Damais 1952: 107), the figure for the units in two inscriptions dating to 823 (Kayu Ara Hiwang and Rongkab), the shape of the 3 is quite similar to what we have in the two Pesindon plates, which were the source for Damais’ specimen of 3 in that table.</note>
@@ -103,6 +110,7 @@
           <lem>sakalan·ḍu, kanyā</lem>
           <note>K, sakalan·ḍukanyā D. In the 1917 facsimile, a stroke that might be a punctuation mark is present.</note>
         </app>
+        <!-- Plate II (gold) -->
         <app loc="1r1">
           <lem>svaśti</lem>
           <note>K, svasti D.</note>
@@ -156,9 +164,11 @@
         <p>The sigla Br and Na refer to Brandes’ and Nakada’s editions, respectively. In view of the fact that the fifth section was read by Kern and Nakada, both of them yielding rather different readings, for this part I use the siglum K, which stands for Kern. </p>
         <listBibl type="primary">
           <bibl n="siglum"/>
+          <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
+          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

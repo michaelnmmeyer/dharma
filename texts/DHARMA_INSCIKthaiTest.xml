@@ -13,6 +13,7 @@
         <respStmt>
           <resp>intellectual authorship of edition</resp>
           <persName ref="part:argr">
+            <!-- cheating here for the moment, as we don't have an ID for GK yet -->
             <forename>Gregory</forename>
             <surname>Kourilsky</surname>
           </persName>
@@ -35,17 +36,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -56,6 +67,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -80,8 +92,8 @@
 <lb n="5"/><gap extent="unknown" reason="illegible"/> รู <title>พระปิฏกไตรย</title> ได ขืน เ<supplied reason="undefined">สวย</supplied>
 <lb n="6"/><foreign xml:lang="san-Thai">ราช</foreign> ใน เมือง ศรีสัชนาไลย <supplied reason="undefined">สุโข</supplied><lb break="no" n="7"/><supplied reason="undefined">ไ</supplied>ทย แทน ปู แทน พ ฝูง เป<supplied reason="undefined">น</supplied> <roleName><supplied reason="undefined">ทา</supplied><lb break="no" n="8"/>ว</roleName> เปน <roleName>พรญา</roleName> เบิอง ตวนนออ<supplied reason="undefined">ก ตว</supplied><lb break="no" n="9"/>นนตก หววนอน ตีนนอน ตา<supplied reason="undefined">ง คน</supplied>
 <lb n="10"/> ตาง มี ใจใค่ร ใจรกก เอา <foreign xml:lang="pli-Thai">มกุฏ</foreign> <supplied reason="undefined">ขัน</supplied><lb break="no" n="11"/><foreign xml:lang="san-Latn"><supplied reason="undefined">ชั</supplied>ยศรี เสวตรฉตร</foreign> มา ยดดยญ  <foreign xml:lang="pli-Thai"><supplied reason="undefined">อภิ</supplied><lb break="no" n="12"/>เสก</foreign> ให เปน <roleName>ทาว</roleName> เปน <roleName>พรญา</roleName> ทง<supplied reason="undefined">ง</supplied>
-<lb n="13"/>หลาย จิง <foreign xml:lang="pli-Thai">สนมต</foreign> ขืน ชื <foreign xml:lang="san-Thai">ศรี</foreign> <persName>สูรยพ<lb break="no" n="14"/>งศรามมหาธรมมราชาธิราช</persName> เสว<supplied reason="undefined">ย</supplied>
-<lb n="15"/>ราช ชอบ ดวย <foreign xml:lang="pli-Thai">ทสพิทธราชธร<orig>ธรมม</orig></foreign></p>
+<lb n="13"/>หลาย จิง <foreign xml:lang="pli-Thai">สนมต</foreign> ขืน ชื <foreign xml:lang="san-Thai"><!-- roleName serait peut-être mieux? -->ศรี</foreign> <persName>สูรยพ<lb break="no" n="14"/>งศรามมหาธรมมราชาธิราช</persName> เสว<supplied reason="undefined">ย</supplied>
+<lb n="15"/>ราช ชอบ ดวย <foreign xml:lang="pli-Thai">ทสพิทธราชธร<orig>ธรมม</orig></foreign><!-- <choice><orig>ม</orig><reg>ร</reg></choice>ม  --></p>
       </div>
       <div type="apparatus">
         <listApp>
@@ -93,8 +105,12 @@
           </app>
         </listApp>
       </div>
-      <div type="commentary"></div>
+      <!-- <div type="translation"/>
+
+         </div> -->
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
         <p>This “Mango Grove inscription” written in Thai (Siamese) is very similar in its content with the Khmer-language inscription of the same name. As the latter, it is dated 1283 Śaka (1361 CE). This inscription was first reported by Lunet de la Jonquière in 1912. It was first edited in 1917 by George Cœdès, who published a revised edition and French translation in 1924. It was edited again by Griswold &amp; Prasert na Nagara, with a translation into English. Several editions in Thai have been published (mostly by the Fine Arts Department (Krom Silapakorn) from 1968 until 2005.</p>
         <listBibl type="primary">
           <bibl>
@@ -113,6 +129,9 @@
             <ptr target="bib:FAD2005_01"/>
             <citedRange unit="page">71-76</citedRange>
           </bibl>
+          <!-- 
+Krom Silapakon (Fine Arts Department) [กรมศิลปากร] (2548 [2005]). Prachum charuek phak thi 8 charuek Sukhothai. Krungthep: Krom Silapakon [กรมศิลปากร, ๒๕๔๘, ประชุมจารึก ภาคที ๘ จารึกสุโขทัย, กรุงเทพ: กรมศิลปากร].
+ -->
         </listBibl>
         <listBibl type="secondary">
           <bibl>

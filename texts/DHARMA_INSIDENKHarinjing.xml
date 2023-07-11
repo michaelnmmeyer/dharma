@@ -34,17 +34,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -55,6 +65,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -111,17 +122,142 @@
           </add>nugraha saṁ hyaṁ su<lb break="no" n="d4"/>kram upadrava ya<unclear>n hană</unclear>siṅ <unclear>ma</unclear>tuhha – –<unclear>jñā</unclear> I <gap quantity="3" reason="illegible" unit="character"/><lb break="no" n="d5"/><unclear>trī katadaḥ</unclear> // o //</p>
       </div>
       <div type="apparatus">
+        <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
         <listApp>
+          <!-- one <app> for each apparatus entry -->
           <app loc="line">
-            <lem></lem>
-            <rdg source="bib:SteinCallenfels1934_01"></rdg>
+            <!-- update the value of @loc.-->
+            <lem><!-- fill in a lemma here --></lem>
+            <rdg source="bib:SteinCallenfels1934_01"><!-- update the @source value, fill in variant reading here --></rdg>
           </app>
+          <!-- 
+[11] 706 ◇ D, 709 StC HT. StC proposes the alternative reading 706.
+[12] dhārī I culaṅgi ◇ D, bārī I vulaṅgi StC HT. Cf. Paradah I (2A21) kamūlan· lor· si Amrīta, I cūlaṅgi kulapati si pulap·. 
+[13] sīmaniran· ◇ D HT, simaniran· StC.
+[14] ḍavuhan· ◇ StC D, lavuhan· HT.
+[15] L̥maḥ ḍapūbhī saṁṅ ◇ lmaḥ (ḍapubhi) saṅ StC, L̥maḥ ḍa pubhi saṅ D, le maḥ ḍapu bhī saṅ HT.
+[16] kāmvaḥ ◇ D HT, kāmbaḥ StC. 
+[17] satampaḥ ◇ satamvaḥ StC HT.
+[18] dhārī ◇ bārī StC HT.
+[19] Anu(ṁ) ◇ Anu StC HT.
+[20] rika ◇ StC, rikaṁ HT. 
+[21] laḍihan· ◇ labihan· StC HT.
+[22] panigran· ◇ StC, panigra śu HT.
+[23] saṁṅ ◇ saṁ StC HT.
+[24] gundur· Avatan·, kacur huler ◇ gundu{2 akṣ. ille.}vatan·, {1 akṣ. ille.}cur haler StC, gundu{1 akṣ. ille.} Avatan·, kacur haler HT.
+[25] ḍapu kḍakan· ◇ ḍapu {2 akṣ. ille.}[hs][ht][hu][hv]kan· StC, ḍapu tmakan· HT.
+[26] vuAṁṅ ◇ vuAṅ StC HT.
+[27] vəR̥ḥ ◇ vəṅgaḥ StC HT.
+[28] glar· ◇ Er· StC, kir· HT.
+[29] citralaikha ◇ citralekha StC HT.
+[30] nāma ◇ rāma StC HT.
+[31] Anuṁ ◇ HT, Anu StC.
+[32] rikaṁ ◇ rika StC HT.
+[33] nāma ◇ rāma StC HT.
+[34] Utu ◇ natu StC HT.
+[35] vuA(ṁ) ◇ HT, vuA StC.
+[36] saṁ kasaṅer lāvaṇ ◇ saka saṅ er lāvan StC, saka saṅar lāvan HT. 
+[37] vanyāga ◇ vanyaga StC HT.
+[38] buhuṁ hulair· ◇ vahaṁ {2 akṣ. ille.}tu StC, vahaṁ huler· tu HT. [hw][hx]
+[39] majalu vsi ◇ majalu bsi StC, majulabya HT.
+[40] vəR̥ḥ ◇ vəṅgaḥ StC HT.
+[41] daharanī ◇ daharani StC HT.
+[42] kuñjaṁ ◇ kuñja StC HT. 
+[43] vacaṇa ◇ HT, vacana StC. 
+[44] vikar· ◇ vihar· StC HT.
+[45] tuha kalaṁ ◇ HT, kalaṁ tuha StC.
+[46] paḍahi si śurita ◇ padahi si bunta StC HT.
+[47] maṇḍi ◇ manḍi StC HT. 
+[48] lalatəṁ ◇ latatəṁ StC HT. Cf. Paradah I (2A20) I lalatəṁ kulapati si bambul·.
+[49] ḍapunta ◇ dapunta StC HT. 
+[50] damən· ◇ ḍamən· StC HT. 
+[51] sira ◇ sira, StC HT.
+[52] Aligrāma ◇ Aligrama StC HT.
+[53] sīmanira ◇ simanira StC HT.
+[54] kuṇaṁ ◇ kunaṁ StC, kunoṁ HT.
+[55] bhaga/va\nta ◇ HT, bhaganta StC.
+[56] sakvah v(v)aṁ (n)ī(l)a ◇ saṁ Asva {4 akṣ[id][ie][if]. ille.} StC HT. Corr. sakveḥ.
+[57] biru ◇ pitu StC HT.
+[58] kavəR̥han· ◇ kavəṅgahan· StC HT.
+[59] kuṇaṁ ◇ kunaṁ StC, kunoṁ HT.
+[60] nihan ◇ niyan StC HT.
+[61] landap· ◇ HT, lanḍap· StC.
+[62] kuñjaṁ ◇ kuñja StC HT.
+[63] nihan ta ◇ ramāta StC HT. 
+[64] saṁ garbha I saṁ pa(r)avisa ◇ saṁ ka{1 akṣ. ille.} I saṁ aravisa StC HT.
+[65] culaṅgi ◇ vulaṅgi StC HT.
+[66] I turu maṅalap·[ig][ih] ◇ {7 akṣ. ille.} StC HT. Ref. Lintakan 1r4 I turu maṅambil·,  
+[67] Aṅgəhan· ◇ maṅgəhan· StC HT.
+[68] paṇḍam(v)an· ◇ raṇdamman· StC HT.
+[69] dhărī ◇ bari StC HT.
+[70] Ahnibudhna- ◇ Norm. Ahirbudhnya-.
+[71] dhr̥va- ◇ D, vr̥sa- StC HT. Corr. dhruva-.
+[72] tatkāla ◇ D, tatkala StC.
+[73] mahāmantrī ◇ D, mahāmantri StC HT.
+[74] śāṣana ◇ D, śaṣana StC HT.
+[75] lumāḥ ◇ D, lumaḥ StC HT.
+[76] tvak· ◇ StC, tguk· D, kvak· HT. The reading is confirmed by the occurrence in line 23 below.  One might expect kvak·, as HT did, based on the Landa inscription (1r5) where one reads sava⟨ḥ⟩ni vka saṁ devata lumāḥ I kvak· suku 3. Should tvak· in this inscription be considered an engraver's mistake for kvak·?
+[77] dhārī ◇ bārī StC HT.
+[78] kolāhala ◇ StC HT. Cf. line 19 below. Corr. kolah-ulaha or kolaḥh-ulaḥha?
+[79] katāmā/na\ ◇ katamāna StC HT.
+[80] saprakāraniṁ ◇ saprakārani StC HT.
+[81] Air ◇ Er StC HT.
+[82] mapayuṁṅan ◇ kapayuṁṅan StC HT.
+[83] pamaṇikan· ◇ pamanikan· StC HT.
+[84] lca ◇ lba StC HT.
+[85] tajaṁ* ◇ StC HT. The same special anusvāra is observed in the same word in Sugih Manek A13, while it is also found in Sugih Manek A2 nāśaṁ*.
+[86] maṁṅiduṁ ◇ maṅiduṁ StC HT.
+[87] hulun· haji vatak· ◇ StC, hulun· vatak· HT.
+[88] ri ◇ I StC HT.
+[89] sthā⟨na⟩ni ◇ sthāni StC HT. Restored after the parallel in line 20. 
+[90] dhārī I culaṅgi ◇ bāri I vulaṅgi StC, bārī I vulaṅgi HT. 
+[91] muĀṁ ◇ muAṁ StC HT.
+[92] mūla ◇ mula StC HT. 
+[93] vulahya ◇ StC, vulaya HT.
+[94] Āṅkən· ◇ Aṅkən· StC HT. 
+[95] kaśraḥ I ◇ ka 3, I StC[ib][ic] HT. Cf. Parablyan (B7–8) ya teka kasrah i saṁ pamgə:t iṁ parablyan·.
+[96] Āsiṁ ◇ Asiṁ StC HT. 
+[97] khaḍiri ◇ kaḍiri StC HT.
+[98] 3 ◇ 4 StC HT.
+[99] vinijillakannya ◇ StC, vinijilakannya HT.
+[100] vinijillakannya ◇ vinijilakannya StC HT.
+[101] ḍalān- ◇ HT, ḍalan- StC.
+[102] ggavaiyakan· ◇ StC, ṅgavaiyakan· HT. 
+[103] Ikaṇaṁ ◇ Ikanaṁ StC HT.
+[104] -sornnikaṇaṁ Ājñă ◇ -sornnikanaṁ Ajñă StC HT.
+[105] kolaḥh-ulaḥha ◇ kolah-ulaḥha HT.
+[106] kuṇaṁ ◇ kunaṁ StC, kunoṁ HT.
+[107] dhārī ◇ bārī StC HT.
+[108] saṁkānani ◇ StC, saṁkanani HT.
+[109] -nikanaṁ \tan· hana maṅilala/ ◇ -nikana hana maṅilala StC HT.
+[110] 849 ◇ 843 StC HT. [hy][hz][ia]
+[111] tithi ◇ tithī StC HT. 
+[112] dhārī ◇ bārī StC HT. 
+[113] Anugraha ◇ StC, Anugraḥ HT.
+[114] rakai ◇ rake StC HT.
+[115] pu ketu ◇ StC, pu HT.
+[116] momaḥh-umaḥha tan· ◇ momaḥh-umaḥ kakan· StC HT.
+[117] Āṅgəḥhan· ◇ Aṅgəhan· StC HT. 
+[118] vuṁkal· ◇ HT, vukal· StC.
+[119] dhārī ri culaṅgi ◇ bārī ri vulaṅgi StC HT.
+[120] (s)ḍa(k·) ◇ saśrā StC HT.
+[121] riṁ ◇ ri StC HT.
+[122] riṁ ◇ ri StC HT.
+[123] k(i)nāṁ ◇ kinaṁ StC HT.
+[124] dhārī ◇ bārī StC HT.
+[125] ri(ṁ) ◇ ri StC HT.
+[126] kveḥ ◇ kve StC HT.
+[127] lumāḥ riṁ ◇ lumaḥ ri StC HT.
+[128] Āsiṁ ◇ Asiṁ StC HT.
+[129] \(A)/nugraha ◇ nugraha StC HT.
+ -->
         </listApp>
       </div>
-      <div resp="part:argr" type="translation"></div>
-      <div type="commentary"></div>
+      <div resp="part:argr" type="translation"><!--translation encoded as per EGD §9.2 --></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
-        <p></p>
+        <!--bibliography encoded as per section §9.4 -->
+        <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
         <listBibl type="primary">
           <bibl n="vSC">
             <ptr target="bib:SteinCallenfels1934_01"/>
@@ -129,6 +265,7 @@
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
+          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

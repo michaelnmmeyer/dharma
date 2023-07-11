@@ -31,17 +31,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -71,6 +81,7 @@
       <change status="draft" when="2020-04-08" who="part:axja">Update template 2</change>
       <change status="draft" when="2020-01-09" who="part:axja">Update template</change>
       <change status="draft" when="2019" who="part:kuch">Creation of the file</change>
+      <!-- add a <change> for each change to the file, the first change should replace this one and record your creation of a file using this template. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -103,6 +114,8 @@
       <div source="bib:Soutif2008_02" type="translation" xml:lang="fra">
         <p n="1-3">1118 <foreign>śaka</foreign>, offrande royale au Kamrateṅ Jagat Śrī Vīrendreśvara, auprès du Kamrateṅ Jagat Śrī Yaśovarmeśvara.</p>
       </div>
+      <!-- <div type="commentary">
+         </div> -->
       <div type="bibliography">
         <p>First edited by George Cœdès (<bibl rend="omitname">
             <ptr target="bib:Coedes1937-1966_01"/>

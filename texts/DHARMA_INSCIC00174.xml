@@ -46,17 +46,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
               <p>Archaic notation of final consonants with subscript/reduced-size consonsant.</p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -120,7 +130,7 @@
       <div source="bib:Coedes1937-1966_01" type="translation" xml:lang="fra">
         <p n="1-3">Succès ! Ceci est le saint <foreign>nāga</foreign> du roi. Quiconque le traite doucement....... des joyaux tombent ciel ; quiconque l'insulte...... pendant 1000 années <supplied reason="subaudible">il souffre</supplied> aux enfers avec sept générations de sa famille.</p>
       </div>
-      <div type="commentary"></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
         <p>First edited by George Cœdès (<bibl rend="omitname">
             <ptr target="bib:Coedes1939_01"/>
@@ -132,6 +142,7 @@
         </listBibl>
         <listBibl type="secondary">
           <bibl n="siglum"/>
+          <!-- one <bibl/> per item of secondary bibliography . Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
         </listBibl>
       </div>
     </body>

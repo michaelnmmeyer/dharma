@@ -39,18 +39,28 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
               <p>The <foreign>akṣara</foreign>s are of square form which is characteristic of the script belonging to the reign of Jayavarman VII.
-                        </p>
+                        <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -127,6 +137,7 @@
           <l n="a"><lb n="A13"/><milestone n="a" unit="column"/><g type="circleTarget">.</g> śrīkamvu-vaṁśāmvara-bhāskaro yo</l>
           <l n="b"><milestone n="b" unit="column"/>jāto jayāditya-purodayādrau</l>
           <l n="c"><lb n="A14"/><milestone n="a" unit="column"/>prāvodhayat prāṇa-hr̥d-amvujāni</l>
+          <!-- prāṇa° : corr. prāṇi° ? -->
           <l n="d"><milestone n="b" unit="column"/>tejo-nidhiś śreṣṭha-purādhirājaḥ</l>
         </lg>
         <lg met="upajāti" n="8">
@@ -229,6 +240,7 @@
           <l n="a"><lb n="A45"/><milestone n="a" unit="column"/><g type="circleTarget">.</g> yasyāvdhi-pāra-giri-kānana-gīta-kīrttiṁ</l>
           <l n="b"><milestone n="b" unit="column"/>śrutvottarottara-gatir yudhi vidrutāriḥ</l>
           <l n="c"><lb n="A46"/><milestone n="a" unit="column"/>dhāma smarann iva vidamvitavān sisr̥kṣū<milestone break="no" n="b" unit="column"/>n</l>
+          <!-- vidamvitavān: Understand viḍambitatvān -->
           <l n="d">dākṣīn ananta-gamanān avanīṁ pramātum·</l>
         </lg>
         <lg met="vasantatilakā" n="24">
@@ -242,10 +254,12 @@
           <l n="b"><milestone n="b" unit="column"/>'py ātmaikatā tu sphuṭam asya satyā</l>
           <l n="c"><lb n="A50"/><milestone n="a" unit="column"/>sukhāni duḥkhāni yad ātma-bhājā<milestone break="no" n="b" unit="column"/>m</l>
           <l n="d">ātmany adhāt suhr̥daye yadīye</l>
+          <!-- suhṛdaye : Understand sve hṛdaye (proposed by Harunaga Isaacson). -->
         </lg>
         <lg met="vasantatilakā" n="26">
           <l n="a"><lb n="A51"/><milestone n="a" unit="column"/><g type="circleTarget">.</g> saṁprāpya yan-makham akhaṇddam atīvatr̥pti<milestone break="no" n="b" unit="column"/>r</l>
           <l n="b">akhaṇddalo nu janamejayaśāpatāpam·</l>
+          <!-- nu : nu° GC, CJ -->
           <l n="c"><lb n="A52"/><milestone n="a" unit="column"/>Utsr̥jya hr̥ṣṭa-hr̥dayas tri-divasya bhūme<milestone break="no" n="b" unit="column"/>s</l>
           <l n="d">tene vibhūtibhir abhūmi-bhavābhir aikyam·</l>
         </lg>
@@ -1089,18 +1103,22 @@
           <app loc="A18">
             <lem>tāpaharaḥ</lem>
             <rdg source="bib:Coedes1906_01">tāpoharaḥ</rdg>
+            <!-- corr. dans BEFEO 41 p. ** n. 1 -->
           </app>
           <app loc="A22">
             <lem>-maṇir</lem>
             <rdg source="bib:Coedes1906_01">-maṇīr</rdg>
+            <!-- corr. dans BEFEO 41 p. ** n. 2 -->
           </app>
           <app loc="A39">
             <lem>-guṇaikarāśi</lem>
             <rdg source="bib:Coedes1906_01">-guṇaikarāgī</rdg>
+            <!-- -guṇaikarāśi CJ -->
           </app>
           <app loc="A41">
             <lem>bhujora<unclear>ga</unclear>-</lem>
             <rdg source="bib:Coedes1906_01">bhujorati-</rdg>
+            <!-- CJ. One could read ta or ga. There seems to be no trace of an i. -->
           </app>
           <app loc="A42">
             <lem>jaladhi-</lem>
@@ -1109,6 +1127,7 @@
           <app loc="A43">
             <lem>-saṁhatir</lem>
             <rdg source="bib:Coedes1906_01">-saṁmatir</rdg>
+            <!-- °saṃhatir CJ -->
           </app>
           <app loc="A45">
             <lem>-kānana-</lem>
@@ -1117,6 +1136,7 @@
           <app loc="A49">
             <lem>-jagatsu bhinno</lem>
             <rdg source="bib:Coedes1906_01">-jagatsubhinno</rdg>
+            <!-- °jagatsu bhinno CJ -->
           </app>
           <app loc="A49">
             <lem>sphuṭam</lem>
@@ -1129,6 +1149,7 @@
           <app loc="A69">
             <lem>-vihāra-</lem>
             <rdg source="bib:Coedes1906_01">-vibhāra-</rdg>
+            <!-- corrigé dans BEFEO 40, p. 347 -->
           </app>
           <app loc="A72">
             <lem>sa mūrtti-</lem>
@@ -1142,6 +1163,10 @@
             <lem>kaṅku-prasthāś</lem>
             <rdg source="bib:Coedes1906_01">kaṅku prasthāś</rdg>
           </app>
+          <!-- <app loc="B21">
+                     <lem>tandulāḥ</lem>
+                     <rdg source="bib:Coedes1906_01">tandulāh</rdg>
+                     </app> -->
           <app loc="B61">
             <lem>piṇ<choice>
                 <orig>dd</orig>
@@ -1149,6 +1174,10 @@
               </choice>ī</lem>
             <rdg source="bib:Coedes1906_01">piṇḍī</rdg>
           </app>
+          <!--  <app loc="C6">
+                     <lem>bhārāḥ</lem>
+                     <rdg source="bib:Coedes1906_01">bhārāh</rdg>
+                     </app>  -->
           <app loc="C14">
             <lem>pañcāśad</lem>
             <rdg source="bib:Coedes1906_01">pañcaśad</rdg>
@@ -1165,6 +1194,10 @@
             <lem>kalpanāḥ</lem>
             <rdg source="bib:Coedes1906_01">kalpanāh</rdg>
           </app>
+          <!--  <app loc="D65">
+                     <lem>atimātra-</lem>
+                     <rdg source="bib:Coedes1906_01">atimātr̥a-</rdg>
+                     </app>  -->
         </listApp>
       </div>
       <div resp="part:dogo part:ansa" type="translation">
@@ -2018,92 +2051,179 @@
             <foreign>kaṅku°</foreign>
           </supplied>.</p>
         <p n="40" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="41" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="42" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="43" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="44" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="45" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="46" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="47" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="48" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="49" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="50" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="51" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="52" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="53" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="54" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="55" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="56" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="57" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="58" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="59" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="60" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="61" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="62" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="63" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="64" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="65" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="66" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="67" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="68" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="69" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="70" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="71" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="72" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="73" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="74" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="75" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="76" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="77" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="78" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="79" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="80" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="81" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="82" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="83" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="84" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="85" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="86" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="87" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="88" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="89" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="90" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="91" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="92" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="93" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="94" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="95" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="96" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="97" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="98" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="99" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="100" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="101" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="102" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="103" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="104" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="105" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="106" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="107" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="108" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="109" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="110" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="101" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="102" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="103" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="104" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="105" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="106" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="107" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="108" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="109" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="110" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="111" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="112" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="113" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="114" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="115" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="116" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="117" rend="stanza">One hundred <supplied reason="explanation">
             <foreign>śatam</foreign>
           </supplied> and <supplied reason="explanation">
@@ -2154,25 +2274,45 @@
             <foreign>strīpuruṣāḥ</foreign>
           </supplied>.</p>
         <p n="120" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="121" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="122" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="123" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="124" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="125" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="126" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="127" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="128" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="129" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="130" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="131" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="132" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="133" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="134" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="135" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="136" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="137" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="138" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="139" rend="stanza"/>
+        <!-- Unavailable -->
         <p n="140" rend="stanza">Further <supplied reason="explanation">
             <foreign>punaḥ</foreign>
           </supplied>, 7 <foreign>khārī</foreign>s and 2 <foreign>droṇa</foreign>s of red onions <supplied reason="explanation">

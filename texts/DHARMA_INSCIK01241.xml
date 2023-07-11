@@ -31,17 +31,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -76,7 +86,7 @@
     <body>
       <div type="edition" xml:lang="okz-Latn">
         <p>
-<lb n="1"/><g type="symbol"/> <num value="678">678</num> śakaparigraha trayodaśī roc·<gap extent="unknown" reason="lost" unit="character"/>
+<lb n="1"/><g type="symbol"/><!-- KC: To check on estampage what kind of symbol it is. --> <num value="678">678</num> śakaparigraha trayodaśī roc·<gap extent="unknown" reason="lost" unit="character"/>
 <lb n="2"/>Ājñā dhūli jeṅ· vraḥ kaṁmrataṅ· Añ· Oy·<gap extent="unknown" reason="lost" unit="character"/>
 <lb n="3"/>kloñ· yamahasitta ta gi noḥ kāla mratāñ· kuruṅ· vi<supplied reason="lost">dh</supplied>i <gap quantity="2" reason="lost" unit="character"/> <seg subtype="body" type="component">
             <gap quantity="1" reason="illegible" unit="component"/>
@@ -164,6 +174,8 @@
         <p n="9-12">Ayant sculpté cette <supplied reason="subaudible">image</supplied>: le Mratāñ Iśāna śaṇna ; ayant bâti <supplied reason="subaudible">cela</supplied>: le Mratāñ Jyeṣṭhakula, Mratāñ Kanmeṅ, Mratāñ Kulavandhi, Tāñ Kalpit, Poñ Ratnavikeśa, chef de village <gap reason="lost"/> vingt, un trésor d'or enfoui du dieu. Les <gap reason="lost"/></p>
         <p n="13">Les gens qui feront des déclarations au sujet des serviteurs du dieu, qui ont châtié <gap reason="lost"/></p>
       </div>
+      <!-- <div type="commentary">
+         </div> -->
       <div type="bibliography">
         <p>Edited by Saveros Pou (<bibl rend="omitname">
             <ptr target="bib:Pou2001_01"/>

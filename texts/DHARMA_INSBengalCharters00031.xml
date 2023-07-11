@@ -3,6 +3,10 @@
     <fileDesc>
       <titleStmt>
         <title>Dhanaidaha Plate, Year 113 GE</title>
+        <!-- argr2amwb: for an item named after a modern provenance, avoid text type ("charter") but opt rather for object type ("plate"). Also, as this is not a royal inscription, we should not say "of Kumāragupta I"  but "of the time of Kumāragupta I" — see the discussion of inscription naming in EGD. Once we've settled on a good name (this can also be discussed by email with Ryosuke), we should adjust the name in the spreadsheet too. -->
+        <!-- 
+amwb2argr : I changed the title according to the spreadsheet. The error was mine, I hadn't checked the spreadsheet...
+-->
         <respStmt>
           <resp>Original EpiDoc Encoding for Siddham</resp>
           <persName ref="part:daba">
@@ -37,6 +41,7 @@
             <forename>Amandine</forename>
             <surname>Wattelier-Bricout</surname>
           </persName>
+          <!-- argr2amwb: since you will be furnishing a translation, your name must be mentioned here too, perhaps with a separate <resp> for translation -->
         </respStmt>
       </titleStmt>
       <publicationStmt>
@@ -44,6 +49,10 @@
 				</authority>
         <pubPlace>Cambrai</pubPlace>
         <idno type="filename">DHARMA_INSBengalCharters00031</idno>
+        <!-- 
+daba : The Siddham ID will need to be retained, probably as <altIdentifier>, when a DHARMA filename is assigned. 
+amwb: siddham idno IN00023
+-->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -74,6 +83,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -84,6 +94,7 @@
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
+      <!-- argr2amwb: it is important at least to mark a <change> entry each for the start and end dates of your encoding (and translation) work -->
       <change when="2021-12-06" who="part:amwb">Revision of my own encoding and translation.</change>
       <change status="draft" when="2021-09-22" who="part:amwb">Added Epigraphic lemma</change>
       <change status="draft" when="2021-08-30" who="part:amwb">Added Siddham bibliographic reference in the bibliography and added its readings in apparatus. Then added my own readings in comment.</change>
@@ -95,19 +106,99 @@
   <text xml:space="preserve">
     <body>
       <div type="edition" xml:lang="san-Latn">
-        <p><lb n="1"/><gap extent="unknown" reason="lost" unit="character"/> <supplied reason="lost">sa</supplied>mvatsara-<unclear reason="illegible">śa</unclear>t<supplied reason="lost">e</supplied> trayodaśotta<lb break="no" n="2"/><supplied reason="lost">re</supplied><gap precision="low" quantity="23" reason="lost" unit="character"/></p>
-        <p><supplied reason="lost">asyā</supplied><sic>n</sic> d<unclear>i</unclear>vasa-pūrvvāyāṁ parama-daivata-para<lb break="no" n="3"/><supplied reason="lost">ma-bhaṭṭāraka-</supplied><gap precision="low" quantity="16" reason="lost" unit="character"/> kuṭu<unclear>mbi</unclear> <gap precision="low" quantity="3" reason="lost" unit="character"/> brāhmaṇa-śivaśarmma-nāgaśarmma-maha<lb break="no" n="4"/><gap precision="low" quantity="19" reason="lost" unit="character"/>vakīrtti-kṣemadatta-goṣṭhaka-varggapāla-piṅgala-śuṅkuka-kāla-<lb n="5"/><gap precision="low" quantity="21" reason="lost" unit="character"/>viṣṇu-<unclear>deva</unclear>śarmma-viṣṇubhadra-khāsaka-Umaka-gopāla-<lb n="6"/><gap precision="low" quantity="18" reason="lost" unit="character"/><unclear cert="low">sa</unclear>su śrībhadra-somapāla-rāmā<unclear>dyāḥ</unclear> grāmāṣṭa-kulādhikaraṇañ ca <space/><lb n="7"/><gap precision="low" quantity="15" reason="lost" unit="character"/>viṣṇu<unclear>ṇā</unclear> vijñāpitā<supplied reason="omitted">.</supplied></p>
-        <p> <space/> Iha khādā<unclear cert="low">ṭa</unclear>pāra-viṣaye 'nuvr̥tta-maryyādā-sthi<unclear>ti</unclear>-<lb n="8"/><gap precision="low" quantity="15" reason="lost" unit="character"/>nīvī-dharmma-kṣayeṇa labhya<unclear>te</unclear></p>
-        <p><unclear>ta</unclear>d arhatha mamādyānenaiva kkrame<choice>
+        <p><lb n="1"/><gap extent="unknown" reason="lost" unit="character"/> <supplied reason="lost">sa</supplied>mvatsara-<unclear reason="illegible">śa</unclear>t<supplied reason="lost">e</supplied><!-- argr2amwb: the śa seems wholly or at least partly lost, the t is entirely clear, the vowel -e is also lost  --><!-- 
+amwb2argr: agree so I change śa<unclear reason="illegible">te</unclear> by <unclear reason="illegible">śa</unclear>t<supplied reason="lost">e</supplied>
+--> trayodaśotta<!-- 
+daba: I adopt Sircar's conjecture for the beginning except hypothesising siddham instead of his oṁ. 
+--><!-- 
+amwb : i am not able to see the -tta in trayodaśotta. Maybe wrap tta in unclear or supplied
+--><!-- 
+amwb : for the moment, I delete the suggestion made by Daba in order to complete the gap <supplied reason="lost" cert="low">siddhaM <g type="danda">.</g> catur-udadhi-salilāsvādita-yaśaso mahārājādhirāja-śrī-kumāraguptasya</supplied> and I prefer encoding only the gap <gap reason="lost" unit="character" extent="unknown"/>
+	--><lb break="no" n="2"/><supplied reason="lost">re</supplied><gap precision="low" quantity="23" reason="lost" unit="character"/><!-- 
+daba: Sircar's conjecture for the beginning of this line is saṁ 100+10+3 (after re, I guess, though he may have read re at the end of the first line - which I consider very unlikely) 
+--><!-- 
+amwb : I suggest assuming an ordinal number of the day and the name of the month or a place name here, see my note in the translation
+--></p>
+        <p><supplied reason="lost">asyā</supplied><sic>n</sic><!-- 
+amwb : it is possible that there is na in the plate, but if this na is where I try to see it, it is placed before the emendation asyā and I should add a gap (about 3 aksaras which would include the emendation asyā) between this °na° and the -ndi°
+--> d<unclear>i</unclear>vasa-pūrvvāyāṁ parama-daivata-para<lb break="no" n="3"/><supplied reason="lost">ma-bhaṭṭāraka-</supplied><gap precision="low" quantity="16" reason="lost" unit="character"/><!-- 
+amwb : I suggest in my translation another conjecture for the gap than those of sircar daba : <supplied reason="lost" cert="low">mahārājādhirāja-śrī-kumāragupte pr̥thivīpatau</supplied> ; see my argument in translation 
+--> kuṭu<unclear>mbi</unclear><!-- 
+amwb : I read <unclear cert="high">dra</unclear>kaṭu<unclear cert="low">mb</unclear>
+--> <gap precision="low" quantity="3" reason="lost" unit="character"/> brāhmaṇa-śivaśarmma-nāgaśarmma-maha<!-- 
+amwb: for me <unclear>brā</unclear>hmaṇathe and maha is unclear  
+--><!-- 
+daba: The conjectural filling-up is from Lielukhine, i.e. probably Sircar. Compare the Damodarpur plates. Bhandarkar reads ā(?) before kuṭumbi, I see nothing (not even kuṭumbi), but this could be part of an au mātrā. The broken-off gap after kuṭumbi is 2 or 3 characters in size, but I can't make out brāhmaṇa either on the facsimile, nor anything else really, except what may be śi of śivaśarmma. 
+--><lb break="no" n="4"/><gap precision="low" quantity="19" reason="lost" unit="character"/>vakīrtti-kṣemadatta-goṣṭhaka-varggapāla-piṅgala-śuṅkuka-kāla-<!-- 
+daba: Lielukhine (naming no source) proposes Śivakīrtti for the partially lost name and says Banerji reads kṣamavanta, presumably for kṣemadatta. 
+--><lb n="5"/><gap precision="low" quantity="21" reason="lost" unit="character"/>viṣṇu-<unclear>deva</unclear><!-- 
+amwb : pa totally illegible, viṣṇu is clear, de unclear, va clear 
+-->śarmma-viṣṇubhadra-khāsaka-Umaka<!-- 
+amwb : not sure but if I compare with BC33 I will read Umaka / rumaka rather than rāmaka, see photo rāmaka
+	-->-gopāla-<!-- 
+daba: Lielukhine says Banerji reads viṣyabhadra instead of viṣṇubhadra. 
+--><lb n="6"/><gap precision="low" quantity="18" reason="lost" unit="character"/><unclear cert="low">sa</unclear>su<!-- 
+amwb : for me sa is illegible but su is clear. This clear su allows to imagine a locative here as I suggest in my translation
+--> śrībhadra-somapāla-rāmā<unclear>dyāḥ</unclear><!-- 
+amwb : I  delete the cert="low" for dyā because it is legible; the visarga is not readable but there is clearly the space and it is very likely that the visarga was here
+--> grāmāṣṭa-kulādhikaraṇañ ca <space/><!-- 
+amwb : here I  note a space or a illegible akṣara at the end of the line
+--><!-- 
+daba: Bhandarkar reads Rām-ādyāḥ(?); no way to tell if the question mark is meant just for the visarga or for more. Lielukhine (Sircar?) has rāmādyaka, also with a question mark. 
+--><!-- 
+daba: Lielukhine also has °karaṇaśca at the end. 
+--><!-- 
+daba: And while we're at it, Bhandarkar's sa(?) su(?) may represent two alternatives rather than two successive characters? I can't make out anything on the photo. 
+--><lb n="7"/><gap precision="low" quantity="15" reason="lost" unit="character"/>viṣṇu<unclear>ṇā</unclear><!-- 
+amwb : for viṣṇu<unclear cert="low">nā</unclear>, i am able to read v <unclear cert="medium">ṣṇu</unclear><unclear cert="low">ṇā</unclear>. It seems my reading (retroflex and not dental nasal) confirms daba's conjecture about the original 
+--> vijñāpitā<supplied reason="omitted">.</supplied></p>
+        <p> <space/><!-- 
+amwb : I  add a space before Iha
+--> Iha khādā<unclear cert="low">ṭa</unclear>pāra-viṣaye 'nuvr̥tta-maryyādā-sthi<unclear>ti</unclear>-<!-- 
+amwb : ti is illegible for me
+--><!-- 
+daba: again, the ? after viṣṇunā may refer to more than just the nā. Lielukhine also has ṇā in brackets with a question mark, probably meaning that the original text may have ṇā. 
+--><!-- 
+daba: Lielukhine says Banerji read mahākhuṣāpāra instead of khādā(?ṭa)pāra. 
+--><lb n="8"/><gap precision="low" quantity="15" reason="lost" unit="character"/>nīvī-dharmma-kṣayeṇa labhya<unclear>te</unclear><!-- 
+amwb : te is totally illegible for me
+--><!-- 
+daba: Sircar reads nīvīdharmmākṣayeṇa rather than kṣayeṇa; Bhandarkar mentions his interpretation of kṣaya in his introduction of this inscr. 
+--><!-- 
+amwb : checking Sircar, he notes nīvīdharmmakṣayeṇa in his edition p.281 and suggests in brackets (kkra) and in note 3 dharmātkrayeṇa--></p>
+        <p><unclear>ta</unclear><!-- 
+amwb: ta is totally illegible as the te before but I can confirm that there is the place for two ak.saras
+-->d arhatha mamādyānenaiva kkrame<choice>
             <sic>n</sic>
             <corr>ṇ</corr>
           </choice>a dā<unclear>tuṁ</unclear>
-<lb n="9"/><gap precision="low" quantity="14" reason="lost" unit="character"/>samety<unclear cert="low">ā</unclear>bhihitai<unclear cert="low">ḥ</unclear> sarvvam eva <unclear cert="low">jñā</unclear>kara-prative<unclear cert="low">śi</unclear>-kuṭumbibhir avasthāpya ka<lb break="no" n="10"/><gap precision="low" quantity="14" reason="lost" unit="character"/>ri <gap precision="low" quantity="1" reason="illegible" unit="character"/> kana <gap precision="low" quantity="1" reason="illegible" unit="character"/> yad ito <gap precision="low" quantity="2" reason="illegible" unit="character"/> <unclear>ta</unclear>d avadhr̥tam iti<supplied reason="omitted">.</supplied></p>
-        <p><space/> yatas tatheti pratipādya
-<lb n="11"/><gap precision="low" quantity="11" reason="lost" unit="character"/> <supplied reason="lost">aṣṭaka-na</supplied>vaka-nalā<unclear>bhyā</unclear>m apaviñchya kṣetra-kulya-vāpam ekaṁ datta<supplied reason="lost">ṁ</supplied><supplied reason="omitted">.</supplied> tataḥ Āyuktaka-
-<lb n="12"/><gap precision="low" quantity="14" reason="lost" unit="character"/><unclear cert="low">bhrā</unclear>tr̥-kaṭaka-vāstavya-chandoga-brāhmaṇa-varāhasvāmino dattaṁ  ta<unclear>dbhava</unclear><lb break="no" n="13"/><gap precision="low" quantity="16" reason="lost" unit="character"/>bhūmyā dā<unclear>nākṣe</unclear>pe ca guṇāguṇam anucintya śarīra-k<unclear>ā</unclear>ñcanakasya ci<lb break="no" n="14"/><supplied reason="lost">ra-cañcalatvaṁ</supplied> <gap precision="low" quantity="10" reason="lost" unit="character"/> <seg subtype="consonant" type="component">
+<lb n="9"/><gap precision="low" quantity="14" reason="lost" unit="character"/>samety<unclear cert="low">ā</unclear>bhihitai<unclear cert="low">ḥ</unclear> sarvvam eva <unclear cert="low">jñā</unclear>kara-prative<unclear cert="low">śi</unclear>-kuṭumbibhir avasthāpya ka<!-- 
+amwb : my reading for sthāpya ka is s<supplied reason="lost">thā</supplied>p<supplied reason="lost">pya ka</supplied>
+--><!-- 
+daba: Sircar restores Bhandarkar's (jñā?)kara as kṣetrakara. 
+--><!-- 
+amwb : for me <unclear cert="low">same</unclear>ty<unclear cert="low">ā</unclear> 
+--><!-- 
+amwb : jñā is really not clear but after it and before kara it seems to me there is another ak.sara nra or kta? 
+--><lb break="no" n="10"/><gap precision="low" quantity="14" reason="lost" unit="character"/>ri <gap precision="low" quantity="1" reason="illegible" unit="character"/> kana <gap precision="low" quantity="1" reason="illegible" unit="character"/> yad ito <gap precision="low" quantity="2" reason="illegible" unit="character"/> <unclear>ta</unclear>d avadhr̥tam iti<supplied reason="omitted">.</supplied></p>
+        <p><space/><!-- 
+amwb : I add a space
+--> yatas tatheti pratipādya
+<lb n="11"/><gap precision="low" quantity="11" reason="lost" unit="character"/> <supplied reason="lost">aṣṭaka-na</supplied>vaka-nalā<unclear>bhyā</unclear>m apaviñchya kṣetra<!-- 
+amwb : kṣetra seems to be very likely in the context but is illegible for me... Maybe add a supplied. In the editio princeps there the word is not illegible. It seems to me that ksetra is a conjecture introduced by Basak? 
+-->-kulya-vāpam ekaṁ datta<supplied reason="lost">ṁ</supplied><supplied reason="omitted">.</supplied> tataḥ Āyuktaka-<!-- 
+amwb : the two ṁ in ekaṁ dattaṁ are illegible for me
+-->
+<lb n="12"/><gap precision="low" quantity="14" reason="lost" unit="character"/><unclear cert="low">bhrā</unclear>tr̥-kaṭaka-vāstavya-chandoga-brāhmaṇa-varāhasvāmino dattaṁ  ta<unclear>dbhava</unclear><!-- 
+amwb : I replace taddha<unclear cert="low">va</unclear> by Sircar's reading  without his punctuation mark 
+amwb : Sircar p.281 note 7 suggests a restoration for the end of the line and the beginning of the following : bhavadbhiḥ sarvairevānumodyānupālanīyaṃ
+--><lb break="no" n="13"/><gap precision="low" quantity="16" reason="lost" unit="character"/>bhūmyā dā<unclear>nākṣe</unclear>pe ca guṇāguṇam anucintya śarīra-k<unclear>ā</unclear>ñcanakasya ci<lb break="no" n="14"/><supplied reason="lost">ra-cañcalatvaṁ</supplied> <gap precision="low" quantity="10" reason="lost" unit="character"/> <seg subtype="consonant" type="component">
             <gap quantity="1" reason="illegible" unit="component"/>
-          </seg>ā</p>
+          </seg>ā<!-- 
+daba: the conjecture ra-cañcalatvaṁ is present in Sircar (probably his own?) and Agrawala, but not mentioned at all in Bhandarkar. 
+--><!-- 
+daba: ā after the lacuna is only found in Bhandarkar. I assume he saw a diacritical ā, not a full vowel. 
+--></p>
         <p><unclear>u</unclear>ktañ ca bhagavatā dvaipāyanena
 </p>
         <lg met="anuṣṭubh" n="1">
@@ -122,14 +213,18 @@
           <l n="d"><supplied reason="lost">pitr̥</supplied><unclear>bhiḥ</unclear> saha pacyat<choice>
               <sic>i</sic>
               <corr>e</corr>
-            </choice></l>
+            </choice><!-- 
+amwb : I read pacyati as Bandyopadhyaya1909 I compared with modati in the same line and it is clearly ti 
+--></l>
         </lg>
         <lg met="anuṣṭubh" n="2">
           <l n="a">ṣaṣṭiṁ varṣa-sahasrā<choice>
               <sic>n</sic>
               <corr>ṇ</corr>
             </choice>i</l>
-          <l n="b">svargge modati <unclear>bhū</unclear>midaḥ</l>
+          <l n="b">svargge modati <unclear>bhū</unclear><!-- 
+amwb : supplied lost for me
+-->midaḥ</l>
           <l n="c">
             <lb n="16"/>
             <supplied reason="lost">Ākṣeptā cānumantā ca</supplied>
@@ -150,7 +245,15 @@
         <p><gap precision="low" quantity="10" reason="lost" unit="character"/>ya<unclear>ṁ</unclear> <unclear cert="low">su</unclear>śrībhadrena Utkīrṇṇaṁ sth<unclear>ā</unclear><choice>
             <sic>ṇna</sic>
             <corr>ṇe</corr>
-          </choice>śvaradāse<unclear>na</unclear> <gap precision="low" quantity="5" reason="lost" unit="character"/></p>
+          </choice>śvaradāse<unclear>na</unclear><!-- 
+amwb : I read stha ou ā ? ṇnaśvaradāse So I note it and follow agrawala's conjecture
+--> <gap precision="low" quantity="5" reason="lost" unit="character"/><!-- 
+daba: Sircar restores the lacuna as likhitā paṭṭikeyaṁ amātyabhadreṇa (Bhadra as the name, not preceding the other -bhadra). He also says traces of ka are visible before ya(ṁ). Bhandarkar follows Basak in reading suśrībhadreṇa. 
+--><!-- 
+daba: Bhandarkar corrects the other name to stambheśvara-; Sircar reports Banerji as reading sthahṇeśvara (while Lielukhine reports Basak as reading so); Agrawala reads or conjectures Sthāṇvīśvara.
+--><!-- 
+daba: note that the final 5 lost characters are only there if the line extends to the edge of the plate, but there isn't really anything else expected here 
+--></p>
       </div>
       <div type="apparatus">
         <listApp>
@@ -200,6 +303,9 @@
             <rdg source="bib:Basak1923-1924_01">śat<supplied reason="lost">e</supplied></rdg>
           </app>
           <app loc="1">
+            <!--amwb
+						<lem>°daśo<supplied reason="lost">tta</supplied></lem>
+					-->
             <lem source="bib:Balogh+al2019_01">°daśotta<lb break="no" n="2"/><supplied reason="lost">re</supplied></lem>
             <rdg source="bib:Bandyopadhyaya1909_01">°daśutta<supplied reason="lost">ra</supplied><lb n="2"/></rdg>
             <rdg source="bib:Basak1923-1924_01">°daśotta<lb n="2"/><lb n="2"/></rdg>
@@ -231,16 +337,25 @@
             <note>I suggest assuming an ordinal number of the day and the name of the month or a place name here, see my note in the translation.</note>
           </app>
           <app loc="2">
+            <!--amwb : the reality of the plate is an illegible akṣara (maybe na) + a gap of 3 akṣaras + nd*vasa
+						<lem><unclear cert="low">na</unclear><gap reason="lost" unit="character" quantity="3"/>nd<unclear>i</unclear>vasa-</lem>
+					-->
             <lem source="bib:Balogh+al2019_01"><supplied reason="lost">asyā</supplied><sic>n</sic> d<unclear>i</unclear>vasa-</lem>
             <rdg source="bib:Basak1923-1924_01"><gap extent="unknown" reason="lost" unit="character"/>nd<unclear>i</unclear>vasa-</rdg>
             <rdg source="bib:Bandyopadhyaya1909_01 bib:Sircar1942_01 bib:Sircar1965_02 bib:Agrawala1983_02"><supplied reason="lost">asyā</supplied><unclear>ndi</unclear>vasa-</rdg>
-            <note>The word <foreign>asyāṁ</foreign> is an emendation based on the occurrence of the expression <foreign>asyāṁ divasa-pūrvāyāṁ</foreign> in others plates: see the Govindnagar Buddha Image Inscription of the Time of Kumāragupta I <supplied reason="explanation">see <bibl>
+            <note>The word <foreign>asyāṁ</foreign> is an emendation based on the occurrence of the expression <foreign>asyāṁ divasa-pūrvāyāṁ</foreign> in others plates: see the Govindnagar Buddha Image Inscription of the Time of Kumāragupta I<!-- 
+amwb : add a ref if this plate is encoded in DHARMAdatabase
+				--> <supplied reason="explanation">see <bibl>
                   <ptr target="bib:Balogh+al2019_01"/>
                   <citedRange unit="item">IN00027</citedRange>
-                </bibl></supplied>, the Karamdāṁdā Stone Liṅga Inscription of Kumāragupta I <supplied reason="explanation">see <bibl>
+                </bibl></supplied>, the Karamdāṁdā Stone Liṅga Inscription of Kumāragupta I<!--  
+amwb : add a ref if this plate is encoded in DHARMAdatabase 				
+--> <supplied reason="explanation">see <bibl>
                   <ptr target="bib:Balogh+al2019_01"/>
                   <citedRange unit="item">IN00025</citedRange>
-                </bibl></supplied> and the Mathura Jaina Image Inscription of the time of Kumāragupta I <supplied reason="explanation">see <bibl>
+                </bibl></supplied> and the Mathura Jaina Image Inscription of the time of Kumāragupta I<!-- 
+ amwb : add a ref if this plate is encoded in DHARMAdatabase 				
+--> <supplied reason="explanation">see <bibl>
                   <ptr target="bib:Balogh+al2019_01"/>
                   <citedRange unit="item">IN00022</citedRange>
                 </bibl></supplied>. </note>
@@ -270,6 +385,9 @@
               </bibl> first suggests reading <foreign>samavetānkuṭumbinaḥ grāmika-brāhmaṇa°</foreign>. In my translation, I suggest another conjecture for the gap.</note>
           </app>
           <app loc="3">
+            <!--amwb
+						<lem>-<unclear>maha</unclear></lem>
+					-->
             <lem source="bib:Bandyopadhyaya1909_01 bib:Basak1923-1924_01 bib:Sircar1942_01 bib:Sircar1965_02 bib:Agrawala1983_02 bib:Balogh+al2019_01">-maha</lem>
             <note><bibl>
                 <ptr target="bib:Basak1923-1924_01"/>
@@ -402,6 +520,9 @@
               </bibl> suggests reading <foreign>nibaddha</foreign> in note 4.</note>
           </app>
           <app loc="7">
+            <!--amwb
+						<lem>-sthi<unclear reason="illegible">ti</unclear></lem>
+					-->
             <lem source="bib:Basak1923-1924_01 bib:Sircar1942_01 bib:Sircar1965_02 bib:Agrawala1983_02 bib:Balogh+al2019_01">-sthi<unclear>ti</unclear>-</lem>
             <rdg source="bib:Bandyopadhyaya1909_01">-sthiti-</rdg>
           </app>
@@ -419,6 +540,9 @@
               </bibl> suggests for <foreign>kṣa</foreign> an alternative reading in brackets followed by a question mark : <foreign>kkra</foreign>. In note 3 p.281, he adds this suggestion : <quote>Or <foreign>dharmātkrayeṇa</foreign> ?</quote></note>
           </app>
           <app loc="8">
+            <!--amwb:
+						<lem>labhya<supplied reason="lost">te</supplied><unclear>ta</unclear>d arha°</lem>
+					-->
             <lem source="bib:Basak1923-1924_01 bib:Sircar1942_01 bib:Sircar1965_02 bib:Agrawala1983_02 bib:Balogh+al2019_01">labhya<unclear>te</unclear><unclear>ta</unclear>d arha°</lem>
             <rdg source="bib:Bandyopadhyaya1909_01">°labhya<gap extent="unknown" reason="lost" unit="character"/>darha°</rdg>
           </app>
@@ -438,6 +562,9 @@
             <rdg source="bib:Bandyopadhyaya1909_01">°kkra le<supplied cert="low" reason="lost">na</supplied> vā<gap extent="unknown" reason="lost" unit="character"/></rdg>
           </app>
           <app loc="9">
+            <!--amwb
+						<lem><gap reason="lost" precision="low" quantity="14" unit="character"/><unclear cert="low">same</unclear>°</lem>
+					-->
             <lem source="bib:Balogh+al2019_01"><gap precision="low" quantity="14" reason="lost" unit="character"/>same°</lem>
             <rdg source="bib:Bandyopadhyaya1909_01"><gap extent="unknown" reason="lost" unit="character"/>pa<supplied cert="low" reason="lost">le</supplied></rdg>
             <rdg source="bib:Basak1923-1924_01 bib:Sircar1942_01 bib:Sircar1965_02"><gap extent="unknown" reason="lost" unit="character"/> same°</rdg>
@@ -495,10 +622,16 @@
               </bibl> already suggests reading <foreign>aṣṭaka navaka-nalābhyām</foreign> in note 12. I follow his suggestion by comparing the different occurrences of this expression in several plates coming from the same period : see <ref target="DHARMA_INSBengalCharters00039.xml">Raktamālā #1</ref> line 21, <ref target="DHARMA_INSBengalCharters00049.xml">Baigram Plate</ref> lines 18-19, <ref target="DHARMA_INSBengalCharters00051.xml">Tāvīra Grant</ref> lines 16-17, <ref target="DHARMA_INSBengalCharters00052.xml">Paharpur Plate</ref> lines 19-20, <ref target="DHARMA_INSBengalCharters00054.xml">Nandapur Plate</ref> line 14, <ref target="DHARMA_INSBengalCharters00055.xml">A grant of land to monasteries at Śiṣīpuñja, Madhyamasṛgālikā and Grāmakūṭagohālī</ref> lines 23-24 and <ref target="DHARMA_INSBengalCharters00057.xml">Raktamālā #2</ref> lines 20-21. </note>
           </app>
           <app loc="11">
+            <!--amwb :
+						<lem>°viñchya <supplied cert="low" reason="lost">kṣetra</supplied>-</lem>
+					-->
             <lem source="bib:Basak1923-1924_01 bib:Sircar1942_01 bib:Sircar1965_02 bib:Agrawala1983_02 bib:Balogh+al2019_01">°viñchya kṣetra-</lem>
             <rdg source="bib:Bandyopadhyaya1909_01">vi<gap quantity="1" reason="lost" unit="character"/>chya<gap extent="unknown" reason="lost" unit="character"/></rdg>
           </app>
           <app loc="11">
+            <!--amwb:
+						<lem>-kulya-vāpam eka<supplied reason="lost">ṁ</supplied></lem>
+					-->
             <lem source="bib:Basak1923-1924_01 bib:Sircar1942_01 bib:Balogh+al2019_01">-kulya-vāpam ekaṁ</lem>
             <rdg source="bib:Bandyopadhyaya1909_01">kṛtya vasa-la<supplied cert="low" reason="lost">ka</supplied></rdg>
             <rdg source="bib:Sircar1965_02">-kulya-vāp<choice>
@@ -635,6 +768,9 @@
             <rdg source="bib:Bandyopadhyaya1909_01">-sahasrāṇi</rdg>
           </app>
           <app loc="15">
+            <!--amwb:
+						<lem><supplied reason="lost">bhū</supplied>midaḥ</lem>
+					-->
             <lem source="bib:Basak1923-1924_01 bib:Sircar1942_01 bib:Sircar1965_02 bib:Agrawala1983_02 bib:Balogh+al2019_01"><unclear>bhū</unclear>midaḥ</lem>
             <rdg source="bib:Bandyopadhyaya1909_01">bhūmida<unclear>ḥ</unclear></rdg>
           </app>
@@ -727,19 +863,25 @@
               <ptr target="bib:Sircar1965_02"/>
             </bibl>, followed by  <bibl>
               <ptr target="bib:Balogh+al2019_01"/>
-            </bibl>, suggests emending <foreign>catur-udadhi-salilāsvādita-yaśaso mahārājādhirāja-śrī-kumāraguptasya</foreign>. Whereas neither of them gives an explanation, one can assume they borrow this expression from its occurences in the Karamdāṁdā Stone Liṅga Inscription of Kumāragupta I<supplied reason="explanation">line 2, see <bibl>
+            </bibl>, suggests emending <foreign>catur-udadhi-salilāsvādita-yaśaso mahārājādhirāja-śrī-kumāraguptasya</foreign>. Whereas neither of them gives an explanation, one can assume they borrow this expression from its occurences in the Karamdāṁdā Stone Liṅga Inscription of Kumāragupta I<!-- 
+amwb : add a ref if this plate is encoded in DHARMAdatabase
+				--><supplied reason="explanation">line 2, see <bibl>
                 <ptr target="bib:Konow1909-1910_01"/>
               </bibl> and <bibl>
                 <ptr target="bib:Balogh+al2019_01"/>
                 <citedRange unit="item">IN00025</citedRange>
-              </bibl></supplied> and in the Gaya Grant of Samudragupta<supplied reason="explanation">line 2, see <bibl>
+              </bibl></supplied> and in the Gaya Grant of Samudragupta<!-- 
+amwb : add a ref if this plate is encoded in DHARMAdatabase
+				--><supplied reason="explanation">line 2, see <bibl>
                 <ptr target="bib:Fleet1888_01"/>
                 <citedRange unit="item">60</citedRange>
                 <citedRange unit="page">254-257</citedRange>
               </bibl> and <bibl>
                 <ptr target="bib:Balogh+al2019_01"/>
                 <citedRange unit="item">IN00004</citedRange>
-              </bibl></supplied>. The same expression is supplied in Bihar Sharif Pillar Inscription 2<supplied reason="explanation">see line 1, <bibl>
+              </bibl></supplied>. The same expression is supplied in Bihar Sharif Pillar Inscription 2<!-- 
+amwb : add a ref if this plate is encoded in DHARMAdatabase
+				--><supplied reason="explanation">see line 1, <bibl>
                 <ptr target="bib:Balogh+al2019_01"/>
                 <citedRange unit="item">IN00048</citedRange>
               </bibl></supplied> and can be translated by <q>of the great king and emperor Śrī Kumāragupta whose splendour is enjoyed flowing beyond the four oceans</q>.
@@ -750,27 +892,39 @@
               <ptr target="bib:Sircar1965_02"/>
             </bibl> suspects the numeral numbers of the year for the missing <foreign>akṣara</foreign>s at the beginning of the line 2. Several inscriptions written during the reign of Kumārugupta I contain the expression <foreign>asyāṁ divasa-pūrvāyāṁ</foreign>:
 			 <list>
-              <item>the incipit of the Govindnagar Buddha Image Inscription of the Time of Kumāragupta I: <foreign>saṁ <num value="115">100 10 5</num> śrāvaṇa di <num value="13">10 3</num><supplied reason="subaudible">.</supplied> Asyāṁ divasa-pūrvvāyāM</foreign> line 1 <supplied reason="explanation">see <bibl>
+              <item>the incipit of the Govindnagar Buddha Image Inscription of the Time of Kumāragupta I<!-- 
+amwb : add a ref if this plate is encoded in DHARMAdatabase
+				-->: <foreign>saṁ <num value="115">100 10 5</num> śrāvaṇa di <num value="13">10 3</num><supplied reason="subaudible">.</supplied> Asyāṁ divasa-pūrvvāyāM</foreign> line 1 <supplied reason="explanation">see <bibl>
                     <ptr target="bib:Balogh+al2019_01"/>
                     <citedRange unit="item">IN00073</citedRange>
                   </bibl></supplied></item>
-              <item>the one of Mathura Buddha Image Inscription of the Time of Kumāragupta I: <foreign>śr<unclear reason="illegible">ī</unclear>-kumāraguptasya v<unclear reason="illegible">i</unclear>ja<unclear>ya</unclear>r<unclear>ā</unclear>jyasa<unclear reason="illegible">ṁ</unclear>vva<unclear>t</unclear><num value="125">100 20 <unclear>5</unclear></num><unclear>ā</unclear>śvayuja-māse di <num value="9">9</num>| Asy<unclear>āṁ</unclear> divasa-pū<unclear>rv</unclear>v<unclear>ā</unclear>y<unclear>āṁ</unclear></foreign><supplied reason="explanation">see <bibl>
+              <item>the one of Mathura Buddha Image Inscription of the Time of Kumāragupta I<!-- 
+amwb : add a ref if this plate is encoded in DHARMAdatabase
+				-->: <foreign>śr<unclear reason="illegible">ī</unclear>-kumāraguptasya v<unclear reason="illegible">i</unclear>ja<unclear>ya</unclear>r<unclear>ā</unclear>jyasa<unclear reason="illegible">ṁ</unclear>vva<unclear>t</unclear><num value="125">100 20 <unclear>5</unclear></num><unclear>ā</unclear>śvayuja-māse di <num value="9">9</num>| Asy<unclear>āṁ</unclear> divasa-pū<unclear>rv</unclear>v<unclear>ā</unclear>y<unclear>āṁ</unclear></foreign><supplied reason="explanation">see <bibl>
                     <ptr target="bib:Balogh+al2019_01"/>
                     <citedRange unit="item">IN00027</citedRange>
                   </bibl></supplied></item>
-              <item>the one of the Karamdāṁdā Stone Liṅga Inscription of Kumāragupta I: <foreign>vijaya-rājya-saṁvatsara-<unclear>śa</unclear><unclear reason="illegible">te</unclear> saptadaśo<unclear>ttare</unclear><lb n="4"/>kārttika-māsa-daśama-divase syā<sic>n</sic> divasa-pūrvvāyāṁ</foreign><supplied reason="explanation">see <bibl>
+              <item>the one of the Karamdāṁdā Stone Liṅga Inscription of Kumāragupta I<!-- 
+amwb : add a ref if this plate is encoded in DHARMAdatabase
+				-->: <foreign>vijaya-rājya-saṁvatsara-<unclear>śa</unclear><unclear reason="illegible">te</unclear> saptadaśo<unclear>ttare</unclear><lb n="4"/>kārttika-māsa-daśama-divase syā<sic>n</sic> divasa-pūrvvāyāṁ</foreign><supplied reason="explanation">see <bibl>
                     <ptr target="bib:Balogh+al2019_01"/>
                     <citedRange unit="item">IN00025</citedRange>
                   </bibl></supplied></item>
-              <item>the one of the Mathura Jaina Image Inscription of the time of Kumāragupta I:  <foreign><num value="107">100 7</num><unclear reason="illegible">adhi</unclear>ka-<unclear cert="low" reason="illegible">śrāva</unclear>ṇa-māsa-<unclear>di</unclear><unclear reason="illegible">va</unclear><unclear>sa</unclear><num value="20">20</num> asyā<unclear>ṁ pū</unclear><unclear reason="illegible">r</unclear><unclear>vv</unclear><unclear reason="illegible">ā</unclear>y<unclear>ā</unclear><unclear reason="illegible">ṁ</unclear></foreign><supplied reason="explanation">see <bibl>
+              <item>the one of the Mathura Jaina Image Inscription of the time of Kumāragupta I<!-- 
+amwb : add a ref if this plate is encoded in DHARMAdatabase
+				-->:  <foreign><num value="107">100 7</num><unclear reason="illegible">adhi</unclear>ka-<unclear cert="low" reason="illegible">śrāva</unclear>ṇa-māsa-<unclear>di</unclear><unclear reason="illegible">va</unclear><unclear>sa</unclear><num value="20">20</num> asyā<unclear>ṁ pū</unclear><unclear reason="illegible">r</unclear><unclear>vv</unclear><unclear reason="illegible">ā</unclear>y<unclear>ā</unclear><unclear reason="illegible">ṁ</unclear></foreign><supplied reason="explanation">see <bibl>
                     <ptr target="bib:Balogh+al2019_01"/>
                     <citedRange unit="item">IN00022</citedRange>
                   </bibl></supplied></item>
             </list>
-			 From these testimonies, it is possible to assume the gap contains an ordinal number of the day and the name of the month <supplied reason="explanation">see also the line 1 of <ref target="DHARMA_INSBengalCharters00063.xml">Mastakaśvabhra Grant</ref>: <foreign>svasti ma<unclear>hā</unclear>rājādhirāja-śrī-pradyumnavandhor vvijayādhirājya-samvatsar<unclear>e</unclear> pañcama Āśvayuja-māsasya dvāviṁśatime divase</foreign>; the line 1 of the Damodarpur Charter 2 (GE 128) of Kumāragupta I  shows also the numeral numbers followed by the name of the month and the number of the day : <foreign>sa<supplied reason="omitted">ṃ</supplied> 100 20 8 vaiśākha di 10 3</foreign>, see <bibl>
+			 From these testimonies, it is possible to assume the gap contains an ordinal number of the day and the name of the month <supplied reason="explanation">see also the line 1 of <ref target="DHARMA_INSBengalCharters00063.xml">Mastakaśvabhra Grant</ref>: <foreign>svasti ma<unclear>hā</unclear>rājādhirāja-śrī-pradyumnavandhor vvijayādhirājya-samvatsar<unclear>e</unclear> pañcama Āśvayuja-māsasya dvāviṁśatime divase</foreign>; the line 1 of the Damodarpur Charter 2 (GE 128) of Kumāragupta I<!-- 
+amwb : add a ref if this plate is encoded in DHARMAdatabase
+				-->  shows also the numeral numbers followed by the name of the month and the number of the day : <foreign>sa<supplied reason="omitted">ṃ</supplied> 100 20 8 vaiśākha di 10 3</foreign>, see <bibl>
                 <ptr target="bib:Balogh+al2019_01"/>
                 <citedRange unit="item">IN00028</citedRange>
-              </bibl>; the line 1 of Damodarpur Charter 1 (GE 124) of Kumāragupta I: <foreign><sic>samva</sic><num value="124">100 20 4</num> phālgu<sic>ṇ</sic>a di <num value="7">7</num></foreign>, see <bibl>
+              </bibl>; the line 1 of Damodarpur Charter 1 (GE 124) of Kumāragupta I<!-- 
+amwb : add a ref if this plate is encoded in DHARMAdatabase
+				-->: <foreign><sic>samva</sic><num value="124">100 20 4</num> phālgu<sic>ṇ</sic>a di <num value="7">7</num></foreign>, see <bibl>
                 <ptr target="bib:Balogh+al2019_01"/>
                 <citedRange unit="item">IN00026</citedRange>
               </bibl></supplied>. 
@@ -784,10 +938,14 @@
           </supplied><supplied cert="low" reason="lost">ma-bhaṭṭāraka-</supplied> Lord<note>
 							In the line 3, <bibl>
               <ptr target="bib:Balogh+al2019_01"/>
-            </bibl> suggests filling in the gap by <foreign>mahārājādhirāja-śrī-kumāragupte pr̥thivīpatau</foreign>. This expression can be found in the Damodarpur Charter 2 (GE 128) of Kumaragupta I<supplied reason="explanation">see <bibl>
+            </bibl> suggests filling in the gap by <foreign>mahārājādhirāja-śrī-kumāragupte pr̥thivīpatau</foreign>. This expression can be found in the Damodarpur Charter 2 (GE 128) of Kumaragupta I<!-- 
+amwb : add a ref if this plate is encoded in DHARMAdatabase
+				--><supplied reason="explanation">see <bibl>
                 <ptr target="bib:Balogh+al2019_01"/>
                 <citedRange unit="item">IN00028</citedRange>
-              </bibl>, lines 1-2</supplied> and in the Damodarpur Charter 1 (GE 124) of Kumaragupta I<supplied reason="explanation">see <bibl>
+              </bibl>, lines 1-2</supplied> and in the Damodarpur Charter 1 (GE 124) of Kumaragupta I<!-- 
+amwb : add a ref if this plate is encoded in DHARMAdatabase
+				--><supplied reason="explanation">see <bibl>
                 <ptr target="bib:Balogh+al2019_01"/>
                 <citedRange unit="item">IN00026</citedRange>
               </bibl>, line 1</supplied>.

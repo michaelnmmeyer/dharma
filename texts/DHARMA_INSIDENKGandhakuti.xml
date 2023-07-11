@@ -30,17 +30,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -169,6 +179,7 @@
 </p>
       </div>
       <div type="apparatus">
+        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
         <listApp>
           <app loc="1r1">
             <lem source="bib:Boechari1985-1986_01">śakavarṣătĭtta</lem>
@@ -340,6 +351,7 @@
           </app>
           <app loc="2r3-2r4">
             <lem source="bib:Boechari1985-1986_01">vnaṁ katmvananiṁ stri laraṅan·, burvan saki saṅkanya kunaṁ</lem>
+            <!--ekba: NST's PDF is unclear-->
             <note>This segment is to be compared with <ref target="Bimalasrama.xml">Bimalasrama</ref> <foreign>vnaṁ katm<supplied reason="omitted">v</supplied>ani stri laraṅan· rare kavula tuU sasaṅkasaṅkananya</foreign>. Emend <foreign>sakiṁ</foreign>?
 </note>
           </app>
@@ -368,6 +380,7 @@
             <lem>dharmma</lem>
             <rdg source="bib:Boechari1985-1986_01 bib:NinnySusantiTejowasono2003_01">dharmma ma</rdg>
             <rdg source="bib:NinnySusantiTejowasono2003_01"/>
+            <!--ekba: NST's PDF is unclear-->
             <note>Boechari  adds another syllable <foreign>ma</foreign> at the end of line 5, but this must be a misprint.</note>
           </app>
           <app loc="2v1">
@@ -566,8 +579,12 @@
           </app>
         </listApp>
       </div>
-      <div type="commentary"></div>
+      <!-- <div type="translation">
+                <!-\-translation encoded as per EG §9.2 -\->
+            </div>-->
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
         <p>First edited by Holle (<bibl rend="omitname">
             <ptr target="bib:Holle1883_01"/>
             <citedRange unit="page">479-483</citedRange>

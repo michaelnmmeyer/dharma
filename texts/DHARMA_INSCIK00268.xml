@@ -31,17 +31,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -442,6 +452,7 @@
             <lem source="bib:Coedes1908_04">kunthita</lem>
             <rdg source="bib:Mertens2005_01">kuṇṭhita</rdg>
           </app>
+          <!--It seems that only Mertens normalized the reading, should I correct directly in the edition ?-->
           <app loc="S5">
             <lem source="bib:Mertens2005_01">kālākā</lem>
             <rdg source="bib:Coedes1908_04">kalākā</rdg>
@@ -465,6 +476,7 @@
           <app loc="S33">
             <lem source="bib:Coedes1908_04">dagdhā</lem>
             <rdg source="bib:Mertens2005_01">dugdhā</rdg>
+            <!--CC: I would also read dugdhā- on the estampage. Should I modify the word in the edition ?-->
           </app>
           <app loc="S34">
             <lem source="bib:Coedes1908_04">kan<seg subtype="body" type="component">
@@ -591,6 +603,7 @@
           <app loc="N42">
             <lem source="bib:Coedes1908_04">siṅhair</lem>
             <rdg source="bib:Mertens2005_01">siṁhair</rdg>
+            <!--Mertens must have emended automatically. -->
           </app>
           <app loc="N43">
             <lem source="bib:Coedes1908_04">caturad <gap quantity="1" reason="lost" unit="character"/> <seg subtype="body" type="component">
@@ -679,7 +692,7 @@
         <p n="32" rend="stanza">L'obscurité du mal causée par la désagrégation incessante...comme le soleil faisant la réussite – l'épanouissement – des bonnes œuvres – du lotus – ...</p>
         <p n="33" rend="stanza">Par le nommé Śivācyuta...</p>
       </div>
-      <div type="commentary"></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
         <p>First edited by George Cœdès with a French translation of the Sanskrit part (<bibl rend="omitname">
             <ptr target="bib:Coedes1908_04"/>

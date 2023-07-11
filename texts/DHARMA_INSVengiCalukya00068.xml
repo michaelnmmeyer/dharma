@@ -35,13 +35,18 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
@@ -49,7 +54,12 @@
               <p>Original punctuation marks.</p>
               <p>Other palaeographic observations. Anusvāra is above the character to which it belongs, or above headline to the right of that character; occasionally atop the next character, e.g. l13 kuṭuṁbinaḥ within the i marker. Short and long i/ī are not clearly distinguishable, but i seems to be a closed circle while ī appears to be open on the left, with a little hook at the opening; e.g. sti and śrī side by side in line 1; śī in line 5 is good example of the long ī. Headmarks are large horizontal lines with small horns on each side. According to Sampath's discussion, the dependent ā is in most cases indicated by a thick dot. I see no dot identifiable as an ā in the plates (only dots that seem to function as ornamental serifs at the ends of some lines), but do read an (incorrect) a in several spots where Sampath reads a (correct) ā. He does not, however, seem to be consistent in this: he reads e.g. svāmi in l2 where I read svami and a dot is present at the top right; however, he - like me - reads paripalitānāṁ earlier in the same line (though an identical dot is present on both instances of pa), and he reads pādanudhyatānāṁ (where I read padanudhyatānāṁ) in the next line, where a dot is present on both pa and dhya. 
                       
-                      </p>
+                      <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+                <summary><p><p/></summary>
+                <handNote xml:id="Pallava00001_hand1"></handNote>
+                <handNote xml:id="Pallava00001_hand2"></handNote>
+              -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -76,6 +86,7 @@
     <revisionDesc>
       <change status="draft" when="2022-06-07" who="part:daba">Revision after collation with published edition</change>
       <change status="draft" when="2021-06-28" who="part:daba">Initial encoding of the file</change>
+      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -468,6 +479,8 @@
                   <corr>ṇ</corr>
                 </choice>āṁ</rdg>
             </app>
+            <!--
+-->
           </listApp>
         </div>
       </div>

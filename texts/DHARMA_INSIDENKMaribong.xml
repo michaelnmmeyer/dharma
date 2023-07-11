@@ -30,17 +30,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -84,6 +94,7 @@
     <body>
       <div type="edition" xml:lang="kaw-Latn">
         <pb n="1r"/>
+        <!--Blank outer page.-->
         <p><pb n="1v"/>
  <lb n="1v1"/><g type="ddandaOrnate"/> Avighnam astu,<g type="ddandaOrnate"/> svasti śrī śaka-varṣātīta, <num value="1170">1170</num>, Aśuji-māsa, tithi, pañcamī śukla-pakṣa, <abbr>vā</abbr>,
 <lb n="1v2"/><abbr>ka</abbr>, <abbr>vr̥</abbr>, vāra, laṅkir·, Uttarāsāḍa-nakṣatra, viśva-devatā, māhendra-maṇḍala, gaṇḍa-yoga, vairā<lb break="no" n="1v3"/>jya-muhūrtta, baruṇa-parvveśa, valava-karaṇa, mr̥ccika-rāśī, </p>
@@ -98,7 +109,9 @@
 <lb n="1v6"/>pagavayakna saṁ hyaṅ ājñā haji praśāsti, mataṇḍa śrī jayaviṣṇuvarddhana-lāñcana, Umuṅgve salaḥ sikiniṁ tāmra ri</p>
       </div>
       <div type="apparatus">
+        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
         <listApp>
+          <!-- one <app> for each apparatus entry -->
           <app loc="1v4">
             <lem>
               <orig>mārddana</orig>
@@ -112,6 +125,7 @@
         </listApp>
       </div>
       <div resp="part:argr" type="translation">
+        <!--translation encoded as per EG §9.2 -->
         <p>Let there be no obstacle! Hail! Fortune! In the elapsed Śaka year 1170, month of Asuji, fifth <foreign>tithi</foreign> of the waxing fortnight, Vās, Kalivon, Thursday, <supplied reason="explanation">
             <foreign>wuku</foreign>
           </supplied> Laṅkir; lunar mansion Uttarāṣāḍha; deity Viśva; <foreign>maṇḍala</foreign> in the East; conjunction Gaṇḍa; <foreign>muhūrta</foreign> Vairājya; regent of the astronomical node Varuṇa; <foreign>karaṇa</foreign> Valava; zodiac sign Scorpio.</p>
@@ -119,16 +133,18 @@
             <foreign>mardana</foreign>
           </supplied> of Madhu <supplied reason="explanation">Śrī Kr̥ṣṇa</supplied> for all womenfolk <supplied reason="explanation">
             <foreign>lalanākula</foreign>
-          </supplied>, whose consecration name is Śrī Jaya Viṣṇuvardhana, the one with the byname Sminiṅ Rāt <supplied reason="explanation">‘Seed of the World’</supplied>, untiring world protector not different from the eulogy of his own grandfather, ordered with regard to the village Mariboṅ, belonging to the conscription <supplied reason="explanation">
+          </supplied>, whose consecration name is Śrī Jaya Viṣṇuvardhana, the one with the byname Sminiṅ Rāt <supplied reason="explanation">‘Seed of the World’</supplied>, untiring world protector not different from the eulogy<!-- or read sthāpana, with Wurare st. IX? --> of his own grandfather, ordered with regard to the village Mariboṅ, belonging to the conscription <supplied reason="explanation">
             <foreign>vatək atagan</foreign>
           </supplied> of Jipaṅ, that a holy royal decree charter be made with the emblem of Śrī Jaya Viṣṇuvardhana, to remain on one or the other of <supplied reason="explanation">the possible materials, viz.</supplied> copper, <supplied reason="lost">palm-leaf</supplied>
 </p>
       </div>
       <div type="commentary">
+        <!--commentary encoded as per section §9.3 -->
         <p>The toponym Maribong  (1v.4)  also appears in other inscriptions, such as Canggu 5v1: <foreign>I maR̥bo, I turan, I jipaṁ</foreign>.</p>
         <p>svapitāmahāstavanābhinnāśrăntalokapālaka: cf. Wurare st. VIII?</p>
       </div>
       <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
         <p>First edited, probably by F.D.K. Bosch, in <bibl>
             <ptr target="bib:OV1918"/>
           </bibl>; re-edited by Damais (<bibl rend="omitname">

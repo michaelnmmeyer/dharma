@@ -35,17 +35,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
               <p>Two forms of pā. On face d, the <foreign>virāma</foreign>s take a remarkable form with long downward dangling leg on the right. </p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -56,6 +66,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -97,6 +108,7 @@
           <l n="a">tasyāṁ śrī-jaya-Indravarmma-nr̥patiḥ saṁpādita-śrīḥ <lb n="A6"/>satāṁ</l>
           <l n="b">senābhiḥ sakalābhir indur iva vā tārābhir āsevitaḥ</l>
           <l n="c">dīptājñā-parirakṣitākhila-jagad yaḥ puṇya-<unclear>ka</unclear>rmmodayaḥ</l>
+          <!-- varmmodayaḥ? dharmmodayaḥ? Dur à dire sur la pierre-->
           <l n="d"><lb n="A7"/>kāntyāloka-mano-vibodhana-karaś śaktyā prajā rakṣatu<g type="ddandaPlain">.</g></l>
         </lg>
         <lg met="sragdharā" n="4">
@@ -107,6 +119,7 @@
           <l n="c">śāntyā rākenduvat saj-jana-jana<lb break="no" n="A9"/>-viruto labdha-kīrtty-āgama-śrīḥ</l>
           <l n="d">śāstrī śāstra-jña-saṁghaiḥ stuti-paṭu-matibhir ddiṅ-mukhe gīyate sma<g type="ddandaPlain">.</g></l>
         </lg>
+        <!-- sapi and argr have read down to here on 2021-03-03 -->
         <lg met="śārdūlavikrīḍita" n="5">
           <l n="a"><lb n="A10"/>po 'yaṁ pov ku danāy pināṅ pr̥thu-janaḥ śaiva-kriyā-jñānavid</l>
           <l n="b">yoga-dhyāna-samādhi-kr̥c chiva-padecchā <lb n="A11"/>yo nijātma-śriyaḥ<g type="dandaPlain">.</g></l>
@@ -116,7 +129,7 @@
         <p>śrī-Amarendra-pureśvarasya dhanāni kṣetra<lb break="no" n="A13"/>-go-dāsa-dāsī-mahiṣādīni dhānya-taṇḍula-vasana-rajata-kanaka-kaṁsa-loha-<choice>
             <sic>trā</sic>
             <corr>tā</corr>
-          </choice><lb break="no" n="A14"/>mrādīni ca ye ke pāpa-puruṣā haranti balatayā tr̥ṣṇatayā vā
+          </choice><lb break="no" n="A14"/>mrādīni ca ye ke pāpa-puruṣā haranti balatayā tr̥ṣṇatayā vā<!--sapi2argr Inverser les faces b et C en B et c et mettre un commentaire pour montrer la différence avec Huber ? (si oui, ne pas oublier de changer le rtf)-->
            <milestone n="b" type="pagelike" unit="face"/>
            <lb n="b1"/>kalkanatayā vātibhīma-ma<lb break="no" n="b2"/>hā-narake ghoratara-hutā<lb break="no" n="b3"/>śana-śikhā-karāle patantu te
              <lb n="b4"/>pitr̥-vandhu-pakṣair mmātr̥-vandhu-pakṣai<lb break="no" n="b5"/>ḥ punā rakṣanti na haranti vā ye
@@ -131,16 +144,17 @@
              <lb n="b13"/>śakarāja-kāla vuḥ yāṅ· triḥ
              <lb n="b14"/>catvāra Aṣṭa<g type="ddandaPlain">.</g><g type="floretComplex"/>
           </p>
-        <p xml:lang="ocm-Latn"><milestone n="b" type="pagelike" unit="face"/><lb n="b1bis"/>humā vūnūk· klan· tipā<lb break="no" n="b2bis"/>r· kūṅ· dada tala Ajau<unclear>ñ·</unclear>
+        <!--The way a space is left open between sa and vi in the third line proves that lines 1-3 were written after the rest of the face. -->
+        <p xml:lang="ocm-Latn"><milestone n="b" type="pagelike" unit="face"/><lb n="b1bis"/>humā vūnūk· klan· tipā<lb break="no" n="b2bis"/>r· kūṅ· dada<!-- or dadaṁ? --> tala Ajau<unclear>ñ·</unclear>
     <lb n="b3bis"/>vavūy· ṅan<unclear>·</unclear> glai A<space quantity="2" type="ascender" unit="character"/>viḥ nau
   </p>
         <p xml:lang="ocm-Latn">
-             
+             <!-- sapi and argr have read down to here on 2021-03-1O -->
              <milestone n="C" type="pagelike" unit="face"/>
              <lb n="C1"/><gap precision="low" quantity="17" reason="illegible" unit="character"/><seg type="desc">pra<unclear>māna</unclear> humā niy·
-             <lb n="C2"/><gap precision="low" quantity="17" reason="illegible" unit="character"/><unclear>vaḥ</unclear> kruvāv· tuy· <placeName key="Cikir Huriy" subtype="village" type="settlement">cikir· huriy·</placeName><lb n="C3"/><gap precision="low" quantity="16" reason="illegible" unit="character"/><unclear>cvaḥ</unclear> puĀk· vandaḥ neḥ nariy· na<lb break="no" n="C4"/><gap precision="low" quantity="13" reason="illegible" unit="character"/><unclear>vik·</unclear> nan· tr<unclear>ā</unclear> tuy· krauṅ· nan· nau kaṁ
-             <lb n="C5"/><supplied reason="lost">n·</supplied><gap precision="low" quantity="14" reason="illegible" unit="character"/>nan· tr<unclear>ā</unclear> tuy· krauṅ· <placeName key="Bhauk" subtype="river" type="hydrographic">bhauk·</placeName> ma</seg><lb break="no" n="C6"/><gap precision="low" quantity="14" reason="illegible" unit="character"/><unclear>po</unclear>v ku <unclear>danā</unclear>y· pināṅ· mavuḥ yāṅ· suvā<lb break="no" n="C7"/><supplied reason="lost">k·</supplied><gap precision="low" quantity="16" reason="illegible" unit="character"/>driy· yāṅ· pov· ku śrī bhadrava<lb break="no" n="C8"/><supplied cert="low" reason="lost">rmman</supplied><gap precision="low" quantity="19" reason="illegible" unit="character"/><supplied cert="low" reason="lost">h</supplied>u<supplied cert="low" reason="lost">mā</supplied> <unclear>niy· di yāṅ</unclear>· pov· ku
-             <lb n="C9"/><gap precision="low" quantity="22" reason="illegible" unit="character"/><unclear>nāk·</unclear> kintu humā
+             <lb n="C2"/><gap precision="low" quantity="17" reason="illegible" unit="character"/><unclear>vaḥ</unclear> kruvāv·<!-- sapi2argr au lieu de kravāv· --> tuy· <placeName key="Cikir Huriy" subtype="village" type="settlement">cikir· huriy·</placeName><!-- or undetermined --><lb n="C3"/><gap precision="low" quantity="16" reason="illegible" unit="character"/><unclear>cvaḥ</unclear><!-- sapi2argr dvaḥ? pvaḥ? --> puĀk· vandaḥ neḥ nariy· na<lb break="no" n="C4"/><gap precision="low" quantity="13" reason="illegible" unit="character"/><unclear>vik·</unclear><!-- sapi2argr ou cik·? --> nan· tr<unclear>ā</unclear> tuy· krauṅ· nan· nau<!--for the unusual shape of -au, see d9 --> kaṁ
+             <lb n="C5"/><supplied reason="lost">n·</supplied><gap precision="low" quantity="14" reason="illegible" unit="character"/>nan· tr<unclear>ā</unclear> tuy· krauṅ· <placeName key="Bhauk" subtype="river" type="hydrographic">bhauk·</placeName> ma</seg><lb break="no" n="C6"/><gap precision="low" quantity="14" reason="illegible" unit="character"/><unclear>po</unclear>v ku <unclear>danā</unclear>y· pināṅ· mavuḥ yāṅ· suvā<lb break="no" n="C7"/><supplied reason="lost">k·</supplied><!-- ou yāṅ pu ...? --><gap precision="low" quantity="16" reason="illegible" unit="character"/>driy· yāṅ· pov· ku śrī bhadrava<lb break="no" n="C8"/><supplied cert="low" reason="lost">rmman</supplied><!-- sapi2argr ou rmmadeva?  --><gap precision="low" quantity="19" reason="illegible" unit="character"/><supplied cert="low" reason="lost">h</supplied>u<supplied cert="low" reason="lost">mā</supplied> <unclear>niy· di yāṅ</unclear>·<!-- humā niy· di: ajout. --> pov· ku
+             <lb n="C9"/><gap precision="low" quantity="22" reason="illegible" unit="character"/><unclear>nāk·</unclear><!-- ajout --> kintu humā
              <lb n="C10"/><gap precision="low" quantity="21" reason="illegible" unit="character"/><unclear>ma</unclear>vuḥ di
              <lb n="C11"/><gap precision="low" quantity="10" reason="illegible" unit="character"/> <unclear>h</unclear>u<unclear>mā</unclear> di <unclear>t</unclear>u<seg type="aksara"><seg subtype="body" type="component">
               <gap quantity="1" reason="illegible" unit="component"/>
@@ -151,10 +165,10 @@
              <milestone break="no" n="d" type="pagelike" unit="face"/><lb break="no" n="d1"/>nna niy· kā liṅait· Oḥ pathuv·
              <lb n="d2"/>Urāṅ· rayā Oḥ suvāk· di pu po<lb break="no" n="d3"/>v· tana rayā Urāṅ· nan· tmuv· Avīcīna<lb break="no" n="d4"/>raka samū ṅan· Urāṅ· yaṅ· paliṅait·
              <lb n="d5"/>Udakānna niy· maṁn· kintu Urāṅ yāṅ·
-             <lb n="d6"/>pov· ku siniy· Oḥ jeṅ· <unclear>pa</unclear>tok· nau kaṁ<lb break="no" n="d7"/>n· kanumvrap· Athavā kaṁn· sev· Anaiḥ
-             <lb n="d8"/>Urāṅ· Athavā kaṁn· ganuhā Urāṅ· Atha<lb break="no" n="d9"/>vā nau tamr̥yāla niv· di kāryya Urāṅ·
-             <lb n="d10"/>Athavā tok· Ana tauṅ· nau riyo pasa
-             <lb n="d11"/>kāra Oḥ jeṅ· sarv<unclear>v</unclear>ā<unclear>ka</unclear>rādāna Oḥ jeṅ·
+             <lb n="d6"/>pov· ku siniy· Oḥ jeṅ· <unclear>pa</unclear>tok· nau kaṁ<lb break="no" n="d7"/>n· kanumvrap·<!-- maybe read kanumvrak·, or un any case assume connection with kumvrak in  C.82 and C.94. sapi2argr On the stone I reap -p. --> Athavā kaṁn· sev· Anaiḥ
+             <lb n="d8"/>Urāṅ· Athavā kaṁn· ganuhā Urāṅ· Atha<lb break="no" n="d9"/>vā nau tamr̥yāla niv· di kāryya Urāṅ·<!-- the sequence tamr̥yāla niv· is also found in C106 — how to break the words? -->
+             <lb n="d10"/>Athavā tok· Ana tauṅ·<!-- Annatauṅ in C106--> nau riyo pasa
+             <lb n="d11"/>kāra<!-- read pasabhāra? sapi2argr c'est fort probable --> Oḥ jeṅ· sarv<unclear>v</unclear>ā<unclear>ka</unclear>rādāna Oḥ jeṅ·
              <lb n="d12"/><gap quantity="1" reason="lost" unit="line"/>
            </p>
       </div>
@@ -236,31 +250,33 @@
         <p n="b12-b14">This is the date in the Śaka era of the god's donation: three, four, eight <supplied reason="explanation">i.e., 843</supplied>.</p>
         <p n="C1-C13"> ... the extent of this field ... buffaloes along Cikir Huriy ... this part measures <supplied reason="explanation">
             <foreign>puāk</foreign>
-          </supplied> ... from ... and follows that river to ... and follows the Bhauk river ... The P.K. Danāy Pināṅ allowed the uprooted <supplied reason="explanation">
+          </supplied> ... from ... and follows that river to ... and follows the Bhauk river ... The P.K. Danāy Pināṅ<!-- son nom est présent dans la partie sanskrite--> allowed the uprooted <supplied reason="explanation">
             <foreign>suvāk</foreign>
-          </supplied> god to ... individuals. Y.P.K. Śrī Bhadrava... Y.P.K. ... but the field... offer to... the Y.P.K. here ... rejuvenate like... this meritorious work, ... remove ...
-          
+          </supplied> god<!-- "offers the god uprooted" or "allows the god to be uprooted"?--> to ... individuals. Y.P.K. Śrī Bhadrava... Y.P.K. ... but the field... offer to... the Y.P.K. here ... rejuvenate like... this meritorious work, ... remove ...
+          <!-- Vraiment lire punya ? Ou kunya ? -->
           </p>
         <p n="C14-d12">
            This water and food then disappeared. Not informing the common people, not <foreign>suvāk</foreign> to the sovereign, those people obtain the Avīcī hell, similarly to men who only <supplied reason="explanation">
             <foreign>maṁn</foreign>
           </supplied> remove this water and food.
-           
-          But the men of the Y.P.K. here will not take  the elevated <foreign>vrap</foreign>, 
-          nor <supplied reason="subaudible">take</supplied> the little <foreign>sev</foreign> of men 
-          nor <supplied reason="subaudible">take</supplied> the <foreign>ganuhā</foreign> of men,
-          nor will they <supplied reason="subaudible">take</supplied> this <foreign>tamr̥yāla</foreign> to the <foreign>kāryya</foreign> of men.
-          Or they will not take all the <foreign>Ana</foreign> 
-          riyo pasakāra
+           <!-- sapi and argr have read down to here on 2021-03-31 -->
+          But the men of the Y.P.K. here will not take <!--Oḥ jeṅ· patok· nau kaṁn = oh + kaṁn = négation --> the elevated <foreign>vrap</foreign>, <!--sapi2argr kanumvrap· : serait-il possible de lire kanukvrap à la place ? Kanuk est reconnu dans A&C, p. f55 (PDF p. 113).
+          Kanu, A&C, p. 55 : élevé, haut, surélevé. Ex: hamu kanu = rizière surélevée.
+          Dans A&C, p. 458 (PDF p. 534) : vrak = se rouler, muer, croc < malais ūrak ?-->
+          nor <supplied reason="subaudible">take</supplied> the little <foreign>sev</foreign> of men <!--sapi2argr Je lis plus sev que siv. Cf. C. 140, l. B. 13. Je n'ai pas eu accès à l'édition de cette inscription. Edouard Huber, Études indochinoises VII: Nouvelles découvertes archéologiques en Annam. 3. Vestiges et stèle chams à Huong-Que, BEFEO XI (1911), p. 15 n'est pas la bonne référence, et Majumdar ne l'a pas édité.-->
+          nor <supplied reason="subaudible">take</supplied> the <foreign>ganuhā</foreign><!--sapi2argr Ganuhā < ganuḥ : puissance ?--> of men,
+          nor will they <supplied reason="subaudible">take</supplied> this <foreign>tamr̥yāla</foreign><!-- the sequence tamr̥yāla niv· is also found in C106 — how to break the words? --> to the <foreign>kāryya</foreign><!--sapi2argr kāryya sens sanskrit ? Adj vbal d'obligation? --> of men.
+          Or they will not take all the <foreign>Ana</foreign> <!--sapi2argr C. 106 : oḥ jeṅ· si top· anna tauṅ· tamr̥yāla niv· di kāra urāṅ·-->
+          riyo<!--sapi2argr riyo C. 30A1--> pasakāra<!--sapi2argr read pasabhāra? au lieu de pasa kāra, on pourrait lire pa Akāra. Ou pu Āk ? (peu probable).-->
           Nor <supplied reason="subaudible">take</supplied> the total tax exemption.
           Nor <supplied reason="subaudible">take</supplied>...
           </p>
-        <p n="b1bis-b3bis"> The <foreign>vūnūk</foreign> field, the forest beyond all the <foreign>tala Ajauñ vavūy</foreign>, and all the outward forests.</p>
+        <p n="b1bis-b3bis"> The <foreign>vūnūk</foreign><!--sapi2argr ou lire vūnūṅ ?--> field, the forest beyond all the <foreign>tala Ajauñ vavūy</foreign>, and all the outward forests.<!--Mots douteux : Vūnūk ; klar ; tala ; vavūy--></p>
       </div>
       <div source="bib:Huber1911_01" type="translation" xml:lang="fra">
         <p n="A1">Bonheur ! Adoration à Śiva ! Succès !</p>
         <p n="1" rend="stanza">Le dieu qui pénètre partout, auquel nul n'est pareil dans les trois mondes, qui est doué d'une gloire majestueuse, qu'adorent, dans sa caverne de l'Himālaya, tous les autres dieux, les troupes des démons et les nymphes célestes, de même que les génies et les sages doués de la puissance illimitée que leur confère leur fois <supplied reason="subaudible">en Śiva</supplied> purifiée par le <foreign>yoga</foreign>, ce dieu-là qui efface les péchés et les malheurs des êtres donne aux hommes la félicité.</p>
-        <p n="2" rend="stanza">La faveur du pollen de ces lotus qui sont les deux pieds du dieu Śrīśāna Hara a procuré à la cité de Campā une abondance incomparable de félicités, de beautés et de délices sans nombre.</p>
+        <p n="2" rend="stanza"><!--sapi2argr Ici, Huber, ne l'a pas comptée comme une stance mais j'ai rectifié pour correspondre avec la translittération du rtf. Ai-je bien fait ?-->La faveur du pollen de ces lotus qui sont les deux pieds du dieu Śrīśāna Hara a procuré à la cité de Campā une abondance incomparable de félicités, de beautés et de délices sans nombre.</p>
         <p n="3" rend="stanza">Dans cette cité règne, pour le bonheur des vertueux, le roi Śrī Jaya Indravarman, entouré de la multitude de ses guerriers, telle la lune avec son cortège d'étoiles. Par sa puissance éclatante il assure la paix du monde entier, lui qui est la source de toutes les bonne œuvres ; puisse-t-il, en abaissant sur eux son doux regard, accorder sa protection puissante à ses sujets, lui qui les éveille à l'intelligence !</p>
         <p n="4" rend="stanza">Il a un ministre, très habile dans la connaissance de toutes les qualités du Seigneur <supplied reason="subaudible">Śiva</supplied>, zélé dans la recherche de tous les mérites religieux qu'il pourrait accomplir ; menant à bonne fin de nombreuses œuvres pies, il s'est créé une âme de <foreign>muni</foreign>, ce magnanime, le délice du pays. D'un aspect doux comme celui de la pleine lune, c'est qu'invoquent les hommes de bien ; il a en partage la gloire, la science révélée et la félicité. Savant, ses louanges sont chantées dans les assemblées des savants et par des techniciens de l'éloge jusqu'aux confins du monde.</p>
         <p n="5" rend="stanza">Le seigneur Danāy Pināṅ, un des Grands du Campā, expert dans les rites et la connaissance de Śiva, se livrant au <foreign>yoga</foreign>, au <foreign>dhyāna</foreign> et au <foreign>samādhi</foreign> dans le désir de gagner pour son salut le paradis de Śiva, se souvenant que notre corps n'a plus de durée qu'un flocon d'écume ballotté sur la mer, a érigé cette grande construction religieuse en faisant le vœu que lui et ses parents puissent être sauvés de l'océan des existences.</p>

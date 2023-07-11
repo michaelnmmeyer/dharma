@@ -31,17 +31,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -52,6 +62,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -98,7 +109,7 @@
         </lg>
         <lg met="anuṣṭubh" n="3">
           <l n="a"><lb n="6"/>|| limvasya duhitā jajñe</l>
-          <l n="b">prada-putr<unclear>ā</unclear>sya bhūpateḥ</l>
+          <l n="b">prada-putr<unclear>ā</unclear>sya<!-- pradaputrāsya} \sep\ De Casparis. The stone is damaged here, so I cannot verify the presence of <foreign>ā}. De Casparis marked it as uncertain. --> bhūpateḥ</l>
           <l n="c">Utteja<lb break="no" n="7"/>n<choice>
               <orig>ā I</orig>
               <reg>e</reg>
@@ -183,6 +194,11 @@
             </choice>ha ca gatim· <lb n="24"/><supplied reason="lost">para</supplied>māṁ labhante</l>
         </lg>
         <lg met="vasantatilakā" n="9">
+          <!-- 14
+vasantatilakā
++ + - + - - - + - - + - + =
+––⏑–⏑⏑⏑–⏑⏑–⏑–⏓
+ -->
           <l n="a">|| vaṁśyā<choice>
               <orig>āḥ n</orig>
               <reg>ā n</reg>
@@ -253,6 +269,10 @@
               </bibl>
 proposed the alternative <foreign>valahājiriḍyaḥ</foreign> but says nothing about how he interprets this. Long and short <foreign>i/ī</foreign> are in many cases barely distinguishable in this inscription. Emend <foreign>valahāśirīḍyaḥ</foreign> (for expected <foreign>valahāśīrīḍyaḥ</foreign>) or <foreign>valahājid īḍyaḥ</foreign>?</note>
           </app>
+          <!-- <app loc="10">
+<lem>pūrvvaiḥ</lem>
+<rdg source="bib:Casparis1941_01">pūrvaiḥ</rdg>
+</app> -->
           <app loc="10">
             <lem>-mayī<unclear>m·</unclear></lem>
             <rdg source="bib:Casparis1941_01">-mayīṁ</rdg>
@@ -266,6 +286,11 @@ proposed the alternative <foreign>valahājiriḍyaḥ</foreign> but says nothing
                 <citedRange unit="note">3</citedRange>
               </bibl>).</note>
           </app>
+          <!-- <app loc="14">
+<lem>pratipa<lb n="15" break="no"/>da-divase</lem>
+<note>for <foreign>pratipaddivase</foreign> (<foreign>metri causa</foreign>) according to Sarkar’s n. 24a. But is a thematic stem <foreign>pratipada</foreign> in any way substandard?</note> 
+</app>
+-->
           <app loc="16">
             <lem source="bib:Casparis1941_01">sa-<seg rend="check">pauraiḥ</seg></lem>
             <note>Based on inspection of the stone, and comparing this word to the graphic appearance of <foreign>pauraiḥ</foreign> at the beginning of line 9, Damais (<bibl rend="omitname">
@@ -284,6 +309,7 @@ proposed the alternative <foreign>valahājiriḍyaḥ</foreign> but says nothing
           <app loc="20">
             <lem>visrambhāya</lem>
             <rdg source="bib:Casparis1941_01">viśrambhāya</rdg>
+            <!-- <note> De Casparis and all others?</note> -->
           </app>
           <app loc="21">
             <lem>-śayyā°</lem>
@@ -307,6 +333,7 @@ proposed the alternative <foreign>valahājiriḍyaḥ</foreign> but says nothing
         <p n="1" rend="stanza">There was a king, the wise and valorous Devasiṁha, protected by whom shines <supplied reason="explanation">or: shone</supplied> the city purified by Pūtikeśvara.<note>
             <seg rend="check">Note of Chatterjee; article by Stutterheim (?).</seg>
           </note></p>
+        <!-- %8 The meaning of the last quarter of the verse is uncertain. The word īśvara at the end shows that an image of Siva might have been intended here, The reading Putakeśvara would give us some sense, but neither this nor Putikesvara is found amongst the 1008 names of Mahādeva mentioned in the Anusasana Parva of the Mahabharata or elsewhere. A probable explanation of Putikesvara may however be found in the following: Puti in Sanskrit besides meaning a putrid smell may also denote a devadāru tree. It is quite likely that the image was called Putikesvara because of its being originally made of devadaru wood as we find in verse 5. I am not sure of the meaning of pāvitñ either. Grammar would not allow its being connected with guptah. Mr. Bosch thus translates the second half of the verse, *'Undêr whose protection the. flame of Putikesvara diffused its light all arouud. But pávita in the sense of 'flame' is not found in Sanskrit. It appears to be derived from the root pū 'to purify’ and has been used in a causative sense. Thus pavitā seems to me to be an error for pāvitaḥ. In that case Pūtikeśvara pâvitalp could refer to a place which is purified by Pūtikesvara and most probably to the shrine which contained the image of Putikesvara.  -->
         <p n="2" rend="stanza">His son, Limva <supplied reason="explanation">
             <q>Swing</q>
           </supplied>, known as Gajayāna <supplied reason="explanation">
@@ -436,8 +463,20 @@ proposed the alternative <foreign>valahājiriḍyaḥ</foreign> but says nothing
             <citedRange unit="part">I</citedRange>
             <citedRange unit="item">3</citedRange>
           </bibl>
+          <!-- not cited in <bibl><ptr target="bib:Eade+Gislen2000_01"/></bibl> -->
         </listBibl>
       </div>
     </body>
   </text>
+  <!-- 
+%1 Rd. ^fgrR—fĩîr̥ af"*. Bosch is doubtful about the reading 4 tf HW. Metre requries a long syllable in Ç. I would prefer to read –qCT§Ttt–. 
+%2 Bosch reads ^fèfèïïT^. 3Bosch reads *pM| and corrects it as STf hut the reading sofCfT is certain. 
+%4 In this verse rd. suig^T ^ S ^ r a ‚ – g ^ ^ r ^ ^ I > " ^ ~ T and 
+%5 Perhaps we have to read q*f çīift*H or çWrHI^ The second sylable in ?rfef should be short, 
+%6 Rd. 5ī5uf^ 
+%7 In verse 9 read tf*íT?*f%aT, ^mf^<ī–, rf^T and TO^ïïfèrö ^ f & r e ^ . Bosch wrongly reads ^fèren for cf%íCT. 
+	%1 This verse may also be translated thus: Limva had á daughter born unto him; the mother of the wise (king i. e. Limva) was Uttejana, the chief queen of the king (i. e. Devasimha), the son of Prada. But the difficulty of this explanation is, 'that the inscription opens with the Devasiṁha and not with Prada, which according to this interpretation' would be the name of the father of Devasimha. 
+	%2 Bosch connects bhaktaḥ with Agastye and translates as 'devoted to Agastya.’ . But it appears that the word at the begining of the verse, the reading of which is not certain, is to be connected with the locative in the first pāda. moreover Bosch reads maunaih and thinks that it has been used by the poet for munibḥiḥ o r maunibhih. But the reading is maulaiḥ. Maula is used in the sense of hereditary servants or ministers of the king ( ^I^HIH ^ T ^ ) . Nâyaka I have taken in the sense of Senāpati. I can not explain the wood Balahajiri, It may be a Javanese word and I do not know i f it has any connection with Balayin, which i s the Javanese name for Agastya. 
+	%3 Bosch i s not certain of the reading of talagata which he has taken in the sense of 'crumbling.’ Thus according to him the King had the image of stone made when he found that the wooden image was crumbling to pieces. But the root tal is found in the sense of 'foundation' o r establishment of some sacred object Again, Bosch takes araṁ in the sense of 'forthwith/ I have preferred to connect it with eakïïra. Aramkr i s used i n S a n s k r i t i n the sense of 'to prepare.' 
+ -->
 </TEI>

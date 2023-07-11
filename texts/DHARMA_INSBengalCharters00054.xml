@@ -40,9 +40,14 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSBengalCharters00054</idno>
+        <!-- The Siddham ID will need to be retained, probably as <altIdentifier>, when a DHARMA filename is assigned. -->
+        <!--argr2daba: I have used I have moved the <altIdentifier type="Siddham">, but in order to get a validating file, I had to move it into <msIdentifier>. We need to get approval of this representation from axja and if she approves need her to revise both schema and template -->
+        <!--daba: I agree fully, and will be happy to go ahead with whatever Axelle suggests. I think the altIdentifier will have to go in the MS section regardless of what she does to the schema: here, we're giving the ID of this publication, of which there is only one; there, we give other IDs associated with the original text. Hand in hand with providing instructions for altIdentifier, we also need to provide for alternative titles (those in literature or Siddham) by which a user will be able find a text.-->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <!-- argr2daba: I was wondering if the Siddham licence needs to be reproduced here. -->
+            <!--daba: I think we need consultation on that. What I know is this: we never did put licence info inside the Siddham files. I've just checked and the siddham.network website offers its content under a CC BY-NC-ND 4.0 licence, which may be a problem (ND = no derivatives). I wonder if that was done because Michael anticipated DHARMA wanting to reuse those files. However, the original XML files I uploaded to Zenodo (which are in fact what I imported now) are still there under a BY-SA licence, nothing about ND or even NC. (By the way, is there any reason why our files are only BY, without SA? That would mean that any derivatives made later will not have to credit us for the work, wouldn't it?) Should I try to discuss this with Michael? I'd like to avoid fuelling the bad blood between you two, and I would also like to remain on good terms with him, so I'm not very eager to do that, but all in all, it may be best if I initiate it. Also, as you say in your email, we should probably include a reference to the Siddham files. To simplify our lives (and to conform to fact), this could simply be the zip file containing all my XML files on Zenodo, rather than individual siddham.network URLs for each file. -->
             <p>Copyright (c) 2019-2025 by Dániel Balogh &amp; Arlo Griffiths.</p>
           </licence>
         </availability>
@@ -54,6 +59,7 @@
             <repository>DHARMAbase</repository>
             <idno/>
             <altIdentifier type="Siddham">
+              <!-- argr2daba: this inserted here for the reason stated above -->
               <idno type="filename">DHARMA_INSBengalCharters00054</idno>
             </altIdentifier>
           </msIdentifier>
@@ -64,8 +70,8 @@
             <handDesc>
               <p>
 Noteworthy shapes of M, ṅha.
-Line 4: -svāmine: the ne has a special shape, apparely meant to reinforce the fact that the akṣara marks the end of a clause, a fact also indicated by following space.
-Line 18: shape of gg in svargge.</p>
+Line 4: -svāmine: the ne has a special shape, apparely meant to reinforce the fact that the akṣara marks the end of a clause, a fact also indicated by following space.<!--daba: indeed. It actually looks rather like what I'd expect a halanta N to look like. Could this be one? Or perhaps a halanta N to which an e marker was added subsequently to change it to ne? Or, as you say, a halanta-ish shape used to indicate the pause (virāma) at this point. -->
+Line 18: shape of gg in svargge.<!-- argr2daba: it rather looks like we have svargge, doesn't it? --><!--daba: probably, but this looks weird. I'd expect the second g to be more prominent, and attached to the right leg of the primary one - but this must be another cursive/unusual implementation of a subscript g. In line 8, ndhu is formed similarly, with the dh attached through a vertical line at the right, so here too, the vertical is probably for attachment, and the little thingy at its bottom is the second g. --></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -100,17 +106,22 @@ Line 18: shape of gg in svargge.</p>
     <body>
       <div type="edition" xml:lang="san-Latn">
         <p><pb n="1r"/><lb n="1"/>svasty amvila-grāmāgrahārāt sa-viśvāsam adhikaraṇaM <space/> jaṅgoyikā-grāme brāhmaṇottarān saṁvyavahā<lb break="no" n="2"/>ryy-ādi-kuṭumvinaḥ kuśalam anuvarṇṇya bodhayanti likhanti ca <space/></p>
-        <p>vijnāpayati naḥ viṣaya-pati-chattramahaḥ<lb n="3"/>I<unclear>cch</unclear>āmy ahaṁ sva-puṇyābhivr̥ddhaye <space/> nanda-vaitheya-khaṭāpūraṇāgrahārika-cchāndoga-kāśyapa-sagottra-brāhmaṇa
-
+        <p>vijnāpayati naḥ viṣaya-pati-chattramahaḥ<lb n="3"/>I<unclear>cch</unclear>āmy ahaṁ sva-puṇyābhivr̥ddhaye <space/> nanda-vaitheya-khaṭāpūraṇāgrahārika-cchāndoga-kāśyapa-sagottra-brāhmaṇa<!-- daba had a comment on the end of this line:
+"The ā mātrā at the end of l3 is far from clear. If it's ṇā, then we expect brāhmaṇāya, so the name of the donee is probably just one akṣara plus svāmin. Perhaps more probably, we have just brāhmaṇa, and then a two-syllable name." 
+argr adds: On inspection of the RTI, and presuming that my new reading adhikaraṇaM is the correct reading in line 1, then I find that there can be no serious doubt about the reading ṇa here, even if the akṣara as a whole is not as clear as it could be. That said, I don't find daba's argument about a hypothetical reading with -ṇā incontrovertible. In the Gaya plate there is vrāhmaṇagopadevasvāmine. If the reading is -ṇā, we could very well have a brahmin whose name started with A or Ā. --><!--daba: you are of course right that the name could have started with a or ā, so the brāhmaṇā does not necessarily imply brāhmaṇāya. But I think I disagree about reading ṇā here and in l1. I've just spent a short time looking at the RTI, so I don't want to contradict your judgement right out, but here's how it seems to me. 1. we have a clear ṇa in line 8 (°dhāraṇayā), in which the hook at the top right only extends downward for a short length (I haven't looked for other instances of ṇa, so this may be atypical, but it conforms to my expectations). 2. Clear specimens of ṇā (l3 °ṇāgrahārika; l9 kṣettrāṇām) have a second hook attached to the lower right of the body, bending down and back under the body. 3. The problematic characters (l1 and l3) have the upper right hook extended down below the baseline, then bending back under the body. My conclusion: the problematic characters are a cursive form of ṇā, in which the upper right hook of the body is extended to represent the hook that is the vowel marker. That stroke even has a curve toward the body in l1, and a definite cusp toward the body in l3, which to me indicates that the part of the stroke above that cusp/curve belongs to the body, and the part below it represents the vowel marker. In the RTI, the only thing unclear about the one in l3 is the centre of the body, but the stroke on the right is quite clear. Thus, I suggest reverting to adhikaraṇāM in l1 (could the composer have had adhikaraṇāḥ in mind, to go with the plural verbs?), and brāhmaṇā in l3. -->
+<!-- response argr: I am still convinced we are dealing with ṇa in both cases. -->
 <lb break="no" n="4"/>-<gap quantity="2" reason="illegible" unit="character"/>-svāmine <space/> pañca-mahā-yajña-pravarttanāya khila-kṣettra-kulya-vā<unclear>pa</unclear>-<subst>
             <del>tu</del>
             <add place="overstrike">ca</add>
           </subst>tuṣṭayaṁ kkrītvātisraṣṭuM<lb n="5"/>yuṣmad-viṣaye ca <space/> samudaya-vāhyādya-stamva-khila-kṣettrāṇāṁ <space/> śaśvad-ācandrārka-tāraka-bhojyā<supplied reason="omitted">nā</supplied><lb break="no" n="6"/>m akṣaya-nīvyā<surplus>ḥ</surplus> dvi-dīnārikya-kulya-vāpa-vikkrayo 'nuvr̥ttas tad arhatha <space/> matto 'ṣṭau dīnārān upa<lb break="no" n="7"/>saṁgr̥hya jaṅgoyikā-grāme khila-kṣettra-kulya-vāpa-catuṣṭayam akṣaya-nīvyās tāmra-paṭṭena dātum iti</p>
-        <p><lb n="8"/>yataḥ pustapāla-pradyotasiṅha-vandhudāsayor a<add place="below" rend="mark">va</add>dhāraṇayāvadhr̥tam astīha viṣaye <space/> samudaya<lb break="no" n="9"/>-vāhyādya-stamva-khila-kṣettrāṇām akiñcit-pratika<space type="descender"/>rāṇāṁ dvi-dīnārikya-kulya-vāpa-vikkrayo 'nuvr̥ttaḥ<lb n="10"/>Evam-vi<unclear>dho</unclear>tpratikara-khila-kṣettra-vikraye ca na kaś cid rājārttha-virodhaḥ dīyamāne tu parama-bhaṭṭāraka<lb break="no" n="11"/>-pādānāṁ dharmma-ṣaḍ-bhāgāvāptis tad dīyatām ity etasmād viṣaya-pati-chattramahād aṣṭau dīnārān upa<lb break="no" n="12"/>saṁgr̥hya <space/> jaṅgoyikā-grāme <space type="descender"/> gorakṣita-tāmra-paṭṭa-dakṣiṇena <space/> gopāli-bhogāyā<supplied reason="omitted">ḥ</supplied> paścimena khila<lb break="no" n="13"/>-kṣettra-kulya-vāpa-catuṣṭayaṁ dattaM <space/> <abbr>ku</abbr> <num value="4">4</num> <space/></p>
-        <p>te yūyam evaṁ viditvā kuṭumvināṁ karṣaṇāvirodhi-sthāne <lb n="14"/>darvvī-karmma-hastenāṣṭaka-navaka-nalābhyām apaviñchya <space/> cira-kāla-sthāyi-tuṣāṅgārādi-cihnaiś catur-ddi<lb break="no" n="15"/>ṅ-niyamita-s<unclear>ī</unclear>mānaṁ kr̥tvā dāsyatha <space/> datvā cākṣaya-nīvī-dharmmeṇa śaśvat-kālam anupālayiṣyatha<pb n="1v"/><lb n="16"/>varttamāna-bhaviṣyaiś ca saṁvyavahāribhir etad dharmmāpekṣayānupālayitavyam iti <space/> Uktañ ca bhaga<lb break="no" n="17"/><unclear>vatā vyā</unclear>se<supplied reason="lost">na</supplied> <space/></p>
+        <p><lb n="8"/>yataḥ pustapāla-pradyotasiṅha-vandhudāsayor a<add place="below" rend="mark">va</add><!-- argr: the mark takes the form of two vertical strokes above the line -->dhāraṇayāvadhr̥tam astīha viṣaye <space/> samudaya<lb break="no" n="9"/>-vāhyādya-stamva-khila-kṣettrāṇām akiñcit-pratika<space type="descender"/>rāṇāṁ dvi-dīnārikya-kulya-vāpa-vikkrayo 'nuvr̥ttaḥ<lb n="10"/>Evam-vi<unclear>dho</unclear>tpratikara-khila-kṣettra-vikraye ca na kaś cid rājārttha-virodhaḥ dīyamāne tu parama-bhaṭṭāraka<lb break="no" n="11"/>-pādānāṁ dharmma-ṣaḍ-bhāgāvāptis tad dīyatām ity etasmād viṣaya-pati-chattramahād aṣṭau dīnārān upa<lb break="no" n="12"/>saṁgr̥hya <space/> jaṅgoyikā-grāme <space type="descender"/> gorakṣita-tāmra-paṭṭa-dakṣiṇena <space/> gopāli-bhogāyā<supplied reason="omitted">ḥ</supplied> paścimena khila<lb break="no" n="13"/>-kṣettra-kulya-vāpa-catuṣṭayaṁ dattaM <space/> <abbr>ku</abbr> <num value="4">4</num> <space/></p>
+        <p>te yūyam evaṁ viditvā kuṭumvināṁ karṣaṇāvirodhi-sthāne <lb n="14"/>darvvī-karmma-hastenāṣṭaka-navaka-nalābhyām apaviñchya <space/> cira-kāla-sthāyi-tuṣāṅgārādi-cihnaiś catur-ddi<lb break="no" n="15"/>ṅ-niyamita-s<unclear>ī</unclear>mānaṁ kr̥tvā dāsyatha <space/> datvā cākṣaya-nīvī-dharmmeṇa śaśvat-kālam anupālayiṣyatha<!-- argr2daba: the line is not fully engraved with text —should we note this?  --><!--daba: we decided not to do so in markup. You can say it in the layout description once we get to having one. EGD §4.3.4 gives you the option of encoding such a line as aligned to the left. --><pb n="1v"/><lb n="16"/>varttamāna-bhaviṣyaiś ca saṁvyavahāribhir etad dharmmāpekṣayānupālayitavyam iti <space/> Uktañ ca bhaga<lb break="no" n="17"/><unclear>vatā vyā</unclear>se<supplied reason="lost">na</supplied> <space/></p>
         <lg met="anuṣṭubh" n="1">
           <l n="a"><supplied reason="lost">sva-da</supplied>ttāṁ para-dattāṁ vā</l>
           <l n="b">yo hareta vasundharāṁ</l>
+          <!-- 
+Comment daba modified by argr: "There is a space of about one character after bhūmidaḥ in 2b, but there is hardly any space after vasundharāṁ here." 
+-->
           <l n="c">sa viṣṭhāyāṁ kr̥mir bhūtvā</l>
           <l n="d">pitr̥bhiḥ saha <lb n="18"/>pacyate <space/></l>
         </lg>
@@ -139,7 +150,7 @@ Line 18: shape of gg in svargge.</p>
                 <sic>ā</sic>
                 <corr>a</corr>
               </choice>M</rdg>
-            <note>Reading <foreign>ṇā</foreign> here would imply that the akṣara has a different shape from all other cases of <foreign>ṇā</foreign> in this inscription, which show a clockwise stroke at the bottom to make the <foreign>ā</foreign> (e.g. in line 9 <foreign>pratikarāṇāṁ</foreign>). By contrast, we can avoid the need to make any emendation by simply reading the expected <foreign>ṇa</foreign>, which does not seem problematic if we compare the forms of <foreign>ṇa</foreign> and M observed, e.g., in line 8 <foreign>avadhāraṇayā</foreign>, line 4 <foreign>atisraṣṭuM</foreign>, line 13 <foreign>dattaM</foreign>.</note>
+            <note>Reading <foreign>ṇā</foreign> here would imply that the akṣara has a different shape from all other cases of <foreign>ṇā</foreign> in this inscription, which show a clockwise stroke at the bottom to make the <foreign>ā</foreign> (e.g. in line 9 <foreign>pratikarāṇāṁ</foreign>). By contrast, we can avoid the need to make any emendation by simply reading the expected <foreign>ṇa</foreign>, which does not seem problematic if we compare the forms of <foreign>ṇa</foreign> and M observed, e.g., in line 8 <foreign>avadhāraṇayā</foreign>, line 4 <foreign>atisraṣṭuM</foreign>, line 13 <foreign>dattaM</foreign>.<!--daba2argr: I concur that the M need not be involved, but I've now fully convinced myself that the stroke on the right is an alternative implementation of the ā marker. Incidentally, the way it is executed may be related to the way rgge is formed in l18 and ndhu in l8. --><!-- argr: I am still rather convinced that -ṇaM is the correct reading. --></note>
           </app>
           <app loc="1">
             <lem>saṁvyavahā<lb break="no" n="2"/>ryy-</lem>
@@ -207,7 +218,9 @@ Line 18: shape of gg in svargge.</p>
       <div resp="part:argr" type="translation">
         <p n="1-2">Hail! From the <foreign>agrahāra</foreign> of the village Amvila, the <supplied reason="subaudible">members of the</supplied> council which enjoys <supplied reason="subaudible">the king’s</supplied> confidence, having offered greetings to the administrator(s) and other landholders <supplied reason="explanation">
             <foreign>kuṭumbin</foreign>
-          </supplied> at the village Jaṅgoyikā, brahmins being foremost among them, inform and write:</p>
+          </supplied><!-- argr2ryfu: or "peasant householders", if we follow your preference --> at the village Jaṅgoyikā, brahmins being foremost among them<!-- 
+amwb : "consisting chiefly of brahmins" cf my arguments in BC39 line 2, BC49 line 2, BC51 line 6 and BC57 line 2; See MW p.178 col1 et Apte p.408 n°8...voir consisting chiefly of Brahmins Apte p.1174
+-->, inform and write:</p>
         <p n="2-7">The district chief Chattramaha respectfully requests from us: 
 <q>In order to increase my own merit, I wish to buy four <foreign>kulyavāpa</foreign>s of uncultivated land and give <supplied reason="subaudible">them</supplied> to the Chandoga (i.e., Sāmavedic) Brahmin <gap reason="illegible"/>svāmin of the Kāśyapa gotra and <supplied reason="explanation">resident</supplied> of the Khaṭāpūraṇa <foreign>agrahāra</foreign> in the Nanda territory <supplied reason="explanation">
               <foreign>vīthi</foreign>
@@ -233,8 +246,8 @@ Line 18: shape of gg in svargge.</p>
           </bibl>, accepted by R. Furui <bibl rend="omitname">
             <ptr target="bib:Furui2020_01"/>
             <citedRange unit="page">42–43</citedRange>
-          </bibl>.
-</p>
+          </bibl>.<!--daba had noted on this word: "Sircar says ādyastamba (l9) means "covered with original shrubs". I don't find this very convincing and I'm inclined to think astamba means not planted with grain, or perhaps without grass (for grazing), but the whole expression seems rather uncertain; in my interpretation, the ādi is a bit unexpected." -->
+<!--daba: at face value, ādi+astamba still looks much better to me than ādya-stamba. --></p>
         <p>Line 14: on <foreign>darvīkarma</foreign>, see <bibl>
             <ptr target="bib:Griffiths2018_02"/>
             <citedRange unit="page">43, 53</citedRange>
@@ -256,6 +269,7 @@ Line 18: shape of gg in svargge.</p>
         <listBibl type="primary">
           <bibl n="B">
             <ptr target="bib:Balogh+al2019_01"/>
+            <!-- Daniel Balogh's Siddham edition -->
           </bibl>
           <bibl n="S">
             <ptr target="bib:Sircar1965_02"/>
@@ -265,6 +279,8 @@ Line 18: shape of gg in svargge.</p>
           <bibl n="M">
             <ptr target="bib:Majumdar1935-1936_01"/>
           </bibl>
+          <!-- argr2daba: now is there any use in also citing the Siddham edition here, and in epigraphic lemma? Since you edition hardly does more than reproduced NGM's, I vote no. -->
+          <!--daba: I don't insist, but here are some non-decisive reasons why it may be better to do that. 1. The amount of original work I did on Siddham inscriptions varies greatly, and if we decide to cite or not to cite Siddham on that basis, then in each case someone would have to judge whether or not it deserves to be cited. I definitely think that some of my Siddham inscriptions deserve it. 2. Sircar too did little more than reprint the text. 3. To stay on Michael's good side. // Then again, some likewise non-decisive reasons why not to: 1. The Siddham edition is credited anyway in the header. 2. I agree with you about there being no need (in this particular case) to cite any of my readings in the apparatus. So: I'm undecided. If you prefer no, I'm OK with that. -->
         </listBibl>
         <listBibl type="secondary">
           <bibl>

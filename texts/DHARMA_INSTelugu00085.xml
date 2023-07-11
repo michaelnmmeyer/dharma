@@ -15,6 +15,7 @@
           <persName>
             <forename>J.</forename>
             <surname>Ramayya Pantulu</surname>
+            <!-- J. Ramayya Pantulu is the editor of SII X. He appears to be the editor of all the inscriptions as well.-->
           </persName>
         </respStmt>
       </titleStmt>
@@ -35,17 +36,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -56,6 +67,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -84,7 +96,7 @@
       </div>
       <div type="apparatus"></div>
       <div resp="part:jeth" type="translation">
-        <p></p>
+        <p><!--Yet to be provided --></p>
       </div>
       <div type="commentary">
         <p>
@@ -110,7 +122,7 @@
       </div>
       <div type="bibliography">
         <p>
-              The inscription was noted in A. R. No. 294 of 1905  and first published by J. Ramayya Pantulu in <bibl rend="omitname">
+              The inscription was noted in A. R. No. 294 of 1905 <!-- has to be adjusted to the @target --> and first published by J. Ramayya Pantulu in <bibl rend="omitname">
             <ptr target="bib:RamayyaPantulu1948_01"/>
             <citedRange unit="page">338</citedRange>
             <citedRange unit="item">623</citedRange>
@@ -122,9 +134,10 @@
 	 </p>
         <listBibl type="primary">
           <bibl n="siglum"/>
+          <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
         </listBibl>
         <listBibl type="secondary">
-          <bibl>A. R. No. 294 of 1905  </bibl>
+          <bibl>A. R. No. 294 of 1905 <!-- has to be adjusted to the @target --> </bibl>
           <bibl>
             <ptr target="bib:RamayyaPantulu1948_01"/>
             <citedRange unit="page">338</citedRange>

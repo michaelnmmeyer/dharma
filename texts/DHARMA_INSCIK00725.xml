@@ -12,9 +12,17 @@
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <persName ref="part:doso">
-            <forename>Dominique</forename>
-            <surname>Soutif</surname>
+          <persName ref="http://viaf.org/viaf/66465311">
+            <forename>George</forename>
+            <surname>Cœdès</surname>
+          </persName>
+          <persName ref="part:dogo">
+            <forename>Dominic</forename>
+            <surname>Goodall</surname>
+          </persName>
+          <persName ref="part:kuch">
+            <forename>Kunthea</forename>
+            <surname>Chhom</surname>
           </persName>
         </respStmt>
       </titleStmt>
@@ -31,22 +39,28 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p>According to George Cœdès (<bibl rend="omitname">
-                  <ptr target="bib:Coedes1937-1966_01"/>
-                  <citedRange unit="volume">1</citedRange>
-                  <citedRange unit="page">7</citedRange>
-                </bibl>), the begining and the end of the inscription are damaged. The middle portion <supplied reason="explanation">lines 10-12</supplied> is sawed and readable only on the estampage made in situ.
-                        </p>
+              <p>The <foreign>akṣara</foreign>s have long ornamental descenders.
+                        <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -71,6 +85,7 @@
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
+      <change status="draft" when="2023-07-06" who="part:kuch">Adding paleographical remark and modification to edition, apparatus, translation and bibliography</change>
       <change status="draft" when="2023-03-24" who="part:kuch">Slight modifications to edition</change>
       <change status="draft" when="2023-03-08" who="part:kuch">Modifications to edition</change>
       <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
@@ -89,7 +104,7 @@
               <gap quantity="11" reason="lost" unit="character"/>
             </seg>
           </l>
-          <l n="c"><lb n="2"/><milestone n="a" unit="column"/>śrī-pi<supplied reason="lost">ṅgale</supplied>śas sa punātu lokaṁ</l>
+          <l n="c"><lb n="2"/><milestone n="a" unit="column"/>śrīpi<supplied reason="lost">ṅgale</supplied>śas sa punātu lokaṁ</l>
           <l n="d"><milestone n="b" unit="column"/>piṅga <seg met="-++">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg> pa <seg met="-+-+=">
@@ -98,7 +113,7 @@
         </lg>
         <lg met="anuṣṭubh" n="2">
           <l n="a"><lb n="3"/><milestone n="a" unit="column"/>stā<choice>
-              <sic>n</sic>
+              <orig>n</orig>
               <corr>ṇ</corr>
             </choice>ur jjayat<supplied reason="lost">i</supplied> lokānā<milestone break="no" n="b" unit="column"/>n</l>
           <l n="b">duritāpaharaḫ patiḥ</l>
@@ -112,8 +127,8 @@
         </lg>
         <lg met="anuṣṭubh" n="3">
           <l n="a"><lb n="4"/><milestone n="a" unit="column"/>tad-aṅśenāvatīrṇṇena</l>
-          <l n="b"><milestone n="b" unit="column"/>jitaṁ śrī-jayavarmmaṇā</l>
-          <l n="c" real="-++++--+"><milestone n="c" unit="column"/>vihart<choice>
+          <l n="b"><milestone n="b" unit="column"/>jitaṁ śrījayavarmmaṇā</l>
+          <l met="bha-vipulā" n="c" real="-++++--+"><milestone n="c" unit="column"/>vihart<choice>
               <sic>ū</sic>
               <corr>u</corr>
             </choice>kāmena mahīṁ</l>
@@ -126,7 +141,7 @@
         <lg met="anuṣṭubh" n="4">
           <l n="a"><lb n="5"/><milestone n="a" unit="column"/>Adhārmmika-janadhvāntaṁ</l>
           <l n="b"><milestone n="b" unit="column"/>navodita-vivasvatā</l>
-          <l n="c" real="+++---+="><milestone n="c" unit="column"/>Ākāñcīpura-nr̥pā <seg met="=">
+          <l met="sa-vipulā" n="c" real="+++---+="><milestone n="c" unit="column"/>Ākāñcīpura-nr̥pā <seg met="=">
               <gap quantity="1" reason="lost" unit="character"/>
             </seg></l>
           <l n="d"><milestone n="d" unit="column"/>dūre <seg met="==-+-=">
@@ -134,7 +149,7 @@
             </seg></l>
         </lg>
         <lg met="anuṣṭubh" n="5">
-          <l n="a"><lb n="6"/><milestone n="a" unit="column"/>Atrāsid vrāhmaṇo vidvā<milestone break="no" n="b" unit="column"/>n</l>
+          <l n="a"><lb n="6"/><milestone n="a" unit="column"/>Atrāsīd vrāhmaṇo vidvā<milestone break="no" n="b" unit="column"/>n</l>
           <l n="b">veda-vedā<supplied reason="lost">ṅga-</supplied>pāragaḥ</l>
           <l n="c"><milestone n="c" unit="column"/>dharmmasvāmīti v<supplied reason="lost">i</supplied>khyāta<milestone break="no" n="d" unit="column"/>s</l>
           <l n="d">s<supplied reason="lost">ā</supplied>kṣ<supplied reason="lost">ā</supplied>d dharmma <seg met="-+-=">
@@ -178,7 +193,7 @@
         <lg met="anuṣṭubh" n="9">
           <l n="a"><lb n="10"/><milestone n="a" unit="column"/>hautriyād avyavacchinnā</l>
           <l n="b"><milestone n="b" unit="column"/>santatir yyasyya nānyataḥ</l>
-          <l n="c" real="++++---+"><milestone n="c" unit="column"/>yasyāñ jātās subahavaḥ</l>
+          <l met="na-vipulā" n="c" real="++++---+"><milestone n="c" unit="column"/>yasyāñ jātās subahavaḥ</l>
           <l n="d"><milestone n="d" unit="column"/>puruṣā rāja-satkr̥tāḥ</l>
         </lg>
         <lg met="anuṣṭubh" n="10">
@@ -190,14 +205,14 @@
         <lg met="anuṣṭubh" n="11">
           <l n="a"><lb n="12"/><milestone n="a" unit="column"/><supplied reason="lost">dha</supplied>rmmasvāmi-suto jyeṣṭho</l>
           <l n="b"><milestone n="b" unit="column"/>bhr̥tyaḥ kṣiti-bhujām abhūt·</l>
-          <l n="c" real="++-+--++"><milestone n="c" unit="column"/>prāptas susanmata-śaiva<supplied reason="lost">ṁ</supplied></l>
+          <l met="sa-vipulā" n="c" real="++-+--++"><milestone n="c" unit="column"/>Āptas susanmataś <unclear>c</unclear>aiva</l>
           <l n="d"><milestone n="d" unit="column"/>yo mahāśvapatiḥ kr̥taḥ</l>
         </lg>
         <lg met="anuṣṭubh" n="12">
           <l enjamb="yes" n="a"><lb n="13"/><milestone n="a" unit="column"/>bhūyaś śreṣṭhapura-svāmi</l>
-          <l n="b"><milestone n="b" unit="column"/>bhojakatve prakalpitaḥ</l>
+          <l n="b"><milestone n="b" unit="column"/>-bhojakatve prakalpitaḥ</l>
           <l enjamb="yes" n="c"><milestone n="c" unit="column"/>sitātapanivārādi</l>
-          <l n="d"><milestone n="d" unit="column"/>bhogair api ca satkr̥taḥ</l>
+          <l n="d"><milestone n="d" unit="column"/>-bhogair api ca satkr̥taḥ</l>
         </lg>
         <lg met="anuṣṭubh" n="13">
           <l n="a"><lb n="14"/><milestone n="a" unit="column"/>vidhinā sthāpitaṁ yena</l>
@@ -209,7 +224,7 @@
           <l n="a"><lb n="15"/><milestone n="a" unit="column"/>punar dhruvapuraṁ prāpya</l>
           <l n="b"><milestone n="b" unit="column"/>bhīśaṇāraṇya-saṅkaṭam·</l>
           <l n="c"><milestone n="c" unit="column"/>Uddr̥pta-puruṣāvāsaṁ</l>
-          <l n="d"><milestone n="d" unit="column"/>yaḫ pāti nirupadrava<supplied reason="lost">ṁ</supplied></l>
+          <l n="d"><milestone n="d" unit="column"/>yaḫ pāti nirupadrava<supplied reason="lost">m·</supplied></l>
         </lg>
         <lg met="anuṣṭubh" n="15">
           <l n="a"><lb n="16"/><milestone n="a" unit="column"/>Īśvaro varajas tasya</l>
@@ -232,25 +247,25 @@
           <l n="b">nā <seg met="=">
               <gap quantity="1" reason="lost" unit="character"/>
             </seg> dhatte punaḫ patiḥ</l>
-          <l n="c" real="++-+--++"><milestone n="c" unit="column"/>sarvvopabhogaka-nr̥̄ṇāṁ</l>
-          <l n="d"><milestone n="d" unit="column"/>rājñaś śrī-jayavarmmaṇaḥ</l>
+          <l met="sa-vipulā" n="c" real="++-+--++"><milestone n="c" unit="column"/>sarvvopabhogaka-nr̥̄ṇāṁ</l>
+          <l n="d"><milestone n="d" unit="column"/>rājñaś śrījayavarmmaṇaḥ</l>
         </lg>
         <lg met="anuṣṭubh" n="18">
           <l enjamb="yes" n="a"><lb n="19"/><milestone n="a" unit="column"/>punas samanta-nauvāha</l>
-          <l n="b"><milestone n="b" unit="column"/>nāmadheyaṁ avāpya ca</l>
+          <l n="b"><milestone n="b" unit="column"/>-nāmadheyaṁ avāpya ca</l>
           <l enjamb="yes" n="c"><milestone n="c" unit="column"/>yas taritrabhr̥tāṁ paṅkti</l>
-          <l n="d"><milestone n="d" unit="column"/>vibhāga-jñaḥ patiḥ kr̥taḥ</l>
+          <l n="d"><milestone n="d" unit="column"/>-vibhāga-jñaḥ patiḥ kr̥taḥ</l>
         </lg>
         <lg met="anuṣṭubh" n="19">
           <l n="a"><lb n="20"/><milestone n="a" unit="column"/><seg met="====">
               <gap quantity="4" reason="lost" unit="character"/>
             </seg> yudhīyānāṁ</l>
           <l n="b"><milestone n="b" unit="column"/>yo dhanvipura-vāsinām·</l>
-          <l n="c" real="-+-++--+"><milestone n="c" unit="column"/>sahasra-varggādhipatiḥ</l>
+          <l met="bha-vipulā" n="c" real="-+-++--+"><milestone n="c" unit="column"/>sahasra-varggādhipatiḥ</l>
           <l n="d"><milestone n="d" unit="column"/>punar nr̥pati-śāsanāt·</l>
         </lg>
         <lg met="anuṣṭubh" n="20">
-          <l n="a" real="===-++++"><lb n="21"/><milestone n="a" unit="column"/><seg met="===">
+          <l met="ma-vipulā" n="a" real="===-++++"><lb n="21"/><milestone n="a" unit="column"/><seg met="===">
               <gap quantity="3" reason="lost" unit="character"/>
             </seg> tra dīpanmānai<milestone break="no" n="b" unit="column"/>r</l>
           <l n="b">asakr̥t tena satkr̥taḥ</l>
@@ -260,8 +275,8 @@
         <lg met="anuṣṭubh" n="21">
           <l n="a"><lb n="22"/><milestone n="a" unit="column"/><supplied reason="lost">śrīmad-</supplied>āmrātakeśasya</l>
           <l n="b"><milestone n="b" unit="column"/>sthānaṁ nr̥pati-coditaḥ</l>
-          <l n="c"><milestone n="c" unit="column"/>vibhūtibhir aṇekābhiḫ</l>
-          <l n="d"><milestone n="d" unit="column"/>prajvaladbhir ivādhikam·</l>
+          <l n="c"><milestone n="c" unit="column"/>vibhūtibhir aṇekābhi<milestone break="no" n="d" unit="column"/>ḫ</l>
+          <l n="d">prajvaladbhir ivādhikam·</l>
         </lg>
         <lg met="anuṣṭubh" n="22">
           <l n="a">
@@ -308,27 +323,25 @@
       </div>
       <div type="apparatus">
         <listApp>
-          <app loc="5">
-            <lem>Ākāñcīpura-nr̥pā</lem>
-            <note>La lecture nr̥° est douteuse.</note>
+          <app loc="12">
+            <lem>Āptas susanmataś <unclear>c</unclear>aiva</lem>
+            <rdg source="bib:Coedes1937-1966_01">prāptas susanmata-śaiva<supplied reason="lost">ṁ</supplied></rdg>
           </app>
-          <app loc="7">
-            <lem>śrī yāpyā <seg met="=">
-                <gap quantity="1" reason="lost" unit="character"/>
-              </seg> ggato</lem>
-            <note>Lecture douteuse. Peut-être y a-t-il <foreign>śrīyāsy = āṅgato</foreign> <supplied reason="explanation">ou <foreign>ṅgino</foreign></supplied>.</note>
+          <app loc="15">
+            <lem>nirupadrava<supplied reason="lost">m·</supplied></lem>
+            <rdg source="bib:Coedes1937-1966_01">nirupadrava<supplied reason="lost">ṁ</supplied></rdg>
           </app>
-          <app loc="10">
-            <lem>hautriyād</lem>
-            <note>Le premier caractère est écrit <foreign>hai°</foreign>, mais la correction semble évidente.</note>
-          </app>
-          <app loc="16">
-            <lem>Īśvaro</lem>
-            <note>Le premier caractère est très douteux. Le second est peut-être <foreign>gva</foreign>.</note>
-          </app>
-          <app loc="18">
-            <lem>samanta-sarālākhy<supplied reason="lost">ā</supplied>n</lem>
-            <note>La lecture <foreign>sarā°</foreign> est douteuse ; peut-être y a-t-il <foreign>vara</foreign> ou <foreign>vira</foreign>.</note>
+          <app loc="20">
+            <lem>
+              <seg met="====">
+                <gap quantity="4" reason="lost" unit="character"/>
+              </seg>
+            </lem>
+            <rdg source="bib:Goodall2019_01"><seg met="===">
+                <gap quantity="3" reason="lost" unit="character"/>
+              </seg><seg subtype="body" type="component">
+                <gap quantity="1" reason="illegible" unit="component"/>
+              </seg>ā</rdg>
           </app>
         </listApp>
       </div>
@@ -361,20 +374,53 @@
         <p n="22" rend="stanza"><gap reason="lost"/> par de nobles femmes, il le fit semblable au palais de Kubera.</p>
         <p n="23" rend="stanza"><gap reason="lost"/> un <foreign>liṅga</foreign>, par désir de son propre salut.</p>
       </div>
+      <div source="bib:Goodall2019_01" type="translation">
+        <p n="11" rend="stanza">The eldest son of Dharmasvāmin was the servant of kings; he was a person of authority <supplied reason="explanation">
+            <foreign>āptaḥ</foreign>
+          </supplied> and highly respected <supplied reason="explanation">
+            <foreign>susanmataḥ</foreign>
+          </supplied> who was made grand equerry.</p>
+        <p n="12" rend="stanza">He was further appointed as overlord and enjoyer of Śreṣṭhapura and honoured with such privileges as the white parasol.</p>
+        <p n="13" rend="stanza">He installed, in accordance with the rules, the liṅga <supplied reason="subaudible">called</supplied> Śrī-Naimiśeśvara, at the mere hearing of whose name all evil deeds are destroyed.</p>
+        <p n="14" rend="stanza">He then acquired Dhruvapura, crowded with fearsome forests, an abode of wild men, and governed it without misfortunes.</p>
+        <p n="19" rend="stanza"><gap reason="lost"/> further, by the command of the king, he <supplied reason="subaudible">became</supplied> the chief of a division of 1000 of soldiers who were residents of Dhanvipura.</p>
+      </div>
       <div type="commentary">
+        <p>According to George Cœdès (<bibl rend="omitname">
+            <ptr target="bib:Coedes1937-1966_01"/>
+            <citedRange unit="volume">1</citedRange>
+            <citedRange unit="page">7</citedRange>
+          </bibl>), the begining and the end of the inscription are damaged. The middle portion <supplied reason="explanation">lines 10-12</supplied> is sawed and readable only on the estampage made in situ.</p>
         <p>The column a of the first stanza in <foreign>indravajrā</foreign> meter corresponds to the columns a and b of the stanzas II-XXIII in <foreign>anuṣṭubh</foreign>; the column b of the first stanza corresponds to the columns c and d of the stanzas II-XXIII.</p>
+        <p n="5">The reading of the syllable <foreign>nr̥</foreign> in the word <foreign>ākāñcīpura-nr̥pā</foreign> is doubtful.</p>
+        <p n="7">The reading of <foreign>śrī yāpyā <seg met="=">
+              <gap quantity="1" reason="lost" unit="character"/>
+            </seg> ggato</foreign> is doubtful. One may also read <foreign>śrīyāsy <seg met="=">
+              <gap quantity="1" reason="lost" unit="character"/>
+            </seg> āṅgato</foreign> or <foreign>śrīyāsy <seg met="=">
+              <gap quantity="1" reason="lost" unit="character"/>
+            </seg> ṅgino</foreign> </p>
+        <p n="16">The reading of the first syllable of <foreign>īśvaro</foreign> is doubtful; the second syllable appears to be <foreign>gva</foreign>.</p>
+        <p n="18">The reading of <foreign>sarā</foreign> of the word <foreign>samanta-sarālākhy<supplied reason="lost">ā</supplied>n</foreign> is doubtful. One may read <foreign>vara</foreign> or <foreign>vira</foreign>.</p>
       </div>
       <div type="bibliography">
         <p>First edited by George Cœdès (<bibl rend="omitname">
             <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">1</citedRange>
             <citedRange unit="page">8-12</citedRange>
-          </bibl>) with a French translation; re-edited here by Dominique Soutif and Kunthea Chhom from estampage EFEO  n. 921 and n. 938.</p>
+          </bibl>) with a French translation; re-edited partly by Dominic Goodall (<bibl rend="omitname">
+            <ptr target="bib:Goodall2019_01"/>
+            <citedRange unit="page">56-57</citedRange>
+          </bibl>) with an English translation; re-edited here by Kunthea Chhom from estampage EFEO  n. 921 and n. 938.</p>
         <listBibl type="primary">
           <bibl n="GC">
             <ptr target="bib:Coedes1937-1966_01"/>
             <citedRange unit="volume">1</citedRange>
             <citedRange unit="page">8-12</citedRange>
+          </bibl>
+          <bibl n="DG">
+            <ptr target="bib:Goodall2019_01"/>
+            <citedRange unit="page">56-57</citedRange>
           </bibl>
         </listBibl>
       </div>

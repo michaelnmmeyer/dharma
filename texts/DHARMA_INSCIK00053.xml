@@ -12,6 +12,10 @@
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
+          <persName ref="http://viaf.org/viaf/22181866">
+            <forename>Auguste</forename>
+            <surname>Barth</surname>
+          </persName>
           <persName ref="part:dogo">
             <forename>Dominic</forename>
             <surname>Goodall</surname>
@@ -35,18 +39,28 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
               <p>The <foreign>akṣara</foreign>s are characteristic of the seventh century CE.
-                        </p>
+                        <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -135,7 +149,7 @@
           <l n="a"><lb n="9"/><milestone n="a" unit="column"/>dharmmadevasya tu punaḥ</l>
           <l n="b"><milestone n="b" unit="column"/>tanayo bhūd analpa-dhīḥ</l>
           <l n="c"><milestone n="c" unit="column"/>kula-kānana-siṅho ya<milestone break="no" n="d" unit="column"/>s</l>
-          <l n="d">siṅhavīra itīritaḥ</l>
+          <l n="d">siṅhavīra Itīritaḥ</l>
         </lg>
         <lg met="anuṣṭubh" n="10">
           <l n="a"><lb n="10"/><milestone n="a" unit="column"/>vidvān yo 'dyāpi vidvadbhi<milestone break="no" n="b" unit="column"/>r</l>
@@ -182,7 +196,10 @@
         <lg met="anuṣṭubh" n="17">
           <l n="a"><lb n="17"/><milestone n="a" unit="column"/>punas satkr̥tya yaṁ rājā</l>
           <l n="b"><milestone n="b" unit="column"/>prādāt sve rāja-mātule</l>
-          <l n="c"><milestone n="c" unit="column"/>Alapdha-rāja-śa<choice>
+          <l n="c"><milestone n="c" unit="column"/>Ala<choice>
+              <orig>p</orig>
+              <reg>b</reg>
+            </choice>pdha-rāja-śa<choice>
               <orig>p</orig>
               <reg>b</reg>
             </choice>de 'pi</l>
@@ -246,6 +263,38 @@
           <l n="d">so 'yaṁ śrīvijayeśvaro vijayate yaḥ kīṭa-lagne sthitaḥ</l>
         </lg>
       </div>
+      <!-- <div type="apparatus">
+               <listApp>
+                  <app loc="6">
+                       <lem></lem>
+                      <note></note>
+                   </app>
+                   <app loc="8">
+                       <lem></lem>
+                       <note></note>
+                   </app>
+                   <app loc="12">
+                       <lem></lem>
+                       <note></note>
+                   </app>
+                   <app loc="13">
+                       <lem></lem>
+                       <note></note>
+                   </app>
+                   <app loc="17">
+                       <lem></lem>
+                     <note></note>
+                   </app>
+                   <app loc="25">
+                       <lem></lem>
+                       <note></note>
+                   </app>
+                   <app loc="27">
+                       <lem></lem>
+                       <note></note>
+                   </app>
+               </listApp>         
+         </div> -->
       <div source="bib:Barth1885_01" type="translation" xml:lang="fra">
         <p n="1" rend="stanza">Victorieux est Parameśvara, qui n'a point d'égal en majesté, dont les pieds <supplied reason="explanation">constamment honorés</supplied>, par l'opposition des mains jointes de Brahmā et d'Upendra, présentent <supplied reason="explanation">ainsi</supplied> deux fois l'image d'un coup de lotus.</p>
         <p n="2" rend="stanza">Il y eut un roi Śrī Rudravarman, invincible comme Trivikrama, dont l'heureux règne est d'aujourd'hui encore célébré à l'égal de celui de Dilīpa.</p>
@@ -274,6 +323,16 @@
         <p n="25" rend="stanza">Et ce qu'il lui a donné en fait de serviteurs, de jardins et d'autres biens, que tout cela soit tenu pour propriété du dieu, et que <supplied reason="explanation">nul</supplied> ne le ravisse ou ne le détruise.</p>
         <p n="1" rend="stanza">Le jour de la première décade <supplied reason="explanation">révolue du mois</supplied> de Vaiśākha, <supplied reason="explanation">l'année révolue</supplied> étant désignée par les portes, le chiffre 8 et les flèches; Jīva est logé dans le Sagittaire, le fils de Kavi est dans le Taureau, la Lune est arrivée au milieu du Lion, le fils de la Terre est dans le Cancer, le fils du Soleil dans le Verseau, et les autres se tiennent dans le Bélier. Ainsi triomphe ce Śrī Vijayeśvara érigé au moment où le Scorpion se trouvait à l'horizon.</p>
       </div>
+      <div source="bib:Goodall2019_01" type="translation">
+        <p n="16" rend="stanza"><supplied reason="explanation">Continuation of previous stanza</supplied>who was the physician of the glorious victorious lion among kings, Jayavarman; devoid of pride, even though he knew <supplied reason="subaudible">all</supplied> that could be known;</p>
+        <p n="17" rend="stanza">whom the king honoured further and bestowed <supplied cert="low" reason="subaudible">as personal physician</supplied> upon his own royal maternal uncle, a man who, although he had not attained the title “king”, had attained the success worthy of a king;</p>
+        <p n="18" rend="stanza">who was subsequently appointed by the king himself as regent of Āḍhyapura here <supplied reason="explanation">
+            <foreign>asya</foreign>
+          </supplied>, <supplied reason="subaudible">a role he inherited</supplied> from his family’s lineage, once <supplied reason="subaudible">the king</supplied> had honoured him <supplied reason="subaudible">with the judgement</supplied> that <supplied reason="explanation">
+            <foreign>iti</foreign>
+          </supplied> he was suitable<supplied reason="explanation">continuated to the next stanza</supplied></p>
+        <p n="20" rend="stanza">who, in not taking <supplied reason="subaudible">even</supplied> the appropriate taxes from the gardens of householders, even though he was their master, bestowed upon them thenceforth a full livelihood.</p>
+      </div>
       <div type="commentary">
         <p>Handsome 7th-century lettering <supplied reason="explanation">589 <foreign>ṡaka</foreign> = 668 AD</supplied>, but, as Barth notes <supplied reason="explanation">p. 66</supplied>, the <foreign>jihvāmūlīya</foreign> and <foreign>upadhmānīya</foreign> appear no longer to be in use !</p>
         <p>The space of the <foreign>pāda</foreign>s a and c of the last stanza corresponds to that of the <foreign>pāda</foreign>s a and b of the earlier stanzas. Similarly, the space of the <foreign>pāda</foreign>s b and d of the last stanza corresponds to that of the <foreign>pāda</foreign>s c and d of the earlier stanzas.</p>
@@ -286,11 +345,18 @@
         <p>First edited by Auguste Barth (<bibl rend="omitname">
             <ptr target="bib:Barth1885_01"/>
             <citedRange unit="page">66-72</citedRange>
-          </bibl>); reedited  by Dominic Goodall.</p>
+          </bibl>); reedited partly by Dominic Goodall (<bibl rend="omitname">
+            <ptr target="bib:Goodall2019_01"/>
+            <citedRange unit="page">60</citedRange>
+          </bibl>) with an English translation; re-edited here by Kunthea Chhom from estampage EFEO  n. 1161.</p>
         <listBibl type="primary">
           <bibl n="AB">
             <ptr target="bib:Barth1885_01"/>
             <citedRange unit="page">66-72</citedRange>
+          </bibl>
+          <bibl n="DG">
+            <ptr target="bib:Goodall2019_01"/>
+            <citedRange unit="page">60</citedRange>
           </bibl>
         </listBibl>
       </div>

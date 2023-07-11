@@ -35,17 +35,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -56,6 +66,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -76,6 +87,7 @@
     <body>
       <div rendition="class:83233 maturity:00000" type="edition" xml:lang="san-Latn">
         <ab><milestone n="A" type="pagelike" unit="face"/><lb n="A01"/><supplied reason="lost">nama</supplied>ś ś<supplied reason="lost">i</supplied>vāya<g type="ddandaHooked">.</g></ab>
+        <!-- AO1, vraiment ?-->
         <lg met="indravajrā" n="1">
           <l n="a"><lb n="A1"/><seg met="++">
               <gap quantity="2" reason="lost" unit="character"/>
@@ -99,6 +111,7 @@
           <l n="d">sthirāya ni<lb break="no" n="A4"/>jarājyasa<unclear>ṁ</unclear>padudayāya jejīyate<g type="floretQuatrefoil">.</g></l>
         </lg>
         <lg met="pr̥thvī" n="3">
+          <!--sapi2argr Je ne suis pas sûre de moi pour l'identification du mètre-->
           <l n="a">purīndrapurasaṁpadābhari<supplied reason="lost">ta</supplied><seg met="+-++-">
               <gap quantity="5" reason="lost" unit="character"/>
             </seg> tā<g type="dotMid">.</g></l>
@@ -114,12 +127,14 @@
           <l n="ab">sā rakṣitātiśayinī śrīmaj ja<unclear>ṁ</unclear>ya si<supplied reason="lost">ṅ</supplied>ha<supplied reason="lost">varm</supplied>ma <seg met="--">
               <gap precision="low" quantity="2" reason="lost" unit="character"/>
             </seg> nā<g type="dotMid">.</g></l>
+          <!--sapi2argr Ici je ne suis pas sûre du tout de comment encoder la lacune de ce vers. Il semblerait que deux morae soient manquants, et comme il y a la place pour deux caractères, j'en ai déduis qu'il s'agissait de deux syllabes courtes. Aurais-je quand dû encoder <seg met="2"><gap reason="lost" quantity="2" unit="character" precision="low"/></seg> ? -->
           <l n="cd">śaktyābhinavasamr̥ddhiḥ<g type="dotMid">.</g><lb n="A7"/> saṁpadabhinnā prabhātīha<g type="floretComplex">.</g></l>
         </lg>
         <lg met="sragdharā" n="5">
           <l n="a">Ādhāro yo guṇānāṁ janitasukhadhiyāṁ gauravāṇāṁ  narendro<g type="dotMid">.</g></l>
           <l n="b">divyācārā<lb break="no" n="A8"/>śrayāṇāṁ punar api guṇināṁ dharmmanamrāśayānām·<g type="dotMid">.</g></l>
           <l n="c">maṇyādīnāṁ vahūnāṁ kanakagirir ivākampito dbhūtasampa<g type="dotMid">.</g>c</l>
+          <!-- Passer à la ligne au signe ?-->
           <l n="d">cho<lb break="no" n="A9"/>bhānāṁ kalpavr̥kṣasya maṇirucirucālaṅkr̥tasyāpi loke<g type="floretQuatrefoil">.</g></l>
         </lg>
         <lg met="indravajrā" n="6">
@@ -155,6 +170,7 @@
           <l n="d">śivapadapūjanāśayatanuḥ satataṁ bhavati<g type="floretQuatrefoil">.</g></l>
         </lg>
         <lg met="nardaṭaka" n="10">
+          <!--sapi2argr Ici j'ai également jugé qu'il s'agissait ce mètre, mais peut-être ai-je tort. -->
           <l n="a"><lb n="A16"/>gurujanasādhukāraparipūtasukīrttir iyaṁ<g type="dotMid">.</g></l>
           <l n="b">tadamalatusṭihetukr̥tabhāgyayutā mahatī<g type="dotMid">.</g></l>
           <l enjamb="yes" n="c"><lb n="A17"/>Uparucitatprasādahitapāvanalabdhavarā<g type="dotMid">.</g></l>
@@ -163,6 +179,7 @@
         <ab><milestone n="B" type="pagelike" unit="face"/><lb n="B01"/><g type="ddandaHooked">.</g>namo pa<supplied reason="lost">rameśvarāya</supplied></ab>
         <lg met="anuṣṭubh" n="11">
           <l n="a"><lb n="B1"/>lyaṅ śrī rājakulākhyā sā<g type="dotMid">.</g></l>
+          <!--sapi2argr : Ici, Finot restitue "pu" avant "lyaṅ" mais je ne vois ça nulle part sur l'estampage. Il a également omis de translittérer le "śrī", que j'ai ajouté.-->
           <l n="b">dharmmapaṭvī varānanā<g type="dotMid">.</g></l>
           <l n="c">
             <seg met="====-++=">
@@ -188,6 +205,7 @@
           </l>
         </lg>
         <lg met="uncertain" n="13">
+          <!--sapi2argr Ici, je ne suis pas certaine d'avoir bien encodé.-->
           <l n="a">
             <lb n="B3"/>
             <gap extent="unknown" reason="lost" unit="character"/>
@@ -226,7 +244,7 @@
              <lb n="B6"/>ta <gap precision="low" quantity="5" reason="lost" unit="character"/>śrī jaya siṅhavarmmadevena campāpuraparameśvareṇa sajjanaguṇavidā vidagdhamatinā mati
              <lb n="B7"/><gap precision="low" quantity="6" reason="lost" unit="character"/>śrīmatī haromādevīviditā haradevīsaṁjñāparanāmadheyāyā Ājñā pov· ku lyaṅ śrī rā<lb break="no" n="B8"/><supplied reason="lost">jakulākhyāyā</supplied>ḥ svāmbānujāyāḥ puṇyavr̥ddhaye pratiṣṭhāpiteyam indrapuranāmni pure sminn iti<g type="floretQuatrefoil">.</g>
              <lb n="B9"/><gap precision="low" quantity="2" reason="lost" unit="character"/>śr<supplied reason="lost">ī</supplied> paramabuddhalokasya nr̥pateḥ svabharttuḥ puṇyāya sādhumanasājñā pov· ku lyaṅ śrī rājak<supplied reason="lost">u</supplied>lākhyayā
-             <lb n="B10"/><gap precision="low" quantity="2" reason="lost" unit="character"/>guṇajñayā pratiṣṭhāpitaḥ śrīndraparameśvaro nāmneti<g type="floretQuatrefoil">.</g> tasminn eva śakarāje pi śrī rudraparame <lb break="no" n="B11"/><supplied reason="lost">śvaraḥ sa</supplied> devaḥ pratiṣṭhāpitas tayājñā pov· ku lyaṅ śrī rājakulākhyayā svapituḥ puṇyavr̥ddhyai<g type="floretQuatrefoil">.</g> tad a<lb break="no" n="B12"/>pi mātur nnijāyāḥ puṇyasa<unclear>ṁ</unclear>varddhanāyājñā pov· ku lyaṅ śrī rājakulanāmadheyā śrī rudromām imā<lb break="no" n="B13"/>m atiṣṭhipat sadbhaktyeti<g type="floretQuatrefoil">.</g>
+             <lb n="B10"/><gap precision="low" quantity="2" reason="lost" unit="character"/>guṇajñayā pratiṣṭhāpitaḥ śrīndraparameśvaro nāmneti<g type="floretQuatrefoil">.</g> tasminn eva śakarāje pi śrī rudraparame <!--sapi2argr Ici Finot, n'a pas lu de pi entre śakarāje et śrī --><lb break="no" n="B11"/><supplied reason="lost">śvaraḥ sa</supplied> devaḥ pratiṣṭhāpitas tayājñā pov· ku lyaṅ śrī rājakulākhyayā svapituḥ puṇyavr̥ddhyai<g type="floretQuatrefoil">.</g> tad a<lb break="no" n="B12"/>pi mātur nnijāyāḥ puṇyasa<unclear>ṁ</unclear>varddhanāyājñā pov· ku lyaṅ śrī rājakulanāmadheyā śrī rudromām imā<lb break="no" n="B13"/>m atiṣṭhipat sadbhaktyeti<g type="floretQuatrefoil">.</g>
            </p>
         <lg met="āryā" n="15">
           <l n="ab">jayati haromādevī<g type="dotMid">.</g>saṁjñā devī mahīmahākīrttiḥ<g type="dotMid">.</g></l>
@@ -239,19 +257,20 @@
           <l n="d">mākhyā trayaḥ suranaraiḥ kila banditas te<g type="floretQuatrefoil">.</g></l>
         </lg>
         <ab><milestone n="C" type="pagelike" unit="face"/><lb n="C01"/>namaḥ sarvvatām <gap quantity="4" reason="illegible" unit="character"/></ab>
+        <!--sapi2argr Ici ce n'est pas tout à fait ça. Finot a semblé ne pas réussir à proposer de lecture au delà de sarva. On pourrait songer lire °tām dravide ; °tām draviṅa (bien que le terme pour richesse soit draviṇa) -->
         <p xml:lang="ocm-Latn">
               <lb n="C1"/>Ājñā yāṅ· pu pov· ku śrī jayasiṅhavarmma<lb break="no" n="C2"/>deva kā vriy· yāṅ· pu pov· ku śrīndraparame<lb break="no" n="C3"/>śvara yāṅ· pu pov· ku śri har<choice>
             <sic>amo</sic>
             <corr>omā</corr>
           </choice>devī yāṅ· pu
-              <lb n="C4"/>pov· ku śrī rudraparameśvara yāṅ· pu pov· ku śrī ru<lb break="no" n="C5"/>dramoma tandāḥ  sarvvakarādāna<g type="dotMid">.</g> ya siy· Urā<lb break="no" n="C6"/>ṅ nāma mavriy· Urāṅ· kluñ· yāṅ· pov· ku si niy· A<lb break="no" n="C7"/>tha vā trā top· dravya yām̃ pov· ku si niy· Urām̃ nan· sidaḥ 
+              <lb n="C4"/>pov· ku śrī rudraparameśvara yāṅ· pu pov· ku śrī ru<lb break="no" n="C5"/>dramoma tandāḥ <!--sapi2argr Ici, Finot lit tandāy, et une note du rtf dit que Huber corrige en matandās. Pour ma part je lis le "dāḥ" final. De même, Finot propose de corriger : rudramoma en Rudromā. Ne sachant pas si le "ma" va avec Rudramo, ou avec tandāḥ, je n'ai pas encore apporté de correction.--> sarvvakarādāna<g type="dotMid">.</g> ya siy· Urā<lb break="no" n="C6"/>ṅ nāma mavriy· Urāṅ· kluñ· yāṅ· pov· ku si niy·<!--sapi2argr Ici, Finot lit "niḥ"--> A<lb break="no" n="C7"/>tha vā trā top· dravya yām̃ pov· ku si niy· Urām̃ nan· sidaḥ <!--sapi2argr Pour yām̃ comme pour Urām̃, Finot note un ṅ final à la place du m̃.-->
               <lb n="C8"/>Adhamapuruṣa Annan· ñū lavuḥ di mahāraurava naraka<g type="circleMed">.</g> Api
-              <lb n="C9"/>ca<g type="dotMid">.</g> ya sim̃ Urām̃ nāma pasyāṁ yām̃ pom̃ ku si nim̃ Athavā<gap quantity="1" reason="illegible" unit="character"/>ḥ 
-               top· dravya
+              <lb n="C9"/>ca<g type="dotMid">.</g> ya sim̃ Urām̃ nāma pasyāṁ yām̃ pom̃ ku si nim̃ Athavā<gap quantity="1" reason="illegible" unit="character"/>ḥ <!--sapi2argr : Ici, Finot ne semble pas avoir relevé le signe suivi d'un visarga. Il a juste translittéré "Athavā top". Quel est ce signe ? S'agirait-il d'un ai inhabituel ? D'un deuxième ā long, accolé au vā, et donc d'une erreur du scribe ?-->
+              <!--sapi2argr : Deuxième remarque : il semblerait ici que le scribe ait fait un très grand usage de l'anusvara candra. Corriger le pom̃ en pov· ?--> top· dravya
               <lb n="C10"/>yām̃ pov· ku si niy· Urām̃ nan·  sidaḥ Uttamapuruṣa nau svarggā<lb break="no" n="C11"/>pavargga<g type="circleMed">.</g> kevala yām̃ pov· ku si nim̃ prayojana van drim̃ Udakā<lb break="no" n="C12"/>nta sā ja pov·<g type="circleMed">.</g> nim̃ kuv· lyaṅ· rājakula karumviy· rajan· pu<lb break="no" n="C13"/>ṇya nim̃ pyoḥ di loka nim̃<g type="circleMed">.</g> siy· Urām̃ viśeṣa nāma pasyāṁ puṇya nim̃
               <lb n="C14"/>kintu yām̃ yam̃ thuv· guṇa nan·<g type="circleMed">.</g> kuv· karumvim̃ kukuḥ yām̃ pu pom̃ ku parameśvara<g type="floretQuatrefoil">.</g><milestone n="D" type="pagelike" unit="face"/>
               <lb n="D1"/><gap precision="low" quantity="9" reason="lost" unit="character"/><supplied reason="lost">ā</supplied>jñā tasya<gap precision="low" quantity="14" reason="lost" unit="character"/>
-              <lb n="D2"/><gap precision="low" quantity="9" reason="lost" unit="character"/>ma Anan· nan  driy· yām̃ pov· ku di yāṅ·<g type="dotMid">.</g> sim̃ Urām̃ yām̃ pama<lb break="no" n="D3"/><gap precision="low" quantity="7" reason="lost" unit="character"/>samū nan· Urām̃ nan· sa juy· pāpa kuv· tra pāpa gotra kuv·
+              <lb n="D2"/><gap precision="low" quantity="9" reason="lost" unit="character"/>ma Anan· nan <!--sapi2argr Ici, Finot lit masan· nan·--> driy· yām̃ pov· ku di yāṅ·<g type="dotMid">.</g> sim̃ Urām̃ yām̃ pama<!--sapi2argr Ici j'ai l'impression que même si Finot s'arrête à la translittération de yām̃, on peut distinguer après deux autre caractères. J'ai mis "pama" sans certitude.--><lb break="no" n="D3"/><gap precision="low" quantity="7" reason="lost" unit="character"/>samū nan· Urām̃ nan· sa juy· pāpa kuv· tra pāpa gotra kuv·
               <lb n="D4"/>tra pāpa sakala satva Aviḥ tra velayaḥ Urām̃ nan· tuy· panatijñā yāṅ·
               <lb n="D5"/>pov· ku śrī jayasiṅhavarmmadeva maddan· kuv· lyaṅ rājakula Urām̃ nan· sidaḥ vuv· dha
               <lb n="D6"/><gap precision="low" quantity="1" reason="illegible" unit="character"/>sidaḥ sadhikam aviśeṣaṇa rim̃ ya doṁ Urām̃ vañāt· tmuv· svarggāpavargga<g type="floretQuatrefoil">.</g>
@@ -402,7 +421,7 @@
         <p n="9" rend="stanza">Elle se plaît à révérer les pieds de son époux bien-aimé ; elle est vouée à la vérité suprême ; elle possède la plénitude de félicité que produit la perfection de la nature et de la conduite ; elle fait sans relâche des dons aux brahmanes, aux ascètes, aux gens de bien ; son corps est toujours prêt à vénérer les pieds de Śiva.</p>
         <p n="10" rend="stanza">Elle tire sa gloire la plus pure de sa dévotion envers ses gurus, dont le parfait contentement est la source de sa félicité et de sa grandeur ; elle trouve l'accomplissement de ses vœux dans la bénédiction <supplied reason="subaudible">résultant de leur</supplied> faveur qui lui est chère ; son âme ferme est la source de sa prospérité ; son intelligence est sans défaut.</p>
         <p n="B01">Hommage à Pa<supplied reason="lost">rameśvara</supplied> !</p>
-        <p n="11-13" rend="stanza">Cette <foreign>Pu lyaṅ</foreign> Rājakula, habile dans l'observation du Dharma, au gracieux visage..... dit ce qui est vrai et non ce qui est faux, non ce qui est impur, mais seulement ce qui est pur. En vérité l'absence de haine........</p>
+        <p n="11-13" rend="stanza"><!--sapi2argr Ici j'ai corrigé le numéro des stances en fonction de ceux de la translittération. Ai-je bien fais ? (Finot considère qu'il s'agit des stance I-III de la face B)-->Cette <foreign>Pu lyaṅ</foreign> Rājakula, habile dans l'observation du Dharma, au gracieux visage..... dit ce qui est vrai et non ce qui est faux, non ce qui est impur, mais seulement ce qui est pur. En vérité l'absence de haine........</p>
         <p n="14" rend="stanza">......... en <supplied reason="lost">Jyai</supplied>ṣṭha dans un mois et un jour propices, à Indrapura, des dieux ont été érigés pour la gloire par cette excellente dame.</p>
         <p n="B6-B8">................. Par Śrī Jaya Siṅhavarmadeva Campāpura-parameśvara, connaissant le mérite des gens de bien, d'une pénétrante intelligence, a été érigée, dans cette ville nommée Indrapura, l'auguste Haromādevī, pour l'accroissement du mérite spirituel de la sœur cadette de sa mère, la prince <foreign>Po ku lyaṅ</foreign> Śrī Rājakula, autrement appelée Haradevī.</p>
         <p n="B8-B10">Pour le mérite de son mari le roi Śrī Paramabuddhaloka, l'excellente <foreign>Po ku lyaṅ</foreign> Śrī Rājakula, connaissant les mérites...... a érigé cet Indraparameśvara.</p>

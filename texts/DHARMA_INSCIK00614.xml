@@ -31,17 +31,27 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -556,12 +566,25 @@
           </lg>
           <lg met=" sragdharā" n="58">
             <l n="a"><lb n="D25"/><supplied reason="lost"><g type="circleTarget">.</g> nā</supplied><unclear>nā-divyāṅganābhir viracita-ratibhir bhūri</unclear>-divyopabhogai<unclear>r</unclear></l>
+            <!-- % KC : Pāda a bhūridivyopabhogair : The final r belongs to the line D24. Not sure if it is to be encoded enjamb="yes". -->
             <l n="b"><lb n="D26"/><unclear>dīvyeyur divyadehā di</unclear>vi diti<unclear>danujāṁ</unclear>s tejasā tejayantaḥ</l>
             <l n="c"><lb n="D27"/><unclear>dārḍhyan nī</unclear>tvā <unclear>samantād aca</unclear>litam aniśaṁ rakṣayā svaḥprayāṇe</l>
             <l n="d"><lb n="D28"/><unclear>ye niśrenīka</unclear>riṣyanty akuśa<unclear>lada</unclear>lanaṁ puṇyam etan madīyam· <g type="gomutraFinial">.</g></l>
           </lg>
         </div>
       </div>
+      <!-- <div type="apparatus">
+               <div type="textpart" n="1"><head xml:lang="eng">Face A</head>
+               <listApp>
+                  <app loc="A19">
+                     <lem>puṣyaṅ</lem>
+                     <note>It can also be read <foreign>puṣyāṅ</foreign>.</note>
+                  </app>
+               </listApp>    
+               </div>
+         </div> -->
+      <!-- <div type="translation">
+             <p rend="stanza" n="1"></p></div> -->
       <div type="commentary">
         <p>All the restitutions are based on the edition of K. 537.</p>
       </div>

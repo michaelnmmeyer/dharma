@@ -38,17 +38,22 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p></p>
+              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -83,6 +88,7 @@
     <body>
       <div type="edition" xml:lang="kaw-Latn">
         <pb n="1r"/>
+        <!--Blank outer page.-->
         <p><pb n="1v"/>
 <lb n="1v1"/><g type="ddandaOrnate"/> <g type="circleSmall"/> <g type="ddandaOrnate"/> śvasti śaka-varṣātīta <num value="741">741</num> caitra-māsa tithī ṣaṣṭi kr̥ṣṇa-pakṣa, <abbr>pa</abbr>, <abbr>po</abbr>,
 <lb n="1v2"/><abbr>so</abbr>, vāra tatkāla rakarayān i garuṁ tumurun ājñānira, I saṁ pamgat·
@@ -92,6 +98,7 @@
 <lb n="1v6"/>sapradeśannya Ataḥ tan· knāna ya Amatvakan drabya haji, ḍula<lb break="no" n="1v7"/>va kal kalaṅkaṁ, ya mataṁya tan· knāna Ujar haji ri sira <g type="ddandaOrnate"/> <g type="gomutraFinal"/> <g type="ddandaOrnate"/></p>
       </div>
       <div type="apparatus">
+        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
         <listApp>
           <app loc="1v1">
             <lem source="bib:Damais1952_01 bib:Sarkar1971-1972_01">
@@ -156,6 +163,8 @@
           <app loc="1v5">
             <lem source="bib:Poerbatjaraka1920_01">Ityevamādi</lem>
             <rdg source="bib:Goris1928_01 bib:Sarkar1971-1972_01">Ityemādi</rdg>
+            <!-- argr2ekba: see my comment above; does Goris/Sarkar write why they chose an incorrected reading? -->
+            <!--ekba2argr: I don'rtfind any explanation from both Goris and Sarkar regarding the use of Itvemādi instead of Ityevamādi-->
           </app>
           <app loc="1v6">
             <lem source="bib:Goris1928_01 bib:Sarkar1971-1972_01">drabya</lem>
@@ -176,6 +185,7 @@
         </listApp>
       </div>
       <div source="bib:Sarkar1971-1972_01" type="translation">
+        <!--translation encoded as per EG §9.2 -->
         <p n="1v1">Hail ! The Śaka Year past, 741‚ the month of Caitra‚ sixth day of the dark half of the month, paniron‚ pon‚</p>
         <p n="1v2">Monday. At that time, the <foreign>rakarayān</foreign> of Garung communicated his orders to <foreign>sang pamgat</foreign></p>
         <p n="1v3">(of) Amrati (viz.) Pu Managgungi, that the duty of each of the subordinate ones of the collectors of royal taxes is (that they) shall not</p>
@@ -185,14 +195,17 @@
         <p n="1v7"> ………… That is the reason why (they) shall not meet them. (This is) the royal command to him.</p>
       </div>
       <div type="commentary">
+        <!--commentary encoded as per section §9.3 -->
+        <!-- argr2ekba: I've added the following -->
         <p n="1v2"><foreign>tatkāla rakarayān i garuṁ tumurun ājñānira</foreign>: note the occurrence of a very similar sentences in the <ref target="Palebuhan.xml">Palebuhan charter</ref>.</p>
       </div>
       <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
         <p>First edited by Poerbatjaraka (<bibl rend="omitname">
             <ptr target="bib:Poerbatjaraka1920_01"/>
           </bibl>). Re-edited by Goris (<bibl rend="omitname">
             <ptr target="bib:Goris1928_01"/>
-          </bibl>). Reproducing  of Poerbtajaraka's and Goris' editions, to which is added a translation into English, by H.B. Sarkar (<bibl rend="omitname">
+          </bibl>).<!-- argr2ekba: so these first two editions did not come with a Dutch translation? --><!-- ekba2argr: As far as I am aware,the first two editions did not include a Dutch translation--> Reproducing  of Poerbtajaraka's and Goris' editions<!-- argr2ekba: always try to determine, and make explicit in such sentences as this one, whether HBS saw the original or a reproduction if it, or whether he's just reproducing, with more or less precision, a previously published edition --><!--ekba2arlo: I have modified the sentence-->, to which is added a translation into English, by H.B. Sarkar (<bibl rend="omitname">
             <ptr target="bib:Sarkar1971-1972_01"/>
           </bibl>).</p>
         <listBibl type="primary">
@@ -227,4 +240,4 @@
       </div>
     </body>
   </text>
-</TEI>
+</TEI><!-- argr2ekba: I'm adding the following as metadata reminder --><!-- Poerbajraraka's edition is a kind of mix of transcription and facsimile, suggesting that the original plate depicted what seems to be a perforated metal object at the left extremity of lines 2 and 2 -->

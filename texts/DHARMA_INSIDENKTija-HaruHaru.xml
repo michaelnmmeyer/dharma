@@ -31,18 +31,28 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
               <p>Simple but elegant script apparently of the early Majapahit period.
-                            </p>
+                            <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
+              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+						<summary><p><p/></summary>
+						<handNote xml:id="Pallava00001_hand1"></handNote>
+						<handNote xml:id="Pallava00001_hand2"></handNote>
+					 -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -53,6 +63,7 @@
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
       <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <!-- UPDATE the link once the release is made official -->
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
@@ -89,11 +100,14 @@
                  <lb n="3v5"/>śrī mahārāja, tan ucap-ucapən· tka ri dlāhaniṁ dlāha, lāvan· muvaḥ Atyanta lavasnyan· tinumbas ikaṁ sīma kavajvan i ti§<lb break="no" n="3v6"/>ja lāvan i haru-haru, tka vvalu likur tahun·, tan· hana paṅanuvandhanikaṅ avaju ri manayuti, kveḥnira saṁ nāyaka ri haR̥p·,</p>
       </div>
       <div type="apparatus">
+        <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
         <listApp>
+          <!-- one <app> for each apparatus entry -->
           <app loc="2r1">
             <lem source="bib:Boechari2012_33">amabaki</lem>
             <rdg source="bib:Stutterheim1925_04">amataki</rdg>
             <note>Stutterheim misreads this word with <foreign>t</foreign> instead of <foreign>b</foreign> throughout his edition. Further instances will not be noted.</note>
+            <!-- 2r1. mabaki: Stutterheim membaca nama ini secara konsekwen buyut amataki. Dari foto yang kami terima dari Direktorat Perlindungan dan Pembinaan Peninggalan Sejarah dan Purbakala jelas bahwa huruf yang kedua dari belakang itu ialah huruf ba.-->
           </app>
           <app loc="2r1">
             <lem source="bib:Stutterheim1925_04">kbo <lb n="2r2"/>kikil·</lem>
@@ -152,17 +166,27 @@
           <app loc="3v5">
             <lem source="bib:Boechari2012_33">ucap-ucapən·</lem>
             <rdg source="bib:Stutterheim1925_04">uvap-uvapən·</rdg>
+            <!--Stutterheim membaca kata ini tan uvap-uvapən. Memang huruf ca mirip sekali dengan huruf va. Menurut penglihatan kami huruf itu jelas huruf ca, karena di bagian bawah kiri meruncing. Lagi pula kata tan ucap ucapən memberi arti yang lebih sesuai dengan konteks kalimatnya.-->
           </app>
           <app loc="3r6">
             <lem>°vandha°</lem>
             <rdg source="bib:Stutterheim1925_04">°vanḍa°</rdg>
             <rdg source="bib:Boechari2012_33">°vaṇḍa°</rdg>
           </app>
+          <!--                
+                    3r2. lpas: Stutterheim menceraikan kata-kata ini tan vnaṅa naṇḍākən, tan vnaṅa dval varuk, tan vnaṅa dval lpas. Pemberian bentuk arealis kepada kata vnaṅ di sini menurut hemat kami kurang tepat.
+                    3r2. mithya: mithyaṁ B. B's typescript doesn't actually show the engma that is found in the 2012 book...
+                    3r6. ṅaranikā: ṅaran ika B.
+                    3r6. kapāk·: kapāt· B S. Corr. kapāt·.
+                    3r4. tka: tkā B.
+                    3r5. tka: tkā B.
+-->
         </listApp>
       </div>
-      <div type="translation"></div>
-      <div type="commentary"></div>
+      <div type="translation"><!--translation encoded as per EGD §9.2 --></div>
+      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
       <div type="bibliography">
+        <!--bibliography encoded as per section §9.4 -->
         <p>First edited by Stutterheim without translation; edited again by Boechari with Indonesian translation. Re-edited here by Arlo Griffiths from photographs.</p>
         <listBibl type="primary">
           <bibl n="S">
@@ -178,6 +202,7 @@
         </listBibl>
         <listBibl type="secondary">
           <bibl/>
+          <!-- one <bibl/> per item of secondary bibliography -->
         </listBibl>
       </div>
     </body>

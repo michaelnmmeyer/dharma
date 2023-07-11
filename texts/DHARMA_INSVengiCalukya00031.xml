@@ -35,13 +35,19 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
+        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
+          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
             <idno/>
+            <!-- don't modify this -->
+            <!--<altIdentifier type="PEM"><idno type="corpus">CalE40</idno></altIdentifier>-->
           </msIdentifier>
           <msContents>
-            <summary></summary>
+            <!-- describe the intellectual content of an inscription -->
+            <summary><!-- //// NOT MANDATORY  ////--></summary>
+            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
@@ -51,7 +57,12 @@
                   <ptr target="bib:LakshmanaRao1927-1928_02"/>
                   <citedRange>138-139</citedRange>
                 </bibl>) gives a very detailed analysis of the palaeography of this grant and its companion the <ref target="DHARMA_INSVengiCalukya00030.xml">Ārumbāka grant of Bādapa</ref>. Its main points are summarised here. The vowel marker of ā is a straight vertical like that in Devanagari, turned at a right angle down from the horizontal stroke on the head and extended up to or even below the baseline. According to Lakshmana Rao, the vowel marker for e, when attached to the top of a consonant, is sometimes notched, resembling ō. He points out instances in l6 Aśvamedha and l20 kleśā° (for this latter, his edition actually ready klaiśā°, probably a typo.). To my eye, these are nothing other than o markers (compare e.g. l8 suto for a very clear one) and I read them as such and emend, as does Lakshmana Rao in l5 lāṁchanokṣaṇa. Lakshmana Rao simply reads e in l32 goguṟovu. Several other e markers are also ambiguous, being rather notched than merely sinuous, but as a rule, they end with an upward slant rather than a downward bend as o does. Rare initial Ī occurs in line 35 and is clearly distinguished from I (l9). Anusvāra is never used before dental and retroflex stops, where the homorganic nasal appears instead. Its normal position is at headline height or above, after the character to which it belongs.
-                </p>
+                <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
+              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
+                <summary><p><p/></summary>
+                <handNote xml:id="Pallava00001_hand1"></handNote>
+                <handNote xml:id="Pallava00001_hand2"></handNote>
+              -->
             </handDesc>
           </physDesc>
         </msDesc>
@@ -78,6 +89,7 @@
     <revisionDesc>
       <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
       <change status="draft" when="2020-09-30" who="part:daba">Initial encoding of the file</change>
+      <!-- Add a <change> entry for each significant change to the file. -->
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
@@ -480,6 +492,7 @@ renaît ver de terre dans des excréments pendant soixante mille ans.</p>
             <citedRange unit="page">148-154</citedRange>
             <citedRange unit="item">2</citedRange>
           </bibl>
+          <!-- one <bibl/> per item of primary bibliography -->
         </listBibl>
         <listBibl type="secondary">
           <bibl>
