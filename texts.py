@@ -9,7 +9,7 @@ from dharma import config
 def complain(s):
 	print(f"BUG: {s}", file=sys.stderr)
 
-files_to_ignore = {"DHARMA_BestAuthorities.xml", "DHARMA_INSCIKthaiTest"}
+files_to_ignore = {"DHARMA_BestAuthorities.xml", "DHARMA_INSCIKthaiTest.xml"}
 
 repos_to_ignore = {
 	"digital-areal",
