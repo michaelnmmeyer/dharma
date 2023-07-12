@@ -1,10 +1,20 @@
 #!/usr/bin/env python3
 
-import sys, re, io, copy
+import os, sys, re, io, copy
 from dharma.tree import *
 from dharma import prosody
 
 HANDLERS = {} # we fill this below
+
+if os.isatty(1):
+	def term_blue():
+		sys.stdout.write("\N{ESC}[34m")
+	
+	def term_reset():
+		sys.stdout.write("\N{ESC}[0m")
+else:
+	def term_blue(): pass
+	def term_reset(): pass
 
 class Parser:
 	# drop: drop all spaces until we find some text
@@ -13,6 +23,8 @@ class Parser:
 	space = "drop"
 	tree = None
 	div_level = 0
+	
+	raw_indent = 0
 
 	# For HTML output
 	heading_shift = 1
@@ -44,6 +56,15 @@ class Parser:
 	def complain(self, msg):
 		print("? %s" % msg, file=sys.stderr)
 	
+	def indent(self):
+		self.raw_indent += 1
+	
+	def dedent(self):
+		self.raw_indent -= 1
+	
+	def vspace(self):
+		self.emit("raw", "\n")
+	
 	def add_text(self, data):
 		if not data:
 			return
@@ -72,15 +93,27 @@ class Parser:
 			return
 		self.buf.append(data)
 	
-	def write(self, t, data=None, **params):
+	def write2(self, t, data=None, **params):
 		write = sys.stdout.write
+		if t == "html":
+			term_blue()
 		write("%s" % t)
 		if data:
 			write(" %r" % data)
 		if params:
 			for k, v in sorted(params.items()):
 				write(" :%s %r" % (k, v))
+		if t == "html":
+			term_reset()
 		write("\n")
+	
+	def write(self, t, data=None, **params):
+		if t == "text":
+			print(self.raw_indent * "\t" + data)
+		elif t == "raw":
+			sys.stdout.write(data)
+		else:
+			pass#print(t, data, **params)
 
 	def flush_text(self):
 		if not self.buf:
@@ -89,8 +122,6 @@ class Parser:
 		self.buf.clear()
 	
 	def emit(self, t, data=None, **params):
-		if t == "html":
-			return
 		if t == "text":
 			self.add_text(data)
 			return
@@ -169,6 +200,9 @@ def process_pb(p, elem):
 def process_choice(p, node):
 	p.dispatch_children(node)
 
+def process_abbr(p, node):
+	p.dispatch_children(node)
+
 def process_g(p, node):
 	def fail():
 		 barf("invalid node (see STS)")
@@ -200,31 +234,64 @@ def process_p(p, para):
 	p.emit("html", "<p>")
 	p.dispatch_children(para)
 	p.emit("html", "</p>")
+	p.vspace()
 	p.emit("log:para>")
 
-def process_head(p, head):
-	for elem in head:
-		if elem.type == "tag":
-			if elem.name == "foreign":
-				p.emit("html", "<i>")
-				p.emit("text", elem.text())
-				p.emit("html", "</i>")
-			elif elem.name == "hi":
-				# TODO
-				pass
+def process_div_head(p, head):
+	def inner(root):
+		for elem in root:
+			if elem.type == "tag":
+				if elem.name == "foreign":
+					p.emit("html", "<i>")
+					inner(elem)
+					p.emit("html", "</i>")
+				elif elem.name == "hi":
+					# TODO
+					inner(elem)
+				else:
+					assert 0
 			else:
-				assert 0
-		elif elem.type == "string":
-			p.emit("text", elem)
-		elif elem.type == "comment":
-			pass
-		else:
-			assert 0
+				p.dispatch(elem)
+	inner(head)
 
-def process_div(p, div):
-	p.div_level += 1
+def process_div_ab(p, ab):
+	p.dispatch_children(ab)
+
+def process_lg(p, lg):
+	pada = 0
+	p.emit("log:verse<")
+	p.emit("html", '<div type="verse">')
+	for elem in lg:
+		if elem.type == "tag" and elem.name == "l":
+			if pada % 2 == 0:
+				p.emit("html", "<p>")
+				p.dispatch_children(elem)
+			else:
+				p.emit("text", " ")
+				p.dispatch_children(elem)
+				p.emit("html", "</p>")
+				p.emit("plain", "\n")
+			pada += 1
+		else:
+			p.dispatch(elem)
+	p.emit("html", "</div>")
+	p.emit("log:verse>")
+
+def process_div_dyad(p, div):
+	for elem in div:
+		if elem.type == "tag" and elem.name == "quote":
+			assert elem.attrs.get("type") == "base-text"
+			p.indent()
+			p.emit("html", "<blockquote>")
+			p.dispatch_children(elem)
+			p.emit("html", "</blockquote>")
+			p.dedent()
+			p.vspace()
+		else:
+			p.dispatch(elem)
+
+def process_div_section(p, div):
 	ignore = None
-	p.emit("html", "<div>")
 	type = div.attrs.get("type", "")
 	if type in ("chapter", "canto"):
 		p.emit("log:head<", level=p.div_level)
@@ -236,26 +303,20 @@ def process_div(p, div):
 		head = div.first_child("head")
 		if head:
 			p.emit("text", ": ")
-			process_head(p, head)
+			process_div_head(p, head)
 			ignore = head
 		p.emit("html", "</h%d>" % (p.div_level + p.heading_shift))
+		p.vspace()
 		p.emit("log:head>")
-	elif type == "dyad":
-		pass
-		# TODO
-	elif type == "metrical":
-		# Group of verses that share the same meter. Don't exploit this for now.
-		assert p.div_level > 1, '<div type="metrical"> can only be used as a child of another <div>'
-	elif type == "interpolation":
-		# Ignore for now.
-		pass
 	elif not type:
 		ab = div.first_child("ab")
 		if ab:
 			# Invocation or colophon?
 			type = ab["type"]
 			assert type in ("invocation", "colophon")
-			p.emit(ab["type"])
+			p.emit("log:%s" % ab["type"])
+			process_div_ab(p, ab)
+			ignore = ab
 	else:
 		assert 0, div
 	# Render the meter
@@ -276,10 +337,30 @@ def process_div(p, div):
 	else:
 		assert not div.attrs.get("rend")
 		assert not div.attrs.get("met")
+	#  Display the contents
 	for elem in div:
 		if elem == ignore:
 			continue
 		p.dispatch(elem)
+
+def process_div(p, div):
+	p.div_level += 1
+	p.emit("html", "<div>")
+	type = div.attrs.get("type", "")
+	if type in ("chapter", "canto", ""):
+		process_div_section(p, div)
+		p.vspace()
+	elif type == "dyad":
+		process_div_dyad(p, div)
+	elif type == "metrical":
+		# Group of verses that share the same meter. Don't exploit this for now.
+		assert p.div_level > 1, '<div type="metrical"> can only be used as a child of another <div>'
+		p.dispatch_children(div)
+	elif type == "interpolation":
+		# Ignore for now.
+		p.dispatch_children(div)
+	else:
+		assert 0, div
 	p.emit("html", "</div>")
 	p.div_level -= 1
 
