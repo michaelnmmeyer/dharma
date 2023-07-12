@@ -1,5 +1,3 @@
-XXX need to fix the formatter, it adds spaces where īt should not.
-
 == Transform
 
 When we have stuff like:
@@ -16,10 +14,8 @@ an HTML tag? It's clunky.
 The simplest method is maybe to store the raw text separately as a contiguous
 string where fields are separated with some character, and to have pointers to
 the raw text in the bytecode. This makes it convenient to match the text with
-or without taking into account the structure.
-
-How to deal with milestones? They should not interrupt raw text blocks, but we
-also need to add them in the generated HTML. For now, just ignore them.
+or without taking into account the structure. We need at least two separate
+buffers: one for the raw text + structure, the other for HTML stuff.
 
 For generating the HTML. We keep track of match offsets in an array and, when
 generating the HTML, we highlight portions of texts that need to be. There is

@@ -72,27 +72,34 @@ class Parser:
 			return
 		self.buf.append(data)
 	
-	def flush_text(self):
+	def write(self, t, data=None, **params):
 		write = sys.stdout.write
+		write("%s" % t)
+		if data:
+			write(" %r" % data)
+		if params:
+			for k, v in sorted(params.items()):
+				write(" :%s %r" % (k, v))
+		write("\n")
+
+	def flush_text(self):
 		if not self.buf:
 			return
-		write("text %r\n" % "".join(self.buf))
+		self.write("text", "".join(self.buf))
 		self.buf.clear()
 	
 	def emit(self, t, data=None, **params):
-		write = sys.stdout.write
+		if t == "html":
+			return
 		if t == "text":
 			self.add_text(data)
 			return
 		self.flush_text()
 		p.space = "drop"
 		if data is not None:
-			write("%s %r" % (t, data))
-			for k, v in sorted(params.items()):
-				write(" :%s %r" % (k, v))
-			write("\n")
+			self.write(t, data, **params)
 		else:
-			print(t)
+			self.write(t)
 
 def barf(msg):
 	raise Exception(msg)
@@ -190,7 +197,9 @@ def process_unclear(p, node):
 
 def process_p(p, para):
 	p.emit("log:para<")
+	p.emit("html", "<p>")
 	p.dispatch_children(para)
+	p.emit("html", "</p>")
 	p.emit("log:para>")
 
 def process_head(p, head):
@@ -218,8 +227,8 @@ def process_div(p, div):
 	p.emit("html", "<div>")
 	type = div.attrs.get("type", "")
 	if type in ("chapter", "canto"):
-		p.emit("html", "<h%d>" % (p.div_level + p.heading_shift))
 		p.emit("log:head<", level=p.div_level)
+		p.emit("html", "<h%d>" % (p.div_level + p.heading_shift))
 		p.emit("text", type.title())
 		n = div.attrs.get("n")
 		if n:
@@ -229,8 +238,8 @@ def process_div(p, div):
 			p.emit("text", ": ")
 			process_head(p, head)
 			ignore = head
-		p.emit("log:head>")
 		p.emit("html", "</h%d>" % (p.div_level + p.heading_shift))
+		p.emit("log:head>")
 	elif type == "dyad":
 		pass
 		# TODO
