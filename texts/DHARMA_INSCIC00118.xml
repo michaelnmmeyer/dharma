@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -35,11 +41,7 @@
         <idno type="filename">DHARMA_INSCIC00118</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-                        Licence. To view a copy of the licence, visit
-                        https://creativecommons.org/licenses/by/4.0/ or send a letter to
-                        Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-                        California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Arlo Griffiths and Salomé Pichon.</p>
           </licence>
         </availability>
@@ -52,8 +54,8 @@
             <editor>Arlo Griffiths</editor>
           </titleStmt>
           <editionStmt>
-            <p>First digital edition made by École française d'Extrême-Orient (EFEO), realized in collaboration with the Institute for the Study of the Ancient World (ISAW) at New York University as <ref target="https://isaw.nyu.edu/publications/inscriptions/campa/index.html">The Corpus of the Inscriptions of Campā, in 2010-2012.</ref>
-                  </p>
+            <p>First digital edition made by École française d'Extrême-Orient (EFEO), realized in collaboration with the Institute for the Study of the Ancient World (ISAW) at New York University as 
+            <ref target="https://isaw.nyu.edu/publications/inscriptions/campa/index.html">The Corpus of the Inscriptions of Campā, in 2010-2012.</ref></p>
           </editionStmt>
           <publicationStmt>
             <authority>École française d'Extrême-Orient (EFEO)</authority>
@@ -61,11 +63,7 @@
             <availability>
               <licence target="http://creativecommons.org/licenses/by/3.0/">
                 <p>Copyright (c) 2014 by Arlo Griffiths.</p>
-                <p>This work is licensed under the Creative Commons Attribution 3.0 Unported
-                     License. To view a copy of this license, visit
-                     http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative
-                     Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041,
-                     USA.</p>
+                <p>This work is licensed under the Creative Commons Attribution 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
               </licence>
             </availability>
           </publicationStmt>
@@ -73,7 +71,7 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
             <altIdentifier type="campa">
               <idno>C. 118</idno>
             </altIdentifier>
@@ -92,11 +90,11 @@
             </altIdentifier>
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -106,148 +104,181 @@
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2021-07-04" who="part:argr">Resolved validation problems.</change>
-      <change status="draft" when="2020-09-14" who="part:axja">Campa file transformed to follow the DHARMA encoding structure. Metadata extracted to be checked and updated according DHARMA workflow. Done through XSLT.</change>
+      <change when="2021-07-04" who="part:argr" status="draft">Resolved validation problems.</change>
+      <change when="2020-09-14" who="part:axja" status="draft">Campa file transformed to follow the DHARMA encoding structure. Metadata extracted to be checked and updated according DHARMA workflow. Done through XSLT.</change>
     </revisionDesc>
   </teiHeader>
   <facsimile>
     <graphic url="C0118_1_AG_2010.jpg">
-      <desc>Photograph 1/8 of inscription <ptr/>. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
+      <desc>Photograph 1/8 of inscription 
+      <ptr />. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
     </graphic>
     <graphic url="C0118_2_AG_2010.jpg">
-      <desc>Photograph 2/8 of inscription <ptr/>. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
+      <desc>Photograph 2/8 of inscription 
+      <ptr />. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
     </graphic>
     <graphic url="C0118_3_AG_2010.jpg">
-      <desc>Photograph 3/8 of inscription <ptr/>. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
+      <desc>Photograph 3/8 of inscription 
+      <ptr />. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
     </graphic>
     <graphic url="C0118_4_AG_2010.jpg">
-      <desc>Photograph 4/8 of inscription <ptr/>. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
+      <desc>Photograph 4/8 of inscription 
+      <ptr />. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
     </graphic>
     <graphic url="C0118_5_AG_2010.jpg">
-      <desc>Photograph 5/8 of inscription <ptr/>. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
+      <desc>Photograph 5/8 of inscription 
+      <ptr />. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
     </graphic>
     <graphic url="C0118_6_AG_2010.jpg">
-      <desc>Photograph 6/8 of inscription <ptr/>. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
+      <desc>Photograph 6/8 of inscription 
+      <ptr />. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
     </graphic>
     <graphic url="C0118_7_AG_2010.jpg">
-      <desc>Photograph 7/8 of inscription <ptr/>. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
+      <desc>Photograph 7/8 of inscription 
+      <ptr />. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
     </graphic>
     <graphic url="C0118_8_AG_2010.jpg">
-      <desc>Photograph 8/8 of inscription <ptr/>. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
+      <desc>Photograph 8/8 of inscription 
+      <ptr />. Taken for CIC by Khom Sreymom and Ham Seiharasarann on .</desc>
     </graphic>
   </facsimile>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83233 maturity:00000" type="edition" xml:lang="x-oldcam-Latn">
-        <p>
-            <lb n="1"/><g>||</g> pom̃ yām̃ pu rājabhagavanta aum̃ sakrānta urām̃ mandā vijaya vuḥ pak yām̃ pu nagara śakarāja 1179
+<body>
+<div type="edition" xml:lang="x-oldcam-Latn" rendition="class:83233 maturity:00000">
+            
+<p>
+            
+<lb n="1" />
+<g>||</g> pom̃ yām̃ pu rājabhagavanta aum̃ sakrānta urām̃ mandā vijaya vuḥ pak yām̃ pu nagara śakarāja 1179
             </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1">
-            <lem>
-              <g>||</g>
-            </lem>
-            <note>The form of the opening sign, ignored in previous publications, is uncommon, but it is found also in the nearly contemporary inscription <ref target="DHARMA_INSCIC00058.xml">C. 58</ref>.</note>
-          </app>
-          <app loc="1">
-            <lem>aum̃</lem>
-            <note>All previous publications give <foreign>oṅ</foreign>.</note>
-          </app>
-          <app loc="1">
-            <lem>sakrānta</lem>
-            <note>All previous publications give <foreign>śakrānta</foreign>.</note>
-          </app>
-          <app loc="1">
-            <lem source="bib:Finot1915_08">1179</lem>
-            <rdg source="bib:Finot1906_01">1171</rdg>
-            <rdg source="bib:Parmentier1906_01">1187</rdg>
-            <rdg source="bib:Schweyer2005_01">1119</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:argr" type="translation">
-        <p>His majesty the royal venerable, Sir Sakrānta, man of Mandā Vijaya, has gifted <supplied reason="subaudible">this</supplied> to the Lady of the Land. <supplied reason="subaudible">Era of the</supplied> Śaka king 1178 (= 1257/8 C.E.).</p>
-      </div>
-      <div resp="part:argr" type="translation" xml:lang="fra">
-        <p>Sa majesté le vénérable royal, sieur Sakrānta, homme de Mandā Vijaya, a offert <supplied reason="subaudible">ceci</supplied> à la Dame du Pays. <supplied reason="subaudible">Ère du</supplied> roi des Śaka 1178 (= 1257/8 de n.è.).</p>
-      </div>
-      <div type="commentary">
-        <p>The idea forwarded by Schweyer in <bibl>
-            <ptr target="bib:Baptiste+Zephir2005_01"/>
-            <citedRange unit="page">297</citedRange>
-          </bibl> that the text was not meant to be read by humans but only by the goddess who was recipient of the donation, and that this would explain why the text was engraved upside-down on the object which is interpreted as a bowl, seems entirely <foreign>ad hoc</foreign>.</p>
-        <p>For the opening phraseology, cf. <ref target="DHARMA_INSCIC00005.xml">C. 5</ref>, ll. 17-18. Might the unique expression <foreign>rājabhagavanta</foreign> be equivalent to <foreign>yuvarāja</foreign>? It seems more likely that this expression is intended as a compound, than as two separate words, as previous editions have assumed.
-               The name Sakrānta is possibly attested again, although with orthographic variants, as <foreign>sakram̃ttha</foreign> in <ref target="DHARMA_INSCIC00001.xml">C. 1</ref> and as <foreign>sakram̃tthi</foreign> in <ref target="DHARMA_INSCIC00043.xml">C. 43</ref>.</p>
-      </div>
-      <div type="bibliography">
-        <p>An initial reading having been presented during a lecture at Paris (<bibl>
-            <ptr target="bib:Finot1906_01"/>
-          </bibl>), the text was read directly from the original by father Eugène-Marie Durand, whose amended was published in <bibl>
-            <ptr target="bib:Parmentier1906_01"/>
-            <citedRange unit="page">291</citedRange>
-            <citedRange unit="note">2</citedRange>
-          </bibl>, whence <bibl>
-            <ptr target="bib:Golzio2004_01"/>
-            <citedRange unit="page">188</citedRange>
-          </bibl>; the reading of the date was again amended in <bibl>
-            <ptr target="bib:Finot1915_08"/>
-            <citedRange unit="page">192</citedRange>
-          </bibl>; reading with new error for the date in <bibl>
-            <ptr target="bib:Schweyer2005_01"/>
-            <citedRange unit="page">107</citedRange>
-          </bibl> (see also the entry by the same author in <bibl>
-            <ptr target="bib:Baptiste+Zephir2005_01"/>
-          </bibl>); an emendation proposed in <bibl>
-            <ptr target="bib:Griffiths+al2008-2009_01"/>
-            <citedRange unit="page">476</citedRange>
-          </bibl></p>
-        <listBibl type="primary">
-          <bibl n="LF1">
-            <ptr target="bib:Finot1906_01"/>
-          </bibl>
-          <bibl n="EMD">
-            <ptr target="bib:Parmentier1906_01"/>
-            <citedRange unit="page">291</citedRange>
-            <citedRange unit="note">2</citedRange>
-          </bibl>
-          <bibl n="LF2">
-            <ptr target="bib:Finot1915_08"/>
-            <citedRange unit="page">192</citedRange>
-          </bibl>
-          <bibl n="AVS">
-            <ptr target="bib:Schweyer2005_01"/>
-            <citedRange unit="page">107</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:Parmentier1909_01"/>
-            <citedRange unit="page">132</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Majumdar1927_01"/>
-            <citedRange unit="page">214</citedRange>
-            <citedRange unit="item">99</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Griffiths+al2008-2009_01"/>
-            <citedRange unit="page">476</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+         </div>
+<div type="apparatus">
+<listApp>
+<app loc="1">
+<lem>
+<g>||</g></lem>
+<note>The form of the opening sign, ignored in previous publications, is uncommon, but it is found also in the nearly contemporary inscription 
+<ref target="DHARMA_INSCIC00058.xml">C. 58</ref>.</note>
+</app>
+<app loc="1">
+<lem>aum̃</lem>
+<note>All previous publications give 
+<foreign>oṅ</foreign>.</note>
+</app>
+<app loc="1">
+<lem>sakrānta</lem>
+<note>All previous publications give 
+<foreign>śakrānta</foreign>.</note>
+</app>
+<app loc="1">
+<lem source="bib:Finot1915_08">1179</lem>
+<rdg source="bib:Finot1906_01">1171</rdg>
+<rdg source="bib:Parmentier1906_01">1187</rdg>
+<rdg source="bib:Schweyer2005_01">1119</rdg>
+</app>
+</listApp>
+</div>
+<div type="translation" resp="part:argr">
+<p>His majesty the royal venerable, Sir Sakrānta, man of Mandā Vijaya, has gifted 
+<supplied reason="subaudible">this</supplied> to the Lady of the Land. 
+<supplied reason="subaudible">Era of the</supplied> Śaka king 1178 (= 1257/8 C.E.).</p>
+</div>
+<div type="translation" xml:lang="fra" resp="part:argr">
+<p>Sa majesté le vénérable royal, sieur Sakrānta, homme de Mandā Vijaya, a offert 
+<supplied reason="subaudible">ceci</supplied> à la Dame du Pays. 
+<supplied reason="subaudible">Ère du</supplied> roi des Śaka 1178 (= 1257/8 de n.è.).</p>
+</div>
+<div type="commentary">
+  <p>The idea forwarded by Schweyer in 
+  <bibl>
+    <ptr target="bib:Baptiste+Zephir2005_01" />
+    <citedRange unit="page">297</citedRange>
+  </bibl> that the text was not meant to be read by humans but only by the goddess who was recipient of the donation, and that this would explain why the text was engraved upside-down on the object which is interpreted as a bowl, seems entirely 
+  <foreign>ad hoc</foreign>.</p>
+  <p>For the opening phraseology, cf. 
+  <ref target="DHARMA_INSCIC00005.xml">C. 5</ref>, ll. 17-18. Might the unique expression 
+  <foreign>rājabhagavanta</foreign> be equivalent to 
+  <foreign>yuvarāja</foreign>? It seems more likely that this expression is intended as a compound, than as two separate words, as previous editions have assumed.
+                 The name Sakrānta is possibly attested again, although with orthographic variants, as 
+  <foreign>sakram̃ttha</foreign> in 
+  <ref target="DHARMA_INSCIC00001.xml">C. 1</ref> and as 
+  <foreign>sakram̃tthi</foreign> in 
+  <ref target="DHARMA_INSCIC00043.xml">C. 43</ref>.</p>
+</div>
+<div type="bibliography">
+<p>An initial reading having been presented during a lecture at Paris (
+<bibl>
+  <ptr target="bib:Finot1906_01" />
+</bibl>), the text was read directly from the original by father Eugène-Marie Durand, whose amended was published in 
+<bibl>
+  <ptr target="bib:Parmentier1906_01" />
+  <citedRange unit="page">291</citedRange>
+  <citedRange unit="note">2</citedRange>
+</bibl>, whence 
+<bibl>
+  <ptr target="bib:Golzio2004_01" />
+  <citedRange unit="page">188</citedRange>
+</bibl>; the reading of the date was again amended in 
+<bibl>
+  <ptr target="bib:Finot1915_08" />
+  <citedRange unit="page">192</citedRange>
+</bibl>; reading with new error for the date in 
+<bibl>
+  <ptr target="bib:Schweyer2005_01" />
+  <citedRange unit="page">107</citedRange>
+</bibl> (see also the entry by the same author in 
+<bibl>
+  <ptr target="bib:Baptiste+Zephir2005_01" />
+</bibl>); an emendation proposed in 
+<bibl>
+  <ptr target="bib:Griffiths+al2008-2009_01" />
+  <citedRange unit="page">476</citedRange>
+</bibl></p>
+<listBibl type="primary">
+<bibl n="LF1">
+  <ptr target="bib:Finot1906_01" />
+</bibl>
+<bibl n="EMD">
+  <ptr target="bib:Parmentier1906_01" />
+  <citedRange unit="page">291</citedRange>
+  <citedRange unit="note">2</citedRange>
+</bibl>
+<bibl n="LF2">
+  <ptr target="bib:Finot1915_08" />
+  <citedRange unit="page">192</citedRange>
+</bibl>
+<bibl n="AVS">
+  <ptr target="bib:Schweyer2005_01" />
+  <citedRange unit="page">107</citedRange>
+</bibl>
+</listBibl>
+<listBibl type="secondary">
+<bibl>
+  <ptr target="bib:Parmentier1909_01" />
+  <citedRange unit="page">132</citedRange>
+</bibl>
+<bibl>
+<ptr target="bib:Majumdar1927_01" />
+<citedRange unit="page">214</citedRange>
+<citedRange unit="item">99</citedRange></bibl>
+<bibl>
+  <ptr target="bib:Griffiths+al2008-2009_01" />
+  <citedRange unit="page">476</citedRange>
+</bibl>
+</listBibl>
+</div>
+</body>
+</text>
 </TEI>

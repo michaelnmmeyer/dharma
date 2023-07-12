@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00150</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,63 +62,111 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <p><!-- 
-Restorations in lines 2 to 6 are based on %IN00144, %IN00145 and %IN00146. I do not restore anything before the middle of l1, where the content must have been the same as in other Maukhari seals, but the line breaks cannot be estimated. The content after the middle of l6 probably follows the model of other Maukhari seals. 
---><gap precision="low" quantity="2" reason="lost" unit="line"/>
-<lb n="1"/><gap extent="unknown" reason="lost" unit="character"/> <unclear>d</unclear><supplied reason="lost">e</supplied>vy<supplied reason="lost">ā</supplied>m utpa<unclear>n</unclear>na <gap extent="unknown" reason="lost" unit="character"/><lb n="2"/><gap extent="unknown" reason="lost" unit="character"/> ṭṭār<supplied reason="lost">i</supplied>k<supplied reason="lost">ā</supplied>-devyām utpannaḥ śrī-mahārāje<supplied reason="lost">śvaravarmmā tasya puttras tat-pādānudhyāta</supplied><lb n="3"/>Upaguptā-bhaṭṭārikā-devyām utpanno mahārājādhi<supplied reason="lost">rāja-śrī-īśānavarmmā tasya puttras ta</supplied><lb break="no" n="4"/>t-pādānudhyāto lakṣmīvatī-bhaṭṭārikā-mahādevyā<supplied reason="lost">m utpanno mahārājādhirāja-śrī-</supplied><lb n="5"/>śa<unclear>rvvavarmmā</unclear> tasya <unclear cert="low">pu</unclear><unclear>ttra</unclear>s tat-pādānudhyāta Indra-bhaṭṭā<supplied reason="lost">rikā-mahādevyām utpanno</supplied><lb n="6"/><unclear cert="low">mahārājādhirāja</unclear>-<unclear>śrī</unclear>-avantivarmmā tasya pu<supplied reason="lost">ttras tat-pādānuddhyātaḥ</supplied> <gap precision="low" quantity="2" reason="lost" unit="character"/> <lb n="7"/><unclear>vat</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ī</supplied>-<unclear>bhaṭ</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ṭā</supplied>r<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->i</supplied><unclear>k</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ā</supplied>-mahādevyām utpannaḥ para<supplied reason="lost">ma-māheśvaro mahā</supplied><lb break="no" n="8"/><unclear cert="low">rājādhirāja</unclear>-śrī-su<unclear cert="low">va</unclear> <gap extent="unknown" reason="lost" unit="character"/> <supplied reason="lost">maukhariḥ</supplied><!-- 
-In l1, utpanna is followed by a partial character that is certainly not a visarga. It may be a queerly formed śrī, but doesn't really look like one. 
---><!-- 
-Ghosh reads the end of l8 as suva, but says (#Ghosh_1937-38:284n6) that suca is also a possibility. He notes that the Mañjuśrīmūlakalpa mentions a king "suvra" (or suvrata) in connection with and after Grahavarman. Ghosh also believes there may be part of an n and a subscript r after this last dubious letter, so his conjectural restoration of the name is Sucandravarman. Sircar (SI2/II.2) goes for Suvratavarman on the basis of the Mañjuśrīmūlakalpa (v613). I find this to be a more likely name. The final character could be a number of other things beside va and ca; sa springs to mind first. 
---></p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<p>
+<gap reason="lost" quantity="2" unit="line" precision="low" />
+<lb n="1" />
+<gap reason="lost" extent="unknown" unit="character" /> 
+<unclear>d</unclear>
+<supplied reason="lost">e</supplied>vy
+<supplied reason="lost">ā</supplied>m utpa
+<unclear>n</unclear>na 
+<gap reason="lost" extent="unknown" unit="character" />
+<lb n="2" />
+<gap reason="lost" extent="unknown" unit="character" /> ṭṭār
+<supplied reason="lost">i</supplied>k
+<supplied reason="lost">ā</supplied>-devyām utpannaḥ śrī-mahārāje
+<supplied reason="lost">śvaravarmmā tasya puttras tat-pādānudhyāta</supplied>
+<lb n="3" />Upaguptā-bhaṭṭārikā-devyām utpanno mahārājādhi
+<supplied reason="lost">rāja-śrī-īśānavarmmā tasya puttras ta</supplied>
+<lb n="4" break="no" />t-pādānudhyāto lakṣmīvatī-bhaṭṭārikā-mahādevyā
+<supplied reason="lost">m utpanno mahārājādhirāja-śrī-</supplied>
+<lb n="5" />śa
+<unclear>rvvavarmmā</unclear> tasya 
+<unclear cert="low">pu</unclear>
+<unclear>ttra</unclear>s tat-pādānudhyāta Indra-bhaṭṭā
+<supplied reason="lost">rikā-mahādevyām utpanno</supplied>
+<lb n="6" />
+<unclear cert="low">mahārājādhirāja</unclear>-
+<unclear>śrī</unclear>-avantivarmmā tasya pu
+<supplied reason="lost">ttras tat-pādānuddhyātaḥ</supplied> 
+<gap reason="lost" precision="low" quantity="2" unit="character" /> 
+<lb n="7" />
+<unclear>vat</unclear>
+<supplied reason="lost">ī</supplied>-
+<unclear>bhaṭ</unclear>
+<supplied reason="lost">ṭā</supplied>r
+<supplied reason="lost">i</supplied>
+<unclear>k</unclear>
+<supplied reason="lost">ā</supplied>-mahādevyām utpannaḥ para
+<supplied reason="lost">ma-māheśvaro mahā</supplied>
+<lb n="8" break="no" />
+<unclear cert="low">rājādhirāja</unclear>-śrī-su
+<unclear cert="low">va</unclear> 
+<gap reason="lost" extent="unknown" unit="character" /> 
+<supplied reason="lost">maukhariḥ</supplied></p>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

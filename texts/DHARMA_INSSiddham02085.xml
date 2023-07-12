@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -19,18 +25,13 @@
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <persName><!-- 
-The original editor(s). 
---></persName>
+          <persName></persName>
         </respStmt>
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham02085</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -43,14 +44,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -58,100 +59,156 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <!-- 
-Comments below by Csaba Kiss are offered "as is" and do not represent a thoroughly researched or considered opinion. 
--->
-        <p><lb n="1"/><gap precision="low" quantity="10" reason="illegible" unit="character"/> dakṣiṇena <gap precision="low" quantity="5" reason="illegible" unit="character"/> rtavāṭikā pā <gap precision="low" quantity="6" reason="illegible" unit="character"/>
-<lb n="2"/><gap quantity="1" reason="illegible" unit="line"/>
-<lb n="3"/><gap precision="low" quantity="7" reason="illegible" unit="character"/> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->da</supplied>kṣiṇ <gap precision="low" quantity="8" reason="illegible" unit="character"/> <unclear cert="low">sahasra</unclear> <gap precision="low" quantity="2" reason="illegible" unit="character"/> di <gap precision="low" quantity="4" reason="illegible" unit="character"/> na ma<!-- 
-L3. L. reads sahasra-(vā)ṭik 
---><lb n="4"/><gap precision="low" quantity="1" reason="illegible" unit="character"/> s tan <gap precision="low" quantity="5" reason="illegible" unit="character"/> na <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg>i <gap precision="low" quantity="2" reason="illegible" unit="character"/> rya yāvac <gap precision="low" quantity="7" reason="illegible" unit="character"/> <unclear cert="low">p</unclear>aścima <gap precision="low" quantity="1" reason="illegible" unit="character"/> pānīya <gap precision="low" quantity="2" reason="illegible" unit="character"/> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg>i<!-- 
-L4. L. . . . na . . . rya yāvac chaṅka . śasra . paścima . mānīya mārtaśi 
---><lb n="5"/>rvam anusr̥tya <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg>i <gap precision="low" quantity="3" reason="illegible" unit="character"/> pi<unclear cert="low">r</unclear>ṇa-paścime <gap precision="low" quantity="2" reason="illegible" unit="character"/> ṇṇa <gap precision="low" quantity="1" reason="illegible" unit="character"/> kṣ <gap precision="low" quantity="1" reason="illegible" unit="character"/> ṇa kīñcid dakṣiṇena paścime śaṅkara<!-- 
-L5. Is kīñcid a typo in Gnolo? CHECK 
---><!-- 
-L5. L. reads anusr̥tyātra 
---><!-- 
-L5. L. reads pikāpaścime sā . . . mā 
---><lb n="6"/><gap precision="low" quantity="2" reason="illegible" unit="character"/> ṭavaiśira <gap precision="low" quantity="1" reason="illegible" unit="character"/> paścim <seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><unclear cert="low">tad</unclear>-uttaraṅ gatvā Apau <gap precision="low" quantity="4" reason="illegible" unit="character"/> la <gap precision="low" quantity="1" reason="illegible" unit="character"/> yi <gap precision="low" quantity="2" reason="illegible" unit="character"/> nada-gr̥ha-maṇḍala-ki <gap precision="low" quantity="1" reason="illegible" unit="character"/>
-<lb n="7"/><gap precision="low" quantity="2" reason="illegible" unit="character"/> cottaraṅ gatvā mahā <gap precision="low" quantity="3" reason="illegible" unit="character"/> paścimaṁ gatvā śilā-saṅkramasya paścimena r<unclear cert="low">eṭā</unclear>-pāñcālī
-<lb n="8"/><gap precision="low" quantity="2" reason="illegible" unit="character"/> ca pūrvottaraṁ gatvā lopriṁ-pāñcāli-vāṭikāyā paścimottaraṁ gatvā dolā-śikhara <gap precision="low" quantity="1" reason="illegible" unit="character"/> Ai <gap precision="low" quantity="1" reason="illegible" unit="character"/>
-<lb n="9"/><gap precision="low" quantity="2" reason="illegible" unit="character"/> pūrveṇottaraṅ gatvā pu<unclear cert="low">nu</unclear>pāñcālika-kṣetrasya ca paścimottaraṁ gatvā lopriṁ-pāñcālika-kṣetra<!-- 
-L9. L. reads pūṅka° 
---><lb break="no" n="10"/>sya paścimottaraṁ gatvā nārāyaṇa-deva-kula-daśamī gauṣṭhika-kṣetrasyāpy uttaraṁ gatvā<!-- 
-L10. L. reads goṣṭhika 
---><lb n="11"/>lopriṅ-grāmendra-gauṣṭhika-kṣetrasyottaraṁ gatvā pānīya-kṣetrasya cottaraṁ gatvā <unclear cert="low">tato</unclear> yāvat <gap precision="low" quantity="2" reason="illegible" unit="character"/><!-- 
-L11. L. reads mānīya 
---><lb n="12"/>puṣpa-vāṭikā-vihāra-kṣetrasya sīmāvadhir ity etat-samī<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->pe</supplied> <gap precision="low" quantity="9" reason="illegible" unit="character"/><!-- 
-L12. Again Gnoli is ambiguous: ]s and italics at the same time. 
---><!-- 
-L12. L. reads ity anar . e paścimenottar . . . ma . 
---><lb n="13"/>la-prāsāda-maṇḍalāny <gap precision="low" quantity="3" reason="illegible" unit="character"/> koṭṭa-maryādāsmābhiḥ prasādaka <gap precision="low" quantity="5" reason="illegible" unit="character"/> pajī<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->vi</supplied><!-- 
-L13. L. omits pajīvi 
---><lb break="no" n="14"/>dbhir asmat-pāda-prasāda-pratibandha-samarthair anyair vā na kaiścid ayam prasādo vyatikramaṇīyo <gap precision="low" quantity="2" reason="illegible" unit="character"/><!-- 
-L14. L. reads ce (at the end of the line) 
---><lb n="15"/><gap precision="low" quantity="2" reason="illegible" unit="character"/> nām asmadīyām ājñām evolla<supplied reason="omitted">ṅ</supplied>ghyānyathā kurvīta <gap precision="low" quantity="1" reason="illegible" unit="character"/> kārayeyur vā te <supplied reason="subaudible">’</supplied>smābhir na <gap precision="low" quantity="3" reason="illegible" unit="character"/><!-- 
-L15. L. reads evollaghya kurvīta, omitting anyathā. The form kurvīta is a mistake for kuryuḥ 
---><lb n="16"/><gap precision="low" quantity="5" reason="illegible" unit="character"/> narādhipatibhiḥ pūrva-mahī-pāla-kr̥ta-prasāda-smāribhir <unclear cert="low">loka</unclear> <gap precision="low" quantity="3" reason="illegible" unit="character"/>
-<lb n="17"/><gap precision="low" quantity="3" reason="illegible" unit="character"/> titarāṁ na marṣaṇīyāḥ| svayam ājñā dūtako <supplied reason="subaudible">’</supplied>py atra bhaṭṭāraka-śrī-vijayadevaḥ saṁ<lb break="no" n="18"/>vaT <num value="137"><g type="numeral">100</g><g type="numeral">30</g> 7</num> jyeṣṭa-śukla-pañcamyāM||
+<body>
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<p>
+<lb n="1" />
+<gap reason="illegible" precision="low" quantity="10" unit="character" /> dakṣiṇena 
+<gap reason="illegible" precision="low" quantity="5" unit="character" /> rtavāṭikā pā 
+<gap reason="illegible" precision="low" quantity="6" unit="character" />
+<lb n="2" />
+<gap reason="illegible" quantity="1" unit="line" />
+<lb n="3" />
+<gap reason="illegible" precision="low" quantity="7" unit="character" /> 
+<supplied reason="lost">da</supplied>kṣiṇ 
+<gap reason="illegible" precision="low" quantity="8" unit="character" /> 
+<unclear cert="low">sahasra</unclear> 
+<gap reason="illegible" precision="low" quantity="2" unit="character" /> di 
+<gap reason="illegible" precision="low" quantity="4" unit="character" /> na ma
+<lb n="4" />
+<gap reason="illegible" precision="low" quantity="1" unit="character" /> s tan 
+<gap reason="illegible" precision="low" quantity="5" unit="character" /> na 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>i 
+<gap reason="illegible" precision="low" quantity="2" unit="character" /> rya yāvac 
+<gap reason="illegible" precision="low" quantity="7" unit="character" /> 
+<unclear cert="low">p</unclear>aścima 
+<gap reason="illegible" precision="low" quantity="1" unit="character" /> pānīya 
+<gap reason="illegible" precision="low" quantity="2" unit="character" /> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>i
+<lb n="5" />rvam anusr̥tya 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>i 
+<gap reason="illegible" precision="low" quantity="3" unit="character" /> pi
+<unclear cert="low">r</unclear>ṇa-paścime 
+<gap reason="illegible" precision="low" quantity="2" unit="character" /> ṇṇa 
+<gap reason="illegible" precision="low" quantity="1" unit="character" /> kṣ 
+<gap reason="illegible" precision="low" quantity="1" unit="character" /> ṇa kīñcid dakṣiṇena paścime śaṅkara
+<lb n="6" />
+<gap reason="illegible" precision="low" quantity="2" unit="character" /> ṭavaiśira 
+<gap reason="illegible" precision="low" quantity="1" unit="character" /> paścim 
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<unclear cert="low">tad</unclear>-uttaraṅ gatvā Apau 
+<gap reason="illegible" precision="low" quantity="4" unit="character" /> la 
+<gap reason="illegible" precision="low" quantity="1" unit="character" /> yi 
+<gap reason="illegible" precision="low" quantity="2" unit="character" /> nada-gr̥ha-maṇḍala-ki 
+<gap reason="illegible" precision="low" quantity="1" unit="character" />
+<lb n="7" />
+<gap reason="illegible" precision="low" quantity="2" unit="character" /> cottaraṅ gatvā mahā 
+<gap reason="illegible" precision="low" quantity="3" unit="character" /> paścimaṁ gatvā śilā-saṅkramasya paścimena r
+<unclear cert="low">eṭā</unclear>-pāñcālī
+<lb n="8" />
+<gap reason="illegible" precision="low" quantity="2" unit="character" /> ca pūrvottaraṁ gatvā lopriṁ-pāñcāli-vāṭikāyā paścimottaraṁ gatvā dolā-śikhara 
+<gap reason="illegible" precision="low" quantity="1" unit="character" /> Ai 
+<gap reason="illegible" precision="low" quantity="1" unit="character" />
+<lb n="9" />
+<gap reason="illegible" precision="low" quantity="2" unit="character" /> pūrveṇottaraṅ gatvā pu
+<unclear cert="low">nu</unclear>pāñcālika-kṣetrasya ca paścimottaraṁ gatvā lopriṁ-pāñcālika-kṣetra
+<lb n="10" break="no" />sya paścimottaraṁ gatvā nārāyaṇa-deva-kula-daśamī gauṣṭhika-kṣetrasyāpy uttaraṁ gatvā
+<lb n="11" />lopriṅ-grāmendra-gauṣṭhika-kṣetrasyottaraṁ gatvā pānīya-kṣetrasya cottaraṁ gatvā 
+<unclear cert="low">tato</unclear> yāvat 
+<gap reason="illegible" precision="low" quantity="2" unit="character" />
+<lb n="12" />puṣpa-vāṭikā-vihāra-kṣetrasya sīmāvadhir ity etat-samī
+<supplied reason="lost">pe</supplied> 
+<gap reason="illegible" precision="low" quantity="9" unit="character" />
+<lb n="13" />la-prāsāda-maṇḍalāny 
+<gap reason="illegible" precision="low" quantity="3" unit="character" /> koṭṭa-maryādāsmābhiḥ prasādaka 
+<gap reason="illegible" precision="low" quantity="5" unit="character" /> pajī
+<supplied reason="lost">vi</supplied>
+<lb n="14" break="no" />dbhir asmat-pāda-prasāda-pratibandha-samarthair anyair vā na kaiścid ayam prasādo vyatikramaṇīyo 
+<gap reason="illegible" precision="low" quantity="2" unit="character" />
+<lb n="15" />
+<gap reason="illegible" precision="low" quantity="2" unit="character" /> nām asmadīyām ājñām evolla
+<supplied reason="omitted">ṅ</supplied>ghyānyathā kurvīta 
+<gap reason="illegible" precision="low" quantity="1" unit="character" /> kārayeyur vā te 
+<supplied reason="subaudible">’</supplied>smābhir na 
+<gap reason="illegible" precision="low" quantity="3" unit="character" />
+<lb n="16" />
+<gap reason="illegible" precision="low" quantity="5" unit="character" /> narādhipatibhiḥ pūrva-mahī-pāla-kr̥ta-prasāda-smāribhir 
+<unclear cert="low">loka</unclear> 
+<gap reason="illegible" precision="low" quantity="3" unit="character" />
+<lb n="17" />
+<gap reason="illegible" precision="low" quantity="3" unit="character" /> titarāṁ na marṣaṇīyāḥ| svayam ājñā dūtako 
+<supplied reason="subaudible">’</supplied>py atra bhaṭṭāraka-śrī-vijayadevaḥ saṁ
+<lb n="18" break="no" />vaT 
+<num value="137">
+<g type="numeral">100</g> 
+<g type="numeral">30</g> 7</num> jyeṣṭa-śukla-pañcamyāM||
 </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+</div>
+                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+</text>
 </TEI>

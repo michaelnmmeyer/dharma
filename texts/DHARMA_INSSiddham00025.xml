@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00025</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,84 +62,133 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <p><lb n="1"/>namo mahādevāya|</p>
-        <!-- 
-The punctuation mark is "expressed by a curve" according to Bhandarkar (1981:281n3). It is very unclear on the facsimiles I have, but may look like a question mark without a dot. 
--->
-        <p>ma<unclear>hārājādhirāja-śrī-ca</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ndragupta-pādā</supplied><lb break="no" n="2"/>nudhyātasya catu<choice>
-            <sic>dhu</sic>
-            <corr>r-u</corr>
-          </choice>dadhi-salilāsvādita-ya<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->śaso mahārājā</supplied><lb break="no" n="3"/>dhirāja-śrī-kumāraguptasya vijaya-rājya-saṁvatsara-<unclear>śa</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->te</supplied> saptadaśo<unclear>ttare</unclear> <lb n="4"/>kārttika-māsa-daśama-divase syā<sic>n</sic> divasa-pūrvvāyāṁ cchand<unclear>ogyācāryyā</unclear>śvavāji<lb break="no" n="5"/>-sagottra-kuram<unclear>ā</unclear>ra<choice>
-            <unclear>v</unclear>
-            <unclear>ṇ</unclear>
-          </choice>ya-bhaṭṭasya putro viṣṇupālita-bhaṭṭas tasya putro mahārā<lb break="no" n="6"/><choice>
-            <sic>jadhijājā</sic>
-            <corr>jādhirāja</corr>
-          </choice>-śrī-candraguptasya mantrī kumārāmātyaś śikharasvāmy abhūt tasya putraḥ <lb n="7"/>pr̥thivīṣeṇo mahārājādhirāja-śrī-kumāraguptasya mantrī kumārāmātyo na<lb break="no" n="8"/>ntaraṁ ca mahābalādhikr̥taḥ bhagavato mahādevasya pr̥thivīśvara Ity evaṁ samākhyātasy<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice><lb break="no" n="9"/>syaiva bhagavato yathā-karttavya-dhārmmika-karmmaṇā pāda-śuśrūṣaṇāya bhagavac-chai<lb break="no" n="10"/>leśvara-svāmi-mahādeva-pāda-mūle Āyodhyaka-nānā-gottra-caraṇa-tapaḥ<lb break="no" n="11"/>-svādh<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->y</supplied>āya-<supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->mantra-sū</supplied>t<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->r</supplied>a-bhāṣ<unclear>ya</unclear>-<unclear cert="low">p</unclear><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->ravacana-pāraga</supplied> <gap quantity="2" reason="illegible" unit="character"/> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg>i <gap quantity="1" reason="illegible" unit="character"/> <unclear>s</unclear><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><unclear>s</unclear><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg>d<seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> d<unclear>e</unclear>vad<unclear>r</unclear>oṇ<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->y</supplied><unclear>āṁ</unclear><!-- 
-Bhandarkar (1981:282n4) dismisses Konow's reading of mantrī in lines 6 and 7 and asserts that the correct reading is mantri. The diacritic is in fact different from both the standard i and the standard ī of the inscription, being a horizontally mirrored version of ī. My impression is that it resembles ī more than it does i, and in any case śrī in line 7 is inscribed with an identical diacritic, so my vote is for ī. 
---><!-- 
-As Bhandarkar (1981:282n6) points out, the erroneous sya at the end of l8 is followed by a horizontal strike at the height of the top of the character, "perhaps placed there wrongly instead of being placed vertically as a top mātrā." I might add that this sya extends beyond the right margin observed in the other lines, so we probably have eyeskip here: samākhyāta/syaiva was first inscribed, and then corrected by the addition of sy(ā) at the end of l7. A less likely scenario would be that samākhyātasyaiva is the intended reading, and the engraver began syai at the end of l7, then decided it was outside the margin, marked it for deletion with the horizontal stroke and re-inscribed it at the beginning of l8. However, asyaiva bhagavato seems to make good sense, referring to the liṅga on which the inscription is placed. 
---></p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<p>
+<lb n="1" />namo mahādevāya|</p>
+<p>ma
+<unclear>hārājādhirāja-śrī-ca</unclear>
+<supplied reason="lost">ndragupta-pādā</supplied>
+<lb n="2" break="no" />nudhyātasya catu
+<choice>
+  <sic>dhu</sic>
+  <corr>r-u</corr>
+</choice>dadhi-salilāsvādita-ya
+<supplied reason="lost">śaso mahārājā</supplied>
+<lb n="3" break="no" />dhirāja-śrī-kumāraguptasya vijaya-rājya-saṁvatsara-
+<unclear>śa</unclear>
+<supplied reason="lost">te</supplied> saptadaśo
+<unclear>ttare</unclear> 
+<lb n="4" />kārttika-māsa-daśama-divase syā
+<sic>n</sic> divasa-pūrvvāyāṁ cchand
+<unclear>ogyācāryyā</unclear>śvavāji
+<lb n="5" break="no" />-sagottra-kuram
+<unclear>ā</unclear>ra
+<choice>
+  <unclear>v</unclear>
+  <unclear>ṇ</unclear>
+</choice>ya-bhaṭṭasya putro viṣṇupālita-bhaṭṭas tasya putro mahārā
+<lb n="6" break="no" />
+<choice>
+  <sic>jadhijājā</sic>
+  <corr>jādhirāja</corr>
+</choice>-śrī-candraguptasya mantrī kumārāmātyaś śikharasvāmy abhūt tasya putraḥ 
+<lb n="7" />pr̥thivīṣeṇo mahārājādhirāja-śrī-kumāraguptasya mantrī kumārāmātyo na
+<lb n="8" break="no" />ntaraṁ ca mahābalādhikr̥taḥ bhagavato mahādevasya pr̥thivīśvara Ity evaṁ samākhyātasy
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>
+<lb n="9" break="no" />syaiva bhagavato yathā-karttavya-dhārmmika-karmmaṇā pāda-śuśrūṣaṇāya bhagavac-chai
+<lb n="10" break="no" />leśvara-svāmi-mahādeva-pāda-mūle Āyodhyaka-nānā-gottra-caraṇa-tapaḥ
+<lb n="11" break="no" />-svādh
+<supplied reason="lost">y</supplied>āya-
+<supplied reason="lost" cert="low">mantra-sū</supplied>t
+<supplied reason="lost">r</supplied>a-bhāṣ
+<unclear>ya</unclear>-
+<unclear cert="low">p</unclear>
+<supplied reason="lost" cert="low">ravacana-pāraga</supplied> 
+<gap reason="illegible" quantity="2" unit="character" /> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>i 
+<gap reason="illegible" quantity="1" unit="character" /> 
+<unclear>s</unclear>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<unclear>s</unclear>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>d
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> d
+<unclear>e</unclear>vad
+<unclear>r</unclear>oṇ
+<supplied reason="lost">y</supplied>
+<unclear>āṁ</unclear></p>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

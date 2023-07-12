@@ -1,9 +1,14 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>Koṭumpāḷūr, Aivarkōyil, fragment, time of Parakesarivarman, year
-					10</title>
+        <title>Koṭumpāḷūr, Aivarkōyil, fragment, time of Parakesarivarman, year 10</title>
         <respStmt>
           <resp>EpiDoc encoding</resp>
           <persName ref="part:emfr">
@@ -25,11 +30,7 @@
         <idno type="filename">DHARMA_INSKotumpalur00003</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-							Licence. To view a copy of the licence, visit
-							https://creativecommons.org/licenses/by/4.0/ or send a letter to
-							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-							California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
           </licence>
         </availability>
@@ -39,15 +40,16 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary>Gift of one
-								<foreign>kaḻañcu</foreign> of gold.</summary>
+            <summary>Gift of one 
+            <foreign>kaḻañcu</foreign>of gold.</summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p>Most letters have a serif on the left top part, which looks like a medial <foreign>e</foreign>.</p>
+              <p>Most letters have a serif on the left top part, which looks like a medial 
+              <foreign>e</foreign>.</p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -55,93 +57,153 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-					under the European Union's Horizon 2020 research and innovation programme (grant
-					agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-						ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-							<ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-18" who="part:emfr">Initial encoding of the
-				file</change>
+      <change who="part:emfr" when="2020-11-18" status="draft">Initial encoding of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tam-Tam">
-        <!--Milestone display not satisfactory! Desimplement ‡ followed with space?  NB: fragment block with lacuna of unknown blocks, treated not as a massive lacuna so as to retain the <p> segmentation-->
-        <p>
-          <lb n="1"/>
-          <milestone n="a" unit="block"/>
-          <hi rend="grantha">s<unclear reason="eccentric_ductus">va</unclear>sti śrī</hi>
-        </p>
-        <p>
-            		kō-p-parakēcari-paṉma<choice>
-            <orig>ṟ</orig>
-            <reg>r</reg>
-          </choice>kku yāṇṭu <num value="10">10</num> <!--display issue: displayed as double daṇḍa!!--> Ēḻ-āvatu
-            	</p>
-        <p>
-            		Iv-vāṇṭu Uṟattū
-            		<milestone break="no" n="b" unit="block"/>
-            		<supplied reason="lost">r-k-kūṟṟattu</supplied>
-            		<gap extent="unknown" reason="lost" unit="character"/>
-            		<lb n="2"/>
-            		<milestone n="a" unit="block"/>
-            		cattaṇattukk<unclear>u</unclear> vai<choice>
-            <orig>cc</orig>
-            <reg>tt</reg>
-          </choice>a poṉ kaḻañcu 
-            	</p>
-        <p>
-            		Ip-poṉ cantirāti<choice>
-            <orig>cc</orig>
-            <reg>tt</reg>
-          </choice>ava
-            		<milestone break="no" n="b" unit="block"/>
-            		<supplied reason="lost">t</supplied>
-            		<gap extent="unknown" reason="lost" unit="character"/>
-            	</p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1">
-            <lem>
-              <hi rend="grantha">s<unclear reason="eccentric_ductus">va</unclear>sti</hi>
-            </lem>
-            <note>The letter <foreign>va</foreign> looks like <foreign>pa</foreign>.</note>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:emfr" type="translation">
-        <p n="1">Prosperity! Fortune!</p>
-        <p n="1">Seventeenth year of the king Parakesarivarman.</p>
-        <p>In this year <gap reason="lost"/> <supplied reason="lost">in the</supplied> Uṟattū<supplied reason="lost">rkkūṟṟam</supplied> <gap reason="lost"/> <supplied reason="subaudible">there is</supplied> one <foreign>kaḻañcu</foreign> of gold that <gap reason="lost"/> gave for the <seg cert="low">Cattaṇam</seg>.</p>
-        <p n="2">This gold, as long as the moon and the sun, <gap reason="lost"/></p>
-      </div>
-      <div type="commentary">
-        <p n="2"><foreign>cattaṇattukk<unclear>u</unclear></foreign>. The meaning of this word is unclear. It appears to be a dative designating the beneficiary of the gift.</p>
-      </div>
-      <div type="bibliography">
-        <p>Unreported so far. First edited and translated here by Emmanuel Francis (2020).</p>
-        <listBibl type="primary">
-          <bibl n="siglum"/>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl/>
-        </listBibl>
-      </div>
-    </body>
-  </text>
-</TEI><!--Mukhamaṇḍapa, north, base, upper part (above inscription DHARMA_INSKotumpalur00003). One slab. Incomplete.-->
+        
+        
+<body>
+            
+<div type="edition" xml:lang="tam-Tam">
+                
+                                
+                
+<p>
+                        
+<lb n="1" />
+                        
+<milestone unit="block" n="a" />
+                        
+<hi rend="grantha">s
+<unclear reason="eccentric_ductus">va</unclear>sti śrī</hi>
+                </p> 
+                
+<p>
+                        kō-p-parakēcari-paṉma
+<choice>
+  <orig>ṟ</orig>
+  <reg>r</reg>
+</choice>kku yāṇṭu 
+<num value="10">10</num>  Ēḻ-āvatu
+                </p>
+                
+                
+<p>
+                        Iv-vāṇṭu Uṟattū
+                        
+<milestone unit="block" n="b" break="no" />
+                        
+<supplied reason="lost">r-k-kūṟṟattu</supplied>
+                        
+<gap reason="lost" extent="unknown" unit="character" />
+                        
+<lb n="2" />
+                        
+<milestone unit="block" n="a" />
+                        cattaṇattukk
+<unclear>u</unclear> vai
+<choice>
+  <orig>cc</orig>
+  <reg>tt</reg>
+</choice>a poṉ kaḻañcu 
+                </p>
+                
+<p>
+                        Ip-poṉ cantirāti
+<choice>
+  <orig>cc</orig>
+  <reg>tt</reg>
+</choice>ava
+                        
+<milestone unit="block" n="b" break="no" />
+                        
+<supplied reason="lost">t</supplied>
+                        
+<gap reason="lost" extent="unknown" unit="character" />
+                </p>
+            </div>
+                
+                
+<div type="apparatus">
+                        
+                        
+<listApp>
+                                
+                                
+<app loc="1">
+                                        
+<lem>
+  <hi rend="grantha">s
+  <unclear reason="eccentric_ductus">va</unclear>sti</hi>
+</lem>
+                                        
+<note>The letter 
+<foreign>va</foreign> looks like 
+<foreign>pa</foreign>.</note>                     
+                                </app>
+                                                
+                </listApp>
+         </div>
+            
+            
+<div type="translation" resp="part:emfr">
+                
+<p n="1">Prosperity! Fortune!</p>
+                
+<p n="1">Seventeenth year of the king Parakesarivarman.</p>
+                
+<p>In this year 
+<gap reason="lost" /> 
+<supplied reason="lost">in the</supplied> Uṟattū
+<supplied reason="lost">rkkūṟṟam</supplied> 
+<gap reason="lost" /> 
+<supplied reason="subaudible">there is</supplied> one 
+<foreign>kaḻañcu</foreign> of gold that 
+<gap reason="lost" /> gave for the 
+<seg cert="low">Cattaṇam</seg>.</p>
+                
+<p n="2">This gold, as long as the moon and the sun, 
+<gap reason="lost" /></p>
+            </div>
+            
+         
+<div type="commentary">
+            
+<p n="2">
+<foreign>cattaṇattukk
+<unclear>u</unclear></foreign>. The meaning of this word is unclear. It appears to be a dative designating the beneficiary of the gift.</p>
+         </div>
+          
+<div type="bibliography">     
+              
+<p>Unreported so far. First edited and translated here by Emmanuel Francis (2020).</p>
+              
+<listBibl type="primary">
+                  
+<bibl n="siglum" />
+              </listBibl>
+              
+<listBibl type="secondary">
+                  
+<bibl />
+              </listBibl>
+        </div>
+      </body>
+  
+</text>
+</TEI>

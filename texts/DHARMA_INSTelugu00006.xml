@@ -1,8 +1,14 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title><!-- ADD TITEL HERE --></title>
+        <title></title>
         <respStmt>
           <resp>EpiDoc Encoding</resp>
           <persName ref="part:jeth">
@@ -15,7 +21,6 @@
           <persName>
             <forename>H.</forename>
             <surname>Krishna Sastri</surname>
-            <!-- H. Krishna Sastri is the editor of SII V. He appears to be the editor of all the inscriptions as well.-->
           </persName>
         </respStmt>
       </titleStmt>
@@ -32,27 +37,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -60,72 +55,97 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2021-02-18" who="part:jeth">Adding lacking entries of template v03</change>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-03-31" who="part:jeth">Creation of the file</change>
+      <change who="part:jeth" when="2021-02-18" status="draft">Adding lacking entries of template v03</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:jeth" when="2020-03-31" status="draft">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tel-Latn">
-        <p>
-              <lb n="1"/>svasti śrī paṭṭapināṁṭṭi visi<lb break="no" n="2"/>kuṟiki paṟuṇḍu ma<unclear>ṭa</unclear>mva vē<unclear>yu</unclear><lb break="no" n="3"/>ratō koni pō<unclear>yeṅka śrī jē</unclear>namaha<lb break="no" n="4"/>ntadhavalunṛpatu dhanirāsim i<lb break="no" n="5"/>ccinaṇḍu
+      
+<body>
+         
+<div type="edition" xml:lang="tel-Latn">
+            
+<p>
+              
+<lb n="1" />svasti śrī paṭṭapināṁṭṭi visi
+<lb n="2" break="no" />kuṟiki paṟuṇḍu ma
+<unclear>ṭa</unclear>mva vē
+<unclear>yu</unclear>
+<lb n="3" break="no" />ratō koni pō
+<unclear>yeṅka śrī jē</unclear>namaha
+<lb n="4" break="no" />ntadhavalunṛpatu dhanirāsim i
+<lb n="5" break="no" />ccinaṇḍu
             </p>
-      </div>
-      <div type="apparatus"><!-- The apparatus has to be added as soon as respective emendations are save to be assumed --></div>
-      <div resp="part:jeth" type="translation"><!--Yet to be provided --></div>
-      <div type="commentary">
-        <p>
-             The text follows the edition of H. Krishna Sastri (<bibl rend="omitname">
-            <ptr target="bib:KrishnaSastri1925_01"/>
-            <citedRange unit="page">414</citedRange>
-            <citedRange unit="item">1128</citedRange>
-          </bibl>) in absence of a picture. 
+         </div>
+         
+<div type="apparatus">
+             
+         </div>
+         
+<div type="translation" resp="part:jeth">
+                 </div>
+         
+<div type="commentary">
+            
+<p>
+             The text follows the edition of H. Krishna Sastri (
+<bibl rend="omitname">
+  <ptr target="bib:KrishnaSastri1925_01" />
+  <citedRange unit="page">414</citedRange>
+  <citedRange unit="item">1128</citedRange>
+</bibl>) in absence of a picture. 
             </p>
-      </div>
-      <div type="bibliography">
-        <p>
-           The text was edited together with a second inscription on the same stone by H. Krishna Sastri in <bibl rend="omitname">
-            <ptr target="bib:KrishnaSastri1925_01"/>
-            <citedRange unit="page">414</citedRange>
-            <citedRange unit="item">1128</citedRange>
-          </bibl> without a picture. The text was re-published by K. M. Sastri (<bibl rend="omitname">
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">345</citedRange>
-            <citedRange unit="item">98</citedRange>
-          </bibl>) on basis of SII with one error and without translation.	   
+         </div>
+        
+<div type="bibliography">
+          
+<p>
+           The text was edited together with a second inscription on the same stone by H. Krishna Sastri in 
+<bibl rend="omitname">
+  <ptr target="bib:KrishnaSastri1925_01" />
+  <citedRange unit="page">414</citedRange>
+  <citedRange unit="item">1128</citedRange>
+</bibl> without a picture. The text was re-published by K. M. Sastri (
+<bibl rend="omitname">
+  <ptr target="bib:Sastri1969_01" />
+  <citedRange unit="page">345</citedRange>
+  <citedRange unit="item">98</citedRange>
+</bibl>) on basis of SII with one error and without translation.    
           </p>
-        <listBibl type="secondary">
-          <bibl>A. R. No. 253 of 1896 <!-- has to be adjusted to the @target --></bibl>
-          <bibl>
-            <ptr target="bib:KrishnaSastri1925_01"/>
-            <citedRange unit="page">414</citedRange>
-            <citedRange unit="item">1128</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">345</citedRange>
-            <citedRange unit="item">98</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+           
+<listBibl type="secondary">
+              
+<bibl>A. R. No. 253 of 1896 </bibl>
+              
+<bibl>
+  <ptr target="bib:KrishnaSastri1925_01" />
+  <citedRange unit="page">414</citedRange>
+  <citedRange unit="item">1128</citedRange>
+</bibl>
+              
+<bibl>
+  <ptr target="bib:Sastri1969_01" />
+  <citedRange unit="page">345</citedRange>
+  <citedRange unit="item">98</citedRange>
+</bibl>
+           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

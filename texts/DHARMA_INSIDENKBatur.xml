@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -23,35 +29,24 @@
         <idno type="filename">DHARMA_INSIDENKBatur</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send
-                            a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Marine Schoettel</p>
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -61,192 +56,327 @@
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-06-28" who="part:masc">initial encoding of the inscription</change>
+      <change who="part:masc" when="2020-06-28" status="draft">initial encoding of the inscription</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="kaw-Latn">
-        <div n="A" subtype="fragment" type="textpart">
-          <head xml:lang="eng">Largest fragment (E.50)</head>
-          <!--Check Groslier's photos for museum's inventory number whether a,b,c or 50, a, b-->
-          <p part="M">
-<pb n="Ar"/>
-<lb n="Ar1"/><gap quantity="4" reason="lost" unit="character"/><foreign xml:lang="san-Latn">-sambhāra-samārtthya</foreign>, rakryan apatiḥ riṁ kahuripan·, mpu taṇḍiṁ, <foreign xml:lang="san-Latn">naya-vīnaya-guṇānurūpāntaḥpura-rakṣa</foreign><!--I am not entirely certain the compound actually ends there, although rakṣa is a plausible final term-->
-<lb n="Ar2"/><supplied reason="lost">, rakryan də</supplied>muṁ mpu kapat·,<!--make a note in the apparatus for Krom's additions--> <foreign xml:lang="san-Latn">śūra-sapatna-mar<choice>
-                <orig>ddh</orig>
-                <reg>rd</reg>
-              </choice>ana</foreign>, rakryan kanuruhan·, mpu pakis·, <foreign xml:lang="san-Latn">vairi-bala-vīrāntaka</foreign>, rakryan·
-<lb n="Ar3"/><supplied reason="lost">raṅga, mpu</supplied><gap precision="low" quantity="3" reason="lost" unit="character"/>ma <foreign xml:lang="san-Latn">ripu-saṅ<choice>
-                <orig>ghy</orig>
-                <reg>gh</reg>
-              </choice>a-pra<choice>
-                <orig>n</orig>
-                <reg>ṇ</reg>
-              </choice>āśa</foreign>, rakryan tuməṅguṁ, mpu nala, <foreign xml:lang="san-Latn">sādhu-rakṣaṇāsādhu-nigraha-tatpara</foreign>, makapurassa<lb break="no" n="Ar4"/><supplied reason="lost">ra rakryan apatiḥ riṁ</supplied> jaṅgala kaḍiri, mpu mada, <foreign xml:lang="san-Latn">raṇa-maddhyāryy-anukūla-karaṇa</foreign>, <foreign xml:lang="san-Latn">para-sainya-śiraḥ-kapāla-gan<unclear>v</unclear>otpāna<!--em. something here, either utpāda or utpanna, and garva/gardha (pride, arrogance?)-->-ma<lb break="no" n="Ar5"/><gap precision="low" quantity="3" reason="lost" unit="character"/>yendhikopāya-samārtthya</foreign>, sākṣāt praṇālāmratisubaddhakən paṁḍiri śrī mahārāja sinivi riṁ sayavadv<choice>
-              <orig>i</orig>
-              <reg>ī</reg>
-            </choice>pa-ma<lb break="no" n="Ar6"/><supplied reason="lost">ṇḍala-dvī</supplied>pāntara, makan<choice>
-              <orig>ā</orig>
-              <reg>a</reg>
-            </choice>ryyama <!--makanaryama, see parallels in AVj 48.2, etc. But does this refer back or forward? Probably this designation is better suited to the apatih Gajah Mada than to the samgəts--> saṁ <foreign xml:lang="san-Latn">nyāy<choice>
-                <sic>a</sic>
-                <corr>ā</corr>
-              </choice>nyāya-vyavahāra-vicchedaka</foreign>, saṁ pamgət i tiruAn·, ḍaṅ ācāryya śi<pb break="no" n="Av"/><lb break="no" n="Av1"/><supplied reason="lost">
-              <supplied cert="low" reason="lost">vanātha</supplied>
-              <foreign xml:lang="san-Latn">nyāya-vyā</foreign>
-            </supplied><foreign xml:lang="san-Latn">karaṇa-śāstra-parisamāpta</foreign>, samgət i kaṇḍamohi, ḍaṅ ācāryya marmmanātha, <foreign xml:lang="san-Latn">nyāya-vyākaraṇa-śāstra-parisa</foreign>
-<lb break="no" n="Av2"/><supplied reason="lost"><foreign xml:lang="san-Latn">māpta</foreign>, samgət i maṅhur</supplied>i, ḍaṅ ācāryya smaranātha, <foreign xml:lang="san-Latn">nyāya-vyākaraṇa-śāstra-parisamāpta</foreign>, samgət i kaṇḍaṅan rare, ḍaṅ ācāryya mahā<g type="filler">§</g>
-<lb break="no" n="Av3"/><supplied cert="low" reason="lost">nātha</supplied><supplied reason="lost">, <foreign xml:lang="san-Latn">boddha-ta</foreign></supplied><foreign xml:lang="san-Latn"><unclear>rkka</unclear>-vyākara<supplied reason="omitted">ṇa</supplied>-śāstra-parisamāpta</foreign>, samgət i jāmbi, smaranātha, <foreign xml:lang="san-Latn">nyāya-vyākaraṇa-śāstra-parisamāpta</foreign>, samgət i pamuA
-<lb break="no" n="Av4"/><supplied reason="lost">tan ḍaṅ ācāryyā</supplied>greśvara, <foreign xml:lang="san-Latn">nyāya-vyākaraṇa-śāstra-parisamāpta</foreign>, dharmm<choice>
-              <orig>a</orig>
-              <reg>ā</reg>
-            </choice>dhyakṣa riṁ kaśaivan·, saṅ āryya harṣarāja, ḍaṅ ā
-<lb break="no" n="Av5"/><supplied reason="lost">cāryya</supplied><supplied cert="low" reason="lost">śiveśvara,</supplied> <foreign xml:lang="san-Latn">nyāya-vyākaraṇa-śāstra-parisamāpta</foreign>, dharmm<choice>
-              <orig>a</orig>
-              <reg>ā</reg>
-            </choice>dhyakṣa riṁ kasogatan·, saṅ āryy<choice>
-              <orig>a</orig>
-              <reg>ā</reg>
-            </choice>dhīrāja, ḍaṅ ācāryya
-<lb n="Av6"/><supplied cert="low" reason="lost">kanakamuni</supplied>, <foreign xml:lang="san-Latn"><supplied reason="lost">boddha-</supplied><unclear>ta</unclear>rkka-vyākaraṇa-tantra-parisamāpta</foreign>, kunəṁ padārtthany ājñā pāduka śrī mahārāja, kumonakən i para
+      
+<body>
+         
+<div type="edition" xml:lang="kaw-Latn">
+           
+<div type="textpart" subtype="fragment" n="A">
+<head xml:lang="eng">Largest fragment (E.50)</head>
+                        
+<p part="M">
+<pb n="Ar" />
+<lb n="Ar1" />
+<gap reason="lost" quantity="4" unit="character" />
+<foreign xml:lang="san-Latn">-sambhāra-samārtthya</foreign>, rakryan apatiḥ riṁ kahuripan·, mpu taṇḍiṁ, 
+<foreign xml:lang="san-Latn">naya-vīnaya-guṇānurūpāntaḥpura-rakṣa</foreign>
+<lb n="Ar2" />
+<supplied reason="lost">, rakryan də</supplied>muṁ mpu kapat·, 
+<foreign xml:lang="san-Latn">śūra-sapatna-mar
+<choice>
+  <orig>ddh</orig>
+  <reg>rd</reg>
+</choice>ana</foreign>, rakryan kanuruhan·, mpu pakis·, 
+<foreign xml:lang="san-Latn">vairi-bala-vīrāntaka</foreign>, rakryan·
+<lb n="Ar3" />
+<supplied reason="lost">raṅga, mpu</supplied>
+<gap reason="lost" quantity="3" unit="character" precision="low" />ma 
+<foreign xml:lang="san-Latn">ripu-saṅ
+<choice>
+  <orig>ghy</orig>
+  <reg>gh</reg>
+</choice>a-pra
+<choice>
+  <orig>n</orig>
+  <reg>ṇ</reg>
+</choice>āśa</foreign>, rakryan tuməṅguṁ, mpu nala, 
+<foreign xml:lang="san-Latn">sādhu-rakṣaṇāsādhu-nigraha-tatpara</foreign>, makapurassa
+<lb n="Ar4" break="no" />
+<supplied reason="lost">ra rakryan apatiḥ riṁ</supplied> jaṅgala kaḍiri, mpu mada, 
+<foreign xml:lang="san-Latn">raṇa-maddhyāryy-anukūla-karaṇa</foreign>, 
+<foreign xml:lang="san-Latn">para-sainya-śiraḥ-kapāla-gan
+<unclear>v</unclear>otpāna-ma
+<lb n="Ar5" break="no" />
+<gap reason="lost" quantity="3" unit="character" precision="low" />yendhikopāya-samārtthya</foreign>, sākṣāt praṇālāmratisubaddhakən paṁḍiri śrī mahārāja sinivi riṁ sayavadv
+<choice>
+  <orig>i</orig>
+  <reg>ī</reg>
+</choice>pa-ma
+<lb n="Ar6" break="no" />
+<supplied reason="lost">ṇḍala-dvī</supplied>pāntara, makan
+<choice>
+  <orig>ā</orig>
+  <reg>a</reg>
+</choice>ryyama  saṁ 
+<foreign xml:lang="san-Latn">nyāy
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>nyāya-vyavahāra-vicchedaka</foreign>, saṁ pamgət i tiruAn·, ḍaṅ ācāryya śi
+<pb n="Av" break="no" />
+<lb n="Av1" break="no" />
+<supplied reason="lost">
+<supplied reason="lost" cert="low">vanātha</supplied> 
+<foreign xml:lang="san-Latn">nyāya-vyā</foreign></supplied>
+<foreign xml:lang="san-Latn">karaṇa-śāstra-parisamāpta</foreign>, samgət i kaṇḍamohi, ḍaṅ ācāryya marmmanātha, 
+<foreign xml:lang="san-Latn">nyāya-vyākaraṇa-śāstra-parisa</foreign>
+<lb n="Av2" break="no" />
+<supplied reason="lost">
+<foreign xml:lang="san-Latn">māpta</foreign>, samgət i maṅhur</supplied>i, ḍaṅ ācāryya smaranātha, 
+<foreign xml:lang="san-Latn">nyāya-vyākaraṇa-śāstra-parisamāpta</foreign>, samgət i kaṇḍaṅan rare, ḍaṅ ācāryya mahā
+<g type="filler">§</g>
+<lb n="Av3" break="no" />
+<supplied reason="lost" cert="low">nātha</supplied>
+<supplied reason="lost">, 
+<foreign xml:lang="san-Latn">boddha-ta</foreign></supplied>
+<foreign xml:lang="san-Latn">
+<unclear>rkka</unclear>-vyākara
+<supplied reason="omitted">ṇa</supplied>-śāstra-parisamāpta</foreign>, samgət i jāmbi, smaranātha, 
+<foreign xml:lang="san-Latn">nyāya-vyākaraṇa-śāstra-parisamāpta</foreign>, samgət i pamuA
+<lb n="Av4" break="no" />
+<supplied reason="lost">tan ḍaṅ ācāryyā</supplied>greśvara, 
+<foreign xml:lang="san-Latn">nyāya-vyākaraṇa-śāstra-parisamāpta</foreign>, dharmm
+<choice>
+  <orig>a</orig>
+  <reg>ā</reg>
+</choice>dhyakṣa riṁ kaśaivan·, saṅ āryya harṣarāja, ḍaṅ ā
+<lb n="Av5" break="no" />
+<supplied reason="lost">cāryya</supplied>
+<supplied reason="lost" cert="low">śiveśvara,</supplied> 
+<foreign xml:lang="san-Latn">nyāya-vyākaraṇa-śāstra-parisamāpta</foreign>, dharmm
+<choice>
+  <orig>a</orig>
+  <reg>ā</reg>
+</choice>dhyakṣa riṁ kasogatan·, saṅ āryy
+<choice>
+  <orig>a</orig>
+  <reg>ā</reg>
+</choice>dhīrāja, ḍaṅ ācāryya
+<lb n="Av6" />
+<supplied reason="lost" cert="low">kanakamuni</supplied>, 
+<foreign xml:lang="san-Latn">
+<supplied reason="lost">boddha-</supplied>
+<unclear>ta</unclear>rkka-vyākaraṇa-tantra-parisamāpta</foreign>, kunəṁ padārtthany ājñā pāduka śrī mahārāja, kumonakən i para
 </p>
-        </div>
-        <div n="B" subtype="fragment" type="textpart">
-          <head xml:lang="eng">Medium fragment (E. 50b)</head>
-          <p>
-<pb n="Br"/>
-<lb n="1"/><gap precision="low" quantity="26" reason="lost" unit="character"/> rika ta saṁ hyaṁ maṇḍale sāgara, Iriṅən· tkap· saṁ hyaṁ
-<lb n="2"/><supplied cert="low" reason="lost">maṇḍale</supplied><gap precision="low" quantity="17" reason="lost" unit="character"/>ra kramanira riṁ puhun malama, tumurun ālabuh anāya
-<lb n="3"/><gap precision="low" quantity="22" reason="lost" unit="character"/>ni kapūjan saṁ hyaṁ kabuyutan i kaly asəm·, Asuji
-<lb n="4"/><supplied cert="low" reason="lost">māsa</supplied><gap precision="low" quantity="19" reason="lost" unit="character"/> tkap· saṁ hyaṁ maṇḍale kaṇḍava ri talun i vasana ri sa<lb break="no" n="5"/><gap precision="low" quantity="22" reason="lost" unit="character"/>kapvānusuna kalasāpatharaṇāmaguta payuṁ sa<lb break="no" n="6"/><gap precision="low" quantity="23" reason="lost" unit="character"/> <unclear>tla</unclear>s karuhun kadīrgghyāyuṣān pāduka śrī mahārāja,
-<pb break="no" n="Bv"/>
-<lb n="1"/><gap precision="low" quantity="22" reason="lost" unit="character"/>saṁ hyaṁ maṇḍale sāgara, kunəṁ riṁ caitra māsa, pañcada
-<lb break="no" n="2"/><supplied reason="lost">śī</supplied> <gap quantity="2" reason="lost" unit="character"/><supplied reason="lost">pakṣa</supplied><gap precision="low" quantity="15" reason="lost" unit="character"/> maṇḍa<supplied reason="omitted">le</supplied> sāgara, Iriṅən· tkap· saṁ hyaṁ maṇḍale talun·,
-<lb n="3"/><gap precision="low" quantity="23" reason="lost" unit="character"/> para kaky atuṅgu batur i talun·, makadon enaka
-<lb n="4"/><gap precision="low" quantity="19" reason="lost" unit="character"/><unclear>pā</unclear>duka śrī mahārāja, maṅkana rasani paṅhayubhagya pādu<lb break="no" n="5"/><supplied cert="low" reason="lost">ka śrī mahārāja</supplied> <gap precision="low" quantity="14" reason="lost" unit="character"/>ha, kunəṁ tiṅkaha para kaky aṅiriṅa ri saṁ hyaṁ maṇḍalan pa<lb break="no" n="6"/><gap precision="low" quantity="22" reason="lost" unit="character"/>ya pariśuddha, tumutakna palupv i saṁ siddha puruṣa ṅūni, ma-
-<!--masc: how should we represent that this is a "no break" page break?-->
+</div>
+<div type="textpart" subtype="fragment" n="B">
+<head xml:lang="eng">Medium fragment (E. 50b)</head>
+<p>
+<pb n="Br" />
+<lb n="1" />
+<gap reason="lost" quantity="26" unit="character" precision="low" /> rika ta saṁ hyaṁ maṇḍale sāgara, Iriṅən· tkap· saṁ hyaṁ
+<lb n="2" />
+<supplied reason="lost" cert="low">maṇḍale</supplied>
+<gap reason="lost" quantity="17" unit="character" precision="low" />ra kramanira riṁ puhun malama, tumurun ālabuh anāya
+<lb n="3" />
+<gap reason="lost" quantity="22" unit="character" precision="low" />ni kapūjan saṁ hyaṁ kabuyutan i kaly asəm·, Asuji
+<lb n="4" />
+<supplied reason="lost" cert="low">māsa</supplied>
+<gap reason="lost" quantity="19" unit="character" precision="low" /> tkap· saṁ hyaṁ maṇḍale kaṇḍava ri talun i vasana ri sa
+<lb n="5" break="no" />
+<gap reason="lost" quantity="22" unit="character" precision="low" />kapvānusuna kalasāpatharaṇāmaguta payuṁ sa
+<lb n="6" break="no" />
+<gap reason="lost" quantity="23" unit="character" precision="low" /> 
+<unclear>tla</unclear>s karuhun kadīrgghyāyuṣān pāduka śrī mahārāja,
+<pb n="Bv" break="no" />
+<lb n="1" />
+<gap reason="lost" quantity="22" unit="character" precision="low" />saṁ hyaṁ maṇḍale sāgara, kunəṁ riṁ caitra māsa, pañcada
+<lb n="2" break="no" />
+<supplied reason="lost">śī</supplied> 
+<gap reason="lost" quantity="2" unit="character" />
+<supplied reason="lost">pakṣa</supplied>
+<gap reason="lost" quantity="15" unit="character" precision="low" /> maṇḍa
+<supplied reason="omitted">le</supplied> sāgara, Iriṅən· tkap· saṁ hyaṁ maṇḍale talun·,
+<lb n="3" />
+<gap reason="lost" quantity="23" unit="character" precision="low" /> para kaky atuṅgu batur i talun·, makadon enaka
+<lb n="4" />
+<gap reason="lost" quantity="19" unit="character" precision="low" />
+<unclear>pā</unclear>duka śrī mahārāja, maṅkana rasani paṅhayubhagya pādu
+<lb n="5" break="no" />
+<supplied reason="lost" cert="low">ka śrī mahārāja</supplied> 
+<gap reason="lost" quantity="14" unit="character" precision="low" />ha, kunəṁ tiṅkaha para kaky aṅiriṅa ri saṁ hyaṁ maṇḍalan pa
+<lb n="6" break="no" />
+<gap reason="lost" quantity="22" unit="character" precision="low" />ya pariśuddha, tumutakna palupv i saṁ siddha puruṣa ṅūni, ma-
 </p>
-        </div>
-        <div n="C" subtype="fragment" type="textpart">
-          <head xml:lang="eng">Small fragment (E.50c)</head>
-          <p>
-<pb n="Cr"/>
-<lb n="1"/><gap extent="unknown" reason="lost" unit="character"/> Cihan·,<!--masc: Is this the correct way to encode that only the vocalic mark is legible?--> bhadravāda māsa, pañcadaś<choice>
-              <orig>i</orig>
-              <reg>ī</reg>
-            </choice> śuklapak<unclear>ṣa</unclear> <gap extent="unknown" reason="lost" unit="character"/>
-<lb n="2"/><gap extent="unknown" reason="lost" unit="character"/> ri saṁ hyaṁ kabuyutaniṁ kalihan·, kapvātu<gap extent="unknown" reason="lost" unit="character"/><!--masc: Supply atuṅgu batur?-->
-<lb n="3"/><gap extent="unknown" reason="lost" unit="character"/> <unclear>ma</unclear>ṇḍale saḍeṁ, traha <gap extent="unknown" reason="lost" unit="character"/>
-<lb n="4"/><gap extent="unknown" reason="lost" unit="character"/> Caṁ ma<gap extent="unknown" reason="lost" unit="character"/>
-<lb n="5"/><gap precision="low" quantity="40" reason="lost" unit="character"/>
-<lb n="6"/><gap precision="low" quantity="40" reason="lost" unit="character"/><!--masc: tentative encoding of lost lines-->
-<pb n="Cv"/>
-<lb n="1"/><gap extent="unknown" reason="lost" unit="character"/>ya, Amratha<unclear>na</unclear><supplied reason="lost">k</supplied>na<gap extent="unknown" reason="lost" unit="character"/>
-<lb n="2"/><gap extent="unknown" reason="lost" unit="character"/>āya, tan hananiṁ virodha ri dlāhan<supplied reason="lost">iṁ dlāha</supplied><gap extent="unknown" reason="lost" unit="character"/>
-<lb n="3"/><gap extent="unknown" reason="lost" unit="character"/>, tan paṅucapakna salaḥ kna, kevalāpagəha riṁ <unclear>ma</unclear><gap extent="unknown" reason="lost" unit="character"/>
-<lb n="4"/><gap precision="low" quantity="40" reason="lost" unit="character"/>
-<lb n="5"/><gap precision="low" quantity="40" reason="lost" unit="character"/>
-<lb n="6"/><gap precision="low" quantity="40" reason="lost" unit="character"/>
+</div>
+<div type="textpart" subtype="fragment" n="C">
+<head xml:lang="eng">Small fragment (E.50c)</head>
+<p>
+<pb n="Cr" />
+<lb n="1" />
+<gap reason="lost" extent="unknown" unit="character" /> Cihan·, bhadravāda māsa, pañcadaś
+<choice>
+  <orig>i</orig>
+  <reg>ī</reg>
+</choice> śuklapak
+<unclear>ṣa</unclear> 
+<gap reason="lost" extent="unknown" unit="character" />
+<lb n="2" />
+<gap reason="lost" extent="unknown" unit="character" /> ri saṁ hyaṁ kabuyutaniṁ kalihan·, kapvātu
+<gap reason="lost" extent="unknown" unit="character" />
+<lb n="3" />
+<gap reason="lost" extent="unknown" unit="character" /> 
+<unclear>ma</unclear>ṇḍale saḍeṁ, traha 
+<gap reason="lost" extent="unknown" unit="character" />
+<lb n="4" />
+<gap reason="lost" extent="unknown" unit="character" /> Caṁ ma
+<gap reason="lost" extent="unknown" unit="character" />
+<lb n="5" />
+<gap reason="lost" quantity="40" unit="character" precision="low" />
+<lb n="6" />
+<gap reason="lost" quantity="40" unit="character" precision="low" />
+<pb n="Cv" />
+<lb n="1" />
+<gap reason="lost" extent="unknown" unit="character" />ya, Amratha
+<unclear>na</unclear>
+<supplied reason="lost">k</supplied>na
+<gap reason="lost" extent="unknown" unit="character" />
+<lb n="2" />
+<gap reason="lost" extent="unknown" unit="character" />āya, tan hananiṁ virodha ri dlāhan
+<supplied reason="lost">iṁ dlāha</supplied>
+<gap reason="lost" extent="unknown" unit="character" />
+<lb n="3" />
+<gap reason="lost" extent="unknown" unit="character" />, tan paṅucapakna salaḥ kna, kevalāpagəha riṁ 
+<unclear>ma</unclear>
+<gap reason="lost" extent="unknown" unit="character" />
+<lb n="4" />
+<gap reason="lost" quantity="40" unit="character" precision="low" />
+<lb n="5" />
+<gap reason="lost" quantity="40" unit="character" precision="low" />
+<lb n="6" />
+<gap reason="lost" quantity="40" unit="character" precision="low" />
   </p>
-        </div>
-      </div>
-      <div type="apparatus">
-        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
-        <listApp>
-          <!-- one <app> for each apparatus entry -->
-          <!--<app loc="Ar1">
-                      <lem>-sambhāra-</lem>
-                       <rdg source="bib:Boechari1985-1986_01">sambhara-</rdg>
-                      </app> rule is that you only use ° at a position where it is not hyphenatable-->
-          <app loc="Ar1">
-            <lem>rakryan</lem>
-            <rdg source="bib:Boechari1985-1986_01">rakryyan</rdg>
-          </app>
-          <!--<app loc="Ar1">
-                      <lem>°vīnaya°</lem>
-                      <rdg source="bib:Boechari1985-1986_01">vinaya</rdg>
-                  </app>-->
-          <app loc="Ar1">
-            <lem>guṇānurūpāntaḥ°</lem>
-            <rdg source="bib:Boechari1985-1986_01">guṇārūpāntaḥ</rdg>
-            <note>Understand <foreign>guṇānurūpatas</foreign>?</note>
-          </app>
-          <app loc="Ar3">
-            <lem>°ripu-saṅ<choice>
-                <orig>ghy</orig>
-                <reg>gh</reg>
-              </choice>a-pra<choice>
-                <orig>n</orig>
-                <reg>ṇ</reg>
-              </choice>āśa</lem>
-            <rdg source="bib:Boechari1985-1986_01">ri pu saṅkhya pranāśa</rdg>
-          </app>
-          <app loc="Ar3">
-            <lem>sādhu-raksaṇāsādhu-nigraha°</lem>
-            <rdg source="bib:Boechari1985-1986_01">sāḍu-rakṣaṇanasāḍu-nigrama-</rdg>
-          </app>
-          <app loc="Ar4">
-            <lem>sādhu-raksaṇāsādhu-nigraha°</lem>
-            <rdg source="bib:Boechari1985-1986_01">sāḍu-rakṣaṇanasāḍu-nigrama-</rdg>
-          </app>
-          <app loc="Ar4">
-            <lem>°anukūla°</lem>
-            <rdg source="bib:Boechari1985-1986_01">nukula</rdg>
-          </app>
-          <app loc="Ar4">
-            <lem>°ganvotpāna</lem>
-            <rdg source="bib:Boechari1985-1986_01">gandopāna</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:argr" type="translation">
-        <!--translation encoded as per EG §9.2 -->
-        <p>
+  </div>
+         </div>
+<div type="apparatus">
+                          
+<listApp>                                     
+<app loc="Ar1">
+                      
+<lem>rakryan</lem>
+                      
+<rdg source="bib:Boechari1985-1986_01">rakryyan</rdg>
+                  </app>
+                                     
+<app loc="Ar1">
+                       
+<lem>guṇānurūpāntaḥ°</lem>
+                       
+<rdg source="bib:Boechari1985-1986_01">guṇārūpāntaḥ</rdg>
+                       
+<note>Understand 
+<foreign>guṇānurūpatas</foreign>?</note>
+                   </app>
+                   
+<app loc="Ar3">
+                       
+<lem>°ripu-saṅ
+<choice>
+  <orig>ghy</orig>
+  <reg>gh</reg>
+</choice>a-pra
+<choice>
+  <orig>n</orig>
+  <reg>ṇ</reg>
+</choice>āśa</lem>
+                       
+<rdg source="bib:Boechari1985-1986_01">ri pu saṅkhya pranāśa</rdg>
+                   </app>
+                   
+<app loc="Ar3">
+                       
+<lem>sādhu-raksaṇāsādhu-nigraha°</lem>
+                       
+<rdg source="bib:Boechari1985-1986_01">sāḍu-rakṣaṇanasāḍu-nigrama-</rdg>
+                   </app>
+                   
+<app loc="Ar4">
+                       
+<lem>sādhu-raksaṇāsādhu-nigraha°</lem>
+                       
+<rdg source="bib:Boechari1985-1986_01">sāḍu-rakṣaṇanasāḍu-nigrama-</rdg>
+                   </app>
+                   
+<app loc="Ar4">
+                       
+<lem>°anukūla°</lem>
+                       
+<rdg source="bib:Boechari1985-1986_01">nukula</rdg>
+                   </app>
+                   
+<app loc="Ar4">
+                       
+<lem>°ganvotpāna</lem>
+                       
+<rdg source="bib:Boechari1985-1986_01">gandopāna</rdg>
+                   </app>
+               </listApp>
+         </div>
+         
+<div type="translation" resp="part:argr">
+        
+<p>
              TRANSLATION
 </p>
-      </div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 spelling --></div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <p>First edited by Brandes; edited again by Boechari
-            (<bibl rend="omitname">
-            <ptr target="bib:Boechari1985-1986_01"/>
-            <citedRange unit="page">112-114</citedRange>
-            <citedRange unit="item">E.50</citedRange>
-          </bibl>). Re-edited here by Marine Schoettel from estampages provided by the Museum Nasional Indonesia.</p>
-        <listBibl type="primary">
-          <bibl n="B">
-            <ptr target="bib:Boechari1985-1986_01"/>
-            <citedRange unit="page">112-114</citedRange>
-            <citedRange unit="item">E.50</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:Damais1952_01"/>
-            <citedRange unit="page">74-75</citedRange>
-            <citedRange unit="item">A.180</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Damais1955_01"/>
-            <citedRange unit="page">81</citedRange>
-            <citedRange unit="item">A.180</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+         </div>
+         
+<div type="commentary">
+                     </div>
+        
+<div type="bibliography">
+                    
+<p>First edited by Brandes; edited again by Boechari
+            (
+<bibl rend="omitname">
+  <ptr target="bib:Boechari1985-1986_01" />
+  <citedRange unit="page">112-114</citedRange>
+  <citedRange unit="item">E.50</citedRange>
+</bibl>). Re-edited here by Marine Schoettel from estampages provided by the Museum Nasional Indonesia.</p>
+            
+<listBibl type="primary">
+                
+<bibl n="B">
+                  
+<ptr target="bib:Boechari1985-1986_01" />
+                  
+<citedRange unit="page">112-114</citedRange>
+                  
+<citedRange unit="item">E.50</citedRange>
+                </bibl>
+              </listBibl>
+                
+<listBibl type="secondary">
+                    
+<bibl>
+  <ptr target="bib:Damais1952_01" />
+  <citedRange unit="page">74-75</citedRange>
+  <citedRange unit="item">A.180</citedRange>
+</bibl>
+                    
+<bibl>
+  <ptr target="bib:Damais1955_01" />
+  <citedRange unit="page">81</citedRange>
+  <citedRange unit="item">A.180</citedRange>
+</bibl>
+                </listBibl>
+            </div>
+      </body>
+  
+</text>
 </TEI>

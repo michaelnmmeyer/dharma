@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00001</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,221 +62,321 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <p><lb n="1"/><unclear cert="low">yaḥ</unclear> <unclear>kulyaiḥ svai</unclear> <gap precision="low" quantity="1" reason="illegible" unit="character"/> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg>ātasa <gap extent="unknown" reason="illegible" unit="character"/>
-<lb n="2"/><unclear>yasya</unclear> <gap extent="unknown" reason="illegible" unit="character"/>
-<lb n="3"/><gap precision="low" quantity="1" reason="illegible" unit="character"/> <unclear>puṁva</unclear> <gap extent="unknown" reason="illegible" unit="character"/> <unclear cert="low">tra</unclear> <gap extent="unknown" reason="illegible" unit="character"/>
-<lb n="4"/><gap precision="low" quantity="1" reason="illegible" unit="character"/>sph<choice>
-            <unclear>u</unclear>
-            <unclear>ā</unclear>
-          </choice>ra<unclear>dvaṁ</unclear> <gap quantity="6" reason="illegible" unit="character"/> <unclear cert="low">kṣaḥ sphu</unclear><unclear>ṭod</unclear><unclear cert="low">dhvaṁs</unclear>ita <gap precision="low" quantity="3" reason="illegible" unit="character"/> <unclear>p</unclear>ra<unclear>v</unclear>i<unclear>ta</unclear>ta <gap extent="unknown" reason="illegible" unit="character"/><!-- 
-I've decided to set up the "first two verses" as prose. On the basis of what Fleet and others have read of the first four lines, there is in my opinion no particular reason to think they are in verse, nor to think that they are exactly two verses. Fleet and most others since him have identified the "second verse" as sragdharā, which seems impossible given the prosody and distribution of the legible fragments (in l4, we'd need 10 syllables in the 6-character lacuna [or 11 if there's no lost syllable at the beginning of the line], and 8 syllables in the 3-character lacuna). The little that remains of the first two lines may in fact belong to a sragdharā verse, and it would be logical to have the second verse in the same metre as the preceding one and several following ones - but if lines 3-4 contain a sragdharā, then the readings are wrong and/or the verse halves do not coincide with the physical lines, as they do in subsequent verses. (I can't work the pattern out with mandākrāntā either, nor with any other metre. There may also be more than 2 verses in these 4 lines.) I think it's best, at least pending a chance of autopsy, to show these lines as prose. This entails that we'll have to number the verses differently than predecessors. 
---></p>
-        <lg met="sragdharā" n="1">
-          <l n="a"><lb n="5"/>yasya <unclear cert="low">prajñānu</unclear><unclear>ṣa</unclear>ṅg<unclear>o</unclear>cita-sukha-manasaḥ śāstra-tattvārttha-bharttuḥ</l>
-          <l n="b"><seg met="++">
-              <gap quantity="2" reason="illegible" unit="character"/>
-            </seg> stabdho <seg met="-++">
-              <gap quantity="3" reason="illegible" unit="character"/>
-            </seg> <unclear cert="low">ha</unclear><unclear>ni</unclear> <seg met="----+">
-              <gap quantity="5" reason="illegible" unit="character"/>
-            </seg> <unclear cert="low">nocchr̥</unclear> <seg met="++-+=">
-              <gap quantity="5" reason="illegible" unit="character"/>
-            </seg></l>
-          <l n="c"><lb n="6"/><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->sa</supplied><unclear cert="low">t</unclear>-<unclear>kā</unclear>vya-śrī-vir<choice>
-              <sic>au</sic>
-              <corr>o</corr>
-            </choice>dhān budha-guṇita-guṇājñāhatān eva kr̥tvā<!-- 
-I'm inclined to read xkā instead of tkā, restoring yax kāvya° instead of sat-kāvya. 
---></l>
-          <l n="d">vidval-loke <supplied reason="subaudible">’</supplied>vi<supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->nāśi</supplied> s<unclear>phu</unclear>ṭa-bahu-kavitā-kīrtti rājya<unclear>ṁ</unclear> bhunakti<!-- 
-Fleet and Bhandarkar take °kīrtti in compound with rājyam, but I prefer to see it as a separate adjective (bahuvrīhi neuter accusative). Same with [+']vināśi, which Agrawala prints as if in compound. 
---></l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="2">
-          <l n="a"><lb n="7"/><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->ā</supplied><unclear>ry</unclear>y<supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->ai</supplied><unclear>h</unclear>īty upaguhya bhāva-piśunair utkarṇṇitai romabhiḥ<!-- 
-Alternatives for the beginning: āryyo hīty (Fleet); ehy ehīty (Agrawala, following Chhabra, Indian Culture XIV.4 1948:141-50). #Goyal_1967:193n5 suggests arhyo hīty (though #Goyal_1993:20 prints āryyo hīty). I follow Bhandarkar. 
---></l>
-          <l n="b">sabhyeṣūcchvasiteṣu tulya-kula-ja-m<unclear>l</unclear>ānānanodvī<unclear>kṣi</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ta</supplied><unclear>ḥ</unclear></l>
-          <l n="c"><lb n="8"/>sn<unclear>e</unclear>ha-vyāluḷitena bāṣpa-guruṇā tattvekṣiṇā cakṣuṣā</l>
-          <l n="d">yaḥ pitrābhihito nirīk<unclear>ṣya</unclear> nikhi<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->lāṁ</supplied> <unclear cert="low">pāhy evam</unclear> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->u</supplied>rv<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->v</supplied>īm i<unclear>t</unclear>i<!-- 
-Alternatively, pāhi tvam for pāhy evam (Agrawala following Chhabra, ibid.) 
---></l>
-        </lg>
-        <lg met="sragdharā" n="3">
-          <l n="a"><lb n="9"/><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->dr̥</supplied>ṣṭvā karmmāṇy anekāny amanuja-sadr̥śāny a<unclear>dbhu</unclear>todbhinna-harṣā</l>
-          <l n="b">bh<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ā</supplied>vair ās<unclear>v</unclear>āda<unclear>ya</unclear><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->ntaḥ</supplied> <seg met="------++-++-">
-              <gap quantity="12" reason="illegible" unit="character"/>
-            </seg> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ke</supplied>ciT</l>
-          <l n="c"><lb n="10"/>vīryyottaptāś ca kecic charaṇam upagatā yasya vr̥tte praṇāme</l>
-          <l n="d"><supplied reason="subaudible">’</supplied>py a<unclear cert="low">rtti</unclear><seg type="aksara">
-              <seg subtype="conjunct" type="component">
-                <gap quantity="1" reason="illegible" unit="component"/>
-              </seg>
-              <seg met="+" subtype="vowel" type="component">
-                <gap quantity="1" reason="illegible" unit="component"/>
-              </seg>
-            </seg> <seg met="+-++------++-++-+=">
-              <gap quantity="19" reason="illegible" unit="character"/>
-            </seg><!-- 
-Someone (Sircar? CHECK) conjectures artti-grasteṣu. 
---></l>
-        </lg>
-        <lg met="mandākrāntā" n="4">
-          <l n="a"><lb n="11"/>saṁgrāmeṣu sva-bhuja-vijitā nityam uccāpakārāḥ</l>
-          <l n="b">śvaḥ śvo māna-pra <seg met="----++-++-+=">
-              <gap quantity="12" reason="illegible" unit="character"/>
-            </seg><!-- 
-Part of Aśoka's "Kosambi edict" or "Schism edict" (anapayati kosaṁbiya mahamata) is clearly visible after the end of line 11, with a drawing below that looks like a liṅgapīṭha viewed from above. 
---></l>
-          <l n="c"><lb n="12"/>to<unclear>ṣ</unclear>ottuṅgaiḥ sphuṭa-bahu-rasa-sneha-phullair mmanobhiḥ</l>
-          <l n="d">paścāttāpaṁ va <seg met="----++-">
-              <gap quantity="7" reason="illegible" unit="character"/>
-            </seg> <unclear>masya</unclear> <unclear cert="low">dviṣantaḥ</unclear><!-- 
-I see nothing of the end of this line. Agrawala reads (?ma)sy[#ā]d vasanta(?m); I think this or something like this is originally from Fleet and Bhandarkar argues against this, perhaps saying the spring has no place in this verse - but vasantam could be an active participle, not spring. 
---></l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="5">
-          <l n="a"><lb n="13"/>Udvelodita-bāhu-vīryya-rabhasād ekena yena kṣaṇād</l>
-          <l n="b">unmūlyācyuta-nāgasena-g<seg met="--+++-++-=">
-              <gap quantity="10" reason="illegible" unit="character"/>
-            </seg><!-- 
-Sircar conjecturally restores the end as gaṇapatyādīn nr̥pān saṅgare. 
---></l>
-          <l n="c"><lb n="14"/>daṇḍair grāhayataiva kota-kulajaṁ puṣpāhvaye krīḍatā</l>
-          <l n="d">
-            <unclear>sūryye</unclear>
-            <unclear cert="low">ne</unclear>
-            <seg met="--+-+">
-              <gap quantity="5" reason="illegible" unit="character"/>
-            </seg>
-            <unclear>taṭa</unclear>
-            <seg met="-+++-++-=">
-              <gap quantity="9" reason="illegible" unit="character"/>
-            </seg>
-            <!-- 
-Someone (Sircar? CHECK) conjecturally reads sūryye nitya 
--->
-          </l>
-        </lg>
-        <lg met="sragdharā" n="6">
-          <l n="a"><lb n="15"/>dha<unclear>rmma</unclear>-prācīra-bandhaḥ śaśi-kara-śucayaḥ kīrttayaḥ sapratānā</l>
-          <l n="b">vaiduṣyaṁ tattva-bhedi praśama <seg met="--">
-              <gap quantity="2" reason="illegible" unit="character"/>
-            </seg> <seg subtype="consonant" type="component">
-              <gap quantity="1" reason="illegible" unit="component"/>
-            </seg><unclear cert="low">uku</unclear> <seg subtype="consonant" type="component">
-              <gap quantity="1" reason="illegible" unit="component"/>
-            </seg><unclear cert="low">y</unclear> <seg met="+-">
-              <gap quantity="2" reason="illegible" unit="character"/>
-            </seg> <unclear cert="low">mut</unclear><seg subtype="consonant" type="component">
-              <gap quantity="1" reason="illegible" unit="component"/>
-            </seg> <seg met="+-">
-              <gap quantity="2" reason="illegible" unit="character"/>
-            </seg> tā<unclear>rttham</unclear><!-- 
-I'm tempted to read mūrttyā for (?mut)# = 
---></l>
-          <l n="c"><lb n="16"/><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->a</supplied><unclear>ddhye</unclear><unclear cert="low">yaḥ sūkta-</unclear>mārggaḥ kavi-mati-vibhavotsāraṇaṁ cāpi kāvyaṁ</l>
-          <l n="d">ko nu syā<unclear>d</unclear> yo <unclear>s</unclear>ya na syā<unclear>d guṇa I</unclear>ti v<unclear>i</unclear>duṣāṁ dhyāna-pātraṁ ya Ekaḥ<!-- 
-Agrawala reads guṇa-mati with Fleet and notes that Chabra wants to read guṇa iti, "which is hardly supported from the facsimile." Bhandarkar reads guṇa iti. I think iti is no less likely than mati and makes much better sense. 
---></l>
-        </lg>
-        <p><lb n="17"/>tasya vividha-samara-śatāvataraṇa-dakṣasya sva-bhuja-bala-parākkramaika-bandhoḥ parākkramāṅkasya paraśu-śara-śaṅku-śakti-prās-āsi-tomara-
-<lb n="18"/><unclear>bh</unclear>ind<unclear>i</unclear>pāla-n<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ā</supplied>rāca-vaitastikādy-aneka-praharaṇa-virūḍhākula-vraṇa-śatāṅka-śobhā-samudayopacita-kāntatara-varṣmaṇaḥ
-<lb n="19"/>kausalaka-mahendra-māh<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ā</supplied>kāntāraka-vyāghrarāja-kaurāḷaka-maṇṭarāja-paiṣṭapuraka-mahendragiri-kauṭṭūraka-svāmidatt-airaṇḍapallaka-damana-kañceyaka-viṣṇugopāvamuktaka-
-<lb n="20"/>nīlarāja-vaiṅgeyaka-hastivarmma-pālakkakograsena-daivarāṣṭraka-kubera-kausthalapuraka-dhanañjaya-prabhr̥ti-sarvva-dakṣiṇāpatha-rāja-grahaṇa-mokṣānugraha-janita-pratāponmiśra-māhābhāgyasya
-<lb n="21"/>rudradeva-matila-nāgadatta-candravarmma-gaṇapatināga-nāgasen-ācyutanandi-balavarmmādy-anekāryyāvartta-rāja-prasabhoddharaṇodvr̥tta-prabhāva-mahataḥ paricārakīkr̥ta-sarvvāṭavika-rājasya
-<lb n="22"/>samataṭa-ḍavāka-kāmarūpa-nepāla-karttr̥purādi-pratyanta-nr̥patibhir mmālavārjunāyana-yaudheya-mādrakābhīra-prārjuna-sanakānīka-kāka-kharaparikādibhiś ca sarvva-kara-dānājñā-karaṇa-praṇāmāgamana-
-<lb n="23"/>paritoṣita-pracaṇḍa-śāsanasya <space/> Aneka-bhraṣṭa-rājyotsanna-rāja-vaṁśa-pratiṣṭhāpanodbhūta-nikhila-bh<unclear>uva</unclear>na-vi<unclear>cara</unclear>ṇa-<unclear>śr</unclear>ānta-yaśasaḥ daivaputra-ṣāhi-ṣāhānuṣāhi-śaka-muruṇḍaih saimhaḷakādibhiś ca
-<lb n="24"/>sarvva-dvīpa-vāsibhir ātma-nivedana-kanyopāyana-dāna-garutmad-aṅka-svaviṣaya-bhukti-śāsa<unclear>na-y</unclear>ācanādy-upāya-sevā-kr̥ta-bāhu-vīryya-prasara-dharaṇi-bandhasya p<sic>ri</sic>thivyām apratirathasya
-<lb n="25"/>sucarita-śatālaṅkr̥tāneka-guṇa-gaṇotsiktibhiś caraṇa-taḷa-pramr̥ṣṭānya-narapati-kīrtteḥ sāddhv-asādhūdaya-pralaya-hetu-puruṣasyācintyasya bhakty-avanati-mātra-grāhya-mr̥du-hr̥dayasyānukampāvato <supplied reason="subaudible">’</supplied>neka-go-śata-sahasra-pradāyina<unclear>ḥ</unclear>
-<lb n="26"/>k<unclear>r̥</unclear>paṇa-dīnānāthātura-janoddharaṇa-sa<unclear>t</unclear>tra-dīkṣā<unclear>bh</unclear>y-upaga<unclear>ta</unclear>-manasaḥ samiddhasya vigrahavato lokānugrahasya dhanada-varuṇendrāntaka-samasya sva-bhuja-bala-vijitāneka-narapati-vibhava-pratyarppaṇā-nitya-vyāpr̥tāyukta-puruṣasya<!-- 
-For sattra Fleet reads santra and emends to mantra. Agrawala also reads santra and emends to kṣattra. 
---><!-- 
-For °abhyupagata, Fleet and Bhandarkar read °ādyupagata. I follow Agrawala (Sircar?). 
---><!-- 
-For upagata Bhandarkar reads upaganu [but emends to upagata]. 
---><!-- 
-Maybe emend samiddhasya to samr̥ddhasya; much better sense in context. 
---><lb n="27"/>niśita-vidagdha-mati-gāndharvva-laḷitair vrīḍita-tridaśapatiguru-tumburu-nāradāder vvidvaj-janopa<unclear>j</unclear>īvyāneka-kāvya-kkriyābhiḥ pratiṣṭhita-kavirāja-śabdasya sucira-stotavyānekādbhutodāra-caritasya
-<lb n="28"/>l<unclear>au</unclear>ka-samaya-kkriyānuvidhāna-mātra-mānuṣasya loka-dhāmno devasya mahārāja-śrī-gupta-prapautrasya mahārāja-śrī-ghaṭotkaca-pautrasya mahārājādhirāja-śrī-candragupta-putrasya<!-- 
-Bhandarkar prints the first word as l(o)ka; Agrawala just has loka. I believe it's in fact lauka (with the right limb of the vowel mostly gone), which could be emended to loka (compare viraudhān in l6) or read as a vr̥ddhi derivative, though lauka is not attested in MW only as the first member of compounds in vr̥ddhi. 
---><lb n="29"/>licchavi-dauhitrasya mahādevyāṁ kumāradevyām ut<choice>
-            <sic>ph</sic>
-            <corr>p</corr>
-          </choice>annasya mahārājādhirāja-śrī-samudraguptasya sarvva-pr̥thivī-vijaya-janitodaya-vyāpta-nikhilāvanitalāṁ kīrttim itas tridaśa-pati<!-- 
-The reading utphanna is shared by all editors I've seen so far, but from the facsimile, it could in fact be tpa with a blotch rather than tpha. 
---><lb break="no" n="30"/>-bhavana-gamanāvāpta-laḷita-sukha-vicaraṇām ācakṣāṇa Iva bhuvo bāhur ayam ucchritaḥ stambhaḥ</p>
-        <p>yasya|</p>
-        <!-- 
-The punctuation mark is a horizontal dash, perhaps shaped like an inverted tilde (curved down, then up), and perhaps with a dot above and below it, or a crossing line. 
--->
-        <lg met="pr̥thvī" n="7">
-          <l n="a">pradāna-bhuja-vikkrama-praśama-śāstra-vākyodayair</l>
-          <l n="b">uparyyupari-sañcayocchritam aneka-mārggaṁ yaśaḥ</l>
-          <l enjamb="yes" n="c"><lb n="31"/>punāti bhuvana-trayaṁ paśupater jjaṭānta<sic>r-gu</sic>hā</l>
-          <l n="d">-nirodha-parimokṣa-śīghram iva pāṇḍu gāṅgaṁ <supplied cert="low" reason="lost">payaḥ</supplied></l>
-        </lg>
-        <p>etac ca kāvyam eṣām eva bhaṭṭāraka-pādānāṁ dāsasya samīpa-parisarppaṇānugrahonmīlita-mateḥ
-<lb n="32"/>khādyaṭapākikasya mahā-daṇḍanāyaka-dhruvabhūti-putrasya sāndhivigrahika-kumārāmātya-ma<supplied reason="lost">hā-daṇḍanāya</supplied>ka-hariṣeṇasya sarvva-bhūta-hita-sukhāyāstu||<!-- 
-The punctuation mark is a down-curving horizontal dash, probably curving back on itself like a flattened mirrored 6.
---></p>
-        <!-- 
-There is a space of about two line heights between lines 32 and 33. 
--->
-        <p><lb n="33"/>Anuṣṭhitaṁ ca parama-bhaṭṭāraka-pādānudhyātena mahā-daṇḍanāyaka-tilabhaṭṭakena|<!-- 
-The punctuation mark is a long, down-curving horizontal dash. 
---></p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<p>
+<lb n="1" />
+<unclear cert="low">yaḥ</unclear> 
+<unclear>kulyaiḥ svai</unclear> 
+<gap reason="illegible" precision="low" quantity="1" unit="character" /> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>ātasa 
+<gap reason="illegible" extent="unknown" unit="character" />
+<lb n="2" />
+<unclear>yasya</unclear> 
+<gap reason="illegible" extent="unknown" unit="character" />
+<lb n="3" />
+<gap reason="illegible" precision="low" quantity="1" unit="character" /> 
+<unclear>puṁva</unclear> 
+<gap reason="illegible" extent="unknown" unit="character" /> 
+<unclear cert="low">tra</unclear> 
+<gap reason="illegible" extent="unknown" unit="character" />
+<lb n="4" />
+<gap reason="illegible" precision="low" quantity="1" unit="character" />sph
+<choice>
+  <unclear>u</unclear>
+  <unclear>ā</unclear>
+</choice>ra
+<unclear>dvaṁ</unclear> 
+<gap reason="illegible" quantity="6" unit="character" /> 
+<unclear cert="low">kṣaḥ sphu</unclear>
+<unclear>ṭod</unclear>
+<unclear cert="low">dhvaṁs</unclear>ita 
+<gap reason="illegible" precision="low" quantity="3" unit="character" /> 
+<unclear>p</unclear>ra
+<unclear>v</unclear>i
+<unclear>ta</unclear>ta 
+<gap reason="illegible" extent="unknown" unit="character" /></p>
+<lg n="1" met="sragdharā">
+<l n="a">
+<lb n="5" />yasya 
+<unclear cert="low">prajñānu</unclear>
+<unclear>ṣa</unclear>ṅg
+<unclear>o</unclear>cita-sukha-manasaḥ śāstra-tattvārttha-bharttuḥ</l>
+<l n="b">
+<seg met="++">
+  <gap reason="illegible" quantity="2" unit="character" />
+</seg> stabdho 
+<seg met="-++">
+  <gap reason="illegible" quantity="3" unit="character" />
+</seg> 
+<unclear cert="low">ha</unclear>
+<unclear>ni</unclear> 
+<seg met="----+">
+  <gap reason="illegible" quantity="5" unit="character" />
+</seg> 
+<unclear cert="low">nocchr̥</unclear> 
+<seg met="++-+=">
+  <gap reason="illegible" quantity="5" unit="character" />
+</seg></l>
+<l n="c">
+<lb n="6" />
+<supplied reason="lost" cert="low">sa</supplied>
+<unclear cert="low">t</unclear>-
+<unclear>kā</unclear>vya-śrī-vir
+<choice>
+  <sic>au</sic>
+  <corr>o</corr>
+</choice>dhān budha-guṇita-guṇājñāhatān eva kr̥tvā</l>
+<l n="d">vidval-loke 
+<supplied reason="subaudible">’</supplied>vi
+<supplied reason="lost" cert="low">nāśi</supplied> s
+<unclear>phu</unclear>ṭa-bahu-kavitā-kīrtti rājya
+<unclear>ṁ</unclear> bhunakti</l>
+</lg>
+<lg n="2" met="śārdūlavikrīḍita">
+<l n="a">
+<lb n="7" />
+<supplied reason="lost" cert="low">ā</supplied>
+<unclear>ry</unclear>y
+<supplied reason="lost" cert="low">ai</supplied>
+<unclear>h</unclear>īty upaguhya bhāva-piśunair utkarṇṇitai romabhiḥ</l>
+<l n="b">sabhyeṣūcchvasiteṣu tulya-kula-ja-m
+<unclear>l</unclear>ānānanodvī
+<unclear>kṣi</unclear>
+<supplied reason="lost">ta</supplied>
+<unclear>ḥ</unclear></l>
+<l n="c">
+<lb n="8" />sn
+<unclear>e</unclear>ha-vyāluḷitena bāṣpa-guruṇā tattvekṣiṇā cakṣuṣā</l>
+<l n="d">yaḥ pitrābhihito nirīk
+<unclear>ṣya</unclear> nikhi
+<supplied reason="lost">lāṁ</supplied> 
+<unclear cert="low">pāhy evam</unclear> 
+<supplied reason="lost">u</supplied>rv
+<supplied reason="lost">v</supplied>īm i
+<unclear>t</unclear>i</l>
+</lg>
+<lg n="3" met="sragdharā">
+<l n="a">
+<lb n="9" />
+<supplied reason="lost">dr̥</supplied>ṣṭvā karmmāṇy anekāny amanuja-sadr̥śāny a
+<unclear>dbhu</unclear>todbhinna-harṣā</l>
+<l n="b">bh
+<supplied reason="lost">ā</supplied>vair ās
+<unclear>v</unclear>āda
+<unclear>ya</unclear>
+<supplied reason="lost" cert="low">ntaḥ</supplied> 
+<seg met="------++-++-">
+  <gap reason="illegible" quantity="12" unit="character" />
+</seg> 
+<supplied reason="lost">ke</supplied>ciT</l>
+<l n="c">
+<lb n="10" />vīryyottaptāś ca kecic charaṇam upagatā yasya vr̥tte praṇāme</l>
+<l n="d">
+<supplied reason="subaudible">’</supplied>py a
+<unclear cert="low">rtti</unclear>
+<seg type="aksara">
+  <seg type="component" subtype="conjunct">
+    <gap reason="illegible" quantity="1" unit="component" />
+  </seg>
+  <seg type="component" subtype="vowel" met="+">
+    <gap reason="illegible" quantity="1" unit="component" />
+  </seg>
+</seg> 
+<seg met="+-++------++-++-+=">
+  <gap reason="illegible" quantity="19" unit="character" />
+</seg></l>
+</lg>
+<lg n="4" met="mandākrāntā">
+<l n="a">
+<lb n="11" />saṁgrāmeṣu sva-bhuja-vijitā nityam uccāpakārāḥ</l>
+<l n="b">śvaḥ śvo māna-pra 
+<seg met="----++-++-+=">
+  <gap reason="illegible" quantity="12" unit="character" />
+</seg></l>
+<l n="c">
+<lb n="12" />to
+<unclear>ṣ</unclear>ottuṅgaiḥ sphuṭa-bahu-rasa-sneha-phullair mmanobhiḥ</l>
+<l n="d">paścāttāpaṁ va 
+<seg met="----++-">
+  <gap reason="illegible" quantity="7" unit="character" />
+</seg> 
+<unclear>masya</unclear> 
+<unclear cert="low">dviṣantaḥ</unclear></l>
+</lg>
+<lg n="5" met="śārdūlavikrīḍita">
+<l n="a">
+<lb n="13" />Udvelodita-bāhu-vīryya-rabhasād ekena yena kṣaṇād</l>
+<l n="b">unmūlyācyuta-nāgasena-g
+<seg met="--+++-++-=">
+  <gap reason="illegible" quantity="10" unit="character" />
+</seg></l>
+<l n="c">
+<lb n="14" />daṇḍair grāhayataiva kota-kulajaṁ puṣpāhvaye krīḍatā</l>
+<l n="d">
+<unclear>sūryye</unclear>
+<unclear cert="low">ne</unclear> 
+<seg met="--+-+">
+  <gap reason="illegible" quantity="5" unit="character" />
+</seg> 
+<unclear>taṭa</unclear> 
+<seg met="-+++-++-=">
+  <gap reason="illegible" quantity="9" unit="character" />
+</seg></l>
+</lg>
+<lg n="6" met="sragdharā">
+<l n="a">
+<lb n="15" />dha
+<unclear>rmma</unclear>-prācīra-bandhaḥ śaśi-kara-śucayaḥ kīrttayaḥ sapratānā</l>
+<l n="b">vaiduṣyaṁ tattva-bhedi praśama 
+<seg met="--">
+  <gap reason="illegible" quantity="2" unit="character" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<unclear cert="low">uku</unclear> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<unclear cert="low">y</unclear> 
+<seg met="+-">
+  <gap reason="illegible" quantity="2" unit="character" />
+</seg> 
+<unclear cert="low">mut</unclear>
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg met="+-">
+  <gap reason="illegible" quantity="2" unit="character" />
+</seg> tā
+<unclear>rttham</unclear></l>
+<l n="c">
+<lb n="16" />
+<supplied reason="lost" cert="low">a</supplied>
+<unclear>ddhye</unclear>
+<unclear cert="low">yaḥ sūkta-</unclear>mārggaḥ kavi-mati-vibhavotsāraṇaṁ cāpi kāvyaṁ</l>
+<l n="d">ko nu syā
+<unclear>d</unclear> yo 
+<unclear>s</unclear>ya na syā
+<unclear>d guṇa I</unclear>ti v
+<unclear>i</unclear>duṣāṁ dhyāna-pātraṁ ya Ekaḥ</l>
+</lg>
+<p>
+<lb n="17" />tasya vividha-samara-śatāvataraṇa-dakṣasya sva-bhuja-bala-parākkramaika-bandhoḥ parākkramāṅkasya paraśu-śara-śaṅku-śakti-prās-āsi-tomara-
+<lb n="18" />
+<unclear>bh</unclear>ind
+<unclear>i</unclear>pāla-n
+<supplied reason="lost">ā</supplied>rāca-vaitastikādy-aneka-praharaṇa-virūḍhākula-vraṇa-śatāṅka-śobhā-samudayopacita-kāntatara-varṣmaṇaḥ
+<lb n="19" />kausalaka-mahendra-māh
+<supplied reason="lost">ā</supplied>kāntāraka-vyāghrarāja-kaurāḷaka-maṇṭarāja-paiṣṭapuraka-mahendragiri-kauṭṭūraka-svāmidatt-airaṇḍapallaka-damana-kañceyaka-viṣṇugopāvamuktaka-
+<lb n="20" />nīlarāja-vaiṅgeyaka-hastivarmma-pālakkakograsena-daivarāṣṭraka-kubera-kausthalapuraka-dhanañjaya-prabhr̥ti-sarvva-dakṣiṇāpatha-rāja-grahaṇa-mokṣānugraha-janita-pratāponmiśra-māhābhāgyasya
+<lb n="21" />rudradeva-matila-nāgadatta-candravarmma-gaṇapatināga-nāgasen-ācyutanandi-balavarmmādy-anekāryyāvartta-rāja-prasabhoddharaṇodvr̥tta-prabhāva-mahataḥ paricārakīkr̥ta-sarvvāṭavika-rājasya
+<lb n="22" />samataṭa-ḍavāka-kāmarūpa-nepāla-karttr̥purādi-pratyanta-nr̥patibhir mmālavārjunāyana-yaudheya-mādrakābhīra-prārjuna-sanakānīka-kāka-kharaparikādibhiś ca sarvva-kara-dānājñā-karaṇa-praṇāmāgamana-
+<lb n="23" />paritoṣita-pracaṇḍa-śāsanasya 
+<space /> Aneka-bhraṣṭa-rājyotsanna-rāja-vaṁśa-pratiṣṭhāpanodbhūta-nikhila-bh
+<unclear>uva</unclear>na-vi
+<unclear>cara</unclear>ṇa-
+<unclear>śr</unclear>ānta-yaśasaḥ daivaputra-ṣāhi-ṣāhānuṣāhi-śaka-muruṇḍaih saimhaḷakādibhiś ca
+<lb n="24" />sarvva-dvīpa-vāsibhir ātma-nivedana-kanyopāyana-dāna-garutmad-aṅka-svaviṣaya-bhukti-śāsa
+<unclear>na-y</unclear>ācanādy-upāya-sevā-kr̥ta-bāhu-vīryya-prasara-dharaṇi-bandhasya p
+<sic>ri</sic>thivyām apratirathasya
+<lb n="25" />sucarita-śatālaṅkr̥tāneka-guṇa-gaṇotsiktibhiś caraṇa-taḷa-pramr̥ṣṭānya-narapati-kīrtteḥ sāddhv-asādhūdaya-pralaya-hetu-puruṣasyācintyasya bhakty-avanati-mātra-grāhya-mr̥du-hr̥dayasyānukampāvato 
+<supplied reason="subaudible">’</supplied>neka-go-śata-sahasra-pradāyina
+<unclear>ḥ</unclear>
+<lb n="26" />k
+<unclear>r̥</unclear>paṇa-dīnānāthātura-janoddharaṇa-sa
+<unclear>t</unclear>tra-dīkṣā
+<unclear>bh</unclear>y-upaga
+<unclear>ta</unclear>-manasaḥ samiddhasya vigrahavato lokānugrahasya dhanada-varuṇendrāntaka-samasya sva-bhuja-bala-vijitāneka-narapati-vibhava-pratyarppaṇā-nitya-vyāpr̥tāyukta-puruṣasya
+<lb n="27" />niśita-vidagdha-mati-gāndharvva-laḷitair vrīḍita-tridaśapatiguru-tumburu-nāradāder vvidvaj-janopa
+<unclear>j</unclear>īvyāneka-kāvya-kkriyābhiḥ pratiṣṭhita-kavirāja-śabdasya sucira-stotavyānekādbhutodāra-caritasya
+<lb n="28" />l
+<unclear>au</unclear>ka-samaya-kkriyānuvidhāna-mātra-mānuṣasya loka-dhāmno devasya mahārāja-śrī-gupta-prapautrasya mahārāja-śrī-ghaṭotkaca-pautrasya mahārājādhirāja-śrī-candragupta-putrasya
+<lb n="29" />licchavi-dauhitrasya mahādevyāṁ kumāradevyām ut
+<choice>
+  <sic>ph</sic>
+  <corr>p</corr>
+</choice>annasya mahārājādhirāja-śrī-samudraguptasya sarvva-pr̥thivī-vijaya-janitodaya-vyāpta-nikhilāvanitalāṁ kīrttim itas tridaśa-pati
+<lb n="30" break="no" />-bhavana-gamanāvāpta-laḷita-sukha-vicaraṇām ācakṣāṇa Iva bhuvo bāhur ayam ucchritaḥ stambhaḥ</p>
+<p>yasya|</p>
+<lg n="7" met="pr̥thvī">
+<l n="a">pradāna-bhuja-vikkrama-praśama-śāstra-vākyodayair</l>
+<l n="b">uparyyupari-sañcayocchritam aneka-mārggaṁ yaśaḥ</l>
+<l n="c" enjamb="yes">
+<lb n="31" />punāti bhuvana-trayaṁ paśupater jjaṭānta
+<sic>r-gu</sic>hā</l>
+<l n="d">-nirodha-parimokṣa-śīghram iva pāṇḍu gāṅgaṁ 
+<supplied reason="lost" cert="low">payaḥ</supplied></l>
+</lg>
+<p>etac ca kāvyam eṣām eva bhaṭṭāraka-pādānāṁ dāsasya samīpa-parisarppaṇānugrahonmīlita-mateḥ
+<lb n="32" />khādyaṭapākikasya mahā-daṇḍanāyaka-dhruvabhūti-putrasya sāndhivigrahika-kumārāmātya-ma
+<supplied reason="lost">hā-daṇḍanāya</supplied>ka-hariṣeṇasya sarvva-bhūta-hita-sukhāyāstu||</p>
+<p>
+<lb n="33" />Anuṣṭhitaṁ ca parama-bhaṭṭāraka-pādānudhyātena mahā-daṇḍanāyaka-tilabhaṭṭakena|</p>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

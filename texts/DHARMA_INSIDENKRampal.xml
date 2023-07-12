@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -30,27 +36,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -58,70 +54,199 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2021-04-22" who="part:ekba">created initial encoding of the inscription</change>
+      <change who="part:ekba" when="2021-04-22" status="draft">created initial encoding of the inscription</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="kaw-Latn">
-        <ab>
-<lb n="01"/>// svasti
+      
+<body>
+         
+<div type="edition" xml:lang="kaw-Latn">
+<ab>
+<lb n="01" />// svasti
 </ab>
-        <p>
- <lb n="1"/><supplied reason="lost">śaka-</supplied><unclear>varṣa A</unclear>tĭta <num value="794">7<unclear>94</unclear></num> XX <unclear>sa</unclear>ptami śukla-pakṣa, <abbr>ma</abbr>, <abbr>va</abbr>,<abbr> so</abbr>, vāra s<unclear>va</unclear>kărtika-nākṣatra kā<unclear>la ḍaḿ</unclear>
-<lb n="2"/> puc<unclear>ch</unclear>a Aṅgăra saṁ dahak· saṁ pikat·, <unclear>saṁ</unclear> gr̥ṁ<unclear>ge</unclear> saṁ gotra saṁ ghabhala saṁ palāgī saṁ <unclear>tuga</unclear>lya saṁ vli sumĭma Ikanaṁ Alas· Iṁ rampal· saṅu su<lb break="no" n="3"/> <unclear>m</unclear>imākan· Ikāṅ alas· <unclear>ka</unclear>la<unclear>ṁ</unclear> matuha sa<unclear>ṁ</unclear>ṅ abihāra saṁ r<unclear>ə</unclear>mvaṁ sa<unclear>ṁ</unclear> candra saṁ piṇḍahan· saṁ sirikan· saṁ kapiṁṅan· <unclear>rā</unclear>ma I kata<unclear>ṇḍā</unclear>n· saṁ pajuAn· kaki halaṁ saṁ hali ka<lb break="no" n="4"/>ki vavuṁṅaḥ saṁ kuḍuk· saṁ tin· <surplus>saṁ tin·</surplus> saṁ vulu saṁ kavḍūt· saṁ parmata saṁ vaddaṁ <unclear>nā</unclear>han· kvaiḥnira rā<unclear>ma milu</unclear> sumīma<supplied reason="lost">ma</supplied><unclear>kan</unclear>·n ikāṅ alas· <unclear>ḍuA r</unclear>i ma<unclear>ṅgu</unclear>s· mas· <abbr>ka</abbr> <num value="1">1</num> <abbr>su</abbr> <num value="1">1</num>, manahurniṁ hutaṁ<lb break="no" n="5"/>niṁ vanuA hul<unclear>u</unclear>nnyan· kavuntu riṁ partaya haji rikaṁ kā<unclear>la</unclear> sa<unclear>ṁ</unclear> kulumpaṁ vanvaA ri skar· rava pili<supplied reason="omitted">ḥ</supplied> mas· ḍapunta siddha m<unclear>ihitika</unclear> laṅṅ umi kalimusan· saṁ gurun· nāhan· sira sākṣiniṁ manĭmākan· dadi saṁ manĭmā<unclear>mo</unclear>t· pajuru<lb break="no" n="6"/>Annanira I kuhuy· sĭma pa<unclear>d</unclear>ahan· paməgat· pamvaAtan· rikaṁ kāla dyaḥ maṁhalaṁṅi tali saṁ giliran· vineḥ mas· <abbr>su</abbr> <num>1</num> <abbr>mā</abbr> <num>4</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> ken· vlaḥ <num value="1">1</num> pinakapasak· I<surplus>r</surplus>sira An· paṅasə I kuhu<unclear>y</unclear>· Anuṁ papasaṅṅa Inimpə<lb break="no" n="7"/>nnakan· saṁ tali I tkaniṁ vulan· hapit· <abbr>mā</abbr> <num value="1">1</num> <abbr>ku</abbr> <num value="2">2</num> sampunnikaṁ vimagga gahan· kilalān· saṁ tali Ina<unclear>s</unclear>əAn· saṁ partaya haji pasək·-pasək· mas· <abbr>su</abbr> <num value="1">1</num> <abbr>mā</abbr> <num value="4">4</num> vḍihan· <abbr>yu </abbr><num value="1">1</num> ken· vlaḥ <num value="1">1</num>  c<unclear>i</unclear>tralekha vineḥ <abbr>mā</abbr> <num value="1">1</num> maveḥha saṁ manīma manaḍaha 
-<lb n="8"/>I saṁ vahuta patiḥ mva<supplied reason="omitted">ṁ</supplied> rāmanta sa<supplied reason="omitted">ṁ</supplied> mas<unclear>k</unclear>ar· vannvaA kalimusan·, turun· vineḥ <abbr>māsu</abbr> <num value="1">1</num> <abbr>mā</abbr> <num value="4">4</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> ken· vləḥ <supplied reason="omitted">1</supplied>  kalimusan· lampuran· saṁ dakṣā saṁ <unclear>laḥ</unclear> vi<unclear>neḥ</unclear> <abbr>
-            <unclear>mā</unclear>
-          </abbr> <num value="4">
-            <unclear>4</unclear>
-          </num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> sovaṁ-sovaṁ maṁhiliri saṁ pa<unclear>bḍan</unclear>· vineḥ <abbr>māsu</abbr> <num value="1">1</num> <abbr>ma</abbr> <num value="4">4</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> ken· vləḥ <num value="1">1</num> 
-<lb n="9"/>maṁhiliri lampuran· saṁ lekan· saṁ halaran· vineḥ <abbr>mā</abbr> <num value="1">1</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> sovaṁ-sovaṁ  citagakarājaṅga saṁ manimākan· pasak·-pasak· saṁṅ abihāra mas· <num value="1">1</num> vḍihan· <abbr>yu </abbr><num value="1">1</num> saṁ candra <abbr>mā</abbr> <num value="4">
-            <unclear>4</unclear>
-          </num> vḍihan· <abbr>yu</abbr> <num value="1">
-            <unclear>1</unclear>
-          </num>  saṁ piḍahan· <abbr>mā</abbr> <num value="1">1</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> saṁ pañceṅan· <abbr>mā</abbr> <num value="1">1</num> vḍihan· <abbr>yu</abbr> <num value="1">1</num> saṁ R̥mvaṁ 
-<lb n="10"/><abbr>mā</abbr> <num value="1">1</num> vḍīhan· <abbr>yu</abbr> <num value="1">1</num>  kalaṁ saṁ sirikan· <abbr>mā</abbr> <num value="4">4</num> vḍihan· <abbr>yu </abbr><num value="1">1</num>  vinəkas· saṁ kaR̥ṅan· <abbr>mā</abbr> <num value="4">4</num> vḍīhan· <abbr>yu</abbr> <num value="1">1</num>  gusti kaki malaṁ kalima saṁ paṅadvaAn· saṁ <unclear>va</unclear>hud· kaki vavuṅaḥ hulu <unclear>pa</unclear>kān· saṁ <unclear>t</unclear>ali vineḥ <abbr><unclear>m</unclear>ā</abbr> <num value="1">1</num>
+<p>
+ 
+<lb n="1" />
+<supplied reason="lost">śaka-</supplied>
+<unclear>varṣa A</unclear>tĭta 
+<num value="794">7
+<unclear>94</unclear></num> XX 
+<unclear>sa</unclear>ptami śukla-pakṣa, 
+<abbr>ma</abbr>, 
+<abbr>va</abbr>,
+<abbr> so</abbr>, vāra s
+<unclear>va</unclear>kărtika-nākṣatra kā
+<unclear>la ḍaḿ</unclear>
+<lb n="2" /> puc
+<unclear>ch</unclear>a Aṅgăra saṁ dahak· saṁ pikat·, 
+<unclear>saṁ</unclear> gr̥ṁ
+<unclear>ge</unclear> saṁ gotra saṁ ghabhala saṁ palāgī saṁ 
+<unclear>tuga</unclear>lya saṁ vli sumĭma Ikanaṁ Alas· Iṁ rampal· saṅu su
+<lb n="3" break="no" /> 
+<unclear>m</unclear>imākan· Ikāṅ alas· 
+<unclear>ka</unclear>la
+<unclear>ṁ</unclear> matuha sa
+<unclear>ṁ</unclear>ṅ abihāra saṁ r
+<unclear>ə</unclear>mvaṁ sa
+<unclear>ṁ</unclear> candra saṁ piṇḍahan· saṁ sirikan· saṁ kapiṁṅan· 
+<unclear>rā</unclear>ma I kata
+<unclear>ṇḍā</unclear>n· saṁ pajuAn· kaki halaṁ saṁ hali ka
+<lb n="4" break="no" />ki vavuṁṅaḥ saṁ kuḍuk· saṁ tin· 
+<surplus>saṁ tin·</surplus> saṁ vulu saṁ kavḍūt· saṁ parmata saṁ vaddaṁ 
+<unclear>nā</unclear>han· kvaiḥnira rā
+<unclear>ma milu</unclear> sumīma
+<supplied reason="lost">ma</supplied>
+<unclear>kan</unclear>·n ikāṅ alas· 
+<unclear>ḍuA r</unclear>i ma
+<unclear>ṅgu</unclear>s· mas· 
+<abbr>ka</abbr> 
+<num value="1">1</num> 
+<abbr>su</abbr> 
+<num value="1">1</num>, manahurniṁ hutaṁ
+<lb n="5" break="no" />niṁ vanuA hul
+<unclear>u</unclear>nnyan· kavuntu riṁ partaya haji rikaṁ kā
+<unclear>la</unclear> sa
+<unclear>ṁ</unclear> kulumpaṁ vanvaA ri skar· rava pili
+<supplied reason="omitted">ḥ</supplied> mas· ḍapunta siddha m
+<unclear>ihitika</unclear> laṅṅ umi kalimusan· saṁ gurun· nāhan· sira sākṣiniṁ manĭmākan· dadi saṁ manĭmā
+<unclear>mo</unclear>t· pajuru
+<lb n="6" break="no" />Annanira I kuhuy· sĭma pa
+<unclear>d</unclear>ahan· paməgat· pamvaAtan· rikaṁ kāla dyaḥ maṁhalaṁṅi tali saṁ giliran· vineḥ mas· 
+<abbr>su</abbr> 
+<num>1</num> 
+<abbr>mā</abbr> 
+<num>4</num> vḍihan· 
+<abbr>yu</abbr> 
+<num value="1">1</num> ken· vlaḥ 
+<num value="1">1</num> pinakapasak· I
+<surplus>r</surplus>sira An· paṅasə I kuhu
+<unclear>y</unclear>· Anuṁ papasaṅṅa Inimpə
+<lb n="7" break="no" />nnakan· saṁ tali I tkaniṁ vulan· hapit· 
+<abbr>mā</abbr> 
+<num value="1">1</num> 
+<abbr>ku</abbr> 
+<num value="2">2</num> sampunnikaṁ vimagga gahan· kilalān· saṁ tali Ina
+<unclear>s</unclear>əAn· saṁ partaya haji pasək·-pasək· mas· 
+<abbr>su</abbr> 
+<num value="1">1</num> 
+<abbr>mā</abbr> 
+<num value="4">4</num> vḍihan· 
+<abbr>yu </abbr>
+<num value="1">1</num> ken· vlaḥ 
+<num value="1">1</num>  c
+<unclear>i</unclear>tralekha vineḥ 
+<abbr>mā</abbr> 
+<num value="1">1</num> maveḥha saṁ manīma manaḍaha 
+<lb n="8" />I saṁ vahuta patiḥ mva
+<supplied reason="omitted">ṁ</supplied> rāmanta sa
+<supplied reason="omitted">ṁ</supplied> mas
+<unclear>k</unclear>ar· vannvaA kalimusan·, turun· vineḥ 
+<abbr>māsu</abbr> 
+<num value="1">1</num> 
+<abbr>mā</abbr> 
+<num value="4">4</num> vḍihan· 
+<abbr>yu</abbr> 
+<num value="1">1</num> ken· vləḥ 
+<supplied reason="omitted">1</supplied>  kalimusan· lampuran· saṁ dakṣā saṁ 
+<unclear>laḥ</unclear> vi
+<unclear>neḥ</unclear> 
+<abbr>
+  <unclear>mā</unclear>
+</abbr> 
+<num value="4">
+  <unclear>4</unclear>
+</num> vḍihan· 
+<abbr>yu</abbr> 
+<num value="1">1</num> sovaṁ-sovaṁ maṁhiliri saṁ pa
+<unclear>bḍan</unclear>· vineḥ 
+<abbr>māsu</abbr> 
+<num value="1">1</num> 
+<abbr>ma</abbr> 
+<num value="4">4</num> vḍihan· 
+<abbr>yu</abbr> 
+<num value="1">1</num> ken· vləḥ 
+<num value="1">1</num> 
+<lb n="9" />maṁhiliri lampuran· saṁ lekan· saṁ halaran· vineḥ 
+<abbr>mā</abbr> 
+<num value="1">1</num> vḍihan· 
+<abbr>yu</abbr> 
+<num value="1">1</num> sovaṁ-sovaṁ  citagakarājaṅga saṁ manimākan· pasak·-pasak· saṁṅ abihāra mas· 
+<num value="1">1</num> vḍihan· 
+<abbr>yu </abbr>
+<num value="1">1</num> saṁ candra 
+<abbr>mā</abbr> 
+<num value="4">
+  <unclear>4</unclear>
+</num> vḍihan· 
+<abbr>yu</abbr> 
+<num value="1">
+  <unclear>1</unclear>
+</num>  saṁ piḍahan· 
+<abbr>mā</abbr> 
+<num value="1">1</num> vḍihan· 
+<abbr>yu</abbr> 
+<num value="1">1</num> saṁ pañceṅan· 
+<abbr>mā</abbr> 
+<num value="1">1</num> vḍihan· 
+<abbr>yu</abbr> 
+<num value="1">1</num> saṁ R̥mvaṁ 
+<lb n="10" />
+<abbr>mā</abbr> 
+<num value="1">1</num> vḍīhan· 
+<abbr>yu</abbr> 
+<num value="1">1</num>  kalaṁ saṁ sirikan· 
+<abbr>mā</abbr> 
+<num value="4">4</num> vḍihan· 
+<abbr>yu </abbr>
+<num value="1">1</num>  vinəkas· saṁ kaR̥ṅan· 
+<abbr>mā</abbr> 
+<num value="4">4</num> vḍīhan· 
+<abbr>yu</abbr> 
+<num value="1">1</num>  gusti kaki malaṁ kalima saṁ paṅadvaAn· saṁ 
+<unclear>va</unclear>hud· kaki vavuṅaḥ hulu 
+<unclear>pa</unclear>kān· saṁ 
+<unclear>t</unclear>ali vineḥ 
+<abbr>
+<unclear>m</unclear>ā</abbr> 
+<num value="1">1</num>
 </p>
-      </div>
-      <!--<div type="apparatus">
-           <!-\-apparatus encoded as per EG §9.1, basic elements for apparatus below-\->
-               <listApp><!-\- one <app> for each apparatus entry -\->
-                  <app loc="1">
-                      </app>
-               </listApp>         
-         </div>-->
-      <div resp="part:argr" type="translation">
-        <!--translation encoded as per EG §9.2 -->
-        <p/>
-      </div>
-      <div type="commentary">
-        <!--commentary encoded as per section §9.3 -->
-        <p/>
-      </div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <p/>
-        <listBibl type="secondary">
-          <bibl/>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+         </div>
+                  
+<div type="translation" resp="part:argr">
+                     
+<p />
+         </div>
+         
+<div type="commentary">
+                 
+<p />
+         </div>
+        
+<div type="bibliography">
+                    
+<p />
+             
+<listBibl type="secondary">
+             
+<bibl />
+           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

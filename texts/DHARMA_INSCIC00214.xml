@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -35,11 +41,7 @@
         <idno type="filename">DHARMA_INSCIC00214</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-                        Licence. To view a copy of the licence, visit
-                        https://creativecommons.org/licenses/by/4.0/ or send a letter to
-                        Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-                        California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Arlo Griffiths and Salomé Pichon.</p>
           </licence>
         </availability>
@@ -52,8 +54,8 @@
             <editor>Arlo Griffiths</editor>
           </titleStmt>
           <editionStmt>
-            <p>First digital edition made by École française d'Extrême-Orient (EFEO), realized in collaboration with the Institute for the Study of the Ancient World (ISAW) at New York University as <ref target="https://isaw.nyu.edu/publications/inscriptions/campa/index.html">The Corpus of the Inscriptions of Campā, in 2010-2012.</ref>
-                  </p>
+            <p>First digital edition made by École française d'Extrême-Orient (EFEO), realized in collaboration with the Institute for the Study of the Ancient World (ISAW) at New York University as 
+            <ref target="https://isaw.nyu.edu/publications/inscriptions/campa/index.html">The Corpus of the Inscriptions of Campā, in 2010-2012.</ref></p>
           </editionStmt>
           <publicationStmt>
             <authority>École française d'Extrême-Orient (EFEO)</authority>
@@ -61,11 +63,7 @@
             <availability>
               <licence target="http://creativecommons.org/licenses/by/3.0/">
                 <p>Copyright (c) 2012 by Arlo Griffiths.</p>
-                <p>This work is licensed under the Creative Commons Attribution 3.0 Unported
-                     License. To view a copy of this license, visit
-                     http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative
-                     Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041,
-                     USA.</p>
+                <p>This work is licensed under the Creative Commons Attribution 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
               </licence>
             </availability>
           </publicationStmt>
@@ -73,17 +71,17 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
             <altIdentifier type="campa">
               <idno>C. 214</idno>
             </altIdentifier>
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -93,124 +91,178 @@
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-09-14" who="part:axja">Campa file transformed to follow the DHARMA encoding structure. Metadata extracted to be checked and updated according DHARMA workflow. Done through XSLT.</change>
+      <change when="2020-09-14" who="part:axja" status="draft">Campa file transformed to follow the DHARMA encoding structure. Metadata extracted to be checked and updated according DHARMA workflow. Done through XSLT.</change>
     </revisionDesc>
   </teiHeader>
   <facsimile>
     <graphic url="C0214_1_DBH_2005.jpg">
-      <desc>Photograph of the front of the sculptural stela whose back bears inscription <ptr/>. Taken by Đinh Bá Hòa on . Reproduced by permission.</desc>
+      <desc>Photograph of the front of the sculptural stela whose back bears inscription 
+      <ptr />. Taken by Đinh Bá Hòa on . Reproduced by permission.</desc>
     </graphic>
     <graphic url="C0214_2_DBH_2005.jpg">
-      <desc>Photograph of inscription <ptr/>. Taken by Đinh Bá Hòa on . Reproduced by permission.</desc>
+      <desc>Photograph of inscription 
+      <ptr />. Taken by Đinh Bá Hòa on . Reproduced by permission.</desc>
     </graphic>
     <graphic url="EFEOB-est.n2069.jpg">
       <desc>Photograph of EFEO estampage n. 2069.</desc>
     </graphic>
   </facsimile>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83233 maturity:00000" type="edition" xml:lang="x-oldcam-Latn">
-        <ab>
+<body>
+  <div type="edition" xml:lang="x-oldcam-Latn" rendition="class:83233 maturity:00000">
+               
+  <ab>
+    <unclear>om̐</unclear>
+  </ab>
+                  
+  <ab>
+  <lb n="1" /> 
+  <gap reason="lost" extent="unknown" unit="character" />pu pa
+  <gap reason="lost" extent="unknown" unit="character" />
+  <lb n="2" /> 
+  <gap reason="lost" extent="unknown" unit="character" />
+  <supplied reason="lost">p</supplied>u pom̃ tana rayā ya dr̥
+  <supplied reason="lost">m̃</supplied>
+  <gap reason="lost" extent="unknown" unit="character" />
+  <lb n="3" /> 
+  <gap reason="lost" extent="unknown" unit="character" />
+  <choice>
+    <unclear>na</unclear>
+    <unclear>n·</unclear>
+  </choice> dadam̃n· varṇna urām̃ aviḥ
+  <lb n="4" /> 
+  <supplied reason="lost">
+    <g>|</g>
+  </supplied> svasti 
+  <g>|</g> yām̃ pom̃ ku śrī vr̥ṣu viṣṇujātti vīrabhadrava
+  <supplied reason="lost">rm</supplied>
+  <unclear>m</unclear>
+  <supplied reason="lost">ade</supplied>
+  <lb break="no" n="5" />va 
+  <g>|</g> br̥ṣuvaṅṣa ādi pūra ṅgauk· glaum̃ vijaya 
+  <g>|</g> prathamāviśeka
+  <lb n="6" /> di śaka eka-loka-naya-rāma tam̃l· śaka rāja-aggi-vānu-ca
+  <lb break="no" n="7" />kṣu pu pom̃ ku kā rijan· dhvajakalpa paṇcākṣara klāḥ di pancedri
+  <lb break="no" n="8" />ya klāḥ di paṇcatāppa ṅan· rijan· śattayañña paṇcamakutta
+  <lb n="9" /> pu pom̃ ku kā imyam̃ mvoḥ vākya yām̃ pom̃ ku śrījayasiṅghavarmma
+  <lb break="no" n="10" />deva mayvā di rāja dudim̃ pu pom̃ ku kā mapunaḥ vumvom̃ pavvak· anva
+  <lb break="no" n="11" />k
+  <unclear>·</unclear> vrim̃ adhyā vuḥ 
+  <gap reason="lost" extent="unknown" unit="character" /> vuḥ 
+  <unclear>ha°i</unclear>n· humā 
+  <gap reason="lost" extent="unknown" unit="character" />
+  <lb n="12" />
+  <unclear>m</unclear>ram̃k· yām̃ nī 
+  <g>||</g>  
+                  </ab>
+              </div>
+  <div type="apparatus">
+    <listApp>
+      <app loc="0">
+        <lem>
           <unclear>om̐</unclear>
-        </ab>
-        <ab>
-<lb n="1"/> <gap extent="unknown" reason="lost" unit="character"/>pu pa<gap extent="unknown" reason="lost" unit="character"/>
-<lb n="2"/> <gap extent="unknown" reason="lost" unit="character"/><supplied reason="lost">p</supplied>u pom̃ tana rayā ya dr̥<supplied reason="lost">m̃</supplied><gap extent="unknown" reason="lost" unit="character"/>
-<lb n="3"/> <gap extent="unknown" reason="lost" unit="character"/><choice>
-            <unclear>na</unclear>
-            <unclear>n·</unclear>
-          </choice> dadam̃n· varṇna urām̃ aviḥ
-<lb n="4"/> <supplied reason="lost">
-            <g>|</g>
-          </supplied> svasti <g>|</g> yām̃ pom̃ ku śrī vr̥ṣu viṣṇujātti vīrabhadrava<supplied reason="lost">rm</supplied><unclear>m</unclear><supplied reason="lost">ade</supplied>
-<lb break="no" n="5"/>va <g>|</g> br̥ṣuvaṅṣa ādi pūra ṅgauk· glaum̃ vijaya <g>|</g> prathamāviśeka
-<lb n="6"/> di śaka eka-loka-naya-rāma tam̃l· śaka rāja-aggi-vānu-ca
-<lb break="no" n="7"/>kṣu pu pom̃ ku kā rijan· dhvajakalpa paṇcākṣara klāḥ di pancedri
-<lb break="no" n="8"/>ya klāḥ di paṇcatāppa ṅan· rijan· śattayañña paṇcamakutta
-<lb n="9"/> pu pom̃ ku kā imyam̃ mvoḥ vākya yām̃ pom̃ ku śrījayasiṅghavarmma
-<lb break="no" n="10"/>deva mayvā di rāja dudim̃ pu pom̃ ku kā mapunaḥ vumvom̃ pavvak· anva
-<lb break="no" n="11"/>k<unclear>·</unclear> vrim̃ adhyā vuḥ <gap extent="unknown" reason="lost" unit="character"/> vuḥ <unclear>ha°i</unclear>n· humā <gap extent="unknown" reason="lost" unit="character"/>
-<lb n="12"/><unclear>m</unclear>ram̃k· yām̃ nī <g>||</g>  
-                </ab>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="0">
-            <lem>
-              <unclear>om̐</unclear>
-            </lem>
-            <note>the trace of a sign above line 1 is likely to have been the descending part of this invocation.</note>
-          </app>
-          <app loc="4">
-            <lem>
-              <supplied reason="lost">|</supplied>
-            </lem>
-            <note>space does not seem sufficient for a more substantial liminal sign, and comparison with the lay-out of <ref target="DHARMA_INSCIC00128.xml">C. 128</ref> suggests that only a <foreign>daṇḍa</foreign> originally preceded <foreign>svasti</foreign> here.</note>
-          </app>
-          <app loc="5">
-            <lem>pūraṅgauk· glaum̃ vijaya</lem>
-            <note>cf. <ref target="DHARMA_INSCIC00043.xml">C. 43</ref>, face A, l. 3 <foreign>pūra ṅauk glaum̃ vijaya</foreign>.</note>
-          </app>
-          <app loc="5">
-            <lem>prathamāviśeka</lem>
-            <note>understand <foreign>prathamābhiṣeka</foreign> (cf. <ref target="DHARMA_INSCIC00043.xml">C. 43</ref>, face A, l. 1-2 for the same spelling). Or <foreign>pratimābhiṣeka</foreign> (cf <ref target="DHARMA_INSCIC00042.xml">C. 42</ref>, l. 11)?</note>
-          </app>
-          <app loc="6">
-            <lem>aggi</lem>
-            <note>understand <foreign>agni</foreign>.</note>
-          </app>
-          <app loc="7-8">
-            <lem>pancedriya</lem>
-            <note>I suppose that we must understand <foreign>pañcendriya</foreign>.</note>
-          </app>
-          <app loc="10">
-            <lem>kā mapunaḥ</lem>
-            <note>or analyze <foreign>kāma punaḥ</foreign>? Cf. <ref target="DHARMA_INSCIC00043.xml">C. 43</ref>, face A, l. 15 <foreign>kā ma°udyāna</foreign> (or <foreign>kāma udyāna</foreign>?).</note>
-          </app>
-          <app loc="11">
-            <note>A few more akṣaras could probably be recovered here from the M. Guimet estampage.</note>
-          </app>
-        </listApp>
-      </div>
-      <div type="translation">
-        <p> ... P.P.T.R. has assumed kingship ... various classes of all men.</p>
-        <p>Hail! His majesty Śrī Vr̥ṣu Viṣṇujāti Vīrabhadravarmadeva, [whose name] begins with Vr̥ṣuvaṁśa, [who hails from] the capital of Ṅauk Glauṅ Vijaya, who had his first royal consecration in Śaka one, (three) worlds, (four) policies, (three) Rāmas, (one) king (i.e. in 1343 Śaka): it came to pass (<foreign>tam̃l</foreign>) in Śaka (one) king, (three) fires, <seg type="check">(five) arrows</seg>, (two) eyes (i.e. in 1352 Śaka) that milord performed a banner-ritual (?, <foreign>dhvajakalpa</foreign>) of the five-syllable (mantra) without the five senses, without the five penances and he performed a hundredfold-offering of five crowns. Milord then saw and realized (?, <foreign>imyam̃ mvoḥ</foreign>) the instruction (?, <foreign>vākya</foreign>) of his majesty Śrī Jayasiṁhavarmadeva to give protection to future kings. Milord then restored the sanctuary, <foreign>pavvak</foreign> an <foreign>anvak</foreign>, gave <foreign>
-            <seg type="check">adhyā</seg>
-          </foreign>, offered ... this god.</p>
-      </div>
-      <div type="commentary">
-        <p>With lines 4-5, cf. <ref target="DHARMA_INSCIC00057.xml">C. 57</ref> l. 1-2: <foreign>śrī vr̥ṣuvaṅśa viṣṇujātti vīrabhadravarmmadeva pu pom̃ ku ya ādināmma</foreign>. In l. 9-10, it seems attractive to understand the sentence in the sense 'instruction to future kings to give protection'. On the expression <foreign>pavvak anvak</foreign>, which must denote some action with regard to some kind of strcuture, see <bibl>
-            <ptr target="bib:Griffiths+al2012_01"/>
-            <seg type="check">???</seg>
-          </bibl>, on <ref target="DHARMA_INSCIC00043.xml">C. 43</ref>, face B, l. 3-4.</p>
-      </div>
-      <div type="bibliography">
-        <p>Previously unpublished.</p>
-        <listBibl type="primary">
-          <bibl/>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="ECIC-III">
-            <ptr target="bib:Griffiths+al2008-2009_01"/>
-            <citedRange unit="page">486</citedRange>
-          </bibl>
-          <bibl n="CatDaNang">
-            <ptr target="bib:Griffiths+al2012_01"/>
-            <seg type="check">???</seg>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+        </lem>
+        <note>the trace of a sign above line 1 is likely to have been the descending part of this invocation.</note>
+      </app>
+      <app loc="4">
+        <lem>
+          <supplied reason="lost">|</supplied>
+        </lem>
+        <note>space does not seem sufficient for a more substantial liminal sign, and comparison with the lay-out of 
+        <ref target="DHARMA_INSCIC00128.xml">C. 128</ref> suggests that only a 
+        <foreign>daṇḍa</foreign> originally preceded 
+        <foreign>svasti</foreign> here.</note>
+      </app>
+      <app loc="5">
+        <lem>pūraṅgauk· glaum̃ vijaya</lem>
+        <note>cf. 
+        <ref target="DHARMA_INSCIC00043.xml">C. 43</ref>, face A, l. 3 
+        <foreign>pūra ṅauk glaum̃ vijaya</foreign>.</note>
+      </app>
+      <app loc="5">
+        <lem>prathamāviśeka</lem>
+        <note>understand 
+        <foreign>prathamābhiṣeka</foreign> (cf. 
+        <ref target="DHARMA_INSCIC00043.xml">C. 43</ref>, face A, l. 1-2 for the same spelling). Or 
+        <foreign>pratimābhiṣeka</foreign> (cf 
+        <ref target="DHARMA_INSCIC00042.xml">C. 42</ref>, l. 11)?</note>
+      </app>
+      <app loc="6">
+        <lem>aggi</lem>
+        <note>understand 
+        <foreign>agni</foreign>.</note>
+      </app>
+      <app loc="7-8">
+        <lem>pancedriya</lem>
+        <note>I suppose that we must understand 
+        <foreign>pañcendriya</foreign>.</note>
+      </app>
+      <app loc="10">
+        <lem>kā mapunaḥ</lem>
+        <note>or analyze 
+        <foreign>kāma punaḥ</foreign>? Cf. 
+        <ref target="DHARMA_INSCIC00043.xml">C. 43</ref>, face A, l. 15 
+        <foreign>kā ma°udyāna</foreign> (or 
+        <foreign>kāma udyāna</foreign>?).</note>
+      </app>
+      <app loc="11">
+        <note>A few more akṣaras could probably be recovered here from the M. Guimet estampage.</note>
+      </app>
+    </listApp>
+  </div>
+  <div type="translation">
+    <p> ... P.P.T.R. has assumed kingship ... various classes of all men.</p>
+    <p>Hail! His majesty Śrī Vr̥ṣu Viṣṇujāti Vīrabhadravarmadeva, [whose name] begins with Vr̥ṣuvaṁśa, [who hails from] the capital of Ṅauk Glauṅ Vijaya, who had his first royal consecration in Śaka one, (three) worlds, (four) policies, (three) Rāmas, (one) king (i.e. in 1343 Śaka): it came to pass (
+    <foreign>tam̃l</foreign>) in Śaka (one) king, (three) fires, 
+    <seg type="check">(five) arrows</seg>, (two) eyes (i.e. in 1352 Śaka) that milord performed a banner-ritual (?, 
+    <foreign>dhvajakalpa</foreign>) of the five-syllable (mantra) without the five senses, without the five penances and he performed a hundredfold-offering of five crowns. Milord then saw and realized (?, 
+    <foreign>imyam̃ mvoḥ</foreign>) the instruction (?, 
+    <foreign>vākya</foreign>) of his majesty Śrī Jayasiṁhavarmadeva to give protection to future kings. Milord then restored the sanctuary, 
+    <foreign>pavvak</foreign> an 
+    <foreign>anvak</foreign>, gave 
+    <foreign>
+      <seg type="check">adhyā</seg>
+    </foreign>, offered ... this god.</p>
+  </div>
+  <div type="commentary">
+    <p>With lines 4-5, cf. 
+    <ref target="DHARMA_INSCIC00057.xml">C. 57</ref> l. 1-2: 
+    <foreign>śrī vr̥ṣuvaṅśa viṣṇujātti vīrabhadravarmmadeva pu pom̃ ku ya ādināmma</foreign>. In l. 9-10, it seems attractive to understand the sentence in the sense 'instruction to future kings to give protection'. On the expression 
+    <foreign>pavvak anvak</foreign>, which must denote some action with regard to some kind of strcuture, see 
+    <bibl>
+      <ptr target="bib:Griffiths+al2012_01" />
+      <seg type="check">???</seg>
+    </bibl>, on 
+    <ref target="DHARMA_INSCIC00043.xml">C. 43</ref>, face B, l. 3-4.</p>
+  </div>
+  <div type="bibliography">
+    <p>Previously unpublished.</p>
+    <listBibl type="primary">
+      <bibl />
+    </listBibl>
+    <listBibl type="secondary">
+      <bibl n="ECIC-III">
+        <ptr target="bib:Griffiths+al2008-2009_01" />
+        <citedRange unit="page">486</citedRange>
+      </bibl>
+      <bibl n="CatDaNang">
+        <ptr target="bib:Griffiths+al2012_01" />
+        <seg type="check">???</seg>
+      </bibl>
+    </listBibl>
+  </div>
+</body>
+</text>
 </TEI>

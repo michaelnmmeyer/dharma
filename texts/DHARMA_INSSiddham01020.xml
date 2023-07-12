@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -19,18 +25,13 @@
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <persName><!-- 
-The original editor(s). 
---></persName>
+          <persName></persName>
         </respStmt>
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham01020</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -43,14 +44,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -58,188 +59,277 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <!-- 
-Comments below by Csaba Kiss and Dániel Balogh (BD) are offered "as is" and do not represent a thoroughly researched or considered opinion. 
--->
-        <div n="A" type="textpart">
-          <head xml:lang="eng">Seal</head>
-          <lg met="anuṣṭubh" n="1">
-            <lb n="1"/>
-            <l enjamb="yes" n="a">prasa<unclear>nnārṇṇa</unclear>va-sambhū<unclear>ta</unclear></l>
-            <l n="b">-mā<unclear>na</unclear>-mātrendu-janmana<supplied reason="omitted">ḥ
-								</supplied></l>
-            <lb n="2"/>
-            <l n="c">śrīmat <supplied evidence="parallel" reason="lost">sudevarājasya</supplied></l>
-            <l n="d"><supplied evidence="parallel" reason="lost">sthiraṁ jagati</supplied><unclear>śā</unclear>sana<choice>
-                <sic>ṁ</sic>
-                <corr>M</corr>
-              </choice></l>
-          </lg>
-        </div>
-        <div n="B" type="textpart">
-          <head xml:lang="eng">Plates</head>
-          <p><pb n="1v"/><g type="mangala"/> svasti<supplied reason="subaudible">.</supplied>
-<lb n="1"/>śarabhapurād vikkramopanata-sāmanta-makuṭa-cūḍā-maṇi-prabhā-pra<lb break="no" n="2"/>sekāmbu-dhauta-pāda-yugalo ripu-vilāsinī-sīmantoddharaṇa-hetu<lb break="no" n="3"/>r vvasu-vasudhā-go-pradaḫ pa<subst>
-              <del rend="corrected">
-                <unclear>ma</unclear>
-              </del>
-              <add place="overstrike">ra</add>
-            </subst>ma-bhāgavato mātā-pitr̥-pādānudhyāta<lb break="no" n="4"/>ś śrī-mahā-sudevarājaḥ tosa<unclear>ḍḍ</unclear>ḍa-bhuktīya-śiviliṅgake prativāsi<!-- 
-L4."The subscript r appears like the sign of medial r̥" in śrī 
---><!-- 
-L4. Pandeya reads tosadḍa, emending to tosadda. I (D. Balogh) think it is unlikely anyone would have engraved a dḍ ligature, so this must have been intended for ḍḍ even if the upper component looks more like d. 
---><lb break="no" n="5"/>-kuṭumbinas samājñāpayati| viditam astu vo yathāyaṁ grāma<!-- 
-L5. daṇḍa after samājñāpayati is two dots. 
---><pb break="no" n="2r"/><lb break="no" n="6"/>s t<choice>
-              <sic>r̥</sic>
-              <corr>ri</corr>
-            </choice>daśapati-sadana-sukha-pratiṣṭhā<supplied reason="omitted">ka</supplied>ro yāvad
-ravi-śaśi-tārā-kiraṇa-prati<lb break="no" n="7"/>hata-ghorāndha-kā<add place="below" rend="mark">ra</add>ṁ jagad avatiṣṭhate tāvad upabhogyas sa-nidhis sopanidhi<!-- 
-L7. The ra of ghorāndhakāraṁ is added below the ja of jagad. There is a kākapada mark next to this ra. Pandeya says there is another kākapada over ja to show the locus of insertion. In the rubbing the thing over ja looks like the anusvāra meant to go with raṁ; Pandeya says this anusvāra is over kā, where it is not discernible in the facsimile. In any case, the intended correction is unequivocal. 
---><lb break="no" n="8"/>r acāṭa-bha<add place="below">ṭa</add>-prāveśyas sarvva-kara-visarjjita<surplus>
-              <unclear>ḥ</unclear>
-            </surplus>ḫ pratihāra-bhogillena mātā<!-- 
-D. Balogh: The ṭa of bhaṭa is inserted below the line, but also below the hole. The hole also obliterates a little bit of bha. Is it possible that the hole was made after engraving the text, obliterating an inline ṭa, which was then re-engraved below the hole? This seems unlikely. The other possibility I can think of is that bhaṭa had been omitted entirely at first (eyeskip), and was added later, squeezing bha in before the hole and ṭa underneath it. 
---><lb break="no" n="9"/>-pitror ātmanaś ca puṇyābhivr̥ddhaye kātyāyana-sagotra-mādhyandina-vāja<lb break="no" n="10"/>saneya-yajña-svāmin<choice>
-              <sic>aḥ</sic>
-              <corr>e</corr>
-            </choice> adhyarddhā<choice>
-              <sic>ṅ</sic>
-              <corr>ṁ</corr>
-            </choice>śena bhāradvāja-kumāravatsa-Ātre<!-- 
-D. Balogh: Pandeya reads °āṅśana, emending to °āṁśena. The plate clearly has ṅśe. 
---><pb break="no" n="2v"/><lb break="no" n="11"/>ya-kāṇva-vājasaneya-yajñasvāmin<choice>
-              <sic>a</sic>
-              <corr>au</corr>
-            </choice> pratya<choice>
-              <sic>ṅ</sic>
-              <corr>ṁ</corr>
-            </choice>śena kātyāyana-viśā<unclear>kha</unclear><!-- 
-D. Balogh: retaining Pandeya's emendations here. But if he emends to svāmine in l10, I think he should emend to svāmibhyām, not svāminau in l11, and to °āyanikebhyaḥ in l13 (or to °āyanikābhyāṁ, if he takes just the two Bhāradvājas as a compound). My preference would be to retain the inscription's own reading without emendations, and not to try to see the list as a complex compound but accept that it's a list in substandard grammar, where some items have a case ending and others do not. 
---><lb break="no" n="12"/>svāmi-kauśika-m<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>dhyandina-golasvāmi Evaṁ dāmodarasvāmi dāmasvāmi
-<lb n="13"/>bhāradvāja-pañcālisvāmi-dīkṣitāyanīkā<supplied reason="omitted">n</supplied> pratyarddhā<choice>
-              <sic>ṅ</sic>
-              <corr>ṁ</corr>
-            </choice>śena tām<surplus>b</surplus>ra-sāśa<lb break="no" n="14"/>nenātisr̥ṣṭo bhūtvāsmābhir anumodit<choice>
-              <sic>i</sic>
-              <corr>a</corr>
-            </choice>ḥ<supplied reason="subaudible">.</supplied> te yūyam evam upalabhyaiṣā<lb break="no" n="15"/>m ājñā-śravaṇa-vidheyā bhūtvā yathocitaṁ bhoga-bhāgam upanayantas sukhaṁ
-<lb n="16"/>prativatsyatha<supplied reason="subaudible">.</supplied> bhaviśyataś ca bhūmipān anudarśayati</p>
-          <lg met="vasantatilakā" n="1">
-            <l n="a">dānād viśiṣṭa<pb break="no" n="3r"/><lb break="no" n="17"/>m anupālanaja<supplied reason="omitted">ṁ</supplied> purāṇā|</l>
-            <!-- 
-v1a there are two small horizontal strokes after viśiṣṭa. 
--->
-            <l n="b">dharmmeṣu niścita-dhiyaḫ pravadanti dharmma<choice>
-                <sic>ṁ</sic>
-                <corr>M</corr>
-              </choice>||</l>
-            <l n="c">tasmā<supplied reason="omitted">d</supplied> dvi<lb break="no" n="18"/>jāya suviśuddha-kula-śrutāya|</l>
-            <l n="d">dattāṁ bhuvaṁ bhavatu vo matir eva gopt<unclear>u</unclear><supplied reason="omitted">M</supplied>||</l>
-            <!-- 
-D. Balogh: Pandeya prints goptam (with a clear gopta and an unclear m) but offers no emendation so pta must be a typo. The u, if it is there, is unclear. I see no trace of a halanta M in the rubbing, nor think one is likely in the orthographic style of the inscription, so I assume Pandeya had meant to print a supplied, rather than unclear, final m. (There may, however, be an original anusvāra in the noise above the character.) 
--->
-          </lg>
-          <p>tad bhavadbhir apy eṣā dat<supplied reason="omitted">t</supplied>ir anupālayitavyā<supplied reason="subaudible">.</supplied> vyāsa-gītā<supplied reason="omitted">ṁ</supplied>ś cātra ślokān u<lb break="no" n="20"/>dāharanti</p>
-          <lg met="indravajrā" n="2">
-            <l n="a">agner apatya<supplied reason="omitted">ṁ</supplied> prathamaṁ suvarṇṇaṁ||</l>
-            <l n="b">bhūr vvaiṣṇavī sūryya-su<lb break="no" n="21"/>tāś ca gāva<supplied reason="omitted">ḥ</supplied></l>
-            <l n="c">dattās trayas tena bhava<surplus>ṁ</surplus>nti lokā</l>
-            <l n="d">yaẖ kāñcanaṁ gāṁ ca mahī<supplied reason="omitted">ṁ</supplied> ca dadyāt||</l>
-          </lg>
-          <lg met="anuṣṭubh" n="3">
-            <l n="a">ṣaṣṭiṁ varṣa-sahasrāṇi</l>
-            <l n="b">svargge modati bhūmida<supplied reason="omitted">ḥ</supplied></l>
-            <l n="c">ācchettā cānuma<surplus>ṁ</surplus>ntā ca</l>
-            <l n="d">tā<pb break="no" n="3r"/><lb break="no" n="23"/>ny eva narake vase<supplied reason="omitted">T</supplied></l>
-          </lg>
-          <lg met="anuṣṭubh" n="4">
-            <l n="a">bahubhir vvasudhā dat<supplied reason="omitted">t</supplied>ā</l>
-            <l n="b">rājabhis sagarādibhi<supplied reason="omitted">ḥ</supplied></l>
-            <l n="c"><lb n="24"/>yasya yasya yadā bhūmi<supplied reason="omitted">s</supplied></l>
-            <l n="d">tasya tasya tadā phala<choice>
-                <sic>ṁ</sic>
-                <corr>M</corr>
-              </choice>||</l>
-          </lg>
-          <lg met="anuṣṭubh" n="5">
-            <l n="a">sva-da<choice>
-                <sic>n</sic>
-                <corr>t</corr>
-              </choice>tāṁ para-da<choice>
-                <sic>n</sic>
-                <corr>t</corr>
-              </choice>tāṁ vā</l>
-            <l n="b">yatnā<lb break="no" n="25"/>d rakṣa yudhiṣṭhira</l>
-            <l n="c">mahīm mahimatāñ chreṣṭha</l>
-            <l n="d"><add place="below" rend="mark">dānā</add>c chreyo <supplied reason="subaudible">’</supplied>nupālanam</l>
-          </lg>
-          <p>iti<supplied reason="subaudible">.</supplied> sva-mu<pb n="3v"/><lb break="no" n="26"/><unclear>khā</unclear><choice>
-              <sic>
-                <unclear>gn</unclear>
-              </sic>
-              <corr>jñ</corr>
-            </choice><unclear>ayā</unclear> saṁ<surplus>v</surplus>va<supplied reason="omitted">T</supplied> <num value="7">7</num> vaiśākha di <num value="29"><g type="numeral">20</g> 9</num> U<choice>
-              <sic>kt</sic>
-              <corr>tk</corr>
-            </choice>īrṇṇaṁ droṇa<unclear>siṅghe</unclear>na||<!-- 
-D. Balogh: Pandeya prints khāgnayā as clear. Nothing of khāgna, and only traces of yā, are visible in the rubbing. I've added unclear markup and I don't believe gna is likely. 
---><!-- 
-L26. For the year, Pandeya reads 8, but his editor N. P. Chakravarti suggests 7 instead, and Shastri concurs with the latter. The numeral is definitely ambiguous; in reference tables I (DB) have access to, it resembles a 7 more than an 8 of this period. However, it resembles an earlier (Kuṣāṇa and Āndhra) 8 even more closely. 
---></p>
-        </div>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<div type="textpart" n="A">
+<head xml:lang="eng">Seal</head>
+<lg n="1" met="anuṣṭubh">
+<lb n="1" />
+<l n="a" enjamb="yes">prasa
+<unclear>nnārṇṇa</unclear>va-sambhū
+<unclear>ta</unclear></l>
+<l n="b">-mā
+<unclear>na</unclear>-mātrendu-janmana
+<supplied reason="omitted">ḥ
+                                                                </supplied></l>
+
+
+<lb n="2" />
+<l n="c">śrīmat 
+<supplied reason="lost" evidence="parallel">sudevarājasya</supplied></l>
+<l n="d">
+<supplied reason="lost" evidence="parallel">sthiraṁ jagati</supplied>
+<unclear>śā</unclear>sana
+<choice>
+  <sic>ṁ</sic>
+  <corr>M</corr>
+</choice></l>
+</lg>
+                                </div>
+                                
+<div type="textpart" n="B">
+<head xml:lang="eng">Plates</head>
+<p>
+<pb n="1v" />
+<g type="mangala" /> svasti
+<supplied reason="subaudible">.</supplied>
+<lb n="1" />śarabhapurād vikkramopanata-sāmanta-makuṭa-cūḍā-maṇi-prabhā-pra
+<lb n="2" break="no" />sekāmbu-dhauta-pāda-yugalo ripu-vilāsinī-sīmantoddharaṇa-hetu
+<lb n="3" break="no" />r vvasu-vasudhā-go-pradaḫ pa
+<subst>
+  <del rend="corrected">
+    <unclear>ma</unclear>
+  </del>
+  <add place="overstrike">ra</add>
+</subst>ma-bhāgavato mātā-pitr̥-pādānudhyāta
+<lb n="4" break="no" />ś śrī-mahā-sudevarājaḥ tosa
+<unclear>ḍḍ</unclear>ḍa-bhuktīya-śiviliṅgake prativāsi
+<lb n="5" break="no" />-kuṭumbinas samājñāpayati| viditam astu vo yathāyaṁ grāma
+<pb n="2r" break="no" />
+<lb n="6" break="no" />s t
+<choice>
+  <sic>r̥</sic>
+  <corr>ri</corr>
+</choice>daśapati-sadana-sukha-pratiṣṭhā
+<supplied reason="omitted">ka</supplied>ro yāvad
+ravi-śaśi-tārā-kiraṇa-prati
+<lb n="7" break="no" />hata-ghorāndha-kā
+<add place="below" rend="mark">ra</add>ṁ jagad avatiṣṭhate tāvad upabhogyas sa-nidhis sopanidhi
+<lb n="8" break="no" />r acāṭa-bha
+<add place="below">ṭa</add>-prāveśyas sarvva-kara-visarjjita
+<surplus>
+  <unclear>ḥ</unclear>
+</surplus>ḫ pratihāra-bhogillena mātā
+<lb n="9" break="no" />-pitror ātmanaś ca puṇyābhivr̥ddhaye kātyāyana-sagotra-mādhyandina-vāja
+<lb n="10" break="no" />saneya-yajña-svāmin
+<choice>
+  <sic>aḥ</sic>
+  <corr>e</corr>
+</choice> adhyarddhā
+<choice>
+  <sic>ṅ</sic>
+  <corr>ṁ</corr>
+</choice>śena bhāradvāja-kumāravatsa-Ātre
+<pb n="2v" break="no" />
+<lb n="11" break="no" />ya-kāṇva-vājasaneya-yajñasvāmin
+<choice>
+  <sic>a</sic>
+  <corr>au</corr>
+</choice> pratya
+<choice>
+  <sic>ṅ</sic>
+  <corr>ṁ</corr>
+</choice>śena kātyāyana-viśā
+<unclear>kha</unclear>
+<lb n="12" break="no" />svāmi-kauśika-m
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>dhyandina-golasvāmi Evaṁ dāmodarasvāmi dāmasvāmi
+<lb n="13" />bhāradvāja-pañcālisvāmi-dīkṣitāyanīkā
+<supplied reason="omitted">n</supplied> pratyarddhā
+<choice>
+  <sic>ṅ</sic>
+  <corr>ṁ</corr>
+</choice>śena tām
+<surplus>b</surplus>ra-sāśa
+<lb n="14" break="no" />nenātisr̥ṣṭo bhūtvāsmābhir anumodit
+<choice>
+  <sic>i</sic>
+  <corr>a</corr>
+</choice>ḥ
+<supplied reason="subaudible">.</supplied> te yūyam evam upalabhyaiṣā
+<lb n="15" break="no" />m ājñā-śravaṇa-vidheyā bhūtvā yathocitaṁ bhoga-bhāgam upanayantas sukhaṁ
+<lb n="16" />prativatsyatha
+<supplied reason="subaudible">.</supplied> bhaviśyataś ca bhūmipān anudarśayati</p>
+<lg n="1" met="vasantatilakā">
+<l n="a">dānād viśiṣṭa
+<pb n="3r" break="no" />
+<lb n="17" break="no" />m anupālanaja
+<supplied reason="omitted">ṁ</supplied> purāṇā|</l>
+<l n="b">dharmmeṣu niścita-dhiyaḫ pravadanti dharmma
+<choice>
+  <sic>ṁ</sic>
+  <corr>M</corr>
+</choice>||</l>
+
+
+<l n="c">tasmā
+<supplied reason="omitted">d</supplied> dvi
+<lb n="18" break="no" />jāya suviśuddha-kula-śrutāya|</l>
+<l n="d">dattāṁ bhuvaṁ bhavatu vo matir eva gopt
+<unclear>u</unclear>
+<supplied reason="omitted">M</supplied>||</l></lg>
+<p>tad bhavadbhir apy eṣā dat
+<supplied reason="omitted">t</supplied>ir anupālayitavyā
+<supplied reason="subaudible">.</supplied> vyāsa-gītā
+<supplied reason="omitted">ṁ</supplied>ś cātra ślokān u
+<lb n="20" break="no" />dāharanti</p>
+<lg n="2" met="indravajrā">
+<l n="a">agner apatya
+<supplied reason="omitted">ṁ</supplied> prathamaṁ suvarṇṇaṁ||</l>
+<l n="b">bhūr vvaiṣṇavī sūryya-su
+<lb n="21" break="no" />tāś ca gāva
+<supplied reason="omitted">ḥ</supplied></l>
+
+
+<l n="c">dattās trayas tena bhava
+<surplus>ṁ</surplus>nti lokā</l>
+<l n="d">yaẖ kāñcanaṁ gāṁ ca mahī
+<supplied reason="omitted">ṁ</supplied> ca dadyāt||</l>
+</lg>
+<lg n="3" met="anuṣṭubh">
+<l n="a">ṣaṣṭiṁ varṣa-sahasrāṇi</l>
+<l n="b">svargge modati bhūmida
+<supplied reason="omitted">ḥ</supplied></l>
+
+
+<l n="c">ācchettā cānuma
+<surplus>ṁ</surplus>ntā ca</l>
+<l n="d">tā
+<pb n="3r" break="no" />
+<lb n="23" break="no" />ny eva narake vase
+<supplied reason="omitted">T</supplied></l>
+</lg>
+<lg n="4" met="anuṣṭubh">
+<l n="a">bahubhir vvasudhā dat
+<supplied reason="omitted">t</supplied>ā</l>
+<l n="b">rājabhis sagarādibhi
+<supplied reason="omitted">ḥ</supplied></l>
+
+
+<l n="c">
+<lb n="24" />yasya yasya yadā bhūmi
+<supplied reason="omitted">s</supplied></l>
+<l n="d">tasya tasya tadā phala
+<choice>
+  <sic>ṁ</sic>
+  <corr>M</corr>
+</choice>||</l>
+</lg>
+<lg n="5" met="anuṣṭubh">
+<l n="a">sva-da
+<choice>
+  <sic>n</sic>
+  <corr>t</corr>
+</choice>tāṁ para-da
+<choice>
+  <sic>n</sic>
+  <corr>t</corr>
+</choice>tāṁ vā</l>
+<l n="b">yatnā
+<lb n="25" break="no" />d rakṣa yudhiṣṭhira</l>
+
+
+<l n="c">mahīm mahimatāñ chreṣṭha</l>
+<l n="d">
+<add place="below" rend="mark">dānā</add>c chreyo 
+<supplied reason="subaudible">’</supplied>nupālanam</l>
+</lg>
+<p>iti
+<supplied reason="subaudible">.</supplied> sva-mu
+<pb n="3v" />
+<lb n="26" break="no" />
+<unclear>khā</unclear>
+<choice>
+  <sic>
+    <unclear>gn</unclear>
+  </sic>
+  <corr>jñ</corr>
+</choice>
+<unclear>ayā</unclear> saṁ
+<surplus>v</surplus>va
+<supplied reason="omitted">T</supplied> 
+<num value="7">7</num> vaiśākha di 
+<num value="29">
+<g type="numeral">20</g> 9</num> U
+<choice>
+  <sic>kt</sic>
+  <corr>tk</corr>
+</choice>īrṇṇaṁ droṇa
+<unclear>siṅghe</unclear>na||</p>
+                                </div>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

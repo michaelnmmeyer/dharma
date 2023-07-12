@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -24,38 +30,24 @@
         <idno type="filename">DHARMA_INSTelugu00095</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-                     Licence. To view a copy of the licence, visit
-                     https://creativecommons.org/licenses/by/4.0/ or send a letter to
-                     Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-                     California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -65,127 +57,207 @@
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-06-08" who="part:jeth">Creation of the file</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:jeth" when="2020-06-08" status="draft">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tel-Latn">
-        <p>
-              <lb n="1"/>svasty anēka-samara-saṁghaṭṭanōpalabdha-vijaya-lakṣmī-samāliṁgita-viśāla-vakṣasthaḷa bhu<lb break="no" n="2"/>vana trinētra śrīmad-vaiduṁba-mahārājulu sa 843-n ēṇṭi Aṣada suddha 7 guruvāraṁbugā bā<lb break="no" n="3"/>kanāṇṭi pottepivīṭa dakṣiṇayanasaṁkrāntinimittamm<unclear>u</unclear>nan aṟtiṟa<unclear>v</unclear>ula <unclear cert="low">santimi</unclear>tra lōkēśvara
-              <lb n="4"/>bha<unclear>ṭā</unclear>ralakuṁ gaḍapa paṇṟeṇṭilōni kāṭiceṟuvulu yicci<unclear>ri</unclear>  dīnikiN va<lb break="no" n="5"/>kkraṁbu vaccinavāru bāraṇaśini śrī pa<supplied reason="lost">r</supplied>vvataṁbunn aḻisinavāru dīniṁ jēkoni kāci
-              <lb n="6"/>kuḍuceḍuvāru maṁjaramuna kucibhaḍā<unclear>r</unclear>lu bhīmarājunakuṁ jāḍavvari<lb break="no" n="7"/>ki dhammavugān icciri Aṇati sirama peggeḍlu dēsarati bhimana vrālu
-              <lb n="8"/><hi rend="large">śrī Abhinuta vāku</hi>
+      
+<body>
+         
+<div type="edition" xml:lang="tel-Latn">
+            
+<p>
+              
+<lb n="1" />svasty anēka-samara-saṁghaṭṭanōpalabdha-vijaya-lakṣmī-samāliṁgita-viśāla-vakṣasthaḷa bhu
+<lb n="2" break="no" />vana trinētra śrīmad-vaiduṁba-mahārājulu sa 843-n ēṇṭi Aṣada suddha 7 guruvāraṁbugā bā
+<lb n="3" break="no" />kanāṇṭi pottepivīṭa dakṣiṇayanasaṁkrāntinimittamm
+<unclear>u</unclear>nan aṟtiṟa
+<unclear>v</unclear>ula 
+<unclear cert="low">santimi</unclear>tra lōkēśvara
+              
+<lb n="4" />bha
+<unclear>ṭā</unclear>ralakuṁ gaḍapa paṇṟeṇṭilōni kāṭiceṟuvulu yicci
+<unclear>ri</unclear>  dīnikiN va
+<lb n="5" break="no" />kkraṁbu vaccinavāru bāraṇaśini śrī pa
+<supplied reason="lost">r</supplied>vvataṁbunn aḻisinavāru dīniṁ jēkoni kāci
+              
+<lb n="6" />kuḍuceḍuvāru maṁjaramuna kucibhaḍā
+<unclear>r</unclear>lu bhīmarājunakuṁ jāḍavvari
+<lb n="7" break="no" />ki dhammavugān icciri Aṇati sirama peggeḍlu dēsarati bhimana vrālu
+              
+<lb n="8" />
+<hi rend="large">śrī Abhinuta vāku</hi>
             </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="2">
-            <lem>843</lem>
-            <rdg source="bib:Desai1949-1950_01">893</rdg>
-          </app>
-          <app loc="s">
-            <lem>Aṣada</lem>
-            <rdg source="bib:Desai1949-1950_01">Aṣa<unclear>ḍha</unclear></rdg>
-          </app>
-          <app loc="2">
-            <lem>guruvāraṁbugā</lem>
-            <rdg source="bib:Desai1949-1950_01">guruvāraṁbugā<unclear>ṁ</unclear></rdg>
-          </app>
-          <app loc="3">
-            <lem>aṟtiṟa<unclear>v</unclear>ula</lem>
-            <rdg source="bib:Desai1949-1950_01">aṟtiṟēvula</rdg>
-          </app>
-          <app loc="3">
-            <lem><unclear cert="low">santimi</unclear>tra</lem>
-            <rdg source="bib:Desai1949-1950_01"><unclear>sannimi</unclear>tra</rdg>
-          </app>
-          <app loc="6">
-            <lem>kucibhaḍā<unclear>r</unclear>lu</lem>
-            <rdg source="bib:Desai1949-1950_01">kucibhaḍālu</rdg>
-          </app>
-          <app loc="6">
-            <lem>jāḍavvari<lb break="no" n="7"/>ki</lem>
-            <rdg source="bib:Desai1949-1950_01">bācavvari<lb break="no" n="7"/>ki</rdg>
-          </app>
-          <app loc="7">
-            <lem>dhammavugān</lem>
-            <rdg source="bib:Desai1949-1950_01">dharmmavugān</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:Sastri1969_01" type="translation">
-        <p>
+         </div>
+         
+<div type="apparatus">
+               
+<listApp>
+                  
+<app loc="2">
+                     
+<lem>843</lem>
+                     
+<rdg source="bib:Desai1949-1950_01">893</rdg>
+                  </app>
+                  
+<app loc="s">
+                     
+<lem>Aṣada</lem>
+                     
+<rdg source="bib:Desai1949-1950_01">Aṣa
+<unclear>ḍha</unclear></rdg>
+                  </app>
+                  
+<app loc="2">
+                     
+<lem>guruvāraṁbugā</lem>
+                     
+<rdg source="bib:Desai1949-1950_01">guruvāraṁbugā
+<unclear>ṁ</unclear></rdg>
+                  </app>
+                  
+<app loc="3">
+                     
+<lem>aṟtiṟa
+<unclear>v</unclear>ula</lem>
+                     
+<rdg source="bib:Desai1949-1950_01">aṟtiṟēvula</rdg>
+                  </app>
+                  
+<app loc="3">
+                     
+<lem>
+<unclear cert="low">santimi</unclear>tra</lem>
+                     
+<rdg source="bib:Desai1949-1950_01">
+<unclear>sannimi</unclear>tra</rdg>
+                  </app>
+                  
+<app loc="6">
+                     
+<lem>kucibhaḍā
+<unclear>r</unclear>lu</lem>
+                     
+<rdg source="bib:Desai1949-1950_01">kucibhaḍālu</rdg>
+                  </app>
+                  
+<app loc="6">
+                     
+<lem>jāḍavvari
+<lb n="7" break="no" />ki</lem>
+                     
+<rdg source="bib:Desai1949-1950_01">bācavvari
+<lb n="7" break="no" />ki</rdg>
+                  </app>
+                  
+<app loc="7">
+                     
+<lem>dhammavugān</lem>
+                     
+<rdg source="bib:Desai1949-1950_01">dharmmavugān</rdg>
+                  </app>
+               </listApp>         
+         </div>
+         
+<div type="translation" source="bib:Sastri1969_01">
+            
+<p>
               Hail! The illustrious Bhuvana Trinētra Vaydumba mahārāja whose breast was embraced  by the Goddess of victory obtained in several conflicts of battles, 
               residing at Pottapi in Pāka nāṁḍu made a gift of the village of Kāṭiceruvulu (situated) in (the tract of) Kaḍapa twelve to the God Sannimitra Lōkēśvara of 
               Aṟitiṟēvulu on account of the dakṣināyana saṁkrānti, on this day, the seventh of the bright fortnight of the month of Āṣāḍha in the year Śaka 893. 
               Kucibhaḍālu (a resident) of Maṁjaramu is to protect and enjoy the charity. The grant is made for the merit of Bhīmarāju and Bācavvaru. Siramana Peggaḍa gave the order. 
-              Dēsarati Bhīmana wrote (this). Praiseworthy speech! <hi rend="italic">(Śrī Abhinuta vāku)</hi>.
+              Dēsarati Bhīmana wrote (this). Praiseworthy speech! 
+<hi rend="italic">(Śrī Abhinuta vāku)</hi>.
             </p>
-      </div>
-      <div resp="part:jeth" type="translation">
-        <p>
-        	   Svasti! Bhuvana Trinētra, the glorious Vaidumba Mahārāja, whose broad bosom is embraced by the goddess of fortune of war whom he took hold of in numerous battle encounters, gave, while it was Thursday, the 7th, (with) the waxing moon of (the month) Āṣāḍha in the 843rd year (according to) Śaka (calculation), 
-        	   forest ponds (<foreign>kāṭiceṟuvulu</foreign>) which are (situated) in "Kaḍapa twelve" to the Lord Santimitra (Śāntimitra?) Lokeśvara of Aṟtiṟavulu on the instance of the transition into the (sun's) passage to the south in the town of Pottepi of Pākanāṁḍu. 
-        	   Those who have come to overturn this have quasi destroyed Varāṇasi and Śrī Parvata. 
-        	   Kucibhaḍārlu in Maṁjaramu is the one who will have a benefit having respected and protected it. He (Bhuvana Trinētra) gave it as a meritorious gift to Bhīmarāju and Jāḍavvāru. 
-        	   Sirama, the chief (<foreign>peggeḍlu</foreign>), is the executor (<foreign>āṇati</foreign>). Writing of Dēsarati Bhimana, formulation of Srī Abhinuta.
-        	</p>
-      </div>
-      <div type="commentary">
-        <p>
-              The donated item is called <foreign>kāṭiceṟuvulu</foreign> which literally means 'forest ponds', and it could well be that it was actual ponds that were given instead of a village of that name, for no village has been identified with that name until now. 
-              The town <foreign>Pottepi</foreign> seems to be modern <foreign>Pothapi</foreign> at the <foreign>Ceyyēru</foreign> river while <foreign>Aṟtiṟavulu</foreign>, if the identification with modern Attirāla is correct, is situated on the southern bank of the same river just a few kilometers away. 
+         </div>
+         
+<div type="translation" resp="part:jeth">
+                
+<p>
+                   Svasti! Bhuvana Trinētra, the glorious Vaidumba Mahārāja, whose broad bosom is embraced by the goddess of fortune of war whom he took hold of in numerous battle encounters, gave, while it was Thursday, the 7th, (with) the waxing moon of (the month) Āṣāḍha in the 843rd year (according to) Śaka (calculation), 
+                   forest ponds (
+<foreign>kāṭiceṟuvulu</foreign>) which are (situated) in "Kaḍapa twelve" to the Lord Santimitra (Śāntimitra?) Lokeśvara of Aṟtiṟavulu on the instance of the transition into the (sun's) passage to the south in the town of Pottepi of Pākanāṁḍu. 
+                   Those who have come to overturn this have quasi destroyed Varāṇasi and Śrī Parvata. 
+                   Kucibhaḍārlu in Maṁjaramu is the one who will have a benefit having respected and protected it. He (Bhuvana Trinētra) gave it as a meritorious gift to Bhīmarāju and Jāḍavvāru. 
+                   Sirama, the chief (
+<foreign>peggeḍlu</foreign>), is the executor (
+<foreign>āṇati</foreign>). Writing of Dēsarati Bhimana, formulation of Srī Abhinuta.
+                </p> 
+         </div>
+         
+<div type="commentary">
+            
+<p>
+              The donated item is called 
+<foreign>kāṭiceṟuvulu</foreign> which literally means 'forest ponds', and it could well be that it was actual ponds that were given instead of a village of that name, for no village has been identified with that name until now. 
+              The town 
+<foreign>Pottepi</foreign> seems to be modern 
+<foreign>Pothapi</foreign> at the 
+<foreign>Ceyyēru</foreign> river while 
+<foreign>Aṟtiṟavulu</foreign>, if the identification with modern Attirāla is correct, is situated on the southern bank of the same river just a few kilometers away. 
               To the south of this place there are a lot of ponds and also a forest area wherefore a literal interpretation of the donated item as 'forest ponds' would match the actual situation. 
-              The identification of <foreign>Aṟtiṟavulu</foreign> with modern <foreign>Attirāla</foreign> would furthermore point against the reading ‹ṟēvu› since the long /ē/ is to be expected to be preserved. 
-              The name <foreign>Aṟtiṟavulu</foreign> probably means 'Banana-region'.
+              The identification of 
+<foreign>Aṟtiṟavulu</foreign> with modern 
+<foreign>Attirāla</foreign> would furthermore point against the reading ‹ṟēvu› since the long /ē/ is to be expected to be preserved. 
+              The name 
+<foreign>Aṟtiṟavulu</foreign> probably means 'Banana-region'.
               It seems to be the case that while the donation was given to the God, the administration together with an "expense allowance" was assigned to Kucibhaḍārlu (from °bhaṭāralu) and that the earthly donées are Bhīmarāju and Jāḍavvāru (who might have been officials of the respective temple).
             </p>
-      </div>
-      <div type="bibliography">
-        <p>
-           The inscription was noted in A. R. No. 7 of 1935-1936<!-- has to be adjusted to the @target --> and published by P. B. Desai (<bibl rend="omitname">
-            <ptr target="bib:Desai1949-1950_01"/>
-            <citedRange unit="page">67-70</citedRange>
-            <citedRange unit="item">12</citedRange>
-          </bibl>) with a picture and annotations. 
-           It was re-edited by K. M. Sastri together with a translation (<bibl rend="omitname">
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">321-322</citedRange>
-            <citedRange unit="item">48</citedRange>
-          </bibl>).
+         </div>
+        
+<div type="bibliography">
+          
+<p>
+           The inscription was noted in A. R. No. 7 of 1935-1936 and published by P. B. Desai (
+<bibl rend="omitname">
+  <ptr target="bib:Desai1949-1950_01" />
+  <citedRange unit="page">67-70</citedRange>
+  <citedRange unit="item">12</citedRange>
+</bibl>) with a picture and annotations. 
+           It was re-edited by K. M. Sastri together with a translation (
+<bibl rend="omitname">
+  <ptr target="bib:Sastri1969_01" />
+  <citedRange unit="page">321-322</citedRange>
+  <citedRange unit="item">48</citedRange>
+</bibl>).
           </p>
-        <listBibl type="primary">
-          <bibl n="siglum"/>
-          <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl>A. R. No. 7 of 1935-1936<!-- has to be adjusted to the @target --></bibl>
-          <bibl>
-            <ptr target="bib:Desai1949-1950_01"/>
-            <citedRange unit="page">67-70</citedRange>
-            <citedRange unit="item">12</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">321-322</citedRange>
-            <citedRange unit="item">48</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+           
+<listBibl type="primary">
+                                
+<bibl n="siglum" />                        </listBibl>
+           
+<listBibl type="secondary">
+              
+<bibl>A. R. No. 7 of 1935-1936</bibl>
+              
+<bibl>
+  <ptr target="bib:Desai1949-1950_01" />
+  <citedRange unit="page">67-70</citedRange>
+  <citedRange unit="item">12</citedRange>
+</bibl>
+              
+<bibl>
+  <ptr target="bib:Sastri1969_01" />
+  <citedRange unit="page">321-322</citedRange>
+  <citedRange unit="item">48</citedRange>
+</bibl>
+           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

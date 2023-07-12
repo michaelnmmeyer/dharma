@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -26,42 +32,28 @@
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
-        <pubPlace><!-- Fill in here the place or places where the encoding has been done --></pubPlace>
+        <pubPlace></pubPlace>
         <idno type="filename">DHARMA_INSIDENKGulungGulung</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-                            Licence. To view a copy of the licence, visit
-                            https://creativecommons.org/licenses/by/4.0/ or send a letter to
-                            Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-                            California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Eko Bastiawan &amp; Arlo Griffiths</p>
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -71,1074 +63,1602 @@
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_idListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-04-12" who="part:argr">started revision of the xml</change>
-      <change status="draft" when="2023-04-05" who="part:axja">generated xml from googledoc</change>
+      <change who="part:argr" when="2023-04-12" status="draft">started revision of the xml</change>
+      <change who="part:axja" when="2023-04-05" status="draft">generated xml from googledoc</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="kaw-Latn">
-        <p><milestone n="A" type="pagelike" unit="face"/><label xml:lang="eng">Front</label><lb n="A1"/>// Oṃ <choice>
-            <orig>Avīghnam</orig>
-            <reg>Avighnam</reg>
-          </choice> astu gaṇapataye namaḥ // svasti śaka-varṣātīta 851 baiśākha-māsa tithi navamī śukla-pakṣa <unclear>ma</unclear> <supplied reason="lost">U</supplied>
-<lb n="A2"/>ca vāra pūrvvaphālguṇī-nakṣatra, yoṇi-devatā, Āyuṣmān-yoga, Irikā divaśa rakryān·  hujuṁ pu madhura <choice>
-            <orig>lokānu<lb break="no" n="A3"/>rāñjana</orig>
-            <reg>lokānurañjana</reg>
-          </choice>, manambaḥ I śrī mahārāja rake halu pu siṇḍok· śrī Īśānavikrama dharmmottuṅgadeva, sumīma Ikāṁ dmak ṣavaḥ I
-<lb n="A4"/>guluṅ-guluṁ tapak· su 7, muAṁ Alas· I bantaran· satṅaḥ, paknānya dharmmakṣetrā savahani kuśala rakryān· hujuṁ saṁ hyaṁ
-<lb n="A5"/>prāsāda I himad·, maṅasəA I saṁ hyaṁ kahyaṅan· I paṅavān· mapaṅasəA vḍu<add place="below">s·</add> 1 pāda 1 Aṁkən kapūjān· bhaṭāra I pa<lb break="no" n="A6"/>ṅavān· Iṁ prativarṣa, Āpan· ṅkai gunuṁ vaṅkḍi mūla kahyaṅan· saṁ hyaṁ I paṅavān· riṁ purāṇa, mataṅyan tuṅgala gatyanikaṁ
-<lb n="A7"/>saṁ hyaṁ kahyaṅan· kapva siliḥ lavada sakarmmaṇya I paṅavān· muAṁ I himad· yan· tka<unclear>n</unclear>iṁ kapūjān· bhaṭāra I paṅavā<lb break="no" n="A8"/>n· Umilva sakarmmaṇya I himad· tkaniṁ <add place="below">ka</add>pūjān· bhaṭāra I himad· Ilva sakarmmaṇya I paṅavān· Iṁ biśuva kāla<gap quantity="1" reason="illegible" unit="character"/><!-- supply nya? --><lb break="no" n="A9"/><gap quantity="1" reason="illegible" unit="character"/>n· prasiddha tuṅgal· bhaṭāra maṅadhiṣṭhāna I himad· I paṅavān· muAṁ hana ta sīma putrasva I batvan· muAṁ I curu 
-<lb n="A10"/>Iy air gilaṁ I gapuk·, I sbaṁ paknānya maṅasəA I saṁ hyaṁ prāsāda I himad·, kramani paṅasə:nya I batvan· śīkhā<unclear>ha</unclear> 
-<lb n="A11"/>pañjat· I curu lṅa vatu sukat· 1, kalapa 20 mā 1 Iy air gilaṁ Iṅa vatu sukat· 20 mā 2 Iṁ gapuk· <gap quantity="8" reason="illegible" unit="character"/>
-<lb n="A12"/><gap quantity="3" reason="illegible" unit="character"/> mā 1 <unclear>maṅkana</unclear> kramani paṅasə:nikanaṁ sīma putrasva <unclear>mi</unclear>jila Aṅkən· biṣuva ri<unclear>ṁ</unclear> kapūjān· bhaṭāra ri himad·, maṁ<supplied reason="lost">kana sa</supplied><lb break="no" n="A13"/><supplied reason="lost">m</supplied><unclear>b</unclear><supplied reason="lost">aḥ</supplied> <unclear>rak</unclear>ryān· <unclear>hujuṁ</unclear> I śrī mahārāja tlas sinanmata, matəhər ta ya pinagəhakan· Inarpaṇākan· rakryān· hujuṁ <supplied reason="lost">I saṁ hyaṁ prā</supplied><lb break="no" n="A14"/><supplied reason="lost">sā</supplied>da An· sīmā savaha saṁ hyaṁ prāsāda I himad· paknānya svatantrā tan katamāna deni patiḥ vahuta rāma, nāyaka <unclear>pa</unclear><supplied reason="lost">rtta</supplied><lb break="no" n="A15"/>ya pamgat· ṅunivaiḥ saprakāraniṁ maṅilala drabya haji riṁ daṅ<unclear>ū</unclear> miśra-paramiśra vulu-vulu prakāra paṅuraṁ kriṁ· paḍam· <supplied reason="lost">manimpi</supplied>-
-<lb break="no" n="A16"/>ki paranakan· limus galuḥ, paṅaruhan·, taji vatu tajam·, sukun·, halu varak· rakadut· pini<supplied reason="lost">l</supplied>ai kataṅgaran·, tapa <supplied reason="lost">haji</supplied>
-<lb n="A17"/> Air haji, malandaṁ, L̥ca, L̥bə-L̥b· kalaṁkaṁ kutak·, taṅkil·, tr̥pan·, saluIt·, tuha dagaṁ, tuha gusali, maṁrumbai maṅguñjai <supplied reason="lost">tu</supplied>-
-<lb break="no" n="A18"/>hān nambi, tuhān· huñjamman·, vatu valaṁ, pamaṇikan·, maṇiga, sikpan·, rumban·, vilaṁ vanuA, viji kavaḥ, tiṅkəs·, mā<supplied reason="lost">vi</supplied>
-<lb n="A19"/> tuhāñ ju<supplied reason="lost">ḍ</supplied>i, juru jalir·, miśra hino, vli hapū, vli tambaṁ, vli pañjut·, vli haR̥ṁ, palamak·, paka<supplied reason="lost">luṅkuṁ</supplied> Urutan·, dampu<supplied reason="lost">lan·</supplied>
-<lb n="A20"/> tpuṁ kavuṁ, suṁ-suṁ paṅuraṁ, pasuk alas·, payuṅan·, puluṁ paḍi, pabisar·, paguluṁ, pāṅinn-aṅin·, sipat bilut·, pāmavaśya, <supplied reason="lost">ho</supplied>- 
-<lb n="A21"/><supplied reason="lost">pa</supplied>n·, turun-turun·, panrāṅan·, skar tahun·, panusuḥ, pahaliman·, kḍi valyan·, vidu, maṅiduṁ, sambal sumbul·, hulun· <supplied reason="lost">ha</supplied>-
-<lb break="no" n="A22"/><supplied reason="lost">j</supplied>i pamr̥si, vatakk i jro, Ityaivammādi tan· tamā Irikanaṁ sīma kevala saṁ hyaṁ parhyaṅan·, pramāṇā I sadrab<supplied reason="lost">ya</supplied>-<supplied reason="lost">hajin</supplied>ya
-<lb n="A23"/> <supplied reason="lost">ka</supplied>baiḥ, maṅkana Ikanaṁ sukhaduḥkha kady aṅganiṁ mayaṁ tan mavuAḥ valū rumambat· Iṁ natar·, vipati vaṅ<supplied reason="lost">ka</supplied>y· <supplied reason="lost">kāb</supplied>unan·, rāḥ ka<supplied reason="lost">sa</supplied>-
-<lb break="no" n="A24"/><supplied reason="lost">vu</supplied>r iṁ dalan· vākcapalā duhilatan· hastacapalā mamtuAkan· vūriniṅ <supplied reason="lost">k</supplied>i<supplied reason="lost">kir· mam</supplied>uk·, mamumpaṁ, lūdan·, tūtan·, <supplied reason="lost">ḍa</supplied>-
-<lb break="no" n="A25"/><supplied reason="lost">ṇḍa</supplied> kuḍaṇḍa bhaṇḍihalādi bhaṭāra riṁ prāsāda Ataḥ parā<supplied reason="lost">nan</supplied>i <supplied reason="lost">sadrab</supplied>ya-hajinya kunaṁ Ikāṁ miśra mañambul·, mañavriṁ <unclear>maṁ</unclear><supplied reason="lost">lā</supplied>-
-<lb break="no" n="A26"/><supplied reason="lost">kha</supplied>, maṅapus·, <unclear>ma</unclear><supplied reason="lost">pahaṅan</supplied>·, <supplied reason="lost">matarub</supplied>· <supplied reason="lost">man</supplied>ū<supplied reason="lost">la v</supplied>uṅkuḍu, maṁdyun·, maṅubar·, maṁhapū, maṁluruṁ, magavai ruṅki, payuṁ vlu mopiḥ, <supplied reason="lost">maka</supplied>-
-<lb break="no" n="A27"/><supplied reason="lost">jaṁ</supplied> Agavai kisi, maṅanam-anam·, mamubut·, manavaṁ, makala-kalā, mamisaṇḍuṁ manuk·, bhaṭāra ri prāsāda Ataḥ pramāṇa I sadra<supplied reason="lost">bya</supplied>-
-<lb break="no" n="A28"/>hajinya, samaṅkana Ikanaṁ parahu pavalijān· 1, masuṁhara 2 tan· patuṇḍāna, Adagaṁ kapas·, vuṅkuḍu, Abasana kalima banta<unclear>l·</unclear>
-<lb n="A29"/> Aṅuñjal· 1 paṇḍai vsi satarub·, paṇḍai mas· 1 paṇḍai tambaga 1 kaṁsa 1 Aṅulaṁ kbo savurugan· sapi prāṇa 3 vḍu<supplied reason="lost">s·</supplied>
-<lb n="A30"/> <supplied reason="lost">sa</supplied><unclear>pa</unclear>raṅgaṁ Aṅulaṅ aṇḍaḥ <unclear>satar</unclear>ub·, samaṅkana kramanikaṁ sīma tan· knā I saluĪrniṁ drabya haji saprakāra, Irikanaṁ <supplied reason="lost">kā</supplied><milestone break="no" n="B" type="pagelike" unit="face"/><label xml:lang="eng">Back</label><lb break="no" n="B1"/><supplied reason="lost">la ma</supplied>ṅasəAkan· rakryān· hujuṁ pasək·-pasək·, I śrī mahārāja mas· su 5 vḍihan· tapiś cadar· yu 1 muAṁ I <supplied reason="lost">ra</supplied>-
-<lb break="no" n="B2"/>kryān· kabaiḥ, kapuA vinaiḥ pasək·-pasək· kāyānurūpa, rakai sirikan· dyah amarendra, vka dyaḥ balyaṁ, rakryā<supplied reason="lost">n· mo</supplied>-
-<lb break="no" n="B3"/><supplied reason="lost">ma</supplied>h-umaḥ kāliḥ maḍaṇdər· pu padma, Aṅgəhan· pu kuṇḍala, tiruan· ḍapunta taritip· InaṁsəAn· pasək· mā 1,  vḍi<supplied reason="lost">ha</supplied>-
-<lb break="no" n="B4"/><supplied reason="lost">n·</supplied> tapiś cadar· yu 1 sovaṁ-sovaṁ, halaran· pu guṇottama, InaṁsəAn· pasək· mā 1, vḍihan· ragi yu 1 mamrāti havaṁ
-<lb n="B5"/> <supplied reason="lost">vi</supplied>cakṣaṇa, ma<supplied reason="omitted">ṁ</supplied>hūri pu paṇḍamuan·, tilimpik· pu dhanuka, dalinan· pu karṣaṇa, vinaiḥ pasək· mā 5 vḍihan· ragi yu
-<lb n="B6"/> <supplied reason="lost">1</supplied> sovaṁ-sovaṁ, vadihati saṁ dinakara, Akudur· pu balavān· vinaiḥ pasək· ma 1, vḍihan· ragi yu 1 sovaṁ-sovaṁ,
-<lb n="B7"/> tuhān· I vadihati 2 miraḥ-miraḥ, saṁ halaṁ pahuṁ, halaran· saṁ lbūr poḥ, tuhān· I makudur· 2 vatu valeṁ saṁ ra majjha, va-
-<lb break="no" n="B8"/>tu kiluṁ saṁ tpussən· vinaiḥ pasək· mā 5 vḍihan· ragi yu 1 sovaṁ-sovaṁ, paṅuraṁ I vadihati saṁ ra vuṅū, Anuṅgū saṁ ho-
-<lb break="no" n="B9"/><supplied reason="lost">ṅka</supplied> paṅuraṁ I makudur· saṁ ra kvəl·, Anuṅgū saṁ kulumpaṁ vinaiḥ pasək· mā 2 ku 2 vḍihan· hlai 1 sovaṁ-sovaṁ, saṁ tuhā<supplied reason="lost">n· I</supplied>
-<lb n="B10"/> pakaraṇān· juru kanayakān· samgat· gunuṅan· pu <supplied reason="omitted">tu</supplied>ntun·, juru vadva rarai saṁ ra guyu, juru kalula pu bālī, kaṇḍamuhi punta geṣṭa
-<lb n="B11"/> vatu varaṇi saṁ nidhi, parujar· I sirikan· hujuṁ galuḥ I vka viridiḥ, I kanuruhan· rokat·, I sbaṁ saṁ vimala, I srāṅan· saṁ sa-
-<lb break="no" n="B12"/>tyaka, I madaṇḍər saṁ cakra, ryy āṅgəhan· saṁ vidya, I tiruAn· sumuḍan· punta saṅgama vinaiḥ pasək· mā 1, kinabaihāni-
-<lb break="no" n="B13"/>ra lumaku manusuk· I vadihati saṁ ra və:han·, I makudur· saṁ ra mājha vinaiḥ pasək· mas· su 2 mā 8 sovaṁ-sovaṁ, paṅaṅka-
-<lb break="no" n="B14"/>t· I saṁ hyaṁ kudur· mas· su 5 hop saji pomah-umaḥ prakāra dakṣiṇa saṁ hyaṁ brahmā mā 1 saṁ hyaṁ lamb<unclear>u</unclear> mā 1, saṁ hyaṁ <unclear>su</unclear>-
-<lb break="no" n="B15"/><unclear>su</unclear>k· vḍihan· yu 1 vḍihan·nire vadihati makudur· yu 2 siṁhəl·nira yu 1, patiḥ juru kāliḥ vasaḥ saṁ kayu matə:b·, ku<supplied reason="lost">c</supplied>i
-<lb n="B16"/> saṁ būka vinaiḥ pasək· mā 5 vḍihan· ragi yu 1 sovaṁ-sovaṁ, parujarnya piṅsor hyaṁ paskaran· vinaiḥ mā 2 ku 2 sovaṁ-sovaṁ
-<lb n="B17"/> patiḥ kahyunnan· puntani turus· saṁ ḍumpil·, varaṇā, saṅ ambata, saṁ smī, vinaiḥ mā 2 vḍihan· ragi yu 1 sovaṁ-sovaṁ, patiḥ ka-
-<lb break="no" n="B18"/>hyunan maṅharR̥p· babak· rikaṁ kāla saṁ lāgi vinaiḥ mā 5 vḍihan· ragi yu 1 vargga patiḥ Anakbi Ilu kinannān· pasək· saṁ baraṇa
-<lb n="B19"/> <supplied reason="lost">A</supplied>nakbi saṁ najī Ibuni marapi, saṁ kbək· vinaiḥ mā 2 kain· vlaḥ 1 sovaṁ-sovaṁ, vargga patiḥ kahyunan· laki-laki vinaiḥ pasə-
-<lb break="no" n="B20"/>k· harivaṅsa, bāṇa, jura<unclear>ṁ</unclear>, daṅkal·, marapi, vinaiḥ mā 2 vḍihan· hlai 1 sovaṁ-sovaṁ, patiḥ pamgat· saṁ jarā, ma<unclear>ṁ</unclear>ha<supplied reason="lost">mb</supplied>i-
-<lb break="no" n="B21"/>n· saṁ balusyak· vinaiḥ pasək· mā 4 vḍihan· ragi yu 1 sovaṁ-sovaṁ, juru vanuA saṁ hīra panulisan· prathama, maṇi<unclear>ga</unclear>
-<lb n="B22"/> <gap quantity="5" reason="lost" unit="character"/> vinaiḥ mā 2 vḍihan· yu 1 sovaṁ-sovaṁ, parujar patiḥ kahyunan· <add place="above">bisat·</add> parujar· patiḥ samgat· babus·, parujar ma<unclear>ṁ</unclear>-
-<lb break="no" n="B23"/>hamb<supplied reason="lost">i</supplied>nanī gu<supplied reason="lost">s</supplied>t<supplied reason="lost">i</supplied> <supplied reason="lost">pañjuruAn·</supplied> I pakāraṇān· Astuti, malavaṅ kāliḥ jaṅga krāndhaḥ, panaṅlar· bhoma, Ugal-ugal· səvu<supplied reason="lost">r·</supplied>
-<lb n="B24"/> juru kalaṁ sambī, tajuṅkilan· mḍaṁ gəntər· vinaiḥ mā 1 vḍi<supplied reason="lost">ha</supplied>n· <unclear>hlai</unclear> 1 sovaṁ-sovaṁ, vahuta paṅuñjaṅan· dhavala kamasi-
-<lb break="no" n="B25"/>han· putra laguntan· Unak· vinaiḥ pasək· mā 4 vḍihan· ragi yu 1 sovaṁ-sovaṁ, <supplied reason="lost">taṇ</supplied>ḍa rakryān· Ilu pinakasākṣī rikaṁ
-<lb n="B26"/> kāla, kanuruhan· dyaḥ mumpaṁ, vaharu pu <choice>
-            <corr>kalumpaṁ</corr>
-          </choice>, vinaiḥ pasək· mas· su 1 mā 4 vḍihan· pa<unclear>ḍ</unclear>i hlai 1 sovaṁ-<supplied reason="lost">sovaṁ saṁ tu</supplied>-
-<lb break="no" n="B27"/>hān· I kanuruhan· saṁ ra baṇir saṁ ra vujaṁ, vuṅkal kiluṁ, saṁ părtha, vinaiḥ mas· su 1 mā 4 kinabaihānnira vḍihan· ragi hlai 1 so-
-<lb break="no" n="B28"/>vaṁ-sovaṁ, tpi siriṁ Ilu pinakasākṣī rakryān·, juru gotra I kanuruhan· rakai paṅambuhan·, rakai siñjalan· vinaiḥ mā 4 vḍi-
-<lb break="no" n="B29"/>han· yu 1 sovaṁ-sovaṁ, gotra I tampuran· saṁ mādhava bapa dyaḥ damū muAṁ dyaḥ damū, vinaiḥ mā 2 vḍihan· hlai 1
-<lb n="B30"/> sovaṁ-sovaṁ devata kaki I balaṇḍit· saṁ śivarāśi vineḥ pasək· mā 4 punta I paṅavan· Uṅgər· pramukha, vinai<unclear>ḥ</unclear>
-<milestone n="c" type="pagelike" unit="face"/><label xml:lang="eng">Proper right</label><lb n="c1"/> <supplied reason="lost">pasək· mā 4 kinabaihannira patiḥ tpi si</supplied>-
-<lb break="no" n="c2"/><supplied reason="lost">riṁ vinai</supplied>ḥ pasək· karūman· I 
-<lb n="c3"/> kanuruhan· saṁ jātaḥ, maṅhambi<supplied reason="lost">n·</supplied>
-<lb n="c4"/> saṁ hiraṇya, patiḥ pamgat·
-<lb n="c5"/> saṁ prakaśita, patiḥ I tuga-
-<lb break="no" n="c6"/>ran· paṅajaran· saṁ malaḥ, patiḥ
-<lb n="c7"/> paṁkur· I vaharu saṁ raṅga vinaiḥ
-<lb n="c8"/> pasək· mā 4 vḍihan· yu 1 so-
-<lb break="no" n="c9"/><supplied reason="lost">vaṁ</supplied>-sovaṁ, sama<surplus>ṁ</surplus>ṅkana kvaiḥ<supplied reason="lost">n</supplied>i<supplied reason="lost">ra</supplied>
-<lb n="c10"/> <supplied reason="lost">i</supplied>lu pinakasākṣī hinanākə-
-<lb break="no" n="c11"/>n· kālaniṁ manusuk· ri tlas· I
-<lb n="c12"/> saṁ mapatiḥ vahuta rāma t<supplied reason="lost">p</supplied>i <supplied reason="lost">s</supplied>i-
-<lb break="no" n="c13"/>riṅ kabaiḥ vinaiḥ pasək·, k<supplied reason="lost">i</supplied>-
-<lb break="no" n="c14"/>non· ta sira mapaktya, malūṅguḥ ya-
-<lb break="no" n="c15"/><unclear>th</unclear>ākrama, Irikāṁ tkan· pasak·
-<lb n="c16"/> lor· kidul·, kuluAn· veta-
-<lb break="no" n="c17"/><supplied reason="lost">n· Iri</supplied>kāṅ kalaṅan· ri himad·
-<lb n="c18"/> tumama ta saṁ mavaju haji ri kala-
-<lb break="no" n="c19"/>ṅan· ri pkan· ri himad· maglar saji suma-
-<lb break="no" n="c20"/><unclear reason="eccentric_ductus">ṅa</unclear>skāra saṁ hyaṁ susuk· saṅkap· sakrama-
-<lb break="no" n="c21"/><supplied reason="lost">niṁ da</supplied>ṅū manətək· hayam mamantiṅa-
-<lb break="no" n="c22"/><supplied reason="lost">kan·</supplied> hantiga I saṁ hyaṁ vatu təAs· <unclear>su</unclear>-
-<lb break="no" n="c23"/><unclear>su</unclear>k· pamaṁmaṁ hyaṁ manapathe <unclear>liṁ</unclear><supplied reason="lost">nira</supplied>
-<lb n="c24"/> Īndaḥ ta kita kamuṁ hyaṁ I śrī bapra-
-<lb break="no" n="c25"/>keśvara śrī haricandana Agasti <unclear>mahā</unclear>-
-<lb break="no" n="c26"/><unclear>R̥</unclear>ṣi saṁ hyaṁ I daśadeśa Ū<supplied reason="lost">rdhamadhaḥ</supplied>
-<lb n="c27"/> ravi śaśī kṣiti ja<supplied reason="lost">la pa</supplied>va<supplied reason="lost">na hutāsana</supplied>
-<lb n="c28"/> yajamānākāśa dharmma Aho<unclear>rātra</unclear>
-<lb n="c29"/> <gap quantity="2" reason="illegible" unit="character"/> yakṣa rakṣasa pisāca, preta
-<milestone n="d" type="pagelike" unit="face"/><label xml:lang="eng">Proper left</label><lb n="d1"/><supplied reason="lost">sura</supplied> <gap quantity="5" reason="lost" unit="character"/>
-<lb n="d2"/> <supplied reason="lost">gandharvva yama</supplied>
-<lb n="d3"/> <supplied reason="lost">baruṇa kuvaira bāsava muAṁ</supplied>
-<lb n="d4"/> <supplied reason="lost">putra devatā pañcakuśika nā</supplied>-                
-<lb n="d5"/><unclear>garājā dūrggadevī caturāśra</unclear>
-<lb n="d6"/> Ananta surendra hyaṁ kālamr̥tyu
-<lb n="d7"/> sakveḥ ta gaṇa bhūta kita <unclear>prasiddha</unclear>
-<lb n="d8"/> maṁrakṣa pr̥thivi, maṅarīra ri sarvvabhū-
-<lb break="no" n="d9"/><supplied reason="lost">ta</supplied> Umasuki sarvvaprāṇa kita sa-
-<lb break="no" n="d10"/><supplied reason="lost">kala</supplied> sākṣībhūta sthīti hana sukṣma
-<lb n="d11"/><unclear>R̥</unclear>ṅəAkan· Ik<unclear>i</unclear>ṁ samaya sapa-
-<lb break="no" n="d12"/><supplied reason="lost">tha</supplied> <unclear>sum</unclear>paḥ pamaṁ<add place="below">maṁ</add>mami ri kita hiyaṁ
-<lb n="d13"/><supplied reason="lost">ka</supplied>baiḥ yāvat ikanaṁṅ vaṁ durācāra ta-
-<lb break="no" n="d14"/><supplied reason="lost">n ma</supplied>gam· tan makmit·, Umulah-ulaha
-<lb n="d15"/> <supplied reason="lost">I</supplied><unclear>k</unclear>iṁ śīma ṅunivaiḥ dumavuta
-<lb n="d16"/> <supplied reason="lost">su</supplied>suk· təAs· kulumpaṁ <unclear>tina</unclear>-
-<lb break="no" n="d17"/><supplied reason="lost">namniṁ ku</supplied>dur· Asiṁ sakav<unclear>v</unclear>aṅananya hadi-
-<lb break="no" n="d18"/><supplied reason="lost">A</supplied>n· hulun· gr̥hasta viku yā-
-<lb break="no" n="d19"/>vat· ba<unclear>riba I</unclear>rikaṁ śīma tadvaraha- 
-<lb n="d20"/><supplied reason="lost">n·</supplied> panimbatan· ta Iriya kamu hyaṁ <supplied reason="lost">pa</supplied>-
-<lb break="no" n="d21"/>ti riṅ adəgan· tampyal i təṅəna-
-<lb break="no" n="d22"/><unclear>n· Uvahi riṁ hiri</unclear>ṅan· rantan ususnya <supplied reason="lost">ḍa</supplied>- 
-<lb n="d23"/><supplied reason="lost">ḍa</supplied>tt i sbitakan· ḍalammanya At<unclear>manya</unclear>
-<lb n="d24"/> <supplied reason="lost">ta</supplied>n· tmuA<unclear>ṁ</unclear> sama Irikaṁ sahasra ja-
-<lb break="no" n="d25"/><supplied reason="lost">nma</supplied> saluīrniṁ Ūpadrava mtunya ta-
-<lb break="no" n="d26"/><supplied reason="lost">k-ta</supplied>k <supplied reason="lost">l</supplied>intaḥ lakay· vdit· tmahana
-<lb n="d27"/><supplied reason="lost">nya</supplied> pañca mahāpātaka tmunyan<unclear>·</unclear>
-<lb n="d28"/> yan· liṁnira ri tlasniṁ manusuk·
-<lb n="d29"/> lumkas· ta makuR̥n-kuR̥n· ri sira ka-
-<lb break="no" n="d30"/>baiḥ, maṁglar· kavuṁ skul· paripūrṇna
-<milestone n="e" type="pagelike" unit="face"/><label xml:lang="eng">Proper right: upper part</label>
-<lb n="e1"/> hara-hara saṅka<space type="defect"/>p· vulu ka- 
-<lb n="e2"/>ṇḍari kaḍivas· ḍeṁ hañaṁ ḍeṁ 
-<lb n="e3"/> hasin· saL̥r· capa-capa, ruma- 
-<lb n="e4"/>han· huraṁ biluṁluṁ hala-ha-                        
-<lb n="e5"/>la hantiga Inariṁ, vulūniṁ ga- 
-<lb n="e6"/>ṅan· <unclear>miśāka</unclear>, Atak· sisir·                         
-<lb n="e7"/> takiḥ, kasyan· lil-lit· gāṁ- 
-<lb n="e8"/>ṅān· tlu saranak· Alap-alap·
-<lb n="e9"/> Irah-iraḥ kuluban· tetis·,
-<lb n="e10"/> lumkas· ta sira kabaiḥ manaḍah ma-
-<lb break="no" n="e11"/>nahap pa<unclear>r</unclear>ka ciñca tva<unclear>k·</unclear> pā<unclear>nā</unclear>di, tka 
-<lb n="e12"/> riṁ piṇḍva piṁtiga, vinuvuhan ta sira ta-
-<lb break="no" n="e13"/><supplied reason="lost">mb</supplied>ul· <unclear cert="low">paḍḍīsa</unclear> salvirniṁ ta<supplied reason="lost">mbul·</supplied> <supplied reason="lost">sapra</supplied>-
-<lb break="no" n="e14"/><supplied reason="lost">kāra vinuvuhakan· tadananta</supplied>-
-<lb break="no" n="e15"/><supplied reason="lost">ra patṅaḥ manaḍaḥ kinon· sira ka</supplied><milestone break="no" n="f" type="pagelike" unit="face"/><label xml:lang="eng">Proper left: upper part</label><lb break="no" n="f1"/>baiḥ vasiha gaṅan· vinai- 
-<lb n="f2"/>han· ta sira jnu skar· tlas saṅkap· mu- 
-<lb n="f3"/>vaḥ ta sira manaḍaḥ yathās<unclear>u</unclear>-
-<lb break="no" n="f4"/><unclear>kha</unclear> men-men· rakryan· 
-<lb n="f5"/><unclear>kahaḍaṁ</unclear> rikaṁ kāla ka-
-<lb break="no" n="f6"/>puA Umintonnakan· guṇa- 
-<lb n="f7"/>nya, Atapukan <unclear>vuvus</unclear> pramukha                         
-<lb n="f8"/> vinaiḥ mā 4 kinabaihanya, A-
-<lb break="no" n="f9"/>vayaṁ <unclear>kaluṅasu</unclear>a śravaṇa vi-
-<lb break="no" n="f10"/>naiḥ mā 4 kinabaihanya, Aba-         
-<lb n="f11"/>ñol· si livu_ _han· hi-
-<lb break="no" n="f12"/>tip·-pramukha vinaiḥ mā
-<lb n="f13"/> 4 kinabaihanya, ci<supplied reason="lost">hna</supplied>-
-<lb break="no" n="f14"/><supplied reason="lost">nya</supplied>n· tlas· mapagəḥ <gap quantity="3" reason="lost" unit="character"/>
-<lb n="f15"/> <gap precision="low" quantity="10" reason="lost" unit="character"/></p>
-      </div>
-      <div type="apparatus">
-        <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
-        <listApp>
-          <app loc="A1">
-            <lem source="bib:Damais1955_01 bib:Nakada1990_01 bib:Trigangga2003_01">Avīghnam</lem>
-            <rdg source="bib:Brandes1913_01">Avignam</rdg>
-          </app>
-          <app loc="A1">
-            <lem source="bib:Damais1955_01 bib:Trigangga2003_01">-varṣātīta</lem>
-            <rdg source="bib:Nakada1990_01">-varsātīta</rdg>
-          </app>
-          <app loc="A2">
-            <lem><unclear>ma</unclear> <supplied reason="lost">U</supplied> ca</lem>
-            <rdg source="bib:Brandes1913_01 bib:Damais1955_01 bib:Trigangga2003_01"><gap quantity="2" reason="illegible" unit="character"/> ca</rdg>
-            <rdg source="bib:Nakada1990_01">ma U so</rdg>
-            <note>Our reading confirms the reconstruction by Damais (1955: 156).</note>
-          </app>
-          <app loc="A3">
-            <lem>lokānurāñjana</lem>
-            <rdg source="bib:Brandes1913_01">lokā<gap quantity="1" reason="illegible" unit="character"/>rāñjana</rdg>
-            <rdg source="bib:Damais1955_01">loka<seg type="body">
-                <gap reason="illegible"/>
-              </seg>urāñjana</rdg>
-            <rdg source="bib:Nakada1990_01">loka<unclear>ta</unclear>rāñjana</rdg>
-            <rdg source="bib:Trigangga2003_01">lokadurāñjana</rdg>
-          </app>
-          <app loc="A4">
-            <lem source="bib:Damais1955_01 bib:Nakada1990_01 bib:Trigangga2003_01">saṁ hyaṁ</lem>
-            <rdg source="bib:Brandes1913_01">mahā</rdg>
-          </app>
-          <app loc="A5">
-            <lem source="bib:Damais1955_01 bib:Nakada1990_01 bib:Trigangga2003_01">himad·</lem>
-            <rdg source="bib:Brandes1913_01">həmad·</rdg>
-            <note>D stops reading at this point. B reads həmad in all occurrences of this toponym. We shall not report further instances of this variant reading below.</note>
-          </app>
-          <app loc="A5">
-            <lem>mapaṅasəA</lem>
-            <note>the reading is clear but the word form is unacceptable as it stands and might best be treated as superfluous altogether. Or we could accept a redundant repetition of maṅasəA by treating only the pa as superfluous.</note>
-          </app>
-          <app loc="A5">
-            <lem source="bib:Trigangga2003_01">vḍu<add place="below">s·</add></lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">vḍu</rdg>
-          </app>
-          <app loc="A6">
-            <lem source="bib:Trigangga2003_01">gatyanikaṁ</lem>
-            <rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">gatyanika</rdg>
-          </app>
-          <app loc="A7">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">sakarmmaṇya</lem>
-            <rdg source="bib:Nakada1990_01">saṁ karmmaṇya</rdg>
-          </app>
-          <app loc="A7">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">tka<unclear>n</unclear>iṁ</lem>
-            <rdg source="bib:Brandes1913_01">tka <unclear>riṁ</unclear></rdg>
-          </app>
-          <app loc="A8">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">sakarmmaṇya</lem>
-            <rdg source="bib:Nakada1990_01">saṁ karmmaṇya</rdg>
-          </app>
-          <app loc="A8">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">sakarmmaṇya</lem>
-            <rdg source="bib:Nakada1990_01">saṁ karmmaṇya</rdg>
-          </app>
-          <app loc="A9">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">kāla<gap quantity="1" reason="illegible" unit="character"/><gap quantity="1" reason="illegible" unit="character"/>n·</lem>
-            <rdg source="bib:Brandes1913_01">kāla<gap quantity="1" reason="illegible" unit="character"/><unclear>n</unclear>ndhan·</rdg>
-          </app>
-          <app loc="A9">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">tuṅgal·</lem>
-            <rdg source="bib:Nakada1990_01">tiṅgal·</rdg>
-          </app>
-          <app loc="A10">
-            <lem source="bib:Trigangga2003_01">sbaṁ</lem>
-            <rdg source="bib:Brandes1913_01">mbaṁ</rdg>
-            <rdg source="bib:Nakada1990_01">mvaṁ</rdg>
-          </app>
-          <app loc="A11">
-            <lem>śī<unclear>khāha</unclear> pañ<unclear>j</unclear>at·</lem>
-            <rdg source="bib:Brandes1913_01">śīkha<gap quantity="1" reason="illegible" unit="character"/> pañjat·</rdg>
-            <rdg source="bib:Nakada1990_01">śīkhā<gap quantity="1" reason="illegible" unit="character"/> pañjak·</rdg>
-            <rdg source="bib:Trigangga2003_01">śīkhāṁ hapañat·</rdg>
-          </app>
-          <app loc="A11">
-            <note>At the end of this line, races of akṣaras can still be seen but are difficult to decipher. B reads ruAṁ … (rimpaṁ) and N has ruAṁ … niṁ ... while T does not provide any reading.</note>
-          </app>
-          <app loc="A12">
-            <lem source="bib:Brandes1913_01 bib:Nakada1990_01">riṁ kapūjān·</lem>
-            <rdg source="bib:Trigangga2003_01">rikaṁ pūjān·</rdg>
-          </app>
-          <app loc="A13">
-            <lem>maṁ<supplied reason="lost">kana sam</supplied><unclear>b</unclear><supplied reason="lost">aḥ</supplied></lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">ma<gap quantity="4" reason="illegible" unit="character"/></rdg>
-            <rdg source="bib:Trigangga2003_01">maṁ<supplied reason="lost">kana səm</supplied><unclear>b</unclear><supplied reason="lost">aḥ</supplied></rdg>
-          </app>
-          <app loc="A13">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">ya pinagəhakan· Inarpaṇākan·</lem>
-            <rdg source="bib:Brandes1913_01">ta <gap quantity="5" reason="illegible" unit="character"/> Inargha<gap quantity="1" reason="illegible" unit="character"/>kan·</rdg>
-          </app>
-          <app loc="A14">
-            <lem><supplied reason="lost">I saṁ hyaṁ prāsā</supplied>da</lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">
-              <gap quantity="5" reason="lost" unit="character"/>
-              <gap quantity="1" reason="illegible" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="A15">
-            <lem source="bib:Nakada1990_01">pa<supplied reason="lost">rtta</supplied>ya</lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="2" reason="illegible" unit="character"/>
-            </rdg>
-            <rdg source="bib:Trigangga2003_01">pa<supplied reason="lost">rtya</supplied>ya</rdg>
-            <note>T’s restitution may be correct but ours is more plausible, as the reading parttaya is considerably better attested than pratyaya in the corpus of Sindok inscriptions.</note>
-          </app>
-          <app loc="A15">
-            <lem source="bib:Brandes1913_01 bib:Nakada1990_01">pamgat·</lem>
-            <rdg source="bib:Trigangga2003_01">samgat·</rdg>
-          </app>
-          <app loc="A16">
-            <lem source="bib:Trigangga2003_01">pini<supplied reason="lost">l</supplied>ai kataṅgaran·</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="3" reason="illegible" unit="character"/> kat<unclear>u</unclear>ṅgaran·</rdg>
-            <rdg source="bib:Nakada1990_01">piniṁlai kataṅgaran·</rdg>
-          </app>
-          <app loc="A17">
-            <lem source="bib:Nakada1990_01">L̥bə-L̥b·</lem>
-            <rdg source="bib:Brandes1913_01">L̥ba-L̥b·</rdg>
-            <rdg source="bib:Trigangga2003_01">L̥b-L̥b·</rdg>
-          </app>
-          <app loc="A18">
-            <lem source="bib:Trigangga2003_01">mā<supplied reason="lost">vi</supplied></lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">mā<gap quantity="1" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="A19">
-            <lem source="bib:Trigangga2003_01 bib:Nakada1990_01">paka<supplied reason="lost">luṅkuṁ</supplied> Urutan·</lem>
-            <rdg source="bib:Brandes1913_01">paka<gap quantity="2" reason="lost" unit="character"/> vrutan·</rdg>
-          </app>
-          <app loc="A21">
-            <lem source="bib:Trigangga2003_01"><supplied reason="lost">hopa</supplied>n·</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="2" reason="lost" unit="character"/>n·</rdg>
-            <rdg source="bib:Nakada1990_01">
-              <gap quantity="1" reason="illegible" unit="character"/>
-              <supplied reason="lost">pan·</supplied>
-            </rdg>
-          </app>
-          <app loc="A21">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">skar</lem>
-            <rdg source="bib:Nakada1990_01">Akar</rdg>
-          </app>
-          <app loc="A24">
-            <lem source="bib:Trigangga2003_01">ka<supplied reason="lost">savu</supplied>r iṁ</lem>
-            <rdg source="bib:Brandes1913_01">ka<gap quantity="2" reason="lost" unit="character"/>r iṁ</rdg>
-            <rdg source="bib:Nakada1990_01">ka<supplied reason="lost">savu</supplied>r i</rdg>
-          </app>
-          <app loc="A26">
-            <lem source="bib:Trigangga2003_01"><supplied reason="lost">matarub</supplied>·</lem>
-            <rdg source="bib:Brandes1913_01">manaru<unclear>p</unclear>·</rdg>
-            <rdg source="bib:Nakada1990_01">
-              <gap quantity="3" reason="lost" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="A26">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">maṅubar·</lem>
-            <rdg source="bib:Brandes1913_01">mabubar·</rdg>
-          </app>
-          <app loc="A26">
-            <lem source="bib:Trigangga2003_01">maṁluruṁ</lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">maluruṁ</rdg>
-          </app>
-          <app loc="A28">
-            <lem source="bib:Nakada1990_01">parahu</lem>
-            <rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">barahu</rdg>
-          </app>
-          <app loc="A28">
-            <lem source="bib:Trigangga2003_01">masuṁhara</lem>
-            <rdg source="bib:Brandes1913_01">masuhara</rdg>
-            <rdg source="bib:Nakada1990_01">massuhara</rdg>
-          </app>
-          <app loc="A28">
-            <lem source="bib:Trigangga2003_01">Adagaṁ</lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">madagaṁ</rdg>
-          </app>
-          <app loc="A29">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">Aṅuñjal·</lem>
-            <rdg source="bib:Brandes1913_01">Aṅañjal·</rdg>
-          </app>
-          <app loc="A30">
-            <lem><supplied reason="lost">sa</supplied><unclear>pa</unclear>raṅgaṁ</lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="1" reason="lost" unit="character"/>
-              <gap quantity="1" reason="illegible" unit="character"/>
-              <unclear>raṅgaṁ</unclear>
-            </rdg>
-            <rdg source="bib:Nakada1990_01"><gap quantity="1" reason="lost" unit="character"/>paraṅgaṁ</rdg>
-            <rdg source="bib:Trigangga2003_01"><gap quantity="1" reason="lost" unit="character"/><unclear>sa</unclear>raṅgaṁ</rdg>
-            <note>Cf. Jeru-Jeru A19.</note>
-          </app>
-          <app loc="A30">
-            <lem source="bib:Trigangga2003_01">sīma tan· knā</lem>
-            <rdg source="bib:Brandes1913_01"><seg type="body">
-                <gap reason="illegible"/>
-              </seg>ima ba<gap quantity="2" reason="illegible" unit="character"/></rdg>
-            <rdg source="bib:Nakada1990_01"><gap quantity="3" reason="illegible" unit="character"/>n· <gap quantity="1" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="B1">
-            <lem source="bib:Trigangga2003_01"><supplied reason="lost">kāla ma</supplied>ṅasəAkan·</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="2" reason="lost" unit="character"/> AṅasəAkan·</rdg>
-            <rdg source="bib:Nakada1990_01"><gap quantity="3" reason="lost" unit="character"/>ṅasəAkan·</rdg>
-          </app>
-          <app loc="B2">
-            <lem source="bib:Brandes1913_01 bib:Nakada1990_01">I <supplied reason="lost">ra</supplied>kryān·</lem>
-            <rdg source="bib:Trigangga2003_01">I <unclear>taṇḍa ra</unclear>kryān·</rdg>
-          </app>
-          <app loc="B4">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">vahaṁ</lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="2" reason="illegible" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="B5">
-            <lem>ma<supplied reason="omitted">ṁ</supplied>hūri</lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">maṁhūri</rdg>
-            <rdg source="bib:Trigangga2003_01">mahūṁri</rdg>
-            <note>B and N silently correct the reading.</note>
-          </app>
-          <app loc="B6">
-            <lem>
-              <supplied reason="lost">1</supplied>
-            </lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01 bib:Trigangga2003_01">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="B7">
-            <lem source="bib:Trigangga2003_01">pahuṁ</lem>
-            <rdg source="bib:Brandes1913_01">paluḥ</rdg>
-            <rdg source="bib:Nakada1990_01">patuḥ</rdg>
-          </app>
-          <app loc="B7">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">lbūr</lem>
-            <rdg source="bib:Brandes1913_01">lbar</rdg>
-          </app>
-          <app loc="B7">
-            <lem source="bib:Trigangga2003_01">saṁ ra majjha</lem>
-            <rdg source="bib:Brandes1913_01">sarama<gap quantity="1" reason="illegible" unit="character"/></rdg>
-            <rdg source="bib:Nakada1990_01">saṁ rama<unclear>ṅse</unclear></rdg>
-          </app>
-          <app loc="B8">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">vatu kiluṁ</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="1" reason="illegible" unit="character"/>ta kīluṁ</rdg>
-          </app>
-          <app loc="B9">
-            <lem source="bib:Trigangga2003_01">ho<supplied reason="lost">vaṅka</supplied></lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="1" reason="illegible" unit="character"/>
-              <gap quantity="2" reason="lost" unit="character"/>
-            </rdg>
-            <rdg source="bib:Nakada1990_01">ho<gap quantity="1" reason="lost" unit="character"/>ṅ<supplied reason="lost">śa</supplied></rdg>
-          </app>
-          <app loc="B9">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">saṁ kulumpaṁ</lem>
-            <rdg source="bib:Brandes1913_01">Akulumpaṁ</rdg>
-          </app>
-          <app loc="B10">
-            <lem source="bib:Nakada1990_01">pu <supplied reason="omitted">tu</supplied>ntun·</lem>
-            <rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">puntun·</rdg>
-            <note>Cf. Sangguran B4 (guṇuṅan· pu tun·tun·) and Masahar B9 (gunuṅan pu tuntun·). The parallel passage in Jeru-Jeru B1 which reads vuntun· also shows omission of one akṣara.</note>
-          </app>
-          <app loc="B11">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">vatu</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="1" reason="illegible" unit="character"/>ta</rdg>
-          </app>
-          <app loc="B12">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">satyaka</lem>
-            <rdg source="bib:Brandes1913_01"><unclear>sa</unclear>kya<unclear>ta</unclear></rdg>
-          </app>
-          <app loc="B13">
-            <lem source="bib:Trigangga2003_01">kinabaihānira</lem>
-            <rdg source="bib:Brandes1913_01">kinabaihān<seg type="vowel">
-                <gap reason="illegible"/>
-              </seg><gap quantity="1" reason="illegible" unit="character"/></rdg>
-            <rdg source="bib:Nakada1990_01">kinabaihān<seg type="vowel">
-                <gap reason="illegible"/>
-              </seg><unclear>ra</unclear></rdg>
-          </app>
-          <app loc="B13">
-            <lem>və:han·</lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01 bib:Trigangga2003_01">pə:han·</rdg>
-          </app>
-          <app loc="B13">
-            <lem source="bib:Trigangga2003_01">mājha</lem>
-            <rdg source="bib:Brandes1913_01">mā<unclear>ñaṁ</unclear></rdg>
-            <rdg source="bib:Nakada1990_01">māṅsa</rdg>
-          </app>
-          <app loc="B14">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">paṅaṅkat·</lem>
-            <rdg source="bib:Brandes1913_01">pa<unclear>ṅu</unclear><gap quantity="1" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="B14">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">hop saji</lem>
-            <rdg source="bib:Nakada1990_01">hop<gap quantity="1" reason="illegible" unit="character"/>saji</rdg>
-          </app>
-          <app loc="B15">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">vasaḥ</lem>
-            <rdg source="bib:Nakada1990_01">vasuḥ</rdg>
-          </app>
-          <app loc="B15">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">matəb·</lem>
-            <rdg source="bib:Brandes1913_01">mañəb·</rdg>
-            <note>B notes an alternative reading matəb·.</note>
-          </app>
-          <app loc="B16">
-            <lem source="bib:Trigangga2003_01">ku<supplied reason="lost">ci</supplied> saṁ būka</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="1" reason="illegible" unit="character"/><gap quantity="1" reason="lost" unit="character"/> subuta</rdg>
-            <rdg source="bib:Nakada1990_01">k<unclear>uvi</unclear> subūta</rdg>
-          </app>
-          <app loc="B16">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">piṅsor hyaṁ</lem>
-            <rdg source="bib:Brandes1913_01">piṅhe ryya</rdg>
-          </app>
-          <app loc="B17">
-            <lem source="bib:Trigangga2003_01">turus·</lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">kurus·</rdg>
-          </app>
-          <app loc="B17">
-            <lem source="bib:Brandes1913_01 bib:Nakada1990_01">mā 2</lem>
-            <rdg source="bib:Trigangga2003_01">mā 4</rdg>
-          </app>
-          <app loc="B18">
-            <lem source="bib:Trigangga2003_01">kahyunan</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="2" reason="illegible" unit="character"/>ṅan</rdg>
-            <rdg source="bib:Nakada1990_01">kahyuṅan</rdg>
-          </app>
-          <app loc="B18">
-            <lem source="bib:Brandes1913_01 bib:Nakada1990_01">saṁ lāgi</lem>
-            <rdg source="bib:Trigangga2003_01">saṁ lābhi</rdg>
-          </app>
-          <app loc="B18">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">baraṇa</lem>
-            <rdg source="bib:Brandes1913_01">maba<gap quantity="1" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="B19">
-            <lem source="Anakbi bib:Brandes1913_01"><supplied reason="lost">A</supplied>nakbi</lem>
-            <rdg source="bib:Nakada1990_01 bib:Trigangga2003_01">nakbi</rdg>
-            <note>B silently correcting the reading.</note>
-          </app>
-          <app loc="B19">
-            <lem source="bib:Trigangga2003_01">vlaḥ</lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">vlu</rdg>
-          </app>
-          <app loc="B20">
-            <lem source="bib:Trigangga2003_01">jura<unclear>ṁ</unclear></lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">juru</rdg>
-          </app>
-          <app loc="B21">
-            <lem>ma<unclear>ṁ</unclear>ha<supplied reason="lost">mb</supplied>in·</lem>
-            <rdg source="bib:Brandes1913_01">ma<unclear>ha</unclear><gap quantity="2" reason="illegible" unit="character"/></rdg>
-            <rdg source="bib:Nakada1990_01 bib:Trigangga2003_01">maṁha<gap quantity="2" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="B21">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">saṁ balusyak·</lem>
-            <rdg source="bib:Brandes1913_01">saba saṁ syak·</rdg>
-          </app>
-          <app loc="B22">
-            <lem>prathama, maṇi<unclear>ga</unclear> <gap quantity="5" reason="lost" unit="character"/> vinaiḥ</lem>
-            <rdg source="bib:Brandes1913_01">bajrama malā<gap quantity="1" reason="illegible" unit="character"/> <gap quantity="4" reason="lost" unit="character"/>məṁ vinaiḥ</rdg>
-            <rdg source="bib:Nakada1990_01">prajamaṁ maṇiga <gap quantity="4" reason="lost" unit="character"/>mī</rdg>
-            <rdg source="bib:Trigangga2003_01">prathama maniL̥ <gap quantity="4" reason="lost" unit="character"/>mə</rdg>
-            <note>Cf. Jeru-Jeru B12 pr̥thama, maṇiga L̥kər·, barsahan· <unclear>s</unclear>amə, vineḥ. The present passage can probably be restored after the parallel in Jeru-Jeru.</note>
-          </app>
-          <app loc="B22">
-            <lem>kahyunan· <add place="above">bisat·</add></lem>
-            <rdg source="bib:Brandes1913_01">kahyunan· bipat·</rdg>
-            <rdg source="bib:Nakada1990_01">kahyunan· bisak·</rdg>
-            <rdg source="bib:Trigangga2003_01">kahyunan·</rdg>
-          </app>
-          <app loc="B23">
-            <lem>ma<unclear>ṁ</unclear>hamb<supplied reason="lost">i</supplied>nanī</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="1" reason="illegible" unit="character"/>tamban</rdg>
-            <rdg source="bib:Nakada1990_01">maṁhambinana</rdg>
-            <rdg source="bib:Trigangga2003_01">pahambin</rdg>
-            <note>Cf. Jeru-Jeru B13.</note>
-          </app>
-          <app loc="B23">
-            <lem source="bib:Brandes1913_01 bib:Nakada1990_01">gu<supplied reason="lost">s</supplied>t<supplied reason="lost">i</supplied></lem>
-            <rdg source="bib:Trigangga2003_01">
-              <gap quantity="2" reason="illegible" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="B23">
-            <lem>
-              <supplied reason="lost">pañjuruAn·</supplied>
-            </lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01 bib:Trigangga2003_01">
-              <gap quantity="4" reason="lost" unit="character"/>
-            </rdg>
-            <note>Restored after Jeru-Jeru B13 parujar patiḥ maṁhambin nanī, pañjuruAn· Iṁ pakaraṇan· Astuti malavaṁ kāliḥ jaṅga.  But note that gusti is absent there.</note>
-          </app>
-          <app loc="B23">
-            <lem source="bib:Brandes1913_01 bib:Nakada1990_01">malavaṅ</lem>
-            <rdg source="bib:Trigangga2003_01">maṁlavaṅ</rdg>
-          </app>
-          <app loc="B23">
-            <lem source="bib:Trigangga2003_01">bhoma Ugal-ugal·</lem>
-            <rdg source="bib:Brandes1913_01">go<gap quantity="5" reason="illegible" unit="character"/></rdg>
-            <rdg source="bib:Nakada1990_01">boma dagalaṅan·</rdg>
-          </app>
-          <app loc="B23">
-            <lem>səvu<supplied reason="lost">r·</supplied></lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="2" reason="illegible" unit="character"/>
-            </rdg>
-            <rdg source="bib:Trigangga2003_01">sibu<supplied reason="lost">r·</supplied></rdg>
-          </app>
-          <app loc="B24">
-            <lem source="bib:Trigangga2003_01">juru kalaṁ</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="2" reason="illegible" unit="character"/> kala</rdg>
-            <rdg source="bib:Nakada1990_01">juru kala</rdg>
-          </app>
-          <app loc="B24">
-            <lem source="bib:Trigangga2003_01">tajuṅkilan·</lem>
-            <rdg source="bib:Brandes1913_01">kajuṅkilaṅan·</rdg>
-            <rdg source="bib:Nakada1990_01">kajaṅkilaṅ</rdg>
-          </app>
-          <app loc="B24">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">mḍaṁ gəntər·</lem>
-            <rdg source="bib:Nakada1990_01"><gap quantity="1" reason="illegible" unit="character"/>ntara</rdg>
-          </app>
-          <app loc="B25">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">dhavala kamasihan·</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="2" reason="illegible" unit="character"/>han·</rdg>
-          </app>
-          <app loc="B25">
-            <lem source="bib:Trigangga2003_01">Unak·</lem>
-            <rdg source="bib:Brandes1913_01">Enak·</rdg>
-            <rdg source="bib:Nakada1990_01">ḍanak·</rdg>
-          </app>
-          <app loc="B25">
-            <lem source="bib:Trigangga2003_01">4</lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">5</rdg>
-          </app>
-          <app loc="B25">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">pinaka-</lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="3" reason="illegible" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="B26">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">kalumpaṁ</lem>
-            <rdg source="bib:Nakada1990_01"><unclear>u</unclear>lumpaṁ</rdg>
-            <note>Cf. Jeru-Jeru B16.</note>
-          </app>
-          <app loc="B26">
-            <lem source="bib:Trigangga2003_01">pa<unclear>ḍ</unclear>i</lem>
-            <rdg source="bib:Brandes1913_01">paṭi</rdg>
-            <rdg source="bib:Nakada1990_01">pati</rdg>
-            <note>Or read <foreign>paṭi</foreign> here and in Jeru-Jeru B17?</note>
-          </app>
-          <app loc="B26">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">1</lem>
-            <rdg source="bib:Trigangga2003_01">6</rdg>
-          </app>
-          <app loc="B27">
-            <lem source="bib:Trigangga2003_01">sovaṁ-<supplied reason="lost">sovaṁ saṁ tu</supplied>hān·</lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">sovaṁ-<gap quantity="2" reason="lost" unit="character"/> <supplied reason="lost">tu</supplied>hān·</rdg>
-          </app>
-          <app loc="B27">
-            <lem source="bib:Trigangga2003_01">vujaṁ</lem>
-            <rdg source="bib:Brandes1913_01">māja</rdg>
-            <rdg source="bib:Nakada1990_01">guḍa</rdg>
-          </app>
-          <app loc="B28">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">sovaṁ-sovaṁ</lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="4" reason="illegible" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="B28">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">paṅambuhan·</lem>
-            <rdg source="bib:Brandes1913_01">paṅambulan·</rdg>
-          </app>
-          <app loc="B28">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">siñjalan·</lem>
-            <rdg source="bib:Brandes1913_01">siñjasan·</rdg>
-          </app>
-          <app loc="B28">
-            <lem source="bib:Trigangga2003_01">4</lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="1" reason="illegible" unit="character"/>
-            </rdg>
-            <rdg source="bib:Nakada1990_01">5</rdg>
-          </app>
-          <app loc="B29">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">vḍihan·</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="1" reason="illegible" unit="character"/>han·</rdg>
-          </app>
-          <app loc="B29">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">1</lem>
-            <rdg source="bib:Nakada1990_01">
-              <gap quantity="1" reason="illegible" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="B30">
-            <lem source="bib:Nakada1990_01">Uṅgər·</lem>
-            <rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">Uṅkər·</rdg>
-          </app>
-          <app loc="c2">
-            <lem><supplied reason="lost">pasək· mā 4 kinabaihannira patiḥ tpi siriṁ vinai</supplied>ḥ</lem>
-            <rdg source="bib:Brandes1913_01 bib:Trigangga2003_01"><gap quantity="15" reason="lost" unit="character"/> <supplied reason="lost">vinai</supplied>ḥ</rdg>
-            <rdg source="bib:Nakada1990_01"><gap quantity="17" reason="lost" unit="character"/>ḥ</rdg>
-            <note>Supplied from the parallel in Jeru-Jeru B20–21.</note>
-          </app>
-          <app loc="c2">
-            <lem>karūman·</lem>
-            <rdg source="bib:Brandes1913_01">ku<gap quantity="1" reason="illegible" unit="character"/>ma<gap quantity="1" reason="illegible" unit="character"/> </rdg>
-            <rdg source="bib:Nakada1990_01">karūpan·</rdg>
-            <rdg source="bib:Trigangga2003_01">tarūman·</rdg>
-          </app>
-          <app loc="c3">
-            <lem source="bib:Trigangga2003_01">jātaḥ</lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">jata</rdg>
-          </app>
-          <app loc="c3">
-            <lem source="bib:Nakada1990_01">maṅhambi<supplied reason="lost">n·</supplied></lem>
-            <rdg source="bib:Brandes1913_01">maṅha<gap quantity="1" reason="illegible" unit="character"/></rdg>
-            <rdg source="bib:Nakada1990_01">saṁ maṅhambin·</rdg>
-            <rdg source="bib:Trigangga2003_01">maṅhambi</rdg>
-          </app>
-          <app loc="c5">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">prakaśita</lem>
-            <rdg source="bib:Brandes1913_01">saśakaśita</rdg>
-          </app>
-          <app loc="c6">
-            <lem>malaḥ</lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01 bib:Trigangga2003_01">mala</rdg>
-          </app>
-          <app loc="c10">
-            <lem source="bib:Trigangga2003_01">kvaiḥ<supplied reason="lost">n</supplied>i<supplied reason="lost">ra</supplied> <supplied reason="lost">I</supplied>lu</lem>
-            <rdg source="bib:Brandes1913_01">kvaihni<gap quantity="2" reason="lost" unit="character"/><gap quantity="1" reason="illegible" unit="character"/></rdg>
-            <rdg source="bib:Nakada1990_01">kvaiḥni<gap quantity="2" reason="lost" unit="character"/>l<seg type="vowel">
-                <gap reason="illegible"/>
-              </seg></rdg>
-          </app>
-          <app loc="c13">
-            <lem source="bib:Trigangga2003_01">t<supplied reason="lost">p</supplied>i <supplied reason="lost">s</supplied>iriṅ</lem>
-            <rdg source="bib:Brandes1913_01"><unclear>ki</unclear><gap quantity="1" reason="lost" unit="character"/><unclear>ipi</unclear>ṅ</rdg>
-            <rdg source="bib:Nakada1990_01"><gap quantity="2" reason="lost" unit="character"/> Asiṁ</rdg>
-          </app>
-          <app loc="c14">
-            <lem source="bib:Trigangga2003_01">k<supplied reason="lost">i</supplied>non</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="1" reason="illegible" unit="character"/>non</rdg>
-            <rdg source="bib:Brandes1913_01"><gap quantity="1" reason="illegible" unit="character"/>nān</rdg>
-          </app>
-          <app loc="c14">
-            <lem source="bib:Brandes1913_01 bib:Nakada1990_01">
-              <choice>
-                <sic>malūṅguḥ</sic>
-                <reg>maluṅguḥ</reg>
-              </choice>
-            </lem>
-            <rdg source="bib:Trigangga2003_01">maṁluṅguḥ</rdg>
-          </app>
-          <app loc="c17">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">kalaṅan·</lem>
-            <rdg source="bib:Nakada1990_01">kaluṅan·</rdg>
-          </app>
-          <app loc="c20">
-            <lem>suma<unclear reason="eccentric_ductus">ṅa</unclear>skāra</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="2" reason="illegible" unit="character"/>ha<gap quantity="2" reason="illegible" unit="character"/></rdg>
-            <rdg source="bib:Nakada1990_01 bib:Trigangga2003_01">sumāṇaskāra</rdg>
-          </app>
-          <app loc="c21">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">sakrama[niṁ da)ṅū</lem>
-            <rdg source="bib:Nakada1990_01">sakrama<gap quantity="1" reason="lost" unit="character"/> daṅū </rdg>
-          </app>
-          <app loc="c22">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">mamantiṅa<supplied reason="lost">kan·</supplied></lem>
-            <rdg source="bib:Nakada1990_01">mabantiṅakan·</rdg>
-          </app>
-          <app loc="c23">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01"><unclear>susu</unclear>k·</lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="2" reason="illegible" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="c23">
-            <lem source="bib:Brandes1913_01">pamaṁmaṁ</lem>
-            <rdg source="bib:Brandes1913_01">ma<unclear>mapaṁ</unclear></rdg>
-            <rdg source="bib:Nakada1990_01">maṁmaṁ</rdg>
-            <rdg source="bib:Trigangga2003_01">mamaṁmaṁ</rdg>
-          </app>
-          <app loc="c23">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">
-              <unclear>liṁ</unclear>
-              <supplied reason="lost">nira</supplied>
-            </lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="1" reason="illegible" unit="character"/>
-              <gap quantity="2" reason="lost" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="c26">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01"><unclear>mahāR̥</unclear>ṣi saṁ hyaṁ I daśadeśa</lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="10" reason="illegible" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="c26">
-            <lem source="bib:Trigangga2003_01">Ū<supplied reason="lost">rdhamadhaḥ</supplied></lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="4" reason="illegible" unit="character"/>
-            </rdg>
-            <rdg source="bib:Nakada1990_01">Urdha<gap quantity="2" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="c28">
-            <lem source="bib:Trigangga2003_01">yajamānākāśa</lem>
-            <rdg source="bib:Brandes1913_01">jayamānākāśa</rdg>
-            <rdg source="bib:Nakada1990_01"><gap quantity="1" reason="illegible" unit="character"/>jamānākāśa</rdg>
-          </app>
-          <app loc="c28">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">Aho<unclear>rātra</unclear></lem>
-            <rdg source="bib:Brandes1913_01">Ahoratri</rdg>
-          </app>
-          <app loc="c29">
-            <lem source="bib:Brandes1913_01 bib:Nakada1990_01">
-              <gap quantity="2" reason="illegible" unit="character"/>
-            </lem>
-            <rdg source="bib:Nakada1990_01">dvaya</rdg>
-            <note>Having observed the trace of the akṣaras and the availability of space,  some of the expected readings such sandhyā hr̥daya (Linggasuntan B24), sandhyādvaya (Jeru-Jeru B27), sandhyā (Paradah I 2A29), and even the reading dvaya suggested by N do not seems possible.</note>
-          </app>
-          <app loc="d5">
-            <note>The akṣaras on the 1st through 4th lines are lost. We follow N in the restoration of the text provided here, where B and T do not provide any. However, we have replaced the segment śvino supplied by N based on the parallel in Jeru-Jeru, to muAṁ putra devatā: see the explanation on this matter in our note on Jeru-Jeru c1. The parallel passage in Linggasuntan B24–25 is pretāsūra I garuḍa gandarvva catvāri lokapāla, yama buruṇa kuvera bāśava muAṁ putra devatā pañcakuśika nandīśvāra mahākāla ṣadvināyaka nāgarāja durggadevī caturāśra while in Jeru-Jeru B27–c3 it is pretāsura, garuḍa kinnara gandharvva, yama baruṇa kuvaira bāsava Aśvinodeva, pañca kuśika, na<supplied reason="lost">n</supplied>d<supplied reason="lost">ī</supplied>śvara mahākāla ṣadvināyaka nāgarājā, dūrggādevī, caturāśra.</note>
-          </app>
-          <app loc="d6">
-            <lem source="bib:Trigangga2003_01">Ananta</lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">pañca</rdg>
-          </app>
-          <app loc="d6">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">kālamr̥tyu</lem>
-            <rdg source="bib:Nakada1990_01">kālam<gap quantity="2" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="d7">
-            <lem source="bib:Trigangga2003_01">kita prasiddha</lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="5" reason="illegible" unit="character"/>
-            </rdg>
-            <rdg source="bib:Nakada1990_01">kita prasi<gap quantity="1" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="d9">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">sarvvabhū<supplied reason="lost">ta</supplied></lem>
-            <rdg source="bib:Nakada1990_01">sarvva<gap quantity="1" reason="illegible" unit="character"/>ta</rdg>
-          </app>
-          <app loc="d10">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">sa<supplied reason="lost">kala</supplied></lem>
-            <rdg source="bib:Brandes1913_01">
-              <unclear>ka</unclear>
-              <gap quantity="2" reason="lost" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="d10">
-            <lem source="bib:Trigangga2003_01">sukṣma</lem>
-            <rdg source="bib:Brandes1913_01">suka</rdg>
-            <rdg source="bib:Nakada1990_01">sumpa</rdg>
-          </app>
-          <app loc="d11">
-            <lem source="bib:Nakada1990_01"><unclear>R̥</unclear>ṅəAkan·</lem>
-            <rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">AḍḍəṅəAkan·</rdg>
-          </app>
-          <app loc="d12">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">sapa<supplied reason="lost">tha</supplied></lem>
-            <rdg source="bib:Nakada1990_01">sapa<gap quantity="1" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="d12">
-            <lem source="bib:Brandes1913_01 bib:Nakada1990_01">pamaṁ<add place="below">maṁ</add>-</lem>
-            <rdg source="bib:Trigangga2003_01">maṁmaṁ-</rdg>
-          </app>
-          <app loc="d12">
-            <lem source="bib:Trigangga2003_01">hiyaṁ</lem>
-            <rdg source="bib:Brandes1913_01">tila</rdg>
-            <rdg source="bib:Trigangga2003_01">həyaṁ</rdg>
-          </app>
-          <app loc="d14">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">ta<supplied reason="lost">n ma</supplied>gam·</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="2" reason="illegible" unit="character"/><unclear>v</unclear>am·</rdg>
-          </app>
-          <app loc="d15">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01"><supplied reason="lost">I</supplied><unclear>k</unclear>iṁ</lem>
-            <rdg source="bib:Nakada1990_01"><seg type="vowel">
-                <gap reason="illegible"/>
-              </seg>kiṁ</rdg>
-          </app>
-          <app loc="d17">
-            <lem source="bib:Trigangga2003_01"><unclear>tina</unclear><supplied reason="lost">namniṁ ku</supplied>dur·</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="2" reason="illegible" unit="character"/><gap quantity="3" reason="lost" unit="character"/>dur·</rdg>
-            <rdg source="bib:Nakada1990_01"><gap quantity="2" reason="illegible" unit="character"/> makudur·</rdg>
-          </app>
-          <app loc="d17">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">Asiṁ</lem>
-            <rdg source="bib:Brandes1913_01">A<gap quantity="1" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="d17">
-            <lem>sakav<unclear>v</unclear>aṅananya</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="2" reason="illegible" unit="character"/>ṅananya</rdg>
-            <rdg source="bib:Nakada1990_01">pakavuAṅananya</rdg>
-            <rdg source="bib:Trigangga2003_01">saṁka vuAṅananya</rdg>
-          </app>
-          <app loc="d18">
-            <rdg source="bib:Nakada1990_01 bib:Trigangga2003_01">hadi<supplied reason="lost">A</supplied>n·</rdg>
-            <rdg source="bib:Brandes1913_01">pa<gap quantity="2" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="d20">
-            <lem>tadvaraha<supplied reason="lost">n·</supplied></lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="4" reason="illegible" unit="character"/>
-            </rdg>
-            <rdg source="bib:Nakada1990_01">tadvarahan·</rdg>
-          </app>
-          <app loc="d20">
-            <lem source="bib:Trigangga2003_01">panimbatan·</lem>
-            <rdg source="bib:Brandes1913_01">pambaikan·</rdg>
-            <rdg source="bib:Nakada1990_01">paṅimbakan·</rdg>
-          </app>
-          <app loc="d20">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">kamu hyaṁ</lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="3" reason="illegible" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="d21">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">pati</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="1" reason="lost" unit="character"/><seg type="body">
-                <gap reason="illegible"/>
-              </seg>i</rdg>
-          </app>
-          <app loc="d22">
-            <lem>i təṅəna<unclear>n· Uvahi riṁ hiri</unclear>ṅan·</lem>
-            <rdg source="bib:Brandes1913_01">ri  təṅənan· <gap quantity="7" reason="illegible" unit="character"/></rdg>
-            <rdg source="bib:Nakada1990_01">ri tṅa<gap quantity="9" reason="illegible" unit="character"/> </rdg>
-          </app>
-          <app loc="d22">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">rantan ususnya</lem>
-            <rdg source="bib:Nakada1990_01"><gap quantity="4" reason="illegible" unit="character"/>nya</rdg>
-          </app>
-          <app loc="d23">
-            <lem><supplied reason="lost">ḍaḍa</supplied>tt</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="2" reason="lost" unit="character"/>tt</rdg>
-            <rdg source="bib:Nakada1990_01">ḍa<gap quantity="1" reason="lost" unit="character"/>tt</rdg>
-            <rdg source="bib:Trigangga2003_01"><gap quantity="2" reason="lost" unit="character"/>tt</rdg>
-            <note>Cf. Jeru-Jeru c18–19.</note>
-          </app>
-          <app loc="d23">
-            <lem>ḍalammanya</lem>
-            <rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">ḍalamanya</rdg>
-            <rdg source="bib:Nakada1990_01">ḍala<gap quantity="2" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="d23">
-            <lem source="bib:Trigangga2003_01">At<unclear>manya</unclear></lem>
-            <rdg source="bib:Brandes1913_01">Ata<gap quantity="1" reason="illegible" unit="character"/></rdg>
-            <rdg source="bib:Nakada1990_01">Atmā<gap quantity="1" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="d24">
-            <lem source="bib:Trigangga2003_01">tmuA<unclear>ṁ</unclear></lem>
-            <rdg source="bib:Nakada1990_01">tmuA</rdg>
-            <rdg source="bib:Brandes1913_01">tusna</rdg>
-          </app>
-          <app loc="d25">
-            <lem source="bib:Trigangga2003_01">sahasra ja<supplied reason="lost">nma</supplied> saluīrniṁ</lem>
-            <rdg source="bib:Brandes1913_01">sahū<unclear>pra Ali Īniṁ</unclear></rdg>
-            <rdg source="bib:Nakada1990_01">sa<unclear>h</unclear>asra ja<gap quantity="1" reason="lost" unit="character"/> saluĪrniṁ</rdg>
-          </app>
-          <app loc="d26">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">ta<supplied reason="lost">k-ta</supplied>k</lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="1" reason="illegible" unit="character"/>
-              <gap quantity="1" reason="lost" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="d26">
-            <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">lakay·</lem>
-            <rdg source="bib:Brandes1913_01">lakab·</rdg>
-          </app>
-          <app loc="d27">
-            <lem source="bib:Trigangga2003_01">tmahana<supplied reason="lost">nya</supplied></lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">tmahanya</rdg>
-          </app>
-          <app loc="d27">
-            <lem source="bib:Trigangga2003_01">tmunyan<unclear>·</unclear></lem>
-            <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">tmunya nda </rdg>
-          </app>
-          <app loc="d29">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">lumkas·</lem>
-            <rdg source="bib:Nakada1990_01">lumukas·</rdg>
-          </app>
-          <app loc="d30">
-            <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">paripūrṇna</lem>
-            <rdg source="bib:Nakada1990_01">paripū<gap quantity="1" reason="illegible" unit="character"/></rdg>
-          </app>
-          <app loc="e5">
-            <lem source="bib:Trigangga2003_01">vulūniṁ</lem>
-            <rdg source="bib:Brandes1913_01">vulūni</rdg>
-          </app>
-          <app loc="e6">
-            <lem source="bib:Trigangga2003_01">
-              <unclear>miśāka</unclear>
-            </lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="3" reason="illegible" unit="character"/>
-            </rdg>
-            <note>Cf. Jeru-Jeru d5..</note>
-          </app>
-          <app loc="e6">
-            <lem source="bib:Trigangga2003_01">Atak·</lem>
-            <rdg source="bib:Brandes1913_01">Atag·</rdg>
-          </app>
-          <app loc="e7">
-            <lem source="bib:Trigangga2003_01">lil-lit·</lem>
-            <rdg source="bib:Brandes1913_01">kilat·</rdg>
-          </app>
-          <app loc="e11">
-            <lem>tva<unclear>k·</unclear> pā<unclear>nā</unclear>di</lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="4" reason="illegible" unit="character"/>
-            </rdg>
-            <rdg source="bib:Trigangga2003_01">tva prāṇadi</rdg>
-          </app>
-          <app loc="e12">
-            <lem source="bib:Brandes1913_01">piṇḍva</lem>
-            <rdg source="bib:Trigangga2003_01">piṇḍa</rdg>
-          </app>
-          <app loc="e13">
-            <lem>
-              <unclear>paḍḍīsa</unclear>
-            </lem>
-            <rdg source="bib:Trigangga2003_01"><gap quantity="3" reason="illegible" unit="character"/> B, pa<gap quantity="2" reason="illegible" unit="character"/></rdg>
-            <note>The stone is quite worn here, so our tentative reading is based mainly on the parallel in Jeru-Heru d11.</note>
-          </app>
-          <app loc="e13">
-            <lem>salvirniṁ ta<supplied reason="lost">mbul·</supplied></lem>
-            <rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">
-              <gap quantity="4" reason="illegible" unit="character"/>
-              <gap quantity="1" reason="lost" unit="character"/>
-            </rdg>
-          </app>
-          <app loc="f1">
-            <lem><supplied reason="lost">saprakāra vinuvuhakan· tadanantara patṅaḥ manaḍaḥ kinon· sira ka</supplied>baiḥ</lem>
-            <rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">
-              <gap quantity="24" reason="illegible" unit="character"/>
-            </rdg>
-            <note>The restoration is based on the parallel in Jeru-Jeru d12–14.</note>
-          </app>
-          <app loc="f5">
-            <lem>
-              <unclear>kahaḍaṁ</unclear>
-            </lem>
-            <rdg source="bib:Brandes1913_01">
-              <gap quantity="3" reason="illegible" unit="character"/>
-            </rdg>
-            <rdg source="bib:Trigangga2003_01">kahanān·</rdg>
-            <note>Commenting on his reading kahanān·, T notes that “bacaan ini kurang menyakinkan karena ada satu atau dua aksara yang sangat sulit dibaca (tertutup oleh percikan semen)". Our reading is based on the parallel in Jeru-Jeru d16–17.</note>
-          </app>
-          <app loc="f7">
-            <lem><unclear>vuvus</unclear>-</lem>
-            <rdg source="bib:Brandes1913_01"><gap quantity="2" reason="illegible" unit="character"/>-</rdg>
-            <rdg source="bib:Trigangga2003_01">cucup-</rdg>
-          </app>
-          <app loc="f8">
-            <lem source="bib:Trigangga2003_01">mā</lem>
-            <rdg source="bib:Brandes1913_01">mas</rdg>
-          </app>
-          <app loc="f8">
-            <lem source="bib:Brandes1913_01">4</lem>
-            <rdg source="bib:Trigangga2003_01">5</rdg>
-          </app>
-          <app loc="f15">
-            <note>The end of the inscription can probably to restored after the ending of Jeru-Jeru (d23–34): ... tlas· mapa[gəḥ] kasīmān·n ikāṁ sīma, katguhaknanira kabaiḥ.</note>
-          </app>
-        </listApp>
-      </div>
-      <div type="translation"><!--translation encoded as per EGD §9.2 --></div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
-      <div type="bibliography">
-        <p>We have used Nakada’s edition (N, 1990: 2–21) as base text. However, his edition does not include the reading of the left and right upper parts. We compared it to the editions by Trigangga (T, 2003_01: 10–16) and Brandes (B, 1913: 63–69, OJO XXXVIII), as well as the reading furnished by Damais (D, 1955: 104–105) only for the first 5 lines. (Note that, contrary to the Linggasuntan charter, Trigangga’s 2003 edition for the present charter is not republished in Hasan Djafar &amp; Trigangga 2019.) Our edition was then prepared through direct inspection of the stone at MNI by Eko Bastiawan in March 2023, benefiting from remote supervision and assistance by Arlo Griffiths.</p>
-        <listBibl type="primary">
-          <bibl n="N">
-            <ptr target="bib:Nakada1990_01"/>
-          </bibl>
-          <bibl n="T">
-            <ptr target="bib:Trigangga2003_01"/>
-          </bibl>
-          <bibl n="B">
-            <ptr target="bib:Brandes1913_01"/>
-          </bibl>
-          <bibl n="D">
-            <ptr target="bib:Damais1955_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
-        </listBibl>
-      </div>
-    </body>
-  </text>
+      
+<body>
+      
+<div type="edition" xml:lang="kaw-Latn">
+<p>
+<milestone type="pagelike" unit="face" n="A" />
+<label xml:lang="eng">Front</label>
+<lb n="A1" />// Oṃ 
+<choice>
+  <orig>Avīghnam</orig>
+  <reg>Avighnam</reg>
+</choice> astu gaṇapataye namaḥ // svasti śaka-varṣātīta 851 baiśākha-māsa tithi navamī śukla-pakṣa 
+<unclear>ma</unclear> 
+<supplied reason="lost">U</supplied>
+<lb n="A2" />ca vāra pūrvvaphālguṇī-nakṣatra, yoṇi-devatā, Āyuṣmān-yoga, Irikā divaśa rakryān·  hujuṁ pu madhura 
+<choice>
+  <orig>lokānu
+  <lb break="no" n="A3" />rāñjana</orig>
+  <reg>lokānurañjana</reg>
+</choice>, manambaḥ I śrī mahārāja rake halu pu siṇḍok· śrī Īśānavikrama dharmmottuṅgadeva, sumīma Ikāṁ dmak ṣavaḥ I
+<lb n="A4" />guluṅ-guluṁ tapak· su 7, muAṁ Alas· I bantaran· satṅaḥ, paknānya dharmmakṣetrā savahani kuśala rakryān· hujuṁ saṁ hyaṁ
+<lb n="A5" />prāsāda I himad·, maṅasəA I saṁ hyaṁ kahyaṅan· I paṅavān· mapaṅasəA vḍu
+<add place="below">s·</add> 1 pāda 1 Aṁkən kapūjān· bhaṭāra I pa
+<lb break="no" n="A6" />ṅavān· Iṁ prativarṣa, Āpan· ṅkai gunuṁ vaṅkḍi mūla kahyaṅan· saṁ hyaṁ I paṅavān· riṁ purāṇa, mataṅyan tuṅgala gatyanikaṁ
+<lb n="A7" />saṁ hyaṁ kahyaṅan· kapva siliḥ lavada sakarmmaṇya I paṅavān· muAṁ I himad· yan· tka
+<unclear>n</unclear>iṁ kapūjān· bhaṭāra I paṅavā
+<lb break="no" n="A8" />n· Umilva sakarmmaṇya I himad· tkaniṁ 
+<add place="below">ka</add>pūjān· bhaṭāra I himad· Ilva sakarmmaṇya I paṅavān· Iṁ biśuva kāla
+<gap reason="illegible" quantity="1" unit="character" />
+<lb break="no" n="A9" />
+<gap reason="illegible" quantity="1" unit="character" />n· prasiddha tuṅgal· bhaṭāra maṅadhiṣṭhāna I himad· I paṅavān· muAṁ hana ta sīma putrasva I batvan· muAṁ I curu 
+<lb n="A10" />Iy air gilaṁ I gapuk·, I sbaṁ paknānya maṅasəA I saṁ hyaṁ prāsāda I himad·, kramani paṅasə:nya I batvan· śīkhā
+<unclear>ha</unclear> 
+<lb n="A11" />pañjat· I curu lṅa vatu sukat· 1, kalapa 20 mā 1 Iy air gilaṁ Iṅa vatu sukat· 20 mā 2 Iṁ gapuk· 
+<gap reason="illegible" quantity="8" unit="character" />
+<lb n="A12" />
+<gap reason="illegible" quantity="3" unit="character" /> mā 1 
+<unclear>maṅkana</unclear> kramani paṅasə:nikanaṁ sīma putrasva 
+<unclear>mi</unclear>jila Aṅkən· biṣuva ri
+<unclear>ṁ</unclear> kapūjān· bhaṭāra ri himad·, maṁ
+<supplied reason="lost">kana sa</supplied>
+<lb break="no" n="A13" />
+<supplied reason="lost">m</supplied>
+<unclear>b</unclear>
+<supplied reason="lost">aḥ</supplied> 
+<unclear>rak</unclear>ryān· 
+<unclear>hujuṁ</unclear> I śrī mahārāja tlas sinanmata, matəhər ta ya pinagəhakan· Inarpaṇākan· rakryān· hujuṁ 
+<supplied reason="lost">I saṁ hyaṁ prā</supplied>
+<lb break="no" n="A14" />
+<supplied reason="lost">sā</supplied>da An· sīmā savaha saṁ hyaṁ prāsāda I himad· paknānya svatantrā tan katamāna deni patiḥ vahuta rāma, nāyaka 
+<unclear>pa</unclear>
+<supplied reason="lost">rtta</supplied>
+<lb break="no" n="A15" />ya pamgat· ṅunivaiḥ saprakāraniṁ maṅilala drabya haji riṁ daṅ
+<unclear>ū</unclear> miśra-paramiśra vulu-vulu prakāra paṅuraṁ kriṁ· paḍam· 
+<supplied reason="lost">manimpi</supplied>-
+<lb break="no" n="A16" />ki paranakan· limus galuḥ, paṅaruhan·, taji vatu tajam·, sukun·, halu varak· rakadut· pini
+<supplied reason="lost">l</supplied>ai kataṅgaran·, tapa 
+<supplied reason="lost">haji</supplied>
+<lb n="A17" /> Air haji, malandaṁ, L̥ca, L̥bə-L̥b· kalaṁkaṁ kutak·, taṅkil·, tr̥pan·, saluIt·, tuha dagaṁ, tuha gusali, maṁrumbai maṅguñjai 
+<supplied reason="lost">tu</supplied>-
+<lb break="no" n="A18" />hān nambi, tuhān· huñjamman·, vatu valaṁ, pamaṇikan·, maṇiga, sikpan·, rumban·, vilaṁ vanuA, viji kavaḥ, tiṅkəs·, mā
+<supplied reason="lost">vi</supplied>
+<lb n="A19" /> tuhāñ ju
+<supplied reason="lost">ḍ</supplied>i, juru jalir·, miśra hino, vli hapū, vli tambaṁ, vli pañjut·, vli haR̥ṁ, palamak·, paka
+<supplied reason="lost">luṅkuṁ</supplied> Urutan·, dampu
+<supplied reason="lost">lan·</supplied>
+<lb n="A20" /> tpuṁ kavuṁ, suṁ-suṁ paṅuraṁ, pasuk alas·, payuṅan·, puluṁ paḍi, pabisar·, paguluṁ, pāṅinn-aṅin·, sipat bilut·, pāmavaśya, 
+<supplied reason="lost">ho</supplied>- 
+<lb n="A21" />
+<supplied reason="lost">pa</supplied>n·, turun-turun·, panrāṅan·, skar tahun·, panusuḥ, pahaliman·, kḍi valyan·, vidu, maṅiduṁ, sambal sumbul·, hulun· 
+<supplied reason="lost">ha</supplied>-
+<lb break="no" n="A22" />
+<supplied reason="lost">j</supplied>i pamr̥si, vatakk i jro, Ityaivammādi tan· tamā Irikanaṁ sīma kevala saṁ hyaṁ parhyaṅan·, pramāṇā I sadrab
+<supplied reason="lost">ya</supplied>-
+<supplied reason="lost">hajin</supplied>ya
+<lb n="A23" /> 
+<supplied reason="lost">ka</supplied>baiḥ, maṅkana Ikanaṁ sukhaduḥkha kady aṅganiṁ mayaṁ tan mavuAḥ valū rumambat· Iṁ natar·, vipati vaṅ
+<supplied reason="lost">ka</supplied>y· 
+<supplied reason="lost">kāb</supplied>unan·, rāḥ ka
+<supplied reason="lost">sa</supplied>-
+<lb break="no" n="A24" />
+<supplied reason="lost">vu</supplied>r iṁ dalan· vākcapalā duhilatan· hastacapalā mamtuAkan· vūriniṅ 
+<supplied reason="lost">k</supplied>i
+<supplied reason="lost">kir· mam</supplied>uk·, mamumpaṁ, lūdan·, tūtan·, 
+<supplied reason="lost">ḍa</supplied>-
+<lb break="no" n="A25" />
+<supplied reason="lost">ṇḍa</supplied> kuḍaṇḍa bhaṇḍihalādi bhaṭāra riṁ prāsāda Ataḥ parā
+<supplied reason="lost">nan</supplied>i 
+<supplied reason="lost">sadrab</supplied>ya-hajinya kunaṁ Ikāṁ miśra mañambul·, mañavriṁ 
+<unclear>maṁ</unclear>
+<supplied reason="lost">lā</supplied>-
+<lb break="no" n="A26" />
+<supplied reason="lost">kha</supplied>, maṅapus·, 
+<unclear>ma</unclear>
+<supplied reason="lost">pahaṅan</supplied>·, 
+<supplied reason="lost">matarub</supplied>· 
+<supplied reason="lost">man</supplied>ū
+<supplied reason="lost">la v</supplied>uṅkuḍu, maṁdyun·, maṅubar·, maṁhapū, maṁluruṁ, magavai ruṅki, payuṁ vlu mopiḥ, 
+<supplied reason="lost">maka</supplied>-
+<lb break="no" n="A27" />
+<supplied reason="lost">jaṁ</supplied> Agavai kisi, maṅanam-anam·, mamubut·, manavaṁ, makala-kalā, mamisaṇḍuṁ manuk·, bhaṭāra ri prāsāda Ataḥ pramāṇa I sadra
+<supplied reason="lost">bya</supplied>-
+<lb break="no" n="A28" />hajinya, samaṅkana Ikanaṁ parahu pavalijān· 1, masuṁhara 2 tan· patuṇḍāna, Adagaṁ kapas·, vuṅkuḍu, Abasana kalima banta
+<unclear>l·</unclear>
+<lb n="A29" /> Aṅuñjal· 1 paṇḍai vsi satarub·, paṇḍai mas· 1 paṇḍai tambaga 1 kaṁsa 1 Aṅulaṁ kbo savurugan· sapi prāṇa 3 vḍu
+<supplied reason="lost">s·</supplied>
+<lb n="A30" /> 
+<supplied reason="lost">sa</supplied>
+<unclear>pa</unclear>raṅgaṁ Aṅulaṅ aṇḍaḥ 
+<unclear>satar</unclear>ub·, samaṅkana kramanikaṁ sīma tan· knā I saluĪrniṁ drabya haji saprakāra, Irikanaṁ 
+<supplied reason="lost">kā</supplied>
+<milestone type="pagelike" unit="face" n="B" break="no" />
+<label xml:lang="eng">Back</label>
+<lb n="B1" break="no" />
+<supplied reason="lost">la ma</supplied>ṅasəAkan· rakryān· hujuṁ pasək·-pasək·, I śrī mahārāja mas· su 5 vḍihan· tapiś cadar· yu 1 muAṁ I 
+<supplied reason="lost">ra</supplied>-
+<lb break="no" n="B2" />kryān· kabaiḥ, kapuA vinaiḥ pasək·-pasək· kāyānurūpa, rakai sirikan· dyah amarendra, vka dyaḥ balyaṁ, rakryā
+<supplied reason="lost">n· mo</supplied>-
+<lb break="no" n="B3" />
+<supplied reason="lost">ma</supplied>h-umaḥ kāliḥ maḍaṇdər· pu padma, Aṅgəhan· pu kuṇḍala, tiruan· ḍapunta taritip· InaṁsəAn· pasək· mā 1,  vḍi
+<supplied reason="lost">ha</supplied>-
+<lb break="no" n="B4" />
+<supplied reason="lost">n·</supplied> tapiś cadar· yu 1 sovaṁ-sovaṁ, halaran· pu guṇottama, InaṁsəAn· pasək· mā 1, vḍihan· ragi yu 1 mamrāti havaṁ
+<lb n="B5" /> 
+<supplied reason="lost">vi</supplied>cakṣaṇa, ma
+<supplied reason="omitted">ṁ</supplied>hūri pu paṇḍamuan·, tilimpik· pu dhanuka, dalinan· pu karṣaṇa, vinaiḥ pasək· mā 5 vḍihan· ragi yu
+<lb n="B6" /> 
+<supplied reason="lost">1</supplied> sovaṁ-sovaṁ, vadihati saṁ dinakara, Akudur· pu balavān· vinaiḥ pasək· ma 1, vḍihan· ragi yu 1 sovaṁ-sovaṁ,
+<lb n="B7" /> tuhān· I vadihati 2 miraḥ-miraḥ, saṁ halaṁ pahuṁ, halaran· saṁ lbūr poḥ, tuhān· I makudur· 2 vatu valeṁ saṁ ra majjha, va-
+<lb break="no" n="B8" />tu kiluṁ saṁ tpussən· vinaiḥ pasək· mā 5 vḍihan· ragi yu 1 sovaṁ-sovaṁ, paṅuraṁ I vadihati saṁ ra vuṅū, Anuṅgū saṁ ho-
+<lb break="no" n="B9" />
+<supplied reason="lost">ṅka</supplied> paṅuraṁ I makudur· saṁ ra kvəl·, Anuṅgū saṁ kulumpaṁ vinaiḥ pasək· mā 2 ku 2 vḍihan· hlai 1 sovaṁ-sovaṁ, saṁ tuhā
+<supplied reason="lost">n· I</supplied>
+<lb n="B10" /> pakaraṇān· juru kanayakān· samgat· gunuṅan· pu 
+<supplied reason="omitted">tu</supplied>ntun·, juru vadva rarai saṁ ra guyu, juru kalula pu bālī, kaṇḍamuhi punta geṣṭa
+<lb n="B11" /> vatu varaṇi saṁ nidhi, parujar· I sirikan· hujuṁ galuḥ I vka viridiḥ, I kanuruhan· rokat·, I sbaṁ saṁ vimala, I srāṅan· saṁ sa-
+<lb break="no" n="B12" />tyaka, I madaṇḍər saṁ cakra, ryy āṅgəhan· saṁ vidya, I tiruAn· sumuḍan· punta saṅgama vinaiḥ pasək· mā 1, kinabaihāni-
+<lb break="no" n="B13" />ra lumaku manusuk· I vadihati saṁ ra və:han·, I makudur· saṁ ra mājha vinaiḥ pasək· mas· su 2 mā 8 sovaṁ-sovaṁ, paṅaṅka-
+<lb break="no" n="B14" />t· I saṁ hyaṁ kudur· mas· su 5 hop saji pomah-umaḥ prakāra dakṣiṇa saṁ hyaṁ brahmā mā 1 saṁ hyaṁ lamb
+<unclear>u</unclear> mā 1, saṁ hyaṁ 
+<unclear>su</unclear>-
+<lb break="no" n="B15" />
+<unclear>su</unclear>k· vḍihan· yu 1 vḍihan·nire vadihati makudur· yu 2 siṁhəl·nira yu 1, patiḥ juru kāliḥ vasaḥ saṁ kayu matə:b·, ku
+<supplied reason="lost">c</supplied>i
+<lb n="B16" /> saṁ būka vinaiḥ pasək· mā 5 vḍihan· ragi yu 1 sovaṁ-sovaṁ, parujarnya piṅsor hyaṁ paskaran· vinaiḥ mā 2 ku 2 sovaṁ-sovaṁ
+<lb n="B17" /> patiḥ kahyunnan· puntani turus· saṁ ḍumpil·, varaṇā, saṅ ambata, saṁ smī, vinaiḥ mā 2 vḍihan· ragi yu 1 sovaṁ-sovaṁ, patiḥ ka-
+<lb break="no" n="B18" />hyunan maṅharR̥p· babak· rikaṁ kāla saṁ lāgi vinaiḥ mā 5 vḍihan· ragi yu 1 vargga patiḥ Anakbi Ilu kinannān· pasək· saṁ baraṇa
+<lb n="B19" /> 
+<supplied reason="lost">A</supplied>nakbi saṁ najī Ibuni marapi, saṁ kbək· vinaiḥ mā 2 kain· vlaḥ 1 sovaṁ-sovaṁ, vargga patiḥ kahyunan· laki-laki vinaiḥ pasə-
+<lb break="no" n="B20" />k· harivaṅsa, bāṇa, jura
+<unclear>ṁ</unclear>, daṅkal·, marapi, vinaiḥ mā 2 vḍihan· hlai 1 sovaṁ-sovaṁ, patiḥ pamgat· saṁ jarā, ma
+<unclear>ṁ</unclear>ha
+<supplied reason="lost">mb</supplied>i-
+<lb break="no" n="B21" />n· saṁ balusyak· vinaiḥ pasək· mā 4 vḍihan· ragi yu 1 sovaṁ-sovaṁ, juru vanuA saṁ hīra panulisan· prathama, maṇi
+<unclear>ga</unclear>
+<lb n="B22" /> 
+<gap reason="lost" quantity="5" unit="character" /> vinaiḥ mā 2 vḍihan· yu 1 sovaṁ-sovaṁ, parujar patiḥ kahyunan· 
+<add place="above">bisat·</add> parujar· patiḥ samgat· babus·, parujar ma
+<unclear>ṁ</unclear>-
+<lb break="no" n="B23" />hamb
+<supplied reason="lost">i</supplied>nanī gu
+<supplied reason="lost">s</supplied>t
+<supplied reason="lost">i</supplied> 
+<supplied reason="lost">pañjuruAn·</supplied> I pakāraṇān· Astuti, malavaṅ kāliḥ jaṅga krāndhaḥ, panaṅlar· bhoma, Ugal-ugal· səvu
+<supplied reason="lost">r·</supplied>
+<lb n="B24" /> juru kalaṁ sambī, tajuṅkilan· mḍaṁ gəntər· vinaiḥ mā 1 vḍi
+<supplied reason="lost">ha</supplied>n· 
+<unclear>hlai</unclear> 1 sovaṁ-sovaṁ, vahuta paṅuñjaṅan· dhavala kamasi-
+<lb break="no" n="B25" />han· putra laguntan· Unak· vinaiḥ pasək· mā 4 vḍihan· ragi yu 1 sovaṁ-sovaṁ, 
+<supplied reason="lost">taṇ</supplied>ḍa rakryān· Ilu pinakasākṣī rikaṁ
+<lb n="B26" /> kāla, kanuruhan· dyaḥ mumpaṁ, vaharu pu 
+<choice>
+  <corr>kalumpaṁ</corr>
+</choice>, vinaiḥ pasək· mas· su 1 mā 4 vḍihan· pa
+<unclear>ḍ</unclear>i hlai 1 sovaṁ-
+<supplied reason="lost">sovaṁ saṁ tu</supplied>-
+<lb break="no" n="B27" />hān· I kanuruhan· saṁ ra baṇir saṁ ra vujaṁ, vuṅkal kiluṁ, saṁ părtha, vinaiḥ mas· su 1 mā 4 kinabaihānnira vḍihan· ragi hlai 1 so-
+<lb break="no" n="B28" />vaṁ-sovaṁ, tpi siriṁ Ilu pinakasākṣī rakryān·, juru gotra I kanuruhan· rakai paṅambuhan·, rakai siñjalan· vinaiḥ mā 4 vḍi-
+<lb break="no" n="B29" />han· yu 1 sovaṁ-sovaṁ, gotra I tampuran· saṁ mādhava bapa dyaḥ damū muAṁ dyaḥ damū, vinaiḥ mā 2 vḍihan· hlai 1
+<lb n="B30" /> sovaṁ-sovaṁ devata kaki I balaṇḍit· saṁ śivarāśi vineḥ pasək· mā 4 punta I paṅavan· Uṅgər· pramukha, vinai
+<unclear>ḥ</unclear>
+<milestone type="pagelike" unit="face" n="c" />
+<label xml:lang="eng">Proper right</label>
+<lb n="c1" /> 
+<supplied reason="lost">pasək· mā 4 kinabaihannira patiḥ tpi si</supplied>-
+<lb break="no" n="c2" />
+<supplied reason="lost">riṁ vinai</supplied>ḥ pasək· karūman· I 
+<lb n="c3" /> kanuruhan· saṁ jātaḥ, maṅhambi
+<supplied reason="lost">n·</supplied>
+<lb n="c4" /> saṁ hiraṇya, patiḥ pamgat·
+<lb n="c5" /> saṁ prakaśita, patiḥ I tuga-
+<lb break="no" n="c6" />ran· paṅajaran· saṁ malaḥ, patiḥ
+<lb n="c7" /> paṁkur· I vaharu saṁ raṅga vinaiḥ
+<lb n="c8" /> pasək· mā 4 vḍihan· yu 1 so-
+<lb break="no" n="c9" />
+<supplied reason="lost">vaṁ</supplied>-sovaṁ, sama
+<surplus>ṁ</surplus>ṅkana kvaiḥ
+<supplied reason="lost">n</supplied>i
+<supplied reason="lost">ra</supplied>
+<lb n="c10" /> 
+<supplied reason="lost">i</supplied>lu pinakasākṣī hinanākə-
+<lb break="no" n="c11" />n· kālaniṁ manusuk· ri tlas· I
+<lb n="c12" /> saṁ mapatiḥ vahuta rāma t
+<supplied reason="lost">p</supplied>i 
+<supplied reason="lost">s</supplied>i-
+<lb break="no" n="c13" />riṅ kabaiḥ vinaiḥ pasək·, k
+<supplied reason="lost">i</supplied>-
+<lb break="no" n="c14" />non· ta sira mapaktya, malūṅguḥ ya-
+<lb break="no" n="c15" />
+<unclear>th</unclear>ākrama, Irikāṁ tkan· pasak·
+<lb n="c16" /> lor· kidul·, kuluAn· veta-
+<lb break="no" n="c17" />
+<supplied reason="lost">n· Iri</supplied>kāṅ kalaṅan· ri himad·
+<lb n="c18" /> tumama ta saṁ mavaju haji ri kala-
+<lb break="no" n="c19" />ṅan· ri pkan· ri himad· maglar saji suma-
+<lb break="no" n="c20" />
+<unclear reason="eccentric_ductus">ṅa</unclear>skāra saṁ hyaṁ susuk· saṅkap· sakrama-
+<lb break="no" n="c21" />
+<supplied reason="lost">niṁ da</supplied>ṅū manətək· hayam mamantiṅa-
+<lb break="no" n="c22" />
+<supplied reason="lost">kan·</supplied> hantiga I saṁ hyaṁ vatu təAs· 
+<unclear>su</unclear>-
+<lb break="no" n="c23" />
+<unclear>su</unclear>k· pamaṁmaṁ hyaṁ manapathe 
+<unclear>liṁ</unclear>
+<supplied reason="lost">nira</supplied>
+<lb n="c24" /> Īndaḥ ta kita kamuṁ hyaṁ I śrī bapra-
+<lb break="no" n="c25" />keśvara śrī haricandana Agasti 
+<unclear>mahā</unclear>-
+<lb break="no" n="c26" />
+<unclear>R̥</unclear>ṣi saṁ hyaṁ I daśadeśa Ū
+<supplied reason="lost">rdhamadhaḥ</supplied>
+<lb n="c27" /> ravi śaśī kṣiti ja
+<supplied reason="lost">la pa</supplied>va
+<supplied reason="lost">na hutāsana</supplied>
+<lb n="c28" /> yajamānākāśa dharmma Aho
+<unclear>rātra</unclear>
+<lb n="c29" /> 
+<gap reason="illegible" quantity="2" unit="character" /> yakṣa rakṣasa pisāca, preta
+<milestone type="pagelike" unit="face" n="d" />
+<label xml:lang="eng">Proper left</label>
+<lb n="d1" />
+<supplied reason="lost">sura</supplied> 
+<gap reason="lost" quantity="5" unit="character" />
+<lb n="d2" /> 
+<supplied reason="lost">gandharvva yama</supplied>
+<lb n="d3" /> 
+<supplied reason="lost">baruṇa kuvaira bāsava muAṁ</supplied>
+<lb n="d4" /> 
+<supplied reason="lost">putra devatā pañcakuśika nā</supplied>-                
+<lb n="d5" />
+<unclear>garājā dūrggadevī caturāśra</unclear>
+<lb n="d6" /> Ananta surendra hyaṁ kālamr̥tyu
+<lb n="d7" /> sakveḥ ta gaṇa bhūta kita 
+<unclear>prasiddha</unclear>
+<lb n="d8" /> maṁrakṣa pr̥thivi, maṅarīra ri sarvvabhū-
+<lb break="no" n="d9" />
+<supplied reason="lost">ta</supplied> Umasuki sarvvaprāṇa kita sa-
+<lb break="no" n="d10" />
+<supplied reason="lost">kala</supplied> sākṣībhūta sthīti hana sukṣma
+<lb n="d11" />
+<unclear>R̥</unclear>ṅəAkan· Ik
+<unclear>i</unclear>ṁ samaya sapa-
+<lb break="no" n="d12" />
+<supplied reason="lost">tha</supplied> 
+<unclear>sum</unclear>paḥ pamaṁ
+<add place="below">maṁ</add>mami ri kita hiyaṁ
+<lb n="d13" />
+<supplied reason="lost">ka</supplied>baiḥ yāvat ikanaṁṅ vaṁ durācāra ta-
+<lb break="no" n="d14" />
+<supplied reason="lost">n ma</supplied>gam· tan makmit·, Umulah-ulaha
+<lb n="d15" /> 
+<supplied reason="lost">I</supplied>
+<unclear>k</unclear>iṁ śīma ṅunivaiḥ dumavuta
+<lb n="d16" /> 
+<supplied reason="lost">su</supplied>suk· təAs· kulumpaṁ 
+<unclear>tina</unclear>-
+<lb break="no" n="d17" />
+<supplied reason="lost">namniṁ ku</supplied>dur· Asiṁ sakav
+<unclear>v</unclear>aṅananya hadi-
+<lb break="no" n="d18" />
+<supplied reason="lost">A</supplied>n· hulun· gr̥hasta viku yā-
+<lb break="no" n="d19" />vat· ba
+<unclear>riba I</unclear>rikaṁ śīma tadvaraha- 
+<lb n="d20" />
+<supplied reason="lost">n·</supplied> panimbatan· ta Iriya kamu hyaṁ 
+<supplied reason="lost">pa</supplied>-
+<lb break="no" n="d21" />ti riṅ adəgan· tampyal i təṅəna-
+<lb break="no" n="d22" />
+<unclear>n· Uvahi riṁ hiri</unclear>ṅan· rantan ususnya 
+<supplied reason="lost">ḍa</supplied>- 
+<lb n="d23" />
+<supplied reason="lost">ḍa</supplied>tt i sbitakan· ḍalammanya At
+<unclear>manya</unclear>
+<lb n="d24" /> 
+<supplied reason="lost">ta</supplied>n· tmuA
+<unclear>ṁ</unclear> sama Irikaṁ sahasra ja-
+<lb break="no" n="d25" />
+<supplied reason="lost">nma</supplied> saluīrniṁ Ūpadrava mtunya ta-
+<lb break="no" n="d26" />
+<supplied reason="lost">k-ta</supplied>k 
+<supplied reason="lost">l</supplied>intaḥ lakay· vdit· tmahana
+<lb n="d27" />
+<supplied reason="lost">nya</supplied> pañca mahāpātaka tmunyan
+<unclear>·</unclear>
+<lb n="d28" /> yan· liṁnira ri tlasniṁ manusuk·
+<lb n="d29" /> lumkas· ta makuR̥n-kuR̥n· ri sira ka-
+<lb break="no" n="d30" />baiḥ, maṁglar· kavuṁ skul· paripūrṇna
+<milestone type="pagelike" unit="face" n="e" />
+<label xml:lang="eng">Proper right: upper part</label>
+<lb n="e1" /> hara-hara saṅka
+<space type="defect" />p· vulu ka- 
+<lb n="e2" />ṇḍari kaḍivas· ḍeṁ hañaṁ ḍeṁ 
+<lb n="e3" /> hasin· saL̥r· capa-capa, ruma- 
+<lb n="e4" />han· huraṁ biluṁluṁ hala-ha-                        
+<lb n="e5" />la hantiga Inariṁ, vulūniṁ ga- 
+<lb n="e6" />ṅan· 
+<unclear>miśāka</unclear>, Atak· sisir·                         
+<lb n="e7" /> takiḥ, kasyan· lil-lit· gāṁ- 
+<lb n="e8" />ṅān· tlu saranak· Alap-alap·
+<lb n="e9" /> Irah-iraḥ kuluban· tetis·,
+<lb n="e10" /> lumkas· ta sira kabaiḥ manaḍah ma-
+<lb break="no" n="e11" />nahap pa
+<unclear>r</unclear>ka ciñca tva
+<unclear>k·</unclear> pā
+<unclear>nā</unclear>di, tka 
+<lb n="e12" /> riṁ piṇḍva piṁtiga, vinuvuhan ta sira ta-
+<lb break="no" n="e13" />
+<supplied reason="lost">mb</supplied>ul· 
+<unclear cert="low">paḍḍīsa</unclear> salvirniṁ ta
+<supplied reason="lost">mbul·</supplied> 
+<supplied reason="lost">sapra</supplied>-
+<lb break="no" n="e14" />
+<supplied reason="lost">kāra vinuvuhakan· tadananta</supplied>-
+<lb break="no" n="e15" />
+<supplied reason="lost">ra patṅaḥ manaḍaḥ kinon· sira ka</supplied>
+<milestone type="pagelike" unit="face" n="f" break="no" />
+<label xml:lang="eng">Proper left: upper part</label>
+<lb n="f1" break="no" />baiḥ vasiha gaṅan· vinai- 
+<lb n="f2" />han· ta sira jnu skar· tlas saṅkap· mu- 
+<lb n="f3" />vaḥ ta sira manaḍaḥ yathās
+<unclear>u</unclear>-
+<lb break="no" n="f4" />
+<unclear>kha</unclear> men-men· rakryan· 
+<lb n="f5" />
+<unclear>kahaḍaṁ</unclear> rikaṁ kāla ka-
+<lb break="no" n="f6" />puA Umintonnakan· guṇa- 
+<lb n="f7" />nya, Atapukan 
+<unclear>vuvus</unclear> pramukha                         
+<lb n="f8" /> vinaiḥ mā 4 kinabaihanya, A-
+<lb break="no" n="f9" />vayaṁ 
+<unclear>kaluṅasu</unclear>a śravaṇa vi-
+<lb break="no" n="f10" />naiḥ mā 4 kinabaihanya, Aba-         
+<lb n="f11" />ñol· si livu_ _han· hi-
+<lb break="no" n="f12" />tip·-pramukha vinaiḥ mā
+<lb n="f13" /> 4 kinabaihanya, ci
+<supplied reason="lost">hna</supplied>-
+<lb break="no" n="f14" />
+<supplied reason="lost">nya</supplied>n· tlas· mapagəḥ 
+<gap reason="lost" quantity="3" unit="character" />
+<lb n="f15" /> 
+<gap reason="lost" quantity="10" unit="character" precision="low" /></p>
+</div>
+         
+<div type="apparatus">
+                          
+<listApp>
+<app loc="A1">
+  <lem source="bib:Damais1955_01 bib:Nakada1990_01 bib:Trigangga2003_01">Avīghnam</lem>
+  <rdg source="bib:Brandes1913_01">Avignam</rdg>
+</app> 
+<app loc="A1">
+  <lem source="bib:Damais1955_01 bib:Trigangga2003_01">-varṣātīta</lem>
+  <rdg source="bib:Nakada1990_01">-varsātīta</rdg>
+</app> 
+<app loc="A2">
+  <lem>
+  <unclear>ma</unclear> 
+  <supplied reason="lost">U</supplied> ca</lem>
+  <rdg source="bib:Brandes1913_01 bib:Damais1955_01 bib:Trigangga2003_01">
+  <gap reason="illegible" quantity="2" unit="character" /> ca</rdg>
+  <rdg source="bib:Nakada1990_01">ma U so</rdg>
+  <note>Our reading confirms the reconstruction by Damais (1955: 156).</note>
+</app>
+<app loc="A3">
+  <lem>lokānurāñjana</lem>
+  <rdg source="bib:Brandes1913_01">lokā
+  <gap reason="illegible" quantity="1" unit="character" />rāñjana</rdg>
+  <rdg source="bib:Damais1955_01">loka
+  <seg type="body">
+    <gap reason="illegible"></gap>
+  </seg>urāñjana</rdg>
+  <rdg source="bib:Nakada1990_01">loka
+  <unclear>ta</unclear>rāñjana</rdg>
+  <rdg source="bib:Trigangga2003_01">lokadurāñjana</rdg>
+</app>
+<app loc="A4">
+  <lem source="bib:Damais1955_01 bib:Nakada1990_01 bib:Trigangga2003_01">saṁ hyaṁ</lem>
+  <rdg source="bib:Brandes1913_01">mahā</rdg>
+</app>
+<app loc="A5">
+  <lem source="bib:Damais1955_01 bib:Nakada1990_01 bib:Trigangga2003_01">himad·</lem>
+  <rdg source="bib:Brandes1913_01">həmad·</rdg>
+  <note>D stops reading at this point. B reads həmad in all occurrences of this toponym. We shall not report further instances of this variant reading below.</note>
+</app>
+<app loc="A5">
+  <lem>mapaṅasəA</lem>
+  <note>the reading is clear but the word form is unacceptable as it stands and might best be treated as superfluous altogether. Or we could accept a redundant repetition of maṅasəA by treating only the pa as superfluous.</note>
+</app>
+<app loc="A5">
+  <lem source="bib:Trigangga2003_01">vḍu
+  <add place="below">s·</add></lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">vḍu</rdg>
+</app>
+<app loc="A6">
+<lem source="bib:Trigangga2003_01">gatyanikaṁ</lem>
+<rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">gatyanika</rdg> </app>
+<app loc="A7">
+  <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">sakarmmaṇya</lem>
+  <rdg source="bib:Nakada1990_01">saṁ karmmaṇya</rdg>
+</app>
+<app loc="A7">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">tka
+  <unclear>n</unclear>iṁ</lem>
+  <rdg source="bib:Brandes1913_01">tka 
+  <unclear>riṁ</unclear></rdg>
+</app>
+<app loc="A8">
+  <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">sakarmmaṇya</lem>
+  <rdg source="bib:Nakada1990_01">saṁ karmmaṇya</rdg>
+</app>
+<app loc="A8">
+  <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">sakarmmaṇya</lem>
+  <rdg source="bib:Nakada1990_01">saṁ karmmaṇya</rdg>
+</app>
+<app loc="A9">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">kāla
+  <gap reason="illegible" quantity="1" unit="character" />
+  <gap reason="illegible" quantity="1" unit="character" />n·</lem>
+  <rdg source="bib:Brandes1913_01">kāla
+  <gap reason="illegible" quantity="1" unit="character" />
+  <unclear>n</unclear>ndhan·</rdg>
+</app>
+<app loc="A9">
+  <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">tuṅgal·</lem>
+  <rdg source="bib:Nakada1990_01">tiṅgal·</rdg>
+</app>
+<app loc="A10">
+  <lem source="bib:Trigangga2003_01">sbaṁ</lem>
+  <rdg source="bib:Brandes1913_01">mbaṁ</rdg>
+  <rdg source="bib:Nakada1990_01">mvaṁ</rdg>
+</app>
+<app loc="A11">
+  <lem>śī
+  <unclear>khāha</unclear> pañ
+  <unclear>j</unclear>at·</lem>
+  <rdg source="bib:Brandes1913_01">śīkha
+  <gap reason="illegible" quantity="1" unit="character" /> pañjat·</rdg>
+  <rdg source="bib:Nakada1990_01">śīkhā
+  <gap reason="illegible" quantity="1" unit="character" /> pañjak·</rdg>
+  <rdg source="bib:Trigangga2003_01">śīkhāṁ hapañat·</rdg>
+</app>
+    
+<app loc="A11">
+  <note>At the end of this line, races of akṣaras can still be seen but are difficult to decipher. B reads ruAṁ … (rimpaṁ) and N has ruAṁ … niṁ ... while T does not provide any reading.</note>
+</app>
+<app loc="A12">
+  <lem source="bib:Brandes1913_01 bib:Nakada1990_01">riṁ kapūjān·</lem>
+  <rdg source="bib:Trigangga2003_01">rikaṁ pūjān·</rdg>
+</app>
+<app loc="A13">
+  <lem>maṁ
+  <supplied reason="lost">kana sam</supplied>
+  <unclear>b</unclear>
+  <supplied reason="lost">aḥ</supplied></lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">ma
+  <gap reason="illegible" quantity="4" unit="character" /></rdg>
+  <rdg source="bib:Trigangga2003_01">maṁ
+  <supplied reason="lost">kana səm</supplied>
+  <unclear>b</unclear>
+  <supplied reason="lost">aḥ</supplied></rdg>
+</app>
+    
+<app loc="A13">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">ya pinagəhakan· Inarpaṇākan·</lem>
+  <rdg source="bib:Brandes1913_01">ta 
+  <gap reason="illegible" quantity="5" unit="character" /> Inargha
+  <gap reason="illegible" quantity="1" unit="character" />kan·</rdg>
+</app>   
+<app loc="A14">
+  <lem>
+  <supplied reason="lost">I saṁ hyaṁ prāsā</supplied>da</lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">
+    <gap reason="lost" quantity="5" unit="character" />
+    <gap reason="illegible" quantity="1" unit="character" />
+  </rdg>
+</app>
+<app loc="A15">
+<lem source="bib:Nakada1990_01">pa
+<supplied reason="lost">rtta</supplied>ya</lem>
+<rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="2" unit="character" />
+</rdg>
+<rdg source="bib:Trigangga2003_01">pa
+<supplied reason="lost">rtya</supplied>ya</rdg> 
+<note>T’s restitution may be correct but ours is more plausible, as the reading parttaya is considerably better attested than pratyaya in the corpus of Sindok inscriptions.</note></app>
+<app loc="A15">
+  <lem source="bib:Brandes1913_01 bib:Nakada1990_01">pamgat·</lem>
+  <rdg source="bib:Trigangga2003_01">samgat·</rdg>
+</app>
+<app loc="A16">
+  <lem source="bib:Trigangga2003_01">pini
+  <supplied reason="lost">l</supplied>ai kataṅgaran·</lem>
+  <rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="3" unit="character" /> kat
+  <unclear>u</unclear>ṅgaran·</rdg>
+  <rdg source="bib:Nakada1990_01">piniṁlai kataṅgaran·</rdg>
+</app>
+<app loc="A17">
+  <lem source="bib:Nakada1990_01">L̥bə-L̥b·</lem>
+  <rdg source="bib:Brandes1913_01">L̥ba-L̥b·</rdg>
+  <rdg source="bib:Trigangga2003_01">L̥b-L̥b·</rdg>
+</app>
+<app loc="A18">
+  <lem source="bib:Trigangga2003_01">mā
+  <supplied reason="lost">vi</supplied></lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">mā
+  <gap reason="illegible" quantity="1" unit="character" /></rdg>
+</app>
+<app loc="A19">
+  <lem source="bib:Trigangga2003_01 bib:Nakada1990_01">paka
+  <supplied reason="lost">luṅkuṁ</supplied> Urutan·</lem>
+  <rdg source="bib:Brandes1913_01">paka
+  <gap reason="lost" quantity="2" unit="character" /> vrutan·</rdg>
+</app>
+<app loc="A21">
+  <lem source="bib:Trigangga2003_01">
+  <supplied reason="lost">hopa</supplied>n·</lem>
+  <rdg source="bib:Brandes1913_01">
+  <gap reason="lost" quantity="2" unit="character" />n·</rdg>
+  <rdg source="bib:Nakada1990_01">
+    <gap reason="illegible" quantity="1" unit="character" />
+    <supplied reason="lost">pan·</supplied>
+  </rdg>
+</app>
+<app loc="A21">
+  <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">skar</lem>
+  <rdg source="bib:Nakada1990_01">Akar</rdg>
+</app>
+<app loc="A24">
+  <lem source="bib:Trigangga2003_01">ka
+  <supplied reason="lost">savu</supplied>r iṁ</lem>
+  <rdg source="bib:Brandes1913_01">ka
+  <gap reason="lost" quantity="2" unit="character" />r iṁ</rdg>
+  <rdg source="bib:Nakada1990_01">ka
+  <supplied reason="lost">savu</supplied>r i</rdg>
+</app>
+<app loc="A26">
+<lem source="bib:Trigangga2003_01">
+<supplied reason="lost">matarub</supplied>·</lem>
+<rdg source="bib:Brandes1913_01">manaru
+<unclear>p</unclear>·</rdg> 
+<rdg source="bib:Nakada1990_01">
+  <gap reason="lost" quantity="3" unit="character" />
+</rdg></app>
+<app loc="A26">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">maṅubar·</lem>
+  <rdg source="bib:Brandes1913_01">mabubar·</rdg>
+</app>
+<app loc="A26">
+  <lem source="bib:Trigangga2003_01">maṁluruṁ</lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">maluruṁ</rdg>
+</app>
+<app loc="A28">
+  <lem source="bib:Nakada1990_01">parahu</lem>
+  <rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">barahu</rdg>
+</app>
+<app loc="A28">
+  <lem source="bib:Trigangga2003_01">masuṁhara</lem>
+  <rdg source="bib:Brandes1913_01">masuhara</rdg>
+  <rdg source="bib:Nakada1990_01">massuhara</rdg>
+</app>
+<app loc="A28">
+  <lem source="bib:Trigangga2003_01">Adagaṁ</lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">madagaṁ</rdg>
+</app>
+<app loc="A29">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">Aṅuñjal·</lem>
+  <rdg source="bib:Brandes1913_01">Aṅañjal·</rdg>
+</app>
+<app loc="A30">
+  <lem>
+  <supplied reason="lost">sa</supplied>
+  <unclear>pa</unclear>raṅgaṁ</lem>
+  <rdg source="bib:Brandes1913_01">
+    <gap reason="lost" quantity="1" unit="character" />
+    <gap reason="illegible" quantity="1" unit="character" />
+    <unclear>raṅgaṁ</unclear>
+  </rdg>
+  <rdg source="bib:Nakada1990_01">
+  <gap reason="lost" quantity="1" unit="character" />paraṅgaṁ</rdg>
+  <rdg source="bib:Trigangga2003_01">
+  <gap reason="lost" quantity="1" unit="character" />
+  <unclear>sa</unclear>raṅgaṁ</rdg>
+  <note>Cf. Jeru-Jeru A19.</note>
+</app>
+<app loc="A30">
+  <lem source="bib:Trigangga2003_01">sīma tan· knā</lem>
+  <rdg source="bib:Brandes1913_01">
+  <seg type="body">
+    <gap reason="illegible"></gap>
+  </seg>ima ba
+  <gap reason="illegible" quantity="2" unit="character" /></rdg>
+  <rdg source="bib:Nakada1990_01">
+  <gap reason="illegible" quantity="3" unit="character" />n· 
+  <gap reason="illegible" quantity="1" unit="character" /></rdg>
+</app>
+<app loc="B1">
+  <lem source="bib:Trigangga2003_01">
+  <supplied reason="lost">kāla ma</supplied>ṅasəAkan·</lem>
+  <rdg source="bib:Brandes1913_01">
+  <gap reason="lost" quantity="2" unit="character" /> AṅasəAkan·</rdg>
+  <rdg source="bib:Nakada1990_01">
+  <gap reason="lost" quantity="3" unit="character" />ṅasəAkan·</rdg>
+</app>
+<app loc="B2">
+  <lem source="bib:Brandes1913_01 bib:Nakada1990_01">I 
+  <supplied reason="lost">ra</supplied>kryān·</lem>
+  <rdg source="bib:Trigangga2003_01">I 
+  <unclear>taṇḍa ra</unclear>kryān·</rdg>
+</app>
+<app loc="B4">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">vahaṁ</lem>
+  <rdg source="bib:Brandes1913_01">
+    <gap reason="illegible" quantity="2" unit="character" />
+  </rdg>
+</app>
+<app loc="B5">
+<lem>ma
+<supplied reason="omitted">ṁ</supplied>hūri</lem>
+<rdg source="bib:Brandes1913_01 bib:Nakada1990_01">maṁhūri</rdg> 
+<rdg source="bib:Trigangga2003_01">mahūṁri</rdg>
+<note>B and N silently correct the reading.</note></app> 
+<app loc="B6">
+  <lem>
+    <supplied reason="lost">1</supplied>
+  </lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01 bib:Trigangga2003_01">
+    <gap reason="lost" quantity="1" unit="character" />
+  </rdg>
+</app>
+<app loc="B7">
+  <lem source="bib:Trigangga2003_01">pahuṁ</lem>
+  <rdg source="bib:Brandes1913_01">paluḥ</rdg>
+  <rdg source="bib:Nakada1990_01">patuḥ</rdg>
+</app>
+<app loc="B7">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">lbūr</lem>
+  <rdg source="bib:Brandes1913_01">lbar</rdg>
+</app>
+<app loc="B7">
+  <lem source="bib:Trigangga2003_01">saṁ ra majjha</lem>
+  <rdg source="bib:Brandes1913_01">sarama
+  <gap reason="illegible" quantity="1" unit="character" /></rdg>
+  <rdg source="bib:Nakada1990_01">saṁ rama
+  <unclear>ṅse</unclear></rdg>
+</app>
+<app loc="B8">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">vatu kiluṁ</lem>
+  <rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="1" unit="character" />ta kīluṁ</rdg>
+</app>
+<app loc="B9">
+  <lem source="bib:Trigangga2003_01">ho
+  <supplied reason="lost">vaṅka</supplied></lem>
+  <rdg source="bib:Brandes1913_01">
+    <gap reason="illegible" quantity="1" unit="character" />
+    <gap reason="lost" quantity="2" unit="character" />
+  </rdg>
+  <rdg source="bib:Nakada1990_01">ho
+  <gap reason="lost" quantity="1" unit="character" />ṅ
+  <supplied reason="lost">śa</supplied></rdg>
+</app>
+<app loc="B9">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">saṁ kulumpaṁ</lem>
+  <rdg source="bib:Brandes1913_01">Akulumpaṁ</rdg>
+</app> 
+<app loc="B10">
+  <lem source="bib:Nakada1990_01">pu 
+  <supplied reason="omitted">tu</supplied>ntun·</lem>
+  <rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">puntun·</rdg>
+  <note>Cf. Sangguran B4 (guṇuṅan· pu tun·tun·) and Masahar B9 (gunuṅan pu tuntun·). The parallel passage in Jeru-Jeru B1 which reads vuntun· also shows omission of one akṣara.</note>
+</app>
+<app loc="B11">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">vatu</lem>
+  <rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="1" unit="character" />ta</rdg>
+</app>
+<app loc="B12">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">satyaka</lem>
+  <rdg source="bib:Brandes1913_01">
+  <unclear>sa</unclear>kya
+  <unclear>ta</unclear></rdg>
+</app>
+<app loc="B13">
+  <lem source="bib:Trigangga2003_01">kinabaihānira</lem>
+  <rdg source="bib:Brandes1913_01">kinabaihān
+  <seg type="vowel">
+    <gap reason="illegible"></gap>
+  </seg>
+  <gap reason="illegible" quantity="1" unit="character" /></rdg>
+  <rdg source="bib:Nakada1990_01">kinabaihān
+  <seg type="vowel">
+    <gap reason="illegible"></gap>
+  </seg>
+  <unclear>ra</unclear></rdg>
+</app>  
+<app loc="B13">
+  <lem>və:han·</lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01 bib:Trigangga2003_01">pə:han·</rdg>
+</app>
+<app loc="B13">
+  <lem source="bib:Trigangga2003_01">mājha</lem>
+  <rdg source="bib:Brandes1913_01">mā
+  <unclear>ñaṁ</unclear></rdg>
+  <rdg source="bib:Nakada1990_01">māṅsa</rdg>
+</app>
+<app loc="B14">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">paṅaṅkat·</lem>
+  <rdg source="bib:Brandes1913_01">pa
+  <unclear>ṅu</unclear>
+  <gap reason="illegible" quantity="1" unit="character" /></rdg>
+</app>
+<app loc="B14">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">hop saji</lem>
+  <rdg source="bib:Nakada1990_01">hop
+  <gap reason="illegible" quantity="1" unit="character" />saji</rdg>
+</app>
+<app loc="B15">
+  <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">vasaḥ</lem>
+  <rdg source="bib:Nakada1990_01">vasuḥ</rdg>
+</app>
+<app loc="B15">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">matəb·</lem>
+  <rdg source="bib:Brandes1913_01">mañəb·</rdg>
+  <note>B notes an alternative reading matəb·.</note>
+</app>
+<app loc="B16">
+  <lem source="bib:Trigangga2003_01">ku
+  <supplied reason="lost">ci</supplied> saṁ būka</lem>
+  <rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="1" unit="character" />
+  <gap reason="lost" quantity="1" unit="character" /> subuta</rdg>
+  <rdg source="bib:Nakada1990_01">k
+  <unclear>uvi</unclear> subūta</rdg>
+</app>
+<app loc="B16">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">piṅsor hyaṁ</lem>
+  <rdg source="bib:Brandes1913_01">piṅhe ryya</rdg>
+</app>
+<app loc="B17">
+  <lem source="bib:Trigangga2003_01">turus·</lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">kurus·</rdg>
+</app>
+<app loc="B17">
+  <lem source="bib:Brandes1913_01 bib:Nakada1990_01">mā 2</lem>
+  <rdg source="bib:Trigangga2003_01">mā 4</rdg>
+</app>
+<app loc="B18">
+  <lem source="bib:Trigangga2003_01">kahyunan</lem>
+  <rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="2" unit="character" />ṅan</rdg>
+  <rdg source="bib:Nakada1990_01">kahyuṅan</rdg>
+</app>
+<app loc="B18">
+  <lem source="bib:Brandes1913_01 bib:Nakada1990_01">saṁ lāgi</lem>
+  <rdg source="bib:Trigangga2003_01">saṁ lābhi</rdg>
+</app>
+<app loc="B18">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">baraṇa</lem>
+  <rdg source="bib:Brandes1913_01">maba
+  <gap reason="illegible" quantity="1" unit="character" /></rdg>
+</app>
+<app loc="B19">
+<lem source="Anakbi bib:Brandes1913_01">
+<supplied reason="lost">A</supplied>nakbi</lem>
+<rdg source="bib:Nakada1990_01 bib:Trigangga2003_01">nakbi</rdg> 
+<note>B silently correcting the reading.</note></app>
+<app loc="B19">
+  <lem source="bib:Trigangga2003_01">vlaḥ</lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">vlu</rdg>
+</app>
+<app loc="B20">
+  <lem source="bib:Trigangga2003_01">jura
+  <unclear>ṁ</unclear></lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">juru</rdg>
+</app>
+<app loc="B21">
+  <lem>ma
+  <unclear>ṁ</unclear>ha
+  <supplied reason="lost">mb</supplied>in·</lem>
+  <rdg source="bib:Brandes1913_01">ma
+  <unclear>ha</unclear>
+  <gap reason="illegible" quantity="2" unit="character" /></rdg>
+  <rdg source="bib:Nakada1990_01 bib:Trigangga2003_01">maṁha
+  <gap reason="illegible" quantity="2" unit="character" /></rdg>
+</app>
+<app loc="B21">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">saṁ balusyak·</lem>
+  <rdg source="bib:Brandes1913_01">saba saṁ syak·</rdg>
+</app>
+<app loc="B22">
+  <lem>prathama, maṇi
+  <unclear>ga</unclear> 
+  <gap reason="lost" quantity="5" unit="character" /> vinaiḥ</lem>
+  <rdg source="bib:Brandes1913_01">bajrama malā
+  <gap reason="illegible" quantity="1" unit="character" /> 
+  <gap reason="lost" quantity="4" unit="character" />məṁ vinaiḥ</rdg>
+  <rdg source="bib:Nakada1990_01">prajamaṁ maṇiga 
+  <gap reason="lost" quantity="4" unit="character" />mī</rdg>
+  <rdg source="bib:Trigangga2003_01">prathama maniL̥ 
+  <gap reason="lost" quantity="4" unit="character" />mə</rdg>
+  <note>Cf. Jeru-Jeru B12 pr̥thama, maṇiga L̥kər·, barsahan· 
+  <unclear>s</unclear>amə, vineḥ. The present passage can probably be restored after the parallel in Jeru-Jeru.</note>
+</app>
+<app loc="B22">
+  <lem>kahyunan· 
+  <add place="above">bisat·</add></lem>
+  <rdg source="bib:Brandes1913_01">kahyunan· bipat·</rdg>
+  <rdg source="bib:Nakada1990_01">kahyunan· bisak·</rdg>
+  <rdg source="bib:Trigangga2003_01">kahyunan·</rdg>
+</app> 
+<app loc="B23">
+  <lem>ma
+  <unclear>ṁ</unclear>hamb
+  <supplied reason="lost">i</supplied>nanī</lem>
+  <rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="1" unit="character" />tamban</rdg>
+  <rdg source="bib:Nakada1990_01">maṁhambinana</rdg>
+  <rdg source="bib:Trigangga2003_01">pahambin</rdg>
+  <note>Cf. Jeru-Jeru B13.</note>
+</app>
+<app loc="B23">
+  <lem source="bib:Brandes1913_01 bib:Nakada1990_01">gu
+  <supplied reason="lost">s</supplied>t
+  <supplied reason="lost">i</supplied></lem>
+  <rdg source="bib:Trigangga2003_01">
+    <gap reason="illegible" quantity="2" unit="character" />
+  </rdg>
+</app>
+<app loc="B23">
+  <lem>
+    <supplied reason="lost">pañjuruAn·</supplied>
+  </lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01 bib:Trigangga2003_01">
+    <gap reason="lost" quantity="4" unit="character" />
+  </rdg>
+  <note>Restored after Jeru-Jeru B13 parujar patiḥ maṁhambin nanī, pañjuruAn· Iṁ pakaraṇan· Astuti malavaṁ kāliḥ jaṅga.  But note that gusti is absent there.</note>
+</app>
+<app loc="B23">
+  <lem source="bib:Brandes1913_01 bib:Nakada1990_01">malavaṅ</lem>
+  <rdg source="bib:Trigangga2003_01">maṁlavaṅ</rdg>
+</app>
+<app loc="B23">
+  <lem source="bib:Trigangga2003_01">bhoma Ugal-ugal·</lem>
+  <rdg source="bib:Brandes1913_01">go
+  <gap reason="illegible" quantity="5" unit="character" /></rdg>
+  <rdg source="bib:Nakada1990_01">boma dagalaṅan·</rdg>
+</app>
+<app loc="B23">
+  <lem>səvu
+  <supplied reason="lost">r·</supplied></lem>
+  <rdg source="bib:Brandes1913_01">
+    <gap reason="illegible" quantity="2" unit="character" />
+  </rdg>
+  <rdg source="bib:Trigangga2003_01">sibu
+  <supplied reason="lost">r·</supplied></rdg>
+</app>
+<app loc="B24">
+  <lem source="bib:Trigangga2003_01">juru kalaṁ</lem>
+  <rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="2" unit="character" /> kala</rdg>
+  <rdg source="bib:Nakada1990_01">juru kala</rdg>
+</app>
+<app loc="B24">
+  <lem source="bib:Trigangga2003_01">tajuṅkilan·</lem>
+  <rdg source="bib:Brandes1913_01">kajuṅkilaṅan·</rdg>
+  <rdg source="bib:Nakada1990_01">kajaṅkilaṅ</rdg>
+</app>
+<app loc="B24">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">mḍaṁ gəntər·</lem>
+  <rdg source="bib:Nakada1990_01">
+  <gap reason="illegible" quantity="1" unit="character" />ntara</rdg>
+</app>
+<app loc="B25">
+<lem source="bib:Nakada1990_01 bib:Trigangga2003_01">dhavala kamasihan·</lem>
+<rdg source="bib:Brandes1913_01">
+<gap reason="illegible" quantity="2" unit="character" />han·</rdg> </app>
+<app loc="B25">
+  <lem source="bib:Trigangga2003_01">Unak·</lem>
+  <rdg source="bib:Brandes1913_01">Enak·</rdg>
+  <rdg source="bib:Nakada1990_01">ḍanak·</rdg>
+</app>
+<app loc="B25">
+  <lem source="bib:Trigangga2003_01">4</lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">5</rdg>
+</app>
+<app loc="B25">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">pinaka-</lem>
+  <rdg source="bib:Brandes1913_01">
+    <gap reason="illegible" quantity="3" unit="character" />
+  </rdg>
+</app>
+<app loc="B26">
+  <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">kalumpaṁ</lem>
+  <rdg source="bib:Nakada1990_01">
+  <unclear>u</unclear>lumpaṁ</rdg>
+  <note>Cf. Jeru-Jeru B16.</note>
+</app>
+<app loc="B26">
+  <lem source="bib:Trigangga2003_01">pa
+  <unclear>ḍ</unclear>i</lem>
+  <rdg source="bib:Brandes1913_01">paṭi</rdg>
+  <rdg source="bib:Nakada1990_01">pati</rdg>
+  <note>Or read 
+  <foreign>paṭi</foreign> here and in Jeru-Jeru B17?</note>
+</app>
+<app loc="B26">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">1</lem>
+  <rdg source="bib:Trigangga2003_01">6</rdg>
+</app>
+<app loc="B27">
+  <lem source="bib:Trigangga2003_01">sovaṁ-
+  <supplied reason="lost">sovaṁ saṁ tu</supplied>hān·</lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">sovaṁ-
+  <gap reason="lost" quantity="2" unit="character" /> 
+  <supplied reason="lost">tu</supplied>hān·</rdg>
+</app>
+<app loc="B27">
+  <lem source="bib:Trigangga2003_01">vujaṁ</lem>
+  <rdg source="bib:Brandes1913_01">māja</rdg>
+  <rdg source="bib:Nakada1990_01">guḍa</rdg>
+</app>
+<app loc="B28">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">sovaṁ-sovaṁ</lem>
+  <rdg source="bib:Brandes1913_01">
+    <gap reason="illegible" quantity="4" unit="character" />
+  </rdg>
+</app>
+<app loc="B28">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">paṅambuhan·</lem>
+  <rdg source="bib:Brandes1913_01">paṅambulan·</rdg>
+</app>
+<app loc="B28">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">siñjalan·</lem>
+  <rdg source="bib:Brandes1913_01">siñjasan·</rdg>
+</app>
+<app loc="B28">
+  <lem source="bib:Trigangga2003_01">4</lem>
+  <rdg source="bib:Brandes1913_01">
+    <gap reason="illegible" quantity="1" unit="character" />
+  </rdg>
+  <rdg source="bib:Nakada1990_01">5</rdg>
+</app>
+<app loc="B29">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">vḍihan·</lem>
+  <rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="1" unit="character" />han·</rdg>
+</app>
+<app loc="B29">
+  <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">1</lem>
+  <rdg source="bib:Nakada1990_01">
+    <gap reason="illegible" quantity="1" unit="character" />
+  </rdg>
+</app>
+<app loc="B30">
+  <lem source="bib:Nakada1990_01">Uṅgər·</lem>
+  <rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">Uṅkər·</rdg>
+</app> 
+<app loc="c2">
+  <lem>
+  <supplied reason="lost">pasək· mā 4 kinabaihannira patiḥ tpi siriṁ vinai</supplied>ḥ</lem>
+  <rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">
+  <gap reason="lost" quantity="15" unit="character" /> 
+  <supplied reason="lost">vinai</supplied>ḥ</rdg>
+  <rdg source="bib:Nakada1990_01">
+  <gap reason="lost" quantity="17" unit="character" />ḥ</rdg>
+  <note>Supplied from the parallel in Jeru-Jeru B20–21.</note>
+</app> 
+<app loc="c2">
+<lem>karūman·</lem>
+<rdg source="bib:Brandes1913_01">ku
+<gap reason="illegible" quantity="1" unit="character" />ma
+<gap reason="illegible" quantity="1" unit="character" /> </rdg> 
+<rdg source="bib:Nakada1990_01">karūpan·</rdg>
+<rdg source="bib:Trigangga2003_01">tarūman·</rdg></app>
+<app loc="c3">
+  <lem source="bib:Trigangga2003_01">jātaḥ</lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01">jata</rdg>
+</app>
+<app loc="c3">
+  <lem source="bib:Nakada1990_01">maṅhambi
+  <supplied reason="lost">n·</supplied></lem>
+  <rdg source="bib:Brandes1913_01">maṅha
+  <gap reason="illegible" quantity="1" unit="character" /></rdg>
+  <rdg source="bib:Nakada1990_01">saṁ maṅhambin·</rdg>
+  <rdg source="bib:Trigangga2003_01">maṅhambi</rdg>
+</app>
+                   
+<app loc="c5">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">prakaśita</lem>
+  <rdg source="bib:Brandes1913_01">saśakaśita</rdg>
+</app> 
+<app loc="c6">
+  <lem>malaḥ</lem>
+  <rdg source="bib:Brandes1913_01 bib:Nakada1990_01 bib:Trigangga2003_01">mala</rdg>
+</app>
+<app loc="c10">
+<lem source="bib:Trigangga2003_01">kvaiḥ
+<supplied reason="lost">n</supplied>i
+<supplied reason="lost">ra</supplied> 
+<supplied reason="lost">I</supplied>lu</lem>
+    
+<rdg source="bib:Brandes1913_01">kvaihni
+<gap reason="lost" quantity="2" unit="character" />
+<gap reason="illegible" quantity="1" unit="character" /></rdg>
+<rdg source="bib:Nakada1990_01">kvaiḥni
+<gap reason="lost" quantity="2" unit="character" />l
+<seg type="vowel">
+  <gap reason="illegible"></gap>
+</seg></rdg></app>
+<app loc="c13">
+<lem source="bib:Trigangga2003_01">t
+<supplied reason="lost">p</supplied>i 
+<supplied reason="lost">s</supplied>iriṅ</lem>
+    
+<rdg source="bib:Brandes1913_01">
+<unclear>ki</unclear>
+<gap reason="lost" quantity="1" unit="character" />
+<unclear>ipi</unclear>ṅ</rdg> 
+<rdg source="bib:Nakada1990_01">
+<gap reason="lost" quantity="2" unit="character" /> Asiṁ</rdg>
+</app>
+<app loc="c14">
+<lem source="bib:Trigangga2003_01">k
+<supplied reason="lost">i</supplied>non</lem>
+<rdg source="bib:Brandes1913_01">
+<gap reason="illegible" quantity="1" unit="character" />non</rdg>
+<rdg source="bib:Brandes1913_01">
+<gap reason="illegible" quantity="1" unit="character" />nān</rdg>
+</app>
+<app loc="c14">
+  <lem source="bib:Brandes1913_01 bib:Nakada1990_01">
+    <choice>
+      <sic>malūṅguḥ</sic>
+      <reg>maluṅguḥ</reg>
+    </choice>
+  </lem>
+  <rdg source="bib:Trigangga2003_01">maṁluṅguḥ</rdg>
+</app>
+<app loc="c17">
+<lem source="bib:Brandes1913_01 bib:Trigangga2003_01">kalaṅan·</lem>
+    
+<rdg source="bib:Nakada1990_01">kaluṅan·</rdg></app>
+<app loc="c20">
+  <lem>suma
+  <unclear reason="eccentric_ductus">ṅa</unclear>skāra</lem>
+  <rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="2" unit="character" />ha
+  <gap reason="illegible" quantity="2" unit="character" /></rdg>
+  <rdg source="bib:Nakada1990_01 bib:Trigangga2003_01">sumāṇaskāra</rdg>
+</app>
+<app loc="c21">
+  <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">sakrama[niṁ da)ṅū</lem>
+  <rdg source="bib:Nakada1990_01">sakrama
+  <gap reason="lost" quantity="1" unit="character" /> daṅū </rdg>
+</app>
+<app loc="c22">
+  <lem source="bib:Brandes1913_01 bib:Trigangga2003_01">mamantiṅa
+  <supplied reason="lost">kan·</supplied></lem>
+  <rdg source="bib:Nakada1990_01">mabantiṅakan·</rdg>
+</app>
+<app loc="c23">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">
+  <unclear>susu</unclear>k·</lem>
+  <rdg source="bib:Brandes1913_01">
+    <gap reason="illegible" quantity="2" unit="character" />
+  </rdg>
+</app> 
+<app loc="c23">
+    
+<lem source="bib:Brandes1913_01">pamaṁmaṁ</lem>
+    
+<rdg source="bib:Brandes1913_01">ma
+<unclear>mapaṁ</unclear></rdg>
+    
+<rdg source="bib:Nakada1990_01">maṁmaṁ</rdg>
+    
+<rdg source="bib:Trigangga2003_01">mamaṁmaṁ</rdg>
+</app>
+<app loc="c23">
+    
+<lem source="bib:Nakada1990_01 bib:Trigangga2003_01">
+  <unclear>liṁ</unclear>
+  <supplied reason="lost">nira</supplied>
+</lem>
+    
+<rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="1" unit="character" />
+  <gap reason="lost" quantity="2" unit="character" />
+</rdg></app>  
+<app loc="c26">
+<lem source="bib:Nakada1990_01 bib:Trigangga2003_01">
+<unclear>mahāR̥</unclear>ṣi saṁ hyaṁ I daśadeśa</lem>
+    
+<rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="10" unit="character" />
+</rdg></app>
+<app loc="c26">
+<lem source="bib:Trigangga2003_01">Ū
+<supplied reason="lost">rdhamadhaḥ</supplied></lem>
+    
+<rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="4" unit="character" />
+</rdg> 
+    
+<rdg source="bib:Nakada1990_01">Urdha
+<gap reason="illegible" quantity="2" unit="character" /></rdg>
+</app> 
+<app loc="c28">
+<lem source="bib:Trigangga2003_01">yajamānākāśa</lem>
+<rdg source="bib:Brandes1913_01">jayamānākāśa</rdg> 
+<rdg source="bib:Nakada1990_01">
+<gap reason="illegible" quantity="1" unit="character" />jamānākāśa</rdg></app>
+<app loc="c28">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">Aho
+  <unclear>rātra</unclear></lem>
+  <rdg source="bib:Brandes1913_01">Ahoratri</rdg>
+</app>
+<app loc="c29">
+  <lem source="bib:Brandes1913_01 bib:Nakada1990_01">
+    <gap reason="illegible" quantity="2" unit="character" />
+  </lem>
+  <rdg source="bib:Nakada1990_01">dvaya</rdg>
+  <note>Having observed the trace of the akṣaras and the availability of space,  some of the expected readings such sandhyā hr̥daya (Linggasuntan B24), sandhyādvaya (Jeru-Jeru B27), sandhyā (Paradah I 2A29), and even the reading dvaya suggested by N do not seems possible.</note>
+</app>
+<app loc="d5">
+  <note>The akṣaras on the 1st through 4th lines are lost. We follow N in the restoration of the text provided here, where B and T do not provide any. However, we have replaced the segment śvino supplied by N based on the parallel in Jeru-Jeru, to muAṁ putra devatā: see the explanation on this matter in our note on Jeru-Jeru c1. The parallel passage in Linggasuntan B24–25 is pretāsūra I garuḍa gandarvva catvāri lokapāla, yama buruṇa kuvera bāśava muAṁ putra devatā pañcakuśika nandīśvāra mahākāla ṣadvināyaka nāgarāja durggadevī caturāśra while in Jeru-Jeru B27–c3 it is pretāsura, garuḍa kinnara gandharvva, yama baruṇa kuvaira bāsava Aśvinodeva, pañca kuśika, na
+  <supplied reason="lost">n</supplied>d
+  <supplied reason="lost">ī</supplied>śvara mahākāla ṣadvināyaka nāgarājā, dūrggādevī, caturāśra.</note>
+</app> 
+<app loc="d6">
+    
+<lem source="bib:Trigangga2003_01">Ananta</lem>
+    
+<rdg source="bib:Brandes1913_01 bib:Nakada1990_01">pañca</rdg>
+</app>
+<app loc="d6">
+    
+<lem source="bib:Brandes1913_01 bib:Trigangga2003_01">kālamr̥tyu</lem>
+    
+<rdg source="bib:Nakada1990_01">kālam
+<gap reason="illegible" quantity="2" unit="character" /></rdg>
+</app>
+<app loc="d7">
+    
+<lem source="bib:Trigangga2003_01">kita prasiddha</lem>
+    
+<rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="5" unit="character" />
+</rdg>
+    
+<rdg source="bib:Nakada1990_01">kita prasi
+<gap reason="illegible" quantity="1" unit="character" /></rdg>
+</app>
+<app loc="d9">
+    
+<lem source="bib:Brandes1913_01 bib:Trigangga2003_01">sarvvabhū
+<supplied reason="lost">ta</supplied></lem>
+    
+<rdg source="bib:Nakada1990_01">sarvva
+<gap reason="illegible" quantity="1" unit="character" />ta</rdg>
+</app>
+<app loc="d10">
+    
+<lem source="bib:Nakada1990_01 bib:Trigangga2003_01">sa
+<supplied reason="lost">kala</supplied></lem>
+    
+<rdg source="bib:Brandes1913_01">
+  <unclear>ka</unclear>
+  <gap reason="lost" quantity="2" unit="character" />
+</rdg>
+</app>
+<app loc="d10">
+    
+<lem source="bib:Trigangga2003_01">sukṣma</lem>
+    
+<rdg source="bib:Brandes1913_01">suka</rdg>
+    
+<rdg source="bib:Nakada1990_01">sumpa</rdg>
+</app>
+<app loc="d11">
+    
+<lem source="bib:Nakada1990_01">
+<unclear>R̥</unclear>ṅəAkan·</lem>
+    
+<rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">AḍḍəṅəAkan·</rdg>
+</app>
+<app loc="d12">
+    
+<lem source="bib:Brandes1913_01 bib:Trigangga2003_01">sapa
+<supplied reason="lost">tha</supplied></lem>
+    
+<rdg source="bib:Nakada1990_01">sapa
+<gap reason="illegible" quantity="1" unit="character" /></rdg>
+</app>
+<app loc="d12"> 
+    
+<lem source="bib:Brandes1913_01 bib:Nakada1990_01">pamaṁ
+<add place="below">maṁ</add>-</lem>
+    
+<rdg source="bib:Trigangga2003_01">maṁmaṁ-</rdg>
+</app>
+<app loc="d12">
+    
+<lem source="bib:Trigangga2003_01">hiyaṁ</lem>
+    
+<rdg source="bib:Brandes1913_01">tila</rdg>
+    
+<rdg source="bib:Trigangga2003_01">həyaṁ</rdg>
+</app>
+<app loc="d14">
+    
+<lem source="bib:Nakada1990_01 bib:Trigangga2003_01">ta
+<supplied reason="lost">n ma</supplied>gam·</lem>
+    
+<rdg source="bib:Brandes1913_01">
+<gap reason="illegible" quantity="2" unit="character" />
+<unclear>v</unclear>am·</rdg>
+</app>
+<app loc="d15">
+    
+<lem source="bib:Brandes1913_01 bib:Trigangga2003_01">
+<supplied reason="lost">I</supplied>
+<unclear>k</unclear>iṁ</lem> 
+    
+<rdg source="bib:Nakada1990_01">
+<seg type="vowel">
+  <gap reason="illegible"></gap>
+</seg>kiṁ</rdg>
+</app>
+<app loc="d17">
+<lem source="bib:Trigangga2003_01">
+<unclear>tina</unclear>
+<supplied reason="lost">namniṁ ku</supplied>dur·</lem> 
+<rdg source="bib:Brandes1913_01">
+<gap reason="illegible" quantity="2" unit="character" />
+<gap reason="lost" quantity="3" unit="character" />dur·</rdg>
+    
+<rdg source="bib:Nakada1990_01">
+<gap reason="illegible" quantity="2" unit="character" /> makudur·</rdg></app>
+<app loc="d17">
+  <lem source="bib:Nakada1990_01 bib:Trigangga2003_01">Asiṁ</lem>
+  <rdg source="bib:Brandes1913_01">A
+  <gap reason="illegible" quantity="1" unit="character" /></rdg>
+</app>
+                   
+<app loc="d17">
+                       
+<lem>sakav
+<unclear>v</unclear>aṅananya</lem>
+                       
+<rdg source="bib:Brandes1913_01">
+<gap reason="illegible" quantity="2" unit="character" />ṅananya</rdg>
+                       
+<rdg source="bib:Nakada1990_01">pakavuAṅananya</rdg>
+                       
+<rdg source="bib:Trigangga2003_01">saṁka vuAṅananya</rdg>
+                   </app>
+<app loc="d18"> 
+    
+<rdg source="bib:Nakada1990_01 bib:Trigangga2003_01">hadi
+<supplied reason="lost">A</supplied>n·</rdg>
+    
+<rdg source="bib:Brandes1913_01">pa
+<gap reason="illegible" quantity="2" unit="character" /></rdg> </app>
+<app loc="d20"> 
+    
+<lem>tadvaraha
+<supplied reason="lost">n·</supplied></lem>
+    
+<rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="4" unit="character" />
+</rdg> 
+<rdg source="bib:Nakada1990_01">tadvarahan·</rdg>
+</app>
+<app loc="d20">
+    
+<lem source="bib:Trigangga2003_01">panimbatan·</lem>
+    
+<rdg source="bib:Brandes1913_01">pambaikan·</rdg>
+    
+<rdg source="bib:Nakada1990_01">paṅimbakan·</rdg>
+</app>
+<app loc="d20">
+    
+<lem source="bib:Nakada1990_01 bib:Trigangga2003_01">kamu hyaṁ</lem>
+    
+<rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="3" unit="character" />
+</rdg>
+</app>
+<app loc="d21">
+    
+<lem source="bib:Nakada1990_01 bib:Trigangga2003_01">pati</lem>
+    
+<rdg source="bib:Brandes1913_01">
+<gap reason="lost" quantity="1" unit="character" />
+<seg type="body">
+  <gap reason="illegible"></gap>
+</seg>i</rdg>
+</app>
+<app loc="d22">
+    
+<lem>i təṅəna
+<unclear>n· Uvahi riṁ hiri</unclear>ṅan·</lem>
+    
+<rdg source="bib:Brandes1913_01">ri  təṅənan· 
+<gap reason="illegible" quantity="7" unit="character" /></rdg> 
+    
+<rdg source="bib:Nakada1990_01">ri tṅa
+<gap reason="illegible" quantity="9" unit="character" /> </rdg>
+</app>
+<app loc="d22">
+<lem source="bib:Brandes1913_01 bib:Trigangga2003_01">rantan ususnya</lem>
+    
+<rdg source="bib:Nakada1990_01">
+<gap reason="illegible" quantity="4" unit="character" />nya</rdg>
+</app> 
+<app loc="d23">
+    
+<lem>
+<supplied reason="lost">ḍaḍa</supplied>tt</lem>
+    
+<rdg source="bib:Brandes1913_01">
+<gap reason="lost" quantity="2" unit="character" />tt</rdg>
+    
+<rdg source="bib:Nakada1990_01">ḍa
+<gap reason="lost" quantity="1" unit="character" />tt</rdg>
+    
+<rdg source="bib:Trigangga2003_01">
+<gap reason="lost" quantity="2" unit="character" />tt</rdg>
+    
+<note>Cf. Jeru-Jeru c18–19.</note>
+</app>
+<app loc="d23">
+<lem>ḍalammanya</lem>
+    
+<rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">ḍalamanya</rdg>
+    
+<rdg source="bib:Nakada1990_01">ḍala
+<gap reason="illegible" quantity="2" unit="character" /></rdg>
+</app>
+<app loc="d23">
+    
+<lem source="bib:Trigangga2003_01">At
+<unclear>manya</unclear></lem>
+    
+<rdg source="bib:Brandes1913_01">Ata
+<gap reason="illegible" quantity="1" unit="character" /></rdg>
+    
+<rdg source="bib:Nakada1990_01">Atmā
+<gap reason="illegible" quantity="1" unit="character" /></rdg>
+</app>
+<app loc="d24">
+    
+<lem source="bib:Trigangga2003_01">tmuA
+<unclear>ṁ</unclear></lem>
+    
+<rdg source="bib:Nakada1990_01">tmuA</rdg>
+    
+<rdg source="bib:Brandes1913_01">tusna</rdg>
+</app>
+<app loc="d25">
+    
+<lem source="bib:Trigangga2003_01">sahasra ja
+<supplied reason="lost">nma</supplied> saluīrniṁ</lem>
+    
+<rdg source="bib:Brandes1913_01">sahū
+<unclear>pra Ali Īniṁ</unclear></rdg>
+    
+<rdg source="bib:Nakada1990_01">sa
+<unclear>h</unclear>asra ja
+<gap reason="lost" quantity="1" unit="character" /> saluĪrniṁ</rdg>
+</app>
+<app loc="d26">
+    
+<lem source="bib:Nakada1990_01 bib:Trigangga2003_01">ta
+<supplied reason="lost">k-ta</supplied>k</lem>
+    
+<rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="1" unit="character" />
+  <gap reason="lost" quantity="1" unit="character" />
+</rdg>
+</app>
+<app loc="d26">
+    
+<lem source="bib:Nakada1990_01 bib:Trigangga2003_01">lakay·</lem>
+    
+<rdg source="bib:Brandes1913_01">lakab·</rdg>
+</app>
+<app loc="d27">
+    
+<lem source="bib:Trigangga2003_01">tmahana
+<supplied reason="lost">nya</supplied></lem>
+    
+<rdg source="bib:Brandes1913_01 bib:Nakada1990_01">tmahanya</rdg>
+</app>
+<app loc="d27">
+    
+<lem source="bib:Trigangga2003_01">tmunyan
+<unclear>·</unclear></lem>
+    
+<rdg source="bib:Brandes1913_01 bib:Nakada1990_01">tmunya nda </rdg>
+</app>
+<app loc="d29">
+    
+<lem source="bib:Brandes1913_01 bib:Trigangga2003_01">lumkas·</lem>
+    
+<rdg source="bib:Nakada1990_01">lumukas·</rdg>
+</app>
+<app loc="d30">
+    
+<lem source="bib:Brandes1913_01 bib:Trigangga2003_01">paripūrṇna</lem>
+    
+<rdg source="bib:Nakada1990_01">paripū
+<gap reason="illegible" quantity="1" unit="character" /></rdg>
+</app>
+<app loc="e5">
+    
+<lem source="bib:Trigangga2003_01">vulūniṁ</lem>
+    
+<rdg source="bib:Brandes1913_01">vulūni</rdg>
+</app>
+<app loc="e6">
+<lem source="bib:Trigangga2003_01">
+  <unclear>miśāka</unclear>
+</lem>
+    
+<rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="3" unit="character" />
+</rdg>
+    
+<note>Cf. Jeru-Jeru d5..</note>
+</app>
+<app loc="e6">
+<lem source="bib:Trigangga2003_01">Atak·</lem>
+    
+<rdg source="bib:Brandes1913_01">Atag·</rdg>
+</app>
+<app loc="e7">
+    
+<lem source="bib:Trigangga2003_01">lil-lit·</lem>
+<rdg source="bib:Brandes1913_01">kilat·</rdg>
+    </app>
+<app loc="e11">
+    
+<lem>tva
+<unclear>k·</unclear> pā
+<unclear>nā</unclear>di</lem>
+    
+<rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="4" unit="character" />
+</rdg>
+    
+<rdg source="bib:Trigangga2003_01">tva prāṇadi</rdg>
+</app>
+<app loc="e12">
+    
+<lem source="bib:Brandes1913_01">piṇḍva</lem>
+    
+<rdg source="bib:Trigangga2003_01">piṇḍa</rdg></app>
+<app loc="e13">
+<lem>
+  <unclear>paḍḍīsa</unclear>
+</lem>
+    
+<rdg source="bib:Trigangga2003_01">
+<gap reason="illegible" quantity="3" unit="character" /> B, pa
+<gap reason="illegible" quantity="2" unit="character" /></rdg>
+<note>The stone is quite worn here, so our tentative reading is based mainly on the parallel in Jeru-Heru d11.</note></app>
+<app loc="e13">
+<lem>salvirniṁ ta
+<supplied reason="lost">mbul·</supplied></lem>
+    
+<rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">
+  <gap reason="illegible" quantity="4" unit="character" />
+  <gap reason="lost" quantity="1" unit="character" />
+</rdg>
+</app>
+<app loc="f1">
+<lem>
+<supplied reason="lost">saprakāra vinuvuhakan· tadanantara patṅaḥ manaḍaḥ kinon· sira ka</supplied>baiḥ</lem>
+<rdg source="bib:Brandes1913_01 bib:Trigangga2003_01">
+  <gap reason="illegible" quantity="24" unit="character" />
+</rdg> 
+<note>The restoration is based on the parallel in Jeru-Jeru d12–14.</note></app>  
+<app loc="f5">
+<lem>
+  <unclear>kahaḍaṁ</unclear>
+</lem>
+    
+<rdg source="bib:Brandes1913_01">
+  <gap reason="illegible" quantity="3" unit="character" />
+</rdg>
+    
+<rdg source="bib:Trigangga2003_01">kahanān·</rdg>
+    
+<note>Commenting on his reading kahanān·, T notes that “bacaan ini kurang menyakinkan karena ada satu atau dua aksara yang sangat sulit dibaca (tertutup oleh percikan semen)". Our reading is based on the parallel in Jeru-Jeru d16–17.</note></app> 
+<app loc="f7">
+<lem>
+<unclear>vuvus</unclear>-</lem>
+    
+<rdg source="bib:Brandes1913_01">
+<gap reason="illegible" quantity="2" unit="character" />-</rdg> 
+<rdg source="bib:Trigangga2003_01">cucup-</rdg>
+</app>
+<app loc="f8">
+    
+<lem source="bib:Trigangga2003_01">mā</lem>
+    
+<rdg source="bib:Brandes1913_01">mas</rdg>
+</app>
+<app loc="f8">
+    
+<lem source="bib:Brandes1913_01">4</lem>
+    
+<rdg source="bib:Trigangga2003_01">5</rdg>
+</app> 
+<app loc="f15">
+<note>The end of the inscription can probably to restored after the ending of Jeru-Jeru (d23–34): ... tlas· mapa[gəḥ] kasīmān·n ikāṁ sīma, katguhaknanira kabaiḥ.</note>
+</app>
+               </listApp>
+         </div>
+         
+<div type="translation">
+                 </div>
+         
+<div type="commentary">
+                     </div>
+        
+<div type="bibliography">
+           
+<p>We have used Nakada’s edition (N, 1990: 2–21) as base text. However, his edition does not include the reading of the left and right upper parts. We compared it to the editions by Trigangga (T, 2003_01: 10–16) and Brandes (B, 1913: 63–69, OJO XXXVIII), as well as the reading furnished by Damais (D, 1955: 104–105) only for the first 5 lines. (Note that, contrary to the Linggasuntan charter, Trigangga’s 2003 edition for the present charter is not republished in Hasan Djafar &amp; Trigangga 2019.) Our edition was then prepared through direct inspection of the stone at MNI by Eko Bastiawan in March 2023, benefiting from remote supervision and assistance by Arlo Griffiths.</p>
+                
+<listBibl type="primary">
+                    
+<bibl n="N">
+  <ptr target="bib:Nakada1990_01" />
+</bibl>
+                    
+<bibl n="T">
+  <ptr target="bib:Trigangga2003_01" />
+</bibl>
+                    
+<bibl n="B">
+  <ptr target="bib:Brandes1913_01" />
+</bibl>
+                    
+<bibl n="D">
+  <ptr target="bib:Damais1955_01" />
+</bibl>
+                        </listBibl>
+           
+<listBibl type="secondary">
+              
+<bibl />           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -24,11 +30,7 @@
         <idno type="filename">DHARMA_INSIDENKBhatari</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-                                            Licence. To view a copy of the licence, visit
-                                            https://creativecommons.org/licenses/by/4.0/ or send a letter to
-                                            Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-                                            California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Wayan Jarrah Sastrawan.</p>
           </licence>
         </availability>
@@ -38,14 +40,14 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -55,61 +57,138 @@
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_idListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change when="2022-08-16" who="part:axja">Transforming docx into xml</change>
+      <change who="part:axja" when="2022-08-16">Transforming docx into xml</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition">
-        <div type="textpart">
-          <p>We assume this side is blank.</p>
-        </div>
-        <div type="textpart">
-          <head xml:lang="eng">Verso</head>
-          <p><lb n="1v1"/> || svasti śaka-varṣātīta 829 Asuji-māsa tithi dvādaśi kr̥ṣṇa-pakṣa, ma, ka, <unclear>b</unclear>u, vāra [5+] <gap reason="lost"/>
-                         <lb n="1v2"/> dakṣottama-bāhu-bajra-[prati-pa]kṣakṣa[ya] kumona [8+] vasa<gap reason="lost"/>
-                         <lb n="1v3"/>knanyan· sinusuk· sīmā bhaṭārī ta [+]pa ri [+] iṅinira sa[+] maṇik <gap reason="lost"/>
-                         <lb n="1v4"/> [+] mapaḍahi maṅiduṁ hulun· haji saprakārani maṅilala dravya haji kabaiḥ ta<unclear>n·</unclear> <gap reason="lost"/>
-                         <lb n="1v5"/>n mapatiḥ I hino śrī dakṣottama-bāhu<unclear>b</unclear>ajra-pratipakṣakṣaya vḍihan· gañjar· patra sisi yu [+] <gap reason="lost"/>
-                         <lb n="1v6"/> yu 1 mas· su 1 sovaṁ-sovaṁ samgat· tiruAn· pu Asaṅā saṁ śivāstra InaṁsəAn· vḍihan <gap reason="lost"/>
-                         <lb n="1v7"/>dur pu samvr̥da kapuA InaṁsəAn· pasak·-pasək· vḍihan· yu 1 mas· mā 8 sovaṁ-sovaṁ <gap reason="lost"/>
-                         <lb n="1v8"/>dihati juru I mukudur· 2 taṁkil· sugiḥ pu mankai Anak vanva I <unclear>ma</unclear>n<unclear>tyā</unclear>siḥ vatak· makudur· ma<gap reason="lost"/>
-                         <lb n="1v9"/>ṇḍamuhi san brahmīśana Anak vanva I gunuṅan vatak· taṅkilan citralekha vuṅkal· <gap reason="lost"/>
-                         <lb n="1v10"/>k· vanva I turuvanban· vatak tiru raṇu citralekha dharmmasinta saṁ ra buAḥ Anak· vanva I pās· vatak· <unclear>pās· pa</unclear>ru<unclear>jar i vka vi</unclear>riḍiḥ pu <unclear>d</unclear>aṇu<gap reason="lost"/>
-                         <lb n="1v11"/>n ḍa punta katimamaṁ Anak· vanuA I vuṅkuḍu vatak· kilipan· kapuA vinaiḥ pasak·-pasak· vḍihan yu 1 mas· mā 4 sovaṁ-sovaṁ <gap reason="lost"/>
-                         <lb n="1v12"/>n parujar· I palar hyaṁ tumapal· saṁ baka Anak vanuA I tuṅgu manoṅan· parujar· i ma<supplied reason="omitted">ṁ</supplied>huri [saṁ] ra <unclear>nu</unclear>Ī pu gu<unclear>pura</unclear> [8+] <unclear>vatak</unclear> vka<gap reason="lost"/>
-                         <lb n="1v13"/> ra luA vatak· vuru siki parujar· I tirip· sa<unclear>ṁ</unclear> ra paḍaṁ pu rāghu Anak vanva Iy ugiḥhan· vatak· dali<unclear>nan</unclear> kapva vinaiḥ pasak·-pasak· vḍiha<unclear>n·</unclear> <gap reason="lost"/>
-                         <lb n="1v14"/> masusū Anak· vanuA I muṅgi sīma I tirip panuvuṅan· si laṅkā Anak vanva I vatu Antan· vatak· va<unclear>tu A</unclear>nta<unclear>n· kapuA</unclear> vinaiḥ pasak·-pasa<unclear>k·</unclear> <gap reason="lost"/>
-                         <lb n="1v15"/>hati i makudur saṁ vaja Anak vanva I rahu vatak· turu hayu vinaiḥ vḍihan· yu 2 mas· mā 8 hop· paṅaṅkat [2+] patiḥ va<gap reason="lost"/>
-                         <lb n="1v16"/>raṁ vahu pasarranak si guntaṁ ramani kumbha tətabbantan· si caturī ramani <unclear>U</unclear>sā vineḥ pasak·-pasak· vḍihan yu 2 mas· <gap reason="lost"/>
-                         <lb n="1v17"/> san<unclear>d</unclear>ra ramani pilaṁṅgu rāma I poḥ ga<unclear>l</unclear>uḥ si varuhan rama ramani Uā rāma I pa(r)mmasan· si guṇa ramani Uā rāma I pa<unclear>r</unclear>mmasan· si guṇa ramani ka<unclear>s</unclear>ini rāma I <gap reason="lost"/>
-                         <lb n="1v18"/> mā 1 sovaṁ-sovaṁ parujar· saṁ vuluṁ katak· si hudan· parujarni kayu va[+] si tulus· ramani Uttara kapva [+] <gap reason="lost"/>
-                         <lb n="1v19"/> kapva vinaiḥ pasək·-pasək· vḍihan· yu 1 pirak· mā 4 sovaṁ-sovaṁ juru mapaḍahi I layaṁ vinaiḥ vḍihan· yu <gap reason="lost"/>
-                         <lb n="1v20"/> yu 1 pirak· mā 4 sovaṁ-sovaṁ variga 2 si kaca si pala juru Alas· 2 si sikoḥ si pi I ali[+] si kə[+] si dha<gap reason="lost"/>
-                         <lb n="1v21"/> pasaṁ pu balak· pu kaca pu juga pu kaṇḍi pu gahata pu nayu pu ku[+]Iṁ si jo[+]e si taṅgar· pu siga pu kr̥ṣṇa vinaiḥ vḍihan· hlai <gap reason="lost"/>
-                         <lb n="1v22"/> tamvakur mesi bras· 4 vsi Ikat· 4 mas· ma 4 vsi-vsi prakāra vaduṁ rimvas· patuk·-patuk· lukai tampilan· li[+] <gap reason="lost"/>
-                         <lb n="1v23"/>n papañjutan· saragi pagaṅannan saragi Inuman pāmassanya su 2 mā 1 ku 1 vḍus 1 taṇḍas· 1 kumol· <gap reason="lost"/></p>
-        </div>
-      </div>
-      <div type="apparatus"/>
-      <div type="commentary"/>
-      <div type="bibliography"/>
-      <!-- <div>
-                         <head>Provenance and Artefact</head>
-                         <p>The following information is quoted from Boechari (2012): 480.</p>
-                         <p>Prasasti ini milik seorang kolektor, asal dari Jawa Tengah. Ukuran lempengan: panjang atas 21,8 cm; bagian terpanjang 29,5 cm; panjang bawah 27,5 cm; lebar 22 cm. Biasanya prasasti-prasasti Rakai Watukura dyah Balituṅ yang lebarnya sekitar 22 cm, panjangnya sekitar 40 cm.</p>
-                      </div> -->
-    </body>
-  </text>
+           
+<body> 
+                   
+<div type="edition">
+                  
+<div type="textpart">
+                     
+<p>We assume this side is blank.</p>
+                  </div> 
+                      
+<div type="textpart">
+                         
+<head xml:lang="eng">Verso</head>
+                      
+<p>
+<lb n="1v1" /> || svasti śaka-varṣātīta 829 Asuji-māsa tithi dvādaśi kr̥ṣṇa-pakṣa, ma, ka, 
+<unclear>b</unclear>u, vāra [5+] 
+<gap reason="lost" />
+                         
+<lb n="1v2" /> dakṣottama-bāhu-bajra-[prati-pa]kṣakṣa[ya] kumona [8+] vasa
+<gap reason="lost" />
+                         
+<lb n="1v3" />knanyan· sinusuk· sīmā bhaṭārī ta [+]pa ri [+] iṅinira sa[+] maṇik 
+<gap reason="lost" />
+                         
+<lb n="1v4" /> [+] mapaḍahi maṅiduṁ hulun· haji saprakārani maṅilala dravya haji kabaiḥ ta
+<unclear>n·</unclear> 
+<gap reason="lost" />
+                         
+<lb n="1v5" />n mapatiḥ I hino śrī dakṣottama-bāhu
+<unclear>b</unclear>ajra-pratipakṣakṣaya vḍihan· gañjar· patra sisi yu [+] 
+<gap reason="lost" />
+                         
+<lb n="1v6" /> yu 1 mas· su 1 sovaṁ-sovaṁ samgat· tiruAn· pu Asaṅā saṁ śivāstra InaṁsəAn· vḍihan 
+<gap reason="lost" />
+                         
+<lb n="1v7" />dur pu samvr̥da kapuA InaṁsəAn· pasak·-pasək· vḍihan· yu 1 mas· mā 8 sovaṁ-sovaṁ 
+<gap reason="lost" />
+                         
+<lb n="1v8" />dihati juru I mukudur· 2 taṁkil· sugiḥ pu mankai Anak vanva I 
+<unclear>ma</unclear>n
+<unclear>tyā</unclear>siḥ vatak· makudur· ma
+<gap reason="lost" />
+                         
+<lb n="1v9" />ṇḍamuhi san brahmīśana Anak vanva I gunuṅan vatak· taṅkilan citralekha vuṅkal· 
+<gap reason="lost" />
+                         
+<lb n="1v10" />k· vanva I turuvanban· vatak tiru raṇu citralekha dharmmasinta saṁ ra buAḥ Anak· vanva I pās· vatak· 
+<unclear>pās· pa</unclear>ru
+<unclear>jar i vka vi</unclear>riḍiḥ pu 
+<unclear>d</unclear>aṇu
+<gap reason="lost" />
+                         
+<lb n="1v11" />n ḍa punta katimamaṁ Anak· vanuA I vuṅkuḍu vatak· kilipan· kapuA vinaiḥ pasak·-pasak· vḍihan yu 1 mas· mā 4 sovaṁ-sovaṁ 
+<gap reason="lost" />
+                         
+<lb n="1v12" />n parujar· I palar hyaṁ tumapal· saṁ baka Anak vanuA I tuṅgu manoṅan· parujar· i ma
+<supplied reason="omitted">ṁ</supplied>huri [saṁ] ra 
+<unclear>nu</unclear>Ī pu gu
+<unclear>pura</unclear> [8+] 
+<unclear>vatak</unclear> vka
+<gap reason="lost" />
+                         
+<lb n="1v13" /> ra luA vatak· vuru siki parujar· I tirip· sa
+<unclear>ṁ</unclear> ra paḍaṁ pu rāghu Anak vanva Iy ugiḥhan· vatak· dali
+<unclear>nan</unclear> kapva vinaiḥ pasak·-pasak· vḍiha
+<unclear>n·</unclear> 
+<gap reason="lost" />
+                         
+<lb n="1v14" /> masusū Anak· vanuA I muṅgi sīma I tirip panuvuṅan· si laṅkā Anak vanva I vatu Antan· vatak· va
+<unclear>tu A</unclear>nta
+<unclear>n· kapuA</unclear> vinaiḥ pasak·-pasa
+<unclear>k·</unclear> 
+<gap reason="lost" />
+                         
+<lb n="1v15" />hati i makudur saṁ vaja Anak vanva I rahu vatak· turu hayu vinaiḥ vḍihan· yu 2 mas· mā 8 hop· paṅaṅkat [2+] patiḥ va
+<gap reason="lost" />
+                         
+<lb n="1v16" />raṁ vahu pasarranak si guntaṁ ramani kumbha tətabbantan· si caturī ramani 
+<unclear>U</unclear>sā vineḥ pasak·-pasak· vḍihan yu 2 mas· 
+<gap reason="lost" />
+                         
+<lb n="1v17" /> san
+<unclear>d</unclear>ra ramani pilaṁṅgu rāma I poḥ ga
+<unclear>l</unclear>uḥ si varuhan rama ramani Uā rāma I pa(r)mmasan· si guṇa ramani Uā rāma I pa
+<unclear>r</unclear>mmasan· si guṇa ramani ka
+<unclear>s</unclear>ini rāma I 
+<gap reason="lost" />
+                         
+<lb n="1v18" /> mā 1 sovaṁ-sovaṁ parujar· saṁ vuluṁ katak· si hudan· parujarni kayu va[+] si tulus· ramani Uttara kapva [+] 
+<gap reason="lost" />
+                         
+<lb n="1v19" /> kapva vinaiḥ pasək·-pasək· vḍihan· yu 1 pirak· mā 4 sovaṁ-sovaṁ juru mapaḍahi I layaṁ vinaiḥ vḍihan· yu 
+<gap reason="lost" />
+                         
+<lb n="1v20" /> yu 1 pirak· mā 4 sovaṁ-sovaṁ variga 2 si kaca si pala juru Alas· 2 si sikoḥ si pi I ali[+] si kə[+] si dha
+<gap reason="lost" />
+                         
+<lb n="1v21" /> pasaṁ pu balak· pu kaca pu juga pu kaṇḍi pu gahata pu nayu pu ku[+]Iṁ si jo[+]e si taṅgar· pu siga pu kr̥ṣṇa vinaiḥ vḍihan· hlai 
+<gap reason="lost" />
+                         
+<lb n="1v22" /> tamvakur mesi bras· 4 vsi Ikat· 4 mas· ma 4 vsi-vsi prakāra vaduṁ rimvas· patuk·-patuk· lukai tampilan· li[+] 
+<gap reason="lost" />
+                         
+<lb n="1v23" />n papañjutan· saragi pagaṅannan saragi Inuman pāmassanya su 2 mā 1 ku 1 vḍus 1 taṇḍas· 1 kumol· 
+<gap reason="lost" /></p>
+                      </div>
+                   </div>
+              
+<div type="apparatus" />
+              
+<div type="commentary" />
+              
+<div type="bibliography" />
+                           
+           </body>
+   
+</text>
 </TEI>

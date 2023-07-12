@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -35,11 +41,7 @@
         <idno type="filename">DHARMA_INSCIC00037</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-                        Licence. To view a copy of the licence, visit
-                        https://creativecommons.org/licenses/by/4.0/ or send a letter to
-                        Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-                        California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Arlo Griffiths and Salomé Pichon.</p>
           </licence>
         </availability>
@@ -53,8 +55,8 @@
             <editor>Amandine Lepoutre</editor>
           </titleStmt>
           <editionStmt>
-            <p>First digital edition made by École française d'Extrême-Orient (EFEO), realized in collaboration with the Institute for the Study of the Ancient World (ISAW) at New York University as <ref target="https://isaw.nyu.edu/publications/inscriptions/campa/index.html">The Corpus of the Inscriptions of Campā, in 2010-2012.</ref>
-                  </p>
+            <p>First digital edition made by École française d'Extrême-Orient (EFEO), realized in collaboration with the Institute for the Study of the Ancient World (ISAW) at New York University as 
+            <ref target="https://isaw.nyu.edu/publications/inscriptions/campa/index.html">The Corpus of the Inscriptions of Campā, in 2010-2012.</ref></p>
           </editionStmt>
           <publicationStmt>
             <authority>École française d'Extrême-Orient (EFEO)</authority>
@@ -62,11 +64,7 @@
             <availability>
               <licence target="http://creativecommons.org/licenses/by/3.0/">
                 <p>Copyright (c) 2012 by Arlo Griffiths &amp; Amandine Lepoutre.</p>
-                <p>This work is licensed under the Creative Commons Attribution 3.0 Unported
-                            License. To view a copy of this license, visit
-                            http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative
-                            Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041,
-                            USA.</p>
+                <p>This work is licensed under the Creative Commons Attribution 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
               </licence>
             </availability>
           </publicationStmt>
@@ -74,7 +72,7 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
             <altIdentifier type="campa">
               <idno>C. 37</idno>
             </altIdentifier>
@@ -84,15 +82,14 @@
             <altIdentifier type="site-inventory">
               <settlement>Po Nagar</settlement>
               <idno>Inscription engraved on the southern wall of the hall of the northwestern tower.</idno>
-              <!-- AL: there is no number. Do you think it is necessary to add this here or we just skip this part? -->
             </altIdentifier>
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -102,163 +99,232 @@
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2021-07-03" who="part:argr">Resolved validation problems.</change>
-      <change status="draft" when="2020-09-14" who="part:axja">Campa file transformed to follow the DHARMA encoding structure. Metadata extracted to be checked and updated according DHARMA workflow. Done through XSLT.</change>
+      <change when="2021-07-03" who="part:argr" status="draft">Resolved validation problems.</change>
+      <change when="2020-09-14" who="part:axja" status="draft">Campa file transformed to follow the DHARMA encoding structure. Metadata extracted to be checked and updated according DHARMA workflow. Done through XSLT.</change>
     </revisionDesc>
   </teiHeader>
   <facsimile>
     <graphic url="C0037_AG_2009.jpg">
-      <desc>Photograph of brick wall bearing inscription <ptr/>. Taken at Po Nagar by Arlo Griffiths on .</desc>
+      <desc>Photograph of brick wall bearing inscription 
+      <ptr />. Taken at Po Nagar by Arlo Griffiths on .</desc>
     </graphic>
     <graphic url="EFEOB-est.n0238_bis.jpg">
       <desc>Photograph of EFEO estampage under n. 238.</desc>
     </graphic>
   </facsimile>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83233 maturity:83213" type="edition" xml:lang="san-Latn">
-        <ab>
-     <lb n="1-4"/> <gap quantity="4" reason="lost" unit="line"/>
-     <lb n="5"/> di śakarāja 935 nī
-     <lb n="6"/> niy· kāla rāja yām̃ pov ku vijaiya śrī
-     <lb n="7"/> harivarmmadeva putau di nagar· caṁpā ma
-     <lb break="no" n="8"/>ṅ· rūlauy· patam̃l· ādipurvva senāpatī
-     <lb n="9"/> pam̃r· rauṅ· dauk· jā paliy· manicya
-     <lb n="10"/> sanā dauk· di panrāṅ· punaḥ ca
-     <lb break="no" n="11"/>patī vuḥ pu pov<unclear>·</unclear> an<unclear>ai</unclear>ḥ           
+<body>
+<div type="edition" xml:lang="san-Latn" rendition="class:83233 maturity:83213">
+            
+<ab>
+     
+<lb n="1-4" /> 
+<gap reason="lost" quantity="4" unit="line" />
+     
+<lb n="5" /> di śakarāja 935 nī
+     
+<lb n="6" /> niy· kāla rāja yām̃ pov ku vijaiya śrī
+     
+<lb n="7" /> harivarmmadeva putau di nagar· caṁpā ma
+     
+<lb break="no" n="8" />ṅ· rūlauy· patam̃l· ādipurvva senāpatī
+     
+<lb n="9" /> pam̃r· rauṅ· dauk· jā paliy· manicya
+     
+<lb n="10" /> sanā dauk· di panrāṅ· punaḥ ca
+     
+<lb break="no" n="11" />patī vuḥ pu pov
+<unclear>·</unclear> an
+<unclear>ai</unclear>ḥ           
             </ab>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="5">
-            <lem>935</lem>
-            <rdg source="bib:Schweyer2005_01">735.</rdg>
-          </app>
-          <app loc="5-6">
-            <lem>nī niy·</lem>
-            <note>as suggested by the text of C. 125 (edition and traslation in <bibl>
-                <ptr target="bib:Schweyer2005_01"/>
-                <citedRange unit="page">116</citedRange>
-              </bibl>), which is almost entirely identical, the notation <foreign>nī niy·</foreign> is probably a kind of dittography.</note>
-          </app>
-          <app loc="6">
-            <lem>kāla</lem>
-            <rdg source="bib:Schweyer2005_01">kala</rdg>
-            <note>perhaps a typo.</note>
-          </app>
-          <app loc="6">
-            <lem>pov ku vijaiya</lem>
-            <rdg source="bib:Schweyer2005_01">poṅ ciyei viśajaya</rdg>
-            <note>with regards to the shape of the writing <foreign>ai</foreign>, which A.-V. Schweyer did not recognized, see C. 3.1 part A, ll. 2, 5 and -2 and l. 11 of the present inscription.</note>
-          </app>
-          <app loc="8">
-            <lem>maṅ·</lem>
-            <rdg source="bib:Schweyer2005_01">mad</rdg>
-            <note>the use of the synonym <foreign>nariy</foreign> "since" in the parallel inscription C. 125 confirms what is graphically clear, namely that the reading must be <foreign>maṅ</foreign>.</note>
-          </app>
-          <app loc="8">
-            <lem>patam̃l· ādipurvva</lem>
-            <rdg source="bib:Schweyer2005_01">patāl ādi pūrvva</rdg>
-          </app>
-          <app loc="9">
-            <lem>pam̃r· rauṅ·</lem>
-            <rdg source="bib:Schweyer2005_01">pārrauṅ</rdg>
-          </app>
-          <app loc="10">
-            <lem>sanā</lem>
-            <rdg source="bib:Schweyer2005_01"><supplied reason="lost">di nagara</supplied>sanā</rdg>
-            <note>in front of <foreign>sanā</foreign>, one can see some marks of letters diligently released. Concerning the word <foreign>sanā</foreign>, we speculate that it corresponds to the Malay word <foreign>sana</foreign> "there" (written <foreign>sāna</foreign> in Old Malay, see: <bibl>
-                <ptr target="bib:Vikør1988_01"/>
-                <citedRange unit="page">69 and 82</citedRange>
-              </bibl>). Given the possible presence of an <foreign>anusvāra-candra</foreign> above <foreign>nā</foreign>, one can also read <foreign>sanām̃</foreign> "glad, pleased" (<bibl>
-                <ptr target="bib:Aymonier+Cabaton1906_01"/>
-                <citedRange unit="page">474</citedRange>
-              </bibl>).</note>
-          </app>
-          <app loc="10-11">
-            <lem>capatī</lem>
-            <rdg source="bib:Schweyer2005_01"><supplied reason="lost">se</supplied>nāpatī</rdg>
-            <note>line 10, we do not see any signs before <foreign>patī</foreign>; the last visible sign line 10, neglected by Schweyer, seems to be a <foreign>ca</foreign>.</note>
-          </app>
-          <app loc="11">
-            <lem>pov<unclear>· </unclear>an<unclear>ai</unclear>ḥ</lem>
-            <rdg source="bib:Schweyer2005_01">pāv <supplied reason="lost">·</supplied> janaḥ</rdg>
-            <note><bibl>
-                <ptr target="bib:Bergaigne1888_01"/>
-                <citedRange unit="page">76</citedRange>
-              </bibl> had read at the end of the text <quote>une addition postérieure avec trois chiffres, apparemment encore une date, que je lis 824</quote>. After Bergaigne, researchers considered that there is no addition, and we are of the same opinion.</note>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:argr" type="translation">
-        <p>In <supplied reason="subaudible">the year</supplied> of the Śaka king 935. This was the time when Y.P.K the victorious Śrī Harivarmadeva ruled the country of Campā from Rūlauy to the Far East; where Paṅrauṅ; where Paṅrauṅ <supplied reason="explanation">native</supplied> of Dauk Jā in the area <supplied reason="explanation">
-            <foreign>paliy</foreign>
-          </supplied> of Manicya was general there; where <supplied reason="explanation">the latter</supplied> was at Panrāṅ: where he restored <supplied reason="explanation">
-            <foreign>punaḥ</foreign>
-          </supplied> the <foreign>capatī</foreign> and gave <supplied reason="explanation">the image of</supplied> his highness the little <supplied reason="subaudible">goddess</supplied>.</p>
-      </div>
-      <div source="bib:Griffiths+al2008-2009_01" type="translation" xml:lang="fra">
-        <p>En <supplied reason="subaudible">l'année</supplied> 935 du roi des Śaka. Ceci fut le temps où Y.P.K. le victorieux Śrī Harivarmadeva régnait dans le pays du Campā depuis Rūlauy jusqu'à l'extrême-orient; où Paṅrauṅ <supplied reason="explanation">originaire</supplied> de Dauk Jā dans l'agglomération <supplied reason="explanation">
-            <foreign>paliy</foreign>
-          </supplied> de Manicya fut général là-bas; où <supplied reason="explanation">ce dernier</supplied> siégeait à Panrāṅ: où il a restitué <supplied reason="explanation">
-            <foreign>punaḥ</foreign>
-          </supplied> le <foreign>capatī</foreign> et donné <supplied reason="explanation">l'image de</supplied> son altesse la petite <supplied reason="subaudible">déesse</supplied>
-   .</p>
-      </div>
-      <div type="commentary">
-        <p>Due to paleographical reasons, and others link to the kind of formulary it uses, it seems impossible that the commonly accepted date (735 <foreign>Śaka</foreign>), which correspond to the first quarter of the 9th century AD, is correct (see <bibl>
-            <ptr target="bib:Griffiths+al2008-2009_01"/>
-            <citedRange unit="page">481-487</citedRange>
-          </bibl>).</p>
-        <p>Our inpertretation of Dauk Jā as a toponym is based on parallel with the sanskrit inscription C. 31 C2 (engraved not on the hall's south wall <bibl>
-            <ptr target="bib:Schweyer2005_01"/>
-            <citedRange unit="page">104</citedRange>
-          </bibl> but on the interior face of the north doorjamb of Po Nagar temple's main tower in Nha Trang), l. 9: <foreign>daukjāmahāgrāme</foreign>.</p>
-        <p>In order to find out which object <foreign>capatī</foreign> designates, one note that C. 125 and C, 37 are parallels, except for the (purpose of) the registred deed. Following <bibl>
-            <ptr target="bib:Schweyer2005_01"/>
-            <citedRange unit="page">116</citedRange>
-          </bibl>, the latter is <foreign>vuḥ kalañ niy</foreign> in C. 125. This reading reminds her an architectural term <foreign>kalan</foreign> (<bibl>
-            <ptr target="bib:Parmentier1909_01"/>
-            <citedRange unit="page">17</citedRange>
-          </bibl>). 
-                    Then, she translated <quote>je donne cette tour [<foreign>kalan</foreign>]</quote>, assimilating <foreign>kalan</foreign> with <foreign>kalañ</foreign>. As we read <foreign>vuḥ kalañca niy·</foreign>, there is no reason to believe that <foreign>capatī</foreign> is un architectural element. Hypothetically, one can attempt to correlate (either by changing the reading or by implying a linguistic change in the History of Cham language (where fluctuations of <foreign>t</foreign>/<foreign>k</foreign> at the end of a word are known) between this word and <foreign>capak</foreign>/<foreign>cāpak</foreign> "betel box" in modern Cham (<bibl>
-            <ptr target="bib:Aymonier+Cabaton1906_01"/>
-            <citedRange unit="page">124</citedRange>
-          </bibl>).The donation/restitution of such an object, used for the deity cult, is wellknown in the epigraphy of South and Southeast Asia. Potentially, <foreign>kalañca</foreign> evokes the sanskrit word <foreign>kalaśa</foreign> "ewer", but we will not getting into this identification.</p>
-      </div>
-      <div type="bibliography">
-        <p>This inscription was edited ... The present edition and translation after <bibl>
-            <ptr target="bib:Griffiths+al2008-2009_01"/>
-            <citedRange unit="page">462-463</citedRange>
-          </bibl>.</p>
-        <listBibl type="primary">
-          <bibl n="CIC">
-            <bibl>
-              <ptr target="bib:Griffiths+al2008-2009_01"/>
-              <citedRange unit="page">445-446</citedRange>
-            </bibl>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl/>
-        </listBibl>
-      </div>
-      <!--   <div type="bibliography" subtype="secondary">
-                <listBibl>
-                    <bibl><ptr target="cic-bibl:schweyer-2005b"/>: <biblScope>39 and 41</biblScope>.</bibl>
-                </listBibl> 
-              </div>     -->
-    </body>
-  </text>
+            </div>
+<div type="apparatus">
+  <listApp>
+    <app loc="5">
+      <lem>935</lem>
+      <rdg source="bib:Schweyer2005_01">735.</rdg>
+    </app>
+    <app loc="5-6">
+      <lem>nī niy·</lem>
+      <note>as suggested by the text of C. 125 (edition and traslation in 
+      <bibl>
+        <ptr target="bib:Schweyer2005_01" />
+        <citedRange unit="page">116</citedRange>
+      </bibl>), which is almost entirely identical, the notation 
+      <foreign>nī niy·</foreign> is probably a kind of dittography.</note>
+    </app>
+    <app loc="6">
+      <lem>kāla</lem>
+      <rdg source="bib:Schweyer2005_01">kala</rdg>
+      <note>perhaps a typo.</note>
+    </app>
+    <app loc="6">
+      <lem>pov ku vijaiya</lem>
+      <rdg source="bib:Schweyer2005_01">poṅ ciyei viśajaya</rdg>
+      <note>with regards to the shape of the writing 
+      <foreign>ai</foreign>, which A.-V. Schweyer did not recognized, see C. 3.1 part A, ll. 2, 5 and -2 and l. 11 of the present inscription.</note>
+    </app>
+    <app loc="8">
+      <lem>maṅ·</lem>
+      <rdg source="bib:Schweyer2005_01">mad</rdg>
+      <note>the use of the synonym 
+      <foreign>nariy</foreign> "since" in the parallel inscription C. 125 confirms what is graphically clear, namely that the reading must be 
+      <foreign>maṅ</foreign>.</note>
+    </app>
+    <app loc="8">
+      <lem>patam̃l· ādipurvva</lem>
+      <rdg source="bib:Schweyer2005_01">patāl ādi pūrvva</rdg>
+    </app>
+    <app loc="9">
+      <lem>pam̃r· rauṅ·</lem>
+      <rdg source="bib:Schweyer2005_01">pārrauṅ</rdg>
+    </app>
+    <app loc="10">
+      <lem>sanā</lem>
+      <rdg source="bib:Schweyer2005_01">
+      <supplied reason="lost">di nagara</supplied>sanā</rdg>
+      <note>in front of 
+      <foreign>sanā</foreign>, one can see some marks of letters diligently released. Concerning the word 
+      <foreign>sanā</foreign>, we speculate that it corresponds to the Malay word 
+      <foreign>sana</foreign> "there" (written 
+      <foreign>sāna</foreign> in Old Malay, see: 
+      <bibl>
+        <ptr target="bib:Vikør1988_01" />
+        <citedRange unit="page">69 and 82</citedRange>
+      </bibl>). Given the possible presence of an 
+      <foreign>anusvāra-candra</foreign> above 
+      <foreign>nā</foreign>, one can also read 
+      <foreign>sanām̃</foreign> "glad, pleased" (
+      <bibl>
+        <ptr target="bib:Aymonier+Cabaton1906_01" />
+        <citedRange unit="page">474</citedRange>
+      </bibl>).</note>
+    </app>
+    <app loc="10-11">
+      <lem>capatī</lem>
+      <rdg source="bib:Schweyer2005_01">
+      <supplied reason="lost">se</supplied>nāpatī</rdg>
+      <note>line 10, we do not see any signs before 
+      <foreign>patī</foreign>; the last visible sign line 10, neglected by Schweyer, seems to be a 
+      <foreign>ca</foreign>.</note>
+    </app>
+    <app loc="11">
+      <lem>pov
+      <unclear>· </unclear>an
+      <unclear>ai</unclear>ḥ</lem>
+      <rdg source="bib:Schweyer2005_01">pāv 
+      <supplied reason="lost">·</supplied> janaḥ</rdg>
+      <note>
+      <bibl>
+        <ptr target="bib:Bergaigne1888_01" />
+        <citedRange unit="page">76</citedRange>
+      </bibl> had read at the end of the text 
+      <quote>une addition postérieure avec trois chiffres, apparemment encore une date, que je lis 824</quote>. After Bergaigne, researchers considered that there is no addition, and we are of the same opinion.</note>
+    </app>
+  </listApp>
+</div>
+<div type="translation" resp="part:argr">
+<p>In 
+<supplied reason="subaudible">the year</supplied> of the Śaka king 935. This was the time when Y.P.K the victorious Śrī Harivarmadeva ruled the country of Campā from Rūlauy to the Far East; where Paṅrauṅ; where Paṅrauṅ 
+<supplied reason="explanation">native</supplied> of Dauk Jā in the area 
+<supplied reason="explanation">
+  <foreign>paliy</foreign>
+</supplied> of Manicya was general there; where 
+<supplied reason="explanation">the latter</supplied> was at Panrāṅ: where he restored 
+<supplied reason="explanation">
+  <foreign>punaḥ</foreign>
+</supplied> the 
+<foreign>capatī</foreign> and gave 
+<supplied reason="explanation">the image of</supplied> his highness the little 
+<supplied reason="subaudible">goddess</supplied>.</p></div>
+<div type="translation" xml:lang="fra" source="bib:Griffiths+al2008-2009_01">
+<p>En 
+<supplied reason="subaudible">l'année</supplied> 935 du roi des Śaka. Ceci fut le temps où Y.P.K. le victorieux Śrī Harivarmadeva régnait dans le pays du Campā depuis Rūlauy jusqu'à l'extrême-orient; où Paṅrauṅ 
+<supplied reason="explanation">originaire</supplied> de Dauk Jā dans l'agglomération 
+<supplied reason="explanation">
+  <foreign>paliy</foreign>
+</supplied> de Manicya fut général là-bas; où 
+<supplied reason="explanation">ce dernier</supplied> siégeait à Panrāṅ: où il a restitué 
+<supplied reason="explanation">
+  <foreign>punaḥ</foreign>
+</supplied> le 
+<foreign>capatī</foreign> et donné 
+<supplied reason="explanation">l'image de</supplied> son altesse la petite 
+<supplied reason="subaudible">déesse</supplied>
+   .</p></div>
+<div type="commentary">
+  <p>Due to paleographical reasons, and others link to the kind of formulary it uses, it seems impossible that the commonly accepted date (735 
+  <foreign>Śaka</foreign>), which correspond to the first quarter of the 9th century AD, is correct (see 
+  <bibl>
+    <ptr target="bib:Griffiths+al2008-2009_01" />
+    <citedRange unit="page">481-487</citedRange>
+  </bibl>).</p>
+  <p>Our inpertretation of Dauk Jā as a toponym is based on parallel with the sanskrit inscription C. 31 C2 (engraved not on the hall's south wall 
+  <bibl>
+    <ptr target="bib:Schweyer2005_01" />
+    <citedRange unit="page">104</citedRange>
+  </bibl> but on the interior face of the north doorjamb of Po Nagar temple's main tower in Nha Trang), l. 9: 
+  <foreign>daukjāmahāgrāme</foreign>.</p>
+  <p>In order to find out which object 
+  <foreign>capatī</foreign> designates, one note that C. 125 and C, 37 are parallels, except for the (purpose of) the registred deed. Following 
+  <bibl>
+    <ptr target="bib:Schweyer2005_01" />
+    <citedRange unit="page">116</citedRange>
+  </bibl>, the latter is 
+  <foreign>vuḥ kalañ niy</foreign> in C. 125. This reading reminds her an architectural term 
+  <foreign>kalan</foreign> (
+  <bibl>
+    <ptr target="bib:Parmentier1909_01" />
+    <citedRange unit="page">17</citedRange>
+  </bibl>). 
+                      Then, she translated 
+  <quote>je donne cette tour [
+  <foreign>kalan</foreign>]</quote>, assimilating 
+  <foreign>kalan</foreign> with 
+  <foreign>kalañ</foreign>. As we read 
+  <foreign>vuḥ kalañca niy·</foreign>, there is no reason to believe that 
+  <foreign>capatī</foreign> is un architectural element. Hypothetically, one can attempt to correlate (either by changing the reading or by implying a linguistic change in the History of Cham language (where fluctuations of 
+  <foreign>t</foreign>/
+  <foreign>k</foreign> at the end of a word are known) between this word and 
+  <foreign>capak</foreign>/
+  <foreign>cāpak</foreign> "betel box" in modern Cham (
+  <bibl>
+    <ptr target="bib:Aymonier+Cabaton1906_01" />
+    <citedRange unit="page">124</citedRange>
+  </bibl>).The donation/restitution of such an object, used for the deity cult, is wellknown in the epigraphy of South and Southeast Asia. Potentially, 
+  <foreign>kalañca</foreign> evokes the sanskrit word 
+  <foreign>kalaśa</foreign> "ewer", but we will not getting into this identification.</p>
+</div>
+<div type="bibliography">
+<p>This inscription was edited ... The present edition and translation after 
+<bibl>
+  <ptr target="bib:Griffiths+al2008-2009_01" />
+  <citedRange unit="page">462-463</citedRange>
+</bibl>.</p>
+<listBibl type="primary">
+<bibl n="CIC">
+  <bibl>
+    <ptr target="bib:Griffiths+al2008-2009_01" />
+    <citedRange unit="page">445-446</citedRange>
+  </bibl>
+</bibl>
+</listBibl>
+<listBibl type="secondary">
+<bibl />
+</listBibl>
+</div>
+</body>
+</text>
 </TEI>

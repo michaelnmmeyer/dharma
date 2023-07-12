@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00092</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,81 +62,122 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <p><lb break="no" n="1"/><g type="mangala"/><!-- 
-The mangala symbol, not reported by Dikshit, is a horizontal dash bulging upward. Its position is inline. 
--->namo mahādevāya|| svasty aṣṭa-navaty-u<supplied reason="lost">ttare bda-śate gupta-nr̥pa-rājya-bhuktau
-śrī</supplied><!-- 
-Restored text (from other Hastin charters, particularly IN00079) following Dikshit but taking less for granted. 
---><!-- 
-The punctuation sign is a regular double daṇḍa. 
---><lb break="no" n="2"/>mati pravarddhamāne mahāśvayuja-sambatsare <gap extent="unknown" reason="lost" unit="character"/> <supplied reason="lost">māsa</supplied> <gap extent="unknown" reason="lost" unit="character"/> <supplied reason="lost">pakṣa</supplied> <gap extent="unknown" reason="lost" unit="character"/> <supplied reason="lost">yā</supplied><lb break="no" n="3"/>m<supplied reason="subaudible">.</supplied> Asyāṁ sambatsara-māsa-divasa-pūrvvāyāṁ n<supplied reason="lost">r̥pati-parivrājaka-kulotpannena mahārāja-</supplied>
-<lb n="4"/>devāḍhya-pranaptrā mahārāja-śrī-prabhaṁjana-<supplied reason="lost">naptrā mahārāja-śrī-dāmodara-sutena go-sa</supplied><lb break="no" n="5"/>hasra-hasty-aśva-hiraṇyāneka-bhūmi-prade<unclear>na</unclear> <supplied reason="lost">guru-pitr̥-mātr̥-pūjā-tatpareṇātyanta-deva-</supplied>
-<lb n="6"/>brāhmaṇa-bhaktenāneka-samara-śata-vija<supplied reason="lost">yinā sva-vaṁś-āmoda-kareṇa mahārāja-śrī</supplied>
-<lb n="7"/>hastinā pulinda-rāja-rāṣṭre navagrāmak<unclear>ā</unclear> <gap extent="unknown" reason="lost" unit="character"/> <supplied reason="lost">sodra</supplied><!-- 
-Dikshit reads °grāmakā and emends to °grāmako, supplying pūrvvāghāṭa-pariccheda-maryyādayā after it. In fact the ā mātrā itself is far from certain (there is a dot right at the broken edge, which may be a remnant of it, but it is not connected to the character ka, which is otherwise very clear). So conjectures like navagrāmakāyāṁ or navagrāmaka-something, and a slightly shorter phrase afterward, seem just as likely. 
---><lb break="no" n="8"/>ṅgaḥ soparikaro <supplied reason="subaudible">’</supplied>cāṭa-bhaṭa-prāveśyo <supplied reason="lost">mātā-pitror ātmanaś ca puṇyābhivr̥ddhaye</supplied>
-<lb n="9"/>parāśara-sagotrebhy<choice>
-            <sic>au</sic>
-            <corr>o</corr>
-          </choice> mādhyandina-vā<supplied reason="lost">jasaneya-sabrahmacāribhyo mībhyo</supplied>
-<lb n="10"/>brāhmaṇa-bhaṭṭā-yajñāḍhyasvāmi-tat-putra-bha<supplied reason="lost">ṭṭa</supplied> <gap extent="unknown" reason="lost" unit="character"/><!-- 
-Dikshit reads bhaṭṭa here and in l12, but in both loci the plate clearly has bhaṭṭā. Emending to bhaṭṭa seems plausible. 
---><lb break="no" n="11"/>nasvāmi-tat-putra-gopayajñasvāmi <gap extent="unknown" reason="lost" unit="character"/>
-<lb n="12"/>bhaṭṭā-śaṁbhuyajñasvāmi-bhaṭṭeśāna-<unclear>ya</unclear><supplied reason="lost">jñasvāmibhyo
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<p>
+<lb n="1" break="no" />
+<g type="mangala" />namo mahādevāya|| svasty aṣṭa-navaty-u
+<supplied reason="lost">ttare bda-śate gupta-nr̥pa-rājya-bhuktau
+śrī</supplied>
+<lb n="2" break="no" />mati pravarddhamāne mahāśvayuja-sambatsare 
+<gap reason="lost" extent="unknown" unit="character" /> 
+<supplied reason="lost">māsa</supplied> 
+<gap reason="lost" extent="unknown" unit="character" /> 
+<supplied reason="lost">pakṣa</supplied> 
+<gap reason="lost" extent="unknown" unit="character" /> 
+<supplied reason="lost">yā</supplied>
+<lb n="3" break="no" />m
+<supplied reason="subaudible">.</supplied> Asyāṁ sambatsara-māsa-divasa-pūrvvāyāṁ n
+<supplied reason="lost">r̥pati-parivrājaka-kulotpannena mahārāja-</supplied>
+<lb n="4" />devāḍhya-pranaptrā mahārāja-śrī-prabhaṁjana-
+<supplied reason="lost">naptrā mahārāja-śrī-dāmodara-sutena go-sa</supplied>
+<lb n="5" break="no" />hasra-hasty-aśva-hiraṇyāneka-bhūmi-prade
+<unclear>na</unclear> 
+<supplied reason="lost">guru-pitr̥-mātr̥-pūjā-tatpareṇātyanta-deva-</supplied>
+<lb n="6" />brāhmaṇa-bhaktenāneka-samara-śata-vija
+<supplied reason="lost">yinā sva-vaṁś-āmoda-kareṇa mahārāja-śrī</supplied>
+<lb n="7" />hastinā pulinda-rāja-rāṣṭre navagrāmak
+<unclear>ā</unclear> 
+<gap reason="lost" extent="unknown" unit="character" /> 
+<supplied reason="lost">sodra</supplied>
+<lb n="8" break="no" />ṅgaḥ soparikaro 
+<supplied reason="subaudible">’</supplied>cāṭa-bhaṭa-prāveśyo 
+<supplied reason="lost">mātā-pitror ātmanaś ca puṇyābhivr̥ddhaye</supplied>
+<lb n="9" />parāśara-sagotrebhy
+<choice>
+  <sic>au</sic>
+  <corr>o</corr>
+</choice> mādhyandina-vā
+<supplied reason="lost">jasaneya-sabrahmacāribhyo mībhyo</supplied>
+<lb n="10" />brāhmaṇa-bhaṭṭā-yajñāḍhyasvāmi-tat-putra-bha
+<supplied reason="lost">ṭṭa</supplied> 
+<gap reason="lost" extent="unknown" unit="character" />
+<lb n="11" break="no" />nasvāmi-tat-putra-gopayajñasvāmi 
+<gap reason="lost" extent="unknown" unit="character" />
+<lb n="12" />bhaṭṭā-śaṁbhuyajñasvāmi-bhaṭṭeśāna-
+<unclear>ya</unclear>
+<supplied reason="lost">jñasvāmibhyo
 putra-pautr-ānvay-opabhogyaḥ</supplied>
-<lb n="13"/>tāmra-śāsanenāgrāhāro tisr̥ṣṭa<supplied reason="lost">ḥ caura-varjjaṁ</supplied>
+<lb n="13" />tāmra-śāsanenāgrāhāro tisr̥ṣṭa
+<supplied reason="lost">ḥ caura-varjjaṁ</supplied>
 </p>
-        <p><supplied reason="lost">tad asmat-kul-otthair mat-pāda-piṇḍo</supplied><lb break="no" n="14"/>pajīvibhir vvā kālāntareṣv api na <supplied reason="lost">vyāghātaḥ karaṇīyaḥ</supplied> <gap extent="unknown" reason="lost" unit="character"/>
+<p>
+<supplied reason="lost">tad asmat-kul-otthair mat-pāda-piṇḍo</supplied>
+<lb n="14" break="no" />pajīvibhir vvā kālāntareṣv api na 
+<supplied reason="lost">vyāghātaḥ karaṇīyaḥ</supplied> 
+<gap reason="lost" extent="unknown" unit="character" />
 </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

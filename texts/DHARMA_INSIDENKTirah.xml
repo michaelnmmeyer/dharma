@@ -1,17 +1,18 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
         <title>Tirah</title>
-        <!--Change the title of the file, e.g. Raktamālā grant of the time of Budhagupta, year 159-->
         <respStmt>
-          <!-- add an element respStmt for each person involved -->
           <resp>intellectual authorship of edition</resp>
-          <!-- this may be the same as the creator of the file -->
           <persName ref="part:masc">
-            <!-- update the id -->
             <forename>Marine</forename>
-            <!-- fill in your  names — it is possible to use only <name> instead of <foreame> and <surname> -->
             <surname>Schoettel</surname>
           </persName>
         </respStmt>
@@ -20,41 +21,26 @@
         <authority>DHARMA</authority>
         <pubPlace>Paris</pubPlace>
         <idno type="filename">DHARMA_INSIDENKTirah</idno>
-        <!-- JM0008 -->
-        <!-- Replace by filename, e.g. Pallava00001 -->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send
-                            a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by Marine
-                        Schoettel.</p>
-            <!-- Replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by Marine Schoettel.</p>
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -62,88 +48,131 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-03-27" who="part:masc">adapting line numbering system and app loc to new EG recommandations</change>
-      <change status="draft" when="2020-03-27" who="part:axja">adding the handDesc template</change>
-      <change status="draft" when="2020-01-09" who="part:axja">Update the template</change>
-      <!-- add a <change> for each change to the file, the first change should replace this one and record your creation of a file using this template. -->
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:masc" when="2020-03-27" status="draft">adapting line numbering system and app loc to new EG recommandations</change>
+      <change who="part:axja" when="2020-03-27" status="draft">adding the handDesc template</change>
+      <change who="part:axja" when="2020-01-09" status="draft">Update the template</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="kaw-Latn">
-        <p>
-                <pb n="1r"/>
-                           <lb n="1r1"/>// Iku vruhane para mantrīṁ tirah, Āryya soṅga, pabayəman·,
-                    Āryya carita, puru<unclear>t</unclear>·, patiḥ lajər·, vruhane yen iṅoṅ amagə
-                           <lb break="no" n="1r2"/>hakən· karaṅe patiḥ tamba, karaṁ bogəm·,
+        
+<body>
+            
+<div type="edition" xml:lang="kaw-Latn">
+                
+<p>
+                
+<pb n="1r" />
+                           
+<lb n="1r1" />// Iku vruhane para mantrīṁ tirah, Āryya soṅga, pabayəman·,
+                    Āryya carita, puru
+<unclear>t</unclear>·, patiḥ lajər·, vruhane yen iṅoṅ amagə
+                           
+<lb n="1r2" break="no" />hakən· karaṅe patiḥ tamba, karaṁ bogəm·,
                 </p>
-        <p>peṅanane kidul·, Ḷbuḥ, peṅanane vetan·, sadavata, Anutug· sāgara pisan·,
-                           <lb n="1r3"/>peṅanane kulon·, babakane dmuṁ vana, Anutug· sāgara pisan·, pasavahane sajuṁ, babakan sakikil·, Iku ta maḶra haja den siddhigave<unclear>,</unclear>
+                
+<p>peṅanane kidul·, Ḷbuḥ, peṅanane vetan·, sadavata, Anutug· sāgara pisan·,
+                           
+<lb n="1r3" />peṅanane kulon·, babakane dmuṁ vana, Anutug· sāgara pisan·, pasavahane sajuṁ, babakan sakikil·, Iku ta maḶra haja den siddhigave
+<unclear>,</unclear>
                        </p>
-        <p>
-                           <lb n="1r4"/>hana ta kavulani ṅoṁ sakiṁ gr̥sik·, variga luh ahutaṁ sakṭi roṁ lakṣa gnəp·, sabisane hasikəp· rovaṁ variga luḥ, luputa ta paṅarah sakiṁ si
-                           <lb break="no" n="1r5"/>ddhayu, kapaṅarahan po hiya saki daḶm·, galaṅan·, kavolu, Aṅhaturakna ta hiya hacan· bobot se<unclear>v</unclear>u sarahi, Atambak· sesine
-                           <lb n="1r6"/>tambake kahatureri̇ ṅoṁ,
+                       
+<p>
+                           
+<lb n="1r4" />hana ta kavulani ṅoṁ sakiṁ gr̥sik·, variga luh ahutaṁ sakṭi roṁ lakṣa gnəp·, sabisane hasikəp· rovaṁ variga luḥ, luputa ta paṅarah sakiṁ si
+                           
+<lb n="1r5" break="no" />ddhayu, kapaṅarahan po hiya saki daḶm·, galaṅan·, kavolu, Aṅhaturakna ta hiya hacan· bobot se
+<unclear>v</unclear>u sarahi, Atambak· sesine
+                           
+<lb n="1r6" />tambake kahatureri̇ ṅoṁ,
                        </p>
-        <p>
+                       
+<p>
                         hana tādagaṁ, Aṅgogoṇḍok·, Amahat·, luputa ta riṅ arik puriḥ saprakāra, knaha ta hiya riṁ pamūja
-                <pb n="1v"/>
-                           <lb n="1v1"/>satəṅaḥ, Anuta sararataniṁ varggaṁ taman· sabhūmī,
+                
+<pb n="1v" />
+                           
+<lb n="1v1" />satəṅaḥ, Anuta sararataniṁ varggaṁ taman· sabhūmī,
                        </p>
-        <p>
-                        tithi, ka <num value="7">7</num>, <num value="1308">śiraḥ, <num value="8">8</num></num>, // Andaka kakataṁ // <g type="symbol">@</g>
+                       
+<p>
+                        tithi, ka 
+<num value="7">7</num>, 
+<num value="1308">śiraḥ, 
+<num value="8">8</num></num>, // Andaka kakataṁ // 
+<g type="symbol">@</g>
                        </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1r3">
-            <lem>babakane</lem>
-            <rdg source="bib:OV1918">babatane</rdg>
-          </app>
-          <app loc="1r3">
-            <lem>babakan</lem>
-            <rdg source="bib:OV1918">babatan</rdg>
-          </app>
-          <app loc="1v1">
-            <lem>varggaṁ taman· sabhūmī</lem>
-            <rdg source="bib:OV1918">vargga taman sabhumi</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div type="translation">
-        <p>This is what should be known by the mantris at <placeName>Tirah</placeName>: the nobleman (ārya) <persName>Soṅga</persName>, [at] Pabayĕman, the nobleman <persName>Carita</persName>, [at] Purut, the high official [at] Lajĕr. They should know that We make permanent the compound of the patih Tamba [at] Karaṅ Bogĕm. Its limit to the south is the road [or: the open square], its limit to the east is the level ground extending as far as the ocean. Its limit to the west is the clearing of the dĕmuṅ grove, extending as far as the ocean. Its [extant of land allotted for] irrigated rice-fields is of one jöṅ, its clearings of one kikil; these shall be its boundaries. Let them not be disturbed! There is a follower of Mine from Grĕsik (kavula), who has the office of variga luh, who has a debt of one koṭi (100.000) and two lakṣas (20.000) precisely (litt. “full”, gĕnĕp), as far as possible seizing / coming to grips / assaulting his fellow variga luḥ. He shall be exempted from his summon (being summoned) from Siddhayu, [and will be] affected by the paṅarahan from – the summon – (mandat?) of Po Hiya from Dalĕm (or from the kraton, from the interior). [At] the eighth galaṅan, he shall offer indeed hacan weighing one thousand for one person … [For] those working with tambaks (inspectors of dams/ponds) the whole product of the basin shall be brought forward to Us.
-Traders, people trading <foreign>goṇḍok</foreign> flowers, palm-sap tappers, they will be exempted from every kind of <foreign>arik puriḥ</foreign> taxes, they will be affected by the “worship-[tax]”, in the proportion of one half, following the particular custom of the group of park inspectors of the whole realm.
+            </div>
+            
+<div type="apparatus">
+                
+<listApp>
+                    
+<app loc="1r3">
+                     
+<lem>babakane</lem>
+                     
+<rdg source="bib:OV1918">babatane</rdg>
+                    </app>
+                    
+<app loc="1r3">
+                     
+<lem>babakan</lem>
+                     
+<rdg source="bib:OV1918">babatan</rdg>
+                    </app>
+                    
+<app loc="1v1">
+                      
+<lem>varggaṁ taman· sabhūmī</lem>
+                      
+<rdg source="bib:OV1918">vargga taman sabhumi</rdg>
+                    </app>
+                </listApp>
+            </div>
+            
+<div type="translation">
+                
+<p>This is what should be known by the mantris at 
+<placeName>Tirah</placeName>: the nobleman (ārya) 
+<persName>Soṅga</persName>, [at] Pabayĕman, the nobleman 
+<persName>Carita</persName>, [at] Purut, the high official [at] Lajĕr. They should know that We make permanent the compound of the patih Tamba [at] Karaṅ Bogĕm. Its limit to the south is the road [or: the open square], its limit to the east is the level ground extending as far as the ocean. Its limit to the west is the clearing of the dĕmuṅ grove, extending as far as the ocean. Its [extant of land allotted for] irrigated rice-fields is of one jöṅ, its clearings of one kikil; these shall be its boundaries. Let them not be disturbed! There is a follower of Mine from Grĕsik (kavula), who has the office of variga luh, who has a debt of one koṭi (100.000) and two lakṣas (20.000) precisely (litt. “full”, gĕnĕp), as far as possible seizing / coming to grips / assaulting his fellow variga luḥ. He shall be exempted from his summon (being summoned) from Siddhayu, [and will be] affected by the paṅarahan from – the summon – (mandat?) of Po Hiya from Dalĕm (or from the kraton, from the interior). [At] the eighth galaṅan, he shall offer indeed hacan weighing one thousand for one person … [For] those working with tambaks (inspectors of dams/ponds) the whole product of the basin shall be brought forward to Us.
+Traders, people trading 
+<foreign>goṇḍok</foreign> flowers, palm-sap tappers, they will be exempted from every kind of 
+<foreign>arik puriḥ</foreign> taxes, they will be affected by the “worship-[tax]”, in the proportion of one half, following the particular custom of the group of park inspectors of the whole realm.
 The day: 7th (month), [i.e. ], unit [of the year: 8]. Bull -  bindweed.</p>
-      </div>
-      <div type="translation"><!--translation encoded as per EG §9.2 --></div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
-        <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
-        <listBibl type="secondary">
-          <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
-        </listBibl>
-      </div>
-    </body>
-  </text>
+
+            </div>
+            
+<div type="translation">
+                            </div>
+            
+<div type="commentary">
+                            </div>
+            
+<div type="bibliography">
+                                                
+<p></p>
+                
+<listBibl type="secondary">
+                    
+<bibl />                </listBibl>
+            </div>
+        </body>
+    
+</text>
 </TEI>

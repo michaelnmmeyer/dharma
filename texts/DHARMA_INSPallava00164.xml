@@ -1,9 +1,14 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
         <title>Kūram, Keśavaperumāḷ, north wall inscription</title>
-        <!--check localisation! Which of the 2 temples-->
         <respStmt>
           <resp>EpiDoc encoding</resp>
           <persName ref="part:emfr">
@@ -25,11 +30,7 @@
         <idno type="filename">DHARMA_INSPallava00164</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
-							Licence. To view a copy of the licence, visit
-							https://creativecommons.org/licenses/by/4.0/ or send a letter to
-							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-							California, 94041, USA.</p>
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
           </licence>
         </availability>
@@ -39,14 +40,19 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary>Sale-deed of land in the Pallava-nārāyaṇa-caturvedimaṅgala to members of the ... <!--update--> (<foreign>āḷuṅ-kaṇattār</foreign>s) of Avani-nārāyaṇa-caturvedimaṅgala, sanctioned by the assembly (<foreign>sabhā</foreign>) of Pallava-nārāyaṇa-caturvedimaṅgala.</summary>
+            <summary>Sale-deed of land in the Pallava-nārāyaṇa-caturvedimaṅgala to members of the ... (
+            <foreign>āḷuṅ-kaṇattār</foreign>s) of Avani-nārāyaṇa-caturvedimaṅgala, sanctioned by the assembly (
+            <foreign>sabhā</foreign>) of Pallava-nārāyaṇa-caturvedimaṅgala.</summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p>Example of Grantha <foreign>tu</foreign> and Tamil <foreign>tu</foreign> used alternatively for the same word (<foreign>caturvedi</foreign>, line 1).<!--Update--></p>
+              <p>Example of Grantha 
+              <foreign>tu</foreign>and Tamil 
+              <foreign>tu</foreign>used alternatively for the same word (
+              <foreign>caturvedi</foreign>, line 1).</p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -54,166 +60,319 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-02-11" who="part:emfr">Creation of the file</change>
+      <change who="part:emfr" when="2020-02-11" status="draft">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tam-Latn">
-        <ab>
-          <lb n="1"/>
-          <hi rend="grantha">svasti śrī</hi>
-        </ab>
-        <p>
-               kō-vicaiya-nirupa-t<choice>
-            <orig>o</orig>
-            <reg>u</reg>
-          </choice>ṅka-vikkarama-parumaṟkku yāṇṭu pati<supplied reason="omitted">ṉ</supplied> Eḻ-āvatu
+      
+<body>
+         
+         
+<div type="edition" xml:lang="tam-Latn">
+            
+            
+<ab>
+               
+<lb n="1" />
+<hi rend="grantha">svasti śrī</hi>
+            </ab>   
+            
+            
+<p>
+               kō-vicaiya-nirupa-t
+<choice>
+  <orig>o</orig>
+  <reg>u</reg>
+</choice>ṅka-vikkarama-parumaṟkku yāṇṭu pati
+<supplied reason="omitted">ṉ</supplied> Eḻ-āvatu
             </p>
-        <p>
-               <unclear>pa</unclear>ṭuvūr-k-kōṭṭattu karai-nāṭṭu-p <hi rend="grantha">palla</hi>va-nārāyaṇa-<choice>
-            <sic>
-              <hi rend="grantha">
-                <unclear>śa</unclear>
-              </hi>
-            </sic>
-            <corr>
-              <hi rend="grantha">ca</hi>
-            </corr>
-          </choice><hi rend="grantha">turvvedi</hi>-maṅkalattu <hi rend="grantha"><unclear>sa</unclear>bhai</hi>yōm
+            
+            
+<p>
+               
+<unclear>pa</unclear>ṭuvūr-k-kōṭṭattu karai-nāṭṭu-p 
+<hi rend="grantha">palla</hi>va-nārāyaṇa-
+<choice>
+  <sic>
+    <hi rend="grantha">
+      <unclear>śa</unclear>
+    </hi>
+  </sic>
+  <corr>
+    <hi rend="grantha">ca</hi>
+  </corr>
+</choice>
+<hi rend="grantha">turvvedi</hi>-maṅkalattu 
+<hi rend="grantha">
+<unclear>sa</unclear>bhai</hi>yōm
             </p>
-        <p>
-               Em<unclear>m-ū</unclear>r kaṟkayam Iru-patt-eḻ-āyiraṅ kuḻi <gap precision="low" quantity="5" reason="undefined" unit="character"/>
+            
+            
+<p>
+               Em
+<unclear>m-ū</unclear>r kaṟkayam Iru-patt-eḻ-āyiraṅ kuḻi 
+<gap reason="undefined" quantity="5" unit="character" precision="low" />
             </p>
-        <p>
-               Ik-kōṭṭattu <gap precision="low" quantity="6" reason="undefined" unit="character"/> Amaṉi-nārāyaṇa-<choice>
-            <sic>
-              <hi rend="grantha">
-                <unclear>śa</unclear>
-              </hi>
-            </sic>
-            <corr>
-              <hi rend="grantha">ca</hi>
-            </corr>
-          </choice>tu<hi rend="grantha">rvve<unclear>di</unclear></hi>-maṅkalamum <unclear>y</unclear>-āluṅka<unclear>ṇa</unclear>tt<unclear>ā</unclear>r-uḷ
+            
+            
+<p>
+               Ik-kōṭṭattu 
+<gap reason="undefined" quantity="6" unit="character" precision="low" /> Amaṉi-nārāyaṇa-
+<choice>
+  <sic>
+    <hi rend="grantha">
+      <unclear>śa</unclear>
+    </hi>
+  </sic>
+  <corr>
+    <hi rend="grantha">ca</hi>
+  </corr>
+</choice>tu
+<hi rend="grantha">rvve
+<unclear>di</unclear></hi>-maṅkalamum 
+<unclear>y</unclear>-āluṅka
+<unclear>ṇa</unclear>tt
+<unclear>ā</unclear>r-uḷ
             </p>
-        <p>
-               <hi rend="grantha">śrī-bhā</hi>lekka<unclear>ṇa</unclear> carma-<hi rend="grantha">kra</hi>mavitta<unclear>ṉu</unclear>m <gap precision="low" quantity="4" reason="undefined" unit="character"/> rukku mu-v-āyiraṅ kuḻiyum
+            
+            
+<p>
+               
+<hi rend="grantha">śrī-bhā</hi>lekka
+<unclear>ṇa</unclear> carma-
+<hi rend="grantha">kra</hi>mavitta
+<unclear>ṉu</unclear>m 
+<gap reason="undefined" quantity="4" unit="character" precision="low" /> rukku mu-v-āyiraṅ kuḻiyum
             </p>
-        <p>
-               <hi rend="grantha">
-            <unclear>krā</unclear>
-          </hi>ñci-k ku<unclear>ma</unclear>raṭi-c-caṭaṅkavikku A-
-               <lb n="2"/>
-               <choice>
-            <orig>y</orig>
-            <reg>i</reg>
-          </choice>-<unclear>y</unclear>-āyiraṅ ku<supplied reason="omitted">ḻi</supplied>yum
+            
+            
+<p>
+               
+<hi rend="grantha">
+  <unclear>krā</unclear>
+</hi>ñci-k ku
+<unclear>ma</unclear>raṭi-c-caṭaṅkavikku A-
+               
+<lb n="2" />
+               
+<choice>
+  <orig>y</orig>
+  <reg>i</reg>
+</choice>-
+<unclear>y</unclear>-āyiraṅ ku
+<supplied reason="omitted">ḻi</supplied>yum
             </p>
-        <p>paciṇṭi kaṇaca<hi rend="grantha">nna-kra</hi>mavittaṉukku mu-v-āyiraṅ kuḻiyum</p>
-        <p>nallūr-c caṉṉa <unclear>Ā</unclear>ticca-carma-mē veḷi <gap precision="low" quantity="3" reason="undefined" unit="character"/> rikku Ir-āyiraṅ kuḻi<unclear>yum</unclear></p>
-        <p>muṭumpai-c cappaṭi-<hi rend="grantha">kra</hi>mavitta-c-com<unclear>āci</unclear>kku <unclear>Ā</unclear>yiraṅ kuḷiyum</p>
-        <p>Ivar <unclear>tampi</unclear> kāḷimaṇṭai-c caṭaṅka<unclear>vi</unclear>kku Āyiraṅ kuḻiyum</p>
-        <p><gap precision="low" quantity="5" reason="undefined" unit="character"/>  ṉukku Ir-āyiraṅ kuḻiyum </p>
-        <p>kumaṭṭūr-c ca<gap precision="low" quantity="2" reason="undefined" unit="character"/>-c caṭaṅkavikku Āyiraṅ kuḻiyum</p>
-        <p>makacira poṟkāḷi <hi rend="grantha">bha</hi>ṭṭaṉukku Āyiraṅ kuḻiyum</p>
-        <p><!--split this in more §§?-->
-               <gap precision="low" quantity="5" reason="undefined" unit="character"/> yiṟ Iru-patt-eḻu maṉaiyum pāḻ <gap precision="low" quantity="7" reason="undefined" unit="character"/>
-               <lb n="3"/>
-               p-pāṭi Iru-patt-eḻu <unclear>paṅ</unclear>kum
-               maṟṟum pañcākamum-uḷḷa iṭattu Ivv-iru-patt-eḻu paṅkiṉā<unclear>lu</unclear>m van=ta nilamum Im-mēṟ-colla-p-paṭṭa <gap precision="low" quantity="10" reason="undefined" unit="character"/> m nilava<unclear>ḻi</unclear>yāl vilai-p-<unclear>po</unclear>ru<unclear>ḷ a</unclear>ṟa-k koṇṭu viṟ<unclear>ṟu</unclear>-k-<unclear>ku</unclear>ṭuttu-c cilālekai ceytu kuṭuṭṭōm sabhaiyōm
-               Ivv-iru-patt-eḻ-ā<unclear>yiraṅ kuḻiyum paṉṉi</unclear>ru-c-cāṇ kōlāl</p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1">
-            <lem><hi rend="grantha">
-                <unclear>krā</unclear>
-              </hi>ñci</lem>
-            <rdg source="bib:SubrahmanyaAiyer1932_01 bib:Mahalingam1988_01"><hi rend="grantha">
-                <unclear>krā</unclear>
-              </hi>ñci</rdg>
-            <note>Possibly read <foreign><hi rend="grantha">
-                  <unclear>kā</unclear>
-                </hi>ñci</foreign>.</note>
-          </app>
-          <app loc="2">
-            <lem><unclear>Ā</unclear>ticca-carma-mē veḷi</lem>
-            <rdg source="bib:SubrahmanyaAiyer1932_01"><unclear>Ā</unclear>ticcacāmamē veḷi</rdg>
-            <rdg source="bib:Mahalingam1988_01"><unclear>Ā</unclear>ticcacarma-<unclear>mē vaḷi</unclear></rdg>
-          </app>
-          <app loc="2">
-            <lem>ca<gap precision="low" quantity="2" reason="undefined" unit="character"/>-c</lem>
-            <rdg source="bib:SubrahmanyaAiyer1932_01">ca<gap precision="low" quantity="2" reason="undefined" unit="character"/>-c</rdg>
-            <rdg source="bib:Mahalingam1988_01">ca<supplied reason="undefined">ṉṉa</supplied>-c</rdg>
-            <!--<supplied reason="undefined"> not displayed-->
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:emfr" type="translation">
-        <p n="1">
+            
+            
+<p>paciṇṭi kaṇaca
+<hi rend="grantha">nna-kra</hi>mavittaṉukku mu-v-āyiraṅ kuḻiyum</p>
+            
+<p>nallūr-c caṉṉa 
+<unclear>Ā</unclear>ticca-carma-mē veḷi 
+<gap reason="undefined" quantity="3" unit="character" precision="low" /> rikku Ir-āyiraṅ kuḻi
+<unclear>yum</unclear></p>
+            
+<p>muṭumpai-c cappaṭi-
+<hi rend="grantha">kra</hi>mavitta-c-com
+<unclear>āci</unclear>kku 
+<unclear>Ā</unclear>yiraṅ kuḷiyum</p>
+            
+<p>Ivar 
+<unclear>tampi</unclear> kāḷimaṇṭai-c caṭaṅka
+<unclear>vi</unclear>kku Āyiraṅ kuḻiyum</p>
+            
+<p>
+<gap reason="undefined" quantity="5" unit="character" precision="low" />  ṉukku Ir-āyiraṅ kuḻiyum </p>
+            
+<p>kumaṭṭūr-c ca
+<gap reason="undefined" quantity="2" unit="character" precision="low" />-c caṭaṅkavikku Āyiraṅ kuḻiyum</p>
+            
+<p>makacira poṟkāḷi 
+<hi rend="grantha">bha</hi>ṭṭaṉukku Āyiraṅ kuḻiyum</p>
+            
+            
+<p>               
+<gap reason="undefined" quantity="5" unit="character" precision="low" /> yiṟ Iru-patt-eḻu maṉaiyum pāḻ 
+<gap reason="undefined" quantity="7" unit="character" precision="low" />
+               
+<lb n="3" />
+               p-pāṭi Iru-patt-eḻu 
+<unclear>paṅ</unclear>kum
+               maṟṟum pañcākamum-uḷḷa iṭattu Ivv-iru-patt-eḻu paṅkiṉā
+<unclear>lu</unclear>m van=ta nilamum Im-mēṟ-colla-p-paṭṭa 
+<gap reason="undefined" quantity="10" unit="character" precision="low" /> m nilava
+<unclear>ḻi</unclear>yāl vilai-p-
+<unclear>po</unclear>ru
+<unclear>ḷ a</unclear>ṟa-k koṇṭu viṟ
+<unclear>ṟu</unclear>-k-
+<unclear>ku</unclear>ṭuttu-c cilālekai ceytu kuṭuṭṭōm sabhaiyōm
+               Ivv-iru-patt-eḻ-ā
+<unclear>yiraṅ kuḻiyum paṉṉi</unclear>ru-c-cāṇ kōlāl</p>
+ 
+         </div>
+
+         
+<div type="apparatus">
+            
+            
+<listApp>
+               
+               
+<app loc="1">
+                  
+<lem>
+<hi rend="grantha">
+  <unclear>krā</unclear>
+</hi>ñci</lem>
+                  
+<rdg source="bib:SubrahmanyaAiyer1932_01 bib:Mahalingam1988_01">
+<hi rend="grantha">
+  <unclear>krā</unclear>
+</hi>ñci</rdg>
+                  
+<note>Possibly read 
+<foreign>
+<hi rend="grantha">
+  <unclear>kā</unclear>
+</hi>ñci</foreign>.</note>
+               </app>
+                              
+               
+<app loc="2">
+                  
+<lem>
+<unclear>Ā</unclear>ticca-carma-mē veḷi</lem>
+                  
+<rdg source="bib:SubrahmanyaAiyer1932_01">
+<unclear>Ā</unclear>ticcacāmamē veḷi</rdg>
+                  
+<rdg source="bib:Mahalingam1988_01">
+<unclear>Ā</unclear>ticcacarma-
+<unclear>mē vaḷi</unclear></rdg>
+               </app>
+               
+               
+<app loc="2">
+                  
+<lem>ca
+<gap reason="undefined" quantity="2" unit="character" precision="low" />-c</lem>
+                  
+<rdg source="bib:SubrahmanyaAiyer1932_01">ca
+<gap reason="undefined" quantity="2" unit="character" precision="low" />-c</rdg>
+                  
+<rdg source="bib:Mahalingam1988_01">ca
+<supplied reason="undefined">ṉṉa</supplied>-c</rdg>
+                                 </app>
+                             
+            </listApp>
+            
+         </div>
+        
+         
+<div type="translation" resp="part:emfr">
+            
+            
+<p n="1">
                Prosperity! Fortune!
             </p>
-        <p n="1">
+            
+            
+<p n="1">
                Seventeenth year of the victorious king Nṛpatuṅgavikramavarman.
             </p>
-        <p n="1">
+            
+            
+<p n="1">
                ...
             </p>
-      </div>
-      <div type="commentary">
-        <p>
-	   <bibl>
-            <ptr target="bib:SubrahmanyaAiyer1932_01"/>
-          </bibl> notes after the last word of his edition: <q>The continuation is much effaced.</q>
-	</p>
-      </div>
-      <div type="bibliography">
-        <p>
-First edited by <bibl>
-            <ptr target="bib:SubrahmanyaAiyer1932_01"/>
-          </bibl> (SII 7, no. 33); text and summary in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP n° 164); encoded here for DHARMA (ERC n° 809994) by Emmanuel Francis (2021).
+            
+         </div>
+                
+<div type="commentary">
+        
+        
+<p>
+           
+<bibl>
+  <ptr target="bib:SubrahmanyaAiyer1932_01" />
+</bibl> notes after the last word of his edition: 
+<q>The continuation is much effaced.</q>
+        </p>
+        
+</div>
+        
+<div type="bibliography">
+
+            
+<p>
+First edited by 
+<bibl>
+  <ptr target="bib:SubrahmanyaAiyer1932_01" />
+</bibl> (SII 7, no. 33); text and summary in 
+<bibl>
+  <ptr target="bib:Mahalingam1988_01" />
+</bibl> (IP n° 164); encoded here for DHARMA (ERC n° 809994) by Emmanuel Francis (2021).
             </p>
-        <listBibl type="primary">
-          <bibl n="KVSA">
-            <ptr target="bib:SubrahmanyaAiyer1932_01"/>
-            <citedRange unit="page">13-14</citedRange>
-            <citedRange unit="item">33</citedRange>
-          </bibl>
-          <bibl n="TVM">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="page">472-473</citedRange>
-            <citedRange unit="item">164</citedRange>
-          </bibl>
+
+        
+<listBibl type="primary">
+                
+                
+<bibl n="KVSA">
+                        
+<ptr target="bib:SubrahmanyaAiyer1932_01" />
+                        
+<citedRange unit="page">13-14</citedRange>
+                        
+<citedRange unit="item">33</citedRange>
+                </bibl>
+                
+                
+<bibl n="TVM">
+                        
+<ptr target="bib:Mahalingam1988_01" />
+                        
+<citedRange unit="page">472-473</citedRange>
+                        
+<citedRange unit="item">164</citedRange>
+                </bibl>
+                
         </listBibl>
-        <listBibl type="secondary">
-          <bibl n="ARIE 1899-1900">
-            <ptr target="bib:ARIE1899-1900"/>
-            <citedRange unit="page">50</citedRange>
-            <citedRange unit="appendix">B/1900</citedRange>
-            <citedRange unit="item">33</citedRange>
-          </bibl>
+        
+        
+<listBibl type="secondary">
+                
+                
+<bibl n="ARIE 1899-1900">
+                        
+<ptr target="bib:ARIE1899-1900" />
+                        
+<citedRange unit="page">50</citedRange>
+                        
+<citedRange unit="appendix">B/1900</citedRange>
+                        
+<citedRange unit="item">33</citedRange>
+                </bibl>
+                        
         </listBibl>
-      </div>
-    </body>
-  </text>
+        
+</div>
+        
+      </body>
+  
+</text>
 </TEI>

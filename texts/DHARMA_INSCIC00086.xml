@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -35,11 +41,7 @@
         <idno type="filename">DHARMA_INSCIC00086</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-                        Licence. To view a copy of the licence, visit
-                        https://creativecommons.org/licenses/by/4.0/ or send a letter to
-                        Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-                        California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Arlo Griffiths and Salomé Pichon.</p>
           </licence>
         </availability>
@@ -53,8 +55,8 @@
             <editor>Amandine Lepoutre</editor>
           </titleStmt>
           <editionStmt>
-            <p>First digital edition made by École française d'Extrême-Orient (EFEO), realized in collaboration with the Institute for the Study of the Ancient World (ISAW) at New York University as <ref target="https://isaw.nyu.edu/publications/inscriptions/campa/index.html">The Corpus of the Inscriptions of Campā, in 2010-2012.</ref>
-                  </p>
+            <p>First digital edition made by École française d'Extrême-Orient (EFEO), realized in collaboration with the Institute for the Study of the Ancient World (ISAW) at New York University as 
+            <ref target="https://isaw.nyu.edu/publications/inscriptions/campa/index.html">The Corpus of the Inscriptions of Campā, in 2010-2012.</ref></p>
           </editionStmt>
           <publicationStmt>
             <authority>École française d'Extrême-Orient (EFEO)</authority>
@@ -62,11 +64,7 @@
             <availability>
               <licence target="http://creativecommons.org/licenses/by/3.0/">
                 <p>Copyright (c) 2012 by Arlo Griffiths &amp; Amandine Lepoutre.</p>
-                <p>This work is licensed under the Creative Commons Attribution 3.0 Unported
-                     License. To view a copy of this license, visit
-                     http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative
-                     Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041,
-                     USA.</p>
+                <p>This work is licensed under the Creative Commons Attribution 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
               </licence>
             </availability>
           </publicationStmt>
@@ -74,7 +72,7 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
             <altIdentifier type="campa">
               <idno>C. 86</idno>
             </altIdentifier>
@@ -88,11 +86,11 @@
             </altIdentifier>
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -102,26 +100,29 @@
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-09-14" who="part:axja">Campa file transformed to follow the DHARMA encoding structure. Metadata extracted to be checked and updated according DHARMA workflow. Done through XSLT.</change>
+      <change when="2020-09-14" who="part:axja" status="draft">Campa file transformed to follow the DHARMA encoding structure. Metadata extracted to be checked and updated according DHARMA workflow. Done through XSLT.</change>
     </revisionDesc>
   </teiHeader>
   <facsimile>
     <graphic url="C0086_1_AG_2009.jpg">
-      <desc>Photograph, with scale, of the upper part of the doorjamb bearing the inscription <ptr/>. Taken at Mỹ Sơn by Arlo Griffiths on .</desc>
+      <desc>Photograph, with scale, of the upper part of the doorjamb bearing the inscription 
+      <ptr />. Taken at Mỹ Sơn by Arlo Griffiths on .</desc>
     </graphic>
     <graphic url="C0086_2_AG_2009.jpg">
-      <desc>Photograph, with scale, of the lower part of the doorjamb bearing the inscription <ptr/>. Taken at Mỹ Sơn by Arlo Griffiths on .</desc>
+      <desc>Photograph, with scale, of the lower part of the doorjamb bearing the inscription 
+      <ptr />. Taken at Mỹ Sơn by Arlo Griffiths on .</desc>
     </graphic>
     <graphic url="EFEOB-est.n0341_1.jpg">
       <desc>Photograph of an EFEO estampage under n. 341 (1/2), showing C. 86.1.</desc>
@@ -131,155 +132,209 @@
     </graphic>
   </facsimile>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83233 maturity:00000" type="edition" xml:lang="x-oldcam-Latn">
-        <div n="1" type="textpart">
-          <head xml:lang="eng">C. 86.1</head>
-          <ab>
-            <lb n="1"/> <g type="quatrefoil"/> madā pu pom̃ tana rayā sidaḥ yām̃ pom̃ ku śrī jaya
-            <lb break="no" n="2"/>parameśvaravarmmadeva aum̃ aṅśarāja urām̃ turaiy· vijaya
-            <lb n="3"/> di jam̃ḥ kaliḥ kamvuja ya 32 thun· nan· ra dr̥m̃ rājam̃ ekachatra
-            <lb n="4"/> di nagara campa nī ra punaḥ sarvvaliṅga gaḥ dakṣiṇabhāga ma
-            <lb break="no" n="5"/>kapun· yām̃ pu nagara ra punaḥ liṅga gaḥ uttarabhāga ma
-            <lb break="no" n="6"/>kapun· yām̃ pom̃ k<unclear>u</unclear> śrīśānabhadreśvara pu po<unclear>m̃</unclear> ku
-            <lb n="7"/> ra vuḥ raupyakośa suvarṇṇamukha ṅan· kośa 
-            <lb n="8"/> <unclear>yā</unclear>m̃ bhr̥uguḥ maddan· sarvvabhogopabhoga māḥ ṅa
-            <lb break="no" n="9"/>n· <unclear>pira</unclear>k· samudāya yauṁ sa ratuḥ thil· māḥ 
-            <lb n="10"/> kāla śakarāja 1156 <g type="quatrefoil"/> <g>|</g>
-            </ab>
-        </div>
-        <div n="2" type="textpart">
-          <head xml:lang="eng">C. 86.2</head>
-          <ab>
-            <lb n="1"/> <g type="quatrefoil"/> nī mula dravya pom̃ pu lakim̃ kālāntakatha <gap quantity="4" reason="lost" unit="character"/>
-            <lb break="no" n="2"/>nandana urām̃ mvlām̃ vijaya vuḥ pak· yām̃ pom̃ ku śrī<supplied reason="lost">ānabhadre</supplied>
-            <lb break="no" n="3"/>śvara pu pom̃ ku limān· vinai sā klauṅ· māḥ sā 3 th<supplied reason="lost">il· ca</supplied>
-            <lb break="no" n="4"/>lāhvaya pirak· sā 20 thil<unclear>·</unclear> pralauṅ· pirak· sā 2<supplied reason="lost">0 thil·</supplied>
-            <lb n="5"/> vraḥ o<supplied reason="lost">ṁ</supplied>kāra sā sā thil· māḥ matā dhunī sā si vuḥ ganan·
-            <lb n="6"/> yauṁ sā thil· māḥ pirak· kakai nan· 2 thil· pranīṅ· 1
-            <lb n="7"/> yauṁ 2 thil· māḥ kaṅsabhāja 2 bhāja laṅguv· 1 vadala
-            <lb n="8"/> 2 svam̃n· 1 kvir· 1 lakiy· 1 krumviy· 1152 <g type="quatrefoil"/>
-                </ab>
-        </div>
-      </div>
-      <div type="apparatus">
-        <!-- AL: it will be nicer to get the apparatus after the first part of the text, not at the end of the whole text-->
-        <div type="textpart">
-          <head xml:lang="eng">C. 86.1</head>
-          <listApp>
-            <app loc="2">
-              <lem>aum̃ aṅśarāja</lem>
-              <note><bibl>
-                  <ptr target="bib:Finot1904_05"/>
-                  <citedRange unit="page">976</citedRange>
-                </bibl> added a note: <quote>on pourrait aussi bien lire Saṅgarāja ; mais la comparaison de Po nagar 409, B,4 <supplied reason="explanation">
-                    <ref target="C0030B4.xml">C. 30 B4</ref>
-                  </supplied> ligne 2, où l'écriture est plus nette, montre que la vraie forme est Aṅçarāja</quote>.</note>
-            </app>
-            <app loc="5">
-              <lem>ra punaḥ liṅga</lem>
-              <rdg source="bib:Finot1904_05">ra punaḥ sarvvaliṅga</rdg>
-            </app>
-            <app loc="9">
-              <lem>yauṁ</lem>
-              <rdg source="bib:Finot1904_05">yoṁ</rdg>
-            </app>
-          </listApp>
-        </div>
-        <div type="textpart">
-          <head xml:lang="eng">C. 86.2</head>
-          <listApp>
-            <app loc="1">
-              <lem>nī</lem>
-              <rdg source="bib:Finot1904_05">ni</rdg>
-            </app>
-            <app loc="3">
-              <lem>śrī<supplied reason="lost">ānabhadre</supplied>śvara</lem>
-              <note>Reconstitution of Finot</note>
-            </app>
-            <app loc="3">
-              <lem>sā</lem>
-              <rdg source="bib:Finot1904_05">sa</rdg>
-            </app>
-            <app loc="4">
-              <lem><supplied reason="lost">ca</supplied>lāhvaya</lem>
-              <note>one would also find this world in <ref target="DHARMA_INSCIC00006.xml">C. 6</ref>, l. 2.</note>
-            </app>
-            <app loc="8">
-              <lem>svam̃n</lem>
-              <rdg source="bib:Finot1904_05">svãḥ</rdg>
-            </app>
-            <app loc="8">
-              <lem>kvir</lem>
-              <rdg source="bib:Finot1904_05">kvir̥</rdg>
-              <note>It must be a typo.</note>
-            </app>
-          </listApp>
-        </div>
-      </div>
-      <!-- AL: <div type="translation" xml:lang="en">
-           <div type="textpart" n="1">
-             <head xml:lang="en">C. 86.1</head>
-             <p>There was a P.P.T.R., namely Y.P.K. Śrī Jayaparameśvaravarmadeva oṅ Aṅśarāja, person of Turaiy Vijaya. Following this 32-year "war" against Cambodia, he <supplied reason="explanation">the sovereign</supplied> ruled over this Campā kingdom with the unique umbrella.
-            He restored all the <foreign>liṅga</foreign> of the Southern side namely [these of] Yām̃ Pu Nagara; he restored <foreign>liṅga</foreign> of the Northern side namely [these of] Y.P.K. Īśanabhadreśvara P.P.K. 
-            He offered a silver <foreign>kośa</foreign> with a golden face and a <foreign>kośa</foreign> to the Bhr̥uguḥ deity with all golden and silver goods and means of subsistence for a total amount of one hundred <foreign>thil</foreign> of gold, in the year of the Śaka king 1156.</p>
-           /div>
-           <div type="textpart" n="2">
-             <head xml:lang="en">C. 86.2</head>
-             <p>This [is] the (furniture/movable??) capital offered by the P.P. homme Kālāntakatha (...) nandana, person of Mvlām̃ Vijaya, to Y.P.K. Śrī Īśanabhadreśvara P.P.K.: a female elephant, a small golden box (<foreign>klauṅ</foreign>): 3 <foreign>thil</foreign>; a silver<foreign>calāhvaya</foreign>: 20 <foreign>thil</foreign>; 
-            a silver neckless: 20 <foreign>thil</foreign>; a Holy <foreign>oṁkāra</foreign>: one <foreign>thil</foreign> of gold; a precious stone <foreign>dhunī</foreign> given <foreign>ganan</foreign> of a value of one <foreign>thil</foreign> of gold; this silver for the tripod: 2 <foreign>thil</foreign>; 
-            <foreign>pranīṅ</foreign>: 1 of a value of 2 <foreign>thil</foreign> of  gold; vases (made) of copper: 2; vase (made) of cuprous metal: 1; <foreign>vadala</foreign>: 2; <foreign>svam̃n</foreign>: 1; Khmer: 1 man; 1 woman. [In Śaka] 1152.</p>
-           /div>
-         </div> -->
-      <div type="translation" xml:lang="fra">
-        <div n="1" type="textpart">
-          <head xml:lang="eng">C. 86.1</head>
-          <p>Il y eut un P.P.T.R., à savoir Y.P.K. Śrī Jayaparameśvaravarmadeva oṅ Aṅśarāja, personne de Turaiy Vijaya. À la suite de cette "guerre" du Cambodge qui <supplied reason="subaudible">dura</supplied> 32 ans, il <supplied reason="explanation">le souverain</supplied> gouverna avec le parasol unique sur ce royaume du Campā. 
-                  Il restaura tous les <foreign>liṅga</foreign> du côté Sud à savoir <supplied reason="subaudible">ceux de</supplied> Yām̃ Pu Nagara ; il restaura les <foreign>liṅga</foreign> du côté Nord à savoir <supplied reason="subaudible">ceux de</supplied> Y.P.K. Īśanabhadreśvara P.P.K. 
-                  Il offrit un <foreign>kośa</foreign> d'argent avec un visage en or et un <foreign>kośa</foreign> à la divinité Bhr̥guḥ avec tous les biens et les moyens de subsistance d'or et d'argent pour une valeur totale de cent <foreign>thil</foreign> d'or, en l'année 1156 du roi des Śaka.</p>
-        </div>
-        <div n="2" type="textpart">
-          <head xml:lang="eng">C. 86.2</head>
-          <p>Ceci <supplied reason="subaudible">est</supplied> le capital mobilier offert par le P.P. homme Kālāntakatha (...) nandana, personne de Mvlām̃ Vijaya, à Y.P.K. Śrī Īśanabhadreśvara P.P.K. : une éléphante, une petite boîte (<foreign>klauṅ</foreign>) d'or : 3 <foreign>thil</foreign> ; un <foreign>calāhvaya</foreign> en argent : 20 <foreign>thil</foreign> ; 
-               un collier d'argent : 20 <foreign>thil</foreign> ; un saint <foreign>oṁkāra</foreign> : un <foreign>thil</foreign> d'or ; une pierre précieuse <foreign>dhunī</foreign> donnée <foreign>ganan</foreign> d'une valeur d'un <foreign>thil</foreign> d'or ; cet argent pour le (tré)pied : 2 <foreign>thil</foreign> ; 
-               <foreign>pranīṅ</foreign> : 1 d'une valeur de 2 <foreign>thil</foreign> d'or ; vases de cuivre : 2 ; vase de métal cuivreux : 1 ; <foreign>vadala</foreign> : 2 ; <foreign>svam̃n</foreign> : 1 ; Khmers : 1 homme ; 1 femme. <supplied reason="subaudible">En Śaka</supplied> 1152.</p>
-        </div>
-      </div>
-      <!--  <div type="commentary">
-            <p>In ancient Cam, <foreign>yauṁ</foreign> means "about, more or less". In modern Cam, it could mean "(money) value, price". The comparison with <ref target="DHARMA_INSCIC00184.xml">C. 184</ref> where the figure 158 follows the occurrence, suggests that the translation "value" is more appropriate than "more or less".</p>
-            <p><foreign>pralauṅ</foreign> = <foreign>pralaum̃</foreign> = <foreign>pralauv</foreign>. In <bibl><ptr target="cic-bibl= Aymonier &amp; Cabaton 1906"/></bibl>, the word <foreign>pralau</foreign> is repertoried. The authors drew a parallel between this term and the one one could find in Khmer which means "neckless".</p>
-            <p>Concerning the meaning of <foreign>calāhvaya</foreign>, see the note for this occurrence in the inscription <ref target="C.0006.xml">C. 6</ref>, l. 2.</p>
-            <p>Finot translated <foreign>kaṅsabhāja</foreign> "copper vase".</p>
-            <p>Finot translated <foreign>bhāja laṅguv</foreign> "earthen vase".</p>
-         </div> -->
-      <div type="bibliography">
-        <p>First published, with French translation, in <bibl>
-            <ptr target="bib:Finot1904_05"/>
-            <citedRange unit="page">976-977</citedRange>
-          </bibl>; whence C. 86.2 was summed up and C. 86.1 was translated into English in <bibl>
-            <ptr target="bib:Majumdar1985_01"/>
-            <citedRange unit="page">207-208</citedRange>
-          </bibl>; <bibl>
-            <ptr target="bib:Golzio2004_01"/>
-            <citedRange unit="page">178</citedRange>
-          </bibl> read and translated both. The present edition and translation after <bibl>
-            <ptr target="bib:Lepoutre2013_01"/>
-            <citedRange unit="page">264-265</citedRange>
-          </bibl>.</p>
-        <listBibl type="primary">
-          <bibl/>
-        </listBibl>
-        <listBibl type="secondary">
+<body>
+  <div type="edition" xml:lang="x-oldcam-Latn" rendition="class:83233 maturity:00000">
+              
+  <div type="textpart" n="1">
+                 
+  <head xml:lang="eng">C. 86.1</head>
+              
+  <ab>
+              
+  <lb n="1" /> 
+  <g type="quatrefoil" /> madā pu pom̃ tana rayā sidaḥ yām̃ pom̃ ku śrī jaya
+              
+  <lb break="no" n="2" />parameśvaravarmmadeva aum̃ aṅśarāja urām̃ turaiy· vijaya
+              
+  <lb n="3" /> di jam̃ḥ kaliḥ kamvuja ya 32 thun· nan· ra dr̥m̃ rājam̃ ekachatra
+              
+  <lb n="4" /> di nagara campa nī ra punaḥ sarvvaliṅga gaḥ dakṣiṇabhāga ma
+              
+  <lb break="no" n="5" />kapun· yām̃ pu nagara ra punaḥ liṅga gaḥ uttarabhāga ma
+              
+  <lb break="no" n="6" />kapun· yām̃ pom̃ k
+  <unclear>u</unclear> śrīśānabhadreśvara pu po
+  <unclear>m̃</unclear> ku
+              
+  <lb n="7" /> ra vuḥ raupyakośa suvarṇṇamukha ṅan· kośa 
+              
+  <lb n="8" /> 
+  <unclear>yā</unclear>m̃ bhr̥uguḥ maddan· sarvvabhogopabhoga māḥ ṅa
+              
+  <lb break="no" n="9" />n· 
+  <unclear>pira</unclear>k· samudāya yauṁ sa ratuḥ thil· māḥ 
+              
+  <lb n="10" /> kāla śakarāja 1156 
+  <g type="quatrefoil" /> 
+  <g>|</g>
+              </ab>
+           </div>   
+           
+               
+  <div type="textpart" n="2">
+                  
+  <head xml:lang="eng">C. 86.2</head>
+                  
+  <ab>
+              
+  <lb n="1" /> 
+  <g type="quatrefoil" /> nī mula dravya pom̃ pu lakim̃ kālāntakatha 
+  <gap reason="lost" quantity="4" unit="character" />
+              
+  <lb break="no" n="2" />nandana urām̃ mvlām̃ vijaya vuḥ pak· yām̃ pom̃ ku śrī
+  <supplied reason="lost">ānabhadre</supplied>
+              
+  <lb break="no" n="3" />śvara pu pom̃ ku limān· vinai sā klauṅ· māḥ sā 3 th
+  <supplied reason="lost">il· ca</supplied>
+              
+  <lb break="no" n="4" />lāhvaya pirak· sā 20 thil
+  <unclear>·</unclear> pralauṅ· pirak· sā 2
+  <supplied reason="lost">0 thil·</supplied>
+              
+  <lb n="5" /> vraḥ o
+  <supplied reason="lost">ṁ</supplied>kāra sā sā thil· māḥ matā dhunī sā si vuḥ ganan·
+              
+  <lb n="6" /> yauṁ sā thil· māḥ pirak· kakai nan· 2 thil· pranīṅ· 1
+              
+  <lb n="7" /> yauṁ 2 thil· māḥ kaṅsabhāja 2 bhāja laṅguv· 1 vadala
+              
+  <lb n="8" /> 2 svam̃n· 1 kvir· 1 lakiy· 1 krumviy· 1152 
+  <g type="quatrefoil" />
+                  </ab>
+               </div>
+           </div>
+  <div type="apparatus">
+    <div type="textpart">
+      <head xml:lang="eng">C. 86.1</head>
+      <listApp>
+        <app loc="2">
+          <lem>aum̃ aṅśarāja</lem>
+          <note>
           <bibl>
-            <ptr target="bib:Parmentier1909_01"/>
-            <citedRange unit="page">381-382</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Griffiths+al2008-2009_01"/>
-            <citedRange unit="page">456 and 458</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+            <ptr target="bib:Finot1904_05" />
+            <citedRange unit="page">976</citedRange>
+          </bibl> added a note: 
+          <quote>on pourrait aussi bien lire Saṅgarāja ; mais la comparaison de Po nagar 409, B,4 
+          <supplied reason="explanation">
+            <ref target="C0030B4.xml">C. 30 B4</ref>
+          </supplied> ligne 2, où l'écriture est plus nette, montre que la vraie forme est Aṅçarāja</quote>.</note>
+        </app>
+        <app loc="5">
+          <lem>ra punaḥ liṅga</lem>
+          <rdg source="bib:Finot1904_05">ra punaḥ sarvvaliṅga</rdg>
+        </app>
+        <app loc="9">
+          <lem>yauṁ</lem>
+          <rdg source="bib:Finot1904_05">yoṁ</rdg>
+        </app>
+      </listApp>
+    </div>
+    <div type="textpart">
+      <head xml:lang="eng">C. 86.2</head>
+      <listApp>
+        <app loc="1">
+          <lem>nī</lem>
+          <rdg source="bib:Finot1904_05">ni</rdg>
+        </app>
+        <app loc="3">
+          <lem>śrī
+          <supplied reason="lost">ānabhadre</supplied>śvara</lem>
+          <note>Reconstitution of Finot</note>
+        </app>
+        <app loc="3">
+          <lem>sā</lem>
+          <rdg source="bib:Finot1904_05">sa</rdg>
+        </app>
+        <app loc="4">
+          <lem>
+          <supplied reason="lost">ca</supplied>lāhvaya</lem>
+          <note>one would also find this world in 
+          <ref target="DHARMA_INSCIC00006.xml">C. 6</ref>, l. 2.</note>
+        </app>
+        <app loc="8">
+          <lem>svam̃n</lem>
+          <rdg source="bib:Finot1904_05">svãḥ</rdg>
+        </app>
+        <app loc="8">
+          <lem>kvir</lem>
+          <rdg source="bib:Finot1904_05">kvir̥</rdg>
+          <note>It must be a typo.</note>
+        </app>
+      </listApp>
+    </div>
+  </div>
+  <div type="translation" xml:lang="fra">
+    <div type="textpart" n="1">
+      <head xml:lang="eng">C. 86.1</head>
+      <p>Il y eut un P.P.T.R., à savoir Y.P.K. Śrī Jayaparameśvaravarmadeva oṅ Aṅśarāja, personne de Turaiy Vijaya. À la suite de cette "guerre" du Cambodge qui 
+      <supplied reason="subaudible">dura</supplied> 32 ans, il 
+      <supplied reason="explanation">le souverain</supplied> gouverna avec le parasol unique sur ce royaume du Campā. 
+                        Il restaura tous les 
+      <foreign>liṅga</foreign> du côté Sud à savoir 
+      <supplied reason="subaudible">ceux de</supplied> Yām̃ Pu Nagara ; il restaura les 
+      <foreign>liṅga</foreign> du côté Nord à savoir 
+      <supplied reason="subaudible">ceux de</supplied> Y.P.K. Īśanabhadreśvara P.P.K. 
+                        Il offrit un 
+      <foreign>kośa</foreign> d'argent avec un visage en or et un 
+      <foreign>kośa</foreign> à la divinité Bhr̥guḥ avec tous les biens et les moyens de subsistance d'or et d'argent pour une valeur totale de cent 
+      <foreign>thil</foreign> d'or, en l'année 1156 du roi des Śaka.</p>
+    </div>
+    <div type="textpart" n="2">
+      <head xml:lang="eng">C. 86.2</head>
+      <p>Ceci 
+      <supplied reason="subaudible">est</supplied> le capital mobilier offert par le P.P. homme Kālāntakatha (...) nandana, personne de Mvlām̃ Vijaya, à Y.P.K. Śrī Īśanabhadreśvara P.P.K. : une éléphante, une petite boîte (
+      <foreign>klauṅ</foreign>) d'or : 3 
+      <foreign>thil</foreign> ; un 
+      <foreign>calāhvaya</foreign> en argent : 20 
+      <foreign>thil</foreign> ; 
+                     un collier d'argent : 20 
+      <foreign>thil</foreign> ; un saint 
+      <foreign>oṁkāra</foreign> : un 
+      <foreign>thil</foreign> d'or ; une pierre précieuse 
+      <foreign>dhunī</foreign> donnée 
+      <foreign>ganan</foreign> d'une valeur d'un 
+      <foreign>thil</foreign> d'or ; cet argent pour le (tré)pied : 2 
+      <foreign>thil</foreign> ; 
+                     
+      <foreign>pranīṅ</foreign> : 1 d'une valeur de 2 
+      <foreign>thil</foreign> d'or ; vases de cuivre : 2 ; vase de métal cuivreux : 1 ; 
+      <foreign>vadala</foreign> : 2 ; 
+      <foreign>svam̃n</foreign> : 1 ; Khmers : 1 homme ; 1 femme. 
+      <supplied reason="subaudible">En Śaka</supplied> 1152.</p>
+    </div>
+  </div>
+  <div type="bibliography">
+    <p>First published, with French translation, in 
+    <bibl>
+      <ptr target="bib:Finot1904_05" />
+      <citedRange unit="page">976-977</citedRange>
+    </bibl>; whence C. 86.2 was summed up and C. 86.1 was translated into English in 
+    <bibl>
+      <ptr target="bib:Majumdar1985_01" />
+      <citedRange unit="page">207-208</citedRange>
+    </bibl>; 
+    <bibl>
+      <ptr target="bib:Golzio2004_01" />
+      <citedRange unit="page">178</citedRange>
+    </bibl> read and translated both. The present edition and translation after 
+    <bibl>
+      <ptr target="bib:Lepoutre2013_01" />
+      <citedRange unit="page">264-265</citedRange>
+    </bibl>.</p>
+    <listBibl type="primary">
+      <bibl />
+    </listBibl>
+    <listBibl type="secondary">
+      <bibl>
+        <ptr target="bib:Parmentier1909_01" />
+        <citedRange unit="page">381-382</citedRange>
+      </bibl>
+      <bibl>
+        <ptr target="bib:Griffiths+al2008-2009_01" />
+        <citedRange unit="page">456 and 458</citedRange>
+      </bibl>
+    </listBibl>
+  </div>
+</body>
+</text>
 </TEI>

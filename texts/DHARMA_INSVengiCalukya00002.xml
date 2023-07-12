@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -24,39 +30,25 @@
         <idno type="filename">DHARMA_INSVengiCalukya00002</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view
-       a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to
-       Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Dániel Balogh.</p>
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
-            <!--<altIdentifier type="PEM"><idno type="corpus">CalE11</idno></altIdentifier>-->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
               <p>Halantas. l1, T: if correctly read, this is a very small character at baseline, without a line above. L8 matimāN: also very small at baseline, and seems to have a _vertical_ line above it. L12 gotrābhyāM: indistinct. L19 vaseT: small at baseline; may have a fairly long stem upward.</p>
-              <p>Original punctuation. l16, a short vertical floating at mid-height. L17 same. The closing symbol appears to be composed of three dots in a triangular arrangement. 
-                <!--Other palaeographic observations. --><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-            <summary><p><p/></summary>
-            <handNote xml:id="Pallava00001_hand1"></handNote>
-            <handNote xml:id="Pallava00001_hand2"></handNote>
-           -->
+              <p>Original punctuation. l16, a short vertical floating at mid-height. L17 same. The closing symbol appears to be composed of three dots in a triangular arrangement. </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -64,239 +56,488 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-03-16" who="part:daba">Initial encoding of the file</change>
-      <change status="draft" when="2020-08-14" who="part:daba">Updated to template v2, encoded bibliography and commentary</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-03-16" status="draft">Initial encoding of the file</change>
+      <change who="part:daba" when="2020-08-14" status="draft">Updated to template v2, encoded bibliography and commentary</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83213" type="edition" xml:lang="san-Latn">
-        <pb n="1r"/>
-        <p>
-<pb n="1v"/>
-<lb n="1"/>svasti<surplus>ḥ</surplus> śrīma<orig>
-            <unclear>T</unclear>
-          </orig>-caluky<choice>
-            <sic>ā</sic>
-            <corr>a</corr>
-          </choice>-kula-jalanidhi-samudito nr̥pati-niśākaraḥ sva<lb break="no" n="2"/>-bhrūlatā-bhaṅga-namita-r<choice>
-            <sic>a</sic>
-            <corr>i</corr>
-          </choice>pu-nr̥pati-makuṭa-maṇi-prabhā-vicchurita-caraṇāravinda<lb break="no" n="3"/>-dvayaḥ<space type="binding-hole"/> satyāśraya-śrī-vallabha-mahārājaḥ<supplied reason="subaudible">.</supplied> tasya priyānujaḥ sthala-jala<lb break="no" n="4"/>-vana-giri-viṣama-durggeṣu labdha-siddhitvād viṣamasiddhiḥ d<unclear>ī</unclear>nānātha-dvija-vasu-vr̥ṣṭi<lb break="no" n="5"/>-pravarṣaṇatayā kāmadhenuḥ yuvatiṣu madanāyamāna-cāru-śarīratvān makara-dhvaja<supplied reason="omitted">ḥ</supplied>
-<pb n="2r"/><lb n="6"/>sva-dānārṇṇav<choice>
-            <sic>au</sic>
-            <corr>e</corr>
-          </choice>ṣu parimagna-kali-prabhāvaḥ Aneka-samara-vijaya-samudi<unclear>ta</unclear><lb break="no" n="7"/>-vimala-yaśo-viśeṣa-vibhūṣita-sakala-diṅ-maṇḍala<unclear>ḥ</unclear> manur iva vinaya-jñaḥ pr̥thu<lb break="no" n="8"/>r iva pr̥thu<space type="binding-hole"/>-k<choice>
-            <sic>i</sic>
-            <corr>ī</corr>
-          </choice>rttiḥ gurur iva matimāN parama-brahmaṇyaḥ śrī-viṣṇuvarddhana-mahār<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>jaḥ <lb n="9"/>dimila-viṣaye kālvakoṇḍa-grāmādhivāsinaḥ kuṭuṁbinas samavetān imam arttham ā<lb break="no" n="10"/>jñāpayati</p>
-        <p>yathā Adh<choice>
-            <sic>i</sic>
-            <corr>ī</corr>
-          </choice>tāvagata-veda-vedāṅgasya brahmaśarmmaṇaḥ pautrābhyāṁ Adhi<pb break="no" n="2v"/><lb break="no" n="11"/>gata-sva-śākhā-codita-sva-karmmānuṣṭhāna-tatparasya du<supplied reason="omitted">r</supplied>gaśarmmaṇaḥ putrābhyā<supplied reason="omitted">ṁ</supplied> veda-ve<lb break="no" n="12"/>dāṁgetihāsa-purāṇa-dharmmaśāstrādy-anekāgama-<orig>tatva</orig>-vidbhyāṁ gautam<choice>
-            <sic>ā</sic>
-            <corr>a</corr>
-          </choice>-gotrābhyā<unclear>M</unclear> <lb n="13"/><orig>taittirika</orig><space type="binding-hole"/>-caraṇābhyāṁ viṣṇuśa<supplied reason="omitted">r</supplied>mma-mādhavaśarmmabhyāṁ <unclear>pḻaki</unclear>-viṣaye ceṟupūra<lb break="no" n="14"/>-grāmam a<space type="binding-hole"/>dhivasat<orig>aḥ</orig> śrāvaṇa-māse candra-grahaṇa-nimitte sarvva-kara-parihāre<lb break="no" n="15"/>ṇ<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>grahārī-kr̥tya sva-puṇyāyur-ārogya-yaśo-<supplied reason="subaudible">’</supplied>bhivr̥ddhaye grāmo <supplied reason="subaudible">’</supplied>yaṁ dattaḥ<supplied reason="subaudible">.</supplied> Asya <pb n="3r"/><lb n="16"/>kaiścid api na bādhā karaṇīyā,</p>
-        <p>Atra vyāsa-g<unclear>ī</unclear>tau<supplied reason="subaudible">.</supplied></p>
-        <lg met="anuṣṭubh" n="1">
-          <l n="a">bahubhir vvasudhā dattā</l>
-          <l n="b">bahu<lb n="17"/>bhiś cānupālitā</l>
-          <l n="c">yasya yasya yadā bhūmiḥ</l>
-          <l n="d">tasya tasya tadā phalaṁ,</l>
-        </lg>
-        <lg met="anuṣṭubh" n="2">
-          <l n="a">ṣaṣṭiṁ varṣa<lb break="no" n="18"/>-sahasrā<space type="binding-hole"/>ṇi</l>
-          <l n="b">svargge modati bhūmidaḥ</l>
-          <l n="c">Ākṣeptā cānumantā ca</l>
-          <l n="d">tāny eva narake <lb n="19"/>vaseT</l>
-        </lg>
-        <p>śrīmati ma<unclear cert="low">tsya-ku</unclear>le prasūtaḥ sva-bhuja-bala-pratāpāvanata-ripu<lb n="20"/>r ājñaptir aṭavidurjjayaḥ<supplied reason="subaudible">.</supplied> saṁ <num value="18">10 8</num> mā <num value="4">4</num> di <num value="15">10 5</num><space/><g type="dotTriple"/>
+      
+<body>
+         
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83213">
+<pb n="1r" />
+<p>
+<pb n="1v" />
+<lb n="1" />svasti
+<surplus>ḥ</surplus> śrīma
+<orig>
+  <unclear>T</unclear>
+</orig>-caluky
+<choice>
+  <sic>ā</sic>
+  <corr>a</corr>
+</choice>-kula-jalanidhi-samudito nr̥pati-niśākaraḥ sva
+<lb n="2" break="no" />-bhrūlatā-bhaṅga-namita-r
+<choice>
+  <sic>a</sic>
+  <corr>i</corr>
+</choice>pu-nr̥pati-makuṭa-maṇi-prabhā-vicchurita-caraṇāravinda
+<lb n="3" break="no" />-dvayaḥ
+<space type="binding-hole" /> satyāśraya-śrī-vallabha-mahārājaḥ
+<supplied reason="subaudible">.</supplied> tasya priyānujaḥ sthala-jala
+<lb n="4" break="no" />-vana-giri-viṣama-durggeṣu labdha-siddhitvād viṣamasiddhiḥ d
+<unclear>ī</unclear>nānātha-dvija-vasu-vr̥ṣṭi
+<lb n="5" break="no" />-pravarṣaṇatayā kāmadhenuḥ yuvatiṣu madanāyamāna-cāru-śarīratvān makara-dhvaja
+<supplied reason="omitted">ḥ</supplied>
+<pb n="2r" />
+<lb n="6" />sva-dānārṇṇav
+<choice>
+  <sic>au</sic>
+  <corr>e</corr>
+</choice>ṣu parimagna-kali-prabhāvaḥ Aneka-samara-vijaya-samudi
+<unclear>ta</unclear>
+<lb n="7" break="no" />-vimala-yaśo-viśeṣa-vibhūṣita-sakala-diṅ-maṇḍala
+<unclear>ḥ</unclear> manur iva vinaya-jñaḥ pr̥thu
+<lb n="8" break="no" />r iva pr̥thu
+<space type="binding-hole" />-k
+<choice>
+  <sic>i</sic>
+  <corr>ī</corr>
+</choice>rttiḥ gurur iva matimāN parama-brahmaṇyaḥ śrī-viṣṇuvarddhana-mahār
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>jaḥ 
+<lb n="9" />dimila-viṣaye kālvakoṇḍa-grāmādhivāsinaḥ kuṭuṁbinas samavetān imam arttham ā
+<lb n="10" break="no" />jñāpayati</p>
+<p>yathā Adh
+<choice>
+  <sic>i</sic>
+  <corr>ī</corr>
+</choice>tāvagata-veda-vedāṅgasya brahmaśarmmaṇaḥ pautrābhyāṁ Adhi
+<pb n="2v" break="no" />
+<lb n="11" break="no" />gata-sva-śākhā-codita-sva-karmmānuṣṭhāna-tatparasya du
+<supplied reason="omitted">r</supplied>gaśarmmaṇaḥ putrābhyā
+<supplied reason="omitted">ṁ</supplied> veda-ve
+<lb n="12" break="no" />dāṁgetihāsa-purāṇa-dharmmaśāstrādy-anekāgama-
+<orig>tatva</orig>-vidbhyāṁ gautam
+<choice>
+  <sic>ā</sic>
+  <corr>a</corr>
+</choice>-gotrābhyā
+<unclear>M</unclear> 
+<lb n="13" />
+<orig>taittirika</orig>
+<space type="binding-hole" />-caraṇābhyāṁ viṣṇuśa
+<supplied reason="omitted">r</supplied>mma-mādhavaśarmmabhyāṁ 
+<unclear>pḻaki</unclear>-viṣaye ceṟupūra
+<lb n="14" break="no" />-grāmam a
+<space type="binding-hole" />dhivasat
+<orig>aḥ</orig> śrāvaṇa-māse candra-grahaṇa-nimitte sarvva-kara-parihāre
+<lb n="15" break="no" />ṇ
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>grahārī-kr̥tya sva-puṇyāyur-ārogya-yaśo-
+<supplied reason="subaudible">’</supplied>bhivr̥ddhaye grāmo 
+<supplied reason="subaudible">’</supplied>yaṁ dattaḥ
+<supplied reason="subaudible">.</supplied> Asya 
+<pb n="3r" />
+<lb n="16" />kaiścid api na bādhā karaṇīyā,</p>
+<p>Atra vyāsa-g
+<unclear>ī</unclear>tau
+<supplied reason="subaudible">.</supplied></p>
+<lg n="1" met="anuṣṭubh">
+   
+<l n="a">bahubhir vvasudhā dattā</l>
+   
+<l n="b">bahu
+<lb n="17" />bhiś cānupālitā</l>
+   
+<l n="c">yasya yasya yadā bhūmiḥ</l>
+   
+<l n="d">tasya tasya tadā phalaṁ,</l>
+</lg>
+<lg n="2" met="anuṣṭubh">
+   
+<l n="a">ṣaṣṭiṁ varṣa
+<lb n="18" break="no" />-sahasrā
+<space type="binding-hole" />ṇi</l>
+   
+<l n="b">svargge modati bhūmidaḥ</l>
+   
+<l n="c">Ākṣeptā cānumantā ca</l>
+   
+<l n="d">tāny eva narake 
+<lb n="19" />vaseT</l>
+</lg>
+<p>śrīmati ma
+<unclear cert="low">tsya-ku</unclear>le prasūtaḥ sva-bhuja-bala-pratāpāvanata-ripu
+<lb n="20" />r ājñaptir aṭavidurjjayaḥ
+<supplied reason="subaudible">.</supplied> saṁ 
+<num value="18">10 8</num> mā 
+<num value="4">4</num> di 
+<num value="15">10 5</num>
+<space />
+<g type="dotTriple" />
 </p>
-        <pb n="3v"/>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1">
-            <lem>svasti<surplus>ḥ</surplus></lem>
-            <note>Fleet notes that what looks like a <foreign>visarga</foreign> is probably a punctuation mark, "imperfectly cleared out." He probably refers to the physical cleaning of the plates. In the scanned estampage, the presence of a <foreign>visarga</foreign> seems quite certain.</note>
-          </app>
-          <app loc="1">
-            <lem>śrīma<orig>
-                <unclear>T</unclear>
-              </orig>-calukya-</lem>
-            <rdg source="bib:Fleet1891_01">śrīmac-<supplied reason="omitted">c</supplied>alukya-</rdg>
-            <rdg source="bib:Burnell1878_01">śrīm<unclear>ān</unclear> calukya-</rdg>
-            <note>Though not clear in the scan, it seems likely that there is a <foreign>halanta</foreign> <foreign>T</foreign> here. Burnell may have seen it is a <foreign>halanta</foreign> <foreign>N</foreign>, but his text implies a conjunct with <foreign>n</foreign>. No <foreign>ā</foreign> is discernible in the facsimile.</note>
-          </app>
-          <app loc="2">
-            <lem>-bhrūlatā-bhaṅga-namita-</lem>
-            <rdg source="bib:Fleet1891_01">-bhrūlatā-bhaṅg<choice>
-                <sic>a-</sic>
-                <corr>ā</corr>
-              </choice>namita-</rdg>
-            <rdg source="bib:Burnell1878_01">-bhrūlatāvajñ<choice>
-                <sic>a</sic>
-                <corr>ā</corr>
-              </choice>namita-</rdg>
-            <note>I find Fleet's emendation unnecessary. His insistence on <foreign>ānamita</foreign> may be a relic of Burnell's reading.</note>
-          </app>
-          <app loc="9">
-            <lem>kālvakoṇḍa</lem>
-            <note>There may be a small and faint vowel mark (<foreign>e</foreign> or <foreign>i</foreign>) on top of the regularly formed <foreign>l</foreign>. In l19, <foreign>le</foreign> in <foreign>kule</foreign> is cursive, without a separate vowel mark on top.</note>
-          </app>
-          <app loc="13">
-            <lem>°śarmmabhyāṁ</lem>
-            <note>I accept the above reading by Fleet and Burnell, but note that the scanned facsimile seems to show <foreign>°śarmmabhyāḥ</foreign>.</note>
-          </app>
-          <listApp>
-            <app loc="13">
-              <lem><unclear>pḻaki</unclear>-</lem>
-              <rdg source="bib:Burnell1878_01 bib:Fleet1891_01"><unclear cert="low">pūki</unclear>-</rdg>
-              <note>The improved reading was suggested in <bibl>
-                  <ptr target="bib:Hultzsch1907-1908_07"/>
-                  <citedRange>318</citedRange>
-                </bibl> on the basis of <foreign>paḻaki-viṣaye</foreign> in line 11 of <ref target="DHARMA_INSVengiCalukya00003.xml"/> and is perfectly plausible from the facsimile.</note>
-            </app>
-          </listApp>
-          <app loc="14">
-            <lem>a<space type="binding-hole"/>dhivasat<orig>aḥ</orig></lem>
-            <note>As Fleet notes, the intent must have been <foreign>adhivasatā (mayā)</foreign> or <foreign>adhivasadbhiḥ (asmābhiḥ)</foreign>.</note>
-          </app>
-          <listApp>
-            <app loc="19">
-              <lem source="bib:Fleet1891_01">ma<unclear cert="low">tsya-ku</unclear>le</lem>
-              <rdg source="bib:Burnell1878_01">matsya<gap quantity="1" reason="illegible" unit="character"/>li</rdg>
-            </app>
-          </listApp>
-          <app loc="19">
-            <lem source="bib:Burnell1878_01">-ripu<lb n="20"/>r</lem>
-            <rdg source="bib:Fleet1891_01">-ripu<surplus>ḥ</surplus><lb n="20"/>r</rdg>
-            <note>What Fleet reads as a superfluous <foreign>visarga</foreign> seems noise to me; the dots are too far apart.</note>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:Foulkes1870_01" type="translation">
-        <p n="1-3">Prosperity. The royal moon risen above the ocean of the glorious Chalakya race, whose two lotus-like feet glitter with the radiance of the gems of the crown of rival kings bowing down before him like creeping plants, defeated by his frowns, is the illustrious Satyashraya Vallabha Majaraja.</p>
-        <p n="3-10">His beloved younger brother, the surmounter of difficulties, who has succeeded in penetrating inaccessible fortresses situated in the midst of plains, lakes, forests and mountains; the cow of plenty, raining down showers of wealth upon distressed and poverty-stricken brahmans; the crocodile bannered one, <supplied reason="explanation">the Hindu Cupid,</supplied> who by his beautiful form inspires young maidens with love; the destroyer of the spirit of misery, <supplied reason="explanation">Kali</supplied> drowning it in the whirlpools of the ocean of his benefactions; adorned with unsullied and highly distinguished glory arising out of its many wars and conquests; reverenced throughout the world like Manu, full of renown like Prithu, and accounted wise as Vrihaspati; an orthodox worshipper of supreme Brahma, the illustrious Vishnu Vardhana Maharaja issues his commands in this present matter to the assembled heads of families inhabiting the village of Kalvakonda, in the district of Dimila, as follows:—</p>
-        <p n="10-16">
-In order to promote his own religious merit, length of days, good health, and fame, on account of the eclipse of the moon which took place in the month of July, the above-named village has been granted to Vishnu Sharmma and Madhava Sharmma of the Gautama tribe and the <sic>Jaittiriva</sic> sect, of the village of Chejhuplara in the district of Plaiki, learned in the Vedas, Vedangas, <sic>Itikasas</sic>, Puranas, Dharma Shastras, and many other technical books, the sons of Durga Sharmma, zealous in the performance of the rites of his order as prescribed in his own section of the Veda which he has thoroughly studied, and the grandsons of Brahma Sharmma, a successful student of the Vedas and Vedangas, to be converted into a brahman settlement (<sic>Agraphara</sic>) free of all taxes.
+<pb n="3v" />
+         </div>
+
+
+
+
+         
+<div type="apparatus">
+               
+<listApp>
+                  
+<app loc="1">
+                     
+<lem>svasti
+<surplus>ḥ</surplus></lem>
+                     
+<note>Fleet notes that what looks like a 
+<foreign>visarga</foreign> is probably a punctuation mark, "imperfectly cleared out." He probably refers to the physical cleaning of the plates. In the scanned estampage, the presence of a 
+<foreign>visarga</foreign> seems quite certain.</note>
+                  </app>
+                  
+<app loc="1">
+                     
+<lem>śrīma
+<orig>
+  <unclear>T</unclear>
+</orig>-calukya-</lem>
+                     
+<rdg source="bib:Fleet1891_01">śrīmac-
+<supplied reason="omitted">c</supplied>alukya-</rdg>
+                     
+<rdg source="bib:Burnell1878_01">śrīm
+<unclear>ān</unclear> calukya-</rdg>
+                     
+<note>Though not clear in the scan, it seems likely that there is a 
+<foreign>halanta</foreign> 
+<foreign>T</foreign> here. Burnell may have seen it is a 
+<foreign>halanta</foreign> 
+<foreign>N</foreign>, but his text implies a conjunct with 
+<foreign>n</foreign>. No 
+<foreign>ā</foreign> is discernible in the facsimile.</note>
+                  </app>
+                  
+<app loc="2">
+                     
+<lem>-bhrūlatā-bhaṅga-namita-</lem>
+                     
+<rdg source="bib:Fleet1891_01">-bhrūlatā-bhaṅg
+<choice>
+  <sic>a-</sic>
+  <corr>ā</corr>
+</choice>namita-</rdg>
+                     
+<rdg source="bib:Burnell1878_01">-bhrūlatāvajñ
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>namita-</rdg>
+                     
+<note>I find Fleet's emendation unnecessary. His insistence on 
+<foreign>ānamita</foreign> may be a relic of Burnell's reading.</note>
+                  </app>
+                  
+<app loc="9">
+                     
+<lem>kālvakoṇḍa</lem>
+                     
+<note>There may be a small and faint vowel mark (
+<foreign>e</foreign> or 
+<foreign>i</foreign>) on top of the regularly formed 
+<foreign>l</foreign>. In l19, 
+<foreign>le</foreign> in 
+<foreign>kule</foreign> is cursive, without a separate vowel mark on top.</note>
+                  </app>
+                  
+<app loc="13">
+                     
+<lem>°śarmmabhyāṁ</lem>
+                     
+<note>I accept the above reading by Fleet and Burnell, but note that the scanned facsimile seems to show 
+<foreign>°śarmmabhyāḥ</foreign>.</note>
+                  </app>
+                  
+<listApp>
+                     
+<app loc="13">
+                        
+<lem>
+<unclear>pḻaki</unclear>-</lem>
+                        
+<rdg source="bib:Burnell1878_01 bib:Fleet1891_01">
+<unclear cert="low">pūki</unclear>-</rdg>
+                        
+<note>The improved reading was suggested in 
+<bibl>
+  <ptr target="bib:Hultzsch1907-1908_07" />
+  <citedRange>318</citedRange>
+</bibl> on the basis of 
+<foreign>paḻaki-viṣaye</foreign> in line 11 of 
+<ref target="DHARMA_INSVengiCalukya00003.xml" /> and is perfectly plausible from the facsimile.</note>
+                     </app>
+                  </listApp>
+                  
+<app loc="14">
+                     
+<lem>a
+<space type="binding-hole" />dhivasat
+<orig>aḥ</orig></lem>
+                     
+<note>As Fleet notes, the intent must have been 
+<foreign>adhivasatā (mayā)</foreign> or 
+<foreign>adhivasadbhiḥ (asmābhiḥ)</foreign>.</note>
+                  </app>
+                  
+<listApp>
+                     
+<app loc="19">
+                        
+<lem source="bib:Fleet1891_01">ma
+<unclear cert="low">tsya-ku</unclear>le</lem>
+                        
+<rdg source="bib:Burnell1878_01">matsya
+<gap reason="illegible" quantity="1" unit="character" />li</rdg>
+                     </app>
+                  </listApp>
+                  
+<app loc="19">
+                     
+<lem source="bib:Burnell1878_01">-ripu
+<lb n="20" />r</lem>
+                     
+<rdg source="bib:Fleet1891_01">-ripu
+<surplus>ḥ</surplus>
+<lb n="20" />r</rdg>
+                     
+<note>What Fleet reads as a superfluous 
+<foreign>visarga</foreign> seems noise to me; the dots are too far apart.</note>
+                  </app>
+                  
+                  
+               </listApp>
+         </div>
+         
+         
+         
+<div type="translation" source="bib:Foulkes1870_01">
+<p n="1-3">Prosperity. The royal moon risen above the ocean of the glorious Chalakya race, whose two lotus-like feet glitter with the radiance of the gems of the crown of rival kings bowing down before him like creeping plants, defeated by his frowns, is the illustrious Satyashraya Vallabha Majaraja.</p>
+<p n="3-10">His beloved younger brother, the surmounter of difficulties, who has succeeded in penetrating inaccessible fortresses situated in the midst of plains, lakes, forests and mountains; the cow of plenty, raining down showers of wealth upon distressed and poverty-stricken brahmans; the crocodile bannered one, 
+<supplied reason="explanation">the Hindu Cupid,</supplied> who by his beautiful form inspires young maidens with love; the destroyer of the spirit of misery, 
+<supplied reason="explanation">Kali</supplied> drowning it in the whirlpools of the ocean of his benefactions; adorned with unsullied and highly distinguished glory arising out of its many wars and conquests; reverenced throughout the world like Manu, full of renown like Prithu, and accounted wise as Vrihaspati; an orthodox worshipper of supreme Brahma, the illustrious Vishnu Vardhana Maharaja issues his commands in this present matter to the assembled heads of families inhabiting the village of Kalvakonda, in the district of Dimila, as follows:—</p>
+<p n="10-16">
+In order to promote his own religious merit, length of days, good health, and fame, on account of the eclipse of the moon which took place in the month of July, the above-named village has been granted to Vishnu Sharmma and Madhava Sharmma of the Gautama tribe and the 
+<sic>Jaittiriva</sic> sect, of the village of Chejhuplara in the district of Plaiki, learned in the Vedas, Vedangas, 
+<sic>Itikasas</sic>, Puranas, Dharma Shastras, and many other technical books, the sons of Durga Sharmma, zealous in the performance of the rites of his order as prescribed in his own section of the Veda which he has thoroughly studied, and the grandsons of Brahma Sharmma, a successful student of the Vedas and Vedangas, to be converted into a brahman settlement (
+<sic>Agraphara</sic>) free of all taxes.
 Let no one molest them in the enjoyment of it; in accordance with the following two verses of the Jyana Gita:</p>
-        <p n="1" rend="stanza">
-          <l>First,</l>
-          <l>Lands have been bestowed by many persons;</l>
-          <l>By many also they have continued to be protected;</l>
-          <l>Whosoever and whatsoever those lands may have been,</l>
-          <l>He has obtained a corresponding reward.</l>
-        </p>
-        <p n="2" rend="stanza">
-          <l>Secondly,</l>
-          <l>The bestower of land shall be happy in heaven,</l>
-          <l>For sixty thousand years:</l>
-          <l>And both he who resumes it,</l>
-          <l>And he who concurs in the act,</l>
-          <l>Must dwell in hell for the same number of years.</l>
-        </p>
-        <p n="19-20">
-          <gap reason="ellipsis"/>
-          <note resp="part:daba">Foulkes does not translate the colophon.</note>
-        </p>
-      </div>
-      <div source="bib:Fleet1891_01" type="translation">
-        <p n="1-3">Hail! A very moon of a king, risen from the ocean which is the glorious <persName>Calukya</persName> family; having the two water-lilies, which are <supplied reason="subaudible">his</supplied> feet, inlaid with the lustre of the jewels in the diadems of hostile kings who are bowed down by the frowning of his creeper-like arched eyebrows;— <supplied reason="subaudible">such is</supplied> the Mahārāja <persName>Satyāśraya</persName>, the favourite of fortune.</p>
-        <p n="3-8">— His dear younger brother,—<supplied reason="subaudible">who is called</supplied> <persName>Viṣamasiddhi</persName>, because he has achieved success against fortresses, difficult of access, on the plains, in the water, in the woods and on hills; who is a very cow of plenty, through raining down showers of treasures on the poor, the helpless and the twice-born; who is a very Makaradhvaja <supplied reason="explanation">Kāmadeva</supplied>, because his handsome form plays the part of Madana <supplied reason="explanation">Kāmadeva</supplied> among young women; who has drowned the power of <supplied reason="subaudible">the wickedness of</supplied> the Kali age in the oceans that are his charities; who has adorned all the regions with the characteristic of <supplied reason="subaudible">his</supplied> pure fame, that has arisen from victory in many battles; who, like Manu, is acquainted with courteous behaviour; who, like Pr̥thu, is of far-reaching fame; who, like Guru <supplied reason="explanation">the regent of the planet Jupiter; the preceptor of the gods</supplied>, is possessed of wisdom; <supplied reason="subaudible">and</supplied> who is extremely kind to Brāhmaṇs,—</p>
-        <p n="8-10">— <supplied reason="subaudible">He</supplied>, the Mahārāja, the glorious <persName>Viṣṇuvardhana</persName> <supplied reason="explanation">I</supplied>, issues a command to this purport to the assembled cultivators who reside at the village of <placeName>Kālvakoṇḍa</placeName> in the <placeName>Dimila</placeName> <foreign>viṣaya</foreign>; viz.:—</p>
-        <p n="10-16">— “To the two sons’ sons of <persName>Brahmaśarman</persName>, who studied and mastered the Vedas and Vedāṅgas,— the sons of <persName>Durgaśarman</persName>, who was intent upon performing his own proper rites, prescribed by his own <foreign>śākhā</foreign>, which had been duly learned <supplied reason="subaudible">by him</supplied>,— <supplied reason="subaudible">viz.</supplied> to <persName>Viṣṇuśarman</persName> and <persName>Mādhavaśarman</persName>, who know the true meaning of the Vedas, the Vedāṅgas, the epics, the Purāṇas, the law-books, and many other sacred works, who are of the Gautama <foreign>gotra</foreign>, <supplied reason="subaudible">and</supplied> who belong to the Taittirīya <foreign>caraṇa</foreign>, by <supplied reason="subaudible">me</supplied> residing at <supplied reason="subaudible">the town of</supplied> <placeName>Ceṟupūra</placeName> in the <placeName>Pūki(?)</placeName> <foreign>viṣaya</foreign>, on the occasion of an eclipse of the moon in the month Śrāvaṇa, this village has been given, as an <foreign>agrahāra</foreign>, with exemption from all taxes, for the increase of <supplied reason="subaudible">my</supplied> own religious merit and duration of life and good health and fame. No obstruction <supplied reason="subaudible">to the enjoyment</supplied> of it, should be caused by any one at all.”</p>
-        <p n="16">— On this point (there are) two verses of Vyāsa:</p>
-        <p n="1" rend="stanza">— Land has been enjoyed by many people, and has been preserved <supplied reason="subaudible">in grant</supplied> by many; whosoever at any time possesses the earth, to him belongs, at that time, the reward <supplied reason="explanation">of this grant that is now made, if he continue it</supplied>!</p>
-        <p n="2" rend="stanza">The giver of land enjoys happiness in heaven for sixty thousand years; <supplied reason="subaudible">but</supplied> he who resumes <supplied reason="subaudible">a grant</supplied>, or he who assents <supplied reason="subaudible">to an act of resumption</supplied>, shall dwell for the same number of years in hell!</p>
-        <p n="19-20">—<supplied reason="subaudible">The bearer of</supplied> the command <supplied reason="explanation">i.e. the <foreign>dūtaka</foreign></supplied> is <persName>Aṭavidurjaya</persName>, born in the illustrious <persName>Matsya</persName> family(?), who has bowed down <supplied reason="subaudible">his</supplied> enemies by the strength and prowess of his arm.
-— The year 10 <supplied reason="subaudible">and</supplied> 8; the month 4; the day 10 <supplied reason="subaudible">and</supplied> 5.</p>
-      </div>
-      <div source="bib:Estienne-Monod2008_01" type="translation" xml:lang="fra">
-        <p n="1-3">Prospérité ! Le grand roi illustre Satyāśraya Vallabha, lune des rois levée sur l’océan qu’est la lignée des illustres Calukya, dont les deux lotus, que sont les pieds, sont sertis de la splendeur des pierres des diadèmes des rois ennemis, soumis par le froncement des lianes que sont ses sourcils !</p>
-        <p n="3-10">Son cher frère cadet, en raison des succès qu’il a remportés contre des forteresses inaccessibles,<note>Jeu de mot sur  viṣama, « inaccessible », le composé glose le biruda viṣama-siddhi, « qui possède le succès sur ce qui est inaccessible ».</note> dans les plaines, les mers, les forêts et les montagnes, - il est Viṣamasiddhi, en faisant tomber des averses de pluies de richesses sur les affligés, les hommes sans protecteurs et les deux-fois nés, il est la vache des désirs, du fait de son corps charmant qui déchaîne les passions <supplied reason="explanation">dans le cœur</supplied> des jeunes femmes, il est le dieu à l’enseigne de <foreign>makara</foreign>,<note>Kāma.</note> - lui qui a submergé la puissance de <supplied reason="explanation">l’âge</supplied> Kali dans les flots de ses dons, lui dont le cercle de tous les horizons est orné de l’extraordinaire gloire immaculée, issue de ses victoires dans de nombreux combats, - tel Manu, il connaît la discipline, tel Pr̥thu,<note>Manu et Pr̥thu sont des archétypes royaux.</note> il possède une vaste gloire,<note>jeu de mot sur le nom propre Pr̥thu et l’adjectif pr̥thu, « vaste ».</note> tel le <foreign>guru</foreign>,<note>Br̥haspati.</note> - très intelligent, extrêmement pieux, le grand roi illustre Viṣṇuvarddhana, aux chefs de famille, habitant le village de Kālvakoṇḍa, dans le <foreign>viṣaya</foreign> de Dimila, rassemblés dans ce but,<note>Le syntagme imam artham demeure difficile à interpréter, il pourrait aussi compléter ājñāpayati mais il y aurait alors une redondance avec yathā.</note> ordonne : </p>
-        <p n="10-16"><supplied reason="subaudible">je</supplied> donne aux deux petit-fils de Bhramaśarman, qui a appris et compris les Veda et Vedāṅga, aux deux fils de Durgaśarman, qui se consacre exclusivement à l’accomplissement de ses rites personnels, instaurés par sa propre Śākhā, et qu’il a appris, eux qui sont versés dans l’essence des nombreux Agama,<note>ou : « eux qui sont versés dans l’essence de nombreux textes sacrés, à savoir les Veda, ... ».</note> dans les Veda, Vedāṅga, Īthihāsa, Pūrāṇa et Dharmaśāstra, du <foreign>gotra</foreign> de Gautama, de l’école de Taittirīyaka, à Viṣṇuśarman et Mādhavaśarman, habitants le village de Ceṟupūra, dans le <foreign>viṣaya</foreign> de Pūki, au mois de Śrāvaṇa, à l’occasion d’une éclipse de lune, ce village, exempté de toute taxe, en qualité d’<foreign>agrahāra</foreign>, en vue de l’accroissement de notre propre mérite, de notre vie, de notre santé, de notre gloire. Aucune charge ne doit lui être imposée.<note>Le terme bhādha désigne une taxe, cf. insc. 26.</note></p>
-        <p n="16">Ainsi ces deux vers de Vyāsa :</p>
-        <p n="1" rend="stanza">
+<p rend="stanza" n="1">
+<l>First,</l>
+<l>Lands have been bestowed by many persons;</l>
+<l>By many also they have continued to be protected;</l>
+<l>Whosoever and whatsoever those lands may have been,</l>
+<l>He has obtained a corresponding reward.</l></p>
+<p rend="stanza" n="2">
+<l>Secondly,</l>
+<l>The bestower of land shall be happy in heaven,</l>
+<l>For sixty thousand years:</l>
+<l>And both he who resumes it,</l>
+<l>And he who concurs in the act,</l>
+<l>Must dwell in hell for the same number of years.</l></p>
+<p n="19-20">
+<gap reason="ellipsis" />
+<note resp="part:daba">Foulkes does not translate the colophon.</note>
+</p>
+</div>
+         
+         
+<div type="translation" source="bib:Fleet1891_01">
+<p n="1-3">Hail! A very moon of a king, risen from the ocean which is the glorious 
+<persName>Calukya</persName> family; having the two water-lilies, which are 
+<supplied reason="subaudible">his</supplied> feet, inlaid with the lustre of the jewels in the diadems of hostile kings who are bowed down by the frowning of his creeper-like arched eyebrows;— 
+<supplied reason="subaudible">such is</supplied> the Mahārāja 
+<persName>Satyāśraya</persName>, the favourite of fortune.</p>
+<p n="3-8">— His dear younger brother,—
+<supplied reason="subaudible">who is called</supplied> 
+<persName>Viṣamasiddhi</persName>, because he has achieved success against fortresses, difficult of access, on the plains, in the water, in the woods and on hills; who is a very cow of plenty, through raining down showers of treasures on the poor, the helpless and the twice-born; who is a very Makaradhvaja 
+<supplied reason="explanation">Kāmadeva</supplied>, because his handsome form plays the part of Madana 
+<supplied reason="explanation">Kāmadeva</supplied> among young women; who has drowned the power of 
+<supplied reason="subaudible">the wickedness of</supplied> the Kali age in the oceans that are his charities; who has adorned all the regions with the characteristic of 
+<supplied reason="subaudible">his</supplied> pure fame, that has arisen from victory in many battles; who, like Manu, is acquainted with courteous behaviour; who, like Pr̥thu, is of far-reaching fame; who, like Guru 
+<supplied reason="explanation">the regent of the planet Jupiter; the preceptor of the gods</supplied>, is possessed of wisdom; 
+<supplied reason="subaudible">and</supplied> who is extremely kind to Brāhmaṇs,—</p>
+<p n="8-10">— 
+<supplied reason="subaudible">He</supplied>, the Mahārāja, the glorious 
+<persName>Viṣṇuvardhana</persName> 
+<supplied reason="explanation">I</supplied>, issues a command to this purport to the assembled cultivators who reside at the village of 
+<placeName>Kālvakoṇḍa</placeName> in the 
+<placeName>Dimila</placeName> 
+<foreign>viṣaya</foreign>; viz.:—</p>
+<p n="10-16">— “To the two sons’ sons of 
+<persName>Brahmaśarman</persName>, who studied and mastered the Vedas and Vedāṅgas,— the sons of 
+<persName>Durgaśarman</persName>, who was intent upon performing his own proper rites, prescribed by his own 
+<foreign>śākhā</foreign>, which had been duly learned 
+<supplied reason="subaudible">by him</supplied>,— 
+<supplied reason="subaudible">viz.</supplied> to 
+<persName>Viṣṇuśarman</persName> and 
+<persName>Mādhavaśarman</persName>, who know the true meaning of the Vedas, the Vedāṅgas, the epics, the Purāṇas, the law-books, and many other sacred works, who are of the Gautama 
+<foreign>gotra</foreign>, 
+<supplied reason="subaudible">and</supplied> who belong to the Taittirīya 
+<foreign>caraṇa</foreign>, by 
+<supplied reason="subaudible">me</supplied> residing at 
+<supplied reason="subaudible">the town of</supplied> 
+<placeName>Ceṟupūra</placeName> in the 
+<placeName>Pūki(?)</placeName> 
+<foreign>viṣaya</foreign>, on the occasion of an eclipse of the moon in the month Śrāvaṇa, this village has been given, as an 
+<foreign>agrahāra</foreign>, with exemption from all taxes, for the increase of 
+<supplied reason="subaudible">my</supplied> own religious merit and duration of life and good health and fame. No obstruction 
+<supplied reason="subaudible">to the enjoyment</supplied> of it, should be caused by any one at all.”</p>
+<p n="16">— On this point (there are) two verses of Vyāsa:</p>
+<p rend="stanza" n="1">— Land has been enjoyed by many people, and has been preserved 
+<supplied reason="subaudible">in grant</supplied> by many; whosoever at any time possesses the earth, to him belongs, at that time, the reward 
+<supplied reason="explanation">of this grant that is now made, if he continue it</supplied>!</p>
+<p rend="stanza" n="2">The giver of land enjoys happiness in heaven for sixty thousand years; 
+<supplied reason="subaudible">but</supplied> he who resumes 
+<supplied reason="subaudible">a grant</supplied>, or he who assents 
+<supplied reason="subaudible">to an act of resumption</supplied>, shall dwell for the same number of years in hell!</p>
+<p n="19-20">—
+<supplied reason="subaudible">The bearer of</supplied> the command 
+<supplied reason="explanation">i.e. the 
+<foreign>dūtaka</foreign></supplied> is 
+<persName>Aṭavidurjaya</persName>, born in the illustrious 
+<persName>Matsya</persName> family(?), who has bowed down 
+<supplied reason="subaudible">his</supplied> enemies by the strength and prowess of his arm.
+— The year 10 
+<supplied reason="subaudible">and</supplied> 8; the month 4; the day 10 
+<supplied reason="subaudible">and</supplied> 5.</p>
+</div>
+         
+         
+<div type="translation" xml:lang="fra" source="bib:Estienne-Monod2008_01">
+<p n="1-3">Prospérité ! Le grand roi illustre Satyāśraya Vallabha, lune des rois levée sur l’océan qu’est la lignée des illustres Calukya, dont les deux lotus, que sont les pieds, sont sertis de la splendeur des pierres des diadèmes des rois ennemis, soumis par le froncement des lianes que sont ses sourcils !</p>
+<p n="3-10">Son cher frère cadet, en raison des succès qu’il a remportés contre des forteresses inaccessibles,
+<note>Jeu de mot sur  viṣama, « inaccessible », le composé glose le biruda viṣama-siddhi, « qui possède le succès sur ce qui est inaccessible ».</note> dans les plaines, les mers, les forêts et les montagnes, - il est Viṣamasiddhi, en faisant tomber des averses de pluies de richesses sur les affligés, les hommes sans protecteurs et les deux-fois nés, il est la vache des désirs, du fait de son corps charmant qui déchaîne les passions 
+<supplied reason="explanation">dans le cœur</supplied> des jeunes femmes, il est le dieu à l’enseigne de 
+<foreign>makara</foreign>,
+<note>Kāma.</note> - lui qui a submergé la puissance de 
+<supplied reason="explanation">l’âge</supplied> Kali dans les flots de ses dons, lui dont le cercle de tous les horizons est orné de l’extraordinaire gloire immaculée, issue de ses victoires dans de nombreux combats, - tel Manu, il connaît la discipline, tel Pr̥thu,
+<note>Manu et Pr̥thu sont des archétypes royaux.</note> il possède une vaste gloire,
+<note>jeu de mot sur le nom propre Pr̥thu et l’adjectif pr̥thu, « vaste ».</note> tel le 
+<foreign>guru</foreign>,
+<note>Br̥haspati.</note> - très intelligent, extrêmement pieux, le grand roi illustre Viṣṇuvarddhana, aux chefs de famille, habitant le village de Kālvakoṇḍa, dans le 
+<foreign>viṣaya</foreign> de Dimila, rassemblés dans ce but,
+<note>Le syntagme imam artham demeure difficile à interpréter, il pourrait aussi compléter ājñāpayati mais il y aurait alors une redondance avec yathā.</note> ordonne : </p>
+<p n="10-16">
+<supplied reason="subaudible">je</supplied> donne aux deux petit-fils de Bhramaśarman, qui a appris et compris les Veda et Vedāṅga, aux deux fils de Durgaśarman, qui se consacre exclusivement à l’accomplissement de ses rites personnels, instaurés par sa propre Śākhā, et qu’il a appris, eux qui sont versés dans l’essence des nombreux Agama,
+<note>ou : « eux qui sont versés dans l’essence de nombreux textes sacrés, à savoir les Veda, ... ».</note> dans les Veda, Vedāṅga, Īthihāsa, Pūrāṇa et Dharmaśāstra, du 
+<foreign>gotra</foreign> de Gautama, de l’école de Taittirīyaka, à Viṣṇuśarman et Mādhavaśarman, habitants le village de Ceṟupūra, dans le 
+<foreign>viṣaya</foreign> de Pūki, au mois de Śrāvaṇa, à l’occasion d’une éclipse de lune, ce village, exempté de toute taxe, en qualité d’
+<foreign>agrahāra</foreign>, en vue de l’accroissement de notre propre mérite, de notre vie, de notre santé, de notre gloire. Aucune charge ne doit lui être imposée.
+<note>Le terme bhādha désigne une taxe, cf. insc. 26.</note></p>
+<p n="16">Ainsi ces deux vers de Vyāsa :</p>
+<p rend="stanza" n="1">
 beaucoup ont donné une terre et beaucoup l’ont protégée,
 celui qui possède la terre en possède le fruit.</p>
-        <p n="2" rend="stanza">
+<p rend="stanza" n="2">
 Le donateur d’une terre se réjouit dans le ciel pendant soixante mille ans,
 celui qui la prend ou le permet gît en enfer aussi longtemps.</p>
-        <p n="19-20">
-Né dans l’illustre famille des Matsya, celui dont les ennemis se sont inclinés devant la splendeur de la force du bras, l’exécuteur <supplied reason="subaudible">est</supplied> Aṭavidurjaya. Le quinzième jour du quatrième mois de la dix-huitième année <supplied reason="explanation">de règne</supplied> 634.<note>soit selon l’éditeur le 7 juillet 632 apr. J-C.</note>
+<p n="19-20">
+Né dans l’illustre famille des Matsya, celui dont les ennemis se sont inclinés devant la splendeur de la force du bras, l’exécuteur 
+<supplied reason="subaudible">est</supplied> Aṭavidurjaya. Le quinzième jour du quatrième mois de la dix-huitième année 
+<supplied reason="explanation">de règne</supplied> 634.
+<note>soit selon l’éditeur le 7 juillet 632 apr. J-C.</note>
 </p>
-      </div>
-      <div type="commentary">
-        <p>An identification of the findspot with another Cipurupalli is suggested in <bibl>
-            <ptr target="bib:SomasekharaSarma1955-1956_01"/>
-            <citedRange>132</citedRange>
-          </bibl>.</p>
-      </div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
-        <p>First brought to notice by Master in 1867, who sent the plates to the Madras Government. Described and translated (but not edited) by T. Foulkes (<bibl rend="omitname">
-            <ptr target="bib:Foulkes1870_01"/>
-          </bibl>). First edited (probably from estampages) by A. C. Burnell (<bibl rend="omitname">
-            <ptr target="bib:Burnell1878_01"/>
-            <citedRange unit="page">137-138</citedRange>
-            <citedRange unit="item">27</citedRange>
-          </bibl>) with a lithograph (of an inked estampage?) in Plate 27. Re-edited by J. F. Fleet (<bibl rend="omitname">
-            <ptr target="bib:Fleet1891_01"/>
-          </bibl>) by which time the plates had been lost, so Fleet worked from Burnell's lithograph. PEM's record says Fleet's edition includes a facsimile, but this does not seem to be the case; CHECK a printed copy of IA20. The present edition by Dániel Balogh is based on a collation of the above editions with the estampages published by Burnell.</p>
-        <listBibl type="primary">
-          <bibl n="ACB">
-            <ptr target="bib:Burnell1878_01"/>
-            <citedRange unit="page">137-138</citedRange>
-            <citedRange unit="item">27</citedRange>
-          </bibl>
-          <bibl n="JFF">
-            <ptr target="bib:Fleet1891_01"/>
-          </bibl>
-          <bibl n="TF">
-            <ptr target="bib:Foulkes1870_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:Foulkes1870_01"/>
-          </bibl>
-          <bibl>
-            <ptr target="bib:SomasekharaSarma1955-1956_01"/>
-            <citedRange>132</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Hultzsch1907-1908_07"/>
-            <citedRange>318</citedRange>
-          </bibl>
-          <!-- one <bibl/> per item of secondary bibliography -->
-        </listBibl>
-      </div>
-    </body>
-  </text>
+</div>
+
+
+
+
+
+         
+<div type="commentary">
+<p>An identification of the findspot with another Cipurupalli is suggested in 
+<bibl>
+  <ptr target="bib:SomasekharaSarma1955-1956_01" />
+  <citedRange>132</citedRange>
+</bibl>.</p>
+
+         
+         </div>
+
+
+         
+         
+<div type="bibliography">
+               
+<p>First brought to notice by Master in 1867, who sent the plates to the Madras Government. Described and translated (but not edited) by T. Foulkes (
+<bibl rend="omitname">
+  <ptr target="bib:Foulkes1870_01" />
+</bibl>). First edited (probably from estampages) by A. C. Burnell (
+<bibl rend="omitname">
+  <ptr target="bib:Burnell1878_01" />
+  <citedRange unit="page">137-138</citedRange>
+  <citedRange unit="item">27</citedRange>
+</bibl>) with a lithograph (of an inked estampage?) in Plate 27. Re-edited by J. F. Fleet (
+<bibl rend="omitname">
+  <ptr target="bib:Fleet1891_01" />
+</bibl>) by which time the plates had been lost, so Fleet worked from Burnell's lithograph. PEM's record says Fleet's edition includes a facsimile, but this does not seem to be the case; CHECK a printed copy of IA20. The present edition by Dániel Balogh is based on a collation of the above editions with the estampages published by Burnell.</p>
+           
+<listBibl type="primary">
+             
+<bibl n="ACB">
+  <ptr target="bib:Burnell1878_01" />
+  <citedRange unit="page">137-138</citedRange>
+  <citedRange unit="item">27</citedRange>
+</bibl>
+             
+<bibl n="JFF">
+  <ptr target="bib:Fleet1891_01" />
+</bibl>
+             
+<bibl n="TF">
+  <ptr target="bib:Foulkes1870_01" />
+</bibl>
+           </listBibl>
+           
+<listBibl type="secondary">
+             
+<bibl>
+  <ptr target="bib:Foulkes1870_01" />
+</bibl>
+             
+<bibl>
+  <ptr target="bib:SomasekharaSarma1955-1956_01" />
+  <citedRange>132</citedRange>
+</bibl>
+             
+<bibl>
+  <ptr target="bib:Hultzsch1907-1908_07" />
+  <citedRange>318</citedRange>
+</bibl>
+           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00217</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,91 +62,144 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <p><!-- 
-Edition based on #Altekar_1947 with corrections from #Venkataramayya_1953. Restored text is based on %IN00216, except for tiṣṭhā kr̥tā at the end, which is Altekar's conjecture. 
---><lb n="1"/>siddhaṁ<supplied reason="subaudible">.</supplied> kr̥tehi <num value="282"><g type="numeral">200</g><g type="numeral">80</g> 2</num> caitra-pūrṇṇamā<choice>
-            <sic>sī</sic>
-            <corr>syā</corr>
-          </choice>m asyām p<choice>
-            <sic>u</sic>
-            <corr>ū</corr>
-          </choice>rvvāyā<supplied reason="omitted">ṁ</supplied> maha<lb break="no" n="2"/>tā sva-śakti-guṇa-guruṇā pauruṣeṇa prathama-candra-darśanam i<lb break="no" n="3"/>va mālava-gaṇa-viṣayam avatārayitvaikaṣaṣṭi-rātram ati<lb break="no" n="4"/>satram aparimita-dharmma-mātraṁ samuddhr̥tya pitr̥-paitāmah<choice>
-            <sic>i</sic>
-            <corr>ī</corr>
-          </choice>ṁ dhu<lb break="no" n="5"/>ram āvr̥tya suvi<unclear>pu</unclear>laṁ dyāvāpr̥thivyor aṁtaram anuttamena yaśa<lb break="no" n="6"/>sā sva-karma-saṁ<unclear>pa</unclear>dayā vipul<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice><supplied reason="omitted">ṁ</supplied> samupagatām r̥ddhim ātma-si<lb break="no" n="7"/>ddhi<supplied reason="omitted">ṁ</supplied> vitatya māyā<unclear>m i</unclear>va satra-bhūmau sarva-kāmaugha-dhārāṁ vasor ddhā<lb break="no" n="8"/>rām iva bbrāhmaṇāgni-vaiśvānareṣu hutvā brahmeṁdra-prajāpati-maha<lb break="no" n="9"/>rṣi-viṣṇu-sthāne<unclear>ṣu</unclear> kr̥tāvakāśasya pāpa-niravakāśasya sitasa<lb break="no" n="10"/>bhāvasatha-t<choice>
-            <sic>o</sic>
-            <corr>a</corr>
-          </choice>ḍāka-kūpa-devāyatana-yajña-<unclear>dā</unclear>na-satya-prajā-vi<lb break="no" n="11"/>pula-<unclear>pālana-prasaṁ</unclear>gaiḥ purāṇa-rājarṣi-dharmma-paddhat<choice>
-            <sic>ī</sic>
-            <corr>i</corr>
-          </choice>-sata<lb break="no" n="12"/>ta-kr̥ta-sama<unclear>nuga</unclear>mana-niścayasya sva-guṇātiśaya-vi<lb break="no" n="13"/>starair manu-ni<unclear>rviśe</unclear>ṣam iva bhuvi manuṣya-bhāvaṁ yathārtham a<lb break="no" n="14"/>nubhavata <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ikṣvāku</supplied>-<unclear>prathi</unclear>ta-rājarṣi-vaṁśe mālava-vaṁśe prasūta<lb break="no" n="15"/>sya jaya<unclear cert="low">tsena-naptur bhr̥gu</unclear>varddhana-pautrasya jayasoma-puttrasya so<lb break="no" n="16"/>gi<unclear cert="low">no naṁdi</unclear>somasyā<unclear cert="low">ne</unclear><unclear>ka</unclear>-<unclear cert="low">śa</unclear><unclear>ta-go</unclear>-sahasra-dakṣiṇā<supplied reason="subaudible">.</supplied> vr̥ṣa<lb break="no" n="17"/>-pramatta-<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->śr̥ṅga-vipra</supplied>dhr̥ṣṭa-citya-vr̥kṣa-yūpa-saṁkaṭa-tīr<choice>
-            <sic>a</sic>
-            <corr>e</corr>
-          </choice> <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->puṣka</supplied><lb break="no" n="18"/>ra-pra<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->tilambha-bhūte sva-dharma</supplied>-setau mahātaḍāke yūpa-pra<supplied cert="low" reason="lost">tiṣṭhā kr̥tā|</supplied><!-- 
-L5. Altekar says pa of saṁpadayā is damaged. In my scan, the whole of padayā is indistinct, but the first character doesn't look like pa. This bit is lost from the parallel inscription. I find saṁpadayā doubtful, the noun saṁpadā would be non-standard for sampad. Altekar translates "prosperity produced by the richness (i.e. excellence) of his karman (i, bravery, ii, religious merit), which is dodgy. 
---><!-- 
-L7. There is a concave semicircle above the anusvāra of dhārāṁ. (Altekar) This feature is discussed in #Altekar_1947:254. 
---><!-- 
-L8. I follow Altekar's bbrā, but the character is not visible at all in my scanned facsimile, and this inscription tends not to double consonants (apparently never before r and usually not after r, though rddhā in l7 is correct. 
---><!-- 
-L14. There is a concave semicircle above the anusvāra of both instances of vaṁśe. (Altekar) 
---><!-- 
-L15. I follow Venkataramayya's reading of the names. My scan is useless. Altekar reads jayanartana; followed by a reconstructed prabhāgravarddhana (admitting that prabhāgra is "completely damaged"); in 15-16 he reads sogineta em. soginetuḥ (?śrī)somasyā° 
---><!-- 
-L16. I retain Altekar's supplied daṇḍa after dakṣiṇā, but it seems unnecessary in light of the very plausible restoration of the end. 
---></p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<p>
+<lb n="1" />siddhaṁ
+<supplied reason="subaudible">.</supplied> kr̥tehi 
+<num value="282">
+<g type="numeral">200</g> 
+<g type="numeral">80</g> 2</num> caitra-pūrṇṇamā
+<choice>
+  <sic>sī</sic>
+  <corr>syā</corr>
+</choice>m asyām p
+<choice>
+  <sic>u</sic>
+  <corr>ū</corr>
+</choice>rvvāyā
+<supplied reason="omitted">ṁ</supplied> maha
+<lb n="2" break="no" />tā sva-śakti-guṇa-guruṇā pauruṣeṇa prathama-candra-darśanam i
+<lb n="3" break="no" />va mālava-gaṇa-viṣayam avatārayitvaikaṣaṣṭi-rātram ati
+<lb n="4" break="no" />satram aparimita-dharmma-mātraṁ samuddhr̥tya pitr̥-paitāmah
+<choice>
+  <sic>i</sic>
+  <corr>ī</corr>
+</choice>ṁ dhu
+<lb n="5" break="no" />ram āvr̥tya suvi
+<unclear>pu</unclear>laṁ dyāvāpr̥thivyor aṁtaram anuttamena yaśa
+<lb n="6" break="no" />sā sva-karma-saṁ
+<unclear>pa</unclear>dayā vipul
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>
+<supplied reason="omitted">ṁ</supplied> samupagatām r̥ddhim ātma-si
+<lb n="7" break="no" />ddhi
+<supplied reason="omitted">ṁ</supplied> vitatya māyā
+<unclear>m i</unclear>va satra-bhūmau sarva-kāmaugha-dhārāṁ vasor ddhā
+<lb n="8" break="no" />rām iva bbrāhmaṇāgni-vaiśvānareṣu hutvā brahmeṁdra-prajāpati-maha
+<lb n="9" break="no" />rṣi-viṣṇu-sthāne
+<unclear>ṣu</unclear> kr̥tāvakāśasya pāpa-niravakāśasya sitasa
+<lb n="10" break="no" />bhāvasatha-t
+<choice>
+  <sic>o</sic>
+  <corr>a</corr>
+</choice>ḍāka-kūpa-devāyatana-yajña-
+<unclear>dā</unclear>na-satya-prajā-vi
+<lb n="11" break="no" />pula-
+<unclear>pālana-prasaṁ</unclear>gaiḥ purāṇa-rājarṣi-dharmma-paddhat
+<choice>
+  <sic>ī</sic>
+  <corr>i</corr>
+</choice>-sata
+<lb n="12" break="no" />ta-kr̥ta-sama
+<unclear>nuga</unclear>mana-niścayasya sva-guṇātiśaya-vi
+<lb n="13" break="no" />starair manu-ni
+<unclear>rviśe</unclear>ṣam iva bhuvi manuṣya-bhāvaṁ yathārtham a
+<lb n="14" break="no" />nubhavata 
+<supplied reason="lost">ikṣvāku</supplied>-
+<unclear>prathi</unclear>ta-rājarṣi-vaṁśe mālava-vaṁśe prasūta
+<lb n="15" break="no" />sya jaya
+<unclear cert="low">tsena-naptur bhr̥gu</unclear>varddhana-pautrasya jayasoma-puttrasya so
+<lb n="16" break="no" />gi
+<unclear cert="low">no naṁdi</unclear>somasyā
+<unclear cert="low">ne</unclear>
+<unclear>ka</unclear>-
+<unclear cert="low">śa</unclear>
+<unclear>ta-go</unclear>-sahasra-dakṣiṇā
+<supplied reason="subaudible">.</supplied> vr̥ṣa
+<lb n="17" break="no" />-pramatta-
+<supplied reason="lost">śr̥ṅga-vipra</supplied>dhr̥ṣṭa-citya-vr̥kṣa-yūpa-saṁkaṭa-tīr
+<choice>
+  <sic>a</sic>
+  <corr>e</corr>
+</choice> 
+<supplied reason="lost">puṣka</supplied>
+<lb n="18" break="no" />ra-pra
+<supplied reason="lost">tilambha-bhūte sva-dharma</supplied>-setau mahātaḍāke yūpa-pra
+<supplied reason="lost" cert="low">tiṣṭhā kr̥tā|</supplied></p>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

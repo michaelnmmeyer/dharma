@@ -1,8 +1,15 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>Donation of a <foreign>pannasa</foreign> to the great brahmin Īśarēnṟu</title>
+        <title>Donation of a 
+        <foreign>pannasa</foreign>to the great brahmin Īśarēnṟu</title>
         <respStmt>
           <resp>EpiDoc Encoding</resp>
           <persName ref="part:jeth">
@@ -14,7 +21,6 @@
           <resp>intellectual authorship of edition</resp>
           <persName>
             <forename>Mallampalli</forename>
-            <!-- Fill in the name of the responsible scholar — it possible to use only <name> instead of <foreame> and <surname> -->
             <surname>Sōmaśēkhara Śarma</surname>
           </persName>
         </respStmt>
@@ -25,40 +31,28 @@
         <idno type="filename">DHARMA_INSTelugu00099</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-                            Licence. To view a copy of the licence, visit
-                            https://creativecommons.org/licenses/by/4.0/ or send a letter to
-                            Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-                            California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Jens Christian Thomas.</p>
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. -->
-                                The inscription contains halantas. However, they are not always discernible purely based on their shape which might be due to the quality of the published picture. Halanta N is written slightly smaller (apart from <foreign>akuN</foreign> in line 4 where the N is very small) and lacks the horizontal line on top of the <foreign>akṣara</foreign>. Halanta M is still rudimentarily visible on the picture but can not be clearly delineated from ⟨ma⟩ in line 1 and 4. The <foreign>akṣara</foreign> ⟨ḻa⟩ is written in the standard form in line 3 (i. e. resembling a softly drawn w with inwardly curled edges) but is written with the curled edges drawn right into the middle so that they meet (like in the process of cellular meiosis) in line 1. The <foreign>akṣara</foreign> ⟨le⟩ is written with the vowel element almost forming a circle on top. This form of ⟨le⟩ albeit unusual can be found in several other inscriptions.
-                            </p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p>The inscription contains halantas. However, they are not always discernible purely based on their shape which might be due to the quality of the published picture. Halanta N is written slightly smaller (apart from 
+              <foreign>akuN</foreign>in line 4 where the N is very small) and lacks the horizontal line on top of the 
+              <foreign>akṣara</foreign>. Halanta M is still rudimentarily visible on the picture but can not be clearly delineated from ⟨ma⟩ in line 1 and 4. The 
+              <foreign>akṣara</foreign>⟨ḻa⟩ is written in the standard form in line 3 (i. e. resembling a softly drawn w with inwardly curled edges) but is written with the curled edges drawn right into the middle so that they meet (like in the process of cellular meiosis) in line 1. The 
+              <foreign>akṣara</foreign>⟨le⟩ is written with the vowel element almost forming a circle on top. This form of ⟨le⟩ albeit unusual can be found in several other inscriptions.</p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -68,151 +62,239 @@
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_idListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
       <change when="2022-03-29" who="part:jeth">Initial encoding of the file</change>
-      <change when="2020-10-12" who="part:axja">Version 3.2 : movinng the xml:lang to the root</change>
-      <change when="2020-07-02" who="part:axja">Version 3.1: adding the encodingDesc and linking the template with the DHARMA Schema</change>
-      <change when="2020-03-18" who="part:axja">Version 2: addition of handDesc and summary</change>
-      <change status="draft" when="2019-12-18" who="part:axja">Creation of the
-                template</change>
+      <change who="part:axja" when="2020-10-12">Version 3.2 : movinng the xml:lang to the root</change>
+      <change who="part:axja" when="2020-07-02">Version 3.1: adding the encodingDesc and linking the template with the DHARMA Schema</change>
+      <change who="part:axja" when="2020-03-18">Version 2: addition of handDesc and summary</change>
+      <change who="part:axja" when="2019-12-18" status="draft">Creation of the template</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tel-Latn">
-        <p><!-- the picture has to be seen regarding halantas etc. -->
-                 <milestone n="A" type="facelike" unit="face"/>
-                 <lb n="1"/>svasti śrī sōḻa-mahārājull ēḷaN In-puḻōli
-                 <lb n="2"/>Aṇapōtulu rēvaṇakālu puddaṇakālu Iccina pa<lb break="no" n="3"/>nnasa pen-pāṟa IśaṟēnikiN tēni ḻaccinavānṟu <unclear>pa</unclear><lb break="no" n="4"/><supplied reason="lost">ñca</supplied>mahāpā<unclear>ta</unclear>kunṟ akuN
-                 <milestone n="B" type="facelike" unit="face"/>
-                 <lb n="5"/>Asivairuvu likitaM
+      
+<body>
+         
+<div type="edition" xml:lang="tel-Latn">
+             
+<p>                 
+<milestone unit="face" type="facelike" n="A" />
+                 
+<lb n="1" />svasti śrī sōḻa-mahārājull ēḷaN In-puḻōli
+                 
+<lb n="2" />Aṇapōtulu rēvaṇakālu puddaṇakālu Iccina pa
+<lb break="no" n="3" />nnasa pen-pāṟa IśaṟēnikiN tēni ḻaccinavānṟu 
+<unclear>pa</unclear>
+<lb break="no" n="4" />
+<supplied reason="lost">ñca</supplied>mahāpā
+<unclear>ta</unclear>kunṟ akuN
+                 
+<milestone unit="face" type="facelike" n="B" />
+                 
+<lb n="5" />Asivairuvu likitaM
              </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1">
-            <lem>sōḻa</lem>
-            <rdg source="bib:SomasekharaSarma1933_01">sōṣja</rdg>
-          </app>
-          <app loc="1">
-            <lem>ēḷaN</lem>
-            <rdg source="bib:SomasekharaSarma1933_01">oḷana</rdg>
-            <note>Radha Krishna has the same reading as Sōmaśēkhara Śarma. K. M. Sastri notes that <cit>
-                <quote>[i]t would appear that the reading here is <hi rend="italic">ēḷan</hi>, and not <hi rend="italic">oḷana</hi> as given by M. S. Sarma for, compare other Rēnāṭi Cōḻa inscriptions with <hi rend="italic">ēḷa</hi>(<hi rend="italic">n</hi>) in similar context</quote>
-                <bibl rend="omitname">
-                  <citedRange unit="page">285</citedRange>
-                  <citedRange unit="note">1</citedRange>
-                </bibl>
-              </cit>.</note>
-          </app>
-          <app loc="1">
-            <lem>In-puḻōli</lem>
-            <rdg source="bib:SomasekharaSarma1933_01">Inpuṣjōli</rdg>
-          </app>
-          <app loc="2">
-            <lem>pa<lb break="no" n="3"/>nnasa</lem>
-            <note>The picture of the estampage even may show ⟨pā⟩.</note>
-          </app>
-          <app loc="2">
-            <lem>Aṇapōtulu</lem>
-            <rdg source="bib:SomasekharaSarma1933_01">Aṇapotulu</rdg>
-            <note>The reading <foreign>pōtulu</foreign> is more probable (the script does not differentiate between /o/ and /oː/) because <foreign>pōtu</foreign> can be found as element in names (e. g. the poet Pōtana).</note>
-          </app>
-          <app loc="3">
-            <lem>IśaṟēnikiN</lem>
-            <rdg source="bib:SomasekharaSarma1933_01">IśeṟēnikiN</rdg>
-            <note>Radha Krishna has the same reading as Sōmaśēkhara Śarma. There is a line protruding from the middle of the left side of ⟨śa⟩ but it seems to be a scratch on the stone since also another prominent scratch is right next to it.</note>
-          </app>
-          <app loc="3">
-            <lem>ḻaccinavānṟu</lem>
-            <rdg source="bib:SomasekharaSarma1933_01">ṣjaccinavānṟu</rdg>
-          </app>
-          <app loc="3">
-            <lem>
-              <unclear>pa</unclear>
-              <lb break="no" n="4"/>
-              <supplied reason="lost">ñca</supplied>
-            </lem>
-            <note>The <foreign>akṣara</foreign> ⟨ñca⟩ was written under ⟨nna⟩ of line 3 so that the top of ⟨ñca⟩ was written on the bottom line of ⟨ma⟩. The estampage does not cover the space that the <foreign>akṣara</foreign> seems to have been written in.</note>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:jeth" type="translation">
-        <p>
-                 Svasti! While Cōḻa-Mahārāja was ruling, a pannasa given to the great brahmin (<foreign>pen-pāṟa</foreign>) Īśaṟēnṟu by Aṇapōtulu, Rēvaṇakālu and Puddaṇakālu (inhabitants) of this city.<!-- The city should be added in brackets; Poṭladurti or Mālepāḍu --> 
-                 Whoever impedes<!-- lit. destroys; better translation? --> it will be (guilty) of the five great sins. Written by Asivairuvu.
+         </div>
+         
+<div type="apparatus">
+               
+<listApp>
+                  
+<app loc="1">
+                     
+<lem>sōḻa</lem>
+                     
+<rdg source="bib:SomasekharaSarma1933_01">sōṣja</rdg>
+                  </app>
+                  
+<app loc="1">
+                     
+<lem>ēḷaN</lem>
+                     
+<rdg source="bib:SomasekharaSarma1933_01">oḷana</rdg>
+                     
+<note>Radha Krishna has the same reading as Sōmaśēkhara Śarma. K. M. Sastri notes that 
+<cit>
+  <quote>[i]t would appear that the reading here is 
+  <hi rend="italic">ēḷan</hi>, and not 
+  <hi rend="italic">oḷana</hi> as given by M. S. Sarma for, compare other Rēnāṭi Cōḻa inscriptions with 
+  <hi rend="italic">ēḷa</hi>(
+  <hi rend="italic">n</hi>) in similar context</quote>
+  <bibl rend="omitname">
+    <citedRange unit="page">285</citedRange>
+    <citedRange unit="note">1</citedRange>
+  </bibl>
+</cit>.</note>
+                  </app>
+                  
+<app loc="1">
+                     
+<lem>In-puḻōli</lem>
+                     
+<rdg source="bib:SomasekharaSarma1933_01">Inpuṣjōli</rdg>
+                  </app>
+                  
+<app loc="2">
+                     
+<lem>pa
+<lb break="no" n="3" />nnasa</lem>
+                     
+<note>The picture of the estampage even may show ⟨pā⟩.</note>
+                  </app>
+                  
+<app loc="2">
+                     
+<lem>Aṇapōtulu</lem>
+                     
+<rdg source="bib:SomasekharaSarma1933_01">Aṇapotulu</rdg>
+                     
+<note>The reading 
+<foreign>pōtulu</foreign> is more probable (the script does not differentiate between /o/ and /oː/) because 
+<foreign>pōtu</foreign> can be found as element in names (e. g. the poet Pōtana).</note>
+                  </app>
+                  
+<app loc="3">
+                     
+<lem>IśaṟēnikiN</lem>
+                     
+<rdg source="bib:SomasekharaSarma1933_01">IśeṟēnikiN</rdg>
+                     
+<note>Radha Krishna has the same reading as Sōmaśēkhara Śarma. There is a line protruding from the middle of the left side of ⟨śa⟩ but it seems to be a scratch on the stone since also another prominent scratch is right next to it.</note>
+                  </app>
+                  
+<app loc="3">
+                     
+<lem>ḻaccinavānṟu</lem>
+                     
+<rdg source="bib:SomasekharaSarma1933_01">ṣjaccinavānṟu</rdg>
+                  </app>
+                  
+<app loc="3">
+                     
+<lem>
+  <unclear>pa</unclear>
+  <lb break="no" n="4" />
+  <supplied reason="lost">ñca</supplied>
+</lem>
+                     
+<note>The 
+<foreign>akṣara</foreign> ⟨ñca⟩ was written under ⟨nna⟩ of line 3 so that the top of ⟨ñca⟩ was written on the bottom line of ⟨ma⟩. The estampage does not cover the space that the 
+<foreign>akṣara</foreign> seems to have been written in.</note>
+                  </app>
+               </listApp>
+         </div>
+         
+<div type="translation" resp="part:jeth">
+             
+<p>
+                 Svasti! While Cōḻa-Mahārāja was ruling, a pannasa given to the great brahmin (
+<foreign>pen-pāṟa</foreign>) Īśaṟēnṟu by Aṇapōtulu, Rēvaṇakālu and Puddaṇakālu (inhabitants) of this city. 
+                 Whoever impedes it will be (guilty) of the five great sins. Written by Asivairuvu.
              </p>
-      </div>
-      <div source="bib:Sastri1969_01" type="translation">
-        <p>
-                 Hail! While the illustrious Cōḻa-Mahārāja was ruling, Rēvaṇakālu and Puddaṇakālu, officers in charge of Inpuḻōli granted a <hi rend="italic">pannasa</hi> to the great brahmin Iśeṟe-. He who destroys it will incure the five great sins. (This is) written by Asivairuvu.
+         </div>
+         
+<div type="translation" source="bib:Sastri1969_01">
+             
+<p>
+                 Hail! While the illustrious Cōḻa-Mahārāja was ruling, Rēvaṇakālu and Puddaṇakālu, officers in charge of Inpuḻōli granted a 
+<hi rend="italic">pannasa</hi> to the great brahmin Iśeṟe-. He who destroys it will incure the five great sins. (This is) written by Asivairuvu.
              </p>
-      </div>
-      <div source="bib:SomasekharaSarma1933_01" type="translation">
-        <p>
+         </div>
+         
+<div type="translation" source="bib:SomasekharaSarma1933_01">
+             
+<p>
                  చోళమహారాజునధీతయందున్న ఇనుప్రోలి అణపోతులు రేవణగారు పుద్దణగారు పెద్దబ్రాహ్మణుడుగారు ‘ఇశెఱేనికి’ ఇచ్చినపన్నస (ఇది); దేని (ఏదానమును) చెడగొట్టినవాడు పంచమహాపాతకుడగున్.
                  
-                 [(This) is a pannasa given by the <foreign>ājñaptis</foreign> Rēvaṇagāru and Puddanagāru of Inuprōlu who were under the authority of Cōḻa-Mahārāju. Who spoils whatever (donation) will be [guilty; word added] of the five great sins. (translation by Jens Thomas)]
+                 [(This) is a pannasa given by the 
+<foreign>ājñaptis</foreign> Rēvaṇagāru and Puddanagāru of Inuprōlu who were under the authority of Cōḻa-Mahārāju. Who spoils whatever (donation) will be [guilty; word added] of the five great sins. (translation by Jens Thomas)]
              </p>
-      </div>
-      <div type="commentary">
-        <p>
-                 The inscription was published twice by Sōmaśēkhara Śarma whose second edition I could not obtain. The text as published by Radha Krishna, however, may reflect this second edition that seems to basically only differ in the correct representation of the <foreign>akṣara</foreign> ⟨ḻ⟩ as opposed to the edition in Vyāsasaṁgrahamu. The <foreign>akṣara</foreign> ⟨ḻ⟩ is clearly written in the inscription. The spelling ⟨ṣja⟩ in Sōmaśēkhara Śarma's first edition must have been chosen due to the lack of a proper printing option at the time.
+         </div>
+         
+<div type="commentary">
+             
+<p>
+                 The inscription was published twice by Sōmaśēkhara Śarma whose second edition I could not obtain. The text as published by Radha Krishna, however, may reflect this second edition that seems to basically only differ in the correct representation of the 
+<foreign>akṣara</foreign> ⟨ḻ⟩ as opposed to the edition in Vyāsasaṁgrahamu. The 
+<foreign>akṣara</foreign> ⟨ḻ⟩ is clearly written in the inscription. The spelling ⟨ṣja⟩ in Sōmaśēkhara Śarma's first edition must have been chosen due to the lack of a proper printing option at the time.
                  The reading as presented here is my own based on the picture in Vyāsasaṁgrahamu. The deviating readings as published by Radha Krishna have been assigned to himself although they may reflect the readings in Sōmaśēkhara Śarma's second edition.
-                 Lines 1-4 are written on the broader and polished side of the "red stone" (యెర్రరాయి) and line 5 on either side of the stone (<bibl>
-            <ptr target="bib:SomasekharaSarma1933_01"/>
-            <citedRange unit="page">301, 304</citedRange>
-          </bibl>).
-                 Sōmaśēkhara Śarma interpreted <foreign>Aṇapotulu</foreign> (with short o) to be a Prakrit form of <foreign>ājñāpati</foreign> or <foreign>ājñapti</foreign> (with Telugu plural suffix) and read <foreign>oḷana</foreign> (instead of <foreign>ēḷaN</foreign>) which he phrased as "in subordination to" (అధీనతయందలి) or "in the authority of" (అధికారమునందలి) (the ruler) (<bibl rend="omitname">
-            <ptr target="bib:SomasekharaSarma1933_01"/>
-            <citedRange unit="page">308-309</citedRange>
-          </bibl>). In this case the donation would have been made by the ruler and the two other persons could have been <foreign>ājñaptis</foreign> although the syntax would be a little bit odd. It may be noted that in Sōmaśēkhara Śarma's Telugu translation <foreign>Aṇapōtulu</foreign> is written (with long ō), probably by mistake. As it seems to me the inscription provides the usual formula <hi rend="italic">XYZ ēḷaN</hi> which only refers to the reign of a ruler so that the agents (donors) are the three other persons. 
-                 The name <foreign>Aṇapōtulu</foreign> is a honorific plural and seems to consist of <foreign>a(ṇ)ṇa</foreign> 'elder brother' (normally used as second element in names) and <foreign>pōtu</foreign> 'male'. The same elements in a different order can be found in the name of the poet <foreign>Pōtana</foreign> (with later decerebralization).
-                 The place that is referred to in the inscription (<foreign>In-puḻōlu</foreign> 'this city') must be either Poṭladurti or Mālēpāḍu because the inscription was found near the road between these two villages.
-                 <!-- MORE -->
-                 Another inscription that mentions the rule of Cōḻa-Mahārāja and the scribe Asivairuvu is DHARMA_INSTelugu00015.
+                 Lines 1-4 are written on the broader and polished side of the "red stone" (యెర్రరాయి) and line 5 on either side of the stone (
+<bibl>
+  <ptr target="bib:SomasekharaSarma1933_01" />
+  <citedRange unit="page">301, 304</citedRange>
+</bibl>).
+                 Sōmaśēkhara Śarma interpreted 
+<foreign>Aṇapotulu</foreign> (with short o) to be a Prakrit form of 
+<foreign>ājñāpati</foreign> or 
+<foreign>ājñapti</foreign> (with Telugu plural suffix) and read 
+<foreign>oḷana</foreign> (instead of 
+<foreign>ēḷaN</foreign>) which he phrased as "in subordination to" (అధీనతయందలి) or "in the authority of" (అధికారమునందలి) (the ruler) (
+<bibl rend="omitname">
+  <ptr target="bib:SomasekharaSarma1933_01" />
+  <citedRange unit="page">308-309</citedRange>
+</bibl>). In this case the donation would have been made by the ruler and the two other persons could have been 
+<foreign>ājñaptis</foreign> although the syntax would be a little bit odd. It may be noted that in Sōmaśēkhara Śarma's Telugu translation 
+<foreign>Aṇapōtulu</foreign> is written (with long ō), probably by mistake. As it seems to me the inscription provides the usual formula 
+<hi rend="italic">XYZ ēḷaN</hi> which only refers to the reign of a ruler so that the agents (donors) are the three other persons. 
+                 The name 
+<foreign>Aṇapōtulu</foreign> is a honorific plural and seems to consist of 
+<foreign>a(ṇ)ṇa</foreign> 'elder brother' (normally used as second element in names) and 
+<foreign>pōtu</foreign> 'male'. The same elements in a different order can be found in the name of the poet 
+<foreign>Pōtana</foreign> (with later decerebralization).
+                 The place that is referred to in the inscription (
+<foreign>In-puḻōlu</foreign> 'this city') must be either Poṭladurti or Mālēpāḍu because the inscription was found near the road between these two villages.
+                                  Another inscription that mentions the rule of Cōḻa-Mahārāja and the scribe Asivairuvu is DHARMA_INSTelugu00015.
              </p>
-      </div>
-      <div type="bibliography">
-        <p>
+         </div>
+        
+<div type="bibliography">
+           
+<p>
                The inscription was published by Sōmaśēkhara Śarma in Vyāsa-Saṁgrahamu together with a picture, a discussion and a translation into modern Telugu. The same author later published another article on the inscription in Āndhra Patrika. I could not obtain this latter article. The inscription was re-published by K. M. Sastri, who added an English translation, and B. Radha Krishna.
            </p>
-        <listBibl type="primary">
-          <bibl n="siglum"/>
-          <bibl n="MS">
-            <ptr target="bib:SomasekharaSarma1933_01"/>
-            <citedRange unit="page">301-310</citedRange>
-          </bibl>
-          <bibl n="RK">
-            <ptr target="bib:Radhakrishna1971_01"/>
-            <citedRange unit="page">5</citedRange>
-            <citedRange unit="item">8</citedRange>
-          </bibl>
+                
+<listBibl type="primary">
+        
+<bibl n="siglum" />
+                
+<bibl n="MS">
+  <ptr target="bib:SomasekharaSarma1933_01" />
+  <citedRange unit="page">301-310</citedRange>
+</bibl>
+                
+<bibl n="RK">
+  <ptr target="bib:Radhakrishna1971_01" />
+  <citedRange unit="page">5</citedRange>
+  <citedRange unit="item">8</citedRange>
+</bibl>
         </listBibl>
-        <listBibl type="secondary">
-          <bibl/>
-          <bibl>
-            <ptr target="bib:SomasekharaSarma1941-1942_01"/>
-            <citedRange unit="page">5-15</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">285-286</citedRange>
-            <citedRange unit="item">9</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+           
+<listBibl type="secondary">
+              
+<bibl />
+              
+<bibl>
+  <ptr target="bib:SomasekharaSarma1941-1942_01" />
+  <citedRange unit="page">5-15</citedRange>
+</bibl>
+              
+<bibl>
+  <ptr target="bib:Sastri1969_01" />
+  <citedRange unit="page">285-286</citedRange>
+  <citedRange unit="item">9</citedRange>
+</bibl>
+           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

@@ -1,10 +1,14 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
         <title>Cīṟkāḻi, donation, time of Kulōttuṅka III, year 14</title>
-        <!--Change the title of the file, e.g. Raktamālā grant of the time of Budhagupta, year 159-->
-        <!-- Add your name in the respStmt matching your involvement -->
         <respStmt>
           <resp>EpiDoc Encoding</resp>
           <persName ref="part:utve">
@@ -14,7 +18,6 @@
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <!-- This may be the same as the creator of the file -->
           <persName ref="part:utve">
             <forename>Uthaya</forename>
             <surname>Veluppillai</surname>
@@ -23,45 +26,28 @@
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
-        <pubPlace><!-- Fill in here the place or places where the encoding has been done --></pubPlace>
+        <pubPlace></pubPlace>
         <idno type="filename">DHARMA_INSCirkali00004</idno>
-        <!-- Replace by filename, e.g. Pallava00001 -->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-							Licence. To view a copy of the licence, visit
-							https://creativecommons.org/licenses/by/4.0/ or send a letter to
-							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-							California, 94041, USA.</p>
-            <p>Copyright (c) 2019-2025 by John
-						Doe.</p>
-            <!-- replace year and name, use format "Forename1 Surname1 & Forename2 Surname2" or "Forename1 Surname1, Forename2 Surname2 & Forename3 Surname3"  if necessary — the copyright is that of the encoder(s) -->
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
+            <p>Copyright (c) 2019-2025 by John Doe.</p>
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -69,162 +55,216 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-					under the European Union's Horizon 2020 research and innovation programme (grant
-					agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-						ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-							<ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_idListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change when="2022-11-07" who="part:utve">Creation of the file</change>
+      <change who="part:utve" when="2022-11-07">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="san-Latn">
-        <!-- update the @xml:lang value, see EGD §7.2-->
-        <!--edition encoded as per EGD §§2−7-->
-        <ab>
-          <lb n="1"/>
-          <hi rend="grantha">svasti śrī</hi>
-        </ab>
-        <p> <hi rend="grantha">tri</hi>puvaṉaccakkara<choice>
-            <orig>va</orig>
-            <reg>var</reg>
-          </choice>
-<lb break="no" n="2"/>t<supplied reason="lost">tikaḷ</supplied> maturaiyum pā<supplied reason="lost">ṇ</supplied>ṭi 
-<lb break="no" n="3"/><supplied reason="lost">yaṉ mu</supplied>ṭitta<supplied reason="lost">lai</supplied>yuṅ koṇṭa 
-<lb break="no" n="4"/>ruḷiṉa <supplied reason="lost">
-            <hi rend="grantha">śrī</hi>
-          </supplied>kul<supplied reason="lost">ōttu</supplied>ṅkacōḻatēva 
-<lb break="no" n="5"/>ku <supplied reason="lost">yā</supplied>ṇṭu <num value="14">10 4</num> vatu irā<hi rend="grantha">jādhi</hi><supplied reason="lost">rā</supplied><hi rend="grantha">ja</hi> 
-<lb break="no" n="6"/>vaḷanāṭṭut tirukkaḻumalunāṭṭup pira 
-<lb break="no" n="7"/>matēcam tirukka<supplied reason="lost">ḻumala</supplied>ttut tiruttō 
-<lb break="no" n="8"/>ṇipuramuṭaiya nāya<supplied reason="lost">nā</supplied>ṟku <hi rend="grantha">je</hi>yaṅ 
-<lb break="no" n="9"/>koṇṭacōḻa maṇṭalattu mēṉmalai 
-<lb break="no" n="10"/>ppaḻaya<choice>
-            <orig>n</orig>
-            <reg>ṉ</reg>
-          </choice>ūr nāṭṭup paḻaiyaṉū 
-<lb break="no" n="11"/>ruṭaiyāṉ vētavaṉamuṭaiyāṉ U
-<lb break="no" n="12"/>ṭaiya nāyakaṉukkup pukka naṭuvi
-<lb break="no" n="13"/>lnāṭāṉa irā<hi rend="grantha">ja</hi>rā<hi rend="grantha">ja</hi>vaḷanāṭṭu
-<lb n="14"/>ānāṅkūrkkuṉṟaṅ kiḻāṉ <hi rend="grantha">je</hi>na 
-<lb break="no" n="15"/><supplied reason="lost">nā</supplied>takāṟpakam araiyaṉ makaḷ eti 
-<lb break="no" n="16"/>rilāpperumāḷum ivaḷ maka
-<lb break="no" n="17"/>ḷ cut<supplied reason="lost">tamaliva</supplied>ḷanāṭṭu veṇ
-<lb break="no" n="18"/>ṇikkūṟṟattup perumuruṭai<supplied reason="lost">yā</supplied>
-<lb break="no" n="19"/>ṉ <supplied reason="lost">nā</supplied>yaṉ tiruvēkampamuṭaiyā<supplied reason="lost">ṉu
-<lb break="no" n="20"/>kku</supplied>p pukka Umaiyāḻviyum Ivvi 
-<lb break="no" n="21"/>ruvōm e<supplied reason="omitted">ṅ</supplied>kaḷ parttākkaḷukkum <supplied reason="lost">e</supplied> 
-<lb break="no" n="22"/>ṅkaḷukkum eṅkaḷ vaṅcattukku
-<lb break="no" n="23"/>m naṉṟāka Irā<hi rend="grantha">ja</hi>rā<hi rend="grantha">ja</hi>vaḷanāṭṭu
-<lb n="24"/>māttūr<supplied reason="lost">nā</supplied>ṭṭu Oḻukaṟaiyāṉa 
-<lb break="no" n="25"/>kulōttuṅkacōḻanallūrkkaṉai
-<lb break="no" n="26"/>yūr nantimaṅkalaṅ kiḻāṉ cūriya
-<lb break="no" n="27"/>tēvaṉ tiruñāṉacampantaṉar muṉ
-<lb break="no" n="28"/><supplied reason="lost">ṉi</supplied>laiyāka Ivar pakkal kācu kuṭuttu 
-<lb break="no" n="29"/>Ivar palar pērilum kācu kuṭuttuk koṇ<supplied reason="omitted">ṭu</supplied> 
-<lb n="30"/>Ivar pērilē piramāṇam paṇṇi 
-<lb n="31"/>nāṅkaḷ koṇṭu viṭṭa ūr 
-<lb break="no" n="32"/>kkaṇakkuc ceṟṟūruṭai 
-<lb break="no" n="33"/>yāṉuñ capaiyārumeḻuttiṭṭa
-<lb n="34"/>capā niyōkappaṭi cantirātitta
-<lb n="35"/>varai kācu
-<lb n="36"/>koḷḷāviṟaiyiliyāka viṭṭa ni
-<lb break="no" n="37"/>lamāvatu tirukkaḻumalattuc cut 
-<lb break="no" n="38"/>tamali vatikku mēṟkut tillaiviṭa 
-<lb break="no" n="39"/>ṅka vāykkālukkut teṟku <num value="1">1</num> kaṇ
-<lb break="no" n="40"/>ṇāṟṟu <num value="2">2</num>ñ catirattu vācciyaṉ tiru
-<lb break="no" n="41"/>ttōṇipuramuṭaiyāṉ pakkal 
-<lb n="42"/>koṇṭa kollai kuḻi <num value="200"><supplied reason="lost">2</supplied> 100</num>m63 kā
-<lb break="no" n="43"/>cipa<choice>
-            <orig>n</orig>
-            <reg>ṉ</reg>
-          </choice> ciruṭaikkaḻal ālvā 
-<lb break="no" n="44"/><choice>
-            <orig>n</orig>
-            <reg>ṉ</reg>
-          </choice> pakkal koṇṭa kollaiy ku
-<lb break="no" n="45"/>ḻi <num value="300">3 100</num>m kāciva<choice>
-            <orig>n</orig>
-            <reg>ṉ</reg>
-          </choice> Uyya niṉṟāṭi pa
-<lb break="no" n="46"/>kkal koṇṭa kollai kuḻi muṉnū 
-<lb break="no" n="47"/>ṟum cuttamali vati<supplied reason="lost">k</supplied>ku mēṟku ti 
-<lb break="no" n="48"/>llaiviṭaṅka vā<supplied reason="omitted">y</supplied>kkālukku teṟ
-<lb break="no" n="49"/>ku <num value="2">2</num>ṇṭāṅ ka<supplied reason="lost">ṇṇā</supplied>ṟṟu mu<choice>
-            <orig>n</orig>
-            <reg>ṉ</reg>
-          </choice>ṟā
-<lb break="no" n="50"/>ñ catirattu tuṇṭattu cāvānti vira
-<lb break="no" n="51"/>pattira<choice>
-            <orig>n</orig>
-            <reg>ṉ</reg>
-          </choice> Uyyakkoṇṭa piḷḷai pak
-<lb break="no" n="52"/>kal kiḻakkiṭṭu teṟkaṭaiya Ampa 
-<lb break="no" n="53"/>tu kuḻi nikkikkoṇṭa kollaiy kuḻi
-<lb break="no" n="54"/><num value="100">100</num> m mutaṟ kaṇṇāṟṟu muṉṟāñ cati
-<lb break="no" n="55"/>rattu viracci
-<lb break="no" n="56"/>yaṉ centana tiruvēṇkāṭuṭaiyāṉ
-<lb break="no" n="57"/>uḷḷiṭṭār pakkal koṇṭa kollai 
-<lb break="no" n="58"/>kuḻi <num value="100">100</num> m ākak kollai kuḻi <num value="1000">1000</num> nilam <num value="0.5">1/2</num> Iṉ
-<lb break="no" n="59"/>nilam Araiyil Ivakaḷukku <hi rend="grantha">ji</hi>vanattuk
-<lb break="no" n="60"/>ku viṭṭa nilam tirunaṉtavaṉam ceyta<choice>
-            <orig>n</orig>
-            <reg>ṉ</reg>
-          </choice>anilam kālum kaikk
-<lb break="no" n="61"/>oṇṭu tāṅkaḷ veṇṭi<choice>
-            <orig>n</orig>
-            <reg>ṉ</reg>
-          </choice>a payiṟ cey
-<lb break="no" n="62"/>tu koṇṭu nikkiniṉṟa nilam nāyanāṟ
-<lb break="no" n="63"/>kkut tiruna<choice>
-            <orig>ṉ</orig>
-            <reg>n</reg>
-          </choice>tavanam ceytu naṟutiruppaḷi
-<lb break="no" n="64"/>ttāmam ākavum paṭakkuṭik kuṟṟam paṭāmaḷ c
-<lb break="no" n="65"/>aiytu Aḷaka kaṭavārākavum Innilam
-<lb n="66"/>arai<supplied reason="lost">yu</supplied>m catirātittavarai kācukoḷḷā yiṟai 
-<lb break="no" n="67"/>yiliyākakkoṇṭu viṭṭōm etirilāpperu 
-<lb break="no" n="68"/>māḷum Ivaḷ 64 makaḷ Umaiyāḻviyum yivviruv
-<lb break="no" n="69"/>ōm Itu <hi rend="grantha">śrīmāheśvara rakṣai</hi> |||| 
-         	</p>
-      </div>
-      <!--<div type="apparatus">
-           <!-\-apparatus encoded as per EGD §9.1, basic elements for apparatus below-\->
-               <listApp><!-\- one <app> for each apparatus entry -\->
-                  <app loc="line"><!-\- update the value of @loc.-\->
-                     <lem><!-\- fill in a lemma here -\-></lem>
-                     <rdg source="bib:AuthorYear_01"><!-\- update the @source value, fill in variant reading here -\-></rdg>
-                  </app>
-               </listApp>
-         </div>-->
-      <div resp="part:utve" type="translation"><!--translation encoded as per EGD §9.2 --></div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
-        <listBibl type="primary">
-          <bibl n="siglum"/>
-          <!-- one <bibl/> per item of primary bibliography. Every entry mentionned in apparatus  should hava a @n to declare its sigla -->
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
-        </listBibl>
-      </div>
-    </body>
-  </text>
+      
+<body>
+         
+<div type="edition" xml:lang="san-Latn">             
+<ab>
+
+                  
+<lb n="1" />
+<hi rend="grantha">svasti śrī</hi>                  
+
+                </ab>
+                
+<p> 
+<hi rend="grantha">tri</hi>puvaṉaccakkara
+<choice>
+  <orig>va</orig>
+  <reg>var</reg>
+</choice>
+<lb n="2" break="no" />t
+<supplied reason="lost">tikaḷ</supplied> maturaiyum pā
+<supplied reason="lost">ṇ</supplied>ṭi 
+<lb n="3" break="no" />
+<supplied reason="lost">yaṉ mu</supplied>ṭitta
+<supplied reason="lost">lai</supplied>yuṅ koṇṭa 
+<lb n="4" break="no" />ruḷiṉa 
+<supplied reason="lost">
+  <hi rend="grantha">śrī</hi>
+</supplied>kul
+<supplied reason="lost">ōttu</supplied>ṅkacōḻatēva 
+<lb n="5" break="no" />ku 
+<supplied reason="lost">yā</supplied>ṇṭu 
+<num value="14">10 4</num> vatu irā
+<hi rend="grantha">jādhi</hi>
+<supplied reason="lost">rā</supplied>
+<hi rend="grantha">ja</hi> 
+<lb n="6" break="no" />vaḷanāṭṭut tirukkaḻumalunāṭṭup pira 
+<lb n="7" break="no" />matēcam tirukka
+<supplied reason="lost">ḻumala</supplied>ttut tiruttō 
+<lb n="8" break="no" />ṇipuramuṭaiya nāya
+<supplied reason="lost">nā</supplied>ṟku 
+<hi rend="grantha">je</hi>yaṅ 
+<lb n="9" break="no" />koṇṭacōḻa maṇṭalattu mēṉmalai 
+<lb n="10" break="no" />ppaḻaya
+<choice>
+  <orig>n</orig>
+  <reg>ṉ</reg>
+</choice>ūr nāṭṭup paḻaiyaṉū 
+<lb n="11" break="no" />ruṭaiyāṉ vētavaṉamuṭaiyāṉ U
+<lb n="12" break="no" />ṭaiya nāyakaṉukkup pukka naṭuvi
+<lb n="13" break="no" />lnāṭāṉa irā
+<hi rend="grantha">ja</hi>rā
+<hi rend="grantha">ja</hi>vaḷanāṭṭu
+<lb n="14" />ānāṅkūrkkuṉṟaṅ kiḻāṉ 
+<hi rend="grantha">je</hi>na 
+<lb n="15" break="no" />
+<supplied reason="lost">nā</supplied>takāṟpakam araiyaṉ makaḷ eti 
+<lb n="16" break="no" />rilāpperumāḷum ivaḷ maka
+<lb n="17" break="no" />ḷ cut
+<supplied reason="lost">tamaliva</supplied>ḷanāṭṭu veṇ
+<lb n="18" break="no" />ṇikkūṟṟattup perumuruṭai
+<supplied reason="lost">yā</supplied>
+<lb n="19" break="no" />ṉ 
+<supplied reason="lost">nā</supplied>yaṉ tiruvēkampamuṭaiyā
+<supplied reason="lost">ṉu
+<lb n="20" break="no" />kku</supplied>p pukka Umaiyāḻviyum Ivvi 
+<lb n="21" break="no" />ruvōm e
+<supplied reason="omitted">ṅ</supplied>kaḷ parttākkaḷukkum 
+<supplied reason="lost">e</supplied> 
+<lb n="22" break="no" />ṅkaḷukkum eṅkaḷ vaṅcattukku
+<lb n="23" break="no" />m naṉṟāka Irā
+<hi rend="grantha">ja</hi>rā
+<hi rend="grantha">ja</hi>vaḷanāṭṭu
+<lb n="24" />māttūr
+<supplied reason="lost">nā</supplied>ṭṭu Oḻukaṟaiyāṉa 
+<lb n="25" break="no" />kulōttuṅkacōḻanallūrkkaṉai
+<lb n="26" break="no" />yūr nantimaṅkalaṅ kiḻāṉ cūriya
+<lb n="27" break="no" />tēvaṉ tiruñāṉacampantaṉar muṉ
+<lb n="28" break="no" />
+<supplied reason="lost">ṉi</supplied>laiyāka Ivar pakkal kācu kuṭuttu 
+<lb n="29" break="no" />Ivar palar pērilum kācu kuṭuttuk koṇ
+<supplied reason="omitted">ṭu</supplied> 
+<lb n="30" />Ivar pērilē piramāṇam paṇṇi 
+<lb n="31" />nāṅkaḷ koṇṭu viṭṭa ūr 
+<lb n="32" break="no" />kkaṇakkuc ceṟṟūruṭai 
+<lb n="33" break="no" />yāṉuñ capaiyārumeḻuttiṭṭa
+<lb n="34" />capā niyōkappaṭi cantirātitta
+<lb n="35" />varai kācu
+<lb n="36" />koḷḷāviṟaiyiliyāka viṭṭa ni
+<lb n="37" break="no" />lamāvatu tirukkaḻumalattuc cut 
+<lb n="38" break="no" />tamali vatikku mēṟkut tillaiviṭa 
+<lb n="39" break="no" />ṅka vāykkālukkut teṟku 
+<num value="1">1</num> kaṇ
+<lb n="40" break="no" />ṇāṟṟu 
+<num value="2">2</num>ñ catirattu vācciyaṉ tiru
+<lb n="41" break="no" />ttōṇipuramuṭaiyāṉ pakkal 
+<lb n="42" />koṇṭa kollai kuḻi 
+<num value="200">
+<supplied reason="lost">2</supplied> 100</num>m63 kā
+<lb n="43" break="no" />cipa
+<choice>
+  <orig>n</orig>
+  <reg>ṉ</reg>
+</choice> ciruṭaikkaḻal ālvā 
+<lb n="44" break="no" />
+<choice>
+  <orig>n</orig>
+  <reg>ṉ</reg>
+</choice> pakkal koṇṭa kollaiy ku
+<lb n="45" break="no" />ḻi 
+<num value="300">3 100</num>m kāciva
+<choice>
+  <orig>n</orig>
+  <reg>ṉ</reg>
+</choice> Uyya niṉṟāṭi pa
+<lb n="46" break="no" />kkal koṇṭa kollai kuḻi muṉnū 
+<lb n="47" break="no" />ṟum cuttamali vati
+<supplied reason="lost">k</supplied>ku mēṟku ti 
+<lb n="48" break="no" />llaiviṭaṅka vā
+<supplied reason="omitted">y</supplied>kkālukku teṟ
+<lb n="49" break="no" />ku 
+<num value="2">2</num>ṇṭāṅ ka
+<supplied reason="lost">ṇṇā</supplied>ṟṟu mu
+<choice>
+  <orig>n</orig>
+  <reg>ṉ</reg>
+</choice>ṟā
+<lb n="50" break="no" />ñ catirattu tuṇṭattu cāvānti vira
+<lb n="51" break="no" />pattira
+<choice>
+  <orig>n</orig>
+  <reg>ṉ</reg>
+</choice> Uyyakkoṇṭa piḷḷai pak
+<lb n="52" break="no" />kal kiḻakkiṭṭu teṟkaṭaiya Ampa 
+<lb n="53" break="no" />tu kuḻi nikkikkoṇṭa kollaiy kuḻi
+<lb n="54" break="no" />
+<num value="100">100</num> m mutaṟ kaṇṇāṟṟu muṉṟāñ cati
+<lb n="55" break="no" />rattu viracci
+<lb n="56" break="no" />yaṉ centana tiruvēṇkāṭuṭaiyāṉ
+<lb n="57" break="no" />uḷḷiṭṭār pakkal koṇṭa kollai 
+<lb n="58" break="no" />kuḻi 
+<num value="100">100</num> m ākak kollai kuḻi 
+<num value="1000">1000</num> nilam 
+<num value="0.5">1/2</num> Iṉ
+<lb n="59" break="no" />nilam Araiyil Ivakaḷukku 
+<hi rend="grantha">ji</hi>vanattuk
+<lb n="60" break="no" />ku viṭṭa nilam tirunaṉtavaṉam ceyta
+<choice>
+  <orig>n</orig>
+  <reg>ṉ</reg>
+</choice>anilam kālum kaikk
+<lb n="61" break="no" />oṇṭu tāṅkaḷ veṇṭi
+<choice>
+  <orig>n</orig>
+  <reg>ṉ</reg>
+</choice>a payiṟ cey
+<lb n="62" break="no" />tu koṇṭu nikkiniṉṟa nilam nāyanāṟ
+<lb n="63" break="no" />kkut tiruna
+<choice>
+  <orig>ṉ</orig>
+  <reg>n</reg>
+</choice>tavanam ceytu naṟutiruppaḷi
+<lb n="64" break="no" />ttāmam ākavum paṭakkuṭik kuṟṟam paṭāmaḷ c
+<lb n="65" break="no" />aiytu Aḷaka kaṭavārākavum Innilam
+<lb n="66" />arai
+<supplied reason="lost">yu</supplied>m catirātittavarai kācukoḷḷā yiṟai 
+<lb n="67" break="no" />yiliyākakkoṇṭu viṭṭōm etirilāpperu 
+<lb n="68" break="no" />māḷum Ivaḷ 64 makaḷ Umaiyāḻviyum yivviruv
+<lb n="69" break="no" />ōm Itu 
+<hi rend="grantha">śrīmāheśvara rakṣai</hi> |||| 
+                </p>
+                
+         </div>
+                  
+<div type="translation" resp="part:utve">
+                 </div>
+         
+<div type="commentary">
+                     </div>
+        
+<div type="bibliography">
+                   
+<p></p>
+                
+<listBibl type="primary">
+                                
+<bibl n="siglum" />                        </listBibl>
+           
+<listBibl type="secondary">
+              
+<bibl />           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

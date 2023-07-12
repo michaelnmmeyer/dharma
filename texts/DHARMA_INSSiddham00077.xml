@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00077</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,105 +62,167 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <div n="A" type="textpart">
-          <head xml:lang="eng">Seal</head>
-          <ab><lb n="1"/>śrī-mahārāja-hastinaḥ<!-- 
-Note that this is only reported text. The only seal of Hastin of which we have at least a copy if not the seal itself (IN00079) has śrīr mmahārāja-hastinaḥ. (And a seal impression in IN00091, which reads śrī-hasti-rājñaḥ.) 
---></ab>
-        </div>
-        <div n="B" type="textpart">
-          <head xml:lang="eng">Plates</head>
-          <p><pb n="1v"/><!-- 
-This is not explicitly stated anywhere I've read, but I assume that these double plates, each inscribed on one face only, use 1verso and 2 recto, with the blank side of each plate facing outward. 
---><lb n="1"/>namo mahādevāya|| svasti<supplied reason="subaudible">.</supplied> ṣaṭpañcāśottare bda-śate gupta-nr̥pa<lb break="no" n="2"/>-rājya-bhuktau mahā-vaiśākha-sāmbatsare<surplus>|</surplus> kārttika-māsa-śukla-pakṣa-tr̥tīyā<lb break="no" n="3"/>yām<supplied reason="subaudible">.</supplied> Asyā<sic>n</sic> divasa-pūrvvāyāṁ nr̥pati-parivrājaka-kulotpannena<surplus>|</surplus> mahā<lb break="no" n="4"/>rāja-devāḍhya-pranaptrā m<sic>ā</sic>hārāja-dāmodara-sutena<!-- 
-Fleet (1888:97n4) notes that F. E. Hall (JBAS,v.XXX,p.6,and p.8,note) read the name as Dēvāhya and rejected H. H. Wilson's reading Dwrhya (which is obviously misprint from Dēvārhya, i.e. Dēvāḍhya). Fleet then asserts that the reading is clear in all inscriptions of Hastin and Saṁkṣobha and rather petulantly announces, "and Prof H. H. Wilson was right, and Dr. FitzEdward Hall was wrong." 
---><lb n="5"/>go-sahasra-hasty-aśva-hiraṇyāneka-bhūmi-pradena guru-pitr̥-mātr̥-pūjā-tatpare<lb break="no" n="6"/>ṇātyanta-deva-brāhmaṇa-bhaktena<surplus>||</surplus> naika-samara-śata<surplus>ta</surplus>-vijayinā sva-va<sic>n</sic>śā<lb break="no" n="7"/>moda-kareṇa mahārāja-śrī-hastinā sva-puṇyāpyāyanārtham ātmānaṁ sva<lb break="no" n="8"/>rgga-sopāna-paṅktibhir āro<sic>h</sic>ayatā brāhmaṇa-vāj<sic>isi</sic>neya-mādhya<lb break="no" n="9"/>ndina-kautsa-sagottra gopasvāmī bhavasvāmī| sandhyāputtra| divākara<lb break="no" n="10"/>dattaḥ bhāskaradatta| sūryyadattasya vasuntaraṣaṇḍika-grāmo <lb n="11"/>tisr̥ṣṭaḥ||
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+
+                                
+<div type="textpart" n="A">
+<head xml:lang="eng">Seal</head>
+                                        
+<ab>
+<lb n="1" />śrī-mahārāja-hastinaḥ</ab>
+                                </div>
+                                
+<div type="textpart" n="B">
+<head xml:lang="eng">Plates</head>
+<p>
+<pb n="1v" />
+<lb n="1" />namo mahādevāya|| svasti
+<supplied reason="subaudible">.</supplied> ṣaṭpañcāśottare bda-śate gupta-nr̥pa
+<lb n="2" break="no" />-rājya-bhuktau mahā-vaiśākha-sāmbatsare
+<surplus>|</surplus> kārttika-māsa-śukla-pakṣa-tr̥tīyā
+<lb n="3" break="no" />yām
+<supplied reason="subaudible">.</supplied> Asyā
+<sic>n</sic> divasa-pūrvvāyāṁ nr̥pati-parivrājaka-kulotpannena
+<surplus>|</surplus> mahā
+<lb n="4" break="no" />rāja-devāḍhya-pranaptrā m
+<sic>ā</sic>hārāja-dāmodara-sutena
+<lb n="5" />go-sahasra-hasty-aśva-hiraṇyāneka-bhūmi-pradena guru-pitr̥-mātr̥-pūjā-tatpare
+<lb n="6" break="no" />ṇātyanta-deva-brāhmaṇa-bhaktena
+<surplus>||</surplus> naika-samara-śata
+<surplus>ta</surplus>-vijayinā sva-va
+<sic>n</sic>śā
+<lb n="7" break="no" />moda-kareṇa mahārāja-śrī-hastinā sva-puṇyāpyāyanārtham ātmānaṁ sva
+<lb n="8" break="no" />rgga-sopāna-paṅktibhir āro
+<sic>h</sic>ayatā brāhmaṇa-vāj
+<sic>isi</sic>neya-mādhya
+<lb n="9" break="no" />ndina-kautsa-sagottra gopasvāmī bhavasvāmī| sandhyāputtra| divākara
+<lb n="10" break="no" />dattaḥ bhāskaradatta| sūryyadattasya vasuntaraṣaṇḍika-grāmo 
+<lb n="11" />tisr̥ṣṭaḥ||
 </p>
-          <p>samantād garttā<supplied reason="subaudible">.</supplied> Uttare paścim<choice>
-              <sic>o</sic>
-              <corr>e</corr>
-            </choice>na
-						<pb n="2r"/><lb n="12"/>pūrvva-bh<sic>u</sic>ktā m<sic>ā</sic>ryyādāḥ<supplied reason="subaudible">.</supplied> sa<sic>ṁn</sic>dhyāputtra-pramukhānāṁ sodraṅgaḥ soparikaraḥ <lb n="13"/>A-cāṭa-bhaṭa-prāveśyaḥ cora-varjjaM<!-- 
-For cora-varjjam, compare cora-daṇḍa-varjyam in l14 of the Khoh Plate of Jayanātha GE 177 (IN00083), so this may mean in pursuit of thieves. According to Fleet_1888:98n3, it's "with the exception of fines (imposed) on thieves", which is perfectly fine for IN00083, but the context is quite different there. Also compare IN00082 l9 where (again in a different context) it's explicitly the village that is free from bandits (cora-varjjito). So perhaps this cora-varjja thing is something that was copied mindlessly from older records and various composers tried to make sense of it in various ways? Anyway, the most likely solution is that it is not directly related to the cāṭas and bhaṭas, so however enticing the idea of "except in hot pursuit" sounds, this must be rejected. Instead, the donee is entitled to all sorts of taxes from the land, but the penalty to be paid by any thieves there goes to the royal treasury, not to him. 
---></p>
-          <p>tad asmat-kulotthaiḥ mat-pāda-piṇḍopajī<lb break="no" n="14"/>vibhir vvā kālāntareṣv api na vyāghātaḥ kāryaḥ<supplied reason="subaudible">.</supplied> Evam <choice>
-              <sic>ājñāpta</sic>
-              <corr>ājñapte</corr>
-            </choice> yo nyathā ku<lb break="no" n="15"/>ryāt tam ahaṁ dehāntara-gato pi mahatāvaddhyānena <choice>
-              <sic>nirddahed</sic>
-              <corr>nirddaheyam</corr>
-            </choice><supplied reason="subaudible">.</supplied> uktaṁ ca bhagavatā pa<lb break="no" n="16"/>ramarṣiṇā veda-vyāsena|<!-- 
-No image of the plates is available and Fleet transcribes the text thus, but there ought to be another vyāsena here. Line 16 seems to contain 4 akṣaras fewer than line 15, so this is one more indication that a word may be missing from Fleet's transcription. 
---></p>
-          <lg met="anuṣṭubh" n="1">
-            <l n="a">pūrvva-dattāṁ dvijātibhyo</l>
-            <l n="b">yatnād rakṣ<surplus>y</surplus>a yudhiṣṭhira<surplus>ḥ</surplus></l>
-            <l n="c"><lb n="17"/>mah<sic>i</sic>ṁ mahimatāṁ śreṣṭha</l>
-            <l n="d">dānāc chreyo nupālana<sic>ṁm</sic></l>
-          </lg>
-          <lg met="anuṣṭubh" n="2">
-            <l n="a">bahubhir vvasudhā bhuktā</l>
-            <l n="b">rā<lb break="no" n="18"/>jabhiḥ sagarādibhiḥ</l>
-            <l n="c">yasya yasya yadā bhūmis</l>
-            <l n="d">tasya tasya tadā phalaṁ</l>
-          </lg>
-          <lg met="anuṣṭubh" n="3">
-            <l n="a"><lb n="19"/>ṣaṣṭiṁ <sic>b</sic>arṣa-sahasrāṇi</l>
-            <l n="b">svargge modati bhūmidaḥ</l>
-            <l n="c">Acchettā cānuma<lb break="no" n="20"/>ntā ca</l>
-            <l n="d">tāny eva narake vased</l>
-          </lg>
-          <p>iti|| likhitañ ca vakkrāmātya<lb break="no" n="21"/>-<supplied reason="lost">pra</supplied>naptrā bhogikāmātya-naradatta-naptrā bhogika-ravidatta-puttr<supplied reason="lost">eṇa</supplied> sūryya<lb break="no" n="22"/>datteneti<supplied reason="subaudible">.</supplied> dūtako bhāgrahaḥ</p>
-        </div>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+<p>samantād garttā
+<supplied reason="subaudible">.</supplied> Uttare paścim
+<choice>
+  <sic>o</sic>
+  <corr>e</corr>
+</choice>na
+                                                
+<pb n="2r" />
+<lb n="12" />pūrvva-bh
+<sic>u</sic>ktā m
+<sic>ā</sic>ryyādāḥ
+<supplied reason="subaudible">.</supplied> sa
+<sic>ṁn</sic>dhyāputtra-pramukhānāṁ sodraṅgaḥ soparikaraḥ 
+<lb n="13" />A-cāṭa-bhaṭa-prāveśyaḥ cora-varjjaM</p>
+<p>tad asmat-kulotthaiḥ mat-pāda-piṇḍopajī
+<lb n="14" break="no" />vibhir vvā kālāntareṣv api na vyāghātaḥ kāryaḥ
+<supplied reason="subaudible">.</supplied> Evam 
+<choice>
+  <sic>ājñāpta</sic>
+  <corr>ājñapte</corr>
+</choice> yo nyathā ku
+<lb n="15" break="no" />ryāt tam ahaṁ dehāntara-gato pi mahatāvaddhyānena 
+<choice>
+  <sic>nirddahed</sic>
+  <corr>nirddaheyam</corr>
+</choice>
+<supplied reason="subaudible">.</supplied> uktaṁ ca bhagavatā pa
+<lb n="16" break="no" />ramarṣiṇā veda-vyāsena|</p>
+<lg n="1" met="anuṣṭubh">
+<l n="a">pūrvva-dattāṁ dvijātibhyo</l>
+<l n="b">yatnād rakṣ
+<surplus>y</surplus>a yudhiṣṭhira
+<surplus>ḥ</surplus></l>
+<l n="c">
+<lb n="17" />mah
+<sic>i</sic>ṁ mahimatāṁ śreṣṭha</l>
+<l n="d">dānāc chreyo nupālana
+<sic>ṁm</sic></l>
+</lg>
+<lg n="2" met="anuṣṭubh">
+<l n="a">bahubhir vvasudhā bhuktā</l>
+<l n="b">rā
+<lb n="18" break="no" />jabhiḥ sagarādibhiḥ</l>
+<l n="c">yasya yasya yadā bhūmis</l>
+<l n="d">tasya tasya tadā phalaṁ</l>
+</lg>
+<lg n="3" met="anuṣṭubh">
+<l n="a">
+<lb n="19" />ṣaṣṭiṁ 
+<sic>b</sic>arṣa-sahasrāṇi</l>
+<l n="b">svargge modati bhūmidaḥ</l>
+<l n="c">Acchettā cānuma
+<lb n="20" break="no" />ntā ca</l>
+<l n="d">tāny eva narake vased</l>
+</lg>
+<p>iti|| likhitañ ca vakkrāmātya
+<lb n="21" break="no" />-
+<supplied reason="lost">pra</supplied>naptrā bhogikāmātya-naradatta-naptrā bhogika-ravidatta-puttr
+<supplied reason="lost">eṇa</supplied> sūryya
+<lb n="22" break="no" />datteneti
+<supplied reason="subaudible">.</supplied> dūtako bhāgrahaḥ</p>
+                                </div>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00080</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,67 +62,86 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <p><lb n="1"/>svasti<supplied reason="subaudible">.</supplied> mahādeva-pād<unclear>ā</unclear><lb break="no" n="2"/>nuddhyāt<sic>o</sic> mahārāja-hasti<lb break="no" n="3"/>-rājye Āmblode mahārāja<lb break="no" n="4"/>-śarvvanātha-bhoge Indanā<lb break="no" n="5"/>-naptrā vāsu-grāmika-puttra<lb break="no" n="6"/>-śivadāsena vala-ya<lb break="no" n="7"/>ṣṭir ucchritaḥ<!-- 
-Āmbloda is Fleet's reading of the toponym; it is indeed quite clear in Sircar's facsimile. Fleet also notes that the engraver seems to have first engraved hlo or perhaps ḍhlo, and then corrected it into mblo. There do seem to be some fainter lines, but I don't quite see hlo or ḍhlo; rather, the pre-correction character may have been l, perhaps an initially engraved āṁlode corrected to āmblode. 
---><!-- 
-Fleet reads the name as Indana; Sircar_1959-60a corrects to Indanā. The ā mātrā is indeed clear in Sircar's facsimile. 
---><!-- 
-Fleet emends vala to valaya, interpreting valaya it "boundary" and noting that vala-yaṣṭi or bala-yaṣṭi "gives no meaning". Sircar_1959-60a convincingly refutes the interpretation and points to the Supia pillar (IN00037) which describes itself as a balayaṣṭi. 
---><!-- 
-Fleet reads yaṣṭi u° and emends to yaṣṭir u°; Sircar does not correct the reading. Given that ru can often look like U, I believe we should exercise the benefit of doubt and read yaṣṭir u to begin with. 
---></p>
-        <p>mahā-māghe<lb n="8"/>sa<sic>mba</sic>tsare kārttika-māsa<lb break="no" n="9"/>-divasa <num value="18"><g type="numeral">10</g> 8</num><!-- 
-Fleet reads the date as 19, noting that the second figure may possibly be 7 or 8. Fleet_1888:274-275n2 (on the Bodhgayā inscription of Mahānāman) returns to the matter and says he sees no reason to revise his interpretation "that it is a rather straight and upright form of the symbol for 9". He admits that a similar sign occurs in the Morbi grant where it must be understood as 8 (also given in words), but that does not affect this one. Sircar_1959-60a flatly says the second digit is 8. This does seem a bit more likely, but far from certain and I could also imagine 5. 
---></p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<p>
+<lb n="1" />svasti
+<supplied reason="subaudible">.</supplied> mahādeva-pād
+<unclear>ā</unclear>
+<lb n="2" break="no" />nuddhyāt
+<sic>o</sic> mahārāja-hasti
+<lb n="3" break="no" />-rājye Āmblode mahārāja
+<lb n="4" break="no" />-śarvvanātha-bhoge Indanā
+<lb n="5" break="no" />-naptrā vāsu-grāmika-puttra
+<lb n="6" break="no" />-śivadāsena vala-ya
+<lb n="7" break="no" />ṣṭir ucchritaḥ</p>
+<p>mahā-māghe
+<lb n="8" />sa
+<sic>mba</sic>tsare kārttika-māsa
+<lb n="9" break="no" />-divasa 
+<num value="18">
+<g type="numeral">10</g> 8</num></p>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

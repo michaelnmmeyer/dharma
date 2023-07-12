@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -19,18 +25,13 @@
         </respStmt>
         <respStmt>
           <resp>intellectual authorship of edition</resp>
-          <persName><!-- 
-The original editor(s). 
---></persName>
+          <persName></persName>
         </respStmt>
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham02079</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -43,14 +44,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -58,95 +59,150 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <!-- 
-Comments below by Csaba Kiss are offered "as is" and do not represent a thoroughly researched or considered opinion. 
--->
-        <p><lb n="1"/>Oṁ svasti bhadrādhivāsa-<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->bhavanād apratihata-śāsano bhagavat-pa</supplied>śupati-bhaṭṭāraka-pādānu<!-- 
-L1. CHECK There is some problem with Gnoli's brackets here. 
---><lb break="no" n="2"/>gr̥hīto bappa-pā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->dānudhyāto licchavi-kula-ketuḥ pa</supplied>rama-māheśvara-parama-bhaṭṭā<lb break="no" n="3"/>raka-mahārājādhi<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->rāja-śrī-narendradevaḥ kuśalī</supplied> <gap precision="low" quantity="2" reason="illegible" unit="character"/> ñca <gap precision="low" quantity="1" reason="illegible" unit="character"/> garta-grāme pradhāna-purassarā<lb break="no" n="4"/>n sarva-kuṭumbinaḥ kuśala<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->m ābhāṣya samājñāpa</supplied>yati viditam bhavatu bhavatāṁ yathāya<lb break="no" n="5"/>ṅ grāmo bhagavat-paśupatau sva-kārita-mahā-praṇālīnām aśāṭhyena sarveti-kartavyānā<lb break="no" n="6"/>m anuṣṭhānārthaṁ viṣṭyājñānuvidhāyitvena cāṭa-bhaṭānām apraveśyena śarīra-koṭṭa-maryā<lb break="no" n="7"/>dopapannaḥ śarīra-sarva-karaṇīya-pratimuktaḥ kuṭumbī bahīr-deśa-gamanādi-sarva-vi<lb break="no" n="8"/>ṣṭi-rahito gurviṇī-maraṇe garbhoddharaṇāya paṇa-śata-mātra-deyena sa kṣata-goṣṭha-pa-mr̥<lb break="no" n="9"/>gāpacāre sa paṇa-purāṇa-traya-mātra-deyena ca yuktaś caura-para-dāra-hatyā-sambandhādi-
-<lb n="10"/>pañcāparādha-kāriṇāṁ śarīra-mātraṁ rāja-kulābhāvyan tad-gr̥ha-kṣetra-kalatrādi-sarva-dravyā<lb break="no" n="11"/>ṇy ārya-saṅghasyety anena ca sampannaḥ śrī-śivadeva-vihāre catur-diśārya-bhikṣu-saṅghāyāsmā<lb break="no" n="12"/>bhir atisr̥ṣṭaḥ sīmā cāsya pūrvottareṇa śreṣṭhi-dulmūdhni-prītubrūmaṭhyamālī tasyāḥ kiñcit-pū<!-- 
-L12. We have perhaps to read śrepṭhi° 
---><!-- 
-L12. It is not clear whether the reading should be °mūdhni° or °mūṭhni° 
---><lb break="no" n="13"/>rveṇa vr̥hadālyā dakṣiṇam anusr̥tya cuhvaṅga-bhūmim pūrva-dakṣiṇena veṣṭayitvā hmupriṅ-gāmī
-<lb n="14"/>mārgas tan dakṣiṇam anusr̥tya sarala-vana-gāmī mārgas tam paścimam anusr̥tya hmuprim-pāñcā<lb break="no" n="15"/>lika-kṣetra-paścima-koṇād dakṣiṇa-paścimam anusr̥tya śrī-kharjūrika-vihārasya sarvā<lb break="no" n="16"/>paripa-kṣetra-paścimālyā dakṣiṇaṅ gatvā pr̥cchibrū-dakṣiṇeśvarāmbutīrtha-kṣetrāṇāṁ sandhiḥ
-<lb n="17"/>tataś ca dakṣiṇam anusr̥tya śaśi-kṣetra-pūrva-dakṣiṇa-koṇāt kiñcit-paścimaṅ gatvā mittambrū-pū<lb break="no" n="18"/>rvālyā dakṣiṇam anusr̥tya tat-sarva-dakṣiṇālyā paścimaṅ gatvā kiñcid-uttarañ ca tataḥ paścima<lb break="no" n="19"/>m anusr̥tya ca niṁbrū-dakṣiṇa-paścima-koṇād dakṣiṇaṅ gatvā lopriṅ-grāmendra-gauṣṭhika-kṣetra-pūrva-
-<lb n="20"/>dakṣiṇa-koṇāt kiñcit-paścimaṅ gatvā hmuprim-pāñcālika-kṣetra-paścimālyā dakṣiṇam anusr̥tya
-<lb n="21"/><gap precision="low" quantity="5" reason="illegible" unit="character"/> uttara-pūrva-koṇe hmupriṅ-gāmī vr̥hat-pathas tam paścimam anusr̥tya hmupriṁlo-
-<lb n="22"/>pri <gap precision="low" quantity="2" reason="illegible" unit="character"/> <unclear cert="low">sti</unclear>sroto <supplied reason="subaudible">’</supplied>dho <supplied reason="subaudible">’</supplied>nusr̥tya mekaṇḍidul-tilamaka-saṅgamas tat-paścimordhvam adhiruhya kandara-
-<lb n="23"/><gap precision="low" quantity="3" reason="illegible" unit="character"/> nusāreṇottara-paścimam anusr̥tya pānīya-pāto yāval lopriṅ-gāminam mārgam u
-<lb n="24"/><gap precision="low" quantity="5" reason="illegible" unit="character"/> kharā-kṣetra-sarva-dakṣiṇālyā paścimaṅ gatvā lopriṁ <gap precision="low" quantity="4" reason="illegible" unit="character"/> ta-kṣetran tataḥ
-<lb n="25"/>pa<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ścimam a</supplied>nusr̥tyottarañ ca vr̥had-ārāmasya pūrva-mukhe mahā-pathas tata <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->u</supplied>ttaran gatvā vr̥ha<lb break="no" n="26"/>d-ā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->rāma</supplied>sya pūrvottara-koṇād adho <supplied reason="subaudible">’</supplied>vatīrya vana-paryantam upādāya phaṁśinpral-srotas tad-u<lb break="no" n="27"/>ttaram anusr̥tya srota <gap precision="low" quantity="2" reason="illegible" unit="character"/> masa-srotonusāreṇa brahma-tīrtha-saṁvedyan nadī-vāgvatī-pūrvva-
-<lb n="28"/>m anusr̥tya <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->utta</supplied>raṅ gatvā kandarāgrānusāreṇa śreṣṭhidulmūdhni-savaprītubrūmaṭhyamālīty e<!-- 
-L28. Cf. notes above. 
---><lb break="no" n="29"/><supplied reason="omitted">tat-sīma-parikṣipte <supplied reason="lost"><!-- CHECK if <unclear> applies better.-->’</supplied>sminn</supplied> agra-hāre yadi kadācid ārya-saṅghasyāśakyaṅ kāryam u<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->tpa</supplied>dyeta
-<lb n="30"/>tadā paramā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->sanena vi</supplied>cāraṇīyam āpaṇa-karo <supplied reason="subaudible">’</supplied>dhika-māsa-tulā-daṇḍādi<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ka</supplied>-parva Evā<!-- 
-L30. °daṇḍādi<supplied reason="undefined">tya</supplied>parva? 
---><lb break="no" n="31"/>rya-bhi<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->kṣu-saṅghasye</supplied>ty evam avagatārthair asmat-pādopajīvibhir anyair vāyam prasādo <supplied reason="subaudible">’</supplied>nyathā na
-<lb n="32"/>kara<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ṇīyo yas tv etā</supplied>m ājñām ullaṅghyānyathā kuryāt kārayed vā so <supplied reason="subaudible">’</supplied>smā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->bhi</supplied>s sutarān na marṣanīyo
-<lb n="33"/>ye cās<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->mad-ūrdhvam bhavi</supplied>tāro bhūmi-pālās tair apy ubhaya-loka-niravadya-sukhārthibhiḥ pūrva-
-<lb n="34"/>rāja-vihi<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->to</supplied> <supplied reason="subaudible">’</supplied>yaṁ viśiṣṭaḥ prasāda Iti prayatnatas samyak paripālanīya Eva yato
-<lb n="35"/>dharma-śāstra-vacanam
+<body>
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<p>
+<lb n="1" />Oṁ svasti bhadrādhivāsa-
+<supplied reason="lost">bhavanād apratihata-śāsano bhagavat-pa</supplied>śupati-bhaṭṭāraka-pādānu
+<lb n="2" break="no" />gr̥hīto bappa-pā
+<supplied reason="lost">dānudhyāto licchavi-kula-ketuḥ pa</supplied>rama-māheśvara-parama-bhaṭṭā
+<lb n="3" break="no" />raka-mahārājādhi
+<supplied reason="lost">rāja-śrī-narendradevaḥ kuśalī</supplied> 
+<gap reason="illegible" precision="low" quantity="2" unit="character" /> ñca 
+<gap reason="illegible" precision="low" quantity="1" unit="character" /> garta-grāme pradhāna-purassarā
+<lb n="4" break="no" />n sarva-kuṭumbinaḥ kuśala
+<supplied reason="lost">m ābhāṣya samājñāpa</supplied>yati viditam bhavatu bhavatāṁ yathāya
+<lb n="5" break="no" />ṅ grāmo bhagavat-paśupatau sva-kārita-mahā-praṇālīnām aśāṭhyena sarveti-kartavyānā
+<lb n="6" break="no" />m anuṣṭhānārthaṁ viṣṭyājñānuvidhāyitvena cāṭa-bhaṭānām apraveśyena śarīra-koṭṭa-maryā
+<lb n="7" break="no" />dopapannaḥ śarīra-sarva-karaṇīya-pratimuktaḥ kuṭumbī bahīr-deśa-gamanādi-sarva-vi
+<lb n="8" break="no" />ṣṭi-rahito gurviṇī-maraṇe garbhoddharaṇāya paṇa-śata-mātra-deyena sa kṣata-goṣṭha-pa-mr̥
+<lb n="9" break="no" />gāpacāre sa paṇa-purāṇa-traya-mātra-deyena ca yuktaś caura-para-dāra-hatyā-sambandhādi-
+<lb n="10" />pañcāparādha-kāriṇāṁ śarīra-mātraṁ rāja-kulābhāvyan tad-gr̥ha-kṣetra-kalatrādi-sarva-dravyā
+<lb n="11" break="no" />ṇy ārya-saṅghasyety anena ca sampannaḥ śrī-śivadeva-vihāre catur-diśārya-bhikṣu-saṅghāyāsmā
+<lb n="12" break="no" />bhir atisr̥ṣṭaḥ sīmā cāsya pūrvottareṇa śreṣṭhi-dulmūdhni-prītubrūmaṭhyamālī tasyāḥ kiñcit-pū
+<lb n="13" break="no" />rveṇa vr̥hadālyā dakṣiṇam anusr̥tya cuhvaṅga-bhūmim pūrva-dakṣiṇena veṣṭayitvā hmupriṅ-gāmī
+<lb n="14" />mārgas tan dakṣiṇam anusr̥tya sarala-vana-gāmī mārgas tam paścimam anusr̥tya hmuprim-pāñcā
+<lb n="15" break="no" />lika-kṣetra-paścima-koṇād dakṣiṇa-paścimam anusr̥tya śrī-kharjūrika-vihārasya sarvā
+<lb n="16" break="no" />paripa-kṣetra-paścimālyā dakṣiṇaṅ gatvā pr̥cchibrū-dakṣiṇeśvarāmbutīrtha-kṣetrāṇāṁ sandhiḥ
+<lb n="17" />tataś ca dakṣiṇam anusr̥tya śaśi-kṣetra-pūrva-dakṣiṇa-koṇāt kiñcit-paścimaṅ gatvā mittambrū-pū
+<lb n="18" break="no" />rvālyā dakṣiṇam anusr̥tya tat-sarva-dakṣiṇālyā paścimaṅ gatvā kiñcid-uttarañ ca tataḥ paścima
+<lb n="19" break="no" />m anusr̥tya ca niṁbrū-dakṣiṇa-paścima-koṇād dakṣiṇaṅ gatvā lopriṅ-grāmendra-gauṣṭhika-kṣetra-pūrva-
+<lb n="20" />dakṣiṇa-koṇāt kiñcit-paścimaṅ gatvā hmuprim-pāñcālika-kṣetra-paścimālyā dakṣiṇam anusr̥tya
+<lb n="21" />
+<gap reason="illegible" precision="low" quantity="5" unit="character" /> uttara-pūrva-koṇe hmupriṅ-gāmī vr̥hat-pathas tam paścimam anusr̥tya hmupriṁlo-
+<lb n="22" />pri 
+<gap reason="illegible" precision="low" quantity="2" unit="character" /> 
+<unclear cert="low">sti</unclear>sroto 
+<supplied reason="subaudible">’</supplied>dho 
+<supplied reason="subaudible">’</supplied>nusr̥tya mekaṇḍidul-tilamaka-saṅgamas tat-paścimordhvam adhiruhya kandara-
+<lb n="23" />
+<gap reason="illegible" precision="low" quantity="3" unit="character" /> nusāreṇottara-paścimam anusr̥tya pānīya-pāto yāval lopriṅ-gāminam mārgam u
+<lb n="24" />
+<gap reason="illegible" precision="low" quantity="5" unit="character" /> kharā-kṣetra-sarva-dakṣiṇālyā paścimaṅ gatvā lopriṁ 
+<gap reason="illegible" precision="low" quantity="4" unit="character" /> ta-kṣetran tataḥ
+<lb n="25" />pa
+<supplied reason="lost">ścimam a</supplied>nusr̥tyottarañ ca vr̥had-ārāmasya pūrva-mukhe mahā-pathas tata 
+<supplied reason="lost">u</supplied>ttaran gatvā vr̥ha
+<lb n="26" break="no" />d-ā
+<supplied reason="lost">rāma</supplied>sya pūrvottara-koṇād adho 
+<supplied reason="subaudible">’</supplied>vatīrya vana-paryantam upādāya phaṁśinpral-srotas tad-u
+<lb n="27" break="no" />ttaram anusr̥tya srota 
+<gap reason="illegible" precision="low" quantity="2" unit="character" /> masa-srotonusāreṇa brahma-tīrtha-saṁvedyan nadī-vāgvatī-pūrvva-
+<lb n="28" />m anusr̥tya 
+<supplied reason="lost">utta</supplied>raṅ gatvā kandarāgrānusāreṇa śreṣṭhidulmūdhni-savaprītubrūmaṭhyamālīty e
+<lb n="29" break="no" />
+<supplied reason="omitted">tat-sīma-parikṣipte 
+<supplied reason="lost">’</supplied>sminn</supplied> agra-hāre yadi kadācid ārya-saṅghasyāśakyaṅ kāryam u
+<supplied reason="lost">tpa</supplied>dyeta
+<lb n="30" />tadā paramā
+<supplied reason="lost">sanena vi</supplied>cāraṇīyam āpaṇa-karo 
+<supplied reason="subaudible">’</supplied>dhika-māsa-tulā-daṇḍādi
+<supplied reason="lost">ka</supplied>-parva Evā
+<lb n="31" break="no" />rya-bhi
+<supplied reason="lost">kṣu-saṅghasye</supplied>ty evam avagatārthair asmat-pādopajīvibhir anyair vāyam prasādo 
+<supplied reason="subaudible">’</supplied>nyathā na
+<lb n="32" />kara
+<supplied reason="lost">ṇīyo yas tv etā</supplied>m ājñām ullaṅghyānyathā kuryāt kārayed vā so 
+<supplied reason="subaudible">’</supplied>smā
+<supplied reason="lost">bhi</supplied>s sutarān na marṣanīyo
+<lb n="33" />ye cās
+<supplied reason="lost">mad-ūrdhvam bhavi</supplied>tāro bhūmi-pālās tair apy ubhaya-loka-niravadya-sukhārthibhiḥ pūrva-
+<lb n="34" />rāja-vihi
+<supplied reason="lost">to</supplied> 
+<supplied reason="subaudible">’</supplied>yaṁ viśiṣṭaḥ prasāda Iti prayatnatas samyak paripālanīya Eva yato
+<lb n="35" />dharma-śāstra-vacanam
 </p>
-        <lg met="anuṣṭubh" n="1">
-          <l n="a">bahubhir vasudhā dattā</l>
-          <l n="b">rājabhis sagarādibhiḥ</l>
-          <l n="c">yasya yasya yadā bhūmi <lb break="no" n="36"/>s</l>
-          <l n="d">tasya tasya tadā phalam</l>
-        </lg>
-        <p>iti svayam ājñā dūtakaś cātra bhaṭṭāraka-śrīśivadevaḥ
-<lb n="37"/>saṁvaT <num value="103"><g type="numeral">100</g> 3</num> jyaiṣṭha-śukla-divā trayodaśyāM||<!-- 
-L37. Bh.I. reads 143 
---></p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+<lg n="1" met="anuṣṭubh">
+<l n="a">bahubhir vasudhā dattā</l>
+<l n="b">rājabhis sagarādibhiḥ</l>
+
+
+<l n="c">yasya yasya yadā bhūmi 
+<lb n="36" break="no" />s</l>
+<l n="d">tasya tasya tadā phalam</l>
+</lg>
+<p>iti svayam ājñā dūtakaś cātra bhaṭṭāraka-śrīśivadevaḥ
+<lb n="37" />saṁvaT 
+<num value="103">
+<g type="numeral">100</g> 3</num> jyaiṣṭha-śukla-divā trayodaśyāM||</p>
+</div>
+                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+</text>
 </TEI>

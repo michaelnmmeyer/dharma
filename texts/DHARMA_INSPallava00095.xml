@@ -1,9 +1,14 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>Uttiramērūr, Sundaravaradapaperumāḷ, Vimāna, southern plinth, architect
-					inscriptions</title>
+        <title>Uttiramērūr, Sundaravaradapaperumāḷ, Vimāna, southern plinth, architect inscriptions</title>
         <respStmt>
           <resp>EpiDoc encoding</resp>
           <persName ref="part:emfr">
@@ -25,11 +30,7 @@
         <idno type="filename">DHARMA_INSPallava00095</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
-							Licence. To view a copy of the licence, visit
-							https://creativecommons.org/licenses/by/4.0/ or send a letter to
-							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-							California, 94041, USA.</p>
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
           </licence>
         </availability>
@@ -39,14 +40,14 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -54,213 +55,381 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change when="2020-06-18" who="part:emfr">Creation of the file on the
-				repository</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change when="2020-06-18" who="part:emfr">Creation of the file on the repository</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="san-Latn">
-        <!--Add milestones for blocks-->
-        <div n="1" subtype="zone" type="textpart">
-          <ab>
-         			<lb n="1"/>svasti śrī
-         		</ab>
-          <lg met="śārdūlavikrīḍita" n="1">
-            <l n="a">Evaṃ vāstv abhavat· mahat· pravigatan nāmnā ca jāty-ādi‡nā</l>
-            <l n="b">yenāsmin· bahubhir yyathāgama-vidhair ggrāme prayo‡‡gānvitai<orig>ś</orig></l>
-            <l n="c">śrīmat·-pāṭaka-vāsinā kṛta-dhiyā takṣṇā sadā vāgminā</l>
-            <l n="d">tenedam· ‡‡ parameśva‡reṇa mahatā yo v<choice>
-                <sic>a</sic>
-                <corr>ā</corr>
-              </choice>stuno bhāskaraḥ <g type="gomutra">.</g><!--check markup--><!--punctuation inside <l> or not?--></l>
-          </lg>
+      
+<body>
+         
+<div type="edition" xml:lang="san-Latn">
+                            
+                
+<div type="textpart" subtype="zone" n="1">
+                        
+                        
+<ab>
+                                
+<lb n="1" />svasti śrī
+                        </ab>
+                        
+<lg met="śārdūlavikrīḍita" n="1">
+                                
+<l n="a">Evaṃ vāstv abhavat· mahat· pravigatan nāmnā ca jāty-ādi‡nā</l> 
+                                
+<l n="b">yenāsmin· bahubhir yyathāgama-vidhair ggrāme prayo‡‡gānvitai
+<orig>ś</orig></l>
+                                
+<l n="c">śrīmat·-pāṭaka-vāsinā kṛta-dhiyā takṣṇā sadā vāgminā</l> 
+                                
+<l n="d">tenedam· ‡‡ parameśva‡reṇa mahatā yo v
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>stuno bhāskaraḥ 
+<g type="gomutra">.</g></l>
+                        </lg>
+                        
+                </div>
+                
+                
+<div type="textpart" subtype="zone" n="2">
+                
+                        
+<ab>
+                                
+<lb n="1" />svasti śrī
+                        </ab>
+                   
+                        
+<lg met="anuṣṭubh" n="2">
+                                
+<l n="a">Asyālaṃkāra-mānañ ca</l> 
+                                
+<l n="b">yathā lakṣaṇa-saṃyutam·</l>
+                                
+<l n="c">yaḥ kaścid vetti saka
+<orig>ḷ</orig>am· </l>
+                                
+<l n="d">sa vai v
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>stu-vidāṃ va‡raḥ</l></lg>
+                </div>
+                
+         </div>
+        
+<div type="apparatus">
+                
+        
+<div type="textpart" subtype="zone" n="1">
+                
+                        
+<listApp>
+                                
+                        
+<app loc="1">
+                                
+<lem>svasti śrī</lem>
+                                
+<rdg source="bib:SubrahmanyaAiyer1928_01">svasti śrī 
+<g type="ddanda">.</g></rdg>                        </app> 
+                                
+                                
+<app loc="1">
+                                
+<lem>v
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>stuno</lem>
+                                
+<rdg source="bib:SubrahmanyaAiyer1928_01">vastuno</rdg>
+                                </app>                  
+                                
+                                
+                </listApp>
+                </div>
+                
+                
+<div type="textpart" subtype="zone" n="2">
+                
+                        
+<listApp>
+                                
+                        
+<app loc="1">
+                                
+<lem>svasti śrī</lem>
+                                
+<rdg source="bib:SubrahmanyaAiyer1928_01">svasti śrī 
+<g type="ddanda">.</g></rdg>                        </app>
+                                
+                                
+<app loc="1">
+                                
+<lem>Asyālaṃkāra-mānañ ca</lem>
+                                
+<rdg source="bib:Brocquet1997_01">Asyālaṃkāram ānañca</rdg>
+                        </app>
+                                
+                                
+<app loc="1">
+                                        
+<lem>saka
+<orig>ḷ</orig>am·</lem>
+                                
+<rdg source="bib:Brocquet1997_01">sakalam·</rdg>
+                        </app>
+                                
+                                
+<app loc="1">
+                                        
+<lem>va‡raḥ</lem>
+                                        
+<rdg source="bib:SubrahmanyaAiyer1928_01">varaḥ 
+<g type="ddanda">.</g></rdg>                                </app> 
+                                
+                </listApp>
+                </div>
+                
         </div>
-        <div n="2" subtype="zone" type="textpart">
-          <ab>
-         			<lb n="1"/>svasti śrī
-         		</ab>
-          <lg met="anuṣṭubh" n="2">
-            <l n="a">Asyālaṃkāra-mānañ ca</l>
-            <l n="b">yathā lakṣaṇa-saṃyutam·</l>
-            <l n="c">yaḥ kaścid vetti saka<orig>ḷ</orig>am· </l>
-            <l n="d">sa vai v<choice>
-                <sic>a</sic>
-                <corr>ā</corr>
-              </choice>stu-vidāṃ va‡raḥ</l>
-          </lg>
+        
+        
+<div type="translation" resp="part:emfr">
+                
+                
+<div type="textpart" subtype="zone" n="1">
+                        
+                        
+<p n="1">
+                                Prosperity! Fortune!
+                        </p>
+                        
+<p rend="stanza" n="1">
+                                
+<l>Thus arouse in this village this great building, renowned by its name and by its type, thanks to the great Parameśvara who resides in the glorious Pāṭaka, who is a learned and always eloquent architect 
+<supplied reason="explanation">
+<foreign>takṣan</foreign>, literally "carpenter"</supplied> and is the sun of architecture, 
+<supplied reason="subaudible">as well as thanks to</supplied> many 
+<supplied reason="subaudible">others</supplied> in the village acting in accordance with the tradition 
+<supplied reason="explanation">
+  <foreign>āgama</foreign>
+</supplied> and endowed with practical knowledge.</l>
+                        </p>
+                        
+                </div>
+                
+                
+<div type="textpart" subtype="zone" n="2">
+                        
+                        
+<p>Prosperity! Fortune!</p>
+                        
+<p rend="stanza" n="2">
+                                
+<l>The ornaments and measurements of this 
+<supplied reason="subaudible">temple</supplied> as well as its characteristics, whoever knows/masters them fully is really the best among those knowledgeable in architecture.</l>
+                        </p>
+                </div>
         </div>
-      </div>
-      <div type="apparatus">
-        <div n="1" subtype="zone" type="textpart">
-          <listApp>
-            <app loc="1">
-              <lem>svasti śrī</lem>
-              <rdg source="bib:SubrahmanyaAiyer1928_01">svasti śrī <g type="ddanda">.</g></rdg>
-              <!--Check markup for punctuation-->
-            </app>
-            <app loc="1">
-              <lem>v<choice>
-                  <sic>a</sic>
-                  <corr>ā</corr>
-                </choice>stuno</lem>
-              <rdg source="bib:SubrahmanyaAiyer1928_01">vastuno</rdg>
-            </app>
-          </listApp>
+        
+        
+<div type="translation" xml:lang="fra" resp="part:sybr part:emfr">
+                                
+                
+<div type="textpart" subtype="zone" n="1">
+                        
+                        
+<p n="1">Salut ! Prospérité !</p>
+                        
+<p rend="stanza" n="1">
+                                
+<l>Celui grâce à qui naquit ainsi ce grand édifice,[[ADD translation of pravigatan nāmnā ca jāty-ādinā]]</l>
+                                
+<l>En ce village, avec l’aide de nombreux spécialistes, œuvrant selon la tradition et doués d’une expérience, pratique,</l>
+                                
+<l>Celui-là, habitant de l’illustre Pāṭaka, architecte à l’intelligence accomplie et toujours éloquent,</l>
+                                
+<l>C’est le grand Parameśvara, le soleil de l’architecture.</l>
+                        </p>
+                        
+                </div>
+                
+                
+<div type="textpart" subtype="zone" n="2">
+                        
+                        
+<p>Salut ! Prospérité !</p>
+                        
+<p rend="stanza" n="2">
+                                
+<l>Il devint l’ornement de ce monument,[[réviser traduction?]]</l>
+                                
+<l>Puisque quiconque, en même temps que les signes,</l>
+                                
+<l>Connaît l’ensemble de cette science</l>
+                                
+<l>Est vraiment le meilleur des architectes.</l>
+                        </p>
+                </div>
         </div>
-        <div n="2" subtype="zone" type="textpart">
-          <listApp>
-            <app loc="1">
-              <lem>svasti śrī</lem>
-              <rdg source="bib:SubrahmanyaAiyer1928_01">svasti śrī <g type="ddanda">.</g></rdg>
-              <!--Check markup for punctuation-->
-            </app>
-            <app loc="1">
-              <lem>Asyālaṃkāra-mānañ ca</lem>
-              <rdg source="bib:Brocquet1997_01">Asyālaṃkāram ānañca</rdg>
-            </app>
-            <app loc="1">
-              <lem>saka<orig>ḷ</orig>am·</lem>
-              <rdg source="bib:Brocquet1997_01">sakalam·</rdg>
-            </app>
-            <app loc="1">
-              <lem>va‡raḥ</lem>
-              <rdg source="bib:SubrahmanyaAiyer1928_01">varaḥ <g type="ddanda">.</g></rdg>
-              <!--Check markup for punctuation-->
-            </app>
-          </listApp>
+                                
+        
+<div type="translation" xml:lang="fra" source="bib:Gros+Nagaswamy1970_01">
+                                
+                
+<div type="textpart" subtype="zone" n="1">
+                        
+                        
+<p>Ainsi fut créé un grand édifice, célébré pour son nom et sa classe, dans ce village, par des bien des gens, avec dextérité et selon les 
+<foreign>āgama</foreign> 
+<supplied reason="subaudible">et</supplied>, par cet architecte 
+<supplied reason="explanation">
+  <foreign>takṣan</foreign>
+</supplied> résident de Pāṭaka, intelligent et au verbe sûr, le Grand Parameśvara, soleil de l'architecture 
+<supplied reason="explanation">
+  <foreign>vastu</foreign>
+</supplied>.</p>
+                </div>
+                
+                
+<div type="textpart" subtype="zone" n="2">
+                        
+                        
+<p>Les mesures 
+<supplied reason="explanation">
+  <foreign>māna</foreign>
+</supplied> et les ornements 
+<supplied reason="explanation">
+  <foreign>alaṃkāra</foreign>
+</supplied> de ce temple, en conformité avec les définitions 
+<supplied reason="explanation">
+  <foreign>lakṣaṇa</foreign>
+</supplied>; qui les comprend toutes est vraiment le meilleur des connaisseurs en architecture 
+<supplied reason="explanation">
+  <foreign>vastu</foreign>
+</supplied>.</p>
+                </div>
+                
         </div>
-      </div>
-      <div resp="part:emfr" type="translation">
-        <div n="1" subtype="zone" type="textpart">
-          <p n="1">
-      				Prosperity! Fortune!
-      			</p>
-          <p n="1" rend="stanza">
-            <l>Thus arouse in this village this great building, renowned by its name and by its type, thanks to the great Parameśvara who resides in the glorious Pāṭaka, who is a learned and always eloquent architect <supplied reason="explanation"><foreign>takṣan</foreign>, literally "carpenter"</supplied> and is the sun of architecture, <supplied reason="subaudible">as well as thanks to</supplied> many <supplied reason="subaudible">others</supplied> in the village acting in accordance with the tradition <supplied reason="explanation">
-                <foreign>āgama</foreign>
-              </supplied> and endowed with practical knowledge.</l>
-          </p>
+        
+        
+<div type="commentary">                
+                
+<p>The two verses are edited here from left to right, as both verses appear on the base. Previous editions have the verses in reversed order. NB: the FS in SII reverses the logical/physical succession of verses.</p>
+                
+<div type="textpart" subtype="zone" n="1">
+                        
+<p n="1">
+<foreign>yyathāgama-vidhair</foreign>. Selon EITA I.1, p. 92 : le texte consulté serait le Vaikhānasāgama tel que fourni par Marīci dans son Vimānārcanakalpa (cf. Colas 1986, p. 3 : MarīciS ou Vimānārcanakalpa, voire Vaikhānasāgama). Colas (1986, p. 59) se demande s’il faut prendre āgama au sens général de « tradition » ou au sens de tradition āgamique avec ou sans connotation sectaire.</p>
+                </div>
+                
+<div type="textpart" subtype="zone" n="2">
+                        
+<p>Gros &amp; Nagaswamy (1970 : 80-81) : Sur l’architecte Parameśvara. Originaire de Pāṭaka, quartier de Kāñcī mentionné plusieurs fois dans les inscriptions. Parameśvara est aussi le titre du prédécesseur de Nandivarman II. L’architecte (mahākaṣṭakāri [voir si et comment il est dénommé dans la potion Ta ?] Parameśvara a écrit les tablettes de KSK de Nandivarman II et devait être un architecte royal réputé. Le VKP, attribué généralement à Nandivarman II, est dénommé Parameśvaraviṇṇagaram [dans les inscriptions et NTP] et comporte comme le SundaravardaP d’Uttaramērūr trois étages. Pas impossible donc que le même Parameśvara Peruntaccan ait construit le VKP de Kāñcī [comprend donc que le nom dériverait de l’architecte ?] et vu sa renommée se soit vu confier le SundaravardaP d’Uttaramērūr, qui serait une fondation des dernières années de Nandivarman II [la plus ancienne inscription = AR 10 de Dantivarman] et dont le nom originel est sans doute Śrīveḷi Viṣṇugṛha mentionné dans plusieurs inscriptions (pas improbable que Śrīveḷi ait été aussi un titre de Nandivarman II).</p>
+                </div> 
+                
+        </div>                                
+        
+        
+<div type="bibliography">
+
+ 
+<p>
+        First edited by 
+<bibl>
+  <ptr target="bib:SubrahmanyaAiyer1928_01" />
+</bibl> (SII 6, no. 333); text and summary in 
+<bibl>
+  <ptr target="bib:Mahalingam1988_01" />
+</bibl> (IP no. 95); text and translation in 
+<bibl>
+  <ptr target="bib:Brocquet1997_01" />
+</bibl> (B no. 59); re-edited here for DHARMA (ERC n° 809994) by Sylvain Brocquet &amp;Emmanuel Francis (2020), from autopsy and photographs (2004, 2013).
+</p>    
+                
+<listBibl type="primary">
+            
+        
+<bibl n="KVSA1928">
+                
+<ptr target="bib:SubrahmanyaAiyer1928_01" />
+                
+<citedRange unit="page">158</citedRange>
+                
+<citedRange unit="item">333</citedRange>
+        </bibl>
+        
+<bibl n="TVM">
+                
+<ptr target="bib:Mahalingam1988_01" />
+                
+<citedRange unit="page">331</citedRange>
+                
+<citedRange unit="item">95</citedRange>
+        </bibl>
+        
+<bibl n="SB">
+                
+<ptr target="bib:Brocquet1997_01" />
+                
+<citedRange unit="page">697-699</citedRange>
+                
+<citedRange unit="item">59</citedRange>                         
+        </bibl>
+        
+</listBibl>
+
+<listBibl type="secondary">
+        
+        
+<bibl n="ARIE 1897-1898">
+                
+<ptr target="bib:ARIE1897-1898" />
+                
+<citedRange unit="page">17</citedRange>
+                
+<citedRange unit="appendix">B/1898</citedRange>
+                
+<citedRange unit="item">50</citedRange>
+        </bibl>
+        
+<bibl>
+                
+<ptr target="bib:Gros+Nagaswamy1970_01" />
+                
+<citedRange unit="page">80-81</citedRange>
+        </bibl>
+        
+<bibl>
+                
+<ptr target="bib:Colas1986_01" />
+                
+<citedRange unit="page">56-57</citedRange>
+        </bibl>
+        
+</listBibl>
+        
         </div>
-        <div n="2" subtype="zone" type="textpart">
-          <p>Prosperity! Fortune!</p>
-          <p n="2" rend="stanza">
-            <l>The ornaments and measurements of this <supplied reason="subaudible">temple</supplied> as well as its characteristics, whoever knows/masters them fully is really the best among those knowledgeable in architecture.</l>
-          </p>
-        </div>
-      </div>
-      <div resp="part:sybr part:emfr" type="translation" xml:lang="fra">
-        <div n="1" subtype="zone" type="textpart">
-          <p n="1">Salut ! Prospérité !</p>
-          <p n="1" rend="stanza">
-            <l>Celui grâce à qui naquit ainsi ce grand édifice,[[ADD translation of pravigatan nāmnā ca jāty-ādinā]]</l>
-            <l>En ce village, avec l’aide de nombreux spécialistes, œuvrant selon la tradition et doués d’une expérience, pratique,</l>
-            <l>Celui-là, habitant de l’illustre Pāṭaka, architecte à l’intelligence accomplie et toujours éloquent,</l>
-            <l>C’est le grand Parameśvara, le soleil de l’architecture.</l>
-          </p>
-        </div>
-        <div n="2" subtype="zone" type="textpart">
-          <p>Salut ! Prospérité !</p>
-          <p n="2" rend="stanza">
-            <l>Il devint l’ornement de ce monument,[[réviser traduction?]]</l>
-            <l>Puisque quiconque, en même temps que les signes,</l>
-            <l>Connaît l’ensemble de cette science</l>
-            <l>Est vraiment le meilleur des architectes.</l>
-          </p>
-        </div>
-      </div>
-      <div source="bib:Gros+Nagaswamy1970_01" type="translation" xml:lang="fra">
-        <div n="1" subtype="zone" type="textpart">
-          <p>Ainsi fut créé un grand édifice, célébré pour son nom et sa classe, dans ce village, par des bien des gens, avec dextérité et selon les <foreign>āgama</foreign> <supplied reason="subaudible">et</supplied>, par cet architecte <supplied reason="explanation">
-              <foreign>takṣan</foreign>
-            </supplied> résident de Pāṭaka, intelligent et au verbe sûr, le Grand Parameśvara, soleil de l'architecture <supplied reason="explanation">
-              <foreign>vastu</foreign>
-            </supplied>.</p>
-        </div>
-        <div n="2" subtype="zone" type="textpart">
-          <p>Les mesures <supplied reason="explanation">
-              <foreign>māna</foreign>
-            </supplied> et les ornements <supplied reason="explanation">
-              <foreign>alaṃkāra</foreign>
-            </supplied> de ce temple, en conformité avec les définitions <supplied reason="explanation">
-              <foreign>lakṣaṇa</foreign>
-            </supplied>; qui les comprend toutes est vraiment le meilleur des connaisseurs en architecture <supplied reason="explanation">
-              <foreign>vastu</foreign>
-            </supplied>.</p>
-        </div>
-      </div>
-      <div type="commentary">
-        <!--update!-->
-        <p>The two verses are edited here from left to right, as both verses appear on the base. Previous editions have the verses in reversed order. NB: the FS in SII reverses the logical/physical succession of verses.</p>
-        <div n="1" subtype="zone" type="textpart">
-          <p n="1"><foreign>yyathāgama-vidhair</foreign>. Selon EITA I.1, p. 92 : le texte consulté serait le Vaikhānasāgama tel que fourni par Marīci dans son Vimānārcanakalpa (cf. Colas 1986, p. 3 : MarīciS ou Vimānārcanakalpa, voire Vaikhānasāgama). Colas (1986, p. 59) se demande s’il faut prendre āgama au sens général de « tradition » ou au sens de tradition āgamique avec ou sans connotation sectaire.</p>
-        </div>
-        <div n="2" subtype="zone" type="textpart">
-          <p>Gros &amp; Nagaswamy (1970 : 80-81) : Sur l’architecte Parameśvara. Originaire de Pāṭaka, quartier de Kāñcī mentionné plusieurs fois dans les inscriptions. Parameśvara est aussi le titre du prédécesseur de Nandivarman II. L’architecte (mahākaṣṭakāri [voir si et comment il est dénommé dans la potion Ta ?] Parameśvara a écrit les tablettes de KSK de Nandivarman II et devait être un architecte royal réputé. Le VKP, attribué généralement à Nandivarman II, est dénommé Parameśvaraviṇṇagaram [dans les inscriptions et NTP] et comporte comme le SundaravardaP d’Uttaramērūr trois étages. Pas impossible donc que le même Parameśvara Peruntaccan ait construit le VKP de Kāñcī [comprend donc que le nom dériverait de l’architecte ?] et vu sa renommée se soit vu confier le SundaravardaP d’Uttaramērūr, qui serait une fondation des dernières années de Nandivarman II [la plus ancienne inscription = AR 10 de Dantivarman] et dont le nom originel est sans doute Śrīveḷi Viṣṇugṛha mentionné dans plusieurs inscriptions (pas improbable que Śrīveḷi ait été aussi un titre de Nandivarman II).</p>
-        </div>
-      </div>
-      <div type="bibliography">
-        <p>
- 	First edited by <bibl>
-            <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-          </bibl> (SII 6, no. 333); text and summary in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP no. 95); text and translation in <bibl>
-            <ptr target="bib:Brocquet1997_01"/>
-          </bibl> (B no. 59); re-edited here for DHARMA (ERC n° 809994) by Sylvain Brocquet &amp;Emmanuel Francis (2020), from autopsy and photographs (2004, 2013).
-</p>
-        <listBibl type="primary">
-          <bibl n="KVSA1928">
-            <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-            <citedRange unit="page">158</citedRange>
-            <citedRange unit="item">333</citedRange>
-          </bibl>
-          <bibl n="TVM">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="page">331</citedRange>
-            <citedRange unit="item">95</citedRange>
-          </bibl>
-          <bibl n="SB">
-            <ptr target="bib:Brocquet1997_01"/>
-            <citedRange unit="page">697-699</citedRange>
-            <citedRange unit="item">59</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="ARIE 1897-1898">
-            <ptr target="bib:ARIE1897-1898"/>
-            <citedRange unit="page">17</citedRange>
-            <citedRange unit="appendix">B/1898</citedRange>
-            <citedRange unit="item">50</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Gros+Nagaswamy1970_01"/>
-            <citedRange unit="page">80-81</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Colas1986_01"/>
-            <citedRange unit="page">56-57</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+        
+      </body>
+  
+</text>
 </TEI>

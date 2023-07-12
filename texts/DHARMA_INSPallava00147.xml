@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -24,11 +30,7 @@
         <idno type="filename">DHARMA_INSPallava00147</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
-							Licence. To view a copy of the licence, visit
-							https://creativecommons.org/licenses/by/4.0/ or send a letter to
-							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-							California, 94041, USA.</p>
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
           </licence>
         </availability>
@@ -38,14 +40,14 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
             <summary>Donation of gold for festival celebration.</summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -53,212 +55,408 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-					under the European Union's Horizon 2020 research and innovation programme (grant
-					agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-						ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-							<ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2021-06-22" who="part:emfr">Creation of the file</change>
+      <change who="part:emfr" when="2021-06-22" status="draft">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tam-Latn">
-        <!--add readings by Schmid 2014-->
-        <!--display issues with @break="no"-->
-        <p>
-      			<milestone n="1" type="pagelike" unit="zone"/>
-			<label xml:lang="eng">Pillar, upper square portion, face 1</label>
-      			
-      			<gap precision="low" quantity="2" reason="lost" unit="line"/>
-      			
-      			<lb n="1"/><supplied reason="lost">k</supplied>ku <unclear>pallava</unclear>t<unclear>ilaka</unclear>-ku
-      			<lb break="no" n="2"/>lattu nanti-p-pōt
-      			<lb break="no" n="3"/>taraiyar ma<hi rend="grantha">hāde</hi><supplied reason="lost">vi</supplied>	
-      			<lb break="no" n="4"/>yār-āṉa Aṭikaḷ kaṇ
-      			<lb break="no" n="5"/>ṭaṉ māṟam pāvaiyā
-      			<lb break="no" n="6"/>r vaitta poṉ Aṟu
-      			<lb n="7"/>kaḻañcē
-      		</p>
-        <p>
-      			kālāl pū
-      			<lb break="no" n="8"/>vil kaḻañciṉ vā
-      			<lb break="no" n="9"/><choice>
-            <orig>yy</orig>
-            <reg>y</reg>
-          </choice> arai-k kāla-p po
-      			<lb break="no" n="10"/><choice>
-            <orig>ṉṉ</orig>
-            <reg>ṉ</reg>
-          </choice>-āka vanta pali
-      			
-      			<milestone break="no" n="2" type="pagelike" unit="zone"/>
-			<label xml:lang="eng">Same pillar, middle octagonal square portion, adjacent faces 1–3</label>
-      			
-      			<lb break="no" n="11"/>cai pūvil mu-k-kālē Ai<choice>
-            <orig>ñ
-      			<lb break="no" n="12"/>c</orig>
-            <reg>nt</reg>
-          </choice>u mā <unclear>I</unclear>p-poṉ koṇṭu Ai		
-      			<lb break="no" n="13"/>ppikai vi<hi rend="grantha">ṣu</hi>vum cittairai
-      			<lb break="no" n="14"/>vi<hi rend="grantha">ṣu</hi>vum tirumēṉi-y āṭa
-      			<lb n="15"/>ney pā<supplied reason="omitted">l</supplied> tayir Ai<choice>
-            <orig>ñ-ñ</orig>
-            <reg>n-n</reg>
-          </choice>āḻi
-      			<lb break="no" n="16"/>c cey<supplied reason="lost">tum</supplied> paripāram aṭaṅka		
-      			<lb n="17"/>tiru-v-a<supplied reason="lost">mirt’ a</supplied>rici patakku nā
-      			<lb break="no" n="18"/>-<choice>
-            <orig>ṉ</orig>
-            <reg>n</reg>
-          </choice>āḻi <supplied reason="lost">Iv-</supplied>vēlvai Iḷan<choice>
-            <orig>i</orig>
-            <reg>ī</reg>
-          </choice>r
-      			<lb n="19"/>vaḻai-<supplied reason="lost">p-pa</supplied>ḻañ caṟkarai I
-      			<lb break="no" n="20"/>ru-patu ce<supplied reason="lost">y</supplied>tum naṟum pū-c
-      			<lb break="no" n="21"/>-cāntu <supplied reason="lost">kuṅ</supplied>kuliyamuṅ ko
-      			<lb break="no" n="22"/>ṇṭ’ ār<supplied reason="lost">ātik</supplied>kavum In-nāḷā
-      			<lb break="no" n="23"/>l <hi rend="grantha">br<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice><unclear>hma</unclear></hi><supplied reason="lost">ṇa</supplied>r Aimpatiṉmaru
-      			<lb break="no" n="24"/>m tiru-<unclear>k</unclear>-<supplied reason="lost">kōyi</supplied>l paṇi cey
-      			<lb break="no" n="25"/>yum <supplied reason="lost">māṇika</supplied>ḷ Ai<choice>
-            <orig>vv</orig>
-            <reg>v</reg>
-          </choice>arum 
-      			<lb n="26"/>Aṭika<supplied reason="lost">ḷmā</supplied>rum paṇi cey
-      			<lb break="no" n="27"/>makkaḷum Uṇpat-āka vait
-      			<lb break="no" n="28"/>tēṉ Eyyi-ṉāṭṭu-t tēva
-      			
-      				<milestone break="no" n="3" type="pagelike" unit="zone"/>
-      				<label xml:lang="eng">Same pillar, lower square portion, face 1</label>
-      			
-      			<lb break="no" n="29"/>tāṉam ciri-kaṇṭa-pura
-      			<lb break="no" n="30"/>ttu Aṟukai vāṇi
-      			<lb break="no" n="31"/>kar Ippaṭi Aṟutiṅ
-      			<lb break="no" n="32"/>kaḷ vāram ārāyvat-ā<unclear>ka</unclear>
-      			<lb break="no" n="33"/>vaittēṉ kaṇṭaṉ m<unclear>ā</unclear>
-      			<lb break="no" n="34"/><unclear>ṟa</unclear>m pāvaiyēṉ
-      		</p>
-        <p>
-      			Itu pa
-      			<lb break="no" n="35"/>ṉmāheśvarar ira
-      			<lb break="no" n="36"/>kṣai :|-<!--update punctuation encoding-->      			
+      
+<body>
+        
+<div type="edition" xml:lang="tam-Latn">
+                
+                                                        
+                
+<p>
+                        
+<milestone type="pagelike" unit="zone" n="1" />
+                        
+<label xml:lang="eng">Pillar, upper square portion, face 1</label>
+                        
+                        
+<gap reason="lost" quantity="2" unit="line" precision="low" />
+                        
+                        
+<lb n="1" />
+<supplied reason="lost">k</supplied>ku 
+<unclear>pallava</unclear>t
+<unclear>ilaka</unclear>-ku
+                        
+<lb n="2" break="no" />lattu nanti-p-pōt
+                        
+<lb n="3" break="no" />taraiyar ma
+<hi rend="grantha">hāde</hi>
+<supplied reason="lost">vi</supplied>      
+                        
+<lb n="4" break="no" />yār-āṉa Aṭikaḷ kaṇ
+                        
+<lb n="5" break="no" />ṭaṉ māṟam pāvaiyā
+                        
+<lb n="6" break="no" />r vaitta poṉ Aṟu
+                        
+<lb n="7" />kaḻañcē
+                </p>
+                
+<p>
+                        kālāl pū
+                        
+<lb n="8" break="no" />vil kaḻañciṉ vā
+                        
+<lb n="9" break="no" />
+<choice>
+  <orig>yy</orig>
+  <reg>y</reg>
+</choice> arai-k kāla-p po
+                        
+<lb n="10" break="no" />
+<choice>
+  <orig>ṉṉ</orig>
+  <reg>ṉ</reg>
+</choice>-āka vanta pali
+                        
+                        
+<milestone type="pagelike" unit="zone" n="2" break="no" />
+                        
+<label xml:lang="eng">Same pillar, middle octagonal square portion, adjacent faces 1–3</label>
+                        
+                        
+<lb n="11" break="no" />cai pūvil mu-k-kālē Ai
+<choice>
+  <orig>ñ
+                          
+  <lb n="12" break="no" />c</orig>
+  <reg>nt</reg>
+</choice>u mā 
+<unclear>I</unclear>p-poṉ koṇṭu Ai            
+                        
+<lb n="13" break="no" />ppikai vi
+<hi rend="grantha">ṣu</hi>vum cittairai
+                        
+<lb n="14" break="no" />vi
+<hi rend="grantha">ṣu</hi>vum tirumēṉi-y āṭa
+                        
+<lb n="15" />ney pā
+<supplied reason="omitted">l</supplied> tayir Ai
+<choice>
+  <orig>ñ-ñ</orig>
+  <reg>n-n</reg>
+</choice>āḻi
+                        
+<lb n="16" break="no" />c cey
+<supplied reason="lost">tum</supplied> paripāram aṭaṅka             
+                        
+<lb n="17" />tiru-v-a
+<supplied reason="lost">mirt’ a</supplied>rici patakku nā
+                        
+<lb n="18" break="no" />-
+<choice>
+  <orig>ṉ</orig>
+  <reg>n</reg>
+</choice>āḻi 
+<supplied reason="lost">Iv-</supplied>vēlvai Iḷan
+<choice>
+  <orig>i</orig>
+  <reg>ī</reg>
+</choice>r
+                        
+<lb n="19" />vaḻai-
+<supplied reason="lost">p-pa</supplied>ḻañ caṟkarai I
+                        
+<lb n="20" break="no" />ru-patu ce
+<supplied reason="lost">y</supplied>tum naṟum pū-c
+                        
+<lb n="21" break="no" />-cāntu 
+<supplied reason="lost">kuṅ</supplied>kuliyamuṅ ko
+                        
+<lb n="22" break="no" />ṇṭ’ ār
+<supplied reason="lost">ātik</supplied>kavum In-nāḷā
+                        
+<lb n="23" break="no" />l 
+<hi rend="grantha">br
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>
+<unclear>hma</unclear></hi>
+<supplied reason="lost">ṇa</supplied>r Aimpatiṉmaru
+                        
+<lb n="24" break="no" />m tiru-
+<unclear>k</unclear>-
+<supplied reason="lost">kōyi</supplied>l paṇi cey
+                        
+<lb n="25" break="no" />yum 
+<supplied reason="lost">māṇika</supplied>ḷ Ai
+<choice>
+  <orig>vv</orig>
+  <reg>v</reg>
+</choice>arum 
+                        
+<lb n="26" />Aṭika
+<supplied reason="lost">ḷmā</supplied>rum paṇi cey
+                        
+<lb n="27" break="no" />makkaḷum Uṇpat-āka vait
+                        
+<lb n="28" break="no" />tēṉ Eyyi-ṉāṭṭu-t tēva
+                        
+                                
+<milestone type="pagelike" unit="zone" n="3" break="no" />
+                                
+<label xml:lang="eng">Same pillar, lower square portion, face 1</label>
+                        
+                        
+<lb n="29" break="no" />tāṉam ciri-kaṇṭa-pura
+                        
+<lb n="30" break="no" />ttu Aṟukai vāṇi
+                        
+<lb n="31" break="no" />kar Ippaṭi Aṟutiṅ
+                        
+<lb n="32" break="no" />kaḷ vāram ārāyvat-ā
+<unclear>ka</unclear>
+                        
+<lb n="33" break="no" />vaittēṉ kaṇṭaṉ m
+<unclear>ā</unclear>
+                        
+<lb n="34" break="no" />
+<unclear>ṟa</unclear>m pāvaiyēṉ
+                </p>
+                
+<p>
+                        Itu pa
+                        
+<lb n="35" break="no" />ṉmāheśvarar ira
+                        
+<lb n="36" break="no" />kṣai :|-                       
 
-      		</p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1">
-            <lem><unclear>pallava</unclear>t<unclear>ilaka</unclear></lem>
-            <rdg source="bib:SubrahmanyaAiyer1932_01">
-              <unclear>pallavatilaka</unclear>
-            </rdg>
-          </app>
-          <app loc="3">
-            <lem>ma<hi rend="grantha">hāde</hi><supplied reason="lost">vi</supplied></lem>
-            <rdg source="bib:SubrahmanyaAiyer1932_01">ma<hi rend="grantha">hāde</hi>vi</rdg>
-          </app>
-          <app loc="12">
-            <lem><unclear>I</unclear>p-poṉ</lem>
-            <rdg source="bib:SubrahmanyaAiyer1932_01">Ip-poṉ</rdg>
-          </app>
-          <app loc="16">
-            <lem>paripāram</lem>
-            <rdg source="bib:Mahalingam1988_01">pari<choice>
-                <sic>p</sic>
-                <corr>v</corr>
-              </choice>āram</rdg>
-          </app>
-          <app loc="18">
-            <lem><supplied reason="lost">Iv-</supplied>vēlvai</lem>
-            <rdg source="bib:Mahalingam1988_01">Ivvē<choice>
-                <sic>lv</sic>
-                <corr>ḷ</corr>
-              </choice>ai</rdg>
-            <note><ptr target="bib:Mahalingam1988_01"/>'s emendation is a suggestion, question-marked.</note>
-          </app>
-          <app loc="23">
-            <lem><hi rend="grantha">br<choice>
-                  <sic>a</sic>
-                  <corr>ā</corr>
-                </choice><unclear>hma</unclear></hi><supplied reason="lost">ṇa</supplied>r</lem>
-            <rdg source="bib:SubrahmanyaAiyer1932_01"><hi rend="grantha">br<choice>
-                  <sic>a</sic>
-                  <corr>ā</corr>
-                </choice>hma</hi>ṇar</rdg>
-          </app>
-          <app loc="25">
-            <lem><supplied reason="lost">māṇika</supplied>ḷ</lem>
-            <rdg source="bib:SubrahmanyaAiyer1932_01">māṇikaḷ</rdg>
-          </app>
-          <app loc="29">
-            <lem>°tāṉam</lem>
-            <rdg source="bib:SubrahmanyaAiyer1932_01">°tāṉa<unclear>m</unclear></rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:emfr" type="translation">
-        <p n="1-7"></p>
-        <p n="7-34"></p>
-        <p n="34-36"></p>
-      </div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p>
-      First edited by <bibl>
-            <ptr target="bib:SubrahmanyaAiyer1932_01"/>
-          </bibl> (SII 7, no. 525); text and summary in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP n° 147); edited and translated by <bibl>
-            <ptr target="bib:Schmid2014_02"/>
-          </bibl>; edited and translated here for DHARMA (ERC n° 809994) by Emmanuel Francis, based on photos. From line 15 to 26, the pillar has been damaged since the edition by <bibl>
-            <ptr target="bib:SubrahmanyaAiyer1932_01"/>
-          </bibl> (SII 7, no. 525). Thus there are several restorations of the text in the present editions, compared to clear readings by <bibl>
-            <ptr target="bib:SubrahmanyaAiyer1932_01"/>
-          </bibl>.
-   	
+                </p>
+                
+        </div>
+
+        
+<div type="apparatus">
+                
+                
+<listApp>
+                        
+                        
+<app loc="1">
+                                
+<lem>
+<unclear>pallava</unclear>t
+<unclear>ilaka</unclear></lem>
+                                
+<rdg source="bib:SubrahmanyaAiyer1932_01">
+  <unclear>pallavatilaka</unclear>
+</rdg>
+                        </app>
+                        
+                        
+<app loc="3">
+                                
+<lem>ma
+<hi rend="grantha">hāde</hi>
+<supplied reason="lost">vi</supplied></lem>
+                                
+<rdg source="bib:SubrahmanyaAiyer1932_01">ma
+<hi rend="grantha">hāde</hi>vi</rdg>
+                        </app>
+                        
+                        
+<app loc="12">
+                                
+<lem>
+<unclear>I</unclear>p-poṉ</lem>
+                                
+<rdg source="bib:SubrahmanyaAiyer1932_01">Ip-poṉ</rdg>
+                        </app>
+                        
+                        
+<app loc="16">
+                                
+<lem>paripāram</lem>
+                                
+<rdg source="bib:Mahalingam1988_01">pari
+<choice>
+  <sic>p</sic>
+  <corr>v</corr>
+</choice>āram</rdg>
+                        </app>
+                        
+                        
+<app loc="18">
+                                
+<lem>
+<supplied reason="lost">Iv-</supplied>vēlvai</lem>
+                                
+<rdg source="bib:Mahalingam1988_01">Ivvē
+<choice>
+  <sic>lv</sic>
+  <corr>ḷ</corr>
+</choice>ai</rdg>
+                                
+<note>
+<ptr target="bib:Mahalingam1988_01" />'s emendation is a suggestion, question-marked.</note>
+                        </app>
+                        
+                        
+<app loc="23">
+                                
+<lem>
+<hi rend="grantha">br
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>
+<unclear>hma</unclear></hi>
+<supplied reason="lost">ṇa</supplied>r</lem>
+                                
+<rdg source="bib:SubrahmanyaAiyer1932_01">
+<hi rend="grantha">br
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>hma</hi>ṇar</rdg>
+                        </app>
+                        
+                        
+<app loc="25">
+                                
+<lem>
+<supplied reason="lost">māṇika</supplied>ḷ</lem>
+                                
+<rdg source="bib:SubrahmanyaAiyer1932_01">māṇikaḷ</rdg>
+                        </app>
+                        
+                        
+<app loc="29">
+                                
+<lem>°tāṉam</lem>
+                                
+<rdg source="bib:SubrahmanyaAiyer1932_01">°tāṉa
+<unclear>m</unclear></rdg>
+                        </app>
+                        
+                </listApp>
+                  
+        </div>
+        
+
+        
+<div type="translation" resp="part:emfr">
+                
+                
+<p n="1-7">
+                        
+                </p>
+                
+                
+<p n="7-34">
+                        
+                </p>
+                
+                
+<p n="34-36">
+                        
+                </p>                    
+                
+        </div>
+                
+<div type="commentary">
+        
+        
+                
+</div>
+        
+<div type="bibliography">
+
+   
+<p>
+      First edited by 
+<bibl>
+  <ptr target="bib:SubrahmanyaAiyer1932_01" />
+</bibl> (SII 7, no. 525); text and summary in 
+<bibl>
+  <ptr target="bib:Mahalingam1988_01" />
+</bibl> (IP n° 147); edited and translated by 
+<bibl>
+  <ptr target="bib:Schmid2014_02" />
+</bibl>; edited and translated here for DHARMA (ERC n° 809994) by Emmanuel Francis, based on photos. From line 15 to 26, the pillar has been damaged since the edition by 
+<bibl>
+  <ptr target="bib:SubrahmanyaAiyer1932_01" />
+</bibl> (SII 7, no. 525). Thus there are several restorations of the text in the present editions, compared to clear readings by 
+<bibl>
+  <ptr target="bib:SubrahmanyaAiyer1932_01" />
+</bibl>.
+        
    </p>
-        <listBibl type="primary">
-          <bibl n="KVSA">
-            <ptr target="bib:SubrahmanyaAiyer1932_01"/>
-            <citedRange unit="page">319</citedRange>
-            <citedRange unit="item">525</citedRange>
-          </bibl>
-          <bibl n="TVM">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="page">429-431</citedRange>
-            <citedRange unit="item">147</citedRange>
-          </bibl>
-          <bibl n="CS">
-            <ptr target="bib:Schmid2014_02"/>
-            <citedRange unit="page">303-305</citedRange>
-            <citedRange unit="item">4</citedRange>
-          </bibl>
+   
+        
+<listBibl type="primary">
+                
+                
+<bibl n="KVSA">
+                        
+<ptr target="bib:SubrahmanyaAiyer1932_01" />
+                        
+<citedRange unit="page">319</citedRange>
+                        
+<citedRange unit="item">525</citedRange>
+                </bibl>
+                                
+                
+<bibl n="TVM">
+                        
+<ptr target="bib:Mahalingam1988_01" />
+                        
+<citedRange unit="page">429-431</citedRange>
+                        
+<citedRange unit="item">147</citedRange>
+                </bibl>
+                
+                
+<bibl n="CS">
+                        
+<ptr target="bib:Schmid2014_02" />
+                        
+<citedRange unit="page">303-305</citedRange>
+                        
+<citedRange unit="item">4</citedRange>
+                </bibl>
+                
         </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:ARIE1900-1901"/>
-            <citedRange unit="page">27</citedRange>
-            <citedRange unit="appendix">A/1901</citedRange>
-            <citedRange unit="item">303</citedRange>
-          </bibl>
+   
+        
+<listBibl type="secondary">
+                
+                
+<bibl>
+                        
+<ptr target="bib:ARIE1900-1901" />
+                        
+<citedRange unit="page">27</citedRange>
+                        
+<citedRange unit="appendix">A/1901</citedRange>
+                        
+<citedRange unit="item">303</citedRange>         
+                </bibl>            
+                
         </listBibl>
-      </div>
-    </body>
-  </text>
+        
+</div>
+        
+      </body>
+  
+</text>
 </TEI>

@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00036</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,219 +62,298 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <ab>
-          <lb n="01"/>
-          <unclear cert="low">siddham</unclear>
-          <!-- 
-Siddham is visible as faint traces above the beginning of line 1. 
--->
-        </ab>
-        <p><lb n="1"/><unclear>sar</unclear>vva-rāj<unclear>o</unclear>cch<unclear>e</unclear>ttuḥ pr̥thivyām apratirathasya catur-udadhi-sa<unclear>l</unclear>i<unclear>lās</unclear>vādita-yaśaso <unclear>dha</unclear>nada-varuṇ-endr-<unclear>ā</unclear>ntaka-sa<unclear>masya</unclear> <lb n="2"/>kr̥tānta-paraśoḥ nyāyāgat<unclear>ā</unclear>neka-go-hiraṇya-k<unclear>o</unclear>ṭi-pradasya ciro<unclear>t</unclear>sannāśvamedhāharttur mahārāja-śrī-gu<unclear>p</unclear>ta-prapautra<unclear>sya</unclear> <lb n="3"/>mahārāja-śrī-ghaṭotkaca-pauttrasya mahārājādhirāja-śrī-candragupta-putrasya licchivi-dauhitrasya mahā<unclear>de</unclear>vyāṁ kum<unclear>ā</unclear>radevy<unclear>ā</unclear><lb break="no" n="4"/>m utpannasya mahārājādhirāja-śrī-samudraguptasya putras tat-parigr̥hīto mahādevyā<sic>n</sic> dattadevyām utpanna<unclear>ḥ</unclear> svayam apratirathaḥ <lb n="5"/>parama-bhāgavato mahārājādhirāja-śrī-candraguptas <unclear>ta</unclear>sya putra<unclear>s</unclear> ta<unclear>t-p</unclear>ādānuddhyāto mahādevyāṁ dhruva<unclear>de</unclear>vyām ut<unclear>pa</unclear>nnaḥ parama<lb break="no" n="6"/>-<unclear>bhā</unclear>gavato mahārājādhir<unclear>āja</unclear>-śrī-kumāraguptas</p>
-        <p>tasya
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+
+                                
+                                        
+<ab>
+  <lb n="01" />
+  <unclear cert="low">siddham</unclear>
+</ab>
+                                
+                                
+<p>
+<lb n="1" />
+<unclear>sar</unclear>vva-rāj
+<unclear>o</unclear>cch
+<unclear>e</unclear>ttuḥ pr̥thivyām apratirathasya catur-udadhi-sa
+<unclear>l</unclear>i
+<unclear>lās</unclear>vādita-yaśaso 
+<unclear>dha</unclear>nada-varuṇ-endr-
+<unclear>ā</unclear>ntaka-sa
+<unclear>masya</unclear> 
+<lb n="2" />kr̥tānta-paraśoḥ nyāyāgat
+<unclear>ā</unclear>neka-go-hiraṇya-k
+<unclear>o</unclear>ṭi-pradasya ciro
+<unclear>t</unclear>sannāśvamedhāharttur mahārāja-śrī-gu
+<unclear>p</unclear>ta-prapautra
+<unclear>sya</unclear> 
+<lb n="3" />mahārāja-śrī-ghaṭotkaca-pauttrasya mahārājādhirāja-śrī-candragupta-putrasya licchivi-dauhitrasya mahā
+<unclear>de</unclear>vyāṁ kum
+<unclear>ā</unclear>radevy
+<unclear>ā</unclear>
+<lb n="4" break="no" />m utpannasya mahārājādhirāja-śrī-samudraguptasya putras tat-parigr̥hīto mahādevyā
+<sic>n</sic> dattadevyām utpanna
+<unclear>ḥ</unclear> svayam apratirathaḥ 
+<lb n="5" />parama-bhāgavato mahārājādhirāja-śrī-candraguptas 
+<unclear>ta</unclear>sya putra
+<unclear>s</unclear> ta
+<unclear>t-p</unclear>ādānuddhyāto mahādevyāṁ dhruva
+<unclear>de</unclear>vyām ut
+<unclear>pa</unclear>nnaḥ parama
+<lb n="6" break="no" />-
+<unclear>bhā</unclear>gavato mahārājādhir
+<unclear>āja</unclear>-śrī-kumāraguptas</p>
+<p>tasya
 </p>
-        <lg met="puṣpitāgrā" n="1">
-          <l n="a">prathita-pr̥thu-mati-<unclear>sva</unclear>bhāva-śakteḥ</l>
-          <l n="b">pr̥thu-yaśasaḥ pr̥thivīpateḥ pr̥thu-śrīḥ<supplied reason="omitted"/><!-- 
-Agrawal_1986:35 argues for prabhāva instead of svabhāva, noting that mantraśakti, utsāhaśakti and prabhāvaśakti are the three royal prowesses. 
---></l>
-          <l n="c"><lb n="7"/>pi<unclear>tr̥</unclear>-pa<unclear>r</unclear>igata-pāda-padma-varttī</l>
-          <l n="d">prathita-yaśāḥ <unclear>pr̥</unclear>thivīpatiḥ suto ya<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->m</supplied><!-- 
-My theory about pitr̥-parigata-pāda-padma-varttī: one who abides by the (same) lotus feet that had been waited upon by his father - i.e. he is vaiṣṇava like his father; Ghaṭotkacagupta may have inclined toward Jainism. 
---></l>
-        </lg>
-        <lg met="mālinī" n="2">
-          <l n="a"><unclear>ja</unclear>gati bhu<unclear>ja</unclear>-bal-ā<choice>
-              <sic>ḍ</sic>
-              <corr>ḍh</corr>
-            </choice>yo gupta-va<sic>ṅ</sic>śai<unclear>ka</unclear>-vīraḥ</l>
-          <l n="b">prathita-vipula<lb break="no" n="8"/>-dhāmā nāmataḥ skandaguptaḥ<!-- 
-Bhandarkar reads nāmā instead of dhāmā. Sircar (followed by Agrawala) has dhāmā without a note. Anyway, it's much more plausible. 
---></l>
-          <l n="c">sucarita-caritānāṁ yena vr̥ttena vr̥ttaṁ</l>
-          <l n="d">na vihatam amalātmā tāna-<unclear cert="low">dhīdā</unclear>-vinītaḥ<!-- 
-For Bhandarkar's atha cātmā, Sircar (followed by Agrawala) reads amalātmā; for tāna-dhīdā, Agrawala (but not Sircar) reads tān adhīto. According to #Bhandarkar_1981:316n6, dhīdā is a technical term in music, along with tāna. Sircar proposes "modest owing to his knowledge of the objects of senses". 
---></l>
-        </lg>
-        <lg met="mālinī" n="3">
-          <l n="a">vinaya<lb break="no" n="9"/>-bala-sunītair vvikkrameṇa kkrameṇa</l>
-          <l n="b">pratidinam abhiyogād īpsitaṁ ye<unclear>na</unclear> la<unclear>bdh</unclear>vā</l>
-          <l n="c">svabhimata-vijigīṣā-prodyatānāṁ pareṣāṁ</l>
-          <l n="d">praṇi<lb break="no" n="10"/>hita Iva le<unclear>bhe sa</unclear>ṁvidhān-opadeśaḥ</l>
-        </lg>
-        <lg met="mālinī" n="4">
-          <l n="a">vicalita-kula-lakṣmī-stambhanāyodyatena</l>
-          <l n="b">kṣititala-śayanīye yena nītā triyāmā</l>
-          <l n="c">samu<lb break="no" n="11"/>dita-ba<unclear>la</unclear>-kośān yudhy amitrāṁś ca <unclear>j</unclear>itvā<!-- 
-Bhandarkar (1981:314, 315n2 avers that yudhy amitrāṁś is the correct reading, contrary to puṣyamitrāṁś as read by Indraji and Fleet. According to Bhandarkar, "the ink impressions leave not even the shadow of a doubt"). (Sircar also says that the reading is yudhy amitrāṁś "according to some" - but neither Bhandarkar, nor Sircar say who first proposed this.) Agrawala reads kośābhyām amitrāṁś, a conjecture based on his feeling that one should not extol one's enemies in a praśasti - but pointing out the defeated enemy's strength is an old strategy of praising the victor and there is, I think, a specific name for this in Sanskrit. 
---></l>
-          <l n="d">kṣitipa-caraṇa-pīṭhe sthāpito vāma-pādaḥ</l>
-        </lg>
-        <lg met="mālinī" n="5">
-          <l n="a">prasabham anupamarddhir dhvasta-śastra-pratāpai<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->r</supplied><!-- 
-With anupamarddhir, I follow Bhandarkar. Fleet reads anupamair vvidhvasta; Agrawala has anupamair vvinyasta; Sircar reads "anupamair vvibdhasta", "which is meaningless" (as noted Agrawala) but must obviously be a typo for vidhvasta. 
---></l>
-          <l n="b">vina<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ya-na</supplied>ya<lb break="no" n="12"/>-<unclear>supitra</unclear>-kṣānti-śauryai<unclear>r</unclear> nnirūḍhaM<!-- 
-vinaya-naya-supitra is Bhandarkar's. Agrawala (following Sircar) reads vinaya-samucitaiś ca, printing "mu" as clear, "ya-sa" as unclear, and "citaiś ca" as conjectural. Both Bhandarkar and Agrawala print śauryair with a single r after the y. The character at the end of line 11 looks like su or mu, so (though the facsimile is unclear) even if Bhandarkar's reading is correct, his su should probably be read at the end of 11, not the beginning of 12. 
---></l>
-          <l n="c">caritam amala-kīrtter ggīyate yasya śubhraṁ</l>
-          <l n="d">diśi diśi paritu<unclear>ṣṭ</unclear>air ā ku<unclear>mā</unclear>raṁ manuṣyaiḥ</l>
-        </lg>
-        <lg met="mālinī" n="6">
-          <l n="a">pitari divam upe<unclear>te</unclear> <lb n="13"/>viplutāṁ <unclear>va</unclear><sic>ṅ</sic>śa-lakṣmīṁ</l>
-          <l n="b">bhuja-bala-vijitārir yyaḥ pratiṣṭhāpya bhūyaḥ</l>
-          <l n="c">jitam iti paritoṣān <unclear>m</unclear>ātaraṁ sāsra-nettrāṁ</l>
-          <l n="d">hata-ripur iva <unclear>kr̥</unclear>ṣṇo devakīm abhyu<unclear>pe</unclear><lb break="no" n="14"/><unclear>ta</unclear>ḥ</l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="7">
-          <l n="a">sv<unclear>ai</unclear>r ddaṇḍ<unclear>aiḥ</unclear> <seg met="--">
-              <gap quantity="2" reason="illegible" unit="character"/>
-            </seg> <unclear cert="low">ra</unclear>tyu<seg subtype="consonant" type="component">
-              <gap quantity="1" reason="illegible" unit="component"/>
-            </seg><seg subtype="vowel" type="component">
-              <gap quantity="1" reason="illegible" unit="component"/>
-            </seg>t-pracalitaṁ va<sic>ṅ</sic>śaṁ pratiṣṭhāpya yo<!-- 
-For the beginning of this line Agrawala reads (svair ddaṇḍai)[#r dviṣato] (viha)tya calitaṁ. Sircar just has da(ṇḍaiḥ) . . - . - tpracalitaṁ. 
---></l>
-          <l n="b">bāhubhyām avaniṁ vijitya hi jiteṣv ārtteṣu kr̥tvā dayāM<!-- 
-jiteṣv is from Sircar; Bhandarkar reads janeṣv 
---></l>
-          <l n="c">notsi<unclear>kto</unclear> <unclear cert="low">na ca</unclear> vismitaḥ pratidinaṁ <lb n="15"/><unclear>saṁ</unclear><unclear cert="low">varddha</unclear><unclear>māna</unclear>-dyutiḥ</l>
-          <l n="d">gītaiś ca stutibhiś ca vandaka-<unclear cert="low">jano</unclear> yaṁ <unclear>prā</unclear>payaty āryyatāM<!-- 
-L15. * Fleet: vandaka-jano yaṁ prāpayaty ātyyatām, "whom the bards raise to distinction with (their) songs and praises." * Bhandarkar: vr̥tta-kathanaṁ yaṁ prāpayaty āryyatāṁ, "whom the narration of (his) mode of life, whether with songs or with panegyrics, is raising to the dignity of an Ārya." * Chhabra_1963: vandaka-janair yaḥ khyāpayaty āryyatām, "who is having the excellence of Aryan culture spread broadcast by the minstrels through their ballads and panegyrics" (he feels that ryaḥ or ryyaḥ are both possible and seems to imply that he thinks it's actually yax, not yaḥ). *Agrawal_1986:54-57 argues very forcefully for vr̥tta-kathanaiḥ yaṁ hrepayaty āryyatā.
-* Sircar reads (prā)payaty.
-* Pandey_1980:436 quotes Sadhu Ram (VIJ 4 pp72-74) as reading vr̥ttakathane yaṁ hrepayaty āryyatā, "Whom his nobility makes to blush when his exploits are narrated by means of songs and praises." Pandey's own opinion: on the basis of earlier estampages vr̥ttakathana is impossible. (p437) hrepayati is semantically inappropriate. He agrees with Fleet's reading but translates "Whom the bards raise to the Ārya status with (their) songs and praises." He believes Skandagupta's mother was of a lower varṇa and his status as an ārya needed confirmation. 
---></l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="8">
-          <l n="a">hūṇair yyasya samāgatasya samare dorbhyāṁ dharā kaṁpitā</l>
-          <l n="b">bhīmāvartta-karasya <lb n="16"/>śatruṣu śarā <seg met="++-++-=">
-              <gap quantity="7" reason="illegible" unit="character"/>
-            </seg> </l>
-          <l n="c"><seg met="+++--+-+">
-              <gap quantity="8" reason="illegible" unit="character"/>
-            </seg> vira<unclear cert="low">ci</unclear>taṁ prakhyāpito <unclear>d</unclear>ī<unclear>pt</unclear>i<unclear>mān</unclear><!-- 
-Agrawala reads viracitā prakhyāpito vīryyatā. He cites Fleet as reading viracitaṁ prakhyāpito #ī#i#*. Sircar's conjecture is viracitaṁ prakhyāpito dīptidā. I follow Bhandarkar. 
---></l>
-          <l n="d"><unclear>na</unclear>dyo<unclear>ri</unclear> <seg type="aksara">
-              <seg subtype="conjunct" type="component">
-                <gap quantity="1" reason="illegible" unit="component"/>
-              </seg>
-              <seg met="-" subtype="vowel" type="component">
-                <gap quantity="1" reason="illegible" unit="component"/>
-              </seg>
-            </seg> nabhī<unclear cert="low">ṣu</unclear> lakṣyata Iva śrotreṣu śārṅga-dhvaniḥ<!-- 
-Bhandarkar prints nadyo(ri) . nabhītai, which is unmetrical. Fleet: na dyo(?ti) . nabhī(?ṣu). Sircar, followed by Agrawala, na (?dyo)ti . na [= .] . 
---><!-- 
-For śārṅga, Fleet and other early editors read gāṅga; śārṅga was first proposed in #Agrawal_1940:60. 
---></l>
-        </lg>
-        <lg met="anuṣṭubh" n="9">
-          <l n="a"><lb n="17"/>s<unclear>v</unclear>a-pituḥ kīrtti <seg met="++=">
-              <gap quantity="3" reason="illegible" unit="character"/>
-            </seg></l>
-          <l n="b">
-            <seg met="====-+-=">
-              <gap quantity="8" reason="illegible" unit="character"/>
-            </seg>
-          </l>
-          <l n="c">
-            <seg met="===">
-              <gap quantity="3" reason="illegible" unit="character"/>
-            </seg>
-            <unclear cert="low">muktibhir yuktā</unclear>
-          </l>
-          <l n="d">
-            <seg met="====-+-=">
-              <gap quantity="8" reason="illegible" unit="character"/>
-            </seg>
-            <!-- 
-(muktibhir yuktā) is Bhandarkar's reading. 
--->
-          </l>
-        </lg>
-        <lg met="anuṣṭubh" n="10">
-          <l n="a"><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->na yasya</supplied> pratimā kācit</l>
-          <l n="b">pratimāṁ tasya śārṅgiṇaḥ<!-- 
-na yasya was suggested by Chhabra_1963:546. For Bhandarkar offers prakāryyā, Fleet and Sircar "read" karttavyā. 
---></l>
-          <l n="c"><lb n="18"/>s<unclear>u</unclear>pratītaś cakāremāṁ</l>
-          <l n="d">
-            <seg met="====-+-=">
-              <gap quantity="8" reason="illegible" unit="character"/>
-            </seg>
-            <!-- 
-For Bhandarkar's (and Fleet's and Sircar's) supratīta, Chhabra_1963 suggests sa pratīta. 
--->
-            <!-- 
-For the lacuna Fleet conjectures yāvad ā-candra-tārakam (also retained by Sircar). Bhandarkar dismisses it on the grounds that "if yāvat is used, ā is superfluous", which is true but inconsequential; the phrase would be plausible. Bhandarkar tentatively suggests kumārasvāmi-nāmikām. Agrawala has yāvaccandrārkatārakam (probably to avoid the superfluous ā), and notes that Sircar "gives the letters without an asterisk as if they are decipherable in the facsimile; but the stone here has peeled off." In fact the closing bracket is missing from Sircar (typo?) - an asterisk may have been meant to go next to it. Agrawal_1986:63 suggests the combined restoration na yasya pratimā kācit ... kumārasvāmi-nāmikām. Willis_2009:145-146 prefers kumārasvāmi-nāmikām, adducing that bricks with the inscription śrīkumāragupta(sya) have been found at the temple site (Cunningham_1871a: plate 30). 
--->
-          </l>
-        </lg>
-        <lg met="anuṣṭubh" n="11">
-          <l n="a">iha cainaṁ pratiṣṭhāpya</l>
-          <l n="b">supratiṣṭhita-śāsanaḥ<!-- 
-The first enaṁ in l18 may refer to the god (Fleet, Bhandarkar, Bakker_2005, Willis_2009:383-384) or possibly to the pillar (Fleet_1888:56). I might note that it could very well be enāṁ instead, which would seem much more logical to me. The inscription is more than unclear, nothing is discernible in my rubbing, and Cunningham's eye copy has a few indiscernible traces (including something that looks like de and is probably cai of cainaṁ, then later on tigupta, corresponding(!) to our tiṣṭhāpya. That is to say, if pratiṣṭhāpya is so uncertain that Cunningham copied it as #tigupta, then how much more uncertain the more damaged bits could be. 
---></l>
-          <l n="c">grāmam enaṁ sa vidadh<unclear>e</unclear></l>
-          <l n="d">pituḥ pu<unclear>ṇ</unclear>yābhivr̥ddhaye</l>
-        </lg>
-        <lg met="anuṣṭubh" n="12">
-          <l n="a"><lb n="19"/>Ato bhagavato mūrttir</l>
-          <l n="b">iyaṁ yaś cātra <unclear>saṁ</unclear><unclear cert="low">śri</unclear><unclear>taḥ</unclear><!-- 
-For saṁśritaḥ in l19, Fleet, Sircar and Agrawala read saṁsthitaḥ. Fleet believes this may refer to the village "which has been agreed to" or to the column "which stands here". Agrawala comments, "whatever is made here by way of donation." Bhandarkar reads saṁskritaḥ, which he understands to refer to the place of the column, which was consecrated for this purpose. Willis_2009:146-149 discusses this reading at length, arguing (on the basis of an autopsy as well as Fleet's rubbing and Cunningham's eye copy) for saṁśritaḥ. He points out that Fleet's (and his followers') sthi is unlikely, and that Cunningham's copy has śri. Willis, following Bakker, understands this to mean the village community living here. 
---></l>
-          <l n="c">ubhayaṁ nirddideśāsau</l>
-          <l n="d">pituḥ puṇyāya puṇya-dhīr iti</l>
-        </lg>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+<lg n="1" met="puṣpitāgrā">
+<l n="a">prathita-pr̥thu-mati-
+<unclear>sva</unclear>bhāva-śakteḥ</l>
+<l n="b">pr̥thu-yaśasaḥ pr̥thivīpateḥ pr̥thu-śrīḥ
+<supplied reason="omitted" /></l>
+<l n="c">
+<lb n="7" />pi
+<unclear>tr̥</unclear>-pa
+<unclear>r</unclear>igata-pāda-padma-varttī</l>
+<l n="d">prathita-yaśāḥ 
+<unclear>pr̥</unclear>thivīpatiḥ suto ya
+<supplied reason="lost">m</supplied></l>
+</lg>
+<lg n="2" met="mālinī">
+<l n="a">
+<unclear>ja</unclear>gati bhu
+<unclear>ja</unclear>-bal-ā
+<choice>
+  <sic>ḍ</sic>
+  <corr>ḍh</corr>
+</choice>yo gupta-va
+<sic>ṅ</sic>śai
+<unclear>ka</unclear>-vīraḥ</l>
+<l n="b">prathita-vipula
+<lb n="8" break="no" />-dhāmā nāmataḥ skandaguptaḥ</l>
+<l n="c">sucarita-caritānāṁ yena vr̥ttena vr̥ttaṁ</l>
+<l n="d">na vihatam amalātmā tāna-
+<unclear cert="low">dhīdā</unclear>-vinītaḥ</l>
+</lg>
+<lg n="3" met="mālinī">
+<l n="a">vinaya
+<lb n="9" break="no" />-bala-sunītair vvikkrameṇa kkrameṇa</l>
+<l n="b">pratidinam abhiyogād īpsitaṁ ye
+<unclear>na</unclear> la
+<unclear>bdh</unclear>vā</l>
+<l n="c">svabhimata-vijigīṣā-prodyatānāṁ pareṣāṁ</l>
+<l n="d">praṇi
+<lb n="10" break="no" />hita Iva le
+<unclear>bhe sa</unclear>ṁvidhān-opadeśaḥ</l>
+</lg>
+<lg n="4" met="mālinī">
+<l n="a">vicalita-kula-lakṣmī-stambhanāyodyatena</l>
+<l n="b">kṣititala-śayanīye yena nītā triyāmā</l>
+<l n="c">samu
+<lb n="11" break="no" />dita-ba
+<unclear>la</unclear>-kośān yudhy amitrāṁś ca 
+<unclear>j</unclear>itvā</l>
+<l n="d">kṣitipa-caraṇa-pīṭhe sthāpito vāma-pādaḥ</l>
+</lg>
+<lg n="5" met="mālinī">
+<l n="a">prasabham anupamarddhir dhvasta-śastra-pratāpai
+<supplied reason="lost">r</supplied></l>
+<l n="b">vina
+<supplied reason="lost">ya-na</supplied>ya
+<lb n="12" break="no" />-
+<unclear>supitra</unclear>-kṣānti-śauryai
+<unclear>r</unclear> nnirūḍhaM</l>
+<l n="c">caritam amala-kīrtter ggīyate yasya śubhraṁ</l>
+<l n="d">diśi diśi paritu
+<unclear>ṣṭ</unclear>air ā ku
+<unclear>mā</unclear>raṁ manuṣyaiḥ</l>
+</lg>
+<lg n="6" met="mālinī">
+<l n="a">pitari divam upe
+<unclear>te</unclear> 
+<lb n="13" />viplutāṁ 
+<unclear>va</unclear>
+<sic>ṅ</sic>śa-lakṣmīṁ</l>
+<l n="b">bhuja-bala-vijitārir yyaḥ pratiṣṭhāpya bhūyaḥ</l>
+<l n="c">jitam iti paritoṣān 
+<unclear>m</unclear>ātaraṁ sāsra-nettrāṁ</l>
+<l n="d">hata-ripur iva 
+<unclear>kr̥</unclear>ṣṇo devakīm abhyu
+<unclear>pe</unclear>
+<lb n="14" break="no" />
+<unclear>ta</unclear>ḥ</l>
+</lg>
+<lg n="7" met="śārdūlavikrīḍita">
+<l n="a">sv
+<unclear>ai</unclear>r ddaṇḍ
+<unclear>aiḥ</unclear> 
+<seg met="--">
+  <gap reason="illegible" quantity="2" unit="character" />
+</seg> 
+<unclear cert="low">ra</unclear>tyu
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>t-pracalitaṁ va
+<sic>ṅ</sic>śaṁ pratiṣṭhāpya yo</l>
+<l n="b">bāhubhyām avaniṁ vijitya hi jiteṣv ārtteṣu kr̥tvā dayāM</l>
+<l n="c">notsi
+<unclear>kto</unclear> 
+<unclear cert="low">na ca</unclear> vismitaḥ pratidinaṁ 
+<lb n="15" />
+<unclear>saṁ</unclear>
+<unclear cert="low">varddha</unclear>
+<unclear>māna</unclear>-dyutiḥ</l>
+<l n="d">gītaiś ca stutibhiś ca vandaka-
+<unclear cert="low">jano</unclear> yaṁ 
+<unclear>prā</unclear>payaty āryyatāM</l>
+</lg>
+<lg n="8" met="śārdūlavikrīḍita">
+<l n="a">hūṇair yyasya samāgatasya samare dorbhyāṁ dharā kaṁpitā</l>
+<l n="b">bhīmāvartta-karasya 
+<lb n="16" />śatruṣu śarā 
+<seg met="++-++-=">
+  <gap reason="illegible" quantity="7" unit="character" />
+</seg> </l>
+<l n="c">
+<seg met="+++--+-+">
+  <gap reason="illegible" quantity="8" unit="character" />
+</seg> vira
+<unclear cert="low">ci</unclear>taṁ prakhyāpito 
+<unclear>d</unclear>ī
+<unclear>pt</unclear>i
+<unclear>mān</unclear></l>
+<l n="d">
+<unclear>na</unclear>dyo
+<unclear>ri</unclear> 
+<seg type="aksara">
+  <seg type="component" subtype="conjunct">
+    <gap reason="illegible" quantity="1" unit="component" />
+  </seg>
+  <seg type="component" subtype="vowel" met="-">
+    <gap reason="illegible" quantity="1" unit="component" />
+  </seg>
+</seg> nabhī
+<unclear cert="low">ṣu</unclear> lakṣyata Iva śrotreṣu śārṅga-dhvaniḥ</l>
+</lg>
+<lg n="9" met="anuṣṭubh">
+<l n="a">
+<lb n="17" />s
+<unclear>v</unclear>a-pituḥ kīrtti 
+<seg met="++=">
+  <gap reason="illegible" quantity="3" unit="character" />
+</seg></l>
+<l n="b">
+<seg met="====-+-=">
+  <gap reason="illegible" quantity="8" unit="character" />
+</seg> </l>
+<l n="c">
+<seg met="===">
+  <gap reason="illegible" quantity="3" unit="character" />
+</seg> 
+<unclear cert="low">muktibhir yuktā</unclear></l>
+<l n="d">
+  <seg met="====-+-=">
+    <gap reason="illegible" quantity="8" unit="character" />
+  </seg>
+</l>
+</lg>
+<lg n="10" met="anuṣṭubh">
+<l n="a">
+<supplied reason="lost">na yasya</supplied> pratimā kācit</l>
+<l n="b">pratimāṁ tasya śārṅgiṇaḥ</l>
+<l n="c">
+<lb n="18" />s
+<unclear>u</unclear>pratītaś cakāremāṁ</l>
+<l n="d">
+  <seg met="====-+-=">
+    <gap reason="illegible" quantity="8" unit="character" />
+  </seg>
+</l>
+</lg>
+<lg n="11" met="anuṣṭubh">
+<l n="a">iha cainaṁ pratiṣṭhāpya</l>
+<l n="b">supratiṣṭhita-śāsanaḥ</l>
+<l n="c">grāmam enaṁ sa vidadh
+<unclear>e</unclear></l>
+<l n="d">pituḥ pu
+<unclear>ṇ</unclear>yābhivr̥ddhaye</l>
+</lg>
+<lg n="12" met="anuṣṭubh">
+<l n="a">
+<lb n="19" />Ato bhagavato mūrttir</l>
+<l n="b">iyaṁ yaś cātra 
+<unclear>saṁ</unclear>
+<unclear cert="low">śri</unclear>
+<unclear>taḥ</unclear></l>
+<l n="c">ubhayaṁ nirddideśāsau</l>
+<l n="d">pituḥ puṇyāya puṇya-dhīr iti</l>
+</lg>
+                                
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

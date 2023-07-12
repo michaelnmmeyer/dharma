@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00088</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,171 +62,246 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <p><pb n="1v"/><!-- 
-This is not explicitly stated anywhere I've read, but I assume that these double plates, each inscribed on one face only, use 1verso and 2 recto, with the blank side of each plate facing outward. 
---><lb n="1"/><g type="mangala"/>svasty<supplied reason="subaudible">.</supplied> uccakalp<unclear>ā</unclear>n mahārājaughadeva<space type="binding-hole"/>s tasya puttras tat-pādānudhyāto mahādevyā<supplied reason="omitted">ṁ</supplied><!-- 
-The maṅgala symbol seems to be a short horizontal dash at the height of the upper baseline. It is at the margin. 
---><lb n="2"/>kumāradevyām utpanno mahārāja-kumāradevas tasya putt<supplied reason="omitted">r</supplied>as tat-pādānudhyāto
-<lb n="3"/>mahādevyā<unclear>ṁ</unclear> jayasvāminyām utpanno mahārāja-jayasvāmī tasya puttras tat-pādā<lb break="no" n="4"/>nudhyāto mahādevyāṁ rāmadevyām utpanno mahārāja-vyāghras tasya puttras tat-pādānudhyā<lb break="no" n="5"/>to mahādevyām ajjhitadevyām utpan<supplied reason="omitted">n</supplied>o mahārāja-jayanāthas tasya puttras tat-pādānu<lb break="no" n="6"/>dhyāto mahādevyā<supplied reason="omitted">ṁ</supplied> muruṇḍasvāminyām utpanno mahārāja-śarvvanāthaḥ kuśalī maṇi<lb break="no" n="7"/>nāga-peṭhe vyāghrapallika-kācarapallika-grāmayo<supplied reason="omitted">r</supplied> brāhmaṇādīn prativāsinaḥ
-<lb n="8"/>samājñāpayati</p>
-        <p>vidita<unclear>ṁ</unclear> vo stu <choice>
-            <sic>yathaiṣa</sic>
-            <corr>yathaitau</corr>
-          </choice> grāmau mayā sodraṅgau soparikarau <lb n="9"/>A-cāṭa-bhaṭa-<choice>
-            <sic>prāveśyo</sic>
-            <corr>prāveśyau</corr>
-          </choice> rājābhāvya-sarva-kara-pratyāy<choice>
-            <sic>e</sic>
-            <corr>o</corr>
-          </choice>tpannakotpadyamānaka-sam<choice>
-            <sic>o</sic>
-            <corr>e</corr>
-          </choice><!-- 
-I accept Fleet's authority that samo was really engraved; to me the additional mātrā looks like just a scratch at the edge of the plate. 
---><lb break="no" n="10"/>tau Ācandrārkka-samakālikau cora-<choice>
-            <sic>t</sic>
-            <corr>d</corr>
-          </choice>aṇḍa-varjjitau pulindabhaṭasya pras<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>dīkr̥tau<lb n="11"/>tenāpi mānapure kāritaka-deva-kul<unclear>e</unclear> bhagavatyāḥ <choice>
-            <sic>paṣṭhapurikā</sic>
-            <corr>piṣṭapurikā</corr>
-          </choice>-devyāḥ pūjā-ni<lb break="no" n="12"/>mittaṁ khaṇḍa-sphuṭita-pratisaṁskaraṇāya ca kumārasvāmine putra-pautrānvayopa<lb break="no" n="13"/>bhojy<choice>
-            <sic>o</sic>
-            <corr>au</corr>
-          </choice> pratipāditau<supplied reason="subaudible">.</supplied> mayāpi bhūmi-cchidr<choice>
-            <sic>ā</sic>
-            <corr>a</corr>
-          </choice>-nyāyena tāmra-śāsan<choice>
-            <sic>a</sic>
-            <corr>e</corr>
-          </choice>nānumoditau</p>
-        <p><lb n="14"/>te yūyam evopalabhyājñā-śravaṇa-vidheyā bhūtvā samucita-bhāga-bhoga-kara-hiraṇyā<lb break="no" n="15"/>vātāy<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>di-pratyāyān upaneṣyatha<supplied reason="subaudible">.</supplied><!-- 
-Line 15 is about half the length of the earlier lines. The text slants downward, so the remaining space in l15 is vertically challenged. 
---><pb n="2r"/><lb n="16"/>y<choice>
-            <sic>a</sic>
-            <corr>e</corr>
-          </choice> cāsmad-va<sic>n</sic>śotpadyamānaka-rājānas tair i<space type="binding-hole"/>yaṁ datti<supplied reason="omitted">r</supplied> nna vilopyā yathā-kāla<supplied reason="omitted">ṁ</supplied> sa<supplied reason="omitted">ṁ</supplied>varddha<lb break="no" n="17"/>nīyānumodanīyā pratipālanīyā ca<supplied reason="subaudible">.</supplied> <space type="binding-hole"/>rājābhāvya-kara-pratyāyā<supplied reason="omitted">ḥ</supplied> sarvve na grāhyā<supplied reason="omitted">ḥ</supplied><supplied reason="subaudible">.</supplied><!-- 
-Fleet understands rāja-a-bhāvya, "taxes which by custom should not belong to the king". I'm not sure about this but haven't checked. If we take rājā as standing for rāja, then there should be a hyphen at the end of the line. 
---><lb n="18"/>yaś caitāṁ dattiṁ lopayet saḫ pañcabhir mahā-pātakair upapātakaiś ca saṁyukto bhūyā<lb break="no" n="19"/>d<supplied reason="subaudible">.</supplied> uktañ ca mahābhārate śatasāhasry<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>ṁ saṁhitāyāṁ paramarṣiṇā parāśara-sutena<lb break="no" n="20"/>veda-vyāsena vyāsena</p>
-        <lg met="anuṣṭubh" n="1">
-          <l n="a">pūrvva-dattām dvijātibhyo</l>
-          <l n="b">yatnād rakṣa yudhiṣṭhira</l>
-          <l n="c">mahī<supplied reason="omitted">ṁ</supplied> <sic>mahi</sic><lb break="no" n="21"/><sic>vatā</sic> śreṣṭha</l>
-          <l n="d">dānāc chreyo nupālanaM<!-- 
-The halanta m is very unclear in the facsimile, but seems to be a small subscript form without a line above. 
---></l>
-        </lg>
-        <lg met="anuṣṭubh" n="2">
-          <l n="a">prāyeṇa hi narendrāṇāṁ</l>
-          <l n="b">vidyate n<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>śubhā <lb n="22"/>gatiḥ</l>
-          <l n="c">pūya<choice>
-              <sic>t</sic>
-              <corr>n</corr>
-            </choice>te te <choice>
-              <sic>tta</sic>
-              <corr>tu</corr>
-            </choice> satataṁ</l>
-          <l n="d">prayacchanto vasu<supplied reason="omitted">ndharāM</supplied></l>
-        </lg>
-        <lg met="anuṣṭubh" n="3">
-          <l n="a"><supplied reason="omitted">bahubhir vasu</supplied>dhā bhuktā</l>
-          <l n="b">rājabhis sagarādibhi<supplied reason="omitted">ḥ</supplied><!-- 
-Grand eyeskip in l22. 
---></l>
-          <l n="c"><lb n="23"/>yasya yasya yadā bhūmis</l>
-          <l n="d">tasya tasya tadā phalaM<!-- 
-The halanta m is very unclear in the facsimile, but seems to be a small subscript form without a line above. 
---></l>
-        </lg>
-        <lg met="anuṣṭubh" n="4">
-          <l n="a">ṣaṣṭi-varṣa-sahasrāṇi</l>
-          <l n="b"><lb n="24"/>svargge modati bhūmidaḥ</l>
-          <l n="c">Ākṣeptā cānumantā ca</l>
-          <l n="d">tāny eva narake vaseT<!-- 
-The halanta t is very unclear in the facsimile, but seems to be a small non-subscript form. 
---></l>
-        </lg>
-        <lg met="anuṣṭubh" n="5">
-          <l n="a">sva-da<lb n="25"/>ttāṁ para-dattāṁ vā</l>
-          <l n="b">yo hareta vasundharā<unclear>M</unclear></l>
-          <!-- 
-Fleet supplies an anusvāra at the end. In the facsimile I see some space after rā, with a couple of specks in it. Given that the plates have been using halanta consonants at the ends of verses (though not at half-verses so far), I think the space and specks are the remnants of a halanta M. 
--->
-          <l n="c">śva-viṣṭhāyāṁ kr̥mir bhūtvā</l>
-          <l n="d">pitr̥bhis saha <lb n="26"/>majjati</l>
-        </lg>
-        <lg met="anuṣṭubh" n="5">
-          <l n="a">apānīyeṣv araṇyeṣu</l>
-          <l n="b">śuṣka-koṭara-vāsinaḥ</l>
-          <l n="c">kr̥ṣṇāhayo hi jā<lb n="27"/>yaṁte</l>
-          <l n="d">pūrvva-dāyaṁ haranti ye</l>
-        </lg>
-        <p>likhitaṁ sa<supplied reason="omitted">ṁ</supplied>vatsara-śata-dvaye caturddaśottare <lb n="28"/>pauṣa-māsa-divase ṣa<choice>
-            <sic>p</sic>
-            <corr>ṣ</corr>
-          </choice>ṭhe ph<sic>a</sic>lgudattāmātya-pranapt<supplied reason="omitted">r</supplied>ā varāhadin<supplied reason="omitted">n</supplied>a-napt<supplied reason="omitted">r</supplied>ā<!-- 
-See comment on IN00084/21 about the name ph(a/ā)lgudatta. 
---><lb n="29"/>manoratha-sutena sāndhiviggrahika-nāthena<supplied reason="subaudible">.</supplied> dūtako dhr̥tisvāmikaḥ</p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<p>
+<pb n="1v" />
+<lb n="1" />
+<g type="mangala" />svasty
+<supplied reason="subaudible">.</supplied> uccakalp
+<unclear>ā</unclear>n mahārājaughadeva
+<space type="binding-hole" />s tasya puttras tat-pādānudhyāto mahādevyā
+<supplied reason="omitted">ṁ</supplied>
+<lb n="2" />kumāradevyām utpanno mahārāja-kumāradevas tasya putt
+<supplied reason="omitted">r</supplied>as tat-pādānudhyāto
+<lb n="3" />mahādevyā
+<unclear>ṁ</unclear> jayasvāminyām utpanno mahārāja-jayasvāmī tasya puttras tat-pādā
+<lb n="4" break="no" />nudhyāto mahādevyāṁ rāmadevyām utpanno mahārāja-vyāghras tasya puttras tat-pādānudhyā
+<lb n="5" break="no" />to mahādevyām ajjhitadevyām utpan
+<supplied reason="omitted">n</supplied>o mahārāja-jayanāthas tasya puttras tat-pādānu
+<lb n="6" break="no" />dhyāto mahādevyā
+<supplied reason="omitted">ṁ</supplied> muruṇḍasvāminyām utpanno mahārāja-śarvvanāthaḥ kuśalī maṇi
+<lb n="7" break="no" />nāga-peṭhe vyāghrapallika-kācarapallika-grāmayo
+<supplied reason="omitted">r</supplied> brāhmaṇādīn prativāsinaḥ
+<lb n="8" />samājñāpayati</p>
+<p>vidita
+<unclear>ṁ</unclear> vo stu 
+<choice>
+  <sic>yathaiṣa</sic>
+  <corr>yathaitau</corr>
+</choice> grāmau mayā sodraṅgau soparikarau 
+<lb n="9" />A-cāṭa-bhaṭa-
+<choice>
+  <sic>prāveśyo</sic>
+  <corr>prāveśyau</corr>
+</choice> rājābhāvya-sarva-kara-pratyāy
+<choice>
+  <sic>e</sic>
+  <corr>o</corr>
+</choice>tpannakotpadyamānaka-sam
+<choice>
+  <sic>o</sic>
+  <corr>e</corr>
+</choice>
+<lb n="10" break="no" />tau Ācandrārkka-samakālikau cora-
+<choice>
+  <sic>t</sic>
+  <corr>d</corr>
+</choice>aṇḍa-varjjitau pulindabhaṭasya pras
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>dīkr̥tau
+<lb n="11" />tenāpi mānapure kāritaka-deva-kul
+<unclear>e</unclear> bhagavatyāḥ 
+<choice>
+  <sic>paṣṭhapurikā</sic>
+  <corr>piṣṭapurikā</corr>
+</choice>-devyāḥ pūjā-ni
+<lb n="12" break="no" />mittaṁ khaṇḍa-sphuṭita-pratisaṁskaraṇāya ca kumārasvāmine putra-pautrānvayopa
+<lb n="13" break="no" />bhojy
+<choice>
+  <sic>o</sic>
+  <corr>au</corr>
+</choice> pratipāditau
+<supplied reason="subaudible">.</supplied> mayāpi bhūmi-cchidr
+<choice>
+  <sic>ā</sic>
+  <corr>a</corr>
+</choice>-nyāyena tāmra-śāsan
+<choice>
+  <sic>a</sic>
+  <corr>e</corr>
+</choice>nānumoditau</p>
+<p>
+<lb n="14" />te yūyam evopalabhyājñā-śravaṇa-vidheyā bhūtvā samucita-bhāga-bhoga-kara-hiraṇyā
+<lb n="15" break="no" />vātāy
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>di-pratyāyān upaneṣyatha
+<supplied reason="subaudible">.</supplied>
+<pb n="2r" />
+<lb n="16" />y
+<choice>
+  <sic>a</sic>
+  <corr>e</corr>
+</choice> cāsmad-va
+<sic>n</sic>śotpadyamānaka-rājānas tair i
+<space type="binding-hole" />yaṁ datti
+<supplied reason="omitted">r</supplied> nna vilopyā yathā-kāla
+<supplied reason="omitted">ṁ</supplied> sa
+<supplied reason="omitted">ṁ</supplied>varddha
+<lb n="17" break="no" />nīyānumodanīyā pratipālanīyā ca
+<supplied reason="subaudible">.</supplied> 
+<space type="binding-hole" />rājābhāvya-kara-pratyāyā
+<supplied reason="omitted">ḥ</supplied> sarvve na grāhyā
+<supplied reason="omitted">ḥ</supplied>
+<supplied reason="subaudible">.</supplied>
+<lb n="18" />yaś caitāṁ dattiṁ lopayet saḫ pañcabhir mahā-pātakair upapātakaiś ca saṁyukto bhūyā
+<lb n="19" break="no" />d
+<supplied reason="subaudible">.</supplied> uktañ ca mahābhārate śatasāhasry
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>ṁ saṁhitāyāṁ paramarṣiṇā parāśara-sutena
+<lb n="20" break="no" />veda-vyāsena vyāsena</p>
+<lg n="1" met="anuṣṭubh">
+<l n="a">pūrvva-dattām dvijātibhyo</l>
+<l n="b">yatnād rakṣa yudhiṣṭhira</l>
+<l n="c">mahī
+<supplied reason="omitted">ṁ</supplied> 
+<sic>mahi</sic>
+<lb n="21" break="no" />
+<sic>vatā</sic> śreṣṭha</l>
+<l n="d">dānāc chreyo nupālanaM</l>
+</lg>
+<lg n="2" met="anuṣṭubh">
+<l n="a">prāyeṇa hi narendrāṇāṁ</l>
+<l n="b">vidyate n
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>śubhā 
+<lb n="22" />gatiḥ</l>
+<l n="c">pūya
+<choice>
+  <sic>t</sic>
+  <corr>n</corr>
+</choice>te te 
+<choice>
+  <sic>tta</sic>
+  <corr>tu</corr>
+</choice> satataṁ</l>
+<l n="d">prayacchanto vasu
+<supplied reason="omitted">ndharāM</supplied></l>
+</lg>
+<lg n="3" met="anuṣṭubh">
+<l n="a">
+<supplied reason="omitted">bahubhir vasu</supplied>dhā bhuktā</l>
+<l n="b">rājabhis sagarādibhi
+<supplied reason="omitted">ḥ</supplied></l>
+<l n="c">
+<lb n="23" />yasya yasya yadā bhūmis</l>
+<l n="d">tasya tasya tadā phalaM</l>
+</lg>
+<lg n="4" met="anuṣṭubh">
+<l n="a">ṣaṣṭi-varṣa-sahasrāṇi</l>
+<l n="b">
+<lb n="24" />svargge modati bhūmidaḥ</l>
+<l n="c">Ākṣeptā cānumantā ca</l>
+<l n="d">tāny eva narake vaseT</l>
+</lg>
+<lg n="5" met="anuṣṭubh">
+<l n="a">sva-da
+<lb n="25" />ttāṁ para-dattāṁ vā</l>
+<l n="b">yo hareta vasundharā
+<unclear>M</unclear></l>
+<l n="c">śva-viṣṭhāyāṁ kr̥mir bhūtvā</l>
+<l n="d">pitr̥bhis saha 
+<lb n="26" />majjati</l>
+</lg>
+<lg n="5" met="anuṣṭubh">
+<l n="a">apānīyeṣv araṇyeṣu</l>
+<l n="b">śuṣka-koṭara-vāsinaḥ</l>
+<l n="c">kr̥ṣṇāhayo hi jā
+<lb n="27" />yaṁte</l>
+<l n="d">pūrvva-dāyaṁ haranti ye</l>
+</lg>
+<p>likhitaṁ sa
+<supplied reason="omitted">ṁ</supplied>vatsara-śata-dvaye caturddaśottare 
+<lb n="28" />pauṣa-māsa-divase ṣa
+<choice>
+  <sic>p</sic>
+  <corr>ṣ</corr>
+</choice>ṭhe ph
+<sic>a</sic>lgudattāmātya-pranapt
+<supplied reason="omitted">r</supplied>ā varāhadin
+<supplied reason="omitted">n</supplied>a-napt
+<supplied reason="omitted">r</supplied>ā
+<lb n="29" />manoratha-sutena sāndhiviggrahika-nāthena
+<supplied reason="subaudible">.</supplied> dūtako dhr̥tisvāmikaḥ</p>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -31,18 +37,13 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
@@ -54,289 +55,429 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-04" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-11-04" who="part:argr">resolved conflicts; applied san-Latn to invocation; some small other edits</change>
-      <change status="draft" when="2020-10-15" who="part:ekba">added the apparatus, translation, commentary, and bibliography</change>
-      <change status="draft" when="2020-04-14" who="part:argr">adjusted values of @n in lb and loc; resolved issue #16</change>
-      <change status="draft" when="2020-03-27" who="part:axja">adding the handDesc template</change>
-      <change status="draft" when="2020-03-09" who="part:argr">first revision and expansion of the encoding</change>
-      <change status="draft" when="2019-09" who="part:argr">initial encoding of the edition</change>
+      <change who="part:axja" when="2020-11-04" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:argr" when="2020-11-04" status="draft">resolved conflicts; applied san-Latn to invocation; some small other edits</change>
+      <change who="part:ekba" when="2020-10-15" status="draft">added the apparatus, translation, commentary, and bibliography</change>
+      <change who="part:argr" when="2020-04-14" status="draft">adjusted values of @n in lb and loc; resolved issue #16</change>
+      <change who="part:axja" when="2020-03-27" status="draft">adding the handDesc template</change>
+      <change who="part:argr" when="2020-03-09" status="draft">first revision and expansion of the encoding</change>
+      <change who="part:argr" when="2019-09" status="draft">initial encoding of the edition</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="kaw-Latn">
-        <p xml:lang="san-Latn"><pb n="1r"/>
+        
+<body>
+            
+<div type="edition" xml:lang="kaw-Latn">
+<p xml:lang="san-Latn">
+<pb n="1r" />
 <fw n="1r" place="left" rend="tb-rotated">
-            <num value="1">1</num>
-          </fw>
-<lb n="1r1"/><g type="ddandaOrnate"/> <g subtype="floretQuatrefoil" type="symbol"/> <g type="ddandaOrnate"/> namo 'stu sarvvabuddhăya <g type="ddandaOrnate"/> <g subtype="floretQuatrefoil" type="symbol"/> <g type="ddandaOrnate"/></p>
-        <p>svasti śakavarṣātīta, <num value="888">888</num>, śrăvaṇa-māsa, tīthī, Aṣṭamī kr̥ṣṇa-pakṣa, <abbr>ha</abbr>, <abbr>va</abbr>, <abbr>ra</abbr>, vāra, sinta, 
-<lb n="1r2"/>bāyabyastha grahacāra, rohiṇī-nakṣatra, prajāpati-devatā, mahendra-maṇḍala, harṣaṇa-yoga, vijaya-muhūrta, śaśī-parvvaiśa, 
-<lb n="1r3"/>kolava-karaṇa, siṅha-rāśi,</p>
-        <p>Irika divāśanira, mpu mano, muṇyākən· lmaḥ sīma, kaputrāṅśanira, kalilīranira saṅke kavvitanira 
-<lb n="1r4"/>Ikaṁ harahara, kidul i pomahanira, hīṅanya lor· kidul iṁ pagər· kinalihan·, muAṁ mpu mano, hīṅanya kulvan· Aṅalihī pagər·, muAṁ <lb n="1v5"/> Iṁ paviḍəṅan·, hīṅanya vetan·, Aṅalihi pagər·, muAṁ Iṁ kalampayan·, hīṅanya kidul·, Ikaṁ pagər· lor· saṁke kalimusan·, ya t<pb break="no" n="1v"/><lb break="no" n="1v1"/>ekā pinuṇyakənira Iṁ mpuṅku <supplied reason="omitted">Iṁ</supplied> susuk· pagər·, muAṁ mpuṅku Iṁ nairañjanā, Arthahetoḥ mpu buddhivāla, paknanya gavayənnira kuṭi, dharmma lpa<lb break="no" n="1v2"/>s· kapodgālikanani kulasantānānira mpuṅku Iṁ nairañjanā,</p>
-        <p part="I">kunaṁ kramanya, Ikaṁ savaḥ kidul iṁ kuṭi, təmpaḥ, <num value="3">3</num>, ya ta sinaṇḍā mpuṅku <supplied reason="omitted">Iṁ</supplied> su<lb break="no" n="1v3"/>suk· pagər·, muAṁ mpuṅku Iṁ nairañjanā, Iṁ <abbr>mā</abbr> <abbr>kā</abbr> <num value="2">2</num><unclear>,</unclear> ya ta dharmma mpuṅku, Iṁ susuk· pagər·, muAṁ mpuṅku Iṁ naira<choice>
-            <sic>g</sic>
-            <corr>ñ</corr>
-          </choice>janā, An· paminta I<lb break="no" n="1v4"/>ka lmaḥ tumpal ika savaḥ lor· damlənira kuṭi, ya ta kăraṇanyan· <choice>
-            <sic>linbas</sic>
-            <corr>tinbus</corr>
-          </choice> ikaṁ savaḥ saṇḍanira mpu mano, Iṁ <abbr>mā</abbr> <abbr>kā</abbr> <num value="3">3</num>, mapa<lb break="no" n="1v5"/>k<unclear>na</unclear> bhuktyana saṁ hyaṁ kuṭi, saṅka ri gə:ṁnyām<choice>
-            <sic>bha</sic>
-            <corr>bhək</corr>
-          </choice> mpu mano, ya<choice>
-            <sic>t</sic>
-            <corr>n</corr>
-          </choice>· dharmma donanya, Apitovin ana riṁ dharmma parṇnaḥ mpu mano, denira mpuṅku Iṁ</p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1r1">
-            <lem>tīthī</lem>
-            <rdg source="bib:Brandes1913_01">tithi</rdg>
-          </app>
-          <app loc="1r1">
-            <lem>kr̥ṣṇapakṣa</lem>
-            <rdg source="bib:Brandes1913_01">śuklapakṣa</rdg>
-            <note>Damais’ suspicion of an error in Brandes reading is thus confirmed.</note>
-          </app>
-          <app loc="1r2">
-            <lem>-muhūrta</lem>
-            <rdg source="bib:Brandes1913_01">-muhūrtta</rdg>
-          </app>
-          <app loc="1r2">
-            <lem>-parvvaiśa</lem>
-            <rdg source="bib:Brandes1913_01">-parvveśa</rdg>
-          </app>
-          <app loc="1r3">
-            <lem>kolava-</lem>
-            <note>The <foreign>taling</foreign> stands at the end of line 2 but is repeated at the start of line 3. See another occurrence of this (actually rather widespread) phenomenon at the transition between lines 5 and 6.</note>
-          </app>
-          <app loc="1r3">
-            <lem>kalilīranira</lem>
-            <rdg source="bib:Brandes1913_01">kaliliranira</rdg>
-          </app>
-          <app loc="1r3-1r4">
-            <lem>kavvitanira Ikaṁ</lem>
-            <rdg source="bib:Brandes1913_01">kavvitanira, Ikaṁ</rdg>
-            <note>No punctuation sign is engraved between these words.</note>
-          </app>
-          <app loc="1r4">
-            <lem>Aṅalihī</lem>
-            <rdg source="bib:Brandes1913_01">Aṅalihi</rdg>
-          </app>
-          <app loc="1r5-1v1">
-            <lem>ya t<pb break="no" n="1v"/><lb break="no" n="1v1"/>ekā</lem>
-            <note>The <foreign>taling</foreign> stands at the end of line 1r5, but is repeated at the start of line 1v1. See also 1r2–1r3 above.</note>
-          </app>
-          <app loc="1v1">
-            <lem>mpuṅku <supplied reason="omitted">Iṁ</supplied> susuk·</lem>
-            <rdg source="bib:Brandes1913_01">mpuṅku susuk·</rdg>
-            <note>Since in most cases we find <foreign>Iṁ</foreign> between the words <foreign>mpuṅku susuk·</foreign>, I assume that we must emend <foreign>mpuṅku Iṁ susuk·</foreign> here and in 1v2–1v3.</note>
-          </app>
-          <app loc="1v1">
-            <lem>mpuṅku Iṁ nairañjanā</lem>
-            <rdg source="bib:Brandes1913_01">mpuṅku I nairañjanā</rdg>
-          </app>
-          <app loc="1v2-1v3">
-            <lem>mpuṅku <supplied reason="omitted">Iṁ</supplied> susuk·</lem>
-            <rdg source="bib:Brandes1913_01">mpuṅku susuk·</rdg>
-            <note>See line 1v1.</note>
-          </app>
-          <app loc="1v3">
-            <lem>mpuṅku Iṁ nairañjanā</lem>
-            <rdg source="bib:Brandes1913_01">mpuṅku I nairañjanā</rdg>
-          </app>
-          <app loc="1v3">
-            <lem><abbr>kā</abbr> <num value="2">2</num><unclear>,</unclear> ya</lem>
-            <rdg source="bib:Brandes1913_01">kā 2 ya</rdg>
-            <note>The punctuation sign is very faint.</note>
-          </app>
-          <app loc="1v3">
-            <lem>dharmma mpuṅku, Iṁ</lem>
-            <rdg source="bib:Brandes1913_01">dharmma mpuṅku Iṁ</rdg>
-            <note>The punctuation sign was not read by Brandes.</note>
-          </app>
-          <app loc="1v3">
-            <lem>Iṁ naira<choice>
-                <sic>g</sic>
-                <corr>ñ</corr>
-              </choice>janā</lem>
-            <rdg source="bib:Brandes1913_01">I nairañjanā</rdg>
-            <note>Brandes did not observe that the plate here shows an error for the spelling of the toponym seen repeatedly in this text.</note>
-          </app>
-          <app loc="1v4">
-            <lem>tumpal ika</lem>
-            <rdg source="bib:Brandes1913_01">tumpalikaṁ</rdg>
-            <note>I think the <foreign>cecak</foreign> read by Brandes is actually just a scratch above the <foreign>ka</foreign>, although perhaps we do need a <foreign>cecak</foreign> here, if we are to understand <foreign>tumpalnika<unclear>ṅ</unclear></foreign>.</note>
-          </app>
-          <app loc="1v4">
-            <lem>damlənira</lem>
-            <rdg source="bib:Brandes1913_01">damlira</rdg>
-          </app>
-          <app loc="1v4">
-            <lem>
-              <choice>
-                <sic>linbas</sic>
-                <corr>tinbus</corr>
-              </choice>
-            </lem>
-            <rdg source="bib:Brandes1913_01">linbus</rdg>
-            <note>I do not see the needed <foreign>suku</foreign>.</note>
-          </app>
-          <app loc="1v5">
-            <lem>gə:ṁnyām<choice>
-                <sic>bha</sic>
-                <corr>bhək</corr>
-              </choice> mpu mano</lem>
-            <rdg source="bib:Brandes1913_01">gə:ṁnyā, mpuṅku mano</rdg>
-            <note>The emendation is supported by analogous phraseology in several Parva texts, thought to date to roughly the same period as this inscription. See Ādiparva, p. 97: <foreign>saṅka ri gə̄ ṅni prabhāvanira</foreign>; <foreign>Bhīṣmaparva</foreign>, p. 84: <foreign>saṅka ri gə̄ ṅniṅ krodha saṅ bhīmasena</foreign>; <foreign>Uttarakāṇḍa</foreign>, p. 126: <foreign>saṅ hyaṅ indra ta jugāgə̄ ṅ vəlasny ambəknira</foreign>. On the spelling <foreign>bh</foreign> in the word <foreign>ambək</foreign>, consistently found in the Majapahit-period manuscript of the <foreign>Dharma Pātañjala</foreign>, see Acri (<bibl rend="omitname">
-                <ptr target="bib:Acri2017_01"/>
-                <citedRange unit="page">55 </citedRange>
-              </bibl>/ <bibl rend="omitname">
-                <ptr target="bib:Acri2018_01"/>
-                <citedRange unit="page">40 </citedRange>
-              </bibl>).</note>
-          </app>
-          <app loc="1v5">
-            <lem>ya<choice>
-                <sic>t</sic>
-                <corr>n</corr>
-              </choice>·</lem>
-            <rdg source="bib:Brandes1913_01">yat</rdg>
-            <note/>
-            <!--The footnote says to emend yan· or yar·. I have emended into yan -->
-          </app>
-          <app loc="1v5">
-            <lem>parṇnaḥ</lem>
-            <rdg source="bib:Brandes1913_01">parṇnah</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:argr" type="translation">
-        <p n="1r1-1r3">Homage to every Buddha! Hail! Elapsed Śaka year 888, month of Śrāvaṇa, eighth <foreign>tithi</foreign> of the waning fortnight, Haryaṅ, Vagai, Sunday, <supplied reason="explanation">the <foreign>vuku</foreign></supplied> Sinta, the <foreign>grahacāra</foreign> in the Northwest, the lunar mansion Rohiṇī, the deity Prajāpati, the <foreign>maṇḍala</foreign> in the East, the conjunction Harṣaṇa, the <foreign>muhūrta</foreign> Vijaya, the regent of the astronomical node being the Moon, the half-<foreign>tithi</foreign> <supplied reason="explanation">
-            <foreign>karaṇa</foreign>
-          </supplied> Kolava, the zodiac sign Leo.</p>
-        <p n="1r3-1r5"> That was the time that Mpu Mano made a meritorious donation of <foreign>sīma</foreign> land that was his patrimony as child, his inheritance from his ancestors, the uncultivated field <supplied reason="explanation">hara-hara</supplied> south of where he resided. Its northern limit is south of the fence <supplied reason="explanation">
-            <foreign>pagər</foreign>
-          </supplied> shared with Mpu Mano. Its western limit shares the fence with Paviḍəṅan. Its eastern limit shares the fence with Kalampayan. Its southern limit is the fence north of Kalimusan.</p>
-        <p n="1r5-1v2">That is what he made a meritorious donation to the Master of Susuk Pagər and Master of Nairañjanā, <supplied reason="subaudible">whose name mentioned here only</supplied> for practical necessity <supplied reason="subaudible">is</supplied> Mpu Buddhivāla, to serve for the monastery <supplied reason="explanation">
-            <foreign>kuṭi</foreign>
-          </supplied> to be made by him <supplied reason="explanation">Mpu Mano</supplied>, a tax-exempt foundation <supplied reason="explanation">
-            <foreign>dharma ləpas</foreign>
-          </supplied> that is to be individual property <supplied reason="explanation">
-            <foreign>kapodgalikan</foreign>
-          </supplied> of the lineage of the Master of Nairañjanā.</p>
-        <p n="1v2-1v5"> As for its details: the wet-rice field south of the monastery <supplied reason="explanation">
-            <foreign>kuṭi</foreign>
-          </supplied>, <supplied reason="subaudible">measuring</supplied> 3 <foreign>təmpah</foreign>, had been taken in security by the Master of Susuk Pagər and Master of Nairañjanā for 2 <foreign>kāṭi</foreign> of gold. That <supplied reason="explanation">field</supplied> was the foundation of the Master of Susuk Pagər and Master of Nairañjanā, who <supplied reason="explanation">
-            <foreign>an</foreign>
-          </supplied> requested a border land, the wet-rice field to the north, <supplied reason="explanation">to be used</supplied> for his <supplied reason="explanation">Mpu Mano’s</supplied> founding of a monastery. That is the reason why the wet-rice field given in security by Mpu Mano was redeemed by him for 3 <foreign>kāṭi</foreign> of gold, to serve for being used as resource by the Holy Monastery <supplied reason="explanation">
-            <foreign>kuṭi</foreign>
-          </supplied>, out of the greatness of the intent <supplied reason="explanation">
-            <foreign>ambək</foreign>
-          </supplied> of Mpu Mano that <supplied reason="explanation">
-            <foreign>yan</foreign>
-          </supplied> Dharma should be striven for by him. The more so as regarding the foundation <supplied reason="explanation">
-            <foreign>dharma</foreign>
-          </supplied>, the relation of Mpu Mano to the Master of ...</p>
-      </div>
-      <div type="commentary">
-        <!--commentary encoded as per section §9.3 -->
-        <p n="1r3">On the meaning of <foreign>kaputrāṅśan</foreign>, see §6.1.</p>
-        <p n="1r4">On the meaning of <foreign>hara-hara</foreign>, see §6.2.</p>
-        <p n="1r4">On the way I translate <foreign>pagər</foreign>, see §6.3.</p>
-        <p n="1r5">Zoetmulder (<bibl rend="omitname">
-            <ptr target="bib:Zoetmulder1982_01"/>
-          </bibl>) records the word <foreign>viḍəṅ</foreign> in the meaning “(= yuyu) crab”, but cites only one occurrence. If <foreign>paviḍəṅan</foreign> is derived from that word in that meaning, it would have to mean ‘crab farm’, or such. But it seems imaginable that the word is to be connected rather with <foreign>hiḍəṅ/iḍəṅ </foreign>“(subst.) standing still”, <foreign>iniḍəṅ</foreign> “(pf) to make st. the constant object (of meditation, etc.)”, <foreign>mapahidəṅan</foreign> “to stand one’s ground, recover, rally” (Zoetmulder (<bibl rend="omitname">
-            <ptr target="bib:Zoetmulder1982_01"/>
-          </bibl>)). The meaning of <foreign>paviḍəṅan</foreign> could then be ‘place for solitary retreat (for meditation)’ or ‘rallying ground’. But it can also simply be a toponym, as I assume for the time being. The word does not occur elsewhere.</p>
-        <p n="1r5">Or <foreign>kalampayan</foreign> could be a common noun connected with <foreign>lampyay ? kalampyayan ?</foreign> “a part. kind of plant (creeper)?” (Zoetmulder (<bibl rend="omitname">
-            <ptr target="bib:Zoetmulder1982_01"/>
-          </bibl>)). The word does not occur elsewhere.</p>
-        <p n="1r5">In origin, at least, <foreign>kalimusan</foreign> must be a common noun derived from <foreign>limus</foreign> “a part. kind of fruit (mango? cf sund.; GR: = timun)” (Zoetmulder  (<bibl rend="omitname">
-            <ptr target="bib:Zoetmulder1982_01"/>
-          </bibl>)), i.e., ‘limus orchard’. The word occurs as the name of a <foreign>sīma</foreign> in an inscription which I suspect may be a reissue of a grant originally issued in the 11th century (<ref target="Kalimusan.xml">Kalimusan</ref>, see Machi Suhadi  and Richadiana Kartakusuma (<bibl rend="omitname">
-            <ptr target="bib:MachiSuhadi+RichadianaKartakusuma1996_01"/>
-            <citedRange unit="page">7</citedRange>
-          </bibl>). In its two occurrences in the <ref target="WaringinPitu.xml">Waringin Pitu inscription</ref> (ed. Boechari <bibl rend="omitname">
-            <ptr target="bib:Boechari1985-1986_01"/>
-            <citedRange unit="page">125–136</citedRange>
-            <citedRange unit="line">8r2, 11r3</citedRange>
-          </bibl>), it could be either toponym or common noun, although the former seems a bit more likely, because of the occurrence of the toponyms Malaṅe and Kamalagen in the same contexts. An occurrence of the former in the <ref target="Balawi.xml">Balawi inscription</ref> of 1305 Śaka has been identified by Hadi Sidomulyo (<bibl rend="omitname">
-            <ptr target="bib:HadiSidomulyo2018_01"/>
-            <citedRange unit="page">237</citedRange>
-          </bibl>) with a village situated about 40 km northwest of Trowulan, but homonymic villages may of course have existed elsewhere; the latter is the name of a <foreign>sīma</foreign> known from the <ref target="Kamalagyan.xml">Kamalagyan inscription</ref> of 959 Śaka, which mentions it in close association with Variṅin Sapta, none other than the <foreign>sīma</foreign> which is the focus of the <ref target="WaringinPitu.xml">Waringin Pitu</ref> charter. (On that charter, see also §6.2.)</p>
-        <p n="1v1">On the meaning of <foreign>arthahetoḥ</foreign>, see §6.5.</p>
-        <p n="1v1">This name appears as Boddhivāla in the Sobhamerta inscription. It seems that a single person called Mpu Buddhibala (or something like that) was master of two establishments, one called Susuk Pagər and the other Nairañjanā, although the text does not consistently mention both affiliations.</p>
-        <p n="1v2">On the meaning of <foreign>kapodgalikan</foreign>, see §6.4.</p>
-        <p n="1v3-1v4">An alternative translation might be: ‘That (field) was the endowment (<foreign>dharma</foreign>) for the Master of Susuk Pagər and Master of Nairañjanā, such that (<foreign>an</foreign>) he requested a border land, the wet-rice field to the north, (to be used) for his (Mpu Mano’s) endowment of a monastery.’</p>
-      </div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <p>First edited by Brandes (<bibl rend="omitname">
-            <ptr target="bib:Brandes1913_01"/>
-          </bibl>). Re-edited here by Arlo Griffiths from photos of Nationaal Museum van Wereldculturen with the inventory number RV-4801-1.</p>
-        <listBibl type="primary">
-          <bibl n="B">
-            <ptr target="bib:Brandes1913_01"/>
-            <citedRange unit="item">55</citedRange>
-            <citedRange unit="page">116-117</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:Damais1955_01"/>
-            <citedRange unit="page">116-117</citedRange>
-            <citedRange unit="item">A. 129</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Zoetmulder1982_01"/>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Boechari1985-1986_01"/>
-            <citedRange unit="page">126-137</citedRange>
-            <citedRange unit="line">8r2, 11r3</citedRange>
-            <citedRange unit="item">E. 67</citedRange>
-          </bibl>
-          <!--Footnote number 40 in the article states Boechari 1985-86: 125–136, lines 8r2, 11r3, while the actual page starts in page 126  -->
-          <bibl>
-            <ptr target="bib:MachiSuhadi+RichadianaKartakusuma1996_01"/>
-            <citedRange unit="page">7</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Acri2017_01"/>
-            <citedRange unit="page">55</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Acri2018_01"/>
-            <citedRange unit="page">40</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:HadiSidomulyo2018_01"/>
-            <citedRange unit="page">237</citedRange>
-          </bibl>
-          <bibl/>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+  <num value="1">1</num>
+</fw>
+<lb n="1r1" />
+<g type="ddandaOrnate" /> 
+<g type="symbol" subtype="floretQuatrefoil" /> 
+<g type="ddandaOrnate" /> namo 'stu sarvvabuddhăya 
+<g type="ddandaOrnate" /> 
+<g type="symbol" subtype="floretQuatrefoil" /> 
+<g type="ddandaOrnate" /></p> 
+<p>svasti śakavarṣātīta, 
+<num value="888">888</num>, śrăvaṇa-māsa, tīthī, Aṣṭamī kr̥ṣṇa-pakṣa, 
+<abbr>ha</abbr>, 
+<abbr>va</abbr>, 
+<abbr>ra</abbr>, vāra, sinta, 
+<lb n="1r2" />bāyabyastha grahacāra, rohiṇī-nakṣatra, prajāpati-devatā, mahendra-maṇḍala, harṣaṇa-yoga, vijaya-muhūrta, śaśī-parvvaiśa, 
+<lb n="1r3" />kolava-karaṇa, siṅha-rāśi,</p> 
+<p>Irika divāśanira, mpu mano, muṇyākən· lmaḥ sīma, kaputrāṅśanira, kalilīranira saṅke kavvitanira 
+<lb n="1r4" />Ikaṁ harahara, kidul i pomahanira, hīṅanya lor· kidul iṁ pagər· kinalihan·, muAṁ mpu mano, hīṅanya kulvan· Aṅalihī pagər·, muAṁ 
+<lb n="1v5" /> Iṁ paviḍəṅan·, hīṅanya vetan·, Aṅalihi pagər·, muAṁ Iṁ kalampayan·, hīṅanya kidul·, Ikaṁ pagər· lor· saṁke kalimusan·, ya t
+<pb n="1v" break="no" />
+<lb n="1v1" break="no" />ekā pinuṇyakənira Iṁ mpuṅku 
+<supplied reason="omitted">Iṁ</supplied> susuk· pagər·, muAṁ mpuṅku Iṁ nairañjanā, Arthahetoḥ mpu buddhivāla, paknanya gavayənnira kuṭi, dharmma lpa
+<lb n="1v2" break="no" />s· kapodgālikanani kulasantānānira mpuṅku Iṁ nairañjanā,</p> 
+<p part="I">kunaṁ kramanya, Ikaṁ savaḥ kidul iṁ kuṭi, təmpaḥ, 
+<num value="3">3</num>, ya ta sinaṇḍā mpuṅku 
+<supplied reason="omitted">Iṁ</supplied> su
+<lb n="1v3" break="no" />suk· pagər·, muAṁ mpuṅku Iṁ nairañjanā, Iṁ 
+<abbr>mā</abbr> 
+<abbr>kā</abbr> 
+<num value="2">2</num>
+<unclear>,</unclear> ya ta dharmma mpuṅku, Iṁ susuk· pagər·, muAṁ mpuṅku Iṁ naira
+<choice>
+  <sic>g</sic>
+  <corr>ñ</corr>
+</choice>janā, An· paminta I
+<lb n="1v4" break="no" />ka lmaḥ tumpal ika savaḥ lor· damlənira kuṭi, ya ta kăraṇanyan· 
+<choice>
+  <sic>linbas</sic>
+  <corr>tinbus</corr>
+</choice> ikaṁ savaḥ saṇḍanira mpu mano, Iṁ 
+<abbr>mā</abbr> 
+<abbr>kā</abbr> 
+<num value="3">3</num>, mapa
+<lb n="1v5" break="no" />k
+<unclear>na</unclear> bhuktyana saṁ hyaṁ kuṭi, saṅka ri gə:ṁnyām
+<choice>
+  <sic>bha</sic>
+  <corr>bhək</corr>
+</choice> mpu mano, ya
+<choice>
+  <sic>t</sic>
+  <corr>n</corr>
+</choice>· dharmma donanya, Apitovin ana riṁ dharmma parṇnaḥ mpu mano, denira mpuṅku Iṁ</p>
+            </div>
+            
+<div type="apparatus">
+                
+<listApp>
+<app loc="1r1">
+<lem>tīthī</lem>
+<rdg source="bib:Brandes1913_01">tithi</rdg>
+</app>
+<app loc="1r1">
+<lem>kr̥ṣṇapakṣa</lem>
+<rdg source="bib:Brandes1913_01">śuklapakṣa</rdg>
+<note>Damais’ suspicion of an error in Brandes reading is thus confirmed.</note>
+</app>
+<app loc="1r2">
+<lem>-muhūrta</lem>
+<rdg source="bib:Brandes1913_01">-muhūrtta</rdg>
+</app>
+<app loc="1r2">
+<lem>-parvvaiśa</lem>
+<rdg source="bib:Brandes1913_01">-parvveśa</rdg>
+</app>
+<app loc="1r3">
+<lem>kolava-</lem>
+<note>The 
+<foreign>taling</foreign> stands at the end of line 2 but is repeated at the start of line 3. See another occurrence of this (actually rather widespread) phenomenon at the transition between lines 5 and 6.</note>
+</app>
+<app loc="1r3">
+<lem>kalilīranira</lem>
+<rdg source="bib:Brandes1913_01">kaliliranira</rdg>
+</app>
+<app loc="1r3-1r4">
+<lem>kavvitanira Ikaṁ</lem>
+<rdg source="bib:Brandes1913_01">kavvitanira, Ikaṁ</rdg>
+<note>No punctuation sign is engraved between these words.</note>
+</app>
+<app loc="1r4">
+<lem>Aṅalihī</lem>
+<rdg source="bib:Brandes1913_01">Aṅalihi</rdg>
+</app>
+<app loc="1r5-1v1">
+<lem>ya t
+<pb n="1v" break="no" />
+<lb n="1v1" break="no" />ekā</lem>
+<note>The 
+<foreign>taling</foreign> stands at the end of line 1r5, but is repeated at the start of line 1v1. See also 1r2–1r3 above.</note>
+</app>
+<app loc="1v1">
+<lem>mpuṅku 
+<supplied reason="omitted">Iṁ</supplied> susuk·</lem>
+<rdg source="bib:Brandes1913_01">mpuṅku susuk·</rdg>
+<note>Since in most cases we find 
+<foreign>Iṁ</foreign> between the words 
+<foreign>mpuṅku susuk·</foreign>, I assume that we must emend 
+<foreign>mpuṅku Iṁ susuk·</foreign> here and in 1v2–1v3.</note>
+</app>
+<app loc="1v1">
+<lem>mpuṅku Iṁ nairañjanā</lem>
+<rdg source="bib:Brandes1913_01">mpuṅku I nairañjanā</rdg>
+</app>
+<app loc="1v2-1v3">
+<lem>mpuṅku 
+<supplied reason="omitted">Iṁ</supplied> susuk·</lem>
+<rdg source="bib:Brandes1913_01">mpuṅku susuk·</rdg>
+<note>See line 1v1.</note>
+</app>
+<app loc="1v3">
+<lem>mpuṅku Iṁ nairañjanā</lem>
+<rdg source="bib:Brandes1913_01">mpuṅku I nairañjanā</rdg>
+</app>
+<app loc="1v3">
+<lem>
+<abbr>kā</abbr> 
+<num value="2">2</num>
+<unclear>,</unclear> ya</lem>
+<rdg source="bib:Brandes1913_01">kā 2 ya</rdg>
+<note>The punctuation sign is very faint.</note>
+</app>
+<app loc="1v3">
+<lem>dharmma mpuṅku, Iṁ</lem>
+<rdg source="bib:Brandes1913_01">dharmma mpuṅku Iṁ</rdg>
+<note>The punctuation sign was not read by Brandes.</note>
+</app>
+<app loc="1v3">
+<lem>Iṁ naira
+<choice>
+  <sic>g</sic>
+  <corr>ñ</corr>
+</choice>janā</lem>
+<rdg source="bib:Brandes1913_01">I nairañjanā</rdg>
+<note>Brandes did not observe that the plate here shows an error for the spelling of the toponym seen repeatedly in this text.</note>
+</app>
+<app loc="1v4">
+<lem>tumpal ika</lem>
+<rdg source="bib:Brandes1913_01">tumpalikaṁ</rdg>
+<note>I think the 
+<foreign>cecak</foreign> read by Brandes is actually just a scratch above the 
+<foreign>ka</foreign>, although perhaps we do need a 
+<foreign>cecak</foreign> here, if we are to understand 
+<foreign>tumpalnika
+<unclear>ṅ</unclear></foreign>.</note>
+</app>
+<app loc="1v4">
+<lem>damlənira</lem>
+<rdg source="bib:Brandes1913_01">damlira</rdg>
+</app>
+<app loc="1v4">
+<lem>
+  <choice>
+    <sic>linbas</sic>
+    <corr>tinbus</corr>
+  </choice>
+</lem>
+<rdg source="bib:Brandes1913_01">linbus</rdg>
+<note>I do not see the needed 
+<foreign>suku</foreign>.</note>
+</app>
+<app loc="1v5">
+<lem>gə:ṁnyām
+<choice>
+  <sic>bha</sic>
+  <corr>bhək</corr>
+</choice> mpu mano</lem>
+<rdg source="bib:Brandes1913_01">gə:ṁnyā, mpuṅku mano</rdg>
+<note>The emendation is supported by analogous phraseology in several Parva texts, thought to date to roughly the same period as this inscription. See Ādiparva, p. 97: 
+<foreign>saṅka ri gə̄ ṅni prabhāvanira</foreign>; 
+<foreign>Bhīṣmaparva</foreign>, p. 84: 
+<foreign>saṅka ri gə̄ ṅniṅ krodha saṅ bhīmasena</foreign>; 
+<foreign>Uttarakāṇḍa</foreign>, p. 126: 
+<foreign>saṅ hyaṅ indra ta jugāgə̄ ṅ vəlasny ambəknira</foreign>. On the spelling 
+<foreign>bh</foreign> in the word 
+<foreign>ambək</foreign>, consistently found in the Majapahit-period manuscript of the 
+<foreign>Dharma Pātañjala</foreign>, see Acri (
+<bibl rend="omitname">
+<ptr target="bib:Acri2017_01" /> 
+<citedRange unit="page">55 </citedRange></bibl>/ 
+<bibl rend="omitname">
+<ptr target="bib:Acri2018_01" /> 
+<citedRange unit="page">40 </citedRange></bibl>).</note>
+</app>
+<app loc="1v5">
+<lem>ya
+<choice>
+  <sic>t</sic>
+  <corr>n</corr>
+</choice>·</lem>
+<rdg source="bib:Brandes1913_01">yat</rdg>
+<note /></app>
+<app loc="1v5">
+<lem>parṇnaḥ</lem>
+<rdg source="bib:Brandes1913_01">parṇnah</rdg>
+</app>
+</listApp>
+            </div>
+            
+<div type="translation" resp="part:argr">
+<p n="1r1-1r3">Homage to every Buddha! Hail! Elapsed Śaka year 888, month of Śrāvaṇa, eighth 
+<foreign>tithi</foreign> of the waning fortnight, Haryaṅ, Vagai, Sunday, 
+<supplied reason="explanation">the 
+<foreign>vuku</foreign></supplied> Sinta, the 
+<foreign>grahacāra</foreign> in the Northwest, the lunar mansion Rohiṇī, the deity Prajāpati, the 
+<foreign>maṇḍala</foreign> in the East, the conjunction Harṣaṇa, the 
+<foreign>muhūrta</foreign> Vijaya, the regent of the astronomical node being the Moon, the half-
+<foreign>tithi</foreign> 
+<supplied reason="explanation">
+  <foreign>karaṇa</foreign>
+</supplied> Kolava, the zodiac sign Leo.</p>
+<p n="1r3-1r5"> That was the time that Mpu Mano made a meritorious donation of 
+<foreign>sīma</foreign> land that was his patrimony as child, his inheritance from his ancestors, the uncultivated field 
+<supplied reason="explanation">hara-hara</supplied> south of where he resided. Its northern limit is south of the fence 
+<supplied reason="explanation">
+  <foreign>pagər</foreign>
+</supplied> shared with Mpu Mano. Its western limit shares the fence with Paviḍəṅan. Its eastern limit shares the fence with Kalampayan. Its southern limit is the fence north of Kalimusan.</p>
+<p n="1r5-1v2">That is what he made a meritorious donation to the Master of Susuk Pagər and Master of Nairañjanā, 
+<supplied reason="subaudible">whose name mentioned here only</supplied> for practical necessity 
+<supplied reason="subaudible">is</supplied> Mpu Buddhivāla, to serve for the monastery 
+<supplied reason="explanation">
+  <foreign>kuṭi</foreign>
+</supplied> to be made by him 
+<supplied reason="explanation">Mpu Mano</supplied>, a tax-exempt foundation 
+<supplied reason="explanation">
+  <foreign>dharma ləpas</foreign>
+</supplied> that is to be individual property 
+<supplied reason="explanation">
+  <foreign>kapodgalikan</foreign>
+</supplied> of the lineage of the Master of Nairañjanā.</p>
+<p n="1v2-1v5"> As for its details: the wet-rice field south of the monastery 
+<supplied reason="explanation">
+  <foreign>kuṭi</foreign>
+</supplied>, 
+<supplied reason="subaudible">measuring</supplied> 3 
+<foreign>təmpah</foreign>, had been taken in security by the Master of Susuk Pagər and Master of Nairañjanā for 2 
+<foreign>kāṭi</foreign> of gold. That 
+<supplied reason="explanation">field</supplied> was the foundation of the Master of Susuk Pagər and Master of Nairañjanā, who 
+<supplied reason="explanation">
+  <foreign>an</foreign>
+</supplied> requested a border land, the wet-rice field to the north, 
+<supplied reason="explanation">to be used</supplied> for his 
+<supplied reason="explanation">Mpu Mano’s</supplied> founding of a monastery. That is the reason why the wet-rice field given in security by Mpu Mano was redeemed by him for 3 
+<foreign>kāṭi</foreign> of gold, to serve for being used as resource by the Holy Monastery 
+<supplied reason="explanation">
+  <foreign>kuṭi</foreign>
+</supplied>, out of the greatness of the intent 
+<supplied reason="explanation">
+  <foreign>ambək</foreign>
+</supplied> of Mpu Mano that 
+<supplied reason="explanation">
+  <foreign>yan</foreign>
+</supplied> Dharma should be striven for by him. The more so as regarding the foundation 
+<supplied reason="explanation">
+  <foreign>dharma</foreign>
+</supplied>, the relation of Mpu Mano to the Master of ...</p>
+            </div>
+            
+<div type="commentary">
+            
+<p n="1r3">On the meaning of 
+<foreign>kaputrāṅśan</foreign>, see §6.1.</p>
+<p n="1r4">On the meaning of 
+<foreign>hara-hara</foreign>, see §6.2.</p>
+<p n="1r4">On the way I translate 
+<foreign>pagər</foreign>, see §6.3.</p>
+<p n="1r5">Zoetmulder (
+<bibl rend="omitname">
+  <ptr target="bib:Zoetmulder1982_01" />
+</bibl>) records the word 
+<foreign>viḍəṅ</foreign> in the meaning “(= yuyu) crab”, but cites only one occurrence. If 
+<foreign>paviḍəṅan</foreign> is derived from that word in that meaning, it would have to mean ‘crab farm’, or such. But it seems imaginable that the word is to be connected rather with 
+<foreign>hiḍəṅ/iḍəṅ </foreign>“(subst.) standing still”, 
+<foreign>iniḍəṅ</foreign> “(pf) to make st. the constant object (of meditation, etc.)”, 
+<foreign>mapahidəṅan</foreign> “to stand one’s ground, recover, rally” (Zoetmulder (
+<bibl rend="omitname">
+  <ptr target="bib:Zoetmulder1982_01" />
+</bibl>)). The meaning of 
+<foreign>paviḍəṅan</foreign> could then be ‘place for solitary retreat (for meditation)’ or ‘rallying ground’. But it can also simply be a toponym, as I assume for the time being. The word does not occur elsewhere.</p>
+<p n="1r5">Or 
+<foreign>kalampayan</foreign> could be a common noun connected with 
+<foreign>lampyay ? kalampyayan ?</foreign> “a part. kind of plant (creeper)?” (Zoetmulder (
+<bibl rend="omitname">
+  <ptr target="bib:Zoetmulder1982_01" />
+</bibl>)). The word does not occur elsewhere.</p>
+<p n="1r5">In origin, at least, 
+<foreign>kalimusan</foreign> must be a common noun derived from 
+<foreign>limus</foreign> “a part. kind of fruit (mango? cf sund.; GR: = timun)” (Zoetmulder  (
+<bibl rend="omitname">
+  <ptr target="bib:Zoetmulder1982_01" />
+</bibl>)), i.e., ‘limus orchard’. The word occurs as the name of a 
+<foreign>sīma</foreign> in an inscription which I suspect may be a reissue of a grant originally issued in the 11th century (
+<ref target="Kalimusan.xml">Kalimusan</ref>, see Machi Suhadi  and Richadiana Kartakusuma (
+<bibl rend="omitname">
+  <ptr target="bib:MachiSuhadi+RichadianaKartakusuma1996_01" />
+  <citedRange unit="page">7</citedRange>
+</bibl>). In its two occurrences in the 
+<ref target="WaringinPitu.xml">Waringin Pitu inscription</ref> (ed. Boechari 
+<bibl rend="omitname">
+  <ptr target="bib:Boechari1985-1986_01" />
+  <citedRange unit="page">125–136</citedRange>
+  <citedRange unit="line">8r2, 11r3</citedRange>
+</bibl>), it could be either toponym or common noun, although the former seems a bit more likely, because of the occurrence of the toponyms Malaṅe and Kamalagen in the same contexts. An occurrence of the former in the 
+<ref target="Balawi.xml">Balawi inscription</ref> of 1305 Śaka has been identified by Hadi Sidomulyo (
+<bibl rend="omitname">
+  <ptr target="bib:HadiSidomulyo2018_01" />
+  <citedRange unit="page">237</citedRange>
+</bibl>) with a village situated about 40 km northwest of Trowulan, but homonymic villages may of course have existed elsewhere; the latter is the name of a 
+<foreign>sīma</foreign> known from the 
+<ref target="Kamalagyan.xml">Kamalagyan inscription</ref> of 959 Śaka, which mentions it in close association with Variṅin Sapta, none other than the 
+<foreign>sīma</foreign> which is the focus of the 
+<ref target="WaringinPitu.xml">Waringin Pitu</ref> charter. (On that charter, see also §6.2.)</p>
+<p n="1v1">On the meaning of 
+<foreign>arthahetoḥ</foreign>, see §6.5.</p>
+<p n="1v1">This name appears as Boddhivāla in the Sobhamerta inscription. It seems that a single person called Mpu Buddhibala (or something like that) was master of two establishments, one called Susuk Pagər and the other Nairañjanā, although the text does not consistently mention both affiliations.</p>
+<p n="1v2">On the meaning of 
+<foreign>kapodgalikan</foreign>, see §6.4.</p>
+<p n="1v3-1v4">An alternative translation might be: ‘That (field) was the endowment (
+<foreign>dharma</foreign>) for the Master of Susuk Pagər and Master of Nairañjanā, such that (
+<foreign>an</foreign>) he requested a border land, the wet-rice field to the north, (to be used) for his (Mpu Mano’s) endowment of a monastery.’</p>
+            </div>
+        
+<div type="bibliography">
+                   
+<p>First edited by Brandes (
+<bibl rend="omitname">
+  <ptr target="bib:Brandes1913_01" />
+</bibl>). Re-edited here by Arlo Griffiths from photos of Nationaal Museum van Wereldculturen with the inventory number RV-4801-1.</p>
+                
+<listBibl type="primary">
+                
+<bibl n="B">
+                    
+<ptr target="bib:Brandes1913_01" />
+                        
+<citedRange unit="item">55</citedRange>
+                        
+<citedRange unit="page">116-117</citedRange>
+                </bibl>
+                  </listBibl>
+           
+<listBibl type="secondary">
+                
+<bibl>
+  <ptr target="bib:Damais1955_01" />
+  <citedRange unit="page">116-117</citedRange>
+  <citedRange unit="item">A. 129</citedRange>
+</bibl>
+                
+<bibl>
+  <ptr target="bib:Zoetmulder1982_01" />
+</bibl>
+                
+<bibl>
+  <ptr target="bib:Boechari1985-1986_01" />
+  <citedRange unit="page">126-137</citedRange>
+  <citedRange unit="line">8r2, 11r3</citedRange>
+  <citedRange unit="item">E. 67</citedRange>
+</bibl>                
+<bibl>
+  <ptr target="bib:MachiSuhadi+RichadianaKartakusuma1996_01" />
+  <citedRange unit="page">7</citedRange>
+</bibl>
+                
+<bibl>
+  <ptr target="bib:Acri2017_01" />
+  <citedRange unit="page">55</citedRange>
+</bibl>
+                
+<bibl>
+  <ptr target="bib:Acri2018_01" />
+  <citedRange unit="page">40</citedRange>
+</bibl>
+                
+<bibl>
+  <ptr target="bib:HadiSidomulyo2018_01" />
+  <citedRange unit="page">237</citedRange>
+</bibl>
+              
+<bibl />
+           </listBibl>
+        </div>
+        </body>
+    
+</text>
 </TEI>

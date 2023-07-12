@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -31,27 +37,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
             <summary>The inscription refers to a pannasa that was given by Erigal Tugurāju to a brahmin of Tirumuḷa during the rule of Cōḻamahārāju.</summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,147 +55,251 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2021-02-19" who="part:jeth">Addition of missing entries of template v03, changes in the bibliography</change>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-06-23" who="part:jeth">Minor changes in the apparatus</change>
-      <change status="draft" when="2020-06-22" who="part:jeth">Creation of the file</change>
+      <change who="part:jeth" when="2021-02-19" status="draft">Addition of missing entries of template v03, changes in the bibliography</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:jeth" when="2020-06-23" status="draft">Minor changes in the apparatus</change>
+      <change who="part:jeth" when="2020-06-22" status="draft">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tel-Latn">
-        <p>
-              <lb n="1"/><supplied cert="low" reason="lost">śrī</supplied> <supplied reason="lost">c</supplied>ōḻamahār<choice>
-            <orig>a</orig>
-            <reg>ā</reg>
-          </choice>j<unclear>u</unclear>l<unclear>la</unclear><lb break="no" n="2"/><supplied reason="lost">Ē</supplied><unclear>ḷa</unclear> E<unclear>r</unclear>igal tugu<lb break="no" n="3"/><supplied reason="lost">rāju</supplied>lla Iccina pannāsa
-              <lb n="4"/>rācamānaṁbuna Ēṁba<unclear>d</unclear><supplied reason="lost">i</supplied>
-              <lb n="5"/>tirumu<unclear>ḷa</unclear> pāṟaku Iccina
-              <lb n="6"/>pannāsa <add place="below">dē</add>niki va<choice>
-            <orig>kru</orig>
-            <reg>kraṁ</reg>
-          </choice>bu
-              <lb n="7"/>vacinavanṟu pañcamahā<lb break="no" n="8"/>pātakun<supplied reason="lost">ṟ</supplied>u Agu
+      
+<body>
+         
+<div type="edition" xml:lang="tel-Latn">
+            
+<p>
+              
+<lb n="1" />
+<supplied reason="lost" cert="low">śrī</supplied> 
+<supplied reason="lost">c</supplied>ōḻamahār
+<choice>
+  <orig>a</orig>
+  <reg>ā</reg>
+</choice>j
+<unclear>u</unclear>l
+<unclear>la</unclear>
+<lb n="2" break="no" />
+<supplied reason="lost">Ē</supplied>
+<unclear>ḷa</unclear> E
+<unclear>r</unclear>igal tugu
+<lb n="3" break="no" />
+<supplied reason="lost">rāju</supplied>lla Iccina pannāsa
+              
+<lb n="4" />rācamānaṁbuna Ēṁba
+<unclear>d</unclear>
+<supplied reason="lost">i</supplied>
+              
+<lb n="5" />tirumu
+<unclear>ḷa</unclear> pāṟaku Iccina
+              
+<lb n="6" />pannāsa 
+<add place="below">dē</add>niki va
+<choice>
+  <orig>kru</orig>
+  <reg>kraṁ</reg>
+</choice>bu
+              
+<lb n="7" />vacinavanṟu pañcamahā
+<lb n="8" break="no" />pātakun
+<supplied reason="lost">ṟ</supplied>u Agu
             </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1">
-            <lem><supplied cert="low" reason="lost">śrī</supplied> <supplied reason="lost">c</supplied>ōḻamahār<choice>
-                <orig>a</orig>
-                <reg>ā</reg>
-              </choice>j<unclear>u</unclear>l<unclear>la</unclear></lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01"><supplied reason="lost">c</supplied>ōḻa-mahārāju<unclear>ṟla</unclear></rdg>
-            <note>I can not see a 〈ṟ〉 but only have the picture of the estampage of the edition at my disposal. Other inscriptions show 〈la〉 or 〈lla〉, and there is no etymological justification for /ṟla/ at this place. Confer infra.</note>
-          </app>
-          <app loc="2">
-            <lem>
-              <supplied reason="lost">Ē</supplied>
-              <unclear>ḷa</unclear>
-            </lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">
-              <unclear>Ēḷa</unclear>
-            </rdg>
-            <note>The 〈Ē〉 is not visible on the picture in the edition.</note>
-          </app>
-          <app loc="2">
-            <lem>E<unclear>r</unclear>igal</lem>
-            <note>The vowel 〈i〉 looks like the typical 〈ī〉 in that it is open to the left and a little bit curled towards the inside. But when comparing it with the other <foreign>akṣaras</foreign> containing this vowel it appears that the scribe would write other short 〈i〉s like that.</note>
-          </app>
-          <app loc="2">
-            <lem>tugu<lb break="no" n="3"/><supplied reason="lost">rāju</supplied>lla</lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">tuga<lb break="no" n="3"/><unclear>rā</unclear>juṟla</rdg>
-            <note>What especially sets 〈ṟla〉 apart from reading it as the common ligature 〈lla〉 is the 90° edge on the upper right corner. This might be due to the ductus which is full of verve; but I could not find any other instance of such a 〈la〉. On the other hand there is a curved line below the right angle. Prima facie it is not possible to decide what is the intended line and what a damage or slip of the chisel. In order to avoid a reading that is not attested elsewhere and that is etymologically problematic I read〈lla〉.</note>
-          </app>
-          <app loc="4">
-            <lem>Ēṁba<unclear>d</unclear><supplied reason="lost">i</supplied></lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">Ēbadi</rdg>
-            <note>The <foreign>anusvāra</foreign> is written above the <foreign>akṣara</foreign> 〈ba〉 as in <foreign>rācamānaṁbuna</foreign>. This is a common practice in Telugu inscriptions.</note>
-          </app>
-          <app loc="5">
-            <lem>tirumu<unclear>ḷa</unclear></lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">tiruvuḷa</rdg>
-            <note>The decision between 〈vu〉 and 〈mu〉 depends on whether the right stroke on top of the <foreign>akṣara</foreign> is interpreted as a damage or as part of the character. All the other occurrences of 〈va〉 (lines 6-7) have a different shape each as have all the occurrences of 〈ma〉 (lines 1, 4, 7). This diversity does not clarify the reading.</note>
-          </app>
-          <app loc="5">
-            <lem>Iccina</lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">Icci<unclear>na</unclear></rdg>
-          </app>
-          <app loc="6">
-            <lem>va<choice>
-                <orig>kru</orig>
-                <reg>kraṁ</reg>
-              </choice>bu</lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">vakraṁ<unclear>bu</unclear></rdg>
-            <note>The first <foreign>akṣara</foreign> seems to open up on the right side and thus looks like a 〈da〉 or 〈ḍa〉. Yet, this might be caused by a damage on the surface. The akṣara 〈bu〉 is clearly visible on the picture of the estampage in the edition.</note>
-          </app>
-          <app loc="7">
-            <lem>vacinavanṟu</lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">vacinavānṟu</rdg>
-          </app>
-          <app loc="8">
-            <lem>°pātakun<supplied reason="lost">ṟ</supplied>u</lem>
-            <rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">°pātaku</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:Sastri1969_01" type="translation">
-        <p>
-               While .. Cōḻa Mahārāja was ruling, Erigal Tugarāja gave a <hi rend="italic">pannasa</hi> of fifty (<hi rend="italic">mattars</hi>?) according to the royal measure. The <hi rend="italic">pannasa</hi> was granted to the brahmin of the village Tiruvuḷu. He who obstructs (the gift) will incur the five great sins.
+         </div>
+         
+<div type="apparatus">
+               
+<listApp>
+                  
+<app loc="1">
+                     
+<lem>
+<supplied reason="lost" cert="low">śrī</supplied> 
+<supplied reason="lost">c</supplied>ōḻamahār
+<choice>
+  <orig>a</orig>
+  <reg>ā</reg>
+</choice>j
+<unclear>u</unclear>l
+<unclear>la</unclear></lem>
+                     
+<rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">
+<supplied reason="lost">c</supplied>ōḻa-mahārāju
+<unclear>ṟla</unclear></rdg>
+                     
+<note>I can not see a 〈ṟ〉 but only have the picture of the estampage of the edition at my disposal. Other inscriptions show 〈la〉 or 〈lla〉, and there is no etymological justification for /ṟla/ at this place. Confer infra.</note>
+                  </app>
+                  
+<app loc="2">
+                     
+<lem>
+  <supplied reason="lost">Ē</supplied>
+  <unclear>ḷa</unclear>
+</lem>
+                     
+<rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">
+  <unclear>Ēḷa</unclear>
+</rdg>
+                     
+<note>The 〈Ē〉 is not visible on the picture in the edition.</note>
+                  </app>
+                  
+<app loc="2">
+                     
+<lem>E
+<unclear>r</unclear>igal</lem>
+                     
+<note>The vowel 〈i〉 looks like the typical 〈ī〉 in that it is open to the left and a little bit curled towards the inside. But when comparing it with the other 
+<foreign>akṣaras</foreign> containing this vowel it appears that the scribe would write other short 〈i〉s like that.</note>
+                  </app>
+                  
+<app loc="2">
+                     
+<lem>tugu
+<lb n="3" break="no" />
+<supplied reason="lost">rāju</supplied>lla</lem>
+                     
+<rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">tuga
+<lb n="3" break="no" />
+<unclear>rā</unclear>juṟla</rdg>
+                     
+<note>What especially sets 〈ṟla〉 apart from reading it as the common ligature 〈lla〉 is the 90° edge on the upper right corner. This might be due to the ductus which is full of verve; but I could not find any other instance of such a 〈la〉. On the other hand there is a curved line below the right angle. Prima facie it is not possible to decide what is the intended line and what a damage or slip of the chisel. In order to avoid a reading that is not attested elsewhere and that is etymologically problematic I read〈lla〉.</note>
+                  </app>
+                  
+<app loc="4">
+                     
+<lem>Ēṁba
+<unclear>d</unclear>
+<supplied reason="lost">i</supplied></lem>
+                     
+<rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">Ēbadi</rdg>
+                     
+<note>The 
+<foreign>anusvāra</foreign> is written above the 
+<foreign>akṣara</foreign> 〈ba〉 as in 
+<foreign>rācamānaṁbuna</foreign>. This is a common practice in Telugu inscriptions.</note>
+                  </app>
+                  
+<app loc="5">
+                     
+<lem>tirumu
+<unclear>ḷa</unclear></lem>
+                     
+<rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">tiruvuḷa</rdg>
+                     
+<note>The decision between 〈vu〉 and 〈mu〉 depends on whether the right stroke on top of the 
+<foreign>akṣara</foreign> is interpreted as a damage or as part of the character. All the other occurrences of 〈va〉 (lines 6-7) have a different shape each as have all the occurrences of 〈ma〉 (lines 1, 4, 7). This diversity does not clarify the reading.</note>
+                  </app>
+                  
+<app loc="5">
+                     
+<lem>Iccina</lem>
+                     
+<rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">Icci
+<unclear>na</unclear></rdg>
+                  </app>
+                  
+<app loc="6">
+                     
+<lem>va
+<choice>
+  <orig>kru</orig>
+  <reg>kraṁ</reg>
+</choice>bu</lem>
+                     
+<rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">vakraṁ
+<unclear>bu</unclear></rdg>
+                     
+<note>The first 
+<foreign>akṣara</foreign> seems to open up on the right side and thus looks like a 〈da〉 or 〈ḍa〉. Yet, this might be caused by a damage on the surface. The akṣara 〈bu〉 is clearly visible on the picture of the estampage in the edition.</note>
+                  </app>
+                  
+<app loc="7">
+                     
+<lem>vacinavanṟu</lem>
+                     
+<rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">vacinavānṟu</rdg>
+                  </app>
+                  
+<app loc="8">
+                     
+<lem>°pātakun
+<supplied reason="lost">ṟ</supplied>u</lem>
+                     
+<rdg source="bib:NilakantaSastri+Venkataramayya1947-1948_01">°pātaku</rdg>
+                  </app>
+               </listApp>         
+         </div>
+         
+<div type="translation" source="bib:Sastri1969_01">
+            
+<p>
+               While .. Cōḻa Mahārāja was ruling, Erigal Tugarāja gave a 
+<hi rend="italic">pannasa</hi> of fifty (
+<hi rend="italic">mattars</hi>?) according to the royal measure. The 
+<hi rend="italic">pannasa</hi> was granted to the brahmin of the village Tiruvuḷu. He who obstructs (the gift) will incur the five great sins.
             </p>
-      </div>
-      <div resp="part:jeth" type="translation">
-        <p>
- 	           A pannasa given by Erigal Tugurāju while Cōḻamahārāju was ruling. A pannasa of fifty (measures of land) in royal measure given to a (or the) brahmin of Tirumuḷa. Who (so ever) attempts to reverse it will be (guilty) of the five great sins.
- 	        </p>
-      </div>
-      <div type="commentary">
-        <p>
-              Between lines 6 and 7 there appears what could be read as a 〈va〉 in modern Telugu script. This <foreign>akṣara</foreign>, however, if it is one, is not neccessary and does not fit anywhere into the context. It therefore might be a strange form of damage.
+         </div>
+         
+<div type="translation" resp="part:jeth">
+                
+<p>
+                   A pannasa given by Erigal Tugurāju while Cōḻamahārāju was ruling. A pannasa of fifty (measures of land) in royal measure given to a (or the) brahmin of Tirumuḷa. Who (so ever) attempts to reverse it will be (guilty) of the five great sins.
+                </p>
+         </div>
+         
+<div type="commentary">
+            
+<p>
+              Between lines 6 and 7 there appears what could be read as a 〈va〉 in modern Telugu script. This 
+<foreign>akṣara</foreign>, however, if it is one, is not neccessary and does not fit anywhere into the context. It therefore might be a strange form of damage.
             </p>
-      </div>
-      <div type="bibliography">
-        <p>
+         </div>
+        
+<div type="bibliography">
+          
+<p>
            The inscription was noted in the Annual Report and first edited by Nilakanta Sastri and Venkataramayya with a picture and annotations. Based on this edition K. M. Sastri republished the inscription and provided a translation.
           </p>
-        <listBibl type="primary">
-          <bibl n="NS+V">
-            <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/>
-            <citedRange unit="page">228-229</citedRange>
-            <citedRange unit="item">42 C</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:ARIE1934-1935"/>
-            <citedRange unit="appendix">B/1935-36</citedRange>
-            <citedRange unit="page">40</citedRange>
-            <citedRange unit="item">330</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">284</citedRange>
-            <citedRange unit="item">6</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+           
+<listBibl type="primary">
+                                
+<bibl n="NS+V">
+  <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01" />
+  <citedRange unit="page">228-229</citedRange>
+  <citedRange unit="item">42 C</citedRange>
+</bibl>
+                        </listBibl>
+           
+<listBibl type="secondary">
+              
+<bibl>
+  <ptr target="bib:ARIE1934-1935" />
+  <citedRange unit="appendix">B/1935-36</citedRange>
+  <citedRange unit="page">40</citedRange>
+  <citedRange unit="item">330</citedRange>
+</bibl>
+              
+<bibl>
+  <ptr target="bib:Sastri1969_01" />
+  <citedRange unit="page">284</citedRange>
+  <citedRange unit="item">6</citedRange>
+</bibl>
+           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

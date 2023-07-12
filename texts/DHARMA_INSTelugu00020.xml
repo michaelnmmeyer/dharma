@@ -1,8 +1,14 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title><!-- ADD TITEL HERE --></title>
+        <title></title>
         <respStmt>
           <resp>Creation of file</resp>
           <persName ref="part:jeth">
@@ -15,14 +21,12 @@
           <persName>
             <forename>V.</forename>
             <surname>Venkayya</surname>
-            <!-- The editors state that Mr. Venkayya deciphered the inscr. -->
           </persName>
         </respStmt>
       </titleStmt>
       <publicationStmt>
-        <authority>DHARMA
-               <note>This project has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</note>
-            </authority>
+        <authority>DHARMA 
+        <note>This project has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</note></authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSTelugu00020</idno>
         <availability>
@@ -34,74 +38,136 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <p><!-- not to be filled in at this stage --></p>
+        <p></p>
       </sourceDesc>
     </fileDesc>
     <revisionDesc>
-      <change status="draft" when="2020-10-03" who="part:jeth">Creation of the file</change>
+      <change who="part:jeth" when="2020-10-03" status="draft">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tel-Latn">
-        <p>
-              <lb n="1"/>svasti śrī <unclear>viṣṇuva</unclear>rddhana-mahārā<lb break="no" n="2"/><supplied reason="undefined">ju</supplied><unclear>la</unclear>ku pravarddhamāna-vijayarā<lb break="no" n="3"/><supplied reason="undefined">jya</supplied>-<unclear>saṁ</unclear>vatsaraṁbu<unclear>ḷu</unclear><!-- The probability is on halanta -Ḷ; Radha Krishna prints -lu --> dvādaśa va<unclear>rṣam</unclear>buna
-              <lb n="4"/><gap quantity="1" reason="undefined" unit="character"/>du<gap quantity="1" reason="undefined" unit="character"/> pri<supplied reason="undefined">dhi</supplied>vi-rājyaṁbu<gap quantity="1" reason="undefined" unit="character"/>yavāri māma<lb break="no" n="5"/><gap quantity="2" reason="undefined" unit="character"/>yya veḷḷakivāḍi Ēḷu vu<!-- Radha Krishna inserts a dot here to indicate a gap; yet, this is absent in the original -->
-              <lb n="6"/>bāllaM bhaṁṭāraḷa <unclear>U</unclear>ttaraṁbuna dēsámu nā<lb break="no" n="7"/>lugu vuṭṭu Āṭla<!-- the spelling points towards a later date of prob. the 9th cent.--> paṭu sē<supplied reason="undefined">ni</supplied><!-- this is supplied by Radha Krishna! -->cci<unclear>ri</unclear>ṣṭa sōmu<lb break="no" n="8"/>ku Icciri dīniki pratiravalu vaccuvāru
-              <lb n="9"/><unclear>Ī</unclear> sō<unclear>mi</unclear> cēnuku pā<gap quantity="5" reason="undefined" unit="character"/>liduṟa<!-- Radha Krishna prints viduṟa -->
-              <lb n="10"/>vāragaḷu <!-- the editors print the number 1 in square brackets here --> dīni gācinavāru <gap quantity="1" reason="undefined" unit="character"/>raṭṭāna<gap quantity="3" reason="undefined" unit="character"/>
-              <lb n="11"/><unclear>ra</unclear><gap quantity="3" reason="undefined" unit="character"/>laru<gap quantity="2" reason="undefined" unit="character"/>ka I<unclear>ccina</unclear>vāru <gap quantity="2" reason="undefined" unit="character"/>
-              <lb n="12"/>vaṁburāga<gap quantity="2" reason="undefined" unit="character"/>naḍacinavāru kōrimā<unclear>stha</unclear><gap quantity="3" reason="undefined" unit="character"/>
-              <lb n="13"/><gap quantity="1" reason="undefined" unit="character"/>baḍitima<gap quantity="6" reason="undefined" unit="character"/>limu<gap quantity="2" reason="undefined" unit="character"/>
-              <lb n="14"/><gap quantity="1" reason="undefined" unit="character"/>ṭṭuko<gap quantity="3" reason="undefined" unit="character"/>buna<gap quantity="1" reason="undefined" unit="character"/>Ani Icinā<lb break="no" n="15"/><gap quantity="2" reason="undefined" unit="character"/>nu | śrī<!-- the editors do not print any dots so as if the inscription ended in a śrī while Radha Krishna adds four dots here -->
-                  <!-- just some ideas for editorial addition: dvādaśavarṣaṁbuna|nduna; -rājyaṁbu c/sēya vāri māma| XX-yya_NAME veḷḷakivāḍi (-pāḍu with irregular obl. instead of -pāṭi? But vide Ep. carn. XII (from EI XXVII, 42, p. 221, an. 6) erigalvāḍi. Is it pāḍu of (-ki) Veḷḷa?) Ēḷucu (cu and vu can be quite similar); māll(ā)m instead b- as a place name?; paṭu sēn(u) icciri (here Radha Krishna is right); (i)ṣṭasōmuku_NAME Icciri; pratiravulu from skt. pratirava- '(verbal) quarrel'; Ī sōmi cēnuku 'to the field of this very Sōmu'; what is -ku pā... neither pāpa- nor pātaka- are possible; if vāragaḷu be correct, is it a conflation of vāru and galu (pl.)? -->
+      
+<body>
+         
+<div type="edition" xml:lang="tel-Latn">
+            
+<p>
+              
+<lb n="1" />svasti śrī 
+<unclear>viṣṇuva</unclear>rddhana-mahārā
+<lb n="2" break="no" />
+<supplied reason="undefined">ju</supplied>
+<unclear>la</unclear>ku pravarddhamāna-vijayarā
+<lb n="3" break="no" />
+<supplied reason="undefined">jya</supplied>-
+<unclear>saṁ</unclear>vatsaraṁbu
+<unclear>ḷu</unclear> dvādaśa va
+<unclear>rṣam</unclear>buna
+              
+<lb n="4" />
+<gap reason="undefined" unit="character" quantity="1" />du
+<gap reason="undefined" unit="character" quantity="1" /> pri
+<supplied reason="undefined">dhi</supplied>vi-rājyaṁbu
+<gap reason="undefined" unit="character" quantity="1" />yavāri māma
+<lb n="5" break="no" />
+<gap reason="undefined" unit="character" quantity="2" />yya veḷḷakivāḍi Ēḷu vu              
+<lb n="6" />bāllaM bhaṁṭāraḷa 
+<unclear>U</unclear>ttaraṁbuna dēsámu nā
+<lb n="7" break="no" />lugu vuṭṭu Āṭla paṭu sē
+<supplied reason="undefined">ni</supplied>cci
+<unclear>ri</unclear>ṣṭa sōmu
+<lb n="8" break="no" />ku Icciri dīniki pratiravalu vaccuvāru
+              
+<lb n="9" />
+<unclear>Ī</unclear> sō
+<unclear>mi</unclear> cēnuku pā
+<gap reason="undefined" unit="character" quantity="5" />liduṟa              
+<lb n="10" />vāragaḷu  dīni gācinavāru 
+<gap reason="undefined" unit="character" quantity="1" />raṭṭāna
+<gap reason="undefined" unit="character" quantity="3" />
+              
+<lb n="11" />
+<unclear>ra</unclear>
+<gap reason="undefined" unit="character" quantity="3" />laru
+<gap reason="undefined" unit="character" quantity="2" />ka I
+<unclear>ccina</unclear>vāru 
+<gap reason="undefined" unit="character" quantity="2" />
+              
+<lb n="12" />vaṁburāga
+<gap reason="undefined" unit="character" quantity="2" />naḍacinavāru kōrimā
+<unclear>stha</unclear>
+<gap reason="undefined" unit="character" quantity="3" />
+              
+<lb n="13" />
+<gap reason="undefined" unit="character" quantity="1" />baḍitima
+<gap reason="undefined" unit="character" quantity="6" />limu
+<gap reason="undefined" unit="character" quantity="2" />
+              
+<lb n="14" />
+<gap reason="undefined" unit="character" quantity="1" />ṭṭuko
+<gap reason="undefined" unit="character" quantity="3" />buna
+<gap reason="undefined" unit="character" quantity="1" />Ani Icinā
+<lb n="15" break="no" />
+<gap reason="undefined" unit="character" quantity="2" />nu | śrī                              </p>
+         </div>
+         
+<div type="apparatus">
+                          
+<listApp>
+                  
+<app loc="line">                     
+<lem></lem>
+                     
+<rdg source="bib:AuthorYear_01"></rdg>
+                  </app>
+               </listApp>         
+         </div>
+         
+<div type="translation" source="bib:Butterworth+VenugopaulChetty1990_03">
+               
+<p>
+                 Hail! In the 12th year of the prosperous and victorious reign of the glorious Vishṇuvardhana Mahárája, Bhanṭáraḷa which is in the domain of . . . Veḷḷakiváḍu his father-in-law, a field requiring four 
+<hi rend="italic">puṭṭis</hi> of seed, in the northern quarter. (he) gave to Ishṭa Sómu . . . . Whoever obstruct this filed of Sómu will incur (the sind of) . . . . Whoever protects this will . . . .
+               </p>
+         </div>
+         
+<div type="commentary">
+            
+<p>
+               
             </p>
-      </div>
-      <div type="apparatus">
-        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
-        <listApp>
-          <app loc="line">
-            <!-- Update the value of @loc.-->
-            <lem><!-- fill in a lemma here --></lem>
-            <rdg source="bib:AuthorYear_01"><!-- update the @source value, fill in variant reading here --></rdg>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:Butterworth+VenugopaulChetty1990_03" type="translation">
-        <p>
- 	         Hail! In the 12th year of the prosperous and victorious reign of the glorious Vishṇuvardhana Mahárája, Bhanṭáraḷa which is in the domain of . . . Veḷḷakiváḍu his father-in-law, a field requiring four <hi rend="italic">puṭṭis</hi> of seed, in the northern quarter. (he) gave to Ishṭa Sómu . . . . Whoever obstruct this filed of Sómu will incur (the sind of) . . . . Whoever protects this will . . . .
- 	       </p>
-      </div>
-      <div type="commentary">
-        <p><!-- The editors did not give any date and stated that "the translation is more or less conjectural". The deciphering was done by V. Venkayya. The inscription runs from the bottom to the top (p. 1151). Buduraju Radha Krishna supposes that the inscription was written in ca. 650 A.D. because of its being written in "cālukyan script" (f.n. 45 referring to f.n. 43). Since (according to my knowledge) the inscription has not been noted in A. R. and no picture was printed in NI, Radha Krishna must have consulted the original, yet does not give his own reading or corrections. 
-              
-              The ruler might actually be a ruler of the 10th or 11th century. 
-              
-              The number of the characters missing was given according to the number of dots in the edition.--></p>
-      </div>
-      <div type="bibliography">
-        <p>
-           	The inscriptions was published by Alan Butterworth and V. Venugopaul Chetty in <bibl rend="omitname">
-            <ptr target="bib:Butterworth+VenugopaulChetty1990_03"/>
-            <citedRange unit="page">1151-1152</citedRange>
-          </bibl> as Podili (1). This text was reprinted by Buduraju Radha Krishna with slight changes (<bibl rend="omitname">
-            <ptr target="bib:Radhakrishna1971_01"/>
-            <citedRange unit="item">18</citedRange>
-            <citedRange unit="page">14-15</citedRange>
-          </bibl>).
+         </div>
+        
+<div type="bibliography">
+          
+<p>
+                The inscriptions was published by Alan Butterworth and V. Venugopaul Chetty in 
+<bibl rend="omitname">
+  <ptr target="bib:Butterworth+VenugopaulChetty1990_03" />
+  <citedRange unit="page">1151-1152</citedRange>
+</bibl> as Podili (1). This text was reprinted by Buduraju Radha Krishna with slight changes (
+<bibl rend="omitname">
+  <ptr target="bib:Radhakrishna1971_01" />
+  <citedRange unit="item">18</citedRange>
+  <citedRange unit="page">14-15</citedRange>
+</bibl>).
           </p>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:Butterworth+VenugopaulChetty1990_03"/>
-            <citedRange unit="page">1151-1152</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Radhakrishna1971_01"/>
-            <citedRange unit="item">18</citedRange>
-            <citedRange unit="page">14-15</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+           
+<listBibl type="secondary">
+              
+<bibl>
+  <ptr target="bib:Butterworth+VenugopaulChetty1990_03" />
+  <citedRange unit="page">1151-1152</citedRange>
+</bibl>
+              
+<bibl>
+  <ptr target="bib:Radhakrishna1971_01" />
+  <citedRange unit="item">18</citedRange>
+  <citedRange unit="page">14-15</citedRange>
+</bibl>
+           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

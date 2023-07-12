@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -24,11 +30,7 @@
         <idno type="filename">DHARMA_INSPallava00207</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
-							Licence. To view a copy of the licence, visit
-							https://creativecommons.org/licenses/by/4.0/ or send a letter to
-							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-							California, 94041, USA.</p>
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
           </licence>
         </availability>
@@ -38,14 +40,14 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
             <summary>Donation of gold for the upkeep of two perpetual lamps.</summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -53,183 +55,318 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-					under the European Union's Horizon 2020 research and innovation programme (grant
-					agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-						ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-						<ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2022-09-12" who="part:emfr">Creation of the file</change>
+      <change who="part:emfr" when="2022-09-12" status="draft">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tam-Latn">
-        <ab>
-          <lb n="1"/>
-          <hi rend="grantha">
-            <unclear>svasti śrī</unclear>
-          </hi>
+                
+<body>
+                        
+<div type="edition" xml:lang="tam-Latn">
+        
+        
+<ab>
+                
+<lb n="1" />
+<hi rend="grantha">
+  <unclear>svasti śrī</unclear>
+</hi>
         </ab>
-        <p>
-		kō-vi<unclear>c</unclear>ai<unclear>ya</unclear>-ka<unclear>m</unclear>pa-<unclear>vikkira</unclear>ma-pa
-		<lb break="no" n="2"/>ṟmaṟku yāṇ<unclear>ṭ’ o</unclear>ṉpat-āvatu		
-	</p>
-        <p>
-		cōḻanāṭṭ’ intaḷūr
-		<lb n="3"/>nāṭṭu-k ka<unclear>ñ</unclear>ca<unclear>nūr</unclear>-k kañcanūrāṉ amarniti-<choice>
-            <sic>AI</sic>
-            <corr>āyi</corr>
-          </choice>
-		<lb break="no" n="4"/>ṉa pallavati-y-araiyar tiru-v-oṟṟiyūr <hi rend="grantha">mahāde</hi>
-		<lb break="no" n="5"/>varkku Oru nantā viḷakk’ erippataṟku vai<choice>
-            <orig>
-              <unclear>cc</unclear>
-            </orig>
-            <reg>
-              <unclear>tt</unclear>
-            </reg>
-          </choice> <unclear>a poṉ Ū</unclear>
-		<lb break="no" n="6"/>r-kaṟ cemmai mu-p-patiṉ kaḻañcum puliyūr-k-kō<unclear>ṭṭa</unclear>
-		<lb break="no" n="7"/>ttu-k ka<unclear>l</unclear>māy-nāṭṭu pu<unclear>ḷimā</unclear>ṟṟu <gap quantity="4" reason="undefined" unit="character"/> <unclear>m-uṭaiyāṉ</unclear> <gap quantity="4" reason="undefined" unit="character"/>
-		<lb n="8"/>tiru-v-oṟṟiyūr <hi rend="grantha">mahāde</hi>vaṟkku oru nantā viḷakk’ erippa
-		<lb break="no" n="9"/>taṟku vai<choice>
-            <orig>cc</orig>
-            <reg>tt</reg>
-          </choice>a poṉ Ūr-k kaṟ cemmai mu-p-patiṉ ka<unclear>ḻañcu</unclear>
-		<lb break="no" n="10"/>m āka
-	</p>
-        <p>
-		Iv-Aṟupatiṉ kaḻañcu poṉṉuṅ <unclear>koṇ</unclear>ṭu <gap quantity="2" reason="undefined" unit="character"/>
-		<lb break="no" n="11"/><unclear>m</unclear> puḻaṟ-kōṭṭattu nā<unclear>yaṟu</unclear>nāṭṭu-p <unclear>pūtūrilum</unclear> <gap quantity="4" reason="undefined" unit="character"/>
-		<lb break="no" n="12"/>m Iv-Aṟupatiṉ kaḻañcu poṉṉālum kaḻañci
-		<lb break="no" n="13"/>ṉ-vāy m<choice>
-            <orig>u</orig>
-            <reg>ū</reg>
-          </choice>ṉṟu mañcāṭi-p poṉ palicai-Āka Ā
-		<lb break="no" n="14"/>ṇṭu-varai Oṉpatiṉ kaḻañcu poṉṉ-Āka <unclear>Ivv-ā</unclear>
-		<lb break="no" n="15"/>ṭṭai tiru-mutal-āka Aṟ-āṟu tiṅkaṇāḷāl nāṟ-ka
-		<lb break="no" n="16"/>ḻañc’ arai po<choice>
-            <sic>n</sic>
-            <corr>ṉ</corr>
-          </choice>ṉum tiru-v-oṟṟiyūr āṇi-k kiḻai
-		<lb n="17"/>koṇṭu ceṉṟu tiruviḷakku neykku Iṭa-k kutuppō
-		<lb break="no" n="18"/>m āṉōm
-	</p>
-        <p>
-		<gap quantity="6" reason="undefined" unit="character"/> t-tanmam <gap quantity="6" reason="undefined" unit="character"/>
-		<lb n="19"/><gap extent="unknown" reason="undefined" unit="character"/>
-		<lb break="no" n="20"/><unclear>ṭaraikaḷōm</unclear>
-	</p>
-        <p>
-		Ip-paṭi Oṭṭi-k kuṭuttōm
-		
-		muṉpu ni
-		<lb break="no" n="21"/>ṉṟum puḷḷi-k-kuttuvikka-p peṟā<unclear>tōm āṉom</unclear>
-		
-		It
-		<lb break="no" n="22"/>-taṇṭa-p-paṭṭum Ivv-ōlai mēṟ-p-paṭṭa palicai va
-		<lb break="no" n="23"/>ḻuvāmē celuttuvōm āṉōm
-		
-		Ip-poṉ kaṭai-k
-		<lb break="no" n="24"/>-kūṭṭa-vantāṟku nicati nālu cōṟu kuṭuppōm āṉōm
-		
-		<lb n="25"/>Ip-poṉ <gap quantity="4" reason="undefined" unit="character"/> Āṭṭai nāḷāl <unclear>policai</unclear> <gap quantity="4" reason="undefined" unit="character"/>
-		<lb break="no" n="26"/><gap extent="unknown" reason="undefined" unit="character"/>
-		<lb break="no" n="27"/><gap quantity="10" reason="undefined" unit="character"/> kuṭuppō
-		<lb break="no" n="28"/>m āṉōm <gap quantity="10" reason="undefined" unit="character"/>		
-	</p>
-      </div>
-      <!--<div type="apparatus">
-	
-	<listApp>
-		
-		<app loc="0">
-			<lem></lem>			
-			<rdg source="bib:VenkatasubbaAyyar1943_01"></rdg>			
-		</app>
-		
-	</listApp>
-	
-</div>-->
-      <div resp="part:emfr" type="translation">
-        <p n="1">
-          <unclear>Prosperity! Fortune!</unclear>
+        
+        
+<p>
+                kō-vi
+<unclear>c</unclear>ai
+<unclear>ya</unclear>-ka
+<unclear>m</unclear>pa-
+<unclear>vikkira</unclear>ma-pa
+                
+<lb n="2" break="no" />ṟmaṟku yāṇ
+<unclear>ṭ’ o</unclear>ṉpat-āvatu               
         </p>
-        <p n="1-2">
-		Ninth year of the victorious king Kampavikramavarman.
-	</p>
-        <p n="2-6">
-		The gold that Pallavatiyaraiyar alias Amarniti, an <foreign>ūraṉ</foreign> of Kañcanūr in Kañcanūr in the Intaḷūrnāṭu in the Cōḻanāṭu has given for the lighting of a perpetual lamp for the Mahādeva of Tiruvoṟṟiyūr: thirty <foreign>kaḻañcu</foreign>s of fine gold <supplied reason="subaudible">measured against</supplied> the village-stone;
-	</p>
-        <p n="6-10">
-		the gold that ... has given for the lighting of a perpetual lamp for the Mahādeva of Tiruvoṟṟiyūr: thirty <foreign>kaḻañcu</foreign>s of fine gold <supplied reason="subaudible">measured against</supplied> the village-stone; while there are <supplied reason="explanation">
-            <foreign>āka</foreign>
-          </supplied> <supplied reason="subaudible">such donations</supplied>.
-	</p>
-        <p n="10-18">
-		Taking these sixty <foreign>kaḻañcu</foreign>s of gold ... we have become we who will give ...
-	</p>
-        <p n="18-20">
-		...
-	</p>
-        <p n="20">
-		In this manner ... we have given.
-	</p>
-        <p n="20-21">
-		...
-	</p>
-        <p n="21-23">
-		...
-	</p>
-        <p n="23-24">
-		...
-	</p>
-        <p n="25-28">
-		...
-	</p>
-      </div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p>
-					First edited by <bibl>
-            <ptr target="bib:VenkatasubbaAyyar1943_01"/>
-          </bibl> (SII 12, no. 100); text and summary in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP no. 207); encoded and first translated here for DHARMA (ERC n° 809994) by Emmanuel Francis (2022), based on previous editions.          	
-				</p>
-        <listBibl type="primary">
-          <bibl n="VVA">
-            <ptr target="bib:VenkatasubbaAyyar1943_01"/>
-            <citedRange unit="page">45</citedRange>
-            <citedRange unit="item">100</citedRange>
-          </bibl>
-          <bibl n="TVM">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="page">547-548</citedRange>
-            <citedRange unit="item">207</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:ARIE1912-1913"/>
-            <citedRange unit="page">26</citedRange>
-            <citedRange unit="appendix">B/1912</citedRange>
-            <citedRange unit="item">188</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+        
+        
+<p>
+                cōḻanāṭṭ’ intaḷūr
+                
+<lb n="3" />nāṭṭu-k ka
+<unclear>ñ</unclear>ca
+<unclear>nūr</unclear>-k kañcanūrāṉ amarniti-
+<choice>
+  <sic>AI</sic>
+  <corr>āyi</corr>
+</choice>
+                
+<lb n="4" break="no" />ṉa pallavati-y-araiyar tiru-v-oṟṟiyūr 
+<hi rend="grantha">mahāde</hi>
+                
+<lb n="5" break="no" />varkku Oru nantā viḷakk’ erippataṟku vai
+<choice>
+  <orig>
+    <unclear>cc</unclear>
+  </orig>
+  <reg>
+    <unclear>tt</unclear>
+  </reg>
+</choice> 
+<unclear>a poṉ Ū</unclear>
+                
+<lb n="6" break="no" />r-kaṟ cemmai mu-p-patiṉ kaḻañcum puliyūr-k-kō
+<unclear>ṭṭa</unclear>
+                
+<lb n="7" break="no" />ttu-k ka
+<unclear>l</unclear>māy-nāṭṭu pu
+<unclear>ḷimā</unclear>ṟṟu 
+<gap reason="undefined" quantity="4" unit="character" /> 
+<unclear>m-uṭaiyāṉ</unclear> 
+<gap reason="undefined" quantity="4" unit="character" />
+                
+<lb n="8" />tiru-v-oṟṟiyūr 
+<hi rend="grantha">mahāde</hi>vaṟkku oru nantā viḷakk’ erippa
+                
+<lb n="9" break="no" />taṟku vai
+<choice>
+  <orig>cc</orig>
+  <reg>tt</reg>
+</choice>a poṉ Ūr-k kaṟ cemmai mu-p-patiṉ ka
+<unclear>ḻañcu</unclear>
+                
+<lb n="10" break="no" />m āka
+        </p>
+        
+        
+<p>
+                Iv-Aṟupatiṉ kaḻañcu poṉṉuṅ 
+<unclear>koṇ</unclear>ṭu 
+<gap reason="undefined" quantity="2" unit="character" />
+                
+<lb n="11" break="no" />
+<unclear>m</unclear> puḻaṟ-kōṭṭattu nā
+<unclear>yaṟu</unclear>nāṭṭu-p 
+<unclear>pūtūrilum</unclear> 
+<gap reason="undefined" quantity="4" unit="character" />
+                
+<lb n="12" break="no" />m Iv-Aṟupatiṉ kaḻañcu poṉṉālum kaḻañci
+                
+<lb n="13" break="no" />ṉ-vāy m
+<choice>
+  <orig>u</orig>
+  <reg>ū</reg>
+</choice>ṉṟu mañcāṭi-p poṉ palicai-Āka Ā
+                
+<lb n="14" break="no" />ṇṭu-varai Oṉpatiṉ kaḻañcu poṉṉ-Āka 
+<unclear>Ivv-ā</unclear>
+                
+<lb n="15" break="no" />ṭṭai tiru-mutal-āka Aṟ-āṟu tiṅkaṇāḷāl nāṟ-ka
+                
+<lb n="16" break="no" />ḻañc’ arai po
+<choice>
+  <sic>n</sic>
+  <corr>ṉ</corr>
+</choice>ṉum tiru-v-oṟṟiyūr āṇi-k kiḻai
+                
+<lb n="17" />koṇṭu ceṉṟu tiruviḷakku neykku Iṭa-k kutuppō
+                
+<lb n="18" break="no" />m āṉōm
+        </p> 
+        
+        
+<p>
+                
+<gap reason="undefined" quantity="6" unit="character" /> t-tanmam 
+<gap reason="undefined" quantity="6" unit="character" />
+                
+<lb n="19" />
+<gap reason="undefined" extent="unknown" unit="character" />
+                
+<lb n="20" break="no" />
+<unclear>ṭaraikaḷōm</unclear>
+        </p>
+        
+        
+<p>
+                Ip-paṭi Oṭṭi-k kuṭuttōm
+                
+                muṉpu ni
+                
+<lb n="21" break="no" />ṉṟum puḷḷi-k-kuttuvikka-p peṟā
+<unclear>tōm āṉom</unclear>
+                
+                It
+                
+<lb n="22" break="no" />-taṇṭa-p-paṭṭum Ivv-ōlai mēṟ-p-paṭṭa palicai va
+                
+<lb n="23" break="no" />ḻuvāmē celuttuvōm āṉōm
+                
+                Ip-poṉ kaṭai-k
+                
+<lb n="24" break="no" />-kūṭṭa-vantāṟku nicati nālu cōṟu kuṭuppōm āṉōm
+                
+                
+<lb n="25" />Ip-poṉ 
+<gap reason="undefined" quantity="4" unit="character" /> Āṭṭai nāḷāl 
+<unclear>policai</unclear> 
+<gap reason="undefined" quantity="4" unit="character" />
+                
+<lb n="26" break="no" />
+<gap reason="undefined" extent="unknown" unit="character" />
+                
+<lb n="27" break="no" />
+<gap reason="undefined" quantity="10" unit="character" /> kuṭuppō
+                
+<lb n="28" break="no" />m āṉōm 
+<gap reason="undefined" quantity="10" unit="character" />          
+        </p>
+                
+</div>
+                        
+                        
+<div type="translation" resp="part:emfr">
+                                                
+        
+<p n="1">
+                
+<unclear>Prosperity! Fortune!</unclear>
+        </p>
+        
+        
+<p n="1-2">
+                Ninth year of the victorious king Kampavikramavarman.
+        </p>
+        
+        
+<p n="2-6">
+                The gold that Pallavatiyaraiyar alias Amarniti, an 
+<foreign>ūraṉ</foreign> of Kañcanūr in Kañcanūr in the Intaḷūrnāṭu in the Cōḻanāṭu has given for the lighting of a perpetual lamp for the Mahādeva of Tiruvoṟṟiyūr: thirty 
+<foreign>kaḻañcu</foreign>s of fine gold 
+<supplied reason="subaudible">measured against</supplied> the village-stone;
+        </p>
+        
+<p n="6-10">
+                the gold that ... has given for the lighting of a perpetual lamp for the Mahādeva of Tiruvoṟṟiyūr: thirty 
+<foreign>kaḻañcu</foreign>s of fine gold 
+<supplied reason="subaudible">measured against</supplied> the village-stone; while there are 
+<supplied reason="explanation">
+  <foreign>āka</foreign>
+</supplied> 
+<supplied reason="subaudible">such donations</supplied>.
+        </p>
+        
+        
+<p n="10-18">
+                Taking these sixty 
+<foreign>kaḻañcu</foreign>s of gold ... we have become we who will give ...
+        </p>
+        
+        
+<p n="18-20">
+                ...
+        </p>
+        
+        
+<p n="20">
+                In this manner ... we have given.
+        </p>
+        
+        
+<p n="20-21">
+                ...
+        </p>
+        
+        
+<p n="21-23">
+                ...
+        </p>    
+        
+<p n="23-24">
+                ...
+        </p>    
+        
+<p n="25-28">
+                ...
+        </p>
+
+</div>          
+                        
+                        
+<div type="commentary">
+                                
+                        </div>
+                        
+                        
+<div type="bibliography">
+                                
+                                
+<p>
+                                        First edited by 
+<bibl>
+  <ptr target="bib:VenkatasubbaAyyar1943_01" />
+</bibl> (SII 12, no. 100); text and summary in 
+<bibl>
+  <ptr target="bib:Mahalingam1988_01" />
+</bibl> (IP no. 207); encoded and first translated here for DHARMA (ERC n° 809994) by Emmanuel Francis (2022), based on previous editions.                  
+                                </p>
+                                
+                                
+<listBibl type="primary">
+                                        
+                                        
+<bibl n="VVA">
+                                                
+<ptr target="bib:VenkatasubbaAyyar1943_01" />
+                                                
+<citedRange unit="page">45</citedRange>
+                                                
+<citedRange unit="item">100</citedRange>
+                                        </bibl> 
+                                        
+                                        
+<bibl n="TVM">
+                                                
+<ptr target="bib:Mahalingam1988_01" />
+                                                
+<citedRange unit="page">547-548</citedRange>
+                                                
+<citedRange unit="item">207</citedRange>
+                                        </bibl>
+                                        
+                                        
+                                </listBibl>
+                                
+                                
+<listBibl type="secondary">
+                                        
+                                        
+<bibl>
+                                        
+<ptr target="bib:ARIE1912-1913" />
+                                                
+<citedRange unit="page">26</citedRange>
+                                                
+<citedRange unit="appendix">B/1912</citedRange>
+                                                
+<citedRange unit="item">188</citedRange>
+                                        </bibl>
+                                        
+                                </listBibl>
+                                
+                        </div>
+                        
+                </body>
+        
+</text>
 </TEI>

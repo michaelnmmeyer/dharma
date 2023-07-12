@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00141</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,383 +62,465 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <lg met="uncertain" n="1">
-          <l n="a">
-            <lb n="1"/>
-            <gap extent="unknown" reason="lost" unit="character"/>
-          </l>
-          <l n="b">
-            <gap extent="unknown" reason="lost" unit="character"/>
-            <supplied reason="lost">|</supplied>
-          </l>
-          <l n="c">
-            <gap extent="unknown" reason="lost" unit="character"/>
-          </l>
-          <l n="d"><gap extent="unknown" reason="lost" unit="character"/> <unclear cert="low">rikṣayo</unclear><unclear>gaM</unclear>||</l>
-          <!-- 
-The beginning of the extant part is badly damaged. I transcribe Cunningham's eye copy except that I read yo instead of his ya (and Fleet's tentative la), and gaM with Fleet instead of his gala. (Note that v8 in l6 ends with an anusvāra, not a halanta M, so maybe we have something else here too?) Thaplyal reads r (printed as र्, so perhaps he saw a superscript r here?), followed by dots, then a tentative kṣa and la, and a "clear" gaM. 
--->
-          <!-- 
-The punctuation character is a double vertical. 
--->
-          <!-- 
-With Fleet, I assume that verse punctuation was consistently a single daṇḍa at half-verses and a double one at verse ends (though there is no single punctuation at the end of l4 - but this could have been omitted because of the line end). The bit before the double daṇḍa in l1 does not look like the end of a śārdūlavikrīḍita. However, with 72 lost characters, a śārdūlavikrīḍita would be a perfect fit for the lost section. But assuming a prose invocation at the beginning, the verse could be a little shorter. If it's śārdūla, then my conjecture yogam cannot stand; we'd need a long vowel for the kṣ and a short one for the y. 
--->
-          <!-- 
-At the beginning of l2 we probably have 16 + 2*19 + 15 + 1 syllables lost, which gives 72 (as estimated by Fleet) if we add 2 punctuation characters. At the beginning of l3, we have 15 + 2*19 + 16 characters, which gives 71 with 2 punctuation marks. In l4 we have 3*19 + 12, which is 70 with a punctuation mark. In l5: 2*12 + 2*19 + 4 (+2) = 68. L6: 4 + 3*19 + 5 (+2) = 68. L7: 7 + 2*19 + 18 (+1) = 64. L8: 11 + 2*19 + 14 (+2) = 65. L9: 2*21 + 19 + 5 = 66. L10: 5 + 3*19 + 5 (+2) = 71 
--->
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="2">
-          <l n="a">dorbhyām <unclear>ā</unclear>tma-bhuvo dhanuḥ saha-bhuvā kṣattreṇa lavdhātmanā</l>
-          <l n="b">vistārī <lb n="2"/><seg met="--+-+---+++-++-=">
-              <gap quantity="16" reason="lost" unit="character"/>
-            </seg><supplied reason="lost">|</supplied></l>
-          <l n="c">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-            <supplied reason="lost">||</supplied>
-          </l>
-        </lg>
-        <lg met="mālinī" n="3">
-          <l n="a">
-            <seg met="------+++-++-+=">
-              <gap quantity="15" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b"><supplied reason="lost">u</supplied>dayini mukharāṇāṁ bhūbhujām anvavāye|</l>
-          <!-- 
-The punctuation character transcribed as a single daṇḍa is a short horizontal dash, probably curving slightly down. 
--->
-          <l n="c">sakala-puruṣa-śakti-vyakta-śārṅga-pratāpo</l>
-          <l n="d">
-            <lb n="3"/>
-            <seg met="------+++-++-+=">
-              <gap quantity="15" reason="lost" unit="character"/>
-            </seg>
-            <supplied reason="lost">||</supplied>
-          </l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="4">
-          <l n="a">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-            <supplied reason="lost">|</supplied>
-          </l>
-          <l n="c"><seg met="+++--+-+---+++-+">
-              <gap quantity="16" reason="lost" unit="character"/>
-            </seg>karmmaṇā</l>
-          <l n="d">yājñaṁ dh<unclear>ū</unclear>ma-vitāna-megha-nivahaḥ puṇyaṁ vitene divi<supplied reason="lost">||</supplied><g type="ornament"/></l>
-          <!-- 
-There is floral ornamentation for the span of about 2 characters to fill out line 3 to the right margin. 
--->
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="5">
-          <l n="a">
-            <lb n="4"/>
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-            <supplied reason="lost">|</supplied>
-          </l>
-          <l n="c">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d"><seg met="+++--+-+--">
-              <gap quantity="10" reason="lost" unit="character"/>
-            </seg> laka-srastālakāgraṁ kulaiḥ||</l>
-        </lg>
-        <lg met="svāgatā" n="6">
-          <l n="a">tasya dikṣu <unclear>v</unclear>itatāmala-kīrtter</l>
-          <l n="b">ātmajo nr̥patir īśvaravarmmā</l>
-          <l n="c">
-            <lb n="5"/>
-            <seg met="+-+---+--+=">
-              <gap quantity="11" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d">
-            <seg met="+-+---+--+=">
-              <gap quantity="11" reason="lost" unit="character"/>
-            </seg>
-            <supplied reason="lost">||</supplied>
-          </l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="7">
-          <l n="a">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-            <supplied reason="lost">|</supplied>
-          </l>
-          <l n="c"><seg met="+++-">
-              <gap quantity="4" reason="lost" unit="character"/>
-            </seg> <supplied reason="lost">kr̥</supplied>pānurāga-śamita-kkrū<unclear>rāga</unclear><unclear cert="low">mo</unclear><unclear>pa</unclear>ddravair</l>
-          <l n="d">lokānanda-karair guṇair guṇavatāṁ ko nāma <lb n="6"/><seg met="++-=">
-              <gap quantity="4" reason="lost" unit="character"/>
-            </seg><supplied reason="lost">||</supplied></l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="8">
-          <l n="a">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-            <supplied reason="lost">|</supplied>
-          </l>
-          <l n="c">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d"><seg met="+++-">
-              <gap quantity="4" reason="lost" unit="character"/>
-            </seg> <supplied reason="lost">a</supplied>dhiṣṭhitaṁ kṣiti-bhujāṁ siṁhena siṁhāsanaṁ||</l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="9">
-          <l n="a">dhārā-mārgga-vinirgatāgni-kaṇikā <lb n="7"/><seg met="++-++-=">
-              <gap quantity="7" reason="lost" unit="character"/>
-            </seg></l>
-          <l n="b">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-            <supplied reason="lost">|</supplied>
-          </l>
-          <l n="c">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d"><seg met="+++--+-+---+++-++-">
-              <gap quantity="18" reason="lost" unit="character"/>
-            </seg> daM||</l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="10">
-          <l n="a">vindhyāddreḥ prati-randhram andhra-patinā
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<lg n="1" met="uncertain">
+<l n="a">
+  <lb n="1" />
+  <gap reason="lost" extent="unknown" unit="character" />
+</l>
+<l n="b">
+  <gap reason="lost" extent="unknown" unit="character" />
+  <supplied reason="lost">|</supplied>
+</l>
+<l n="c">
+  <gap reason="lost" extent="unknown" unit="character" />
+</l>
+<l n="d">
+<gap reason="lost" extent="unknown" unit="character" /> 
+<unclear cert="low">rikṣayo</unclear>
+<unclear>gaM</unclear>||</l></lg>
+<lg n="2" met="śārdūlavikrīḍita">
+<l n="a">dorbhyām 
+<unclear>ā</unclear>tma-bhuvo dhanuḥ saha-bhuvā kṣattreṇa lavdhātmanā</l>
+<l n="b">vistārī 
+<lb n="2" />
+<seg met="--+-+---+++-++-=">
+  <gap reason="lost" quantity="16" unit="character" />
+</seg>
+<supplied reason="lost">|</supplied></l>
+<l n="c">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+</l>
+<l n="d">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+  <supplied reason="lost">||</supplied>
+</l>
+</lg>
+<lg n="3" met="mālinī">
+<l n="a">
+  <seg met="------+++-++-+=">
+    <gap reason="lost" quantity="15" unit="character" />
+  </seg>
+</l>
+<l n="b">
+<supplied reason="lost">u</supplied>dayini mukharāṇāṁ bhūbhujām anvavāye|</l>
+<l n="c">sakala-puruṣa-śakti-vyakta-śārṅga-pratāpo</l>
+<l n="d">
+  <lb n="3" />
+  <seg met="------+++-++-+=">
+    <gap reason="lost" quantity="15" unit="character" />
+  </seg>
+  <supplied reason="lost">||</supplied>
+</l>
+</lg>
+<lg n="4" met="śārdūlavikrīḍita">
+<l n="a">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+</l>
+<l n="b">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+  <supplied reason="lost">|</supplied>
+</l>
+<l n="c">
+<seg met="+++--+-+---+++-+">
+  <gap reason="lost" quantity="16" unit="character" />
+</seg>karmmaṇā</l>
+<l n="d">yājñaṁ dh
+<unclear>ū</unclear>ma-vitāna-megha-nivahaḥ puṇyaṁ vitene divi
+<supplied reason="lost">||</supplied>
+<g type="ornament" /></l></lg>
+<lg n="5" met="śārdūlavikrīḍita">
+<l n="a">
+  <lb n="4" />
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+</l>
+<l n="b">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+  <supplied reason="lost">|</supplied>
+</l>
+<l n="c">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+</l>
+<l n="d">
+<seg met="+++--+-+--">
+  <gap reason="lost" quantity="10" unit="character" />
+</seg> laka-srastālakāgraṁ kulaiḥ||</l>
+</lg>
+<lg n="6" met="svāgatā">
+<l n="a">tasya dikṣu 
+<unclear>v</unclear>itatāmala-kīrtter</l>
+<l n="b">ātmajo nr̥patir īśvaravarmmā</l>
+<l n="c">
+  <lb n="5" />
+  <seg met="+-+---+--+=">
+    <gap reason="lost" quantity="11" unit="character" />
+  </seg>
+</l>
+<l n="d">
+  <seg met="+-+---+--+=">
+    <gap reason="lost" quantity="11" unit="character" />
+  </seg>
+  <supplied reason="lost">||</supplied>
+</l>
+</lg>
+<lg n="7" met="śārdūlavikrīḍita">
+<l n="a">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+</l>
+<l n="b">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+  <supplied reason="lost">|</supplied>
+</l>
+<l n="c">
+<seg met="+++-">
+  <gap reason="lost" quantity="4" unit="character" />
+</seg> 
+<supplied reason="lost">kr̥</supplied>pānurāga-śamita-kkrū
+<unclear>rāga</unclear>
+<unclear cert="low">mo</unclear>
+<unclear>pa</unclear>ddravair</l>
+<l n="d">lokānanda-karair guṇair guṇavatāṁ ko nāma 
+<lb n="6" />
+<seg met="++-=">
+  <gap reason="lost" quantity="4" unit="character" />
+</seg>
+<supplied reason="lost">||</supplied></l>
+</lg>
+<lg n="8" met="śārdūlavikrīḍita">
+<l n="a">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+</l>
+<l n="b">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+  <supplied reason="lost">|</supplied>
+</l>
+<l n="c">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+</l>
+<l n="d">
+<seg met="+++-">
+  <gap reason="lost" quantity="4" unit="character" />
+</seg> 
+<supplied reason="lost">a</supplied>dhiṣṭhitaṁ kṣiti-bhujāṁ siṁhena siṁhāsanaṁ||</l>
+</lg>
+<lg n="9" met="śārdūlavikrīḍita">
+<l n="a">dhārā-mārgga-vinirgatāgni-kaṇikā 
+<lb n="7" />
+<seg met="++-++-=">
+  <gap reason="lost" quantity="7" unit="character" />
+</seg></l>
+<l n="b">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+  <supplied reason="lost">|</supplied>
+</l>
+<l n="c">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+</l>
+<l n="d">
+<seg met="+++--+-+---+++-++-">
+  <gap reason="lost" quantity="18" unit="character" />
+</seg> daM||</l>
+</lg>
+<lg n="10" met="śārdūlavikrīḍita">
+<l n="a">vindhyāddreḥ prati-randhram andhra-patinā
 śaṁkā-pareṇāsitaṁ</l>
-          <l n="b">yāto raivatak-ācalaṁ <lb n="8"/><seg met="---+++-++-=">
-              <gap quantity="11" reason="lost" unit="character"/>
-            </seg><supplied reason="lost">|</supplied></l>
-          <l n="c">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-            <supplied reason="lost">||</supplied>
-          </l>
-        </lg>
-        <lg met="sragdharā" n="11">
-          <l n="a"><seg met="++++-++------">
-              <gap quantity="13" reason="lost" unit="character"/>
-            </seg> sāṁ vāraṇānāṁ ghaṭāsu</l>
-          <l n="b">vyāpteṣūtkhāta-khaḍga-dyuti-khacita-bhujeṣv andhra-senā-bhaṭeṣu|</l>
-          <l n="c">
-            <lb n="9"/>
-            <seg met="++++-++------++-++-+=">
-              <gap quantity="21" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d">
-            <seg met="++++-++------++-++-+=">
-              <gap quantity="21" reason="lost" unit="character"/>
-            </seg>
-            <supplied reason="lost">||</supplied>
-          </l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="12">
-          <l n="a">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b"><seg met="+++--">
-              <gap quantity="5" reason="lost" unit="character"/>
-            </seg> ra-prapāta-salilaiḥ snātaṁ śilā-gandhibhiḥ|</l>
-          <l n="c">prāleyāddri-bhuvaś ca śīta-payasaḥ prakṣā<lb n="10"/><supplied reason="lost">litāḥ</supplied> <seg met="+-=">
-              <gap quantity="3" reason="lost" unit="character"/>
-            </seg></l>
-          <l n="d">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-            <supplied reason="lost">||</supplied>
-          </l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="13">
-          <l n="a">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b">
-            <seg met="+++--+-+---+++-++-=">
-              <gap quantity="19" reason="lost" unit="character"/>
-            </seg>
-            <supplied reason="lost">|</supplied>
-          </l>
-          <l n="c"><seg met="+++--">
-              <gap quantity="5" reason="lost" unit="character"/>
-            </seg> reṇubhir giri-sarit-pūrormmi-bhaṅgākulair</l>
-          <l n="d">utsarppadbhir anuprage pi divaso yasyāp<unclear cert="low">u</unclear><lb break="no" n="11"/><supplied cert="low" reason="lost">r</supplied> <seg met="++-=">
-              <gap quantity="4" reason="lost" unit="character"/>
-            </seg><supplied reason="lost">||</supplied></l>
-        </lg>
-        <ab><seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><unclear>i</unclear> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><unclear>i</unclear><unclear cert="low">bh</unclear>iḥ ya <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><unclear>e</unclear> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><unclear>i</unclear> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><unclear>i</unclear> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><unclear>i</unclear> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><unclear>e</unclear> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><unclear>e</unclear> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <seg subtype="consonant" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg><seg subtype="vowel" type="component">
-            <gap quantity="1" reason="illegible" unit="component"/>
-          </seg> <unclear cert="low">d</unclear>i<unclear cert="low">bh</unclear>i<unclear>ḥ</unclear><!-- 
-Fleet only reads ḥ ya in line 11; I add vowels and a few tentative consonants from Cunningham's eye copy. Most of the vowels are also visible in the rubbing, but they are far from certain. And of course any of the e-s could be o or ai instead (perhaps this should be marked up properly). The text is probably in verse, and there is likely to be a quarter-end after the iḥ. The vowels as read here would almost (but not exactly) allow the last 8 characters of a śārdūla line, plus one full śārdūla line. But we expect about 65-70 characters to be lost; of this the end of the previous verse accounts for 4(+1 punctuation character), the first 11 characters of the assumed śārdūla gives a total of 26, leaving us with 39-44 to account for. Assuming śārdūla lines, we'd then get 38(+1 punctuation) completely lost in between, so it is possible but far from probable that verse 14 is also a śārdūlavikrīḍita, and what we have in l11 is its very end. 
---></ab>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+<l n="b">yāto raivatak-ācalaṁ 
+<lb n="8" />
+<seg met="---+++-++-=">
+  <gap reason="lost" quantity="11" unit="character" />
+</seg>
+<supplied reason="lost">|</supplied></l>
+<l n="c">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+</l>
+<l n="d">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+  <supplied reason="lost">||</supplied>
+</l>
+</lg>
+<lg n="11" met="sragdharā">
+<l n="a">
+<seg met="++++-++------">
+  <gap reason="lost" quantity="13" unit="character" />
+</seg> sāṁ vāraṇānāṁ ghaṭāsu</l>
+<l n="b">vyāpteṣūtkhāta-khaḍga-dyuti-khacita-bhujeṣv andhra-senā-bhaṭeṣu|</l>
+<l n="c">
+  <lb n="9" />
+  <seg met="++++-++------++-++-+=">
+    <gap reason="lost" quantity="21" unit="character" />
+  </seg>
+</l>
+<l n="d">
+  <seg met="++++-++------++-++-+=">
+    <gap reason="lost" quantity="21" unit="character" />
+  </seg>
+  <supplied reason="lost">||</supplied>
+</l>
+</lg>
+<lg n="12" met="śārdūlavikrīḍita">
+<l n="a">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+</l>
+<l n="b">
+<seg met="+++--">
+  <gap reason="lost" quantity="5" unit="character" />
+</seg> ra-prapāta-salilaiḥ snātaṁ śilā-gandhibhiḥ|</l>
+<l n="c">prāleyāddri-bhuvaś ca śīta-payasaḥ prakṣā
+<lb n="10" />
+<supplied reason="lost">litāḥ</supplied> 
+<seg met="+-=">
+  <gap reason="lost" quantity="3" unit="character" />
+</seg></l>
+<l n="d">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+  <supplied reason="lost">||</supplied>
+</l>
+</lg>
+<lg n="13" met="śārdūlavikrīḍita">
+<l n="a">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+</l>
+<l n="b">
+  <seg met="+++--+-+---+++-++-=">
+    <gap reason="lost" quantity="19" unit="character" />
+  </seg>
+  <supplied reason="lost">|</supplied>
+</l>
+<l n="c">
+<seg met="+++--">
+  <gap reason="lost" quantity="5" unit="character" />
+</seg> reṇubhir giri-sarit-pūrormmi-bhaṅgākulair</l>
+<l n="d">utsarppadbhir anuprage pi divaso yasyāp
+<unclear cert="low">u</unclear>
+<lb n="11" break="no" />
+<supplied reason="lost" cert="low">r</supplied> 
+<seg met="++-=">
+  <gap reason="lost" quantity="4" unit="character" />
+</seg>
+<supplied reason="lost">||</supplied></l>
+</lg>
+                        
+<ab>
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<unclear>i</unclear> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<unclear>i</unclear>
+<unclear cert="low">bh</unclear>iḥ ya 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<unclear>e</unclear> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<unclear>i</unclear> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<unclear>i</unclear> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<unclear>i</unclear> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<unclear>e</unclear> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<unclear>e</unclear> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<seg type="component" subtype="consonant">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>
+<seg type="component" subtype="vowel">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg> 
+<unclear cert="low">d</unclear>i
+<unclear cert="low">bh</unclear>i
+<unclear>ḥ</unclear></ab>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

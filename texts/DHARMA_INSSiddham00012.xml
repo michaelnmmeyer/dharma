@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00012</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,96 +62,123 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <ab>
-          <lb n="01"/>
-          <unclear>siddham</unclear>
-          <!-- 
-(Bhandarkar p250n1) In the original, the word siddham, which is very much damaged and hardly recognisable, stands above the first two letters of line 1. 
--->
-        </ab>
-        <p><lb n="1"/>kā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->kanā</supplied>daboṭa-śrī-mahāvihāre śīla-samādhi-prajñā-guṇa-bhāvitendriyāya parama-puṇya<!-- 
-kanā of kākanādaboṭa supplied from l2 of the Sanchi inscr of the year 131 (IN00075) where the name is quite distinct. Bhandarkar 248-250 speculates on what it may have been. 
---><!-- 
-Sircar feels that "va" was first engraved in place of the pra of prajñā. There is indeed a diagonal across the pa, so va (or ca) may have been engraved - or this may be a fault in the stone or a slip of the chisel. 
---><lb break="no" n="2"/>-kṣe<unclear>tra</unclear>-<supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->ma</supplied>tāya catur-ddig-abhyāgatāya śramaṇa-puṅgavāvasathāyāryya-saṅghāya mahārājādhi<!-- 
-kṣe was read by Fleet as kr̥ but Bhandarkar and Sircar agree it's clearly kṣe; Sircar also feels that "traces of tra still remain". Bhandarkar conjectures kṣetramatāya; Sircar proposes kṣetragatāya. Marshall_Foucher_1947 (MF) also print kr̥ ... tāya. 
---><lb break="no" n="3"/>rā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ja-śrī</supplied>-candragupta-pāda-prasādāpyāyita-jīvita-sādhanaḥ Anujīvi-satpuruṣa-sadbhāva-
-<lb n="4"/>vr̥<supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->tty-arthaṁ</supplied> jagati prakhyāpayaN Aneka-samarāvāpta-vijaya-yaśas-patākaḥ sukulideśa-na<!-- 
-vr̥ttyartham Sircar's conjecture. Bhandarkar's guess is vr̥ttakaṁ. MF: vr̥ttiṁ. 
---><!-- 
-prakhyāpayan is written with a small subscript halanta n, followed by a full a. 
---><lb break="no" n="5"/>ṣṭī<gap precision="low" quantity="3" reason="illegible" unit="character"/>-vāstavya Undāna-pu<sic>t</sic>rāmrakārddavo maja-śarabhaṅgāmrarāta-rājakula-mūlya-krī<!-- 
-MF: naṣṭi. 
---><lb break="no" n="6"/>ta<unclear>ṁ de</unclear><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->yadha</supplied><unclear>r</unclear><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->mmaṁ</supplied> īśvaravāsakaṁ pañca-maṇḍalyā praṇipatya dadāti <choice>
-            <sic>pañcaviṁśatiś</sic>
-            <corr>pañcaviṁśatiṁ</corr>
-          </choice> ca dīnā<!-- 
-deyadharmmaṁ is Bhandarkar's conj. I can see what he reads as a superscript r, but nothing else. Sircar reads Bhandarkar's (de) as (ma) and has no suggestion for the lacuna. 
---><!-- 
-Fleet corrects -maṇḍalyā to -maṇḍalyāṁ, which Sircar endorses, but Bhandarkar rejects it as "wrong". Fleet takes it to mean the pañcāyat; Bhandarkar (p251n2) argues that it must mean "prostrating himself forming a circle of his 5 limbs touching the ground". 
---><lb break="no" n="7"/>rāN <gap precision="low" quantity="6" reason="illegible" unit="character"/> yad-arddhena mahārājādhirāja-śrī-candraguptasya devarāja Iti pri<!-- 
-rān is with subscript halanta n. 
---><!-- 
-Bhandarkar proposes akṣaya-nīvitaḥ for the lacuna (from the Sanchi inscr of year 131, IN00075) and shows the visarga as a clear reading; the third character looks like sa (this is probably what Bhandarkar sees as a damaged ya); for the visarga, he probably means the two dots just before ya, which look rather like any number of random dots in the facsimile in Agrawala's repro, but do resemble a visarga in Bhandarkar's estampage. I would read (tā#isa#ā#1#kaM), or possibly what I see as a halanta M is just a fault in the stone, and a further character may be obscured by the large crack. MF read ta(d-da)tta after rāN, then nothing before yad-arddhena. 
---><lb break="no" n="8"/>ya-nā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->mnaḥ</supplied> <gap precision="low" quantity="5" reason="illegible" unit="character"/><unclear>ri</unclear>tasya sarvva-guṇa-saṁpattaye yāvac-candrādityau tāvat pañca bhikṣavo bhuṁja<!-- 
-Fleet's original conjecture for the beginning was priyanāmāmātyo bhavaty etasya; Bhandarkar proposes priyanā(ma)[#dheyaṁ bhavat](y e)tasya; Sircar reads what I've adopted here, but makes no suggestion for the lacuna, only observes that Devagupta is attested as a name of CGII, so Devarāja must be him, not a minister. I'm pretty sure that what Sircar sees as "ri" comes after what Bhandarkar sees as "ye" and both may in fact be true. 
---><lb break="no" n="9"/>tāṁ ra<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->tna</supplied>-gr̥<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->he ca dī</supplied><unclear>pa</unclear>ko jvalatu mama cāparārddhāt pañcaiva bhikṣavo bhuṁjatāṁ ratna-gr̥he ca<!-- 
-Bhandarkar deems more of the first ratnagr̥he legible; I fail to discern most characters so I followed Sircar's more careful notation. For translation note that Bhandarkar takes mama as "which is mine" whereas I'd prefer to supply sarvvaguṇasaṁpattaye here, just as yāvaccandrādityau is also clearly to be supplied. 
---><lb n="10"/>dīpaka I<unclear>ti</unclear>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+
+                                
+                                        
+<ab>
+  <lb n="01" />
+  <unclear>siddham</unclear>
+</ab>
+                                
+                                
+<p>
+<lb n="1" />kā
+<supplied reason="lost">kanā</supplied>daboṭa-śrī-mahāvihāre śīla-samādhi-prajñā-guṇa-bhāvitendriyāya parama-puṇya
+<lb n="2" break="no" />-kṣe
+<unclear>tra</unclear>-
+<supplied reason="lost" cert="low">ma</supplied>tāya catur-ddig-abhyāgatāya śramaṇa-puṅgavāvasathāyāryya-saṅghāya mahārājādhi
+<lb n="3" break="no" />rā
+<supplied reason="lost">ja-śrī</supplied>-candragupta-pāda-prasādāpyāyita-jīvita-sādhanaḥ Anujīvi-satpuruṣa-sadbhāva-
+<lb n="4" />vr̥
+<supplied reason="lost" cert="low">tty-arthaṁ</supplied> jagati prakhyāpayaN Aneka-samarāvāpta-vijaya-yaśas-patākaḥ sukulideśa-na
+<lb n="5" break="no" />ṣṭī
+<gap reason="illegible" precision="low" quantity="3" unit="character" />-vāstavya Undāna-pu
+<sic>t</sic>rāmrakārddavo maja-śarabhaṅgāmrarāta-rājakula-mūlya-krī
+<lb n="6" break="no" />ta
+<unclear>ṁ de</unclear>
+<supplied reason="lost" cert="low">yadha</supplied>
+<unclear>r</unclear>
+<supplied reason="lost" cert="low">mmaṁ</supplied> īśvaravāsakaṁ pañca-maṇḍalyā praṇipatya dadāti 
+<choice>
+  <sic>pañcaviṁśatiś</sic>
+  <corr>pañcaviṁśatiṁ</corr>
+</choice> ca dīnā
+<lb n="7" break="no" />rāN 
+<gap reason="illegible" precision="low" quantity="6" unit="character" /> yad-arddhena mahārājādhirāja-śrī-candraguptasya devarāja Iti pri
+<lb n="8" break="no" />ya-nā
+<supplied reason="lost">mnaḥ</supplied> 
+<gap reason="illegible" precision="low" quantity="5" unit="character" />
+<unclear>ri</unclear>tasya sarvva-guṇa-saṁpattaye yāvac-candrādityau tāvat pañca bhikṣavo bhuṁja
+<lb n="9" break="no" />tāṁ ra
+<supplied reason="lost">tna</supplied>-gr̥
+<supplied reason="lost">he ca dī</supplied>
+<unclear>pa</unclear>ko jvalatu mama cāparārddhāt pañcaiva bhikṣavo bhuṁjatāṁ ratna-gr̥he ca
+<lb n="10" />dīpaka I
+<unclear>ti</unclear>
 </p>
-        <p><unclear>ta</unclear>d etat-pravr̥ttaṁ ya Ucchindyāt sa go-brahma-hatyayā saṁyukto bhavet pañcabhiś cāna<lb break="no" n="11"/>ntaryyair iti
+<p>
+<unclear>ta</unclear>d etat-pravr̥ttaṁ ya Ucchindyāt sa go-brahma-hatyayā saṁyukto bhavet pañcabhiś cāna
+<lb n="11" break="no" />ntaryyair iti
 </p>
-        <p>saṁ <num value="93"><g type="numeral">90</g> 3</num> bhādrapada-di <num value="4">4</num>
+<p>saṁ 
+<num value="93">
+<g type="numeral">90</g> 3</num> bhādrapada-di 
+<num value="4">4</num>
 </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                                
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

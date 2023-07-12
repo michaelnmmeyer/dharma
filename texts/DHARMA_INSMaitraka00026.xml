@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -24,11 +30,7 @@
         <idno type="filename">DHARMA_INSMaitraka00026</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-                            Licence. To view a copy of the licence, visit
-                            https://creativecommons.org/licenses/by/4.0/ or send a letter to
-                            Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-                            California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Annette Schmiedchen</p>
           </licence>
         </availability>
@@ -38,7 +40,7 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
             <summary>Grant of land in favour of a Buddhist monastery.</summary>
@@ -55,88 +57,172 @@
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2021-04-21" who="part:ansc">Initial encoding of the file></change>
+      <change who="part:ansc" when="2021-04-21" status="draft">Initial encoding of the file&gt;</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="san-Latn">
-        <p>
-            <pb n="1r"/>
-               <lb n="1"/>prārtthanādhikārtthapradānānanditavi<unclear>d</unclear>vatsuhṛtpraṇayihṛdayaḥ pādacār<choice>
-            <sic>i</sic>
-            <corr>ī</corr>
-          </choice>va sakalabhuvana<gap quantity="5" reason="illegible" unit="character"/>ga<lb break="no" n="2"/>pramodaḥ paramopāsakaḥ mahārājaśrīguhase<unclear>n</unclear>aẖ kuśalī sarvvān evāyuktakaviniyuktakadr<unclear>ā</unclear><gap quantity="2" reason="illegible" unit="character"/>maha<supplied reason="omitted">t</supplied>taracāṭa<lb break="no" n="3"/>bha<choice>
-            <sic>ṭh</sic>
-            <corr>ṭ</corr>
-          </choice>adhruvādhikaraṇikadāṇḍapāśikacoroddharaṇikā<surplus>ṁ</surplus>n utpannādānasamudgrāhakaśaulkikarājasthān<choice>
-            <sic>i</sic>
-            <corr>ī</corr>
-          </choice>yakumārāmātyād<unclear>ī</unclear>īn anyāṁś ca ya<unclear>th</unclear>ā<lb break="no" n="4"/>saṁbadhyamānakāN samājñāpayaty astu vas saṁviditaṁ yathā mayā mātāpitroḥ puṇyāpyāyanārtthaṁ ātmanaś caihikāmuṣmikayathābhi<lb break="no" n="5"/>laṣitaphalāvāptaye vaṭapal<unclear>l</unclear>ikāprāyīyabahumūlāgrāme kuṭuṁbiśyāmaṇeragopakacheṇḍavakadāsakās trayas sodra<unclear>ṅ</unclear>g<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>a<supplied reason="omitted">ḥ</supplied> sopari<lb break="no" n="6"/>karās sabhūtavātapratyāy<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>ḥ sarvvadhānyahiraṇy<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>deyā<supplied reason="omitted">ḥ</supplied> sotpadyamāna<unclear>v</unclear>iṣṭ<choice>
-            <sic>ī</sic>
-            <corr>i</corr>
-          </choice>k<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>ḥ rājasthānīyaśūrāya prasādīkṛta<lb break="no" n="7"/>bhaṭārkkavihārapratyāsannamimmāpādakāritābhyantarikāvihāre nānādigabhyāgatāṣṭādaśanikāyābhyantarāryyabhikṣusa<gap quantity="1" reason="illegible" unit="character"/>ya<lb n="8"/>grāsācchādanaśayanāsanaglānabh<choice>
-            <sic>a</sic>
-            <corr>ai</corr>
-          </choice>ṣajyādikriyo<unclear>tsa</unclear>rppaṇ<unclear>ā</unclear>rttham ācandrārkkārṇṇa<unclear>va</unclear>sari<unclear>t</unclear>kṣitisthitisamakālīnaṁ bhūmicchidranyāyena prati<lb break="no" n="9"/>pāditaṁ yato sya na kaiścit paripanthanā kāryyāgāmibhadran<unclear>ṛp</unclear>atibhiś cāsmadvaṁśajair anityāny aiśvaryyāṇy asthiraṁ mānuṣya<unclear>ṁ</unclear> sām<unclear>ānyaṁ</unclear> ca<lb n="10"/>bhūmidāyaphalam avagacchadbhir ayam asmaddāyo numantavyaḥ parip<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>layitavyaś ca yaś cainam ācchi<supplied reason="omitted">n</supplied>dyād ācchidyamānaṁ vānumo<add place="below">de</add>ta sa pa<supplied reason="omitted">ṁ</supplied>cabhi<lb break="no" n="11"/>r mmahāp<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>takais sopapātakai<supplied reason="omitted">ḥ</supplied> saṁyukta<supplied reason="omitted">ḥ</supplied> syād api ca <g type="ddandaPlain">.</g> bahubhir vvasudhā bhuktā rājabhis sagarādibhiḥ yasya yasya yadā<lb n="12"/>bhū<unclear>m</unclear>iḥ tasya tasya tadā phalam <g type="ddandaPlain">.</g> yānīha dāridr<supplied reason="omitted">y</supplied>abhayān narendrair ddhanāni dharmmāyatanīkṛtāni nirmmālyav<unclear>ā</unclear>ānta<lb break="no" n="13"/>pratimāni tāni ko nāma sādhuḫ punar ādadīta <g type="ddandaPlain">.</g> lakṣmīniketaṁ yadapāśrayeṇa prāpto si <unclear>lokābhimataṁ</unclear><lb n="14"/><unclear>n</unclear>ṛpa<unclear>tva</unclear><supplied reason="omitted">ṁ</supplied> tāny eva puṇyāny abhiva<unclear>rddhayethā</unclear> na karśaṇīyo hy upakāripakṣa Iti //<lb n="15"/>svamukhājñā // likhitaṁ sāndhivigrahādhikaraṇādhikṛtaskandabhaṭeneti <g type="dashPlain">~</g> <abbr>saṁ</abbr> <num value="248">200 40 8</num> <unclear>Ā</unclear>śvayuja <abbr>ba</abbr> <abbr>di</abbr> <num value="14">10 <unclear>4</unclear></num>
-            </p>
-      </div>
-      <div type="apparatus">
-        <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
-        <listApp>
-          <!-- one <app> for each apparatus entry -->
-          <app loc="line">
-            <!-- update the value of @loc.-->
-            <lem><!-- fill in a lemma here --></lem>
-            <rdg source="bib:Schmiedchen2014_01"><!-- update the @source value, fill in variant reading here --></rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:ansc" type="translation"><!--translation encoded as per EGD §9.2 --></div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <!-- NB: you are encouraged to experiment with encoding bibliography to the extent you have the bibliographic data available, but it is not mandatory at this stage, because our bibliographic data are normally assembled along with other metadata in spreadsheets and will be imported from there into our xml files by a semi-automated process at a later stage. -->
-        <p><!-- formulate epigraphic lemma here, using the items of primary bibliography --></p>
-        <listBibl type="primary">
-          <bibl n="S2014">
-            <ptr target="bib:Schmiedchen2014_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
-        </listBibl>
-      </div>
-    </body>
-  </text>
+      
+<body>
+         
+<div type="edition" xml:lang="san-Latn">
+            
+<p>
+            
+<pb n="1r" />
+               
+<lb n="1" />prārtthanādhikārtthapradānānanditavi
+<unclear>d</unclear>vatsuhṛtpraṇayihṛdayaḥ pādacār
+<choice>
+  <sic>i</sic>
+  <corr>ī</corr>
+</choice>va sakalabhuvana
+<gap reason="illegible" quantity="5" unit="character" />ga
+<lb n="2" break="no" />pramodaḥ paramopāsakaḥ mahārājaśrīguhase
+<unclear>n</unclear>aẖ kuśalī sarvvān evāyuktakaviniyuktakadr
+<unclear>ā</unclear>
+<gap reason="illegible" quantity="2" unit="character" />maha
+<supplied reason="omitted">t</supplied>taracāṭa
+<lb n="3" break="no" />bha
+<choice>
+  <sic>ṭh</sic>
+  <corr>ṭ</corr>
+</choice>adhruvādhikaraṇikadāṇḍapāśikacoroddharaṇikā
+<surplus>ṁ</surplus>n utpannādānasamudgrāhakaśaulkikarājasthān
+<choice>
+  <sic>i</sic>
+  <corr>ī</corr>
+</choice>yakumārāmātyād
+<unclear>ī</unclear>īn anyāṁś ca ya
+<unclear>th</unclear>ā
+<lb n="4" break="no" />saṁbadhyamānakāN samājñāpayaty astu vas saṁviditaṁ yathā mayā mātāpitroḥ puṇyāpyāyanārtthaṁ ātmanaś caihikāmuṣmikayathābhi
+<lb n="5" break="no" />laṣitaphalāvāptaye vaṭapal
+<unclear>l</unclear>ikāprāyīyabahumūlāgrāme kuṭuṁbiśyāmaṇeragopakacheṇḍavakadāsakās trayas sodra
+<unclear>ṅ</unclear>g
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>a
+<supplied reason="omitted">ḥ</supplied> sopari
+<lb n="6" break="no" />karās sabhūtavātapratyāy
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>ḥ sarvvadhānyahiraṇy
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>deyā
+<supplied reason="omitted">ḥ</supplied> sotpadyamāna
+<unclear>v</unclear>iṣṭ
+<choice>
+  <sic>ī</sic>
+  <corr>i</corr>
+</choice>k
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>ḥ rājasthānīyaśūrāya prasādīkṛta
+<lb n="7" break="no" />bhaṭārkkavihārapratyāsannamimmāpādakāritābhyantarikāvihāre nānādigabhyāgatāṣṭādaśanikāyābhyantarāryyabhikṣusa
+<gap reason="illegible" quantity="1" unit="character" />ya
+<lb n="8" />grāsācchādanaśayanāsanaglānabh
+<choice>
+  <sic>a</sic>
+  <corr>ai</corr>
+</choice>ṣajyādikriyo
+<unclear>tsa</unclear>rppaṇ
+<unclear>ā</unclear>rttham ācandrārkkārṇṇa
+<unclear>va</unclear>sari
+<unclear>t</unclear>kṣitisthitisamakālīnaṁ bhūmicchidranyāyena prati
+<lb n="9" break="no" />pāditaṁ yato sya na kaiścit paripanthanā kāryyāgāmibhadran
+<unclear>ṛp</unclear>atibhiś cāsmadvaṁśajair anityāny aiśvaryyāṇy asthiraṁ mānuṣya
+<unclear>ṁ</unclear> sām
+<unclear>ānyaṁ</unclear> ca
+<lb n="10" />bhūmidāyaphalam avagacchadbhir ayam asmaddāyo numantavyaḥ parip
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>layitavyaś ca yaś cainam ācchi
+<supplied reason="omitted">n</supplied>dyād ācchidyamānaṁ vānumo
+<add place="below">de</add>ta sa pa
+<supplied reason="omitted">ṁ</supplied>cabhi
+<lb n="11" break="no" />r mmahāp
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>takais sopapātakai
+<supplied reason="omitted">ḥ</supplied> saṁyukta
+<supplied reason="omitted">ḥ</supplied> syād api ca 
+<g type="ddandaPlain">.</g> bahubhir vvasudhā bhuktā rājabhis sagarādibhiḥ yasya yasya yadā
+<lb n="12" />bhū
+<unclear>m</unclear>iḥ tasya tasya tadā phalam 
+<g type="ddandaPlain">.</g> yānīha dāridr
+<supplied reason="omitted">y</supplied>abhayān narendrair ddhanāni dharmmāyatanīkṛtāni nirmmālyav
+<unclear>ā</unclear>ānta
+<lb n="13" break="no" />pratimāni tāni ko nāma sādhuḫ punar ādadīta 
+<g type="ddandaPlain">.</g> lakṣmīniketaṁ yadapāśrayeṇa prāpto si 
+<unclear>lokābhimataṁ</unclear>
+<lb n="14" />
+<unclear>n</unclear>ṛpa
+<unclear>tva</unclear>
+<supplied reason="omitted">ṁ</supplied> tāny eva puṇyāny abhiva
+<unclear>rddhayethā</unclear> na karśaṇīyo hy upakāripakṣa Iti //
+<lb n="15" />svamukhājñā // likhitaṁ sāndhivigrahādhikaraṇādhikṛtaskandabhaṭeneti 
+<g type="dashPlain">~</g> 
+<abbr>saṁ</abbr> 
+<num value="248">200 40 8</num> 
+<unclear>Ā</unclear>śvayuja 
+<abbr>ba</abbr> 
+<abbr>di</abbr> 
+<num value="14">10 
+<unclear>4</unclear></num>
+            </p>                        
+         </div>
+         
+<div type="apparatus">
+                          
+<listApp>                  
+<app loc="line">                     
+<lem></lem>
+                     
+<rdg source="bib:Schmiedchen2014_01"></rdg>
+                  </app>
+               </listApp>
+         </div>
+         
+<div type="translation" resp="part:ansc">
+                 </div>
+         
+<div type="commentary">
+                     </div>
+        
+<div type="bibliography">
+                           
+<p></p>
+                
+<listBibl type="primary">
+                                
+<bibl n="S2014">
+  <ptr target="bib:Schmiedchen2014_01" />
+</bibl>
+                        </listBibl>
+           
+<listBibl type="secondary">
+              
+<bibl />           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

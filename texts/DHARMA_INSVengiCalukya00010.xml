@@ -1,9 +1,14 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
         <title>Puloṁbūra grant of Jayasiṁha I</title>
-        <!--Alt title "Pulībūmra, Jayasiṁha I" in PEM's corpus. "Pulibumra Plates of Jayasiṁha I" in <bibl><ptr target="bib:Rangacharya1927-1928_03"/></bibl>. "Pulimburu Plates of Jayasiṁha I" in <bibl><ptr target="bib:SubbaRao1929-1930_01"/></bibl>. "Polamuru Grant of Jayasiṁha I" in <bibl><ptr target="bib:Sircar1939_01"/></bibl>. "Polamuru Plates (set II)" in <bibl"><ptr target="bib:Sankaranarayanan1977_01"/></bibl>. -->
         <respStmt>
           <resp>Encoding</resp>
           <persName ref="part:daba">
@@ -25,40 +30,24 @@
         <idno type="filename">DHARMA_INSVengiCalukya00010</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-              Licence. To view a copy of the licence, visit
-              https://creativecommons.org/licenses/by/4.0/ or send a letter to
-              Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-              California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Dániel Balogh.</p>
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
-            <!--<altIdentifier type="PEM"><idno type="corpus">CalE19</idno></altIdentifier>-->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p>Halantas. T: simplified, without headmark, long stem. E.g. l1, skandhāvārāT. M: just a simple curve, like a lowercase c or e slanted to the left, e.g. l2 putrāṇāM. 
-                <!--Original punctuation.  --><!--Other palaeographic observations.  --><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-                <summary><p><p/></summary>
-                <handNote xml:id="Pallava00001_hand1"></handNote>
-                <handNote xml:id="Pallava00001_hand2"></handNote>
-              -->
+              <p>Halantas. T: simplified, without headmark, long stem. E.g. l1, skandhāvārāT. M: just a simple curve, like a lowercase c or e slanted to the left, e.g. l2 putrāṇāM. </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -66,312 +55,653 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-14" who="part:daba">Encoded hand description, bibliography and commentary from earlier comments</change>
-      <change status="draft" when="2020-04-21" who="part:daba">Initial encoding of the file</change>
-      <!-- Add a <change> entry for each significant change to the file. -->
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-14" status="draft">Encoded hand description, bibliography and commentary from earlier comments</change>
+      <change who="part:daba" when="2020-04-21" status="draft">Initial encoding of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83213" type="edition" xml:lang="san-Latn">
-        <pb n="1r"/>
-        <p><pb n="1v"/><fw n="1v" place="left">
-            <num value="1">1</num>
-          </fw><lb n="1"/>svasti śrī-vijaya-skandhāvārāT<supplied reason="subaudible">.</supplied> mātr̥-gaṇa-parirakṣitānāṁ mānavya-sagotrāṇ<unclear>ā</unclear>ṁ <lb n="2"/>hāritī-putrāṇāM Aśvamedha-yājināṁ calukyānāṁ kula-jalanidhi<lb break="no" n="3"/>-samu<space type="binding-hole"/>tpa<choice>
-            <sic>t</sic>
-            <corr>n</corr>
-          </choice>na-rāja-ratnasya sakala-bhuvana<surplus>ṁ</surplus>-maṇḍala-maṇḍita-kīrtt<choice>
-            <sic>i</sic>
-            <corr>e</corr>
-          </choice>ḥ śrī<lb break="no" n="4"/>-kīrtti<space type="binding-hole"/>varmmaṇaḥ pautraḥ Aneka-samara-saṁghaṭṭa-vijayinaḥ pa<unclear>ra</unclear>-nara<lb break="no" n="5"/>pati-makuṭa-maṇi-mayūkhāvadāta-caraṇa-yugalasya śrī-viṣṇuvarddhana<lb break="no" n="6"/>-mahārājasya priya-tanayaḥ pravarddhamāna-pratāpopanata-samasta<pb break="no" n="2r"/><lb break="no" n="7"/>-sāmanta-maṇḍalaḥ sva-bāhu-bala-parākkramopārjjita-sa<unclear>kala</unclear>-yaśo<lb break="no" n="8"/>-vibhāsita-digantaraḥ sva-śakti-traya-triśūlāvabhinna-para-<unclear>na</unclear>rapati<lb break="no" n="9"/>-saka<space type="binding-hole"/>la-bala-cetanaḥ br̥haspatir iva naya-jño manur iva vinaya<lb break="no" n="10"/>-jñaḥ <space type="binding-hole"/> yudhiṣṭhira Iva dharmma-parāyaṇaḥ Arjunavad apara-nara<lb break="no" n="11"/>patibhir anabhilaṁghita-pauruṣyaḥ Aneka-śāstrārttha-tatva-jñaḥ para<lb break="no" n="12"/>ma-brahmaṇy<choice>
-            <sic>ā</sic>
-            <corr>o</corr>
-          </choice> mātā-pitr̥-pādānudhyātaḥ śrī-<orig>prithivī</orig>-jayasi<orig>ṅgha</orig>-va<pb break="no" n="2v"/><fw n="2v" place="left">
-            <num value="2">
-              <unclear>2</unclear>
-            </num>
-          </fw><lb n="13"/>llabha-mahārājaḥ guddavādi-viṣay<subst>
-            <del rend="corrected">i</del>
-            <add place="overstrike">e</add>
-          </subst> viṣaya-mahat<unclear>t</unclear>a<unclear>rān a</unclear><supplied reason="lost">dh</supplied><unclear>i</unclear>kāra-pu<lb break="no" n="14"/>ruṣāṁś ca Imam arttham ājñāpayaty <surplus>asti</surplus></p>
-        <p>viditam astu vo ya<unclear>thās</unclear>mābhiḥ <lb n="15"/>gudda<space type="binding-hole"/>vādi-viṣaye puloṁbūran nāma-grāmaḥ veda-vedāṁga<lb break="no" n="16"/>-vido <space type="binding-hole"/>dāmaśarmmaṇaḥ pautrāya sva-pitur adhika-guṇa-gaṇādhi<lb break="no" n="17"/>vāsasya śivaśarmmaṇaḥ putrāya taittirika-sabrahmacāriṇe veda<lb break="no" n="18"/>-dvayālaṁkr̥ta-śar<choice>
-            <sic>i</sic>
-            <corr>ī</corr>
-          </choice>rāya gautama-sagotrāya sva-karmmān<unclear>uṣṭh</unclear>āna<pb break="no" n="3r"/><lb break="no" n="19"/>-parāya pūrvvāgrahārika-rudraśarmmaṇe Asanapura-sthāna-v<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>stavyāya <lb n="20"/>śrī-sarvvasiddhi-da<orig>t</orig>yā sarvva-kara-parihāreṇāgrahārī-kr̥tya samprattaḥ</p>
-        <p><lb n="21"/>tathā <space type="binding-hole"/> bhavadbhir a<choice>
-            <sic>ṇ</sic>
-            <corr>n</corr>
-          </choice>yaiś ca dharmmādhi<choice>
-            <sic>ś</sic>
-            <corr>g</corr>
-          </choice>ata-buddhibhiḥ paripālanīyaḥ<supplied reason="subaudible">.</supplied> <lb n="22"/>na kai<space type="binding-hole"/>ścid bādhā karaṇīyā<supplied reason="subaudible">.</supplied> Ājñaptir atra hastikośa-vīrakoś<choice>
-            <sic>a</sic>
-            <corr>au</corr>
-          </choice><supplied reason="subaudible">.</supplied> <subst>
-            <del rend="corrected">
-              <unclear>yo</unclear>
-            </del>
-            <add place="overstrike">
-              <unclear>vyā</unclear>
-            </add>
-          </subst><lb break="no" n="23"/>sa-gītāḥ</p>
-        <lg met="anuṣṭubh" n="1">
-          <l n="a">bahubhir vvasudhā dattā</l>
-          <l n="b">bahubhiś cānupālitā</l>
-          <l n="c">yasya yasya <lb n="24"/>yadā bhūmis</l>
-          <l n="d">tasya tasya tadā phalam</l>
-        </lg>
-        <p>iti saṁ <unclear>||</unclear> <num value="5">
-            <unclear>5</unclear>
-          </num> <unclear>| g</unclear>i <num value="6">
-            <unclear>6</unclear>
-          </num> <unclear>| d</unclear>i <num value="3">
-            <unclear>3</unclear>
-          </num></p>
-        <pb n="3v"/>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="8">
-            <lem>-vibhāsita-</lem>
-            <note>There is quite a lot of damage around these characters, though the characters themselves are all clear. There is also a rather wide space between <foreign>bhā</foreign> and <foreign>si</foreign>, filled with damage. Possibly something else was engraved here, then struck out and overwritten.</note>
-          </app>
-          <app loc="11">
-            <lem>-tatva-jñaḥ</lem>
-            <note>Rangacharya notes that the <foreign>visarga</foreign> is cut twice. There is also quite extensive damage behind these otherwise clear characters; possibly, a previous reading (also ending in a <foreign>visarga</foreign>) was struck out and the current one engraved over it.</note>
-          </app>
-          <app loc="13">
-            <lem>-viṣay<subst>
-                <del rend="corrected">i</del>
-                <add place="overstrike">e</add>
-              </subst></lem>
-            <rdg source="bib:Rangacharya1927-1928_03">-viṣay<choice>
-                <sic>i</sic>
-                <corr>e</corr>
-              </choice></rdg>
-            <rdg source="bib:SubbaRao1929-1930_01 bib:Sircar1939_01 bib:Sankaranarayanan1977_01">-viṣaye</rdg>
-            <note>According to Rangacharya's editor, what Rangacharya saw as an <foreign>i</foreign> is only a crack in the plate, and the <foreign>e</foreign> is clearly present as the expected vowel marker. While the latter is correct, the crack seems to be there in addition to a fully formed <foreign>i mātrā</foreign>, so I assume the engraving was corrected.</note>
-          </app>
-          <app loc="14">
-            <lem source="bib:Sircar1939_01 bib:Sankaranarayanan1977_01">ya<unclear>thās</unclear>mābhiḥ</lem>
-            <rdg source="bib:Rangacharya1927-1928_03">ya<unclear>m a</unclear>smābhiḥ</rdg>
-            <rdg source="bib:SubbaRao1929-1930_01">yuṣmābhiḥ</rdg>
-          </app>
-          <app loc="15">
-            <lem>puloṁbūran</lem>
-            <rdg source="bib:ARIE1913-1914">pul<unclear>e</unclear>būṁran</rdg>
-            <rdg source="bib:Rangacharya1927-1928_03">pulībūṁran</rdg>
-            <rdg source="bib:SubbaRao1929-1930_01">pulibūṁran</rdg>
-            <rdg source="bib:Sircar1939_01">pulobūṁra<surplus>n</surplus></rdg>
-            <rdg source="bib:Sankaranarayanan1977_01">puloṁbūra</rdg>
-            <note>The second character is definitely a cursive <foreign>lo</foreign>. The <foreign>anusvāra</foreign> is inded over <foreign>bū</foreign>, but it was in all probability intended to be read with <foreign>lo</foreign>, and moved to the right either accidentally or deliberately because of interference from the descenders (of <foreign>ty asti</foreign> in the previous line). I interpret the extra <foreign>n</foreign> at the end of the name in the present grant as the Sanskritised nominal ending <foreign>ṁ</foreign> in non-standard sandhi, not as a scribal error or a Dravidian ending. See the commentary for further discussion.</note>
-          </app>
-          <app loc="19">
-            <lem>parāya</lem>
-            <note>As Rangacharya notes, there is a dot before the first character, at the position of a headmark.</note>
-          </app>
-          <app loc="22">
-            <lem>hastikośa-vīrakoś<choice>
-                <sic>a</sic>
-                <corr>au</corr>
-              </choice><supplied reason="subaudible">.</supplied> <subst>
-                <del rend="corrected">
-                  <unclear>yo</unclear>
-                </del>
-                <add place="overstrike">
-                  <unclear>vyā</unclear>
-                </add>
-              </subst><lb break="no" n="23"/>sa-gītāḥ</lem>
-            <rdg source="bib:Rangacharya1927-1928_03">hastikoś<choice>
-                <sic>a</sic>
-                <corr>o</corr>
-              </choice> vīrakośa <unclear>vyā</unclear><lb/>sa-gītāḥ</rdg>
-            <rdg source="bib:SubbaRao1929-1930_01">hastikośa vīrakośā yo<lb/>sagītaḥ</rdg>
-            <rdg source="bib:Sircar1939_01">hastikośa vīrakoś<choice>
-                <sic>a</sic>
-                <corr>au</corr>
-              </choice> byā<lb/>sa-gītaḥ</rdg>
-            <rdg source="bib:Sankaranarayanan1977_01">hastikośa-vīrakośayo<supplied reason="omitted">ḥ</supplied><lb/><supplied reason="omitted">vyā</supplied>sa-gītāḥ</rdg>
-            <note>Given the parallel in line 29 of the grant of Mādhavavarman I (see the commentary), the intent would have been <foreign>hastikośa-vīrakośau</foreign> in spite of the lack of agreement in number with <foreign>ājñaptir</foreign>. Incidentally, both instances of <foreign>ś</foreign> have conspicuous horns, which do not occur in any <foreign>śa</foreign> in these plates, all of which have plain, rounded tops. This may be irrelevant, but it also seems possible that <foreign>hastikośa-vīrakośau</foreign> was pre-written for the engraver, who in turn misinterpreted the final vowel mark as part of the consonant character, and applied the same to the earlier instance of the same consonant. What is perhaps even more likely is that the charter as a whole was adopted from the earlier Viṣṇukuṇḍin charter, and this section was copied without proper understanding. Rangacharya sees an indistinct <foreign>vyā</foreign> at the end of line 22, <q>beneath the punctuation mark and not separate.</q> I see no punctuation mark, nor does Rangacharya print one in his edition. In the scanned rubbing, <foreign>yo</foreign> seems to be clear, but there is a very faint loop below it that may perhaps be a subscript <foreign>y</foreign>. Since Sircar also reads a supposedly clear <foreign>byā</foreign> here, I assume that this is indeed a superscript <foreign>y</foreign>, but since there are very conspicuous strokes that do not belong to either <foreign>vyā</foreign> or <foreign>byā</foreign>, I believe the scribe had corrected <foreign>yo</foreign> to <foreign>vyā</foreign>, or possibly to <foreign>byā</foreign>.</note>
-          </app>
-          <app loc="24">
-            <lem source="bib:Sircar1939_01 bib:Sankaranarayanan1977_01">saṁ <unclear>||</unclear> <num value="5">
-                <unclear>5</unclear>
-              </num> <unclear>| g</unclear>i <num value="8">
-                <unclear>8</unclear>
-              </num> <unclear>| d</unclear>i <num value="3">
-                <unclear>3</unclear>
-              </num></lem>
-            <rdg source="bib:Rangacharya1927-1928_03">saṁ <gap extent="unknown" reason="illegible" unit="character"/></rdg>
-            <rdg source="bib:SubbaRao1929-1930_01">saṁ 4</rdg>
-            <note>I accept the reading of Sircar and Sankaranarayanan, both of whom print it without any indication of unclarity or tentativeness. See the commentary for details.</note>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:daba" type="translation">
-        <p n="1-14">Greetings from the majestic encampment of victory.
-The grandson of His Majesty Kīrtivarman, a jewel of a king whose reputation decorates the entire circle of the world and who arose from the ocean that is the family of the Calukyas—who are protected by the band of Mothers, who are of the Mānavya <foreign>gotra</foreign>, who are the sons of Hāritī and who have performed the Aśvamedha sacrifice—;the dear son of King <supplied reason="explanation">
-            <foreign>mahārāja</foreign>
-          </supplied> Viṣṇuvardhana, who is victorious in the clash of many a battle and whose two feet are bright with the rays of gems in the crowns of enemy kings;
-His Majesty the supremely pious Pr̥thivījayasiṁha Vallabha, who was deliberately appointed <supplied reason="explanation">as heir</supplied> by his mother and father, whose ever-increasing valour forces all subordinate rulers <supplied reason="explanation">
-            <foreign>sāmanta</foreign>
-          </supplied> to bow, whose reputation attained by the strength of his own arms illuminates all quarters of the sky,<note>I assume this is the intent of the composer, but the compound is rather awkward. Sankaranarayanan actually suggests emending to <foreign>°opārjjita-yaśo-vibhāsita-sakala-digantaraḥ</foreign>.</note> who breaks the entire army and <supplied reason="subaudible">even</supplied> the mind of enemy kings with the trident comprised of his own three powers <supplied reason="explanation">
-            <foreign>śakti-traya</foreign>
-          </supplied>, who is as versed in polity <supplied reason="explanation">
-            <foreign>naya</foreign>
-          </supplied> as Br̥haspati, as versed in discipline <supplied reason="explanation">
-            <foreign>vinaya</foreign>
-          </supplied> as Manu, as thoroughly devoted to righteousness <supplied reason="explanation">
-            <foreign>dharma</foreign>
-          </supplied> as Yudhiṣṭhira and as unsurpassed in prowess by other rulers as Arjuna, and who knows the essence of the meaning of many Śāstras, informs the district headmen <supplied reason="explanation">
-            <foreign>viṣaya-mahattara</foreign>
-          </supplied> and officials in the Guddavādi district <supplied reason="explanation">
-            <foreign>viṣaya</foreign>
-          </supplied> of the following matter.</p>
-        <p n="15-23">Let it be known to you that we have donated the village named Puloṁbūra in the Guddavādi district <supplied reason="explanation">
-            <foreign>viṣaya</foreign>
-          </supplied>, converted into a rent-free holding <supplied reason="explanation">
-            <foreign>agrahāra</foreign>
-          </supplied> by a remission of all taxes by virtue of being a donation of His Majesty Sarvasiddhi,<note>It seems that some previous scholars see <foreign>sarvasiddhi-datti</foreign> as a technical term signifying a particular kind of donation, or at least fail to make it explicit that it means a donation by the king bearing this name. Sankaranarayanan does understand the text as I do (<bibl rend="omitname">
-              <ptr target="bib:Sankaranarayanan1977_01"/>
-              <citedRange>138</citedRange>
-            </bibl>), but I would emphasise in addition that, as the same village was previously granted by Mādhavavarman I to the donee's father, the point here is that Jayasiṁha is specifically claiming the donation as his own.</note> to Rudraśarman, a resident of the monastery<note>It seems likely that <foreign>sthāna</foreign> does not simply mean a place or locality here. Sankaranarayanan (<bibl rend="omitname">
-              <ptr target="bib:Sankaranarayanan1977_01"/>
-              <citedRange>74</citedRange>
-            </bibl>) suggests that <foreign>sthāna</foreign> may be equivalent to <foreign>ghaṭikā-sthāna</foreign> here, but the <foreign>ghaṭikā</foreign> is mentioned as clearly separate in the <ref target="DHARMA_INSVengiCalukya00008.xml">Niḍupaṟu Grant</ref>. I therefore assume that <foreign>sthāna</foreign> means a temple complex where Brahmans reside, semantically (though perhaps not physically) distinct from the <foreign>ghaṭikā</foreign> as an institution of learning.</note> of Asanapura who is already the proprietor of a rent-free holding <supplied reason="explanation">
-            <foreign>pūrvāgrahārika</foreign>
-          </supplied>, who belongs to the Gautama <foreign>gotra</foreign> and the Taittirika<note>Rangacharya’s editor notes that this should be emended to <foreign>taittirīya</foreign>, because <foreign>taittirika</foreign> means “one who catches partridges.” The form found here is, however, not uncommon in inscriptions, so I prefer not to alter it.</note> school, whose body is adorned by the two Vedas and who is a devout performer of his duties, the grandson of Dāmaśarman, familiar with the Vedas and Vedāṅgas, and the son of Śivaśarman, a receptacle of a host of virtues exceeding <supplied reason="subaudible">even</supplied> his own father. Therefore <supplied reason="subaudible">this decree</supplied> must be respected by you sirs and by others whose mind inclines toward morality <supplied reason="explanation">
-            <foreign>dharma</foreign>
-          </supplied>. Let no-one pose an obstacle <supplied reason="subaudible">to this</supplied>. The executor <supplied reason="explanation">
-            <foreign>ājñapti</foreign>
-          </supplied> for this <supplied reason="explanation">grant</supplied> is the Hastikośa and the Vīrakośa<note>These terms, also found in at least two charters of the Viṣṇukuṇḍins (<bibl>
-              <ptr target="bib:Sankaranarayanan1977_01"/>
-              <citedRange>86</citedRange>
-            </bibl>), probably designate certain officials. See <bibl>
-              <ptr target="bib:Sircar1939_01"/>
-              <citedRange unit="page">110</citedRange>
-              <citedRange unit="note">2</citedRange>
-            </bibl> for details.</note>. <supplied reason="explanation">This verse</supplied> were <supplied reason="explanation">i.e. was</supplied> sung by Vyāsa:</p>
-        <p n="1" rend="stanza">
-Many <supplied reason="explanation">kings</supplied> have granted land, and many have preserved it <supplied reason="explanation">as formerly granted</supplied>. Whosoever at any time owns the land, the fruit <seg rend="pun">reward <supplied reason="explanation">accrued of granting it</supplied></seg> belongs to him at that time.
+    
+<body>
+      
+      
+      
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83213">
+<pb n="1r" />
+<p>
+<pb n="1v" />
+<fw n="1v" place="left">
+  <num value="1">1</num>
+</fw>
+<lb n="1" />svasti śrī-vijaya-skandhāvārāT
+<supplied reason="subaudible">.</supplied> mātr̥-gaṇa-parirakṣitānāṁ mānavya-sagotrāṇ
+<unclear>ā</unclear>ṁ 
+<lb n="2" />hāritī-putrāṇāM Aśvamedha-yājināṁ calukyānāṁ kula-jalanidhi
+<lb n="3" break="no" />-samu
+<space type="binding-hole" />tpa
+<choice>
+  <sic>t</sic>
+  <corr>n</corr>
+</choice>na-rāja-ratnasya sakala-bhuvana
+<surplus>ṁ</surplus>-maṇḍala-maṇḍita-kīrtt
+<choice>
+  <sic>i</sic>
+  <corr>e</corr>
+</choice>ḥ śrī
+<lb n="4" break="no" />-kīrtti
+<space type="binding-hole" />varmmaṇaḥ pautraḥ Aneka-samara-saṁghaṭṭa-vijayinaḥ pa
+<unclear>ra</unclear>-nara
+<lb n="5" break="no" />pati-makuṭa-maṇi-mayūkhāvadāta-caraṇa-yugalasya śrī-viṣṇuvarddhana
+<lb n="6" break="no" />-mahārājasya priya-tanayaḥ pravarddhamāna-pratāpopanata-samasta
+<pb n="2r" break="no" />
+<lb n="7" break="no" />-sāmanta-maṇḍalaḥ sva-bāhu-bala-parākkramopārjjita-sa
+<unclear>kala</unclear>-yaśo
+<lb n="8" break="no" />-vibhāsita-digantaraḥ sva-śakti-traya-triśūlāvabhinna-para-
+<unclear>na</unclear>rapati
+<lb n="9" break="no" />-saka
+<space type="binding-hole" />la-bala-cetanaḥ br̥haspatir iva naya-jño manur iva vinaya
+<lb n="10" break="no" />-jñaḥ 
+<space type="binding-hole" /> yudhiṣṭhira Iva dharmma-parāyaṇaḥ Arjunavad apara-nara
+<lb n="11" break="no" />patibhir anabhilaṁghita-pauruṣyaḥ Aneka-śāstrārttha-tatva-jñaḥ para
+<lb n="12" break="no" />ma-brahmaṇy
+<choice>
+  <sic>ā</sic>
+  <corr>o</corr>
+</choice> mātā-pitr̥-pādānudhyātaḥ śrī-
+<orig>prithivī</orig>-jayasi
+<orig>ṅgha</orig>-va
+<pb n="2v" break="no" />
+<fw n="2v" place="left">
+  <num value="2">
+    <unclear>2</unclear>
+  </num>
+</fw>
+<lb n="13" />llabha-mahārājaḥ guddavādi-viṣay
+<subst>
+  <del rend="corrected">i</del>
+  <add place="overstrike">e</add>
+</subst> viṣaya-mahat
+<unclear>t</unclear>a
+<unclear>rān a</unclear>
+<supplied reason="lost">dh</supplied>
+<unclear>i</unclear>kāra-pu
+<lb n="14" break="no" />ruṣāṁś ca Imam arttham ājñāpayaty 
+<surplus>asti</surplus></p>
+<p>viditam astu vo ya
+<unclear>thās</unclear>mābhiḥ 
+<lb n="15" />gudda
+<space type="binding-hole" />vādi-viṣaye puloṁbūran nāma-grāmaḥ veda-vedāṁga
+<lb n="16" break="no" />-vido 
+<space type="binding-hole" />dāmaśarmmaṇaḥ pautrāya sva-pitur adhika-guṇa-gaṇādhi
+<lb n="17" break="no" />vāsasya śivaśarmmaṇaḥ putrāya taittirika-sabrahmacāriṇe veda
+<lb n="18" break="no" />-dvayālaṁkr̥ta-śar
+<choice>
+  <sic>i</sic>
+  <corr>ī</corr>
+</choice>rāya gautama-sagotrāya sva-karmmān
+<unclear>uṣṭh</unclear>āna
+<pb n="3r" break="no" />
+<lb n="19" break="no" />-parāya pūrvvāgrahārika-rudraśarmmaṇe Asanapura-sthāna-v
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>stavyāya 
+<lb n="20" />śrī-sarvvasiddhi-da
+<orig>t</orig>yā sarvva-kara-parihāreṇāgrahārī-kr̥tya samprattaḥ</p>
+<p>
+<lb n="21" />tathā 
+<space type="binding-hole" /> bhavadbhir a
+<choice>
+  <sic>ṇ</sic>
+  <corr>n</corr>
+</choice>yaiś ca dharmmādhi
+<choice>
+  <sic>ś</sic>
+  <corr>g</corr>
+</choice>ata-buddhibhiḥ paripālanīyaḥ
+<supplied reason="subaudible">.</supplied> 
+<lb n="22" />na kai
+<space type="binding-hole" />ścid bādhā karaṇīyā
+<supplied reason="subaudible">.</supplied> Ājñaptir atra hastikośa-vīrakoś
+<choice>
+  <sic>a</sic>
+  <corr>au</corr>
+</choice>
+<supplied reason="subaudible">.</supplied> 
+<subst>
+  <del rend="corrected">
+    <unclear>yo</unclear>
+  </del>
+  <add place="overstrike">
+    <unclear>vyā</unclear>
+  </add>
+</subst>
+<lb n="23" break="no" />sa-gītāḥ</p>
+<lg n="1" met="anuṣṭubh">
+<l n="a">bahubhir vvasudhā dattā</l>
+<l n="b">bahubhiś cānupālitā</l>
+<l n="c">yasya yasya 
+<lb n="24" />yadā bhūmis</l>
+<l n="d">tasya tasya tadā phalam</l>
+</lg>
+<p>iti saṁ 
+<unclear>||</unclear> 
+<num value="5">
+  <unclear>5</unclear>
+</num> 
+<unclear>| g</unclear>i 
+<num value="6">
+  <unclear>6</unclear>
+</num> 
+<unclear>| d</unclear>i 
+<num value="3">
+  <unclear>3</unclear>
+</num></p>
+<pb n="3v" />
+
+</div>
+        
+        
+        
+        
+        
+<div type="apparatus">
+    
+<listApp>
+      
+<app loc="8">
+        
+<lem>-vibhāsita-</lem>
+        
+<note>There is quite a lot of damage around these characters, though the characters themselves are all clear. There is also a rather wide space between 
+<foreign>bhā</foreign> and 
+<foreign>si</foreign>, filled with damage. Possibly something else was engraved here, then struck out and overwritten.</note>
+      </app>
+      
+<app loc="11">
+        
+<lem>-tatva-jñaḥ</lem>
+        
+<note>Rangacharya notes that the 
+<foreign>visarga</foreign> is cut twice. There is also quite extensive damage behind these otherwise clear characters; possibly, a previous reading (also ending in a 
+<foreign>visarga</foreign>) was struck out and the current one engraved over it.</note>
+      </app>
+      
+<app loc="13">
+        
+<lem>-viṣay
+<subst>
+  <del rend="corrected">i</del>
+  <add place="overstrike">e</add>
+</subst></lem>
+        
+<rdg source="bib:Rangacharya1927-1928_03">-viṣay
+<choice>
+  <sic>i</sic>
+  <corr>e</corr>
+</choice></rdg>
+        
+<rdg source="bib:SubbaRao1929-1930_01 bib:Sircar1939_01 bib:Sankaranarayanan1977_01">-viṣaye</rdg>
+        
+<note>According to Rangacharya's editor, what Rangacharya saw as an 
+<foreign>i</foreign> is only a crack in the plate, and the 
+<foreign>e</foreign> is clearly present as the expected vowel marker. While the latter is correct, the crack seems to be there in addition to a fully formed 
+<foreign>i mātrā</foreign>, so I assume the engraving was corrected.</note>
+      </app>
+      
+<app loc="14">
+        
+<lem source="bib:Sircar1939_01 bib:Sankaranarayanan1977_01">ya
+<unclear>thās</unclear>mābhiḥ</lem>
+        
+<rdg source="bib:Rangacharya1927-1928_03">ya
+<unclear>m a</unclear>smābhiḥ</rdg>
+        
+<rdg source="bib:SubbaRao1929-1930_01">yuṣmābhiḥ</rdg>
+      </app>
+      
+<app loc="15">
+        
+<lem>puloṁbūran</lem>
+        
+<rdg source="bib:ARIE1913-1914">pul
+<unclear>e</unclear>būṁran</rdg>
+        
+<rdg source="bib:Rangacharya1927-1928_03">pulībūṁran</rdg>
+        
+<rdg source="bib:SubbaRao1929-1930_01">pulibūṁran</rdg>
+        
+<rdg source="bib:Sircar1939_01">pulobūṁra
+<surplus>n</surplus></rdg>
+        
+<rdg source="bib:Sankaranarayanan1977_01">puloṁbūra</rdg>
+        
+<note>The second character is definitely a cursive 
+<foreign>lo</foreign>. The 
+<foreign>anusvāra</foreign> is inded over 
+<foreign>bū</foreign>, but it was in all probability intended to be read with 
+<foreign>lo</foreign>, and moved to the right either accidentally or deliberately because of interference from the descenders (of 
+<foreign>ty asti</foreign> in the previous line). I interpret the extra 
+<foreign>n</foreign> at the end of the name in the present grant as the Sanskritised nominal ending 
+<foreign>ṁ</foreign> in non-standard sandhi, not as a scribal error or a Dravidian ending. See the commentary for further discussion.</note>
+      </app>
+      
+<app loc="19">
+        
+<lem>parāya</lem>
+        
+<note>As Rangacharya notes, there is a dot before the first character, at the position of a headmark.</note>
+      </app>
+      
+<app loc="22">
+        
+<lem>hastikośa-vīrakoś
+<choice>
+  <sic>a</sic>
+  <corr>au</corr>
+</choice>
+<supplied reason="subaudible">.</supplied> 
+<subst>
+  <del rend="corrected">
+    <unclear>yo</unclear>
+  </del>
+  <add place="overstrike">
+    <unclear>vyā</unclear>
+  </add>
+</subst>
+<lb n="23" break="no" />sa-gītāḥ</lem>
+        
+<rdg source="bib:Rangacharya1927-1928_03">hastikoś
+<choice>
+  <sic>a</sic>
+  <corr>o</corr>
+</choice> vīrakośa 
+<unclear>vyā</unclear>
+<lb />sa-gītāḥ</rdg>
+        
+<rdg source="bib:SubbaRao1929-1930_01">hastikośa vīrakośā yo
+<lb />sagītaḥ</rdg>
+        
+<rdg source="bib:Sircar1939_01">hastikośa vīrakoś
+<choice>
+  <sic>a</sic>
+  <corr>au</corr>
+</choice> byā
+<lb />sa-gītaḥ</rdg>
+        
+<rdg source="bib:Sankaranarayanan1977_01">hastikośa-vīrakośayo
+<supplied reason="omitted">ḥ</supplied>
+<lb />
+<supplied reason="omitted">vyā</supplied>sa-gītāḥ</rdg>
+        
+<note>Given the parallel in line 29 of the grant of Mādhavavarman I (see the commentary), the intent would have been 
+<foreign>hastikośa-vīrakośau</foreign> in spite of the lack of agreement in number with 
+<foreign>ājñaptir</foreign>. Incidentally, both instances of 
+<foreign>ś</foreign> have conspicuous horns, which do not occur in any 
+<foreign>śa</foreign> in these plates, all of which have plain, rounded tops. This may be irrelevant, but it also seems possible that 
+<foreign>hastikośa-vīrakośau</foreign> was pre-written for the engraver, who in turn misinterpreted the final vowel mark as part of the consonant character, and applied the same to the earlier instance of the same consonant. What is perhaps even more likely is that the charter as a whole was adopted from the earlier Viṣṇukuṇḍin charter, and this section was copied without proper understanding. Rangacharya sees an indistinct 
+<foreign>vyā</foreign> at the end of line 22, 
+<q>beneath the punctuation mark and not separate.</q> I see no punctuation mark, nor does Rangacharya print one in his edition. In the scanned rubbing, 
+<foreign>yo</foreign> seems to be clear, but there is a very faint loop below it that may perhaps be a subscript 
+<foreign>y</foreign>. Since Sircar also reads a supposedly clear 
+<foreign>byā</foreign> here, I assume that this is indeed a superscript 
+<foreign>y</foreign>, but since there are very conspicuous strokes that do not belong to either 
+<foreign>vyā</foreign> or 
+<foreign>byā</foreign>, I believe the scribe had corrected 
+<foreign>yo</foreign> to 
+<foreign>vyā</foreign>, or possibly to 
+<foreign>byā</foreign>.</note>
+      </app>
+      
+<app loc="24">
+        
+<lem source="bib:Sircar1939_01 bib:Sankaranarayanan1977_01">saṁ 
+<unclear>||</unclear> 
+<num value="5">
+  <unclear>5</unclear>
+</num> 
+<unclear>| g</unclear>i 
+<num value="8">
+  <unclear>8</unclear>
+</num> 
+<unclear>| d</unclear>i 
+<num value="3">
+  <unclear>3</unclear>
+</num></lem>
+        
+<rdg source="bib:Rangacharya1927-1928_03">saṁ 
+<gap reason="illegible" extent="unknown" unit="character" /></rdg>
+        
+<rdg source="bib:SubbaRao1929-1930_01">saṁ 4</rdg>
+        
+<note>I accept the reading of Sircar and Sankaranarayanan, both of whom print it without any indication of unclarity or tentativeness. See the commentary for details.</note>
+      </app>
+      
+      
+      
+    </listApp>
+  
+  
+</div>
+
+
+
+
+<div type="translation" resp="part:daba">
+<p n="1-14">Greetings from the majestic encampment of victory.
+The grandson of His Majesty Kīrtivarman, a jewel of a king whose reputation decorates the entire circle of the world and who arose from the ocean that is the family of the Calukyas—who are protected by the band of Mothers, who are of the Mānavya 
+<foreign>gotra</foreign>, who are the sons of Hāritī and who have performed the Aśvamedha sacrifice—;the dear son of King 
+<supplied reason="explanation">
+  <foreign>mahārāja</foreign>
+</supplied> Viṣṇuvardhana, who is victorious in the clash of many a battle and whose two feet are bright with the rays of gems in the crowns of enemy kings;
+His Majesty the supremely pious Pr̥thivījayasiṁha Vallabha, who was deliberately appointed 
+<supplied reason="explanation">as heir</supplied> by his mother and father, whose ever-increasing valour forces all subordinate rulers 
+<supplied reason="explanation">
+  <foreign>sāmanta</foreign>
+</supplied> to bow, whose reputation attained by the strength of his own arms illuminates all quarters of the sky,
+<note>I assume this is the intent of the composer, but the compound is rather awkward. Sankaranarayanan actually suggests emending to 
+<foreign>°opārjjita-yaśo-vibhāsita-sakala-digantaraḥ</foreign>.</note> who breaks the entire army and 
+<supplied reason="subaudible">even</supplied> the mind of enemy kings with the trident comprised of his own three powers 
+<supplied reason="explanation">
+  <foreign>śakti-traya</foreign>
+</supplied>, who is as versed in polity 
+<supplied reason="explanation">
+  <foreign>naya</foreign>
+</supplied> as Br̥haspati, as versed in discipline 
+<supplied reason="explanation">
+  <foreign>vinaya</foreign>
+</supplied> as Manu, as thoroughly devoted to righteousness 
+<supplied reason="explanation">
+  <foreign>dharma</foreign>
+</supplied> as Yudhiṣṭhira and as unsurpassed in prowess by other rulers as Arjuna, and who knows the essence of the meaning of many Śāstras, informs the district headmen 
+<supplied reason="explanation">
+  <foreign>viṣaya-mahattara</foreign>
+</supplied> and officials in the Guddavādi district 
+<supplied reason="explanation">
+  <foreign>viṣaya</foreign>
+</supplied> of the following matter.</p>
+<p n="15-23">Let it be known to you that we have donated the village named Puloṁbūra in the Guddavādi district 
+<supplied reason="explanation">
+  <foreign>viṣaya</foreign>
+</supplied>, converted into a rent-free holding 
+<supplied reason="explanation">
+  <foreign>agrahāra</foreign>
+</supplied> by a remission of all taxes by virtue of being a donation of His Majesty Sarvasiddhi,
+<note>It seems that some previous scholars see 
+<foreign>sarvasiddhi-datti</foreign> as a technical term signifying a particular kind of donation, or at least fail to make it explicit that it means a donation by the king bearing this name. Sankaranarayanan does understand the text as I do (
+<bibl rend="omitname">
+  <ptr target="bib:Sankaranarayanan1977_01" />
+  <citedRange>138</citedRange>
+</bibl>), but I would emphasise in addition that, as the same village was previously granted by Mādhavavarman I to the donee's father, the point here is that Jayasiṁha is specifically claiming the donation as his own.</note> to Rudraśarman, a resident of the monastery
+<note>It seems likely that 
+<foreign>sthāna</foreign> does not simply mean a place or locality here. Sankaranarayanan (
+<bibl rend="omitname">
+  <ptr target="bib:Sankaranarayanan1977_01" />
+  <citedRange>74</citedRange>
+</bibl>) suggests that 
+<foreign>sthāna</foreign> may be equivalent to 
+<foreign>ghaṭikā-sthāna</foreign> here, but the 
+<foreign>ghaṭikā</foreign> is mentioned as clearly separate in the 
+<ref target="DHARMA_INSVengiCalukya00008.xml">Niḍupaṟu Grant</ref>. I therefore assume that 
+<foreign>sthāna</foreign> means a temple complex where Brahmans reside, semantically (though perhaps not physically) distinct from the 
+<foreign>ghaṭikā</foreign> as an institution of learning.</note> of Asanapura who is already the proprietor of a rent-free holding 
+<supplied reason="explanation">
+  <foreign>pūrvāgrahārika</foreign>
+</supplied>, who belongs to the Gautama 
+<foreign>gotra</foreign> and the Taittirika
+<note>Rangacharya’s editor notes that this should be emended to 
+<foreign>taittirīya</foreign>, because 
+<foreign>taittirika</foreign> means “one who catches partridges.” The form found here is, however, not uncommon in inscriptions, so I prefer not to alter it.</note> school, whose body is adorned by the two Vedas and who is a devout performer of his duties, the grandson of Dāmaśarman, familiar with the Vedas and Vedāṅgas, and the son of Śivaśarman, a receptacle of a host of virtues exceeding 
+<supplied reason="subaudible">even</supplied> his own father. Therefore 
+<supplied reason="subaudible">this decree</supplied> must be respected by you sirs and by others whose mind inclines toward morality 
+<supplied reason="explanation">
+  <foreign>dharma</foreign>
+</supplied>. Let no-one pose an obstacle 
+<supplied reason="subaudible">to this</supplied>. The executor 
+<supplied reason="explanation">
+  <foreign>ājñapti</foreign>
+</supplied> for this 
+<supplied reason="explanation">grant</supplied> is the Hastikośa and the Vīrakośa
+<note>These terms, also found in at least two charters of the Viṣṇukuṇḍins (
+<bibl>
+  <ptr target="bib:Sankaranarayanan1977_01" />
+  <citedRange>86</citedRange>
+</bibl>), probably designate certain officials. See 
+<bibl>
+  <ptr target="bib:Sircar1939_01" />
+  <citedRange unit="page">110</citedRange>
+  <citedRange unit="note">2</citedRange>
+</bibl> for details.</note>. 
+<supplied reason="explanation">This verse</supplied> were 
+<supplied reason="explanation">i.e. was</supplied> sung by Vyāsa:</p>
+<p rend="stanza" n="1">
+Many 
+<supplied reason="explanation">kings</supplied> have granted land, and many have preserved it 
+<supplied reason="explanation">as formerly granted</supplied>. Whosoever at any time owns the land, the fruit 
+<seg rend="pun">reward 
+<supplied reason="explanation">accrued of granting it</supplied></seg> belongs to him at that time.
 </p>
-        <p n="24">The year <seg cert="low">5</seg>, <supplied reason="subaudible">month</supplied> <seg cert="low">8</seg> of the hot season, day <seg cert="low">3</seg>. <gap reason="lost"/></p>
-      </div>
-      <div source="bib:Estienne-Monod2008_01" type="translation" xml:lang="fra">
-        <p n="1-14">Prospérité ! De l’illustre quartier général victorieux, le petit-fils de l’illustre Kīrtivarman, dont la gloire ornait le cercle de tous les êtres, joyau des rois né dans l’océan qu’est la lignée des Calukya,<note>Pour ces composés cf. notre note in insc. n° 14. Même occurrence in insc. nos 14,15,16.</note> protégés par la troupe des Mères, du même <foreign>gotra</foreign> que les descendants de Manu, fils de Hāriti, qui accomplirent le sacrifice de l’<foreign>aśvamedha</foreign>, fils aimé du grand roi illustre Viṣṇuvardhana, vainqueur dans les heurts des nombreux combats, dont les deux pieds sont illuminés par les pierres précieuses des diadèmes des rois ennemis, l’illustre grand roi Pr̥thivī Jayasiṁha Vallabha, devant l’auguste majesté duquel le cercle des feudataires est incliné, possesseur des horizons, illuminés par toute la gloire que lui ont procurée les exploits <supplied reason="subaudible">remportés</supplied> par la force de ses bras, dont trident que sont ses trois pouvoirs brise les forces et le cœur des rois ennemis, - tel Br̥haspati, il connaît sagesse politique,<note>Br̥haspati est l’auteur mythique du Nītiśāstra, traité de politique.</note> tel Manu, il connaît la juste conduite,<note>Manu est l’auteur mythique du Dharmaśāstra.</note> tel Yudhiṣṭhira, il est entièrement dévoué au <foreign>dharma</foreign>, tel Arjuna, sa bravoure n’est pas dépassée par les rois ennemis, il connaît la vérité du sens des différents traités, extrêmement pieux, - méditant aux pieds de sa mère et de son père, donne aux hommes et <gap reason="ellipsis"/> dans le <foreign>viṣaya</foreign> de Guddavādi cet ordre :</p>
-        <p n="15-23">qu’il soit connu de vous que nous donnons ce village nommé Pulībūṁran, dans le <foreign>viṣaya</foreign> de Guddavādi, au moyen d’une donation <foreign>sarvvasiddhi</foreign>,<note>D.C. Sircar, 1966, p.85 : datti , « don ».</note> exempté de toute taxe, en qualité d’<foreign>agrahāra</foreign>, au petit-fils de Dāmaśarman, qui connaissait les Veda et <foreign>vedāṅga</foreign>, au fils de Śivaśarman, séjour d’une multitude de vertus surpassant celles de son père, à Rudraśarman, déjà en possession d’un <foreign>agrahāra</foreign>,<note>ibid., p. 11.</note> disciple de l’école des Taittirika, dont le corps est orné par les deux Veda, du <foreign>gotra</foreign> de Gotama, dévoué à la pratique de ses devoirs, habitant le camp d’Asanapura. Ainsi <supplied reason="subaudible">ce don</supplied> doit être protégé par vous et par les autres, personnes sages vouées au <foreign>dharma</foreign>. Aucune charge ne doit lui être imposée. L’ exécuteur est l’<foreign>hastikośa</foreign><note>ibid., p.127, officier d’un district en charge des éléphants.</note> et le <foreign>vīrakośa</foreign><note>ibid., p.375, officier d’un district en charge des soldats en place ou de l’infanterie.</note> que voici.<note>Ce passage est délicat, le terme ājñapti étant au singulier, nous pouvons nous demander si le même personnage a deux charges, ce qui est assez étonnant. On peut aussi penser que l’un des deux termes est le nom du personnage, l’autre sa fonction.</note> Les vers de Vyāsa <supplied reason="subaudible">disent</supplied> :</p>
-        <p n="1" rend="stanza">
+<p n="24">The year 
+<seg cert="low">5</seg>, 
+<supplied reason="subaudible">month</supplied> 
+<seg cert="low">8</seg> of the hot season, day 
+<seg cert="low">3</seg>. 
+<gap reason="lost" /></p>
+  
+</div>
+
+
+
+<div type="translation" xml:lang="fra" source="bib:Estienne-Monod2008_01">
+<p n="1-14">Prospérité ! De l’illustre quartier général victorieux, le petit-fils de l’illustre Kīrtivarman, dont la gloire ornait le cercle de tous les êtres, joyau des rois né dans l’océan qu’est la lignée des Calukya,
+<note>Pour ces composés cf. notre note in insc. n° 14. Même occurrence in insc. nos 14,15,16.</note> protégés par la troupe des Mères, du même 
+<foreign>gotra</foreign> que les descendants de Manu, fils de Hāriti, qui accomplirent le sacrifice de l’
+<foreign>aśvamedha</foreign>, fils aimé du grand roi illustre Viṣṇuvardhana, vainqueur dans les heurts des nombreux combats, dont les deux pieds sont illuminés par les pierres précieuses des diadèmes des rois ennemis, l’illustre grand roi Pr̥thivī Jayasiṁha Vallabha, devant l’auguste majesté duquel le cercle des feudataires est incliné, possesseur des horizons, illuminés par toute la gloire que lui ont procurée les exploits 
+<supplied reason="subaudible">remportés</supplied> par la force de ses bras, dont trident que sont ses trois pouvoirs brise les forces et le cœur des rois ennemis, - tel Br̥haspati, il connaît sagesse politique,
+<note>Br̥haspati est l’auteur mythique du Nītiśāstra, traité de politique.</note> tel Manu, il connaît la juste conduite,
+<note>Manu est l’auteur mythique du Dharmaśāstra.</note> tel Yudhiṣṭhira, il est entièrement dévoué au 
+<foreign>dharma</foreign>, tel Arjuna, sa bravoure n’est pas dépassée par les rois ennemis, il connaît la vérité du sens des différents traités, extrêmement pieux, - méditant aux pieds de sa mère et de son père, donne aux hommes et 
+<gap reason="ellipsis" /> dans le 
+<foreign>viṣaya</foreign> de Guddavādi cet ordre :</p>
+<p n="15-23">qu’il soit connu de vous que nous donnons ce village nommé Pulībūṁran, dans le 
+<foreign>viṣaya</foreign> de Guddavādi, au moyen d’une donation 
+<foreign>sarvvasiddhi</foreign>,
+<note>D.C. Sircar, 1966, p.85 : datti , « don ».</note> exempté de toute taxe, en qualité d’
+<foreign>agrahāra</foreign>, au petit-fils de Dāmaśarman, qui connaissait les Veda et 
+<foreign>vedāṅga</foreign>, au fils de Śivaśarman, séjour d’une multitude de vertus surpassant celles de son père, à Rudraśarman, déjà en possession d’un 
+<foreign>agrahāra</foreign>,
+<note>ibid., p. 11.</note> disciple de l’école des Taittirika, dont le corps est orné par les deux Veda, du 
+<foreign>gotra</foreign> de Gotama, dévoué à la pratique de ses devoirs, habitant le camp d’Asanapura. Ainsi 
+<supplied reason="subaudible">ce don</supplied> doit être protégé par vous et par les autres, personnes sages vouées au 
+<foreign>dharma</foreign>. Aucune charge ne doit lui être imposée. L’ exécuteur est l’
+<foreign>hastikośa</foreign>
+<note>ibid., p.127, officier d’un district en charge des éléphants.</note> et le 
+<foreign>vīrakośa</foreign>
+<note>ibid., p.375, officier d’un district en charge des soldats en place ou de l’infanterie.</note> que voici.
+<note>Ce passage est délicat, le terme ājñapti étant au singulier, nous pouvons nous demander si le même personnage a deux charges, ce qui est assez étonnant. On peut aussi penser que l’un des deux termes est le nom du personnage, l’autre sa fonction.</note> Les vers de Vyāsa 
+<supplied reason="subaudible">disent</supplied> :</p>
+<p rend="stanza" n="1">
 beaucoup ont donné une terre, beaucoup l’on protégée,
 celui qui possède la terre en possède le fruit .</p>
-      </div>
-      <div type="commentary">
-        <p>As pointed out in the apparatus, I agree with Sankaranarayanan in reading the donated village’s name. The second <foreign>akṣara</foreign> of the name is definitely a cursive <foreign>lo</foreign>. When <foreign>lī</foreign> is written in a similar form, the tail of the spiral-shaped vowel mark is on the left side, while <foreign>le</foreign>, when written cursively, does not have a tail at all. Compare the identical-looking <foreign>lo</foreign> in <foreign>lokāśrayā°</foreign>, line 9 of the <ref target="DHARMA_INSVengiCalukya00009.xml">Peddavegi plates</ref>, and the different (though unclear) <foreign>lī</foreign> in <foreign>vimalīkr̥ta</foreign>, line 17 of the <ref target="DHARMA_INSVengiCalukya00008.xml">Niḍupaṟu Grant</ref>. The ARIE report reconstructs the name of the village as Pulebūra, while Rangacharya reconstructs it as Pulibūru, and tentatively identifies it as modern Polamūru in the erstwhile Bhīmavaram taluk. The reading of the name of the village is confirmed by the continuity with the Viṣṇukuṇḍin grant concerning the same village (Polamuru plates of Mādhavavarman I, ed. <bibl>
-            <ptr target="bib:SubbaRao1931-1932_01"/>
-          </bibl> and <bibl>
-            <ptr target="bib:Sankaranarayanan1977_01"/>
-            <citedRange>178-181</citedRange>
-          </bibl>), as pointed out by Arlo Griffiths and Vincent Tournier (both in email, 23 April 2020). The findspot of that grant is said to be the village Polamūru in Ramachandrapuram taluk, East Godavari district, Andhra Pradesh. The only Polamuru I can find on a map is at 16.891415 81.957187 in the Anaparthy taluk of East Godavari district (and another in West Godavari district, somewhat closer to the town of Bhīmavaram); I am not certain which was meant by Rangacharya, but since the donee of the present charter is definitely the son of the donee of the Viṣṇukuṇḍin charter, the two sets of plates must come from the same place. The spelling of the name in the parallel text is <foreign>Pulo<unclear>ṁbū</unclear>ru</foreign>. Further, as indicated by Jens Thomas (also in email, 23 April 2020), the name in all probability contains the Telugu word <foreign>pulombu</foreign>, meaning a field, also confirming that the <foreign>anusvāra</foreign> is to be read with the syllable <foreign>lo</foreign>, and giving us a name that means “field-village.” For <foreign>anusvāra</foreign>s shifted to the right without a discernible cause, compare the <ref n="tfb-badamicalukya-epigraphy" target="CalE08-Modlimb-Pulakesin2.xml">Modlimb plates of Pulakeśin II</ref> (l7, <foreign>vaṁśe</foreign>; l15, <foreign>ṣaṣṭiṁ</foreign>). Somasekara Sarma <bibl rend="omitname">
-            <ptr target="bib:SomasekaraSarma1930_01"/>
-            <citedRange>183</citedRange>
-          </bibl> argues in a similar vein that the correct form of the name is <foreign>Puloṁbūru</foreign> (probably without intending to claim that a final <foreign>u</foreign> is present here).</p>
-        <p>In the ARIE report, the date is recorded as <q>[1]5th year (in numerical symbols), [śu.] di. 6, [Sunday]</q>. Somasekara Sarma <bibl rend="omitname">
-            <ptr target="bib:SomasekaraSarma1930_01"/>
-            <citedRange>183</citedRange>
-          </bibl> proposes to read <foreign>5 gi 8 di 7</foreign> (with some additional characters that may be incorrectly typeset punctuation marks, and a tentative emendation of <foreign>gi</foreign> to <foreign>grī</foreign>) It seems that the fairly clear double <foreign>daṇḍa</foreign> was tentatively read as 10 for the ARIE report. For the next character, all editors agree on 5 (10 also seems possible to me, and it resembles neither the 5 nor the 10 in line 20 of the <ref target="DHARMA_INSVengiCalukya00002.xml">Cīpurupalle plates</ref>). This may be followed by another character or even two, squeezed underneath the descender of the first <foreign>yasya</foreign> in the previous line, and apparently interpreted by Sircar and Sankaranarayanan as a single <foreign>daṇḍa</foreign>. If this is correct, then the symbol is apparently not straight but curved like the right half of an O. For the next character, <foreign>gi</foreign> (for <foreign>giṁha</foreign>) is very plausible, but not clear. Next, the ARIE reader sees 6, while all others who venture a reading see 8, which does seem slightly more likely, but is far from clear to me in the scan. At the end, <foreign>di</foreign> is again very plausible, and was probably read as <foreign>vi</foreign> by the ARIE decipherer, possibly even as <foreign>ravi</foreign> in conjunction with what may be a <foreign>daṇḍa</foreign> before it. The final character is beyond blurred in the scan and I have no opinion on it.</p>
-        <p>The seal is lost, though the ring is extant. Page 1 is clearly paginated on the verso, with the number 1 in the upper part of the left margin, and with lines 2 and 3 on that page indented to leave some clear space around the number. There may be a numeral 2 in a similar position on the verso of page 2, but the text lines do not make way for this one, and it is a simpler glyph consisting of two straight lines, whereas the 1 is a strongly curved line. I assume it is also pagination (Rangacharya p254: <q>The plates are numbered, though the figure on the first plate alone is clear.</q>), but it may have been added after inscribing the text. I see no page number on the recto of page 3 (unless three dots in a rough triangle, in the left margin between the third and fourth line on that page qualify as one), and there is no facsimile of the verso.</p>
-        <p>Further to the apparatus entry on hastikoś<choice>
-            <unclear>a</unclear>
-            <unclear>o</unclear>
-          </choice> vīrakoś<choice>
-            <unclear>a</unclear>
-            <unclear>o</unclear>
-          </choice> yo<lb/>sa-gītāḥ in line 22. The ARIE report, Rangacharya and his editor all agree on understanding these two terms as the designations of two offices, and make no issue of the singular <foreign>ājñapti</foreign> being in apposition to them. Rangacharya notes, <cit>
-            <quote>The word <foreign>kōśa</foreign> has different meanings in Tamil classical literature. Dr. Krishnaswami Aiyangar identifies the Kōśar who invaded the Pāṇḍyan kingdom with the vanguards of the Vamba or later (or illegitimate) Mauryas and connects them with the Kōśakāras of Assam referred to in the <title>Rāmāyaṇa</title>. The Kōśars seem to have been not only a particular tribe but (1) soldiers in general; (2) followers or relatives of kings corresponding to the Sanskrit Rājanyas; (3) officers of justice in village courts, etc. In the present record the word seems to mean, as the Govt. Epigraphist points out, an officer.</quote>
-            <bibl>
-              <ref target="bib:Rangacharya1927-1928_03"/>
-              <citedRange unit="page">258</citedRange>
-              <citedRange unit="note">4</citedRange>
-            </bibl>
-          </cit> Sircar (IEG s.vv. hastikośa, vīrakośa) endorses this interpretation. Given the uncertainty of the reading, possibly a dual genitive was intended instead, but I do not know of a parallel where the ājñapti is said to be someone's (rather than someone). The intent may also have been <foreign>hastikośo vīrakośaḥ</foreign>, with one of these (most likely the latter) being a name, and only the other (the former) is an office. Less specifically, this interpretation was also raised by Estienne-Monod (see the note to her translation of this phrase).</p>
-      </div>
-      <div type="bibliography">
-        <p>First noticed in <bibl>
-            <ptr target="bib:ARIE1913-1914"/>
-            <citedRange unit="page">10</citedRange>
-            <citedRange unit="appendix">A/1913-1914</citedRange>
-            <citedRange unit="item">5</citedRange>
-          </bibl> with a summary  in <bibl>
-            <ptr target="bib:ARIE1913-1914"/>
-            <citedRange unit="page">85</citedRange>
-          </bibl>. Edited from estampages by V. Rangacharya (<bibl rend="omitname">
-            <ptr target="bib:Rangacharya1927-1928_03"/>
-          </bibl>), with estampages of the plates and translation. Also edited (at an inferior standard) by R. Subba Rao (<bibl rend="omitname">
-            <ptr target="bib:SubbaRao1929-1930_01"/>
-          </bibl>), with estampages and a summary, from two sets of estampages, probably independently of Rangacharya. Re-edited from the previously published estampages by D. C. Sircar (<bibl rend="omitname">
-            <ptr target="bib:Sircar1939_01"/>
-            <citedRange>340-342</citedRange>
-          </bibl>), and again by S. Sankaranarayanan (<bibl rend="omitname">
-            <ptr target="bib:Sankaranarayanan1977_01"/>
-            <citedRange>198-199</citedRange>
-          </bibl>). The present edition by Dániel Balogh is based on a collation of the above editions with the published facsimiles.</p>
-        <listBibl type="primary">
-          <bibl n="VR">
-            <ptr target="bib:Rangacharya1927-1928_03"/>
-          </bibl>
-          <bibl n="RSR">
-            <ptr target="bib:SubbaRao1929-1930_01"/>
-          </bibl>
-          <bibl n="DCS">
-            <ptr target="bib:Sircar1939_01"/>
-            <citedRange>340-342</citedRange>
-          </bibl>
-          <bibl n="SS">
-            <ptr target="bib:Sankaranarayanan1977_01"/>
-            <citedRange>198-199</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="ARIE">
-            <ptr target="bib:ARIE1913-1914"/>
-            <citedRange unit="page">10</citedRange>
-            <citedRange unit="appendix">A/1913-1914</citedRange>
-            <citedRange unit="item">5</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:ARIE1913-1914"/>
-            <citedRange unit="page">85</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Sircar1939_01"/>
-            <citedRange>107-110</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Sankaranarayanan1977_01"/>
-            <citedRange>8-9, 112</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
+  
+</div>
+
+
+
+
+<div type="commentary">
+<p>As pointed out in the apparatus, I agree with Sankaranarayanan in reading the donated village’s name. The second 
+<foreign>akṣara</foreign> of the name is definitely a cursive 
+<foreign>lo</foreign>. When 
+<foreign>lī</foreign> is written in a similar form, the tail of the spiral-shaped vowel mark is on the left side, while 
+<foreign>le</foreign>, when written cursively, does not have a tail at all. Compare the identical-looking 
+<foreign>lo</foreign> in 
+<foreign>lokāśrayā°</foreign>, line 9 of the 
+<ref target="DHARMA_INSVengiCalukya00009.xml">Peddavegi plates</ref>, and the different (though unclear) 
+<foreign>lī</foreign> in 
+<foreign>vimalīkr̥ta</foreign>, line 17 of the 
+<ref target="DHARMA_INSVengiCalukya00008.xml">Niḍupaṟu Grant</ref>. The ARIE report reconstructs the name of the village as Pulebūra, while Rangacharya reconstructs it as Pulibūru, and tentatively identifies it as modern Polamūru in the erstwhile Bhīmavaram taluk. The reading of the name of the village is confirmed by the continuity with the Viṣṇukuṇḍin grant concerning the same village (Polamuru plates of Mādhavavarman I, ed. 
+<bibl>
+  <ptr target="bib:SubbaRao1931-1932_01" />
+</bibl> and 
+<bibl>
+  <ptr target="bib:Sankaranarayanan1977_01" />
+  <citedRange>178-181</citedRange>
+</bibl>), as pointed out by Arlo Griffiths and Vincent Tournier (both in email, 23 April 2020). The findspot of that grant is said to be the village Polamūru in Ramachandrapuram taluk, East Godavari district, Andhra Pradesh. The only Polamuru I can find on a map is at 16.891415 81.957187 in the Anaparthy taluk of East Godavari district (and another in West Godavari district, somewhat closer to the town of Bhīmavaram); I am not certain which was meant by Rangacharya, but since the donee of the present charter is definitely the son of the donee of the Viṣṇukuṇḍin charter, the two sets of plates must come from the same place. The spelling of the name in the parallel text is 
+<foreign>Pulo
+<unclear>ṁbū</unclear>ru</foreign>. Further, as indicated by Jens Thomas (also in email, 23 April 2020), the name in all probability contains the Telugu word 
+<foreign>pulombu</foreign>, meaning a field, also confirming that the 
+<foreign>anusvāra</foreign> is to be read with the syllable 
+<foreign>lo</foreign>, and giving us a name that means “field-village.” For 
+<foreign>anusvāra</foreign>s shifted to the right without a discernible cause, compare the 
+<ref n="tfb-badamicalukya-epigraphy" target="CalE08-Modlimb-Pulakesin2.xml">Modlimb plates of Pulakeśin II</ref> (l7, 
+<foreign>vaṁśe</foreign>; l15, 
+<foreign>ṣaṣṭiṁ</foreign>). Somasekara Sarma 
+<bibl rend="omitname">
+  <ptr target="bib:SomasekaraSarma1930_01" />
+  <citedRange>183</citedRange>
+</bibl> argues in a similar vein that the correct form of the name is 
+<foreign>Puloṁbūru</foreign> (probably without intending to claim that a final 
+<foreign>u</foreign> is present here).</p>
+<p>In the ARIE report, the date is recorded as 
+<q>[1]5th year (in numerical symbols), [śu.] di. 6, [Sunday]</q>. Somasekara Sarma 
+<bibl rend="omitname">
+  <ptr target="bib:SomasekaraSarma1930_01" />
+  <citedRange>183</citedRange>
+</bibl> proposes to read 
+<foreign>5 gi 8 di 7</foreign> (with some additional characters that may be incorrectly typeset punctuation marks, and a tentative emendation of 
+<foreign>gi</foreign> to 
+<foreign>grī</foreign>) It seems that the fairly clear double 
+<foreign>daṇḍa</foreign> was tentatively read as 10 for the ARIE report. For the next character, all editors agree on 5 (10 also seems possible to me, and it resembles neither the 5 nor the 10 in line 20 of the 
+<ref target="DHARMA_INSVengiCalukya00002.xml">Cīpurupalle plates</ref>). This may be followed by another character or even two, squeezed underneath the descender of the first 
+<foreign>yasya</foreign> in the previous line, and apparently interpreted by Sircar and Sankaranarayanan as a single 
+<foreign>daṇḍa</foreign>. If this is correct, then the symbol is apparently not straight but curved like the right half of an O. For the next character, 
+<foreign>gi</foreign> (for 
+<foreign>giṁha</foreign>) is very plausible, but not clear. Next, the ARIE reader sees 6, while all others who venture a reading see 8, which does seem slightly more likely, but is far from clear to me in the scan. At the end, 
+<foreign>di</foreign> is again very plausible, and was probably read as 
+<foreign>vi</foreign> by the ARIE decipherer, possibly even as 
+<foreign>ravi</foreign> in conjunction with what may be a 
+<foreign>daṇḍa</foreign> before it. The final character is beyond blurred in the scan and I have no opinion on it.</p>
+<p>The seal is lost, though the ring is extant. Page 1 is clearly paginated on the verso, with the number 1 in the upper part of the left margin, and with lines 2 and 3 on that page indented to leave some clear space around the number. There may be a numeral 2 in a similar position on the verso of page 2, but the text lines do not make way for this one, and it is a simpler glyph consisting of two straight lines, whereas the 1 is a strongly curved line. I assume it is also pagination (Rangacharya p254: 
+<q>The plates are numbered, though the figure on the first plate alone is clear.</q>), but it may have been added after inscribing the text. I see no page number on the recto of page 3 (unless three dots in a rough triangle, in the left margin between the third and fourth line on that page qualify as one), and there is no facsimile of the verso.</p>
+<p>Further to the apparatus entry on hastikoś
+<choice>
+  <unclear>a</unclear>
+  <unclear>o</unclear>
+</choice> vīrakoś
+<choice>
+  <unclear>a</unclear>
+  <unclear>o</unclear>
+</choice> yo
+<lb />sa-gītāḥ in line 22. The ARIE report, Rangacharya and his editor all agree on understanding these two terms as the designations of two offices, and make no issue of the singular 
+<foreign>ājñapti</foreign> being in apposition to them. Rangacharya notes, 
+<cit>
+  <quote>The word 
+  <foreign>kōśa</foreign> has different meanings in Tamil classical literature. Dr. Krishnaswami Aiyangar identifies the Kōśar who invaded the Pāṇḍyan kingdom with the vanguards of the Vamba or later (or illegitimate) Mauryas and connects them with the Kōśakāras of Assam referred to in the 
+  <title>Rāmāyaṇa</title>. The Kōśars seem to have been not only a particular tribe but (1) soldiers in general; (2) followers or relatives of kings corresponding to the Sanskrit Rājanyas; (3) officers of justice in village courts, etc. In the present record the word seems to mean, as the Govt. Epigraphist points out, an officer.</quote>
+  <bibl>
+    <ref target="bib:Rangacharya1927-1928_03" />
+    <citedRange unit="page">258</citedRange>
+    <citedRange unit="note">4</citedRange>
+  </bibl>
+</cit> Sircar (IEG s.vv. hastikośa, vīrakośa) endorses this interpretation. Given the uncertainty of the reading, possibly a dual genitive was intended instead, but I do not know of a parallel where the ājñapti is said to be someone's (rather than someone). The intent may also have been 
+<foreign>hastikośo vīrakośaḥ</foreign>, with one of these (most likely the latter) being a name, and only the other (the former) is an office. Less specifically, this interpretation was also raised by Estienne-Monod (see the note to her translation of this phrase).</p>
+</div>
+
+
+
+<div type="bibliography">
+  
+<p>First noticed in 
+<bibl>
+  <ptr target="bib:ARIE1913-1914" />
+  <citedRange unit="page">10</citedRange>
+  <citedRange unit="appendix">A/1913-1914</citedRange>
+  <citedRange unit="item">5</citedRange>
+</bibl> with a summary  in 
+<bibl>
+  <ptr target="bib:ARIE1913-1914" />
+  <citedRange unit="page">85</citedRange>
+</bibl>. Edited from estampages by V. Rangacharya (
+<bibl rend="omitname">
+  <ptr target="bib:Rangacharya1927-1928_03" />
+</bibl>), with estampages of the plates and translation. Also edited (at an inferior standard) by R. Subba Rao (
+<bibl rend="omitname">
+  <ptr target="bib:SubbaRao1929-1930_01" />
+</bibl>), with estampages and a summary, from two sets of estampages, probably independently of Rangacharya. Re-edited from the previously published estampages by D. C. Sircar (
+<bibl rend="omitname">
+  <ptr target="bib:Sircar1939_01" />
+  <citedRange>340-342</citedRange>
+</bibl>), and again by S. Sankaranarayanan (
+<bibl rend="omitname">
+  <ptr target="bib:Sankaranarayanan1977_01" />
+  <citedRange>198-199</citedRange>
+</bibl>). The present edition by Dániel Balogh is based on a collation of the above editions with the published facsimiles.</p>
+  
+<listBibl type="primary">
+    
+<bibl n="VR">
+  <ptr target="bib:Rangacharya1927-1928_03" />
+</bibl>
+    
+<bibl n="RSR">
+  <ptr target="bib:SubbaRao1929-1930_01" />
+</bibl>
+    
+<bibl n="DCS">
+  <ptr target="bib:Sircar1939_01" />
+  <citedRange>340-342</citedRange>
+</bibl>
+    
+<bibl n="SS">
+  <ptr target="bib:Sankaranarayanan1977_01" />
+  <citedRange>198-199</citedRange>
+</bibl>
+  </listBibl>
+  
+<listBibl type="secondary">
+    
+<bibl n="ARIE">
+  <ptr target="bib:ARIE1913-1914" />
+  <citedRange unit="page">10</citedRange>
+  <citedRange unit="appendix">A/1913-1914</citedRange>
+  <citedRange unit="item">5</citedRange>
+</bibl>
+    
+<bibl>
+  <ptr target="bib:ARIE1913-1914" />
+  <citedRange unit="page">85</citedRange>
+</bibl>
+    
+<bibl>
+  <ptr target="bib:Sircar1939_01" />
+  <citedRange>107-110</citedRange>
+</bibl>
+    
+<bibl>
+  <ptr target="bib:Sankaranarayanan1977_01" />
+  <citedRange>8-9, 112</citedRange>
+</bibl>
+  </listBibl>
+</div>
+
+      
+      
     </body>
-  </text>
+  
+</text>
 </TEI>

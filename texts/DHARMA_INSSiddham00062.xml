@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00062</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,175 +62,252 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <p><pb n="1r"/><lb n="1"/>svasti<supplied reason="subaudible">.</supplied> śr̥ṅgavera-vaitheya-pūrṇṇakauśikāyāḥ bhaṭṭāraka-pādānuddhyātaḥ Āyuktakācyuto
-<lb n="2"/>dhikaraṇañ ca gulmagandhike sa<supplied reason="omitted">ṁ</supplied>ggohālike vrāhmaṇādīn pradhāna-kuṭum<unclear>b</unclear>inaḥ kuśala<!-- 
-Sircar (1971) and Agrawala supply +ca after saṁggohālike. Sircar (1971:248) also notes that Gulmagandhika and a plural of Saṁgohāli are also mentioned in the Kalaikuri-Sultanpur plate (IN00074). Is there any good reason for assuming that saṁgohālika is a proper name, not a local term for village or something? Compare also the toponym Śrīgohālī in the Baigram plate (IN00061), Vaṭagohālī and Nitvagohālī in the Paharpur charter (IN00065), and particularly the phrase (upari-)nirddiṣṭa-grāma-gohālikeṣu also in the Paharpur charter. The most likely solution is that gohālī means some sort of hamlet (maybe related to gośāla?), and a saṁgohālī may be a group of hamlets. (And I think I have seen someone propose that, but I don't know where.) 
---><lb n="3"/>m āśāsya bodhayanti<supplied reason="subaudible">.</supplied> viditam bo stu yathā puṇḍravarddhane ya mūlakavastukā-vāstavya-ku<supplied reason="lost">ṭu</supplied><lb break="no" n="4"/>mbi-kṣemāka gulmagandhikā-vāstavya-bhoyilaḥ tatraiva-vāstavya-mahīdāsāv iha vīthī-maha<supplied reason="lost">tta</supplied><!-- 
-I include no emendations in this edition. Sircar's (1971 and 1973) emendations are plausible but far from certain. He suggests reading ye for ya in l3, kṣemākaḥ for kṣemāka in l4, and then mahīdāsas tair iha. Siddhanta (as quoted by Sircar 1971) emends to puṇḍravarddhaneyo, presumably also emends to kṣemākaḥ, and then mahīdāso iha. 
---><!-- 
-Sircar (1971:250n4) notes that Siddhanta interpreted kṣemāka as an adjective of bhoyila, meaning Śaiva. He disagrees and adds (1971:250n5) that the dual is probably used because Bhoyila and Mahīdāsa are both from the same place. He also (Sircar_1973:13) stresses that kṣemāka is not attested in lexicons as meaning Śaiva. Note, however, the persistent dual recurring in line 16 below - is it possible that there are just 2 applicants after all? 
---><lb break="no" n="5"/>ra-kumāradeva-gaṇḍa-prajāpati-jeṣṭhadāmā-kuṭumbi-yaśoviṣṇu-Umayaśa-hariśa<unclear>rmma</unclear>-
-<lb n="6"/>sarp<unclear>pa</unclear>pālita-hiraṇyagupta-kumārayaśa-kumārabhūti-śivakuṇḍa-śivāpara-śiva-somavi<unclear>ṣṇu</unclear>-
-<lb n="7"/>satyaviṣṇu-kaṅkuṭi-nandadāma-vīranāga-nā<add place="below">ra</add>yaṇadāsa-rudra-bhava-guha-Acyuta-kuvera-śarvvanāga-<unclear>bhava</unclear><lb break="no" n="8"/>nāga-śrīdatta-bhavadatta-dhanaviṣṇu-guṇaratha-naradeva-purogāḥ vayañ ca vijñāpitāḥ<!-- 
-This list of names is reproduced as segmented by Sircar, but without his emendations (which, apart from jyeṣṭhadāma, only concern the proper in-compound forms of names ending in yaśas). Other segmentations may be possible. Sircar (1971:248) also points out that the first four names are vīthīmahattaras, while the rest are kuṭumbins. 
---><!-- 
-Note the hiatus before the names Umayaśa and Acyuta. 
---><!-- 
-Kuvera is printed as Kuvāra in Sircar_1969-70 (without emendation), but the e mātrā is clear. The consonant could be b as well as v from the facsimile. Agrawala prints ku(ve)ra, while Sircar_1973 has kuvera. 
---><!-- 
-The ra of nārayaṇadāsa (which could be emended to nārāyaṇadāsa but I'm not sure if we can do a correction within an addition) is below the line, between nā and ya. 
---></p>
-        <p>Icch<unclear>ā</unclear>maḥ da<supplied reason="lost">kṣi</supplied>-<lb break="no" n="9"/>ṇā<unclear>ṅ</unclear>śaka-vī<unclear>th</unclear>yā mecikāmra-siddhāyatane <choice>
-            <sic>bhagavatānnarha<unclear>tā</unclear>n</sic>
-            <corr>bhagavatām arhatāṅ</corr>
-          </choice> kāritaka-vih<unclear>ā</unclear>re gulmagandhike cārhatām <unclear>pū</unclear><supplied reason="lost">jā</supplied><lb break="no" n="10"/>rtthaṁ kāritaka-prānta-<choice>
-            <sic>vihārika</sic>
-            <corr>vihārikāyāṁ</corr>
-          </choice> tatraiva gulmagandhike bhagavatas sahasraraśmeḥ kāritaka-deva-kule ca <sic>v</sic>ali-caru-sa<supplied reason="lost">ttra</supplied><!-- 
-Sircar_1969-70 omits prānta from this line; his editor notes that the reading seems to be kāritakopātta. Sircar_1973 and Agrawala print kāritaka-prānta. Agrawala emends to vihārake instead of vihārikāyāṁ. 
---><lb break="no" n="11"/>-pravartta<sic>ṇ</sic>āya khaṇḍa-phuṭṭa-pratisaṁskāra-karaṇāya gandha-dh<sic>u</sic>pa-tail-opayog<choice>
-            <sic>o</sic>
-            <corr>ā</corr>
-          </choice>ya śaśvat-kālopabhogyākṣaya-<supplied reason="lost">nī</supplied><!-- 
-For phuṭṭa see also IN00056 and IN00061. Like Basak, Sircar also notes that it is sometimes found in the Skt form sphuṭita. 
---><lb break="no" n="12"/>vyām apratikara-khila-kṣetrasya kulya-vāpam ekaṁ krītvā dātuṁ<supplied reason="subaudible">.</supplied> yuṣmākañ ca vīthyām anuvr̥tta<supplied reason="omitted">ḥ</supplied> dvi-dīnārikyāpratika<supplied reason="lost">ra</supplied>-
-<lb n="13"/>khila-kṣetrasya kulya-vāpa-vikraya<supplied reason="omitted">ḥ</supplied><supplied reason="subaudible">.</supplied> tad arhathāsmābhir hastād dīnāra-dvayaṁ gr̥hītvā kṣetrasya kulya-vāpam e<unclear>kaṁ</unclear>
-<lb n="14"/>dā<surplus>ṁ</surplus>tum iti</p>
-        <p>yato Etad-vijñāpyam u<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->pa</supplied>la<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->bhya</supplied> pustapāla-si<sic>ṅ</sic>hanandi-yaśodāmayor avadh<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->ā</supplied>raṇayā<pb break="no" n="1v"/><lb break="no" n="15"/>sty a<unclear>yam a</unclear>smad-vīthy-anuvr̥tta<supplied reason="omitted">ḥ</supplied> dvi-dīnāriky-ā<unclear>pra</unclear>tikara-khila-kṣetrasya kulya-vāpa-vikrayas tad dīyatān na
-<lb n="16"/>virodhaḥ kaścid ity avasthāpya kṣemāka-bhoyila-mahidāsayor hastāt kulika-bhīmenopasaṅgr̥hītaka-dīnāra-
-<lb n="17"/>dvayam etat krītvā kṣemāka-bhoyila-mahīdāsayo ṣaḍ-droṇa-vāpāḥ śra<sic>va</sic>ṇakācārya balakuṇḍasya samā<!-- 
-L14. I follow Sircar (and other editors) with upalabhya. Unfortunately none of these make clear if the asterisked akṣaras are restorations of lost text or editorial additions to make up for scribal omissions. To me the facsimile seems to read vi(jñāpya) #1# pa _1_ I certainly can't make out "mu" but my illegible character could be their clear mu. Then I see a pretty clear pa, which could be the right-hand edge of their mu plus their la. But in this case their "pa" must be an editorial addition for an omitted character. The empty space could be restored as bhya, and is probably a character lost to damage rather than a scribal omission. 
---><!-- 
-Sircar wants to emend to dvayena kṣetram etat krītvā, but the local legalese is clearly different. 
---><!-- 
-Note also mahidāsayo, which Sircar emends to mahidāsānāṁ, but the original intent must have been mahidāsayoḥ. 
---><lb break="no" n="18"/>v<choice>
-            <sic>i</sic>
-            <corr>e</corr>
-          </choice>śitāḥ<supplied reason="subaudible">.</supplied> bhoyilen āpi sāmbapurasyārttha droṇa-vāpa-dvayaṁ tatra <unclear>ca de</unclear>vata-kula-samīpe puṣpa-vāṭikā-tala-vā<!-- 
-Sircar emends °arttha to °artthe, but again, the intent was probably °artthaṁ. 
---><lb break="no" n="19"/>ṭaka-nimitta<sic>ṁñ</sic> ca droṇa-vāpam ekaṁ kāritam<supplied reason="omitted"/><!-- 
-Sircar emends kāritam to krītam. Not sure; see my note to line 20. 
---></p>
-        <p>ity eta<supplied reason="omitted">t</supplied> kṣetraṁ gulmagandhikāyā<supplied reason="omitted">ṁ</supplied> <choice>
-            <sic>pūrvvottattarāṁyā</sic>
-            <corr>pūrvvottarāyāṁ</corr>
-          </choice> diśi sapta-droṇa-vā<!-- 
-Perhaps better gulmagandhikāyāḥ ablative instead of -yāṁ? 
---><lb break="no" n="20"/><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->pāḥ</supplied> rddeva-kula-samīpe ca droṇa-vāpan ekaṁ na likhyam<!-- 
-Sircar emends rddevakula to devakula, but wouldn't it be more plausible (though strange) to assume the original reading was °pair ddevakula? 
---><!-- 
-I am far from sure that this is the correct boundary of the semantic paragraph, it's just my hunch. I also can't quite follow how the droṇa-vāpas add up - six plus two plus one seem to be mentioned above, while here we have seven and then something ambiguous. Can the intent be, "7 droṇa-vāpas to the NE of Gulmagandhikā, plus [one] near the temple [and] one that needn't be recorded here [since it is not purchased now, but had been the property of Bhoyila to begin with, cf. kāritam in l19]"? Need to devote more time to this and compare its structure to the other similar charters. 
---></p>
-        <p>atra sīmā pūrvveṇa puṣk<choice>
-            <sic>i</sic>
-            <corr>a</corr>
-          </choice>riṇyā kandara-sīmā ca dakṣiṇe<!-- 
-Sircar emends to puṣkariṇyāḥ; again, not sure. He does not emend the same in the next line. 
---><lb break="no" n="21"/>na dhanaviṣṇu-puṣk<choice>
-            <sic>i</sic>
-            <corr>a</corr>
-          </choice>riṇyā deva-kandara-sīmā ca paścimenāpi nābhraka-sataka-sīmā Uttareṇāpi mā <gap precision="low" quantity="3" reason="illegible" unit="character"/> ta-ku<!-- 
-Sircar notes that Siddhanta read nāguka instead of nābhraka; Sircar points out that gu in gulma and guha looks different. I might note that the character does not look like bhra either. Perhaps ttra? 
---><!-- 
-Sircar also observes that sataka may be Sanskrit svatvaka, "proprietary right" so the phrase would mean "Nābhraka's property". Is this the etymology of satka used in later CPs? Check Sircar's glossary or somewhere. 
---><!-- 
-Sircar cites Siddhanta as reading nagokarṣaṇaka at the end of l21; the locus is not identified clearly, but probably covers the lacuna plus Sircar's ta-ku 
---><lb break="no" n="22"/>ṇḍa-sīmā<supplied reason="subaudible">.</supplied> Ity eta<supplied reason="omitted">c</supplied> catus-sīmā-niyamita-kṣetraṁ<supplied reason="subaudible">.</supplied> samu<supplied reason="omitted">pa</supplied>sthita-kālaṁ ye py anye <add place="below">vi</add>ṣaya-pataya<surplus>ya</surplus>ḥ Āyu<!-- 
-Sircar and Agrawala both read samupasthitaṁ; Sircar even supplies a daṇḍa after it, while Agrawala notes that it should be emended to samupasthita-kālīyāḥ. (Sircar observes that the term yathākālabhāvinaḥ often occurs in this context, but he seems to take just kālam as representing such a phrase.) I see no clear anusvāra, only a faint dot above and to the right of ta, so I prefer to read samupasthita in compound with kālam, as clearly found in IN00074 (Kalaikuri plate) l28. 
---><lb break="no" n="23"/>ktakā<supplied reason="omitted">ḥ</supplied> kuṭumbino dhikaraṇikā vā sa<sic>m</sic>vyavahāriṇo bhaviṣyanti <unclear>tai</unclear>r api bhūmi-dāna-phalam a<unclear>ve</unclear><lb break="no" n="24"/>kṣyākṣaya-<choice>
-            <sic>nīvyānupālanīyā</sic>
-            <corr>nīvy anupālanīyā</corr>
-          </choice><supplied reason="subaudible">.</supplied> Uktañ ca bhagavatā vyāsena</p>
-        <lg met="anuṣṭubh" n="1">
-          <l n="a">sva-<supplied reason="omitted">da</supplied><sic>t</sic>āṁ para-da<sic>t</sic>āṁ vā</l>
-          <l n="b">yo hareta vasundha<lb break="no" n="25"/>rāṁ</l>
-          <l n="c">sa viṣṭhāyā<supplied reason="omitted">ṁ</supplied> kr̥mir bhūtvā</l>
-          <l n="d">pitr̥bhis saha pacyate</l>
-        </lg>
-        <lg met="anuṣṭubh" n="2">
-          <l n="a">ṣaṣṭiṁ varṣa-sahasrāṇi</l>
-          <l n="b">svargge vasati bhūmi<lb break="no" n="26"/>-daḥ</l>
-          <l n="c">Ākṣeptā cānumantā ca</l>
-          <l n="d">tāny e<unclear>va</unclear> na<supplied reason="omitted">ra</supplied>ke vaseT<!-- 
-The facsimile is too unclear to make out the halanta form, but since the following i is a full vowel, this must be a halanta t. What is visible looks like a regular ta. 
---></l>
-        </lg>
-        <lg met="anuṣṭubh" n="3">
-          <l n="a">Iyaṁ rāja-śatair ddatt<surplus>v</surplus>ā</l>
-          <l n="b"><choice>
-              <sic>rddi</sic>
-              <corr>dī</corr>
-            </choice>ya<supplied reason="omitted">te</supplied> ca punaḥ punaḥ</l>
-          <l n="c">ya<unclear>sya</unclear> <lb n="27"/>yasya yad<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice> bhūmi<supplied reason="omitted">s</supplied></l>
-          <l n="d">tasya tasya tadā phalaṁ</l>
-        </lg>
-        <lg met="anuṣṭubh" n="4">
-          <l n="a">vindhyāṭavīṣv anaṁbhassu</l>
-          <l n="b">śuṣka-koṭara-vāsinaḥ</l>
-          <l n="c">kr̥ṣṇāha<lb break="no" n="28"/>yo bhijāyant<sic>i</sic></l>
-          <l n="d">bhūmi-dāyā<supplied reason="omitted">n</supplied> haranti <unclear>ye</unclear><surplus>d</surplus></l>
-          <!-- 
-At the end of the verse, yed iti is Sircar's reading, which he emends to ye|| iti. I see nothing recognisable between nti and the next ti of iti. Inscribing yediti for ye iti seems like an unlikely mistake to me, so I wonder if it could instead be ced iti or ya Iti. 
--->
-        </lg>
-        <p>iti<supplied reason="subaudible">.</supplied> saṁ <num value="128"><g type="numeral">100</g><g type="numeral">20</g> 8</num> caittra di <num value="20">
-            <g type="numeral">20</g>
-          </num> likhitaṁ rudradā<unclear>sena</unclear> tāpi<lb break="no" n="29"/><unclear>ta</unclear>ṁ s<unclear>u</unclear>si<sic>ṅ</sic>hanamiti<!-- 
-Sircar emends the end to susiṁhena iti, which makes sense. The facsimile shows nothing recognisable to me, except si and then a superscript i of what must be Sircar's mi. 
---></p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<p>
+<pb n="1r" />
+<lb n="1" />svasti
+<supplied reason="subaudible">.</supplied> śr̥ṅgavera-vaitheya-pūrṇṇakauśikāyāḥ bhaṭṭāraka-pādānuddhyātaḥ Āyuktakācyuto
+<lb n="2" />dhikaraṇañ ca gulmagandhike sa
+<supplied reason="omitted">ṁ</supplied>ggohālike vrāhmaṇādīn pradhāna-kuṭum
+<unclear>b</unclear>inaḥ kuśala
+<lb n="3" />m āśāsya bodhayanti
+<supplied reason="subaudible">.</supplied> viditam bo stu yathā puṇḍravarddhane ya mūlakavastukā-vāstavya-ku
+<supplied reason="lost">ṭu</supplied>
+<lb n="4" break="no" />mbi-kṣemāka gulmagandhikā-vāstavya-bhoyilaḥ tatraiva-vāstavya-mahīdāsāv iha vīthī-maha
+<supplied reason="lost">tta</supplied>
+<lb n="5" break="no" />ra-kumāradeva-gaṇḍa-prajāpati-jeṣṭhadāmā-kuṭumbi-yaśoviṣṇu-Umayaśa-hariśa
+<unclear>rmma</unclear>-
+<lb n="6" />sarp
+<unclear>pa</unclear>pālita-hiraṇyagupta-kumārayaśa-kumārabhūti-śivakuṇḍa-śivāpara-śiva-somavi
+<unclear>ṣṇu</unclear>-
+<lb n="7" />satyaviṣṇu-kaṅkuṭi-nandadāma-vīranāga-nā
+<add place="below">ra</add>yaṇadāsa-rudra-bhava-guha-Acyuta-kuvera-śarvvanāga-
+<unclear>bhava</unclear>
+<lb n="8" break="no" />nāga-śrīdatta-bhavadatta-dhanaviṣṇu-guṇaratha-naradeva-purogāḥ vayañ ca vijñāpitāḥ</p>
+<p>Icch
+<unclear>ā</unclear>maḥ da
+<supplied reason="lost">kṣi</supplied>-
+<lb n="9" break="no" />ṇā
+<unclear>ṅ</unclear>śaka-vī
+<unclear>th</unclear>yā mecikāmra-siddhāyatane 
+<choice>
+  <sic>bhagavatānnarha
+  <unclear>tā</unclear>n</sic>
+  <corr>bhagavatām arhatāṅ</corr>
+</choice> kāritaka-vih
+<unclear>ā</unclear>re gulmagandhike cārhatām 
+<unclear>pū</unclear>
+<supplied reason="lost">jā</supplied>
+<lb n="10" break="no" />rtthaṁ kāritaka-prānta-
+<choice>
+  <sic>vihārika</sic>
+  <corr>vihārikāyāṁ</corr>
+</choice> tatraiva gulmagandhike bhagavatas sahasraraśmeḥ kāritaka-deva-kule ca 
+<sic>v</sic>ali-caru-sa
+<supplied reason="lost">ttra</supplied>
+<lb n="11" break="no" />-pravartta
+<sic>ṇ</sic>āya khaṇḍa-phuṭṭa-pratisaṁskāra-karaṇāya gandha-dh
+<sic>u</sic>pa-tail-opayog
+<choice>
+  <sic>o</sic>
+  <corr>ā</corr>
+</choice>ya śaśvat-kālopabhogyākṣaya-
+<supplied reason="lost">nī</supplied>
+<lb n="12" break="no" />vyām apratikara-khila-kṣetrasya kulya-vāpam ekaṁ krītvā dātuṁ
+<supplied reason="subaudible">.</supplied> yuṣmākañ ca vīthyām anuvr̥tta
+<supplied reason="omitted">ḥ</supplied> dvi-dīnārikyāpratika
+<supplied reason="lost">ra</supplied>-
+<lb n="13" />khila-kṣetrasya kulya-vāpa-vikraya
+<supplied reason="omitted">ḥ</supplied>
+<supplied reason="subaudible">.</supplied> tad arhathāsmābhir hastād dīnāra-dvayaṁ gr̥hītvā kṣetrasya kulya-vāpam e
+<unclear>kaṁ</unclear>
+<lb n="14" />dā
+<surplus>ṁ</surplus>tum iti</p>
+<p>yato Etad-vijñāpyam u
+<supplied reason="lost">pa</supplied>la
+<supplied reason="lost">bhya</supplied> pustapāla-si
+<sic>ṅ</sic>hanandi-yaśodāmayor avadh
+<supplied reason="lost">ā</supplied>raṇayā
+<pb n="1v" break="no" />
+<lb n="15" break="no" />sty a
+<unclear>yam a</unclear>smad-vīthy-anuvr̥tta
+<supplied reason="omitted">ḥ</supplied> dvi-dīnāriky-ā
+<unclear>pra</unclear>tikara-khila-kṣetrasya kulya-vāpa-vikrayas tad dīyatān na
+<lb n="16" />virodhaḥ kaścid ity avasthāpya kṣemāka-bhoyila-mahidāsayor hastāt kulika-bhīmenopasaṅgr̥hītaka-dīnāra-
+<lb n="17" />dvayam etat krītvā kṣemāka-bhoyila-mahīdāsayo ṣaḍ-droṇa-vāpāḥ śra
+<sic>va</sic>ṇakācārya balakuṇḍasya samā
+<lb n="18" break="no" />v
+<choice>
+  <sic>i</sic>
+  <corr>e</corr>
+</choice>śitāḥ
+<supplied reason="subaudible">.</supplied> bhoyilen āpi sāmbapurasyārttha droṇa-vāpa-dvayaṁ tatra 
+<unclear>ca de</unclear>vata-kula-samīpe puṣpa-vāṭikā-tala-vā
+<lb n="19" break="no" />ṭaka-nimitta
+<sic>ṁñ</sic> ca droṇa-vāpam ekaṁ kāritam
+<supplied reason="omitted" /></p>
+<p>ity eta
+<supplied reason="omitted">t</supplied> kṣetraṁ gulmagandhikāyā
+<supplied reason="omitted">ṁ</supplied> 
+<choice>
+  <sic>pūrvvottattarāṁyā</sic>
+  <corr>pūrvvottarāyāṁ</corr>
+</choice> diśi sapta-droṇa-vā
+<lb n="20" break="no" />
+<supplied reason="lost">pāḥ</supplied> rddeva-kula-samīpe ca droṇa-vāpan ekaṁ na likhyam</p>
+<p>atra sīmā pūrvveṇa puṣk
+<choice>
+  <sic>i</sic>
+  <corr>a</corr>
+</choice>riṇyā kandara-sīmā ca dakṣiṇe
+<lb n="21" break="no" />na dhanaviṣṇu-puṣk
+<choice>
+  <sic>i</sic>
+  <corr>a</corr>
+</choice>riṇyā deva-kandara-sīmā ca paścimenāpi nābhraka-sataka-sīmā Uttareṇāpi mā 
+<gap reason="illegible" precision="low" quantity="3" unit="character" /> ta-ku
+<lb n="22" break="no" />ṇḍa-sīmā
+<supplied reason="subaudible">.</supplied> Ity eta
+<supplied reason="omitted">c</supplied> catus-sīmā-niyamita-kṣetraṁ
+<supplied reason="subaudible">.</supplied> samu
+<supplied reason="omitted">pa</supplied>sthita-kālaṁ ye py anye 
+<add place="below">vi</add>ṣaya-pataya
+<surplus>ya</surplus>ḥ Āyu
+<lb n="23" break="no" />ktakā
+<supplied reason="omitted">ḥ</supplied> kuṭumbino dhikaraṇikā vā sa
+<sic>m</sic>vyavahāriṇo bhaviṣyanti 
+<unclear>tai</unclear>r api bhūmi-dāna-phalam a
+<unclear>ve</unclear>
+<lb n="24" break="no" />kṣyākṣaya-
+<choice>
+  <sic>nīvyānupālanīyā</sic>
+  <corr>nīvy anupālanīyā</corr>
+</choice>
+<supplied reason="subaudible">.</supplied> Uktañ ca bhagavatā vyāsena</p>
+<lg n="1" met="anuṣṭubh">
+<l n="a">sva-
+<supplied reason="omitted">da</supplied>
+<sic>t</sic>āṁ para-da
+<sic>t</sic>āṁ vā</l>
+<l n="b">yo hareta vasundha
+<lb n="25" break="no" />rāṁ</l>
+<l n="c">sa viṣṭhāyā
+<supplied reason="omitted">ṁ</supplied> kr̥mir bhūtvā</l>
+<l n="d">pitr̥bhis saha pacyate</l>
+</lg>
+<lg n="2" met="anuṣṭubh">
+<l n="a">ṣaṣṭiṁ varṣa-sahasrāṇi</l>
+<l n="b">svargge vasati bhūmi
+<lb n="26" break="no" />-daḥ</l>
+<l n="c">Ākṣeptā cānumantā ca</l>
+<l n="d">tāny e
+<unclear>va</unclear> na
+<supplied reason="omitted">ra</supplied>ke vaseT</l>
+</lg>
+<lg n="3" met="anuṣṭubh">
+<l n="a">Iyaṁ rāja-śatair ddatt
+<surplus>v</surplus>ā</l>
+<l n="b">
+<choice>
+  <sic>rddi</sic>
+  <corr>dī</corr>
+</choice>ya
+<supplied reason="omitted">te</supplied> ca punaḥ punaḥ</l>
+<l n="c">ya
+<unclear>sya</unclear> 
+<lb n="27" />yasya yad
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice> bhūmi
+<supplied reason="omitted">s</supplied></l>
+<l n="d">tasya tasya tadā phalaṁ</l>
+</lg>
+<lg n="4" met="anuṣṭubh">
+<l n="a">vindhyāṭavīṣv anaṁbhassu</l>
+<l n="b">śuṣka-koṭara-vāsinaḥ</l>
+<l n="c">kr̥ṣṇāha
+<lb n="28" break="no" />yo bhijāyant
+<sic>i</sic></l>
+<l n="d">bhūmi-dāyā
+<supplied reason="omitted">n</supplied> haranti 
+<unclear>ye</unclear>
+<surplus>d</surplus></l></lg>
+<p>iti
+<supplied reason="subaudible">.</supplied> saṁ 
+<num value="128">
+<g type="numeral">100</g> 
+<g type="numeral">20</g> 8</num> caittra di 
+<num value="20">
+  <g type="numeral">20</g>
+</num> likhitaṁ rudradā
+<unclear>sena</unclear> tāpi
+<lb n="29" break="no" />
+<unclear>ta</unclear>ṁ s
+<unclear>u</unclear>si
+<sic>ṅ</sic>hanamiti</p>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00179</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,390 +62,394 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <lg met="upajāti" n="1">
-          <!-- 
-Each line of this inscription is one line, and there is a conspicuous space of about 1 character at every half-verse point in the extant portion. 
--->
-          <l n="a"><lb n="1"/>munir munīnām amaro <supplied reason="subaudible">’</supplied>marāṇā<unclear>ṁ</unclear></l>
-          <!-- 
-L1. Mirashi prints aro instead of amaro, a typo. 
--->
-          <l n="b">gurur ggurūṇāṁ pravaro varāṇā<unclear>ṁ</unclear><space/></l>
-          <!-- 
-L1. Both B and M print gurur gurūṇāṁ, but I'm pretty certain there is a subscript g here. 
--->
-          <l n="c">jayaty anābhoga-vibuddha-buddhir</l>
-          <l n="d">buddhābhidh<unclear>āno</unclear> ni<unclear>dh</unclear>ir adbhutānā<unclear>ṁ</unclear></l>
-          <!-- 
-L1. There is no doubling of the b in buddhābhidhāno, though B (but not M) prints rbbu. 
--->
-        </lg>
-        <lg met="upajāti" n="2">
-          <l n="a"><lb n="2"/>dharmmas tato dharmmavidā praṇītas</l>
-          <l n="b">tathā <unclear>gaṇa</unclear>ś cāgryatamo gaṇānā<unclear>ṁ</unclear><space/></l>
-          <l n="c">bhavanti yasmin nihitā<supplied reason="omitted">ḥ</supplied> <unclear cert="low">supā</unclear>tre</l>
-          <!-- 
-L2. B and M agree on supātre; B prints it as clear, M prints pā as unclear. Neither character is recognisable in Indraji's rubbing and the reading seems suspect. 
--->
-          <l n="d">kārāpakārās <unclear>su</unclear>nayā <unclear>h</unclear>y <unclear>u</unclear>dārā<unclear>ḥ</unclear></l>
-          <!-- 
-L2. For v2d, B reads kārāpakārāstanayā py(u)dārāḥ, suggestiong emendation to nayāf pyudārāḥ (sic) or nayā hyudārāḥ. He translates "the best of communities, placed in which, as in a beautiful vessel, even those who have sinned by committing murder, become exalted", noting, "The phrase kārāpakārāstanayāḥ is very ambiguous, as it may be taken as one compound, consisting of kārāpakāra and astanaya, or as two words, kārāpakārāḥ and tanayāḥ, and as kāra may be interpreted "effort," or "a Yati," or "murder." ... The poet, no doubt, intended to puzzle the reader." His explanation goes on. Mirashi also notes that "This verse has puzzled previous editors" and "The sense of the second half of this verse is somewhat obscure." He reads kārāpakā(rā)stana(yā) hyudārāḥ and translates "the best among all communities, having done service to which, a worthy recipient, the sons (of men) become exalted." He notes that "The akṣara before dā is certainly hyu, and the verbal form bhavanti shows that the subject must be in the plural. So tanayā hyudārāḥ must be the intended reading." In a note attached to his translation he says "Kāra seems to be used herein(sic) the same sense as in Pali, viz. a deed, service, act of mercy or worship, homage. Kārāpakāra is apparently used here in the same sense as Kārakāraka 'one who performs a religious duty or service'." (citing Rhys Davids on this) He also points to the word kārā used in #IN00178:17. I find both interpretations forced and unconvincing. I think the solution is to read ssu instead of sta, and to interpret this bit to mean something like "[the saṁgha] in which lofty good doctrines that dispel (apakāra) actions (kāra) [that is, the results of action] are placed in [i.e. taught to] worthy vessels [i.e. students]. 
--->
-        </lg>
-        <lg met="upajāti" n="3">
-          <!-- 
-Verse 3 is pura indravajrā, but since it is in a string of upajātis, I classify it as such. 
--->
-          <l n="a"><lb n="3"/>Asti prakāśo diśi dakṣiṇa<space/>syā<unclear>ṁ</unclear></l>
-          <!-- 
-L3. The space after dakṣiṇa probably contains a deleted character, not noted by B or M. 
--->
-          <l n="b">vallūra-nāmnāṁ dvija-sattamānāṁ<space/></l>
-          <l n="c">ā brahmaṇas sa<unclear>ṁ</unclear>bhr̥ta-pu<subst>
-              <del rend="corrected">
-                <gap precision="low" quantity="5" reason="illegible" unit="character"/>
-                <unclear>va</unclear>
-                <gap precision="low" quantity="1" reason="illegible" unit="character"/>
-              </del>
-              <add place="overstrike"><space/>ṇya-<space/>kī<space/>rt<unclear>t</unclear>ir</add>
-            </subst></l>
-          <l n="d"><subst>
-              <del rend="corrected">
-                <gap quantity="1" reason="illegible" unit="character"/>
-              </del>
-              <add place="overstrike">v<unclear>v</unclear>a</add>
-            </subst><sic>ṅ</sic>ś<unclear>o</unclear> mahīyān mahito mahadbhiḥ</l>
-          <!-- 
-L3. B reads puṇyakīrttirttir vaṁśo. Indraji, according to Mirashi, read rvvaśo. Mirashi reads puṇyakīrttir vva(ṅ)śo, noting that 1. "v seems to have been repeated after r" and 2. "ś appears much below the line so that there is sufficient space for the superscript ... ṅ, though it is not quite certain here". I'm not sure what he means by 1, there does seem to be a va (or rva or vi) between kī and rtti. As for 2, ṅś is clear in Indraji's rubbing, though the vowel looks like e, not o. Judging from Indraji's rubbing, the string ṇyakīrttirvva seems to be a correction written over a longer and partially erased string, of which only the v is recognisable. Although, since we have similar problems in subsequent lines in this same area, perhaps these are just faults of the rock surface, which the writing had accommodated? 
--->
-        </lg>
-        <lg met="upajāti" n="4">
-          <l n="a"><lb n="4"/>tasminn abhūd āh<unclear>ita</unclear>-lakṣaṇānāṁ</l>
-          <!-- 
-L4. B reads āha(ta) and that is indeed what Indraji's facsimile shows. Mirashi says "traces still remain of a curve on ha" - I believe him. See also #Bakker_Isaacson_1993:58-59 for a discussion of this word and its occurrence (definitely as āhata°) in IN00195. 
--->
-          <l n="b">dvi-janmanā<unclear>ṁ</unclear> <unclear>prā</unclear>thama-kalpikānāṁ<space/></l>
-          <l n="c">bhr̥gv-atri-garggā<subst>
-              <del rend="corrected">
-                <gap precision="low" quantity="6" reason="illegible" unit="character"/>
-              </del>
-              <add place="overstrike"><unclear>ṅgi</unclear>ra<space/><unclear>sāṁ</unclear><space/> sa<space/></add>
-            </subst>māno</l>
-          <!-- 
-L4. There seems to be a correction in this line, as in the previous line around here. 
--->
-          <l n="d">dvija-rṣabho <unclear>ya</unclear>jña-<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->patiḫ</supplied> prakāśaḥ</l>
-          <!-- 
-L4. B and M agree on the restoration yajñapati, though B also suggests (but disprefers) yajñadharaḥ. M claims "The name is fairly clear in the fresh estampages" but none of it is visible in Indraji's rubbing, so I mark it up as restored. 
--->
-        </lg>
-        <lg met="upajāti" n="5">
-          <l n="a"><lb n="5"/>tad-ātmajo deva Ivāsa devaẖ</l>
-          <l n="b">kr̥tī gr̥hī<unclear cert="low">tī</unclear> nayavān kriyāvāN<space/></l>
-          <!-- 
-L5. I accept Mirashi's reading/reconstruction gr̥hītī. Indraji had suggested gr̥hastho here, but Bühler pointed out that the ī mātrā over h is clear. Mirashi feels "the next akshara also ... has a similar ī-mark". There may also be correction here; the supposed tī occupies the space of at least two characters and has a lot of random squiggles around it. The only part where I see something like an ī mātrā in Indraji's facsimile is below the tha of l4; before it, there may simply be some space on account of prā hanging down. 
--->
-          <!-- 
-L5. The halanta N at the end of v5b seems no different from a regular na. It seems to be followed by a centredot, the like of which is not noticeable at other half-verse points, so it is probably not punctuation - can this be a virāma sign? 
--->
-          <l n="c">sa-rājaka<unclear>ṁ</unclear> rāṣṭram u<subst>
-              <del rend="corrected">
-                <gap precision="low" quantity="6" reason="illegible" unit="character"/>
-              </del>
-              <add place="overstrike">
-                <unclear>pe</unclear>
-              </add>
-            </subst>tya yas<unclear>m</unclear>i<unclear>n</unclear></l>
-          <!-- 
-L5. In l5 we again have what may be correction of simply an adaptation to a faulty rock surface. I cannot make out pe, but B and M both show it as clear. In any case, there is space for about 6 characters between mu and tya. 
--->
-          <l n="d"><unclear>dha</unclear>rmyāẖ kriyā <subst>
-              <del rend="corrected">
-                <gap precision="low" quantity="2" reason="illegible" unit="character"/>
-              </del>
-              <add place="overstrike">
-                <unclear>ḫ pā</unclear>
-              </add>
-            </subst><unclear>r</unclear>tha Iva pracakkre</l>
-          <!-- 
-L5. There is a second possible correction locus at the end of l5. There is certainly room for at least two characters where we need only one. For the reading I accept Mirashi's pārtha. Indraji had read pārttha and Bühler had read nātha. In Indraji's rubbing I see only tha. M claims that in his facsimile fpā is "fairly clear" and "rtha" is also "quite clear" and it is neither rttha nor tha. 
--->
-        </lg>
-        <lg met="upajāti" n="6">
-          <l n="a"><lb n="6"/>somas tata<unclear>ḥ s</unclear>o<unclear>ma Ivā</unclear>paro bhū<unclear>t</unclear></l>
-          <l n="b">sa brāhmaṇa-kṣatriya-vaṁśa-jāsu<space/></l>
-          <!-- 
-L6. There is something between brāhmaṇa and kṣatriya, perhaps a deleted character. It looks like a visarga of large dots, or perhaps a halanta character with something above it. 
--->
-          <l n="c"><unclear>śru</unclear>ti-smr̥tibhyāṁ vi<space type="descender"/>hitā<unclear>rt</unclear>tha-<space quantity="2" unit="character"/>kārī</l>
-          <!-- 
-L6. The space before kārī may contain erased text, or it may be because of unevenness in the rock, as in the previous lines. 
--->
-          <l n="d">dvayī<unclear>ṣu</unclear> bhāryyāsu ma<unclear>n</unclear>o dadhāra</l>
-        </lg>
-        <lg met="upajāti" n="7">
-          <l n="a"><lb n="7"/>sa kṣatriyāyā<unclear>ṁ</unclear> kula-śīlavatyām</l>
-          <l n="b">utpādayām āsa narendra-cihnaṁ<space/></l>
-          <!-- 
-L7. There is something that may be a deleted character, perhaps ka, betweel mā and sa. 
--->
-          <l n="c">sutaṁ surūpaṁ ravi-nāma-dhe<space quantity="2" unit="character"/>yaṁ<space/></l>
-          <!-- 
-L7. The spaces in and after dheyaṁ may contain deleted characters, but is more likely a fault of the rock. 
--->
-          <l n="d">kr̥tādhi<unclear>patyaṁ</unclear> <unclear>vi</unclear><unclear cert="low">ṣa</unclear>ye samagre</l>
-          <!-- 
-L7. B and Indraji read malaye in v7d, and this is indeed what the text looks like in Indraji's rubbing. Mirashi argues against this and proposes to read viṣaye. 
--->
-        </lg>
-        <lg met="upajāti" n="8">
-          <l n="a"><lb n="8"/>dvijāsu cānyāsu sutān udārān</l>
-          <l n="b">sa<unclear>masta</unclear>-vedeṣu samāpta-kāmā<unclear>N</unclear><space/></l>
-          <!-- 
-L8. samasta is Bühler's reading. Mirashi argues that this leaves the stanza without a verb, "which is necessary in this verse." He wants to restore sa prāpa, which seems unlikely from Indraji's rubbing. I think we can safely assume that utpādayām āsa carries over from the previous stanza to this one, and prefer the reading samasta. 
--->
-          <l n="c">vall<unclear>ū</unclear>ra-nāmā diśi dakṣiṇa<space/>syām</l>
-          <!-- 
-L8. I keep Bühler's vallūra-nāmā, but reject B's emendation vallūra-nāmnāṁ. M reads vallūra-nāmnā and claims that B also reads vallūra-nāmnā, but there is no mn in Bühler's reading, nor any trace of a subscript n in Indraji's rubbing. I think °nāmā simply agrees with vasatir. M also says their abode was called vallūra (and they were named after it), rejecting B's emendation. I'm not sure why M wants to read nāmnā; possibly this is a typo in his text and he actually did want to read nāmā, like I do. 
--->
-          <!-- 
-L8. The space in dakṣiṇasyām may contain a deleted character or two. 
--->
-          <l n="d">adyāpi yeṣā<unclear>m vasa</unclear>ti<unclear>r</unclear> d<unclear>v</unclear>ij<unclear>ānāṁ</unclear></l>
-        </lg>
-        <lg met="upajāti" n="9">
-          <l n="a"><lb n="9"/>raves suto bhūt pravarābhidhāna<unclear>ḥ</unclear></l>
-          <l n="b"><unclear>śrī-rā</unclear>ma-nāmātha babhūva tasmāT<space/></l>
-          <!-- 
-L9. The halanta T seems to be a small character at baseline. The space at halfverse is smaller here, perhaps because of this character. 
--->
-          <l n="c">tad-ātmajaẖ kīrttir abhūt sukīrttir</l>
-          <l n="d">bbabhūva <unclear>tasmād atha hasti</unclear><unclear cert="low">bhojaḥ</unclear></l>
-          <!-- 
-L9. The end of l9 is very unclear in Indraji's rubbing. B and M agree on the reading though, and M says the reading up to bhojaḥ is quite clear. 
--->
-        </lg>
-        <lg met="upajāti" n="10">
-          <l n="a"><lb n="10"/><unclear>vā</unclear>kāṭake rājati devasene</l>
-          <l n="b">guṇai<unclear>ḫ prakāśo</unclear> bhuvi <unclear>ha</unclear>stibhojaḥ<space/></l>
-          <!-- 
-L10. B (and Indraji) read guṇai(ṣikośo). M argues convincingly for guṇaif prakāśo, with prakāśa in the sense of notable, as above in l3-4. 
--->
-          <l enjamb="yes" n="c">adyāpi tasyābhi<unclear>ja</unclear>na-<unclear cert="low">pradāna</unclear></l>
-          <l n="d">-<seg met="=+-++--+-+=">
-              <gap quantity="11" reason="illegible" unit="character"/>
-            </seg></l>
-        </lg>
-        <lg met="upajāti" n="11">
-          <l n="a"><lb n="11"/>dhī<unclear>re</unclear>ṣu dhīma<space/>tsu sa<unclear>ho</unclear>tthiteṣu</l>
-          <!-- 
-L11. I see no reason for the space in dhīmatsu. 
--->
-          <l n="b">kr̥tya-<unclear>pra</unclear>mā<unclear>ṇeṣu</unclear> guṇānviteṣu</l>
-          <!-- 
-L11. kr̥tya-pramāṇeṣu is Mirashi's reading; none of it is discernible in Indraji's facsimile. 
--->
-          <l n="c"><seg met="=+-+">
-              <gap quantity="4" reason="illegible" unit="character"/>
-            </seg> <unclear>yaṁ</unclear> nr̥pater y<unclear>y</unclear>a<space/>d e<seg met="=">
-              <gap quantity="1" reason="illegible" unit="character"/>
-            </seg></l>
-          <!-- 
-L11. B only reads up to nr̥pater ya. Mirashi adds de. I believe we should assume a doubling of y in rya. If I'm correct in identifying Mirashi's "de" then it is preceded by space which may contain a deleted character such as ra. There are distinct traces of characters after this in Indraji's rubbing so maybe a study of this and Mirashi's rubbing, which I only have in disastrous quality at the moment, would be worth the while. The text may be something like yad eva/ bhava(ha). 
--->
-          <l n="d">
-            <seg met="=+-++--+-+=">
-              <gap quantity="11" reason="illegible" unit="character"/>
-            </seg>
-          </l>
-        </lg>
-        <lg met="upajāti" n="12">
-          <l n="a"><lb n="12"/>yasyāsanārddha<unclear>ṁ pu</unclear>ruṣā<seg met="-+=">
-              <gap quantity="3" reason="illegible" unit="character"/>
-            </seg></l>
-          <!-- 
-L12. For M's (and Indraji's) puruṣā, B reads surasā. 
--->
-          <!-- 
-L12. There are, again, strong traces in the unread sections. Mirashi's rubbing should be studied. 
--->
-          <l n="b"><seg met="=+-">
-              <gap quantity="3" reason="illegible" unit="character"/>
-            </seg>māt saṁsadi <seg met="+-+=">
-              <gap quantity="4" reason="illegible" unit="character"/>
-            </seg></l>
-          <l n="c">
-            <seg met="=+-++--+-+=">
-              <gap quantity="11" reason="illegible" unit="character"/>
-            </seg>
-          </l>
-          <l n="d">
-            <seg met="=+-++--+-+=">
-              <gap quantity="11" reason="illegible" unit="character"/>
-            </seg>
-          </l>
-        </lg>
-        <lg met="āryā" n="13">
-          <certainty locus="value" match="../@met"/>
-          <!-- 
-L13. The identification of the metre is Mirashi's; B only notes that the readings are especially doubtful as they don't fit upajāti. 
--->
-          <l n="a"><lb n="13"/>Atha devarāja-sū<unclear>nur</unclear> ha<unclear>ri</unclear><unclear cert="low">ṣeṇo</unclear> <gap precision="low" quantity="8" reason="illegible" unit="character"/> hastibhoja <gap extent="unknown" reason="illegible" unit="character"/></l>
-          <!-- 
-L13. I follow Mirashi's reading. B reads atha devarājasya... M says his reading is clear in his new estampages. 
--->
-          <l n="b">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-        </lg>
-        <lg met="puṣpitāgrā" n="14">
-          <certainty locus="value" match="../@met"/>
-          <!-- 
-L14. The identification of the metre is Mirashi's; B only notes that the readings are especially doubtful as they don't fit upajāti. Since the readings are indeed uncertain, I print the lost lines only as lost text, not as text with known metre. 
--->
-          <l n="a"><lb n="14"/>śaśi-kara-dhavalāṁ ni<unclear>rī</unclear>kṣya kī<unclear>rttiṁ</unclear></l>
-          <!-- 
-L14. I follow Mirashi's readings; B only has śasīkaradhavala(sic). 
--->
-          <l n="b">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-          <l n="c">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-          <l n="d">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-        </lg>
-        <lg met="puṣpitāgrā" n="15">
-          <certainty locus="value" match="../@met"/>
-          <!-- 
-L15. The identification of the metre is Mirashi's; B only notes that the readings are especially doubtful as they don't fit upajāti. Since the readings are indeed uncertain, I print the lost lines only as lost text, not as text with known metre. 
--->
-          <l n="a"><lb n="15"/>Atha guṇa-śata-saṁbhr̥tātma-bhūtaḥ</l>
-          <!-- 
-L15. I follow Mirashi's readings; B only has atha guṇa... 
--->
-          <l n="b">priya-tana<supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->yo</supplied><gap extent="unknown" reason="illegible" unit="character"/></l>
-          <l n="c">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-          <l n="d">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-        </lg>
-        <lg met="vasantatilakā" n="16">
-          <certainty locus="value" match="../@met"/>
-          <!-- 
-L16. The identification of the metre is Mirashi's; B only notes that the readings are especially doubtful as they don't fit upajāti. Since the readings are indeed uncertain, I print the lost lines only as lost text, not as text with known metre. 
--->
-          <l n="a"><lb n="16"/>tasyātmajeṣu bahuṣu <gap extent="unknown" reason="illegible" unit="character"/></l>
-          <!-- 
-L16. I follow Mirashi's readings; B only has tasyātmajeṣu... 
--->
-          <l n="b">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-          <l n="c">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-          <l n="d">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-        </lg>
-        <lg met="puṣpitāgrā" n="17">
-          <certainty locus="value" match="../@met"/>
-          <!-- 
-L17. The identification of the metre is Mirashi's; B only notes that the readings are especially doubtful as they don't fit upajāti. Since the readings are indeed uncertain, I print the lost lines only as lost text, not as text with known metre. 
--->
-          <l n="a"><lb n="17"/>phalam akhilam ila<gap extent="unknown" reason="illegible" unit="character"/></l>
-          <!-- 
-L17. Here M only reads phalam akhila; B's mila is quite clear in Indraji's rubbing so I include it here. 
--->
-          <l n="b">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-          <l n="c">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-          <l n="d">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-        </lg>
-        <lg met="vasantatilakā" n="18">
-          <certainty locus="value" match="../@met"/>
-          <!-- 
-L18. The identification of the metre is Mirashi's; B only notes that the readings are especially doubtful as they don't fit upajāti. Since the readings are indeed uncertain, I print the lost lines only as lost text, not as text with known metre. 
--->
-          <l n="a"><lb n="18"/>samyag-vibhāvita Ihāsti varāha<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->devaḥ</supplied></l>
-          <!-- 
-L18. I follow Mirashi's readings; B only has samyagvibhāvī... 
--->
-          <l n="b">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-          <l n="c">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-          <l n="d">
-            <gap extent="unknown" reason="illegible" unit="character"/>
-          </l>
-        </lg>
-        <p>
-          <gap precision="low" quantity="4" reason="lost" unit="line"/>
-          <!-- 
-Mirashi says there are definitely traces of characters (but nothing legible) in 4 lines after l18. There may be additional lost lines. 
--->
-        </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<lg n="1" met="upajāti">
+<l n="a">
+<lb n="1" />munir munīnām amaro 
+<supplied reason="subaudible">’</supplied>marāṇā
+<unclear>ṁ</unclear></l>
+<l n="b">gurur ggurūṇāṁ pravaro varāṇā
+<unclear>ṁ</unclear>
+<space /></l>
+<l n="c">jayaty anābhoga-vibuddha-buddhir</l>
+<l n="d">buddhābhidh
+<unclear>āno</unclear> ni
+<unclear>dh</unclear>ir adbhutānā
+<unclear>ṁ</unclear></l></lg>
+<lg n="2" met="upajāti">
+<l n="a">
+<lb n="2" />dharmmas tato dharmmavidā praṇītas</l>
+<l n="b">tathā 
+<unclear>gaṇa</unclear>ś cāgryatamo gaṇānā
+<unclear>ṁ</unclear>
+<space /></l>
+<l n="c">bhavanti yasmin nihitā
+<supplied reason="omitted">ḥ</supplied> 
+<unclear cert="low">supā</unclear>tre</l>
+<l n="d">kārāpakārās 
+<unclear>su</unclear>nayā 
+<unclear>h</unclear>y 
+<unclear>u</unclear>dārā
+<unclear>ḥ</unclear></l></lg>
+<lg n="3" met="upajāti">
+<l n="a">
+<lb n="3" />Asti prakāśo diśi dakṣiṇa
+<space />syā
+<unclear>ṁ</unclear></l>
+<l n="b">vallūra-nāmnāṁ dvija-sattamānāṁ
+<space /></l>
+<l n="c">ā brahmaṇas sa
+<unclear>ṁ</unclear>bhr̥ta-pu
+<subst>
+  <del rend="corrected">
+    <gap reason="illegible" precision="low" quantity="5" unit="character" />
+    <unclear>va</unclear>
+    <gap reason="illegible" precision="low" quantity="1" unit="character" />
+  </del>
+  <add place="overstrike">
+  <space />ṇya-
+  <space />kī
+  <space />rt
+  <unclear>t</unclear>ir</add>
+</subst></l>
+<l n="d">
+<subst>
+  <del rend="corrected">
+    <gap reason="illegible" quantity="1" unit="character" />
+  </del>
+  <add place="overstrike">v
+  <unclear>v</unclear>a</add>
+</subst>
+<sic>ṅ</sic>ś
+<unclear>o</unclear> mahīyān mahito mahadbhiḥ</l></lg>
+<lg n="4" met="upajāti">
+<l n="a">
+<lb n="4" />tasminn abhūd āh
+<unclear>ita</unclear>-lakṣaṇānāṁ</l>
+<l n="b">dvi-janmanā
+<unclear>ṁ</unclear> 
+<unclear>prā</unclear>thama-kalpikānāṁ
+<space /></l>
+<l n="c">bhr̥gv-atri-garggā
+<subst>
+  <del rend="corrected">
+    <gap reason="illegible" precision="low" quantity="6" unit="character" />
+  </del>
+  <add place="overstrike">
+  <unclear>ṅgi</unclear>ra
+  <space />
+  <unclear>sāṁ</unclear>
+  <space /> sa
+  <space /></add>
+</subst>māno</l>
+<l n="d">dvija-rṣabho 
+<unclear>ya</unclear>jña-
+<supplied reason="lost">patiḫ</supplied> prakāśaḥ</l></lg>
+<lg n="5" met="upajāti">
+<l n="a">
+<lb n="5" />tad-ātmajo deva Ivāsa devaẖ</l>
+<l n="b">kr̥tī gr̥hī
+<unclear cert="low">tī</unclear> nayavān kriyāvāN
+<space /></l>
+<l n="c">sa-rājaka
+<unclear>ṁ</unclear> rāṣṭram u
+<subst>
+  <del rend="corrected">
+    <gap reason="illegible" precision="low" quantity="6" unit="character" />
+  </del>
+  <add place="overstrike">
+    <unclear>pe</unclear>
+  </add>
+</subst>tya yas
+<unclear>m</unclear>i
+<unclear>n</unclear></l>
+<l n="d">
+<unclear>dha</unclear>rmyāẖ kriyā 
+<subst>
+  <del rend="corrected">
+    <gap reason="illegible" precision="low" quantity="2" unit="character" />
+  </del>
+  <add place="overstrike">
+    <unclear>ḫ pā</unclear>
+  </add>
+</subst>
+<unclear>r</unclear>tha Iva pracakkre</l></lg>
+<lg n="6" met="upajāti">
+<l n="a">
+<lb n="6" />somas tata
+<unclear>ḥ s</unclear>o
+<unclear>ma Ivā</unclear>paro bhū
+<unclear>t</unclear></l>
+<l n="b">sa brāhmaṇa-kṣatriya-vaṁśa-jāsu
+<space /></l>
+<l n="c">
+<unclear>śru</unclear>ti-smr̥tibhyāṁ vi
+<space type="descender" />hitā
+<unclear>rt</unclear>tha-
+<space quantity="2" unit="character" />kārī</l>
+<l n="d">dvayī
+<unclear>ṣu</unclear> bhāryyāsu ma
+<unclear>n</unclear>o dadhāra</l>
+</lg>
+<lg n="7" met="upajāti">
+<l n="a">
+<lb n="7" />sa kṣatriyāyā
+<unclear>ṁ</unclear> kula-śīlavatyām</l>
+<l n="b">utpādayām āsa narendra-cihnaṁ
+<space /></l>
+<l n="c">sutaṁ surūpaṁ ravi-nāma-dhe
+<space quantity="2" unit="character" />yaṁ
+<space /></l>
+<l n="d">kr̥tādhi
+<unclear>patyaṁ</unclear> 
+<unclear>vi</unclear>
+<unclear cert="low">ṣa</unclear>ye samagre</l></lg>
+<lg n="8" met="upajāti">
+<l n="a">
+<lb n="8" />dvijāsu cānyāsu sutān udārān</l>
+<l n="b">sa
+<unclear>masta</unclear>-vedeṣu samāpta-kāmā
+<unclear>N</unclear>
+<space /></l>
+<l n="c">vall
+<unclear>ū</unclear>ra-nāmā diśi dakṣiṇa
+<space />syām</l>
+<l n="d">adyāpi yeṣā
+<unclear>m vasa</unclear>ti
+<unclear>r</unclear> d
+<unclear>v</unclear>ij
+<unclear>ānāṁ</unclear></l>
+</lg>
+<lg n="9" met="upajāti">
+<l n="a">
+<lb n="9" />raves suto bhūt pravarābhidhāna
+<unclear>ḥ</unclear></l>
+<l n="b">
+<unclear>śrī-rā</unclear>ma-nāmātha babhūva tasmāT
+<space /></l>
+<l n="c">tad-ātmajaẖ kīrttir abhūt sukīrttir</l>
+<l n="d">bbabhūva 
+<unclear>tasmād atha hasti</unclear>
+<unclear cert="low">bhojaḥ</unclear></l></lg>
+<lg n="10" met="upajāti">
+<l n="a">
+<lb n="10" />
+<unclear>vā</unclear>kāṭake rājati devasene</l>
+<l n="b">guṇai
+<unclear>ḫ prakāśo</unclear> bhuvi 
+<unclear>ha</unclear>stibhojaḥ
+<space /></l>
+<l n="c" enjamb="yes">adyāpi tasyābhi
+<unclear>ja</unclear>na-
+<unclear cert="low">pradāna</unclear></l>
+<l n="d">-
+<seg met="=+-++--+-+=">
+  <gap reason="illegible" quantity="11" unit="character" />
+</seg></l>
+</lg>
+<lg n="11" met="upajāti">
+<l n="a">
+<lb n="11" />dhī
+<unclear>re</unclear>ṣu dhīma
+<space />tsu sa
+<unclear>ho</unclear>tthiteṣu</l>
+<l n="b">kr̥tya-
+<unclear>pra</unclear>mā
+<unclear>ṇeṣu</unclear> guṇānviteṣu</l>
+<l n="c">
+<seg met="=+-+">
+  <gap reason="illegible" quantity="4" unit="character" />
+</seg> 
+<unclear>yaṁ</unclear> nr̥pater y
+<unclear>y</unclear>a
+<space />d e
+<seg met="=">
+  <gap reason="illegible" quantity="1" unit="character" />
+</seg></l>
+<l n="d">
+  <seg met="=+-++--+-+=">
+    <gap reason="illegible" quantity="11" unit="character" />
+  </seg>
+</l>
+</lg>
+<lg n="12" met="upajāti">
+<l n="a">
+<lb n="12" />yasyāsanārddha
+<unclear>ṁ pu</unclear>ruṣā
+<seg met="-+=">
+  <gap reason="illegible" quantity="3" unit="character" />
+</seg></l>
+<l n="b">
+<seg met="=+-">
+  <gap reason="illegible" quantity="3" unit="character" />
+</seg>māt saṁsadi 
+<seg met="+-+=">
+  <gap reason="illegible" quantity="4" unit="character" />
+</seg></l>
+<l n="c">
+  <seg met="=+-++--+-+=">
+    <gap reason="illegible" quantity="11" unit="character" />
+  </seg>
+</l>
+<l n="d">
+  <seg met="=+-++--+-+=">
+    <gap reason="illegible" quantity="11" unit="character" />
+  </seg>
+</l>
+</lg>
+<lg n="13" met="āryā">
+<certainty match="../@met" locus="value" />
+<l n="a">
+<lb n="13" />Atha devarāja-sū
+<unclear>nur</unclear> ha
+<unclear>ri</unclear>
+<unclear cert="low">ṣeṇo</unclear> 
+<gap reason="illegible" precision="low" quantity="8" unit="character" /> hastibhoja 
+<gap reason="illegible" extent="unknown" unit="character" /></l>
+<l n="b">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+</lg>
+<lg n="14" met="puṣpitāgrā">
+<certainty match="../@met" locus="value" />
+<l n="a">
+<lb n="14" />śaśi-kara-dhavalāṁ ni
+<unclear>rī</unclear>kṣya kī
+<unclear>rttiṁ</unclear></l>
+<l n="b">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+<l n="c">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+<l n="d">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+</lg>
+<lg n="15" met="puṣpitāgrā">
+<certainty match="../@met" locus="value" />
+<l n="a">
+<lb n="15" />Atha guṇa-śata-saṁbhr̥tātma-bhūtaḥ</l>
+<l n="b">priya-tana
+<supplied reason="lost" cert="low">yo</supplied>
+<gap reason="illegible" extent="unknown" unit="character" /></l>
+<l n="c">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+<l n="d">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+</lg>
+<lg n="16" met="vasantatilakā">
+<certainty match="../@met" locus="value" />
+<l n="a">
+<lb n="16" />tasyātmajeṣu bahuṣu 
+<gap reason="illegible" extent="unknown" unit="character" /></l>
+<l n="b">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+<l n="c">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+<l n="d">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+</lg>
+<lg n="17" met="puṣpitāgrā">
+<certainty match="../@met" locus="value" />
+<l n="a">
+<lb n="17" />phalam akhilam ila
+<gap reason="illegible" extent="unknown" unit="character" /></l>
+<l n="b">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+<l n="c">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+<l n="d">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+</lg>
+<lg n="18" met="vasantatilakā">
+<certainty match="../@met" locus="value" />
+<l n="a">
+<lb n="18" />samyag-vibhāvita Ihāsti varāha
+<supplied reason="lost">devaḥ</supplied></l>
+<l n="b">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+<l n="c">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+<l n="d">
+  <gap reason="illegible" extent="unknown" unit="character" />
+</l>
+</lg>
+<p>
+  <gap reason="lost" quantity="4" unit="line" precision="low" />
+</p>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

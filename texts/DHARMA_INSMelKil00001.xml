@@ -1,9 +1,14 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
-        <title>Mēlappaḻuvūr, Kīḻaiyūr, Ireṭṭaikkōyil, Agastyeśvara, time of Parāntaka I,
-					year 36</title>
+        <title>Mēlappaḻuvūr, Kīḻaiyūr, Ireṭṭaikkōyil, Agastyeśvara, time of Parāntaka I, year 36</title>
         <respStmt>
           <resp>EpiDoc encoding</resp>
           <persName ref="part:vagi">
@@ -18,7 +23,6 @@
             <forename>Valérie</forename>
           </persName>
         </respStmt>
-        <!-- I have read this inscription with VVG + emfr + utve + nica-->
       </titleStmt>
       <publicationStmt>
         <authority>DHARMA</authority>
@@ -26,11 +30,7 @@
         <idno type="filename">DHARMA_INSMelKil00001</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
-							Licence. To view a copy of the licence, visit
-							https://creativecommons.org/licenses/by/4.0/ or send a letter to
-							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-							California, 94041, USA.</p>
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Valérie Gillet.</p>
           </licence>
         </availability>
@@ -40,14 +40,14 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -55,142 +55,239 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-					under the European Union's Horizon 2020 research and innovation programme (grant
-					agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-						ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-							<ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding
-				template v03</change>
-      <change status="draft" when="2020-04-20" who="part:emfr">Review of the file</change>
-      <change when="2020-01-08" who="part:axja">Update the template</change>
-      <change status="draft" when="2019-12-02" who="part:vagi">Creation of the file</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:emfr" when="2020-04-20" status="draft">Review of the file</change>
+      <change who="part:axja" when="2020-01-08">Update the template</change>
+      <change who="part:vagi" when="2019-12-02" status="draft">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tam-Latn">
-        <p>
-          <lb n="1"/>
-          <hi rend="grantha">svasti śrī</hi>
-        </p>
-        <p>
-        			<persName>matirai koṇṭa <persName>kōpparakēcaripaṉma<choice>
-                <orig>rki</orig>
-                <reg>rkku</reg>
-              </choice></persName></persName> yā
-            		<lb break="no" n="2"/>ṇṭu <num value="36">3 10 6</num>Āvatu</p>
-        <p>
-            		Avaṉika<choice>
-            <orig>ṉ</orig>
-            <reg>n</reg>
-          </choice>taṟpapurattu <hi rend="grantha">mah<choice>
-              <sic>a</sic>
-              <corr>ā</corr>
-            </choice>de</hi>vark
-            		<lb break="no" n="3"/>ku <persName>
-            <roleName subtype="donor" type="unknown">kaṇṭaṉ n<choice>
-                <unclear>eṟ</unclear>
-                <unclear>ēr</unclear>
-              </choice>iyāṉ</roleName>
-          </persName> tirutta kuḷattiṉ k<choice>
-            <orig>i</orig>
-            <reg>ī</reg>
-          </choice>ḻ A<hi rend="grantha">poha</hi>naṅ kiṭa<choice>
-            <orig>ṉ</orig>
-            <reg>n</reg>
-          </choice>
-            		<lb break="no" n="4"/><unclear>ta</unclear> <hi rend="grantha">
-            <unclear>bhūmi</unclear>
-          </hi><unclear>yai macakki Itin nirk kiṭaṉta nilam</unclear> <gap precision="low" quantity="8" reason="illegible" unit="character"/> <unclear>ṟi</unclear> <gap precision="low" quantity="1" reason="illegible" unit="character"/>
-            		<lb n="5"/>t<unclear>u</unclear> Uṭump' ōṭiy āmai tavaḻ<choice>
-            <orig>ṉ</orig>
-            <reg>n</reg>
-          </choice>tatu Eppē<choice>
-            <orig>ṟ</orig>
-            <reg>r</reg>
-          </choice>paṭṭatu Uṇṇilam Oḻiv' iṉṟi<unclear>y</unclear>
-            		<lb n="6"/><unclear>Aka</unclear>vēriyum puṟavēriyum m<choice>
-            <orig>i</orig>
-            <reg>ī</reg>
-          </choice>ṉ poṉṉum vaḷaiyiṟ cuṟṟu Eppē<choice>
-            <orig>ṟ</orig>
-            <reg>r</reg>
-          </choice>paṭṭatum tāṇi<gap quantity="1" reason="illegible" unit="character"/> <!--tāṇi<gap reason="illegible" unit="character" quantity="1"/>. Indicate that uncertainty bears on the gap. Check EGD!-->
-            		<lb break="no" n="7"/><gap quantity="2" reason="illegible" unit="character"/><unclear>k</unclear> koṇṭu Iraṇṭu taḷiyilum Orō no<choice>
-            <orig>ṉ</orig>
-            <reg>n</reg>
-          </choice>tā viḷakku Erippōm āṉō<supplied reason="lost">m</supplied>
-            		<lb n="8"/>It<supplied reason="lost">ta</supplied>ḷi paṭṭuṭaiyōm Eḻuvōm
-            	</p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="4">
-            <lem>
-              <unclear>ta</unclear>
-              <hi rend="grantha">
-                <unclear>bhūmi</unclear>
-              </hi>
-              <unclear>yai macakki Itin nirk kiṭaṉta nilam</unclear>
-            </lem>
-            <note>The reading of this phrase is based on the parallel in #2<!--update ref-->, line 4.</note>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:vagi" type="translation"></div>
-      <div type="commentary">
-        <p n="3">
-        			Nēriyāṉ is a name of the Cōḻa kings (as lords of the Nēri hill) or alternatively a personal name meaning "one of subtle intellect" (see MTL<!--Update!--> s.v. <foreign>nēriyaṉ</foreign>). Neṟiyāṉ, as derived from <foreign>neṟi</foreign>, could mean "religious one", that is, devotee, or "virtouous/righteous one".
-        		</p>
-        <p n="5">
-        			<foreign>Uṭump' ōṭiy āmai tavaḻ<choice>
-              <orig>ṉ</orig>
-              <reg>n</reg>
-            </choice>tatu</foreign>, "where the lizzard (<foreign>uṭumpu</foreign>) runs (<foreign>ōṭi</foreign>) and the turtle (<foreign>āmai</foreign>) crawls (<foreign>tavaḻntatu</foreign>, literally "that which [the turtle] crawls"). This formula, designating uncultivated lands, is also used in the late Pallava copper-plate grants.
-        		</p>
-        <p n="6">
-            		<foreign><unclear>aka</unclear>vēriyum puṟavēriyum</foreign>. Literally: "the inner tank (<foreign>aka-v-ēri-y-um</foreign>) and the outer tank (<foreign>puṟa-v-ēri-y-um</foreign>)". This appears to refer to the tanks comprised by or nearby the plots, but the details remain unclear. See also #7 <!--update ref--> for a similar formula.
-            	</p>
-        <p n="6">
-            		<foreign>m<choice>
-              <orig>i</orig>
-              <reg>ī</reg>
-            </choice>ṉ poṉṉum</foreign>. Dr. G. Vijayavenugopal (personal communication) suggested us to interpret <foreign>poṉṉum</foreign> as "gold", to read the previous word as <foreign>mīṉa</foreign> as a mistake for <foreign>īḻa</foreign> (<foreign>īḻam</foreign>), and to understand the phrase as "Lankan gold". We tentatively take the phrase in the sense of the "gold of fish", that is, the donation includes the income raised from the fishes in the two tanks just mentioned.
+        
+<body>
+                
+                
+<div type="edition" xml:lang="tam-Latn">
+                        
+                        
+<p>
+                                
+<lb n="1" />
+<hi rend="grantha">svasti śrī</hi>
+                        </p>
+                        
+<p>
+                                
+<persName>matirai koṇṭa 
+<persName>kōpparakēcaripaṉma
+<choice>
+  <orig>rki</orig>
+  <reg>rkku</reg>
+</choice></persName></persName> yā
+                        
+<lb n="2" break="no" />ṇṭu 
+<num value="36">3 10 6</num>Āvatu</p>
+                
+<p>
+                        Avaṉika
+<choice>
+  <orig>ṉ</orig>
+  <reg>n</reg>
+</choice>taṟpapurattu 
+<hi rend="grantha">mah
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>de</hi>vark
+                        
+<lb break="no" n="3" />ku 
+<persName>
+  <roleName subtype="donor" type="unknown">kaṇṭaṉ n
+  <choice>
+    <unclear>eṟ</unclear>
+    <unclear>ēr</unclear>
+  </choice>iyāṉ</roleName>
+</persName> tirutta kuḷattiṉ k
+<choice>
+  <orig>i</orig>
+  <reg>ī</reg>
+</choice>ḻ A
+<hi rend="grantha">poha</hi>naṅ kiṭa
+<choice>
+  <orig>ṉ</orig>
+  <reg>n</reg>
+</choice>
+                        
+<lb break="no" n="4" />
+<unclear>ta</unclear> 
+<hi rend="grantha">
+  <unclear>bhūmi</unclear>
+</hi>
+<unclear>yai macakki Itin nirk kiṭaṉta nilam</unclear> 
+<gap reason="illegible" precision="low" quantity="8" unit="character" /> 
+<unclear>ṟi</unclear> 
+<gap reason="illegible" precision="low" quantity="1" unit="character" />
+                        
+<lb n="5" />t
+<unclear>u</unclear> Uṭump' ōṭiy āmai tavaḻ
+<choice>
+  <orig>ṉ</orig>
+  <reg>n</reg>
+</choice>tatu Eppē
+<choice>
+  <orig>ṟ</orig>
+  <reg>r</reg>
+</choice>paṭṭatu Uṇṇilam Oḻiv' iṉṟi
+<unclear>y</unclear>
+                        
+<lb n="6" />
+<unclear>Aka</unclear>vēriyum puṟavēriyum m
+<choice>
+  <orig>i</orig>
+  <reg>ī</reg>
+</choice>ṉ poṉṉum vaḷaiyiṟ cuṟṟu Eppē
+<choice>
+  <orig>ṟ</orig>
+  <reg>r</reg>
+</choice>paṭṭatum tāṇi
+<gap reason="illegible" unit="character" quantity="1" />                         
+<lb break="no" n="7" />
+<gap reason="illegible" unit="character" quantity="2" />
+<unclear>k</unclear> koṇṭu Iraṇṭu taḷiyilum Orō no
+<choice>
+  <orig>ṉ</orig>
+  <reg>n</reg>
+</choice>tā viḷakku Erippōm āṉō
+<supplied reason="lost">m</supplied>
+                        
+<lb n="8" />It
+<supplied reason="lost">ta</supplied>ḷi paṭṭuṭaiyōm Eḻuvōm
+                </p>
+                        
+            </div>
+        
+                
+<div type="apparatus">
+                        
+                        
+<listApp>
+                                
+                                
+<app loc="4">
+                                        
+<lem>
+<unclear>ta</unclear> 
+<hi rend="grantha">
+  <unclear>bhūmi</unclear>
+</hi>
+<unclear>yai macakki Itin nirk kiṭaṉta nilam</unclear></lem>
+                                        
+<note>The reading of this phrase is based on the parallel in #2, line 4.</note>
+                                </app>
+                                                        
+                        </listApp>
+                </div>
+                
+                 
+<div type="translation" resp="part:vagi">
+                        
+                 </div>
+                
+                
+<div type="commentary">
+                        
+<p n="3">
+                                Nēriyāṉ is a name of the Cōḻa kings (as lords of the Nēri hill) or alternatively a personal name meaning "one of subtle intellect" (see MTL s.v. 
+<foreign>nēriyaṉ</foreign>). Neṟiyāṉ, as derived from 
+<foreign>neṟi</foreign>, could mean "religious one", that is, devotee, or "virtouous/righteous one".
+                        </p>
+                        
+<p n="5">
+                                
+<foreign>Uṭump' ōṭiy āmai tavaḻ
+<choice>
+  <orig>ṉ</orig>
+  <reg>n</reg>
+</choice>tatu</foreign>, "where the lizzard (
+<foreign>uṭumpu</foreign>) runs (
+<foreign>ōṭi</foreign>) and the turtle (
+<foreign>āmai</foreign>) crawls (
+<foreign>tavaḻntatu</foreign>, literally "that which [the turtle] crawls"). This formula, designating uncultivated lands, is also used in the late Pallava copper-plate grants.
+                        </p>                                    
+                
+<p n="6">
+                        
+<foreign>
+<unclear>aka</unclear>vēriyum puṟavēriyum</foreign>. Literally: "the inner tank (
+<foreign>aka-v-ēri-y-um</foreign>) and the outer tank (
+<foreign>puṟa-v-ēri-y-um</foreign>)". This appears to refer to the tanks comprised by or nearby the plots, but the details remain unclear. See also #7  for a similar formula.
+                </p>
+                
+<p n="6">
+                        
+<foreign>m
+<choice>
+  <orig>i</orig>
+  <reg>ī</reg>
+</choice>ṉ poṉṉum</foreign>. Dr. G. Vijayavenugopal (personal communication) suggested us to interpret 
+<foreign>poṉṉum</foreign> as "gold", to read the previous word as 
+<foreign>mīṉa</foreign> as a mistake for 
+<foreign>īḻa</foreign> (
+<foreign>īḻam</foreign>), and to understand the phrase as "Lankan gold". We tentatively take the phrase in the sense of the "gold of fish", that is, the donation includes the income raised from the fishes in the two tanks just mentioned.
                      </p>
-        <p n="7">
-            		<foreign>erippōm āṉōm</foreign>. Literally "we have become, we are" (<foreign>aṉōm</foreign>) "those who will burn" (<foreign>erippōm</foreign>)".
-            	</p>
-        <p n="8">
-            		<foreign>it-taḷi</foreign>, "this temple", that is the temple in Avaṉikantaṟpapuram.
-            	</p>
-      </div>
-      <div type="bibliography">
-        <p>
-First reported in ARIE 1923-1924/C/1924/368 <ptr target="bib:ARIE1923-1924"/>; edited here for the first time by Valérie Gillet from autopsy and photographs.
+                
+<p n="7">
+                        
+<foreign>erippōm āṉōm</foreign>. Literally "we have become, we are" (
+<foreign>aṉōm</foreign>) "those who will burn" (
+<foreign>erippōm</foreign>)".
+                </p>
+                        
+<p n="8">
+                        
+<foreign>it-taḷi</foreign>, "this temple", that is the temple in Avaṉikantaṟpapuram.
+                </p>
+                </div>
+                
+           
+<div type="bibliography">
+                
+<p>
+First reported in ARIE 1923-1924/C/1924/368 
+<ptr target="bib:ARIE1923-1924" />; edited here for the first time by Valérie Gillet from autopsy and photographs.
 </p>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:ARIE1923-1924"/>
-            <citedRange unit="page">73</citedRange>
-            <citedRange unit="appendix">C/1924</citedRange>
-            <citedRange unit="item">368</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
-</TEI><!--Ancient <title>: Mēlappaḻuvūr, Kīḻaiyūr, Ireṭṭaikkōyil, Agastyeśvara, Ardhamaṇḍapa, northern
-face, time of Parāntaka I, year 36-->
+
+                
+              
+<listBibl type="secondary">
+                
+<bibl>
+                                
+<ptr target="bib:ARIE1923-1924" />
+                                
+<citedRange unit="page">73</citedRange>
+                                
+<citedRange unit="appendix">C/1924</citedRange>
+                                
+<citedRange unit="item">368</citedRange>
+                        </bibl>
+              
+              </listBibl>
+           </div>
+         </body>
+     
+</text>
+</TEI>

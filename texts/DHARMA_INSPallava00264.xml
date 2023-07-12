@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -24,11 +30,7 @@
         <idno type="filename">DHARMA_INSPallava00264</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
-							Licence. To view a copy of the licence, visit
-							https://creativecommons.org/licenses/by/4.0/ or send a letter to
-							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-							California, 94041, USA.</p>
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
           </licence>
         </availability>
@@ -38,14 +40,16 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
             <summary>Donation of gold (?) for food offerings to a god temple.</summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p>Medial <foreign>i</foreign> and <foreign>ī</foreign> interchangeable.</p>
+              <p>Medial 
+              <foreign>i</foreign>and 
+              <foreign>ī</foreign>interchangeable.</p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -53,140 +57,253 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-					under the European Union's Horizon 2020 research and innovation programme (grant
-					agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-						ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-						<ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2022-09-26" who="part:emfr">Creation of the file</change>
+      <change who="part:emfr" when="2022-09-26" status="draft">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tam-Latn">
-        <ab>
-          <lb n="1"/>
-          <hi rend="grantha">svasti śrī</hi>
+                
+<body>
+                        
+<div type="edition" xml:lang="tam-Latn">
+                
+        
+<ab>
+                
+<lb n="1" />
+<hi rend="grantha">svasti śrī</hi> 
         </ab>
-        <p>
-		śrī-vayira-<unclear>m</unclear>ēka-panma<supplied reason="omitted">r</supplied>kku
-<lb n="2"/>yāṇṭu <unclear>2-Āvatu</unclear>
-	</p>
-        <p>
-		tāmaṟ-kōṭṭattu
-<lb n="3"/>poy<unclear>kai</unclear>-nallūr <hi rend="grantha">sabhai</hi>yō<choice>
-            <orig>
-              <unclear>mm</unclear>
-            </orig>
-            <reg>
-              <unclear>m</unclear>
-            </reg>
-          </choice> 
-	</p>
-        <p>
-		<unclear>iv</unclear>-vūr
-<lb n="4"/>tiru-v-akatt<choice>
-            <orig>i</orig>
-            <reg>ī</reg>
-          </choice><hi rend="grantha">śvara</hi><supplied reason="undefined">m-uṭaiya ma<hi rend="grantha">hāde</hi>varkku</supplied>
-<lb n="5"/>nitta tiru-v-amirtu paṇ <gap quantity="4" reason="undefined" unit="character"/> mayil <gap quantity="7" reason="undefined" unit="character"/>
-<lb n="6"/><gap quantity="2" reason="undefined" unit="character"/> tiru-v-amirtukkum-āka <choice>
-            <orig>v<unclear>ai</unclear>yt<supplied reason="undefined">ta</supplied></orig>
-            <reg>vait<supplied reason="undefined">ta</supplied></reg>
-          </choice> <gap quantity="4" reason="undefined" unit="character"/>
-	</p>
-        <p>
-          <gap extent="unknown" reason="undefined" unit="line"/>
+        
+        
+<p>
+                śrī-vayira-
+<unclear>m</unclear>ēka-panma
+<supplied reason="omitted">r</supplied>kku
+<lb n="2" />yāṇṭu 
+<unclear>2-Āvatu</unclear>
         </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="4">
-            <lem>tiru-v-akatt<choice>
-                <orig>i</orig>
-                <reg>ī</reg>
-              </choice><hi rend="grantha">śvara</hi><supplied reason="undefined">m-uṭaiya ma<hi rend="grantha">hāde</hi>varkku</supplied></lem>
-            <rdg source="bib:VenkatasubbaAyyar1943_01">tiru-v-akatti<hi rend="grantha">śvara</hi><gap quantity="9" reason="undefined" unit="character"/></rdg>
-          </app>
-          <app loc="6">
-            <lem>
-              <choice>
-                <orig>v<unclear>ai</unclear>yt<supplied reason="undefined">ta</supplied></orig>
-                <reg>vait<supplied reason="undefined">ta</supplied></reg>
-              </choice>
-              <gap quantity="4" reason="undefined" unit="character"/>
-            </lem>
-            <rdg source="bib:VenkatasubbaAyyar1943_01">v<unclear>ai</unclear>yta <gap quantity="5" reason="undefined" unit="character"/></rdg>
-          </app>
+        
+        
+<p>
+                tāmaṟ-kōṭṭattu
+<lb n="3" />poy
+<unclear>kai</unclear>-nallūr 
+<hi rend="grantha">sabhai</hi>yō
+<choice>
+  <orig>
+    <unclear>mm</unclear>
+  </orig>
+  <reg>
+    <unclear>m</unclear>
+  </reg>
+</choice> 
+        </p>
+        
+        
+<p>
+                
+<unclear>iv</unclear>-vūr
+<lb n="4" />tiru-v-akatt
+<choice>
+  <orig>i</orig>
+  <reg>ī</reg>
+</choice>
+<hi rend="grantha">śvara</hi>
+<supplied reason="undefined">m-uṭaiya ma
+<hi rend="grantha">hāde</hi>varkku</supplied>
+<lb n="5" />nitta tiru-v-amirtu paṇ 
+<gap reason="undefined" quantity="4" unit="character" /> mayil 
+<gap reason="undefined" quantity="7" unit="character" />
+<lb n="6" />
+<gap reason="undefined" quantity="2" unit="character" /> tiru-v-amirtukkum-āka 
+<choice>
+  <orig>v
+  <unclear>ai</unclear>yt
+  <supplied reason="undefined">ta</supplied></orig>
+  <reg>vait
+  <supplied reason="undefined">ta</supplied></reg>
+</choice> 
+<gap reason="undefined" quantity="4" unit="character" />
+        </p>
+        
+        
+<p>
+  <gap reason="undefined" extent="unknown" unit="line" />
+</p>
+                
+        
+</div>
+                        
+<div type="apparatus">
+        
+        
+<listApp>
+                
+                
+<app loc="4">
+                        
+<lem>tiru-v-akatt
+<choice>
+  <orig>i</orig>
+  <reg>ī</reg>
+</choice>
+<hi rend="grantha">śvara</hi>
+<supplied reason="undefined">m-uṭaiya ma
+<hi rend="grantha">hāde</hi>varkku</supplied></lem>
+                        
+<rdg source="bib:VenkatasubbaAyyar1943_01">tiru-v-akatti
+<hi rend="grantha">śvara</hi>
+<gap reason="undefined" quantity="9" unit="character" /></rdg>
+                </app>  
+                                
+                
+<app loc="6">
+                        
+<lem>
+<choice>
+  <orig>v
+  <unclear>ai</unclear>yt
+  <supplied reason="undefined">ta</supplied></orig>
+  <reg>vait
+  <supplied reason="undefined">ta</supplied></reg>
+</choice> 
+<gap reason="undefined" quantity="4" unit="character" /></lem>
+                        
+<rdg source="bib:VenkatasubbaAyyar1943_01">v
+<unclear>ai</unclear>yta 
+<gap reason="undefined" quantity="5" unit="character" /></rdg>
+                </app>  
+                
         </listApp>
-      </div>
-      <div resp="part:emfr" type="translation">
-        <p n="1">
-		Prosperity! Fortune!
-	</p>
-        <p n="1-2">
-		<unclear>Second</unclear> year of the glorious Vayiramēkavarman<note>That is, Sanskrit Vajrameghavarman.</note>.
-	</p>
-        <p n="2-3">
-		We, the members of the assembly <supplied reason="subaudible">of</supplied> Poykainallūr in the Tāmaṟkōṭṭam.
-	</p>
-        <p n="4-6">
-		For the Mahādeva, Lord of the glorious Tiruvakaṭtīśvaram <supplied reason="subaudible">of</supplied> this village <gap reason="undefined"/> permanent food offerings <gap reason="undefined"/> that <gap reason="undefined"/> has given as glorious food offerings <gap reason="undefined"/>
-	</p>
-        <p>
-          <gap extent="unknown" reason="undefined" unit="line"/>
+        
+</div>
+                        
+<div type="translation" resp="part:emfr">
+        
+        
+<p n="1">
+                Prosperity! Fortune!
         </p>
-      </div>
-      <div type="commentary">
-        <p>On the identity of Vayiramēkavarman, that is, Sanskrit Vajrameghavarman, see <bibl>
-            <ptr target="bib:VenkatasubbaAyyar1943_01"/>
-          </bibl>: <quote>The surname Vayiramēkaṉ [fn3] is applied to Dantivarman in the Triplicane inscription [fn4]. As the characters of the present <supplied reason="subaudible">SII 12, no. 113 = DHARMA_INSPallava00264</supplied> and the following inscription <supplied reason="subaudible">SII 12, no. 114 = DHARMA_INSPallava00265</supplied> belong
+        
+        
+<p n="1-2">
+                
+<unclear>Second</unclear> year of the glorious Vayiramēkavarman
+<note>That is, Sanskrit Vajrameghavarman.</note>.
+        </p>
+        
+        
+<p n="2-3">
+                We, the members of the assembly 
+<supplied reason="subaudible">of</supplied> Poykainallūr in the Tāmaṟkōṭṭam.
+        </p>
+        
+        
+<p n="4-6">
+                For the Mahādeva, Lord of the glorious Tiruvakaṭtīśvaram 
+<supplied reason="subaudible">of</supplied> this village 
+<gap reason="undefined" /> permanent food offerings 
+<gap reason="undefined" /> that 
+<gap reason="undefined" /> has given as glorious food offerings 
+<gap reason="undefined" />
+        </p>
+                
+        
+        
+<p>
+  <gap reason="undefined" extent="unknown" unit="line" />
+</p>
+                                                
+</div>          
+                        
+<div type="commentary">
+                                
+        
+<p>On the identity of Vayiramēkavarman, that is, Sanskrit Vajrameghavarman, see 
+<bibl>
+  <ptr target="bib:VenkatasubbaAyyar1943_01" />
+</bibl>: 
+<quote>The surname Vayiramēkaṉ [fn3] is applied to Dantivarman in the Triplicane inscription [fn4]. As the characters of the present 
+<supplied reason="subaudible">SII 12, no. 113 = DHARMA_INSPallava00264</supplied> and the following inscription 
+<supplied reason="subaudible">SII 12, no. 114 = DHARMA_INSPallava00265</supplied> belong
 to a later period than Dantivarman, the king figuring in these two records was probably different. A certain chieftain named Vayiramēkaṉ alias Vāṇakōvaraiyar figures in two inscriptions from Tiruvoṟṟiyūr [fn5], with whom Vayiramēkavarman of the present record may be identified.</quote></p>
-        <p>See also DHARMA_INSPallava00265, DHARMA_INSPallava00266, DHARMA_INSPallava00350, DHARMA_INSPallava00351.
-	</p>
-      </div>
-      <div type="bibliography">
-        <p>
-					First edited by <bibl>
-            <ptr target="bib:VenkatasubbaAyyar1943_01"/>
-          </bibl> (SII 12, no. 113), with a facsimile; text and summary in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP no. 264); encoded and first translated here for DHARMA (ERC n° 809994) by Emmanuel Francis (2022), based on previous editions.
-				</p>
-        <listBibl type="primary">
-          <!--Add SII 39.150 = reedition-->
-          <bibl n="VVA">
-            <ptr target="bib:VenkatasubbaAyyar1943_01"/>
-            <citedRange unit="page">53</citedRange>
-            <citedRange unit="item">113</citedRange>
-          </bibl>
-          <bibl n="TVM">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="page">644</citedRange>
-            <citedRange unit="item">264</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:ARIE1915-1916"/>
-            <citedRange unit="page">78</citedRange>
-            <citedRange unit="appendix">C/1916</citedRange>
-            <citedRange unit="item">150</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+        
+<p>See also DHARMA_INSPallava00265, DHARMA_INSPallava00266, DHARMA_INSPallava00350, DHARMA_INSPallava00351.
+        </p>
+                                
+</div>
+                        
+<div type="bibliography">
+                                
+<p>
+                                        First edited by 
+<bibl>
+  <ptr target="bib:VenkatasubbaAyyar1943_01" />
+</bibl> (SII 12, no. 113), with a facsimile; text and summary in 
+<bibl>
+  <ptr target="bib:Mahalingam1988_01" />
+</bibl> (IP no. 264); encoded and first translated here for DHARMA (ERC n° 809994) by Emmanuel Francis (2022), based on previous editions.
+                                </p>
+                                
+                                
+<listBibl type="primary">
+                                        
+                                                                                
+                                        
+<bibl n="VVA">
+                                                
+<ptr target="bib:VenkatasubbaAyyar1943_01" />
+                                                
+<citedRange unit="page">53</citedRange>
+                                                
+<citedRange unit="item">113</citedRange>
+                                        </bibl> 
+                                        
+                                        
+<bibl n="TVM">
+                                                
+<ptr target="bib:Mahalingam1988_01" />
+                                                
+<citedRange unit="page">644</citedRange>
+                                                
+<citedRange unit="item">264</citedRange>
+                                        </bibl>
+                                                                                
+                                </listBibl>
+                                
+                                
+<listBibl type="secondary">
+                                        
+                                        
+<bibl>
+                                        
+<ptr target="bib:ARIE1915-1916" />
+                                                
+<citedRange unit="page">78</citedRange>
+                                                
+<citedRange unit="appendix">C/1916</citedRange>
+                                                
+<citedRange unit="item">150</citedRange>
+                                        </bibl>
+                                        
+                                </listBibl>
+                                
+                        </div>
+                        
+                </body>
+        
+</text>
 </TEI>

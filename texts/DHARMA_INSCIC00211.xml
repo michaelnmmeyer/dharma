@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -24,38 +30,24 @@
         <idno type="filename">DHARMA_INSCIC00211</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-                     Licence. To view a copy of the licence, visit
-                     https://creativecommons.org/licenses/by/4.0/ or send a letter to
-                     Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-                     California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Arlo Griffiths &amp; Salomé Pichon.</p>
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -65,348 +57,875 @@
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-01-13" who="part:sapi">Addition of placeName tagging</change>
-      <change status="draft" when="2022-07-31" who="part:sapi">Reading on stone</change>
-      <change status="draft" when="2021-08-16" who="part:sapi">Adding translation and commentaries</change>
-      <change status="draft" when="2021-08-12" who="part:sapi">Beggining initial encoding of the inscription</change>
+      <change who="part:sapi" when="2023-01-13" status="draft">Addition of placeName tagging</change>
+      <change who="part:sapi" when="2022-07-31" status="draft">Reading on stone</change>
+      <change who="part:sapi" when="2021-08-16" status="draft">Adding translation and commentaries</change>
+      <change who="part:sapi" when="2021-08-12" status="draft">Beggining initial encoding of the inscription</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="san-Latn">
-        <p>
-          <milestone n="A" type="pagelike" unit="face"/>
-          <lb n="A1"/>
-          <gap quantity="1" reason="lost" unit="line"/>
-        </p>
-        <lg met="mālinī" n="1">
-          <l n="a"><lb n="A2"/><seg met="------">
-              <gap quantity="6" reason="lost" unit="character"/>
-            </seg>rudro rudraloke g<choice>
-              <sic>ū</sic>
-              <corr>u</corr>
-            </choice>ṇāḍhye<g type="circleSmall">.</g></l>
-          <l n="b">ruciraruc <seg met="--+++-+">
-              <gap quantity="7" reason="lost" unit="character"/>
-            </seg><lb n="A3"/><seg met="+-+">
-              <gap quantity="3" reason="lost" unit="character"/>
-            </seg><seg type="aksara"><seg subtype="body" type="component">
-                <gap quantity="1" reason="illegible" unit="component"/>
-              </seg>y<unclear>a</unclear></seg>ḥ</l>
-          <l n="c">sa munibhir ajaradbhiḥ stūyamāno mayā tu</l>
-          <l n="d">śriyam avati niśīndisvāsr̥ <seg met="++-+">
-              <gap quantity="4" reason="lost" unit="character"/>
-            </seg><lb n="A4"/><seg met="+">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </seg><g type="ddandaPlain">.</g></l>
-        </lg>
-        <lg met="āryā" n="2">
-          <l n="ab">caraṇāmvuja-surabhirajasi<g type="circleSmall">.</g> pavitritāśeṣa-loka Iha ya <seg met="-+">
-              <gap precision="low" quantity="2" reason="lost" unit="character"/>
-            </seg></l>
-          <!-- rtf : ya (1/2}: ya ~ - or ya -, if ya is guru.-->
-          <l n="cd"><lb n="A5"/><seg met="--">
-              <gap precision="low" quantity="2" reason="lost" unit="character"/>
-            </seg><!-- rtf : {1/2}: ~ ~ or, less likely, just one syllable -.--><!--sapi2argrOn the stone, you can see a part of aksara that could be a 'sa' or 'la'?--> te natir aśuciharā<g type="dotMid">.</g> rajanikarakaleva sā sudhiyā <g type="dashLong">.</g><!--rtf : —: the unusual punctuation sign has the shape of an em-dash.--></l>
-        </lg>
-        <lg met="rucirā" n="3">
-          <l n="a"><seg met="-">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </seg><lb n="A6"/><seg met="+">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </seg><supplied reason="lost">ṅ</supplied>garāga-sura-bhimalīmasam̃<!--changer pour un anuvasra candra-bindu --> rates</l>
-          <l n="b">smarasya vakṣa Iva muni-prapūjitam·<g type="dotMid">.</g></l>
-          <l n="c">prayāga <seg met="+-">
-              <gap quantity="2" reason="lost" unit="character"/>
-            </seg><lb n="A7"/><seg met="-">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </seg>m iva satkriyādibhir</l>
-          <l n="d">vvirājate bhuvanaguroḥ padadvayam·<g type="ddandaPlain">.</g></l>
-          <!-- rtf: 	a. This pāda is unmetrical, for it shows a sequence of five short syllables (gasurabhima) for the required four. -->
-        </lg>
-        <lg met="āryā" n="4">
-          <l n="ab">mādhavikam iva cara<unclear>ṇa</unclear><seg met="-">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </seg><lb n="A8"/><seg met="-">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </seg>m idam anavaratak<choice>
-              <sic>ū</sic>
-              <corr>u</corr>
-            </choice>sumāgatam̃ variṇaḥ<g type="dotMid">.</g></l>
-          <l n="cd">sumatārccana-vidhinica<unclear>ya</unclear> <seg met="-">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </seg><lb break="no" n="A9"/><supplied reason="lost">m a</supplied>r<unclear>p</unclear>payatu mudam̐ mudarthibhyaḥ<g type="ddandaPlain">.</g></l>
-        </lg>
-        <lg met="gaṇacchandas" n="5">
-          <!--rtf: N.N. The meter of this stanza is a gaṇacchandas and its structure is: 3 gaṇas, 6 gaṇas | 3 gaṇas, 6 gaṇas ||. If the second half of each half has 5 gaṇas instead of 6 gaṇas, it is called Āryāgīti and known in the Indian Sanskrit literature. We see here a sort of extended form of Āryāgīti, which seems to be very uncommon.-->
-          <l n="ab">gaja-vāji-puruṣa-kalaśa<g type="dotMid">.</g>vyajana-ghaṭac-chatra <seg met="+-">
-              <gap quantity="2" reason="lost" unit="character"/>
-            </seg><lb n="A10"/><seg met="+">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </seg> cāmarākr̥tiracitam·</l>
-          <l n="cd">rudrasya padatalam idam̐<g type="dotMid">.</g> rājyam iva samantato <seg met="--">
-              <gap quantity="2" reason="lost" unit="character"/>
-            </seg><lb n="A11"/><seg met="-">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </seg> nr̥ṇām̃ śriyam avatāt·<g type="ddandaPlain">.</g></l>
-        </lg>
-        <lg met="vasantatilaka" n="6">
-          <l enjamb="yes" n="a">rudrasya sam̐stutir iyam̐ <unclear>ph</unclear>ala<unclear>kā</unclear><!-- sapi2argr. Sur ce (ph)ala(kā): L'on pourrait aussi lire malatā, dhalatā. De plus, il semblerait qu'un marqueur de voyelle -ai ait été gravé au dessus du kā/tā mais de manière très légère.-->maṇavā<g type="floretQuatrefoil">.</g></l>
-          <l n="b"><lb n="A12"/><unclear>thā</unclear><!-- sapi2argr à la place de thā on pourrait lire deux aksara. OU entre thā et rā, il semblerait y avoir un autre aksara. --> rāja-paṇḍita-<unclear>bh</unclear>r̥tavasum<!--sapi2argr ou kr̥tavasum? --> iva <unclear>da</unclear> pravaktum·<g type="dotMid">.</g></l>
-          <l n="c"><unclear>kṣ</unclear>īreṇa miśritapa<unclear>ya</unclear>ḥ <lb n="A13"/> <seg type="aksara"><seg subtype="body" type="component">
-                <gap quantity="1" reason="illegible" unit="component"/>
-              </seg>i</seg> <seg met="-+-++">
-              <gap quantity="5" reason="lost" unit="character"/>
-            </seg><g type="dotMid">.</g></l>
-          <l n="d">na <seg met="+-+---+--+-+">
-              <gap quantity="12" reason="lost" unit="character"/>
-            </seg> jāt·<g type="floretQuatrefoil">.</g><!-- sapi2argr n(ām)am̃(candra bindu) CiCe CCuCi {6} (vā)jāt· --></l>
-        </lg>
-        <!-- numérotation des lignes B1-B3? Il y a-t-il vraiment une ligne B1 aussi de B2? -->
-        <ab>
-          <milestone n="B" type="pagelike" unit="face"/>
-          <lb n="B1"/>
-          <gap precision="low" quantity="25" reason="lost" unit="character"/>
-        </ab>
-        <lg met="indravajrā" n="7">
-          <l n="a">
-            <lb n="B2"/>
-            <!-- sapi2argr à propos de B2: {11} CnV v(a)[r]ṇn(a) {7} CpV {11}? -->
-            <seg met="++-++--+-++">
-              <gap quantity="11" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b">
-            <seg met="++-++--+-++">
-              <gap quantity="11" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="c">
-            <seg met="++-+">
-              <gap quantity="4" reason="lost" unit="character"/>
-            </seg>
-            <lb n="B3"/>
-            <seg met="+--+-++">
-              <gap quantity="7" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d">jātam̐ kusumam̐ grathitam̐ karāgraiḥ<g type="ddandaPlain">.</g></l>
-        </lg>
-        <lg met="vaṁśastha" n="8">
-          <l n="a"><unclear>pra</unclear>p<unclear>ū</unclear>ritāś śrījayasiṅhavarmmaṇā</l>
-          <l n="b"><seg met="-+-">
-              <gap quantity="3" reason="lost" unit="character"/>
-            </seg><lb n="B4"/><seg met="++">
-              <gap quantity="2" reason="lost" unit="character"/>
-            </seg> śayapuṇyakāṅkṣiṇām·</l>
-          <l n="c">surakṣatāsyāñ jagatīm analpatām</l>
-          <l n="d">ivāyatā dharmmasute<supplied reason="lost">na</supplied> <lb n="B5"/><seg met="+">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </seg>dbhuvām·<g type="ddandaPlain">.</g></l>
-        </lg>
-        <lg met="vasantatilaka" n="9">
-          <l n="a">kīrttiṁ sthitām api mahāmvunidheś ca pāre</l>
-          <l n="b">puṇyodayam̐ kr̥tavato bhuvi rājamā<unclear>
-              <g type="floretQuatrefoil">.</g>
-            </unclear><!-- sapi2argr Sur cette face, il semble y avoir plusieurs floret à la droite des lignes. J'en ai ajouté un pour l'exemple mais dois-je le supprimer ou à l'inverse, inscrire les autres?. --><lb n="B6"/>rggam·</l>
-          <l n="c">manye guṇā dinakarāṅśusamās tamondhe</l>
-          <l n="d">yānty asya kim̐ punar ime svapure prakīrṇṇāḥ<g type="ddandaPlain">.</g></l>
-        </lg>
-        <lg met="anuṣṭubh" n="10">
-          <l n="a"><lb n="B7"/>bhūyāsus suviśeṣajñāś</l>
-          <l n="b">śiva-dharmma-parāyaṇāḥ</l>
-          <l enjamb="yes" n="c">Ime śrī-jaya-siṅhādi</l>
-          <l n="d">varmm<unclear>ā</unclear>ntasya ca <lb n="B8"/>sevakāḥ<g type="ddandaPlain">.</g></l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="11">
-          <l n="a">śrī-kalpaḥ śiva-dharmma-bhāg vidhivid ācāryyo grimo jāyate</l>
-          <l n="b">kārttajño mr̥ta<lb n="B9"/>sārathis tadanujaḥ puṇyaikatānāśayaḥ</l>
-          <l n="c">kīrttyāśaḥ kila rāja-paṇḍita-vibhus tasyānujaḥ pā<lb n="B10"/>ṭavaḥ</l>
-          <l n="d">kamraiṅsārathir īśa-bhāk tad-anujo māy· sam̐ jña-kāsyānujā<g type="ddandaPlain">.</g></l>
-        </lg>
-        <lg met="gīti" n="12">
-          <l n="ab">Ete guṇa-gaṇa-viśa<lb n="B11"/>dā guṇa-dhana-saṅghais susanmatāḥ sumatāḥ</l>
-          <l n="cd">pitror guṇam abhivettum̐ pañcābhūvan saho<lb n="B12"/>darās tv adarāḥ<g type="ddandaPlain">.</g></l>
-        </lg>
-        <lg met="gīti" n="13">
-          <l n="ab">śrī-<placeName key="Rudrapurī" subtype="town" type="settlement">rudrapurī</placeName> dadhatīva bhāti kailā<unclear>sa</unclear>dhurddhurañ jayatām·</l>
-          <l n="cd">śrīrudravasatir a<lb n="B13"/>syām asmadvihitā<unclear>t</unclear>isādhu rañjayatām<g type="ddandaPlain">.</g></l>
-        </lg>
-        <lg met="sragdharā" n="14">
-          <l n="a">yatra śrīśākarāje mvarakucatanubhiḥ prāptakā<lb n="B14"/>le vr̥ṣasthe</l>
-          <l n="b">candrā<unclear>tharvārkka</unclear>candrau pra<unclear>tha</unclear>mabhavagate ketuke mīnaśukre</l>
-          <l n="c">cāpārkkau taula<lb n="B15"/>rāhau mr̥ga<unclear>pat</unclear>i<unclear>sam</unclear>i<unclear>t</unclear>e <unclear>gīrath</unclear>e<!-- sapi2argr sur la pierre, le gīrathe est illisible--> maithunaire</l>
-          <l n="d"><unclear>ś</unclear>raddhāḍhyai sthāpito yais svapitr̥vinataye <lb n="B16"/>śrī mahārudradevaḥ<unclear>
-              <g type="ddandaPlain">.</g>
-            </unclear></l>
-        </lg>
-        <p>śrī<unclear>mahā</unclear>rudradevo py <gap quantity="8" reason="illegible" unit="character"/> ścasmadbhaktyā tiṣṭhaty asam̐ <milestone n="C" type="pagelike" unit="face"/>
-           <lb n="C1"/><gap precision="low" quantity="17" reason="lost" unit="character"/>
-           <lb n="C2"/><gap precision="low" quantity="17" reason="lost" unit="character"/>
-           <lb n="C3"/><gap quantity="3" reason="illegible" unit="character"/> v<unclear>o</unclear><!-- sapi2argr À la place de (vā) --> yama mukt<supplied reason="lost">i</supplied><unclear>s</unclear> sakalā su<unclear>ta</unclear><!-- sapi2argr à la place de su(s) --> <gap quantity="3" reason="illegible" unit="character"/>
-           <lb n="C4"/>dāttā<unclear>ṁ</unclear><!-- sapi2argr sur la pierre je ne vois pas l'anusvara, mais cela pourrait être cause de l'entaille profonde située au dessus du caractère. --> śrīmahārudre<g type="ddandaPlain">.</g>
+      
+<body>
+         
+<div type="edition" xml:lang="san-Latn">
+           
+<p>
+  <milestone type="pagelike" unit="face" n="A" />
+  <lb n="A1" />
+  <gap reason="lost" quantity="1" unit="line" />
+</p>
+           
+<lg n="1" met="mālinī">
+             
+<l n="a">
+<lb n="A2" />
+<seg met="------">
+  <gap reason="lost" quantity="6" unit="character" />
+</seg>rudro rudraloke g
+<choice>
+  <sic>ū</sic>
+  <corr>u</corr>
+</choice>ṇāḍhye
+<g type="circleSmall">.</g></l>
+             
+<l n="b">ruciraruc 
+<seg met="--+++-+">
+  <gap reason="lost" quantity="7" unit="character" />
+</seg>
+<lb n="A3" />
+<seg met="+-+">
+  <gap reason="lost" quantity="3" unit="character" />
+</seg>
+<seg type="aksara">
+<seg type="component" subtype="body">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>y
+<unclear>a</unclear></seg>ḥ</l>
+             
+<l n="c">sa munibhir ajaradbhiḥ stūyamāno mayā tu</l>
+             
+<l n="d">śriyam avati niśīndisvāsr̥ 
+<seg met="++-+">
+  <gap reason="lost" quantity="4" unit="character" />
+</seg>
+<lb n="A4" />
+<seg met="+">
+  <gap reason="lost" quantity="1" unit="character" />
+</seg>
+<g type="ddandaPlain">.</g></l>
+           </lg>
+           
+<lg n="2" met="āryā">
+             
+<l n="ab">caraṇāmvuja-surabhirajasi
+<g type="circleSmall">.</g> pavitritāśeṣa-loka Iha ya 
+<seg met="-+">
+  <gap reason="lost" quantity="2" unit="character" precision="low" />
+</seg></l>             
+<l n="cd">
+<lb n="A5" />
+<seg met="--">
+  <gap reason="lost" quantity="2" unit="character" precision="low" />
+</seg> te natir aśuciharā
+<g type="dotMid">.</g> rajanikarakaleva sā sudhiyā 
+<g type="dashLong">.</g></l>
+           </lg>
+           
+<lg n="3" met="rucirā">
+             
+<l n="a">
+<seg met="-">
+  <gap reason="lost" quantity="1" unit="character" />
+</seg>
+<lb n="A6" />
+<seg met="+">
+  <gap reason="lost" quantity="1" unit="character" />
+</seg>
+<supplied reason="lost">ṅ</supplied>garāga-sura-bhimalīmasam̃ rates</l>
+             
+<l n="b">smarasya vakṣa Iva muni-prapūjitam·
+<g type="dotMid">.</g></l>
+             
+<l n="c">prayāga 
+<seg met="+-">
+  <gap reason="lost" quantity="2" unit="character" />
+</seg>
+<lb n="A7" />
+<seg met="-">
+  <gap reason="lost" quantity="1" unit="character" />
+</seg>m iva satkriyādibhir</l>
+             
+<l n="d">vvirājate bhuvanaguroḥ padadvayam·
+<g type="ddandaPlain">.</g></l>           </lg>
+           
+<lg n="4" met="āryā">
+             
+<l n="ab">mādhavikam iva cara
+<unclear>ṇa</unclear>
+<seg met="-">
+  <gap reason="lost" quantity="1" unit="character" />
+</seg>
+<lb n="A8" />
+<seg met="-">
+  <gap reason="lost" quantity="1" unit="character" />
+</seg>m idam anavaratak
+<choice>
+  <sic>ū</sic>
+  <corr>u</corr>
+</choice>sumāgatam̃ variṇaḥ
+<g type="dotMid">.</g></l>
+             
+<l n="cd">sumatārccana-vidhinica
+<unclear>ya</unclear> 
+<seg met="-">
+  <gap reason="lost" quantity="1" unit="character" />
+</seg>
+<lb n="A9" break="no" />
+<supplied reason="lost">m a</supplied>r
+<unclear>p</unclear>payatu mudam̐ mudarthibhyaḥ
+<g type="ddandaPlain">.</g></l>
+           </lg>
+           
+<lg n="5" met="gaṇacchandas">             
+<l n="ab">gaja-vāji-puruṣa-kalaśa
+<g type="dotMid">.</g>vyajana-ghaṭac-chatra 
+<seg met="+-">
+  <gap reason="lost" quantity="2" unit="character" />
+</seg>
+<lb n="A10" />
+<seg met="+">
+  <gap reason="lost" quantity="1" unit="character" />
+</seg> cāmarākr̥tiracitam·</l>
+             
+<l n="cd">rudrasya padatalam idam̐
+<g type="dotMid">.</g> rājyam iva samantato 
+<seg met="--">
+  <gap reason="lost" quantity="2" unit="character" />
+</seg>
+<lb n="A11" />
+<seg met="-">
+  <gap reason="lost" quantity="1" unit="character" />
+</seg> nr̥ṇām̃ śriyam avatāt·
+<g type="ddandaPlain">.</g></l>
+           </lg>
+           
+<lg n="6" met="vasantatilaka">
+             
+<l n="a" enjamb="yes">rudrasya sam̐stutir iyam̐ 
+<unclear>ph</unclear>ala
+<unclear>kā</unclear>maṇavā
+<g type="floretQuatrefoil">.</g></l>
+             
+<l n="b">
+<lb n="A12" />
+<unclear>thā</unclear> rāja-paṇḍita-
+<unclear>bh</unclear>r̥tavasum iva 
+<unclear>da</unclear> pravaktum·
+<g type="dotMid">.</g></l>
+             
+<l n="c">
+<unclear>kṣ</unclear>īreṇa miśritapa
+<unclear>ya</unclear>ḥ 
+<lb n="A13" /> 
+<seg type="aksara">
+<seg type="component" subtype="body">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>i</seg> 
+<seg met="-+-++">
+  <gap reason="lost" quantity="5" unit="character" />
+</seg>
+<g type="dotMid">.</g></l>
+             
+<l n="d">na 
+<seg met="+-+---+--+-+">
+  <gap reason="lost" quantity="12" unit="character" />
+</seg> jāt·
+<g type="floretQuatrefoil">.</g></l>
+           </lg>
+                      
+<ab>
+  <milestone type="pagelike" unit="face" n="B" />
+  <lb n="B1" />
+  <gap reason="lost" quantity="25" unit="character" precision="low" />
+</ab>
+           
+<lg n="7" met="indravajrā">
+           
+<l n="a">
+  <lb n="B2" />
+  <seg met="++-++--+-++">
+    <gap reason="lost" quantity="11" unit="character" />
+  </seg>
+</l>
+           
+<l n="b">
+  <seg met="++-++--+-++">
+    <gap reason="lost" quantity="11" unit="character" />
+  </seg>
+</l>
+           
+<l n="c">
+  <seg met="++-+">
+    <gap reason="lost" quantity="4" unit="character" />
+  </seg>
+  <lb n="B3" />
+  <seg met="+--+-++">
+    <gap reason="lost" quantity="7" unit="character" />
+  </seg>
+</l>
+           
+<l n="d">jātam̐ kusumam̐ grathitam̐ karāgraiḥ
+<g type="ddandaPlain">.</g></l>
+           </lg>
+           
+<lg n="8" met="vaṁśastha">
+             
+<l n="a">
+<unclear>pra</unclear>p
+<unclear>ū</unclear>ritāś śrījayasiṅhavarmmaṇā</l>
+             
+<l n="b">
+<seg met="-+-">
+  <gap reason="lost" quantity="3" unit="character" />
+</seg>
+<lb n="B4" />
+<seg met="++">
+  <gap reason="lost" quantity="2" unit="character" />
+</seg> śayapuṇyakāṅkṣiṇām·</l>
+             
+<l n="c">surakṣatāsyāñ jagatīm analpatām</l>
+             
+<l n="d">ivāyatā dharmmasute
+<supplied reason="lost">na</supplied> 
+<lb n="B5" />
+<seg met="+">
+  <gap reason="lost" quantity="1" unit="character" />
+</seg>dbhuvām·
+<g type="ddandaPlain">.</g></l>
+           </lg>
+           
+<lg n="9" met="vasantatilaka">
+             
+<l n="a">kīrttiṁ sthitām api mahāmvunidheś ca pāre</l>
+             
+<l n="b">puṇyodayam̐ kr̥tavato bhuvi rājamā
+<unclear>
+  <g type="floretQuatrefoil">.</g>
+</unclear>
+<lb n="B6" />rggam·</l>
+             
+<l n="c">manye guṇā dinakarāṅśusamās tamondhe</l>
+             
+<l n="d">yānty asya kim̐ punar ime svapure prakīrṇṇāḥ
+<g type="ddandaPlain">.</g></l>
+           </lg>
+           
+<lg n="10" met="anuṣṭubh">
+             
+<l n="a">
+<lb n="B7" />bhūyāsus suviśeṣajñāś</l>
+             
+<l n="b">śiva-dharmma-parāyaṇāḥ</l>
+             
+<l n="c" enjamb="yes">Ime śrī-jaya-siṅhādi</l>
+             
+<l n="d">varmm
+<unclear>ā</unclear>ntasya ca 
+<lb n="B8" />sevakāḥ
+<g type="ddandaPlain">.</g></l>
+           </lg>
+           
+<lg n="11" met="śārdūlavikrīḍita">
+             
+<l n="a">śrī-kalpaḥ śiva-dharmma-bhāg vidhivid ācāryyo grimo jāyate</l>
+             
+<l n="b">kārttajño mr̥ta
+<lb n="B9" />sārathis tadanujaḥ puṇyaikatānāśayaḥ</l>
+             
+<l n="c">kīrttyāśaḥ kila rāja-paṇḍita-vibhus tasyānujaḥ pā
+<lb n="B10" />ṭavaḥ</l>
+             
+<l n="d">kamraiṅsārathir īśa-bhāk tad-anujo māy· sam̐ jña-kāsyānujā
+<g type="ddandaPlain">.</g></l>
+           </lg>
+           
+<lg n="12" met="gīti">
+             
+<l n="ab">Ete guṇa-gaṇa-viśa
+<lb n="B11" />dā guṇa-dhana-saṅghais susanmatāḥ sumatāḥ</l>
+             
+<l n="cd">pitror guṇam abhivettum̐ pañcābhūvan saho
+<lb n="B12" />darās tv adarāḥ
+<g type="ddandaPlain">.</g></l>
+           </lg>
+           
+<lg n="13" met="gīti">
+             
+<l n="ab">śrī-
+<placeName type="settlement" subtype="town" key="Rudrapurī">rudrapurī</placeName> dadhatīva bhāti kailā
+<unclear>sa</unclear>dhurddhurañ jayatām·</l>
+             
+<l n="cd">śrīrudravasatir a
+<lb n="B13" />syām asmadvihitā
+<unclear>t</unclear>isādhu rañjayatām
+<g type="ddandaPlain">.</g></l>
+           </lg>
+           
+<lg n="14" met="sragdharā">
+             
+<l n="a">yatra śrīśākarāje mvarakucatanubhiḥ prāptakā
+<lb n="B14" />le vr̥ṣasthe</l>
+             
+<l n="b">candrā
+<unclear>tharvārkka</unclear>candrau pra
+<unclear>tha</unclear>mabhavagate ketuke mīnaśukre</l>
+             
+<l n="c">cāpārkkau taula
+<lb n="B15" />rāhau mr̥ga
+<unclear>pat</unclear>i
+<unclear>sam</unclear>i
+<unclear>t</unclear>e 
+<unclear>gīrath</unclear>e maithunaire</l>
+             
+<l n="d">
+<unclear>ś</unclear>raddhāḍhyai sthāpito yais svapitr̥vinataye 
+<lb n="B16" />śrī mahārudradevaḥ
+<unclear>
+  <g type="ddandaPlain">.</g>
+</unclear></l>
+           </lg>
+           
+<p>śrī
+<unclear>mahā</unclear>rudradevo py 
+<gap reason="illegible" quantity="8" unit="character" /> ścasmadbhaktyā tiṣṭhaty asam̐ 
+<milestone type="pagelike" unit="face" n="C" />
+           
+<lb n="C1" />
+<gap reason="lost" quantity="17" unit="character" precision="low" />
+           
+<lb n="C2" />
+<gap reason="lost" quantity="17" unit="character" precision="low" />
+           
+<lb n="C3" />
+<gap reason="illegible" quantity="3" unit="character" /> v
+<unclear>o</unclear> yama mukt
+<supplied reason="lost">i</supplied>
+<unclear>s</unclear> sakalā su
+<unclear>ta</unclear> 
+<gap reason="illegible" quantity="3" unit="character" />
+           
+<lb n="C4" />dāttā
+<unclear>ṁ</unclear> śrīmahārudre
+<g type="ddandaPlain">.</g>
             </p>
-        <p xml:lang="ocm-Latn">
-            niy· dom̐ hum<supplied reason="lost">ā yāṅ·</supplied>
-            <lb n="C5"/>pov· ku mahārudra<g type="dotMid">.</g> gasam̃k· yop· pov· vañā<supplied reason="lost">k</supplied> <gap precision="low" quantity="4" reason="lost" unit="character"/>
-            <lb n="C6"/><gap quantity="3" reason="lost" unit="character"/>tye tra vihārake<g type="dotMid">.</g> pov· jlet· pagā<unclear>r· tapaḥ</unclear> <gap quantity="2" reason="illegible" unit="character"/><gap precision="low" quantity="5" reason="lost" unit="character"/>
-            <lb n="C7"/><gap quantity="3" reason="lost" unit="character"/>ttavān· <unclear>A</unclear>ka<unclear>n</unclear>au <gap quantity="1" reason="illegible" unit="character"/> <seg type="aksara"><seg subtype="body" type="component">
-              <gap quantity="1" reason="illegible" unit="component"/>
-            </seg>au</seg> <gap quantity="4" reason="illegible" unit="character"/>n<unclear>d</unclear>r <gap quantity="2" reason="illegible" unit="character"/> vyā <gap precision="low" quantity="6" reason="lost" unit="character"/>
+            
+<p xml:lang="ocm-Latn">
+            niy· dom̐ hum
+<supplied reason="lost">ā yāṅ·</supplied>
+            
+<lb n="C5" />pov· ku mahārudra
+<g type="dotMid">.</g> gasam̃k· yop· pov· vañā
+<supplied reason="lost">k</supplied> 
+<gap reason="lost" quantity="4" unit="character" precision="low" />
+            
+<lb n="C6" />
+<gap reason="lost" quantity="3" unit="character" />tye tra vihārake
+<g type="dotMid">.</g> pov· jlet· pagā
+<unclear>r· tapaḥ</unclear> 
+<gap reason="illegible" quantity="2" unit="character" />
+<gap reason="lost" quantity="5" unit="character" precision="low" />
+            
+<lb n="C7" />
+<gap reason="lost" quantity="3" unit="character" />ttavān· 
+<unclear>A</unclear>ka
+<unclear>n</unclear>au 
+<gap reason="illegible" quantity="1" unit="character" /> 
+<seg type="aksara">
+<seg type="component" subtype="body">
+  <gap reason="illegible" quantity="1" unit="component" />
+</seg>au</seg> 
+<gap reason="illegible" quantity="4" unit="character" />n
+<unclear>d</unclear>r 
+<gap reason="illegible" quantity="2" unit="character" /> vyā 
+<gap reason="lost" quantity="6" unit="character" precision="low" />
           </p>
-        <p>
-            <lb n="C8"/><supplied reason="lost">sa</supplied><unclear>t</unclear>yadharmmavivr̥ddhyai śrī<g type="dotMid">.</g>mahārudre p<supplied reason="lost">r</supplied>a<unclear>d</unclear>attavān·<!-- sapi2argr Je lis plutôt sadattavān·--><g type="ddandaPlain">.</g>
+          
+<p>
+            
+<lb n="C8" />
+<supplied reason="lost">sa</supplied>
+<unclear>t</unclear>yadharmmavivr̥ddhyai śrī
+<g type="dotMid">.</g>mahārudre p
+<supplied reason="lost">r</supplied>a
+<unclear>d</unclear>attavān·
+<g type="ddandaPlain">.</g>
             </p>
-        <p xml:lang="ocm-Latn"><gap precision="low" quantity="5" reason="lost" unit="character"/>
-            <lb n="C9"/><gap quantity="1" reason="lost" unit="character"/>k· <gap quantity="2" reason="illegible" unit="character"/>r· pvak·<!-- sapi2argr sur la pierre, je lis svak· --> <unclear>taṁl· ja</unclear>k· <gap quantity="2" reason="illegible" unit="character"/> <unclear>taṁl·</unclear> <gap quantity="1" reason="lost" unit="character"/><unclear>da taṁ</unclear>l· ha<unclear>jai</unclear> <gap precision="low" quantity="5" reason="lost" unit="character"/><!-- sapi2argr à la place de:  pvak· {2 akṣ.}k· {5 akṣ.}l· ha(jai) {4/5 akṣ.} -->
-            <lb n="C10"/>na<unclear>ḥ</unclear><!-- sapi2argra: ajout --> <gap quantity="7" reason="illegible" unit="character"/> kāla vanuḥ yām̃ pu pov· ku śrī ja<supplied reason="lost">yasiṅhavarmmadeva</supplied>
-            <lb n="C11"/><supplied reason="lost">Avi</supplied><unclear>sta ra</unclear> pin nan· kā vuḥ di yāṅ pov ku śrī mahārudrā<gap precision="low" quantity="5" reason="lost" unit="character"/>
-            <lb n="C12"/><unclear>katutau</unclear>l· Ajauñ·<!-- sapi2argr à la place de Ajauk --> Andāt·<!--sapi2argr je ne crois pas trop à cette lecture, sans pouvoir en proposer une autre. sdāt? Adāt? --> <unclear>n</unclear>iy<unclear>·</unclear> <gap quantity="9" reason="illegible" unit="character"/><milestone n="D" type="pagelike" unit="face"/>
-            <lb n="D1"/><gap precision="low" quantity="25" reason="lost" unit="character"/>
-            <lb n="D2"/><gap precision="low" quantity="25" reason="lost" unit="character"/>
-            <lb n="D3"/><gap precision="low" quantity="25" reason="lost" unit="character"/>
-            <lb n="D4"/><supplied reason="lost">urāṅ· ta</supplied>paḥ viśeṣa nan· trā vela k<unclear>āṁm</unclear>it·<!-- sapi2argr doute sur cette lecture. ka..cit·? --> yajamāna <unclear>ha</unclear><gap quantity="2" reason="lost" unit="character"/>
-            <lb n="D5"/><gap quantity="3" reason="lost" unit="character"/> <unclear>vā</unclear> hulun· yām̃ nau pamauṅ· Anavasta si Urāṅ· kā Aṅgap· di hu<lb break="no" n="D6"/><supplied reason="lost">mā yām̃</supplied> pov· ku sinim̃ knā si Urāṅ· tapaḥ viśeṣa nan· suvāk· di pu pom̃ ta<lb break="no" n="D7"/><supplied reason="lost">na rayā</supplied> sakalarājādhirāja sim̃ ra thuv· si tatap· tuy· matandāḥ si <unclear>U</unclear><lb break="no" n="D8"/><supplied reason="lost">rāṅ·</supplied> <gap quantity="2" reason="lost" unit="character"/> <unclear>na</unclear> yām̃ pom̃ ku sinim̃ tuy yathākrama Anatat· Oḥ jem̃ si paka
-            <lb n="D9"/><gap quantity="3" reason="lost" unit="character"/> Artha sidaḥ yajamāna yām̃ pu yajo<unclear>gg</unclear>ā nan· pūtra<g type="dotMid">.</g> ya <gap precision="low" quantity="2" reason="lost" unit="character"/>
-            <lb n="D10"/><gap quantity="3" reason="lost" unit="character"/> yā dhātu<g type="dotMid">.</g> Urām̃ nan· pūjā yām̃ nan· Urām̃ nan· sidaḥ yajamā<lb break="no" n="D11"/><supplied reason="lost">na</supplied> <gap quantity="2" reason="lost" unit="character"/> pi ca<g type="dotMid">.</g> so mr̥dūni kulāni so gap· dharmma sā drim̃ dvā drim̃ vañā<lb break="no" n="D12"/><supplied reason="lost">k·</supplied><!-- sapi2argr vanā[k·]: ajout --> <gap quantity="3" reason="lost" unit="character"/> <unclear>mira</unclear> yuṣmābhiḥ <unclear>knā</unclear> rupo<!--sapi2argr à la place de (su)rupo. --> Imaiṅ <!-- à la place de Imauḥ--> svabhāva ta cim̃ <unclear>la</unclear><!-- sapi2argr ta cim̃ (la): au lieu de (ta)...... --><gap quantity="2" reason="lost" unit="character"/>
-            <lb n="D13"/><gap quantity="11" reason="lost" unit="character"/><g type="dandaPlain">.</g> <unclear>satā</unclear>ṅ· ka cim̃<!-- sapi2argr au lieu de kami --> kā vuḥ yām̃ <unclear>pu</unclear>
-            <lb n="D14"/><gap quantity="9" reason="lost" unit="character"/>ṅ· <unclear>p</unclear>una nim̃<!-- sapi2argr ṅ· (p)una nim̃: ajout --> <gap quantity="2" reason="illegible" unit="character"/> <unclear>n</unclear>iy· loka nim̃<!-- sapi2argr au lieu de loka ni --><g type="dotMid">.</g>
-            <lb n="D15"/><gap quantity="7" reason="lost" unit="character"/><unclear>ka</unclear> <gap quantity="1" reason="illegible" unit="character"/>ci<unclear>t</unclear>· <gap quantity="2" reason="illegible" unit="character"/> kā<unclear>rā</unclear>na tuy· <unclear>su</unclear>bhāva <unclear>ka</unclear><!-- sapi2argr toute cette ligne est un ajout. -->
-            <lb n="D16"/><gap quantity="4" reason="lost" unit="character"/> nan· <gap quantity="3" reason="illegible" unit="character"/> <unclear>jem̃</unclear> <gap quantity="1" reason="illegible" unit="character"/> <unclear>jā</unclear>m̃ rac· dharma<unclear>lagapi go</unclear><!-- sapi2argr lagapi go: revoir cette lecture. -->
-            </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="A3">
-            <lem>niśīnd<unclear>i</unclear>isv<unclear>ās</unclear>r̥</lem>
-            <note>One might like to read <foreign>niśīndu</foreign>- here, but there is definitely no u-vocalization.</note>
-          </app>
-          <app loc="A7">
-            <lem>cara<unclear>ṇa</unclear><seg met="--">
-                <gap quantity="2" reason="lost" unit="character"/>
-              </seg>m</lem>
-            <note>One might conjecture here <foreign>caraṇatalam</foreign>.</note>
-          </app>
-          <app loc="B3">
-            <lem><seg met="-+-++">
-                <gap quantity="5" reason="lost" unit="character"/>
-              </seg>śaya-</lem>
-            <note>Yuko Yokochi here conjectures: <foreign>manorathā āśaya</foreign>-.</note>
-          </app>
-          <app loc="C3">
-            <lem><unclear>vā</unclear>yam<unclear>a</unclear></lem>
-            <note>It is just conceivable that an e-vocalisation was originally written above what is here read <foreign>m(a)</foreign>, in which case we would have <foreign>me</foreign>, and may speculate about a restoration like <foreign>[de]vāya m[e] muktis sakalā</foreign>.</note>
-          </app>
-          <app loc="C4">
-            <lem>dāt</lem>
-            <note>This is certainly the final syllable of a verb form like <foreign>adāt</foreign> or <foreign>prādāt</foreign>, as we presuppose in our translation.</note>
-          </app>
-          <app loc="C7">
-            <lem>ttavān</lem>
-            <note>These are almost certainly the final syllables of a participial form like <foreign>pradattavān</foreign>, as we see also in l. 8. Only very vagues traces are left of most akṣaras in the remainder of this line. We guess that the language was Sanskrit. If this assumption is correct, then one may have to read <foreign>avanau</foreign> or <foreign>atha nau</foreign>, since (<foreign>akan</foreign>)au cannot be Sanskrit.</note>
-          </app>
-          <app loc="C10">
-            <lem>ja<supplied reason="lost">yasiṅhavarmmadeva Avi</supplied></lem>
-            <note>The restorations are inspired by the general contents of the inscription (Jayasiṁhavarman figures also in B, st. II and IV) and by parallels such as C. 142, face D, lines 18–19: <foreign>aviḥ humā nan kā ra vuḥ di yāṅ pov ku śrīmahārudra</foreign>. At the end, one will have to restore <foreign>mahārudrāṇī</foreign> or <foreign>mahārudrādhipatiḥ</foreign>.</note>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:Griffiths+al2012_01" type="translation">
-        <p n="1" rend="stanza"><gap reason="lost"/> Rudra, in the Rudra world that is full of excellent qualities, <gap reason="lost"/> brilliant <gap reason="lost"/>, being praised by the unaging Sages, but <supplied reason="subaudible">praised</supplied> by me, he protects the good fortune <supplied reason="explanation">or: kingdom?</supplied> <gap reason="lost"/> at night <gap reason="lost"/></p>
-        <p n="2" rend="stanza">In the fragrant dust on the lotus feet of you, by whom the entire world here is blessed, a prostration by a pious one <supplied reason="explanation">or: of pious people</supplied> removes impurity, like that digit of the moon <supplied reason="subaudible">removes darkness from the night</supplied></p>
-        <p n="3" rend="stanza">Praised by the sages, like the chest of Smara <supplied reason="explanation">Kāma</supplied> fragrantly stained by the cosmetics <supplied reason="explanation">
-            <foreign>aṅgarāga</foreign>
-          </supplied> on <supplied reason="subaudible">the breasts of his lover</supplied> Rati, the pair of feet of Bhuvanaguru <supplied reason="explanation">Śiva</supplied> shines out through good ministrations, etc., like <gap reason="lost"/> at Prayāga.</p>
-        <p n="4" rend="stanza">This <supplied reason="subaudible">one</supplied> foot sole of Varin <supplied reason="explanation">Śiva</supplied>, like the mādhavī-creeper <supplied reason="explanation">Hiptage Benghalensis</supplied>, is incessantly endowed with flowers. It is a store of rules for worship of the wise ones <supplied reason="explanation">
-            <foreign>sumata</foreign>
-          </supplied>. Let it offer joy to those who seek joy.</p>
-        <p n="5" rend="stanza">This <supplied reason="subaudible">other</supplied> foot sole of Rudra, fashioned with <supplied reason="subaudible">decoration in the form of</supplied> representations of elephants, horses, men, vases, fans, pots, parasols <gap reason="lost"/> fly-whisks, must protect the wealth of men all around, like the kingdom <gap reason="lost"/></p>
-        <p n="6" rend="stanza">This praise of Rudra, whether there is fault in it or it is faultless, <gap reason="lost"/> water mixed with milk <gap reason="lost"/></p>
-        <p n="7" rend="stanza"><gap reason="lost"/> the flower that has sprouted, tied with the tips of the hands.</p>
-        <p n="8" rend="stanza">By Śrī Jayasiṃhavarman, while he was governing well the earth, were filled the wishes of those who in mind <supplied reason="explanation">
-            <foreign>āśaya</foreign>
-          </supplied> desire merit, on this <supplied reason="subaudible">earth</supplied> <gap reason="lost"/> to greatness <gap reason="lost"/>, as <gap reason="lost"/> was stretched by Dharmasuta <supplied reason="explanation">i.e. Yudhiṣṭhira</supplied> <gap reason="lost"/> originating from <gap reason="lost"/></p>
-        <p n="9" rend="stanza">I imagine that the fame of him <supplied reason="explanation">Jayasiṃhavarman</supplied>, who has fashioned a royal highway on the earth <supplied reason="subaudible">in the form of</supplied> his abundant merit, is present even on the opposite shore of the great ocean. His virtues, spreading out, like rays of the sun, penetrate <supplied reason="explanation">
-            <foreign>yānti</foreign>
-          </supplied> <supplied reason="subaudible">even</supplied> in pitch darkness. How much more throughout his own city!</p>
-        <p n="10" rend="stanza">These ones <supplied reason="explanation">i.e. the following</supplied>, endowed with great wisdom, devoted to Śiva’s Law, were servants of him <supplied reason="subaudible">whose name</supplied> begins with Jayasiṃha- and ends with -varman.</p>
-        <p n="11" rend="stanza">Śrīkalpa, adherent of Śiva’s law, knower of precepts, teacher, was born the first. His grateful younger brother is Amr̥tasārathi, whose mind <supplied reason="explanation">
-            <foreign>āśaya</foreign>
-          </supplied> was solely concentrated on <supplied reason="subaudible">making</supplied> merit. His clever younger brother, reputed to be <supplied reason="explanation">
-            <foreign>kila</foreign>
-          </supplied> reaching fame, was Rājapaṇḍitavibhu. Kamraiṅsārathi, devotee of Īśa, was his younger brother; his younger sister was called Māy.</p>
-        <p n="12" rend="stanza">These five siblings <supplied reason="explanation">
-            <foreign>sahodara</foreign>
-          </supplied>, free from defects <supplied reason="explanation">
-            <foreign>adara</foreign>
-          </supplied>, spotless by hosts of virtues, very wise, were well respected by congregations of those whose wealth consists in virtues, for having inherited <supplied reason="explanation">?</supplied> the virtue of their parents.</p>
-        <p n="13" rend="stanza">The illustrious Rudrapurī shines as if it holds victoriousness over the top of the tops <supplied reason="explanation">i.e. the highest summit</supplied> of Kailāsa. May the illustrious abode of Rudra built there <supplied reason="explanation">in Rudrapurī</supplied> by us gratify <supplied reason="explanation">the people or Rudra?</supplied> very well.</p>
-        <p n="14" rend="stanza">When the era of the illustrious king of the Śākas had reached <supplied reason="subaudible">empty</supplied> sky, <supplied reason="explanation">2</supplied> breasts, <supplied reason="explanation">8</supplied> bodies <supplied reason="explanation">i.e. in 820 Śaka</supplied>, when the moon was in Taurus, when the sun and Mercury <supplied reason="explanation">
-            <foreign>cāndri</foreign>
-          </supplied> were in Aquarius, Ketu having gone to the first house; with Venus in Pisces; when Saturn <supplied reason="explanation">
-            <foreign>ārki</foreign>
-          </supplied> was in Sagittarius;
-            Rāhu, in Libra; when Jupiter had collided with Leo; when Mars <supplied reason="explanation">
-            <foreign>aira</foreign>
-          </supplied> was in Gemini — <supplied reason="subaudible">at that time</supplied> Śrī Mahārudradeva was established by them, who were full of faith, to pay homage to their own parents.</p>
-        <!-- sapi2argr Dois-je faire correspondre les paragraphes de la partie cam (faces B-C-D) de la traduction du catalogue de Danang avec les paragraphe de l’édition ? -->
-        <p n="B16">Śrī Mahārudradeva abides by our devotion <gap reason="lost"/></p>
-        <p n="C1-C4"><gap reason="lost"/> a complete <supplied reason="subaudible">fiscal</supplied> exemption <gap reason="lost"/> He gave it to Śrī Mahārudra.</p>
-        <p n="C4-C5">All these are the rice fields of my lord the god Mahārudra:</p>
-        <p n="C5-C6"><foreign>gasam̃k yop pov</foreign> many <gap reason="lost"/> for the <gap reason="lost"/> in this monastery.</p>
-        <p n="C6-C7"><foreign>pov jlet</foreign> of the enclosure <gap reason="lost"/> he gave <gap reason="lost"/></p>
-        <p n="C7-C8"><gap reason="lost"/> gave <gap reason="lost"/> to Śrī Mahārudra in order to stimulate the true <foreign>dharma</foreign>.</p>
-        <p n="C9-C11"><gap reason="lost"/> citadel <gap reason="lost"/> at the time of the gift by his majesty milord Śrī Jayasiṃhavarmadeva of all that <foreign>pin</foreign>, he gave it to my lord the god Śrī Mahārudrā <gap reason="lost"/></p>
-        <p n="D1-D3">
-          <gap reason="lost"/>
-        </p>
-        <p n="D4-D5"><gap reason="lost"/> those men of special asceticism too. At the time of <foreign>kāṃmit</foreign> of the sacrificer <gap reason="lost"/> bring slaves of the god and went to show <foreign>anavasta</foreign> of the men <gap reason="lost"/> <foreign>kā aṅgap</foreign> in the rice-fields of my lord the god of this place <foreign>knā</foreign> which those men of special asceticism had taken from his majesty the lord of the world, overlord of all kings.</p>
-        <p n="D5-D9">He who knows, who is steadfast following the exemption <gap reason="lost"/> my lord the god of this place, following respectively <foreign>anatat</foreign> is not <gap reason="lost"/> wealth, namely that sacrificer of the venerable Yojoggā, his son. <gap reason="lost"/></p>
-        <p n="D10-D14"><gap reason="lost"/> Those men worship that god. Those men, namely the sacrificer <gap reason="lost"/> <foreign>so</foreign> soft families, <foreign>so</foreign> all the <foreign>dharma</foreign>, one man, two men <gap reason="lost"/> by you a good form, a horrible nature <gap reason="lost"/> we will give my lord the god <gap reason="lost"/> this one, this world <gap reason="lost"/></p>
-      </div>
-      <div type="commentary">
-        <p n="A3">I. <foreign>śriyam avati</foreign>: cf. <foreign>śriyam avatām</foreign> in face A, l. 11.</p>
-        <p n="A8">IV b. We do not know the epithet Varin from any other source, but it must denote Śiva/Rudra, and may perhaps be considered a synonym of <foreign>varada</foreign> ‘Boon-Giver’.</p>
-        <p n="A8">IV c. The word <foreign>sumata</foreign> occurs again on face B, in st. VI. We accept here Yuko Yokochi’s suggestion that <foreign>mādhavika</foreign> can be a synonym of <foreign>mādhavī</foreign>, which denotes a kind of flowering creeper. This gives us a first case of a relatively hollow use of the suffix <foreign>-ka</foreign>. On this basis, we accept also her hesitant suggestion to restore °<foreign>nicayakam</foreign> in <foreign>pāda</foreign> c, with <foreign>-ka</foreign> again adding no substantial meaning. Such expletive use of the suffix shows that the poet’s style is not very refined.</p>
-        <p n="A9-A10">V ab. One expects in the first lacuna one of the insignia such as those listed in C. 38, face B, ll. 6–8: <foreign>tasya sakalakoṣṭhāgārarajataratnahemakadavakalaśabhr̥ṅgārarukmadaṇḍasitātapatracāmarahaimaghaṭādiparibhogā varddhamānā bhavanti sma</foreign>, and in C. 24, face B, ll. 12–13: <foreign>hemakaṭisūtravalayanūpurakirīṭamanimuktipravālahārādibhūṣaṇaṃ rajatakumbhānnabhājanavyajanātapatrakadavakalaśacāmaraśarāvādiparibhogaṃ</foreign>.</p>
-        <p n="B5-B6">IX. The construction of this stanza seems clumsy. Several other translations are imaginable.</p>
-        <p n="B7-B8">X. The conjunction <foreign>ca</foreign>, meaning ‘and’, is operative inside the compound that it follows, which seems clumsy style. The poet uses the precative form <foreign>bhūyāsur</foreign> in the function of a preterite, a usage which is seen a few times in other Sanskrit inscriptions of Cambodia and Campā, and is no doubt related to the more common phenomenon of the use of the optative form in the same function (see ISCC, p. 184 and Renou 1961: 412 and 451).</p>
-        <p n="B11">XII c. The meaning and grammatical construction of <foreign>abhivettum</foreign> seems rather uncertain. Another possibility, not more persuasive, is to translate ‘well respected ... for knowing the virtues ...’.</p>
-        <p n="B12-B13">XIII. We adopt here the translation proposed by Yuko Yokochi, who admits that she is not sure of the meaning of <foreign>dhurdhur</foreign>, and that interpreting <foreign>jayatām</foreign> as ‘the state of being victorious’ while taking <foreign>kailāsadhurddhurañ</foreign> as an object of <foreign>jaya</foreign> in its verbal meaning is unsmooth. Our own previous attempt was certainly not better: ‘Śrī Rudrapurī shines as though it holds the irrestrainable (<foreign>dhurdhura</foreign> = <foreign>durdhura</foreign>?) one of Kailāsa. Let Rudra’s abode be victorious! In it, may he rejoice well in what we have supplied and so on’ (we had read °<foreign>vihitādi sādhu</foreign>). Note word play (of the type called <foreign>yamaka</foreign>): <foreign>dhurdhurañ jayatām</foreign> / <foreign>sādhu rañjayatām</foreign>.</p>
-        <p n="B15">XIV c. The word <foreign>aira</foreign>, meaning ‘Son of the Earth’ (i.e. Mars), is derived from and hence implies the word <foreign>irā</foreign> in the meaning ‘earth’. The meaning ‘earth’ was thus far registered for this word in modern Sanskrit dictionaries only on the basis of its listing in Sanskrit lexicographical sources, and would hence have to be considered doubtful. But two cases of <foreign>irā</foreign> in this meaning are found in contemporary inscriptions of Campā: C. 142, st. XIX <foreign>irādhīśaprasādataḥ</foreign> (wrongly emended by Huber) and C. 149, st. XII <foreign>yasyerām avataḥ</foreign> (misread <foreign>yasyerājavataḥ</foreign> by Huber). The oldest and most authoritative lexicographical text citing the word in this meaning is the Amarakośa. It is likely that this text inspired the poet(s) of Campā to use the word in this meaning. For a possibly similar case, cf. ECIC I, p. 369 (on C. 217, st. IV).</p>
-        <p n="B16">If we have properly read <foreign>ścasmad</foreign>°, this presumably needs to be corrected to <foreign>ścāsmad</foreign>°.</p>
-        <p n="B15">XIV c. The word <foreign>aira</foreign>, meaning ‘Son of the Earth’ (i.e. Mars), is derived from and hence implies the word <foreign>irā</foreign> in the meaning ‘earth’. The meaning ‘earth’ was thus far registered for this word in modern Sanskrit dictionaries only on the basis of its listing in Sanskrit lexicographical sources, and would hence have to be considered doubtful. But two cases of <foreign>irā</foreign> in this meaning are found in contemporary inscriptions of Campā: C. 142, st. XIX <foreign>irādhīśaprasādataḥ</foreign> (wrongly emended by Huber) and C. 149, st. XII <foreign>yasyerām avataḥ</foreign> (misread <foreign>yasyerājavataḥ</foreign> by Huber). The oldest and most authoritative lexicographical text citing the word in this meaning is the Amarakośa. It is likely that this text inspired the poet(s) of Campā to use the word in this meaning. For a possibly similar case, cf. ECIC I, p. 369 (on C. 217, st. IV).</p>
-        <p n="D1-D14">The mixture of Sanskrit and Cam that we seem to observe on this face is interesting, but not totally unique. One finds something similar at C. 142, face D, ll. 13–14 (where <foreign>bhavadbhiḥ</foreign> may correspond to our <foreign>yuṣmābhiḥ</foreign> in l. 12)</p>
-      </div>
-      <div type="bibliography">
-        <p>First edited with translation into English by Arlo Griffiths et al. (<bibl rend="omitname">
-            <ptr target="bib:Griffiths+al2012_01"/>
-            <citedRange unit="page">263-270</citedRange>
-          </bibl>). The inscription is re-edited here by Arlo Griffiths and Salomé Pichon based on autopsy and the EFEO estampages n. 2117, n. 2118, n. 2119 and n. 2120.</p>
-        <listBibl type="primary">
-          <bibl n="G">
-            <!--sapi2argr quel sigle ici ?-->
-            <ptr target="bib:Griffiths+al2012_01"/>
-            <citedRange unit="page">263-270</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
-        </listBibl>
-      </div>
-    </body>
-  </text>
+            
+<p xml:lang="ocm-Latn">
+<gap reason="lost" quantity="5" unit="character" precision="low" />
+            
+<lb n="C9" />
+<gap reason="lost" quantity="1" unit="character" />k· 
+<gap reason="illegible" quantity="2" unit="character" />r· pvak· 
+<unclear>taṁl· ja</unclear>k· 
+<gap reason="illegible" quantity="2" unit="character" /> 
+<unclear>taṁl·</unclear> 
+<gap reason="lost" quantity="1" unit="character" />
+<unclear>da taṁ</unclear>l· ha
+<unclear>jai</unclear> 
+<gap reason="lost" quantity="5" unit="character" precision="low" />            
+<lb n="C10" />na
+<unclear>ḥ</unclear> 
+<gap reason="illegible" quantity="7" unit="character" /> kāla vanuḥ yām̃ pu pov· ku śrī ja
+<supplied reason="lost">yasiṅhavarmmadeva</supplied>
+            
+<lb n="C11" />
+<supplied reason="lost">Avi</supplied>
+<unclear>sta ra</unclear> pin nan· kā vuḥ di yāṅ pov ku śrī mahārudrā
+<gap reason="lost" quantity="5" unit="character" precision="low" />
+            
+<lb n="C12" />
+<unclear>katutau</unclear>l· Ajauñ· Andāt· 
+<unclear>n</unclear>iy
+<unclear>·</unclear> 
+<gap reason="illegible" quantity="9" unit="character" />
+<milestone type="pagelike" unit="face" n="D" />
+            
+<lb n="D1" />
+<gap reason="lost" quantity="25" unit="character" precision="low" />
+            
+<lb n="D2" />
+<gap reason="lost" quantity="25" unit="character" precision="low" />
+            
+<lb n="D3" />
+<gap reason="lost" quantity="25" unit="character" precision="low" />
+            
+<lb n="D4" />
+<supplied reason="lost">urāṅ· ta</supplied>paḥ viśeṣa nan· trā vela k
+<unclear>āṁm</unclear>it· yajamāna 
+<unclear>ha</unclear>
+<gap reason="lost" quantity="2" unit="character" />
+            
+<lb n="D5" />
+<gap reason="lost" quantity="3" unit="character" /> 
+<unclear>vā</unclear> hulun· yām̃ nau pamauṅ· Anavasta si Urāṅ· kā Aṅgap· di hu
+<lb n="D6" break="no" />
+<supplied reason="lost">mā yām̃</supplied> pov· ku sinim̃ knā si Urāṅ· tapaḥ viśeṣa nan· suvāk· di pu pom̃ ta
+<lb n="D7" break="no" />
+<supplied reason="lost">na rayā</supplied> sakalarājādhirāja sim̃ ra thuv· si tatap· tuy· matandāḥ si 
+<unclear>U</unclear>
+<lb n="D8" break="no" />
+<supplied reason="lost">rāṅ·</supplied> 
+<gap reason="lost" quantity="2" unit="character" /> 
+<unclear>na</unclear> yām̃ pom̃ ku sinim̃ tuy yathākrama Anatat· Oḥ jem̃ si paka
+            
+<lb n="D9" />
+<gap reason="lost" quantity="3" unit="character" /> Artha sidaḥ yajamāna yām̃ pu yajo
+<unclear>gg</unclear>ā nan· pūtra
+<g type="dotMid">.</g> ya 
+<gap reason="lost" quantity="2" unit="character" precision="low" />
+            
+<lb n="D10" />
+<gap reason="lost" quantity="3" unit="character" /> yā dhātu
+<g type="dotMid">.</g> Urām̃ nan· pūjā yām̃ nan· Urām̃ nan· sidaḥ yajamā
+<lb n="D11" break="no" />
+<supplied reason="lost">na</supplied> 
+<gap reason="lost" quantity="2" unit="character" /> pi ca
+<g type="dotMid">.</g> so mr̥dūni kulāni so gap· dharmma sā drim̃ dvā drim̃ vañā
+<lb n="D12" break="no" />
+<supplied reason="lost">k·</supplied> 
+<gap reason="lost" quantity="3" unit="character" /> 
+<unclear>mira</unclear> yuṣmābhiḥ 
+<unclear>knā</unclear> rupo Imaiṅ  svabhāva ta cim̃ 
+<unclear>la</unclear>
+<gap reason="lost" quantity="2" unit="character" />
+            
+<lb n="D13" />
+<gap reason="lost" quantity="11" unit="character" />
+<g type="dandaPlain">.</g> 
+<unclear>satā</unclear>ṅ· ka cim̃ kā vuḥ yām̃ 
+<unclear>pu</unclear>
+            
+<lb n="D14" />
+<gap reason="lost" quantity="9" unit="character" />ṅ· 
+<unclear>p</unclear>una nim̃ 
+<gap reason="illegible" quantity="2" unit="character" /> 
+<unclear>n</unclear>iy· loka nim̃
+<g type="dotMid">.</g>
+            
+<lb n="D15" />
+<gap reason="lost" quantity="7" unit="character" />
+<unclear>ka</unclear> 
+<gap reason="illegible" quantity="1" unit="character" />ci
+<unclear>t</unclear>· 
+<gap reason="illegible" quantity="2" unit="character" /> kā
+<unclear>rā</unclear>na tuy· 
+<unclear>su</unclear>bhāva 
+<unclear>ka</unclear>            
+<lb n="D16" />
+<gap reason="lost" quantity="4" unit="character" /> nan· 
+<gap reason="illegible" quantity="3" unit="character" /> 
+<unclear>jem̃</unclear> 
+<gap reason="illegible" quantity="1" unit="character" /> 
+<unclear>jā</unclear>m̃ rac· dharma
+<unclear>lagapi go</unclear>            </p>
+         </div>
+         
+<div type="apparatus">
+           
+<listApp>
+             
+<app loc="A3">
+               
+<lem>niśīnd
+<unclear>i</unclear>isv
+<unclear>ās</unclear>r̥</lem>
+               
+<note>One might like to read 
+<foreign>niśīndu</foreign>- here, but there is definitely no u-vocalization.</note>
+               </app>
+              
+<app loc="A7">
+                 
+<lem>cara
+<unclear>ṇa</unclear>
+<seg met="--">
+  <gap reason="lost" quantity="2" unit="character" />
+</seg>m</lem>
+                 
+<note>One might conjecture here 
+<foreign>caraṇatalam</foreign>.</note>
+                </app>
+              
+<app loc="B3">
+                   
+<lem>
+<seg met="-+-++">
+  <gap reason="lost" quantity="5" unit="character" />
+</seg>śaya-</lem>
+                   
+<note>Yuko Yokochi here conjectures: 
+<foreign>manorathā āśaya</foreign>-.</note>
+                </app>
+                
+<app loc="C3">
+                     
+<lem>
+<unclear>vā</unclear>yam
+<unclear>a</unclear></lem>
+                     
+<note>It is just conceivable that an e-vocalisation was originally written above what is here read 
+<foreign>m(a)</foreign>, in which case we would have 
+<foreign>me</foreign>, and may speculate about a restoration like 
+<foreign>[de]vāya m[e] muktis sakalā</foreign>.</note>
+                  </app>
+                  
+<app loc="C4">
+                       
+<lem>dāt</lem>
+                       
+<note>This is certainly the final syllable of a verb form like 
+<foreign>adāt</foreign> or 
+<foreign>prādāt</foreign>, as we presuppose in our translation.</note>
+                  </app>
+                  
+<app loc="C7">
+                       
+<lem>ttavān</lem>
+                       
+<note>These are almost certainly the final syllables of a participial form like 
+<foreign>pradattavān</foreign>, as we see also in l. 8. Only very vagues traces are left of most akṣaras in the remainder of this line. We guess that the language was Sanskrit. If this assumption is correct, then one may have to read 
+<foreign>avanau</foreign> or 
+<foreign>atha nau</foreign>, since (
+<foreign>akan</foreign>)au cannot be Sanskrit.</note>
+                  </app>
+                  
+<app loc="C10">
+                       
+<lem>ja
+<supplied reason="lost">yasiṅhavarmmadeva Avi</supplied></lem>
+                       
+<note>The restorations are inspired by the general contents of the inscription (Jayasiṁhavarman figures also in B, st. II and IV) and by parallels such as C. 142, face D, lines 18–19: 
+<foreign>aviḥ humā nan kā ra vuḥ di yāṅ pov ku śrīmahārudra</foreign>. At the end, one will have to restore 
+<foreign>mahārudrāṇī</foreign> or 
+<foreign>mahārudrādhipatiḥ</foreign>.</note>
+                  </app>
+               </listApp>
+         </div>
+         
+<div type="translation" source="bib:Griffiths+al2012_01">
+            
+<p rend="stanza" n="1">
+<gap reason="lost" /> Rudra, in the Rudra world that is full of excellent qualities, 
+<gap reason="lost" /> brilliant 
+<gap reason="lost" />, being praised by the unaging Sages, but 
+<supplied reason="subaudible">praised</supplied> by me, he protects the good fortune 
+<supplied reason="explanation">or: kingdom?</supplied> 
+<gap reason="lost" /> at night 
+<gap reason="lost" /></p>
+            
+<p rend="stanza" n="2">In the fragrant dust on the lotus feet of you, by whom the entire world here is blessed, a prostration by a pious one 
+<supplied reason="explanation">or: of pious people</supplied> removes impurity, like that digit of the moon 
+<supplied reason="subaudible">removes darkness from the night</supplied></p>
+            
+<p rend="stanza" n="3">Praised by the sages, like the chest of Smara 
+<supplied reason="explanation">Kāma</supplied> fragrantly stained by the cosmetics 
+<supplied reason="explanation">
+  <foreign>aṅgarāga</foreign>
+</supplied> on 
+<supplied reason="subaudible">the breasts of his lover</supplied> Rati, the pair of feet of Bhuvanaguru 
+<supplied reason="explanation">Śiva</supplied> shines out through good ministrations, etc., like 
+<gap reason="lost" /> at Prayāga.</p>
+            
+<p rend="stanza" n="4">This 
+<supplied reason="subaudible">one</supplied> foot sole of Varin 
+<supplied reason="explanation">Śiva</supplied>, like the mādhavī-creeper 
+<supplied reason="explanation">Hiptage Benghalensis</supplied>, is incessantly endowed with flowers. It is a store of rules for worship of the wise ones 
+<supplied reason="explanation">
+  <foreign>sumata</foreign>
+</supplied>. Let it offer joy to those who seek joy.</p>
+            
+<p rend="stanza" n="5">This 
+<supplied reason="subaudible">other</supplied> foot sole of Rudra, fashioned with 
+<supplied reason="subaudible">decoration in the form of</supplied> representations of elephants, horses, men, vases, fans, pots, parasols 
+<gap reason="lost" /> fly-whisks, must protect the wealth of men all around, like the kingdom 
+<gap reason="lost" /></p>
+            
+<p rend="stanza" n="6">This praise of Rudra, whether there is fault in it or it is faultless, 
+<gap reason="lost" /> water mixed with milk 
+<gap reason="lost" /></p>
+            
+<p rend="stanza" n="7">
+<gap reason="lost" /> the flower that has sprouted, tied with the tips of the hands.</p>
+            
+<p rend="stanza" n="8">By Śrī Jayasiṃhavarman, while he was governing well the earth, were filled the wishes of those who in mind 
+<supplied reason="explanation">
+  <foreign>āśaya</foreign>
+</supplied> desire merit, on this 
+<supplied reason="subaudible">earth</supplied> 
+<gap reason="lost" /> to greatness 
+<gap reason="lost" />, as 
+<gap reason="lost" /> was stretched by Dharmasuta 
+<supplied reason="explanation">i.e. Yudhiṣṭhira</supplied> 
+<gap reason="lost" /> originating from 
+<gap reason="lost" /></p>
+            
+<p rend="stanza" n="9">I imagine that the fame of him 
+<supplied reason="explanation">Jayasiṃhavarman</supplied>, who has fashioned a royal highway on the earth 
+<supplied reason="subaudible">in the form of</supplied> his abundant merit, is present even on the opposite shore of the great ocean. His virtues, spreading out, like rays of the sun, penetrate 
+<supplied reason="explanation">
+  <foreign>yānti</foreign>
+</supplied> 
+<supplied reason="subaudible">even</supplied> in pitch darkness. How much more throughout his own city!</p>
+            
+<p rend="stanza" n="10">These ones 
+<supplied reason="explanation">i.e. the following</supplied>, endowed with great wisdom, devoted to Śiva’s Law, were servants of him 
+<supplied reason="subaudible">whose name</supplied> begins with Jayasiṃha- and ends with -varman.</p>
+            
+<p rend="stanza" n="11">Śrīkalpa, adherent of Śiva’s law, knower of precepts, teacher, was born the first. His grateful younger brother is Amr̥tasārathi, whose mind 
+<supplied reason="explanation">
+  <foreign>āśaya</foreign>
+</supplied> was solely concentrated on 
+<supplied reason="subaudible">making</supplied> merit. His clever younger brother, reputed to be 
+<supplied reason="explanation">
+  <foreign>kila</foreign>
+</supplied> reaching fame, was Rājapaṇḍitavibhu. Kamraiṅsārathi, devotee of Īśa, was his younger brother; his younger sister was called Māy.</p>
+            
+<p rend="stanza" n="12">These five siblings 
+<supplied reason="explanation">
+  <foreign>sahodara</foreign>
+</supplied>, free from defects 
+<supplied reason="explanation">
+  <foreign>adara</foreign>
+</supplied>, spotless by hosts of virtues, very wise, were well respected by congregations of those whose wealth consists in virtues, for having inherited 
+<supplied reason="explanation">?</supplied> the virtue of their parents.</p>
+            
+<p rend="stanza" n="13">The illustrious Rudrapurī shines as if it holds victoriousness over the top of the tops 
+<supplied reason="explanation">i.e. the highest summit</supplied> of Kailāsa. May the illustrious abode of Rudra built there 
+<supplied reason="explanation">in Rudrapurī</supplied> by us gratify 
+<supplied reason="explanation">the people or Rudra?</supplied> very well.</p>
+            
+<p rend="stanza" n="14">When the era of the illustrious king of the Śākas had reached 
+<supplied reason="subaudible">empty</supplied> sky, 
+<supplied reason="explanation">2</supplied> breasts, 
+<supplied reason="explanation">8</supplied> bodies 
+<supplied reason="explanation">i.e. in 820 Śaka</supplied>, when the moon was in Taurus, when the sun and Mercury 
+<supplied reason="explanation">
+  <foreign>cāndri</foreign>
+</supplied> were in Aquarius, Ketu having gone to the first house; with Venus in Pisces; when Saturn 
+<supplied reason="explanation">
+  <foreign>ārki</foreign>
+</supplied> was in Sagittarius;
+            Rāhu, in Libra; when Jupiter had collided with Leo; when Mars 
+<supplied reason="explanation">
+  <foreign>aira</foreign>
+</supplied> was in Gemini — 
+<supplied reason="subaudible">at that time</supplied> Śrī Mahārudradeva was established by them, who were full of faith, to pay homage to their own parents.</p>
+                        
+<p n="B16">Śrī Mahārudradeva abides by our devotion 
+<gap reason="lost" /></p>
+            
+<p n="C1-C4">
+<gap reason="lost" /> a complete 
+<supplied reason="subaudible">fiscal</supplied> exemption 
+<gap reason="lost" /> He gave it to Śrī Mahārudra.</p>
+            
+<p n="C4-C5">All these are the rice fields of my lord the god Mahārudra:</p>
+            
+<p n="C5-C6">
+<foreign>gasam̃k yop pov</foreign> many 
+<gap reason="lost" /> for the 
+<gap reason="lost" /> in this monastery.</p>
+            
+<p n="C6-C7">
+<foreign>pov jlet</foreign> of the enclosure 
+<gap reason="lost" /> he gave 
+<gap reason="lost" /></p>
+            
+<p n="C7-C8">
+<gap reason="lost" /> gave 
+<gap reason="lost" /> to Śrī Mahārudra in order to stimulate the true 
+<foreign>dharma</foreign>.</p>
+            
+<p n="C9-C11">
+<gap reason="lost" /> citadel 
+<gap reason="lost" /> at the time of the gift by his majesty milord Śrī Jayasiṃhavarmadeva of all that 
+<foreign>pin</foreign>, he gave it to my lord the god Śrī Mahārudrā 
+<gap reason="lost" /></p>
+            
+<p n="D1-D3">
+  <gap reason="lost" />
+</p>
+            
+<p n="D4-D5">
+<gap reason="lost" /> those men of special asceticism too. At the time of 
+<foreign>kāṃmit</foreign> of the sacrificer 
+<gap reason="lost" /> bring slaves of the god and went to show 
+<foreign>anavasta</foreign> of the men 
+<gap reason="lost" /> 
+<foreign>kā aṅgap</foreign> in the rice-fields of my lord the god of this place 
+<foreign>knā</foreign> which those men of special asceticism had taken from his majesty the lord of the world, overlord of all kings.</p>
+            
+<p n="D5-D9">He who knows, who is steadfast following the exemption 
+<gap reason="lost" /> my lord the god of this place, following respectively 
+<foreign>anatat</foreign> is not 
+<gap reason="lost" /> wealth, namely that sacrificer of the venerable Yojoggā, his son. 
+<gap reason="lost" /></p>
+            
+<p n="D10-D14">
+<gap reason="lost" /> Those men worship that god. Those men, namely the sacrificer 
+<gap reason="lost" /> 
+<foreign>so</foreign> soft families, 
+<foreign>so</foreign> all the 
+<foreign>dharma</foreign>, one man, two men 
+<gap reason="lost" /> by you a good form, a horrible nature 
+<gap reason="lost" /> we will give my lord the god 
+<gap reason="lost" /> this one, this world 
+<gap reason="lost" /></p>
+         </div>
+         
+<div type="commentary">
+            
+<p n="A3">I. 
+<foreign>śriyam avati</foreign>: cf. 
+<foreign>śriyam avatām</foreign> in face A, l. 11.</p>
+            
+<p n="A8">IV b. We do not know the epithet Varin from any other source, but it must denote Śiva/Rudra, and may perhaps be considered a synonym of 
+<foreign>varada</foreign> ‘Boon-Giver’.</p>
+            
+<p n="A8">IV c. The word 
+<foreign>sumata</foreign> occurs again on face B, in st. VI. We accept here Yuko Yokochi’s suggestion that 
+<foreign>mādhavika</foreign> can be a synonym of 
+<foreign>mādhavī</foreign>, which denotes a kind of flowering creeper. This gives us a first case of a relatively hollow use of the suffix 
+<foreign>-ka</foreign>. On this basis, we accept also her hesitant suggestion to restore °
+<foreign>nicayakam</foreign> in 
+<foreign>pāda</foreign> c, with 
+<foreign>-ka</foreign> again adding no substantial meaning. Such expletive use of the suffix shows that the poet’s style is not very refined.</p>
+            
+<p n="A9-A10">V ab. One expects in the first lacuna one of the insignia such as those listed in C. 38, face B, ll. 6–8: 
+<foreign>tasya sakalakoṣṭhāgārarajataratnahemakadavakalaśabhr̥ṅgārarukmadaṇḍasitātapatracāmarahaimaghaṭādiparibhogā varddhamānā bhavanti sma</foreign>, and in C. 24, face B, ll. 12–13: 
+<foreign>hemakaṭisūtravalayanūpurakirīṭamanimuktipravālahārādibhūṣaṇaṃ rajatakumbhānnabhājanavyajanātapatrakadavakalaśacāmaraśarāvādiparibhogaṃ</foreign>.</p>
+            
+<p n="B5-B6">IX. The construction of this stanza seems clumsy. Several other translations are imaginable.</p>
+            
+<p n="B7-B8">X. The conjunction 
+<foreign>ca</foreign>, meaning ‘and’, is operative inside the compound that it follows, which seems clumsy style. The poet uses the precative form 
+<foreign>bhūyāsur</foreign> in the function of a preterite, a usage which is seen a few times in other Sanskrit inscriptions of Cambodia and Campā, and is no doubt related to the more common phenomenon of the use of the optative form in the same function (see ISCC, p. 184 and Renou 1961: 412 and 451).</p>
+            
+<p n="B11">XII c. The meaning and grammatical construction of 
+<foreign>abhivettum</foreign> seems rather uncertain. Another possibility, not more persuasive, is to translate ‘well respected ... for knowing the virtues ...’.</p>
+            
+<p n="B12-B13">XIII. We adopt here the translation proposed by Yuko Yokochi, who admits that she is not sure of the meaning of 
+<foreign>dhurdhur</foreign>, and that interpreting 
+<foreign>jayatām</foreign> as ‘the state of being victorious’ while taking 
+<foreign>kailāsadhurddhurañ</foreign> as an object of 
+<foreign>jaya</foreign> in its verbal meaning is unsmooth. Our own previous attempt was certainly not better: ‘Śrī Rudrapurī shines as though it holds the irrestrainable (
+<foreign>dhurdhura</foreign> = 
+<foreign>durdhura</foreign>?) one of Kailāsa. Let Rudra’s abode be victorious! In it, may he rejoice well in what we have supplied and so on’ (we had read °
+<foreign>vihitādi sādhu</foreign>). Note word play (of the type called 
+<foreign>yamaka</foreign>): 
+<foreign>dhurdhurañ jayatām</foreign> / 
+<foreign>sādhu rañjayatām</foreign>.</p>
+            
+<p n="B15">XIV c. The word 
+<foreign>aira</foreign>, meaning ‘Son of the Earth’ (i.e. Mars), is derived from and hence implies the word 
+<foreign>irā</foreign> in the meaning ‘earth’. The meaning ‘earth’ was thus far registered for this word in modern Sanskrit dictionaries only on the basis of its listing in Sanskrit lexicographical sources, and would hence have to be considered doubtful. But two cases of 
+<foreign>irā</foreign> in this meaning are found in contemporary inscriptions of Campā: C. 142, st. XIX 
+<foreign>irādhīśaprasādataḥ</foreign> (wrongly emended by Huber) and C. 149, st. XII 
+<foreign>yasyerām avataḥ</foreign> (misread 
+<foreign>yasyerājavataḥ</foreign> by Huber). The oldest and most authoritative lexicographical text citing the word in this meaning is the Amarakośa. It is likely that this text inspired the poet(s) of Campā to use the word in this meaning. For a possibly similar case, cf. ECIC I, p. 369 (on C. 217, st. IV).</p>
+            
+<p n="B16">If we have properly read 
+<foreign>ścasmad</foreign>°, this presumably needs to be corrected to 
+<foreign>ścāsmad</foreign>°.</p>
+            
+<p n="B15">XIV c. The word 
+<foreign>aira</foreign>, meaning ‘Son of the Earth’ (i.e. Mars), is derived from and hence implies the word 
+<foreign>irā</foreign> in the meaning ‘earth’. The meaning ‘earth’ was thus far registered for this word in modern Sanskrit dictionaries only on the basis of its listing in Sanskrit lexicographical sources, and would hence have to be considered doubtful. But two cases of 
+<foreign>irā</foreign> in this meaning are found in contemporary inscriptions of Campā: C. 142, st. XIX 
+<foreign>irādhīśaprasādataḥ</foreign> (wrongly emended by Huber) and C. 149, st. XII 
+<foreign>yasyerām avataḥ</foreign> (misread 
+<foreign>yasyerājavataḥ</foreign> by Huber). The oldest and most authoritative lexicographical text citing the word in this meaning is the Amarakośa. It is likely that this text inspired the poet(s) of Campā to use the word in this meaning. For a possibly similar case, cf. ECIC I, p. 369 (on C. 217, st. IV).</p>
+            
+<p n="D1-D14">The mixture of Sanskrit and Cam that we seem to observe on this face is interesting, but not totally unique. One finds something similar at C. 142, face D, ll. 13–14 (where 
+<foreign>bhavadbhiḥ</foreign> may correspond to our 
+<foreign>yuṣmābhiḥ</foreign> in l. 12)</p>
+         </div>
+        
+<div type="bibliography">
+          
+<p>First edited with translation into English by Arlo Griffiths et al. (
+<bibl rend="omitname">
+  <ptr target="bib:Griffiths+al2012_01" />
+  <citedRange unit="page">263-270</citedRange>
+</bibl>). The inscription is re-edited here by Arlo Griffiths and Salomé Pichon based on autopsy and the EFEO estampages n. 2117, n. 2118, n. 2119 and n. 2120.</p>
+          
+<listBibl type="primary">
+            
+<bibl n="G">            
+<ptr target="bib:Griffiths+al2012_01" />
+            
+<citedRange unit="page">263-270</citedRange>
+            </bibl>
+                        </listBibl>
+           
+<listBibl type="secondary">
+              
+<bibl />           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

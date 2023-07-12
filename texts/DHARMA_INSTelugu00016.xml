@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -31,136 +37,215 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <p><!-- not to be filled in at this stage --></p>
+        <p></p>
       </sourceDesc>
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-05-27" who="part:jeth">Creation of the file</change>
-      <change status="draft" when="2020-06-05" who="part:jeth">Changing the title</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:jeth" when="2020-05-27" status="draft">Creation of the file</change>
+      <change who="part:jeth" when="2020-06-05" status="draft">Changing the title</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tel-Latn">
-        <p>
-              <milestone n="A" type="pagelike" unit="face"/>
-              <lb n="1"/>svasti
-              <lb n="2"/>śrī <unclear>E</unclear>ri<lb break="no" n="3"/>kalmu<unclear cert="low">tu</unclear><lb break="no" n="4"/>rāju<lb break="no" n="5"/>la na<gap precision="low" quantity="1" reason="undefined" unit="character"/>
-              <lb n="6"/>ruma<gap precision="low" quantity="1" reason="undefined" unit="character"/>
-              <lb n="7"/><supplied reason="undefined">pa</supplied>nna<supplied reason="undefined">sa</supplied>
+      
+<body>
+         
+<div type="edition" xml:lang="tel-Latn">
+            
+<p>
+              
+<milestone type="pagelike" unit="face" n="A" />
+              
+<lb n="1" />svasti
+              
+<lb n="2" />śrī 
+<unclear>E</unclear>ri
+<lb n="3" break="no" />kalmu
+<unclear cert="low">tu</unclear>
+<lb n="4" break="no" />rāju
+<lb n="5" break="no" />la na
+<gap reason="undefined" unit="character" quantity="1" precision="low" />
+              
+<lb n="6" />ruma
+<gap reason="undefined" unit="character" quantity="1" precision="low" />
+              
+<lb n="7" />
+<supplied reason="undefined">pa</supplied>nna
+<supplied reason="undefined">sa</supplied>
             </p>
-        <p>
-              <milestone n="B" type="pagelike" unit="face"/>
-              <lb n="8"/>Ēḻe<unclear cert="low">ri</unclear>
-              <lb n="9"/>pāṟak<supplied reason="undefined">u</supplied>
-              <lb n="10"/>Irupa<lb break="no" n="11"/>diyadi
-              <lb n="12"/>Ēnu ma<lb break="no" n="13"/>ṟuntuḍ<unclear>la</unclear>
-              <lb n="14"/>rācamā<lb break="no" n="15"/>naṁbuna
-              <lb n="16"/>Iccina
-              <lb n="17"/>datti dī<supplied reason="undefined">ni</supplied><supplied cert="low" reason="undefined">ṁ</supplied>
-              <lb n="18"/>ḻacuvā<lb break="no" n="19"/><unclear>nṟu</unclear>
+            
+<p>
+              
+<milestone type="pagelike" unit="face" n="B" />
+              
+<lb n="8" />Ēḻe
+<unclear cert="low">ri</unclear>
+              
+<lb n="9" />pāṟak
+<supplied reason="undefined">u</supplied>
+              
+<lb n="10" />Irupa
+<lb n="11" break="no" />diyadi
+              
+<lb n="12" />Ēnu ma
+<lb n="13" break="no" />ṟuntuḍ
+<unclear>la</unclear>
+              
+<lb n="14" />rācamā
+<lb n="15" break="no" />naṁbuna
+              
+<lb n="16" />Iccina
+              
+<lb n="17" />datti dī
+<supplied reason="undefined">ni</supplied>
+<supplied reason="undefined" cert="low">ṁ</supplied>
+              
+<lb n="18" />ḻacuvā
+<lb n="19" break="no" />
+<unclear>nṟu</unclear>
             </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="7">
-            <lem><supplied reason="undefined">pa</supplied>nna<supplied reason="undefined">sa</supplied></lem>
-            <rdg source="bib:RamayyaPantulu1948_01"><gap precision="low" quantity="1" reason="undefined" unit="character"/>nna<gap precision="low" quantity="1" reason="undefined" unit="character"/></rdg>
-          </app>
-          <app loc="9">
-            <lem>pāṟak<supplied reason="undefined">u</supplied></lem>
-            <rdg source="bib:RamayyaPantulu1948_01">pāṟaka</rdg>
-          </app>
-          <app loc="14">
-            <lem>rācamā<lb break="no" n="15"/>naṁbuna</lem>
-            <rdg source="bib:RamayyaPantulu1948_01">rācamā<lb break="no" n="15"/>naṁbunā</rdg>
-          </app>
-          <app loc="17">
-            <lem>dī<supplied reason="undefined">ni</supplied><supplied cert="low" reason="undefined">ṁ</supplied></lem>
-            <rdg source="bib:RamayyaPantulu1948_01">dī<gap precision="low" quantity="1" reason="undefined" unit="character"/></rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:jeth" type="translation">
-        <p>
- 	Svasti! Na[.]ruma[.] of the Erikalmuturāju (gave) the (pa)nna(sa). [...] The donation of 25 mattars according to royal measure was given to the brahmin of Ēḻer(u). Who destroys this [...].
- 	</p>
-      </div>
-      <div type="commentary">
-        <p>
+         </div>
+         
+<div type="apparatus">
+               
+<listApp>
+                  
+<app loc="7">
+                     
+<lem>
+<supplied reason="undefined">pa</supplied>nna
+<supplied reason="undefined">sa</supplied></lem>
+                     
+<rdg source="bib:RamayyaPantulu1948_01">
+<gap reason="undefined" unit="character" quantity="1" precision="low" />nna
+<gap reason="undefined" unit="character" quantity="1" precision="low" /></rdg>
+                  </app>
+                  
+<app loc="9">
+                     
+<lem>pāṟak
+<supplied reason="undefined">u</supplied></lem>
+                     
+<rdg source="bib:RamayyaPantulu1948_01">pāṟaka</rdg>
+                  </app>
+                  
+<app loc="14">
+                     
+<lem>rācamā
+<lb n="15" break="no" />naṁbuna</lem>
+                     
+<rdg source="bib:RamayyaPantulu1948_01">rācamā
+<lb n="15" break="no" />naṁbunā</rdg>
+                  </app>
+                  
+<app loc="17">
+                     
+<lem>dī
+<supplied reason="undefined">ni</supplied>
+<supplied reason="undefined" cert="low">ṁ</supplied></lem>
+                     
+<rdg source="bib:RamayyaPantulu1948_01">dī
+<gap reason="undefined" unit="character" quantity="1" precision="low" /></rdg>
+                  </app>
+               </listApp>         
+         </div>
+         
+<div type="translation" resp="part:jeth">
+        
+<p>
+        Svasti! Na[.]ruma[.] of the Erikalmuturāju (gave) the (pa)nna(sa). [...] The donation of 25 mattars according to royal measure was given to the brahmin of Ēḻer(u). Who destroys this [...].
+        </p>
+         </div>
+         
+<div type="commentary">
+            
+<p>
                In absence of a picture the reading of the edition was changed according to the necessity of grammar and the wording that can be found in other inscriptions that mention Erikalmuturāju. It goes without saying that these changes are tentative.
                According to Ramayya Pantulu the inscription is "unintelligible", and the different line numbers on each of the two faces and the incomplete imprecation also indicate a rather damaged condition of the inscription.
                The translation, hence, is tentative and has been made on grounds of the following assumptions. 
-               As for lines 4-5 one could suggest a reading *Ē|laN 'while ruling' but this is improbable because of the following reasons: only once in referring to another ruler the verb <foreign>ēḷu</foreign>- is used without any object (<bibl>
-            <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/>
-            <citedRange unit="page">230</citedRange>
-            <citedRange unit="item">42 D</citedRange>
-          </bibl>) while, when Erikalmuturāju is mentioned, a realm that is ruled over is referred to. 
-               Regarding the non-standardized fomulae of the early Telugu inscriptions this is but a weak argument. Yet, in all other cases of these inscriptions the respective verb appears with ‹ḷ› and not ‹l›, the latter being a later development. It is hence probable to read -<foreign>rājula</foreign> with an oblique plural. In one instance the oblique form of the ruler’s title is followed by the name of the donor (<bibl>
-            <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/>
-            <citedRange unit="page">227-228</citedRange>
-            <citedRange unit="item">42 B</citedRange>
-          </bibl>). 
-               Although <foreign>pannasa</foreign> (and its variants) normally occurs with the verbal form <foreign>iccina,</foreign> it can occur in a verb-less clause: Erikallamuturāju […] ēḷucu X-ku panāśa ‘a pannasa to X while E. was ruling’ (<bibl>
-            <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01"/>
-            <citedRange unit="page">233</citedRange>
-            <citedRange unit="item">42 F</citedRange>
-          </bibl>).
+               As for lines 4-5 one could suggest a reading *Ē|laN 'while ruling' but this is improbable because of the following reasons: only once in referring to another ruler the verb 
+<foreign>ēḷu</foreign>- is used without any object (
+<bibl>
+  <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01" />
+  <citedRange unit="page">230</citedRange>
+  <citedRange unit="item">42 D</citedRange>
+</bibl>) while, when Erikalmuturāju is mentioned, a realm that is ruled over is referred to. 
+               Regarding the non-standardized fomulae of the early Telugu inscriptions this is but a weak argument. Yet, in all other cases of these inscriptions the respective verb appears with ‹ḷ› and not ‹l›, the latter being a later development. It is hence probable to read -
+<foreign>rājula</foreign> with an oblique plural. In one instance the oblique form of the ruler’s title is followed by the name of the donor (
+<bibl>
+  <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01" />
+  <citedRange unit="page">227-228</citedRange>
+  <citedRange unit="item">42 B</citedRange>
+</bibl>). 
+               Although 
+<foreign>pannasa</foreign> (and its variants) normally occurs with the verbal form 
+<foreign>iccina,</foreign> it can occur in a verb-less clause: Erikallamuturāju […] ēḷucu X-ku panāśa ‘a pannasa to X while E. was ruling’ (
+<bibl>
+  <ptr target="bib:NilakantaSastri+Venkataramayya1947-1948_01" />
+  <citedRange unit="page">233</citedRange>
+  <citedRange unit="item">42 F</citedRange>
+</bibl>).
                On the other hand, a verb might have been lost in the now mutilated lines.
             </p>
-      </div>
-      <div type="bibliography">
-        <p>
-           The inscription was noted in A. R. No. 392 of 1904 <!-- has to be adjusted to the @target --> and published by J. Ramayya Pantulu in <bibl rend="omitname">
-            <ptr target="bib:RamayyaPantulu1948_01"/>
-            <citedRange unit="page">333</citedRange>
-            <citedRange unit="item">606</citedRange>
-          </bibl> with few metadata and without translation and picture.
-           It was re-edited on grounds of the Ramayya Pantulu's edition by K. M. Sastri in <bibl rend="omitname">
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">333-334</citedRange>
-            <citedRange unit="item">69</citedRange>
-          </bibl> with the following summary: <cit>
-            <quote>States that during the reign of Erikal Muturāju a grant of twenty-five maṟutus of land by royal measure was made to a brahmin</quote>
-            <bibl>
-              <ptr target="bib:Sastri1969_01"/>
-              <citedRange unit="page">334</citedRange>
-            </bibl>
-          </cit>.
+         </div>
+        
+<div type="bibliography">
+          
+<p>
+           The inscription was noted in A. R. No. 392 of 1904  and published by J. Ramayya Pantulu in 
+<bibl rend="omitname">
+  <ptr target="bib:RamayyaPantulu1948_01" />
+  <citedRange unit="page">333</citedRange>
+  <citedRange unit="item">606</citedRange>
+</bibl> with few metadata and without translation and picture.
+           It was re-edited on grounds of the Ramayya Pantulu's edition by K. M. Sastri in 
+<bibl rend="omitname">
+  <ptr target="bib:Sastri1969_01" />
+  <citedRange unit="page">333-334</citedRange>
+  <citedRange unit="item">69</citedRange>
+</bibl> with the following summary: 
+<cit>
+  <quote>States that during the reign of Erikal Muturāju a grant of twenty-five maṟutus of land by royal measure was made to a brahmin</quote>
+  <bibl>
+    <ptr target="bib:Sastri1969_01" />
+    <citedRange unit="page">334</citedRange>
+  </bibl>
+</cit>.
           </p>
-        <listBibl type="secondary">
-          <bibl>A. R. No. 392 of 1904 <!-- has to be adjusted to the @target --></bibl>
-          <bibl>
-            <ptr target="bib:RamayyaPantulu1948_01"/>
-            <citedRange unit="page">333</citedRange>
-            <citedRange unit="item">606</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">333-334</citedRange>
-            <citedRange unit="item">69</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+           
+<listBibl type="secondary">
+              
+<bibl>A. R. No. 392 of 1904 </bibl>
+              
+<bibl>
+  <ptr target="bib:RamayyaPantulu1948_01" />
+  <citedRange unit="page">333</citedRange>
+  <citedRange unit="item">606</citedRange>
+</bibl>
+              
+<bibl>
+  <ptr target="bib:Sastri1969_01" />
+  <citedRange unit="page">333-334</citedRange>
+  <citedRange unit="item">69</citedRange>
+</bibl>
+           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

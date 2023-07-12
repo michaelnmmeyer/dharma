@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -28,38 +34,24 @@
         <idno type="filename">DHARMA_INSCIC00171_DABA</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-              Licence. To view a copy of the licence, visit
-              https://creativecommons.org/licenses/by/4.0/ or send a letter to
-              Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-              California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Arlo Griffiths &amp; Dániel Balogh.</p>
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p><!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -67,270 +59,358 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>This project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>This project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-16" who="part:argr">finished initial encoding of the inscription — translation remains to be added</change>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-10-20" who="part:argr">started initial encoding of the inscription</change>
-      <change status="draft" when="2020-11-18" who="part:daba">added comments, draft translation and commentary on metrical reconstruction</change>
+      <change who="part:argr" when="2020-11-16" status="draft">finished initial encoding of the inscription — translation remains to be added</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:argr" when="2020-10-20" status="draft">started initial encoding of the inscription</change>
+      <change who="part:daba" when="2020-11-18" status="draft">added comments, draft translation and commentary on metrical reconstruction</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83233 maturity:00000" type="edition" xml:lang="san-Latn">
-        <!--daba2argr: sI suggest adding <milestone type="pagelike" unit="face" n="A"/><label xml:lang="eng">Angle Left</label>-->
-        <lb n="A1"/>
-        <!--daba2argr: this lb element and, if you choose to use it, the proposed milestone, should be after the opening of <ab>. Not a technical requirement, but better that way because other line beginnings and the milestone for part B are also inside a container.-->
-        <ab>
-          <gap precision="low" quantity="5" reason="lost" unit="character"/>
-        </ab>
-        <lg met="āryā" n="1">
-          <certainty locus="value" match="../@met"/>
-          <l n="ab">
-            <seg met="4|4|4|4|4|4|4|2">
-              <gap precision="low" quantity="30" reason="lost" unit="character"/>
-              <!--daba2argr Quantity of this lacuna should be less, 30 is the number of morae missing. I suggest 23 for this one (ca. 75% of the mora count) and 14 for the lacuna in the next hemistich. That means we expect the prose preamble to be something like 8 to 10; I suggest encoding that one as 10 with low precision.-->
-            </seg>
-          </l>
-          <l n="cd"><seg met="4|4|4|4|2">
-              <gap precision="low" quantity="12" reason="lost" unit="character"/>
-            </seg><unclear>ca</unclear>ñcalā buddhiḥ<space/></l>
-        </lg>
-        <!-- argr2daba: unsure
-- how to encode the gap and the meter of this presumptive first stanza,
-- whether I should indeed add the totally lost prose <ab> before it, though I think you're right there must have been one
--->
-        <!--daba2argr:
-2. I see no harm in encoding the hypothetical lost prose and discussing this in the commentary for human readers. If you wanted to be really meticulous, you could add a <certainty match=".." locus="name"/> inside that gap as per EGD §5.4.6, but then we'd have to change the EGD to permit this not only for whole lines but also for other possible gaps.
--->
-        <lg met="vasantatilakā" n="2">
-          <!-- ––⏑–⏑⏑⏑–⏑⏑–⏑–⏓ -->
-          <l n="a">yasya prajāsu sutarāṁ kr̥<lb break="no" n="A2"/><seg met="-+-+=">
-              <gap quantity="5" reason="lost" unit="character"/>
-            </seg></l>
-          <l n="b">
-            <seg met="++-+---+--+-+=">
-              <gap quantity="14" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="c">
-            <seg met="++-+---+--+-+=">
-              <gap quantity="14" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d">
-            <seg met="++-+---+--+-+=">
-              <gap quantity="14" reason="lost" unit="character"/>
-            </seg>
-          </l>
-        </lg>
-        <lg met="anuṣṭubh" n="3">
-          <l n="a"><supplied reason="lost">bhā</supplied>ṇḍāgārādhikāro ’yaṁ<space/></l>
-          <l n="b">tasya bhr̥tyaḥ prasā<lb break="no" n="A3"/><seg met="+=">
-              <gap quantity="2" reason="lost" unit="character"/>
-            </seg></l>
-          <l n="c">
-            <seg met="====-++=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d">
-            <seg met="====-+-=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-        </lg>
-        <lg met="anuṣṭubh" n="4">
-          <l n="a">
-            <seg met="====-++=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b">
-            <seg met="====-+-=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="c">
-            <seg met="====-++=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d"><seg met="-">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </seg>nt<unclear>aṁ</unclear> yat puṇyavarddhanam·<g type="eye">.</g>
-<!-- argr2daba: do you have a suggestion for naming this punctuation sign? -->
-<!--daba2argr: seems to be a perfect case of "circleConcentric" as per the current Taxonomy. We've let that lie, but I still think we should aim for relatively small number of species in that taxonomy (such as "circle" in this case), instead of a large number of imaginative names such as "eye".-->
-<!-- argr2daba: see image and comment pasted into taxonomy file--><!--daba2argr: I've replied there.--></l>
-        </lg>
-        <lg met="anuṣṭubh" n="5">
-          <l n="a">ratnalokeśvaro yena</l>
-          <l n="b"><!--daba2argr: sI suggest adding <milestone type="pagelike" unit="face" n="B"/><label xml:lang="eng">Angle Right</label>--><lb n="B1"/>sthāpito rajatātmakaḥ<space/></l>
-          <l n="c">vr̥ddhe ratnapure śā<seg met="=">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </seg></l>
-          <l n="d">
-            <seg met="====-+-=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-        </lg>
-        <lg met="anuṣṭubh" n="6">
-          <l n="a">
-            <seg met="====-++=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b">
-            <seg met="====-+-=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="c">
-            <seg met="====-++=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d">
-            <seg met="====-+-=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-        </lg>
-        <lg met="anuṣṭubh" n="7">
-          <l n="a">
-            <seg met="====-++=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b"><lb n="B2"/><foreign xml:lang="ocm-Latn">hjai-traṅ·</foreign>-kṣetraṁ <foreign xml:lang="ocm-Latn">juṅā</foreign>-pure<space/></l>
-          <l n="c"><foreign xml:lang="ocm-Latn">cvaḥ-sirā</foreign>la<unclear>ya</unclear><seg met="++=">
-              <gap quantity="3" reason="lost" unit="character"/>
-            </seg></l>
-          <l n="d">
-            <seg met="====-+-=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-        </lg>
-        <lg met="anuṣṭubh" n="8">
-          <l n="a">
-            <seg met="====-++=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b">
-            <seg met="====-+-=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="c">
-            <seg met="====-++=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d">
-            <seg met="====-+-=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-        </lg>
-        <p><!--daba2argr: we need to mark up a lacuna here, for the text that preceded manupama. I suggest making it 3 or 5 characters, low precision. --><lb n="B3"/><!--daba2argr: make this lb @break="no" if manupama is certain.--><add place="below">
-            <g type="eye"/>
-          </add>m an-upama-matiḥ <space/> śrīmāñ jayasiṅhavarmmadevo <unclear>’ya</unclear><gap extent="unknown" reason="lost" unit="character"/><!--daba2argr: perhaps encode this as 45 characters, precision low? if it is normal for such inscriptions to have a shorter last line, then keep unknown, but if the last line is often filled to the margin, then change to 45 low precision.--></p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="A2">
-            <lem>tasya</lem>
-            <rdg source="bib:Finot+Goloubew1925_01">tasyā</rdg>
-          </app>
-          <app loc="A3">
-            <lem>nt<unclear>aṁ</unclear> yat</lem>
-            <rdg source="bib:Finot+Goloubew1925_01">ntayat</rdg>
-            <note>It seems the stone has suffered a little bit of damage at the left extremity, so that the akṣara <foreign>ntaṁ</foreign> is now entirely lost, and can be read only from the estampage.</note>
-          </app>
-          <app loc="B2">
-            <lem>cvaḥ</lem>
-            <rdg source="bib:Finot+Goloubew1925_01">
-              <unclear cert="low">dvaḥ</unclear>
-            </rdg>
-          </app>
-          <app loc="B3">
-            <lem><add place="below">
-                <g type="eye"/>
-              </add>m anupama-</lem>
-            <rdg source="bib:Finot+Goloubew1925_01">manupāma-</rdg>
-            <note>A symbol, ignored by Finot &amp; Goloubew, seems to be squashed below the <foreign>ma</foreign> at line opening.</note>
-          </app>
-        </listApp>
-      </div>
-      <div type="translation">
-        <!--translation encoded as per EGD §9.2 -->
-        <p>
-          <!--daba2argr: if you accept my suggestion of using milestones in the edition, I suggest pasting the same milestones, with the accompanying head, into the corresponding points of the translation.-->
-          <gap precision="low" quantity="10" reason="lost" unit="character"/>
-          <!--daba2argr: make this gap the same size as in the edition.-->
-        </p>
-        <p n="1" rend="stanza"><gap reason="lost"/>fickle mind.<note>The first stanza may have been an invocation to a deity or concept<!--daba2argr: if we can be quite sure this is a Buddhist image, then this can be phrased more explicitly, e.g. “to the Buddha or his dharma”.-->, perhaps mentioning the fickleness of the human mind in contrast to the former’s permanence; or a benediction, possibly asking for a mind that is not fickle.</note></p>
-        <p n="2" rend="stanza">He whose <gap reason="lost"/> <seg cert="low">done</seg> very well towards <supplied reason="subaudible">his</supplied> subjects <gap reason="lost"/> <note>The second stanza was in all probability an introduction of the reigning king. Given the constraints of the metre, <foreign>kr̥ta</foreign> can with fair probability be restored at the end of the extant text.</note></p>
-        <p n="3" rend="stanza">This superintendent of the treasury is his <seg cert="low">favoured</seg> servant <gap reason="lost"/><note>The third stanza was probably an introduction of the donor as a dependant of the king introduced above. The end of the extant text may perhaps be restored as <foreign>prasāda-bhāk</foreign> (as translated here), or <foreign>prasādataḥ</foreign>, “by his grace.”</note></p>
-        <p n="4" rend="stanza"><gap reason="lost"/> which <supplied reason="subaudible">produces</supplied> an increase of merit.</p>
-        <p n="5" rend="stanza">By whom <supplied reason="explanation">an image of</supplied> Ratnalokeśvara consisting of silver has been established in Old Ratnapura <gap reason="lost"/><!--daba2argr: not knowing the cultural context, I am shy to speculate. From a quick google search it seems to me that Ratnalokeśvara is Avalokiteśvara and Ratnapura has been understood to be a place name. I could also imagine “when Ratnapura (or the ratnapura, perhaps meaning a jewelled sanctuary?) was getting old (and decrepit),” i.e. that he may have renovated a shrine and installed a new image. The word at the end may have been śāntyai or, if a date is plausible at this point in the text, perhaps śāke, followed by a date? --></p>
-        <p n="6" rend="stanza">
-          <gap quantity="32" reason="lost" unit="character"/>
-        </p>
-        <p n="7" rend="stanza"><!--daba2argr: leaving stanza 7 to you--></p>
-        <p n="8" rend="stanza">
-          <gap quantity="32" reason="lost" unit="character"/>
-        </p>
-        <p n="B2-B3"><gap reason="lost"/> the majestic Jayasiṁhavarmadeva of peerless intellect <gap reason="lost"/></p>
-      </div>
-      <div type="commentary">
-        <p>Finot &amp; Goloubew observe that <q xml:lang="fra">Le texte subsistant ne doit guère représenter que le quart de l'inscription totale</q> and that <q>Il paraît être rédigé en çlokas</q> (<bibl rend="omitname">
-            <ptr target="bib:Finot+Goloubew1925_01"/>
-            <citedRange unit="page">472</citedRange>
-          </bibl>). The second claim is not confirmed by the more precise metrical analysis presented here. Our reconstruction of the lost text is based on the assumption that the text would have been more or less symmetrically distributed over the two sides of a pedestal, the conduit for libation fluids marking the transition from the first part (A) to the second (B). Part A of the text would have begun on either near the middle of the vertical face straight across the pedestal from the conduit, or in the far left corner viewed from the conduit; part B would have ended on back at the same point on the vertical face across the conduit, or in the far right corner. One line of text would, in each part, have extended over about 65<!--daba2argr: more like 60 I think. And incidentally, with about 15 extant akṣaras per line on average, Finot and Golubew's estimate is spot on. --> akṣaras. ]</p>
-        <p>To attempt to reconstruct the stanza structure of the lost parts, we must consider that even if the entire text is not in anuṣṭubh, it certainly includes a sequence of stanzas in that metre. Even if the extant fragments of text cannot be allocated to the first or second hemistich of an anuṣṭubh stanza, we can be certain that each lacuna must cover a number of syllables equivalent to A, the number of syllables missing from anuṣṭubh hemistichs interrupted by the lacuna, plus B, a multiple of 16 (corresponding to 0 or more lost anuṣṭubh hemistichs). Thus the length of the lacuna at the beginning of A3 must be 11+16n akṣaras, that is, two syllables (to complete the hemistich beginning in A2 before the lacuna), plus nine syllables (to complete the hemistich ending in A3 after the lacuna), plus zero or more times 16 syllables for any fully lost hemistichs in between. Similarly, the lacuna at the end of B1 must comprise 17 +16m akṣaras, that is, nine to complete the hemistich beginning in B1, plus eight to complete the one ending in B2, plus any number of fully lost hemistichs. The contents of B3 seem to be prose, which must have started at some point in B2, so the extent of the lacunae in B2 and B3 cannot be estimated accurately by such a calculation. As for that in A2, the extant text of that line does not fit the requirements of the anuṣṭubh metre. However, yasya prajāsu sutarāṁ kr̥ (after a space that indicates a break) is quite certainly the beginning of a vasantatilakā line, while cañcalā buddhiḥ before that break may well be the end of an āryā stanza. We know of no other metrical template that might fit this text, so the above identification is fairly certain unless the text is prose. Assuming it is not, the lacuna at the end of A2 must consist of 47+16p characters to complete a full vasantatilakā stanza, plus any number of anuṣṭubh hemistichs. Finally, the lacuna in A1 is again uncertain. If the end of an āryā is preserved here, then this lacuna must have comprised at least 19 morae for the partially preserved second hemistich, plus 30 morae for the fully lost first hemistich. The number of necessarily lost syllables can be estimated, with a wide margin of uncertainty, to be slightly under forty (assuming that three akṣaras make up four morae on average). The lacuna in A1 may have been longer than this, as the stanza may have been preceded by some opening prose or, less likely, by another stanza of unknown metre.</p>
-        <p>Assuming that lines on the two parts were roughly the same length, we must look for possible values of lacuna length in each line that are reasonably close to each other. Some variation is of course expected due to uneven character size. We are quite confident that the lacuna in A2 must cover at least 47 characters, with the effect that considerably shorter lacuna options may be eliminated in the other lines as well. It is thus most likely that the size of the lacuna is around 40 to 45 characters in line A1 (the 37 required plus a short prose opening); exactly 47 characters in A2 (the minimum required); 43 in A3 (the 11 required plus 32 for two lost anuṣṭubh hemistichs); 49 in B1 (the 17 required plus 32 for two lost anuṣṭubh hemistichs); around 45 to 50 in B2 (the 12 required, plus 32 for two lost anuṣṭubh hemistichs, plus a few characters of prose), and an unknown number of characters at the end of B3. Assuming this last line was filled to the end with text, as many as 60 characters may well have been lost here, since the characters of this line are slightly smaller than those of the other lines.</p>
-        <p>The above estimate is to some extent corroborated by the presence of a symbol in A3. It is a logical assumption that this symbol would occur between stanzas rather than inside a stanza, after the first hemistich. By our estimate, this symbol falls between stanzas 4 and 5. Reconstructions involving a shorter lacuna are ruled out by the presence of a vasantatilakā stanza in A2. An alternative scenario with three, rather than two, anuṣṭubh hemistichs lost in lines A3, B1 and B2, would result in the symbol falling in the middle of a stanza and can thus be ruled out. As a final alternative, it does seem possible that four anuṣṭubh hemistichs have been lost in each of these three lines. At over 90 akṣaras per original line, this is rather long, whereas our preferred reconstruction, with about 60 akṣaras per line, of which 15 or 16 are extant in the lines with regular-sized characters, corresponds exactly to Finot and Golubew's estimate cited above. Should this latter scenario, nevertheless, be the actual case, an extra stanza of about 32 characters (an anuṣṭubh, possibly an āryā) may well have existed before our stanza I (or there may have been a longer opening in prose), and further extra anuṣṭubh stanzas existed between our stanzas III and IV, between our V and VI, and after our VIII.
+      
+<body>
+         
+<div type="edition" xml:lang="san-Latn" rendition="class:83233 maturity:00000">
+<lb n="A1" />
+<ab>
+  <gap reason="lost" unit="character" quantity="5" precision="low" />
+</ab>
+<lg n="1" met="āryā">
+<certainty match="../@met" locus="value" />
+        
+<l n="ab">
+  <seg met="4|4|4|4|4|4|4|2">
+    <gap reason="lost" unit="character" quantity="30" precision="low" />
+  </seg>
+</l>
+        
+<l n="cd">
+<seg met="4|4|4|4|2">
+  <gap reason="lost" unit="character" quantity="12" precision="low" />
+</seg>
+<unclear>ca</unclear>ñcalā buddhiḥ
+<space /></l>
+</lg>
+<lg n="2" met="vasantatilakā">        
+<l n="a">yasya prajāsu sutarāṁ kr̥
+<lb n="A2" break="no" />
+<seg met="-+-+=">
+  <gap reason="lost" unit="character" quantity="5" />
+</seg></l>
+        
+<l n="b">
+  <seg met="++-+---+--+-+=">
+    <gap reason="lost" unit="character" quantity="14" />
+  </seg>
+</l>
+        
+<l n="c">
+  <seg met="++-+---+--+-+=">
+    <gap reason="lost" unit="character" quantity="14" />
+  </seg>
+</l>
+        
+<l n="d">
+  <seg met="++-+---+--+-+=">
+    <gap reason="lost" unit="character" quantity="14" />
+  </seg>
+</l>
+</lg>
+<lg n="3" met="anuṣṭubh">
+        
+<l n="a">
+<supplied reason="lost">bhā</supplied>ṇḍāgārādhikāro ’yaṁ
+<space /></l>
+        
+<l n="b">tasya bhr̥tyaḥ prasā
+<lb n="A3" break="no" />
+<seg met="+=">
+  <gap reason="lost" unit="character" quantity="2" />
+</seg></l>
+        
+<l n="c">
+  <seg met="====-++=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+        
+<l n="d">
+  <seg met="====-+-=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+</lg>
+<lg n="4" met="anuṣṭubh">
+        
+<l n="a">
+  <seg met="====-++=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+        
+<l n="b">
+  <seg met="====-+-=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+        
+<l n="c">
+  <seg met="====-++=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+        
+<l n="d">
+<seg met="-">
+  <gap reason="lost" unit="character" quantity="1" />
+</seg>nt
+<unclear>aṁ</unclear> yat puṇyavarddhanam·
+<g type="eye">.</g>
+</l>
+</lg>
+<lg n="5" met="anuṣṭubh">
+        
+<l n="a">ratnalokeśvaro yena</l>
+        
+<l n="b">
+<lb n="B1" />sthāpito rajatātmakaḥ
+<space /></l>
+        
+<l n="c">vr̥ddhe ratnapure śā
+<seg met="=">
+  <gap reason="lost" unit="character" quantity="1" />
+</seg></l>
+        
+<l n="d">
+  <seg met="====-+-=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+</lg>
+<lg n="6" met="anuṣṭubh">
+        
+<l n="a">
+  <seg met="====-++=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+        
+<l n="b">
+  <seg met="====-+-=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+        
+<l n="c">
+  <seg met="====-++=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+        
+<l n="d">
+  <seg met="====-+-=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+</lg>
+<lg n="7" met="anuṣṭubh">
+        
+<l n="a">
+  <seg met="====-++=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+        
+<l n="b">
+<lb n="B2" />
+<foreign xml:lang="ocm-Latn">hjai-traṅ·</foreign>-kṣetraṁ 
+<foreign xml:lang="ocm-Latn">juṅā</foreign>-pure
+<space /></l>
+        
+<l n="c">
+<foreign xml:lang="ocm-Latn">cvaḥ-sirā</foreign>la
+<unclear>ya</unclear>
+<seg met="++=">
+  <gap reason="lost" unit="character" quantity="3" />
+</seg></l>
+        
+<l n="d">
+  <seg met="====-+-=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+</lg>
+<lg n="8" met="anuṣṭubh">
+        
+<l n="a">
+  <seg met="====-++=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+        
+<l n="b">
+  <seg met="====-+-=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+        
+<l n="c">
+  <seg met="====-++=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+        
+<l n="d">
+  <seg met="====-+-=">
+    <gap reason="lost" unit="character" quantity="8" />
+  </seg>
+</l>
+</lg>
+<p>
+<lb n="B3" />
+<add place="below">
+  <g type="eye" />
+</add>m an-upama-matiḥ 
+<space /> śrīmāñ jayasiṅhavarmmadevo 
+<unclear>’ya</unclear>
+<gap reason="lost" extent="unknown" unit="character" /></p>
+         </div>
+         
+<div type="apparatus">
+               
+<listApp>
+<app loc="A2">
+        
+<lem>tasya</lem>
+        
+<rdg source="bib:Finot+Goloubew1925_01">tasyā</rdg>
+</app>
+<app loc="A3">
+        
+<lem>nt
+<unclear>aṁ</unclear> yat</lem>
+        
+<rdg source="bib:Finot+Goloubew1925_01">ntayat</rdg>
+        
+<note>It seems the stone has suffered a little bit of damage at the left extremity, so that the akṣara 
+<foreign>ntaṁ</foreign> is now entirely lost, and can be read only from the estampage.</note>
+</app>
+<app loc="B2">
+         
+<lem>cvaḥ</lem>
+        
+<rdg source="bib:Finot+Goloubew1925_01">
+  <unclear cert="low">dvaḥ</unclear>
+</rdg>
+</app>
+<app loc="B3">
+        
+<lem>
+<add place="below">
+  <g type="eye" />
+</add>m anupama-</lem>
+        
+<rdg source="bib:Finot+Goloubew1925_01">manupāma-</rdg>
+        
+<note>A symbol, ignored by Finot &amp; Goloubew, seems to be squashed below the 
+<foreign>ma</foreign> at line opening.</note>
+</app>
+               </listApp>
+         </div>
+         
+<div type="translation">
+        
+<p>
+  <gap reason="lost" unit="character" quantity="10" precision="low" />
+</p>
+<p rend="stanza" n="1">
+<gap reason="lost" />fickle mind.
+<note>The first stanza may have been an invocation to a deity or concept, perhaps mentioning the fickleness of the human mind in contrast to the former’s permanence; or a benediction, possibly asking for a mind that is not fickle.</note></p>
+<p rend="stanza" n="2">He whose 
+<gap reason="lost" /> 
+<seg cert="low">done</seg> very well towards 
+<supplied reason="subaudible">his</supplied> subjects 
+<gap reason="lost" /> 
+<note>The second stanza was in all probability an introduction of the reigning king. Given the constraints of the metre, 
+<foreign>kr̥ta</foreign> can with fair probability be restored at the end of the extant text.</note></p>
+<p rend="stanza" n="3">This superintendent of the treasury is his 
+<seg cert="low">favoured</seg> servant 
+<gap reason="lost" />
+<note>The third stanza was probably an introduction of the donor as a dependant of the king introduced above. The end of the extant text may perhaps be restored as 
+<foreign>prasāda-bhāk</foreign> (as translated here), or 
+<foreign>prasādataḥ</foreign>, “by his grace.”</note></p>
+<p rend="stanza" n="4">
+<gap reason="lost" /> which 
+<supplied reason="subaudible">produces</supplied> an increase of merit.</p>
+<p rend="stanza" n="5">By whom 
+<supplied reason="explanation">an image of</supplied> Ratnalokeśvara consisting of silver has been established in Old Ratnapura 
+<gap reason="lost" /></p>
+<p rend="stanza" n="6">
+  <gap reason="lost" quantity="32" unit="character" />
+</p>
+<p rend="stanza" n="7"></p>
+<p rend="stanza" n="8">
+  <gap reason="lost" quantity="32" unit="character" />
+</p>
+<p n="B2-B3">
+<gap reason="lost" /> the majestic Jayasiṁhavarmadeva of peerless intellect 
+<gap reason="lost" /></p>
+         </div>
+         
+<div type="commentary">
+            
+<p>Finot &amp; Goloubew observe that 
+<q xml:lang="fra">Le texte subsistant ne doit guère représenter que le quart de l'inscription totale</q> and that 
+<q>Il paraît être rédigé en çlokas</q> (
+<bibl rend="omitname">
+  <ptr target="bib:Finot+Goloubew1925_01" />
+  <citedRange unit="page">472</citedRange>
+</bibl>). The second claim is not confirmed by the more precise metrical analysis presented here. Our reconstruction of the lost text is based on the assumption that the text would have been more or less symmetrically distributed over the two sides of a pedestal, the conduit for libation fluids marking the transition from the first part (A) to the second (B). Part A of the text would have begun on either near the middle of the vertical face straight across the pedestal from the conduit, or in the far left corner viewed from the conduit; part B would have ended on back at the same point on the vertical face across the conduit, or in the far right corner. One line of text would, in each part, have extended over about 65 akṣaras. ]</p>
+<p>To attempt to reconstruct the stanza structure of the lost parts, we must consider that even if the entire text is not in anuṣṭubh, it certainly includes a sequence of stanzas in that metre. Even if the extant fragments of text cannot be allocated to the first or second hemistich of an anuṣṭubh stanza, we can be certain that each lacuna must cover a number of syllables equivalent to A, the number of syllables missing from anuṣṭubh hemistichs interrupted by the lacuna, plus B, a multiple of 16 (corresponding to 0 or more lost anuṣṭubh hemistichs). Thus the length of the lacuna at the beginning of A3 must be 11+16n akṣaras, that is, two syllables (to complete the hemistich beginning in A2 before the lacuna), plus nine syllables (to complete the hemistich ending in A3 after the lacuna), plus zero or more times 16 syllables for any fully lost hemistichs in between. Similarly, the lacuna at the end of B1 must comprise 17 +16m akṣaras, that is, nine to complete the hemistich beginning in B1, plus eight to complete the one ending in B2, plus any number of fully lost hemistichs. The contents of B3 seem to be prose, which must have started at some point in B2, so the extent of the lacunae in B2 and B3 cannot be estimated accurately by such a calculation. As for that in A2, the extant text of that line does not fit the requirements of the anuṣṭubh metre. However, yasya prajāsu sutarāṁ kr̥ (after a space that indicates a break) is quite certainly the beginning of a vasantatilakā line, while cañcalā buddhiḥ before that break may well be the end of an āryā stanza. We know of no other metrical template that might fit this text, so the above identification is fairly certain unless the text is prose. Assuming it is not, the lacuna at the end of A2 must consist of 47+16p characters to complete a full vasantatilakā stanza, plus any number of anuṣṭubh hemistichs. Finally, the lacuna in A1 is again uncertain. If the end of an āryā is preserved here, then this lacuna must have comprised at least 19 morae for the partially preserved second hemistich, plus 30 morae for the fully lost first hemistich. The number of necessarily lost syllables can be estimated, with a wide margin of uncertainty, to be slightly under forty (assuming that three akṣaras make up four morae on average). The lacuna in A1 may have been longer than this, as the stanza may have been preceded by some opening prose or, less likely, by another stanza of unknown metre.</p>
+<p>Assuming that lines on the two parts were roughly the same length, we must look for possible values of lacuna length in each line that are reasonably close to each other. Some variation is of course expected due to uneven character size. We are quite confident that the lacuna in A2 must cover at least 47 characters, with the effect that considerably shorter lacuna options may be eliminated in the other lines as well. It is thus most likely that the size of the lacuna is around 40 to 45 characters in line A1 (the 37 required plus a short prose opening); exactly 47 characters in A2 (the minimum required); 43 in A3 (the 11 required plus 32 for two lost anuṣṭubh hemistichs); 49 in B1 (the 17 required plus 32 for two lost anuṣṭubh hemistichs); around 45 to 50 in B2 (the 12 required, plus 32 for two lost anuṣṭubh hemistichs, plus a few characters of prose), and an unknown number of characters at the end of B3. Assuming this last line was filled to the end with text, as many as 60 characters may well have been lost here, since the characters of this line are slightly smaller than those of the other lines.</p>
+<p>The above estimate is to some extent corroborated by the presence of a symbol in A3. It is a logical assumption that this symbol would occur between stanzas rather than inside a stanza, after the first hemistich. By our estimate, this symbol falls between stanzas 4 and 5. Reconstructions involving a shorter lacuna are ruled out by the presence of a vasantatilakā stanza in A2. An alternative scenario with three, rather than two, anuṣṭubh hemistichs lost in lines A3, B1 and B2, would result in the symbol falling in the middle of a stanza and can thus be ruled out. As a final alternative, it does seem possible that four anuṣṭubh hemistichs have been lost in each of these three lines. At over 90 akṣaras per original line, this is rather long, whereas our preferred reconstruction, with about 60 akṣaras per line, of which 15 or 16 are extant in the lines with regular-sized characters, corresponds exactly to Finot and Golubew's estimate cited above. Should this latter scenario, nevertheless, be the actual case, an extra stanza of about 32 characters (an anuṣṭubh, possibly an āryā) may well have existed before our stanza I (or there may have been a longer opening in prose), and further extra anuṣṭubh stanzas existed between our stanzas III and IV, between our V and VI, and after our VIII.
 As a final twist, it is possible that the fragment preserved in line B3 is not prose but part of an āryā stanza, the first hemistich of which ends with śrīmāñ. The presence of a space before, rather than after, this word speaks against this assumption, but the prosody does permit it. In this case, the putative āryā stanza lacks 23 morae (corresponding to 15 characters with a wide margin) at the beginning, that would have been in the lacuna at the end of B2. This in turn means that our stanza VIII did not exist; instead, we would then have to posit about 15 to 20 characters of prose after stanza VII, followed by this āryā (now stanza VIII).</p>
-      </div>
-      <div type="bibliography">
-        <p>First edited by Finot &amp; Goloubew (<bibl rend="omitname">
-            <ptr target="bib:Finot+Goloubew1925_01"/>
-          </bibl>). Re-edited and here by Dániel Balogh &amp; Arlo Griffiths from the estampages EFEO n. 507 and photographs of the stone.</p>
-        <listBibl type="primary">
-          <bibl n="FG">
-            <ptr target="bib:Finot+Goloubew1925_01"/>
-            <citedRange unit="page">472-474</citedRange>
-          </bibl>
+         </div>
+        
+<div type="bibliography">
+           
+<p>First edited by Finot &amp; Goloubew (
+<bibl rend="omitname">
+  <ptr target="bib:Finot+Goloubew1925_01" />
+</bibl>). Re-edited and here by Dániel Balogh &amp; Arlo Griffiths from the estampages EFEO n. 507 and photographs of the stone.</p>
+                
+<listBibl type="primary">
+        
+<bibl n="FG">
+  <ptr target="bib:Finot+Goloubew1925_01" />
+  <citedRange unit="page">472-474</citedRange>
+</bibl>
         </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:Golzio2004_01"/>
-            <citedRange unit="page">93</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
-</TEI><!-- 
-BTLS Hanoi LSb 21179.
-Planches LVIa et LVIb dans BEFEO XXV. 
--->
+           
+<listBibl type="secondary">
+              
+<bibl>
+                 
+<ptr target="bib:Golzio2004_01" />
+                 
+<citedRange unit="page">93</citedRange>
+        </bibl>
+           </listBibl>
+        </div>
+      </body>
+  
+</text>
+</TEI>

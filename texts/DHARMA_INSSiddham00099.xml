@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00099</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,125 +62,114 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <ab>
-          <lb n="1"/>
-          <g type="mangala"/>
-        </ab>
-        <!-- 
-The maṅgala symbol is transcribed as oṁ by Fleet. It is very faint and unclear on all the images I have at the moment, but it seems to be inline (the text begins about 1 character further in than in other lines) and roundish. 
--->
-        <lg met="āryā" n="1">
-          <l n="ab">jayati dharaṇy-uddharaṇe ghana-ghoṇāghāta-ghūrṇṇita-mahīddhraḥ</l>
-          <!-- 
-There is no punctuation here, but there is a small space of about half a character. 
--->
-          <l n="cd">devo varhāha-mūrttis trailokya-mahā-gr̥ha-stambhaḥ</l>
-          <!-- 
-No punctuation at the end of the stanza and very little space; the visarga seems to double as punctuation. 
--->
-        </lg>
-        <lg met="anuṣṭubh" n="2">
-          <!-- 
-Fleet notes that "This sentence is in prose, though it commences like a verse in the Âryâ metre." It is in fact an anuṣṭubh śloka, though a vipulā one. It also seems to echo v1 of the Sarnath Buddha Inscription 1 of Budhagupta (IN00041), with which the composer was probably not familiar, but ruler+date ślokas of this kind must have been pretty common in inscriptions. The fact that a śloka is inserted between āryās also suggests that the verse was not really composed for the occasion, but mostly just adapted. 
--->
-          <l n="a">varṣe prathame pr̥thivīM</l>
-          <l n="b"><lb n="2"/>pr̥thu-kīrttau pr̥thu-dyutau<space/></l>
-          <!-- 
-I am not quite certain about the M at the end of the quarter-verse (and line 2). Fleet apparently transcribes an m, but it may be an anusvāra with the dot lost. On my poor-quality images I see no anusvāra and a small mark after vī that may be a halanta M, so this is the most likely reading. 
--->
-          <!-- 
-A conspicuous space of about 1 character shows the half-verse, but there is no punctuation. 
--->
-          <l enjamb="yes" n="c">mahārājādhirāja-śrī</l>
-          <l n="d">-toramāṇe praśāsati|</l>
-          <!-- 
-The closing punctuation is a very straight dash. 
--->
-        </lg>
-        <lg met="āryā" n="3">
-          <l n="ab">phālguna-divase daśame| Ity evaṁ rājya-varṣa-māsa-dinaiḥ</l>
-          <!-- 
-The inline punctuation sign (at the caesura - this is the first time I see such a thing) is a dash at baseline. At the end of the half-verse the visarga seems to double as punctuation. 
--->
-          <l n="cd">etasyāṁ <lb n="3"/>pūrvvāyāM| sva-lakṣaṇair yukta-pūrvvāyāM|<supplied reason="omitted"/></l>
-          <!-- 
-I follow Fleet in reading M| at the caesura and at the end of the verse. I see no halanta M in either locus on my images, but the punctuation dash is visible on my reproductions. Either there are anusvāras followed by dashes, or there are halanta M-s with dashes above, doubling as punctuation (in which case the transcription had better not include a daṇḍa). 
--->
-        </lg>
-        <p>sva-karmmābhiratasya kratu-yājino dhīta-svādhyāyasya viprarṣer mmaittrāyaṇīya-vr̥ṣabhasyendraviṣṇoḥ prapauttrasya| <lb n="4"/>pitur guṇānukāriṇo varuṇaviṣṇoḥ pauttrasya <space/> pitaram anujātasya sva-vaṁśa-vr̥ddhi-hetor hariviṣṇoḥ puttrasyātyanta-bhagavad-bhaktasya vidhātur icchayā<surplus>|</surplus><!-- 
-There is a small space after pauttrasya, serving for punctuation. There may in fact be a dash in it, I cannot tell from my pictures. As for the punctuation sign at the end of l4, I agree with Fleet that it is unnecessary; however, it may not be a punctuation sign at all. It seems to slant upward (whereas all punctuation signs so far have been very horizontal), and there are a couple of other slanted lines nearby, which seem to be random tool marks. 
---><lb n="5"/>svayaṁvarayeva rājalakṣmyādhigatasya <space/> catuḥ-samudra-paryanta-prathita-yaśasaḥ Akṣīṇa-māna-<supplied evidence="previouseditor" reason="lost">dh</supplied>anasyāneka-śattru-samara-jiṣṇoḥ mahār<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>ja-mātr̥viṣṇoḥ<!-- 
-Again, there may be a dash in the space in this line, while the visarga and lack of sandhi after yaśasaḥ and jiṣṇoḥ is also clearly meant as punctuation. 
---><!-- 
-The dha of dhanasya is completely obliterated by the crack in the photo taken in 1892; the crack seems even larger (and filled up with plaster) in the 2008 photo. Fleet, however, prints dha as clear, and it is also clear in Prinsep's eye copy, so the crack may have been narrower in the early 19th century. This is our first clear case of "text visible to previous editor but now lost". 
---><lb n="6"/>svar-ggatasya bhrātrānujena| tad-anuvidhāyinā tat-prasāda-parigr̥hītena<unclear>|</unclear> dhanyaviṣṇunā tenaiva <supplied reason="lost">sa</supplied><unclear>hā</unclear>vibhakta-puṇya-kkriyeṇa mātā-pittroḥ<!-- 
-The mark after parigr̥hītena looks on the 2008 photo like a dash with some random dots above and below it. On the 1892 photo it looks like a pretty clear vertical line, possibly crossed horizontally. (It does not appear on Prinsep's copy.) Fleet describes it as a cross-mark and thinks it indicates that tenaiva sahāvibhakta-puṇya-kkriyeṇa should have stood here, before dhanyaviṣṇunā. I don't see why this should be the case. There is, however, also a clear and very straight horizontal line below the characters sādaparigr̥hīte, so if this cross (or whatever) is really a proofreader's mark, then I'd be much more inclined to see it as a deletion sign which pertains to tat-prasāda-parigr̥hītena. Going out on a limb, I might speculate that the text of the inscription is largely adapted from an earlier (to us, lost) inscription, say of Mātr̥viṣṇu, who would have been tatprasādaparigr̥hīta of his father. But if Mātr̥viṣṇu died in battle (perhaps along with any sons he may have had) and Dhanyaviṣṇu succeeded to the throne unexpectedly, then he would not have been tatprasādaparigr̥hīta - and the word may have been struck out from the inscription when this error was realised too late. But this speculation is in all probability wrong: Dhanyaviṣṇu is described as tatprasādaparigr̥hīta in the Budhagupta pillar too. Still, the line and cross are quite clear in the original. 
---><lb n="7"/>puṇyāpyāyanārtham eṣa bhagavato varāha-mūrtter jjagat-parā<unclear>ya</unclear>ṇasya nārāyaṇasya śilā-prās<supplied reason="lost">ādaḥ</supplied> <unclear>sva</unclear>-viṣay<unclear>e</unclear> sminn airikiṇe kāritaḥ|<!-- 
-Fleet prints mūrter jagat, this is probably a typo. The middle stroke of the upper j is unclear, but the character still looks like rjja, not the unlikely combination of full r with subscript j. 
---><!-- 
-Prinsep and Hall read rṇa in place of lā of śilā (interpreting as aśīrṇa; Prinsep's eye copy actually has a tentative ā mātrā over sya, and a clear second ṇa below what he saw as rṇa). The right-hand stem of la extends to quite a hight, but I agree with Fleet that this is not rṇa. Fleet thinks the extension is a slip of the carving tool; I find that improbable (a straight and deep stroke surely needs many strokes of the tool, not a single slip). 
---><!-- 
-Fleet prints sva after the crack as clear. I can't make out anything on my photos; the subscript va and parts of the s are visible in Prinsep's copy. 
---></p>
-        <p><lb n="8"/>svasty astu go-brāhmaṇa-purogābhyaḥ sarvva-prajā<unclear>bhya</unclear> <supplied reason="lost">i</supplied>ti||<!-- 
-Line 8 is much shorter than the others and is aligned to the centre of the inscribed surface (but is actually a bit to the right of the centre). 
---><!-- 
-Fleet prints bhya as clear and i as unclear. Neither can be made out on any of my pictures, including Prinsep's eye copy. The crack goes through the right-hand side of bhya, leaving some scratches that do seem to be remnants of bhya; the i seems to be completely lost to chipping at the edge of the crack. 
---><!-- 
-The final punctuation sign seems to be a single vertical with a large hook at the top left, followed by a single horizontal. 
---></p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+
+                                
+<ab>
+  <lb n="1" />
+  <g type="mangala" />
+</ab>
+<lg n="1" met="āryā">
+<l n="ab">jayati dharaṇy-uddharaṇe ghana-ghoṇāghāta-ghūrṇṇita-mahīddhraḥ</l>
+<l n="cd">devo varhāha-mūrttis trailokya-mahā-gr̥ha-stambhaḥ</l></lg>
+<lg n="2" met="anuṣṭubh">
+<l n="a">varṣe prathame pr̥thivīM</l>
+<l n="b">
+<lb n="2" />pr̥thu-kīrttau pr̥thu-dyutau
+<space /></l>
+<l n="c" enjamb="yes">mahārājādhirāja-śrī</l>
+<l n="d">-toramāṇe praśāsati|</l></lg>
+<lg n="3" met="āryā">
+<l n="ab">phālguna-divase daśame| Ity evaṁ rājya-varṣa-māsa-dinaiḥ</l>
+<l n="cd">etasyāṁ 
+<lb n="3" />pūrvvāyāM| sva-lakṣaṇair yukta-pūrvvāyāM|
+<supplied reason="omitted" /></l></lg>
+<p>sva-karmmābhiratasya kratu-yājino dhīta-svādhyāyasya viprarṣer mmaittrāyaṇīya-vr̥ṣabhasyendraviṣṇoḥ prapauttrasya| 
+<lb n="4" />pitur guṇānukāriṇo varuṇaviṣṇoḥ pauttrasya 
+<space /> pitaram anujātasya sva-vaṁśa-vr̥ddhi-hetor hariviṣṇoḥ puttrasyātyanta-bhagavad-bhaktasya vidhātur icchayā
+<surplus>|</surplus>
+<lb n="5" />svayaṁvarayeva rājalakṣmyādhigatasya 
+<space /> catuḥ-samudra-paryanta-prathita-yaśasaḥ Akṣīṇa-māna-
+<supplied reason="lost" evidence="previouseditor">dh</supplied>anasyāneka-śattru-samara-jiṣṇoḥ mahār
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>ja-mātr̥viṣṇoḥ
+<lb n="6" />svar-ggatasya bhrātrānujena| tad-anuvidhāyinā tat-prasāda-parigr̥hītena
+<unclear>|</unclear> dhanyaviṣṇunā tenaiva 
+<supplied reason="lost">sa</supplied>
+<unclear>hā</unclear>vibhakta-puṇya-kkriyeṇa mātā-pittroḥ
+<lb n="7" />puṇyāpyāyanārtham eṣa bhagavato varāha-mūrtter jjagat-parā
+<unclear>ya</unclear>ṇasya nārāyaṇasya śilā-prās
+<supplied reason="lost">ādaḥ</supplied> 
+<unclear>sva</unclear>-viṣay
+<unclear>e</unclear> sminn airikiṇe kāritaḥ|</p>
+<p>
+<lb n="8" />svasty astu go-brāhmaṇa-purogābhyaḥ sarvva-prajā
+<unclear>bhya</unclear> 
+<supplied reason="lost">i</supplied>ti||</p>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

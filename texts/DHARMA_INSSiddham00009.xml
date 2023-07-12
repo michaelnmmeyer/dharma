@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00009</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,71 +62,85 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <!-- 
-Digitally re-edited by Dániel Balogh. Version of January 2019. Comments below are offered "as is" and do not represent a thoroughly researched or considered opinion. 
--->
-        <p><lb n="1"/>siddhaM|| saṁvatsare <num value="82"><g type="numeral">80</g> 2</num> Āṣāḍha-māsa-śukl<sic>e</sic>kādaśyāM parama-bhaṭṭāraka-<sic>mahārājādhi</sic>-śrī-candra<unclear>g</unclear>upta-pādānuddhyātasya|<!-- 
-Noting this just to avoid ambiguity: siddham is actually spelled out here. 
---><!-- 
-The punctuation character after siddham consists of two vertical bars, connected with a horizontal stroke at the top, the right-hand bar slightly shorter and perhaps curved. Note also that the halanta M is in fact right below the punctuation mark. 
---><!-- 
-The punctuation character at the end is a horizontal stroke. Bhandarkar (1981:243n8) notes that, contrary to Fleet's opinion, these characters at the end of the line are not "virāma" marks (by which he evidently means closing punctuation), since "the virāma in this record is represented by a vertical stroke as may be seen from those occurring immediately after siddham. The horizontal stroke may have been inserted here to indicate the ending of a line." Myself, I see no point in indicating the end of the line, which should be obvious to a blind man, unless we assume that these marks were there in a cloth original to tell the stonecutter where to break the lines. There is, however, no other apparent reason for the marks: there is clearly no sentence end here. 
---><lb n="2"/>mahārāja-chagalaga-pautrasya mahārāja-viṣṇudāsa-putrasya sanakānikasya mahā<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->rāja</supplied>-<gap precision="low" quantity="1" reason="illegible" unit="character"/><unclear cert="low">ḍha</unclear>la<unclear>syāyaṁ de</unclear><unclear cert="low">ya</unclear>-<unclear>dha</unclear><supplied reason="lost"><!-- CHECK if <unclear> applies better.-->r</supplied>m<unclear>ma</unclear>ḥ|<!-- 
-ḍha is Fleet's guess for the letter preceding la in the name. Sircar guesses Soḍhala for the full name. Bhandarkar (p244n1) feels that the name is 4 akṣaras in length. Cunningham_1880a: plate xix has an eye copy which may be wrong, but has some details that certainly don't look like soḍha. 
---><!-- 
-The reading deyadharmmaḥ is secure according to #Willis_2009:266n120 (autopsy). 
---><!-- 
-The closing punctuation mark is between the dots of the visarga; it is similar to that at the end of the first line. 
---></p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<p>
+<lb n="1" />siddhaM|| saṁvatsare 
+<num value="82">
+<g type="numeral">80</g> 2</num> Āṣāḍha-māsa-śukl
+<sic>e</sic>kādaśyāM parama-bhaṭṭāraka-
+<sic>mahārājādhi</sic>-śrī-candra
+<unclear>g</unclear>upta-pādānuddhyātasya|
+<lb n="2" />mahārāja-chagalaga-pautrasya mahārāja-viṣṇudāsa-putrasya sanakānikasya mahā
+<supplied reason="lost">rāja</supplied>-
+<gap reason="illegible" precision="low" quantity="1" unit="character" />
+<unclear cert="low">ḍha</unclear>la
+<unclear>syāyaṁ de</unclear>
+<unclear cert="low">ya</unclear>-
+<unclear>dha</unclear>
+<supplied reason="lost">r</supplied>m
+<unclear>ma</unclear>ḥ|</p>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

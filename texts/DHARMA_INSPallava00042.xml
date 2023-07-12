@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -24,11 +30,7 @@
         <idno type="filename">DHARMA_INSPallava00042</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
-							Licence. To view a copy of the licence, visit
-							https://creativecommons.org/licenses/by/4.0/ or send a letter to
-							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-							California, 94041, USA.</p>
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
           </licence>
         </availability>
@@ -38,16 +40,16 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary>Donation of land by Naraciṅkapōttaracar, the conqueror of Vātāpi,
-							to the Perumāṉaṭikaḷ of the <foreign>mūlasthāna</foreign> at
-							Tirukkaḵukkuṉṟam.</summary>
+            <summary>Donation of land by Naraciṅkapōttaracar, the conqueror of Vātāpi, to the Perumāṉaṭikaḷ of the 
+            <foreign>mūlasthāna</foreign>at Tirukkaḵukkuṉṟam.</summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p>Reduplication of <foreign>ḷ</foreign> at morpheme's boundary.</p>
+              <p>Reduplication of 
+              <foreign>ḷ</foreign>at morpheme's boundary.</p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -55,135 +57,256 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-07-22" who="part:emfr">Creation of the file</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:emfr" when="2020-07-22" status="draft">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tam-Latn">
-        <p>
-          <lb n="1"/>
-          <hi rend="grantha">śrī<surplus>rī</surplus></hi>
-        </p>
-        <p>
-	tiru-k-kaḻu-k<unclear>u</unclear>ṉṟa<unclear>ttu</unclear> pe<unclear>rumāṉ</unclear>
-<lb break="no" n="2"/><unclear>ṉ-aṭ</unclear>ika<choice>
-            <orig>ḷḷ</orig>
-            <reg>ḷ</reg>
-          </choice>u<unclear>k</unclear>ku</p>
-        <p>
-	kaḷa<unclear>ttū</unclear>r-kōṭṭa<unclear>t</unclear>
-<lb break="no" n="3"/><unclear>tu</unclear> <gap reason="illegible"/> <unclear>tiru-k-kaḻu-k-ku</unclear>ṉṟa
-<lb break="no" n="4" style="text-align: right"/><unclear>ttu</unclear> <hi rend="grantha">śrī</hi>-ma<unclear>lai</unclear> mēl 
-<lb n="5"/>mūla-tāṉattu perumāṉ
-<lb break="no" n="6"/>n-aṭika<choice>
-            <orig><unclear>ḷ</unclear>ḷ</orig>
-            <reg>ḷ</reg>
-          </choice>ukku valipāṭṭu-p <unclear>pu</unclear>ṟam-<unclear>ā</unclear>
-<lb break="no" n="7"/>ka vāt<unclear>ā</unclear>pi koṇṭa naraciṅka-p
-<lb break="no" n="8"/>-pōtta<supplied reason="omitted">ra</supplied><unclear>car</unclear> vay<supplied reason="omitted">t</supplied>tatu
+      
+<body>
+
+        
+<div type="edition" xml:lang="tam-Latn">
+                
+<p>
+        
+<lb n="1" />
+<hi rend="grantha">śrī
+<surplus>rī</surplus></hi>
 </p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1">
-            <lem>tiru-k-kaḻu-k<unclear>u</unclear>ṉṟa<unclear>ttu</unclear></lem>
-            <rdg source="bib:ARIE1932-1933">tiru-k-kaḻu-k-<supplied reason="omitted">kuṉ</supplied>ṟa<unclear>ttu</unclear></rdg>
-          </app>
-          <app loc="5">
-            <lem>mūla-tāṉattu</lem>
-            <rdg source="bib:ARIE1932-1933"><unclear>mū</unclear>la-tāṉattu</rdg>
-            <note>
-      				<bibl rend="siglum">
-                <ptr target="bib:ARIE1932-1933"/>
-                <citedRange unit="page">55</citedRange>
-                <citedRange unit="note">2</citedRange>
-              </bibl>
-      				notes that the character <foreign>mū</foreign> seems to be corrected from <foreign>śrī</foreign>.
-      			</note>
-          </app>
-          <app loc="8">
-            <lem>pōtta<supplied reason="omitted">ra</supplied><unclear>car</unclear></lem>
-            <note>
-      				<bibl rend="siglum">>
-			<ptr target="bib:ARIE1932-1933"/><citedRange unit="page">55</citedRange><citedRange unit="note">3</citedRange></bibl>
-      				notes that the final character <foreign>r</foreign> looks like the character <foreign>ḻ</foreign>.
-      			</note>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:emfr" type="translation">
-        <p n="1">Fortune!</p>
-        <p n="1-2">To the glorious Perumāṉaṭikaḷ of Tirukkaḻukkuṉṟam.</p>
-        <p n="2-8">That which Naraciṅkapōttaracar, the conqueror of Vātāpi, gave, as tax-free land <supplied reason="explanation">
-            <foreign>puṟam</foreign>
-          </supplied> for the purpose of worship <supplied reason="explanation">
-            <foreign>vaḻipāṭu</foreign>
-          </supplied>, to the Perumāṉaṭikaḷ of the <foreign>mūlasthāna</foreign> at Tirukkaḵukkuṉṟam on the glorious hill of Tirukkaḻukkuṉṟam <gap reason="illegible"/> in the Kaḷattūrkōṭṭam.</p>
-      </div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p>
-First edited in <bibl>
-            <ptr target="bib:ARIE1932-1933"/>
-          </bibl><!--display issue: the numerals in the "Title" are unduly circumscribed by parentheses--><!-- I have rewritten the regex pattern deleting the unnecessary html tags and others. Seem to work fine even with the other Zotero entries, but it still need to be watched over -->; text and summary in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP n° 42); re-edited here for DHARMA (ERC n° 809994) by Emmanuel Francis (2020), based on the facsimile published in <bibl>
-            <ptr target="bib:ARIE1932-1933"/>
-          </bibl>.
+<p>
+        tiru-k-kaḻu-k
+<unclear>u</unclear>ṉṟa
+<unclear>ttu</unclear> pe
+<unclear>rumāṉ</unclear>
+<lb n="2" break="no" />
+<unclear>ṉ-aṭ</unclear>ika
+<choice>
+  <orig>ḷḷ</orig>
+  <reg>ḷ</reg>
+</choice>u
+<unclear>k</unclear>ku</p>
+<p>
+        kaḷa
+<unclear>ttū</unclear>r-kōṭṭa
+<unclear>t</unclear>
+<lb n="3" break="no" />
+<unclear>tu</unclear> 
+<gap reason="illegible" /> 
+<unclear>tiru-k-kaḻu-k-ku</unclear>ṉṟa
+<lb n="4" break="no" style="text-align: right" />
+<unclear>ttu</unclear> 
+<hi rend="grantha">śrī</hi>-ma
+<unclear>lai</unclear> mēl 
+<lb n="5" />mūla-tāṉattu perumāṉ
+<lb n="6" break="no" />n-aṭika
+<choice>
+  <orig>
+  <unclear>ḷ</unclear>ḷ</orig>
+  <reg>ḷ</reg>
+</choice>ukku valipāṭṭu-p 
+<unclear>pu</unclear>ṟam-
+<unclear>ā</unclear>
+<lb n="7" break="no" />ka vāt
+<unclear>ā</unclear>pi koṇṭa naraciṅka-p
+<lb n="8" break="no" />-pōtta
+<supplied reason="omitted">ra</supplied>
+<unclear>car</unclear> vay
+<supplied reason="omitted">t</supplied>tatu
+</p>
+                                
+        </div>
+
+        
+<div type="apparatus">
+                
+                
+<listApp>
+                        
+<app loc="1">
+                        
+<lem>tiru-k-kaḻu-k
+<unclear>u</unclear>ṉṟa
+<unclear>ttu</unclear></lem>
+                        
+<rdg source="bib:ARIE1932-1933">tiru-k-kaḻu-k-
+<supplied reason="omitted">kuṉ</supplied>ṟa
+<unclear>ttu</unclear></rdg>
+                </app>
+                
+                
+<app loc="5">
+                        
+<lem>mūla-tāṉattu</lem>
+                        
+<rdg source="bib:ARIE1932-1933">
+<unclear>mū</unclear>la-tāṉattu</rdg>
+                        
+<note>
+                                
+<bibl rend="siglum">
+                        
+<ptr target="bib:ARIE1932-1933" />
+                        
+<citedRange unit="page">55</citedRange>
+                        
+<citedRange unit="note">2</citedRange>
+                                </bibl>
+                                notes that the character 
+<foreign>mū</foreign> seems to be corrected from 
+<foreign>śrī</foreign>.
+                        </note>
+                </app>
+                
+                
+<app loc="8">
+                        
+<lem>pōtta
+<supplied reason="omitted">ra</supplied>
+<unclear>car</unclear></lem>                          
+                        
+<note>
+                                
+<bibl rend="siglum">&gt;
+                        
+<ptr target="bib:ARIE1932-1933" />
+                        
+<citedRange unit="page">55</citedRange>
+                        
+<citedRange unit="note">3</citedRange>
+                                </bibl>
+                                notes that the final character 
+<foreign>r</foreign> looks like the character 
+<foreign>ḻ</foreign>.
+                        </note>
+                </app>
+                </listApp>
+                                                                
+        </div>
+        
+        
+<div type="translation" resp="part:emfr">
+                
+<p n="1">Fortune!</p>
+                
+<p n="1-2">To the glorious Perumāṉaṭikaḷ of Tirukkaḻukkuṉṟam.</p>
+                
+<p n="2-8">That which Naraciṅkapōttaracar, the conqueror of Vātāpi, gave, as tax-free land 
+<supplied reason="explanation">
+  <foreign>puṟam</foreign>
+</supplied> for the purpose of worship 
+<supplied reason="explanation">
+  <foreign>vaḻipāṭu</foreign>
+</supplied>, to the Perumāṉaṭikaḷ of the 
+<foreign>mūlasthāna</foreign> at Tirukkaḵukkuṉṟam on the glorious hill of Tirukkaḻukkuṉṟam 
+<gap reason="illegible" /> in the Kaḷattūrkōṭṭam.</p> 
+        </div>
+        
+<div type="commentary"> 
+        
+</div>
+        
+<div type="bibliography">
+
+            
+<p>
+First edited in 
+<bibl>
+  <ptr target="bib:ARIE1932-1933" />
+</bibl>; text and summary in 
+<bibl>
+  <ptr target="bib:Mahalingam1988_01" />
+</bibl> (IP n° 42); re-edited here for DHARMA (ERC n° 809994) by Emmanuel Francis (2020), based on the facsimile published in 
+<bibl>
+  <ptr target="bib:ARIE1932-1933" />
+</bibl>.
             </p>
-        <listBibl type="primary">
-          <bibl n="ARIE">
-            <ptr target="bib:ARIE1932-1933"/>
-            <citedRange unit="page">54-55</citedRange>
-            <citedRange unit="plate">I</citedRange>
-          </bibl>
-          <bibl n="TVM">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="page">144</citedRange>
-            <citedRange unit="item">42</citedRange>
-          </bibl>
+
+        
+<listBibl type="primary">
+                
+                
+<bibl n="ARIE">
+                        
+<ptr target="bib:ARIE1932-1933" />
+                        
+<citedRange unit="page">54-55</citedRange>
+                        
+<citedRange unit="plate">I</citedRange>
+                </bibl> 
+                
+                
+<bibl n="TVM">
+                        
+<ptr target="bib:Mahalingam1988_01" />
+                        
+<citedRange unit="page">144</citedRange>
+                        
+<citedRange unit="item">42</citedRange>
+                </bibl>
+                
         </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:ARIE1908-1909"/>
-            <citedRange unit="page">65</citedRange>
-            <citedRange unit="appendix">C/1909</citedRange>
-            <citedRange unit="item">65</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:VenkatasubbaAyyar1943_01"/>
-            <citedRange unit="page">9</citedRange>
-            <citedRange unit="item">16</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Srinivasan1964_01"/>
-            <citedRange>103-105</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Lockwood+al2001_01"/>
-            <citedRange>272</citedRange>
-          </bibl>
+        
+        
+<listBibl type="secondary">
+                
+                
+<bibl>
+                        
+<ptr target="bib:ARIE1908-1909" />
+                        
+<citedRange unit="page">65</citedRange>
+                        
+<citedRange unit="appendix">C/1909</citedRange>
+                        
+<citedRange unit="item">65</citedRange>
+                </bibl>
+                
+                
+<bibl>
+                        
+<ptr target="bib:VenkatasubbaAyyar1943_01" />
+                        
+<citedRange unit="page">9</citedRange>
+                        
+<citedRange unit="item">16</citedRange>
+                </bibl>
+                
+                
+<bibl>
+                        
+<ptr target="bib:Srinivasan1964_01" />
+                        
+<citedRange>103-105</citedRange>
+                </bibl>
+                
+                
+<bibl>
+                        
+<ptr target="bib:Lockwood+al2001_01" />
+                        
+<citedRange>272</citedRange>
+                </bibl>
+
         </listBibl>
-      </div>
-    </body>
-  </text>
+        
+</div>
+        
+      </body>
+  
+</text>
 </TEI>

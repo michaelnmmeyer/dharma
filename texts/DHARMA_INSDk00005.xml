@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -24,29 +30,24 @@
         <idno type="filename">DHARMA_INSDk00005</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported
-                            Licence. To view a copy of the licence, visit
-                            https://creativecommons.org/licenses/by/4.0/ or send a letter to
-                            Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-                            California, 94041, USA.</p>
+            <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Natasja Bosma.</p>
           </licence>
         </availability>
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- not to be filled in at this stage -->
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -54,197 +55,383 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-06-05" who="part:nabo">Adding edition and translation</change>
-      <change status="draft" when="2020-05-28" who="part:nabo">Initial encoding of the file</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:nabo" when="2020-06-05" status="draft">Adding edition and translation</change>
+      <change who="part:nabo" when="2020-05-28" status="draft">Initial encoding of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="san-Latn">
-        <pb n="1r"/>
-        <p><pb n="1v"/><lb n="1v1"/>svasti śarabhapurā<surplus>T</surplus>d vikkramopanatasāma<choice>
-            <orig>ṁtta</orig>
-            <reg>nta</reg>
-          </choice>cūḍāmaṇiprabhāprasekāmbu<lb break="no" n="1v2"/>bhir dhautapādayugalo ripuvilāsinīsīma<choice>
-            <orig>tto</orig>
-            <reg>nto</reg>
-          </choice>ddharaṇahetur vvasuvasudhā<lb break="no" n="1v3"/>gopradaḫ paramabhāgavato mātāpit<choice>
-            <orig>ri</orig>
-            <reg>ṛ</reg>
-          </choice>pādānuddhyātaḥ śrīmahājayarājaḥ <lb n="1v4"/>a<choice>
-            <orig>ṁtta</orig>
-            <reg>nta</reg>
-          </choice>ranā<space type="binding-hole"/>lakīyakada<surplus>ṁ</surplus>mbapadrullake prativāsikuṭumbina<surplus>ḥ</surplus>s samā<lb break="no" n="1v5"/>jñāpayati<g type="dotDouble"/></p>
-        <p>viditam astu vo yathāsmābhir ayaṁ grāmas tridaśapati<lb break="no" n="1v6"/>sadanasukhapratiṣṭhākaro yāvad raviśaśitārākiraṇapratihata<pb break="no" n="2r"/><lb break="no" n="2r1"/>ghorā<choice>
-            <orig>ddha</orig>
-            <reg>ndha</reg>
-          </choice>kāra<supplied reason="omitted">ṁ</supplied> jagad avatiṣṭhate tāvad upabho<choice>
-            <orig>j</orig>
-            <reg>g</reg>
-          </choice>ya<supplied reason="omitted">ḥ</supplied> sanidhis sopanidh<subst>
-            <del>ī</del>
-            <add place="overstrike">i</add>
-          </subst><lb break="no" n="2r2"/>r acāṭabhaṭaprāv<choice>
-            <sic>ai</sic>
-            <corr>e</corr>
-          </choice>śya<supplied reason="omitted">s</supplied> sarvvakaravisarjjitaẖ k<unclear reason="eccentric_ductus">au</unclear>tsasagotrabrāhmaṇakapa<lb break="no" n="2r3"/>rddisvāmi<space type="binding-hole"/><choice>
-            <orig>nas</orig>
-            <reg>ne</reg>
-          </choice> somoparāge mātāpitror ātmanaś ca puṇyābhiv<choice>
-            <sic>ra</sic>
-            <corr>ṛ</corr>
-          </choice>ddha<lb break="no" n="2r4"/>ye Udaka<space type="binding-hole"/>pūrvva<unclear>ṁ</unclear> tā<choice>
-            <orig>mbra</orig>
-            <reg>mra</reg>
-          </choice>śāsanenātisṛṣṭa<surplus>ḥ</surplus>s</p>
-        <p>te  yūyam evam upala<lb n="2r5"/>bhyāsyājñāśravaṇavidheyā bhūtvā yathocitaṁ bhogabhāgam upanaya<choice>
-            <orig>ṁtta</orig>
-            <reg>nta</reg>
-          </choice>ḥ sukhaṁ <lb n="2r6"/>prativa<supplied reason="omitted">t</supplied>syatha<g type="dashDoubledot"/> bhaviṣyataś ca bhūmipān anudarśayati<g type="dashDoubledot"/></p>
-        <lg met="vasantatilakā" n="1">
-          <l n="a">dānād viśi<unclear>ṣṭa</unclear><pb break="no" n="2v"/><lb break="no" n="2v1"/>m anupālanajaṁ purāṇā<surplus>T</surplus></l>
-          <l n="b">dharmmeṣu niścitadhiyaḫ pravada<choice>
-              <orig>ṁtti</orig>
-              <reg>nti</reg>
-            </choice> dharma<supplied reason="omitted">ṁ</supplied></l>
-          <l n="c"><lb n="2v2"/>tasmā<supplied reason="omitted">d</supplied> dvijāya suviśuddhakulaśrutāya</l>
-          <l n="d">dattāṁ bhuvaṁ bhavatu vo mati<lb break="no" n="2v3"/>r eva go<space type="binding-hole"/>ptuṁ <del rend="strikeout">matir eva goptum</del></l>
-        </lg>
-        <p>bhavad<choice>
-            <sic>v</sic>
-            <corr>bh</corr>
-          </choice>ir apy eṣā dattir anupāla<lb break="no" n="2v4"/>yitavyā<g type="dashDoubledot"/> <space type="binding-hole"/>vyāsagītāṁś cātra ślokān udāhara<choice>
-            <orig>ṁtti</orig>
-            <reg>nti</reg>
-          </choice><g type="dashDouble"/></p>
-        <lg met="indravajrā" n="2">
-          <l n="a">Agner apatyaṁ <lb n="2v5"/>prathamaṁ suvarṇṇaṁ<g type="dashDouble"/></l>
-          <l n="b">bhūr vvaiṣṇavī sūryyasutāś ca gāvaḥ</l>
-          <l n="c">dattās traya<lb break="no" n="2v6"/>s tena bhava<choice>
-              <orig>ṁtti</orig>
-              <reg>nti</reg>
-            </choice> lokā<g type="dashDouble"/></l>
-          <l n="d">yaẖ kāñcanaṁ gā<surplus>ṁ</surplus>ñ ca mahīñ ca dadyā<supplied reason="omitted">T</supplied><g type="dashDouble"/></l>
-        </lg>
-        <lg met="anuṣṭubh" n="3">
-          <l n="ab"><pb n="3r"/><lb n="3r1"/>ṣa<surplus>ṁ</surplus>ṣṭivarṣasahasrāṇi svargge modati bhūmidaḥ</l>
-          <l n="cd">Ācchettā cānuma<choice>
-              <orig>ṁ</orig>
-              <reg>n</reg>
-            </choice><lb break="no" n="3r2"/><surplus>t</surplus>tā ca tā<surplus>ṁ</surplus>ny eva narake vase<supplied reason="omitted">T</supplied></l>
-        </lg>
-        <lg met="anuṣṭubh" n="4">
-          <l n="ab">bahubhir vvasudhā dattā rāja<surplus>ḥbh</surplus>bhis sa<lb break="no" n="3r3"/>garādi<space type="binding-hole"/>bhiḥ</l>
-          <l n="cd">yasya yasya yadā bhūmis tasya tasya tadā <lb n="3r4"/>phala<surplus>ṁ</surplus><choice>
-              <orig>m</orig>
-              <reg>M</reg>
-            </choice></l>
-        </lg>
-        <ab><choice>
-            <orig>i</orig>
-            <reg>I</reg>
-          </choice>ti</ab>
-        <p>svamukhājñayā<g type="dashDoubledot"/> U<choice>
-            <orig>kt</orig>
-            <reg>tk</reg>
-          </choice>īrṇṇaṁ Acalasiṅghena<lb n="3r5"/>pravarddhamānavijaya<choice>
-            <orig>saṁvva</orig>
-            <reg>saṁva</reg>
-          </choice>tsara pa<surplus>ṁ</surplus>ñca <num value="5">5</num> kārttika di<choice>
-            <orig>so</orig>
-            <reg>vasaḥ</reg>
-          </choice> <num value="5">5</num></p>
-        <pb n="3v"/>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1v2">
-            <lem>dhauta°</lem>
-            <note>The shape of the vowel marker for <foreign>au</foreign> is slightly irregular, but is the same as in other copperplate charters of the kings of Śarabhapura.</note>
-          </app>
-          <app loc="2r4">
-            <lem source="bib:Sircar1961-1962_01">
-              <del rend="strikeout">matir eva goptum</del>
-            </lem>
-          </app>
-          <app loc="2r5">
-            <lem>yathocitaṁ</lem>
-            <rdg source="bib:Sircar1961-1962_01">yathocita°</rdg>
-            <rdg source="bib:Shastri1995_02">yathocitaṁ</rdg>
-          </app>
-          <app loc="2v1">
-            <lem>pravada<choice>
-                <orig>ṁtti</orig>
-                <reg>nti</reg>
-              </choice></lem>
-            <rdg source="bib:Sircar1961-1962_01">pravada<surplus>ṁ</surplus>nti</rdg>
-            <rdg source="bib:Shastri1995_02">pravada<choice>
-                <orig>ṁtti</orig>
-                <reg>nti</reg>
-              </choice></rdg>
-          </app>
-          <app loc="3r2">
-            <lem>rāja<surplus>ḥbh</surplus>bhis</lem>
-            <rdg source="bib:Sircar1961-1962_01">rāja<surplus>ḥbh</surplus>bhis</rdg>
-            <rdg source="bib:Shastri1995_02">rāja<surplus>ḥ</surplus>bhis</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:nabo" type="translation">
-        <p n="1v1-1v5">Hail! From Śarabhapura, the illustrious great Jayarāja whose feet are washed by the sprinkling water that is the brilliance of the crest-jewels of his feudatories who have been brought into submission by his prowess; who made the women of his enemies tear out their parted hair; who is a giver of riches, land, and cattle; who is entirely devoted to Viṣṇu; and favoured by his father and mother, issues <supplied reason="subaudible">the following command</supplied> to the landholders settled in <supplied reason="subaudible">the village of</supplied> Kadambapadrullaka situated in the Antaranālaka <foreign>bhukti</foreign>:</p>
-        <p n="1v5-2r4">Let it be known to you that by means of <supplied reason="subaudible">this</supplied> copperplate charter <supplied reason="subaudible">and</supplied> preceded by a libation of water, this village has been granted by us for the increase of religious merit of father, mother, and ourselves, to the Brahmin Kaparddisvāmin, belonging to the Kautsa <foreign>gotra</foreign> and to the Vājasaneya <supplied reason="subaudible">school</supplied>. <supplied reason="subaudible">The grant of the village</supplied>, which leads to happiness and fame in the abode of the lord of the gods <supplied reason="explanation">i.e., Indra’s heaven</supplied>, <supplied reason="subaudible">took place</supplied> on the occasion of a lunar eclipse; is to be enjoyed as long as the world will endure, <supplied reason="subaudible">the world</supplied> of which the darkness of the night is removed by the rays of the sun, moon and stars; <supplied reason="subaudible">comes along with the right to</supplied> hidden treasures and deposits; is not to be entered by irregular or regular troops; and is exempt from all taxes.</p>
-        <p n="2r4-2r6">Having taken note of that, you should be obedient to the command received from him <supplied reason="explanation">i.e., the donee</supplied> and render the <supplied reason="subaudible">proper shares of</supplied> periodical offerings and produce, while living happily <supplied reason="subaudible">in this village</supplied>. And <supplied reason="subaudible">the king</supplied> instructs the future rulers:</p>
-        <p n="2r6-2v3" rend="stanza">The ancients, reflecting on virtue, proclaim that the religious merit arising from the protection <supplied reason="subaudible">of a grant</supplied> is more excellent than <supplied reason="subaudible">that which arises</supplied> from the giving <supplied reason="subaudible">itself</supplied>; therefore, your intent should indeed be to protect the earth that has been granted to a Brahmin of perfectly pure family and religious learning.</p>
-        <p n="2v3-2v4">This gift is to be protected by you as well! And in this respect they quote the <supplied reason="subaudible">following</supplied> stanzas sung by Vyāsa:</p>
-        <p n="2v4-2v6" rend="stanza">Gold is the first child of Agni, land is born of Viṣṇu, and cows are the offspring of Sūrya: <supplied reason="subaudible">Therefore</supplied>, whoever would give gold, a cow, and land would give the three worlds.</p>
-        <p n="3r1-3r2" rend="stanza">A giver of land rejoices in heaven for sixty thousand years; he who confiscates it or allows <supplied reason="subaudible">another to confiscate it</supplied> will dwell for the same period in hell!</p>
-        <p n="3r2-3r4" rend="stanza">The earth has been granted by many kings, beginning with Sagara; whoever possesses the land at any time, to him belong the fruits at that time!</p>
-        <p n="3r4-3r5">By the order from the king’s own mouth, <supplied reason="subaudible">the copperplate charter</supplied> has been engraved by Acalasiṅgha <supplied reason="subaudible">on</supplied> the day 5 <supplied reason="subaudible">of</supplied> the month of Kārttika <supplied reason="subaudible">in</supplied> the increasingly victorious year five 5 <supplied reason="subaudible">of Jayarāja's reign</supplied>.</p>
-      </div>
-      <div type="commentary">
-        <p>The seal that used to be attached to these plates is lost.</p>
-      </div>
-      <div type="bibliography">
-        <p>First edited by Sircar <bibl rend="omitname">
-            <ptr target="bib:Sircar1961-1962_01"/>
-          </bibl> from the original plates and their impressions; published again by Shastri <bibl rend="omitname">
-            <ptr target="bib:Shastri1995_02"/>
-            <citedRange>17-19</citedRange>
-          </bibl>; re-edited here by Natasja Bosma based on the published photographs.</p>
-        <listBibl type="primary">
-          <bibl n="DCS">
-            <ptr target="bib:Sircar1961-1962_01"/>
-          </bibl>
-          <bibl n="AMS">
-            <ptr target="bib:Shastri1995_02"/>
-            <citedRange>17-19</citedRange>
-          </bibl>
+      
+<body>
+         
+<div type="edition" xml:lang="san-Latn"> 
+                    
+<pb n="1r" />
+                    
+<p>
+<pb n="1v" />
+<lb n="1v1" />svasti śarabhapurā
+<surplus>T</surplus>d vikkramopanatasāma
+<choice>
+  <orig>ṁtta</orig>
+  <reg>nta</reg>
+</choice>cūḍāmaṇiprabhāprasekāmbu
+<lb n="1v2" break="no" />bhir dhautapādayugalo ripuvilāsinīsīma
+<choice>
+  <orig>tto</orig>
+  <reg>nto</reg>
+</choice>ddharaṇahetur vvasuvasudhā
+<lb n="1v3" break="no" />gopradaḫ paramabhāgavato mātāpit
+<choice>
+  <orig>ri</orig>
+  <reg>ṛ</reg>
+</choice>pādānuddhyātaḥ śrīmahājayarājaḥ 
+<lb n="1v4" />a
+<choice>
+  <orig>ṁtta</orig>
+  <reg>nta</reg>
+</choice>ranā
+<space type="binding-hole" />lakīyakada
+<surplus>ṁ</surplus>mbapadrullake prativāsikuṭumbina
+<surplus>ḥ</surplus>s samā
+<lb n="1v5" break="no" />jñāpayati
+<g type="dotDouble" /></p> 
+<p>viditam astu vo yathāsmābhir ayaṁ grāmas tridaśapati
+<lb n="1v6" break="no" />sadanasukhapratiṣṭhākaro yāvad raviśaśitārākiraṇapratihata
+<pb n="2r" break="no" />
+<lb n="2r1" break="no" />ghorā
+<choice>
+  <orig>ddha</orig>
+  <reg>ndha</reg>
+</choice>kāra
+<supplied reason="omitted">ṁ</supplied> jagad avatiṣṭhate tāvad upabho
+<choice>
+  <orig>j</orig>
+  <reg>g</reg>
+</choice>ya
+<supplied reason="omitted">ḥ</supplied> sanidhis sopanidh
+<subst>
+  <del>ī</del>
+  <add place="overstrike">i</add>
+</subst>
+<lb n="2r2" break="no" />r acāṭabhaṭaprāv
+<choice>
+  <sic>ai</sic>
+  <corr>e</corr>
+</choice>śya
+<supplied reason="omitted">s</supplied> sarvvakaravisarjjitaẖ k
+<unclear reason="eccentric_ductus">au</unclear>tsasagotrabrāhmaṇakapa
+<lb n="2r3" break="no" />rddisvāmi
+<space type="binding-hole" />
+<choice>
+  <orig>nas</orig>
+  <reg>ne</reg>
+</choice> somoparāge mātāpitror ātmanaś ca puṇyābhiv
+<choice>
+  <sic>ra</sic>
+  <corr>ṛ</corr>
+</choice>ddha
+<lb n="2r4" break="no" />ye Udaka
+<space type="binding-hole" />pūrvva
+<unclear>ṁ</unclear> tā
+<choice>
+  <orig>mbra</orig>
+  <reg>mra</reg>
+</choice>śāsanenātisṛṣṭa
+<surplus>ḥ</surplus>s</p> 
+<p>te  yūyam evam upala
+<lb n="2r5" />bhyāsyājñāśravaṇavidheyā bhūtvā yathocitaṁ bhogabhāgam upanaya
+<choice>
+  <orig>ṁtta</orig>
+  <reg>nta</reg>
+</choice>ḥ sukhaṁ 
+<lb n="2r6" />prativa
+<supplied reason="omitted">t</supplied>syatha
+<g type="dashDoubledot" /> bhaviṣyataś ca bhūmipān anudarśayati
+<g type="dashDoubledot" /></p> 
+                                   
+<lg n="1" met="vasantatilakā">
+                                        
+<l n="a">dānād viśi
+<unclear>ṣṭa</unclear>
+<pb n="2v" break="no" />
+<lb n="2v1" break="no" />m anupālanajaṁ purāṇā
+<surplus>T</surplus></l>
+                                        
+<l n="b">dharmmeṣu niścitadhiyaḫ pravada
+<choice>
+  <orig>ṁtti</orig>
+  <reg>nti</reg>
+</choice> dharma
+<supplied reason="omitted">ṁ</supplied></l>
+                                        
+<l n="c">
+<lb n="2v2" />tasmā
+<supplied reason="omitted">d</supplied> dvijāya suviśuddhakulaśrutāya</l>
+                                        
+<l n="d">dattāṁ bhuvaṁ bhavatu vo mati
+<lb n="2v3" break="no" />r eva go
+<space type="binding-hole" />ptuṁ 
+<del rend="strikeout">matir eva goptum</del></l></lg>
+                                
+<p>bhavad
+<choice>
+  <sic>v</sic>
+  <corr>bh</corr>
+</choice>ir apy eṣā dattir anupāla
+<lb n="2v4" break="no" />yitavyā
+<g type="dashDoubledot" /> 
+<space type="binding-hole" />vyāsagītāṁś cātra ślokān udāhara
+<choice>
+  <orig>ṁtti</orig>
+  <reg>nti</reg>
+</choice>
+<g type="dashDouble" /></p>
+                                   
+<lg n="2" met="indravajrā">
+                                        
+<l n="a">Agner apatyaṁ 
+<lb n="2v5" />prathamaṁ suvarṇṇaṁ
+<g type="dashDouble" /></l>
+                                        
+<l n="b">bhūr vvaiṣṇavī sūryyasutāś ca gāvaḥ</l>
+                                        
+<l n="c">dattās traya
+<lb n="2v6" break="no" />s tena bhava
+<choice>
+  <orig>ṁtti</orig>
+  <reg>nti</reg>
+</choice> lokā
+<g type="dashDouble" /></l>
+                                        
+<l n="d">yaẖ kāñcanaṁ gā
+<surplus>ṁ</surplus>ñ ca mahīñ ca dadyā
+<supplied reason="omitted">T</supplied>
+<g type="dashDouble" /></l></lg>
+                                    
+<lg n="3" met="anuṣṭubh">
+                                        
+<l n="ab">
+<pb n="3r" />
+<lb n="3r1" />ṣa
+<surplus>ṁ</surplus>ṣṭivarṣasahasrāṇi svargge modati bhūmidaḥ</l>
+                                        
+<l n="cd">Ācchettā cānuma
+<choice>
+  <orig>ṁ</orig>
+  <reg>n</reg>
+</choice>
+<lb n="3r2" break="no" />
+<surplus>t</surplus>tā ca tā
+<surplus>ṁ</surplus>ny eva narake vase
+<supplied reason="omitted">T</supplied></l></lg>
+                                    
+<lg n="4" met="anuṣṭubh">
+                                        
+<l n="ab">bahubhir vvasudhā dattā rāja
+<surplus>ḥbh</surplus>bhis sa
+<lb n="3r3" break="no" />garādi
+<space type="binding-hole" />bhiḥ</l>
+                                        
+<l n="cd">yasya yasya yadā bhūmis tasya tasya tadā 
+<lb n="3r4" />phala
+<surplus>ṁ</surplus>
+<choice>
+  <orig>m</orig>
+  <reg>M</reg>
+</choice></l></lg>
+                                
+<ab>
+<choice>
+  <orig>i</orig>
+  <reg>I</reg>
+</choice>ti</ab>
+                                
+<p>svamukhājñayā
+<g type="dashDoubledot" /> U
+<choice>
+  <orig>kt</orig>
+  <reg>tk</reg>
+</choice>īrṇṇaṁ Acalasiṅghena
+<lb n="3r5" />pravarddhamānavijaya
+<choice>
+  <orig>saṁvva</orig>
+  <reg>saṁva</reg>
+</choice>tsara pa
+<surplus>ṁ</surplus>ñca 
+<num value="5">5</num> kārttika di
+<choice>
+  <orig>so</orig>
+  <reg>vasaḥ</reg>
+</choice> 
+<num value="5">5</num></p>
+                    
+<pb n="3v" />
+             </div>   
+         
+<div type="apparatus">
+                 
+<listApp> 
+                  
+<app loc="1v2">
+                      
+<lem>dhauta°</lem>
+                     
+<note>The shape of the vowel marker for 
+<foreign>au</foreign> is slightly irregular, but is the same as in other copperplate charters of the kings of Śarabhapura.</note> 
+                  </app> 
+                  
+<app loc="2r4">
+                      
+<lem source="bib:Sircar1961-1962_01">
+  <del rend="strikeout">matir eva goptum</del>
+</lem>
+                  </app>
+                  
+<app loc="2r5">
+                      
+<lem>yathocitaṁ</lem>
+                     
+<rdg source="bib:Sircar1961-1962_01">yathocita°</rdg>
+                     
+<rdg source="bib:Shastri1995_02">yathocitaṁ</rdg>
+                  </app>
+                  
+<app loc="2v1">
+                      
+<lem>pravada
+<choice>
+  <orig>ṁtti</orig>
+  <reg>nti</reg>
+</choice></lem>
+                     
+<rdg source="bib:Sircar1961-1962_01">pravada
+<surplus>ṁ</surplus>nti</rdg>
+                     
+<rdg source="bib:Shastri1995_02">pravada
+<choice>
+  <orig>ṁtti</orig>
+  <reg>nti</reg>
+</choice></rdg>
+                  </app>
+                  
+<app loc="3r2">
+                      
+<lem>rāja
+<surplus>ḥbh</surplus>bhis</lem>
+                     
+<rdg source="bib:Sircar1961-1962_01">rāja
+<surplus>ḥbh</surplus>bhis</rdg>
+                     
+<rdg source="bib:Shastri1995_02">rāja
+<surplus>ḥ</surplus>bhis</rdg>
+                  </app>
+               </listApp>
+         </div>
+         
+<div type="translation" resp="part:nabo">
+                    
+<p n="1v1-1v5">Hail! From Śarabhapura, the illustrious great Jayarāja whose feet are washed by the sprinkling water that is the brilliance of the crest-jewels of his feudatories who have been brought into submission by his prowess; who made the women of his enemies tear out their parted hair; who is a giver of riches, land, and cattle; who is entirely devoted to Viṣṇu; and favoured by his father and mother, issues 
+<supplied reason="subaudible">the following command</supplied> to the landholders settled in 
+<supplied reason="subaudible">the village of</supplied> Kadambapadrullaka situated in the Antaranālaka 
+<foreign>bhukti</foreign>:</p>
+                    
+<p n="1v5-2r4">Let it be known to you that by means of 
+<supplied reason="subaudible">this</supplied> copperplate charter 
+<supplied reason="subaudible">and</supplied> preceded by a libation of water, this village has been granted by us for the increase of religious merit of father, mother, and ourselves, to the Brahmin Kaparddisvāmin, belonging to the Kautsa 
+<foreign>gotra</foreign> and to the Vājasaneya 
+<supplied reason="subaudible">school</supplied>. 
+<supplied reason="subaudible">The grant of the village</supplied>, which leads to happiness and fame in the abode of the lord of the gods 
+<supplied reason="explanation">i.e., Indra’s heaven</supplied>, 
+<supplied reason="subaudible">took place</supplied> on the occasion of a lunar eclipse; is to be enjoyed as long as the world will endure, 
+<supplied reason="subaudible">the world</supplied> of which the darkness of the night is removed by the rays of the sun, moon and stars; 
+<supplied reason="subaudible">comes along with the right to</supplied> hidden treasures and deposits; is not to be entered by irregular or regular troops; and is exempt from all taxes.</p> 
+                    
+<p n="2r4-2r6">Having taken note of that, you should be obedient to the command received from him 
+<supplied reason="explanation">i.e., the donee</supplied> and render the 
+<supplied reason="subaudible">proper shares of</supplied> periodical offerings and produce, while living happily 
+<supplied reason="subaudible">in this village</supplied>. And 
+<supplied reason="subaudible">the king</supplied> instructs the future rulers:</p>
+                    
+<p n="2r6-2v3" rend="stanza">The ancients, reflecting on virtue, proclaim that the religious merit arising from the protection 
+<supplied reason="subaudible">of a grant</supplied> is more excellent than 
+<supplied reason="subaudible">that which arises</supplied> from the giving 
+<supplied reason="subaudible">itself</supplied>; therefore, your intent should indeed be to protect the earth that has been granted to a Brahmin of perfectly pure family and religious learning.</p>
+                    
+<p n="2v3-2v4">This gift is to be protected by you as well! And in this respect they quote the 
+<supplied reason="subaudible">following</supplied> stanzas sung by Vyāsa:</p>
+                    
+<p n="2v4-2v6" rend="stanza">Gold is the first child of Agni, land is born of Viṣṇu, and cows are the offspring of Sūrya: 
+<supplied reason="subaudible">Therefore</supplied>, whoever would give gold, a cow, and land would give the three worlds.</p>
+                    
+<p n="3r1-3r2" rend="stanza">A giver of land rejoices in heaven for sixty thousand years; he who confiscates it or allows 
+<supplied reason="subaudible">another to confiscate it</supplied> will dwell for the same period in hell!</p>
+                    
+<p n="3r2-3r4" rend="stanza">The earth has been granted by many kings, beginning with Sagara; whoever possesses the land at any time, to him belong the fruits at that time!</p>
+                    
+<p n="3r4-3r5">By the order from the king’s own mouth, 
+<supplied reason="subaudible">the copperplate charter</supplied> has been engraved by Acalasiṅgha 
+<supplied reason="subaudible">on</supplied> the day 5 
+<supplied reason="subaudible">of</supplied> the month of Kārttika 
+<supplied reason="subaudible">in</supplied> the increasingly victorious year five 5 
+<supplied reason="subaudible">of Jayarāja's reign</supplied>.</p></div>
+         
+<div type="commentary">
+            
+<p>The seal that used to be attached to these plates is lost.</p> 
+         </div>
+        
+<div type="bibliography">
+                    
+<p>First edited by Sircar 
+<bibl rend="omitname">
+  <ptr target="bib:Sircar1961-1962_01" />
+</bibl> from the original plates and their impressions; published again by Shastri 
+<bibl rend="omitname">
+  <ptr target="bib:Shastri1995_02" />
+  <citedRange>17-19</citedRange>
+</bibl>; re-edited here by Natasja Bosma based on the published photographs.</p>        
+            
+<listBibl type="primary">
+              
+<bibl n="DCS">
+                  
+<ptr target="bib:Sircar1961-1962_01" />
+              </bibl>
+               
+<bibl n="AMS">
+                  
+<ptr target="bib:Shastri1995_02" />
+                  
+<citedRange>17-19</citedRange>
+              </bibl>
+           </listBibl>
+           
+<listBibl type="secondary">
+               
+<bibl>
+                   
+<ptr target="bib:Bosma2018_01" />
+                  
+<citedRange>19, 232-233</citedRange>
+              </bibl>
         </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:Bosma2018_01"/>
-            <citedRange>19, 232-233</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+        </div>
+      </body>
+  
+</text>
 </TEI>

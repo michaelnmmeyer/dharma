@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00154</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,132 +62,135 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <ab>
-          <lb n="01"/>
-          <g type="mangala"/>
-          <!-- 
-The marginal mangala symbol is before the beginning of line 1. On Fleet's rubbing (the only reproduction of it that I have) it seems to be different from those in IN00152 and IN00153. This one is also dextrorse, but begins with a bulge around 10 o'clock, with a tapering tail in a clockwise circle ending around 7 o'clock. 
--->
-        </ab>
-        <!-- 
-Punctuation marks are short horizontal dashes curving like a comma (transcribed as single daṇḍas) at the ends of verse quarters and double verticals (transcribed as single daṇḍas) at the ends of full verses. Punctuation seems to be consistent at the ends of odd quarters unless there is a visarga (or a halanta consonant, if that is what we have in l6) at this point; the pattern may be the same at the ends of half-verses, but these fall at the right-hand edge of the inscription and seem to be damaged. 
--->
-        <lg met="śārdūlavikrīḍita" n="1">
-          <l n="a"><lb n="1"/>Unnidrasya saroruhasya sakalām ākṣipya śobhāṁ rucā|</l>
-          <l n="b">sāvajñaṁ mahiṣāsurasya śirasi nyastaḥ kvaṇan-nūpuraḥ</l>
-          <!-- 
-Fleet prints an original daṇḍa at the end of 1b. Only a dot is visible on the rubbing, which may either be part of a visarga or a punctuation mark. I follow Thaplyal in reading a visarga but no daṇḍa because I believe this fits the pattern of punctuation use in this inscription and %IN00153 (see comment on punctuation above). 
--->
-          <l n="c"><lb n="2"/>devyā vaḥ sthira-bhakti-vāda-sadr̥śīṁ yuñjan phalenārthitāṁ|</l>
-          <l n="d">diśyād accha-nakhā<sic>ṅ</sic>śu-jāla-jaṭilaḥ pādaḥ padaṁ saṁpadāṁ||</l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="2">
-          <l n="a"><lb n="3"/>Āsīd iṣṭa-samr̥ddha-yajña-mahimā śrī-yajñavarmmā nr̥paḥ|</l>
-          <!-- 
-At the end of 2a, neither a visarga nor a punctuation mark can be seen on the rubbing, but fortuitously both are clear on my partial photo of the inscription. This does not fit the pattern of omitting punctuation signs when there is a visarga. 
--->
-          <l n="b">prakhyāt<choice>
-              <sic>ā</sic>
-              <corr>o</corr>
-            </choice> vimalendu-nirmmala-yaśā<supplied reason="omitted">ḥ</supplied> kṣāttrasya dhāmnaḥ padaṁ|</l>
-          <!-- 
-Fleet prints the visarga of yaśāḥ in l3 as supplied and it is not visible in the rubbing, but there is a bit of space after śā so there may in fact be a shallow or damaged visarga here. 
--->
-          <!-- 
-The punctuation mark at the end of 2b, if it is one, seems to be slightly below the baseline rather than at centreline height. 
--->
-          <l n="c"><lb n="4"/>prajñānānvaya-dāna-vikkrama-guṇair yo rājakasyāgraṇī<supplied reason="omitted">ḥ</supplied>|</l>
-          <!-- 
-After 2c, the rubbing again shows neither visarga nor punctuation. The punctuation mark, but no visarga, is faintly visible on the photo. I follow Fleet in supplying a visarga, which seems to be in line with the practice of this time and place, instead of supplying an r before bhūtvā. 
--->
-          <l n="d">bhūtvāpi prakr̥ti-stha Eva vinayād akṣobhya-sa<sic>tv</sic>odadhi<supplied reason="omitted">ḥ</supplied>||</l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="3">
-          <l n="a"><lb n="5"/>tasyodīrṇa-mahārṇavopama-raṇa-vyāpāra-lavdhaṁ yaśaḥ</l>
-          <l n="b">tanvānaḥ kakudaṁ mukheṣu kakubhāṁ kī<sic>rt</sic>yā jitedaṁ-yugaḥ</l>
-          <l n="c"><lb n="6"/>śrīmān vandhu-suhr̥j-jana-praṇayinām āśāḥ phalaiḥ pūraya<unclear>N</unclear></l>
-          <!-- 
-Fleet reads pūraya| at the end of 3c, emending to pūrayan| (keeping the daṇḍa). Thaplyal reads pūrayaN|, remarking that the daṇḍa is redundant, but not noting that Fleet did not read this N. From the photo, I believe we have a very small and simplified na at centreline height, with a dot or dash below it. I take this combination to be a halanta N with a virāma sign below, not as a halanta N plus punctuation. 
--->
-          <l n="d">puttraḥ kalpa-taror ivāpta-mahimā<surplus>ṁ</surplus> śārdūlavarmmā nr̥paḥ||</l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="4">
-          <l n="a"><lb n="7"/>tasyānantam ananta-kīrtti-yaśaśo nantādi-varmmākhyayā|</l>
-          <l n="b">khyātenāhita-bhakti-bhāvita-dhiyā puttreṇa pūtātmanā</l>
-          <l n="c"><lb n="8"/>Ā-sūrya-kṣiti-candra-tārakam iyaṁ puṇyāspadaṁ vāñcchatā|</l>
-          <l n="d">vinyastādbhuta-vindhya-bhūdhara-guhām āśritya kātyāyanī||</l>
-        </lg>
-        <lg met="śārdūlavikrīḍita" n="5">
-          <l n="a"><lb n="9"/>dhautā<sic>ṅ</sic>ho-mala-paṅka-doṣam amalair māhānadair amvubhiḥ</l>
-          <!-- 
-Thaplyal omits mala from l9, must be a typo. 
--->
-          <!-- 
-Both Fleet and Thaplyal print (and delete) an original daṇḍa after 5a, but there is no punctuation mark here, only a visarga. 
--->
-          <l n="b">vyādhūtopavana-priyaṅgu-bakulair āmoditaṁ vāyubhi<unclear>ḥ</unclear></l>
-          <!-- 
-Fleet and Thaplyal print an original daṇḍa (and no visarga) after 5b. Neither is visible in the rubbing and I have no photo of this part; a visarga (and no punctuation mark) is clear on both Prinsep's and Harrington's copies. 
--->
-          <l n="c"><lb n="10"/>kalpāntāvadhi-bhogyam ucca-śikhari-cchāyāvr̥tārkka-dyutiṁ|</l>
-          <l n="d"><del>
-              <seg met="++">
-                <gap quantity="2" reason="illegible" unit="character"/>
-              </seg>
-            </del>-grāmam analpa-bhoga-vibhavaṁ ramyaṁ bhavānyai dadau||</l>
-          <!-- 
-As Fleet notes, the two characters at the beginning of 5d - probably the name of the village granted - seem to have been purposely deleted. On the basis of the photo, the first of these two is small without any extensions from the central box - perhaps va or ca; the second seems mainly to consist of a long vertical with a vowel mātrā, e.g. ri. Prinsep reads dāndī, and his eye copy seems to show pandī or vandī; Harrington's copy simply omits these two without any indication that there was something here. Assuming that Prinsep's ndī is correct, I could also imagine nandī. 
--->
-        </lg>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+
+                                
+                                        
+<ab>
+  <lb n="01" />
+  <g type="mangala" />
+</ab>
+<lg n="1" met="śārdūlavikrīḍita">
+<l n="a">
+<lb n="1" />Unnidrasya saroruhasya sakalām ākṣipya śobhāṁ rucā|</l>
+<l n="b">sāvajñaṁ mahiṣāsurasya śirasi nyastaḥ kvaṇan-nūpuraḥ</l>
+<l n="c">
+<lb n="2" />devyā vaḥ sthira-bhakti-vāda-sadr̥śīṁ yuñjan phalenārthitāṁ|</l>
+<l n="d">diśyād accha-nakhā
+<sic>ṅ</sic>śu-jāla-jaṭilaḥ pādaḥ padaṁ saṁpadāṁ||</l>
+</lg>
+<lg n="2" met="śārdūlavikrīḍita">
+<l n="a">
+<lb n="3" />Āsīd iṣṭa-samr̥ddha-yajña-mahimā śrī-yajñavarmmā nr̥paḥ|</l>
+<l n="b">prakhyāt
+<choice>
+  <sic>ā</sic>
+  <corr>o</corr>
+</choice> vimalendu-nirmmala-yaśā
+<supplied reason="omitted">ḥ</supplied> kṣāttrasya dhāmnaḥ padaṁ|</l>
+<l n="c">
+<lb n="4" />prajñānānvaya-dāna-vikkrama-guṇair yo rājakasyāgraṇī
+<supplied reason="omitted">ḥ</supplied>|</l>
+<l n="d">bhūtvāpi prakr̥ti-stha Eva vinayād akṣobhya-sa
+<sic>tv</sic>odadhi
+<supplied reason="omitted">ḥ</supplied>||</l>
+</lg>
+<lg n="3" met="śārdūlavikrīḍita">
+<l n="a">
+<lb n="5" />tasyodīrṇa-mahārṇavopama-raṇa-vyāpāra-lavdhaṁ yaśaḥ</l>
+<l n="b">tanvānaḥ kakudaṁ mukheṣu kakubhāṁ kī
+<sic>rt</sic>yā jitedaṁ-yugaḥ</l>
+<l n="c">
+<lb n="6" />śrīmān vandhu-suhr̥j-jana-praṇayinām āśāḥ phalaiḥ pūraya
+<unclear>N</unclear></l>
+<l n="d">puttraḥ kalpa-taror ivāpta-mahimā
+<surplus>ṁ</surplus> śārdūlavarmmā nr̥paḥ||</l>
+</lg>
+<lg n="4" met="śārdūlavikrīḍita">
+<l n="a">
+<lb n="7" />tasyānantam ananta-kīrtti-yaśaśo nantādi-varmmākhyayā|</l>
+<l n="b">khyātenāhita-bhakti-bhāvita-dhiyā puttreṇa pūtātmanā</l>
+<l n="c">
+<lb n="8" />Ā-sūrya-kṣiti-candra-tārakam iyaṁ puṇyāspadaṁ vāñcchatā|</l>
+<l n="d">vinyastādbhuta-vindhya-bhūdhara-guhām āśritya kātyāyanī||</l>
+</lg>
+<lg n="5" met="śārdūlavikrīḍita">
+<l n="a">
+<lb n="9" />dhautā
+<sic>ṅ</sic>ho-mala-paṅka-doṣam amalair māhānadair amvubhiḥ</l>
+<l n="b">vyādhūtopavana-priyaṅgu-bakulair āmoditaṁ vāyubhi
+<unclear>ḥ</unclear></l>
+<l n="c">
+<lb n="10" />kalpāntāvadhi-bhogyam ucca-śikhari-cchāyāvr̥tārkka-dyutiṁ|</l>
+<l n="d">
+<del>
+  <seg met="++">
+    <gap reason="illegible" quantity="2" unit="character" />
+  </seg>
+</del>-grāmam analpa-bhoga-vibhavaṁ ramyaṁ bhavānyai dadau||</l></lg>
+                                
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

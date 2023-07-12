@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -33,9 +39,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00513</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -48,14 +51,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -63,106 +66,136 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <!-- 
-Encoded for Siddham by Eszter Somogyi, following Ramesh and Tewari's edition unless otherwise noted in comments. Version of January 2019. Comments below by Dániel Balogh are offered "as is" and do not represent a thoroughly researched or considered opinion. 
--->
-        <p><lb n="1"/><g type="mangala"/><supplied reason="subaudible">.</supplied>
-valkhāḥ paramabhaṭṭāraka-pādānuddhyāto mahārāja-bhuluṇḍaḥ samājñāpa<!-- 
-L1 RT: transcribes mangala as om. 
---><!-- 
-L1. RT read a superfluous ti at the end of line 1. This seems to be wrong. pa is already very near the edge of the plate; there are some scratches after it, but they don't look like ti and there is no room for a proper ti here. 
---><lb break="no" n="2"/>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<p>
+<lb n="1" />
+<g type="mangala" />
+<supplied reason="subaudible">.</supplied>
+valkhāḥ paramabhaṭṭāraka-pādānuddhyāto mahārāja-bhuluṇḍaḥ samājñāpa
+<lb n="2" break="no" />
 yati sarvvān evāsmadīyān āyuktaka-viniyuktakān
 </p>
-        <p>vijñātam astu vas sama<lb break="no" n="3"/>
-nujānīmaḥ narmmadāparapāra-viṣaye Ihaiva pratiṣṭhāpitaka-svāmi-bappa<lb break="no" n="4"/>
-piśācadevasya jayasenānaka-grāma<subst>
-            <del rend="corrected">ṁ</del>
-            <add place="inline">ḥ</add>
-          </subst> garjjanānaka-grāme pūrvva-brahmadeya<!-- 
-L4 The anusvāra of grāmaṁ is not deleted in any visible way, but ḥ is definitely a subsequent addition, squeezed into the space between ma and ga. 
---><lb break="no" n="5"/>-kṣetra<surplus>ṁ</surplus>m agnīśvaraka-pratyayaṁ ca sna<choice>
-            <sic>v</sic>
-            <corr>p</corr>
-          </choice>ana-bal<choice>
-            <sic>ī</sic>
-            <corr>i</corr>
-          </choice>-ca<choice>
-            <sic>na</sic>
-            <corr>ru</corr>
-          </choice>-gandha-dhūpa-satra-mālyopayojya<surplus>ṁ</surplus><lb break="no" n="6"/>
-m ācandrārkka-tārakā-kālīnaṁ <choice>
-            <sic>s</sic>
-            <corr>ś</corr>
-          </choice>āśvatam ācāryya-bhagavac-chiṣṭ<choice>
-            <sic>ā</sic>
-            <corr>a</corr>
-          </choice>-pāśupata-de<lb break="no" n="7"/>
-vakarmmāntika-devaprasādakā<surplus>ṁ</surplus> evam idānīm eṣāṁ bhuñjatā<supplied reason="omitted">ṁ</supplied> kr̥ṣatā<supplied reason="omitted">ṁ</supplied> pradi<!-- 
-L6-7. Retained RT's emendations, but I think °chiṣṭā and °prasādakāṁ were both meant to be plural genitives. 
---><lb break="no" n="8"/>
-śatā<unclear>ñ</unclear> cāsmat-pakṣa tat-kulīnārakṣika-preṣaṇikam a-cāṭa-bhaṭa-prāveśya<supplied reason="omitted">ṁ</supplied><!-- 
-L8. RT read pradiśatāścāsmat, emending to pradiśatāṁś cāsmat. The emendation is wrong, and I think the reading is incorrect too, the facsimile seems to have ñc. 
---><!-- 
-L8 RT: prāvesya[ṁ*] 
---><lb n="9"/>sarvvair evāsmat-pakṣīyais samanumantavyaṁ na vyāhantavya<supplied reason="omitted">ṁ</supplied> ca Iṇṇāpāda vi<!-- 
-L9 RT: Innapada 
---><lb break="no" n="10"/>
+<p>vijñātam astu vas sama
+<lb n="3" break="no" />
+nujānīmaḥ narmmadāparapāra-viṣaye Ihaiva pratiṣṭhāpitaka-svāmi-bappa
+<lb n="4" break="no" />
+piśācadevasya jayasenānaka-grāma
+<subst>
+  <del rend="corrected">ṁ</del>
+  <add place="inline">ḥ</add>
+</subst> garjjanānaka-grāme pūrvva-brahmadeya
+<lb n="5" break="no" />-kṣetra
+<surplus>ṁ</surplus>m agnīśvaraka-pratyayaṁ ca sna
+<choice>
+  <sic>v</sic>
+  <corr>p</corr>
+</choice>ana-bal
+<choice>
+  <sic>ī</sic>
+  <corr>i</corr>
+</choice>-ca
+<choice>
+  <sic>na</sic>
+  <corr>ru</corr>
+</choice>-gandha-dhūpa-satra-mālyopayojya
+<surplus>ṁ</surplus>
+<lb n="6" break="no" />
+m ācandrārkka-tārakā-kālīnaṁ 
+<choice>
+  <sic>s</sic>
+  <corr>ś</corr>
+</choice>āśvatam ācāryya-bhagavac-chiṣṭ
+<choice>
+  <sic>ā</sic>
+  <corr>a</corr>
+</choice>-pāśupata-de
+<lb n="7" break="no" />
+vakarmmāntika-devaprasādakā
+<surplus>ṁ</surplus> evam idānīm eṣāṁ bhuñjatā
+<supplied reason="omitted">ṁ</supplied> kr̥ṣatā
+<supplied reason="omitted">ṁ</supplied> pradi
+<lb n="8" break="no" />
+śatā
+<unclear>ñ</unclear> cāsmat-pakṣa tat-kulīnārakṣika-preṣaṇikam a-cāṭa-bhaṭa-prāveśya
+<supplied reason="omitted">ṁ</supplied>
+<lb n="9" />sarvvair evāsmat-pakṣīyais samanumantavyaṁ na vyāhantavya
+<supplied reason="omitted">ṁ</supplied> ca Iṇṇāpāda vi
+<lb n="10" break="no" />
 jñāpyāt</p>
-        <p>ārakṣika-rudrilaka-dūtakaṁ</p>
-        <p>varṣe <num value="59"><g type="numeral">50</g> 9</num> Āśvayuja ba <num value="13"><g type="numeral">10</g> 3</num></p>
-        <ab><lb n="01"/>mahārāja-bhuluṇḍasya<!-- 
-L margin.1 is engraved on the left margin, bottom to top, characters rotated 90° counterclockwise. 
---></ab>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+<p>ārakṣika-rudrilaka-dūtakaṁ</p>
+<p>varṣe 
+<num value="59">
+<g type="numeral">50</g> 9</num> Āśvayuja ba 
+<num value="13">
+<g type="numeral">10</g> 3</num></p>
+                                
+                                
+                                        
+<ab>
+<lb n="01" />mahārāja-bhuluṇḍasya</ab>
+                                
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

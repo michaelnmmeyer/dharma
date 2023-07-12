@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -24,11 +30,7 @@
         <idno type="filename">DHARMA_INSPallava00091</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
-							Licence. To view a copy of the licence, visit
-							https://creativecommons.org/licenses/by/4.0/ or send a letter to
-							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-							California, 94041, USA.</p>
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
           </licence>
         </availability>
@@ -38,14 +40,14 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -53,244 +55,516 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-03-14" who="part:emfr">Creation of the file</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:emfr" when="2020-03-14" status="draft">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tam-Latn">
-        <!--bilingual inscription: sanskrit (l.1), tamil (ll. 2-14), sanskrit (ll.15-16)-->
-        <!--Check language statement in teiHeader-->
-        <!--Check usage of @xml:lang below-->
-        <ab rend="grantha" xml:lang="san-Latn">
-          <lb n="1" style="text-align: left"/>
-          <hi rend="grantha">Om· namaś śivāya<surplus>m·</surplus> <unclear>sva</unclear>sti śrī</hi>
-        </ab>
-        <ab xml:lang="tam-Latn">
-         		<!--@xml:lang unnecessary here, as already @ of the <div type="edition">??-->
-         		<lb n="2"/>kō-vicaiya-nanti-vikkirama-parumaṟku yā 
-         		<lb break="no" n="3"/>ṇṭ’ aṟupa<unclear>t</unclear>tiraṇ<unclear>ṭ</unclear>ā<unclear>va</unclear>tu
-         	</ab>
-        <p xml:lang="tam-Latn">
-         		<hi rend="grantha">sakala-jagatra</hi>
-         		<lb break="no" n="4"/>yā<hi rend="grantha">bhi</hi>va<hi rend="grantha">ndi</hi>ta-<hi rend="grantha">surāsurādhīśa-parameśvara-prati</hi> 
-         		<lb break="no" n="5"/><hi rend="grantha">hārikṛ</hi>ta-<hi rend="grantha">mahā</hi>va<hi rend="grantha">li-kulot·bha</hi>va-<hi rend="grantha">śrī</hi>-māvalivāṇa<hi rend="grantha">rā</hi>yar 
-         		<lb n="6"/>vaṭu<unclear>kava</unclear>ḻi <unclear>pa</unclear>ṉṉī<choice>
-            <orig>rr</orig>
-            <reg>r</reg>
-          </choice>āyiramum Āḻa v<unclear>āṇa</unclear>purattu 
-         		<lb n="7"/>vaṭa-<unclear>c</unclear>ikara-kōyil putukkuvittu Itaṟku Iḷaṅ
-         		<lb break="no" n="8"/>kiḻavar makaṉ maṉṟāṭiṭai Aḻiñciṟka<unclear>ḷam</unclear> paṭṭi <unclear>vi</unclear>laikku 
-         		<lb n="9"/>koṇṭu kuṭuttēṉ
-         	</p>
-        <p xml:lang="tam-Latn">	
-         		U<unclear>ṟ</unclear>ṟukkāṭṭu kōṭṭattu <unclear>A</unclear>ḷiṅkaṇa-pā<supplied reason="omitted">kka</supplied>ttu 
-         		<lb break="no" n="10"/>kīḻakattu taṭṭāṉ mā<unclear>ta</unclear><choice>
-            <orig>n</orig>
-            <reg>ṉ</reg>
-          </choice> maka<choice>
-            <orig>n</orig>
-            <reg>ṉ</reg>
-          </choice> <unclear>A</unclear>ritīraṉ kuṭutta tēvar pōkam
-         		<lb break="no" n="11"/>ma<hi rend="grantha">hā</hi>valivāṇarāyar piṭākai valañ-ceytu koṭuttār
-         	</p>
-        <p xml:lang="tam-Latn">
-         		Itu kāt
-         		<lb break="no" n="12"/>tā<unclear>r A</unclear>ṭi<supplied reason="lost">yeṇ muṭi mē</supplied>laṉa
-         	</p>
-        <p xml:lang="tam-Latn">
-         		Itu Aḻittāṉ kaṭikai <unclear>E</unclear>ḻā Iru<unclear>va</unclear>raiyum
-         		<lb n="13"/>ko<unclear>ṉṟa pāvattu pa</unclear>ṭuvāṉ
-         	</p>
-        <p xml:lang="tam-Latn">
-         		Itu Aḻi<unclear>t</unclear>tāṉ Ippāvattu<supplied reason="omitted">k</supplied>ku Añcāṉāyil 
-         		<lb n="14"/><unclear>Aṉ</unclear> <gap quantity="2" reason="lost" unit="character"/> kōyilu<supplied reason="omitted">k</supplied>ku Āyiram kā<unclear>ṇam ta</unclear>ṇṭappaṭuvōm vāṇapurattō<unclear>m</unclear>
-         	</p>
-        <lg met="anuṣṭubh" n="1">
-          <l n="a">
-            <lb n="15"/>
-            <hi rend="grantha"><choice>
-                <sic>va</sic>
-                <corr>ba</corr>
-              </choice><unclear>hu</unclear>bhir<unclear>·</unclear> vasudhā dattā</hi>
-          </l>
-          <l n="b">
-            <hi rend="grantha">rāja<unclear>bh</unclear>i<supplied reason="omitted">ḥ</supplied> sakaradibhi<supplied reason="omitted">ḥ</supplied></hi>
-          </l>
-          <l n="c">
-            <hi rend="grantha">yasya yasya yadā bhū<lb break="no" n="16"/>mi<supplied reason="omitted">s</supplied></hi>
-          </l>
-          <l n="d">
-            <hi rend="grantha">tasya tasya tadā phalam·</hi>
-          </l>
-        </lg>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="2">
-            <lem>°nanti-vikkirama°</lem>
-            <note>There is a blank space between <foreign>°nanti°</foreign> and <foreign>°vikkirama°</foreign>, as the final character of line 1 (<foreign>
-                <hi rend="grantha">śrī</hi>
-              </foreign>) interrupts this word.</note>
-            <!--Restore <gap> descending</gap>-->
-          </app>
-          <app loc="3">
-            <lem>°jagatrayā°</lem>
-            <note>That, is <foreign>
-                <hi rend="grantha">jagat+trayā°</hi>
-              </foreign></note>
-            <!--Check EG-->
-          </app>
-          <app loc="5">
-            <lem><hi rend="grantha">°kulot·bha</hi>va°</lem>
-            <note>That is, <foreign><hi rend="grantha">°kulod·bha</hi>va°</foreign></note>
-          </app>
-          <app loc="7">
-            <lem>vaṭa-<unclear>c</unclear>ikara-kōyil</lem>
-            <rdg source="bib:Hultzsch1899_01">vaṭa-<unclear>ci</unclear>kara-kōyil</rdg>
-          </app>
-          <app loc="7">
-            <lem>Itaṟku</lem>
-            <rdg source="bib:Hultzsch1899_01">I<unclear>ta</unclear>ṟku</rdg>
-          </app>
-          <app loc="9">
-            <lem>U<unclear>ṟ</unclear>ṟukkāṭṭu</lem>
-            <rdg source="bib:Hultzsch1899_01">Uṟṟukkāṭṭu</rdg>
-          </app>
-          <app loc="12">
-            <lem>Iru<unclear>va</unclear>raiyum</lem>
-            <rdg source="bib:Mahalingam1988_01">I<choice>
-                <sic>ru</sic>
-                <corr>ra</corr>
-              </choice><unclear>va</unclear>raiyum</rdg>
-          </app>
-          <app loc="13">
-            <lem>ko<unclear>ṉṟa pāvattu pa</unclear>ṭuvāṉ</lem>
-            <rdg source="bib:Hultzsch1899_01">ko<unclear>ṉṟa p</unclear>āvattu <unclear>pa</unclear>ṭuvāṉ</rdg>
-          </app>
-          <app loc="14">
-            <lem>
-              <unclear>Aṉ</unclear>
-              <gap quantity="2" reason="lost" unit="character"/>
-            </lem>
-            <note>see SII fn3.</note>
-          </app>
-          <app loc="14">
-            <lem>kā<unclear>ṇam</unclear></lem>
-            <rdg source="bib:Hultzsch1899_01">kāṇam</rdg>
-          </app>
-          <app loc="15">
-            <lem>
-              <hi rend="grantha"><choice>
-                  <sic>va</sic>
-                  <corr>ba</corr>
-                </choice><unclear>hu</unclear>bhir<unclear>·</unclear></hi>
-            </lem>
-            <rdg source="bib:Hultzsch1899_01">
-              <hi rend="grantha"><choice>
-                  <sic>va</sic>
-                  <corr>ba</corr>
-                </choice><unclear>hu</unclear>bhir·</hi>
-            </rdg>
-            <note>The reading <foreign>
-                <hi rend="grantha">bahubhir·</hi>
-              </foreign> seems also possible</note>
-          </app>
-          <app loc="15">
-            <lem>rāja<unclear>bh</unclear>i<supplied reason="omitted">ḥ</supplied></lem>
-            <rdg source="bib:Hultzsch1899_01">rāja<unclear>bhi</unclear><supplied reason="omitted">ḥ</supplied></rdg>
-          </app>
-          <app loc="15">
-            <lem>sakaradibhi<supplied reason="omitted">ḥ</supplied></lem>
-            <note>That is, <foreign><hi rend="grantha">sagaradibhi</hi>ḥ</foreign>.</note>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:Hultzsch1899_01" type="translation">
-        <p n="1">Ōm. Obeisance to Śiva! Hail! Prosperity!</p>
-        <p n="2-9">In the sixty-second year <supplied reason="explanation">of the reign</supplied> of king Vijaya-Nandivikrama-varman, while the glorious Māvalivāṇarāya,— born from the family of Mahābali, who had been made door-keeper by the lord of gods and demons, Parameśvara <supplied reason="explanation">Śiva</supplied>, who is worshipped in all the three worlds,— was ruling the Vaṭu<unclear>kava</unclear>ḻi twelve-thousand,— I, <unclear>A</unclear>ridhiraṉ, the son of Mā<unclear>ta</unclear>ṉ, a goldsmith <supplied reason="explanation">and resident</supplied> of a house in the east of <unclear>A</unclear>ḷiṅganāpā<unclear>kka</unclear>m in <supplied reason="explanation">the district of</supplied> Ūṟṟukkāṭṭu-kōṭṭam,<note>7 See above, Vol. II. p. 345 and note 4.</note> caused to be renewed the Vaṭa-<unclear>ci</unclear>kara-kōyil<note>8 I.e. 'the temple with the tower in the north.'</note> at Vāṇapuram and gave to it the <supplied reason="explanation">
-            <foreign>paṭṭi</foreign>
-          </supplied><note>9 On this term see above, Vol. II. p. 359, note 12.</note> <supplied reason="explanation">called</supplied> Aḻiñciṟka<unclear>ḷam</unclear>, <supplied reason="explanation">which I had</supplied> bought from Maṉṟāṭi, the son of Iḷaṅkiḻavar.</p>
-        <p n="10">Mahāvalivāṇarāya circumambulated the hamlet <supplied reason="explanation">
-            <foreign>piṭākai</foreign>
-          </supplied> towards the right and granted <supplied reason="explanation">the land</supplied> enjoyed by the god, which <supplied reason="explanation">Aridhīraṉ</supplied> had given.</p>
-        <p n="11">The feet of him who protects this <supplied reason="explanation">charity</supplied>, <supplied reason="explanation">shall be</supplied> on my head.<note>1 See above, p. 39, note 4.</note> He who destroys this <supplied reason="explanation">charity</supplied>, shall incur the sin of one who kills the great men who are permanent <supplied reason="explanation">members</supplied><note>2 Literally, 'who do not rise.'</note> of the assembly.<note>3 The two Tamil words <foreign>iruvar</foreign> and <foreign>kaṭikai</foreign> correspond to  <foreign>mahājana</foreign> and <foreign>ghaṭige</foreign> in Cāḷukya inscription; Ep. Ind. Vol. III. p. 360.</note> If the destroyer of this <supplied reason="explanation">charity</supplied> does not fear this sin, we, <supplied reason="explanation">the inhabitants</supplied> of Vāṇapuram, shall pay a fine of one thousand <supplied reason="explanation">
-            <foreign>kāṇam</foreign>
-          </supplied> to the palace of the king who is then ruling.<note>4 With அன்றாள் கொயில் compare அன்றார் கொ, above, Vol. I. pp. 113 and 115.</note></p>
-        <p n="15">Land has been granted by many kings, commencing with Sagara. Whosever
-<supplied reason="explanation">is</supplied> the earth at any time, his <supplied reason="explanation">is</supplied> then the reward <supplied reason="explanation">of gifts of land</supplied>.</p>
-        <note type="credit">Translation by Hultzsch (1899). Standardised according to DHARMA TG and EG.</note>
-      </div>
-      <div resp="part:emfr" type="translation" xml:lang="fra">
-        <p n="1">Om. Homage to Śiva. Prosperity! Fortune!</p>
-        <p n="2-3">Sixty-second year of the victorious king Nandivikramavarman.</p>
-        <p n="3-9">I have given ...</p>
-        <p n="9-11">The king Mahābalibāṇa has given ...</p>
-        <p n="11-12">...</p>
-        <p n="12-13">...</p>
-        <p n="13-14">...</p>
-        <p n="1" rend="stanza">
-          <l>...</l>
-          <l>...</l>
-          <l>...</l>
-          <l>...</l>
-        </p>
-      </div>
-      <div type="commentary">
-        <p>Several orthographic peculiarities indicate that the composer/scribe is from South India: <foreign>kulotbhava-</foreign> instead of <foreign>kulodbhava-</foreign>, <foreign>sakara-</foreign> instead of <foreign>sagara-</foreign>.</p>
-        <p>Note on <foreign>Iruvar</foreign>/<foreign>Iravar</foreign>. See SII p. 92, fn. 2.</p>
-      </div>
-      <div type="bibliography">
-        <p>
-First edited by <bibl>
-            <ptr target="bib:Hultzsch1899_01"/>
-          </bibl> with facsimile and English translation (SII 3, n° 42); text and summary in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP n° 91); re-edited here by Emmanuel Francis (2020), based on the facsimile published in <bibl>
-            <ptr target="bib:Hultzsch1899_01"/>
-          </bibl>.
+      
+<body>
+
+                  
+         
+<div type="edition" xml:lang="tam-Latn">
+                                                
+                
+<ab xml:lang="san-Latn" rend="grantha">
+                        
+<lb n="1" style="text-align: left" />
+<hi rend="grantha">Om· namaś śivāya
+<surplus>m·</surplus> 
+<unclear>sva</unclear>sti śrī</hi>
+                </ab>
+                
+                
+<ab xml:lang="tam-Latn">
+                                                
+<lb n="2" />kō-vicaiya-nanti-vikkirama-parumaṟku yā 
+                        
+<lb n="3" break="no" />ṇṭ’ aṟupa
+<unclear>t</unclear>tiraṇ
+<unclear>ṭ</unclear>ā
+<unclear>va</unclear>tu
+                </ab>
+                
+                
+<p xml:lang="tam-Latn">
+                        
+<hi rend="grantha">sakala-jagatra</hi>
+                        
+<lb n="4" break="no" />yā
+<hi rend="grantha">bhi</hi>va
+<hi rend="grantha">ndi</hi>ta-
+<hi rend="grantha">surāsurādhīśa-parameśvara-prati</hi> 
+                        
+<lb n="5" break="no" />
+<hi rend="grantha">hārikṛ</hi>ta-
+<hi rend="grantha">mahā</hi>va
+<hi rend="grantha">li-kulot·bha</hi>va-
+<hi rend="grantha">śrī</hi>-māvalivāṇa
+<hi rend="grantha">rā</hi>yar 
+                        
+<lb n="6" />vaṭu
+<unclear>kava</unclear>ḻi 
+<unclear>pa</unclear>ṉṉī
+<choice>
+  <orig>rr</orig>
+  <reg>r</reg>
+</choice>āyiramum Āḻa v
+<unclear>āṇa</unclear>purattu 
+                        
+<lb n="7" />vaṭa-
+<unclear>c</unclear>ikara-kōyil putukkuvittu Itaṟku Iḷaṅ
+                        
+<lb n="8" break="no" />kiḻavar makaṉ maṉṟāṭiṭai Aḻiñciṟka
+<unclear>ḷam</unclear> paṭṭi 
+<unclear>vi</unclear>laikku 
+                        
+<lb n="9" />koṇṭu kuṭuttēṉ
+                </p>
+                
+<p xml:lang="tam-Latn"> 
+                        U
+<unclear>ṟ</unclear>ṟukkāṭṭu kōṭṭattu 
+<unclear>A</unclear>ḷiṅkaṇa-pā
+<supplied reason="omitted">kka</supplied>ttu 
+                        
+<lb n="10" break="no" />kīḻakattu taṭṭāṉ mā
+<unclear>ta</unclear>
+<choice>
+  <orig>n</orig>
+  <reg>ṉ</reg>
+</choice> maka
+<choice>
+  <orig>n</orig>
+  <reg>ṉ</reg>
+</choice> 
+<unclear>A</unclear>ritīraṉ kuṭutta tēvar pōkam
+                        
+<lb n="11" break="no" />ma
+<hi rend="grantha">hā</hi>valivāṇarāyar piṭākai valañ-ceytu koṭuttār
+                </p>
+                
+                
+<p xml:lang="tam-Latn">
+                        Itu kāt
+                        
+<lb n="12" break="no" />tā
+<unclear>r A</unclear>ṭi
+<supplied reason="lost">yeṇ muṭi mē</supplied>laṉa
+                </p>
+                
+                
+<p xml:lang="tam-Latn">
+                        Itu Aḻittāṉ kaṭikai 
+<unclear>E</unclear>ḻā Iru
+<unclear>va</unclear>raiyum
+                        
+<lb n="13" />ko
+<unclear>ṉṟa pāvattu pa</unclear>ṭuvāṉ
+                </p>
+                
+                
+<p xml:lang="tam-Latn">
+                        Itu Aḻi
+<unclear>t</unclear>tāṉ Ippāvattu
+<supplied reason="omitted">k</supplied>ku Añcāṉāyil 
+                        
+<lb n="14" />
+<unclear>Aṉ</unclear> 
+<gap reason="lost" quantity="2" unit="character" /> kōyilu
+<supplied reason="omitted">k</supplied>ku Āyiram kā
+<unclear>ṇam ta</unclear>ṇṭappaṭuvōm vāṇapurattō
+<unclear>m</unclear>
+                </p>            
+                
+                
+<lg n="1" met="anuṣṭubh">
+                        
+<l n="a">
+                                
+<lb n="15" />
+<hi rend="grantha">
+<choice>
+  <sic>va</sic>
+  <corr>ba</corr>
+</choice>
+<unclear>hu</unclear>bhir
+<unclear>·</unclear> vasudhā dattā</hi>
+                        </l>
+                        
+<l n="b">
+                                
+<hi rend="grantha">rāja
+<unclear>bh</unclear>i
+<supplied reason="omitted">ḥ</supplied> sakaradibhi
+<supplied reason="omitted">ḥ</supplied></hi>
+                        </l>
+                        
+<l n="c">
+                                
+<hi rend="grantha">yasya yasya yadā bhū
+<lb n="16" break="no" />mi
+<supplied reason="omitted">s</supplied></hi>
+                        </l>    
+                        
+<l n="d">
+                                
+<hi rend="grantha">tasya tasya tadā phalam·</hi>
+                        </l>
+                </lg>
+                
+         </div>
+         
+         
+<div type="apparatus">
+            
+            
+<listApp>
+               
+               
+<app loc="2">
+                  
+<lem>°nanti-vikkirama°</lem>
+                  
+<note>There is a blank space between 
+<foreign>°nanti°</foreign> and 
+<foreign>°vikkirama°</foreign>, as the final character of line 1 (
+<foreign>
+  <hi rend="grantha">śrī</hi>
+</foreign>) interrupts this word.</note>               </app>
+               
+               
+<app loc="3">
+                  
+<lem>°jagatrayā°</lem>
+                  
+<note>That, is 
+<foreign>
+  <hi rend="grantha">jagat+trayā°</hi>
+</foreign></note>               </app>
+               
+               
+<app loc="5">
+                  
+<lem>
+<hi rend="grantha">°kulot·bha</hi>va°</lem>
+                  
+<note>That is, 
+<foreign>
+<hi rend="grantha">°kulod·bha</hi>va°</foreign></note>
+               </app>
+               
+               
+<app loc="7">
+                  
+<lem>vaṭa-
+<unclear>c</unclear>ikara-kōyil</lem>
+                  
+<rdg source="bib:Hultzsch1899_01">vaṭa-
+<unclear>ci</unclear>kara-kōyil</rdg>
+               </app>
+               
+               
+<app loc="7">
+                  
+<lem>Itaṟku</lem>
+                  
+<rdg source="bib:Hultzsch1899_01">I
+<unclear>ta</unclear>ṟku</rdg>
+               </app>
+               
+               
+<app loc="9">
+                  
+<lem>U
+<unclear>ṟ</unclear>ṟukkāṭṭu</lem>
+                  
+<rdg source="bib:Hultzsch1899_01">Uṟṟukkāṭṭu</rdg>
+               </app>
+               
+               
+<app loc="12">
+                  
+<lem>Iru
+<unclear>va</unclear>raiyum</lem>
+                  
+<rdg source="bib:Mahalingam1988_01">I
+<choice>
+  <sic>ru</sic>
+  <corr>ra</corr>
+</choice>
+<unclear>va</unclear>raiyum</rdg>
+               </app>
+               
+               
+<app loc="13">
+                  
+<lem>ko
+<unclear>ṉṟa pāvattu pa</unclear>ṭuvāṉ</lem>
+                  
+<rdg source="bib:Hultzsch1899_01">ko
+<unclear>ṉṟa p</unclear>āvattu 
+<unclear>pa</unclear>ṭuvāṉ</rdg>
+               </app>
+               
+               
+<app loc="14">
+                  
+<lem>
+<unclear>Aṉ</unclear> 
+<gap reason="lost" quantity="2" unit="character" /></lem>
+                  
+<note>see SII fn3.</note>
+               </app>
+               
+               
+<app loc="14">
+                  
+<lem>kā
+<unclear>ṇam</unclear></lem>
+                  
+<rdg source="bib:Hultzsch1899_01">kāṇam</rdg>
+               </app>
+               
+               
+<app loc="15">
+                  
+<lem>
+  <hi rend="grantha">
+  <choice>
+    <sic>va</sic>
+    <corr>ba</corr>
+  </choice>
+  <unclear>hu</unclear>bhir
+  <unclear>·</unclear></hi>
+</lem>
+                  
+<rdg source="bib:Hultzsch1899_01">
+  <hi rend="grantha">
+  <choice>
+    <sic>va</sic>
+    <corr>ba</corr>
+  </choice>
+  <unclear>hu</unclear>bhir·</hi>
+</rdg>
+                  
+<note>The reading 
+<foreign>
+  <hi rend="grantha">bahubhir·</hi>
+</foreign> seems also possible</note>
+               </app>
+               
+               
+<app loc="15">
+                  
+<lem>rāja
+<unclear>bh</unclear>i
+<supplied reason="omitted">ḥ</supplied></lem>
+                  
+<rdg source="bib:Hultzsch1899_01">rāja
+<unclear>bhi</unclear>
+<supplied reason="omitted">ḥ</supplied></rdg>        
+               </app>
+               
+               
+<app loc="15">
+                  
+<lem>sakaradibhi
+<supplied reason="omitted">ḥ</supplied></lem>
+                  
+<note>That is, 
+<foreign>
+<hi rend="grantha">sagaradibhi</hi>ḥ</foreign>.</note>
+               </app>
+               
+            </listApp>
+            
+         </div>
+
+<div type="translation" source="bib:Hultzsch1899_01">
+        
+<p n="1">Ōm. Obeisance to Śiva! Hail! Prosperity!</p>
+        
+<p n="2-9">In the sixty-second year 
+<supplied reason="explanation">of the reign</supplied> of king Vijaya-Nandivikrama-varman, while the glorious Māvalivāṇarāya,— born from the family of Mahābali, who had been made door-keeper by the lord of gods and demons, Parameśvara 
+<supplied reason="explanation">Śiva</supplied>, who is worshipped in all the three worlds,— was ruling the Vaṭu
+<unclear>kava</unclear>ḻi twelve-thousand,— I, 
+<unclear>A</unclear>ridhiraṉ, the son of Mā
+<unclear>ta</unclear>ṉ, a goldsmith 
+<supplied reason="explanation">and resident</supplied> of a house in the east of 
+<unclear>A</unclear>ḷiṅganāpā
+<unclear>kka</unclear>m in 
+<supplied reason="explanation">the district of</supplied> Ūṟṟukkāṭṭu-kōṭṭam,
+<note>7 See above, Vol. II. p. 345 and note 4.</note> caused to be renewed the Vaṭa-
+<unclear>ci</unclear>kara-kōyil
+<note>8 I.e. 'the temple with the tower in the north.'</note> at Vāṇapuram and gave to it the 
+<supplied reason="explanation">
+  <foreign>paṭṭi</foreign>
+</supplied>
+<note>9 On this term see above, Vol. II. p. 359, note 12.</note> 
+<supplied reason="explanation">called</supplied> Aḻiñciṟka
+<unclear>ḷam</unclear>, 
+<supplied reason="explanation">which I had</supplied> bought from Maṉṟāṭi, the son of Iḷaṅkiḻavar.</p>
+        
+<p n="10">Mahāvalivāṇarāya circumambulated the hamlet 
+<supplied reason="explanation">
+  <foreign>piṭākai</foreign>
+</supplied> towards the right and granted 
+<supplied reason="explanation">the land</supplied> enjoyed by the god, which 
+<supplied reason="explanation">Aridhīraṉ</supplied> had given.</p>
+        
+<p n="11">The feet of him who protects this 
+<supplied reason="explanation">charity</supplied>, 
+<supplied reason="explanation">shall be</supplied> on my head.
+<note>1 See above, p. 39, note 4.</note> He who destroys this 
+<supplied reason="explanation">charity</supplied>, shall incur the sin of one who kills the great men who are permanent 
+<supplied reason="explanation">members</supplied>
+<note>2 Literally, 'who do not rise.'</note> of the assembly.
+<note>3 The two Tamil words 
+<foreign>iruvar</foreign> and 
+<foreign>kaṭikai</foreign> correspond to  
+<foreign>mahājana</foreign> and 
+<foreign>ghaṭige</foreign> in Cāḷukya inscription; Ep. Ind. Vol. III. p. 360.</note> If the destroyer of this 
+<supplied reason="explanation">charity</supplied> does not fear this sin, we, 
+<supplied reason="explanation">the inhabitants</supplied> of Vāṇapuram, shall pay a fine of one thousand 
+<supplied reason="explanation">
+  <foreign>kāṇam</foreign>
+</supplied> to the palace of the king who is then ruling.
+<note>4 With அன்றாள் கொயில் compare அன்றார் கொ, above, Vol. I. pp. 113 and 115.</note></p>
+<p n="15">Land has been granted by many kings, commencing with Sagara. Whosever
+<supplied reason="explanation">is</supplied> the earth at any time, his 
+<supplied reason="explanation">is</supplied> then the reward 
+<supplied reason="explanation">of gifts of land</supplied>.</p>
+        
+<note type="credit">Translation by Hultzsch (1899). Standardised according to DHARMA TG and EG.</note>
+</div>
+         
+        
+<div type="translation" xml:lang="fra" resp="part:emfr">
+                
+                
+<p n="1">Om. Homage to Śiva. Prosperity! Fortune!</p>
+                
+<p n="2-3">Sixty-second year of the victorious king Nandivikramavarman.</p>
+                
+<p n="3-9">I have given ...</p>
+                
+<p n="9-11">The king Mahābalibāṇa has given ...</p>
+                
+<p n="11-12">...</p>
+                
+<p n="12-13">...</p>
+                
+<p n="13-14">...</p>
+                
+                
+<p rend="stanza" n="1">
+                        
+<l>...</l>
+                        
+<l>...</l>
+                        
+<l>...</l>
+                        
+<l>...</l>
+                </p>
+
+        </div>
+
+         
+<div type="commentary">
+                
+                
+<p>Several orthographic peculiarities indicate that the composer/scribe is from South India: 
+<foreign>kulotbhava-</foreign> instead of 
+<foreign>kulodbhava-</foreign>, 
+<foreign>sakara-</foreign> instead of 
+<foreign>sagara-</foreign>.</p>
+                
+<p>Note on 
+<foreign>Iruvar</foreign>/
+<foreign>Iravar</foreign>. See SII p. 92, fn. 2.</p>
+                
+         </div>
+                
+         
+<div type="bibliography">
+
+            
+<p>
+First edited by 
+<bibl>
+  <ptr target="bib:Hultzsch1899_01" />
+</bibl> with facsimile and English translation (SII 3, n° 42); text and summary in 
+<bibl>
+  <ptr target="bib:Mahalingam1988_01" />
+</bibl> (IP n° 91); re-edited here by Emmanuel Francis (2020), based on the facsimile published in 
+<bibl>
+  <ptr target="bib:Hultzsch1899_01" />
+</bibl>.
 </p>
-        <listBibl type="primary">
-          <bibl n="EH">
-            <ptr target="bib:Hultzsch1899_01"/>
-            <citedRange unit="item">42</citedRange>
-            <citedRange unit="page">90-92</citedRange>
-            <citedRange unit="plate">V</citedRange>
-          </bibl>
-          <bibl n="TVM">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="item">91</citedRange>
-            <citedRange unit="page">321-322</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="ARIE1889-1890">
-            <ptr target="bib:ARIE1889-1890_01"/>
-            <!--CHECK "_01"-->
-            <citedRange unit="page">5</citedRange>
-            <citedRange unit="appendix">A/1899</citedRange>
-            <citedRange unit="item">76</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+
+                
+<listBibl type="primary">
+                        
+                        
+<bibl n="EH">
+                                
+<ptr target="bib:Hultzsch1899_01" />
+                                
+<citedRange unit="item">42</citedRange>
+                                
+<citedRange unit="page">90-92</citedRange>
+                                
+<citedRange unit="plate">V</citedRange>
+                        </bibl>
+                        
+                        
+<bibl n="TVM">
+                                
+<ptr target="bib:Mahalingam1988_01" />
+                                
+<citedRange unit="item">91</citedRange>
+                                
+<citedRange unit="page">321-322</citedRange>
+                        </bibl>
+                        
+                </listBibl>
+                
+                
+<listBibl type="secondary">
+                        
+                        
+<bibl n="ARIE1889-1890">
+                                
+<ptr target="bib:ARIE1889-1890_01" />                                 
+<citedRange unit="page">5</citedRange>
+                                
+<citedRange unit="appendix">A/1899</citedRange>
+                                
+<citedRange unit="item">76</citedRange>
+                        </bibl>
+                        
+                </listBibl>
+                
+         </div>
+        
+      </body>
+  
+</text>
 </TEI>

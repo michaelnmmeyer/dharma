@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -31,28 +37,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p>Simple but elegant script apparently of the early Majapahit period.
-                            <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EGD 11.2. --></p>
-              <!-- If you need to identify individual hands (EGD §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p>Simple but elegant script apparently of the early Majapahit period. </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -62,149 +57,232 @@
       <projectDesc>
         <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
-      <!-- UPDATE the link once the release is made official -->
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
           <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_idListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the <ref>DHARMA_idListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_idListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-04-19" who="part:argr">started encoding the inscription</change>
+      <change who="part:argr" when="2023-04-19" status="draft">started encoding the inscription</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="kaw-Latn">
-        <p part="F"><pb break="no" n="2r"/><lb break="no" n="2r1"/>mabaki ri tumbas·-tumbasan· buyut amabaki, Irikaṁ sīma kavajvan·, ri tija, mvaṅ i haru-haru, Atəhər· kabhukti deni kbo
-                 <lb n="2r2"/>kikil·, kunaṁ lavasnya kadval·, vvalu likur tahun·, kunaṁ tiṅkaḥnya de buyut amabaki <choice>
-            <sic>A</sic>
-            <corr>ti</corr>
-          </choice>numbas· varuk· lpas· tan kapra<lb break="no" n="2r3"/>măṇa Ikaṁ sīma kavajvan· ri tija, mvaṅ i haru-haru denikaṅ avaju ri manayutī, kevala buyut amabaki juga pramāṇa ri
-                 <lb n="2r4"/>salbak·-vukirnya, savaḥnya, kəbvanya, sapaniskāranya kabeḥ, tka ri sukhaduḥkhanya magə<supplied reason="omitted">ṁ</supplied> maḍmit·, tuhun tan· kola§<lb break="no" n="2r5"/>h-ulaha Ikaṁ sīma tija haru-haru denikaṅ avaju ri manayuti, Apan· huvus· <sic>pulu</sic> lpas·, kunaṁ keṅət-iṅətanya de śrī ma<lb break="no" n="2r6"/>hārāja, sor pakṣanikaṅ avaju ri manayuti makamukhya Ikaṁ vasana, mvaṅ ikaṁ ḍinamvan·, balavăn· pakṣanikaṁ kbo ki<pb break="no" n="2v"/><fw n="2v" place="right" rend="bt-rotated">
-            <num value="2">2</num>
-          </fw><lb break="no" n="2v1"/>kil·, makanimitta vara-varaḥ rakryān jasun· vuṅkal· I śrī mahārāja, sira liṁnira pramāṇa Irikaṁ sīma kavajvan· ya<lb break="no" n="2v2"/>tan· tuhagana Ikaṅ avaju ri suruhanya, Āpan nāyaka parani sadr̥vya-hajinikaṁ sīma kavajvan· liṁ rakryān· jasu<lb break="no" n="2v3"/>n vuṅkal·, tinañan· pvekaṅ avaju ri manayuti maṅaran· vasana, ḍinamvan· de śrī mahārāja ri parani dr̥vya-hajinikaṁ sīma
-                 <lb n="2v4"/>kavajvan· ri tija, lāvan i haru-haru, Ikaṁ pinupunikaṅ avaju ri manayuti, mājar ikaṅ avaju ri manayuti maṅaran va<lb break="no" n="2v5"/>sana, mvaṁ ḍinamvan·, pinakapaṅivə:nya Irikaṁ paṅuraṅ aṅasūvu<supplied reason="omitted">h-u</supplied>vuḥ liṁnya, tan tinahilakənya riṁ nāyaka, mithya ta ṅaranikā ra<lb break="no" n="2v6"/>kryān· jasun· vuṅkal yan panəṅguḥ mareṁ nāyaka dr̥vya-hajinikaṁ sīma kavajvan·, ri tija, lāvan i haru-haru, <sic>kahola<surplus>⌈</surplus><pb break="no" n="3r"/><lb break="no" n="3r1"/>n</sic> denikaṅ avaju ri manayuti, maṅkana panəṅg<choice>
-            <sic>a</sic>
-            <corr>u</corr>
-          </choice><supplied reason="omitted">ḥ</supplied>nikaṅ avaju ri manayuti, tan vnaṅ anaṇḍākn irikaṁ sīma kavajvan·, tan vnaṅ adval·§
-                 <lb n="3r2"/>varuk·, tan vnaṅ adval· lpas·, mithya gatinikā, makanimitta pobhayanikaṅ avaju ri manayuti makamukhya Ikaṁ vasana, ḍi<lb break="no" n="3r3"/>namvan·, Ikaṅ avaju ri mapapan·, Avaju ri paḍaṁ, Avaju ri paṅkaja, Avaju ri paliñjvan·, paḍāvaraḥ I śrī mahārāja yan· vna<lb break="no" n="3r4"/>ṅ anaṇḍakən·, paḍa vnaṅ adval· varuk·, paḍa vnaṅ adval· lpas· Irikaṁ sīma kavajvan·, tan· pareṁ nāyaka dr̥vya-hajinya, keva<lb break="no" n="3r5"/>la kapramāṇa denya sovaṁ-sovaṁ, tuhun ikaṁ paṅmas·, lāvan ikaṁ pore liṁnya mareṁ nāyaka, kalñokan· deniṁ parāva<lb break="no" n="3r6"/>ju ta ṅaranikā Ikaṅ avaju ri manayuti, vara-varah ikaṅ avaju kapā<unclear>t</unclear>· hiniḍəp de śrī mahārāja, maṅkana kasorni pakṣa§<pb break="no" n="3v"/><fw n="3v" place="right" rend="bt-rotated">
-            <num value="3">3</num>
-          </fw><lb break="no" n="3v1"/>nikaṅ avaju ri manayuti, kunaṁ təmən amagəhakən· pakṣanikaṁ kbo kikil·, vvaya tulis· rakryān asīma kmitanikaṁ bu§<lb break="no" n="3v2"/>yut amabaki Amapagəhakn ikaṁ buyut amabaki yan· pramāṇa ri tumbas·-tumbasan· buyut amabaki, Irikaṁ sīma kavajvan·
-                 <lb n="3v3"/>ri tija, lāvan i haru-haru, kaliliranani vka vet· buyut amabaki, tan kolah-ulaha denikaṅ avaju ri manayuti tka
-                 <lb n="3v4"/>ri vka-vetnya, tka ri dlāhaniṁ dlāha, Ikaṁ vvaṁ yan· huvus pinagəhan· deni tulis· rakryān asīma, pinagəhakn ikā de
-                 <lb n="3v5"/>śrī mahārāja, tan ucap-ucapən· tka ri dlāhaniṁ dlāha, lāvan· muvaḥ Atyanta lavasnyan· tinumbas ikaṁ sīma kavajvan i ti§<lb break="no" n="3v6"/>ja lāvan i haru-haru, tka vvalu likur tahun·, tan· hana paṅanuvandhanikaṅ avaju ri manayuti, kveḥnira saṁ nāyaka ri haR̥p·,</p>
-      </div>
-      <div type="apparatus">
-        <!--apparatus encoded as per EGD §9.1, basic elements for apparatus below-->
-        <listApp>
-          <!-- one <app> for each apparatus entry -->
-          <app loc="2r1">
-            <lem source="bib:Boechari2012_33">amabaki</lem>
-            <rdg source="bib:Stutterheim1925_04">amataki</rdg>
-            <note>Stutterheim misreads this word with <foreign>t</foreign> instead of <foreign>b</foreign> throughout his edition. Further instances will not be noted.</note>
-            <!-- 2r1. mabaki: Stutterheim membaca nama ini secara konsekwen buyut amataki. Dari foto yang kami terima dari Direktorat Perlindungan dan Pembinaan Peninggalan Sejarah dan Purbakala jelas bahwa huruf yang kedua dari belakang itu ialah huruf ba.-->
-          </app>
-          <app loc="2r1">
-            <lem source="bib:Stutterheim1925_04">kbo <lb n="2r2"/>kikil·</lem>
-            <rdg source="bib:Boechari2012_33">kbo kikil· <lb n="2r2"/>kikil·</rdg>
-          </app>
-          <app loc="2r2">
-            <lem source="bib:Stutterheim1925_04">kapramăṇa</lem>
-            <rdg source="bib:Boechari2012_33">kapramaṇā</rdg>
-          </app>
-          <app loc="2r3">
-            <lem source="bib:Stutterheim1925_04">manayutī</lem>
-            <rdg source="bib:Boechari2012_33">manayuti</rdg>
-          </app>
-          <app loc="2r4">
-            <lem>magə<supplied reason="omitted">ṁ</supplied> maḍmit·</lem>
-            <rdg source="bib:Stutterheim1925_04 bib:Boechari2012_33">magəm aḍmit·</rdg>
-          </app>
-          <app loc="2r5">
-            <lem>huvus· <sic>pulu</sic> lpas·</lem>
-            <note>We consider <foreign>pulu</foreign> to be some kind of copying error, as no word <foreign>pulu</foreign> or anything close to it seems to fit here. Perhaps the word is redundant altogether, seeing that <foreign>huvus lpas</foreign> is a fixed combination wile <foreign>pulu</foreign> shares its vowels with <foreign>huvus</foreign> and its consonants with <foreign>lpas</foreign>. Another possibility is that it is an error for <foreign>pupu(l)</foreign>.</note>
-          </app>
-          <app loc="2v4">
-            <lem>lāvan</lem>
-            <rdg source="bib:Stutterheim1925_04 bib:Boechari2012_33">lavan</rdg>
-          </app>
-          <app loc="2v4">
-            <lem>mājar</lem>
-            <rdg source="bib:Stutterheim1925_04 bib:Boechari2012_33">majar</rdg>
-          </app>
-          <app loc="2v5">
-            <lem>aṅasūvu<supplied reason="omitted">h-u</supplied>vuḥ</lem>
-            <rdg source="bib:Stutterheim1925_04 bib:Boechari2012_33">aṅasū vuvuḥ</rdg>
-          </app>
-          <app loc="2v5">
-            <lem>ṅaranikā</lem>
-            <rdg source="bib:Stutterheim1925_04 bib:Boechari2012_33">ṅaranika</rdg>
-          </app>
-          <app loc="2v6">
-            <lem>lāvan</lem>
-            <rdg source="bib:Stutterheim1925_04 bib:Boechari2012_33">lavan</rdg>
-          </app>
-          <app loc="2v6">
-            <lem source="bib:Stutterheim1925_04 bib:Boechari2012_33">
-              <sic>kahola<surplus>⌈</surplus><pb break="no" n="3r"/><lb break="no" n="3r1"/>n</sic>
-            </lem>
-            <note>Correct <foreign>kolah-olahan</foreign> (a rare form attested elsewhere only in <ref target="DHARMA_INSIDENKKedungwangi">Kedungwangi</ref>) or <foreign>kolah-ulahan</foreign> (frequently attested)?</note>
-          </app>
-          <app loc="3r1">
-            <lem>panəṅg<choice>
-                <sic>a</sic>
-                <corr>u</corr>
-              </choice><supplied reason="omitted">ḥ</supplied>°</lem>
-            <rdg source="bib:Stutterheim1925_04">panəṅga°</rdg>
-            <rdg source="bib:Boechari2012_33">panəṅga<supplied reason="omitted">ḥ</supplied>°</rdg>
-          </app>
-          <app loc="3v5">
-            <lem source="bib:Boechari2012_33">ucap-ucapən·</lem>
-            <rdg source="bib:Stutterheim1925_04">uvap-uvapən·</rdg>
-            <!--Stutterheim membaca kata ini tan uvap-uvapən. Memang huruf ca mirip sekali dengan huruf va. Menurut penglihatan kami huruf itu jelas huruf ca, karena di bagian bawah kiri meruncing. Lagi pula kata tan ucap ucapən memberi arti yang lebih sesuai dengan konteks kalimatnya.-->
-          </app>
-          <app loc="3r6">
-            <lem>°vandha°</lem>
-            <rdg source="bib:Stutterheim1925_04">°vanḍa°</rdg>
-            <rdg source="bib:Boechari2012_33">°vaṇḍa°</rdg>
-          </app>
-          <!--                
-                    3r2. lpas: Stutterheim menceraikan kata-kata ini tan vnaṅa naṇḍākən, tan vnaṅa dval varuk, tan vnaṅa dval lpas. Pemberian bentuk arealis kepada kata vnaṅ di sini menurut hemat kami kurang tepat.
-                    3r2. mithya: mithyaṁ B. B's typescript doesn't actually show the engma that is found in the 2012 book...
-                    3r6. ṅaranikā: ṅaran ika B.
-                    3r6. kapāk·: kapāt· B S. Corr. kapāt·.
-                    3r4. tka: tkā B.
-                    3r5. tka: tkā B.
--->
-        </listApp>
-      </div>
-      <div type="translation"><!--translation encoded as per EGD §9.2 --></div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <p>First edited by Stutterheim without translation; edited again by Boechari with Indonesian translation. Re-edited here by Arlo Griffiths from photographs.</p>
-        <listBibl type="primary">
-          <bibl n="S">
-            <ptr target="bib:Stutterheim1925_04"/>
-            <citedRange unit="item">I</citedRange>
-            <citedRange unit="page">57-59</citedRange>
-          </bibl>
-          <bibl n="B">
-            <ptr target="bib:Boechari2012_33"/>
-            <citedRange unit="item">VIII</citedRange>
-            <citedRange unit="page">494-499</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl/>
-          <!-- one <bibl/> per item of secondary bibliography -->
-        </listBibl>
-      </div>
-    </body>
-  </text>
+      
+<body>
+         
+<div type="edition" xml:lang="kaw-Latn">
+        
+<p part="F">
+<pb break="no" n="2r" />
+<lb break="no" n="2r1" />mabaki ri tumbas·-tumbasan· buyut amabaki, Irikaṁ sīma kavajvan·, ri tija, mvaṅ i haru-haru, Atəhər· kabhukti deni kbo
+                 
+<lb n="2r2" />kikil·, kunaṁ lavasnya kadval·, vvalu likur tahun·, kunaṁ tiṅkaḥnya de buyut amabaki 
+<choice>
+  <sic>A</sic>
+  <corr>ti</corr>
+</choice>numbas· varuk· lpas· tan kapra
+<lb break="no" n="2r3" />măṇa Ikaṁ sīma kavajvan· ri tija, mvaṅ i haru-haru denikaṅ avaju ri manayutī, kevala buyut amabaki juga pramāṇa ri
+                 
+<lb n="2r4" />salbak·-vukirnya, savaḥnya, kəbvanya, sapaniskāranya kabeḥ, tka ri sukhaduḥkhanya magə
+<supplied reason="omitted">ṁ</supplied> maḍmit·, tuhun tan· kola§
+<lb break="no" n="2r5" />h-ulaha Ikaṁ sīma tija haru-haru denikaṅ avaju ri manayuti, Apan· huvus· 
+<sic>pulu</sic> lpas·, kunaṁ keṅət-iṅətanya de śrī ma
+<lb break="no" n="2r6" />hārāja, sor pakṣanikaṅ avaju ri manayuti makamukhya Ikaṁ vasana, mvaṅ ikaṁ ḍinamvan·, balavăn· pakṣanikaṁ kbo ki
+<pb n="2v" break="no" />
+<fw n="2v" place="right" rend="bt-rotated">
+  <num value="2">2</num>
+</fw>
+<lb break="no" n="2v1" />kil·, makanimitta vara-varaḥ rakryān jasun· vuṅkal· I śrī mahārāja, sira liṁnira pramāṇa Irikaṁ sīma kavajvan· ya
+<lb break="no" n="2v2" />tan· tuhagana Ikaṅ avaju ri suruhanya, Āpan nāyaka parani sadr̥vya-hajinikaṁ sīma kavajvan· liṁ rakryān· jasu
+<lb break="no" n="2v3" />n vuṅkal·, tinañan· pvekaṅ avaju ri manayuti maṅaran· vasana, ḍinamvan· de śrī mahārāja ri parani dr̥vya-hajinikaṁ sīma
+                 
+<lb n="2v4" />kavajvan· ri tija, lāvan i haru-haru, Ikaṁ pinupunikaṅ avaju ri manayuti, mājar ikaṅ avaju ri manayuti maṅaran va
+<lb break="no" n="2v5" />sana, mvaṁ ḍinamvan·, pinakapaṅivə:nya Irikaṁ paṅuraṅ aṅasūvu
+<supplied reason="omitted">h-u</supplied>vuḥ liṁnya, tan tinahilakənya riṁ nāyaka, mithya ta ṅaranikā ra
+<lb break="no" n="2v6" />kryān· jasun· vuṅkal yan panəṅguḥ mareṁ nāyaka dr̥vya-hajinikaṁ sīma kavajvan·, ri tija, lāvan i haru-haru, 
+<sic>kahola
+<surplus>⌈</surplus>
+<pb break="no" n="3r" />
+<lb break="no" n="3r1" />n</sic> denikaṅ avaju ri manayuti, maṅkana panəṅg
+<choice>
+  <sic>a</sic>
+  <corr>u</corr>
+</choice>
+<supplied reason="omitted">ḥ</supplied>nikaṅ avaju ri manayuti, tan vnaṅ anaṇḍākn irikaṁ sīma kavajvan·, tan vnaṅ adval·§
+                 
+<lb n="3r2" />varuk·, tan vnaṅ adval· lpas·, mithya gatinikā, makanimitta pobhayanikaṅ avaju ri manayuti makamukhya Ikaṁ vasana, ḍi
+<lb break="no" n="3r3" />namvan·, Ikaṅ avaju ri mapapan·, Avaju ri paḍaṁ, Avaju ri paṅkaja, Avaju ri paliñjvan·, paḍāvaraḥ I śrī mahārāja yan· vna
+<lb break="no" n="3r4" />ṅ anaṇḍakən·, paḍa vnaṅ adval· varuk·, paḍa vnaṅ adval· lpas· Irikaṁ sīma kavajvan·, tan· pareṁ nāyaka dr̥vya-hajinya, keva
+<lb break="no" n="3r5" />la kapramāṇa denya sovaṁ-sovaṁ, tuhun ikaṁ paṅmas·, lāvan ikaṁ pore liṁnya mareṁ nāyaka, kalñokan· deniṁ parāva
+<lb break="no" n="3r6" />ju ta ṅaranikā Ikaṅ avaju ri manayuti, vara-varah ikaṅ avaju kapā
+<unclear>t</unclear>· hiniḍəp de śrī mahārāja, maṅkana kasorni pakṣa§
+<pb n="3v" break="no" />
+<fw n="3v" place="right" rend="bt-rotated">
+  <num value="3">3</num>
+</fw>
+<lb break="no" n="3v1" />nikaṅ avaju ri manayuti, kunaṁ təmən amagəhakən· pakṣanikaṁ kbo kikil·, vvaya tulis· rakryān asīma kmitanikaṁ bu§
+<lb break="no" n="3v2" />yut amabaki Amapagəhakn ikaṁ buyut amabaki yan· pramāṇa ri tumbas·-tumbasan· buyut amabaki, Irikaṁ sīma kavajvan·
+                 
+<lb n="3v3" />ri tija, lāvan i haru-haru, kaliliranani vka vet· buyut amabaki, tan kolah-ulaha denikaṅ avaju ri manayuti tka
+                 
+<lb n="3v4" />ri vka-vetnya, tka ri dlāhaniṁ dlāha, Ikaṁ vvaṁ yan· huvus pinagəhan· deni tulis· rakryān asīma, pinagəhakn ikā de
+                 
+<lb n="3v5" />śrī mahārāja, tan ucap-ucapən· tka ri dlāhaniṁ dlāha, lāvan· muvaḥ Atyanta lavasnyan· tinumbas ikaṁ sīma kavajvan i ti§
+<lb break="no" n="3v6" />ja lāvan i haru-haru, tka vvalu likur tahun·, tan· hana paṅanuvandhanikaṅ avaju ri manayuti, kveḥnira saṁ nāyaka ri haR̥p·,</p>
+         </div>
+         
+<div type="apparatus">
+                          
+<listApp>                  
+<app loc="2r1">
+                     
+<lem source="bib:Boechari2012_33">amabaki</lem>
+                     
+<rdg source="bib:Stutterheim1925_04">amataki</rdg>
+                     
+<note>Stutterheim misreads this word with 
+<foreign>t</foreign> instead of 
+<foreign>b</foreign> throughout his edition. Further instances will not be noted.</note>
+                  </app>
+                  
+<app loc="2r1">
+                    
+<lem source="bib:Stutterheim1925_04">kbo 
+<lb n="2r2" />kikil·</lem>
+                    
+<rdg source="bib:Boechari2012_33">kbo kikil· 
+<lb n="2r2" />kikil·</rdg>
+                </app>
+               
+<app loc="2r2">
+  <lem source="bib:Stutterheim1925_04">kapramăṇa</lem>
+  <rdg source="bib:Boechari2012_33">kapramaṇā</rdg>
+</app>
+               
+<app loc="2r3">
+  <lem source="bib:Stutterheim1925_04">manayutī</lem>
+  <rdg source="bib:Boechari2012_33">manayuti</rdg>
+</app>
+               
+<app loc="2r4">
+  <lem>magə
+  <supplied reason="omitted">ṁ</supplied> maḍmit·</lem>
+  <rdg source="bib:Stutterheim1925_04 bib:Boechari2012_33">magəm aḍmit·</rdg>
+</app>
+               
+<app loc="2r5">
+  <lem>huvus· 
+  <sic>pulu</sic> lpas·</lem>
+  <note>We consider 
+  <foreign>pulu</foreign> to be some kind of copying error, as no word 
+  <foreign>pulu</foreign> or anything close to it seems to fit here. Perhaps the word is redundant altogether, seeing that 
+  <foreign>huvus lpas</foreign> is a fixed combination wile 
+  <foreign>pulu</foreign> shares its vowels with 
+  <foreign>huvus</foreign> and its consonants with 
+  <foreign>lpas</foreign>. Another possibility is that it is an error for 
+  <foreign>pupu(l)</foreign>.</note>
+</app>
+               
+<app loc="2v4">
+  <lem>lāvan</lem>
+  <rdg source="bib:Stutterheim1925_04 bib:Boechari2012_33">lavan</rdg>
+</app>
+               
+<app loc="2v4">
+  <lem>mājar</lem>
+  <rdg source="bib:Stutterheim1925_04 bib:Boechari2012_33">majar</rdg>
+</app>
+               
+<app loc="2v5">
+  <lem>aṅasūvu
+  <supplied reason="omitted">h-u</supplied>vuḥ</lem>
+  <rdg source="bib:Stutterheim1925_04 bib:Boechari2012_33">aṅasū vuvuḥ</rdg>
+</app>
+               
+<app loc="2v5">
+  <lem>ṅaranikā</lem>
+  <rdg source="bib:Stutterheim1925_04 bib:Boechari2012_33">ṅaranika</rdg>
+</app>
+               
+<app loc="2v6">
+  <lem>lāvan</lem>
+  <rdg source="bib:Stutterheim1925_04 bib:Boechari2012_33">lavan</rdg>
+</app>
+               
+<app loc="2v6">
+  <lem source="bib:Stutterheim1925_04 bib:Boechari2012_33">
+    <sic>kahola
+    <surplus>⌈</surplus>
+    <pb break="no" n="3r" />
+    <lb break="no" n="3r1" />n</sic>
+  </lem>
+  <note>Correct 
+  <foreign>kolah-olahan</foreign> (a rare form attested elsewhere only in 
+  <ref target="DHARMA_INSIDENKKedungwangi">Kedungwangi</ref>) or 
+  <foreign>kolah-ulahan</foreign> (frequently attested)?</note>
+</app>
+              
+<app loc="3r1">
+<lem>panəṅg
+<choice>
+  <sic>a</sic>
+  <corr>u</corr>
+</choice>
+<supplied reason="omitted">ḥ</supplied>°</lem>
+                
+<rdg source="bib:Stutterheim1925_04">panəṅga°</rdg>
+                
+<rdg source="bib:Boechari2012_33">panəṅga
+<supplied reason="omitted">ḥ</supplied>°</rdg></app>
+                
+<app loc="3v5">
+<lem source="bib:Boechari2012_33">ucap-ucapən·</lem>
+<rdg source="bib:Stutterheim1925_04">uvap-uvapən·</rdg> </app>
+                
+<app loc="3r6">
+  <lem>°vandha°</lem>
+  <rdg source="bib:Stutterheim1925_04">°vanḍa°</rdg>
+  <rdg source="bib:Boechari2012_33">°vaṇḍa°</rdg>
+</app>
+               </listApp>
+         </div>
+         
+<div type="translation">
+                 </div>
+         
+<div type="commentary">
+                     </div>
+        
+<div type="bibliography">
+                   
+<p>First edited by Stutterheim without translation; edited again by Boechari with Indonesian translation. Re-edited here by Arlo Griffiths from photographs.</p>
+                
+<listBibl type="primary">
+                
+<bibl n="S">
+  <ptr target="bib:Stutterheim1925_04" />
+  <citedRange unit="item">I</citedRange>
+  <citedRange unit="page">57-59</citedRange>
+</bibl>
+                                
+<bibl n="B">
+  <ptr target="bib:Boechari2012_33" />
+  <citedRange unit="item">VIII</citedRange>
+  <citedRange unit="page">494-499</citedRange>
+</bibl>
+                        </listBibl>
+           
+<listBibl type="secondary">
+              
+<bibl />           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -13,9 +19,8 @@
         <respStmt>
           <resp>intellectual authorship of edition</resp>
           <persName>
-            <forename>K. V. </forename>
+            <forename>K. V.</forename>
             <surname>Subrahmanya Ayer</surname>
-            <!-- up to now this is only the copy of what has been published so far without own assessment -->
           </persName>
         </respStmt>
       </titleStmt>
@@ -32,114 +37,193 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <p><!-- not to be filled in at this stage --></p>
+        <p></p>
       </sourceDesc>
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-10-09" who="part:jeth">Creation of the file</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:jeth" when="2020-10-09" status="draft">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tel-Latn">
-        <!-- the Sanskrit language protion has to be marked -->
-        <p>
-               <lb n="1"/><gap precision="low" quantity="2" reason="undefined" unit="character"/>gommalōviḍi samudraṁbu ni<unclear>lpi</unclear> mahimindamaṟipo<gap precision="low" quantity="1" reason="undefined" unit="character"/>ma<gap precision="low" quantity="4" reason="undefined" unit="character"/>
-               <lb n="2"/><gap precision="low" quantity="3" reason="undefined" unit="character"/>peru veḷpu guḍlu nandavanaṁbu<gap precision="low" quantity="1" reason="undefined" unit="character"/>ndiṟlu pēvu vēvura<gap precision="low" quantity="1" reason="undefined" unit="character"/><unclear>gha</unclear>rmma<gap precision="low" quantity="2" reason="undefined" unit="character"/>
-               <lb n="3"/><gap precision="low" quantity="3" reason="undefined" unit="character"/>śrī viḷēvani pogaḻakuḍumu<gap precision="low" quantity="1" reason="undefined" unit="character"/>sēpuṭa kalimuḍi<gap precision="low" quantity="2" reason="undefined" unit="character"/>
-               <lb n="4"/><gap precision="low" quantity="2" reason="undefined" unit="character"/>na prasādaṁbuḷ anniyu mi<gap precision="low" quantity="4" reason="undefined" unit="character"/>hatakaputrakamuniyō
-               <lb n="5"/><unclear>śrī śi</unclear>lāviśālavipula<gap precision="low" quantity="4" reason="undefined" unit="character"/>saṁpūrṇṇagāṁ<unclear>bhī</unclear><gap precision="low" quantity="2" reason="undefined" unit="character"/>
-               <lb n="6"/><unclear>śu</unclear>bhradabhra<unclear>śu</unclear>śaucyassa<gap precision="low" quantity="1" reason="undefined" unit="character"/>jananuta<gap precision="low" quantity="2" reason="undefined" unit="character"/>vartti<gap precision="low" quantity="2" reason="undefined" unit="character"/>
-               <lb n="7"/>ptānasapra<gap precision="low" quantity="1" reason="undefined" unit="character"/>svasu<gap precision="low" quantity="3" reason="undefined" unit="character"/><gap precision="low" quantity="3" reason="undefined" unit="character"/>lasadbhitticitra<unclear>vi</unclear>rā<unclear>ja</unclear><lb break="no" n="8"/><gap precision="low" quantity="1" reason="undefined" unit="character"/>dhi<unclear>ṣṭhā</unclear>vā<unclear>sa</unclear>bhadrasakalavā<gap precision="low" quantity="1" reason="undefined" unit="character"/><unclear>yu</unclear>ta<unclear>n ni</unclear>rmmitan ni<unclear>rvvartta</unclear>na
-               <lb n="9"/>śrīsalaku Iru vuṭṭi Āḍḷapaṭṭu kuṟiti yī <unclear>Ū</unclear>ḍlaṁdu<!-- from here a second inscription starts that does not seem to be related to the first one. It should get the ID DHARMA_INSTelugu00098; The metadata sheet only has the first inscription under the ID DHARMA_INSTelugu00021!-->
-               <lb n="10"/>Ēnu vuṭlu Āḍḷa paṭṭu<gap precision="low" quantity="1" reason="undefined" unit="character"/>bu cēnu śrī vitpaṟti<gap precision="low" quantity="2" reason="undefined" unit="character"/>
-               <lb n="11"/>ndrātityala kalayanta <unclear>gāla</unclear>ṁbuga naḍiya vālu<gap precision="low" quantity="2" reason="undefined" unit="character"/>
-               <lb n="12"/><gap precision="low" quantity="2" reason="undefined" unit="character"/>kavula Āyaṁbu dīniki vakraṁbuvaccina
-               <lb n="13"/><gap precision="low" quantity="3" reason="undefined" unit="character"/>pāṟanu vēyu kavilalā<gap precision="low" quantity="6" reason="undefined" unit="character"/>
-               <lb n="14"/><gap precision="low" quantity="4" reason="undefined" unit="character"/>vu vraccinavāru bhāranā<gap precision="low" quantity="5" reason="undefined" unit="character"/>
+      
+<body>
+         
+<div type="edition" xml:lang="tel-Latn">            
+<p>
+               
+<lb n="1" />
+<gap reason="undefined" unit="character" quantity="2" precision="low" />gommalōviḍi samudraṁbu ni
+<unclear>lpi</unclear> mahimindamaṟipo
+<gap reason="undefined" unit="character" quantity="1" precision="low" />ma
+<gap reason="undefined" unit="character" quantity="4" precision="low" />
+               
+<lb n="2" />
+<gap reason="undefined" unit="character" quantity="3" precision="low" />peru veḷpu guḍlu nandavanaṁbu
+<gap reason="undefined" unit="character" quantity="1" precision="low" />ndiṟlu pēvu vēvura
+<gap reason="undefined" unit="character" quantity="1" precision="low" />
+<unclear>gha</unclear>rmma
+<gap reason="undefined" unit="character" quantity="2" precision="low" />
+               
+<lb n="3" />
+<gap reason="undefined" unit="character" quantity="3" precision="low" />śrī viḷēvani pogaḻakuḍumu
+<gap reason="undefined" unit="character" quantity="1" precision="low" />sēpuṭa kalimuḍi
+<gap reason="undefined" unit="character" quantity="2" precision="low" />
+               
+<lb n="4" />
+<gap reason="undefined" unit="character" quantity="2" precision="low" />na prasādaṁbuḷ anniyu mi
+<gap reason="undefined" unit="character" quantity="4" precision="low" />hatakaputrakamuniyō
+               
+<lb n="5" />
+<unclear>śrī śi</unclear>lāviśālavipula
+<gap reason="undefined" unit="character" quantity="4" precision="low" />saṁpūrṇṇagāṁ
+<unclear>bhī</unclear>
+<gap reason="undefined" unit="character" quantity="2" precision="low" />
+               
+<lb n="6" />
+<unclear>śu</unclear>bhradabhra
+<unclear>śu</unclear>śaucyassa
+<gap reason="undefined" unit="character" quantity="1" precision="low" />jananuta
+<gap reason="undefined" unit="character" quantity="2" precision="low" />vartti
+<gap reason="undefined" unit="character" quantity="2" precision="low" />
+               
+<lb n="7" />ptānasapra
+<gap reason="undefined" unit="character" quantity="1" precision="low" />svasu
+<gap reason="undefined" unit="character" quantity="3" precision="low" />
+<gap reason="undefined" unit="character" quantity="3" precision="low" />lasadbhitticitra
+<unclear>vi</unclear>rā
+<unclear>ja</unclear>
+<lb n="8" break="no" />
+<gap reason="undefined" unit="character" quantity="1" precision="low" />dhi
+<unclear>ṣṭhā</unclear>vā
+<unclear>sa</unclear>bhadrasakalavā
+<gap reason="undefined" unit="character" quantity="1" precision="low" />
+<unclear>yu</unclear>ta
+<unclear>n ni</unclear>rmmitan ni
+<unclear>rvvartta</unclear>na
+               
+<lb n="9" />śrīsalaku Iru vuṭṭi Āḍḷapaṭṭu kuṟiti yī 
+<unclear>Ū</unclear>ḍlaṁdu               
+<lb n="10" />Ēnu vuṭlu Āḍḷa paṭṭu
+<gap reason="undefined" unit="character" quantity="1" precision="low" />bu cēnu śrī vitpaṟti
+<gap reason="undefined" unit="character" quantity="2" precision="low" />
+               
+<lb n="11" />ndrātityala kalayanta 
+<unclear>gāla</unclear>ṁbuga naḍiya vālu
+<gap reason="undefined" unit="character" quantity="2" precision="low" />
+               
+<lb n="12" />
+<gap reason="undefined" unit="character" quantity="2" precision="low" />kavula Āyaṁbu dīniki vakraṁbuvaccina
+               
+<lb n="13" />
+<gap reason="undefined" unit="character" quantity="3" precision="low" />pāṟanu vēyu kavilalā
+<gap reason="undefined" unit="character" quantity="6" precision="low" />
+               
+<lb n="14" />
+<gap reason="undefined" unit="character" quantity="4" precision="low" />vu vraccinavāru bhāranā
+<gap reason="undefined" unit="character" quantity="5" precision="low" />
             </p>
-      </div>
-      <div type="apparatus">
-        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
-        <listApp>
-          <!-- one <app> for each apparatus entry -->
-          <app loc="line">
-            <!-- Update the value of @loc.-->
-            <lem><!-- fill in a lemma here --></lem>
-            <rdg source="bib:AuthorYear_01"><!-- update the @source value, fill in variant reading here --></rdg>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:jeth" type="translation"><!--Yet to be provided --></div>
-      <div source="bib:Sastri1969_01" type="translation">
-        <p>
-               ll. 1-4.<note>K. M. Sastri edits this inscription together with another one (see commentary) and counts the lines continuously. I have adjusted the lines in order to avoid confusion. Lines 1-4 correspond to his lines 21-24.</note> Seem to refer to the construction of a tank (called or at ?) Gommalōviḍi, big temples for Gods, and flower-garden, and food-offerings (as) <hi rend="italic">pogara</hi> (<hi rend="italic">pongara</hi> ?) and <hi rend="italic">kuḍumu</hi> for (the God) Śrī viḷēvani.
-               ll. 9-10. To (the temple of) Śrīśa (i.e. Viṣṇu, Lord of Lakṣmi), land sowable with two <hi rend="italic">puṭṭis</hi> of paddy in these villages; land sowable with five <hi rend="italic">puṭṭis</hi> of paddy in the village of Vitpaṟṟu.
+         </div>
+         
+<div type="apparatus">
+                          
+<listApp>                  
+<app loc="line">                     
+<lem></lem>
+                     
+<rdg source="bib:AuthorYear_01"></rdg>
+                  </app>
+               </listApp>         
+         </div>
+         
+<div type="translation" resp="part:jeth">
+                 </div>
+         
+<div type="translation" source="bib:Sastri1969_01">
+            
+<p>
+               ll. 1-4.
+<note>K. M. Sastri edits this inscription together with another one (see commentary) and counts the lines continuously. I have adjusted the lines in order to avoid confusion. Lines 1-4 correspond to his lines 21-24.</note> Seem to refer to the construction of a tank (called or at ?) Gommalōviḍi, big temples for Gods, and flower-garden, and food-offerings (as) 
+<hi rend="italic">pogara</hi> (
+<hi rend="italic">pongara</hi> ?) and 
+<hi rend="italic">kuḍumu</hi> for (the God) Śrī viḷēvani.
+               ll. 9-10. To (the temple of) Śrīśa (i.e. Viṣṇu, Lord of Lakṣmi), land sowable with two 
+<hi rend="italic">puṭṭis</hi> of paddy in these villages; land sowable with five 
+<hi rend="italic">puṭṭis</hi> of paddy in the village of Vitpaṟṟu.
                l. 11. So long as the Moon and the Sun exist . .
                l. 12. Those who obstruct this (incur the sin of killing).
                ll. 13-14. Brahmins and thousand cows in Benares . . .
             </p>
-      </div>
-      <div type="commentary">
-        <p>
-              The inscription is found on the same stone as the one in <bibl>
-            <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-            <citedRange unit="page">208-209</citedRange>
-            <citedRange unit="item">584</citedRange>
-          </bibl>.
-               The text follows the edition of K. V. Subrahmanya Ayer in <bibl rend="omitname">
-            <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-            <citedRange unit="page">209</citedRange>
-            <citedRange unit="item">585</citedRange>
-          </bibl> in absence of a picture. 
+         </div>
+         
+<div type="commentary">
+            
+<p>
+              The inscription is found on the same stone as the one in 
+<bibl>
+  <ptr target="bib:SubrahmanyaAiyer1928_01" />
+  <citedRange unit="page">208-209</citedRange>
+  <citedRange unit="item">584</citedRange>
+</bibl>.
+               The text follows the edition of K. V. Subrahmanya Ayer in 
+<bibl rend="omitname">
+  <ptr target="bib:SubrahmanyaAiyer1928_01" />
+  <citedRange unit="page">209</citedRange>
+  <citedRange unit="item">585</citedRange>
+</bibl> in absence of a picture. 
                The dots used in the edition to indicate lost or unintelligible characters can not clearly be attributed to a certain quantity of characters (one dot may indicate one or more lost or unintelligible characters).
             </p>
-      </div>
-      <div type="bibliography">
-        <p>
-           	The inscription was noted in A. R. No. 147-A of 1899 and first published by K. V. Subrahmanya Aiyer without picture and translation (<bibl rend="omitname">
-            <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-            <citedRange unit="page">209</citedRange>
-            <citedRange unit="item">585</citedRange>
-          </bibl>). Korada Mahadeva Sastri reprinted the text (with a few mistakes) and provided a summary and partial translation (<bibl rend="omitname">
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">286</citedRange>
-            <citedRange unit="item">10</citedRange>
-          </bibl>).   
+         </div>
+        
+<div type="bibliography">
+          
+<p>
+                The inscription was noted in A. R. No. 147-A of 1899 and first published by K. V. Subrahmanya Aiyer without picture and translation (
+<bibl rend="omitname">
+  <ptr target="bib:SubrahmanyaAiyer1928_01" />
+  <citedRange unit="page">209</citedRange>
+  <citedRange unit="item">585</citedRange>
+</bibl>). Korada Mahadeva Sastri reprinted the text (with a few mistakes) and provided a summary and partial translation (
+<bibl rend="omitname">
+  <ptr target="bib:Sastri1969_01" />
+  <citedRange unit="page">286</citedRange>
+  <citedRange unit="item">10</citedRange>
+</bibl>).   
           </p>
-        <listBibl type="secondary">
-          <bibl>A. R. No. 147-A of 1899<!-- has to be adjusted to the @target --></bibl>
-          <bibl>
-            <ptr target="bib:SubrahmanyaAiyer1928_01"/>
-            <citedRange unit="page">209</citedRange>
-            <citedRange unit="item">585</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Sastri1969_01"/>
-            <citedRange unit="page">286</citedRange>
-            <citedRange unit="item">10</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+           
+<listBibl type="secondary">
+              
+<bibl>A. R. No. 147-A of 1899</bibl>
+              
+<bibl>
+  <ptr target="bib:SubrahmanyaAiyer1928_01" />
+  <citedRange unit="page">209</citedRange>
+  <citedRange unit="item">585</citedRange>
+</bibl>
+              
+<bibl>
+  <ptr target="bib:Sastri1969_01" />
+  <citedRange unit="page">286</citedRange>
+  <citedRange unit="item">10</citedRange>
+</bibl>
+           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>

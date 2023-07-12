@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -24,11 +30,7 @@
         <idno type="filename">DHARMA_INSPallava00036</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
-							Licence. To view a copy of the licence, visit
-							https://creativecommons.org/licenses/by/4.0/ or send a letter to
-							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-							California, 94041, USA.</p>
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
           </licence>
         </availability>
@@ -38,16 +40,14 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary>Records the foundation of a cave-temple by Kantacēṉaṉ (Skt.
-							Skandasena), son of Vayantappiri (Skt. Vasantapriya) and servant of
-							Mayēntirappōttarēcaru (Mahendravarman I Pallava).</summary>
+            <summary>Records the foundation of a cave-temple by Kantacēṉaṉ (Skt. Skandasena), son of Vayantappiri (Skt. Vasantapriya) and servant of Mayēntirappōttarēcaru (Mahendravarman I Pallava).</summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -55,111 +55,202 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change when="2020-01-08" who="part:axja">Update the template</change>
-      <change when="2019-11-15" who="part:emfr">Creation of the file on the
-				repository</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:axja" when="2020-01-08">Update the template</change>
+      <change who="part:emfr" when="2019-11-15">Creation of the file on the repository</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tam-Latn">
-        <div n="A" subtype="item" type="textpart">
-          <head xml:lang="eng">Left/South Pillar</head>
-          <p>
-            <lb n="1"/>
-            <persName ref="pallava000001 ">pakā-p·-piṭuku</persName>
-            <persName ref="pallava000001 ">laḷitāṅ·kuraṉ·</persName>
-          </p>
-        </div>
-        <div n="B" subtype="item" type="textpart">
-          <head xml:lang="eng">Right/North Pillar</head>
-          <p>
-        			<lb n="2"/><persName ref="pallava000001 ">cat<unclear>·</unclear>turu<choice>
-                <orig>m<unclear>·</unclear>m</orig>
-                <reg>m</reg>
-              </choice>allaṉ·</persName> <persName ref="pallava000001 ">kuṇaparaṉ·</persName>
-        			<lb n="3"/><persName ref="pallava000001 ">mayēn·tira-p-pōt·t-arēcaru</persName> Aṭiyāṉ·
-        			<lb n="4"/><persName ref="pallava000003 ">vayan·tap·piri Arēcaru</persName> makaṉ· <persName ref="pallava000004">kan·tacēṉa
-        			<lb break="no" n="5"/>ṉ·</persName> ceyivit<unclear>·</unclear>ta tēvakulam· <g subtype="finalGomutra" type="symbol"/>
-        		</p>
-        </div>
-      </div>
-      <div type="apparatus"/>
-      <div source="bib:Hultzsch1895_01" type="translation">
-        <p>Kantaceṉaṉ <supplied reason="explanation">Skandasena</supplied>, the son of Vayantappiriarecaru <supplied reason="explanation">Vasantapriyarāja</supplied>, the servant of Pakāppiṭuku Laḷitāṅkuraṉ <supplied reason="explanation">Lalitāṅkura</supplied> Catturummallaṉ <supplied reason="explanation">Śatrumalla</supplied> Kuṇaparaṉ <supplied reason="explanation">Guṇabhara</supplied> Mayentirappōttarecaru <supplied reason="explanation">Mahendrapōtarāja</supplied>, caused <supplied reason="subaudible">this</supplied> temple <supplied reason="explanation">
-            <foreign>devakula</foreign>
-          </supplied> to be made.</p>
-      </div>
-      <div resp="part:emfr" type="translation">
-        <p>
-Temple <supplied reason="explanation"><foreign>tēvakulam</foreign>, Skt. <foreign>devakula</foreign></supplied> caused to be made by Kantacēṉaṉ <supplied reason="explanation">Skt. Skandasena</supplied>, son of the king <supplied reason="explanation">
-            <foreign>arēcaru</foreign>
-          </supplied> Vayantappiri (Skt. Vasantapriya), servant <supplied reason="explanation">
-            <foreign>aṭiyāṉ</foreign>
-          </supplied> of Pakāppiṭuku Laḷitāṅkuraṉ <supplied reason="explanation">Skt. Lalitāṅkura</supplied> Catturummallaṉ <supplied reason="explanation">Skt. Śatrumalla</supplied> Kuṇaparaṉ <supplied reason="explanation">Skt. Guṇabhara</supplied> Mayēntirappōttarēcaru <supplied reason="explanation">i.e. Mahendravarman I Pallava</supplied>.
+    
+<body>
+                
+<div type="edition" xml:lang="tam-Latn">
+
+                        
+<div type="textpart" subtype="item" n="A">
+                                
+<head xml:lang="eng">Left/South Pillar</head>
+                                
+<p>
+                                
+<lb n="1" />
+<persName ref="pallava000001">pakā-p·-piṭuku</persName> 
+<persName ref="pallava000001">laḷitāṅ·kuraṉ·</persName>
+                                </p>
+                        </div>
+
+                        
+<div type="textpart" subtype="item" n="B">
+                                
+<head xml:lang="eng">Right/North Pillar</head>
+                                
+<p>
+                                
+<lb n="2" />
+<persName ref="pallava000001">cat
+<unclear>·</unclear>turu
+<choice>
+  <orig>m
+  <unclear>·</unclear>m</orig>
+  <reg>m</reg>
+</choice>allaṉ·</persName> 
+<persName ref="pallava000001">kuṇaparaṉ·</persName>
+                                
+<lb n="3" />
+<persName ref="pallava000001">mayēn·tira-p-pōt·t-arēcaru</persName> Aṭiyāṉ·
+                                
+<lb n="4" />
+<persName ref="pallava000003">vayan·tap·piri Arēcaru</persName> makaṉ· 
+<persName ref="pallava000004">kan·tacēṉa
+                                
+<lb n="5" break="no" />ṉ·</persName> ceyivit
+<unclear>·</unclear>ta tēvakulam· 
+<g type="symbol" subtype="finalGomutra" />
+                        </p>
+                        </div>
+
+                </div>
+
+          
+<div type="apparatus" />
+
+            
+<div type="translation" source="bib:Hultzsch1895_01">
+                
+<p>Kantaceṉaṉ 
+<supplied reason="explanation">Skandasena</supplied>, the son of Vayantappiriarecaru 
+<supplied reason="explanation">Vasantapriyarāja</supplied>, the servant of Pakāppiṭuku Laḷitāṅkuraṉ 
+<supplied reason="explanation">Lalitāṅkura</supplied> Catturummallaṉ 
+<supplied reason="explanation">Śatrumalla</supplied> Kuṇaparaṉ 
+<supplied reason="explanation">Guṇabhara</supplied> Mayentirappōttarecaru 
+<supplied reason="explanation">Mahendrapōtarāja</supplied>, caused 
+<supplied reason="subaudible">this</supplied> temple 
+<supplied reason="explanation">
+  <foreign>devakula</foreign>
+</supplied> to be made.</p>
+
+            </div>
+
+
+            
+<div type="translation" resp="part:emfr">
+<p>
+Temple 
+<supplied reason="explanation">
+<foreign>tēvakulam</foreign>, Skt. 
+<foreign>devakula</foreign></supplied> caused to be made by Kantacēṉaṉ 
+<supplied reason="explanation">Skt. Skandasena</supplied>, son of the king 
+<supplied reason="explanation">
+  <foreign>arēcaru</foreign>
+</supplied> Vayantappiri (Skt. Vasantapriya), servant 
+<supplied reason="explanation">
+  <foreign>aṭiyāṉ</foreign>
+</supplied> of Pakāppiṭuku Laḷitāṅkuraṉ 
+<supplied reason="explanation">Skt. Lalitāṅkura</supplied> Catturummallaṉ 
+<supplied reason="explanation">Skt. Śatrumalla</supplied> Kuṇaparaṉ 
+<supplied reason="explanation">Skt. Guṇabhara</supplied> Mayēntirappōttarēcaru 
+<supplied reason="explanation">i.e. Mahendravarman I Pallava</supplied>.
 </p>
-      </div>
-      <div type="commentary">
-        <p>It is not clear what the relation is between the two discrete inscriptions, each on a different pillar. We read them in succession as Pakāppiṭuku, Lalitāṅkura, Śatrumalla and Guṇabhara are well attested <foreign>biruda</foreign>s of Mahendravarman I. We follow here the interpretation of <bibl>
-            <ptr target="bib:Hultzsch1895_01"/>
-          </bibl>.</p>
-        <p>Pōttarēcaru (and its variants, e.g. Pōttaraiyar) is a title of the Pallava kings. Mayēntirappōttarēcaru is Mahendravarman I (r. ca. 580-630).</p>
-      </div>
-      <div type="bibliography">
-        <p>
-First edited by <bibl>
-            <ptr target="bib:Hultzsch1895_01"/>
-          </bibl> (SII 2, no. 72) with facsimile and English translation; text and summary in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP no. 36); re-edited here for DHARMA (ERC n° 809994) by Emmanuel Francis (2020), based on autopsy and photographs (2004).
+            </div>
+
+            
+<div type="commentary">
+                
+<p>It is not clear what the relation is between the two discrete inscriptions, each on a different pillar. We read them in succession as Pakāppiṭuku, Lalitāṅkura, Śatrumalla and Guṇabhara are well attested 
+<foreign>biruda</foreign>s of Mahendravarman I. We follow here the interpretation of 
+<bibl>
+  <ptr target="bib:Hultzsch1895_01" />
+</bibl>.</p>
+                
+<p>Pōttarēcaru (and its variants, e.g. Pōttaraiyar) is a title of the Pallava kings. Mayēntirappōttarēcaru is Mahendravarman I (r. ca. 580-630).</p>
+            </div>
+
+            
+<div type="bibliography">
+                
+<p>
+First edited by 
+<bibl>
+  <ptr target="bib:Hultzsch1895_01" />
+</bibl> (SII 2, no. 72) with facsimile and English translation; text and summary in 
+<bibl>
+  <ptr target="bib:Mahalingam1988_01" />
+</bibl> (IP no. 36); re-edited here for DHARMA (ERC n° 809994) by Emmanuel Francis (2020), based on autopsy and photographs (2004).
 </p>
-        <listBibl type="primary">
-          <bibl n="EH">
-            <ptr target="bib:Hultzsch1895_01"/>
-            <citedRange unit="page">340-341</citedRange>
-            <citedRange unit="item">72</citedRange>
-          </bibl>
-          <bibl n="TVM">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="page">134</citedRange>
-            <citedRange unit="item">36</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="ARIE 1892-1893">
-            <ptr target="bib:ARIE1892-1893"/>
-            <citedRange unit="page">2, 8</citedRange>
-            <citedRange unit="appendix">A/1892</citedRange>
-            <citedRange unit="item">185</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Srinivasan1964_01"/>
-            <citedRange>61-64</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Lockwood+al2001_01"/>
-            <citedRange>267</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+                
+<listBibl type="primary">
+                        
+                        
+<bibl n="EH">
+                                
+<ptr target="bib:Hultzsch1895_01" />
+                                
+<citedRange unit="page">340-341</citedRange>
+                                
+<citedRange unit="item">72</citedRange>
+                        </bibl>
+                        
+                        
+<bibl n="TVM">
+                                
+<ptr target="bib:Mahalingam1988_01" />
+                                
+<citedRange unit="page">134</citedRange>
+                                
+<citedRange unit="item">36</citedRange>
+                        </bibl>
+                        
+                </listBibl>
+                
+                
+<listBibl type="secondary">
+                        
+                        
+<bibl n="ARIE 1892-1893">
+                                
+<ptr target="bib:ARIE1892-1893" />
+                                
+<citedRange unit="page">2, 8</citedRange>
+                                
+<citedRange unit="appendix">A/1892</citedRange>
+                                
+<citedRange unit="item">185</citedRange>
+                        </bibl>
+                        
+                        
+<bibl>
+                                
+<ptr target="bib:Srinivasan1964_01" />
+                                
+<citedRange>61-64</citedRange>
+                        </bibl>
+                        
+                        
+<bibl>
+                                
+<ptr target="bib:Lockwood+al2001_01" />
+                                
+<citedRange>267</citedRange>
+                        </bibl>
+                        
+                </listBibl>
+            </div>
+          </body>
+      
+</text>
 </TEI>

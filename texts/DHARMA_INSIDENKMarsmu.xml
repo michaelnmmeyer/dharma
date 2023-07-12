@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -31,27 +37,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p>Hand very similar to that seen in Bulai and Wuang Got.<!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p>Hand very similar to that seen in Bulai and Wuang Got.</p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,122 +55,155 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-04-14" who="part:argr">applied corrections for issue #18; changed first resp to "EpiDoc encoding"</change>
-      <change status="draft" when="2020-03-27" who="part:axja">adding the handDesc template</change>
-      <change status="draft" when="2020-03-27" who="part:argr">applied corrections required by issue #1; adjusted respStmt to current version fo EG;  added an item to sec. bibl.</change>
-      <change status="draft" when="2020-01-20" who="part:argr">applied corrections proposed by Daniel Balogh</change>
-      <change status="draft" when="2020-01-18" who="part:argr">initial encoding of the inscription</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:argr" when="2020-04-14" status="draft">applied corrections for issue #18; changed first resp to "EpiDoc encoding"</change>
+      <change who="part:axja" when="2020-03-27" status="draft">adding the handDesc template</change>
+      <change who="part:argr" when="2020-03-27" status="draft">applied corrections required by issue #1; adjusted respStmt to current version fo EG; added an item to sec. bibl.</change>
+      <change who="part:argr" when="2020-01-20" status="draft">applied corrections proposed by Daniel Balogh</change>
+      <change who="part:argr" when="2020-01-18" status="draft">initial encoding of the inscription</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="kaw-Latn">
-        <pb n="1r"/>
-        <!--Blank outer page.-->
-        <p><pb n="1v"/>
-	<lb n="1v1"/><g type="danda"/> <g type="circleMid"/> <g type="dDanda"/> pavaraḥ Iṁ vahuta pata patiḥ<!-- maybe patapatih one word? or is patapatih an error for patih? --> muAṁ soĀraniṁ Anak vanuA I marsmu<g type="circleSmallMed">.</g> I vuĀ<gap extent="unknown" reason="lost" unit="character"/>
-	<lb n="1v2"/>muAṁ jātaka<g type="circleSmallMed">.</g> Ikanaṁ kunaṁ paṅansəAnnanya I dharmma rakryān· I vka I <space type="descender"/> pastika <g type="circleSmallMed">.</g> I <gap extent="unknown" reason="lost" unit="character"/>
-	<lb n="1v3"/>kumavruhana sukhaduḥkhanya<!-- ḥ omitted by Boechari; CS has h --><g type="circleSmallHigh">.</g> muAṁ<!-- n for ṁ in Boechari --> hulu-vrassanya<g type="circleSmallMed">.</g> <space type="descender"/> saṁ ḍuryyan· <space/> muAṁ saṁ siṅgaḥ <gap extent="unknown" reason="lost" unit="character"/>
-	<lb n="1v4"/>bavaṁ <g type="circleSmallMed">.</g> muAṁ ḍapunta labdhi<g type="circleSmallMed">.</g> magantya pisan· satahun· so<space type="descender"/>Aṁ-soAṁ <g type="dDanda"/>
+      
+<body>
+         
+<div type="edition" xml:lang="kaw-Latn">
+<pb n="1r" />
+<p>
+<pb n="1v" />
+        
+<lb n="1v1" />
+<g type="danda" /> 
+<g type="circleMid" /> 
+<g type="dDanda" /> pavaraḥ Iṁ vahuta pata patiḥ muAṁ soĀraniṁ Anak vanuA I marsmu
+<g type="circleSmallMed">.</g> I vuĀ
+<gap reason="lost" extent="unknown" unit="character" />
+        
+<lb n="1v2" />muAṁ jātaka
+<g type="circleSmallMed">.</g> Ikanaṁ kunaṁ paṅansəAnnanya I dharmma rakryān· I vka I 
+<space type="descender" /> pastika 
+<g type="circleSmallMed">.</g> I 
+<gap reason="lost" extent="unknown" unit="character" />
+        
+<lb n="1v3" />kumavruhana sukhaduḥkhanya
+<g type="circleSmallHigh">.</g> muAṁ hulu-vrassanya
+<g type="circleSmallMed">.</g> 
+<space type="descender" /> saṁ ḍuryyan· 
+<space /> muAṁ saṁ siṅgaḥ 
+<gap reason="lost" extent="unknown" unit="character" />
+        
+<lb n="1v4" />bavaṁ 
+<g type="circleSmallMed">.</g> muAṁ ḍapunta labdhi
+<g type="circleSmallMed">.</g> magantya pisan· satahun· so
+<space type="descender" />Aṁ-soAṁ 
+<g type="dDanda" />
 </p>
-      </div>
-      <div type="apparatus">
-        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
-        <listApp>
-          <!-- one <app> for each apparatus entry -->
-          <app loc="1v1">
-            <lem source="bib:Boechari1985-1986_01">vuĀ<gap extent="unknown" reason="lost" unit="character"/></lem>
-            <rdg source="bib:CohenStuart1875_01">vuĀ<supplied cert="low" reason="lost">ra</supplied><gap extent="unknown" reason="lost" unit="character"/></rdg>
-            <note>Cohen Stuart's restitution is not confirmed by any occurrence of <foreign>vuāra</foreign> in any inscription that I am aware of, although <foreign>vuara</foreign> is common.</note>
-          </app>
-          <app loc="1v2">
-            <lem>Ikanaṁ</lem>
-            <rdg source="bib:CohenStuart1875_01 bib:Boechari1985-1986_01">Ikana</rdg>
-            <note>The <foreign>anusvāra</foreign> is clear enough on the estampage.</note>
-          </app>
-          <app loc="1v3">
-            <lem source="bib:CohenStuart1875_01">saṁ ḍuryyan· muAṁ saṁ siṅgaḥ</lem>
-            <rdg source="bib:Boechari1985-1986_01">san daryyan muan singah</rdg>
-            <note>Besides omitting all diacritics on every one of these words, Boechari entirely omits the second <foreign>saṁ</foreign>.</note>
-          </app>
-        </listApp>
-      </div>
-      <div type="translation"><!--translation encoded as per EG §9.2 --><!--on hulu-vrassan-nya, see De Casparis, Pras. Indonesia II, 243, n. 205: "The hulu wras is very often mentioned among the rāmas. The term probably denotes the village elder who was in charge of a provision of rice belonging to the village as a whole. Van Vollenhoven notices the presence of similar village elders in modern Javanese villages (op. cif., p. 30), but considers the function an innovation of recent times; the latter conclusion might not he correct in view of what we see in Old Javanese inscriptions."--></div>
-      <div type="commentary"><!--commentary encoded as per section §9.3 --></div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <p>First edited by Cohen Stuart (<bibl rend="omitname">
-            <ptr target="bib:CohenStuart1875_01"/>
-            <citedRange unit="page">23</citedRange>
-            <citedRange unit="item">XIII</citedRange>
-          </bibl>) with a lithographic reproduction in the accompanying volume of plates (<bibl>
-            <ptr target="bib:Huart+Hooiberg1875_01"/>
-          </bibl>); edited again by Boechari (<bibl rend="omitname">
-            <ptr target="bib:Boechari1985-1986_01"/>
-            <citedRange unit="page">53</citedRange>
-            <citedRange unit="item">E.16</citedRange>
-          </bibl>); re-edited here by Arlo Griffiths from the Leiden estampage of the plate.</p>
-        <listBibl type="primary">
-          <bibl n="CS">
-            <ptr target="bib:CohenStuart1875_01"/>
-            <citedRange unit="page">23</citedRange>
-            <citedRange unit="item">XIII</citedRange>
-          </bibl>
-          <bibl n="B" rend="omitname">
-            <ptr target="bib:Boechari1985-1986_01"/>
-            <citedRange unit="page">53</citedRange>
-            <citedRange unit="item">E.16</citedRange>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl>
-            <ptr target="bib:NBG08_1870"/>
-            <citedRange unit="page">72, 78</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Verbeek1891_01"/>
-            <citedRange unit="page">149-150</citedRange>
-            <citedRange unit="item">276</citedRange>
-          </bibl>
-          <bibl>
-            <ptr target="bib:Damais1970_01"/>
-            <citedRange unit="page">48</citedRange>
-            <citedRange unit="item">86</citedRange>
-            <citedRange unit="note">13</citedRange>
-          </bibl>
-          <!-- for the dating to ca. 800 Śaka -->
-        </listBibl>
-      </div>
-    </body>
-  </text>
-</TEI><!--Nomor inventaris: E. 16.
-Nama prasasti: Marsmu.
-Tempat temuan: Desa Ngabean, kabupaten Magelang, Jawa Tengah.
-Angka tahun: (Tidak ada).
-Nama raja: (Tidak ada).
-Satu lempengan tembaga, berukuran 34 x 6,5 cm, bagian sebelah kanannya patah, bertulisan pada satu sisi dengan 4 baris tulisan. Huruf dan bahasanya Jawa Kuna. (Lihat juga nomor inventaris. E. 5, E. 6, E. 7, E. 9, E. 10, E. 15, E. 18).
-Referensi: NBG 1 892, p. 24. Verbeek, 150. Cohen Stuart, KO, XIII.
-Nomor inventaris: E. 16. 
-Prasasti: Marsmu.
-1. // o // pawaraḥ iṁ wahuta pata patiḥ muaṁ soāra niṁ anak wanua i marsmu. i wuā [...]
-2. muaṁ jātaka. ikana kunaṁ paṅansĕannanya i dharmma rakryān i wka i pastika. i [...]
-3. kumawruhana sukha dukhanya. muan hulu wrassanya. san daryyan muan singah [...]
-4. bawaṁ. muaṁ ḍapunta labdhi. magantya pisan satahun soaṁ soaṁ //-->
+         </div>
+         
+<div type="apparatus">
+                          
+<listApp>        
+<app loc="1v1">
+<lem source="bib:Boechari1985-1986_01">vuĀ
+<gap reason="lost" extent="unknown" unit="character" /></lem>
+<rdg source="bib:CohenStuart1875_01">vuĀ
+<supplied reason="lost" cert="low">ra</supplied>
+<gap reason="lost" extent="unknown" unit="character" /></rdg>
+<note>Cohen Stuart's restitution is not confirmed by any occurrence of 
+<foreign>vuāra</foreign> in any inscription that I am aware of, although 
+<foreign>vuara</foreign> is common.</note>
+</app>
+ 
+<app loc="1v2">
+                     
+<lem>Ikanaṁ</lem>
+                     
+<rdg source="bib:CohenStuart1875_01 bib:Boechari1985-1986_01">Ikana</rdg>
+<note>The 
+<foreign>anusvāra</foreign> is clear enough on the estampage.</note>
+                  </app>
+                  
+<app loc="1v3">
+                     
+<lem source="bib:CohenStuart1875_01">saṁ ḍuryyan· muAṁ saṁ siṅgaḥ</lem>
+                     
+<rdg source="bib:Boechari1985-1986_01">san daryyan muan singah</rdg>
+<note>Besides omitting all diacritics on every one of these words, Boechari entirely omits the second 
+<foreign>saṁ</foreign>.</note>
+                  </app>
+               </listApp>         
+         </div>
+         
+<div type="translation">
+                 </div>
+         
+<div type="commentary">
+                     </div>
+        
+<div type="bibliography">
+                
+<p>First edited by Cohen Stuart (
+<bibl rend="omitname">
+  <ptr target="bib:CohenStuart1875_01" />
+  <citedRange unit="page">23</citedRange>
+  <citedRange unit="item">XIII</citedRange>
+</bibl>) with a lithographic reproduction in the accompanying volume of plates (
+<bibl>
+  <ptr target="bib:Huart+Hooiberg1875_01" />
+</bibl>); edited again by Boechari (
+<bibl rend="omitname">
+<ptr target="bib:Boechari1985-1986_01" />
+<citedRange unit="page">53</citedRange> 
+<citedRange unit="item">E.16</citedRange></bibl>); re-edited here by Arlo Griffiths from the Leiden estampage of the plate.</p>
+        
+<listBibl type="primary">
+          
+<bibl n="CS">
+  <ptr target="bib:CohenStuart1875_01" />
+  <citedRange unit="page">23</citedRange>
+  <citedRange unit="item">XIII</citedRange>
+</bibl>
+          
+<bibl n="B" rend="omitname">
+<ptr target="bib:Boechari1985-1986_01" />
+<citedRange unit="page">53</citedRange> 
+<citedRange unit="item">E.16</citedRange></bibl>
+           </listBibl>
+            
+<listBibl type="secondary">
+          
+<bibl>
+  <ptr target="bib:NBG08_1870" />
+  <citedRange unit="page">72, 78</citedRange>
+</bibl>
+              
+<bibl>
+<ptr target="bib:Verbeek1891_01" />
+<citedRange unit="page">149-150</citedRange> 
+<citedRange unit="item">276</citedRange></bibl>
+        
+<bibl>
+  <ptr target="bib:Damais1970_01" />
+  <citedRange unit="page">48</citedRange>
+  <citedRange unit="item">86</citedRange>
+  <citedRange unit="note">13</citedRange>
+</bibl>           </listBibl>
+        </div>
+      </body>
+  
+</text>
+</TEI>

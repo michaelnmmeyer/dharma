@@ -1,6 +1,7 @@
-<!--<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>--><!--REMOVE comment when encoding a new inscriptions!!!--><TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -26,11 +27,7 @@
         <idno type="filename">DHARMA_INSPallava00306</idno>
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
-            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported
-							Licence. To view a copy of the licence, visit
-							https://creativecommons.org/licenses/by/4.0/ or send a letter to
-							Creative Commons, 444 Castro Street, Suite 900, Mountain View,
-							California, 94041, USA.</p>
+            <p>This work is licenced under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
             <p>Copyright (c) 2019-2025 by Emmanuel Francis.</p>
           </licence>
         </availability>
@@ -40,14 +37,14 @@
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
             <summary>Records the death of a hero.</summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p></p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -55,111 +52,173 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-					under the European Union's Horizon 2020 research and innovation programme (grant
-					agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-						ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-							<ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2021-04-26" who="part:emfr">Creation of the file</change>
+      <change who="part:emfr" when="2021-04-26" status="draft">Creation of the file</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="tam-Latn">
-        <p>
-		<lb n="1"/>kō-vi<choice>
-            <sic>y</sic>
-            <corr>c</corr>
-          </choice>aiya-nanti-paṉṟa
-		<lb break="no" n="2"/>ṟ-araiyarkku yāṇṭu Iraṇṭ-āva
-		<lb break="no" n="3"/>tu
-		
-	</p>
-        <p>
-		Ūṇamiṟaiyār vēṇāṭ-iḷa-veṇ
-		<lb break="no" n="4"/>maṟu-k-kōṭṭu vēṭ<unclear>ṭu</unclear>var tāḻai<choice>
-            <orig>-Ū</orig>
-            <reg>-y-ū</reg>
-          </choice>r
-		<lb n="5"/>toṟu-k koṇ
-		<lb break="no" n="6"/>ṭa ñāṉṟu tā
-		<lb break="no" n="7"/>ḻai<choice>
-            <orig>-Ū</orig>
-            <reg>-y-ū</reg>
-          </choice>r-uṭaiya
-		<lb n="8"/>vaṇṇakka kaṭai
-		<lb break="no" n="9"/>yaṉār toṟu
-		<lb n="10"/>mīṭṭu paṭ
-		<lb break="no" n="11"/>ṭār			
-	</p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="1">
-            <lem>°paṉṟa<lb break="no" n="2"/>ṟ°</lem>
-            <note>Probably to be emended to <foreign>°paṉmar°</foreign>.</note>
-          </app>
-        </listApp>
-      </div>
-      <div resp="part:emfr" type="translation">
-        <p n="1-3">
-      			Second year of the victorious king, the king Nandivarman.
-      		</p>
-        <p n="3-11">
-      			Vaṇṇakka Kaṭaiyaṉār, lord <supplied reason="explanation">
-            <foreign>uṭaiya</foreign>
-            <note><ptr target="bib:Mahalingam1988_01"/><!--display of <ptr> to be implemented!--> simply translate as "of".</note>
-          </supplied> of Tāḻaiyūr, fell liberating <supplied reason="explanation">
-            <foreign>mīṭṭu</foreign>
-          </supplied> cattle when Ūṇamiṟaiyār, a hunter <supplied reason="explanation">
-            <foreign>vēṭṭuvar</foreign>
-          </supplied> <supplied reason="subaudible">of</supplied> Iḷavenmaṟukkōṭṭu <supplied reason="subaudible">in</supplied> Vēṇāṭu, seized cattle <supplied reason="subaudible">at</supplied> Tāḷaiyūr.
-      		</p>
-      </div>
-      <div resp="part:emfr" type="translation" xml:lang="fra"></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p>
-            	First edited by <bibl>
-            <ptr target="bib:Nakacami1972_01"/>
-          </bibl> (CN 1971/74); text and summary in <bibl>
-            <ptr target="bib:Mahalingam1988_01"/>
-          </bibl> (IP no. 306); encoded here for DHARMA (ERC n° 809994) by Emmanuel Francis (2021), based on previous editions.           	
+      
+<body>
+
+<div type="edition" xml:lang="tam-Latn">
+        
+        
+<p>
+                
+<lb n="1" />kō-vi
+<choice>
+  <sic>y</sic>
+  <corr>c</corr>
+</choice>aiya-nanti-paṉṟa
+                
+<lb n="2" break="no" />ṟ-araiyarkku yāṇṭu Iraṇṭ-āva
+                
+<lb n="3" break="no" />tu
+                
+        </p>
+        
+<p>
+                Ūṇamiṟaiyār vēṇāṭ-iḷa-veṇ
+                
+<lb n="4" break="no" />maṟu-k-kōṭṭu vēṭ
+<unclear>ṭu</unclear>var tāḻai
+<choice>
+  <orig>-Ū</orig>
+  <reg>-y-ū</reg>
+</choice>r
+                
+<lb n="5" />toṟu-k koṇ
+                
+<lb n="6" break="no" />ṭa ñāṉṟu tā
+                
+<lb n="7" break="no" />ḻai
+<choice>
+  <orig>-Ū</orig>
+  <reg>-y-ū</reg>
+</choice>r-uṭaiya
+                
+<lb n="8" />vaṇṇakka kaṭai
+                
+<lb n="9" break="no" />yaṉār toṟu
+                
+<lb n="10" />mīṭṭu paṭ
+                
+<lb n="11" break="no" />ṭār                      
+        </p>
+                                
+         </div>
+
+         
+<div type="apparatus">
+
+                
+<listApp>
+                        
+                        
+<app loc="1">
+                                
+<lem>°paṉṟa
+<lb n="2" break="no" />ṟ°</lem>
+                                
+<note>Probably to be emended to 
+<foreign>°paṉmar°</foreign>.</note>
+                        </app>
+                </listApp>
+
+         </div>
+
+        
+<div type="translation" resp="part:emfr">
+                
+                
+<p n="1-3">
+                        Second year of the victorious king, the king Nandivarman.
+                </p>
+                
+<p n="3-11">
+                        Vaṇṇakka Kaṭaiyaṉār, lord 
+<supplied reason="explanation">
+  <foreign>uṭaiya</foreign>
+  <note>
+  <ptr target="bib:Mahalingam1988_01" />  simply translate as "of".</note>
+</supplied> of Tāḻaiyūr, fell liberating 
+<supplied reason="explanation">
+  <foreign>mīṭṭu</foreign>
+</supplied> cattle when Ūṇamiṟaiyār, a hunter 
+<supplied reason="explanation">
+  <foreign>vēṭṭuvar</foreign>
+</supplied> 
+<supplied reason="subaudible">of</supplied> Iḷavenmaṟukkōṭṭu 
+<supplied reason="subaudible">in</supplied> Vēṇāṭu, seized cattle 
+<supplied reason="subaudible">at</supplied> Tāḷaiyūr.
+                </p>
+                
+        </div>
+        
+         
+<div type="translation" xml:lang="fra" resp="part:emfr">
+                
+         </div>
+
+         
+<div type="commentary">
+                
+         </div>
+
+         
+<div type="bibliography">
+
+            
+<p>
+                First edited by 
+<bibl>
+  <ptr target="bib:Nakacami1972_01" />
+</bibl> (CN 1971/74); text and summary in 
+<bibl>
+  <ptr target="bib:Mahalingam1988_01" />
+</bibl> (IP no. 306); encoded here for DHARMA (ERC n° 809994) by Emmanuel Francis (2021), based on previous editions.             
             </p>
-        <listBibl type="primary">
-          <bibl n="RN">
-            <ptr target="bib:Nakacami1972_01"/>
-            <citedRange unit="item">1971/74</citedRange>
-          </bibl>
-          <bibl n="TVM">
-            <ptr target="bib:Mahalingam1988_01"/>
-            <citedRange unit="page">700</citedRange>
-            <citedRange unit="item">306</citedRange>
-          </bibl>
-        </listBibl>
-        <!--<listBibl type="secondary">
-        		
-        		<bibl n="D"><!-\-Check Zotero encoding: IAR-\->
-        			<ptr target="bib:Deshpande1975_01"/>
-        			<citedRange unit="page">58</citedRange>
-        			<citedRange unit="item">37</citedRange>
-        		</bibl>
-        		
-        	</listBibl>-->
-        <!--Check if mentioned in IAR-->
-      </div>
-    </body>
-  </text>
+                
+                
+<listBibl type="primary">
+                        
+                        
+<bibl n="RN">
+                                
+<ptr target="bib:Nakacami1972_01" />
+                                
+<citedRange unit="item">1971/74</citedRange>
+                        </bibl>
+                        
+                        
+<bibl n="TVM">
+                                
+<ptr target="bib:Mahalingam1988_01" />
+                                
+<citedRange unit="page">700</citedRange>
+                                
+<citedRange unit="item">306</citedRange>
+                        </bibl>
+                                                                        
+                </listBibl>
+                
+                                
+         </div>
+
+      </body>
+  
+</text>
 </TEI>

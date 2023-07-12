@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00067</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,149 +62,162 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <p><lb n="1"/><g type="mangala"/>samvatsara-<choice>
-            <sic>ṣ</sic>
-            <corr>ś</corr>
-          </choice>at<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->e</supplied> ṣṭa-ṣaṣṭy-<choice>
-            <sic>
-              <unclear>o</unclear>
-            </sic>
-            <corr>u</corr>
-          </choice>t<supplied reason="omitted">t</supplied>are mahāmāgha-samvatsar<choice>
-            <sic>a</sic>
-            <corr>e</corr>
-          </choice> śrāvaṇa-<gap precision="low" quantity="4" reason="lost" unit="character"/><!-- 
-The mangala symbol, which Jain transcribes as siddham and Agrawala as oṁ, is inline, shaped like a 6 with the top extending a bit to the right. 
---><!-- 
-Jain reads the date as (śa)te saṭsasṭyuttare, emending to śate ṣaṭṣaṣṭyuttare. The ṣa characters are peculiar and resemble sa, but are quite distinct. Jain's editor K. V. Ramesh (Jain_1977:66n17) notes that the correct reading is 168. Both previous editors read ṣṭyu, but there is nothing there that I can identify as an u mātrā; on the other hand, there is certainly something that looks very much like an o mātrā on top of this character. 
---><!-- 
-Jain restores the lacuna as śrāvaṇa-māse pañcamyāṁ, which is plausible but far from the only candidate. We could have śukla or kr̥ṣṇa in place of māse, and the day could be 5, 7, 8, 9 or 10. 
---><lb break="no" n="2"/>myāṁ parama-deva-budhagupte rājani<supplied reason="subaudible">.</supplied> Asyā<unclear>ṁ</unclear> divasa-pūrvāyā<unclear>ṁ</unclear> śrīmahārāja-ṣā<unclear cert="low">ṭāna</unclear> <gap quantity="1" reason="illegible" unit="character"/> <gap precision="low" quantity="1" reason="lost" unit="character"/><!-- 
-Agrawala reads rājani for rājati. The n is completely clear in the photo; Agrawala may have been influenced by his [imo correct] reading of rājati in l3 of IN00066. 
---><!-- 
-Agrawala reads the name as sādana. Jain's reading was sāṭana (also proposing sāntana), while K. V. Ramesh (editorial note in Jain_1977:66n13) suggested sālana (or, alternatively, sāryana). Bakker_2014:29-30n76 tentatively suggests sādana and also tentatively restores varmma for the lost syllables. He says the second character resembles da in paradattām, line 6, as well as dra in rudra and bapidra, line 9. In my opinion the first character is ṣā beyond reasonable doubt. The second character seems quite different from la in l6 (but not so much from that in l9); very different from both da in l6 and from ṭa in l5. The lines are completely clear in the photo, but the identification is uncertain due to a lack of meaningful context. I think the most likely reading is ṭā (ḍā is also a possibility, if in l9 we have chadi, not chaḍi). The third character could, instead of na, also be sa, which is drawn cursively in e.g. sr̥ in l5 and su in l8. 
---><!-- 
-There is at least one further character after "na", and possibly another one that is lost completely. Jain reads the partially extant character as sa (and corrects to śa, see comment to next line). Agrawala reads the end as (sya). From the facsimile, neither seems credible; the character looks like ra or possibly ka to me. 
---><lb n="3"/>kulodbhūtena śrī-mahārāja-<unclear cert="low">b</unclear>ītavarmma-pautreṇa śrī-mahārāja-vijayavarmma-sute<supplied reason="lost"><!-- CHECK if <unclear> applies better.-->na</supplied><!-- 
-Jain reads the beginning of the line as ka(dauhi)tena, emending to śakadauhitreṇa (with the end of the previous line, see comment there). I concur with Agrawala and Bakker that kulodbhūtena is quite certain. 
---><!-- 
-Jain reads the first name as gītavarmma, Agrawala (tentatively) as śīlavarmma. The second character is quite certainly ta (unless it's bha); the first looks like bī but could also be pī or mī. gī is unlikely, compare bhagavatā in l6. Could this be a badly written mita, emendable to mitra? 
---><lb n="4"/><choice>
-            <sic>mahadavya</sic>
-            <corr>mahādevyāṁ</corr>
-          </choice> śarvasvāminyām utpanne<choice>
-            <sic>v</sic>
-            <corr>n</corr>
-          </choice>a śrī-mahārāja-harivarmmaṇā Asya brāhmaṇa-kauśa<!-- 
-The i mātrā in Harivarmma is not visible in Agrawala's plate, but quite clear in Jain's. 
---><!-- 
-Jain and Agrawala both read the last character as tsa, but it is clearly śa. Reading kauśika would suggest itself, but no i mātrā is visible, and it's very unlikely that there could have been another character after this, or at the beginning of the next line. Is there such a gotra as kauśa? 
---><lb break="no" n="5"/>-sagotra-gosvāmina <unclear>ta</unclear>ccit<unclear>r</unclear>apalyā tām<unclear>b</unclear>ra-paṭṭenāgrāhāro tisr̥ṣṭaḥ <unclear>A</unclear>karaḥ A-c<choice>
-            <sic>a</sic>
-            <corr>ā</corr>
-          </choice>ṭa-bhaṭa-prā<!-- 
-Jain and Agrawala read taccitrapalya and emend to etac°, Agrawala noting that asya... gosvāminaḥ should correctly be asmai ... gosvāmine (though I see no problem with a genitive). There is something after na that may be a subscript sa inserted as a correction; it is quite certainly not a visarga. The next character looks more like bha than ta. Both editors seem fine with °palya, but I think the reading is lyā. The most likely intended text was gosvāminas taccitrapallyāṁ. 
---><!-- 
-Agrawala reads tā(mmra), while Jain reads tāmu and emends to tāmra. I am quite certain the correct reading is tāmbra. 
---><!-- 
-Both editors read āgrahāro, but it's clearly grā. 
---><!-- 
-Jain and Agrawala read cāṭa, but there's no trace of a vowel mātrā. 
---><lb break="no" n="6"/>v<unclear>e</unclear>śya<supplied reason="omitted">ḥ</supplied> ca<supplied reason="omitted">ṁ</supplied>dra-tārārkka-samakālīyaḥ| Uktañ ca bhagavatā vyāsena<!-- 
-Jain and Agrawala print candra, but the reading is cadra. 
---><!-- 
-The punctuation mark is a single vertical bar. 
---></p>
-        <lg met="anuṣṭubh" n="1">
-          <l n="a">svadattā<supplied reason="omitted">ṁ</supplied> para-dattām <unclear>b</unclear>ā</l>
-          <l n="b"><unclear>y</unclear>o <lb n="7"/>hareta basundharāṁ<!-- 
-Jain and Agrawala read vā and vasundharāṁ, but the former is probably, the latter is clearly b. 
---></l>
-          <l n="c">s<unclear>v</unclear>a-viṣṭhāyāṁ kr̥mir bh<unclear>ū</unclear>tvā</l>
-          <l n="d">pitr̥bhiḥ saha maj<sic>y</sic>ate</l>
-        </lg>
-        <lg met="anuṣṭubh" n="2">
-          <l n="a">bahubhir vvasudh<unclear>ā</unclear> <lb n="8"/>bhuktā</l>
-          <l n="b">rājabhiḥ sa<choice>
-              <sic>k</sic>
-              <corr>g</corr>
-            </choice>arādibhi<supplied reason="omitted">ḥ</supplied></l>
-          <l n="c">yasya yasya yadā bh<choice>
-              <sic>u</sic>
-              <corr>ū</corr>
-            </choice>mis</l>
-          <l n="d">tasya tasya tadā phalaṁ</l>
-        </lg>
-        <p><lb n="9"/>kumārāmātya-bhagava<unclear>mūla</unclear> chaḍi-bhogika mahāpratīhāra-<unclear>lu</unclear>ṭhanaḥ bapila-bhogika<!-- 
-There seems to be a small space before and after chaḍibhogika. This may be random (character spacing varies a lot throughout the inscription) or it may be meant for segmentation. 
---><!-- 
-For my bhagava(mūla), Jain reads bhagavadrudra. I think the reading is out of question, though I'm far from sure about mine. mū could be pū or even sū, and la could be something else too, but definitely not dra (which is completely different in l6). 
---><!-- 
-For my chaḍi, Jain reads chadi (Agrawala has °cchadi, which must be a typo). I believe ḍ is more likely than d. 
---><!-- 
-For the second name Jain reads lavaṇa, Agrawala lavana. But va is out of the question and la is not very convincing (na, not ṇa, is certain). 
---><!-- 
-Jain and Agrawala read bapidra instead of bapila. The character is probably the same as in bhagavamūla earlier in this line, and totally different from dra in l6. 
---><!-- 
-At the end of this line Jain (as cited by Agrawala) reads bhogik(e)na. There is certainly no na at the end. 
---><lb break="no" n="10"/>-<unclear>dū</unclear>takana likhitaṁ <unclear cert="low">ru</unclear>ya<unclear cert="low">ṣṭa</unclear> <space/> rājena nāga<unclear>sa</unclear>rma<unclear>sya</unclear><!-- 
-Here dū (if dū it is) is followed by two dots looking like a visarga, but given that taka is quite clear after it, the reading dūtaka is convincing and the dots (not circles) are random. The na is misshapen and could perhaps be something else. 
---><!-- 
-After likhitaṁ, Jain reads ruyaṣṭarājena, and his editor Ramesh remarks that the intended reading must have been śrī, which Agrawal accepts. But śrī is practically impossible; ru or rū is possible; ka (with the left limb gone or never engraved) would be a more daring guess. For the third character, ṣṭa is possible, but so are pta or pū. Can it be that the intended word was kāyastha, which would fit the context? I haven't heard of a kāyastharāja before, but compare sthapatisamrāṭ in IN00082 and IN00083. Or rāja could be the name of a kāyastha. 
---><!-- 
-At the end Jain and Agrawala read nāgasarmasu, restoring to nāgasarmasutena. The bottom of the plate is broken off after this point, but if there had been any further characters, then their tops ought to be visible on what's left of the copper. So sutena is unlikely, though theoretically there could have been as many as 8-10 further characters inscribed a bit lower down thatn the first part of this line. The last extant (and thus probably the last original) character does not look like su. It could well be sya (though none of the four sya-s in l8 look quite like this). Other possibilities include ṣta or ṣṭha. 
---><!-- 
-So can we make sense of this? How many people are we are dealing with? It would be most straightforward to assume three : a top courtier who issued (and probably composed) the order, a middling official who conveyed it to the scriptorium as dūtaka, and lower official who drew it on the plate to be engraved. For this we could emend to something like this: kumārāmātyo bhagavamūlaś chaḍi-bhōgikaḥ| mahāpratīhāro luṭhano bapila-bhogiko dūtakaḥ| likhitaṁ kāyastharājena nāgaśarmanā| "[Issued by] kumārāmātya Bhagavamūla, the bhogika of [the province called] Chaḍi. The messenger was mahāpratīhāra Luṭhana, the bhogika of Bapila. Written by the chief kāyastha, Nāgaśarman." This is pretty far removed from the text we have, but I don't think anything closer to it can make much sense. 
---></p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<p>
+<lb n="1" />
+<g type="mangala" />samvatsara-
+<choice>
+  <sic>ṣ</sic>
+  <corr>ś</corr>
+</choice>at
+<supplied reason="lost">e</supplied> ṣṭa-ṣaṣṭy-
+<choice>
+  <sic>
+    <unclear>o</unclear>
+  </sic>
+  <corr>u</corr>
+</choice>t
+<supplied reason="omitted">t</supplied>are mahāmāgha-samvatsar
+<choice>
+  <sic>a</sic>
+  <corr>e</corr>
+</choice> śrāvaṇa-
+<gap reason="lost" precision="low" quantity="4" unit="character" />
+<lb n="2" break="no" />myāṁ parama-deva-budhagupte rājani
+<supplied reason="subaudible">.</supplied> Asyā
+<unclear>ṁ</unclear> divasa-pūrvāyā
+<unclear>ṁ</unclear> śrīmahārāja-ṣā
+<unclear cert="low">ṭāna</unclear> 
+<gap reason="illegible" quantity="1" unit="character" /> 
+<gap reason="lost" precision="low" quantity="1" unit="character" />
+<lb n="3" />kulodbhūtena śrī-mahārāja-
+<unclear cert="low">b</unclear>ītavarmma-pautreṇa śrī-mahārāja-vijayavarmma-sute
+<supplied reason="lost">na</supplied>
+<lb n="4" />
+<choice>
+  <sic>mahadavya</sic>
+  <corr>mahādevyāṁ</corr>
+</choice> śarvasvāminyām utpanne
+<choice>
+  <sic>v</sic>
+  <corr>n</corr>
+</choice>a śrī-mahārāja-harivarmmaṇā Asya brāhmaṇa-kauśa
+<lb n="5" break="no" />-sagotra-gosvāmina 
+<unclear>ta</unclear>ccit
+<unclear>r</unclear>apalyā tām
+<unclear>b</unclear>ra-paṭṭenāgrāhāro tisr̥ṣṭaḥ 
+<unclear>A</unclear>karaḥ A-c
+<choice>
+  <sic>a</sic>
+  <corr>ā</corr>
+</choice>ṭa-bhaṭa-prā
+<lb n="6" break="no" />v
+<unclear>e</unclear>śya
+<supplied reason="omitted">ḥ</supplied> ca
+<supplied reason="omitted">ṁ</supplied>dra-tārārkka-samakālīyaḥ| Uktañ ca bhagavatā vyāsena</p>
+<lg n="1" met="anuṣṭubh">
+<l n="a">svadattā
+<supplied reason="omitted">ṁ</supplied> para-dattām 
+<unclear>b</unclear>ā</l>
+<l n="b">
+<unclear>y</unclear>o 
+<lb n="7" />hareta basundharāṁ</l>
+<l n="c">s
+<unclear>v</unclear>a-viṣṭhāyāṁ kr̥mir bh
+<unclear>ū</unclear>tvā</l>
+<l n="d">pitr̥bhiḥ saha maj
+<sic>y</sic>ate</l>
+</lg>
+<lg n="2" met="anuṣṭubh">
+<l n="a">bahubhir vvasudh
+<unclear>ā</unclear> 
+<lb n="8" />bhuktā</l>
+<l n="b">rājabhiḥ sa
+<choice>
+  <sic>k</sic>
+  <corr>g</corr>
+</choice>arādibhi
+<supplied reason="omitted">ḥ</supplied></l>
+<l n="c">yasya yasya yadā bh
+<choice>
+  <sic>u</sic>
+  <corr>ū</corr>
+</choice>mis</l>
+<l n="d">tasya tasya tadā phalaṁ</l>
+</lg>
+<p>
+<lb n="9" />kumārāmātya-bhagava
+<unclear>mūla</unclear> chaḍi-bhogika mahāpratīhāra-
+<unclear>lu</unclear>ṭhanaḥ bapila-bhogika
+<lb n="10" break="no" />-
+<unclear>dū</unclear>takana likhitaṁ 
+<unclear cert="low">ru</unclear>ya
+<unclear cert="low">ṣṭa</unclear> 
+<space /> rājena nāga
+<unclear>sa</unclear>rma
+<unclear>sya</unclear></p>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

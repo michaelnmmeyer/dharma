@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -29,9 +35,6 @@
         <authority>DHARMA</authority>
         <pubPlace>Berlin</pubPlace>
         <idno type="filename">DHARMA_INSSiddham00094</idno>
-        <!-- 
-If this file is moved into a named DHARMA corpus, retain the Siddham identifier as <altIdentifier> 
--->
         <availability>
           <licence target="https://creativecommons.org/licenses/by/4.0/">
             <p>This work is licensed under the Creative Commons Attribution 4.0 Unported Licence. To view a copy of the licence, visit thttps://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.</p>
@@ -44,14 +47,14 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
         <msDesc>
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
+            <idno />
           </msIdentifier>
           <msContents>
-            <summary/>
+            <summary />
           </msContents>
           <physDesc>
             <handDesc>
-              <p/>
+              <p />
             </handDesc>
           </physDesc>
         </msDesc>
@@ -59,174 +62,152 @@ If this file is moved into a named DHARMA corpus, retain the Siddham identifier 
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_V01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_V01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-05-15" who="part:daba">Additional global changes for compatibility with DHARMA</change>
-      <change status="draft" when="2021-07-06" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-08-04" who="part:daba">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
+      <change who="part:daba" when="2023-05-15" status="draft">Additional global changes for compatibility with DHARMA</change>
+      <change who="part:axja" when="2021-07-06" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:daba" when="2020-08-04" status="draft">Initial import: harmonising file structure with DHARMA inscription template v02. Text and comments as inherited from the Siddham archive of January 2019, unless otherwise indicated (by a name and date in the comment). Comments are offered "as is" and do not represent a thoroughly considered or researched opinion.</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div rendition="class:83225 maturity:83211" type="edition" xml:lang="san-Latn">
-        <!-- 
-This inscription is digitally edited by Dániel Balogh from Fleet's impression and from photographs of the original pillar (taken in situ in January 2017). Alternative opinions and translations are cited from Fleet (F) and Sircar's SI. Encoded for Siddham by Dániel Balogh. Version of January 2019. Comments below are offered "as is" and do not represent a thoroughly researched or considered opinion. 
--->
-        <!-- 
-Punctuation signs throughout are short horizontals for | at half-verses and double verticals for || at verse ends. The last punctuation sign at the end of the inscription has a hook atop the left vertical, but the others are all unhooked. 
--->
-        <lg met="sragdharā" n="1">
-          <l n="a"><lb n="1"/>vepante yasya bhīma-stanita-bhaya-samudbhrānta-daityā digantāḥ</l>
-          <l n="b">śr̥ṅgāghātaiḥ sumeror vv<unclear>i</unclear>ghaṭita-dr̥ṣadaḥ kandarā yaḥ karoti|</l>
-          <l n="c">Ukṣāṇaṁ taṁ dadhānaḥ kṣitidhara-tanayā-datta-<unclear>pañcāṅgulā</unclear>ṅkaṁ</l>
-          <l n="d">drāghiṣṭhaḥ śūlapāṇeḥ kṣapayatu bhavatāṁ śatru-tejā<sic>ṅ</sic>si ketuḥ||</l>
-          <!-- 
-L1. The reading śatru is clear (so too Fleet and SI), yet IN00095 has śattru here. 
--->
-        </lg>
-        <lg met="sragdharā" n="2">
-          <l n="a"><lb n="2"/>Āvirbhūtāvalepair avinaya-paṭubhir llaṅghitācāra-<unclear>mā</unclear>rggair</l>
-          <l n="b">mmohād aidaṁyugīnair apaśubha-ratibhiḥ pīḍyamānā narendraiḥ|</l>
-          <l n="c">yasya kṣmā śārṅgapāṇer iva kaṭhina-dhanur-jyā-kiṇā<unclear>ṅka</unclear>-prakoṣṭha<unclear>ṁ</unclear></l>
-          <l n="d">bāhuṁ lokopakāra-vrata-saphala-parispanda-dhīraṁ prapannā||</l>
-          <!-- 
-L2. According to SI, parispanda looks like parispandi. There is a scratch above nda, more visible in the rubbing than in the original, but it is not an i mātrā. 
--->
-        </lg>
-        <lg met="sragdharā" n="3">
-          <l n="a"><lb n="3"/>nindyācāreṣu yo <supplied reason="subaudible">’</supplied><unclear>s</unclear>min vinaya-muṣi yuge kalpanā-māttra-vr̥t<supplied reason="omitted">t</supplied>yā</l>
-          <l n="b">rājasv anyeṣu pā<sic>ṅ</sic>suṣv iva kusuma-balir nnābabhāse prayuktaḥ|</l>
-          <l n="c">sa śreyo-dhāmni samrāḍ iti manu-bharatālarkka-<unclear>māndhā</unclear>tr̥-kalpe</l>
-          <l n="d">kalyāṇe hemni bhāsvān maṇir iva sutarāṁ bhrājate yattra śabdaḥ||</l>
-        </lg>
-        <!-- 
-V3. Fleet 1888 translates "He who ... through the action simply of (his good) intentions shone gloriously, not associating with other kings ... just as an offering of flowers (is beautiful when it is not laid down in the dust); he in whom ... the title of "universal sovereign" shines more...". But yo in 3a points to śabdaḥ, and only yattra refers to Yaśodharman. (In the same way, ye in the next verse goes with deśāṁs, and only yo points to YD.) Revised by Fleet 1889 (on suggestion of Kielhorn); SI agrees with the revision.) 
--->
-        <lg met="sragdharā" n="4">
-          <l n="a"><lb n="4"/>ye bhuktā gupta-nāthair nna sakala vasudhākkrānti-dr̥ṣṭa-pratāpair</l>
-          <l n="b">nnājñā hūṇādhipānāṁ kṣitipati-mukuṭāddhyāsinī yān praviṣṭā|</l>
-          <l n="c">deśāṁs tān dhanva-śaila-druma-<choice>
-              <sic>ś</sic>
-              <corr>g</corr>
-            </choice>ahana-sarid-vīra-bāhūpagūḍhān</l>
-          <l n="d">vīryāvaskanna-rājñaḥ sva-gr̥ha-parisarāvajñayā yo bhunakti</l>
-          <!-- 
-L4. vīryā with single y, consisting of almost-normal r (shortened, but not superscript) and subscript y. 
--->
-        </lg>
-        <!-- 
-V4. Fleet translates "spurning (the confinement of) the boundaries of his own house, enjoys those countries". #Mirashi_1980b:412, however, notes that according to Aṣṭādhyāyī 1.3.66 the root bhuj always takes ātmanepada except when it means "protect", i.e. it means protect here, because it is parasmaipada. He therefore suggests that YD is not claiming to hold more lands than the Guptas and Huns, but to protect his own lands "with as little concern as he does the courtyard of his own house" in spite of the Guptas' and Huns' attempts to conquer them. I'm not sure the grammatical point is strong evidence (after all, compare the next verse) and vīryāvaskanna-rājñaḥ is problematic with that interpretation, yet there may be something to it. Regardless of this, the interpretation that he does this with the same contempt he has for his own courtyard may be better than Fleet's. 
--->
-        <lg met="sragdharā" n="5">
-          <l n="a"><lb n="5"/>Ā lauhityopakaṇṭhāt tala-vana-gahanopatyakād ā mahendrād</l>
-          <l n="b">ā gaṅgāśliṣṭa-sānos tuhina-śikhariṇaḫ paścimād ā payodheḥ|</l>
-          <!-- 
-L5. This is the only upadhmānīya in the inscription, compare madaiḥ pādayor just a few words onward. It looks like two separate loops attached to the top of p. 
--->
-          <l n="c">sāmantair yasya bāhu-draviṇa-hr̥ta-madaiḥ pādayor ānamadbhiś</l>
-          <!-- 
-L5. Fleet_1888:145 calls attention to the use of inline rather than superscript r, combined with a single y, in sāmantair yasya as well as in vīrya in l4 above. Though there is no apparent reason in l4, I must note that here the use of this glyph must have been for the sake of calligraphy, which is very careful throughout the inscription. Here, ntai extends below the line so there would have been no room to extend the lower ya of a ryya to the left, while using this rya character, there is room both for ntai and for the extended loop of the following sya. 
--->
-          <l n="d">cūḍā-ratnā<sic>ṅ</sic>śu-rāji-vyatikara-śabalā bhūmi-bhāgāḥ kriyante||</l>
-        </lg>
-        <lg met="sragdharā" n="6">
-          <l n="a"><lb n="6"/>sthāṇor anyattra yena praṇati-kr̥paṇatāṁ prāpitaṁ nottamāṅgaṁ</l>
-          <!-- 
-L6. Fleet prints prāpitāṁ, but his rubbing shows prāpitaṁ, which is what is required by the syntax. Pathak 1908:97 suggests emending to prāpitaṁ, but ā is probably just a typo in Fleet's text. SI prints prāpitaṁ. 
--->
-          <l n="b">yasyāśliṣṭo bhujābhyāṁ vahati hima-girir durgga-śabdābhimānaM|</l>
-          <!-- 
-L6. Fleet's translation of v6 takes the first two lines to refer to YD; the suggestion that they refer to Mihirakula are from Kielhorn in Fleet 1889. 
--->
-          <!-- 
-L6. Note rd not doubled in girir durgga. 
--->
-          <!-- 
-L6. The halanta m is indistinct in both the rubbing and the photo, but seems to be a small subscript character with an elongated stem, in shape resembling la. However, the M in l8 is just a small simplified subscript character with a line above it, so there may be a scratch on the stone here. 
--->
-          <l n="c">nīcais tenāpi yasya praṇati-bhuja-balāvarjjana-kliṣṭa-mūrddhnā</l>
-          <l n="d">cūḍā-puṣpopahārair mmihirakula-nr̥peṇārccitaṁ pāda-yugmaṁ||</l>
-        </lg>
-        <lg met="sragdharā" n="7">
-          <l n="a"><lb n="7"/><supplied cert="low" reason="lost"><!-- CHECK if <unclear> applies better.-->dhā</supplied>mevonmātum ūrddhvaṁ vigaṇayitum iva jyotiṣāṁ cakkravālaṁ</l>
-          <!-- 
-L7. The first character, which Fleet reads tentatively as gā, is completely weathered away. Neither Fleet's rubbing nor my photos show any recognisable vestige, though 1010031 shows this area sharply. Fleet translates gām eva with "as if to measure out the earth", Bakker in Portfolio translates "as if to measure the earth from above." However, we should probably have something meaning "to measure the sky" here. Compare unmāpayad iva vyoma in v23 l18 of Risthal. (Fleet takes ūrdhvaṁ with the stars, but the caesura to some extent also implies it should go with the first part of the line.) Gām ūrdhvam could very well mean "the sky" and I can't exclude that restoration, but I feel eva ivārthe would be very bad form, and therefore propose to restore dhāmevonmātum. 
--->
-          <l n="b">nirddeṣṭuṁ mārggam uccair ddiva Iva sukr̥topārjjitāyāḥ sva-kīrtteḥ|</l>
-          <l n="c">tenākalpānta-kālāvadhir avanibhujā śrī-yaśodharmmaṇāyaṁ</l>
-          <l n="d">stambhaḥ stambhābhirāma-sthira-bhuja-parigheṇocchritiṁ nāyito <supplied reason="subaudible">’</supplied>ttra||</l>
-        </lg>
-        <lg met="sragdharā" n="8">
-          <l n="a"><lb n="8"/><unclear>śl</unclear>āghye janmāsya va<sic>ṅ</sic>śe caritam agha-haraṁ dr̥śyate kā<unclear>n</unclear>tam asmin</l>
-          <!-- 
-L8. caritam agha-haraṁ may be a parallel for vinaya-muṣi yuge as both are better interpreted not as actively "removing" but simply "lacking". Semantically they are also a nice counterpoint to one another. 
--->
-          <l n="b">dharmmasyāyaṁ niketaś calati niyamitaṁ nāmunā loka-vr̥ttaM</l>
-          <!-- 
-L8. The halanta M is a greatly simplified and very small subscript character with a line above it. There is no separate punctuation sign. 
--->
-          <!-- 
-L8. Kielhorn 1891:188 suggests changing Fleet's translation "customs of mankind continue current, unimpeded (in any way) by him" to "controlled by him, the conduct of mankind does not swerve (from the right course)". SI agrees, so do I. 
--->
-          <l n="c">Ity utkarṣaṁ guṇānāṁ likhitum iva yaśodharmmaṇaś candra-bimbe</l>
-          <l n="d">rāgād utkṣipta Uccair bhuja Iva rucimān yaḥ pr̥thivyā vibhāti||</l>
-        </lg>
-        <lg met="anuṣṭubh" n="9">
-          <l n="a"><lb n="9"/><unclear>I</unclear>ti tuṣṭūṣayā tasya</l>
-          <l n="b">nr̥pateḥ puṇya-karmmaṇaḥ|</l>
-          <!-- 
-L9. The characters in the last line are widely (and unevenly) spaced out to fill the line. 
--->
-          <!-- 
-L9. at the end of v9a there seems to be a punctuation mark separate from the visarga (as transcribed by Fleet), but the rubbing is unclear and the photo shows nothing. 
--->
-          <l n="c">vāsulenoparacitāḥ</l>
-          <l n="d">ślokāḥ kakkasya sūnunā||</l>
-        </lg>
-        <p>Utkīrṇṇā govindena||<!-- 
-L9. The vi of govindena has a mātrā extending down on the left-hand side of the va and curling back up - a sort of signature flourish, since all other i mātrās in the inscription seem to be only above the top. 
---><!-- 
-L9. The closing punctuation is also a double vertical like previous verse-end markers, but this one also has a distinct hook at the top left, which was not present at the verse ends. 
---></p>
-      </div>
-      <div type="apparatus">
-        <listApp>
-          <app loc="line">
-            <lem/>
-            <rdg source="bib:AuthorYear_01"/>
-          </app>
-        </listApp>
-      </div>
-      <div source="bib:AuthorYear_01" type="translation"><!--Indicate @resp or change @source when a translation is added --></div>
-      <div type="commentary"></div>
-      <div type="bibliography">
-        <p/>
-        <listBibl type="primary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-        <listBibl type="secondary">
-          <bibl n="siglum">
-            <ptr target="bib:AuthorYear_01"/>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+                
+<body>
+                        
+<div type="edition" xml:lang="san-Latn" rendition="class:83225 maturity:83211">
+<lg n="1" met="sragdharā">
+<l n="a">
+<lb n="1" />vepante yasya bhīma-stanita-bhaya-samudbhrānta-daityā digantāḥ</l>
+<l n="b">śr̥ṅgāghātaiḥ sumeror vv
+<unclear>i</unclear>ghaṭita-dr̥ṣadaḥ kandarā yaḥ karoti|</l>
+<l n="c">Ukṣāṇaṁ taṁ dadhānaḥ kṣitidhara-tanayā-datta-
+<unclear>pañcāṅgulā</unclear>ṅkaṁ</l>
+<l n="d">drāghiṣṭhaḥ śūlapāṇeḥ kṣapayatu bhavatāṁ śatru-tejā
+<sic>ṅ</sic>si ketuḥ||</l></lg>
+<lg n="2" met="sragdharā">
+<l n="a">
+<lb n="2" />Āvirbhūtāvalepair avinaya-paṭubhir llaṅghitācāra-
+<unclear>mā</unclear>rggair</l>
+<l n="b">mmohād aidaṁyugīnair apaśubha-ratibhiḥ pīḍyamānā narendraiḥ|</l>
+<l n="c">yasya kṣmā śārṅgapāṇer iva kaṭhina-dhanur-jyā-kiṇā
+<unclear>ṅka</unclear>-prakoṣṭha
+<unclear>ṁ</unclear></l>
+<l n="d">bāhuṁ lokopakāra-vrata-saphala-parispanda-dhīraṁ prapannā||</l></lg>
+<lg n="3" met="sragdharā">
+<l n="a">
+<lb n="3" />nindyācāreṣu yo 
+<supplied reason="subaudible">’</supplied>
+<unclear>s</unclear>min vinaya-muṣi yuge kalpanā-māttra-vr̥t
+<supplied reason="omitted">t</supplied>yā</l>
+<l n="b">rājasv anyeṣu pā
+<sic>ṅ</sic>suṣv iva kusuma-balir nnābabhāse prayuktaḥ|</l>
+<l n="c">sa śreyo-dhāmni samrāḍ iti manu-bharatālarkka-
+<unclear>māndhā</unclear>tr̥-kalpe</l>
+<l n="d">kalyāṇe hemni bhāsvān maṇir iva sutarāṁ bhrājate yattra śabdaḥ||</l>
+</lg>
+<lg n="4" met="sragdharā">
+<l n="a">
+<lb n="4" />ye bhuktā gupta-nāthair nna sakala vasudhākkrānti-dr̥ṣṭa-pratāpair</l>
+<l n="b">nnājñā hūṇādhipānāṁ kṣitipati-mukuṭāddhyāsinī yān praviṣṭā|</l>
+<l n="c">deśāṁs tān dhanva-śaila-druma-
+<choice>
+  <sic>ś</sic>
+  <corr>g</corr>
+</choice>ahana-sarid-vīra-bāhūpagūḍhān</l>
+<l n="d">vīryāvaskanna-rājñaḥ sva-gr̥ha-parisarāvajñayā yo bhunakti</l></lg>
+<lg n="5" met="sragdharā">
+<l n="a">
+<lb n="5" />Ā lauhityopakaṇṭhāt tala-vana-gahanopatyakād ā mahendrād</l>
+<l n="b">ā gaṅgāśliṣṭa-sānos tuhina-śikhariṇaḫ paścimād ā payodheḥ|</l>
+<l n="c">sāmantair yasya bāhu-draviṇa-hr̥ta-madaiḥ pādayor ānamadbhiś</l>
+<l n="d">cūḍā-ratnā
+<sic>ṅ</sic>śu-rāji-vyatikara-śabalā bhūmi-bhāgāḥ kriyante||</l>
+</lg>
+<lg n="6" met="sragdharā">
+<l n="a">
+<lb n="6" />sthāṇor anyattra yena praṇati-kr̥paṇatāṁ prāpitaṁ nottamāṅgaṁ</l>
+<l n="b">yasyāśliṣṭo bhujābhyāṁ vahati hima-girir durgga-śabdābhimānaM|</l>
+<l n="c">nīcais tenāpi yasya praṇati-bhuja-balāvarjjana-kliṣṭa-mūrddhnā</l>
+<l n="d">cūḍā-puṣpopahārair mmihirakula-nr̥peṇārccitaṁ pāda-yugmaṁ||</l>
+</lg>
+<lg n="7" met="sragdharā">
+<l n="a">
+<lb n="7" />
+<supplied reason="lost" cert="low">dhā</supplied>mevonmātum ūrddhvaṁ vigaṇayitum iva jyotiṣāṁ cakkravālaṁ</l>
+<l n="b">nirddeṣṭuṁ mārggam uccair ddiva Iva sukr̥topārjjitāyāḥ sva-kīrtteḥ|</l>
+<l n="c">tenākalpānta-kālāvadhir avanibhujā śrī-yaśodharmmaṇāyaṁ</l>
+<l n="d">stambhaḥ stambhābhirāma-sthira-bhuja-parigheṇocchritiṁ nāyito 
+<supplied reason="subaudible">’</supplied>ttra||</l>
+</lg>
+<lg n="8" met="sragdharā">
+<l n="a">
+<lb n="8" />
+<unclear>śl</unclear>āghye janmāsya va
+<sic>ṅ</sic>śe caritam agha-haraṁ dr̥śyate kā
+<unclear>n</unclear>tam asmin</l>
+<l n="b">dharmmasyāyaṁ niketaś calati niyamitaṁ nāmunā loka-vr̥ttaM</l>
+<l n="c">Ity utkarṣaṁ guṇānāṁ likhitum iva yaśodharmmaṇaś candra-bimbe</l>
+<l n="d">rāgād utkṣipta Uccair bhuja Iva rucimān yaḥ pr̥thivyā vibhāti||</l>
+</lg>
+<lg n="9" met="anuṣṭubh">
+<l n="a">
+<lb n="9" />
+<unclear>I</unclear>ti tuṣṭūṣayā tasya</l>
+<l n="b">nr̥pateḥ puṇya-karmmaṇaḥ|</l>
+<l n="c">vāsulenoparacitāḥ</l>
+<l n="d">ślokāḥ kakkasya sūnunā||</l>
+</lg>
+<p>Utkīrṇṇā govindena||</p>
+                        </div>
+                                
+<div type="apparatus">
+                        
+<listApp>
+                                
+<app loc="line">
+                                
+<lem />
+                                
+<rdg source="bib:AuthorYear_01" />
+                                </app>
+                        </listApp>
+                </div>
+                
+<div type="translation" source="bib:AuthorYear_01">                </div>
+                
+<div type="commentary">
+                </div>
+                
+<div type="bibliography">
+                        
+<p />
+                        
+<listBibl type="primary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                        
+<listBibl type="secondary">
+                                
+<bibl n="siglum">
+  <ptr target="bib:AuthorYear_01" />
+</bibl>
+                        </listBibl>
+                </div>
+                </body>
+        
+</text>
 </TEI>

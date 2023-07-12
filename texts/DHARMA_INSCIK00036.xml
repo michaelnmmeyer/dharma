@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -35,28 +41,17 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
-              <p>The letters of the first two lines are bigger than the rest.
-                        <!-- The script name(s) will be inserted here at a later stage from the metadata spreasheet. At this stage, you can mention here in a free-text paragraph any characteristics of the writing observed more than once in this inscription that seem unusual/uncommon or otherwise noteworthy given the general characteristics of the script in question. See EG 11.2. --></p>
-              <!-- If you need to identify individual hands (EG §7.5/) in addition to one or more paragraphs of general palaeographic description, wrap <summary> around the <p> or <p>s above, and, outside <summary>, create <handNote> elements for each hand as follows:
-						<summary><p><p/></summary>
-						<handNote xml:id="Pallava00001_hand1"></handNote>
-						<handNote xml:id="Pallava00001_hand2"></handNote>
-					 -->
+              <p>The letters of the first two lines are bigger than the rest. </p>
             </handDesc>
           </physDesc>
         </msDesc>
@@ -64,136 +59,192 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2023-04-05" who="part:kuch">Adding paleographical remark and modifications to edition</change>
-      <change status="draft" when="2021-10-06" who="part:kuch">Initial encoding of the inscritpion</change>
+      <change who="part:kuch" when="2023-04-05" status="draft">Adding paleographical remark and modifications to edition</change>
+      <change who="part:kuch" when="2021-10-06" status="draft">Initial encoding of the inscritpion</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="san-Latn">
-        <lg met="anuṣṭubh" n="1">
-          <l n="a"><lb n="1"/><milestone n="a" unit="column"/><seg met="====-++">
-              <gap quantity="7" reason="lost" unit="character"/>
-            </seg>tra</l>
-          <l n="b"><milestone n="b" unit="column"/>vāsudevāya vai namaḥ</l>
-          <l n="c">
-            <lb n="2"/>
-            <milestone n="a" unit="column"/>
-            <seg met="====-++=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="d"><milestone n="b" unit="column"/>dātā tāṁ śaranārthine <g type="dDandaOrn">.</g></l>
-        </lg>
-        <lg met="anuṣṭubh" n="2">
-          <l n="a">
-            <lb n="3"/>
-            <milestone n="a" unit="column"/>
-            <seg met="====-++=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b"><milestone n="b" unit="column"/><seg met="====-+-=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>i</l>
-          <l n="c"><milestone n="c" unit="column"/>so nāmnā vāsudevo hi</l>
-          <l n="d"><milestone n="d" unit="column"/>karmmidharmmapa<supplied reason="lost">rāyanaḥ <g type="dDandaOrn">.</g></supplied></l>
-        </lg>
-        <lg met="anuṣṭubh" n="3">
-          <l n="a">
-            <lb n="4"/>
-            <milestone n="a" unit="column"/>
-            <seg met="====-++=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b">
-            <milestone n="b" unit="column"/>
-            <seg met="====-+-=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="c"><milestone n="c" unit="column"/><seg met="=">
-              <gap quantity="1" reason="lost" unit="character"/>
-            </seg> yo 'rccā sthāpitā tena</l>
-          <l n="d"><milestone n="d" unit="column"/>bhakty<supplied reason="lost">ā</supplied> <seg met="==-+-=">
-              <gap quantity="6" reason="lost" unit="character"/>
-            </seg> <supplied reason="lost">
-              <g type="dDandaOrn">.</g>
-            </supplied></l>
-        </lg>
-        <lg met="anuṣṭubh" n="4">
-          <l n="a">
-            <lb n="5"/>
-            <milestone n="a" unit="column"/>
-            <seg met="====-++=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="b">
-            <milestone n="b" unit="column"/>
-            <seg met="====-+-=">
-              <gap quantity="8" reason="lost" unit="character"/>
-            </seg>
-          </l>
-          <l n="c"><milestone n="c" unit="column"/><seg met="====-">
-              <gap quantity="5" reason="lost" unit="character"/>
-            </seg> taṁ lakṣmī<milestone break="no" n="d" unit="column"/>r</l>
-          <l n="d">vviṣṇor ṇnanda <seg met="-+-=">
-              <gap quantity="4" reason="lost" unit="character"/>
-            </seg> <supplied reason="lost">
-              <g type="dDandaOrn">.</g>
-            </supplied></l>
-        </lg>
-      </div>
-      <!-- <div type="apparatus">
-               <listApp>
-                  <app loc="line">
-                     <lem></lem>
-                     <rdg source="bib:AuthorYear_01"></rdg>
-                  </app>
-               </listApp>         
-         </div> -->
-      <div source="bib:Coedes1937-1966_01" type="translation" xml:lang="fra">
-        <p n="1" rend="stanza">Hommage à Vāsudeva <gap reason="lost"/> qui donne cette <gap reason="lost"/> à qui cherche refuge en lui.</p>
-        <p n="2" rend="stanza">Le nommé Vāsudeva n'ayant en vue que la règle des pratiquants <gap reason="lost"/>.</p>
-        <p n="3" rend="stanza"><gap reason="lost"/> par lui une image a été érigée avec dévotion <gap reason="lost"/>.</p>
-        <p n="4" rend="stanza"><gap reason="lost"/> Lakṣmī <gap reason="lost"/> de Viṣṇu <gap reason="lost"/>.</p>
-      </div>
-      <div type="commentary">
-        <p>The inscription is fragmentary. Only the space between the <foreign>pāda</foreign>s c and d of the last stanzas can be seen in the available fragment. The <foreign>pāda</foreign> c does not seem well aligned.</p>
-      </div>
-      <div type="bibliography">
-        <p>First edited by George Cœdès (<bibl rend="omitname">
-            <ptr target="bib:Coedes1937-1966_01"/>
-            <citedRange unit="volume">2</citedRange>
-            <citedRange unit="page">31</citedRange>
-          </bibl>) with a French translation; re-edited here by Kunthea Chhom based on the estampage EFEO n. 405.</p>
-        <listBibl type="primary">
-          <bibl n="GC">
-            <ptr target="bib:Coedes1937-1966_01"/>
-            <citedRange unit="volume">2</citedRange>
-            <citedRange unit="page">31</citedRange>
-          </bibl>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+        
+<body>
+                
+<div type="edition" xml:lang="san-Latn">
+<lg n="1" met="anuṣṭubh">
+    
+<l n="a">
+<lb n="1" />
+<milestone unit="column" n="a" />
+<seg met="====-++">
+  <gap reason="lost" quantity="7" unit="character" />
+</seg>tra</l>
+    
+<l n="b">
+<milestone unit="column" n="b" />vāsudevāya vai namaḥ</l>
+    
+<l n="c">
+  <lb n="2" />
+  <milestone unit="column" n="a" />
+  <seg met="====-++=">
+    <gap reason="lost" quantity="8" unit="character" />
+  </seg>
+</l>
+    
+<l n="d">
+<milestone unit="column" n="b" />dātā tāṁ śaranārthine 
+<g type="dDandaOrn">.</g></l>
+</lg>
+  
+<lg n="2" met="anuṣṭubh">
+    
+<l n="a">
+  <lb n="3" />
+  <milestone unit="column" n="a" />
+  <seg met="====-++=">
+    <gap reason="lost" quantity="8" unit="character" />
+  </seg>
+</l>
+    
+<l n="b">
+<milestone unit="column" n="b" />
+<seg met="====-+-=">
+  <gap reason="lost" quantity="8" unit="character" />
+</seg>i</l>
+    
+<l n="c">
+<milestone unit="column" n="c" />so nāmnā vāsudevo hi</l>
+    
+<l n="d">
+<milestone unit="column" n="d" />karmmidharmmapa
+<supplied reason="lost">rāyanaḥ 
+<g type="dDandaOrn">.</g></supplied></l>
+</lg>
+                   
+<lg n="3" met="anuṣṭubh">
+    
+<l n="a">
+  <lb n="4" />
+  <milestone unit="column" n="a" />
+  <seg met="====-++=">
+    <gap reason="lost" quantity="8" unit="character" />
+  </seg>
+</l>
+    
+<l n="b">
+  <milestone unit="column" n="b" />
+  <seg met="====-+-=">
+    <gap reason="lost" quantity="8" unit="character" />
+  </seg>
+</l>
+    
+<l n="c">
+<milestone unit="column" n="c" />
+<seg met="=">
+  <gap reason="lost" quantity="1" unit="character" />
+</seg> yo 'rccā sthāpitā tena</l>
+    
+<l n="d">
+<milestone unit="column" n="d" />bhakty
+<supplied reason="lost">ā</supplied> 
+<seg met="==-+-=">
+  <gap reason="lost" quantity="6" unit="character" />
+</seg> 
+<supplied reason="lost">
+  <g type="dDandaOrn">.</g>
+</supplied></l>
+</lg>
+                   
+<lg n="4" met="anuṣṭubh">
+    
+<l n="a">
+  <lb n="5" />
+  <milestone unit="column" n="a" />
+  <seg met="====-++=">
+    <gap reason="lost" quantity="8" unit="character" />
+  </seg>
+</l>
+    
+<l n="b">
+  <milestone unit="column" n="b" />
+  <seg met="====-+-=">
+    <gap reason="lost" quantity="8" unit="character" />
+  </seg>
+</l>
+    
+<l n="c">
+<milestone unit="column" n="c" />
+<seg met="====-">
+  <gap reason="lost" quantity="5" unit="character" />
+</seg> taṁ lakṣmī
+<milestone unit="column" n="d" break="no" />r</l>
+    
+<l n="d">vviṣṇor ṇnanda 
+<seg met="-+-=">
+  <gap reason="lost" quantity="4" unit="character" />
+</seg> 
+<supplied reason="lost">
+  <g type="dDandaOrn">.</g>
+</supplied></l>
+</lg>
+</div>
+         
+<div type="translation" xml:lang="fra" source="bib:Coedes1937-1966_01">
+        
+<p rend="stanza" n="1">Hommage à Vāsudeva 
+<gap reason="lost" /> qui donne cette 
+<gap reason="lost" /> à qui cherche refuge en lui.</p>
+            
+<p rend="stanza" n="2">Le nommé Vāsudeva n'ayant en vue que la règle des pratiquants 
+<gap reason="lost" />.</p>
+            
+<p rend="stanza" n="3">
+<gap reason="lost" /> par lui une image a été érigée avec dévotion 
+<gap reason="lost" />.</p>
+            
+<p rend="stanza" n="4">
+<gap reason="lost" /> Lakṣmī 
+<gap reason="lost" /> de Viṣṇu 
+<gap reason="lost" />.</p>
+         </div>
+         
+<div type="commentary">
+            
+<p>The inscription is fragmentary. Only the space between the 
+<foreign>pāda</foreign>s c and d of the last stanzas can be seen in the available fragment. The 
+<foreign>pāda</foreign> c does not seem well aligned.</p>
+         </div>
+        
+<div type="bibliography">
+          
+<p>First edited by George Cœdès (
+<bibl rend="omitname">
+  <ptr target="bib:Coedes1937-1966_01" />
+  <citedRange unit="volume">2</citedRange>
+  <citedRange unit="page">31</citedRange>
+</bibl>) with a French translation; re-edited here by Kunthea Chhom based on the estampage EFEO n. 405.</p> 
+        
+<listBibl type="primary">
+    
+<bibl n="GC">
+      
+<ptr target="bib:Coedes1937-1966_01" />
+<citedRange unit="volume">2</citedRange>
+<citedRange unit="page">31</citedRange>
+    </bibl>
+  </listBibl>
+        </div></body>
+    
+</text>
 </TEI>

@@ -1,4 +1,10 @@
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="eng">
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -31,18 +37,13 @@
         <date from="2019" to="2025">2019-2025</date>
       </publicationStmt>
       <sourceDesc>
-        <!-- only the handDesc can be filled in at this stage -->
         <msDesc>
-          <!-- //// NB: the msIdentifier had to be added for validation purposes ///. It will be edited later with the metadata spreadsheet -->
           <msIdentifier>
             <repository>DHARMAbase</repository>
-            <idno/>
-            <!-- don't modify this -->
+            <idno />
           </msIdentifier>
           <msContents>
-            <!-- describe the intellectual content of an inscription -->
-            <summary><!-- //// NOT MANDATORY  ////--></summary>
-            <!-- offers the possibility to give a summary of the inscription's content -->
+            <summary></summary>
           </msContents>
           <physDesc>
             <handDesc>
@@ -54,70 +55,92 @@
     </fileDesc>
     <encodingDesc>
       <projectDesc>
-        <p>The project DHARMA has received funding from the European Research Council (ERC)
-                        under the European Union's Horizon 2020 research and innovation programme (grant
-                        agreement no 809994).</p>
+        <p>The project DHARMA has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement no 809994).</p>
       </projectDesc>
-      <schemaRef key="EGDv01" type="guide" url="https://halshs.archives-ouvertes.fr/halshs-02888186"/>
+      <schemaRef type="guide" key="EGDv01" url="https://halshs.archives-ouvertes.fr/halshs-02888186" />
       <listPrefixDef>
         <prefixDef ident="bib" matchPattern="([a-zA-Z0-9\-\_]+)" replacementPattern="https://www.zotero.org/groups/1633743/erc-dharma/items/tag/$1">
-          <p>Public URIs with the prefix bib to point to a Zotero Group Library named
-                            ERC-DHARMA whose data are open to the public.</p>
+          <p>Public URIs with the prefix bib to point to a Zotero Group Library named ERC-DHARMA whose data are open to the public.</p>
         </prefixDef>
         <prefixDef ident="part" matchPattern="([a-z]+)" replacementPattern="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/DHARMA_IdListMembers_v01.xml#$1">
-          <p>Internal URIs using the part prefix to point to person elements in the
-                            <ref>DHARMA_IdListMembers_v01.xml</ref> file.</p>
+          <p>Internal URIs using the part prefix to point to person elements in the 
+          <ref>DHARMA_IdListMembers_v01.xml</ref>file.</p>
         </prefixDef>
       </listPrefixDef>
     </encodingDesc>
     <revisionDesc>
-      <change status="draft" when="2020-11-03" who="part:axja">Updating toward the encoding template v03</change>
-      <change status="draft" when="2020-04-19" who="part:masc">initial encoding of the inscription</change>
+      <change who="part:axja" when="2020-11-03" status="draft">Updating toward the encoding template v03</change>
+      <change who="part:masc" when="2020-04-19" status="draft">initial encoding of the inscription</change>
     </revisionDesc>
   </teiHeader>
   <text xml:space="preserve">
-    <body>
-      <div type="edition" xml:lang="kaw-Latn">
-        <p><pb n="1r"/>
-<lb n="1r1"/>// 0 // surat saṅ āryya rājaparākrama, ḍaṅ ācāryya viśvanātha, ravuha kaṁ para same Iṁ
-<lb n="1r2"/>patapan·, sakehiṁ rarămātuhănom·, makaṅūni buyut·,</p>
-        <p>
+      
+<body>
+         
+<div type="edition" xml:lang="kaw-Latn">
+<p>
+<pb n="1r" />
+<lb n="1r1" />// 0 // surat saṅ āryya rājaparākrama, ḍaṅ ācāryya viśvanātha, ravuha kaṁ para same Iṁ
+<lb n="1r2" />patapan·, sakehiṁ rarămātuhănom·, makaṅūni buyut·,</p>
+<p>
 vruhaniṁ para same Iṁ pata
-<lb break="no" n="1r3"/>pan·, yen ana rājamudra handikanira talāmpakanira bhaṭāra hyaṁ viśeṣa, hamagəhakən andikanira talā
-<lb break="no" n="1r4"/>m<unclear>paka</unclear>nira bhaṭāra saṁ mokta riṁ pariṁmālaya, deniṁ jaṅgan iṁ patapan·, I rehaniṁ sumalahe sahana
-<pb break="no" n="1v"/><lb break="no" n="1v1"/><supplied reason="lost">ki</supplied><unclear>r</unclear>ām<supplied reason="lost">p</supplied>u <gap precision="low" quantity="6" reason="illegible" unit="character"/> <supplied reason="lost">ja</supplied>ṅ<unclear>g</unclear>an·, <unclear>tu</unclear>mrapa satkaniṁ pañlək·, hanut· rasaniṁ rājamudra, Iku ta suma§
-<lb break="no" n="1v2"/>laha təkaniṁ kubon·, savaḥ, makaṅūni pomahaman·,</p>
-        <p>tithī, jyeṣṭa, śiraḥ, <num value="7">7</num> // 0 //</p>
-      </div>
-      <div type="apparatus">
-        <!--apparatus encoded as per EG §9.1, basic elements for apparatus below-->
-        <!-- argr: Eko, you seem not yet to have understood that in most cases, we have to represent a variant reading *either* inside the <div type="edition"> *or* inside <div type="apparatus">, but not in both. -->
-        <listApp>
-          <app loc="1v1">
-            <lem>ḍaṅ</lem>
-            <rdg source="bib:ROD1915">daṅ</rdg>
-          </app>
-          <app loc="1v4">
-            <lem>bhaṭāra</lem>
-            <rdg source="bib:ROD1915">bhatāra</rdg>
-          </app>
-        </listApp>
-      </div>
-      <div type="translation">
-        <!--translation encoded as per EG §9.2 -->
-        <p>.</p>
-      </div>
-      <div type="commentary">
-        <!--commentary encoded as per section §9.3 -->
-        <p/>
-      </div>
-      <div type="bibliography">
-        <!--bibliography encoded as per section §9.4 -->
-        <p>.</p>
-        <listBibl type="secondary">
-          <bibl/>
-        </listBibl>
-      </div>
-    </body>
-  </text>
+<lb n="1r3" break="no" />pan·, yen ana rājamudra handikanira talāmpakanira bhaṭāra hyaṁ viśeṣa, hamagəhakən andikanira talā
+<lb n="1r4" break="no" />m
+<unclear>paka</unclear>nira bhaṭāra saṁ mokta riṁ pariṁmālaya, deniṁ jaṅgan iṁ patapan·, I rehaniṁ sumalahe sahana
+<pb n="1v" break="no" />
+<lb break="no" n="1v1" />
+<supplied reason="lost">ki</supplied>
+<unclear>r</unclear>ām
+<supplied reason="lost">p</supplied>u 
+<gap reason="illegible" precision="low" quantity="6" unit="character" /> 
+<supplied reason="lost">ja</supplied>ṅ
+<unclear>g</unclear>an·, 
+<unclear>tu</unclear>mrapa satkaniṁ pañlək·, hanut· rasaniṁ rājamudra, Iku ta suma§
+<lb n="1v2" break="no" />laha təkaniṁ kubon·, savaḥ, makaṅūni pomahaman·,</p>
+<p>tithī, jyeṣṭa, śiraḥ, 
+<num value="7">7</num> // 0 //</p>
+         </div>
+         
+<div type="apparatus">
+                          
+<listApp>
+                   
+<app loc="1v1">
+                
+<lem>ḍaṅ</lem>
+                  
+<rdg source="bib:ROD1915">daṅ</rdg>
+                  </app>
+                  
+<app loc="1v4">
+                
+<lem>bhaṭāra</lem>
+                  
+<rdg source="bib:ROD1915">bhatāra</rdg>
+                  </app>
+               </listApp>         
+         </div>
+         
+<div type="translation">
+                
+<p>.</p>
+         </div>
+         
+<div type="commentary">
+                 
+<p />
+         </div>
+        
+<div type="bibliography">
+                    
+<p>.</p>
+             
+<listBibl type="secondary">
+             
+<bibl />
+           </listBibl>
+        </div>
+      </body>
+  
+</text>
 </TEI>
