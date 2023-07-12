@@ -6,26 +6,6 @@ from dharma import prosody
 
 HANDLERS = {} # we fill this below
 
-def dispatch(p, node):
-	if node.type == "comment" or node.type == "instruction":
-		return
-	if node.type == "string":
-		emit(p, "text", node, {"lang": node.parent["lang"]})
-		return
-	assert node.type == "tag"
-	f = HANDLERS.get(node.name)
-	if not f:
-		complain(p, "no handler for %r, ignoring it" % node)
-		return
-	try:
-		f(p, node)
-	except Error as e:
-		complain(p, e)
-
-def dispatch_children(p, node):
-	for child in node:
-		dispatch(p, child)
-
 class Parser:
 	# drop: drop all spaces until we find some text
 	# seen: saw space and waiting to see text before emitting ' '
@@ -36,6 +16,83 @@ class Parser:
 
 	# For HTML output
 	heading_shift = 1
+	
+	def __init__(self, tree):
+		self.tree = tree
+		self.buf = []
+
+	def dispatch(self, node):
+		if node.type == "comment" or node.type == "instruction":
+			return
+		if node.type == "string":
+			self.emit("text", node, lang=node.parent["lang"])
+			return
+		assert node.type == "tag"
+		f = HANDLERS.get(node.name)
+		if not f:
+			p.complain("no handler for %r, ignoring it" % node)
+			return
+		try:
+			f(p, node)
+		except Error as e:
+			p.complain(e)
+
+	def dispatch_children(self, node):
+		for child in node:
+			self.dispatch(child)
+
+	def complain(self, msg):
+		print("? %s" % msg, file=sys.stderr)
+	
+	def add_text(self, data):
+		if not data:
+			return
+		if self.space == "drop":
+			data = data.lstrip()
+			if not data:
+				return
+			self.space = "none"
+		elif self.space == "seen":
+			if data.strip():
+				self.buf.append(" ")
+				self.space = "none"
+		elif self.space == "none":
+			if data[0].isspace():
+				if data.lstrip():
+					self.buf.append(" ")
+					self.space = "none"
+				else:
+					self.space = "seen"
+		else:
+			assert 0
+		if re.match(r".*\S\s+$", data):
+			self.space = "seen"
+		data = normalize_space(data)
+		if not data:
+			return
+		self.buf.append(data)
+	
+	def flush_text(self):
+		write = sys.stdout.write
+		if not self.buf:
+			return
+		write("text %r\n" % "".join(self.buf))
+		self.buf.clear()
+	
+	def emit(self, t, data=None, **params):
+		write = sys.stdout.write
+		if t == "text":
+			self.add_text(data)
+			return
+		self.flush_text()
+		p.space = "drop"
+		if data is not None:
+			write("%s %r" % (t, data))
+			for k, v in sorted(params.items()):
+				write(" :%s %r" % (k, v))
+			write("\n")
+		else:
+			print(t)
 
 def barf(msg):
 	raise Exception(msg)
@@ -45,67 +102,27 @@ def normalize_space(s):
 	s = s.strip()
 	return re.sub(r"\s+", " ", s)
 
-def complain(p, msg):
-	print("? %s" % msg, file=sys.stderr)
-
-def emit(p, t, data=None, params={}):
-	write = sys.stdout.write
-	if t == "text":
-		if not data:
-			return
-		if p.space == "drop":
-			data = data.lstrip()
-		elif p.space == "seen":
-			if data.strip():
-				print("space")
-				p.space = "none"
-		elif p.space == "none":
-			if data[0].isspace():
-				if data.lstrip():
-					print("space")
-					p.space = "none"
-				else:
-					p.space = "seen"
-		else:
-			assert 0
-		if re.match(r".*\S\s+$", data):
-			p.space = "seen"
-		data = normalize_space(data)
-		if data:
-			write("%s %r" % (t, data))
-			for k, v in sorted(params.items()):
-				write(" :%s %r" % (k, v))
-			write("\n")
-	elif data is not None:
-		write("%s %r" % (t, data))
-		for k, v in sorted(params.items()):
-			write(" :%s %r" % (k, v))
-		write("\n")
-	else:
-		print(t)
-
-def process_lemma(p, lemma):
+def process_lem(p, lemma):
 	text = lemma.text()
-	emit(p, "text", text)
+	p.emit("text", text)
 	# Ignore the apparatus for now
 
-def process_apparatus(p, app):
-	for elem in app:
-		if elem.name == "lem":
-			process_lemma(p, elem)
+def process_app(p, app):
+	p.dispatch_children(app)
 
 def process_num(p, num):
-	dispatch_children(p, num)
+	p.dispatch_children(num)
 
 def process_supplied(p, supplied):
-	dispatch_children(p, supplied)
+	p.dispatch_children(supplied)
 
 def process_milestone(p, milestone):
 	assert "n" in milestone.attrs
 	assert "unit" in milestone.attrs
 	assert milestone["unit"] in ("block", "column", "face", "faces", "fragment", "item", "zone")
-	# ignore the rest for now
-	emit(p, milestone["unit"], milestone["n"])
+	# ignore for now
+	return
+	p.emit(milestone["unit"], milestone["n"])
 
 def process_lb(p, elem):
 	brk = "yes"
@@ -128,19 +145,22 @@ def process_lb(p, elem):
 			align = m.group(1)
 		else:
 			assert 0, elem
+	# ignore for now
+	return
 	if brk == "yes":
-		emit(p, "text", "\n")
-	emit(p, "<phys:line", n, {"align": align})
+		p.emit("text", "\n")
+	p.emit("phys:line", n, {"align": align})
 	p.space = "drop"
 
 def process_pb(p, elem):
 	n = elem["n"]
-	emit(p, "page", n)
+	# ignore for now, incomplete
+	return
+	p.emit("phys:page", n)
 	p.space = "drop"
-	# XXX incomplete
 
 def process_choice(p, node):
-	dispatch_children(p, node)
+	p.dispatch_children(node)
 
 def process_g(p, node):
 	def fail():
@@ -163,54 +183,54 @@ def process_g(p, node):
 	stype = node.get("type")
 	if not stype:
 		fail()
-	emit(p, "symbol", f"{gtype}.{stype}")
+	p.emit("symbol", f"{gtype}.{stype}")
 
 def process_unclear(p, node):
-	emit(p, "text", node.text()) # XXX children?
+	p.emit("text", node.text()) # XXX children?
 
 def process_p(p, para):
-	emit(p, "para<")
-	dispatch_children(p, para)
-	emit(p, "para>")
+	p.emit("log:para<")
+	p.dispatch_children(para)
+	p.emit("log:para>")
 
 def process_head(p, head):
-	emit(p, "head<", params={"level": p.div_level})
 	for elem in head:
 		if elem.type == "tag":
 			if elem.name == "foreign":
-				emit(p, "html", "<i>")
-				emit(p, "text", elem.text())
-				emit(p, "html", "</i>")
+				p.emit("html", "<i>")
+				p.emit("text", elem.text())
+				p.emit("html", "</i>")
 			elif elem.name == "hi":
 				# TODO
 				pass
 			else:
 				assert 0
 		elif elem.type == "string":
-			emit(p, "text", elem)
+			p.emit("text", elem)
 		elif elem.type == "comment":
 			pass
 		else:
 			assert 0
-	emit(p, "head>")
 
 def process_div(p, div):
 	p.div_level += 1
 	ignore = None
-	emit(p, "html", "<div>")
+	p.emit("html", "<div>")
 	type = div.attrs.get("type", "")
 	if type in ("chapter", "canto"):
-		emit(p, "html", "<h%d>" % (p.div_level + p.heading_shift))
-		emit(p, "text", type.title())
+		p.emit("html", "<h%d>" % (p.div_level + p.heading_shift))
+		p.emit("log:head<", level=p.div_level)
+		p.emit("text", type.title())
 		n = div.attrs.get("n")
 		if n:
-			emit(p, "text", " %s" % n)
+			p.emit("text", " %s" % n)
 		head = div.first_child("head")
 		if head:
-			emit(p, "text", ": ")
+			p.emit("text", ": ")
 			process_head(p, head)
 			ignore = head
-		emit(p, "html", "</h%d>" % (p.div_level + p.heading_shift))
+		p.emit("log:head>")
+		p.emit("html", "</h%d>" % (p.div_level + p.heading_shift))
 	elif type == "dyad":
 		pass
 		# TODO
@@ -226,7 +246,7 @@ def process_div(p, div):
 			# Invocation or colophon?
 			type = ab["type"]
 			assert type in ("invocation", "colophon")
-			emit(p, ab["type"])
+			p.emit(ab["type"])
 	else:
 		assert 0, div
 	# Render the meter
@@ -235,12 +255,12 @@ def process_div(p, div):
 		assert rend == "met" or not rend
 		if rend:
 			met = div["met"]
-			emit(p, "html", "<h%d>" % (p.div_level + p.heading_shift + 1))
+			p.emit("html", "<h%d>" % (p.div_level + p.heading_shift + 1))
 			if met.isalpha():
 				pros = prosody.items.get(met)
 				assert pros, "meter %r absent from prosodic patterns file" % met
-				emit(p, "blank", "%s: %s" % (met.title(), pros))
-			emit(p, "html", "</h%d>" % (p.div_level + p.heading_shift + 1))
+				p.emit("blank", "%s: %s" % (met.title(), pros))
+			p.emit("html", "</h%d>" % (p.div_level + p.heading_shift + 1))
 		else:
 			# If we have @met, could use it as a search attribute. Is it often used?
 			pass
@@ -250,8 +270,8 @@ def process_div(p, div):
 	for elem in div:
 		if elem == ignore:
 			continue
-		dispatch(p, elem)
-	emit(p, "html", "</div>")
+		p.dispatch(elem)
+	p.emit("html", "</div>")
 	p.div_level -= 1
 
 # The full table is at:
@@ -318,10 +338,10 @@ def process_body(p, body):
 	for div in body.children():
 		assert div.type == "tag"
 		assert div.name == "div"
-		dispatch(p, div)
+		p.dispatch(div)
 
 def process_TEI(p, node):
-	dispatch(p, node.child("text").child("body"))
+	p.dispatch(node.child("text").child("body"))
 
 for name, obj in copy.copy(globals()).items():
 	if not name.startswith("process_"):
@@ -330,7 +350,8 @@ for name, obj in copy.copy(globals()).items():
 	HANDLERS[name] = obj
 
 if __name__ == "__main__":
+	p = Parser(None)
 	tree = parse(sys.argv[1])
-	p = Parser()
-	p.tree = parse(sys.argv[1])
-	dispatch(p, p.tree.root)
+	p = Parser(tree)
+	p.dispatch(p.tree.root)
+	p.emit("end")

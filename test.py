@@ -63,6 +63,17 @@ tha-Thai
 xhm-Latn
 """.strip().split()
 
+import unicodedata
+
+for file in sorted(inscriptions):
+	print(file)
+	text = BeautifulSoup(open(file), "xml").get_text()
+	for tok in text.split():
+		if any(not "LATIN" in unicodedata.name(c) for c in tok):
+			print(tok)
+
+sys.exit(0)
+
 for file in sorted(inscriptions):
 	soup = BeautifulSoup(open(file), "xml")
 	for tag in soup.find_all(**{"xml:lang": True}):
