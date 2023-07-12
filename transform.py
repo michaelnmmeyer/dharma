@@ -9,7 +9,7 @@ HANDLERS = {} # we fill this below
 if os.isatty(1):
 	def term_blue():
 		sys.stdout.write("\N{ESC}[34m")
-	
+
 	def term_reset():
 		sys.stdout.write("\N{ESC}[0m")
 else:
@@ -23,12 +23,12 @@ class Parser:
 	space = "drop"
 	tree = None
 	div_level = 0
-	
+
 	raw_indent = 0
 
 	# For HTML output
 	heading_shift = 1
-	
+
 	def __init__(self, tree):
 		self.tree = tree
 		self.buf = []
@@ -55,16 +55,16 @@ class Parser:
 
 	def complain(self, msg):
 		print("? %s" % msg, file=sys.stderr)
-	
+
 	def indent(self):
 		self.raw_indent += 1
-	
+
 	def dedent(self):
 		self.raw_indent -= 1
-	
+
 	def vspace(self):
 		self.emit("raw", "\n")
-	
+
 	def add_text(self, data):
 		if not data:
 			return
@@ -92,7 +92,7 @@ class Parser:
 		if not data:
 			return
 		self.buf.append(data)
-	
+
 	def write2(self, t, data=None, **params):
 		write = sys.stdout.write
 		if t == "html":
@@ -106,7 +106,7 @@ class Parser:
 		if t == "html":
 			term_reset()
 		write("\n")
-	
+
 	def write(self, t, data=None, **params):
 		if t == "text":
 			print(self.raw_indent * "\t" + data)
@@ -120,7 +120,7 @@ class Parser:
 			return
 		self.write("text", "".join(self.buf))
 		self.buf.clear()
-	
+
 	def emit(self, t, data=None, **params):
 		if t == "text":
 			self.add_text(data)
