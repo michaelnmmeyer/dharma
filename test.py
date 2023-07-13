@@ -8,73 +8,14 @@ critical_edition = [f for f in critical if not "_trans" in f]
 critical_translation = [f for f in critical if "_trans" in f]
 inscriptions = [f for f in all if "DHARMA_INS" in f]
 
-LANGS = """
-ara
-ban
-cja
-cjm
-deu
-eng
-fra
-ind
-jav
-jpn
-kan
-kaw
-khm
-mya
-ndl
-obr
-ocm
-okz
-omx
-omy
-ori
-osn
-pli
-pyx
-san
-sas
-tam
-tel
-tgl
-und
-vie
-xhm
-zlm
-""".strip().split() + """
-kan-Latn
-kaw-Latn
-khm-Latn
-ocm-Latn
-okz-Latn
-omy-Latn
-ori-Latn
-osn-Latn
-pli-Latn
-pli-Thai
-pra-Latn
-san-Latn
-san-Thai
-tam-Latn
-tam-Taml
-tel-Latn
-tha-Thai
-xhm-Latn
+fs = """
+texts/DHARMA_INSVengiCalukya00015.xml
+texts/DHARMA_INSVengiCalukya00034.xml
+texts/DHARMA_INSVengiCalukya00046.xml
 """.strip().split()
-
-import unicodedata
-
-for file in sorted(inscriptions):
-	print(file)
-	text = BeautifulSoup(open(file), "xml").get_text()
-	for tok in text.split():
-		if any(not "LATIN" in unicodedata.name(c) for c in tok):
-			print(tok)
-
-sys.exit(0)
-
-for file in sorted(inscriptions):
+for file in sorted(fs):
+	print("---")
 	soup = BeautifulSoup(open(file), "xml")
-	for tag in soup.find_all(**{"xml:lang": True}):
-		print(tag["xml:lang"])
+	for tag in soup.find_all("note"):
+		if tag.find("note"):
+			print(tag)

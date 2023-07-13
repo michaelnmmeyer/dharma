@@ -172,10 +172,9 @@ msDesc =
     element msContents {
       (summary
        | element msItem {
-           author?,
-           p?,
-           title?,
-           element colophon { quote*, note? }?
+           p
+           | element colophon { quote*, note? }
+           | (author, title)
          })?
     }?,
     element physDesc {
@@ -351,7 +350,7 @@ desc = element desc { (text | bibl | foreign | ptr)+ }
      | element head {
          attribute type { xsd:NCName }?,
          attribute xml:lang { xsd:NCName }?,
-         (text | foreign | hi)+
+         (text | foreign)+
        })*,
     listBibl*,
     bibl*
@@ -820,7 +819,6 @@ handShift =
 app =
   element app {
     attribute loc { text }?,
-    attribute rend { xsd:NCName }?,
     attribute type { xsd:NCName }?,
     element lem {
       attribute hand { text }?,

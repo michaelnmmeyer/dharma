@@ -6,8 +6,8 @@ update-texts:
 	sqlite3 dbs/texts.sqlite "select printf('repos/%s/%s', repo, xml_path) \
 		from texts natural join latest_commits natural join validation \
 		where valid order by name" | while read f; do \
-			tidy -xml -indent -wrap 0 -quiet -utf8 --hide-comments yes \
-				--output-bom no $$f > texts/$$(basename $$f); \
+			nfc < $$f | tidy -xml -indent -wrap 0 -quiet -utf8 --hide-comments yes \
+				--output-bom no > texts/$$(basename $$f); \
 		done
 	git add texts
 	git commit -m "Update texts"

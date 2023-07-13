@@ -6,15 +6,48 @@ from dharma import prosody
 
 HANDLERS = {} # we fill this below
 
-if os.isatty(1):
-	def term_blue():
-		sys.stdout.write("\N{ESC}[34m")
-
-	def term_reset():
+force_color = True
+def term_color(code=None):
+	if not os.isatty(1) and not force_color:
+		return
+	if not code:
 		sys.stdout.write("\N{ESC}[0m")
-else:
-	def term_blue(): pass
-	def term_reset(): pass
+		return
+	code = code.lstrip("#")
+	assert len(code) == 6
+	R = int(code[0:2], 16)
+	G = int(code[2:4], 16)
+	B = int(code[4:6], 16)
+	sys.stdout.write(f"\N{ESC}[38;2;{R};{G};{B}m")
+
+def term_html(): term_color("#5f00ff")
+def term_log(): term_color("#008700")
+def term_reset(): term_color()
+
+def write_debug(t, data=None, **params):
+	write = sys.stdout.write
+	if t == "html":
+		term_html()
+	elif t.startswith("log:"):
+		term_log()
+	write("%s" % t)
+	if data:
+		write(" %r" % data)
+	if params:
+		for k, v in sorted(params.items()):
+			write(" :%s %r" % (k, v))
+	if t == "html" or t.startswith("log:"):
+		term_reset()
+	write("\n")
+
+def write_html(t, data=None, **params):
+	write = sys.stdout.write
+	if t == "text":
+		write(data)
+	elif t == "html":
+		write(data)
+	elif t == "log:doc>":
+		write("\n")
 
 class Parser:
 	# drop: drop all spaces until we find some text
@@ -24,14 +57,14 @@ class Parser:
 	tree = None
 	div_level = 0
 
-	raw_indent = 0
-
 	# For HTML output
 	heading_shift = 1
+	html_start = 0
 
-	def __init__(self, tree):
+	def __init__(self, tree, write=write_debug):
 		self.tree = tree
-		self.buf = []
+		self.write = write
+		self.text = ""
 
 	def dispatch(self, node):
 		if node.type == "comment" or node.type == "instruction":
@@ -42,7 +75,7 @@ class Parser:
 		assert node.type == "tag"
 		f = HANDLERS.get(node.name)
 		if not f:
-			p.complain("no handler for %r, ignoring it" % node)
+			#p.complain("no handler for %r, ignoring it" % node)
 			return
 		try:
 			f(p, node)
@@ -56,15 +89,6 @@ class Parser:
 	def complain(self, msg):
 		print("? %s" % msg, file=sys.stderr)
 
-	def indent(self):
-		self.raw_indent += 1
-
-	def dedent(self):
-		self.raw_indent -= 1
-
-	def vspace(self):
-		self.emit("raw", "\n")
-
 	def add_text(self, data):
 		if not data:
 			return
@@ -75,12 +99,12 @@ class Parser:
 			self.space = "none"
 		elif self.space == "seen":
 			if data.strip():
-				self.buf.append(" ")
+				self.text += " "
 				self.space = "none"
 		elif self.space == "none":
 			if data[0].isspace():
 				if data.lstrip():
-					self.buf.append(" ")
+					self.text += " "
 					self.space = "none"
 				else:
 					self.space = "seen"
@@ -91,46 +115,18 @@ class Parser:
 		data = normalize_space(data)
 		if not data:
 			return
-		self.buf.append(data)
-
-	def write2(self, t, data=None, **params):
-		write = sys.stdout.write
-		if t == "html":
-			term_blue()
-		write("%s" % t)
-		if data:
-			write(" %r" % data)
-		if params:
-			for k, v in sorted(params.items()):
-				write(" :%s %r" % (k, v))
-		if t == "html":
-			term_reset()
-		write("\n")
-
-	def write(self, t, data=None, **params):
-		if t == "text":
-			print(self.raw_indent * "\t" + data)
-		elif t == "raw":
-			sys.stdout.write(data)
-		else:
-			pass#print(t, data, **params)
-
-	def flush_text(self):
-		if not self.buf:
-			return
-		self.write("text", "".join(self.buf))
-		self.buf.clear()
+		self.text += data
 
 	def emit(self, t, data=None, **params):
 		if t == "text":
 			self.add_text(data)
 			return
-		self.flush_text()
+		if t == "html" or t.startswith("log:"):
+			if self.html_start < len(self.text):
+				self.write("text", self.text[self.html_start:], start=self.html_start, end=len(self.text))
+			self.html_start = len(self.text)
 		p.space = "drop"
-		if data is not None:
-			self.write(t, data, **params)
-		else:
-			self.write(t)
+		self.write(t, data, **params)
 
 def barf(msg):
 	raise Exception(msg)
@@ -141,7 +137,7 @@ def normalize_space(s):
 	return re.sub(r"\s+", " ", s)
 
 def process_lem(p, lemma):
-	text = lemma.text()
+	text = lemma.text() #XXX legit?
 	p.emit("text", text)
 	# Ignore the apparatus for now
 
@@ -203,6 +199,15 @@ def process_choice(p, node):
 def process_abbr(p, node):
 	p.dispatch_children(node)
 
+def process_term(p, node):
+	p.dispatch_children(node)
+
+def process_note(p, note):
+	#p.push("note") XXX
+#	p.dispatch_children(note)
+	#p.pop()
+#	p.emit("html", f'<a href="{ref}">X</a>')
+
 def process_g(p, node):
 	def fail():
 		 barf("invalid node (see STS)")
@@ -234,8 +239,24 @@ def process_p(p, para):
 	p.emit("html", "<p>")
 	p.dispatch_children(para)
 	p.emit("html", "</p>")
-	p.vspace()
 	p.emit("log:para>")
+
+hi_table = {
+	"italic": "i",
+	"bold": "b",
+	"superscript": "sup",
+	"subscript": "sub",
+	"large": "big",
+	"check": "mark",
+	"grantha": 'span class="grantha"',
+}
+def process_hi(p, hi):
+	rend = hi["rend"]
+	val = hi_table[rend]
+	p.emit("html", "<%s>" % val)
+	p.dispatch_children(hi)
+	e = max(val.find(" "), len(val))
+	p.emit("html", "</%s>" % val[:e])
 
 def process_div_head(p, head):
 	def inner(root):
@@ -246,8 +267,7 @@ def process_div_head(p, head):
 					inner(elem)
 					p.emit("html", "</i>")
 				elif elem.name == "hi":
-					# TODO
-					inner(elem)
+					p.dispatch(elem)
 				else:
 					assert 0
 			else:
@@ -260,33 +280,28 @@ def process_div_ab(p, ab):
 def process_lg(p, lg):
 	pada = 0
 	p.emit("log:verse<")
-	p.emit("html", '<div type="verse">')
+	p.emit("html", '<p class="verse">')
 	for elem in lg:
 		if elem.type == "tag" and elem.name == "l":
 			if pada % 2 == 0:
-				p.emit("html", "<p>")
 				p.dispatch_children(elem)
 			else:
 				p.emit("text", " ")
 				p.dispatch_children(elem)
-				p.emit("html", "</p>")
-				p.emit("plain", "\n")
+				p.emit("html", "<br/>")
 			pada += 1
 		else:
 			p.dispatch(elem)
-	p.emit("html", "</div>")
+	p.emit("html", "</p>")
 	p.emit("log:verse>")
 
 def process_div_dyad(p, div):
 	for elem in div:
 		if elem.type == "tag" and elem.name == "quote":
 			assert elem.attrs.get("type") == "base-text"
-			p.indent()
 			p.emit("html", "<blockquote>")
 			p.dispatch_children(elem)
 			p.emit("html", "</blockquote>")
-			p.dedent()
-			p.vspace()
 		else:
 			p.dispatch(elem)
 
@@ -306,7 +321,6 @@ def process_div_section(p, div):
 			process_div_head(p, head)
 			ignore = head
 		p.emit("html", "</h%d>" % (p.div_level + p.heading_shift))
-		p.vspace()
 		p.emit("log:head>")
 	elif not type:
 		ab = div.first_child("ab")
@@ -314,8 +328,9 @@ def process_div_section(p, div):
 			# Invocation or colophon?
 			type = ab["type"]
 			assert type in ("invocation", "colophon")
-			p.emit("log:%s" % ab["type"])
+			p.emit("log:%s<" % ab["type"])
 			process_div_ab(p, ab)
+			p.emit("log:%s>" % ab["type"])
 			ignore = ab
 	else:
 		assert 0, div
@@ -344,12 +359,12 @@ def process_div_section(p, div):
 		p.dispatch(elem)
 
 def process_div(p, div):
-	p.div_level += 1
 	p.emit("html", "<div>")
 	type = div.attrs.get("type", "")
 	if type in ("chapter", "canto", ""):
+		p.div_level += 1
 		process_div_section(p, div)
-		p.vspace()
+		p.div_level -= 1
 	elif type == "dyad":
 		process_div_dyad(p, div)
 	elif type == "metrical":
@@ -362,7 +377,6 @@ def process_div(p, div):
 	else:
 		assert 0, div
 	p.emit("html", "</div>")
-	p.div_level -= 1
 
 # The full table is at:
 # https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab
@@ -439,9 +453,37 @@ for name, obj in copy.copy(globals()).items():
 	name = name.removeprefix("process_")
 	HANDLERS[name] = obj
 
+head = """
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>foo</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital@0;1&display=swap" rel="stylesheet">
+	<style>
+body {
+	margin: 1rem;
+	font-family: 'Noto Sans', sans-serif;
+}
+	</style>
+</head>
+</body>
+"""
+tail = """
+</body>
+</html>
+"""
+
 if __name__ == "__main__":
 	p = Parser(None)
 	tree = parse(sys.argv[1])
-	p = Parser(tree)
+	p = Parser(tree, write_debug)
+	p.emit("log:doc<")
+	#print(head)
+	#p.emit("html", '<div class="text">')
 	p.dispatch(p.tree.root)
-	p.emit("end")
+	#p.emit("html", "</div>")
+	#print(tail)
+	p.emit("log:doc>")
