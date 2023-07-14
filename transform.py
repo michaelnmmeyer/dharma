@@ -40,14 +40,21 @@ def write_debug(t, data=None, **params):
 		term_reset()
 	write("\n")
 
-def write_html(t, data=None, **params):
-	write = sys.stdout.write
-	if t == "text":
-		write(data)
-	elif t == "html":
-		write(data)
-	elif t == "log:doc>":
-		write("\n")
+class HTML:
+
+	def __init__(self):
+		self.buf = []
+	
+	def write(self, t, data=None, **params):
+		write = sys.stdout.write
+		if t == "text":
+			assert not self.buf or self.buf[-1][0] != "text"
+			write(data)
+		elif t == "html":
+			write(data)
+		elif t == "log:doc>":
+			write("\n")
+		self.buf.append((t, data, params))
 
 class Parser:
 	# drop: drop all spaces until we find some text
@@ -202,12 +209,6 @@ def process_abbr(p, node):
 def process_term(p, node):
 	p.dispatch_children(node)
 
-def process_note(p, note):
-	#p.push("note") XXX
-#	p.dispatch_children(note)
-	#p.pop()
-#	p.emit("html", f'<a href="{ref}">X</a>')
-
 def process_g(p, node):
 	def fail():
 		 barf("invalid node (see STS)")
@@ -280,28 +281,29 @@ def process_div_ab(p, ab):
 def process_lg(p, lg):
 	pada = 0
 	p.emit("log:verse<")
-	p.emit("html", '<p class="verse">')
+	p.emit("html", '<div class="verse">')
 	for elem in lg:
 		if elem.type == "tag" and elem.name == "l":
 			if pada % 2 == 0:
+				p.emit("html", "<p>")
 				p.dispatch_children(elem)
 			else:
 				p.emit("text", " ")
 				p.dispatch_children(elem)
-				p.emit("html", "<br/>")
+				p.emit("html", "</p>")
 			pada += 1
 		else:
 			p.dispatch(elem)
-	p.emit("html", "</p>")
+	p.emit("html", "</div>")
 	p.emit("log:verse>")
 
 def process_div_dyad(p, div):
 	for elem in div:
 		if elem.type == "tag" and elem.name == "quote":
 			assert elem.attrs.get("type") == "base-text"
-			p.emit("html", "<blockquote>")
+			p.emit("html", '<div class="base-text">')
 			p.dispatch_children(elem)
-			p.emit("html", "</blockquote>")
+			p.emit("html", "</div>")
 		else:
 			p.dispatch(elem)
 
@@ -462,12 +464,7 @@ head = """
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital@0;1&display=swap" rel="stylesheet">
-	<style>
-body {
-	margin: 1rem;
-	font-family: 'Noto Sans', sans-serif;
-}
-	</style>
+	<link rel="stylesheet" href="style.css">
 </head>
 </body>
 """
@@ -479,11 +476,11 @@ tail = """
 if __name__ == "__main__":
 	p = Parser(None)
 	tree = parse(sys.argv[1])
-	p = Parser(tree, write_debug)
+	p = Parser(tree, HTML().write)
 	p.emit("log:doc<")
-	#print(head)
-	#p.emit("html", '<div class="text">')
+	print(head)
+	p.emit("html", '<div class="edition">')
 	p.dispatch(p.tree.root)
-	#p.emit("html", "</div>")
-	#print(tail)
+	p.emit("html", "</div>")
+	print(tail)
 	p.emit("log:doc>")
