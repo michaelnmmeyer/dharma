@@ -18,8 +18,8 @@ def char_name(c):
 def script(g):
 	# Not really correct, but enough for this purpose
 	names = [char_name(c) for c in g]
-	for s in ("TAMIL", "TELUGU", "KHMER", "DEVANAGARI", "GRANTHA"):
-		if all(name.startswith(s) for name in names):
+	for s in ("TAMIL", "TELUGU", "KHMER", "DEVANAGARI", "GRANTHA", "KANNADA"):
+		if all(name.startswith(s + " ") for name in names):
 			return s
 
 valid_combinations = """
