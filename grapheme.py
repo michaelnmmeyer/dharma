@@ -1,4 +1,5 @@
 import os, sys, icu, unicodedata, html
+from dharma import texts
 
 def graphemes(s):
 	itor = icu.BreakIterator.createCharacterInstance(icu.Locale())
@@ -39,27 +40,30 @@ valid_combinations = """
 def is_valid(g):
 	return len(g) == 1 or script(g) or g in valid_combinations
 
-def find_problems(f):
-	problems = {}
-	lines = {}
+def validate(f):
+	problems = []
 	for line_no, line in enumerate(f, 1):
 		line = unicodedata.normalize("NFC", line.rstrip())
-		hl = ""
-		ok = True
-		for g in graphemes(line):
-			eg = html.escape(g)
+		gs = list(graphemes(line))
+		for i, g in enumerate(graphemes(line)):
 			if is_valid(g):
-				hl += eg
 				continue
-			hl += "<mark>%s</mark>" % eg
+			hl = html.escape("".join(gs[:i]))
+			hl += "<mark>%s</mark>" % html.escape(g)
+			hl += html.escape("".join(gs[i + 1:]))
 			names = [char_name(c) for c in g]
-			problems.setdefault(line_no, []).append(names)
-			ok = False
-		if not ok:
-			lines[line_no] = "<p>%s</p>" % hl
-	for line_no, line in sorted(lines.items()):
-		print(line)		
+			problem = {
+				"line_no": line_no,
+				"highlighted_line": hl,
+				"grapheme": names,
+			}
+			problems.append(problem)
+	return problems
 
-for name in sys.argv[1:]:
-	with open(name) as f:
-		find_problems(f)
+def validate_repo(name):
+	ret = {}
+	for file in texts.iter_texts_in_repo(name):
+		with open(file) as f:
+			problems = validate(f)
+		ret[file] = problems
+	return ret

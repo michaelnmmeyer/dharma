@@ -1,8 +1,9 @@
 FROM debian:12-slim
 RUN apt-get update && \
-	apt-get install --no-install-recommends -y openjdk-17-jdk-headless&& \
+	apt-get upgrade -y && \
+	apt-get install -y openjdk-17-jdk-headless && \
 	apt-get install -y git && \
-	apt-get install --no-install-recommends -y python3-minimal python3-bs4 python3-requests && \
+	apt-get install -y python3-minimal python3-bs4 python3-requests python3-icu && \
 	apt-get clean -y && \
 	echo 'echo all > /dharma/repos/change.hid' > /etc/cron.daily/dharma-update && \
 	chmod +x /etc/cron.daily/dharma-update && \

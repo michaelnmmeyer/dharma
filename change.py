@@ -1,5 +1,5 @@
 import os, sys, subprocess, sqlite3, json, select, errno, logging
-from dharma import config, validate, texts, biblio
+from dharma import config, validate, texts, biblio, grapheme
 
 FIFO_ADDR = os.path.join(config.REPOS_DIR, "change.hid")
 
@@ -144,7 +144,14 @@ def handle_changes(name):
 	if not have_commit:
 		conn.execute("insert into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
 			(name, commit_hash, date))
-	state = validate.validate_repo(name)
+	schema_errs = validate.validate_repo(name)
+	unicode_errs = grapheme.validate_repo(name)
+	state = {}
+	for file in schema_errs:
+		state[file] = {
+			"schema": schema_errs[file],
+			"unicode": unicode_errs[file],
+		}
 	if not have_commit:
 		xml_paths = {os.path.basename(os.path.splitext(xml_name)[0]): xml_name for xml_name in state}
 		paths = texts.gather_web_pages(xml_paths)
@@ -159,7 +166,7 @@ def handle_changes(name):
 			conn.execute("insert into texts(name, repo, commit_hash, xml_path, html_path) values(?, ?, ?, ?, ?)",
 				(file_id, name, commit_hash, xml_path, html_path))
 	for text, errors in sorted(state.items()):
-		valid = not errors
+		valid = not errors["schema"] and not errors["unicode"]
 		errors = json.dumps(errors)
 		file_id = os.path.basename(os.path.splitext(text)[0])
 		conn.execute("""insert or replace into validation(name, repo, commit_hash, code_hash, valid, errors, when_validated)
