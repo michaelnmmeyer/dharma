@@ -44,7 +44,7 @@ class HTML:
 
 	def __init__(self):
 		self.buf = []
-	
+
 	def write(self, t, data=None, **params):
 		write = sys.stdout.write
 		if t == "text":

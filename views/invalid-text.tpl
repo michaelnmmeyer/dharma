@@ -12,7 +12,7 @@ href="https://github.com/erc-dharma/{{text['repo']}}/commit/{{text['commit_hash'
 This is a list of
 <a
 href="https://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries">grapheme
-clusters</a> that are likely invalid. Each row highlights the problematic
+clusters</a> that are likely invalid. Each row highlights a problematic
 text segment and enumerates the names of the <a
 href="https://unicode.org/glossary/#code_point">code points</a> that compose it.
 If you find grapheme clusters that are actually valid, please send me their

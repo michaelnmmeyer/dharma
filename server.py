@@ -2,7 +2,7 @@
 
 import os, sqlite3, json, sys
 from datetime import datetime
-from dharma import config, bottle, change
+from dharma import config, bottle, change, persons
 
 sqlite3.register_converter("json", lambda d: json.loads(d.decode()))
 
@@ -44,6 +44,7 @@ def show_commit_log():
 			if is_robot(commit["author"]["email"]):
 				continue
 			author = commit["author"].get("username") or commit["author"]["name"]
+			author = persons.plain_from_github(author)
 			hash = commit["id"]
 			url = commit["url"]
 			commits.append({"repo": repo, "date": push_date, "author": author, "hash": hash, "url": url})

@@ -18,24 +18,27 @@ ID_TO_GIT = {
 	"adle": ["alevivier"],
 	"amwb": ["amandinebricout"],
 	"anac": ["andreaacri"],
-	"anol": ["Andrew Ollett"],
+	"anol": ["Andrew Ollett", "aso2101"],
 	"ansc": ["AnneSchmiedchen"],
 	"argr": ["Arlo Griffiths", "arlogriffiths"],
 	"axja": ["ajaniak", "Axelle Janiak"],
-	"chch": ["Chloé"],
+	"chch": ["Chloé", "chloechollet"],
 	"cski": ["csabakissgit"],
 	"daba": ["danbalogh"],
-	"dogo": ["Dominic Goodall"],
-	"doso": ["Soutif"],
+	"dogo": ["Dominic Goodall", "dg2018"],
+	"doso": ["Soutif", "dominiquesoutif"],
 	"ekba": ["ekobastiawan"],
 	"emfr": ["ManuFrancis", "manufrancis"],
-	"flde": ["Florinda De Simini"],
+	"emmo": ["emmamorlock"],
+	"flde": ["Florinda De Simini", "FlorindaDS"],
+	"gibu": ["GiuliaBhu"],
 	"ilnu": ["ilhamkang"],
 	"jeth": ["jensthomas"],
-	"kuch": ["CHHOM Kunthea", "kunthea"],
+	"kuch": ["CHHOM Kunthea", "kunthea", "chhomkunthea"],
 	"masc": ["Marine", "Marine Schoettel", "marine.schoettel@efeo.net", "m-schoettel"],
-	"mime": ["Michaël Meyer"],
+	"mime": ["Michaël Meyer", "michaelnmmeyer"],
 	"nabo": ["Natasja", "NatasjaSB"],
+	"nica": ["NicolasCane"],
 	"nimi": ["nmirnig"],
 	"nlsy": ["nicholaslua"],
 	"nuha": ["nurmaliahabibah"],
@@ -43,7 +46,7 @@ ID_TO_GIT = {
 	"ryfu": ["ryosukefurui"],
 	"sagu": ["Samana Gururaja", "samana218"],
 	"sapi": ["salomepichon"],
-	"tilu": ["Tim Lubin", "Tim"],
+	"tilu": ["Tim Lubin", "Tim", "lubint"],
 	"tykd": ["tyassanti"],
 	"utve": ["UthayaVeluppillai", "Uthaya Veluppillai"],
 	"vagi": ["valeriegillet", "Valérie Gillet"],
@@ -92,6 +95,9 @@ for person in soup.find_all("person"):
 
 def plain(ident):
 	return " ".join(persons[ident])
+
+def plain_from_github(github_user):
+	return plain(GIT_TO_ID[github_user])
 
 def xml(ident, root_tag):
 	rec = persons[ident]
