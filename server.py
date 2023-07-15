@@ -23,7 +23,7 @@ TEXTS_DB.row_factory = sqlite3.Row
 
 NGRAM_DB = sqlite3.connect(os.path.join(config.DBS_DIR, "ngram.sqlite"))
 
-@bottle.route("/")
+@bottle.get("/")
 def index():
 	(date,) = TEXTS_DB.execute("select strftime('%Y-%m-%d %H:%M', ?, 'auto', 'localtime')", (config.CODE_DATE,)).fetchone()
 	return bottle.template("index.tpl", code_hash=config.CODE_HASH, code_date=date)
@@ -31,7 +31,7 @@ def index():
 def is_robot(email):
 	return email in ("readme-bot@example.com", "github-actions@github.com")
 
-@bottle.route("/commit-log")
+@bottle.get("/commit-log")
 def show_commit_log():
 	commits = []
 	for (doc,) in GIT_DB.execute("select data from logs order by date desc"):
@@ -49,7 +49,7 @@ def show_commit_log():
 			commits.append({"repo": repo, "date": push_date, "author": author, "hash": hash, "url": url})
 	return bottle.template("commit-log.tpl", commits=commits)
 
-@bottle.route("/texts")
+@bottle.get("/texts")
 def show_texts():
 	conn = TEXTS_DB
 	conn.execute("begin")
@@ -65,7 +65,7 @@ def show_texts():
 	conn.execute("commit")
 	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows)
 
-@bottle.route("/texts/<repo>/<hash>/<name>")
+@bottle.get("/texts/<repo>/<hash>/<name>")
 def show_text(repo, hash, name):
 	conn = TEXTS_DB
 	row = conn.execute("""
@@ -82,7 +82,7 @@ def show_text(repo, hash, name):
 		return bottle.template("invalid-text.tpl", text=row, github_url=url)
 	bottle.redirect(url)
 
-@bottle.route("/parallels/verses")
+@bottle.get("/parallels/verses")
 def show_parallel_verses():
 	verses = []
 	for id, file, verse, text, count in NGRAM_DB.execute("""SELECT id, file, verse, orig, count
@@ -91,7 +91,7 @@ def show_parallel_verses():
 		verses.append((id, file, verse, text.splitlines(), count))
 	return bottle.template("verses.tpl", verses=verses)
 
-@bottle.route("/parallels/verses/<id>")
+@bottle.get("/parallels/verses/<id>")
 def show_verse_parallels(id):
 	loc = NGRAM_DB.execute("SELECT file, verse FROM verses where id = ?", (id,)).fetchone()
 	if not loc:
