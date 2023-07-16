@@ -241,7 +241,11 @@ def notify(name):
 		os.close(fd)
 
 if __name__ == "__main__":
-	try:
-		main()
-	except KeyboardInterrupt:
-		pass
+	while True:
+		try:
+			main()
+		except KeyboardInterrupt:
+			break
+		except Exception as e:
+			print(e, file=sys.stderr)
+
