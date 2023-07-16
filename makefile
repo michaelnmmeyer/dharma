@@ -12,6 +12,9 @@ update-texts:
 	git add texts
 	git commit -m "Update texts"
 
+download-dbs:
+	rsync --progress 'beta:dharma/dbs/*.sqlite*' dbs/
+
 list-texts:
 	@sqlite3 dbs/texts.sqlite "select printf('repos/%s/%s', repo, xml_path) \
 		from texts natural join latest_commits natural join validation \
@@ -21,7 +24,7 @@ image:
 	git show --no-patch --format=%at HEAD >> version.txt
 	sudo docker build -t dharma .
 
-.PHONY: all update-texts list-texts image
+.PHONY: all update-texts download-dbs list-texts image
 
 inscription.rnc: $(wildcard texts/DHARMA_INS*.xml)
 	java -jar validation/trang.jar $^ $@

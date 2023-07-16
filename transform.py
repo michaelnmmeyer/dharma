@@ -419,25 +419,6 @@ und
 vie
 xhm
 zlm
-""".strip().split() + """
-kan-Latn
-kaw-Latn
-khm-Latn
-ocm-Latn
-okz-Latn
-omy-Latn
-ori-Latn
-osn-Latn
-pli-Latn
-pli-Thai
-pra-Latn
-san-Latn
-san-Thai
-tam-Latn
-tam-Taml
-tel-Latn
-tha-Thai
-xhm-Latn
 """.strip().split()
 
 def process_body(p, body):

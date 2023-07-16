@@ -15,10 +15,12 @@ def char_name(c):
 	except ValueError:
 		return "U+%04X" % ord(c)
 
+SCRIPTS = ("TAMIL", "TELUGU", "KHMER", "DEVANAGARI", "GRANTHA", "KANNADA")
+
 def script(g):
 	# Not really correct, but enough for this purpose
 	names = [char_name(c) for c in g]
-	for s in ("TAMIL", "TELUGU", "KHMER", "DEVANAGARI", "GRANTHA", "KANNADA"):
+	for s in SCRIPTS:
 		if all(name.startswith(s + " ") for name in names):
 			return s
 
@@ -38,7 +40,9 @@ valid_combinations = """
 """.strip().splitlines()
 
 def is_valid(g):
-	return len(g) == 1 or script(g) or g in valid_combinations
+	if len(g) == 1:
+		return not char_name(g[0]).startswith("CYRILLIC ")
+	return script(g) or g in valid_combinations
 
 def validate(f):
 	problems = []

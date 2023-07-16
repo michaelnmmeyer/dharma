@@ -1,7 +1,7 @@
-% rebase("base.tpl", title="Commit log")
+% rebase("base.tpl", title="Commit Log")
 
 <div class="body">
-<h1>Commit log</h1>
+<h1>Commit Log</h1>
 </div>
 
 <table>
