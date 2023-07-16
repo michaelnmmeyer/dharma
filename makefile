@@ -25,12 +25,18 @@ list-all-texts:
 		from texts natural join latest_commits natural join validation \
 		order by name"
 
+# Use like this: make forever CMD="echo hello"
+forever:
+	@while inotifywait -qqre modify . @dbs @docs @notes @past @repos; do \
+		$(CMD) || true; \
+	done
+
 image:
 	git rev-parse HEAD > version.txt
 	git show --no-patch --format=%at HEAD >> version.txt
 	sudo docker build -t dharma .
 
-.PHONY: all update-texts download-dbs list-texts list-all-texts image
+.PHONY: all update-texts download-dbs list-texts list-all-texts forever image
 
 inscription.rnc: $(wildcard texts/DHARMA_INS*.xml)
 	java -jar validation/trang.jar $^ $@
