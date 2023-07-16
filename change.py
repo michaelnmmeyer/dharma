@@ -1,4 +1,4 @@
-import os, sys, subprocess, sqlite3, json, select, errno, logging
+import os, sys, subprocess, json, select, errno, logging
 from dharma import config, validate, texts, biblio, grapheme
 
 FIFO_ADDR = os.path.join(config.REPOS_DIR, "change.hid")
@@ -57,13 +57,7 @@ tfd-nusantara-philology
 tfd-sanskrit-philology
 """.strip().split()
 
-TEXT_DB_PATH = os.path.join(config.DBS_DIR, "texts.sqlite")
-
 SCHEMA = """
-pragma foreign_keys = on;
-pragma journal_mode = wal;
-pragma page_size = 8192;
-
 create table if not exists commits(
 	repo text,
 	commit_hash text,
@@ -102,8 +96,9 @@ create table if not exists validation(
 );
 """
 
-TEXTS_DB = sqlite3.connect(TEXT_DB_PATH)
+TEXTS_DB = config.open_db("texts")
 TEXTS_DB.executescript(SCHEMA)
+TEXTS_DB.commit()
 
 def command(*cmd, **kwargs):
 	print(*cmd, file=sys.stderr)

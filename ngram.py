@@ -1,14 +1,10 @@
-import os, sys, sqlite3
+import os, sys
 from glob import glob
 from bs4 import BeautifulSoup
 from dharma.transform import normalize_space
 from dharma import config
 
 SCHEMA = """
-pragma page_size = 8192;
-pragma journal_mode = wal;
-pragma foreign_keys = on;
-
 create table if not exists verses(
 	id integer primary key autoincrement,
 	file text not null,
@@ -26,7 +22,7 @@ create table if not exists verses_jaccard(
 );
 """
 
-NGRAM_DB = sqlite3.connect(os.path.join(config.DBS_DIR, "ngram.sqlite"))
+NGRAM_DB = config.open_db("ngram")
 NGRAM_DB.executescript(SCHEMA)
 NGRAM_DB.commit()
 

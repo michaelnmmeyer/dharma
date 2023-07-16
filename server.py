@@ -1,27 +1,18 @@
 #!/usr/bin/env python3
 
-import os, sqlite3, json, sys
+import os, json, sys
 from datetime import datetime
 from dharma import config, bottle, change, persons
 
-sqlite3.register_converter("json", lambda d: json.loads(d.decode()))
-
-GIT_DB = sqlite3.connect(os.path.join(config.DBS_DIR, "github-log.sqlite"))
+GIT_DB = config.open_db("github-log")
 GIT_DB.executescript("""
-pragma journal_mode = wal;
-pragma synchronous = normal;
 create table if not exists logs(
 	date integer,
 	data text
 );
 """)
-
-TEXTS_DB = sqlite3.connect(
-	os.path.join(config.DBS_DIR, "texts.sqlite"),
-	detect_types=sqlite3.PARSE_DECLTYPES)
-TEXTS_DB.row_factory = sqlite3.Row
-
-NGRAM_DB = sqlite3.connect(os.path.join(config.DBS_DIR, "ngram.sqlite"))
+TEXTS_DB = config.open_db("texts")
+NGRAM_DB = config.open_db("ngram")
 
 @bottle.get("/")
 def index():

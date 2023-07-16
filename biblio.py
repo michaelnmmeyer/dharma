@@ -6,7 +6,7 @@
 # proper primary key? Yes, use:
 # https://api.zotero.org/groups/1633743/items/ZZH5G8PB?format=tei
 
-import os, json, sqlite3, unicodedata, html, re, time
+import os, json, unicodedata, html, re, time
 import warnings
 from collections import OrderedDict
 import requests
@@ -17,9 +17,6 @@ LIBRARY_ID = 1633743
 MY_API_KEY = "ojTBU4SxEQ4L0OqUhFVyImjq"
 
 SCHEMA = """
-pragma page_size = 8192;
-pragma journal_mode = wal;
-
 create table if not exists meta(
 	key text primary key not null,
 	value
@@ -33,7 +30,7 @@ create table if not exists bibliography(
 );
 """
 
-conn = sqlite3.connect(os.path.join(config.DBS_DIR, "biblio.sqlite"))
+conn = config.open_db("biblio")
 conn.executescript(SCHEMA)
 conn.commit()
 
