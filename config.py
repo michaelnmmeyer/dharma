@@ -1,4 +1,4 @@
-import os, logging, sqlite3
+import os, logging, sqlite3, json
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
