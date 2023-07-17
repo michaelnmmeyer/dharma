@@ -2,8 +2,7 @@
 
 import os, re, sys
 from bs4 import BeautifulSoup
-from cleanup import cleanup_file
-
+from dharma.cleanup import cleanup_file
 from dharma import config
 
 def complain(s):
@@ -64,7 +63,22 @@ def iter_texts():
 		else:
 			yield files[0]
 
-TEXTS_DIR = "texts"
+def owners_of(path):
+	from dharma import change, persons
+	path = os.path.relpath(path, config.REPOS_DIR)
+	slash = path.index("/")
+	repo, relpath = path[:slash], path[slash + 1:]
+	ret = change.command("git", "-C", os.path.join(config.REPOS_DIR, repo), "log", "--follow", "--format=%aN", "--", relpath)
+	authors = set(ret.stdout.splitlines())
+	ids = set()
+	for author in authors:
+		id = persons.GIT_TO_ID.get(author)
+		if not id:
+			continue
+		ids.add(id)
+	return sorted(ids)
+
+TEXTS_DIR = os.path.join(config.THIS_DIR, "texts")
 
 def update_texts():
 	os.makedirs(TEXTS_DIR, exist_ok=True)
@@ -74,10 +88,6 @@ def update_texts():
 		with open(file) as r, open(out, "w") as w:
 			for line in cleanup_file(r):
 				w.write(line)
-
-def list_texts():
-	for file in iter_texts():
-		print(file)
 
 # Create a map xml->web page (for debugging)
 def gather_web_pages(texts):
@@ -102,7 +112,6 @@ def cmd_pages():
 
 commands = {
 	"update": update_texts,
-	"list": list_texts,
 	"pages": cmd_pages,
 }
 

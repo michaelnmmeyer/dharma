@@ -94,6 +94,13 @@ create table if not exists validation(
 	primary key(name, repo, commit_hash),
 	foreign key(name, repo, commit_hash) references texts(name, repo, commit_hash)
 );
+
+create table if not exists owners(
+	author_id text,
+	repo text,
+	xml_path text,
+	primary key(author_id, repo, xml_path)
+);
 """
 
 TEXTS_DB = config.open_db("texts")
@@ -151,6 +158,7 @@ def handle_changes(name):
 		xml_paths = {os.path.basename(os.path.splitext(xml_name)[0]): xml_name for xml_name in state}
 		paths = texts.gather_web_pages(xml_paths)
 		repo_dir = os.path.join(config.REPOS_DIR, name)
+		conn.execute("delete from owners where repo = ?", (name,))
 		for xml_name, html_path in sorted(paths.items()):
 			xml_path = os.path.relpath(xml_paths[xml_name], repo_dir)
 			if html_path:
@@ -160,6 +168,9 @@ def handle_changes(name):
 			file_id = os.path.basename(os.path.splitext(xml_path)[0])
 			conn.execute("insert into texts(name, repo, commit_hash, xml_path, html_path) values(?, ?, ?, ?, ?)",
 				(file_id, name, commit_hash, xml_path, html_path))
+			for author_id in texts.owners_of(os.path.join(repo_dir, xml_path)):
+				conn.execute("insert into owners(author_id, repo, xml_path) values(?, ?, ?)",
+					(author_id, name, xml_path))
 	for text, errors in sorted(state.items()):
 		valid = not errors["schema"] and not errors["unicode"]
 		errors = json.dumps(errors)
@@ -208,10 +219,10 @@ def read_changes(fd):
 			biblio.update()
 			logging.info("updated biblio")
 		elif name in REPOS:
-			logging.info("updating single repo...")
+			logging.info("updating single repo %r..." % name)
 			update_repo(name)
 			handle_changes(name)
-			logging.info("updated single repo")
+			logging.info("updated single repo %r" % name)
 		else:
 			logging.warning("junk command: %r" % name)
 
