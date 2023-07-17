@@ -2,7 +2,28 @@
 
 <div class="body">
 <h1>Texts</h1>
+<div>
 <p>Last updated {{last_updated}}.</p>
+
+<form action="/texts" method="get">
+<label for="select-owner">Edited by:</label>
+<select name="owner" id="select-owner">
+% if owner:
+   <option value="">Anybody</option>
+% else:
+   <option value="" selected>Anybody</option>
+% end
+% for author_id, author_name in authors:
+   % if author_id == owner:
+      <option value="{{author_id}}" selected>{{author_name}}</option>
+   % else:
+      <option value="{{author_id}}">{{author_name}}</option>
+   % end
+% end
+</select>
+<input type="submit" value="Reload">
+</form>
+</div>
 </div>
 
 <table>

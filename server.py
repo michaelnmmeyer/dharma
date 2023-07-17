@@ -49,13 +49,27 @@ def show_texts():
 		select strftime('%Y-%m-%d %H:%M', max(when_validated), 'auto', 'localtime')
 		from validation
 	""").fetchone()
-	rows = list(conn.execute("""
-		select name, repo, commit_hash, strftime('%Y-%m-%d %H:%M', commit_date, 'auto', 'localtime') as readable_commit_date,
-			valid, html_path
-		from latest_commits natural join validation natural join texts
-		order by name"""))
+	owner = bottle.request.query.owner
+	if owner:
+		rows = list(conn.execute("""
+			select name, validation.repo, commit_hash,
+				strftime('%Y-%m-%d %H:%M', commit_date, 'auto', 'localtime') as readable_commit_date,
+				valid, html_path
+			from owners join latest_commits on owners.repo = latest_commits.repo
+				natural join validation natural join texts
+			where author_id = ? order by name""", (owner,)))
+	else:
+		rows = list(conn.execute("""
+			select name, repo, commit_hash,
+				strftime('%Y-%m-%d %H:%M', commit_date, 'auto', 'localtime') as readable_commit_date,
+				valid, html_path
+			from latest_commits natural join validation natural join texts
+			order by name"""))
+	authors = []
+	for (author_id,) in conn.execute("select distinct author_id from owners"):
+		authors.append((author_id, persons.plain(author_id)))
 	conn.execute("commit")
-	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows)
+	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner)
 
 @bottle.get("/texts/<repo>/<hash>/<name>")
 def show_text(repo, hash, name):
