@@ -20,6 +20,12 @@ verses = []
 
 soup = BeautifulSoup(sys.stdin, "xml")
 for verse in soup.find_all("lg"):
+	node = verse.parent
+	while node.name != "div":
+		node = node.parent
+	assert node, verse
+	assert node.name == "div", node
+	chapter = node["n"]
 	buf = []
 	for i, l in enumerate(verse.find_all("l")):
 		# In fact <l> sometimes contains several padas, should fix that in the encoding.
@@ -39,12 +45,12 @@ for verse in soup.find_all("lg"):
 		text = text.strip("/| ")
 		buf.append(text)
 		if "abcdefgh"[i] != n:
-			print(verse["n"])
+			print(chapter + "." + verse["n"])
 	if not buf:
 		continue
 	if not any(c.isalpha() for c in " ".join(buf)):
 		continue
-	id = verse["n"]
+	id = "%s.%s" % (chapter, verse["n"])
 	verses.append((id, tuple(buf), tuple(normalize(pada) for pada in buf)))
 
 DATA = verses
