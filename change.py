@@ -202,8 +202,10 @@ def read_changes(fd):
 				break
 			data = os.read(fd, 512)
 			while not data:
-				select.select([fd], [], [], 0)
+				logging.info("selecting")
+				select.select([fd], [], [], 6000)
 				data = os.read(fd, 512)
+				logging.info("read %d" % len(data))
 			buf += data.decode("ascii")
 		name = buf[:end].rstrip("/")
 		buf = buf[end + 1:]
@@ -237,7 +239,7 @@ def main():
 	except FileExistsError:
 		pass
 	logging.info("ready")
-	fd = os.open(FIFO_ADDR, os.O_RDONLY)
+	fd = os.open(FIFO_ADDR, os.O_RDWR)
 	try:
 		read_changes(fd)
 	finally:
