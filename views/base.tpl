@@ -24,8 +24,8 @@
    }
    div.verse {
       /* Same properties as a normal <p> */
-      margin-block-start: 1em;
-      margin-block-end: 1em;
+      /* margin-block-start: 1em;
+      margin-block-end: 1em; */
    }
    div.verse > p {
       /* No space between hemistiches */
@@ -51,7 +51,7 @@
       <li><a href="/">Home</a></li>
       <li><a href="/commit-log">Commit Log</a></li>
       <li><a href="/texts">Texts</a></li>
-      <li><a href="/parallels/verses">Parallel Verses</a></li>
+      <li><a href="/parallels">Parallels</a></li>
    </menu>
    {{!base}}
 </body>

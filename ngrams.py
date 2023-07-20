@@ -198,7 +198,7 @@ def make_jaccard(type):
 				continue
 			NGRAMS_DB.execute("insert into jaccard values(?, ?, ?, ?)", (type, id1, id2, jaccard))
 
-if __name__ == "__main__":
+def make_database():
 	db = NGRAMS_DB
 	db.execute("begin")
 	id = 0
@@ -226,3 +226,35 @@ if __name__ == "__main__":
 	commit;
 	vacuum;
 	""")
+
+def search(src_text, category):
+	if category == "verse":
+		danda = re.search(r"[/|।]", src_text)
+		if not danda:
+			return None, None
+		one, two = src_text[:r.end()], src_text[r.end():]
+		src_norm = "*%s**%s*" % (normalize(cleanup(one)), normalize(cleanup(two)))
+		formatted_text = '<div class="verse"><p>%s</p><p>%s</p></div>' % \
+			html.escape(one), html.escape(two)
+		type = 1
+	elif category == "hemistich" or category == "pada":
+		src_norm = "*%s*" % normalize(cleanup(src_text))
+		formatted_text = '<div class="verse"><p>%s</p></div>' % html.escape(src_text)
+		type = category == "hemistich" and 2 or 4
+	else:
+		return None, None
+	src_ngrams = set(trigrams(src_norm))
+	ret = []
+	for row in NGRAMS_DB.execute("""
+		select id, normalized, file, number, contents from passages where type = ?
+		""", (type,)):
+		ngrams2 = set(trigrams(row["normalized"]))
+		try:
+			jaccard = len(src_ngrams & ngrams2) / len(src_ngrams | ngrams2)
+		except ZeroDivisionError:
+			jaccard = 0
+		if jaccard < MIN_JACCARD:
+			continue
+		ret.append((row["id"], row["file"], row["number"], row["contents"], jaccard))
+	ret.sort(key=lambda x: x[-1], reverse=True)
+	return ret, formatted_text

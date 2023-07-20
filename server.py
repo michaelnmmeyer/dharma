@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-import os, json, sys
+import os, json, sys, unicodedata
 from datetime import datetime
-from dharma import config, bottle, change, persons
+from dharma import config, bottle, change, persons, ngrams
 
 GIT_DB = config.open_db("github-log")
 GIT_DB.executescript("""
@@ -88,25 +88,58 @@ def show_text(repo, hash, name):
 		return bottle.template("invalid-text.tpl", text=row, github_url=url)
 	bottle.redirect(url)
 
-@bottle.get("/parallels/verses")
-def show_parallel_verses():
-	rows = NGRAMS_DB.execute("""
-		select id, file as name, number, contents, parallels
-		from data where type = 1 and parallels > 0
-	""").fetchall()
-	return bottle.template("verses.tpl", verses=rows)
+@bottle.get("/parallels")
+def show_parallels():
+	rows = NGRAMS_DB.execute("select * from sources where verses + hemistiches + padas > 0")
+	return bottle.template("parallels.tpl", data=rows)
 
-@bottle.get("/parallels/verses/<id>")
-def show_verse_parallels(id):
-	loc = NGRAMS_DB.execute("select file, verse from verses where id = ?", (id,)).fetchone()
-	if not loc:
-		abort(404, "No such verse")
-	loc = " ".join(loc)
-	verses = []
-	for id, file, verse, orig, coeff in NGRAMS_DB.execute("""select id2 as id, file, verse, orig, coeff
-		from verses natural join verses_jaccard""", (id,)):
-		verses.append((id, file, verse, orig.splitlines(), coeff))
-	return bottle.template("verse_parallels.tpl", verses=verses, loc=loc)
+parallels_types = {
+	"verses": 1,
+	"hemistiches": 2,
+	"padas": 4,
+}
+
+@bottle.get("/parallels/texts/<text>/<category>")
+def show_parallels_details(text, category):
+	type = parallels_types[category]
+	rows = NGRAMS_DB.execute("""
+		select id, number, contents, parallels from passages
+		where type = ? and file = ? and parallels > 0
+	""", (type, text))
+	return bottle.template("parallels_details.tpl", file=text, category=category, data=rows)
+
+@bottle.get("/parallels/texts/<text>/<category>/<id:int>")
+def show_parallels_full(text, category, id):
+	type = parallels_types[category]
+	NGRAMS_DB.execute("begin")
+	number, contents = NGRAMS_DB.execute("""
+		select number, contents from passages where type = ? and id = ?
+		""", (type, id)).fetchone()
+	rows = NGRAMS_DB.execute("""
+		select file, number, contents, id2, coeff
+		from passages join jaccard on passages.id = jaccard.id2
+		where jaccard.type = ? and jaccard.id = ?
+		order by coeff desc
+	""", (type, id)).fetchall()
+	NGRAMS_DB.execute("commit")
+	return bottle.template("parallels_enum.tpl", category=category, file=text,
+		number=number, data=rows, contents=contents)
+
+@bottle.get("/parallels/search")
+def search_parallels():
+	text = bottle.request.query.text
+	type = bottle.request.query.type
+	if not text or not type:
+		return bottle.redirect("/parallels")
+	text = unicodedata.normalize("NFC", text)
+	ret, formatted_text = ngrams.search(text, type)
+	return bottle.template("parallels_search.tpl",
+		data=ret, text=formatted_text,
+		category=type + (type == "hemistich" and "es" or "s"))
+
+@bottle.get("/parallels/verses")
+def redirect_parallels():
+	bottle.redirect("/parallels")
 
 @bottle.post("/github-event")
 def handle_github():
