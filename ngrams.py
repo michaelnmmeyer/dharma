@@ -5,14 +5,22 @@ from dharma.transform import normalize_space
 from dharma import config, texts
 
 SCHEMA = """
-create table if not exists data(
+create table if not exists passages(
 	type integer, -- 1 = verse, 2 = hemistich, 4 = pada
 	id integer,
 	file text,
 	number text,
 	contents html,
 	normalized text,
+	parallels integer,
 	primary key(type, id)
+);
+create table if not exists sources(
+	file text primary key,
+	verses integer,
+	hemistiches integer,
+	padas integer,
+	foreign key(file) references passages(file)
 );
 create table if not exists jaccard(
 	type integer,
@@ -20,8 +28,8 @@ create table if not exists jaccard(
 	id2 integer,
 	coeff real,
 	primary key(type, id, id2),
-	foreign key(type, id) references data(type, id),
-	foreign key(type, id2) references data(type, id)
+	foreign key(type, id) references passages(type, id),
+	foreign key(type, id2) references passages(type, id)
 );
 """
 
@@ -178,9 +186,9 @@ def process_files(paths):
 
 def make_jaccard(type):
 	data = []
-	for id, normalized in NGRAMS_DB.execute("select id, normalized from data where type=?", (type,)):
+	for id, normalized in NGRAMS_DB.execute("select id, normalized from passages where type = ?", (type,)):
 		data.append((id, set(trigrams(normalized))))
-	for i, (id1, ngrams1) in enumerate(data):
+	for i, (id1, ngrams1) in enumerate(data, 1):
 		print("%d %d/%d" % (type, i, len(data)))
 		for id2, ngrams2 in data:
 			if id1 >= id2:
@@ -197,9 +205,25 @@ if __name__ == "__main__":
 	db = NGRAMS_DB
 	db.execute("begin")
 	for row in process_files(texts.iter_texts()):
-		db.execute("insert into data values(?, ?, ?, ?, ?, ?)", row)
+		db.execute("""insert into passages(type, id, file, number, contents, normalized)
+			values(?, ?, ?, ?, ?, ?)""", row)
 	db.execute("commit")
 	for type, _ in enum_funcs:
 		db.execute("begin")
 		make_jaccard(type)
 		db.execute("commit")
+	db.executescript("""
+	begin;
+	insert into jaccard select type, id2, id, coeff from jaccard;
+	update passages set parallels = (select count(*) from jaccard
+		where jaccard.type = passages.type and jaccard.id = passages.id);
+	commit;
+	""")
+	db.execute("begin")
+	for (file,) in db.execute("select distinct(file) from passages"):
+		(verses,) = db.execute("select count(*) from passages where file = ? and type = 1 and count > 0", (file,)).fetchone()
+		(hemistiches,) = db.execute("select count(*) from passages where file = ? and type = 2 and count > 0", (file,)).fetchone()
+		(padas,) = db.execute("select count(*) from passages where file = ? and type = 4 and count > 0", (file,)).fetchone()
+		db.execute("insert into sources values(?, ?, ?, ?)", (file, verses, hemistiches, padas))
+	db.execute("commit")
+	db.execute("vacuum")

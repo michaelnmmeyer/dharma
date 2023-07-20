@@ -12,7 +12,7 @@ create table if not exists logs(
 );
 """)
 TEXTS_DB = config.open_db("texts")
-NGRAM_DB = config.open_db("ngram")
+NGRAMS_DB = config.open_db("ngrams")
 
 @bottle.get("/")
 def index():
@@ -90,22 +90,21 @@ def show_text(repo, hash, name):
 
 @bottle.get("/parallels/verses")
 def show_parallel_verses():
-	verses = []
-	for id, file, verse, text, count in NGRAM_DB.execute("""SELECT id, file, verse, orig, count
-		FROM verses where count > 0
-	"""):
-		verses.append((id, file, verse, text.splitlines(), count))
-	return bottle.template("verses.tpl", verses=verses)
+	rows = NGRAMS_DB.execute("""
+		select id, file as name, number, contents, parallels
+		from data where type = 1 and parallels > 0
+	""").fetchall()
+	return bottle.template("verses.tpl", verses=rows)
 
 @bottle.get("/parallels/verses/<id>")
 def show_verse_parallels(id):
-	loc = NGRAM_DB.execute("SELECT file, verse FROM verses where id = ?", (id,)).fetchone()
+	loc = NGRAMS_DB.execute("select file, verse from verses where id = ?", (id,)).fetchone()
 	if not loc:
 		abort(404, "No such verse")
 	loc = " ".join(loc)
 	verses = []
-	for id, file, verse, orig, coeff in NGRAM_DB.execute("""SELECT id, file, verse, orig, coeff
-		FROM verses JOIN verses_jaccard ON id = id2 WHERE id1 = ? ORDER BY coeff DESC""", (id,)):
+	for id, file, verse, orig, coeff in NGRAMS_DB.execute("""select id2 as id, file, verse, orig, coeff
+		from verses natural join verses_jaccard""", (id,)):
 		verses.append((id, file, verse, orig.splitlines(), coeff))
 	return bottle.template("verse_parallels.tpl", verses=verses, loc=loc)
 

@@ -23,15 +23,17 @@
 	   text-decoration: none;
    }
    div.verse {
-      margin-block-start: 0.3em; /* not good! */
+      /* Same properties as a normal <p> */
+      margin-block-start: 1em;
       margin-block-end: 1em;
    }
-   p.verse {
-      /* Hanging indent */
-      padding-left: 1rem ;
-      text-indent: -1rem ;
+   div.verse > p {
+      /* No space between hemistiches */
       margin-block-start: 0em;
       margin-block-end: 0em;
+      /* Hanging indent */
+      padding-left: 2em;
+      text-indent: -2em;
    }
    table {
       border-collapse: collapse;
