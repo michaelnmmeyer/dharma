@@ -5,6 +5,12 @@ from dharma.transform import normalize_space
 from dharma import config, texts
 
 SCHEMA = """
+create table if not exists sources(
+	file text primary key,
+	verses integer,
+	hemistiches integer,
+	padas integer
+);
 create table if not exists passages(
 	type integer, -- 1 = verse, 2 = hemistich, 4 = pada
 	id integer,
@@ -13,14 +19,8 @@ create table if not exists passages(
 	contents html,
 	normalized text,
 	parallels integer,
-	primary key(type, id)
-);
-create table if not exists sources(
-	file text primary key,
-	verses integer,
-	hemistiches integer,
-	padas integer,
-	foreign key(file) references passages(file)
+	primary key(type, id),
+	foreign key(file) references sources(file)
 );
 create table if not exists jaccard(
 	type integer,
@@ -172,17 +172,14 @@ enum_funcs = [
 	(4, enum_padas),
 ]
 
-def process_files(paths):
-	id = 0
-	for path in paths:
-		path = path.strip()
-		file = os.path.basename(os.path.splitext(path)[0])
-		for n, orig in extract_verses(path):
-			norm = [normalize(pada) for pada in orig]
-			for type, func in enum_funcs:
-				for number, contents, normalized in func(n, orig, norm):
-					id += 1
-					yield type, id, file, number, contents, normalized
+def process_file(path, id):
+	file = os.path.basename(os.path.splitext(path)[0])
+	for n, orig in extract_verses(path):
+		norm = [normalize(pada) for pada in orig]
+		for type, func in enum_funcs:
+			for number, contents, normalized in func(n, orig, norm):
+				id += 1
+				yield type, id, file, number, contents, normalized
 
 def make_jaccard(type):
 	data = []
@@ -204,9 +201,14 @@ def make_jaccard(type):
 if __name__ == "__main__":
 	db = NGRAMS_DB
 	db.execute("begin")
-	for row in process_files(texts.iter_texts()):
-		db.execute("""insert into passages(type, id, file, number, contents, normalized)
-			values(?, ?, ?, ?, ?, ?)""", row)
+	id = 0
+	for path in texts.iter_texts():
+		file = os.path.basename(os.path.splitext(path)[0])
+		db.execute("insert into sources(file) values(?)", (file,))
+		for row in process_file(path, id):
+			db.execute("""insert into passages(type, id, file, number, contents, normalized)
+				values(?, ?, ?, ?, ?, ?)""", row)
+			id = row[1]
 	db.execute("commit")
 	for type, _ in enum_funcs:
 		db.execute("begin")
@@ -217,13 +219,10 @@ if __name__ == "__main__":
 	insert into jaccard select type, id2, id, coeff from jaccard;
 	update passages set parallels = (select count(*) from jaccard
 		where jaccard.type = passages.type and jaccard.id = passages.id);
+	update sources set
+		verses = (select count(*) from passages where passages.file = sources.file and type = 1 and parallels > 0),
+		hemistiches = (select count(*) from passages where passages.file = sources.file and type = 2 and parallels > 0),
+		padas = (select count(*) from passages where passages.file = sources.file and type = 4 and parallels > 0);
 	commit;
+	vacuum;
 	""")
-	db.execute("begin")
-	for (file,) in db.execute("select distinct(file) from passages"):
-		(verses,) = db.execute("select count(*) from passages where file = ? and type = 1 and count > 0", (file,)).fetchone()
-		(hemistiches,) = db.execute("select count(*) from passages where file = ? and type = 2 and count > 0", (file,)).fetchone()
-		(padas,) = db.execute("select count(*) from passages where file = ? and type = 4 and count > 0", (file,)).fetchone()
-		db.execute("insert into sources values(?, ?, ?, ?)", (file, verses, hemistiches, padas))
-	db.execute("commit")
-	db.execute("vacuum")
