@@ -1,6 +1,7 @@
 % rebase("base.tpl", title="Parallels")
 
 <div class="body">
+
 <h1>Parallel
 % if category == "padas":
    Pādas
@@ -8,6 +9,8 @@
    {{category.title()}}
 % end
 of {{file.removeprefix("DHARMA_")}} {{number}}</h1>
+
+</div>
 
 <table>
 <thead>
@@ -36,5 +39,3 @@ of {{file.removeprefix("DHARMA_")}} {{number}}</h1>
 </tr>
 % end
 </tbody>
-
-</div>

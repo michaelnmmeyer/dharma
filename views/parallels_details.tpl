@@ -10,6 +10,8 @@
 % end
 of {{file.removeprefix("DHARMA_")}} that Have Parallels</h1>
 
+</div>
+
 <table>
 <thead>
 <tr>
@@ -30,5 +32,3 @@ of {{file.removeprefix("DHARMA_")}} that Have Parallels</h1>
 </tr>
 </tbody>
 </table>
-
-</div>

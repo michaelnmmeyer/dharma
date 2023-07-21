@@ -1,6 +1,7 @@
 % rebase("base.tpl", title="Parallels")
 
 <div class="body">
+
 <h1>Parallels</h1>
 
 <p>This interface allows you to look for parallel verse passages—verses,
@@ -48,6 +49,8 @@ when they do not share a single one. We (arbitrarily) assume that pairs of
 passages for which <i>J</i> < 0.3 are not parallels, and do not display
 them.</p>
 
+</div>
+
 <table>
 <thead>
 <tr>
@@ -73,5 +76,3 @@ them.</p>
 </tr>
 % end
 </tbody>
-
-</div>
