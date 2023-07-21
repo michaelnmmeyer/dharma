@@ -15,7 +15,7 @@ def char_name(c):
 	except ValueError:
 		return "U+%04X" % ord(c)
 
-SCRIPTS = ("TAMIL", "TELUGU", "KHMER", "DEVANAGARI", "GRANTHA", "KANNADA")
+SCRIPTS = ("TAMIL", "TELUGU", "KHMER", "DEVANAGARI", "GRANTHA", "KANNADA", "BALINESE")
 
 def script(g):
 	# Not really correct, but enough for this purpose
