@@ -11,8 +11,8 @@ at the bottom of this page.</p>
 
 <p>When searching for a verse, add a daṇḍa at the end of the first hemistich.
 You should always input a complete passage—verse, hemistich or pāda, depending
-on the unit you choose. This interface is not meant to look for arbitrary
-substrings.</p>
+on the unit you choose. This interface is not meant to be used for searching
+arbitrary substrings.</p>
 
 <form action="/parallels/search" method="get">
 <label for="text-input">Text:</label>

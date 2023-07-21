@@ -1,12 +1,16 @@
-% rebase("base.tpl", title=text["name"])
-<h1>{{text["name"]}}</h1>
+% rebase("base.tpl", title=text["name"].removeprefix("DHARMA_"))
+
+<div class="body">
+<h1>{{text["name"].removeprefix("DHARMA_")}}</h1>
 <p>Committed {{text['readable_commit_date']}} in
 <a
 href="https://github.com/erc-dharma/{{text['repo']}}/commit/{{text['commit_hash']}}">{{text["commit_hash"]}}</a>.
 </p>
 <p>Validated {{text['readable_when_validated']}}.</p>
+</div>
 
 % if text["errors"]["unicode"]:
+<div class="body">
 <h2>Unicode Issues</h2>
 <p>
 This is a list of
@@ -20,6 +24,8 @@ list of code points at <a
 href="mailto:michaelnm.meyer@gmail.com">michaelnm.meyer@gmail.com</a>,
 so that I update the code.
 </p>
+</div>
+
 <table>
 <thead>
 <tr>
@@ -45,7 +51,9 @@ so that I update the code.
 </table>
 
 % if text["errors"]["schema"]:
+<div class="body">
 <h2>Schema Validation Issues</h2>
+</div>
 <table>
 <thead>
 <tr>
