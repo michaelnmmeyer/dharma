@@ -457,7 +457,8 @@ tail = """
 if __name__ == "__main__":
 	p = Parser(None)
 	tree = parse(sys.argv[1])
-	p = Parser(tree, HTML().write)
+	#p = Parser(tree, HTML().write)
+	p = Parser(tree)
 	p.emit("log:doc<")
 	print(head)
 	p.emit("html", '<div class="edition">')

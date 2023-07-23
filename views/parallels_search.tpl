@@ -1,13 +1,20 @@
 % rebase("base.tpl", title="Parallels")
 
 <div class="body">
+
 <h1>Parallels Search Results</h1>
 
 % if data is None:
-
 <p>Bad input.</p>
-
+% elif not data:
+<p>Found no parallels.</p>
 % else:
+<p>Found {{len(data)}} {{len(data) == 1 and "parallel" or "parallels"}}.</p>
+% end
+
+</div>
+
+% if data:
 
 <table>
 <thead>
@@ -38,5 +45,3 @@
 </tbody>
 
 %end
-
-</div>

@@ -40,7 +40,7 @@
 % for text in texts:
 <tr>
    <td><a
-   href="texts/{{text["repo"]}}/{{text["commit_hash"]}}/{{text["name"]}}">{{text["name"]}}</a></td>
+   href="texts/{{text["repo"]}}/{{text["commit_hash"]}}/{{text["name"]}}">{{text["name"].removeprefix("DHARMA_")}}</a></td>
 % if text["valid"]:
    <td>✓</td>
 % else:
