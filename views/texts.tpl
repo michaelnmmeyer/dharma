@@ -44,7 +44,7 @@
 % if text["valid"]:
    <td>✓</td>
 % else:
-   <td><a href="texts/{{text["repo"]}}/{{text["commit_hash"]}}/{{text["name"].removeprefix("DHARMA_")}}">🐛</a></td>
+   <td><a href="texts/{{text["repo"]}}/{{text["commit_hash"]}}/{{text["name"]}}">🐛</a></td>
 % end
    <td>
 % if text["html_path"]:
