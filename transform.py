@@ -82,7 +82,7 @@ class Parser:
 		assert node.type == "tag"
 		f = HANDLERS.get(node.name)
 		if not f:
-			#p.complain("no handler for %r, ignoring it" % node)
+			p.complain("no handler for %r, ignoring it" % node)
 			return
 		try:
 			f(p, node)
@@ -154,8 +154,23 @@ def process_app(p, app):
 def process_num(p, num):
 	p.dispatch_children(num)
 
+supplied_format = {
+	"subaudible": "[]",
+	"omitted": "⟨⟩",
+	"explanation": "()",
+	"supplied": "",
+	"lost": "[]",
+	"undefined": "[]",
+}
 def process_supplied(p, supplied):
-	p.dispatch_children(supplied)
+	reason = supplied["reason"]
+	format = supplied_format[reason]
+	if format:
+		p.emit("html", format[0])
+		p.dispatch_children(supplied)
+		p.emit("html", format[1])
+	else:
+		p.dispatch_children(supplied)
 
 def process_milestone(p, milestone):
 	assert "n" in milestone.attrs
@@ -422,10 +437,9 @@ zlm
 """.strip().split()
 
 def process_body(p, body):
-	for div in body.children():
-		assert div.type == "tag"
-		assert div.name == "div"
-		p.dispatch(div)
+	for elem in body.children():
+		assert elem.type == "tag"
+		p.dispatch(elem)
 
 def process_TEI(p, node):
 	p.dispatch(node.child("text").child("body"))
@@ -460,9 +474,9 @@ if __name__ == "__main__":
 	#p = Parser(tree, HTML().write)
 	p = Parser(tree)
 	p.emit("log:doc<")
-	print(head)
-	p.emit("html", '<div class="edition">')
+	#print(head)
+	#p.emit("html", '<div class="edition">')
 	p.dispatch(p.tree.root)
-	p.emit("html", "</div>")
-	print(tail)
+	#p.emit("html", "</div>")
+	#print(tail)
 	p.emit("log:doc>")
