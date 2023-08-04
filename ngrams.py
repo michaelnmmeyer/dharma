@@ -200,6 +200,11 @@ def make_jaccard(type):
 
 def make_database():
 	db = NGRAMS_DB
+	db.executescript("""
+	delete from jaccard;
+	delete from passages;
+	delete from sources;
+	""")
 	db.execute("begin")
 	id = 0
 	for path in texts.iter_texts():
@@ -258,3 +263,6 @@ def search(src_text, category):
 		ret.append((row["id"], row["file"], row["number"], row["contents"], jaccard))
 	ret.sort(key=lambda x: x[-1], reverse=True)
 	return ret, formatted_text
+
+if __name__ == "__main__":
+	make_database()
