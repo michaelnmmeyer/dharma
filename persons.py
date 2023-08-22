@@ -35,6 +35,7 @@ ID_TO_GIT = {
 	"ilnu": ["ilhamkang"],
 	"jeth": ["jensthomas"],
 	"kuch": ["CHHOM Kunthea", "kunthea", "chhomkunthea"],
+	"leke": ["leb-ke", "LEB Ke" ],
 	"masc": ["Marine", "Marine Schoettel", "marine.schoettel@efeo.net", "m-schoettel"],
 	"mime": ["Michaël Meyer", "michaelnmmeyer"],
 	"nabo": ["Natasja", "NatasjaSB"],
@@ -76,7 +77,7 @@ def count_children_tags(iter):
 			n += 1
 	return n
 
-persons = {}
+persons = {"leke": ["Leb", "Ke"]}
 
 for person in soup.find_all("person"):
 	ident = person["xml:id"].strip()
