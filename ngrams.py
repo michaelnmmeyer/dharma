@@ -237,10 +237,10 @@ def search(src_text, category):
 		danda = re.search(r"[/|।]", src_text)
 		if not danda:
 			return None, None
-		one, two = src_text[:r.end()], src_text[r.end():]
+		one, two = src_text[:danda.end()], src_text[danda.end():]
 		src_norm = "*%s**%s*" % (normalize(cleanup(one)), normalize(cleanup(two)))
 		formatted_text = '<div class="verse"><p>%s</p><p>%s</p></div>' % \
-			html.escape(one), html.escape(two)
+			(html.escape(one), html.escape(two))
 		type = 1
 	elif category == "hemistich" or category == "pada":
 		src_norm = "*%s*" % normalize(cleanup(src_text))
