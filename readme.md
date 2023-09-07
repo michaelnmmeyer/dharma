@@ -1,10 +1,12 @@
 # dharma
 
-This is the newest code for the dharma project.
+This is the newest code for the DHARMA project.
 
-To install and run it, you need docker, git, make and python. Clone this
+## Running the application
+
+To install and run it, you need, at a minimum, docker, git, and make. Clone this
 repository into `~/`. Make sure you have admin access to the dharma
-repositories on github, and copy your private key to `~/dharma/ssh_key`. Then
+repositories on github, and copy your private SSH key to `~/dharma/ssh_key`. Then
 build the container with:
 
 	make image
@@ -14,20 +16,40 @@ the container with:
 
 	bash run.sh
 
-The overall architecture is as simple as feasible. We use two main processes: a
-server process and an update process.
+You can then open http://localhost:8023 to look at the website.
 
-The server process is mostly used for read-only operations: display, search,
-etc. The code is in `server.py`. It is possible to run several server processes
-at the same time (we allow reuse of the same socket, and SQLite takes care of
-other IPC issues). The server is single-threaded, but could be made
-multi-threaded without significant modifications. Running extra processes is
-simpler anyway.
+##  Basic architecture
 
-The update process is used for updating databases when people push to a
-repository. The code is in `change.py`. A single update process should run at a
-given time, not more. To keep things simple, we use a FIFO for IPC. The server
-process writes to this FIFO the names of the repositories that have been
-updated, one line per repository. The update process reads the repos names and
-updates things accordingly. We do not implement any buffering for passing
-messages, because pipe buffers are big enough for our purposes.
+The overall architecture is as simple as feasible. We store our data in a few
+SQLite databases, and use two main processes: a server process and an update
+process.
+
+The server process is used for read-only operations: display, search, etc. It
+never writes to a database, at the exception of the Github log database, which
+is used for debugging. The code's entry point is in `server.py`. It is possible
+to run several server processes at the same time (we allow reuse of the same
+socket, and SQLite takes care of other IPC issues). However, the server code is
+*not* thread-safe. Running extra processes is simpler anyway.
+
+The update process is used for updating databases when people push to git
+repositories. The code's entry point is in `change.py`. A single update process
+should run at a given time, not more. To keep things simple, we use a FIFO for
+IPC. The server process is hooked to Github. Whenever a repository is updated,
+it writes to the FIFO the name of this repository, followed by a line break. On
+its side, the update process reads the repository names and updates things
+accordingly. We do not implement any buffering for passing messages, because
+pipe buffers are big enough for our purposes.
+
+Nevertheless, if `git push` are too frequent, it is theoretically possible that
+the update process might not keep up and thus miss updates. Nothing prevents
+this from happening for now. In the meantime, you can manually trigger a full
+update of the databases by running the script `change.py` and then the
+following in another terminal:
+
+	echo all > ~/dharma/repos/change.hid
+
+(The file `change.hid` is the FIFO used for IPC.) The same method can of
+course be used for updating stuff related to specific repositories, for
+instance:
+
+	echo tfd-nusantara-philology > ~/dharma/repos/change.hid
