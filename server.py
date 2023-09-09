@@ -90,8 +90,10 @@ def show_text(repo, hash, name):
 
 @bottle.get("/parallels")
 def show_parallels():
+	(date,) = NGRAMS_DB.execute("""select strftime('%Y-%m-%d %H:%M', value, 'auto', 'localtime')
+		from metadata where key = 'last_modified'""").fetchone()
 	rows = NGRAMS_DB.execute("select * from sources where verses + hemistiches + padas > 0")
-	return bottle.template("parallels.tpl", data=rows)
+	return bottle.template("parallels.tpl", data=rows, last_modified=date)
 
 parallels_types = {
 	"verses": 1,

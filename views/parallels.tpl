@@ -4,6 +4,8 @@
 
 <h1>Parallels</h1>
 
+<p>Last modified {{last_modified}}.</p>
+
 <p>This interface allows you to look for parallel verse passages—verses,
 hemistiches or pādas—in the DHARMA texts collection. You can either input a
 passage to look for in the form below, or browse the collection with the table
