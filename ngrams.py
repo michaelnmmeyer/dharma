@@ -4,6 +4,9 @@ from bs4 import BeautifulSoup
 from dharma.transform import normalize_space
 from dharma import config, texts
 
+# TODO try multisets: https://en.wikipedia.org/wiki/Jaccard_index
+# better results?
+
 SCHEMA = """
 create table if not exists metadata(
 	key text primary key,
