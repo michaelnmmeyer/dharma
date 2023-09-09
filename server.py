@@ -25,6 +25,7 @@ def is_robot(email):
 @bottle.get("/commit-log")
 def show_commit_log():
 	commits = []
+	# FIXME sort by the actual push date
 	for (doc,) in GIT_DB.execute("select data from logs order by date desc"):
 		doc = json.loads(doc)
 		ret = {}

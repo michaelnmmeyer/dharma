@@ -52,7 +52,7 @@ translit_tbl = [
 	("ṁ", "ṃ"),
 	("m\N{COMBINING CANDRABINDU}", "ṃ"),
 ]
-translit_tbl.sort(key=len, reverse=True)
+translit_tbl.sort(key=lambda x: len(x[0]), reverse=True)
 
 def normalize(s):
 	buf = []
