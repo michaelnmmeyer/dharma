@@ -5,11 +5,10 @@ RUN apt-get update && \
 	apt-get install -y git && \
 	apt-get install -y python3-minimal python3-bs4 python3-requests python3-icu && \
 	apt-get clean -y && \
-	echo 'echo all > /dharma/repos/change.hid' > /etc/cron.daily/dharma-update && \
-	chmod +x /etc/cron.daily/dharma-update && \
 	git config --global --add safe.directory '*' && \
 	mkdir /root/.ssh && \
-	ssh-keyscan -H github.com >> /root/.ssh/known_hosts
+	ssh-keyscan -H github.com >> /root/.ssh/known_hosts && \
+	sudo timedatectl set-timezone Europe/Paris
 COPY ssh_key /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/id_rsa
 ENV PYTHONPATH=$PYTHONPATH:/

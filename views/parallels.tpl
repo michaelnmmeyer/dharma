@@ -4,12 +4,13 @@
 
 <h1>Parallels</h1>
 
-<p>Last updated {{last_modified}}.</p>
+<p>Parallels database last updated {{last_modified}}.</p>
 
 <p>This interface allows you to look for parallel verse passages—verses,
-hemistiches or pādas—in the DHARMA texts collection. You can either input a
-passage to look for in the form below, or browse the collection with the table
-at the bottom of this page.</p>
+hemistiches or pādas—in the DHARMA texts collection. Parallels are found with
+an approximate matching technique which is described below. You can either
+input a passage to look for in the form below, or browse the collection with
+the table at the bottom of this page.</p>
 
 <p>When searching for a verse, add a daṇḍa at the end of the first hemistich
 (and none before that). You should always input a complete passage—verse,

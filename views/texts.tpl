@@ -3,7 +3,7 @@
 <div class="body">
 <h1>Texts</h1>
 <div>
-<p>Last updated {{last_updated}}.</p>
+<p>Texts database last updated {{last_updated}}.</p>
 
 <form action="/texts" method="get">
 <label for="select-owner">Edited by:</label>
