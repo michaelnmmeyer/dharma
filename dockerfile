@@ -8,7 +8,7 @@ RUN apt-get update && \
 	git config --global --add safe.directory '*' && \
 	mkdir /root/.ssh && \
 	ssh-keyscan -H github.com >> /root/.ssh/known_hosts && \
-	sudo timedatectl set-timezone Europe/Paris
+	timedatectl set-timezone Europe/Paris
 COPY ssh_key /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/id_rsa
 ENV PYTHONPATH=$PYTHONPATH:/
