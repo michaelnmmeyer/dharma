@@ -108,9 +108,7 @@ def extract_padas(lg):
 	return ret
 
 def number_of(verse):
-	n = verse.get("n")
-	if not n:
-		return "?"
+	n = verse.get("n", "?")
 	node = verse
 	while True:
 		node = node.parent
@@ -181,9 +179,9 @@ def process_file(path, id):
 				id += 1
 				yield type, id, file, number, contents, normalized
 
-def make_jaccard(type):
+def make_jaccard(type, db):
 	data = []
-	for id, normalized in NGRAMS_DB.execute("select id, normalized from passages where type = ?", (type,)):
+	for id, normalized in db.execute("select id, normalized from passages where type = ?", (type,)):
 		data.append((id, set(trigrams(normalized))))
 	for i, (id1, ngrams1) in enumerate(data, 1):
 		print("%d %d/%d" % (type, i, len(data)))
@@ -196,16 +194,13 @@ def make_jaccard(type):
 				jaccard = 0
 			if jaccard < MIN_JACCARD:
 				continue
-			NGRAMS_DB.execute("insert into jaccard values(?, ?, ?, ?)", (type, id1, id2, jaccard))
+			db.execute("insert into jaccard values(?, ?, ?, ?)", (type, id1, id2, jaccard))
 
 def make_database():
-	db = NGRAMS_DB
-	db.executescript("""
-	delete from jaccard;
-	delete from passages;
-	delete from sources;
-	""")
+	db = NGRAMS_DB.cursor()
 	db.execute("begin")
+	for tbl in ("jaccard", "passages", "sources"):
+		db.execute(f"delete from {tbl}")
 	id = 0
 	for path in texts.iter_texts():
 		file = os.path.basename(os.path.splitext(path)[0])
@@ -214,23 +209,19 @@ def make_database():
 			db.execute("""insert into passages(type, id, file, number, contents, normalized)
 				values(?, ?, ?, ?, ?, ?)""", row)
 			id = row[1]
-	db.execute("commit")
 	for type, _ in enum_funcs:
-		db.execute("begin")
-		make_jaccard(type)
-		db.execute("commit")
-	db.executescript("""
-	begin;
-	insert into jaccard select type, id2, id, coeff from jaccard;
-	update passages set parallels = (select count(*) from jaccard
-		where jaccard.type = passages.type and jaccard.id = passages.id);
-	update sources set
+		make_jaccard(type, db)
+	db.execute("insert into jaccard select type, id2, id, coeff from jaccard")
+	db.execute("""update passages set parallels = (select count(*) from jaccard
+		where jaccard.type = passages.type and jaccard.id = passages.id)""")
+	db.execute("""update sources set
 		verses = (select count(*) from passages where passages.file = sources.file and type = 1 and parallels > 0),
 		hemistiches = (select count(*) from passages where passages.file = sources.file and type = 2 and parallels > 0),
-		padas = (select count(*) from passages where passages.file = sources.file and type = 4 and parallels > 0);
-	commit;
-	vacuum;
+		padas = (select count(*) from passages where passages.file = sources.file and type = 4 and parallels > 0)
 	""")
+	db.execute("commit")
+	db.execute("vacuum")
+	db.close()
 
 def search(src_text, category):
 	if category == "verse":

@@ -9,10 +9,10 @@ hemistiches or pādas—in the DHARMA texts collection. You can either input a
 passage to look for in the form below, or browse the collection with the table
 at the bottom of this page.</p>
 
-<p>When searching for a verse, add a daṇḍa at the end of the first hemistich.
-You should always input a complete passage—verse, hemistich or pāda, depending
-on the unit you choose. This interface is not meant to be used for searching
-arbitrary substrings.</p>
+<p>When searching for a verse, add a daṇḍa at the end of the first hemistich
+(and none before that). You should always input a complete passage—verse,
+hemistich or pāda, depending on the unit you choose. This interface is not
+meant to be used for searching arbitrary substrings.</p>
 
 <form action="/parallels/search" method="get">
 <label for="text-input">Text:</label>
@@ -42,12 +42,13 @@ to verses 1, 2, 3, etc. of each text, but we do not try to compare it to 1cd-2ab
 
 <p>The similarity measure we are currently using for comparing passages is the
 <a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard index</a>
-<i>J</i>, computed over sets of character trigrams (<a
-href="https://en.wikipedia.org/wiki/N-gram"><i>n</i>-grams</a> of size 3).
-<i>J</i> = 1 when passages share the exact same set of trigrams, <i>J</i> = 0
-when they do not share a single one. We (arbitrarily) assume that pairs of
-passages for which <i>J</i> < 0.3 are not parallels, and do not display
-them.</p>
+<i>J</i>, computed over sets of character <a
+href="https://en.wikipedia.org/wiki/N-gram">trigrams</a>. <i>J</i> = 1 when
+passages share the exact same set of trigrams, <i>J</i> = 0 when they do not
+share a single one. We (arbitrarily) assume that pairs of passages for which
+<i>J</i> < 0.3 are not parallels, and do not display them. See <a
+href="https://github.com/michaelnmmeyer/dharma/blob/master/ngrams.py">here</a>
+for details.</p>
 
 </div>
 
