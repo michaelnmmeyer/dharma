@@ -61,8 +61,9 @@
    <div class="body">
    <menu>
       <li><a href="/">Home</a></li>
-      <li><a href="/commit-log">Commit Log</a></li>
+      <li><a href="/commit-log">Commits</a></li>
       <li><a href="/texts">Texts</a></li>
+      <li><a href="/catalog">Catalog</a></li>
       <li><a href="/parallels">Parallels</a></li>
    </menu>
    </div>

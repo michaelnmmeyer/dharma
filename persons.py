@@ -1,8 +1,10 @@
-#!/usr/bin/env python3
-
-import os, io, unicodedata
+import os, re, io, unicodedata
 from bs4 import BeautifulSoup, Tag
-from dharma.transform import normalize_space
+
+# Like the eponymous function in xslt
+def normalize_space(s):
+	s = s.strip()
+	return re.sub(r"\s+", " ", s)
 
 """
 To dump a list of all contributors:

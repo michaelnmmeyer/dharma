@@ -23,8 +23,11 @@ pragma synchronous = normal;
 pragma foreign_keys = on;
 """
 
+def db_path(name):
+	return os.path.join(DBS_DIR, name + ".sqlite")
+
 def open_db(name):
-	path = os.path.join(DBS_DIR, name + ".sqlite")
+	path = db_path(name)
 	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES)
 	conn.row_factory = sqlite3.Row
 	conn.executescript(common_schema)

@@ -2,7 +2,7 @@
 
 import os, sys, re, io, copy
 from dharma.tree import *
-from dharma import prosody
+from dharma import prosody, persons
 
 HANDLERS = {} # we fill this below
 
@@ -56,6 +56,14 @@ class HTML:
 			write("\n")
 		self.buf.append((t, data, params))
 
+class Document:
+
+	repository = ""
+	ident = ""
+	title = []
+	editors = []
+
+
 class Parser:
 	# drop: drop all spaces until we find some text
 	# seen: saw space and waiting to see text before emitting ' '
@@ -72,6 +80,8 @@ class Parser:
 		self.tree = tree
 		self.write = write
 		self.text = ""
+		self.document = Document()
+		self.document.ident = os.path.basename(os.path.splitext(tree.path)[0])
 
 	def dispatch(self, node):
 		if node.type == "comment" or node.type == "instruction":
@@ -82,12 +92,12 @@ class Parser:
 		assert node.type == "tag"
 		f = HANDLERS.get(node.name)
 		if not f:
-			p.complain("no handler for %r, ignoring it" % node)
+			self.complain("no handler for %r, ignoring it" % node)
 			return
 		try:
-			f(p, node)
+			f(self, node)
 		except Error as e:
-			p.complain(e)
+			self.complain(e)
 
 	def dispatch_children(self, node):
 		for child in node:
@@ -441,8 +451,52 @@ def process_body(p, body):
 		assert elem.type == "tag"
 		p.dispatch(elem)
 
+def remove_duplicates(ls):
+	ret = []
+	for x in ls:
+		if x not in ret:
+			ret.append(x)
+	return ret
+
+"""
+titleStmt =
+  element titleStmt {
+    title+,
+    author?,
+    editor*,
+    element respStmt {
+      (persName
+       | element resp { text })+
+    }*
+  }
+"""
+def process_titleStmt(p, stmt):
+	titles = list(filter(None, (t.text() for t in stmt.xpath("title"))))
+	author = [t.text() for t in stmt.xpath("author")]
+	editors = []
+	for node in stmt.xpath("editor") + stmt.xpath("respStmt/persName"):
+		ident = node.get("ref")
+		if ident == "part:jodo":
+			continue
+		if ident and ident.startswith("part:"):
+			name = persons.plain(ident.removeprefix("part:"))
+		else:
+			node["xml:space"] = "preserve" # HACK
+			name = node.text().strip()
+		editors.append(name)
+	editors = remove_duplicates(editors)
+	p.document.title = titles
+	p.document.editors = editors
+
+def process_fileDesc(p, node):
+	p.dispatch_children(node)
+
+def process_teiHeader(p, node):
+	p.dispatch_children(node)
+
 def process_TEI(p, node):
-	p.dispatch(node.child("text").child("body"))
+	p.dispatch(node.child("teiHeader"))
+	#p.dispatch(node.child("text").child("body"))
 
 for name, obj in copy.copy(globals()).items():
 	if not name.startswith("process_"):
@@ -469,14 +523,15 @@ tail = """
 """
 
 if __name__ == "__main__":
-	p = Parser(None)
 	tree = parse(sys.argv[1])
 	#p = Parser(tree, HTML().write)
 	p = Parser(tree)
-	p.emit("log:doc<")
+	#p.emit("log:doc<")
 	#print(head)
 	#p.emit("html", '<div class="edition">')
 	p.dispatch(p.tree.root)
 	#p.emit("html", "</div>")
 	#print(tail)
-	p.emit("log:doc>")
+	#p.emit("log:doc>")
+
+	print(p.document.ident, p.document.title)

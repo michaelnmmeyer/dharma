@@ -80,3 +80,4 @@ for details.</p>
 </tr>
 % end
 </tbody>
+</table>

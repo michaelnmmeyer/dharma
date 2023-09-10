@@ -11,8 +11,11 @@ create table if not exists logs(
 	data text
 );
 """)
+GIT_DB.commit()
 TEXTS_DB = config.open_db("texts")
 NGRAMS_DB = config.open_db("ngrams")
+CATALOG_DB = config.open_db("catalog")
+CATALOG_DB.execute("attach database ? as texts", (config.db_path("texts"),))
 
 @bottle.get("/")
 def index():
@@ -126,6 +129,15 @@ def show_parallels_full(text, category, id):
 	NGRAMS_DB.execute("commit")
 	return bottle.template("parallels_enum.tpl", category=category, file=text,
 		number=number, data=rows, contents=contents)
+
+@bottle.get("/catalog")
+def show_catalog():
+	rows = CATALOG_DB.execute("""
+		select name, repo, title, editors,
+		printf('https://erc-dharma.github.io/%s/%s', repo, html_path) as html_link
+		from documents natural join texts.texts natural join texts.latest_commits
+		order by name""").fetchall()
+	return bottle.template("catalog.tpl", rows=rows)
 
 @bottle.get("/parallels/search")
 def search_parallels():
