@@ -29,7 +29,7 @@ meant to be used for searching arbitrary substrings.</p>
 <input type="submit" value="Search">
 </form>
 
-<p>The table at the bottom of this pages displays, for each text that has at
+<p>The table at the bottom of this page displays, for each text that has at
 least one parallel, the number of verses, hemistiches and pādas it contains
 that have parallels in the DHARMA collection.</p>
 

@@ -7,10 +7,9 @@
 search form below can be used for filtering results. Matching is
 case-insensitive, does not take diacritics into account, and looks for
 substrings instead of terms. For instance, the query <a
-href="/catalog?q=edit">edit</a>
-matches "edition" or "meditation". To look for a phrase, surround it
-with double quotes: <a href="/catalog?q=&quot;old%20javanese&quot;">&quot;old
-javanese&quot;</a></p>
+href="/catalog?q=edit">edit</a> matches "edition" or "meditation". To look for
+a phrase, surround it with double quotes, as in <a
+href="/catalog?q=&quot;old%20javanese&quot;">&quot;old javanese&quot;</a>.</p>
 
 <p>Per default, all metadata fields are searched. Metadata fields are (for
 now): title, editor, repo, ident. You can restric search to a specific field by
@@ -18,7 +17,8 @@ using a field prefix, as in <a href="/catalog?q=editor:manu">editor:manu</a> or
 <a href="/catalog?q=title:&quot;critical%20edition&quot">title:"critical
 edition"</a>. Several clauses can be added successively, separated with
 whitespace. In this case, for a document to be considered a match, all query
-clauses must match.</p>
+clauses must match. Try for instance <a
+href="/catalog?q=editor:manu%20title:stone">editor:manu title:stone</a>.</p>
 
 <form action="/catalog" method="get">
 <input name="q" id="text-input"
