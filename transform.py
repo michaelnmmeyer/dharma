@@ -61,6 +61,7 @@ class Document:
 	repository = ""
 	ident = ""
 	title = []
+	author = None
 	editors = []
 
 
@@ -473,6 +474,8 @@ titleStmt =
 def process_titleStmt(p, stmt):
 	titles = list(filter(None, (t.text() for t in stmt.xpath("title"))))
 	author = [t.text() for t in stmt.xpath("author")]
+	assert len(author) <= 1, author
+	author = author and author[0] or None
 	editors = []
 	for node in stmt.xpath("editor") + stmt.xpath("respStmt/persName"):
 		ident = node.get("ref")
@@ -486,6 +489,7 @@ def process_titleStmt(p, stmt):
 		editors.append(name)
 	editors = remove_duplicates(editors)
 	p.document.title = titles
+	p.document.author = author
 	p.document.editors = editors
 
 def process_fileDesc(p, node):
