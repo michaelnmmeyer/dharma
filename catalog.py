@@ -29,8 +29,9 @@ create virtual table if not exists documents_index using fts5(
 	tokenize="trigram"
 );
 """)
-CATALOG_DB.execute("attach database ? as texts", (config.db_path("texts"),))
 CATALOG_DB.commit()
+
+CATALOG_DB.execute("attach database ? as texts", (config.db_path("texts"),))
 
 def process_file(repo_name, path):
 	t = tree.parse(path)
@@ -49,8 +50,14 @@ def normalize(s):
 	s = unicodedata.normalize("NFKD", s)
 	s = "".join(c for c in s if not unicodedata.combining(c))
 	s = s.casefold()
-	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss")
+	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
 	return unicodedata.normalize("NFC", s.strip())
+
+def collate_title(s):
+	ret = "".join(c for c in normalize(s) if c.isalnum())
+	return ret or "zzzzzz" # yeah I know
+
+CATALOG_DB.create_function("collate_title", 1, collate_title, deterministic=True)
 
 def process_repo(name, db):
 	for text in texts.iter_texts_in_repo(name):
@@ -75,7 +82,7 @@ def search(q):
 		sql += "where documents_index match ?"
 	else:
 		q = ()
-	sql += " order by documents.name"
+	sql += " order by collate_title(documents.title)"
 	return CATALOG_DB.execute(sql, q).fetchall()
 
 def make_db():
