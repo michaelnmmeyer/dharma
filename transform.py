@@ -482,7 +482,7 @@ def process_titleStmt(p, stmt):
 			name = persons.plain(ident.removeprefix("part:"))
 		else:
 			node["xml:space"] = "preserve" # HACK
-			name = node.text().strip()
+			name = normalize_space(node.text())
 		editors.append(name)
 	editors = remove_duplicates(editors)
 	p.document.title = titles

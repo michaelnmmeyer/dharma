@@ -2,7 +2,7 @@
 
 import os, json, sys, unicodedata
 from datetime import datetime
-from dharma import config, bottle, change, persons, ngrams
+from dharma import config, bottle, change, persons, ngrams, catalog
 
 GIT_DB = config.open_db("github-log")
 GIT_DB.executescript("""
@@ -16,6 +16,7 @@ TEXTS_DB = config.open_db("texts")
 NGRAMS_DB = config.open_db("ngrams")
 CATALOG_DB = config.open_db("catalog")
 CATALOG_DB.execute("attach database ? as texts", (config.db_path("texts"),))
+CATALOG_DB.create_function("match_name", 2, catalog.match_name, deterministic=True)
 
 @bottle.get("/")
 def index():
@@ -132,12 +133,15 @@ def show_parallels_full(text, category, id):
 
 @bottle.get("/catalog")
 def show_catalog():
+	editor = bottle.request.query.editor or "*"
 	rows = CATALOG_DB.execute("""
 		select name, repo, title, editors,
 		printf('https://erc-dharma.github.io/%s/%s', repo, html_path) as html_link
 		from documents natural join texts.texts natural join texts.latest_commits
-		order by name""").fetchall()
-	return bottle.template("catalog.tpl", rows=rows)
+		where match_name(documents.editors, ?)
+		order by name""", (catalog.normalize_name(editor),)).fetchall()
+	#print(len(rows)) # BUG don't find same num of docs
+	return bottle.template("catalog.tpl", rows=rows, editor=editor)
 
 @bottle.get("/parallels/search")
 def search_parallels():

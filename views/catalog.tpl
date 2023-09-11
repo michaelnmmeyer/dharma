@@ -3,6 +3,20 @@
 <div class="body">
 <h1>Catalog</h1>
 
+<form action="/catalog" method="get">
+<label for="text-input">Editor:</label>
+<input name="editor" id="text-input"
+% if editor != "*":
+   value="{{editor}}"
+% else:
+   autofocus
+% end
+></input>
+<input type="submit" value="Search">
+</form>
+
+<p>Have {{len(rows)}} documents.</p>
+
 <table>
 <thead></thead>
 <tbody>
