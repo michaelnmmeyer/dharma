@@ -1,14 +1,8 @@
 import os, unicodedata
 from dharma import tree, transform, texts, config
 
-"""
-make editors searchable first. how?
-
-for filtering and facets must have a map
-
-	editor_name(full) -> [doc ids]
-
-"""
+# TODO useful fields to incl in catalog:
+# https://erc-dharma.github.io/tfa-pallava-epigraphy/texts/htmloutput/DHARMA_INSPallava00280.html
 
 CATALOG_DB = config.open_db("catalog")
 CATALOG_DB.executescript("""
