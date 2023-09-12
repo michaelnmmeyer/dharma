@@ -3,6 +3,7 @@ from dharma import tree, transform, texts, config
 
 # TODO useful fields to incl in catalog:
 # https://erc-dharma.github.io/tfa-pallava-epigraphy/texts/htmloutput/DHARMA_INSPallava00280.html
+# also lang (but for now language codes are a mess).
 
 CATALOG_DB = config.open_db("catalog")
 CATALOG_DB.executescript("""
@@ -14,17 +15,17 @@ create table if not exists documents(
 	editors json
 );
 create virtual table if not exists documents_index using fts5(
-	name unindexed,
+	name unindexed, -- text primary key
 	ident,
 	repo,
 	title,
 	author,
 	editor,
+	-- foreign key(name) references documents(name),
 	tokenize="trigram"
 );
 """)
 CATALOG_DB.commit()
-
 CATALOG_DB.execute("attach database ? as texts", (config.db_path("texts"),))
 
 def process_file(repo_name, path):
@@ -39,14 +40,16 @@ def normalize(s):
 	if s is None:
 		s = ""
 	elif not isinstance(s, str):
+		# make sure matching doesn't work across array elements
 		s = "!!!!!".join(s)
-	# maybe see also https://github.com/JuliaStrings/utf8proc/blob/master/lump.md
 	s = unicodedata.normalize("NFKD", s)
 	s = "".join(c for c in s if not unicodedata.combining(c))
 	s = s.casefold()
 	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
 	return unicodedata.normalize("NFC", s.strip())
 
+# found a while ago some python code that implements the unicode collation algorithm.
+# use it? or ICU? worth it?
 def collate_title(s):
 	ret = "".join(c for c in normalize(s) if c.isalnum())
 	return ret or "zzzzzz" # yeah I know
