@@ -132,8 +132,8 @@ def show_parallels_full(text, category, id):
 @bottle.get("/catalog")
 def show_catalog():
 	q = bottle.request.query.q
-	rows = catalog.search(q)
-	return bottle.template("catalog.tpl", rows=rows, q=q)
+	rows, last_modified = catalog.search(q)
+	return bottle.template("catalog.tpl", rows=rows, q=q, last_modified=last_modified)
 
 @bottle.get("/parallels/search")
 def search_parallels():

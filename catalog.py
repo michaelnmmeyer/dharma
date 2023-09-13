@@ -7,6 +7,10 @@ from dharma import tree, transform, texts, config
 
 CATALOG_DB = config.open_db("catalog")
 CATALOG_DB.executescript("""
+create table if not exists metadata(
+	key text primary key,
+	value blob
+);
 create table if not exists documents(
 	name text primary key,
 	repo text,
@@ -83,7 +87,12 @@ def search(q):
 	else:
 		q = ()
 	sql += " order by collate_title(documents.title)"
-	return CATALOG_DB.execute(sql, q).fetchall()
+	db = CATALOG_DB.cursor()
+	db.execute("begin")
+	ret = db.execute(sql, q).fetchall()
+	(last_modified,) = db.execute("select value from meta where key = 'last_modified'").fetchone()
+	db.execute("commit")
+	return ret, last_modified
 
 def make_db():
 	db = CATALOG_DB.cursor()
@@ -96,7 +105,9 @@ def make_db():
 			continue
 		print(repo)
 		process_repo(repo, db)
+	db.execute("insert or replace into metadata values('last_modified', strftime('%s', 'now'))")
 	db.execute("commit")
+	db.execute("vacuum")
 	db.close()
 
 if __name__ == "__main__":
