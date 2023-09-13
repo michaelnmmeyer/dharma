@@ -90,7 +90,9 @@ def search(q):
 	db = CATALOG_DB.cursor()
 	db.execute("begin")
 	ret = db.execute(sql, q).fetchall()
-	(last_modified,) = db.execute("select value from meta where key = 'last_modified'").fetchone()
+	(last_modified,) = db.execute("""
+		select strftime('%Y-%m-%d %H:%M', value, 'auto', 'localtime')
+		from metadata where key = 'last_modified'""").fetchone()
 	db.execute("commit")
 	return ret, last_modified
 
