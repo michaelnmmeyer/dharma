@@ -12,7 +12,8 @@ create table if not exists documents(
 	repo text,
 	title json,
 	author text,
-	editors json
+	editors json,
+	summary text
 );
 create virtual table if not exists documents_index using fts5(
 	name unindexed, -- text primary key
@@ -21,6 +22,7 @@ create virtual table if not exists documents_index using fts5(
 	title,
 	author,
 	editor,
+	summary,
 	-- foreign key(name) references documents(name),
 	tokenize="trigram"
 );
@@ -59,17 +61,18 @@ CATALOG_DB.create_function("collate_title", 1, collate_title, deterministic=True
 def process_repo(name, db):
 	for text in texts.iter_texts_in_repo(name):
 		doc = process_file(name, text)
-		db.execute("""insert into documents(name, repo, title, author, editors)
-			values (?, ?, ?, ?, ?)""", (doc.ident, doc.repository, doc.title, doc.author, doc.editors))
-		db.execute("""insert into documents_index(name, ident, repo, title, author, editor)
-			values (?, ?, ?, ?, ?, ?)""", (doc.ident, normalize(doc.ident),
+		db.execute("""insert into documents(name, repo, title, author, editors, summary)
+			values (?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository, doc.title, doc.author, doc.editors, doc.summary))
+		db.execute("""insert into documents_index(name, ident, repo, title, author, editor, summary)
+			values (?, ?, ?, ?, ?, ?, ?)""", (doc.ident, normalize(doc.ident),
 			normalize(doc.repository), normalize(doc.title), normalize(doc.author),
-			normalize(doc.editors)))
+			normalize(doc.editors), normalize(doc.summary)))
 
 def search(q):
 	sql = """
-		select documents.name, documents.repo, documents.title, documents.author, documents.editors,
-		printf('https://erc-dharma.github.io/%s/%s', documents.repo, html_path) as html_link
+		select documents.name, documents.repo, documents.title,
+			documents.author, documents.editors, documents.summary,
+			printf('https://erc-dharma.github.io/%s/%s', documents.repo, html_path) as html_link
 		from documents join documents_index on documents.name = documents_index.name
 		natural join texts.texts natural join texts.latest_commits
 	"""

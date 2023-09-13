@@ -12,9 +12,10 @@ a phrase, surround it with double quotes, as in <a
 href="/catalog?q=&quot;old%20javanese&quot;">&quot;old javanese&quot;</a>.</p>
 
 <p>Per default, all metadata fields are searched. Metadata fields are (for
-now): title, editor, repo, ident. You can restric search to a specific field by
-using a field prefix, as in <a href="/catalog?q=editor:manu">editor:manu</a> or
-<a href="/catalog?q=title:&quot;critical%20edition&quot">title:"critical
+now): title, editor, summary, repo, ident. You can restric search to a specific
+field by using a field prefix, as in <a
+href="/catalog?q=editor:manu">editor:manu</a> or <a
+href="/catalog?q=title:&quot;critical%20edition&quot">title:"critical
 edition"</a>. Several clauses can be added successively, separated with
 whitespace. In this case, for a document to be considered a match, all query
 clauses must match. Try for instance <a
@@ -66,6 +67,9 @@ href="/catalog?q=editor:manu%20title:stone">editor:manu title:stone</a>.</p>
       <i>Anonymous editor</i>.
    % end
    </p>
+   % if row["summary"]:
+   <p>Summary: {{row["summary"]}}</p>
+   % end
    <p>{{row["name"].removeprefix("DHARMA_")}} ({{row["repo"]}}).</p>
 </td></tr>
 % end

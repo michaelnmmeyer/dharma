@@ -63,6 +63,7 @@ class Document:
 	title = []
 	author = None
 	editors = []
+	summary = ""
 
 
 class Parser:
@@ -492,6 +493,14 @@ def process_titleStmt(p, stmt):
 	p.document.author = author
 	p.document.editors = editors
 
+def process_sourceDesc(p, desc):
+	summ = desc.xpath("msDesc/msContents/summary")
+	# only keep it if it looks like a global summary
+	if len(summ) == 1:
+		summ = summ[0]
+		summ["xml:space"] = "preserve" # HACK
+		p.document.summary = normalize_space(summ.text())
+
 def process_fileDesc(p, node):
 	p.dispatch_children(node)
 
@@ -538,4 +547,5 @@ if __name__ == "__main__":
 	#print(tail)
 	#p.emit("log:doc>")
 
-	print(p.document.ident, p.document.title)
+	if p.document.summary:
+		print(p.document.ident, p.document.summary)
