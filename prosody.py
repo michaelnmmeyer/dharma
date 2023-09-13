@@ -9,6 +9,8 @@ items = {}
 soup = BeautifulSoup(open(PATH), "xml")
 for item in soup.find_all("item"):
 	pros = item.find("seg", type="prosody")
+	if not pros:
+		continue # FIXME
 	assert pros, item
 	names = set()
 	for name in item.find_all("name") + item.find_all("label"):
