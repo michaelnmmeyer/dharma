@@ -37,6 +37,7 @@ def cleanup_file(f):
 				yield "\n"
 				empty -= 1
 		line = unicodedata.normalize("NFC", line)
+		line = line.replace("\N{CYRILLIC SMALL LETTER SCHWA}", "\N{LATIN SMALL LETTER SCHWA}")
 		yield line + "\n"
 		wrote = True
 		empty = 0

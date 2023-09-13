@@ -1,5 +1,5 @@
 import os, sys, icu, unicodedata, html
-from dharma import texts
+from dharma import texts, cleanup
 
 def graphemes(s):
 	itor = icu.BreakIterator.createCharacterInstance(icu.Locale())
@@ -68,6 +68,6 @@ def validate_repo(name):
 	ret = {}
 	for file in texts.iter_texts_in_repo(name):
 		with open(file) as f:
-			problems = validate(f)
+			problems = validate(cleanup.cleanup_file(f))
 		ret[file] = problems
 	return ret

@@ -11,7 +11,7 @@ href="https://github.com/erc-dharma/{{text['repo']}}/commit/{{text['commit_hash'
 
 % if text["errors"]["unicode"]:
 <div class="body">
-<h2>Unicode Issues</h2>
+<h2>Unexpected Unicode Characters</h2>
 <p>
 This is a list of
 <a
