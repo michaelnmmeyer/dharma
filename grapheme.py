@@ -48,6 +48,8 @@ valid_combinations = """
 
 def is_valid(g):
 	if len(g) == 1:
+		if g[0] == "\N{CYRILLIC SMALL LETTER SCHWA}":
+			return True
 		return not char_name(g[0]).startswith("CYRILLIC ")
 	return script(g) or g in valid_combinations
 
@@ -56,7 +58,7 @@ def validate(f):
 	for line_no, line in enumerate(f, 1):
 		line = unicodedata.normalize("NFC", line.rstrip())
 		gs = list(graphemes(line))
-		for i, g in enumerate(graphemes(line)):
+		for i, g in enumerate(gs):
 			if is_valid(g):
 				continue
 			hl = html.escape("".join(gs[:i]))
@@ -75,7 +77,7 @@ def validate_repo(name):
 	ret = {}
 	for file in texts.iter_texts_in_repo(name):
 		with open(file) as f:
-			problems = validate(cleanup.cleanup_file(f))
+			problems = validate(f)
 		ret[file] = problems
 	return ret
 
