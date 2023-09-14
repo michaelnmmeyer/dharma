@@ -12,6 +12,8 @@ create table if not exists metadata(
 	key text primary key,
 	value blob
 );
+insert or ignore into metadata values('last_updated', 0);
+
 create table if not exists sources(
 	file text primary key,
 	verses integer,
@@ -227,7 +229,7 @@ def make_database():
 		hemistiches = (select count(*) from passages where passages.file = sources.file and type = 2 and parallels > 0),
 		padas = (select count(*) from passages where passages.file = sources.file and type = 4 and parallels > 0)
 	""")
-	db.execute("insert or replace into metadata values('last_modified', strftime('%s', 'now'))")
+	db.execute("insert or replace into metadata values('last_updated', strftime('%s', 'now'))")
 	db.execute("commit")
 	db.execute("vacuum")
 	db.close()

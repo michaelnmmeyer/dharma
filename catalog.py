@@ -11,6 +11,7 @@ create table if not exists metadata(
 	key text primary key,
 	value blob
 );
+insert or ignore into metadata values('last_updated', 0);
 create table if not exists documents(
 	name text primary key,
 	repo text,
@@ -90,11 +91,11 @@ def search(q):
 	db = CATALOG_DB.cursor()
 	db.execute("begin")
 	ret = db.execute(sql, q).fetchall()
-	(last_modified,) = db.execute("""
+	(last_updated,) = db.execute("""
 		select strftime('%Y-%m-%d %H:%M', value, 'auto', 'localtime')
-		from metadata where key = 'last_modified'""").fetchone()
+		from metadata where key = 'last_updated'""").fetchone()
 	db.execute("commit")
-	return ret, last_modified
+	return ret, last_updated
 
 def make_db():
 	db = CATALOG_DB.cursor()
@@ -107,7 +108,7 @@ def make_db():
 			continue
 		print(repo)
 		process_repo(repo, db)
-	db.execute("insert or replace into metadata values('last_modified', strftime('%s', 'now'))")
+	db.execute("insert or replace into metadata values('last_updated', strftime('%s', 'now'))")
 	db.execute("commit")
 	db.execute("vacuum")
 	db.close()

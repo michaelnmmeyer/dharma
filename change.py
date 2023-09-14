@@ -58,6 +58,12 @@ tfd-sanskrit-philology
 """.strip().split()
 
 SCHEMA = """
+create table if not exists metadata(
+	key text primary key,
+	value blob
+);
+insert or ignore into metadata values('last_updated', 0);
+
 create table if not exists commits(
 	repo text,
 	commit_hash text,
@@ -130,9 +136,7 @@ def latest_commit_in_repo(name):
 	date = int(date)
 	return hash, date
 
-def handle_changes(name):
-	conn = TEXTS_DB
-	conn.execute("begin immediate")
+def update_db(conn, name):
 	commit_hash, date = latest_commit_in_repo(name)
 	have_commit = False
 	if conn.execute("select 1 from commits where repo = ? and commit_hash = ?",
@@ -141,7 +145,6 @@ def handle_changes(name):
 		if conn.execute("select 1 from validation where repo = ? and commit_hash = ? and code_hash = ?",
 			(name, commit_hash, config.CODE_HASH)).fetchone():
 			# No need to revalidate
-			conn.execute("commit")
 			return
 	if not have_commit:
 		conn.execute("insert into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
@@ -177,6 +180,12 @@ def handle_changes(name):
 		file_id = os.path.basename(os.path.splitext(text)[0])
 		conn.execute("""insert or replace into validation(name, repo, commit_hash, code_hash, valid, errors, when_validated)
 			values(?, ?, ?, ?, ?, ?, strftime('%s', 'now'))""", (file_id, name, commit_hash, config.CODE_HASH, valid, errors))
+
+def handle_changes(name):
+	conn = TEXTS_DB
+	conn.execute("begin immediate")
+	update_db(conn, name)
+	conn.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
 	conn.execute("commit")
 
 def clone_all():
@@ -261,4 +270,3 @@ if __name__ == "__main__":
 			break
 		except Exception as e:
 			print(e, file=sys.stderr)
-

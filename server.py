@@ -48,8 +48,8 @@ def show_texts():
 	conn = TEXTS_DB
 	conn.execute("begin")
 	(last_updated,) = conn.execute("""
-		select strftime('%Y-%m-%d %H:%M', max(when_validated), 'auto', 'localtime')
-		from validation
+		select strftime('%Y-%m-%d %H:%M', value, 'auto', 'localtime')
+		from metadata where key = 'last_updated'
 	""").fetchone()
 	owner = bottle.request.query.owner
 	if owner:
@@ -93,9 +93,9 @@ def show_text(repo, hash, name):
 @bottle.get("/parallels")
 def show_parallels():
 	(date,) = NGRAMS_DB.execute("""select strftime('%Y-%m-%d %H:%M', value, 'auto', 'localtime')
-		from metadata where key = 'last_modified'""").fetchone()
+		from metadata where key = 'last_updated'""").fetchone()
 	rows = NGRAMS_DB.execute("select * from sources where verses + hemistiches + padas > 0")
-	return bottle.template("parallels.tpl", data=rows, last_modified=date)
+	return bottle.template("parallels.tpl", data=rows, last_updated=date)
 
 parallels_types = {
 	"verses": 1,
@@ -132,8 +132,8 @@ def show_parallels_full(text, category, id):
 @bottle.get("/catalog")
 def show_catalog():
 	q = bottle.request.query.q
-	rows, last_modified = catalog.search(q)
-	return bottle.template("catalog.tpl", rows=rows, q=q, last_modified=last_modified)
+	rows, last_updated = catalog.search(q)
+	return bottle.template("catalog.tpl", rows=rows, q=q, last_updated=last_updated)
 
 @bottle.get("/parallels/search")
 def search_parallels():
