@@ -2,19 +2,19 @@ import os, sys, icu, unicodedata, html
 from dharma import texts, cleanup
 
 def graphemes(s):
-	# ICU returns UTF-16 offsets, but we work in UTF-32
+	# ICU returns UTF-16 offsets, but we're working at the code point-level.
 	itor = icu.BreakIterator.createCharacterInstance(icu.Locale())
 	itor.setText(s)
 	p, q, p16 = 0, 0, 0
 	for q16 in itor:
-		i16 = q16
-		while i16 > p16:
+		while p16 < q16:
 			if ord(s[q]) > 0xffff:
-				i16 -= 1
-			i16 -= 1
+				p16 += 1
+				assert p16 < q16
+			p16 += 1
 			q += 1
 		yield s[p:q]
-		p, p16 = q, q16
+		p = q
 
 def char_name(c):
 	try:
