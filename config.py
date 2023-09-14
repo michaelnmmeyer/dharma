@@ -1,4 +1,4 @@
-import os, logging, sqlite3, json
+import os, sys, logging, sqlite3, json, subprocess
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -42,3 +42,17 @@ def json_adapter(obj):
 sqlite3.register_converter("json", json_converter)
 sqlite3.register_adapter(list, json_adapter)
 sqlite3.register_adapter(dict, json_adapter)
+
+def command(*cmd, **kwargs):
+	print(*cmd, file=sys.stderr)
+	kwargs.setdefault("capture_output", True)
+	kwargs.setdefault("check", True)
+	ret = None
+	try:
+		ret = subprocess.run(cmd, encoding="UTF-8", **kwargs)
+	except subprocess.CalledProcessError:
+		if ret:
+			sys.stderr.write(ret.stderr)
+			sys.stderr.flush()
+		raise
+	return ret

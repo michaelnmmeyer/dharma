@@ -1,5 +1,6 @@
 import os, sys, subprocess, json, select, errno, logging
 from dharma import config, validate, texts, biblio, grapheme
+from dharma.config import command
 
 FIFO_ADDR = os.path.join(config.REPOS_DIR, "change.hid")
 
@@ -113,20 +114,6 @@ TEXTS_DB = config.open_db("texts")
 TEXTS_DB.executescript(SCHEMA)
 TEXTS_DB.commit()
 
-def command(*cmd, **kwargs):
-	print(*cmd, file=sys.stderr)
-	kwargs.setdefault("capture_output", True)
-	kwargs.setdefault("check", True)
-	ret = None
-	try:
-		ret = subprocess.run(cmd, encoding="UTF-8", **kwargs)
-	except subprocess.CalledProcessError:
-		if ret:
-			sys.stderr.write(ret.stderr)
-			sys.stderr.flush()
-		raise
-	return ret
-
 def update_repo(name):
 	return command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
 
@@ -183,10 +170,14 @@ def update_db(conn, name):
 
 def handle_changes(name):
 	conn = TEXTS_DB
-	conn.execute("begin immediate")
-	update_db(conn, name)
-	conn.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
-	conn.execute("commit")
+	conn.execute("begin")
+	try:
+		update_db(conn, name)
+		conn.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
+		conn.execute("commit")
+	except Exception as e:
+		conn.execute("rollback")
+		raise
 
 def clone_all():
 	for name in REPOS:

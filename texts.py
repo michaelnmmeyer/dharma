@@ -64,11 +64,11 @@ def iter_texts():
 			yield files[0]
 
 def owners_of(path):
-	from dharma import change, persons
+	from dharma import persons
 	path = os.path.relpath(path, config.REPOS_DIR)
 	slash = path.index("/")
 	repo, relpath = path[:slash], path[slash + 1:]
-	ret = change.command("git", "-C", os.path.join(config.REPOS_DIR, repo), "log", "--follow", "--format=%aN", "--", relpath)
+	ret = config.command("git", "-C", os.path.join(config.REPOS_DIR, repo), "log", "--follow", "--format=%aN", "--", relpath)
 	authors = set(ret.stdout.splitlines())
 	ids = set()
 	for author in authors:
