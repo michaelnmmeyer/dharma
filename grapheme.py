@@ -2,12 +2,19 @@ import os, sys, icu, unicodedata, html
 from dharma import texts, cleanup
 
 def graphemes(s):
+	# ICU returns UTF-16 offsets, but we work in UTF-32
 	itor = icu.BreakIterator.createCharacterInstance(icu.Locale())
 	itor.setText(s)
-	p = 0
-	for q in itor:
+	p, q, p16 = 0, 0, 0
+	for q16 in itor:
+		i16 = q16
+		while i16 > p16:
+			if ord(s[q]) > 0xffff:
+				i16 -= 1
+			i16 -= 1
+			q += 1
 		yield s[p:q]
-		p = q
+		p, p16 = q, q16
 
 def char_name(c):
 	try:
@@ -71,3 +78,11 @@ def validate_repo(name):
 			problems = validate(cleanup.cleanup_file(f))
 		ret[file] = problems
 	return ret
+
+if __name__ == "__main__":
+	for line in sys.stdin:
+		p = 0
+		for g in graphemes(line):
+			names = [char_name(c) for c in g]
+			print(p, names)
+			p += len(g)
