@@ -487,6 +487,8 @@ def process_titleStmt(p, stmt):
 		else:
 			node["xml:space"] = "preserve" # HACK
 			name = normalize_space(node.text())
+			if not name:
+				continue
 		editors.append(name)
 	editors = remove_duplicates(editors)
 	p.document.title = titles
