@@ -1,4 +1,4 @@
-import os, re, io, unicodedata, collections
+import os, re, io, unicodedata
 import requests
 from bs4 import BeautifulSoup, Tag
 from dharma import tree
@@ -122,24 +122,35 @@ def xml(ident, root_tag):
 		root.append(last)
 	return root
 
+# TODO: normalize, we have both https?:, trailing slash or not, etc.
 # https://viaf.org/viaf/66465311
+# http://viaf.org/viaf/64048594
 def plain_from_viaf(url, dflt=None):
 	url = os.path.join(url, "rdf.xml") # easier file to parse
 	r = requests.get(url)
+	if not r.ok:
+		return dflt
 	xml = tree.parse(io.StringIO(r.text))
 	# choose the most common form of the name hoping it's the most adequate
-	counts = collections.Counter()
+	counts = {}
 	for node in xml.xpath("//skos:prefLabel"):
 		text = normalize_space(node.text())
 		# try to strip dates at the end as in "Cœdès, George 1886-1969"
 		end = len(text)
-		while end > 0 and not text[end - 1].isalpha():
+		while end > 0:
+			c = text[end - 1]
+			if c.isalpha() or c == ")":
+				break
+			if c == "." and end >= 3 and text[end - 2].isalpha() and not text[end - 3].isalpha():
+				break
 			end -= 1
 		if end == 0:
 			continue
 		text = text[:end]
+		counts.setdefault(text, 0)
 		counts[text] += 1
-	return counts.most_common(1) or dflt
+	names = sorted(counts, key=lambda name: counts[name])
+	return names and names.pop() or dflt
 
 if __name__ == "__main__":
 	for ident, name in sorted(persons.items()):

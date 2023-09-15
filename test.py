@@ -1,6 +1,7 @@
 import sys, re
 from bs4 import BeautifulSoup
 from glob import iglob
+from dharma import tree, persons
 from dharma.transform import normalize_space
 
 all = sorted(iglob("texts/DHARMA_*"))
@@ -13,22 +14,14 @@ critical_translation = [f for f in critical if "_trans" in f]
 assert len(inscriptions) + len(diplomatic) \
 	+ len(critical_edition) + len(critical_translation) == len(all)
 
-def process_lg(lg):
-	for choice in lg.find_all("choice"):
-		if choice.corr:
-			choice.replace_with(choice.corr.get_text())
-		elif choice.reg:
-			choice.replace_with(choice.reg.get_text())
-	for space in lg.find_all("space"):
-		space.replace_with(" ")
-	for name in ("rdg", "note", "milestone", "pb", "lb", "gap", "del", "label"):
-		for tag in lg.find_all(name):
-			tag.decompose()
-	for l in lg.find_all("l"):
-		print(l.get("n"))
-		#print(l.attrs, normalize_space(l.get_text()))
-
+urls = set()
 for file in all:
-	soup = BeautifulSoup(open(file), "xml")
-	for lg in soup.find_all("lg"):
-		process_lg(lg)
+	xml = tree.parse(file)
+	for pers in xml.xpath("//persName"):
+		ref = pers.get("ref", "")
+		if ref.startswith("http"):
+			urls.add(ref)
+
+for url in urls:
+	print(url, persons.plain_from_viaf(url))
+	
