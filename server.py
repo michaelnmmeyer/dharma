@@ -12,9 +12,9 @@ create table if not exists logs(
 );
 """)
 GIT_DB.commit()
-TEXTS_DB = config.open_db("texts")
-NGRAMS_DB = config.open_db("ngrams")
-CATALOG_DB = config.open_db("catalog")
+TEXTS_DB = change.TEXTS_DB
+NGRAMS_DB = ngrams.NGRAMS_DB
+CATALOG_DB = catalog.CATALOG_DB
 
 @bottle.get("/")
 def index():
@@ -115,17 +115,17 @@ def show_parallels_details(text, category):
 @bottle.get("/parallels/texts/<text>/<category>/<id:int>")
 def show_parallels_full(text, category, id):
 	type = parallels_types[category]
-	NGRAMS_DB.execute("begin")
-	number, contents = NGRAMS_DB.execute("""
-		select number, contents from passages where type = ? and id = ?
-		""", (type, id)).fetchone()
-	rows = NGRAMS_DB.execute("""
-		select file, number, contents, id2, coeff
-		from passages join jaccard on passages.id = jaccard.id2
-		where jaccard.type = ? and jaccard.id = ?
-		order by coeff desc
-	""", (type, id)).fetchall()
-	NGRAMS_DB.execute("commit")
+	db = NGRAMS_DB
+	with db:
+		number, contents = NGRAMS_DB.execute("""
+			select number, contents from passages where type = ? and id = ?
+			""", (type, id)).fetchone()
+		rows = NGRAMS_DB.execute("""
+			select file, number, contents, id2, coeff
+			from passages join jaccard on passages.id = jaccard.id2
+			where jaccard.type = ? and jaccard.id = ?
+			order by coeff desc
+		""", (type, id)).fetchall()
 	return bottle.template("parallels_enum.tpl", category=category, file=text,
 		number=number, data=rows, contents=contents)
 
