@@ -14,7 +14,7 @@ Should have something for xpath
 
 """
 
-import re, io
+import re, io, collections
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler, LexicalHandler, ErrorHandler
 from xml.sax.saxutils import escape as quote_string
@@ -148,8 +148,8 @@ class Tag(list, Node):
 
 	def __init__(self, name, attrs):
 		self.name = name
-		self.attrs = {}
-		for key, value in attrs.items():
+		self.attrs = collections.OrderedDict()
+		for key, value in attrs:
 			self[key] = value
 
 	def __repr__(self):
@@ -331,7 +331,8 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 		patch_tree(self.tree)
 
 	def startElement(self, name, attrs):
-		tag = Tag(name, attrs)
+		ordered = ((k, attrs[k]) for k in attrs.getNames())
+		tag = Tag(name, ordered)
 		self.chain(tag)
 		tag.line = self.locator.getLineNumber()
 		tag.column = self.locator.getColumnNumber()
