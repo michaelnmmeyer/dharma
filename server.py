@@ -18,7 +18,7 @@ CATALOG_DB = catalog.CATALOG_DB
 
 @bottle.get("/")
 def index():
-	(date,) = TEXTS_DB.execute("select strftime('%Y-%m-%d %H:%M', ?, 'auto', 'localtime')", (config.CODE_DATE,)).fetchone()
+	(date,) = config.DUMMY_DB.execute("select format_date(?)", (config.CODE_DATE,)).fetchone()
 	return bottle.template("index.tpl", code_hash=config.CODE_HASH, code_date=date)
 
 def is_robot(email):
@@ -32,7 +32,7 @@ def show_commit_log():
 		ret = {}
 		repo = os.path.basename(doc["repository"]["full_name"])
 		push_date = doc["repository"]["pushed_at"]
-		(push_date,) = TEXTS_DB.execute("select strftime('%Y-%m-%d %H:%M', ?, 'auto', 'localtime')", (push_date,)).fetchone()
+		(push_date,) = config.DUMMY_DB.execute("select format_date(?)", (push_date,)).fetchone()
 		for commit in doc["commits"]:
 			if is_robot(commit["author"]["email"]):
 				continue
@@ -47,15 +47,12 @@ def show_commit_log():
 def show_texts():
 	conn = TEXTS_DB
 	conn.execute("begin")
-	(last_updated,) = conn.execute("""
-		select strftime('%Y-%m-%d %H:%M', value, 'auto', 'localtime')
-		from metadata where key = 'last_updated'
-	""").fetchone()
+	(last_updated,) = conn.execute("select format_date(value) from metadata where key = 'last_updated'").fetchone()
 	owner = bottle.request.query.owner
 	if owner:
 		rows = list(conn.execute("""
 			select name, validation.repo, commit_hash,
-				strftime('%Y-%m-%d %H:%M', commit_date, 'auto', 'localtime') as readable_commit_date,
+				format_date(commit_date) as readable_commit_date,
 				valid, html_path
 			from owners join latest_commits on owners.repo = latest_commits.repo
 				natural join validation natural join texts
@@ -63,7 +60,7 @@ def show_texts():
 	else:
 		rows = list(conn.execute("""
 			select name, repo, commit_hash,
-				strftime('%Y-%m-%d %H:%M', commit_date, 'auto', 'localtime') as readable_commit_date,
+				format_date(commit_date) as readable_commit_date,
 				valid, html_path
 			from latest_commits natural join validation natural join texts
 			order by name"""))
@@ -78,8 +75,8 @@ def show_text(repo, hash, name):
 	conn = TEXTS_DB
 	row = conn.execute("""
 		select name, repo, commit_hash, code_hash, errors, xml_path, html_path,
-			strftime('%Y-%m-%d %H:%M', commit_date, 'auto', 'localtime') as readable_commit_date,
-			strftime('%Y-%m-%d %H:%M', when_validated, 'auto', 'localtime') as readable_when_validated
+			format_date(commit_date) as readable_commit_date,
+			format_date(when_validated) as readable_when_validated
 		from validation natural join commits natural join texts
 		where repo = ? and name = ? and commit_hash = ?
 	""", (repo, name, hash)).fetchone()
@@ -92,7 +89,7 @@ def show_text(repo, hash, name):
 
 @bottle.get("/parallels")
 def show_parallels():
-	(date,) = NGRAMS_DB.execute("""select strftime('%Y-%m-%d %H:%M', value, 'auto', 'localtime')
+	(date,) = NGRAMS_DB.execute("""select format_date(value)
 		from metadata where key = 'last_updated'""").fetchone()
 	rows = NGRAMS_DB.execute("select * from sources where verses + hemistiches + padas > 0")
 	return bottle.template("parallels.tpl", data=rows, last_updated=date)

@@ -92,7 +92,7 @@ def search(q):
 	db.execute("begin")
 	ret = db.execute(sql, q).fetchall()
 	(last_updated,) = db.execute("""
-		select strftime('%Y-%m-%d %H:%M', value, 'auto', 'localtime')
+		select format_date(value)
 		from metadata where key = 'last_updated'""").fetchone()
 	db.execute("commit")
 	return ret, last_updated

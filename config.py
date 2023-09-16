@@ -13,6 +13,8 @@ LOGS_DIR = os.path.join(THIS_DIR, "logs")
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(level=LOG_LEVEL)
 
+DUMMY_DB = None
+
 with open(os.path.join(THIS_DIR, "version.txt")) as f:
 	CODE_HASH = f.readline().strip()
 	CODE_DATE = int(f.readline().strip())
@@ -27,12 +29,19 @@ pragma foreign_keys = on;
 def db_path(name):
 	return os.path.join(DBS_DIR, name + ".sqlite")
 
+def format_date(obj):
+	(ret,) = DUMMY_DB.execute("select strftime('%Y-%m-%d %H:%M', ?, 'auto', 'localtime')", (obj,)).fetchone()
+	return ret
+
 def open_db(name):
 	path = db_path(name)
 	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES)
 	conn.row_factory = sqlite3.Row
 	conn.executescript(common_schema)
+	conn.create_function("format_date", 1, format_date, deterministic=True)
 	return conn
+
+DUMMY_DB = open_db(":memory:")
 
 def json_converter(blob):
 	return json.loads(blob.decode())
