@@ -18,7 +18,7 @@ CATALOG_DB = catalog.CATALOG_DB
 
 @bottle.get("/")
 def index():
-	(date,) = TEXTS_DB.execute("select strftime('%Y-%m-%d %H:%M:%S', ?, 'auto', 'localtime')", (config.CODE_DATE,)).fetchone()
+	(date,) = TEXTS_DB.execute("select strftime('%Y-%m-%d %H:%M', ?, 'auto', 'localtime')", (config.CODE_DATE,)).fetchone()
 	return bottle.template("index.tpl", code_hash=config.CODE_HASH, code_date=date)
 
 def is_robot(email):
