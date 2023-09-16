@@ -8,6 +8,7 @@ DEBUG = bool(int(os.environ.get("DEBUG", 1)))
 DBS_DIR = os.path.join(THIS_DIR, "dbs")
 REPOS_DIR = os.path.join(THIS_DIR, "repos")
 STATIC_DIR = os.path.join(THIS_DIR, "static")
+LOGS_DIR = os.path.join(THIS_DIR, "logs")
 
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(level=LOG_LEVEL)

@@ -18,7 +18,7 @@ CATALOG_DB = catalog.CATALOG_DB
 
 @bottle.get("/")
 def index():
-	(date,) = TEXTS_DB.execute("select strftime('%Y-%m-%d %H:%M', ?, 'auto', 'localtime')", (config.CODE_DATE,)).fetchone()
+	(date,) = TEXTS_DB.execute("select strftime('%Y-%m-%d %H:%M:%S', ?, 'auto', 'localtime')", (config.CODE_DATE,)).fetchone()
 	return bottle.template("index.tpl", code_hash=config.CODE_HASH, code_date=date)
 
 def is_robot(email):
@@ -167,18 +167,64 @@ def handle_static(filename):
 	return bottle.static_file(filename, root=config.STATIC_DIR)
 
 class ServerAdapter(bottle.ServerAdapter):
+	log_file = None
 	def run(self, handler):
 		import socket
-		from wsgiref.simple_server import make_server, WSGIServer
+		from wsgiref.simple_server import make_server, WSGIServer, WSGIRequestHandler
+
 		class Server(WSGIServer):
+
 			def server_bind(self):
 				self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
 				super().server_bind()
-		server = make_server(self.host, self.port, handler, server_class=Server)
+
+		class Handler(WSGIRequestHandler):
+
+			def _log(self, doc):
+				req, res = bottle.request, bottle.response
+				now = datetime.now()
+				doc.update({
+					"remote": req.remote_addr,
+					"date": now.strftime("%Y-%m-%d_%H:%M:%S"),
+					"request": {
+						"method": req.method,
+						"url": req.path + "?" + req.query_string,
+						"headers": {k.lower().replace("-","_"): v.lower() for k, v in req.headers.items()},
+					},
+					"response": {
+						"status": res.status_code,
+						"headers": {k.lower().replace("-","_"): v.lower() for k, v in res.headers.items()},
+					},
+				})
+				doc = config.json_adapter(doc)
+				print(doc, file=log_file)
+				if not os.getenv("WITHIN_DOCKER"):
+					print(doc, file=sys.stderr)
+
+			def log_request(self, *args, **kwargs):
+				self._log({})
+
+			def log_exception(self, info):
+				doc = config.json_adapter({
+					"type": info[0],
+					"value": info[1],
+					"traceback": info[2],
+				})
+				self._log(doc)
+
+		server = make_server(self.host, self.port, handler, server_class=Server, handler_class=Handler)
+
+		try:
+			os.mkdir(config.LOGS_DIR)
+		except FileExistsError:
+			pass
+		log_file = open(os.path.join(config.LOGS_DIR, datetime.now().strftime("%Y-%m-%d") + ".txt"), "a")
 		try:
 			server.serve_forever()
 		finally:
 			print("Shutting down", file=sys.stderr)
+			log_file.flush()
+			log_file.close()
 			server.server_close()
 
 if __name__ == "__main__":

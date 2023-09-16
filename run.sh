@@ -7,6 +7,7 @@ if test -z $WITHIN_DOCKER; then
 	sudo docker run -t -i -p 127.0.0.1:8023:8023 \
 		-v ~/dharma/repos:/dharma/repos \
 		-v ~/dharma/dbs:/dharma/dbs \
+		-v ~/dharma/logs:/dharma/logs \
 		dharma
 else
 	echo "Running python" > /dev/stderr
