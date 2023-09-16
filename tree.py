@@ -91,23 +91,21 @@ class Node(object):
 			return
 
 	def children(self, name=None):
-		ret = []
 		if not isinstance(self, Tag) and not isinstance(self, Tree):
 			return ret
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
 			if not name or node.name == name:
-				ret.append(node)
-		return ret
+				yield node
 
-	def descendants(self, name):
+	def descendants(self, name=None):
 		if not isinstance(self, Tag) and not isinstance(self, Tree):
 			return ret
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
-			if node.name == name:
+			if not name or node.name == name:
 				yield node
 			yield from node.descendants(name)
 
@@ -120,7 +118,7 @@ class Node(object):
 			roots = [self]
 		while path:
 			end = path.find("/")
-			if end == 0:
+			if end == 0: # have //
 				path = path[1:]
 				end = path.find("/")
 				if end < 0:
@@ -132,7 +130,10 @@ class Node(object):
 			if end < 0:
 				end = len(path)
 			name = path[:end]
-			roots = [node for root in roots for node in root.children(name)]
+			if name.startswith("@"):
+				roots = [root for root in roots if name[1:] in root.attrs]
+			else:
+				roots = [node for root in roots for node in root.children(name)]
 			path = path[end + 1:]
 		return roots
 
