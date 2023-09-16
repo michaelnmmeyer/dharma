@@ -34,7 +34,10 @@ def format_date(obj):
 	return ret
 
 def open_db(name):
-	path = db_path(name)
+	if name == ":memory:":
+		path = name
+	else:
+		path = db_path(name)
 	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES)
 	conn.row_factory = sqlite3.Row
 	conn.executescript(common_schema)

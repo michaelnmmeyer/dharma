@@ -146,6 +146,90 @@ class Node(object):
 			path = path[end + 1:]
 		return roots
 
+	def insert(self, i, node):
+		assert isinstance(self, Tag) or isinstance(self, Tree)
+		if i < 0:
+			i += len(self)
+			if i < 0:
+				i = 0
+		elif i > len(self):
+			i = len(self)
+		list.insert(self, i, node)
+		prev = i > 0 and self[i - 1] or None
+		next = i < len(self) - 1 and self[i + 1] or None
+		if prev:
+			prev.following_sibling = node
+			prev.following = node
+		node.preceding_sibling = prev
+		node.preceding = prev
+		if next:
+			next.preceding_sibling = node
+			next.preceding = node
+		node.following_sibling = next
+		node.following = next
+		node.parent = self
+		node.tree = self.tree
+		node.line = None
+		node.column = None
+
+	def _detach(self, tree):
+		if self.preceding_sibling:
+			self.preceding_sibling.following_sibling = self.following_sibling
+		if self.following_sibling:
+			self.following_sibling.preceding_sibling = self.preceding_sibling
+		if self.preceding:
+			self.preceding.following = self.following
+		if self.following:
+			self.following.preceding = self.preceding
+		self.preceding_sibling = None
+		self.following_sibling = None
+		self.preceding = None
+		self.following = None
+		self.tree = tree is None and Tree(self) or tree
+		self.parent = self.tree
+		self.line = None
+		self.column = None
+
+	def decompose(self, tree=None):
+		assert not isinstance(self, Tree)
+		parent = self.parent
+		self._detach(tree)
+		parent.remove(self)
+		if not isinstance(self, Tag):
+			return self
+		stack = [self]
+		while stack:
+			node = stack.pop()
+			for child in node:
+				child.tree = self.tree
+				child.line = None
+				child.column = None
+				if isinstance(child, Tag):
+					stack.append(child)
+		return self
+
+	def unwrap(self, tree=None):
+		assert not isinstance(self, Tree)
+		parent = self.parent
+		self._detach(tree)
+		i = parent.index(self)
+		parent.remove(self)
+		if isinstance(self, Tag):
+			for i, node in enumerate(self, i):
+				parent.insert(i, node)
+			self.clear()
+		return self
+
+	def remove(self, node):
+		assert isinstance(self, Tag) or isinstance(self, Tree)
+		list.remove(self, node)
+
+	def append(self, node):
+		return self.insert(len(self), node)
+
+	def pop(self):
+		return self.remove(self[-1])
+
 	def location(self):
 		path = self.tree.path or "<none>"
 		line = self.line is None and "?" or self.line
@@ -219,15 +303,6 @@ class Tag(list, Node):
 		assert isinstance(key, str)
 		return self.attrs.get(key, dflt)
 
-	def append(self, node):
-		if len(self) > 0:
-			self[-1].following_sibling = node
-			node.preceding_sibling = self[-1]
-		else:
-			node.preceding_sibling = None
-		node.following_sibling = None
-		super().append(node)
-
 	def text(self, **kwargs):
 		buf = []
 		for node in self:
@@ -236,7 +311,6 @@ class Tag(list, Node):
 		return "".join(buf)
 
 	def xml(self):
-		print(namespaced_attrs)
 		buf = ["<%s" % self.name]
 		# for now, don't sort attrs for normalization
 		for k, v in self.attrs.items():
@@ -251,6 +325,7 @@ class Tag(list, Node):
 			buf.append(node.xml())
 		buf.append("</%s>" % self.name)
 		return "".join(buf)
+
 
 class String(str, Node):
 	type = "string"
@@ -299,16 +374,19 @@ class Instruction(dict, Node):
 class Tree(list, Node):
 	type = "tree"
 	path = None	# path of the XML file (if a file)
-	root = None
+	root = None	# might be None
 	source = None	# original, unaltered XML source
 
-	def __init__(self):
+	def __init__(self, root=None):
 		self.tree = self
 		self.line = 1
 		self.column = 0
 		self.attrs = collections.OrderedDict()
 		self.attrs["space"] = "default"
 		self.attrs["lang"] = ("eng", "Latn")
+		if root is not None:
+			self.root = root
+			self.append(root)
 
 	def __repr__(self):
 		if self.path:
@@ -316,13 +394,20 @@ class Tree(list, Node):
 		return "<Tree>"
 
 	def xml(self):
-		ret = ['<?xml version="1.0" encoding="utf-8"?>']
+		ret = ['<?xml version="1.0" encoding="utf-8"?>\n']
 		for node in self:
 			ret.append(node.xml())
-		return "\n".join(ret)
+		return "".join(ret)
 
 	def text(self, **kwargs):
-		return self.root.text(**kwargs)
+		if self.root:
+			return self.root.text(**kwargs)
+		return ""
+
+	def remove(self, node):
+		if node is self.root:
+			self.root = None
+		list.remove(self, node)
 
 # For inheritable props (xml:lang, xml:space) and xml:id
 def patch_tree(tree):
@@ -373,7 +458,13 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 		tag.tree = self.tree
 		parent = self.stack[-1]
 		tag.parent = parent
-		parent.append(tag)
+		if len(parent) > 0:
+			parent[-1].following_sibling = tag
+			tag.preceding_sibling = parent[-1]
+		else:
+			tag.preceding_sibling = None
+		tag.following_sibling = None
+		list.append(parent, tag)
 		self.stack.append(tag)
 
 	def endElement(self, name):
