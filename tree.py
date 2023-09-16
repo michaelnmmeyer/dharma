@@ -87,13 +87,13 @@ class Node(object):
 			if node.name == name:
 				return node
 
-	def first_child(self, name):
+	def first_child(self, name=None):
 		if not isinstance(self, Tag) and not isinstance(self, Tree):
 			return
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
-			if node.name == name:
+			if name is None or node.name == name:
 				return node
 			return
 
@@ -153,7 +153,7 @@ class Node(object):
 		return (path, line, column)
 
 class Tag(list, Node):
-􀀌􀀋	type = "tag"
+	type = "tag"
 
 	def __init__(self, name, attrs):
 		self.name = name
@@ -211,11 +211,11 @@ class Tag(list, Node):
 		node.following_sibling = None
 		super().append(node)
 
-	def text(self):
+	def text(self, **kwargs):
 		buf = []
 		for node in self:
 			if isinstance(node, String) or isinstance(node, Tag):
-				buf.append(node.text())
+				buf.append(node.text(**kwargs))
 		return "".join(buf)
 
 	def xml(self):
@@ -239,10 +239,13 @@ class String(str, Node):
 	def xml(self):
 		return quote_string(self)
 
-	def text(self):
-		if self.parent["space"] == "preserve":
-			return self
-		assert self.parent["space"] == "default"
+	def text(self, **kwargs):
+		space = kwargs.get("space")
+		if not space:
+			space = self.parent["space"]
+		if space == "preserve":
+			return str(self)
+		assert space == "default"
 		self = self.strip()
 		self = re.sub(r"\s{2,}", " ", self)
 		return self
@@ -299,8 +302,8 @@ class Tree(list, Node):
 			ret.append(node.xml())
 		return "\n".join(ret)
 
-	def text(self):
-		return self.root.text()
+	def text(self, **kwargs):
+		return self.root.text(**kwargs)
 
 # For inheritable props (xml:lang, xml:space) and xml:id
 def patch_tree(tree):

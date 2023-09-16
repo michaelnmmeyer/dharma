@@ -485,8 +485,7 @@ def process_titleStmt(p, stmt):
 		if ident and ident.startswith("part:"):
 			name = persons.plain(ident.removeprefix("part:"))
 		else:
-			node["xml:space"] = "preserve" # HACK
-			name = normalize_space(node.text())
+			name = normalize_space(node.text(space="preserve"))
 			if not name:
 				continue
 		editors.append(name)
@@ -500,8 +499,7 @@ def process_sourceDesc(p, desc):
 	# only keep it if it looks like a global summary
 	if len(summ) == 1:
 		summ = summ[0]
-		summ["xml:space"] = "preserve" # HACK
-		p.document.summary = normalize_space(summ.text())
+		p.document.summary = normalize_space(summ.text(space="preserve"))
 
 def process_fileDesc(p, node):
 	p.dispatch_children(node)
