@@ -4,7 +4,7 @@
 <h1>Commits</h1>
 
 <p>This displays commits across all DHARMA repositories, including private
-ones, which you might not access.</p>
+ones, which you might not be able to access.</p>
 </div>
 
 <table>
