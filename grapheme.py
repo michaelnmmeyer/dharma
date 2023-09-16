@@ -31,7 +31,7 @@ def script(g):
 		if all(name.startswith(s + " ") for name in names):
 			return s
 
-valid_combinations = """
+valid_combinations = set("""
 \N{LATIN SMALL LETTER R}\N{COMBINING RING BELOW}
 \N{LATIN CAPITAL LETTER L}\N{COMBINING RING BELOW}
 \N{LATIN CAPITAL LETTER R}\N{COMBINING RING BELOW}
@@ -44,10 +44,11 @@ valid_combinations = """
 \N{LATIN CAPITAL LETTER R}\N{COMBINING RING BELOW}\N{COMBINING MACRON}
 \N{LATIN SMALL LETTER L}\N{COMBINING RING BELOW}\N{COMBINING MACRON}
 \N{LATIN SMALL LETTER N}\N{COMBINING BREVE}
-""".strip().splitlines()
+""".strip().splitlines())
 
 def is_valid(g):
 	if len(g) == 1:
+		# Andrea always uses this for some reason
 		if g[0] == "\N{CYRILLIC SMALL LETTER SCHWA}":
 			return True
 		return not char_name(g[0]).startswith("CYRILLIC ")
