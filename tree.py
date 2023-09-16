@@ -9,12 +9,7 @@
 # is invalid; we can highlight the node and generate a pop-up or something when
 # rendering the text.
 
-"""
-Should have something for xpath
-
-"""
-
-import re, io, collections
+import os, re, io, collections
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler, LexicalHandler, ErrorHandler
 from xml.sax.saxutils import escape as quote_string
@@ -41,7 +36,7 @@ class Error(Exception):
 		self.message = message
 
 	def __str__(self):
-		path, line, column = self.node.location()
+		path, (line, column) = self.node.tree.path, self.node.location
 		problem = ["%s:%s:%s: %s" % (path, line, column, self.message)]
 		src = self.node.tree.source.splitlines()[line - 1]
 		problem.append(src)
@@ -56,6 +51,8 @@ def unique(items):
 			ret.append(item)
 	return ret
 
+NO_LOCATION = (None, None)
+
 # Node types are: Tag, Comment, String, Instruction, Tree. Tree is not really a
 # node, but we define it as one nonetheless because we want it to have the same
 # basic methods. Tree is the XML document proper: it holds processing
@@ -69,8 +66,7 @@ class Node(object):
 	# The tree this node belongs to.
 	tree = None
 	# Location in the source file
-	line = None
-	column = None
+	location = NO_LOCATION
 	# Stuff for navigating the tree. We use the same names as in XPath.
 	parent = None # None iff this is the tree itself
 	preceding_sibling = None
@@ -147,6 +143,8 @@ class Node(object):
 		return roots
 
 	def insert(self, i, node):
+		if isinstance(node, str) and not isinstance(node, Comment):
+			node = String(node)
 		assert isinstance(self, Tag) or isinstance(self, Tree)
 		if i < 0:
 			i += len(self)
@@ -169,8 +167,7 @@ class Node(object):
 		node.following = next
 		node.parent = self
 		node.tree = self.tree
-		node.line = None
-		node.column = None
+		node.location = EMPTY_LOCATION
 
 	def _detach(self, tree):
 		if self.preceding_sibling:
@@ -187,14 +184,15 @@ class Node(object):
 		self.following = None
 		self.tree = tree is None and Tree(self) or tree
 		self.parent = self.tree
-		self.line = None
-		self.column = None
+		self.location = EMPTY_LOCATION
+
+	_remove = list.remove
 
 	def decompose(self, tree=None):
 		assert not isinstance(self, Tree)
 		parent = self.parent
 		self._detach(tree)
-		parent.remove(self)
+		parent._remove(self)
 		if not isinstance(self, Tag):
 			return self
 		stack = [self]
@@ -202,39 +200,25 @@ class Node(object):
 			node = stack.pop()
 			for child in node:
 				child.tree = self.tree
-				child.line = None
-				child.column = None
+				child.location = EMPTY_LOCATION
 				if isinstance(child, Tag):
 					stack.append(child)
 		return self
 
 	def unwrap(self, tree=None):
 		assert not isinstance(self, Tree)
+		if self.tree.root == self:
+			raise Exception("attempt to unwrap tree root")
 		parent = self.parent
 		self._detach(tree)
 		i = parent.index(self)
-		parent.remove(self)
+		parent._remove(self)
+		assert not self in parent
 		if isinstance(self, Tag):
 			for i, node in enumerate(self, i):
 				parent.insert(i, node)
 			self.clear()
 		return self
-
-	def remove(self, node):
-		assert isinstance(self, Tag) or isinstance(self, Tree)
-		list.remove(self, node)
-
-	def append(self, node):
-		return self.insert(len(self), node)
-
-	def pop(self):
-		return self.remove(self[-1])
-
-	def location(self):
-		path = self.tree.path or "<none>"
-		line = self.line is None and "?" or self.line
-		column = self.column is None and "?" or self.column
-		return (path, line, column)
 
 namespaced_attrs = {}
 
@@ -245,10 +229,9 @@ def remove_namespace(key):
 	# everything.
 	# Still, we make sure there is no ambiguity.
 	colon = key.find(":")
-	if colon >= 0:
-		short = key[colon + 1:]
-	else:
-		short = key
+	if colon < 0:
+		return key
+	short = key[colon + 1:]
 	have = namespaced_attrs.get(short)
 	if have is not None:
 		if have != key:
@@ -256,6 +239,42 @@ def remove_namespace(key):
 	else:
 		namespaced_attrs[short] = key
 	return short
+
+class String(collections.UserString, Node):
+	type = "string"
+
+	def xml(self):
+		return quote_string(self.data)
+
+	def clear(self):
+		self.location = NO_LOCATION
+		self.data = ""
+
+	def append(self, data):
+		self.location = NO_LOCATION
+		self.data += data
+
+	def insert(self, i, data):
+		self.location = NO_LOCATION
+		if i < 0:
+			i += len(self.data)
+			if i < 0:
+				i = 0
+		elif i > len(self.data):
+			i = len(self.data)
+		self.data = self.data[:i] + data + self.data[i:]
+
+	def text(self, **kwargs):
+		data = self.data
+		space = kwargs.get("space")
+		if not space:
+			space = self.parent["space"]
+		if space == "preserve":
+			return data
+		assert space == "default"
+		data = data.strip()
+		data = re.sub(r"\s{2,}", " ", data)
+		return data
 
 class Tag(list, Node):
 	type = "tag"
@@ -306,7 +325,7 @@ class Tag(list, Node):
 	def text(self, **kwargs):
 		buf = []
 		for node in self:
-			if isinstance(node, String) or isinstance(node, Tag):
+			if node.type in ("string", "tag"):
 				buf.append(node.text(**kwargs))
 		return "".join(buf)
 
@@ -316,7 +335,7 @@ class Tag(list, Node):
 		for k, v in self.attrs.items():
 			if isinstance(v, tuple):
 				v = "-".join(v)
-			buf.append(' %s="%s"' % (namespaced_attrs[k], quote_attribute(v)))
+			buf.append(' %s="%s"' % (namespaced_attrs.get(k, k), quote_attribute(v)))
 		if len(self) == 0:
 			buf.append("/>")
 			return "".join(buf)
@@ -326,32 +345,14 @@ class Tag(list, Node):
 		buf.append("</%s>" % self.name)
 		return "".join(buf)
 
-
-class String(str, Node):
-	type = "string"
-
-	def xml(self):
-		return quote_string(self)
-
-	def text(self, **kwargs):
-		space = kwargs.get("space")
-		if not space:
-			space = self.parent["space"]
-		if space == "preserve":
-			return str(self)
-		assert space == "default"
-		self = self.strip()
-		self = re.sub(r"\s{2,}", " ", self)
-		return self
-
-class Comment(str, Node):
+class Comment(String):
 	type = "comment"
 
 	def repr(self):
 		return self.xml()
 
 	def xml(self):
-		return "<!-- %s -->" % quote_string(self)
+		return "<!-- %s -->" % quote_string(self.data)
 
 class Instruction(dict, Node):
 	type = "instruction"
@@ -379,8 +380,7 @@ class Tree(list, Node):
 
 	def __init__(self, root=None):
 		self.tree = self
-		self.line = 1
-		self.column = 0
+		self.location = (1, 0)
 		self.attrs = collections.OrderedDict()
 		self.attrs["space"] = "default"
 		self.attrs["lang"] = ("eng", "Latn")
@@ -404,7 +404,7 @@ class Tree(list, Node):
 			return self.root.text(**kwargs)
 		return ""
 
-	def remove(self, node):
+	def _remove(self, node):
 		if node is self.root:
 			self.root = None
 		list.remove(self, node)
@@ -414,14 +414,14 @@ def patch_tree(tree):
 	def patch_node(node):
 		if node.type != "tag":
 			return
-		have = node.get("xml:lang")
+		have = node.get("lang")
 		if have:
 			fields = have.rsplit("-", 1)
 			if len(fields) == 1:
 				node.lang = (fields[0], None)
 			else:
 				node.lang = tuple(fields)
-		space = node.get("xml:space")
+		space = node.get("space")
 		if space:
 			node.space = space
 		for child in node:
@@ -453,8 +453,7 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 		ordered = ((k, attrs[k]) for k in attrs.getNames())
 		tag = Tag(name, ordered)
 		self.chain(tag)
-		tag.line = self.locator.getLineNumber()
-		tag.column = self.locator.getColumnNumber()
+		tag.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
 		tag.tree = self.tree
 		parent = self.stack[-1]
 		tag.parent = parent
@@ -473,15 +472,11 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	def characters(self, data):
 		assert len(data) > 0
 		parent = self.stack[-1]
-		if len(parent) > 0 and isinstance(parent[-1], String):
-			preceding_sibling = parent.pop()
-			data = String(preceding_sibling + data)
-			data.line = preceding_sibling.line
-			data.column = preceding_sibling.column
-		else:
-			data = String(data)
-			data.line = self.locator.getLineNumber()
-			data.column = self.locator.getColumnNumber()
+		if len(parent) > 0 and parent[-1].type == "string":
+			parent[-1].append(data)
+			return
+		data = String(data)
+		data.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
 		self.chain(data)
 		data.parent = parent
 		data.tree = self.tree
@@ -490,8 +485,7 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	def comment(self, data):
 		parent = self.stack[-1]
 		node = Comment(data)
-		node.line = self.locator.getLineNumber()
-		node.column = self.locator.getColumnNumber()
+		node.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
 		self.chain(node)
 		node.parent = parent
 		node.tree = self.tree
@@ -500,8 +494,7 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	def processingInstruction(self, target, data):
 		parent = self.stack[-1]
 		node = Instruction(target, data)
-		node.line = self.locator.getLineNumber()
-		node.column = self.locator.getColumnNumber()
+		node.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
 		self.chain(node)
 		node.parent = parent
 		node.tree = self.tree
@@ -511,8 +504,7 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 		# Build a dummy node just to get a formatted location
 		node = Node()
 		node.tree = self.tree
-		node.line = err.getLineNumber()
-		node.column = err.getColumnNumber()
+		node.location = (err.getLineNumber(), err.getColumnNumber())
 		raise Error(node, err.getMessage())
 
 	def error(self, err):
@@ -524,19 +516,18 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	def warning(self, err):
 		self.raise_error(err)
 
-
 def parse(thing):
 	reader = make_parser()
 	handler = Handler()
 	handler.tree = Tree()
 	if isinstance(thing, str):
-		handler.tree.path = thing
+		handler.tree.path = os.path.abspath(thing)
 		with open(thing) as f:
 			handler.tree.source = f.read()
 	else:
 		# file-like
 		if hasattr(thing, name):
-			handler.tree.path = thing.name
+			handler.tree.path = os.path.abspath(thing.name)
 		handler.tree.source = thing.read()
 	reader.setContentHandler(handler)
 	reader.setErrorHandler(handler)
@@ -551,7 +542,7 @@ if __name__ == "__main__":
 		exit()
 	try:
 		tree = parse(sys.argv[1])
-		#print(tree.xml())
+		print(tree.xml())
 	except (BrokenPipeError, KeyboardInterrupt):
 		pass
 	except Error as err:
