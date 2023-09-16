@@ -152,6 +152,27 @@ class Node(object):
 		column = self.column is None and "?" or self.column
 		return (path, line, column)
 
+namespaced_attrs = {}
+
+def remove_namespace(key):
+	# We use three @ in the xml namespace: @lang, @space, @id.
+	# @lang is also a TEI @, but we don't use it. @id and @space
+	# are not TEI @. So it's ok to use a single namespace fo
+	# everything.
+	# Still, we make sure there is no ambiguity.
+	colon = key.find(":")
+	if colon >= 0:
+		short = key[colon + 1:]
+	else:
+		short = key
+	have = namespaced_attrs.get(short)
+	if have is not None:
+		if have != key:
+			raise Exception("ambiguous namespaced attr: %r" % short)
+	else:
+		namespaced_attrs[short] = key
+	return short
+
 class Tag(list, Node):
 	type = "tag"
 
@@ -173,7 +194,7 @@ class Tag(list, Node):
 	def __getitem__(self, key):
 		if isinstance(key, int):
 			return list.__getitem__(self, key)
-		key = key.removeprefix("xml:")
+		key = remove_namespace(key)
 		if key != "lang" and key != "space":
 			return self.attrs[key]
 		# XXX what about <foreign> rel. to @lang? also see EGD p. 120
@@ -185,11 +206,7 @@ class Tag(list, Node):
 	def __setitem__(self, key, value):
 		if isinstance(key, int):
 			list.__setitem__(self, key, value)
-		# We use three @ in the xml namespace: @lang, @space, @id.
-		# @lang is also a TEI @, but we don't use it. @id and @space
-		# are not TEI @. So it's ok to use a single namespace fo
-		# everything.
-		key = key.removeprefix("xml:")
+		key = remove_namespace(key)
 		if key == "lang":
 			if isinstance(value, str):
 				value = value.rsplit("-", 1)
@@ -219,11 +236,13 @@ class Tag(list, Node):
 		return "".join(buf)
 
 	def xml(self):
+		print(namespaced_attrs)
 		buf = ["<%s" % self.name]
-		for k, v in sorted(self.attrs.items()):
+		# for now, don't sort attrs for normalization
+		for k, v in self.attrs.items():
 			if isinstance(v, tuple):
 				v = "-".join(v)
-			buf.append(' %s="%s"' % (k, quote_attribute(v)))
+			buf.append(' %s="%s"' % (namespaced_attrs[k], quote_attribute(v)))
 		if len(self) == 0:
 			buf.append("/>")
 			return "".join(buf)
@@ -326,6 +345,7 @@ def patch_tree(tree):
 
 class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	tree = None
+	reader = None
 	preceding = None
 
 	def chain(self, node):
@@ -430,6 +450,7 @@ def parse(thing):
 	reader.setContentHandler(handler)
 	reader.setErrorHandler(handler)
 	reader.setProperty("http://xml.org/sax/properties/lexical-handler", handler)
+	handler.reader = reader
 	reader.parse(io.StringIO(handler.tree.source))
 	return handler.tree
 
@@ -439,7 +460,7 @@ if __name__ == "__main__":
 		exit()
 	try:
 		tree = parse(sys.argv[1])
-		print(tree.xml())
+		#print(tree.xml())
 	except (BrokenPipeError, KeyboardInterrupt):
 		pass
 	except Error as err:
