@@ -152,9 +152,16 @@ class Node(object):
 				i = 0
 		elif i > len(self):
 			i = len(self)
-		list.insert(self, i, node)
 		prev = i > 0 and self[i - 1] or None
 		next = i < len(self) - 1 and self[i + 1] or None
+		if node.type == "string":
+			if  prev and prev.type == "string":
+				prev.append(node)
+				return
+			if next and next.type == "string":
+				next.insert(0, node)
+				return
+		list.insert(self, i, node)
 		if prev:
 			prev.following_sibling = node
 			prev.following = node
@@ -170,6 +177,8 @@ class Node(object):
 		node.location = EMPTY_LOCATION
 
 	def _detach(self, tree):
+		if self.tree.root == self:
+			raise Exception("attempt to delete tree root")
 		if self.preceding_sibling:
 			self.preceding_sibling.following_sibling = self.following_sibling
 		if self.following_sibling:
@@ -186,19 +195,18 @@ class Node(object):
 		self.parent = self.tree
 		self.location = EMPTY_LOCATION
 
-	_remove = list.remove
-
 	def decompose(self, tree=None):
 		assert not isinstance(self, Tree)
 		parent = self.parent
 		self._detach(tree)
-		parent._remove(self)
+		i = parent.index(self)
+		del parent[i]
 		if not isinstance(self, Tag):
 			return self
 		stack = [self]
 		while stack:
 			node = stack.pop()
-			for child in node:
+			for c􀀌􀀋hild in node:
 				child.tree = self.tree
 				child.location = EMPTY_LOCATION
 				if isinstance(child, Tag):
@@ -207,12 +215,10 @@ class Node(object):
 
 	def unwrap(self, tree=None):
 		assert not isinstance(self, Tree)
-		if self.tree.root == self:
-			raise Exception("attempt to unwrap tree root")
 		parent = self.parent
 		self._detach(tree)
 		i = parent.index(self)
-		parent._remove(self)
+		del parent[i]
 		assert not self in parent
 		if isinstance(self, Tag):
 			for i, node in enumerate(self, i):
@@ -240,7 +246,7 @@ def remove_namespace(key):
 		namespaced_attrs[short] = key
 	return short
 
-class String(collections.UserString, Node):
+class String(Node, collections.UserString):
 	type = "string"
 
 	def xml(self):
@@ -276,7 +282,7 @@ class String(collections.UserString, Node):
 		data = re.sub(r"\s{2,}", " ", data)
 		return data
 
-class Tag(list, Node):
+class Tag(Node, list):
 	type = "tag"
 
 	def __init__(self, name, attrs):
@@ -348,13 +354,13 @@ class Tag(list, Node):
 class Comment(String):
 	type = "comment"
 
-	def repr(self):
+	def __repr__(self):
 		return self.xml()
 
 	def xml(self):
 		return "<!-- %s -->" % quote_string(self.data)
 
-class Instruction(dict, Node):
+class Instruction(Node, dict):
 	type = "instruction"
 
 	def __init__(self, target, data):
@@ -372,7 +378,7 @@ class Instruction(dict, Node):
 	def xml(self):
 		return "<?%s %s?>" % (self.target, self.data)
 
-class Tree(list, Node):
+class Tree(Node, list):
 	type = "tree"
 	path = None	# path of the XML file (if a file)
 	root = None	# might be None
@@ -403,11 +409,6 @@ class Tree(list, Node):
 		if self.root:
 			return self.root.text(**kwargs)
 		return ""
-
-	def _remove(self, node):
-		if node is self.root:
-			self.root = None
-		list.remove(self, node)
 
 # For inheritable props (xml:lang, xml:space) and xml:id
 def patch_tree(tree):
