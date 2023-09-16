@@ -4,7 +4,7 @@ set -e
 
 if test -z $WITHIN_DOCKER; then
 	echo "Running docker" > /dev/stderr
-	sudo docker run -t -i --net=host \
+	sudo docker run -t -i -p 127.0.0.1:8023:8023 \
 		-v ~/dharma/repos:/dharma/repos \
 		-v ~/dharma/dbs:/dharma/dbs \
 		dharma

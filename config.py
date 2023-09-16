@@ -2,7 +2,7 @@ import os, sys, logging, sqlite3, json, subprocess
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
-HOST = "0.0.0.0"
+HOST = os.getenv("WITHIN_DOCKER") and "0.0.0.0" or "localhost"
 PORT = 8023
 DEBUG = bool(int(os.environ.get("DEBUG", 1)))
 DBS_DIR = os.path.join(THIS_DIR, "dbs")
