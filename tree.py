@@ -49,6 +49,13 @@ class Error(Exception):
 		problem.append(cursor)
 		return "\n".join(problem)
 
+def unique(items):
+	ret = []
+	for item in items:
+		if not item in ret:
+			ret.append(item)
+	return ret
+
 # Node types are: Tag, Comment, String, Instruction, Tree. Tree is not really a
 # node, but we define it as one nonetheless because we want it to have the same
 # basic methods. Tree is the XML document proper: it holds processing
@@ -132,6 +139,8 @@ class Node(object):
 			name = path[:end]
 			if name.startswith("@"):
 				roots = [root for root in roots if name[1:] in root.attrs]
+			elif name == "..":
+				roots = unique(root.parent for root in roots if root.parent is not None)
 			else:
 				roots = [node for root in roots for node in root.children(name)]
 			path = path[end + 1:]
