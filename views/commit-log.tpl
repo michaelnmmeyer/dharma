@@ -1,7 +1,10 @@
-% rebase("base.tpl", title="Commit Log")
+% rebase("base.tpl", title="Commits")
 
 <div class="body">
-<h1>Commit Log</h1>
+<h1>Commits</h1>
+
+<p>This displays commits across all DHARMA repositories, including private
+ones, which you might not access.</p>
 </div>
 
 <table>
