@@ -103,7 +103,7 @@ class Node(object):
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
-			if not name or node.name == name:
+			if name is None or node.name == name:
 				yield node
 
 	def descendants(self, name=None):
@@ -112,7 +112,7 @@ class Node(object):
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
-			if not name or node.name == name:
+			if name is None or node.name == name:
 				yield node
 			yield from node.descendants(name)
 
@@ -153,7 +153,7 @@ class Node(object):
 		return (path, line, column)
 
 class Tag(list, Node):
-	type = "tag"
+􀀌􀀋	type = "tag"
 
 	def __init__(self, name, attrs):
 		self.name = name
@@ -276,15 +276,17 @@ class Instruction(dict, Node):
 
 class Tree(list, Node):
 	type = "tree"
-	path = None
+	path = None	# path of the XML file (if a file)
 	root = None
-	source = None
+	source = None	# original, unaltered XML source
 
 	def __init__(self):
 		self.tree = self
 		self.line = 1
 		self.column = 0
-		self.attrs = {"space": "default", "lang": ("eng", "Latn")}
+		self.attrs = collections.OrderedDict()
+		self.attrs["space"] = "default"
+		self.attrs["lang"] = ("eng", "Latn")
 
 	def __repr__(self):
 		if self.path:
@@ -292,7 +294,7 @@ class Tree(list, Node):
 		return "<Tree>"
 
 	def xml(self):
-		ret = ['<?xml version="1.0" encoding="UTF-8"?>']
+		ret = ['<?xml version="1.0" encoding="utf-8"?>']
 		for node in self:
 			ret.append(node.xml())
 		return "\n".join(ret)
@@ -418,6 +420,9 @@ def parse(thing):
 		with open(thing) as f:
 			handler.tree.source = f.read()
 	else:
+		# file-like
+		if hasattr(thing, name):
+			handler.tree.path = thing.name
 		handler.tree.source = thing.read()
 	reader.setContentHandler(handler)
 	reader.setErrorHandler(handler)
