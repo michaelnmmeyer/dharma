@@ -180,17 +180,20 @@ class ServerAdapter(bottle.ServerAdapter):
 			def _log(self, doc):
 				req, res = bottle.request, bottle.response
 				now = datetime.now()
+				url = req.path
+				if req.query_string:
+					url += "?" + req.query_string
 				doc.update({
 					"remote": req.remote_addr,
 					"date": now.strftime("%Y-%m-%d_%H:%M:%S"),
 					"request": {
 						"method": req.method,
-						"url": req.path + "?" + req.query_string,
-						"headers": {k.lower().replace("-","_"): v.lower() for k, v in req.headers.items()},
+						"url": url,
+						"headers": {k.lower().replace("-","_"): v for k, v in req.headers.items()},
 					},
 					"response": {
 						"status": res.status_code,
-						"headers": {k.lower().replace("-","_"): v.lower() for k, v in res.headers.items()},
+						"headers": {k.lower().replace("-","_"): v for k, v in res.headers.items()},
 					},
 				})
 				doc = config.json_adapter(doc)
