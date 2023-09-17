@@ -206,7 +206,7 @@ class Node(object):
 		stack = [self]
 		while stack:
 			node = stack.pop()
-			for c􀀌􀀋hild in node:
+			for child in node:
 				child.tree = self.tree
 				child.location = EMPTY_LOCATION
 				if isinstance(child, Tag):

@@ -114,10 +114,10 @@ def show_parallels_full(text, category, id):
 	type = parallels_types[category]
 	db = NGRAMS_DB
 	with db:
-		number, contents = NGRAMS_DB.execute("""
+		number, contents = db.execute("""
 			select number, contents from passages where type = ? and id = ?
 			""", (type, id)).fetchone()
-		rows = NGRAMS_DB.execute("""
+		rows = db.execute("""
 			select file, number, contents, id2, coeff
 			from passages join jaccard on passages.id = jaccard.id2
 			where jaccard.type = ? and jaccard.id = ?
