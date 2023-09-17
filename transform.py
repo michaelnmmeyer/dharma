@@ -344,16 +344,18 @@ def process_div_section(p, div):
 		n = div.attrs.get("n")
 		if n:
 			p.emit("text", " %s" % n)
-		head = div.first_child("head")
+		head = div.find("head")
 		if head:
+			head = head[0]
 			p.emit("text", ": ")
 			process_div_head(p, head)
 			ignore = head
 		p.emit("html", "</h%d>" % (p.div_level + p.heading_shift))
 		p.emit("log:head>")
 	elif not type:
-		ab = div.first_child("ab")
+		ab = div.find("ab")
 		if ab:
+			ab = ab[0]
 			# Invocation or colophon?
 			type = ab["type"]
 			assert type in ("invocation", "colophon")
@@ -473,12 +475,12 @@ titleStmt =
   }
 """
 def process_titleStmt(p, stmt):
-	titles = list(filter(None, (t.text() for t in stmt.xpath("title"))))
-	author = [t.text() for t in stmt.xpath("author")]
+	titles = list(filter(None, (t.text() for t in stmt.find("title"))))
+	author = [t.text() for t in stmt.find("author")]
 	assert len(author) <= 1, author
 	author = author and author[0] or None
 	editors = []
-	for node in stmt.xpath("editor") + stmt.xpath("respStmt/persName"):
+	for node in stmt.find("editor") + stmt.find("respStmt/persName"):
 		ident = node.get("ref")
 		if ident == "part:jodo":
 			continue
@@ -495,7 +497,7 @@ def process_titleStmt(p, stmt):
 	p.document.editors = editors
 
 def process_sourceDesc(p, desc):
-	summ = desc.xpath("msDesc/msContents/summary")
+	summ = desc.find("msDesc/msContents/summary")
 	# only keep it if it looks like a global summary
 	if len(summ) == 1:
 		summ = summ[0]
@@ -508,8 +510,8 @@ def process_teiHeader(p, node):
 	p.dispatch_children(node)
 
 def process_TEI(p, node):
-	p.dispatch(node.child("teiHeader"))
-	#p.dispatch(node.child("text").child("body"))
+	p.dispatch(node.find("teiHeader")[0])
+	#p.dispatch(node.find("text/body")[0])
 
 for name, obj in copy.copy(globals()).items():
 	if not name.startswith("process_"):

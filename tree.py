@@ -62,57 +62,183 @@ NO_LOCATION = (None, None)
 # instructions) and can thus reproduce it in full, including comments.
 
 class Node(object):
-	type = None
-	# The tree this node belongs to.
-	tree = None
-	# Location in the source file
-	location = NO_LOCATION
-	# Stuff for navigating the tree. We use the same names as in XPath.
-	parent = None # None iff this is the tree itself
-	preceding_sibling = None
-	following_sibling = None
-	preceding = None
-	following = None
 
-	def child(self, name):
-		if not isinstance(self, Tag) and not isinstance(self, Tree):
+	type = None # "tree", "tag", "string", "comment", "instruction"
+	tree = None # tree this node belongs to
+	location = NO_LOCATION # location in the source file
+	parent = None
+
+	@property
+	def next(self):
+		parent = self.parent
+		if parent is None:
 			return
+		i = parent.index(self)
+		if i < len(parent) - 1:
+			return parent[i + 1]
+
+	@property
+	def prev(self):
+		parent = self.parent
+		if parent is None:
+			return
+		i = parent.index(self)
+		if i > 0:
+			return parent[i - 1]
+
+	def delete(self):
+		parent = self.parent
+		if parent:
+			return parent.remove(self)
+		self.tree = None
+		self.parent = None
+		self.location = NO_LOCATION
+		return self
+
+	def text(self, **kwargs):
+		return ""
+
+class Instruction(Node, dict):
+
+	type = "instruction"
+
+	def __init__(self, target, data):
+		self.target = target
+		self.data = data or ""
+		if self.target != "xml-model":
+			return
+		tree = ElementTree.parse(io.StringIO("<foo %s/>" % self.data))
+		root = tree.getroot()
+		self.update(root.attrib)
+
+	def __repr__(self):
+		return "<?%s %s?>" % (self.target, self.data)
+
+	def __hash__(self):
+		return id(self)
+
+	def xml(self):
+		return "<?%s %s?>\n" % (self.target, self.data)
+
+class String(Node, collections.UserString):
+
+	type = "string"
+
+	def clear(self):
+		self.location = NO_LOCATION
+		self.data = ""
+
+	def append(self, data):
+		self.location = NO_LOCATION
+		self.data += data
+
+	def prepend(self, data):
+		self.location = NO_LOCATION
+		self.data = data + self.data
+
+	def insert(self, i, data):
+		self.location = NO_LOCATION
+		if i < 0:
+			i += len(self.data)
+			if i < 0:
+				i = 0
+		elif i > len(self.data):
+			i = len(self.data)
+		self.data = self.data[:i] + data + self.data[i:]
+
+	def xml(self):
+		return quote_string(self.data)
+
+	def text(self, **kwargs):
+		data = self.data
+		space = kwargs.get("space")
+		if not space:
+			space = self.parent["space"]
+		if space == "preserve":
+			return data
+		assert space == "default"
+		data = data.strip()
+		data = re.sub(r"\s{2,}", " ", data)
+		return data
+
+class Comment(String):
+
+	type = "comment"
+
+	def __repr__(self):
+		return self.xml()
+
+	def xml(self):
+		return "<!-- %s -->" % quote_string(self.data)
+
+namespaced_attrs = {}
+
+def remove_namespace(key):
+	# We use three @ in the xml namespace: @lang, @space, @id.
+	# @lang is also a TEI @, but we don't use it. @id and @space
+	# are not TEI @. So it's ok to use a single namespace fo
+	# everything.
+	# Still, we make sure there is no ambiguity.
+	colon = key.find(":")
+	if colon < 0:
+		return key
+	short = key[colon + 1:]
+	have = namespaced_attrs.get(short)
+	if have is not None:
+		if have != key:
+			raise Exception("ambiguous namespaced attr: %r" % short)
+	else:
+		namespaced_attrs[short] = key
+	return short
+
+class Branch(Node, list):
+
+	def __hash__(self):
+		return id(self)
+
+	def __bool__(self):
+		return True
+
+	def __contains__(self, node):
+		for child in self:
+			if child is node:
+				return True
+		return False
+
+	def remove(self, node):
+		assert node in self
+		node.tree = None
+		node.parent = None
+		node.location = NO_LOCATION
+		list.remove(self, node)
+		if not isinstance(node, Tag):
+			return node
+		stack = [node]
+		while stack:
+			root = stack.pop()
+			for child in root:
+				child.tree = None
+				child.location = NO_LOCATION
+				if isinstance(child, Tag):
+					stack.append(child)
+		return node
+
+	def children(self, name="*"):
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
-			if node.name == name:
-				return node
-
-	def first_child(self, name=None):
-		if not isinstance(self, Tag) and not isinstance(self, Tree):
-			return
-		for node in self:
-			if not isinstance(node, Tag):
-				continue
-			if name is None or node.name == name:
-				return node
-			return
-
-	def children(self, name=None):
-		if not isinstance(self, Tag) and not isinstance(self, Tree):
-			return ret
-		for node in self:
-			if not isinstance(node, Tag):
-				continue
-			if name is None or node.name == name:
+			if name == "*" or node.name == name:
 				yield node
 
-	def descendants(self, name=None):
-		if not isinstance(self, Tag) and not isinstance(self, Tree):
-			return ret
+	def descendants(self, name="*"):
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
-			if name is None or node.name == name:
+			if name == "*" or node.name == name:
 				yield node
 			yield from node.descendants(name)
 
-	def xpath(self, path):
+	def find(self, path):
 		assert len(path) > 0
 		if path[0] == "/":
 			roots = [self.tree]
@@ -135,9 +261,7 @@ class Node(object):
 			if end < 0:
 				end = len(path)
 			name = path[:end]
-			if name.startswith("@"):
-				roots = [root for root in roots if name[1:] in root.attrs]
-			elif name == "..":
+			if name == "..":
 				roots = unique(root.parent for root in roots if root.parent is not None)
 			else:
 				roots = [node for root in roots for node in root.children(name)]
@@ -147,144 +271,34 @@ class Node(object):
 	def insert(self, i, node):
 		if isinstance(node, str) and not isinstance(node, Comment):
 			node = String(node)
-		assert isinstance(self, Tag) or isinstance(self, Tree)
+		if node in self:
+			raise Exception("attempt to insert the same (%s) node %r multiple times" % (node.type, node))
 		if i < 0:
 			i += len(self)
 			if i < 0:
 				i = 0
 		elif i > len(self):
 			i = len(self)
-		prev = i > 0 and self[i - 1] or None
-		next = i < len(self) - 1 and self[i + 1] or None
 		if node.type == "string":
-			if  prev and prev.type == "string":
-				prev.append(node)
+			if i > 0 and self[i - 1].type == "string":
+				self[i - 1].append(node)
 				return
-			if next and next.type == "string":
-				next.insert(0, node)
+			if i < len(self) - 1 and self[i + 1].type == "string":
+				self[i + 1].prepend(node)
 				return
 		list.insert(self, i, node)
-		if prev:
-			prev.following_sibling = node
-			prev.following = node
-		node.preceding_sibling = prev
-		node.preceding = prev
-		if next:
-			next.preceding_sibling = node
-			next.preceding = node
-		node.following_sibling = next
-		node.following = next
 		node.parent = self
 		node.tree = self.tree
-		node.location = EMPTY_LOCATION
+		node.location = NO_LOCATION
 
-	def _detach(self, tree):
-		if self.tree.root == self:
-			raise Exception("attempt to delete tree root")
-		if self.preceding_sibling:
-			self.preceding_sibling.following_sibling = self.following_sibling
-		if self.following_sibling:
-			self.following_sibling.preceding_sibling = self.preceding_sibling
-		if self.preceding:
-			self.preceding.following = self.following
-		if self.following:
-			self.following.preceding = self.preceding
-		self.preceding_sibling = None
-		self.following_sibling = None
-		self.preceding = None
-		self.following = None
-		self.tree = tree is None and Tree(self) or tree
-		self.parent = self.tree
-		self.location = EMPTY_LOCATION
+	def append(self, node):
+		self.insert(len(self), node)
 
-	def decompose(self, tree=None):
-		assert not isinstance(self, Tree)
-		parent = self.parent
-		self._detach(tree)
-		i = parent.index(self)
-		del parent[i]
-		if not isinstance(self, Tag):
-			return self
-		stack = [self]
-		while stack:
-			node = stack.pop()
-			for child in node:
-				child.tree = self.tree
-				child.location = EMPTY_LOCATION
-				if isinstance(child, Tag):
-					stack.append(child)
-		return self
+	def prepend(self, node):
+		self.insert(0, node)
 
-	def unwrap(self, tree=None):
-		assert not isinstance(self, Tree)
-		parent = self.parent
-		self._detach(tree)
-		i = parent.index(self)
-		del parent[i]
-		assert not self in parent
-		if isinstance(self, Tag):
-			for i, node in enumerate(self, i):
-				parent.insert(i, node)
-			self.clear()
-		return self
+class Tag(Branch):
 
-namespaced_attrs = {}
-
-def remove_namespace(key):
-	# We use three @ in the xml namespace: @lang, @space, @id.
-	# @lang is also a TEI @, but we don't use it. @id and @space
-	# are not TEI @. So it's ok to use a single namespace fo
-	# everything.
-	# Still, we make sure there is no ambiguity.
-	colon = key.find(":")
-	if colon < 0:
-		return key
-	short = key[colon + 1:]
-	have = namespaced_attrs.get(short)
-	if have is not None:
-		if have != key:
-			raise Exception("ambiguous namespaced attr: %r" % short)
-	else:
-		namespaced_attrs[short] = key
-	return short
-
-class String(Node, collections.UserString):
-	type = "string"
-
-	def xml(self):
-		return quote_string(self.data)
-
-	def clear(self):
-		self.location = NO_LOCATION
-		self.data = ""
-
-	def append(self, data):
-		self.location = NO_LOCATION
-		self.data += data
-
-	def insert(self, i, data):
-		self.location = NO_LOCATION
-		if i < 0:
-			i += len(self.data)
-			if i < 0:
-				i = 0
-		elif i > len(self.data):
-			i = len(self.data)
-		self.data = self.data[:i] + data + self.data[i:]
-
-	def text(self, **kwargs):
-		data = self.data
-		space = kwargs.get("space")
-		if not space:
-			space = self.parent["space"]
-		if space == "preserve":
-			return data
-		assert space == "default"
-		data = data.strip()
-		data = re.sub(r"\s{2,}", " ", data)
-		return data
-
-class Tag(Node, list):
 	type = "tag"
 
 	def __init__(self, name, attrs):
@@ -316,7 +330,7 @@ class Tag(Node, list):
 
 	def __setitem__(self, key, value):
 		if isinstance(key, int):
-			list.__setitem__(self, key, value)
+			raise Exception("not supported")
 		key = remove_namespace(key)
 		if key == "lang":
 			if isinstance(value, str):
@@ -329,13 +343,6 @@ class Tag(Node, list):
 	def get(self, key, dflt=None):
 		assert isinstance(key, str)
 		return self.attrs.get(key, dflt)
-
-	def text(self, **kwargs):
-		buf = []
-		for node in self:
-			if node.type in ("string", "tag"):
-				buf.append(node.text(**kwargs))
-		return "".join(buf)
 
 	def xml(self):
 		buf = ["<%s" % self.name]
@@ -353,48 +360,24 @@ class Tag(Node, list):
 		buf.append("</%s>" % self.name)
 		return "".join(buf)
 
-class Comment(String):
-	type = "comment"
+	def text(self, **kwargs):
+		buf = []
+		for node in self:
+			buf.append(node.text(**kwargs))
+		return "".join(buf)
 
-	def __repr__(self):
-		return self.xml()
+class Tree(Branch):
 
-	def xml(self):
-		return "<!-- %s -->" % quote_string(self.data)
-
-class Instruction(Node, dict):
-	type = "instruction"
-
-	def __init__(self, target, data):
-		self.target = target
-		self.data = data or ""
-		if self.target != "xml-model":
-			return
-		tree = ElementTree.parse(io.StringIO("<foo %s/>" % self.data))
-		root = tree.getroot()
-		self.update(root.attrib)
-
-	def repr(self):
-		return "<?%s %s?>" % (self.target, self.data)
-
-	def xml(self):
-		return "<?%s %s?>" % (self.target, self.data)
-
-class Tree(Node, list):
 	type = "tree"
 	path = None	# path of the XML file (if a file)
 	root = None	# might be None
 	source = None	# original, unaltered XML source
 
-	def __init__(self, root=None):
+	def __init__(self):
 		self.tree = self
-		self.location = (1, 0)
 		self.attrs = collections.OrderedDict()
 		self.attrs["space"] = "default"
-		self.attrs["lang"] = ("eng", "Latn")
-		if root is not None:
-			self.root = root
-			self.append(root)
+		self.attrs["lang"] = "eng"
 
 	def __repr__(self):
 		if self.path:
@@ -411,6 +394,15 @@ class Tree(Node, list):
 		if self.root:
 			return self.root.text(**kwargs)
 		return ""
+
+	def delete(self):
+		raise Exception("not supported")
+
+	def remove(self, node):
+		if node == self.root:
+			raise Exception("attempt to delete the tree's root")
+		NodeList.remove(self, node)
+
 
 # For inheritable props (xml:lang, xml:space) and xml:id
 def patch_tree(tree):
@@ -432,15 +424,9 @@ def patch_tree(tree):
 	patch_node(tree.root)
 
 class Handler(ContentHandler, LexicalHandler, ErrorHandler):
+
 	tree = None
 	reader = None
-	preceding = None
-
-	def chain(self, node):
-		if self.preceding:
-			self.preceding.following = node
-		node.preceding = self.preceding
-		self.preceding = node
 
 	def setDocumentLocator(self, locator):
 		self.locator = locator
@@ -455,17 +441,10 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	def startElement(self, name, attrs):
 		ordered = ((k, attrs[k]) for k in attrs.getNames())
 		tag = Tag(name, ordered)
-		self.chain(tag)
 		tag.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
 		tag.tree = self.tree
 		parent = self.stack[-1]
 		tag.parent = parent
-		if len(parent) > 0:
-			parent[-1].following_sibling = tag
-			tag.preceding_sibling = parent[-1]
-		else:
-			tag.preceding_sibling = None
-		tag.following_sibling = None
 		list.append(parent, tag)
 		self.stack.append(tag)
 
@@ -478,30 +457,27 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 		if len(parent) > 0 and parent[-1].type == "string":
 			parent[-1].append(data)
 			return
-		data = String(data)
-		data.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
-		self.chain(data)
-		data.parent = parent
-		data.tree = self.tree
-		parent.append(data)
+		node = String(data)
+		node.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
+		node.parent = parent
+		node.tree = self.tree
+		list.append(parent, node)
 
 	def comment(self, data):
 		parent = self.stack[-1]
 		node = Comment(data)
 		node.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
-		self.chain(node)
 		node.parent = parent
 		node.tree = self.tree
-		parent.append(node)
+		list.append(parent, node)
 
 	def processingInstruction(self, target, data):
 		parent = self.stack[-1]
 		node = Instruction(target, data)
 		node.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
-		self.chain(node)
 		node.parent = parent
 		node.tree = self.tree
-		parent.append(node)
+		list.append(parent, node)
 
 	def raise_error(self, err):
 		# Build a dummy node just to get a formatted location
@@ -519,19 +495,20 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	def warning(self, err):
 		self.raise_error(err)
 
-def parse(thing):
+def parse(f):
 	reader = make_parser()
 	handler = Handler()
 	handler.tree = Tree()
-	if isinstance(thing, str):
-		handler.tree.path = os.path.abspath(thing)
-		with open(thing) as f:
-			handler.tree.source = f.read()
+	if isinstance(f, str):
+		handler.tree.path = os.path.abspath(f)
+		with open(f) as r:
+			handler.tree.source = r.read()
 	else:
 		# file-like
-		if hasattr(thing, name):
-			handler.tree.path = os.path.abspath(thing.name)
-		handler.tree.source = thing.read()
+		if hasattr(f, name):
+			handler.tree.path = os.path.abspath(f.name)
+		handler.tree.source = f.read()
+	handler.tree.location = (1, 0)
 	reader.setContentHandler(handler)
 	reader.setErrorHandler(handler)
 	reader.setProperty("http://xml.org/sax/properties/lexical-handler", handler)

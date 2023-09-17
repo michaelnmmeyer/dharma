@@ -17,11 +17,11 @@ assert len(inscriptions) + len(diplomatic) \
 urls = set()
 for file in all:
 	xml = tree.parse(file)
-	for pers in xml.xpath("//persName"):
+	for pers in xml.find("//persName"):
 		ref = pers.get("ref", "")
 		if ref.startswith("http"):
 			urls.add(ref)
 
 for url in urls:
 	print(url, persons.plain_from_viaf(url))
-	
+

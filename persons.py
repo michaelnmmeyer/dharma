@@ -133,7 +133,7 @@ def plain_from_viaf(url, dflt=None):
 	xml = tree.parse(io.StringIO(r.text))
 	# choose the most common form of the name hoping it's the most adequate
 	counts = {}
-	for node in xml.xpath("//skos:prefLabel"):
+	for node in xml.find("//prefLabel"):
 		text = normalize_space(node.text())
 		# try to strip dates at the end as in "Cœdès, George 1886-1969"
 		end = len(text)
