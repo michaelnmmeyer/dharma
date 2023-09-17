@@ -118,6 +118,8 @@ class Node(object):
 			roots = [self.tree]
 			path = path[1:]
 		else:
+			if path.startswith("./"):
+				path = path[2:]
 			roots = [self]
 		while path:
 			end = path.find("/")
