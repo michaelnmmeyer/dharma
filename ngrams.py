@@ -4,7 +4,7 @@ from dharma.transform import normalize_space
 from dharma import config, texts, tree
 
 # TODO try multisets: https://en.wikipedia.org/wiki/Jaccard_index
-# better results?
+# better results? makes sense?
 
 SCHEMA = """
 create table if not exists metadata(
@@ -199,7 +199,8 @@ def make_jaccard(type, db):
 			if id1 >= id2:
 				continue
 			try:
-				jaccard = len(ngrams1 & ngrams2) / len(ngrams1 | ngrams2)
+				inter = len(ngrams1 & ngrams2)
+				jaccard = inter / (len(ngrams1) + len(ngrams2) - inter)
 			except ZeroDivisionError:
 				jaccard = 0
 			if jaccard < MIN_JACCARD:
@@ -257,7 +258,8 @@ def search(src_text, category):
 		""", (type,)):
 		ngrams2 = set(trigrams(row["normalized"]))
 		try:
-			jaccard = len(src_ngrams & ngrams2) / len(src_ngrams | ngrams2)
+			inter = len(src_ngrams & ngrams2)
+			jaccard = inter / (len(src_ngrams) + len(ngrams2) - inter)
 		except ZeroDivisionError:
 			jaccard = 0
 		if jaccard < MIN_JACCARD:
