@@ -227,19 +227,23 @@ class Branch(Node, list):
 		return node
 
 	def children(self, name="*"):
+		ret = []
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
 			if name == "*" or node.name == name:
-				yield node
+				ret.append(node)
+		return ret
 
 	def descendants(self, name="*"):
+		ret = []
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
 			if name == "*" or node.name == name:
-				yield node
-			yield from node.descendants(name)
+				ret.append(node)
+			ret.extend(node.descendants(name))
+		return ret
 
 	def find(self, path):
 		assert len(path) > 0
@@ -341,7 +345,7 @@ class Tag(Branch):
 			assert isinstance(value, list) or isinstance(value, tuple)
 			assert 1 <= len(value) <= 2
 			value = value[0]
-		self.attrs[key] = value
+		self.attrs[key] = value.strip()
 
 	def get(self, key, dflt=None):
 		assert isinstance(key, str)

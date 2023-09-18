@@ -1,7 +1,7 @@
 import os, re, io, unicodedata
 import requests
 from bs4 import BeautifulSoup, Tag
-from dharma import tree
+from dharma import config, tree
 
 # Like the eponymous function in xslt
 def normalize_space(s):
@@ -66,43 +66,34 @@ for key, values in ID_TO_GIT.items():
 		assert not value in GIT_TO_ID
 		GIT_TO_ID[value] = key
 
-this_dir = os.path.dirname(os.path.abspath(__file__))
-path = "repos/project-documentation/DHARMA_idListMembers_v01.xml"
-path = os.path.join(this_dir, path)
+def load_members_list():
+	path = os.path.join(config.REPOS_DIR, "project-documentation/DHARMA_idListMembers_v01.xml")
+	xml = tree.parse(path)
+	members = {"leke": ["Leb", "Ke"]}
+	for person in xml.find("//person"):
+		ident = person["xml:id"]
+		assert ident not in members
+		rec = person.find("persName")[0]
+		name = rec.find("name")
+		if name:
+			assert len(rec.children()) == 1, rec
+			name = name[0].text()
+			members[ident] = [name]
+		else:
+			assert len(rec.children()) == 2, rec
+			first = rec.find("forename")[0].text()
+			last = rec.find("surname")[0].text()
+			members[ident] = [last, first]
+	return members
 
-with open(path) as f:
-	text = unicodedata.normalize("NFC", f.read())
-	soup = BeautifulSoup(io.StringIO(text), "xml")
-
-def count_children_tags(iter):
-	n = 0
-	for x in iter:
-		if isinstance(x, Tag):
-			n += 1
-	return n
-
-persons = {"leke": ["Leb", "Ke"]}
-
-for person in soup.find_all("person"):
-	ident = person["xml:id"].strip()
-	rec = person.persName
-	name = rec.find("name")
-	assert ident not in persons
-	if name:
-		assert count_children_tags(rec.children) == 1, rec
-		name = normalize_space(name.get_text())
-		persons[ident] = [name]
-	else:
-		assert count_children_tags(rec.children) == 2, rec
-		first = normalize_space(rec.forename.get_text())
-		last = normalize_space(rec.surname.get_text())
-		persons[ident] = [first, last]
+MEMBERS = load_members_list()
 
 def plain(ident):
-	return " ".join(persons[ident])
+	return " ".join(reverse(MEMBERS[ident]))
 
 def plain_from_github(github_user):
-	return plain(GIT_TO_ID[github_user])
+	ret = GIT_TO_ID.get(github_user)
+	return ret and plain(ret) or github_user
 
 # TODO: normalize, we have both https?:, trailing slash or not, etc.
 # https://viaf.org/viaf/66465311
@@ -135,5 +126,5 @@ def plain_from_viaf(url, dflt=None):
 	return names and names.pop() or dflt
 
 if __name__ == "__main__":
-	for ident, name in sorted(persons.items()):
+	for ident, name in sorted(MEMBERS.items()):
 		print(ident, " ".join(name), sep="\t")
