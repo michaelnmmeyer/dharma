@@ -1,6 +1,5 @@
 import os, re, io, unicodedata
 import requests
-from bs4 import BeautifulSoup, Tag
 from dharma import config, tree
 
 # Like the eponymous function in xslt
