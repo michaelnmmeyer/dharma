@@ -1,18 +1,18 @@
 import os, sys
-from bs4 import BeautifulSoup
-from dharma import config
+from dharma import config, tree
 
 PATH = os.path.join(config.REPOS_DIR, "project-documentation", "DHARMA_prosodicPatterns_v01.xml")
 
 items = {}
 
-soup = BeautifulSoup(open(PATH), "xml")
-for item in soup.find_all("item"):
-	pros = item.find("seg", type="prosody")
-	assert pros, item
+xml = tree.parse(PATH)
+for item in xml.find("//item"):
+	pros = [node for node in item.find(".//seg") if node.get("type") == "prosody"]
+	assert len(pros) == 1
+	pros = pros[0]
 	names = set()
-	for name in item.find_all("name") + item.find_all("label"):
-		name = name.string
+	for name in item.find("name") + item.find("label"):
+		name = name.text()
 		if not name:
 			continue
 		names.add(name)
@@ -20,5 +20,4 @@ for item in soup.find_all("item"):
 		if name in items:
 			#print(f"duplicate meter: {name}", file=sys.stderr)
 			continue
-		items[name] = pros.string
-
+		items[name] = pros.text()

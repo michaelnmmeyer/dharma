@@ -9,7 +9,7 @@
 # is invalid; we can highlight the node and generate a pop-up or something when
 # rendering the text.
 
-import os, re, io, collections
+import os, re, io, collections, copy
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler, LexicalHandler, ErrorHandler
 from xml.sax.saxutils import escape as quote_string
@@ -97,6 +97,9 @@ class Node(object):
 
 	def text(self, **kwargs):
 		return ""
+
+	def copy(self):
+		return copy.deepcopy(self)
 
 class Instruction(Node, dict):
 
@@ -402,7 +405,6 @@ class Tree(Branch):
 		if node == self.root:
 			raise Exception("attempt to delete the tree's root")
 		NodeList.remove(self, node)
-
 
 # For inheritable props (xml:lang, xml:space) and xml:id
 def patch_tree(tree):

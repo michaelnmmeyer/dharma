@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import os, re, sys
-from bs4 import BeautifulSoup
 from dharma.cleanup import cleanup_file
 from dharma import config
 

@@ -1,5 +1,4 @@
 import sys, re
-from bs4 import BeautifulSoup
 from glob import iglob
 from dharma import tree, persons
 from dharma.transform import normalize_space
