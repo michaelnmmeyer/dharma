@@ -183,7 +183,7 @@ class Comment(String):
 	def xml(self):
 		return "<!-- %s -->" % quote_string(self.data)
 
-	def text(self):
+	def text(self, **kwargs):
 		return ""
 
 namespaced_attrs = {}
@@ -349,11 +349,11 @@ class Tag(Branch):
 			return self.attrs[key]
 		# XXX what about <foreign> rel. to @lang? also see EGD p. 120
 		node = self
-		while not node.get(key):
+		while not node.attrs.get(key):
 			node = node.parent
 			if not node:
 				return key == "lang" and "eng" or "default"
-		return node[key]
+		return node.attrs[key]
 
 	def __setitem__(self, key, value):
 		if isinstance(key, int):
