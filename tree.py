@@ -102,6 +102,7 @@ class Node(object):
 		i = parent.index(self)
 		self.delete()
 		parent.insert(i, other)
+		return self
 
 	def text(self, **kwargs):
 		return ""
@@ -169,7 +170,7 @@ class String(Node, collections.UserString):
 		return quote_string(self.data)
 
 	def text(self, **kwargs):
-		data = self.data
+		data = str(self.data) # casting is necessary
 		space = kwargs.get("space")
 		if not space:
 			if self.parent:
@@ -401,6 +402,7 @@ class Tag(Branch):
 		buf = []
 		for node in self:
 			buf.append(node.text(**kwargs))
+		print([(node,type(node)) for node in buf])
 		return "".join(buf)
 
 class Tree(Branch):
