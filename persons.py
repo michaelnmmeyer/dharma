@@ -88,7 +88,7 @@ def load_members_list():
 MEMBERS = load_members_list()
 
 def plain(ident):
-	return " ".join(reverse(MEMBERS[ident]))
+	return " ".join(reversed(MEMBERS[ident]))
 
 def plain_from_github(github_user):
 	ret = GIT_TO_ID.get(github_user)
