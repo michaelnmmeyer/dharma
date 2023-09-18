@@ -156,7 +156,10 @@ class String(Node, collections.UserString):
 		data = self.data
 		space = kwargs.get("space")
 		if not space:
-			space = self.parent["space"]
+			if self.parent:
+				space = self.parent["space"]
+			else:
+				space = "default"
 		if space == "preserve":
 			return data
 		assert space == "default"
@@ -275,6 +278,11 @@ class Branch(Node, list):
 			path = path[end + 1:]
 		return roots
 
+	def first(self, path):
+		ret = self.find(path)
+		if ret:
+			return ret[0]
+
 	def insert(self, i, node):
 		if isinstance(node, str) and not isinstance(node, Comment):
 			node = String(node)
@@ -333,6 +341,8 @@ class Tag(Branch):
 		node = self
 		while not node.attrs.get(key):
 			node = node.parent
+			if not node:
+				return key == "lang" and "eng" or "default"
 		return node.attrs[key]
 
 	def __setitem__(self, key, value):

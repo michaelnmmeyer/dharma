@@ -1,8 +1,7 @@
 import os, sys, string, unicodedata, re, html
 from glob import glob
-from bs4 import BeautifulSoup
 from dharma.transform import normalize_space
-from dharma import config, texts
+from dharma import config, texts, tree
 
 # TODO try multisets: https://en.wikipedia.org/wiki/Jaccard_index
 # better results?
@@ -91,27 +90,28 @@ def cleanup(s):
 	return ret
 
 def extract_pada(l):
-	for choice in l.find_all("choice"):
-		if choice.corr:
-			choice.replace_with(choice.corr.get_text())
-		elif choice.reg:
-			choice.replace_with(choice.reg.get_text())
-	for space in l.find_all("space"):
-		space.replace_with(" ")
+	for choice in l.find(".//choice"):
+		corr = choice.first("corr") or choice.first("reg")
+		if corr:
+			choice.prepend(corr.text())
+			choice.delete()
+	for space in l.find(".//space"):
+		space.prepend(" ")
+		space.delete()
 	for name in ("rdg", "note", "milestone", "pb", "lb", "gap", "del", "label"):
-		for tag in l.find_all(name):
-			tag.decompose()
-	text = cleanup(l.get_text())
+		for tag in l.find(f".//{name}"):
+			tag.delete()
+	text = cleanup(l.text())
 	if l.get("enjamb") == "yes" and not text.startswith("-"):
 		text = "-" + text
 	return text
 
 def extract_padas(lg):
 	ret = []
-	letters = "".join(l.get("n", "X") for l in lg.find_all("l"))
+	letters = "".join(l.get("n", "X") for l in lg.find("l"))
 	if letters != string.ascii_lowercase[:len(letters)]:
 		return ret
-	for l in lg.find_all("l"):
+	for l in lg.find("l"):
 		ret.append(extract_pada(l))
 	if not any(c.isalpha() for pada in ret for c in pada):
 		ret.clear()
@@ -122,9 +122,9 @@ def number_of(verse):
 	node = verse
 	while True:
 		node = node.parent
-		while node and node.name != "div":
+		while node is not node.tree and node.name != "div":
 			node = node.parent
-		if not node:
+		if node is node.tree:
 			break
 		pn = node.get("n")
 		if pn:
@@ -132,8 +132,8 @@ def number_of(verse):
 	return n
 
 def extract_verses(path):
-	soup = BeautifulSoup(open(path), "xml")
-	for verse in soup.find_all("lg"):
+	xml = tree.parse(path)
+	for verse in xml.find("//lg"):
 		padas = extract_padas(verse)
 		if not padas:
 			continue
