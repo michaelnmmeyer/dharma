@@ -122,9 +122,9 @@ def number_of(verse):
 	node = verse
 	while True:
 		node = node.parent
-		while node is not node.tree and node.name != "div":
+		while node and node.name != "div":
 			node = node.parent
-		if node is node.tree:
+		if not node:
 			break
 		pn = node.get("n")
 		if pn:

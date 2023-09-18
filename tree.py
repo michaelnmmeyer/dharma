@@ -51,8 +51,6 @@ def unique(items):
 			ret.append(item)
 	return ret
 
-NO_LOCATION = (None, None)
-
 # Node types are: Tag, Comment, String, Instruction, Tree. Tree is not really a
 # node, but we define it as one nonetheless because we want it to have the same
 # basic methods. Tree is the XML document proper: it holds processing
@@ -65,7 +63,7 @@ class Node(object):
 
 	type = None # "tree", "tag", "string", "comment", "instruction"
 	tree = None # tree this node belongs to
-	location = NO_LOCATION # location in the source file
+	location = None # (line, column) in the source file
 	parent = None
 
 	@property
@@ -92,7 +90,7 @@ class Node(object):
 			return parent.remove(self)
 		self.tree = None
 		self.parent = None
-		self.location = NO_LOCATION
+		self.location = None
 		return self
 
 	def text(self, **kwargs):
@@ -128,19 +126,27 @@ class String(Node, collections.UserString):
 	type = "string"
 
 	def clear(self):
-		self.location = NO_LOCATION
+		if self.data == "":
+			return
+		self.location = None
 		self.data = ""
 
 	def append(self, data):
-		self.location = NO_LOCATION
+		if not data:
+			return
+		self.location = None
 		self.data += data
 
 	def prepend(self, data):
-		self.location = NO_LOCATION
+		if not data:
+			return
+		self.location = None
 		self.data = data + self.data
 
 	def insert(self, i, data):
-		self.location = NO_LOCATION
+		if not data:
+			return
+		self.location = None
 		if i < 0:
 			i += len(self.data)
 			if i < 0:
@@ -176,6 +182,9 @@ class Comment(String):
 
 	def xml(self):
 		return "<!-- %s -->" % quote_string(self.data)
+
+	def text(self):
+		return ""
 
 namespaced_attrs = {}
 
@@ -215,7 +224,7 @@ class Branch(Node, list):
 		assert node in self
 		node.tree = None
 		node.parent = None
-		node.location = NO_LOCATION
+		node.location = None
 		list.remove(self, node)
 		if not isinstance(node, Tag):
 			return node
@@ -224,7 +233,7 @@ class Branch(Node, list):
 			root = stack.pop()
 			for child in root:
 				child.tree = None
-				child.location = NO_LOCATION
+				child.location = None
 				if isinstance(child, Tag):
 					stack.append(child)
 		return node
@@ -304,7 +313,7 @@ class Branch(Node, list):
 		list.insert(self, i, node)
 		node.parent = self
 		node.tree = self.tree
-		node.location = NO_LOCATION
+		node.location = None
 
 	def append(self, node):
 		self.insert(len(self), node)
@@ -315,6 +324,7 @@ class Branch(Node, list):
 class Tag(Branch):
 
 	type = "tag"
+	attrs = None
 
 	def __init__(self, name, attrs):
 		self.name = name
@@ -339,11 +349,11 @@ class Tag(Branch):
 			return self.attrs[key]
 		# XXX what about <foreign> rel. to @lang? also see EGD p. 120
 		node = self
-		while not node.attrs.get(key):
+		while not node.get(key):
 			node = node.parent
 			if not node:
 				return key == "lang" and "eng" or "default"
-		return node.attrs[key]
+		return node[key]
 
 	def __setitem__(self, key, value):
 		if isinstance(key, int):
@@ -392,9 +402,6 @@ class Tree(Branch):
 
 	def __init__(self):
 		self.tree = self
-		self.attrs = collections.OrderedDict()
-		self.attrs["space"] = "default"
-		self.attrs["lang"] = "eng"
 
 	def __repr__(self):
 		if self.path:
@@ -460,7 +467,8 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 		tag.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
 		tag.tree = self.tree
 		parent = self.stack[-1]
-		tag.parent = parent
+		if parent is not self.tree:
+			tag.parent = parent
 		list.append(parent, tag)
 		self.stack.append(tag)
 
@@ -475,7 +483,8 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 			return
 		node = String(data)
 		node.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
-		node.parent = parent
+		if parent is not self.tree:
+			node.parent = parent
 		node.tree = self.tree
 		list.append(parent, node)
 
@@ -483,7 +492,8 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 		parent = self.stack[-1]
 		node = Comment(data)
 		node.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
-		node.parent = parent
+		if parent is not self.tree:
+			node.parent = parent
 		node.tree = self.tree
 		list.append(parent, node)
 
@@ -491,7 +501,8 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 		parent = self.stack[-1]
 		node = Instruction(target, data)
 		node.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
-		node.parent = parent
+		if parent is not self.tree:
+			node.parent = parent
 		node.tree = self.tree
 		list.append(parent, node)
 
