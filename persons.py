@@ -104,24 +104,6 @@ def plain(ident):
 def plain_from_github(github_user):
 	return plain(GIT_TO_ID[github_user])
 
-def xml(ident, root_tag):
-	rec = persons[ident]
-	soup = BeautifulSoup(f"<{root_tag}></{root_tag}>", "xml")
-	root = soup.find(root_tag)
-	root["ref"] = "part:%s" % ident
-	if len(rec) == 1:
-		name = soup.new_tag("name")
-		name.string = rec[0]
-		root.append(name)
-	else:
-		first = soup.new_tag("forename")
-		first.string = rec[0]
-		last = soup.new_tag("surname")
-		last.string = rec[1]
-		root.append(first)
-		root.append(last)
-	return root
-
 # TODO: normalize, we have both https?:, trailing slash or not, etc.
 # https://viaf.org/viaf/66465311
 # http://viaf.org/viaf/64048594
