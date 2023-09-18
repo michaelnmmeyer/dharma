@@ -92,6 +92,16 @@ class Node(object):
 		self.parent = None
 		self.location = None
 		return self
+	
+	def replace_with(self, other):
+		if not isinstance(other, Tag):
+			assert isinstance(other, str)
+			other = String(other)
+		parent = self.parent
+		assert parent is not None
+		i = parent.index(self)
+		self.delete()
+		parent.insert(i, other)
 
 	def text(self, **kwargs):
 		return ""

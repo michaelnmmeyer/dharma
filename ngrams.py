@@ -93,11 +93,9 @@ def extract_pada(l):
 	for choice in l.find(".//choice"):
 		corr = choice.first("corr") or choice.first("reg")
 		if corr:
-			choice.prepend(corr.text())
-			choice.delete()
+			corr.replace_with(corr.text())
 	for space in l.find(".//space"):
-		space.prepend(" ")
-		space.delete()
+		space.replace_with(" ")
 	for name in ("rdg", "note", "milestone", "pb", "lb", "gap", "del", "label"):
 		for tag in l.find(f".//{name}"):
 			tag.delete()
