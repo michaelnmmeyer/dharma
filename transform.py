@@ -65,7 +65,6 @@ class Document:
 	editors = []
 	summary = ""
 
-
 class Parser:
 	# drop: drop all spaces until we find some text
 	# seen: saw space and waiting to see text before emitting ' '

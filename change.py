@@ -259,4 +259,4 @@ if __name__ == "__main__":
 		except KeyboardInterrupt:
 			break
 		except Exception as e:
-			print(e, file=sys.stderr)
+			logging.error(e)
