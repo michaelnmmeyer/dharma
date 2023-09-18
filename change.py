@@ -170,8 +170,9 @@ def update_db(conn, name):
 
 def handle_changes(name):
 	conn = TEXTS_DB
-	conn.execute("begin")
+	conn.execute("begin immediate")
 	try:
+		update_repo(name)
 		update_db(conn, name)
 		conn.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
 		conn.execute("commit")
@@ -212,7 +213,6 @@ def read_changes(fd):
 		if name == "all":
 			logging.info("updating everything...")
 			for name in REPOS:
-				update_repo(name)
 				handle_changes(name)
 			biblio.update()
 			logging.info("updated everything")
@@ -222,7 +222,6 @@ def read_changes(fd):
 			logging.info("updated biblio")
 		elif name in REPOS:
 			logging.info("updating single repo %r..." % name)
-			update_repo(name)
 			handle_changes(name)
 			logging.info("updated single repo %r" % name)
 		else:
