@@ -92,7 +92,7 @@ class Node(object):
 		self.parent = None
 		self.location = None
 		return self
-	
+
 	def replace_with(self, other):
 		if not isinstance(other, Tag):
 			assert isinstance(other, str)
@@ -402,7 +402,6 @@ class Tag(Branch):
 		buf = []
 		for node in self:
 			buf.append(node.text(**kwargs))
-		print([(node,type(node)) for node in buf])
 		return "".join(buf)
 
 class Tree(Branch):
