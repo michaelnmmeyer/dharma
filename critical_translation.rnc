@@ -10,17 +10,11 @@ start =
         titleStmt,
         publicationStmt,
         element sourceDesc {
-          p
-          | element biblFull { titleStmt, publicationStmt }
+          element biblFull { titleStmt, publicationStmt }
         }
       },
       element encodingDesc {
-        element projectDesc { p+ },
-        element schemaRef {
-          attribute key { xsd:NCName },
-          attribute type { xsd:NCName },
-          attribute url { xsd:anyURI }
-        }?
+        element projectDesc { p+ }
       },
       element revisionDesc {
         element change {
@@ -28,7 +22,7 @@ start =
           attribute when { xsd:date },
           attribute who { xsd:NMTOKEN },
           text
-        }+
+        }
       }
     },
     element text {
@@ -39,8 +33,7 @@ start =
           attribute corresp { text }?,
           attribute n { xsd:integer }?,
           attribute type { xsd:NCName }?,
-          element head { text }?,
-          (note | p | quote)+
+          p+
         }+
       }
     }
@@ -55,21 +48,23 @@ titleStmt =
     element author { text }?,
     element editor {
       attribute ref { xsd:NMTOKEN }?,
-      (text | forename | name | surname)+
-    }*,
+      (text
+       | forename
+       | surname
+       | element name { text })+
+    }+,
     element respStmt {
-      (element persName {
-         attribute ref { xsd:NMTOKEN }?,
-         (text | forename | name | surname)+
-       }
-       | element resp { text })+
-    }*
+      element resp { text },
+      element persName {
+        attribute ref { xsd:NMTOKEN }?,
+        (text | forename | surname)+
+      }
+    }?
   }
 publicationStmt =
   element publicationStmt {
     element authority { xsd:NCName },
     element pubPlace { text },
-    element publisher { xsd:NCName }?,
     element idno {
       attribute type { xsd:NCName },
       xsd:NCName
@@ -93,29 +88,18 @@ p =
     attribute rend { xsd:NCName }?,
     (text
      | foreign
-     | note
+     | element note { (text | foreign)+ }
      | element q { (text | foreign)+ }
      | element supplied {
          attribute reason { xsd:NCName },
-         (text | foreign | quote)+
+         (text
+          | element quote {
+              attribute corresp { xsd:NMTOKEN },
+              attribute rend { xsd:NCName },
+              text
+            })+
        })+
   }
-quote =
-  element quote {
-    attribute corresp { xsd:NMTOKEN }?,
-    attribute rend { xsd:NCName }?,
-    text
-  }
-note =
-  element note {
-    (text
-     | foreign
-     | element ref {
-         attribute target { xsd:anyURI },
-         xsd:anyURI
-       })+
-  }
-name = element name { text }
 surname = element surname { xsd:NCName }
 forename = element forename { xsd:NCName }
-foreign = element foreign { (text | foreign)+ }
+foreign = element foreign { text }

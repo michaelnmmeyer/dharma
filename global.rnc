@@ -156,7 +156,7 @@ msDesc =
       institution?,
       repository?,
       element collection { text }?,
-      idno*,
+      idno+,
       element altIdentifier {
         attribute type { xsd:NCName },
         settlement?,
@@ -583,6 +583,7 @@ hi =
     attribute rend { xsd:NCName },
     (text
      | add
+     | app
      | choice
      | foreign
      | g
@@ -657,7 +658,6 @@ quote =
      | lg
      | listApp
      | note
-     | quote
      | space
      | supplied
      | term
@@ -773,7 +773,6 @@ app =
     attribute rend { xsd:NCName }?,
     attribute type { xsd:NCName }?,
     element lem {
-      attribute hand { text }?,
       attribute rend { xsd:NCName }?,
       attribute resp { xsd:NCName }?,
       attribute source { text }?,
@@ -814,7 +813,6 @@ app =
      | element rdg {
          attribute cause { xsd:NCName }?,
          attribute corresp { xsd:NCName }?,
-         attribute hand { text }?,
          attribute rend { xsd:NCName }?,
          attribute source { xsd:anyURI }?,
          attribute type { xsd:NCName }?,
@@ -835,7 +833,6 @@ app =
           | hi
           | lb
           | milestone
-          | note
           | num
           | orig
           | pb
