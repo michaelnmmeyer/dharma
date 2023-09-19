@@ -119,6 +119,7 @@ class Instruction(Node, dict):
 		self.data = data or ""
 		if self.target != "xml-model":
 			return
+		# quick 'n dirty parsing just to get the data as a dict
 		tree = ElementTree.parse(io.StringIO("<foo %s/>" % self.data))
 		root = tree.getroot()
 		self.update(root.attrib)
@@ -231,12 +232,24 @@ class Branch(Node, list):
 				return True
 		return False
 
+	def index(self, node):
+		for i, child in enumerate(self):
+			if child is node:
+				return i
+		raise ValueError("not found")
+
 	def remove(self, node):
 		assert node in self
 		node.tree = None
 		node.parent = None
 		node.location = None
-		list.remove(self, node)
+		i = self.index(node)
+		if len(self) > 2 and i > 0 and i < len(self) - 1 \
+			and self[i - 1].type == "string" and self[i + 1].type == "string":
+			old = self[i + 1]
+			self[i - 1].append(old)
+			old.delete()
+		del self[i]
 		if not isinstance(node, Tag):
 			return node
 		stack = [node]
@@ -304,7 +317,8 @@ class Branch(Node, list):
 			return ret[0]
 
 	def insert(self, i, node):
-		if isinstance(node, str) and not isinstance(node, Comment):
+		if not isinstance(node, Node):
+			assert isinstance(node, str)
 			node = String(node)
 		if node in self:
 			raise Exception("attempt to insert the same (%s) node %r multiple times" % (node.type, node))

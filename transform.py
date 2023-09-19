@@ -498,9 +498,11 @@ def process_titleStmt(p, stmt):
 def process_sourceDesc(p, desc):
 	summ = desc.find("msDesc/msContents/summary")
 	# only keep it if it looks like a global summary
-	if len(summ) == 1:
-		summ = summ[0]
-		p.document.summary = normalize_space(summ.text(space="preserve"))
+	assert len(summ) <= 1
+	if not summ:
+		return
+	summ = summ[0]
+	p.document.summary = normalize_space(summ.text(space="preserve"))
 
 def process_fileDesc(p, node):
 	p.dispatch_children(node)
@@ -548,5 +550,4 @@ if __name__ == "__main__":
 	#print(tail)
 	#p.emit("log:doc>")
 
-	if p.document.summary:
-		print(p.document.ident, p.document.summary)
+	print(p.document.summary)
