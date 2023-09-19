@@ -104,11 +104,11 @@ class Block:
 		self.text = ""
 
 	def add_code(self, t, data=None, **params):
-		rec = (t, data, params)
-		self.code.append(rec)
 		p.space = "drop"
 		if t == "html":
 			self.flush()
+		rec = (t, data, params)
+		self.code.append(rec)
 		write_debug(t, data, **params)
 
 class Document:
