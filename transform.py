@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os, sys, re, io, copy
+import os, sys, re, io, copy, html
 from dharma.tree import *
 from dharma import prosody, persons
 
@@ -41,6 +41,8 @@ def write_debug(t, data=None, **params):
 	write("\n")
 
 PARA_SEP = chr(1)
+HIGHLIGHT_START = chr(2)
+HIGHLIGHT_END = chr(3)
 
 class Block:
 
@@ -66,6 +68,10 @@ class Block:
 			elif t == "html":
 				ret.append(data)
 		return "".join(ret)
+
+	def start_span(self):
+		if self.text:
+			self.add_text(PARA_SEP)
 
 	def add_text(self, data):
 		if not data:
@@ -111,14 +117,39 @@ class Block:
 		self.code.append(rec)
 		write_debug(t, data, **params)
 
+	def finish(self):
+		assert self.text == ""
+		for i, (t, data, _) in enumerate(self.code):
+			if t == "text":
+				start = len(self.text)
+				self.text += data
+				end = len(self.text)
+				self.code[i] = ("text", (start, end))
+			elif t == "html":
+				self.code[i] = ("html", data)
+			else:
+				assert 0
+
+	def render(self):
+		write = sys.stdout.write
+		for t, data in self.code:
+			if t == "text":
+				start, end = data
+				text = html.escape(self.text[start:end])
+				write(text)
+			elif t == "html":
+				write(data)
+			else:
+				assert 0
+
 class Document:
 
 	repository = ""
 	ident = ""
-	title = []
+	title = None
 	author = None
-	editors = []
-	summary = ""
+	editors = None
+	summary = None
 
 class Parser:
 
@@ -142,6 +173,7 @@ class Parser:
 	def pop(self):
 		b = self.blocks.pop()
 		b.flush()
+		b.finish()
 		return b
 
 	def add_text(self, text):
@@ -149,6 +181,9 @@ class Parser:
 
 	def add_code(self, t, data, **params):
 		return self.blocks[-1].add_code(t, data, **params)
+
+	def start_span(self):
+		return self.blocks[-1].start_span()
 
 	def dispatch(self, node):
 		if node.type in ("comment", "instruction"):
@@ -172,9 +207,6 @@ class Parser:
 	def complain(self, msg):
 		print("? %s" % msg, file=sys.stderr)
 		pass
-
-def barf(msg):
-	raise Exception(msg)
 
 # Like the eponymous function in xslt
 def normalize_space(s):
@@ -268,8 +300,6 @@ def process_term(p, node):
 	p.dispatch_children(node)
 
 def process_g(p, node):
-	def fail():
-		 barf("invalid node (see STS)")
 	# <g type="...">.</g> for punctuation marks
 	# <g type="...">§</g> for space fillers
 	# <g type="..."></g> in the other cases viz. for symbols
@@ -282,12 +312,11 @@ def process_g(p, node):
 	elif text == "":
 		gtype = "unclear"
 	else:
-		fail()
+		assert 0, node
 	if len(node.attrs) != 1:
-		fail()
+		assert 0, node
 	stype = node.get("type")
-	if not stype:
-		fail()
+	assert stype, node
 	p.add_code("symbol", f"{gtype}.{stype}")
 
 def process_unclear(p, node):
@@ -537,8 +566,8 @@ def process_titleStmt(p, stmt):
 		editors.append(name)
 	editors = remove_duplicates(editors)
 	for editor in editors:
+		p.start_span()
 		p.add_text(editor)
-		p.add_text(PARA_SEP)
 	p.document.editors = p.pop()
 
 def process_sourceDesc(p, desc):
@@ -550,7 +579,6 @@ def process_sourceDesc(p, desc):
 	p.push("summary")
 	p.dispatch_children(summ)
 	p.document.summary = p.pop()
-
 
 def process_fileDesc(p, node):
 	p.dispatch_children(node)
@@ -577,3 +605,7 @@ if __name__ == "__main__":
 	print(p.document.title)
 	print(p.document.editors)
 	print(p.document.summary)
+	print("---")
+	print(repr(p.document.summary.text))
+	p.document.summary.render()
+	print()

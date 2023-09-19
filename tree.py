@@ -371,7 +371,7 @@ class Tag(Branch):
 			return list.__getitem__(self, key)
 		key = remove_namespace(key)
 		if key != "lang" and key != "space":
-			return self.attrs[key]
+			return self.attrs.get(key, "")
 		# XXX what about <foreign> rel. to @lang? also see EGD p. 120
 		node = self
 		while not node.attrs.get(key):
@@ -392,7 +392,7 @@ class Tag(Branch):
 			value = value[0]
 		self.attrs[key] = value.strip()
 
-	def get(self, key, dflt=None):
+	def get(self, key, dflt=""):
 		assert isinstance(key, str)
 		return self.attrs.get(key, dflt)
 
