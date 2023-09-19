@@ -11,7 +11,9 @@ case-insensitive, does not take diacritics into account, and looks for
 substrings instead of terms. For instance, the query <a
 href="/catalog?q=edit">edit</a> matches "edition" or "meditation". To look for
 a phrase, surround it with double quotes, as in <a
-href="/catalog?q=&quot;old%20javanese&quot;">&quot;old javanese&quot;</a>.</p>
+href="/catalog?q=&quot;old%20javanese&quot;">&quot;old javanese&quot;</a>.
+Searching for strings that contain less than three characters is not
+possible.</p>
 
 <p>Per default, all metadata fields are searched. Metadata fields are (for
 now): title, editor, summary, repo, ident. You can restric search to a specific
