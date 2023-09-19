@@ -40,72 +40,32 @@ def write_debug(t, data=None, **params):
 		term_reset()
 	write("\n")
 
-class HTML:
+PARA_SEP = chr(1)
 
-	def __init__(self):
-		self.buf = []
+class Block:
 
-	def write(self, t, data=None, **params):
-		write = sys.stdout.write
-		if t == "text":
-			assert not self.buf or self.buf[-1][0] != "text"
-			write(data)
-		elif t == "html":
-			write(data)
-		elif t == "log:doc>":
-			write("\n")
-		self.buf.append((t, data, params))
-
-class Document:
-
-	repository = ""
-	ident = ""
-	title = []
-	author = None
-	editors = []
-	summary = ""
-
-class Parser:
+	# Whitespace state
 	# drop: drop all spaces until we find some text
 	# seen: saw space and waiting to see text before emitting ' '
 	# none: waiting to see space
 	space = "drop"
-	tree = None
-	div_level = 0
 
-	# For HTML output
-	heading_shift = 1
-	html_start = 0
-
-	def __init__(self, tree, write=write_debug):
-		self.tree = tree
-		self.write = write
+	def __init__(self, name=""):
+		self.name = name
 		self.text = ""
-		self.document = Document()
-		self.document.ident = os.path.basename(os.path.splitext(tree.path)[0])
+		self.code = []
 
-	def dispatch(self, node):
-		if node.type == "comment" or node.type == "instruction":
-			return
-		if node.type == "string":
-			self.emit("text", node, lang=node.parent["lang"])
-			return
-		assert node.type == "tag"
-		f = HANDLERS.get(node.name)
-		if not f:
-			self.complain("no handler for %r, ignoring it" % node)
-			return
-		try:
-			f(self, node)
-		except Error as e:
-			self.complain(e)
+	def __repr__(self):
+		return "Block(%s):\n%s" % (self.name, "\n".join(repr(c) for c in self.code))
 
-	def dispatch_children(self, node):
-		for child in node:
-			self.dispatch(child)
-
-	def complain(self, msg):
-		print("? %s" % msg, file=sys.stderr)
+	def html(self):
+		ret = []
+		for t, data, _ in self.code:
+			if t == "text":
+				ret.append(data)
+			elif t == "html":
+				ret.append(data)
+		return "".join(ret)
 
 	def add_text(self, data):
 		if not data:
@@ -135,16 +95,83 @@ class Parser:
 			return
 		self.text += data
 
-	def emit(self, t, data=None, **params):
-		if t == "text":
-			self.add_text(data)
+	def flush(self):
+		if not self.text:
 			return
-		if t == "html" or t.startswith("log:"):
-			if self.html_start < len(self.text):
-				self.write("text", self.text[self.html_start:], start=self.html_start, end=len(self.text))
-			self.html_start = len(self.text)
+		rec = ("text", self.text, {})
+		self.code.append(rec)
+		write_debug(rec[0], rec[1], **rec[2])
+		self.text = ""
+
+	def add_code(self, t, data=None, **params):
+		rec = (t, data, params)
+		self.code.append(rec)
 		p.space = "drop"
-		self.write(t, data, **params)
+		if t == "html":
+			self.flush()
+		write_debug(t, data, **params)
+
+class Document:
+
+	repository = ""
+	ident = ""
+	title = []
+	author = None
+	editors = []
+	summary = ""
+
+class Parser:
+
+	tree = None
+	div_level = 0
+
+	# For HTML output
+	heading_shift = 1
+
+	def __init__(self, tree):
+		self.tree = tree
+		self.document = Document()
+		self.document.ident = os.path.basename(os.path.splitext(tree.path)[0])
+		self.blocks = [Block()]
+
+	def push(self, name):
+		b = Block(name)
+		self.blocks.append(b)
+		return b
+
+	def pop(self):
+		b = self.blocks.pop()
+		b.flush()
+		return b
+
+	def add_text(self, text):
+		return self.blocks[-1].add_text(text)
+
+	def add_code(self, t, data, **params):
+		return self.blocks[-1].add_code(t, data, **params)
+
+	def dispatch(self, node):
+		if node.type in ("comment", "instruction"):
+			return
+		if node.type == "string":
+			return self.add_text(str(node))
+		assert node.type == "tag"
+		f = HANDLERS.get(node.name)
+		if not f:
+			self.complain("no handler for %r, ignoring it" % node)
+			return
+		try:
+			f(self, node)
+		except Error as e:
+			self.complain(e)
+
+	def dispatch_children(self, node):
+		for child in node:
+			self.dispatch(child)
+
+	def complain(self, msg):
+		print("? %s" % msg, file=sys.stderr)
+		pass
 
 def barf(msg):
 	raise Exception(msg)
@@ -156,7 +183,7 @@ def normalize_space(s):
 
 def process_lem(p, lemma):
 	text = lemma.text() #XXX legit?
-	p.emit("text", text)
+	p.add_text(text)
 	# Ignore the apparatus for now
 
 def process_app(p, app):
@@ -177,11 +204,16 @@ def process_supplied(p, supplied):
 	reason = supplied["reason"]
 	format = supplied_format[reason]
 	if format:
-		p.emit("html", format[0])
+		p.add_code("html", format[0])
 		p.dispatch_children(supplied)
-		p.emit("html", format[1])
+		p.add_code("html", format[1])
 	else:
 		p.dispatch_children(supplied)
+
+def process_foreign(p, foreign):
+	p.add_code("html", "<i>")
+	p.dispatch_children(foreign)
+	p.add_code("html", "</i>")
 
 def process_milestone(p, milestone):
 	assert "n" in milestone.attrs
@@ -189,7 +221,7 @@ def process_milestone(p, milestone):
 	assert milestone["unit"] in ("block", "column", "face", "faces", "fragment", "item", "zone")
 	# ignore for now
 	return
-	p.emit(milestone["unit"], milestone["n"])
+	p.add_code(milestone["unit"], milestone["n"])
 
 def process_lb(p, elem):
 	brk = "yes"
@@ -215,15 +247,15 @@ def process_lb(p, elem):
 	# ignore for now
 	return
 	if brk == "yes":
-		p.emit("text", "\n")
-	p.emit("phys:line", n, {"align": align})
+		p.add_text("\n")
+	p.add_code("phys:line", n, {"align": align})
 	p.space = "drop"
 
 def process_pb(p, elem):
 	n = elem["n"]
 	# ignore for now, incomplete
 	return
-	p.emit("phys:page", n)
+	p.add_code("phys:page", n)
 	p.space = "drop"
 
 def process_choice(p, node):
@@ -256,17 +288,17 @@ def process_g(p, node):
 	stype = node.get("type")
 	if not stype:
 		fail()
-	p.emit("symbol", f"{gtype}.{stype}")
+	p.add_code("symbol", f"{gtype}.{stype}")
 
 def process_unclear(p, node):
-	p.emit("text", node.text()) # XXX children?
+	p.add_text(node.text()) # XXX children?
 
 def process_p(p, para):
-	p.emit("log:para<")
-	p.emit("html", "<p>")
+	p.add_code("log:para<")
+	p.add_code("html", "<p>")
 	p.dispatch_children(para)
-	p.emit("html", "</p>")
-	p.emit("log:para>")
+	p.add_code("html", "</p>")
+	p.add_code("log:para>")
 
 hi_table = {
 	"italic": "i",
@@ -280,19 +312,19 @@ hi_table = {
 def process_hi(p, hi):
 	rend = hi["rend"]
 	val = hi_table[rend]
-	p.emit("html", "<%s>" % val)
+	p.add_code("html", "<%s>" % val)
 	p.dispatch_children(hi)
 	e = max(val.find(" "), len(val))
-	p.emit("html", "</%s>" % val[:e])
+	p.add_code("html", "</%s>" % val[:e])
 
 def process_div_head(p, head):
 	def inner(root):
 		for elem in root:
 			if elem.type == "tag":
 				if elem.name == "foreign":
-					p.emit("html", "<i>")
+					p.add_code("html", "<i>")
 					inner(elem)
-					p.emit("html", "</i>")
+					p.add_code("html", "</i>")
 				elif elem.name == "hi":
 					p.dispatch(elem)
 				else:
@@ -306,30 +338,30 @@ def process_div_ab(p, ab):
 
 def process_lg(p, lg):
 	pada = 0
-	p.emit("log:verse<")
-	p.emit("html", '<div class="verse">')
+	p.add_code("log:verse<")
+	p.add_code("html", '<div class="verse">')
 	for elem in lg:
 		if elem.type == "tag" and elem.name == "l":
 			if pada % 2 == 0:
-				p.emit("html", "<p>")
+				p.add_code("html", "<p>")
 				p.dispatch_children(elem)
 			else:
-				p.emit("text", " ")
+				p.add_text(" ")
 				p.dispatch_children(elem)
-				p.emit("html", "</p>")
+				p.add_code("html", "</p>")
 			pada += 1
 		else:
 			p.dispatch(elem)
-	p.emit("html", "</div>")
-	p.emit("log:verse>")
+	p.add_code("html", "</div>")
+	p.add_code("log:verse>")
 
 def process_div_dyad(p, div):
 	for elem in div:
 		if elem.type == "tag" and elem.name == "quote":
 			assert elem.attrs.get("type") == "base-text"
-			p.emit("html", '<div class="base-text">')
+			p.add_code("html", '<div class="base-text">')
 			p.dispatch_children(elem)
-			p.emit("html", "</div>")
+			p.add_code("html", "</div>")
 		else:
 			p.dispatch(elem)
 
@@ -337,20 +369,20 @@ def process_div_section(p, div):
 	ignore = None
 	type = div.attrs.get("type", "")
 	if type in ("chapter", "canto"):
-		p.emit("log:head<", level=p.div_level)
-		p.emit("html", "<h%d>" % (p.div_level + p.heading_shift))
-		p.emit("text", type.title())
+		p.add_code("log:head<", level=p.div_level)
+		p.add_code("html", "<h%d>" % (p.div_level + p.heading_shift))
+		p.add_text(type.title())
 		n = div.attrs.get("n")
 		if n:
-			p.emit("text", " %s" % n)
+			p.add_text(" %s" % n)
 		head = div.find("head")
 		if head:
 			head = head[0]
-			p.emit("text", ": ")
+			p.add_text(": ")
 			process_div_head(p, head)
 			ignore = head
-		p.emit("html", "</h%d>" % (p.div_level + p.heading_shift))
-		p.emit("log:head>")
+		p.add_code("html", "</h%d>" % (p.div_level + p.heading_shift))
+		p.add_code("log:head>")
 	elif not type:
 		ab = div.find("ab")
 		if ab:
@@ -358,9 +390,9 @@ def process_div_section(p, div):
 			# Invocation or colophon?
 			type = ab["type"]
 			assert type in ("invocation", "colophon")
-			p.emit("log:%s<" % ab["type"])
+			p.add_code("log:%s<" % ab["type"])
 			process_div_ab(p, ab)
-			p.emit("log:%s>" % ab["type"])
+			p.add_code("log:%s>" % ab["type"])
 			ignore = ab
 	else:
 		assert 0, div
@@ -370,12 +402,12 @@ def process_div_section(p, div):
 		assert rend == "met" or not rend
 		if rend:
 			met = div["met"]
-			p.emit("html", "<h%d>" % (p.div_level + p.heading_shift + 1))
+			p.add_code("html", "<h%d>" % (p.div_level + p.heading_shift + 1))
 			if met.isalpha():
 				pros = prosody.items.get(met)
 				assert pros, "meter %r absent from prosodic patterns file" % met
-				p.emit("blank", "%s: %s" % (met.title(), pros))
-			p.emit("html", "</h%d>" % (p.div_level + p.heading_shift + 1))
+				p.add_code("blank", "%s: %s" % (met.title(), pros))
+			p.add_code("html", "</h%d>" % (p.div_level + p.heading_shift + 1))
 		else:
 			# If we have @met, could use it as a search attribute. Is it often used?
 			pass
@@ -389,7 +421,7 @@ def process_div_section(p, div):
 		p.dispatch(elem)
 
 def process_div(p, div):
-	p.emit("html", "<div>")
+	p.add_code("html", "<div>")
 	type = div.attrs.get("type", "")
 	if type in ("chapter", "canto", ""):
 		p.div_level += 1
@@ -406,7 +438,7 @@ def process_div(p, div):
 		p.dispatch_children(div)
 	else:
 		assert 0, div
-	p.emit("html", "</div>")
+	p.add_code("html", "</div>")
 
 # The full table is at:
 # https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab
@@ -474,10 +506,23 @@ titleStmt =
   }
 """
 def process_titleStmt(p, stmt):
-	titles = list(filter(None, (t.text() for t in stmt.find("title"))))
+	titles = []
+	for t in stmt.find("title"):
+		text = t.text()
+		if not text:
+			continue
+		titles.append(text)
+	p.push("title")
+	for title in titles:
+		p.add_text(title)
+	p.document.title = p.pop()
+	p.push("author")
 	author = [t.text() for t in stmt.find("author")]
 	assert len(author) <= 1, author
 	author = author and author[0] or None
+	p.add_text(author)
+	p.document.author = p.pop()
+	p.push("editors")
 	editors = []
 	for node in stmt.find("editor") + stmt.find("respStmt/persName"):
 		ident = node.get("ref")
@@ -491,18 +536,21 @@ def process_titleStmt(p, stmt):
 				continue
 		editors.append(name)
 	editors = remove_duplicates(editors)
-	p.document.title = titles
-	p.document.author = author
-	p.document.editors = editors
+	for editor in editors:
+		p.add_text(editor)
+		p.add_text(PARA_SEP)
+	p.document.editors = p.pop()
 
 def process_sourceDesc(p, desc):
 	summ = desc.find("msDesc/msContents/summary")
-	# only keep it if it looks like a global summary
 	assert len(summ) <= 1
 	if not summ:
 		return
 	summ = summ[0]
-	p.document.summary = normalize_space(summ.text(space="preserve"))
+	p.push("summary")
+	p.dispatch_children(summ)
+	p.document.summary = p.pop()
+
 
 def process_fileDesc(p, node):
 	p.dispatch_children(node)
@@ -520,34 +568,12 @@ for name, obj in copy.copy(globals()).items():
 	name = name.removeprefix("process_")
 	HANDLERS[name] = obj
 
-head = """
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>foo</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital@0;1&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="style.css">
-</head>
-</body>
-"""
-tail = """
-</body>
-</html>
-"""
-
 if __name__ == "__main__":
 	tree = parse(sys.argv[1])
-	#p = Parser(tree, HTML().write)
 	p = Parser(tree)
-	#p.emit("log:doc<")
-	#print(head)
-	#p.emit("html", '<div class="edition">')
 	p.dispatch(p.tree.root)
-	#p.emit("html", "</div>")
-	#print(tail)
-	#p.emit("log:doc>")
 
+	print("---")
+	print(p.document.title)
+	print(p.document.editors)
 	print(p.document.summary)

@@ -1,4 +1,15 @@
-== Transform
+Must have a block object that holds both text and formatting instructions for
+given sections of the input file. Whenever possible, we hardcode the block name
+into an object, we try to flatten the structure, and we try to put as much
+stuff as possible into the formatting section (whenever it doesn't need to be
+searched). Maybe for now don't put stuff into the text section, go directly to
+the instructions. Likewise, only introduce separate blocks when we actually
+need to do it or when they don't really fit together. If the structure doesn't
+need to be searchable, don't use a block. (We can simply add characters into
+the text section to prevent matching phrases across boundaries e.g. within the
+metadata section.)
+
+--------------------------------------------------------
 
 When we have stuff like:
 
