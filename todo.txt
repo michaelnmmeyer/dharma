@@ -9,6 +9,18 @@ need to be searchable, don't use a block. (We can simply add characters into
 the text section to prevent matching phrases across boundaries e.g. within the
 metadata section.)
 
+What about when we need to modify the input text (transliteration, nfkc, etc.)
+for search? Some transformations are not reversible and we don't have a 1:1
+mapping, as for œ = oe. The text to be searched should not be modified at
+search time, would complicate things too much in the regex engine. OTOH, we
+could save a copy of the text in the formatting code (for simplicity) where
+just the distinct characters are replaced with an index number that points into
+a table of graphemes (for one-to-one and one-to-many), as in ṛ ->
+r\N{combining ring below}. The table would be global and generated at indexing
+time. For many-to-one, we need to adjust offsets to grapheme boundaries and
+have in the formatting some special character to indicate that there is no
+boundary at this location.
+
 --------------------------------------------------------
 
 When we have stuff like:
