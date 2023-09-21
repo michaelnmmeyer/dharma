@@ -15,6 +15,6 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in all:
 	xml = tree.parse(file)
-	t = xml.first("//msDesc/msContents/summary/gap")
+	t = xml.first("//msDesc/msContents/summary/p")
 	if t:
 		print(t.parent.xml())

@@ -600,6 +600,9 @@ def process_sourceDesc(p, desc):
 	if not summ:
 		return
 	summ = summ[0]
+	# remove paragraphs
+	for para in summ.find(".//p"):
+		para.unwrap()
 	p.push("summary")
 	p.dispatch_children(summ)
 	p.document.summary = p.pop()
