@@ -248,11 +248,6 @@ class Branch(Node, list):
 		node.parent = None
 		node.location = None
 		i = self.index(node)
-		if len(self) > 2 and i > 0 and i < len(self) - 1 \
-			and self[i - 1].type == "string" and self[i + 1].type == "string":
-			old = self[i + 1]
-			self[i - 1].append(old)
-			old.delete()
 		del self[i]
 		if not isinstance(node, Tag):
 			return node
@@ -332,13 +327,6 @@ class Branch(Node, list):
 				i = 0
 		elif i > len(self):
 			i = len(self)
-		if node.type == "string":
-			if i > 0 and self[i - 1].type == "string":
-				self[i - 1].append(node)
-				return
-			if i < len(self) - 1 and self[i + 1].type == "string":
-				self[i + 1].prepend(node)
-				return
 		list.insert(self, i, node)
 		node.parent = self
 		node.tree = self.tree
@@ -369,6 +357,21 @@ class Tag(Branch):
 			ret += ' %s="%s"' % (k, quote_attribute(v))
 		ret += ">"
 		return ret
+	
+	def unwrap(self):
+		parent = self.parent
+		if not parent:
+			raise Exception("attempt to unwrap a root node")
+		i = parent.index(self)
+		del parent[i]
+		for p, node in enumerate(self, i):
+			node.parent = parent
+			list.insert(parent, p, node)
+		self.tree = None
+		self.parent = None
+		self.location = None
+		self.clear()
+		return self
 
 	def __getitem__(self, key):
 		if isinstance(key, int):
