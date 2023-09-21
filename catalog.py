@@ -36,28 +36,17 @@ CATALOG_DB.execute("attach database ? as texts", (config.db_path("texts"),))
 
 def process_file(repo_name, path):
 	t = tree.parse(path)
-	p = transform.Parser(t)
+	p = transform.Parser(t, transform.make_handlers_map())
 	p.dispatch(p.tree.root)
 	doc = p.document
 	doc.repository = repo_name
 	return doc
 
-def normalize(s):
-	if s is None:
-		s = ""
-	elif not isinstance(s, str):
-		# make sure matching doesn't work across array elements
-		s = "!!!!!".join(s)
-	s = unicodedata.normalize("NFKD", s)
-	s = "".join(c for c in s if not unicodedata.combining(c))
-	s = s.casefold()
-	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
-	return unicodedata.normalize("NFC", s.strip())
-
 # found a while ago some python code that implements the unicode collation algorithm.
 # use it? or ICU? worth it?
 def collate_title(s):
-	ret = "".join(c for c in normalize(s) if c.isalnum())
+	s = " ".join(s)
+	ret = "".join(c for c in transform.normalize(s) if c.isalnum())
 	return ret or "zzzzzz" # yeah I know
 
 CATALOG_DB.create_function("collate_title", 1, collate_title, deterministic=True)
@@ -65,12 +54,20 @@ CATALOG_DB.create_function("collate_title", 1, collate_title, deterministic=True
 def process_repo(name, db):
 	for text in texts.iter_texts_in_repo(name):
 		doc = process_file(name, text)
+		for key in ("title", "author", "editors", "summary"):
+			val = getattr(doc, key)
+			if val is None:
+				val = transform.Block(val)
+				val.finish()
+				setattr(doc, key, val)
 		db.execute("""insert into documents(name, repo, title, author, editors, summary)
-			values (?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository, doc.title, doc.author, doc.editors, doc.summary))
+			values (?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
+				doc.title.render().split(transform.PARA_SEP), doc.author.render(), doc.editors.render().split(transform.PARA_SEP),
+				doc.summary.render()))
 		db.execute("""insert into documents_index(name, ident, repo, title, author, editor, summary)
-			values (?, ?, ?, ?, ?, ?, ?)""", (doc.ident, normalize(doc.ident),
-			normalize(doc.repository), normalize(doc.title), normalize(doc.author),
-			normalize(doc.editors), normalize(doc.summary)))
+			values (?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.ident.lower(),
+			doc.repository.lower(), doc.title.searchable_text(), doc.author.searchable_text(),
+			doc.editors.searchable_text(), doc.summary.searchable_text()))
 
 def search(q):
 	sql = """
@@ -80,7 +77,7 @@ def search(q):
 		from documents join documents_index on documents.name = documents_index.name
 		natural join texts.texts natural join texts.latest_commits
 	"""
-	q = " ".join(normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
+	q = " ".join(transform.normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
 	if q:
 		q = (q,)
 		sql += "where documents_index match ?"

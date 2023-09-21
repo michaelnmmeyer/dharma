@@ -48,11 +48,11 @@ href="/catalog?q=editor:manu%20title:stone">editor:manu title:stone</a>.</p>
       <a href="{{row["html_link"]}}">
    % end
    % if row["author"]:
-      {{row["author"]}}.
+      {{!row["author"]}}.
    % end
    % if row["title"]:
       % for chunk in row["title"]:
-         {{chunk.rstrip(".")}}.
+         {{!chunk.rstrip(".")}}.
       % end
    % else:
       <i>Untitled</i>.
@@ -63,7 +63,7 @@ href="/catalog?q=editor:manu%20title:stone">editor:manu title:stone</a>.</p>
    </p>
    <p>
    % for ed in row["editors"][:-1]:
-      {{ed}},
+      {{!ed}},
    % end
    % if row["editors"]:
       {{row["editors"][-1]}}.
@@ -72,7 +72,7 @@ href="/catalog?q=editor:manu%20title:stone">editor:manu title:stone</a>.</p>
    % end
    </p>
    % if row["summary"]:
-   <p>Summary: {{row["summary"]}}</p>
+   <p>Summary: {{!row["summary"]}}</p>
    % end
    <p>{{row["name"].removeprefix("DHARMA_")}} ({{row["repo"]}}).</p>
 </td></tr>

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os, sys, re, io, copy, html
+import os, sys, re, io, copy, html, unicodedata
 from dharma.tree import *
 from dharma import prosody, persons
 
@@ -39,7 +39,18 @@ def write_debug(t, data=None, **params):
 	write("\n")
 
 PARA_SEP = chr(1)
-HIGHLIGHT = chr(2)
+
+def normalize(s):
+	if s is None:
+		s = ""
+	elif not isinstance(s, str):
+		# make sure matching doesn't work across array elements
+		s = "!!!!!".join(s)
+	s = unicodedata.normalize("NFKD", s)
+	s = "".join(c for c in s if not unicodedata.combining(c))
+	s = s.casefold()
+	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
+	return unicodedata.normalize("NFC", s.strip())
 
 class Block:
 
@@ -53,6 +64,7 @@ class Block:
 		self.name = name
 		self.text = ""
 		self.code = []
+		self.finished = False
 
 	def __repr__(self):
 		return "Block(%s):\n%s" % (self.name, "\n".join(repr(c) for c in self.code))
@@ -107,7 +119,9 @@ class Block:
 		self.text = ""
 
 	def add_code(self, t, data=None, **params):
-		p.space = "drop"
+		if self.space == "seen":
+			self.text += " "
+			self.space = "drop"
 		if t == "html":
 			self.flush()
 		rec = (t, data, params)
@@ -122,26 +136,30 @@ class Block:
 			elif t == "html":
 				self.code[i] = ("html", data)
 			else:
-				assert 0
+				self.code[i] = ("", "") # TODO
+		self.finished = True
 
 	def render(self):
-		write = sys.stdout.write
+		assert self.finished
+		buf = []
 		for t, data in self.code:
 			if t == "text":
 				text = html.escape(data)
-				write(text)
+				buf.append(text)
 			elif t == "html":
-				write(data)
+				buf.append(data)
 			else:
-				assert 0
-	
+				pass
+		return "".join(buf)
+
 	def searchable_text(self):
+		assert self.finished
 		buf = []
 		for t, data in self.code:
 			if not t == "text":
 				continue
 			buf.append(data)
-		return "".join(buf)
+		return normalize("".join(buf))
 
 class Document:
 
@@ -181,7 +199,7 @@ class Parser:
 	def add_text(self, text):
 		return self.blocks[-1].add_text(text)
 
-	def add_code(self, t, data, **params):
+	def add_code(self, t, data=None, **params):
 		return self.blocks[-1].add_code(t, data, **params)
 
 	def start_span(self):
@@ -544,8 +562,10 @@ def process_titleStmt(p, stmt):
 			continue
 		titles.append(text)
 	p.push("title")
-	for title in titles:
+	for i, title in enumerate(titles):
 		p.add_text(title)
+		if i < len(titles) - 1:
+			p.add_text(PARA_SEP)
 	p.document.title = p.pop()
 	p.push("author")
 	author = [t.text() for t in stmt.find("author")]
