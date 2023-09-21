@@ -363,7 +363,9 @@ def process_hi(p, hi):
 	val = hi_table[rend]
 	p.add_code("html", "<%s>" % val)
 	p.dispatch_children(hi)
-	e = max(val.find(" "), len(val))
+	e = val.find(" ")
+	if e < 0:
+		e = len(val)
 	p.add_code("html", "</%s>" % val[:e])
 
 def process_div_head(p, head):
