@@ -21,14 +21,13 @@ create table if not exists documents(
 	summary text
 );
 create virtual table if not exists documents_index using fts5(
-	name unindexed, -- text primary key
+	name unindexed, -- text primary key references documents(name)
 	ident,
 	repo,
 	title,
 	author,
 	editor,
 	summary,
-	-- foreign key(name) references documents(name),
 	tokenize="trigram"
 );
 """)

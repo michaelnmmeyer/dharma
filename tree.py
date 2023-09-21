@@ -4,6 +4,10 @@
 # that. Using our code is also convenient for adding extra attributes or
 # methods to nodes.
 
+# TODO add a node set at the root of the tree to check that we don't attempt to
+# insert the same node at several locations; or maybe just duplicate the node
+# automatically if we see it's a duplicate. yes, solution 2 is best
+
 # XXX for showing errors when rendering the text, should add to the node that
 # poses a problem an "error" attribute that is a non-empty string if the node
 # is invalid; we can highlight the node and generate a pop-up or something when

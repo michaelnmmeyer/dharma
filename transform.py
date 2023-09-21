@@ -4,8 +4,6 @@ import os, sys, re, io, copy, html
 from dharma.tree import *
 from dharma import prosody, persons
 
-HANDLERS = {} # we fill this below
-
 force_color = True
 def term_color(code=None):
 	if not os.isatty(1) and not force_color:
@@ -41,8 +39,7 @@ def write_debug(t, data=None, **params):
 	write("\n")
 
 PARA_SEP = chr(1)
-HIGHLIGHT_START = chr(2)
-HIGHLIGHT_END = chr(3)
+HIGHLIGHT = chr(2)
 
 class Block:
 
@@ -121,10 +118,7 @@ class Block:
 		assert self.text == ""
 		for i, (t, data, _) in enumerate(self.code):
 			if t == "text":
-				start = len(self.text)
-				self.text += data
-				end = len(self.text)
-				self.code[i] = ("text", (start, end))
+				self.code[i] = ("text", data)
 			elif t == "html":
 				self.code[i] = ("html", data)
 			else:
@@ -134,13 +128,20 @@ class Block:
 		write = sys.stdout.write
 		for t, data in self.code:
 			if t == "text":
-				start, end = data
-				text = html.escape(self.text[start:end])
+				text = html.escape(data)
 				write(text)
 			elif t == "html":
 				write(data)
 			else:
 				assert 0
+	
+	def searchable_text(self):
+		buf = []
+		for t, data in self.code:
+			if not t == "text":
+				continue
+			buf.append(data)
+		return "".join(buf)
 
 class Document:
 
@@ -159,11 +160,12 @@ class Parser:
 	# For HTML output
 	heading_shift = 1
 
-	def __init__(self, tree):
+	def __init__(self, tree, handlers):
 		self.tree = tree
 		self.document = Document()
 		self.document.ident = os.path.basename(os.path.splitext(tree.path)[0])
 		self.blocks = [Block()]
+		self.handlers = handlers
 
 	def push(self, name):
 		b = Block(name)
@@ -191,7 +193,7 @@ class Parser:
 		if node.type == "string":
 			return self.add_text(str(node))
 		assert node.type == "tag"
-		f = HANDLERS.get(node.name)
+		f = self.handlers.get(node.name)
 		if not f:
 			self.complain("no handler for %r, ignoring it" % node)
 			return
@@ -590,15 +592,18 @@ def process_TEI(p, node):
 	p.dispatch(node.find("teiHeader")[0])
 	#p.dispatch(node.find("text/body")[0])
 
-for name, obj in copy.copy(globals()).items():
-	if not name.startswith("process_"):
-		continue
-	name = name.removeprefix("process_")
-	HANDLERS[name] = obj
+def make_handlers_map():
+	ret = {}
+	for name, obj in copy.copy(globals()).items():
+		if not name.startswith("process_"):
+			continue
+		name = name.removeprefix("process_")
+		ret[name] = obj
+	return ret
 
 if __name__ == "__main__":
 	tree = parse(sys.argv[1])
-	p = Parser(tree)
+	p = Parser(tree, make_handlers_map())
 	p.dispatch(p.tree.root)
 
 	print("---")
@@ -606,6 +611,6 @@ if __name__ == "__main__":
 	print(p.document.editors)
 	print(p.document.summary)
 	print("---")
-	print(repr(p.document.summary.text))
-	p.document.summary.render()
-	print()
+	p.document.summary.render(); print()
+	print("---")
+	print(p.document.summary.searchable_text())

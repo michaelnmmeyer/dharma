@@ -15,11 +15,17 @@ mapping, as for œ = oe. The text to be searched should not be modified at
 search time, would complicate things too much in the regex engine. OTOH, we
 could save a copy of the text in the formatting code (for simplicity) where
 just the distinct characters are replaced with an index number that points into
-a table of graphemes (for one-to-one and one-to-many), as in ṛ ->
-r\N{combining ring below}. The table would be global and generated at indexing
-time. For many-to-one, we need to adjust offsets to grapheme boundaries and
-have in the formatting some special character to indicate that there is no
-boundary at this location.
+a table of graphemes (for one-to-one and one-to-many), as in ṛ -> r\N{combining
+ring below}. The table would be global and generated at indexing time (and
+would also hold html entities or even html code, in any case stuff that is
+already in html). For many-to-one (e.g. oe in the searchable -> œ in the code),
+we need to adjust offsets to grapheme boundaries and have in the formatting
+some "ignore" character that is skipped when formatting stuff, and that is used
+only for preserving the alignment between the two forms of the text.
+
+What about when we need to ignore characters for matching, as in (pat)[i]ḥ? We
+add them to the html portion, which thus should not be called "html". Should
+use varints instead of utf-8 in the encoding of the code section.
 
 --------------------------------------------------------
 
