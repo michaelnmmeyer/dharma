@@ -236,6 +236,21 @@ class Branch(Node, list):
 				return True
 		return False
 
+	def coalesce(self):
+		i = 1
+		while i < len(self):
+			cur = self[i]
+			if self[i - 1].type == "string" and cur.type == "string":
+				self[i - 1].append(cur)
+				del self[i]
+				cur.tree = None
+				cur.parent = None
+				cur.location = None
+			else:
+				if cur.type == "tag":
+					cur.coalesce()
+				i += 1
+
 	def index(self, node):
 		for i, child in enumerate(self):
 			if child is node:
@@ -357,7 +372,7 @@ class Tag(Branch):
 			ret += ' %s="%s"' % (k, quote_attribute(v))
 		ret += ">"
 		return ret
-	
+
 	def unwrap(self):
 		parent = self.parent
 		if not parent:
