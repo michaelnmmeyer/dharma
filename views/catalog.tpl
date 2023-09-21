@@ -16,7 +16,7 @@ Searching for strings that contain less than three characters is not
 possible.</p>
 
 <p>Per default, all metadata fields are searched. Metadata fields are (for
-now): title, editor, summary, repo, ident. You can restric search to a specific
+now): title, editor, summary, repo, ident. You can restrict search to a specific
 field by using a field prefix, as in <a
 href="/catalog?q=editor:manu">editor:manu</a> or <a
 href="/catalog?q=title:&quot;critical%20edition&quot">title:"critical

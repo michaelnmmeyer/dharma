@@ -254,7 +254,7 @@ supplied_format = {
 }
 def process_supplied(p, supplied):
 	reason = supplied["reason"]
-	format = supplied_format[reason]
+	format = supplied_format.get(reason)
 	if format:
 		p.add_code("html", format[0])
 		p.dispatch_children(supplied)
