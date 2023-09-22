@@ -353,6 +353,9 @@ class Branch(Node, list):
 	def prepend(self, node):
 		self.insert(0, node)
 
+DEFAULT_LANG = "eng"
+DEFAULT_SPACE = "default"
+
 class Tag(Branch):
 
 	type = "tag"
@@ -394,12 +397,11 @@ class Tag(Branch):
 		key = remove_namespace(key)
 		if key != "lang" and key != "space":
 			return self.attrs.get(key, "")
-		# XXX what about <foreign> rel. to @lang? also see EGD p. 120
 		node = self
 		while not node.attrs.get(key):
 			node = node.parent
 			if not node:
-				return key == "lang" and "eng" or "default"
+				return key == "lang" and DEFAULT_LANG or DEFAULT_SPACE
 		return node.attrs[key]
 
 	def __setitem__(self, key, value):
@@ -474,25 +476,6 @@ class Tree(Branch):
 			raise Exception("attempt to delete the tree's root")
 		NodeList.remove(self, node)
 
-# For inheritable props (xml:lang, xml:space) and xml:id
-def patch_tree(tree):
-	def patch_node(node):
-		if node.type != "tag":
-			return
-		have = node.get("lang")
-		if have:
-			fields = have.rsplit("-", 1)
-			if len(fields) == 1:
-				node.lang = (fields[0], None)
-			else:
-				node.lang = tuple(fields)
-		space = node.get("space")
-		if space:
-			node.space = space
-		for child in node:
-			patch_node(child)
-	patch_node(tree.root)
-
 class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 
 	tree = None
@@ -506,7 +489,6 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 
 	def endDocument(self):
 		assert self.tree and len(self.stack) == 1
-		patch_tree(self.tree)
 
 	def startElement(self, name, attrs):
 		ordered = ((k, attrs[k]) for k in attrs.getNames())

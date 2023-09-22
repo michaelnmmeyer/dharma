@@ -500,43 +500,6 @@ def process_div(p, div):
 # For scripts see:
 # https://www.unicode.org/iso15924/iso15924.txt
 
-LANGS = """
-ara
-ban
-cja
-cjm
-deu
-eng
-fra
-ind
-jav
-jpn
-kan
-kaw
-khm
-mya
-ndl
-obr
-ocm
-okz
-omx
-omy
-ori
-osn
-pli
-pra
-pyx
-san
-sas
-tam
-tel
-tgl
-und
-vie
-xhm
-zlm
-""".strip().split()
-
 def process_body(p, body):
 	for elem in body.children():
 		assert elem.type == "tag"

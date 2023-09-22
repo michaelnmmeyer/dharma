@@ -16,6 +16,8 @@ for file in all:
 	xml = tree.parse(file)
 	langs = set()
 	for t in xml.find("//*"):
+		if not "lang" in t.attrs:
+			continue
 		lang = t["lang"]
-		if lang == "lg":
-			print(file)
+		if not lang in transform.LANGS:
+			print(lang)

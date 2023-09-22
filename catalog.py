@@ -70,6 +70,7 @@ class OR(Query):
 	def __str__(self):
 		return "(%s)" % " OR ".join(str(clause) for clause in self.clauses)
 
+
 def process_file(repo_name, path):
 	t = tree.parse(path)
 	p = transform.Parser(t, transform.make_handlers_map())
@@ -79,6 +80,9 @@ def process_file(repo_name, path):
 		if not "lang" in node.attrs:
 			continue
 		lang = node["lang"]
+		# to fix, we don't have "Old Javanese" in ISO, should submit it
+		if lang == "oj":
+			lang = "jav"
 		(code,) = LANGS_DB.execute("select ifnull((select id from by_code where code = ?), 'und')", (lang,)).fetchone()
 		doc.langs.append(code)
 	doc.langs = sorted(set(doc.langs))
