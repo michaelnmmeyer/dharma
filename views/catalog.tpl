@@ -30,8 +30,8 @@ three letters only, as in <a href="/catalog?q=lang:en">lang:en</a> or <a
 href="/catalog?q=lang:san">lang:san</a>, it is assumed to refer to an ISO 639
 language code, and an exact comparison is performed. If you look for a string
 longer than that, it is assumed to refer to a language name and the
-above-mentioned string matching technique will be used. You can consult a table
-of languages <a href="/langs">here</a>.</p>
+above-mentioned substring matching technique will be used. You can consult a
+table of languages <a href="/langs">here</a>.</p>
 
 <form action="/catalog" method="get">
 <input name="q" id="text-input"
