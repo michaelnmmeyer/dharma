@@ -15,6 +15,7 @@ GIT_DB.commit()
 TEXTS_DB = change.TEXTS_DB
 NGRAMS_DB = ngrams.NGRAMS_DB
 CATALOG_DB = catalog.CATALOG_DB
+LANGS_DB = catalog.LANGS_DB
 
 @bottle.get("/")
 def index():
@@ -134,6 +135,19 @@ def show_catalog():
 	q = bottle.request.query.q
 	rows, last_updated = catalog.search(q)
 	return bottle.template("catalog.tpl", rows=rows, q=q, last_updated=last_updated)
+
+@bottle.get("/langs")
+def show_langs():
+	rows = LANGS_DB.execute("""
+	select list.name as name,
+		json_group_array(distinct(by_code.code)) as codes,
+		printf('639-%d', iso) as iso
+	from catalog.documents
+		join json_each(catalog.documents.langs)
+		join list on list.id = json_each.value
+		join by_code on list.id = by_code.id
+	group by list.id order by sort_key""").fetchall()
+	return bottle.template("langs.tpl", rows=rows, json=json)
 
 @bottle.get("/parallels/search")
 def search_parallels():

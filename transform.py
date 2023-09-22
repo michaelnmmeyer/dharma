@@ -168,7 +168,11 @@ class Document:
 	title = None
 	author = None
 	editors = None
+	langs = None
 	summary = None
+
+	def __init__(self):
+		self.langs = []
 
 class Parser:
 
@@ -520,6 +524,7 @@ omy
 ori
 osn
 pli
+pra
 pyx
 san
 sas

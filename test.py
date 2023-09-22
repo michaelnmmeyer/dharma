@@ -17,5 +17,5 @@ for file in all:
 	langs = set()
 	for t in xml.find("//*"):
 		lang = t["lang"]
-		if lang not in transform.LANGS:
-			print(lang)
+		if lang == "lg":
+			print(file)

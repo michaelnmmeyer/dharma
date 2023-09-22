@@ -18,6 +18,7 @@ create table if not exists documents(
 	title json,
 	author text,
 	editors json,
+	langs json,
 	summary text
 );
 create virtual table if not exists documents_index using fts5(
@@ -27,6 +28,7 @@ create virtual table if not exists documents_index using fts5(
 	title,
 	author,
 	editor,
+	lang,
 	summary,
 	tokenize="trigram"
 );
@@ -34,11 +36,52 @@ create virtual table if not exists documents_index using fts5(
 CATALOG_DB.commit()
 CATALOG_DB.execute("attach database ? as texts", (config.db_path("texts"),))
 
+LANGS_DB = config.open_db("langs")
+LANGS_DB.execute("attach database ? as catalog", (config.db_path("catalog"),))
+
+class Query:
+
+	def __init__(self, query, field=""):
+		self.query = query
+		self.field = field
+
+	def __str__(self):
+		if isinstance(self.query, str):
+			ret = "%s" % self.query.replace('"', '""')
+		else:
+			ret = str(self.query)
+		if self.field:
+			ret = "%s:%s" % (self.field, ret)
+		return ret
+
+class AND(Query):
+
+	def __init__(self, clauses):
+		self.clauses = clauses
+
+	def __str__(self):
+		return "(%s)" % " AND ".join(str(clause) for clause in self.clauses)
+
+class OR(Query):
+
+	def __init__(self, clauses):
+		self.clauses = clauses
+
+	def __str__(self):
+		return "(%s)" % " OR ".join(str(clause) for clause in self.clauses)
+
 def process_file(repo_name, path):
 	t = tree.parse(path)
 	p = transform.Parser(t, transform.make_handlers_map())
 	p.dispatch(p.tree.root)
 	doc = p.document
+	for node in t.find("//*"):
+		if not "lang" in node.attrs:
+			continue
+		lang = node["lang"]
+		(code,) = LANGS_DB.execute("select ifnull((select id from by_code where code = ?), 'und')", (lang,)).fetchone()
+		doc.langs.append(code)
+	doc.langs = sorted(set(doc.langs))
 	doc.repository = repo_name
 	return doc
 
@@ -60,26 +103,104 @@ def process_repo(name, db):
 				val = transform.Block(val)
 				val.finish()
 				setattr(doc, key, val)
-		db.execute("""insert into documents(name, repo, title, author, editors, summary)
-			values (?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
+		db.execute("""insert into documents(name, repo, title, author, editors, langs, summary)
+			values (?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
 				doc.title.render().split(transform.PARA_SEP), doc.author.render(), doc.editors.render().split(transform.PARA_SEP),
-				doc.summary.render()))
-		db.execute("""insert into documents_index(name, ident, repo, title, author, editor, summary)
-			values (?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.ident.lower(),
+				doc.langs, doc.summary.render()))
+		db.execute("""insert into documents_index(name, ident, repo, title, author, editor, lang, summary)
+			values (?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.ident.lower(),
 			doc.repository.lower(), doc.title.searchable_text(), doc.author.searchable_text(),
-			doc.editors.searchable_text(), doc.summary.searchable_text()))
+			doc.editors.searchable_text(), "---".join(doc.langs), doc.summary.searchable_text()))
+
+class InvalidQuery(Exception):
+	pass
+
+def tokenize_query(q):
+	toks = []
+	i = 0
+	while i < len(q):
+		c = q[i]
+		if c == ":":
+			toks.append(c)
+			i += 1
+		elif c == '"':
+			i += 1
+			tok = ""
+			while i < len(q) and q[i] != '"':
+				if q[i] == "\\":
+					i += 1
+					if i == len(q):
+						raise InvalidQuery
+				tok += q[i]
+				i += 1
+			if i == len(q):
+				raise InvalidQuery
+			toks.append(tok)
+			i += 1
+		elif c.isspace():
+			i += 1
+		else:
+			i += 1
+			tok = c
+			while i < len(q) and q[i] not in ": ":
+				if q[i] == "\\":
+					i += 1
+					if i == len(q):
+						raise InvalidQuery
+				tok += q[i]
+				i += 1
+			toks.append(tok)
+	return toks
+
+search_fields = {"ident", "repo", "title", "author", "editor", "summary", "lang"}
+
+def parse_query(q):
+	toks = tokenize_query(q)
+	i = 0
+	clauses = []
+	while i < len(toks):
+		if toks[i] == ":":
+			raise InvalidQuery
+		elif i + 1 < len(toks) and toks[i + 1] == ":":
+			field = toks[i]
+			if i + 2 < len(toks) and toks[i + 2] != ":":
+				clauses.append(Query(toks[i + 2], field))
+			i += 3
+		else:
+			clauses.append(Query(toks[i]))
+			i += 1
+	return AND(clauses)
+
+def patch_languages(q):
+	for clause in q.clauses:
+		if clause.field != "lang":
+			continue
+		text = clause.query
+		assert isinstance(text, str)
+		if len(text) <= 3:
+			(text,) = LANGS_DB.execute("select ifnull((select id from by_code where code = ?), '')", (text,)).fetchone()
+			clause.query = text
+			continue
+		langs = [Query(lang) for (lang,) in LANG_DB.execute("select id from by_name where name match ?", (text,))]
+		if langs:
+			clause.query = OR(langs)
+		else:
+			clause.query = "" # prevent matching
 
 def search(q):
 	sql = """
 		select documents.name, documents.repo, documents.title,
-			documents.author, documents.editors, documents.summary,
+			documents.author, documents.editors, documents.langs, documents.summary,
 			printf('https://erc-dharma.github.io/%s/%s', documents.repo, html_path) as html_link
 		from documents join documents_index on documents.name = documents_index.name
 		natural join texts.texts natural join texts.latest_commits
 	"""
 	q = " ".join(transform.normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
 	if q:
-		q = (q,)
+		q = parse_query(q)
+		with LANGS_DB:
+			patch_languages(q)
+		q = (str(q),)
 		sql += "where documents_index match ?"
 	else:
 		q = ()

@@ -16,7 +16,7 @@ Searching for strings that contain less than three characters is not
 possible.</p>
 
 <p>Per default, all metadata fields are searched. Metadata fields are (for
-now): title, editor, summary, repo, ident. You can restrict search to a specific
+now): title, editor, summary, lang, repo, ident. You can restrict search to a specific
 field by using a field prefix, as in <a
 href="/catalog?q=editor:manu">editor:manu</a> or <a
 href="/catalog?q=title:&quot;critical%20edition&quot">title:"critical
@@ -24,6 +24,14 @@ edition"</a>. Several clauses can be added successively, separated with
 whitespace. In this case, for a document to be considered a match, all query
 clauses must match. Try for instance <a
 href="/catalog?q=editor:manu%20title:stone">editor:manu title:stone</a>.</p>
+
+<p>The "lang" field is special. If you look for a string that contains two or
+three letters only, as in <a href="/catalog?q=lang:en">lang:en</a> or <a
+href="/catalog?q=lang:san">lang:san</a>, it is assumed to refer to an ISO 639
+language code, and an exact comparison is performed. If you look for a string
+longer than that, it is assumed to refer to a language name and the
+above-mentioned string matching technique will be used. You can consult a table
+of languages <a href="/langs">here</a>.</p>
 
 <form action="/catalog" method="get">
 <input name="q" id="text-input"
@@ -73,6 +81,14 @@ href="/catalog?q=editor:manu%20title:stone">editor:manu title:stone</a>.</p>
    </p>
    % if row["summary"]:
    <p>Summary: {{!row["summary"]}}</p>
+   % end
+   % if row["langs"]:
+   <p>Languages:
+      % for lang in row["langs"][:-1]:
+         {{lang}},
+      % end
+         {{row["langs"][-1]}}.
+   </p>
    % end
    <p>{{row["name"].removeprefix("DHARMA_")}} ({{row["repo"]}}).</p>
 </td></tr>
