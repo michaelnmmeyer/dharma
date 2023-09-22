@@ -1,7 +1,6 @@
 import sys, re
 from glob import iglob
-from dharma import tree, persons
-from dharma.transform import normalize_space
+from dharma import tree, persons, transform
 
 all = sorted(iglob("texts/DHARMA_*"))
 inscriptions = [f for f in all if "DHARMA_INS" in f]
@@ -15,6 +14,8 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in all:
 	xml = tree.parse(file)
-	t = xml.first("//msDesc/msContents/summary/p")
-	if t:
-		print(t.parent.xml())
+	langs = set()
+	for t in xml.find("//*"):
+		lang = t["lang"]
+		if lang not in transform.LANGS:
+			print(lang)

@@ -1,6 +1,19 @@
-Unwrap <p> in doc.summary if we have a single para (for now we do everywhere).
+Add langs to the catalog (use a dictionary to map lang names). We have some
+invalid vals, to fix:
 
------------------------------------------------
+  10667 lg
+    655 pra
+    134 fr
+    118 oj
+     92 fre
+     68 en
+      6 unknown
+      1 khmer
+
+Also fix the mess related to xml:lang in tree.py
+
+
+-----------------------------------------
 
 Must have a block object that holds both text and formatting instructions for
 given sections of the input file. Whenever possible, we hardcode the block name
@@ -30,6 +43,14 @@ only for preserving the alignment between the two forms of the text.
 What about when we need to ignore characters for matching, as in (pat)[i]ḥ? We
 add them to the html portion, which thus should not be called "html". Should
 use varints instead of utf-8 in the encoding of the code section.
+
+What if we want to use different search representations? Maybe the most
+convenient option for now would be to have an offset map for each search
+representation that maps each character to the corresponding offset in the
+formatted representation. This can be compressed with delta encoding and
+varints. Go for that instead of what is said above. And search representations
+should be derived from the formatted representation, and this should be done in
+go, with a separate process.
 
 --------------------------------------------------------
 
