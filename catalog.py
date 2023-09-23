@@ -195,7 +195,7 @@ def patch_languages(q):
 			(text,) = LANGS_DB.execute("select ifnull((select id from by_code where code = ?), '')", (text,)).fetchone()
 			clause.query = text
 			continue
-		langs = [Query(lang) for (lang,) in LANG_DB.execute("select id from by_name where name match ?", (text,))]
+		langs = [Query(lang) for (lang,) in LANGS_DB.execute("select id from by_name where name match ?", (text,))]
 		if langs:
 			clause.query = OR(langs)
 		else:
