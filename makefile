@@ -6,7 +6,7 @@ update-texts:
 	done
 	rm -f texts/*
 	rsync --progress 'beta:dharma/dbs/texts.sqlite*' dbs/
-	sqlite3 db/texts.sqlite "select printf('../repos/%s/%s', repo, xml_path) \
+	sqlite3 dbs/texts.sqlite "select printf('../repos/%s/%s', repo, xml_path) \
 		from texts" | while read f; do \
 		ln -s $$f texts/$$(basename $$f); \
 	done
