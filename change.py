@@ -66,40 +66,29 @@ create table if not exists metadata(
 insert or ignore into metadata values('last_updated', 0);
 
 create table if not exists commits(
-	repo text,
+	repo text primary key,
 	commit_hash text,
-	commit_date integer,
-	primary key(repo, commit_hash)
+	commit_date integer
 );
-
-create view if not exists latest_commits(
-	repo,
-	commit_hash,
-	commit_date
-) as select repo, commit_hash, commit_date
-	from commits group by repo having max(commit_date)
-	order by commit_date desc;
 
 create table if not exists texts(
 	name text,
 	repo text,
-	commit_hash text,
 	xml_path text,
 	html_path text,
-	primary key(name, repo, commit_hash),
-	foreign key(repo, commit_hash) references commits(repo, commit_hash)
+	primary key(name, repo),
+	foreign key(repo) references commits(repo)
 );
 
 create table if not exists validation(
 	name text,
 	repo text,
-	commit_hash text,
 	code_hash text,
 	valid boolean,
 	errors json,
 	when_validated integer,
-	primary key(name, repo, commit_hash),
-	foreign key(name, repo, commit_hash) references texts(name, repo, commit_hash)
+	primary key(name, repo),
+	foreign key(name, repo) references texts(name, repo)
 );
 
 create table if not exists owners(
@@ -129,12 +118,14 @@ def update_db(conn, name):
 	if conn.execute("select 1 from commits where repo = ? and commit_hash = ?",
 		(name, commit_hash)).fetchone():
 		have_commit = True
-		if conn.execute("select 1 from validation where repo = ? and commit_hash = ? and code_hash = ?",
-			(name, commit_hash, config.CODE_HASH)).fetchone():
+		# Need to check that we validated it with the latest version of the code.
+		# TODO what about schemas?
+		if conn.execute("select 1 from validation where repo = ? and code_hash = ?",
+			(name, config.CODE_HASH)).fetchone():
 			# No need to revalidate
 			return
 	if not have_commit:
-		conn.execute("insert into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
+		conn.execute("insert or replace into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
 			(name, commit_hash, date))
 	schema_errs = validate.validate_repo(name)
 	unicode_errs = grapheme.validate_repo(name)
@@ -149,6 +140,7 @@ def update_db(conn, name):
 		paths = texts.gather_web_pages(xml_paths)
 		repo_dir = os.path.join(config.REPOS_DIR, name)
 		conn.execute("delete from owners where repo = ?", (name,))
+		conn.execute("delete from texts where repo = ?", (name,))
 		for xml_name, html_path in sorted(paths.items()):
 			xml_path = os.path.relpath(xml_paths[xml_name], repo_dir)
 			if html_path:
@@ -156,17 +148,18 @@ def update_db(conn, name):
 			else:
 				assert html_path is None
 			file_id = os.path.basename(os.path.splitext(xml_path)[0])
-			conn.execute("insert into texts(name, repo, commit_hash, xml_path, html_path) values(?, ?, ?, ?, ?)",
-				(file_id, name, commit_hash, xml_path, html_path))
+			conn.execute("insert into texts(name, repo, xml_path, html_path) values(?, ?, ?, ?)",
+				(file_id, name, xml_path, html_path))
 			for author_id in texts.owners_of(os.path.join(repo_dir, xml_path)):
 				conn.execute("insert into owners(author_id, repo, xml_path) values(?, ?, ?)",
 					(author_id, name, xml_path))
+	conn.execute("delete from validation where repo = ?", (name,))
 	for text, errors in sorted(state.items()):
 		valid = not errors["schema"] and not errors["unicode"]
 		errors = json.dumps(errors)
 		file_id = os.path.basename(os.path.splitext(text)[0])
-		conn.execute("""insert or replace into validation(name, repo, commit_hash, code_hash, valid, errors, when_validated)
-			values(?, ?, ?, ?, ?, ?, strftime('%s', 'now'))""", (file_id, name, commit_hash, config.CODE_HASH, valid, errors))
+		conn.execute("""insert into validation(name, repo, code_hash, valid, errors, when_validated)
+			values(?, ?, ?, ?, ?, strftime('%s', 'now'))""", (file_id, name, config.CODE_HASH, valid, errors))
 
 def handle_changes(name):
 	conn = TEXTS_DB
@@ -213,7 +206,9 @@ def read_changes(fd):
 		if name == "all":
 			logging.info("updating everything...")
 			for name in REPOS:
+				logging.info("updating %r" % name)
 				handle_changes(name)
+				logging.info("updated %r" % name)
 			biblio.update()
 			logging.info("updated everything")
 		elif name == "bib":
@@ -253,6 +248,7 @@ def notify(name):
 		os.close(fd)
 
 if __name__ == "__main__":
+	import traceback
 	while True:
 		try:
 			main()
@@ -260,3 +256,4 @@ if __name__ == "__main__":
 			break
 		except Exception as e:
 			logging.error(e)
+			traceback.print_exception(e)

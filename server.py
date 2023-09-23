@@ -55,7 +55,7 @@ def show_texts():
 			select name, validation.repo, commit_hash,
 				format_date(commit_date) as readable_commit_date,
 				valid, html_path
-			from owners join latest_commits on owners.repo = latest_commits.repo
+			from owners join commits on owners.repo = commits.repo
 				natural join validation natural join texts
 			where author_id = ? order by name""", (owner,)))
 	else:
@@ -63,7 +63,7 @@ def show_texts():
 			select name, repo, commit_hash,
 				format_date(commit_date) as readable_commit_date,
 				valid, html_path
-			from latest_commits natural join validation natural join texts
+			from commits natural join validation natural join texts
 			order by name"""))
 	authors = []
 	for (author_id,) in conn.execute("select distinct author_id from owners"):
@@ -78,7 +78,7 @@ def show_text(repo, hash, name):
 		select name, repo, commit_hash, code_hash, errors, xml_path, html_path,
 			format_date(commit_date) as readable_commit_date,
 			format_date(when_validated) as readable_when_validated
-		from validation natural join commits natural join texts
+		from commits natural join validation natural join commits natural join texts
 		where repo = ? and name = ? and commit_hash = ?
 	""", (repo, name, hash)).fetchone()
 	if not row:
