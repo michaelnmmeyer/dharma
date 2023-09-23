@@ -6,6 +6,8 @@ from dharma import config, texts, tree
 # TODO try multisets: https://en.wikipedia.org/wiki/Jaccard_index
 # better results? makes sense?
 
+# TODO highlight clusters that differ from the source
+
 SCHEMA = """
 create table if not exists metadata(
 	key text primary key,
@@ -61,13 +63,13 @@ def normalize(s):
 	for k, v in translit_tbl:
 		s = s.replace(k, v)
 	for c in s:
-		if c.isspace():
-			buf.append(" ")
-		elif c.isalpha() or unicodedata.combining(c) > 0:
+		if c == "-":
+			continue
+		elif c.isspace() or c.isalpha() or unicodedata.combining(c) > 0:
 			buf.append(c)
 		elif c == "’":
 			buf.append("a")
-	ret = normalize_space("".join(buf))
+	ret = "".join(buf)
 	return ret
 
 def cleanup(s):
