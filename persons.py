@@ -65,14 +65,22 @@ for key, values in ID_TO_GIT.items():
 		assert not value in GIT_TO_ID
 		GIT_TO_ID[value] = key
 
+ID_TYPES = """
+IdHAL
+IdRef
+ORCID
+VIAF
+wikidata
+""".strip().split()
+
 def load_members_list():
 	path = os.path.join(config.REPOS_DIR, "project-documentation/DHARMA_idListMembers_v01.xml")
 	xml = tree.parse(path)
-	members = {"leke": ["Leb", "Ke"]}
+	members = {"leke": ["Leb", "Ke"]} # FIXME
 	for person in xml.find("//person"):
 		ident = person["xml:id"]
 		assert ident not in members
-		rec = person.find("persName")[0]
+		rec = person.first("persName")
 		name = rec.find("name")
 		if name:
 			assert len(rec.children()) == 1, rec
@@ -80,9 +88,11 @@ def load_members_list():
 			members[ident] = [name]
 		else:
 			assert len(rec.children()) == 2, rec
-			first = rec.find("forename")[0].text()
-			last = rec.find("surname")[0].text()
+			first = rec.first("forename").text()
+			last = rec.first("surname").text()
 			members[ident] = [last, first]
+		for idno in person.find("idno"):
+			assert idno["type"] in ID_TYPES
 	return members
 
 MEMBERS = load_members_list()
@@ -125,5 +135,8 @@ def plain_from_viaf(url, dflt=None):
 	return names and names.pop() or dflt
 
 if __name__ == "__main__":
+	pass
+	"""
 	for ident, name in sorted(MEMBERS.items()):
 		print(ident, " ".join(name), sep="\t")
+"""

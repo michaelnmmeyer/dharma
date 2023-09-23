@@ -118,6 +118,9 @@ class Block:
 		write_debug(rec[0], rec[1], **rec[2])
 		self.text = ""
 
+	def add_html(self, data):
+		return self.add_code("html", data)
+
 	def add_code(self, t, data=None, **params):
 		if self.space == "seen":
 			self.text += " "
@@ -203,6 +206,9 @@ class Parser:
 	def add_text(self, text):
 		return self.blocks[-1].add_text(text)
 
+	def add_html(self, data):
+		return self.blocks[-1].add_html(data)
+
 	def add_code(self, t, data=None, **params):
 		return self.blocks[-1].add_code(t, data, **params)
 
@@ -260,16 +266,16 @@ def process_supplied(p, supplied):
 	reason = supplied["reason"]
 	format = supplied_format.get(reason)
 	if format:
-		p.add_code("html", format[0])
+		p.add_html(format[0])
 		p.dispatch_children(supplied)
-		p.add_code("html", format[1])
+		p.add_html(format[1])
 	else:
 		p.dispatch_children(supplied)
 
 def process_foreign(p, foreign):
-	p.add_code("html", "<i>")
+	p.add_html("<i>")
 	p.dispatch_children(foreign)
-	p.add_code("html", "</i>")
+	p.add_html("</i>")
 
 def process_milestone(p, milestone):
 	assert "n" in milestone.attrs
@@ -348,9 +354,9 @@ def process_unclear(p, node):
 
 def process_p(p, para):
 	p.add_code("log:para<")
-	p.add_code("html", "<p>")
+	p.add_html("<p>")
 	p.dispatch_children(para)
-	p.add_code("html", "</p>")
+	p.add_html("</p>")
 	p.add_code("log:para>")
 
 hi_table = {
@@ -365,21 +371,21 @@ hi_table = {
 def process_hi(p, hi):
 	rend = hi["rend"]
 	val = hi_table[rend]
-	p.add_code("html", "<%s>" % val)
+	p.add_html("<%s>" % val)
 	p.dispatch_children(hi)
 	e = val.find(" ")
 	if e < 0:
 		e = len(val)
-	p.add_code("html", "</%s>" % val[:e])
+	p.add_html("</%s>" % val[:e])
 
 def process_div_head(p, head):
 	def inner(root):
 		for elem in root:
 			if elem.type == "tag":
 				if elem.name == "foreign":
-					p.add_code("html", "<i>")
+					p.add_html("<i>")
 					inner(elem)
-					p.add_code("html", "</i>")
+					p.add_html("</i>")
 				elif elem.name == "hi":
 					p.dispatch(elem)
 				else:
@@ -394,29 +400,29 @@ def process_div_ab(p, ab):
 def process_lg(p, lg):
 	pada = 0
 	p.add_code("log:verse<")
-	p.add_code("html", '<div class="verse">')
+	p.add_html('<div class="verse">')
 	for elem in lg:
 		if elem.type == "tag" and elem.name == "l":
 			if pada % 2 == 0:
-				p.add_code("html", "<p>")
+				p.add_html("<p>")
 				p.dispatch_children(elem)
 			else:
 				p.add_text(" ")
 				p.dispatch_children(elem)
-				p.add_code("html", "</p>")
+				p.add_html("</p>")
 			pada += 1
 		else:
 			p.dispatch(elem)
-	p.add_code("html", "</div>")
+	p.add_html("</div>")
 	p.add_code("log:verse>")
 
 def process_div_dyad(p, div):
 	for elem in div:
 		if elem.type == "tag" and elem.name == "quote":
 			assert elem.attrs.get("type") == "base-text"
-			p.add_code("html", '<div class="base-text">')
+			p.add_html('<div class="base-text">')
 			p.dispatch_children(elem)
-			p.add_code("html", "</div>")
+			p.add_html("</div>")
 		else:
 			p.dispatch(elem)
 
@@ -425,7 +431,7 @@ def process_div_section(p, div):
 	type = div.attrs.get("type", "")
 	if type in ("chapter", "canto"):
 		p.add_code("log:head<", level=p.div_level)
-		p.add_code("html", "<h%d>" % (p.div_level + p.heading_shift))
+		p.add_html("<h%d>" % (p.div_level + p.heading_shift))
 		p.add_text(type.title())
 		n = div.attrs.get("n")
 		if n:
@@ -436,7 +442,7 @@ def process_div_section(p, div):
 			p.add_text(": ")
 			process_div_head(p, head)
 			ignore = head
-		p.add_code("html", "</h%d>" % (p.div_level + p.heading_shift))
+		p.add_html("</h%d>" % (p.div_level + p.heading_shift))
 		p.add_code("log:head>")
 	elif not type:
 		ab = div.find("ab")
@@ -457,12 +463,12 @@ def process_div_section(p, div):
 		assert rend == "met" or not rend
 		if rend:
 			met = div["met"]
-			p.add_code("html", "<h%d>" % (p.div_level + p.heading_shift + 1))
+			p.add_html("<h%d>" % (p.div_level + p.heading_shift + 1))
 			if met.isalpha():
 				pros = prosody.items.get(met)
 				assert pros, "meter %r absent from prosodic patterns file" % met
 				p.add_code("blank", "%s: %s" % (met.title(), pros))
-			p.add_code("html", "</h%d>" % (p.div_level + p.heading_shift + 1))
+			p.add_html("</h%d>" % (p.div_level + p.heading_shift + 1))
 		else:
 			# If we have @met, could use it as a search attribute. Is it often used?
 			pass
@@ -476,7 +482,7 @@ def process_div_section(p, div):
 		p.dispatch(elem)
 
 def process_div(p, div):
-	p.add_code("html", "<div>")
+	p.add_html("<div>")
 	type = div.attrs.get("type", "")
 	if type in ("chapter", "canto", ""):
 		p.div_level += 1
@@ -493,7 +499,7 @@ def process_div(p, div):
 		p.dispatch_children(div)
 	else:
 		assert 0, div
-	p.add_code("html", "</div>")
+	p.add_html("</div>")
 
 # The full table is at:
 # https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab
@@ -582,8 +588,8 @@ def process_teiHeader(p, node):
 	p.dispatch_children(node)
 
 def process_TEI(p, node):
-	p.dispatch(node.find("teiHeader")[0])
-	#p.dispatch(node.find("text/body")[0])
+	p.dispatch(node.first("teiHeader"))
+	p.dispatch(node.first("text/body"))
 
 def make_handlers_map():
 	ret = {}
@@ -598,12 +604,3 @@ if __name__ == "__main__":
 	tree = parse(sys.argv[1])
 	p = Parser(tree, make_handlers_map())
 	p.dispatch(p.tree.root)
-
-	print("---")
-	print(p.document.title)
-	print(p.document.editors)
-	print(p.document.summary)
-	print("---")
-	p.document.summary.render(); print()
-	print("---")
-	print(p.document.summary.searchable_text())
