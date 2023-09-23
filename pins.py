@@ -18,6 +18,7 @@ def parse_div(p, div):
 	for child in children[1:]:
 		p.dispatch_children(child)
 	section.contents = p.pop()
+	print(section.contents.code)
 	p.document.edition.append(section)
 
 def parse_body(p, body):
@@ -25,9 +26,7 @@ def parse_body(p, body):
 		assert div.type == "tag" and div.name == "div"
 		type = div["type"]
 		if type == "edition":
-			p.push("edition")
 			p.dispatch_children(div)
-			p.document.edition = p.pop()
 		else:
 			print("? %s" % div)
 
@@ -46,4 +45,8 @@ if __name__ == "__main__":
 	t.first("//teiHeader/encodingDesc").delete()
 	t.first("//teiHeader/revisionDesc").delete()
 	p = parse.Parser(t, HANDLERS)
-	p.dispatch(p.tree.root) 
+	p.dispatch(p.tree.root)
+	print("----------------------")
+	for section in p.document.edition:
+		r=section.contents.render()
+		print(r)

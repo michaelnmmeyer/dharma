@@ -135,6 +135,18 @@ class Block:
 		self.code.append(rec)
 		write_debug(t, data, **params)
 
+	def drop_spaces(self):
+		if self.text:
+			self.text = self.text.rstrip()
+			return
+		i = len(self.code)
+		while i > 0:
+			i -= 1
+			t = self.code[i]
+			if t[0] == "text":
+				self.code[i] = (t[0], t[1].rstrip(), t[2])
+				break
+
 	def finish(self):
 		assert self.text == ""
 		for i, (t, data, _) in enumerate(self.code):
@@ -182,7 +194,7 @@ class Document:
 	editors = None
 	langs = None
 	summary = None
-	
+
 	edition = None
 
 	def __init__(self):
@@ -226,6 +238,9 @@ class Parser:
 
 	def start_span(self):
 		return self.blocks[-1].start_span()
+
+	def drop_spaces(self):
+		return self.blocks[-1].drop_spaces()
 
 	def dispatch(self, node):
 		if node.type in ("comment", "instruction"):
@@ -299,32 +314,30 @@ def parse_milestone(p, milestone):
 	p.add_code(milestone["unit"], milestone["n"])
 
 def parse_lb(p, elem):
-	brk = "yes"
-	n = None
-	# On alignement, EGD §7.5.2
-	align = "left" # assumption
-	if not "n" in elem.attrs:
-		raise tree.Error(node, "attribute @n is required")
-	for attr, val in elem.attrs.items():
-		if attr == "n":
-			n = val
-		elif attr == "break":
-			if brk not in ("yes", "no"):
-				raise tree.Error(node, "bad value for @break")
-			brk = val
-		elif attr == "style":
-			m = re.match(r"^text-align:\s*(right|center|left|justify)\s*$", val)
-			if not m:
-				raise tree.Error(node, "bad value for @style")
-			align = m.group(1)
-		else:
-			assert 0, elem
-	# ignore for now
-	return
+	n = elem["n"]
+	if not n:
+		n = "?"
+	brk = elem["break"]
+	if brk not in ("yes", "no"):
+		brk = "yes"
+	# On alignment, EGD §7.5.2
+	m = re.match(r"^text-align:\s*(right|center|left|justify)\s*$", elem["style"])
+	if m:
+		align = m.group(1)
+	else:
+		align = "left"
 	if brk == "yes":
-		p.add_text("\n")
-	p.add_code("phys:line", n, {"align": align})
-	p.space = "drop"
+		p.add_html("<br/><b>(%s)</b>&nbsp;" % html.escape(n))
+	else:
+		p.drop_spaces() # XXX cont here, not working
+		p.add_html("-<br/><b>(%s)</b>" % html.escape(n))
+
+def parse_fw(p, fw):
+	n = fw["n"]
+	if not n:
+		n = "?"
+	p.add_html('<span class="dh-plate-break">⎘ plate %s</span>)' % html.escape(n))
+	# the contents doesn't seem useful
 
 def parse_pb(p, elem):
 	n = elem["n"]
@@ -375,6 +388,8 @@ def parse_g(p, node):
 def parse_unclear(p, node):
 	p.add_html("(")
 	p.dispatch_children(node)
+	if node["cert"] == "low":
+		p.add_html("?")
 	p.add_html(")")
 
 def parse_surplus(p, node):
