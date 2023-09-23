@@ -133,8 +133,9 @@ def show_parallels_full(text, category, id):
 @bottle.get("/catalog")
 def show_catalog():
 	q = bottle.request.query.q
-	rows, last_updated = catalog.search(q)
-	return bottle.template("catalog.tpl", rows=rows, q=q, last_updated=last_updated)
+	s = bottle.request.query.s
+	rows, last_updated = catalog.search(q, s)
+	return bottle.template("catalog.tpl", rows=rows, q=q, s=s, last_updated=last_updated)
 
 @bottle.get("/langs")
 def show_langs():

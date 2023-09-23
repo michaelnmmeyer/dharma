@@ -34,6 +34,7 @@ above-mentioned substring matching technique will be used instead. You can consu
 table of languages <a href="/langs">here</a>.</p>
 
 <form action="/catalog" method="get">
+<label for="text-input">Find:</label>
 <input name="q" id="text-input"
 % if q != "*":
    value="{{q}}"
@@ -41,6 +42,16 @@ table of languages <a href="/langs">here</a>.</p>
    autofocus
 % end
 ></input>
+<label for="sort-select">Sort by:</label>
+<select name="s" id="sort-select">
+% for k, v in (("title", "Title"), ("repo", "Repository"), ("ident", "Identifier")):
+   % if k == s:
+      <option value="{{k}}" selected>{{v}}</option>
+   % else:
+      <option value="{{k}}">{{v}}</option>
+   % end
+% end
+</select>
 <input type="submit" value="Search">
 </form>
 

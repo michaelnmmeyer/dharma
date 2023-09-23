@@ -201,7 +201,7 @@ def patch_languages(q):
 		else:
 			clause.query = "" # prevent matching
 
-def search(q):
+def search(q, s):
 	sql = """
 		select documents.name, documents.repo, documents.title,
 			documents.author, documents.editors, documents.langs, documents.summary,
@@ -218,7 +218,9 @@ def search(q):
 		sql += "where documents_index match ?"
 	else:
 		q = ()
-	sql += " order by collate_title(documents.title)"
+	if not s in ("title", "repo", "ident"):
+		s = "title"
+	sql += " order by collate_title(documents.%s)" % s
 	db = CATALOG_DB.cursor()
 	db.execute("begin")
 	ret = db.execute(sql, q).fetchall()
