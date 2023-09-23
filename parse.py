@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
+# to make sure we examine everything and to signal stuff we haven't taken into
+# account, might want to add a "visited" flag to @. maybe id. for text nodes.
+
 import os, sys, re, io, copy, html, unicodedata
-from dharma.tree import *
-from dharma import prosody, persons
+from dharma import prosody, persons, tree
 
 force_color = True
 def term_color(code=None):
@@ -20,6 +22,7 @@ def term_color(code=None):
 
 def term_html(): term_color("#5f00ff")
 def term_log(): term_color("#008700")
+def term_text(): term_color("#aa007f")
 def term_reset(): term_color()
 
 def write_debug(t, data=None, **params):
@@ -28,14 +31,15 @@ def write_debug(t, data=None, **params):
 		term_html()
 	elif t.startswith("log:"):
 		term_log()
+	elif t == "text":
+		term_text()
 	write("%s" % t)
 	if data:
 		write(" %r" % data)
 	if params:
 		for k, v in sorted(params.items()):
 			write(" :%s %r" % (k, v))
-	if t == "html" or t.startswith("log:"):
-		term_reset()
+	term_reset()
 	write("\n")
 
 PARA_SEP = chr(1)
@@ -164,6 +168,11 @@ class Block:
 			buf.append(data)
 		return normalize("".join(buf))
 
+class Section:
+
+	heading = None
+	contents = None
+
 class Document:
 
 	repository = ""
@@ -173,9 +182,12 @@ class Document:
 	editors = None
 	langs = None
 	summary = None
+	
+	edition = None
 
 	def __init__(self):
 		self.langs = []
+		self.edition = []
 
 class Parser:
 
@@ -227,7 +239,7 @@ class Parser:
 			return
 		try:
 			f(self, node)
-		except Error as e:
+		except tree.Error as e:
 			self.complain(e)
 
 	def dispatch_children(self, node):
@@ -243,15 +255,16 @@ def normalize_space(s):
 	s = s.strip()
 	return re.sub(r"\s+", " ", s)
 
-def process_lem(p, lemma):
+def parse_lem(p, lemma):
 	text = lemma.text() #XXX legit?
 	p.add_text(text)
 	# Ignore the apparatus for now
 
-def process_app(p, app):
+def parse_app(p, app):
 	p.dispatch_children(app)
 
-def process_num(p, num):
+def parse_num(p, num):
+	# for now we don't deal with @value, @atLeast and @atMost
 	p.dispatch_children(num)
 
 supplied_format = {
@@ -262,7 +275,7 @@ supplied_format = {
 	"lost": "[]",
 	"undefined": "[]",
 }
-def process_supplied(p, supplied):
+def parse_supplied(p, supplied):
 	reason = supplied["reason"]
 	format = supplied_format.get(reason)
 	if format:
@@ -272,12 +285,12 @@ def process_supplied(p, supplied):
 	else:
 		p.dispatch_children(supplied)
 
-def process_foreign(p, foreign):
+def parse_foreign(p, foreign):
 	p.add_html("<i>")
 	p.dispatch_children(foreign)
 	p.add_html("</i>")
 
-def process_milestone(p, milestone):
+def parse_milestone(p, milestone):
 	assert "n" in milestone.attrs
 	assert "unit" in milestone.attrs
 	assert milestone["unit"] in ("block", "column", "face", "faces", "fragment", "item", "zone")
@@ -285,24 +298,24 @@ def process_milestone(p, milestone):
 	return
 	p.add_code(milestone["unit"], milestone["n"])
 
-def process_lb(p, elem):
+def parse_lb(p, elem):
 	brk = "yes"
 	n = None
 	# On alignement, EGD §7.5.2
 	align = "left" # assumption
 	if not "n" in elem.attrs:
-		raise Error(node, "attribute @n is required")
+		raise tree.Error(node, "attribute @n is required")
 	for attr, val in elem.attrs.items():
 		if attr == "n":
 			n = val
 		elif attr == "break":
 			if brk not in ("yes", "no"):
-				raise Error(node, "bad value for @break")
+				raise tree.Error(node, "bad value for @break")
 			brk = val
 		elif attr == "style":
 			m = re.match(r"^text-align:\s*(right|center|left|justify)\s*$", val)
 			if not m:
-				raise Error(node, "bad value for @style")
+				raise tree.Error(node, "bad value for @style")
 			align = m.group(1)
 		else:
 			assert 0, elem
@@ -313,27 +326,41 @@ def process_lb(p, elem):
 	p.add_code("phys:line", n, {"align": align})
 	p.space = "drop"
 
-def process_pb(p, elem):
+def parse_pb(p, elem):
 	n = elem["n"]
 	# ignore for now, incomplete
 	return
 	p.add_code("phys:page", n)
 	p.space = "drop"
 
-def process_choice(p, node):
+def parse_choice(p, node):
 	p.dispatch_children(node)
 
-def process_abbr(p, node):
+def parse_abbr(p, node):
+	p.add_html('<span class="dh-abbr">')
+	p.dispatch_children(node)
+	p.add_html('</span>')
+
+def parse_ex(p, node):
+	p.add_html("(")
+	p.dispatch_children(node)
+	p.add_html(")")
+
+def parse_expan(p, node):
 	p.dispatch_children(node)
 
-def process_term(p, node):
+def parse_term(p, node):
 	p.dispatch_children(node)
 
-def process_g(p, node):
+def parse_g(p, node):
 	# <g type="...">.</g> for punctuation marks
 	# <g type="...">§</g> for space fillers
 	# <g type="..."></g> in the other cases viz. for symbols
 	# 	whose functions is unclear
+	stype = node["type"]
+	assert stype, node
+	if stype == "numeral":
+		return p.dispatch_children(node)
 	text = node.text()
 	if text == ".":
 		gtype = "punctuation"
@@ -342,17 +369,20 @@ def process_g(p, node):
 	elif text == "":
 		gtype = "unclear"
 	else:
-		assert 0, node
-	if len(node.attrs) != 1:
-		assert 0, node
-	stype = node.get("type")
-	assert stype, node
+		assert 0
 	p.add_code("symbol", f"{gtype}.{stype}")
 
-def process_unclear(p, node):
-	p.add_text(node.text()) # XXX children?
+def parse_unclear(p, node):
+	p.add_html("(")
+	p.dispatch_children(node)
+	p.add_html(")")
 
-def process_p(p, para):
+def parse_surplus(p, node):
+	p.add_html("{")
+	p.dispatch_children(node)
+	p.add_html("}")
+
+def parse_p(p, para):
 	p.add_code("log:para<")
 	p.add_html("<p>")
 	p.dispatch_children(para)
@@ -368,7 +398,7 @@ hi_table = {
 	"check": "mark",
 	"grantha": 'span class="grantha"',
 }
-def process_hi(p, hi):
+def parse_hi(p, hi):
 	rend = hi["rend"]
 	val = hi_table[rend]
 	p.add_html("<%s>" % val)
@@ -378,26 +408,7 @@ def process_hi(p, hi):
 		e = len(val)
 	p.add_html("</%s>" % val[:e])
 
-def process_div_head(p, head):
-	def inner(root):
-		for elem in root:
-			if elem.type == "tag":
-				if elem.name == "foreign":
-					p.add_html("<i>")
-					inner(elem)
-					p.add_html("</i>")
-				elif elem.name == "hi":
-					p.dispatch(elem)
-				else:
-					assert 0
-			else:
-				p.dispatch(elem)
-	inner(head)
-
-def process_div_ab(p, ab):
-	p.dispatch_children(ab)
-
-def process_lg(p, lg):
+def parse_lg(p, lg):
 	pada = 0
 	p.add_code("log:verse<")
 	p.add_html('<div class="verse">')
@@ -416,97 +427,7 @@ def process_lg(p, lg):
 	p.add_html("</div>")
 	p.add_code("log:verse>")
 
-def process_div_dyad(p, div):
-	for elem in div:
-		if elem.type == "tag" and elem.name == "quote":
-			assert elem.attrs.get("type") == "base-text"
-			p.add_html('<div class="base-text">')
-			p.dispatch_children(elem)
-			p.add_html("</div>")
-		else:
-			p.dispatch(elem)
-
-def process_div_section(p, div):
-	ignore = None
-	type = div.attrs.get("type", "")
-	if type in ("chapter", "canto"):
-		p.add_code("log:head<", level=p.div_level)
-		p.add_html("<h%d>" % (p.div_level + p.heading_shift))
-		p.add_text(type.title())
-		n = div.attrs.get("n")
-		if n:
-			p.add_text(" %s" % n)
-		head = div.find("head")
-		if head:
-			head = head[0]
-			p.add_text(": ")
-			process_div_head(p, head)
-			ignore = head
-		p.add_html("</h%d>" % (p.div_level + p.heading_shift))
-		p.add_code("log:head>")
-	elif not type:
-		ab = div.find("ab")
-		if ab:
-			ab = ab[0]
-			# Invocation or colophon?
-			type = ab["type"]
-			assert type in ("invocation", "colophon")
-			p.add_code("log:%s<" % ab["type"])
-			process_div_ab(p, ab)
-			p.add_code("log:%s>" % ab["type"])
-			ignore = ab
-	else:
-		assert 0, div
-	# Render the meter
-	if type != "chapter":
-		rend = div.attrs.get("rend", "")
-		assert rend == "met" or not rend
-		if rend:
-			met = div["met"]
-			p.add_html("<h%d>" % (p.div_level + p.heading_shift + 1))
-			if met.isalpha():
-				pros = prosody.items.get(met)
-				assert pros, "meter %r absent from prosodic patterns file" % met
-				p.add_code("blank", "%s: %s" % (met.title(), pros))
-			p.add_html("</h%d>" % (p.div_level + p.heading_shift + 1))
-		else:
-			# If we have @met, could use it as a search attribute. Is it often used?
-			pass
-	else:
-		assert not div.attrs.get("rend")
-		assert not div.attrs.get("met")
-	#  Display the contents
-	for elem in div:
-		if elem == ignore:
-			continue
-		p.dispatch(elem)
-
-def process_div(p, div):
-	p.add_html("<div>")
-	type = div.attrs.get("type", "")
-	if type in ("chapter", "canto", ""):
-		p.div_level += 1
-		process_div_section(p, div)
-		p.div_level -= 1
-	elif type == "dyad":
-		process_div_dyad(p, div)
-	elif type == "metrical":
-		# Group of verses that share the same meter. Don't exploit this for now.
-		assert p.div_level > 1, '<div type="metrical"> can only be used as a child of another <div>'
-		p.dispatch_children(div)
-	elif type == "interpolation":
-		# Ignore for now.
-		p.dispatch_children(div)
-	else:
-		assert 0, div
-	p.add_html("</div>")
-
-# The full table is at:
-# https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab
-# For scripts see:
-# https://www.unicode.org/iso15924/iso15924.txt
-
-def process_body(p, body):
+def parse_body(p, body):
 	for elem in body.children():
 		assert elem.type == "tag"
 		p.dispatch(elem)
@@ -530,7 +451,7 @@ titleStmt =
     }*
   }
 """
-def process_titleStmt(p, stmt):
+def parse_titleStmt(p, stmt):
 	titles = []
 	for t in stmt.find("title"):
 		text = t.text()
@@ -568,7 +489,7 @@ def process_titleStmt(p, stmt):
 		p.add_text(editor)
 	p.document.editors = p.pop()
 
-def process_sourceDesc(p, desc):
+def parse_sourceDesc(p, desc):
 	summ = desc.find("msDesc/msContents/summary")
 	assert len(summ) <= 1
 	if not summ:
@@ -581,26 +502,28 @@ def process_sourceDesc(p, desc):
 	p.dispatch_children(summ)
 	p.document.summary = p.pop()
 
-def process_fileDesc(p, node):
+def parse_fileDesc(p, node):
 	p.dispatch_children(node)
 
-def process_teiHeader(p, node):
+def parse_teiHeader(p, node):
 	p.dispatch_children(node)
 
-def process_TEI(p, node):
+def parse_TEI(p, node):
 	p.dispatch(node.first("teiHeader"))
 	p.dispatch(node.first("text/body"))
 
 def make_handlers_map():
 	ret = {}
 	for name, obj in copy.copy(globals()).items():
-		if not name.startswith("process_"):
+		if not name.startswith("parse_"):
 			continue
-		name = name.removeprefix("process_")
+		name = name.removeprefix("parse_")
 		ret[name] = obj
 	return ret
 
+HANDLERS = make_handlers_map()
+
 if __name__ == "__main__":
-	tree = parse(sys.argv[1])
-	p = Parser(tree, make_handlers_map())
+	t = tree.parse(sys.argv[1])
+	p = Parser(t, HANDLERS)
 	p.dispatch(p.tree.root)

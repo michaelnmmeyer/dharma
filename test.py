@@ -1,6 +1,6 @@
 import sys, re
 from glob import iglob
-from dharma import tree, persons, transform
+from dharma import tree, persons, parse
 
 all = sorted(iglob("texts/DHARMA_*"))
 inscriptions = [f for f in all if "DHARMA_INS" in f]
@@ -12,12 +12,7 @@ critical_translation = [f for f in critical if "_trans" in f]
 assert len(inscriptions) + len(diplomatic) \
 	+ len(critical_edition) + len(critical_translation) == len(all)
 
-for file in all:
+for file in inscriptions:
 	xml = tree.parse(file)
-	langs = set()
-	for t in xml.find("//*"):
-		if not "lang" in t.attrs:
-			continue
-		lang = t["lang"]
-		if not lang in transform.LANGS:
-			print(lang)
+	for t in xml.find("//body/div"):
+		print(t["type"])

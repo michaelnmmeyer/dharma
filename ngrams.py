@@ -1,6 +1,6 @@
 import os, sys, string, unicodedata, re, html
 from glob import glob
-from dharma.transform import normalize_space
+from dharma.parse import normalize_space
 from dharma import config, texts, tree
 
 # TODO try multisets: https://en.wikipedia.org/wiki/Jaccard_index

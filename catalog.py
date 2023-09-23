@@ -1,5 +1,5 @@
 import os, unicodedata
-from dharma import tree, transform, texts, config
+from dharma import tree, parse, texts, config
 
 # TODO useful fields to incl in catalog:
 # https://erc-dharma.github.io/tfa-pallava-epigraphy/texts/htmloutput/DHARMA_INSPallava00280.html
@@ -73,7 +73,7 @@ class OR(Query):
 
 def process_file(repo_name, path):
 	t = tree.parse(path)
-	p = transform.Parser(t, transform.make_handlers_map())
+	p = parse.Parser(t, parse.make_handlers_map())
 	p.dispatch(p.tree.root)
 	doc = p.document
 	for node in t.find("//*"):
@@ -93,7 +93,7 @@ def process_file(repo_name, path):
 # use it? or ICU? worth it?
 def collate_title(s):
 	s = " ".join(s)
-	ret = "".join(c for c in transform.normalize(s) if c.isalnum())
+	ret = "".join(c for c in parse.normalize(s) if c.isalnum())
 	return ret or "zzzzzz" # yeah I know
 
 CATALOG_DB.create_function("collate_title", 1, collate_title, deterministic=True)
@@ -104,17 +104,17 @@ def process_repo(name, db):
 		for key in ("title", "author", "editors", "summary"):
 			val = getattr(doc, key)
 			if val is None:
-				val = transform.Block(val)
+				val = parse.Block(val)
 				val.finish()
 				setattr(doc, key, val)
 		fmt_title = doc.title.render()
 		if fmt_title:
-			fmt_title = fmt_title.split(transform.PARA_SEP)
+			fmt_title = fmt_title.split(parse.PARA_SEP)
 		else:
 			fmt_title = []
 		fmt_editors = doc.editors.render()
 		if fmt_editors:
-			fmt_editors = fmt_editors.split(transform.PARA_SEP)
+			fmt_editors = fmt_editors.split(parse.PARA_SEP)
 		else:
 			fmt_editors = []
 		db.execute("""insert into documents(name, repo, title, author, editors, langs, summary)
@@ -209,7 +209,7 @@ def search(q, s):
 		from documents join documents_index on documents.name = documents_index.name
 		natural join texts.texts natural join texts.commits
 	"""
-	q = " ".join(transform.normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
+	q = " ".join(parse.normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
 	if q:
 		q = parse_query(q)
 		with LANGS_DB:
