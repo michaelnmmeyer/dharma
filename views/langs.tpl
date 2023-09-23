@@ -5,6 +5,8 @@
 
 <p>The following table displays languages that currently appear in the DHARMA database.</p>
 
+</div>
+
 <table>
 <thead>
 <tr>
@@ -23,6 +25,8 @@
 % end
 </tbody>
 </table>
+
+<div class="body">
 
 <p>For the ISO 639-3 standard (languages), see <a
 href="https://iso639-3.sil.org">here</a>.</p>

@@ -54,6 +54,14 @@
    table tr:nth-child(odd) {
       background-color: #eff0f1;
    }
+   input {
+      font-family: inherit;
+      font-size: inherit;
+   }
+   select {
+      font-family: inherit;
+      font-size: inherit;
+   }
    </style>
 </head>
 <body>
