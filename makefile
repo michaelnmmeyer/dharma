@@ -35,6 +35,7 @@ forever:
 	done
 
 image:
+	git pull
 	git rev-parse HEAD > version.txt
 	git show --no-patch --format=%at HEAD >> version.txt
 	sudo docker build -t dharma .

@@ -107,9 +107,19 @@ def process_repo(name, db):
 				val = transform.Block(val)
 				val.finish()
 				setattr(doc, key, val)
+		fmt_title = doc.title.render()
+		if fmt_title:
+			fmt_title = fmt_title.split(transform.PARA_SEP)
+		else:
+			fmt_title = []
+		fmt_editors = doc.editors.render()
+		if fmt_editors:
+			fmt_editors = fmt_editors.split(transform.PARA_SEP)
+		else:
+			fmt_editors = []
 		db.execute("""insert into documents(name, repo, title, author, editors, langs, summary)
 			values (?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
-				doc.title.render().split(transform.PARA_SEP), doc.author.render(), doc.editors.render().split(transform.PARA_SEP),
+				fmt_title, doc.author.render(), fmt_editors,
 				doc.langs, doc.summary.render()))
 		db.execute("""insert into documents_index(name, ident, repo, title, author, editor, lang, summary)
 			values (?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.ident.lower(),

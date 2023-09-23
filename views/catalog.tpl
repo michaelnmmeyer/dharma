@@ -55,9 +55,6 @@ table of languages <a href="/langs">here</a>.</p>
    % if not row["html_link"].endswith("/"):
       <a href="{{row["html_link"]}}">
    % end
-   % if row["author"]:
-      {{!row["author"]}}.
-   % end
    % if row["title"]:
       % for chunk in row["title"]:
          {{!chunk.rstrip(".")}}.
@@ -74,7 +71,7 @@ table of languages <a href="/langs">here</a>.</p>
       {{!ed}},
    % end
    % if row["editors"]:
-      {{row["editors"][-1]}}.
+      {{!row["editors"][-1]}}.
    % else:
       <i>Anonymous editor</i>.
    % end

@@ -12,10 +12,10 @@ create table if not exists logs(
 );
 """)
 GIT_DB.commit()
-TEXTS_DB = change.TEXTS_DB
-NGRAMS_DB = ngrams.NGRAMS_DB
-CATALOG_DB = catalog.CATALOG_DB
-LANGS_DB = catalog.LANGS_DB
+TEXTS_DB = config.open_db("texts")
+NGRAMS_DB = config.open_db("ngrams")
+CATALOG_DB = config.open_db("catalog")
+LANGS_DB = config.open_db("langs")
 
 @bottle.get("/")
 def index():

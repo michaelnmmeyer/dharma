@@ -24,6 +24,7 @@ pragma page_size = 16384;
 pragma journal_mode = wal;
 pragma synchronous = normal;
 pragma foreign_keys = on;
+pragma secure_delete = off;
 """
 
 def db_path(name):
@@ -33,15 +34,21 @@ def format_date(obj):
 	(ret,) = DUMMY_DB.execute("select strftime('%Y-%m-%d %H:%M', ?, 'auto', 'localtime')", (obj,)).fetchone()
 	return ret
 
+DBS = {}
+
 def open_db(name):
 	if name == ":memory:":
 		path = name
 	else:
+		conn = DBS.get(name)
+		if conn:
+			return conn
 		path = db_path(name)
 	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES)
 	conn.row_factory = sqlite3.Row
 	conn.executescript(common_schema)
 	conn.create_function("format_date", 1, format_date, deterministic=True)
+	DBS[name] = conn
 	return conn
 
 DUMMY_DB = open_db(":memory:")
