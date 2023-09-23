@@ -218,7 +218,11 @@ def search(q, s):
 		sql += "where documents_index match ?"
 	else:
 		q = ()
-	if not s in ("title", "repo", "ident"):
+	if s == "ident":
+		s = "name"
+	elif s == "title" or s == "repo":
+		pass
+	else:
 		s = "title"
 	sql += " order by collate_title(documents.%s)" % s
 	db = CATALOG_DB.cursor()
