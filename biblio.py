@@ -17,6 +17,7 @@ LIBRARY_ID = 1633743
 MY_API_KEY = "ojTBU4SxEQ4L0OqUhFVyImjq"
 
 SCHEMA = """
+begin;
 create table if not exists meta(
 	key text primary key not null,
 	value
@@ -28,11 +29,11 @@ create table if not exists bibliography(
 	version integer not null,
 	json json not null
 );
+commit;
 """
 
 conn = config.open_db("biblio")
 conn.executescript(SCHEMA)
-conn.commit()
 
 def sort_value(val):
 	if not isinstance(val, dict):

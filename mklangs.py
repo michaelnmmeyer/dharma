@@ -51,6 +51,7 @@ def normalize_name(s):
 db = config.open_db("langs")
 
 db.executescript("""
+begin;
 create table if not exists list(
 	id text primary key check(length(id) = 3),
 	name text,
@@ -66,6 +67,7 @@ create virtual table if not exists by_name using fts5(
 	name,
 	tokenize = "trigram"
 );
+commit;
 """)
 
 db.execute("begin")

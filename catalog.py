@@ -3,6 +3,7 @@ from dharma import tree, parse, texts, config
 
 CATALOG_DB = config.open_db("catalog")
 CATALOG_DB.executescript("""
+begin;
 create table if not exists metadata(
 	key text primary key,
 	value blob
@@ -28,8 +29,8 @@ create virtual table if not exists documents_index using fts5(
 	summary,
 	tokenize="trigram"
 );
+commit;
 """)
-CATALOG_DB.commit()
 CATALOG_DB.execute("attach database ? as texts", (config.db_path("texts"),))
 
 LANGS_DB = config.open_db("langs")

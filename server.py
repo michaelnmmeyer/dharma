@@ -6,12 +6,13 @@ from dharma import config, bottle, change, persons, ngrams, catalog
 
 GIT_DB = config.open_db("github-log")
 GIT_DB.executescript("""
+begin;
 create table if not exists logs(
 	date integer,
 	data text
 );
+commit;
 """)
-GIT_DB.commit()
 TEXTS_DB = config.open_db("texts")
 NGRAMS_DB = config.open_db("ngrams")
 CATALOG_DB = config.open_db("catalog")

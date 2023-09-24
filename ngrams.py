@@ -9,6 +9,7 @@ from dharma import config, texts, tree
 # TODO highlight clusters that differ from the source
 
 SCHEMA = """
+begin;
 create table if not exists metadata(
 	key text primary key,
 	value blob
@@ -41,11 +42,11 @@ create table if not exists jaccard(
 	foreign key(type, id) references passages(type, id),
 	foreign key(type, id2) references passages(type, id)
 );
+commit;
 """
 
 NGRAMS_DB = config.open_db("ngrams")
 NGRAMS_DB.executescript(SCHEMA)
-NGRAMS_DB.commit()
 
 translit_tbl = [
 	("r\N{COMBINING RING BELOW}", "ṛ"),

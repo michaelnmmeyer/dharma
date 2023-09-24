@@ -44,7 +44,11 @@ def open_db(name):
 		if conn:
 			return conn
 		path = db_path(name)
-	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES)
+	# The python sqlite3 module messes with sqlite's transaction mechanism. This is error-prone,
+	# we don't want that, thus we set isolation_level=None. Likewise, db.executescript() is
+	# a mess, we only use it for initialization code.
+	# https://docs.python.org/3/library/sqlite3.html#transaction-control
+	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES, isolation_level=None)
 	conn.row_factory = sqlite3.Row
 	conn.executescript(common_schema)
 	conn.create_function("format_date", 1, format_date, deterministic=True)

@@ -59,6 +59,7 @@ tfd-sanskrit-philology
 """.strip().split()
 
 SCHEMA = """
+begin;
 create table if not exists metadata(
 	key text primary key,
 	value blob
@@ -97,11 +98,11 @@ create table if not exists owners(
 	xml_path text,
 	primary key(author_id, repo, xml_path)
 );
+commit;
 """
 
 TEXTS_DB = config.open_db("texts")
 TEXTS_DB.executescript(SCHEMA)
-TEXTS_DB.commit()
 
 def update_repo(name):
 	return command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
