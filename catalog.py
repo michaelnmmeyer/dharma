@@ -1,10 +1,6 @@
 import os, unicodedata
 from dharma import tree, parse, texts, config
 
-# TODO useful fields to incl in catalog:
-# https://erc-dharma.github.io/tfa-pallava-epigraphy/texts/htmloutput/DHARMA_INSPallava00280.html
-# also lang (but for now language codes are a mess).
-
 CATALOG_DB = config.open_db("catalog")
 CATALOG_DB.executescript("""
 create table if not exists metadata(
@@ -47,7 +43,7 @@ class Query:
 
 	def __str__(self):
 		if isinstance(self.query, str):
-			ret = "%s" % self.query.replace('"', '""')
+			ret = '"%s"' % self.query.replace('"', '""')
 		else:
 			ret = str(self.query)
 		if self.field:
