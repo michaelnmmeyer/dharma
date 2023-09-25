@@ -412,7 +412,7 @@ def parse_g(p, node):
 	elif text == "":
 		gtype = "unclear"
 	else:
-		assert 0
+		gtype = "?"
 	p.add_code("symbol", f"{gtype}.{stype}")
 
 def parse_unclear(p, node):
