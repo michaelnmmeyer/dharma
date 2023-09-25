@@ -67,12 +67,14 @@ head = """
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital@0;1&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="ins-common.css">
 	<link rel="stylesheet" href="ins-phys.css" id="ins-display">
 	<script type="text/javascript" src="ins.js"></script>
 </head>
 </body>
 
-<button id="phys-btn">Click me</button>
+<button id="phys-btn">Physical</button>
+<button id="log-btn">Logical</button>
 """
 tail = """
 </body>

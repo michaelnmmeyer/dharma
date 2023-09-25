@@ -324,7 +324,10 @@ def parse_lb(p, elem):
 		align = "left"
 	if brk == "no":
 		p.top.add_hyphen()
-	p.add_html('<span class="dh-lb" data-num="%s" title="Line break"></span>' % html.escape(n))
+		klass = "dh-lb-cont"
+	else:
+		klass = "dh-lb"
+	p.add_html('<span class="%s" data-num="%s" title="Line break"></span>' % (klass, html.escape(n)))
 
 def parse_fw(p, fw):
 	n = fw["n"]
@@ -442,7 +445,7 @@ hi_table = {
 	"subscript": "sub",
 	"large": "big",
 	"check": "mark",
-	"grantha": 'span class="grantha"',
+	"grantha": 'span class="dh-grantha" title="Grantha text"',
 }
 def parse_hi(p, hi):
 	rend = hi["rend"]

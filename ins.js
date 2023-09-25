@@ -1,14 +1,9 @@
-function changeDisplay(stylesheet) {
-	link = document.querySelector("#ins-display")
-	if (link["ref"] == "") {
-		link["href"] = stylesheet
-	} else {
-		link["href"] = ""
-	}
-}
 function init() {
-	document.querySelector("#phys-btn").onclick = function() {
-		changeDisplay("ins-phys.css")
+	document.querySelector("#phys-btn").onclick = function(node) {
+		document.querySelector("#ins-display")["href"] = "ins-phys.css"
+	}
+	document.querySelector("#log-btn").onclick = function(node) {
+		document.querySelector("#ins-display")["href"] = "ins-log.css"
 	}
 }
 

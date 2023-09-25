@@ -128,8 +128,11 @@ class Instruction(Node, dict):
 		root = tree.getroot()
 		self.update(root.attrib)
 
-	def __repr__(self):
+	def __str__(self):
 		return "<?%s %s?>" % (self.target, self.data)
+
+	def __repr__(self):
+		return str(self)
 
 	def __hash__(self):
 		return id(self)
@@ -372,7 +375,7 @@ class Tag(Branch):
 
 	def __repr__(self):
 		ret = "<%s" % self.name
-		for k, v in sorted(self.attrs.items()):
+		for k, v in self.attrs.items():
 			if isinstance(v, tuple):
 				v = "-".join(v)
 			ret += ' %s="%s"' % (k, quote_attribute(v))
