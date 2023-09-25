@@ -196,6 +196,9 @@ class Comment(String):
 	def __repr__(self):
 		return self.xml()
 
+	def __str__(self):
+		return self.xml()
+
 	def xml(self):
 		return "<!-- %s -->" % quote_string(self.data)
 

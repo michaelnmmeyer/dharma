@@ -5,7 +5,7 @@ This does the following:
 
 * Drop the initial BOM, if any
 * Remove spurious whitespace at the end of each line (this breaks markdown code
-  that uses trailing spaces instead of <br/>, but this convention is stupid
+  that uses trailing spaces instead of <br>, but this convention is stupid
   anyway so we don't care).
 * Use the same newline character throughout
 * Drop empty lines at the beginning of the file and at its end

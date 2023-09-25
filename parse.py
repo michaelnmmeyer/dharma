@@ -135,17 +135,10 @@ class Block:
 		self.code.append(rec)
 		write_debug(t, data, **params)
 
-	def drop_spaces(self):
+	def add_hyphen(self):
+		self.space = "drop"
 		if self.text:
-			self.text = self.text.rstrip()
-			return
-		i = len(self.code)
-		while i > 0:
-			i -= 1
-			t = self.code[i]
-			if t[0] == "text":
-				self.code[i] = (t[0], t[1].rstrip(), t[2])
-				break
+			self.add_html('<span class="dh-hyphen-break">-</span>')
 
 	def finish(self):
 		assert self.text == ""
@@ -196,6 +189,8 @@ class Document:
 	summary = None
 
 	edition = None
+	# we can have several translations e.g. DHARMA_INSPallava00002
+	translation = None
 
 	def __init__(self):
 		self.langs = []
@@ -215,6 +210,10 @@ class Parser:
 		self.document.ident = os.path.basename(os.path.splitext(tree.path)[0])
 		self.blocks = [Block()]
 		self.handlers = handlers
+
+	@property
+	def top(self):
+		return self.blocks[-1]
 
 	def push(self, name):
 		b = Block(name)
@@ -239,9 +238,6 @@ class Parser:
 	def start_span(self):
 		return self.blocks[-1].start_span()
 
-	def drop_spaces(self):
-		return self.blocks[-1].drop_spaces()
-
 	def dispatch(self, node):
 		if node.type in ("comment", "instruction"):
 			return
@@ -262,7 +258,7 @@ class Parser:
 			self.dispatch(child)
 
 	def complain(self, msg):
-		print("? %s" % msg, file=sys.stderr)
+		print("? %s" % msg)
 		pass
 
 # Like the eponymous function in xslt
@@ -282,21 +278,21 @@ def parse_num(p, num):
 	# for now we don't deal with @value, @atLeast and @atMost
 	p.dispatch_children(num)
 
-supplied_format = {
-	"subaudible": "[]",
-	"omitted": "⟨⟩",
-	"explanation": "()",
+supplied_tooltips = {
+	"subaudible": "",
+	"omitted": "",
+	"explanation": "",
 	"supplied": "",
-	"lost": "[]",
-	"undefined": "[]",
+	"lost": "",
+	"undefined": "",
 }
 def parse_supplied(p, supplied):
 	reason = supplied["reason"]
-	format = supplied_format.get(reason)
-	if format:
-		p.add_html(format[0])
+	ok = supplied_tooltips.get(reason)
+	if ok is not None:
+		p.add_html('<span class="dh-%s" title="%s">' % (reason, reason.title() + " text"))
 		p.dispatch_children(supplied)
-		p.add_html(format[1])
+		p.add_html('</span>')
 	else:
 		p.dispatch_children(supplied)
 
@@ -326,38 +322,72 @@ def parse_lb(p, elem):
 		align = m.group(1)
 	else:
 		align = "left"
-	if brk == "yes":
-		p.add_html("<br/><b>(%s)</b>&nbsp;" % html.escape(n))
-	else:
-		p.drop_spaces() # XXX cont here, not working
-		p.add_html("-<br/><b>(%s)</b>" % html.escape(n))
+	if brk == "no":
+		p.top.add_hyphen()
+	p.add_html('<span class="dh-lb" data-num="%s" title="Line break"></span>' % html.escape(n))
 
 def parse_fw(p, fw):
 	n = fw["n"]
 	if not n:
 		n = "?"
-	p.add_html('<span class="dh-plate-break">⎘ plate %s</span>)' % html.escape(n))
 	# the contents doesn't seem useful
 
 def parse_pb(p, elem):
 	n = elem["n"]
-	# ignore for now, incomplete
-	return
+	if not n:
+		n = "?"
+	brk = elem["break"]
+	if brk not in ("yes", "no"):
+		brk = "yes"
+	if brk == "no":
+		p.top.add_hyphen()
+	p.add_html('<span class="dh-pb" data-num="%s" title="Page break"></span>' % html.escape(n))
 	p.add_code("phys:page", n)
-	p.space = "drop"
+
+def parse_sic(p, sic):
+	p.add_html('<span class="dh-sic" title="Incorrect text">')
+	p.dispatch_children(sic)
+	p.add_html('</span>')
+
+def parse_corr(p, corr):
+	p.add_html('<span class="dh-corr" title="Corrected text">')
+	p.dispatch_children(corr)
+	p.add_html('</span>')
+
+def parse_orig(p, orig):
+	p.add_html('<span class="dh-orig" title="Non-standard text">')
+	p.dispatch_children(orig)
+	p.add_html('</span>')
+
+def parse_reg(p, reg):
+	p.add_html('<span class="dh-reg" title="Standardised text">')
+	p.dispatch_children(reg)
+	p.add_html('</span>')
 
 def parse_choice(p, node):
+	children = node.children()
+	if len(children) != 2:
+		print("!!!!", node.xml()) # XXX deal with all possible cases
+		# need to choose only one possibility for search (and for simplified display)
+		return
 	p.dispatch_children(node)
 
+def parse_space(p, space):
+	p.add_html("_")
+	assert not space.children()
+
 def parse_abbr(p, node):
-	p.add_html('<span class="dh-abbr">')
+	p.add_html('<span class="dh-abbr" title="Abbreviated text">')
 	p.dispatch_children(node)
 	p.add_html('</span>')
 
-def parse_ex(p, node):
-	p.add_html("(")
+def parse_ab(p, node):
 	p.dispatch_children(node)
-	p.add_html(")")
+
+def parse_ex(p, node):
+	p.add_html('<span class="dh-abbr-expansion" title="Abbreviation expansion">')
+	p.dispatch_children(node)
+	p.add_html("</span>")
 
 def parse_expan(p, node):
 	p.dispatch_children(node)
@@ -386,16 +416,17 @@ def parse_g(p, node):
 	p.add_code("symbol", f"{gtype}.{stype}")
 
 def parse_unclear(p, node):
-	p.add_html("(")
-	p.dispatch_children(node)
 	if node["cert"] == "low":
-		p.add_html("?")
-	p.add_html(")")
+		p.add_html('<span class="dh-unclear-cert-low" title="Unclear">')
+	else:
+		p.add_html('<span class="dh-unclear" title="Unclear">')
+	p.dispatch_children(node)
+	p.add_html('</span>')
 
 def parse_surplus(p, node):
-	p.add_html("{")
+	p.add_html('<span class="dh-surplus">')
 	p.dispatch_children(node)
-	p.add_html("}")
+	p.add_html('</span>')
 
 def parse_p(p, para):
 	p.add_code("log:para<")
