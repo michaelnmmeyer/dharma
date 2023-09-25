@@ -92,6 +92,7 @@ def process_file(path):
 	p.dispatch(p.tree.root)
 	with open("out.htm", "w") as f:
 		f.write(head)
+		f.write('<div class="dh-ed">')
 		for section in p.document.edition:
 			if section.heading:
 				f.write('<h3 class="dh-ed-heading">')
@@ -102,6 +103,7 @@ def process_file(path):
 			r = section.contents.render()
 			f.write(r)
 			f.write('</div>')
+		f.write('</div>')
 		f.write(tail)
 
 if __name__ == "__main__":
