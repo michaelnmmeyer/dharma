@@ -176,7 +176,6 @@ def handle_github():
 	js = bottle.request.json
 	doc = json.dumps(js, ensure_ascii=False, separators=(",", ":"))
 	GIT_DB.execute("insert into logs values(strftime('%s', 'now'), ?)", (doc,))
-	GIT_DB.commit()
 	if all(is_robot(commit["author"]["email"]) for commit in js["commits"]):
 		return
 	repo = js["repository"]["name"]
