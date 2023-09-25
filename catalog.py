@@ -1,4 +1,4 @@
-import os, unicodedata
+import os
 from dharma import tree, parse, texts, config
 
 SCHEMA = """

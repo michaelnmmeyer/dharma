@@ -6,7 +6,7 @@
 # proper primary key? Yes, use:
 # https://api.zotero.org/groups/1633743/items/ZZH5G8PB?format=tei
 
-import os, json, unicodedata, html, re, time
+import json, unicodedata, html, re, time
 import warnings
 from collections import OrderedDict
 import requests
@@ -75,6 +75,7 @@ def zotero_items(max_version, ret):
 		r = s.get(next.group(1))
 	ret.append(latest_version)
 
+@conn.transaction
 def update():
 	conn.execute("begin immediate")
 	(max_version,) = conn.execute("select value from meta where key = 'latest_version'").fetchone()
@@ -98,7 +99,7 @@ valid_tags = {
 
 ident_like = {"shortTitle", "tags", "key", "url", "links"}
 
-def all_string_values(obj, ignore=set()):
+def all_string_values(obj, ignore):
 	if isinstance(obj, str):
 		yield obj
 	elif isinstance(obj, int):
@@ -139,7 +140,7 @@ def check_entries():
 	warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 	for (entry,) in conn.execute("select json from bibliography"):
 		entry = json.loads(entry)
-		for val in all_string_values(entry):
+		for val in all_string_values(entry, ignore=set()):
 			then = val
 			val = unicodedata.normalize("NFC", val)
 			if val != then:

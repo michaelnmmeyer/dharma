@@ -161,17 +161,14 @@ def update_db(conn, name):
 		conn.execute("""insert into validation(name, repo, code_hash, valid, errors, when_validated)
 			values(?, ?, ?, ?, ?, strftime('%s', 'now'))""", (file_id, name, config.CODE_HASH, valid, errors))
 
+@TEXTS_DB.transaction
 def handle_changes(name):
 	conn = TEXTS_DB
 	conn.execute("begin immediate")
-	try:
-		update_repo(name)
-		update_db(conn, name)
-		conn.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
-		conn.execute("commit")
-	except Exception as e:
-		conn.execute("rollback")
-		raise
+	update_repo(name)
+	update_db(conn, name)
+	conn.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
+	conn.execute("commit")
 
 def clone_all():
 	for name in REPOS:
