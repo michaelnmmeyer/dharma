@@ -101,8 +101,7 @@ create table if not exists owners(
 commit;
 """
 
-TEXTS_DB = config.open_db("texts")
-TEXTS_DB.executescript(SCHEMA)
+TEXTS_DB = config.open_db("texts", SCHEMA)
 
 def update_repo(name):
 	return command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)

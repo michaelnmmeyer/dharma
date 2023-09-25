@@ -31,9 +31,7 @@ create table if not exists bibliography(
 );
 commit;
 """
-
-conn = config.open_db("biblio")
-conn.executescript(SCHEMA)
+conn = config.open_db("biblio", SCHEMA)
 
 def sort_value(val):
 	if not isinstance(val, dict):

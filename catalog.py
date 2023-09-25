@@ -1,8 +1,7 @@
 import os, unicodedata
 from dharma import tree, parse, texts, config
 
-CATALOG_DB = config.open_db("catalog")
-CATALOG_DB.executescript("""
+SCHEMA = """
 begin;
 create table if not exists metadata(
 	key text primary key,
@@ -30,7 +29,9 @@ create virtual table if not exists documents_index using fts5(
 	tokenize="trigram"
 );
 commit;
-""")
+"""
+
+CATALOG_DB = config.open_db("catalog", SCHEMA)
 CATALOG_DB.execute("attach database ? as texts", (config.db_path("texts"),))
 
 LANGS_DB = config.open_db("langs")
@@ -182,22 +183,24 @@ def parse_query(q):
 			i += 1
 	return AND(clauses)
 
-def patch_languages(q):
+def patch_languages(db, q):
 	for clause in q.clauses:
 		if clause.field != "lang":
 			continue
 		text = clause.query
 		assert isinstance(text, str)
 		if len(text) <= 3:
-			(text,) = LANGS_DB.execute("select ifnull((select id from by_code where code = ?), '')", (text,)).fetchone()
+			(text,) = db.execute("select ifnull((select id from by_code where code = ?), '')", (text,)).fetchone()
 			clause.query = text
 			continue
-		langs = [Query(lang) for (lang,) in LANGS_DB.execute("select id from by_name where name match ?", (text,))]
+		langs = [Query(lang) for (lang,) in db.execute("select id from by_name where name match ?", (text,))]
 		if langs:
 			clause.query = OR(langs)
 		else:
 			clause.query = "" # prevent matching
 
+@LANGS_DB.transaction
+@CATALOG_DB.transaction
 def search(q, s):
 	sql = """
 		select documents.name, documents.repo, documents.title,
@@ -209,8 +212,10 @@ def search(q, s):
 	q = " ".join(parse.normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
 	if q:
 		q = parse_query(q)
-		with LANGS_DB:
-			patch_languages(q)
+		db = LANGS_DB
+		db.execute("begin")
+		patch_languages(db, q)
+		db.execute("commit")
 		q = (str(q),)
 		sql += "where documents_index match ?"
 	else:
@@ -222,7 +227,7 @@ def search(q, s):
 	else:
 		s = "title"
 	sql += " order by collate_title(documents.%s)" % s
-	db = CATALOG_DB.cursor()
+	db = CATALOG_DB
 	db.execute("begin")
 	ret = db.execute(sql, q).fetchall()
 	(last_updated,) = db.execute("""
@@ -231,8 +236,9 @@ def search(q, s):
 	db.execute("commit")
 	return ret, last_updated
 
+@CATALOG_DB.transaction
 def make_db():
-	db = CATALOG_DB.cursor()
+	db = CATALOG_DB
 	db.execute("begin")
 	db.execute("delete from documents")
 	db.execute("delete from documents_index")
@@ -245,7 +251,6 @@ def make_db():
 	db.execute("insert or replace into metadata values('last_updated', strftime('%s', 'now'))")
 	db.execute("commit")
 	db.execute("vacuum")
-	db.close()
 
 if __name__ == "__main__":
 	make_db()

@@ -4,15 +4,16 @@ import os, json, sys, unicodedata
 from datetime import datetime
 from dharma import config, bottle, change, persons, ngrams, catalog
 
-GIT_DB = config.open_db("github-log")
-GIT_DB.executescript("""
+SCHEMA = """
 begin;
 create table if not exists logs(
 	date integer,
 	data text
 );
 commit;
-""")
+"""
+GIT_DB = config.open_db("github-log", SCHEMA)
+
 TEXTS_DB = config.open_db("texts")
 NGRAMS_DB = config.open_db("ngrams")
 CATALOG_DB = config.open_db("catalog")
@@ -46,6 +47,7 @@ def show_commit_log():
 	return bottle.template("commit-log.tpl", commits=commits)
 
 @bottle.get("/texts")
+@TEXTS_DB.transaction
 def show_texts():
 	conn = TEXTS_DB
 	conn.execute("begin")
@@ -112,22 +114,24 @@ def show_parallels_details(text, category):
 	return bottle.template("parallels_details.tpl", file=text, category=category, data=rows)
 
 @bottle.get("/parallels/texts/<text>/<category>/<id:int>")
+@NGRAMS_DB.transaction
 def show_parallels_full(text, category, id):
 	type = parallels_types[category]
 	db = NGRAMS_DB
-	with db:
-		ret = db.execute("""
-			select number, contents from passages where type = ? and id = ?
-			""", (type, id)).fetchone()
-		if not ret:
-			bottle.abort(404, "Not found")
-		number, contents = ret
-		rows = db.execute("""
-			select file, number, contents, id2, coeff
-			from passages join jaccard on passages.id = jaccard.id2
-			where jaccard.type = ? and jaccard.id = ?
-			order by coeff desc
-		""", (type, id)).fetchall()
+	db.execute("begin")
+	ret = db.execute("""
+		select number, contents from passages where type = ? and id = ?
+		""", (type, id)).fetchone()
+	if not ret:
+		bottle.abort(404, "Not found")
+	number, contents = ret
+	rows = db.execute("""
+		select file, number, contents, id2, coeff
+		from passages join jaccard on passages.id = jaccard.id2
+		where jaccard.type = ? and jaccard.id = ?
+		order by coeff desc
+	""", (type, id)).fetchall()
+	db.execute("commit")
 	return bottle.template("parallels_enum.tpl", category=category, file=text,
 		number=number, data=rows, contents=contents)
 

@@ -45,8 +45,7 @@ create table if not exists jaccard(
 commit;
 """
 
-NGRAMS_DB = config.open_db("ngrams")
-NGRAMS_DB.executescript(SCHEMA)
+NGRAMS_DB = config.open_db("ngrams", SCHEMA)
 
 translit_tbl = [
 	("r\N{COMBINING RING BELOW}", "ṛ"),
@@ -208,8 +207,9 @@ def make_jaccard(type, db):
 				continue
 			db.execute("insert into jaccard values(?, ?, ?, ?)", (type, id1, id2, jaccard))
 
+@NGRAMS_DB.transaction
 def make_database():
-	db = NGRAMS_DB.cursor()
+	db = NGRAMS_DB
 	db.execute("begin")
 	for tbl in ("jaccard", "passages", "sources"):
 		db.execute(f"delete from {tbl}")
@@ -234,7 +234,6 @@ def make_database():
 	db.execute("insert or replace into metadata values('last_updated', strftime('%s', 'now'))")
 	db.execute("commit")
 	db.execute("vacuum")
-	db.close()
 
 def search(src_text, category):
 	if category == "verse":

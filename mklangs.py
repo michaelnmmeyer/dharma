@@ -48,9 +48,7 @@ def normalize_name(s):
 	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
 	return unicodedata.normalize("NFC", s.strip())
 
-db = config.open_db("langs")
-
-db.executescript("""
+SCHEMA = """
 begin;
 create table if not exists list(
 	id text primary key check(length(id) = 3),
@@ -68,23 +66,22 @@ create virtual table if not exists by_name using fts5(
 	tokenize = "trigram"
 );
 commit;
-""")
+"""
 
-db.execute("begin")
+db = config.open_db("langs", SCHEMA)
 
-db.execute("delete from by_code")
-db.execute("delete from by_name")
-db.execute("delete from list")
-
-coll = icu.Collator.createInstance()
-for rec in recs:
-	rec["sort_key"] = coll.getSortKey(rec["name"])
-	db.execute("insert into list(id, name, iso, sort_key) values(:id, :name, :iso, :sort_key)", rec)
-	db.execute("insert into by_name(id, name) values(?, ?)", (rec["id"], normalize_name(rec["name"])))
-for code, rec in sorted(index.items()):
-	db.execute("insert into by_code(code, id) values(?, ?)", (code, rec["id"]))
-
-db.execute("commit")
-db.execute("vacuum")
-
-db.close()
+@db.transaction
+def make_db():
+	db.execute("begin")
+	db.execute("delete from by_code")
+	db.execute("delete from by_name")
+	db.execute("delete from list")
+	coll = icu.Collator.createInstance()
+	for rec in recs:
+		rec["sort_key"] = coll.getSortKey(rec["name"])
+		db.execute("insert into list(id, name, iso, sort_key) values(:id, :name, :iso, :sort_key)", rec)
+		db.execute("insert into by_name(id, name) values(?, ?)", (rec["id"], normalize_name(rec["name"])))
+	for code, rec in sorted(index.items()):
+		db.execute("insert into by_code(code, id) values(?, ?)", (code, rec["id"]))
+	db.execute("commit")
+	db.execute("vacuum")

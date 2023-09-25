@@ -1,9 +1,4 @@
-Figure out a not-error-prone way to end transactions automatically when an exc
-is raised. decorator like @transaction? not sure we should begin/end
-transactions implicitly, might be error-prone, but doing a rollback if an
-exception is raised and if conn.in_transaction is True is definitely best.
-
-make sure we handle concurrent access correctly
+make sure we handle concurrent db access correctly
 
 -----------------------
 

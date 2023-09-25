@@ -36,7 +36,39 @@ def format_date(obj):
 
 DBS = {}
 
-def open_db(name):
+# The point of this wrapper is to make sure we don't use functions that might
+# mess with transactions and use the same logic everywhere e.g.
+# db.execute("commit") instead of the (redundant) db.commit().
+class DB:
+
+	def __init__(self, conn):
+		self._conn = conn
+
+	def execute(self, *args, **kwargs):
+		return self._conn.execute(*args, **kwargs)
+
+	def create_function(self, *args, **kwargs):
+		return self._conn.create_function(*args, **kwargs)
+
+	# We don't begin/commit transactions implicitly, might be error-prone
+	# and not clear enough. OTOH, we rollback transactions when an
+	# exception happens and isn't catched, and we make sure that no
+	# transaction is opened when the wrapped function is called and when it
+	# returns.
+	def transaction(self, f):
+		def wrapper(*args, **kwargs):
+			assert not self._conn.in_transaction
+			try:
+				ret = f(*args, **kwargs)
+			except Exception:
+				if self._conn.in_transaction:
+					self.execute("rollback")
+				raise
+			assert not self._conn.in_transaction
+			return ret
+		return wrapper
+
+def open_db(name, schema=None):
 	if name == ":memory:":
 		path = name
 	else:
@@ -44,16 +76,21 @@ def open_db(name):
 		if conn:
 			return conn
 		path = db_path(name)
-	# The python sqlite3 module messes with sqlite's transaction mechanism. This is error-prone,
-	# we don't want that, thus we set isolation_level=None. Likewise, db.executescript() is
-	# a mess, we only use it for initialization code.
+	# The python sqlite3 module messes with sqlite's transaction mechanism.
+	# This is error-prone, we don't want that, thus we set
+	# isolation_level=None. Likewise, db.executescript() is a mess, we only
+	# use it for initialization code.
 	# https://docs.python.org/3/library/sqlite3.html#transaction-control
 	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES, isolation_level=None)
 	conn.row_factory = sqlite3.Row
 	conn.executescript(common_schema)
 	conn.create_function("format_date", 1, format_date, deterministic=True)
-	DBS[name] = conn
-	return conn
+	if schema:
+		conn.executescript(schema)
+	assert not conn.in_transaction
+	db = DB(conn)
+	DBS[name] = db
+	return db
 
 DUMMY_DB = open_db(":memory:")
 
