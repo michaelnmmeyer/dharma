@@ -139,8 +139,9 @@ def update_db(conn, name):
 		xml_paths = {os.path.basename(os.path.splitext(xml_name)[0]): xml_name for xml_name in state}
 		paths = texts.gather_web_pages(xml_paths)
 		repo_dir = os.path.join(config.REPOS_DIR, name)
-		conn.execute("delete from owners where repo = ?", (name,))
+		conn.execute("delete from validation where repo = ?", (name,))
 		conn.execute("delete from texts where repo = ?", (name,))
+		conn.execute("delete from owners where repo = ?", (name,))
 		for xml_name, html_path in sorted(paths.items()):
 			xml_path = os.path.relpath(xml_paths[xml_name], repo_dir)
 			if html_path:
@@ -153,7 +154,8 @@ def update_db(conn, name):
 			for author_id in texts.owners_of(os.path.join(repo_dir, xml_path)):
 				conn.execute("insert into owners(author_id, repo, xml_path) values(?, ?, ?)",
 					(author_id, name, xml_path))
-	conn.execute("delete from validation where repo = ?", (name,))
+	else:
+		conn.execute("delete from validation where repo = ?", (name,))
 	for text, errors in sorted(state.items()):
 		valid = not errors["schema"] and not errors["unicode"]
 		errors = json.dumps(errors)
