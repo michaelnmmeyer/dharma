@@ -14,6 +14,5 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in inscriptions:
 	xml = tree.parse(file)
-	for t in xml.find("//choice"):
-		names = [x.name for x in t.descendants() if x.name not in ("hi", "g", "lb", "num", "supplied", "seg")]
-		print(*names)
+	for t in xml.find("//fw"):
+		if t["place"]: print(t["place"])

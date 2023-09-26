@@ -330,11 +330,15 @@ def parse_lb(p, elem):
 	p.add_html('<span class="%s" data-num="%s" title="Line break"></span>' % (klass, html.escape(n)))
 
 def parse_fw(p, fw):
-	n = fw["n"]
-	if not n:
-		n = "?"
-	# the contents doesn't seem useful
+	return # we deal with it within <pb>
 
+places_arrows = {
+	"": "",
+	"left": "\N{LEFTWARDS ARROW}",
+	"marginleft": "\N{LEFTWARDS ARROW}\N{LEFTWARDS ARROW}",
+	"right": "\N{RIGHTWARDS ARROW}",
+	"top-right": "\N{NORTH EAST ARROW}",
+}
 def parse_pb(p, elem):
 	n = elem["n"]
 	if not n:
@@ -344,7 +348,16 @@ def parse_pb(p, elem):
 		brk = "yes"
 	if brk == "no":
 		p.top.add_hyphen()
-	p.add_html('<span class="dh-pb" data-num="%s" title="Page break"></span>' % html.escape(n))
+	fw = elem.next
+	if fw and fw.name == "fw":
+		place = places_arrows.get(fw["place"], "?")
+	else:
+		place = ""
+	p.add_html('<span class="dh-pb" data-num="%s" title="Page break">' % html.escape(n))
+	if place:
+		p.add_html("%s " % html.escape(place))
+		p.dispatch_children(fw)
+	p.add_html('</span>')
 	p.add_code("phys:page", n)
 
 def parse_sic(p, sic):
