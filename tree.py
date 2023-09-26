@@ -75,18 +75,22 @@ class Node(object):
 		parent = self.parent
 		if parent is None:
 			return
-		i = parent.index(self)
-		if i < len(parent) - 1:
-			return parent[i + 1]
+		i = parent.index(self) + 1
+		while i < len(parent):
+			if parent[i].type == "tag":
+				return parent[i]
+			i += 1
 
 	@property
 	def prev(self):
 		parent = self.parent
 		if parent is None:
 			return
-		i = parent.index(self)
-		if i > 0:
-			return parent[i - 1]
+		i = parent.index(self) - 1
+		while i >= 0:
+			if parent[i].type == "tag":
+				return parent[i]
+			i -= 1
 
 	def delete(self):
 		parent = self.parent
