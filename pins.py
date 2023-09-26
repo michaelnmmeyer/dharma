@@ -32,7 +32,6 @@ def parse_body(p, body):
 				if child.type == "tag" and child.name == "div":
 					if section:
 						section.contents = p.pop()
-						print("!!pop")
 						p.document.edition.append(section)
 						section = None
 					p.dispatch(child)
@@ -56,30 +55,6 @@ def update_handlers_map(m):
 
 HANDLERS = parse.HANDLERS.copy()
 update_handlers_map(HANDLERS)
-
-head = """
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>foo</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital@0;1&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="ins-common.css">
-	<link rel="stylesheet" href="ins-phys.css" id="ins-display">
-	<script type="text/javascript" src="ins.js"></script>
-</head>
-</body>
-
-<button id="phys-btn">Physical</button>
-<button id="log-btn">Logical</button>
-"""
-tail = """
-</body>
-</html>
-"""
 
 def process_file(path):
 	t = tree.parse(path)
