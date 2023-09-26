@@ -53,8 +53,7 @@ share a single one. We (arbitrarily) assume that pairs of passages for which
 href="https://github.com/michaelnmmeyer/dharma/blob/master/ngrams.py">here</a>
 for details.</p>
 
-</div>
-
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -81,3 +80,6 @@ for details.</p>
 % end
 </tbody>
 </table>
+</div>
+
+</div>

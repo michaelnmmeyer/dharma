@@ -54,6 +54,7 @@ so that I update the code.
 <div class="body">
 <h2>Schema Validation Issues</h2>
 </div>
+
 <table>
 <thead>
 <tr>

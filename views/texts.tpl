@@ -2,7 +2,7 @@
 
 <div class="body">
 <h1>Texts</h1>
-<div>
+
 <p>Texts database last updated {{last_updated}}.</p>
 
 <form action="/texts" method="get">
@@ -23,9 +23,10 @@
 </select>
 <input type="submit" value="Reload">
 </form>
-</div>
+
 </div>
 
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -65,3 +66,4 @@
 % end
 </tbody>
 </table>
+</div>

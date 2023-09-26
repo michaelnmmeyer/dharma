@@ -14,7 +14,6 @@
 </head>
 <body>
    <div class="whole">
-   <div class="body">
    <menu>
       <li><a href="/">Home</a></li>
       <li><a href="/commit-log">Commits</a></li>
@@ -23,7 +22,6 @@
       <li><a href="/parallels">Parallels</a></li>
       <li><a href="/display">🚧 Display</a></li>
    </menu>
-   </div>
    {{!base}}
    </div>
 </body>

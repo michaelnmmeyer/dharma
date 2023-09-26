@@ -2,25 +2,26 @@
 
 /* Global stuff */
 body {
-	margin: 1rem;
 	font-family: 'Noto Serif', 'Noto Serif Grantha', serif;
-	text-align: justify;
-	line-height: 1.4em;
+	/* line-height: 1.4em; need to be more specific! */
 	hyphens: auto;
+
+	padding: 0;
+	margin: 0;
+}
+p {
+	text-align: justify;
+}
+h1, h2, h3, h4, h5 {
+	line-height: 1.4em;
 }
 .body {
 	max-width: 40em;
 	margin: 1em auto;
 }
-h1 {
-	line-height: 1.4em;
-}
-.whole {
-	max-width: max-content;
-	margin: auto;
-}
 table {
 	border-collapse: collapse;
+	margin: 0 auto;
 }
 td, th {
 	padding: 0.4em;
@@ -36,13 +37,46 @@ select {
 	font-family: inherit;
 	font-size: inherit;
 }
+
+div.whole {
+}
+div.table-container {
+	/*overflow-x: auto;*/
+}
+
+
+
 menu {
-	padding: 0;
 	display: flex;
-	gap: 2rem;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0.7em;
+	padding-bottom: 0.7em;
+	background-color: black;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 0;
+	margin-bottom: 0;
 	list-style: none;
 	font-size: larger;
+
+
+	@media(max-width: 30em) {
+		flex-direction: column;
+	}
+
 }
+menu a {
+	color: white;
+}
+menu a:hover {
+	background-color: gray;
+}
+
 a {
 	text-decoration: none;
 }
