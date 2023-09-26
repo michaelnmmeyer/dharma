@@ -192,6 +192,8 @@ class Document:
 	# we can have several translations e.g. DHARMA_INSPallava00002
 	translation = None
 
+	xml = ""
+
 	def __init__(self):
 		self.langs = []
 		self.edition = []

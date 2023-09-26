@@ -9,6 +9,7 @@
 
 <button id="phys-btn">Physical</button>
 <button id="log-btn">Logical</button>
+<button id="xml-btn">XML</button>
 
 <div class="dh-ed">
 
@@ -24,4 +25,10 @@
 
 % end
 
+</div>
+
+<div class="dh-xml">
+<pre>
+{{doc.xml}}
+</pre>
 </div>

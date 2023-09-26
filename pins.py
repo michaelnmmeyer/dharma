@@ -67,6 +67,7 @@ def process_file(path):
 	t.first("//publicationStmt").delete()
 	p = parse.Parser(t, HANDLERS)
 	p.dispatch(p.tree.root)
+	p.document.xml = t.first("//text").xml()
 	return p.document
 
 if __name__ == "__main__":
