@@ -187,6 +187,10 @@ def display_text(text):
 	doc = pins.process_file(where)
 	return bottle.template("display_ins.tpl", doc=doc, text=text)
 
+@bottle.get("/test")
+def test():
+	return bottle.template("test.tpl")
+
 @bottle.get("/parallels/verses")
 def redirect_parallels():
 	bottle.redirect("/parallels")
