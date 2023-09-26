@@ -92,21 +92,7 @@ def process_file(path):
 	t.first("//publicationStmt").delete()
 	p = parse.Parser(t, HANDLERS)
 	p.dispatch(p.tree.root)
-	with open("out.htm", "w") as f:
-		f.write(head)
-		f.write('<div class="dh-ed">')
-		for section in p.document.edition:
-			if section.heading:
-				f.write('<h3 class="dh-ed-heading">')
-				r = section.heading.render()
-				f.write(r)
-				f.write('</h3>')
-			f.write('<div class="dh-ed-section">')
-			r = section.contents.render()
-			f.write(r)
-			f.write('</div>')
-		f.write('</div>')
-		f.write(tail)
+	return p.document
 
 if __name__ == "__main__":
 	if len(sys.argv) > 1:

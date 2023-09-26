@@ -92,10 +92,13 @@ def show_text(repo, hash, name):
 	bottle.redirect(url)
 
 @bottle.get("/parallels")
+@NGRAMS_DB.transaction
 def show_parallels():
+	NGRAMS_DB.execute("begin")
 	(date,) = NGRAMS_DB.execute("""select format_date(value)
 		from metadata where key = 'last_updated'""").fetchone()
 	rows = NGRAMS_DB.execute("select * from sources where verses + hemistiches + padas > 0")
+	NGRAMS_DB.execute("commit")
 	return bottle.template("parallels.tpl", data=rows, last_updated=date)
 
 parallels_types = {
@@ -166,6 +169,23 @@ def search_parallels():
 	return bottle.template("parallels_search.tpl",
 		data=ret, text=formatted_text,
 		category=type + (type == "hemistich" and "es" or "s"))
+
+@bottle.get("/display")
+def display_home():
+	texts = sorted(os.path.splitext(os.path.basename(f))[0]
+		for f in os.listdir(os.path.join(config.THIS_DIR, "texts"))
+		if "DHARMA_INS" in f)
+	return bottle.template("display.tpl", texts=texts)
+
+@bottle.get("/display/<text>")
+def display_text(text):
+	import pins
+	where = os.path.join(config.THIS_DIR, "texts", text + ".xml")
+	if os.path.abspath(where) != where:
+		print(where)
+		bottle.abort(404, "Fishy request")
+	doc = pins.process_file(where)
+	return bottle.template("display_ins.tpl", doc=doc, text=text)
 
 @bottle.get("/parallels/verses")
 def redirect_parallels():
