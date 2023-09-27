@@ -15,7 +15,7 @@ assert len(inscriptions) + len(diplomatic) \
 for file in inscriptions:
 	xml = tree.parse(file)
 	for t in xml.find("//gap"):
-		r = t["unit"]
-		if r not in "lost illegible undefined ellipsis omitted".split():
-			print(r)
+		if t["unit"] == "component" and not t.parent.name == "seg":
+			print(t.parent.xml())
+			print("---")
 

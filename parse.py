@@ -427,7 +427,7 @@ def numberize(t, n):
 	if t not in ("character", "component", "line", "page"):
 		raise Exception("unknown term %r" % t)
 	if n == 1:
-		return t 
+		return t
 	return t + "s"
 
 """
@@ -443,6 +443,16 @@ Legit values for @unit
    1208 component
     263 line
      11 page
+
+each <gap unit="component"> is supposed to always be wrapped in a <seg
+type="component" subtype=...>. See §"Lacunae below the akṣara level" and
+§"Tagging parts of alphabetic characters". We don't have that in practice: 105
+cases where parent is not <seg>. (but a <seg type="component"> doesn't
+necessarily hold a <gap>.)
+
+
+
+<seg type="component" subtype="body"><gap reason="lost" quantity="1" unit="component"/></seg>
 """
 # "component" is for vowel markers, etc.; "character" is for akṣaras
 def parse_gap(p, gap):
@@ -457,7 +467,7 @@ def parse_gap(p, gap):
 		return
 	if reason == "undefined":
 		reason = "lost or illegible"
-	assert extent == "unknown" or quantity
+	assert extent == "unknown" or quantity and quantity.isdigit()
 	assert not precision or precision == "low"
 	if unit == "character":
 		if extent == "unknown":
