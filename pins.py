@@ -15,9 +15,9 @@ def parse_div(p, div):
 		p.push("heading")
 		p.dispatch_children(children[0])
 		section.heading = p.pop()
-		i += 1 # XXX beware, don't ignore stuff!
+		i += 1 # XXX beware, this ignores text within this div
 	p.push("contents")
-	for child in children[1:]:
+	for child in children[i:]:
 		p.dispatch_children(child)
 	section.contents = p.pop()
 	p.document.edition.append(section)
@@ -71,5 +71,5 @@ def process_file(path):
 	return p.document
 
 if __name__ == "__main__":
-	if len(sys.argv) > 1:
-		process_file(sys.argv[1])
+	for file in sys.argv[1:]:
+		process_file(file)

@@ -405,13 +405,77 @@ def parse_ab(p, node):
 def parse_ex(p, node):
 	p.add_html('<span class="dh-abbr-expansion" title="Abbreviation expansion">')
 	p.dispatch_children(node)
-	p.add_html("</span>")
+	p.add_html('</span>')
 
 def parse_expan(p, node):
 	p.dispatch_children(node)
 
 def parse_term(p, node):
 	p.dispatch_children(node)
+
+def parse_add(p, node):
+	p.add_html('<span class="dh-add" title="Scribal addition">')
+	p.dispatch_children(node)
+	p.add_html('</span>')
+
+def parse_del(p, node):
+	p.add_html('<span class="dh-del" title="Scribal deletion">')
+	p.dispatch_children(node)
+	p.add_html('</span>')
+
+def numberize(t, n):
+	if t not in ("character", "component", "line", "page"):
+		raise Exception("unknown term %r" % t)
+	if n == 1:
+		return t 
+	return t + "s"
+
+"""
+Legit values for @reason:
+  10755 lost
+   6136 illegible
+   1469 undefined
+    290 ellipsis
+     38 omitted
+
+Legit values for @unit
+  13717 character
+   1208 component
+    263 line
+     11 page
+"""
+# "component" is for vowel markers, etc.; "character" is for akṣaras
+def parse_gap(p, gap):
+	assert not gap.text()
+	reason = gap["reason"]
+	quantity = gap["quantity"]
+	precision = gap["precision"]
+	extent = gap["extent"]
+	unit = gap["unit"]
+	if reason == "ellipsis":
+		p.add_html("\N{horizontal ellipsis}")
+		return
+	if reason == "undefined":
+		reason = "lost or illegible"
+	assert extent == "unknown" or quantity
+	assert not precision or precision == "low"
+	if unit == "character":
+		if extent == "unknown":
+			repl = "[…]"
+			tooltip = "Unknown number of %s %s" % (reason, numberize(unit, +333))
+		else:
+			quantity = int(quantity)
+			repl = "["
+			if precision == "low":
+				repl += "ca. "
+			repl += quantity * "*" + "]"
+			if precision == "low":
+				tooltip = "About %d %s %s" % (quantity, reason, numberize(unit, quantity))
+			else:
+				tooltip = "%d %s %s" % (quantity, reason, numberize(unit, quantity))
+		p.add_html('<span class="dh-gap" title="%s">%s</span>' % (html.escape(tooltip), html.escape(repl)))
+	else:
+		pass # TODO
 
 def parse_g(p, node):
 	# <g type="...">.</g> for punctuation marks

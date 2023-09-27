@@ -1,104 +1,33 @@
+Find a way to merge several tooltips when necessary. And use a data table.
+Should also attach to each generated piece of text the xml node it comes from
+(with lineno), to make it easier to debug stuff.
 
+Can add options to the xml display. Need to have a pretty-print func that
+preserves space and doesn't add unnecessary space.
 
------------------------
+---
 
-Must have a block object that holds both text and formatting instructions for
-given sections of the input file. Whenever possible, we hardcode the block name
-into an object, we try to flatten the structure, and we try to put as much
-stuff as possible into the formatting section (whenever it doesn't need to be
-searched). Maybe for now don't put stuff into the text section, go directly to
-the instructions. Likewise, only introduce separate blocks when we actually
-need to do it or when they don't really fit together. If the structure doesn't
-need to be searchable, don't use a block. (We can simply add characters into
-the text section to prevent matching phrases across boundaries e.g. within the
-metadata section.)
+Regardre pour le tamoul. DSAL+Cologne. First start with just a word index, then
+add scans, then other stuff.
 
-What about when we need to modify the input text (transliteration, nfkc, etc.)
-for search? Some transformations are not reversible and we don't have a 1:1
-mapping, as for œ = oe. The text to be searched should not be modified at
-search time, would complicate things too much in the regex engine. OTOH, we
-could save a copy of the text in the formatting code (for simplicity) where
-just the distinct characters are replaced with an index number that points into
-a table of graphemes (for one-to-one and one-to-many), as in ṛ -> r\N{combining
-ring below}. The table would be global and generated at indexing time (and
-would also hold html entities or even html code, in any case stuff that is
-already in html). For many-to-one (e.g. oe in the searchable -> œ in the code),
-we need to adjust offsets to grapheme boundaries and have in the formatting
-some "ignore" character that is skipped when formatting stuff, and that is used
-only for preserving the alignment between the two forms of the text.
+Relancer Humanum.
 
-What about when we need to ignore characters for matching, as in (pat)[i]ḥ? We
-add them to the html portion, which thus should not be called "html". Should
-use varints instead of utf-8 in the encoding of the code section.
+ID pour les <lg> Amandine ? Must keep a copy of the XML of each <lg> in the db,
+with the repo name, the commit num and the file name and the line no, so that
+we can point back to an older version if the ref is lost.
 
-What if we want to use different search representations? Maybe the most
-convenient option for now would be to have an offset map for each search
-representation that maps each character to the corresponding offset in the
-formatted representation. This can be compressed with delta encoding and
-varints. Go for that instead of what is said above. And search representations
-should be derived from the formatted representation, and this should be done in
-go, with a separate process.
+Ajouter 2nd champ dans rech. parallèles; pour substring; allow custom threshold
+for similarity? or make it automatic if we have no match?
 
---------------------------------------------------------
+<choice><unclear><unclear>..</choice> à garder dans les 2 affichages.
+logical ajouter nums. de page.
+ajouter avec js pas css
 
-When we have stuff like:
+---
 
-	text 'foo'
-	html '<i>'
-	text 'bar'
-	html '</i>'
-	text 'baz'
-
-How to proceed for highlighting "foo bar", viz. when the matched text crosses
-an HTML tag? It's clunky.
-
-The simplest method is maybe to store the raw text separately as a contiguous
-string where fields are separated with some character, and to have pointers to
-the raw text in the bytecode. This makes it convenient to match the text with
-or without taking into account the structure. We need at least two separate
-buffers: one for the raw text + structure, the other for HTML stuff.
-
-For generating the HTML. We keep track of match offsets in an array and, when
-generating the HTML, we highlight portions of texts that need to be. There is
-no risk of overlap since the HTML is stored separately from the plain text.
-Extracting snippets is still somewhat annoying.
-
-What should we do with <foreign> passages, to support language-specific search?
-
-
-----------------------------
-
-// delete processing instructions + <?xml...
-<TEI xml:lang="eng" xmlns="http://www.tei-c.org/ns/1.0">
-  // delete these TEI @ (other @ are significant)
-  <teiHeader>
-    <fileDesc>
-      <titleStmt>...</titleStmt>
-      <editor ref="part:anac">
-        // delete contents; but only when we have filedesc/editor! there is
-        // also an editor field in the bibliography
-      </editor>
-      <respStmt>
-        <resp>Creation of the file</resp>
-          <persName ref="part:kuch">
-            // Delete contents
-          </persName>
-	  <persName>
-            ...
-          </persName>
-          ...
-        </resp>
-      </respStmt>
-      <publicationStmt>
-        <authority>DHARMA</authority> // not always DHARMA! check
-        // Within this, only keep <pubPlace>, delete everything else
-        <pubPlace>KEEP THIS</pubPlace>
-      </publicationStmt>
-      <sourceDesc>
-        // Only keep if there is non-blank text. We have bibliographies here biblFull
-      </sourceDesc>
-    </filedesc>
-    <encodingDesc>...</encodingDesc> // Delete completely
-    <revisionDesc>...</revisionDesc> // Delete completely
-  </teiHeader>
-  <text xml:space="preserve"> // delete this @
+For searching and highlighting, maybe the most convenient option for now would
+be to have an offset map for each search representation that maps each
+character to the corresponding offset in the formatted representation. This can
+be compressed with delta encoding and varints. Go for that instead of what is
+said above. And search representations should be derived from the formatted
+representation, and this should be done in go, with a separate process.
