@@ -40,6 +40,8 @@ its side, the update process reads the repository names and updates things
 accordingly. We do not implement any buffering for passing messages, because
 pipe buffers are big enough for our purposes.
 
+## Gotchas
+
 Nevertheless, if `git push` are too frequent, it is theoretically possible that
 the update process might not keep up and thus miss updates. Nothing prevents
 this from happening for now. In the meantime, you can manually trigger a full
@@ -47,9 +49,3 @@ update of the databases by running the script `change.py` and then the
 following in another terminal:
 
 	echo all > ~/dharma/repos/change.hid
-
-(The file `change.hid` is the FIFO used for IPC.) The same method can of
-course be used for updating stuff related to specific repositories, for
-instance:
-
-	echo tfd-nusantara-philology > ~/dharma/repos/change.hid
