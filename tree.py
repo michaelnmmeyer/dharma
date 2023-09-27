@@ -207,7 +207,7 @@ class Comment(String):
 		return self.xml()
 
 	def xml(self):
-		return "<!-- %s -->" % quote_string(self.data)
+		return "<!-- %s -->" % self.data
 
 	def text(self, **kwargs):
 		return ""
