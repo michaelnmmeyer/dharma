@@ -1,4 +1,11 @@
-must merge all dbs together, except for the github log.
+transaction migt be stopped when we turn down the vm. so must try to catch up
+at start up. and also do that regularly in case we have a q overflow. just try
+to do a full update.
+
+---
+
+must merge all dbs together, except for the github log. use the db name as a
+prefix in table names, so we can still do select on multi tables.
 
 move texts db stuff in change.py to texts.py
 
@@ -16,10 +23,10 @@ create table files(
 );
 
 Find a way to merge several tooltips when necessary as in A | B ... And use a
-data table. Should also attach to each generated piece of text the xml node it
-comes from (with lineno), to make it easier to debug stuff. Should also
-highlight stuff that has a tooltip on mouseover. or add sth that indicates that
-it has a tooltip.
+data table for common cases where no dynamic generation is necessary. Should
+also attach to each generated piece of text the xml node it comes from (with
+lineno), to make it easier to debug stuff. Should also highlight stuff that has
+a tooltip on mouseover. or add sth that indicates that it has a tooltip.
 
 Can add options to the xml display. Need to have a pretty-print func that
 preserves space and doesn't add unnecessary space.
@@ -32,8 +39,6 @@ if so see if building without editorial stuff works.
 Regardre pour le tamoul. DSAL+Cologne. First start with just a word index, then
 add scans, then other stuff. Need to have a grammar that describes how
 transliteration works and that has some stuff on phonetics in case we can
-
-Relancer Humanum.
 
 ID pour les <lg> Amandine ? Must keep a copy of the XML of each <lg> in the db,
 with the repo name, the commit num and the file name and the line no, so that
@@ -56,7 +61,9 @@ create table verses(
 
 Ajouter 2nd champ dans rech. parallèles; pour substring; allow custom threshold
 for similarity? or make it automatic if we have no match? in fact should use a
-heap and use a thresh > 0. also remove the "illegal input" thing.
+heap and use a thresh > 0. also remove the "illegal input" thing. for the heap
+use sqlite, for simplicity, add a function jaccard() and deal with that, and
+paginate results. allow quoting part of the input to force an exact match.
 
 <choice><unclear><unclear>..</choice> à garder dans les 2 affichages.
 logical ajouter nums. de page.

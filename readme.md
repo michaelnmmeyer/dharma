@@ -33,19 +33,18 @@ socket, and SQLite takes care of other IPC issues). However, the server code is
 
 The update process is used for updating databases when people push to git
 repositories. The code's entry point is in `change.py`. A single update process
-should run at a given time, not more. To keep things simple, we use a FIFO for
-IPC. The server process is hooked to Github. Whenever a repository is updated,
-it writes to the FIFO the name of this repository, followed by a line break. On
-its side, the update process reads the repository names and updates things
-accordingly. We do not implement any buffering for passing messages, because
-pipe buffers are big enough for our purposes.
+should run at a given time, not more.
+
+We use the WAL mode in SQLite. Thus, writers don't block readers and
+vice-versa, but writers do block each other, which is why use just one and
+serialize writes.
 
 ## Gotchas
 
-Nevertheless, if `git push` are too frequent, it is theoretically possible that
-the update process might not keep up and thus miss updates. Nothing prevents
-this from happening for now. In the meantime, you can manually trigger a full
-update of the databases by running the script `change.py` and then the
-following in another terminal:
+If `git push` are too frequent, it is theoretically possible that the update
+process might not keep up and thus miss updates. Nothing prevents this from
+happening for now. In the meantime, you can manually trigger a full update of
+the databases by running the script `change.py` and then the following in
+another terminal:
 
 	echo all > ~/dharma/repos/change.hid

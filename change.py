@@ -1,3 +1,10 @@
+# To keep things simple, we use a FIFO for IPC. The server process is hooked to
+# Github. Whenever a repository is updated, it writes to the FIFO the name of
+# this repository, followed by a line break. On its side, the update process
+# reads the repository names and updates things accordingly. We do not
+# implement any buffering for passing messages, because pipe buffers are big
+# enough for our purposes.
+
 import os, sys, subprocess, json, select, errno, logging
 from dharma import config, validate, texts, biblio, grapheme
 from dharma.config import command
@@ -57,6 +64,8 @@ tfc-nusantara-epigraphy
 tfd-nusantara-philology
 tfd-sanskrit-philology
 """.strip().split()
+
+# TODO add computed columns to texts to produce full github urls for xml and html
 
 SCHEMA = """
 begin;
