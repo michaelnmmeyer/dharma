@@ -141,7 +141,7 @@ class Instruction(Node, dict):
 	def __hash__(self):
 		return id(self)
 
-	def xml(self):
+	def xml(self, **kwargs):
 		return "<?%s %s?>\n" % (self.target, self.data)
 
 class String(Node, collections.UserString):
@@ -178,7 +178,7 @@ class String(Node, collections.UserString):
 			i = len(self.data)
 		self.data = self.data[:i] + data + self.data[i:]
 
-	def xml(self):
+	def xml(self, **kwargs):
 		return quote_string(self.data)
 
 	def text(self, **kwargs):
@@ -206,7 +206,9 @@ class Comment(String):
 	def __str__(self):
 		return self.xml()
 
-	def xml(self):
+	def xml(self, **kwargs):
+		if kwargs.get("strip_comments"):
+			return ""
 		return "<!-- %s -->" % self.data
 
 	def text(self, **kwargs):
@@ -430,7 +432,7 @@ class Tag(Branch):
 		assert isinstance(key, str)
 		return self.attrs.get(key, dflt)
 
-	def xml(self):
+	def xml(self, **kwargs):
 		buf = ["<%s" % self.name]
 		# for now, don't sort attrs for normalization
 		for k, v in self.attrs.items():
@@ -442,7 +444,7 @@ class Tag(Branch):
 			return "".join(buf)
 		buf.append(">")
 		for node in self:
-			buf.append(node.xml())
+			buf.append(node.xml(**kwargs))
 		buf.append("</%s>" % self.name)
 		return "".join(buf)
 
@@ -467,10 +469,10 @@ class Tree(Branch):
 			return "<Tree path=%r>" % self.path
 		return "<Tree>"
 
-	def xml(self):
+	def xml(self, **kwargs):
 		ret = ['<?xml version="1.0" encoding="utf-8"?>\n']
 		for node in self:
-			ret.append(node.xml())
+			ret.append(node.xml(**kwargs))
 		return "".join(ret)
 
 	def text(self, **kwargs):
