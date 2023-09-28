@@ -6,7 +6,7 @@ from dharma import config, texts, tree
 # TODO try multisets: https://en.wikipedia.org/wiki/Jaccard_index
 # better results? makes sense?
 
-# TODO highlight clusters that differ from the source
+# TODO highlight clusters that differ from the source (or the contrary)
 
 SCHEMA = """
 begin;
@@ -70,7 +70,7 @@ def normalize(s):
 		elif c == "’":
 			buf.append("a")
 	ret = "".join(buf)
-	return ret
+	return ret.strip()
 
 def cleanup(s):
 	buf = []
@@ -152,8 +152,8 @@ def enum_verses(n, orig, norm):
 			vn += string.ascii_lowercase[i:i + 4]
 		vorig = '<div class="verse"><p>%s %s |</p><p>%s %s ||</p></div>' % \
 			tuple(html.escape(p) for p in orig[i:i + 4])
-		vnorm = "*%s %s**%s %s*" % tuple(norm[i:i + 4])
-		yield vn, vorig, vnorm
+		vnorm = " %s %s %s %s " % tuple(norm[i:i + 4])
+		yield vn, vorig, re.sub(r"\s{2,}", " ", vnorm)
 
 def enum_hemistiches(n, orig, norm):
 	for i in range(0, len(orig) // 2 * 2, 2):
@@ -164,15 +164,15 @@ def enum_hemistiches(n, orig, norm):
 			end = "|"
 		vorig = '<div class="verse"><p>%s %s ' % tuple(html.escape(p) for p in orig[i:i + 2]) + \
 			'%s</p></div>' % end
-		vnorm = "*%s %s*" % tuple(norm[i:i + 2])
-		yield vn, vorig, vnorm
+		vnorm = " %s %s " % tuple(norm[i:i + 2])
+		yield vn, vorig, re.sub(r"\s{2,}", " ", vnorm)
 
 def enum_padas(n, orig, norm):
 	for i in range(len(orig)):
 		vn = n + string.ascii_lowercase[i]
 		vorig = '<div class="verse"><p>%s</p></div>' % orig[i]
-		vnorm = "*%s*" % norm[i]
-		yield vn, vorig, vnorm
+		vnorm = " %s " % norm[i]
+		yield vn, vorig, re.sub(r"\s{2,}", " ", vnorm)
 
 enum_funcs = [
 	(1, enum_verses),
@@ -235,37 +235,38 @@ def make_database():
 	db.execute("commit")
 	db.execute("vacuum")
 
+def jaccard(s1, s2):
+	ngrams1 = set(trigrams(s1))
+	ngrams2 = set(trigrams(s2))
+	try:
+		inter = len(ngrams1 & ngrams2)
+		return inter / (len(ngrams1) + len(ngrams2) - inter)
+	except ZeroDivisionError:
+		return 0
+
+NGRAMS_DB.create_function("jaccard", 2, jaccard, deterministic=True)
+
 def search(src_text, category):
 	if category == "verse":
 		danda = re.search(r"[/|।]", src_text)
 		if not danda:
-			return None, None
+			danda = re.search("$", src_text)
 		one, two = src_text[:danda.end()], src_text[danda.end():]
-		src_norm = "*%s**%s*" % (normalize(cleanup(one)), normalize(cleanup(two)))
+		src_norm = " %s %s " % (normalize(cleanup(one)), normalize(cleanup(two)))
 		formatted_text = '<div class="verse"><p>%s</p><p>%s</p></div>' % \
 			(html.escape(one), html.escape(two))
 		type = 1
 	elif category == "hemistich" or category == "pada":
-		src_norm = "*%s*" % normalize(cleanup(src_text))
+		src_norm = " %s " % normalize(cleanup(src_text))
 		formatted_text = '<div class="verse"><p>%s</p></div>' % html.escape(src_text)
 		type = category == "hemistich" and 2 or 4
 	else:
 		return None, None
-	src_ngrams = set(trigrams(src_norm))
-	ret = []
-	for row in NGRAMS_DB.execute("""
-		select id, normalized, file, number, contents from passages where type = ?
-		""", (type,)):
-		ngrams2 = set(trigrams(row["normalized"]))
-		try:
-			inter = len(src_ngrams & ngrams2)
-			jaccard = inter / (len(src_ngrams) + len(ngrams2) - inter)
-		except ZeroDivisionError:
-			jaccard = 0
-		if jaccard < MIN_JACCARD:
-			continue
-		ret.append((row["id"], row["file"], row["number"], row["contents"], jaccard))
-	ret.sort(key=lambda x: x[-1], reverse=True)
+	src_norm = re.sub(r"\s{2,}", " ", src_norm)
+	ret = NGRAMS_DB.execute("""
+		select id, file, number, contents, jaccard(?, normalized) as coeff
+		from passages where type = ? and coeff > 0
+		order by coeff desc limit 500""", (src_norm, type)).fetchall()
 	return ret, formatted_text
 
 if __name__ == "__main__":
