@@ -1,18 +1,26 @@
-transaction migt be stopped when we turn down the vm. so must try to catch up
+stop using tables, annoying to style. use ul instead.
+
+add line numbers to xml display
+
+transactions migt be stopped when we turn down the vm. so must try to catch up
 at start up. and also do that regularly in case we have a q overflow. just try
 to do a full update.
 
 ---
 
-must merge all dbs together, except for the github log. use the db name as a
-prefix in table names, so we can still do select on multi tables.
+must merge all dbs together, except for the github log (rename
+"github.sqlite"). use the db name as a prefix in table names, so we can still
+do select on multi tables.
 
 move texts db stuff in change.py to texts.py
 
-store raw xml in files db (needed for transactions to work, git is unreliable);
-store both texts and other xml files we need (prosody, members). all of this in
-a single table, where the key is the filename (file names should be unique).
-schemas should be hard copied into my repo after each change.
+store raw xml in files db (needed for transactions to work). doing that also
+ensures we can just move the main db and use it read-only without having repos
+somewhere. store both texts and other xml files we need (prosody, members). all
+of this in a single table, where the key is the filename (file names should be
+unique). schemas should be hard copied into my repo after each change. must
+also deal with dependencies, but just list the "global" files we need, it's
+simpler.
 
 create table files(
    name text primary key not null,
@@ -22,14 +30,17 @@ create table files(
    data blob not null
 );
 
-Find a way to merge several tooltips when necessary as in A | B ... And use a
-data table for common cases where no dynamic generation is necessary. Should
-also attach to each generated piece of text the xml node it comes from (with
-lineno), to make it easier to debug stuff. Should also highlight stuff that has
-a tooltip on mouseover. or add sth that indicates that it has a tooltip.
+Find a way to merge several tooltips when necessary as in A | B ... for this to
+work, must annotate spans of text. And use a data table for common cases where
+no dynamic generation is necessary (or at least to provide a general
+explanation). Should also attach to each generated piece of text the xml node
+it comes from (with lineno), to make it easier to debug stuff. Should also
+highlight stuff that has a tooltip on mouseover. or add sth that indicates that
+it has a tooltip.
 
-Can add options to the xml display. Need to have a pretty-print func that
-preserves space and doesn't add unnecessary space.
+Can add options to the xml display. Just a "pretty" option where we might or
+not include comments. Need to have a pretty-print func that preserves space and
+doesn't add unnecessary space.
 
 ---
 

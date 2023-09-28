@@ -7,19 +7,19 @@
 % if data is None:
 <p>Bad input.</p>
 % elif not data:
-<p>Found no parallels.</p>
+<p>No results.</p>
 % else:
-<p>Found {{len(data)}} {{len(data) == 1 and "parallel" or "parallels"}}.</p>
+<p>Results
+{{(page - 1) * per_page + 1}}-{{(page - 1) * per_page + len(data[:per_page])}}
+of {{total}}.</p>
 % end
 
 </div>
 
 % if data:
-
 <table>
 <thead>
 <tr>
-   <th>File</th>
    <th>Location</th>
    <th>Text</th>
    <th>Similarity</th>
@@ -28,20 +28,34 @@
 <tbody>
 <tr>
    <td>-</td>
-   <td>-</td>
    <td>{{!text}}</td>
    <td>1.00</td>
 </tr>
-% for id, file, number, contents, coeff in data:
+% for id, file, number, contents, coeff in data[:per_page]:
 <tr>
    <td>
-   <a href="/parallels/texts/{{file}}/{{category}}/{{id}}">{{file.removeprefix("DHARMA_")}}</a>
+   <a href="/parallels/texts/{{file}}/{{category_plural}}/{{id}}">{{file.removeprefix("DHARMA_")}}
+   {{number}}</a>
    </td>
-   <td>{{number}}</td>
    <td>{{!contents}}</td>
    <td>{{"%.02f" % coeff}}</td>
 </tr>
 % end
 </tbody>
+</table>
 
-%end
+<div class="pagination">
+% if page > 1:
+   <a href="/parallels/search?text={{orig_text}}&type={{category}}&page={{page - 1}}">← Previous</a>
+% else:
+   ← Previous
+% end
+   |
+% if len(data)	> per_page:
+   <a href="/parallels/search?text={{orig_text}}&type={{category}}&page={{page + 1}}">Next →</a>
+% else:
+   Next →
+% end
+</div>
+
+% end # if data:

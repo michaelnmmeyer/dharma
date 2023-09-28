@@ -15,7 +15,6 @@ of {{file.removeprefix("DHARMA_")}} {{number}}</h1>
 <table>
 <thead>
 <tr>
-   <th>File</th>
    <th>Location</th>
    <th>Text</th>
    <th>Similarity</th>
@@ -23,8 +22,7 @@ of {{file.removeprefix("DHARMA_")}} {{number}}</h1>
 </thead>
 <tbody>
 <tr>
-   <td>{{file.removeprefix("DHARMA_")}}</td>
-   <td>{{number}}</td>
+   <td>{{file.removeprefix("DHARMA_")}} {{number}}</td>
    <td>{{!contents}}</td>
    <td>1.00</td>
 </tr>
@@ -39,3 +37,4 @@ of {{file.removeprefix("DHARMA_")}} {{number}}</h1>
 </tr>
 % end
 </tbody>
+</table>

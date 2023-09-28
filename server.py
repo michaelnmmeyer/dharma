@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import os, json, sys, unicodedata
 from datetime import datetime
 from dharma import config, bottle, change, persons, ngrams, catalog
@@ -81,7 +79,7 @@ def show_text(repo, hash, name):
 		select name, repo, commit_hash, code_hash, errors, xml_path, html_path,
 			format_date(commit_date) as readable_commit_date,
 			format_date(when_validated) as readable_when_validated
-		from commits natural join validation natural join commits natural join texts
+		from commits natural join validation natural join texts
 		where repo = ? and name = ? and commit_hash = ?
 	""", (repo, name, hash)).fetchone()
 	if not row:
@@ -161,14 +159,27 @@ def show_langs():
 @bottle.get("/parallels/search")
 def search_parallels():
 	text = bottle.request.query.text
+	orig_text = text
 	type = bottle.request.query.type
 	if not text or not type:
 		return bottle.redirect("/parallels")
 	text = unicodedata.normalize("NFC", text)
-	ret, formatted_text = ngrams.search(text, type)
+	page = bottle.request.query.page
+	if page and page.isdigit():
+		page = int(page)
+		if page < 1:
+			page = 1
+	else:
+		page = 1
+	ret, formatted_text, page, per_page, total = ngrams.search(text, type, page)
 	return bottle.template("parallels_search.tpl",
 		data=ret, text=formatted_text,
-		category=type + (type == "hemistich" and "es" or "s"))
+		category=type,
+		category_plural=type + (type == "hemistich" and "es" or "s"),
+		page=page,
+		per_page=per_page,
+		orig_text=orig_text,
+		total=total)
 
 @bottle.get("/display")
 def display_home():
@@ -182,8 +193,7 @@ def display_text(text):
 	import pins
 	where = os.path.join(config.THIS_DIR, "texts", text + ".xml")
 	if os.path.abspath(where) != where:
-		print(where)
-		bottle.abort(404, "Fishy request")
+		return bottle.abort(404, "Fishy request")
 	doc = pins.process_file(where)
 	return bottle.template("display_ins.tpl", doc=doc, text=text)
 

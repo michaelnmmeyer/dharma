@@ -12,10 +12,9 @@ an approximate matching technique which is described below. You can either
 input a passage to look for in the form below, or browse the collection with
 the table at the bottom of this page.</p>
 
-<p>When searching for a verse, add a daṇḍa at the end of the first hemistich
-(and none before that). You should always input a complete passage—verse,
-hemistich or pāda, depending on the unit you choose. This interface is not
-meant to be used for searching arbitrary substrings.</p>
+<p>You should always input a complete passage—verse, hemistich or pāda,
+depending on the unit you choose. This interface is not meant to be used for
+searching arbitrary substrings.</p>
 
 <form action="/parallels/search" method="get">
 <label for="text-input">Text:</label>

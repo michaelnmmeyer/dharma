@@ -246,7 +246,10 @@ def jaccard(s1, s2):
 
 NGRAMS_DB.create_function("jaccard", 2, jaccard, deterministic=True)
 
-def search(src_text, category):
+PER_PAGE = 50
+
+@NGRAMS_DB.transaction
+def search(src_text, category, page):
 	if category == "verse":
 		danda = re.search(r"[/|।]", src_text)
 		if not danda:
@@ -261,13 +264,32 @@ def search(src_text, category):
 		formatted_text = '<div class="verse"><p>%s</p></div>' % html.escape(src_text)
 		type = category == "hemistich" and 2 or 4
 	else:
-		return None, None
+		return None, None, 0, PER_PAGE, 0
 	src_norm = re.sub(r"\s{2,}", " ", src_norm)
-	ret = NGRAMS_DB.execute("""
-		select id, file, number, contents, jaccard(?, normalized) as coeff
-		from passages where type = ? and coeff > 0
-		order by coeff desc limit 500""", (src_norm, type)).fetchall()
-	return ret, formatted_text
+	offset = (page - 1) * PER_PAGE
+	limit = PER_PAGE + 1
+	db = NGRAMS_DB
+	db.execute("begin")
+	db.execute("""
+		create temp table parallels_search_results(
+			id integer primary key,
+			coeff real
+		)
+	""")
+	db.execute("""
+		insert into parallels_search_results
+		select id, jaccard(?, normalized) as coeff
+		from passages where type = ? and coeff > 0""",
+		(src_norm, type))
+	(total,) = db.execute("select count(*) from parallels_search_results").fetchone()
+	ret = db.execute("""
+		select id, file, number, contents, coeff
+		from parallels_search_results natural join passages
+		order by coeff desc
+		limit ? offset ?""", (limit, offset)).fetchall()
+	db.execute("drop table parallels_search_results")
+	db.execute("commit")
+	return ret, formatted_text, page, PER_PAGE, total
 
 if __name__ == "__main__":
 	make_database()
