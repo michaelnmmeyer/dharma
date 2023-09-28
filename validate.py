@@ -10,6 +10,11 @@
 # instead of validating all files against several schemas, we can just check if
 # our own schema is compatible with TEI and epidoc.
 
+# For schema validation stuff we could supplement to the existing schemas
+# fragment of rng schemas that validate just partic. cases to check, so we can
+# check stuff like parent/descendants/etc. without rewriting the whole schema.
+
+
 """
 The following should be ignored when inferring the rng schema:
 
