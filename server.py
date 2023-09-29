@@ -10,7 +10,7 @@ create table if not exists logs(
 );
 commit;
 """
-GIT_DB = config.open_db("github-log", SCHEMA)
+GIT_DB = config.open_db("github", SCHEMA)
 
 TEXTS_DB = config.open_db("texts")
 NGRAMS_DB = config.open_db("ngrams")
