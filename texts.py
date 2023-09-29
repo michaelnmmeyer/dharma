@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import os, re, sys
 from dharma.cleanup import cleanup_file
 from dharma import config

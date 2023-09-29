@@ -183,18 +183,17 @@ def search_parallels():
 
 @bottle.get("/display")
 def display_home():
-	texts = sorted(os.path.splitext(os.path.basename(f))[0]
-		for f in os.listdir(os.path.join(config.THIS_DIR, "texts"))
-		if "DHARMA_INS" in f)
+	texts = [t for (t,) in TEXTS_DB.execute("select name from texts where name glob 'DHARMA_INS*'")]
 	return bottle.template("display.tpl", texts=texts)
 
 @bottle.get("/display/<text>")
 def display_text(text):
+	(path,) = TEXTS_DB.execute("select printf('%s/%s/%s', ?, repo, xml_path) from texts",
+		(config.REPOS_DIR,)).fetchone() or (None,)
+	if not path:
+		return bottle.abort(404, "Not found")
 	import pins
-	where = os.path.join(config.THIS_DIR, "texts", text + ".xml")
-	if os.path.abspath(where) != where:
-		return bottle.abort(404, "Fishy request")
-	doc = pins.process_file(where)
+	doc = pins.process_file(path)
 	return bottle.template("display_ins.tpl", doc=doc, text=text)
 
 @bottle.get("/test")

@@ -85,7 +85,7 @@ create table if not exists texts(
 	xml_path text,
 	html_path text,
 	primary key(name, repo),
-	foreign key(repo) references commits(repo),
+	foreign key(repo) references commits(repo)
 	-- The XML file is at https://github.com/erc-dharma/$repo/blob/master/$xml_path
 	-- The HTML display is at https://erc-dharma.github.io/$repo/$html_path
 );
