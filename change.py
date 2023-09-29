@@ -67,6 +67,7 @@ tfd-sanskrit-philology
 
 SCHEMA = """
 begin;
+
 create table if not exists metadata(
 	key text primary key,
 	value blob
@@ -79,26 +80,33 @@ create table if not exists commits(
 	commit_date integer
 );
 
-create table if not exists texts(
-	name text,
+create table if not exists files(
+	name text unique,
 	repo text,
-	xml_path text,
-	html_path text,
+	path text,
+	mtime timestamp,
+	data text,
 	primary key(name, repo),
 	foreign key(repo) references commits(repo)
+);
+
+create table if not exists texts(
+	name text primary key,
+	repo text,
+	html_path text,
+	foreign key(name, repo) references files(name, repo)
 	-- The XML file is at https://github.com/erc-dharma/$repo/blob/master/$xml_path
 	-- The HTML display is at https://erc-dharma.github.io/$repo/$html_path
 );
 
 create table if not exists validation(
-	name text,
+	name text primary key,
 	repo text,
 	code_hash text,
 	valid boolean,
 	errors json,
 	when_validated integer,
-	primary key(name, repo),
-	foreign key(name, repo) references texts(name, repo)
+	foreign key(name, repo) references files(name, repo)
 );
 
 create table if not exists owners(
@@ -107,6 +115,7 @@ create table if not exists owners(
 	xml_path text,
 	primary key(author_id, repo, xml_path)
 );
+
 commit;
 """
 
@@ -123,19 +132,16 @@ def latest_commit_in_repo(name):
 
 def update_db(conn, name):
 	commit_hash, date = latest_commit_in_repo(name)
-	have_commit = False
 	if conn.execute("select 1 from commits where repo = ? and commit_hash = ?",
 		(name, commit_hash)).fetchone():
-		have_commit = True
 		# Need to check that we validated it with the latest version of the code.
 		# TODO what about schemas?
 		if conn.execute("select 1 from validation where repo = ? and code_hash = ?",
 			(name, config.CODE_HASH)).fetchone():
 			# No need to revalidate
 			return
-	if not have_commit:
-		conn.execute("insert or replace into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
-			(name, commit_hash, date))
+	conn.execute("insert or replace into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
+		(name, commit_hash, date))
 	schema_errs = validate.validate_repo(name)
 	unicode_errs = grapheme.validate_repo(name)
 	state = {}
@@ -144,27 +150,38 @@ def update_db(conn, name):
 			"schema": schema_errs[file],
 			"unicode": unicode_errs[file],
 		}
-	if not have_commit:
-		xml_paths = {os.path.basename(os.path.splitext(xml_name)[0]): xml_name for xml_name in state}
-		paths = texts.gather_web_pages(xml_paths)
-		repo_dir = os.path.join(config.REPOS_DIR, name)
-		conn.execute("delete from validation where repo = ?", (name,))
-		conn.execute("delete from texts where repo = ?", (name,))
-		conn.execute("delete from owners where repo = ?", (name,))
-		for xml_name, html_path in sorted(paths.items()):
-			xml_path = os.path.relpath(xml_paths[xml_name], repo_dir)
-			if html_path:
-				html_path = os.path.relpath(html_path, repo_dir)
-			else:
-				assert html_path is None
-			file_id = os.path.basename(os.path.splitext(xml_path)[0])
-			conn.execute("insert into texts(name, repo, xml_path, html_path) values(?, ?, ?, ?)",
-				(file_id, name, xml_path, html_path))
-			for author_id in texts.owners_of(os.path.join(repo_dir, xml_path)):
-				conn.execute("insert into owners(author_id, repo, xml_path) values(?, ?, ?)",
-					(author_id, name, xml_path))
-	else:
-		conn.execute("delete from validation where repo = ?", (name,))
+	repo_dir = os.path.join(config.REPOS_DIR, name)
+	conn.execute("delete from files where repo = ?", (name,))
+	for path in state:
+		with open(path) as f:
+			data = f.read()
+		conn.execute("""insert into files(name, repo, path, mtime, data)
+			values(?, ?, ?, ?, ?)""", (
+			os.path.splitext(os.path.basename(path))[0],
+			name,
+			os.path.relpath(path, repo_dir),
+			int(os.stat(path).st_mtime),
+			data
+		))
+		print(os.path.splitext(os.path.basename(path))[0], name)
+	xml_paths = {os.path.basename(os.path.splitext(xml_name)[0]): xml_name for xml_name in state}
+	paths = texts.gather_web_pages(xml_paths)
+	repo_dir = os.path.join(config.REPOS_DIR, name)
+	conn.execute("delete from validation where repo = ?", (name,))
+	conn.execute("delete from texts where repo = ?", (name,))
+	conn.execute("delete from owners where repo = ?", (name,))
+	for xml_name, html_path in sorted(paths.items()):
+		xml_path = os.path.relpath(xml_paths[xml_name], repo_dir)
+		if html_path:
+			html_path = os.path.relpath(html_path, repo_dir)
+		else:
+			assert html_path is None
+		file_id = os.path.basename(os.path.splitext(xml_path)[0])
+		conn.execute("insert into texts(name, repo, html_path) values(?, ?, ?)",
+			(file_id, name, html_path))
+		for author_id in texts.owners_of(os.path.join(repo_dir, xml_path)):
+			conn.execute("insert into owners(author_id, repo, xml_path) values(?, ?, ?)",
+				(author_id, name, xml_path))
 	for text, errors in sorted(state.items()):
 		valid = not errors["schema"] and not errors["unicode"]
 		errors = json.dumps(errors)

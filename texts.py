@@ -77,15 +77,6 @@ def owners_of(path):
 
 TEXTS_DIR = os.path.join(config.THIS_DIR, "texts")
 
-def update_texts():
-	os.makedirs(TEXTS_DIR, exist_ok=True)
-	for file in iter_texts():
-		base = os.path.basename(file)
-		out = os.path.join(TEXTS_DIR, base)
-		with open(file) as r, open(out, "w") as w:
-			for line in cleanup_file(r):
-				w.write(line)
-
 # Create a map xml->web page (for debugging)
 def gather_web_pages(texts):
 	tbl = {text: None for text in texts}
@@ -108,7 +99,6 @@ def cmd_pages():
 		print(xml, html, sep="\t")
 
 commands = {
-	"update": update_texts,
 	"pages": cmd_pages,
 }
 

@@ -8,9 +8,9 @@ to do a full update.
 
 ---
 
-must merge all dbs together, except for the github log (rename
-"github.sqlite"). use the db name as a prefix in table names, so we can still
-do select on multi tables.
+must merge all dbs together, except for the github log (and maybe langs). use
+the db name as a prefix in table names, so we can still do select on multi
+tables.
 
 move texts db stuff in change.py to texts.py
 
@@ -24,10 +24,10 @@ simpler.
 
 create table files(
    name text primary key not null,
-   repo text not null,
-   path text not null,
-   mtime integer not null,
-   data blob not null
+   repo text,
+   path text,
+   mtime timestamp,
+   data text
 );
 
 Find a way to merge several tooltips when necessary as in A | B ... for this to

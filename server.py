@@ -25,7 +25,12 @@ def index():
 def is_robot(email):
 	return email in ("readme-bot@example.com", "github-actions@github.com")
 
+# Legacy url
 @bottle.get("/commit-log")
+def show_commit_log():
+	return bottle.redirect("/commits")
+
+@bottle.get("/commits")
 def show_commit_log():
 	commits = []
 	for (doc,) in GIT_DB.execute("select data from logs order by data ->> '$.repository.pushed_at' desc"):
@@ -76,10 +81,10 @@ def show_texts():
 def show_text(repo, hash, name):
 	conn = TEXTS_DB
 	row = conn.execute("""
-		select name, repo, commit_hash, code_hash, errors, xml_path, html_path,
+		select name, repo, commit_hash, code_hash, errors, path as xml_path, html_path,
 			format_date(commit_date) as readable_commit_date,
 			format_date(when_validated) as readable_when_validated
-		from commits natural join validation natural join texts
+		from commits natural join validation natural join texts natural join files
 		where repo = ? and name = ? and commit_hash = ?
 	""", (repo, name, hash)).fetchone()
 	if not row:
@@ -188,7 +193,7 @@ def display_home():
 
 @bottle.get("/display/<text>")
 def display_text(text):
-	(path,) = TEXTS_DB.execute("select printf('%s/%s/%s', ?, repo, xml_path) from texts",
+	(path,) = TEXTS_DB.execute("select printf('%s/%s/%s', ?, repo, path) from texts natural join files",
 		(config.REPOS_DIR,)).fetchone() or (None,)
 	if not path:
 		return bottle.abort(404, "Not found")
@@ -200,6 +205,7 @@ def display_text(text):
 def test():
 	return bottle.template("test.tpl")
 
+# Legacy url
 @bottle.get("/parallels/verses")
 def redirect_parallels():
 	bottle.redirect("/parallels")

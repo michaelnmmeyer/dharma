@@ -16,14 +16,8 @@ download-dbs:
 	rsync --progress 'beta:dharma/dbs/*.sqlite*' dbs/
 
 list-texts:
-	@sqlite3 dbs/texts.sqlite "select printf('repos/%s/%s', repo, xml_path) \
-		from texts natural join commits natural join validation \
-		where valid order by name"
-
-list-all-texts:
-	@sqlite3 dbs/texts.sqlite "select printf('repos/%s/%s', repo, xml_path) \
-		from texts natural join commits natural join validation \
-		order by name"
+	@sqlite3 dbs/texts.sqlite "select printf('repos/%s/%s', repo, path) \
+		from texts natural join files order by name"
 
 # Use like this: make forever cmd="echo hello"
 forever:
@@ -37,7 +31,7 @@ image:
 	git show --no-patch --format=%at HEAD >> version.txt
 	sudo docker build -t dharma .
 
-.PHONY: all update-texts download-dbs list-texts list-all-texts forever image
+.PHONY: all update-texts download-dbs list-texts forever image
 
 inscription.rnc: $(wildcard texts/DHARMA_INS*.xml)
 	java -jar validation/trang.jar $^ $@
