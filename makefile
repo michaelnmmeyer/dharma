@@ -4,14 +4,13 @@ update-texts:
 	for d in repos/*; do \
 		test -d $$d && git -C $$d pull; \
 	done
+	mkdir texts || true
 	rm -f texts/*
 	rsync --progress 'beta:dharma/dbs/texts.sqlite*' dbs/
 	sqlite3 dbs/texts.sqlite "select printf('../repos/%s/%s', repo, xml_path) \
 		from texts" | while read f; do \
 		ln -s $$f texts/$$(basename $$f); \
 	done
-	git add texts
-	git commit -m "Update texts"
 
 download-dbs:
 	rsync --progress 'beta:dharma/dbs/*.sqlite*' dbs/
