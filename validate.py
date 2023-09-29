@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # XXX how does jing counts columns? UTF-16 units? bytes? code points? Same
 # question for python's xml.sax library. Note that we use jing instead of lxml
 # for validating RNG schemas because lxml apparently can't process our current

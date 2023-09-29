@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # to make sure we examine everything and to signal stuff we haven't taken into
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
