@@ -1,4 +1,4 @@
-import os, sys, icu, unicodedata, html
+import os, sys, re, icu, unicodedata, html
 from dharma import texts, cleanup
 
 def graphemes(s):
@@ -56,7 +56,10 @@ def is_valid(g):
 
 def validate(f):
 	problems = []
-	for line_no, line in enumerate(f, 1):
+	# We don't use str.splitlines() because it counts U+2028 and U+2029 as
+	# line separators, while github, oxygen and normal text editors don't.
+	lines = re.split(r"\r|\n|\r\n", f.read())
+	for line_no, line in enumerate(lines, 1):
 		line = unicodedata.normalize("NFC", line.rstrip())
 		gs = list(graphemes(line))
 		for i, g in enumerate(gs):

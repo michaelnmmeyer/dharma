@@ -1,8 +1,7 @@
-# XXX how does jing counts columns? UTF-16 units? bytes? code points? Same
-# question for python's xml.sax library. Note that we use jing instead of lxml
-# for validating RNG schemas because lxml apparently can't process our current
-# schemas (because of the embedded schematron stuff? or because we use XPath v.
-# 2? try to remove the schematron stuff and see how it goes)
+# Note that we use jing instead of lxml for validating RNG schemas because lxml
+# apparently can't process our current schemas and goes into an infinite loop.
+# This because of the embedded schematron stuff? or because we use XPath v. 2?
+# I tried to remove the schematron stuff, it doesn't help.
 
 # XXX possible to check the compatibility of several relaxng schemas? so that
 # instead of validating all files against several schemas, we can just check if
@@ -53,7 +52,7 @@ texts/DHARMA_INSSII03.xml
 # * java -jar ./project-documentation/schema/validationTools/jing.jar http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng $f
 # * java -jar ./project-documentation/schema/validationTools/jing.jar https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng $f
 
-import os, sys, subprocess
+import os, sys, re, subprocess
 from glob import glob
 from dharma import config, texts
 from dharma.tree import parse, Error
@@ -103,6 +102,16 @@ def schema_for_file(file):
 		assert one == two, "several schemas for file %r" % file
 	return one or two
 
+def utf16_units_to_codepoints(s, n16):
+	i16, i = 0, 0
+	while i16 < n16:
+		if ord(s[i]) > 0xffff:
+			assert i16 + 1 < n16
+			i16 += 1
+		i16 += 1
+		i += 1
+	return i
+
 def validate_against(schema, files):
 	jar = os.path.join(config.THIS_DIR, "validation/jing.jar")
 	schema = os.path.join(config.THIS_DIR, "validation", schema)
@@ -114,7 +123,20 @@ def validate_against(schema, files):
 		path, line, column, err_type, err_msg = tuple(
 			f.strip() for f in line.split(":", 4))
 		errors[path].add((int(line), int(column), err_msg))
-	return errors
+	new_errors = {}
+	for path, errs in errors.items():
+		# We don't use str.splitlines() because it counts U+2028 and
+		# U+2029 as line separators, while jing doesn't (nor github,
+		# oxygen and normal text editors).
+		with open(path) as f:
+			lines = re.split(r"\r|\n|\r\n", f.read())
+		new_errs = set()
+		for line, column, err_msg in errs:
+			# jing counts columns in utf-16 code units, not in code points
+			column = utf16_units_to_codepoints(lines[line - 1], column - 1) + 1
+			new_errs.add((line, column, err_msg))
+		new_errors[path] = new_errs
+	return new_errors
 
 def validate(files):
 	schemas = {}
