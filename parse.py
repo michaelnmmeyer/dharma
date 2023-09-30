@@ -458,20 +458,18 @@ def parse_gap(p, gap):
 	reason = gap["reason"]
 	quantity = gap["quantity"]
 	precision = gap["precision"]
-	extent = gap["extent"]
+	extent = gap["extent"] or "unknown"
 	unit = gap["unit"]
 	if reason == "ellipsis":
 		p.add_html("\N{horizontal ellipsis}")
 		return
 	if reason == "undefined":
 		reason = "lost or illegible"
-	assert extent == "unknown" or quantity and quantity.isdigit()
+	if quantity:
+		assert quantity.isdigit()
 	assert not precision or precision == "low"
 	if unit == "character":
-		if extent == "unknown":
-			repl = "[…]"
-			tooltip = "Unknown number of %s %s" % (reason, numberize(unit, +333))
-		else:
+		if quantity:
 			quantity = int(quantity)
 			repl = "["
 			if precision == "low":
@@ -481,6 +479,10 @@ def parse_gap(p, gap):
 				tooltip = "About %d %s %s" % (quantity, reason, numberize(unit, quantity))
 			else:
 				tooltip = "%d %s %s" % (quantity, reason, numberize(unit, quantity))
+		else:
+			assert extent == "unknown"
+			repl = "[…]"
+			tooltip = "Unknown number of %s %s" % (reason, numberize(unit, +333))
 		p.add_html('<span class="dh-gap" title="%s">%s</span>' % (html.escape(tooltip), html.escape(repl)))
 	else:
 		pass # TODO
