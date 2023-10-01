@@ -33,6 +33,7 @@ commit;
 
 CATALOG_DB = config.open_db("catalog", SCHEMA)
 CATALOG_DB.execute("attach database ? as texts", (config.db_path("texts"),))
+CATALOG_DB.execute("attach database ? as langs", (config.db_path("langs"),))
 
 LANGS_DB = config.open_db("langs")
 LANGS_DB.execute("attach database ? as catalog", (config.db_path("catalog"),))
@@ -204,10 +205,16 @@ def patch_languages(db, q):
 def search(q, s):
 	sql = """
 		select documents.name, documents.repo, documents.title,
-			documents.author, documents.editors, documents.langs, documents.summary,
+			documents.author, documents.editors, json_group_array(list.name) as langs, documents.summary,
 			printf('https://erc-dharma.github.io/%s/%s', documents.repo, html_path) as html_link
-		from documents join documents_index on documents.name = documents_index.name
-		natural join texts.texts natural join texts.commits
+		from documents
+			join documents_index on documents.name = documents_index.name
+			natural join texts.texts
+			natural join texts.commits
+			join json_each(documents.langs)
+			join by_code on by_code.code = json_each.value
+			join list on list.id = by_code.id
+		group by documents.name
 	"""
 	q = " ".join(parse.normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
 	if q:

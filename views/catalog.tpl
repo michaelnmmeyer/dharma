@@ -92,10 +92,10 @@ table of languages <a href="/langs">here</a>.</p>
    % end
    % if row["langs"]:
    <p>Languages:
-      % for lang in row["langs"][:-1]:
+      % for lang in json.loads(row["langs"])[:-1]:
          {{lang}},
       % end
-         {{row["langs"][-1]}}.
+         {{json.loads(row["langs"])[-1]}}.
    </p>
    % end
    <p>{{row["name"].removeprefix("DHARMA_")}} ({{row["repo"]}}).</p>
