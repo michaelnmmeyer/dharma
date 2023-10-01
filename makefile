@@ -31,7 +31,18 @@ image:
 	git show --no-patch --format=%at HEAD >> version.txt
 	sudo docker build -t dharma .
 
-.PHONY: all update-texts download-dbs list-texts forever image
+# Use like this: make commit-all m="Commit message"
+commit-all:
+	@for d in repos/*; do \
+		test -d $$d || continue; \
+		test -n "`git status -s`" || continue; \
+		git -C $$d add --all; \
+		git -C $$d commit -m "$(m)"; \
+		git -C $$d push; \
+	done
+
+
+.PHONY: all update-texts download-dbs list-texts forever image commit-all
 
 inscription.rnc: $(wildcard texts/DHARMA_INS*.xml)
 	java -jar validation/trang.jar $^ $@
