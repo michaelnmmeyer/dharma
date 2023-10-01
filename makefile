@@ -33,7 +33,7 @@ image:
 
 # Use like this: make commit-all m="Commit message"
 commit-all:
-	@for d in repos/*; do \
+	for d in repos/*; do \
 		test -d $$d || continue; \
 		test -n "`git status -s`" || continue; \
 		git -C $$d add --all; \
