@@ -75,6 +75,11 @@ class DB:
 
 COLLATOR = icu.Collator.createInstance()
 
+if os.path.basename(sys.argv[0]) == "server.py":
+	READ_ONLY = True
+else:
+	READ_ONLY = False
+
 def open_db(name, schema=None):
 	if name == ":memory:":
 		path = name
@@ -88,12 +93,17 @@ def open_db(name, schema=None):
 	# isolation_level=None. Likewise, db.executescript() is a mess, we only
 	# use it for initialization code.
 	# https://docs.python.org/3/library/sqlite3.html#transaction-control
-	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES, isolation_level=None)
+	kwargs = {"detect_types": sqlite3.PARSE_DECLTYPES, "isolation_level": None}
+	if READ_ONLY and name != "github":
+		kwargs["uri"] = True
+		path = f"file:{path}?mode=ro"
+	conn = sqlite3.connect(path, **kwargs)
 	conn.row_factory = sqlite3.Row
 	conn.executescript(common_schema)
 	conn.create_function("format_date", 1, format_date, deterministic=True)
 	conn.create_collation("icu", COLLATOR.compare)
-	if schema:
+	# Only
+	if schema and os.path.basename(sys.argv[0]) != "server.py":
 		conn.executescript(schema)
 	assert not conn.in_transaction
 	db = DB(conn)
