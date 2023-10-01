@@ -88,15 +88,6 @@ def process_file(repo_name, path):
 	doc.repository = repo_name
 	return doc
 
-# found a while ago some python code that implements the unicode collation algorithm.
-# use it? or ICU? worth it?
-def collate_title(s):
-	s = " ".join(s)
-	ret = "".join(c for c in parse.normalize(s) if c.isalnum())
-	return ret or "zzzzzz" # yeah I know
-
-CATALOG_DB.create_function("collate_title", 1, collate_title, deterministic=True)
-
 def process_repo(name, db):
 	for text in texts.iter_texts_in_repo(name):
 		doc = process_file(name, text)
@@ -232,7 +223,7 @@ def search(q, s):
 		pass
 	else:
 		s = "title"
-	sql += " group by documents.name order by collate_title(documents.%s) " % s
+	sql += " group by documents.name order by documents.%s collate icu " % s
 	db = CATALOG_DB
 	db.execute("begin")
 	ret = db.execute(sql, q).fetchall()

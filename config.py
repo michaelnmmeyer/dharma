@@ -73,7 +73,21 @@ class DB:
 			return ret
 		return wrapper
 
+# For seeing how different collations work, see:
+# https://icu4c-demos.unicode.org/icu-bin/collation.html
 COLLATOR = icu.Collator.createInstance()
+# The following is for ignoring punctuation
+COLLATOR.setAttribute(icu.UCollAttribute.ALTERNATE_HANDLING, icu.UCollAttributeValue.SHIFTED)
+
+def collate(a, b):
+	# HACK
+	if a == "[]":
+		if b == "[]":
+			return 0
+		return 1
+	if b == "[]":
+		return -1
+	return COLLATOR.compare(a, b)
 
 if os.path.basename(sys.argv[0]) == "server.py":
 	READ_ONLY = True
@@ -101,7 +115,7 @@ def open_db(name, schema=None):
 	conn.row_factory = sqlite3.Row
 	conn.executescript(common_schema)
 	conn.create_function("format_date", 1, format_date, deterministic=True)
-	conn.create_collation("icu", COLLATOR.compare)
+	conn.create_collation("icu", collate)
 	# Only
 	if schema and os.path.basename(sys.argv[0]) != "server.py":
 		conn.executescript(schema)
