@@ -214,7 +214,6 @@ def search(q, s):
 			join json_each(documents.langs)
 			join by_code on by_code.code = json_each.value
 			join list on list.id = by_code.id
-		group by documents.name
 	"""
 	q = " ".join(parse.normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
 	if q:
@@ -224,7 +223,7 @@ def search(q, s):
 		patch_languages(db, q)
 		db.execute("commit")
 		q = (str(q),)
-		sql += "where documents_index match ?"
+		sql += " where documents_index match ? "
 	else:
 		q = ()
 	if s == "ident":
@@ -233,7 +232,7 @@ def search(q, s):
 		pass
 	else:
 		s = "title"
-	sql += " order by collate_title(documents.%s)" % s
+	sql += " group by documents.name order by collate_title(documents.%s) " % s
 	db = CATALOG_DB
 	db.execute("begin")
 	ret = db.execute(sql, q).fetchall()
