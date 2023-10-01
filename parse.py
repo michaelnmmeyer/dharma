@@ -422,7 +422,7 @@ def parse_del(p, node):
 	p.add_html('</span>')
 
 def numberize(t, n):
-	if t not in ("character", "component", "line", "page"):
+	if t not in ("character", "component", "line", "page", "Editor"):
 		raise Exception("unknown term %r" % t)
 	if n == 1:
 		return t
@@ -459,7 +459,7 @@ def parse_gap(p, gap):
 	quantity = gap["quantity"]
 	precision = gap["precision"]
 	extent = gap["extent"] or "unknown"
-	unit = gap["unit"]
+	unit = gap["unit"] or "character"
 	if reason == "ellipsis":
 		p.add_html("\N{horizontal ellipsis}")
 		return
@@ -484,8 +484,25 @@ def parse_gap(p, gap):
 			repl = "[…]"
 			tooltip = "Unknown number of %s %s" % (reason, numberize(unit, +333))
 		p.add_html('<span class="dh-gap" title="%s">%s</span>' % (html.escape(tooltip), html.escape(repl)))
+	elif unit == "line":
+		if quantity:
+			quantity = int(quantity)
+			repl = "["
+			if precision == "low":
+				repl += "ca. "
+			repl += "%d %s %s]" % (quantity, reason, numberize(unit, quantity))
+			tooltip = ""
+			if precision == "low":
+				tooltip += "About "
+			tooltip += "%d %s %s" % (quantity, reason, numberize(unit, quantity))
+		else:
+			assert extent == "unknown"
+			repl = "[unknown number of %s %s]" % (reason, numberize(unit, +333))
+			tooltip = "Unknown number of %s %s" % (reason, numberize(unit, +333))
+		p.add_html('<span class="dh-gap" title="%s">%s</span>' % (html.escape(tooltip), html.escape(repl)))
 	else:
 		pass # TODO
+	# TODO we miss other cases! see editorial
 
 def parse_g(p, node):
 	# <g type="...">.</g> for punctuation marks

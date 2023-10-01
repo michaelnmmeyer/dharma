@@ -1,6 +1,6 @@
 import os, json, sys, unicodedata
 from datetime import datetime
-from dharma import config, bottle, change, persons, ngrams, catalog
+from dharma import config, bottle, change, persons, ngrams, catalog, parse
 
 SCHEMA = """
 begin;
@@ -199,7 +199,9 @@ def display_text(text):
 		return bottle.abort(404, "Not found")
 	import pins
 	doc = pins.process_file(path)
-	return bottle.template("display_ins.tpl", doc=doc, text=text)
+	doc.title = doc.title.render().split(parse.PARA_SEP)
+	doc.editors = doc.editors.render().split(parse.PARA_SEP)
+	return bottle.template("display_ins.tpl", doc=doc, text=text, numberize=parse.numberize)
 
 @bottle.get("/test")
 def test():

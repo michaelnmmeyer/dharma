@@ -7,9 +7,29 @@
 <div class="body">
 <h1>{{text.removeprefix("DHARMA_")}}</h1>
 
-<button id="phys-btn">Physical</button>
-<button id="log-btn">Logical</button>
-<button id="xml-btn">XML</button>
+<h2>
+% for part in doc.title:
+   {{part}}.
+% end
+</h2>
+
+<p>
+{{numberize("Editor", len(doc.editors))}}:
+% for ed in doc.editors[:-1]:
+   {{ed}},
+% end
+% if doc.editors:
+   {{doc.editors[-1]}}.
+% else:
+   Unknown.
+% end
+</p>
+
+<div>
+   <button id="phys-btn">Physical</button>
+   <button id="log-btn">Logical</button>
+   <button id="xml-btn">XML</button>
+</div>
 
 <div class="dh-ed">
 
