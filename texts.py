@@ -90,17 +90,3 @@ def gather_web_pages(texts):
 			html = os.path.join(root, file)
 			tbl[name] = html
 	return tbl
-
-def cmd_pages():
-	tbl = gather_web_pages(iter_texts())
-	for xml, html in sorted(tbl.items()):
-		xml = os.path.basename(xml)
-		html = "https://erc-dharma.github.io" + html[html.index("/"):]
-		print(xml, html, sep="\t")
-
-commands = {
-	"pages": cmd_pages,
-}
-
-if __name__ == "__main__":
-	commands[sys.argv[1]]()

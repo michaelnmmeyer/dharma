@@ -2,7 +2,7 @@
 # For ISO 639-5 (language families), the authority is
 # https://www.loc.gov/standards/iso639-5/index.html
 
-import requests, unicodedata, icu
+import requests, unicodedata
 from dharma import config
 
 def fetch_tsv(url):
@@ -53,8 +53,7 @@ begin;
 create table if not exists list(
 	id text primary key check(length(id) = 3),
 	name text,
-	iso integer check(iso = 3 or iso = 5),
-	sort_key blob
+	iso integer check(iso = 3 or iso = 5)
 );
 create table if not exists by_code(
 	code text primary key check(length(code) >= 2 and length(code) <= 3),
@@ -76,12 +75,13 @@ def make_db():
 	db.execute("delete from by_code")
 	db.execute("delete from by_name")
 	db.execute("delete from list")
-	coll = icu.Collator.createInstance()
 	for rec in recs:
-		rec["sort_key"] = coll.getSortKey(rec["name"])
-		db.execute("insert into list(id, name, iso, sort_key) values(:id, :name, :iso, :sort_key)", rec)
+		db.execute("insert into list(id, name, iso) values(:id, :name, :iso)", rec)
 		db.execute("insert into by_name(id, name) values(?, ?)", (rec["id"], normalize_name(rec["name"])))
 	for code, rec in sorted(index.items()):
 		db.execute("insert into by_code(code, id) values(?, ?)", (code, rec["id"]))
 	db.execute("commit")
 	db.execute("vacuum")
+
+if __name__ == "__main__":
+	make_db()

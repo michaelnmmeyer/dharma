@@ -158,7 +158,7 @@ def show_langs():
 		join json_each(catalog.documents.langs)
 		join list on list.id = json_each.value
 		join by_code on list.id = by_code.id
-	group by list.id order by sort_key""").fetchall()
+	group by list.id order by name collate icu""").fetchall()
 	return bottle.template("langs.tpl", rows=rows, json=json)
 
 @bottle.get("/parallels/search")
