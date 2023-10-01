@@ -151,14 +151,14 @@ def show_catalog():
 @bottle.get("/langs")
 def show_langs():
 	rows = LANGS_DB.execute("""
-	select list.name as name,
+	select list.inverted_name as name,
 		json_group_array(distinct(by_code.code)) as codes,
 		printf('639-%d', iso) as iso
 	from catalog.documents
 		join json_each(catalog.documents.langs)
 		join list on list.id = json_each.value
 		join by_code on list.id = by_code.id
-	group by list.id order by name collate icu""").fetchall()
+	group by list.id order by list.inverted_name collate icu""").fetchall()
 	return bottle.template("langs.tpl", rows=rows, json=json)
 
 @bottle.get("/parallels/search")

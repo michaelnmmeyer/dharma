@@ -17,6 +17,7 @@ def fetch_tsv(url):
 	return ret
 
 tbl3 = fetch_tsv("https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab")
+tbl3_bis = fetch_tsv("https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3_Name_Index.tab")
 tbl5 = fetch_tsv("http://id.loc.gov/vocabulary/iso639-5.tsv")
 
 recs = []
@@ -34,10 +35,23 @@ for row in tbl3:
 	for field in ("Id", "Part2B", "Part2T", "Part1"):
 		add_to_index(row[field], rec)
 
+for row in tbl3_bis:
+	rec = index[row["Id"]]
+	if rec["name"] == row["Print_Name"]:
+		assert not rec.get("inverted_name")
+		rec["inverted_name"] = row["Inverted_Name"]
+
 for row in tbl5:
-	rec = {"id": row["code"], "name": row["Label (English)"], "iso": 5}
+	rec = {
+		"id": row["code"],
+		"name": row["Label (English)"],
+		"inverted_name": row["Label (English)"],
+		"iso": 5,
+	}
 	recs.append(rec)
 	add_to_index(rec["id"], rec)
+
+assert all("inverted_name" in rec for rec in recs)
 
 recs.sort(key=lambda rec: rec["id"])
 
@@ -53,6 +67,7 @@ begin;
 create table if not exists list(
 	id text primary key check(length(id) = 3),
 	name text,
+	inverted_name text,
 	iso integer check(iso = 3 or iso = 5)
 );
 create table if not exists by_code(
@@ -76,7 +91,7 @@ def make_db():
 	db.execute("delete from by_name")
 	db.execute("delete from list")
 	for rec in recs:
-		db.execute("insert into list(id, name, iso) values(:id, :name, :iso)", rec)
+		db.execute("insert into list(id, name, inverted_name, iso) values(:id, :name, :inverted_name, :iso)", rec)
 		db.execute("insert into by_name(id, name) values(?, ?)", (rec["id"], normalize_name(rec["name"])))
 	for code, rec in sorted(index.items()):
 		db.execute("insert into by_code(code, id) values(?, ?)", (code, rec["id"]))
