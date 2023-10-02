@@ -193,8 +193,9 @@ def display_home():
 
 @bottle.get("/display/<text>")
 def display_text(text):
-	(path,) = TEXTS_DB.execute("select printf('%s/%s/%s', ?, repo, path) from texts natural join files",
-		(config.REPOS_DIR,)).fetchone() or (None,)
+	(path,) = TEXTS_DB.execute("""select printf('%s/%s/%s', ?, repo, path) from texts natural join files
+		where name = ?""",
+		(config.REPOS_DIR, text)).fetchone() or (None,)
 	if not path:
 		return bottle.abort(404, "Not found")
 	import pins
