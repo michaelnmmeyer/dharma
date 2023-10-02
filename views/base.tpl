@@ -13,16 +13,22 @@
 % end
 </head>
 <body>
-   <div class="whole">
-   <menu>
-      <li><a href="/">Home</a></li>
-      <li><a href="/commit-log">Commits</a></li>
-      <li><a href="/texts">Texts</a></li>
-      <li><a href="/catalog">Catalog</a></li>
-      <li><a href="/parallels">Parallels</a></li>
-      <li><a href="/display">🚧 Display</a></li>
-   </menu>
-   {{!base}}
-   </div>
+<div class="whole">
+   <header>
+      <menu>
+         <li><a href="/">Home</a></li>
+         <li><a href="/commit-log">Commits</a></li>
+         <li><a href="/texts">Texts</a></li>
+         <li><a href="/catalog">Catalog</a></li>
+         <li><a href="/parallels">Parallels</a></li>
+         <li><a href="/display">🚧 Display</a></li>
+      </menu>
+   </header>
+   <main>
+      {{!base}}
+   </main>
+   <footer>
+   </footer>
+</div>
 </body>
 </html>
