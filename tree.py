@@ -426,7 +426,7 @@ class Tag(Branch):
 			assert isinstance(value, list) or isinstance(value, tuple)
 			assert 1 <= len(value) <= 2
 			value = value[0]
-		self.attrs[key] = value.strip()
+		self.attrs[key] = " ".join(value.strip().split())
 
 	def get(self, key, dflt=""):
 		assert isinstance(key, str)

@@ -1,4 +1,4 @@
-import os, json, sys, unicodedata
+import os, json, sys, unicodedata, hashlib
 from datetime import datetime
 from dharma import config, bottle, change, persons, ngrams, catalog, parse
 
@@ -225,7 +225,9 @@ def handle_github():
 
 @bottle.get("/<filename:path>")
 def handle_static(filename):
-	return bottle.static_file(filename, root=config.STATIC_DIR)
+	ret = bottle.static_file(filename, root=config.STATIC_DIR)
+	ret._headers["ETag"] = hashlib.md5(ret._headers["Last-Modified"][0].encode()).hexdigest()
+	return ret
 
 class ServerAdapter(bottle.ServerAdapter):
 	log_file = None

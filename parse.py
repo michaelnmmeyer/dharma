@@ -525,11 +525,19 @@ def parse_g(p, node):
 	p.add_code("symbol", f"{gtype}.{stype}")
 
 def parse_unclear(p, node):
+	klass = "dh-unclear"
+	tip = "Unclear"
 	if node["cert"] == "low":
-		p.add_html('<span class="dh-unclear-cert-low" title="Unclear">')
-	else:
-		p.add_html('<span class="dh-unclear" title="Unclear">')
+		klass = "dh-unclear-cert-low"
+		tip = "Very unclear"
+	if node["reason"]:
+		tip += " (%s)" % node["reason"].replace("_", " ")
+	p.add_html('<span class="%s" title="%s">' % (html.escape(klass), html.escape(tip)))
+	p.add_html("(")
 	p.dispatch_children(node)
+	if node["cert"] == "low":
+		p.add_html("?")
+	p.add_html(")")
 	p.add_html('</span>')
 
 def parse_surplus(p, node):

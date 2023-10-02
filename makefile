@@ -1,9 +1,11 @@
 all:
 
-update-texts:
+update-repos:
 	for d in repos/*; do \
 		test -d $$d && git -C $$d pull; \
 	done
+
+update-texts: update-repos
 	mkdir texts || true
 	rm -f texts/*
 	rsync --progress 'beta:dharma/dbs/texts.sqlite*' dbs/
@@ -42,7 +44,7 @@ commit-all:
 	done
 
 
-.PHONY: all update-texts download-dbs list-texts forever image commit-all
+.PHONY: all update-repos update-texts download-dbs list-texts forever image commit-all
 
 inscription.rnc: $(wildcard texts/DHARMA_INS*.xml)
 	java -jar validation/trang.jar $^ $@
