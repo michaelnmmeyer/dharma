@@ -5,7 +5,7 @@
 # implement any buffering for passing messages, because pipe buffers are big
 # enough for our purposes.
 
-import os, sys, subprocess, json, select, errno, logging
+import os, sys, subprocess, time, json, select, errno, logging, fcntl
 from dharma import config, validate, texts, biblio, grapheme
 from dharma.config import command
 
@@ -212,22 +212,43 @@ def clone_all():
 		command("git", "clone", f"git@github.com:erc-dharma/{name}.git", path,
 			capture_output=False)
 
-def read_changes(fd):
+# Must be at least this big in POSIX. Linux currently has 4096.
+PIPE_BUF = 512
+# Force a full update at startup.
+NEXT_FULL_UPDATE = time.time()
+# Force a full update every FORCE_UPDATE_DELTA seconds.
+FORCE_UPDATE_DELTA = 24 * 60 * 60
+
+# In the worst case, if we're not fast enough to handle any update events, we
+# just end up running forced full updates continuously.
+def read_names(fd):
 	buf = ""
+	global NEXT_FULL_UPDATE
 	while True:
-		while True:
-			end = buf.find("\n")
-			if end >= 0:
-				break
-			data = os.read(fd, 512)
-			while not data:
-				logging.info("selecting")
-				select.select([fd], [], [], 6000)
-				data = os.read(fd, 512)
-				logging.info("read %d" % len(data))
-			buf += data.decode("ascii")
-		name = buf[:end].rstrip("/")
-		buf = buf[end + 1:]
+		now = time.time()
+		wait = NEXT_FULL_UPDATE - now
+		if wait <= 0:
+			logging.info("forcing full update")
+			yield "all"
+			wait = FORCE_UPDATE_DELTA
+			NEXT_FULL_UPDATE = now + wait
+			continue
+		end = buf.find("\n")
+		if end >= 0:
+			name = buf[:end]
+			yield name
+			buf = buf[end + 1:]
+			continue
+		logging.info("selecting")
+		rlist, _, _ = select.select([fd], [], [], wait)
+		if not rlist:
+			continue
+		data = os.read(fd, PIPE_BUF)
+		logging.info("read %d" % len(data))
+		buf += data.decode("ascii")
+
+def read_changes(fd):
+	for name in read_names(fd):
 		if name == "all":
 			logging.info("updating everything...")
 			for name in REPOS:
@@ -247,6 +268,17 @@ def read_changes(fd):
 		else:
 			logging.warning("junk command: %r" % name)
 
+# To be used by clients, not when running this __main__ (this would release the
+# lock).
+def notify(name):
+	msg = name.encode("ascii") + b"\n"
+	assert len(msg) <= PIPE_BUF
+	fd = os.open(FIFO_ADDR, os.O_RDWR | os.O_NONBLOCK)
+	try:
+		os.write(fd, msg)
+	finally:
+		os.close(fd)
+
 def main():
 	try:
 		os.mkdir(config.REPOS_DIR)
@@ -260,15 +292,12 @@ def main():
 	logging.info("ready")
 	fd = os.open(FIFO_ADDR, os.O_RDWR)
 	try:
-		read_changes(fd)
-	finally:
-		os.close(fd)
-
-# To be used by the client
-def notify(name):
-	fd = os.open(FIFO_ADDR, os.O_RDWR | os.O_NONBLOCK)
+		fcntl.lockf(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+	except OSError as e:
+		logging.error("cannot obtain lock, is another change process running?")
+		sys.exit(1)
 	try:
-		os.write(fd, name.encode("ascii") + b"\n")
+		read_changes(fd)
 	finally:
 		os.close(fd)
 

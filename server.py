@@ -291,6 +291,5 @@ class ServerAdapter(bottle.ServerAdapter):
 			server.server_close()
 
 if __name__ == "__main__":
-	change.notify("all")
 	bottle.run(host=config.HOST, port=config.PORT, debug=config.DEBUG,
 		reloader=config.DEBUG, server=ServerAdapter)

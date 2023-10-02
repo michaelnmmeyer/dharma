@@ -36,15 +36,5 @@ repositories. The code's entry point is in `change.py`. A single update process
 should run at a given time, not more.
 
 We use the WAL mode in SQLite. Thus, writers don't block readers and
-vice-versa, but writers do block each other, which is why use just one and
+vice-versa, but writers do block each other, which is why we use just one and
 serialize writes.
-
-## Gotchas
-
-If `git push` are too frequent, it is theoretically possible that the update
-process might not keep up and thus miss updates. Nothing prevents this from
-happening for now. In the meantime, you can manually trigger a full update of
-the databases by running the script `change.py` and then the following in
-another terminal:
-
-	echo all > ~/dharma/repos/change.hid
