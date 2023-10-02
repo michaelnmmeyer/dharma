@@ -226,7 +226,7 @@ def handle_github():
 @bottle.get("/<filename:path>")
 def handle_static(filename):
 	ret = bottle.static_file(filename, root=config.STATIC_DIR)
-	ret._headers["ETag"] = hashlib.md5(ret._headers["Last-Modified"][0].encode()).hexdigest()
+	#ret._headers["ETag"] = hashlib.md5(ret._headers["Last-Modified"][0].encode()).hexdigest()
 	return ret
 
 class ServerAdapter(bottle.ServerAdapter):
