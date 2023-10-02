@@ -9,17 +9,17 @@
 
 <h2>
 % for part in doc.title:
-   {{part}}.
+   {{!part}}.
 % end
 </h2>
 
 <p>
 {{numberize("Editor", len(doc.editors))}}:
 % for ed in doc.editors[:-1]:
-   {{ed}},
+   {{!ed}},
 % end
 % if doc.editors:
-   {{doc.editors[-1]}}.
+   {{!doc.editors[-1]}}.
 % else:
    Unknown.
 % end

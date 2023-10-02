@@ -268,6 +268,9 @@ class ServerAdapter(bottle.ServerAdapter):
 			def log_request(self, *args, **kwargs):
 				self._log({})
 
+			def log_message(self, format, *args):
+				print(format, args)
+
 			def log_exception(self, info):
 				doc = config.json_adapter({
 					"type": info[0],
