@@ -1,3 +1,5 @@
+# Jing manual: https://relaxng.org/jclark/jing.html
+
 # Note that we use jing instead of lxml for validating RNG schemas because lxml
 # apparently can't process our current schemas and goes into an infinite loop.
 # This because of the embedded schematron stuff? or because we use XPath v. 2?

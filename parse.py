@@ -278,20 +278,27 @@ def parse_num(p, num):
 	# for now we don't deal with @value, @atLeast and @atMost
 	p.dispatch_children(num)
 
-supplied_tooltips = {
-	"subaudible": "",
-	"omitted": "",
-	"explanation": "",
-	"supplied": "",
-	"lost": "",
-	"undefined": "",
+# XXX check all actual vals (and pursue)
+supplied_tbl = {
+	"subaudible": "[]",
+	"omitted": "⟨⟩",
+	"explanation": "()",
+	"supplied": "[]", # meaning?
+	"lost": "[]",
+	"illegible": "[]",
+	"undefined": "[]",
 }
 def parse_supplied(p, supplied):
 	reason = supplied["reason"]
-	ok = supplied_tooltips.get(reason)
-	if ok is not None:
+	seps = supplied_tbl.get(reason)
+	if seps is not None:
+		assert len(seps) == 0 or len(seps) == 2
 		p.add_html('<span class="dh-%s" title="%s">' % (reason, reason.title() + " text"))
+		if seps:
+			p.add_html(seps[0])
 		p.dispatch_children(supplied)
+		if seps:
+			p.add_html(seps[1])
 		p.add_html('</span>')
 	else:
 		p.dispatch_children(supplied)
@@ -382,11 +389,21 @@ def parse_reg(p, reg):
 
 def parse_choice(p, node):
 	children = node.children()
-	if len(children) != 2:
-		print("!!!!", node.xml()) # XXX deal with all possible cases
+	if all(child.name == "unclear" for child in children):
+		p.add_html('<span class="dh-choice-unclear" title="Unclear (several possible readings)">')
+		p.add_html("(")
+		sep = ""
+		for child in children:
+			p.add_html(sep)
+			sep = "/"
+			p.dispatch_children(child)
+		p.add_html(")")
+		p.add_html('</span>')
+	else:
+		# XXX deal with all possible cases
 		# need to choose only one possibility for search (and for simplified display)
-		return
-	p.dispatch_children(node)
+		# which one?
+		p.dispatch_children(node)
 
 def parse_space(p, space):
 	p.add_html("_")
@@ -524,6 +541,7 @@ def parse_g(p, node):
 		gtype = "?"
 	p.add_code("symbol", f"{gtype}.{stype}")
 
+# OK
 def parse_unclear(p, node):
 	klass = "dh-unclear"
 	tip = "Unclear"
