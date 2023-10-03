@@ -278,30 +278,43 @@ def parse_num(p, num):
 	# for now we don't deal with @value, @atLeast and @atMost
 	p.dispatch_children(num)
 
-# XXX check all actual vals (and pursue)
+
+# EGD "Additions to the translation"
+# EGD "Marking up restored text"
+# EGD "The basis of restoration"
 supplied_tbl = {
-	"subaudible": "[]",
-	"omitted": "⟨⟩",
-	"explanation": "()",
-	"supplied": "[]", # meaning?
-	"lost": "[]",
-	"illegible": "[]",
-	"undefined": "[]",
+	# EGD: "words added to the translation for the sake of target language
+	# syntax"
+	"subaudible": ("[]", "Text added to the translation for the sake of target language syntax"),
+	# EGD: "words implied by the context and added to the translation for
+	# the sake of clarification or disambiguation"
+	"explanation": ("()", "Text implied by the context and added to the translation for the sake of clarification or disambiguation"),
+	# EGD: "lost" and "omitted" indicate "segments of translation corresponding
+	# to text restored by the editor in the original" (they are used both
+	# in the edition and in the translation)
+	"lost": ("[]", "Lost text"),
+	"omitted": ("⟨⟩", "Omitted text"),
+	# EGD under "Marking up restored text" says that "undefined" is used when it's not possible
+	# to tell whether we have "lost" or "omitted"
+	"undefined": ("[]", "Lost or omitted text")
 }
+# OK
 def parse_supplied(p, supplied):
-	reason = supplied["reason"]
-	seps = supplied_tbl.get(reason)
-	if seps is not None:
-		assert len(seps) == 0 or len(seps) == 2
-		p.add_html('<span class="dh-%s" title="%s">' % (reason, reason.title() + " text"))
-		if seps:
-			p.add_html(seps[0])
-		p.dispatch_children(supplied)
-		if seps:
-			p.add_html(seps[1])
-		p.add_html('</span>')
-	else:
-		p.dispatch_children(supplied)
+	seps, tip = supplied_tbl.get(supplied["reason"], supplied_tbl["lost"])
+	if supplied["cert"] == "low":
+		tip += " (low certainty)"
+	evidence = supplied["evidence"]
+	if evidence == "parallel":
+		tip += "; restoration based on previous edition (not assessable)"
+	elif tip == "previouseditor":
+		tip += "; restoration based on parallel"
+	p.add_html('<span class="dh-supplied" title="%s">' % html.escape(tip))
+	if seps:
+		p.add_html(seps[0])
+	p.dispatch_children(supplied)
+	if seps:
+		p.add_html(seps[1])
+	p.add_html('</span>')
 
 def parse_foreign(p, foreign):
 	p.add_html("<i>")

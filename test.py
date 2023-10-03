@@ -14,6 +14,6 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in inscriptions:
 	xml = tree.parse(file)
-	for t in xml.find("//choice"):
-		if all(child.name == "unclear" for child in t.children()):
-			print(t.xml())
+	for t in xml.find("//supplied"):
+		if t["evidence"]:
+			print(t["evidence"])
