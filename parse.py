@@ -2,7 +2,7 @@
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
 import os, sys, re, io, copy, html, unicodedata
-from dharma import prosody, persons, tree
+from dharma import prosody, people, tree
 
 force_color = True
 def term_color(code=None):
@@ -692,7 +692,7 @@ def parse_titleStmt(p, stmt):
 		if ident == "part:jodo":
 			continue
 		if ident and ident.startswith("part:"):
-			name = persons.plain(ident.removeprefix("part:"))
+			name = people.plain(ident.removeprefix("part:"))
 		else:
 			name = normalize_space(node.text(space="preserve"))
 			if not name:

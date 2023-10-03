@@ -1,6 +1,6 @@
 import os, json, sys, unicodedata, hashlib
 from datetime import datetime
-from dharma import config, bottle, change, persons, ngrams, catalog, parse
+from dharma import config, bottle, change, people, ngrams, catalog, parse
 
 SCHEMA = """
 begin;
@@ -43,7 +43,7 @@ def show_commit_log():
 			if is_robot(commit["author"]["email"]):
 				continue
 			author = commit["author"].get("username") or commit["author"]["name"]
-			author = persons.plain_from_github(author)
+			author = people.plain_from_github(author)
 			hash = commit["id"]
 			url = commit["url"]
 			commits.append({"repo": repo, "date": push_date, "author": author, "hash": hash, "url": url})
@@ -74,7 +74,7 @@ def show_texts():
 			order by name""").fetchall()
 	authors = []
 	for (author_id,) in conn.execute("select distinct author_id from owners order by author_id"):
-		authors.append((author_id, persons.plain(author_id)))
+		authors.append((author_id, people.plain(author_id)))
 	conn.execute("commit")
 	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner)
 

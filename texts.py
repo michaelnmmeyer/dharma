@@ -61,7 +61,7 @@ def iter_texts():
 			yield files[0]
 
 def owners_of(path):
-	from dharma import persons
+	from dharma import people
 	path = os.path.relpath(path, config.REPOS_DIR)
 	slash = path.index("/")
 	repo, relpath = path[:slash], path[slash + 1:]
@@ -69,7 +69,7 @@ def owners_of(path):
 	authors = set(ret.stdout.splitlines())
 	ids = set()
 	for author in authors:
-		id = persons.GIT_TO_ID.get(author)
+		id = people.GIT_TO_ID.get(author)
 		if not id:
 			continue
 		ids.add(id)

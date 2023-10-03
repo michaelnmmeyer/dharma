@@ -10,10 +10,7 @@ def normalize_space(s):
 """
 To dump a list of all contributors:
 
-	for repo in repos/*; do
-		test -d $repo || continue;
-		git -C $repo log --format='%aN'
-	done | sort -u
+for repo in repos/*; do test -d $repo && git -C $repo log --format=%aN; done | sort -u
 """
 
 ID_TO_GIT = {
@@ -76,7 +73,7 @@ wikidata
 def load_members_list():
 	path = os.path.join(config.REPOS_DIR, "project-documentation/DHARMA_idListMembers_v01.xml")
 	xml = tree.parse(path)
-	members = {"leke": ["Leb", "Ke"]} # FIXME
+	members = {"leke": ["Leb Ke"]} # FIXME
 	for person in xml.find("//person"):
 		ident = person["xml:id"]
 		assert ident not in members

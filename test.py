@@ -1,6 +1,6 @@
 import sys, re
 from glob import iglob
-from dharma import tree, persons, parse
+from dharma import tree, people, parse
 
 files = sorted(iglob("texts/DHARMA_*"))
 inscriptions = [f for f in files if "DHARMA_INS" in f]
