@@ -1,4 +1,6 @@
-all:
+schemas = $(addprefix schemas/,inscription bestow critical diplomatic prosody)
+
+all: $(addsuffix .rng,$(schemas))
 
 update-repos:
 	for d in repos/*; do \
@@ -43,8 +45,19 @@ commit-all:
 		git -C $$d push; \
 	done
 
+deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
+	cp schemas/inscription.xml repos/project-documentation/schema/DHARMA_INSSchema_v01.xml
+	cp schemas/bestow.xml repos/project-documentation/schema/DHARMA_BESTOW_v01.xml
+	cp schemas/critical.xml repos/project-documentation/schema/DHARMA_CritEdSchema_v02.xml
+	cp schemas/diplomatic.xml repos/project-documentation/schema/DHARMA_DiplEDSchema_v01.xml
+	cp schemas/prosody.xml repos/project-documentation/schema/DHARMA_ProsodySchema_v01.xml
+	cp schemas/inscription.rng repos/project-documentation/schema/latest/DHARMA_Schema.rng
+	cp schemas/bestow.rng repos/project-documentation/schema/latest/DHARMA_BESTOW.rng
+	cp schemas/critical.rng repos/project-documentation/schema/latest/DHARMA_CritEdSchema.rng
+	cp schemas/diplomatic.rng repos/project-documentation/schema/latest/DHARMA_DiplEDSchema.rng
+	cp schemas/prosody.rng repos/project-documentation/schema/latest/DHARMA_ProsodySchema.rng
 
-.PHONY: all update-repos update-texts download-dbs list-texts forever image commit-all
+.PHONY: all update-repos update-texts download-dbs list-texts forever image commit-all deploy-schemas
 
 inscription.rnc: $(wildcard texts/DHARMA_INS*.xml)
 	java -jar validation/trang.jar $^ $@
@@ -63,3 +76,9 @@ global.rnc: $(wildcard texts/DHARMA_*.xml)
 
 %.rng: %.rnc
 	java -jar validation/trang.jar $^ $@
+
+%.rnc: %.rng
+	java -jar validationTools/trang.jar $^ $@
+
+%.rng: %.xml
+	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/relaxng%3Aapplication%3Axml-relaxng > tmp && mv tmp $@

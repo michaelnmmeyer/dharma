@@ -59,6 +59,18 @@ from glob import glob
 from dharma import config, texts
 from dharma.tree import parse, Error
 
+def schema_from_filename(file):
+	base = os.path.basename(file)
+	if base.startswith("DHARMA_DiplEd"):
+		schema = "diplomatic"
+	elif base.startswith("DHARMA_CritEd"):
+		schema = "critical"
+	elif base.startswith("DHARMA_INS"):
+		schema = "inscription"
+	else:
+		schema = None
+	return schema
+
 def schema_from_contents(file):
 	tree = parse(file)
 	ret = set()
@@ -75,23 +87,11 @@ def schema_from_contents(file):
 			continue
 		if not "erc-dharma" in schema:
 			continue
-		schema = os.path.basename(schema)
+		schema = schema_from_filename(os.path.basename(schema))
 		ret.add(schema)
 	assert len(ret) <= 1, "several schemas for %r" % file
 	if ret:
 		return ret.pop()
-
-def schema_from_filename(file):
-	base = os.path.basename(file)
-	if base.startswith("DHARMA_DiplEd"):
-		schema = "DHARMA_DiplEDSchema.rng"
-	elif base.startswith("DHARMA_CritEd"):
-		schema = "DHARMA_CritEdSchema.rng"
-	elif base.startswith("DHARMA_INS"):
-		schema = "DHARMA_Schema.rng"
-	else:
-		schema = None
-	return schema
 
 # To test the DHARMA schemas, we must first figure out (from the files
 # themselves?) which schema we should use.
@@ -115,8 +115,8 @@ def utf16_units_to_codepoints(s, n16):
 	return i
 
 def validate_against(schema, files):
-	jar = os.path.join(config.THIS_DIR, "validation/jing.jar")
-	schema = os.path.join(config.THIS_DIR, "validation", schema)
+	jar = os.path.join(config.THIS_DIR, "jars", "jing.jar")
+	schema = os.path.join(config.THIS_DIR, "schemas", schema + ".rng")
 	cmd = ["java", "-jar", jar, schema] + sorted(files)
 	print(*cmd, file=sys.stderr)
 	ret = subprocess.run(cmd, encoding="UTF-8", stdout=subprocess.PIPE)
