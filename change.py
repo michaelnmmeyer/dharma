@@ -112,8 +112,8 @@ create table if not exists validation(
 create table if not exists owners(
 	author_id text,
 	repo text,
-	xml_path text,
-	primary key(author_id, repo, xml_path)
+	name text,
+	primary key(author_id, name)
 );
 
 commit;
@@ -178,8 +178,8 @@ def update_db(conn, name):
 		conn.execute("insert into texts(name, repo, html_path) values(?, ?, ?)",
 			(file_id, name, html_path))
 		for author_id in texts.owners_of(os.path.join(repo_dir, xml_path)):
-			conn.execute("insert into owners(author_id, repo, xml_path) values(?, ?, ?)",
-				(author_id, name, xml_path))
+			conn.execute("insert into owners(author_id, repo, name) values(?, ?, ?)",
+				(author_id, name, file_id))
 	for text, errors in sorted(state.items()):
 		valid = not errors["schema"] and not errors["unicode"]
 		errors = json.dumps(errors)

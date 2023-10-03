@@ -25,7 +25,7 @@ list-texts:
 
 # Use like this: make forever cmd="echo hello"
 forever:
-	@while inotifywait -qqre modify . @dbs @docs @notes @past @repos; do \
+	@while inotifywait -qqre modify . @dbs @docs @notes @past @repos @schemas; do \
 		$(cmd) || true; \
 	done
 

@@ -57,20 +57,21 @@ def show_texts():
 	(last_updated,) = conn.execute("select format_date(value) from metadata where key = 'last_updated'").fetchone()
 	owner = bottle.request.query.owner
 	if owner:
-		rows = list(conn.execute("""
-			select name, validation.repo, commit_hash,
+		rows = conn.execute("""
+			select texts.name, texts.repo, commit_hash,
 				format_date(commit_date) as readable_commit_date,
 				valid, html_path
-			from owners join commits on owners.repo = commits.repo
-				natural join validation natural join texts
-			where author_id = ? order by name""", (owner,)))
+			from texts natural join validation
+				join owners on texts.name = owners.name
+				join commits on texts.repo = commits.repo
+			where author_id = ? order by texts.name""", (owner,)).fetchall()
 	else:
-		rows = list(conn.execute("""
+		rows = conn.execute("""
 			select name, repo, commit_hash,
 				format_date(commit_date) as readable_commit_date,
 				valid, html_path
 			from commits natural join validation natural join texts
-			order by name"""))
+			order by name""").fetchall()
 	authors = []
 	for (author_id,) in conn.execute("select distinct author_id from owners"):
 		authors.append((author_id, persons.plain(author_id)))
