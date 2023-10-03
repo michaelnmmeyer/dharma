@@ -134,8 +134,6 @@ def update_db(conn, name):
 	commit_hash, date = latest_commit_in_repo(name)
 	if conn.execute("select 1 from commits where repo = ? and commit_hash = ?",
 		(name, commit_hash)).fetchone():
-		# Need to check that we validated it with the latest version of the code.
-		# TODO what about schemas?
 		if conn.execute("select 1 from validation where repo = ? and code_hash = ?",
 			(name, config.CODE_HASH)).fetchone():
 			# No need to revalidate
@@ -214,13 +212,15 @@ def clone_all():
 
 # Must be at least this big in POSIX. Linux currently has 4096.
 PIPE_BUF = 512
-# Force a full update at startup.
+# When we should force a full update. We perform one at startup.
 NEXT_FULL_UPDATE = time.time()
 # Force a full update every FORCE_UPDATE_DELTA seconds.
 FORCE_UPDATE_DELTA = 24 * 60 * 60
 
 # In the worst case, if we're not fast enough to handle any update events, we
-# just end up running forced full updates continuously.
+# just end up running forced full updates continuously. We check if a full
+# update is necessary *before* trying to update a singular repo, so there is
+# always an opportunity for all repos to be updated.
 def read_names(fd):
 	buf = ""
 	global NEXT_FULL_UPDATE
@@ -269,7 +269,7 @@ def read_changes(fd):
 			logging.warning("junk command: %r" % name)
 
 # To be used by clients, not when running this __main__ (this would release the
-# lock).
+# lock we hold on the fifo).
 def notify(name):
 	msg = name.encode("ascii") + b"\n"
 	assert len(msg) <= PIPE_BUF
@@ -289,13 +289,13 @@ def main():
 		os.mkfifo(FIFO_ADDR)
 	except FileExistsError:
 		pass
-	logging.info("ready")
 	fd = os.open(FIFO_ADDR, os.O_RDWR)
 	try:
 		fcntl.lockf(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
 	except OSError as e:
 		logging.error("cannot obtain lock, is another change process running?")
 		sys.exit(1)
+	logging.info("ready")
 	try:
 		read_changes(fd)
 	finally:
