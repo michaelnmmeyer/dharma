@@ -1,6 +1,41 @@
 import os, re, io, unicodedata
+from urllib.parse import urlparse
 import requests
 from dharma import config, tree
+
+SCHEMA = """
+begin;
+
+create table if not exists people_main(
+	name json check(
+		json_array_length(name) between 1 and 2
+		and json_type(name ->> 0) = 'text'
+		and json_array_length(name) = 1 or json_type(name ->> 1) = 'text'),
+	print_name text as (iif(json_array_length(name) = 1,
+		name ->> 0,
+		printf('%s %s', name ->> 0, name ->> 1))),
+	inverted_name text as (iif(json_array_length(name) = 1,
+		name ->> 0,
+		printf('%s, %s', name ->> 1, name ->> 0))),
+	-- all the following can be null
+	dh_id text unique check(dh_id is null or length(dh_id) = 4),
+	idhal text unique,
+	idref text unique,
+	orcid text unique,
+	viaf text unique,
+	wikidata text unique
+);
+
+create table if not exists people_github(
+	github_id text primary key not null,
+	-- Might be null, not all people on github have a dharma id.
+	dh_id text, foreign key(dh_id) references people_main(dh_id)
+);
+
+commit;
+"""
+
+db = config.open_db("people")
 
 # Like the eponymous function in xslt
 def normalize_space(s):
@@ -70,29 +105,43 @@ VIAF
 wikidata
 """.strip().split()
 
-def load_members_list():
+def normalize_url(url):
+	url = url.rstrip("/")
+	ret = urlparse(url)
+	ret = ret._replace(scheme="https")
+	return ret.geturl()
+	# could also check that the url works
+
+def iter_members_list():
 	path = os.path.join(config.REPOS_DIR, "project-documentation/DHARMA_idListMembers_v01.xml")
 	xml = tree.parse(path)
-	members = {"leke": ["Leb Ke"]} # FIXME
 	for person in xml.find("//person"):
-		ident = person["xml:id"]
-		assert ident not in members
+		row = {}
+		row["ident"] = person["xml:id"]
 		rec = person.first("persName")
 		name = rec.find("name")
 		if name:
 			assert len(rec.children()) == 1, rec
-			name = name[0].text()
-			members[ident] = [name]
+			row["name"] = [name[0].text()]
 		else:
 			assert len(rec.children()) == 2, rec
 			first = rec.first("forename").text()
 			last = rec.first("surname").text()
-			members[ident] = [last, first]
+			row["name"] = [first, last]
 		for idno in person.find("idno"):
-			assert idno["type"] in ID_TYPES
-	return members
+			typ = idno["type"]
+			ltyp = typ.lower()
+			assert typ in ID_TYPES
+			assert not ltyp in row
+			val = idno.text()
+			if ltyp != "idhal" and val:
+				val = normalize_url(val)
+			row[ltyp] = val or None
+		for typ in ID_TYPES:
+			row.setdefault(typ.lower(), None)
+		yield row
 
-MEMBERS = load_members_list()
+#MEMBERS = load_members_list()
 
 def plain(ident):
 	return " ".join(reversed(MEMBERS[ident]))
@@ -133,7 +182,5 @@ def plain_from_viaf(url, dflt=None):
 
 if __name__ == "__main__":
 	pass
-	"""
-	for ident, name in sorted(MEMBERS.items()):
-		print(ident, " ".join(name), sep="\t")
-"""
+	for row in iter_members_list():
+		print(row)
