@@ -463,12 +463,20 @@ def parse_del(p, node):
 	p.dispatch_children(node)
 	p.add_html('</span>')
 
-def numberize(t, n):
-	if t not in ("character", "component", "line", "page", "Editor"):
-		raise Exception("unknown term %r" % t)
+def numberize(s, n):
+	last_word = s.split()[-1].lower()
+	if last_word not in ("character", "component", "line", "page", "editor"):
+		raise Exception("unknown term %r" % last_word)
 	if n == 1:
-		return t
-	return t + "s"
+		return s
+	return s + "s"
+
+def parse_seg(p, seg):
+	if seg.first("gap"):
+		# We deal with this within parse_gap
+		p.dispatch_children(seg)
+		return
+	# TODO
 
 """
 Legit values for @reason:
@@ -511,8 +519,11 @@ def parse_gap(p, gap):
 		return
 	if reason == "undefined":
 		reason = "lost or illegible"
+	child = gap.first("certainty")
+	if child and child["match"] == ".." and child["locus"] == "name":
+		reason = "possibly %s" % reason
 	if unit == "component":
-		return # TODO
+		unit = "character component"
 	if quantity.isdigit():
 		quantity = int(quantity)
 		repl = "["
@@ -532,11 +543,13 @@ def parse_gap(p, gap):
 		else:
 			repl = "[unknown number of %s %s]" % (reason, numberize(unit, +333))
 		tip = "Unknown number of %s %s" % (reason, numberize(unit, +333))
+	parent = gap.parent
+	if parent and parent.name == "seg" and parent["met"]:
+		# XXX repr here
+		repl = "[%s]" % parent["met"]
 	p.add_html('<span class="dh-gap" title="%s">%s</span>' % (html.escape(tip), html.escape(repl)))
 	# TODO special cases in editorial, involve
-	# <certainty match=".." locus="name"/>
 	# <seg met="+++-++">
-	# TODO check and change schematron if needed
 
 def parse_g(p, node):
 	# <g type="...">.</g> for punctuation marks
@@ -625,6 +638,9 @@ def parse_lg(p, lg):
 			p.dispatch(elem)
 	p.add_html("</div>")
 	p.add_code("log:verse>")
+
+def parse_l(p, l):
+	p.dispatch_children(l) # TODO
 
 def parse_body(p, body):
 	for elem in body.children():

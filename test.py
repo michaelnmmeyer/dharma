@@ -14,6 +14,6 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in inscriptions:
 	xml = tree.parse(file)
-	for t in xml.find("//gap"):
-		print(t)
-	
+	for t in xml.find("//*"):
+		if t["met"] and not all(c in "-=+ /" for c in t["met"]):
+			print(t["met"])
