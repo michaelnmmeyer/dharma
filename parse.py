@@ -501,7 +501,7 @@ parent is not <seg>. (but a <seg type="component"> doesn't necessarily hold a
 # EGD: The EpiDoc element <gap/> ff (full section 5.4)
 # EGD: "Scribal Omission without Editorial Restoration"
 def parse_gap(p, gap):
-	reason = gap["reason"]
+	reason = gap["reason"] or "undefined" # most generic choice
 	quantity = gap["quantity"]
 	precision = gap["precision"]
 	extent = gap["extent"] or "unknown"
@@ -511,44 +511,32 @@ def parse_gap(p, gap):
 		return
 	if reason == "undefined":
 		reason = "lost or illegible"
-	if quantity:
-		assert quantity.isdigit()
-	assert not precision or precision == "low"
-	if unit == "character":
-		if quantity:
-			quantity = int(quantity)
-			repl = "["
-			if precision == "low":
-				repl += "ca. "
+	if unit == "component":
+		return # TODO
+	if quantity.isdigit():
+		quantity = int(quantity)
+		repl = "["
+		if precision == "low":
+			repl += "ca. "
+		if unit == "character":
 			repl += quantity * "*" + "]"
-			if precision == "low":
-				tooltip = "About %d %s %s" % (quantity, reason, numberize(unit, quantity))
-			else:
-				tooltip = "%d %s %s" % (quantity, reason, numberize(unit, quantity))
 		else:
-			assert extent == "unknown"
-			repl = "[…]"
-			tooltip = "Unknown number of %s %s" % (reason, numberize(unit, +333))
-		p.add_html('<span class="dh-gap" title="%s">%s</span>' % (html.escape(tooltip), html.escape(repl)))
-	elif unit == "line":
-		if quantity:
-			quantity = int(quantity)
-			repl = "["
-			if precision == "low":
-				repl += "ca. "
 			repl += "%d %s %s]" % (quantity, reason, numberize(unit, quantity))
-			tooltip = ""
-			if precision == "low":
-				tooltip += "About "
-			tooltip += "%d %s %s" % (quantity, reason, numberize(unit, quantity))
-		else:
-			assert extent == "unknown"
-			repl = "[unknown number of %s %s]" % (reason, numberize(unit, +333))
-			tooltip = "Unknown number of %s %s" % (reason, numberize(unit, +333))
-		p.add_html('<span class="dh-gap" title="%s">%s</span>' % (html.escape(tooltip), html.escape(repl)))
+		tip = ""
+		if precision == "low":
+			tip += "About "
+		tip += "%d %s %s" % (quantity, reason, numberize(unit, quantity))
 	else:
-		pass # TODO
-	# TODO we miss other cases! see editorial
+		if unit == "character":
+			repl = "[…]"
+		else:
+			repl = "[unknown number of %s %s]" % (reason, numberize(unit, +333))
+		tip = "Unknown number of %s %s" % (reason, numberize(unit, +333))
+	p.add_html('<span class="dh-gap" title="%s">%s</span>' % (html.escape(tip), html.escape(repl)))
+	# TODO special cases in editorial, involve
+	# <certainty match=".." locus="name"/>
+	# <seg met="+++-++">
+	# TODO check and change schematron if needed
 
 def parse_g(p, node):
 	# <g type="...">.</g> for punctuation marks
