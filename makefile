@@ -74,11 +74,8 @@ critical_edition.rnc: $(filter-out $(wildcard texts/DHARMA_CritEd*_trans*.xml),$
 global.rnc: $(wildcard texts/DHARMA_*.xml)
 	java -jar validation/trang.jar $^ $@
 
-%.rng: %.rnc
-	java -jar validation/trang.jar $^ $@
-
 %.rnc: %.rng
-	java -jar validationTools/trang.jar $^ $@
+	java -jar jars/trang.jar $^ $@
 
 %.rng: %.xml
 	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/relaxng%3Aapplication%3Axml-relaxng > tmp && mv tmp $@
