@@ -380,24 +380,36 @@ def parse_pb(p, elem):
 	p.add_html('</span>')
 	p.add_code("phys:page", n)
 
+# OK
 def parse_sic(p, sic):
 	p.add_html('<span class="dh-sic" title="Incorrect text">')
+	p.add_html("¿")
 	p.dispatch_children(sic)
+	p.add_html("?")
 	p.add_html('</span>')
 
+# OK
 def parse_corr(p, corr):
 	p.add_html('<span class="dh-corr" title="Corrected text">')
+	p.add_html('⟨')
 	p.dispatch_children(corr)
+	p.add_html('⟩')
 	p.add_html('</span>')
 
+# OK
 def parse_orig(p, orig):
 	p.add_html('<span class="dh-orig" title="Non-standard text">')
+	p.add_html("¡")
 	p.dispatch_children(orig)
+	p.add_html("!")
 	p.add_html('</span>')
 
+# OK
 def parse_reg(p, reg):
 	p.add_html('<span class="dh-reg" title="Standardised text">')
+	p.add_html("⟨")
 	p.dispatch_children(reg)
+	p.add_html("⟩")
 	p.add_html('</span>')
 
 def parse_choice(p, node):
@@ -471,20 +483,24 @@ Legit values for @unit
    1208 component
     263 line
      11 page
+     + plate
+     + folio
+
+@quantity must be an integer
 
 each <gap unit="component"> is supposed to always be wrapped in a <seg
-type="component" subtype=...>. See §"Lacunae below the akṣara level" and
-§"Tagging parts of alphabetic characters". We don't have that in practice: 105
-cases where parent is not <seg>. (but a <seg type="component"> doesn't
-necessarily hold a <gap>.)
+type="component" subtype=...>. We don't have that in practice: 105 cases where
+parent is not <seg>. (but a <seg type="component"> doesn't necessarily hold a
+<gap>.)
 
 
 
 <seg type="component" subtype="body"><gap reason="lost" quantity="1" unit="component"/></seg>
 """
-# "component" is for vowel markers, etc.; "character" is for akṣaras
+# "component" is for character components like vowel markers, etc.; "character" is for akṣaras
+# EGD: The EpiDoc element <gap/> ff (full section 5.4)
+# EGD: "Scribal Omission without Editorial Restoration"
 def parse_gap(p, gap):
-	assert not gap.text()
 	reason = gap["reason"]
 	quantity = gap["quantity"]
 	precision = gap["precision"]
@@ -556,14 +572,12 @@ def parse_g(p, node):
 
 # OK
 def parse_unclear(p, node):
-	klass = "dh-unclear"
-	tip = "Unclear"
+	tip = "Unclear text"
 	if node["cert"] == "low":
-		klass = "dh-unclear-cert-low"
-		tip = "Very unclear"
+		tip = "Very unclear text"
 	if node["reason"]:
 		tip += " (%s)" % node["reason"].replace("_", " ")
-	p.add_html('<span class="%s" title="%s">' % (html.escape(klass), html.escape(tip)))
+	p.add_html('<span class="dh-unclear" title="%s">' % html.escape(tip))
 	p.add_html("(")
 	p.dispatch_children(node)
 	if node["cert"] == "low":
@@ -571,9 +585,12 @@ def parse_unclear(p, node):
 	p.add_html(")")
 	p.add_html('</span>')
 
+# EGD "Editorial deletion (suppression)"
 def parse_surplus(p, node):
-	p.add_html('<span class="dh-surplus">')
+	p.add_html('<span class="dh-surplus" title="Superfluous text erroneously added by the scribe">')
+	p.add_html("{")
 	p.dispatch_children(node)
+	p.add_html("}")
 	p.add_html('</span>')
 
 def parse_p(p, para):
