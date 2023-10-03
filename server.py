@@ -73,7 +73,7 @@ def show_texts():
 			from commits natural join validation natural join texts
 			order by name""").fetchall()
 	authors = []
-	for (author_id,) in conn.execute("select distinct author_id from owners"):
+	for (author_id,) in conn.execute("select distinct author_id from owners order by author_id"):
 		authors.append((author_id, persons.plain(author_id)))
 	conn.execute("commit")
 	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner)
@@ -82,11 +82,13 @@ def show_texts():
 def show_text(repo, hash, name):
 	conn = TEXTS_DB
 	row = conn.execute("""
-		select name, repo, commit_hash, code_hash, errors, path as xml_path, html_path,
+		select name, commits.repo, commit_hash, code_hash, errors, path as xml_path, html_path,
 			format_date(commit_date) as readable_commit_date,
 			format_date(when_validated) as readable_when_validated
-		from commits natural join validation natural join texts natural join files
-		where repo = ? and name = ? and commit_hash = ?
+		from texts natural join files
+			natural join validation
+			join commits on texts.repo = commits.repo
+		where commits.repo = ? and name = ? and commit_hash = ?
 	""", (repo, name, hash)).fetchone()
 	if not row:
 		bottle.abort(404, "Not found")
