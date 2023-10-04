@@ -23,8 +23,10 @@ list-texts:
 	@sqlite3 dbs/texts.sqlite "select printf('repos/%s/%s', repo, path) \
 		from texts natural join files order by name"
 
-# Use like this: make forever cmd="echo hello"
+# Ussage: make forever cmd="echo hello"
+cmd := make
 forever:
+	@$(cmd) || true
 	@while inotifywait -qqre modify . @dbs @docs @notes @past @repos @schemas; do \
 		$(cmd) || true; \
 	done
@@ -35,7 +37,8 @@ image:
 	git show --no-patch --format=%at HEAD >> version.txt
 	sudo docker build -t dharma .
 
-# Use like this: make commit-all m="Commit message"
+# Usage: make commit-all m="Commit message"
+m := "Address encoding problems"
 commit-all:
 	for d in repos/*; do \
 		test -d $$d || continue; \
