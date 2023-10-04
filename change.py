@@ -11,23 +11,10 @@ from dharma.config import command
 
 FIFO_ADDR = os.path.join(config.REPOS_DIR, "change.hid")
 
+# Not all repos, only those that contain texts and other files we need.
 REPOS = """
-aditia-phd
-arie
-arie-corpus
 BESTOW
-digital-areal
-electronic-texts
-erc-dharma.github.io
-exchange_aurorachana
-lexica-indices
-mdt-artefacts
-mdt-authorities
-mdt-editor
-mdt-surrogates
-mdt-texts
 project-documentation
-repo-test
 siddham
 tfa-accalpuram-epigraphy
 tfa-cempiyan-mahadevi-epigraphy
