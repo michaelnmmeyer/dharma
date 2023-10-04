@@ -1,635 +1,907 @@
-default namespace = "http://www.tei-c.org/ns/1.0"
+default namespace = ""
+namespace ns1 = "http://www.tei-c.org/ns/1.0"
 
 start =
-  element TEI {
-    attribute xml:lang { xsd:NCName }?,
-    element teiHeader {
+  element doc {
+    (text
+     | em
+     | lb
+     | pb
+     | table
+     | element h0 { text }
+     | element h1 { (text | em | i | lb | pb | ref)+ }
+     | element h2 { (text | i | lb | pb)+ }
+     | element h3 { (text | de | em | i | lb | pb | ref)+ }
+     | element hi {
+         (text
+          | ch
+          | de
+          | em
+          | gr
+          | i
+          | ins
+          | lb
+          | pb
+          | ref
+          | ta
+          | tlka)+
+       }
+     | element lg {
+         element l { de }+
+       }
+     | element p {
+         (text
+          | ch
+          | de
+          | em
+          | gr
+          | i
+          | ins
+          | lb
+          | pb
+          | ref
+          | ta
+          | table
+          | element greek { text })+
+       })+
+  }
+  | element ns1:TEI {
+      attribute xml:id { xsd:NCName }?,
       attribute xml:lang { xsd:NCName }?,
-      element fileDesc {
-        titleStmt,
-        publicationStmt,
-        element sourceDesc {
-          element biblFull {
-            titleStmt,
-            element editionStmt { p },
-            publicationStmt
-          }?,
-          (p
-           | element msDesc {
-               element msIdentifier {
-                 repository,
-                 idno,
-                 element altIdentifier {
-                   attribute type { xsd:NCName },
-                   element institution { xsd:NCName }?,
-                   element settlement { text }?,
-                   repository?,
-                   idno,
-                   note?
-                 }*
-               },
-               element msContents { summary },
-               element physDesc {
-                 (ab
-                  | element objectDesc {
-                      element supportDesc {
-                        element support { p }
-                      },
-                      element layoutDesc {
-                        element layout { p }
-                      }
-                    })?,
-                 element handDesc {
-                   ab?,
-                   ((summary,
-                     element handNote {
-                       attribute xml:id { xsd:NCName },
-                       (text | supplied)+
-                     }+)
-                    | p+)
-                 }?,
-                 element decoDesc {
-                   element decoNote { text }
-                 }?
-               }?,
-               element history {
-                 element origin {
-                   element origDate {
-                     attribute notAfter { xsd:integer },
-                     attribute notBefore { xsd:integer },
-                     text
-                   }
+      attribute xml:space { xsd:NCName }?,
+      element ns1:teiHeader {
+        attribute xml:lang { xsd:NCName }?,
+        element ns1:fileDesc {
+          ns1.titleStmt,
+          ns1.editionStmt?,
+          ns1.publicationStmt,
+          element ns1:sourceDesc {
+            ns1.p?,
+            element ns1:biblFull {
+              ns1.titleStmt, ns1.editionStmt, ns1.publicationStmt
+            }?,
+            (ns1.bibl
+             | element ns1:msDesc {
+                 element ns1:msIdentifier {
+                   ns1.repository,
+                   ns1.idno,
+                   element ns1:altIdentifier {
+                     attribute type { xsd:NCName },
+                     element ns1:institution { xsd:NCName }?,
+                     element ns1:settlement { text }?,
+                     ns1.repository?,
+                     ns1.idno,
+                     ns1.note?
+                   }*
                  },
-                 element provenance {
-                   attribute type { xsd:NCName },
-                   (date | p)
-                 }+
-               }?
-             })
-        }
+                 element ns1:msContents { ns1.summary }?,
+                 element ns1:physDesc {
+                   (ns1.ab
+                    | element ns1:objectDesc {
+                        element ns1:supportDesc {
+                          element ns1:support { ns1.p }
+                        },
+                        element ns1:layoutDesc {
+                          element ns1:layout { (text | ns1.p)+ }
+                        }
+                      })?,
+                   element ns1:handDesc {
+                     ns1.ab?,
+                     ns1.p*,
+                     ns1.summary?,
+                     element ns1:handNote {
+                       attribute xml:id { xsd:NCName }?,
+                       (text | ns1.foreign | ns1.supplied)+
+                     }*
+                   }?,
+                   element ns1:decoDesc {
+                     element ns1:decoNote { text }
+                   }?
+                 }?,
+                 element ns1:history {
+                   element ns1:origin {
+                     element ns1:origDate {
+                       attribute notAfter { xsd:integer },
+                       attribute notBefore { xsd:integer },
+                       text
+                     }
+                   },
+                   element ns1:provenance {
+                     attribute type { xsd:NCName },
+                     (ns1.date | ns1.p)
+                   }+
+                 }?
+               })?
+          }
+        },
+        element ns1:encodingDesc {
+          element ns1:projectDesc { ns1.p },
+          element ns1:schemaRef {
+            attribute key { xsd:NCName },
+            attribute type { xsd:NCName },
+            attribute url { xsd:anyURI }
+          },
+          element ns1:listPrefixDef {
+            element ns1:prefixDef {
+              attribute ident { xsd:NCName },
+              attribute matchPattern { text },
+              attribute replacementPattern { xsd:anyURI },
+              ns1.p
+            }+
+          },
+          element ns1:tagsDecl {
+            attribute partial { xsd:boolean },
+            element ns1:rendition {
+              attribute scheme { xsd:NCName },
+              attribute xml:id { xsd:NCName },
+              text
+            }+
+          }?
+        }*,
+        (element ns1:profileDesc {
+           element ns1:langUsage {
+             element ns1:language {
+               attribute ident { xsd:NCName },
+               xsd:NCName
+             }+
+           }
+         }
+         | element ns1:revisionDesc {
+             element ns1:change {
+               attribute status { xsd:NCName }?,
+               attribute when { xsd:NMTOKEN },
+               attribute who { xsd:anyURI },
+               text
+             }+
+           })?
       },
-      element encodingDesc {
-        element projectDesc { p },
-        element schemaRef {
-          attribute key { xsd:NCName },
-          attribute type { xsd:NCName },
-          attribute url { xsd:anyURI }
-        },
-        element listPrefixDef {
-          element prefixDef {
-            attribute ident { xsd:NCName },
-            attribute matchPattern { text },
-            attribute replacementPattern { xsd:anyURI },
-            p
-          }+
-        },
-        element tagsDecl {
-          attribute partial { xsd:boolean },
-          element rendition {
-            attribute scheme { xsd:NCName },
-            attribute xml:id { xsd:NCName },
-            text
-          }+
-        }?
-      }*,
-      element revisionDesc {
-        element change {
-          attribute status { xsd:NCName }?,
-          attribute when { xsd:NMTOKEN },
-          attribute who { xsd:anyURI },
-          text
+      element ns1:facsimile {
+        element ns1:graphic {
+          attribute n { xsd:integer }?,
+          attribute url { xsd:anyURI },
+          attribute xml:id { xsd:NCName }?,
+          ns1.desc?
         }+
+      }?,
+      element ns1:text {
+        attribute xml:space { xsd:NCName }?,
+        element ns1:body { ns1.div+ }
       }
-    },
-    element facsimile {
-      element graphic {
-        attribute url { xsd:anyURI },
-        attribute xml:id { xsd:NCName }?,
-        desc?
-      }+
-    }?,
-    element text {
-      attribute xml:space { xsd:NCName },
-      element body { \div+ }
     }
+ns1.titleStmt =
+  element ns1:titleStmt {
+    ns1.title+,
+    element ns1:principal { ns1.persName }?,
+    (ns1.author
+     | element ns1:editor {
+         attribute role { xsd:NCName }?,
+         (text | ns1.persName)+
+       }*),
+    ns1.respStmt*
   }
-titleStmt =
-  element titleStmt {
-    title,
-    (element editor { text }+
-     | element respStmt {
-         element resp { text },
-         persName+
-       }+)
+ns1.editionStmt =
+  element ns1:editionStmt {
+    ns1.p
+    | (element ns1:edition { text },
+       ns1.respStmt+)
   }
-publicationStmt =
-  element publicationStmt {
-    element authority { (text | note)+ },
-    element pubPlace { text }*,
-    idno,
-    element availability {
-      element licence {
+ns1.publicationStmt =
+  element ns1:publicationStmt {
+    element ns1:authority { (text | ns1.note)+ },
+    ns1.pubPlace*,
+    ns1.idno,
+    element ns1:availability {
+      element ns1:licence {
         attribute target { xsd:anyURI },
-        p+
+        ns1.p+
       }
-    },
-    date?
+    }?,
+    ns1.date?
   }
-p =
-  element p {
+ns1.p =
+  element ns1:p {
+    attribute corresp { text }?,
     attribute n { text }?,
     attribute part { xsd:NCName }?,
     attribute rend { xsd:NCName }?,
     attribute xml:lang { xsd:NCName }?,
     (text
-     | abbr
-     | add
-     | bibl
-     | certainty
-     | choice
-     | cit
-     | corr
-     | date
-     | del
-     | expan
-     | foreign
-     | fw
-     | g
-     | gap
-     | handShift
-     | hi
-     | l
-     | label
-     | lb
-     | lg
-     | \list
-     | measure
-     | milestone
-     | name
-     | note
-     | num
-     | orig
-     | pb
-     | persName
-     | placeName
-     | ptr
-     | q
-     | quote
-     | ref
-     | reg
-     | roleName
-     | seg
-     | sic
-     | space
-     | subst
-     | supplied
-     | surname
-     | surplus
-     | title
-     | unclear
-     | element damage { (text | supplied | unclear)+ }
-     | element dimensions {
-         element width {
+     | ns1.abbr
+     | ns1.add
+     | ns1.bibl
+     | ns1.certainty
+     | ns1.choice
+     | ns1.cit
+     | ns1.corr
+     | ns1.damage
+     | ns1.date
+     | ns1.del
+     | ns1.expan
+     | ns1.foreign
+     | ns1.fw
+     | ns1.g
+     | ns1.gap
+     | ns1.handShift
+     | ns1.hi
+     | ns1.l
+     | ns1.label
+     | ns1.lb
+     | ns1.lg
+     | ns1.list
+     | ns1.measure
+     | ns1.milestone
+     | ns1.name
+     | ns1.note
+     | ns1.num
+     | ns1.orig
+     | ns1.p
+     | ns1.pb
+     | ns1.persName
+     | ns1.placeName
+     | ns1.ptr
+     | ns1.q
+     | ns1.quote
+     | ns1.ref
+     | ns1.reg
+     | ns1.roleName
+     | ns1.rs
+     | ns1.s
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.subst
+     | ns1.supplied
+     | ns1.surname
+     | ns1.surplus
+     | ns1.title
+     | ns1.unclear
+     | element ns1:code { xsd:NCName }
+     | element ns1:dimensions {
+         element ns1:width {
            attribute unit { xsd:NCName },
            xsd:integer
          },
-         element height {
+         element ns1:height {
            attribute unit { xsd:NCName },
            xsd:integer
          },
-         element depth {
+         element ns1:depth {
            attribute unit { xsd:NCName },
            xsd:integer
          }
        }
-     | element material { text }
-     | element objectType { xsd:NCName }
-     | element rs {
-         attribute ana { xsd:NCName }?,
-         attribute nymRef { xsd:NCName }?,
-         attribute ref { xsd:NMTOKEN }?,
-         attribute role { xsd:NCName }?,
-         attribute subtype { xsd:NCName }?,
-         attribute type { xsd:NCName }?,
-         (text | choice | persName | roleName)+
-       }
-     | element stage {
+     | element ns1:gi { xsd:NCName }
+     | element ns1:material { text }
+     | element ns1:objectType { xsd:NCName }
+     | element ns1:stage {
          attribute rend { xsd:NCName },
          xsd:NCName
        }
-     | element unit { xsd:NCName })+
+     | element ns1:term {
+         (text
+          | ns1.add
+          | ns1.gap
+          | ns1.milestone
+          | ns1.space
+          | ns1.supplied
+          | ns1.unclear)+
+       }
+     | element ns1:unit { xsd:NCName })+
   }
-repository = element repository { text }
-idno =
-  element idno {
+ns1.bibl =
+  element ns1:bibl {
+    attribute n { text }?,
+    attribute rend { xsd:NCName }?,
+    (text
+     | ns1.author
+     | ns1.bibl
+     | ns1.date
+     | ns1.foreign
+     | ns1.hi
+     | ns1.note
+     | ns1.ptr
+     | ns1.pubPlace
+     | ns1.ref
+     | ns1.seg
+     | ns1.title
+     | element ns1:biblScope { text }
+     | element ns1:citedRange {
+         attribute unit { xsd:NCName }?,
+         (text | ns1.foreign | ns1.supplied)+
+       }
+     | element ns1:publisher { text })+
+  }
+ns1.repository = element ns1:repository { text }
+ns1.idno =
+  element ns1:idno {
     attribute type { xsd:NCName }?,
     text
   }
-note =
-  element note {
+ns1.note =
+  element ns1:note {
     attribute resp { xsd:NMTOKEN }?,
     attribute source { xsd:anyURI }?,
+    attribute target { text }?,
     attribute type { xsd:NCName }?,
     (text
-     | add
-     | bibl
-     | choice
-     | cit
-     | foreign
-     | g
-     | gap
-     | hi
-     | lb
-     | \list
-     | note
-     | num
-     | p
-     | ptr
-     | q
-     | quote
-     | ref
-     | seg
-     | sic
-     | supplied
-     | title
-     | unclear)+
+     | ns1.add
+     | ns1.bibl
+     | ns1.choice
+     | ns1.cit
+     | ns1.foreign
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.list
+     | ns1.milestone
+     | ns1.note
+     | ns1.num
+     | ns1.p
+     | ns1.placeName
+     | ns1.ptr
+     | ns1.q
+     | ns1.quote
+     | ns1.ref
+     | ns1.seg
+     | ns1.sic
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.title
+     | ns1.unclear)+
   }
-summary =
-  element summary { (text | foreign | gap | hi | p | ref | supplied)+ }
-ab =
-  element ab {
+ns1.summary =
+  element ns1:summary {
+    (text
+     | ns1.foreign
+     | ns1.gap
+     | ns1.hi
+     | ns1.p
+     | ns1.ref
+     | ns1.supplied)+
+  }
+ns1.ab =
+  element ns1:ab {
     attribute n { text }?,
     attribute part { xsd:NCName }?,
     attribute rend { xsd:NCName }?,
+    attribute xml:id { xsd:NCName }?,
     attribute xml:lang { text }?,
     (text
-     | abbr
-     | add
-     | choice
-     | del
-     | foreign
-     | fw
-     | g
-     | gap
-     | hi
-     | label
-     | lb
-     | milestone
-     | num
-     | orig
-     | pb
-     | persName
-     | reg
-     | roleName
-     | seg
-     | sic
-     | space
-     | subst
-     | supplied
-     | surplus
-     | unclear)+
+     | ns1.abbr
+     | ns1.add
+     | ns1.choice
+     | ns1.del
+     | ns1.expan
+     | ns1.foreign
+     | ns1.fw
+     | ns1.g
+     | ns1.gap
+     | ns1.handShift
+     | ns1.hi
+     | ns1.label
+     | ns1.lb
+     | ns1.lg
+     | ns1.milestone
+     | ns1.note
+     | ns1.num
+     | ns1.orig
+     | ns1.pb
+     | ns1.persName
+     | ns1.placeName
+     | ns1.reg
+     | ns1.roleName
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.subst
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
   }
-supplied =
-  element supplied {
+ns1.foreign =
+  element ns1:foreign {
+    attribute xml:lang { xsd:NCName }?,
+    (text
+     | ns1.abbr
+     | ns1.add
+     | ns1.choice
+     | ns1.del
+     | ns1.foreign
+     | ns1.fw
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.milestone
+     | ns1.name
+     | ns1.note
+     | ns1.num
+     | ns1.pb
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.subst
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.supplied =
+  element ns1:supplied {
     attribute cert { xsd:NCName }?,
     attribute evidence { xsd:NCName }?,
-    attribute reason { xsd:NCName },
+    attribute reason { xsd:NCName }?,
     (text
-     | abbr
-     | bibl
-     | choice
-     | corr
-     | foreign
-     | g
-     | gap
-     | hi
-     | lb
-     | milestone
-     | note
-     | num
-     | persName
-     | placeName
-     | q
-     | quote
-     | ref
-     | roleName
-     | seg
-     | sic
-     | space
-     | supplied
-     | title
-     | unclear)+
+     | ns1.abbr
+     | ns1.bibl
+     | ns1.choice
+     | ns1.corr
+     | ns1.foreign
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.milestone
+     | ns1.note
+     | ns1.num
+     | ns1.persName
+     | ns1.placeName
+     | ns1.q
+     | ns1.quote
+     | ns1.ref
+     | ns1.roleName
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.supplied
+     | ns1.title
+     | ns1.unclear)+
   }
-date =
-  element date {
+ns1.date =
+  element ns1:date {
+    attribute calendar { xsd:NMTOKEN }?,
+    attribute datingMethod { xsd:NMTOKEN }?,
     attribute from { xsd:integer }?,
     attribute notAfter-custom { xsd:integer }?,
     attribute notBefore-custom { xsd:integer }?,
     attribute to { xsd:integer }?,
     attribute when { xsd:date }?,
-    (text | num)+
+    attribute when-custom { xsd:integer }?,
+    (text
+     | ns1.abbr
+     | ns1.choice
+     | ns1.lb
+     | ns1.num
+     | ns1.rs
+     | ns1.surplus)+
   }
-desc = element desc { (text | bibl | foreign | ptr)+ }
-\div =
-  element div {
+ns1.desc =
+  element ns1:desc { (text | ns1.bibl | ns1.foreign | ns1.ptr)+ }
+ns1.div =
+  element ns1:div {
     attribute n { text }?,
+    attribute rend { xsd:NCName }?,
     attribute rendition { text }?,
     attribute resp { xsd:anyURI }?,
     attribute source { xsd:anyURI }?,
     attribute subtype { xsd:NCName }?,
     attribute type { xsd:NCName },
-    attribute xml:lang { xsd:NCName }?,
-    (ab
-     | app
-     | \div
-     | fw
-     | gap
-     | label
-     | lb
-     | lg
-     | \list
-     | listApp
-     | milestone
-     | note
-     | p
-     | pb
-     | space
-     | element head {
-         attribute xml:lang { xsd:NCName },
-         (text | foreign)+
-       })*,
-    listBibl*,
-    bibl*
+    attribute xml:id { xsd:NCName }?,
+    attribute xml:lang { text }?,
+    attribute xml:space { xsd:NCName }?,
+    (text
+     | ns1.ab
+     | ns1.app
+     | ns1.bibl
+     | ns1.div
+     | ns1.fw
+     | ns1.gap
+     | ns1.label
+     | ns1.lb
+     | ns1.lg
+     | ns1.list
+     | ns1.listApp
+     | ns1.listBibl
+     | ns1.milestone
+     | ns1.note
+     | ns1.p
+     | ns1.pb
+     | ns1.quote
+     | ns1.space
+     | element ns1:head {
+         attribute xml:lang { xsd:NCName }?,
+         (text
+          | ns1.choice
+          | ns1.foreign
+          | ns1.hi
+          | ns1.lb
+          | ns1.note
+          | ns1.num
+          | ns1.pb
+          | ns1.unclear)+
+       }
+     | element ns1:table {
+         element ns1:row {
+           element ns1:cell {
+             attribute rows { xsd:integer }?,
+             (text
+              | ns1.hi
+              | ns1.lb
+              | ns1.lg
+              | ns1.note
+              | ns1.p
+              | ns1.pb
+              | ns1.s
+              | ns1.unclear)+
+           }+
+         }+
+       })+
   }
-title =
-  element title {
-    (text | abbr | foreign | gap | hi | note | supplied)+
+de = element de { (text | ch | lb | ref | ta)+ }
+pb =
+  element pb {
+    attribute n { xsd:NMTOKEN }
   }
-persName =
-  element persName {
+ref =
+  element ref {
+    attribute t { xsd:NMTOKEN }
+  }
+ch = element ch { empty }
+lb =
+  element lb {
+    attribute break { xsd:NCName }?
+  }
+em = element em { (text | ch | i | lb | pb | ref)+ }
+i = element i { (text | em | lb | pb | ref)+ }
+gr = element gr { (text | ch | lb | ref)+ }
+ta = element ta { (text | ch | lb | pb | ref)+ }
+table =
+  element table {
+    attribute n { xsd:NMTOKEN },
+    ins
+  }
+ins = element ins { (text | tlka)+ }
+tlka = element tlka { empty }
+ns1.title =
+  element ns1:title {
+    attribute type { xsd:NCName }?,
+    (text
+     | ns1.abbr
+     | ns1.foreign
+     | ns1.gap
+     | ns1.hi
+     | ns1.note
+     | ns1.supplied)+
+  }
+ns1.persName =
+  element ns1:persName {
     attribute key { xsd:NCName }?,
     attribute ref { xsd:anyURI }?,
     attribute subtype { xsd:NCName }?,
     attribute type { xsd:NCName }?,
     attribute xml:id { xsd:NCName }?,
     (text
-     | choice
-     | foreign
-     | gap
-     | hi
-     | lb
-     | name
-     | persName
-     | placeName
-     | roleName
-     | sic
-     | supplied
-     | surname
-     | surplus
-     | unclear
-     | element forename { text })+
+     | ns1.choice
+     | ns1.foreign
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.name
+     | ns1.persName
+     | ns1.placeName
+     | ns1.roleName
+     | ns1.sic
+     | ns1.supplied
+     | ns1.surname
+     | ns1.surplus
+     | ns1.unclear
+     | element ns1:forename { text })+
   }
-abbr =
-  element abbr {
-    (text | choice | foreign | lb | reg | space | supplied | unclear)+
+ns1.author = element ns1:author { text }
+ns1.respStmt =
+  element ns1:respStmt {
+    ns1.name?,
+    (ns1.persName
+     | element ns1:resp { text })+
   }
-reg = element reg { (text | abbr | g | hi | lb | supplied | unclear)+ }
-quote =
-  element quote {
+ns1.pubPlace = element ns1:pubPlace { text }
+ns1.abbr =
+  element ns1:abbr {
+    (text
+     | ns1.choice
+     | ns1.foreign
+     | ns1.lb
+     | ns1.reg
+     | ns1.sic
+     | ns1.space
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.reg =
+  element ns1:reg {
+    (text
+     | ns1.abbr
+     | ns1.g
+     | ns1.hi
+     | ns1.lb
+     | ns1.supplied
+     | ns1.unclear)+
+  }
+ns1.quote =
+  element ns1:quote {
     attribute rend { xsd:NCName }?,
     (text
-     | ab
-     | bibl
-     | foreign
-     | hi
-     | l
-     | note
-     | supplied
-     | title
-     | unclear)+
+     | ns1.ab
+     | ns1.bibl
+     | ns1.foreign
+     | ns1.hi
+     | ns1.l
+     | ns1.label
+     | ns1.lg
+     | ns1.list
+     | ns1.note
+     | ns1.p
+     | ns1.ref
+     | ns1.supplied
+     | ns1.title
+     | ns1.unclear)+
   }
-ref =
-  element ref {
+ns1.ref =
+  element ns1:ref {
     attribute n { xsd:NCName }?,
     attribute target { xsd:anyURI }?,
-    (text | ptr | seg | title)+
+    (text | ns1.ptr | ns1.seg | ns1.title)+
   }
-space =
-  element space {
+ns1.space =
+  element ns1:space {
     attribute extent { xsd:NCName }?,
     attribute quantity { xsd:integer }?,
     attribute type { xsd:NCName }?,
     attribute unit { xsd:NCName }?
   }
-del =
-  element del {
+ns1.del =
+  element ns1:del {
     attribute rend { xsd:NCName }?,
-    (text | choice | g | gap | lb | seg | unclear)+
+    (text
+     | ns1.choice
+     | ns1.g
+     | ns1.gap
+     | ns1.lb
+     | ns1.seg
+     | ns1.unclear)+
   }
-num =
-  element num {
+ns1.num =
+  element ns1:num {
     attribute atLeast { xsd:integer }?,
     attribute atMost { xsd:integer }?,
     attribute cert { xsd:NCName }?,
     attribute value { text }?,
-    (text | add | choice | g | gap | lb | num | supplied | unclear)+
+    (text
+     | ns1.add
+     | ns1.choice
+     | ns1.g
+     | ns1.gap
+     | ns1.lb
+     | ns1.num
+     | ns1.supplied
+     | ns1.unclear)+
   }
-hi =
-  element hi {
+ns1.hi =
+  element ns1:hi {
     attribute rend { xsd:NCName },
     (text
-     | add
-     | choice
-     | foreign
-     | g
-     | gap
-     | lb
-     | milestone
-     | seg
-     | supplied
-     | surplus
-     | unclear)+
+     | ns1.add
+     | ns1.choice
+     | ns1.foreign
+     | ns1.g
+     | ns1.gap
+     | ns1.lb
+     | ns1.milestone
+     | ns1.pb
+     | ns1.seg
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
   }
-corr = element corr { (text | g | hi | num | supplied | unclear)+ }
-roleName =
-  element roleName {
+ns1.corr =
+  element ns1:corr {
+    (text
+     | ns1.corr
+     | ns1.g
+     | ns1.hi
+     | ns1.num
+     | ns1.supplied
+     | ns1.unclear)+
+  }
+ns1.roleName =
+  element ns1:roleName {
     attribute subtype { xsd:NCName }?,
     attribute type { xsd:NCName }?,
     (text
-     | choice
-     | gap
-     | hi
-     | lb
-     | milestone
-     | placeName
-     | supplied
-     | surplus
-     | unclear)+
+     | ns1.choice
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.milestone
+     | ns1.placeName
+     | ns1.space
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
   }
-name = element name { text }
-measure =
-  element measure {
+ns1.name = element ns1:name { text }
+ns1.measure =
+  element ns1:measure {
     attribute commodity { xsd:NCName }?,
     attribute quantity { xsd:integer },
+    attribute subtype { xsd:NCName }?,
     attribute type { xsd:NCName },
-    (text | gap | lb | num | supplied)+
+    (text | ns1.gap | ns1.lb | ns1.num | ns1.supplied)+
   }
-\list =
-  element list {
+ns1.list =
+  element ns1:list {
     attribute rend { xsd:NCName }?,
-    (label
-     | element item {
+    (ns1.label
+     | element ns1:item {
          attribute n { xsd:NCName }?,
          (text
-          | abbr
-          | add
-          | bibl
-          | choice
-          | foreign
-          | g
-          | gap
-          | lb
-          | \list
-          | note
-          | orig
-          | p
-          | pb
-          | q
-          | ref
-          | seg
-          | space
-          | subst
-          | supplied
-          | surplus
-          | title
-          | unclear)+
+          | ns1.abbr
+          | ns1.add
+          | ns1.bibl
+          | ns1.choice
+          | ns1.foreign
+          | ns1.g
+          | ns1.gap
+          | ns1.hi
+          | ns1.lb
+          | ns1.list
+          | ns1.note
+          | ns1.orig
+          | ns1.p
+          | ns1.pb
+          | ns1.placeName
+          | ns1.q
+          | ns1.ref
+          | ns1.seg
+          | ns1.space
+          | ns1.subst
+          | ns1.supplied
+          | ns1.surplus
+          | ns1.title
+          | ns1.unclear)+
        })+
   }
-subst = element subst { del, add }
-add =
-  element add {
-    attribute place { xsd:NCName },
+ns1.subst = element ns1:subst { ns1.del, ns1.add }
+ns1.add =
+  element ns1:add {
+    attribute place { xsd:NCName }?,
     attribute rend { xsd:NCName }?,
     (text
-     | abbr
-     | choice
-     | del
-     | g
-     | gap
-     | hi
-     | lb
-     | num
-     | placeName
-     | space
-     | supplied
-     | surplus
-     | unclear)+
+     | ns1.abbr
+     | ns1.choice
+     | ns1.del
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.num
+     | ns1.persName
+     | ns1.placeName
+     | ns1.space
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
   }
-handShift =
-  element handShift {
+ns1.handShift =
+  element ns1:handShift {
     attribute new { text }
   }
-seg =
-  element seg {
+ns1.milestone =
+  element ns1:milestone {
+    attribute break { xsd:NCName }?,
+    attribute n { text },
+    attribute type { xsd:NCName }?,
+    attribute unit { xsd:NCName },
+    attribute xml:id { xsd:NCName }?
+  }
+ns1.unclear =
+  element ns1:unclear {
+    attribute cert { xsd:NCName }?,
+    attribute reason { xsd:NCName }?,
+    (text | ns1.foreign | ns1.g | ns1.hi | ns1.seg | ns1.space)+
+  }
+ns1.gap =
+  element ns1:gap {
+    attribute extent { xsd:NMTOKEN }?,
+    attribute precision { xsd:NCName }?,
+    attribute quantity { text }?,
+    attribute reason { text },
+    attribute unit { xsd:NCName }?,
+    (ns1.certainty | ns1.desc)?
+  }
+ns1.seg =
+  element ns1:seg {
     attribute cert { xsd:NCName }?,
     attribute met { text }?,
     attribute rend { xsd:NCName }?,
     attribute subtype { xsd:NCName }?,
     attribute type { xsd:NCName }?,
-    (text
-     | bibl
-     | choice
-     | foreign
-     | g
-     | gap
-     | hi
-     | lb
-     | measure
-     | milestone
-     | note
-     | placeName
-     | seg
-     | space
-     | supplied
-     | unclear)+
-  }
-gap =
-  element gap {
-    attribute extent { xsd:NCName }?,
-    attribute precision { xsd:NCName }?,
-    attribute quantity { xsd:integer }?,
-    attribute reason { xsd:NCName },
-    attribute unit { xsd:NCName }?,
-    (certainty | desc)?
-  }
-surname = element surname { text }
-fw =
-  element fw {
-    attribute n { xsd:NMTOKEN },
-    attribute place { xsd:NCName },
-    attribute rend { xsd:NCName }?,
-    (text | num | supplied | unclear)+
-  }
-expan =
-  element expan {
-    abbr,
-    element ex { xsd:NCName }
-  }
-sic =
-  element sic {
-    (text
-     | add
-     | choice
-     | corr
-     | foreign
-     | g
-     | hi
-     | lb
-     | num
-     | orig
-     | pb
-     | seg
-     | space
-     | subst
-     | supplied
-     | surplus
-     | unclear)+
-  }
-foreign =
-  element foreign {
     attribute xml:lang { xsd:NCName }?,
     (text
-     | abbr
-     | add
-     | choice
-     | foreign
-     | fw
-     | g
-     | gap
-     | hi
-     | lb
-     | milestone
-     | note
-     | num
-     | pb
-     | seg
-     | sic
-     | space
-     | subst
-     | supplied
-     | surplus
-     | unclear)+
+     | ns1.bibl
+     | ns1.choice
+     | ns1.foreign
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.measure
+     | ns1.milestone
+     | ns1.note
+     | ns1.placeName
+     | ns1.seg
+     | ns1.space
+     | ns1.supplied
+     | ns1.unclear)+
   }
-cit = element cit { q | (bibl | quote)+ }
-unclear =
-  element unclear {
-    attribute cert { xsd:NCName }?,
-    attribute reason { text }?,
-    (text | g)+
+ns1.surname = element ns1:surname { text }
+ns1.fw =
+  element ns1:fw {
+    attribute n { xsd:NMTOKEN }?,
+    attribute place { xsd:NCName },
+    attribute rend { xsd:NCName }?,
+    (text | ns1.g | ns1.gap | ns1.num | ns1.supplied | ns1.unclear)+
   }
-choice = element choice { (corr | orig | reg | sic | unclear)+ }
-placeName =
-  element placeName {
+ns1.expan =
+  element ns1:expan {
+    ns1.abbr,
+    element ns1:ex { xsd:NCName }
+  }
+ns1.sic =
+  element ns1:sic {
+    (text
+     | ns1.add
+     | ns1.choice
+     | ns1.corr
+     | ns1.foreign
+     | ns1.g
+     | ns1.hi
+     | ns1.lb
+     | ns1.num
+     | ns1.orig
+     | ns1.pb
+     | ns1.seg
+     | ns1.space
+     | ns1.subst
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.cit = element ns1:cit { ns1.q | (ns1.bibl | ns1.quote)+ }
+ns1.rs =
+  element ns1:rs {
+    attribute ana { xsd:NCName }?,
+    attribute key { xsd:NCName }?,
+    attribute n { xsd:integer }?,
+    attribute nymRef { xsd:NCName }?,
+    attribute ref { xsd:NMTOKEN }?,
+    attribute role { xsd:NCName }?,
+    attribute subtype { xsd:NCName }?,
+    attribute type { xsd:NCName }?,
+    (text
+     | ns1.choice
+     | ns1.lb
+     | ns1.persName
+     | ns1.roleName
+     | ns1.rs
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.damage = element ns1:damage { (text | ns1.supplied | ns1.unclear)+ }
+ns1.placeName =
+  element ns1:placeName {
     attribute key { text }?,
     attribute next { text }?,
     attribute prev { text }?,
@@ -638,241 +910,251 @@ placeName =
     attribute type { xsd:NCName }?,
     attribute xml:id { xsd:NCName }?,
     (text
-     | add
-     | choice
-     | gap
-     | hi
-     | lb
-     | milestone
-     | seg
-     | space
-     | supplied
-     | surplus
-     | unclear)+
+     | ns1.add
+     | ns1.choice
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.milestone
+     | ns1.seg
+     | ns1.space
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
   }
-bibl =
-  element bibl {
-    attribute n { text }?,
-    attribute rend { xsd:NCName }?,
-    (text
-     | bibl
-     | date
-     | foreign
-     | hi
-     | note
-     | ptr
-     | ref
-     | seg
-     | element author { text }
-     | element citedRange {
-         attribute unit { xsd:NCName }?,
-         (text | foreign | supplied)+
-       })+
+ns1.choice =
+  element ns1:choice {
+    (ns1.corr | ns1.orig | ns1.reg | ns1.sic | ns1.unclear)+
   }
-lg =
-  element lg {
+ns1.lg =
+  element ns1:lg {
     attribute corresp { text }?,
-    attribute met { text },
-    attribute n { xsd:integer },
+    attribute met { text }?,
+    attribute n { xsd:integer }?,
     attribute part { xsd:NCName }?,
     attribute rend { xsd:NCName }?,
-    attribute xml:lang { xsd:NCName }?,
-    certainty?,
-    (l | label | lb | lg | milestone | pb | space)+,
-    note?
-  }
-orig =
-  element orig {
-    (text
-     | add
-     | choice
-     | corr
-     | g
-     | hi
-     | lb
-     | reg
-     | seg
-     | sic
-     | space
-     | subst
-     | supplied
-     | surplus
-     | unclear)+
-  }
-milestone =
-  element milestone {
-    attribute break { xsd:NCName }?,
-    attribute n { text },
     attribute type { xsd:NCName }?,
-    attribute unit { xsd:NCName }
+    attribute xml:lang { xsd:NCName }?,
+    ns1.certainty?,
+    (ns1.fw
+     | ns1.l
+     | ns1.label
+     | ns1.lb
+     | ns1.lg
+     | ns1.milestone
+     | ns1.pb
+     | ns1.space)+,
+    ns1.note?
   }
-lb =
-  element lb {
+ns1.orig =
+  element ns1:orig {
+    (text
+     | ns1.add
+     | ns1.choice
+     | ns1.corr
+     | ns1.g
+     | ns1.hi
+     | ns1.lb
+     | ns1.reg
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.subst
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear)+
+  }
+ns1.lb =
+  element ns1:lb {
     attribute break { xsd:NCName }?,
     attribute n { text }?,
     attribute rend { xsd:NCName }?,
     attribute style { text }?
   }
-q =
-  element q {
+ns1.q =
+  element ns1:q {
     attribute xml:lang { xsd:NCName }?,
     (text
-     | bibl
-     | foreign
-     | g
-     | gap
-     | hi
-     | lg
-     | \list
-     | note
-     | q
-     | ref
-     | seg
-     | sic
-     | space
-     | supplied
-     | title
-     | unclear)+
+     | ns1.bibl
+     | ns1.foreign
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lg
+     | ns1.list
+     | ns1.note
+     | ns1.q
+     | ns1.ref
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.supplied
+     | ns1.title
+     | ns1.unclear)+
   }
-pb =
-  element pb {
+ns1.s =
+  element ns1:s { (text | ns1.choice | ns1.hi | ns1.lb | ns1.unclear)+ }
+ns1.pb =
+  element ns1:pb {
     attribute break { xsd:NCName }?,
     attribute n { text }?
   }
-l =
-  element l {
+ns1.l =
+  element ns1:l {
     attribute enjamb { xsd:NCName }?,
     attribute met { text }?,
-    attribute n { xsd:NMTOKEN }?,
+    attribute n { text }?,
     attribute part { xsd:NCName }?,
     attribute real { text }?,
     (text
-     | add
-     | choice
-     | corr
-     | del
-     | foreign
-     | g
-     | gap
-     | handShift
-     | hi
-     | label
-     | lb
-     | milestone
-     | note
-     | num
-     | orig
-     | pb
-     | persName
-     | placeName
-     | roleName
-     | seg
-     | sic
-     | space
-     | subst
-     | supplied
-     | surplus
-     | unclear)+
+     | ns1.add
+     | ns1.choice
+     | ns1.corr
+     | ns1.del
+     | ns1.foreign
+     | ns1.fw
+     | ns1.g
+     | ns1.gap
+     | ns1.handShift
+     | ns1.hi
+     | ns1.label
+     | ns1.lb
+     | ns1.milestone
+     | ns1.note
+     | ns1.num
+     | ns1.orig
+     | ns1.pb
+     | ns1.persName
+     | ns1.placeName
+     | ns1.roleName
+     | ns1.rs
+     | ns1.s
+     | ns1.seg
+     | ns1.sic
+     | ns1.space
+     | ns1.subst
+     | ns1.supplied
+     | ns1.surplus
+     | ns1.unclear
+     | element ns1:w {
+         attribute part { xsd:NCName },
+         xsd:NCName
+       })+
   }
-ptr =
-  element ptr {
+ns1.ptr =
+  element ns1:ptr {
     attribute target { xsd:anyURI }?
   }
-certainty =
-  element certainty {
+ns1.certainty =
+  element ns1:certainty {
     attribute locus { xsd:NCName },
     attribute match { text }
   }
-label =
-  element label {
+ns1.label =
+  element ns1:label {
     attribute xml:lang { xsd:NCName }?,
-    (text | foreign | supplied)+
+    (text | ns1.foreign | ns1.supplied)+
   }
-surplus =
-  element surplus {
+ns1.surplus =
+  element ns1:surplus {
     (text
-     | abbr
-     | add
-     | choice
-     | g
-     | gap
-     | hi
-     | lb
-     | num
-     | space
-     | unclear)+
+     | ns1.abbr
+     | ns1.add
+     | ns1.choice
+     | ns1.g
+     | ns1.gap
+     | ns1.hi
+     | ns1.lb
+     | ns1.num
+     | ns1.space
+     | ns1.supplied
+     | ns1.unclear)+
   }
-g =
-  element g {
+ns1.g =
+  element ns1:g {
     attribute subtype { xsd:NCName }?,
     attribute type { xsd:NCName }?,
     text
   }
-listApp = element listApp { (app | listApp)+ }
-app =
-  element app {
-    attribute loc { text },
-    element lem {
-      attribute source { text }?,
-      (text
-       | abbr
-       | add
-       | choice
-       | del
-       | expan
-       | foreign
-       | fw
-       | g
-       | gap
-       | hi
-       | l
-       | lb
-       | milestone
-       | num
-       | orig
-       | pb
-       | persName
-       | seg
-       | sic
-       | space
-       | subst
-       | supplied
-       | surplus
-       | unclear)+
-    }?,
-    (note
-     | element rdg {
-         attribute source { xsd:anyURI },
-         (text
-          | abbr
-          | add
-          | bibl
-          | choice
-          | corr
-          | del
-          | expan
-          | foreign
-          | fw
-          | g
-          | gap
-          | hi
-          | lb
-          | milestone
-          | num
-          | orig
-          | pb
-          | reg
-          | seg
-          | sic
-          | space
-          | subst
-          | supplied
-          | surplus
-          | unclear)+
-       })*
+ns1.listApp =
+  element ns1:listApp {
+    attribute corresp { text }?,
+    (ns1.app | ns1.listApp)+
   }
-listBibl =
-  element listBibl {
+ns1.app =
+  element ns1:app {
+    attribute loc { text }?,
+    (text
+     | ns1.note
+     | element ns1:lem {
+         attribute rend { xsd:NCName }?,
+         attribute resp { xsd:NMTOKEN }?,
+         attribute source { text }?,
+         (text
+          | ns1.abbr
+          | ns1.add
+          | ns1.choice
+          | ns1.corr
+          | ns1.del
+          | ns1.expan
+          | ns1.foreign
+          | ns1.fw
+          | ns1.g
+          | ns1.gap
+          | ns1.hi
+          | ns1.l
+          | ns1.lb
+          | ns1.milestone
+          | ns1.name
+          | ns1.num
+          | ns1.orig
+          | ns1.pb
+          | ns1.persName
+          | ns1.seg
+          | ns1.sic
+          | ns1.space
+          | ns1.subst
+          | ns1.supplied
+          | ns1.surplus
+          | ns1.unclear)+
+       }
+     | element ns1:rdg {
+         attribute rend { xsd:NCName }?,
+         attribute resp { xsd:NMTOKEN }?,
+         attribute source { xsd:anyURI }?,
+         attribute xml:id { xsd:NCName }?,
+         (text
+          | ns1.abbr
+          | ns1.add
+          | ns1.bibl
+          | ns1.choice
+          | ns1.corr
+          | ns1.damage
+          | ns1.del
+          | ns1.expan
+          | ns1.foreign
+          | ns1.fw
+          | ns1.g
+          | ns1.gap
+          | ns1.hi
+          | ns1.lb
+          | ns1.milestone
+          | ns1.name
+          | ns1.num
+          | ns1.orig
+          | ns1.pb
+          | ns1.reg
+          | ns1.seg
+          | ns1.sic
+          | ns1.space
+          | ns1.subst
+          | ns1.supplied
+          | ns1.surplus
+          | ns1.unclear)+
+       })+
+  }
+ns1.listBibl =
+  element ns1:listBibl {
     attribute type { xsd:NCName }?,
-    (bibl | listBibl)*
+    (ns1.bibl | ns1.listBibl)*
   }
