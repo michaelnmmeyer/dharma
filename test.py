@@ -15,7 +15,5 @@ assert len(inscriptions) + len(diplomatic) \
 for file in files:
 	xml = tree.parse(file)
 	for t in xml.find("//g"):
-		if not t["type"]:
-			continue
-		if t["type"] == "numeral":
-			print(t.text())
+		x = t["subtype"]
+		if x: print(x)

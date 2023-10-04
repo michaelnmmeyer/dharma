@@ -554,22 +554,22 @@ def parse_gap(p, gap):
 def parse_g(p, node):
 	# <g type="...">.</g> for punctuation marks
 	# <g type="...">§</g> for space fillers
-	# <g type="..."></g> in the other cases viz. for symbols
-	# 	whose functions is unclear
-	stype = node["type"]
-	assert stype, node
-	if stype == "numeral":
+	# <g type="..."></g> in the other cases viz. for symbols whose functions is unclear
+	# The guide talks about subtype, but
+	t = node["type"] or "symbol"
+	if t == "numeral":
 		return p.dispatch_children(node)
 	text = node.text()
 	if text == ".":
-		gtype = "punctuation"
+		cat = "punctuation"
 	elif text == "§":
-		gtype = "space-filler"
-	elif text == "":
-		gtype = "unclear"
+		cat = "space-filler"
 	else:
-		gtype = "?"
-	p.add_html('<span class="dh-symbol" title="Symbol">(%s)</span>' % html.escape(stype))
+		cat = "unclear"
+	st = node["subtype"]
+	if st:
+		t = "%s.%s" % (t, st)
+	p.add_html('<span class="dh-symbol" title="Symbol (%s)">(%s)</span>' % (html.escape(cat), html.escape(t)))
 
 # OK
 def parse_unclear(p, node):
