@@ -2,7 +2,7 @@
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
 import os, sys, re, io, copy, html, unicodedata
-from dharma import prosody, people, tree
+from dharma import prosody, people, tree, gaiji
 
 force_color = True
 def term_color(code=None):
@@ -135,6 +135,7 @@ class Block:
 
 	def add_hyphen(self):
 		self.space = "drop"
+		# FIXME don't add one after pb, div, p, etc.
 		self.add_html('<span class="dh-hyphen-break">-</span>')
 
 	def finish(self):
@@ -569,7 +570,15 @@ def parse_g(p, node):
 	st = node["subtype"]
 	if st:
 		t = "%s.%s" % (t, st)
-	p.add_html('<span class="dh-symbol" title="Symbol (%s)">(%s)</span>' % (html.escape(cat), html.escape(t)))
+	info = gaiji.get(t)
+	tip = info["description"]
+	tip_toks = tip.split(None, 1)
+	if len(tip_toks) > 0:
+		tip = tip_toks[0].title()
+		if len(tip_toks) > 1:
+			tip += " " + tip_toks[1]
+	p.add_html('<span class="dh-symbol" title="%s (category: %s)">%s</span>' % \
+		(html.escape(tip), html.escape(cat), html.escape(info["unicode"])))
 
 # OK
 def parse_unclear(p, node):

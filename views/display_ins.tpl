@@ -46,6 +46,7 @@
 % end
 
 </div>
+</div>
 
 <div class="dh-xml">
 <pre>
