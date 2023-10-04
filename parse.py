@@ -135,8 +135,7 @@ class Block:
 
 	def add_hyphen(self):
 		self.space = "drop"
-		if self.text:
-			self.add_html('<span class="dh-hyphen-break">-</span>')
+		self.add_html('<span class="dh-hyphen-break">-</span>')
 
 	def finish(self):
 		assert self.text == ""
@@ -570,7 +569,7 @@ def parse_g(p, node):
 		gtype = "unclear"
 	else:
 		gtype = "?"
-	p.add_code("symbol", f"{gtype}.{stype}")
+	p.add_html('<span class="dh-symbol" title="Symbol">(%s)</span>' % html.escape(stype))
 
 # OK
 def parse_unclear(p, node):

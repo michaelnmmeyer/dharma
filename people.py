@@ -26,6 +26,8 @@ create table if not exists people_main(
 	wikidata text unique
 );
 
+-- This is filled with github_ids.csv. To dump a list of all contributors:
+-- for repo in repos/*; do test -d $repo && git -C $repo log --format=%aN; done | sort -u
 create table if not exists people_github(
 	github_id text primary key not null,
 	-- Might be null, not all people on github have a dharma id.
@@ -41,60 +43,6 @@ db = config.open_db("people", SCHEMA)
 def normalize_space(s):
 	s = s.strip()
 	return re.sub(r"\s+", " ", s)
-
-"""
-To dump a list of all contributors:
-
-for repo in repos/*; do test -d $repo && git -C $repo log --format=%aN; done | sort -u
-"""
-
-ID_TO_GIT = {
-	"adgu": ["Aditia Gunawan", "aditiagunawan"],
-	"adle": ["alevivier"],
-	"amwb": ["amandinebricout"],
-	"anac": ["andreaacri"],
-	"anol": ["Andrew Ollett", "aso2101"],
-	"ansc": ["AnneSchmiedchen"],
-	"argr": ["Arlo Griffiths", "arlogriffiths"],
-	"axja": ["ajaniak", "Axelle Janiak"],
-	"chch": ["Chloé", "chloechollet"],
-	"cski": ["csabakissgit"],
-	"daba": ["danbalogh"],
-	"dogo": ["Dominic Goodall", "dg2018"],
-	"doso": ["Soutif", "dominiquesoutif"],
-	"ekba": ["ekobastiawan"],
-	"emfr": ["ManuFrancis", "manufrancis"],
-	"emmo": ["emmamorlock"],
-	"flde": ["Florinda De Simini", "FlorindaDS"],
-	"gibu": ["GiuliaBhu"],
-	"ilnu": ["ilhamkang"],
-	"jeth": ["jensthomas"],
-	"kuch": ["CHHOM Kunthea", "kunthea", "chhomkunthea"],
-	"masc": ["Marine", "Marine Schoettel", "marine.schoettel@efeo.net", "m-schoettel"],
-	"mime": ["Michaël Meyer", "michaelnmmeyer"],
-	"nabo": ["Natasja", "NatasjaSB"],
-	"nica": ["NicolasCane"],
-	"nimi": ["nmirnig"],
-	"nlsy": ["nicholaslua"],
-	"nuha": ["nurmaliahabibah"],
-	"rozo": ["RobertaGitHub"],
-	"ryfu": ["ryosukefurui"],
-	"sagu": ["Samana Gururaja", "samana218"],
-	"sapi": ["salomepichon"],
-	"tilu": ["Tim Lubin", "Tim", "lubint"],
-	"tykd": ["tyassanti"],
-	"utve": ["UthayaVeluppillai", "Uthaya Veluppillai"],
-	"vagi": ["valeriegillet", "Valérie Gillet"],
-	"vito": ["Vincent Tournier", "tourniervincent"],
-	"wjsa": ["wayanjarrah"],
-	"zapa": ["zakariyaaminullah", "Zakariya Pamuji Aminullah"],
-}
-
-GIT_TO_ID = {}
-for key, values in ID_TO_GIT.items():
-	for value in values:
-		assert not value in GIT_TO_ID
-		GIT_TO_ID[value] = key
 
 ID_TYPES = """
 IdHAL
