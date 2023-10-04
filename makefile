@@ -61,23 +61,25 @@ deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
 
 .PHONY: all update-repos update-texts download-dbs list-texts forever image commit-all deploy-schemas
 
+trang := java -jar jars/trang.jar
+
 inscription.rnc: $(wildcard texts/DHARMA_INS*.xml)
-	java -jar validation/trang.jar $^ $@
+	$(trang) $^ $@
 
 diplomatic.rnc: $(wildcard texts/DHARMA_DiplEd*.xml)
-	java -jar validation/trang.jar $^ $@
+	$(trang) $^ $@
 
 critical_translation.rnc: $(wildcard texts/DHARMA_CritEd*_trans*.xml)
-	java -jar validation/trang.jar $^ $@
+	$(trang) $^ $@
 
 critical_edition.rnc: $(filter-out $(wildcard texts/DHARMA_CritEd*_trans*.xml),$(wildcard texts/DHARMA_CritEd*.xml))
-	java -jar validation/trang.jar $^ $@
+	$(trang) $^ $@
 
 global.rnc: $(wildcard texts/DHARMA_*.xml)
-	java -jar validation/trang.jar $^ $@
+	$(trang) $^ $@
 
 %.rnc: %.rng
-	java -jar jars/trang.jar $^ $@
+	$(trang) $^ $@
 
 %.rng: %.xml
 	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/relaxng%3Aapplication%3Axml-relaxng > tmp && mv tmp $@
