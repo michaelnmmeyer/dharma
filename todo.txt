@@ -1,28 +1,10 @@
-stop using tables, annoying to style. use ul instead.
 
 ---
 
-must merge all dbs together, except for the github log (and maybe langs). use
-the db name as a prefix in table names, so we can still do select on multi
-tables.
+must merge all dbs together, except for the github log. use the db name as a
+prefix in table names, so we can still do select on multi tables.
 
 move texts db stuff in change.py to texts.py
-
-store raw xml in files db (needed for transactions to work). doing that also
-ensures we can just move the main db and use it read-only without having repos
-somewhere. store both texts and other xml files we need (prosody, members). all
-of this in a single table, where the key is the filename (file names should be
-unique). schemas should be hard copied into my repo after each change. must
-also deal with dependencies, but just list the "global" files we need, it's
-simpler.
-
-create table files(
-   name text primary key not null,
-   repo text,
-   path text,
-   mtime timestamp,
-   data text
-);
 
 Find a way to merge several tooltips when necessary as in A | B ... for this to
 work, must annotate spans of text. And use a data table for common cases where
@@ -48,7 +30,8 @@ ID pour les <lg> Amandine ? Must keep a copy of the XML of each <lg> in the db,
 with the repo name, the commit num and the file name and the line no, so that
 we can point back to an older version if the ref is lost.
 
-must make ids unique across all elements, not just lgs
+must make ids unique across all elements, not just lgs. use <anchor
+xml:id="foo"/>
 
 create table verses(
    name text not null,
@@ -63,15 +46,12 @@ create table verses(
    foreign key(repo, name) references ...
 );
 
-Ajouter 2nd champ dans rech. parallèles; pour substring; allow custom threshold
-for similarity? or make it automatic if we have no match? in fact should use a
-heap and use a thresh > 0. also remove the "illegal input" thing. for the heap
-use sqlite, for simplicity, add a function jaccard() and deal with that, and
-paginate results. allow quoting part of the input to force an exact match.
+Ajouter 2nd champ dans rech. parallèles; pour substring; or allow quoting part
+of the input to force an exact match.
 
-<choice><unclear><unclear>..</choice> à garder dans les 2 affichages.
-logical ajouter nums. de page.
-ajouter avec js pas css
+---
+
+stop using tables in website, annoying to style. use ul instead.
 
 ---
 

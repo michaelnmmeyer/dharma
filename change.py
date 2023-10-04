@@ -80,6 +80,10 @@ create table if not exists commits(
 	commit_date integer
 );
 
+-- We store raw xml files in the db. The point is to make it possible to use
+-- the main db read-only, without having to clone repos somewhere. We want
+-- to store both texts and other xml files we need to render them (prosody, members).
+--
 -- The repo name is needed only in the commits table and in the files table.
 -- We reproduce it in other tables only to be able to easily delete everything
 -- related to a repo.
