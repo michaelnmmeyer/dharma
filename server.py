@@ -13,6 +13,7 @@ commit;
 GIT_DB = config.open_db("github", SCHEMA)
 
 TEXTS_DB = config.open_db("texts")
+TEXTS_DB.execute("attach database ? as people", (config.db_path("people"),))
 NGRAMS_DB = config.open_db("ngrams")
 CATALOG_DB = config.open_db("catalog")
 LANGS_DB = config.open_db("langs")
@@ -59,22 +60,24 @@ def show_texts():
 	if owner:
 		rows = conn.execute("""
 			select texts.name, texts.repo, commit_hash,
-				format_date(commit_date) as readable_commit_date,
-				valid, html_path
+				format_date(commit_date) as readable_commit_date, valid
 			from texts natural join validation
 				join owners on texts.name = owners.name
 				join commits on texts.repo = commits.repo
-			where author_id = ? order by texts.name""", (owner,)).fetchall()
+				join people_github on owners.github_id = people_github.github_id
+			where dh_id = ?
+			order by texts.name""", (owner,)).fetchall() # BUG
 	else:
 		rows = conn.execute("""
 			select name, repo, commit_hash,
-				format_date(commit_date) as readable_commit_date,
-				valid, html_path
+				format_date(commit_date) as readable_commit_date, valid
 			from commits natural join validation natural join texts
 			order by name""").fetchall()
-	authors = []
-	for (author_id,) in conn.execute("select distinct author_id from owners order by author_id"):
-		authors.append((author_id, people.plain(author_id)))
+	authors = conn.execute("""
+		select distinct dh_id, print_name
+		from people_main natural join people_github
+			join owners on people_github.github_id = owners.github_id
+		order by print_name""").fetchall()
 	conn.execute("commit")
 	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner)
 

@@ -80,6 +80,9 @@ create table if not exists commits(
 	commit_date integer
 );
 
+-- The repo name is needed only in the commits table and in the files table.
+-- We reproduce it in other tables only to be able to easily delete everything
+-- related to a repo.
 create table if not exists files(
 	name text unique,
 	repo text,
@@ -110,11 +113,12 @@ create table if not exists validation(
 );
 
 create table if not exists owners(
-	author_id text,
-	repo text,
 	name text,
-	primary key(author_id, name)
+	repo text,
+	github_id text,
+	primary key(name, github_id)
 );
+create index if not exists owners_index on owners(github_id);
 
 commit;
 """
@@ -178,8 +182,8 @@ def update_db(conn, name):
 		conn.execute("insert into texts(name, repo, html_path) values(?, ?, ?)",
 			(file_id, name, html_path))
 		for author_id in texts.owners_of(os.path.join(repo_dir, xml_path)):
-			conn.execute("insert into owners(author_id, repo, name) values(?, ?, ?)",
-				(author_id, name, file_id))
+			conn.execute("insert into owners(name, repo, github_id) values(?, ?, ?)",
+				(file_id, name, author_id))
 	for text, errors in sorted(state.items()):
 		valid = not errors["schema"] and not errors["unicode"]
 		errors = json.dumps(errors)

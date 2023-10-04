@@ -69,10 +69,7 @@ def owners_of(path):
 	authors = set(ret.stdout.splitlines())
 	ids = set()
 	for author in authors:
-		id = people.GIT_TO_ID.get(author)
-		if not id:
-			continue
-		ids.add(id)
+		ids.add(author)
 	return sorted(ids)
 
 TEXTS_DIR = os.path.join(config.THIS_DIR, "texts")

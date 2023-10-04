@@ -9,8 +9,8 @@ begin;
 create table if not exists people_main(
 	name json check(
 		json_array_length(name) between 1 and 2
-		and json_type(name ->> 0) = 'text'
-		and json_array_length(name) = 1 or json_type(name ->> 1) = 'text'),
+		and json_type(name -> 0) = 'text'
+		and json_array_length(name) = 1 or json_type(name -> 1) = 'text'),
 	print_name text as (iif(json_array_length(name) = 1,
 		name ->> 0,
 		printf('%s %s', name ->> 0, name ->> 1))),
@@ -35,7 +35,7 @@ create table if not exists people_github(
 commit;
 """
 
-db = config.open_db("people")
+db = config.open_db("people", SCHEMA)
 
 # Like the eponymous function in xslt
 def normalize_space(s):
@@ -70,7 +70,6 @@ ID_TO_GIT = {
 	"ilnu": ["ilhamkang"],
 	"jeth": ["jensthomas"],
 	"kuch": ["CHHOM Kunthea", "kunthea", "chhomkunthea"],
-	"leke": ["leb-ke", "LEB Ke" ],
 	"masc": ["Marine", "Marine Schoettel", "marine.schoettel@efeo.net", "m-schoettel"],
 	"mime": ["Michaël Meyer", "michaelnmmeyer"],
 	"nabo": ["Natasja", "NatasjaSB"],
@@ -117,7 +116,7 @@ def iter_members_list():
 	xml = tree.parse(path)
 	for person in xml.find("//person"):
 		row = {}
-		row["ident"] = person["xml:id"]
+		row["dh_id"] = person["xml:id"]
 		rec = person.first("persName")
 		name = rec.find("name")
 		if name:
@@ -141,25 +140,35 @@ def iter_members_list():
 			row.setdefault(typ.lower(), None)
 		yield row
 
-#MEMBERS = load_members_list()
+@db.transaction
+def make_db():
+	db.execute("begin")
+	for row in iter_members_list():
+		db.execute("""
+			insert or replace into people_main(name, dh_id, idhal, idref, orcid, viaf, wikidata)
+			values(:name, :dh_id, :idhal, :idref, :orcid, :viaf, :wikidata)""", row)
+	for key, value in GIT_TO_ID.items():
+		db.execute("insert or replace into people_github(github_id, dh_id) values(?, ?)", (key, value))
+	db.execute("commit")
 
 def plain(ident):
-	return " ".join(reversed(MEMBERS[ident]))
+	ret = db.execute("select print_name from people_main where dh_id = ?", (ident,)).fetchone()
+	return ret and ret[0] or None
 
-def plain_from_github(github_user):
-	ret = GIT_TO_ID.get(github_user)
-	return ret and plain(ret) or github_user
+def plain_from_github(github_id):
+	ret = db.execute("""select print_name
+		from people_main natural join people_github
+		where github_id = ?""", (github_id,)).fetchone()
+	return ret and ret[0] or github_id
 
-# TODO: normalize, we have both https?:, trailing slash or not, etc.
-# https://viaf.org/viaf/66465311
-# http://viaf.org/viaf/64048594
 def plain_from_viaf(url, dflt=None):
-	url = os.path.join(url, "rdf.xml") # easier file to parse
+	# Several formats are available, this one is the easier to parse
+	url = os.path.join(url, "rdf.xml")
 	r = requests.get(url)
 	if not r.ok:
 		return dflt
 	xml = tree.parse(io.StringIO(r.text))
-	# choose the most common form of the name hoping it's the most adequate
+	# Choose the most common form of the name hoping it's the most adequate
 	counts = {}
 	for node in xml.find("//prefLabel"):
 		text = normalize_space(node.text())
@@ -181,6 +190,4 @@ def plain_from_viaf(url, dflt=None):
 	return names and names.pop() or dflt
 
 if __name__ == "__main__":
-	pass
-	for row in iter_members_list():
-		print(row)
+	make_db()

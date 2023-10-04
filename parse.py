@@ -466,7 +466,8 @@ def parse_del(p, node):
 def numberize(s, n):
 	last_word = s.split()[-1].lower()
 	if last_word not in ("character", "component", "line", "page", "editor"):
-		raise Exception("unknown term %r" % last_word)
+		print("cannot numberize term %r" % last_word, file=sys.stderr)
+		return s
 	if n == 1:
 		return s
 	return s + "s"
