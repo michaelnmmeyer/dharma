@@ -144,6 +144,9 @@ def update_db(conn, name):
 			"unicode": unicode_errs[file],
 		}
 	repo_dir = os.path.join(config.REPOS_DIR, name)
+	conn.execute("delete from validation where repo = ?", (name,))
+	conn.execute("delete from texts where repo = ?", (name,))
+	conn.execute("delete from owners where repo = ?", (name,))
 	conn.execute("delete from files where repo = ?", (name,))
 	for path in state:
 		with open(path) as f:
@@ -160,9 +163,6 @@ def update_db(conn, name):
 	xml_paths = {os.path.basename(os.path.splitext(xml_name)[0]): xml_name for xml_name in state}
 	paths = texts.gather_web_pages(xml_paths)
 	repo_dir = os.path.join(config.REPOS_DIR, name)
-	conn.execute("delete from validation where repo = ?", (name,))
-	conn.execute("delete from texts where repo = ?", (name,))
-	conn.execute("delete from owners where repo = ?", (name,))
 	for xml_name, html_path in sorted(paths.items()):
 		xml_path = os.path.relpath(xml_paths[xml_name], repo_dir)
 		if html_path:
