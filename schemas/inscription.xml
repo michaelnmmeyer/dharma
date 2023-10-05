@@ -2,6 +2,7 @@
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0"
     xmlns:sch="http://purl.oclc.org/dsdl/schematron"
     xmlns:rng="http://relaxng.org/ns/structure/1.0"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xml:lang="en">
     <teiHeader>
         <fileDesc>
@@ -3815,6 +3816,9 @@
                     </attList>
                 </elementSpec>
                 <elementSpec ident="pubPlace" module="core" mode="change">
+                    <content>
+                        <rng:text/>
+                    </content>
                     <attList>
                         <attDef ident="ana" mode="delete"/>
                         <attDef ident="cert" mode="delete"/>

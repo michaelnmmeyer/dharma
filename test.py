@@ -14,5 +14,6 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in inscriptions:
 	xml = tree.parse(file)
-	for p in xml.find("//revisionDesc"):
-		print(" ".join(t.name for t in p.children()))
+	for p in xml.find("//pubPlace"):
+		print(" ".join(t.name for t in p.children()[:1]))
+		#print(" ".join(t for t in p.attrs))
