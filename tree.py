@@ -215,8 +215,9 @@ class Comment(String):
 		return ""
 
 namespaced_attrs = {}
+namespaced_elems = {}
 
-def remove_namespace(key):
+def remove_namespace(key, type):
 	# We use three @ in the xml namespace: @lang, @space, @id.
 	# @lang is also a TEI @, but we don't use it. @id and @space
 	# are not TEI @. So it's ok to use a single namespace fo
@@ -226,12 +227,17 @@ def remove_namespace(key):
 	if colon < 0:
 		return key
 	short = key[colon + 1:]
-	have = namespaced_attrs.get(short)
+	if type == "attr":
+		tbl = namespaced_attrs
+	else:
+		assert type == "elem"
+		tbl = namespaced_elems
+	have = tbl.get(short)
 	if have is not None:
 		if have != key:
-			raise Exception("ambiguous namespaced attr: %r" % short)
+			raise Exception("ambiguous namespaced %s: %r" % (type, short))
 	else:
-		namespaced_attrs[short] = key
+		tbl[short] = key
 	return short
 
 class Branch(Node, list):
@@ -374,7 +380,7 @@ class Tag(Branch):
 	attrs = None
 
 	def __init__(self, name, attrs):
-		self.name = name
+		self.name = remove_namespace(name, "elem")
 		self.attrs = collections.OrderedDict()
 		for key, value in attrs:
 			self[key] = value
@@ -418,7 +424,7 @@ class Tag(Branch):
 	def __getitem__(self, key):
 		if isinstance(key, int):
 			return list.__getitem__(self, key)
-		key = remove_namespace(key)
+		key = remove_namespace(key, "attr")
 		if key != "lang" and key != "space":
 			return self.attrs.get(key, "")
 		node = self
@@ -431,7 +437,7 @@ class Tag(Branch):
 	def __setitem__(self, key, value):
 		if isinstance(key, int):
 			raise Exception("not supported")
-		key = remove_namespace(key)
+		key = remove_namespace(key, "attr")
 		if key == "lang":
 			if isinstance(value, str):
 				value = value.rsplit("-", 1)
@@ -445,12 +451,17 @@ class Tag(Branch):
 		return self.attrs.get(key, dflt)
 
 	def xml(self, **kwargs):
-		buf = ["<%s" % self.name]
+		name = self.name
+		if not kwargs.get("remove_namespaces"):
+			name = namespaced_elems.get(name, name)
+		buf = ["<%s" % name]
 		# for now, don't sort attrs for normalization
 		for k, v in self.attrs.items():
 			if isinstance(v, tuple):
 				v = "-".join(v)
-			buf.append(' %s="%s"' % (namespaced_attrs.get(k, k), quote_attribute(v)))
+			if not kwargs.get("remove_namespaces"):
+				k = namespaced_attrs.get(k, k)
+			buf.append(' %s="%s"' % (k, quote_attribute(v)))
 		if len(self) == 0:
 			buf.append("/>")
 			return "".join(buf)
