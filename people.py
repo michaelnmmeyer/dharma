@@ -98,6 +98,8 @@ def make_db():
 	with open(os.path.join(config.THIS_DIR, "git_names.tsv")) as f:
 		seen = set()
 		for line_no, line in enumerate(f, 1):
+			if line_no == 1:
+				continue
 			fields = [f.strip() for f in line.split("\t")]
 			assert len(fields) == 2, "wrong number of columns at line %d" % line_no
 			key, value = fields
