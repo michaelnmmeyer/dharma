@@ -3,11 +3,7 @@ from glob import glob
 from dharma import tree
 
 def all_valid_texts():
-	for file in glob("texts/*.xml"):
-		# Ignore invalid XML files
-		base, _ = os.path.splitext(file)
-		if os.path.exists(base + ".err"):
-			continue
+	for file in glob("texts/DHARMA_INS*.xml"):
 		yield file
 
 def accumulate(elem, tbl):
