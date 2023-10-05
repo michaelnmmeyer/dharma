@@ -1,5 +1,5 @@
 import sys
-#import openfst_python as fst
+# use https://github.com/hfst/python/wiki/Examples (py36)
 #from bs4 import BeautifulSoup
 
 import tree

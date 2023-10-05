@@ -18,7 +18,7 @@ def load():
 			names.add(name)
 		for name in names:
 			if name in items:
-				print(f"duplicate meter: {name}", file=sys.stderr)
+				#print(f"duplicate meter: {name}", file=sys.stderr)
 				continue
 			items[name] = pros.text()
 	return items
