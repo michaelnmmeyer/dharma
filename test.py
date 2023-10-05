@@ -14,6 +14,6 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in inscriptions:
 	xml = tree.parse(file)
-	for t in xml.find("//editor"):
+	for t in xml.find("//variantEncoding"):
 		for k, v in sorted(t.attrs.items()):
 			print(k)
