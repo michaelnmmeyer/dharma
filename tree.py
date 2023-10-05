@@ -408,7 +408,7 @@ class Tag(Branch):
 		self.location = None
 		self.clear()
 		return self
-	
+
 	@property
 	def path(self):
 		buf = []

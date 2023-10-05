@@ -6,7 +6,7 @@ syms = {}
 
 xml = tree.parse(sys.argv[1])
 for define in xml.find("/grammar/define"):
-	if define.first("*").name in ("element", "notAllowed"):
+	if define.first("*").name in ("element",):
 		continue
 	syms[define["name"]] = define
 
