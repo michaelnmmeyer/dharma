@@ -26,10 +26,10 @@ create table if not exists people_main(
 	wikidata text unique
 );
 
--- This is filled with github_ids.csv. To dump a list of all contributors:
+-- This is filled with git_names.csv. To dump a list of all contributors:
 -- for repo in repos/*; do test -d $repo && git -C $repo log --format=%aN; done | sort -u
 create table if not exists people_github(
-	github_id text primary key not null,
+	git_name text primary key not null,
 	-- Might be null, not all people on github have a dharma id.
 	dh_id text, foreign key(dh_id) references people_main(dh_id)
 );
@@ -95,8 +95,15 @@ def make_db():
 		db.execute("""
 			insert or replace into people_main(name, dh_id, idhal, idref, orcid, viaf, wikidata)
 			values(:name, :dh_id, :idhal, :idref, :orcid, :viaf, :wikidata)""", row)
-	for key, value in GIT_TO_ID.items():
-		db.execute("insert or replace into people_github(github_id, dh_id) values(?, ?)", (key, value))
+	with open(os.path.join(config.THIS_DIR, "git_names.tsv")) as f:
+		seen = set()
+		for line_no, line in enumerate(f, 1):
+			fields = [f.strip() for f in line.split("\t")]
+			assert len(fields) == 2, "wrong number of columns at line %d" % line_no
+			key, value = fields
+			assert key not in seen, "duplicate record %r at line %d" % (key, line_no)
+			seen.add(key)
+			db.execute("insert or replace into people_github(git_name, dh_id) values(?, ?)", (key, value))
 	db.execute("commit")
 
 def plain(ident):
@@ -106,7 +113,7 @@ def plain(ident):
 def plain_from_github(github_id):
 	ret = db.execute("""select print_name
 		from people_main natural join people_github
-		where github_id = ?""", (github_id,)).fetchone()
+		where git_name = ?""", (github_id,)).fetchone()
 	return ret and ret[0] or github_id
 
 def plain_from_viaf(url, dflt=None):

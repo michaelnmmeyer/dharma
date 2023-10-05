@@ -64,7 +64,7 @@ def show_texts():
 			from texts natural join validation
 				join owners on texts.name = owners.name
 				join commits on texts.repo = commits.repo
-				join people_github on owners.github_id = people_github.github_id
+				join people_github on owners.git_name = people_github.git_name
 			where dh_id = ?
 			order by texts.name""", (owner,)).fetchall() # BUG
 	else:
@@ -76,7 +76,7 @@ def show_texts():
 	authors = conn.execute("""
 		select distinct dh_id, print_name
 		from people_main natural join people_github
-			join owners on people_github.github_id = owners.github_id
+			join owners on people_github.git_name = owners.git_name
 		order by print_name""").fetchall()
 	conn.execute("commit")
 	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner)

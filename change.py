@@ -106,10 +106,10 @@ create table if not exists validation(
 create table if not exists owners(
 	name text,
 	repo text,
-	github_id text,
-	primary key(name, github_id)
+	git_name text,
+	primary key(name, git_name)
 );
-create index if not exists owners_index on owners(github_id);
+create index if not exists owners_index on owners(git_name);
 
 commit;
 """
@@ -173,7 +173,7 @@ def update_db(conn, name):
 		conn.execute("insert into texts(name, repo, html_path) values(?, ?, ?)",
 			(file_id, name, html_path))
 		for author_id in texts.owners_of(os.path.join(repo_dir, xml_path)):
-			conn.execute("insert into owners(name, repo, github_id) values(?, ?, ?)",
+			conn.execute("insert into owners(name, repo, git_name) values(?, ?, ?)",
 				(file_id, name, author_id))
 	for text, errors in sorted(state.items()):
 		valid = not errors["schema"] and not errors["unicode"]
