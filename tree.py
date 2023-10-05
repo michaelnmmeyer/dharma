@@ -402,6 +402,18 @@ class Tag(Branch):
 		self.location = None
 		self.clear()
 		return self
+	
+	@property
+	def path(self):
+		buf = []
+		node = self
+		while True:
+			buf.append(node.name)
+			node = node.parent
+			if not node:
+				break
+		ret = "/".join(reversed(buf))
+		return "/" + ret
 
 	def __getitem__(self, key):
 		if isinstance(key, int):

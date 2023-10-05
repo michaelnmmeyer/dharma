@@ -13,8 +13,9 @@ def iter_rows():
 				continue
 			fields = dict(zip(field_names, fields))
 			assert len(fields) == 3, fields
-			names = [n.strip() for n in fields["type"].split(",")]
-			for name in filter(None, names):
+			names = fields["type"]
+			assert names, "the column 'type' should not be empty"
+			for name in names.split():
 				row = fields.copy()
 				row["type"] = name
 				yield line_no, row

@@ -2,6 +2,43 @@ import sys, re
 from glob import iglob
 from dharma import tree, people, parse
 
+syms = {}
+
+xml = tree.parse(sys.argv[1])
+for define in xml.find("/grammar/define"):
+	if define.first("*").name == "element":
+		continue
+	syms[define["name"]] = define
+
+def print_node(node):
+	if node.type == "tag":
+		if node.name == "ref":
+			define = syms.get(node["name"])
+			if not define:
+				sys.stdout.write(node.xml())
+			else:
+				for child in define:
+					print_node(child)
+		elif node.name not in ("sch:assert", "assert", "pattern", "sch:context", "sch:report", "ns", "report", "context", "nsName"):
+			if node["a"]:
+				del node.attrs["a"]
+			sys.stdout.write("<%s" % node.name)
+			for k, v in node.attrs.items():
+				sys.stdout.write(' %s="%s"' % (k, v))
+			sys.stdout.write(">")
+			for child in node:
+				print_node(child)
+			sys.stdout.write("</%s>" % node.name)
+	else:
+		sys.stdout.write(node.xml())
+
+print("<grammar>")
+for node in xml.find("/grammar/define/element"):
+	print_node(node)
+print("</grammar>")
+
+sys.exit(0)
+
 files = sorted(iglob("texts/DHARMA_*"))
 inscriptions = [f for f in files if "DHARMA_INS" in f]
 diplomatic = [f for f in files if "DHARMA_DiplEd" in f]
