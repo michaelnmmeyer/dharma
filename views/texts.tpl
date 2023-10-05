@@ -5,6 +5,9 @@
 
 <p>Texts database last updated {{last_updated}}.</p>
 
+<p>This table now only shows problematic files. You can use the
+<a href="/catalog">catalog interface</a> for searching texts.</p>
+
 <form action="/texts" method="get">
 <label for="select-owner">Edited by:</label>
 <select name="owner" id="select-owner">

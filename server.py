@@ -65,13 +65,14 @@ def show_texts():
 				join owners on texts.name = owners.name
 				join commits on texts.repo = commits.repo
 				join people_github on owners.git_name = people_github.git_name
-			where dh_id = ?
+			where dh_id = ? and not valid
 			order by texts.name""", (owner,)).fetchall() # BUG
 	else:
 		rows = conn.execute("""
 			select name, repo, commit_hash,
 				format_date(commit_date) as readable_commit_date, valid
 			from commits natural join validation natural join texts
+			where not valid
 			order by name""").fetchall()
 	authors = conn.execute("""
 		select distinct dh_id, print_name
