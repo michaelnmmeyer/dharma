@@ -24,7 +24,7 @@ list-texts:
 		from texts natural join files order by name"
 
 # Ussage: make forever cmd="echo hello"
-cmd := make
+cmd := $(MAKE) -j3
 forever:
 	@$(cmd) || true
 	@while inotifywait -qqre modify . @dbs @docs @notes @past @repos @schemas; do \
@@ -85,7 +85,7 @@ global.rnc: $(wildcard texts/DHARMA_*.xml)
 	$(trang) $^ $@
 
 %.rng: %.xml
-	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/relaxng%3Aapplication%3Axml-relaxng > tmp && mv tmp $@
+	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/relaxng%3Aapplication%3Axml-relaxng > $@
 
 schemas/%.html: schemas/%.xml
-	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/oddhtml%3Aapplication%3Axhtml%2Bxml > tmp && mv tmp $@
+	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/oddhtml%3Aapplication%3Axhtml%2Bxml > $@
