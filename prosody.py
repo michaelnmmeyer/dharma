@@ -6,7 +6,7 @@ def load():
 	xml = tree.parse(path)
 	items = {}
 	for item in xml.find("//item"):
-		pros = [node for node in item.find(".//seg") if node.get("type") == "prosody"]
+		pros = [node for node in item.find(".//seg") if node["type"] == "prosody"]
 		assert len(pros) == 1
 		pros = pros[0]
 		names = set()

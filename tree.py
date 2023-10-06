@@ -446,10 +446,6 @@ class Tag(Branch):
 			value = value[0]
 		self.attrs[key] = " ".join(value.strip().split())
 
-	def get(self, key, dflt=""):
-		assert isinstance(key, str)
-		return self.attrs.get(key, dflt)
-
 	def xml(self, **kwargs):
 		name = self.name
 		if not kwargs.get("remove_namespaces"):

@@ -102,13 +102,13 @@ def extract_pada(l):
 		for tag in l.find(f".//{name}"):
 			tag.delete()
 	text = cleanup(l.text())
-	if l.get("enjamb") == "yes" and not text.startswith("-"):
+	if l["enjamb"] == "yes" and not text.startswith("-"):
 		text = "-" + text
 	return text
 
 def extract_padas(lg):
 	ret = []
-	letters = "".join(l.get("n", "X") for l in lg.find("l"))
+	letters = "".join(l["n"] or "X" for l in lg.find("l"))
 	if letters != string.ascii_lowercase[:len(letters)]:
 		return ret
 	for l in lg.find("l"):
@@ -118,7 +118,7 @@ def extract_padas(lg):
 	return ret
 
 def number_of(verse):
-	n = verse.get("n", "?")
+	n = verse["n"] or "?"
 	node = verse
 	while True:
 		node = node.parent
@@ -126,7 +126,7 @@ def number_of(verse):
 			node = node.parent
 		if not node:
 			break
-		pn = node.get("n")
+		pn = node["n"]
 		if pn:
 			n = pn + "." + n
 	return n

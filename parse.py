@@ -697,7 +697,7 @@ def parse_titleStmt(p, stmt):
 	p.push("editors")
 	editors = []
 	for node in stmt.find("editor") + stmt.find("respStmt/persName"):
-		ident = node.get("ref")
+		ident = node["ref"]
 		if ident == "part:jodo":
 			continue
 		if ident and ident.startswith("part:"):

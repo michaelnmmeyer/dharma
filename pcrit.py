@@ -1,6 +1,6 @@
 def parse_div(p, div):
 	p.add_html("<div>")
-	type = div.attrs.get("type", "")
+	type = div["type"]
 	if type in ("chapter", "canto", ""):
 		p.div_level += 1
 		parse_div_section(p, div)
@@ -21,7 +21,7 @@ def parse_div(p, div):
 def parse_div_dyad(p, div):
 	for elem in div:
 		if elem.type == "tag" and elem.name == "quote":
-			assert elem.attrs.get("type") == "base-text"
+			assert elem["type"] == "base-text"
 			p.add_html('<div class="base-text">')
 			p.dispatch_children(elem)
 			p.add_html("</div>")
@@ -30,12 +30,12 @@ def parse_div_dyad(p, div):
 
 def parse_div_section(p, div):
 	ignore = None
-	type = div.attrs.get("type", "")
+	type = div["type"]
 	if type in ("chapter", "canto"):
 		p.add_code("log:head<", level=p.div_level)
 		p.add_html("<h%d>" % (p.div_level + p.heading_shift))
 		p.add_text(type.title())
-		n = div.attrs.get("n")
+		n = div["n"]
 		if n:
 			p.add_text(" %s" % n)
 		head = div.find("head")
@@ -61,7 +61,7 @@ def parse_div_section(p, div):
 		assert 0, div
 	# Render the meter
 	if type != "chapter":
-		rend = div.attrs.get("rend", "")
+		rend = div["rend"]
 		assert rend == "met" or not rend
 		if rend:
 			met = div["met"]
@@ -75,8 +75,8 @@ def parse_div_section(p, div):
 			# If we have @met, could use it as a search attribute. Is it often used?
 			pass
 	else:
-		assert not div.attrs.get("rend")
-		assert not div.attrs.get("met")
+		assert not div["rend"]
+		assert not div["met"]
 	#  Display the contents
 	for elem in div:
 		if elem == ignore:

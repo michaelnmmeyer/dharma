@@ -79,7 +79,7 @@ def schema_from_contents(file):
 			continue
 		if node.target != "xml-model":
 			continue
-		schema = node.get("href")
+		schema = node["href"]
 		if not schema:
 			continue
 		_, ext = os.path.splitext(schema)
