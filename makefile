@@ -1,6 +1,6 @@
 schemas = $(addprefix schemas/,inscription bestow critical diplomatic prosody)
 
-all: $(addsuffix .rng,$(schemas))
+all: $(addsuffix .rng,$(schemas)) $(addsuffix .html,$(schemas))
 
 update-repos:
 	for d in repos/*; do \
@@ -86,3 +86,6 @@ global.rnc: $(wildcard texts/DHARMA_*.xml)
 
 %.rng: %.xml
 	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/relaxng%3Aapplication%3Axml-relaxng > tmp && mv tmp $@
+
+schemas/%.html: schemas/%.xml
+	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/oddhtml%3Aapplication%3Axhtml%2Bxml > tmp && mv tmp $@

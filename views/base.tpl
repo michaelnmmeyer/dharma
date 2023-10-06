@@ -22,6 +22,7 @@
          <li><a href="/catalog">Catalog</a></li>
          <li><a href="/parallels">Parallels</a></li>
          <li><a href="/display">🚧 Display</a></li>
+         <li><a href="/documentation">Documentation</a>
       </menu>
    </header>
    <main>

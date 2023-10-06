@@ -50,6 +50,14 @@ def show_commit_log():
 			commits.append({"repo": repo, "date": push_date, "author": author, "hash": hash, "url": url})
 	return bottle.template("commit-log.tpl", commits=commits)
 
+@bottle.get("/documentation")
+def show_documentation():
+	return bottle.template("documentation.tpl")
+
+@bottle.get("/documentation/<name>")
+def show_tei_doc(name):
+	return bottle.static_file(name + ".html", root=os.path.join(config.THIS_DIR, "schemas"))
+
 @bottle.get("/texts")
 @TEXTS_DB.transaction
 def show_texts():
