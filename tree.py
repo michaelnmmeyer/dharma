@@ -592,7 +592,7 @@ def parse(f):
 			handler.tree.source = r.read()
 	else:
 		# file-like
-		if hasattr(f, name):
+		if hasattr(f, "name"):
 			handler.tree.path = os.path.abspath(f.name)
 		handler.tree.source = f.read()
 	handler.tree.location = (1, 0)
