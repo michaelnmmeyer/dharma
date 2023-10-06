@@ -19,7 +19,7 @@ DHARMA_INS*)</li>
 DHARMA_DiplEd*)</li>
 <li><a href="/documentation/critical">Critical editions</a> (files named
 DHARMA_CritEd*)</li>
-<li><a href="/documentation/BESTOW">BESTOW</a> (no file naming
+<li><a href="/documentation/bestow">BESTOW</a> (no file naming
 convention)</li>
 </ul>
 
