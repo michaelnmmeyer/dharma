@@ -1,4 +1,4 @@
-import sys, re, io
+import sys, re, io, html
 from dharma import tree, people, parse
 
 syms = {}
@@ -53,10 +53,12 @@ for element in xml.find("/grammar/element"):
 		doc = "undocumented"
 	attributes = {}
 	children = set()
+	parents = set()
 	elements[name] = {
 		"documentation": doc,
 		"attributes": attributes,
 		"children": children,
+		"parents": parents,
 	}
 	for attribute in element.find(".//attribute"):
 		name = attribute["name"]
@@ -72,7 +74,41 @@ for element in xml.find("/grammar/element"):
 	for ref in element.find(".//ref"):
 		children.add(ref["name"])
 
-for name, data in sorted(elements.items()):
-	print("<%s> %s" % (name, data["documentation"]))
+for element in xml.find("/grammar/element"):
+	name = element["name"]
+	for ref in element.find(".//ref"):
+		elements[ref["name"]]["parents"].add(name)
+
+
+print("<html><body>")
+for name, data in sorted(elements.items(), key=lambda x: x[0].lower()):
+	print("<div>")
+	print("<h3>")
+	print(html.escape("<%s>:" % name))
+	print("</h3>")
+	print(html.escape(" %s" % data["documentation"]))
+	print("<h4>Attributes</h4>")
+	print("<ul>")
 	for attr, attr_data in sorted(data["attributes"].items()):
-		print("\t@%s %s" % (attr, attr_data["documentation"]))
+		print("<li>")
+		print("<b>")
+		print(html.escape("@%s" % attr))
+		print("</b>")
+		print(html.escape(attr_data["documentation"]))
+		print("</li>")
+	print("</ul>")
+	if data["children"]:
+		print("<h4>Children</h4>")
+		print("<b>")
+		for child in sorted(data["children"]):
+			print(html.escape("<%s>, " % child))
+		print("</b>")
+		print("</div>")
+	if data["parents"]:
+		print("<h4>Parents</h4>")
+		print("<b>")
+		for child in sorted(data["parents"]):
+			print(html.escape("<%s>, " % child))
+		print("</b>")
+		print("</div>")
+print("</body></html>")

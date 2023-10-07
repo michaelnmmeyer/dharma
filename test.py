@@ -14,7 +14,17 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in files:#inscriptions + diplomatic:
 	xml = tree.parse(file)
-	for p in xml.find("//listApp/listApp"):
-		print(file)
-		#print(" ".join(t.name for t in p.children()))
+	for p in xml.find("//ref"):
+		#print(p.xml())
+		#print(p.text())
+		#if p.children():print(file,p.xml())
+		#print(p["type"])
+		print(" ".join(t.name for t in p.children()))
 		#print(" ".join(t for t in p.attrs))
+
+"""
+
+num/@atLeast
+num/@atMost
+
+"""
