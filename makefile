@@ -1,6 +1,6 @@
 schemas = $(addprefix schemas/,inscription bestow critical diplomatic prosody)
 
-all: $(addsuffix .rng,$(schemas)) $(addsuffix .html,$(schemas))
+all: $(addsuffix .rng,$(schemas)) $(addsuffix .html,$(schemas)) $(addsuffix .oddc,$(schemas))
 
 update-repos:
 	for d in repos/*; do \
@@ -87,11 +87,11 @@ global.rnc: $(wildcard texts/DHARMA_*.xml)
 %.rng: %.xml
 	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/relaxng%3Aapplication%3Axml-relaxng > $@
 
-#schemas/%.html: schemas/%.oddc
-#	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODDC%3Atext%3Axml/oddhtml%3Aapplication%3Axhtml%2Bxml?oxgarage.textOnly=true > $@
+schemas/%.html: schemas/%.oddc
+	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODDC%3Atext%3Axml/oddhtml%3Aapplication%3Axhtml%2Bxml?oxgarage.textOnly=true > $@
 
-schemas/%.html: schemas/%.xml
-	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/oddhtml%3Aapplication%3Axhtml%2Bxml > $@
+##schemas/%.html: schemas/%.xml
+#	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/oddhtml%3Aapplication%3Axhtml%2Bxml > $@
 
 schemas/%.oddc: schemas/%.xml
-	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml > $@
+	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml | python3 cleanup_oddc.py > $@

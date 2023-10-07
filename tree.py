@@ -214,32 +214,6 @@ class Comment(String):
 	def text(self, **kwargs):
 		return ""
 
-namespaced_attrs = {}
-namespaced_elems = {}
-
-def remove_namespace(key, type):
-	# We use three @ in the xml namespace: @lang, @space, @id.
-	# @lang is also a TEI @, but we don't use it. @id and @space
-	# are not TEI @. So it's ok to use a single namespace fo
-	# everything.
-	# Still, we make sure there is no ambiguity.
-	colon = key.find(":")
-	if colon < 0:
-		return key
-	short = key[colon + 1:]
-	if type == "attr":
-		tbl = namespaced_attrs
-	else:
-		assert type == "elem"
-		tbl = namespaced_elems
-	have = tbl.get(short)
-	if have is not None:
-		if have != key:
-			raise Exception("ambiguous namespaced %s: %r" % (type, short))
-	else:
-		tbl[short] = key
-	return short
-
 class Branch(Node, list):
 
 	def __hash__(self):
@@ -380,7 +354,7 @@ class Tag(Branch):
 	attrs = None
 
 	def __init__(self, name, attrs):
-		self.name = remove_namespace(name, "elem")
+		self.name = name
 		self.attrs = collections.OrderedDict()
 		for key, value in attrs:
 			self[key] = value
@@ -424,7 +398,6 @@ class Tag(Branch):
 	def __getitem__(self, key):
 		if isinstance(key, int):
 			return list.__getitem__(self, key)
-		key = remove_namespace(key, "attr")
 		if key != "lang" and key != "space":
 			return self.attrs.get(key, "")
 		node = self
@@ -437,7 +410,6 @@ class Tag(Branch):
 	def __setitem__(self, key, value):
 		if isinstance(key, int):
 			raise Exception("not supported")
-		key = remove_namespace(key, "attr")
 		if key == "lang":
 			if isinstance(value, str):
 				value = value.rsplit("-", 1)
@@ -448,15 +420,11 @@ class Tag(Branch):
 
 	def xml(self, **kwargs):
 		name = self.name
-		if not kwargs.get("remove_namespaces"):
-			name = namespaced_elems.get(name, name)
 		buf = ["<%s" % name]
 		# for now, don't sort attrs for normalization
 		for k, v in self.attrs.items():
 			if isinstance(v, tuple):
 				v = "-".join(v)
-			if not kwargs.get("remove_namespaces"):
-				k = namespaced_attrs.get(k, k)
 			buf.append(' %s="%s"' % (k, quote_attribute(v)))
 		if len(self) == 0:
 			buf.append("/>")
@@ -511,6 +479,7 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 
 	tree = None
 	reader = None
+	keep_namespaces = False
 
 	def setDocumentLocator(self, locator):
 		self.locator = locator
@@ -522,6 +491,10 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 		assert self.tree and len(self.stack) == 1
 
 	def startElement(self, name, attrs):
+		if not self.keep_namespaces:
+			colon = name.find(":")
+			if colon >= 0:
+				name = name[colon + 1:]
 		ordered = ((k, attrs[k]) for k in attrs.getNames())
 		tag = Tag(name, ordered)
 		tag.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
@@ -582,9 +555,11 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	def warning(self, err):
 		self.raise_error(err)
 
-def parse(f):
+def parse(f, keep_namespaces=None):
 	reader = make_parser()
 	handler = Handler()
+	if keep_namespaces is not None:
+		handler.keep_namespaces = keep_namespaces
 	handler.tree = Tree()
 	if isinstance(f, str):
 		handler.tree.path = os.path.abspath(f)
@@ -608,7 +583,7 @@ if __name__ == "__main__":
 	if len(sys.argv) <= 1:
 		exit()
 	try:
-		tree = parse(sys.argv[1])
+		tree = parse(sys.argv[1], keep_namespaces=True)
 		print(tree.xml())
 	except (BrokenPipeError, KeyboardInterrupt):
 		pass

@@ -2,7 +2,9 @@ import sys
 from dharma import tree
 
 xml = tree.parse(sys.stdin)
-for node in xml.find("//exemplum"):
-	node.delete()
+
+for name in ("listRef", "exemplum", "remarks", "constraintSpec"):
+	for elem in xml.find("//" + name):
+		elem.delete()
 
 print(xml.xml())
