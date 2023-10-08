@@ -14,7 +14,7 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in files:#inscriptions + diplomatic:
 	xml = tree.parse(file)
-	for p in xml.find("//ref"):
+	for p in xml.find("//ab/app"):
 		#print(p.xml())
 		#print(p.text())
 		#if p.children():print(file,p.xml())
@@ -22,9 +22,10 @@ for file in files:#inscriptions + diplomatic:
 		print(" ".join(t.name for t in p.children()))
 		#print(" ".join(t for t in p.attrs))
 
-"""
 
-num/@atLeast
-num/@atMost
+"""
+/ab/bibl
+/ab/biblFull
+/ab/biblStruct
 
 """

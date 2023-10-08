@@ -15,10 +15,20 @@
 
 import os, re, io, collections, copy
 from xml.sax import make_parser
-from xml.sax.handler import ContentHandler, LexicalHandler, ErrorHandler
+from xml.sax.handler import ContentHandler, ErrorHandler
 from xml.sax.saxutils import escape as quote_string
 from xml.sax.xmlreader import XMLReader
 from xml.etree import ElementTree
+
+try:
+	from xml.sax.handler import LexicalHandler
+except ImportError:
+	# Older python
+	class LexicalHandler:
+		startCDATA = None
+		endCDATA = None
+		startDTD = None
+		endDTD = None
 
 __all__ = ["Error", "parse"]
 
