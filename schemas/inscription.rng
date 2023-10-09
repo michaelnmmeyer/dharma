@@ -5,7 +5,7 @@
          xmlns="http://relaxng.org/ns/structure/1.0"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2023-10-07T17:07:53Z. .
+Schema generated from ODD source 2023-10-09T10:04:17Z. .
 TEI Edition: Version 3.6.0. Last updated on
 	16th July 2019, revision daa3cc0b9
 TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 3.6.0/
@@ -3750,12 +3750,10 @@ Elements]</a:documentation>
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(line-beginning) marks the start of each line of the transcribed text, including the first [3.10.3. Milestone
 Elements 7.2.5. Speech Contents]</a:documentation>
          <empty/>
-         <optional>
-            <attribute name="n">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(number) gives a number (or other label) for an element, which is not necessarily unique within the document.</a:documentation>
-               <data type="string"/>
-            </attribute>
-         </optional>
+         <attribute name="n">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(number) gives a number (or other label) for an element, which is not necessarily unique within the document.</a:documentation>
+            <data type="string"/>
+         </attribute>
          <optional>
             <attribute name="rend">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(rendition) indicates how the element in question was rendered or presented in the source text.</a:documentation>
@@ -4719,8 +4717,7 @@ Sample values include: 1] filename</a:documentation>
                <sch:report test="count(tei:div[@type='textpart'][parent::tei:div/@type='edition']) eq 1"> At least two divs @type=textpart are expected in the
                                     edition</sch:report>
                <sch:report test="@type='translation' and @resp and @source">@resp and
-                                    @source can not be used
-                                    together</sch:report>
+                                    @source can not be used together</sch:report>
                <sch:report test="@type='translation' and not(@resp or @source)">@resp or
                                     @source is expected for
                                 div[@type='translation']</sch:report>
