@@ -4,33 +4,42 @@
 import os, sys, re, io, copy, html, unicodedata
 from dharma import prosody, people, tree, gaiji
 
+write = sys.stdout.write
+
 force_color = True
 def term_color(code=None):
 	if not os.isatty(1) and not force_color:
 		return
 	if not code:
-		sys.stdout.write("\N{ESC}[0m")
+		write("\N{ESC}[0m")
 		return
 	code = code.lstrip("#")
 	assert len(code) == 6
 	R = int(code[0:2], 16)
 	G = int(code[2:4], 16)
 	B = int(code[4:6], 16)
-	sys.stdout.write(f"\N{ESC}[38;2;{R};{G};{B}m")
+	write(f"\N{ESC}[38;2;{R};{G};{B}m")
 
 def term_html(): term_color("#5f00ff")
 def term_log(): term_color("#008700")
+def term_phys(): term_color("#0055ff")
 def term_text(): term_color("#aa007f")
+def term_span(): term_color("#b15300")
 def term_reset(): term_color()
 
-def write_debug(t, data=None, **params):
-	write = sys.stdout.write
+def write_debug(t, data, **params):
 	if t == "html":
 		term_html()
-	elif t.startswith("log:"):
+	elif t == "log":
 		term_log()
+	elif t == "phys":
+		term_phys()
 	elif t == "text":
 		term_text()
+	elif t == "span":
+		term_span()
+	else:
+		assert 0, t
 	write("%s" % t)
 	if data:
 		write(" %r" % data)
@@ -56,110 +65,193 @@ def normalize(s):
 
 class Block:
 
-	# Whitespace state
-	# drop: drop all spaces until we find some text
-	# seen: saw space and waiting to see text before emitting ' '
-	# none: waiting to see space
-	space = "drop"
-
 	def __init__(self, name=""):
 		self.name = name
-		self.text = ""
 		self.code = []
 		self.finished = False
 
 	def __repr__(self):
 		return "Block(%s):\n%s" % (self.name, "\n".join(repr(c) for c in self.code))
 
-	def html(self):
-		ret = []
-		for t, data, _ in self.code:
-			if t == "text":
-				ret.append(data)
-			elif t == "html":
-				ret.append(data)
-		return "".join(ret)
-
-	def start_span(self):
-		if self.text:
-			self.add_text(PARA_SEP)
+	def start_item(self):
+		self.add_text(PARA_SEP)
 
 	def add_text(self, data):
 		if not data:
 			return
-		if self.space == "drop":
-			data = data.lstrip()
-			if not data:
-				return
-			self.space = "none"
-		elif self.space == "seen":
-			if data.strip():
-				self.text += " "
-				self.space = "none"
-		elif self.space == "none":
-			if data[0].isspace():
-				if data.lstrip():
-					self.text += " "
-					self.space = "none"
-				else:
-					self.space = "seen"
-		else:
-			assert 0
-		if re.match(r".*\S\s+$", data):
-			self.space = "seen"
-		data = normalize_space(data)
-		if not data:
-			return
-		self.text += data
-
-	def flush(self):
-		if not self.text:
-			return
-		rec = ("text", self.text, {})
-		self.code.append(rec)
-		write_debug(rec[0], rec[1], **rec[2])
-		self.text = ""
+		data = re.sub(r"\s+", " ", data)
+		return self.add_code("text", data)
 
 	def add_html(self, data):
 		return self.add_code("html", data)
 
+	def close_line(self, brk):
+		i = len(self.code)
+		p = i
+		while i > 0:
+			i -= 1
+			rcmd, rdata, rparams = self.code[i]
+			if rcmd != "phys":
+				continue
+			if rdata == "<page" or rdata == ">page":
+				p = i
+				continue
+			if rdata == "<line":
+				self.code.insert(p, ("phys", ">line", {"brk": brk}))
+				break
+
+	def close_page(self):
+		i = len(self.code)
+		while i > 0:
+			i -= 1
+			rcmd, rdata, _ = self.code[i]
+			if rcmd == "phys" and rdata == "<page":
+				self.code.append(("phys", ">page", {}))
+				break
+
+	def add_phys(self, data, **params):
+		brk = params["brk"]
+		if data == "line":
+			self.close_line(brk)
+		elif data == "page":
+			self.close_page()
+		if not brk:
+			i = len(self.code)
+			while i > 0:
+				i -= 1
+				rcmd, rdata, rparams = self.code[i]
+				if rcmd == "span" and data == "<" and "dh-space" in rparams["klass"]:
+					break
+				if rcmd != "text":
+					continue
+				rdata = rdata.rstrip()
+				if not rdata:
+					del self.code[i]
+					continue
+				self.code[i] = (rcmd, rdata, rparams)
+				break
+		self.add_code("phys", "<" + data, **params)
+
+	def add_log(self, data, **params):
+		self.add_code("log", data, **params)
+
+	def start_span(self, **params):
+		assert not "n" in params
+		params["n"] = 1
+		params["klass"] = [params["klass"]]
+		params["tip"] = [params["tip"]]
+		i = len(self.code)
+		while i > 0:
+			i -= 1
+			rcmd, rdata, rparams = self.code[i]
+			if rcmd != "span":
+				continue
+			if rdata == "<":
+				rparams["n"] += params["n"]
+				rparams["klass"] += params["klass"]
+				rparams["tip"] += params["tip"]
+				return
+			assert rdata == ">"
+			break
+		self.add_code("span", "<", **params)
+
+	def end_span(self):
+		i = len(self.code)
+		while i > 0:
+			i -= 1
+			rcmd, rdata, rparams = self.code[i]
+			if rcmd != "span":
+				continue
+			assert rdata == "<"
+			assert rparams["n"] > 0
+			rparams["n"] -= 1
+			if rparams["n"] > 0:
+				return
+			break
+		self.add_code("span", ">")
+
 	def add_code(self, t, data=None, **params):
-		if self.space == "seen":
-			self.text += " "
-			self.space = "drop"
-		if t == "html":
-			self.flush()
 		rec = (t, data, params)
 		self.code.append(rec)
-		write_debug(t, data, **params)
-
-	def add_hyphen(self):
-		self.space = "drop"
-		# FIXME don't add one after pb, div, p, etc.
-		self.add_html('<span class="dh-hyphen-break">-</span>')
 
 	def finish(self):
-		assert self.text == ""
-		for i, (t, data, _) in enumerate(self.code):
-			if t == "text":
-				self.code[i] = ("text", data)
-			elif t == "html":
-				self.code[i] = ("html", data)
-			else:
-				self.code[i] = ("", "") # TODO
+		self.close_line(True)
+		self.close_page()
 		self.finished = True
 
-	def render(self):
+	def render_common(self, buf, t, data, params):
+		if t == "text":
+			text = html.escape(data)
+			buf.append(text)
+		elif t == "html":
+			buf.append(data)
+		elif t == "span":
+			if data == "<":
+				klasses = " ".join(params["klass"])
+				tip = " | ".join(params["tip"])
+				buf.append('<span class="%s" title="%s">' % (html.escape(klasses), html.escape(tip)))
+			elif data == ">":
+				buf.append('</span>')
+			else:
+				assert 0, data
+		else:
+			assert 0, t
+
+	def render_logical(self):
 		assert self.finished
 		buf = []
-		for t, data in self.code:
-			if t == "text":
-				text = html.escape(data)
-				buf.append(text)
-			elif t == "html":
-				buf.append(data)
+		for t, data, params in self.code:
+			if t == "log":
+				if data == "<para":
+					buf.append("<p>")
+				elif data == ">para":
+					buf.append("</p>")
+				elif data == "<verse":
+					buf.append('<div class="verse">')
+				elif data == ">verse":
+					buf.append('</div>')
+				else:
+					assert 0, data
+			elif t == "phys":
+				if data == "<line":
+					buf.append('<span class="dh-lb" title="New line">(%s)</span>' % html.escape(params["n"]))
+					if params["brk"]:
+						buf.append(" ")
+				elif data == ">line":
+					pass
+				elif data == "<page":
+					buf.append('<span class="dh-pb" title="New page">(⎘ %s)</span>' % html.escape(params["n"]))
+					if params["brk"]:
+						buf.append(" ")
+				elif data == ">page":
+					pass
+				else:
+					assert 0, data
 			else:
+				self.render_common(buf, t, data, params)
+		return "".join(buf)
+
+	def render_physical(self):
+		assert self.finished
+		buf = []
+		for t, data, params in self.code:
+			if t == "phys":
+				if data == "<line":
+					buf.append('<p class="dh-line"><span class="dh-lb" title="New line">%s</span> ' % html.escape(params["n"]))
+				elif data == ">line":
+					if not params.get("brk"):
+						buf.append('<span class="dh-hyphen-break">-</span>')
+					buf.append('</p>')
+				elif data == "<page":
+					buf.append('<div class="dh-page"><span class="dh-pb" title="New page">⎘ %s</span> ' % html.escape(params["n"]))
+				elif data == ">page":
+					buf.append('</div>')
+				else:
+					assert 0, data
+			elif t == "log":
 				pass
+			else:
+				self.render_common(buf, t, data, params)
 		return "".join(buf)
 
 	def searchable_text(self):
@@ -222,7 +314,6 @@ class Parser:
 
 	def pop(self):
 		b = self.blocks.pop()
-		b.flush()
 		b.finish()
 		return b
 
@@ -232,11 +323,23 @@ class Parser:
 	def add_html(self, data):
 		return self.blocks[-1].add_html(data)
 
+	def add_phys(self, data, **params):
+		return self.blocks[-1].add_phys(data, **params)
+
 	def add_code(self, t, data=None, **params):
 		return self.blocks[-1].add_code(t, data, **params)
 
-	def start_span(self):
-		return self.blocks[-1].start_span()
+	def add_log(self, data, **params):
+		return self.blocks[-1].add_log(data, **params)
+
+	def start_item(self):
+		return self.blocks[-1].start_item()
+
+	def start_span(self, **params):
+		return self.blocks[-1].start_span(**params)
+
+	def end_span(self):
+		return self.blocks[-1].end_span()
 
 	def dispatch(self, node):
 		if node.type in ("comment", "instruction"):
@@ -308,13 +411,13 @@ def parse_supplied(p, supplied):
 		tip += "; restoration based on previous edition (not assessable)"
 	elif tip == "previouseditor":
 		tip += "; restoration based on parallel"
-	p.add_html('<span class="dh-supplied" title="%s">' % html.escape(tip))
+	p.start_span(klass="dh-supplied", tip=tip)
 	if seps:
 		p.add_html(seps[0])
 	p.dispatch_children(supplied)
 	if seps:
 		p.add_html(seps[1])
-	p.add_html('</span>')
+	p.end_span()
 
 def parse_foreign(p, foreign):
 	p.add_html("<i>")
@@ -327,7 +430,7 @@ def parse_milestone(p, milestone):
 	assert milestone["unit"] in ("block", "column", "face", "faces", "fragment", "item", "zone")
 	# ignore for now
 	return
-	p.add_code(milestone["unit"], milestone["n"])
+	p.add_phys(milestone["unit"], n=milestone["n"])
 
 def parse_lb(p, elem):
 	n = elem["n"]
@@ -336,6 +439,7 @@ def parse_lb(p, elem):
 	brk = elem["break"]
 	if brk not in ("yes", "no"):
 		brk = "yes"
+	brk = brk == "yes"
 	# On alignment, EGD §7.5.2
 	m = re.match(r"^text-align:\s*(right|center|left|justify)\s*$", elem["style"])
 	if m:
@@ -343,22 +447,14 @@ def parse_lb(p, elem):
 	else:
 		align = "left"
 	if brk == "no":
-		p.top.add_hyphen()
 		klass = "dh-lb-cont"
 	else:
 		klass = "dh-lb"
-	p.add_html('<span class="%s" data-num="%s" title="Line break"></span>' % (klass, html.escape(n)))
+	p.add_phys("line", n=n, brk=brk)
 
 def parse_fw(p, fw):
 	return # we deal with it within <pb>
 
-places_arrows = {
-	"": "",
-	"left": "\N{LEFTWARDS ARROW}",
-	"marginleft": "\N{LEFTWARDS ARROW}\N{LEFTWARDS ARROW}",
-	"right": "\N{RIGHTWARDS ARROW}",
-	"top-right": "\N{NORTH EAST ARROW}",
-}
 def parse_pb(p, elem):
 	n = elem["n"]
 	if not n:
@@ -366,56 +462,51 @@ def parse_pb(p, elem):
 	brk = elem["break"]
 	if brk not in ("yes", "no"):
 		brk = "yes"
-	if brk == "no":
-		p.top.add_hyphen()
+	brk = brk == "yes"
 	fw = elem.next
 	if fw and fw.name == "fw":
-		place = places_arrows.get(fw["place"], "?")
+		place = fw["place"]
 	else:
 		place = ""
-	p.add_html('<span class="dh-pb" data-num="%s" title="Page break">' % html.escape(n))
-	if place:
-		p.add_html("%s " % html.escape(place))
-		p.dispatch_children(fw)
-	p.add_html('</span>')
-	p.add_code("phys:page", n)
+	p.add_phys("page", brk=brk, n=n)
+	#p.dispatch_children(fw) TODO
 
 # OK
 def parse_sic(p, sic):
-	p.add_html('<span class="dh-sic" title="Incorrect text">')
+	p.start_span(klass="dh-sic", tip="Incorrect text")
 	p.add_html("¿")
 	p.dispatch_children(sic)
 	p.add_html("?")
-	p.add_html('</span>')
+	p.end_span()
 
 # OK
 def parse_corr(p, corr):
-	p.add_html('<span class="dh-corr" title="Corrected text">')
+	p.start_span(klass="dh-corr", tip="Corrected text")
 	p.add_html('⟨')
 	p.dispatch_children(corr)
 	p.add_html('⟩')
-	p.add_html('</span>')
+	p.end_span()
 
 # OK
 def parse_orig(p, orig):
-	p.add_html('<span class="dh-orig" title="Non-standard text">')
+	p.start_span(klass="dh-orig", tip="Non-standard text")
 	p.add_html("¡")
 	p.dispatch_children(orig)
 	p.add_html("!")
-	p.add_html('</span>')
+	p.end_span()
 
 # OK
 def parse_reg(p, reg):
-	p.add_html('<span class="dh-reg" title="Standardised text">')
+	p.start_span(klass="dh-reg", tip="Standardised text")
 	p.add_html("⟨")
 	p.dispatch_children(reg)
 	p.add_html("⟩")
-	p.add_html('</span>')
+	p.end_span()
 
 def parse_choice(p, node):
 	children = node.children()
 	if all(child.name == "unclear" for child in children):
-		p.add_html('<span class="dh-choice-unclear" title="Unclear (several possible readings)">')
+		p.start_span(klass="dh-choice-unclear", tip="Unclear (several possible readings)")
 		p.add_html("(")
 		sep = ""
 		for child in children:
@@ -423,7 +514,7 @@ def parse_choice(p, node):
 			sep = "/"
 			p.dispatch_children(child)
 		p.add_html(")")
-		p.add_html('</span>')
+		p.end_span()
 	else:
 		# XXX deal with all possible cases
 		# need to choose only one possibility for search (and for simplified display)
@@ -431,21 +522,27 @@ def parse_choice(p, node):
 		p.dispatch_children(node)
 
 def parse_space(p, space):
+	p.start_span(klass="dh-space", tip="Space")
 	p.add_html("_")
+	p.end_span()
 	assert not space.children()
 
 def parse_abbr(p, node):
-	p.add_html('<span class="dh-abbr" title="Abbreviated text">')
+	p.start_span(klass="dh-abbr", tip="Abbreviated text")
 	p.dispatch_children(node)
-	p.add_html('</span>')
+	p.end_span()
 
 def parse_ab(p, node):
+	p.add_log("<para")
 	p.dispatch_children(node)
+	p.add_log(">para")
 
 def parse_ex(p, node):
-	p.add_html('<span class="dh-abbr-expansion" title="Abbreviation expansion">')
+	p.start_span(klass="dh-abbr-expansion", tip="Abbreviation expansion")
+	p.add_html("(")
 	p.dispatch_children(node)
-	p.add_html('</span>')
+	p.add_html(")")
+	p.end_span()
 
 def parse_expan(p, node):
 	p.dispatch_children(node)
@@ -454,14 +551,18 @@ def parse_term(p, node):
 	p.dispatch_children(node)
 
 def parse_add(p, node):
-	p.add_html('<span class="dh-add" title="Scribal addition">')
+	p.start_span(klass="dh-add", tip="Scribal addition")
+	p.add_html("⟨⟨")
 	p.dispatch_children(node)
-	p.add_html('</span>')
+	p.add_html("⟩⟩")
+	p.end_span()
 
 def parse_del(p, node):
-	p.add_html('<span class="dh-del" title="Scribal deletion">')
+	p.start_span(klass="dh-del", tip="Scribal deletion")
+	p.add_html("⟦")
 	p.dispatch_children(node)
-	p.add_html('</span>')
+	p.add_html("⟧")
+	p.end_span()
 
 def numberize(s, n):
 	last_word = s.split()[-1].lower()
@@ -548,7 +649,9 @@ def parse_gap(p, gap):
 	if parent and parent.name == "seg" and parent["met"]:
 		# XXX repr here
 		repl = "[%s]" % parent["met"]
-	p.add_html('<span class="dh-gap" title="%s">%s</span>' % (html.escape(tip), html.escape(repl)))
+	p.start_span(klass="dh-gap", tip=tip)
+	p.add_html(html.escape(repl))
+	p.end_span()
 	# TODO special cases in editorial, involve
 	# <seg met="+++-++">
 
@@ -577,8 +680,9 @@ def parse_g(p, node):
 		tip = tip_toks[0].title()
 		if len(tip_toks) > 1:
 			tip += " " + tip_toks[1]
-	p.add_html('<span class="dh-symbol" title="%s (category: %s)">%s</span>' % \
-		(html.escape(tip), html.escape(cat), html.escape(info["unicode"])))
+	p.start_span(klass="dh-symbol", tip="%s (category: %s)" % (tip, cat))
+	p.add_html(info["unicode"])
+	p.end_span()
 
 # OK
 def parse_unclear(p, node):
@@ -587,28 +691,26 @@ def parse_unclear(p, node):
 		tip = "Very unclear text"
 	if node["reason"]:
 		tip += " (%s)" % node["reason"].replace("_", " ")
-	p.add_html('<span class="dh-unclear" title="%s">' % html.escape(tip))
+	p.start_span(klass="dh-unclear", tip=tip)
 	p.add_html("(")
 	p.dispatch_children(node)
 	if node["cert"] == "low":
 		p.add_html("?")
 	p.add_html(")")
-	p.add_html('</span>')
+	p.end_span()
 
 # EGD "Editorial deletion (suppression)"
 def parse_surplus(p, node):
-	p.add_html('<span class="dh-surplus" title="Superfluous text erroneously added by the scribe">')
+	p.start_span(klass="dh-surplus", tip="Superfluous text erroneously added by the scribe")
 	p.add_html("{")
 	p.dispatch_children(node)
 	p.add_html("}")
-	p.add_html('</span>')
+	p.end_span()
 
 def parse_p(p, para):
-	p.add_code("log:para<")
-	p.add_html("<p>")
+	p.add_log("<para")
 	p.dispatch_children(para)
-	p.add_html("</p>")
-	p.add_code("log:para>")
+	p.add_log(">para")
 
 hi_table = {
 	"italic": "i",
@@ -617,21 +719,24 @@ hi_table = {
 	"subscript": "sub",
 	"large": "big",
 	"check": "mark",
-	"grantha": 'span class="dh-grantha" title="Grantha text"',
+	"grantha": {"klass": "dh-grantha", "tip": "Grantha text"},
 }
 def parse_hi(p, hi):
 	rend = hi["rend"]
 	val = hi_table[rend]
-	p.add_html("<%s>" % val)
+	if rend == "grantha":
+		p.start_span(**val)
+	else:
+		p.add_html("<%s>" % val)
 	p.dispatch_children(hi)
-	e = val.find(" ")
-	if e < 0:
-		e = len(val)
-	p.add_html("</%s>" % val[:e])
+	if rend == "grantha":
+		p.end_span()
+	else:
+		p.add_html("</%s>" % val)
 
 def parse_lg(p, lg):
 	pada = 0
-	p.add_code("log:verse<")
+	p.add_log("<verse")
 	p.add_html('<div class="verse">')
 	for elem in lg:
 		if elem.type == "tag" and elem.name == "l":
@@ -646,7 +751,7 @@ def parse_lg(p, lg):
 		else:
 			p.dispatch(elem)
 	p.add_html("</div>")
-	p.add_code("log:verse>")
+	p.add_log(">verse")
 
 def parse_l(p, l):
 	p.dispatch_children(l) # TODO
@@ -709,7 +814,7 @@ def parse_titleStmt(p, stmt):
 		editors.append(name)
 	editors = remove_duplicates(editors)
 	for editor in editors:
-		p.start_span()
+		p.start_item()
 		p.add_text(editor)
 	p.document.editors = p.pop()
 

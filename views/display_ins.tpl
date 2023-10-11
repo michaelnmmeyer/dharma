@@ -1,7 +1,6 @@
 % rebase("base.tpl", title="Display", includes='''
-   <link rel="stylesheet" href="/ins-common.css">
-	<link rel="stylesheet" href="/ins-phys.css" id="ins-display">
-	<script type="text/javascript" src="/ins.js"></script>
+   <link rel="stylesheet" href="/inscription.css">
+	<script type="text/javascript" src="/inscription.js"></script>
 ''')
 
 <div class="body">
@@ -26,29 +25,36 @@
 </p>
 
 <div>
-   <button id="phys-btn">Physical</button>
    <button id="log-btn">Logical</button>
+   <button id="phys-btn">Physical</button>
    <button id="xml-btn">XML</button>
 </div>
 
-<div class="dh-ed">
-
+<div class="dh-log" id="dh-log">
 % for section in doc.edition:
-
 % if section.heading:
-<h3 class="dh-ed-heading">{{!section.heading.render()}}</h3>
+<h3 class="dh-ed-heading">{{!section.heading.render_logical()}}</h3>
 % end
-
 <div class="dh-ed-section">
-   {{!section.contents.render()}}
+   {{!section.contents.render_logical()}}
 </div>
-
 % end
-
-</div>
 </div>
 
-<div class="dh-xml">
+<div class="dh-phys" id="dh-phys" style="display:none">
+% for section in doc.edition:
+% if section.heading:
+<h3 class="dh-ed-heading">{{!section.heading.render_physical()}}</h3>
+% end
+<div class="dh-ed-section">
+   {{!section.contents.render_physical()}}
+</div>
+% end
+</div>
+
+</div> <!-- <div class="body"> -->
+
+<div class="dh-xml" id="dh-xml" style="display:none">
 <pre>
 {{doc.xml}}
 </pre>

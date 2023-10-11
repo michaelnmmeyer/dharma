@@ -215,8 +215,8 @@ def display_text(text):
 		return bottle.abort(404, "Not found")
 	import pins
 	doc = pins.process_file(path)
-	doc.title = doc.title.render().split(parse.PARA_SEP)
-	doc.editors = doc.editors.render().split(parse.PARA_SEP)
+	doc.title = doc.title.render_physical().split(parse.PARA_SEP)
+	doc.editors = doc.editors.render_physical().split(parse.PARA_SEP)
 	return bottle.template("display_ins.tpl", doc=doc, text=text, numberize=parse.numberize)
 
 @bottle.get("/test")

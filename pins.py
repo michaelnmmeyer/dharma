@@ -18,7 +18,7 @@ def parse_div(p, div):
 		i += 1 # XXX beware, this ignores text within this div
 	p.push("contents")
 	for child in children[i:]:
-		p.dispatch_children(child)
+		p.dispatch(child)
 	section.contents = p.pop()
 	p.document.edition.append(section)
 
@@ -67,6 +67,11 @@ def process_file(path):
 	t.first("//publicationStmt").delete()
 	p = parse.Parser(t, HANDLERS)
 	p.dispatch(p.tree.root)
+	for section in p.document.edition:
+		for rec in section.contents.code:
+			cmd, data, args = rec
+			parse.write_debug(cmd, data, **args)
+		print("-------")
 	p.document.xml = t.first("//text").xml()
 	return p.document
 
