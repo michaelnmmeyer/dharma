@@ -40,7 +40,7 @@ def write_debug(t, data, **params):
 		term_span()
 	else:
 		assert 0, t
-	write("%s" % t)
+	write("%-04s" % t)
 	if data:
 		write(" %r" % data)
 	if params:
@@ -74,7 +74,8 @@ class Block:
 		return "Block(%s):\n%s" % (self.name, "\n".join(repr(c) for c in self.code))
 
 	def start_item(self):
-		self.add_text(PARA_SEP)
+		if any(cmd == "text" for cmd, _, _ in self.code):
+			self.add_text(PARA_SEP)
 
 	def add_text(self, data):
 		if not data:
@@ -131,6 +132,16 @@ class Block:
 				self.code[i] = (rcmd, rdata, rparams)
 				break
 		self.add_code("phys", "<" + data, **params)
+		if data == "line":
+			i = len(self.code) - 1
+			while i > 0:
+				i -= 1
+				rcmd, rdata, _ = self.code[i]
+				if rcmd == "text" and not rdata.strip():
+					continue
+				if rcmd == "phys" and rdata == "<page":
+					del self.code[i + 1:-1]
+				break
 
 	def add_log(self, data, **params):
 		self.add_code("log", data, **params)
@@ -220,9 +231,8 @@ class Block:
 				elif data == ">line":
 					pass
 				elif data == "<page":
-					buf.append('<span class="dh-pb" title="New page">(⎘ %s)</span>' % html.escape(params["n"]))
-					if params["brk"]:
-						buf.append(" ")
+					buf.append('<span class="dh-pb" title="New page">(\N{next page} %s)</span>' % html.escape(params["n"]))
+					buf.append(" ")
 				elif data == ">page":
 					pass
 				else:

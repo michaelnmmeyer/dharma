@@ -588,13 +588,98 @@ def parse(f, keep_namespaces=None):
 	reader.parse(io.StringIO(handler.tree.source))
 	return handler.tree
 
+
+inline_after = {"lb", "pb", "milestone", "ref"}
+keep_indent = {"p"}
+
+class Formatter:
+
+	indent_string = 2 * " "
+
+	def __init__(self):
+		self.indent = 0
+		self.offset = 0
+		self.buf = io.StringIO()
+
+	def format(self, node):
+		if node.type == "tag":
+			return self.format_tag(node)
+		elif node.type == "string":
+			return self.format_string(node)
+		elif node.type == "comment":
+			pass
+		elif node.type == "instruction":
+			return self.format_instruction(node)
+		else:
+			assert 0
+	
+	def format_instruction(self, node):
+		self.write("<?%s %s?>\n" % (node.target, node.data))
+	
+	def format_string(self, node, newline=True):
+		text = re.sub(r"\s+", " ", node.data)
+		if not text.strip():
+			return
+		if newline:
+			text += "\n"
+		self.write(quote_string(text))
+	
+	def format_tag(self, node):
+		self.write("<%s" % node.name)
+		# for now, don't sort attrs
+		for k, v in node.attrs.items():
+			if isinstance(v, tuple):
+				v = "-".join(v)
+			self.write(' %s="%s"' % (k, quote_attribute(v)))
+		if len(node) == 0:
+			self.write("/>")
+		else:
+			self.write(">")
+			if len(node) == 1 and node[0].type == "string":
+				self.format_string(node[0], newline=False)
+			else:
+				self.write("\n")
+				if not node.name in keep_indent:
+					self.indent += 1
+				for child in node:
+					self.format(child)
+				if not node.name in keep_indent:
+					self.indent -= 1
+			self.write("</%s>" % node.name)
+		if not node.name in inline_after:
+			self.write("\n")
+	
+	def write(self, text):
+		while text:
+			end = text.find("\n")
+			if end < 0:
+				line = text
+			else:
+				line = text[:end]
+			if self.offset == 0:
+				self.buf.write(self.indent_string * max(0, self.indent))
+				self.offset += len(self.indent_string) * max(0, self.indent)
+			self.buf.write(line)
+			self.offset += len(line)
+			if end < 0:
+				break
+			text = text[end + 1:]
+			self.buf.write("\n")
+			self.offset = 0
+	
+	def text(self):
+		return self.buf.getvalue()
+
 if __name__ == "__main__":
 	import sys
 	if len(sys.argv) <= 1:
 		exit()
 	try:
 		tree = parse(sys.argv[1], keep_namespaces=True)
-		print(tree.xml())
+		fmt = Formatter()
+		tree.coalesce()
+		fmt.format_tag(tree.root)
+		sys.stdout.write(fmt.text())
 	except (BrokenPipeError, KeyboardInterrupt):
 		pass
 	except Error as err:
