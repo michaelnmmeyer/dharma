@@ -77,7 +77,7 @@ class Node(object):
 
 	type = None # "tree", "tag", "string", "comment", "instruction"
 	tree = None # tree this node belongs to
-	location = None # (line, column) in the source file
+	location = None # (line, start_offset, end_offset) in the source file
 	parent = None
 
 	@property
@@ -490,6 +490,8 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	tree = None
 	reader = None
 	keep_namespaces = False
+	last_node = None
+	line_offset = 0
 
 	def setDocumentLocator(self, locator):
 		self.locator = locator
@@ -500,6 +502,35 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	def endDocument(self):
 		assert self.tree and len(self.stack) == 1
 
+	def update_offset(self):
+		if self.last_node:
+			prev_line, _, _ = self.last_node.location
+		else:
+			prev_line = 1
+		line = self.locator.getLineNumber()
+		src = self.tree.source
+		while prev_line < line:
+			pat = re.compile(r"\r\n|\r|\n")
+			p = pat.search(src, pos=self.line_offset)
+			assert p, node
+			self.line_offset = p.end()
+			prev_line += 1
+
+	def set_location(self, node, close=False):
+		self.update_offset()
+		# xml.sax counts columns from 0 and counts 1 column for each tab
+		if self.last_node:
+			prev_line, prev_start, prev_end = self.last_node.location
+			prev_end = self.line_offset + self.locator.getColumnNumber()
+			self.last_node.location = (prev_line, prev_start, prev_end)
+		else:
+			prev_line, prev_start, prev_end = 1, 0, self.locator.getColumnNumber()
+			prev_line += 1
+		start = prev_end
+		line = self.locator.getLineNumber()
+		node.location = (line, start, None)
+		self.last_node = node
+
 	def startElement(self, name, attrs):
 		if not self.keep_namespaces:
 			colon = name.find(":")
@@ -507,46 +538,50 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 				name = name[colon + 1:]
 		ordered = ((k, attrs[k]) for k in attrs.getNames())
 		tag = Tag(name, ordered)
-		tag.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
 		tag.tree = self.tree
 		parent = self.stack[-1]
 		if parent is not self.tree:
 			tag.parent = parent
+		self.set_location(tag)
 		list.append(parent, tag)
 		self.stack.append(tag)
 
 	def endElement(self, name):
-		self.tree.root = self.stack.pop()
+		node = self.stack.pop()
+		self.tree.root = node
+		self.set_location(node, close=True)
 
 	def characters(self, data):
 		assert len(data) > 0
 		parent = self.stack[-1]
 		if len(parent) > 0 and parent[-1].type == "string":
+			line, start, end = parent[-1].location
 			parent[-1].append(data)
+			parent[-1].location = (line, start, end)
 			return
 		node = String(data)
-		node.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
 		if parent is not self.tree:
 			node.parent = parent
 		node.tree = self.tree
+		self.set_location(node)
 		list.append(parent, node)
 
 	def comment(self, data):
 		parent = self.stack[-1]
 		node = Comment(data)
-		node.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
 		if parent is not self.tree:
 			node.parent = parent
 		node.tree = self.tree
+		self.set_location(node)
 		list.append(parent, node)
 
 	def processingInstruction(self, target, data):
 		parent = self.stack[-1]
 		node = Instruction(target, data)
-		node.location = (self.locator.getLineNumber(), self.locator.getColumnNumber())
 		if parent is not self.tree:
 			node.parent = parent
 		node.tree = self.tree
+		self.set_location(node)
 		list.append(parent, node)
 
 	def raise_error(self, err):
@@ -588,7 +623,6 @@ def parse(f, keep_namespaces=None):
 	reader.parse(io.StringIO(handler.tree.source))
 	return handler.tree
 
-
 inline_after = {"lb", "pb", "milestone", "ref"}
 keep_indent = {"p"}
 
@@ -612,10 +646,10 @@ class Formatter:
 			return self.format_instruction(node)
 		else:
 			assert 0
-	
+
 	def format_instruction(self, node):
 		self.write("<?%s %s?>\n" % (node.target, node.data))
-	
+
 	def format_string(self, node, newline=True):
 		text = re.sub(r"\s+", " ", node.data)
 		if not text.strip():
@@ -623,7 +657,7 @@ class Formatter:
 		if newline:
 			text += "\n"
 		self.write(quote_string(text))
-	
+
 	def format_tag(self, node):
 		self.write("<%s" % node.name)
 		# for now, don't sort attrs
@@ -648,7 +682,7 @@ class Formatter:
 			self.write("</%s>" % node.name)
 		if not node.name in inline_after:
 			self.write("\n")
-	
+
 	def write(self, text):
 		while text:
 			end = text.find("\n")
@@ -666,9 +700,19 @@ class Formatter:
 			text = text[end + 1:]
 			self.buf.write("\n")
 			self.offset = 0
-	
+
 	def text(self):
 		return self.buf.getvalue()
+
+def print_node(root):
+	for node in root:
+		if node.type == "tag":
+			rep = repr(node)
+		else:
+			rep = node.type
+		print(*node.location, rep)
+		if node.type == "tag":
+			print_node(node)
 
 if __name__ == "__main__":
 	import sys
@@ -676,8 +720,9 @@ if __name__ == "__main__":
 		exit()
 	try:
 		tree = parse(sys.argv[1], keep_namespaces=True)
+		print_node(tree)
+		exit()
 		fmt = Formatter()
-		tree.coalesce()
 		fmt.format_tag(tree.root)
 		sys.stdout.write(fmt.text())
 	except (BrokenPipeError, KeyboardInterrupt):
