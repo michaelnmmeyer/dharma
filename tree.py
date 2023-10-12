@@ -679,7 +679,7 @@ class Formatter:
 			elif i > 0:
 				self.write(" ")
 			self.write(quote_string(token))
-	
+
 	def format_tag(self, node):
 		self.write("<")
 		self.write("%s" % node.name, klass="tag")
