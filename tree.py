@@ -646,6 +646,8 @@ def parse(f, keep_namespaces=None):
 class Formatter:
 
 	indent_string = 2 * " "
+	max_width = 80 ** 10 # soft, not hard
+	html = True
 
 	def __init__(self):
 		self.indent = 0
@@ -665,21 +667,30 @@ class Formatter:
 			assert 0
 
 	def format_instruction(self, node):
-		self.write("<?%s %s?>\n" % (node.target, node.data))
+		self.write("<?%s %s?>\n" % (node.target, node.data), klass="instruction")
 
 	def format_string(self, node, newline=True):
 		text = re.sub(r"\s+", " ", node.data.strip())
 		if not text:
 			return
-		self.write(quote_string(text))
-
+		for i, token in enumerate(text.split()):
+			if i > 0 and self.offset + 1 + len(token) > self.max_width:
+				self.write("\n")
+			elif i > 0:
+				self.write(" ")
+			self.write(quote_string(token))
+	
 	def format_tag(self, node):
-		self.write("<%s" % node.name)
+		self.write("<")
+		self.write("%s" % node.name, klass="tag")
 		# for now, don't sort attrs
 		for k, v in sorted(node.attrs.items()):
 			if isinstance(v, tuple):
 				v = "-".join(v)
-			self.write(' %s="%s"' % (k, quote_attribute(v)))
+			self.write(" ")
+			self.write("%s" % k, klass="attr-name")
+			self.write("=")
+			self.write('"%s"' % quote_attribute(v), klass="attr-value")
 		if len(node) == 0:
 			self.write("/>")
 		else:
@@ -694,7 +705,9 @@ class Formatter:
 				self.format(child)
 			if brk:
 				self.indent -= 1
-			self.write("</%s>" % node.name)
+			self.write("</")
+			self.write("%s" % node.name, klass="tag")
+			self.write(">")
 		if node.parent:
 			i = node.parent.index(node) + 1
 			if i >= len(node.parent):
@@ -704,7 +717,9 @@ class Formatter:
 				return
 		self.write("\n")
 
-	def write(self, text):
+	def write(self, text, klass=None):
+		if self.html and klass:
+			self.buf.write('<span class="dh-%s">' % klass)
 		while text:
 			end = text.find("\n")
 			if end < 0:
@@ -714,16 +729,26 @@ class Formatter:
 			if self.offset == 0:
 				self.buf.write(self.indent_string * max(0, self.indent))
 				self.offset += len(self.indent_string) * max(0, self.indent)
-			self.buf.write(line)
+			if self.html:
+				self.buf.write(quote_string(line))
+			else:
+				self.buf.write(line)
 			self.offset += len(line)
 			if end < 0:
 				break
 			text = text[end + 1:]
 			self.buf.write("\n")
 			self.offset = 0
+		if self.html and klass:
+			self.buf.write('</span>')
 
 	def text(self):
 		return self.buf.getvalue()
+
+def html_format(node):
+	fmt = Formatter()
+	fmt.format_tag(node)
+	return fmt.text()
 
 def print_node(root):
 	for node in root:

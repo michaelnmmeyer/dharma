@@ -56,6 +56,6 @@
 
 <div class="dh-xml" id="dh-xml" style="display:none">
 <pre>
-{{doc.xml}}
+{{!doc.xml}}
 </pre>
 </div>

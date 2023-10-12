@@ -72,7 +72,7 @@ def process_file(path):
 			cmd, data, args = rec
 			parse.write_debug(cmd, data, **args)
 		print("-------")
-	p.document.xml = t.first("//text").xml()
+	p.document.xml = tree.html_format(t.first("//body"))
 	return p.document
 
 if __name__ == "__main__":
