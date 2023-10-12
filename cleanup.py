@@ -38,26 +38,65 @@ def cleanup_file(f):
 		line = line.replace("\N{CYRILLIC SMALL LETTER SCHWA}", "\N{LATIN SMALL LETTER SCHWA}")
 		yield line + "\n"
 		wrote = True
-		empty = 0
-
-OK = 0
-BINARY = 1
-FAIL = 2
 
 def complain(msg):
 	print("%s: %s" % (os.path.basename(sys.argv[0]), msg), file=sys.stderr)
 
+def die(msg):
+	complain(msg)
+	exit(1)
+
 def normalize_filter(r, w):
+	for line in cleanup_file(r):
+		w.write(line)
+		w.flush()
+
+def normalize_stdin():
 	try:
-		for line in cleanup_file(r):
-			w.write(line)
-			w.flush()
-		return OK
-	except UnicodeDecodeError:
-		return BINARY
+		normalize_filter(sys.stdin, sys.stdout)
 	except Exception as e:
-		complain("%s" % e)
-		return FAIL
+		die(e)
+
+def normalize_to_stdout(files):
+	if len(files) > 1 or os.path.isdir(files[0]):
+		complain("can only process a single file when writing to stdout")
+		exit(1)
+	try:
+		with open(name) as f:
+			normalize_filter(f, sys.stdout)
+	except Exception as e:
+		die(e)
+
+def iter_files(roots):
+	for path in roots:
+		if os.path.isdir(path):
+			for root, dirs, files in os.walk(path):
+				for file in files:
+					name = os.path.join(root, file)
+					yield name
+		else:
+			yield path
+
+def normalize_single_in_place(name):
+	with tempfile.NamedTemporaryFile(mode="w") as tmp:
+		with open(name) as f:
+			normalize_filter(f, tmp)
+		shutil.copyfile(tmp.name, name)
+
+def normalize_in_place(files):
+	err = False
+	for path in iter_files(files):
+		try:
+			normalize_single_in_place(path)
+		except UnicodeDecodeError:
+			complain("%r: ignored (binary)" % path)
+		except FileNotFoundError:
+			complain("%r: ignored (not found)" % path)
+			err = True
+		except Exception as e:
+			die(e)
+	exit(not err)
+
 
 if __name__ == "__main__":
 	import os, argparse, tempfile, shutil
@@ -67,34 +106,11 @@ if __name__ == "__main__":
 	parser.add_argument("-i", "--in-place", help="edit files in-place", action="store_true")
 	parser.add_argument("file", nargs="*")
 	args = parser.parse_args()
-	failed = False
-	if args.in_place and args.file:
-		for name in args.file:
-			dir = os.path.dirname(name)
-			with tempfile.NamedTemporaryFile(mode="w", dir=dir, delete=False) as tmp:
-				try:
-					with open(name) as f:
-						ret = normalize_filter(f, tmp)
-				except FileNotFoundError:
-					complain("'%s': not found" % name)
-					ret = FAIL
-				if ret == OK:
-					shutil.move(tmp.name, name)
-				else:
-					os.remove(tmp.name)
-					if ret == FAIL:
-						failed = True
+	if args.in_place:
+		if not args.file:
+			die("cannot process stdin in-place")
+		normalize_in_place(args.file)
 	elif args.file:
-		for name in args.file:
-			try:
-				with open(name) as f:
-					if normalize_filter(f, sys.stdout) != OK:
-						failed = True
-			except FileNotFoundError:
-				complain("'%s': not found" % name)
-				failed = True
-
+		normalize_to_stdout(args.file)
 	else:
-		if normalize_filter(sys.stdin, sys.stdout) != OK:
-			failed = True
-	sys.exit(not failed)
+		normalize_stdin()
