@@ -15,7 +15,8 @@
 
 # XXX use expat! xml.parsers.expat will likely be simpler and faster
 
-import os, re, io, collections, copy
+import os, re, io, collections, copy, sys
+from xml.parsers import expat
 from xml.sax.handler import ContentHandler, ErrorHandler
 from xml.sax.saxutils import escape as quote_string
 from xml.sax.xmlreader import XMLReader
@@ -371,9 +372,15 @@ class Tag(Branch):
 	type = "tag"
 	attrs = None
 
-	def __init__(self, name, attrs):
+	def __init__(self, name, *args, **kwargs):
 		self.name = name
 		self.attrs = collections.OrderedDict()
+		if args:
+			assert len(args) == 1
+			assert not kwargs
+			(attrs,) = args
+		else:
+			attrs = kwargs.items()
 		for key, value in attrs:
 			self[key] = value
 
@@ -493,162 +500,138 @@ class Tree(Branch):
 			raise Exception("attempt to delete the tree's root")
 		NodeList.remove(self, node)
 
-class Handler(ContentHandler, LexicalHandler, ErrorHandler):
+class Parser:
 
-	tree = None
-	reader = None
-	keep_namespaces = False
-	last_node = None
-
-	def setDocumentLocator(self, locator):
-		self.locator = locator
-
-	def startDocument(self):
+	def __init__(self, file):
+		self.parser = expat.ParserCreate()
+		self.parser.ordered_attributes = 1
+		for attr in dir(self):
+			if not attr[0].isupper():
+				continue
+			val = getattr(self, attr)
+			if not callable(val):
+				continue
+			setattr(self.parser, attr, val)
+		self.tree = Tree()
 		self.stack = [self.tree]
+		if isinstance(file, str):
+			self.tree.path = os.path.abspath(file)
+			with open(file, "rb") as r:
+				self.tree.source = r.read()
+		else:
+			# file-like
+			if hasattr(file, "name"):
+				self.tree.path = os.path.abspath(file.name)
+			self.tree.source = file.read()
+		if isinstance(self.tree.source, str):
+			self.tree.source = self.tree.source.encode()
+		if self.tree.source.startswith(b'\xef\xbb\xbf'):
+			self.tree.source = self.tree.source[3:]
+		self.tree.location = (1, 0)
+		self.last_node = None
 
-	def endDocument(self):
-		assert self.tree and len(self.stack) == 1
+	def parse(self):
+		self.parser.Parse(self.tree.source, True)
 		if self.last_node:
 			last_start, _ = self.last_node.location
-			trimmed = self.tree.source[last_start:].rstrip()
-			last_end = last_start + len(trimmed)
-			self.last_node.location = (last_start, last_end)
-			if last_end < len(self.tree.source):
-				s = String(self.tree.source[last_end:])
-				s.location = (last_end, len(self.tree.source))
-				s.tree = self.tree
-				list.append(self.tree, s)
+			self.last_node.location = (last_start, len(self.tree.source))
+		return self.tree
 
-	# xml.sax doesn't indicate whitespace below the tree root, but we want to keep it.
 	def set_location(self, node, close=False):
-		data = self.reader.getProperty("http://xml.org/sax/properties/xml-string")
-		start = len(self.tree.source) - len(data)
-		if node.parent is None:
-			if self.last_node is None:
-				if start > 0:
-					s = String(self.tree.source[:start].decode())
-					s.location = (0, start)
-					s.tree = self.tree
-					list.insert(self.tree, 0, s)
-			else:
-				last_start, _ = self.last_node.location
-				trimmed = self.tree.source[last_start:start].rstrip()
-				last_end = last_start + len(trimmed)
-				self.last_node.location = (last_start, last_end)
-				if last_end < start:
-					s = String(self.tree.source[last_end:start])
-					s.location = (last_end, start)
-					s.tree = self.tree
-					if close and node.type == "tag":
-						list.append(self.tree, s)
-					else:
-						list.insert(self.tree, -1, s)
-		else:
+		start = self.parser.CurrentByteIndex
+		if self.last_node is not None:
 			last_start, _ = self.last_node.location
 			self.last_node.location = (last_start, start)
 		if not close:
 			node.location = (start, None)
 		self.last_node = node
 
-	def startElement(self, name, attrs):
-		if not self.keep_namespaces:
-			colon = name.find(":")
-			if colon >= 0:
-				name = name[colon + 1:]
-		ordered = ((k, attrs[k]) for k in attrs.getNames())
-		tag = Tag(name, ordered)
-		tag.tree = self.tree
+	def make_node(self, klass, *args):
+		node = klass(*args)
+		node.tree = self.tree
 		parent = self.stack[-1]
 		if parent is not self.tree:
-			tag.parent = parent
-		list.append(parent, tag)
-		self.stack.append(tag)
-		self.set_location(tag)
+			node.parent = parent
+		list.append(parent, node)
+		if klass is Tag:
+			self.stack.append(node)
+		self.set_location(node)
 
-	def endElement(self, name):
+	def XmlDeclHandler(self, version, encoding, standalone):
+		assert self.parser.CurrentByteIndex == 0
+		# should we save this?
+
+	def StartDoctypeDeclHandler(self, doctypeName, systemId, publicId, has_internal_subset):
+		raise Exception
+
+	def EndDoctypeDeclHandler(self):
+		raise Exception
+
+	def ElementDeclHandler(self, name, model):
+		raise Exception
+
+	def AttlistDeclHandler(self, elname, attname, type, default, required):
+		raise Exception
+
+	def StartElementHandler(self, name, attributes):
+		attrs = (attributes[i:i + 2] for i in range(0, len(attributes), 2))
+		self.make_node(Tag, name, attrs)
+
+	def EndElementHandler(self, name):
 		node = self.stack.pop()
 		self.tree.root = node
 		self.set_location(node, close=True)
 
-	def characters(self, data):
+	def ProcessingInstructionHandler(self, target, data):
+		self.make_node(Instruction, target, data)
+
+	def CharacterDataHandler(self, data):
 		assert len(data) > 0
 		parent = self.stack[-1]
 		if len(parent) > 0 and parent[-1].type == "string":
+			# need to save the location because we set it to None
+			# when the string is modified
 			loc = parent[-1].location
 			parent[-1].append(data)
 			parent[-1].location = loc
-			return
-		node = String(data)
-		if parent is not self.tree:
-			node.parent = parent
-		node.tree = self.tree
-		list.append(parent, node)
-		self.set_location(node)
+		else:
+			self.make_node(String, data)
 
-	def comment(self, data):
-		parent = self.stack[-1]
-		node = Comment(data)
-		if parent is not self.tree:
-			node.parent = parent
-		node.tree = self.tree
-		list.append(parent, node)
-		self.set_location(node)
+	def EntityDeclHandler(self, entityName, is_parameter_entity, value, base, systemId, publicId, notationName):
+		raise Exception
 
-	def processingInstruction(self, target, data):
-		parent = self.stack[-1]
-		node = Instruction(target, data)
-		if parent is not self.tree:
-			node.parent = parent
-		node.tree = self.tree
-		list.append(parent, node)
-		self.set_location(node)
+	def NotationDeclHandler(self, notationName, base, systemId, publicId):
+		raise Exception
 
-	def raise_error(self, err):
-		# Build a dummy node just to get a formatted location
-		node = Node()
-		node.tree = self.tree
-		node.location = (err.getLineNumber(), err.getColumnNumber())
-		raise Error(node, err.getMessage())
+	def StartNamespaceDeclHandler(self, prefix, uri):
+		raise Exception
 
-	def error(self, err):
-		self.raise_error(err)
+	def EndNamespaceDeclHandler(self, prefix):
+		raise Exception
 
-	def fatalError(self, err):
-		self.raise_error(err)
+	def CommentHandler(self, data):
+		self.make_node(Comment, data)
 
-	def warning(self, err):
-		self.raise_error(err)
+	def StartCdataSectionHandler(self):
+		raise Exception
 
-def parse(f, keep_namespaces=None):
-	handler = Handler()
-	if keep_namespaces is not None:
-		handler.keep_namespaces = keep_namespaces
-	handler.tree = Tree()
-	if isinstance(f, str):
-		handler.tree.path = os.path.abspath(f)
-		with open(f, "rb") as r:
-			handler.tree.source = r.read()
-	else:
-		# file-like
-		if hasattr(f, "name"):
-			handler.tree.path = os.path.abspath(f.name)
-		handler.tree.source = f.read()
-	if isinstance(handler.tree.source, str):
-		handler.tree.source = handler.tree.source.encode()
-	if handler.tree.source.startswith(b'\xef\xbb\xbf'):
-		handler.tree.source = handler.tree.source[3:]
-	handler.tree.location = (1, 0)
-	# we need the parser to use a buffer big enough to hold the full
-	# contents of the file, because we rely on
-	# reader.getProperty("http://xml.org/sax/properties/xml-string")
-	# returning the whole contents to compute nodes offsets
-	reader = create_parser(bufsize=len(handler.tree.source))
-	reader.setContentHandler(handler)
-	reader.setErrorHandler(handler)
-	reader.setProperty("http://xml.org/sax/properties/lexical-handler", handler)
-	handler.reader = reader
-	reader.parse(io.BytesIO(handler.tree.source))
-	return handler.tree
+	def EndCdataSectionHandler(self):
+		raise Exception
+
+	def DefaultHandler(self, data):
+		if data.strip():
+			raise Exception
+		self.CharacterDataHandler(data)
+
+	def NotStandaloneHandler(self):
+		raise Exception
+
+	def ExternalEntityRefHandler(self, context, base, systemId, publicId):
+		raise Exception
+
+def parse(file):
+	parser = Parser(file)
+	return parser.parse()
 
 class Formatter:
 
@@ -765,14 +748,11 @@ def print_node(root):
 			print_node(node)
 
 if __name__ == "__main__":
-	import sys
 	if len(sys.argv) <= 1:
 		exit()
 	try:
-		tree = parse(sys.argv[1], keep_namespaces=True)
-		fmt = Formatter()
-		fmt.format_tag(tree.root)
-		sys.stdout.write(fmt.text())
+		tree = parse(sys.argv[1])
+		print_node(tree)
 	except (BrokenPipeError, KeyboardInterrupt):
 		pass
 	except Error as err:
