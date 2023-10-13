@@ -65,6 +65,8 @@ table of languages <a href="/langs">here</a>.</p>
    <p>
    % if not row["html_link"].endswith("/"):
       <a href="{{row["html_link"]}}">
+   % elif row["name"].startswith("DHARMA_INS"):
+      <a href="/display/{{row["name"]}}">
    % end
    % if row["title"]:
       % for chunk in row["title"]:
@@ -73,7 +75,7 @@ table of languages <a href="/langs">here</a>.</p>
    % else:
       <i>Untitled</i>.
    % end
-   % if not row["html_link"].endswith("/"):
+   % if not row["html_link"].endswith("/") or row["name"].startswith("DHARMA_INS"):
       </a>
    % end
    </p>

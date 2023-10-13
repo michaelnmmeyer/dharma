@@ -213,9 +213,9 @@ class Block:
 		buf = []
 		for t, data, params in self.code:
 			if t == "log":
-				if data == "<para":
+				if data == "<para" or data == "<line":
 					buf.append("<p>")
-				elif data == ">para":
+				elif data == ">para" or data == ">line":
 					buf.append("</p>")
 				elif data == "<verse":
 					buf.append('<div class="verse">')
@@ -745,26 +745,14 @@ def parse_hi(p, hi):
 		p.add_html("</%s>" % val)
 
 def parse_lg(p, lg):
-	pada = 0
 	p.add_log("<verse")
-	p.add_html('<div class="verse">')
-	for elem in lg:
-		if elem.type == "tag" and elem.name == "l":
-			if pada % 2 == 0:
-				p.add_html("<p>")
-				p.dispatch_children(elem)
-			else:
-				p.add_text(" ")
-				p.dispatch_children(elem)
-				p.add_html("</p>")
-			pada += 1
-		else:
-			p.dispatch(elem)
-	p.add_html("</div>")
+	p.dispatch_children(lg)
 	p.add_log(">verse")
 
 def parse_l(p, l):
+	p.add_log("<line")
 	p.dispatch_children(l) # TODO
+	p.add_log(">line")
 
 def parse_body(p, body):
 	for elem in body.children():
