@@ -15,7 +15,6 @@ GIT_DB = config.open_db("github", SCHEMA)
 TEXTS_DB = config.open_db("texts")
 TEXTS_DB.execute("attach database ? as people", (config.db_path("people"),))
 NGRAMS_DB = config.open_db("ngrams")
-CATALOG_DB = config.open_db("catalog")
 LANGS_DB = config.open_db("langs")
 
 @bottle.get("/")

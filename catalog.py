@@ -1,4 +1,5 @@
-import os
+import os, sys
+from xml.parsers import expat
 from dharma import tree, parse, texts, config
 
 SCHEMA = """
@@ -71,7 +72,11 @@ class OR(Query):
 
 
 def process_file(repo_name, path):
-	t = tree.parse(path)
+	try:
+		t = tree.parse(path)
+	except expat.ExpatError as e:
+		print("catalog: %r %s" % (path, e), file=sys.stderr)
+		return
 	p = parse.Parser(t, parse.make_handlers_map())
 	p.dispatch(p.tree.root)
 	doc = p.document
@@ -82,8 +87,10 @@ def process_file(repo_name, path):
 		# to fix, we don't have "Old Javanese" in ISO, should submit it
 		if lang == "oj":
 			lang = "jav"
-		(code,) = LANGS_DB.execute("select ifnull((select id from by_code where code = ?), 'und')", (lang,)).fetchone()
+		(code,) = CATALOG_DB.execute("select ifnull((select id from langs.by_code where code = ?), 'und')", (lang,)).fetchone()
 		doc.langs.append(code)
+	if not doc.langs:
+		doc.langs = ["und"]
 	doc.langs = sorted(set(doc.langs))
 	doc.repository = repo_name
 	return doc
@@ -91,6 +98,8 @@ def process_file(repo_name, path):
 def process_repo(name, db):
 	for text in texts.iter_texts_in_repo(name):
 		doc = process_file(name, text)
+		if not doc:
+			continue
 		for key in ("title", "author", "editors", "summary"):
 			val = getattr(doc, key)
 			if val is None:
@@ -182,18 +191,19 @@ def patch_languages(db, q):
 		text = clause.query
 		assert isinstance(text, str)
 		if len(text) <= 3:
-			(text,) = db.execute("select ifnull((select id from by_code where code = ?), '')", (text,)).fetchone()
+			(text,) = db.execute("select ifnull((select id from langs.by_code where code = ?), '')", (text,)).fetchone()
 			clause.query = text
 			continue
-		langs = [Query(lang) for (lang,) in db.execute("select id from by_name where name match ?", (text,))]
+		langs = [Query(lang) for (lang,) in db.execute("select id from langs.by_name where name match ?", (text,))]
 		if langs:
 			clause.query = OR(langs)
 		else:
 			clause.query = "" # prevent matching
 
-@LANGS_DB.transaction
 @CATALOG_DB.transaction
 def search(q, s):
+	db = CATALOG_DB
+	db.execute("begin")
 	sql = """
 		select documents.name, documents.repo, documents.title,
 			documents.author, documents.editors, json_group_array(list.name) as langs, documents.summary,
@@ -209,10 +219,7 @@ def search(q, s):
 	q = " ".join(parse.normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
 	if q:
 		q = parse_query(q)
-		db = LANGS_DB
-		db.execute("begin")
 		patch_languages(db, q)
-		db.execute("commit")
 		q = (str(q),)
 		sql += " where documents_index match ? "
 	else:
@@ -224,8 +231,7 @@ def search(q, s):
 	else:
 		s = "title"
 	sql += " group by documents.name order by documents.%s collate icu " % s
-	db = CATALOG_DB
-	db.execute("begin")
+	print(sql)
 	ret = db.execute(sql, q).fetchall()
 	(last_updated,) = db.execute("""
 		select format_date(value)

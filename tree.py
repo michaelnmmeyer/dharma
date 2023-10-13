@@ -574,7 +574,13 @@ class Parser:
 		raise Exception
 
 	def StartElementHandler(self, name, attributes):
-		attrs = (attributes[i:i + 2] for i in range(0, len(attributes), 2))
+		attrs = []
+		for i in range(0, len(attributes), 2):
+			key, value = attributes[i:i + 2]
+			colon = key.find(":")
+			if colon >= 0:
+				key = key[colon + 1:]
+			attrs.append((key, value))
 		self.make_node(Tag, name, attrs)
 
 	def EndElementHandler(self, name):
