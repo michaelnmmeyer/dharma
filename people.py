@@ -118,6 +118,7 @@ def plain_from_github(github_id):
 		where git_name = ?""", (github_id,)).fetchone()
 	return ret and ret[0] or github_id
 
+# XXX use this!
 def plain_from_viaf(url, dflt=None):
 	# Several formats are available, this one is the easier to parse
 	url = os.path.join(url, "rdf.xml")

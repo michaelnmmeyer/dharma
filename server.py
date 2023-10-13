@@ -212,8 +212,8 @@ def display_text(text):
 		(config.REPOS_DIR, text)).fetchone() or (None,)
 	if not path:
 		return bottle.abort(404, "Not found")
-	import pins
-	doc = pins.process_file(path)
+	import parse_ins
+	doc = parse_ins.process_file(path)
 	doc.title = doc.title.render_physical().split(parse.PARA_SEP)
 	doc.editors = doc.editors.render_physical().split(parse.PARA_SEP)
 	return bottle.template("display_ins.tpl", doc=doc, text=text, numberize=parse.numberize)

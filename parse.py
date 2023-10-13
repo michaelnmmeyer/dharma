@@ -288,15 +288,20 @@ class Document:
 	langs = None
 	summary = None
 
+	# we expect a single edition
 	edition = None
 	# we can have several translations e.g. DHARMA_INSPallava00002
 	translation = None
+	# expect a single one
+	commentary = None
 
 	xml = ""
 
 	def __init__(self):
 		self.langs = []
 		self.edition = []
+		self.translation = []
+		self.commentary = []
 
 class Parser:
 
@@ -751,7 +756,7 @@ def parse_lg(p, lg):
 
 def parse_l(p, l):
 	p.add_log("<line")
-	p.dispatch_children(l) # TODO
+	p.dispatch_children(l)
 	p.add_log(">line")
 
 def parse_body(p, body):

@@ -31,9 +31,10 @@
 </div>
 
 <div class="dh-log" id="dh-log">
+<h3>Edition (logical)</h3>
 % for section in doc.edition:
 % if section.heading:
-<h3 class="dh-ed-heading">{{!section.heading.render_logical()}}</h3>
+<h4 class="dh-ed-heading">{{!section.heading.render_logical()}}</h4>
 % end
 <div class="dh-ed-section">
    {{!section.contents.render_logical()}}
@@ -42,9 +43,10 @@
 </div>
 
 <div class="dh-phys" id="dh-phys" style="display:none">
+<h3>Edition (physical)</h3>
 % for section in doc.edition:
 % if section.heading:
-<h3 class="dh-ed-heading">{{!section.heading.render_physical()}}</h3>
+<h4 class="dh-ed-heading">{{!section.heading.render_logical()}}</h4>
 % end
 <div class="dh-ed-section">
    {{!section.contents.render_physical()}}
@@ -59,3 +61,35 @@
 {{!doc.xml}}
 </pre>
 </div>
+
+<div class="body">
+
+% for trans in doc.translation:
+<div class="dh-trans">
+<h3>Translation</h3>
+% for section in trans:
+% if section.heading:
+<h4 class="dh-trans-heading">{{!section.heading.render_logical()}}</h4>
+% end
+<div class="dh-trans-section">
+   {{!section.contents.render_logical()}}
+</div>
+% end
+</div>
+% end
+
+% if doc.commentary:
+<div class="dh-trans">
+<h3>Commentary</h3>
+% for section in doc.commentary:
+% if section.heading:
+<h4 class="dh-trans-heading">{{!section.heading.render_logical()}}</h4>
+% end
+<div class="dh-trans-section">
+   {{!section.contents.render_logical()}}
+</div>
+% end
+</div>
+% end
+
+</div> <!-- <div class="body"> -->
