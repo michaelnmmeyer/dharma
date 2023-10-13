@@ -14,10 +14,10 @@
 # rendering the text.
 
 import os, re, io, collections, copy
-from xml.sax import make_parser
 from xml.sax.handler import ContentHandler, ErrorHandler
 from xml.sax.saxutils import escape as quote_string
 from xml.sax.xmlreader import XMLReader
+from xml.sax.expatreader import create_parser
 from xml.etree import ElementTree
 
 try:
@@ -497,7 +497,6 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 	reader = None
 	keep_namespaces = False
 	last_node = None
-	line_offset = 0
 
 	def setDocumentLocator(self, locator):
 		self.locator = locator
@@ -619,7 +618,6 @@ class Handler(ContentHandler, LexicalHandler, ErrorHandler):
 		self.raise_error(err)
 
 def parse(f, keep_namespaces=None):
-	reader = make_parser()
 	handler = Handler()
 	if keep_namespaces is not None:
 		handler.keep_namespaces = keep_namespaces
@@ -635,7 +633,14 @@ def parse(f, keep_namespaces=None):
 		handler.tree.source = f.read()
 	if isinstance(handler.tree.source, str):
 		handler.tree.source = handler.tree.source.encode()
+	if handler.tree.source.startswith(b'\xef\xbb\xbf'):
+		handler.tree.source = handler.tree.source[3:]
 	handler.tree.location = (1, 0)
+	# we need the parser to use a buffer big enough to hold the full
+	# contents of the file, because we rely on
+	# reader.getProperty("http://xml.org/sax/properties/xml-string")
+	# returning the whole contents to compute nodes offsets
+	reader = create_parser(bufsize=len(handler.tree.source))
 	reader.setContentHandler(handler)
 	reader.setErrorHandler(handler)
 	reader.setProperty("http://xml.org/sax/properties/lexical-handler", handler)
