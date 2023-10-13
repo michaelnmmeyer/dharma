@@ -97,20 +97,20 @@ def process_repo(name, db):
 				val = parse.Block(val)
 				val.finish()
 				setattr(doc, key, val)
-		fmt_title = doc.title.render()
+		fmt_title = doc.title.render_logical()
 		if fmt_title:
 			fmt_title = fmt_title.split(parse.PARA_SEP)
 		else:
 			fmt_title = []
-		fmt_editors = doc.editors.render()
+		fmt_editors = doc.editors.render_logical()
 		if fmt_editors:
 			fmt_editors = fmt_editors.split(parse.PARA_SEP)
 		else:
 			fmt_editors = []
 		db.execute("""insert into documents(name, repo, title, author, editors, langs, summary)
 			values (?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
-				fmt_title, doc.author.render(), fmt_editors,
-				doc.langs, doc.summary.render()))
+				fmt_title, doc.author.render_logical(), fmt_editors,
+				doc.langs, doc.summary.render_logical()))
 		db.execute("""insert into documents_index(name, ident, repo, title, author, editor, lang, summary)
 			values (?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.ident.lower(),
 			doc.repository.lower(), doc.title.searchable_text(), doc.author.searchable_text(),

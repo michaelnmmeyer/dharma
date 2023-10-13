@@ -267,7 +267,7 @@ class Block:
 	def searchable_text(self):
 		assert self.finished
 		buf = []
-		for t, data in self.code:
+		for t, data, _ in self.code:
 			if not t == "text":
 				continue
 			buf.append(data)
