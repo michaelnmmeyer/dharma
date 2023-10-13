@@ -1,6 +1,7 @@
 schemas = $(addprefix schemas/,inscription bestow critical diplomatic prosody)
+generated_views = $(patsubst %.md,%.tpl,$(wildcard views/*.md))
 
-all: $(addsuffix .rng,$(schemas)) $(addsuffix .html,$(schemas)) $(addsuffix .oddc,$(schemas))
+all: $(addsuffix .rng,$(schemas)) $(addsuffix .html,$(schemas)) $(addsuffix .oddc,$(schemas)) $(generated_views)
 
 update-repos:
 	for d in repos/*; do \
@@ -63,6 +64,9 @@ deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
 	git -C repos/project-documentation push
 
 .PHONY: all update-repos update-texts download-dbs list-texts forever image commit-all deploy-schemas
+
+views/%.tpl: views/%.md
+	pandoc -f markdown -t html $^ -o $@
 
 trang := java -jar jars/trang.jar
 
