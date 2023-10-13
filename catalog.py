@@ -231,7 +231,6 @@ def search(q, s):
 	else:
 		s = "title"
 	sql += " group by documents.name order by documents.%s collate icu " % s
-	print(sql)
 	ret = db.execute(sql, q).fetchall()
 	(last_updated,) = db.execute("""
 		select format_date(value)

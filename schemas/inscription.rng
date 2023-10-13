@@ -5,7 +5,7 @@
          xmlns="http://relaxng.org/ns/structure/1.0"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2023-10-09T10:04:17Z. .
+Schema generated from ODD source 2023-10-13T20:17:10Z. .
 TEI Edition: Version 3.6.0. Last updated on
 	16th July 2019, revision daa3cc0b9
 TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 3.6.0/
@@ -1642,32 +1642,22 @@ The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow 
       </oneOrMore>
    </define>
    <define name="model.stageLike">
-      <choice>
-         <ref name="stage"/>
-      </choice>
+      <notAllowed/>
    </define>
    <define name="model.stageLike_alternation">
-      <choice>
-         <ref name="stage"/>
-      </choice>
+      <notAllowed/>
    </define>
    <define name="model.stageLike_sequence">
-      <ref name="stage"/>
+      <empty/>
    </define>
    <define name="model.stageLike_sequenceOptional">
-      <optional>
-         <ref name="stage"/>
-      </optional>
+      <empty/>
    </define>
    <define name="model.stageLike_sequenceOptionalRepeatable">
-      <zeroOrMore>
-         <ref name="stage"/>
-      </zeroOrMore>
+      <empty/>
    </define>
    <define name="model.stageLike_sequenceRepeatable">
-      <oneOrMore>
-         <ref name="stage"/>
-      </oneOrMore>
+      <notAllowed/>
    </define>
    <define name="model.global.edit">
       <choice>
@@ -4254,14 +4244,6 @@ Sample values include: 1] sumānikā; 2] anuṣṭubh; 3] vegavatī; 4] viyog
                </choice>
             </attribute>
          </optional>
-         <empty/>
-      </element>
-   </define>
-   <define name="stage">
-      <element name="stage">
-         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(stage direction) contains any kind of stage direction within a dramatic text or fragment. [3.12.2. Core Tags for Drama 3.12. Passages of Verse or Drama 7.2.4. Stage Directions]</a:documentation>
-         <ref name="macro.specialPara"/>
-         <ref name="att.global.rendition.attribute.rend"/>
          <empty/>
       </element>
    </define>

@@ -764,6 +764,14 @@ def parse_body(p, body):
 		assert elem.type == "tag"
 		p.dispatch(elem)
 
+def parse_title(p, title):
+	p.dispatch_children(title)
+
+def parse_q(p, q):
+	p.add_html("“")
+	p.dispatch_children(q)
+	p.add_html("”")
+
 def remove_duplicates(ls):
 	ret = []
 	for x in ls:

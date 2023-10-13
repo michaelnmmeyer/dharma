@@ -29,7 +29,7 @@ to STUFF in the following:
 		<teiHeader>STUFF</teiHeader>
 	</TEI>
 
-## /TEI/teiHeader/fileDesc/titleStmt
+## `/TEI/teiHeader/fileDesc/titleStmt`
 
 This element includes names of editors within `<editor>` or `<respStmt>`.
 Whenever there is an explicit reference to a DHARMA member or to a VIAF
@@ -52,8 +52,13 @@ mentioned in this element are assumed to be editors. They are enumerated in
 the order they appear within the file, so you might want to add the names of
 the most important contributors at the top.
 
-## /TEI/teiHeader/fileDesc/publicationStmt
+## `/TEI/teiHeader/fileDesc/publicationStmt`
 
 Everything under here is ignored, except `<pubPlace>`.
+
+## `/TEI/teiHeader/revisionDesc`
+
+Everything under here is ignored. It is pointless to fill it, since the revision history
+is tracked by git and could be pulled from it, if needed.
 
 </div>

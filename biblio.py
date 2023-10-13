@@ -4,12 +4,10 @@
 # proper primary key? Yes, use:
 # https://api.zotero.org/groups/1633743/items/ZZH5G8PB?format=tei
 
-import json, unicodedata, html, re, time
-import warnings
-from collections import OrderedDict
+import io, json, unicodedata, html, re, time
 import requests
-from bs4 import BeautifulSoup, Tag, MarkupResemblesLocatorWarning
-from dharma import config
+from xml.parsers import expat
+from dharma import config, tree
 
 LIBRARY_ID = 1633743
 MY_API_KEY = "ojTBU4SxEQ4L0OqUhFVyImjq"
@@ -25,21 +23,11 @@ insert or ignore into meta values('latest_version', 0);
 create table if not exists bibliography(
 	key text primary key not null,
 	version integer not null,
-	json json not null
+	json json not null check(json_valid(json))
 );
 commit;
 """
-conn = config.open_db("biblio", SCHEMA)
-
-def sort_value(val):
-	if not isinstance(val, dict):
-		return val
-	vals = sorted((k, sort_value(v)) for k, v in val.items())
-	return OrderedDict(vals)
-
-def to_json(val):
-	val = sort_value(val)
-	return json.dumps(val, separators=(",", ":"), ensure_ascii=False)
+db = config.open_db("biblio", SCHEMA)
 
 def zotero_items(max_version, ret):
 	s = requests.Session()
@@ -73,18 +61,17 @@ def zotero_items(max_version, ret):
 		r = s.get(next.group(1))
 	ret.append(latest_version)
 
-@conn.transaction
+@db.transaction
 def update():
-	conn.execute("begin immediate")
-	(max_version,) = conn.execute("select value from meta where key = 'latest_version'").fetchone()
+	db.execute("begin immediate")
+	(max_version,) = db.execute("select value from meta where key = 'latest_version'").fetchone()
 	ret = []
 	for entry in zotero_items(max_version, ret):
-		doc = to_json(entry)
-		conn.execute("""insert or replace into bibliography(key, version, json)
-			values(?, ?, ?)""", (entry["key"], entry["version"], doc))
+		db.execute("""insert or replace into bibliography(key, version, json)
+			values(?, ?, ?)""", (entry["key"], entry["version"], entry))
 	assert len(ret) == 1
-	conn.execute("update meta set value = ? where key = 'latest_version'", (ret[0],))
-	conn.execute("commit")
+	db.execute("update meta set value = ? where key = 'latest_version'", tuple(ret))
+	db.execute("commit")
 
 # See https://www.zotero.org/support/kb/rich_text_bibliography
 valid_tags = {
@@ -102,6 +89,8 @@ def all_string_values(obj, ignore):
 		yield obj
 	elif isinstance(obj, int):
 		pass
+	elif obj is None:
+		pass
 	elif isinstance(obj, list):
 		for val in obj:
 			yield from all_string_values(val, ignore)
@@ -112,15 +101,15 @@ def all_string_values(obj, ignore):
 				continue
 			yield from all_string_values(v, ignore)
 
-def check_string_value(soup, entry):
-	for tag in soup.find_all("em"):
+def check_string_value(xml, entry):
+	for tag in xml.find(".//em"):
 		tag.name = "i"
-	for tag in soup.find_all("a"):
+	for tag in xml.find(".//a"):
 		assert "href" in tag.attrs
 		href = tag["href"]
 		tag.attrs.clear()
 		tag["href"] = href
-	for tag in soup.find_all(lambda x: isinstance(x, Tag)):
+	for tag in xml.find(".//*"):
 		if tag.name == "a":
 			continue # special case
 		attrs = valid_tags.get(tag.name)
@@ -132,30 +121,21 @@ def check_string_value(soup, entry):
 		elif attrs and not list(tag.attrs.items())[0] in attrs:
 			ok = False
 		if not ok:
-			print("%s: bad markup: %r" % (entry["key"], tag))
+			tag.unwrap()
 
 def check_entries():
-	warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
-	for (entry,) in conn.execute("select json from bibliography"):
-		entry = json.loads(entry)
+	for (entry,) in db.execute("select json from bibliography"):
 		for val in all_string_values(entry, ignore=set()):
-			then = val
 			val = unicodedata.normalize("NFC", val)
-			if val != then:
-				print("%s: not normalized: %r" % (entry["key"], val))
 			val = html.unescape(val)
 			val = val.replace("&", "&amp;")
-			if "\N{NBSP}" in val:
-				print("%s: non-breaking space: %r" % (entry["key"], val))
-			soup = BeautifulSoup(val, "html.parser")
-			if val != str(soup):
-				print("%s: escaping issue: %s | %r" % (entry["key"], val, soup))
-				continue
-			check_string_value(soup, entry)
-		for val in all_string_values(entry, ignore=ident_like):
-			if "oe" in val.lower() or "ae" in val.lower():
-				print("%s: ligatures: %r" % (entry["key"], val))
-			# Deal with quotes here or later?
+			val = "<root>%s</root>" % val
+			try:
+				xml = tree.parse(io.StringIO(val)).root
+				check_string_value(xml, entry)
+				val = xml.xml()[len("<root>"):-len("</root>")]
+			except expat.ExpatError:
+				val = html.escape(val)
 
 if __name__ == "__main__":
 	check_entries()

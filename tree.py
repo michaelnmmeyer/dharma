@@ -13,8 +13,6 @@
 # is invalid; we can highlight the node and generate a pop-up or something when
 # rendering the text.
 
-# XXX use expat! xml.parsers.expat will likely be simpler and faster
-
 import os, re, io, collections, copy, sys
 from xml.parsers import expat
 from xml.sax.handler import ContentHandler, ErrorHandler
@@ -482,7 +480,7 @@ class Tree(Branch):
 		return "<Tree>"
 
 	def xml(self, **kwargs):
-		ret = ['<?xml version="1.0" encoding="utf-8"?>\n']
+		ret = []
 		for node in self:
 			ret.append(node.xml(**kwargs))
 		return "".join(ret)

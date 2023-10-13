@@ -33,7 +33,7 @@ indicate the element location in XPath notation. Thus, for instance,
     &lt;teiHeader&gt;STUFF&lt;/teiHeader&gt;
 &lt;/TEI&gt;</code></pre>
 <h2
-id="teiteiheaderfiledesctitlestmt">/TEI/teiHeader/fileDesc/titleStmt</h2>
+id="teiteiheaderfiledesctitlestmt"><code>/TEI/teiHeader/fileDesc/titleStmt</code></h2>
 <p>This element includes names of editors within
 <code>&lt;editor&gt;</code> or <code>&lt;respStmt&gt;</code>. Whenever
 there is an explicit reference to a DHARMA member or to a VIAF page, the
@@ -54,7 +54,12 @@ They are enumerated in the order they appear within the file, so you
 might want to add the names of the most important contributors at the
 top.</p>
 <h2
-id="teiteiheaderfiledescpublicationstmt">/TEI/teiHeader/fileDesc/publicationStmt</h2>
+id="teiteiheaderfiledescpublicationstmt"><code>/TEI/teiHeader/fileDesc/publicationStmt</code></h2>
 <p>Everything under here is ignored, except
 <code>&lt;pubPlace&gt;</code>.</p>
+<h2
+id="teiteiheaderrevisiondesc"><code>/TEI/teiHeader/revisionDesc</code></h2>
+<p>Everything under here is ignored. It is pointless to fill it, since
+the revision history is tracked by git and could be pulled from it, if
+needed.</p>
 </div>
