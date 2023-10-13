@@ -13,6 +13,8 @@
 # is invalid; we can highlight the node and generate a pop-up or something when
 # rendering the text.
 
+# XXX use expat! xml.parsers.expat will likely be simpler and faster
+
 import os, re, io, collections, copy
 from xml.sax.handler import ContentHandler, ErrorHandler
 from xml.sax.saxutils import escape as quote_string

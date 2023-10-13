@@ -2,7 +2,7 @@ import os
 from glob import glob
 from dharma import tree
 
-def all_valid_texts():
+def all_texts():
 	for file in glob("texts/DHARMA_INS*.xml"):
 		yield file
 
@@ -20,12 +20,10 @@ def accumulate(elem, tbl):
 			accumulate(child, tbl)
 
 tbl = {}
-for file in all_valid_texts():
+for file in all_texts():
 	xml = tree.parse(file)
 	root = xml.first("TEI")
 	if not root:
-		# XXX apparently files that don't have TEI as root are still
-		# deemed valid!
 		continue
 	accumulate(root, tbl)
 
