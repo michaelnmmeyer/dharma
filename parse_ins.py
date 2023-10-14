@@ -3,7 +3,7 @@
 import copy, sys
 from dharma import tree, parse
 
-def parse_div(p, div):
+def handle_div_textpart(p, div):
 	type = div["type"]
 	assert type == "textpart", div
 	n = div["n"]
@@ -20,7 +20,7 @@ def parse_div(p, div):
 	for child in children[i:]:
 		p.dispatch(child)
 	section.contents = p.pop()
-	p.document.edition.append(section)
+	return section
 
 def iter_sections(p, div):
 	section = None
@@ -30,7 +30,7 @@ def iter_sections(p, div):
 				section.contents = p.pop()
 				yield section
 				section = None
-			p.dispatch(child)
+			yield handle_div_textpart(p, child)
 		elif child.type not in ("comment", "instruction"):
 			if not section:
 				section = parse.Section()
@@ -48,11 +48,11 @@ def parse_body(p, body):
 			continue
 		if type == "edition":
 			p.document.edition = list(iter_sections(p, div))
-		elif type == "translation":
-			trans = list(iter_sections(p, div))
-			p.document.translation.append(trans)
-		elif type == "commentary":
-			p.document.commentary = list(iter_sections(p, div))
+		elif type == "translation": pass
+			#trans = list(iter_sections(p, div))
+			#p.document.translation.append(trans)
+		elif type == "commentary": pass
+			# XXX p.document.commentary = list(iter_sections(p, div))
 		else:
 			assert 0
 
@@ -77,7 +77,6 @@ def process_file(path):
 	t.first("//publicationStmt").delete()
 	p = parse.Parser(t, HANDLERS)
 	p.dispatch(p.tree.root)
-	"""
 	for section in p.document.edition:
 		for rec in section.contents.code:
 			cmd, data, args = rec
@@ -90,6 +89,7 @@ def process_file(path):
 				cmd, data, args = rec
 				parse.write_debug(cmd, data, **args)
 			print("-------")
+	"""		
 	p.document.xml = tree.html_format(t.first("//body"))
 	return p.document
 

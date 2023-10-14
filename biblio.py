@@ -4,7 +4,7 @@
 # proper primary key? Yes, use:
 # https://api.zotero.org/groups/1633743/items/ZZH5G8PB?format=tei
 
-import io, json, unicodedata, html, re, time
+import sys, io, json, unicodedata, html, re, time
 import requests
 from xml.parsers import expat
 from dharma import config, tree
@@ -137,5 +137,102 @@ def check_entries():
 			except expat.ExpatError:
 				val = html.escape(val)
 
+
+ENTRY = {
+            "key": "5X9BFVUE",
+            "version": 155735,
+            "itemType": "book",
+            "title": "South-Indian inscriptions, Tamil and Sanskrit, from stone and copper-plate edicts at Mamallapuram, Kanchipuram, in the North Arcot district, and other parts of the Madras Presidency, chiefly collected in 1886-87. Volume I",
+            "creators": [
+                {
+                    "creatorType": "author",
+                    "firstName": "Eugen Julius Theodor",
+                    "lastName": "Hultzsch"
+                }
+            ],
+            "abstractNote": "",
+            "series": "South Indian Inscriptions",
+            "seriesNumber": "1",
+            "volume": "",
+            "numberOfVolumes": "",
+            "edition": "",
+            "place": "Madras",
+            "publisher": "Government Press",
+            "date": "1890",
+            "numPages": "",
+            "language": "English, Tamil, Sanskrit",
+            "ISBN": "",
+            "shortTitle": "Hultzsch1890_01",
+            "url": "",
+            "accessDate": "",
+            "archive": "",
+            "archiveLocation": "",
+            "libraryCatalog": "Library Catalog - www.sudoc.abes.fr",
+            "callNumber": "",
+            "rights": "",
+            "extra": "SII 1",
+            "tags": [
+                {
+                    "tag": "Hultzsch1890_01"
+                },
+                {
+                    "tag": "Inscriptions sanskrites -- Inde (sud)",
+                    "type": 1
+                },
+                {
+                    "tag": "Inscriptions tamoules -- Inde (sud)",
+                    "type": 1
+                }
+            ],
+            "collections": [
+                "NYLTL87Y",
+                "WUVYHC8W",
+                "NZPVKJ7T"
+            ],
+            "relations": {},
+            "dateAdded": "2017-11-03T01:03:13Z",
+            "dateModified": "2021-04-25T07:07:16Z"
+        }
+
+
+write = sys.stdout.write
+
+def render_book(rec):
+	authors = rec["creators"]
+	if authors:
+		for i, author in enumerate(authors):
+			if i == 0:
+				write("%s, %s" % (author["lastName"], author["firstName"]))
+				continue
+			if i == len(authors) - 1:
+				write(" and ")
+			else:
+				write(", ")
+			write("%s %s" % (author["firstName"], author["lastName"]))
+		write(".")
+	if rec["date"]:
+		write(" ")
+		write(rec["date"])
+		write(".")
+	if rec["title"]:
+		write(" ")
+		write("<i>")
+		write(rec["title"])
+		write("</i>")
+		write(".")
+	if rec["series"]:
+		write(" ")
+		write(rec["series"])
+		if rec["seriesNumber"]:
+			write(" %s" % rec["seriesNumber"])
+		write(".")
+	if rec["place"]:
+		write(" ")
+		write(rec["place"])
+		if rec["publisher"]:
+			write(": %s" % rec["publisher"])
+		write(".")
+	write("\n")
+
 if __name__ == "__main__":
-	check_entries()
+	render_book(ENTRY)

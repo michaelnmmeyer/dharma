@@ -1,7 +1,12 @@
 schemas = $(addprefix schemas/,inscription bestow critical diplomatic prosody)
+
+generated_tei = \
+	$(addsuffix .rng,$(schemas)) \
+	$(addsuffix .html,$(schemas)) \
+	$(addsuffix .oddc,$(schemas))
 generated_views = $(patsubst %.md,%.tpl,$(wildcard views/*.md))
 
-all: $(addsuffix .rng,$(schemas)) $(addsuffix .html,$(schemas)) $(addsuffix .oddc,$(schemas)) $(generated_views)
+all: $(generated_tei) $(generated_views)
 
 update-repos:
 	for d in repos/*; do \
