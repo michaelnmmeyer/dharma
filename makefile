@@ -8,6 +8,9 @@ generated_views = $(patsubst %.md,%.tpl,$(wildcard views/*.md))
 
 all: $(generated_tei) $(generated_views)
 
+clean:
+	rm -f $(generated_tei) $(generated_views)
+
 update-repos:
 	for d in repos/*; do \
 		test -d $$d && git -C $$d pull; \
@@ -68,7 +71,7 @@ deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
 	git -C repos/project-documentation commit -am "Schema update"
 	git -C repos/project-documentation push
 
-.PHONY: all update-repos update-texts download-dbs list-texts forever image commit-all deploy-schemas
+.PHONY: all clean update-repos update-texts download-dbs list-texts forever image commit-all deploy-schemas
 
 views/%.tpl: views/%.md
 	pandoc -f markdown -t html $^ -o $@
@@ -97,7 +100,7 @@ global.rnc: $(wildcard texts/DHARMA_*.xml)
 	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/relaxng%3Aapplication%3Axml-relaxng > $@
 
 %.html: %.oddc
-	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODDC%3Atext%3Axml/oddhtml%3Aapplication%3Axhtml%2Bxml?oxgarage.textOnly=true > $@
+	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODDC%3Atext%3Axml/oddhtml%3Aapplication%3Axhtml%2Bxml > $@
 
 %.oddc: %.xml
 	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml | python3 cleanup_oddc.py > $@

@@ -712,25 +712,20 @@ element forename { tei_macro.phraseSeq }</pre></td></tr></table></div><div><h3 c
    attribute n { <a class="link_odd" href="#teidata.text">teidata.text</a> },
    <span class="rnc_keyword">attribute</span> <span class="rnc_nc">rend</span>
    {
-      <span class="rnc_keyword">list</span>
-      {
-         (
-            "bt-rotated"
-          | "tb-rotated"
-          | "bt-upright"
-          | "tb-upright"
-          | "rl-upright"
-          | "rl-flipper"
-          | "rl-rotated"
-          | "grantha"
-          | "ornate"
-          | "large"
-          | "tall"
-          | "expanded"
-          | "small"
-          | "wide"
-         )+
-      }
+      "bt-rotated"
+    | "tb-rotated"
+    | "bt-upright"
+    | "tb-upright"
+    | "rl-upright"
+    | "rl-flipper"
+    | "rl-rotated"
+    | "grantha"
+    | "ornate"
+    | "large"
+    | "tall"
+    | "expanded"
+    | "small"
+    | "wide"
    }?,
    attribute style { <a class="link_odd" href="#teidata.text">teidata.text</a> }?,
    <span class="rnc_keyword">attribute</span> <span class="rnc_nc">place</span>
@@ -856,23 +851,18 @@ element handShift { attribute new { <a class="link_odd" href="#teidata.pointer">
 {
    <span class="rnc_keyword">attribute</span> <span class="rnc_nc">rend</span>
    {
-      <span class="rnc_keyword">list</span>
-      {
-         (
-            "check"
-          | "grantha"
-          | "ornate"
-          | "large"
-          | "tall"
-          | "expanded"
-          | "small"
-          | "wide"
-          | "italic"
-          | "bold"
-          | "subscript"
-          | "superscript"
-         )+
-      }
+      "check"
+    | "grantha"
+    | "ornate"
+    | "large"
+    | "tall"
+    | "expanded"
+    | "small"
+    | "wide"
+    | "italic"
+    | "bold"
+    | "subscript"
+    | "superscript"
    },
    tei_macro.paraContent
 }</pre></td></tr></table></div><div><h3 class="oddSpec" id="history">&lt;history&gt;</h3><table class="wovenodd"><tr><td colspan="2" class="wovenodd-col2"><span class="label">&lt;history&gt; </span>groups elements describing the full history of a manuscript, manuscript part, or other object.</td></tr><tr><td class="wovenodd-col1"><span class="label" xml:lang="en">Module</span></td><td class="wovenodd-col2">msdescription</td></tr><tr><td class="wovenodd-col1"><span class="label" xml:lang="en">Attributes</span></td><td class="wovenodd-col2"><a class="link_odd" href="#att.global">att.global</a> (<span class="attribute">@xml:id</span>, <span class="attribute">@n</span>, <span class="attribute">@xml:lang</span>, <span class="attribute">@xml:base</span>, <span class="attribute">@xml:space</span>)  (<a class="link_odd" href="#att.global.rendition">att.global.rendition</a> (<span class="attribute">@rend</span>, <span class="attribute">@style</span>, <span class="attribute">@rendition</span>))  (<a class="link_odd" href="#att.global.linking">att.global.linking</a> (<span class="attribute">@corresp</span>, <span class="attribute">@synch</span>, <span class="attribute">@sameAs</span>, <span class="attribute">@copyOf</span>, <span class="attribute">@next</span>, <span class="attribute">@prev</span>, <span class="attribute">@exclude</span>, <span class="attribute">@select</span>))  (<a class="link_odd" href="#att.global.analytic">att.global.analytic</a> (<span class="attribute">@ana</span>))  (<a class="link_odd" href="#att.global.facs">att.global.facs</a> (<span class="attribute">@facs</span>))  (<a class="link_odd" href="#att.global.change">att.global.change</a> (<span class="attribute">@change</span>))  (<a class="link_odd" href="#att.global.responsibility">att.global.responsibility</a> (<span class="attribute">@cert</span>, <span class="attribute">@resp</span>))  (<a class="link_odd" href="#att.global.source">att.global.source</a> (<span class="attribute">@source</span>)) </td></tr><tr><td class="wovenodd-col1"><span class="label" xml:lang="en">Contained by</span></td><td class="wovenodd-col2"><div class="parent"><div class="specChildren"><div class="specChild"><span class="specChildModule">msdescription: </span><span class="specChildElements"><a class="link_odd_elementSpec" href="#msDesc">msDesc</a> <a class="link_odd_elementSpec" href="#msFrag">msFrag</a> <a class="link_odd_elementSpec" href="#msPart">msPart</a></span></div><div class="specChild"><span class="specChildModule">namesdates: </span><span class="specChildElements"><a class="link_odd_elementSpec" href="#object">object</a></span></div></div></div></td></tr><tr><td class="wovenodd-col1"><span class="label" xml:lang="en">May contain</span></td><td class="wovenodd-col2"><div class="specChildren"><div class="specChild"><span class="specChildModule">core: </span><span class="specChildElements"><a class="link_odd_elementSpec" href="#p">p</a></span></div><div class="specChild"><span class="specChildModule">linking: </span><span class="specChildElements"><a class="link_odd_elementSpec" href="#ab">ab</a></span></div><div class="specChild"><span class="specChildModule">msdescription: </span><span class="specChildElements"><a class="link_odd_elementSpec" href="#origin">origin</a> <a class="link_odd_elementSpec" href="#provenance">provenance</a> <a class="link_odd_elementSpec" href="#summary">summary</a></span></div></div></td></tr><tr><td class="wovenodd-col1"><span class="label" xml:lang="en">Content model</span></td><td class="wovenodd-col2"><pre class="eg"><span class="element">&lt;content&gt;</span><br/> <span class="element">&lt;alternate&gt;</span><br/>  <span class="element">&lt;classRef <span class="attribute">key</span>="<a class="link_odd" href="ref-model.pLike.html">model.pLike</a>"<br/>   <span class="attribute">maxOccurs</span>="<span class="attributevalue">unbounded</span>" <span class="attribute">minOccurs</span>="<span class="attributevalue">1</span>"/&gt;</span><br/>  <span class="element">&lt;sequence&gt;</span><br/>   <span class="element">&lt;elementRef <span class="attribute">key</span>="<a class="link_odd" href="ref-summary.html">summary</a>" <span class="attribute">minOccurs</span>="<span class="attributevalue">0</span>"/&gt;</span><br/>   <span class="element">&lt;elementRef <span class="attribute">key</span>="<a class="link_odd" href="ref-origin.html">origin</a>" <span class="attribute">minOccurs</span>="<span class="attributevalue">0</span>"/&gt;</span><br/>   <span class="element">&lt;elementRef <span class="attribute">key</span>="<a class="link_odd" href="ref-provenance.html">provenance</a>"<br/>    <span class="attribute">maxOccurs</span>="<span class="attributevalue">unbounded</span>" <span class="attribute">minOccurs</span>="<span class="attributevalue">0</span>"/&gt;</span><br/>   <span class="element">&lt;elementRef <span class="attribute">key</span>="<a class="link_odd" href="ref-acquisition.html">acquisition</a>"<br/>    <span class="attribute">minOccurs</span>="<span class="attributevalue">0</span>"/&gt;</span><br/>  <span class="element">&lt;/sequence&gt;</span><br/> <span class="element">&lt;/alternate&gt;</span><br/><span class="element">&lt;/content&gt;</span></pre></td></tr><tr><td class="wovenodd-col1"><span class="label" xml:lang="en">Schema Declaration</span></td><td class="wovenodd-col2"><pre class="eg">
@@ -950,7 +940,7 @@ element item { tei_att.global.attribute.n, tei_macro.specialPara }</pre></td></t
 <span class="rnc_keyword">element</span> <span class="rnc_nc">l</span>
 {
    tei_att.global.attribute.n,
-   attribute rend { list { + } }?,
+   attribute rend { text }?,
    attribute met { token }?,
    attribute real { token }?,
    attribute enjamb { "yes" }?,
@@ -2823,6 +2813,6 @@ tei_macro.specialPara =
 tei_macro.xtext = ( text | tei_model.gLike )*</pre></td></tr></table></div></div><!--TEI back--><div class="stdfooter autogenerated"><div class="footer"><!--standard links to project, institution etc--><a class="plain" href="http://www.example.com/"></a> <a class="plain" href="index.html">Home</a> <a class="plain" href="#">Feedback</a> </div><address>Axelle Janiak. Date: 2022-10-17<br/><!--
 	  Generated from index.xml using XSLT stylesheets version 7.55.0
 	       based on http://www.tei-c.org/Stylesheets/
-	       on 2023-10-07T14:48:00Z.
+	       on 2023-10-14T17:33:20Z.
 	       SAXON HE 9.8.0.15.
 		 --></address></div></body></html>

@@ -197,6 +197,8 @@ ENTRY = {
 
 write = sys.stdout.write
 
+# See
+# https://github.com/zotero/translators/blob/master/TEI.js
 def render_book(rec):
 	authors = rec["creators"]
 	if authors:

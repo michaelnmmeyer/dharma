@@ -247,13 +247,13 @@ class Block:
 		for t, data, params in self.code:
 			if t == "phys":
 				if data == "<line":
-					buf.append('<p class="dh-line"><span class="dh-lb" title="New line">%s</span> ' % html.escape(params["n"]))
+					buf.append('<p class="dh-line"><span class="dh-lb" title="Line start">%s</span> ' % html.escape(params["n"]))
 				elif data == ">line":
 					if not params.get("brk"):
 						buf.append('<span class="dh-hyphen-break">-</span>')
 					buf.append('</p>')
 				elif data == "<page":
-					buf.append('<div class="dh-page"><span class="dh-pb" title="New page">⎘ %s</span> ' % html.escape(params["n"]))
+					buf.append('<div class="dh-page"><span class="dh-pb" title="Page start">⎘ %s</span> ' % html.escape(params["n"]))
 				elif data == ">page":
 					buf.append('</div>')
 				else:
@@ -316,6 +316,7 @@ class Parser:
 		self.document = Document()
 		self.document.ident = os.path.basename(os.path.splitext(tree.path)[0])
 		self.blocks = [Block()]
+		self.sections = []
 		self.handlers = handlers
 
 	@property
@@ -331,6 +332,17 @@ class Parser:
 		b = self.blocks.pop()
 		b.finish()
 		return b
+
+	def push_section(self):
+		section = Section()
+		self.sections.append(section)
+		return section
+
+	def pop_section(self):
+		return self.sections.pop()
+
+	def top_section(self):
+		return self.sections[-1]
 
 	def add_text(self, text):
 		return self.blocks[-1].add_text(text)
@@ -439,22 +451,32 @@ def parse_foreign(p, foreign):
 	p.dispatch_children(foreign)
 	p.add_html("</i>")
 
-def parse_milestone(p, milestone):
-	assert "n" in milestone.attrs
-	assert "unit" in milestone.attrs
-	assert milestone["unit"] in ("block", "column", "face", "faces", "fragment", "item", "zone")
-	# ignore for now
-	return
-	p.add_phys(milestone["unit"], n=milestone["n"])
+# <milestones
 
-def parse_lb(p, elem):
-	n = elem["n"]
+def milestone_n(node):
+	n = node["n"]
 	if not n:
 		n = "?"
-	brk = elem["break"]
+	return n.replace("_", " ")
+
+def milestone_break(node):
+	brk = elem["brk"]
 	if brk not in ("yes", "no"):
 		brk = "yes"
-	brk = brk == "yes"
+	return brk == "yes"
+
+def parse_milestone(p, milestone):
+	n = milestone_n(milestone)
+	brk = milestone_break(milestone)
+	unit = milestone["unit"] or "column"
+	typ = milestone["type"]
+	if not typ in ("pagelike", "gridlike"):
+		typ = "gridlike"
+	p.add_phys(unit, n=n, brk=brk)
+
+def parse_lb(p, elem):
+	n = milestone_n(elem)
+	brk = milestone_break(elem)
 	# On alignment, EGD §7.5.2
 	m = re.match(r"^text-align:\s*(right|center|left|justify)\s*$", elem["style"])
 	if m:
@@ -471,13 +493,8 @@ def parse_fw(p, fw):
 	return # we deal with it within <pb>
 
 def parse_pb(p, elem):
-	n = elem["n"]
-	if not n:
-		n = "?"
-	brk = elem["break"]
-	if brk not in ("yes", "no"):
-		brk = "yes"
-	brk = brk == "yes"
+	n = milestone_n(elem)
+	brk = milestone_break(elem)
 	fw = elem.next
 	if fw and fw.name == "fw":
 		place = fw["place"]
@@ -485,6 +502,8 @@ def parse_pb(p, elem):
 		place = ""
 	p.add_phys("page", brk=brk, n=n)
 	#p.dispatch_children(fw) TODO
+	
+# >milestones
 
 # OK
 def parse_sic(p, sic):
@@ -546,11 +565,6 @@ def parse_abbr(p, node):
 	p.start_span(klass="dh-abbr", tip="Abbreviated text")
 	p.dispatch_children(node)
 	p.end_span()
-
-def parse_ab(p, node):
-	p.add_log("<para")
-	p.dispatch_children(node)
-	p.add_log(">para")
 
 def parse_ex(p, node):
 	p.start_span(klass="dh-abbr-expansion", tip="Abbreviation expansion")
@@ -725,6 +739,11 @@ def parse_surplus(p, node):
 def parse_p(p, para):
 	p.add_log("<para")
 	p.dispatch_children(para)
+	p.add_log(">para")
+
+def parse_ab(p, ab):
+	p.add_log("<para")
+	p.dispatch_children(ab)
 	p.add_log(">para")
 
 hi_table = {

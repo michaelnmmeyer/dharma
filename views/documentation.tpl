@@ -26,9 +26,10 @@ DHARMA_CritEd*)
 <a href="/documentation/bestow">BESTOW</a> (no file naming convention)
 </li>
 </ul>
-<p>Here are a few notes on how XML files are interpreted. Headings
-indicate the element location in XPath notation. Thus, for instance,
-/TEI/teiHeader refers to STUFF in the following:</p>
+<p>Here are a few notes on how XML files are interpreted. This only
+concerns inscriptions for now. Headings indicate the element location in
+XPath notation. Thus, for instance, <code>/TEI/teiHeader</code> refers
+to STUFF in the following:</p>
 <pre><code>&lt;TEI&gt;
     &lt;teiHeader&gt;STUFF&lt;/teiHeader&gt;
 &lt;/TEI&gt;</code></pre>
@@ -57,6 +58,10 @@ top.</p>
 id="teiteiheaderfiledescpublicationstmt"><code>/TEI/teiHeader/fileDesc/publicationStmt</code></h2>
 <p>Everything under here is ignored, except
 <code>&lt;pubPlace&gt;</code>.</p>
+<h2
+id="teiteiheaderfiledescsourcedesc"><code>/TEI/teiHeader/fileDesc/sourceDesc</code></h2>
+<p>Everything is ignored, except
+<code>./msDesc/physDesc/handDesc</code>.</p>
 <h2
 id="teiteiheaderrevisiondesc"><code>/TEI/teiHeader/revisionDesc</code></h2>
 <p>Everything under here is ignored. It is pointless to fill it, since

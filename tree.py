@@ -500,7 +500,8 @@ class Tree(Branch):
 
 class Parser:
 
-	def __init__(self, file):
+	def __init__(self, file, keep_namespaces):
+		self.keep_namespaces = keep_namespaces
 		self.parser = expat.ParserCreate()
 		self.parser.ordered_attributes = 1
 		for attr in dir(self):
@@ -575,9 +576,10 @@ class Parser:
 		attrs = []
 		for i in range(0, len(attributes), 2):
 			key, value = attributes[i:i + 2]
-			colon = key.find(":")
-			if colon >= 0:
-				key = key[colon + 1:]
+			if not self.keep_namespaces:
+				colon = key.find(":")
+				if colon >= 0:
+					key = key[colon + 1:]
 			attrs.append((key, value))
 		self.make_node(Tag, name, attrs)
 
@@ -633,20 +635,20 @@ class Parser:
 	def ExternalEntityRefHandler(self, context, base, systemId, publicId):
 		raise Exception
 
-def parse(file):
-	parser = Parser(file)
+def parse(file, keep_namespaces=False):
+	parser = Parser(file, keep_namespaces)
 	return parser.parse()
 
 class Formatter:
 
 	indent_string = 2 * " "
 	max_width = 80 ** 10 # soft, not hard
-	html = True
 
-	def __init__(self):
+	def __init__(self, html=True):
 		self.indent = 0
 		self.offset = 0
 		self.buf = io.StringIO()
+		self.html = html
 
 	def format(self, node):
 		if node.type == "tag":
@@ -741,6 +743,11 @@ class Formatter:
 
 def html_format(node):
 	fmt = Formatter()
+	fmt.format_tag(node)
+	return fmt.text()
+
+def pretty(node):
+	fmt = Formatter(html=False)
 	fmt.format_tag(node)
 	return fmt.text()
 

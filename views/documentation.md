@@ -21,9 +21,9 @@ DHARMA_CritEd*)</li>
 convention)</li>
 </ul>
 
-Here are a few notes on how XML files are interpreted. Headings indicate the
-element location in XPath notation. Thus, for instance, /TEI/teiHeader refers
-to STUFF in the following:
+Here are a few notes on how XML files are interpreted. This only concerns
+inscriptions for now. Headings indicate the element location in XPath notation.
+Thus, for instance, `/TEI/teiHeader` refers to STUFF in the following:
 
 	<TEI>
 		<teiHeader>STUFF</teiHeader>
@@ -56,9 +56,15 @@ the most important contributors at the top.
 
 Everything under here is ignored, except `<pubPlace>`.
 
+## `/TEI/teiHeader/fileDesc/sourceDesc`
+
+Everything is ignored, except `./msDesc/physDesc/handDesc`.
+
 ## `/TEI/teiHeader/revisionDesc`
 
 Everything under here is ignored. It is pointless to fill it, since the revision history
 is tracked by git and could be pulled from it, if needed.
+
+
 
 </div>

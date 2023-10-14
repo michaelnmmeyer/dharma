@@ -3,24 +3,23 @@
 import copy, sys
 from dharma import tree, parse
 
-def handle_div_textpart(p, div):
+def parse_div(p, div):
 	type = div["type"]
 	assert type == "textpart", div
 	n = div["n"]
 	assert n, div
-	section = parse.Section()
+	section = p.top_section()
 	children = div.children()
 	i = 0
 	if children and children[0].name == "head":
 		p.push("heading")
 		p.dispatch_children(children[0])
 		section.heading = p.pop()
-		i += 1 # XXX beware, this ignores text within this div
+		i += 1 # XXX we ignore unwrapped text within this div, but we're not supposed to have any _except <lb/pb>!
 	p.push("contents")
 	for child in children[i:]:
 		p.dispatch(child)
 	section.contents = p.pop()
-	return section
 
 def iter_sections(p, div):
 	section = None
@@ -30,7 +29,9 @@ def iter_sections(p, div):
 				section.contents = p.pop()
 				yield section
 				section = None
-			yield handle_div_textpart(p, child)
+			p.push_section()
+			p.dispatch(child)
+			yield p.pop_section()
 		elif child.type not in ("comment", "instruction"):
 			if not section:
 				section = parse.Section()
@@ -48,11 +49,11 @@ def parse_body(p, body):
 			continue
 		if type == "edition":
 			p.document.edition = list(iter_sections(p, div))
-		elif type == "translation": pass
-			#trans = list(iter_sections(p, div))
-			#p.document.translation.append(trans)
-		elif type == "commentary": pass
-			# XXX p.document.commentary = list(iter_sections(p, div))
+		elif type == "translation":
+			trans = list(iter_sections(p, div))
+			p.document.translation.append(trans)
+		elif type == "commentary":
+			p.document.commentary = list(iter_sections(p, div))
 		else:
 			assert 0
 
@@ -89,7 +90,7 @@ def process_file(path):
 				cmd, data, args = rec
 				parse.write_debug(cmd, data, **args)
 			print("-------")
-	"""		
+	"""
 	p.document.xml = tree.html_format(t.first("//body"))
 	return p.document
 
