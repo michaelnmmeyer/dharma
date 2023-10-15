@@ -10,6 +10,9 @@ schemas. You should consult this instead of the documentation on the TEI
 website, because our schemas are more restrictive. Even so, they are more
 permissive than they should.
 
+We currently have four schemas. The schema used to validate a given text is
+inferred from the file name.
+
 <ul>
 <li><a href="/documentation/inscription">Inscriptions</a> (files named
 DHARMA_INS*)</li>

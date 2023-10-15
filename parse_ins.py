@@ -3,23 +3,13 @@
 import copy, sys
 from dharma import tree, parse
 
+# Within inscriptions, <div> doesn't nest, except that we can have
+# <div type="textpart"> within <div type="edition">.
+# All the DHARMA_INSEC* stuff don't follow the ins schema, too different.
 def parse_div(p, div):
-	type = div["type"]
-	assert type == "textpart", div
-	n = div["n"]
-	assert n, div
-	section = p.top_section()
-	children = div.children()
-	i = 0
-	if children and children[0].name == "head":
-		p.push("heading")
-		p.dispatch_children(children[0])
-		section.heading = p.pop()
-		i += 1 # XXX we ignore unwrapped text within this div, but we're not supposed to have any _except <lb/pb>!
-	p.push("contents")
-	for child in children[i:]:
-		p.dispatch(child)
-	section.contents = p.pop()
+	if div["type"] == "textpart":
+		return parse.handle_box(p, div)
+	print("? %s", div)
 
 def iter_sections(p, div):
 	section = None

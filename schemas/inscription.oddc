@@ -1222,10 +1222,29 @@ used for this element in the source text</desc>
   
   
   
-</classSpec><classSpec rend="change" module="tei" xml:id="GLOBAL" type="atts" ident="att.global"><desc versionDate="2007-10-02" xml:lang="en">provides attributes common to all elements in the TEI encoding scheme.</desc><desc versionDate="2007-12-20" xml:lang="ko">TEI 부호화 스키마의 모든 요소에 공통 속성을 제공한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">提供一組屬性，通用於TEI編碼標準中的所有元素。</desc><desc versionDate="2008-04-05" xml:lang="ja">TEI符号化スキーム中の全要素に共通する属性を示す． </desc><desc versionDate="2007-06-12" xml:lang="fr">fournit un jeu d'attributs communs à tous les éléments
-    dans le système de codage TEI.</desc><desc versionDate="2007-05-04" xml:lang="es">proporciona un conjunto de atributos común a todos los
-    elementos del esquema de codificación TEI.</desc><desc versionDate="2007-01-21" xml:lang="it">stabilisce un insieme di attributi comuni a tutti gli
-    elementi dello schema di codifica TEI</desc><classes><memberOf key="att.global.rendition"/><memberOf key="att.global.linking"/><memberOf key="att.global.analytic"/><memberOf key="att.global.facs"/><memberOf key="att.global.change"/><memberOf key="att.global.responsibility"/><memberOf key="att.global.source"/></classes><attList><attDef ident="xml:id" usage="opt">
+</classSpec><classSpec module="tei" xml:id="GLOBAL" type="atts" ident="att.global">
+  <desc versionDate="2007-10-02" xml:lang="en">provides attributes common to all elements in the TEI encoding scheme.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">TEI 부호화 스키마의 모든 요소에 공통 속성을 제공한다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">提供一組屬性，通用於TEI編碼標準中的所有元素。</desc>
+  <desc versionDate="2008-04-05" xml:lang="ja">TEI符号化スキーム中の全要素に共通する属性を示す． </desc>
+  <desc versionDate="2007-06-12" xml:lang="fr">fournit un jeu d'attributs communs à tous les éléments
+    dans le système de codage TEI.</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">proporciona un conjunto de atributos común a todos los
+    elementos del esquema de codificación TEI.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">stabilisce un insieme di attributi comuni a tutti gli
+    elementi dello schema di codifica TEI</desc>
+  <classes>
+    <memberOf key="att.global.rendition"/>
+    <memberOf key="att.global.linking"/>
+    <memberOf key="att.global.analytic"/>
+    <memberOf key="att.global.facs"/>
+    <memberOf key="att.global.change"/>
+    <memberOf key="att.global.responsibility"/>
+    <memberOf key="att.global.source"/>
+  </classes>
+  
+  <attList>
+    <attDef ident="xml:id" usage="opt">
       <gloss versionDate="2007-07-02" xml:lang="en">identifier</gloss>
       <gloss versionDate="2007-12-20" xml:lang="ko">확인소</gloss>
       <gloss versionDate="2008-04-06" xml:lang="es">identificador</gloss>
@@ -1247,7 +1266,8 @@ used for this element in the source text</desc>
       
       
       
-    </attDef><attDef ident="n" usage="opt">
+    </attDef>
+    <attDef ident="n" usage="opt">
       <gloss versionDate="2007-07-02" xml:lang="en">number</gloss>
       <gloss versionDate="2007-12-20" xml:lang="ko">수</gloss>
       <gloss versionDate="2008-04-06" xml:lang="es">número</gloss>
@@ -1270,17 +1290,42 @@ used for this element in the source text</desc>
       
       
       
-    </attDef><attDef ident="xml:lang" usage="opt"><gloss versionDate="2007-07-02" xml:lang="en">language</gloss><gloss versionDate="2007-12-20" xml:lang="ko">언어</gloss><gloss versionDate="2008-04-06" xml:lang="es">lengua</gloss><gloss versionDate="2008-03-30" xml:lang="fr">langue</gloss><gloss versionDate="2007-11-06" xml:lang="it">lingua</gloss><gloss xml:lang="ja" versionDate="2019-06-08">言語</gloss><desc versionDate="2013-01-07" xml:lang="en">indicates the language of the element content using a <soCalled>tag</soCalled> generated
-        according to <ref target="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP 47</ref>.</desc><desc versionDate="2007-12-20" xml:lang="ko"><ref target="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP 47</ref>에 따라 생성된
-        <soCalled>tag</soCalled>를 사용하는 요소 내용의 언어를 나타낸다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">使用<ref target="http://www.ietf.org/rfc/rfc3066.txt">RFC3066</ref>的代碼，指出該元素內容的使用語言</desc><desc xml:lang="ja" versionDate="2019-06-08"><ref target="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP 47</ref>に従って生成された<soCalled>タグ</soCalled>を用いて要素の内容の言語を示す。</desc><desc versionDate="2007-06-12" xml:lang="fr">indique la langue du contenu de l'élément en
+    </attDef>
+    <attDef ident="xml:lang" usage="opt">
+      <gloss versionDate="2007-07-02" xml:lang="en">language</gloss>
+      <gloss versionDate="2007-12-20" xml:lang="ko">언어</gloss>
+      <gloss versionDate="2008-04-06" xml:lang="es">lengua</gloss>
+      <gloss versionDate="2008-03-30" xml:lang="fr">langue</gloss>
+      <gloss versionDate="2007-11-06" xml:lang="it">lingua</gloss>
+      <gloss xml:lang="ja" versionDate="2019-06-08">言語</gloss>
+      <desc versionDate="2013-01-07" xml:lang="en">indicates the language of the element content using a <soCalled>tag</soCalled> generated
+        according to <ref target="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP 47</ref>.</desc>
+      <desc versionDate="2007-12-20" xml:lang="ko"><ref target="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP 47</ref>에 따라 생성된
+        <soCalled>tag</soCalled>를 사용하는 요소 내용의 언어를 나타낸다.</desc>
+      <desc versionDate="2007-05-02" xml:lang="zh-TW">使用<ref target="http://www.ietf.org/rfc/rfc3066.txt">RFC3066</ref>的代碼，指出該元素內容的使用語言</desc>
+      <desc xml:lang="ja" versionDate="2019-06-08"><ref target="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP 47</ref>に従って生成された<soCalled>タグ</soCalled>を用いて要素の内容の言語を示す。</desc>
+      <desc versionDate="2007-06-12" xml:lang="fr">indique la langue du contenu de l'élément en
         utilisant les codes du <ref target="http://www.ietf.org/rfc/rfc3066.txt">RFC 3066</ref>
-         </desc><desc versionDate="2007-05-04" xml:lang="es">indica la lengua del contenido del elemento
+         </desc>
+      <desc versionDate="2007-05-04" xml:lang="es">indica la lengua del contenido del elemento
         utilizando los códigos extraídos de <ref target="http://www.ietf.org/rfc/rfc3066.txt">RFC
           3066</ref>
-         </desc><desc versionDate="2007-01-21" xml:lang="it">indica la lingua del contenuto dell'elemento
+         </desc>
+      <desc versionDate="2007-01-21" xml:lang="it">indica la lingua del contenuto dell'elemento
         utilizzando i codici tratti da <ref target="http://www.ietf.org/rfc/rfc3066.txt">RFC
         3066</ref>
-         </desc><datatype><dataRef key="teidata.language"/></datatype><valList type="open"><valItem ident="und"/><valItem ident="mya"/><valItem ident="obr"/><valItem ident="cjm"/><valItem ident="ocm"/><valItem ident="nld"/><valItem ident="eng"/><valItem ident="fra"/><valItem ident="ind"/><valItem ident="jpn"/><valItem ident="jav"/><valItem ident="kaw"/><valItem ident="kan"/><valItem ident="khm"/><valItem ident="okz"/><valItem ident="zlm"/><valItem ident="omy"/><valItem ident="omx"/><valItem ident="pli"/><valItem ident="pra"/><valItem ident="pyx"/><valItem ident="san"/><valItem ident="osn"/><valItem ident="tam"/><valItem ident="tel"/><valItem ident="vie"/><valItem ident="cja"/><valItem ident="xhm"/><valItem ident="ori"/></valList></attDef><attDef ident="xml:base" usage="opt">
+         </desc>
+      <datatype><dataRef key="teidata.language"/></datatype>
+      
+      
+      
+      
+      
+    </attDef>
+    
+    
+    
+    <attDef ident="xml:base" usage="opt">
       <desc versionDate="2005-10-10" xml:lang="en">provides a base URI reference with which applications can resolve relative URI
         references into absolute URI references.</desc>
       <desc versionDate="2007-12-20" xml:lang="ko">애플리케이션이 상대 URI 참조를 절대 URI 참조로 해결할 수 있게 해 주는 기본 URI
@@ -1299,46 +1344,9 @@ used for this element in the source text</desc>
         assoluti</desc>
       <datatype><dataRef key="teidata.pointer"/></datatype>
       
-     <!--  <exemplum versionDate="2010-02-26" xml:lang="fr">
-        <egXML xmlns="http://www.tei-c.org/ns/Examples" source="#fr-ex-Bibliog_Renaissance_Ital">
-          <div type="bibl">
-            <head>La Renaissance italienne, bibliographie sélective</head>
-            <listBibl >
-              <bibl n="1">
-                <author>
-                  <name> Michel Hochmann, ... </name>
-                </author>
-                <ref>
-                  <title>L’Abcdaire de la Renaissance italienne</title>
-                </ref>
-              </bibl>
-              <bibl n="2">
-                <author>
-                  <name>Thames et Hudson,</name>
-                </author>
-                <ref>
-                  <title>Dictionnaire de la Renaissance</title>
-                </ref>
-              </bibl>
-              <bibl n="3">
-                <author>
-                  <name> Hervé Loilier</name>
-                </author>
-                <ref>
-                  <title>Florence : voyage dans la Renaissance italienne du XVe siècle</title>
-                </ref>
-              </bibl>
-              <bibl n="3">
-                <author>
-                  <name>Linda Murray</name>
-                  <title>La Haute Renaissance et le Maniérisme</title>
-                </author>
-              </bibl>
-            </listBibl>
-          </div>
-        </egXML>
-      </exemplum> -->
-    </attDef><attDef ident="xml:space" usage="opt">
+     
+    </attDef>
+    <attDef ident="xml:space" usage="opt">
       <desc versionDate="2010-02-10" xml:lang="en">signals an intention about how white space should be 
       managed by  applications.</desc>
       <desc versionDate="2007-06-12" xml:lang="fr">signale que les applications doivent préserver
@@ -1359,7 +1367,10 @@ used for this element in the source text</desc>
       </valList>
       
       
-    </attDef></attList></classSpec><classSpec module="tei" type="atts" ident="att.handFeatures">
+    </attDef>
+  </attList>
+  
+</classSpec><classSpec module="tei" type="atts" ident="att.handFeatures">
   <desc versionDate="2007-09-27" xml:lang="en">provides attributes describing aspects of the hand in which a
   manuscript is written.</desc>
   <desc versionDate="2007-12-20" xml:lang="ko">원고가 쓰여진 필적의 측면을 기술하는 속성을 제공한다.</desc>
@@ -4482,101 +4493,23 @@ one initial.</desc>
                                 <valItem ident="small"/>
                                 <valItem ident="wide"/>
                             </valList>
-                        </attDef><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="rendition" mode="change">
-                            <valList type="open" mode="replace">
-                                <valItem ident="class:57471">
-                                    <desc>Arabic script</desc>
-                                </valItem>
-                                <valItem ident="class:70417">
-                                    <desc>Jawi script - Narrower concept of Arabic Script</desc>
-                                </valItem>
-                                <valItem ident="class:83217">
-                                    <desc>Brāhmī and derivatives</desc>
-                                </valItem>
-                                <valItem ident="class:83223">
-                                    <desc>northern class Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:83229">
-                                    <desc>Gauḍī</desc>
-                                </valItem>
-                                <valItem ident="class:38771">
-                                    <desc>Nāgarī</desc>
-                                </valItem>
-                                <valItem ident="class:38774">
-                                    <desc>Siddhamātr̥kā </desc>
-                                </valItem>
-                                <valItem ident="class:83227">
-                                    <desc>southeast Asian Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:83239">
-                                    <desc>Balinese script</desc>
-                                </valItem>
-                                <valItem ident="class:38767">
-                                    <desc>Batak script </desc>
-                                </valItem>
-                                <valItem ident="class:83233">
-                                    <desc>Cam script</desc>
-                                </valItem>
-                                <valItem ident="class:38769">
-                                    <desc>Kawi script</desc>
-                                </valItem>
-                                <valItem ident="class:83231">
-                                    <desc>Khmer script</desc>
-                                </valItem>
-                                <valItem ident="class:83235">
-                                    <desc>Mon-Burmese script</desc>
-                                </valItem>
-                                <valItem ident="class:83241">
-                                    <desc>Old West Javanese script</desc>
-                                </valItem>
-                                <valItem ident="class:83237">
-                                    <desc>Pyu script</desc>
-                                </valItem>
-                                <valItem ident="class:57470">
-                                    <desc>Sundanese script</desc>
-                                </valItem>
-                                <valItem ident="class:83225">
-                                    <desc>southern class Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:38768">
-                                    <desc>Grantha</desc>
-                                </valItem>
-                                <valItem ident="class:38776">
-                                    <desc>Tamil script</desc>
-                                </valItem>
-                                <valItem ident="class:57475">
-                                    <desc>Tamil with Grantha</desc>
-                                </valItem>
-                                <valItem ident="class:70420">
-                                    <desc>Vaṭṭeḻuṭṭu</desc>
-                                </valItem>
-                                <valItem ident="class:83221">
-                                    <desc>Chinese Script</desc>
-                                </valItem>
-                                <valItem ident="class:83219">
-                                    <desc>Kharoṣṭhī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83207">
-                                    <desc>early Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83211">
-                                    <desc>late Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83209">
-                                    <desc>middle Brāhmi</desc>
-                                </valItem>
-                                <valItem ident="maturity:83213">
-                                    <desc>regional Brāhmī-derived script</desc>
-                                </valItem>
-                                <valItem ident="maturity:83215">
-                                    <desc>vernacular Brāhmī-derived script</desc>
-                                </valItem>
-                            </valList>
+                        </attDef><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="xml:lang" mode="change" usage="opt">
+                            <datatype>
+                                <dataRef key="dharma.language"/>
+                            </datatype>
+                        </attDef><attDef ident="rendition" mode="change">
+                            <datatype>
+                                <dataRef key="dharma.indic_script"/>
+                            </datatype>
                         </attDef></attList></elementSpec><elementSpec rend="change" module="core" ident="foreign"><gloss versionDate="2007-12-20" xml:lang="ko">외국어</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">外文</gloss><gloss versionDate="2009-01-06" xml:lang="fr">étranger</gloss><gloss versionDate="2007-05-04" xml:lang="es">extranjero</gloss><gloss versionDate="2007-01-21" xml:lang="it">straniero</gloss><gloss versionDate="2017-06-04" xml:lang="de">fremd</gloss><desc versionDate="2005-01-14" xml:lang="en">identifies a word or phrase as belonging to some language other than that of the
                 surrounding text.</desc><desc versionDate="2007-12-20" xml:lang="ko">주변 텍스트와 다른 언어로 사용된 단어나 구를 표시한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">標明所屬語言不同於週遭文字的字詞。</desc><desc versionDate="2008-04-05" xml:lang="ja">記述のベースで使われている言語と異なる言語による語句を定義する．</desc><desc versionDate="2009-01-06" xml:lang="fr">reconnaît un mot ou une expression comme
                 appartenant à une langue différente de celle du contexte.</desc><desc versionDate="2007-05-04" xml:lang="es">identidica una palabra o frase perteneciente a otra
                 lengua distinta de la del resto del texto en que se incluye.</desc><desc versionDate="2007-01-21" xml:lang="it">identifica una parola o un sintagma appartenente ad
-                una lingua diversa da quella del testo circostante.</desc><desc versionDate="2017-06-04" xml:lang="de">identifiziert ein Wort oder eine Phrase, die zu einer anderen Sprache gehört, als der umgebende Text.</desc><classes><memberOf key="att.global"/><memberOf key="model.emphLike"/></classes><content><macroRef key="macro.phraseSeq"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="core" ident="hi"><gloss versionDate="2005-01-14" xml:lang="en">highlighted</gloss><gloss versionDate="2007-12-20" xml:lang="ko">강조체</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">顯目標示</gloss><gloss versionDate="2009-01-06" xml:lang="fr">mis en évidence</gloss><gloss versionDate="2007-05-04" xml:lang="es">subrayado</gloss><gloss versionDate="2007-01-21" xml:lang="it">evidenziato</gloss><gloss versionDate="2016-11-24" xml:lang="de">hervorgehoben</gloss><desc versionDate="2005-01-14" xml:lang="en">marks a word or phrase as graphically distinct from the
+                una lingua diversa da quella del testo circostante.</desc><desc versionDate="2017-06-04" xml:lang="de">identifiziert ein Wort oder eine Phrase, die zu einer anderen Sprache gehört, als der umgebende Text.</desc><classes><memberOf key="att.global"/><memberOf key="model.emphLike"/></classes><content><macroRef key="macro.phraseSeq"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="xml:lang" mode="change" usage="opt">
+                            <datatype>
+                                <dataRef key="dharma.language"/>
+                            </datatype>
+                        </attDef></attList></elementSpec><elementSpec rend="change" module="core" ident="hi"><gloss versionDate="2005-01-14" xml:lang="en">highlighted</gloss><gloss versionDate="2007-12-20" xml:lang="ko">강조체</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">顯目標示</gloss><gloss versionDate="2009-01-06" xml:lang="fr">mis en évidence</gloss><gloss versionDate="2007-05-04" xml:lang="es">subrayado</gloss><gloss versionDate="2007-01-21" xml:lang="it">evidenziato</gloss><gloss versionDate="2016-11-24" xml:lang="de">hervorgehoben</gloss><desc versionDate="2005-01-14" xml:lang="en">marks a word or phrase as graphically distinct from the
         surrounding text, for reasons concerning which no claim is
         made.</desc><desc versionDate="2007-12-20" xml:lang="ko">어떤 이유인지는 명세하지 않고, 주변 텍스트와 시각적으로 구별된 단어나 구를 표시한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">標誌其字型外觀上和週遭文字有所區別的字詞，但不指出顯目原因。</desc><desc versionDate="2008-04-05" xml:lang="ja">
         周囲のテキストとは見た目が異なっている語句を示す．</desc><desc versionDate="2009-01-06" xml:lang="fr">distingue un mot ou une expression comme
@@ -4627,7 +4560,11 @@ one initial.</desc>
     per codificare estratti citati da fonti documentate.</desc><desc versionDate="2016-11-25" xml:lang="de">enthält Material, das vom umgebenden Text durch 
     Anführungszeichen oder ähnliche Methoden abgesetzt ist. Die Abhebung kann beliebige Gründe 
     haben, wie z. B. direkte Rede, wiedergegebene Gedanken, Fachbegriffe, Jargon, Distanzierung 
-    des Autors, Zitate aus anderen Texten, erwähnte aber nicht benutzte Passagen.</desc><classes><memberOf key="att.global"/><memberOf key="model.qLike"/><memberOf key="att.ascribed.directed"/></classes><content><macroRef key="macro.specialPara"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="toWhom" mode="delete"/><attDef ident="who" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="type" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="core" ident="cit"><gloss versionDate="2007-07-04" xml:lang="en">cited quotation</gloss><gloss versionDate="2007-12-20" xml:lang="ko">참조 인용</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2008-04-06" xml:lang="es">cita</gloss><gloss versionDate="2009-01-06" xml:lang="fr">citation</gloss><gloss versionDate="2007-11-06" xml:lang="it">citazione</gloss><gloss versionDate="2016-11-24" xml:lang="de">Zitat mit Referenz</gloss><desc versionDate="2007-09-23" xml:lang="en">contains a quotation from some other document, together with a bibliographic reference to
+    des Autors, Zitate aus anderen Texten, erwähnte aber nicht benutzte Passagen.</desc><classes><memberOf key="att.global"/><memberOf key="model.qLike"/><memberOf key="att.ascribed.directed"/></classes><content><macroRef key="macro.specialPara"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="toWhom" mode="delete"/><attDef ident="who" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="xml:lang" mode="change" usage="opt">
+                            <datatype>
+                                <dataRef key="dharma.language"/>
+                            </datatype>
+                        </attDef><attDef ident="type" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="core" ident="cit"><gloss versionDate="2007-07-04" xml:lang="en">cited quotation</gloss><gloss versionDate="2007-12-20" xml:lang="ko">참조 인용</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2008-04-06" xml:lang="es">cita</gloss><gloss versionDate="2009-01-06" xml:lang="fr">citation</gloss><gloss versionDate="2007-11-06" xml:lang="it">citazione</gloss><gloss versionDate="2016-11-24" xml:lang="de">Zitat mit Referenz</gloss><desc versionDate="2007-09-23" xml:lang="en">contains a quotation from some other document, together with a bibliographic reference to
     its source. In a dictionary it may contain an example text with at least one occurrence of the
     word form, used in the sense being described, or a translation of the headword, or an example.</desc><desc versionDate="2007-12-20" xml:lang="ko">원문 참고문헌과 함께 제시된 다른 문서로부터의 인용을 포함한다. 사전에서는 기술된 의미로 사용된 어형이
     들어간 용례, 또는 표제어의 번역어 또는 예문을 포함할 수 있다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">從其他文件中引用的內容，並包含引用來源的書目參照資料。</desc><desc versionDate="2008-04-05" xml:lang="ja">書誌参照を伴い，他の文書からの引用を示す．例えば，辞書の場合には，
@@ -5041,7 +4978,11 @@ one initial.</desc>
       <desc versionDate="2007-01-21" xml:lang="it">specifica il tipo di misurazione in una
                 tipologia funzionale.</desc>
       <datatype><dataRef key="teidata.enumerated"/></datatype>
-    </attDef></attList></elementSpec><elementSpec rend="change" module="core" ident="date"><gloss versionDate="2009-01-06" xml:lang="fr">date</gloss><gloss versionDate="2016-11-25" xml:lang="de">Datum</gloss><desc versionDate="2005-01-14" xml:lang="en">contains a date in any format.</desc><desc versionDate="2007-12-20" xml:lang="ko">다양한 형식의 날짜를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含任何格式的日期表示。</desc><desc versionDate="2008-04-05" xml:lang="ja">日付を示す．</desc><desc versionDate="2009-01-06" xml:lang="fr">contient une date exprimée dans n'importe quel format.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una fecha en cualquier formato.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una data in qualsiasi foemato</desc><desc versionDate="2016-11-25" xml:lang="de">enthält ein Datum in beliebigem Format.</desc><classes><memberOf key="att.global"/><memberOf key="model.dateLike"/><memberOf key="model.publicationStmtPart.detail"/><memberOf key="att.canonical"/><memberOf key="att.datable"/><memberOf key="att.duration"/><memberOf key="att.editLike"/><memberOf key="att.dimensions"/><memberOf key="att.typed"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.global"/></alternate></content><attList><attDef ident="ana" mode="delete"/><attDef ident="atLeast" mode="delete"/><attDef ident="atMost" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="confidence" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="datingPoint" mode="delete"/><attDef ident="dur" mode="delete"/><attDef ident="dur-iso" mode="delete"/><attDef ident="evidence" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="extent" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="from-iso" mode="delete"/><attDef ident="instant" mode="delete"/><attDef ident="key" mode="delete"/><attDef ident="max" mode="delete"/><attDef ident="min" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="notAfter-iso" mode="delete"/><attDef ident="notBefore-iso" mode="delete"/><attDef ident="period" mode="delete"/><attDef ident="quantity" mode="delete"/><attDef ident="ref" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="scope" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="to-iso" mode="delete"/><attDef ident="unit" mode="delete"/><attDef ident="when-iso" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="notBefore" mode="delete"/><attDef ident="notAfter" mode="delete"/><attDef ident="from-custom" mode="delete"/><attDef ident="to-custom" mode="delete"/><attDef ident="precision" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="calendar" mode="change">
+    </attDef></attList></elementSpec><elementSpec rend="change" module="core" ident="date"><gloss versionDate="2009-01-06" xml:lang="fr">date</gloss><gloss versionDate="2016-11-25" xml:lang="de">Datum</gloss><desc versionDate="2005-01-14" xml:lang="en">contains a date in any format.</desc><desc versionDate="2007-12-20" xml:lang="ko">다양한 형식의 날짜를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含任何格式的日期表示。</desc><desc versionDate="2008-04-05" xml:lang="ja">日付を示す．</desc><desc versionDate="2009-01-06" xml:lang="fr">contient une date exprimée dans n'importe quel format.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una fecha en cualquier formato.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una data in qualsiasi foemato</desc><desc versionDate="2016-11-25" xml:lang="de">enthält ein Datum in beliebigem Format.</desc><classes><memberOf key="att.global"/><memberOf key="model.dateLike"/><memberOf key="model.publicationStmtPart.detail"/><memberOf key="att.canonical"/><memberOf key="att.datable"/><memberOf key="att.duration"/><memberOf key="att.editLike"/><memberOf key="att.dimensions"/><memberOf key="att.typed"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.global"/></alternate></content><attList><attDef ident="ana" mode="delete"/><attDef ident="atLeast" mode="delete"/><attDef ident="atMost" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="confidence" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="datingPoint" mode="delete"/><attDef ident="dur" mode="delete"/><attDef ident="dur-iso" mode="delete"/><attDef ident="evidence" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="extent" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="from-iso" mode="delete"/><attDef ident="instant" mode="delete"/><attDef ident="key" mode="delete"/><attDef ident="max" mode="delete"/><attDef ident="min" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="notAfter-iso" mode="delete"/><attDef ident="notBefore-iso" mode="delete"/><attDef ident="period" mode="delete"/><attDef ident="quantity" mode="delete"/><attDef ident="ref" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="scope" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="to-iso" mode="delete"/><attDef ident="unit" mode="delete"/><attDef ident="when-iso" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:lang" mode="change">
+                            <datatype>
+                                <dataRef key="dharma.language"/>
+                            </datatype>
+                        </attDef><attDef ident="xml:space" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="notBefore" mode="delete"/><attDef ident="notAfter" mode="delete"/><attDef ident="from-custom" mode="delete"/><attDef ident="to-custom" mode="delete"/><attDef ident="precision" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="calendar" mode="change">
                             <valList type="closed" mode="replace">
                                 <valItem ident="cal:uncertain"/>
                                 <valItem ident="cal:regnal"/>
@@ -5084,7 +5025,11 @@ one initial.</desc>
                             <valList type="closed" mode="replace">
                                 <valItem ident="origDate"/>
                             </valList>
-                        </attDef></attList></elementSpec><elementSpec rend="change" module="core" ident="abbr"><gloss versionDate="2005-01-14" xml:lang="en">abbreviation</gloss><gloss versionDate="2007-12-20" xml:lang="ko">약어</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">縮寫</gloss><gloss versionDate="2009-01-06" xml:lang="fr">abréviation</gloss><gloss versionDate="2007-05-04" xml:lang="es">abreviatura</gloss><gloss versionDate="2007-01-21" xml:lang="it">abbreviazione</gloss><gloss versionDate="2016-11-25" xml:lang="de">Abkürzung</gloss><gloss versionDate="2018-12-18" xml:lang="ja">省略形</gloss><desc versionDate="2005-01-14" xml:lang="en">contains an abbreviation of any sort.</desc><desc versionDate="2007-12-20" xml:lang="ko">어떤 종류의 약어를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含任何形式的縮寫。</desc><desc xml:lang="ja" versionDate="2019-01-19">あらゆる種類の名称の省略を一つ含む。</desc><desc versionDate="2009-01-06" xml:lang="fr">contient une abréviation quelconque.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una abreviatura de cualquier clase.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene un'abbreviazione di qualsiasi genere.</desc><desc versionDate="2016-11-25" xml:lang="de">enthält eine Abkürzung beliebiger Form.</desc><classes><memberOf key="att.global"/><memberOf key="model.pPart.editorial"/><memberOf key="att.typed"/></classes><content><macroRef key="macro.phraseSeq"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="type" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="core" ident="expan"><gloss versionDate="2005-01-14" xml:lang="en">expansion</gloss><gloss versionDate="2007-12-20" xml:lang="ko">확장 표기</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">縮寫還原</gloss><gloss versionDate="2009-01-06" xml:lang="fr">expansion</gloss><gloss versionDate="2007-05-04" xml:lang="es">expansión</gloss><gloss versionDate="2007-01-21" xml:lang="it">espansione</gloss><gloss versionDate="2016-11-25" xml:lang="de">Abkürzungsauflösung</gloss><desc versionDate="2005-01-14" xml:lang="en">contains the expansion of an abbreviation.</desc><desc versionDate="2007-12-20" xml:lang="ko">약어의 확장(비약어) 표기</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含一個縮寫詞的還原形式。</desc><desc versionDate="2008-04-05" xml:lang="ja">省略形の元の表現を示す．</desc><desc versionDate="2009-01-06" xml:lang="fr">contient l'expansion d'une abréviation.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene la expansión de una abreviatura.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene l'esapnsione di un'abbreviazione.</desc><desc versionDate="2016-11-25" xml:lang="de">enthält die aufgelöste Form einer Abkürzung.</desc><classes><memberOf key="att.global"/><memberOf key="model.pPart.editorial"/><memberOf key="att.editLike"/></classes><content><sequence minOccurs="1" maxOccurs="unbounded"><elementRef key="abbr"/><elementRef key="ex"/></sequence></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="evidence" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="instant" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="core" ident="ptr"><gloss versionDate="2007-07-04" xml:lang="en">pointer</gloss><gloss versionDate="2007-12-20" xml:lang="ko">포인터</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2008-04-06" xml:lang="es">puntero</gloss><gloss versionDate="2009-01-06" xml:lang="fr">pointeur</gloss><gloss versionDate="2007-11-06" xml:lang="it">puntatore</gloss><desc versionDate="2006-01-11" xml:lang="en">defines a pointer to another location.</desc><desc versionDate="2007-12-20" xml:lang="ko">다른 위치로의 포인터를 정의한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">標明一個與其他位置相連結的指標。</desc><desc versionDate="2008-04-05" xml:lang="ja">他の場所を示すポインターを定義する．</desc><desc versionDate="2009-01-06" xml:lang="fr">définit un pointeur vers un autre emplacement.</desc><desc versionDate="2007-05-04" xml:lang="es">define un señalizador a otra localización.</desc><desc versionDate="2007-01-21" xml:lang="it">definisce un puntatore ad un'altra posizione.</desc><classes><memberOf key="att.global"/><memberOf key="model.ptrLike"/><memberOf key="att.pointing"/><memberOf key="att.internetMedia"/><memberOf key="att.typed"/><memberOf key="att.declaring"/><memberOf key="att.cReferencing"/></classes><content><empty/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cRef" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="decls" mode="delete"/><attDef ident="evaluate" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="mimeType" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="targetLang" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="target" mode="change"/></attList></elementSpec><elementSpec rend="change" module="core" ident="ref"><gloss versionDate="2007-07-04" xml:lang="en">reference</gloss><gloss versionDate="2007-12-20" xml:lang="ko">참조</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2008-04-06" xml:lang="es">referencia</gloss><gloss versionDate="2009-01-06" xml:lang="fr">référence</gloss><gloss versionDate="2007-11-06" xml:lang="it">riferimento</gloss><gloss versionDate="2016-11-25" xml:lang="de">Referenz</gloss><desc versionDate="2006-01-11" xml:lang="en">defines a reference to another location, possibly modified by additional text or comment.</desc><desc versionDate="2007-12-20" xml:lang="ko">부가적인 텍스트 또는 해설로 수정될 수 있는, 다른 위치로 참조를 정의한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">標明與其他位置互相參照的符號，或許包含附加的文字或註解。</desc><desc versionDate="2008-04-05" xml:lang="ja">他の場所への参照を定義する．多くは，追加テキストまたはコメントを含む．</desc><desc versionDate="2009-01-06" xml:lang="fr">définit une référence vers un autre emplacement, la référence étant éventuellement modifiée ou complétée par un texte ou un commentaire.</desc><desc versionDate="2007-05-04" xml:lang="es">define una referencia a otra localización, posiblemente
+                        </attDef></attList></elementSpec><elementSpec rend="change" module="core" ident="abbr"><gloss versionDate="2005-01-14" xml:lang="en">abbreviation</gloss><gloss versionDate="2007-12-20" xml:lang="ko">약어</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">縮寫</gloss><gloss versionDate="2009-01-06" xml:lang="fr">abréviation</gloss><gloss versionDate="2007-05-04" xml:lang="es">abreviatura</gloss><gloss versionDate="2007-01-21" xml:lang="it">abbreviazione</gloss><gloss versionDate="2016-11-25" xml:lang="de">Abkürzung</gloss><gloss versionDate="2018-12-18" xml:lang="ja">省略形</gloss><desc versionDate="2005-01-14" xml:lang="en">contains an abbreviation of any sort.</desc><desc versionDate="2007-12-20" xml:lang="ko">어떤 종류의 약어를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含任何形式的縮寫。</desc><desc xml:lang="ja" versionDate="2019-01-19">あらゆる種類の名称の省略を一つ含む。</desc><desc versionDate="2009-01-06" xml:lang="fr">contient une abréviation quelconque.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una abreviatura de cualquier clase.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene un'abbreviazione di qualsiasi genere.</desc><desc versionDate="2016-11-25" xml:lang="de">enthält eine Abkürzung beliebiger Form.</desc><classes><memberOf key="att.global"/><memberOf key="model.pPart.editorial"/><memberOf key="att.typed"/></classes><content><macroRef key="macro.phraseSeq"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="xml:lang" mode="change" usage="opt">
+                            <datatype>
+                                <dataRef key="dharma.language"/>
+                            </datatype>
+                        </attDef><attDef ident="type" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="core" ident="expan"><gloss versionDate="2005-01-14" xml:lang="en">expansion</gloss><gloss versionDate="2007-12-20" xml:lang="ko">확장 표기</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">縮寫還原</gloss><gloss versionDate="2009-01-06" xml:lang="fr">expansion</gloss><gloss versionDate="2007-05-04" xml:lang="es">expansión</gloss><gloss versionDate="2007-01-21" xml:lang="it">espansione</gloss><gloss versionDate="2016-11-25" xml:lang="de">Abkürzungsauflösung</gloss><desc versionDate="2005-01-14" xml:lang="en">contains the expansion of an abbreviation.</desc><desc versionDate="2007-12-20" xml:lang="ko">약어의 확장(비약어) 표기</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含一個縮寫詞的還原形式。</desc><desc versionDate="2008-04-05" xml:lang="ja">省略形の元の表現を示す．</desc><desc versionDate="2009-01-06" xml:lang="fr">contient l'expansion d'une abréviation.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene la expansión de una abreviatura.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene l'esapnsione di un'abbreviazione.</desc><desc versionDate="2016-11-25" xml:lang="de">enthält die aufgelöste Form einer Abkürzung.</desc><classes><memberOf key="att.global"/><memberOf key="model.pPart.editorial"/><memberOf key="att.editLike"/></classes><content><sequence minOccurs="1" maxOccurs="unbounded"><elementRef key="abbr"/><elementRef key="ex"/></sequence></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="evidence" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="instant" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="core" ident="ptr"><gloss versionDate="2007-07-04" xml:lang="en">pointer</gloss><gloss versionDate="2007-12-20" xml:lang="ko">포인터</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2008-04-06" xml:lang="es">puntero</gloss><gloss versionDate="2009-01-06" xml:lang="fr">pointeur</gloss><gloss versionDate="2007-11-06" xml:lang="it">puntatore</gloss><desc versionDate="2006-01-11" xml:lang="en">defines a pointer to another location.</desc><desc versionDate="2007-12-20" xml:lang="ko">다른 위치로의 포인터를 정의한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">標明一個與其他位置相連結的指標。</desc><desc versionDate="2008-04-05" xml:lang="ja">他の場所を示すポインターを定義する．</desc><desc versionDate="2009-01-06" xml:lang="fr">définit un pointeur vers un autre emplacement.</desc><desc versionDate="2007-05-04" xml:lang="es">define un señalizador a otra localización.</desc><desc versionDate="2007-01-21" xml:lang="it">definisce un puntatore ad un'altra posizione.</desc><classes><memberOf key="att.global"/><memberOf key="model.ptrLike"/><memberOf key="att.pointing"/><memberOf key="att.internetMedia"/><memberOf key="att.typed"/><memberOf key="att.declaring"/><memberOf key="att.cReferencing"/></classes><content><empty/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cRef" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="decls" mode="delete"/><attDef ident="evaluate" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="mimeType" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="targetLang" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="target" mode="change"/></attList></elementSpec><elementSpec rend="change" module="core" ident="ref"><gloss versionDate="2007-07-04" xml:lang="en">reference</gloss><gloss versionDate="2007-12-20" xml:lang="ko">참조</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW"/><gloss versionDate="2008-04-06" xml:lang="es">referencia</gloss><gloss versionDate="2009-01-06" xml:lang="fr">référence</gloss><gloss versionDate="2007-11-06" xml:lang="it">riferimento</gloss><gloss versionDate="2016-11-25" xml:lang="de">Referenz</gloss><desc versionDate="2006-01-11" xml:lang="en">defines a reference to another location, possibly modified by additional text or comment.</desc><desc versionDate="2007-12-20" xml:lang="ko">부가적인 텍스트 또는 해설로 수정될 수 있는, 다른 위치로 참조를 정의한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">標明與其他位置互相參照的符號，或許包含附加的文字或註解。</desc><desc versionDate="2008-04-05" xml:lang="ja">他の場所への参照を定義する．多くは，追加テキストまたはコメントを含む．</desc><desc versionDate="2009-01-06" xml:lang="fr">définit une référence vers un autre emplacement, la référence étant éventuellement modifiée ou complétée par un texte ou un commentaire.</desc><desc versionDate="2007-05-04" xml:lang="es">define una referencia a otra localización, posiblemente
     modificada por un texto o comentario adicional.</desc><desc versionDate="2007-01-21" xml:lang="it">definisce un riferimento ad un'altra posizione, può
     essere modificata da un commento o testo ulteriore</desc><desc versionDate="2016-11-25" xml:lang="de">definiert einen externen oder internen Verweis, der auch durch einen zusätzlichen Text oder Kommentar ergänzt werden kann.</desc><classes><memberOf key="att.global"/><memberOf key="model.ptrLike"/><memberOf key="att.pointing"/><memberOf key="att.internetMedia"/><memberOf key="att.typed"/><memberOf key="att.declaring"/><memberOf key="att.cReferencing"/></classes><content><macroRef key="macro.paraContent"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cRef" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="decls" mode="delete"/><attDef ident="evaluate" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="mimeType" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="targetLang" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="core" ident="list"><gloss versionDate="2007-06-12" xml:lang="fr">liste</gloss><gloss versionDate="2016-11-25" xml:lang="de">Liste</gloss><desc versionDate="2005-01-14" xml:lang="en">contains any sequence of items organized as a list.</desc><desc versionDate="2007-12-20" xml:lang="ko">목록의 형태로 정리된 항목을 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含以列表方式呈現的任何連續項目。</desc><desc versionDate="2008-04-05" xml:lang="ja">リストのような，項目列を示す．</desc><desc versionDate="2007-06-12" xml:lang="fr">contient une suite d'items ordonnés dans une liste.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene cualquier secuencia de ítems o elementos
     organizados en una lista.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una qualsiasi sequenza di voci organizzate in
@@ -5101,12 +5046,24 @@ one initial.</desc>
     dans les glossaires, il marque le terme qui est défini.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene un concepto o enunciado asociado con un ítem en
     una lista; en un glosario marca el término que se define.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene l'etichetta associata ad una voce in una lista;
     nei glossari indica il dermine che viene definito</desc><desc versionDate="2017-06-25" xml:lang="de">enthält ein Label oder eine Überschrift zur 
-    Identifikation eines Textteils, insbesondere in einer Liste oder einem Glossar.</desc><classes><memberOf key="att.global"/><memberOf key="att.typed"/><memberOf key="att.placement"/><memberOf key="att.written"/><memberOf key="model.labelLike"/></classes><content><macroRef key="macro.phraseSeq"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="place" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="core" ident="head"><gloss versionDate="2005-01-14" xml:lang="en">heading</gloss><gloss versionDate="2007-12-20" xml:lang="ko">표제부</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">標題</gloss><gloss versionDate="2009-01-06" xml:lang="fr">en-tête</gloss><gloss versionDate="2007-05-04" xml:lang="es">encabezamiento</gloss><gloss versionDate="2007-01-21" xml:lang="it">titolo</gloss><gloss versionDate="2016-11-29" xml:lang="de">Überschrift</gloss><desc versionDate="2005-12-13" xml:lang="en">contains any type of heading, for example the title of a section, or the heading of a list,
+    Identifikation eines Textteils, insbesondere in einer Liste oder einem Glossar.</desc><classes><memberOf key="att.global"/><memberOf key="att.typed"/><memberOf key="att.placement"/><memberOf key="att.written"/><memberOf key="model.labelLike"/></classes><content><macroRef key="macro.phraseSeq"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="place" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="xml:lang" mode="change" usage="opt">
+                            <datatype>
+                                <dataRef key="dharma.language"/>
+                            </datatype>
+                        </attDef></attList></elementSpec><elementSpec rend="change" module="core" ident="head"><gloss versionDate="2005-01-14" xml:lang="en">heading</gloss><gloss versionDate="2007-12-20" xml:lang="ko">표제부</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">標題</gloss><gloss versionDate="2009-01-06" xml:lang="fr">en-tête</gloss><gloss versionDate="2007-05-04" xml:lang="es">encabezamiento</gloss><gloss versionDate="2007-01-21" xml:lang="it">titolo</gloss><gloss versionDate="2016-11-29" xml:lang="de">Überschrift</gloss><desc versionDate="2005-12-13" xml:lang="en">contains any type of heading, for example the title of a section, or the heading of a list,
     glossary, manuscript description, etc.</desc><desc versionDate="2007-12-20" xml:lang="ko">예를 들어 절의 제목 또는 용어집, 원고 기술의 제목 등과 같이 표제부 유형을 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含任何種類的標題，如章節、列表、詞彙表、寫本描述等的標題。</desc><desc versionDate="2008-04-05" xml:lang="ja">各種の見出しを示す．例えば，節のタイトル，リストや用語集，手書き資料 の解説などにある見出し．</desc><desc versionDate="2009-01-06" xml:lang="fr">contient tout type d'en-tête, par exemple le titre d'une
     section, ou l'intitulé d'une liste, d'un glossaire, d'une description de manuscrit, etc.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene cualquier tipo de encabezamiento, por ejemplo el
     título de una sección o el encabezado de una lista, glosario, descripción de un manuscrito, etc.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene qualsiasi tipo di titolo, per esempio il titolo
     di una sezione, di una lista, di un glossario, di una descrizione di manoscritto, ecc.</desc><desc versionDate="2016-11-29" xml:lang="de">enthält eine beliebige Art von Überschrift, 
-    z. B. eines Kapitels, einer Liste, eines Glossars oder einer Handschriftenbeschreibung.</desc><classes><memberOf key="att.global"/><memberOf key="att.typed"/><memberOf key="att.placement"/><memberOf key="att.written"/><memberOf key="model.headLike"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><elementRef key="lg"/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.inter"/><classRef key="model.lLike"/><classRef key="model.global"/></alternate></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="place" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="xml:lang" mode="change" usage="req"> </attDef></attList></elementSpec><elementSpec rend="change" module="core" ident="note"><gloss versionDate="2017-06-25" xml:lang="de">Anmerkung</gloss><desc versionDate="2005-01-14" xml:lang="en">contains a note or annotation.</desc><desc versionDate="2009-01-06" xml:lang="fr">contient une note ou une annotation</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una nota o aclaración</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含附註或註釋。</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una nota o un'annotazione</desc><desc versionDate="2006-10-28" xml:lang="ja">注釈・コメント．</desc><desc versionDate="2017-06-25" xml:lang="de">enthält eine Anmerkung oder Annotation.</desc><classes><memberOf key="att.global"/><memberOf key="model.noteLike"/><memberOf key="att.placement"/><memberOf key="att.pointing"/><memberOf key="att.typed"/><memberOf key="att.written"/></classes><content><macroRef key="macro.specialPara"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="evaluate" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="place" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="target" mode="delete"/><attDef ident="targetLang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="resp" mode="change"/><attDef ident="source" mode="change"/><attDef ident="anchored" mode="delete"/><attDef ident="targetEnd" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="core" xml:id="GRAPHIC" ident="graphic"><gloss versionDate="2016-11-29" xml:lang="de">Abbildung</gloss><desc versionDate="2016-03-07" xml:lang="en">indicates the location of a graphic or illustration, either forming
+    z. B. eines Kapitels, einer Liste, eines Glossars oder einer Handschriftenbeschreibung.</desc><classes><memberOf key="att.global"/><memberOf key="att.typed"/><memberOf key="att.placement"/><memberOf key="att.written"/><memberOf key="model.headLike"/></classes><content><alternate minOccurs="0" maxOccurs="unbounded"><textNode/><elementRef key="lg"/><classRef key="model.gLike"/><classRef key="model.phrase"/><classRef key="model.inter"/><classRef key="model.lLike"/><classRef key="model.global"/></alternate></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="place" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="xml:lang" mode="change" usage="opt">
+                            <datatype>
+                                <dataRef key="dharma.language"/>
+                            </datatype>
+                        </attDef></attList></elementSpec><elementSpec rend="change" module="core" ident="note"><gloss versionDate="2017-06-25" xml:lang="de">Anmerkung</gloss><desc versionDate="2005-01-14" xml:lang="en">contains a note or annotation.</desc><desc versionDate="2009-01-06" xml:lang="fr">contient une note ou une annotation</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una nota o aclaración</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含附註或註釋。</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una nota o un'annotazione</desc><desc versionDate="2006-10-28" xml:lang="ja">注釈・コメント．</desc><desc versionDate="2017-06-25" xml:lang="de">enthält eine Anmerkung oder Annotation.</desc><classes><memberOf key="att.global"/><memberOf key="model.noteLike"/><memberOf key="att.placement"/><memberOf key="att.pointing"/><memberOf key="att.typed"/><memberOf key="att.written"/></classes><content><macroRef key="macro.specialPara"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="evaluate" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="place" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="target" mode="delete"/><attDef ident="targetLang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="resp" mode="change"/><attDef ident="source" mode="change"/><attDef ident="xml:lang" mode="change" usage="opt">
+                            <datatype>
+                                <dataRef key="dharma.language"/>
+                            </datatype>
+                        </attDef><attDef ident="anchored" mode="delete"/><attDef ident="targetEnd" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="core" xml:id="GRAPHIC" ident="graphic"><gloss versionDate="2016-11-29" xml:lang="de">Abbildung</gloss><desc versionDate="2016-03-07" xml:lang="en">indicates the location of a graphic or illustration, either forming
     part of a text, or providing an image of it.</desc><desc versionDate="2007-12-20" xml:lang="ko">인라인 그래픽, 삽화, 또는 도형의 위치를 표시한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">指出文字文件中內含的圖形、插圖、或圖表的位置。</desc><desc versionDate="2008-04-06" xml:lang="ja">テキスト列中にある図，絵，図表の場所を示す．</desc><desc versionDate="2009-01-06" xml:lang="fr">indique l'emplacement d'une image, d'une illustration ou
     d'un schéma intégrés.</desc><desc versionDate="2007-05-04" xml:lang="es">indica la localización de un gráfico, ilustración o
     figura.</desc><desc versionDate="2007-01-21" xml:lang="it">indica la posizione di un grafico, di una illustrazione o
@@ -5182,7 +5139,7 @@ one initial.</desc>
                             </valList>
                         </attDef><attDef ident="n" mode="change" usage="req">
                             <datatype>
-                                <dataRef name="string" restriction="[^ ]+"/>
+                                <dataRef key="dharma.n"/>
                             </datatype>
                         </attDef></attList></elementSpec><elementSpec rend="change" module="core" ident="pb"><gloss versionDate="2017-06-14" xml:lang="en">page beginning</gloss><gloss versionDate="2007-12-20" xml:lang="ko">페이지 바꿈</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">分頁</gloss><gloss versionDate="2009-01-06" xml:lang="fr">saut de page</gloss><gloss versionDate="2007-05-04" xml:lang="es">cambio de página</gloss><gloss versionDate="2007-01-21" xml:lang="it">interruzione di pagina</gloss><gloss versionDate="2017-06-25" xml:lang="de">Seitenanfang</gloss><desc versionDate="2017-06-14" xml:lang="en">marks the beginning of a new page in a paginated document.</desc><desc versionDate="2007-12-20" xml:lang="ko">표준 참조 시스템에서 텍스트 페이지와 다음 페이지 사이의 경계를 표지한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">以標準參照系統來標記頁與頁之間的分界線。</desc><desc versionDate="2008-04-05" xml:lang="ja">テキストのページ境界を，標準的な参照システム示す．</desc><desc xml:lang="fr" versionDate="2007-06-12">marque le début d'une
   page de texte dans un document paginé.</desc><desc versionDate="2007-05-04" xml:lang="es">marca la frontera entre una página de un texto y la
@@ -5190,7 +5147,7 @@ one initial.</desc>
     successiva in un sistema di riferimento standard</desc><desc versionDate="2017-06-25" xml:lang="de">markiert den Anfang 
     einer neuen Seite in einem Dokument mit Seitenzahlen</desc><classes><memberOf key="att.global"/><memberOf key="model.milestoneLike"/><memberOf key="att.typed"/><memberOf key="att.edition"/><memberOf key="att.spanning"/><memberOf key="att.breaking"/></classes><content><empty/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="ed" mode="delete"/><attDef ident="edRef" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="spanTo" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="n" mode="change" usage="req">
                             <datatype>
-                                <dataRef name="string" restriction="[^ ]+"/>
+                                <dataRef key="dharma.n"/>
                             </datatype>
                         </attDef><attDef ident="break" mode="change" usage="opt">
                             <datatype>
@@ -5213,7 +5170,7 @@ one initial.</desc>
                             </valList>
                         </attDef><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="ed" mode="delete"/><attDef ident="edRef" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="spanTo" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="n" mode="change" usage="req">
                             <datatype>
-                                <dataRef name="string" restriction="[^ ]+"/>
+                                <dataRef key="dharma.n"/>
                             </datatype>
                         </attDef><attDef ident="rend" mode="change">
                             <datatype>
@@ -5649,95 +5606,9 @@ titolo</desc>
                                 <valItem ident="F"/>
                             </valList>
                         </attDef><attDef ident="rendition" mode="change">
-                            <valList type="open" mode="replace">
-                                <valItem ident="class:57471">
-                                    <desc>Arabic script</desc>
-                                </valItem>
-                                <valItem ident="class:70417">
-                                    <desc>Jawi script - Narrower concept of Arabic Script</desc>
-                                </valItem>
-                                <valItem ident="class:83217">
-                                    <desc>Brāhmī and derivatives</desc>
-                                </valItem>
-                                <valItem ident="class:83223">
-                                    <desc>northern class Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:83229">
-                                    <desc>Gauḍī</desc>
-                                </valItem>
-                                <valItem ident="class:38771">
-                                    <desc>Nāgarī</desc>
-                                </valItem>
-                                <valItem ident="class:38774">
-                                    <desc>Siddhamātr̥kā </desc>
-                                </valItem>
-                                <valItem ident="class:83227">
-                                    <desc>southeast Asian Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:83239">
-                                    <desc>Balinese script</desc>
-                                </valItem>
-                                <valItem ident="class:38767">
-                                    <desc>Batak script </desc>
-                                </valItem>
-                                <valItem ident="class:83233">
-                                    <desc>Cam script</desc>
-                                </valItem>
-                                <valItem ident="class:38769">
-                                    <desc>Kawi script</desc>
-                                </valItem>
-                                <valItem ident="class:83231">
-                                    <desc>Khmer script</desc>
-                                </valItem>
-                                <valItem ident="class:83235">
-                                    <desc>Mon-Burmese script</desc>
-                                </valItem>
-                                <valItem ident="class:83241">
-                                    <desc>Old West Javanese script</desc>
-                                </valItem>
-                                <valItem ident="class:83237">
-                                    <desc>Pyu script</desc>
-                                </valItem>
-                                <valItem ident="class:57470">
-                                    <desc>Sundanese script</desc>
-                                </valItem>
-                                <valItem ident="class:83225">
-                                    <desc>southern class Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:38768">
-                                    <desc>Grantha</desc>
-                                </valItem>
-                                <valItem ident="class:38776">
-                                    <desc>Tamil script</desc>
-                                </valItem>
-                                <valItem ident="class:57475">
-                                    <desc>Tamil with Grantha</desc>
-                                </valItem>
-                                <valItem ident="class:70420">
-                                    <desc>Vaṭṭeḻuṭṭu</desc>
-                                </valItem>
-                                <valItem ident="class:83221">
-                                    <desc>Chinese Script</desc>
-                                </valItem>
-                                <valItem ident="class:83219">
-                                    <desc>Kharoṣṭhī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83207">
-                                    <desc>early Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83211">
-                                    <desc>late Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83209">
-                                    <desc>middle Brāhmi</desc>
-                                </valItem>
-                                <valItem ident="maturity:83213">
-                                    <desc>regional Brāhmī-derived script</desc>
-                                </valItem>
-                                <valItem ident="maturity:83215">
-                                    <desc>vernacular Brāhmī-derived script</desc>
-                                </valItem>
-                            </valList>
+                            <datatype>
+                                <dataRef key="dharma.indic_script"/>
+                            </datatype>
                         </attDef></attList></elementSpec><elementSpec rend="change" module="core" ident="lg"><gloss versionDate="2005-01-14" xml:lang="en">line group</gloss><gloss versionDate="2007-12-20" xml:lang="ko">시행군</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">行組</gloss><gloss versionDate="2009-01-06" xml:lang="fr">groupe de vers</gloss><gloss versionDate="2007-05-04" xml:lang="es">grupo de versos</gloss><gloss versionDate="2007-01-21" xml:lang="it">un gruppo di versi</gloss><gloss versionDate="2017-06-13" xml:lang="de">Gruppe von Vers(zeil)en</gloss><desc versionDate="2012-04-17" xml:lang="en">contains one or more verse lines functioning as a formal unit, e.g. a stanza, refrain,
         verse paragraph, etc.</desc><desc versionDate="2007-12-20" xml:lang="ko">예를 들어, 연, 후렴구, 운문 단락과 같이 형식적 단위로 기능하는 운문 행군을 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含形式上視為一組的詩行，例如詩節、疊句、韻文段落等。</desc><desc versionDate="2008-04-05" xml:lang="ja">形式単位としてある，ある韻文の行をまとまりを示す．例えば，連，リフレ イン，詩節など．</desc><desc versionDate="2009-01-06" xml:lang="fr">contient un groupe de vers fonctionnant comme une unité
         formelle, par exemple une strophe, un refrain, un paragraphe en vers, etc.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene un grupo de versos que funcionan como una
@@ -5804,7 +5675,7 @@ titolo</desc>
                             </valList>
                         </attDef><attDef ident="n" mode="change" usage="req">
                             <datatype>
-                                <dataRef key="teidata.numeric"/>
+                                <dataRef key="dharma.n"/>
                             </datatype>
                         </attDef><attDef ident="rend" mode="change">
                             <valList type="open" mode="replace">
@@ -5822,96 +5693,14 @@ titolo</desc>
                                 <valItem ident="M"/>
                                 <valItem ident="F"/>
                             </valList>
+                        </attDef><attDef ident="xml:lang" mode="change" usage="opt">
+                            <datatype>
+                                <dataRef key="dharma.language"/>
+                            </datatype>
                         </attDef><attDef ident="rendition" mode="change">
-                            <valList type="open" mode="replace">
-                                <valItem ident="class:57471">
-                                    <desc>Arabic script</desc>
-                                </valItem>
-                                <valItem ident="class:70417">
-                                    <desc>Jawi script - Narrower concept of Arabic Script</desc>
-                                </valItem>
-                                <valItem ident="class:83217">
-                                    <desc>Brāhmī and derivatives</desc>
-                                </valItem>
-                                <valItem ident="class:83223">
-                                    <desc>northern class Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:83229">
-                                    <desc>Gauḍī</desc>
-                                </valItem>
-                                <valItem ident="class:38771">
-                                    <desc>Nāgarī</desc>
-                                </valItem>
-                                <valItem ident="class:38774">
-                                    <desc>Siddhamātr̥kā </desc>
-                                </valItem>
-                                <valItem ident="class:83227">
-                                    <desc>southeast Asian Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:83239">
-                                    <desc>Balinese script</desc>
-                                </valItem>
-                                <valItem ident="class:38767">
-                                    <desc>Batak script </desc>
-                                </valItem>
-                                <valItem ident="class:83233">
-                                    <desc>Cam script</desc>
-                                </valItem>
-                                <valItem ident="class:38769">
-                                    <desc>Kawi script</desc>
-                                </valItem>
-                                <valItem ident="class:83231">
-                                    <desc>Khmer script</desc>
-                                </valItem>
-                                <valItem ident="class:83235">
-                                    <desc>Mon-Burmese script</desc>
-                                </valItem>
-                                <valItem ident="class:83241">
-                                    <desc>Old West Javanese script</desc>
-                                </valItem>
-                                <valItem ident="class:83237">
-                                    <desc>Pyu script</desc>
-                                </valItem>
-                                <valItem ident="class:57470">
-                                    <desc>Sundanese script</desc>
-                                </valItem>
-                                <valItem ident="class:83225">
-                                    <desc>southern class Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:38768">
-                                    <desc>Grantha</desc>
-                                </valItem>
-                                <valItem ident="class:38776">
-                                    <desc>Tamil script</desc>
-                                </valItem>
-                                <valItem ident="class:57475">
-                                    <desc>Tamil with Grantha</desc>
-                                </valItem>
-                                <valItem ident="class:70420">
-                                    <desc>Vaṭṭeḻuṭṭu</desc>
-                                </valItem>
-                                <valItem ident="class:83221">
-                                    <desc>Chinese Script</desc>
-                                </valItem>
-                                <valItem ident="class:83219">
-                                    <desc>Kharoṣṭhī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83207">
-                                    <desc>early Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83211">
-                                    <desc>late Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83209">
-                                    <desc>middle Brāhmi</desc>
-                                </valItem>
-                                <valItem ident="maturity:83213">
-                                    <desc>regional Brāhmī-derived script</desc>
-                                </valItem>
-                                <valItem ident="maturity:83215">
-                                    <desc>vernacular Brāhmī-derived script</desc>
-                                </valItem>
-                            </valList>
+                            <datatype>
+                                <dataRef key="dharma.indic_script"/>
+                            </datatype>
                         </attDef></attList></elementSpec><elementSpec module="core" ident="speaker">
   <gloss versionDate="2005-01-14" xml:lang="en"/>
   <gloss versionDate="2009-01-06" xml:lang="fr">locuteur</gloss>
@@ -5989,7 +5778,7 @@ titolo</desc>
     constituent une page de titre électronique au début de tout texte conforme à la TEI.</desc><desc versionDate="2007-12-20" xml:lang="ko">모든 TEI 구조의 텍스트 서두에 위치하는 전자 제목 페이지를 구성하는 기술적이고 선언적인 정보를
     제공한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">在所有符合TEI標準的文本起始的電子題名頁當中提供敘述性以及宣告性的資訊。</desc><desc versionDate="2008-04-05" xml:lang="ja">全てのTEI準拠テキストが伴う，電子版のタイトルページを構成する，記述 的・宣言的情報を示す．</desc><desc versionDate="2016-11-25" xml:lang="de">beinhaltet beschreibende und erklärende Metadaten, die einer digitalen Ressource oder einer Sammlung von Ressourcen vorangestellt sind.</desc><desc versionDate="2007-05-04" xml:lang="es">proporciona información descriptiva y declarativa de una
     página de título electrónico prefijada como un texto conforme a TEI.</desc><desc versionDate="2007-01-21" xml:lang="it">fornisce informazioni descrittive e dichiarative che
-    costituiscono un frontespizio elettronico che precede qualsiasi testo TEI-conforme.</desc><classes><memberOf key="att.global"/></classes><content><sequence minOccurs="1" maxOccurs="1"><elementRef key="fileDesc"/><classRef key="model.teiHeaderPart" minOccurs="0" maxOccurs="unbounded"/><elementRef key="revisionDesc" minOccurs="0"/></sequence></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/></attList></elementSpec><elementSpec xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" ident="fileDesc"><gloss versionDate="2007-07-05" xml:lang="en">file description</gloss><gloss versionDate="2009-01-05" xml:lang="fr">description bibliographique du fichier</gloss><gloss versionDate="2007-12-20" xml:lang="ko">파일 기술</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">檔案描述</gloss><gloss versionDate="2006-10-18" xml:lang="de">Dateibeschreibung</gloss><gloss versionDate="2007-05-04" xml:lang="es">Descripción del archivo.</gloss><gloss versionDate="2007-01-21" xml:lang="it">descrizione del file</gloss><desc versionDate="2005-01-14" xml:lang="en">contains a full bibliographic description of an electronic file.</desc><desc versionDate="2009-01-05" xml:lang="fr">contient une description bibliographique complète du
+    costituiscono un frontespizio elettronico che precede qualsiasi testo TEI-conforme.</desc><classes><memberOf key="att.global"/></classes><content><sequence minOccurs="1" maxOccurs="1"><elementRef key="fileDesc"/><classRef key="model.teiHeaderPart" minOccurs="0" maxOccurs="unbounded"/><elementRef key="revisionDesc" minOccurs="0"/></sequence></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="xml:lang" mode="delete"/></attList></elementSpec><elementSpec xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" ident="fileDesc"><gloss versionDate="2007-07-05" xml:lang="en">file description</gloss><gloss versionDate="2009-01-05" xml:lang="fr">description bibliographique du fichier</gloss><gloss versionDate="2007-12-20" xml:lang="ko">파일 기술</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">檔案描述</gloss><gloss versionDate="2006-10-18" xml:lang="de">Dateibeschreibung</gloss><gloss versionDate="2007-05-04" xml:lang="es">Descripción del archivo.</gloss><gloss versionDate="2007-01-21" xml:lang="it">descrizione del file</gloss><desc versionDate="2005-01-14" xml:lang="en">contains a full bibliographic description of an electronic file.</desc><desc versionDate="2009-01-05" xml:lang="fr">contient une description bibliographique complète du
     fichier électronique.</desc><desc versionDate="2007-12-20" xml:lang="ko">전자 파일에 관한 완전한 서지 정보의 기술을 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含對電子檔案的完整書目敘述。</desc><desc versionDate="2008-04-05" xml:lang="ja">電子ファイルに関する完全な書誌情報を示す．</desc><desc versionDate="2016-11-17" xml:lang="de">enthält die vollständige bibliografische Beschreibung einer elektronischen Datei.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una descripción bibliográfica completa del
     archivo electrónico.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una descrizione bibliografica completa di un
     file elettronico.</desc><classes><memberOf key="att.global"/></classes><content><sequence minOccurs="1" maxOccurs="1"><sequence minOccurs="1" maxOccurs="1"><elementRef key="titleStmt"/><elementRef key="editionStmt" minOccurs="0"/><elementRef key="publicationStmt"/></sequence><elementRef key="sourceDesc" minOccurs="1" maxOccurs="unbounded"/></sequence></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/></attList></elementSpec><elementSpec xmlns:xi="http://www.w3.org/2001/XInclude" rend="change" module="header" ident="titleStmt"><gloss versionDate="2005-01-14" xml:lang="en">title statement</gloss><gloss versionDate="2009-01-05" xml:lang="fr">mention de titre</gloss><gloss versionDate="2007-12-20" xml:lang="ko">제목 진술</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">題名陳述</gloss><gloss versionDate="2016-11-17" xml:lang="de">Angaben zum Titel</gloss><gloss versionDate="2007-05-04" xml:lang="es">declaración del título</gloss><gloss versionDate="2007-01-21" xml:lang="it">dichiarazione sul titolo</gloss><desc versionDate="2012-04-17" xml:lang="en">groups information about the title of a work and those responsible for its content.</desc><desc versionDate="2009-01-05" xml:lang="fr"> regroupe les informations sur le titre d’une œuvre et
@@ -6126,7 +5915,11 @@ langues, registres, dialectes, etc. présents à l’intérieur d’un texte.</d
     mehreren Mitgliedern der <ident type="class">model.resourceLike</ident>-Klasse besteht. Mehrere
     <gi>TEI</gi>-Elemente können in einem <gi>teiCorpus</gi>-Element zusammengefasst werden.</desc><desc versionDate="2017-02-06" xml:lang="es">contiene un solo documento conforme a la norma TEI, combinando una sola cabecera TEI (teiHeader) con uno o más miembros de la clase <ident type="class">model.resourceLike</ident>. Múltiples elementos TEI se pueden combinar para formar un elemento <gi>teiCorpus</gi>.
    </desc><desc versionDate="2007-01-21" xml:lang="it">contiene un documento TEI-conforme, comprendente un'intestazione e un testo, sia esso isolato o parte di un elemento <gi>teiCorpus</gi>
-   </desc><classes><memberOf key="att.global"/><memberOf key="att.typed"/></classes><content><sequence minOccurs="1" maxOccurs="1"><elementRef key="teiHeader"/><elementRef key="facsimile" minOccurs="0"/><elementRef key="text"/></sequence></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="version" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="textstructure" ident="text"><gloss versionDate="2007-06-12" xml:lang="fr">texte</gloss><desc versionDate="2005-01-14" xml:lang="en">contains a single text of any kind, whether unitary or composite, for example a poem or
+   </desc><classes><memberOf key="att.global"/><memberOf key="att.typed"/></classes><content><sequence minOccurs="1" maxOccurs="1"><elementRef key="teiHeader"/><elementRef key="facsimile" minOccurs="0"/><elementRef key="text"/></sequence></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="xml:lang" mode="change">
+                            <datatype>
+                                <dataRef key="dharma.language"/>
+                            </datatype>
+                        </attDef><attDef ident="version" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="textstructure" ident="text"><gloss versionDate="2007-06-12" xml:lang="fr">texte</gloss><desc versionDate="2005-01-14" xml:lang="en">contains a single text of any kind, whether unitary or composite, for example a poem or
     drama, a collection of essays, a novel, a dictionary, or a corpus sample.</desc><desc versionDate="2007-12-20" xml:lang="ko">어떤 종류의 단일 텍스트를 포함한다. 예를 들어, 시 또는 드라마, 수필선, 소설, 사전 또는 코퍼스
     표본과 같은 단일 텍스트 또는 혼합 텍스트.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含一份任何種類的文本，無論是單一或複合的，例如詩詞或戲劇、散文集、小說、字典、或是文集範例。</desc><desc versionDate="2008-04-05" xml:lang="ja">ひとつのテキストを示す．単体でも複合体でもよい．例えば，詩，舞台芸術， 随筆，小説，辞書，コーパスなど．</desc><desc versionDate="2007-06-12" xml:lang="fr">contient un seul texte quelconque, simple ou composite,
     par exemple un poème ou une pièce de théâtre, un recueil d’essais, un roman, un dictionnaire ou
@@ -6149,17 +5942,26 @@ langues, registres, dialectes, etc. présents à l’intérieur d’un texte.</d
     corps d’un texte ou dans le texte postliminaire.</desc><desc versionDate="2017-06-13" xml:lang="de">enthält einen Unterabschnitt in Vorspann (front), Textkörper oder Nachspann (back) eines Textes.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una subdivisión del paratexto inicial, del
     cuerpo del texto o del paratexto final.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una suddivisione del peritesto iniziale, del
     corpo del testo, o del peritesto finale</desc><classes><memberOf key="att.global"/><memberOf key="att.divLike"/><memberOf key="att.typed"/><memberOf key="att.declaring"/><memberOf key="att.written"/><memberOf key="model.divLike"/></classes><content><sequence minOccurs="1" maxOccurs="1"><alternate minOccurs="0" maxOccurs="unbounded"><classRef key="model.divTop"/><classRef key="model.global"/></alternate><sequence minOccurs="0" maxOccurs="1"><alternate minOccurs="1" maxOccurs="1"><sequence minOccurs="1" maxOccurs="unbounded"><alternate minOccurs="1" maxOccurs="1"><classRef key="model.divLike"/><classRef key="model.divGenLike"/></alternate><classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/></sequence><sequence minOccurs="1" maxOccurs="1"><sequence minOccurs="1" maxOccurs="unbounded"><classRef key="model.common"/><classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/></sequence><sequence minOccurs="0" maxOccurs="unbounded"><alternate minOccurs="1" maxOccurs="1"><classRef key="model.divLike"/><classRef key="model.divGenLike"/></alternate><classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/></sequence></sequence></alternate><sequence minOccurs="0" maxOccurs="unbounded"><classRef key="model.divBottom"/><classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/></sequence></sequence></sequence></content><attList><attDef ident="type" mode="change" usage="req">
+                            <datatype>
+                                <dataRef name="string"/>
+                            </datatype>
                             <valList type="closed" mode="replace">
                                 <valItem ident="apparatus"/>
                                 <valItem ident="bibliography"/>
                                 <valItem ident="commentary"/>
                                 <valItem ident="edition"/>
-                                <valItem ident="textpart"/>
+                                <valItem ident="textpart">
+                                    <desc>boxlike partition</desc>
+                                </valItem>
                                 <valItem ident="translation"/>
                             </valList>
-                        </attDef><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="decls" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="met" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="org" mode="delete"/><attDef ident="part" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="real" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="rhyme" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="sample" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="rend" mode="change">
+                        </attDef><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="decls" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="met" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="org" mode="delete"/><attDef ident="part" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="real" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="rhyme" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="sample" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="n" mode="change">
                             <datatype>
-                                <dataRef key="string"/>
+                                <dataRef key="dharma.n"/>
+                            </datatype>
+                        </attDef><attDef ident="rend" mode="change">
+                            <datatype>
+                                <dataRef name="string"/>
                             </datatype>
                             <valList type="closed" mode="replace">
                                 <valItem ident="bt-rotated">
@@ -6193,6 +5995,9 @@ langues, registres, dialectes, etc. présents à l’intérieur d’un texte.</d
                                 </valItem>
                             </valList>
                         </attDef><attDef ident="style" mode="change">
+                            <datatype>
+                                <dataRef name="string"/>
+                            </datatype>
                             <valList type="closed" mode="replace">
                                 <valItem ident="text-align: right"/>
                                 <valItem ident="text-align: center"/>
@@ -6200,105 +6005,46 @@ langues, registres, dialectes, etc. présents à l’intérieur d’un texte.</d
                                 <valItem ident="text-align: justify"/>
                             </valList>
                         </attDef><attDef ident="subtype" mode="change">
-                            <valList type="open" mode="replace">
-                                <valItem ident="fragment"/>
-                                <valItem ident="face"/>
-                                <valItem ident="faces"/>
-                                <valItem ident="zone"/>
-                                <valItem ident="column"/>
-                                <valItem ident="item"/>
-                                <valItem ident="trial"/>
+                            <datatype>
+                                <dataRef name="string"/>
+                            </datatype>
+                            <valList type="closed" mode="replace">
+                                <valItem ident="fragment">
+                                    <desc>for fragments bearing non-contiguous text</desc>
+                                </valItem>
+                                <valItem ident="face">
+                                    <desc>for a physically contiguous surface of a three-dimensional object of any shape and any
+                                        number of sides</desc>
+                                </valItem>
+                                <valItem ident="faces">
+                                    <desc>in texts where each line of a textpart continues across two or more surfaces such as the
+                                        frontal and lateral face of a four-sided stele</desc>
+                                </valItem>
+                                <valItem ident="zone">
+                                    <desc>for visually distinct zones on a single two-dimensional surface</desc>
+                                </valItem>
+                                <valItem ident="column">
+                                    <desc>for zones placed side by side and generally taller than they are wide (as in newspaper
+                                        columns)</desc>
+                                </valItem>
+                                <valItem ident="item">
+                                    <desc>for physically distinct objects such as architectural elements, e.g. when an inscription is
+                                        engraved on two pillars</desc>
+                                </valItem>
+                                <valItem ident="trial">
+                                    <desc>to explicitly flag short, often unintelligible, pieces of text outside the campus of the
+                                        main inscription and presumably not visible when the inscription was displayed in its original
+                                        setting, which you judge to be trial engravings</desc>
+                                </valItem>
                             </valList>
                         </attDef><attDef ident="rendition" mode="change">
-                            <valList type="open" mode="replace">
-                                <valItem ident="class:57471">
-                                    <desc>Arabic script</desc>
-                                </valItem>
-                                <valItem ident="class:70417">
-                                    <desc>Jawi script - Narrower concept of Arabic Script</desc>
-                                </valItem>
-                                <valItem ident="class:83217">
-                                    <desc>Brāhmī and derivatives</desc>
-                                </valItem>
-                                <valItem ident="class:83223">
-                                    <desc>northern class Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:83229">
-                                    <desc>Gauḍī</desc>
-                                </valItem>
-                                <valItem ident="class:38771">
-                                    <desc>Nāgarī</desc>
-                                </valItem>
-                                <valItem ident="class:38774">
-                                    <desc>Siddhamātr̥kā </desc>
-                                </valItem>
-                                <valItem ident="class:83227">
-                                    <desc>southeast Asian Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:83239">
-                                    <desc>Balinese script</desc>
-                                </valItem>
-                                <valItem ident="class:38767">
-                                    <desc>Batak script </desc>
-                                </valItem>
-                                <valItem ident="class:83233">
-                                    <desc>Cam script</desc>
-                                </valItem>
-                                <valItem ident="class:38769">
-                                    <desc>Kawi script</desc>
-                                </valItem>
-                                <valItem ident="class:83231">
-                                    <desc>Khmer script</desc>
-                                </valItem>
-                                <valItem ident="class:83235">
-                                    <desc>Mon-Burmese script</desc>
-                                </valItem>
-                                <valItem ident="class:83241">
-                                    <desc>Old West Javanese script</desc>
-                                </valItem>
-                                <valItem ident="class:83237">
-                                    <desc>Pyu script</desc>
-                                </valItem>
-                                <valItem ident="class:57470">
-                                    <desc>Sundanese script</desc>
-                                </valItem>
-                                <valItem ident="class:83225">
-                                    <desc>southern class Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:38768">
-                                    <desc>Grantha</desc>
-                                </valItem>
-                                <valItem ident="class:38776">
-                                    <desc>Tamil script</desc>
-                                </valItem>
-                                <valItem ident="class:57475">
-                                    <desc>Tamil with Grantha</desc>
-                                </valItem>
-                                <valItem ident="class:70420">
-                                    <desc>Vaṭṭeḻuṭṭu</desc>
-                                </valItem>
-                                <valItem ident="class:83221">
-                                    <desc>Chinese Script</desc>
-                                </valItem>
-                                <valItem ident="class:83219">
-                                    <desc>Kharoṣṭhī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83207">
-                                    <desc>early Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83211">
-                                    <desc>late Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83209">
-                                    <desc>middle Brāhmi</desc>
-                                </valItem>
-                                <valItem ident="maturity:83213">
-                                    <desc>regional Brāhmī-derived script</desc>
-                                </valItem>
-                                <valItem ident="maturity:83215">
-                                    <desc>vernacular Brāhmī-derived script</desc>
-                                </valItem>
-                            </valList>
+                            <datatype>
+                                <dataRef key="script_test"/>
+                            </datatype>
+                        </attDef><attDef ident="xml:lang" mode="change" usage="opt">
+                            <datatype>
+                                <dataRef key="dharma.language"/>
+                            </datatype>
                         </attDef></attList></elementSpec><classSpec predeclare="true" module="transcr" type="atts" ident="att.global.facs">
   <desc versionDate="2016-02-15" xml:lang="en">provides an attribute used to express correspondence
     between an element containing transcribed text and all or part of an image representing that text.</desc>
@@ -6358,7 +6104,11 @@ ou encodé.</desc><desc versionDate="2007-11-06" xml:lang="it">contiene una rapp
                                 <valItem ident="low"/>
                             </valList>
                         </attDef></attList></elementSpec><elementSpec rend="change" module="transcr" ident="fw"><gloss versionDate="2005-01-14" xml:lang="en">forme work</gloss><gloss versionDate="2007-12-20" xml:lang="ko">조판 작업</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">印版文字</gloss><gloss versionDate="2007-06-12" xml:lang="fr">élément de mise en page</gloss><gloss versionDate="2007-05-04" xml:lang="es">convenciones gráficas.</gloss><gloss versionDate="2007-01-21" xml:lang="it">convenzioni grafiche</gloss><desc versionDate="2005-01-14" xml:lang="en">contains a running head (e.g. a header, footer), catchword, or
-  similar material appearing on the current page.</desc><desc versionDate="2007-12-20" xml:lang="ko">현 페이지에 나타나는 현 표제부(예, 머리말, 꼬리말), 색인어, 또는 유사 자료를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含一個欄外標題 (例如頁眉、頁腳) 、標語、或出現在所標記頁面的類似文字。</desc><desc versionDate="2008-04-05" xml:lang="ja">版面の周りにある柱やノンブルを示す．</desc><desc versionDate="2007-06-12" xml:lang="fr">permet d'encoder un titre courant (en haut ou en bas de la page), une réclame ou une autre information comparable, qui apparaît sur la page courante.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene un encabezamiento, pie de página, reclamo o similar relativo a la página corriente</desc><desc versionDate="2007-01-21" xml:lang="it">contiene intestazione, piè di pagina, reclamo o simili relativi alla pagina corrente</desc><classes><memberOf key="att.global"/><memberOf key="model.milestoneLike"/><memberOf key="att.placement"/><memberOf key="att.written"/></classes><content><macroRef key="macro.phraseSeq"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="n" mode="change" usage="req"/><attDef ident="place" mode="change" usage="req">
+  similar material appearing on the current page.</desc><desc versionDate="2007-12-20" xml:lang="ko">현 페이지에 나타나는 현 표제부(예, 머리말, 꼬리말), 색인어, 또는 유사 자료를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含一個欄外標題 (例如頁眉、頁腳) 、標語、或出現在所標記頁面的類似文字。</desc><desc versionDate="2008-04-05" xml:lang="ja">版面の周りにある柱やノンブルを示す．</desc><desc versionDate="2007-06-12" xml:lang="fr">permet d'encoder un titre courant (en haut ou en bas de la page), une réclame ou une autre information comparable, qui apparaît sur la page courante.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene un encabezamiento, pie de página, reclamo o similar relativo a la página corriente</desc><desc versionDate="2007-01-21" xml:lang="it">contiene intestazione, piè di pagina, reclamo o simili relativi alla pagina corrente</desc><classes><memberOf key="att.global"/><memberOf key="model.milestoneLike"/><memberOf key="att.placement"/><memberOf key="att.written"/></classes><content><macroRef key="macro.phraseSeq"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="n" mode="change" usage="req">
+                            <datatype>
+                                <dataRef key="dharma.n"/>
+                            </datatype>
+                        </attDef><attDef ident="place" mode="change" usage="req">
                             <valList type="closed" mode="replace">
                                 <valItem ident="top-left"/>
                                 <valItem ident="top"/>
@@ -6853,6 +6603,10 @@ element on which the <att>ana</att> attribute appears.</desc>
                                 <valItem ident="small"/>
                                 <valItem ident="wide"/>
                             </valList>
+                        </attDef><attDef ident="xml:lang" mode="change" usage="opt">
+                            <datatype>
+                                <dataRef key="dharma.language"/>
+                            </datatype>
                         </attDef><attDef ident="part" mode="change">
                             <valList type="closed" mode="replace">
                                 
@@ -6870,96 +6624,9 @@ element on which the <att>ana</att> attribute appears.</desc>
                                 </valItem>
                             </valList>
                         </attDef><attDef ident="rendition" mode="change">
-                            
-                            <valList type="open" mode="replace">
-                                <valItem ident="class:57471">
-                                    <desc>Arabic script</desc>
-                                </valItem>
-                                <valItem ident="class:70417">
-                                    <desc>Jawi script - Narrower concept of Arabic Script</desc>
-                                </valItem>
-                                <valItem ident="class:83217">
-                                    <desc>Brāhmī and derivatives</desc>
-                                </valItem>
-                                <valItem ident="class:83223">
-                                    <desc>northern class Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:83229">
-                                    <desc>Gauḍī</desc>
-                                </valItem>
-                                <valItem ident="class:38771">
-                                    <desc>Nāgarī</desc>
-                                </valItem>
-                                <valItem ident="class:38774">
-                                    <desc>Siddhamātr̥kā </desc>
-                                </valItem>
-                                <valItem ident="class:83227">
-                                    <desc>southeast Asian Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:83239">
-                                    <desc>Balinese script</desc>
-                                </valItem>
-                                <valItem ident="class:38767">
-                                    <desc>Batak script </desc>
-                                </valItem>
-                                <valItem ident="class:83233">
-                                    <desc>Cam script</desc>
-                                </valItem>
-                                <valItem ident="class:38769">
-                                    <desc>Kawi script</desc>
-                                </valItem>
-                                <valItem ident="class:83231">
-                                    <desc>Khmer script</desc>
-                                </valItem>
-                                <valItem ident="class:83235">
-                                    <desc>Mon-Burmese script</desc>
-                                </valItem>
-                                <valItem ident="class:83241">
-                                    <desc>Old West Javanese script</desc>
-                                </valItem>
-                                <valItem ident="class:83237">
-                                    <desc>Pyu script</desc>
-                                </valItem>
-                                <valItem ident="class:57470">
-                                    <desc>Sundanese script</desc>
-                                </valItem>
-                                <valItem ident="class:83225">
-                                    <desc>southern class Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:38768">
-                                    <desc>Grantha</desc>
-                                </valItem>
-                                <valItem ident="class:38776">
-                                    <desc>Tamil script</desc>
-                                </valItem>
-                                <valItem ident="class:57475">
-                                    <desc>Tamil with Grantha</desc>
-                                </valItem>
-                                <valItem ident="class:70420">
-                                    <desc>Vaṭṭeḻuṭṭu</desc>
-                                </valItem>
-                                <valItem ident="class:83221">
-                                    <desc>Chinese Script</desc>
-                                </valItem>
-                                <valItem ident="class:83219">
-                                    <desc>Kharoṣṭhī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83207">
-                                    <desc>early Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83211">
-                                    <desc>late Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83209">
-                                    <desc>middle Brāhmi</desc>
-                                </valItem>
-                                <valItem ident="maturity:83213">
-                                    <desc>regional Brāhmī-derived script</desc>
-                                </valItem>
-                                <valItem ident="maturity:83215">
-                                    <desc>vernacular Brāhmī-derived script</desc>
-                                </valItem>
-                            </valList>
+                            <datatype>
+                                <dataRef key="dharma.indic_script"/>
+                            </datatype>
                         </attDef></attList></elementSpec><elementSpec rend="change" module="linking" ident="seg"><gloss versionDate="2005-01-14" xml:lang="en">arbitrary segment</gloss><gloss versionDate="2007-12-20" xml:lang="ko">임의의 분절</gloss><gloss versionDate="2007-05-02" xml:lang="zh-TW">隨機分割</gloss><gloss versionDate="2007-06-12" xml:lang="fr">segment quelconque</gloss><gloss versionDate="2007-05-04" xml:lang="es">segmento arbitrario</gloss><gloss versionDate="2007-01-21" xml:lang="it">segmento arbitrario</gloss><gloss versionDate="2017-06-19" xml:lang="de">arbiträres Segment</gloss><desc versionDate="2008-01-31" xml:lang="en">represents any segmentation of text below the <soCalled>chunk</soCalled> level.</desc><desc versionDate="2007-12-20" xml:lang="ko">(다른 분절 요소를 포함하여) 텍스트의 임의의 구-층위 단위를 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含文件中任何隨機字詞層次的單元 (包括其他分割元素)。</desc><desc versionDate="2008-04-05" xml:lang="ja">任意の句レベルのテキスト単位を示す(要素segを含む)．</desc><desc versionDate="2009-10-06" xml:lang="fr">contient une unité de texte quelconque de niveau <soCalled>segment</soCalled>.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene cualquier unidad textual a nivel sintagmático (inclusive otros elementos de tipo seg.)</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una qualsiasi unità testuale a livello sintagmatico (ivi compresi altri elementi del tipo seg)</desc><desc versionDate="2017-06-19" xml:lang="de">beschreibt Segmente eines Texts unterhalb des <soCalled>Chunk-Level</soCalled>.</desc><classes><memberOf key="att.global"/><memberOf key="model.segLike"/><memberOf key="att.segLike"/><memberOf key="att.typed"/><memberOf key="att.written"/><memberOf key="att.notated"/></classes><content><macroRef key="macro.paraContent"/></content><attList><attDef ident="ana" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="datcat" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="function" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="notation" mode="delete"/><attDef ident="part" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="real" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="rhyme" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="valueDatcat" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="cert" mode="change">
                             <datatype>
                                 <dataRef name="string"/>
@@ -7038,95 +6705,9 @@ element on which the <att>ana</att> attribute appears.</desc>
                                 <valItem ident="component"/>
                             </valList>
                         </attDef><attDef ident="rendition" mode="change">
-                            <valList type="open" mode="replace">
-                                <valItem ident="class:57471">
-                                    <desc>Arabic script</desc>
-                                </valItem>
-                                <valItem ident="class:70417">
-                                    <desc>Jawi script - Narrower concept of Arabic Script</desc>
-                                </valItem>
-                                <valItem ident="class:83217">
-                                    <desc>Brāhmī and derivatives</desc>
-                                </valItem>
-                                <valItem ident="class:83223">
-                                    <desc>northern class Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:83229">
-                                    <desc>Gauḍī</desc>
-                                </valItem>
-                                <valItem ident="class:38771">
-                                    <desc>Nāgarī</desc>
-                                </valItem>
-                                <valItem ident="class:38774">
-                                    <desc>Siddhamātr̥kā </desc>
-                                </valItem>
-                                <valItem ident="class:83227">
-                                    <desc>southeast Asian Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:83239">
-                                    <desc>Balinese script</desc>
-                                </valItem>
-                                <valItem ident="class:38767">
-                                    <desc>Batak script </desc>
-                                </valItem>
-                                <valItem ident="class:83233">
-                                    <desc>Cam script</desc>
-                                </valItem>
-                                <valItem ident="class:38769">
-                                    <desc>Kawi script</desc>
-                                </valItem>
-                                <valItem ident="class:83231">
-                                    <desc>Khmer script</desc>
-                                </valItem>
-                                <valItem ident="class:83235">
-                                    <desc>Mon-Burmese script</desc>
-                                </valItem>
-                                <valItem ident="class:83241">
-                                    <desc>Old West Javanese script</desc>
-                                </valItem>
-                                <valItem ident="class:83237">
-                                    <desc>Pyu script</desc>
-                                </valItem>
-                                <valItem ident="class:57470">
-                                    <desc>Sundanese script</desc>
-                                </valItem>
-                                <valItem ident="class:83225">
-                                    <desc>southern class Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="class:38768">
-                                    <desc>Grantha</desc>
-                                </valItem>
-                                <valItem ident="class:38776">
-                                    <desc>Tamil script</desc>
-                                </valItem>
-                                <valItem ident="class:57475">
-                                    <desc>Tamil with Grantha</desc>
-                                </valItem>
-                                <valItem ident="class:70420">
-                                    <desc>Vaṭṭeḻuṭṭu</desc>
-                                </valItem>
-                                <valItem ident="class:83221">
-                                    <desc>Chinese Script</desc>
-                                </valItem>
-                                <valItem ident="class:83219">
-                                    <desc>Kharoṣṭhī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83207">
-                                    <desc>early Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83211">
-                                    <desc>late Brāhmī</desc>
-                                </valItem>
-                                <valItem ident="maturity:83209">
-                                    <desc>middle Brāhmi</desc>
-                                </valItem>
-                                <valItem ident="maturity:83213">
-                                    <desc>regional Brāhmī-derived script</desc>
-                                </valItem>
-                                <valItem ident="maturity:83215">
-                                    <desc>vernacular Brāhmī-derived script</desc>
-                                </valItem>
-                            </valList>
+                            <datatype>
+                                <dataRef key="dharma.indic_script"/>
+                            </datatype>
                         </attDef></attList></elementSpec><classSpec module="msdescription" type="model" ident="model.physDescPart">
   
   <desc versionDate="2012-03-14" xml:lang="en">groups specialized elements forming part of the physical description of a manuscript or
@@ -7832,7 +7413,153 @@ généralement dans des textes oraux</desc>
     <memberOf key="model.phrase"/>
   </classes>
   
-</classSpec><moduleSpec n="ST" xml:id="DSTTEI2" ident="tei" type="core"/><moduleSpec n="CO" xml:id="DCO" ident="core"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" n="HD" xml:id="DHD" ident="header"/><moduleSpec n="DS" xml:id="DDS" ident="textstructure"/><moduleSpec n="PH" xml:id="DPH" ident="transcr"/><moduleSpec n="VE" xml:id="DVE" ident="verse"/><moduleSpec n="AI" xml:id="DAI" ident="analysis"/><moduleSpec n="CE" xml:id="DCE" ident="certainty"/><moduleSpec n="WD" xml:id="DWD" ident="gaiji"/><moduleSpec n="SA" xml:id="DSA" ident="linking"/><moduleSpec n="MS" xml:id="DMSD2" ident="msdescription"/><moduleSpec n="ND" xml:id="DND" ident="namesdates"/><moduleSpec n="TC" xml:id="DTC" ident="textcrit"/><moduleSpec n="FT" xml:id="DFTFF" ident="figures"/><moduleSpec n="TS" xml:id="DTS" ident="spoken"/><moduleSpec n="DI" xml:id="DDIBO" ident="dictionaries"/></schemaSpec>
+</classSpec><dataSpec rend="add" module="derived-module-dharma" ident="dharma.n">
+                    <content>
+                        <dataRef name="string" restriction="[^ ?]+"/>
+                    </content>
+                </dataSpec><dataSpec rend="add" module="derived-module-dharma" ident="dharma.language">
+                    <content>
+                        <valList type="closed">
+                            <valItem ident="ara-Latn"><desc>Arabic</desc></valItem>
+                            <valItem ident="ban-Latn"><desc>Balinese</desc></valItem>
+                            <valItem ident="bya-Latn"><desc>Batak</desc></valItem>
+                            <valItem ident="cja-Latn"><desc>Cham, Western</desc></valItem>
+                            <valItem ident="cjm-Latn"><desc>Cham, Eastern</desc></valItem>
+                            <valItem ident="deu"><desc>German</desc></valItem>
+                            <valItem ident="eng"><desc>English</desc></valItem>    
+                            <valItem ident="fra"><desc>French</desc></valItem>
+                            <valItem ident="ind-Latn"><desc>Indonesian</desc></valItem>
+                            <valItem ident="jav-Latn"><desc>Javanese</desc></valItem>
+                            <valItem ident="jpn-Latn"><desc>Japanese</desc></valItem>
+                            <valItem ident="kan-Latn"><desc>Kannada</desc></valItem>
+                            <valItem ident="kaw-Latn"><desc>Kawi</desc></valItem>
+                            <valItem ident="khm-Latn"><desc>Khmer</desc></valItem>
+                            <valItem ident="kxm-Latn"><desc>Khmer, Northern</desc></valItem>
+                            <valItem ident="mya-Latn"><desc>Burmese</desc></valItem>
+                            <valItem ident="nld"><desc>Dutch</desc></valItem>
+                            <valItem ident="obr-Latn"><desc>Burmese, Old</desc></valItem>
+                            <valItem ident="ocm-Latn"><desc>Cham, Old</desc></valItem>
+                            <valItem ident="okz-Latn"><desc>Khmer, Old</desc></valItem>
+                            <valItem ident="omx-Latn"><desc>Mon, Old</desc></valItem>
+                            <valItem ident="omy-Latn"><desc>Malay, Old</desc></valItem>
+                            <valItem ident="osn-Latn"><desc>Sundanese, Old</desc></valItem>
+                            <valItem ident="pli-Latn"><desc>Pali</desc></valItem>
+                            <valItem ident="pra-Latn"><desc>Prakrit languages</desc></valItem>
+                            <valItem ident="pyx-Latn"><desc>Pyu (Myanmar)</desc></valItem>
+                            <valItem ident="san-Latn"><desc>Sanskrit</desc></valItem>
+                            <valItem ident="sas-Latn"><desc>Sasak</desc></valItem>
+                            <valItem ident="tam-Latn"><desc>Tamil</desc></valItem>
+                            <valItem ident="tel-Latn"><desc>Telugu</desc></valItem>
+                            <valItem ident="tgl-Latn"><desc>Tagalog</desc></valItem>
+                            <valItem ident="tha-Latn"><desc>Thai</desc></valItem>
+                            <valItem ident="und"><desc>Undetermined</desc></valItem>
+                            <valItem ident="vie-Latn"><desc>Vietnamese</desc></valItem>
+                            <valItem ident="xhm-Latn"><desc>Khmer, Middle (1400 to 1850 CE)</desc></valItem>
+                            <valItem ident="zlm-Latn"><desc>Malay (individual language)</desc></valItem>
+                        </valList>
+                    </content>
+                </dataSpec><dataSpec rend="add" module="derived-module-dharma" ident="dharma.script_name">
+                    <content>
+                        <valList>
+                            <valItem ident="class:57471">
+                                <desc>Arabic script</desc>
+                            </valItem>
+                            <valItem ident="class:70417">
+                                <desc>Jawi script - Narrower concept of Arabic Script</desc>
+                            </valItem>
+                            <valItem ident="class:83217">
+                                <desc>Brāhmī and derivatives</desc>
+                            </valItem>
+                            <valItem ident="class:83223">
+                                <desc>northern class Brāhmī</desc>
+                            </valItem>
+                            <valItem ident="class:83229">
+                                <desc>Gauḍī</desc>
+                            </valItem>
+                            <valItem ident="class:38771">
+                                <desc>Nāgarī</desc>
+                            </valItem>
+                            <valItem ident="class:38774">
+                                <desc>Siddhamātr̥kā </desc>
+                            </valItem>
+                            <valItem ident="class:83227">
+                                <desc>southeast Asian Brāhmī</desc>
+                            </valItem>
+                            <valItem ident="class:83239">
+                                <desc>Balinese script</desc>
+                            </valItem>
+                            <valItem ident="class:38767">
+                                <desc>Batak script </desc>
+                            </valItem>
+                            <valItem ident="class:83233">
+                                <desc>Cam script</desc>
+                            </valItem>
+                            <valItem ident="class:38769">
+                                <desc>Kawi script</desc>
+                            </valItem>
+                            <valItem ident="class:83231">
+                                <desc>Khmer script</desc>
+                            </valItem>
+                            <valItem ident="class:83235">
+                                <desc>Mon-Burmese script</desc>
+                            </valItem>
+                            <valItem ident="class:83241">
+                                <desc>Old West Javanese script</desc>
+                            </valItem>
+                            <valItem ident="class:83237">
+                                <desc>Pyu script</desc>
+                            </valItem>
+                            <valItem ident="class:57470">
+                                <desc>Sundanese script</desc>
+                            </valItem>
+                            <valItem ident="class:83225">
+                                <desc>southern class Brāhmī</desc>
+                            </valItem>
+                            <valItem ident="class:38768">
+                                <desc>Grantha</desc>
+                            </valItem>
+                            <valItem ident="class:38776">
+                                <desc>Tamil script</desc>
+                            </valItem>
+                            <valItem ident="class:57475">
+                                <desc>Tamil with Grantha</desc>
+                            </valItem>
+                            <valItem ident="class:70420">
+                                <desc>Vaṭṭeḻuṭṭu</desc>
+                            </valItem>
+                            <valItem ident="class:83221">
+                                <desc>Chinese Script</desc>
+                            </valItem>
+                            <valItem ident="class:83219">
+                                <desc>Kharoṣṭhī</desc>
+                            </valItem>
+                        </valList>   
+                    </content>
+                </dataSpec><dataSpec rend="add" module="derived-module-dharma" ident="dharma.script_maturity">
+                    <content>
+                        <valList>
+                            <valItem ident="maturity:83207">
+                                <desc>early Brāhmī</desc>
+                            </valItem>
+                            <valItem ident="maturity:83211">
+                                <desc>late Brāhmī</desc>
+                            </valItem>
+                            <valItem ident="maturity:83209">
+                                <desc>middle Brāhmi</desc>
+                            </valItem>
+                            <valItem ident="maturity:83213">
+                                <desc>regional Brāhmī-derived script</desc>
+                            </valItem>
+                            <valItem ident="maturity:83215">
+                                <desc>vernacular Brāhmī-derived script</desc>
+                            </valItem>
+                        </valList>
+                    </content>
+                </dataSpec><dataSpec rend="add" module="derived-module-dharma" ident="dharma.indic_script">
+                    <content>
+                        <sequence minOccurs="1" maxOccurs="1"><dataRef key="dharma.script_name"/><dataRef key="dharma.script_maturity"/></sequence>
+                    </content>
+                </dataSpec><moduleSpec n="ST" xml:id="DSTTEI2" ident="tei" type="core"/><moduleSpec n="CO" xml:id="DCO" ident="core"/><moduleSpec xmlns:xi="http://www.w3.org/2001/XInclude" n="HD" xml:id="DHD" ident="header"/><moduleSpec n="DS" xml:id="DDS" ident="textstructure"/><moduleSpec n="PH" xml:id="DPH" ident="transcr"/><moduleSpec n="VE" xml:id="DVE" ident="verse"/><moduleSpec n="AI" xml:id="DAI" ident="analysis"/><moduleSpec n="CE" xml:id="DCE" ident="certainty"/><moduleSpec n="WD" xml:id="DWD" ident="gaiji"/><moduleSpec n="SA" xml:id="DSA" ident="linking"/><moduleSpec n="MS" xml:id="DMSD2" ident="msdescription"/><moduleSpec n="ND" xml:id="DND" ident="namesdates"/><moduleSpec n="TC" xml:id="DTC" ident="textcrit"/><moduleSpec n="FT" xml:id="DFTFF" ident="figures"/><moduleSpec n="TS" xml:id="DTS" ident="spoken"/><moduleSpec n="DI" xml:id="DDIBO" ident="dictionaries"/></schemaSpec>
         </body>
     </text>
 </TEI>

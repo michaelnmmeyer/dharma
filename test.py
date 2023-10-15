@@ -2,7 +2,7 @@ import sys, re
 from glob import iglob
 from dharma import tree, people, parse
 
-files = sorted(iglob("texts/DHARMA_*"))
+files = sorted(f for f in iglob("texts/DHARMA_*") if not "DHARMA_INSEC" in f)
 inscriptions = [f for f in files if "DHARMA_INS" in f]
 diplomatic = [f for f in files if "DHARMA_DiplEd" in f]
 critical = [f for f in files if "DHARMA_CritEd" in f]
@@ -12,10 +12,10 @@ critical_translation = [f for f in critical if "_trans" in f]
 assert len(inscriptions) + len(diplomatic) \
 	+ len(critical_edition) + len(critical_translation) == len(files)
 
-for file in files:
+for file in inscriptions:
 	xml = tree.parse(file)
-	for p in xml.find("//milestone"):
-		print(p["type"])
+	for p in xml.find("//*"):
+		if p["rendition"]: print(p["rendition"])
 		#print(file,p.path)
 		#print(p["n"])
 

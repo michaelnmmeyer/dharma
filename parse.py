@@ -71,7 +71,7 @@ class Block:
 		self.finished = False
 
 	def __repr__(self):
-		return "Block(%s):\n%s" % (self.name, "\n".join(repr(c) for c in self.code))
+		return "<Block(%s) %r>" % (self.name, self.code)
 
 	def start_item(self):
 		if any(cmd == "text" for cmd, _, _ in self.code):
@@ -103,19 +103,24 @@ class Block:
 
 	def close_page(self):
 		i = len(self.code)
+		p = len(self.code)
 		while i > 0:
 			i -= 1
 			rcmd, rdata, _ = self.code[i]
 			if rcmd == "phys" and rdata == "<page":
-				self.code.append(("phys", ">page", {}))
+				self.code.insert(p, ("phys", ">page", {}))
 				break
 
-	def add_phys(self, data, **params):
+	def add_phys(self, data, **params): # XXX handle breaks consistently,trim space always?
 		brk = params["brk"]
 		if data == "line":
 			self.close_line(brk)
 		elif data == "page":
 			self.close_page()
+		else:
+			assert data.startswith("=")
+			self.add_code("phys", data, **params)
+			return
 		if not brk:
 			i = len(self.code)
 			while i > 0:
@@ -235,6 +240,9 @@ class Block:
 					buf.append(" ")
 				elif data == ">page":
 					pass
+				elif data.startswith("="):
+					unit = data[1:]
+					buf.append('<span class="dh-milestone">(%s %s)</span>' % (html.escape(unit), html.escape(params["n"])))
 				else:
 					assert 0, data
 			else:
@@ -247,15 +255,18 @@ class Block:
 		for t, data, params in self.code:
 			if t == "phys":
 				if data == "<line":
-					buf.append('<p class="dh-line"><span class="dh-lb" title="Line start">%s</span> ' % html.escape(params["n"]))
+					buf.append('<p class="dh-line"><span class="dh-lb" title="Line start">(%s)</span> ' % html.escape(params["n"]))
 				elif data == ">line":
 					if not params.get("brk"):
 						buf.append('<span class="dh-hyphen-break">-</span>')
 					buf.append('</p>')
 				elif data == "<page":
-					buf.append('<div class="dh-page"><span class="dh-pb" title="Page start">⎘ %s</span> ' % html.escape(params["n"]))
+					buf.append('<div class="dh-page"><span class="dh-pb" title="Page start">\N{next page} %s</span> ' % html.escape(params["n"]))
 				elif data == ">page":
 					buf.append('</div>')
+				elif data.startswith("="):
+					unit = data[1:]
+					buf.append('<span class="dh-milestone" title="%s milestone">(%s %s)</span>' % (html.escape(params["type"].title()), html.escape(unit), html.escape(params["n"])))
 				else:
 					assert 0, data
 			elif t == "log":
@@ -451,6 +462,7 @@ def parse_foreign(p, foreign):
 	p.dispatch_children(foreign)
 	p.add_html("</i>")
 
+
 # <milestones
 
 def milestone_n(node):
@@ -460,19 +472,23 @@ def milestone_n(node):
 	return n.replace("_", " ")
 
 def milestone_break(node):
-	brk = elem["brk"]
+	brk = node["brk"]
 	if brk not in ("yes", "no"):
 		brk = "yes"
 	return brk == "yes"
 
+milestone_units = "block column face faces fragment item segment zone".split()
+
 def parse_milestone(p, milestone):
 	n = milestone_n(milestone)
 	brk = milestone_break(milestone)
-	unit = milestone["unit"] or "column"
+	unit = milestone["unit"]
+	if unit not in milestone_units:
+		unit = "column"
 	typ = milestone["type"]
 	if not typ in ("pagelike", "gridlike"):
 		typ = "gridlike"
-	p.add_phys(unit, n=n, brk=brk)
+	p.add_phys("=" + unit, type=typ, n=n, brk=brk)
 
 def parse_lb(p, elem):
 	n = milestone_n(elem)
@@ -483,14 +499,10 @@ def parse_lb(p, elem):
 		align = m.group(1)
 	else:
 		align = "left"
-	if brk == "no":
-		klass = "dh-lb-cont"
-	else:
-		klass = "dh-lb"
 	p.add_phys("line", n=n, brk=brk)
 
 def parse_fw(p, fw):
-	return # we deal with it within <pb>
+	pass # we deal with it within <pb>
 
 def parse_pb(p, elem):
 	n = milestone_n(elem)
@@ -500,9 +512,26 @@ def parse_pb(p, elem):
 		place = fw["place"]
 	else:
 		place = ""
-	p.add_phys("page", brk=brk, n=n)
+	p.add_phys("page", n=n, brk=brk)
 	#p.dispatch_children(fw) TODO
-	
+
+def handle_box(p, div):
+	assert div["type"] == "textpart"
+	n = milestone_n(div)
+	section = p.top_section()
+	children = div.children()
+	i = 0
+	# <head> can only occur in this context in inscriptions
+	if children and children[0].name == "head":
+		p.push("heading")
+		p.dispatch_children(children[0])
+		section.heading = p.pop()
+		i += 1
+	p.push("contents")
+	for child in children[i:]:
+		p.dispatch(child)
+	section.contents = p.pop()
+
 # >milestones
 
 # OK
