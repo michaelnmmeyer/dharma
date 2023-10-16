@@ -526,6 +526,8 @@ def handle_box(p, div):
 	if children and children[0].name == "head":
 		p.push("heading")
 		p.dispatch_children(children[0])
+		p.add_text(" ")
+		p.add_text(n)
 		section.heading = p.pop()
 		i += 1
 	p.push("contents")

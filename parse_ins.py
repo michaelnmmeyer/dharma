@@ -71,6 +71,12 @@ def process_file(path):
 	p = parse.Parser(t, HANDLERS)
 	p.dispatch(p.tree.root)
 	for section in p.document.edition:
+		if section.heading:
+			for rec in section.heading.code:
+				cmd, data, args = rec
+				parse.write_debug(cmd, data, **args)
+		print("-------")
+		continue
 		for rec in section.contents.code:
 			cmd, data, args = rec
 			parse.write_debug(cmd, data, **args)
