@@ -1,4 +1,4 @@
-schemas = $(addprefix schemas/,inscription bestow critical diplomatic prosody)
+schemas = $(addprefix schemas/,inscription bestow critical diplomatic prosody tei-epidoc)
 
 generated_tei = \
 	$(addsuffix .rng,$(schemas)) \

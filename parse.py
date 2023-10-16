@@ -73,6 +73,13 @@ class Block:
 	def __repr__(self):
 		return "<Block(%s) %r>" % (self.name, self.code)
 
+	def empty(self):
+		for cmd, data, params in self.code:
+			if cmd == "text" and data == " ":
+				continue
+			return False
+		return True
+
 	def start_item(self):
 		if any(cmd == "text" for cmd, _, _ in self.code):
 			self.add_text(PARA_SEP)
@@ -94,33 +101,20 @@ class Block:
 			rcmd, rdata, rparams = self.code[i]
 			if rcmd != "phys":
 				continue
-			if rdata == "<page" or rdata == ">page":
+			if rdata == "=page":
 				p = i
 				continue
 			if rdata == "<line":
 				self.code.insert(p, ("phys", ">line", {"brk": brk}))
 				break
 
-	def close_page(self):
-		i = len(self.code)
-		p = len(self.code)
-		while i > 0:
-			i -= 1
-			rcmd, rdata, _ = self.code[i]
-			if rcmd == "phys" and rdata == "<page":
-				self.code.insert(p, ("phys", ">page", {}))
-				break
-
 	def add_phys(self, data, **params): # XXX handle breaks consistently,trim space always?
-		brk = params["brk"]
-		if data == "line":
-			self.close_line(brk)
-		elif data == "page":
-			self.close_page()
-		else:
+		if data != "line":
 			assert data.startswith("=")
 			self.add_code("phys", data, **params)
 			return
+		brk = params["brk"]
+		self.close_line(brk)
 		if not brk:
 			i = len(self.code)
 			while i > 0:
@@ -136,17 +130,7 @@ class Block:
 					continue
 				self.code[i] = (rcmd, rdata, rparams)
 				break
-		self.add_code("phys", "<" + data, **params)
-		if data == "line":
-			i = len(self.code) - 1
-			while i > 0:
-				i -= 1
-				rcmd, rdata, _ = self.code[i]
-				if rcmd == "text" and not rdata.strip():
-					continue
-				if rcmd == "phys" and rdata == "<page":
-					del self.code[i + 1:-1]
-				break
+		self.add_code("phys", "<line", **params)
 
 	def add_log(self, data, **params):
 		self.add_code("log", data, **params)
@@ -192,7 +176,6 @@ class Block:
 
 	def finish(self):
 		self.close_line(True)
-		self.close_page()
 		self.finished = True
 
 	def render_common(self, buf, t, data, params):
@@ -235,14 +218,16 @@ class Block:
 						buf.append(" ")
 				elif data == ">line":
 					pass
-				elif data == "<page":
-					buf.append('<span class="dh-pb" title="New page">(\N{next page} %s)</span>' % html.escape(params["n"]))
-					buf.append(" ")
-				elif data == ">page":
-					pass
-				elif data.startswith("="):
-					unit = data[1:]
-					buf.append('<span class="dh-milestone">(%s %s)</span>' % (html.escape(unit), html.escape(params["n"])))
+				elif data == "=page":
+					buf.append('<span class="dh-pagelike" title="Page start">(\N{next page} %s)</span>' % html.escape(params["n"]))
+				elif data.startswith("=") and params["type"] == "pagelike":
+					unit = html.escape(data[1:].title())
+					n = html.escape(params["n"])
+					buf.append(f'<span class="dh-pagelike" title="{unit} start">({unit} {n})</span>')
+				elif data.startswith("=") and params["type"] == "gridlike":
+					unit = html.escape(data[1:].title())
+					n = html.escape(params["n"])
+					buf.append(f'<span class="dh-gridlike" title="{unit} start">({unit} {n})</span>')
 				else:
 					assert 0, data
 			else:
@@ -257,16 +242,17 @@ class Block:
 				if data == "<line":
 					buf.append('<p class="dh-line"><span class="dh-lb" title="Line start">(%s)</span> ' % html.escape(params["n"]))
 				elif data == ">line":
-					if not params.get("brk"):
-						buf.append('<span class="dh-hyphen-break">-</span>')
+					if not params["brk"]:
+						buf.append('<span class="dh-hyphen-break" title="Hyphen break">-</span>')
 					buf.append('</p>')
-				elif data == "<page":
-					buf.append('<div class="dh-page"><span class="dh-pb" title="Page start">\N{next page} %s</span> ' % html.escape(params["n"]))
-				elif data == ">page":
-					buf.append('</div>')
-				elif data.startswith("="):
-					unit = data[1:]
-					buf.append('<span class="dh-milestone" title="%s milestone">(%s %s)</span>' % (html.escape(params["type"].title()), html.escape(unit), html.escape(params["n"])))
+				elif data == "=page":
+					buf.append('<span class="dh-pagelike" title="Page start">(\N{next page} %s)</span> ' % html.escape(params["n"]))
+				elif data.startswith("=") and params["type"] == "pagelike":
+					unit = html.escape(data[1:].title())
+					buf.append('<span class="dh-pagelike" title="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
+				elif data.startswith("=") and params["type"] == "gridlike":
+					unit = html.escape(data[1:].title())
+					buf.append('<span class="dh-gridlike" title="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
 				else:
 					assert 0, data
 			elif t == "log":
@@ -288,6 +274,16 @@ class Section:
 
 	heading = None
 	contents = None
+
+	def __init__(self):
+		self.lines_n = set()
+
+	def empty(self):
+		if self.heading and not self.heading.empty():
+			return False
+		if self.contents and not self.contents.empty():
+			return False
+		return True
 
 class Document:
 
@@ -472,7 +468,7 @@ def milestone_n(node):
 	return n.replace("_", " ")
 
 def milestone_break(node):
-	brk = node["brk"]
+	brk = node["break"]
 	if brk not in ("yes", "no"):
 		brk = "yes"
 	return brk == "yes"
@@ -491,7 +487,12 @@ def parse_milestone(p, milestone):
 	p.add_phys("=" + unit, type=typ, n=n, brk=brk)
 
 def parse_lb(p, elem):
+	#sec = p.top_section()
 	n = milestone_n(elem)
+	# n must be unique within the enclosing <div> (which is either a @type=textpart or sth else)
+	#XXX if n in sec.lines_n:
+	#	elem.bad("@n=%r not unique within the enclosing <div>" % n)
+	#sec.lines_n.add(n)
 	brk = milestone_break(elem)
 	# On alignment, EGD §7.5.2
 	m = re.match(r"^text-align:\s*(right|center|left|justify)\s*$", elem["style"])
@@ -512,7 +513,7 @@ def parse_pb(p, elem):
 		place = fw["place"]
 	else:
 		place = ""
-	p.add_phys("page", n=n, brk=brk)
+	p.add_phys("=page", n=n, brk=brk)
 	#p.dispatch_children(fw) TODO
 
 def handle_box(p, div):

@@ -373,6 +373,7 @@ class Tag(Branch):
 	def __init__(self, name, *args, **kwargs):
 		self.name = name
 		self.attrs = collections.OrderedDict()
+		self.problems = []
 		if args:
 			assert len(args) == 1
 			assert not kwargs
@@ -405,6 +406,9 @@ class Tag(Branch):
 		self.location = None
 		self.clear()
 		return self
+
+	def bad(self, msg):
+		self.problems.append(msg)
 
 	@property
 	def path(self):

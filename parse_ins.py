@@ -17,7 +17,8 @@ def iter_sections(p, div):
 		if child.type == "tag" and child.name == "div":
 			if section:
 				section.contents = p.pop()
-				yield section
+				if not section.empty():
+					yield section
 				section = None
 			p.push_section()
 			p.dispatch(child)
@@ -29,7 +30,8 @@ def iter_sections(p, div):
 			p.dispatch(child)
 	if section:
 		section.contents = p.pop()
-		yield section
+		if not section.empty():
+			yield section
 
 def parse_body(p, body):
 	for div in body.children():
