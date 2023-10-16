@@ -2,7 +2,7 @@
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
 import os, sys, re, io, copy, html, unicodedata
-from dharma import prosody, people, tree, gaiji
+from dharma import prosody, people, tree, gaiji, config
 
 write = sys.stdout.write
 
@@ -731,7 +731,7 @@ def parse_g(p, node):
 		cat = "unclear"
 	st = node["subtype"]
 	if st:
-		t = "%s.%s" % (t, st)
+		t = st
 	info = gaiji.get(t)
 	tip = info["description"]
 	tip_toks = tip.split(None, 1)
@@ -739,8 +739,12 @@ def parse_g(p, node):
 		tip = tip_toks[0].title()
 		if len(tip_toks) > 1:
 			tip += " " + tip_toks[1]
-	p.start_span(klass="dh-symbol", tip="%s (category: %s)" % (tip, cat))
-	p.add_html(info["unicode"])
+	tip = "%s (category: %s)" % (tip, cat)
+	p.start_span(klass="dh-symbol", tip=tip)
+	if info["img"] and not info["prefer_text"]:
+		p.add_html('<img alt="%s" class="dh-svg" src="%s"/>' % (info["name"], info["img"]))
+	else:
+		p.add_html(info["text"])
 	p.end_span()
 
 # OK
