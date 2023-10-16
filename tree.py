@@ -385,7 +385,7 @@ class Tag(Branch):
 
 	def __repr__(self):
 		ret = "<%s" % self.name
-		for k, v in self.attrs.items():
+		for k, v in sorted(self.attrs.items()):
 			if isinstance(v, tuple):
 				v = "-".join(v)
 			ret += ' %s="%s"' % (k, quote_attribute(v))

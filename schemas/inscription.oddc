@@ -6194,26 +6194,41 @@ hand, or the beginning of a scribal stint.</desc><desc versionDate="2007-12-20" 
                                 <dataRef name="positiveInteger"/>
                             </datatype>
                         </attDef><attDef ident="type" mode="change">
+                            <defaultVal>unclassified</defaultVal>
                             <valList type="closed" mode="replace">
-                                <valItem ident="vacat"/>
-                                <valItem ident="defect"/>
-                                <valItem ident="binding-hole"/>
-                                <valItem ident="descender"/>
-                                <valItem ident="ascender"/>
-                                <valItem ident="feature"/>
-                                <valItem ident="unclassified"/>
+                                <valItem ident="vacat">
+                                    <desc>area that was left blank when the rest of the inscription was engraved, possibly
+                                        with the intent to be filled later on</desc>
+                                </valItem>
+                                <valItem ident="binding-hole">
+                                    <desc>if the binding hole in a copper plate affects the text of a line</desc>
+                                </valItem>
+                                <valItem ident="descender">
+                                    <desc>if a space was left blank in a line because (part of) another character hanging down
+                                        from the previous line encroaches on the current line</desc>
+                                </valItem>
+                                <valItem ident="ascender">
+                                    <desc>if a space was left blank in a line because (part of) another (pre-conceived) character
+                                        popping up from the following line encroaches on the current line</desc>
+                                </valItem>
+                                <valItem ident="defect">
+                                    <desc>if the writing skips a blemish of the surface that was not deliberately created (such as a
+                                        natural crack or pit, or a fault in the creation of the writing surface)</desc>
+                                </valItem>
+                                <valItem ident="feature">
+                                    <desc>if the writing skips a deliberately created feature (other than binding holes, ascenders
+                                        and descenders covered above) on the surface (such as engraved artwork, high relief, or a seal attached
+                                        directly to a copper plate)</desc>
+                                </valItem>
+                                <valItem ident="unclassified">
+                                    <desc>anything that does not fit the other categories</desc>
+                                </valItem>
                             </valList>
                         </attDef><attDef ident="unit" mode="change">
                             <valList type="closed" mode="replace">
                                 <valItem ident="character"/>
-                                <valItem ident="line"/>
                             </valList>
-                        </attDef><attDef ident="extent" mode="change">
-                            <defaultVal>unknown</defaultVal>
-                            <valList type="closed" mode="replace">
-                                <valItem ident="unknown"/>
-                            </valList>
-                        </attDef><attDef ident="dim" mode="delete"/><attDef ident="resp" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="transcr" ident="subst"><gloss versionDate="2007-09-02" xml:lang="en">substitution</gloss><gloss versionDate="2007-12-20" xml:lang="ko">대체</gloss><gloss versionDate="2008-04-06" xml:lang="es">substitución</gloss><gloss versionDate="2007-11-06" xml:lang="it">sostituzione</gloss><gloss versionDate="2008-10-02" xml:lang="fr"> substitution</gloss><desc versionDate="2007-09-02" xml:lang="en">groups one or more deletions with one or more additions when
+                        </attDef><attDef ident="extent" mode="delete"/><attDef ident="dim" mode="delete"/><attDef ident="resp" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="transcr" ident="subst"><gloss versionDate="2007-09-02" xml:lang="en">substitution</gloss><gloss versionDate="2007-12-20" xml:lang="ko">대체</gloss><gloss versionDate="2008-04-06" xml:lang="es">substitución</gloss><gloss versionDate="2007-11-06" xml:lang="it">sostituzione</gloss><gloss versionDate="2008-10-02" xml:lang="fr"> substitution</gloss><desc versionDate="2007-09-02" xml:lang="en">groups one or more deletions with one or more additions when
   the combination is to be regarded as a single intervention in the text.</desc><desc versionDate="2007-12-20" xml:lang="ko">결합이 텍스트에서 단일 조작으로 간주될 때 하나 이상의 삭제를 하나 이상의 추가 사항으로 대체한다.</desc><desc xml:lang="fr" versionDate="2009-11-16">regroupe une ou plusieurs parties de texte supprimées et une ou plusieurs parties de texte ajoutées, lorsque cette combinaison peut être considérée comme une intervention unique sur le texte.</desc><desc versionDate="2008-04-06" xml:lang="es">agrupa una o más cancelaciones con una o más adiciones cuando la combinación riguarda a una sola intervención en el texto.</desc><desc versionDate="2008-04-05" xml:lang="ja">追加と削除が一連の調整と考えられる場合，そのひとつ以上の追加部分や削
   除部分をまとめる．</desc><desc versionDate="2007-11-06" xml:lang="it">raggruppa ona o più cancellazioni insieme a una o più aggiunte quando la combinazione va considerata come singolo intervento sul testo</desc><classes><memberOf key="att.global"/><memberOf key="model.pPart.editorial"/><memberOf key="att.transcriptional"/><memberOf key="att.dimensions"/></classes><content><alternate minOccurs="1" maxOccurs="unbounded"><elementRef key="add"/><elementRef key="del"/><classRef key="model.milestoneLike"/></alternate></content><attList><attDef ident="ana" mode="delete"/><attDef ident="atLeast" mode="delete"/><attDef ident="atMost" mode="delete"/><attDef ident="cause" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="confidence" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="evidence" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="extent" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="instant" mode="delete"/><attDef ident="max" mode="delete"/><attDef ident="min" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="precision" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="quantity" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="scope" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="seq" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="status" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="unit" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/></attList></elementSpec><elementSpec rend="change" module="transcr" ident="supplied"><gloss versionDate="2009-11-16" xml:lang="fr">texte restitué</gloss><desc versionDate="2014-12-24" xml:lang="en">signifies text supplied by the transcriber or editor for any
   reason; for example because the original cannot be read due to

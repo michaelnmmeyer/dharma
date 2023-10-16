@@ -250,10 +250,10 @@ class Block:
 						buf.append('<span class="dh-hyphen-break" title="Hyphen break">-</span>')
 					buf.append('</p>')
 				elif data == "=page":
-					buf.append('<span class="dh-pagelike" title="Page start">(\N{next page} %s)</span> ' % html.escape(params["n"]))
+					buf.append('<h4><span class="dh-pagelike" title="Page start">(\N{next page} %s)</span></h4> ' % html.escape(params["n"]))
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
-					buf.append('<span class="dh-pagelike" title="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
+					buf.append('<h4><span class="dh-pagelike" title="%s start">(%s %s)</span></h4>' % (unit, unit, html.escape(params["n"])))
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
 					buf.append('<span class="dh-gridlike" title="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
@@ -587,11 +587,70 @@ def parse_choice(p, node):
 		# which one?
 		p.dispatch_children(node)
 
+# Explicitly allowed cases are:
+#
+#	<space/> (shorthand is '_')
+#	<space type="vacat" quantity=... unit=.../>
+#	<space type="(binding-hole|descender|ascender|defect|feature)"/>
+#
+# @type=unclassified is not mentioned in the guide but was present in the
+# schema, so we use it for now.
+# XXX remains to deal with unclassified
+
+space_types = {
+	"binding-hole": {
+		"text": "◯",
+		"tip": "binding hole",
+	},
+	"descender": {
+		"text": "⊔",
+		"tip": "space left blank in a line because (part of) another character hanging down from the previous line encroaches on the current line",
+	},
+	"ascender": {
+		"text": "⊓",
+		"tip": "space left blank in a line because (part of) another (pre-conceived) character popping up from the following line encroaches on the current line",
+	},
+	"defect": {
+		"text": "□",
+		"tip": "space; the writing skips a blemish of the surface that was not deliberately created (such as a natural crack or pit, or a fault in the creation of the writing surface)",
+	},
+	"feature": {
+		"text": "_",
+		"tip": "space; the writing skips a deliberately created feature (other than binding holes, ascenders and descenders) on the surface (such as engraved artwork, high relief, or a seal attached directly to a copper plate)",
+	},
+	"vacat": {
+		"text": "_",
+		"tip": "space; the area was left blank when the rest of the inscription was engraved, possibly with the intent to be filled later on",
+	},
+	"unclassified": {
+		"text": "_",
+		"tip": "unclassified type of space",
+	}
+}
 def parse_space(p, space):
-	p.start_span(klass="dh-space", tip="Space")
-	p.add_html("_")
+	typ = space["type"]
+	if typ not in space_types:
+		typ = "unclassified"
+	if typ == "vacat" or typ == "unclassified":
+		quant = space["quantity"]
+		if not quant.isdigit():
+			quant = "1"
+		quant = int(quant)
+		if quant < 1:
+			quant = 1
+		unit = space["unit"]
+		if unit != "character":
+			unit = "character"
+	info = space_types[typ]
+	tip = info["tip"]
+	text = info["text"]
+	klass = "dh-space"
+	if typ == "vacat" or typ == "unclassified":
+		tip = "space of about %d %s; %s" % (quant, numberize(unit, quant), tip)
+		text *= quant
+	p.start_span(klass=klass, tip=titlecase(tip))
+	p.add_html(text)
 	p.end_span()
-	assert not space.children()
 
 def parse_abbr(p, node):
 	p.start_span(klass="dh-abbr", tip="Abbreviated text")
@@ -633,6 +692,11 @@ def numberize(s, n):
 	if n == 1:
 		return s
 	return s + "s"
+
+def titlecase(s):
+	t = s.split(None, 1)
+	t[0] = t[0].title()
+	return " ".join(t)
 
 def parse_seg(p, seg):
 	if seg.first("gap"):
@@ -735,12 +799,7 @@ def parse_g(p, node):
 	if t == "symbol" and st:
 		t = st
 	info = gaiji.get(t)
-	tip = info["description"]
-	tip_toks = tip.split(None, 1)
-	if len(tip_toks) > 0:
-		tip = tip_toks[0].title()
-		if len(tip_toks) > 1:
-			tip += " " + tip_toks[1]
+	tip = titlecase(info["description"])
 	tip = "%s (category: %s)" % (tip, cat)
 	p.start_span(klass="dh-symbol", tip=tip)
 	if info["img"] and not info["prefer_text"]:
