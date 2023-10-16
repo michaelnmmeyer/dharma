@@ -80,6 +80,9 @@ class Block:
 			return False
 		return True
 
+	def __bool__(self):
+		return not self.empty()
+
 	def start_item(self):
 		if any(cmd == "text" for cmd, _, _ in self.code):
 			self.add_text(PARA_SEP)
@@ -108,7 +111,8 @@ class Block:
 				self.code.insert(p, ("phys", ">line", {"brk": brk}))
 				break
 
-	def add_phys(self, data, **params): # XXX handle breaks consistently,trim space always?
+	def add_phys(self, data, **params):
+		# XXX handle breaks consistently,trim space always?
 		if data != "line":
 			assert data.startswith("=")
 			self.add_code("phys", data, **params)
@@ -279,11 +283,7 @@ class Section:
 		self.lines_n = set()
 
 	def empty(self):
-		if self.heading and not self.heading.empty():
-			return False
-		if self.contents and not self.contents.empty():
-			return False
-		return True
+		return not self.heading and not self.contents
 
 class Document:
 
@@ -730,7 +730,7 @@ def parse_g(p, node):
 	else:
 		cat = "unclear"
 	st = node["subtype"]
-	if st:
+	if t == "symbol" and st:
 		t = st
 	info = gaiji.get(t)
 	tip = info["description"]
