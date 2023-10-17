@@ -375,11 +375,19 @@ class Parser:
 	def end_span(self):
 		return self.blocks[-1].end_span()
 
+	def split_string(self, s):
+		for chunk in re.split(r"(_)", s):
+			if chunk == "_":
+				handle_space_shorthand(self)
+			else:
+				self.add_text(chunk)
+
 	def dispatch(self, node):
 		if node.type in ("comment", "instruction"):
 			return
 		if node.type == "string":
-			return self.add_text(str(node))
+			self.split_string(str(node))
+			return
 		assert node.type == "tag"
 		f = self.handlers.get(node.name)
 		if not f:
@@ -404,7 +412,7 @@ def normalize_space(s):
 	return re.sub(r"\s+", " ", s)
 
 def parse_lem(p, lemma):
-	text = lemma.text() #XXX legit?
+	text = lemma.text() #XXX not legit
 	p.add_text(text)
 	# Ignore the apparatus for now
 
@@ -537,6 +545,8 @@ def handle_box(p, div):
 
 # >milestones
 
+# <editorial
+
 # OK
 def parse_sic(p, sic):
 	p.start_span(klass="dh-sic", tip="Incorrect text")
@@ -569,9 +579,14 @@ def parse_reg(p, reg):
 	p.add_html("⟩")
 	p.end_span()
 
+# TODO For now there is no nesting of <choice>, but it is allowed in some
+# cases. This happens within <orig> and <reg> so must deal with it when parsing
+# these tags.
 def parse_choice(p, node):
 	children = node.children()
 	if all(child.name == "unclear" for child in children):
+		# <choice>(<unclear>...</unclear>)+</choice>
+		# In this case for search just keep the text of the 1st unclear.
 		p.start_span(klass="dh-choice-unclear", tip="Unclear (several possible readings)")
 		p.add_html("(")
 		sep = ""
@@ -582,10 +597,14 @@ def parse_choice(p, node):
 		p.add_html(")")
 		p.end_span()
 	else:
-		# XXX deal with all possible cases
-		# need to choose only one possibility for search (and for simplified display)
-		# which one?
-		p.dispatch_children(node)
+		# <choice><sic>...</sic><corr>...</corr></choice>
+		# OR
+		# <choice><orig>...</orig><reg>...</reg></choice>
+		#
+		# For searching keep <corr> and <reg>, ignore the rest.
+		p.dispatch_children(node) # nothing special to do
+
+# >editorial
 
 # Valid cases are:
 #
@@ -596,6 +615,7 @@ def parse_choice(p, node):
 #	<space type="unclassified"/>
 #	<space type="unclassified" quantity=... unit="characters"/>
 #
+# OK
 space_types = {
 	"semantic": {
 		"text": "_",
@@ -627,10 +647,9 @@ space_types = {
 	},
 	"unclassified": {
 		"text": "_",
-		"tip": "significant space that does not fit the other categories",
+		"tip": "significant space that does not fit other categories",
 	}
 }
-# XXX fix schema accordingly
 def parse_space(p, space):
 	typ = space["type"]
 	if typ not in space_types:
@@ -653,11 +672,15 @@ def parse_space(p, space):
 			s = "small space (from barely noticeable to less than two average character widths in extent)"
 		else:
 			s = f"large space (about {quant} {unit}s wide)"
-		tip = "%s; %s" % (s, tip) 
+		tip = "%s; %s" % (s, tip)
 		text *= quant
 	p.start_span(klass="dh-space", tip=titlecase(tip))
 	p.add_html(text)
 	p.end_span()
+
+# for '_'
+def handle_space_shorthand(p):
+	return parse_space(p, {"type": "", "quantity": "", "unit": ""})
 
 def parse_abbr(p, node):
 	p.start_span(klass="dh-abbr", tip="Abbreviated text")
@@ -742,6 +765,7 @@ parent is not <seg>. (but a <seg type="component"> doesn't necessarily hold a
 # "component" is for character components like vowel markers, etc.; "character" is for akṣaras
 # EGD: The EpiDoc element <gap/> ff (full section 5.4)
 # EGD: "Scribal Omission without Editorial Restoration"
+# XXX use the https://erc-dharma.github.io/editorial convention except for manu
 def parse_gap(p, gap):
 	reason = gap["reason"] or "undefined" # most generic choice
 	quantity = gap["quantity"]
@@ -915,7 +939,7 @@ titleStmt =
 def parse_titleStmt(p, stmt):
 	titles = []
 	for t in stmt.find("title"):
-		text = t.text()
+		text = t.text() # XXX not legit
 		if not text:
 			continue
 		titles.append(text)
@@ -926,7 +950,7 @@ def parse_titleStmt(p, stmt):
 			p.add_text(PARA_SEP)
 	p.document.title = p.pop()
 	p.push("author")
-	author = [t.text() for t in stmt.find("author")]
+	author = [t.text() for t in stmt.find("author")] # XXX t.text() not legit
 	assert len(author) <= 1, author
 	author = author and author[0] or None
 	p.add_text(author)

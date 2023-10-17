@@ -68,8 +68,7 @@ deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
 	cp schemas/critical.rng repos/project-documentation/schema/latest/DHARMA_CritEdSchema.rng
 	cp schemas/diplomatic.rng repos/project-documentation/schema/latest/DHARMA_DiplEDSchema.rng
 	cp schemas/prosody.rng repos/project-documentation/schema/latest/DHARMA_ProsodySchema.rng
-	git -C repos/project-documentation commit -am "Schema update"
-	git -C repos/project-documentation push
+	git -C repos/project-documentation commit -am "Schema update" && git -C repos/project-documentation push
 
 .PHONY: all clean update-repos update-texts download-dbs list-texts forever image commit-all deploy-schemas
 
