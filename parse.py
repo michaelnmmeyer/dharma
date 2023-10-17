@@ -587,17 +587,20 @@ def parse_choice(p, node):
 		# which one?
 		p.dispatch_children(node)
 
-# Explicitly allowed cases are:
+# Valid cases are:
 #
-#	<space/> (shorthand is '_')
-#	<space type="vacat" quantity=... unit=.../>
+#	<space [type="semantic"]/> (shorthand is '_')
+#	<space [type="semantic"] quantity=... unit="characters"/>
+#	<space type="vacat" quantity=... unit="characters"/>
 #	<space type="(binding-hole|descender|ascender|defect|feature)"/>
+#	<space type="unclassified"/>
+#	<space type="unclassified" quantity=... unit="characters"/>
 #
-# @type=unclassified is not mentioned in the guide but was present in the
-# schema, so we use it for now.
-# XXX remains to deal with unclassified
-
 space_types = {
+	"semantic": {
+		"text": "_",
+		"tip": "semantic space",
+	},
 	"binding-hole": {
 		"text": "◯",
 		"tip": "binding hole",
@@ -620,18 +623,19 @@ space_types = {
 	},
 	"vacat": {
 		"text": "_",
-		"tip": "space; the area was left blank when the rest of the inscription was engraved, possibly with the intent to be filled later on",
+		"tip": "vacat space; the area was left blank when the rest of the inscription was engraved, possibly with the intent to be filled later on",
 	},
 	"unclassified": {
 		"text": "_",
-		"tip": "unclassified type of space",
+		"tip": "significant space that does not fit the other categories",
 	}
 }
+# XXX fix schema accordingly
 def parse_space(p, space):
 	typ = space["type"]
 	if typ not in space_types:
-		typ = "unclassified"
-	if typ == "vacat" or typ == "unclassified":
+		typ = "semantic"
+	if typ in ("semantic", "vacat", "unclassified"):
 		quant = space["quantity"]
 		if not quant.isdigit():
 			quant = "1"
@@ -644,11 +648,14 @@ def parse_space(p, space):
 	info = space_types[typ]
 	tip = info["tip"]
 	text = info["text"]
-	klass = "dh-space"
-	if typ == "vacat" or typ == "unclassified":
-		tip = "space of about %d %s; %s" % (quant, numberize(unit, quant), tip)
+	if typ in ("semantic", "vacat", "unclassified"):
+		if quant < 2:
+			s = "small space (from barely noticeable to less than two average character widths in extent)"
+		else:
+			s = f"large space (about {quant} {unit}s wide)"
+		tip = "%s; %s" % (s, tip) 
 		text *= quant
-	p.start_span(klass=klass, tip=titlecase(tip))
+	p.start_span(klass="dh-space", tip=titlecase(tip))
 	p.add_html(text)
 	p.end_span()
 

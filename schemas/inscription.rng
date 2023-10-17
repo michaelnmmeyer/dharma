@@ -5,7 +5,7 @@
          xmlns="http://relaxng.org/ns/structure/1.0"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2023-10-16T17:01:39Z. .
+Schema generated from ODD source 2023-10-17T11:05:33Z. .
 TEI Edition: Version 3.6.0. Last updated on
 	16th July 2019, revision daa3cc0b9
 TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 3.6.0/
@@ -6080,41 +6080,39 @@ Sample values include: 1] text-align: right; 2] text-align: center; 3] text-alig
                       xmlns:sch="http://purl.oclc.org/dsdl/schematron"
                       xmlns:xs="http://www.w3.org/2001/XMLSchema"
                       context="tei:space">
-               <sch:assert test="@type='binding-hole' or @type='descender' or @type='ascender' and @quantity and @unit">Space can't have @quantity and @unit attributes with
-                                    @type='binding-hole' or @type='descender' or @type='ascender',
-                                    the only @type possible is
-                                @type='defect'.</sch:assert>
+               <sch:assert test="@type='binding-hole' or @type='descender' or @type='ascender' or @type='defect' or @type='feature' and @quantity and @unit">Space can't have @quantity and @unit attributes with
+                                    @type='binding-hole|descender|ascender|defect|feature'.</sch:assert>
             </sch:rule>
          </pattern>
          <optional>
-            <attribute xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-                       name="type"
-                       a:defaultValue="unclassified">
-               <a:documentation>characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
+            <attribute name="type">
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">characterizes the element in some sense, using any convenient classification scheme or typology.</a:documentation>
                <choice>
                   <value>vacat</value>
-                  <a:documentation>area that was left blank when the rest of the inscription was engraved, possibly with the intent to be filled later on</a:documentation>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">area that was left blank when the rest of the inscription was engraved, possibly with the intent to be filled later on</a:documentation>
                   <value>binding-hole</value>
-                  <a:documentation>if the binding hole in a copper plate affects the text of a line</a:documentation>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">if the binding hole in a copper plate affects the text of a line</a:documentation>
                   <value>descender</value>
-                  <a:documentation>if a space was left blank in a line because (part of) another character hanging down from the previous line encroaches on the current line</a:documentation>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">if a space was left blank in a line because (part of) another character hanging down from the previous line encroaches on the current line</a:documentation>
                   <value>ascender</value>
-                  <a:documentation>if a space was left blank in a line because (part of) another (pre-conceived) character popping up from the following line encroaches on the current line</a:documentation>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">if a space was left blank in a line because (part of) another (pre-conceived) character popping up from the following line encroaches on the current line</a:documentation>
                   <value>defect</value>
-                  <a:documentation>if the writing skips a blemish of the surface that was not deliberately created (such as a natural crack or pit, or a fault in the creation of the writing surface)</a:documentation>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">if the writing skips a blemish of the surface that was not deliberately created (such as a natural crack or pit, or a fault in the creation of the writing surface)</a:documentation>
                   <value>feature</value>
-                  <a:documentation>if the writing skips a deliberately created feature (other than binding holes, ascenders and descenders covered above) on the surface (such as engraved artwork, high relief, or a seal attached directly to a copper plate)</a:documentation>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">if the writing skips a deliberately created feature (other than binding holes, ascenders and descenders covered above) on the surface (such as engraved artwork, high relief, or a seal attached directly to a copper plate)</a:documentation>
                   <value>unclassified</value>
-                  <a:documentation>anything that does not fit the other categories</a:documentation>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">significant space that does not fit the other categories</a:documentation>
                </choice>
             </attribute>
          </optional>
          <optional>
-            <attribute name="unit">
-               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">names the unit used for the measurement</a:documentation>
+            <attribute xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+                       name="unit"
+                       a:defaultValue="character">
+               <a:documentation>names the unit used for the measurement</a:documentation>
                <choice>
                   <value>character</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+                  <a:documentation/>
                </choice>
             </attribute>
          </optional>

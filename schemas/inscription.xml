@@ -1043,11 +1043,9 @@
                                     test="@quantity and not(@unit)">If space has @quantity then
                                     @unit is required</sch:report></sch:rule><sch:rule
                                 context="tei:space"><sch:assert
-                                    test="@type='binding-hole' or @type='descender' or @type='ascender' and @quantity and @unit"
+                                    test="@type='binding-hole' or @type='descender' or @type='ascender' or @type='defect' or @type='feature' and @quantity and @unit"
                                     >Space can't have @quantity and @unit attributes with
-                                    @type='binding-hole' or @type='descender' or @type='ascender',
-                                    the only @type possible is
-                                @type='defect'.</sch:assert></sch:rule></constraint>
+                                    @type='binding-hole|descender|ascender|defect|feature'.</sch:assert></sch:rule></constraint>
                     </constraintSpec>
                     <attList>
                         <attDef ident="ana" mode="delete"/>
@@ -1087,7 +1085,6 @@
                             </datatype>
                         </attDef>
                         <attDef ident="type" mode="change">
-                            <defaultVal>unclassified</defaultVal>
                             <valList type="closed" mode="replace">
                                 <valItem ident="vacat">
                                     <desc>area that was left blank when the rest of the inscription was engraved, possibly
@@ -1114,11 +1111,12 @@
                                         directly to a copper plate)</desc>
                                 </valItem>
                                 <valItem ident="unclassified">
-                                    <desc>anything that does not fit the other categories</desc>
+                                    <desc>significant space that does not fit the other categories</desc>
                                 </valItem>
                             </valList>
                         </attDef>
                         <attDef ident="unit" mode="change">
+                            <defaultVal>character</defaultVal>
                             <valList type="closed" mode="replace">
                                 <valItem ident="character"/>
                             </valList>
