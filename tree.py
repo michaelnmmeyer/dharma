@@ -24,7 +24,7 @@ from xml.etree import ElementTree
 try:
 	from xml.sax.handler import LexicalHandler
 except ImportError:
-	# Older python
+	# Older python < 3.11
 	class LexicalHandler:
 		startCDATA = None
 		endCDATA = None
@@ -83,6 +83,16 @@ class Node(object):
 	tree = None # tree this node belongs to
 	location = None # (start_offset, end_offset) in the source file
 	parent = None
+
+	def __hash__(self):
+		return id(self)
+
+	@property
+	def source(self):
+		if not self.location or not self.tree:
+			return
+		start, end = self.location
+		return self.tree.source[start:end].decode()
 
 	@property
 	def next(self):
@@ -154,9 +164,6 @@ class Instruction(Node, dict):
 
 	def __repr__(self):
 		return str(self)
-
-	def __hash__(self):
-		return id(self)
 
 	def xml(self, **kwargs):
 		return "<?%s %s?>\n" % (self.target, self.data)
@@ -233,9 +240,6 @@ class Comment(String):
 
 class Branch(Node, list):
 
-	def __hash__(self):
-		return id(self)
-
 	def __bool__(self):
 		return True
 
@@ -245,6 +249,7 @@ class Branch(Node, list):
 				return True
 		return False
 
+	# merge adjacent string nodes
 	def coalesce(self):
 		i = 1
 		while i < len(self):
@@ -327,7 +332,9 @@ class Branch(Node, list):
 			if end < 0:
 				end = len(path)
 			name = path[:end]
-			if name == "..":
+			if name == ".":
+				pass
+			elif name == "..":
 				roots = unique(root.parent for root in roots if root.parent is not None)
 			else:
 				roots = [node for root in roots for node in root.children(name)]
@@ -419,8 +426,8 @@ class Tag(Branch):
 			node = node.parent
 			if not node:
 				break
-		ret = "/".join(reversed(buf))
-		return "/" + ret
+		buf.reverse()
+		return "/" + "/".join(buf)
 
 	def __getitem__(self, key):
 		if isinstance(key, int):
@@ -443,6 +450,7 @@ class Tag(Branch):
 			assert isinstance(value, list) or isinstance(value, tuple)
 			assert 1 <= len(value) <= 2
 			value = value[0]
+		# always normalize space
 		self.attrs[key] = " ".join(value.strip().split())
 
 	def xml(self, **kwargs):
@@ -473,7 +481,8 @@ class Tree(Branch):
 	type = "tree"
 	path = None	# path of the XML file (if a file)
 	root = None	# might be None
-	source = None	# original, unaltered XML source
+	# XML source, in bytes, encoded as UTF-8
+	source = None
 
 	def __init__(self):
 		self.tree = self
@@ -502,9 +511,13 @@ class Tree(Branch):
 			raise Exception("attempt to delete the tree's root")
 		NodeList.remove(self, node)
 
+	replace_with = None
+	next = None
+	prev = None
+
 class Parser:
 
-	def __init__(self, file, keep_namespaces):
+	def __init__(self, source, path=None, keep_namespaces=False):
 		self.keep_namespaces = keep_namespaces
 		self.parser = expat.ParserCreate()
 		self.parser.ordered_attributes = 1
@@ -517,19 +530,12 @@ class Parser:
 			setattr(self.parser, attr, val)
 		self.tree = Tree()
 		self.stack = [self.tree]
-		if isinstance(file, str):
-			self.tree.path = os.path.abspath(file)
-			with open(file, "rb") as r:
-				self.tree.source = r.read()
-		else:
-			# file-like
-			if hasattr(file, "name"):
-				self.tree.path = os.path.abspath(file.name)
-			self.tree.source = file.read()
-		if isinstance(self.tree.source, str):
-			self.tree.source = self.tree.source.encode()
-		if self.tree.source.startswith(b'\xef\xbb\xbf'):
-			self.tree.source = self.tree.source[3:]
+		if isinstance(source, str):
+			source = source.encode()
+		if source.startswith(b'\xef\xbb\xbf'):
+			source = source[3:]
+		self.tree.source = source
+		self.tree.path = path
 		self.tree.location = (1, 0)
 		self.last_node = None
 
@@ -639,38 +645,105 @@ class Parser:
 	def ExternalEntityRefHandler(self, context, base, systemId, publicId):
 		raise Exception
 
-def parse(file, keep_namespaces=False):
-	parser = Parser(file, keep_namespaces)
-	return parser.parse()
+def parse_string(source, **kwargs):
+	return Parser(source, **kwargs).parse()
+
+def parse(file, **kwargs):
+	if isinstance(file, str):
+		with open(file, "rb") as f:
+			source = f.read()
+		if not kwargs.get("path"):
+			kwargs["path"] = os.path.abspath(file)
+	else:
+		# assume file-like
+		source = file.read()
+		if not kwargs.get("path") and file is not sys.stdin and hasattr(file, "name"):
+			kwargs["path"] = os.path.abspath(file.name)
+	return parse_string(source, **kwargs)
+
+def term_color(code=None):
+	if not code:
+		return "\N{ESC}[0m"
+	code = code.lstrip("#")
+	assert len(code) == 6
+	R = int(code[0:2], 16)
+	G = int(code[2:4], 16)
+	B = int(code[4:6], 16)
+	return f"\N{ESC}[38;2;{R};{G};{B}m"
+
+colors = {
+	"instruction": "#aa5500",
+	"comment": "#3b9511",
+	"tag": "#0055ff",
+	"attr-name": "#5500ff",
+	"attr-value": "#5500ff",
+}
 
 class Formatter:
 
 	indent_string = 2 * " "
 	max_width = 80 ** 10 # soft, not hard
 
-	def __init__(self, html=True):
+	def __init__(self, html=True, pretty=True, strip_comments=True, color=False):
 		self.indent = 0
 		self.offset = 0
 		self.buf = io.StringIO()
 		self.html = html
+		self.pretty = pretty
+		self.strip_comments = strip_comments
+		self.color = color
 
 	def format(self, node):
-		if node.type == "tag":
+		if node.type == "tree":
+			return self.format_tree(node)
+		elif node.type == "tag":
 			return self.format_tag(node)
 		elif node.type == "string":
 			return self.format_string(node)
 		elif node.type == "comment":
-			pass
+			return self.format_comment(node)
 		elif node.type == "instruction":
 			return self.format_instruction(node)
 		else:
 			assert 0
 
-	def format_instruction(self, node):
-		self.write("<?%s %s?>\n" % (node.target, node.data), klass="instruction")
+	def format_tree(self, node):
+		self.write('<?xml version="1.0" encoding="UTF-8"?>', klass="instruction")
+		self.write("\n")
+		for child in node:
+			self.format(child)
 
-	def format_string(self, node, newline=True):
-		text = re.sub(r"\s+", " ", node.data.strip())
+	def format_instruction(self, node):
+		self.write("<?%s %s?>" % (node.target, node.data), klass="instruction")
+		if self.pretty:
+			self.write("\n")
+
+	def format_comment(self, node):
+		node = str(node)
+		if self.strip_comments:
+			return
+		if self.pretty:
+			self.write("<!-- %s -->" % node, klass="comment")
+			return
+		self.write("<!-- ", klass="comment")
+		if self.pretty:
+			lines = node.splitlines()
+			if len(lines) == 1:
+				self.write(line[0])
+			else:
+				for line in lines:
+					self.write(line, klass="comment")
+					self.write("\n")
+		else:
+			self.write(node)
+		self.write(" -->", klass="comment")
+
+	def format_string(self, node):
+		node = str(node)
+		if not self.pretty:
+			self.write(quote_string(node))
+			return
+		text = re.sub(r"\s+", " ", node.strip())
 		if not text:
 			return
 		for i, token in enumerate(text.split()):
@@ -681,10 +754,12 @@ class Formatter:
 			self.write(quote_string(token))
 
 	def format_tag(self, node):
-		self.write("<")
+		self.write("<", klass="tag")
 		self.write("%s" % node.name, klass="tag")
-		# for now, don't sort attrs
-		for k, v in sorted(node.attrs.items()):
+		attrs = node.attrs.items()
+		if pretty:
+			attrs = sorted(attrs)
+		for k, v in attrs:
 			if isinstance(v, tuple):
 				v = "-".join(v)
 			self.write(" ")
@@ -692,22 +767,28 @@ class Formatter:
 			self.write("=")
 			self.write('"%s"' % quote_attribute(v), klass="attr-value")
 		if len(node) == 0:
-			self.write("/>")
+			self.write("/>", klass="tag")
 		else:
-			self.write(">")
+			self.write(">", klass="tag")
 			brk = False
-			if node[0].type == "string" and len(node[0].data) > 0 and node[0].data[0].isspace():
-				self.write("\n")
-				brk = True
-			if brk:
-				self.indent += 1
-			for child in node:
-				self.format(child)
-			if brk:
-				self.indent -= 1
-			self.write("</")
+			if self.pretty:
+				if node[0].type == "string" and len(node[0].data) > 0 and node[0].data[0].isspace():
+					self.write("\n")
+					brk = True
+				if brk:
+					self.indent += 1
+				for child in node:
+					self.format(child)
+				if brk:
+					self.indent -= 1
+			else:
+				for child in node:
+					self.format(child)
+			self.write("</", klass="tag")
 			self.write("%s" % node.name, klass="tag")
-			self.write(">")
+			self.write(">", klass="tag")
+		if not self.pretty:
+			return
 		if node.parent:
 			i = node.parent.index(node) + 1
 			if i >= len(node.parent):
@@ -718,29 +799,34 @@ class Formatter:
 		self.write("\n")
 
 	def write(self, text, klass=None):
-		if self.html and klass:
-			self.buf.write('<span class="dh-%s">' % klass)
-		while text:
-			end = text.find("\n")
-			if end < 0:
-				line = text
-			else:
-				line = text[:end]
-			if self.offset == 0:
-				self.buf.write(self.indent_string * max(0, self.indent))
-				self.offset += len(self.indent_string) * max(0, self.indent)
+		if klass:
 			if self.html:
-				self.buf.write(quote_string(line))
+				self.buf.write('<span class="dh-%s">' % klass)
+			elif self.color:
+				self.buf.write(term_color(colors[klass]))
+		if self.pretty:
+			assert text == "\n" or not "\n" in text
+			if text == "\n":
+				self.buf.write("\n")
+				self.offset = 0
 			else:
-				self.buf.write(line)
-			self.offset += len(line)
-			if end < 0:
-				break
-			text = text[end + 1:]
-			self.buf.write("\n")
-			self.offset = 0
-		if self.html and klass:
-			self.buf.write('</span>')
+				if self.offset == 0:
+					self.buf.write(self.indent_string * max(0, self.indent))
+					self.offset += len(self.indent_string) * max(0, self.indent)
+				if self.html:
+					self.buf.write(quote_string(text))
+				else:
+					self.buf.write(text)
+				self.offset += len(text)
+		else:
+			if self.html:
+				text = quote_string(text)
+			self.buf.write(text)
+		if klass:
+			if self.html:
+				self.buf.write("</span>")
+			elif self.color:
+				self.buf.write(term_color())
 
 	def text(self):
 		return self.buf.getvalue()
@@ -767,7 +853,9 @@ if __name__ == "__main__":
 		exit()
 	try:
 		tree = parse(sys.argv[1])
-		print_node(tree)
+		fmt = Formatter(pretty=True, html=False, color=True)
+		fmt.format(tree)
+		sys.stdout.write(fmt.text())
 	except (BrokenPipeError, KeyboardInterrupt):
 		pass
 	except Error as err:
