@@ -73,7 +73,7 @@ def show_texts():
 				join commits on texts.repo = commits.repo
 				join people_github on owners.git_name = people_github.git_name
 			where dh_id = ? and not valid
-			order by texts.name""", (owner,)).fetchall() # BUG
+			order by texts.name""", (owner,)).fetchall()
 	else:
 		rows = conn.execute("""
 			select name, repo, commit_hash,

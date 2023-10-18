@@ -1780,12 +1780,6 @@
                             </sequence>
                         </alternate>
                     </content>
-                    <constraintSpec scheme="schematron" ident="unclear-limit">
-                        <constraint><sch:rule context="tei:choice"><sch:report
-                                    test="child::tei:unclear and count(child::tei:unclear) &gt; 3"
-                                    >Choice can contain 3 unclear
-                                    elements at most</sch:report></sch:rule></constraint>
-                    </constraintSpec>
                     <attList>
                         <attDef ident="ana" mode="delete"/>
                         <attDef ident="cert" mode="delete"/>
@@ -6677,6 +6671,10 @@
                 <elementSpec ident="variantEncoding" mode="delete"/>
                 <elementSpec ident="tagsDecl" mode="delete"/>
                 <elementSpec ident="stage" mode="delete"/>
+                <elementSpec ident="objectType" mode="delete"/>
+                <elementSpec ident="material" mode="delete"/>
+                <elementSpec ident="origin" mode="delete"/>
+                <elementSpec ident="provenance" mode="delete"/>
             </schemaSpec>
         </body>
     </text>

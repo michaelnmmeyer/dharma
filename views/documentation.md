@@ -99,8 +99,24 @@ Everything is ignored, except `./msDesc/physDesc/handDesc`.
 
 ## `/TEI/teiHeader/revisionDesc`
 
-Everything under here is ignored. It is pointless to fill it, since the revision history
-is tracked by git and could be pulled from it, if needed.
+Everything under here is ignored. It is not necessary to fill it, since the
+revision history is tracked by git and could be pulled from it, if needed.
+
+## `//choice`
+
+When a `<choice>` element contains several `<unclear>` elements, the first one
+is deemed to be the most likely. Only this reading will be made searchable.
+Thus for instance, if you have:
+
+	X<choice>
+		<unclear>A</unclear>
+		<unclear>B</unclear>
+		<unclear>C</unclear>
+	</choice>Y
+
+... the reading XAY will be made searchable, but not XBY nor XCY. For this
+reason, you want to give the most probable reading first.
+
 
 
 

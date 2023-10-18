@@ -97,7 +97,19 @@ id="teiteiheaderfiledescsourcedesc"><code>/TEI/teiHeader/fileDesc/sourceDesc</co
 <code>./msDesc/physDesc/handDesc</code>.</p>
 <h2
 id="teiteiheaderrevisiondesc"><code>/TEI/teiHeader/revisionDesc</code></h2>
-<p>Everything under here is ignored. It is pointless to fill it, since
-the revision history is tracked by git and could be pulled from it, if
-needed.</p>
+<p>Everything under here is ignored. It is not necessary to fill it,
+since the revision history is tracked by git and could be pulled from
+it, if needed.</p>
+<h2 id="choice"><code>//choice</code></h2>
+<p>When a <code>&lt;choice&gt;</code> element contains several
+<code>&lt;unclear&gt;</code> elements, the first one is deemed to be the
+most likely. Only this reading will be made searchable. Thus for
+instance, if you have:</p>
+<pre><code>X&lt;choice&gt;
+    &lt;unclear&gt;A&lt;/unclear&gt;
+    &lt;unclear&gt;B&lt;/unclear&gt;
+    &lt;unclear&gt;C&lt;/unclear&gt;
+&lt;/choice&gt;Y</code></pre>
+<p>… the reading XAY will be made searchable, but not XBY nor XCY. For
+this reason, you want to give the most probable reading first.</p>
 </div>

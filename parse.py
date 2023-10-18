@@ -466,7 +466,6 @@ def parse_foreign(p, foreign):
 	p.dispatch_children(foreign)
 	p.add_html("</i>")
 
-
 # <milestones
 
 def milestone_n(node):
