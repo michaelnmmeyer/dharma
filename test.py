@@ -14,7 +14,12 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in inscriptions:
 	xml = tree.parse(file)
-	for p in xml.find("//choice"):
+	for p in xml.find("//div"):
+		if p["type"] == "edition":
+			for tag in [p.prev, p.next]:
+				if tag and tag.type == "tag" and tag.name != "div":
+					print(file, tag.name)
+
 
 		#print(file,p.path)
 		#print(p["n"])
@@ -23,9 +28,7 @@ for file in inscriptions:
 		#print(p.text())
 		#if p.children():print(file,p.xml())
 		#print(p["type"])
-		x = " ".join(t.name for t in p.children())
-		if x == "orig corr":
-			print(p.xml())
+		#x = " ".join(t.name for t in p.children())
 		#print(" ".join(t for t in sorted(p.attrs)))
 
 

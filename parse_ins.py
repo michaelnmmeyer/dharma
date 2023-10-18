@@ -11,27 +11,24 @@ def parse_div(p, div):
 		return parse.handle_box(p, div)
 	print("? %s", div)
 
-def iter_sections(p, div):
-	section = None
+def gather_sections(p, div):
+	p.push(div["type"])
+	within_section = False
 	for child in div:
 		if child.type == "tag" and child.name == "div":
-			if section:
-				section.contents = p.pop()
-				if not section.empty():
-					yield section
-				section = None
-			p.push_section()
+			if within_section:
+				p.add_log(">div")
+			p.add_log("<div")
+			within_section = True
 			p.dispatch(child)
-			yield p.pop_section()
 		elif child.type not in ("comment", "instruction"):
-			if not section:
-				section = parse.Section()
-				p.push("contents")
+			if not within_section:
+				p.add_log("<div")
+				within_section = True
 			p.dispatch(child)
-	if section:
-		section.contents = p.pop()
-		if not section.empty():
-			yield section
+	if within_section:
+		p.add_log(">div")
+	return p.pop()
 
 def parse_body(p, body):
 	for div in body.children():
@@ -40,12 +37,12 @@ def parse_body(p, body):
 			print("? %s" % div)
 			continue
 		if type == "edition":
-			p.document.edition = list(iter_sections(p, div))
+			p.document.edition = gather_sections(p, div)
 		elif type == "translation":
-			trans = list(iter_sections(p, div))
+			trans = gather_sections(p, div)
 			p.document.translation.append(trans)
 		elif type == "commentary":
-			p.document.commentary = list(iter_sections(p, div))
+			p.document.commentary = gather_sections(p, div)
 		else:
 			assert 0
 
@@ -70,28 +67,15 @@ def process_file(path):
 	t.first("//publicationStmt").delete()
 	p = parse.Parser(t, HANDLERS)
 	p.dispatch(p.tree.root)
-	for section in p.document.edition:
-		if section.heading:
-			for rec in section.heading.code:
-				cmd, data, args = rec
-				parse.write_debug(cmd, data, **args)
-		print("-------")
-		continue
-		for rec in section.contents.code:
-			cmd, data, args = rec
-			parse.write_debug(cmd, data, **args)
-		print("-------")
-	"""
-	for translation in p.document.translation:
-		for section in translation:
-			for rec in section.contents.code:
-				cmd, data, args = rec
-				parse.write_debug(cmd, data, **args)
-			print("-------")
-	"""
+	for rec in p.document.edition.code:
+		cmd, data, args = rec
+		parse.write_debug(cmd, data, **args)
 	p.document.xml = tree.html_format(t.first("//body"))
 	return p.document
 
 if __name__ == "__main__":
-	for file in sys.argv[1:]:
-		process_file(file)
+	try:
+		for file in sys.argv[1:]:
+			process_file(file)
+	except (KeyboardInterrupt, BrokenPipeError):
+		pass

@@ -42,7 +42,10 @@ def write_debug(t, data, **params):
 		assert 0, t
 	write("%-04s" % t)
 	if data:
-		write(" %r" % data)
+		if t in ("text", "html"):
+			write(" %r" % data)
+		else:
+			write(" %s" % data)
 	if params:
 		for k, v in sorted(params.items()):
 			write(" :%s %r" % (k, v))
@@ -102,6 +105,9 @@ class Block:
 		while i > 0:
 			i -= 1
 			rcmd, rdata, rparams = self.code[i]
+			if rcmd == "log" and rdata == ">div":
+				p = i
+				continue
 			if rcmd != "phys":
 				continue
 			if rdata == "=page":
@@ -205,7 +211,15 @@ class Block:
 		buf = []
 		for t, data, params in self.code:
 			if t == "log":
-				if data == "<para" or data == "<line":
+				if data == "<div":
+					buf.append('<div class="dh-ed-section">')
+				elif data == ">div":
+					buf.append('</div>')
+				elif data == "<head":
+					buf.append('<h4 class="dh-ed-heading">')
+				elif data == ">head":
+					buf.append('</h4>')
+				elif data == "<para" or data == "<line":
 					buf.append("<p>")
 				elif data == ">para" or data == ">line":
 					buf.append("</p>")
@@ -260,7 +274,14 @@ class Block:
 				else:
 					assert 0, data
 			elif t == "log":
-				pass
+				if data == "<div":
+					buf.append('<div class="dh-ed-section">')
+				elif data == ">div":
+					buf.append('</div>')
+				elif data == "<head":
+					buf.append('<h4 class="dh-ed-heading">')
+				elif data == ">head":
+					buf.append('</h4>')
 			else:
 				self.render_common(buf, t, data, params)
 		return "".join(buf)
@@ -273,17 +294,6 @@ class Block:
 				continue
 			buf.append(data)
 		return normalize("".join(buf))
-
-class Section:
-
-	heading = None
-	contents = None
-
-	def __init__(self):
-		self.lines_n = set()
-
-	def empty(self):
-		return not self.heading and not self.contents
 
 class Document:
 
@@ -306,9 +316,7 @@ class Document:
 
 	def __init__(self):
 		self.langs = []
-		self.edition = []
 		self.translation = []
-		self.commentary = []
 
 class Parser:
 
@@ -323,7 +331,6 @@ class Parser:
 		self.document = Document()
 		self.document.ident = os.path.basename(os.path.splitext(tree.path)[0])
 		self.blocks = [Block()]
-		self.sections = []
 		self.handlers = handlers
 
 	@property
@@ -339,17 +346,6 @@ class Parser:
 		b = self.blocks.pop()
 		b.finish()
 		return b
-
-	def push_section(self):
-		section = Section()
-		self.sections.append(section)
-		return section
-
-	def pop_section(self):
-		return self.sections.pop()
-
-	def top_section(self):
-		return self.sections[-1]
 
 	def add_text(self, text):
 		return self.blocks[-1].add_text(text)
@@ -526,21 +522,18 @@ def parse_pb(p, elem):
 def handle_box(p, div):
 	assert div["type"] == "textpart"
 	n = milestone_n(div)
-	section = p.top_section()
 	children = div.children()
 	i = 0
 	# <head> can only occur in this context in inscriptions
 	if children and children[0].name == "head":
-		p.push("heading")
+		p.add_log("<head")
 		p.dispatch_children(children[0])
 		p.add_text(" ")
 		p.add_text(n)
-		section.heading = p.pop()
+		p.add_log(">head")
 		i += 1
-	p.push("contents")
 	for child in children[i:]:
 		p.dispatch(child)
-	section.contents = p.pop()
 
 # >milestones
 
