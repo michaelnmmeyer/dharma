@@ -19,4 +19,5 @@ for db in $dbs_dir/*.sqlite; do
 done
 archive=dharma_$(date -uIseconds).tar.gz
 tar --force-local -C $tmp_dir -czvf $tmp_dir/$archive dbs
-scp $tmp_dir/$archive gamma:dharma
+mkdir ~/backups || true
+mv $tmp_dir/$archive ~/backups

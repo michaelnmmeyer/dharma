@@ -19,14 +19,14 @@ update-repos:
 update-texts: update-repos
 	mkdir texts || true
 	rm -f texts/*
-	rsync --progress 'beta:dharma/dbs/texts.sqlite*' dbs/
+	rsync --progress 'dharma:dharma/dbs/texts.sqlite*' dbs/
 	sqlite3 dbs/texts.sqlite "select printf('../repos/%s/%s', repo, xml_path) \
 		from texts" | while read f; do \
 		ln -s $$f texts/$$(basename $$f); \
 	done
 
 download-dbs:
-	rsync --progress 'beta:dharma/dbs/*.sqlite*' dbs/
+	rsync --progress 'dharma:dharma/dbs/*.sqlite*' dbs/
 
 list-texts:
 	@sqlite3 dbs/texts.sqlite "select printf('repos/%s/%s', repo, path) \
