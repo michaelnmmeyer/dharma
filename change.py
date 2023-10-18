@@ -191,7 +191,7 @@ def handle_changes(name):
 	conn.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
 	conn.execute("commit")
 	if name == "tfd-nusantara-philology":
-		command("bash", "-x", os.path.join(config.THIS_DIR, "backup_to_jawakuno.sh"), capture_output=False, shell=True)
+		command("bash -x %s" % os.path.join(config.THIS_DIR, "backup_to_jawakuno.sh"), capture_output=False, shell=True)
 
 def clone_all():
 	for name in REPOS:
