@@ -1,6 +1,6 @@
 import os, sys, sqlite3, time, requests
 
-dicts = "crea fabricius kadirvelu mcalpin tamil-idioms tamil-lex winslow".split()
+dicts = "fabricius kadirvelu mcalpin tamil-idioms tamil-lex winslow".split()
 
 db = sqlite3.connect("tamil.sqlite")
 db.executescript("""
@@ -27,14 +27,16 @@ def download_dict(name):
 		r.raise_for_status()
 		r.encoding = "UTF-8"
 		# Can't rely on the "Next page" links, they are a mess.
-		if "Please click to next page for content" in r.text:
-			break
 		db.execute("insert into raw_pages(url, when_downloaded, data) values(?, strftime('%s', 'now'), ?)",
 			(url, r.text))
 		if page % 50 == 0:
 			db.commit()
-		time.sleep(2)
+		if not "Next Page" in r.text:
+			break
+		time.sleep(5)
 	db.commit()
 
 for name in dicts:
+	if name == "crea": # broken next page links, see with Manu
+		continue
 	download_dict(name)
