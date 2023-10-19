@@ -297,6 +297,8 @@ class Block:
 
 class Document:
 
+	tree = None # tree.Tree
+
 	repository = ""
 	ident = ""
 	title = None
@@ -332,6 +334,7 @@ class Parser:
 		self.document.ident = os.path.basename(os.path.splitext(tree.path)[0])
 		self.blocks = [Block()]
 		self.handlers = handlers
+		self.divs = []
 
 	@property
 	def top(self):
@@ -346,6 +349,26 @@ class Parser:
 		b = self.blocks.pop()
 		b.finish()
 		return b
+
+	@property
+	def within_div(self):
+		return len(self.divs) > 1
+
+	def add_n(self, n):
+		if n != "?" and n in self.divs[-1]:
+			return False
+		self.divs[-1].add(n)
+		return True
+
+	def start_div(self, n="?"):
+		# we could duplicate <div in log and phys, for commodity
+		self.add_log("<div", n=n)
+		self.divs.append(set())
+
+	def end_div(self):
+		assert self.within_div
+		self.divs.pop()
+		self.add_log(">div")
 
 	def add_text(self, text):
 		return self.blocks[-1].add_text(text)
@@ -399,7 +422,7 @@ class Parser:
 			self.dispatch(child)
 
 	def complain(self, msg):
-		print("? %s" % msg)
+		#print("? %s" % msg)
 		pass
 
 # Like the eponymous function in xslt
@@ -464,11 +487,14 @@ def parse_foreign(p, foreign):
 
 # <milestones
 
-def milestone_n(node):
+def milestone_n(p, node):
 	n = node["n"]
 	if not n:
 		n = "?"
-	return n.replace("_", " ")
+	n = n.replace("_", " ")
+	if not p.add_n(n):
+		node.bad("@n is not unique")
+	return n
 
 def milestone_break(node):
 	brk = node["break"]
@@ -479,7 +505,7 @@ def milestone_break(node):
 milestone_units = "block column face faces fragment item segment zone".split()
 
 def parse_milestone(p, milestone):
-	n = milestone_n(milestone)
+	n = milestone_n(p, milestone)
 	brk = milestone_break(milestone)
 	unit = milestone["unit"]
 	if unit not in milestone_units:
@@ -490,12 +516,7 @@ def parse_milestone(p, milestone):
 	p.add_phys("=" + unit, type=typ, n=n, brk=brk)
 
 def parse_lb(p, elem):
-	#sec = p.top_section()
-	n = milestone_n(elem)
-	# n must be unique within the enclosing <div> (which is either a @type=textpart or sth else)
-	#XXX if n in sec.lines_n:
-	#	elem.bad("@n=%r not unique within the enclosing <div>" % n)
-	#sec.lines_n.add(n)
+	n = milestone_n(p, elem)
 	brk = milestone_break(elem)
 	# On alignment, EGD §7.5.2
 	m = re.match(r"^text-align:\s*(right|center|left|justify)\s*$", elem["style"])
@@ -509,7 +530,7 @@ def parse_fw(p, fw):
 	pass # we deal with it within <pb>
 
 def parse_pb(p, elem):
-	n = milestone_n(elem)
+	n = milestone_n(p, elem)
 	brk = milestone_break(elem)
 	fw = elem.next
 	if fw and fw.name == "fw":

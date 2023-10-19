@@ -13,20 +13,6 @@
 # fragment of rng schemas that validate just partic. cases to check, so we can
 # check stuff like parent/descendants/etc. without rewriting the whole schema.
 
-
-"""
-The following should be ignored when inferring the rng schema:
-
-texts/DHARMA_CritEdJatiMula.xml
-texts/DHARMA_INSIDENKKurungan.xml
-texts/DHARMA_INSIDENKMunggut.xml
-texts/DHARMA_INSIDENKTajiGunung.xml
-texts/DHARMA_INSSII04.xml
-texts/DHARMA_INSSII01.xml
-texts/DHARMA_INSSII02.xml
-texts/DHARMA_INSSII03.xml
-"""
-
 # We have 4 schemas for 4 types of texts:
 # * Inscriptions (INSSchema -> latest/Schema)
 #   Is it actually only for inscriptions, or also more generic stuff?
@@ -56,8 +42,7 @@ texts/DHARMA_INSSII03.xml
 
 import os, sys, re, subprocess
 from glob import glob
-from dharma import config, texts
-from dharma.tree import parse, Error
+from dharma import config, texts, tree, parse_ins
 
 def schema_from_filename(file):
 	base = os.path.basename(file)
@@ -70,39 +55,6 @@ def schema_from_filename(file):
 	else:
 		schema = None
 	return schema
-
-def schema_from_contents(file):
-	tree = parse(file)
-	ret = set()
-	for node in tree:
-		if node.type != "instruction":
-			continue
-		if node.target != "xml-model":
-			continue
-		schema = node["href"]
-		if not schema:
-			continue
-		_, ext = os.path.splitext(schema)
-		if ext != ".rng":
-			continue
-		if not "erc-dharma" in schema:
-			continue
-		schema = schema_from_filename(os.path.basename(schema))
-		ret.add(schema)
-	assert len(ret) <= 1, "several schemas for %r" % file
-	if ret:
-		return ret.pop()
-
-# To test the DHARMA schemas, we must first figure out (from the files
-# themselves?) which schema we should use.
-def schema_for_file(file):
-	print("determining schema of %r" % file)
-	one = schema_from_filename(file)
-	#two = schema_from_contents(file) # XXX too long to compute
-	two = None
-	if one and two:
-		assert one == two, "several schemas for file %r" % file
-	return one or two
 
 def utf16_units_to_codepoints(s, n16):
 	i16, i = 0, 0
@@ -140,14 +92,22 @@ def validate_against(schema, files):
 		new_errors[path] = new_errs
 	return new_errors
 
+def validate_extra(file):
+	if schema_from_filename(file) != "inscription":
+		return
+	doc = parse_ins.process_file(file)
+	errs = sorted(doc.tree.bad_nodes, key=lambda node: node.location)
+	for node in errs:
+		print(node, node.problems)
+
 def validate(files):
 	schemas = {}
 	files = sorted(files)
 	for file in files:
 		try:
-			schema = schema_for_file(file)
-		except Error:
-			schema = None # XXX what to report?
+			schema = schema_from_filename(file)
+		except tree.Error:
+			pass # will deal with this later on
 		if schema:
 			schemas.setdefault(schema, set()).add(file)
 	# We don't validate files against epidoc at this stage. If our schemas
@@ -172,4 +132,6 @@ def validate_all():
 				print("%s:%s:%s" % err, file=f)
 
 if __name__ == "__main__":
-	validate_all()
+	for file in sys.argv[1:]:
+		print(file)
+		validate_extra(file)

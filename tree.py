@@ -410,9 +410,9 @@ class Tag(Branch):
 		return self
 
 	def bad(self, msg):
-		# TODO highlight the node and generate a pop-up or something
-		# when rendering the text.
 		self.problems.append(msg)
+		if self.tree:
+			self.tree.bad_nodes.add(self)
 
 	@property
 	def path(self):
@@ -483,6 +483,7 @@ class Tree(Branch):
 
 	def __init__(self):
 		self.tree = self
+		self.bad_nodes = set()
 
 	def __repr__(self):
 		if self.path:
@@ -646,16 +647,16 @@ def parse_string(source, **kwargs):
 	return Parser(source, **kwargs).parse()
 
 def parse(file, **kwargs):
-	if isinstance(file, str):
+	if hasattr(file, "read"):
+		# assume file-like
+		source = file.read()
+		if not kwargs.get("path") and file is not sys.stdin and hasattr(file, "name"):
+			kwargs["path"] = os.path.abspath(str(file.name))
+	else:
 		with open(file, "rb") as f:
 			source = f.read()
 		if not kwargs.get("path"):
 			kwargs["path"] = os.path.abspath(file)
-	else:
-		# assume file-like
-		source = file.read()
-		if not kwargs.get("path") and file is not sys.stdin and hasattr(file, "name"):
-			kwargs["path"] = os.path.abspath(file.name)
 	return parse_string(source, **kwargs)
 
 def term_color(code=None):
@@ -829,8 +830,8 @@ class Formatter:
 		return self.buf.getvalue()
 
 def html_format(node):
-	fmt = Formatter()
-	fmt.format_tag(node)
+	fmt = Formatter(pretty=False)
+	fmt.format(node)
 	return fmt.text()
 
 def pretty(node):

@@ -8,15 +8,15 @@ from dharma import tree, parse
 # All the DHARMA_INSEC* stuff don't follow the ins schema, too different.
 def parse_div(p, div):
 	if div["type"] != "textpart":
-		print("? %s", div)
+		p.complain(div)
 		return
-	n = parse.milestone_n(div)
+	n = parse.milestone_n(p, div)
 	# rend style subtype
 	children = div.children()
 	i = 0
 	# <head> is supposed to only occur in this context in inscriptions, but
 	# in fact we don't really care, might allow it somewhere else
-	p.add_log("<div", n=n)
+	p.start_div(n=n)
 	if children and children[0].name == "head":
 		p.add_log("<head")
 		p.dispatch_children(children[0])
@@ -26,35 +26,33 @@ def parse_div(p, div):
 		i += 1
 	for child in children[i:]:
 		p.dispatch(child)
-	p.add_log(">div")
+	p.end_div()
 
-# we could duplicate <div in log and phys, for commodity?
 def gather_sections(p, div):
 	p.push(div["type"])
-	within_section = False
 	for child in div:
 		if child.type == "tag" and child.name == "div":
-			if within_section:
-				p.add_log(">div")
-				within_section = False
+			if p.within_div:
+				p.end_div()
 			p.dispatch(child)
 		elif child.type not in ("comment", "instruction"):
-			if not within_section:
+			if not p.within_div:
 				if child.type == "string" and not child.strip():
 					continue
-				p.add_log("<div")
-				within_section = True
+				p.start_div()
 			p.dispatch(child)
-	if within_section:
-		p.add_log(">div")
+	if p.within_div:
+		p.end_div()
 	return p.pop()
 
 def parse_body(p, body):
 	for div in body.children():
 		type = div["type"]
 		if not div.name == "div" or not type in ("edition", "translation", "commentary"):
-			print("? %s" % div)
+			p.complain(div)
 			continue
+		p.divs.clear()
+		p.divs.append(set())
 		if type == "edition":
 			p.document.edition = gather_sections(p, div)
 		elif type == "translation":
@@ -75,8 +73,8 @@ def update_handlers_map(m):
 HANDLERS = parse.HANDLERS.copy()
 update_handlers_map(HANDLERS)
 
-def process_file(path):
-	t = tree.parse(path)
+def process_file(file):
+	t = tree.parse(file)
 	f = t.first("//teiHeader/encodingDesc")
 	if f:
 		f.delete()
@@ -85,16 +83,16 @@ def process_file(path):
 		f.delete()
 	t.first("//publicationStmt").delete()
 	p = parse.Parser(t, HANDLERS)
+	p.document.tree = t
 	p.dispatch(p.tree.root)
-	for rec in p.document.edition.code:
-		cmd, data, args = rec
-		parse.write_debug(cmd, data, **args)
 	p.document.xml = tree.html_format(t.first("//body"))
 	return p.document
 
 if __name__ == "__main__":
 	try:
-		for file in sys.argv[1:]:
-			process_file(file)
+		doc = process_file(sys.argv[1])
+		for rec in doc.edition.code:
+			cmd, data, args = rec
+			parse.write_debug(cmd, data, **args)
 	except (KeyboardInterrupt, BrokenPipeError):
 		pass

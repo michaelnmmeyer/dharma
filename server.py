@@ -1,6 +1,6 @@
 import os, json, sys, unicodedata, hashlib
 from datetime import datetime
-from dharma import config, bottle, change, people, ngrams, catalog, parse
+from dharma import config, bottle, change, people, ngrams, catalog, parse, validate, parse_ins
 
 SCHEMA = """
 begin;
@@ -222,10 +222,24 @@ def display_text(text):
 def test():
 	return bottle.template("test.tpl")
 
-# Legacy url
-@bottle.get("/parallels/verses")
-def redirect_parallels():
-	bottle.redirect("/parallels")
+@bottle.post("/validate")
+def do_validate():
+	upload = bottle.request.files.get("upload")
+	if validate.schema_from_filename(upload.filename) != "inscription":
+		return
+	doc = parse_ins.process_file(upload.file)
+	errs = sorted(doc.tree.bad_nodes, key=lambda node: node.location)
+	for node in errs:
+		line, col = node.location
+		yield "Type: E\n"
+		yield "SystemID: %s\n" % upload.filename
+		yield "Line: %d\n" % 20
+		yield "Column: %d\n" % 10
+		yield "EndLine: %d\n" % 20
+		yield "EndColumn: %d\n" % 15
+		yield "Description: %s\n" % ", ".join(node.problems)
+		yield "\n"
+		break
 
 @bottle.post("/github-event")
 def handle_github():
@@ -240,7 +254,6 @@ def handle_github():
 @bottle.get("/<filename:path>")
 def handle_static(filename):
 	ret = bottle.static_file(filename, root=config.STATIC_DIR)
-	#ret._headers["ETag"] = hashlib.md5(ret._headers["Last-Modified"][0].encode()).hexdigest()
 	return ret
 
 class ServerAdapter(bottle.ServerAdapter):
