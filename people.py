@@ -64,7 +64,7 @@ def iter_members_list():
 	xml = tree.parse(path)
 	for person in xml.find("//person"):
 		row = {}
-		row["dh_id"] = person["xml:id"]
+		row["dh_id"] = person["id"]
 		rec = person.first("persName")
 		name = rec.find("name")
 		if name:
@@ -92,6 +92,7 @@ def iter_members_list():
 def make_db():
 	db.execute("begin")
 	for row in iter_members_list():
+		print(row)
 		db.execute("""
 			insert or replace into people_main(name, dh_id, idhal, idref, orcid, viaf, wikidata)
 			values(:name, :dh_id, :idhal, :idref, :orcid, :viaf, :wikidata)""", row)
