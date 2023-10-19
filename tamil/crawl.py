@@ -1,4 +1,4 @@
-import os, sys, sqlite3, time, requests
+import os, sys, re, sqlite3, time, requests
 
 dicts = "fabricius kadirvelu mcalpin tamil-idioms tamil-lex winslow".split()
 
@@ -36,7 +36,27 @@ def download_dict(name):
 		time.sleep(5)
 	db.commit()
 
-for name in dicts:
-	if name == "crea": # broken next page links, see with Manu
-		continue
-	download_dict(name)
+def download_all():
+	for name in dicts:
+		if name == "crea": # broken next page links, see with Manu
+			continue
+		download_dict(name)
+
+def page_from_url(url):
+	return int(url.rsplit("=", 1)[1])
+
+def dict_from_url(url):
+	return re.search(r"/([^/]+)_query\.py", url).group(1)
+
+db.create_function("page_from_url", 1, page_from_url, deterministic=True)
+db.create_function("dict_from_url", 1, dict_from_url, deterministic=True)
+
+def iter_entries(dict_name):
+	for page, data in db.execute("""
+		select dict_from_url(url) as dict, page_from_url(url) as page, data
+		from raw_pages
+		where url glob ? order by page""", ("*%s_query*" % dict_name,)):
+		soup = BeautifulSoup(io.StringIO(data), "html.parser")
+		root = soup.find("div", class_="hw_result")
+		for div in root.find_all("div"):
+			yield div, page
