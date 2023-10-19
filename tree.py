@@ -8,11 +8,6 @@
 # insert the same node at several locations; or maybe just duplicate the node
 # automatically if we see it's a duplicate. yes, solution 2 is best
 
-# XXX for showing errors when rendering the text, should add to the node that
-# poses a problem an "error" attribute that is a non-empty string if the node
-# is invalid; we can highlight the node and generate a pop-up or something when
-# rendering the text.
-
 import os, re, io, collections, copy, sys
 from xml.parsers import expat
 from xml.sax.handler import ContentHandler, ErrorHandler
@@ -415,6 +410,8 @@ class Tag(Branch):
 		return self
 
 	def bad(self, msg):
+		# TODO highlight the node and generate a pop-up or something
+		# when rendering the text.
 		self.problems.append(msg)
 
 	@property

@@ -519,22 +519,6 @@ def parse_pb(p, elem):
 	p.add_phys("=page", n=n, brk=brk)
 	#p.dispatch_children(fw) TODO
 
-def handle_box(p, div):
-	assert div["type"] == "textpart"
-	n = milestone_n(div)
-	children = div.children()
-	i = 0
-	# <head> can only occur in this context in inscriptions
-	if children and children[0].name == "head":
-		p.add_log("<head")
-		p.dispatch_children(children[0])
-		p.add_text(" ")
-		p.add_text(n)
-		p.add_log(">head")
-		i += 1
-	for child in children[i:]:
-		p.dispatch(child)
-
 # >milestones
 
 # <editorial
