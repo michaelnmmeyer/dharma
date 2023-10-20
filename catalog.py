@@ -49,7 +49,6 @@ commit;
 
 CATALOG_DB = config.open_db("catalog", SCHEMA)
 CATALOG_DB.execute("attach database ? as texts", (config.db_path("texts"),))
-CATALOG_DB.execute("attach database ? as langs", (config.db_path("langs"),))
 
 class Query:
 
@@ -226,8 +225,8 @@ def search(q, s):
 			printf('https://erc-dharma.github.io/%s/%s', documents.repo, html_path) as html_link
 		from documents
 			join documents_index on documents.name = documents_index.name
-			natural join texts.texts
-			natural join texts.commits
+			natural join texts
+			natural join commits
 			join json_each(documents.langs)
 			join langs_by_code on langs_by_code.code = json_each.value
 			join langs_list on langs_list.id = langs_by_code.id

@@ -3,41 +3,7 @@ from urllib.parse import urlparse
 import requests
 from dharma import config, tree
 
-SCHEMA = """
-begin;
-
-create table if not exists people_main(
-	name json check(
-		json_array_length(name) between 1 and 2
-		and json_type(name -> 0) = 'text'
-		and json_array_length(name) = 1 or json_type(name -> 1) = 'text'),
-	print_name text as (iif(json_array_length(name) = 1,
-		name ->> 0,
-		printf('%s %s', name ->> 0, name ->> 1))),
-	inverted_name text as (iif(json_array_length(name) = 1,
-		name ->> 0,
-		printf('%s, %s', name ->> 1, name ->> 0))),
-	-- all the following can be null
-	dh_id text unique check(dh_id is null or length(dh_id) = 4),
-	idhal text unique,
-	idref text unique,
-	orcid text unique,
-	viaf text unique,
-	wikidata text unique
-);
-
--- This is filled with git_names.csv. To dump a list of all contributors:
--- for repo in repos/*; do test -d $repo && git -C $repo log --format=%aN; done | sort -u
-create table if not exists people_github(
-	git_name text primary key not null,
-	-- Might be null, not all people on github have a dharma id.
-	dh_id text, foreign key(dh_id) references people_main(dh_id)
-);
-
-commit;
-"""
-
-db = config.open_db("people", SCHEMA)
+db = config.open_db("texts")
 
 # Like the eponymous function in xslt
 def normalize_space(s):
