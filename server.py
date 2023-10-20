@@ -255,9 +255,10 @@ def handle_github():
 	js = bottle.request.json
 	doc = json.dumps(js, ensure_ascii=False, separators=(",", ":"))
 	GIT_DB.execute("insert into logs values(strftime('%s', 'now'), ?)", (doc,))
-	if all(is_robot(commit["author"]["email"]) for commit in js["commits"]):
-		return
 	repo = js["repository"]["name"]
+	# XXX remove special case
+	if repo != "tfd-nusantara-philology" and all(is_robot(commit["author"]["email"]) for commit in js["commits"]):
+		return
 	change.notify(repo)
 
 @bottle.get("/<filename:path>")

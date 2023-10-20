@@ -140,6 +140,8 @@ def command(*cmd, **kwargs):
 	print(*cmd, file=sys.stderr)
 	kwargs.setdefault("capture_output", True)
 	kwargs.setdefault("check", True)
+	kwargs.setdefault("env", os.environ)
+	print(kwargs["env"])
 	ret = None
 	try:
 		ret = subprocess.run(cmd, encoding="UTF-8", **kwargs)

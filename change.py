@@ -210,7 +210,7 @@ def clone_all():
 # Must be at least this big in POSIX. Linux currently has 4096.
 PIPE_BUF = 512
 # When we should force a full update. We perform one at startup.
-NEXT_FULL_UPDATE = time.time()
+NEXT_FULL_UPDATE = time.time() + 20000
 # Force a full update every FORCE_UPDATE_DELTA seconds.
 FORCE_UPDATE_DELTA = 24 * 60 * 60
 

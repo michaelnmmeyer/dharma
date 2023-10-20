@@ -40,10 +40,12 @@ forever:
 		$(cmd) || true; \
 	done
 
-image:
-	git pull
+version.txt:
 	git rev-parse HEAD > version.txt
 	git show --no-patch --format=%at HEAD >> version.txt
+
+image: version.txt
+	git pull
 	sudo docker build -t dharma .
 
 # Usage: make commit-all m="Commit message"
@@ -70,7 +72,7 @@ deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
 	cp schemas/prosody.rng repos/project-documentation/schema/latest/DHARMA_ProsodySchema.rng
 	git -C repos/project-documentation commit -am "Schema update" && git -C repos/project-documentation push
 
-.PHONY: all clean update-repos update-texts download-dbs list-texts forever image commit-all deploy-schemas
+.PHONY: all clean update-repos update-texts download-dbs list-texts forever version.txt image commit-all deploy-schemas
 
 views/%.tpl: views/%.md
 	pandoc -f markdown -t html $^ -o $@

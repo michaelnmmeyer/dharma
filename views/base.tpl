@@ -13,7 +13,6 @@
 % end
 </head>
 <body>
-<div class="whole">
    <header>
       <menu>
          <li><a href="/">Home</a></li>
@@ -30,6 +29,5 @@
    </main>
    <footer>
    </footer>
-</div>
 </body>
 </html>

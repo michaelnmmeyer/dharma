@@ -1,5 +1,7 @@
 set -e errexit
 
+test -n "$DHARMA_HOME"
+
 cd $DHARMA_HOME/repos/jawakuno
 git pull
 
