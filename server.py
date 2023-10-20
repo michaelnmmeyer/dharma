@@ -232,6 +232,12 @@ def do_validate():
 		return
 	doc = parse_ins.process_file(upload.file)
 	errs = sorted(doc.tree.bad_nodes, key=lambda node: node.location)
+	if not errs:
+		yield "Type: W\n"
+		yield "SystemID: %s\n" % upload.filename
+		yield "Description: OK\n"
+		yield "\n"
+		return
 	for node in errs:
 		line, col = node.location
 		yield "Type: E\n"

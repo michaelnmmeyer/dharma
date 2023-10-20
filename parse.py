@@ -903,7 +903,6 @@ def parse_l(p, l):
 
 def parse_body(p, body):
 	for elem in body.children():
-		assert elem.type == "tag"
 		p.dispatch(elem)
 
 def parse_title(p, title):
@@ -990,9 +989,11 @@ def parse_fileDesc(p, node):
 def parse_teiHeader(p, node):
 	p.dispatch_children(node)
 
+def parse_text(p, node):
+	p.dispatch_children(node)
+
 def parse_TEI(p, node):
-	p.dispatch(node.first("teiHeader"))
-	p.dispatch(node.first("text/body"))
+	p.dispatch_children(node)
 
 def make_handlers_map():
 	ret = {}

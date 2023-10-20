@@ -72,11 +72,15 @@ class OR(Query):
 
 
 def process_file(repo_name, path):
+	print(path)
 	try:
 		t = tree.parse(path)
 	except expat.ExpatError as e:
 		print("catalog: %r %s" % (path, e), file=sys.stderr)
 		return
+	node = t.first("//body")
+	if node is not None:
+		node.delete()
 	p = parse.Parser(t, parse.make_handlers_map())
 	p.dispatch(p.tree.root)
 	doc = p.document
