@@ -58,40 +58,20 @@ def normalize_name(s):
 	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
 	return unicodedata.normalize("NFC", s.strip())
 
-SCHEMA = """
-begin;
-create table if not exists list(
-	id text primary key check(length(id) = 3),
-	name text,
-	inverted_name text,
-	iso integer check(iso = 3 or iso = 5)
-);
-create table if not exists by_code(
-	code text primary key check(length(code) >= 2 and length(code) <= 3),
-	id text, foreign key(id) references list(id)
-);
-create virtual table if not exists by_name using fts5(
-	id unindexed, -- text primary key, foreign key(id) references list(id)
-	name,
-	tokenize = "trigram"
-);
-commit;
-"""
-
-db = config.open_db("langs", SCHEMA)
+db = config.open_db("catalog")
 
 @db.transaction
 def make_db():
 	recs, index = load_data()
 	db.execute("begin")
-	db.execute("delete from by_code")
-	db.execute("delete from by_name")
-	db.execute("delete from list")
+	db.execute("delete from langs_by_code")
+	db.execute("delete from langs_by_name")
+	db.execute("delete from langs_list")
 	for rec in recs:
-		db.execute("insert into list(id, name, inverted_name, iso) values(:id, :name, :inverted_name, :iso)", rec)
-		db.execute("insert into by_name(id, name) values(?, ?)", (rec["id"], normalize_name(rec["name"])))
+		db.execute("insert into langs_list(id, name, inverted_name, iso) values(:id, :name, :inverted_name, :iso)", rec)
+		db.execute("insert into langs_by_name(id, name) values(?, ?)", (rec["id"], normalize_name(rec["name"])))
 	for code, rec in sorted(index.items()):
-		db.execute("insert into by_code(code, id) values(?, ?)", (code, rec["id"]))
+		db.execute("insert into langs_by_code(code, id) values(?, ?)", (code, rec["id"]))
 	db.execute("commit")
 	db.execute("vacuum")
 

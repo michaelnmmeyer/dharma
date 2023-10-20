@@ -15,7 +15,6 @@ GIT_DB = config.open_db("github", SCHEMA)
 TEXTS_DB = config.open_db("texts")
 TEXTS_DB.execute("attach database ? as people", (config.db_path("people"),))
 NGRAMS_DB = config.open_db("ngrams")
-LANGS_DB = config.open_db("langs")
 
 @bottle.get("/")
 def index():
@@ -164,15 +163,15 @@ def show_catalog():
 
 @bottle.get("/langs")
 def show_langs():
-	rows = LANGS_DB.execute("""
-	select list.inverted_name as name,
-		json_group_array(distinct(by_code.code)) as codes,
+	rows = CATALOG_DB.execute("""
+	select langs_list.inverted_name as name,
+		json_group_array(distinct(langs_by_code.code)) as codes,
 		printf('639-%d', iso) as iso
 	from catalog.documents
 		join json_each(catalog.documents.langs)
-		join list on list.id = json_each.value
-		join by_code on list.id = by_code.id
-	group by list.id order by list.inverted_name collate icu""").fetchall()
+		join langs_list on langs_list.id = json_each.value
+		join langs_by_code on langs_list.id = langs_by_code.id
+	group by langs_list.id order by langs_list.inverted_name collate icu""").fetchall()
 	return bottle.template("langs.tpl", rows=rows, json=json)
 
 @bottle.get("/parallels/search")

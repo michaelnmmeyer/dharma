@@ -29,15 +29,27 @@ create virtual table if not exists documents_index using fts5(
 	summary,
 	tokenize="trigram"
 );
+create table if not exists langs_list(
+	id text primary key check(length(id) = 3),
+	name text,
+	inverted_name text,
+	iso integer check(iso = 3 or iso = 5)
+);
+create table if not exists langs_by_code(
+	code text primary key check(length(code) >= 2 and length(code) <= 3),
+	id text, foreign key(id) references langs_list(id)
+);
+create virtual table if not exists langs_by_name using fts5(
+	id unindexed, -- text primary key, foreign key(id) references langs_list(id)
+	name,
+	tokenize = "trigram"
+);
 commit;
 """
 
 CATALOG_DB = config.open_db("catalog", SCHEMA)
 CATALOG_DB.execute("attach database ? as texts", (config.db_path("texts"),))
 CATALOG_DB.execute("attach database ? as langs", (config.db_path("langs"),))
-
-LANGS_DB = config.open_db("langs")
-LANGS_DB.execute("attach database ? as catalog", (config.db_path("catalog"),))
 
 class Query:
 
@@ -91,7 +103,7 @@ def process_file(repo_name, path):
 		# to fix, we don't have "Old Javanese" in ISO, should submit it
 		if lang == "oj":
 			lang = "jav"
-		(code,) = CATALOG_DB.execute("select ifnull((select id from langs.by_code where code = ?), 'und')", (lang,)).fetchone()
+		(code,) = CATALOG_DB.execute("select ifnull((select id from langs_by_code where code = ?), 'und')", (lang,)).fetchone()
 		doc.langs.append(code)
 	if not doc.langs:
 		doc.langs = ["und"]
@@ -195,10 +207,10 @@ def patch_languages(db, q):
 		text = clause.query
 		assert isinstance(text, str)
 		if len(text) <= 3:
-			(text,) = db.execute("select ifnull((select id from langs.by_code where code = ?), '')", (text,)).fetchone()
+			(text,) = db.execute("select ifnull((select id from langs_by_code where code = ?), '')", (text,)).fetchone()
 			clause.query = text
 			continue
-		langs = [Query(lang) for (lang,) in db.execute("select id from langs.by_name where name match ?", (text,))]
+		langs = [Query(lang) for (lang,) in db.execute("select id from langs_by_name where name match ?", (text,))]
 		if langs:
 			clause.query = OR(langs)
 		else:
@@ -210,15 +222,15 @@ def search(q, s):
 	db.execute("begin")
 	sql = """
 		select documents.name, documents.repo, documents.title,
-			documents.author, documents.editors, json_group_array(list.name) as langs, documents.summary,
+			documents.author, documents.editors, json_group_array(langs_list.name) as langs, documents.summary,
 			printf('https://erc-dharma.github.io/%s/%s', documents.repo, html_path) as html_link
 		from documents
 			join documents_index on documents.name = documents_index.name
 			natural join texts.texts
 			natural join texts.commits
 			join json_each(documents.langs)
-			join by_code on by_code.code = json_each.value
-			join list on list.id = by_code.id
+			join langs_by_code on langs_by_code.code = json_each.value
+			join langs_list on langs_list.id = langs_by_code.id
 	"""
 	q = " ".join(parse.normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
 	if q:
