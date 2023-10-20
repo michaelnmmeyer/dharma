@@ -36,18 +36,18 @@ href="https://en.wikipedia.org/wiki/XPath">XPath</a> notation.
 Thus, for instance, `/TEI/teiHeader` refers to the part in red in the following:
 
 <pre>
-	&lt;TEI&gt;
-		<span style="color:red">&lt;teiHeader&gt;
-			&lt;fileDesc&gt;
-				Hello
-			&lt;/fileDesc&gt;
-		&lt;/teiHeader&gt;</span>
-		&lt;text&gt;
-			&lt;body&gt;
-				Some text
-			&lt;/body&gt;
-		&lt;/text&gt;
-	&lt;/TEI>
+&lt;TEI&gt;
+	<span style="color:red">&lt;teiHeader&gt;
+		&lt;fileDesc&gt;
+			Hello
+		&lt;/fileDesc&gt;
+	&lt;/teiHeader&gt;</span>
+	&lt;text&gt;
+		&lt;body&gt;
+			Some text
+		&lt;/body&gt;
+	&lt;/text&gt;
+&lt;/TEI>
 </pre>
 
 ## `@xml:lang`
@@ -71,13 +71,15 @@ Whenever there is an explicit reference to a DHARMA member or to a VIAF page in
 the `@ref` attribute, the person's name is pulled from the relevant external
 source, and the name given in the file is ignored. For instance, given this:
 
-	<respStmt>
-		<resp>intellectual authorship of edition</resp>
-		<persName ref="part:argr">
-			<forename>John</forename>
-			<surname>Doe</surname>
-		</persName>
-	</respStmt>
+~~~
+<respStmt>
+	<resp>intellectual authorship of edition</resp>
+	<persName ref="part:argr">
+		<forename>John</forename>
+		<surname>Doe</surname>
+	</persName>
+</respStmt>
+~~~
 
 ... the name "John Doe" is ignored and replaced with "Arlo Griffiths"
 (part:argr).

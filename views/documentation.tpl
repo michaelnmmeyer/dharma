@@ -40,18 +40,18 @@ href="https://en.wikipedia.org/wiki/XPath">XPath</a> notation. Thus, for
 instance, <code>/TEI/teiHeader</code> refers to the part in red in the
 following:</p>
 <pre>
-    &lt;TEI&gt;
-        <span style="color:red">&lt;teiHeader&gt;
-            &lt;fileDesc&gt;
-                Hello
-            &lt;/fileDesc&gt;
-        &lt;/teiHeader&gt;</span>
-        &lt;text&gt;
-            &lt;body&gt;
-                Some text
-            &lt;/body&gt;
-        &lt;/text&gt;
-    &lt;/TEI>
+&lt;TEI&gt;
+    <span style="color:red">&lt;teiHeader&gt;
+        &lt;fileDesc&gt;
+            Hello
+        &lt;/fileDesc&gt;
+    &lt;/teiHeader&gt;</span>
+    &lt;text&gt;
+        &lt;body&gt;
+            Some text
+        &lt;/body&gt;
+    &lt;/text&gt;
+&lt;/TEI>
 </pre>
 <h2 id="xmllang"><code>@xml:lang</code></h2>
 <p>The EGD prescribes to use a three-letters language code, optionally

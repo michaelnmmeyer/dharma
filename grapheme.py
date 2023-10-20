@@ -16,6 +16,29 @@ def graphemes(s):
 		yield s[p:q]
 		p = q
 
+vowels_extra = {
+	"ṃ", "ṁ",
+	"ṛ", "ṝ", "ḷ", "ḹ",
+	"r\N{combining ring below}", "r\N{combining ring below}\N{combining macron}",
+	"l\N{combining ring below}", "l\N{combining ring below}\N{combining macron}",
+	"ḥ"
+}
+
+def hyphenate(s):
+	buf = ""
+	brk = False
+	for g in graphemes(s):
+		gn = unicodedata.normalize("NFD", g)
+		if gn[0] in "aeiou" or g in vowels_extra:
+			brk = True
+			buf += g
+		else:
+			if brk:
+				buf += "\N{SOFT HYPHEN}"
+				brk = False
+			buf += g
+	return buf
+
 def char_name(c):
 	try:
 		return unicodedata.name(c)

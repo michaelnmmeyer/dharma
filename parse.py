@@ -2,7 +2,7 @@
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
 import os, sys, re, io, copy, html, unicodedata
-from dharma import prosody, people, tree, gaiji, config
+from dharma import prosody, people, tree, gaiji, config, grapheme
 
 write = sys.stdout.write
 
@@ -190,6 +190,10 @@ class Block:
 
 	def render_common(self, buf, t, data, params):
 		if t == "text":
+			# TODO be more accurate, only need to hyphenate Indic
+			# languages
+			if self.name == "edition":
+				data = grapheme.hyphenate(data)
 			text = html.escape(data)
 			buf.append(text)
 		elif t == "html":
