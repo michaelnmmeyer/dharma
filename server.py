@@ -222,10 +222,13 @@ def display_text(text):
 def test():
 	return bottle.template("test.tpl")
 
-@bottle.post("/validate")
+@bottle.post("/validate/oxygen")
 def do_validate():
 	upload = bottle.request.files.get("upload")
 	if validate.schema_from_filename(upload.filename) != "inscription":
+		yield "Type: F\n"
+		yield "Description: cannot validate this file (not an inscription)\n"
+		yield "\n"
 		return
 	doc = parse_ins.process_file(upload.file)
 	errs = sorted(doc.tree.bad_nodes, key=lambda node: node.location)
@@ -277,6 +280,8 @@ class ServerAdapter(bottle.ServerAdapter):
 				if req.query_string:
 					url += "?" + req.query_string
 				doc.update({
+					# the only reason we lowercase stuff and replace "-" is "_" is to make it
+					# easier to query the results with jq.
 					"remote": req.remote_addr,
 					"date": now.strftime("%Y-%m-%d_%H:%M:%S"),
 					"request": {
