@@ -34,6 +34,8 @@ above-mentioned substring matching technique will be used instead. You can consu
 table of languages <a href="/langs">here</a>.</p>
 
 <form action="/catalog" method="get">
+<ul>
+   <li>
 <label for="text-input">Find:</label>
 <input name="q" id="text-input"
 % if q != "*":
@@ -42,6 +44,8 @@ table of languages <a href="/langs">here</a>.</p>
    autofocus
 % end
 ></input>
+   </li>
+   <li>
 <label for="sort-select">Sort by:</label>
 <select name="s" id="sort-select">
 % for k, v in (("title", "Title"), ("repo", "Repository"), ("ident", "Identifier")):
@@ -52,7 +56,11 @@ table of languages <a href="/langs">here</a>.</p>
    % end
 % end
 </select>
+   </li>
+   <li>
 <input type="submit" value="Search">
+   </li>
+</ul>
 </form>
 
 <p>Have {{len(rows)}} documents.</p>
@@ -77,6 +85,9 @@ table of languages <a href="/langs">here</a>.</p>
    % end
    % if not row["html_link"].endswith("/") or row["name"].startswith("DHARMA_INS"):
       </a>
+      % if row["name"].startswith("DHARMA_INS"):
+         <a href="/display/{{row["name"]}}">[🚧New display]</a>
+      % end
    % end
    </p>
    <p>
