@@ -33,7 +33,8 @@ can be mechanically inferred.
 Here are a few notes on how XML files are interpreted. This only concerns
 inscriptions for now. Headings indicate the element location in <a
 href="https://en.wikipedia.org/wiki/XPath">XPath</a> notation.
-Thus, for instance, `/TEI/teiHeader` refers to the part in red in the following:
+Thus, for instance, `/TEI/teiHeader` refers to the part in red in the
+following, and `//body` refers to the part in orange:
 
 <pre>
 &lt;TEI&gt;
@@ -43,9 +44,9 @@ Thus, for instance, `/TEI/teiHeader` refers to the part in red in the following:
 		&lt;/fileDesc&gt;
 	&lt;/teiHeader&gt;</span>
 	&lt;text&gt;
-		&lt;body&gt;
+		<span style="color:orange">&lt;body&gt;
 			Some text
-		&lt;/body&gt;
+		&lt;/body&gt;</span>
 	&lt;/text&gt;
 &lt;/TEI>
 </pre>
@@ -53,16 +54,17 @@ Thus, for instance, `/TEI/teiHeader` refers to the part in red in the following:
 ## `@xml:lang`
 
 The EGD prescribes to use a three-letters language code, optionally followed by
-a four-letters script name.
+a four-letters script name, as in `tam-Latn`.
 
 The schema restricts language codes to the ones that are most likely useful,
-but in practice you can use any two-letters or three-letters language code from
-the relevant ISO standards.
+but in practice any two-letters or three-letters language code from the
+relevant ISO standards will work.
 
-In practice, people don't tag script names correctly, so the script name is
-always ignored. The use of the `Latn` script name is enforced in the schema for
-all Indic languages to avoid a combinatorial explosion. It is ignored as well
-viz. it is not taken to mean that the Latin script is used.
+Script codes are always ignored, because they are not used properly. Still, the
+use of the `Latn` script name is enforced in the schema for all Indic
+languages, to avoid a combinatorial explosion. It is ignored as well viz. it is
+not taken to mean that the Latin script is used. I will either remove all
+script codes or amend them eventually.
 
 ## `/TEI/teiHeader/fileDesc/titleStmt`
 
@@ -86,14 +88,38 @@ source, and the name given in the file is ignored. For instance, given this:
 
 There are no conventions that would allow me to distinguish people's role, so
 all people mentioned in this element are assumed to be editors, regardless of
-what `<resp>` contains.
+what `<resp>` contains. If you need to distinguish several roles, say,
+"editor", "collaborator", etc., bring this to the attention of the guides'
+authors.
 
-Person names are enumerated in the order they appear within the file, so you
-might want to add the names of the most important contributors at the top.
+In the [catalog display](/catalog) and when displaying editions, person names
+are enumerated in the order they appear within the file, so you might want to
+add the names of the most important contributors at the top.
 
 ## `/TEI/teiHeader/fileDesc/publicationStmt`
 
-Everything under here is ignored, except `<pubPlace>`.
+This element contains boilerplate data that can easily be generated, e.g.:
+
+	<publicationStmt>
+		<authority>DHARMA</authority>
+		<pubPlace>Paris</pubPlace>
+		<idno type="filename">DHARMA_INSCIC00013</idno>
+		<availability>
+		<licence target="https://creativecommons.org/licenses/by/4.0/">
+			<p>This work is licensed under the Creative Commons Attribution 4.0 Unported
+			Licence. To view a copy of the licence, visit
+			https://creativecommons.org/licenses/by/4.0/ or send a letter to
+			Creative Commons, 444 Castro Street, Suite 900, Mountain View,
+			California, 94041, USA.</p>
+			<p>Copyright (c) 2019-2025 by Arlo Griffiths &amp; Salomé Pichon.</p>
+		</licence>
+	</availability>
+	<date from="2019" to="2025">2019-2025</date>
+	</publicationStmt>
+
+The only element you need to fill properly is `<pubPlace>`. All other elements
+will be deleted and regenerated with a template. In particular, don't bother to
+edit the copyright license.
 
 ## `/TEI/teiHeader/fileDesc/sourceDesc`
 
@@ -101,8 +127,16 @@ Everything is ignored, except `./msDesc/physDesc/handDesc`.
 
 ## `/TEI/teiHeader/revisionDesc`
 
-Everything under here is ignored. It is not necessary to fill it, since the
-revision history is tracked by git and could be pulled from it, if needed.
+This element holds a revision history:
+
+	<revisionDesc>
+		<change who="part:sapi" when="2021-02-17" status="draft">Adding translation</change>
+		<change who="part:sapi" when="2021-02-16" status="draft">Beggining initial encoding of the inscription</change>
+	</revisionDesc>
+
+It is of dubious interest nowadays, but is mandated by TEI. You do not need to
+fill it regularly, since the revision history is tracked by git and could be
+pulled from it, if needed.
 
 ## `//choice`
 

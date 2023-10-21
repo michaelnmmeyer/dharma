@@ -38,7 +38,7 @@ concerns inscriptions for now. Headings indicate the element location in
 <a
 href="https://en.wikipedia.org/wiki/XPath">XPath</a> notation. Thus, for
 instance, <code>/TEI/teiHeader</code> refers to the part in red in the
-following:</p>
+following, and <code>//body</code> refers to the part in orange:</p>
 <pre>
 &lt;TEI&gt;
     <span style="color:red">&lt;teiHeader&gt;
@@ -47,23 +47,24 @@ following:</p>
         &lt;/fileDesc&gt;
     &lt;/teiHeader&gt;</span>
     &lt;text&gt;
-        &lt;body&gt;
+        <span style="color:orange">&lt;body&gt;
             Some text
-        &lt;/body&gt;
+        &lt;/body&gt;</span>
     &lt;/text&gt;
 &lt;/TEI>
 </pre>
 <h2 id="xmllang"><code>@xml:lang</code></h2>
 <p>The EGD prescribes to use a three-letters language code, optionally
-followed by a four-letters script name.</p>
+followed by a four-letters script name, as in <code>tam-Latn</code>.</p>
 <p>The schema restricts language codes to the ones that are most likely
-useful, but in practice you can use any two-letters or three-letters
-language code from the relevant ISO standards.</p>
-<p>In practice, people don’t tag script names correctly, so the script
-name is always ignored. The use of the <code>Latn</code> script name is
-enforced in the schema for all Indic languages to avoid a combinatorial
-explosion. It is ignored as well viz. it is not taken to mean that the
-Latin script is used.</p>
+useful, but in practice any two-letters or three-letters language code
+from the relevant ISO standards will work.</p>
+<p>Script codes are always ignored, because they are not used properly.
+Still, the use of the <code>Latn</code> script name is enforced in the
+schema for all Indic languages, to avoid a combinatorial explosion. It
+is ignored as well viz. it is not taken to mean that the Latin script is
+used. I will either remove all script codes or amend them
+eventually.</p>
 <h2
 id="teiteiheaderfiledesctitlestmt"><code>/TEI/teiHeader/fileDesc/titleStmt</code></h2>
 <p>This element includes names of editors within
@@ -83,23 +84,51 @@ instance, given this:</p>
 (part:argr).</p>
 <p>There are no conventions that would allow me to distinguish people’s
 role, so all people mentioned in this element are assumed to be editors,
-regardless of what <code>&lt;resp&gt;</code> contains.</p>
-<p>Person names are enumerated in the order they appear within the file,
-so you might want to add the names of the most important contributors at
-the top.</p>
+regardless of what <code>&lt;resp&gt;</code> contains. If you need to
+distinguish several roles, say, “editor”, “collaborator”, etc., bring
+this to the attention of the guides’ authors.</p>
+<p>In the <a href="/catalog">catalog display</a> and when displaying
+editions, person names are enumerated in the order they appear within
+the file, so you might want to add the names of the most important
+contributors at the top.</p>
 <h2
 id="teiteiheaderfiledescpublicationstmt"><code>/TEI/teiHeader/fileDesc/publicationStmt</code></h2>
-<p>Everything under here is ignored, except
-<code>&lt;pubPlace&gt;</code>.</p>
+<p>This element contains boilerplate data that can easily be generated,
+e.g.:</p>
+<pre><code>&lt;publicationStmt&gt;
+    &lt;authority&gt;DHARMA&lt;/authority&gt;
+    &lt;pubPlace&gt;Paris&lt;/pubPlace&gt;
+    &lt;idno type=&quot;filename&quot;&gt;DHARMA_INSCIC00013&lt;/idno&gt;
+    &lt;availability&gt;
+    &lt;licence target=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;
+        &lt;p&gt;This work is licensed under the Creative Commons Attribution 4.0 Unported
+        Licence. To view a copy of the licence, visit
+        https://creativecommons.org/licenses/by/4.0/ or send a letter to
+        Creative Commons, 444 Castro Street, Suite 900, Mountain View,
+        California, 94041, USA.&lt;/p&gt;
+        &lt;p&gt;Copyright (c) 2019-2025 by Arlo Griffiths &amp;amp; Salomé Pichon.&lt;/p&gt;
+    &lt;/licence&gt;
+&lt;/availability&gt;
+&lt;date from=&quot;2019&quot; to=&quot;2025&quot;&gt;2019-2025&lt;/date&gt;
+&lt;/publicationStmt&gt;</code></pre>
+<p>The only element you need to fill properly is
+<code>&lt;pubPlace&gt;</code>. All other elements will be deleted and
+regenerated with a template. In particular, don’t bother to edit the
+copyright license.</p>
 <h2
 id="teiteiheaderfiledescsourcedesc"><code>/TEI/teiHeader/fileDesc/sourceDesc</code></h2>
 <p>Everything is ignored, except
 <code>./msDesc/physDesc/handDesc</code>.</p>
 <h2
 id="teiteiheaderrevisiondesc"><code>/TEI/teiHeader/revisionDesc</code></h2>
-<p>Everything under here is ignored. It is not necessary to fill it,
-since the revision history is tracked by git and could be pulled from
-it, if needed.</p>
+<p>This element holds a revision history:</p>
+<pre><code>&lt;revisionDesc&gt;
+    &lt;change who=&quot;part:sapi&quot; when=&quot;2021-02-17&quot; status=&quot;draft&quot;&gt;Adding translation&lt;/change&gt;
+    &lt;change who=&quot;part:sapi&quot; when=&quot;2021-02-16&quot; status=&quot;draft&quot;&gt;Beggining initial encoding of the inscription&lt;/change&gt;
+&lt;/revisionDesc&gt;</code></pre>
+<p>It is of dubious interest nowadays, but is mandated by TEI. You do
+not need to fill it regularly, since the revision history is tracked by
+git and could be pulled from it, if needed.</p>
 <h2 id="choice"><code>//choice</code></h2>
 <p>When a <code>&lt;choice&gt;</code> element contains several
 <code>&lt;unclear&gt;</code> elements, the first one is deemed to be the
