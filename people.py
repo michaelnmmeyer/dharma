@@ -58,7 +58,6 @@ def iter_members_list():
 def make_db():
 	db.execute("begin")
 	for row in iter_members_list():
-		print(row)
 		db.execute("""
 			insert or replace into people_main(name, dh_id, idhal, idref, orcid, viaf, wikidata)
 			values(:name, :dh_id, :idhal, :idref, :orcid, :viaf, :wikidata)""", row)

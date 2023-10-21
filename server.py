@@ -162,7 +162,7 @@ def show_catalog():
 
 @bottle.get("/langs")
 def show_langs():
-	rows = CATALOG_DB.execute("""
+	rows = TEXTS_DB.execute("""
 	select langs_list.inverted_name as name,
 		json_group_array(distinct(langs_by_code.code)) as codes,
 		printf('639-%d', iso) as iso

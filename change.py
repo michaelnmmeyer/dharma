@@ -6,7 +6,7 @@
 # enough for our purposes.
 
 import os, sys, subprocess, time, json, select, errno, logging, fcntl
-from dharma import config, validate, texts, biblio, grapheme
+from dharma import config, validate, texts, biblio, grapheme, catalog
 from dharma.config import command
 
 FIFO_ADDR = os.path.join(config.REPOS_DIR, "change.hid")
@@ -52,97 +52,7 @@ tfd-nusantara-philology
 tfd-sanskrit-philology
 """.strip().split()
 
-SCHEMA = """
-begin;
-
-create table if not exists metadata(
-	key text primary key,
-	value blob
-);
-insert or ignore into metadata values('last_updated', 0);
-
-create table if not exists commits(
-	repo text primary key,
-	commit_hash text,
-	commit_date integer
-);
-
--- We store raw xml files in the db. The point is to make it possible to use
--- the main db read-only, without having to clone repos somewhere. We want
--- to store both texts and other xml files we need to render them (prosody, members).
---
--- The repo name is needed only in the commits table and in the files table.
--- We reproduce it in other tables only to be able to easily delete everything
--- related to a repo.
-create table if not exists files(
-	name text unique,
-	repo text,
-	path text,
-	mtime timestamp,
-	data text,
-	primary key(name, repo),
-	foreign key(repo) references commits(repo)
-);
-
-create table if not exists texts(
-	name text primary key,
-	repo text,
-	html_path text,
-	foreign key(name, repo) references files(name, repo)
-	-- The XML file is at https://github.com/erc-dharma/$repo/blob/master/$xml_path
-	-- The HTML display is at https://erc-dharma.github.io/$repo/$html_path
-);
-
-create table if not exists validation(
-	name text primary key,
-	repo text,
-	code_hash text,
-	valid boolean,
-	errors json,
-	when_validated integer,
-	foreign key(name, repo) references files(name, repo)
-);
-
-create table if not exists owners(
-	name text,
-	repo text,
-	git_name text,
-	primary key(name, git_name)
-);
-create index if not exists owners_index on owners(git_name);
-
-create table if not exists people_main(
-	name json check(
-		json_array_length(name) between 1 and 2
-		and json_type(name -> 0) = 'text'
-		and json_array_length(name) = 1 or json_type(name -> 1) = 'text'),
-	print_name text as (iif(json_array_length(name) = 1,
-		name ->> 0,
-		printf('%s %s', name ->> 0, name ->> 1))),
-	inverted_name text as (iif(json_array_length(name) = 1,
-		name ->> 0,
-		printf('%s, %s', name ->> 1, name ->> 0))),
-	-- all the following can be null
-	dh_id text unique check(dh_id is null or length(dh_id) = 4),
-	idhal text unique,
-	idref text unique,
-	orcid text unique,
-	viaf text unique,
-	wikidata text unique
-);
-
--- This is filled with git_names.csv. To dump a list of all contributors:
--- for repo in repos/*; do test -d $repo && git -C $repo log --format=%aN; done | sort -u
-create table if not exists people_github(
-	git_name text primary key not null,
-	-- Might be null, not all people on github have a dharma id.
-	dh_id text, foreign key(dh_id) references people_main(dh_id)
-);
-
-commit;
-"""
-
-TEXTS_DB = config.open_db("texts", SCHEMA)
+TEXTS_DB = config.open_db("texts")
 
 def update_repo(name):
 	return command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
@@ -209,6 +119,7 @@ def update_db(conn, name):
 		file_id = os.path.basename(os.path.splitext(text)[0])
 		conn.execute("""insert into validation(name, repo, code_hash, valid, errors, when_validated)
 			values(?, ?, ?, ?, ?, strftime('%s', 'now'))""", (file_id, name, config.CODE_HASH, valid, errors))
+	catalog.process_repo(name, conn)
 
 @TEXTS_DB.transaction
 def handle_changes(name):
@@ -238,7 +149,7 @@ def clone_all():
 # Must be at least this big in POSIX. Linux currently has 4096.
 PIPE_BUF = 512
 # When we should force a full update. We perform one at startup.
-NEXT_FULL_UPDATE = time.time() + 20000
+NEXT_FULL_UPDATE = time.time() # + 20000
 # Force a full update every FORCE_UPDATE_DELTA seconds.
 FORCE_UPDATE_DELTA = 24 * 60 * 60
 

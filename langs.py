@@ -58,7 +58,7 @@ def normalize_name(s):
 	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
 	return unicodedata.normalize("NFC", s.strip())
 
-db = config.open_db("catalog")
+db = config.open_db("texts")
 
 @db.transaction
 def make_db():

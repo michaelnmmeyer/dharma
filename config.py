@@ -95,6 +95,10 @@ else:
 	READ_ONLY = False
 
 def open_db(name, schema=None):
+	if name == "texts":
+		assert not schema
+		with open(os.path.join(THIS_DIR, "schema.sql")) as f:
+			schema = f.read()
 	if name == ":memory:":
 		path = name
 	else:

@@ -2,53 +2,7 @@ import os, sys
 from xml.parsers import expat
 from dharma import tree, parse, texts, config
 
-SCHEMA = """
-begin;
-create table if not exists metadata(
-	key text primary key,
-	value blob
-);
-insert or ignore into metadata values('last_updated', 0);
-create table if not exists documents(
-	name text primary key,
-	repo text,
-	title json,
-	author text,
-	editors json,
-	langs json,
-	summary text
-);
-create virtual table if not exists documents_index using fts5(
-	name unindexed, -- text primary key references documents(name)
-	ident,
-	repo,
-	title,
-	author,
-	editor,
-	lang,
-	summary,
-	tokenize="trigram"
-);
-create table if not exists langs_list(
-	id text primary key check(length(id) = 3),
-	name text,
-	inverted_name text,
-	iso integer check(iso = 3 or iso = 5)
-);
-create table if not exists langs_by_code(
-	code text primary key check(length(code) >= 2 and length(code) <= 3),
-	id text, foreign key(id) references langs_list(id)
-);
-create virtual table if not exists langs_by_name using fts5(
-	id unindexed, -- text primary key, foreign key(id) references langs_list(id)
-	name,
-	tokenize = "trigram"
-);
-commit;
-"""
-
-CATALOG_DB = config.open_db("catalog", SCHEMA)
-CATALOG_DB.execute("attach database ? as texts", (config.db_path("texts"),))
+db = config.open_db("texts")
 
 class Query:
 
@@ -102,7 +56,7 @@ def process_file(repo_name, path):
 		# to fix, we don't have "Old Javanese" in ISO, should submit it
 		if lang == "oj":
 			lang = "jav"
-		(code,) = CATALOG_DB.execute("select ifnull((select id from langs_by_code where code = ?), 'und')", (lang,)).fetchone()
+		(code,) = db.execute("select ifnull((select id from langs_by_code where code = ?), 'und')", (lang,)).fetchone()
 		doc.langs.append(code)
 	if not doc.langs:
 		doc.langs = ["und"]
@@ -111,6 +65,8 @@ def process_file(repo_name, path):
 	return doc
 
 def process_repo(name, db):
+	db.execute("delete from documents_index where repo_raw = ?", (name,))
+	db.execute("delete from documents where repo = ?", (name,))
 	for text in texts.iter_texts_in_repo(name):
 		doc = process_file(name, text)
 		if not doc:
@@ -135,8 +91,8 @@ def process_repo(name, db):
 			values (?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
 				fmt_title, doc.author.render_logical(), fmt_editors,
 				doc.langs, doc.summary.render_logical()))
-		db.execute("""insert into documents_index(name, ident, repo, title, author, editor, lang, summary)
-			values (?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.ident.lower(),
+		db.execute("""insert into documents_index(name, repo_raw, ident, repo, title, author, editor, lang, summary)
+			values (?, ?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository, doc.ident.lower(),
 			doc.repository.lower(), doc.title.searchable_text(), doc.author.searchable_text(),
 			doc.editors.searchable_text(), "---".join(doc.langs), doc.summary.searchable_text()))
 
@@ -215,9 +171,8 @@ def patch_languages(db, q):
 		else:
 			clause.query = "" # prevent matching
 
-@CATALOG_DB.transaction
+@db.transaction
 def search(q, s):
-	db = CATALOG_DB
 	db.execute("begin")
 	sql = """
 		select documents.name, documents.repo, documents.title,
@@ -252,22 +207,3 @@ def search(q, s):
 		from metadata where key = 'last_updated'""").fetchone()
 	db.execute("commit")
 	return ret, last_updated
-
-@CATALOG_DB.transaction
-def make_db():
-	db = CATALOG_DB
-	db.execute("begin")
-	db.execute("delete from documents")
-	db.execute("delete from documents_index")
-	for repo in os.listdir(config.REPOS_DIR):
-		full_path = os.path.join(config.REPOS_DIR, repo)
-		if not os.path.isdir(full_path):
-			continue
-		print(repo)
-		process_repo(repo, db)
-	db.execute("insert or replace into metadata values('last_updated', strftime('%s', 'now'))")
-	db.execute("commit")
-	db.execute("vacuum")
-
-if __name__ == "__main__":
-	make_db()
