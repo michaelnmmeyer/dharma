@@ -53,9 +53,6 @@ def process_file(repo_name, path):
 		if not "lang" in node.attrs:
 			continue
 		lang = node["lang"]
-		# to fix, we don't have "Old Javanese" in ISO, should submit it
-		if lang == "oj":
-			lang = "jav"
 		(code,) = db.execute("select ifnull((select id from langs_by_code where code = ?), 'und')", (lang,)).fetchone()
 		doc.langs.append(code)
 	if not doc.langs:
