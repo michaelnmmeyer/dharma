@@ -1,12 +1,35 @@
+.dh-ed-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	list-style: none;
+	padding: 0;
+	column-gap: 0.7em;
+}
+.dh-ed-tabs li {
+	border: solid;
+	border-radius: 0.3em;
+	padding: 0.2em;
+}
+.dh-active {
+	background-color: #eaeaea;
+}
+
 /* The idea is to make visible stuff that has a tooltip */
-#dh-log span:hover {
+.dh-log span:hover {
 	color: white;
 	background-color: black;
 }
-#dh-phys span:hover {
+.dh-phys span:hover {
 	color: white;
 	background-color: black;
 }
+.dh-trans span:hover {
+	color: white;
+	background-color: black;
+}
+
+/* Editions */
 .dh-grantha {
 	font-weight: bolder;
 }
@@ -38,66 +61,66 @@
 }
 
 /* Logical display */
-#dh-log {
+.dh-log {
 	text-align: justify;
 }
-#dh-log .dh-sic {
+.dh-log .dh-sic {
 	display: none;
 }
-#dh-log .dh-orig {
-	display: none;
-}
-#dh-log .dh-corr {
+.dh-log .dh-corr {
 	color: green;
 }
-#dh-log .dh-reg {
+.dh-log .dh-orig {
+	display: none;
+}
+.dh-log .dh-reg {
 	color: blue;
 }
-#dh-log .dh-surplus {
+.dh-log .dh-surplus {
 	display: none;
 }
-#dh-log .dh-hyphen-break {
+.dh-log .dh-hyphen-break {
 	display: none;
 }
-#dh-log .dh-abbr {
+.dh-log .dh-abbr {
 	color: brown;
 }
 
 /* Physical display */
-#dh-phys {
+.dh-phys {
 	text-align: left;
 }
-#dh-phys .dh-line {
+.dh-phys .dh-line {
 	margin-block-start: 0.3em;
 	margin-block-end: 0.3em;
 }
-#dh-phys .dh-pagelike {
+.dh-phys .dh-pagelike {
 }
-#dh-phys .dh-orig {
-	color: magenta;
-}
-#dh-phys .dh-corr {
-	display: none;
-}
-#dh-phys .dh-reg {
-	display: none;
-}
-#dh-phys .dh-sic {
+.dh-phys .dh-sic {
 	color: red;
 }
-#dh-phys .dh-abbr-expansion {
+.dh-phys .dh-corr {
+	display: none;
+}
+.dh-phys .dh-orig {
+	color: magenta;
+}
+.dh-phys .dh-reg {
+	display: none;
+}
+.dh-phys .dh-abbr-expansion {
 	display: none;
 }
 
 /* XML display */
-div.dh-xml {
+.dh-xml {
 }
-#dh-xml .dh-tag {
+.dh-xml .dh-tag {
 	color: blue;
 }
-#dh-xml .dh-attr-name {
+.dh-xml .dh-attr-name {
 	color: green;
 }
-#dh-xml .dh-attr-value {
+.dh-xml .dh-attr-value {
 	color: purple;
 }

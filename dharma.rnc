@@ -10,7 +10,7 @@ pagelike_milestone = element milestone {
 gridlike_milestone = element milestone {
    attribute type { "gridlike" }?,
    attribute unit { string },
-   attribute n { string }, 
+   attribute n { string },
    ...
 }
 
@@ -23,7 +23,7 @@ textpart = element div {
    attribute subtype { string }?,
    attribute n { string },
    head?,
-   
+
    paralike* | ...
 }
 
@@ -63,3 +63,7 @@ body = element body {
 }
 
 rich_text = hi | rend | foreign
+
+# Stuff that can be used within body but need not be normalized. rs is a real
+# mess.
+annotation = persName | roleName | placeName | settlement | rs

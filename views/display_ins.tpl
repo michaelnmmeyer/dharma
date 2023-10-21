@@ -4,13 +4,11 @@
 ''')
 
 <div class="body">
-<h1>{{text.removeprefix("DHARMA_")}}</h1>
-
-<h2>
+<h1>
 % for part in doc.title:
    {{!part}}.
 % end
-</h2>
+</h1>
 
 <p>
 {{numberize("Editor", len(doc.editors))}}:
@@ -23,22 +21,29 @@
    Unknown.
 % end
 </p>
+<p>
+Identifier: {{text.removeprefix("DHARMA_")}}
+</p>
 
-<div>
-   <button id="log-btn">Logical</button>
-   <button id="phys-btn">Physical</button>
-   <button id="xml-btn">XML</button>
-</div>
+<div class="dh-ed">
+
+<h2>Edition</h2>
+
+<ul class="dh-ed-tabs">
+   <li id="log-btn" class="dh-active"><a href="#dh-ed">Logical</a></li>
+   <li id="phys-btn"><a href="#dh-ed">Physical</a></li>
+   <li id="xml-btn"><a href="#dh-ed">XML</a></li>
+</ul>
 
 <div class="dh-log" id="dh-log">
-<h3>Edition (logical)</h3>
 {{!doc.edition.render_logical()}}
 </div>
 
 <div class="dh-phys" id="dh-phys" style="display:none">
-<h3>Edition (physical)</h3>
 {{!doc.edition.render_physical()}}
 </div>
+
+</div> <!-- <div class="dh-ed"> -->
 
 </div> <!-- <div class="body"> -->
 
@@ -52,15 +57,22 @@
 
 % for trans in doc.translation:
 <div class="dh-trans">
-<h3>Translation</h3>
+<h2>Translation</h2>
 {{!trans.render_logical()}}
 </div>
 % end
 
 % if doc.commentary:
 <div class="dh-trans">
-<h3>Commentary</h3>
+<h2>Commentary</h2>
 {{!doc.commentary.render_logical()}}
+</div>
+% end
+
+% if doc.bibliography:
+<div class="dh-biblio">
+<h2>Bibliography</h2>
+{{!doc.bibliography.render_logical()}}
 </div>
 % end
 

@@ -102,12 +102,3 @@ of the input to force an exact match.
 ---
 
 stop using tables in website, annoying to style. use ul instead.
-
----
-
-For searching and highlighting, maybe the most convenient option for now would
-be to have an offset map for each search representation that maps each
-character to the corresponding offset in the formatted representation. This can
-be compressed with delta encoding and varints. Go for that instead of what is
-said above. And search representations should be derived from the formatted
-representation, and this should be done in go, with a separate process.

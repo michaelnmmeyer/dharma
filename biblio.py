@@ -23,7 +23,8 @@ insert or ignore into meta values('latest_version', 0);
 create table if not exists bibliography(
 	key text primary key not null,
 	version integer not null,
-	json json not null check(json_valid(json))
+	json json not null check(json_valid(json)),
+	short_title as (json ->> '$.data.shortTitle')
 );
 commit;
 """
@@ -63,7 +64,7 @@ def zotero_items(max_version, ret):
 
 @db.transaction
 def update():
-	db.execute("begin immediate")
+	db.execute("begin")
 	(max_version,) = db.execute("select value from meta where key = 'latest_version'").fetchone()
 	ret = []
 	for entry in zotero_items(max_version, ret):
@@ -126,115 +127,183 @@ def check_string_value(xml, entry):
 def check_entries():
 	for (entry,) in db.execute("select json from bibliography"):
 		for val in all_string_values(entry, ignore=set()):
-			val = unicodedata.normalize("NFC", val)
-			val = html.unescape(val)
-			val = val.replace("&", "&amp;")
-			val = "<root>%s</root>" % val
-			try:
-				xml = tree.parse(io.StringIO(val)).root
-				check_string_value(xml, entry)
-				val = xml.xml()[len("<root>"):-len("</root>")]
-			except expat.ExpatError:
-				val = html.escape(val)
+			fix_string(val)
 
+def fix_string(val):
+	val = unicodedata.normalize("NFC", val)
+	val = html.unescape(val)
+	val = val.replace("&", "&amp;")
+	val = "<root>%s</root>" % val
+	try:
+		xml = tree.parse_string(val).root
+		check_string_value(xml, entry)
+		val = xml.xml()[len("<root>"):-len("</root>")]
+	except expat.ExpatError:
+		val = html.escape(val)
+	return val
 
-ENTRY = {
-            "key": "5X9BFVUE",
-            "version": 155735,
-            "itemType": "book",
-            "title": "South-Indian inscriptions, Tamil and Sanskrit, from stone and copper-plate edicts at Mamallapuram, Kanchipuram, in the North Arcot district, and other parts of the Madras Presidency, chiefly collected in 1886-87. Volume I",
-            "creators": [
-                {
-                    "creatorType": "author",
-                    "firstName": "Eugen Julius Theodor",
-                    "lastName": "Hultzsch"
-                }
-            ],
-            "abstractNote": "",
-            "series": "South Indian Inscriptions",
-            "seriesNumber": "1",
-            "volume": "",
-            "numberOfVolumes": "",
-            "edition": "",
-            "place": "Madras",
-            "publisher": "Government Press",
-            "date": "1890",
-            "numPages": "",
-            "language": "English, Tamil, Sanskrit",
-            "ISBN": "",
-            "shortTitle": "Hultzsch1890_01",
-            "url": "",
-            "accessDate": "",
-            "archive": "",
-            "archiveLocation": "",
-            "libraryCatalog": "Library Catalog - www.sudoc.abes.fr",
-            "callNumber": "",
-            "rights": "",
-            "extra": "SII 1",
-            "tags": [
-                {
-                    "tag": "Hultzsch1890_01"
-                },
-                {
-                    "tag": "Inscriptions sanskrites -- Inde (sud)",
-                    "type": 1
-                },
-                {
-                    "tag": "Inscriptions tamoules -- Inde (sud)",
-                    "type": 1
-                }
-            ],
-            "collections": [
-                "NYLTL87Y",
-                "WUVYHC8W",
-                "NZPVKJ7T"
-            ],
-            "relations": {},
-            "dateAdded": "2017-11-03T01:03:13Z",
-            "dateModified": "2021-04-25T07:07:16Z"
-        }
+class Writer:
 
+	def __init__(self):
+		self.buf = ""
 
-write = sys.stdout.write
+	def add_space(self):
+		if self.buf and not self.buf[-1].isspace():
+			self.write(" ")
+
+	def add_period(self): # TODO take tags into account
+		i = len(self.buf)
+		while i > 0:
+			i -= 1
+			c = self.buf[i]
+			if c == ".":
+				return
+			if c.isalpha() or c.isdigit():
+				break
+		self.buf += "."
+
+	def write(self, s):
+		self.buf += s
+
+	def write_names(self, authors):
+		if not authors:
+			return
+		for i, author in enumerate(authors):
+			if i == 0:
+				self.write("%s, %s" % (author["lastName"], author["firstName"]))
+				continue
+			if i == len(authors) - 1:
+				self.write(" and ")
+			else:
+				self.write(", ")
+			self.write("%s %s" % (author["firstName"], author["lastName"]))
+		self.add_period()
+
+	def write_date(self, date):
+		if not date:
+			return
+		self.add_space()
+		self.write(date)
+		self.add_period()
+
+	def write_quoted(self, title):
+		if not title:
+			return
+		self.add_space()
+		self.write("“")
+		self.write(title)
+		self.add_period()
+		self.write("”")
+
+	def write_italic(self, title):
+		if not title:
+			return
+		self.add_space()
+		self.write("<i>")
+		self.write(title)
+		self.write("</i>")
+		self.add_period()
+
+	def end(self):
+		pass
+
+def render_journal_article(rec, w, params):
+	w.write_names(rec["creators"])
+	w.write_date(rec["date"])
+	w.write_quoted(rec["title"])
+	if rec["publicationTitle"]:
+		w.add_space()
+		w.write("<i>")
+		w.write(rec["publicationTitle"])
+		w.write("</i>")
+		if rec["volume"]:
+			w.add_space()
+			w.write(rec["volume"])
+		if rec["pages"]:
+			w.write(":")
+			w.add_space()
+			w.write(rec["pages"])
+		for unit, abbr in (("page", "p."), ("appendix", "appendix"), ("item", "№")):
+			val = params.get(unit)
+			if val:
+				w.write(", ")
+				w.write(abbr + "\N{NBSP}")
+				w.write(val)
+		w.add_period()
 
 # See
 # https://github.com/zotero/translators/blob/master/TEI.js
-def render_book(rec):
-	authors = rec["creators"]
-	if authors:
-		for i, author in enumerate(authors):
-			if i == 0:
-				write("%s, %s" % (author["lastName"], author["firstName"]))
-				continue
-			if i == len(authors) - 1:
-				write(" and ")
-			else:
-				write(", ")
-			write("%s %s" % (author["firstName"], author["lastName"]))
-		write(".")
-	if rec["date"]:
-		write(" ")
-		write(rec["date"])
-		write(".")
-	if rec["title"]:
-		write(" ")
-		write("<i>")
-		write(rec["title"])
-		write("</i>")
-		write(".")
+def render_book(rec, w, params):
+	w.write_names(rec["creators"])
+	w.write_date(rec["date"])
+	w.write_italic(rec["title"])
 	if rec["series"]:
-		write(" ")
-		write(rec["series"])
+		w.add_space()
+		w.write(rec["series"])
 		if rec["seriesNumber"]:
-			write(" %s" % rec["seriesNumber"])
-		write(".")
+			w.write(" %s" % rec["seriesNumber"])
+		w.write(".")
 	if rec["place"]:
-		write(" ")
-		write(rec["place"])
+		w.add_space()
+		w.write(rec["place"])
 		if rec["publisher"]:
-			write(": %s" % rec["publisher"])
-		write(".")
-	write("\n")
+			w.write(": %s" % rec["publisher"])
+		for unit, abbr in (("page", "p."), ("appendix", "appendix"), ("item", "nº")):
+			val = params.get(unit)
+			if val:
+				w.write(", ")
+				w.write(abbr + "\N{NBSP}")
+				w.write(val)
+		w.add_period()
+
+renderers = {
+	"book": render_book,
+	"journalArticle": render_journal_article,
+}
+
+def render(rec, params):
+	f = renderers.get(rec["itemType"])
+	if not f:
+		return
+	w = Writer()
+	f(rec, w, params)
+	w.end()
+	return w.buf
+
+def make_ref(rec, omit_name):
+	if omit_name:
+		return rec["date"]
+	authors = rec["creators"]
+	if not authors:
+		return
+	author = authors[0]
+	buf = author["lastName"]
+	if len(authors) == 1:
+		pass
+	elif len(authors) == 2:
+		buf += " and " + authors[1]["lastName"]
+	elif len(authors) >= 3:
+		buf += " <i>et al.</i>"
+	buf += " " + rec["date"]
+	return buf
+
+# TODO complain when multiple entries
+def get_entry(ref, params):
+	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
+	if not recs:
+		return "???", ""
+	key, ret = recs[0]
+	ret = render(ret["data"], params)
+	return key, ret or ""
+
+# TODO complain when multiple entries
+def get_ref(ref, omit_name):
+	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
+	if not recs:
+		return "???", ""
+	key, ret = recs[0]
+	ret = make_ref(ret["data"], omit_name)
+	return key, ret or ""
 
 if __name__ == "__main__":
-	render_book(ENTRY)
+	print(get_entry(sys.argv[1]))

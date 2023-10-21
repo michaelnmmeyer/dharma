@@ -14,12 +14,8 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in inscriptions:
 	xml = tree.parse(file)
-	for p in xml.find("//div"):
-		if p["type"] == "edition":
-			for tag in [p.prev, p.next]:
-				if tag and tag.type == "tag" and tag.name != "div":
-					print(file, tag.name)
-
+	for p in xml.find("//speaker"):
+		print(p.path)
 
 		#print(file,p.path)
 		#print(p["n"])

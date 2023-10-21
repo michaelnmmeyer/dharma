@@ -48,7 +48,7 @@ def gather_sections(p, div):
 def parse_body(p, body):
 	for div in body.children():
 		type = div["type"]
-		if not div.name == "div" or not type in ("edition", "translation", "commentary"):
+		if not div.name == "div" or not type in ("edition", "translation", "commentary", "bibliography"):
 			p.complain(div)
 			continue
 		p.divs.clear()
@@ -60,6 +60,8 @@ def parse_body(p, body):
 			p.document.translation.append(trans)
 		elif type == "commentary":
 			p.document.commentary = gather_sections(p, div)
+		elif type == "bibliography":
+			p.document.bibliography = gather_sections(p, div)
 		else:
 			assert 0
 
@@ -91,7 +93,7 @@ def process_file(file):
 if __name__ == "__main__":
 	try:
 		doc = process_file(sys.argv[1])
-		for rec in doc.edition.code:
+		for rec in doc.bibliography.code:
 			cmd, data, args = rec
 			parse.write_debug(cmd, data, **args)
 	except (KeyboardInterrupt, BrokenPipeError):

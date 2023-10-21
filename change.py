@@ -5,7 +5,7 @@
 # implement any buffering for passing messages, because pipe buffers are big
 # enough for our purposes.
 
-import os, sys, subprocess, time, json, select, errno, logging, fcntl
+import os, sys, subprocess, time, json, select, errno, logging, fcntl, argparse, traceback
 from dharma import config, validate, texts, biblio, grapheme, catalog
 from dharma.config import command
 
@@ -149,7 +149,7 @@ def clone_all():
 # Must be at least this big in POSIX. Linux currently has 4096.
 PIPE_BUF = 512
 # When we should force a full update. We perform one at startup.
-NEXT_FULL_UPDATE = time.time() # + 20000
+NEXT_FULL_UPDATE = time.time()
 # Force a full update every FORCE_UPDATE_DELTA seconds.
 FORCE_UPDATE_DELTA = 24 * 60 * 60
 
@@ -215,7 +215,7 @@ def notify(name):
 	finally:
 		os.close(fd)
 
-def main():
+def run():
 	try:
 		os.mkdir(config.REPOS_DIR)
 	except FileExistsError:
@@ -237,13 +237,20 @@ def main():
 	finally:
 		os.close(fd)
 
-if __name__ == "__main__":
-	import traceback
+def main():
 	while True:
 		try:
-			main()
+			run()
 		except KeyboardInterrupt:
 			break
 		except Exception as e:
 			logging.error(e)
 			traceback.print_exception(e)
+
+if __name__ == "__main__":
+	parser = argparse.ArgumentParser()
+	parser.add_argument("-k", "--skip-update", action="store_true")
+	args = parser.parse_args()
+	if args.skip_update:
+		NEXT_FULL_UPDATE += FORCE_UPDATE_DELTA
+	main()

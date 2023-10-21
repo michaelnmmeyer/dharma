@@ -1,39 +1,28 @@
-var buttonDfltBg
-const buttonActiveBg = "red"
-
-function resetButtonsBackground() {
-	document.querySelector("#phys-btn").style["background-color"] = buttonDfltBg
-	document.querySelector("#log-btn").style["background-color"] = buttonDfltBg
-	document.querySelector("#xml-btn").style["background-color"] = buttonDfltBg
+let displays = [
+	["physical", "#phys-btn", "#dh-phys"],
+	["logical", "#log-btn", "#dh-log"],
+	["xml", "#xml-btn", "#dh-xml"],
+]
+function switchDisplayTo(name) {
+	for (row of displays) {
+		if (row[0] == name) {
+			document.querySelector(row[1]).classList.add("dh-active")
+			document.querySelector(row[2]).style.display = "block"
+		} else {
+			document.querySelector(row[1]).classList.remove("dh-active")
+			document.querySelector(row[2]).style.display = "none"
+		}
+	}
 }
 
 function init() {
-	buttonDfltBg = document.querySelector("#phys-btn").style["background-color"]
-	let logDisp = document.querySelector("#dh-log").style
-	let physDisp = document.querySelector("#dh-phys").style
-	let xmlDisp = document.querySelector("#dh-xml").style
-	document.querySelector("#log-btn").onclick = function(ev) {
-		logDisp.display = "block"
-		physDisp.display = "none"
-		xmlDisp.display = "none"
-		resetButtonsBackground()
-		document.querySelector("#log-btn").style["background-color"] = buttonActiveBg
+	for (row of displays) {
+		let name = row[0]
+		document.querySelector(row[1]).onclick = function (ev) {
+			ev.preventDefault()
+			switchDisplayTo(name)
+		}
 	}
-	document.querySelector("#phys-btn").onclick = function(ev) {
-		logDisp.display = "none"
-		physDisp.display = "initial"
-		xmlDisp.display = "none"
-		resetButtonsBackground()
-		document.querySelector("#phys-btn").style["background-color"] = buttonActiveBg
-	}
-	document.querySelector("#xml-btn").onclick = function(ev) {
-		logDisp.display = "none"
-		physDisp.display = "none"
-		xmlDisp.display = "block"
-		resetButtonsBackground()
-		document.querySelector("#xml-btn").style["background-color"] = buttonActiveBg
-	}
-	document.querySelector("#log-btn").style["background-color"] = buttonActiveBg
 }
 
 window.onload = function(ev) {

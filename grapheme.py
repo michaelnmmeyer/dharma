@@ -17,7 +17,7 @@ def graphemes(s):
 		p = q
 
 vowels_extra = {
-	"ṃ", "ṁ",
+	"ṃ", "ṁ", "m\N{combining candrabindu}",
 	"ṛ", "ṝ", "ḷ", "ḹ",
 	"r\N{combining ring below}", "r\N{combining ring below}\N{combining macron}",
 	"l\N{combining ring below}", "l\N{combining ring below}\N{combining macron}",

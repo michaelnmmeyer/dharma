@@ -1,8 +1,14 @@
+# I initially wanted to do validation and display together, with a real parser,
+# possibly bound to rng. But in practice, we need to generate a useful display
+# even when texts are not valid. So many files are invalid that being too
+# strict would leave us with not much, and even so not being able to display a
+# text at all because of a single error would be super annoying.
+#
 # to make sure we examine everything and to signal stuff we haven't taken into
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
 import os, sys, re, io, copy, html, unicodedata
-from dharma import prosody, people, tree, gaiji, config, grapheme
+from dharma import prosody, people, tree, gaiji, config, grapheme, biblio
 
 write = sys.stdout.write
 
@@ -21,6 +27,7 @@ def term_color(code=None):
 	write(f"\N{ESC}[38;2;{R};{G};{B}m")
 
 def term_html(): term_color("#5f00ff")
+def term_bib(): term_color("#aa007f")
 def term_log(): term_color("#008700")
 def term_phys(): term_color("#0055ff")
 def term_text(): term_color("#aa007f")
@@ -38,6 +45,8 @@ def write_debug(t, data, **params):
 		term_text()
 	elif t == "span":
 		term_span()
+	elif t == "bib" or t == "ref":
+		term_bib()
 	else:
 		assert 0, t
 	write("%-04s" % t)
@@ -207,6 +216,12 @@ class Block:
 				buf.append('</span>')
 			else:
 				assert 0, data
+		elif t == "bib":
+			key, rec = biblio.get_entry(data, params)
+			buf.append(f'<p class="dh-bib-entry" id="dh-bib-key-{key}">{rec}</p>')
+		elif t == "ref":
+			key, ref = biblio.get_ref(data, params.get("omit_name"))
+			buf.append(f'<span class="dh-bib-ref"><a href="#dh-bib-key-{key}">{ref}</a></span>')
 		else:
 			assert 0, t
 
@@ -220,9 +235,9 @@ class Block:
 				elif data == ">div":
 					buf.append('</div>')
 				elif data == "<head":
-					buf.append('<h4 class="dh-ed-heading">')
+					buf.append('<h3 class="dh-ed-heading">')
 				elif data == ">head":
-					buf.append('</h4>')
+					buf.append('</h3>')
 				elif data == "<para" or data == "<line":
 					buf.append("<p>")
 				elif data == ">para" or data == ">line":
@@ -268,10 +283,10 @@ class Block:
 						buf.append('<span class="dh-hyphen-break" title="Hyphen break">-</span>')
 					buf.append('</p>')
 				elif data == "=page":
-					buf.append('<h4><span class="dh-pagelike" title="Page start">(\N{next page} %s)</span></h4> ' % html.escape(params["n"]))
+					buf.append('<h3><span class="dh-pagelike" title="Page start">(\N{next page} %s)</span></h3> ' % html.escape(params["n"]))
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
-					buf.append('<h4><span class="dh-pagelike" title="%s start">(%s %s)</span></h4>' % (unit, unit, html.escape(params["n"])))
+					buf.append('<h3><span class="dh-pagelike" title="%s start">(%s %s)</span></h3>' % (unit, unit, html.escape(params["n"])))
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
 					buf.append('<span class="dh-gridlike" title="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
@@ -283,9 +298,9 @@ class Block:
 				elif data == ">div":
 					buf.append('</div>')
 				elif data == "<head":
-					buf.append('<h4 class="dh-ed-heading">')
+					buf.append('<h3 class="dh-ed-heading">')
 				elif data == ">head":
-					buf.append('</h4>')
+					buf.append('</h3>')
 			else:
 				self.render_common(buf, t, data, params)
 		return "".join(buf)
@@ -317,6 +332,7 @@ class Document:
 	translation = None
 	# expect a single one
 	commentary = None
+	bibliography = None
 
 	xml = ""
 
@@ -904,6 +920,35 @@ def parse_l(p, l):
 	p.add_log("<line")
 	p.dispatch_children(l)
 	p.add_log(">line")
+
+def extract_bib_ref(p, node):
+	assert node.name == "bibl"
+	ptr = node.first("ptr")
+	if not ptr:
+		return
+	target = ptr["target"]
+	if not target.startswith("bib:"):
+		p.complain(ptr)
+		return
+	ref = target.removeprefix("bib:")
+	return ref
+
+def parse_listBibl(p, node):
+	for rec in node.children():
+		if not rec.name == "bibl":
+			continue
+		ref = extract_bib_ref(p, rec)
+		tbl = {}
+		for r in rec.find("citedRange"):
+			unit = r["unit"]
+			if not unit in ("page", "item", "appendix") or not r.text().strip():
+				continue
+			tbl[unit] = r.text().strip()
+		p.add_code("bib", ref, **tbl)
+
+def parse_bibl(p, node):
+	ref = extract_bib_ref(p, node)
+	p.add_code("ref", ref, omit_name=node["rend"] == "omitname")
 
 def parse_body(p, body):
 	for elem in body.children():
