@@ -142,6 +142,31 @@ def fix_string(val):
 		val = html.escape(val)
 	return val
 
+def name_first_last(rec, dflt="?"):
+	first, last = rec.get("firstName"), rec.get("lastName")
+	if first and last:
+		return "%s %s" % (first, last)
+	elif last:
+		return last
+	elif first:
+		return "%s ?" % first
+	else:
+		return rec.get("name") or dflt
+
+def name_last_first(rec, dflt="?"):
+	first, last = rec.get("firstName"), rec.get("lastName")
+	if last and first:
+		return "%s, %s" % (last, first)
+	elif last:
+		return last
+	elif first:
+		return "?, %s" % first
+	else:
+		return rec.get("name") or dflt
+
+def name_last(rec, dflt="?"):
+	return rec.get("lastName") or rec.get("name") or dflt
+
 class Writer:
 
 	def __init__(self):
@@ -170,13 +195,13 @@ class Writer:
 			return
 		for i, author in enumerate(authors):
 			if i == 0:
-				self.write("%s, %s" % (author["lastName"], author["firstName"]))
+				self.write(name_last_first(author))
 				continue
 			if i == len(authors) - 1:
 				self.write(" and ")
 			else:
 				self.write(", ")
-			self.write("%s %s" % (author["firstName"], author["lastName"]))
+			self.write(name_first_last(author))
 		self.add_period()
 
 	def write_date(self, date):
@@ -207,7 +232,7 @@ class Writer:
 	def end(self):
 		pass
 
-cited_range_units = [
+cited_range_units = dict([
 	("volume", "vol."),
 	("appendix", "appendix"),
 	("book", "book"),
@@ -221,7 +246,7 @@ cited_range_units = [
 	("part", "part"),
 	("entry", "entry"),
 	("line", "l."),
-]
+])
 
 def render_journal_article(rec, w, params):
 	w.write_names(rec["creators"])
@@ -235,15 +260,13 @@ def render_journal_article(rec, w, params):
 		if rec["volume"]:
 			w.add_space()
 			w.write(rec["volume"])
-		params.setdefault("page", rec["pages"]) # overwrite if necessary
 		sep = ": "
-		for unit, abbr in cited_range_units:
-			val = params.get(unit)
-			if val:
-				w.write(sep)
-				sep = ", "
-				w.write(abbr + "\N{NBSP}")
-				w.write(val)
+		for unit, val in params["loc"]:
+			abbr = cited_range_units.get(unit, unit)
+			w.write(sep)
+			sep = ", "
+			w.write(abbr + "\N{NBSP}")
+			w.write(val)
 		w.add_period()
 
 # See
@@ -263,12 +286,11 @@ def render_book(rec, w, params):
 		w.write(rec["place"])
 		if rec["publisher"]:
 			w.write(": %s" % rec["publisher"])
-		for unit, abbr in cited_range_units:
-			val = params.get(unit)
-			if val:
-				w.write(", ")
-				w.write(abbr + "\N{NBSP}")
-				w.write(val)
+		for unit, val in params["loc"]:
+			abbr = cited_range_units.get(unit, unit)
+			w.write(", ")
+			w.write(abbr + "\N{NBSP}")
+			w.write(val)
 		w.add_period()
 
 renderers = {
@@ -292,13 +314,13 @@ def make_ref_main(rec, fmt):
 		return "<i>ibid.</i>"
 	authors = rec["creators"]
 	if not authors:
-		return "???"
+		return "?"
 	author = authors[0]
-	buf = author["lastName"]
+	buf = name_last(author)
 	if len(authors) == 1:
 		pass
 	elif len(authors) == 2:
-		buf += " and " + authors[1]["lastName"]
+		buf += " and " + name_last(authors[1])
 	elif len(authors) >= 3:
 		buf += " <i>et al.</i>"
 	buf += " " + rec["date"]
@@ -308,12 +330,11 @@ def make_ref(rec, **params):
 	ref = make_ref_main(rec, params["rend"])
 	loc = ""
 	sep = ": "
-	for unit, abbr in cited_range_units:
-		val = params.get(unit)
-		if val:
-			loc += sep
-			sep = ", "
-			loc += abbr + "\N{NBSP}" + val
+	for unit, val in params["loc"]:
+		abbr = cited_range_units.get(unit, unit)
+		loc += sep
+		sep = ", "
+		loc += abbr + "\N{NBSP}" + val
 	return ref, loc
 
 # TODO complain when multiple entries
@@ -329,9 +350,9 @@ def get_entry(ref, params):
 def get_ref(ref, **params):
 	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
 	if not recs:
-		return "???", ""
+		return "???", "", ""
 	key, ret = recs[0]
 	return key, *make_ref(ret["data"], **params)
 
 if __name__ == "__main__":
-	print(get_entry(sys.argv[1]))
+	print(get_entry(sys.argv[1], {"rend": "default", "loc": []})[1])

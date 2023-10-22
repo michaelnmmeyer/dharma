@@ -925,40 +925,45 @@ def extract_bib_ref(p, node):
 	assert node.name == "bibl"
 	ptr = node.first("ptr")
 	if not ptr:
-		return
+		return None, None
 	target = ptr["target"]
 	if not target.startswith("bib:"):
 		p.complain(ptr)
-		return
+		return None, None
 	ref = target.removeprefix("bib:")
-	tbl = {}
+	loc = []
 	for r in node.find("citedRange"):
 		unit = r["unit"]
 		if unit not in bibl_units:
 			unit = "page"
-		tbl[unit] = r.text().strip()
-	return ref, tbl
+		loc.append((unit, r.text().strip()))
+	return ref, loc
 
-bibl_units = set(k for k, _ in biblio.cited_range_units)
+bibl_units = set(biblio.cited_range_units)
 
 def parse_listBibl(p, node):
+	recs = node.find("bibl")
+	if not recs:
+		return
 	typ = node["type"]
 	if typ:
 		p.add_log("<head")
 		p.add_text(titlecase(typ))
 		p.add_log(">head")
-	for rec in node.children():
-		if not rec.name == "bibl":
-			continue
-		ref, params = extract_bib_ref(p, rec)
-		p.add_code("bib", ref, **params)
+	for rec in recs:
+		ref, loc = extract_bib_ref(p, rec)
+		if not ref:
+			return #  TODO
+		p.add_code("bib", ref, loc=loc)
 
 def parse_bibl(p, node):
 	rend = node["rend"]
 	if rend not in ("omitname", "ibid", "default"):
 		rend = "default"
-	ref, params = extract_bib_ref(p, node)
-	p.add_code("ref", ref, rend=rend, **params)
+	ref, loc = extract_bib_ref(p, node)
+	if not ref:
+		return # TODO
+	p.add_code("ref", ref, rend=rend, loc=loc)
 
 def parse_body(p, body):
 	for elem in body.children():
