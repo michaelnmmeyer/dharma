@@ -933,7 +933,14 @@ def extract_bib_ref(p, node):
 	ref = target.removeprefix("bib:")
 	return ref
 
+bibl_units = set(k for k, _ in biblio.cited_range_units)
+
 def parse_listBibl(p, node):
+	typ = node["type"]
+	if typ:
+		p.add_log("<head")
+		p.add_text(titlecase(typ))
+		p.add_log(">head")
 	for rec in node.children():
 		if not rec.name == "bibl":
 			continue
@@ -941,7 +948,7 @@ def parse_listBibl(p, node):
 		tbl = {}
 		for r in rec.find("citedRange"):
 			unit = r["unit"]
-			if not unit in ("page", "item", "appendix") or not r.text().strip():
+			if unit not in bibl_units:
 				continue
 			tbl[unit] = r.text().strip()
 		p.add_code("bib", ref, **tbl)

@@ -231,6 +231,22 @@ def render_journal_article(rec, w, params):
 				w.write(val)
 		w.add_period()
 
+cited_range_units = [
+	("volume", "vol."),
+	("appendix", "appendix"),
+	("book", "book"),
+	("section", "section"),
+	("page", "p."),
+	("item", "nº"),
+	("figure", "fig."),
+	("plate", "plate"),
+	("table", "table"),
+	("note", "note"),
+	("part", "part"),
+	("entry", "entry"),
+	("line", "l."),
+]
+
 # See
 # https://github.com/zotero/translators/blob/master/TEI.js
 def render_book(rec, w, params):
@@ -248,7 +264,7 @@ def render_book(rec, w, params):
 		w.write(rec["place"])
 		if rec["publisher"]:
 			w.write(": %s" % rec["publisher"])
-		for unit, abbr in (("page", "p."), ("appendix", "appendix"), ("item", "nº")):
+		for unit, abbr in cited_range_units:
 			val = params.get(unit)
 			if val:
 				w.write(", ")
