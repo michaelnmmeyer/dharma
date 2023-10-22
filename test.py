@@ -14,8 +14,8 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in inscriptions:
 	xml = tree.parse(file)
-	for p in xml.find("//speaker"):
-		print(p.path)
+	for p in xml.find("//msItem"):
+		print(p)
 
 		#print(file,p.path)
 		#print(p["n"])

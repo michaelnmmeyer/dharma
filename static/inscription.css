@@ -15,24 +15,47 @@
 	border-top-right-radius: 0.3em;
 	padding: 0.2em;
 	margin-left: 1em;
+	border-color: gray;
 }
-.dh-active {
-	background-color: #ffffff;
+li.dh-active {
+	background-color: white;
+	border-color: black;
 	margin-bottom: -2px;
 }
+.dh-ed-tabs a {
+	color: gray;
+}
+.dh-active a {
+	color: black;
+}
 
-/* The idea is to make visible stuff that has a tooltip */
-.dh-log span:hover {
-	color: white;
-	background-color: black;
+.dh-tipped {
+	position: relative;
 }
-.dh-phys span:hover {
+
+.dh-tip {
+	display: none;
 	color: white;
 	background-color: black;
+	font-weight: normal;
+	font-style: normal;
+	font-size: initial;
+	text-indent: 0;
+	padding: 0.3em;
+	border-radius: 0.3em;
+	position: absolute;
+	z-index: 1;
+	top: 100%;
+	width: 39em;
 }
-.dh-trans span:hover {
+.dh-tipped:hover .dh-tip {
+	display: block;
+}
+.dh-tipped:hover {
 	color: white;
 	background-color: black;
+	border-top-left-radius: 0.3em;
+	border-top-right-radius: 0.3em;
 }
 
 /* Editions */
@@ -69,6 +92,18 @@
 .dh-abbr {
 	color: brown;
 }
+.dh-sic {
+	color: red;
+}
+.dh-corr {
+	color: green;
+}
+.dh-orig {
+	color: magenta;
+}
+.dh-reg {
+	color: blue;
+}
 
 /* Logical display */
 .dh-log {
@@ -77,14 +112,8 @@
 .dh-log .dh-sic {
 	display: none;
 }
-.dh-log .dh-corr {
-	color: green;
-}
 .dh-log .dh-orig {
 	display: none;
-}
-.dh-log .dh-reg {
-	color: blue;
 }
 .dh-log .dh-surplus {
 	display: none;
@@ -106,14 +135,8 @@
 }
 .dh-phys .dh-pagelike {
 }
-.dh-phys .dh-sic {
-	color: red;
-}
 .dh-phys .dh-corr {
 	display: none;
-}
-.dh-phys .dh-orig {
-	color: magenta;
 }
 .dh-phys .dh-reg {
 	display: none;

@@ -4,6 +4,7 @@
 ''')
 
 <div class="body">
+
 <h1>
 % for part in doc.title:
    {{!part}}.

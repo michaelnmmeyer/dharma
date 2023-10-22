@@ -211,7 +211,7 @@ class Block:
 			if data == "<":
 				klasses = " ".join(params["klass"])
 				tip = " | ".join(params["tip"])
-				buf.append('<span class="%s" title="%s">' % (html.escape(klasses), html.escape(tip)))
+				buf.append('<span class="%s dh-tipped"><span class="dh-tip">%s</span>' % (html.escape(klasses), html.escape(tip)))
 			elif data == ">":
 				buf.append('</span>')
 			else:
@@ -250,21 +250,21 @@ class Block:
 					assert 0, data
 			elif t == "phys":
 				if data == "<line":
-					buf.append('<span class="dh-lb" title="New line">(%s)</span>' % html.escape(params["n"]))
+					buf.append('<span class="dh-lb dh-tipped"><span class="dh-tip">Line start</span>(%s)</span>' % html.escape(params["n"]))
 					if params["brk"]:
 						buf.append(" ")
 				elif data == ">line":
 					pass
 				elif data == "=page":
-					buf.append('<span class="dh-pagelike" title="Page start">(\N{next page} %s)</span>' % html.escape(params["n"]))
+					buf.append('<span class="dh-pagelike dh-tipped"><span class="dh-tip">Page start</span>(\N{next page} %s)</span>' % html.escape(params["n"]))
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
 					n = html.escape(params["n"])
-					buf.append(f'<span class="dh-pagelike" title="{unit} start">({unit} {n})</span>')
+					buf.append(f'<span class="dh-pagelike dh-tipped"><span class="dh-tip">{unit} start</span>({unit} {n})</span>')
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
 					n = html.escape(params["n"])
-					buf.append(f'<span class="dh-gridlike" title="{unit} start">({unit} {n})</span>')
+					buf.append(f'<span class="dh-gridlike dh-tipped"><span class="dh-tip">{unit} start</span>({unit} {n})</span>')
 				else:
 					assert 0, data
 			else:
@@ -277,19 +277,19 @@ class Block:
 		for t, data, params in self.code:
 			if t == "phys":
 				if data == "<line":
-					buf.append('<p class="dh-line"><span class="dh-lb" title="Line start">(%s)</span> ' % html.escape(params["n"]))
+					buf.append('<p class="dh-line"><span class="dh-lb dh-tipped"><span class="dh-tip">Line start</span>(%s)</span> ' % html.escape(params["n"]))
 				elif data == ">line":
 					if not params["brk"]:
-						buf.append('<span class="dh-hyphen-break" title="Hyphen break">-</span>')
+						buf.append('<span class="dh-hyphen-break dh-tipped"><span class="dh-tip">Hyphen break</span>-</span>')
 					buf.append('</p>')
 				elif data == "=page":
-					buf.append('<h3><span class="dh-pagelike" title="Page start">(\N{next page} %s)</span></h3> ' % html.escape(params["n"]))
+					buf.append('<h3><span class="dh-pagelike dh-tipped"><span class="dh-tip">Page start</span>(\N{next page} %s)</span></h3> ' % html.escape(params["n"]))
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
-					buf.append('<h3><span class="dh-pagelike" title="%s start">(%s %s)</span></h3>' % (unit, unit, html.escape(params["n"])))
+					buf.append('<h3><span class="dh-pagelike dh-tipped"><span class="dh-tip">%s start</span>(%s %s)</span></h3>' % (unit, unit, html.escape(params["n"])))
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
-					buf.append('<span class="dh-gridlike" title="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
+					buf.append('<span class="dh-gridlike dh-tipped"><span class="dh-tip">%s start</span>(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
 				else:
 					assert 0, data
 			elif t == "log":
