@@ -220,8 +220,8 @@ class Block:
 			key, rec = biblio.get_entry(data, params)
 			buf.append(f'<p class="dh-bib-entry" id="dh-bib-key-{key}">{rec}</p>')
 		elif t == "ref":
-			key, ref = biblio.get_ref(data, params.get("omit_name"))
-			buf.append(f'<span class="dh-bib-ref"><a href="#dh-bib-key-{key}">{ref}</a></span>')
+			key, ref, loc = biblio.get_ref(data, **params)
+			buf.append(f'<span class="dh-bib-ref"><a href="#dh-bib-key-{key}">{ref}</a>{loc}</span>')
 		else:
 			assert 0, t
 
@@ -931,7 +931,13 @@ def extract_bib_ref(p, node):
 		p.complain(ptr)
 		return
 	ref = target.removeprefix("bib:")
-	return ref
+	tbl = {}
+	for r in node.find("citedRange"):
+		unit = r["unit"]
+		if unit not in bibl_units:
+			unit = "page"
+		tbl[unit] = r.text().strip()
+	return ref, tbl
 
 bibl_units = set(k for k, _ in biblio.cited_range_units)
 
@@ -944,18 +950,15 @@ def parse_listBibl(p, node):
 	for rec in node.children():
 		if not rec.name == "bibl":
 			continue
-		ref = extract_bib_ref(p, rec)
-		tbl = {}
-		for r in rec.find("citedRange"):
-			unit = r["unit"]
-			if unit not in bibl_units:
-				continue
-			tbl[unit] = r.text().strip()
-		p.add_code("bib", ref, **tbl)
+		ref, params = extract_bib_ref(p, rec)
+		p.add_code("bib", ref, **params)
 
 def parse_bibl(p, node):
-	ref = extract_bib_ref(p, node)
-	p.add_code("ref", ref, omit_name=node["rend"] == "omitname")
+	rend = node["rend"]
+	if rend not in ("omitname", "ibid", "default"):
+		rend = "default"
+	ref, params = extract_bib_ref(p, node)
+	p.add_code("ref", ref, rend=rend, **params)
 
 def parse_body(p, body):
 	for elem in body.children():

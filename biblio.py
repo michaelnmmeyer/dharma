@@ -207,30 +207,6 @@ class Writer:
 	def end(self):
 		pass
 
-def render_journal_article(rec, w, params):
-	w.write_names(rec["creators"])
-	w.write_date(rec["date"])
-	w.write_quoted(rec["title"])
-	if rec["publicationTitle"]:
-		w.add_space()
-		w.write("<i>")
-		w.write(rec["publicationTitle"])
-		w.write("</i>")
-		if rec["volume"]:
-			w.add_space()
-			w.write(rec["volume"])
-		if rec["pages"]:
-			w.write(":")
-			w.add_space()
-			w.write(rec["pages"])
-		for unit, abbr in (("page", "p."), ("appendix", "appendix"), ("item", "№")):
-			val = params.get(unit)
-			if val:
-				w.write(", ")
-				w.write(abbr + "\N{NBSP}")
-				w.write(val)
-		w.add_period()
-
 cited_range_units = [
 	("volume", "vol."),
 	("appendix", "appendix"),
@@ -246,6 +222,29 @@ cited_range_units = [
 	("entry", "entry"),
 	("line", "l."),
 ]
+
+def render_journal_article(rec, w, params):
+	w.write_names(rec["creators"])
+	w.write_date(rec["date"])
+	w.write_quoted(rec["title"])
+	if rec["publicationTitle"]:
+		w.add_space()
+		w.write("<i>")
+		w.write(rec["publicationTitle"])
+		w.write("</i>")
+		if rec["volume"]:
+			w.add_space()
+			w.write(rec["volume"])
+		params.setdefault("page", rec["pages"]) # overwrite if necessary
+		sep = ": "
+		for unit, abbr in cited_range_units:
+			val = params.get(unit)
+			if val:
+				w.write(sep)
+				sep = ", "
+				w.write(abbr + "\N{NBSP}")
+				w.write(val)
+		w.add_period()
 
 # See
 # https://github.com/zotero/translators/blob/master/TEI.js
@@ -286,12 +285,14 @@ def render(rec, params):
 	w.end()
 	return w.buf
 
-def make_ref(rec, omit_name):
-	if omit_name:
+def make_ref_main(rec, fmt):
+	if fmt == "omitname":
 		return rec["date"]
+	if fmt == "ibid":
+		return "<i>ibid.</i>"
 	authors = rec["creators"]
 	if not authors:
-		return
+		return "???"
 	author = authors[0]
 	buf = author["lastName"]
 	if len(authors) == 1:
@@ -303,6 +304,18 @@ def make_ref(rec, omit_name):
 	buf += " " + rec["date"]
 	return buf
 
+def make_ref(rec, **params):
+	ref = make_ref_main(rec, params["rend"])
+	loc = ""
+	sep = ": "
+	for unit, abbr in cited_range_units:
+		val = params.get(unit)
+		if val:
+			loc += sep
+			sep = ", "
+			loc += abbr + "\N{NBSP}" + val
+	return ref, loc
+
 # TODO complain when multiple entries
 def get_entry(ref, params):
 	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
@@ -313,13 +326,12 @@ def get_entry(ref, params):
 	return key, ret or ""
 
 # TODO complain when multiple entries
-def get_ref(ref, omit_name):
+def get_ref(ref, **params):
 	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
 	if not recs:
 		return "???", ""
 	key, ret = recs[0]
-	ret = make_ref(ret["data"], omit_name)
-	return key, ret or ""
+	return key, *make_ref(ret["data"], **params)
 
 if __name__ == "__main__":
 	print(get_entry(sys.argv[1]))
