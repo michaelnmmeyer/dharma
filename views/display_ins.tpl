@@ -56,6 +56,13 @@ Identifier: {{text.removeprefix("DHARMA_")}}
 
 <div class="body">
 
+% if doc.apparatus:
+<div class="dh-apparatus">
+<h2>Apparatus</h2>
+{{!doc.apparatus.render_logical()}}
+</div>
+% end
+
 % for trans in doc.translation:
 <div class="dh-trans">
 <h2>Translation</h2>

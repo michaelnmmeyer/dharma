@@ -3,6 +3,9 @@
 # This is why tags are used, but can we generate another API call that uses a
 # proper primary key? Yes, use:
 # https://api.zotero.org/groups/1633743/items/ZZH5G8PB?format=tei
+#
+# For the conversion zotero->tei:
+# https://github.com/zotero/translators/blob/master/TEI.js
 
 import sys, io, json, unicodedata, html, re, time
 import requests
@@ -102,7 +105,7 @@ def all_string_values(obj, ignore):
 				continue
 			yield from all_string_values(v, ignore)
 
-def check_string_value(xml, entry):
+def fix_markup(xml):
 	for tag in xml.find(".//em"):
 		tag.name = "i"
 	for tag in xml.find(".//a"):
@@ -130,14 +133,14 @@ def check_entries():
 			fix_string(val)
 
 def fix_string(val):
-	val = unicodedata.normalize("NFC", val)
 	val = html.unescape(val)
+	val = unicodedata.normalize("NFC", val)
 	val = val.replace("&", "&amp;")
-	val = "<root>%s</root>" % val
+	val = "<r>%s</r>" % val
 	try:
 		xml = tree.parse_string(val).root
-		check_string_value(xml, entry)
-		val = xml.xml()[len("<root>"):-len("</root>")]
+		fix_markup(xml)
+		val = xml.xml()[len("<r>"):-len("</r>")]
 	except expat.ExpatError:
 		val = html.escape(val)
 	return val
@@ -172,11 +175,11 @@ class Writer:
 	def __init__(self):
 		self.buf = ""
 
-	def add_space(self):
+	def space(self):
 		if self.buf and not self.buf[-1].isspace():
-			self.write(" ")
+			self.buf += " "
 
-	def add_period(self): # TODO take tags into account
+	def period(self): # TODO take tags into account!
 		i = len(self.buf)
 		while i > 0:
 			i -= 1
@@ -187,164 +190,441 @@ class Writer:
 				break
 		self.buf += "."
 
-	def write(self, s):
+	def text(self, s):
 		self.buf += s
 
-	def write_names(self, authors):
+	def html(self, s):
+		self.buf += s
+
+	def names(self, authors):
 		if not authors:
-			return
+			self.text("Anonymous")
 		for i, author in enumerate(authors):
 			if i == 0:
-				self.write(name_last_first(author))
+				self.text(name_last_first(author))
 				continue
 			if i == len(authors) - 1:
-				self.write(" and ")
+				self.text(" and ")
 			else:
-				self.write(", ")
-			self.write(name_first_last(author))
-		self.add_period()
+				self.text(", ")
+			self.text(name_first_last(author))
+		self.period()
 
-	def write_date(self, date):
+	def date(self, date):
 		if not date:
-			return
-		self.add_space()
-		self.write(date)
-		self.add_period()
+			date = "N.\N{NBSP}d."
+		self.space()
+		self.text(date)
+		self.period()
 
-	def write_quoted(self, title):
-		if not title:
-			return
-		self.add_space()
-		self.write("“")
-		self.write(title)
-		self.add_period()
-		self.write("”")
+	def quoted(self, title):
+		self.space()
+		if title:
+			self.text("“")
+			self.text(title)
+			self.period()
+			self.text("”")
+		else:
+			self.text("Untitled")
+			self.period()
 
-	def write_italic(self, title):
-		if not title:
-			return
-		self.add_space()
-		self.write("<i>")
-		self.write(title)
-		self.write("</i>")
-		self.add_period()
+	def italic(self, title):
+		self.space()
+		if title:
+			self.html("<i>")
+			self.text(title)
+			self.html("</i>")
+		else:
+			self.text("Untitled")
+		self.period()
 
-	def end(self):
-		pass
+	def series(self, rec):
+		if not rec["series"]:
+			return
+		self.space()
+		self.text(rec["series"])
+		if rec["seriesNumber"]:
+			self.text(" %s" % rec["seriesNumber"])
+		self.period()
+
+	def place_publisher_loc(self, rec, params):
+		self.space()
+		if rec["place"]:
+			self.text(rec["place"])
+		else:
+			self.text("No place")
+		publisher = rec.get("publisher")
+		if publisher:
+			self.text(": %s" % publisher)
+		for unit, val in params["loc"]:
+			abbr = cited_range_units.get(unit, unit)
+			self.text(", ")
+			self.text(abbr + "\N{NBSP}")
+			self.text(val)
+		self.period()
+
+	def edition(self, rec):
+		ed = rec["edition"]
+		if not ed:
+			return
+		if ed == "1":
+			w.text("1st ed.")
+		elif ed == "2":
+			w.text("2nd ed.")
+		elif ed == "3":
+			w.text("3rd ed.")
+		elif ed.isdigit():
+			w.text("%sth ed." % ed)
+		else:
+			w.text(ed)
+			w.period()
+
+	def url(self, rec):
+		url = rec["url"]
+		if not url:
+			return
+		self.space()
+		self.text("URL: ")
+		self.html('<a class="dh-url" href="')
+		self.text(url)
+		self.html('">')
+		self.text(url)
+		self.html('</a>')
+		self.period()
 
 cited_range_units = dict([
 	("volume", "vol."),
 	("appendix", "appendix"),
 	("book", "book"),
-	("section", "section"),
+	("section", "§"),
 	("page", "p."),
 	("item", "nº"),
 	("figure", "fig."),
 	("plate", "plate"),
 	("table", "table"),
-	("note", "note"),
+	("note", "n."),
 	("part", "part"),
 	("entry", "entry"),
 	("line", "l."),
 ])
 
 def render_journal_article(rec, w, params):
-	w.write_names(rec["creators"])
-	w.write_date(rec["date"])
-	w.write_quoted(rec["title"])
+	w.names(rec["creators"])
+	w.date(rec["date"])
+	w.quoted(rec["title"])
 	if rec["publicationTitle"]:
-		w.add_space()
-		w.write("<i>")
-		w.write(rec["publicationTitle"])
-		w.write("</i>")
+		w.space()
+		w.html("<i>")
+		w.text(rec["publicationTitle"])
+		w.html("</i>")
 		if rec["volume"]:
-			w.add_space()
-			w.write(rec["volume"])
-		sep = ": "
+			w.space()
+			w.text(rec["volume"])
+		sep = ", "
 		for unit, val in params["loc"]:
 			abbr = cited_range_units.get(unit, unit)
-			w.write(sep)
-			sep = ", "
-			w.write(abbr + "\N{NBSP}")
-			w.write(val)
-		w.add_period()
+			w.text(sep)
+			w.text(abbr + "\N{NBSP}")
+			w.text(val)
+		w.period()
+	w.url(rec)
 
-# See
-# https://github.com/zotero/translators/blob/master/TEI.js
+# book
+"""
+  {
+    "ISBN": "",
+    "abstractNote": "",
+    "accessDate": "",
+    "archive": "",
+    "archiveLocation": "",
+    "callNumber": "",
+    "collections": [
+      "IMXEGL2I"
+    ],
+    "creators": [
+      {
+        "creatorType": "author",
+        "firstName": "Benjamin Lewis",
+        "lastName": "Rice"
+      },
+      {
+        "creatorType": "author",
+        "firstName": "R.",
+        "lastName": "Narasimhachar"
+      }
+    ],
+    "date": "1923",
+    "dateAdded": "2023-04-25T13:03:22Z",
+    "dateModified": "2023-06-29T09:09:41Z",
+    "edition": "2",
+    "extra": "",
+    "itemType": "book",
+    "key": "XVCMZSKY",
+    "language": "",
+    "libraryCatalog": "",
+    "numPages": "",
+    "numberOfVolumes": "",
+    "place": "Bangalore",
+    "publisher": "Mysore Government Central Press",
+    "relations": {},
+    "rights": "",
+    "series": "Epigraphia Carnatica",
+    "seriesNumber": "2",
+    "shortTitle": "Rice+Narasimhachar1923",
+    "tags": [],
+    "title": "Inscriptions at Sravana Belgola (Revised Edition)",
+    "url": "",
+    "version": 199176,
+    "volume": ""
+  }
+"""
 def render_book(rec, w, params):
-	w.write_names(rec["creators"])
-	w.write_date(rec["date"])
-	w.write_italic(rec["title"])
-	if rec["series"]:
-		w.add_space()
-		w.write(rec["series"])
-		if rec["seriesNumber"]:
-			w.write(" %s" % rec["seriesNumber"])
-		w.write(".")
-	if rec["place"]:
-		w.add_space()
-		w.write(rec["place"])
-		if rec["publisher"]:
-			w.write(": %s" % rec["publisher"])
-		for unit, val in params["loc"]:
-			abbr = cited_range_units.get(unit, unit)
-			w.write(", ")
-			w.write(abbr + "\N{NBSP}")
-			w.write(val)
-		w.add_period()
+	w.names(rec["creators"])
+	w.date(rec["date"])
+	w.italic(rec["title"])
+	w.edition(rec)
+
+	w.place_publisher_loc(rec, params)
+	w.url(rec)
+
+# report
+"""
+  {
+    "abstractNote": "",
+    "accessDate": "",
+    "archive": "",
+    "archiveLocation": "",
+    "callNumber": "",
+    "collections": [
+      "ZKAMV4ZC"
+    ],
+    "creators": [
+      {
+        "creatorType": "author",
+        "name": "Goenawan A. Sambodo"
+      }
+    ],
+    "date": "2018",
+    "dateAdded": "2021-03-16T08:35:08Z",
+    "dateModified": "2023-04-05T23:32:10Z",
+    "extra": "",
+    "institution": "",
+    "itemType": "report",
+    "key": "HCM2HCJB",
+    "language": "Indonesian",
+    "libraryCatalog": "",
+    "pages": "",
+    "place": "Yogyakarta",
+    "relations": {},
+    "reportNumber": "",
+    "reportType": "",
+    "rights": "",
+    "seriesTitle": "",
+    "shortTitle": "GoenawanASambodo2018_02",
+    "tags": [
+      {
+        "tag": "GoenawanASambodo2018_02"
+      }
+    ],
+    "title": "Kajian Singkat Prasasti Śrī Rānāpati",
+    "url": "https://www.academia.edu/38202838/Kajian_singkat_prasasti_Sri_Ranapati_pdf",
+    "version": 196839
+  }
+"""
+def render_report(rec, w, params):
+	w.names(rec["creators"])
+	w.date(rec["date"])
+	w.quoted(rec["title"])
+	w.place_publisher_loc(rec, params)
+	w.url(rec)
+
+# book section
+"""
+{
+    "ISBN": "",
+    "abstractNote": "",
+    "accessDate": "",
+    "archive": "",
+    "archiveLocation": "",
+    "bookTitle": "The Buddhist Monuments in Asia",
+    "callNumber": "",
+    "collections": [
+      "LZ2UML25"
+    ],
+    "creators": [
+      {
+        "creatorType": "author",
+        "firstName": "Yoshiaki",
+        "lastName": "ISHIZAWA"
+      }
+    ],
+    "date": "1988",
+    "dateAdded": "2021-05-18T07:41:32Z",
+    "dateModified": "2023-06-29T05:31:44Z",
+    "edition": "",
+    "extra": "tex.langue: English",
+    "itemType": "bookSection",
+    "key": "YZ9QVXWK",
+    "language": "",
+    "libraryCatalog": "",
+    "numberOfVolumes": "",
+    "pages": "231-258",
+    "place": "",
+    "publisher": "Institute of Asian Ethno-Forms and Culture",
+    "relations": {},
+    "rights": "",
+    "series": "",
+    "seriesNumber": "",
+    "shortTitle": "Ishizawa1988_02",
+    "tags": [
+      {
+        "tag": "Ishizawa1988_02"
+      }
+    ],
+    "title": "Angkor Vat",
+    "url": "",
+    "version": 199160,
+    "volume": ""
+  }
+"""
+def render_book_section(rec, w, params):
+	w.names(rec["creators"])
+	w.date(rec["date"])
+	w.quoted(rec["title"])
+	if rec["bookTitle"]:
+		w.space()
+		w.text("In: ")
+		w.italic(rec["bookTitle"])
+		w.edition(rec)
+	if rec["volume"]:
+		w.space()
+		w.text("Vol.\N{NBSP}%s" % rec["volume"])
+		w.period()
+	w.series(rec)
+	if rec["numberOfVolumes"]:
+		w.space()
+		w.text(rec["numberOfVolumes"])
+		w.space()
+		w.text("vols.")
+	w.place_publisher_loc(rec, params)
+	w.url(rec)
+
+# thesis
+"""
+{
+  "data": {
+    "abstractNote": "",
+    "accessDate": "",
+    "archive": "",
+    "archiveLocation": "",
+    "callNumber": "",
+    "collections": [
+      "EBTHLX5L"
+    ],
+    "creators": [
+      {
+        "creatorType": "author",
+        "name": "Aditia Gunawan"
+      }
+    ],
+    "date": "2023",
+    "dateAdded": "2023-06-13T09:50:20Z",
+    "dateModified": "2023-06-27T22:58:46Z",
+    "extra": "",
+    "itemType": "thesis",
+    "key": "YGEQDXT2",
+    "language": "English",
+    "libraryCatalog": "",
+    "numPages": "",
+    "place": "Paris",
+    "relations": {},
+    "rights": "",
+    "shortTitle": "",
+    "tags": [],
+    "thesisType": "Doctoral Thesis",
+    "title": "Sundanese Religion in the 15th Century: A Philological Study based on the Śikṣā Guru, the Sasana Mahaguru, and the Siksa Kandaṅ Karǝsian",
+    "university": "École Pratique des Hautes Études, PSL University",
+    "url": "",
+    "version": 199074
+  }
+"""
+def render_thesis(rec, w, params):
+	w.names(rec["creators"])
+	w.date(rec["date"])
+	w.quoted(rec["title"])
+	w.space()
+	w.text(rec["thesisType"] or "Thesis")
+	if rec["university"]:
+		w.text(", ")
+		w.text(rec["university"])
+	w.period()
+	w.place_publisher_loc(rec, params)
+	w.url(rec)
 
 renderers = {
 	"book": render_book,
 	"journalArticle": render_journal_article,
+	"report": render_report,
+	"bookSection": render_book_section,
+	"thesis": render_thesis,
 }
+
+def fix_loc(rec, loc):
+	page = rec.get("pages")
+	for i, (unit, val) in enumerate(loc):
+		loc[i] = (html.escape(unit), html.escape(val))
+		if unit == "page":
+			page = None
+	if page:
+		loc.insert(0, ("page", page))
 
 def render(rec, params):
 	f = renderers.get(rec["itemType"])
 	if not f:
 		return
+	fix_loc(rec, params["loc"])
 	w = Writer()
+	if params["n"]:
+		w.html("<b>[%s]</b>" % html.escape(params["n"]))
+		w.space()
 	f(rec, w, params)
-	w.end()
 	return w.buf
 
 def make_ref_main(rec, fmt):
 	if fmt == "omitname":
-		return rec["date"]
+		return html.escape(rec["date"])
 	if fmt == "ibid":
 		return "<i>ibid.</i>"
 	authors = rec["creators"]
-	if not authors:
-		return "?"
-	author = authors[0]
-	buf = name_last(author)
-	if len(authors) == 1:
-		pass
+	if len(authors) == 0:
+		buf = "Anonymous"
+	elif len(authors) == 1:
+		buf = name_last(authors[0])
 	elif len(authors) == 2:
-		buf += " and " + name_last(authors[1])
+		buf = "%s and %s" % (name_last(authors[0]), name_last(authors[1]))
 	elif len(authors) >= 3:
-		buf += " <i>et al.</i>"
-	buf += " " + rec["date"]
-	return buf
+		buf = "%s <i>et al.</i>" % name_last(authors[0])
+	buf += " " + rec["date"] or "n. d."
+	return html.escape(buf)
 
 def make_ref(rec, **params):
 	ref = make_ref_main(rec, params["rend"])
 	loc = ""
-	sep = ": "
+	sep = ", "
 	for unit, val in params["loc"]:
 		abbr = cited_range_units.get(unit, unit)
 		loc += sep
-		sep = ", "
-		loc += abbr + "\N{NBSP}" + val
+		loc += html.escape(abbr + "\N{NBSP}" + val)
 	return ref, loc
 
 # TODO complain when multiple entries
 def get_entry(ref, params):
 	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
 	if not recs:
-		return "???", ""
+		return "???", html.escape("<%s> not found in bibliography" % ref)
 	key, ret = recs[0]
 	ret = render(ret["data"], params)
-	return key, ret or ""
+	return key, ret or html.escape("<%s> %s" % (ref, recs[0][1]))
 
 # TODO complain when multiple entries
 def get_ref(ref, **params):

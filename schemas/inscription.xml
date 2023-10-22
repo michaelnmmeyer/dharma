@@ -1544,9 +1544,14 @@
                         <attDef ident="xml:id" mode="delete"/>
                         <attDef ident="xml:lang" mode="delete"/>
                         <attDef ident="xml:space" mode="delete"/>
+                        <attDef ident="n" mode="change">
+                            <datatype>
+                                <dataRef name="ID"/>
+                            </datatype>
+                        </attDef>
                         <attDef ident="rend" mode="change">
                             <datatype>
-                                <dataRef key="teidata.word"/>
+                                <dataRef name="string"/>
                             </datatype>
                             <valList type="closed" mode="replace">
                                 <valItem ident="omitname">

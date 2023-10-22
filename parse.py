@@ -7,8 +7,11 @@
 # to make sure we examine everything and to signal stuff we haven't taken into
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
+# XXX '@' shorthand for sth?
+
 import os, sys, re, io, copy, html, unicodedata
 from dharma import prosody, people, tree, gaiji, config, grapheme, biblio
+from dharma import tree as etree
 
 write = sys.stdout.write
 
@@ -119,7 +122,7 @@ class Block:
 				continue
 			if rcmd != "phys":
 				continue
-			if rdata == "=page":
+			if rdata.startswith("="):
 				p = i
 				continue
 			if rdata == "<line":
@@ -326,11 +329,10 @@ class Document:
 	langs = None
 	summary = None
 
-	# we expect a single edition
 	edition = None
+	apparatus = None
 	# we can have several translations e.g. DHARMA_INSPallava00002
 	translation = None
-	# expect a single one
 	commentary = None
 	bibliography = None
 
@@ -414,12 +416,26 @@ class Parser:
 	def end_span(self):
 		return self.blocks[-1].end_span()
 
+	shorthands = {
+		"_": etree.parse_string('<space/>'),
+		"|": etree.parse_string('<g type="danda">.</g>'),
+		"/": etree.parse_string('<g type="dandaOrnate">.</g>'),
+		"||": etree.parse_string('<g type="ddanda">.</g>'),
+		"//": etree.parse_string('<g type="ddandaOrnate">.</g>'),
+		"@": etree.parse_string('<g type="circle">.</g>'),
+		"~": etree.parse_string('<g type="dash">.</g>'),
+		# the transliteration shorthand , is recommended for <g type="comma">.</g>
+		# yeah but too ambiguous
+	}
+	shorthands_re = re.compile("(%s)" % "|".join(re.escape(s) for s in sorted(shorthands, key=len, reverse=True)))
+
 	def split_string(self, s):
-		for chunk in re.split(r"(_)", s):
-			if chunk == "_":
-				handle_space_shorthand(self)
+		for chunk in self.shorthands_re.split(s):
+			t = self.shorthands.get(chunk)
+			if t:
+				self.dispatch(t.root)
 			else:
-				self.add_text(chunk)
+				self.add_text(chunk.replace("'", "’"))
 
 	def dispatch(self, node):
 		if node.type in ("comment", "instruction"):
@@ -450,12 +466,39 @@ def normalize_space(s):
 	s = s.strip()
 	return re.sub(r"\s+", " ", s)
 
-def parse_lem(p, lemma):
-	text = lemma.text() #XXX not legit
-	p.add_text(text)
-	# Ignore the apparatus for now
+def parse_lem(p, lem):
+	p.dispatch_children(lem)
+	p.add_text(" ◇ ")
+
+def parse_rdg(p, rdg):
+	p.start_span(klass="dh-reading", tip="Reading")
+	p.dispatch_children(rdg)
+	p.end_span()
+	source = rdg["source"].removeprefix("bib:")
+	if source:
+		p.add_text(" ")
+		p.add_code("ref", source, rend="default", loc=[], siglum=True)
 
 def parse_app(p, app):
+	p.add_log("<para")
+	loc = app["loc"] or "?"
+	p.start_span(klass="dh-lb", tip="Line number")
+	p.add_text("(%s)" % loc)
+	p.add_text(" ")
+	p.end_span()
+	lem = app.first("lem")
+	if lem:
+		p.dispatch(lem)
+	rdgs = app.find("rdg")
+	for i, rdg in enumerate(rdgs):
+		p.dispatch(rdg)
+		if i < len(rdgs) - 1:
+			p.add_text("; ")
+		else:
+			p.add_text(".")
+	p.add_log(">para")
+
+def parse_listApp(p, app):
 	p.dispatch_children(app)
 
 def parse_num(p, num):
@@ -695,10 +738,6 @@ def parse_space(p, space):
 	p.add_html(text)
 	p.end_span()
 
-# for '_'
-def handle_space_shorthand(p):
-	return parse_space(p, {"type": "", "quantity": "", "unit": ""})
-
 def parse_abbr(p, node):
 	p.start_span(klass="dh-abbr", tip="Abbreviated text")
 	p.dispatch_children(node)
@@ -936,7 +975,10 @@ def extract_bib_ref(p, node):
 		unit = r["unit"]
 		if unit not in bibl_units:
 			unit = "page"
-		loc.append((unit, r.text().strip()))
+		val = r.text().strip()
+		if not val:
+			continue
+		loc.append((unit, val))
 	return ref, loc
 
 bibl_units = set(biblio.cited_range_units)
@@ -954,7 +996,7 @@ def parse_listBibl(p, node):
 		ref, loc = extract_bib_ref(p, rec)
 		if not ref:
 			return #  TODO
-		p.add_code("bib", ref, loc=loc)
+		p.add_code("bib", ref, loc=loc, n=rec["n"])
 
 def parse_bibl(p, node):
 	rend = node["rend"]
