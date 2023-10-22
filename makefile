@@ -44,8 +44,9 @@ version.txt:
 	git rev-parse HEAD > version.txt
 	git show --no-patch --format=%at HEAD >> version.txt
 
-image: version.txt
+image:
 	git pull
+	$(MAKE) version.txt
 	sudo docker build -t dharma .
 
 # Usage: make commit-all m="Commit message"
