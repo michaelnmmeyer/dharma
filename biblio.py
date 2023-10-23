@@ -268,16 +268,16 @@ class Writer:
 		if not ed:
 			return
 		if ed == "1":
-			w.text("1st ed.")
+			self.text("1st ed.")
 		elif ed == "2":
-			w.text("2nd ed.")
+			self.text("2nd ed.")
 		elif ed == "3":
-			w.text("3rd ed.")
+			self.text("3rd ed.")
 		elif ed.isdigit():
-			w.text("%sth ed." % ed)
+			self.text("%sth ed." % ed)
 		else:
-			w.text(ed)
-			w.period()
+			self.text(ed)
+			self.period()
 
 	def url(self, rec):
 		# Don't use the URL if not needed. Mostly because URL are
