@@ -3,7 +3,7 @@ RUN apt-get update && \
 	apt-get upgrade -y && \
 	apt-get install -y openjdk-17-jdk-headless && \
 	apt-get install -y git && \
-	apt-get install rsync && \
+	apt-get install -y rsync && \
 	apt-get install -y python3-minimal python3-requests python3-icu && \
 	apt-get clean -y && \
 	git config --global --add safe.directory '*' && \
