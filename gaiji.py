@@ -34,7 +34,7 @@ def default_rec(name):
 		"text": "(%s)" % name,
 		"prefer_text": False,
 		"img": None,
-		"description": "no description available",
+		"description": "Symbol, no description available",
 	}
 
 def load():

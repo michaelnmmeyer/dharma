@@ -23,7 +23,7 @@
 % end
 </p>
 <p>
-Identifier: {{text.removeprefix("DHARMA_")}}
+Identifier: <span class="dh-text-id">{{text}}</span>
 </p>
 
 <div class="dh-ed">

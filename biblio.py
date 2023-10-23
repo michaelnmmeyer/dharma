@@ -280,6 +280,12 @@ class Writer:
 			w.period()
 
 	def url(self, rec):
+		# Don't use the URL if not needed. Mostly because URL are
+		# typically invalid or point to private or semi-private
+		# locations (sharedocs, academia) and that we don't want to
+		# deal with the mess.
+		if rec["itemType"] != "report":
+			return
 		url = rec["url"]
 		if not url:
 			return
@@ -604,7 +610,8 @@ def make_ref_main(rec, fmt):
 		buf = "%s and %s" % (name_last(authors[0]), name_last(authors[1]))
 	elif len(authors) >= 3:
 		buf = "%s <i>et al.</i>" % name_last(authors[0])
-	buf += " " + rec["date"] or "n. d."
+	date = rec["date"] or "n.\N{NBSP}d."
+	buf += " " + date
 	return html.escape(buf)
 
 def make_ref(rec, **params):
@@ -621,7 +628,7 @@ def make_ref(rec, **params):
 def get_entry(ref, params):
 	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
 	if not recs:
-		return "???", html.escape("<%s> not found in bibliography" % ref)
+		return "", html.escape("<%s>" % ref)
 	key, ret = recs[0]
 	ret = render(ret["data"], params)
 	return key, ret or html.escape("<%s> %s" % (ref, recs[0][1]))
@@ -630,9 +637,11 @@ def get_entry(ref, params):
 def get_ref(ref, **params):
 	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
 	if not recs:
-		return "???", "", ""
+		return "", html.escape("<%s>" % ref), ""
 	key, ret = recs[0]
 	return key, *make_ref(ret["data"], **params)
 
 if __name__ == "__main__":
-	print(get_entry(sys.argv[1], {"rend": "default", "loc": []})[1])
+	params = {"rend": "default", "loc": [], "n": ""}
+	key, ref, loc = get_ref(sys.argv[1], **params)
+	print(repr(ref))

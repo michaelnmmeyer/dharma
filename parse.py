@@ -221,10 +221,28 @@ class Block:
 				assert 0, data
 		elif t == "bib":
 			key, rec = biblio.get_entry(data, params)
-			buf.append(f'<p class="dh-bib-entry" id="dh-bib-key-{key}">{rec}</p>')
+			if key:
+				buf.append(f'<p class="dh-bib-entry" id="dh-bib-key-{key}">{rec}</p>')
+			else:
+				buf.append(f'<p class="dh-bib-entry dh-bib-ref-invalid dh-tipped"><span class="dh-tip">Invalid bibliographic reference</span>{rec}</p>')
 		elif t == "ref":
 			key, ref, loc = biblio.get_ref(data, **params)
-			buf.append(f'<span class="dh-bib-ref"><a href="#dh-bib-key-{key}">{ref}</a>{loc}</span>')
+			siglum = params.get("siglum")
+			if key:
+				buf.append(f'<span class="dh-bib-ref">')
+			else:
+				buf.append(f'<span class="dh-bib-ref-invalid dh-tipped"><span class="dh-tip">Invalid bibliographic reference</span>')
+			if key:
+				buf.append(f'<a href="#dh-bib-key-{key}">')
+			if siglum:
+				buf.append(html.escape(siglum))
+			else:
+				buf.append(ref)
+			if key:
+				buf.append('</a>')
+			if loc:
+				buf.append(loc)
+			buf.append('</span>')
 		else:
 			assert 0, t
 
@@ -238,15 +256,17 @@ class Block:
 				elif data == ">div":
 					buf.append('</div>')
 				elif data == "<head":
-					buf.append('<h3 class="dh-ed-heading">')
+					lvl = params.get("level", 3)
+					buf.append('<h%d class="dh-ed-heading">' % lvl)
 				elif data == ">head":
-					buf.append('</h3>')
+					lvl = params.get("level", 3)
+					buf.append('</h%d>' % lvl)
 				elif data == "<para" or data == "<line":
 					buf.append("<p>")
 				elif data == ">para" or data == ">line":
 					buf.append("</p>")
 				elif data == "<verse":
-					buf.append('<div class="verse">')
+					buf.append('<div class="dh-verse">')
 				elif data == ">verse":
 					buf.append('</div>')
 				else:
@@ -286,10 +306,10 @@ class Block:
 						buf.append('<span class="dh-hyphen-break dh-tipped"><span class="dh-tip">Hyphen break</span>-</span>')
 					buf.append('</p>')
 				elif data == "=page":
-					buf.append('<h3><span class="dh-pagelike dh-tipped"><span class="dh-tip">Page start</span>(\N{next page} %s)</span></h3> ' % html.escape(params["n"]))
+					buf.append('<span class="dh-pagelike dh-tipped"><span class="dh-tip">Page start</span>(\N{next page} %s)</span> ' % html.escape(params["n"]))
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
-					buf.append('<h3><span class="dh-pagelike dh-tipped"><span class="dh-tip">%s start</span>(%s %s)</span></h3>' % (unit, unit, html.escape(params["n"])))
+					buf.append('<span class="dh-pagelike dh-tipped"><span class="dh-tip">%s start</span>(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
 					buf.append('<span class="dh-gridlike dh-tipped"><span class="dh-tip">%s start</span>(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
@@ -300,9 +320,9 @@ class Block:
 					buf.append('<div class="dh-ed-section">')
 				elif data == ">div":
 					buf.append('</div>')
-				elif data == "<head":
+				elif data == "<head" and not params.get("level"):
 					buf.append('<h3 class="dh-ed-heading">')
-				elif data == ">head":
+				elif data == ">head" and not params.get("level"):
 					buf.append('</h3>')
 			else:
 				self.render_common(buf, t, data, params)
@@ -341,6 +361,7 @@ class Document:
 	def __init__(self):
 		self.langs = []
 		self.translation = []
+		self.sigla = {}
 
 class Parser:
 
@@ -468,43 +489,67 @@ def normalize_space(s):
 
 def parse_lem(p, lem):
 	p.dispatch_children(lem)
-	p.add_text(" ◇ ")
+
+def parse_ptr(p, ptr):
+	target = ptr["target"]
+	if not target.startswith("bib:"):
+		return
+	target = target.removeprefix("bib:")
+	p.add_code("ref", target, rend="default", loc=[])
 
 def parse_rdg(p, rdg):
 	p.start_span(klass="dh-reading", tip="Reading")
 	p.dispatch_children(rdg)
 	p.end_span()
-	source = rdg["source"].removeprefix("bib:")
-	if source:
-		p.add_text(" ")
-		p.add_code("ref", source, rend="default", loc=[], siglum=True)
+	sources = [source.removeprefix("bib:") for source in rdg["source"].split()]
+	if sources:
+		for source in sources:
+			p.add_text(" ")
+			siglum = p.document.sigla.get(source)
+			p.add_code("ref", source, rend="default", loc=[], siglum=siglum)
 
 def parse_app(p, app):
-	p.add_log("<para")
 	loc = app["loc"] or "?"
 	p.start_span(klass="dh-lb", tip="Line number")
 	p.add_text("(%s)" % loc)
-	p.add_text(" ")
 	p.end_span()
+	p.add_text(" ")
 	lem = app.first("lem")
 	if lem:
 		p.dispatch(lem)
 	rdgs = app.find("rdg")
+	if rdgs:
+		p.add_text(" ◇ ")
+	note = app.first("note")
 	for i, rdg in enumerate(rdgs):
 		p.dispatch(rdg)
 		if i < len(rdgs) - 1:
 			p.add_text("; ")
-		else:
+		elif not note:
 			p.add_text(".")
-	p.add_log(">para")
+	if note:
+		p.add_text(" • ")
+		p.dispatch_children(note)
 
-def parse_listApp(p, app):
-	p.dispatch_children(app)
+def parse_listApp(p, listApp):
+	apps = listApp.find("app")
+	if not apps:
+		return
+	prev_loc = None
+	for app in apps:
+		if prev_loc == app["loc"]:
+			p.add_text(" \N{EM DASH} ")
+		else:
+			if prev_loc is not None:
+				p.add_log(">para")
+			p.add_log("<para")
+		p.dispatch(app)
+		prev_loc = app["loc"]
+	p.add_log(">para")
 
 def parse_num(p, num):
 	# for now we don't deal with @value, @atLeast and @atMost
 	p.dispatch_children(num)
-
 
 # EGD "Additions to the translation"
 # EGD "Marking up restored text"
@@ -950,7 +995,39 @@ def parse_hi(p, hi):
 	else:
 		p.add_html("</%s>" % val)
 
+roman_table = [
+	("M", 1000),
+	("CM", 900),
+	("D", 500),
+	("CD", 400),
+	("C", 100),
+	("XC", 90),
+	("L", 50),
+	("XL", 40),
+	("X", 10),
+	("IX", 9),
+	("V", 5),
+	("IV", 4),
+	("I", 1),
+]
+def to_roman(x):
+	if x <= 0 or x > 3000:
+		return str(x)
+	buf = ""
+	for roman, arabic in roman_table:
+		while x >= arabic:
+			buf += roman
+			x -= arabic
+	return buf
+
 def parse_lg(p, lg):
+	n = lg["n"] or "?"
+	if n.isdigit():
+		n = to_roman(int(n))
+	met = titlecase(lg["met"] or "unknown meter")
+	p.add_log("<head", level=6)
+	p.add_html("%s. %s" % (n, met)) 
+	p.add_log(">head", level=6)
 	p.add_log("<verse")
 	p.dispatch_children(lg)
 	p.add_log(">verse")

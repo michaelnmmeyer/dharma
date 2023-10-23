@@ -1,3 +1,9 @@
+h6 {
+	font-size: initial;
+	margin-block-start: 0;
+	margin-block-end: 0;
+}
+
 .dh-ed-tabs {
 	display: flex;
 	flex-wrap: wrap;
@@ -33,6 +39,9 @@ p.dh-bib-entry {
 	padding-left: 1.5em;
 	text-indent: -1.5em;
 }
+.dh-bib-ref-invalid {
+	color: red;
+}
 
 .dh-url {
 	font-family: monospace;
@@ -67,6 +76,10 @@ p.dh-bib-entry {
 	border-top-left-radius: 0.3em;
 	border-top-right-radius: 0.3em;
 }
+.dh-text-id {
+	font-family: monospace;
+	font-size: larger;
+}
 
 /* Editions */
 .dh-grantha {
@@ -75,6 +88,8 @@ p.dh-bib-entry {
 .dh-reading {
 	font-style: italic;
 }
+/* https://stackoverflow.com/questions/22252472/how-can-i-change-the-color-of-an-svg-element/53336754#53336754
+ */
 .dh-svg {
 	height: 1em;
 }
@@ -91,11 +106,12 @@ p.dh-bib-entry {
 .dh-lb {
 	color: gray;
 	font-weight: normal;
+	font-style: normal;
 }
 .dh-pagelike {
 	color: gray;
 	font-weight: normal;
-	font-style: normal;
+
 }
 .dh-gridlike {
 	color: gray;
@@ -118,6 +134,11 @@ p.dh-bib-entry {
 	color: blue;
 }
 
+/* Apparatus */
+.dh-apparatus p {
+	text-align: left;
+}
+
 /* Logical display */
 .dh-log {
 	text-align: justify;
@@ -133,6 +154,22 @@ p.dh-bib-entry {
 }
 .dh-log .dh-hyphen-break {
 	display: none;
+}
+.dh-verse {
+	/* Same properties as a normal <p> */
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	padding-left: 0.5em;
+	border-left: solid;
+	border-color: gray;
+}
+.dh-verse > p {
+	/* No space between hemistiches */
+	margin-block-start: 0em;
+	margin-block-end: 0em;
+	/* Hanging indent */
+	padding-left: 2em;
+	text-indent: -2em;
 }
 
 /* Physical display */
