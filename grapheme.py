@@ -27,16 +27,21 @@ vowels_extra = {
 def hyphenate(s):
 	buf = ""
 	brk = False
-	for g in graphemes(s):
-		gn = unicodedata.normalize("NFD", g)
-		if gn[0] in "aeiou" or g in vowels_extra:
-			brk = True
-			buf += g
-		else:
-			if brk:
-				buf += "\N{SOFT HYPHEN}"
-				brk = False
-			buf += g
+	for t in re.split(r"(\s+|-)", s):
+		if t.isspace() or t == "-" or "\N{soft hyphen}" in t or len(t) <= 6:
+			buf += t
+			continue
+		for g in graphemes(t):
+			gn = unicodedata.normalize("NFD", g)
+			if gn[0] in "aeiou" or g in vowels_extra:
+				brk = True
+				buf += g
+			else:
+				if brk:
+					buf += "\N{soft hyphen}"
+					brk = False
+				buf += g
+		buf = buf.rstrip("\N{soft hyphen}")
 	return buf
 
 def char_name(c):

@@ -25,12 +25,15 @@ def load():
 
 pattern_tbl = str.maketrans({
 	"-": "\N{metrical breve}",
-	"+": "\N{en dash}",
+	"+": "\N{hyphen-minus}",
 	"=": "\N{metrical short over long}",
 	"2": "\N{metrical two shorts over long}",
 })
 def render_pattern(p):
-	return p.translate(pattern_tbl)
+	return "\N{narrow no-break space}".join(p.translate(pattern_tbl))
+
+def is_pattern(p):
+	return all(ord(c) in pattern_tbl or c.isdigit() or c in "|/" for c in p)
 
 items = load()
 

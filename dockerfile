@@ -1,6 +1,7 @@
 FROM debian:12-slim
 RUN apt-get update && \
 	apt-get upgrade -y && \
+	apt-get install -y apt-utils && \
 	apt-get install -y openjdk-17-jdk-headless && \
 	apt-get install -y git && \
 	apt-get install -y rsync && \

@@ -3,6 +3,9 @@
 <div class="body">
 <h1>Catalog</h1>
 
+<p>⏓-⏑--⏑⏓</p>
+<p>⏓ - ⏑ - - ⏑ ⏓</p>
+
 <p>This interface allows you to look for texts in the DHARMA collection. The
 search form below can be used for filtering results. Matching is
 case-insensitive, does not take diacritics into account, and looks for

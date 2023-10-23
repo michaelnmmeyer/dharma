@@ -31,10 +31,10 @@ Thus, I try to do something sensible whenever possible viz. whenever something
 can be mechanically inferred.
 
 Here are a few notes on how XML files are interpreted. This only concerns
-inscriptions for now. Headings indicate the element location in <a
-href="https://en.wikipedia.org/wiki/XPath">XPath</a> notation.
-Thus, for instance, `/TEI/teiHeader` refers to the part in red in the
-following, and `//body` refers to the part in orange:
+inscriptions for now. Headings that refer to an element or attribute use the <a
+href="https://en.wikipedia.org/wiki/XPath">XPath</a> notation. Thus, for
+instance, `/TEI/teiHeader` refers to the part in red in the following, and
+`//body` refers to the part in orange:
 
 <pre>
 &lt;TEI&gt;
@@ -50,6 +50,17 @@ following, and `//body` refers to the part in orange:
 	&lt;/text&gt;
 &lt;/TEI>
 </pre>
+
+## Hyphenation
+
+I add hyphenation break points to the text within `<div type="edition">`. This
+is mostly useful for texts that contain long compounds, etc. without editorial
+hyphens.
+
+This is done very roughly. Soft hyphens are added after groups of vowels, so
+that the text reflows on syllables. This is only done for relatively long
+pieces of text. If a piece of text already contains one or more soft hyphens, I
+assume it is manually hyphenated and do not attempt to hyphenate it.
 
 ## `@xml:lang`
 

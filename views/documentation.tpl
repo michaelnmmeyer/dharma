@@ -34,8 +34,8 @@ unreasonable to expect people to come back to them again and again, as I
 discover new issues. Thus, I try to do something sensible whenever
 possible viz. whenever something can be mechanically inferred.</p>
 <p>Here are a few notes on how XML files are interpreted. This only
-concerns inscriptions for now. Headings indicate the element location in
-<a
+concerns inscriptions for now. Headings that refer to an element or
+attribute use the <a
 href="https://en.wikipedia.org/wiki/XPath">XPath</a> notation. Thus, for
 instance, <code>/TEI/teiHeader</code> refers to the part in red in the
 following, and <code>//body</code> refers to the part in orange:</p>
@@ -53,6 +53,15 @@ following, and <code>//body</code> refers to the part in orange:</p>
     &lt;/text&gt;
 &lt;/TEI>
 </pre>
+<h2 id="hyphenation">Hyphenation</h2>
+<p>I add hyphenation break points to the text within
+<code>&lt;div type="edition"&gt;</code>. This is mostly useful for texts
+that contain long compounds, etc. without editorial hyphens.</p>
+<p>This is done very roughly. Soft hyphens are added after groups of
+vowels, so that the text reflows on syllables. This is only done for
+relatively long pieces of text. If a piece of text already contains one
+or more soft hyphens, I assume it is manually hyphenated and do not
+attempt to hyphenate it.</p>
 <h2 id="xmllang"><code>@xml:lang</code></h2>
 <p>The EGD prescribes to use a three-letters language code, optionally
 followed by a four-letters script name, as in <code>tam-Latn</code>.</p>

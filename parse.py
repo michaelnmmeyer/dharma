@@ -7,7 +7,7 @@
 # to make sure we examine everything and to signal stuff we haven't taken into
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
-# XXX '@' shorthand for sth?
+# TODO for tips use https://stackoverflow.com/questions/2597773/how-do-i-put-a-div-box-around-my-cursor-on-click
 
 import os, sys, re, io, copy, html, unicodedata
 from dharma import prosody, people, tree, gaiji, config, grapheme, biblio
@@ -906,7 +906,6 @@ parent is not <seg>. (but a <seg type="component"> doesn't necessarily hold a
 # "component" is for character components like vowel markers, etc.; "character" is for akṣaras
 # EGD: The EpiDoc element <gap/> ff (full section 5.4)
 # EGD: "Scribal Omission without Editorial Restoration"
-# XXX use the https://erc-dharma.github.io/editorial convention except for manu
 def parse_gap(p, gap):
 	reason = gap["reason"] or "undefined" # most generic choice
 	quantity = gap["quantity"]
@@ -944,12 +943,14 @@ def parse_gap(p, gap):
 		tip = "Unknown number of %s %s" % (reason, numberize(unit, +333))
 	parent = gap.parent
 	if parent and parent.name == "seg" and parent["met"]:
-		# XXX repr here
-		repl = "[%s]" % parent["met"]
+		met = parent["met"]
+		if prosody.is_pattern(met):
+			met = prosody.render_pattern(met)
+		repl = "[%s]" % met
 	p.start_span(klass="dh-gap", tip=tip)
 	p.add_html(html.escape(repl))
 	p.end_span()
-	# TODO special cases in editorial, involve
+	# TODO restart [ca.10x – – – ⏑ – – abc] in editorial
 	# <seg met="+++-++">
 
 def parse_g(p, node):
@@ -1018,23 +1019,24 @@ hi_table = {
 	"bold": "b",
 	"superscript": "sup",
 	"subscript": "sub",
-	"large": "big",
 	"check": "mark",
 	"grantha": {"klass": "dh-grantha", "tip": "Grantha text"},
-	# TODO missing some
 }
 def parse_hi(p, hi):
-	rend = hi["rend"]
-	val = hi_table[rend]
-	if rend == "grantha":
-		p.start_span(**val)
-	else:
-		p.add_html("<%s>" % val)
+	rends = hi["rend"].split()
+	tags = list(filter(None, (hi_table.get(rend) for rend in rends)))
+	for tag in tags:
+		if isinstance(tag, str):
+			p.add_html("<%s>" % tag)
+		else:
+			p.start_span(**tag)
 	p.dispatch_children(hi)
-	if rend == "grantha":
-		p.end_span()
-	else:
-		p.add_html("</%s>" % val)
+	tags.reverse()
+	for tag in tags:
+		if isinstance(tag, str):
+			p.add_html("</%s>" % val)
+		else:
+			p.end_span()
 
 roman_table = [
 	("M", 1000),
@@ -1067,7 +1069,7 @@ def parse_lg(p, lg):
 		n = to_roman(int(n))
 	met = titlecase(lg["met"] or "unknown meter")
 	p.add_log("<head", level=6)
-	p.add_html("%s. %s" % (n, met)) 
+	p.add_html("%s. %s" % (n, met))
 	p.add_log(">head", level=6)
 	p.add_log("<verse")
 	p.dispatch_children(lg)
@@ -1108,7 +1110,7 @@ def parse_list(p, list):
 		for item in list.find("item"):
 			p.add_log("<item")
 			p.dispatch_children(item)
-			p.add_log(">item")	
+			p.add_log(">item")
 	p.add_log(">list", type=typ)
 
 def parse_l(p, l):
@@ -1142,6 +1144,8 @@ bibl_units = set(biblio.cited_range_units)
 def parse_listBibl(p, node):
 	recs = node.find("bibl")
 	if not recs:
+		return
+	if all(len(rec) == 0 for rec in recs):
 		return
 	typ = node["type"]
 	if typ:
