@@ -121,6 +121,9 @@ def update_db(conn, name):
 			values(?, ?, ?, ?, ?, strftime('%s', 'now'))""", (file_id, name, config.CODE_HASH, valid, errors))
 	catalog.process_repo(name, conn)
 
+def backup_to_jawakuno():
+	command("bash -x %s" % os.path.join(config.THIS_DIR, "backup_to_jawakuno.sh"), capture_output=False, shell=True)
+
 @TEXTS_DB.transaction
 def handle_changes(name):
 	conn = TEXTS_DB
@@ -130,7 +133,7 @@ def handle_changes(name):
 	conn.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
 	conn.execute("commit")
 	if name == "tfd-nusantara-philology":
-		command("bash -x %s" % os.path.join(config.THIS_DIR, "backup_to_jawakuno.sh"), capture_output=False, shell=True)
+		backup_to_jawakuno()
 
 def clone_all():
 	for name in REPOS:

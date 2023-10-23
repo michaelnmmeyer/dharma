@@ -269,6 +269,42 @@ class Block:
 					buf.append('<div class="dh-verse">')
 				elif data == ">verse":
 					buf.append('</div>')
+				elif data == "<list":
+					typ = params["type"]
+					if typ == "plain":
+						buf.append('<ul class="dh-list-plain">')
+					elif typ == "bulleted":
+						buf.append('<ul>')
+					elif typ == "numbered":
+						buf.append('<ol>')
+					elif typ == "description":
+						buf.append('<dl>')
+					else:
+						assert 0
+				elif data == ">list":
+					typ = params["type"]
+					if typ == "plain":
+						buf.append('</ul>')
+					elif typ == "bulleted":
+						buf.append('</ul>')
+					elif typ == "numbered":
+						buf.append('</ol>')
+					elif typ == "description":
+						buf.append('</dl>')
+					else:
+						assert 0
+				elif data == "<item":
+					buf.append('<li>')
+				elif data == ">item":
+					buf.append('</li>')
+				elif data == "<key":
+					buf.append('<dt>')
+				elif data == ">key":
+					buf.append('</dt>')
+				elif data == "<value":
+					buf.append('<dd>')
+				elif data == ">value":
+					buf.append('</dd>')
 				else:
 					assert 0, data
 			elif t == "phys":
@@ -497,6 +533,10 @@ def parse_ptr(p, ptr):
 	target = target.removeprefix("bib:")
 	p.add_code("ref", target, rend="default", loc=[])
 
+def parse_ref(p, ref):
+	# TODO
+	p.dispatch_children(ref)
+
 def parse_rdg(p, rdg):
 	p.start_span(klass="dh-reading", tip="Reading")
 	p.dispatch_children(rdg)
@@ -520,14 +560,14 @@ def parse_app(p, app):
 	rdgs = app.find("rdg")
 	if rdgs:
 		p.add_text(" ◇ ")
-	note = app.first("note")
+	notes = app.find("note")
 	for i, rdg in enumerate(rdgs):
 		p.dispatch(rdg)
 		if i < len(rdgs) - 1:
 			p.add_text("; ")
-		elif not note:
+		elif not notes:
 			p.add_text(".")
-	if note:
+	for note in notes:
 		p.add_text(" • ")
 		p.dispatch_children(note)
 
@@ -981,6 +1021,7 @@ hi_table = {
 	"large": "big",
 	"check": "mark",
 	"grantha": {"klass": "dh-grantha", "tip": "Grantha text"},
+	# TODO missing some
 }
 def parse_hi(p, hi):
 	rend = hi["rend"]
@@ -1031,6 +1072,44 @@ def parse_lg(p, lg):
 	p.add_log("<verse")
 	p.dispatch_children(lg)
 	p.add_log(">verse")
+
+def is_description_list(nodes):
+	if len(nodes) % 2:
+		return False
+	for i in range(0, len(nodes), 2):
+		label = nodes[i]
+		item = nodes[i + 1]
+		if label.name != "label" or item.name != "item":
+			return False
+	return True
+
+def parse_list(p, list):
+	typ = list["type"]
+	if typ not in ("plain", "bulleted", "numbered", "description"):
+		typ = "plain"
+	children = list.children()
+	if is_description_list(children): # try to infer it
+		typ = "description"
+	p.add_log("<list", type=typ)
+	if typ == "description":
+		# (label, item)*
+		for i in range(0, len(children), 2):
+			label = children[i]
+			item = children[i + 1]
+			if label.name != "label" or item.name != "item":
+				continue
+			p.add_log("<key")
+			p.dispatch_children(label)
+			p.add_log(">key")
+			p.add_log("<value")
+			p.dispatch_children(item)
+			p.add_log(">value")
+	else:
+		for item in list.find("item"):
+			p.add_log("<item")
+			p.dispatch_children(item)
+			p.add_log(">item")	
+	p.add_log(">list", type=typ)
 
 def parse_l(p, l):
 	p.add_log("<line")

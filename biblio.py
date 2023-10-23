@@ -29,6 +29,7 @@ create table if not exists bibliography(
 	json json not null check(json_valid(json)),
 	short_title as (json ->> '$.data.shortTitle')
 );
+create index if not exists bibliography_index_short_title on bibliography(short_title);
 commit;
 """
 db = config.open_db("biblio", SCHEMA)

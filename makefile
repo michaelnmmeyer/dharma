@@ -20,8 +20,8 @@ update-texts: update-repos
 	mkdir texts || true
 	rm -f texts/*
 	rsync --progress 'dharma:dharma/dbs/texts.sqlite*' dbs/
-	sqlite3 dbs/texts.sqlite "select printf('../repos/%s/%s', repo, xml_path) \
-		from texts" | while read f; do \
+	sqlite3 dbs/texts.sqlite "select printf('../repos/%s/%s', repo, path) \
+		from texts natural join files" | while read f; do \
 		ln -s $$f texts/$$(basename $$f); \
 	done
 

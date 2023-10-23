@@ -13,21 +13,18 @@ assert len(inscriptions) + len(diplomatic) \
 	+ len(critical_edition) + len(critical_translation) == len(files)
 
 for file in inscriptions:
+	print(file)
 	xml = tree.parse(file)
-	if '\\' in xml.text():
-		print(file)
-	continue
-
-	for p in xml.find("//bibl"):
-
+	for p in xml.find("//list"):
 		#print(file,p.path)
-		print(p["n"])
+		#print(p["n"])
 
 		#print(p.xml())
 		#print(p.text())
 		#if p.children():print(file,p.xml())
 		#print(p["type"])
-		print(" ".join(t.name for t in p.children()))
+		s = " ".join(t.name for t in p.children())
+		print(s)
 		##print(" ".join(t for t in sorted(p.attrs)))
 
 
