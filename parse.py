@@ -229,7 +229,10 @@ class Block:
 			key, ref, loc = biblio.get_ref(data, **params)
 			siglum = params.get("siglum")
 			if key:
-				buf.append(f'<span class="dh-bib-ref">')
+				if siglum:
+					buf.append(f'<span class="dh-bib-ref" data-tip="{ref}">')
+				else:
+					buf.append(f'<span class="dh-bib-ref">')
 			else:
 				buf.append(f'<span class="dh-bib-ref-invalid" data-tip="Invalid bibliographic reference">')
 			if key:
@@ -1046,7 +1049,7 @@ def parse_hi(p, hi):
 	tags.reverse()
 	for tag in tags:
 		if isinstance(tag, str):
-			p.add_html("</%s>" % val)
+			p.add_html("</%s>" % tag)
 		else:
 			p.end_span()
 
