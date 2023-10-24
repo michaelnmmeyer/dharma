@@ -8,6 +8,8 @@ RUN apt-get update && \
 	apt-get install -y python3-minimal python3-requests python3-icu && \
 	apt-get clean -y && \
 	git config --global --add safe.directory '*' && \
+	git config --global user.email michaelnm.meyer@gmail.com && \
+	git config --global user.name "Michaël Meyer"
 	mkdir /root/.ssh && \
 	ssh-keyscan -H github.com >> /root/.ssh/known_hosts && \
 	test -f /usr/share/zoneinfo/Europe/Paris && \

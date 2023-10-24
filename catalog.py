@@ -43,21 +43,23 @@ def process_file(repo_name, path):
 	except expat.ExpatError as e:
 		print("catalog: %r %s" % (path, e), file=sys.stderr)
 		return
+	langs = set()
+	for node in t.find("//*"):
+		if not "lang" in node.attrs:
+			continue
+		lang = node["lang"]
+		(code,) = db.execute("select ifnull((select id from langs_by_code where code = ?), 'und')", (lang,)).fetchone()
+		langs.add(code)
+	if not langs:
+		langs.add("und")
+	# Delete <body> so that we don't process the whole file.
 	node = t.first("//body")
 	if node is not None:
 		node.delete()
 	p = parse.Parser(t, parse.make_handlers_map())
 	p.dispatch(p.tree.root)
 	doc = p.document
-	for node in t.find("//*"):
-		if not "lang" in node.attrs:
-			continue
-		lang = node["lang"]
-		(code,) = db.execute("select ifnull((select id from langs_by_code where code = ?), 'und')", (lang,)).fetchone()
-		doc.langs.append(code)
-	if not doc.langs:
-		doc.langs = ["und"]
-	doc.langs = sorted(set(doc.langs))
+	doc.langs = sorted(langs)
 	doc.repository = repo_name
 	return doc
 
