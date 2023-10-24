@@ -53,12 +53,27 @@ following, and <code>//body</code> refers to the part in orange:</p>
     &lt;/text&gt;
 &lt;/TEI>
 </pre>
+<h2 id="bibliography">Bibliography</h2>
+<p>For referencing bibliographic entries, as in
+<code>&lt;ptr target="bib:Nakacami1972_01"/&gt;</code>, you should use
+the entries’ short title as key. Tags were used at some point, despite
+what the Zotero guide says, but this is no longer possible.</p>
+<p>Plenty of short titles are not unique in the bibliography, because
+Zotero does not treat them as unique. Thus, it is possible that the
+short title you are using refers to several entries. If this happens,
+the text display will show that.</p>
+<p>Zotero allows <a
+href="https://www.zotero.org/support/kb/rich_text_bibliography">rich
+text formatting</a> with a few HTML tags. In addition to these, I added
+support for hyperlinks. You can create one like this:
+<code>&lt;a href="https://example.org"&gt;click here&lt;/a&gt;</code>.
+This produces: <a href="https://example.org">click here</a>.</p>
 <h2 id="hyphenation">Hyphenation</h2>
 <p>I add hyphenation break points to the text within
 <code>&lt;div type="edition"&gt;</code>. This is mostly useful for texts
 that contain long compounds, etc. without editorial hyphens.</p>
-<p>This is done very roughly. Soft hyphens are added after groups of
-vowels, so that the text reflows on syllables. This is only done for
+<p>This is done very roughly. Soft hyphens U+00AD are added after groups
+of vowels, so that the text reflows on syllables. This is only done for
 relatively long pieces of text. If a piece of text already contains one
 or more soft hyphens, I assume it is manually hyphenated and do not
 attempt to hyphenate it.</p>

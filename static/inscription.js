@@ -32,7 +32,6 @@ function prepareTips() {
 			}
 			tipBox.innerText = tip
 			tipBox.style.display = "block"
-			console.log(tipBox.width + " " + tipBox.height)
 			let x = e.srcElement.offsetLeft
 			let y = e.srcElement.offsetTop + e.srcElement.offsetHeight
 			tipBox.style.top = y + "px"
@@ -44,8 +43,22 @@ function prepareTips() {
 	}
 }
 
+function flashNode(node) {
+	node.classList.add("dh-flash")
+	setTimeout(function () {
+		node.classList.remove("dh-flash")
+	}, 2000)
+}
+
 function init() {
 	prepareTips()
+	for (let node of document.querySelectorAll(".dh-bib-ref a")) {
+		node.onclick = function (e) {
+			let url = new URL(e.srcElement["href"])
+			let ent = document.querySelector(url.hash)
+			flashNode(ent)
+		}
+	}
 	for (let row of displays) {
 		document.querySelector(row[1]).onclick = function (ev) {
 			ev.preventDefault()
@@ -54,6 +67,6 @@ function init() {
 	}
 }
 
-window.onload = function(ev) {
+window.onload = function () {
 	init()
 }

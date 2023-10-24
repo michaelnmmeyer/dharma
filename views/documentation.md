@@ -55,13 +55,20 @@ instance, `/TEI/teiHeader` refers to the part in red in the following, and
 
 For referencing bibliographic entries, as in `<ptr
 target="bib:Nakacami1972_01"/>`, you should use the entries' short title as
-key. Tags were used at some point, despite what the guide says, but this is no
-longer possible.
+key. Tags were used at some point, despite what the Zotero guide says, but this
+is no longer possible.
 
 Plenty of short titles are not unique in the bibliography, because Zotero does
 not treat them as unique. Thus, it is possible that the short title you are
 using refers to several entries. If this happens, the text display will show
-that. 
+that.
+
+Zotero allows <a
+href="https://www.zotero.org/support/kb/rich_text_bibliography">rich text
+formatting</a> with a few HTML tags. In addition to these, I added support for
+hyperlinks. You can create one like this: `<a href="https://example.org">click
+here</a>`. This produces: <a href="https://example.org">click
+here</a>.
 
 ## Hyphenation
 
