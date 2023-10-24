@@ -1,8 +1,9 @@
-import os, sys, re, sqlite3, time, requests
+import io, os, sys, re, sqlite3, time, requests
+from bs4 import BeautifulSoup
 
 dicts = "fabricius kadirvelu mcalpin tamil-idioms tamil-lex winslow".split()
 
-db = sqlite3.connect("tamil.sqlite")
+db = sqlite3.connect("tamil.sqlite.tmp")
 db.executescript("""
 pragma page_size = 16384;
 pragma journal_mode = wal;
@@ -51,12 +52,35 @@ def dict_from_url(url):
 db.create_function("page_from_url", 1, page_from_url, deterministic=True)
 db.create_function("dict_from_url", 1, dict_from_url, deterministic=True)
 
+# the HTML is broken, so we have to do this
+def iter_entries_in_page(data):
+	in_entry = False
+	buf = []
+	for line in data.splitlines():
+		line = line.strip()
+		if line == "<div>&nbsp;&nbsp;":
+			assert not in_entry
+			in_entry = True
+			buf.clear()
+			buf.append(line)
+			continue
+		if line == "</div>":
+			if not in_entry:
+				continue
+			in_entry = False
+			buf.append(line)
+			yield " ".join(buf)
+			continue
+		buf.append(line)
+	assert not in_entry
+
 def iter_entries(dict_name):
-	for page, data in db.execute("""
+	for dict, page, data in db.execute("""
 		select dict_from_url(url) as dict, page_from_url(url) as page, data
 		from raw_pages
 		where url glob ? order by page""", ("*%s_query*" % dict_name,)):
-		soup = BeautifulSoup(io.StringIO(data), "html.parser")
-		root = soup.find("div", class_="hw_result")
-		for div in root.find_all("div"):
-			yield div, page
+		for entry in iter_entries_in_page(data):
+			yield dict, page, entry
+
+for row in iter_entries("*"):
+	print(*row, sep="\t")

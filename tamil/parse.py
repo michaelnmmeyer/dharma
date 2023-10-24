@@ -1,6 +1,7 @@
 import os, sys, io, sqlite3, unicodedata
 from bs4 import BeautifulSoup, NavigableString, Comment, Tag
 import translit
+from xml.etree import ElementTree as ET
 
 """
 
@@ -32,26 +33,6 @@ For tamil-idioms, we also have, after the entry body (still within the div):
 	<blockquote><small>1 பொ. வி. 1</small></blockquote>
 
 """
-
-def page_from_url(url):
-	return int(url.rsplit("=", 1)[1])
-
-db = sqlite3.connect("tamil.sqlite")
-db.create_function("page_from_url", 1, page_from_url, deterministic=True)
-
-def raw_fix(page):
-	page = page.replace("<tam>6</tam - இன் இல், நின்று", "<tam>6</tam> - இன் இல், நின்று")
-	return page
-
-def iter_entries(dict_name):
-	for url, page, data in db.execute("""
-		select url, page_from_url(url) as page, data from raw_pages
-		where url glob ? order by page""", ("*%s_query*" % dict_name,)):
-		data = raw_fix(data)
-		soup = BeautifulSoup(io.StringIO(data), "html.parser")
-		root = soup.find("div", class_="hw_result")
-		for div in root.find_all("div"):
-			yield url, div, page
 
 def trim_space(entry):
 	i = 0
@@ -109,21 +90,19 @@ def find_unknown_chars():
 			if "TAMIL" in name(c) and not c in translit.charset:
 				print(name(c))
 
-def find_tags():
-	for entry, page in iter_entries("*"):
-		for tag in entry.find_all(lambda t: isinstance(t, Tag)):
-			print(tag.name)
+def find_tags(entry):
+	for tag in entry.find_all(lambda t: isinstance(t, Tag)):
+		print(tag.name)
 
 # We have the following tags
 """
- 684238 tam
- 308299 i
- 268567 b
- 243377 hw
- 168520 pos
- 117803 t
+ 279482 tam
+ 268349 b
+ 127634 div
+ 125571 hw
+ 113007 i
   70652 p2
-  28479 smallcap
+  51507 pos
    4694 smallcaps
    1930 hw1
     700 small
@@ -137,38 +116,50 @@ def find_tags():
       5 l.<
       5 curlytext
       5 curly
-      4 a
-      3 td
       3 p2<tam
       2 tma
       2 she
       2 prop.<
       2 heading
-      2 div
-      2 c
-      1 tr
+      2 a
       1 tam.6<
       1 tam4<
       1 tam35<
       1 tam.17<
       1 tam<10<
-      1 table
       1 smallcpas
       1 siva,
       1 shee
       1 shai
       1 samllcaps
-      1 s.<
-      1 prov.]<
-      1 no<blockquote
-      1 lette
-      1 inf.<
-      1 in
-      1 i<[in
-      1 fem.<
-      1 et<
 """
 
-for url, entry, page in iter_entries("*"):
-	if len(entry.find_all("div")) > 0:
-		print(url)
+def iter_entries():
+	with open("tamil.tsv") as f:
+		for line in f:
+			line = line.strip()
+			fields = line.split("\t")
+			assert len(fields) == 3
+			yield fields[0], int(fields[1]), fields[2]
+
+substs = [
+	"<c>பிரமம்.</c>", "பிரமம்.",
+	"[<i>ex</i> <tam>பிரபா</tam> <i><et</i> <tam>கீடம்</tam>", "[<i>ex</i> <tam>பிரபா</tam> <i>et</i> <tam>கீடம்</tam>"
+]
+s = """
+       s.<
+       prov.]<
+       no<blockquote
+       lette
+       inf.<
+       in
+       i<[in
+       fem.<
+"""
+for _, _, text in iter_entries():
+	soup = BeautifulSoup(text, "html.parser")
+	for tag in s.strip().splitlines():
+		tag = tag.strip()
+		if soup.find(tag):
+			print(repr(tag), soup)
+	#find_tags(soup)

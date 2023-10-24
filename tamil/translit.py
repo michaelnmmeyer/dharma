@@ -153,12 +153,5 @@ https://dsal.uchicago.edu/dictionaries/crea
 
 if __name__ == "__main__":
 	for line in sys.stdin:
-		line = line.rstrip().replace("-", "")
-		#left, right = line.split("\t")
-		left=line
-		repl = translit(left).replace(" ", "").removesuffix("ttal").removesuffix("tal").removesuffix("(ḷu)").removesuffix("[ṇu]")
-		repl = "".join(c for c in repl if not "SUPERSCRIPT" in name(c))
-		#if repl == right:
-		#	continue
-		#print(right, repl, left, sep="\t")
-		print(left, repl, sep="\t")
+		line = translit(line)
+		sys.stdout.write(line)

@@ -51,16 +51,28 @@ instance, `/TEI/teiHeader` refers to the part in red in the following, and
 &lt;/TEI>
 </pre>
 
+## Bibliography
+
+For referencing bibliographic entries, as in `<ptr
+target="bib:Nakacami1972_01"/>`, you should use the entries' short title as
+key. Tags were used at some point, despite what the guide says, but this is no
+longer possible.
+
+Plenty of short titles are not unique in the bibliography, because Zotero does
+not treat them as unique. Thus, it is possible that the short title you are
+using refers to several entries. If this happens, the text display will show
+that. 
+
 ## Hyphenation
 
 I add hyphenation break points to the text within `<div type="edition">`. This
 is mostly useful for texts that contain long compounds, etc. without editorial
 hyphens.
 
-This is done very roughly. Soft hyphens are added after groups of vowels, so
-that the text reflows on syllables. This is only done for relatively long
-pieces of text. If a piece of text already contains one or more soft hyphens, I
-assume it is manually hyphenated and do not attempt to hyphenate it.
+This is done very roughly. Soft hyphens U+00AD are added after groups of
+vowels, so that the text reflows on syllables. This is only done for relatively
+long pieces of text. If a piece of text already contains one or more soft
+hyphens, I assume it is manually hyphenated and do not attempt to hyphenate it.
 
 ## `@xml:lang`
 
