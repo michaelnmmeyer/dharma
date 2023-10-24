@@ -52,37 +52,41 @@ p.dh-bib-entry {
 }
 
 /* Tooltips */
-.dh-tipped {
-	position: relative;
-}
-.dh-tip {
-	display: none;
-	color: white;
-	background-color: black;
-	font-weight: normal;
-	font-style: normal;
-	font-size: initial;
-	text-indent: 0;
-	padding: 0.3em;
-	border-radius: 0.3em;
-	position: absolute;
-	z-index: 1;
-	top: 100%;
-	width: 39em;
-}
-.dh-tipped:hover .dh-tip {
-	display: block;
-}
 .dh-tipped:hover {
 	color: white;
 	background-color: black;
 	border-top-left-radius: 0.3em;
 	border-top-right-radius: 0.3em;
 }
+/* div that contains the tooltip (used for all tooltips) */
+#dh-tip-box {
+	display: none;
+	position: absolute;
+	background-color: black;
+	color: white;
+	max-width: 30em;
+	border-top-left-radius: 0.3em;
+	border-top-right-radius: 0.3em;
+	padding: 0.3em;
+	border-radius: 0.3em;
+}
+
+/*
+
+TODO make sure the tip doesn't move outside of the screen (but maybe don't redraw
+it if the screen size is changed). show it below and to the right per default ;
+check if would grow out on the right, and if so put it more on the left; and if
+it would grow below, change it accordingly
+
+One click should leave the thing open
+
+*/
+
 .dh-text-id {
 	font-family: monospace;
 	font-size: larger;
 }
+
 
 /* Editions */
 .dh-grantha {

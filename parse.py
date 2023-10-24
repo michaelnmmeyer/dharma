@@ -214,7 +214,7 @@ class Block:
 			if data == "<":
 				klasses = " ".join(params["klass"])
 				tip = " | ".join(params["tip"])
-				buf.append('<span class="%s dh-tipped"><span class="dh-tip">%s</span>' % (html.escape(klasses), html.escape(tip)))
+				buf.append('<span class="%s" data-tip="%s">' % (html.escape(klasses), html.escape(tip)))
 			elif data == ">":
 				buf.append('</span>')
 			else:
@@ -224,14 +224,14 @@ class Block:
 			if key:
 				buf.append(f'<p class="dh-bib-entry" id="dh-bib-key-{key}">{rec}</p>')
 			else:
-				buf.append(f'<p class="dh-bib-entry dh-bib-ref-invalid dh-tipped"><span class="dh-tip">Invalid bibliographic reference</span>{rec}</p>')
+				buf.append(f'<p class="dh-bib-entry dh-bib-ref-invalid" data-tip="Invalid bibliographic reference">{rec}</p>')
 		elif t == "ref":
 			key, ref, loc = biblio.get_ref(data, **params)
 			siglum = params.get("siglum")
 			if key:
 				buf.append(f'<span class="dh-bib-ref">')
 			else:
-				buf.append(f'<span class="dh-bib-ref-invalid dh-tipped"><span class="dh-tip">Invalid bibliographic reference</span>')
+				buf.append(f'<span class="dh-bib-ref-invalid" data-tip="Invalid bibliographic reference">')
 			if key:
 				buf.append(f'<a href="#dh-bib-key-{key}">')
 			if siglum:
@@ -309,21 +309,21 @@ class Block:
 					assert 0, data
 			elif t == "phys":
 				if data == "<line":
-					buf.append('<span class="dh-lb dh-tipped"><span class="dh-tip">Line start</span>(%s)</span>' % html.escape(params["n"]))
+					buf.append('<span class="dh-lb" data-tip="Line start">(%s)</span>' % html.escape(params["n"]))
 					if params["brk"]:
 						buf.append(" ")
 				elif data == ">line":
 					pass
 				elif data == "=page":
-					buf.append('<span class="dh-pagelike dh-tipped"><span class="dh-tip">Page start</span>(\N{next page} %s)</span>' % html.escape(params["n"]))
+					buf.append('<span class="dh-pagelike" data-tip="Page start">(\N{next page} %s)</span>' % html.escape(params["n"]))
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
 					n = html.escape(params["n"])
-					buf.append(f'<span class="dh-pagelike dh-tipped"><span class="dh-tip">{unit} start</span>({unit} {n})</span>')
+					buf.append(f'<span class="dh-pagelike" data-tip="{unit} start">({unit} {n})</span>')
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
 					n = html.escape(params["n"])
-					buf.append(f'<span class="dh-gridlike dh-tipped"><span class="dh-tip">{unit} start</span>({unit} {n})</span>')
+					buf.append(f'<span class="dh-gridlike" data-tip="{unit} start">({unit} {n})</span>')
 				else:
 					assert 0, data
 			else:
@@ -333,22 +333,28 @@ class Block:
 	def render_physical(self):
 		assert self.finished
 		buf = []
+		skip = 0
 		for t, data, params in self.code:
+			if skip > 0:
+				if t == "log" and (data == ">head" or data == "<head") and params.get("level"):
+					pass
+				else:
+					continue
 			if t == "phys":
 				if data == "<line":
-					buf.append('<p class="dh-line"><span class="dh-lb dh-tipped"><span class="dh-tip">Line start</span>(%s)</span> ' % html.escape(params["n"]))
+					buf.append('<p class="dh-line"><span class="dh-lb" data-tip="Line start">(%s)</span> ' % html.escape(params["n"]))
 				elif data == ">line":
 					if not params["brk"]:
-						buf.append('<span class="dh-hyphen-break dh-tipped"><span class="dh-tip">Hyphen break</span>-</span>')
+						buf.append('<span class="dh-hyphen-break" data-tip="Hyphen break">-</span>')
 					buf.append('</p>')
 				elif data == "=page":
-					buf.append('<span class="dh-pagelike dh-tipped"><span class="dh-tip">Page start</span>(\N{next page} %s)</span> ' % html.escape(params["n"]))
+					buf.append('<span class="dh-pagelike" data-tip="Page start">(\N{next page} %s)</span> ' % html.escape(params["n"]))
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
-					buf.append('<span class="dh-pagelike dh-tipped"><span class="dh-tip">%s start</span>(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
+					buf.append('<span class="dh-pagelike" data-tip="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
-					buf.append('<span class="dh-gridlike dh-tipped"><span class="dh-tip">%s start</span>(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
+					buf.append('<span class="dh-gridlike" data-tip="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
 				else:
 					assert 0, data
 			elif t == "log":
@@ -356,10 +362,16 @@ class Block:
 					buf.append('<div class="dh-ed-section">')
 				elif data == ">div":
 					buf.append('</div>')
-				elif data == "<head" and not params.get("level"):
-					buf.append('<h3 class="dh-ed-heading">')
-				elif data == ">head" and not params.get("level"):
-					buf.append('</h3>')
+				elif data == "<head":
+					if params.get("level"): # verse header
+						skip += 1
+					else:
+						buf.append('<h3 class="dh-ed-heading">')
+				elif data == ">head":
+					if params.get("level"): # verse header
+						skip -= 1
+					else:
+						buf.append('</h3>')
 			else:
 				self.render_common(buf, t, data, params)
 		return "".join(buf)

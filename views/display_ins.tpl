@@ -85,3 +85,6 @@ Identifier: <span class="dh-text-id">{{text}}</span>
 % end
 
 </div> <!-- <div class="body"> -->
+
+<div id="dh-tip-box"></div>
+
