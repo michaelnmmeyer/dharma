@@ -183,6 +183,8 @@ def name_last_first(rec, dflt="?"):
 def name_last(rec, dflt="?"):
 	return rec.get("lastName") or rec.get("name") or dflt
 
+#XXX normalize space
+
 class Writer:
 
 	def __init__(self):
@@ -223,9 +225,13 @@ class Writer:
 			self.text(name_first_last(author))
 		self.period()
 
-	def date(self, date):
+	def date(self, rec):
+		date = rec["date"]
+		# The ZG prescribes to use n.d."
+		if re.match(r"^n\.\s?d\.?$", date, re.I):
+			date = None
 		if not date:
-			date = "N.\N{NBSP}d."
+			date = "N.d."
 		self.space()
 		self.text(date)
 		self.period()
@@ -259,7 +265,7 @@ class Writer:
 		if rec["seriesNumber"]:
 			self.text(" %s" % rec["seriesNumber"])
 		self.period()
-
+	
 	def place_publisher_loc(self, rec, params):
 		self.space()
 		if rec["place"]:
@@ -267,6 +273,9 @@ class Writer:
 		else:
 			self.text("No place")
 		publisher = rec.get("publisher")
+		# The ZG prescribes to use "n.pub" when there is no publisher
+		if re.match(r"^n\.\s?pub\.?$", publisher, re.I):
+			publisher = None
 		if publisher:
 			self.text(": %s" % publisher)
 		for unit, val in params["loc"]:
@@ -305,7 +314,7 @@ class Writer:
 		self.space()
 		self.text("URL: ")
 		self.html('<a class="dh-url" href="')
-		self.text(url)
+		self.text(url) # XXX normalize
 		self.html('">')
 		self.text(url)
 		self.html('</a>')
@@ -327,9 +336,58 @@ cited_range_units = dict([
 	("line", "l."),
 ])
 
+# journal article
+"""
+  {
+    "DOI": "",
+    "ISSN": "",
+    "abstractNote": "",
+    "accessDate": "",
+    "archive": "",
+    "archiveLocation": "",
+    "callNumber": "",
+    "collections": [
+      "LZ2UML25"
+    ],
+    "creators": [
+      {
+        "creatorType": "author",
+        "firstName": "Yoshiaki",
+        "lastName": "ISHIZAWA"
+      }
+    ],
+    "date": "1992",
+    "dateAdded": "2021-05-17T21:20:58Z",
+    "dateModified": "2023-06-29T05:35:15Z",
+    "extra": "tex.langue: English",
+    "issue": "",
+    "itemType": "journalArticle",
+    "journalAbbreviation": "",
+    "key": "25KCHJLX",
+    "language": "English",
+    "libraryCatalog": "",
+    "pages": "131-137",
+    "publicationTitle": "Renaissance Culturelle du Cambodge",
+    "relations": {},
+    "rights": "",
+    "series": "",
+    "seriesText": "",
+    "seriesTitle": "",
+    "shortTitle": "Ishizawa1992_05",
+    "tags": [
+      {
+        "tag": "Ishizawa1992_05"
+      }
+    ],
+    "title": "Reports on the 7th Sophia University Survey Mission for the Study and Preservation of the Angkor Monuments: 1. Policy for the Sophia University Survey Mission for the Study and Preservation of the Angkor Monuments",
+    "url": "",
+    "version": 199174,
+    "volume": "7"
+  }
+"""
 def render_journal_article(rec, w, params):
 	w.names(rec["creators"])
-	w.date(rec["date"])
+	w.date(rec)
 	w.quoted(rec["title"])
 	if rec["publicationTitle"]:
 		w.space()
@@ -339,7 +397,9 @@ def render_journal_article(rec, w, params):
 		if rec["volume"]:
 			w.space()
 			w.text(rec["volume"])
-		# XXX also "issue", see ZG "Publication,Volume and Issue"
+		if rec["issue"]:
+			w.space()
+			w.text("(%s)" % rec["issue"])
 		sep = ", "
 		for unit, val in params["loc"]:
 			abbr = cited_range_units.get(unit, unit)
@@ -400,7 +460,7 @@ def render_journal_article(rec, w, params):
 """
 def render_book(rec, w, params):
 	w.names(rec["creators"])
-	w.date(rec["date"])
+	w.date(rec)
 	w.italic(rec["title"])
 	w.edition(rec)
 
@@ -509,7 +569,7 @@ def render_report(rec, w, params):
 """
 def render_book_section(rec, w, params):
 	w.names(rec["creators"])
-	w.date(rec["date"])
+	w.date(rec)
 	w.quoted(rec["title"])
 	if rec["bookTitle"]:
 		w.space()
@@ -570,7 +630,7 @@ def render_book_section(rec, w, params):
 """
 def render_thesis(rec, w, params):
 	w.names(rec["creators"])
-	w.date(rec["date"])
+	w.date(rec)
 	w.quoted(rec["title"])
 	w.space()
 	w.text(rec["thesisType"] or "Thesis")
@@ -612,7 +672,7 @@ def render(rec, params):
 
 def make_ref_main(rec, fmt):
 	if fmt == "omitname":
-		return html.escape(rec["date"])
+		return html.escape(rec["date"]) # XXX use formatter
 	if fmt == "ibid":
 		return "<i>ibid.</i>"
 	authors = rec["creators"]
@@ -624,7 +684,7 @@ def make_ref_main(rec, fmt):
 		buf = "%s and %s" % (name_last(authors[0]), name_last(authors[1]))
 	elif len(authors) >= 3:
 		buf = "%s <i>et al.</i>" % name_last(authors[0])
-	date = rec["date"] or "n.\N{NBSP}d."
+	date = rec["date"] or "n.\N{NBSP}d." # XXX use formatter
 	buf += " " + date
 	return html.escape(buf)
 
@@ -659,3 +719,5 @@ if __name__ == "__main__":
 	params = {"rend": "default", "loc": [], "n": ""}
 	key, ref, loc = get_ref(sys.argv[1], **params)
 	print(repr(ref))
+	key, entry = get_entry(sys.argv[1], params)
+	print(entry)

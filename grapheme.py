@@ -16,7 +16,9 @@ def graphemes(s):
 		yield s[p:q]
 		p = q
 
-vowels_extra = {
+vowels = {
+	"a", "e", "i", "o", "u",
+	"\N{latin small letter schwa}",
 	"ṃ", "ṁ", "m\N{combining candrabindu}",
 	"ṛ", "ṝ", "ḷ", "ḹ",
 	"r\N{combining ring below}", "r\N{combining ring below}\N{combining macron}",
@@ -32,8 +34,8 @@ def hyphenate(s):
 			buf += t
 			continue
 		for g in graphemes(t):
-			gn = unicodedata.normalize("NFD", g)
-			if gn[0] in "aeiou" or g in vowels_extra:
+			gn = unicodedata.normalize("NFD", g).casefold()
+			if gn[0] in vowels:
 				brk = True
 				buf += g
 			else:
