@@ -114,9 +114,12 @@ def process_file(file):
 
 if __name__ == "__main__":
 	try:
-		doc = process_file(sys.argv[1])
+		for file in sys.argv[1:]:
+			doc = process_file(sys.argv[1])
+		"""
 		for rec in doc.apparatus.code:
 			cmd, data, args = rec
 			parse.write_debug(cmd, data, **args)
+		"""
 	except (KeyboardInterrupt, BrokenPipeError):
 		pass

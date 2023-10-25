@@ -20,9 +20,7 @@ clusters</a> that are likely invalid. Each row highlights a problematic
 text segment and enumerates the names of the <a
 href="https://unicode.org/glossary/#code_point">code points</a> that compose it.
 If you find grapheme clusters that are actually valid, please send me their
-list of code points at <a
-href="mailto:michaelnm.meyer@gmail.com">michaelnm.meyer@gmail.com</a>,
-so that I update the code.
+list of code points, so that I update the code.
 </p>
 </div>
 

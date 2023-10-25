@@ -7,6 +7,18 @@
 # For the conversion zotero->tei:
 # https://github.com/zotero/translators/blob/master/TEI.js
 
+# TODO: we're supposed to not have space between initials, as in T.V. instead
+# of T. V. ; try to fix this when possible
+# TODO replace "-" with EN DASH in pages; idem for dates 1940-1941
+# TODO drop from the date month and day, only keep the year
+# TODO use the "extra" field
+# TODO use the journal abbreviation whenever possible
+# TODO use n. pub. for "no publisher"
+# TODO display the DOI (normalize it)
+# TODO prepare for several urls separated with semicolons (or whitespace)
+# TODO deal with roles in names (not only authors)
+# TODO add online type
+
 import sys, io, json, unicodedata, html, re, time
 import requests
 from xml.parsers import expat
@@ -269,16 +281,16 @@ class Writer:
 		if not ed:
 			return
 		if ed == "1":
-			self.text("1st ed.")
+			self.text("1st edition")
 		elif ed == "2":
-			self.text("2nd ed.")
+			self.text("2nd edition")
 		elif ed == "3":
-			self.text("3rd ed.")
+			self.text("3rd edition")
 		elif ed.isdigit():
-			self.text("%sth ed." % ed)
+			self.text("%sth edition" % ed)
 		else:
 			self.text(ed)
-			self.period()
+		self.period()
 
 	def url(self, rec):
 		# Don't use the URL if not needed. Mostly because URL are
@@ -327,6 +339,7 @@ def render_journal_article(rec, w, params):
 		if rec["volume"]:
 			w.space()
 			w.text(rec["volume"])
+		# XXX also "issue", see ZG "Publication,Volume and Issue"
 		sep = ", "
 		for unit, val in params["loc"]:
 			abbr = cited_range_units.get(unit, unit)

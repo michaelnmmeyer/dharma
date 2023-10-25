@@ -31,11 +31,12 @@ __all__ = ["Error", "parse"]
 attribute_tbl = str.maketrans({
 	'"': "&quot;",
 	"<": "&lt;",
+	">": "&gt;",
 	"&": "&amp;",
 })
 
 # We don't use xml.sax.saxutils.quoteattr because it tries to use ' as
-# demilitor.
+# delimitor.
 def quote_attribute(s):
 	return s.translate(attribute_tbl)
 

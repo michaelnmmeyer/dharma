@@ -3,16 +3,34 @@
 -->
 
 <div class="body">
-<h1>Documentation</h1>
 
-You can consult here the TEI documentation generated from DHARMA
-schemas. You should follow this instead of the documentation on the TEI
-website, because our schemas are more restrictive. Even so, they are more
-permissive than they should.
+# Documentation
+
+This is a complement to the various guides of the project. It addresses some
+issues that are not covered by the guides, and points out how I deviate from
+the guidelines, when I do deviate from them.
+
+## Schemas
+
+You can consult here the TEI documentation generated from DHARMA schemas. You
+should follow this instead of the [documentation on the TEI
+website](https://www.tei-c.org/release/doc/tei-p5-doc/en/html/index.html),
+because our schemas are more restrictive. Even so, they are more permissive
+than they should.
 
 We currently have four schemas. The schema used to validate a given text is
-inferred from the file name. Processing instructions at the beginning of the
-file are ignored.
+inferred from the file name. I ignore processing instructions that tell which
+schemas should be used for validating texts, viz. all this stuff:
+
+	<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+	<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+	<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+	<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+	<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+I will delete these and replace them eventually.
+
+Our schemas are:
 
 <ul>
 <li><a href="/documentation/inscription">Inscriptions</a> (files named
@@ -53,22 +71,77 @@ instance, `/TEI/teiHeader` refers to the part in red in the following, and
 
 ## Bibliography
 
+### Referencing entries
+
 For referencing bibliographic entries, as in `<ptr
 target="bib:Nakacami1972_01"/>`, you should use the entries' short title as
 key. Tags were used at some point, despite what the Zotero guide says, but this
-is no longer possible.
+is no longer allowed.
 
-Plenty of short titles are not unique in the bibliography, because Zotero does
-not treat them as unique. Thus, it is possible that the short title you are
-using refers to several entries. If this happens, the text display will show
-that.
+We use short titles as lookup keys for historical reasons, but they are not
+meant for this purpose. Zotero does not check whether short titles are uniques
+within the bibliography. Thus, we have many entries that bear the same short
+title. Unfortunately, there is no way to address this without moving away from
+the interface we are using. If the short title you are using is not unique, the
+display interface will show this.
+
+### Rich text formatting
 
 Zotero allows <a
 href="https://www.zotero.org/support/kb/rich_text_bibliography">rich text
-formatting</a> with a few HTML tags. In addition to these, I added support for
-hyperlinks. You can create one like this: `<a href="https://example.org">click
-here</a>`. This produces: <a href="https://example.org">click
-here</a>.
+formatting</a> with a few HTML tags, as follows:
+
+* `<i>italics</i>` produces <i>italics</i>
+* `<b>bold</b>` produces <b>bold</b>
+* `<sub>subscript</sub>` produces <sub>subscript</sub>
+* `<sup>superscript</sup>` produces <sup>superscript</sup>
+* `<span style="font-variant:small-caps;">smallcaps</span>` produces <span style="font-variant:small-caps">smallcaps</span>
+
+There is also a tag `<span class="nocase">hello there</span>`, that is used to
+suppress automatic capitalization. I do not perform any automatic
+capitalization for now, so it does not have any effect yet.
+
+In addition to the above tags, I added support for hyperlinks:
+
+* `<a href="https://example.org">click here</a>` produces <a href="https://example.org">click here</a>.
+
+All other tags are removed. Thus, for instance, `<p>hello</p> there` produces
+just `hello there`. If you need support for fancier formatting, do tell me.
+
+Since Zotero allows HTML tags, you need to remember to escape characters that
+have a special meaning in XML. Use `&lt;` instead of `<`, `&gt;` instead of
+`>`, and `&amp;` instead of `&`. Be careful, in particular, when mentioning
+several authors and places, as in "Joe & Allen", "Berlin & Hamburg", etc.
+
+I try to fix escaping issues, but this is not reliable and cannot be, so you
+still need to be careful.
+
+### Record types
+
+Zotero defines [a variety of record
+types](https://www.zotero.org/support/kb/item_types_and_fields). I only added
+support for the most common ones, namely:
+
+* book
+* bookSection
+* journalArticle
+* report
+* thesis
+
+If you need another record type to be supported, do tell me.
+
+### Record fields
+
+When using URLs, you should never reference a document that is not readily
+accessible. Don't reference documents that are behind a paywall (as in JSTOR)
+or that can only be consulted by subscribing to a service (academia.edu,
+sharedocs, etc.). Put the document on [archive.org](https://archive.org), or
+send it to me if you do not know how.
+
+For reprints, etc. the DHARMA Zotero guide says to fill the "Edition" field in
+full words, as in "2nd edition". In practice, you can (and should) set it to a
+roman number whenever possible. The value "2" will produce "2nd edition", the value
+"3" will produce "3rd edition", etc.
 
 ## Hyphenation
 
@@ -79,7 +152,8 @@ hyphens.
 This is done very roughly. Soft hyphens U+00AD are added after groups of
 vowels, so that the text reflows on syllables. This is only done for relatively
 long pieces of text. If a piece of text already contains one or more soft
-hyphens, I assume it is manually hyphenated and do not attempt to hyphenate it.
+hyphens, I assume it is manually hyphenated and do not attempt to hyphenate it
+further.
 
 ## `@xml:lang`
 

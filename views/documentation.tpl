@@ -1,17 +1,28 @@
 <!--
 % rebase("base.tpl", title="Documentation")
 -->
-<div class="body">
-<h1>
-Documentation
-</h1>
+<section id="documentation" class="body">
+<h1>Documentation</h1>
+<p>This is a complement to the various guides of the project. It
+addresses some issues that are not covered by the guides, and points out
+how I deviate from the guidelines, when I do deviate from them.</p>
+<h2 id="schemas">Schemas</h2>
 <p>You can consult here the TEI documentation generated from DHARMA
-schemas. You should follow this instead of the documentation on the TEI
-website, because our schemas are more restrictive. Even so, they are
-more permissive than they should.</p>
+schemas. You should follow this instead of the <a
+href="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/index.html">documentation
+on the TEI website</a>, because our schemas are more restrictive. Even
+so, they are more permissive than they should.</p>
 <p>We currently have four schemas. The schema used to validate a given
-text is inferred from the file name. Processing instructions at the
-beginning of the file are ignored.</p>
+text is inferred from the file name. I ignore processing instructions
+that tell which schemas should be used for validating texts, viz. all
+this stuff:</p>
+<pre><code>&lt;?xml-model href=&quot;https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng&quot; type=&quot;application/xml&quot; schematypens=&quot;http://relaxng.org/ns/structure/1.0&quot;?&gt;
+&lt;?xml-model href=&quot;https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng&quot; type=&quot;application/xml&quot; schematypens=&quot;http://purl.oclc.org/dsdl/schematron&quot;?&gt;
+&lt;?xml-model href=&quot;https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch&quot; type=&quot;application/xml&quot; schematypens=&quot;http://purl.oclc.org/dsdl/schematron&quot;?&gt;
+&lt;?xml-model href=&quot;https://epidoc.stoa.org/schema/latest/tei-epidoc.rng&quot; schematypens=&quot;http://relaxng.org/ns/structure/1.0&quot;?&gt;
+&lt;?xml-model href=&quot;https://epidoc.stoa.org/schema/latest/tei-epidoc.rng&quot; schematypens=&quot;http://purl.oclc.org/dsdl/schematron&quot;?&gt;</code></pre>
+<p>I will delete these and replace them eventually.</p>
+<p>Our schemas are:</p>
 <ul>
 <li>
 <a href="/documentation/inscription">Inscriptions</a> (files named
@@ -54,20 +65,80 @@ following, and <code>//body</code> refers to the part in orange:</p>
 &lt;/TEI>
 </pre>
 <h2 id="bibliography">Bibliography</h2>
+<h3 id="referencing-entries">Referencing entries</h3>
 <p>For referencing bibliographic entries, as in
 <code>&lt;ptr target="bib:Nakacami1972_01"/&gt;</code>, you should use
 the entries’ short title as key. Tags were used at some point, despite
-what the Zotero guide says, but this is no longer possible.</p>
-<p>Plenty of short titles are not unique in the bibliography, because
-Zotero does not treat them as unique. Thus, it is possible that the
-short title you are using refers to several entries. If this happens,
-the text display will show that.</p>
+what the Zotero guide says, but this is no longer allowed.</p>
+<p>We use short titles as lookup keys for historical reasons, but they
+are not meant for this purpose. Zotero does not check whether short
+titles are uniques within the bibliography. Thus, we have many entries
+that bear the same short title. Unfortunately, there is no way to
+address this without moving away from the interface we are using. If the
+short title you are using is not unique, the display interface will show
+this.</p>
+<h3 id="rich-text-formatting">Rich text formatting</h3>
 <p>Zotero allows <a
 href="https://www.zotero.org/support/kb/rich_text_bibliography">rich
-text formatting</a> with a few HTML tags. In addition to these, I added
-support for hyperlinks. You can create one like this:
-<code>&lt;a href="https://example.org"&gt;click here&lt;/a&gt;</code>.
-This produces: <a href="https://example.org">click here</a>.</p>
+text formatting</a> with a few HTML tags, as follows:</p>
+<ul>
+<li><code>&lt;i&gt;italics&lt;/i&gt;</code> produces <i>italics</i></li>
+<li><code>&lt;b&gt;bold&lt;/b&gt;</code> produces <b>bold</b></li>
+<li><code>&lt;sub&gt;subscript&lt;/sub&gt;</code> produces
+<sub>subscript</sub></li>
+<li><code>&lt;sup&gt;superscript&lt;/sup&gt;</code> produces
+<sup>superscript</sup></li>
+<li><code>&lt;span style="font-variant:small-caps;"&gt;smallcaps&lt;/span&gt;</code>
+produces <span class="smallcaps">smallcaps</span></li>
+</ul>
+<p>There is also a tag
+<code>&lt;span class="nocase"&gt;hello there&lt;/span&gt;</code>, that
+is used to suppress automatic capitalization. I do not perform any
+automatic capitalization for now, so it does not have any effect
+yet.</p>
+<p>In addition to the above tags, I added support for hyperlinks:</p>
+<ul>
+<li><code>&lt;a href="https://example.org"&gt;click here&lt;/a&gt;</code>
+produces <a href="https://example.org">click here</a>.</li>
+</ul>
+<p>All other tags are removed. Thus, for instance,
+<code>&lt;p&gt;hello&lt;/p&gt; there</code> produces just
+<code>hello there</code>. If you need support for fancier formatting, do
+tell me.</p>
+<p>Since Zotero allows HTML tags, you need to remember to escape
+characters that have a special meaning in XML. Use <code>&amp;lt;</code>
+instead of <code>&lt;</code>, <code>&amp;gt;</code> instead of
+<code>&gt;</code>, and <code>&amp;amp;</code> instead of
+<code>&amp;</code>. Be careful, in particular, when mentioning several
+authors and places, as in “Joe &amp; Allen”, “Berlin &amp; Hamburg”,
+etc.</p>
+<p>I try to fix escaping issues, but this is not reliable and cannot be,
+so you still need to be careful.</p>
+<h3 id="record-types">Record types</h3>
+<p>Zotero defines <a
+href="https://www.zotero.org/support/kb/item_types_and_fields">a variety
+of record types</a>. I only added support for the most common ones,
+namely:</p>
+<ul>
+<li>book</li>
+<li>bookSection</li>
+<li>journalArticle</li>
+<li>report</li>
+<li>thesis</li>
+</ul>
+<p>If you need another record type to be supported, do tell me.</p>
+<h3 id="record-fields">Record fields</h3>
+<p>When using URLs, you should never reference a document that is not
+readily accessible. Don’t reference documents that are behind a paywall
+(as in JSTOR) or that can only be consulted by subscribing to a service
+(academia.edu, sharedocs, etc.). Put the document on <a
+href="https://archive.org">archive.org</a>, or send it to me if you do
+not know how.</p>
+<p>For reprints, etc. the DHARMA Zotero guide says to fill the “Edition”
+field in full words, as in “2nd edition”. In practice, you can (and
+should) set it to a roman number whenever possible. The value “2” will
+produce “2nd edition”, the value “3” will produce “3rd edition”,
+etc.</p>
 <h2 id="hyphenation">Hyphenation</h2>
 <p>I add hyphenation break points to the text within
 <code>&lt;div type="edition"&gt;</code>. This is mostly useful for texts
@@ -76,7 +147,7 @@ that contain long compounds, etc. without editorial hyphens.</p>
 of vowels, so that the text reflows on syllables. This is only done for
 relatively long pieces of text. If a piece of text already contains one
 or more soft hyphens, I assume it is manually hyphenated and do not
-attempt to hyphenate it.</p>
+attempt to hyphenate it further.</p>
 <h2 id="xmllang"><code>@xml:lang</code></h2>
 <p>The EGD prescribes to use a three-letters language code, optionally
 followed by a four-letters script name, as in <code>tam-Latn</code>.</p>
@@ -165,4 +236,4 @@ instance, if you have:</p>
 &lt;/choice&gt;Y</code></pre>
 <p>… the reading XAY will be made searchable, but not XBY nor XCY. For
 this reason, you want to give the most probable reading first.</p>
-</div>
+</section>

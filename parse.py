@@ -530,7 +530,7 @@ class Parser:
 			self.dispatch(child)
 
 	def complain(self, msg):
-		#print("? %s" % msg)
+		print("UNKNOWN %s" % msg)
 		pass
 
 # Like the eponymous function in xslt
