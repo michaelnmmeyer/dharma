@@ -15,6 +15,8 @@ function switchDisplayTo(name) {
 	}
 }
 
+// TODO see if https://popper.js.org/ (specialized for tooltips) is useful
+// it's what bootstrap uses
 function prepareTips() {
 	let tipBox = document.querySelector("#dh-tip-box")
 	let parser = new DOMParser()
@@ -32,13 +34,12 @@ function prepareTips() {
 				tip = e.srcElement.parentNode.dataset.tip
 			if (!tip)
 				return
-			console.log(tip);
 			tipBox.innerHTML = tip
-			tipBox.style.display = "block"
 			let x = e.srcElement.offsetLeft
 			let y = e.srcElement.offsetTop + e.srcElement.offsetHeight
 			tipBox.style.top = y + "px"
 			tipBox.style.left = x + "px"
+			tipBox.style.display = "block"
 		}
 		node.onmouseleave = function (e) {
 			tipBox.style.display = "none"

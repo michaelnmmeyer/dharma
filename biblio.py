@@ -320,6 +320,7 @@ class Writer:
 		ed = rec["edition"]
 		if not ed:
 			return
+		self.space()
 		if ed == "1":
 			self.text("1st edition")
 		elif ed == "2":
@@ -346,6 +347,7 @@ class Writer:
 			if slash < 0:
 				return # invalid
 			doi = doi[slash + 1:]
+		self.space()
 		self.text("DOI:")
 		self.space()
 		self.text('<a class="dh-url" href="https://doi.org/')
