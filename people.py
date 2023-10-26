@@ -1,5 +1,4 @@
 import os, re, io, unicodedata
-from urllib.parse import urlparse
 import requests
 from dharma import config, tree
 
@@ -17,13 +16,6 @@ ORCID
 VIAF
 wikidata
 """.strip().split()
-
-def normalize_url(url):
-	url = url.rstrip("/")
-	ret = urlparse(url)
-	ret = ret._replace(scheme="https")
-	return ret.geturl()
-	# could also check that the url works
 
 def iter_members_list():
 	path = os.path.join(config.REPOS_DIR, "project-documentation/DHARMA_idListMembers_v01.xml")
@@ -48,7 +40,7 @@ def iter_members_list():
 			assert not ltyp in row
 			val = idno.text()
 			if ltyp != "idhal" and val:
-				val = normalize_url(val)
+				val = config.normalize_url(val)
 			row[ltyp] = val or None
 		for typ in ID_TYPES:
 			row.setdefault(typ.lower(), None)

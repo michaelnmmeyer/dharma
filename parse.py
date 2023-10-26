@@ -220,7 +220,7 @@ class Block:
 			else:
 				assert 0, data
 		elif t == "bib":
-			key, rec = biblio.get_entry(data, params)
+			key, rec = biblio.get_entry(data, **params)
 			if key:
 				buf.append(f'<p class="dh-bib-entry" id="dh-bib-key-{key}">{rec}</p>')
 			else:

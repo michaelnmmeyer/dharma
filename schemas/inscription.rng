@@ -5,7 +5,7 @@
          xmlns="http://relaxng.org/ns/structure/1.0"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2023-10-24T19:13:52Z. .
+Schema generated from ODD source 2023-10-25T19:11:00Z. .
 TEI Edition: Version 3.6.0. Last updated on
 	16th July 2019, revision daa3cc0b9
 TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 3.6.0/
@@ -4557,10 +4557,12 @@ Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] sho
             <attribute name="rend">
                <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(rendition) how to display the bibliographic reference</a:documentation>
                <choice>
+                  <value>default</value>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">produces a bibliographic reference of the form “Allen 1923”</a:documentation>
                   <value>omitname</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">if the name of the author(s) is an integral part of your text and must thus appear independently of the citation </a:documentation>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">produces a bibliographic reference with just the date, of the form “1923”</a:documentation>
                   <value>ibid</value>
-                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">if you wish to show “ibid.” instead of the name of the author(s) </a:documentation>
+                  <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">produces the string “ibid.”</a:documentation>
                </choice>
             </attribute>
          </optional>

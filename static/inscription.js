@@ -17,6 +17,7 @@ function switchDisplayTo(name) {
 
 function prepareTips() {
 	let tipBox = document.querySelector("#dh-tip-box")
+	let parser = new DOMParser()
 	for (let node of document.querySelectorAll("[data-tip]")) {
 		node.classList.add("dh-tipped")
 		node.onmouseover = function (e) {
@@ -27,10 +28,12 @@ function prepareTips() {
 			// 		<img alt="spiralR" class="dh-svg" src="/gaiji/spiralR.svg">
 			// 	</span>
 			// In this case, e.srcElement is <img>, not <span>, for some reason.
-			if (tip === undefined) {
+			if (!tip)
 				tip = e.srcElement.parentNode.dataset.tip
-			}
-			tipBox.innerText = tip
+			if (!tip)
+				return
+			console.log(tip);
+			tipBox.innerHTML = tip
 			tipBox.style.display = "block"
 			let x = e.srcElement.offsetLeft
 			let y = e.srcElement.offsetTop + e.srcElement.offsetHeight
@@ -47,7 +50,7 @@ function flashNode(node) {
 	node.classList.add("dh-flash")
 	setTimeout(function () {
 		node.classList.remove("dh-flash")
-	}, 2000)
+	}, 3000)
 }
 
 function init() {

@@ -1,4 +1,5 @@
 import os, sys, logging, sqlite3, json, subprocess
+from urllib.parse import urlparse
 import icu
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -154,3 +155,10 @@ def command(*cmd, **kwargs):
 			sys.stderr.flush()
 		raise
 	return ret
+
+def normalize_url(url):
+	url = url.rstrip("/")
+	ret = urlparse(url)
+	ret = ret._replace(scheme="https")
+	return ret.geturl()
+	# could also check that the url actually works, and also use link rel=canonical

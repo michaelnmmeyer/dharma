@@ -4,7 +4,7 @@
 
 <div class="body">
 
-# Documentation
+<h1>Documentation</h1>
 
 This is a complement to the various guides of the project. It addresses some
 issues that are not covered by the guides, and points out how I deviate from
@@ -95,7 +95,8 @@ formatting</a> with a few HTML tags, as follows:
 * `<b>bold</b>` produces <b>bold</b>
 * `<sub>subscript</sub>` produces <sub>subscript</sub>
 * `<sup>superscript</sup>` produces <sup>superscript</sup>
-* `<span style="font-variant:small-caps;">smallcaps</span>` produces <span style="font-variant:small-caps">smallcaps</span>
+* `<span style="font-variant:small-caps;">Smallcaps</span>` produces <span
+  style="font-variant:small-caps">Smallcaps</span>
 
 There is also a tag `<span class="nocase">hello there</span>`, that is used to
 suppress automatic capitalization. I do not perform any automatic
@@ -127,21 +128,58 @@ support for the most common ones, namely:
 * journalArticle
 * report
 * thesis
+* webpage
 
 If you need another record type to be supported, do tell me.
 
 ### Record fields
 
-When using URLs, you should never reference a document that is not readily
-accessible. Don't reference documents that are behind a paywall (as in JSTOR)
-or that can only be consulted by subscribing to a service (academia.edu,
-sharedocs, etc.). Put the document on [archive.org](https://archive.org), or
-send it to me if you do not know how.
+<dl>
 
-For reprints, etc. the DHARMA Zotero guide says to fill the "Edition" field in
-full words, as in "2nd edition". In practice, you can (and should) set it to a
-roman number whenever possible. The value "2" will produce "2nd edition", the value
-"3" will produce "3rd edition", etc.
+<dt>date</dt>
+<dd>
+The guide prescribes to use "n.d." when there is no date. You can leave
+this field empty, the correct output will be generated anyway.
+</dd>
+
+<dt>edition</dt>
+<dd>For reprints, etc. the DHARMA Zotero guide says to fill
+this field in full words, as in "2nd edition". In practice, you can just set it
+to a Roman number. The value "2" will produce "2nd edition",
+the value "3" will produce "3rd edition", etc.
+</dd>
+
+<dt>extra</dt>
+<dd>
+This field is almost always filled with junk generated when importing
+bibliographies, so I ignore it completely.
+</dd>
+
+<dt>publisher</dt>
+<dd>
+The guide prescribes to use "n.pub" when there is no publisher. You can leave
+this field empty, the correct output will be generated anyway.
+</dd>
+
+<dt>URL</dt>
+<dd>
+Most URLs I have seen so far in this field are unusable, so I never display
+them unless they are absolutely necessary for locating the document. For now,
+they are only shown when the "report" record type is used.
+
+When using URLs, you should never reference a document that is not readily
+accessible. Don't reference documents that are behind a paywall (JSTOR, Brill,
+etc.) or that can only be consulted by subscribing to a service (academia.edu,
+sharedocs, etc.). Put the document on [HAL](https://hal.science) or on
+[archive.org](https://archive.org).
+
+For the rare cases you need to specify several URLs in the URL field, the EGD
+prescribes to delimit them with a semicolon. But semicolons (as well as commas,
+etc.) can and do appear in URLs, which makes them ambiguous. Delimit URLs with
+whitespace instead.
+</dd>
+
+</dl>
 
 ## Hyphenation
 

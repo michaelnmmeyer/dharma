@@ -9,17 +9,15 @@
 
 # TODO: we're supposed to not have space between initials, as in T.V. instead
 # of T. V. ; try to fix this when possible
-# TODO replace "-" with EN DASH in pages; idem for dates 1940-1941
-# TODO drop from the date month and day, only keep the year
-# TODO use the "extra" field
-# TODO use the journal abbreviation whenever possible
-# TODO use n. pub. for "no publisher"
-# TODO display the DOI (normalize it)
-# TODO prepare for several urls separated with semicolons (or whitespace)
+# TODO try to fix trailing [;,.] in URIs
 # TODO deal with roles in names (not only authors)
-# TODO add online type
+
+# TODO generate ref and entries with 1918a, 1918b, etc. when necessary
+
+# TODO NFC + space normalization
 
 import sys, io, json, unicodedata, html, re, time
+from urllib.parse import urlparse
 import requests
 from xml.parsers import expat
 from dharma import config, tree
@@ -46,36 +44,57 @@ commit;
 """
 db = config.open_db("biblio", SCHEMA)
 
-def zotero_items(max_version, ret):
+# The headers "Backoff" and "Retry-After" tell us to wait n seconds before
+# issuing the next request. Not sure what's the difference between these two,
+# so choose the largest value.
+def next_request_delay(r):
+	wait = 0
+	n = r.headers.get("Backoff", "")
+	if n.isdigit():
+		wait = max(wait, int(n))
+	n = r.headers.get("Retry-After", "")
+	if n.isdigit():
+		wait = max(wait, int(n))
+	return wait
+
+# See https://www.zotero.org/support/dev/web_api/v3/syncing
+#
+# It's not quite clear from the documentation, but there is a global "version"
+# counter that is incremented whenever the database is modified. Whenever a
+# record is added/modified, its "version" key is set to the current global
+# version, so that it's possible to detect items that have been added/modified
+# since a given version.
+def zotero_items(latest_version, ret):
 	s = requests.Session()
 	s.headers["Zotero-API-Version"] = "3"
 	s.headers["Zotero-API-Key"] = MY_API_KEY
-	r = s.get(f"https://api.zotero.org/groups/{LIBRARY_ID}/items?since={max_version}")
-	latest_version = 0
+	r = s.get(f"https://api.zotero.org/groups/{LIBRARY_ID}/items?since={latest_version}")
+	cutoff = 0
 	while True:
-		wait = max( # in seconds
-			0,
-			int(r.headers.get("Backoff", 0)),
-			int(r.headers.get("Retry-After", 0)))
+		wait = next_request_delay(r)
 		if r.status_code != 200:
-			if not wait or wait > 20:
-				# Will try later.
-				latest_version = max_version
+			if wait < 1 or wait > 20:
+				# Will retry later.
+				cutoff = latest_version
 				break
 		new_version = int(r.headers["Last-Modified-Version"])
-		if not latest_version:
-			latest_version = new_version
+		assert new_version >= latest_version
+		if not cutoff:
+			cutoff = new_version
 		entries = r.json()
 		assert isinstance(entries, list)
 		for entry in entries:
-			if entry["version"] > latest_version:
+			# Ignore all entries modified since our first request,
+			# because in this case we can't rely on the pagination
+			# to be correct and we might miss entries.
+			if entry["version"] > cutoff:
 				continue
 			yield entry
-		next = re.search(r'<([^>]+)>;\s*rel="next"', r.headers.get("Link", ""))
-		if not next:
+		next_page = re.search(r'<([^>]+)>;\s*rel="next"', r.headers.get("Link", ""))
+		if not next_page:
 			break
 		time.sleep(wait)
-		r = s.get(next.group(1))
+		r = s.get(next_page.group(1))
 	ret.append(latest_version)
 
 @db.transaction
@@ -91,13 +110,38 @@ def update():
 	db.execute("commit")
 
 # See https://www.zotero.org/support/kb/rich_text_bibliography
-valid_tags = {
-	"i": [],
-	"b": [],
-	"sub": [],
-	"sup": [],
-	"span": [("style", "font-variant:small-caps;"), ("class", "nocase")],
-}
+valid_tags = {"a", "i", "b", "sub", "sup", "span"}
+
+def fix_markup(xml):
+	for tag in xml.find(".//em"):
+		tag.name = "i"
+	for tag in xml.find(".//a"):
+		link = tag["href"]
+		if not link:
+			tag.unwrap()
+			continue
+		tag.attrs.clear()
+		tag["href"] = link
+	for tag in xml.find(".//*"):
+		if tag.name not in valid_tags:
+			tag.unwrap()
+			continue
+		if tag.name != "span":
+			continue
+		klass = tag["class"]
+		style = tag["style"]
+		if klass != "nocase":
+			klass = ""
+		if not re.match(r"^font-variant\s*:\s*small-caps\s*;?$", style):
+			style = ""
+		tag.attrs.clear()
+		if not klass and not style:
+			tag.unwrap()
+			continue
+		if klass:
+			tag["class"] = klass
+		if style:
+			tag["style"] = style
 
 ident_like = {"shortTitle", "tags", "key", "url", "links"}
 
@@ -117,28 +161,6 @@ def all_string_values(obj, ignore):
 			if k in ignore:
 				continue
 			yield from all_string_values(v, ignore)
-
-def fix_markup(xml):
-	for tag in xml.find(".//em"):
-		tag.name = "i"
-	for tag in xml.find(".//a"):
-		assert "href" in tag.attrs
-		href = tag["href"]
-		tag.attrs.clear()
-		tag["href"] = href
-	for tag in xml.find(".//*"):
-		if tag.name == "a":
-			continue # special case
-		attrs = valid_tags.get(tag.name)
-		ok = True
-		if attrs is None:
-			ok = False
-		elif len(tag.attrs) > 1 or (attrs and not tag.attrs):
-			ok = False
-		elif attrs and not list(tag.attrs.items())[0] in attrs:
-			ok = False
-		if not ok:
-			tag.unwrap()
 
 def check_entries():
 	for (entry,) in db.execute("select json from bibliography"):
@@ -161,22 +183,22 @@ def fix_string(val):
 def name_first_last(rec, dflt="?"):
 	first, last = rec.get("firstName"), rec.get("lastName")
 	if first and last:
-		return "%s %s" % (first, last)
+		return f"{first} {last}"
 	elif last:
 		return last
 	elif first:
-		return "%s ?" % first
+		return f"{first} ?"
 	else:
 		return rec.get("name") or dflt
 
 def name_last_first(rec, dflt="?"):
 	first, last = rec.get("firstName"), rec.get("lastName")
 	if last and first:
-		return "%s, %s" % (last, first)
+		return f"{last}, {first}"
 	elif last:
 		return last
 	elif first:
-		return "?, %s" % first
+		return f"?, {first}"
 	else:
 		return rec.get("name") or dflt
 
@@ -208,9 +230,6 @@ class Writer:
 	def text(self, s):
 		self.buf += s
 
-	def html(self, s):
-		self.buf += s
-
 	def names(self, authors):
 		if not authors:
 			self.text("Anonymous")
@@ -225,16 +244,27 @@ class Writer:
 			self.text(name_first_last(author))
 		self.period()
 
-	def date(self, rec):
+	def ref(self, rec):
+		authors = rec["creators"]
+		if len(authors) == 0:
+			self.text("Anonymous")
+		elif len(authors) == 1:
+			self.text(name_last(authors[0]))
+		elif len(authors) == 2:
+			self.text("%s and %s" % (name_last(authors[0]), name_last(authors[1])))
+		else:
+			self.text("%s <i>et al.</i>" % name_last(authors[0]))
+		self.space()
+		self.date(rec, end_field=False)
+
+	def date(self, rec, end_field=True):
 		date = rec["date"]
-		# The ZG prescribes to use n.d."
-		if re.match(r"^n\.\s?d\.?$", date, re.I):
-			date = None
 		if not date:
 			date = "N.d."
 		self.space()
 		self.text(date)
-		self.period()
+		if end_field:
+			self.period()
 
 	def quoted(self, title):
 		self.space()
@@ -250,9 +280,9 @@ class Writer:
 	def italic(self, title):
 		self.space()
 		if title:
-			self.html("<i>")
+			self.text("<i>")
 			self.text(title)
-			self.html("</i>")
+			self.text("</i>")
 		else:
 			self.text("Untitled")
 		self.period()
@@ -263,9 +293,17 @@ class Writer:
 		self.space()
 		self.text(rec["series"])
 		if rec["seriesNumber"]:
-			self.text(" %s" % rec["seriesNumber"])
+			self.space()
+			self.text(rec["seriesNumber"])
 		self.period()
-	
+
+	def loc(self, loc):
+		for unit, val in loc:
+			abbr = cited_range_units.get(unit, unit)
+			self.text(", ")
+			self.text(abbr + "\N{NBSP}")
+			self.text(val)
+
 	def place_publisher_loc(self, rec, params):
 		self.space()
 		if rec["place"]:
@@ -273,16 +311,9 @@ class Writer:
 		else:
 			self.text("No place")
 		publisher = rec.get("publisher")
-		# The ZG prescribes to use "n.pub" when there is no publisher
-		if re.match(r"^n\.\s?pub\.?$", publisher, re.I):
-			publisher = None
 		if publisher:
 			self.text(": %s" % publisher)
-		for unit, val in params["loc"]:
-			abbr = cited_range_units.get(unit, unit)
-			self.text(", ")
-			self.text(abbr + "\N{NBSP}")
-			self.text(val)
+		self.loc(params["loc"])
 		self.period()
 
 	def edition(self, rec):
@@ -301,6 +332,30 @@ class Writer:
 			self.text(ed)
 		self.period()
 
+	def doi(self, rec):
+		doi = rec.get("DOI")
+		if not doi:
+			return
+		url = config.normalize_url(doi)
+		doi = urlparse(url).path.lstrip("/")
+		# All DOI start with "10.". We remove everything before that in the URI:
+		# https://doi.org/10.1163/22134379-9000164 -> 10.1163/22134379-9000164
+		# https://what.com/the/10.1163/22134379-9000164 -> 10.1163/22134379-9000164
+		while not doi.startswith("10."):
+			slash = doi.find("/")
+			if slash < 0:
+				return # invalid
+			doi = doi[slash + 1:]
+		self.text("DOI:")
+		self.space()
+		self.text('<a class="dh-url" href="https://doi.org/')
+		self.text(doi)
+		self.text('">')
+		self.space()
+		self.text(doi)
+		self.text("</a>")
+		self.period()
+
 	def url(self, rec):
 		# Don't use the URL if not needed. Mostly because URL are
 		# typically invalid or point to private or semi-private
@@ -308,17 +363,28 @@ class Writer:
 		# deal with the mess.
 		if rec["itemType"] != "report":
 			return
-		url = rec["url"]
-		if not url:
+		urls = rec["url"].split()
+		if not urls:
 			return
 		self.space()
-		self.text("URL: ")
-		self.html('<a class="dh-url" href="')
-		self.text(url) # XXX normalize
-		self.html('">')
-		self.text(url)
-		self.html('</a>')
+		if len(urls) == 1:
+			self.text("URL:")
+		else:
+			self.text("URLs:")
+		self.space()
+		for i, url in enumerate(urls):
+			self.text('<a class="dh-url" href="')
+			self.text(config.normalize_url(url))
+			self.text('">')
+			self.text(url)
+			self.text('</a>')
+			if i < len(urls) - 1:
+				self.text("; ")
 		self.period()
+
+	def idents(self, rec):
+		self.doi(rec)
+		self.url(rec)
 
 cited_range_units = dict([
 	("volume", "vol."),
@@ -391,23 +457,26 @@ def render_journal_article(rec, w, params):
 	w.quoted(rec["title"])
 	if rec["publicationTitle"]:
 		w.space()
-		w.html("<i>")
-		w.text(rec["publicationTitle"])
-		w.html("</i>")
+		abbr = rec["journalAbbreviation"]
+		name = rec["publicationTitle"]
+		# Use the abbreviated journal name if possible
+		if abbr:
+			if name:
+				name = html.escape("<i>") + name + html.escape("</i>")
+				w.text(f'<abbr data-tip="{name}"><i>{abbr}</i></abbr>')
+			else:
+				w.text(f'<i>{abbr}</i>')
+		else:
+			w.text(f'<i>{name}</i>')
 		if rec["volume"]:
 			w.space()
 			w.text(rec["volume"])
 		if rec["issue"]:
 			w.space()
 			w.text("(%s)" % rec["issue"])
-		sep = ", "
-		for unit, val in params["loc"]:
-			abbr = cited_range_units.get(unit, unit)
-			w.text(sep)
-			w.text(abbr + "\N{NBSP}")
-			w.text(val)
+		w.loc(params["loc"])
 		w.period()
-	w.url(rec)
+	w.idents(rec)
 
 # book
 """
@@ -463,9 +532,8 @@ def render_book(rec, w, params):
 	w.date(rec)
 	w.italic(rec["title"])
 	w.edition(rec)
-
 	w.place_publisher_loc(rec, params)
-	w.url(rec)
+	w.idents(rec)
 
 # report
 """
@@ -516,7 +584,7 @@ def render_report(rec, w, params):
 	w.date(rec["date"])
 	w.quoted(rec["title"])
 	w.place_publisher_loc(rec, params)
-	w.url(rec)
+	w.idents(rec)
 
 # book section
 """
@@ -587,7 +655,7 @@ def render_book_section(rec, w, params):
 		w.space()
 		w.text("vols.")
 	w.place_publisher_loc(rec, params)
-	w.url(rec)
+	w.idents(rec)
 
 # thesis
 """
@@ -639,7 +707,44 @@ def render_thesis(rec, w, params):
 		w.text(rec["university"])
 	w.period()
 	w.place_publisher_loc(rec, params)
-	w.url(rec)
+	w.idents(rec)
+
+# web pages
+"""
+  {
+    "abstractNote": "",
+    "accessDate": "",
+    "collections": [],
+    "creators": [
+      {
+        "creatorType": "author",
+        "firstName": "Philip N",
+        "lastName": "Jenner"
+      }
+    ],
+    "date": "n.d.",
+    "dateAdded": "2023-10-20T07:50:06Z",
+    "dateModified": "2023-10-20T08:04:25Z",
+    "extra": "",
+    "itemType": "webpage",
+    "key": "Y6HD9LEE",
+    "language": "English",
+    "relations": {},
+    "rights": "",
+    "shortTitle": "",
+    "tags": [],
+    "title": "Analysis: pre-Angkor, Angkor and Middle Khmer Inscriptions",
+    "url": "http://sealang.net/oldkhmer/text.htm",
+    "version": 203590,
+    "websiteTitle": "",
+    "websiteType": ""
+  }
+"""
+def render_webpage(rec, w, params):
+	w.names(rec["creators"])
+	w.date(rec)
+	w.quoted(rec["title"])
+	w.idents(rec)
 
 renderers = {
 	"book": render_book,
@@ -647,6 +752,7 @@ renderers = {
 	"report": render_report,
 	"bookSection": render_book_section,
 	"thesis": render_thesis,
+	"webpage": render_webpage,
 }
 
 def fix_loc(rec, loc):
@@ -656,6 +762,8 @@ def fix_loc(rec, loc):
 		if unit == "page":
 			page = None
 	if page:
+		# Always use "-"
+		page = page.replace("\N{en dash}", "-")
 		loc.insert(0, ("page", page))
 
 def render(rec, params):
@@ -665,41 +773,44 @@ def render(rec, params):
 	fix_loc(rec, params["loc"])
 	w = Writer()
 	if params["n"]:
-		w.html("<b>[%s]</b>" % html.escape(params["n"]))
+		w.text("<b>[%s]</b>" % html.escape(params["n"]))
 		w.space()
 	f(rec, w, params)
 	return w.buf
 
-def make_ref_main(rec, fmt):
-	if fmt == "omitname":
-		return html.escape(rec["date"]) # XXX use formatter
-	if fmt == "ibid":
-		return "<i>ibid.</i>"
-	authors = rec["creators"]
-	if len(authors) == 0:
-		buf = "Anonymous"
-	elif len(authors) == 1:
-		buf = name_last(authors[0])
-	elif len(authors) == 2:
-		buf = "%s and %s" % (name_last(authors[0]), name_last(authors[1]))
-	elif len(authors) >= 3:
-		buf = "%s <i>et al.</i>" % name_last(authors[0])
-	date = rec["date"] or "n.\N{NBSP}d." # XXX use formatter
-	buf += " " + date
-	return html.escape(buf)
-
 def make_ref(rec, **params):
-	ref = make_ref_main(rec, params["rend"])
-	loc = ""
-	sep = ", "
-	for unit, val in params["loc"]:
-		abbr = cited_range_units.get(unit, unit)
-		loc += sep
-		loc += html.escape(abbr + "\N{NBSP}" + val)
-	return ref, loc
+	w = Writer()
+	fmt = params["rend"]
+	if fmt == "omitname":
+		w.date(rec, end_field=False)
+	elif fmt == "ibid":
+		w.text("<i>ibid.</i>")
+	elif fmt == "default":
+		w.ref(rec)
+	else:
+		assert 0
+	fix_loc(rec, params["loc"])
+	w.loc(params["loc"])
+	return w.buf, ""
+
+def fix_record(rec):
+	date = rec.get("date")
+	if date:
+		# Always use "-"
+		date = date.replace("\N{en dash}", "-")
+		# The ZG prescribes to use n.d."
+		if re.match(r"^n\.\s?d\.?$", date, re.I):
+			date = None
+		rec["date"] = date
+	publisher = rec.get("publisher")
+	if publisher:
+		# The ZG prescribes to use "n.pub" when there is no publisher
+		if re.match(r"^n\.\s?pub\.?$", publisher, re.I):
+			publisher = None
+		rec["publisher"] = publisher
 
 # TODO complain when multiple entries
-def get_entry(ref, params):
+def get_entry(ref, **params):
 	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
 	if not recs:
 		return "", html.escape("<%s>" % ref)
@@ -719,5 +830,5 @@ if __name__ == "__main__":
 	params = {"rend": "default", "loc": [], "n": ""}
 	key, ref, loc = get_ref(sys.argv[1], **params)
 	print(repr(ref))
-	key, entry = get_entry(sys.argv[1], params)
-	print(entry)
+	key, entry = get_entry(sys.argv[1], **params)
+	print(repr(entry))

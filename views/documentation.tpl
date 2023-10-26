@@ -1,8 +1,10 @@
 <!--
 % rebase("base.tpl", title="Documentation")
 -->
-<section id="documentation" class="body">
-<h1>Documentation</h1>
+<div class="body">
+<h1>
+Documentation
+</h1>
 <p>This is a complement to the various guides of the project. It
 addresses some issues that are not covered by the guides, and points out
 how I deviate from the guidelines, when I do deviate from them.</p>
@@ -88,8 +90,8 @@ text formatting</a> with a few HTML tags, as follows:</p>
 <sub>subscript</sub></li>
 <li><code>&lt;sup&gt;superscript&lt;/sup&gt;</code> produces
 <sup>superscript</sup></li>
-<li><code>&lt;span style="font-variant:small-caps;"&gt;smallcaps&lt;/span&gt;</code>
-produces <span class="smallcaps">smallcaps</span></li>
+<li><code>&lt;span style="font-variant:small-caps;"&gt;Smallcaps&lt;/span&gt;</code>
+produces <span class="smallcaps">Smallcaps</span></li>
 </ul>
 <p>There is also a tag
 <code>&lt;span class="nocase"&gt;hello there&lt;/span&gt;</code>, that
@@ -125,20 +127,61 @@ namely:</p>
 <li>journalArticle</li>
 <li>report</li>
 <li>thesis</li>
+<li>webpage</li>
 </ul>
 <p>If you need another record type to be supported, do tell me.</p>
 <h3 id="record-fields">Record fields</h3>
+<dl>
+<dt>
+date
+</dt>
+<dd>
+The guide prescribes to use “n.d.” when there is no date. You can leave
+this field empty, the correct output will be generated anyway.
+</dd>
+<dt>
+edition
+</dt>
+<dd>
+For reprints, etc. the DHARMA Zotero guide says to fill this field in
+full words, as in “2nd edition”. In practice, you can just set it to a
+Roman number. The value “2” will produce “2nd edition”, the value “3”
+will produce “3rd edition”, etc.
+</dd>
+<dt>
+extra
+</dt>
+<dd>
+This field is almost always filled with junk generated when importing
+bibliographies, so I ignore it completely.
+</dd>
+<dt>
+publisher
+</dt>
+<dd>
+The guide prescribes to use “n.pub” when there is no publisher. You can
+leave this field empty, the correct output will be generated anyway.
+</dd>
+<dt>
+URL
+</dt>
+<dd>
+<p>Most URLs I have seen so far in this field are unusable, so I never
+display them unless they are absolutely necessary for locating the
+document. For now, they are only shown when the “report” record type is
+used.</p>
 <p>When using URLs, you should never reference a document that is not
 readily accessible. Don’t reference documents that are behind a paywall
-(as in JSTOR) or that can only be consulted by subscribing to a service
-(academia.edu, sharedocs, etc.). Put the document on <a
-href="https://archive.org">archive.org</a>, or send it to me if you do
-not know how.</p>
-<p>For reprints, etc. the DHARMA Zotero guide says to fill the “Edition”
-field in full words, as in “2nd edition”. In practice, you can (and
-should) set it to a roman number whenever possible. The value “2” will
-produce “2nd edition”, the value “3” will produce “3rd edition”,
-etc.</p>
+(JSTOR, Brill, etc.) or that can only be consulted by subscribing to a
+service (academia.edu, sharedocs, etc.). Put the document on <a
+href="https://hal.science">HAL</a> or on <a
+href="https://archive.org">archive.org</a>.</p>
+For the rare cases you need to specify several URLs in the URL field,
+the EGD prescribes to delimit them with a semicolon. But semicolons (as
+well as commas, etc.) can and do appear in URLs, which makes them
+ambiguous. Delimit URLs with whitespace instead.
+</dd>
+</dl>
 <h2 id="hyphenation">Hyphenation</h2>
 <p>I add hyphenation break points to the text within
 <code>&lt;div type="edition"&gt;</code>. This is mostly useful for texts
@@ -236,4 +279,4 @@ instance, if you have:</p>
 &lt;/choice&gt;Y</code></pre>
 <p>… the reading XAY will be made searchable, but not XBY nor XCY. For
 this reason, you want to give the most probable reading first.</p>
-</section>
+</div>
