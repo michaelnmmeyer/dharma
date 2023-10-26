@@ -361,7 +361,7 @@ class Writer:
 		# typically invalid or point to private or semi-private
 		# locations (sharedocs, academia) and that we don't want to
 		# deal with the mess.
-		if rec["itemType"] != "report":
+		if rec["itemType"] not in ("report", "webpage"):
 			return
 		urls = rec["url"].split()
 		if not urls:

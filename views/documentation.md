@@ -10,17 +10,27 @@ This is a complement to the various guides of the project. It addresses some
 issues that are not covered by the guides, and points out how I deviate from
 the guidelines, when I do deviate from them.
 
-## Schemas
+Encoded texts generally deviate from the guidelines, and it is unreasonable to
+expect people to come back to them again and again, as I discover new issues.
+Thus, I try to do something sensible whenever possible viz. whenever something
+can be mechanically inferred.
 
-You can consult here the TEI documentation generated from DHARMA schemas. You
-should follow this instead of the [documentation on the TEI
-website](https://www.tei-c.org/release/doc/tei-p5-doc/en/html/index.html),
-because our schemas are more restrictive. Even so, they are more permissive
-than they should.
 
-We currently have four schemas. The schema used to validate a given text is
-inferred from the file name. I ignore processing instructions that tell which
-schemas should be used for validating texts, viz. all this stuff:
+## How files are pulled and validated
+
+The DHARMA app is hooked to Github and updates its database whenever you push
+to a repository. To determine which files should be added to the database, it
+looks at their filenames. XML Files whose name starts with `DHARMA_INS`,
+`DHARMA_DiplEd` or `DHARMA_CritEd` are deemed to be texts, unless they contain
+the word "template" (whatever the capitalization of this word).
+
+The location of texts in the repository does not matter. You can put them in
+different directories if needed. If you want a text you are editing not to be
+indexed, use another naming convention, e.g. `XDHARMA_INS`, etc.
+
+The schema used to validate a given text is derived from the file name. I
+ignore processing instructions that tell which schemas should be used for
+validating texts, viz. all this stuff:
 
 	<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 	<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
@@ -30,7 +40,11 @@ schemas should be used for validating texts, viz. all this stuff:
 
 I will delete these and replace them eventually.
 
-Our schemas are:
+You can consult here the TEI documentation generated from DHARMA schemas. You
+should follow this instead of the [documentation on the TEI
+website](https://www.tei-c.org/release/doc/tei-p5-doc/en/html/index.html),
+because our schemas are more restrictive. Even so, they are more permissive
+than they should.
 
 <ul>
 <li><a href="/documentation/inscription">Inscriptions</a> (files named
@@ -42,32 +56,6 @@ DHARMA_CritEd*)</li>
 <li><a href="/documentation/bestow">BESTOW</a> (no file naming
 convention)</li>
 </ul>
-
-Encoded texts generally deviate from the guidelines, and it is unreasonable to
-expect people to come back to them again and again, as I discover new issues.
-Thus, I try to do something sensible whenever possible viz. whenever something
-can be mechanically inferred.
-
-Here are a few notes on how XML files are interpreted. This only concerns
-inscriptions for now. Headings that refer to an element or attribute use the <a
-href="https://en.wikipedia.org/wiki/XPath">XPath</a> notation. Thus, for
-instance, `/TEI/teiHeader` refers to the part in red in the following, and
-`//body` refers to the part in orange:
-
-<pre>
-&lt;TEI&gt;
-	<span style="color:red">&lt;teiHeader&gt;
-		&lt;fileDesc&gt;
-			Hello
-		&lt;/fileDesc&gt;
-	&lt;/teiHeader&gt;</span>
-	&lt;text&gt;
-		<span style="color:orange">&lt;body&gt;
-			Some text
-		&lt;/body&gt;</span>
-	&lt;/text&gt;
-&lt;/TEI>
-</pre>
 
 ## Bibliography
 
@@ -165,7 +153,7 @@ this field empty, the correct output will be generated anyway.
 <dd>
 Most URLs I have seen so far in this field are unusable, so I never display
 them unless they are absolutely necessary for locating the document. For now,
-they are only shown when the "report" record type is used.
+they are only shown when the record type is "report" or "webpage".
 
 When using URLs, you should never reference a document that is not readily
 accessible. Don't reference documents that are behind a paywall (JSTOR, Brill,
@@ -180,6 +168,29 @@ whitespace instead.
 </dd>
 
 </dl>
+
+## XML files interpretation
+
+Here are a few notes on how XML files are interpreted. This only concerns
+inscriptions for now. Headings that refer to an element or attribute use the <a
+href="https://en.wikipedia.org/wiki/XPath">XPath</a> notation. Thus, for
+instance, `/TEI/teiHeader` refers to the part in red in the following, and
+`//body` refers to the part in orange:
+
+<pre>
+&lt;TEI&gt;
+	<span style="color:red">&lt;teiHeader&gt;
+		&lt;fileDesc&gt;
+			Hello
+		&lt;/fileDesc&gt;
+	&lt;/teiHeader&gt;</span>
+	&lt;text&gt;
+		<span style="color:orange">&lt;body&gt;
+			Some text
+		&lt;/body&gt;</span>
+	&lt;/text&gt;
+&lt;/TEI>
+</pre>
 
 ## Hyphenation
 

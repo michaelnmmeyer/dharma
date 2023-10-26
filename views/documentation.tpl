@@ -8,23 +8,36 @@ Documentation
 <p>This is a complement to the various guides of the project. It
 addresses some issues that are not covered by the guides, and points out
 how I deviate from the guidelines, when I do deviate from them.</p>
-<h2 id="schemas">Schemas</h2>
-<p>You can consult here the TEI documentation generated from DHARMA
-schemas. You should follow this instead of the <a
-href="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/index.html">documentation
-on the TEI website</a>, because our schemas are more restrictive. Even
-so, they are more permissive than they should.</p>
-<p>We currently have four schemas. The schema used to validate a given
-text is inferred from the file name. I ignore processing instructions
-that tell which schemas should be used for validating texts, viz. all
-this stuff:</p>
+<p>Encoded texts generally deviate from the guidelines, and it is
+unreasonable to expect people to come back to them again and again, as I
+discover new issues. Thus, I try to do something sensible whenever
+possible viz. whenever something can be mechanically inferred.</p>
+<h2 id="how-files-are-pulled-and-validated">How files are pulled and
+validated</h2>
+<p>The DHARMA app is hooked to Github and updates its database whenever
+you push to a repository. To determine which files should be added to
+the database, it looks at their filenames. XML Files whose name starts
+with <code>DHARMA_INS</code>, <code>DHARMA_DiplEd</code> or
+<code>DHARMA_CritEd</code> are deemed to be texts, unless they contain
+the word “template” (whatever the capitalization of this word).</p>
+<p>The location of texts in the repository does not matter. You can put
+them in different directories if needed. If you want a text you are
+editing not to be indexed, use another naming convention,
+e.g. <code>XDHARMA_INS</code>, etc.</p>
+<p>The schema used to validate a given text is derived from the file
+name. I ignore processing instructions that tell which schemas should be
+used for validating texts, viz. all this stuff:</p>
 <pre><code>&lt;?xml-model href=&quot;https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng&quot; type=&quot;application/xml&quot; schematypens=&quot;http://relaxng.org/ns/structure/1.0&quot;?&gt;
 &lt;?xml-model href=&quot;https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng&quot; type=&quot;application/xml&quot; schematypens=&quot;http://purl.oclc.org/dsdl/schematron&quot;?&gt;
 &lt;?xml-model href=&quot;https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch&quot; type=&quot;application/xml&quot; schematypens=&quot;http://purl.oclc.org/dsdl/schematron&quot;?&gt;
 &lt;?xml-model href=&quot;https://epidoc.stoa.org/schema/latest/tei-epidoc.rng&quot; schematypens=&quot;http://relaxng.org/ns/structure/1.0&quot;?&gt;
 &lt;?xml-model href=&quot;https://epidoc.stoa.org/schema/latest/tei-epidoc.rng&quot; schematypens=&quot;http://purl.oclc.org/dsdl/schematron&quot;?&gt;</code></pre>
 <p>I will delete these and replace them eventually.</p>
-<p>Our schemas are:</p>
+<p>You can consult here the TEI documentation generated from DHARMA
+schemas. You should follow this instead of the <a
+href="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/index.html">documentation
+on the TEI website</a>, because our schemas are more restrictive. Even
+so, they are more permissive than they should.</p>
 <ul>
 <li>
 <a href="/documentation/inscription">Inscriptions</a> (files named
@@ -42,30 +55,6 @@ DHARMA_CritEd*)
 <a href="/documentation/bestow">BESTOW</a> (no file naming convention)
 </li>
 </ul>
-<p>Encoded texts generally deviate from the guidelines, and it is
-unreasonable to expect people to come back to them again and again, as I
-discover new issues. Thus, I try to do something sensible whenever
-possible viz. whenever something can be mechanically inferred.</p>
-<p>Here are a few notes on how XML files are interpreted. This only
-concerns inscriptions for now. Headings that refer to an element or
-attribute use the <a
-href="https://en.wikipedia.org/wiki/XPath">XPath</a> notation. Thus, for
-instance, <code>/TEI/teiHeader</code> refers to the part in red in the
-following, and <code>//body</code> refers to the part in orange:</p>
-<pre>
-&lt;TEI&gt;
-    <span style="color:red">&lt;teiHeader&gt;
-        &lt;fileDesc&gt;
-            Hello
-        &lt;/fileDesc&gt;
-    &lt;/teiHeader&gt;</span>
-    &lt;text&gt;
-        <span style="color:orange">&lt;body&gt;
-            Some text
-        &lt;/body&gt;</span>
-    &lt;/text&gt;
-&lt;/TEI>
-</pre>
 <h2 id="bibliography">Bibliography</h2>
 <h3 id="referencing-entries">Referencing entries</h3>
 <p>For referencing bibliographic entries, as in
@@ -168,8 +157,8 @@ URL
 <dd>
 <p>Most URLs I have seen so far in this field are unusable, so I never
 display them unless they are absolutely necessary for locating the
-document. For now, they are only shown when the “report” record type is
-used.</p>
+document. For now, they are only shown when the record type is “report”
+or “webpage”.</p>
 <p>When using URLs, you should never reference a document that is not
 readily accessible. Don’t reference documents that are behind a paywall
 (JSTOR, Brill, etc.) or that can only be consulted by subscribing to a
@@ -182,6 +171,27 @@ well as commas, etc.) can and do appear in URLs, which makes them
 ambiguous. Delimit URLs with whitespace instead.
 </dd>
 </dl>
+<h2 id="xml-files-interpretation">XML files interpretation</h2>
+<p>Here are a few notes on how XML files are interpreted. This only
+concerns inscriptions for now. Headings that refer to an element or
+attribute use the <a
+href="https://en.wikipedia.org/wiki/XPath">XPath</a> notation. Thus, for
+instance, <code>/TEI/teiHeader</code> refers to the part in red in the
+following, and <code>//body</code> refers to the part in orange:</p>
+<pre>
+&lt;TEI&gt;
+    <span style="color:red">&lt;teiHeader&gt;
+        &lt;fileDesc&gt;
+            Hello
+        &lt;/fileDesc&gt;
+    &lt;/teiHeader&gt;</span>
+    &lt;text&gt;
+        <span style="color:orange">&lt;body&gt;
+            Some text
+        &lt;/body&gt;</span>
+    &lt;/text&gt;
+&lt;/TEI>
+</pre>
 <h2 id="hyphenation">Hyphenation</h2>
 <p>I add hyphenation break points to the text within
 <code>&lt;div type="edition"&gt;</code>. This is mostly useful for texts

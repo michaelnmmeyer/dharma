@@ -5,13 +5,15 @@ from dharma import config
 def complain(s):
 	print(f"BUG: {s}", file=sys.stderr)
 
-files_to_ignore = {"DHARMA_BestAuthorities.xml", "DHARMA_INSCIKthaiTest.xml"}
+files_to_ignore = {"DHARMA_INSCIKthaiTest.xml"}
 
 repos_to_ignore = {
 	"digital-areal",
 	"mdt-authorities",
 	"project-documentation",
 }
+
+valid_prefixes = {"DHARMA_INS", "DHARMA_DiplEd", "DHARMA_CritEd"}
 
 def iter_texts_in_repo(name):
 	if name in repos_to_ignore:
@@ -35,10 +37,7 @@ def iter_texts_in_repo(name):
 			_, ext = os.path.splitext(file)
 			if ext != ".xml":
 				continue
-			if not file.startswith("DHARMA_"):
-				continue
-			# Metadata
-			if file.startswith("DHARMA_mdt"):
+			if not any(file.startswith(p) for p in valid_prefixes):
 				continue
 			if "template" in file.lower():
 				continue
