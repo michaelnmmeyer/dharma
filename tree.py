@@ -199,7 +199,7 @@ class String(Node, collections.UserString):
 		self.data = self.data[:i] + data + self.data[i:]
 
 	def xml(self, **kwargs):
-		return quote_string(self.data)
+		return quote_string(str(self.data))
 
 	def text(self, **kwargs):
 		data = str(self.data) # casting is necessary
@@ -381,6 +381,8 @@ class Tag(Branch):
 			assert len(args) == 1
 			assert not kwargs
 			(attrs,) = args
+			if isinstance(attrs, dict):
+				attrs = attrs.items()
 		else:
 			attrs = kwargs.items()
 		for key, value in attrs:
@@ -496,6 +498,11 @@ class Tree(Branch):
 		for node in self:
 			ret.append(node.xml(**kwargs))
 		return "".join(ret)
+
+	def tag(self, name, *args, **kwargs):
+		tag = Tag(name, *args, **kwargs)
+		tag.tree = self
+		return tag
 
 	def text(self, **kwargs):
 		if self.root:

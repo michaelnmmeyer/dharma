@@ -1,6 +1,6 @@
 % rebase("base.tpl", title="Display", includes='''
    <link rel="stylesheet" href="/inscription.css">
-	<script type="text/javascript" src="/inscription.js"></script>
+	<script src="/inscription.js"></script>
 ''')
 
 <div class="body">

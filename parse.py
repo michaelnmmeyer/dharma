@@ -249,6 +249,28 @@ class Block:
 		else:
 			assert 0, t
 
+	def render_plain(self):
+		assert self.finished
+		buf = []
+		for t, data, params in self.code:
+			if t == "log":
+				if data == "<head":
+					buf.append("\n\n")
+				elif data == ">head":
+					buf.append("\n\n")
+				elif data == ">para":
+					buf.append("\n\n")
+			elif t == "text":
+				buf.append(data)
+			elif t == "phys":
+				if data == "<line":
+					buf.append('(%s)' % params["n"])
+					if params["brk"]:
+						buf.append(" ")
+				elif data == "=page":
+					buf.append('(p. %s)' % params["n"])
+		return "".join(buf)
+
 	def render_logical(self):
 		assert self.finished
 		buf = []
@@ -530,7 +552,7 @@ class Parser:
 			self.dispatch(child)
 
 	def complain(self, msg):
-		print("UNKNOWN %s" % msg)
+		#print("UNKNOWN %s" % msg)
 		pass
 
 # Like the eponymous function in xslt

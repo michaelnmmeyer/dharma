@@ -15,13 +15,13 @@ function switchDisplayTo(name) {
 	}
 }
 
-// TODO see if https://popper.js.org/ (specialized for tooltips) is useful
-// it's what bootstrap uses
+// TODO use https://popper.js.org/ (specialized for tooltips)
 function prepareTips() {
 	let tipBox = document.querySelector("#dh-tip-box")
-	let parser = new DOMParser()
 	for (let node of document.querySelectorAll("[data-tip]")) {
 		node.classList.add("dh-tipped")
+		let tip = node.dataset.tip
+		Popper.createPopper(node, tip)
 		node.onmouseover = function (e) {
 			let rec = e.srcElement.getBoundingClientRect()
 			let tip = e.srcElement.dataset.tip

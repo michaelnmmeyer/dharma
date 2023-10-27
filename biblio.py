@@ -1,20 +1,12 @@
 # When processing a text, oxygen generates zotero API calls like this:
 # https://api.zotero.org/groups/1633743/items?tag=ROD1914&format=tei
-# This is why tags are used, but can we generate another API call that uses a
-# proper primary key? Yes, use:
+#
+# This is why tags are used, but we can generate API call that us
+# the actual primary key:
 # https://api.zotero.org/groups/1633743/items/ZZH5G8PB?format=tei
 #
 # For the conversion zotero->tei:
 # https://github.com/zotero/translators/blob/master/TEI.js
-
-# TODO: we're supposed to not have space between initials, as in T.V. instead
-# of T. V. ; try to fix this when possible
-# TODO try to fix trailing [;,.] in URIs
-# TODO deal with roles in names (not only authors)
-
-# TODO generate ref and entries with 1918a, 1918b, etc. when necessary
-
-# TODO NFC + space normalization
 
 import sys, io, json, unicodedata, html, re, time
 from urllib.parse import urlparse
@@ -205,55 +197,65 @@ def name_last_first(rec, dflt="?"):
 def name_last(rec, dflt="?"):
 	return rec.get("lastName") or rec.get("name") or dflt
 
-#XXX normalize space
-
 class Writer:
 
 	def __init__(self):
-		self.buf = ""
+		self.xml = tree.parse_string("<p/>").root
+
+	def output(self):
+		return self.xml.xml()
 
 	def space(self):
-		if self.buf and not self.buf[-1].isspace():
-			self.buf += " "
+		text = self.xml.text()
+		if text and not text[-1].isspace():
+			self.add(" ")
 
-	def period(self): # TODO take tags into account!
-		i = len(self.buf)
-		while i > 0:
-			i -= 1
-			c = self.buf[i]
+	def period(self):
+		text = self.xml.text()
+		j = len(text)
+		while j > 0:
+			j -= 1
+			c = text[j]
 			if c == ".":
 				return
 			if c.isalpha() or c.isdigit():
 				break
-		self.buf += "."
+		self.add(".")
 
-	def text(self, s):
-		self.buf += s
+	def add(self, s):
+		self.xml.append(s)
+
+	def tag(self, name, *args, **kwargs):
+		self.xml.coalesce()
+		return self.xml.tree.tag(name, *args, **kwargs)
 
 	def names(self, authors):
 		if not authors:
-			self.text("Anonymous")
+			self.add("Anonymous")
 		for i, author in enumerate(authors):
 			if i == 0:
-				self.text(name_last_first(author))
+				self.add(name_last_first(author))
 				continue
 			if i == len(authors) - 1:
-				self.text(" and ")
+				self.add(" and ")
 			else:
-				self.text(", ")
-			self.text(name_first_last(author))
+				self.add(", ")
+			self.add(name_first_last(author))
 		self.period()
 
 	def ref(self, rec):
 		authors = rec["creators"]
 		if len(authors) == 0:
-			self.text("Anonymous")
+			self.add("Anonymous")
 		elif len(authors) == 1:
-			self.text(name_last(authors[0]))
+			self.add(name_last(authors[0]))
 		elif len(authors) == 2:
-			self.text("%s and %s" % (name_last(authors[0]), name_last(authors[1])))
+			self.add("%s and %s" % (name_last(authors[0]), name_last(authors[1])))
 		else:
-			self.text("%s <i>et al.</i>" % name_last(authors[0]))
+			self.add("%s " % name_last(authors[0]))
+			tag = self.tag("i")
+			tag.append("et al.")
+			self.add(tag)
 		self.space()
 		self.date(rec, end_field=False)
 
@@ -262,57 +264,57 @@ class Writer:
 		if not date:
 			date = "N.d."
 		self.space()
-		self.text(date)
+		self.add(date)
 		if end_field:
 			self.period()
 
 	def quoted(self, title):
 		self.space()
 		if title:
-			self.text("“")
-			self.text(title)
+			self.add("“")
+			self.add(title)
 			self.period()
-			self.text("”")
+			self.add("”")
 		else:
-			self.text("Untitled")
+			self.add("Untitled")
 			self.period()
 
 	def italic(self, title):
 		self.space()
 		if title:
-			self.text("<i>")
-			self.text(title)
-			self.text("</i>")
+			tag = self.tag("i")
+			tag.append(title)
+			self.add(tag)
 		else:
-			self.text("Untitled")
+			self.add("Untitled")
 		self.period()
 
 	def series(self, rec):
 		if not rec["series"]:
 			return
 		self.space()
-		self.text(rec["series"])
+		self.add(rec["series"])
 		if rec["seriesNumber"]:
 			self.space()
-			self.text(rec["seriesNumber"])
+			self.add(rec["seriesNumber"])
 		self.period()
 
 	def loc(self, loc):
 		for unit, val in loc:
 			abbr = cited_range_units.get(unit, unit)
-			self.text(", ")
-			self.text(abbr + "\N{NBSP}")
-			self.text(val)
+			self.add(", ")
+			self.add(abbr + "\N{NBSP}")
+			self.add(val)
 
 	def place_publisher_loc(self, rec, params):
 		self.space()
 		if rec["place"]:
-			self.text(rec["place"])
+			self.add(rec["place"])
 		else:
-			self.text("No place")
+			self.add("No place")
 		publisher = rec.get("publisher")
 		if publisher:
-			self.text(": %s" % publisher)
+			self.add(": %s" % publisher)
 		self.loc(params["loc"])
 		self.period()
 
@@ -322,15 +324,15 @@ class Writer:
 			return
 		self.space()
 		if ed == "1":
-			self.text("1st edition")
+			self.add("1st edition")
 		elif ed == "2":
-			self.text("2nd edition")
+			self.add("2nd edition")
 		elif ed == "3":
-			self.text("3rd edition")
+			self.add("3rd edition")
 		elif ed.isdigit():
-			self.text("%sth edition" % ed)
+			self.add("%sth edition" % ed)
 		else:
-			self.text(ed)
+			self.add(ed)
 		self.period()
 
 	def doi(self, rec):
@@ -348,14 +350,11 @@ class Writer:
 				return # invalid
 			doi = doi[slash + 1:]
 		self.space()
-		self.text("DOI:")
+		self.add("DOI:")
 		self.space()
-		self.text('<a class="dh-url" href="https://doi.org/')
-		self.text(doi)
-		self.text('">')
-		self.space()
-		self.text(doi)
-		self.text("</a>")
+		tag = self.tag("a", {"class": "dh-url", "href": f"https://doi.org/{doi}"})
+		tag.append(doi)
+		self.add(tag)
 		self.period()
 
 	def url(self, rec):
@@ -370,16 +369,15 @@ class Writer:
 			return
 		self.space()
 		if len(urls) == 1:
-			self.text("URL:")
+			self.add("URL:")
 		else:
-			self.text("URLs:")
+			self.add("URLs:")
 		self.space()
 		for i, url in enumerate(urls):
-			self.text('<a class="dh-url" href="')
-			self.text(config.normalize_url(url))
-			self.text('">')
-			self.text(url)
-			self.text('</a>')
+			url = normalize_url(url)
+			tag = self.tag("a", {"class": "dh-url", "href": url})
+			tag.append(url)
+			self.add(tag)
 			if i < len(urls) - 1:
 				self.text("; ")
 		self.period()
@@ -465,17 +463,25 @@ def render_journal_article(rec, w, params):
 		if abbr:
 			if name:
 				name = html.escape("<i>") + name + html.escape("</i>")
-				w.text(f'<abbr data-tip="{name}"><i>{abbr}</i></abbr>')
+				tag = w.tag("abbr", {"data-tip": name})
+				tagi = w.tag("i")
+				tagi.append(abbr)
+				tag.append(tagi)
+				w.add(tag)
 			else:
-				w.text(f'<i>{abbr}</i>')
+				tag = w.tag("i")
+				tag.append(abbr)
+				w.add(tag)
 		else:
-			w.text(f'<i>{name}</i>')
+			tag = w.tag("i")
+			tag.append(name)
+			w.add(name)
 		if rec["volume"]:
 			w.space()
-			w.text(rec["volume"])
+			w.add(rec["volume"])
 		if rec["issue"]:
 			w.space()
-			w.text("(%s)" % rec["issue"])
+			w.add("(%s)" % rec["issue"])
 		w.loc(params["loc"])
 		w.period()
 	w.idents(rec)
@@ -643,19 +649,19 @@ def render_book_section(rec, w, params):
 	w.quoted(rec["title"])
 	if rec["bookTitle"]:
 		w.space()
-		w.text("In: ")
+		w.add("In: ")
 		w.italic(rec["bookTitle"])
 		w.edition(rec)
 	if rec["volume"]:
 		w.space()
-		w.text("Vol.\N{NBSP}%s" % rec["volume"])
+		w.add("Vol.\N{NBSP}%s" % rec["volume"])
 		w.period()
 	w.series(rec)
 	if rec["numberOfVolumes"]:
 		w.space()
-		w.text(rec["numberOfVolumes"])
+		w.add(rec["numberOfVolumes"])
 		w.space()
-		w.text("vols.")
+		w.add("vols.")
 	w.place_publisher_loc(rec, params)
 	w.idents(rec)
 
@@ -703,10 +709,10 @@ def render_thesis(rec, w, params):
 	w.date(rec)
 	w.quoted(rec["title"])
 	w.space()
-	w.text(rec["thesisType"] or "Thesis")
+	w.add(rec["thesisType"] or "Thesis")
 	if rec["university"]:
-		w.text(", ")
-		w.text(rec["university"])
+		w.add(", ")
+		w.add(rec["university"])
 	w.period()
 	w.place_publisher_loc(rec, params)
 	w.idents(rec)
@@ -775,10 +781,12 @@ def render(rec, params):
 	fix_loc(rec, params["loc"])
 	w = Writer()
 	if params["n"]:
-		w.text("<b>[%s]</b>" % html.escape(params["n"]))
+		tag = w.tag("b")
+		tag.append(params["n"])
+		w.add(tag)
 		w.space()
 	f(rec, w, params)
-	return w.buf
+	return w.output()
 
 def make_ref(rec, **params):
 	w = Writer()
@@ -793,7 +801,13 @@ def make_ref(rec, **params):
 		assert 0
 	fix_loc(rec, params["loc"])
 	w.loc(params["loc"])
-	return w.buf, ""
+	return w.output(), ""
+
+# XXX normalize space and normalize NFC
+# TODO: add interface for correcting entries
+# we're supposed to not have space between initials, as in T.V. instead
+# of T. V. ; try to fix this when possible
+# TODO try to fix trailing [;,.] in URIs
 
 def fix_record(rec):
 	date = rec.get("date")
@@ -821,6 +835,7 @@ def get_entry(ref, **params):
 	return key, ret or html.escape("<%s> %s" % (ref, recs[0][1]))
 
 # TODO complain when multiple entries
+# TODO generate ref and entries with 1918a, 1918b, etc. when necessary
 def get_ref(ref, **params):
 	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
 	if not recs:
@@ -830,7 +845,5 @@ def get_ref(ref, **params):
 
 if __name__ == "__main__":
 	params = {"rend": "default", "loc": [], "n": ""}
-	key, ref, loc = get_ref(sys.argv[1], **params)
-	print(repr(ref))
 	key, entry = get_entry(sys.argv[1], **params)
 	print(repr(entry))
