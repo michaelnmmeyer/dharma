@@ -101,108 +101,14 @@ def update():
 	db.execute("update meta set value = ? where key = 'latest_version'", tuple(ret))
 	db.execute("commit")
 
-# See https://www.zotero.org/support/kb/rich_text_bibliography
-valid_tags = {"a", "i", "b", "sub", "sup", "span"}
-
-def fix_markup(xml):
-	for tag in xml.find(".//em"):
-		tag.name = "i"
-	for tag in xml.find(".//a"):
-		link = tag["href"]
-		if not link:
-			tag.unwrap()
-			continue
-		tag.attrs.clear()
-		tag["href"] = link
-	for tag in xml.find(".//*"):
-		if tag.name not in valid_tags:
-			tag.unwrap()
-			continue
-		if tag.name != "span":
-			continue
-		klass = tag["class"]
-		style = tag["style"]
-		if klass != "nocase":
-			klass = ""
-		if not re.match(r"^font-variant\s*:\s*small-caps\s*;?$", style):
-			style = ""
-		tag.attrs.clear()
-		if not klass and not style:
-			tag.unwrap()
-			continue
-		if klass:
-			tag["class"] = klass
-		if style:
-			tag["style"] = style
-
-ident_like = {"shortTitle", "tags", "key", "url", "links"}
-
-def all_string_values(obj, ignore):
-	if isinstance(obj, str):
-		yield obj
-	elif isinstance(obj, int):
-		pass
-	elif obj is None:
-		pass
-	elif isinstance(obj, list):
-		for val in obj:
-			yield from all_string_values(val, ignore)
-	else:
-		assert isinstance(obj, dict), obj
-		for k, v in obj.items():
-			if k in ignore:
-				continue
-			yield from all_string_values(v, ignore)
-
-def check_entries():
-	for (entry,) in db.execute("select json from bibliography"):
-		for val in all_string_values(entry, ignore=set()):
-			fix_string(val)
-
-def fix_string(val):
-	val = html.unescape(val)
-	val = unicodedata.normalize("NFC", val)
-	val = val.replace("&", "&amp;")
-	val = "<r>%s</r>" % val
-	try:
-		xml = tree.parse_string(val).root
-		fix_markup(xml)
-		val = xml.xml()[len("<r>"):-len("</r>")]
-	except expat.ExpatError:
-		val = html.escape(val)
-	return val
-
-def name_first_last(rec, dflt="?"):
-	first, last = rec.get("firstName"), rec.get("lastName")
-	if first and last:
-		return f"{first} {last}"
-	elif last:
-		return last
-	elif first:
-		return f"{first} ?"
-	else:
-		return rec.get("name") or dflt
-
-def name_last_first(rec, dflt="?"):
-	first, last = rec.get("firstName"), rec.get("lastName")
-	if last and first:
-		return f"{last}, {first}"
-	elif last:
-		return last
-	elif first:
-		return f"?, {first}"
-	else:
-		return rec.get("name") or dflt
-
-def name_last(rec, dflt="?"):
-	return rec.get("lastName") or rec.get("name") or dflt
-
 class Writer:
 
 	def __init__(self):
-		self.xml = tree.parse_string("<p/>").root
+		self.xml = tree.parse_string('<p class="dh-bib-entry"/>').root
 
 	def output(self):
+		for X in self.xml.find(".//X"):
+			X.unwrap()
 		return self.xml.xml()
 
 	def space(self):
@@ -229,18 +135,52 @@ class Writer:
 		self.xml.coalesce()
 		return self.xml.tree.tag(name, *args, **kwargs)
 
-	def names(self, authors):
+	def name_first_last(self, rec):
+		first, last = rec.get("firstName"), rec.get("lastName")
+		if first and last:
+			self.add(first)
+			self.space()
+			self.add(last)
+		elif last:
+			self.add(last)
+		elif first:
+			self.add(first)
+			self.space()
+			self.add("Anonymous")
+		else:
+			self.add(rec.get("name") or "Anonymous")
+
+	def name_last_first(self, rec):
+		first, last = rec.get("firstName"), rec.get("lastName")
+		if last and first:
+			self.add(last)
+			self.add(", ")
+			self.add(first)
+		elif last:
+			self.add(last)
+		elif first:
+			self.add("Anonymous")
+			self.add(", ")
+			self.add(first)
+		else:
+			self.add(rec.get("name") or "Anonymous")
+
+	def name_last(self, rec):
+		self.add(rec.get("lastName") or rec.get("name") or "Anonymous")
+
+	def names(self, rec):
+		authors = rec["creators"]
 		if not authors:
 			self.add("Anonymous")
 		for i, author in enumerate(authors):
 			if i == 0:
-				self.add(name_last_first(author))
+				self.name_last_first(author)
 				continue
 			if i == len(authors) - 1:
 				self.add(" and ")
 			else:
 				self.add(", ")
-			self.add(name_first_last(author))
+			self.name_first_last(author)
 		self.period()
 
 	def ref(self, rec):
@@ -248,11 +188,16 @@ class Writer:
 		if len(authors) == 0:
 			self.add("Anonymous")
 		elif len(authors) == 1:
-			self.add(name_last(authors[0]))
+			self.name_last(authors[0])
 		elif len(authors) == 2:
-			self.add("%s and %s" % (name_last(authors[0]), name_last(authors[1])))
+			self.name_last(authors[0])
+			self.space()
+			self.add("and")
+			self.space()
+			self.name_last(authors[1])
 		else:
-			self.add("%s " % name_last(authors[0]))
+			self.name_last(authors[0])
+			self.space()
 			tag = self.tag("i")
 			tag.append("et al.")
 			self.add(tag)
@@ -314,7 +259,8 @@ class Writer:
 			self.add("No place")
 		publisher = rec.get("publisher")
 		if publisher:
-			self.add(": %s" % publisher)
+			self.add(": ")
+			self.add(publisher)
 		self.loc(params["loc"])
 		self.period()
 
@@ -323,14 +269,15 @@ class Writer:
 		if not ed:
 			return
 		self.space()
-		if ed == "1":
+		txt = ed.text()
+		if txt == "1":
 			self.add("1st edition")
-		elif ed == "2":
+		elif txt == "2":
 			self.add("2nd edition")
-		elif ed == "3":
+		elif txt == "3":
 			self.add("3rd edition")
-		elif ed.isdigit():
-			self.add("%sth edition" % ed)
+		elif txt.isdigit():
+			self.add("%sth edition" % txt)
 		else:
 			self.add(ed)
 		self.period()
@@ -452,7 +399,7 @@ cited_range_units = dict([
   }
 """
 def render_journal_article(rec, w, params):
-	w.names(rec["creators"])
+	w.names(rec)
 	w.date(rec)
 	w.quoted(rec["title"])
 	if rec["publicationTitle"]:
@@ -462,8 +409,8 @@ def render_journal_article(rec, w, params):
 		# Use the abbreviated journal name if possible
 		if abbr:
 			if name:
-				name = html.escape("<i>") + name + html.escape("</i>")
-				tag = w.tag("abbr", {"data-tip": name})
+				name.name = "i"
+				tag = w.tag("abbr", {"data-tip": name.xml()})
 				tagi = w.tag("i")
 				tagi.append(abbr)
 				tag.append(tagi)
@@ -481,7 +428,9 @@ def render_journal_article(rec, w, params):
 			w.add(rec["volume"])
 		if rec["issue"]:
 			w.space()
-			w.add("(%s)" % rec["issue"])
+			w.add("(")
+			w.add(rec["issue"])
+			w.add(")")
 		w.loc(params["loc"])
 		w.period()
 	w.idents(rec)
@@ -536,7 +485,7 @@ def render_journal_article(rec, w, params):
   }
 """
 def render_book(rec, w, params):
-	w.names(rec["creators"])
+	w.names(rec)
 	w.date(rec)
 	w.italic(rec["title"])
 	w.edition(rec)
@@ -588,8 +537,8 @@ def render_book(rec, w, params):
   }
 """
 def render_report(rec, w, params):
-	w.names(rec["creators"])
-	w.date(rec["date"])
+	w.names(rec)
+	w.date(rec)
 	w.quoted(rec["title"])
 	w.place_publisher_loc(rec, params)
 	w.idents(rec)
@@ -644,7 +593,7 @@ def render_report(rec, w, params):
   }
 """
 def render_book_section(rec, w, params):
-	w.names(rec["creators"])
+	w.names(rec)
 	w.date(rec)
 	w.quoted(rec["title"])
 	if rec["bookTitle"]:
@@ -654,7 +603,8 @@ def render_book_section(rec, w, params):
 		w.edition(rec)
 	if rec["volume"]:
 		w.space()
-		w.add("Vol.\N{NBSP}%s" % rec["volume"])
+		w.add("Vol.\N{NBSP}")
+		w.add(rec["volume"])
 		w.period()
 	w.series(rec)
 	if rec["numberOfVolumes"]:
@@ -705,7 +655,7 @@ def render_book_section(rec, w, params):
   }
 """
 def render_thesis(rec, w, params):
-	w.names(rec["creators"])
+	w.names(rec)
 	w.date(rec)
 	w.quoted(rec["title"])
 	w.space()
@@ -749,7 +699,7 @@ def render_thesis(rec, w, params):
   }
 """
 def render_webpage(rec, w, params):
-	w.names(rec["creators"])
+	w.names(rec)
 	w.date(rec)
 	w.quoted(rec["title"])
 	w.idents(rec)
@@ -765,51 +715,87 @@ renderers = {
 
 def fix_loc(rec, loc):
 	page = rec.get("pages")
-	for i, (unit, val) in enumerate(loc):
-		loc[i] = (html.escape(unit), html.escape(val))
-		if unit == "page":
-			page = None
-	if page:
-		# Always use "-"
-		page = page.replace("\N{en dash}", "-")
-		loc.insert(0, ("page", page))
-
-def render(rec, params):
-	f = renderers.get(rec["itemType"])
-	if not f:
+	if not page:
 		return
-	fix_loc(rec, params["loc"])
-	w = Writer()
-	if params["n"]:
-		tag = w.tag("b")
-		tag.append(params["n"])
-		w.add(tag)
-		w.space()
-	f(rec, w, params)
-	return w.output()
+	for i, (unit, val) in enumerate(loc):
+		loc[i] = (unit, val)
+		if unit == "page":
+			return
+	loc.insert(0, ("page", page))
 
-def make_ref(rec, **params):
-	w = Writer()
-	fmt = params["rend"]
-	if fmt == "omitname":
-		w.date(rec, end_field=False)
-	elif fmt == "ibid":
-		w.text("<i>ibid.</i>")
-	elif fmt == "default":
-		w.ref(rec)
-	else:
-		assert 0
-	fix_loc(rec, params["loc"])
-	w.loc(params["loc"])
-	return w.output(), ""
+# See https://www.zotero.org/support/kb/rich_text_bibliography
+valid_tags = {"a", "i", "b", "sub", "sup", "span"}
 
-# XXX normalize space and normalize NFC
-# TODO: add interface for correcting entries
+def fix_markup(xml):
+	for tag in xml.find(".//em"):
+		tag.name = "i"
+	for tag in xml.find(".//a"):
+		link = tag["href"]
+		if not link:
+			tag.unwrap()
+			continue
+		tag.attrs.clear()
+		tag["href"] = link
+	for tag in xml.find(".//*"):
+		if tag.name not in valid_tags and tag.parent:
+			tag.unwrap()
+			continue
+		if tag.name != "span":
+			continue
+		klass = tag["class"]
+		style = tag["style"]
+		if klass != "nocase":
+			klass = ""
+		if not re.match(r"^font-variant\s*:\s*small-caps\s*;?$", style):
+			style = ""
+		tag.attrs.clear()
+		if not klass and not style:
+			tag.unwrap()
+			continue
+		if klass:
+			tag["class"] = klass
+		if style:
+			tag["style"] = style
+
+def text_nodes(xml):
+	for node in xml:
+		if node.type == "string":
+			yield node
+		elif node.type == "tag":
+			yield from text_nodes(node)
+
+def normalize_space(xml):
+	nodes = list(text_nodes(xml))
+	i = 0
+	for i, node in enumerate(nodes):
+		s = re.sub(r"\s+", " ", str(node))
+		if i == 0:
+			s = s.lstrip()
+		if i == len(nodes) - 1:
+			s = s.rstrip()
+		if i < len(nodes) - 1 and s and s[-1].isspace() and nodes[i + 1] and nodes[i + 1][0].isspace():
+			s = s.rstrip()
+		node.replace_with(s)
+
+# TODO:
+# add interface for correcting entries
 # we're supposed to not have space between initials, as in T.V. instead
 # of T. V. ; try to fix this when possible
-# TODO try to fix trailing [;,.] in URIs
+# try to fix trailing [;,.] in URIs
+def fix_value(s):
+	s = html.unescape(s)
+	s = unicodedata.normalize("NFC", s)
+	s = s.replace("&", "&amp;") # XXX
+	s = tree.parse_string("<X>%s</X>" % s)
+	fix_markup(s)
+	normalize_space(s)
+	if not s.text():
+		return ""
+	return s.root
 
-def fix_record(rec):
+def fix_rec(rec):
+	# XXX
+	"""
 	date = rec.get("date")
 	if date:
 		# Always use "-"
@@ -818,32 +804,126 @@ def fix_record(rec):
 		if re.match(r"^n\.\s?d\.?$", date, re.I):
 			date = None
 		rec["date"] = date
+	page = rec.get("page")
+	if page:
+		# Always use "-"
+		page = page.replace("\N{en dash}", "-")
+		rec["page"] = page
 	publisher = rec.get("publisher")
 	if publisher:
 		# The ZG prescribes to use "n.pub" when there is no publisher
 		if re.match(r"^n\.\s?pub\.?$", publisher, re.I):
 			publisher = None
 		rec["publisher"] = publisher
+	"""
+	for key, value in rec.copy().items():
+		if key in ("itemType", "pages", "url", "DOI"):
+			continue
+		if isinstance(value, str):
+			rec[key] = fix_value(value)
+			continue
+		if key != "creators":
+			continue
+		assert key == "creators", key
+		for creator in value:
+			for field in ("firstName", "lastName", "name"):
+				val = creator.get(field)
+				if not val:
+					continue
+				creator[field] = fix_value(val)
 
-# TODO complain when multiple entries
+# TODO generate ref and entries with 1918a, 1918b, etc. when necessary
+
+def invalid_entry(ref, reason, key=None):
+	r = tree.parse_string('<p class="dh-bib-entry dh-bib-ref-invalid"/>').root
+	r["data-tip"] = reason
+	if key:
+		r["id"] = f"dh-bib-key-{key}"
+	r.append(ref)
+	return r.xml()
+
 def get_entry(ref, **params):
 	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
-	if not recs:
-		return "", html.escape("<%s>" % ref)
-	key, ret = recs[0]
-	ret = render(ret["data"], params)
-	return key, ret or html.escape("<%s> %s" % (ref, recs[0][1]))
+	if len(recs) == 0:
+		return invalid_entry(ref, "Not found in bibliography")
+	if len(recs) > 1:
+		return invalid_entry(ref, "Multiple bibliographic entries bear this short title")
+	key, rec = recs[0]
+	rec = rec["data"]
+	f = renderers.get(rec["itemType"])
+	if not f:
+		return invalid_entry(ref, "Entry type '%s' not supported" % rec["itemType"], key)
+	fix_rec(rec)
+	fix_loc(rec, params["loc"])
+	w = Writer()
+	w.xml["id"] = f"dh-bib-key-{key}"
+	if params["n"]:
+		tag = w.tag("b")
+		tag.append("[")
+		tag.append(params["n"])
+		tag.append("]")
+		w.add(tag)
+		w.space()
+	f(rec, w, params)
+	return w.output()
 
-# TODO complain when multiple entries
-# TODO generate ref and entries with 1918a, 1918b, etc. when necessary
+def invalid_ref(ref, reason, missing=False):
+	r = tree.parse_string('<span class="dh-bib-ref dh-bib-ref-invalid"/>').root
+	r["data-tip"] = reason
+	return r.xml()
+
 def get_ref(ref, **params):
 	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
-	if not recs:
-		return "", html.escape("<%s>" % ref), ""
-	key, ret = recs[0]
-	return key, *make_ref(ret["data"], **params)
+	if len(recs) == 0:
+		return invalid_ref(ref, "Not found in bibliography")
+	if len(recs) > 1:
+		return invalid_ref(ref, "Multiple bibliographic entries bear this short title")
+	key, rec = recs[0]
+	rec = rec["data"]
+	fix_rec(rec)
+	fix_loc(rec, params["loc"])
+	w = Writer()
+	w.xml.name = "span"
+	w.xml.attrs.clear()
+	tag = w.tag("span", {"class": "dh-bib-ref"})
+	w.xml.append(tag)
+	w.xml = tag
+	if params["missing"]:
+		tag = w.tag("a")
+	else:
+		tag = w.tag("a", {"href": f"#dh-bib-key-{key}"})
+	w.xml.append(tag)
+	w.xml = tag
+	siglum = params.get("siglum")
+	if siglum:
+		tag = w.tag("span")
+		w.xml.append(tag)
+		w.xml = tag
+		w.ref(rec)
+		w.xml = w.xml.parent
+		w.xml.parent["data-tip"] = tag.xml()
+		tag.delete()
+		w.add(siglum)
+	else:
+		if params["missing"]:
+			w.xml.parent["data-tip"] = "Missing in bibliography"
+			w.xml.parent["class"] += " dh-bib-ref-invalid"
+		fmt = params["rend"]
+		if fmt == "omitname":
+			w.date(rec, end_field=False)
+		elif fmt == "ibid":
+			tag = w.tag("i")
+			tag.append("ibid.")
+			w.add(tag)
+		elif fmt == "default":
+			w.ref(rec)
+		else:
+			assert 0
+	w.xml = w.xml.parent.parent
+	w.loc(params["loc"])
+	return w.output()
 
 if __name__ == "__main__":
-	params = {"rend": "default", "loc": [], "n": ""}
-	key, entry = get_entry(sys.argv[1], **params)
-	print(repr(entry))
+	params = {"rend": "default", "loc": [("page", "5")], "n": "", "missing": True}
+	r = get_entry(sys.argv[1], **params)
+	print(repr(r))

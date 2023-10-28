@@ -220,32 +220,11 @@ class Block:
 			else:
 				assert 0, data
 		elif t == "bib":
-			key, rec = biblio.get_entry(data, **params)
-			if key:
-				buf.append(f'<p class="dh-bib-entry" id="dh-bib-key-{key}">{rec}</p>')
-			else:
-				buf.append(f'<p class="dh-bib-entry dh-bib-ref-invalid" data-tip="Invalid bibliographic reference">{rec}</p>')
+			ret = biblio.get_entry(data, **params)
+			buf.append(ret)
 		elif t == "ref":
-			key, ref, loc = biblio.get_ref(data, **params)
-			siglum = params.get("siglum")
-			if key:
-				if siglum:
-					buf.append(f'<span class="dh-bib-ref" data-tip="{ref}">')
-				else:
-					buf.append(f'<span class="dh-bib-ref">')
-			else:
-				buf.append(f'<span class="dh-bib-ref-invalid" data-tip="Invalid bibliographic reference">')
-			if key:
-				buf.append(f'<a href="#dh-bib-key-{key}">')
-			if siglum:
-				buf.append(html.escape(siglum))
-			else:
-				buf.append(ref)
-			if key:
-				buf.append('</a>')
-			if loc:
-				buf.append(loc)
-			buf.append('</span>')
+			ret = biblio.get_ref(data, **params)
+			buf.append(ret)
 		else:
 			assert 0, t
 
@@ -435,6 +414,7 @@ class Document:
 		self.langs = []
 		self.translation = []
 		self.sigla = {}
+		self.biblio = set()
 
 class Parser:
 
@@ -564,11 +544,11 @@ def parse_lem(p, lem):
 	p.dispatch_children(lem)
 
 def parse_ptr(p, ptr):
-	target = ptr["target"]
-	if not target.startswith("bib:"):
+	ref = ptr["target"]
+	if not ref.startswith("bib:"):
 		return
-	target = target.removeprefix("bib:")
-	p.add_code("ref", target, rend="default", loc=[])
+	ref = ref.removeprefix("bib:")
+	p.add_code("ref", ref, rend="default", loc=[], missing=ref not in p.document.biblio)
 
 def parse_ref(p, ref):
 	# TODO
@@ -579,11 +559,12 @@ def parse_rdg(p, rdg):
 	p.dispatch_children(rdg)
 	p.end_span()
 	sources = [source.removeprefix("bib:") for source in rdg["source"].split()]
-	if sources:
-		for source in sources:
-			p.add_text(" ")
-			siglum = p.document.sigla.get(source)
-			p.add_code("ref", source, rend="default", loc=[], siglum=siglum)
+	if not sources:
+		return
+	for ref in sources:
+		p.add_text(" ")
+		siglum = p.document.sigla.get(ref)
+		p.add_code("ref", ref, rend="default", loc=[], siglum=siglum, missing=ref not in p.document.biblio)
 
 def parse_app(p, app):
 	loc = app["loc"] or "?"
@@ -1202,7 +1183,7 @@ def parse_bibl(p, node):
 	ref, loc = extract_bib_ref(p, node)
 	if not ref:
 		return # TODO
-	p.add_code("ref", ref, rend=rend, loc=loc)
+	p.add_code("ref", ref, rend=rend, loc=loc, missing=ref not in p.document.biblio)
 
 def parse_body(p, body):
 	for elem in body.children():
@@ -1216,6 +1197,9 @@ def parse_q(p, q):
 	p.dispatch_children(q)
 	p.add_html("”")
 
+def parse_quote(p, quote):
+	return parse_q(p, quote)
+
 def remove_duplicates(ls):
 	ret = []
 	for x in ls:
@@ -1223,18 +1207,6 @@ def remove_duplicates(ls):
 			ret.append(x)
 	return ret
 
-"""
-titleStmt =
-  element titleStmt {
-    title+,
-    author?,
-    editor*,
-    element respStmt {
-      (persName
-       | element resp { text })+
-    }*
-  }
-"""
 def parse_titleStmt(p, stmt):
 	titles = []
 	for t in stmt.find("title"):

@@ -20,8 +20,6 @@ function prepareTips() {
 	let tipBox = document.querySelector("#dh-tip-box")
 	for (let node of document.querySelectorAll("[data-tip]")) {
 		node.classList.add("dh-tipped")
-		let tip = node.dataset.tip
-		Popper.createPopper(node, tip)
 		node.onmouseover = function (e) {
 			let rec = e.srcElement.getBoundingClientRect()
 			let tip = e.srcElement.dataset.tip
@@ -51,7 +49,7 @@ function flashNode(node) {
 	node.classList.add("dh-flash")
 	setTimeout(function () {
 		node.classList.remove("dh-flash")
-	}, 3000)
+	}, 2000)
 }
 
 function init() {
@@ -60,6 +58,7 @@ function init() {
 		node.onclick = function (e) {
 			let url = new URL(e.srcElement["href"])
 			let ent = document.querySelector(url.hash)
+			console.log(url);
 			flashNode(ent)
 		}
 	}

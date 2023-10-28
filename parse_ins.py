@@ -45,13 +45,9 @@ def gather_sections(p, div):
 		p.end_div()
 	return p.pop()
 
-def gather_sigla(p, body):
-	sigla = set()
+def gather_biblio(p, body):
 	for bibl in body.find("//listBibl/bibl"):
 		siglum = bibl["n"]
-		if not siglum or siglum in sigla:
-			continue
-		sigla.add(siglum)
 		ptr = bibl.first("ptr")
 		if not ptr:
 			continue
@@ -59,11 +55,13 @@ def gather_sigla(p, body):
 		if not target.startswith("bib:"):
 			continue
 		target = target.removeprefix("bib:")
-		if target in p.document.sigla:
-			continue
-		p.document.sigla[target] = siglum
+		# TODO add checks
+		if siglum:
+			p.document.sigla[target] = siglum
+		p.document.biblio.add(target)
 
 def parse_body(p, body):
+	gather_biblio(p, body)
 	for div in body.children():
 		type = div["type"]
 		if not div.name == "div" or not type in ("edition", "translation", "commentary", "bibliography", "apparatus"):
@@ -74,7 +72,6 @@ def parse_body(p, body):
 		if type == "edition":
 			p.document.edition = gather_sections(p, div)
 		elif type == "apparatus":
-			gather_sigla(p, body)
 			p.document.apparatus = gather_sections(p, div)
 		elif type == "translation":
 			trans = gather_sections(p, div)

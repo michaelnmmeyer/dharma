@@ -450,8 +450,8 @@ class Tag(Branch):
 			assert isinstance(value, list) or isinstance(value, tuple)
 			assert 1 <= len(value) <= 2
 			value = value[0]
-		# always normalize space
-		self.attrs[key] = " ".join(value.strip().split())
+		# always normalize space # XXX do that on the xml not on str(xml)
+		self.attrs[key] = " ".join(str(value).strip().split())
 
 	def xml(self, **kwargs):
 		name = self.name
