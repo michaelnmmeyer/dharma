@@ -15,6 +15,7 @@ function switchDisplayTo(name) {
 	}
 }
 
+// See the popper doc + https://codepen.io/jsonc/pen/LYbyyaM
 let popperInstance = null
 let tipBox = null
 
@@ -53,6 +54,15 @@ function prepareTips() {
 		node.classList.add("dh-tipped")
 		node.onmouseover = function (e) {
 			let tip = e.srcElement.dataset.tip
+			// Special case for:
+			// 	<span class="dh-symbol dh-tipped" data-tip="....>
+			// 		<img alt="spiralR" class="dh-svg" src="/gaiji/spiralR.svg">
+			// 	</span>
+			// In this case, e.srcElement is <img>, not <span>, for some reason.
+			// Idem for:
+			// 	<abbr data-tip="<i>Epigraphia Indica</i>" class="dh-tipped"><i>EI</i></abbr>
+			if (!tip)
+				tip = e.srcElement.parentNode.dataset.tip
 			tipContents.innerHTML = tip
 			popperInstance = createPopper(node, tipBox, {
 				modifiers: [
