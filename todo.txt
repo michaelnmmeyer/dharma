@@ -26,11 +26,6 @@ convention.
 * add the (incomplete) one from pune "an encyclopedic ... on historical principals"; available
   on; on koeln + from peter scharf?
 
-== electronic texts
-* faire des release en .zip
-* text sur sharedocs; Tilakamanjari ; Ramayana ; devipurana + comm. on Yajn Smr
-  ; yaśastilaka ; comms. on kumarasambhava
-
 ==============================================================
 
 for rng: rng2srng-20020831
@@ -38,31 +33,11 @@ for rng: rng2srng-20020831
 note that we can link to a span of text on github by adding sth like
 #L8C23-L14C34 at the end; but doesn't work with just #L8C23.
 
-to debug schemas, collect all <define name="tei_..."> in the rng (should all
-start with tei_, but do check) and then substitute all <ref name="tei_...">
-with the contents, recursively, so that we end up with tag names instead of tei
-categories.
-
-
 XXX make sure file names are unique across all repos
-
-for phys display, use <p class=line> for lines and <div class=folio|page...>
-for larger sections.
 
 ---
 
-must merge all dbs together, except for the github log. use the db name as a
-prefix in table names, so we can still do select on multi tables.
-
 move texts db stuff in change.py to texts.py
-
-Find a way to merge several tooltips when necessary as in A | B ... for this to
-work, must annotate spans of text. And use a data table for common cases where
-no dynamic generation is necessary (or at least to provide a general
-explanation). Should also attach to each generated piece of text the xml node
-it comes from (with lineno), to make it easier to debug stuff. Should also
-highlight stuff that has a tooltip on mouseover. or add sth that indicates that
-it has a tooltip.
 
 Can add options to the xml display. Just a "pretty" option where we might or
 not include comments. Need to have a pretty-print func that preserves space and
@@ -76,29 +51,7 @@ add scans, then other stuff. Need to have a grammar that describes how
 transliteration works and that has some stuff on phonetics. can icu
 transliterate tamil?
 
-ID pour les <lg> Amandine ? Must keep a copy of the XML of each <lg> in the db,
-with the repo name, the commit num and the file name and the line no, so that
-we can point back to an older version if the ref is lost.
-
-must make ids unique across all elements, not just lgs. use <anchor
-xml:id="foo"/>
-
-create table verses(
-   name text not null,
-   id text not null,
-   repo text,
-   commit text,
-   name text,
-   data xml,
-   line integer,
-   column integer,
-   primary key(name, id),
-   foreign key(repo, name) references ...
-);
-
 Ajouter 2nd champ dans rech. parallèles; pour substring; or allow quoting part
 of the input to force an exact match.
-
----
 
 stop using tables in website, annoying to style. use ul instead.

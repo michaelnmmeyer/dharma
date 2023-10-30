@@ -18,6 +18,7 @@ function switchDisplayTo(name) {
 // TODO use https://popper.js.org/ (specialized for tooltips)
 function prepareTips() {
 	let tipBox = document.querySelector("#dh-tip-box")
+	tipBox.innerHTML = "hello there"
 	for (let node of document.querySelectorAll("[data-tip]")) {
 		node.classList.add("dh-tipped")
 		node.onmouseover = function (e) {

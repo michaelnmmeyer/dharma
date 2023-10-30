@@ -101,6 +101,8 @@ def update():
 	db.execute("update meta set value = ? where key = 'latest_version'", tuple(ret))
 	db.execute("commit")
 
+anonymous = "No name"
+
 class Writer:
 
 	def __init__(self):
@@ -112,7 +114,7 @@ class Writer:
 		return self.xml.xml()
 
 	def space(self):
-		text = self.xml.text()
+		text = self.xml.text(space="preserve")
 		if text and not text[-1].isspace():
 			self.add(" ")
 
@@ -146,9 +148,9 @@ class Writer:
 		elif first:
 			self.add(first)
 			self.space()
-			self.add("Anonymous")
+			self.add(anonymous)
 		else:
-			self.add(rec.get("name") or "Anonymous")
+			self.add(rec.get("name") or anonymous)
 
 	def name_last_first(self, rec):
 		first, last = rec.get("firstName"), rec.get("lastName")
@@ -159,19 +161,19 @@ class Writer:
 		elif last:
 			self.add(last)
 		elif first:
-			self.add("Anonymous")
+			self.add(anonymous)
 			self.add(", ")
 			self.add(first)
 		else:
-			self.add(rec.get("name") or "Anonymous")
+			self.add(rec.get("name") or anonymous)
 
 	def name_last(self, rec):
-		self.add(rec.get("lastName") or rec.get("name") or "Anonymous")
+		self.add(rec.get("lastName") or rec.get("name") or anonymous)
 
 	def names(self, rec):
 		authors = rec["creators"]
 		if not authors:
-			self.add("Anonymous")
+			self.add(anonymous)
 		for i, author in enumerate(authors):
 			if i == 0:
 				self.name_last_first(author)
@@ -186,7 +188,7 @@ class Writer:
 	def ref(self, rec):
 		authors = rec["creators"]
 		if len(authors) == 0:
-			self.add("Anonymous")
+			self.add(anonymous)
 		elif len(authors) == 1:
 			self.name_last(authors[0])
 		elif len(authors) == 2:
@@ -870,6 +872,7 @@ def get_entry(ref, **params):
 def invalid_ref(ref, reason, missing=False):
 	r = tree.parse_string('<span class="dh-bib-ref dh-bib-ref-invalid"/>').root
 	r["data-tip"] = reason
+	r.append(ref)
 	return r.xml()
 
 def get_ref(ref, **params):
@@ -924,6 +927,6 @@ def get_ref(ref, **params):
 	return w.output()
 
 if __name__ == "__main__":
-	params = {"rend": "default", "loc": [("page", "5")], "n": "", "missing": True}
+	params = {"rend": "default", "loc": [("page", "5")], "n": "", "missing": False}
 	r = get_entry(sys.argv[1], **params)
-	print(repr(r))
+	print(r)

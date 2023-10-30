@@ -19,9 +19,9 @@ def parse_div(p, div):
 	p.start_div(n=n)
 	if children and children[0].name == "head":
 		p.add_log("<head")
-		p.dispatch_children(children[0])
-		p.add_text(" ")
 		p.add_text(n)
+		p.add_text(". ")
+		p.dispatch_children(children[0])
 		p.add_log(">head")
 		i += 1
 	for child in children[i:]:
