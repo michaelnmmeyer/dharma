@@ -15,33 +15,61 @@ function switchDisplayTo(name) {
 	}
 }
 
-// TODO use https://popper.js.org/ (specialized for tooltips)
+let popperInstance = null
+let tipBox = null
+
+function showTooltip() {
+	// Make the tooltip visible
+	tipBox.setAttribute("data-show", "");
+	// Enable the event listeners
+	popperInstance.setOptions((options) => ({
+		...options,
+		modifiers: [
+			...options.modifiers,
+			{ name: "eventListeners", enabled: true },
+		],
+	}));
+	// Update its position
+	popperInstance.update();
+}
+
+function hideTooltip() {
+	// Hide the tooltip
+	tipBox.removeAttribute("data-show");
+	// Disable the event listeners
+	popperInstance.setOptions((options) => ({
+		...options,
+		modifiers: [
+			...options.modifiers,
+			{ name: "eventListeners", enabled: false },
+		],
+	}));
+}
+
 function prepareTips() {
-	let tipBox = document.querySelector("#dh-tip-box")
-	tipBox.innerHTML = "hello there"
+	tipBox = document.querySelector("#dh-tip-box")
+	let tipContents = document.querySelector("#dh-tip-contents")
 	for (let node of document.querySelectorAll("[data-tip]")) {
 		node.classList.add("dh-tipped")
 		node.onmouseover = function (e) {
-			let rec = e.srcElement.getBoundingClientRect()
 			let tip = e.srcElement.dataset.tip
-			// Special case for:
-			// 	<span class="dh-symbol dh-tipped" data-tip="....>
-			// 		<img alt="spiralR" class="dh-svg" src="/gaiji/spiralR.svg">
-			// 	</span>
-			// In this case, e.srcElement is <img>, not <span>, for some reason.
-			if (!tip)
-				tip = e.srcElement.parentNode.dataset.tip
-			if (!tip)
-				return
-			tipBox.innerHTML = tip
-			let x = e.srcElement.offsetLeft
-			let y = e.srcElement.offsetTop + e.srcElement.offsetHeight
-			tipBox.style.top = y + "px"
-			tipBox.style.left = x + "px"
-			tipBox.style.display = "block"
+			tipContents.innerHTML = tip
+			popperInstance = createPopper(node, tipBox, {
+				modifiers: [
+					{
+						name: "offset",
+						options: {
+							offset: [0, 8],
+						},
+					},
+				],
+			});
+			showTooltip()
 		}
 		node.onmouseleave = function (e) {
-			tipBox.style.display = "none"
+			hideTooltip()
+			popperInstance.destroy()
+			popperInstance = null
 		}
 	}
 }

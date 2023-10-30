@@ -87,5 +87,7 @@ Identifier: <span class="dh-text-id">{{text}}</span>
 
 </div> <!-- <div class="body"> -->
 
-<div id="dh-tip-box"></div>
-
+<div id="dh-tip-box">
+<div id="dh-tip-contents"></div>
+<div id="dh-tip-arrow" data-popper-arrow></div>
+</div>
