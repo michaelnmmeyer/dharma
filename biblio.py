@@ -124,7 +124,7 @@ class Writer:
 		while j > 0:
 			j -= 1
 			c = text[j]
-			if c == ".":
+			if c in ".?!":
 				return
 			if c.isalpha() or c.isdigit():
 				break
