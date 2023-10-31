@@ -166,8 +166,8 @@ def show_langs():
 	select langs_list.inverted_name as name,
 		json_group_array(distinct(langs_by_code.code)) as codes,
 		printf('639-%d', iso) as iso
-	from catalog.documents
-		join json_each(catalog.documents.langs)
+	from documents
+		join json_each(documents.langs)
 		join langs_list on langs_list.id = json_each.value
 		join langs_by_code on langs_list.id = langs_by_code.id
 	group by langs_list.id order by langs_list.inverted_name collate icu""").fetchall()
