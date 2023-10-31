@@ -296,7 +296,7 @@
                         </valList>
                     </content>
                 </dataSpec>
-                <dataSpec ident="dharma.indic_script">
+                <dataSpec ident="dharma.script">
                     <content>
                         <sequence>
                             <dataRef key="dharma.script_name"/>
@@ -552,7 +552,7 @@
                         </attDef>
                         <attDef ident="rendition" mode="change">
                             <datatype>
-                                <dataRef key="dharma.indic_script"/>
+                                <dataRef key="dharma.script"/>
                             </datatype>
                         </attDef>
                         <attDef ident="xml:lang" mode="change" usage="opt">
@@ -1388,7 +1388,7 @@
                         </attDef>
                         <attDef ident="rendition" mode="change">
                             <datatype>
-                                <dataRef key="dharma.indic_script"/>
+                                <dataRef key="dharma.script"/>
                             </datatype>
                         </attDef>
                     </attList>
@@ -2831,7 +2831,7 @@
                         </attDef>
                         <attDef ident="rendition" mode="change">
                             <datatype>
-                                <dataRef key="dharma.indic_script"/>
+                                <dataRef key="dharma.script"/>
                             </datatype>
                         </attDef>
                     </attList>
@@ -2987,7 +2987,7 @@
                         </attDef>
                         <attDef ident="rendition" mode="change">
                             <datatype>
-                                <dataRef key="dharma.indic_script"/>
+                                <dataRef key="dharma.script"/>
                             </datatype>
                         </attDef>
                     </attList>
@@ -2995,7 +2995,9 @@
                 <elementSpec ident="list" module="core" mode="change">
                     <content>
                         <alternate>
-                            <elementRef key="item" maxOccurs="unbounded"/>
+                            <alternate maxOccurs="unbounded">
+                                <elementRef key="item"/>
+                            </alternate>
                             <sequence maxOccurs="unbounded">
                                 <elementRef key="label"/>
                                 <elementRef key="item"/>
@@ -3538,7 +3540,7 @@
                         </attDef>
                         <attDef ident="rendition" mode="change">
                             <datatype>
-                                <dataRef key="dharma.indic_script"/>
+                                <dataRef key="dharma.script"/>
                             </datatype>
                         </attDef>
                     </attList>
@@ -4645,7 +4647,7 @@
                         </attDef>
                         <attDef ident="rendition" mode="change">
                             <datatype>
-                                <dataRef key="dharma.indic_script"/>
+                                <dataRef key="dharma.script"/>
                             </datatype>
                         </attDef>
                     </attList>
