@@ -20,6 +20,16 @@ def fix_g(xml):
 			g["type"] = g["subtype"]
 			del g["subtype"]
 
+def fix_change_when(xml):
+	for change in xml.find("//revisionDesc/change"):
+		when = change["when"]
+		if when.isdigit() and len(when) == 4: # if a year
+			change["when"] = f"{when}-01-01"
+
 t = tree.parse(sys.stdin)
-fix_g(t)
+for key, value in globals().copy().items():
+	if key.startswith("fix_"):
+		print(key, file=sys.stderr)
+		value(t)
+
 sys.stdout.write(tree.xml(t))

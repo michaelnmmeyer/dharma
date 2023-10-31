@@ -452,7 +452,7 @@ class Tag(Branch):
 			value = value[0]
 		# always normalize space # XXX do that on the xml not on str(xml)
 		self.attrs[key] = " ".join(str(value).strip().split())
-	
+
 	def __delitem__(self, key):
 		if isinstance(key, int):
 			list.__delitem__(self, key)
