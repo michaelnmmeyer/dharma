@@ -14,9 +14,8 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in inscriptions:
 	xml = tree.parse(file)
-	for p in xml.find("//g"):
-		if not p["subtype"]: continue
-		print(p)
+	for p in xml.find("//add"):
+		print(p["place"])
 
 		#if p["n"]:print(p.parent)
 		#print(file,p.path)
@@ -26,6 +25,6 @@ for file in inscriptions:
 		#print(p.text())
 		#if p.children():print(file,p.xml())
 		#print(p["type"])
-		#s = " ".join(t.name for t in p.children())
+		s = " ".join(t.name for t in p.children())
 		#print(s)
 		##print(" ".join(t for t in sorted(p.attrs)))

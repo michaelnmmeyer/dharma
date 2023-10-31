@@ -266,7 +266,10 @@ class Block:
 					lvl = params.get("level", 3)
 					buf.append('</h%d>' % lvl)
 				elif data == "<para" or data == "<line":
-					buf.append("<p>")
+					if data == "<para" and params.get("rend") == "verse":
+						buf.append('<p class="dh-verse">')
+					else:
+						buf.append("<p>")
 				elif data == ">para" or data == ">line":
 					buf.append("</p>")
 				elif data == "<verse":
@@ -647,6 +650,57 @@ def parse_supplied(p, supplied):
 		p.add_html(seps[1])
 	p.end_span()
 
+# § Premodern insertion
+# OK
+add_place_tbl = {
+	"inline": "within the same line or in the immediate vicinity of the locus",
+	"below": "below the line",
+	"above": "above the line",
+	"top": "in the top margin",
+	"bottom": "in the bottom margin",
+	"left": "in the left margin",
+	"right": "in the right margin",
+	"overstrike": " made in the space where a previous string of text has been erased",
+	"unspecified": "(no location information available)",
+} 
+def parse_add(p, node):
+	place = node["place"]
+	tip = add_place_tbl.get(place, add_place_tbl["unspecified"])
+	p.start_span(klass="dh-add", tip=f"Scribal addition {tip}")
+	p.add_html("⟨⟨")
+	p.dispatch_children(node)
+	p.add_html("⟩⟩")
+	p.end_span()
+
+# § Premodern deletion
+# OK
+del_rend_tbl = {
+	"strikeout": "text struck through or cross-hatched",
+	"ui": "combined application of vowel markers <i>u</i> and <i>i</i> to characters to be deleted",
+	"other": "",
+	"corrected": "corrected text",
+}
+def parse_del(p, node):
+	tip = del_rend_tbl.get(node["rend"], "")
+	if tip:
+		tip = f"Scribal deletion ({tip})"
+	else:
+		tip = "Scribal deletion"
+	p.start_span(klass="dh-del", tip=tip)
+	p.add_html("⟦")
+	p.dispatch_children(node)
+	p.add_html("⟧")
+	p.end_span()
+
+# § Premodern correction
+# OK
+def parse_subst(p, subst):
+	# (del, add)
+	# Use the text of <add> for search
+	p.dispatch_children(subst)
+
+# TODO parse_note
+
 def parse_foreign(p, foreign):
 	p.add_html("<i>")
 	p.dispatch_children(foreign)
@@ -860,20 +914,6 @@ def parse_expan(p, node):
 def parse_term(p, node):
 	p.dispatch_children(node)
 
-def parse_add(p, node):
-	p.start_span(klass="dh-add", tip="Scribal addition")
-	p.add_html("⟨⟨")
-	p.dispatch_children(node)
-	p.add_html("⟩⟩")
-	p.end_span()
-
-def parse_del(p, node):
-	p.start_span(klass="dh-del", tip="Scribal deletion")
-	p.add_html("⟦")
-	p.dispatch_children(node)
-	p.add_html("⟧")
-	p.end_span()
-
 def numberize(s, n):
 	last_word = s.split()[-1].lower()
 	if last_word not in ("character", "component", "line", "page", "editor"):
@@ -893,7 +933,7 @@ def parse_seg(p, seg):
 		# We deal with this within parse_gap
 		p.dispatch_children(seg)
 		return
-	# TODO
+	# XXX <seg cert="low">powerful enemy soldiers</seg>
 
 """
 Legit values for @reason:
@@ -1025,7 +1065,16 @@ def parse_surplus(p, node):
 	p.end_span()
 
 def parse_p(p, para):
-	p.add_log("<para")
+	if para["rend"] == "stanza":
+		n = para["n"] or "?"
+		if n.isdigit():
+			n = to_roman(int(n))
+		p.add_log("<head", level=6)
+		p.add_html("%s." % n)
+		p.add_log(">head", level=6)
+		p.add_log("<para", rend="verse")
+	else:
+		p.add_log("<para")
 	p.dispatch_children(para)
 	p.add_log(">para")
 
