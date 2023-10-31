@@ -415,6 +415,7 @@ class Document:
 		self.translation = []
 		self.sigla = {}
 		self.biblio = set()
+		self.gaiji = set()
 
 class Parser:
 
@@ -989,6 +990,7 @@ def parse_g(p, node):
 	st = node["subtype"]
 	if t == "symbol" and st:
 		t = st
+	p.document.gaiji.add(t)
 	info = gaiji.get(t)
 	tip = titlecase(info["description"])
 	tip = "%s (category: %s)" % (tip, cat)

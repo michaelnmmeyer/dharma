@@ -113,6 +113,7 @@ namely:</p>
 <ul>
 <li>book</li>
 <li>bookSection</li>
+<li>conferencePaper</li>
 <li>journalArticle</li>
 <li>report</li>
 <li>thesis</li>

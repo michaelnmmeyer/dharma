@@ -188,7 +188,7 @@ class Writer:
 				self.add(", ")
 			self.name_first_last(author)
 		self.period()
-	
+
 	def edited_by(self, rec):
 		editors = []
 		for creator in rec["creators"]:

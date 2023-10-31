@@ -12,22 +12,11 @@ critical_translation = [f for f in critical if "_trans" in f]
 assert len(inscriptions) + len(diplomatic) \
 	+ len(critical_edition) + len(critical_translation) == len(files)
 
-tot = 0
-nr = 0
-longest = 0
-
 for file in inscriptions:
 	xml = tree.parse(file)
-	for p in xml.find("//div"):
-		if not p["type"] == "edition":
-			continue
-		txt = p.text()
-		for tok in txt.split():
-			nr += 1
-			tot += len(tok)
-			longest = max(longest, len(tok))
-			if len(tok)==648:
-				print(tok)
+	for p in xml.find("//g"):
+		if not p["subtype"]: continue
+		print(p)
 
 		#if p["n"]:print(p.parent)
 		#print(file,p.path)
@@ -40,5 +29,3 @@ for file in inscriptions:
 		#s = " ".join(t.name for t in p.children())
 		#print(s)
 		##print(" ".join(t for t in sorted(p.attrs)))
-
-print(tot / nr, longest)

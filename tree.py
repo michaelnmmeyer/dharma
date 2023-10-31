@@ -452,6 +452,14 @@ class Tag(Branch):
 			value = value[0]
 		# always normalize space # XXX do that on the xml not on str(xml)
 		self.attrs[key] = " ".join(str(value).strip().split())
+	
+	def __delitem__(self, key):
+		if isinstance(key, int):
+			raise Exception("not supported")
+		try:
+			del self.attrs[key]
+		except KeyError:
+			pass
 
 	def xml(self, **kwargs):
 		name = self.name
@@ -725,24 +733,22 @@ class Formatter:
 			self.write("\n")
 
 	def format_comment(self, node):
-		node = str(node)
+		node = node.data
 		if self.strip_comments:
 			return
-		if self.pretty:
-			self.write("<!-- %s -->" % node, klass="comment")
+		if not self.pretty:
+			self.write(f"<!--{node}-->", klass="comment")
 			return
-		self.write("<!-- ", klass="comment")
 		if self.pretty:
 			lines = node.splitlines()
 			if len(lines) == 1:
-				self.write(line[0])
+				self.write(f"<!--{lines[0]}-->", klass="comment")
 			else:
+				self.write("<!--")
 				for line in lines:
 					self.write(line, klass="comment")
 					self.write("\n")
-		else:
-			self.write(node)
-		self.write(" -->", klass="comment")
+				self.write("-->")
 
 	def format_string(self, node):
 		node = str(node)
@@ -763,9 +769,11 @@ class Formatter:
 		self.write("<", klass="tag")
 		self.write("%s" % node.name, klass="tag")
 		attrs = node.attrs.items()
-		if pretty:
+		if self.pretty:
 			attrs = sorted(attrs)
 		for k, v in attrs:
+			if k in ("lang", "space", "base", "id"):
+				k = f"xml:{k}" # HACK
 			if isinstance(v, tuple):
 				v = "-".join(v)
 			self.write(" ")
@@ -845,6 +853,11 @@ def html_format(node):
 def pretty(node):
 	fmt = Formatter(html=False)
 	fmt.format_tag(node)
+	return fmt.text()
+
+def xml(node):
+	fmt = Formatter(html=False, pretty=False, strip_comments=False)
+	fmt.format(node)
 	return fmt.text()
 
 def print_node(root):
