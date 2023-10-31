@@ -353,7 +353,7 @@ class Writer:
 			tag.append(url)
 			self.add(tag)
 			if i < len(urls) - 1:
-				self.text("; ")
+				self.add("; ")
 		self.period()
 
 	def idents(self, rec):
