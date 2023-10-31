@@ -662,7 +662,7 @@ add_place_tbl = {
 	"right": "in the right margin",
 	"overstrike": " made in the space where a previous string of text has been erased",
 	"unspecified": "(no location information available)",
-} 
+}
 def parse_add(p, node):
 	place = node["place"]
 	tip = add_place_tbl.get(place, add_place_tbl["unspecified"])
