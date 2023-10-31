@@ -34,7 +34,6 @@
 <thead>
 <tr>
    <th>Identifier</th>
-   <th>Status</th>
    <th>Repository</th>
    <th>Commit date</th>
 </tr>
@@ -43,11 +42,6 @@
 <tr>
    <td><a
    href="texts/{{text["repo"]}}/{{text["commit_hash"]}}/{{text["name"]}}">{{text["name"].removeprefix("DHARMA_")}}</a></td>
-% if text["valid"]:
-   <td>✓</td>
-% else:
-   <td><a href="texts/{{text["repo"]}}/{{text["commit_hash"]}}/{{text["name"]}}">🐛</a></td>
-% end
    <td>
    <a href="https://github.com/erc-dharma/{{text['repo']}}">{{text["repo"]}}</a>
    </td>

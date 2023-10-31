@@ -14,7 +14,6 @@ ones, which you might not be able to access.</p>
    <th>Push date</th>
    <th>Author</th>
    <th>Repository</th>
-   <th>Hash</th>
 </tr>
 </thead>
 <tbody>
@@ -23,9 +22,8 @@ ones, which you might not be able to access.</p>
    <td>{{commit["date"]}}</td>
    <td>{{commit["author"]}}</td>
    <td><a
-   href="https://github.com/erc-dharma/{{commit['repo']}}">{{commit["repo"]}}</a>
+   href="{{commit['url']}}">{{commit["repo"]}}</a>
    </td>
-   <td><a href="{{commit['url']}}">{{commit["hash"]}}</a></td>
 </tr>
 % end
 </tbody>

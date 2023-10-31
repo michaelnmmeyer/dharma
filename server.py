@@ -45,7 +45,7 @@ def show_commit_log():
 			hash = commit["id"]
 			url = commit["url"]
 			commits.append({"repo": repo, "date": push_date, "author": author, "hash": hash, "url": url})
-	return bottle.template("commit-log.tpl", commits=commits)
+	return bottle.template("commits.tpl", commits=commits)
 
 @bottle.get("/documentation")
 def show_documentation():
