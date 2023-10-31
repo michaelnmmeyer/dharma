@@ -84,37 +84,54 @@ div.pagination {
 	text-align: center;
 }
 
+
+/* Menu; see
+   https://webdesign.tutsplus.com/how-to-build-a-responsive-navigation-bar-with-flexbox--cms-33535t
+ */
+
+/* Mobile menu */
 menu {
 	display: flex;
-	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
-	padding-left: 0;
-	padding-right: 0;
-	padding-top: 0.7em;
-	padding-bottom: 0.7em;
+	padding: 0.7em 1em;
+	margin: 0;
 	background-color: black;
-	margin-left: 0;
-	margin-right: 0;
-	margin-top: 0;
-	margin-bottom: 0;
 	list-style: none;
 	font-size: larger;
 	row-gap: 0.5em;
-
-
-	@media(max-width: 30em) {
-		flex-direction: column;
-	}
-
 }
 menu a {
 	color: white;
+	text-decoration: none;
 }
-menu a:hover {
-	background-color: gray;
+.active .item {
+	display: block;
 }
+.item {
+	width: 100%;
+	text-align: left;
+	display: none;
+}
+
+/* Desktop menu  */
+@media all and (min-width: 960px) {
+	menu {
+		align-items: flex-start;
+		flex-wrap: nowrap;
+	}
+	.item {
+		display: block;
+		width: auto;
+	}
+	.toggle {
+		display: none;
+	}
+}
+
+/* End menu */
+
 
 a {
 	text-decoration: none;
