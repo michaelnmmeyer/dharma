@@ -65,11 +65,9 @@ table of languages <a href="/langs">here</a>.</p>
 
 <p>Have {{len(rows)}} documents.</p>
 
-<table>
-<thead></thead>
-<tbody>
+<div class="catalog-list">
 % for row in rows:
-<tr><td>
+<div class="catalog-card">
    <p>
    % if not row["html_link"].endswith("/"):
       <a href="{{row["html_link"]}}">
@@ -112,7 +110,6 @@ table of languages <a href="/langs">here</a>.</p>
    </p>
    % end
    <p>{{row["name"].removeprefix("DHARMA_")}} ({{row["repo"]}}).</p>
-</td></tr>
+</div>
 % end
-</tbody>
-</table>
+</div>
