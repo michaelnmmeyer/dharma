@@ -85,9 +85,21 @@ Identifier: <span class="dh-text-id">{{text}}</span>
 </div>
 % end
 
+% if doc.notes:
+<div class="dh-notes">
+<h2>Notes</h2>
+% for i, note in enumerate(doc.notes, 1):
+<div class="dh-note" id="note-{{i}}">
+<a class="dh-note-ref" href="#note-ref-{{i}}">↑{{i}}</a>
+{{!note.render_logical()}}
+</div>
+% end
+</div>
+% end
+
 </div> <!-- <div class="body"> -->
 
 <div id="dh-tip-box">
-<div id="dh-tip-contents"></div>
-<div id="dh-tip-arrow" data-popper-arrow></div>
+   <div id="dh-tip-contents"></div>
+   <div id="dh-tip-arrow" data-popper-arrow></div>
 </div>

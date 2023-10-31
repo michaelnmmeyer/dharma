@@ -50,19 +50,12 @@ function hideTooltip() {
 function prepareTips() {
 	tipBox = document.querySelector("#dh-tip-box")
 	let tipContents = document.querySelector("#dh-tip-contents")
+	console.assert(tipContents)
 	for (let node of document.querySelectorAll("[data-tip]")) {
 		node.classList.add("dh-tipped")
 		node.onmouseover = function (e) {
-			let tip = e.srcElement.dataset.tip
-			// Special case for:
-			// 	<span class="dh-symbol dh-tipped" data-tip="....>
-			// 		<img alt="spiralR" class="dh-svg" src="/gaiji/spiralR.svg">
-			// 	</span>
-			// In this case, e.srcElement is <img>, not <span>, for some reason.
-			// Idem for:
-			// 	<abbr data-tip="<i>Epigraphia Indica</i>" class="dh-tipped"><i>EI</i></abbr>
-			if (!tip)
-				tip = e.srcElement.parentNode.dataset.tip
+			let tip = this.dataset.tip
+			console.assert(tip)
 			tipContents.innerHTML = tip
 			popperInstance = createPopper(node, tipBox, {
 				modifiers: [
@@ -93,9 +86,11 @@ function flashNode(node) {
 
 function init() {
 	prepareTips()
-	for (let node of document.querySelectorAll(".dh-bib-ref a")) {
+	for (let node of document.querySelectorAll("a.dh-bib-ref, a.dh-note-ref")) {
+		if (!node["href"])
+			continue
 		node.onclick = function (e) {
-			let url = new URL(e.srcElement["href"])
+			let url = new URL(this["href"])
 			let ent = document.querySelector(url.hash)
 			console.log(url);
 			flashNode(ent)

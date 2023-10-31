@@ -312,6 +312,9 @@ class Block:
 					buf.append('<dd>')
 				elif data == ">value":
 					buf.append('</dd>')
+				elif data == "=note":
+					n = params["n"]
+					buf.append(f'<a class="dh-note-ref" href="#note-{n}" id="note-ref-{n}">↓{n}</a>')
 				else:
 					assert 0, data
 			elif t == "phys":
@@ -419,6 +422,7 @@ class Document:
 		self.sigla = {}
 		self.biblio = set()
 		self.gaiji = set()
+		self.notes = []
 
 class Parser:
 
@@ -582,7 +586,7 @@ def parse_app(p, app):
 	rdgs = app.find("rdg")
 	if rdgs:
 		p.add_text(" ◇ ")
-	notes = app.find("note")
+	notes = app.find("note") # we deal with other notes elsewhere
 	for i, rdg in enumerate(rdgs):
 		p.dispatch(rdg)
 		if i < len(rdgs) - 1:
@@ -699,7 +703,18 @@ def parse_subst(p, subst):
 	# Use the text of <add> for search
 	p.dispatch_children(subst)
 
-# TODO parse_note
+# We also deal with notes in <app>
+# TODO there are attributes,see EGD
+def parse_note(p, note):
+	# Avoid nesting notes
+	if p.top.name == "note":
+		p.dispatch_children(note)
+		return
+	p.add_log("=note", n=len(p.document.notes) + 1)
+	p.push("note")
+	p.dispatch_children(note)
+	ret = p.pop()
+	p.document.notes.append(ret)
 
 def parse_foreign(p, foreign):
 	p.add_html("<i>")
@@ -928,12 +943,30 @@ def titlecase(s):
 	t[0] = t[0].title()
 	return " ".join(t)
 
+# TODO more styling
 def parse_seg(p, seg):
 	if seg.first("gap"):
 		# We deal with this within parse_gap
 		p.dispatch_children(seg)
 		return
-	# XXX <seg cert="low">powerful enemy soldiers</seg>
+	rend = seg["rend"].split()
+	if "pun" in rend:
+		p.start_span(klass="dh-pun", tip="Pun (<i>ślesa</i>)")
+		p.add_html("{")
+	if "check" in rend:
+		p.start_span(klass="dh-check")
+	if seg["cert"] == "low":
+		p.start_span(klass="", tip="Uncertain segment")
+		p.add_html("¿")
+	p.dispatch_children(seg)
+	if seg["cert"] == "low":
+		p.add_html("?")
+		p.end_span()
+	if "check" in rend:
+		p.end_span()
+	if "pun" in rend:
+		p.add_html("}")
+		p.end_span()
 
 """
 Legit values for @reason:
@@ -984,7 +1017,7 @@ def parse_gap(p, gap):
 	if quantity.isdigit():
 		quantity = int(quantity)
 		repl = "["
-		if precision == "low":
+		if precision == "low" and unit != "character":
 			repl += "ca. "
 		if unit == "character":
 			repl += quantity * "*" + "]"
@@ -1046,8 +1079,11 @@ def parse_unclear(p, node):
 	tip = "Unclear text"
 	if node["cert"] == "low":
 		tip = "Very unclear text"
-	if node["reason"]:
-		tip += " (%s)" % node["reason"].replace("_", " ")
+	reason = node["reason"]
+	if reason:
+		if reason == "eccentric_ductus":
+			reason = f"<i>{reason}</i>"
+		tip += " (%s)" % reason.replace("_", " ")
 	p.start_span(klass="dh-unclear", tip=tip)
 	p.add_html("(")
 	p.dispatch_children(node)
@@ -1088,7 +1124,7 @@ hi_table = {
 	"bold": "b",
 	"superscript": "sup",
 	"subscript": "sub",
-	"check": "mark",
+	"check": {"klass": "dh-check"},
 	"grantha": {"klass": "dh-grantha", "tip": "Grantha text"},
 }
 def parse_hi(p, hi):

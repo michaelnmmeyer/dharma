@@ -972,7 +972,7 @@ def get_entry(ref, **params):
 	return w.output()
 
 def invalid_ref(ref, reason, missing=False):
-	r = tree.parse_string('<span class="dh-bib-ref dh-bib-ref-invalid"/>').root
+	r = tree.parse_string('<a class="dh-bib-ref dh-bib-ref-invalid"/>').root
 	r["data-tip"] = reason
 	r.append(ref)
 	return r.xml()
@@ -990,13 +990,9 @@ def get_ref(ref, **params):
 	w = Writer()
 	w.xml.name = "span"
 	w.xml.attrs.clear()
-	tag = w.tag("span", {"class": "dh-bib-ref"})
-	w.xml.append(tag)
-	w.xml = tag
-	if params["missing"]:
-		tag = w.tag("a")
-	else:
-		tag = w.tag("a", {"href": f"#dh-bib-key-{key}"})
+	tag = w.tag("a", {"class": "dh-bib-ref"})
+	if not params["missing"]:
+		tag["href"] = f"#dh-bib-key-{key}"
 	w.xml.append(tag)
 	w.xml = tag
 	siglum = params.get("siglum")
@@ -1006,13 +1002,13 @@ def get_ref(ref, **params):
 		w.xml = tag
 		w.ref(rec)
 		w.xml = w.xml.parent
-		w.xml.parent["data-tip"] = tag.xml()
+		w.xml["data-tip"] = tag.xml()
 		tag.delete()
 		w.add(siglum)
 	else:
 		if params["missing"]:
-			w.xml.parent["data-tip"] = "Missing in bibliography"
-			w.xml.parent["class"] += " dh-bib-ref-invalid"
+			w.xml["data-tip"] = "Missing in bibliography"
+			w.xml["class"] += " dh-bib-ref-invalid"
 		fmt = params["rend"]
 		if fmt == "omitname":
 			w.date(rec, end_field=False)
@@ -1024,7 +1020,7 @@ def get_ref(ref, **params):
 			w.ref(rec)
 		else:
 			assert 0
-	w.xml = w.xml.parent.parent
+	w.xml = w.xml.parent
 	w.loc(params["loc"])
 	return w.output()
 
