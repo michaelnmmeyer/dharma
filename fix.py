@@ -26,6 +26,10 @@ def fix_change_when(xml):
 		if when.isdigit() and len(when) == 4: # if a year
 			change["when"] = f"{when}-01-01"
 
+def fix_tags_decl(xml):
+	for node in xml.find("//tagsDecl"):
+		node.delete()
+
 t = tree.parse(sys.stdin)
 for key, value in globals().copy().items():
 	if key.startswith("fix_"):
