@@ -455,7 +455,8 @@ class Tag(Branch):
 	
 	def __delitem__(self, key):
 		if isinstance(key, int):
-			raise Exception("not supported")
+			list.__delitem__(self, key)
+			return
 		try:
 			del self.attrs[key]
 		except KeyError:
