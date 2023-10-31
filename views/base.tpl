@@ -51,6 +51,15 @@ function toggleMenu() {
 }
 /* Event Listener */
 toggle.addEventListener("click", toggleMenu, false);
+
+for (let node of document.querySelectorAll("[data-href]")) {
+   node.style.cursor = "pointer"
+   node.addEventListener("click", function() {
+      let href = this.getAttribute('data-href')
+      window.location.href = href
+   });
+}
+
 </script>
 </body>
 </html>

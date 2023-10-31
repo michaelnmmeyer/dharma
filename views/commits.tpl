@@ -18,12 +18,10 @@ ones, which you might not be able to access.</p>
 </thead>
 <tbody>
 % for commit in commits:
-<tr>
+<tr data-href="{{commit['url']}}">
    <td>{{commit["date"]}}</td>
    <td>{{commit["author"]}}</td>
-   <td><a
-   href="{{commit['url']}}">{{commit["repo"]}}</a>
-   </td>
+   <td>{{commit["repo"]}}</td>
 </tr>
 % end
 </tbody>
