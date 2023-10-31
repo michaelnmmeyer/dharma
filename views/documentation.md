@@ -113,6 +113,7 @@ support for the most common ones, namely:
 
 * book
 * bookSection
+* conferencePaper
 * journalArticle
 * report
 * thesis

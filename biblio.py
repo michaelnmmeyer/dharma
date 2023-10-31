@@ -170,8 +170,12 @@ class Writer:
 	def name_last(self, rec):
 		self.add(rec.get("lastName") or rec.get("name") or anonymous)
 
-	def names(self, rec):
-		authors = rec["creators"]
+	def authors(self, rec):
+		authors = []
+		for creator in rec["creators"]:
+			if creator["creatorType"] == "editor":
+				continue
+			authors.append(creator)
 		if not authors:
 			self.add(anonymous)
 		for i, author in enumerate(authors):
@@ -183,6 +187,27 @@ class Writer:
 			else:
 				self.add(", ")
 			self.name_first_last(author)
+		self.period()
+	
+	def edited_by(self, rec):
+		editors = []
+		for creator in rec["creators"]:
+			if creator["creatorType"] == "editor":
+				editors.append(creator)
+		if not editors:
+			return
+		self.space()
+		self.add("Edited by")
+		self.space()
+		for i, editor in enumerate(editors):
+			if i == 0:
+				self.name_first_last(editor)
+				continue
+			if i == len(editors) - 1:
+				self.add(" and ")
+			else:
+				self.add(", ")
+			self.name_first_last(editor)
 		self.period()
 
 	def ref(self, rec):
@@ -401,7 +426,7 @@ cited_range_units = dict([
   }
 """
 def render_journal_article(rec, w, params):
-	w.names(rec)
+	w.authors(rec)
 	w.date(rec)
 	w.quoted(rec["title"])
 	if rec["publicationTitle"]:
@@ -487,10 +512,79 @@ def render_journal_article(rec, w, params):
   }
 """
 def render_book(rec, w, params):
-	w.names(rec)
+	w.authors(rec)
 	w.date(rec)
 	w.italic(rec["title"])
 	w.edition(rec)
+	w.place_publisher_loc(rec, params)
+	w.idents(rec)
+
+# conference paper
+"""
+  {
+    "DOI": "",
+    "ISBN": "",
+    "abstractNote": "",
+    "accessDate": "",
+    "archive": "",
+    "archiveLocation": "",
+    "callNumber": "",
+    "collections": [
+      "D7CGVND8",
+      "ZKAMV4ZC"
+    ],
+    "conferenceName": "Seminar Sejarah Nasional II, August 26th-29th 1970, Yogyakarta",
+    "creators": [
+      {
+        "creatorType": "author",
+        "firstName": "M. M.",
+        "lastName": "Sukarto K. Atmodjo"
+      }
+    ],
+    "date": "1970",
+    "dateAdded": "2019-10-29T11:56:33Z",
+    "dateModified": "2023-09-08T03:48:04Z",
+    "extra": "",
+    "itemType": "conferencePaper",
+    "key": "3ZE7ICXR",
+    "language": "Indonesian",
+    "libraryCatalog": "",
+    "pages": "52",
+    "place": "Yogyakarta",
+    "proceedingsTitle": "",
+    "publisher": "",
+    "relations": {
+      "dc:replaces": "http://zotero.org/groups/1633743/items/PNXXJIQ6"
+    },
+    "rights": "",
+    "series": "",
+    "shortTitle": "SukartoKAtmodjo1970_01",
+    "tags": [
+      {
+        "tag": "SukartoAtmodjo1970_02"
+      }
+    ],
+    "title": "Prasasti Buyan-Sanding-Tamblingan dari djaman Radja Jayapangus",
+    "url": "",
+    "version": 201774,
+    "volume": ""
+  }
+"""
+def render_conference_paper(rec, w, params):
+	w.authors(rec)
+	w.date(rec)
+	w.quoted(rec["title"])
+	if rec["proceedingsTitle"]:
+		w.space()
+		w.add("In: ")
+		w.italic(rec["proceedingsTitle"])
+	w.edited_by(rec)
+	if rec["volume"]:
+		w.space()
+		w.add("Vol.\N{NBSP}")
+		w.add(rec["volume"])
+		w.period()
+	w.series(rec)
 	w.place_publisher_loc(rec, params)
 	w.idents(rec)
 
@@ -539,7 +633,7 @@ def render_book(rec, w, params):
   }
 """
 def render_report(rec, w, params):
-	w.names(rec)
+	w.authors(rec)
 	w.date(rec)
 	w.quoted(rec["title"])
 	w.place_publisher_loc(rec, params)
@@ -595,7 +689,7 @@ def render_report(rec, w, params):
   }
 """
 def render_book_section(rec, w, params):
-	w.names(rec)
+	w.authors(rec)
 	w.date(rec)
 	w.quoted(rec["title"])
 	if rec["bookTitle"]:
@@ -603,6 +697,7 @@ def render_book_section(rec, w, params):
 		w.add("In: ")
 		w.italic(rec["bookTitle"])
 		w.edition(rec)
+	w.edited_by(rec)
 	if rec["volume"]:
 		w.space()
 		w.add("Vol.\N{NBSP}")
@@ -657,7 +752,7 @@ def render_book_section(rec, w, params):
   }
 """
 def render_thesis(rec, w, params):
-	w.names(rec)
+	w.authors(rec)
 	w.date(rec)
 	w.quoted(rec["title"])
 	w.space()
@@ -701,7 +796,7 @@ def render_thesis(rec, w, params):
   }
 """
 def render_webpage(rec, w, params):
-	w.names(rec)
+	w.authors(rec)
 	w.date(rec)
 	w.quoted(rec["title"])
 	w.idents(rec)
@@ -709,6 +804,7 @@ def render_webpage(rec, w, params):
 renderers = {
 	"book": render_book,
 	"journalArticle": render_journal_article,
+	"conferencePaper": render_conference_paper,
 	"report": render_report,
 	"bookSection": render_book_section,
 	"thesis": render_thesis,
@@ -867,6 +963,12 @@ def get_entry(ref, **params):
 		w.add(tag)
 		w.space()
 	f(rec, w, params)
+	w.space()
+	tag = w.tag("i", {"class": "fas fa-edit", "style": "display:inline;color:black;"})
+	tag.append(" ")
+	lnk = w.tag("a", href=f"https://www.zotero.org/groups/1633743/erc-dharma/items/{key}")
+	lnk.append(tag)
+	w.add(lnk)
 	return w.output()
 
 def invalid_ref(ref, reason, missing=False):
@@ -927,6 +1029,6 @@ def get_ref(ref, **params):
 	return w.output()
 
 if __name__ == "__main__":
-	params = {"rend": "default", "loc": [("page", "5")], "n": "", "missing": False}
+	params = {"rend": "default", "loc": [], "n": "", "missing": False}
 	r = get_entry(sys.argv[1], **params)
 	print(r)
