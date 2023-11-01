@@ -214,7 +214,7 @@ def display_text(text):
 	doc = parse_ins.process_file(path)
 	doc.title = doc.title.render_physical().split(parse.PARA_SEP)
 	doc.editors = doc.editors.render_physical().split(parse.PARA_SEP)
-	return bottle.template("display_ins.tpl", doc=doc, text=text, numberize=parse.numberize)
+	return bottle.template("inscription.tpl", doc=doc, text=text, numberize=parse.numberize)
 
 @bottle.get("/test")
 def test():

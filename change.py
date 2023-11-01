@@ -73,7 +73,7 @@ def update_db(conn, name):
 			return
 	conn.execute("insert or replace into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
 		(name, commit_hash, date))
-	schema_errs = validate.validate_repo(name)
+	schema_errs = validate.repo(name)
 	unicode_errs = grapheme.validate_repo(name)
 	state = {}
 	for file in schema_errs:

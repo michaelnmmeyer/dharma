@@ -114,14 +114,8 @@ global.rnc: $(wildcard texts/DHARMA_*.xml)
 	rm $@.stage0
 	java -jar jars/saxon9.jar -versionmsg:off -s:$@.stage2 -xsl:schematron/iso_svrl_for_xslt2.xsl -o:$@
 	rm $@.stage2
-
-# For validating with sch, do java -jar jars/saxon9.jar -xsl:schemas/inscription.sch -s:texts/DHARMA_INSVengiCalukya00015.xml
-# We get stuff like:
-# <svrl:successful-report test="ancestor::tei:note"
-#   location="/*:TEI[namespace-uri()='http://www.tei-c.org/ns/1.0'][1]/*:text[namespace-uri()='http://www.tei-c.org/ns/1.0'][1]/*:body[namespace-uri()='http://www.tei-c.org/ns/1.0'][1]/*:div[namespace-uri()='http://www.tei-c.org/ns/1.0'][4]/*:div[namespace-uri()='http://www.tei-c.org/ns/1.0'][2]/*:p[namespace-uri()='http://www.tei-c.org/ns/1.0'][5]/*:note[namespace-uri()='http://www.tei-c.org/ns/1.0'][1]/*:note[namespace-uri()='http://www.tei-c.org/ns/1.0'][1]">
-#   <svrl:text>notes cannot nest</svrl:text>
-# </svrl:successful-report>
-# Remains to extract the relevant information
+	# For validating with sch, do java -jar jars/saxon9.jar -xsl:schemas/inscription.sch -s:texts/DHARMA_INSVengiCalukya00015.xml
+	# And look at the nodes //svrl:successful-report
 
 %.html: %.oddc
 	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODDC%3Atext%3Axml/oddhtml%3Aapplication%3Axhtml%2Bxml > $@

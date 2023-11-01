@@ -1,32 +1,12 @@
-michael@acer:~/.oxygen/frameworks/xspec/src/schematron/iso-schematron>
-java -jar ~/dharma/jars/saxon9.jar -s:/home/michael/downloads/critical.xml -xsl:iso_dsdl_include.xsl -o:stage1
-java -jar ~/dharma/jars/saxon9.jar -s:stage1 -xsl:iso_abstract_expand.xsl -o:stage2
+need to download noto fonts and do the subsetting ourselves, because vəR̥ḥ is
+not rendered properly
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-need to speed up the build
+need to speed up validation & co.
+* only consider files that changed; for this need to keep track of changed
+  directories
+* just do a quick validation, don't store results in the db, only do a full
+  validation when necessary
+* stop doing the git log follow thing, super slow
 
 amandine; display
 
