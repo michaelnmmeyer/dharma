@@ -599,6 +599,10 @@ class Parser:
 
 	def StartElementHandler(self, name, attributes):
 		attrs = []
+		if not self.keep_namespaces:
+			colon = name.find(":")
+			if colon >= 0:
+				name = name[colon + 1:]
 		for i in range(0, len(attributes), 2):
 			key, value = attributes[i:i + 2]
 			if not self.keep_namespaces:
