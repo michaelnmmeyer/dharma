@@ -5,41 +5,6 @@
 # This because of the embedded schematron stuff? or because we use XPath v. 2?
 # I tried to remove the schematron stuff, it doesn't help.
 
-# XXX possible to check the compatibility of several relaxng schemas? so that
-# instead of validating all files against several schemas, we can just check if
-# our own schema is compatible with TEI and epidoc.
-
-# For schema validation stuff we could supplement to the existing schemas
-# fragment of rng schemas that validate just partic. cases to check, so we can
-# check stuff like parent/descendants/etc. without rewriting the whole schema.
-
-# We have 4 schemas for 4 types of texts:
-# * Inscriptions (INSSchema -> latest/Schema)
-#   Is it actually only for inscriptions, or also more generic stuff?
-# * Critical (CritEdSchema)
-# * Diplomatic (DiplEdSchema)
-# * BESTOW (in progress, so ignore for now)
-# Share code or not? Are schemas different enough to warrant distinct parsers?
-# Some files don't have an explicit schema for now:
-# DHARMA_MS_Descr_Or3429.xml
-# DHARMA_Sircar1965.xml
-
-# For conversion and validation:
-# https://teigarage.tei-c.org
-#
-# For editing an ODD:
-# https://roma2.tei-c.org/
-#
-# For converting ODD XML->RNG:
-# It's faster to do it online than locally because java takes forever to start.
-# * curl -F fileToConvert=@DHARMA_INSSchema_v01.xml https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/relaxng%3Aapplication%3Axml-relaxng
-# * ~/Programs/TEI/Stylesheets/bin/teitorelaxng --oxygenlib=~/.oxygen/lib --localsource=/home/michael/Programs/TEI/TEI/P5/Source/guidelines-en.xml  ~/Downloads/DHARMA_BESTOW_v01.xml ~/Downloads/foo.rng
-#
-# For validating TEI:
-# * (buggy) curl -F fileToConvert=@DHARMA_INSSchema_v01.xml https://teigarage.tei-c.org/ege-webservice/Validation/TEI%3Atext%3Axml
-# * java -jar ./project-documentation/schema/validationTools/jing.jar http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng $f
-# * java -jar ./project-documentation/schema/validationTools/jing.jar https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng $f
-
 import os, sys, re, subprocess
 from glob import glob
 from dharma import config, texts, tree, parse_ins
