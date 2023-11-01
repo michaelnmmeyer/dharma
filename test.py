@@ -14,9 +14,8 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in inscriptions:
 	xml = tree.parse(file)
-	for p in xml.find("//note"):
-		if not "/app/" in p.path:
-			print(file, p)
+	for p in xml.find("//note/note"):
+		print(file)
 		#print(p["place"])
 
 		#if p["n"]:print(p.parent)

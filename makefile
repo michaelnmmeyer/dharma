@@ -3,7 +3,8 @@ schemas = $(addprefix schemas/,inscription bestow critical diplomatic prosody te
 generated_tei = \
 	$(addsuffix .rng,$(schemas)) \
 	$(addsuffix .html,$(schemas)) \
-	$(addsuffix .oddc,$(schemas))
+	$(addsuffix .oddc,$(schemas)) \
+	$(addsuffix .sch,$(schemas))
 generated_views = $(patsubst %.md,%.tpl,$(wildcard views/*.md))
 
 all: $(generated_tei) $(generated_views)
@@ -100,6 +101,27 @@ global.rnc: $(wildcard texts/DHARMA_*.xml)
 
 %.rng: %.xml
 	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/relaxng%3Aapplication%3Axml-relaxng > $@
+
+%.sch: %.xml
+	# See readme.txt in schematron dir for details on the build process.
+	# First extract schematron rules
+	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml/isosch%3Atext%3Axml > $@.stage0
+	# Compile the XSLT script
+	# We can ignore the stage1 transformation with iso_dsdl_include.xsl.
+	# In the following, -versionmsg:off is to suppress the warning
+	# "Running an XSLT 1 stylesheet with an XSLT 2 processor"
+	java -jar jars/saxon9.jar -versionmsg:off -s:$@.stage0 -xsl:schematron/iso_abstract_expand.xsl -o:$@.stage2
+	rm $@.stage0
+	java -jar jars/saxon9.jar -versionmsg:off -s:$@.stage2 -xsl:schematron/iso_svrl_for_xslt2.xsl -o:$@
+	rm $@.stage2
+
+# For validating with sch, do java -jar jars/saxon9.jar -xsl:schemas/inscription.sch -s:texts/DHARMA_INSVengiCalukya00015.xml
+# We get stuff like:
+# <svrl:successful-report test="ancestor::tei:note"
+#   location="/*:TEI[namespace-uri()='http://www.tei-c.org/ns/1.0'][1]/*:text[namespace-uri()='http://www.tei-c.org/ns/1.0'][1]/*:body[namespace-uri()='http://www.tei-c.org/ns/1.0'][1]/*:div[namespace-uri()='http://www.tei-c.org/ns/1.0'][4]/*:div[namespace-uri()='http://www.tei-c.org/ns/1.0'][2]/*:p[namespace-uri()='http://www.tei-c.org/ns/1.0'][5]/*:note[namespace-uri()='http://www.tei-c.org/ns/1.0'][1]/*:note[namespace-uri()='http://www.tei-c.org/ns/1.0'][1]">
+#   <svrl:text>notes cannot nest</svrl:text>
+# </svrl:successful-report>
+# Remains to extract the relevant information
 
 %.html: %.oddc
 	curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODDC%3Atext%3Axml/oddhtml%3Aapplication%3Axhtml%2Bxml > $@
