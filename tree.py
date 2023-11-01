@@ -286,13 +286,16 @@ class Branch(Node, list):
 					stack.append(child)
 		return node
 
-	def children(self, name="*"):
+	def children(self, name="*", index=0):
 		ret = []
+		i = 0
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
+			i += 1
 			if name == "*" or node.name == name:
-				ret.append(node)
+				if index == 0 or index == i:
+					ret.append(node)
 		return ret
 
 	def descendants(self, name="*"):
@@ -304,6 +307,17 @@ class Branch(Node, list):
 				ret.append(node)
 			ret.extend(node.descendants(name))
 		return ret
+
+	def _split_name_index(self, name):
+		m = re.match(r"^(?P<name>[-.\w]+)(?:\[(?P<index>[0-9]+)\])?$", name)
+		assert m
+		index = m.group("index")
+		if index:
+			index = int(index)
+			assert index > 0, "xpath indexes are one-based"
+		else:
+			index = 0
+		return m.group("name"), index
 
 	def find(self, path):
 		assert len(path) > 0
@@ -321,19 +335,20 @@ class Branch(Node, list):
 				end = path.find("/")
 				if end < 0:
 					end = len(path)
-				name = path[:end]
+				name, index = self._split_name_index(path[:end])
+				assert index == 0, "cannot use indexes when looking for descendants"
 				path = path[end + 1:]
 				roots = [node for root in roots for node in root.descendants(name)]
 				continue
 			if end < 0:
 				end = len(path)
-			name = path[:end]
+			name, index = self._split_name_index(path[:end])
 			if name == ".":
 				pass
 			elif name == "..":
 				roots = unique(root.parent for root in roots if root.parent is not None)
 			else:
-				roots = [node for root in roots for node in root.children(name)]
+				roots = [node for root in roots for node in root.children(name, index)]
 			path = path[end + 1:]
 		return roots
 
@@ -421,13 +436,19 @@ class Tag(Branch):
 	def path(self):
 		buf = []
 		node = self
-		while True:
-			buf.append(node.name)
-			node = node.parent
-			if not node:
-				break
+		while node:
+			parent = node.parent
+			if parent:
+				index = parent.children(node.name).index(node) + 1
+			else:
+				index = 1
+			buf.append((node.name, index))
+			node = parent
 		buf.reverse()
-		return "/" + "/".join(buf)
+		return "".join("/%s[%d]" % p for p in buf)
+
+	def __eq__(self, other):
+		return id(self) == id(other)
 
 	def __getitem__(self, key):
 		if isinstance(key, int):
