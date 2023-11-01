@@ -309,8 +309,8 @@ class Branch(Node, list):
 		return ret
 
 	def _split_name_index(self, name):
-		m = re.match(r"^(?P<name>[-.\w]+)(?:\[(?P<index>[0-9]+)\])?$", name)
-		assert m
+		m = re.match(r"^(?P<name>[*-.\w]+)(?:\[(?P<index>[0-9]+)\])?$", name)
+		assert m, name
 		index = m.group("index")
 		if index:
 			index = int(index)
