@@ -40,23 +40,8 @@ attribute_tbl = str.maketrans({
 def quote_attribute(s):
 	return s.translate(attribute_tbl)
 
-class Error(Exception):
-
-	def __init__(self, node, message):
-		self.node = node
-		self.message = message
-
-	def __str__(self):
-		"""
-		path, (start, end) = self.node.tree.path, self.node.location
-		problem = ["%s: offset %s: %s" % (path, start, self.message)]
-		src = self.node.tree.source.splitlines()[line - 1]
-		problem.append(src)
-		cursor = (column - 1) * " " + "^ here"
-		problem.append(cursor)
-		return "\n".join(problem)
-		"""
-		return self.message # XXX
+class Error(expat.ExpatError):
+	pass
 
 def unique(items):
 	ret = []
@@ -292,7 +277,8 @@ class Branch(Node, list):
 		for node in self:
 			if not isinstance(node, Tag):
 				continue
-			i += 1
+			if node.name == name:
+				i += 1
 			if name == "*" or node.name == name:
 				if index == 0 or index == i:
 					ret.append(node)
@@ -686,7 +672,10 @@ class Parser:
 		raise Exception
 
 def parse_string(source, **kwargs):
-	return Parser(source, **kwargs).parse()
+	try:
+		return Parser(source, **kwargs).parse()
+	except expat.ExpatError as e:
+		raise Error(e)
 
 def parse(file, **kwargs):
 	if hasattr(file, "read"):
