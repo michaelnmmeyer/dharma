@@ -5,7 +5,8 @@
 # implement any buffering for passing messages, because pipe buffers are big
 # enough for our purposes.
 
-import os, sys, subprocess, time, json, select, errno, logging, fcntl, argparse, traceback
+import os, sys, subprocess, time, json, select, errno, logging, fcntl
+import argparse, traceback, collections
 from dharma import config, validate, texts, biblio, grapheme, catalog
 from dharma.config import command
 
@@ -63,75 +64,123 @@ def latest_commit_in_repo(name):
 	date = int(date)
 	return hash, date
 
-def update_db(conn, name):
-	commit_hash, date = latest_commit_in_repo(name)
-	if conn.execute("select 1 from commits where repo = ? and commit_hash = ?",
-		(name, commit_hash)).fetchone():
-		if conn.execute("select 1 from validation where repo = ? and code_hash = ?",
-			(name, config.CODE_HASH)).fetchone():
-			# No need to revalidate
-			return
-	conn.execute("insert or replace into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
-		(name, commit_hash, date))
-	schema_errs = validate.repo(name)
-	unicode_errs = grapheme.validate_repo(name)
-	state = {}
-	for file in schema_errs:
-		state[file] = {
-			"schema": schema_errs[file],
-			"unicode": unicode_errs[file],
-		}
-	repo_dir = os.path.join(config.REPOS_DIR, name)
-	conn.execute("delete from validation where repo = ?", (name,))
-	conn.execute("delete from texts where repo = ?", (name,))
-	conn.execute("delete from owners where repo = ?", (name,))
-	conn.execute("delete from files where repo = ?", (name,))
-	for path in state:
-		with open(path) as f:
-			data = f.read()
-		conn.execute("""insert into files(name, repo, path, mtime, data)
-			values(?, ?, ?, ?, ?)""", (
-			os.path.splitext(os.path.basename(path))[0],
-			name,
-			os.path.relpath(path, repo_dir),
-			int(os.stat(path).st_mtime),
-			data
-		))
-		print(os.path.splitext(os.path.basename(path))[0], name)
-	xml_paths = {os.path.basename(os.path.splitext(xml_name)[0]): xml_name for xml_name in state}
-	paths = texts.gather_web_pages(xml_paths)
-	repo_dir = os.path.join(config.REPOS_DIR, name)
-	for xml_name, html_path in sorted(paths.items()):
-		xml_path = os.path.relpath(xml_paths[xml_name], repo_dir)
-		if html_path:
-			html_path = os.path.relpath(html_path, repo_dir)
+class File:
+
+	repo = None
+	name = None
+	path = None
+	mtime = 0
+	html = None
+	status = None
+
+	@property
+	def data(self):
+		with open(self.full_path) as f:
+			return f.read()
+
+	@property
+	def owners(self):
+		return texts.owners_of(self.full_path)
+
+	@property
+	def full_path(self):
+		return os.path.join(config.REPOS_DIR, self.repo, self.path)
+
+class Changes:
+
+	def __init__(self, repo):
+		self.repo = repo
+		self.since = -1
+		self.done = False
+		self.before = set()
+		self.insert = []
+		self.update = []
+		self.delete = []
+		self.commit_hash, self.commit_date = latest_commit_in_repo(self.repo)
+
+	def check_db(self, db):
+		if db.execute("select 1 from commits where repo = ? and commit_hash = ?",
+			(self.repo, self.commit_hash)).fetchone():
+			if db.execute("select 1 from texts where repo = ? and code_hash = ?",
+				(self.repo, config.CODE_HASH)).fetchone():
+				self.done = True
+				return
+			# The code changed, update everything (even possibly
+			# deleted files, file matching rules might have
+			# changed).
 		else:
-			assert html_path is None
-		file_id = os.path.basename(os.path.splitext(xml_path)[0])
-		conn.execute("insert into texts(name, repo, html_path) values(?, ?, ?)",
-			(file_id, name, html_path))
-		for author_id in texts.owners_of(os.path.join(repo_dir, xml_path)):
-			conn.execute("insert into owners(name, repo, git_name) values(?, ?, ?)",
-				(file_id, name, author_id))
-	for text, errors in sorted(state.items()):
-		valid = not errors["schema"] and not errors["unicode"]
-		errors = json.dumps(errors)
-		file_id = os.path.basename(os.path.splitext(text)[0])
-		conn.execute("""insert into validation(name, repo, code_hash, valid, errors, when_validated)
-			values(?, ?, ?, ?, ?, strftime('%s', 'now'))""", (file_id, name, config.CODE_HASH, valid, errors))
-	catalog.process_repo(name, conn)
+			self.since = db.execute("select max(mtime) from files where repo = ?",
+				(self.repo,)).fetchone() or (-1,)
+		for (name,) in db.execute("select name from files where repo = ?", (self.repo,)):
+			self.before.add(name)
+
+	def check_repo(self):
+		if self.done:
+			return
+		seen = set()
+		repo_dir = os.path.join(config.REPOS_DIR, self.repo)
+		for path in texts.iter_texts_in_repo(self.repo):
+			name = os.path.basename(os.path.splitext(path)[0])
+			if name in seen:
+				continue # XXX how to complain?
+			seen.add(name)
+			mtime = int(os.stat(path).st_mtime)
+			file = File()
+			file.repo = self.repo
+			file.name = os.path.splitext(name)[0]
+			file.path = os.path.relpath(path, repo_dir)
+			file.mtime = mtime
+			if name not in self.before:
+				self.insert.append(file)
+			elif mtime > self.since:
+				self.update.append(file)
+			else:
+				continue
+			file.status = validate.status(path)
+		for name in self.before:
+			if name not in seen:
+				self.delete.append(name)
+		texts.gather_web_pages(self.insert)
+		self.done = True
+
+def update_db(repo):
+	db = TEXTS_DB
+	changes = Changes(repo)
+	changes.check_db(db)
+	if changes.done:
+		return
+	changes.check_repo()
+	db.execute("insert or replace into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
+		(changes.repo, changes.commit_hash, changes.commit_date))
+	for name in changes.delete:
+		catalog.delete(name, db)
+		db.execute("delete from owners where name = ?", (name,))
+		db.execute("delete from texts where name = ?", (name,))
+		db.execute("delete from files where repo = ? and name = ?", (changes.repo, name))
+	for file in changes.insert + changes.update:
+		db.execute("""insert or replace into files(name, repo, path, mtime, data)
+			values(?, ?, ?, ?, ?)""",
+			(file.name, file.repo, file.path, file.mtime, file.data))
+		db.execute("""insert or replace into texts(
+			name, repo, html_path, code_hash, status, when_validated)
+			values(?, ?, ?, ?, ?, strftime('%s', 'now'))""",
+			(file.name, file.repo, file.html, config.CODE_HASH, file.status))
+		for git_name in file.owners:
+			db.execute("insert or ignore into owners(name, git_name) values(?, ?)",
+				(file.name, git_name))
+		catalog.insert(file, db)
 
 def backup_to_jawakuno():
-	command("bash -x %s" % os.path.join(config.THIS_DIR, "backup_to_jawakuno.sh"), capture_output=False, shell=True)
+	command("bash", "-x", os.path.join(config.THIS_DIR, "backup_to_jawakuno.sh"), capture_output=False)
 
 @TEXTS_DB.transaction
 def handle_changes(name):
-	conn = TEXTS_DB
-	conn.execute("begin immediate")
+	db = TEXTS_DB
+	db.execute("begin immediate")
 	update_repo(name)
-	update_db(conn, name)
-	conn.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
-	conn.execute("commit")
+	update_db(name)
+	db.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
+	db.execute("commit")
 	if name == "tfd-nusantara-philology":
 		backup_to_jawakuno()
 
@@ -154,7 +203,7 @@ PIPE_BUF = 512
 # When we should force a full update. We perform one at startup.
 NEXT_FULL_UPDATE = time.time()
 # Force a full update every FORCE_UPDATE_DELTA seconds.
-FORCE_UPDATE_DELTA = 24 * 60 * 60
+FORCE_UPDATE_DELTA = 1 * 60 * 60
 
 # In the worst case, if we're not fast enough to handle any update events, we
 # just end up running forced full updates continuously. We check if a full

@@ -62,49 +62,59 @@ def show_texts():
 	conn.execute("begin")
 	(last_updated,) = conn.execute("select format_date(value) from metadata where key = 'last_updated'").fetchone()
 	owner = bottle.request.query.owner
+	severity = bottle.request.query.severity
+	if severity not in ("warning", "error", "fatal"):
+		severity = "warning"
+	if severity == "warning":
+		min_status = validate.WARNING
+	elif severity == "error":
+		min_status = validate.ERROR
+	else:
+		assert severity == "fatal"
+		min_status = validate.FATAL
 	if owner:
 		rows = conn.execute("""
-			select texts.name, texts.repo, commit_hash,
-				format_date(commit_date) as readable_commit_date, valid
-			from texts natural join validation
+			select texts.name, commits.repo, commit_hash,
+				format_date(commit_date) as readable_commit_date, status
+			from texts
 				join owners on texts.name = owners.name
 				join commits on texts.repo = commits.repo
 				join people_github on owners.git_name = people_github.git_name
-			where dh_id = ? and not valid
-			order by texts.name""", (owner,)).fetchall()
+			where dh_id = ? and status >= ?
+			order by texts.name""", (owner, min_status)).fetchall()
 	else:
 		rows = conn.execute("""
-			select name, repo, commit_hash,
-				format_date(commit_date) as readable_commit_date, valid
-			from commits natural join validation natural join texts
-			where not valid
-			order by name""").fetchall()
+			select texts.name, commits.repo, commit_hash,
+				format_date(commit_date) as readable_commit_date, status
+			from texts join commits on texts.repo = commits.repo
+			where status >= ?
+			order by name""", (min_status,)).fetchall()
 	authors = conn.execute("""
 		select distinct dh_id, print_name
 		from people_main natural join people_github
 			join owners on people_github.git_name = owners.git_name
 		order by print_name""").fetchall()
 	conn.execute("commit")
-	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner)
+	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner, severity=severity)
 
 @bottle.get("/texts/<repo>/<hash>/<name>")
 def show_text(repo, hash, name):
 	conn = TEXTS_DB
 	row = conn.execute("""
-		select name, commits.repo, commit_hash, code_hash, errors, path as xml_path, html_path,
+		select name, commits.repo, commit_hash, code_hash, status, path as xml_path, html_path,
 			format_date(commit_date) as readable_commit_date,
 			format_date(when_validated) as readable_when_validated
 		from texts natural join files
-			natural join validation
 			join commits on texts.repo = commits.repo
 		where commits.repo = ? and name = ? and commit_hash = ?
 	""", (repo, name, hash)).fetchone()
 	if not row:
 		bottle.abort(404, "Not found")
 	url = f"https://github.com/erc-dharma/{row['repo']}/blob/{row['commit_hash']}/{row['xml_path']}"
-	if row["errors"]:
-		return bottle.template("invalid-text.tpl", text=row, github_url=url)
-	bottle.redirect(url)
+	if row["status"] == validate.OK:
+		return bottle.redirect(url)
+	path = os.path.join(config.REPOS_DIR, row["repo"], row["xml_path"])
+	return bottle.template("invalid-text.tpl", text=row, github_url=url, result=validate.file(path))
 
 @bottle.get("/parallels")
 @NGRAMS_DB.transaction

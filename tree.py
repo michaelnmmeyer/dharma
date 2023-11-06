@@ -28,6 +28,8 @@ except ImportError:
 
 __all__ = ["Error", "parse"]
 
+Location = collections.namedtuple("Location", "start end line column")
+
 attribute_tbl = str.maketrans({
 	'"': "&quot;",
 	"<": "&lt;",
@@ -40,8 +42,16 @@ attribute_tbl = str.maketrans({
 def quote_attribute(s):
 	return s.translate(attribute_tbl)
 
-class Error(expat.ExpatError):
-	pass
+class Error(Exception):
+
+	def __init__(self, line=0, column=0, text="", source=b""):
+		self.line = line
+		self.column = column
+		self.text = text
+		self.source = source
+
+	def __str__(self):
+		return f"Error(line={self.line}, column={self.column}, text={repr(self.text)})"
 
 def unique(items):
 	ret = []
@@ -62,7 +72,7 @@ class Node(object):
 
 	type = None # "tree", "tag", "string", "comment", "instruction"
 	tree = None # tree this node belongs to
-	location = None # (start_offset, end_offset) in the source file
+	location = None # Location object
 	parent = None
 
 	def __hash__(self):
@@ -72,8 +82,7 @@ class Node(object):
 	def source(self):
 		if not self.location or not self.tree:
 			return
-		start, end = self.location
-		return self.tree.source[start:end].decode()
+		return self.tree.source[self.location.start:self.location.end].decode()
 
 	@property
 	def next(self):
@@ -198,7 +207,7 @@ class String(Node, collections.UserString):
 			return data
 		assert space == "default"
 		data = data.strip()
-		data = re.sub(r"\s{2,}", " ", data)
+		data = re.sub(r"\s+", " ", data)
 		return data
 
 class Comment(String):
@@ -552,29 +561,27 @@ class Parser:
 			setattr(self.parser, attr, val)
 		self.tree = Tree()
 		self.stack = [self.tree]
-		if isinstance(source, str):
-			source = source.encode()
-		if source.startswith(b'\xef\xbb\xbf'):
-			source = source[3:]
 		self.tree.source = source
 		self.tree.path = path
-		self.tree.location = (1, 0)
+		self.tree.location = Location(0, len(source), 1, 1)
 		self.last_node = None
 
 	def parse(self):
 		self.parser.Parse(self.tree.source, True)
 		if self.last_node:
-			last_start, _ = self.last_node.location
-			self.last_node.location = (last_start, len(self.tree.source))
+			loc = self.last_node.location
+			self.last_node.location = Location(loc.start, len(self.tree.source), loc.line, loc.column)
 		return self.tree
 
 	def set_location(self, node, close=False):
 		start = self.parser.CurrentByteIndex
 		if self.last_node is not None:
-			last_start, _ = self.last_node.location
-			self.last_node.location = (last_start, start)
+			last = self.last_node.location
+			self.last_node.location = Location(last.start, start, last.line, last.column)
 		if not close:
-			node.location = (start, None)
+			line = self.parser.CurrentLineNumber
+			column = self.parser.CurrentColumnNumber
+			node.location = Location(start, None, line, column)
 		self.last_node = node
 
 	def make_node(self, klass, *args):
@@ -589,8 +596,7 @@ class Parser:
 		self.set_location(node)
 
 	def XmlDeclHandler(self, version, encoding, standalone):
-		assert self.parser.CurrentByteIndex == 0
-		# should we save this?
+		pass
 
 	def StartDoctypeDeclHandler(self, doctypeName, systemId, publicId, has_internal_subset):
 		raise Exception
@@ -672,10 +678,15 @@ class Parser:
 		raise Exception
 
 def parse_string(source, **kwargs):
+	if isinstance(source, str):
+		source = source.encode()
 	try:
 		return Parser(source, **kwargs).parse()
 	except expat.ExpatError as e:
-		raise Error(e)
+		err = e
+	# https://docs.python.org/3/library/pyexpat.html#xml.parsers.expat.XMLParserType
+	# err.offset counts columns from 0
+	raise Error(line=err.lineno, column=err.offset + 1, text=expat.errors.messages[err.code], source=source)
 
 def parse(file, **kwargs):
 	if hasattr(file, "read"):
@@ -877,8 +888,8 @@ def xml(node):
 
 def print_node(root):
 	for node in root:
-		start, end = node.location
-		print(start, end, node.type, node.tree.source[start:end])
+		loc = node.location
+		print(loc.start, loc.end, node.type, node.tree.source[start:end])
 		if node.type == "tag":
 			print_node(node)
 

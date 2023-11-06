@@ -74,15 +74,15 @@ def owners_of(path):
 TEXTS_DIR = os.path.join(config.THIS_DIR, "texts")
 
 # Create a map xml->web page (for debugging)
-def gather_web_pages(texts):
-	tbl = {text: None for text in texts}
-	for root, dirs, files in os.walk(config.REPOS_DIR):
+def gather_web_pages(recs):
+	tbl = {file.name: file for file in recs}
+	for root, dirs, files in os.walk(config.REPOS_DIR): # XXX only the repo dir!
 		for file in files:
 			name, ext = os.path.splitext(file)
 			if ext != ".html":
 				continue
-			if not name in tbl:
+			rec = tbl.get(name)
+			if not rec:
 				continue
 			html = os.path.join(root, file)
-			tbl[name] = html
-	return tbl
+			rec.html = os.path.relpath(html, os.path.join(config.REPOS_DIR, rec.repo))

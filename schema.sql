@@ -8,7 +8,7 @@ insert or ignore into metadata values('last_updated', 0);
 
 create table if not exists commits(
 	repo text primary key,
-	commit_hash text,
+	commit_hash text check(length(commit_hash) = 2 * 20),
 	commit_date integer
 );
 
@@ -28,32 +28,26 @@ create table if not exists files(
 	data text,
 	primary key(name, repo),
 	foreign key(repo) references commits(repo)
+	-- The file is at https://github.com/erc-dharma/$repo/blob/master/$path
 );
 
 create table if not exists texts(
 	name text primary key,
 	repo text,
-	html_path text,
+	html_path text check(html_path is null or length(html_path) > 1),
+	code_hash text check(length(code_hash) = 2 * 20),
+	-- See the enum in change.py
+	status integer check(status >= 0 and status <= 3),
+	when_validated timestamp,
 	foreign key(name, repo) references files(name, repo)
-	-- The XML file is at https://github.com/erc-dharma/$repo/blob/master/$xml_path
 	-- The HTML display is at https://erc-dharma.github.io/$repo/$html_path
-);
-
-create table if not exists validation(
-	name text primary key,
-	repo text,
-	code_hash text,
-	valid boolean,
-	errors json,
-	when_validated integer,
-	foreign key(name, repo) references files(name, repo)
 );
 
 create table if not exists owners(
 	name text,
-	repo text,
 	git_name text,
-	primary key(name, git_name)
+	primary key(name, git_name),
+	foreign key(name) references files(name)
 );
 create index if not exists owners_index on owners(git_name);
 
@@ -93,12 +87,12 @@ create table if not exists documents(
 	author text,
 	editors json,
 	langs json,
-	summary text
+	summary text,
+	foreign key(name) references texts(name)
 );
 
 create virtual table if not exists documents_index using fts5(
 	name unindexed, -- text primary key references documents(name)
-	repo_raw unindexed,
 	ident,
 	repo,
 	title,

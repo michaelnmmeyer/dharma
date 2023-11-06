@@ -7,8 +7,6 @@
 # to make sure we examine everything and to signal stuff we haven't taken into
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
-# TODO for tips use https://stackoverflow.com/questions/2597773/how-do-i-put-a-div-box-around-my-cursor-on-click
-
 import os, sys, re, io, copy, html, unicodedata
 from dharma import prosody, people, tree, gaiji, config, grapheme, biblio
 from dharma import tree as etree
