@@ -8,6 +8,15 @@
 <p>This table now only shows problematic files. You can use the
 <a href="/catalog">catalog interface</a> for searching texts.</p>
 
+<p>The "severity" parameter is interpreted as follows:</p>
+<ul>
+   <li>Warning. The file might present some problems but is OK overall.
+   <li>Error. The file does not adhere to the guidelines and might thus not be
+   processed correctly.</li>
+   <li>Fatal. The file is not valid XML and cannot be processed at all. It is
+   not possible to display it, to search it, etc.</li>
+</ul>
+
 <form action="/texts" method="get">
 <label for="select-owner">Edited by:</label>
 <select name="owner" id="select-owner">

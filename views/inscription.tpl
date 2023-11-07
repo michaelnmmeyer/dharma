@@ -7,8 +7,12 @@
 <div class="body">
 
 <h1>
-% for part in doc.title:
-   {{!part}}.
+% if doc.title:
+   % for part in doc.title:
+      {{!part}}.
+   % end
+% else:
+   <i>Untitled</i>.
 % end
 </h1>
 
@@ -20,7 +24,7 @@
 % if doc.editors:
    {{!doc.editors[-1]}}.
 % else:
-   Unknown.
+   <i>Anonymous editor</i>.
 % end
 </p>
 <p>

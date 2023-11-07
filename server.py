@@ -222,8 +222,11 @@ def display_text(text):
 		return bottle.abort(404, "Not found")
 	import parse_ins
 	doc = parse_ins.process_file(path)
-	doc.title = doc.title.render_physical().split(parse.PARA_SEP)
-	doc.editors = doc.editors.render_physical().split(parse.PARA_SEP)
+	title = doc.title.render_logical()
+	doc.title = title and title.split(parse.PARA_SEP) or []
+	editors = doc.editors.render_logical()
+	doc.editors = editors and editors.split(parse.PARA_SEP)
+	print(doc.editors)
 	return bottle.template("inscription.tpl", doc=doc, text=text, numberize=parse.numberize)
 
 @bottle.get("/test")
