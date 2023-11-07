@@ -2,10 +2,12 @@ FROM debian:12-slim
 RUN apt-get update && \
 	apt-get upgrade -y && \
 	apt-get install -y apt-utils && \
-	apt-get install -y openjdk-17-jdk-headless && \
 	apt-get install -y git && \
 	apt-get install -y rsync && \
 	apt-get install -y python3-minimal python3-requests python3-icu && \
+	apt-get install -y python3-pip && \
+	apt-get clean && \
+	pip3 install saxonche --break-system-packages && \
 	apt-get clean -y && \
 	git config --global --add safe.directory '*' && \
 	git config --global user.email michaelnm.meyer@gmail.com && \
