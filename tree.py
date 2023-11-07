@@ -28,6 +28,9 @@ except ImportError:
 
 __all__ = ["Error", "parse"]
 
+DEFAULT_LANG = "eng"
+DEFAULT_SPACE = "default"
+
 Location = collections.namedtuple("Location", "start end line column")
 
 attribute_tbl = str.maketrans({
@@ -130,7 +133,9 @@ class Node(object):
 		return ""
 
 	def copy(self):
-		return copy.deepcopy(self)
+		ret = copy.copy(self)
+		ret.tree = None
+		return ret
 
 class Instruction(Node, dict):
 
@@ -196,7 +201,7 @@ class String(Node, collections.UserString):
 		return quote_string(str(self.data))
 
 	def text(self, **kwargs):
-		data = str(self.data) # casting is necessary
+		data = str(self.data) # casting is necessary for String
 		space = kwargs.get("space")
 		if not space:
 			if self.parent:
@@ -238,7 +243,7 @@ class Branch(Node, list):
 			if child is node:
 				return True
 		return False
-
+	
 	# merge adjacent string nodes
 	def coalesce(self):
 		i = 1
@@ -262,6 +267,7 @@ class Branch(Node, list):
 		raise ValueError("not found")
 
 	def remove(self, node):
+		assert self.tree.root.parent is None
 		assert node in self
 		node.tree = None
 		node.parent = None
@@ -375,9 +381,6 @@ class Branch(Node, list):
 	def prepend(self, node):
 		self.insert(0, node)
 
-DEFAULT_LANG = "eng"
-DEFAULT_SPACE = "default"
-
 class Tag(Branch):
 
 	type = "tag"
@@ -453,6 +456,7 @@ class Tag(Branch):
 		node = self
 		while not node.attrs.get(key):
 			node = node.parent
+			print(node)
 			if not node:
 				return key == "lang" and DEFAULT_LANG or DEFAULT_SPACE
 		return node.attrs[key]
@@ -541,6 +545,11 @@ class Tree(Branch):
 		if node == self.root:
 			raise Exception("attempt to delete the tree's root")
 		NodeList.remove(self, node)
+	
+	def copy(self):
+		ret = self.copy()
+		if self.parent is self.tree:
+			self.parent = None
 
 	replace_with = None
 	next = None
@@ -870,7 +879,7 @@ class Formatter:
 
 	def text(self):
 		return self.buf.getvalue()
-
+	
 def html_format(node):
 	fmt = Formatter(pretty=False)
 	fmt.format(node)
