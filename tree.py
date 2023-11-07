@@ -132,11 +132,6 @@ class Node(object):
 	def text(self, **kwargs):
 		return ""
 
-	def copy(self):
-		ret = copy.copy(self)
-		ret.tree = None
-		return ret
-
 class Instruction(Node, dict):
 
 	type = "instruction"
@@ -243,7 +238,7 @@ class Branch(Node, list):
 			if child is node:
 				return True
 		return False
-	
+
 	# merge adjacent string nodes
 	def coalesce(self):
 		i = 1
@@ -456,7 +451,6 @@ class Tag(Branch):
 		node = self
 		while not node.attrs.get(key):
 			node = node.parent
-			print(node)
 			if not node:
 				return key == "lang" and DEFAULT_LANG or DEFAULT_SPACE
 		return node.attrs[key]
@@ -545,11 +539,6 @@ class Tree(Branch):
 		if node == self.root:
 			raise Exception("attempt to delete the tree's root")
 		NodeList.remove(self, node)
-	
-	def copy(self):
-		ret = self.copy()
-		if self.parent is self.tree:
-			self.parent = None
 
 	replace_with = None
 	next = None
@@ -879,7 +868,7 @@ class Formatter:
 
 	def text(self):
 		return self.buf.getvalue()
-	
+
 def html_format(node):
 	fmt = Formatter(pretty=False)
 	fmt.format(node)

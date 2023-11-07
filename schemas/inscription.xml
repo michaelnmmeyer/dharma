@@ -771,17 +771,10 @@
                 </elementSpec>
                 <elementSpec ident="cit" module="core" mode="change">
                     <content>
-                        <alternate>
-                            <sequence>
-                                <elementRef key="quote"/>
-                                <elementRef key="bibl"/>
-                            </sequence>
-                            <sequence>
-                                <elementRef key="bibl"/>
-                                <elementRef key="quote"/>
-                            </sequence>
+                        <sequence>
                             <elementRef key="quote"/>
-                        </alternate>
+                            <elementRef key="bibl"/>
+                        </sequence>
                     </content>
                     <attList>
                         <attDef ident="rend" mode="delete"/>
@@ -1547,6 +1540,12 @@
                     </attList>
                 </elementSpec>
                 <elementSpec ident="bibl" module="core" mode="change">
+                    <content>
+                        <sequence>
+                            <elementRef key="ptr"/>
+                            <elementRef key="citedRange" maxOccurs="unbounded"/>
+                        </sequence>
+                    </content>
                     <attList>
                         <attDef ident="ana" mode="delete"/>
                         <attDef ident="cert" mode="delete"/>

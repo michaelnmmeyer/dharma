@@ -313,6 +313,10 @@ class Block:
 				elif data == "=note":
 					n = params["n"]
 					buf.append(f'<a class="dh-note-ref" href="#note-{n}" id="note-ref-{n}">↓{n}</a>')
+				elif data == "<blockquote":
+					buf.append('<blockquote>')
+				elif data == ">blockquote":
+					buf.append('</blockquote>')
 				else:
 					assert 0, data
 			elif t == "phys":
@@ -1278,12 +1282,33 @@ def parse_title(p, title):
 	p.dispatch_children(title)
 
 def parse_q(p, q):
-	p.add_html("“")
-	p.dispatch_children(q)
-	p.add_html("”")
+	if q["rend"] == "block": # TODO other usual values for @rend?
+		p.add_log("<blockquote")
+		p.dispatch_children(q)
+		p.add_log(">blockquote")
+	else:
+		p.add_html("“")
+		p.dispatch_children(q)
+		p.add_html("”")
 
 def parse_quote(p, quote):
 	return parse_q(p, quote)
+
+def parse_cit(p, cit):
+	# <cit>
+	#    <quote>the text</quote>
+	#    <bibl><ptr target="bib:Agrawala1983_01"/></bibl>
+	# </cit>
+	# 
+	# "the text" (Agrawala 1983)
+	# XXX
+	for node in cit.children():
+		if node.name == "bibl":
+			p.add_text(" ")
+			p.add_text("(")
+		p.dispatch(node)
+		if node.name == "bibl":
+			p.add_text(")")
 
 def remove_duplicates(ls):
 	ret = []
