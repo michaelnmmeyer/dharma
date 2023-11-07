@@ -18,7 +18,7 @@
       <menu>
          <li class="logo"><a href="/">DHARMA</a></li>
          <li class="toggle"><a href="#"><i class="fas fa-bars"></i></a></li>
-         <li class="item"><a href="/commit-log">Commits</a></li>
+         <li class="item"><a href="/commits">Commits</a></li>
          <li class="item"><a href="/texts">Texts</a></li>
          <li class="item"><a href="/catalog">Catalog</a></li>
          <li class="item"><a href="/parallels">Parallels</a></li>

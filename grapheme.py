@@ -84,13 +84,13 @@ def is_valid(g):
 		return not char_name(g[0]).startswith("CYRILLIC ")
 	return script(g) or g in valid_combinations
 
-def validate(f):
+def validate(s):
 	problems = []
 	# We don't use str.splitlines() because it counts U+2028 and U+2029 as
 	# line separators, while github, oxygen and normal text editors don't.
-	lines = re.split(r"\r|\n|\r\n", f.read())
+	s = unicodedata.normalize("NFC", s)
+	lines = re.split(r"\r|\n|\r\n", s)
 	for line_no, line in enumerate(lines, 1):
-		line = unicodedata.normalize("NFC", line.rstrip())
 		gs = list(graphemes(line))
 		for i, g in enumerate(gs):
 			if is_valid(g):

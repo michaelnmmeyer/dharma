@@ -24,6 +24,16 @@
    % end
 % end
 </select>
+<label for="select-severity">Severity:</label>
+<select name="severity" id="select-severity">
+% for value in ("warning", "error", "fatal"):
+% if value == severity:
+   <option value="{{value}}" selected>{{value.title()}}</option>
+% else:
+   <option value="{{value}}">{{value.title()}}</option>
+% end
+% end
+</select>
 <input type="submit" value="Reload">
 </form>
 

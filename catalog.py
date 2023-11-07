@@ -1,5 +1,4 @@
 import os, sys
-from xml.parsers import expat
 from dharma import tree, parse, texts, config
 
 db = config.open_db("texts")
@@ -35,12 +34,15 @@ class OR(Query):
 	def __str__(self):
 		return "(%s)" % " OR ".join(str(clause) for clause in self.clauses)
 
+def delete(name, db):
+	db.execute("delete from documents_index where name = ?", (name,))
+	db.execute("delete from documents where name = ?", (name,))
 
-def process_file(repo_name, path):
+def process_file(repo, path):
 	print(path)
 	try:
 		t = tree.parse(path)
-	except expat.ExpatError as e:
+	except tree.Error as e:
 		print("catalog: %r %s" % (path, e), file=sys.stderr)
 		return
 	langs = set()
@@ -60,40 +62,37 @@ def process_file(repo_name, path):
 	p.dispatch(p.tree.root)
 	doc = p.document
 	doc.langs = sorted(langs)
-	doc.repository = repo_name
+	doc.repository = repo
 	return doc
 
-def process_repo(name, db):
-	db.execute("delete from documents_index where repo_raw = ?", (name,))
-	db.execute("delete from documents where repo = ?", (name,))
-	for text in texts.iter_texts_in_repo(name):
-		doc = process_file(name, text)
-		if not doc:
-			continue
-		for key in ("title", "author", "editors", "summary"):
-			val = getattr(doc, key)
-			if val is None:
-				val = parse.Block(val)
-				val.finish()
-				setattr(doc, key, val)
-		fmt_title = doc.title.render_logical()
-		if fmt_title:
-			fmt_title = fmt_title.split(parse.PARA_SEP)
-		else:
-			fmt_title = []
-		fmt_editors = doc.editors.render_logical()
-		if fmt_editors:
-			fmt_editors = fmt_editors.split(parse.PARA_SEP)
-		else:
-			fmt_editors = []
-		db.execute("""insert into documents(name, repo, title, author, editors, langs, summary)
-			values (?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
-				fmt_title, doc.author.render_logical(), fmt_editors,
-				doc.langs, doc.summary.render_logical()))
-		db.execute("""insert into documents_index(name, repo_raw, ident, repo, title, author, editor, lang, summary)
-			values (?, ?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository, doc.ident.lower(),
-			doc.repository.lower(), doc.title.searchable_text(), doc.author.searchable_text(),
-			doc.editors.searchable_text(), "---".join(doc.langs), doc.summary.searchable_text()))
+def insert(file, db):
+	doc = process_file(file.repo, file.full_path)
+	if not doc:
+		return
+	for key in ("title", "author", "editors", "summary"):
+		val = getattr(doc, key)
+		if val is None:
+			val = parse.Block(val)
+			val.finish()
+			setattr(doc, key, val)
+	fmt_title = doc.title.render_logical()
+	if fmt_title:
+		fmt_title = fmt_title.split(parse.PARA_SEP)
+	else:
+		fmt_title = []
+	fmt_editors = doc.editors.render_logical()
+	if fmt_editors:
+		fmt_editors = fmt_editors.split(parse.PARA_SEP)
+	else:
+		fmt_editors = []
+	db.execute("""insert or replace into documents(name, repo, title, author, editors, langs, summary)
+		values (?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
+			fmt_title, doc.author.render_logical(), fmt_editors,
+			doc.langs, doc.summary.render_logical()))
+	db.execute("""insert or replace into documents_index(name, ident, repo, title, author, editor, lang, summary)
+		values (?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.ident.lower(),
+		doc.repository.lower(), doc.title.searchable_text(), doc.author.searchable_text(),
+		doc.editors.searchable_text(), "---".join(doc.langs), doc.summary.searchable_text()))
 
 class InvalidQuery(Exception):
 	pass

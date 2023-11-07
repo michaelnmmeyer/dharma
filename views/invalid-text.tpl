@@ -2,14 +2,14 @@
 
 <div class="body">
 <h1>{{text["name"].removeprefix("DHARMA_")}}</h1>
-<p>Committed {{text['readable_commit_date']}} in
+<p>Committed {{text["readable_commit_date"]}} in
 <a
-href="https://github.com/erc-dharma/{{text['repo']}}/commit/{{text['commit_hash']}}">{{text["commit_hash"]}}</a>.
+href="https://github.com/erc-dharma/{{text["repo"]}}/commit/{{text["commit_hash"]}}">{{text["commit_hash"]}}</a>.
 </p>
-<p>Validated {{text['readable_when_validated']}}.</p>
+<p>Validated {{text["readable_when_validated"]}}.</p>
 </div>
 
-% if text["errors"]["unicode"]:
+% if result.unicode:
 <div class="body">
 <h2>Unexpected Unicode Characters</h2>
 <p>
@@ -32,7 +32,7 @@ list of code points, so that I update the code.
 </tr>
 </thead>
 <tbody>
-% for rec in text["errors"]["unicode"]:
+% for rec in result.unicode:
 <tr>
    <td><a href="{{github_url}}#L{{rec["line_no"]}}">{{rec["line_no"]}}</a></td>
    <td>
@@ -48,7 +48,7 @@ list of code points, so that I update the code.
 </tbody>
 </table>
 
-% if text["errors"]["schema"]:
+% if result.messages:
 <div class="body">
 <h2>Schema Validation Issues</h2>
 </div>
@@ -61,10 +61,10 @@ list of code points, so that I update the code.
 </tr>
 </thead>
 <tbody>
-% for line, col, msg in text["errors"]["schema"]:
+% for msg in result.messages:
 <tr>
-   <td><a href="{{github_url}}#L{{line}}">{{line}}</a></td>
-   <td>{{msg}}</td>
+   <td><a href="{{github_url}}#L{{msg.line}}">{{msg.line}}</a></td>
+   <td>{{msg.text}}</td>
 </tr>
 % end
 </tbody>
