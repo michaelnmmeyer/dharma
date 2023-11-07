@@ -5,7 +5,7 @@
          xmlns="http://relaxng.org/ns/structure/1.0"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2023-11-01T07:15:58Z. .
+Schema generated from ODD source 2023-11-07T13:02:04Z. .
 TEI Edition: Version 3.6.0. Last updated on
 	16th July 2019, revision daa3cc0b9
 TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 3.6.0/
@@ -1645,29 +1645,41 @@ The element indicated by @spanTo (<sch:value-of select="@spanTo"/>) must follow 
    <define name="model.placeNamePart">
       <choice>
          <ref name="placeName"/>
+         <ref name="settlement"/>
       </choice>
    </define>
    <define name="model.placeNamePart_alternation">
       <choice>
          <ref name="placeName"/>
+         <ref name="settlement"/>
       </choice>
    </define>
    <define name="model.placeNamePart_sequence">
       <ref name="placeName"/>
+      <ref name="settlement"/>
    </define>
    <define name="model.placeNamePart_sequenceOptional">
       <optional>
          <ref name="placeName"/>
+      </optional>
+      <optional>
+         <ref name="settlement"/>
       </optional>
    </define>
    <define name="model.placeNamePart_sequenceOptionalRepeatable">
       <zeroOrMore>
          <ref name="placeName"/>
       </zeroOrMore>
+      <zeroOrMore>
+         <ref name="settlement"/>
+      </zeroOrMore>
    </define>
    <define name="model.placeNamePart_sequenceRepeatable">
       <oneOrMore>
          <ref name="placeName"/>
+      </oneOrMore>
+      <oneOrMore>
+         <ref name="settlement"/>
       </oneOrMore>
    </define>
    <define name="model.placeStateLike">
@@ -7628,6 +7640,9 @@ Suggested values include: 1] archaeological-context; 2] internal-date; 3] letter
                   <ref name="placeName"/>
                </optional>
                <optional>
+                  <ref name="settlement"/>
+               </optional>
+               <optional>
                   <ref name="institution"/>
                </optional>
                <optional>
@@ -7672,6 +7687,9 @@ Suggested values include: 1] archaeological-context; 2] internal-date; 3] letter
          <group>
             <optional>
                <ref name="placeName"/>
+            </optional>
+            <optional>
+               <ref name="settlement"/>
             </optional>
             <optional>
                <ref name="institution"/>
@@ -8230,6 +8248,12 @@ Sample values include: 1] province; 2] district; 3] country; 4] town; 5] village
             </attribute>
          </optional>
          <empty/>
+      </element>
+   </define>
+   <define name="settlement">
+      <element name="settlement">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains the name of a settlement such as a city, town, or village identified as a single geo-political or administrative unit. [13.2.3. Place Names]</a:documentation>
+         <ref name="macro.phraseSeq"/>
       </element>
    </define>
    <define name="model.rdgPart">
