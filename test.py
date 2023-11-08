@@ -14,8 +14,9 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in inscriptions:
 	xml = tree.parse(file)
-	for p in xml.find("//bibl"):
-		pass
+	for p in xml.find("//quote"):
+		if p["rend"]:
+			print(file)
 		#print(p.xml())
 		#print(p["place"])
 

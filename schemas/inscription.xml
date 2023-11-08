@@ -1543,7 +1543,7 @@
                     <content>
                         <sequence>
                             <elementRef key="ptr"/>
-                            <elementRef key="citedRange" maxOccurs="unbounded"/>
+                            <elementRef key="citedRange" minOccurs="0" maxOccurs="unbounded"/>
                         </sequence>
                     </content>
                     <attList>
@@ -1890,19 +1890,38 @@
                         <attDef ident="unit" mode="change">
                             <defaultVal>page</defaultVal>
                             <valList type="closed" mode="replace">
-                                <valItem ident="page"/>
-                                <valItem ident="volume"/>
-                                <valItem ident="book"/>
-                                <valItem ident="item"/>
+                                <valItem ident="page">
+                                    <desc>for page numbers</desc>
+                                </valItem>
+                                <valItem ident="volume">
+                                    <desc>for multi-volume publications</desc>
+                                </valItem>
+                                <valItem ident="book">
+                                    <desc>where a single-volume publication is divided into “books” within each of which a reference
+                                        system is restarted</desc>
+                                </valItem>
+                                <valItem ident="item">
+                                    <desc>for a number in an anthology of editions, or an item in a numbered list</desc>
+                                </valItem>
                                 <valItem ident="figure"/>
                                 <valItem ident="plate"/>
                                 <valItem ident="table"/>
                                 <valItem ident="appendix"/>
-                                <valItem ident="note"/>
-                                <valItem ident="part"/>
-                                <valItem ident="entry"/>
+                                <valItem ident="note">
+                                    <desc>for a numbered (foot or end) note</desc>
+                                </valItem>
+                                <valItem ident="part">
+                                    <desc>to distinguish sections of publications where identical page numbers re-occur within a
+                                        single volume (such as Epigraphia Carnatica)</desc>
+                                </valItem>
+                                <valItem ident="entry">
+                                    <desc>for an entry in a dictionary or encyclopaedia</desc>
+                                </valItem>
                                 <valItem ident="line"/>
-                                <valItem ident="section"/>
+                                <valItem ident="section">
+                                    <desc>for one of many numbered paragraphs or short sections where this form of citation is
+                                        practicable, such as many grammars (to be displayed as §, or §§ when the contents include a hyphen)</desc>
+                                </valItem>
                             </valList>
                         </attDef>
                     </attList>

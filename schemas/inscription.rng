@@ -5,7 +5,7 @@
          xmlns="http://relaxng.org/ns/structure/1.0"
          datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
          ns="http://www.tei-c.org/ns/1.0"><!--
-Schema generated from ODD source 2023-11-07T15:58:27Z. .
+Schema generated from ODD source 2023-11-07T23:32:12Z. .
 TEI Edition: Version 3.6.0. Last updated on
 	16th July 2019, revision daa3cc0b9
 TEI Edition Location: https://www.tei-c.org/Vault/P5/Version 3.6.0/
@@ -4989,13 +4989,13 @@ Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] sho
                <a:documentation>identifies the unit of information conveyed by the element, e.g. columns, pages, volume, entry.</a:documentation>
                <choice>
                   <value>page</value>
-                  <a:documentation/>
+                  <a:documentation>for page numbers</a:documentation>
                   <value>volume</value>
-                  <a:documentation/>
+                  <a:documentation>for multi-volume publications</a:documentation>
                   <value>book</value>
-                  <a:documentation/>
+                  <a:documentation>where a single-volume publication is divided into “books” within each of which a reference system is restarted</a:documentation>
                   <value>item</value>
-                  <a:documentation/>
+                  <a:documentation>for a number in an anthology of editions, or an item in a numbered list</a:documentation>
                   <value>figure</value>
                   <a:documentation/>
                   <value>plate</value>
@@ -5005,15 +5005,15 @@ Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] sho
                   <value>appendix</value>
                   <a:documentation/>
                   <value>note</value>
-                  <a:documentation/>
+                  <a:documentation>for a numbered (foot or end) note</a:documentation>
                   <value>part</value>
-                  <a:documentation/>
+                  <a:documentation>to distinguish sections of publications where identical page numbers re-occur within a single volume (such as Epigraphia Carnatica)</a:documentation>
                   <value>entry</value>
-                  <a:documentation/>
+                  <a:documentation>for an entry in a dictionary or encyclopaedia</a:documentation>
                   <value>line</value>
                   <a:documentation/>
                   <value>section</value>
-                  <a:documentation/>
+                  <a:documentation>for one of many numbered paragraphs or short sections where this form of citation is practicable, such as many grammars (to be displayed as §, or §§ when the contents include a hyphen)</a:documentation>
                </choice>
             </attribute>
          </optional>
@@ -5031,9 +5031,9 @@ Sample values include: 1] main; 2] sub (subordinate); 3] alt (alternate); 4] sho
          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(bibliographic citation) contains a loosely-structured bibliographic citation of which the sub-components may or may not be explicitly tagged. [3.11.1. Methods of Encoding Bibliographic References and Lists of References 2.2.7. The Source Description 15.3.2. Declarable Elements]</a:documentation>
          <group>
             <ref name="ptr"/>
-            <oneOrMore>
+            <zeroOrMore>
                <ref name="citedRange"/>
-            </oneOrMore>
+            </zeroOrMore>
          </group>
          <optional>
             <attribute name="n">

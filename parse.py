@@ -1238,11 +1238,13 @@ def extract_bib_ref(p, node):
 	loc = []
 	for r in node.find("citedRange"):
 		unit = r["unit"]
-		if unit not in bibl_units:
-			unit = "page"
 		val = r.text().strip()
 		if not val:
 			continue
+		if unit not in bibl_units and val.isdigit():
+			unit = "page"
+		else:
+			unit = None
 		loc.append((unit, val))
 	return ref, loc
 
@@ -1252,6 +1254,7 @@ def parse_listBibl(p, node):
 	recs = node.find("bibl")
 	if not recs:
 		return
+	# Avoid displaying "Primary" or "Secondary" if there is nothing there.
 	if all(len(rec) == 0 for rec in recs):
 		return
 	typ = node["type"]
@@ -1262,7 +1265,8 @@ def parse_listBibl(p, node):
 	for rec in recs:
 		ref, loc = extract_bib_ref(p, rec)
 		if not ref:
-			return #  TODO
+			# TODO Not legit, still display iy? 
+			continue
 		p.add_code("bib", ref, loc=loc, n=rec["n"])
 
 def parse_bibl(p, node):
@@ -1301,14 +1305,21 @@ def parse_cit(p, cit):
 	# </cit>
 	# 
 	# "the text" (Agrawala 1983)
-	# XXX
+	q = cit.first("quote")
+	block = False
+	if q and q["rend"] == "block":
+		block = True
+	if block:
+		p.add_log("<blockquote")
 	for node in cit.children():
 		if node.name == "bibl":
-			p.add_text(" ")
-			p.add_text("(")
-		p.dispatch(node)
-		if node.name == "bibl":
+			p.add_text(" (")
+			p.dispatch(node)
 			p.add_text(")")
+		elif node.name == "quote" and block:
+			p.dispatch_children(node)
+	if block:
+		p.add_log(">blockquote")
 
 def remove_duplicates(ls):
 	ret = []

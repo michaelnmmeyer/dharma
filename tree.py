@@ -355,7 +355,7 @@ class Branch(Node, list):
 
 	def insert(self, i, node):
 		if not isinstance(node, Node):
-			assert isinstance(node, str)
+			assert isinstance(node, str), "%r" % node
 			node = String(node)
 		if node in self:
 			raise Exception("attempt to insert the same (%s) node %r multiple times" % (node.type, node))
@@ -404,6 +404,9 @@ class Tag(Branch):
 			ret += ' %s="%s"' % (k, quote_attribute(v))
 		ret += ">"
 		return ret
+
+	def __hash__(self):
+		return id(self)
 
 	def unwrap(self):
 		parent = self.parent

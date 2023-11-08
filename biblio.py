@@ -273,9 +273,10 @@ class Writer:
 
 	def loc(self, loc):
 		for unit, val in loc:
-			abbr = cited_range_units.get(unit, unit)
 			self.add(", ")
-			self.add(abbr + "\N{NBSP}")
+			if unit:
+				abbr = cited_range_units[unit]
+				self.add(abbr + "\N{NBSP}")
 			self.add(val)
 
 	def place_publisher_loc(self, rec, params):
@@ -304,7 +305,7 @@ class Writer:
 		elif txt == "3":
 			self.add("3rd edition")
 		elif txt.isdigit():
-			self.add("%sth edition" % txt)
+			self.add(f"{txt}th edition")
 		else:
 			self.add(ed)
 		self.period()
@@ -366,13 +367,13 @@ cited_range_units = dict([
 	("book", "book"),
 	("section", "§"),
 	("page", "p."),
-	("item", "nº"),
+	("item", "№"),
 	("figure", "fig."),
 	("plate", "plate"),
 	("table", "table"),
 	("note", "n."),
 	("part", "part"),
-	("entry", "entry"),
+	("entry", "s.v."),
 	("line", "l."),
 ])
 
