@@ -1026,9 +1026,12 @@ def parse_gap(p, gap):
 		if precision == "low" and unit != "character":
 			repl += "ca. "
 		if unit == "character":
-			repl += quantity * "*" + "]"
+			repl += quantity * "*"
+		elif unit == "character component":
+			repl += quantity * "."
 		else:
-			repl += "%d %s %s]" % (quantity, reason, numberize(unit, quantity))
+			repl += "%d %s %s" % (quantity, reason, numberize(unit, quantity))
+		repl += "]"
 		tip = ""
 		if precision == "low":
 			tip += "About "
