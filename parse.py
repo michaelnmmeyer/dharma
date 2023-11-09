@@ -156,8 +156,6 @@ class Block:
 		self.add_code("log", data, **params)
 
 	def start_span(self, **params):
-		assert not "n" in params
-		params["n"] = 1
 		params["klass"] = [params["klass"]]
 		params["tip"] = [params["tip"]]
 		i = len(self.code)
@@ -166,12 +164,10 @@ class Block:
 			rcmd, rdata, rparams = self.code[i]
 			if rcmd != "span":
 				continue
+			if rdata == ">":
+				break
 			if rdata == "<":
-				rparams["n"] += params["n"]
-				rparams["klass"] += params["klass"]
-				rparams["tip"] += params["tip"]
-				return
-			assert rdata == ">"
+				params["tip"] = rparams["tip"] + params["tip"]
 			break
 		self.add_code("span", "<", **params)
 
@@ -182,15 +178,7 @@ class Block:
 			rcmd, rdata, rparams = self.code[i]
 			if rcmd != "span":
 				continue
-			assert rdata == "<"
-			assert rparams["n"] > 0
-			rparams["n"] -= 1
 			self.add_code("span", ">")
-			if rparams["n"] > 0:
-				rparams = copy.deepcopy(rparams)
-				rparams["klass"].pop()
-				rparams["tip"].pop()
-				self.add_code("span", "<", **rparams)
 			return
 		assert 0
 
