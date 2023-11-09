@@ -52,9 +52,9 @@ def normalize_filter(r, w):
 		w.flush()
 
 def normalize_string(s):
-	in = io.StringIO(s)
+	inp = io.StringIO(s)
 	out = io.StringIO()
-	normalize_filter(in, out)
+	normalize_filter(inp, out)
 	return out.getvalue()
 
 def normalize_stdin():
