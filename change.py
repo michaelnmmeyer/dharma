@@ -26,6 +26,7 @@ tfa-pallava-epigraphy
 tfa-pandya-epigraphy
 tfa-sii-epigraphy
 tfa-tamilnadu-epigraphy
+tfa-tamil-outside-TN-epigraphy
 tfa-uttiramerur-epigraphy
 tfb-arakan-epigraphy
 tfb-badamicalukya-epigraphy
