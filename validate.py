@@ -1,6 +1,6 @@
 import os, sys, re, subprocess
 from glob import glob
-from dharma import config, texts, tree, parse_ins, grapheme, relaxng
+from dharma import config, texts, tree, parse_ins, unicode, relaxng
 from saxonche import PySaxonProcessor
 
 # What should we use for representing error locations? Maybe just the patch the
@@ -116,7 +116,7 @@ class Validator:
 	def uni_errors(self, file):
 		with open(file) as f:
 			text = f.read()
-		return len(grapheme.validate(text)) > 0
+		return len(unicode.validate(text)) > 0
 
 	def uni(self, file, val, xml):
 		ret = self.uni_errors(file)

@@ -7,7 +7,7 @@
 
 import os, sys, subprocess, time, json, select, errno, logging, fcntl
 import argparse, traceback, collections
-from dharma import config, validate, texts, biblio, grapheme, catalog
+from dharma import config, validate, texts, biblio, catalog
 from dharma.config import command
 
 FIFO_ADDR = os.path.join(config.REPOS_DIR, "change.hid")

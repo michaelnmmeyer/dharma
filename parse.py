@@ -8,7 +8,7 @@
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
 import os, sys, re, io, copy, html, unicodedata
-from dharma import prosody, people, tree, gaiji, config, grapheme, biblio
+from dharma import prosody, people, tree, gaiji, config, unicode, biblio
 from dharma import tree as etree
 
 write = sys.stdout.write
@@ -203,7 +203,7 @@ class Block:
 			# TODO be more accurate, only need to hyphenate Indic
 			# languages
 			if self.name == "edition":
-				data = grapheme.hyphenate(data)
+				data = unicode.hyphenate(data)
 			text = html.escape(data)
 			buf.append(text)
 		elif t == "html":
@@ -1265,7 +1265,7 @@ def parse_listBibl(p, node):
 	for rec in recs:
 		ref, loc = extract_bib_ref(p, rec)
 		if not ref:
-			# TODO Not legit, still display iy? 
+			# TODO Not legit, still display iy?
 			continue
 		p.add_code("bib", ref, loc=loc, n=rec["n"])
 
@@ -1303,7 +1303,7 @@ def parse_cit(p, cit):
 	#    <quote>the text</quote>
 	#    <bibl><ptr target="bib:Agrawala1983_01"/></bibl>
 	# </cit>
-	# 
+	#
 	# "the text" (Agrawala 1983)
 	q = cit.first("quote")
 	block = False
