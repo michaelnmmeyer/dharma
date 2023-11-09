@@ -1,5 +1,5 @@
 import sys
-from dharma import tree
+from dharma import tree, cleanup
 
 def fix_choice_order(xml):
 	for node in xml.find("//choice"):
@@ -30,7 +30,9 @@ def fix_tags_decl(xml):
 	for node in xml.find("//tagsDecl"):
 		node.delete()
 
-t = tree.parse(sys.stdin)
+document = sys.stdin.read()
+document = cleanup.normalize_string(document)
+t = tree.parse(document)
 for key, value in globals().copy().items():
 	if key.startswith("fix_"):
 		print(key, file=sys.stderr)

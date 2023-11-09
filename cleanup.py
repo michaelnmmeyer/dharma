@@ -15,7 +15,7 @@ Should also normalize whitespace and remove weird chars, at least:
 * PropList.txt:White_Space
 """
 
-import sys, unicodedata
+import io, sys, unicodedata
 
 def cleanup_file(f):
 	first = True
@@ -51,6 +51,12 @@ def normalize_filter(r, w):
 		w.write(line)
 		w.flush()
 
+def normalize_string(s):
+	in = io.StringIO(s)
+	out = io.StringIO()
+	normalize_filter(in, out)
+	return out.getvalue()
+
 def normalize_stdin():
 	try:
 		normalize_filter(sys.stdin, sys.stdout)
@@ -83,7 +89,7 @@ def normalize_single_in_place(name):
 			normalize_filter(f, tmp)
 		shutil.copyfile(tmp.name, name)
 
-def normalize_in_place(files):
+def normalize_in_place(*files):
 	err = False
 	for path in iter_files(files):
 		try:
@@ -109,7 +115,7 @@ if __name__ == "__main__":
 	if args.in_place:
 		if not args.file:
 			die("cannot process stdin in-place")
-		normalize_in_place(args.file)
+		normalize_in_place(*args.file)
 	elif args.file:
 		normalize_to_stdout(args.file)
 	else:
