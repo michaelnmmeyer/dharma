@@ -158,29 +158,10 @@ class Block:
 	def start_span(self, **params):
 		params["klass"] = [params["klass"]]
 		params["tip"] = [params["tip"]]
-		i = len(self.code)
-		while i > 0:
-			i -= 1
-			rcmd, rdata, rparams = self.code[i]
-			if rcmd != "span":
-				continue
-			if rdata == ">":
-				break
-			if rdata == "<":
-				params["tip"] = rparams["tip"] + params["tip"]
-			break
 		self.add_code("span", "<", **params)
 
 	def end_span(self):
-		i = len(self.code)
-		while i > 0:
-			i -= 1
-			rcmd, rdata, rparams = self.code[i]
-			if rcmd != "span":
-				continue
-			self.add_code("span", ">")
-			return
-		assert 0
+		self.add_code("span", ">")
 
 	def add_code(self, t, data=None, **params):
 		rec = (t, data, params)

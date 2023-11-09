@@ -19,32 +19,42 @@ function switchDisplayTo(name) {
 let popperInstance = null
 let tipBox = null
 
-function showTooltip() {
-	// Make the tooltip visible
-	tipBox.setAttribute("data-show", "");
-	// Enable the event listeners
-	popperInstance.setOptions((options) => ({
-		...options,
-		modifiers: [
-			...options.modifiers,
-			{ name: "eventListeners", enabled: true },
-		],
-	}));
-	// Update its position
-	popperInstance.update();
+function addTooltip(e) {
+	let tip = this.dataset.tip
+	let tipContents = document.querySelector("#dh-tip-contents")
+	if (popperInstance) {
+		let have = tipContents.innerHTML
+		tipContents.innerHTML = tip + " | " + have
+		this.owning = false
+		return
+	}
+	tipContents.innerHTML = tip
+	this.owning = true
+	this.classList.add("dh-tipped")
+	tipBox.setAttribute("data-show", "")
+	popperInstance = createPopper(this, tipBox, {
+		modifiers: [{
+			name: "offset",
+			options: {
+				offset: [0, 8],
+			},
+		}, {
+			name: "eventListeners",
+			enabled: true,
+		}],
+	})
+	popperInstance.update()
 }
 
-function hideTooltip() {
-	// Hide the tooltip
-	tipBox.removeAttribute("data-show");
-	// Disable the event listeners
-	popperInstance.setOptions((options) => ({
-		...options,
-		modifiers: [
-			...options.modifiers,
-			{ name: "eventListeners", enabled: false },
-		],
-	}));
+function removeTooltip(e) {
+	if (!this.owning)
+		return
+	this.classList.remove("dh-tipped")
+	tipBox.removeAttribute("data-show")
+	let tipContents = document.querySelector("#dh-tip-contents")
+	tipContents.innerHTML = ""
+	popperInstance.destroy()
+	popperInstance = null
 }
 
 function prepareTips() {
@@ -52,28 +62,8 @@ function prepareTips() {
 	let tipContents = document.querySelector("#dh-tip-contents")
 	console.assert(tipContents)
 	for (let node of document.querySelectorAll("[data-tip]")) {
-		node.classList.add("dh-tipped")
-		node.onmouseover = function (e) {
-			let tip = this.dataset.tip
-			console.assert(tip)
-			tipContents.innerHTML = tip
-			popperInstance = createPopper(node, tipBox, {
-				modifiers: [
-					{
-						name: "offset",
-						options: {
-							offset: [0, 8],
-						},
-					},
-				],
-			});
-			showTooltip()
-		}
-		node.onmouseleave = function (e) {
-			hideTooltip()
-			popperInstance.destroy()
-			popperInstance = null
-		}
+		node.addEventListener("mouseover", addTooltip)
+		node.addEventListener("mouseout", removeTooltip)
 	}
 }
 
