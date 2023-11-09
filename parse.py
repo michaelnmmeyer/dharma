@@ -185,10 +185,14 @@ class Block:
 			assert rdata == "<"
 			assert rparams["n"] > 0
 			rparams["n"] -= 1
+			self.add_code("span", ">")
 			if rparams["n"] > 0:
-				return
-			break
-		self.add_code("span", ">")
+				rparams = copy.deepcopy(rparams)
+				rparams["klass"].pop()
+				rparams["tip"].pop()
+				self.add_code("span", "<", **rparams)
+			return
+		assert 0
 
 	def add_code(self, t, data=None, **params):
 		rec = (t, data, params)
@@ -958,7 +962,7 @@ def parse_seg(p, seg):
 	if "check" in rend:
 		p.start_span(klass="dh-check")
 	if seg["cert"] == "low":
-		p.start_span(klass="", tip="Uncertain segment")
+		p.start_span(klass="dh-check-uncertain", tip="Uncertain segment")
 		p.add_html("¿")
 	p.dispatch_children(seg)
 	if seg["cert"] == "low":

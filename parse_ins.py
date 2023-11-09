@@ -112,6 +112,8 @@ def process_file(file):
 if __name__ == "__main__":
 	try:
 		doc = process_file(sys.argv[1])
-		print(doc.edition.render_plain())
+		for t, data, params in doc.edition.code:
+			parse.write_debug(t, data, **params)
+		#print(doc.edition.render_logical())
 	except (KeyboardInterrupt, BrokenPipeError):
 		pass
