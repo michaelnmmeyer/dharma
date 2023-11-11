@@ -110,7 +110,7 @@ class Changes:
 			# deleted files, file matching rules might have
 			# changed).
 		else:
-			self.since = db.execute("select max(mtime) from files where repo = ?",
+			(self.since,) = db.execute("select max(mtime) from files where repo = ?",
 				(self.repo,)).fetchone() or (-1,)
 		for (name,) in db.execute("select name from files where repo = ?", (self.repo,)):
 			self.before.add(name)
