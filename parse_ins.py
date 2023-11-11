@@ -102,7 +102,9 @@ def process_file(file):
 	f = t.first("//teiHeader/revisionDesc")
 	if f:
 		f.delete()
-	t.first("//publicationStmt").delete()
+	f = t.first("//publicationStmt")
+	if f:
+		f.delete()
 	p = parse.Parser(t, HANDLERS)
 	p.document.tree = t
 	p.dispatch(p.tree.root)

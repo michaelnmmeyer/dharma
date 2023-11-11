@@ -503,7 +503,8 @@ class Parser:
 		assert node.type == "tag"
 		f = self.handlers.get(node.name)
 		if not f:
-			self.complain("no handler for %r, ignoring it" % node)
+			self.complain(node)
+			self.add_text(node.text())
 			return
 		try:
 			f(self, node)
@@ -515,7 +516,7 @@ class Parser:
 			self.dispatch(child)
 
 	def complain(self, msg):
-		#print("UNKNOWN %s" % msg)
+		print("UNKNOWN %s" % msg)
 		pass
 
 # Like the eponymous function in xslt
@@ -1341,6 +1342,21 @@ def parse_titleStmt(p, stmt):
 		p.start_item()
 		p.add_text(editor)
 	p.document.editors = p.pop()
+
+def parse_roleName(p, node):
+	p.dispatch_children(node)
+
+def parse_placeName(p, node):
+	p.dispatch_children(node)
+
+def parse_persName(p, node):
+	p.dispatch_children(node)
+
+def parse_measure(p, node):
+	p.dispatch_children(node)
+
+def parse_date(p, node):
+	p.dispatch_children(node)
 
 def parse_sourceDesc(p, desc):
 	summ = desc.find("msDesc/msContents/summary")
