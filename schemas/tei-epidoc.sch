@@ -1,51 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xsl:stylesheet xmlns:xhtml="http://www.w3.org/1999/xhtml"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+<xsl:stylesheet xmlns:iso="http://purl.oclc.org/dsdl/schematron"
+                xmlns:rna="http://relaxng.org/ns/compatibility/annotations/1.0"
+                xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:saxon="http://saxon.sf.net/"
+                xmlns:schold="http://www.ascc.net/xml/schematron"
+                xmlns:tei="http://www.tei-c.org/ns/1.0"
+                xmlns:xhtml="http://www.w3.org/1999/xhtml"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                xmlns:schold="http://www.ascc.net/xml/schematron"
-                xmlns:iso="http://purl.oclc.org/dsdl/schematron"
-                xmlns:tei="http://www.tei-c.org/ns/1.0"
-                xmlns:rng="http://relaxng.org/ns/structure/1.0"
-                xmlns:rna="http://relaxng.org/ns/compatibility/annotations/1.0"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
     the preferred method for meta-stylesheets to use where possible. -->
-<xsl:param name="archiveDirParameter"/>
+   <xsl:param name="archiveDirParameter"/>
    <xsl:param name="archiveNameParameter"/>
    <xsl:param name="fileNameParameter"/>
    <xsl:param name="fileDirParameter"/>
    <xsl:variable name="document-uri">
       <xsl:value-of select="document-uri(/)"/>
    </xsl:variable>
-
    <!--PHASES-->
-
-
-<!--PROLOG-->
-<xsl:output xmlns:svrl="http://purl.oclc.org/dsdl/svrl" method="xml"
+   <!--PROLOG-->
+   <xsl:output xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+               method="xml"
                omit-xml-declaration="no"
                standalone="yes"
                indent="yes"/>
-
    <!--XSD TYPES FOR XSLT2-->
-
-
-<!--KEYS AND FUNCTIONS-->
-
-
-<!--DEFAULT RULES-->
-
-
-<!--MODE: SCHEMATRON-SELECT-FULL-PATH-->
-<!--This mode can be used to generate an ugly though full XPath for locators-->
-<xsl:template match="*" mode="schematron-select-full-path">
+   <!--KEYS AND FUNCTIONS-->
+   <!--DEFAULT RULES-->
+   <!--MODE: SCHEMATRON-SELECT-FULL-PATH-->
+   <!--This mode can be used to generate an ugly though full XPath for locators-->
+   <xsl:template match="*" mode="schematron-select-full-path">
       <xsl:apply-templates select="." mode="schematron-get-full-path"/>
    </xsl:template>
-
    <!--MODE: SCHEMATRON-FULL-PATH-->
-<!--This mode can be used to generate an ugly though full XPath for locators-->
-<xsl:template match="*" mode="schematron-get-full-path">
+   <!--This mode can be used to generate an ugly though full XPath for locators-->
+   <xsl:template match="*" mode="schematron-get-full-path">
       <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
       <xsl:text>/</xsl:text>
       <xsl:choose>
@@ -81,10 +71,9 @@
          </xsl:otherwise>
       </xsl:choose>
    </xsl:template>
-
    <!--MODE: SCHEMATRON-FULL-PATH-2-->
-<!--This mode can be used to generate prefixed XPath for humans-->
-<xsl:template match="node() | @*" mode="schematron-get-full-path-2">
+   <!--This mode can be used to generate prefixed XPath for humans-->
+   <xsl:template match="node() | @*" mode="schematron-get-full-path-2">
       <xsl:for-each select="ancestor-or-self::*">
          <xsl:text>/</xsl:text>
          <xsl:value-of select="name(.)"/>
@@ -99,9 +88,9 @@
       </xsl:if>
    </xsl:template>
    <!--MODE: SCHEMATRON-FULL-PATH-3-->
-<!--This mode can be used to generate prefixed XPath for humans 
+   <!--This mode can be used to generate prefixed XPath for humans 
 	(Top-level element has index)-->
-<xsl:template match="node() | @*" mode="schematron-get-full-path-3">
+   <xsl:template match="node() | @*" mode="schematron-get-full-path-3">
       <xsl:for-each select="ancestor-or-self::*">
          <xsl:text>/</xsl:text>
          <xsl:value-of select="name(.)"/>
@@ -115,9 +104,8 @@
          <xsl:text/>/@<xsl:value-of select="name(.)"/>
       </xsl:if>
    </xsl:template>
-
    <!--MODE: GENERATE-ID-FROM-PATH -->
-<xsl:template match="/" mode="generate-id-from-path"/>
+   <xsl:template match="/" mode="generate-id-from-path"/>
    <xsl:template match="text()" mode="generate-id-from-path">
       <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
       <xsl:value-of select="concat('.text-', 1+count(preceding-sibling::text()), '-')"/>
@@ -139,9 +127,8 @@
       <xsl:text>.</xsl:text>
       <xsl:value-of select="concat('.',name(),'-',1+count(preceding-sibling::*[name()=name(current())]),'-')"/>
    </xsl:template>
-
    <!--MODE: GENERATE-ID-2 -->
-<xsl:template match="/" mode="generate-id-2">U</xsl:template>
+   <xsl:template match="/" mode="generate-id-2">U</xsl:template>
    <xsl:template match="*" mode="generate-id-2" priority="2">
       <xsl:text>U</xsl:text>
       <xsl:number level="multiple" count="*"/>
@@ -160,11 +147,12 @@
       <xsl:text>_</xsl:text>
       <xsl:value-of select="translate(name(),':','.')"/>
    </xsl:template>
-   <!--Strip characters--><xsl:template match="text()" priority="-1"/>
-
+   <!--Strip characters-->
+   <xsl:template match="text()" priority="-1"/>
    <!--SCHEMA SETUP-->
-<xsl:template match="/">
-      <svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl" title="ISO Schematron rules"
+   <xsl:template match="/">
+      <svrl:schematron-output xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                              title="ISO Schematron rules"
                               schemaVersion="">
          <xsl:comment>
             <xsl:value-of select="$archiveDirParameter"/>   
@@ -655,20 +643,16 @@
          <xsl:apply-templates select="/" mode="M57"/>
       </svrl:schematron-output>
    </xsl:template>
-
    <!--SCHEMATRON PATTERNS-->
-<svrl:text xmlns:svrl="http://purl.oclc.org/dsdl/svrl">ISO Schematron rules</svrl:text>
-
+   <svrl:text xmlns:svrl="http://purl.oclc.org/dsdl/svrl">ISO Schematron rules</svrl:text>
    <!--PATTERN schematron-constraint-tei-epidoc-att.datable.w3c-att-datable-w3c-when-1-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:*[@when]" priority="1000" mode="M5">
+   <!--RULE -->
+   <xsl:template match="tei:*[@when]" priority="1000" mode="M5">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@when]"/>
-
-		    <!--REPORT nonfatal-->
-<xsl:if test="@notBefore|@notAfter|@from|@to">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@notBefore|@notAfter|@from|@to">
+      <!--REPORT nonfatal-->
+      <xsl:if test="@notBefore|@notAfter|@from|@to">
+         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                 test="@notBefore|@notAfter|@from|@to">
             <xsl:attribute name="role">nonfatal</xsl:attribute>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -682,16 +666,12 @@
    <xsl:template match="@*|node()" priority="-2" mode="M5">
       <xsl:apply-templates select="*" mode="M5"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-att.datable.w3c-att-datable-w3c-from-2-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:*[@from]" priority="1000" mode="M6">
+   <!--RULE -->
+   <xsl:template match="tei:*[@from]" priority="1000" mode="M6">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@from]"/>
-
-		    <!--REPORT nonfatal-->
-<xsl:if test="@notBefore">
+      <!--REPORT nonfatal-->
+      <xsl:if test="@notBefore">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@notBefore">
             <xsl:attribute name="role">nonfatal</xsl:attribute>
             <xsl:attribute name="location">
@@ -706,16 +686,12 @@
    <xsl:template match="@*|node()" priority="-2" mode="M6">
       <xsl:apply-templates select="*" mode="M6"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-att.datable.w3c-att-datable-w3c-to-3-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:*[@to]" priority="1000" mode="M7">
+   <!--RULE -->
+   <xsl:template match="tei:*[@to]" priority="1000" mode="M7">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@to]"/>
-
-		    <!--REPORT nonfatal-->
-<xsl:if test="@notAfter">
+      <!--REPORT nonfatal-->
+      <xsl:if test="@notAfter">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@notAfter">
             <xsl:attribute name="role">nonfatal</xsl:attribute>
             <xsl:attribute name="location">
@@ -730,16 +706,12 @@
    <xsl:template match="@*|node()" priority="-2" mode="M7">
       <xsl:apply-templates select="*" mode="M7"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-att.datable-calendar-calendar-4-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:*[@calendar]" priority="1000" mode="M8">
+   <!--RULE -->
+   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M8">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -761,17 +733,13 @@
    <xsl:template match="@*|node()" priority="-2" mode="M8">
       <xsl:apply-templates select="*" mode="M8"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-att.global.source-source-only_1_ODD_source-5-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:*[@source]" priority="1000" mode="M9">
+   <!--RULE -->
+   <xsl:template match="tei:*[@source]" priority="1000" mode="M9">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@source]"/>
       <xsl:variable name="srcs" select="tokenize( normalize-space(@source),' ')"/>
-
-		    <!--REPORT -->
-<xsl:if test="( self::tei:classRef               | self::tei:dataRef               | self::tei:elementRef               | self::tei:macroRef               | self::tei:moduleRef               | self::tei:schemaSpec )               and               $srcs[2]">
+      <!--REPORT -->
+      <xsl:if test="( self::tei:classRef               | self::tei:dataRef               | self::tei:elementRef               | self::tei:macroRef               | self::tei:moduleRef               | self::tei:schemaSpec )               and               $srcs[2]">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="( self::tei:classRef | self::tei:dataRef | self::tei:elementRef | self::tei:macroRef | self::tei:moduleRef | self::tei:schemaSpec ) and $srcs[2]">
             <xsl:attribute name="location">
@@ -794,16 +762,12 @@
    <xsl:template match="@*|node()" priority="-2" mode="M9">
       <xsl:apply-templates select="*" mode="M9"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-att.measurement-att-measurement-unitRef-6-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:*[@unitRef]" priority="1000" mode="M10">
+   <!--RULE -->
+   <xsl:template match="tei:*[@unitRef]" priority="1000" mode="M10">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@unitRef]"/>
-
-		    <!--REPORT info-->
-<xsl:if test="@unit">
+      <!--REPORT info-->
+      <xsl:if test="@unit">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@unit">
             <xsl:attribute name="role">info</xsl:attribute>
             <xsl:attribute name="location">
@@ -818,16 +782,12 @@
    <xsl:template match="@*|node()" priority="-2" mode="M10">
       <xsl:apply-templates select="*" mode="M10"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-att.typed-subtypeTyped-7-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:*[@subtype]" priority="1000" mode="M11">
+   <!--RULE -->
+   <xsl:template match="tei:*[@subtype]" priority="1000" mode="M11">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@subtype]"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="@type"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@type">
@@ -846,18 +806,15 @@
    <xsl:template match="@*|node()" priority="-2" mode="M11">
       <xsl:apply-templates select="*" mode="M11"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-att.pointing-targetLang-targetLang-8-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:*[not(self::tei:schemaSpec)][@targetLang]" priority="1000"
+   <!--RULE -->
+   <xsl:template match="tei:*[not(self::tei:schemaSpec)][@targetLang]"
+                 priority="1000"
                  mode="M12">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:*[not(self::tei:schemaSpec)][@targetLang]"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="@target"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@target">
@@ -876,16 +833,12 @@
    <xsl:template match="@*|node()" priority="-2" mode="M12">
       <xsl:apply-templates select="*" mode="M12"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-att.spanning-spanTo-spanTo-points-to-following-9-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:*[@spanTo]" priority="1000" mode="M13">
+   <!--RULE -->
+   <xsl:template match="tei:*[@spanTo]" priority="1000" mode="M13">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@spanTo]"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="id(substring(@spanTo,2)) and following::*[@xml:id=substring(current()/@spanTo,2)]"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -909,16 +862,12 @@ The element indicated by @spanTo (<xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M13">
       <xsl:apply-templates select="*" mode="M13"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-att.styleDef-schemeVersion-schemeVersionRequiresScheme-10-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:*[@schemeVersion]" priority="1000" mode="M14">
+   <!--RULE -->
+   <xsl:template match="tei:*[@schemeVersion]" priority="1000" mode="M14">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@schemeVersion]"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="@scheme and not(@scheme = 'free')"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -938,16 +887,12 @@ The element indicated by @spanTo (<xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M14">
       <xsl:apply-templates select="*" mode="M14"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-p-abstractModel-structure-p-in-ab-or-p-11-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:p" priority="1000" mode="M15">
+   <!--RULE -->
+   <xsl:template match="tei:p" priority="1000" mode="M15">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:p"/>
-
-		    <!--REPORT -->
-<xsl:if test="(ancestor::tei:ab or ancestor::tei:p) and not( ancestor::tei:floatingText |parent::tei:exemplum |parent::tei:item |parent::tei:note |parent::tei:q |parent::tei:quote |parent::tei:remarks |parent::tei:said |parent::tei:sp |parent::tei:stage |parent::tei:cell |parent::tei:figure )">
+      <!--REPORT -->
+      <xsl:if test="(ancestor::tei:ab or ancestor::tei:p) and not( ancestor::tei:floatingText |parent::tei:exemplum |parent::tei:item |parent::tei:note |parent::tei:q |parent::tei:quote |parent::tei:remarks |parent::tei:said |parent::tei:sp |parent::tei:stage |parent::tei:cell |parent::tei:figure )">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="(ancestor::tei:ab or ancestor::tei:p) and not( ancestor::tei:floatingText |parent::tei:exemplum |parent::tei:item |parent::tei:note |parent::tei:q |parent::tei:quote |parent::tei:remarks |parent::tei:said |parent::tei:sp |parent::tei:stage |parent::tei:cell |parent::tei:figure )">
             <xsl:attribute name="location">
@@ -964,16 +909,12 @@ The element indicated by @spanTo (<xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M15">
       <xsl:apply-templates select="*" mode="M15"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-p-abstractModel-structure-p-in-l-or-lg-12-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:p" priority="1000" mode="M16">
+   <!--RULE -->
+   <xsl:template match="tei:p" priority="1000" mode="M16">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:p"/>
-
-		    <!--REPORT -->
-<xsl:if test="(ancestor::tei:l or ancestor::tei:lg) and not( ancestor::tei:floatingText |parent::tei:figure |parent::tei:note )">
+      <!--REPORT -->
+      <xsl:if test="(ancestor::tei:l or ancestor::tei:lg) and not( ancestor::tei:floatingText |parent::tei:figure |parent::tei:note )">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="(ancestor::tei:l or ancestor::tei:lg) and not( ancestor::tei:floatingText |parent::tei:figure |parent::tei:note )">
             <xsl:attribute name="location">
@@ -990,17 +931,15 @@ The element indicated by @spanTo (<xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M16">
       <xsl:apply-templates select="*" mode="M16"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-desc-deprecationInfo-only-in-deprecated-13-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:desc[ @type eq 'deprecationInfo']" priority="1000" mode="M17">
+   <!--RULE -->
+   <xsl:template match="tei:desc[ @type eq 'deprecationInfo']"
+                 priority="1000"
+                 mode="M17">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:desc[ @type eq 'deprecationInfo']"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="../@validUntil"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="../@validUntil">
@@ -1021,16 +960,12 @@ The element indicated by @spanTo (<xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M17">
       <xsl:apply-templates select="*" mode="M17"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-rt-target-rt-target-not-span-14-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:rt/@target" priority="1000" mode="M18">
+   <!--RULE -->
+   <xsl:template match="tei:rt/@target" priority="1000" mode="M18">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rt/@target"/>
-
-		    <!--REPORT -->
-<xsl:if test="../@from | ../@to">
+      <!--REPORT -->
+      <xsl:if test="../@from | ../@to">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="../@from | ../@to">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1045,16 +980,12 @@ The element indicated by @spanTo (<xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M18">
       <xsl:apply-templates select="*" mode="M18"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-rt-from-rt-from-15-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:rt/@from" priority="1000" mode="M19">
+   <!--RULE -->
+   <xsl:template match="tei:rt/@from" priority="1000" mode="M19">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rt/@from"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="../@to"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="../@to">
@@ -1074,16 +1005,12 @@ The element indicated by @spanTo (<xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M19">
       <xsl:apply-templates select="*" mode="M19"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-rt-to-rt-to-16-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:rt/@to" priority="1000" mode="M20">
+   <!--RULE -->
+   <xsl:template match="tei:rt/@to" priority="1000" mode="M20">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rt/@to"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="../@from"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="../@from">
@@ -1103,16 +1030,12 @@ The element indicated by @spanTo (<xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M20">
       <xsl:apply-templates select="*" mode="M20"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-gap-gap-17-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:gap" priority="1000" mode="M21">
+   <!--RULE -->
+   <xsl:template match="tei:gap" priority="1000" mode="M21">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:gap"/>
-
-		    <!--REPORT -->
-<xsl:if test="@quantity and @extent">
+      <!--REPORT -->
+      <xsl:if test="@quantity and @extent">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@quantity and @extent">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1120,9 +1043,8 @@ The element indicated by @spanTo (<xsl:text/>
             <svrl:text>gap may have @quantity (a figure) or @extent (a descriptive text value) but not both</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-
-		    <!--REPORT -->
-<xsl:if test="@quantity and not(@unit)">
+      <!--REPORT -->
+      <xsl:if test="@quantity and not(@unit)">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@quantity and not(@unit)">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1130,9 +1052,8 @@ The element indicated by @spanTo (<xsl:text/>
             <svrl:text>If gap has @quantity then @unit is required</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-
-		    <!--REPORT -->
-<xsl:if test="not(@reason='ellipsis') and ancestor::tei:supplied[not(@reason='undefined')]">
+      <!--REPORT -->
+      <xsl:if test="not(@reason='ellipsis') and ancestor::tei:supplied[not(@reason='undefined')]">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="not(@reason='ellipsis') and ancestor::tei:supplied[not(@reason='undefined')]">
             <xsl:attribute name="location">
@@ -1147,16 +1068,12 @@ The element indicated by @spanTo (<xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M21">
       <xsl:apply-templates select="*" mode="M21"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-expan-expan-18-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:expan" priority="1000" mode="M22">
+   <!--RULE -->
+   <xsl:template match="tei:expan" priority="1000" mode="M22">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:expan"/>
-
-		    <!--REPORT -->
-<xsl:if test="not(descendant::tei:ex)">
+      <!--REPORT -->
+      <xsl:if test="not(descendant::tei:ex)">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="not(descendant::tei:ex)">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1170,16 +1087,12 @@ The element indicated by @spanTo (<xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M22">
       <xsl:apply-templates select="*" mode="M22"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-ptr-ptrAtts-19-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:ptr" priority="1000" mode="M23">
+   <!--RULE -->
+   <xsl:template match="tei:ptr" priority="1000" mode="M23">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ptr"/>
-
-		    <!--REPORT -->
-<xsl:if test="@target and @cRef">
+      <!--REPORT -->
+      <xsl:if test="@target and @cRef">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@target and @cRef">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1196,16 +1109,12 @@ attributes @target and @cRef may be supplied on <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M23">
       <xsl:apply-templates select="*" mode="M23"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-ref-refAtts-20-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:ref" priority="1000" mode="M24">
+   <!--RULE -->
+   <xsl:template match="tei:ref" priority="1000" mode="M24">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ref"/>
-
-		    <!--REPORT -->
-<xsl:if test="@target and @cRef">
+      <!--REPORT -->
+      <xsl:if test="@target and @cRef">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@target and @cRef">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1223,16 +1132,13 @@ attributes @target and @cRef may be supplied on <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M24">
       <xsl:apply-templates select="*" mode="M24"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-list-gloss-list-must-have-labels-21-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:list[@type='gloss']" priority="1000" mode="M25">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:list[@type='gloss']"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+   <!--RULE -->
+   <xsl:template match="tei:list[@type='gloss']" priority="1000" mode="M25">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                       context="tei:list[@type='gloss']"/>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="tei:label"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="tei:label">
@@ -1249,16 +1155,12 @@ attributes @target and @cRef may be supplied on <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M25">
       <xsl:apply-templates select="*" mode="M25"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-relatedItem-targetorcontent1-22-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:relatedItem" priority="1000" mode="M26">
+   <!--RULE -->
+   <xsl:template match="tei:relatedItem" priority="1000" mode="M26">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:relatedItem"/>
-
-		    <!--REPORT -->
-<xsl:if test="@target and count( child::* ) &gt; 0">
+      <!--REPORT -->
+      <xsl:if test="@target and count( child::* ) &gt; 0">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="@target and count( child::* ) &gt; 0">
             <xsl:attribute name="location">
@@ -1271,9 +1173,8 @@ If the @target attribute on <xsl:text/>
 relatedItem element must be empty</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="@target or child::*"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@target or child::*">
@@ -1291,16 +1192,12 @@ relatedItem element must be empty</svrl:text>
    <xsl:template match="@*|node()" priority="-2" mode="M26">
       <xsl:apply-templates select="*" mode="M26"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-l-abstractModel-structure-l-in-l-23-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:l" priority="1000" mode="M27">
+   <!--RULE -->
+   <xsl:template match="tei:l" priority="1000" mode="M27">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:l"/>
-
-		    <!--REPORT -->
-<xsl:if test="ancestor::tei:l[not(.//tei:note//tei:l[. = current()])]">
+      <!--REPORT -->
+      <xsl:if test="ancestor::tei:l[not(.//tei:note//tei:l[. = current()])]">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="ancestor::tei:l[not(.//tei:note//tei:l[. = current()])]">
             <xsl:attribute name="location">
@@ -1317,16 +1214,12 @@ relatedItem element must be empty</svrl:text>
    <xsl:template match="@*|node()" priority="-2" mode="M27">
       <xsl:apply-templates select="*" mode="M27"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-lg-atleast1oflggapl-24-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:lg" priority="1000" mode="M28">
+   <!--RULE -->
+   <xsl:template match="tei:lg" priority="1000" mode="M28">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:lg"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="count(descendant::tei:lg|descendant::tei:l|descendant::tei:gap) &gt; 0"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -1345,16 +1238,12 @@ relatedItem element must be empty</svrl:text>
    <xsl:template match="@*|node()" priority="-2" mode="M28">
       <xsl:apply-templates select="*" mode="M28"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-lg-abstractModel-structure-lg-in-l-25-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:lg" priority="1000" mode="M29">
+   <!--RULE -->
+   <xsl:template match="tei:lg" priority="1000" mode="M29">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:lg"/>
-
-		    <!--REPORT -->
-<xsl:if test="ancestor::tei:l[not(.//tei:note//tei:lg[. = current()])]">
+      <!--REPORT -->
+      <xsl:if test="ancestor::tei:l[not(.//tei:note//tei:lg[. = current()])]">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="ancestor::tei:l[not(.//tei:note//tei:lg[. = current()])]">
             <xsl:attribute name="location">
@@ -1371,17 +1260,14 @@ relatedItem element must be empty</svrl:text>
    <xsl:template match="@*|node()" priority="-2" mode="M29">
       <xsl:apply-templates select="*" mode="M29"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-quotation-quotationContents-26-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:quotation" priority="1000" mode="M30">
+   <!--RULE -->
+   <xsl:template match="tei:quotation" priority="1000" mode="M30">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:quotation"/>
-
-		    <!--REPORT -->
-<xsl:if test="not(@marks) and not (tei:p)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="not(@marks) and not (tei:p)">
+      <!--REPORT -->
+      <xsl:if test="not(@marks) and not (tei:p)">
+         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                 test="not(@marks) and not (tei:p)">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
@@ -1397,18 +1283,15 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M30">
       <xsl:apply-templates select="*" mode="M30"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-citeStructure-match-citestructure-outer-match-27-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:citeStructure[not(parent::tei:citeStructure)]" priority="1000"
+   <!--RULE -->
+   <xsl:template match="tei:citeStructure[not(parent::tei:citeStructure)]"
+                 priority="1000"
                  mode="M31">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:citeStructure[not(parent::tei:citeStructure)]"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="starts-with(@match,'/')"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="starts-with(@match,'/')">
@@ -1427,20 +1310,19 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M31">
       <xsl:apply-templates select="*" mode="M31"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-citeStructure-match-citestructure-inner-match-28-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:citeStructure[parent::tei:citeStructure]" priority="1000" mode="M32">
+   <!--RULE -->
+   <xsl:template match="tei:citeStructure[parent::tei:citeStructure]"
+                 priority="1000"
+                 mode="M32">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:citeStructure[parent::tei:citeStructure]"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="not(starts-with(@match,'/'))"/>
          <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="not(starts-with(@match,'/'))">
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="not(starts-with(@match,'/'))">
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
@@ -1456,16 +1338,12 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M32">
       <xsl:apply-templates select="*" mode="M32"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-div-div-31-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:div" priority="1000" mode="M33">
+   <!--RULE -->
+   <xsl:template match="tei:div" priority="1000" mode="M33">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
-
-		    <!--REPORT -->
-<xsl:if test="@type != 'textpart' and parent::tei:div and @type!=parent::tei:div/@type">
+      <!--REPORT -->
+      <xsl:if test="@type != 'textpart' and parent::tei:div and @type!=parent::tei:div/@type">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="@type != 'textpart' and parent::tei:div and @type!=parent::tei:div/@type">
             <xsl:attribute name="location">
@@ -1482,16 +1360,12 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M33">
       <xsl:apply-templates select="*" mode="M33"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-div-abstractModel-structure-div-in-l-or-lg-32-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:div" priority="1000" mode="M34">
+   <!--RULE -->
+   <xsl:template match="tei:div" priority="1000" mode="M34">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
-
-		    <!--REPORT -->
-<xsl:if test="(ancestor::tei:l or ancestor::tei:lg) and not(ancestor::tei:floatingText)">
+      <!--REPORT -->
+      <xsl:if test="(ancestor::tei:l or ancestor::tei:lg) and not(ancestor::tei:floatingText)">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="(ancestor::tei:l or ancestor::tei:lg) and not(ancestor::tei:floatingText)">
             <xsl:attribute name="location">
@@ -1508,16 +1382,12 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M34">
       <xsl:apply-templates select="*" mode="M34"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-div-abstractModel-structure-div-in-ab-or-p-33-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:div" priority="1000" mode="M35">
+   <!--RULE -->
+   <xsl:template match="tei:div" priority="1000" mode="M35">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
-
-		    <!--REPORT -->
-<xsl:if test="(ancestor::tei:p or ancestor::tei:ab) and not(ancestor::tei:floatingText)">
+      <!--REPORT -->
+      <xsl:if test="(ancestor::tei:p or ancestor::tei:ab) and not(ancestor::tei:floatingText)">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="(ancestor::tei:p or ancestor::tei:ab) and not(ancestor::tei:floatingText)">
             <xsl:attribute name="location">
@@ -1534,18 +1404,15 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M35">
       <xsl:apply-templates select="*" mode="M35"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-facsimile-no_facsimile_text_nodes-34-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:facsimile//tei:line | tei:facsimile//tei:zone" priority="1000"
+   <!--RULE -->
+   <xsl:template match="tei:facsimile//tei:line | tei:facsimile//tei:zone"
+                 priority="1000"
                  mode="M36">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:facsimile//tei:line | tei:facsimile//tei:zone"/>
-
-		    <!--REPORT -->
-<xsl:if test="child::text()[ normalize-space(.) ne '']">
+      <!--REPORT -->
+      <xsl:if test="child::text()[ normalize-space(.) ne '']">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="child::text()[ normalize-space(.) ne '']">
             <xsl:attribute name="location">
@@ -1563,22 +1430,19 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M36">
       <xsl:apply-templates select="*" mode="M36"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-path-pathmustnotbeclosed-35-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:path[@points]" priority="1000" mode="M37">
+   <!--RULE -->
+   <xsl:template match="tei:path[@points]" priority="1000" mode="M37">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:path[@points]"/>
       <xsl:variable name="firstPair" select="tokenize( normalize-space( @points ), ' ')[1]"/>
-      <xsl:variable name="lastPair" select="tokenize( normalize-space( @points ), ' ')[last()]"/>
+      <xsl:variable name="lastPair"
+                    select="tokenize( normalize-space( @points ), ' ')[last()]"/>
       <xsl:variable name="firstX" select="xs:float( substring-before( $firstPair, ',') )"/>
       <xsl:variable name="firstY" select="xs:float( substring-after( $firstPair, ',') )"/>
       <xsl:variable name="lastX" select="xs:float( substring-before( $lastPair, ',') )"/>
       <xsl:variable name="lastY" select="xs:float( substring-after( $lastPair, ',') )"/>
-
-		    <!--REPORT -->
-<xsl:if test="$firstX eq $lastX and $firstY eq $lastY">
+      <!--REPORT -->
+      <xsl:if test="$firstX eq $lastX and $firstY eq $lastY">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="$firstX eq $lastX and $firstY eq $lastY">
             <xsl:attribute name="location">
@@ -1595,16 +1459,12 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M37">
       <xsl:apply-templates select="*" mode="M37"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-addSpan-addSpan-requires-spanTo-36-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:addSpan" priority="1000" mode="M38">
+   <!--RULE -->
+   <xsl:template match="tei:addSpan" priority="1000" mode="M38">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:addSpan"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="@spanTo"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@spanTo">
@@ -1623,16 +1483,12 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M38">
       <xsl:apply-templates select="*" mode="M38"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-delSpan-delSpan-requires-spanTo-38-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:delSpan" priority="1000" mode="M39">
+   <!--RULE -->
+   <xsl:template match="tei:delSpan" priority="1000" mode="M39">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:delSpan"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="@spanTo"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@spanTo">
@@ -1651,16 +1507,12 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M39">
       <xsl:apply-templates select="*" mode="M39"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-ex-ex-40-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:ex" priority="1000" mode="M40">
+   <!--RULE -->
+   <xsl:template match="tei:ex" priority="1000" mode="M40">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ex"/>
-
-		    <!--REPORT -->
-<xsl:if test="not(ancestor::tei:expan)">
+      <!--REPORT -->
+      <xsl:if test="not(ancestor::tei:expan)">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="not(ancestor::tei:expan)">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1668,9 +1520,8 @@ On <xsl:text/>
             <svrl:text>ex should only appear inside expan</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-
-		    <!--REPORT -->
-<xsl:if test="parent::tei:abbr">
+      <!--REPORT -->
+      <xsl:if test="parent::tei:abbr">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="parent::tei:abbr">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1684,16 +1535,12 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M40">
       <xsl:apply-templates select="*" mode="M40"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-space-space-41-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:space" priority="1000" mode="M41">
+   <!--RULE -->
+   <xsl:template match="tei:space" priority="1000" mode="M41">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:space"/>
-
-		    <!--REPORT -->
-<xsl:if test="@quantity and @extent">
+      <!--REPORT -->
+      <xsl:if test="@quantity and @extent">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@quantity and @extent">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1703,9 +1550,8 @@ On <xsl:text/>
                                     both</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-
-		    <!--REPORT -->
-<xsl:if test="@quantity and not(@unit)">
+      <!--REPORT -->
+      <xsl:if test="@quantity and not(@unit)">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@quantity and not(@unit)">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1720,16 +1566,12 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M41">
       <xsl:apply-templates select="*" mode="M41"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-subst-substContents1-42-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:subst" priority="1000" mode="M42">
+   <!--RULE -->
+   <xsl:template match="tei:subst" priority="1000" mode="M42">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:subst"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="child::tei:add and (child::tei:del or child::tei:surplus)"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -1750,16 +1592,12 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M42">
       <xsl:apply-templates select="*" mode="M42"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-s-noNestedS-43-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:s" priority="1000" mode="M43">
+   <!--RULE -->
+   <xsl:template match="tei:s" priority="1000" mode="M43">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:s"/>
-
-		    <!--REPORT -->
-<xsl:if test="tei:s">
+      <!--REPORT -->
+      <xsl:if test="tei:s">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="tei:s">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1774,16 +1612,12 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M43">
       <xsl:apply-templates select="*" mode="M43"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-link-linkTargets3-44-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:link" priority="1000" mode="M44">
+   <!--RULE -->
+   <xsl:template match="tei:link" priority="1000" mode="M44">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:link"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="contains(normalize-space(@target),' ')"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -1804,16 +1638,12 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M44">
       <xsl:apply-templates select="*" mode="M44"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-ab-abstractModel-structure-ab-in-l-or-lg-45-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:ab" priority="1000" mode="M45">
+   <!--RULE -->
+   <xsl:template match="tei:ab" priority="1000" mode="M45">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ab"/>
-
-		    <!--REPORT -->
-<xsl:if test="(ancestor::tei:l or ancestor::tei:lg) and not( ancestor::tei:floatingText |parent::tei:figure |parent::tei:note )">
+      <!--REPORT -->
+      <xsl:if test="(ancestor::tei:l or ancestor::tei:lg) and not( ancestor::tei:floatingText |parent::tei:figure |parent::tei:note )">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="(ancestor::tei:l or ancestor::tei:lg) and not( ancestor::tei:floatingText |parent::tei:figure |parent::tei:note )">
             <xsl:attribute name="location">
@@ -1830,16 +1660,12 @@ On <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M45">
       <xsl:apply-templates select="*" mode="M45"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-join-joinTargets3-46-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:join" priority="1000" mode="M46">
+   <!--RULE -->
+   <xsl:template match="tei:join" priority="1000" mode="M46">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:join"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="contains(@target,' ')"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="contains(@target,' ')">
@@ -1860,16 +1686,12 @@ You must supply at least two values for @target on <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M46">
       <xsl:apply-templates select="*" mode="M46"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-standOff-nested_standOff_should_be_typed-47-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:standOff" priority="1000" mode="M47">
+   <!--RULE -->
+   <xsl:template match="tei:standOff" priority="1000" mode="M47">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:standOff"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="@type or not(ancestor::tei:standOff)"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -1894,16 +1716,12 @@ You must supply at least two values for @target on <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M47">
       <xsl:apply-templates select="*" mode="M47"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-catchwords-catchword_in_msDesc-48-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:catchwords" priority="1000" mode="M48">
+   <!--RULE -->
+   <xsl:template match="tei:catchwords" priority="1000" mode="M48">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:catchwords"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="ancestor::tei:msDesc or ancestor::tei:egXML"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -1923,16 +1741,12 @@ You must supply at least two values for @target on <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M48">
       <xsl:apply-templates select="*" mode="M48"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-dimensions-duplicateDim-49-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:dimensions" priority="1000" mode="M49">
+   <!--RULE -->
+   <xsl:template match="tei:dimensions" priority="1000" mode="M49">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:dimensions"/>
-
-		    <!--REPORT -->
-<xsl:if test="count(tei:width)&gt; 1">
+      <!--REPORT -->
+      <xsl:if test="count(tei:width)&gt; 1">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="count(tei:width)&gt; 1">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1944,9 +1758,8 @@ The element <xsl:text/>
       </svrl:text>
          </svrl:successful-report>
       </xsl:if>
-
-		    <!--REPORT -->
-<xsl:if test="count(tei:height)&gt; 1">
+      <!--REPORT -->
+      <xsl:if test="count(tei:height)&gt; 1">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="count(tei:height)&gt; 1">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1958,9 +1771,8 @@ The element <xsl:text/>
       </svrl:text>
          </svrl:successful-report>
       </xsl:if>
-
-		    <!--REPORT -->
-<xsl:if test="count(tei:depth)&gt; 1">
+      <!--REPORT -->
+      <xsl:if test="count(tei:depth)&gt; 1">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="count(tei:depth)&gt; 1">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -1978,16 +1790,12 @@ The element <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M49">
       <xsl:apply-templates select="*" mode="M49"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-secFol-secFol_in_msDesc-50-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:secFol" priority="1000" mode="M50">
+   <!--RULE -->
+   <xsl:template match="tei:secFol" priority="1000" mode="M50">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:secFol"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="ancestor::tei:msDesc or ancestor::tei:egXML"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2007,16 +1815,12 @@ The element <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M50">
       <xsl:apply-templates select="*" mode="M50"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-signatures-signatures_in_msDesc-51-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:signatures" priority="1000" mode="M51">
+   <!--RULE -->
+   <xsl:template match="tei:signatures" priority="1000" mode="M51">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:signatures"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="ancestor::tei:msDesc or ancestor::tei:egXML"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2036,16 +1840,12 @@ The element <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M51">
       <xsl:apply-templates select="*" mode="M51"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-msIdentifier-msId_minimal-52-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:msIdentifier" priority="1000" mode="M52">
+   <!--RULE -->
+   <xsl:template match="tei:msIdentifier" priority="1000" mode="M52">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:msIdentifier"/>
-
-		    <!--REPORT -->
-<xsl:if test="not(parent::tei:msPart) and (local-name(*[1])='idno' or local-name(*[1])='altIdentifier' or normalize-space(.)='')">
+      <!--REPORT -->
+      <xsl:if test="not(parent::tei:msPart) and (local-name(*[1])='idno' or local-name(*[1])='altIdentifier' or normalize-space(.)='')">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="not(parent::tei:msPart) and (local-name(*[1])='idno' or local-name(*[1])='altIdentifier' or normalize-space(.)='')">
             <xsl:attribute name="location">
@@ -2060,16 +1860,12 @@ The element <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M52">
       <xsl:apply-templates select="*" mode="M52"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-relation-reforkeyorname-53-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:relation" priority="1000" mode="M53">
+   <!--RULE -->
+   <xsl:template match="tei:relation" priority="1000" mode="M53">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:relation"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="@ref or @key or @name"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@ref or @key or @name">
@@ -2086,16 +1882,12 @@ The element <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M53">
       <xsl:apply-templates select="*" mode="M53"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-relation-activemutual-54-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:relation" priority="1000" mode="M54">
+   <!--RULE -->
+   <xsl:template match="tei:relation" priority="1000" mode="M54">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:relation"/>
-
-		    <!--REPORT -->
-<xsl:if test="@active and @mutual">
+      <!--REPORT -->
+      <xsl:if test="@active and @mutual">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@active and @mutual">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
@@ -2109,17 +1901,14 @@ The element <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M54">
       <xsl:apply-templates select="*" mode="M54"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-relation-activepassive-55-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:relation" priority="1000" mode="M55">
+   <!--RULE -->
+   <xsl:template match="tei:relation" priority="1000" mode="M55">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:relation"/>
-
-		    <!--REPORT -->
-<xsl:if test="@passive and not(@active)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@passive and not(@active)">
+      <!--REPORT -->
+      <xsl:if test="@passive and not(@active)">
+         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                 test="@passive and not(@active)">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
@@ -2132,16 +1921,12 @@ The element <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M55">
       <xsl:apply-templates select="*" mode="M55"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-rdgGrp-only1lem-56-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:rdgGrp" priority="1000" mode="M56">
+   <!--RULE -->
+   <xsl:template match="tei:rdgGrp" priority="1000" mode="M56">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rdgGrp"/>
-
-		    <!--ASSERT -->
-<xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
          <xsl:when test="count(tei:lem) &lt; 2"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="count(tei:lem) &lt; 2">
@@ -2158,16 +1943,12 @@ The element <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M56">
       <xsl:apply-templates select="*" mode="M56"/>
    </xsl:template>
-
    <!--PATTERN schematron-constraint-tei-epidoc-variantEncoding-location-variantEncodingLocation-57-->
-
-
-	<!--RULE -->
-<xsl:template match="tei:variantEncoding" priority="1000" mode="M57">
+   <!--RULE -->
+   <xsl:template match="tei:variantEncoding" priority="1000" mode="M57">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:variantEncoding"/>
-
-		    <!--REPORT -->
-<xsl:if test="@location eq 'external' and @method eq 'parallel-segmentation'">
+      <!--REPORT -->
+      <xsl:if test="@location eq 'external' and @method eq 'parallel-segmentation'">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="@location eq 'external' and @method eq 'parallel-segmentation'">
             <xsl:attribute name="location">

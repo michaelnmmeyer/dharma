@@ -1377,8 +1377,3 @@ def make_handlers_map():
 	return ret
 
 HANDLERS = make_handlers_map()
-
-if __name__ == "__main__":
-	t = tree.parse(sys.argv[1])
-	p = Parser(t, HANDLERS)
-	p.dispatch(p.tree.root)
