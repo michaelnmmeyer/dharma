@@ -26,6 +26,9 @@
       <li class="item"><a href="/documentation">Documentation</a>
    </menu>
 </header>
+<aside>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</aside>
 <main>
    {{!base}}
 </main>

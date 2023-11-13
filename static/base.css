@@ -1,17 +1,27 @@
+html, body {
+	height: 100%;
+	width: 100%;
+}
 #contents {
 	display: grid;
-	grid-template-areas: 'header' 'main' 'footer';
-	grid-template-rows: auto 1fr auto;
+	grid-template-areas:
+		'header'
+		'sidebar'
+		'main'
+		'footer';
+	grid-template-rows: auto auto 1fr auto;
 	grid-template-columns: 100%;
-	min-height:100vh;
+	min-height: 100%;
 }
-
 header {
 	grid-area: header;
 }
 main {
 	grid-area: main;
 	margin: 1em;
+}
+aside {
+	grid-area: sidebar;
 }
 footer {
 	grid-area: footer;
@@ -149,6 +159,14 @@ menu a:hover {
 
 /* Desktop menu  */
 @media all and (min-width: 960px) {
+	#contents {
+		grid-template-rows: auto 1fr auto;
+		 grid-template-columns: repeat(3, 1fr);
+		grid-template-areas:
+			'header header header'
+			'sidebar main main'
+			'footer footer footer';
+		 }
 	menu {
 		align-items: flex-start;
 		flex-wrap: nowrap;
@@ -159,6 +177,9 @@ menu a:hover {
 	}
 	.toggle {
 		display: none;
+	}
+	aside {
+		display: block;
 	}
 }
 
