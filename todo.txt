@@ -1,6 +1,8 @@
-
+* Display remainder of teiheader
+* Check tags we don't support yet
+* Sort out languages tagging
 * Fix logic in parse.py, use decorators for handlers and see how XSLT
-  does things. Use a default handler somewhere.
+  does things.
 * Physical display. Keep [****], but in logiical use the convention
   described in editorial
 * In physical display, do not display editorial hyphens, but do show them
@@ -11,17 +13,13 @@
 INSTamilNadu00102: look at <l> within the large <lg>; number 5,10,15; avec des
    numéros sur la droite
 
----
+--------------------------------------------------------
 
 check that the new change.py works
 
----
+---------------------------------------------------------global
 
 make a list of common errors + suggestions about the current egd
-
-add trang transforms to relaxng so that we can do schema updates online from
-the python code; but also need to figure out the TEI stuff for converting odd
-code.
 
 Problems with @n.
 * We should restrict the number of containers where numbers should be unique to
@@ -33,30 +31,19 @@ milestones.
 convention.
 
 
-==
-
-~~ arlo
+-----------------------------------------------------------arlo
 
 * EGD annex B on meters for auto recognition of meters ; which one?
 * plain texts for in a month
 
-~~ dominic
+-----------------------------------------------------------dominic
 
-== dicts
+dicts:
 * add nws.uzi.uni-halle.de ; juste la colonne de gauche.
 * add the (incomplete) one from pune "an encyclopedic ... on historical principals"; available
   on; on koeln + from peter scharf?
 
-==============================================================
-
-for rng: rng2srng-20020831
-
-note that we can link to a span of text on github by adding sth like
-#L8C23-L14C34 at the end; but doesn't work with just #L8C23.
-
-XXX make sure file names are unique across all repos
-
----
+------------------------------------------------------------------
 
 move texts db stuff in change.py to texts.py
 
@@ -65,25 +52,27 @@ not include comments. Need to have a pretty-print func that preserves space and
 doesn't add unnecessary space. Also add line numbers to xml display. And style
 the thing with a color for comments and tags.
 
----
+stop using tables in website, annoying to style. use cards instead.
 
-Regardre pour le tamoul. DSAL+Cologne. First start with just a word index, then
-add scans, then other stuff. Need to have a grammar that describes how
-transliteration works and that has some stuff on phonetics. can icu
-transliterate tamil?
+for rng: rng2srng-20020831
+
+note that we can link to a span of text on github by adding sth like
+#L8C23-L14C34 at the end; but doesn't work with just #L8C23.
+
+XXX make sure we complain when file names are not unique across all repos
+
+----------------------------------------------------------------manu
+
+Regardre pour le tamoul.
 
 Ajouter 2nd champ dans rech. parallèles; pour substring; or allow quoting part
 of the input to force an exact match.
 
-stop using tables in website, annoying to style. use ul instead.
-
---------------------------------------------------------------------
+----------------------------------------------------------------amandine
 
 Add to catalog: Text identity -> Alternative identification/designation
 
----
-
-For parallels
+For parallels, she wants:
 
 DHARMA_INS*
     stance1

@@ -1359,11 +1359,9 @@ def parse_date(p, node):
 	p.dispatch_children(node)
 
 def parse_sourceDesc(p, desc):
-	summ = desc.find("msDesc/msContents/summary")
-	assert len(summ) <= 1
+	summ = desc.first("msDesc/msContents/summary")
 	if not summ:
 		return
-	summ = summ[0]
 	# remove paragraphs
 	for para in summ.find(".//p"):
 		para.unwrap()

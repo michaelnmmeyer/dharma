@@ -1,3 +1,5 @@
+# XSLT transforms for schemas. It's faster to use the python bindings than the Java code.
+
 import sys, saxonche
 
 if __name__ == "__main__":

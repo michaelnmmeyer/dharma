@@ -30,6 +30,9 @@
 <p>
 Identifier: <span class="dh-text-id">{{text}}</span>
 </p>
+% if doc.summary:
+<p>Summary: {{!doc.summary.render_logical()}}</p>
+% end
 
 <div class="dh-ed">
 
