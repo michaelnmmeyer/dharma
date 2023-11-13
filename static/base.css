@@ -22,12 +22,21 @@ main {
 }
 aside {
 	grid-area: sidebar;
+	background-color: #f2f1f1;
+	display: none;
+}
+aside.active {
+	display: block;
+}
+aside ul {
+	list-style: none;
 }
 footer {
 	grid-area: footer;
 	display: flex;
 	font-size: smaller;
 	justify-content: space-around;
+	background-color: #f2f1f1;
 }
 
 /* Global stuff */
@@ -52,7 +61,7 @@ pre, code {
 	font-size: 92%;
 }
 pre {
-	overflow: auto;
+	overflow: scroll;
 	padding: 0.5em;
 }
 p {
@@ -63,8 +72,8 @@ h1, h2, h3, h4, h5, h6 {
 	line-height: 1.4em;
 }
 .body {
-	max-width: 40em;
-	margin: 0 auto;
+	/*max-width: 40em;
+	margin: 0 auto;*/
 }
 
 /* Tables */
@@ -87,7 +96,7 @@ td, th {
 th {
 	background-color: #d9dadb;
 }
-*/
+
 
 input {
 	font-family: inherit;
@@ -110,10 +119,10 @@ div.pagination {
 }
 
 /* Forms */
-form > ul {
+form ul {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: center;
 	list-style: none;
 	padding: 0;
 	row-gap: 0.5em;
@@ -125,7 +134,10 @@ form > ul {
    https://webdesign.tutsplus.com/how-to-build-a-responsive-navigation-bar-with-flexbox--cms-33535t
  */
 
-/* Mobile menu */
+header {
+	position: sticky;
+	top: 0;
+}
 menu {
 	display: flex;
 	flex-wrap: wrap;
@@ -157,16 +169,19 @@ menu a:hover {
 	display: none;
 }
 
-/* Desktop menu  */
+/* Desktop display  */
 @media all and (min-width: 960px) {
 	#contents {
 		grid-template-rows: auto 1fr auto;
-		 grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: 15em 1fr;
 		grid-template-areas:
-			'header header header'
-			'sidebar main main'
-			'footer footer footer';
+			'header header'
+			'sidebar main'
+			'footer footer';
 		 }
+	header {
+		position: relative;
+	}
 	menu {
 		align-items: flex-start;
 		flex-wrap: nowrap;

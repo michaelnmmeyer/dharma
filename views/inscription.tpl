@@ -2,11 +2,11 @@
    <link rel="stylesheet" href="/inscription.css">
 	<script src="/inscription.js"></script>
 	<script src="/pack.js"></script>
-''')
+''', sidebar=sidebar)
 
 <div class="body">
 
-<h1>
+<h1 id="metadata">
 % if doc.title:
    % for part in doc.title:
       {{!part}}.
@@ -34,7 +34,7 @@ Identifier: <span class="dh-text-id">{{text}}</span>
 <p>Summary: {{!doc.summary.render_logical()}}</p>
 % end
 
-<div class="dh-ed">
+<div class="dh-ed" id="edition">
 
 <h2>Edition</h2>
 
@@ -65,35 +65,35 @@ Identifier: <span class="dh-text-id">{{text}}</span>
 <div class="body">
 
 % if doc.apparatus:
-<div class="dh-apparatus">
+<div class="dh-apparatus" id="apparatus">
 <h2>Apparatus</h2>
 {{!doc.apparatus.render_logical()}}
 </div>
 % end
 
-% for trans in doc.translation:
-<div class="dh-trans">
+% for i, trans in enumerate(doc.translation, 1):
+<div class="dh-trans" id="translation-{{i}}">
 <h2>Translation</h2>
 {{!trans.render_logical()}}
 </div>
 % end
 
 % if doc.commentary:
-<div class="dh-trans">
+<div class="dh-trans" id="commentary">
 <h2>Commentary</h2>
 {{!doc.commentary.render_logical()}}
 </div>
 % end
 
 % if doc.bibliography:
-<div class="dh-biblio">
+<div class="dh-biblio" id="bibliography">
 <h2>Bibliography</h2>
 {{!doc.bibliography.render_logical()}}
 </div>
 % end
 
 % if doc.notes:
-<div class="dh-notes">
+<div class="dh-notes" id="notes">
 <h2>Notes</h2>
 % for i, note in enumerate(doc.notes, 1):
 <div class="dh-note" id="note-{{i}}">
