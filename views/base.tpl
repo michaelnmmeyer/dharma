@@ -12,23 +12,28 @@
 % end
 </head>
 <body>
-   <header>
-      <menu>
-         <li class="logo"><a href="/">DHARMA</a></li>
-         <li class="toggle"><a href="#"><i class="fas fa-bars"></i></a></li>
-         <li class="item"><a href="/commits">Commits</a></li>
-         <li class="item"><a href="/texts">Texts</a></li>
-         <li class="item"><a href="/catalog">Catalog</a></li>
-         <li class="item"><a href="/parallels">Parallels</a></li>
-         <li class="item"><a href="/display">🚧 Display</a></li>
-         <li class="item"><a href="/documentation">Documentation</a>
-      </menu>
-   </header>
-   <main>
-      {{!base}}
-   </main>
-   <footer>
-   </footer>
+
+<div id="contents">
+<header>
+   <menu>
+      <li class="logo"><a href="/">DHARMA</a></li>
+      <li class="toggle"><a href="#"><i class="fas fa-bars"></i></a></li>
+      <li class="item"><a href="/commits">Commits</a></li>
+      <li class="item"><a href="/texts">Texts</a></li>
+      <li class="item"><a href="/catalog">Catalog</a></li>
+      <li class="item"><a href="/parallels">Parallels</a></li>
+      <li class="item"><a href="/display">🚧 Display</a></li>
+      <li class="item"><a href="/documentation">Documentation</a>
+   </menu>
+</header>
+<main>
+   {{!base}}
+</main>
+<footer>
+<p>© <a href="https://dharma.hypotheses.org">ERC-DHARMA
+Project</a>, 2019-2023</p>
+</footer>
+</div>
 
 <script>
 const toggle = document.querySelector(".toggle");
