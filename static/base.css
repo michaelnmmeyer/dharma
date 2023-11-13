@@ -1,3 +1,7 @@
+:root {
+	--dh-border-radius: 0.3em;
+}
+
 html, body {
 	height: 100%;
 	width: 100%;
@@ -57,7 +61,7 @@ body {
 pre, code {
 	font-family: 'Noto Mono', monospace;
 	background-color: #eaeaea;
-	border-radius: 0.3em;
+	border-radius: var(--dh-border-radius);
 	font-size: 92%;
 }
 pre {
@@ -77,6 +81,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Tables */
+/* https://unused-css.com/blog/css-rounded-table-corners/ */
 tr:hover td {
 	background-color: gray;
 }
@@ -86,13 +91,10 @@ table tr:nth-child(odd) {
 table tr:nth-child(even) {
 	background-color: #d9dadb;
 }
-thead {
-	border: 10px solid red;
-}
 table {
 	border-spacing: 0;
 	border-collapse: separate;
-	border-radius: 10px;
+	border-radius: var(--dh-border-radius);
 	overflow: hidden;
 }
 td, th {
@@ -159,8 +161,7 @@ menu a {
 }
 menu a:hover {
 	background-color: gray;
-	border-radius: 0.3em;
-
+	border-radius: var(--dh-border-radius);
 }
 .active .item {
 	display: block;
@@ -175,7 +176,7 @@ menu a:hover {
 @media all and (min-width: 960px) {
 	#contents {
 		grid-template-rows: auto 1fr auto;
-		grid-template-columns: 15em 1fr;
+		grid-template-columns: 20% 80%;
 		grid-template-areas:
 			'header header'
 			'sidebar main'
@@ -206,6 +207,12 @@ menu a:hover {
 /* Catalog */
 
 .catalog-list {
+}
+.catalog-list div:first-child {
+	border-radius: var(--dh-border-radius);
+}
+.catalog-list div:last-child {
+	border-radius: var(--dh-border-radius);
 }
 .catalog-list div:nth-child(odd) {
 	background-color: #eff0f1;

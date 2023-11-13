@@ -67,24 +67,10 @@ function prepareTips() {
 	}
 }
 
-function flashNode(node) {
-	node.classList.add("dh-flash")
-	setTimeout(function () {
-		node.classList.remove("dh-flash")
-	}, 2000)
-}
-
-function init() {
+window.addEventListener("load", function () {
 	prepareTips()
 	for (let node of document.querySelectorAll("a.dh-bib-ref, a.dh-note-ref")) {
-		if (!node["href"])
-			continue
-		node.onclick = function (e) {
-			let url = new URL(this["href"])
-			let ent = document.querySelector(url.hash)
-			console.log(url);
-			flashNode(ent)
-		}
+		node.addEventListener("click", flashTarget)
 	}
 	for (let row of displays) {
 		document.querySelector(row[1]).onclick = function (ev) {
@@ -92,8 +78,4 @@ function init() {
 			switchDisplayTo(row[0])
 		}
 	}
-}
-
-window.onload = function () {
-	init()
-}
+})

@@ -141,7 +141,7 @@ class Changes:
 		for name in self.before:
 			if name not in seen:
 				self.delete.append(name)
-		texts.gather_web_pages(self.insert)
+		texts.gather_web_pages(self.insert + self.update)
 		self.done = True
 
 def update_db(repo):

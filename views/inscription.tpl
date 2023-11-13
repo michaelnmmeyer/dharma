@@ -1,7 +1,7 @@
 % rebase("base.tpl", title="Display", includes='''
    <link rel="stylesheet" href="/inscription.css">
-	<script src="/inscription.js"></script>
 	<script src="/pack.js"></script>
+	<script src="/inscription.js"></script>
 ''', sidebar=sidebar)
 
 <div class="body">
@@ -34,9 +34,9 @@ Identifier: <span class="dh-text-id">{{text}}</span>
 <p>Summary: {{!doc.summary.render_logical()}}</p>
 % end
 
-<div class="dh-ed" id="edition">
+<div class="dh-ed">
 
-<h2>Edition</h2>
+<h2 id="edition">Edition</h2>
 
 <ul class="dh-ed-tabs">
    <li id="log-btn" class="dh-active"><a href="#dh-ed">Logical</a></li>
@@ -65,36 +65,36 @@ Identifier: <span class="dh-text-id">{{text}}</span>
 <div class="body">
 
 % if doc.apparatus:
-<div class="dh-apparatus" id="apparatus">
-<h2>Apparatus</h2>
+<div class="dh-apparatus">
+<h2 id="apparatus">Apparatus</h2>
 {{!doc.apparatus.render_logical()}}
 </div>
 % end
 
 % for i, trans in enumerate(doc.translation, 1):
-<div class="dh-trans" id="translation-{{i}}">
-<h2>Translation</h2>
+<div class="dh-trans">
+<h2 id="translation-{{i}}">Translation</h2>
 {{!trans.render_logical()}}
 </div>
 % end
 
 % if doc.commentary:
-<div class="dh-trans" id="commentary">
-<h2>Commentary</h2>
+<div class="dh-trans">
+<h2 id="commentary">Commentary</h2>
 {{!doc.commentary.render_logical()}}
 </div>
 % end
 
 % if doc.bibliography:
-<div class="dh-biblio" id="bibliography">
-<h2>Bibliography</h2>
+<div class="dh-biblio">
+<h2 id="bibliography">Bibliography</h2>
 {{!doc.bibliography.render_logical()}}
 </div>
 % end
 
 % if doc.notes:
-<div class="dh-notes" id="notes">
-<h2>Notes</h2>
+<div class="dh-notes">
+<h2 id="notes">Notes</h2>
 % for i, note in enumerate(doc.notes, 1):
 <div class="dh-note" id="note-{{i}}">
 <a class="dh-note-ref" href="#note-ref-{{i}}">↑{{i}}</a>
