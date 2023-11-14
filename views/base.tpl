@@ -8,9 +8,7 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    <link rel="stylesheet" href="/base.css">
    <script src="/base.js"></script>
-% if get('includes'):
-   {{!includes}}
-% end
+   {{!get('includes', '')}}
 </head>
 <body>
 
@@ -28,13 +26,7 @@
       <li class="item"><a href="/documentation">Documentation</a>
    </menu>
 </header>
-<aside>
-% if get('sidebar'):
-{{!sidebar}}
-% else:
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-% end
-</aside>
+<aside>{{!get('sidebar', '')}}</aside>
 <main>{{!base}}</main>
 <footer>
 <p>© <a href="https://dharma.hypotheses.org">ERC-DHARMA Project</a>, 2019-2023</p>

@@ -47,4 +47,12 @@ window.addEventListener("load", function () {
 	for (let node of document.querySelectorAll("aside a")) {
 		node.addEventListener("click", flashTarget)
 	}
+	for (let node of document.querySelectorAll("h1, h2, h3, h4, h5, h6")) {
+		let id = node.id
+		if (id) {
+			let a = document.createElement("a")
+			a.href = "#" + id
+			node.appendChild(a)
+		}
+	}
 })

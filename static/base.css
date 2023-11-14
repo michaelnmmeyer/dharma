@@ -27,6 +27,7 @@ main {
 aside {
 	grid-area: sidebar;
 	background-color: #f2f1f1;
+	padding: 1em;
 	display: none;
 }
 aside.active {
@@ -34,6 +35,7 @@ aside.active {
 }
 aside ul {
 	list-style: none;
+	padding: 0;
 }
 footer {
 	grid-area: footer;
@@ -75,6 +77,16 @@ p {
 h1, h2, h3, h4, h5, h6 {
 	line-height: 1.4em;
 }
+h1:hover > a:before,
+h2:hover > a:before,
+h3:hover > a:before,
+h4:hover > a:before,
+h5:hover > a:before,
+h6:hover > a:before {
+	content: " ¶";
+}
+
+
 .body {
 	/*max-width: 40em;
 	margin: 0 auto;*/
@@ -198,6 +210,9 @@ menu a:hover {
 	}
 	aside {
 		display: block;
+		position: sticky;
+		top: 0;
+		max-height: 100vh;
 	}
 }
 

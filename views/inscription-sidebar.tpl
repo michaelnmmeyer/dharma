@@ -1,3 +1,5 @@
+<h1>Contents</h1>
+
 <nav><ul>
 <li><a href="#metadata">Metadata</a></li>
 <li><a href="#edition">Edition</a></li>
