@@ -1,28 +1,14 @@
-add a side menu for navigating inscriptions. on mobile, make it collapse. the
-toggle button should be on the menu bar, before the hamburger, to save space.
-even on pc, must have a button to hide/show it. also must be possible to
-redimension it.
+Display remainder of teiheader. What needs to be shown?
 
-   Metadata
-   Edition
-   Apparatus?
-   Translation*
-   Commentary?
-   Bibliography?
-   Notes?
-   XML source
+/TEI/teiHeader/fileDesc/publicationStmt
+   ./pubPlace (ignore the rest)
 
-Might want to generate this from the HTML. Spot all titles and make a toc
-accordingly, so that it works for all pages. Do it in JS?
+/TEI/teiHeader/fileDesc/publicationStmt
 
-for the catalog, we'll also need a sidebar.
+/TEI/teiHeader/fileDesc/sourceDesc
 
+--------------------------------------------------------- manu
 
-
-=============================================================
-
-* Display remainder of teiheader
-* Check tags we don't support yet
 * Sort out languages tagging
 * Fix logic in parse.py, use decorators for handlers and see how XSLT
   does things.
@@ -37,6 +23,30 @@ INSTamilNadu00102: look at <l> within the large <lg>; number 5,10,15; avec des
    numéros sur la droite
 
 * fix incorrect verse numbers that should be in Roman in DHARMA_INSCIC00066
+
+* fix https://github.com/erc-dharma/project-documentation/issues/232#issuecomment-1810441994
+  and get the svg image for spirals here https://mail.google.com/mail/u/0/#label/Work/FMfcgzGwHfrfhGpNxJrtMMRcPJHqcKTp
+* color svgs correctly
+
+
+===========================================================
+
+add a side menu for navigating inscriptions. on mobile, make it collapse. the
+toggle button should be on the menu bar, to save space.
+even on pc, must have a button to hide/show it. also must be possible to
+redimension it.
+XXX the menu on the left is not really sticky.
+
+   Metadata
+   Edition
+   Apparatus?
+   Translation*
+   Commentary?
+   Bibliography?
+   Notes?
+   XML source
+
+for the catalog, we'll also need a sidebar.
 
 --------------------------------------------------------
 

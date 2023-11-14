@@ -1305,43 +1305,47 @@ def remove_duplicates(ls):
 			ret.append(x)
 	return ret
 
-def parse_titleStmt(p, stmt):
-	titles = []
-	for t in stmt.find("title"):
-		text = t.text() # XXX not legit
-		if not text:
-			continue
-		titles.append(text)
-	p.push("title")
-	for i, title in enumerate(titles):
-		p.add_text(title)
-		if i < len(titles) - 1:
-			p.add_text(PARA_SEP)
-	p.document.title = p.pop()
-	p.push("author")
-	author = [t.text() for t in stmt.find("author")] # XXX t.text() not legit
-	assert len(author) <= 1, author
-	author = author and author[0] or None
-	p.add_text(author)
-	p.document.author = p.pop()
-	p.push("editors")
-	editors = []
-	for node in stmt.find("editor") + stmt.find("respStmt/persName"):
+def gather_people(stmt, *paths):
+	nodes = [node for path in paths for node in stmt.find(path)]
+	nodes.sort(key=lambda node: node.location.start)
+	ret = []
+	for node in nodes:
 		ident = node["ref"]
-		if ident == "part:jodo":
-			continue
 		if ident and ident.startswith("part:"):
+			if ident == "part:jodo":
+				continue
 			name = people.plain(ident.removeprefix("part:"))
 		else:
 			name = normalize_space(node.text(space="preserve"))
 			if not name:
 				continue
-		editors.append(name)
-	editors = remove_duplicates(editors)
+		ret.append(name)
+	ret = remove_duplicates(ret)
+	return ret
+
+def parse_titleStmt(p, stmt):
+	p.push("title")
+	titles = stmt.find("title")
+	for title in titles:
+		p.start_item()
+		p.dispatch_children(title)
+	p.document.title = p.pop()
+	p.push("author")
+	authors = gather_people(stmt, "author")
+	for author in authors:
+		p.start_item()
+		p.add_text(author)
+	p.document.author = p.pop()
+	p.push("editors")
+	editors = gather_people(stmt, "editor", "principal", "respStmt/persName")
 	for editor in editors:
 		p.start_item()
 		p.add_text(editor)
 	p.document.editors = p.pop()
+
+def parse_publicationStmt(p, stmt):
+	pass
+	# TODO extract the pub place
 
 def parse_roleName(p, node):
 	p.dispatch_children(node)
@@ -1368,6 +1372,9 @@ def parse_sourceDesc(p, desc):
 	p.push("summary")
 	p.dispatch_children(summ)
 	p.document.summary = p.pop()
+
+def parse_facsimile(p, node):
+	pass # for images, will see later on
 
 def parse_fileDesc(p, node):
 	p.dispatch_children(node)

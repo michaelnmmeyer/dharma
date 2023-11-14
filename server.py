@@ -214,14 +214,15 @@ def display_home():
 	return bottle.template("display.tpl", texts=texts)
 
 @bottle.get("/display/<text>")
+@TEXTS_DB.transaction
 def display_text(text):
-	(path,) = TEXTS_DB.execute("""select printf('%s/%s/%s', ?, repo, path) from texts natural join files
+	path, repo = TEXTS_DB.execute("""select printf('%s/%s/%s', ?, repo, path), repo from texts natural join files
 		where name = ?""",
-		(config.REPOS_DIR, text)).fetchone() or (None,)
+		(config.REPOS_DIR, text)).fetchone() or (None, None)
 	if not path:
 		return bottle.abort(404, "Not found")
 	import parse_ins
-	doc = parse_ins.process_file(path)
+	doc = parse_ins.process_file(path, TEXTS_DB)
 	title = doc.title.render_logical()
 	doc.title = title and title.split(parse.PARA_SEP) or []
 	editors = doc.editors.render_logical()

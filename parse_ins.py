@@ -1,7 +1,7 @@
 # For parsing inscriptions.
 
 import copy, sys
-from dharma import tree, parse
+from dharma import tree, parse, config
 
 # Within inscriptions, <div> shouldn't nest, except that we can have
 # <div type="textpart"> within <div type="edition">.
@@ -94,7 +94,7 @@ def update_handlers_map(m):
 HANDLERS = parse.HANDLERS.copy()
 update_handlers_map(HANDLERS)
 
-def process_file(file):
+def process_file(file, db):
 	t = tree.parse(file)
 	f = t.first("//teiHeader/encodingDesc")
 	if f:
@@ -109,6 +109,16 @@ def process_file(file):
 	p.document.tree = t
 	p.dispatch(p.tree.root)
 	p.document.xml = tree.html_format(t.first("//body"))
+	langs = set()
+	for node in t.find("//*"):
+		if not "lang" in node.attrs:
+			continue
+		lang = node["lang"]
+		(code,) = db.execute("select ifnull((select id from langs_by_code where code = ?), 'und')", (lang,)).fetchone()
+		langs.add(code)
+	if not langs:
+		langs.add("und")
+	p.document.langs = sorted(langs)
 	return p.document
 
 if __name__ == "__main__":
