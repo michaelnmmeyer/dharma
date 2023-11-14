@@ -33,6 +33,14 @@ Identifier: <span class="dh-text-id">{{text}}</span>
 % if doc.summary:
 <p>Summary: {{!doc.summary.render_logical()}}</p>
 % end
+% if doc.langs:
+<p>Languages:
+   % for lang in doc.langs[:-1]:
+      {{lang}},
+   % end
+      {{doc.langs[-1]}}.
+</p>
+% end
 
 <div class="dh-ed">
 

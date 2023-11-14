@@ -178,7 +178,7 @@ def search(q, s):
 			printf('https://erc-dharma.github.io/%s/%s', documents.repo, html_path) as html_link
 		from documents
 			join documents_index on documents.name = documents_index.name
-			join texts on documents.name = texts.name
+			natural join texts
 			join json_each(documents.langs)
 			join langs_by_code on langs_by_code.code = json_each.value
 			join langs_list on langs_list.id = langs_by_code.id

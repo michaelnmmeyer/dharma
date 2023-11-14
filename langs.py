@@ -73,7 +73,6 @@ def make_db():
 	for code, rec in sorted(index.items()):
 		db.execute("insert into langs_by_code(code, id) values(?, ?)", (code, rec["id"]))
 	db.execute("commit")
-	db.execute("vacuum")
 
 if __name__ == "__main__":
 	make_db()
