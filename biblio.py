@@ -170,10 +170,10 @@ class Writer:
 	def name_last(self, rec):
 		self.add(rec.get("lastName") or rec.get("name") or anonymous)
 
-	def authors(self, rec):
+	def authors(self, rec, skip_editors=False):
 		authors = []
 		for creator in rec["creators"]:
-			if creator["creatorType"] == "editor":
+			if skip_editors and creator["creatorType"] == "editor":
 				continue
 			authors.append(creator)
 		if not authors:
@@ -690,7 +690,7 @@ def render_report(rec, w, params):
   }
 """
 def render_book_section(rec, w, params):
-	w.authors(rec)
+	w.authors(rec, skip_editors=True)
 	w.date(rec)
 	w.quoted(rec["title"])
 	if rec["bookTitle"]:
