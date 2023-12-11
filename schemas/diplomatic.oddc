@@ -8458,16 +8458,43 @@ Normalization</ref>
       enthält Buchstaben, Wörter oder Phrasen, die in den Ausgangstext von einem Autor, einem Schreiber oder im 
       Rahmen einer zuvor erfolgten Annotation oder Korrektur in den Ausgangstext eingefügt wurden
   </desc><classes><memberOf key="att.global"/><memberOf key="model.pPart.transcriptional"/><memberOf key="model.linePart"/><memberOf key="att.transcriptional"/><memberOf key="att.placement"/><memberOf key="att.typed"/><memberOf key="att.dimensions"/></classes><content><macroRef key="macro.paraContent"/></content><attList><attDef ident="place" mode="change" usage="req">
+                            <datatype>
+                                <dataRef name="string"/>
+                            </datatype>
+                            <defaultVal>unspecified</defaultVal>
                             <valList type="closed" mode="replace">
-                                <valItem ident="inline"/>
-                                <valItem ident="below"/>
-                                <valItem ident="above"/>
-                                <valItem ident="top"/>
-                                <valItem ident="bottom"/>
-                                <valItem ident="left"/>
-                                <valItem ident="right"/>
-                                <valItem ident="overstrike"/>
-                                <valItem ident="unspecified"/>
+                                <valItem ident="inline">
+                                    <desc> addition made within the original text (in textu) </desc>
+                                </valItem>
+                                <valItem ident="below">
+                                    <desc> addition below the line (subscr.) </desc>
+                                </valItem>
+                                <valItem ident="above">
+                                    <desc> addition above the line (suprascr.) </desc>
+                                </valItem>
+                                <valItem ident="top">
+                                    <desc> addition in the top margin (in mg. sup. = in margine
+                                        superiore) </desc>
+                                </valItem>
+                                <valItem ident="bottom">
+                                    <desc> addition in the bottom margin (in mg. inf. = in margine
+                                        inferiore) </desc>
+                                </valItem>
+                                <valItem ident="left">
+                                    <desc> addition in the left margin (in mg. = in margine) </desc>
+                                </valItem>
+                                <valItem ident="right">
+                                    <desc> addition in the right margin (in mg. = in margine)
+                                    </desc>
+                                </valItem>
+                                <valItem ident="overstrike">
+                                    <desc> addition made in the space where a previous string of
+                                        text has been erased (in ras. = in rasura) </desc>
+                                </valItem>
+                                <valItem ident="unspecified">
+                                    <desc> when no information on the place is available
+                                    </desc>
+                                </valItem>
                             </valList>
                         </attDef><attDef ident="ana" mode="delete"/><attDef ident="atLeast" mode="delete"/><attDef ident="atMost" mode="delete"/><attDef ident="cause" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="confidence" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="evidence" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="extent" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="instant" mode="delete"/><attDef ident="max" mode="delete"/><attDef ident="min" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="precision" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="quantity" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="scope" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="seq" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="status" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="type" mode="delete"/><attDef ident="unit" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="rend" mode="change">
                             <valList type="closed" mode="replace">
