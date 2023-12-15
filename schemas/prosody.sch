@@ -3,6 +3,8 @@
                 xmlns:rna="http://relaxng.org/ns/compatibility/annotations/1.0"
                 xmlns:rng="http://relaxng.org/ns/structure/1.0"
                 xmlns:saxon="http://saxon.sf.net/"
+                xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                xmlns:sch1x="http://www.ascc.net/xml/schematron"
                 xmlns:schold="http://www.ascc.net/xml/schematron"
                 xmlns:tei="http://www.tei-c.org/ns/1.0"
                 xmlns:xhtml="http://www.w3.org/1999/xhtml"
@@ -164,6 +166,8 @@
          <svrl:ns-prefix-in-attribute-values uri="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
          <svrl:ns-prefix-in-attribute-values uri="http://relaxng.org/ns/structure/1.0" prefix="rng"/>
          <svrl:ns-prefix-in-attribute-values uri="http://relaxng.org/ns/compatibility/annotations/1.0" prefix="rna"/>
+         <svrl:ns-prefix-in-attribute-values uri="http://purl.oclc.org/dsdl/schematron" prefix="sch"/>
+         <svrl:ns-prefix-in-attribute-values uri="http://www.ascc.net/xml/schematron" prefix="sch1x"/>
          <svrl:active-pattern>
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
@@ -172,7 +176,7 @@
             <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-att.datable.w3c-att-datable-w3c-when-1</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M5"/>
+         <xsl:apply-templates select="/" mode="M7"/>
          <svrl:active-pattern>
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
@@ -181,7 +185,7 @@
             <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-att.datable.w3c-att-datable-w3c-from-2</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M6"/>
+         <xsl:apply-templates select="/" mode="M8"/>
          <svrl:active-pattern>
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
@@ -190,31 +194,13 @@
             <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-att.datable.w3c-att-datable-w3c-to-3</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M7"/>
-         <svrl:active-pattern>
-            <xsl:attribute name="document">
-               <xsl:value-of select="document-uri(/)"/>
-            </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-att.datable-calendar-calendar-4</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-att.datable-calendar-calendar-4</xsl:attribute>
-            <xsl:apply-templates/>
-         </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M8"/>
-         <svrl:active-pattern>
-            <xsl:attribute name="document">
-               <xsl:value-of select="document-uri(/)"/>
-            </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-att.global.source-source-only_1_ODD_source-5</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-att.global.source-source-only_1_ODD_source-5</xsl:attribute>
-            <xsl:apply-templates/>
-         </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M9"/>
          <svrl:active-pattern>
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-att.measurement-att-measurement-unitRef-6</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-att.measurement-att-measurement-unitRef-6</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-att.global.source-source-only_1_ODD_source-4</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-att.global.source-source-only_1_ODD_source-4</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M10"/>
@@ -222,8 +208,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-att.typed-subtypeTyped-7</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-att.typed-subtypeTyped-7</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-att.measurement-att-measurement-unitRef-5</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-att.measurement-att-measurement-unitRef-5</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M11"/>
@@ -231,11 +217,29 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-att.pointing-targetLang-targetLang-8</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-att.pointing-targetLang-targetLang-8</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-att.typed-subtypeTyped-6</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-att.typed-subtypeTyped-6</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M12"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-att.pointing-targetLang-targetLang-7</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-att.pointing-targetLang-targetLang-7</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M13"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-att.calendarSystem-calendar-calendar-8</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-att.calendarSystem-calendar-calendar-8</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M14"/>
          <svrl:active-pattern>
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
@@ -244,7 +248,7 @@
             <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-p-abstractModel-structure-p-in-ab-or-p-9</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M13"/>
+         <xsl:apply-templates select="/" mode="M15"/>
          <svrl:active-pattern>
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
@@ -253,31 +257,13 @@
             <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-p-abstractModel-structure-p-in-l-or-lg-10</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M14"/>
-         <svrl:active-pattern>
-            <xsl:attribute name="document">
-               <xsl:value-of select="document-uri(/)"/>
-            </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-ptr-ptrAtts-11</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-ptr-ptrAtts-11</xsl:attribute>
-            <xsl:apply-templates/>
-         </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M15"/>
-         <svrl:active-pattern>
-            <xsl:attribute name="document">
-               <xsl:value-of select="document-uri(/)"/>
-            </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-list-gloss-list-must-have-labels-12</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-list-gloss-list-must-have-labels-12</xsl:attribute>
-            <xsl:apply-templates/>
-         </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M16"/>
          <svrl:active-pattern>
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-citedRange-note-13</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-citedRange-note-13</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-name-calendar-check-name-11</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-name-calendar-check-name-11</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M17"/>
@@ -285,8 +271,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-bibl-siglum-14</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-bibl-siglum-14</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-ptr-ptrAtts-12</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-ptr-ptrAtts-12</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M18"/>
@@ -294,8 +280,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-l-or-lg-17</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-l-or-lg-17</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-list-gloss-list-must-have-labels-13</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-list-gloss-list-must-have-labels-13</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M19"/>
@@ -303,8 +289,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-ab-or-p-18</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-ab-or-p-18</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-author-calendar-check-author-14</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-author-calendar-check-author-14</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M20"/>
@@ -312,18 +298,191 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-ab-abstractModel-structure-ab-in-l-or-lg-19</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-ab-abstractModel-structure-ab-in-l-or-lg-19</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-resp-calendar-calendar-check-resp-15</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-resp-calendar-calendar-check-resp-15</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M21"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-title-calendar-calendar-check-title-16</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-title-calendar-calendar-check-title-16</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M22"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-citedRange-note-17</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-citedRange-note-17</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M23"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-bibl-siglum-18</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-bibl-siglum-18</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M24"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-funder-calendar-calendar-check-funder-19</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-funder-calendar-calendar-check-funder-19</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M25"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-principal-calendar-calendar-check-principal-20</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-principal-calendar-calendar-check-principal-20</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M26"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-idno-calendar-calendar-check-idno-21</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-idno-calendar-calendar-check-idno-21</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M27"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-licence-calendar-calendar-check-licence-22</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-licence-calendar-calendar-check-licence-22</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M28"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-change-calendar-calendar-check-change-23</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-change-calendar-calendar-check-change-23</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M29"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-l-or-lg-27</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-l-or-lg-27</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M30"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-ab-or-p-28</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-ab-or-p-28</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M31"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-ab-abstractModel-structure-ab-in-l-or-lg-29</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-ab-abstractModel-structure-ab-in-l-or-lg-29</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M32"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-persName-calendar-check-persName-30</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-persName-calendar-check-persName-30</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M33"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-gender-calendar-calendar-check-gender-31</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-gender-calendar-calendar-check-gender-31</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M34"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M35"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M36"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M37"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M38"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M39"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M40"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M41"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M42"/>
       </svrl:schematron-output>
    </xsl:template>
    <!--SCHEMATRON PATTERNS-->
    <svrl:text xmlns:svrl="http://purl.oclc.org/dsdl/svrl">ISO Schematron rules</svrl:text>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.datable.w3c-att-datable-w3c-when-1-->
    <!--RULE -->
-   <xsl:template match="tei:*[@when]" priority="1000" mode="M5">
+   <xsl:template match="tei:*[@when]" priority="1000" mode="M7">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@when]"/>
       <!--REPORT nonfatal-->
       <xsl:if test="@notBefore|@notAfter|@from|@to">
@@ -336,15 +495,15 @@
             <svrl:text>The @when attribute cannot be used with any other att.datable.w3c attributes.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M5"/>
+      <xsl:apply-templates select="*" mode="M7"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M5"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M5">
-      <xsl:apply-templates select="*" mode="M5"/>
+   <xsl:template match="text()" priority="-1" mode="M7"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M7">
+      <xsl:apply-templates select="*" mode="M7"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.datable.w3c-att-datable-w3c-from-2-->
    <!--RULE -->
-   <xsl:template match="tei:*[@from]" priority="1000" mode="M6">
+   <xsl:template match="tei:*[@from]" priority="1000" mode="M8">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@from]"/>
       <!--REPORT nonfatal-->
       <xsl:if test="@notBefore">
@@ -356,15 +515,15 @@
             <svrl:text>The @from and @notBefore attributes cannot be used together.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M6"/>
+      <xsl:apply-templates select="*" mode="M8"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M6"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M6">
-      <xsl:apply-templates select="*" mode="M6"/>
+   <xsl:template match="text()" priority="-1" mode="M8"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M8">
+      <xsl:apply-templates select="*" mode="M8"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.datable.w3c-att-datable-w3c-to-3-->
    <!--RULE -->
-   <xsl:template match="tei:*[@to]" priority="1000" mode="M7">
+   <xsl:template match="tei:*[@to]" priority="1000" mode="M9">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@to]"/>
       <!--REPORT nonfatal-->
       <xsl:if test="@notAfter">
@@ -376,42 +535,15 @@
             <svrl:text>The @to and @notAfter attributes cannot be used together.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M7"/>
+      <xsl:apply-templates select="*" mode="M9"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M7"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M7">
-      <xsl:apply-templates select="*" mode="M7"/>
+   <xsl:template match="text()" priority="-1" mode="M9"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M9">
+      <xsl:apply-templates select="*" mode="M9"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.datable-calendar-calendar-4-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.global.source-source-only_1_ODD_source-4-->
    <!--RULE -->
-   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M8">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="string-length( normalize-space(.) ) gt 0">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text> @calendar indicates one or more
-            systems or calendars to which the date represented by the content of this element belongs,
-            but this <xsl:text/>
-                  <xsl:value-of select="name(.)"/>
-                  <xsl:text/> element has no textual content.</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M8"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M8"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M8">
-      <xsl:apply-templates select="*" mode="M8"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.global.source-source-only_1_ODD_source-5-->
-   <!--RULE -->
-   <xsl:template match="tei:*[@source]" priority="1000" mode="M9">
+   <xsl:template match="tei:*[@source]" priority="1000" mode="M10">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@source]"/>
       <xsl:variable name="srcs" select="tokenize( normalize-space(@source),' ')"/>
       <!--REPORT -->
@@ -432,15 +564,15 @@
             </svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M9"/>
+      <xsl:apply-templates select="*" mode="M10"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M9"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M9">
-      <xsl:apply-templates select="*" mode="M9"/>
+   <xsl:template match="text()" priority="-1" mode="M10"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M10">
+      <xsl:apply-templates select="*" mode="M10"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.measurement-att-measurement-unitRef-6-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.measurement-att-measurement-unitRef-5-->
    <!--RULE -->
-   <xsl:template match="tei:*[@unitRef]" priority="1000" mode="M10">
+   <xsl:template match="tei:*[@unitRef]" priority="1000" mode="M11">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@unitRef]"/>
       <!--REPORT info-->
       <xsl:if test="@unit">
@@ -452,15 +584,15 @@
             <svrl:text>The @unit attribute may be unnecessary when @unitRef is present.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M10"/>
+      <xsl:apply-templates select="*" mode="M11"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M10"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M10">
-      <xsl:apply-templates select="*" mode="M10"/>
+   <xsl:template match="text()" priority="-1" mode="M11"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M11">
+      <xsl:apply-templates select="*" mode="M11"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.typed-subtypeTyped-7-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.typed-subtypeTyped-6-->
    <!--RULE -->
-   <xsl:template match="tei:*[@subtype]" priority="1000" mode="M11">
+   <xsl:template match="tei:*[@subtype]" priority="1000" mode="M12">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@subtype]"/>
       <!--ASSERT -->
       <xsl:choose>
@@ -476,17 +608,17 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M11"/>
+      <xsl:apply-templates select="*" mode="M12"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M11"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M11">
-      <xsl:apply-templates select="*" mode="M11"/>
+   <xsl:template match="text()" priority="-1" mode="M12"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M12">
+      <xsl:apply-templates select="*" mode="M12"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.pointing-targetLang-targetLang-8-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.pointing-targetLang-targetLang-7-->
    <!--RULE -->
    <xsl:template match="tei:*[not(self::tei:schemaSpec)][@targetLang]"
                  priority="1000"
-                 mode="M12">
+                 mode="M13">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:*[not(self::tei:schemaSpec)][@targetLang]"/>
       <!--ASSERT -->
@@ -503,15 +635,42 @@
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M12"/>
+      <xsl:apply-templates select="*" mode="M13"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M12"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M12">
-      <xsl:apply-templates select="*" mode="M12"/>
+   <xsl:template match="text()" priority="-1" mode="M13"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M13">
+      <xsl:apply-templates select="*" mode="M13"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.calendarSystem-calendar-calendar-8-->
+   <!--RULE -->
+   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M14">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="string-length( normalize-space(.) ) gt 0">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text> @calendar indicates one or more
+              systems or calendars to which the date represented by the content of this element belongs,
+              but this <xsl:text/>
+                  <xsl:value-of select="name(.)"/>
+                  <xsl:text/> element has no textual content.</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M14"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M14"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M14">
+      <xsl:apply-templates select="*" mode="M14"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-p-abstractModel-structure-p-in-ab-or-p-9-->
    <!--RULE -->
-   <xsl:template match="tei:p" priority="1000" mode="M13">
+   <xsl:template match="tei:p" priority="1000" mode="M15">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:p"/>
       <!--REPORT -->
       <xsl:if test="(ancestor::tei:ab or ancestor::tei:p) and not( ancestor::tei:floatingText |parent::tei:exemplum |parent::tei:item |parent::tei:note |parent::tei:q |parent::tei:quote |parent::tei:remarks |parent::tei:said |parent::tei:sp |parent::tei:stage |parent::tei:cell |parent::tei:figure )">
@@ -525,15 +684,15 @@
       </svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M13"/>
+      <xsl:apply-templates select="*" mode="M15"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M13"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M13">
-      <xsl:apply-templates select="*" mode="M13"/>
+   <xsl:template match="text()" priority="-1" mode="M15"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M15">
+      <xsl:apply-templates select="*" mode="M15"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-p-abstractModel-structure-p-in-l-or-lg-10-->
    <!--RULE -->
-   <xsl:template match="tei:p" priority="1000" mode="M14">
+   <xsl:template match="tei:p" priority="1000" mode="M16">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:p"/>
       <!--REPORT -->
       <xsl:if test="(ancestor::tei:l or ancestor::tei:lg) and not( ancestor::tei:floatingText |parent::tei:figure |parent::tei:note )">
@@ -547,15 +706,42 @@
       </svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M14"/>
+      <xsl:apply-templates select="*" mode="M16"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M14"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M14">
-      <xsl:apply-templates select="*" mode="M14"/>
+   <xsl:template match="text()" priority="-1" mode="M16"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M16">
+      <xsl:apply-templates select="*" mode="M16"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-ptr-ptrAtts-11-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-name-calendar-check-name-11-->
    <!--RULE -->
-   <xsl:template match="tei:ptr" priority="1000" mode="M15">
+   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M17">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="string-length( normalize-space(.) ) gt 0">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text> @calendar indicates one or more
+                        systems or calendars to which the date represented by the content of this element belongs,
+                        but this <xsl:text/>
+                  <xsl:value-of select="name(.)"/>
+                  <xsl:text/> element has no textual content.</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M17"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M17"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M17">
+      <xsl:apply-templates select="*" mode="M17"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-ptr-ptrAtts-12-->
+   <!--RULE -->
+   <xsl:template match="tei:ptr" priority="1000" mode="M18">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ptr"/>
       <!--REPORT -->
       <xsl:if test="@target and @cRef">
@@ -569,15 +755,15 @@ attributes @target and @cRef may be supplied on <xsl:text/>
                <xsl:text/>.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M15"/>
+      <xsl:apply-templates select="*" mode="M18"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M15"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M15">
-      <xsl:apply-templates select="*" mode="M15"/>
+   <xsl:template match="text()" priority="-1" mode="M18"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M18">
+      <xsl:apply-templates select="*" mode="M18"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-list-gloss-list-must-have-labels-12-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-list-gloss-list-must-have-labels-13-->
    <!--RULE -->
-   <xsl:template match="tei:list[@type='gloss']" priority="1000" mode="M16">
+   <xsl:template match="tei:list[@type='gloss']" priority="1000" mode="M19">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:list[@type='gloss']"/>
       <!--ASSERT -->
@@ -592,15 +778,96 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M16"/>
+      <xsl:apply-templates select="*" mode="M19"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M16"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M16">
-      <xsl:apply-templates select="*" mode="M16"/>
+   <xsl:template match="text()" priority="-1" mode="M19"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M19">
+      <xsl:apply-templates select="*" mode="M19"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-citedRange-note-13-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-author-calendar-check-author-14-->
    <!--RULE -->
-   <xsl:template match="tei:citedRange" priority="1000" mode="M17">
+   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M20">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="string-length( normalize-space(.) ) gt 0">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text> @calendar indicates one or more
+                        systems or calendars to which the date represented by the content of this element belongs,
+                        but this <xsl:text/>
+                  <xsl:value-of select="name(.)"/>
+                  <xsl:text/> element has no textual content.</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M20"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M20"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M20">
+      <xsl:apply-templates select="*" mode="M20"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-resp-calendar-calendar-check-resp-15-->
+   <!--RULE -->
+   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M21">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="string-length( normalize-space(.) ) gt 0">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text> @calendar indicates one or more
+                        systems or calendars to which the date represented by the content of this element belongs,
+                        but this <xsl:text/>
+                  <xsl:value-of select="name(.)"/>
+                  <xsl:text/> element has no textual content.</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M21"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M21"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M21">
+      <xsl:apply-templates select="*" mode="M21"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-title-calendar-calendar-check-title-16-->
+   <!--RULE -->
+   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M22">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="string-length( normalize-space(.) ) gt 0">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text> @calendar indicates one or more
+                        systems or calendars to which the date represented by the content of this element belongs,
+                        but this <xsl:text/>
+                  <xsl:value-of select="name(.)"/>
+                  <xsl:text/> element has no textual content.</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M22"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M22"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M22">
+      <xsl:apply-templates select="*" mode="M22"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-citedRange-note-17-->
+   <!--RULE -->
+   <xsl:template match="tei:citedRange" priority="1000" mode="M23">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:citedRange"/>
       <!--REPORT -->
       <xsl:if test="child::tei:note and ancestor::tei:listBibl">
@@ -614,15 +881,15 @@ attributes @target and @cRef may be supplied on <xsl:text/>
                             element</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M17"/>
+      <xsl:apply-templates select="*" mode="M23"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M17"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M17">
-      <xsl:apply-templates select="*" mode="M17"/>
+   <xsl:template match="text()" priority="-1" mode="M23"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M23">
+      <xsl:apply-templates select="*" mode="M23"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-bibl-siglum-14-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-bibl-siglum-18-->
    <!--RULE -->
-   <xsl:template match="tei:bibl[ancestor::tei:listBibl]" priority="1000" mode="M18">
+   <xsl:template match="tei:bibl[ancestor::tei:listBibl]" priority="1000" mode="M24">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:bibl[ancestor::tei:listBibl]"/>
       <!--REPORT -->
@@ -636,15 +903,150 @@ attributes @target and @cRef may be supplied on <xsl:text/>
                                     element of the bibl</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M18"/>
+      <xsl:apply-templates select="*" mode="M24"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M18"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M18">
-      <xsl:apply-templates select="*" mode="M18"/>
+   <xsl:template match="text()" priority="-1" mode="M24"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M24">
+      <xsl:apply-templates select="*" mode="M24"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-l-or-lg-17-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-funder-calendar-calendar-check-funder-19-->
    <!--RULE -->
-   <xsl:template match="tei:div" priority="1000" mode="M19">
+   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M25">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="string-length( normalize-space(.) ) gt 0">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text> @calendar indicates one or more
+                        systems or calendars to which the date represented by the content of this element belongs,
+                        but this <xsl:text/>
+                  <xsl:value-of select="name(.)"/>
+                  <xsl:text/> element has no textual content.</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M25"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M25"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M25">
+      <xsl:apply-templates select="*" mode="M25"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-principal-calendar-calendar-check-principal-20-->
+   <!--RULE -->
+   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M26">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="string-length( normalize-space(.) ) gt 0">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text> @calendar indicates one or more
+                        systems or calendars to which the date represented by the content of this element belongs,
+                        but this <xsl:text/>
+                  <xsl:value-of select="name(.)"/>
+                  <xsl:text/> element has no textual content.</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M26"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M26"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M26">
+      <xsl:apply-templates select="*" mode="M26"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-idno-calendar-calendar-check-idno-21-->
+   <!--RULE -->
+   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M27">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="string-length( normalize-space(.) ) gt 0">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text> @calendar indicates one or more
+                        systems or calendars to which the date represented by the content of this element belongs,
+                        but this <xsl:text/>
+                  <xsl:value-of select="name(.)"/>
+                  <xsl:text/> element has no textual content.</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M27"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M27"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M27">
+      <xsl:apply-templates select="*" mode="M27"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-licence-calendar-calendar-check-licence-22-->
+   <!--RULE -->
+   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M28">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="string-length( normalize-space(.) ) gt 0">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text> @calendar indicates one or more
+                        systems or calendars to which the date represented by the content of this element belongs,
+                        but this <xsl:text/>
+                  <xsl:value-of select="name(.)"/>
+                  <xsl:text/> element has no textual content.</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M28"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M28"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M28">
+      <xsl:apply-templates select="*" mode="M28"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-change-calendar-calendar-check-change-23-->
+   <!--RULE -->
+   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M29">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="string-length( normalize-space(.) ) gt 0">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text> @calendar indicates one or more
+                        systems or calendars to which the date represented by the content of this element belongs,
+                        but this <xsl:text/>
+                  <xsl:value-of select="name(.)"/>
+                  <xsl:text/> element has no textual content.</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M29"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M29"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M29">
+      <xsl:apply-templates select="*" mode="M29"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-l-or-lg-27-->
+   <!--RULE -->
+   <xsl:template match="tei:div" priority="1000" mode="M30">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
       <!--REPORT -->
       <xsl:if test="(ancestor::tei:l or ancestor::tei:lg) and not(ancestor::tei:floatingText)">
@@ -658,15 +1060,15 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       </svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M19"/>
+      <xsl:apply-templates select="*" mode="M30"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M19"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M19">
-      <xsl:apply-templates select="*" mode="M19"/>
+   <xsl:template match="text()" priority="-1" mode="M30"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M30">
+      <xsl:apply-templates select="*" mode="M30"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-ab-or-p-18-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-ab-or-p-28-->
    <!--RULE -->
-   <xsl:template match="tei:div" priority="1000" mode="M20">
+   <xsl:template match="tei:div" priority="1000" mode="M31">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
       <!--REPORT -->
       <xsl:if test="(ancestor::tei:p or ancestor::tei:ab) and not(ancestor::tei:floatingText)">
@@ -680,15 +1082,15 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       </svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M20"/>
+      <xsl:apply-templates select="*" mode="M31"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M20"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M20">
-      <xsl:apply-templates select="*" mode="M20"/>
+   <xsl:template match="text()" priority="-1" mode="M31"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M31">
+      <xsl:apply-templates select="*" mode="M31"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-ab-abstractModel-structure-ab-in-l-or-lg-19-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-ab-abstractModel-structure-ab-in-l-or-lg-29-->
    <!--RULE -->
-   <xsl:template match="tei:ab" priority="1000" mode="M21">
+   <xsl:template match="tei:ab" priority="1000" mode="M32">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ab"/>
       <!--REPORT -->
       <xsl:if test="(ancestor::tei:l or ancestor::tei:lg) and not( ancestor::tei:floatingText |parent::tei:figure |parent::tei:note )">
@@ -702,10 +1104,232 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       </svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M21"/>
+      <xsl:apply-templates select="*" mode="M32"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M21"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M21">
-      <xsl:apply-templates select="*" mode="M21"/>
+   <xsl:template match="text()" priority="-1" mode="M32"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M32">
+      <xsl:apply-templates select="*" mode="M32"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-persName-calendar-check-persName-30-->
+   <!--RULE -->
+   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M33">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="string-length( normalize-space(.) ) gt 0">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text> @calendar indicates one or more
+                        systems or calendars to which the date represented by the content of this element belongs,
+                        but this <xsl:text/>
+                  <xsl:value-of select="name(.)"/>
+                  <xsl:text/> element has no textual content.</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M33"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M33"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M33">
+      <xsl:apply-templates select="*" mode="M33"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-gender-calendar-calendar-check-gender-31-->
+   <!--RULE -->
+   <xsl:template match="tei:*[@calendar]" priority="1000" mode="M34">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="string-length( normalize-space(.) ) gt 0"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="string-length( normalize-space(.) ) gt 0">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text> @calendar indicates one or more
+                        systems or calendars to which the date represented by the content of this element belongs,
+                        but this <xsl:text/>
+                  <xsl:value-of select="name(.)"/>
+                  <xsl:text/> element has no textual content.</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M34"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M34"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M34">
+      <xsl:apply-templates select="*" mode="M34"/>
+   </xsl:template>
+   <!--PATTERN -->
+   <!--RULE -->
+   <xsl:template match="tei:resp" priority="1000" mode="M35">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:resp"/>
+      <!--REPORT nonfatal-->
+      <xsl:if test="@calendar">
+         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@calendar">
+            <xsl:attribute name="role">nonfatal</xsl:attribute>
+            <xsl:attribute name="location">
+               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+            </xsl:attribute>
+            <svrl:text>WARNING: use of deprecated attribute — @calendar of the resp element will be removed from the TEI on 2024-11-11.
+                </svrl:text>
+         </svrl:successful-report>
+      </xsl:if>
+      <xsl:apply-templates select="*" mode="M35"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M35"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M35">
+      <xsl:apply-templates select="*" mode="M35"/>
+   </xsl:template>
+   <!--PATTERN -->
+   <!--RULE -->
+   <xsl:template match="tei:title" priority="1000" mode="M36">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:title"/>
+      <!--REPORT nonfatal-->
+      <xsl:if test="@calendar">
+         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@calendar">
+            <xsl:attribute name="role">nonfatal</xsl:attribute>
+            <xsl:attribute name="location">
+               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+            </xsl:attribute>
+            <svrl:text>WARNING: use of deprecated attribute — @calendar of the title element will be removed from the TEI on 2024-11-11.
+                </svrl:text>
+         </svrl:successful-report>
+      </xsl:if>
+      <xsl:apply-templates select="*" mode="M36"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M36"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M36">
+      <xsl:apply-templates select="*" mode="M36"/>
+   </xsl:template>
+   <!--PATTERN -->
+   <!--RULE -->
+   <xsl:template match="tei:funder" priority="1000" mode="M37">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:funder"/>
+      <!--REPORT nonfatal-->
+      <xsl:if test="@calendar">
+         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@calendar">
+            <xsl:attribute name="role">nonfatal</xsl:attribute>
+            <xsl:attribute name="location">
+               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+            </xsl:attribute>
+            <svrl:text>WARNING: use of deprecated attribute — @calendar of the funder element will be removed from the TEI on 2024-11-11.
+                </svrl:text>
+         </svrl:successful-report>
+      </xsl:if>
+      <xsl:apply-templates select="*" mode="M37"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M37"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M37">
+      <xsl:apply-templates select="*" mode="M37"/>
+   </xsl:template>
+   <!--PATTERN -->
+   <!--RULE -->
+   <xsl:template match="tei:principal" priority="1000" mode="M38">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:principal"/>
+      <!--REPORT nonfatal-->
+      <xsl:if test="@calendar">
+         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@calendar">
+            <xsl:attribute name="role">nonfatal</xsl:attribute>
+            <xsl:attribute name="location">
+               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+            </xsl:attribute>
+            <svrl:text>WARNING: use of deprecated attribute — @calendar of the principal element will be removed from the TEI on 2024-11-11.
+                </svrl:text>
+         </svrl:successful-report>
+      </xsl:if>
+      <xsl:apply-templates select="*" mode="M38"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M38"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M38">
+      <xsl:apply-templates select="*" mode="M38"/>
+   </xsl:template>
+   <!--PATTERN -->
+   <!--RULE -->
+   <xsl:template match="tei:idno" priority="1000" mode="M39">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:idno"/>
+      <!--REPORT nonfatal-->
+      <xsl:if test="@calendar">
+         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@calendar">
+            <xsl:attribute name="role">nonfatal</xsl:attribute>
+            <xsl:attribute name="location">
+               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+            </xsl:attribute>
+            <svrl:text>WARNING: use of deprecated attribute — @calendar of the idno element will be removed from the TEI on 2024-11-11.
+                </svrl:text>
+         </svrl:successful-report>
+      </xsl:if>
+      <xsl:apply-templates select="*" mode="M39"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M39"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M39">
+      <xsl:apply-templates select="*" mode="M39"/>
+   </xsl:template>
+   <!--PATTERN -->
+   <!--RULE -->
+   <xsl:template match="tei:licence" priority="1000" mode="M40">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:licence"/>
+      <!--REPORT nonfatal-->
+      <xsl:if test="@calendar">
+         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@calendar">
+            <xsl:attribute name="role">nonfatal</xsl:attribute>
+            <xsl:attribute name="location">
+               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+            </xsl:attribute>
+            <svrl:text>WARNING: use of deprecated attribute — @calendar of the licence element will be removed from the TEI on 2024-11-11.
+                </svrl:text>
+         </svrl:successful-report>
+      </xsl:if>
+      <xsl:apply-templates select="*" mode="M40"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M40"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M40">
+      <xsl:apply-templates select="*" mode="M40"/>
+   </xsl:template>
+   <!--PATTERN -->
+   <!--RULE -->
+   <xsl:template match="tei:change" priority="1000" mode="M41">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:change"/>
+      <!--REPORT nonfatal-->
+      <xsl:if test="@calendar">
+         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@calendar">
+            <xsl:attribute name="role">nonfatal</xsl:attribute>
+            <xsl:attribute name="location">
+               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+            </xsl:attribute>
+            <svrl:text>WARNING: use of deprecated attribute — @calendar of the change element will be removed from the TEI on 2024-11-11.
+                </svrl:text>
+         </svrl:successful-report>
+      </xsl:if>
+      <xsl:apply-templates select="*" mode="M41"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M41"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M41">
+      <xsl:apply-templates select="*" mode="M41"/>
+   </xsl:template>
+   <!--PATTERN -->
+   <!--RULE -->
+   <xsl:template match="tei:gender" priority="1000" mode="M42">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:gender"/>
+      <!--REPORT nonfatal-->
+      <xsl:if test="@calendar">
+         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@calendar">
+            <xsl:attribute name="role">nonfatal</xsl:attribute>
+            <xsl:attribute name="location">
+               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+            </xsl:attribute>
+            <svrl:text>WARNING: use of deprecated attribute — @calendar of the gender element will be removed from the TEI on 2024-11-11.
+                </svrl:text>
+         </svrl:successful-report>
+      </xsl:if>
+      <xsl:apply-templates select="*" mode="M42"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M42"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M42">
+      <xsl:apply-templates select="*" mode="M42"/>
    </xsl:template>
 </xsl:stylesheet>

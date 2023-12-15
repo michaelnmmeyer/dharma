@@ -1,6 +1,6 @@
 # For parsing inscriptions.
 
-import copy, sys
+import os, copy, sys
 from dharma import tree, parse, config
 
 # Within inscriptions, <div> shouldn't nest, except that we can have
@@ -122,11 +122,47 @@ def process_file(file, db=None):
 		p.document.langs = sorted(langs)
 	return p.document
 
+def export_arlo_plain_numbered(files):
+	renderer = parse.PlainRenderer(strip_physical=False, arlo_normalize=True)
+	out_dir = os.path.join(config.THIS_DIR, "plain", "plain_numbered")
+	os.makedirs(out_dir, exist_ok=True)
+	for file in files:
+		ret = renderer.render(file)
+		out_file = os.path.join(out_dir, file.ident + ".txt")
+		with open(out_file, "w") as f:
+			f.write(ret)
+
+def export_arlo_plain_raw(files):
+	renderer = parse.PlainRenderer(strip_physical=True, arlo_normalize=True)
+	out_dir = os.path.join(config.THIS_DIR, "plain", "plain_raw")
+	os.makedirs(out_dir, exist_ok=True)
+	for file in files:
+		ret = renderer.render(file)
+		out_file = os.path.join(out_dir, file.ident + ".txt")
+		with open(out_file, "w") as f:
+			f.write(ret)
+
+def export_arlo():
+	db = config.open_db("texts")
+	files = []
+	for (name,) in db.execute("""
+		select name from documents, json_each(documents.langs)
+		where json_each.value = 'kaw' and name glob 'DHARMA_INS*'
+		"""):
+		path = os.path.join(config.THIS_DIR, "texts", name + ".xml")
+		print(path)
+		file = process_file(path)
+		files.append(file)
+	export_arlo_plain_numbered(files)
+	export_arlo_plain_raw(files)
+
 if __name__ == "__main__":
 	try:
-		doc = process_file(sys.argv[1])
-		for t, data, params in doc.edition.code:
-			parse.write_debug(t, data, **params)
-		print(doc.edition.render_outline())
+		#doc = process_file(sys.argv[1])
+		#for t, data, params in doc.edition.code:
+		#	parse.write_debug(t, data, **params)
+		#ret = parse.PlainRenderer().render(doc)
+		#sys.stdout.write(ret)
+		export_arlo()
 	except (KeyboardInterrupt, BrokenPipeError):
 		pass

@@ -106,8 +106,8 @@ class Block:
 		data = re.sub(r"\s+", " ", data)
 		return self.add_code("text", data)
 
-	def add_html(self, data):
-		return self.add_code("html", data)
+	def add_html(self, data, **params):
+		return self.add_code("html", data, **params)
 
 	def close_line(self, brk):
 		i = len(self.code)
@@ -171,56 +171,6 @@ class Block:
 		self.close_line(True)
 		self.finished = True
 
-	def render_common(self, buf, t, data, params):
-		if t == "text":
-			# TODO be more accurate, only need to hyphenate Indic
-			# languages
-			if self.name == "edition":
-				data = unicode.hyphenate(data)
-			text = html.escape(data)
-			buf.append(text)
-		elif t == "html":
-			buf.append(data)
-		elif t == "span":
-			if data == "<":
-				klasses = " ".join(params["klass"])
-				tip = " | ".join(params["tip"])
-				buf.append('<span class="%s" data-tip="%s">' % (html.escape(klasses), html.escape(tip)))
-			elif data == ">":
-				buf.append('</span>')
-			else:
-				assert 0, data
-		elif t == "bib":
-			ret = biblio.get_entry(data, **params)
-			buf.append(ret)
-		elif t == "ref":
-			ret = biblio.get_ref(data, **params)
-			buf.append(ret)
-		else:
-			assert 0, t
-
-	def render_plain(self):
-		assert self.finished
-		buf = []
-		for t, data, params in self.code:
-			if t == "log":
-				if data == "<head":
-					buf.append("\n\n")
-				elif data == ">head":
-					buf.append("\n\n")
-				elif data == ">para":
-					buf.append("\n\n")
-			elif t == "text":
-				buf.append(data)
-			elif t == "phys":
-				if data == "<line":
-					buf.append('(%s)' % params["n"])
-					if params["brk"]:
-						buf.append(" ")
-				elif data == "=page":
-					buf.append('(p. %s)' % params["n"])
-		return "".join(buf)
-
 	def render_outline(self):
 		assert self.finished
 		buf = []
@@ -255,6 +205,34 @@ class Block:
 			in_level -= 1
 		return "".join(buf)
 
+	def render_common(self, buf, t, data, params):
+		if t == "text":
+			# TODO be more accurate, only need to hyphenate Indic
+			# languages
+			if self.name == "edition":
+				data = unicode.hyphenate(data)
+			text = html.escape(data)
+			buf.append(text)
+		elif t == "html":
+			buf.append(data)
+		elif t == "span":
+			if data == "<":
+				klasses = " ".join(params["klass"])
+				tip = " | ".join(params["tip"])
+				buf.append('<span class="%s" data-tip="%s">' % (html.escape(klasses), html.escape(tip)))
+			elif data == ">":
+				buf.append('</span>')
+			else:
+				assert 0, data
+		elif t == "bib":
+			ret = biblio.get_entry(data, **params)
+			buf.append(ret)
+		elif t == "ref":
+			ret = biblio.get_ref(data, **params)
+			buf.append(ret)
+		else:
+			assert 0, t
+
 	def render_logical(self):
 		assert self.finished
 		buf = []
@@ -277,10 +255,6 @@ class Block:
 						buf.append("<p>")
 				elif data == ">para" or data == ">line":
 					buf.append("</p>")
-				elif data == "<verse":
-					buf.append('<div class="dh-verse">')
-				elif data == ">verse":
-					buf.append('</div>')
 				elif data == "<list":
 					typ = params["type"]
 					if typ == "plain":
@@ -433,6 +407,197 @@ class Document:
 		self.gaiji = set()
 		self.notes = []
 
+
+class PlainRenderer:
+
+	def __init__(self, strip_physical=True, arlo_normalize=False):
+		self.strip_physical = strip_physical
+		self.arlo_normalize = arlo_normalize
+
+	def reset(self, buf=""):
+		self.buf = buf
+		self.indent = 0
+		self.list = []
+
+	def add(self, data):
+		if len(self.buf) == 0 or self.buf[-1] == "\n":
+			data = data.lstrip(" ")
+		if self.buf and self.buf[-1] == " ":
+			data = data.lstrip(" ")
+		if not data:
+			return
+		if data.strip() and self.buf and self.buf[-1] == "\n":
+			self.buf += self.indent * "\t"
+		self.buf += data
+
+	def kawi_normalize(self, text):
+		text = text.replace("ḥ", "h")
+		text = text.replace("ṁ", "ṅ")
+		text = text.replace("·", "")
+		text = text.replace("R\N{combining ring below}", "rə")
+		text = text.replace("L\N{combining ring below}", "lə")
+		text = text.casefold()
+		return text
+
+	def render(self, doc):
+		self.reset()
+		if doc.title:
+			buf = self.buf
+			self.reset()
+			self.render_block(doc.title)
+			titles = "".join(self.buf).split(PARA_SEP)
+			self.reset(buf)
+			for title in titles:
+				self.add(title + "\n")
+		else:
+			self.add("Untitled\n")
+		if doc.editors:
+			buf = self.buf
+			self.reset()
+			self.render_block(doc.editors)
+			editors = "".join(self.buf).split(PARA_SEP)
+			self.reset(buf)
+			if len(editors) > 0:
+				self.add("Ed. by %s" % editors[0])
+				for editor in editors[1:-1]:
+					self.add(", %s" % editor)
+				if len(editors) > 1:
+					self.add(" and %s" % editors[-1])
+			self.add("\n")
+		self.add("---\n\n")
+		buf = unicodedata.normalize("NFC", self.buf)
+		self.reset()
+		self.render_block(doc.edition)
+		text = unicodedata.normalize("NFC", "".join(self.buf).rstrip() + "\n")
+		self.reset(buf)
+		if self.arlo_normalize:
+			text = self.kawi_normalize(text)
+		self.add(text)
+		return re.sub(r"\n{2,}", "\n\n", self.buf)
+
+	def render_instr(self, t, data, params):
+		if t == "log":
+			if data == "<div":
+				pass
+			elif data == ">div":
+				pass
+			elif data == "<head":
+				self.add("\n\n")
+				level = params.get("level", 3) - 2
+				self.add(level * "#" + " ")
+			elif data == ">head":
+				self.add("\n\n")
+			elif data == "<para":
+				pass
+			elif data == ">para":
+				self.add("\n\n")
+			elif data == "<line":
+				self.add("\t")
+			elif data == ">line":
+				self.add("\n")
+			elif data == "<verse":
+				pass
+			elif data == ">verse":
+				self.add("\n\n")
+			elif data == "<list":
+				typ = params["type"]
+				if typ == "plain":
+					self.list.append("plain")
+				elif typ == "bulleted":
+					self.list.append("bulleted")
+				elif typ == "numbered":
+					self.list.append(0)
+				elif typ == "description":
+					self.list.append("description")
+				else:
+					assert 0
+				self.indent += 1
+			elif data == ">list":
+				typ = params["type"]
+				if typ == "plain":
+					pass
+				elif typ == "bulleted":
+					pass
+				elif typ == "numbered":
+					pass
+				elif typ == "description":
+					pass
+				else:
+					assert 0
+				self.list.pop()
+				self.indent -= 1
+			elif data == "<item":
+				if self.list[-1] == "plain":
+					pass
+				elif self.list[-1] == "bulleted":
+					self.add("• ")
+				elif self.list[-1] == "description":
+					assert 0
+				else:
+					assert isinstance(self.list[-1], int)
+					n = self.list[-1]
+					self.add("%d. " % n)
+			elif data == ">item":
+				self.add("\n")
+			elif data == "<key":
+				pass
+			elif data == ">key":
+				self.add(". ")
+			elif data == "<value":
+				pass
+			elif data == ">value":
+				self.add("\n")
+			elif data == "=note":
+				pass
+			elif data == "<blockquote":
+				self.indent += 1
+			elif data == ">blockquote":
+				self.indent -= 1
+				self.add("\n\n")
+			else:
+				assert 0, data
+		elif t == "text":
+			self.add(data)
+		elif t == "phys":
+			if self.strip_physical:
+				return
+			if data == "<line":
+				self.add('(%s)' % params["n"])
+				if params["brk"]:
+					self.add(" ")
+			elif data == ">line":
+				pass
+			elif data == "=page":
+				self.add('(Page %s)' % params["n"])
+			elif data.startswith("=") and params["type"] == "pagelike":
+				unit = data[1:].title()
+				n = params["n"]
+				self.add(f'({unit} {n})')
+			elif data.startswith("=") and params["type"] == "gridlike":
+				unit = data[1:].title()
+				n = params["n"]
+				self.add(f'({unit} {n})')
+			else:
+				assert 0, data
+		elif t == "html":
+			if params.get("preserve_in_plain"):
+				self.add(html.unescape(data))
+		elif t == "span":
+			pass
+		elif t == "bib":
+			ret = biblio.get_entry(data, **params)
+			self.add(ret)
+		elif t == "ref":
+			ret = biblio.get_ref(data, **params)
+			self.add(ret)
+		else:
+			assert 0, t
+
+	def render_block(self, block):
+		# Special elements: sic/corr, orig/reg; only keep corr and reg.
+		for t, data, params in block.code:
+			self.render_instr(t, data, params)
+
 class Parser:
 
 	tree = None
@@ -486,8 +651,8 @@ class Parser:
 	def add_text(self, text):
 		return self.blocks[-1].add_text(text)
 
-	def add_html(self, data):
-		return self.blocks[-1].add_html(data)
+	def add_html(self, data, **params):
+		return self.blocks[-1].add_html(data, **params)
 
 	def add_phys(self, data, **params):
 		return self.blocks[-1].add_phys(data, **params)
@@ -790,11 +955,21 @@ def parse_pb(p, elem):
 
 # <editorial
 
+def text_to_html(p, mark):
+	block = p.top
+	while mark < len(block.code):
+		t, data, params = block.code[mark]
+		if t == "text":
+			block.code[mark] = ("html", html.escape(data), params)
+		mark += 1
+
 # OK
 def parse_sic(p, sic):
 	p.start_span(klass="dh-sic", tip="Incorrect text")
 	p.add_html("¿")
+	mark = len(p.top.code)
 	p.dispatch_children(sic)
+	text_to_html(p, mark)
 	p.add_html("?")
 	p.end_span()
 
@@ -810,7 +985,9 @@ def parse_corr(p, corr):
 def parse_orig(p, orig):
 	p.start_span(klass="dh-orig", tip="Non-standard text")
 	p.add_html("¡")
+	mark = len(p.top.code)
 	p.dispatch_children(orig)
+	text_to_html(p, mark)
 	p.add_html("!")
 	p.end_span()
 
@@ -832,11 +1009,14 @@ def parse_choice(p, node):
 		# In this case for search just keep the text of the 1st unclear.
 		p.start_span(klass="dh-choice-unclear", tip="Unclear (several possible readings)")
 		p.add_html("(")
-		sep = ""
+		mark = -1
 		for child in children:
-			p.add_html(sep)
-			sep = "/"
+			if mark >= 0:
+				p.add_html("/")
 			p.dispatch_children(child)
+			if mark < 0:
+				mark = len(p.top.code)
+		text_to_html(p, mark)
 		p.add_html(")")
 		p.end_span()
 	else:
@@ -964,7 +1144,7 @@ def parse_seg(p, seg):
 		p.start_span(klass="dh-pun", tip="Pun (<i>ślesa</i>)")
 		p.add_html("{")
 	if "check" in rend:
-		p.start_span(klass="dh-check")
+		p.start_span(klass="dh-check", tip="To check")
 	if seg["cert"] == "low":
 		p.start_span(klass="dh-check-uncertain", tip="Uncertain segment")
 		p.add_html("¿")
@@ -1015,7 +1195,7 @@ def parse_gap(p, gap):
 	extent = gap["extent"] or "unknown"
 	unit = gap["unit"] or "character"
 	if reason == "ellipsis":
-		p.add_html("\N{horizontal ellipsis}")
+		p.add_html("\N{horizontal ellipsis}", preserve_in_plain=True)
 		return
 	if reason == "undefined":
 		reason = "lost or illegible"
@@ -1053,7 +1233,7 @@ def parse_gap(p, gap):
 			met = prosody.render_pattern(met)
 		repl = "[%s]" % met
 	p.start_span(klass="dh-gap", tip=tip)
-	p.add_html(html.escape(repl))
+	p.add_html(html.escape(repl), preserve_in_plain=True)
 	p.end_span()
 	# TODO restart [ca.10x – – – ⏑ – – abc] in editorial
 	# <seg met="+++-++">
@@ -1081,10 +1261,11 @@ def parse_g(p, node):
 	tip = titlecase(info["description"])
 	tip = "%s (category: %s)" % (tip, cat)
 	p.start_span(klass="dh-symbol", tip=tip)
-	if info["img"] and not info["prefer_text"]:
-		p.add_html('<img alt="%s" class="dh-svg" src="%s"/>' % (info["name"], info["img"]))
-	else:
-		p.add_html(info["text"])
+	#if info["img"] and not info["prefer_text"]:
+	#	p.add_html('<img alt="%s" class="dh-svg" src="%s"/>' % (info["name"], info["img"]))
+	#else:
+	#	p.add_html(info["text"])
+	p.add_text(info["text"])
 	p.end_span()
 
 # OK
@@ -1119,7 +1300,7 @@ def parse_p(p, para):
 		if n.isdigit():
 			n = to_roman(int(n))
 		p.add_log("<head", level=6)
-		p.add_html("%s." % n)
+		p.add_html("%s." % n, preserve_in_plain=True)
 		p.add_log(">head", level=6)
 		p.add_log("<para", rend="verse")
 	else:
@@ -1187,7 +1368,7 @@ def parse_lg(p, lg):
 		n = to_roman(int(n))
 	met = titlecase(lg["met"] or "unknown meter")
 	p.add_log("<head", level=6)
-	p.add_html("%s. %s" % (n, met))
+	p.add_html("%s. %s" % (n, met), preserve_in_plain=True)
 	p.add_log(">head", level=6)
 	p.add_log("<verse")
 	p.dispatch_children(lg)
