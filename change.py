@@ -299,6 +299,14 @@ def main():
 		except Exception as e:
 			logging.error(e)
 			traceback.print_exception(e)
+			# Don't immediately retry to avoid a busy loop. Might
+			# want to distinguish network errors from programming
+			# errors, etc.; in the first case, we could retry
+			# sooner.
+			global NEXT_FULL_UPDATE
+			now = time.time()
+			if NEXT_FULL_UPDATE - now < 0:
+				NEXT_FULL_UPDATE += FORCE_UPDATE_DELTA
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
