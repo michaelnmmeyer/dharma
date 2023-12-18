@@ -95,6 +95,7 @@ class Validator:
 		# Can pass source_file=str or xdm_node=PyXdmNode
 		# Get a PyXdmNode with: document = proc.parse_xml(xml_text="<doc>...</doc>")
 		ret = self.sch_script.transform_to_string(source_file=file)
+		assert ret is not None # XXX fix (and don't retry forever in change.py)
 		rep = tree.parse_string(ret)
 		return rep.find("//successful-report")
 

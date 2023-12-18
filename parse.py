@@ -433,10 +433,25 @@ class PlainRenderer:
 	def kawi_normalize(self, text):
 		text = text.replace("ḥ", "h")
 		text = text.replace("ṁ", "ṅ")
+		text = text.replace("⌈", "")
+		text = text.replace("⌉", "")
+		text = text.replace("ə:", "ə̄")
+		text = text.replace("Ə:", "Ə̄")
 		text = text.replace("·", "")
+		text = text.replace("=", "")
 		text = text.replace("R\N{combining ring below}", "rə")
 		text = text.replace("L\N{combining ring below}", "lə")
 		text = text.casefold()
+		for vowel in "aiu":
+			# Ă, ă, ĭ, etc. -> ā, ā, ī, etc.
+			orig = unicodedata.normalize("NFC", vowel + "\N{combining breve}")
+			repl = unicodedata.normalize("NFC", vowel + "\N{combining macron}")
+			text = text.replace(orig, repl)
+		for vowel in "ṛṝḷḹ":
+			repl = unicodedata.normalize("NFD", vowel)
+			repl = repl.replace("\N{combining dot below}", "\N{combining ring below}")
+			repl = unicodedata.normalize("NFC", repl)
+			text = text.replace(vowel, repl)
 		return text
 
 	def render(self, doc):
@@ -559,21 +574,27 @@ class PlainRenderer:
 		elif t == "text":
 			self.add(data)
 		elif t == "phys":
-			if self.strip_physical:
-				return
 			if data == "<line":
+				if self.strip_physical and not params["brk"]:
+					return
 				self.add('(%s)' % params["n"])
 				if params["brk"]:
 					self.add(" ")
 			elif data == ">line":
 				pass
 			elif data == "=page":
+				if self.strip_physical and not params["brk"]:
+					return
 				self.add('(Page %s)' % params["n"])
 			elif data.startswith("=") and params["type"] == "pagelike":
+				if self.strip_physical:
+					return
 				unit = data[1:].title()
 				n = params["n"]
 				self.add(f'({unit} {n})')
 			elif data.startswith("=") and params["type"] == "gridlike":
+				if self.strip_physical:
+					return
 				unit = data[1:].title()
 				n = params["n"]
 				self.add(f'({unit} {n})')

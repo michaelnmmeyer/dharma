@@ -33,6 +33,14 @@ list-texts:
 	@sqlite3 dbs/texts.sqlite "select printf('repos/%s/%s', repo, path) \
 		from texts natural join files order by name"
 
+ARLO_PLAIN=repos/jawakuno/texts/txt/prasasti/DHARMA_export
+arlo-plain:
+	python3 parse_ins.py && \
+		rm -rf $(ARLO_PLAIN) && \
+		mv plain $(ARLO_PLAIN) && \
+		git -C repos/jawakuno commit -am "Update DHARMA inscriptions" && \
+		git -C repos/jawakuno push
+
 # Ussage: make forever cmd="echo hello"
 cmd := $(MAKE) -j3
 forever:

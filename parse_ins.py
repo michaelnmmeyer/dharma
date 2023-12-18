@@ -128,7 +128,7 @@ def export_arlo_plain_numbered(files):
 	os.makedirs(out_dir, exist_ok=True)
 	for file in files:
 		ret = renderer.render(file)
-		out_file = os.path.join(out_dir, file.ident + ".txt")
+		out_file = os.path.join(out_dir, file.ident + "_numbered.txt")
 		with open(out_file, "w") as f:
 			f.write(ret)
 
@@ -138,7 +138,7 @@ def export_arlo_plain_raw(files):
 	os.makedirs(out_dir, exist_ok=True)
 	for file in files:
 		ret = renderer.render(file)
-		out_file = os.path.join(out_dir, file.ident + ".txt")
+		out_file = os.path.join(out_dir, file.ident + "_raw.txt")
 		with open(out_file, "w") as f:
 			f.write(ret)
 
