@@ -124,7 +124,7 @@ class Validator:
 	def uni_errors(self, file):
 		with open(file) as f:
 			text = f.read()
-		return len(unicode.validate(text)) > 0
+		return unicode.validate(text)
 
 	def uni(self, file, val, xml):
 		ret = self.uni_errors(file)
