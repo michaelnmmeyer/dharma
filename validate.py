@@ -92,10 +92,17 @@ class Validator:
 			val.messages.append(m)
 
 	def sch_error_nodes(self, file):
-		# Can pass source_file=str or xdm_node=PyXdmNode
-		# Get a PyXdmNode with: document = proc.parse_xml(xml_text="<doc>...</doc>")
-		ret = self.sch_script.transform_to_string(source_file=file)
-		assert ret is not None # XXX fix (and don't retry forever in change.py)
+		# PyXslt30Processor.transform_to_string(source_file=path) is
+		# buggy. When the filename contains space characters, it
+		# returns None. So we read the file manually and use
+		# transform_to_string(xdm_node=doc) instead, which does work.
+		with open(file) as f:
+			text = f.read()
+		if text.startswith("\N{BOM}"):
+			text = text[1:]
+		doc = self.saxon_proc.parse_xml(xml_text=text)
+		ret = self.sch_script.transform_to_string(xdm_node=doc)
+		assert ret is not None, file
 		rep = tree.parse_string(ret)
 		return rep.find("//successful-report")
 
