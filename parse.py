@@ -387,7 +387,11 @@ class Document:
 	tree = None # tree.Tree
 
 	repository = ""
+	commit_hash = ""
+	commit_date = ""
+	
 	ident = ""
+	
 	title = None
 	author = None
 	editors = None

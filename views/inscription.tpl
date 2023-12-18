@@ -33,6 +33,7 @@ Identifier: <span class="dh-text-id">{{text}}</span>
 % if doc.summary:
 <p>Summary: {{!doc.summary.render_logical()}}</p>
 % end
+
 % if doc.langs:
 <p>Languages:
    % for lang in doc.langs[:-1]:
@@ -41,6 +42,12 @@ Identifier: <span class="dh-text-id">{{text}}</span>
       {{doc.langs[-1]}}.
 </p>
 % end
+
+<p>Repository: <span class="dh-text-id">{{doc.repository}}</span></p>
+
+<p>
+Version: <a href="{{github_url}}">{{doc.commit_date}} ({{doc.commit_hash[:7]}})</a>
+</p>
 
 <div class="dh-ed">
 

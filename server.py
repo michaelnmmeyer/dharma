@@ -216,19 +216,25 @@ def display_home():
 @bottle.get("/display/<text>")
 @TEXTS_DB.transaction
 def display_text(text):
-	path, repo = TEXTS_DB.execute("""select printf('%s/%s/%s', ?, repo, path), repo from texts natural join files
+	path, repo, commit_hash, commit_date, github_url = TEXTS_DB.execute("""
+		select printf('%s/%s/%s', ?, repo, path), repo, commit_hash, format_date(commit_date),
+		printf('https://github.com/erc-dharma/%s/blob/%s/%s', repo, commit_hash, path)
+		from texts natural join files natural join commits
 		where name = ?""",
 		(config.REPOS_DIR, text)).fetchone() or (None, None)
 	if not path:
 		return bottle.abort(404, "Not found")
 	import parse_ins
 	doc = parse_ins.process_file(path, TEXTS_DB)
+	doc.repository = repo
+	doc.commit_hash, doc.commit_date = commit_hash, commit_date
 	title = doc.title.render_logical()
 	doc.title = title and title.split(parse.PARA_SEP) or []
 	editors = doc.editors.render_logical()
 	doc.editors = editors and editors.split(parse.PARA_SEP)
 	sidebar = bottle.template("inscription-sidebar.tpl", doc=doc, text=text, numberize=parse.numberize)
-	return bottle.template("inscription.tpl", doc=doc, text=text, numberize=parse.numberize, sidebar=sidebar)
+	return bottle.template("inscription.tpl", doc=doc, github_url=github_url,
+		text=text, numberize=parse.numberize, sidebar=sidebar)
 
 @bottle.get("/test")
 def test():
