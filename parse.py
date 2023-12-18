@@ -279,6 +279,10 @@ class Block:
 						buf.append('</dl>')
 					else:
 						assert 0
+				elif data == "<verse":
+					buf.append('<div class="dh-verse">')
+				elif data == ">verse":
+					buf.append('</div>')
 				elif data == "<item":
 					buf.append('<li>')
 				elif data == ">item":
