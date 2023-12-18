@@ -268,6 +268,8 @@ def handle_github():
 	doc = json.dumps(js, ensure_ascii=False, separators=(",", ":"))
 	GIT_DB.execute("insert into logs values(strftime('%s', 'now'), ?)", (doc,))
 	repo = js["repository"]["name"]
+	if not js.get("commits"):
+		return
 	# XXX remove special case
 	if repo != "tfd-nusantara-philology" and all(is_robot(commit["author"]["email"]) for commit in js["commits"]):
 		return
