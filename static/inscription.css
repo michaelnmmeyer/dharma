@@ -52,8 +52,27 @@ p.dh-bib-entry {
 	font-family: monospace;
 	font-size: larger;
 }
+
+
+/* Lists examples in
+http://localhost:8023/display/DHARMA_INSIDENKAlasantan#translation-1
+*/
 .dh-list-plain {
 	list-style: none;
+}
+.dh-list {
+	padding-left: 2.4em;
+}
+dl.dh-list {
+	display:grid;
+	grid-template-columns: max-content auto;
+}
+dl.dh-list > dt {
+	grid-column-start: 1;
+}
+
+dl.dh-list > dd {
+	grid-column-start: 2;
 }
 
 @keyframes flash {
@@ -71,6 +90,10 @@ p.dh-bib-entry {
 abbr {
 	text-decoration-line: underline;
 	text-decoration-style: dotted;
+}
+
+dt {
+	font-weight: bolder;
 }
 
 .dh-flash {

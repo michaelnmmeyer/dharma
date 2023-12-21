@@ -258,13 +258,13 @@ class Block:
 				elif data == "<list":
 					typ = params["type"]
 					if typ == "plain":
-						buf.append('<ul class="dh-list-plain">')
+						buf.append('<ul class="dh-list dh-list-plain">')
 					elif typ == "bulleted":
-						buf.append('<ul>')
+						buf.append('<ul class="dh-list">')
 					elif typ == "numbered":
-						buf.append('<ol>')
+						buf.append('<ol class="dh-list">')
 					elif typ == "description":
-						buf.append('<dl>')
+						buf.append('<dl class="dh-list">')
 					else:
 						assert 0
 				elif data == ">list":
@@ -1414,7 +1414,7 @@ def is_description_list(nodes):
 	return True
 
 def parse_list(p, list):
-	typ = list["type"]
+	typ = list["rend"]
 	if typ not in ("plain", "bulleted", "numbered", "description"):
 		typ = "plain"
 	children = list.children()
