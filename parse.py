@@ -389,9 +389,9 @@ class Document:
 	repository = ""
 	commit_hash = ""
 	commit_date = ""
-	
+
 	ident = ""
-	
+
 	title = None
 	author = None
 	editors = None
@@ -624,6 +624,8 @@ class PlainRenderer:
 
 	def render_block(self, block):
 		# Special elements: sic/corr, orig/reg; only keep corr and reg.
+		if block is None:
+			return
 		for t, data, params in block.code:
 			self.render_instr(t, data, params)
 

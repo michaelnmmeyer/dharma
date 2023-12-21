@@ -101,4 +101,3 @@ def parse_div_head(p, head):
 
 def parse_div_ab(p, ab):
 	p.dispatch_children(ab)
-

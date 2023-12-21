@@ -108,7 +108,9 @@ def process_file(file, db=None):
 	p = parse.Parser(t, HANDLERS)
 	p.document.tree = t
 	p.dispatch(p.tree.root)
-	p.document.xml = tree.html_format(t.first("//body"))
+	body = t.first("//body")
+	if body:
+		p.document.xml = tree.html_format(body)
 	if db:
 		langs = set()
 		for node in t.find("//*"):
@@ -124,7 +126,7 @@ def process_file(file, db=None):
 
 def export_arlo_plain_numbered(files):
 	renderer = parse.PlainRenderer(strip_physical=False, arlo_normalize=True)
-	out_dir = os.path.join(config.THIS_DIR, "plain", "plain_numbered")
+	out_dir = os.path.join(config.THIS_DIR, "arlo_plain", "plain_numbered")
 	os.makedirs(out_dir, exist_ok=True)
 	for file in files:
 		ret = renderer.render(file)
@@ -134,7 +136,7 @@ def export_arlo_plain_numbered(files):
 
 def export_arlo_plain_raw(files):
 	renderer = parse.PlainRenderer(strip_physical=True, arlo_normalize=True)
-	out_dir = os.path.join(config.THIS_DIR, "plain", "plain_raw")
+	out_dir = os.path.join(config.THIS_DIR, "arlo_plain", "plain_raw")
 	os.makedirs(out_dir, exist_ok=True)
 	for file in files:
 		ret = renderer.render(file)
@@ -156,6 +158,26 @@ def export_arlo():
 	export_arlo_plain_numbered(files)
 	export_arlo_plain_raw(files)
 
+def export_plain():
+	db = config.open_db("texts")
+	renderer = parse.PlainRenderer(strip_physical=True, arlo_normalize=True)
+	out_dir = os.path.join(config.THIS_DIR, "plain")
+	os.makedirs(out_dir, exist_ok=True)
+	for name, path in db.execute("""
+		select name, printf('%s/%s/%s', ?, repo, path)
+		from texts natural join files where name glob 'DHARMA_INS*'
+		""", (config.REPOS_DIR,)):
+		print(path)
+		try:
+			ret = renderer.render(process_file(path))
+		except tree.Error:
+			continue
+		out_file = os.path.join(out_dir, name + ".txt")
+		with open(out_file, "w") as f:
+			f.write(ret)
+
+
+
 if __name__ == "__main__":
 	try:
 		#doc = process_file(sys.argv[1])
@@ -163,6 +185,7 @@ if __name__ == "__main__":
 		#	parse.write_debug(t, data, **params)
 		#ret = parse.PlainRenderer().render(doc)
 		#sys.stdout.write(ret)
-		export_arlo()
+		#export_arlo()
+		export_plain()
 	except (KeyboardInterrupt, BrokenPipeError):
 		pass

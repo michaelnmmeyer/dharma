@@ -37,7 +37,7 @@ ARLO_PLAIN=repos/jawakuno/texts/txt/prasasti/DHARMA_export
 arlo-plain:
 	python3 parse_ins.py && \
 		rm -rf $(ARLO_PLAIN) && \
-		mv plain $(ARLO_PLAIN) && \
+		mv arlo_plain $(ARLO_PLAIN) && \
 		git -C repos/jawakuno commit -am "Update DHARMA inscriptions" && \
 		git -C repos/jawakuno push
 
