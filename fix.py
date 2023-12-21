@@ -19,6 +19,21 @@ def fix_g(xml):
 		if g["type"] == "symbol" and g["subtype"]:
 			g["type"] = g["subtype"]
 			del g["subtype"]
+	# <g>|</g> -> <g type="danda">.</g>
+	# <g>||</g> -> <g type="danda">.</g>
+	for g in xml.find("//g"):
+		if g["type"] or g["subtype"]:
+			continue
+		if len(g) > 1 or not g[0].type == "string":
+			continue
+		if g[0] in ("|", "।"):
+			g["type"] = "danda"
+
+		elif g[0] in ("||", "॥"):
+			g["type"] = "ddanda"
+		else:
+			continue
+		g[0].replace_with(".")
 
 def fix_change_when(xml):
 	for change in xml.find("//revisionDesc/change"):
@@ -30,9 +45,10 @@ def fix_tags_decl(xml):
 	for node in xml.find("//tagsDecl"):
 		node.delete()
 
+
 document = sys.stdin.read()
 document = cleanup.normalize_string(document)
-t = tree.parse(document)
+t = tree.parse_string(document)
 for key, value in globals().copy().items():
 	if key.startswith("fix_"):
 		print(key, file=sys.stderr)
