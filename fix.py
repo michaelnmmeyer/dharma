@@ -45,6 +45,9 @@ def fix_tags_decl(xml):
 	for node in xml.find("//tagsDecl"):
 		node.delete()
 
+# TODO
+# Use form A for responsibilities https://github.com/erc-dharma/project-documentation/issues/242
+
 
 document = sys.stdin.read()
 document = cleanup.normalize_string(document)
