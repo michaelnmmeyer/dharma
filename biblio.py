@@ -351,21 +351,21 @@ class Writer:
 		self.doi(rec)
 		self.url(rec)
 
-cited_range_units = {name: (sg, pl) for name, sg, pl in [
-	("volume", "vol.", "vols."),
-	("appendix", "appendix", "appendixes"),
-	("book", "book", "books"),
-	("section", "§", "§§"),
-	("page", "p.", "pp."),
-	("item", "№", "№"),
-	("figure", "fig.", "figs."),
-	("plate", "plate", "plates"),
-	("table", "table", "tables"),
-	("note", "n.", "nn."),
-	("part", "part", "parts"),
-	("entry", "s.v.", "s.vv.",),
-	("line", "l.", "ll."),
-]}
+cited_range_units = {
+	"volume": ("vol.", "vols."),
+	"appendix": ("appendix", "appendixes"),
+	"book": ("book", "books"),
+	"section": ("§", "§§"),
+	"page": ("p.", "pp."),
+	"item": ("№", "№"),
+	"figure": ("fig.", "figs."),
+	"plate": ("plate", "plates"),
+	"table": ("table", "tables"),
+	"note": ("n.", "nn."),
+	"part": ("part", "parts"),
+	"entry": ("s.v.", "s.vv.",),
+	"line": ("l.", "ll."),
+}
 
 # journal article
 """

@@ -1462,13 +1462,11 @@ def extract_bib_ref(p, node):
 	loc = []
 	for r in node.find("citedRange"):
 		unit = r["unit"]
+		if not unit or unit not in bibl_units:
+			unit = "page"
 		val = r.text().strip()
 		if not val:
 			continue
-		if unit not in bibl_units and val.isdigit():
-			unit = "page"
-		else:
-			unit = None
 		loc.append((unit, val))
 	return ref, loc
 
