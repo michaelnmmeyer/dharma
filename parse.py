@@ -409,6 +409,7 @@ class Document:
 
 	def __init__(self):
 		self.langs = []
+		self.edition = []
 		self.translation = []
 		self.sigla = {}
 		self.biblio = set()
@@ -490,7 +491,7 @@ class PlainRenderer:
 		self.add("---\n\n")
 		buf = unicodedata.normalize("NFC", self.buf)
 		self.reset()
-		self.render_block(doc.edition)
+		self.render_block(doc.edition[0])
 		text = unicodedata.normalize("NFC", "".join(self.buf).rstrip() + "\n")
 		self.reset(buf)
 		if self.arlo_normalize:

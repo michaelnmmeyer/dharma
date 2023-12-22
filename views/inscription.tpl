@@ -49,6 +49,7 @@ Identifier: <span class="dh-text-id">{{text}}</span>
 Version: <a href="{{github_url}}">{{doc.commit_date}} ({{doc.commit_hash[:7]}})</a>
 </p>
 
+% if doc.edition:
 <div class="dh-ed">
 
 <h2 id="edition">Edition</h2>
@@ -60,14 +61,31 @@ Version: <a href="{{github_url}}">{{doc.commit_date}} ({{doc.commit_hash[:7]}})<
 </ul>
 
 <div class="dh-log" id="dh-log">
-{{!doc.edition.render_logical()}}
+% if len(doc.edition) > 1:
+   % for i, edition in enumerate(doc.edition, 1):
+      <!-- XXX need to renumber headings accordingly within the edition! -->
+      <h3>Edition</h3>
+      {{!edition.render_logical()}}
+   % end
+% else:
+{{!doc.edition[0].render_logical()}}
+% end
 </div>
 
 <div class="dh-phys" id="dh-phys" style="display:none">
-{{!doc.edition.render_physical()}}
+% if len(doc.edition) > 1:
+   % for i, edition in enumerate(doc.edition, 1):
+      <!-- XXX need to renumber headings accordingly within the edition! -->
+      <h3>Edition</h3>
+         {{!edition.render_physical()}}
+   % end
+% else:
+{{!doc.edition[0].render_physical()}}
+% end
 </div>
 
 </div> <!-- <div class="dh-ed"> -->
+% end # if doc.edition:
 
 </div> <!-- <div class="body"> -->
 

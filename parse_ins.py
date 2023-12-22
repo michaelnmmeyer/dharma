@@ -70,7 +70,9 @@ def parse_body(p, body):
 		p.divs.clear()
 		p.divs.append(set())
 		if type == "edition":
-			p.document.edition = gather_sections(p, div)
+			edition = gather_sections(p, div)
+			if edition:
+				p.document.edition.append(edition)
 		elif type == "apparatus":
 			p.document.apparatus = gather_sections(p, div)
 		elif type == "translation":
@@ -181,7 +183,7 @@ def export_plain():
 if __name__ == "__main__":
 	try:
 		#doc = process_file(sys.argv[1])
-		#for t, data, params in doc.edition.code:
+		#for t, data, params in doc.edition[0].code:
 		#	parse.write_debug(t, data, **params)
 		#ret = parse.PlainRenderer().render(doc)
 		#sys.stdout.write(ret)
