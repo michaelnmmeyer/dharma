@@ -791,7 +791,7 @@ def parse_app(p, app):
 		p.dispatch(lem)
 	rdgs = app.find("rdg")
 	if rdgs:
-		p.add_text(" ◇ ")
+		p.add_text(" \N{white medium diamond} ")
 	notes = app.find("note") # we deal with other notes elsewhere
 	for i, rdg in enumerate(rdgs):
 		p.dispatch(rdg)
@@ -1006,7 +1006,7 @@ def parse_sic(p, sic):
 
 # OK
 def parse_corr(p, corr):
-	p.start_span(klass="dh-corr", tip="Corrected text")
+	p.start_span(klass="dh-corr", tip="Emended text")
 	p.add_html('⟨')
 	p.dispatch_children(corr)
 	p.add_html('⟩')
