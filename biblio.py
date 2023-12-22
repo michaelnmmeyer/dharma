@@ -1011,7 +1011,24 @@ def get_ref(ref, **params):
 	w.loc(params["loc"])
 	return w.output()
 
+def sort_key(rec):
+	typ = rec["itemType"]
+	if typ not in renderers:
+		return
+	skip_editors = typ == "bookSection"
+	for creator in rec["creators"]:
+		if skip_editors and creator["creatorType"] == "editor":
+			continue
+		author = creator.get("lastName") or creator.get("name")
+		key = author + " " + rec.get("date")
+		return config.COLLATOR.getSortKey(key)
+	return config.COLLATOR.getSortKey(rec["title"])
+
 if __name__ == "__main__":
-	params = {"rend": "default", "loc": [], "n": "", "missing": False}
-	r = get_entry(sys.argv[1], **params)
-	print(r)
+	#params = {"rend": "default", "loc": [], "n": "", "missing": False}
+	#r = get_entry(sys.argv[1], **params)
+	db.execute("begin")
+	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
+		rec = json.loads(rec)
+		db.execute("update biblio_data set sort_key=? where key=?", (sort_key(rec), key))
+	db.execute("commit")

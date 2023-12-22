@@ -80,7 +80,7 @@ COLLATOR = icu.Collator.createInstance()
 # The following is for ignoring punctuation
 COLLATOR.setAttribute(icu.UCollAttribute.ALTERNATE_HANDLING, icu.UCollAttributeValue.SHIFTED)
 
-def collate(a, b):
+def collate_icu(a, b):
 	# HACK
 	if a == "[]":
 		if b == "[]":
@@ -120,7 +120,7 @@ def open_db(name, schema=None):
 	conn.row_factory = sqlite3.Row
 	conn.executescript(common_schema)
 	conn.create_function("format_date", 1, format_date, deterministic=True)
-	conn.create_collation("icu", collate)
+	conn.create_collation("icu", collate_icu)
 	# Only
 	if schema and os.path.basename(sys.argv[0]) != "server.py":
 		conn.executescript(schema)

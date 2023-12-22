@@ -240,6 +240,10 @@ def display_text(text):
 def test():
 	return bottle.template("test.tpl")
 
+@bottle.get("/biblio")
+def display_biblio():
+	pass
+
 @bottle.post("/validate/oxygen")
 def do_validate():
 	upload = bottle.request.files.get("upload")

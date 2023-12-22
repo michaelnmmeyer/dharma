@@ -134,7 +134,8 @@ create table if not exists biblio_data(
 	key text primary key not null,
 	version integer not null,
 	json json not null check(json_valid(json)),
-	short_title as (json ->> '$.data.shortTitle')
+	short_title as (json ->> '$.data.shortTitle'),
+	sort_key blob /* can be null */
 );
 create index if not exists biblio_data_short_title on biblio_data(short_title);
 
