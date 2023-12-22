@@ -244,7 +244,9 @@ def read_changes(fd):
 				logging.info("updating %r" % name)
 				handle_changes(name)
 				logging.info("updated %r" % name)
+			logging.info("updating biblio...")
 			biblio.update()
+			logging.info("updated biblio")
 			logging.info("updated everything")
 		elif name == "bib":
 			logging.info("updating biblio...")

@@ -124,4 +124,18 @@ create virtual table if not exists langs_by_name using fts5(
 	tokenize = "trigram"
 );
 
+create table if not exists biblio_meta(
+	key text primary key not null,
+	value
+);
+insert or ignore into biblio_meta values('latest_version', 0);
+
+create table if not exists biblio_data(
+	key text primary key not null,
+	version integer not null,
+	json json not null check(json_valid(json)),
+	short_title as (json ->> '$.data.shortTitle')
+);
+create index if not exists biblio_data_short_title on biblio_data(short_title);
+
 commit;

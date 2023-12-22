@@ -17,24 +17,7 @@ from dharma import config, tree
 LIBRARY_ID = 1633743
 MY_API_KEY = "ojTBU4SxEQ4L0OqUhFVyImjq"
 
-SCHEMA = """
-begin;
-create table if not exists meta(
-	key text primary key not null,
-	value
-);
-insert or ignore into meta values('latest_version', 0);
-
-create table if not exists bibliography(
-	key text primary key not null,
-	version integer not null,
-	json json not null check(json_valid(json)),
-	short_title as (json ->> '$.data.shortTitle')
-);
-create index if not exists bibliography_index_short_title on bibliography(short_title);
-commit;
-"""
-db = config.open_db("biblio", SCHEMA)
+db = config.open_db("texts")
 
 # The headers "Backoff" and "Retry-After" tell us to wait n seconds before
 # issuing the next request. Not sure what's the difference between these two,
@@ -92,13 +75,13 @@ def zotero_items(latest_version, ret):
 @db.transaction
 def update():
 	db.execute("begin")
-	(max_version,) = db.execute("select value from meta where key = 'latest_version'").fetchone()
+	(max_version,) = db.execute("select value from biblio_meta where key = 'latest_version'").fetchone()
 	ret = []
 	for entry in zotero_items(max_version, ret):
-		db.execute("""insert or replace into bibliography(key, version, json)
+		db.execute("""insert or replace into biblio_data(key, version, json)
 			values(?, ?, ?)""", (entry["key"], entry["version"], entry))
 	assert len(ret) == 1
-	db.execute("update meta set value = ? where key = 'latest_version'", tuple(ret))
+	db.execute("update biblio_meta set value = ? where key = 'latest_version'", tuple(ret))
 	db.execute("commit")
 
 anonymous = "No name"
@@ -942,7 +925,7 @@ def invalid_entry(ref, reason, key=None):
 	return r.xml()
 
 def get_entry(ref, **params):
-	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
+	recs = db.execute("select key, json from biblio_data where short_title = ?", (ref,)).fetchall()
 	if len(recs) == 0:
 		return invalid_entry(ref, "Not found in bibliography")
 	if len(recs) > 1:
@@ -979,7 +962,7 @@ def invalid_ref(ref, reason, missing=False):
 	return r.xml()
 
 def get_ref(ref, **params):
-	recs = db.execute("select key, json from bibliography where short_title = ?", (ref,)).fetchall()
+	recs = db.execute("select key, json from biblio_data where short_title = ?", (ref,)).fetchall()
 	if len(recs) == 0:
 		return invalid_ref(ref, "Not found in bibliography")
 	if len(recs) > 1:
