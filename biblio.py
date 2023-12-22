@@ -258,8 +258,15 @@ class Writer:
 		for unit, val in loc:
 			self.add(", ")
 			if unit:
-				abbr = cited_range_units[unit]
+				sg, pl = cited_range_units[unit]
+				abbr = sg
+				# XXX not possible to tell unambiguously whether we have several units or not
+				if any(c in loc for c in ",-\N{EN DASH}\N{EM DASH}"):
+					abbr = pl
 				self.add(abbr + "\N{NBSP}")
+				# XXX maybe not only for pages?
+				if unit == "page":
+					val = val.replace("-", "\N{EN DASH}")
 			self.add(val)
 
 	def place_publisher_loc(self, rec, params):
@@ -344,21 +351,21 @@ class Writer:
 		self.doi(rec)
 		self.url(rec)
 
-cited_range_units = dict([
-	("volume", "vol."),
-	("appendix", "appendix"),
-	("book", "book"),
-	("section", "§"),
-	("page", "p."),
-	("item", "№"),
-	("figure", "fig."),
-	("plate", "plate"),
-	("table", "table"),
-	("note", "n."),
-	("part", "part"),
-	("entry", "s.v."),
-	("line", "l."),
-])
+cited_range_units = {name: (sg, pl) for name, sg, pl in [
+	("volume", "vol.", "vols."),
+	("appendix", "appendix", "appendixes"),
+	("book", "book", "books"),
+	("section", "§", "§§"),
+	("page", "p.", "pp."),
+	("item", "№", "№"),
+	("figure", "fig.", "figs."),
+	("plate", "plate", "plates"),
+	("table", "table", "tables"),
+	("note", "n.", "nn."),
+	("part", "part", "parts"),
+	("entry", "s.v.", "s.vv.",),
+	("line", "l.", "ll."),
+]}
 
 # journal article
 """
@@ -795,16 +802,6 @@ renderers = {
 	"webpage": render_webpage,
 }
 
-def fix_loc(rec, loc):
-	page = rec.get("pages")
-	if not page:
-		return
-	for i, (unit, val) in enumerate(loc):
-		loc[i] = (unit, val)
-		if unit == "page":
-			return
-	loc.insert(0, ("page", page))
-
 # See https://www.zotero.org/support/kb/rich_text_bibliography
 valid_tags = {"a", "i", "b", "sub", "sup", "span"}
 
@@ -876,8 +873,6 @@ def fix_value(s):
 	return s.root
 
 def fix_rec(rec):
-	# XXX
-	"""
 	date = rec.get("date")
 	if date:
 		# Always use "-"
@@ -886,18 +881,17 @@ def fix_rec(rec):
 		if re.match(r"^n\.\s?d\.?$", date, re.I):
 			date = None
 		rec["date"] = date
-	page = rec.get("page")
+	page = rec.get("pages")
 	if page:
 		# Always use "-"
 		page = page.replace("\N{en dash}", "-")
-		rec["page"] = page
+		rec["pages"] = page
 	publisher = rec.get("publisher")
 	if publisher:
 		# The ZG prescribes to use "n.pub" when there is no publisher
 		if re.match(r"^n\.\s?pub\.?$", publisher, re.I):
 			publisher = None
 		rec["publisher"] = publisher
-	"""
 	for key, value in rec.copy().items():
 		if key in ("itemType", "pages", "url", "DOI"):
 			continue
@@ -923,6 +917,16 @@ def invalid_entry(ref, reason, key=None):
 		r["id"] = f"dh-bib-key-{key}"
 	r.append(ref)
 	return r.xml()
+
+def fix_loc(rec, loc):
+      page = rec.get("pages")
+      if not page:
+              return
+      for i, (unit, val) in enumerate(loc):
+              loc[i] = (unit, val)
+              if unit == "page":
+                      return
+      loc.insert(0, ("page", page))
 
 def get_entry(ref, **params):
 	recs = db.execute("select key, json from biblio_data where short_title = ?", (ref,)).fetchall()
@@ -970,7 +974,6 @@ def get_ref(ref, **params):
 	key, rec = recs[0]
 	rec = rec["data"]
 	fix_rec(rec)
-	fix_loc(rec, params["loc"])
 	w = Writer()
 	w.xml.name = "span"
 	w.xml.attrs.clear()
