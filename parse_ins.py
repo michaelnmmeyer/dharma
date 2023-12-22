@@ -162,7 +162,7 @@ def export_arlo():
 
 def export_plain():
 	db = config.open_db("texts")
-	renderer = parse.PlainRenderer(strip_physical=True, arlo_normalize=True)
+	renderer = parse.PlainRenderer(strip_physical=True, arlo_normalize=False)
 	out_dir = os.path.join(config.THIS_DIR, "plain")
 	os.makedirs(out_dir, exist_ok=True)
 	for name, path in db.execute("""
@@ -177,8 +177,6 @@ def export_plain():
 		out_file = os.path.join(out_dir, name + ".txt")
 		with open(out_file, "w") as f:
 			f.write(ret)
-
-
 
 if __name__ == "__main__":
 	try:
