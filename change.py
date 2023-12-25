@@ -84,6 +84,10 @@ class File:
 		return texts.owners_of(self.full_path)
 
 	@property
+	def last_modified(self):
+		return texts.last_mod_of(self.full_path)
+
+	@property
 	def full_path(self):
 		return os.path.join(config.REPOS_DIR, self.repo, self.path)
 
@@ -123,7 +127,7 @@ class Changes:
 		for path in texts.iter_texts_in_repo(self.repo):
 			name = os.path.basename(os.path.splitext(path)[0])
 			if name in seen:
-				continue # XXX how to complain?
+				continue # XXX how to complain? XXX cannot happen see iter_text_in_repo
 			seen.add(name)
 			mtime = int(os.stat(path).st_mtime)
 			file = File()
@@ -159,12 +163,12 @@ def update_db(repo):
 		db.execute("delete from texts where name = ?", (name,))
 		db.execute("delete from files where repo = ? and name = ?", (changes.repo, name))
 	for file in changes.insert + changes.update:
-		db.execute("""insert or replace into files(name, repo, path, mtime, data)
-			values(?, ?, ?, ?, ?)""",
-			(file.name, file.repo, file.path, file.mtime, file.data))
+		db.execute("""insert or replace into files(name, repo, path, mtime, last_modified, data)
+			values(?, ?, ?, ?, ?, ?)""",
+			(file.name, file.repo, file.path, file.mtime, file.last_modified, file.data))
 		db.execute("""insert or replace into texts(
-			name, repo, html_path, code_hash, status, when_validated)
-			values(?, ?, ?, ?, ?, strftime('%s', 'now'))""",
+			name, repo, html_path, code_hash, status)
+			values(?, ?, ?, ?, ?)""",
 			(file.name, file.repo, file.html, config.CODE_HASH, file.status))
 		for git_name in file.owners:
 			db.execute("insert or ignore into owners(name, git_name) values(?, ?)",

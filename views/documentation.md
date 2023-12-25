@@ -28,9 +28,9 @@ The location of texts in the repository does not matter. You can put them in
 different directories if needed. If you want a text you are editing not to be
 indexed, use another naming convention, e.g. `XDHARMA_INS`, etc.
 
-The schema used to validate a given text is derived from the file name. I
-ignore processing instructions that tell which schemas should be used for
-validating texts, viz. all this stuff:
+The schema used to validate a given text is derived from the file name. The
+DHARMA app does not look at processing instructions at the beginning of XML
+files, e.g.:
 
 	<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 	<?xml-model href="https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
@@ -38,13 +38,16 @@ validating texts, viz. all this stuff:
 	<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
 	<?xml-model href="https://epidoc.stoa.org/schema/latest/tei-epidoc.rng" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 
-I will delete these and replace them eventually.
+These instructions are interpreted by Oxygen, however.
 
-You can consult here the TEI documentation generated from DHARMA schemas. You
-should follow this instead of the [documentation on the TEI
+## DHARMA Schemas
+
+Here is the TEI documentation generated from DHARMA schemas. You should follow
+this instead of the [documentation on the TEI
 website](https://www.tei-c.org/release/doc/tei-p5-doc/en/html/index.html),
-because our schemas are more restrictive. Even so, they are more permissive
-than they should.
+because our schemas are more restrictive. Even so, they are often more
+permissive than they should: if your file validates, this does not necessarily
+mean that it is valid.
 
 <ul>
 <li><a href="/documentation/inscription">Inscriptions</a> (files named
@@ -58,6 +61,25 @@ convention)</li>
 </ul>
 
 ## Bibliography
+
+Our bibliography is stored on Zotero servers
+[here](https://www.zotero.org/groups/1633743/erc-dharma). The DHARMA database
+stores a copy of it, which is updated every hour or so, but not immediately
+after a modification (for now).
+
+It is important to know that, even though we are using the Zotero data model,
+we are using several distinct bibliography processors for formatting entries
+and references. They do not necessarily produce the same result. There are
+three main processors:
+
+* A processor written by the Zotero team, which is used by the Zotero app
+  installed on your computer, when e.g. you add citations in Word. This
+  processor works with CSL stylesheets. We have two such custom stylesheets in
+  [project-documentation/bibliography](https://github.com/erc-dharma/project-documentation/tree/master/bibliography).
+* A processor Axelle wrote. It is used on the static website,
+  [erc-dharma.github.io](https://erc-dharma.github.io).
+* A processor I (Michaël) wrote. It is used on the new website,
+  [dharman.in](https://dharman.in).
 
 ### Referencing entries
 

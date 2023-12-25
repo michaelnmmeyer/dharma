@@ -6,7 +6,6 @@
 <a
 href="https://github.com/erc-dharma/{{text["repo"]}}/commit/{{text["commit_hash"]}}">{{text["commit_hash"]}}</a>.
 </p>
-<p>Validated {{text["readable_when_validated"]}}.</p>
 </div>
 
 % if result.unicode:

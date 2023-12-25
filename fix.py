@@ -46,8 +46,9 @@ def fix_tags_decl(xml):
 		node.delete()
 
 # TODO
-# Use form A for responsibilities https://github.com/erc-dharma/project-documentation/issues/242
-
+# * Use form A for responsibilities https://github.com/erc-dharma/project-documentation/issues/242
+# * add a fix for ṃ, ṛ, ṝ, ḹ (_and_ also in the rendering code) if Arlo confirms at
+# https://github.com/erc-dharma/project-documentation/issues/251
 
 document = sys.stdin.read()
 document = cleanup.normalize_string(document)

@@ -71,6 +71,13 @@ def owners_of(path):
 		ids.add(author)
 	return sorted(ids)
 
+def last_mod_of(path):
+	path = os.path.relpath(path, config.REPOS_DIR)
+	slash = path.index("/")
+	repo, relpath = path[:slash], path[slash + 1:]
+	ret = config.command("git", "-C", os.path.join(config.REPOS_DIR, repo), "log", "-1", "--format=%at", "--", relpath)
+	return int(ret.stdout.strip())
+
 TEXTS_DIR = os.path.join(config.THIS_DIR, "texts")
 
 # Create a map xml->web page (for debugging)

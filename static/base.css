@@ -2,6 +2,23 @@
 	--dh-border-radius: 0.3em;
 }
 
+.dh-bib-ref, .dh-note-ref {
+	color: blue;
+}
+.dh-bib-ref-invalid {
+	color: red;
+}
+
+p.dh-bib-entry {
+	padding-left: 1.5em;
+	text-indent: -1.5em;
+}
+
+.dh-url {
+	font-family: monospace;
+	font-size: larger;
+}
+
 html, body {
 	height: 100%;
 	width: 100%;
@@ -248,6 +265,68 @@ menu a:hover {
 }
 
 /* End catalog */
+
+abbr {
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+}
+
+/* Tooltips */
+
+.dh-tipped:hover {
+	color: white;
+	background-color: black;
+	border-top-left-radius: var(--dh-border-radius);
+	border-top-right-radius: var(--dh-border-radius);
+}
+/* div that contains the tooltip (used for all tooltips) */
+#dh-tip-box {
+	display: none;
+	background-color: black;
+	color: white;
+	max-width: 30em;
+	border-radius: var(--dh-border-radius);
+	padding: 0.3em;
+}
+
+#dh-tip-box[data-show] {
+	display: block;
+}
+
+#dh-tip-arrow, #dh-tip-arrow::before {
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	background: inherit;
+}
+
+#dh-tip-arrow {
+	visibility: hidden;
+}
+
+#dh-tip-arrow::before {
+	visibility: visible;
+	content: '';
+	transform: rotate(45deg);
+}
+
+#dh-tip-box[data-popper-placement^='top'] > #dh-tip-arrow {
+	bottom: -4px;
+}
+
+#dh-tip-box[data-popper-placement^='bottom'] > #dh-tip-arrow {
+	top: -4px;
+}
+
+#dh-tip-box[data-popper-placement^='left'] > #dh-tip-arrow {
+	right: -4px;
+}
+
+#dh-tip-box[data-popper-placement^='right'] > #dh-tip-arrow {
+	left: -4px;
+}
+
+/* End tooltips */
 
 
 a {

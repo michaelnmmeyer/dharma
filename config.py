@@ -1,4 +1,4 @@
-import os, sys, logging, sqlite3, json, subprocess
+import os, sys, logging, sqlite3, json, subprocess, locale
 from urllib.parse import urlparse
 import icu
 
@@ -20,6 +20,8 @@ DUMMY_DB = None
 with open(os.path.join(THIS_DIR, "version.txt")) as f:
 	CODE_HASH = f.readline().strip()
 	CODE_DATE = int(f.readline().strip())
+
+locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
 # Report exceptions within user functions on stderr. Otherwise we only get a
 # message that says an exception was raised, without more info.
@@ -113,10 +115,11 @@ def open_db(name, schema=None):
 	# use it for initialization code.
 	# https://docs.python.org/3/library/sqlite3.html#transaction-control
 	kwargs = {"detect_types": sqlite3.PARSE_DECLTYPES, "isolation_level": None}
-	if READ_ONLY and name != "github":
-		kwargs["uri"] = True
-		path = f"file:{path}?mode=ro"
 	conn = sqlite3.connect(path, **kwargs)
+	# We use "pragma query_only" instead of opening the db in read-only mode
+	# because we want to be able to optimize the db at exit.
+	if READ_ONLY and name != "github":
+		conn.execute("pragma query_only = yes")
 	conn.row_factory = sqlite3.Row
 	conn.executescript(common_schema)
 	conn.create_function("format_date", 1, format_date, deterministic=True)

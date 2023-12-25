@@ -25,19 +25,21 @@ them in different directories if needed. If you want a text you are
 editing not to be indexed, use another naming convention,
 e.g. <code>XDHARMA_INS</code>, etc.</p>
 <p>The schema used to validate a given text is derived from the file
-name. I ignore processing instructions that tell which schemas should be
-used for validating texts, viz. all this stuff:</p>
+name. The DHARMA app does not look at processing instructions at the
+beginning of XML files, e.g.:</p>
 <pre><code>&lt;?xml-model href=&quot;https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng&quot; type=&quot;application/xml&quot; schematypens=&quot;http://relaxng.org/ns/structure/1.0&quot;?&gt;
 &lt;?xml-model href=&quot;https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_Schema.rng&quot; type=&quot;application/xml&quot; schematypens=&quot;http://purl.oclc.org/dsdl/schematron&quot;?&gt;
 &lt;?xml-model href=&quot;https://raw.githubusercontent.com/erc-dharma/project-documentation/master/schema/latest/DHARMA_SQF.sch&quot; type=&quot;application/xml&quot; schematypens=&quot;http://purl.oclc.org/dsdl/schematron&quot;?&gt;
 &lt;?xml-model href=&quot;https://epidoc.stoa.org/schema/latest/tei-epidoc.rng&quot; schematypens=&quot;http://relaxng.org/ns/structure/1.0&quot;?&gt;
 &lt;?xml-model href=&quot;https://epidoc.stoa.org/schema/latest/tei-epidoc.rng&quot; schematypens=&quot;http://purl.oclc.org/dsdl/schematron&quot;?&gt;</code></pre>
-<p>I will delete these and replace them eventually.</p>
-<p>You can consult here the TEI documentation generated from DHARMA
-schemas. You should follow this instead of the <a
+<p>These instructions are interpreted by Oxygen, however.</p>
+<h2 id="dharma-schemas">DHARMA Schemas</h2>
+<p>Here is the TEI documentation generated from DHARMA schemas. You
+should follow this instead of the <a
 href="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/index.html">documentation
 on the TEI website</a>, because our schemas are more restrictive. Even
-so, they are more permissive than they should.</p>
+so, they are often more permissive than they should: if your file
+validates, this does not necessarily mean that it is valid.</p>
 <ul>
 <li>
 <a href="/documentation/inscription">Inscriptions</a> (files named
@@ -56,6 +58,25 @@ DHARMA_CritEd*)
 </li>
 </ul>
 <h2 id="bibliography">Bibliography</h2>
+<p>Our bibliography is stored on Zotero servers <a
+href="https://www.zotero.org/groups/1633743/erc-dharma">here</a>. The
+DHARMA database stores a copy of it, which is updated every hour or so,
+but not immediately after a modification (for now).</p>
+<p>It is important to know that, even though we are using the Zotero
+data model, we are using several distinct bibliography processors for
+formatting entries and references. They do not necessarily produce the
+same result. There are three main processors:</p>
+<ul>
+<li>A processor written by the Zotero team, which is used by the Zotero
+app installed on your computer, when e.g. you add citations in Word.
+This processor works with CSL stylesheets. We have two such custom
+stylesheets in <a
+href="https://github.com/erc-dharma/project-documentation/tree/master/bibliography">project-documentation/bibliography</a>.</li>
+<li>A processor Axelle wrote. It is used on the static website, <a
+href="https://erc-dharma.github.io">erc-dharma.github.io</a>.</li>
+<li>A processor I (Michaël) wrote. It is used on the new website, <a
+href="https://dharman.in">dharman.in</a>.</li>
+</ul>
 <h3 id="referencing-entries">Referencing entries</h3>
 <p>For referencing bibliographic entries, as in
 <code>&lt;ptr target="bib:Nakacami1972_01"/&gt;</code>, you should use

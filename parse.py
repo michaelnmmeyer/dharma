@@ -389,6 +389,7 @@ class Document:
 	repository = ""
 	commit_hash = ""
 	commit_date = ""
+	last_modified = ""
 
 	ident = ""
 

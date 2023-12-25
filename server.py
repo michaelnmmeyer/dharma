@@ -1,6 +1,6 @@
-import os, json, sys, unicodedata, hashlib
+import os, json, sys, unicodedata, hashlib, locale
 from datetime import datetime
-from dharma import config, bottle, change, people, ngrams, catalog, parse, validate, parse_ins
+from dharma import config, bottle, change, people, ngrams, catalog, parse, validate, parse_ins, biblio
 
 SCHEMA = """
 begin;
@@ -102,8 +102,7 @@ def show_text(repo, hash, name):
 	conn = TEXTS_DB
 	row = conn.execute("""
 		select name, commits.repo, commit_hash, code_hash, status, path as xml_path, html_path,
-			format_date(commit_date) as readable_commit_date,
-			format_date(when_validated) as readable_when_validated
+			format_date(commit_date) as readable_commit_date
 		from texts natural join files
 			join commits on texts.repo = commits.repo
 		where commits.repo = ? and name = ? and commit_hash = ?
@@ -216,9 +215,14 @@ def display_home():
 @bottle.get("/display/<text>")
 @TEXTS_DB.transaction
 def display_text(text):
-	path, repo, commit_hash, commit_date, github_url = TEXTS_DB.execute("""
-		select printf('%s/%s/%s', ?, repo, path), repo, commit_hash, format_date(commit_date),
-		printf('https://github.com/erc-dharma/%s/blob/%s/%s', repo, commit_hash, path)
+	path, repo, commit_hash, commit_date, last_modified, github_url = TEXTS_DB.execute("""
+		select
+			printf('%s/%s/%s', ?, repo, path),
+			repo,
+			commit_hash,
+			format_date(commit_date),
+			format_date(last_modified),
+			printf('https://github.com/erc-dharma/%s/blob/%s/%s', repo, commit_hash, path)
 		from texts natural join files natural join commits
 		where name = ?""",
 		(config.REPOS_DIR, text)).fetchone() or (None, None)
@@ -228,6 +232,7 @@ def display_text(text):
 	doc = parse_ins.process_file(path, TEXTS_DB)
 	doc.repository = repo
 	doc.commit_hash, doc.commit_date = commit_hash, commit_date
+	doc.last_modified = last_modified
 	title = doc.title.render_logical()
 	doc.title = title and title.split(parse.PARA_SEP) or []
 	editors = doc.editors.render_logical()
@@ -240,9 +245,37 @@ def display_text(text):
 def test():
 	return bottle.template("test.tpl")
 
-@bottle.get("/biblio")
+@bottle.get("/bibliography/page/<page:int>")
+def display_biblio(page):
+	db = TEXTS_DB
+	db.execute("begin")
+	(entries_nr,) = db.execute("select count(*) from biblio_data where sort_key is not null").fetchone()
+	pages_nr = (entries_nr + biblio.PER_PAGE - 1) // biblio.PER_PAGE
+	if page < 1:
+		page = 1
+	elif page > pages_nr:
+		page = pages_nr
+	print(page, pages_nr, entries_nr)
+	entries = []
+	for key, entry in db.execute("""select key, json ->> '$.data' from biblio_data
+		where sort_key is not null
+		order by sort_key limit ? offset ?""", (biblio.PER_PAGE, (page - 1) * biblio.PER_PAGE)):
+		entries.append(biblio.format_entry(key, json.loads(entry), loc=[], n=None))
+	db.execute("commit")
+	first_entry = (page - 1) * biblio.PER_PAGE + 1
+	if first_entry < 0:
+		first_entry = 0
+	last_entry = page * biblio.PER_PAGE
+	if last_entry > entries_nr:
+		last_entry = entries_nr
+	return bottle.template("biblio.tpl", page=page, pages_nr=pages_nr,
+		entries=entries, entries_nr=entries_nr, per_page=biblio.PER_PAGE,
+		first_entry=first_entry, last_entry=last_entry)
+
+@bottle.get("/bibliography")
+@TEXTS_DB.transaction
 def display_biblio():
-	pass
+	return bottle.redirect("/bibliography/page/1")
 
 @bottle.post("/validate/oxygen")
 def do_validate():
@@ -280,7 +313,7 @@ def handle_github():
 	repo = js["repository"]["name"]
 	if not js.get("commits"):
 		return
-	# XXX remove special case
+	# XXX remove special case, add hooks or something for each repo
 	if repo != "tfd-nusantara-philology" and all(is_robot(commit["author"]["email"]) for commit in js["commits"]):
 		return
 	change.notify(repo)
@@ -355,6 +388,13 @@ class ServerAdapter(bottle.ServerAdapter):
 			server.serve_forever()
 		finally:
 			print("Shutting down", file=sys.stderr)
+			for name, db in config.DBS.items():
+				# See https://www.sqlite.org/pragma.html#pragma_optimize
+				# TODO also do that every few hours
+				continue # XXX
+				print("optimizing %r" % name, file=sys.stderr)
+				db.execute("pragma query_only = yes")
+				db.execute("pragma optimize")
 			log_file.flush()
 			log_file.close()
 			server.server_close()

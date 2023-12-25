@@ -76,6 +76,7 @@ class Validator:
 		self.rng(file, val, xml)
 		self.sch(file, val, xml)
 		self.uni(file, val, xml)
+		# XXX fix sorting of error messages, see https://dharman.in/texts/tfd-nusantara-philology/b2f464385320afc185560c9a42b8ed71873b3171/DHARMA_CritEdCalonArang
 		val.messages.sort(key=lambda x: (x.line, x.column))
 		return val
 

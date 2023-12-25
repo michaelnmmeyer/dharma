@@ -1,6 +1,5 @@
 % rebase("base.tpl", title="Display", includes='''
    <link rel="stylesheet" href="/inscription.css">
-	<script src="/pack.js"></script>
 	<script src="/inscription.js"></script>
 ''', sidebar=sidebar)
 
@@ -28,7 +27,7 @@
 % end
 </p>
 <p>
-Identifier: <span class="dh-text-id">{{text}}</span>
+Identifier: <span class="dh-text-id">{{text}}</span>.
 </p>
 % if doc.summary:
 <p>Summary: {{!doc.summary.render_logical()}}</p>
@@ -43,10 +42,12 @@ Identifier: <span class="dh-text-id">{{text}}</span>
 </p>
 % end
 
-<p>Repository: <span class="dh-text-id">{{doc.repository}}</span></p>
+<p>Repository: <span class="dh-text-id">{{doc.repository}}</span>.</p>
 
 <p>
-Version: <a href="{{github_url}}">{{doc.commit_date}} ({{doc.commit_hash[:7]}})</a>
+Version: {{doc.commit_date}}
+(<a href="{{github_url}}">{{doc.commit_hash[:7]}}</a>), last modified
+{{doc.last_modified}}.
 </p>
 
 % if doc.edition:
@@ -138,8 +139,3 @@ Version: <a href="{{github_url}}">{{doc.commit_date}} ({{doc.commit_hash[:7]}})<
 % end
 
 </div> <!-- <div class="body"> -->
-
-<div id="dh-tip-box">
-   <div id="dh-tip-contents"></div>
-   <div id="dh-tip-arrow" data-popper-arrow></div>
-</div>

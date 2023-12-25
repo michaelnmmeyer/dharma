@@ -34,6 +34,65 @@ function flashTarget() {
 	}, 2000)
 }
 
+// See the popper doc + https://codepen.io/jsonc/pen/LYbyyaM
+let popperInstance = null
+let tipBox = null
+
+function addTooltip(e) {
+	let tip = this.dataset.tip
+	let tipContents = document.querySelector("#dh-tip-contents")
+	if (popperInstance) {
+		let have = tipContents.innerHTML
+		tipContents.innerHTML = tip + " | " + have
+		this.owning = false
+		return
+	}
+	tipContents.innerHTML = tip
+	this.owning = true
+	this.classList.add("dh-tipped")
+	tipBox.setAttribute("data-show", "")
+	popperInstance = createPopper(this, tipBox, {
+		modifiers: [{
+			name: "offset",
+			options: {
+				offset: [0, 8],
+			},
+		}, {
+			name: "eventListeners",
+			enabled: true,
+		}],
+	})
+	popperInstance.update()
+}
+
+function removeTooltip(e) {
+	if (!this.owning)
+		return
+	this.classList.remove("dh-tipped")
+	tipBox.removeAttribute("data-show")
+	let tipContents = document.querySelector("#dh-tip-contents")
+	tipContents.innerHTML = ""
+	popperInstance.destroy()
+	popperInstance = null
+}
+
+function prepareTips() {
+	tipBox = document.querySelector("#dh-tip-box")
+	let tipContents = document.querySelector("#dh-tip-contents")
+	console.assert(tipContents)
+	for (let node of document.querySelectorAll("[data-tip]")) {
+		node.addEventListener("mouseover", addTooltip)
+		node.addEventListener("mouseout", removeTooltip)
+	}
+}
+
+window.addEventListener("load", function () {
+	prepareTips()
+	for (let node of document.querySelectorAll("a.dh-bib-ref, a.dh-note-ref")) {
+		node.addEventListener("click", flashTarget)
+	}
+})
+
 window.addEventListener("load", function () {
 	document.querySelector("#toggle-menu").addEventListener("click", toggleMenu, false)
 	document.querySelector("#toggle-toc").addEventListener("click", toggleTOC, false)

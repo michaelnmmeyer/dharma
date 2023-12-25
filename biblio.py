@@ -75,13 +75,13 @@ def zotero_items(latest_version, ret):
 @db.transaction
 def update():
 	db.execute("begin")
-	(max_version,) = db.execute("select value from biblio_meta where key = 'latest_version'").fetchone()
+	(max_version,) = db.execute("select value from metadata where key = 'biblio_latest_version'").fetchone()
 	ret = []
 	for entry in zotero_items(max_version, ret):
-		db.execute("""insert or replace into biblio_data(key, version, json)
-			values(?, ?, ?)""", (entry["key"], entry["version"], entry))
+		db.execute("""insert or replace into biblio_data(key, version, json, sort_key)
+			values(?, ?, ?, ?)""", (entry["key"], entry["version"], entry, sort_key(entry["data"])))
 	assert len(ret) == 1
-	db.execute("update biblio_meta set value = ? where key = 'latest_version'", tuple(ret))
+	db.execute("update metadata set value = ? where key = 'biblio_latest_version'", tuple(ret))
 	db.execute("commit")
 
 anonymous = "No name"
@@ -339,7 +339,7 @@ class Writer:
 			self.add("URLs:")
 		self.space()
 		for i, url in enumerate(urls):
-			url = normalize_url(url)
+			url = config.normalize_url(url)
 			tag = self.tag("a", {"class": "dh-url", "href": url})
 			tag.append(url)
 			self.add(tag)
@@ -440,7 +440,7 @@ def render_journal_article(rec, w, params):
 		else:
 			tag = w.tag("i")
 			tag.append(name)
-			w.add(name)
+			w.add(tag)
 		if rec["volume"]:
 			w.space()
 			w.add(rec["volume"])
@@ -562,7 +562,7 @@ def render_book(rec, w, params):
   }
 """
 def render_conference_paper(rec, w, params):
-	w.authors(rec)
+	w.authors(rec, skip_editors=True)
 	w.date(rec)
 	w.quoted(rec["title"])
 	if rec["proceedingsTitle"]:
@@ -865,7 +865,7 @@ def fix_value(s):
 	s = html.unescape(s)
 	s = unicodedata.normalize("NFC", s)
 	s = s.replace("&", "&amp;") # XXX
-	s = tree.parse_string("<X>%s</X>" % s)
+	s = tree.parse_string("<X>%s</X>" % s) # XXX use a tolerant server?
 	fix_markup(s)
 	normalize_space(s)
 	if not s.text():
@@ -929,13 +929,15 @@ def fix_loc(rec, loc):
       loc.insert(0, ("page", page))
 
 def get_entry(ref, **params):
-	recs = db.execute("select key, json from biblio_data where short_title = ?", (ref,)).fetchall()
+	recs = db.execute("select key, json ->> '$.data' from biblio_data where short_title = ?", (ref,)).fetchall()
 	if len(recs) == 0:
 		return invalid_entry(ref, "Not found in bibliography")
 	if len(recs) > 1:
 		return invalid_entry(ref, "Multiple bibliographic entries bear this short title")
 	key, rec = recs[0]
-	rec = rec["data"]
+	return format_entry(key, json.loads(rec), **params)
+
+def format_entry(key, rec, **params):
 	f = renderers.get(rec["itemType"])
 	if not f:
 		return invalid_entry(ref, "Entry type '%s' not supported" % rec["itemType"], key)
@@ -965,20 +967,32 @@ def invalid_ref(ref, reason, missing=False):
 	r.append(ref)
 	return r.xml()
 
+PER_PAGE = 100
+
+def page_of(key):
+	(index,) = db.execute("""select pos - 1
+		from (select row_number() over(order by sort_key) as pos,
+			key from biblio_data where sort_key is not null)
+		where key = ?""", (key,)).fetchone()
+	return (index + PER_PAGE - 1) // PER_PAGE
+
 def get_ref(ref, **params):
-	recs = db.execute("select key, json from biblio_data where short_title = ?", (ref,)).fetchall()
+	recs = db.execute("select key, json ->> '$.data' from biblio_data where short_title = ?", (ref,)).fetchall()
 	if len(recs) == 0:
 		return invalid_ref(ref, "Not found in bibliography")
 	if len(recs) > 1:
 		return invalid_ref(ref, "Multiple bibliographic entries bear this short title")
 	key, rec = recs[0]
-	rec = rec["data"]
+	rec = json.loads(rec)
 	fix_rec(rec)
 	w = Writer()
 	w.xml.name = "span"
 	w.xml.attrs.clear()
 	tag = w.tag("a", {"class": "dh-bib-ref"})
-	if not params["missing"]:
+	if params["missing"]:
+		page = page_of(key)
+		tag["href"] = f"/bibliography/page/{page}#dh-bib-key-{key}"
+	else:
 		tag["href"] = f"#dh-bib-key-{key}"
 	w.xml.append(tag)
 	w.xml = tag
@@ -994,8 +1008,9 @@ def get_ref(ref, **params):
 		w.add(siglum)
 	else:
 		if params["missing"]:
-			w.xml["data-tip"] = "Missing in bibliography"
-			w.xml["class"] += " dh-bib-ref-invalid"
+			pass
+			#w.xml["data-tip"] = "Missing in bibliography"
+			#w.xml["class"] += " dh-bib-ref-invalid"
 		fmt = params["rend"]
 		if fmt == "omitname":
 			w.date(rec, end_field=False)
@@ -1016,13 +1031,15 @@ def sort_key(rec):
 	if typ not in renderers:
 		return
 	skip_editors = typ == "bookSection"
+	key = ""
 	for creator in rec["creators"]:
 		if skip_editors and creator["creatorType"] == "editor":
 			continue
 		author = creator.get("lastName") or creator.get("name")
-		key = author + " " + rec.get("date")
-		return config.COLLATOR.getSortKey(key)
-	return config.COLLATOR.getSortKey(rec["title"])
+		key += author + " " + rec.get("date") + " "
+		break
+	key += rec["title"] + " " + rec["key"]
+	return config.COLLATOR.getSortKey(key)
 
 if __name__ == "__main__":
 	#params = {"rend": "default", "loc": [], "n": "", "missing": False}
