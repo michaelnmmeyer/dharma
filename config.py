@@ -21,7 +21,7 @@ with open(os.path.join(THIS_DIR, "version.txt")) as f:
 	CODE_HASH = f.readline().strip()
 	CODE_DATE = int(f.readline().strip())
 
-locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
+#locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
 # Report exceptions within user functions on stderr. Otherwise we only get a
 # message that says an exception was raised, without more info.
