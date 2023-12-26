@@ -8,7 +8,7 @@
 # For the conversion zotero->tei:
 # https://github.com/zotero/translators/blob/master/TEI.js
 
-import sys, io, json, unicodedata, html, re, time
+import sys, logging, io, json, unicodedata, html, re, time
 from urllib.parse import urlparse
 import requests
 from xml.parsers import expat
@@ -43,7 +43,9 @@ def zotero_items(latest_version, ret):
 	s = requests.Session()
 	s.headers["Zotero-API-Version"] = "3"
 	s.headers["Zotero-API-Key"] = MY_API_KEY
-	r = s.get(f"https://api.zotero.org/groups/{LIBRARY_ID}/items?since={latest_version}")
+	url = f"https://api.zotero.org/groups/{LIBRARY_ID}/items?since={latest_version}"
+	logging.info(url)
+	r = s.get(url)
 	cutoff = 0
 	while True:
 		wait = next_request_delay(r)
@@ -69,8 +71,10 @@ def zotero_items(latest_version, ret):
 		if not next_page:
 			break
 		time.sleep(wait)
-		r = s.get(next_page.group(1))
-	ret.append(latest_version)
+		url = next_page.group(1)
+		logging.info(url)
+		r = s.get(url)
+	ret.append(cutoff)
 
 @db.transaction
 def update():
