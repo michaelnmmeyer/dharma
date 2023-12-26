@@ -255,7 +255,6 @@ def display_biblio(page):
 		page = 1
 	elif page > pages_nr:
 		page = pages_nr
-	print(page, pages_nr, entries_nr)
 	entries = []
 	for key, entry in db.execute("""select key, json ->> '$.data' from biblio_data
 		where sort_key is not null

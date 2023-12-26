@@ -14,5 +14,6 @@ if test -z $WITHIN_DOCKER; then
 else
 	echo "Running python" > /dev/stderr
 	python3 change.py &> repos/change.log &
+	python3 zotero.py &> repos/zotero.log &
 	python3 server.py
 fi

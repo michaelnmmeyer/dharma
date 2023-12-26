@@ -792,6 +792,52 @@ def render_webpage(rec, w, params):
 	w.quoted(rec["title"])
 	w.idents(rec)
 
+""""
+  {
+  "data": {
+    "ISSN": "",
+    "abstractNote": "",
+    "accessDate": "",
+    "archive": "",
+    "archiveLocation": "",
+    "callNumber": "",
+    "collections": [],
+    "creators": [],
+    "date": "1991-11-13",
+    "dateAdded": "2022-10-03T17:32:26Z",
+    "dateModified": "2022-10-04T06:52:21Z",
+    "edition": "Pondicherry",
+    "extra": "",
+    "itemType": "newspaperArticle",
+    "key": "2Y5D2W4J",
+    "language": "Tamil",
+    "libraryCatalog": "",
+    "pages": "",
+    "place": "",
+    "publicationTitle": "Dinamalar",
+    "relations": {},
+    "rights": "",
+    "section": "",
+    "shortTitle": "Dinamalar1991_01",
+    "tags": [
+      {
+        "tag": "Dinamalar1991_01"
+      }
+    ],
+    "title": "[Discovery of inscribed stele at Arasalapuram]",
+    "url": "",
+    "version": 188223
+  }
+"""
+def render_newspaper_article(rec, w, params):
+	w.authors(rec)
+	w.quoted(rec["title"])
+	w.italic(rec["publicationTitle"])
+	w.date(rec)
+	w.edition(rec)
+	w.place_publisher_loc(rec, params)
+	w.idents(rec)
+
 renderers = {
 	"book": render_book,
 	"journalArticle": render_journal_article,
@@ -800,6 +846,7 @@ renderers = {
 	"bookSection": render_book_section,
 	"thesis": render_thesis,
 	"webpage": render_webpage,
+	"newspaperArticle": render_newspaper_article,
 }
 
 # See https://www.zotero.org/support/kb/rich_text_bibliography
@@ -1049,5 +1096,5 @@ if __name__ == "__main__":
 	db.execute("begin")
 	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
 		rec = json.loads(rec)
-		db.execute("update biblio_data set sort_key=? where key=?", (sort_key(rec), key))
+		db.execute("update biblio_data set sort_key = ? where key = ?", (sort_key(rec), key))
 	db.execute("commit")
