@@ -52,12 +52,15 @@ def zotero_items(latest_version, ret):
 		if r.status_code != 200:
 			if wait < 1 or wait > 20:
 				# Will retry later.
+				logging.info(f"query failed with {r.status_code}, headers: {r.headers}")
+				logging.info(f"resetting biblio to {latest_version}")
 				cutoff = latest_version
 				break
 		new_version = int(r.headers["Last-Modified-Version"])
 		assert new_version >= latest_version
 		if not cutoff:
 			cutoff = new_version
+			logging.info(f"zotero new version: {cutoff}")
 		entries = r.json()
 		assert isinstance(entries, list)
 		for entry in entries:
