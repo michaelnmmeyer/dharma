@@ -6,7 +6,7 @@ create_subscriptions = config.json_adapter({
    "action": "createSubscriptions",
    "subscriptions": [
       {
-         "apiKey": "ojTBU4SxEQ4L0OqUhFVyImjq",
+         #"apiKey": "ojTBU4SxEQ4L0OqUhFVyImjq",
 	 "topics": ["/groups/1633743", "/groups/5336269"]
       }
    ]
