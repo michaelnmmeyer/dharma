@@ -935,12 +935,14 @@ def get_entry(ref, **params):
 	if len(recs) > 1:
 		return invalid_entry(ref, "Multiple bibliographic entries bear this short title")
 	key, rec = recs[0]
-	return format_entry(key, json.loads(rec), **params)
-
-def format_entry(key, rec, **params):
+	rec = json.loads(rec)
 	f = renderers.get(rec["itemType"])
 	if not f:
 		return invalid_entry(ref, "Entry type '%s' not supported" % rec["itemType"], key)
+	return format_entry(key, rec, **params)
+
+def format_entry(key, rec, **params):
+	f = renderers[rec["itemType"]]
 	fix_rec(rec)
 	fix_loc(rec, params["loc"])
 	w = Writer()
