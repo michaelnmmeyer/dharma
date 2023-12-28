@@ -14,8 +14,16 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in inscriptions:
 	xml = tree.parse(file)
-	for p in xml.find("//citedRange"):
-		print(p.text(space="default"))
+	for p in xml.find("//persName"):
+		if not p["ref"]: continue
+		print(p)
+		continue
+		if p["ref"].startswith("part:"):
+			continue
+		if p["ref"].startswith("http"):
+			continue
+		print(p)
+		
 
 		#print(p.xml())
 		#print(p["place"])

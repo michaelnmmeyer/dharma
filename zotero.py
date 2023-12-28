@@ -1,4 +1,4 @@
-import logging, json
+import logging, json, traceback
 from websockets.sync.client import connect # https://websockets.readthedocs.io
 from dharma import config, change
 

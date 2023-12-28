@@ -138,17 +138,18 @@ create virtual table if not exists documents_index using fts5(
 -- used in the project, for simplicity.
 create table if not exists langs_list(
 	-- Principal language code
-	id text primary key check(length(id) = 3),
+	id text primary key check(length(id) >= 3),
 	-- Old Cham
 	name text,
 	-- Cham, Old
 	inverted_name text,
-	iso integer check(iso = 3 or iso = 5)
+	iso integer check(iso is null or iso = 3 or iso = 5),
+	custom boolean
 );
 
 -- A single language can have several codes.
 create table if not exists langs_by_code(
-	code text primary key check(length(code) = 2 or length(code) = 3),
+	code text primary key,
 	id text, foreign key(id) references langs_list(id)
 );
 
