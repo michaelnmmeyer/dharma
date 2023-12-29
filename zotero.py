@@ -58,3 +58,4 @@ if __name__ == "__main__":
 			traceback.print_exception(e)
 		finally:
 			sock.close()
+	logging.info("exiting")

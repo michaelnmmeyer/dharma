@@ -40,6 +40,7 @@ tfb-gangaeast-epigraphy
 tfb-kalyanacalukya-epigraphy
 tfb-licchavi-epigraphy
 tfb-maitraka-epigraphy
+tfb-parivrajaka-epigraphy
 tfb-rastrakuta-epigraphy
 tfb-sailodbhava-epigraphy
 tfb-satavahana-epigraphy
