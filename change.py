@@ -253,6 +253,11 @@ def read_changes(fd):
 				logging.info("updating %r" % name)
 				handle_changes(name)
 				logging.info("updated %r" % name)
+				# Github apparently doesn't like it when we
+				# make requests too fast. We get a message
+				# "kex_exchange_identification: read: Connection
+				# reset by peer". So wait a bit.
+				time.sleep(5)
 			logging.info("updating biblio...")
 			biblio.update()
 			logging.info("updated biblio")
