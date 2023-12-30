@@ -57,7 +57,19 @@ tfd-sanskrit-philology
 
 TEXTS_DB = config.open_db("texts")
 
+last_pull = 0
+min_pull_wait = 5
+
+# Github apparently doesn't like it when we pull too often. We often get a
+# message "kex_exchange_identification: read: Connection reset by peer". So
+# wait a bit between pulls.
 def update_repo(name):
+	global last_pull
+	now = time.time()
+	diff = now - last_pull
+	if diff < min_pull_wait:
+		time.sleep(diff - min_pull_wait)
+	last_pull = now
 	return command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
 
 def latest_commit_in_repo(name):
@@ -253,11 +265,6 @@ def read_changes(fd):
 				logging.info("updating %r" % name)
 				handle_changes(name)
 				logging.info("updated %r" % name)
-				# Github apparently doesn't like it when we
-				# make requests too fast. We get a message
-				# "kex_exchange_identification: read: Connection
-				# reset by peer". So wait a bit.
-				time.sleep(5)
 			logging.info("updating biblio...")
 			biblio.update()
 			logging.info("updated biblio")
