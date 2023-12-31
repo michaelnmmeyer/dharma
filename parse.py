@@ -249,13 +249,20 @@ class Block:
 				elif data == ">head":
 					lvl = params.get("level", 3)
 					buf.append('</h%d>' % lvl)
-				elif data == "<para" or data == "<line":
-					if data == "<para" and params.get("rend") == "verse":
+				elif data == "<para":
+					if params.get("rend") == "verse":
 						buf.append('<p class="dh-verse">')
 					else:
 						buf.append("<p>")
-				elif data == ">para" or data == ">line":
+				elif data == ">para":
 					buf.append("</p>")
+				elif data == "<line":
+					buf.append("<div>")
+					buf.append("<p>")
+				elif data == ">line":
+					buf.append("</p>")
+					buf.append(" <span>%s</span>" % html.escape(params["n"]))
+					buf.append("</div>")
 				elif data == "<list":
 					typ = params["type"]
 					if typ == "plain":
@@ -281,7 +288,10 @@ class Block:
 					else:
 						assert 0
 				elif data == "<verse":
-					buf.append('<div class="dh-verse">')
+					if params["numbered"]:
+						buf.append('<div class="dh-verse verse-numbered">')
+					else:
+						buf.append('<div class="dh-verse">')
 				elif data == ">verse":
 					buf.append('</div>')
 				elif data == "<item":
@@ -1050,7 +1060,7 @@ def parse_choice(p, node):
 	children = node.children()
 	if all(child.name == "unclear" for child in children):
 		# <choice>(<unclear>...</unclear>)+</choice>
-		# In this case for search just keep the text of the 1st unclear.
+		# In this case for search and plain just keep the text of the 1st unclear.
 		p.start_span(klass="dh-choice-unclear", tip="Unclear (several possible readings)")
 		p.add_html("(")
 		mark = -1
@@ -1411,9 +1421,16 @@ def parse_lg(p, lg):
 	p.add_log("<head", level=6)
 	p.add_html("%s. %s" % (n, met), plain=True)
 	p.add_log(">head", level=6)
-	p.add_log("<verse")
+	numbered = len(lg.find("l")) > 4
+	p.add_log("<verse", numbered=numbered)
 	p.dispatch_children(lg)
 	p.add_log(">verse")
+
+def parse_l(p, l):
+	n = l["n"] or "?"
+	p.add_log("<line", n=n)
+	p.dispatch_children(l)
+	p.add_log(">line", n=n)
 
 def is_description_list(nodes):
 	if len(nodes) % 2:
@@ -1452,11 +1469,6 @@ def parse_list(p, list):
 			p.dispatch_children(item)
 			p.add_log(">item")
 	p.add_log(">list", type=typ)
-
-def parse_l(p, l):
-	p.add_log("<line")
-	p.dispatch_children(l)
-	p.add_log(">line")
 
 def extract_bib_ref(p, node):
 	assert node.name == "bibl"
