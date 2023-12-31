@@ -107,6 +107,9 @@ class Block:
 		return self.add_code("text", data)
 
 	def add_html(self, data, **params):
+		params.setdefault("plain", True)
+		params.setdefault("logical", True)
+		params.setdefault("physical", True)
 		return self.add_code("html", data, **params)
 
 	def close_line(self, brk):
@@ -213,8 +216,6 @@ class Block:
 				data = unicode.hyphenate(data)
 			text = html.escape(data)
 			buf.append(text)
-		elif t == "html":
-			buf.append(data)
 		elif t == "span":
 			if data == "<":
 				klasses = " ".join(params["klass"])
@@ -323,6 +324,9 @@ class Block:
 					buf.append(f'<span class="dh-gridlike" data-tip="{unit} start">({unit} {n})</span>')
 				else:
 					assert 0, data
+			elif t == "html":
+				if params["logical"]:
+					buf.append(data)
 			else:
 				self.render_common(buf, t, data, params)
 		return "".join(buf)
@@ -369,6 +373,9 @@ class Block:
 						skip -= 1
 					else:
 						buf.append('</h3>')
+			elif t == "html":
+				if params["physical"]:
+					buf.append(data)
 			else:
 				self.render_common(buf, t, data, params)
 		return "".join(buf)
@@ -612,7 +619,7 @@ class PlainRenderer:
 			else:
 				assert 0, data
 		elif t == "html":
-			if params.get("preserve_in_plain"):
+			if params.get("plain"):
 				self.add(html.unescape(data))
 		elif t == "span":
 			pass
@@ -1169,7 +1176,8 @@ def titlecase(s):
 
 # TODO more styling
 def parse_seg(p, seg):
-	if seg.first("gap"):
+	first = seg.first("*")
+	if first and first.name == "gap":
 		# We deal with this within parse_gap
 		p.dispatch_children(seg)
 		return
@@ -1192,33 +1200,6 @@ def parse_seg(p, seg):
 		p.add_html("}")
 		p.end_span()
 
-"""
-Legit values for @reason:
-  10755 lost
-   6136 illegible
-   1469 undefined
-    290 ellipsis
-     38 omitted
-
-Legit values for @unit
-  13717 character
-   1208 component
-    263 line
-     11 page
-     + plate
-     + folio
-
-@quantity must be an integer
-
-each <gap unit="component"> is supposed to always be wrapped in a <seg
-type="component" subtype=...>. We don't have that in practice: 105 cases where
-parent is not <seg>. (but a <seg type="component"> doesn't necessarily hold a
-<gap>.)
-
-
-
-<seg type="component" subtype="body"><gap reason="lost" quantity="1" unit="component"/></seg>
-"""
 # "component" is for character components like vowel markers, etc.; "character" is for akṣaras
 # EGD: The EpiDoc element <gap/> ff (full section 5.4)
 # EGD: "Scribal Omission without Editorial Restoration"
@@ -1229,7 +1210,7 @@ def parse_gap(p, gap):
 	extent = gap["extent"] or "unknown"
 	unit = gap["unit"] or "character"
 	if reason == "ellipsis":
-		p.add_html("\N{horizontal ellipsis}", preserve_in_plain=True)
+		p.add_html("\N{horizontal ellipsis}", plain=True)
 		return
 	if reason == "undefined":
 		reason = "lost or illegible"
@@ -1238,18 +1219,35 @@ def parse_gap(p, gap):
 		reason = "possibly %s" % reason
 	if unit == "component":
 		unit = "character component"
+	phys_repl = None
 	if quantity.isdigit():
 		quantity = int(quantity)
 		repl = "["
-		if precision == "low" and unit != "character":
+		if precision == "low":
 			repl += "ca. "
 		if unit == "character":
-			repl += quantity * "*"
+			if reason == "lost":
+				repl += f"{quantity}+"
+			elif reason == "illegible":
+				repl += f"{quantity}x"
+			else:
+				# reason = "undefined" (lost or illegible)
+				repl += f"{quantity}*"
 		elif unit == "character component":
 			repl += quantity * "."
 		else:
 			repl += "%d %s %s" % (quantity, reason, numberize(unit, quantity))
 		repl += "]"
+		phys_repl = "["
+		if precision == "low" and unit != "character":
+			phys_repl += "ca. "
+		if unit == "character":
+			phys_repl += quantity * "*"
+		elif unit == "character component":
+			phys_repl += quantity * "."
+		else:
+			phys_repl += "%d %s %s" % (quantity, reason, numberize(unit, quantity))
+		phys_repl += "]"
 		tip = ""
 		if precision == "low":
 			tip += "About "
@@ -1260,17 +1258,23 @@ def parse_gap(p, gap):
 		else:
 			repl = "[unknown number of %s %s]" % (reason, numberize(unit, +333))
 		tip = "Unknown number of %s %s" % (reason, numberize(unit, +333))
+	# <seg met="+++-++"><gap reason="lost" quantity="6" unit="character">
+	# In this case, keep the tooltip, but display the meter instead of ****, etc.
 	parent = gap.parent
 	if parent and parent.name == "seg" and parent["met"]:
 		met = parent["met"]
 		if prosody.is_pattern(met):
 			met = prosody.render_pattern(met)
 		repl = "[%s]" % met
+		phys_repl = None
 	p.start_span(klass="dh-gap", tip=tip)
-	p.add_html(html.escape(repl), preserve_in_plain=True)
+	if phys_repl is not None and phys_repl != repl:
+		p.add_html(html.escape(repl), plain=True, physical=False)
+		p.add_html(html.escape(phys_repl), plain=True, logical=False)
+	else:
+		p.add_html(html.escape(repl), plain=True)
 	p.end_span()
-	# TODO restart [ca.10x – – – ⏑ – – abc] in editorial
-	# <seg met="+++-++">
+	# TODO merge consecutive values as in [ca.10x – – – ⏑ – – abc] in editorial
 
 def parse_g(p, node):
 	# <g type="...">.</g> for punctuation marks
@@ -1334,7 +1338,7 @@ def parse_p(p, para):
 		if n.isdigit():
 			n = to_roman(int(n))
 		p.add_log("<head", level=6)
-		p.add_html("%s." % n, preserve_in_plain=True)
+		p.add_html("%s." % n, plain=True)
 		p.add_log(">head", level=6)
 		p.add_log("<para", rend="verse")
 	else:
@@ -1402,7 +1406,7 @@ def parse_lg(p, lg):
 		n = to_roman(int(n))
 	met = titlecase(lg["met"] or "unknown meter")
 	p.add_log("<head", level=6)
-	p.add_html("%s. %s" % (n, met), preserve_in_plain=True)
+	p.add_html("%s. %s" % (n, met), plain=True)
 	p.add_log(">head", level=6)
 	p.add_log("<verse")
 	p.dispatch_children(lg)

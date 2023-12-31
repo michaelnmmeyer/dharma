@@ -180,12 +180,12 @@ def export_plain():
 
 if __name__ == "__main__":
 	try:
-		#doc = process_file(sys.argv[1])
-		#for t, data, params in doc.edition[0].code:
-		#	parse.write_debug(t, data, **params)
+		doc = process_file(sys.argv[1])
+		for t, data, params in doc.edition[0].code:
+			parse.write_debug(t, data, **params)
 		#ret = parse.PlainRenderer().render(doc)
 		#sys.stdout.write(ret)
 		#export_arlo()
-		export_plain()
+		#export_plain()
 	except (KeyboardInterrupt, BrokenPipeError):
 		pass
