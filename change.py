@@ -68,7 +68,7 @@ def update_repo(name):
 	now = time.time()
 	diff = now - last_pull
 	if diff < min_pull_wait:
-		time.sleep(diff - min_pull_wait)
+		time.sleep(min_pull_wait - diff)
 	last_pull = now
 	return command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
 
