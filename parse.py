@@ -107,7 +107,7 @@ class Block:
 		return self.add_code("text", data)
 
 	def add_html(self, data, **params):
-		params.setdefault("plain", True)
+		params.setdefault("plain", False)
 		params.setdefault("logical", True)
 		params.setdefault("physical", True)
 		return self.add_code("html", data, **params)
@@ -1001,6 +1001,9 @@ def text_to_html(p, mark):
 	while mark < len(block.code):
 		t, data, params = block.code[mark]
 		if t == "text":
+			params.setdefault("plain", False)
+			params.setdefault("logical", True)
+			params.setdefault("physical", True)
 			block.code[mark] = ("html", html.escape(data), params)
 		mark += 1
 
@@ -1139,7 +1142,7 @@ def parse_space(p, space):
 		tip = "%s; %s" % (s, tip)
 		text *= quant
 	p.start_span(klass="dh-space", tip=titlecase(tip))
-	p.add_html(text)
+	p.add_html(text, logical=False)
 	p.end_span()
 
 def parse_abbr(p, node):
