@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# Run this from within screen. But huma-num kills apparently kills user sessions and thus screen.
+# To prevent this, do:
+#
+#     sudo loginctl enable-linger $USER
+#
+# Then run screen with:
+#
+#     systemd-run --scope --user screen
+
 set -e
 
 if test -z $WITHIN_DOCKER; then
