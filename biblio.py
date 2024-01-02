@@ -1097,11 +1097,15 @@ def sort_key(rec):
 	key += rec["title"] + " " + rec["key"]
 	return config.COLLATOR.getSortKey(key)
 
-if __name__ == "__main__":
-	#params = {"rend": "default", "loc": [], "n": "", "missing": False}
-	#r = get_entry(sys.argv[1], **params)
+@db.transaction
+def update_sort_keys():
 	db.execute("begin")
 	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
 		rec = json.loads(rec)
 		db.execute("update biblio_data set sort_key = ? where key = ?", (sort_key(rec), key))
 	db.execute("commit")
+
+if __name__ == "__main__":
+	#params = {"rend": "default", "loc": [], "n": "", "missing": False}
+	#r = get_entry(sys.argv[1], **params)
+	pass

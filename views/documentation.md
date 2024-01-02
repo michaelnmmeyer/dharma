@@ -64,8 +64,7 @@ convention)</li>
 
 Our bibliography is stored on Zotero servers
 [here](https://www.zotero.org/groups/1633743/erc-dharma). The DHARMA database
-stores a copy of it, which is updated every hour or so, but not immediately
-after a modification (for now).
+stores a copy of it, which is updated after every modification on zotero.org.
 
 It is important to know that, even though we are using the Zotero data model,
 we are using several distinct bibliography processors for formatting entries

@@ -1,3 +1,7 @@
+# Syncing with zotero servers. This must be run in a separate process.
+# The relevant documentation is at:
+# https://www.zotero.org/support/dev/web_api/v3/streaming_api
+
 import logging, json, traceback
 from websockets.sync.client import connect # https://websockets.readthedocs.io
 from dharma import config, change

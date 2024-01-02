@@ -37,8 +37,12 @@ socket, and SQLite takes care of other IPC issues). However, the server code is
 *not* thread-safe. Running extra processes is simpler anyway.
 
 The update process is used for updating databases when people push to git
-repositories. The code's entry point is in `change.py`. A single update process
-should run at a given time, not more.
+repositories or modify our Zotero bibliography. The code's entry point is in
+`change.py`. A single update process should run at a given time, not more.
+
+In addition to the above, we run a WebSocket client that is hooked to Zotero
+and that notifies the update process whenever someone modifies the project's
+bibliography. The code is in `zotero.py`.
 
 We use the WAL mode in SQLite. Thus, writers don't block readers and
 vice-versa, but writers do block each other, which is why we use just one and

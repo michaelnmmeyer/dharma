@@ -60,8 +60,8 @@ DHARMA_CritEd*)
 <h2 id="bibliography">Bibliography</h2>
 <p>Our bibliography is stored on Zotero servers <a
 href="https://www.zotero.org/groups/1633743/erc-dharma">here</a>. The
-DHARMA database stores a copy of it, which is updated every hour or so,
-but not immediately after a modification (for now).</p>
+DHARMA database stores a copy of it, which is updated after every
+modification on zotero.org.</p>
 <p>It is important to know that, even though we are using the Zotero
 data model, we are using several distinct bibliography processors for
 formatting entries and references. They do not necessarily produce the
