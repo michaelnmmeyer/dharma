@@ -1010,7 +1010,7 @@ def format_entry(key, rec, **params):
 		w.space()
 	f(rec, w, params)
 	w.space()
-	tag = w.tag("i", {"class": "fas fa-edit", "style": "display:inline;color:black;"})
+	tag = w.tag("i", {"class": "fas fa-edit", "style": "display:inline;color:black;", "data-tip": "Edit on zotero.org"})
 	tag.append(" ")
 	lnk = w.tag("a", href=f"https://www.zotero.org/groups/1633743/erc-dharma/items/{key}")
 	lnk.append(tag)
