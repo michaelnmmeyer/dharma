@@ -118,7 +118,7 @@ def open_db(name, schema=None):
 	conn = sqlite3.connect(path, **kwargs)
 	# We use "pragma query_only" instead of opening the db in read-only mode
 	# because we want to be able to optimize the db at exit.
-	if READ_ONLY and name != "github":
+	if READ_ONLY and name == "texts":
 		conn.execute("pragma query_only = yes")
 	conn.row_factory = sqlite3.Row
 	conn.executescript(common_schema)
