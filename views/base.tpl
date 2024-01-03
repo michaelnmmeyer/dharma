@@ -33,7 +33,7 @@
 <aside>{{!get('sidebar', '')}}</aside>
 <main>{{!base}}</main>
 <footer>
-<p>© <a href="https://dharma.hypotheses.org">ERC-DHARMA Project</a>, 2019-2023</p>
+<p>© <a href="https://dharma.hypotheses.org">ERC-DHARMA Project</a>, 2019-2024</p>
 </footer>
 </div>
 
