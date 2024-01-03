@@ -22,18 +22,6 @@ function toggleTOC() {
 	}
 }
 
-function flashTarget() {
-	if (!this["href"]) {
-		return
-	}
-	let url = new URL(this["href"])
-	let node = document.querySelector(url.hash)
-	node.classList.add("dh-flash")
-	setTimeout(function () {
-		node.classList.remove("dh-flash")
-	}, 2000)
-}
-
 // See the popper doc + https://codepen.io/jsonc/pen/LYbyyaM
 let popperInstance = null
 let tipBox = null
@@ -86,11 +74,30 @@ function prepareTips() {
 	}
 }
 
+function flashTarget() {
+	if (!this["href"]) {
+		return
+	}
+	let url = new URL(this["href"])
+	let node = document.querySelector(url.hash)
+}
+
+function highlightFragment() {
+	let hash = window.location.hash
+	if (!hash)
+		return
+	let node = document.querySelector(hash)
+	if (!node)
+		return
+	node.classList.add("dh-flash")
+	setTimeout(function () {
+		node.classList.remove("dh-flash")
+	}, 2000)
+}
+
 window.addEventListener("load", function () {
 	prepareTips()
-	for (let node of document.querySelectorAll("a.dh-bib-ref, a.dh-note-ref")) {
-		node.addEventListener("click", flashTarget)
-	}
+	highlightFragment()
 })
 
 window.addEventListener("load", function () {
@@ -102,9 +109,6 @@ window.addEventListener("load", function () {
 			let href = this.getAttribute('data-href')
 			window.location.href = href
 		})
-	}
-	for (let node of document.querySelectorAll("aside a")) {
-		node.addEventListener("click", flashTarget)
 	}
 	for (let node of document.querySelectorAll("h1, h2, h3, h4, h5, h6")) {
 		let id = node.id
