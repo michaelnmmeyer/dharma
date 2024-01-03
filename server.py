@@ -246,6 +246,7 @@ def test():
 	return bottle.template("test.tpl")
 
 @bottle.get("/bibliography/page/<page:int>")
+@TEXTS_DB.transaction
 def display_biblio(page):
 	db = TEXTS_DB
 	db.execute("begin")

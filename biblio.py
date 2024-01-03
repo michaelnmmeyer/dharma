@@ -947,7 +947,7 @@ def fix_rec(rec):
 			publisher = None
 		rec["publisher"] = publisher
 	for key, value in rec.copy().items():
-		if key in ("itemType", "pages", "url", "DOI"):
+		if key in ("itemType", "pages", "url", "DOI", "callNumber"):
 			continue
 		if isinstance(value, str):
 			rec[key] = fix_value(value)
