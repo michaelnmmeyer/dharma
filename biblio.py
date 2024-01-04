@@ -360,7 +360,7 @@ class Writer:
 
 cited_range_units = {
 	"volume": ("vol.", "vols."),
-	"appendix": ("appendix", "appendixes"),
+	"appendix": ("appendix", "appendices"),
 	"book": ("book", "books"),
 	"section": ("§", "§§"),
 	"page": ("p.", "pp."),
