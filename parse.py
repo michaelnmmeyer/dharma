@@ -1305,19 +1305,21 @@ def parse_g(p, node):
 	else:
 		cat = "unclear"
 	st = node["subtype"]
-	if t == "symbol" and st:
+	if t == "symbol" and st: # quirk, shouldn't have to do this
 		t = st
 	p.document.gaiji.add(t)
 	info = gaiji.get(t)
 	tip = titlecase(info["description"])
 	tip = "%s (category: %s)" % (tip, cat)
-	p.start_span(klass="dh-symbol", tip=tip)
-	#if info["img"] and not info["prefer_text"]:
-	#	p.add_html('<img alt="%s" class="dh-svg" src="%s"/>' % (info["name"], info["img"]))
-	#else:
-	#	p.add_html(info["text"])
-	p.add_text(info["text"])
-	p.end_span()
+	if info["text"]:
+		p.start_span(klass="symbol", tip=tip)
+		p.add_html(html.escape(info["text"]), plain=True)
+		p.end_span()
+	else:
+		p.start_span(klass="symbol-placeholder", tip=tip)
+		p.add_html(html.escape(info["name"]), plain=True)
+		p.end_span()
+	# had '<img alt="%s" class="dh-svg" src="%s"/>' % (info["name"], info["img"]))
 
 # OK
 def parse_unclear(p, node):

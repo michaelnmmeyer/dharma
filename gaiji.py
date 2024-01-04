@@ -31,7 +31,7 @@ def iter_rows():
 def default_rec(name):
 	return {
 		"name": name,
-		"text": "{%s}" % name,
+		"text": None,
 		"prefer_text": False,
 		"img": None,
 		"description": "Symbol, no description available",
@@ -60,7 +60,7 @@ def load():
 			del rec["names"]
 			rec["name"] = name
 			if not rec["text"]:
-				rec["text"] = "{%s}" % name
+				rec["text"] = None
 			ret[name] = rec
 	for name, img in imgs.items():
 		rec = default_rec(name)
