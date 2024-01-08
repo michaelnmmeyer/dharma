@@ -1,4 +1,7 @@
-manu: <persName ref=pallava...>? should use key
+support the dataset bib type: https://dharman.in/display/DHARMA_INSBengalCharters00001
+sqlite3 dbs/texts.sqlite "select json from biblio_data where short_title='Balogh+al2019_01'" | jq
+
+manu: <persName ref=pallava...>? should use key ; grep '"pallava' texts
 
 amandine: <persName ref=PSN...>? should use key
 
@@ -7,7 +10,7 @@ in refs, use p. only when we have several units
 
 reread issue on bib
 
-smart display for languages list in meta
+display for languages list in meta
 
 
 check for overlapping colors, keep the most specific one; except for pb/lb,
@@ -21,8 +24,7 @@ make docker not use root
 
 fix toc on lhs
 
-manu: case with several <edition>
-How to display several <div type="edition"> ? see https://dharman.in/display/DHARMA_INSPallava00252
+manu: case with several <edition> https://dharman.in/display/DHARMA_INSPallava00252
 
 Add a "full" display mode which shows both sic and corr, orig and reg, etc. See
 https://github.com/erc-dharma/project-documentation/issues/250
@@ -43,6 +45,9 @@ redirect all logs to some definite location
 include all the commits we missed in the commits tbl (use the commit date when
 no push date is available); paginate stuff
 
+* fix incorrect verse numbers that should be in Roman in DHARMA_INSCIC00066
+
+
 --------------------------------------------------------- manu
 
 * Sort out languages tagging; assign language categories (lang of
@@ -54,9 +59,6 @@ no push date is available); paginate stuff
   hyphens between words? or at the end fo a line?
 
 
-* Show orig/corr contents in tooltips
-
-* fix incorrect verse numbers that should be in Roman in DHARMA_INSCIC00066
 
 * fix https://github.com/erc-dharma/project-documentation/issues/232#issuecomment-1810441994
   and get the svg image for spirals here https://mail.google.com/mail/u/0/#label/Work/FMfcgzGwHfrfhGpNxJrtMMRcPJHqcKTp
@@ -65,6 +67,7 @@ manu: unreferenced biblio items in global biblio from arlo; should
    we always point to the global biblio? this prevents detecting
    missing entries, and this means that generated XML files will not
    contain all bibliographic entries
+   https://dharman.in/display/DHARMA_INSIDENKAlasantan
 
 
 

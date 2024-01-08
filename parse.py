@@ -414,6 +414,7 @@ class Document:
 	author = None
 	editors = None
 	langs = None
+	edition_main_langs = None
 	summary = None
 
 	edition = None
@@ -427,6 +428,7 @@ class Document:
 
 	def __init__(self):
 		self.langs = []
+		self.edition_main_langs = []
 		self.edition = []
 		self.translation = []
 		self.sigla = {}
