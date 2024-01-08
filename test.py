@@ -12,11 +12,13 @@ critical_translation = [f for f in critical if "_trans" in f]
 assert len(inscriptions) + len(diplomatic) \
 	+ len(critical_edition) + len(critical_translation) == len(files)
 
-for file in inscriptions:
+for file in files:
 	xml = tree.parse(file)
-	for p in xml.find("//lg"):
-		if any(x["n"].isdigit() for x in p.find("l")):
-			print(p.xml())
+	for p in xml.find("//citedRange"):
+		if p["unit"] == "":
+			pass
+			print(p.text())
+		#print(p["unit"])
 
 		#print(p.xml())
 		#print(p["place"])

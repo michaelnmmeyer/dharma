@@ -58,6 +58,9 @@ image:
 	$(MAKE) version.txt
 	sudo docker build -t dharma .
 
+docker-clean:
+	sudo docker system prune
+
 # Usage: make commit-all m="Commit message"
 m := "Address encoding problems"
 commit-all:
@@ -82,7 +85,7 @@ deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
 	cp schemas/prosody.rng repos/project-documentation/schema/latest/DHARMA_ProsodySchema.rng
 	git -C repos/project-documentation commit -am "Schema update" && git -C repos/project-documentation push
 
-.PHONY: all clean update-repos update-texts download-dbs list-texts forever version.txt image commit-all deploy-schemas
+.PHONY: all clean update-repos update-texts download-dbs list-texts forever version.txt image docker-clean commit-all deploy-schemas
 
 views/%.tpl: views/%.md
 	pandoc -f markdown -t html $^ -o $@

@@ -1018,8 +1018,11 @@ def text_to_html(p, mark):
 		mark += 1
 
 # OK
-def parse_sic(p, sic):
-	p.start_span(klass="dh-sic", tip="Incorrect text")
+def parse_sic(p, sic, corr=None):
+	tip = "Incorrect text"
+	if corr:
+		tip += ' (emendation: <span class="dh-corr">⟨%s⟩</span>)' % html.escape(corr)
+	p.start_span(klass="dh-sic", tip=tip)
 	p.add_html("¿")
 	mark = len(p.top.code)
 	p.dispatch_children(sic)
@@ -1028,16 +1031,22 @@ def parse_sic(p, sic):
 	p.end_span()
 
 # OK
-def parse_corr(p, corr):
-	p.start_span(klass="dh-corr", tip="Emended text")
+def parse_corr(p, corr, sic=None):
+	tip = "Emended text"
+	if sic:
+		tip += ' (original: <span class="dh-sic">¿%s?</span>)' % html.escape(sic)
+	p.start_span(klass="dh-corr", tip=tip)
 	p.add_html('⟨')
 	p.dispatch_children(corr)
 	p.add_html('⟩')
 	p.end_span()
 
 # OK
-def parse_orig(p, orig):
-	p.start_span(klass="dh-orig", tip="Non-standard text")
+def parse_orig(p, orig, reg=None):
+	tip = "Non-standard text"
+	if reg:
+		tip += ' (standardisation: <span class="dh-reg">⟨%s⟩</span>)' % html.escape(reg)
+	p.start_span(klass="dh-orig", tip=tip)
 	p.add_html("¡")
 	mark = len(p.top.code)
 	p.dispatch_children(orig)
@@ -1046,8 +1055,11 @@ def parse_orig(p, orig):
 	p.end_span()
 
 # OK
-def parse_reg(p, reg):
-	p.start_span(klass="dh-reg", tip="Standardised text")
+def parse_reg(p, reg, orig=None):
+	tip = "Standardised text"
+	if orig:
+		tip += ' (original: <span class="dh-orig">¡%s!</span>)' % html.escape(orig)
+	p.start_span(klass="dh-reg", tip=tip)
 	p.add_html("⟨")
 	p.dispatch_children(reg)
 	p.add_html("⟩")
@@ -1079,7 +1091,14 @@ def parse_choice(p, node):
 		# <choice><orig>...</orig><reg>...</reg></choice>
 		#
 		# For searching keep <corr> and <reg>, ignore the rest.
-		p.dispatch_children(node) # nothing special to do
+		if len(children) == 2 and children[0].name == "sic" and children[1].name == "corr":
+			parse_sic(p, children[0], children[1].text())
+			parse_corr(p, children[1], children[0].text())
+		elif len(children) == 2 and children[0].name == "orig" and children[1].name == "reg":
+			parse_orig(p, children[0], children[1].text())
+			parse_reg(p, children[1], children[0].text())
+		else:
+			p.dispatch_children(node)
 
 # >editorial
 
