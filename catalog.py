@@ -1,5 +1,5 @@
 import os, sys
-from dharma import tree, parse, texts, config
+from dharma import tree, parse, texts, config, document
 
 db = config.open_db("texts")
 
@@ -77,12 +77,12 @@ def insert(file, db):
 			setattr(doc, key, val)
 	fmt_title = doc.title.render_logical()
 	if fmt_title:
-		fmt_title = fmt_title.split(parse.PARA_SEP)
+		fmt_title = fmt_title.split(document.PARA_SEP)
 	else:
 		fmt_title = []
 	fmt_editors = doc.editors.render_logical()
 	if fmt_editors:
-		fmt_editors = fmt_editors.split(parse.PARA_SEP)
+		fmt_editors = fmt_editors.split(document.PARA_SEP)
 	else:
 		fmt_editors = []
 	db.execute("""insert or replace into documents(name, repo, title, author, editors, langs, summary)
