@@ -124,7 +124,7 @@ class Block:
 				continue
 			if rcmd != "phys":
 				continue
-			if rdata.startswith("=") and not rparams["type"] == "gridlike":
+			if rdata.startswith("=") and not rparams.get("type") == "gridlike":
 				p = i
 				continue
 			if rdata == "<line":
