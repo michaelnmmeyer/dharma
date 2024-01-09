@@ -726,32 +726,11 @@ class Parser:
 	def end_span(self):
 		return self.blocks[-1].end_span()
 
-	shorthands = {
-		"_": etree.parse_string('<space/>'),
-		"|": etree.parse_string('<g type="danda">.</g>'),
-		"/": etree.parse_string('<g type="dandaOrnate">.</g>'),
-		"||": etree.parse_string('<g type="ddanda">.</g>'),
-		"//": etree.parse_string('<g type="ddandaOrnate">.</g>'),
-		"@": etree.parse_string('<g type="circle">.</g>'),
-		"~": etree.parse_string('<g type="dash">.</g>'),
-		# the transliteration shorthand , is recommended for <g type="comma">.</g>
-		# yeah but too ambiguous
-	}
-	shorthands_re = re.compile("(%s)" % "|".join(re.escape(s) for s in sorted(shorthands, key=len, reverse=True)))
-
-	def split_string(self, s):
-		for chunk in self.shorthands_re.split(s):
-			t = self.shorthands.get(chunk)
-			if t:
-				self.dispatch(t.root)
-			else:
-				self.add_text(chunk.replace("'", "’"))
-
 	def dispatch(self, node):
 		if node.type in ("comment", "instruction"):
 			return
 		if node.type == "string":
-			self.split_string(str(node))
+			self.add_text(str(node).replace("'", "’"))
 			return
 		assert node.type == "tag"
 		f = self.handlers.get(node.name)
