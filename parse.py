@@ -113,6 +113,7 @@ class Block:
 		return self.add_code("html", data, **params)
 
 	def close_line(self, brk):
+		# Try to figure out where we should insert an EOL marker
 		i = len(self.code)
 		p = i
 		while i > 0:
@@ -123,7 +124,7 @@ class Block:
 				continue
 			if rcmd != "phys":
 				continue
-			if rdata.startswith("="):
+			if rdata.startswith("=") and not rparams["type"] == "gridlike":
 				p = i
 				continue
 			if rdata == "<line":
@@ -131,7 +132,7 @@ class Block:
 				break
 
 	def add_phys(self, data, **params):
-		# XXX handle breaks consistently,trim space always?
+		# XXX handle breaks consistently, trim space always?
 		if data != "line":
 			assert data.startswith("=")
 			self.add_code("phys", data, **params)
@@ -804,7 +805,7 @@ def parse_rdg(p, rdg):
 
 def parse_app(p, app):
 	loc = app["loc"] or "?"
-	p.start_span(klass="dh-lb", tip="Line number")
+	p.start_span(klass="dh-lb", tip="Line start")
 	p.add_text("(%s)" % loc)
 	p.end_span()
 	p.add_text(" ")
