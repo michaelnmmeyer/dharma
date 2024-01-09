@@ -1,3 +1,15 @@
+move stuff from parse.py into document.py
+
+parse urls and make them clickable
+
+don't parse shorthands (_ / // ... for now).
+
+fix gaiji
+  https://github.com/erc-dharma/project-documentation/issues/232#issuecomment-1810441994
+  and get the svg image for spirals here https://mail.google.com/mail/u/0/#label/Work/FMfcgzGwHfrfhGpNxJrtMMRcPJHqcKTp
+
+make biblio searchable
+
 support the dataset bib type: https://dharman.in/display/DHARMA_INSBengalCharters00001
 sqlite3 dbs/texts.sqlite "select json from biblio_data where short_title='Balogh+al2019_01'" | jq
 
@@ -47,21 +59,19 @@ no push date is available); paginate stuff
 
 * fix incorrect verse numbers that should be in Roman in DHARMA_INSCIC00066
 
-
---------------------------------------------------------- manu
-
 * Sort out languages tagging; assign language categories (lang of
   the ed. or of the rest, main or secondary lang; probably not
   useful to keep track of <foreign>)
+
+--------------------------------------------------------- manu
+
+
 
 * In physical display, do not display editorial hyphens, but do show them
   in logical display. For this to work, need to tag languages. XXX
   hyphens between words? or at the end fo a line?
 
 
-
-* fix https://github.com/erc-dharma/project-documentation/issues/232#issuecomment-1810441994
-  and get the svg image for spirals here https://mail.google.com/mail/u/0/#label/Work/FMfcgzGwHfrfhGpNxJrtMMRcPJHqcKTp
 
 manu: unreferenced biblio items in global biblio from arlo; should
    we always point to the global biblio? this prevents detecting
