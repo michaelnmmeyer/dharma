@@ -195,7 +195,7 @@ def update_db(repo):
 		catalog.insert(file, db)
 
 def backup_to_jawakuno():
-	command("bash", "-x", os.path.join(config.THIS_DIR, "backup_to_jawakuno.sh"), capture_output=False)
+	command("bash", "-x", config.path_of("backup_to_jawakuno.sh"), capture_output=False)
 
 @TEXTS_DB.transaction
 def handle_changes(name):

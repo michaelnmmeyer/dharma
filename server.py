@@ -1,6 +1,6 @@
 import os, json, sys, unicodedata, hashlib, locale
 from datetime import datetime
-from dharma import config, bottle, change, people, ngrams, catalog, parse, validate, parse_ins, biblio
+from dharma import config, bottle, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document
 
 SCHEMA = """
 begin;
@@ -53,7 +53,7 @@ def show_documentation():
 
 @bottle.get("/documentation/<name>")
 def show_tei_doc(name):
-	return bottle.static_file(name + ".html", root=os.path.join(config.THIS_DIR, "schemas"))
+	return bottle.static_file(name + ".html", root=config.path_of("schemas"))
 
 @bottle.get("/texts")
 @TEXTS_DB.transaction
@@ -234,9 +234,9 @@ def display_text(text):
 	doc.commit_hash, doc.commit_date = commit_hash, commit_date
 	doc.last_modified = last_modified
 	title = doc.title.render_logical()
-	doc.title = title and title.split(parse.PARA_SEP) or []
+	doc.title = title and title.split(document.PARA_SEP) or []
 	editors = doc.editors.render_logical()
-	doc.editors = editors and editors.split(parse.PARA_SEP)
+	doc.editors = editors and editors.split(document.PARA_SEP)
 	sidebar = bottle.template("inscription-sidebar.tpl", doc=doc, text=text, numberize=parse.numberize)
 	return bottle.template("inscription.tpl", doc=doc, github_url=github_url,
 		text=text, numberize=parse.numberize, sidebar=sidebar)

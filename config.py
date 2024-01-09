@@ -4,6 +4,9 @@ import icu
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
+def path_of(*path_elems):
+	return os.path.join(THIS_DIR, *path_elems)
+
 HOST = os.getenv("WITHIN_DOCKER") and "0.0.0.0" or "localhost"
 PORT = 8023
 DEBUG = bool(int(os.environ.get("DEBUG", 1)))
@@ -103,7 +106,7 @@ else:
 def open_db(name, schema=None):
 	if name == "texts":
 		assert not schema
-		with open(os.path.join(THIS_DIR, "schema.sql")) as f:
+		with open(path_of("schema.sql")) as f:
 			schema = f.read()
 	if name == ":memory:":
 		path = name

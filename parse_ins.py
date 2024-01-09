@@ -140,7 +140,7 @@ def process_file(file, db=None):
 
 def export_arlo_plain_numbered(files):
 	renderer = parse.PlainRenderer(strip_physical=False, arlo_normalize=True)
-	out_dir = os.path.join(config.THIS_DIR, "arlo_plain", "plain_numbered")
+	out_dir = config.path_of("arlo_plain", "plain_numbered")
 	os.makedirs(out_dir, exist_ok=True)
 	for file in files:
 		ret = renderer.render(file)
@@ -150,7 +150,7 @@ def export_arlo_plain_numbered(files):
 
 def export_arlo_plain_raw(files):
 	renderer = parse.PlainRenderer(strip_physical=True, arlo_normalize=True)
-	out_dir = os.path.join(config.THIS_DIR, "arlo_plain", "plain_raw")
+	out_dir = config.path_of("arlo_plain", "plain_raw")
 	os.makedirs(out_dir, exist_ok=True)
 	for file in files:
 		ret = renderer.render(file)
@@ -165,7 +165,7 @@ def export_arlo():
 		select name from documents, json_each(documents.langs)
 		where json_each.value = 'kaw' and name glob 'DHARMA_INS*'
 		"""):
-		path = os.path.join(config.THIS_DIR, "texts", name + ".xml")
+		path = config.path_of("texts", name + ".xml")
 		print(path)
 		file = process_file(path)
 		files.append(file)
@@ -175,7 +175,7 @@ def export_arlo():
 def export_plain():
 	db = config.open_db("texts")
 	renderer = parse.PlainRenderer(strip_physical=True, arlo_normalize=False)
-	out_dir = os.path.join(config.THIS_DIR, "plain")
+	out_dir = config.path_of("plain")
 	os.makedirs(out_dir, exist_ok=True)
 	for name, path in db.execute("""
 		select name, printf('%s/%s/%s', ?, repo, path)

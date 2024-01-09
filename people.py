@@ -48,7 +48,7 @@ def make_db():
 		db.execute("""
 			insert or replace into people_main(name, dh_id, idhal, idref, orcid, viaf, wikidata)
 			values(:name, :dh_id, :idhal, :idref, :orcid, :viaf, :wikidata)""", row)
-	with open(os.path.join(config.THIS_DIR, "git_names.tsv")) as f:
+	with open(config.path_of("git_names.tsv")) as f:
 		seen = set()
 		for line_no, line in enumerate(f, 1):
 			if line_no == 1:

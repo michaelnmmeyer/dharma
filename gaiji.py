@@ -15,7 +15,7 @@ def gather_images():
 	return ret
 
 def iter_rows():
-	path = os.path.join(config.THIS_DIR, "gaiji.tsv")
+	path = config.path_of("gaiji.tsv")
 	field_names = None
 	with open(path) as f:
 		for line_no, line in enumerate(f, 1):

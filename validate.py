@@ -43,9 +43,9 @@ class Validator:
 		self.prefix = prefix
 		self.saxon_proc = PySaxonProcessor(license=False)
 		xslt_proc = self.saxon_proc.new_xslt30_processor()
-		path = os.path.join(config.THIS_DIR, "schemas", self.name + ".sch")
+		path = config.path_of("schemas", self.name + ".sch")
 		self.sch_script = xslt_proc.compile_stylesheet(stylesheet_file=path)
-		path = os.path.join(config.THIS_DIR, "schemas", self.name + ".rng")
+		path = config.path_of("schemas", self.name + ".rng")
 		self.rng_schema = relaxng.Schema(path)
 
 	def quick_check(self, file):

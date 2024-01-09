@@ -78,8 +78,6 @@ def last_mod_of(path):
 	ret = config.command("git", "-C", os.path.join(config.REPOS_DIR, repo), "log", "-1", "--format=%at", "--", relpath)
 	return int(ret.stdout.strip())
 
-TEXTS_DIR = os.path.join(config.THIS_DIR, "texts")
-
 # Create a map xml->web page (for debugging)
 def gather_web_pages(recs):
 	tbl = {file.name: file for file in recs}
