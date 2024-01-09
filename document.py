@@ -9,7 +9,6 @@
 
 import os, sys, re, io, copy, html, unicodedata
 from dharma import prosody, people, tree, gaiji, config, unicode, biblio
-from dharma import tree as etree
 
 write = sys.stdout.write
 
@@ -68,7 +67,7 @@ def normalize(s):
 	if s is None:
 		s = ""
 	elif not isinstance(s, str):
-		# make sure matching doesn't work across array elements
+		# Make sure matching doesn't work across array elements.
 		s = "!!!!!".join(s)
 	s = unicodedata.normalize("NFKD", s)
 	s = "".join(c for c in s if not unicodedata.combining(c))

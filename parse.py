@@ -1,6 +1,5 @@
 import os, sys, re, io, copy, html, unicodedata
 from dharma import prosody, people, tree, gaiji, config, unicode, biblio
-from dharma import tree as etree
 from dharma.document import Document, Block
 
 class Parser:
@@ -101,11 +100,6 @@ class Parser:
 	def complain(self, msg):
 		print("UNKNOWN %s" % msg)
 		pass
-
-# Like the eponymous function in xslt
-def normalize_space(s): # XXX we have 3 versions of this
-	s = s.strip()
-	return re.sub(r"\s+", " ", s)
 
 def parse_lem(p, lem):
 	p.dispatch_children(lem)
@@ -918,13 +912,6 @@ def parse_cit(p, cit):
 	if block:
 		p.add_log(">blockquote")
 
-def remove_duplicates(ls):
-	ret = []
-	for x in ls:
-		if x not in ret:
-			ret.append(x)
-	return ret
-
 def gather_people(stmt, *paths):
 	nodes = [node for path in paths for node in stmt.find(path)]
 	nodes.sort(key=lambda node: node.location.start)
@@ -936,11 +923,10 @@ def gather_people(stmt, *paths):
 				continue
 			name = people.plain(ident.removeprefix("part:"))
 		else:
-			name = normalize_space(node.text(space="preserve"))
+			name = config.normalize_space(node.text(space="preserve"))
 			if not name:
 				continue
-		ret.append(name)
-	ret = remove_duplicates(ret)
+		config.append_unique(ret, name)
 	return ret
 
 def parse_titleStmt(p, stmt):

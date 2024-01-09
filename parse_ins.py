@@ -60,12 +60,6 @@ def gather_biblio(p, body):
 			p.document.sigla[target] = siglum
 		p.document.biblio.add(target)
 
-def append_unique(items, item):
-	if item in items:
-		return
-	items.append(item)
-	return items
-
 def parse_body(p, body):
 	gather_biblio(p, body)
 	for div in body.children():
@@ -77,14 +71,14 @@ def parse_body(p, body):
 		p.divs.append(set())
 		if type == "edition":
 			if "lang" in div.attrs:
-				append_unique(p.document.edition_main_langs, div["lang"])
+				config.append_unique(p.document.edition_main_langs, div["lang"])
 			else:
 				for textpart in div.find("//div"):
 					if not textpart["type"] == "textpart":
 						continue
 					if not "lang" in textpart.attrs:
 						continue
-					append_unique(p.document.edition_main_langs, textpart["lang"])
+					config.append_unique(p.document.edition_main_langs, textpart["lang"])
 			# XXX Add sec. languages https://github.com/erc-dharma/project-documentation/issues/250
 			#and add validity check (in schema?)
 			edition = gather_sections(p, div)

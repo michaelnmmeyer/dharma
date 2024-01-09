@@ -1,6 +1,5 @@
 import os, sys, string, unicodedata, re, html
 from glob import glob
-from dharma.parse import normalize_space
 from dharma import config, texts, tree
 
 # TODO try multisets: https://en.wikipedia.org/wiki/Jaccard_index
@@ -88,7 +87,7 @@ def cleanup(s):
 		elif c in "’'ʼ":
 			c = "’"
 		buf.append(c)
-	ret = normalize_space("".join(buf))
+	ret = config.normalize_space("".join(buf))
 	return ret
 
 def extract_pada(l):

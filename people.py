@@ -4,11 +4,6 @@ from dharma import config, tree
 
 db = config.open_db("texts")
 
-# Like the eponymous function in xslt
-def normalize_space(s):
-	s = s.strip()
-	return re.sub(r"\s+", " ", s)
-
 ID_TYPES = """
 IdHAL
 IdRef
@@ -87,7 +82,7 @@ def plain_from_viaf(url, dflt=None):
 	# Choose the most common form of the name hoping it's the most adequate
 	counts = {}
 	for node in xml.find("//prefLabel"):
-		text = normalize_space(node.text())
+		text = config.normalize_space(node.text())
 		# try to strip dates at the end as in "Cœdès, George 1886-1969"
 		end = len(text)
 		while end > 0:

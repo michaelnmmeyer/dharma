@@ -1,4 +1,4 @@
-import os, sys, logging, sqlite3, json, subprocess, locale
+import os, sys, logging, sqlite3, json, subprocess, re
 from urllib.parse import urlparse
 import icu
 
@@ -20,8 +20,6 @@ DUMMY_DB = None
 with open(os.path.join(THIS_DIR, "version.txt")) as f:
 	CODE_HASH = f.readline().strip()
 	CODE_DATE = int(f.readline().strip())
-
-#locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
 # Report exceptions within user functions on stderr. Otherwise we only get a
 # message that says an exception was raised, without more info.
@@ -75,6 +73,11 @@ class DB:
 			assert not self._conn.in_transaction
 			return ret
 		return wrapper
+
+# Like the eponymous function in xslt
+def normalize_space(s):
+	s = s.strip()
+	return re.sub(r"\s+", " ", s)
 
 # For seeing how different collations work, see:
 # https://icu4c-demos.unicode.org/icu-bin/collation.html
@@ -143,6 +146,12 @@ def json_adapter(obj):
 sqlite3.register_converter("json", json_converter)
 sqlite3.register_adapter(list, json_adapter)
 sqlite3.register_adapter(dict, json_adapter)
+
+def append_unique(items, item):
+	if item in items:
+		return
+	items.append(item)
+	return items
 
 def command(*cmd, **kwargs):
 	print(*cmd, file=sys.stderr)
