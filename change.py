@@ -25,8 +25,9 @@ tfa-melappaluvur-kilappaluvur-epigraphy
 tfa-pallava-epigraphy
 tfa-pandya-epigraphy
 tfa-sii-epigraphy
-tfa-tamilnadu-epigraphy
 tfa-tamil-outside-TN-epigraphy
+tfa-tamilnadu-epigraphy
+tfa-tiruvavatuturai-TN-epigraphy
 tfa-uttiramerur-epigraphy
 tfb-arakan-epigraphy
 tfb-badamicalukya-epigraphy
@@ -38,6 +39,7 @@ tfb-ec-epigraphy
 tfb-eiad-epigraphy
 tfb-gangaeast-epigraphy
 tfb-kalyanacalukya-epigraphy
+tfb-karnataka-epigraphy
 tfb-licchavi-epigraphy
 tfb-maitraka-epigraphy
 tfb-parivrajaka-epigraphy
