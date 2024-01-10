@@ -50,6 +50,9 @@ def fix_tags_decl(xml):
 # * add a fix for ṃ, ṛ, ṝ, ḹ (_and_ also in the rendering code) if Arlo confirms at
 # https://github.com/erc-dharma/project-documentation/issues/251
 
+# TODO for manu https://github.com/erc-dharma/project-documentation/issues/197#issuecomment-1883341358
+# PS: I think you have somewhere a list of automatic changes to be implemented on the DHARMA files; maybe add to this list the change of <hi rend="grantha"> to the correct encoding <seg rend="grantha" rendition="class:38768 maturity:83213"> in <div type="edition"> as well as in <div type="apparatus">, as I might still use <hi rend="grantha"> as a short-hand encoding.
+
 document = sys.stdin.read()
 document = cleanup.normalize_string(document)
 t = tree.parse_string(document)
