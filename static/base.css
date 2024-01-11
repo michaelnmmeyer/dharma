@@ -1,5 +1,5 @@
 :root {
-	--dh-border-radius: 0.3em;
+	--border-radius: 0.3em;
 }
 
 @keyframes flash {
@@ -14,24 +14,24 @@
 	}
 }
 
-.dh-flash {
+.flash {
 	animation: flash 2s;
 }
 
 
-.dh-bib-ref, .dh-note-ref {
+.bib-ref, .note-ref {
 	color: blue;
 }
-.dh-bib-ref-invalid {
+.bib-ref-invalid {
 	color: red;
 }
 
-p.dh-bib-entry {
+p.bib-entry {
 	padding-left: 1.5em;
 	text-indent: -1.5em;
 }
 
-.dh-url {
+.url {
 	font-family: monospace;
 	font-size: larger;
 }
@@ -96,7 +96,7 @@ body {
 pre, code {
 	font-family: 'Noto Mono', monospace;
 	background-color: #eaeaea;
-	border-radius: var(--dh-border-radius);
+	border-radius: var(--border-radius);
 	font-size: 92%;
 }
 pre {
@@ -139,7 +139,7 @@ table tr:nth-child(even) {
 table {
 	border-spacing: 0;
 	border-collapse: separate;
-	border-radius: var(--dh-border-radius);
+	border-radius: var(--border-radius);
 	overflow: hidden;
 }
 td, th {
@@ -206,7 +206,7 @@ menu a {
 }
 menu a:hover {
 	background-color: gray;
-	border-radius: var(--dh-border-radius);
+	border-radius: var(--border-radius);
 }
 .active .item {
 	display: block;
@@ -257,10 +257,10 @@ menu a:hover {
 .catalog-list {
 }
 .catalog-list div:first-child {
-	border-radius: var(--dh-border-radius);
+	border-radius: var(--border-radius);
 }
 .catalog-list div:last-child {
-	border-radius: var(--dh-border-radius);
+	border-radius: var(--border-radius);
 }
 .catalog-list div:nth-child(odd) {
 	background-color: #eff0f1;
@@ -290,56 +290,56 @@ abbr {
 
 /* Tooltips */
 
-.dh-tipped:hover {
+.tipped:hover {
 	color: white;
 	background-color: black;
-	border-top-left-radius: var(--dh-border-radius);
-	border-top-right-radius: var(--dh-border-radius);
+	border-top-left-radius: var(--border-radius);
+	border-top-right-radius: var(--border-radius);
 }
 /* div that contains the tooltip (used for all tooltips) */
-#dh-tip-box {
+#tip-box {
 	display: none;
 	background-color: black;
 	color: white;
 	max-width: 30em;
-	border-radius: var(--dh-border-radius);
+	border-radius: var(--border-radius);
 	padding: 0.3em;
 }
 
-#dh-tip-box[data-show] {
+#tip-box[data-show] {
 	display: block;
 }
 
-#dh-tip-arrow, #dh-tip-arrow::before {
+#tip-arrow, #tip-arrow::before {
 	position: absolute;
 	width: 8px;
 	height: 8px;
 	background: inherit;
 }
 
-#dh-tip-arrow {
+#tip-arrow {
 	visibility: hidden;
 }
 
-#dh-tip-arrow::before {
+#tip-arrow::before {
 	visibility: visible;
 	content: '';
 	transform: rotate(45deg);
 }
 
-#dh-tip-box[data-popper-placement^='top'] > #dh-tip-arrow {
+#tip-box[data-popper-placement^='top'] > #tip-arrow {
 	bottom: -4px;
 }
 
-#dh-tip-box[data-popper-placement^='bottom'] > #dh-tip-arrow {
+#tip-box[data-popper-placement^='bottom'] > #tip-arrow {
 	top: -4px;
 }
 
-#dh-tip-box[data-popper-placement^='left'] > #dh-tip-arrow {
+#tip-box[data-popper-placement^='left'] > #tip-arrow {
 	right: -4px;
 }
 
-#dh-tip-box[data-popper-placement^='right'] > #dh-tip-arrow {
+#tip-box[data-popper-placement^='right'] > #tip-arrow {
 	left: -4px;
 }
 

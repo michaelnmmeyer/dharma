@@ -6,7 +6,7 @@
 	justify-content: space-between;
 	max-width: 29em;
 }
-.dh-verse div > span {
+.verse div > span {
 	display: none;
 }
 .verse-numbered div:nth-child(1) > span {
@@ -24,7 +24,7 @@ h6 {
 	margin-block-end: 0;
 }
 
-.dh-ed-tabs {
+.ed-tabs {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
@@ -33,133 +33,137 @@ h6 {
 	/* column-gap: 0.7em; */
 	border-bottom: solid 2px;
 }
-.dh-ed-tabs li {
+.ed-tabs li {
 	border-top: solid;
 	border-left: solid;
 	border-right: solid;
-	border-top-left-radius: var(--dh-border-radius);
-	border-top-right-radius: var(--dh-border-radius);
+	border-top-left-radius: var(--border-radius);
+	border-top-right-radius: var(--border-radius);
 	padding: 0.2em;
 	margin-left: 1em;
 	border-color: gray;
 }
-li.dh-active {
+li.active {
 	background-color: white;
 	border-color: black;
 	margin-bottom: -2px;
 }
-.dh-ed-tabs a {
+.ed-tabs a {
 	color: gray;
 }
-.dh-active a {
+.active a {
 	color: black;
 }
 
 /* Lists examples in
 http://localhost:8023/display/DHARMA_INSIDENKAlasantan#translation-1
 */
-.dh-list-plain {
+.list-plain {
 	list-style: none;
 }
-.dh-list {
+.list {
 	padding-left: 2.4em;
 }
-dl.dh-list { /* XXX ugly on mobile! */
+dl.list { /* XXX ugly on mobile! */
 	display:grid;
 	grid-template-columns: max-content auto;
 }
-dl.dh-list > dt {
+dl.list > dt {
 	grid-column-start: 1;
 	font-weight: bolder;
 }
-dl.dh-list > dd {
+dl.list > dd {
 	grid-column-start: 2;
 }
 
-.dh-note-ref {
+.note-ref {
 	font-size: 80%;
 	vertical-align: super;
 }
 
-.dh-text-id {
+.text-id {
 	font-family: monospace;
 	font-size: larger;
 }
 
 
 /* Editions */
-.dh-grantha {
+.grantha {
 	font-weight: bolder;
 }
-.dh-reading {
+.reading {
 	font-style: italic;
 	color: green;
 }
 /* https://stackoverflow.com/questions/22252472/how-can-i-change-the-color-of-an-svg-element/53336754#53336754
  */
-.dh-svg {
+.svg {
 	height: 1em;
 }
-.dh-milestone {
+.milestone {
 	color: gray;
 }
 .symbol {
 }
 .symbol-placeholder {
 	border: solid;
-	border-radius: var(--dh-border-radius);
+	border-radius: var(--border-radius);
 }
-.dh-lb {
+.lb {
 	color: gray;
 }
-.dh-pagelike {
+.pagelike {
 	color: gray;
 
 }
-.dh-gridlike {
+.gridlike {
 	color: gray;
 }
-.dh-abbr {
+.abbr {
 	color: brown;
 }
-.dh-sic {
+.sic {
 	color: red;
 }
-.dh-corr {
+.corr {
 	color: green;
 }
-.dh-orig {
+.orig {
 	color: magenta;
 }
-.dh-reg {
+.reg {
 	color: blue;
 }
-.dh-check {
+.check {
 	background-color: yellow;
 }
 
 /* Apparatus */
-.dh-apparatus p {
+.apparatus p {
 	text-align: left;
 }
 
 /* Logical display */
-.dh-log {
+.log {
 	text-align: justify;
 }
-.dh-log .dh-sic {
+.log .sic {
 	display: none;
 }
-.dh-log .dh-orig {
+.log .orig {
 	display: none;
 }
-.dh-log .dh-surplus {
+.log .surplus {
 	display: none;
 }
-.dh-log .dh-hyphen-break {
+.log .hyphen-break {
 	display: none;
 }
-.dh-verse {
+.log .abbr-mark {
+	display: none;
+}
+
+.verse {
 	/* Same properties as a normal <p> */
 	margin-block-start: 1em;
 	margin-block-end: 1em;
@@ -167,7 +171,7 @@ dl.dh-list > dd {
 	border-left: solid;
 	border-color: gray;
 }
-.dh-verse p {
+.verse p {
 	/* No space between hemistiches */
 	margin-block-start: 0em;
 	margin-block-end: 0em;
@@ -178,34 +182,34 @@ dl.dh-list > dd {
 }
 
 /* Physical display */
-.dh-phys {
+.phys {
 	text-align: left;
 }
-.dh-phys .dh-line {
+.phys .line {
 	margin-block-start: 0.3em;
 	margin-block-end: 0.3em;
 }
-.dh-phys .dh-pagelike {
+.phys .pagelike {
 }
-.dh-phys .dh-corr {
+.phys .corr {
 	display: none;
 }
-.dh-phys .dh-reg {
+.phys .reg {
 	display: none;
 }
-.dh-phys .dh-abbr-expansion {
+.phys .abbr-expansion {
 	display: none;
 }
 
 /* XML display */
-.dh-xml {
+.xml {
 }
-.dh-xml .dh-tag {
+.xml .tag {
 	color: blue;
 }
-.dh-xml .dh-attr-name {
+.xml .attr-name {
 	color: green;
 }
-.dh-xml .dh-attr-value {
+.xml .attr-value {
 	color: purple;
 }

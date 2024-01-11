@@ -143,7 +143,7 @@ class Block:
 			while i > 0:
 				i -= 1
 				rcmd, rdata, rparams = self.code[i]
-				if rcmd == "span" and data == "<" and "dh-space" in rparams["klass"]:
+				if rcmd == "span" and data == "<" and "space" in rparams["klass"]:
 					break
 				if rcmd != "text":
 					continue
@@ -240,18 +240,18 @@ class Block:
 		for t, data, params in self.code:
 			if t == "log":
 				if data == "<div":
-					buf.append('<div class="dh-ed-section">')
+					buf.append('<div class="ed-section">')
 				elif data == ">div":
 					buf.append('</div>')
 				elif data == "<head":
 					lvl = params.get("level", 3)
-					buf.append('<h%d class="dh-ed-heading">' % lvl)
+					buf.append('<h%d class="ed-heading">' % lvl)
 				elif data == ">head":
 					lvl = params.get("level", 3)
 					buf.append('</h%d>' % lvl)
 				elif data == "<para":
 					if params.get("rend") == "verse":
-						buf.append('<p class="dh-verse">')
+						buf.append('<p class="verse">')
 					else:
 						buf.append("<p>")
 				elif data == ">para":
@@ -266,13 +266,13 @@ class Block:
 				elif data == "<list":
 					typ = params["type"]
 					if typ == "plain":
-						buf.append('<ul class="dh-list dh-list-plain">')
+						buf.append('<ul class="list list-plain">')
 					elif typ == "bulleted":
-						buf.append('<ul class="dh-list">')
+						buf.append('<ul class="list">')
 					elif typ == "numbered":
-						buf.append('<ol class="dh-list">')
+						buf.append('<ol class="list">')
 					elif typ == "description":
-						buf.append('<dl class="dh-list">')
+						buf.append('<dl class="list">')
 					else:
 						assert 0
 				elif data == ">list":
@@ -289,9 +289,9 @@ class Block:
 						assert 0
 				elif data == "<verse":
 					if params["numbered"]:
-						buf.append('<div class="dh-verse verse-numbered">')
+						buf.append('<div class="verse verse-numbered">')
 					else:
-						buf.append('<div class="dh-verse">')
+						buf.append('<div class="verse">')
 				elif data == ">verse":
 					buf.append('</div>')
 				elif data == "<item":
@@ -308,7 +308,7 @@ class Block:
 					buf.append('</dd>')
 				elif data == "=note":
 					n = params["n"]
-					buf.append(f'<a class="dh-note-ref" href="#note-{n}" id="note-ref-{n}">↓{n}</a>')
+					buf.append(f'<a class="note-ref" href="#note-{n}" id="note-ref-{n}">↓{n}</a>')
 				elif data == "<blockquote":
 					buf.append('<blockquote>')
 				elif data == ">blockquote":
@@ -317,21 +317,21 @@ class Block:
 					assert 0, data
 			elif t == "phys":
 				if data == "<line":
-					buf.append('<span class="dh-lb" data-tip="Line start">(%s)</span>' % html.escape(params["n"]))
+					buf.append('<span class="lb" data-tip="Line start">(%s)</span>' % html.escape(params["n"]))
 					if params["brk"]:
 						buf.append(" ")
 				elif data == ">line":
 					pass
 				elif data == "=page":
-					buf.append('<span class="dh-pagelike" data-tip="Page start">(\N{next page} %s)</span>' % html.escape(params["n"]))
+					buf.append('<span class="pagelike" data-tip="Page start">(\N{next page} %s)</span>' % html.escape(params["n"]))
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
 					n = html.escape(params["n"])
-					buf.append(f'<span class="dh-pagelike" data-tip="{unit} start">({unit} {n})</span>')
+					buf.append(f'<span class="pagelike" data-tip="{unit} start">({unit} {n})</span>')
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
 					n = html.escape(params["n"])
-					buf.append(f'<span class="dh-gridlike" data-tip="{unit} start">({unit} {n})</span>')
+					buf.append(f'<span class="gridlike" data-tip="{unit} start">({unit} {n})</span>')
 				else:
 					assert 0, data
 			elif t == "html":
@@ -353,31 +353,31 @@ class Block:
 					continue
 			if t == "phys":
 				if data == "<line":
-					buf.append('<p class="dh-line"><span class="dh-lb" data-tip="Line start">(%s)</span> ' % html.escape(params["n"]))
+					buf.append('<p class="line"><span class="lb" data-tip="Line start">(%s)</span> ' % html.escape(params["n"]))
 				elif data == ">line":
 					if not params["brk"]:
-						buf.append('<span class="dh-hyphen-break" data-tip="Hyphen break">-</span>')
+						buf.append('<span class="hyphen-break" data-tip="Hyphen break">-</span>')
 					buf.append('</p>')
 				elif data == "=page":
-					buf.append('<span class="dh-pagelike" data-tip="Page start">(\N{next page} %s)</span> ' % html.escape(params["n"]))
+					buf.append('<span class="pagelike" data-tip="Page start">(\N{next page} %s)</span> ' % html.escape(params["n"]))
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
-					buf.append('<span class="dh-pagelike" data-tip="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
+					buf.append('<span class="pagelike" data-tip="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
-					buf.append('<span class="dh-gridlike" data-tip="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
+					buf.append('<span class="gridlike" data-tip="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
 				else:
 					assert 0, data
 			elif t == "log":
 				if data == "<div":
-					buf.append('<div class="dh-ed-section">')
+					buf.append('<div class="ed-section">')
 				elif data == ">div":
 					buf.append('</div>')
 				elif data == "<head":
 					if params.get("level"): # verse header
 						skip += 1
 					else:
-						buf.append('<h3 class="dh-ed-heading">')
+						buf.append('<h3 class="ed-heading">')
 				elif data == ">head":
 					if params.get("level"): # verse header
 						skip -= 1

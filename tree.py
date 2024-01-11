@@ -842,7 +842,7 @@ class Formatter:
 	def write(self, text, klass=None):
 		if klass:
 			if self.html:
-				self.buf.write('<span class="dh-%s">' % klass)
+				self.buf.write('<span class="%s">' % klass)
 			elif self.color:
 				self.buf.write(term_color(colors[klass]))
 		if self.pretty:

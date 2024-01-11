@@ -37,9 +37,9 @@
 </footer>
 </div>
 
-<div id="dh-tip-box">
-   <div id="dh-tip-contents"></div>
-   <div id="dh-tip-arrow" data-popper-arrow></div>
+<div id="tip-box">
+   <div id="tip-contents"></div>
+   <div id="tip-arrow" data-popper-arrow></div>
 </div>
 
 </body>

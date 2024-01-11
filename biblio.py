@@ -96,7 +96,7 @@ anonymous = "No name"
 class Writer:
 
 	def __init__(self):
-		self.xml = tree.parse_string('<p class="dh-bib-entry"/>').root
+		self.xml = tree.parse_string('<p class="bib-entry"/>').root
 
 	def output(self):
 		for X in self.xml.find(".//X"):
@@ -324,7 +324,7 @@ class Writer:
 		self.space()
 		self.add("DOI:")
 		self.space()
-		tag = self.tag("a", {"class": "dh-url", "href": f"https://doi.org/{doi}"})
+		tag = self.tag("a", {"class": "url", "href": f"https://doi.org/{doi}"})
 		tag.append(doi)
 		self.add(tag)
 		self.period()
@@ -347,7 +347,7 @@ class Writer:
 		self.space()
 		for i, url in enumerate(urls):
 			url = config.normalize_url(url)
-			tag = self.tag("a", {"class": "dh-url", "href": url})
+			tag = self.tag("a", {"class": "url", "href": url})
 			tag.append(url)
 			self.add(tag)
 			if i < len(urls) - 1:
@@ -965,10 +965,10 @@ def fix_rec(rec):
 # TODO generate ref and entries with 1918a, 1918b, etc. when necessary
 
 def invalid_entry(ref, reason, key=None):
-	r = tree.parse_string('<p class="dh-bib-entry dh-bib-ref-invalid"/>').root
+	r = tree.parse_string('<p class="bib-entry bib-ref-invalid"/>').root
 	r["data-tip"] = reason
 	if key:
-		r["id"] = f"dh-bib-key-{key}"
+		r["id"] = f"bib-key-{key}"
 	r.append(ref)
 	return r.xml()
 
@@ -1000,7 +1000,7 @@ def format_entry(key, rec, **params):
 	fix_rec(rec)
 	fix_loc(rec, params["loc"])
 	w = Writer()
-	w.xml["id"] = f"dh-bib-key-{key}"
+	w.xml["id"] = f"bib-key-{key}"
 	if params["n"]:
 		tag = w.tag("b")
 		tag.append("[")
@@ -1018,7 +1018,7 @@ def format_entry(key, rec, **params):
 	return w.output()
 
 def invalid_ref(ref, reason, missing=False):
-	r = tree.parse_string('<a class="dh-bib-ref dh-bib-ref-invalid"/>').root
+	r = tree.parse_string('<a class="bib-ref bib-ref-invalid"/>').root
 	r["data-tip"] = reason
 	r.append(ref)
 	return r.xml()
@@ -1044,12 +1044,12 @@ def get_ref(ref, **params):
 	w = Writer()
 	w.xml.name = "span"
 	w.xml.attrs.clear()
-	tag = w.tag("a", {"class": "dh-bib-ref"})
+	tag = w.tag("a", {"class": "bib-ref"})
 	if params["missing"]:
 		page = page_of(key)
-		tag["href"] = f"/bibliography/page/{page}#dh-bib-key-{key}"
+		tag["href"] = f"/bibliography/page/{page}#bib-key-{key}"
 	else:
-		tag["href"] = f"#dh-bib-key-{key}"
+		tag["href"] = f"#bib-key-{key}"
 	w.xml.append(tag)
 	w.xml = tag
 	siglum = params.get("siglum")
@@ -1066,7 +1066,7 @@ def get_ref(ref, **params):
 		if params["missing"]:
 			pass
 			#w.xml["data-tip"] = "Missing in bibliography"
-			#w.xml["class"] += " dh-bib-ref-invalid"
+			#w.xml["class"] += " bib-ref-invalid"
 		fmt = params["rend"]
 		if fmt == "omitname":
 			w.date(rec, end_field=False)

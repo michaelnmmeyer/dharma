@@ -28,7 +28,7 @@ let tipBox = null
 
 function addTooltip(e) {
 	let tip = this.dataset.tip
-	let tipContents = document.querySelector("#dh-tip-contents")
+	let tipContents = document.querySelector("#tip-contents")
 	if (popperInstance) {
 		let have = tipContents.innerHTML
 		tipContents.innerHTML = tip + " | " + have
@@ -37,7 +37,7 @@ function addTooltip(e) {
 	}
 	tipContents.innerHTML = tip
 	this.owning = true
-	this.classList.add("dh-tipped")
+	this.classList.add("tipped")
 	tipBox.setAttribute("data-show", "")
 	popperInstance = createPopper(this, tipBox, {
 		modifiers: [{
@@ -56,17 +56,17 @@ function addTooltip(e) {
 function removeTooltip(e) {
 	if (!this.owning)
 		return
-	this.classList.remove("dh-tipped")
+	this.classList.remove("tipped")
 	tipBox.removeAttribute("data-show")
-	let tipContents = document.querySelector("#dh-tip-contents")
+	let tipContents = document.querySelector("#tip-contents")
 	tipContents.innerHTML = ""
 	popperInstance.destroy()
 	popperInstance = null
 }
 
 function prepareTips() {
-	tipBox = document.querySelector("#dh-tip-box")
-	let tipContents = document.querySelector("#dh-tip-contents")
+	tipBox = document.querySelector("#tip-box")
+	let tipContents = document.querySelector("#tip-contents")
 	console.assert(tipContents)
 	for (let node of document.querySelectorAll("[data-tip]")) {
 		node.addEventListener("mouseover", addTooltip)
@@ -89,9 +89,9 @@ function highlightFragment() {
 	let node = document.querySelector(hash)
 	if (!node)
 		return
-	node.classList.add("dh-flash")
+	node.classList.add("flash")
 	setTimeout(function () {
-		node.classList.remove("dh-flash")
+		node.classList.remove("flash")
 	}, 2000)
 }
 

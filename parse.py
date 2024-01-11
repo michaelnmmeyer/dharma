@@ -116,7 +116,7 @@ def parse_ref(p, ref):
 	p.dispatch_children(ref)
 
 def parse_rdg(p, rdg):
-	p.start_span(klass="dh-reading", tip="Reading")
+	p.start_span(klass="reading", tip="Reading")
 	p.dispatch_children(rdg)
 	p.end_span()
 	sources = [source.removeprefix("bib:") for source in rdg["source"].split()]
@@ -129,7 +129,7 @@ def parse_rdg(p, rdg):
 
 def parse_app(p, app):
 	loc = app["loc"] or "?"
-	p.start_span(klass="dh-lb", tip="Line start")
+	p.start_span(klass="lb", tip="Line start")
 	p.add_text("(%s)" % loc)
 	p.end_span()
 	p.add_text(" ")
@@ -199,7 +199,7 @@ def parse_supplied(p, supplied):
 		tip += "; restoration based on previous edition (not assessable)"
 	elif tip == "previouseditor":
 		tip += "; restoration based on parallel"
-	p.start_span(klass="dh-supplied", tip=tip)
+	p.start_span(klass="supplied", tip=tip)
 	if seps:
 		p.add_html(seps[0])
 	p.dispatch_children(supplied)
@@ -223,7 +223,7 @@ add_place_tbl = {
 def parse_add(p, node):
 	place = node["place"]
 	tip = add_place_tbl.get(place, add_place_tbl["unspecified"])
-	p.start_span(klass="dh-add", tip=f"Scribal addition {tip}")
+	p.start_span(klass="add", tip=f"Scribal addition {tip}")
 	p.add_html("⟨⟨")
 	p.dispatch_children(node)
 	p.add_html("⟩⟩")
@@ -243,7 +243,7 @@ def parse_del(p, node):
 		tip = f"Scribal deletion ({tip})"
 	else:
 		tip = "Scribal deletion"
-	p.start_span(klass="dh-del", tip=tip)
+	p.start_span(klass="del", tip=tip)
 	p.add_html("⟦")
 	p.dispatch_children(node)
 	p.add_html("⟧")
@@ -348,8 +348,8 @@ def text_to_html(p, mark):
 def parse_sic(p, sic, corr=None):
 	tip = "Incorrect text"
 	if corr:
-		tip += ' (emendation: <span class="dh-corr">⟨%s⟩</span>)' % html.escape(corr)
-	p.start_span(klass="dh-sic", tip=tip)
+		tip += ' (emendation: <span class="corr">⟨%s⟩</span>)' % html.escape(corr)
+	p.start_span(klass="sic", tip=tip)
 	p.add_html("¿")
 	mark = len(p.top.code)
 	p.dispatch_children(sic)
@@ -361,8 +361,8 @@ def parse_sic(p, sic, corr=None):
 def parse_corr(p, corr, sic=None):
 	tip = "Emended text"
 	if sic:
-		tip += ' (original: <span class="dh-sic">¿%s?</span>)' % html.escape(sic)
-	p.start_span(klass="dh-corr", tip=tip)
+		tip += ' (original: <span class="sic">¿%s?</span>)' % html.escape(sic)
+	p.start_span(klass="corr", tip=tip)
 	p.add_html('⟨')
 	p.dispatch_children(corr)
 	p.add_html('⟩')
@@ -372,8 +372,8 @@ def parse_corr(p, corr, sic=None):
 def parse_orig(p, orig, reg=None):
 	tip = "Non-standard text"
 	if reg:
-		tip += ' (standardisation: <span class="dh-reg">⟨%s⟩</span>)' % html.escape(reg)
-	p.start_span(klass="dh-orig", tip=tip)
+		tip += ' (standardisation: <span class="reg">⟨%s⟩</span>)' % html.escape(reg)
+	p.start_span(klass="orig", tip=tip)
 	p.add_html("¡")
 	mark = len(p.top.code)
 	p.dispatch_children(orig)
@@ -385,8 +385,8 @@ def parse_orig(p, orig, reg=None):
 def parse_reg(p, reg, orig=None):
 	tip = "Standardised text"
 	if orig:
-		tip += ' (original: <span class="dh-orig">¡%s!</span>)' % html.escape(orig)
-	p.start_span(klass="dh-reg", tip=tip)
+		tip += ' (original: <span class="orig">¡%s!</span>)' % html.escape(orig)
+	p.start_span(klass="reg", tip=tip)
 	p.add_html("⟨")
 	p.dispatch_children(reg)
 	p.add_html("⟩")
@@ -400,7 +400,7 @@ def parse_choice(p, node):
 	if all(child.name == "unclear" for child in children):
 		# <choice>(<unclear>...</unclear>)+</choice>
 		# In this case for search and plain just keep the text of the 1st unclear.
-		p.start_span(klass="dh-choice-unclear", tip="Unclear (several possible readings)")
+		p.start_span(klass="choice-unclear", tip="Unclear (several possible readings)")
 		p.add_html("(")
 		mark = -1
 		for child in children:
@@ -497,27 +497,33 @@ def parse_space(p, space):
 			s = f"large space (about {quant} {unit}s wide)"
 		tip = "%s; %s" % (s, tip)
 		text *= quant
-	p.start_span(klass="dh-space", tip=titlecase(tip))
+	p.start_span(klass="space", tip=titlecase(tip))
 	p.add_html(text, logical=False)
 	p.end_span()
 
+# <abbreviations
+
 def parse_abbr(p, node):
-	p.start_span(klass="dh-abbr", tip="Abbreviated text")
+	p.start_span(klass="abbr", tip="Abbreviated text")
 	p.dispatch_children(node)
 	p.end_span()
 
 def parse_ex(p, node):
-	p.start_span(klass="dh-abbr-expansion", tip="Abbreviation expansion")
+	p.start_span(klass="abbr-expansion", tip="Abbreviation expansion")
 	p.add_html("(")
 	p.dispatch_children(node)
 	p.add_html(")")
 	p.end_span()
 
 def parse_am(p, am):
+	p.start_span(klass="abbr-mark", tip="Abbreviation mark")
 	p.dispatch_children(node)
+	p.end_span()
 
 def parse_expan(p, node):
 	p.dispatch_children(node)
+
+# >abbreviations
 
 def parse_term(p, node):
 	p.dispatch_children(node)
@@ -545,12 +551,12 @@ def parse_seg(p, seg):
 		return
 	rend = seg["rend"].split()
 	if "pun" in rend:
-		p.start_span(klass="dh-pun", tip="Pun (<i>ślesa</i>)")
+		p.start_span(klass="pun", tip="Pun (<i>ślesa</i>)")
 		p.add_html("{")
 	if "check" in rend:
-		p.start_span(klass="dh-check", tip="To check")
+		p.start_span(klass="check", tip="To check")
 	if seg["cert"] == "low":
-		p.start_span(klass="dh-check-uncertain", tip="Uncertain segment")
+		p.start_span(klass="check-uncertain", tip="Uncertain segment")
 		p.add_html("¿")
 	p.dispatch_children(seg)
 	if seg["cert"] == "low":
@@ -629,7 +635,7 @@ def parse_gap(p, gap):
 			met = prosody.render_pattern(met)
 		repl = "[%s]" % met
 		phys_repl = None
-	p.start_span(klass="dh-gap", tip=tip)
+	p.start_span(klass="gap", tip=tip)
 	if phys_repl is not None and phys_repl != repl:
 		p.add_html(html.escape(repl), plain=True, physical=False)
 		p.add_html(html.escape(phys_repl), plain=True, logical=False)
@@ -668,7 +674,7 @@ def parse_g(p, node):
 		p.start_span(klass="symbol-placeholder", tip=tip)
 		p.add_html(html.escape(info["name"]), plain=True)
 		p.end_span()
-	# had '<img alt="%s" class="dh-svg" src="%s"/>' % (info["name"], info["img"]))
+	# had '<img alt="%s" class="svg" src="%s"/>' % (info["name"], info["img"]))
 
 # OK
 def parse_unclear(p, node):
@@ -680,7 +686,7 @@ def parse_unclear(p, node):
 		if reason == "eccentric_ductus":
 			reason = f"<i>{reason}</i>"
 		tip += " (%s)" % reason.replace("_", " ")
-	p.start_span(klass="dh-unclear", tip=tip)
+	p.start_span(klass="unclear", tip=tip)
 	p.add_html("(")
 	p.dispatch_children(node)
 	if node["cert"] == "low":
@@ -690,7 +696,7 @@ def parse_unclear(p, node):
 
 # EGD "Editorial deletion (suppression)"
 def parse_surplus(p, node):
-	p.start_span(klass="dh-surplus", tip="Superfluous text erroneously added by the scribe")
+	p.start_span(klass="surplus", tip="Superfluous text erroneously added by the scribe")
 	p.add_html("{")
 	p.dispatch_children(node)
 	p.add_html("}")
@@ -720,8 +726,8 @@ hi_table = {
 	"bold": "b",
 	"superscript": "sup",
 	"subscript": "sub",
-	"check": {"klass": "dh-check"},
-	"grantha": {"klass": "dh-grantha", "tip": "Grantha text"},
+	"check": {"klass": "check"},
+	"grantha": {"klass": "grantha", "tip": "Grantha text"},
 }
 def parse_hi(p, hi):
 	rends = hi["rend"].split()

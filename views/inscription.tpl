@@ -27,7 +27,7 @@
 % end
 </p>
 <p>
-Identifier: <span class="dh-text-id">{{text}}</span>.
+Identifier: <span class="text-id">{{text}}</span>.
 </p>
 % if doc.summary:
 <p>Summary: {{!doc.summary.render_logical()}}</p>
@@ -42,7 +42,7 @@ Identifier: <span class="dh-text-id">{{text}}</span>.
 </p>
 % end
 
-<p>Repository: <span class="dh-text-id">{{doc.repository}}</span>.</p>
+<p>Repository: <span class="text-id">{{doc.repository}}</span>.</p>
 
 <p>
 Version: {{doc.commit_date}}
@@ -51,17 +51,17 @@ Version: {{doc.commit_date}}
 </p>
 
 % if doc.edition:
-<div class="dh-ed">
+<div class="ed">
 
 <h2 id="edition">Edition</h2>
 
-<ul class="dh-ed-tabs">
-   <li id="log-btn" class="dh-active"><a href="#dh-ed">Logical</a></li>
-   <li id="phys-btn"><a href="#dh-ed">Physical</a></li>
-   <li id="xml-btn"><a href="#dh-ed">XML</a></li>
+<ul class="ed-tabs">
+   <li id="log-btn" class="active"><a href="#ed">Logical</a></li>
+   <li id="phys-btn"><a href="#ed">Physical</a></li>
+   <li id="xml-btn"><a href="#ed">XML</a></li>
 </ul>
 
-<div class="dh-log" id="dh-log">
+<div class="log" id="log">
 % if len(doc.edition) > 1:
    % for i, edition in enumerate(doc.edition, 1):
       <!-- XXX need to renumber headings accordingly within the edition! -->
@@ -73,7 +73,7 @@ Version: {{doc.commit_date}}
 % end
 </div>
 
-<div class="dh-phys" id="dh-phys" style="display:none">
+<div class="phys" id="phys" style="display:none">
 % if len(doc.edition) > 1:
    % for i, edition in enumerate(doc.edition, 1):
       <!-- XXX need to renumber headings accordingly within the edition! -->
@@ -85,12 +85,12 @@ Version: {{doc.commit_date}}
 % end
 </div>
 
-</div> <!-- <div class="dh-ed"> -->
+</div> <!-- <div class="ed"> -->
 % end # if doc.edition:
 
 </div> <!-- <div class="body"> -->
 
-<div class="dh-xml" id="dh-xml" style="display:none">
+<div class="xml" id="xml" style="display:none">
 <pre>
 {{!doc.xml}}
 </pre>
@@ -99,39 +99,39 @@ Version: {{doc.commit_date}}
 <div class="body">
 
 % if doc.apparatus:
-<div class="dh-apparatus">
+<div class="apparatus">
 <h2 id="apparatus">Apparatus</h2>
 {{!doc.apparatus.render_logical()}}
 </div>
 % end
 
 % for i, trans in enumerate(doc.translation, 1):
-<div class="dh-trans">
+<div class="trans">
 <h2 id="translation-{{i}}">Translation</h2>
 {{!trans.render_logical()}}
 </div>
 % end
 
 % if doc.commentary:
-<div class="dh-trans">
+<div class="trans">
 <h2 id="commentary">Commentary</h2>
 {{!doc.commentary.render_logical()}}
 </div>
 % end
 
 % if doc.bibliography:
-<div class="dh-biblio">
+<div class="biblio">
 <h2 id="bibliography">Bibliography</h2>
 {{!doc.bibliography.render_logical()}}
 </div>
 % end
 
 % if doc.notes:
-<div class="dh-notes">
+<div class="notes">
 <h2 id="notes">Notes</h2>
 % for i, note in enumerate(doc.notes, 1):
-<div class="dh-note" id="note-{{i}}">
-<a class="dh-note-ref" href="#note-ref-{{i}}">↑{{i}}</a>
+<div class="note" id="note-{{i}}">
+<a class="note-ref" href="#note-ref-{{i}}">↑{{i}}</a>
 {{!note.render_logical()}}
 </div>
 % end
