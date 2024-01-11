@@ -14,10 +14,7 @@ assert len(inscriptions) + len(diplomatic) \
 
 for file in files:
 	xml = tree.parse(file)
-	for p in xml.find("//citedRange"):
-		if p["unit"] == "":
-			pass
-			print(p.text())
+	for p in xml.find("//expan"):
 		#print(p["unit"])
 
 		#print(p.xml())
@@ -31,7 +28,7 @@ for file in files:
 		#print(p.text())
 		#if p.children():print(file,p.xml())
 		#print(p["type"])
-		#s = " ".join(t.name for t in p.children())
-		#print(s)
+		s = " ".join(t.name for t in p.children())
+		print(s)
 		#print(s)
 		#print(" ".join(t for t in sorted(p.attrs)))

@@ -513,6 +513,9 @@ def parse_ex(p, node):
 	p.add_html(")")
 	p.end_span()
 
+def parse_am(p, am):
+	p.dispatch_children(node)
+
 def parse_expan(p, node):
 	p.dispatch_children(node)
 
@@ -827,6 +830,8 @@ def extract_bib_ref(p, node):
 	if not target.startswith("bib:"):
 		p.complain(ptr)
 		return None, None
+	if target == "bib:AuthorYear_01":
+		return None, None
 	ref = target.removeprefix("bib:")
 	loc = []
 	for r in node.find("citedRange"):
@@ -841,23 +846,27 @@ def extract_bib_ref(p, node):
 
 bibl_units = set(biblio.cited_range_units)
 
+def extract_bibl_items(p, listBibl):
+	recs = listBibl.find("bibl")
+	ret = []
+	for rec in recs:
+		ref, loc = extract_bib_ref(p, rec)
+		if not ref:
+			continue
+		ret.append((rec, ref, loc))
+	return ret
+
 def parse_listBibl(p, node):
-	recs = node.find("bibl")
-	if not recs:
-		return
+	recs = extract_bibl_items(p, node)
 	# Avoid displaying "Primary" or "Secondary" if there is nothing there.
-	if all(len(rec) == 0 for rec in recs):
+	if not recs:
 		return
 	typ = node["type"]
 	if typ:
 		p.add_log("<head")
 		p.add_text(titlecase(typ))
 		p.add_log(">head")
-	for rec in recs:
-		ref, loc = extract_bib_ref(p, rec)
-		if not ref:
-			# TODO Not legit, still display iy?
-			continue
+	for rec, ref, loc in recs:
 		p.add_code("bib", ref, loc=loc, n=rec["n"])
 
 def parse_bibl(p, node):
@@ -866,7 +875,7 @@ def parse_bibl(p, node):
 		rend = "default"
 	ref, loc = extract_bib_ref(p, node)
 	if not ref:
-		return # TODO
+		return
 	p.add_code("ref", ref, rend=rend, loc=loc, missing=ref not in p.document.biblio)
 
 def parse_body(p, body):

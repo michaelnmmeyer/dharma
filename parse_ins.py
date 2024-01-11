@@ -1,7 +1,7 @@
 # For parsing inscriptions.
 
 import os, copy, sys
-from dharma import tree, parse, config
+from dharma import tree, parse, config, document
 
 # Within inscriptions, <div> shouldn't nest, except that we can have
 # <div type="textpart"> within <div type="edition">.
@@ -193,8 +193,8 @@ def export_plain():
 if __name__ == "__main__":
 	try:
 		doc = process_file(sys.argv[1])
-		for t, data, params in doc.edition[0].code:
-			parse.write_debug(t, data, **params)
+		for t, data, params in doc.bibliography.code:
+			document.write_debug(t, data, **params)
 		#ret = parse.PlainRenderer().render(doc)
 		#sys.stdout.write(ret)
 		#export_arlo()
