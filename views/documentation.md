@@ -139,6 +139,7 @@ support for the most common ones, namely:
 * report
 * thesis
 * webpage
+* dataset
 
 If you need another record type to be supported, do tell me.
 

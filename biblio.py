@@ -262,8 +262,10 @@ class Writer:
 		self.period()
 
 	def loc(self, loc):
+		sep = ""
 		for unit, val in loc:
-			self.add(", ")
+			self.add(sep)
+			sep = ", "
 			if unit:
 				sg, pl = cited_range_units[unit]
 				abbr = sg
@@ -286,7 +288,9 @@ class Writer:
 		if publisher:
 			self.add(": ")
 			self.add(publisher)
-		self.loc(params["loc"])
+		if params["loc"]:
+			self.add(", ")
+			self.loc(params["loc"])
 		self.period()
 
 	def edition(self, rec):
@@ -456,7 +460,9 @@ def render_journal_article(rec, w, params):
 			w.add("(")
 			w.add(rec["issue"])
 			w.add(")")
-		w.loc(params["loc"])
+		if params["loc"]:
+			w.add(", ")
+			w.loc(params["loc"])
 		w.period()
 	w.idents(rec)
 
@@ -845,6 +851,73 @@ def render_newspaper_article(rec, w, params):
 	w.place_publisher_loc(rec, params)
 	w.idents(rec)
 
+"""
+{
+    "DOI": "10.5281/zenodo.2574901",
+    "abstractNote": "",
+    "accessDate": "",
+    "archive": "",
+    "archiveLocation": "",
+    "callNumber": "",
+    "citationKey": "",
+    "collections": [],
+    "creators": [
+      {
+        "creatorType": "author",
+        "firstName": "Dániel",
+        "lastName": "Balogh"
+      },
+      {
+        "creatorType": "author",
+        "firstName": "Csaba",
+        "lastName": "Kiss"
+      },
+      {
+        "creatorType": "author",
+        "firstName": "Eszter",
+        "lastName": "Somogyi"
+      }
+    ],
+    "date": "2019",
+    "dateAdded": "2021-08-26T08:41:38Z",
+    "dateModified": "2021-08-26T09:11:14Z",
+    "extra": "",
+    "format": "",
+    "identifier": "",
+    "itemType": "dataset",
+    "key": "JPVZFKHW",
+    "language": "",
+    "libraryCatalog": "",
+    "relations": {},
+    "repository": "Zenodo",
+    "repositoryLocation": "",
+    "rights": "",
+    "shortTitle": "Balogh+al2019_01",
+    "tags": [
+      {
+        "tag": "Balogh+al2019_01"
+      }
+    ],
+    "title": "Siddham Epigraphic Archive - Texts in EpiDoc [Data set]",
+    "type": "",
+    "url": "https://doi.org/10.5281/zenodo.2574901",
+    "version": 197208,
+    "versionNumber": "7"
+}
+"""
+def render_dataset(rec, w, params):
+	w.authors(rec)
+	w.date(rec)
+	w.quoted(rec["title"])
+	if rec["repository"]:
+		w.space()
+		w.add(rec["repository"])
+		w.period()
+	if params["loc"]:
+		w.loc(params["loc"])
+		w.period()
+	w.idents(rec)
+
 renderers = {
 	"book": render_book,
 	"journalArticle": render_journal_article,
@@ -854,6 +927,7 @@ renderers = {
 	"thesis": render_thesis,
 	"webpage": render_webpage,
 	"newspaperArticle": render_newspaper_article,
+	"dataset": render_dataset,
 }
 
 # See https://www.zotero.org/support/kb/rich_text_bibliography
@@ -1079,7 +1153,9 @@ def get_ref(ref, **params):
 		else:
 			assert 0
 	w.xml = w.xml.parent
-	w.loc(params["loc"])
+	if params["loc"]:
+		w.add(", ")
+		w.loc(params["loc"])
 	return w.output()
 
 def sort_key(rec):
