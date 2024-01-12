@@ -293,14 +293,13 @@ abbr {
 .tipped:hover {
 	color: white;
 	background-color: black;
-	border-top-left-radius: var(--border-radius);
-	border-top-right-radius: var(--border-radius);
+	border-radius: var(--border-radius);
 }
 /* div that contains the tooltip (used for all tooltips) */
 #tip-box {
 	display: none;
-	background-color: black;
-	color: white;
+	background-color: #f1eeff;
+	border: solid black;
 	max-width: 30em;
 	border-radius: var(--border-radius);
 	padding: 0.3em;
@@ -324,23 +323,25 @@ abbr {
 #tip-arrow::before {
 	visibility: visible;
 	content: '';
+	border-top: solid black;
+	border-left: solid black;
 	transform: rotate(45deg);
 }
 
 #tip-box[data-popper-placement^='top'] > #tip-arrow {
-	bottom: -4px;
+	bottom: -6px;
 }
 
 #tip-box[data-popper-placement^='bottom'] > #tip-arrow {
-	top: -4px;
+	top: -6px;
 }
 
 #tip-box[data-popper-placement^='left'] > #tip-arrow {
-	right: -4px;
+	right: -6px;
 }
 
 #tip-box[data-popper-placement^='right'] > #tip-arrow {
-	left: -4px;
+	left: -6px;
 }
 
 /* End tooltips */
