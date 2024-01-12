@@ -109,7 +109,7 @@ table of languages <a href="/langs">here</a>.</p>
          {{json.loads(row["langs"])[-1]}}.
    </p>
    % end
-   <p>{{row["name"].removeprefix("DHARMA_")}} ({{row["repo"]}}).</p>
+   <p><span class="text-id">{{row["name"]}}</span> ({{row["repo"]}}).</p>
 </div>
 % end
 </div>

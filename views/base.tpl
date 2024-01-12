@@ -25,7 +25,6 @@
       fa-magnifying-glass"></i>--> Catalog</a></li>
       <li class="item"><a href="/parallels"><!--<i class="fa-solid fa-chart-simple"></i>-->
       Parallels</a></li>
-      <li class="item"><a href="/display">🚧 Display</a></li>
       <li class="item"><a href="/bibliography"><i class="fa-solid fa-quote-left"></i> Bibliography</a></li>
       <li class="item"><a href="/documentation"><i class="fa-regular fa-circle-question"></i> Documentation</a>
    </menu>
