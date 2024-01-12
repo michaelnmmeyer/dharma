@@ -1154,7 +1154,7 @@ def get_ref(ref, **params):
 			assert 0
 	w.xml = w.xml.parent
 	if params["loc"]:
-		w.add(", ")
+		w.add(": ")
 		w.loc(params["loc"])
 	return w.output()
 
