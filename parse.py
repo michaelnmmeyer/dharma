@@ -672,7 +672,7 @@ def parse_g(p, node):
 		p.end_span()
 	else:
 		p.start_span(klass="symbol-placeholder", tip=tip)
-		p.add_html(html.escape(info["name"]), plain=True)
+		p.add_html(html.escape("<%s>" % info["name"]), plain=True)
 		p.end_span()
 	# had '<img alt="%s" class="svg" src="%s"/>' % (info["name"], info["img"]))
 

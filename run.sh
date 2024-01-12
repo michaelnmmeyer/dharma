@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Run this from within screen. But huma-num kills apparently kills user sessions and thus screen.
+# Run this from within screen. But huma-num apparently kills user sessions and thus screen.
 # To prevent this, do:
 #
 #     sudo loginctl enable-linger $USER
