@@ -1,6 +1,6 @@
 % rebase("base.tpl", title="Display", includes='''
    <link rel="stylesheet" href="/inscription.css">
-	<script src="/inscription.js"></script>
+   <script src="/inscription.js"></script>
 ''', sidebar=sidebar)
 
 <div class="body">
@@ -58,6 +58,7 @@ Version: {{doc.commit_date}}
 <ul class="ed-tabs">
    <li id="log-btn" class="active"><a href="#ed">Logical</a></li>
    <li id="phys-btn"><a href="#ed">Physical</a></li>
+   <li id="full-btn"><a href="#ed">Full</a></li>
    <li id="xml-btn"><a href="#ed">XML</a></li>
 </ul>
 
@@ -82,6 +83,18 @@ Version: {{doc.commit_date}}
    % end
 % else:
 {{!doc.edition[0].render_physical()}}
+% end
+</div>
+
+<div class="full" id="full" style="display:none">
+% if len(doc.edition) > 1:
+   % for i, edition in enumerate(doc.edition, 1):
+      <!-- XXX need to renumber headings accordingly within the edition! -->
+      <h3>Edition</h3>
+      {{!edition.render_full()}}
+   % end
+% else:
+{{!doc.edition[0].render_full()}}
 % end
 </div>
 

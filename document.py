@@ -234,6 +234,113 @@ class Block:
 		else:
 			assert 0, t
 
+	def render_full(self):
+		assert self.finished
+		buf = []
+		for t, data, params in self.code:
+			if t == "log":
+				if data == "<div":
+					buf.append('<div class="ed-section">')
+				elif data == ">div":
+					buf.append('</div>')
+				elif data == "<head":
+					lvl = params.get("level", 3)
+					buf.append('<h%d class="ed-heading">' % lvl)
+				elif data == ">head":
+					lvl = params.get("level", 3)
+					buf.append('</h%d>' % lvl)
+				elif data == "<para":
+					if params.get("rend") == "verse":
+						buf.append('<p class="verse">')
+					else:
+						buf.append("<p>")
+				elif data == ">para":
+					buf.append("</p>")
+				elif data == "<line":
+					buf.append("<div>")
+					buf.append("<p>")
+				elif data == ">line":
+					buf.append("</p>")
+					buf.append(" <span>%s</span>" % html.escape(params["n"]))
+					buf.append("</div>")
+				elif data == "<list":
+					typ = params["type"]
+					if typ == "plain":
+						buf.append('<ul class="list list-plain">')
+					elif typ == "bulleted":
+						buf.append('<ul class="list">')
+					elif typ == "numbered":
+						buf.append('<ol class="list">')
+					elif typ == "description":
+						buf.append('<dl class="list">')
+					else:
+						assert 0
+				elif data == ">list":
+					typ = params["type"]
+					if typ == "plain":
+						buf.append('</ul>')
+					elif typ == "bulleted":
+						buf.append('</ul>')
+					elif typ == "numbered":
+						buf.append('</ol>')
+					elif typ == "description":
+						buf.append('</dl>')
+					else:
+						assert 0
+				elif data == "<verse":
+					if params["numbered"]:
+						buf.append('<div class="verse verse-numbered">')
+					else:
+						buf.append('<div class="verse">')
+				elif data == ">verse":
+					buf.append('</div>')
+				elif data == "<item":
+					buf.append('<li>')
+				elif data == ">item":
+					buf.append('</li>')
+				elif data == "<key":
+					buf.append('<dt>')
+				elif data == ">key":
+					buf.append('</dt>')
+				elif data == "<value":
+					buf.append('<dd>')
+				elif data == ">value":
+					buf.append('</dd>')
+				elif data == "=note":
+					n = params["n"]
+					buf.append(f'<a class="note-ref" href="#note-{n}" id="note-ref-{n}">↓{n}</a>')
+				elif data == "<blockquote":
+					buf.append('<blockquote>')
+				elif data == ">blockquote":
+					buf.append('</blockquote>')
+				else:
+					assert 0, data
+			elif t == "phys":
+				if data == "<line":
+					buf.append('<span class="lb" data-tip="Line start">(%s)</span>' % html.escape(params["n"]))
+					if params["brk"]:
+						buf.append(" ")
+				elif data == ">line":
+					pass
+				elif data == "=page":
+					buf.append('<span class="pagelike" data-tip="Page start">(\N{next page} %s)</span>' % html.escape(params["n"]))
+				elif data.startswith("=") and params["type"] == "pagelike":
+					unit = html.escape(data[1:].title())
+					n = html.escape(params["n"])
+					buf.append(f'<span class="pagelike" data-tip="{unit} start">({unit} {n})</span>')
+				elif data.startswith("=") and params["type"] == "gridlike":
+					unit = html.escape(data[1:].title())
+					n = html.escape(params["n"])
+					buf.append(f'<span class="gridlike" data-tip="{unit} start">({unit} {n})</span>')
+				else:
+					assert 0, data
+			elif t == "html":
+				if params["logical"]:
+					buf.append(data)
+			else:
+				self.render_common(buf, t, data, params)
+		return "".join(buf)
+
 	def render_logical(self):
 		assert self.finished
 		buf = []

@@ -1,6 +1,7 @@
 let displays = [
 	["physical", "#phys-btn", "#phys"],
 	["logical", "#log-btn", "#log"],
+	["full", "#full-btn", "#full"],
 	["xml", "#xml-btn", "#xml"],
 ]
 function switchDisplayTo(name) {
@@ -18,7 +19,6 @@ function switchDisplayTo(name) {
 window.addEventListener("load", function () {
 	for (let row of displays) {
 		document.querySelector(row[1]).onclick = function (ev) {
-			ev.preventDefault()
 			switchDisplayTo(row[0])
 		}
 	}
