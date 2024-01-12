@@ -183,7 +183,7 @@ def search(q, s):
 			join langs_by_code on langs_by_code.code = json_each.value
 			join langs_list on langs_list.id = langs_by_code.id
 	"""
-	q = " ".join(parse.normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
+	q = " ".join(document.normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
 	if q:
 		q = parse_query(q)
 		patch_languages(db, q)
