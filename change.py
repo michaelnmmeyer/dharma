@@ -162,9 +162,9 @@ class Changes:
 				self.delete.append(name)
 		texts.gather_web_pages(self.insert + self.update)
 		# Always process files in the same order.
-		for group in ("insert", "update", "delete"):
-			files = getattr(self, group)
-			files.sort(key=lambda file: file.name)
+		self.insert.sort(key=lambda file: file.name)
+		self.update.sort(key=lambda file: file.name)
+		self.delete.sort()
 		self.done = True
 
 def update_db(repo):

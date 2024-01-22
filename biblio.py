@@ -1182,6 +1182,7 @@ def update_sort_keys():
 	db.execute("commit")
 
 if __name__ == "__main__":
+	update_sort_keys()
 	#params = {"rend": "default", "loc": [], "n": "", "missing": False}
 	#r = get_entry(sys.argv[1], **params)
 	pass
