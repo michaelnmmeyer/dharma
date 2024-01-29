@@ -41,9 +41,7 @@ def iter_members_list():
 			row.setdefault(typ.lower(), None)
 		yield row
 
-@db.transaction
 def make_db():
-	db.execute("begin")
 	for row in iter_members_list():
 		db.execute("""
 			insert or replace into people_main(name, dh_id, idhal, idref, orcid, viaf, wikidata)
@@ -59,7 +57,6 @@ def make_db():
 			assert key not in seen, "duplicate record %r at line %d" % (key, line_no)
 			seen.add(key)
 			db.execute("insert or replace into people_github(git_name, dh_id) values(?, ?)", (key, value))
-	db.execute("commit")
 
 def plain(ident):
 	ret = db.execute("select print_name from people_main where dh_id = ?", (ident,)).fetchone()
@@ -99,6 +96,3 @@ def plain_from_viaf(url, dflt=None):
 		counts[text] += 1
 	names = sorted(counts, key=lambda name: counts[name])
 	return names and names.pop() or dflt
-
-if __name__ == "__main__":
-	make_db()

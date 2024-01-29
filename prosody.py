@@ -23,6 +23,9 @@ def load():
 			items[name] = pros.text()
 	return items
 
+def make_db():
+	pass
+
 pattern_tbl = str.maketrans({
 	"-": "\N{metrical breve}",
 	"+": "\N{hyphen-minus}",

@@ -75,3 +75,6 @@ def get(name):
 	if not ret:
 		return default_rec(name)
 	return ret
+
+def make_db():
+	pass

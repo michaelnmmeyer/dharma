@@ -37,8 +37,8 @@ def load_data():
 	for row in tbl3:
 		rec = {"id": row["Id"], "name": row["Ref_Name"], "iso": 3, "custom": False}
 		recs.append(rec)
-		# "Part2B", "Part2T", "Part1" are alternate language codes.
-		for field in ("Id", "Part2B", "Part2T", "Part1"):
+		# "Part2b", "Part2t", "Part1" are alternate language codes.
+		for field in ("Id", "Part2b", "Part2t", "Part1"):
 			add_to_index(row[field], index, rec)
 	for row in tbl3_bis:
 		rec = index[row["Id"]]
@@ -85,10 +85,8 @@ def normalize_name(s):
 
 db = config.open_db("texts")
 
-@db.transaction
 def make_db():
 	recs, index = load_data()
-	db.execute("begin")
 	db.execute("delete from langs_by_code")
 	db.execute("delete from langs_by_name")
 	db.execute("delete from langs_list")
@@ -99,7 +97,3 @@ def make_db():
 		db.execute("insert into langs_by_name(id, name) values(?, ?)", (rec["id"], normalize_name(rec["name"])))
 	for code, rec in sorted(index.items()):
 		db.execute("insert into langs_by_code(code, id) values(?, ?)", (code, rec["id"]))
-	db.execute("commit")
-
-if __name__ == "__main__":
-	make_db()

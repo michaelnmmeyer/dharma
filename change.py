@@ -7,7 +7,7 @@
 
 import os, sys, subprocess, time, json, select, errno, logging, fcntl
 import argparse, traceback, collections
-from dharma import config, validate, texts, biblio, catalog
+from dharma import config, validate, texts, biblio, catalog, people, langs, gaiji, prosody
 from dharma.config import command
 
 FIFO_ADDR = os.path.join(config.REPOS_DIR, "change.hid")
@@ -57,7 +57,7 @@ tfd-nusantara-philology
 tfd-sanskrit-philology
 """.strip().split()
 
-TEXTS_DB = config.open_db("texts")
+db = config.open_db("texts")
 
 last_pull = 0
 min_pull_wait = 5
@@ -118,7 +118,7 @@ class Changes:
 		self.delete = []
 		self.commit_hash, self.commit_date = latest_commit_in_repo(self.repo)
 
-	def check_db(self, db):
+	def check_db(self):
 		if db.execute("select 1 from commits where repo = ? and commit_hash = ?",
 			(self.repo, self.commit_hash)).fetchone():
 			if db.execute("select 1 from texts where repo = ? and code_hash = ?",
@@ -168,9 +168,8 @@ class Changes:
 		self.done = True
 
 def update_db(repo):
-	db = TEXTS_DB
 	changes = Changes(repo)
-	changes.check_db(db)
+	changes.check_db()
 	if changes.done:
 		return
 	changes.check_repo()
@@ -194,15 +193,27 @@ def update_db(repo):
 				(file.name, git_name))
 		catalog.insert(file, db)
 
+# always put stuff in the db instead of keeping it in-memory, so that
+# we can tell what's the current data just by looking at the db.
+def update_project():
+	people.make_db()
+	langs.make_db()
+	gaiji.make_db()
+	prosody.make_db()
+	# XXX what about schemas and docs? run make?
+	# XXX make sure project-doc has upd prio over other repos
+
 def backup_to_jawakuno():
 	command("bash", "-x", config.path_of("backup_to_jawakuno.sh"), capture_output=False)
 
-@TEXTS_DB.transaction
+@db.transaction
 def handle_changes(name):
-	db = TEXTS_DB
 	db.execute("begin immediate")
 	update_repo(name)
-	update_db(name)
+	if name == "project-documentation":
+		update_project()
+	else:
+		update_db(name)
 	db.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
 	db.execute("commit")
 	if name == "tfd-nusantara-philology":
