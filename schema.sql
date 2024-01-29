@@ -159,6 +159,11 @@ create virtual table if not exists langs_by_name using fts5(
 	tokenize = "trigram"
 );
 
+create table if not exists prosody(
+	name text primary key not null,
+	pattern text not null
+);
+
 -- All bibliographic records from Zotero.
 create table if not exists biblio_data(
 	key text primary key not null,

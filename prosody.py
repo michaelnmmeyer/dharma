@@ -1,7 +1,9 @@
 import os, sys, unicodedata
 from dharma import config, tree
 
-def load():
+db = config.open_db("texts")
+
+def load_data():
 	path = os.path.join(config.REPOS_DIR, "project-documentation", "DHARMA_prosodicPatterns_v01.xml")
 	xml = tree.parse(path)
 	items = {}
@@ -18,13 +20,17 @@ def load():
 			names.add(name)
 		for name in names:
 			if name in items:
-				#print(f"duplicate meter: {name}", file=sys.stderr)
+				print(f"duplicate meter: {name}", file=sys.stderr)
 				continue
 			items[name] = pros.text()
 	return items
 
 def make_db():
-	pass
+	data = load_data()
+	db.execute("delete from prosody")
+	for name, pattern in sorted(data.items()):
+		db.execute("insert into prosody(name, pattern) values(?, ?)",
+			(name, pattern))
 
 pattern_tbl = str.maketrans({
 	"-": "\N{metrical breve}",
@@ -38,8 +44,6 @@ def render_pattern(p):
 def is_pattern(p):
 	return all(ord(c) in pattern_tbl or c.isdigit() or c in "|/" for c in p)
 
-items = load()
-
 if __name__ == "__main__":
-	for name in sorted(items):
-		print(name)
+	for name, pattern in sorted(load_data().items()):
+		print(name, pattern, sep="\t")

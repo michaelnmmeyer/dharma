@@ -193,8 +193,10 @@ def update_db(repo):
 				(file.name, git_name))
 		catalog.insert(file, db)
 
-# always put stuff in the db instead of keeping it in-memory, so that
-# we can tell what's the current data just by looking at the db.
+# We should always put stuff like names, etc. in the db instead of keeping it
+# in-memory, so that we can tell what's the current data just by looking at
+# the db. Otherwise would have to write introspection code. Other reason: at
+# some point, we want to have a downloadable read-only db.
 def update_project():
 	people.make_db()
 	langs.make_db()
