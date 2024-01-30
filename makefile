@@ -17,10 +17,9 @@ update-repos:
 		test -d $$d && git -C $$d pull; \
 	done
 
-update-texts: update-repos
-	mkdir texts || true
+update-texts:
+	mkdir -p texts
 	rm -f texts/*
-	rsync --progress 'dharma:dharma/dbs/texts.sqlite*' dbs/
 	sqlite3 dbs/texts.sqlite "select printf('../repos/%s/%s', repo, path) \
 		from texts natural join files" | while read f; do \
 		ln -s $$f texts/$$(basename $$f); \
