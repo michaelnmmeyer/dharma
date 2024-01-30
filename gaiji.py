@@ -1,6 +1,8 @@
 import os
 from dharma import config
 
+db = config.open_db("texts")
+
 def gather_images():
 	ret = {}
 	path = os.path.join(config.STATIC_DIR, "gaiji")
@@ -28,16 +30,7 @@ def iter_rows():
 			assert len(fields) == 4, fields
 			yield line_no, fields
 
-def default_rec(name):
-	return {
-		"name": name,
-		"text": None,
-		"prefer_text": False,
-		"img": None,
-		"description": "Symbol, no description available",
-	}
-
-def load():
+def load_data():
 	ret = {}
 	imgs = gather_images()
 	for line_no, row in iter_rows():
@@ -51,7 +44,6 @@ def load():
 			assert row["img"] is None, "duplicate images for symbol %r" % name
 			row["img"] = img
 			del imgs[name]
-		row["prefer_text"] = row["prefer_text"] == "yes"
 		if not row["description"]:
 			row["description"] = "no description available"
 		for name in names:
@@ -63,18 +55,28 @@ def load():
 				rec["text"] = None
 			ret[name] = rec
 	for name, img in imgs.items():
-		rec = default_rec(name)
-		rec["img"] = img
+		rec = {"name": name, "text": None, "description": None, "img": img}
 		ret[name] = rec
 	return ret
 
-DATA = load()
-
 def get(name):
-	ret = DATA.get(name)
-	if not ret:
-		return default_rec(name)
+	text, description = db.execute("""select text, description from gaiji
+		where name = ?""", (name,)).fetchone() or (None, None)
+	ret = {
+		"name": name,
+		"text": text,
+		"description": description or "no description available",
+	}
 	return ret
 
 def make_db():
-	pass
+	data = load_data()
+	db.execute("delete from gaiji")
+	for _, row in sorted(data.items()):
+		db.execute("insert into gaiji(name, text, description) values(?, ?, ?)",
+			(row["name"], row["text"], row["description"]))
+
+if __name__ == "__main__":
+	ret = load_data()
+	for k, v in ret.items():
+		print(k, v, sep="\t")

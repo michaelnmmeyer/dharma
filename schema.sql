@@ -164,6 +164,12 @@ create table if not exists prosody(
 	pattern text not null
 );
 
+create table if not exists gaiji(
+	name text primary key not null,
+	text text,
+	description text
+);
+
 -- All bibliographic records from Zotero.
 create table if not exists biblio_data(
 	key text primary key not null,
