@@ -1,5 +1,5 @@
 import os, sys, logging, sqlite3, json, subprocess, re
-from urllib.parse import urlparse
+from urllib.parse import urlparse, quote
 import icu
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -103,6 +103,14 @@ if os.path.basename(sys.argv[0]) == "server.py":
 else:
 	READ_ONLY = False
 
+def format_url(*args):
+	if len(args) == 0:
+		return ""
+	ret = args[0]
+	if len(args) > 1:
+		ret = ret % args[1:]
+	return quote(ret, safe="/:")
+
 def open_db(name, schema=None):
 	if name == "texts":
 		assert not schema
@@ -129,6 +137,7 @@ def open_db(name, schema=None):
 	conn.row_factory = sqlite3.Row
 	conn.executescript(common_schema)
 	conn.create_function("format_date", 1, format_date, deterministic=True)
+	conn.create_function("format_url", -1, format_url, deterministic=True)
 	conn.create_collation("icu", collate_icu)
 	# Only
 	if schema and os.path.basename(sys.argv[0]) != "server.py":

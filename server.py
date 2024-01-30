@@ -109,7 +109,8 @@ def show_text(repo, hash, name):
 	""", (repo, name, hash)).fetchone()
 	if not row:
 		bottle.abort(404, "Not found")
-	url = f"https://github.com/erc-dharma/{row['repo']}/blob/{row['commit_hash']}/{row['xml_path']}"
+	url = config.format_url("https://github.com/erc-dharma/%s/blob/%s/%s",
+		row['repo'], row['commit_hash'], row['xml_path'])
 	if row["status"] == validate.OK:
 		return bottle.redirect(url)
 	path = os.path.join(config.REPOS_DIR, row["repo"], row["xml_path"])
@@ -222,7 +223,7 @@ def display_text(text):
 			commit_hash,
 			format_date(commit_date),
 			format_date(last_modified),
-			printf('https://github.com/erc-dharma/%s/blob/%s/%s', repo, commit_hash, path)
+			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repo, commit_hash, path)
 		from texts natural join files natural join commits
 		where name = ?""",
 		(config.REPOS_DIR, text)).fetchone() or (None, None)

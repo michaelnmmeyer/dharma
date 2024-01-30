@@ -50,12 +50,13 @@ create table if not exists files(
 	-- When the file was last modified according to git.
 	last_modified timestamp,
 	data text,
+	-- The following are stored because format_url is an external function and
+	-- because we want to be able to check this field from the sqlite command-line
+	-- tool.
+	github_view_url text as (format_url('https://github.com/erc-dharma/%s/blob/master/%s', repo, path)) stored,
+	github_raw_url text as (format_url('https://raw.githubusercontent.com/erc-dharma/%s/master/%s', repo, path)) stored,
 	primary key(name, repo),
 	foreign key(repo) references commits(repo)
-	-- The file is at https://github.com/erc-dharma/$repo/blob/master/$path
-	-- Download link at https://raw.githubusercontent.com/erc-dharma/$repo/master/$path
-	-- XXX use a single func somewhere for building url, we are not dealing with e.g.
-	-- spaces for now.
 );
 
 create table if not exists texts(
@@ -65,8 +66,8 @@ create table if not exists texts(
 	code_hash text check(length(code_hash) = 2 * 20),
 	-- See the enum in change.py
 	status integer check(status >= 0 and status <= 3),
+	html_url text as (format_url('https://erc-dharma.github.io/%s/%s', repo, html_path)) stored,
 	foreign key(name, repo) references files(name, repo)
-	-- The HTML display is at https://erc-dharma.github.io/$repo/$html_path
 );
 
 -- For each file, names of the people who modified it at some point in time,

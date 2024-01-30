@@ -14,8 +14,8 @@ FIFO_ADDR = os.path.join(config.REPOS_DIR, "change.hid")
 
 # Not all repos, only those that contain texts and other files we need.
 REPOS = """
-BESTOW
 project-documentation
+BESTOW
 siddham
 tfa-accalpuram-epigraphy
 tfa-cempiyan-mahadevi-epigraphy
