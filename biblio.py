@@ -461,7 +461,7 @@ def render_journal_article(rec, w, params):
 			w.add(rec["issue"])
 			w.add(")")
 		if params["loc"]:
-			w.add(", ")
+			w.add(": ")
 			w.loc(params["loc"])
 		w.period()
 	w.idents(rec)
