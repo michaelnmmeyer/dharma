@@ -42,11 +42,13 @@ def iter_members_list():
 		yield row
 
 def make_db():
+	db.execute("delete from people_github")
+	db.execute("delete from people_main")
 	for row in iter_members_list():
 		db.execute("""
-			insert or replace into people_main(name, dh_id, idhal, idref, orcid, viaf, wikidata)
+			insert into people_main(name, dh_id, idhal, idref, orcid, viaf, wikidata)
 			values(:name, :dh_id, :idhal, :idref, :orcid, :viaf, :wikidata)""", row)
-	with open(config.path_of("git_names.tsv")) as f:
+	with open(config.path_of("repos/project-documentation/DHARMA_gitNames.tsv")) as f:
 		seen = set()
 		for line_no, line in enumerate(f, 1):
 			if line_no == 1:
@@ -56,7 +58,7 @@ def make_db():
 			key, value = fields
 			assert key not in seen, "duplicate record %r at line %d" % (key, line_no)
 			seen.add(key)
-			db.execute("insert or replace into people_github(git_name, dh_id) values(?, ?)", (key, value))
+			db.execute("insert into people_github(git_name, dh_id) values(?, ?)", (key, value))
 
 def plain(ident):
 	ret = db.execute("select print_name from people_main where dh_id = ?", (ident,)).fetchone()
