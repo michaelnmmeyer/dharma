@@ -64,7 +64,6 @@ Version: {{doc.commit_date}}
 
 <div class="log" id="log">
 {{!doc.edition.render_logical()}}
-% end
 </div>
 
 <div class="phys" id="phys" style="display:none">
