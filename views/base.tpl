@@ -19,7 +19,7 @@
       <li class="toggle" id="toggle-menu"><a><i class="fa-solid fa-bars"></i></a></li>
       <li class="logo"><a href="/">DHARMA</a></li>
       <li class="toggle" id="toggle-toc"><a><i class="fa-solid fa-table-list"></i></a></li>
-      <li class="item"><a href="/repositories">Repositories</a></li>
+      <li class="item"><a href="/repositories"><i class="fa-brands fa-git-alt"></i> Repositories</a></li>
       <li class="item"><a href="/commits"><i class="fa-brands fa-github"></i> Commits</a></li>
       <li class="item"><a href="/texts"><!--<i class="fa-solid fa-bug"></i>--> Texts</a></li>
       <li class="item"><a href="/catalog"><!--<i class="fa-solid
