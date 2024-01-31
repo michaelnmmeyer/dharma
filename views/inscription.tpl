@@ -63,39 +63,16 @@ Version: {{doc.commit_date}}
 </ul>
 
 <div class="log" id="log">
-% if len(doc.edition) > 1:
-   % for i, edition in enumerate(doc.edition, 1):
-      <!-- XXX need to renumber headings accordingly within the edition! -->
-      <h3>Edition</h3>
-      {{!edition.render_logical()}}
-   % end
-% else:
-{{!doc.edition[0].render_logical()}}
+{{!doc.edition.render_logical()}}
 % end
 </div>
 
 <div class="phys" id="phys" style="display:none">
-% if len(doc.edition) > 1:
-   % for i, edition in enumerate(doc.edition, 1):
-      <!-- XXX need to renumber headings accordingly within the edition! -->
-      <h3>Edition</h3>
-         {{!edition.render_physical()}}
-   % end
-% else:
-{{!doc.edition[0].render_physical()}}
-% end
+{{!doc.edition.render_physical()}}
 </div>
 
 <div class="full" id="full" style="display:none">
-% if len(doc.edition) > 1:
-   % for i, edition in enumerate(doc.edition, 1):
-      <!-- XXX need to renumber headings accordingly within the edition! -->
-      <h3>Edition</h3>
-      {{!edition.render_full()}}
-   % end
-% else:
-{{!doc.edition[0].render_full()}}
-% end
+{{!doc.edition.render_full()}}
 </div>
 
 </div> <!-- <div class="ed"> -->

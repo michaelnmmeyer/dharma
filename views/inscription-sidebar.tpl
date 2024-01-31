@@ -5,14 +5,7 @@
 <li><a href="#metadata">Metadata</a></li>
 
 % if doc.edition:
-   % if len(doc.edition) > 1:
-<li><a href="#edition">Edition</a><ul>
-   % for i, edition in enumerate(doc.edition, 1):
-      <li>Edition{{!edition.render_outline()}}</li>
-   % end
-</ul></li>
-   % else:
-<li><a href="#edition">Edition</a>{{!doc.edition[0].render_outline()}}</li>
+<li><a href="#edition">Edition</a>{{!doc.edition.render_outline()}}</li>
 % end
 
 % if doc.apparatus:

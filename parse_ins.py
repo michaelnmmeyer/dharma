@@ -83,8 +83,7 @@ def parse_body(p, body):
 			#and add validity check (in schema?)
 			edition = gather_sections(p, div)
 			if edition:
-				p.document.edition.append(edition)
-			print(p.document.edition_main_langs)
+				p.document.edition = edition
 		elif type == "apparatus":
 			p.document.apparatus = gather_sections(p, div)
 		elif type == "translation":
