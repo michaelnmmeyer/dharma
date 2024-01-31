@@ -119,9 +119,27 @@ def show_text(repo, hash, name):
 
 @bottle.get("/repositories")
 def show_repos():
-	rows = TEXTS_DB.execute("""select repo as name, textual, title
-		from repos order by title collate icu""").fetchall()
-	return bottle.template("repos.tpl", rows=rows)
+	rows = TEXTS_DB.execute("""
+	with repos_editors as (
+		select repo as name,
+			json_each.value as editor,
+			count(*) as editor_prod
+		from documents, json_each(documents.editors)
+		group by repo, json_each.value
+		order by repo asc, editor_prod desc
+	), repos_prod as (
+		select repos.repo as name,
+			repos.title as title,
+			count(*) as repo_prod
+		from repos join documents on repos.repo = documents.repo
+		group by documents.repo
+	) select repos_editors.name as name,
+		repo_prod,
+		title,
+		json_group_array(json_array(editor, editor_prod)) as people
+	from repos_editors join repos_prod on repos_editors.name = repos_prod.name
+	group by repos_prod.name order by repos_prod.title""").fetchall()
+	return bottle.template("repos.tpl", rows=rows, json=json)
 
 @bottle.get("/parallels")
 @NGRAMS_DB.transaction
