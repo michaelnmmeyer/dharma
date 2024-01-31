@@ -97,6 +97,7 @@ def show_texts():
 	conn.execute("commit")
 	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner, severity=severity)
 
+# XXX simplify URL
 @bottle.get("/texts/<repo>/<hash>/<name>")
 def show_text(repo, hash, name):
 	conn = TEXTS_DB
@@ -115,6 +116,12 @@ def show_text(repo, hash, name):
 		return bottle.redirect(url)
 	path = os.path.join(config.REPOS_DIR, row["repo"], row["xml_path"])
 	return bottle.template("invalid-text.tpl", text=row, github_url=url, result=validate.file(path))
+
+@bottle.get("/repositories")
+def show_repos():
+	rows = TEXTS_DB.execute("""select repo as name, textual, title
+		from repos order by title collate icu""").fetchall()
+	return bottle.template("repos.tpl", rows=rows)
 
 @bottle.get("/parallels")
 @NGRAMS_DB.transaction

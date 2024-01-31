@@ -7,7 +7,7 @@
 --
 -- It might be useful at some point to use fossil
 -- (https://fossil-scm.org/home/dir?ci=tip), which is based on sqlite,
--- if this would allow us to fetch updates faster than with git or more
+-- if this would allow us to fetch updates faster than with git, or more
 -- reliably.
 
 begin;
@@ -24,11 +24,19 @@ insert or ignore into metadata values('last_updated', 0);
 -- version > 'biblio_latest_version'.
 insert or ignore into metadata values('biblio_latest_version', 0);
 
--- Latest commit of each repo.
+create table if not exists repos(
+	repo text primary key check(length(repo) > 0),
+	-- Whether contains edited texts
+	textual boolean check(textual = 0 or textual = 1),
+	title text check(length(title) > 0)
+);
+
+-- Latest commit of each repo we keep track of.
 create table if not exists commits(
 	repo text primary key,
 	commit_hash text check(length(commit_hash) = 2 * 20),
-	commit_date timestamp
+	commit_date timestamp,
+	foreign key(repo) references repos(repo)
 );
 
 -- We store raw xml files in the db. The point is to make it possible to use

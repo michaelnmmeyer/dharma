@@ -7,60 +7,33 @@
 
 import os, sys, subprocess, time, json, select, errno, logging, fcntl
 import argparse, traceback, collections
-from dharma import config, validate, texts, biblio, catalog, people, langs, gaiji, prosody
+from dharma import config, validate, texts, biblio, catalog, people, langs, gaiji, prosody, repos
 from dharma.config import command
 
 FIFO_ADDR = os.path.join(config.REPOS_DIR, "change.hid")
 
-# Not all repos, only those that contain texts and other files we need.
-REPOS = """
-project-documentation
-BESTOW
-siddham
-tfa-accalpuram-epigraphy
-tfa-cempiyan-mahadevi-epigraphy
-tfa-cirkali-epigraphy
-tfa-kotumpalur-epigraphy
-tfa-melappaluvur-kilappaluvur-epigraphy
-tfa-pallava-epigraphy
-tfa-pandya-epigraphy
-tfa-sii-epigraphy
-tfa-tamil-outside-TN-epigraphy
-tfa-tamilnadu-epigraphy
-tfa-tiruvavatuturai-TN-epigraphy
-tfa-uttiramerur-epigraphy
-tfb-arakan-epigraphy
-tfb-badamicalukya-epigraphy
-tfb-bengalcharters-epigraphy
-tfb-bengalded-epigraphy
-tfb-bhaumakara-epigraphy
-tfb-daksinakosala-epigraphy
-tfb-ec-epigraphy
-tfb-eiad-epigraphy
-tfb-gangaeast-epigraphy
-tfb-kalyanacalukya-epigraphy
-tfb-karnataka-epigraphy
-tfb-licchavi-epigraphy
-tfb-maitraka-epigraphy
-tfb-parivrajaka-epigraphy
-tfb-rastrakuta-epigraphy
-tfb-sailodbhava-epigraphy
-tfb-satavahana-epigraphy
-tfb-somavamsin-epigraphy
-tfb-telugu-epigraphy
-tfb-vengicalukya-epigraphy
-tfb-visnukundin-epigraphy
-tfc-campa-epigraphy
-tfc-khmer-epigraphy
-tfc-nusantara-epigraphy
-tfd-nusantara-philology
-tfd-sanskrit-philology
-""".strip().split()
-
 db = config.open_db("texts")
 
+REPOS = sorted(repos.load_data().keys())
+
+# Timestamp of the last git pull/clone
 last_pull = 0
+# Wait this long between two pulls, counting in seconds
 min_pull_wait = 5
+
+def clone_repo(name):
+	path = os.path.join(config.REPOS_DIR, name)
+	try:
+		os.rmdir(path)
+	except FileNotFoundError:
+		pass
+	except OSError as e:
+		if e.errno == errno.ENOTEMPTY:
+			return False
+		raise
+	command("git", "clone", f"git@github.com:erc-dharma/{name}.git",
+		path, capture_output=False)
+	return True
 
 # Github apparently doesn't like it when we pull too often. We often get a
 # message "kex_exchange_identification: read: Connection reset by peer". So
@@ -72,6 +45,8 @@ def update_repo(name):
 	if diff < min_pull_wait:
 		time.sleep(min_pull_wait - diff)
 	last_pull = now
+	if clone_repo(name):
+		return
 	return command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
 
 def latest_commit_in_repo(name):
@@ -204,6 +179,7 @@ def update_project():
 	prosody.make_db()
 	# XXX what about schemas and docs? run make?
 	# XXX make sure project-doc has upd prio over other repos
+	# TODO store needed files from project-documentation in the db
 
 def backup_to_jawakuno():
 	command("bash", "-x", config.path_of("backup_to_jawakuno.sh"), capture_output=False)
@@ -220,20 +196,6 @@ def handle_changes(name):
 	db.execute("commit")
 	if name == "tfd-nusantara-philology":
 		backup_to_jawakuno()
-
-def clone_all():
-	for name in REPOS:
-		path = os.path.join(config.REPOS_DIR, name)
-		try:
-			os.rmdir(path)
-		except FileNotFoundError:
-			pass
-		except OSError as e:
-			if e.errno == errno.ENOTEMPTY:
-				continue
-			raise
-		command("git", "clone", f"git@github.com:erc-dharma/{name}.git", path,
-			capture_output=False)
 
 # Must be at least this big in POSIX. Linux currently has 4096.
 PIPE_BUF = 512
@@ -311,7 +273,6 @@ def run():
 		os.mkdir(config.REPOS_DIR)
 	except FileExistsError:
 		pass
-	clone_all()
 	try:
 		os.mkfifo(FIFO_ADDR)
 	except FileExistsError:
