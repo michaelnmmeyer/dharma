@@ -1,14 +1,23 @@
+# We can do partial validation with relaxng. For now should only specify weird
+# stuff, we will import the rest later on. We still need to do things top-down.
+
 default namespace = "http://www.tei-c.org/ns/1.0"
 
 start = element TEI {
 	any_attribute*,
-	any_element*
+	element teiHeader {
+		any_attribute*,
+		any_element*
+	},
+	element facSimile {
+		any_attribute*,
+		any_element*
+	}?,
+	element text {
+		any_attribute*,
+		any_element*
+	}
 }
 
 any_attribute = attribute * {text}
-
-any_element = element * {
-	(any_attribute
-	| text
-	| any_element)*
-}
+any_element = element * {(any_attribute | text | any_element)*}
