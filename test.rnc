@@ -1,0 +1,14 @@
+default namespace = "http://www.tei-c.org/ns/1.0"
+
+start = element TEI {
+	any_attribute*,
+	any_element*
+}
+
+any_attribute = attribute * {text}
+
+any_element = element * {
+	(any_attribute
+	| text
+	| any_element)*
+}
