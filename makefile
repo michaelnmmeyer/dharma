@@ -40,7 +40,7 @@ arlo-plain:
 		git -C repos/jawakuno commit -am "Update DHARMA inscriptions" && \
 		git -C repos/jawakuno push
 
-# Ussage: make forever cmd="echo hello"
+# Usage: make forever cmd="echo hello"
 cmd := $(MAKE) -j3
 forever:
 	@$(cmd) || true
