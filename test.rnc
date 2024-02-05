@@ -4,20 +4,83 @@
 default namespace = "http://www.tei-c.org/ns/1.0"
 
 start = element TEI {
-	any_attribute*,
+	common_attrs,
 	element teiHeader {
 		any_attribute*,
 		any_element*
 	},
-	element facSimile {
+	element facsimile {
 		any_attribute*,
 		any_element*
 	}?,
 	element text {
-		any_attribute*,
-		any_element*
+		attribute xml:space { "preserve" },
+		element body {
+			any_attribute*,
+			edition,
+			apparatus?,
+			translation*,
+			commentary?,
+			bibliography?
+		}
 	}
 }
 
-any_attribute = attribute * {text}
-any_element = element * {(any_attribute | text | any_element)*}
+# Allowed in all elements
+common_attrs = (
+	attribute resp { text }?,
+	attribute source { text }?,
+	attribute xml:lang { text }?,
+	attribute xml:id { text }?
+)
+
+edition = element div {
+	attribute type { "edition" },
+	attribute rendition { text }?,
+	common_attrs,
+	any_contents*
+}
+
+apparatus = element div {
+	attribute type { "apparatus" },
+	common_attrs,
+	(listApp | apparatus_part+ | empty)
+}
+
+apparatus_part = element div {
+	any_attribute*,
+	any_contents*
+}
+
+listApp = element listApp {
+	any_attribute*,
+	any_contents*
+}
+
+translation = element div {
+	attribute type { "translation" },
+	common_attrs,
+	any_contents*
+}
+
+commentary = element div {
+	attribute type { "commentary" },
+	common_attrs,
+	any_contents*
+}
+
+bibliography = element div {
+	attribute type { "bibliography" },
+	common_attrs,
+	any_contents*
+}
+
+div_textpart = element div {
+	attribute type { "textpart" },
+	any_attribute*,
+	any_contents*
+}
+
+any_attribute = attribute * { text }
+any_element = element * { (any_attribute | text | any_element)* }
+any_contents = (any_element | text)
