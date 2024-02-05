@@ -20,7 +20,7 @@ if test -z $WITHIN_DOCKER; then
 		dharma
 else
 	echo "Running python" > /dev/stderr
-	python3 change.py &> repos/change.log &
-	python3 zotero.py &> repos/zotero.log &
+	python3 change.py &> logs/change.log &
+	python3 zotero.py &> logs/zotero.log &
 	python3 server.py
 fi
