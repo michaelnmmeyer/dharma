@@ -75,15 +75,18 @@ function prepareTips() {
 }
 
 function flashTarget() {
-	if (!this["href"]) {
+	if (!this.href)
 		return
-	}
-	let url = new URL(this["href"])
-	let node = document.querySelector(url.hash)
+	let url = new URL(this.href)
+	if (url.origin != window.location.origin)
+		return
+	if (url.path != window.location.path)
+		return
+	highlightFragment(url)
 }
 
-function highlightFragment() {
-	let hash = window.location.hash
+function highlightFragment(url) {
+	let hash = url.hash
 	if (!hash)
 		return
 	let node = document.querySelector(hash)
@@ -97,7 +100,9 @@ function highlightFragment() {
 
 window.addEventListener("load", function () {
 	prepareTips()
-	highlightFragment()
+	highlightFragment(window.location)
+	for (let node of document.querySelectorAll("a"))
+		node.addEventListener("click", flashTarget)
 })
 
 window.addEventListener("load", function () {
