@@ -2,7 +2,7 @@
 -- more complicated for not much benefit, so now only the latest commit
 -- is kept. It could be useful to store revisions for Zotero, however,
 -- because apparently the online service does not do that (to be
--- confirmed), but this is not done, and likewise it is not really worth
+-- confirmed), but this is not done, and it does not seem worth
 -- the effort, especially for a bibliography.
 --
 -- It might be useful at some point to use fossil
@@ -24,6 +24,7 @@ insert or ignore into metadata values('last_updated', 0);
 -- version > 'biblio_latest_version'.
 insert or ignore into metadata values('biblio_latest_version', 0);
 
+-- Repositories description. This is filled with repos.tsv.
 create table if not exists repos(
 	repo text primary key check(length(repo) > 0),
 	-- Whether contains edited texts
@@ -115,7 +116,8 @@ create table if not exists people_main(
 create table if not exists people_github(
 	git_name text primary key not null,
 	-- Might be null, not all people on github have a dharma id.
-	dh_id text, foreign key(dh_id) references people_main(dh_id)
+	dh_id text,
+	foreign key(dh_id) references people_main(dh_id)
 );
 
 -- For the catalog display.
