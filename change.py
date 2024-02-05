@@ -19,7 +19,7 @@ REPOS = sorted(repos.load_data().keys())
 # Timestamp of the last git pull/clone
 last_pull = 0
 # Wait this long between two pulls, counting in seconds
-min_pull_wait = 5
+min_pull_wait = 10
 
 def clone_repo(name):
 	path = os.path.join(config.REPOS_DIR, name)
