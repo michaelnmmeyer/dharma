@@ -3,10 +3,10 @@
 input_fonts = $(wildcard selection/*.ttf)
 output_fonts = $(patsubst %.ttf,%.woff2,$(input_fonts))
 
-all: $(output_fonts) fonts.css
+all: $(output_fonts) fonts.css missing.txt
 
 clean:
-	$(RM) $(output_fonts) fonts.css unicodes.txt charset.txt unidata/Blocks.txt all_text.txt
+	$(RM) $(output_fonts) fonts.css unicodes.txt charset.txt unidata/Blocks.txt all_text.txt missing.txt
 
 .PHONY: all clean
 
@@ -25,6 +25,8 @@ unicodes.txt: subset.py charset.txt unidata/Blocks.txt
 charset.txt: subset.py all_text.txt
 	python3 $< $@
 
-all_text.txt: ../dbs/texts.sqlite ../dbs/biblio.sqlite
-	sqlite3 ../dbs/texts.sqlite "select * from files" > $@
-	sqlite3 ../dbs/biblio.sqlite "select * from bibliography" >> $@
+missing.txt: subset.py charset.txt
+	python3 $< $@
+
+all_text.txt: ../dbs/texts.sqlite
+	sqlite3 ../dbs/texts.sqlite .dump > $@

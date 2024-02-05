@@ -67,9 +67,11 @@ def chars_in_font(font):
 @generate("missing.txt")
 def print_missing(print):
 	font_chars = set()
-	for file in os.listdir(path_of("extracted")):
-		font_chars |= chars_in_font(path_of("extracted", file))
-	chars = set(charset())
+	for file in os.listdir(path_of("selection")):
+		font = TTFont(path_of("selection", file))
+		font_chars |= chars_in_font(font)
+	with open("charset.txt") as f:
+		chars = set(f.read().strip())
 	for c in chars:
 		if c in font_chars:
 			continue

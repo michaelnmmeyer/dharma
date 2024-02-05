@@ -1,15 +1,4 @@
-We get noto-emoji from here:
-https://fonts.google.com/noto/specimen/Noto+Emoji?noto.query=emoji
-Because https://github.com/googlefonts/noto-emoji apparently doesn't have the
-files
-
-choose unhinted/variable-ttf in notofonts.github.io
-
-https://notofonts.github.io
-https://github.com/notofonts/noto-cjk
-
-We don't deal with CJK now, need info from the people concerned.
-# Font subsetting
+# Font Subsetting
 
 We do not use Google Fonts' HTTP API because, for some reason, they do not
 include COMBINING RING BELOW in the fonts accessible through the API, although
@@ -42,6 +31,11 @@ Font files in "selection" are pulled from the following repositories:
 * https://github.com/notofonts/notofonts.github.io
 * https://github.com/googlefonts/noto-emoji
 * https://github.com/notofonts/noto-cjk
+
+We get noto-emoji from here:
+https://fonts.google.com/noto/specimen/Noto+Emoji?noto.query=emoji instead of
+from the github repo. Because https://github.com/googlefonts/noto-emoji
+apparently doesn't have the proper font files.
 
 So far I have not dealt with CJK fonts, although we do need them. The problem
 is that we need to know which of C, J and K we need to choose for display,
