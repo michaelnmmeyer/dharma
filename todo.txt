@@ -1,9 +1,12 @@
+Put all logs in the same dir
+
 Don't expand names in documents tables! Because must be automatically
 updated after a modif to idListMembers. Should store the dharma id (part:xxxx)
 instead, even if we don't find it in idListmembers. When there is none, store
 the name directly. Or update everything each time "idListMembers" is modified.
+In fact we still need to update the search index, so do a full update.
 
-Print somewhere which git names we don't have.
+Print somewhere which git names we don't have, auto-update it.
 
 parse urls and make them clickable
 
@@ -11,9 +14,14 @@ add tooltip for expan in <abbr><expan> in phys disp; but need to know how to do 
 
 <label> to handle properly for manu
 
-manu: <milestone unit="zone">; should be a title, with <lb> a children
+manu: <milestone unit="zone">; should be a title, with <lb> as children
 
 make biblio searchable
+
+  cited:true
+  from-editor:
+  from-repo:
+  ...
 
 amandine: <persName ref=PSN...>? should use key
 
@@ -36,10 +44,6 @@ Script maturity is for use only with the class "Brahmi and derivatives" (and
 its subcategories); for any other script classes it is not optional but
 "forbidden". For Brahmi, it is mandatory. Amend rules accordingly.
 
-add log (or docker thing?) to get notified when the app is killed; should
-redirect all logs to some definite location
-
-
 include all the commits we missed in the commits tbl (use the commit date when
 no push date is available); paginate stuff
 
@@ -53,7 +57,7 @@ no push date is available); paginate stuff
 
 
 
-* In physical display, do not display editorial hyphens, but do show them
+manu: In physical display, do not display editorial hyphens, but do show them
   in logical display. For this to work, need to tag languages. XXX
   hyphens between words? or at the end fo a line?
 
