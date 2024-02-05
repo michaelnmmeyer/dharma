@@ -59,8 +59,7 @@
 <tbody>
 % for text in texts:
 <tr>
-   <td><a
-   href="texts/{{text["repo"]}}/{{text["commit_hash"]}}/{{text["name"]}}">{{text["name"].removeprefix("DHARMA_")}}</a></td>
+   <td><a href="texts/{{text["name"]}}">{{text["name"].removeprefix("DHARMA_")}}</a></td>
    <td>
    <a href="https://github.com/erc-dharma/{{text['repo']}}">{{text["repo"]}}</a>
    </td>

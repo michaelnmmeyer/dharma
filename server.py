@@ -98,16 +98,16 @@ def show_texts():
 	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner, severity=severity)
 
 # XXX simplify URL
-@bottle.get("/texts/<repo>/<hash>/<name>")
-def show_text(repo, hash, name):
+@bottle.get("/texts/<name>")
+def show_text(name):
 	conn = TEXTS_DB
 	row = conn.execute("""
 		select name, commits.repo, commit_hash, code_hash, status, path as xml_path, html_path,
 			format_date(commit_date) as readable_commit_date
 		from texts natural join files
 			join commits on texts.repo = commits.repo
-		where commits.repo = ? and name = ? and commit_hash = ?
-	""", (repo, name, hash)).fetchone()
+		where name = ?
+	""", (name,)).fetchone()
 	if not row:
 		bottle.abort(404, "Not found")
 	url = config.format_url("https://github.com/erc-dharma/%s/blob/%s/%s",
@@ -116,6 +116,11 @@ def show_text(repo, hash, name):
 		return bottle.redirect(url)
 	path = os.path.join(config.REPOS_DIR, row["repo"], row["xml_path"])
 	return bottle.template("invalid-text.tpl", text=row, github_url=url, result=validate.file(path))
+
+# Legacy url
+@bottle.get("/texts/<repo>/<hash>/<name>")
+def show_text_legacy(repo, hash, name):
+	return bottle.redirect(config.format_url("/texts/%s", name))
 
 @bottle.get("/repositories")
 def show_repos():
