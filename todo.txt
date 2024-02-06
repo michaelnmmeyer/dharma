@@ -13,13 +13,23 @@ Print somewhere which git names we don't have, auto-update it.
 
 ===
 
+Merge catalog and texts into a single interface. Need first to add a search
+field to filter by error status. Must also be prepared to index documents that are completely invalid, in which case just display text id + repo in the catalog, and the XML in the display.
+
+===
+
 compare dipled and ins schemas, support dipled
 
-parse urls and make them clickable
 
 add tooltip for expan in <abbr><expan> in phys disp; but need to know how to do that
 
+===
+
+# Find solution for nesting of phys structure
+
 manu: <milestone unit="zone">; should be a title, with <lb> as children
+
+===
 
 make biblio searchable
 
@@ -102,12 +112,17 @@ for the catalog, we'll also need a sidebar.
 
 --------------------------------------------------------
 
+# Testing
+
 check that the new change.py works
 check that zotero syncing works
 
 Must add tests for this, with dummy repos
 
 Also create a few test files for checking display is working
+
+XXX make sure we complain when file names are not unique across all repos
+
 
 ---------------------------------------------------------global
 
@@ -123,10 +138,18 @@ convention.
 
 ------------------------------------------------------------------
 
-Can add options to the xml display. Just a "pretty" option where we might or
-not include comments. Need to have a pretty-print func that preserves space and
-doesn't add unnecessary space. Also add line numbers to xml display. And style
-the thing with a color for comments and tags.
+# XML display
+
+Put the tab button somewhere else.
+
+* Need to have a pretty-print func that preserves space and
+  doesn't add unnecessary space.
+* Also add line numbers
+* Style the thing with a color for comments and tags, maybe different colors
+  for milestones and logical elements.
+* Add error messages with popups in the XML.
+
+------------------------------------------------------------------
 
 stop using tables in website, annoying to style. use cards instead.
 
@@ -135,7 +158,12 @@ for rng: rng2srng-20020831
 note that we can link to a span of text on github by adding sth like
 #L8C23-L14C34 at the end; but doesn't work with just #L8C23.
 
-XXX make sure we complain when file names are not unique across all repos
+
+
+
+Parse urls and make them clickable
+
+
 
 # Tamil
 
@@ -146,3 +174,5 @@ Should we do the search stuff in Python, go or C?
 
 Allow quoting part of the input with "..." to force an exact substring match.
 Still keep using the same similarity measure.
+
+This should be linked to the catalog search features.
