@@ -1,10 +1,17 @@
+# Names
+
 Don't expand names in documents tables! Because must be automatically
 updated after a modif to idListMembers. Should store the dharma id (part:xxxx)
 instead, even if we don't find it in idListmembers. When there is none, store
 the name directly. Or update everything each time "idListMembers" is modified.
 In fact we still need to update the search index, so do a full update. Simplest is to force a full update each time project-documentation is modified.
 
+Can make a distinction between DHARMA members and others just by looking whether we have a DHARMA id.
+
 Print somewhere which git names we don't have, auto-update it.
+
+
+===
 
 compare dipled and ins schemas, support dipled
 
@@ -99,6 +106,10 @@ for the catalog, we'll also need a sidebar.
 
 check that the new change.py works
 check that zotero syncing works
+
+Must add tests for this, with dummy repos
+
+Also create a few test files for checking display is working
 
 ---------------------------------------------------------global
 
