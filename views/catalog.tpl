@@ -69,10 +69,10 @@ table of languages <a href="/langs">here</a>.</p>
 % for row in rows:
 <div class="catalog-card">
    <p>
-   % if not row["html_link"].endswith("/"):
-      <a href="{{row["html_link"]}}">
-   % elif row["name"].startswith("DHARMA_INS"):
+   % if row["name"].startswith("DHARMA_INS"):
       <a href="/display/{{row["name"]}}">
+   % elif not row["html_link"].endswith("/"):
+      <a href="{{row["html_link"]}}">
    % end
    % if row["title"]:
       % for chunk in row["title"]:
@@ -83,8 +83,8 @@ table of languages <a href="/langs">here</a>.</p>
    % end
    % if not row["html_link"].endswith("/") or row["name"].startswith("DHARMA_INS"):
       </a>
-      % if row["name"].startswith("DHARMA_INS"):
-         <a href="/display/{{row["name"]}}">[🚧New display]</a>
+      % if not row["html_link"].endswith("/"):
+          <a href="{{row["html_link"]}}">[🦕 Old display]</a>
       % end
    % end
    </p>

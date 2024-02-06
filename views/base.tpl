@@ -24,7 +24,7 @@
       <li class="item"><a href="/texts"><!--<i class="fa-solid fa-bug"></i>--> Texts</a></li>
       <li class="item"><a href="/catalog"><!--<i class="fa-solid
       fa-magnifying-glass"></i>--> Catalog</a></li>
-      <li class="item"><a href="/parallels"><!--<i class="fa-solid fa-chart-simple"></i>-->
+      <li class="item"><a href="/parallels"><i class="fa-solid fa-grip-lines-vertical"></i>
       Parallels</a></li>
       <li class="item"><a href="/bibliography"><i class="fa-solid fa-quote-left"></i> Bibliography</a></li>
       <li class="item"><a href="/documentation"><i class="fa-regular fa-circle-question"></i> Documentation</a>
