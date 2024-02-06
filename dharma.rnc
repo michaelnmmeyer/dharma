@@ -1,69 +1,105 @@
+# We can do partial validation with relaxng. For now should only specify weird
+# stuff, we will import the rest later on. We still need to do things top-down.
 
-pagelike_milestone = element milestone {
-   attribute type { "pagelike" },
-   attribute unit { string },
-   attribute n { string },
-   ...
-}, label?
+default namespace = "http://www.tei-c.org/ns/1.0"
 
-
-gridlike_milestone = element milestone {
-   attribute type { "gridlike" }?,
-   attribute unit { string },
-   attribute n { string },
-   ...
+start = element TEI {
+	common_attrs,
+	element teiHeader {
+		any_attribute*,
+		any_element*
+	},
+	element facsimile {
+		any_attribute*,
+		any_element*
+	}?,
+	element text {
+		attribute xml:space { "preserve" },
+		element body {
+			any_attribute*,
+			edition,
+			apparatus?,
+			translation*,
+			commentary?,
+			bibliography?
+		}
+	}
 }
 
-milestone = pagelike_milestone | gridlike_milestone | pb | lb
-
-paralike = p | ab | lg | l
-
-textpart = element div {
-   attribute type { "textpart" },
-   attribute subtype { string }?,
-   attribute n { string },
-   head?,
-
-   paralike* | ...
-}
+# Allowed in all elements
+common_attrs = (
+	attribute resp { text }?,
+	attribute source { text }?,
+	attribute xml:lang { text }?,
+	attribute xml:id { text }?
+)
 
 edition = element div {
-   attribute type { "edition" },
-   ...
-   textpart* | paralike*
+	attribute type { "edition" },
+	attribute rendition { text }?,
+	common_attrs,
+	any_contents*
 }
 
 apparatus = element div {
-   attribute type { "apparatus" },
-   ...
+	attribute type { "apparatus" },
+	common_attrs,
+	(listApp | apparatus_part+ | empty)
+}
+
+apparatus_part = element div {
+	attribute type { "textpart" },
+	attribute n { text },
+	common_attrs,
+	head,
+	(listApp | empty)
+}
+
+listApp = element listApp { app+ }
+
+head = element head {
+	any_attribute*,
+	any_contents*
+}
+
+app = element app {
+	attribute loc { string },
+	(lem, rdg*, note*)
+}
+
+lem = element lem {
+	any_attribute*,
+	any_contents*
+}
+
+note = element note {
+	any_attribute*,
+	any_contents*
+}
+
+rdg = element rdg {
+	any_attribute*,
+	any_contents*
 }
 
 translation = element div {
-   attribute type { "translation" },
-   ...
+	attribute type { "translation" },
+	common_attrs,
+	any_contents*
 }
 
 commentary = element div {
-   attribute type { "commentary" },
-   ...
+	attribute type { "commentary" },
+	common_attrs,
+	any_contents*
 }
 
 bibliography = element div {
-   attribute type { "bibliography" },
-   ...
+	attribute type { "bibliography" },
+	common_attrs,
+	any_contents*
 }
 
-
-body = element body {
-   edition,
-   apparatus?,
-   translation*,
-   commentary?,
-   bibliography?
-}
-
-rich_text = hi | rend | foreign
-
-# Stuff that can be used within body but need not be normalized. rs is a real
-# mess.
-annotation = persName | roleName | placeName | settlement | rs
+any_attribute = attribute * { text }
+any_element = element * { (any_attribute | text | any_element)* }
+any_contents = (any_element | text)
