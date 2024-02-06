@@ -326,12 +326,18 @@ class Block:
 					buf.append('<span class="pagelike" data-tip="Page start">(\N{next page} %s)</span>' % html.escape(params["n"]))
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
-					n = html.escape(params["n"])
-					buf.append(f'<span class="pagelike" data-tip="{unit} start">({unit} {n})</span>')
+					text = f"({unit} {params['n']}"
+					if params["label"]:
+						text += f": {params['label']}"
+					text += ")"
+					buf.append('<span class="pagelike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
-					n = html.escape(params["n"])
-					buf.append(f'<span class="gridlike" data-tip="{unit} start">({unit} {n})</span>')
+					text = f"({unit} {params['n']}"
+					if params["label"]:
+						text += f": {params['label']}"
+					text += ")"
+					buf.append('<span class="gridlike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
 				else:
 					assert 0, data
 			elif t == "html":
@@ -433,12 +439,18 @@ class Block:
 					buf.append('<span class="pagelike" data-tip="Page start">(\N{next page} %s)</span>' % html.escape(params["n"]))
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
-					n = html.escape(params["n"])
-					buf.append(f'<span class="pagelike" data-tip="{unit} start">({unit} {n})</span>')
+					text = f"({unit} {params['n']}"
+					if params["label"]:
+						text += f": {params['label']}"
+					text += ")"
+					buf.append('<span class="pagelike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
-					n = html.escape(params["n"])
-					buf.append(f'<span class="gridlike" data-tip="{unit} start">({unit} {n})</span>')
+					text = f"({unit} {params['n']}"
+					if params["label"]:
+						text += f": {params['label']}"
+					text += ")"
+					buf.append('<span class="gridlike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
 				else:
 					assert 0, data
 			elif t == "html":
@@ -469,10 +481,18 @@ class Block:
 					buf.append('<span class="pagelike" data-tip="Page start">(\N{next page} %s)</span> ' % html.escape(params["n"]))
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
-					buf.append('<span class="pagelike" data-tip="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
+					text = f"({unit} {params['n']}"
+					if params["label"]:
+						text += f": {params['label']}"
+					text += ")"
+					buf.append('<span class="pagelike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
-					buf.append('<span class="gridlike" data-tip="%s start">(%s %s)</span>' % (unit, unit, html.escape(params["n"])))
+					text = f"({unit} {params['n']}"
+					if params["label"]:
+						text += f": {params['label']}"
+					text += ")"
+					buf.append('<span class="gridlike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
 				else:
 					assert 0, data
 			elif t == "log":

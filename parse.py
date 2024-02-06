@@ -302,7 +302,12 @@ def parse_milestone(p, milestone):
 	typ = milestone["type"]
 	if not typ in ("pagelike", "gridlike"):
 		typ = "gridlike"
-	p.add_phys("=" + unit, type=typ, n=n, brk=brk)
+	next_sibling = milestone.next
+	if next_sibling.name == "label":
+		label = next_sibling.text() # XXX markup?
+	else:
+		label = None
+	p.add_phys("=" + unit, type=typ, n=n, brk=brk, label=label)
 
 def parse_lb(p, elem):
 	n = milestone_n(p, elem)
@@ -861,6 +866,9 @@ def extract_bibl_items(p, listBibl):
 			continue
 		ret.append((rec, ref, loc))
 	return ret
+
+def parse_label(p, label):
+	pass # We deal with this in other handlers
 
 def parse_listBibl(p, node):
 	recs = extract_bibl_items(p, node)

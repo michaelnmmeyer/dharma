@@ -192,7 +192,7 @@ def export_plain():
 if __name__ == "__main__":
 	try:
 		doc = process_file(sys.argv[1])
-		for t, data, params in doc.bibliography.code:
+		for t, data, params in doc.edition.code:
 			document.write_debug(t, data, **params)
 		#ret = parse.PlainRenderer().render(doc)
 		#sys.stdout.write(ret)
