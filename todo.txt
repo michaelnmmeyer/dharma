@@ -1,10 +1,13 @@
+Work on parse and find a protocol for correcting files
+
 # Names
 
 Don't expand names in documents tables! Because must be automatically
 updated after a modif to idListMembers. Should store the dharma id (part:xxxx)
 instead, even if we don't find it in idListmembers. When there is none, store
 the name directly. Or update everything each time "idListMembers" is modified.
-In fact we still need to update the search index, so do a full update. Simplest is to force a full update each time project-documentation is modified.
+
+In fact we still need to update the search index, so do a full update. Simplest is to force a full update each time project-documentation is modified. Language names too need to be indexed.
 
 Can make a distinction between DHARMA members and others just by looking whether we have a DHARMA id.
 

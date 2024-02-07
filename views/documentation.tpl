@@ -1,5 +1,6 @@
 <!--
-% rebase("base.tpl", title="Documentation")
+% rebase("base.tpl", title="Documentation", sidebar='''<nav id="toc">
+</nav>''')
 -->
 <div class="body">
 <h1>

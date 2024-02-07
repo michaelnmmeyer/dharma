@@ -21,7 +21,7 @@ create table if not exists metadata(
 insert or ignore into metadata values('last_updated', 0);
 -- All records in biblio_data have a version <= 'biblio_latest_version'. So
 -- for updating the biblio we need to fetch all records for which
--- version > 'biblio_latest_version'.
+-- version > 'biblio_latest_version'. XXX why are we not using max(...)?
 insert or ignore into metadata values('biblio_latest_version', 0);
 
 -- Repositories description. This is filled with repos.tsv.
