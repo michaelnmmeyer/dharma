@@ -303,7 +303,7 @@ def parse_milestone(p, milestone):
 	if not typ in ("pagelike", "gridlike"):
 		typ = "gridlike"
 	next_sibling = milestone.next
-	if next_sibling.name == "label":
+	if next_sibling and next_sibling.name == "label":
 		label = next_sibling.text() # XXX markup?
 	else:
 		label = None
