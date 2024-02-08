@@ -269,6 +269,7 @@ def search(src_text, category, page):
 	limit = PER_PAGE + 1
 	db = NGRAMS_DB
 	db.execute("begin")
+	# XXX don't do writes here, find another solution
 	db.execute("""
 		create temp table parallels_search_results(
 			id integer primary key,

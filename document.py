@@ -184,7 +184,7 @@ class Block:
 				if data == "<head":
 					level = params.get("level", 3)
 					if level == 6:
-						continue # XXX
+						continue # XXX no h6 headings! use a span
 					in_head = True
 					if in_level < level:
 						in_level = level
