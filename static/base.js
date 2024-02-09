@@ -26,7 +26,7 @@ function toggleTOC() {
 let popperInstance = null
 let tipBox = null
 
-function addTooltip(e) {
+function addTooltip() {
 	let tip = this.dataset.tip
 	let tipContents = document.querySelector("#tip-contents")
 	if (popperInstance) {
@@ -53,7 +53,7 @@ function addTooltip(e) {
 	popperInstance.update()
 }
 
-function removeTooltip(e) {
+function removeTooltip() {
 	if (!this.owning)
 		return
 	this.classList.remove("tipped")
@@ -98,26 +98,25 @@ function highlightFragment(url) {
 	}, 2000)
 }
 
-function makeTOC(documentRef) {
-	var documentRef = documentRef || document;
-	var toc = documentRef.getElementById('toc');
-	var headings = [].slice.call(documentRef.body.querySelectorAll('h1, h2, h3, h4, h5, h6'));
-	headings.forEach(function (heading, index) {
-		var anchor = documentRef.createElement('a');
-		anchor.setAttribute('name', 'toc' + index);
-		anchor.setAttribute('id', 'toc' + index);
-
-		var link = documentRef.createElement('a');
-		link.setAttribute('href', '#toc' + index);
-		link.textContent = heading.textContent;
-
-		var div = documentRef.createElement('div');
-		div.setAttribute('class', heading.tagName.toLowerCase());
-
-		div.appendChild(link);
-		toc.appendChild(div);
-		heading.parentNode.insertBefore(anchor, heading);
-	});
+function makeTOC() {
+	let toc = document.getElementById("toc")
+	if (!toc)
+		return
+	let headings = document.body.querySelectorAll("h2, h3, h4, h5, h6")
+	for (let i = 0; i < headings.length; i++) {
+		let heading = headings[i]
+		let anchor = document.createElement("a")
+		anchor.setAttribute("name", "toc" + i)
+		anchor.setAttribute("id", "toc" + i)
+		let link = document.createElement("a")
+		link.setAttribute("href", "#toc" + i)
+		link.textContent = heading.textContent
+		let div = document.createElement("div")
+		div.setAttribute("class", "toc-" + heading.tagName.toLowerCase());
+		div.appendChild(link)
+		toc.appendChild(div)
+		heading.parentNode.insertBefore(anchor, heading)
+	}
 }
 
 window.addEventListener("load", function () {

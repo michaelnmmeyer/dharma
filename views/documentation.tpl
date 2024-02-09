@@ -1,5 +1,5 @@
 <!--
-% rebase("base.tpl", title="Documentation", sidebar='''<nav id="toc">
+% rebase("base.tpl", title="Documentation", sidebar='''<h1>Contents</h1><nav id="toc">
 </nav>''')
 -->
 <div class="body">
@@ -140,6 +140,7 @@ namely:</p>
 <li>report</li>
 <li>thesis</li>
 <li>webpage</li>
+<li>dataset</li>
 </ul>
 <p>If you need another record type to be supported, do tell me.</p>
 <h3 id="record-fields">Record fields</h3>
