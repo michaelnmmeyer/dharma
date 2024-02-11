@@ -85,6 +85,8 @@ function flashTarget() {
 	highlightFragment(url)
 }
 
+var flashDuration
+
 function highlightFragment(url) {
 	let hash = url.hash
 	if (!hash)
@@ -121,6 +123,12 @@ function makeTOC() {
 
 window.addEventListener("load", function () {
 	prepareTips()
+	let t = getComputedStyle(document.documentElement).getPropertyValue("--flash-duration")
+	flashDuration = parseInt(t)
+	if (!t.endsWith("ms")) {
+		// Assume in seconds
+		flashDuration *= 1000
+	}
 	highlightFragment(window.location)
 	for (let node of document.querySelectorAll("a"))
 		node.addEventListener("click", flashTarget)
