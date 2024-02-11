@@ -97,7 +97,7 @@ function highlightFragment(url) {
 	node.classList.add("flash")
 	setTimeout(function () {
 		node.classList.remove("flash")
-	}, 2000)
+	}, flashDuration)
 }
 
 function makeTOC() {
@@ -121,6 +121,67 @@ function makeTOC() {
 	}
 }
 
+function popTOCStack(stack, level) {
+	while (stack.length >= level) {
+		let child = stack.pop()
+		let parent = stack[stack.length - 1]
+		if (!parent.children)
+			parent.children = []
+		parent.children.push(child)
+	}
+}
+
+function makeTOC2() {
+	let headings = document.body.querySelectorAll("h2, h3, h4, h5, h6")
+	let toc = {"children": []}
+	let stack = [toc]
+	for (let heading of headings) {
+		let level = parseInt(heading.tagName.substring(1))
+		popTOCStack(stack, level)
+		while (stack.length < level - 1)
+			stack.push({})
+		stack.push({"heading": heading})
+	}
+	popTOCStack(stack, 2)
+	return toc
+}
+
+function TOCEntryToHTML(entry, root) {
+	let n = 0
+	let li = root || document.createElement("li")
+	let heading = entry.heading
+	if (heading) {
+		let link = document.createElement("a")
+		let target = heading.getAttribute("id")
+		if (!target) {
+			n++
+			target = "toc" + n
+			heading.setAttribute("id", target)
+		}
+		link.setAttribute("href", "#" + target)
+		link.innerHTML = heading.innerHTML
+		li.appendChild(link)
+	}
+	let children = entry.children
+	if (children) {
+		let ul = document.createElement("ul")
+		for (let child of children) {
+			ul.appendChild(TOCEntryToHTML(child))
+		}
+		li.appendChild(ul)
+	}
+	return li
+}
+
+function displayTOC() {
+	let toc = document.getElementById("toc")
+	if (!toc)
+		return
+	let root = makeTOC2()
+	let ret = TOCEntryToHTML(root, toc)
+	alert(ret.innerHTML)
+}
+
 window.addEventListener("load", function () {
 	prepareTips()
 	let t = getComputedStyle(document.documentElement).getPropertyValue("--flash-duration")
@@ -132,7 +193,7 @@ window.addEventListener("load", function () {
 	highlightFragment(window.location)
 	for (let node of document.querySelectorAll("a"))
 		node.addEventListener("click", flashTarget)
-	makeTOC()
+	displayTOC()
 })
 
 window.addEventListener("load", function () {
