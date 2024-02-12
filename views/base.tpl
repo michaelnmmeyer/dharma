@@ -30,7 +30,10 @@
       <li class="item"><a href="/documentation"><i class="fa-regular fa-circle-question"></i> Documentation</a>
    </menu>
 </header>
-<aside>{{!get('sidebar', '')}}</aside>
+<aside>
+   <h1 id="toc-heading" style="display:none">Contents</h1>
+   <nav id="toc"></nav>
+</aside>
 <main>{{!base}}</main>
 <footer>
 <p>© <a href="https://dharma.hypotheses.org">ERC-DHARMA Project</a>, 2019-2024</p>

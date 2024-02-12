@@ -100,27 +100,6 @@ function highlightFragment(url) {
 	}, flashDuration)
 }
 
-function makeTOC() {
-	let toc = document.getElementById("toc")
-	if (!toc)
-		return
-	let headings = document.body.querySelectorAll("h2, h3, h4, h5, h6")
-	for (let i = 0; i < headings.length; i++) {
-		let heading = headings[i]
-		let anchor = document.createElement("a")
-		anchor.setAttribute("name", "toc" + i)
-		anchor.setAttribute("id", "toc" + i)
-		let link = document.createElement("a")
-		link.setAttribute("href", "#toc" + i)
-		link.textContent = heading.textContent
-		let div = document.createElement("div")
-		div.setAttribute("class", "toc-" + heading.tagName.toLowerCase());
-		div.appendChild(link)
-		toc.appendChild(div)
-		heading.parentNode.insertBefore(anchor, heading)
-	}
-}
-
 function popTOCStack(stack, level) {
 	while (stack.length >= level) {
 		let child = stack.pop()
@@ -131,10 +110,9 @@ function popTOCStack(stack, level) {
 	}
 }
 
-function makeTOC2() {
-	let headings = document.body.querySelectorAll("h2, h3, h4, h5, h6")
-	let toc = {"children": []}
-	let stack = [toc]
+function makeTOC() {
+	let headings = document.body.querySelectorAll("h2, h3, h4, h5")
+	let stack = [{"children": []}]
 	for (let heading of headings) {
 		let level = parseInt(heading.tagName.substring(1))
 		popTOCStack(stack, level)
@@ -143,19 +121,20 @@ function makeTOC2() {
 		stack.push({"heading": heading})
 	}
 	popTOCStack(stack, 2)
-	return toc
+	return stack[0]
 }
 
+var idGenerator = 0
+
 function TOCEntryToHTML(entry, root) {
-	let n = 0
 	let li = root || document.createElement("li")
 	let heading = entry.heading
 	if (heading) {
 		let link = document.createElement("a")
 		let target = heading.getAttribute("id")
 		if (!target) {
-			n++
-			target = "toc" + n
+			idGenerator++
+			target = "toc" + idGenerator
 			heading.setAttribute("id", target)
 		}
 		link.setAttribute("href", "#" + target)
@@ -170,6 +149,10 @@ function TOCEntryToHTML(entry, root) {
 		}
 		li.appendChild(ul)
 	}
+	if (heading && !heading.offsetParent) {
+		// display: none, see https://stackoverflow.com/questions/19669786/check-if-element-is-visible-in-dom
+		li.style.display = "none" // XXX click still not working
+	}
 	return li
 }
 
@@ -177,13 +160,16 @@ function displayTOC() {
 	let toc = document.getElementById("toc")
 	if (!toc)
 		return
-	let root = makeTOC2()
-	let ret = TOCEntryToHTML(root, toc)
-	alert(ret.innerHTML)
+	let root = makeTOC()
+	if (root.children.length == 0)
+		return
+	document.querySelector("#toc-heading").style.display = "block"
+	TOCEntryToHTML(root, toc)
 }
 
 window.addEventListener("load", function () {
 	prepareTips()
+	displayTOC()
 	let t = getComputedStyle(document.documentElement).getPropertyValue("--flash-duration")
 	flashDuration = parseInt(t)
 	if (!t.endsWith("ms")) {
@@ -193,7 +179,6 @@ window.addEventListener("load", function () {
 	highlightFragment(window.location)
 	for (let node of document.querySelectorAll("a"))
 		node.addEventListener("click", flashTarget)
-	displayTOC()
 })
 
 window.addEventListener("load", function () {

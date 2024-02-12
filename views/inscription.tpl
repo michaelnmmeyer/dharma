@@ -1,11 +1,11 @@
 % rebase("base.tpl", title="Display", includes='''
    <link rel="stylesheet" href="/inscription.css">
    <script src="/inscription.js"></script>
-''', sidebar=sidebar)
+''')
 
 <div class="body">
 
-<h1 id="metadata">
+<h1>
 % if doc.title:
    % for part in doc.title:
       {{!part}}.
@@ -14,6 +14,8 @@
    <i>Untitled</i>.
 % end
 </h1>
+
+<h2 id="metadata">Metadata</h2>
 
 <p>
 {{numberize("Editor", len(doc.editors))}}:

@@ -14,6 +14,7 @@ function switchDisplayTo(name) {
 			document.querySelector(row[2]).style.display = "none"
 		}
 	}
+	makeTOC()
 }
 
 window.addEventListener("load", function () {
