@@ -15,8 +15,6 @@
 % end
 </h1>
 
-<h2 id="metadata">Metadata</h2>
-
 <p>
 {{numberize("Editor", len(doc.editors))}}:
 % for ed in doc.editors[:-1]:
