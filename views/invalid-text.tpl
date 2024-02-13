@@ -1,7 +1,7 @@
 % rebase("base.tpl", title=text["name"].removeprefix("DHARMA_"))
 
 <div class="body">
-<h1>{{text["name"].removeprefix("DHARMA_")}}</h1>
+<h1><span class="text-id">{{text["name"].removeprefix("DHARMA_")}}</span></h1>
 <p>Committed {{text["readable_commit_date"]}} in
 <a
 href="https://github.com/erc-dharma/{{text["repo"]}}/commit/{{text["commit_hash"]}}">{{text["commit_hash"]}}</a>.

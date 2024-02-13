@@ -42,7 +42,7 @@ Identifier: <span class="text-id">{{text}}</span>.
 </p>
 % end
 
-<p>Repository: <span class="text-id">{{doc.repository}}</span>.</p>
+<p>Repository: <span class="repo-id">{{doc.repository}}</span>.</p>
 
 <p>
 Version: {{doc.commit_date}}

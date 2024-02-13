@@ -65,7 +65,7 @@ for details.</p>
 <tbody>
 % for row in data:
 <tr>
-   <td>{{row["file"].removeprefix("DHARMA_")}}</td>
+   <td><span class="text-id">{{row["file"].removeprefix("DHARMA_")}}</span></td>
 % for category in ("verses", "hemistiches", "padas"):
    <td>
    % if row[category] > 0:

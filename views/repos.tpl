@@ -13,6 +13,6 @@
 {{editor}} ({{count}}){{i == len(people) - 1 and "." or ","}}
 % end
 </p>
-<p><span class="text-id">{{repo["name"]}}</span></p>
+<p><span class="repo-id">{{repo["name"]}}</span></p>
 
 </div>

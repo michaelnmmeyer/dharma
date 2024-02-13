@@ -59,10 +59,12 @@
 <tbody>
 % for text in texts:
 <tr>
-   <td><a href="texts/{{text["name"]}}">{{text["name"].removeprefix("DHARMA_")}}</a></td>
-   <td>
-   <a href="https://github.com/erc-dharma/{{text['repo']}}">{{text["repo"]}}</a>
-   </td>
+   <td><a href="texts/{{text["name"]}}">
+      <span class="text-id">{{text["name"].removeprefix("DHARMA_")}}</span>
+   </a></td>
+   <td><a href="https://github.com/erc-dharma/{{text['repo']}}">
+      <span class="repo-id">{{text["repo"]}}</span>
+   </a></td>
    <td>{{text["readable_commit_date"]}}</td>
 </tr>
 % end

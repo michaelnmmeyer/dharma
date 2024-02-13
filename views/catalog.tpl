@@ -109,7 +109,10 @@ table of languages <a href="/langs">here</a>.</p>
          {{json.loads(row["langs"])[-1]}}.
    </p>
    % end
-   <p><span class="text-id">{{row["name"]}}</span> ({{row["repo"]}}).</p>
+   <p>
+      <span class="text-id">{{row["name"]}}</span>
+      (<span class="repo-id">{{row["repo"]}}</span>).
+   </p>
 </div>
 % end
 </div>

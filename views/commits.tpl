@@ -21,7 +21,7 @@ ones, which you might not be able to access.</p>
 <tr data-href="{{commit['url']}}">
    <td>{{commit["date"]}}</td>
    <td>{{commit["author"]}}</td>
-   <td>{{commit["repo"]}}</td>
+   <td><span class="repo-id">{{commit["repo"]}}</span></td>
 </tr>
 % end
 </tbody>

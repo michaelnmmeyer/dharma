@@ -27,16 +27,15 @@ of {{total}}.</p>
 </thead>
 <tbody>
 <tr>
-   <td>-</td>
+   <td><span class="text-id">-</span></td>
    <td>{{!text}}</td>
    <td>1.00</td>
 </tr>
 % for id, file, number, contents, coeff in data[:per_page]:
 <tr>
-   <td>
-   <a href="/parallels/texts/{{file}}/{{category_plural}}/{{id}}">{{file.removeprefix("DHARMA_")}}
-   {{number}}</a>
-   </td>
+   <td><a href="/parallels/texts/{{file}}/{{category_plural}}/{{id}}">
+      <span class="text-id">{{file.removeprefix("DHARMA_")}}</span> {{number}}
+   </a></td>
    <td>{{!contents}}</td>
    <td>{{"%.02f" % coeff}}</td>
 </tr>
