@@ -256,7 +256,7 @@ def display_text(text):
 			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repo, commit_hash, path)
 		from texts natural join files natural join commits
 		where name = ?""",
-		(config.REPOS_DIR, text)).fetchone() or (None, None)
+		(config.REPOS_DIR, text)).fetchone() or (None, None, None, None, None, None)
 	if not path:
 		return bottle.abort(404, "Not found")
 	import parse_ins
