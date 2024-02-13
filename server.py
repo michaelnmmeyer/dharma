@@ -268,9 +268,8 @@ def display_text(text):
 	doc.title = title and title.split(document.PARA_SEP) or []
 	editors = doc.editors.render_logical()
 	doc.editors = editors and editors.split(document.PARA_SEP)
-	sidebar = bottle.template("inscription-sidebar.tpl", doc=doc, text=text, numberize=parse.numberize)
 	return bottle.template("inscription.tpl", doc=doc, github_url=github_url,
-		text=text, numberize=parse.numberize, sidebar=sidebar)
+		text=text, numberize=parse.numberize)
 
 @bottle.get("/test")
 def test():

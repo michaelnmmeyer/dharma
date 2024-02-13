@@ -174,40 +174,6 @@ class Block:
 		self.close_line(True)
 		self.finished = True
 
-	def render_outline(self):
-		assert self.finished
-		buf = []
-		in_head = False
-		in_level = 2
-		for t, data, params in self.code:
-			if t == "log":
-				if data == "<head":
-					level = params.get("level", 3)
-					if level == 6:
-						continue # XXX no h6 headings! use a span
-					in_head = True
-					if in_level < level:
-						in_level = level
-						buf.append("<ul>")
-					buf.append(f'<li>')
-				elif data == ">head":
-					level = params.get("level", 3)
-					if level == 6:
-						continue # XXX
-					in_head = False
-					buf.append("</li>")
-					if in_level > level:
-						in_level = level
-						buf.append("</ul>")
-			elif t == "phys":
-				pass
-			elif in_head:
-				self.render_common(buf, t, data, params)
-		while in_level > 2:
-			buf.append("</ul>")
-			in_level -= 1
-		return "".join(buf)
-
 	def render_common(self, buf, t, data, params):
 		if t == "text":
 			# TODO be more accurate, only need to hyphenate Indic
