@@ -1173,6 +1173,7 @@ def sort_key(rec):
 	key += rec["title"] + " " + rec["key"]
 	return config.COLLATOR.getSortKey(key)
 
+# XXX must be run when changing the "sort_key" func
 @db.transaction
 def update_sort_keys():
 	db.execute("begin")
