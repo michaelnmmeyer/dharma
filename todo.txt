@@ -1,8 +1,8 @@
-Add a button to hide the left sidebar (on pc); where?. the left sidebar
-shouldn't pop when we arrive to the page footer(?)
-
-parallels: add quotes. when there are several quoted passages, allow
-overlaps.
+Make the top menu sticky on pc? no. Add a button to show/hide the left sidebar (on
+pc); where? left of the top menu downward-pointing > thing. The left sidebar
+shouldn't pop when we arrive to the page footer, how? The left sidebard should
+be resizable, but then dimensions need to be saved as a cookie because reloading
+the page will mess up the size.
 
 LaTeX ; tfa-cirkali-epigraphy correction diacrtitiques + conversion vrs xml +
 conversion vers PDF.
@@ -195,13 +195,22 @@ Parse urls and make them clickable
 # Tamil
 
 Should we do the search stuff in Python, go or C? Since we are going to query
-the db, might be simpler to have a SQLite extension, but then everything must
-be in C.
+the db, might be simpler to have a SQLite extension, but then we must write
+at least the binding code in C. For testing, it would be better to have an
+interface that accepts commands, separate from sqlite. It's probably best to
+do everything through a sqlite extension, even if it's annoying, because this
+way we're protected from transaction issues.
+
+Write the main code in go for simplicity. Add a basic argc,argv func as an
+entry point, and wrap this function in C.
 
 
 # Parallels
 
 Allow quoting part of the input with "..." to force an exact substring match.
-Still keep using the same similarity measure.
+Still keep using the same similarity measure. When there are several quoted
+passages, allow overlaps viz. "foo"f"fo" match "foo". Or not? require the
+matched strings to occur in the same order? In fact having a second field for
+filtering seems better.
 
 This should be linked to the catalog search features.
