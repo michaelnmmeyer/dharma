@@ -31,7 +31,7 @@
    </menu>
 </header>
 <aside>
-   <h1 id="toc-heading" style="display:none">Contents</h1>
+   <div id="toc-heading" class="toc-heading" style="display:none">Contents</div>
    <nav id="toc"></nav>
 </aside>
 <main>{{!base}}</main>
