@@ -500,6 +500,7 @@ class Document:
 	commit_hash = ""
 	commit_date = ""
 	last_modified = ""
+	last_modified_commit = ""
 
 	ident = ""
 

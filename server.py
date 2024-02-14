@@ -246,17 +246,18 @@ def display_home():
 @bottle.get("/display/<text>")
 @TEXTS_DB.transaction
 def display_text(text):
-	path, repo, commit_hash, commit_date, last_modified, github_url = TEXTS_DB.execute("""
+	path, repo, commit_hash, commit_date, last_modified, last_modified_commit, github_url = TEXTS_DB.execute("""
 		select
 			printf('%s/%s/%s', ?, repo, path),
 			repo,
 			commit_hash,
 			format_date(commit_date),
 			format_date(last_modified),
+			last_modified_commit,
 			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repo, commit_hash, path)
 		from texts natural join files natural join commits
 		where name = ?""",
-		(config.REPOS_DIR, text)).fetchone() or (None, None, None, None, None, None)
+		(config.REPOS_DIR, text)).fetchone() or (None, None, None, None, None, None, None)
 	if not path:
 		return bottle.abort(404, "Not found")
 	import parse_ins
@@ -264,6 +265,7 @@ def display_text(text):
 	doc.repository = repo
 	doc.commit_hash, doc.commit_date = commit_hash, commit_date
 	doc.last_modified = last_modified
+	doc.last_modified_commit = last_modified_commit
 	title = doc.title.render_logical()
 	doc.title = title and title.split(document.PARA_SEP) or []
 	editors = doc.editors.render_logical()

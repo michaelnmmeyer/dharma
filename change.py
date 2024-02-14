@@ -156,9 +156,10 @@ def update_db(repo):
 		db.execute("delete from texts where name = ?", (name,))
 		db.execute("delete from files where repo = ? and name = ?", (changes.repo, name))
 	for file in changes.insert + changes.update:
-		db.execute("""insert or replace into files(name, repo, path, mtime, last_modified, data)
-			values(?, ?, ?, ?, ?, ?)""",
-			(file.name, file.repo, file.path, file.mtime, file.last_modified, file.data))
+		db.execute("""insert or replace into files(
+			name, repo, path, mtime, last_modified_commit, last_modified, data)
+			values(?, ?, ?, ?, ?, ?, ?)""",
+			(file.name, file.repo, file.path, file.mtime, *file.last_modified, file.data))
 		db.execute("""insert or replace into texts(
 			name, repo, html_path, code_hash, status)
 			values(?, ?, ?, ?, ?)""",

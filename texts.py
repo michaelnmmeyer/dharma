@@ -75,8 +75,9 @@ def last_mod_of(path):
 	path = os.path.relpath(path, config.REPOS_DIR)
 	slash = path.index("/")
 	repo, relpath = path[:slash], path[slash + 1:]
-	ret = config.command("git", "-C", os.path.join(config.REPOS_DIR, repo), "log", "-1", "--format=%at", "--", relpath)
-	return int(ret.stdout.strip())
+	ret = config.command("git", "-C", os.path.join(config.REPOS_DIR, repo), "log", "-1", "--format=%H %at", "--", relpath)
+	commit, date = ret.stdout.strip().split()
+	return commit, int(date)
 
 # Create a map xml->web page (for debugging)
 def gather_web_pages(recs):

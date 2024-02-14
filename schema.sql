@@ -58,6 +58,7 @@ create table if not exists files(
 	mtime timestamp,
 	-- When the file was last modified according to git.
 	last_modified timestamp,
+	last_modified_commit text check(length(last_modified_commit) = 2 * 20),
 	data text,
 	-- The following are stored because format_url is an external function and
 	-- because we want to be able to check this field from the sqlite command-line
