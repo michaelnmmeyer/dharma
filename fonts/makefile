@@ -8,7 +8,12 @@ all: $(output_fonts) fonts.css missing.txt
 clean:
 	$(RM) $(output_fonts) fonts.css unicodes.txt charset.txt unidata/Blocks.txt all_text.txt missing.txt
 
-.PHONY: all clean
+install: $(output_fonts) fonts.css
+	rm -f ../static/fonts/*.woff2
+	cp $(output_fonts) ../static/fonts
+	cp fonts.css ../static
+
+.PHONY: all clean install
 
 unidata/%.txt:
 	curl https://unicode.org/Public/UNIDATA/$(notdir $@) > $@
