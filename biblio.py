@@ -992,8 +992,15 @@ def normalize_space(xml):
 def fix_value(s):
 	s = html.unescape(s)
 	s = unicodedata.normalize("NFC", s)
-	s = s.replace("&", "&amp;") # XXX
-	s = tree.parse_string("<X>%s</X>" % s) # XXX use a tolerant server?
+	# XXX tell people not to use HTML entities.
+	# XXX can't replace & with &amp; in <a href="..."/>
+	# XXX shouldn't replace &lt; and instead of &gt;
+	s = s.replace("&", "&amp;")
+	try:
+		s = tree.parse_string("<X>%s</X>" % s)
+	except tree.Error:
+		# Don't try to fix this.
+		s = tree.parse_string("<X>%s</X>" % html.escape(s))
 	fix_markup(s)
 	normalize_space(s)
 	if not s.text():
@@ -1021,7 +1028,7 @@ def fix_rec(rec):
 			publisher = None
 		rec["publisher"] = publisher
 	for key, value in rec.copy().items():
-		if key in ("itemType", "pages", "url", "DOI", "callNumber"):
+		if key in ("filename", "itemType", "pages", "url", "DOI", "callNumber"): # XXX figure out other "id" fields
 			continue
 		if isinstance(value, str):
 			rec[key] = fix_value(value)
