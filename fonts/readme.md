@@ -32,10 +32,9 @@ Font files in "selection" are pulled from the following repositories:
 * https://github.com/googlefonts/noto-emoji
 * https://github.com/notofonts/noto-cjk
 
-We get noto-emoji from here:
-https://fonts.google.com/noto/specimen/Noto+Emoji?noto.query=emoji instead of
-from the github repo. Because https://github.com/googlefonts/noto-emoji
-apparently doesn't have the proper font files.
+We get noto-emoji from https://fonts.google.com instead of from the github repo.
+Because https://github.com/googlefonts/noto-emoji apparently doesn't have the
+proper font files.
 
 So far I have not dealt with CJK fonts, although we do need them. The problem
 is that we need to know which of C, J and K we need to choose for display,
