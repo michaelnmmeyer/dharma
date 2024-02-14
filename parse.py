@@ -649,6 +649,16 @@ def parse_gap(p, gap):
 	p.end_span()
 	# TODO merge consecutive values as in [ca.10x – – – ⏑ – – abc] in editorial
 
+def parse_g_numeral(p, node):
+	assert node["type"] == "numeral"
+	m = re.match(r"([0-9]+)/([0-9]+)", node.text())
+	if not m:
+		# No special formatting
+		p.dispatch_children(node)
+		return
+	num, den = m.groups()
+	p.add_html(f"<sup>{num}</sup>\N{fraction slash}<sub>{den}</sub>")
+
 def parse_g(p, node):
 	# <g type="...">.</g> for punctuation marks
 	# <g type="...">§</g> for space fillers
@@ -656,7 +666,8 @@ def parse_g(p, node):
 	# The guide talks about subtype, but
 	t = node["type"] or "symbol"
 	if t == "numeral":
-		return p.dispatch_children(node)
+		# XXX if we have a fraction, format it
+		return parse_g_numeral(p, node)
 	text = node.text()
 	if text == ".":
 		cat = "punctuation"
