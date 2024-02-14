@@ -4,7 +4,7 @@
 <h1><span class="text-id">{{text["name"].removeprefix("DHARMA_")}}</span></h1>
 <p>Committed {{text["readable_commit_date"]}} in
 <a
-href="https://github.com/erc-dharma/{{text["repo"]}}/commit/{{text["commit_hash"]}}">{{text["commit_hash"]}}</a>.
+href="https://github.com/erc-dharma/{{text["repo"]}}/commit/{{text["commit_hash"]}}"><span class="commit-hash">{{text["commit_hash"]}}</span></a>.
 </p>
 </div>
 
