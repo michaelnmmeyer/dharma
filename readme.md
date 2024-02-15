@@ -30,11 +30,10 @@ SQLite databases, and use two main processes: a server process and an update
 process.
 
 The server process is used for read-only operations: display, search, etc. It
-never writes to a database, at the exception of the Github log database, which
-is used for debugging. The code's entry point is in `server.py`. It is possible
-to run several server processes at the same time (we allow reuse of the same
-socket, and SQLite takes care of other IPC issues). However, the server code is
-*not* thread-safe. Running extra processes is simpler anyway.
+never writes to a database. The code's entry point is in `server.py`. It is
+possible to run several server processes at the same time (we allow reuse of the
+same socket, and SQLite takes care of other IPC issues). However, the server
+code is *not* thread-safe. Running extra processes is simpler anyway.
 
 The update process is used for updating databases when people push to git
 repositories or modify our Zotero bibliography. The code's entry point is in
@@ -44,6 +43,6 @@ In addition to the above, we run a WebSocket client that is hooked to Zotero
 and that notifies the update process whenever someone modifies the project's
 bibliography. The code is in `zotero.py`.
 
-We use the WAL mode in SQLite. Thus, writers don't block readers and
-vice-versa, but writers do block each other, which is why we use just one and
-serialize writes.
+We use the WAL mode in SQLite. Thus, writers don't block readers and vice-versa,
+but writers do block each other, which is why we use just one and serialize
+writes.
