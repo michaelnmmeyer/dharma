@@ -1046,11 +1046,13 @@ def fix_rec(rec):
 # TODO generate ref and entries with 1918a, 1918b, etc. when necessary
 
 def invalid_entry(ref, reason, key=None):
-	r = tree.parse_string('<p class="bib-entry bib-ref-invalid"/>').root
-	r["data-tip"] = reason
+	r = tree.parse_string('<p class="bib-entry"/>').root
 	if key:
 		r["id"] = f"bib-key-{key}"
-	r.append(ref)
+	span = r.tree.tag("span", **{"class": "bib-ref-invalid"})
+	span["data-tip"] = reason
+	span.append(ref)
+	r.append(span)
 	return r.xml()
 
 def fix_loc(rec, loc):
