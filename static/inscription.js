@@ -19,7 +19,7 @@ function switchDisplayTo(name) {
 
 window.addEventListener("load", function () {
 	for (let row of displays) {
-		document.querySelector(row[1]).onclick = function (ev) {
+		document.querySelector(row[1]).onclick = function () {
 			switchDisplayTo(row[0])
 		}
 	}
