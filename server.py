@@ -2,16 +2,6 @@ import os, json, sys, unicodedata, hashlib, locale
 from datetime import datetime
 from dharma import config, bottle, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document
 
-SCHEMA = """
-begin;
-create table if not exists logs(
-	date integer,
-	data text
-);
-commit;
-"""
-GIT_DB = config.open_db("github", SCHEMA)
-
 TEXTS_DB = config.open_db("texts")
 NGRAMS_DB = config.open_db("ngrams")
 
@@ -22,30 +12,6 @@ def index():
 
 def is_robot(email):
 	return email in ("readme-bot@example.com", "github-actions@github.com")
-
-# Legacy url
-@bottle.get("/commit-log")
-def show_commit_log():
-	return bottle.redirect("/commits")
-
-@bottle.get("/commits")
-def show_commit_log():
-	commits = []
-	for (doc,) in GIT_DB.execute("select data from logs order by data ->> '$.repository.pushed_at' desc"):
-		doc = json.loads(doc)
-		ret = {}
-		repo = os.path.basename(doc["repository"]["full_name"])
-		push_date = doc["repository"]["pushed_at"]
-		(push_date,) = config.DUMMY_DB.execute("select format_date(?)", (push_date,)).fetchone()
-		for commit in doc["commits"]:
-			if is_robot(commit["author"]["email"]):
-				continue
-			author = commit["author"].get("username") or commit["author"]["name"]
-			author = people.plain_from_github(author)
-			hash = commit["id"]
-			url = commit["url"]
-			commits.append({"repo": repo, "date": push_date, "author": author, "hash": hash, "url": url})
-	return bottle.template("commits.tpl", commits=commits)
 
 @bottle.get("/documentation")
 def show_documentation():
@@ -340,8 +306,6 @@ def do_validate():
 @bottle.post("/github-event")
 def handle_github():
 	js = bottle.request.json
-	doc = json.dumps(js, ensure_ascii=False, separators=(",", ":"))
-	GIT_DB.execute("insert into logs values(strftime('%s', 'now'), ?)", (doc,))
 	repo = js["repository"]["name"]
 	if not js.get("commits"):
 		return
