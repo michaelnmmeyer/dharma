@@ -85,7 +85,7 @@ function flashTarget() {
 	highlightFragment(url)
 }
 
-var flashDuration
+let flashDuration = null
 
 function highlightFragment(url) {
 	let hash = url.hash
@@ -124,7 +124,7 @@ function makeTOC() {
 	return stack[0]
 }
 
-var idGenerator = 0
+let idGenerator = 0
 
 function TOCEntryToHTML(entry, root) {
 	let li = root || document.createElement("li")
@@ -144,14 +144,13 @@ function TOCEntryToHTML(entry, root) {
 	let children = entry.children
 	if (children) {
 		let ul = document.createElement("ul")
-		for (let child of children) {
+		for (let child of children)
 			ul.appendChild(TOCEntryToHTML(child))
-		}
 		li.appendChild(ul)
 	}
 	if (heading && !heading.offsetParent) {
 		// display: none, see https://stackoverflow.com/questions/19669786/check-if-element-is-visible-in-dom
-		li.style.display = "none" // XXX click still not working
+		//li.style.display = "none" // XXX click still not working
 	}
 	return li
 }
