@@ -1,6 +1,5 @@
 % rebase("base.tpl", title="Catalog")
 
-<div class="body">
 <h1>Catalog</h1>
 
 <p>Texts database last updated {{last_updated}}.</p>

@@ -1,6 +1,5 @@
 % rebase("base.tpl", title="Display")
 
-<div class="body">
 <h1>Display</h1>
 
 <ul>

@@ -1,7 +1,5 @@
 % rebase("base.tpl", title="Parallels")
 
-<div class="body">
-
 <h1>Parallels</h1>
 
 <p>Parallels database last updated {{last_updated}}.</p>
@@ -52,7 +50,6 @@ share a single one. We (arbitrarily) assume that pairs of passages for which
 href="https://github.com/michaelnmmeyer/dharma/blob/master/ngrams.py">here</a>
 for details.</p>
 
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -79,6 +76,3 @@ for details.</p>
 % end
 </tbody>
 </table>
-</div>
-
-</div>

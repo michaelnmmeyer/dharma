@@ -3,8 +3,6 @@
    <script src="/inscription.js"></script>
 ''')
 
-<div class="body">
-
 <h1>
 % if doc.title:
    % for part in doc.title:
@@ -77,15 +75,11 @@ Version: {{doc.commit_date}}
 </div> <!-- <div class="ed"> -->
 % end # if doc.edition:
 
-</div> <!-- <div class="body"> -->
-
 <div class="xml" id="xml" style="display:none">
 <pre>
 {{!doc.xml}}
 </pre>
 </div>
-
-<div class="body">
 
 % if doc.apparatus:
 <div class="apparatus">
@@ -126,5 +120,3 @@ Version: {{doc.commit_date}}
 % end
 </div>
 % end
-
-</div> <!-- <div class="body"> -->

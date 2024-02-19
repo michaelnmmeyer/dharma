@@ -1,7 +1,5 @@
 % rebase("base.tpl", title="Parallels")
 
-<div class="body">
-
 <h1>Parallels Search Results</h1>
 
 % if data is None:
@@ -13,8 +11,6 @@
 {{(page - 1) * per_page + 1}}-{{(page - 1) * per_page + len(data[:per_page])}}
 of {{total}}.</p>
 % end
-
-</div>
 
 % if data:
 <table>

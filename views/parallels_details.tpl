@@ -1,7 +1,5 @@
 % rebase("base.tpl", title="Parallels")
 
-<div class="body">
-
 <h1>
 % if category == "padas":
    Pādas
@@ -9,8 +7,6 @@
    {{category.title()}}
 % end
 of <span class="text-id">{{file.removeprefix("DHARMA_")}}</span> that Have Parallels</h1>
-
-</div>
 
 <table>
 <thead>

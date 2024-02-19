@@ -1,6 +1,5 @@
 % rebase("base.tpl", title="Repositories")
 
-<div class="body">
 <h1>Repositories</h1>
 
 <div class="catalog-list">
@@ -14,5 +13,6 @@
 % end
 </p>
 <p><span class="repo-id">{{repo["name"]}}</span></p>
-
-</div>
+</div> <!-- class="catalog-card" -->
+% end
+</div> <!-- class="catalog-list" -->

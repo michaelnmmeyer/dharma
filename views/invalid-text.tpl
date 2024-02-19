@@ -1,15 +1,12 @@
 % rebase("base.tpl", title=text["name"].removeprefix("DHARMA_"))
 
-<div class="body">
 <h1><span class="text-id">{{text["name"].removeprefix("DHARMA_")}}</span></h1>
 <p>Committed {{text["readable_commit_date"]}} in
 <a
 href="https://github.com/erc-dharma/{{text["repo"]}}/commit/{{text["commit_hash"]}}"><span class="commit-hash">{{text["commit_hash"]}}</span></a>.
 </p>
-</div>
 
 % if result.unicode:
-<div class="body">
 <h2>Unexpected Unicode Characters</h2>
 <p>
 This is a list of
@@ -21,7 +18,6 @@ href="https://unicode.org/glossary/#code_point">code points</a> that compose it.
 If you find grapheme clusters that are actually valid, please send me their
 list of code points, so that I update the code.
 </p>
-</div>
 
 <table>
 <thead>
@@ -48,9 +44,7 @@ list of code points, so that I update the code.
 </table>
 
 % if result.messages:
-<div class="body">
 <h2>Schema Validation Issues</h2>
-</div>
 
 <table>
 <thead>

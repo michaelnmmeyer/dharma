@@ -1,6 +1,5 @@
 % rebase("base.tpl", title="Texts")
 
-<div class="body">
 <h1>Texts</h1>
 
 <p>Texts database last updated {{last_updated}}.</p>
@@ -46,9 +45,6 @@
 <input type="submit" value="Reload">
 </form>
 
-</div>
-
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -70,4 +66,3 @@
 % end
 </tbody>
 </table>
-</div>
