@@ -45,7 +45,7 @@ Identifier: <span class="text-id">{{text}}</span>.
 <p>
 Version: {{doc.commit_date}}
 (<a href="{{github_url}}"><span class="commit-hash">{{doc.commit_hash[:7]}}</span></a>), last modified
-{{doc.last_modified}} (<span class="commit-hash">{{doc.last_modified_commit[:7]}}).
+{{doc.last_modified}} (<span class="commit-hash">{{doc.last_modified_commit[:7]}}</span>).
 </p>
 
 % if doc.edition:
