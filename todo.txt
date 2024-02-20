@@ -1,4 +1,8 @@
-fix links not working in toc
+
+fix links not working in toc eg https://dharman.in/display/DHARMA_INSVengiCalukya00098
+  add a data-display="physical|logical|full" to each element that must be shown/hidden
+  depending on the display choice
+
 
 fix all XXX
 
@@ -15,7 +19,7 @@ use scrollbar-gutter: stable both-edges; properly
 LaTeX ; tfa-cirkali-epigraphy correction diacrtitiques + conversion vrs xml +
 conversion vers PDF.
 
-Generate a site map
+Generate a site map (wget?).
 
 Use the w3c validator API https://validator.w3.org/docs/api.html with random
 urls to detect issues; submit URLs like so:
@@ -24,9 +28,14 @@ urls to detect issues; submit URLs like so:
 
 Check for multiple uses of the same bib entry as in https://dharman.in/display/DHARMA_INSBengalCharters00050#bibliography (disallow?)
 
-Change how the "Logical", "Physical" etc. stuff works in such a way that opening a new tab works. But how to deal with history feature? Keep track of it at all?
+Change how the "Logical", "Physical" etc. stuff works in such a way that opening
+a new tab by clicking on Logical, etc. works. But how to deal with history
+feature? Keep track of it at all? Maybe shouldn't for display pages, but then
+permalinks will work weirdly.
 
-Work on parse and find a protocol for correcting files. Would probably be best to do the parsing and correcting in the same spot, for easier maintenance, but should not do this on the same tree.
+Work on parse and find a protocol for correcting files. Would probably be best
+to do the parsing and correcting in the same spot, for easier maintenance, but
+should not do this on the same tree.
 
 # Names
 
@@ -35,7 +44,9 @@ updated after a modif to idListMembers. Should store the dharma id (part:xxxx)
 instead, even if we don't find it in idListmembers. When there is none, store
 the name directly. Or update everything each time "idListMembers" is modified.
 
-In fact we still need to update the search index, so do a full update. Simplest is to force a full update each time project-documentation is modified. Language names too need to be indexed.
+In fact we still need to update the search index, so do a full update. Simplest
+is to force a full update each time project-documentation is modified. Language
+names too need to be indexed.
 
 Can make a distinction between DHARMA members and others just by looking whether we have a DHARMA id.
 
@@ -71,29 +82,21 @@ make biblio searchable
   from-repo:
   ...
 
-amandine: <persName ref=PSN...>? should use @key instead of @ref
-
 allow click to make tips persistent on PC (already automatic on phone) so that
 we can select and copy-paste footnotes' contents.
 
 populate aside menu on phone
 
 when flashing entries in the global biblio, the flashed entry is below the bar on mobile.
+XXX still so?
 
 make docker not use root (and thus maybe avoid the git trust repo issue in dockerfile)
-
 revoir config nginx
-
 faire redirection huma-num: https://mail.google.com/mail/u/0/#label/Work/FMfcgzGwJJfrhJhChztpctbBsQwmCwpk
-
-amandine: faire un display pour bestow, simplifier schema bestow
 
 Script maturity is for use only with the class "Brahmi and derivatives" (and
 its subcategories); for any other script classes it is not optional but
 "forbidden". For Brahmi, it is mandatory. Amend rules accordingly.
-
-include all the commits we missed in the commits tbl (use the commit date when
-no push date is available); paginate stuff
 
 * fix incorrect verse numbers that should be in Roman in DHARMA_INSCIC00066
 
