@@ -89,7 +89,9 @@ def insert(file, db):
 		values (?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
 			fmt_title, doc.author.render_logical(), fmt_editors,
 			doc.langs, doc.summary.render_logical()))
-	db.execute("""insert or replace into documents_index(name, ident, repo, title, author, editor, lang, summary)
+	# No primary key on documents_index, so we cannot use "insert or replace"
+	db.execute("delete from documents_index where name = ?", (doc.ident,))
+	db.execute("""insert into documents_index(name, ident, repo, title, author, editor, lang, summary)
 		values (?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.ident.lower(),
 		doc.repository.lower(), doc.title.searchable_text(), doc.author.searchable_text(),
 		doc.editors.searchable_text(), "---".join(doc.langs), doc.summary.searchable_text()))
