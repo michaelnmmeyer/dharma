@@ -750,7 +750,6 @@ class Formatter:
 
 	def format_tree(self, node):
 		self.write('<?xml version="1.0" encoding="UTF-8"?>', klass="instruction")
-		self.write("\n")
 		for child in node:
 			self.format(child)
 
