@@ -8,10 +8,10 @@ To install and run it, you need, at a minimum, docker (the package name is
 `docker.io` in Debian), git, and make. Clone this repository into `~/`:
 
 	cd ~
-	git clone https://github.com/michaelnmmeyer/dharma.git
+	git clone --recursive https://github.com/michaelnmmeyer/dharma.git
 
 Make sure you have admin access to the dharma repositories on github, and copy
-the private SSH key you're using for github to `~/dharma/ssh_key`. Then build
+the private SSH key you are using for github to `~/dharma/ssh_key`. Then build
 the container with:
 
 	make image
