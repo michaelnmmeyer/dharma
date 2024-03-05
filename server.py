@@ -212,32 +212,46 @@ def display_home():
 @bottle.get("/display/<text>")
 @TEXTS_DB.transaction
 def display_text(text):
-	path, repo, commit_hash, commit_date, last_modified, last_modified_commit, github_url = TEXTS_DB.execute("""
+	row = TEXTS_DB.execute("""
 		select
-			printf('%s/%s/%s', ?, repo, path),
+			printf('%s/%s/%s', ?, repo, path) as path,
 			repo,
 			commit_hash,
-			format_date(commit_date),
-			format_date(last_modified),
+			format_date(commit_date) as commit_date,
+			format_date(last_modified) as last_modified,
 			last_modified_commit,
-			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repo, commit_hash, path)
+			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repo, commit_hash, path) as github_url
 		from texts natural join files natural join commits
 		where name = ?""",
-		(config.REPOS_DIR, text)).fetchone() or (None, None, None, None, None, None, None)
-	if not path:
+		(config.REPOS_DIR, text)).fetchone()
+	if not row:
 		return bottle.abort(404, "Not found")
 	import parse_ins
-	doc = parse_ins.process_file(path, TEXTS_DB)
-	doc.repository = repo
-	doc.commit_hash, doc.commit_date = commit_hash, commit_date
-	doc.last_modified = last_modified
-	doc.last_modified_commit = last_modified_commit
+	doc = parse_ins.process_file(row["path"], TEXTS_DB)
+	doc.repository = row["repo"]
+	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
+	doc.last_modified = row["last_modified"]
+	doc.last_modified_commit = row["last_modified_commit"]
 	title = doc.title.render_logical()
 	doc.title = title and title.split(document.PARA_SEP) or []
 	editors = doc.editors.render_logical()
 	doc.editors = editors and editors.split(document.PARA_SEP)
-	return bottle.template("inscription.tpl", doc=doc, github_url=github_url,
-		text=text, numberize=parse.numberize)
+	return bottle.template("inscription.tpl", doc=doc,
+		github_url=row["github_url"], text=text, numberize=parse.numberize)
+
+@bottle.post("/convert")
+def convert_text():
+	file = bottle.request.files.get("file")
+	name = os.path.splitext(os.path.basename(file.filename))[0]
+	import parse_ins
+	doc = parse_ins.process_file(file.file, path=name)
+	title = doc.title.render_logical()
+	doc.title = title and title.split(document.PARA_SEP) or []
+	editors = doc.editors.render_logical()
+	doc.editors = editors and editors.split(document.PARA_SEP)
+	return bottle.template("inscription.tpl", doc=doc, text=name,
+		numberize=parse.numberize, root="https://dharman.in")
+	# XXX root does not work for bib entries, make it global
 
 @bottle.get("/test")
 def test():

@@ -689,6 +689,7 @@ def parse_string(source, **kwargs):
 	# err.offset counts columns from 0
 	raise Error(line=err.lineno, column=err.offset + 1, text=expat.errors.messages[err.code], source=source)
 
+# file can be either a file-like object or a string
 def parse(file, **kwargs):
 	if hasattr(file, "read"):
 		# assume file-like

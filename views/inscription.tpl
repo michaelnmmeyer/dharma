@@ -1,7 +1,5 @@
-% rebase("base.tpl", title="Display", includes='''
-   <link rel="stylesheet" href="/inscription.css">
-   <script src="/inscription.js"></script>
-''')
+% setdefault("root", "")
+% rebase("base.tpl", title="Display")
 
 <h1>
 % if doc.title:
@@ -40,13 +38,17 @@ Identifier: <span class="text-id">{{text}}</span>.
 </p>
 % end
 
+% if doc.repository:
 <p>Repository: <span class="repo-id">{{doc.repository}}</span>.</p>
+% end
 
+% if doc.commit_date:
 <p>
 Version: {{doc.commit_date}}
 (<a href="{{github_url}}"><span class="commit-hash">{{doc.commit_hash[:7]}}</span></a>), last modified
 {{doc.last_modified}} (<span class="commit-hash">{{doc.last_modified_commit[:7]}}</span>).
 </p>
+% end
 
 % if doc.edition:
 <div class="ed">

@@ -107,8 +107,8 @@ def update_handlers_map(m):
 HANDLERS = parse.HANDLERS.copy()
 update_handlers_map(HANDLERS)
 
-def process_file(file, db=None):
-	t = tree.parse(file)
+def process_file(file, db=None, **kwargs):
+	t = tree.parse(file, **kwargs)
 	f = t.first("//teiHeader/encodingDesc")
 	if f:
 		f.delete()
