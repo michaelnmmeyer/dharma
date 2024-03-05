@@ -106,7 +106,7 @@ cmds = {
 	"~": [diacritic, "\N{COMBINING TILDE}"],
 	"=": [diacritic, "\N{COMBINING MACRON}"],
 	'"': [diacritic, "\N{COMBINING DIAERESIS}"],
-	".": [diacritic, "\N{COMBINING DOT BELOW}"],
+	".": [diacritic, "\N{COMBINING DOT ABOVE}"],
 	"d": [diacritic, "\N{COMBINING DOT BELOW}"],
 	"b": [diacritic, "\N{COMBINING MACRON BELOW}"],
 	"c": [diacritic, "\N{COMBINING CEDILLA}"],
