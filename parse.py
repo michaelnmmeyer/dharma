@@ -112,8 +112,13 @@ def parse_ptr(p, ptr):
 	p.add_code("ref", ref, rend="default", loc=[], missing=ref not in p.document.biblio)
 
 def parse_ref(p, ref):
-	# TODO
+	# See e.g. TamilNadu07
+	target = ref["target"]
+	if target:
+		p.add_html(f'<a href="{target}">')
 	p.dispatch_children(ref)
+	if target:
+		p.add_html(f'</a>')
 
 def parse_rdg(p, rdg):
 	p.start_span(klass="reading", tip="Reading")
