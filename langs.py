@@ -85,6 +85,13 @@ def normalize_name(s):
 
 db = config.open_db("texts")
 
+def from_code(s):
+	(ret,) = db.execute("""select name
+		from langs_list natural join langs_by_code
+		where code = ?
+		""", (s,)).fetchone() or (None,)
+	return ret
+
 def make_db():
 	recs, index = load_data()
 	db.execute("delete from langs_by_code")

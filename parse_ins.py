@@ -1,7 +1,7 @@
 # For parsing inscriptions.
 
-import os, copy, sys
-from dharma import tree, parse, config, document
+import os, copy, sys, html
+from dharma import tree, parse, config, document, people, langs, biblio
 
 # Within inscriptions, <div> shouldn't nest, except that we can have
 # <div type="textpart"> within <div type="edition">.
@@ -45,6 +45,38 @@ def gather_sections(p, div):
 		p.end_div()
 	return p.pop()
 
+def fetch_resp(resp):
+	resp = people.plain(resp.removeprefix("part:")) or resp
+	return html.escape(resp)
+
+def process_translation(p, div):
+	trans = gather_sections(p, div)
+	if not trans:
+		return
+	title = "Translation"
+	lang = div["lang"]
+	if lang:
+		lang = html.escape(langs.from_code(lang) or lang)
+		title += f" into {lang}"
+	resp = div["resp"]
+	if resp:
+		title += " by "
+		resps = resp.split()
+		for i, resp in enumerate(resps):
+			if i == 0:
+				pass
+			elif i < len(resps) - 1:
+				title += ", "
+			else:
+				title += " and "
+			title += fetch_resp(resp)
+	source = div["source"]
+	if source:
+		source = biblio.get_ref(source.removeprefix("bib:"), missing=False, rend="default", loc="") or html.escape(source)
+		title += f" by {source}"
+	trans.title = title
+	return trans
+
 def gather_biblio(p, body):
 	for bibl in body.find("//listBibl/bibl"):
 		siglum = bibl["n"]
@@ -87,7 +119,7 @@ def parse_body(p, body):
 		elif type == "apparatus":
 			p.document.apparatus = gather_sections(p, div)
 		elif type == "translation":
-			trans = gather_sections(p, div)
+			trans = process_translation(p, div)
 			if trans:
 				p.document.translation.append(trans)
 		elif type == "commentary":

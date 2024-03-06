@@ -79,6 +79,7 @@ class Block:
 
 	def __init__(self, name=""):
 		self.name = name
+		self.title = ""
 		self.code = []
 		self.finished = False
 

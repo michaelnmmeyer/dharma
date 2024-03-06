@@ -93,7 +93,7 @@ Version: {{doc.commit_date}}
 
 % for i, trans in enumerate(doc.translation, 1):
 <div class="trans">
-<h2 id="translation-{{i}}">Translation</h2>
+<h2 id="translation-{{i}}">{{!trans.title}}</h2>
 {{!trans.render_logical()}}
 </div>
 % end
