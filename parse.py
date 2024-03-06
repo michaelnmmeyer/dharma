@@ -113,6 +113,7 @@ def parse_ptr(p, ptr):
 
 def parse_ref(p, ref):
 	# See e.g. TamilNadu07
+	# TODO interpret relative URLs like "DHARMA_INSIDENKTuhanyaru.xml"
 	target = ref["target"]
 	if target:
 		p.add_html(f'<a href="{target}">')

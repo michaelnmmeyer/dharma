@@ -1,4 +1,4 @@
-import os, sys, logging, sqlite3, json, subprocess, re
+import os, sys, logging, sqlite3, json, subprocess, re, ssl
 from urllib.parse import urlparse, quote
 import icu
 
@@ -181,8 +181,16 @@ def command(*cmd, **kwargs):
 	return ret
 
 def normalize_url(url):
-	url = url.rstrip("/")
+	url = url.rstrip("/") # XXX might not work for some websites
 	ret = urlparse(url)
-	ret = ret._replace(scheme="https")
+	if ret.scheme == "http":
+		# Supports SSL?
+		try:
+			ssl.get_server_certificate((ret.hostname, ret.port or 443))
+			ret = ret._replace(scheme="https")
+		except ConnectionRefusedError:
+			pass
 	return ret.geturl()
-	# could also check that the url actually works, and also use link rel=canonical
+	# Could also check that the url actually works, and also use link
+	# rel=canonical, but this is slow. Should keep track of all URLs and
+	# systematically submit them to the Wayback machine.
