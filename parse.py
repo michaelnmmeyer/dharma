@@ -1,4 +1,5 @@
 import os, sys, re, io, copy, html, unicodedata
+from urllib.parse import urlparse
 from dharma import prosody, people, tree, gaiji, config, unicode, biblio
 from dharma.document import Document, Block
 
@@ -113,9 +114,15 @@ def parse_ptr(p, ptr):
 
 def parse_ref(p, ref):
 	# See e.g. TamilNadu07
-	# TODO interpret relative URLs like "DHARMA_INSIDENKTuhanyaru.xml"
 	target = ref["target"]
 	if target:
+		url = urlparse(target)
+		# Drop the file extension if on our server (for dealing with
+		# e.g. "DHARMA_INSIDENKTuhanyaru.xml").
+		if not url.hostname:
+			path = os.path.splitext(url.path)[0]
+			url = url._replace(path=path)
+			target = url.geturl()
 		p.add_html(f'<a href="{target}">')
 	p.dispatch_children(ref)
 	if target:
