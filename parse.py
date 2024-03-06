@@ -969,6 +969,8 @@ def gather_people(stmt, *paths):
 	return ret
 
 def parse_titleStmt(p, stmt):
+	# We only have several <title> in DiplEd and CritEd and INSEC, not in
+	# normal INS files.
 	p.push("title")
 	titles = stmt.find("title")
 	for title in titles:

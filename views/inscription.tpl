@@ -3,9 +3,10 @@
 
 <h1>
 % if doc.title:
-   % for part in doc.title:
-      {{!part}}.
+   % for part in doc.title[:-1]:
+      {{!part}}:
    % end
+   {{doc.title[-1]}}
 % else:
    <i>Untitled</i>.
 % end
