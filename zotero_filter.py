@@ -34,7 +34,7 @@ def reply():
         if r.ok:
             return copy_response(r)
         wait = next_request_delay(r)
-        if wait < 0:
+        if wait <= 0:
             wait = 5
         time.sleep(wait)
     raise Exception(repr((r.headers, r.text)))
