@@ -54,6 +54,7 @@ if __name__ == "__main__":
 			ret = read_message(sock)
 			# {"event": "connected", "retry": 10000}
 			assert ret["event"] == "connected"
+			logging.info("connected")
 			main(sock)
 		except KeyboardInterrupt:
 			exit = True
