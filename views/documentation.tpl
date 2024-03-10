@@ -1,7 +1,6 @@
 <!--
 % rebase("base.tpl", title="Documentation")
 -->
-<div class="body">
 <h1>
 Documentation
 </h1>
@@ -312,4 +311,3 @@ instance, if you have:</p>
 &lt;/choice&gt;Y</code></pre>
 <p>… the reading XAY will be made searchable, but not XBY nor XCY. For
 this reason, you want to give the most probable reading first.</p>
-</div>
