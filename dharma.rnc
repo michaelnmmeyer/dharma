@@ -31,12 +31,12 @@ common_attrs = (
 	attribute resp { text }?,
 	attribute source { text }?,
 	attribute xml:lang { text }?,
-	attribute xml:id { text }?
+	attribute xml:id { text }?,
+	attribute rendition { text }?
 )
 
 edition = element div {
 	attribute type { "edition" },
-	attribute rendition { text }?,
 	common_attrs,
 	any_contents*
 }
@@ -44,41 +44,6 @@ edition = element div {
 apparatus = element div {
 	attribute type { "apparatus" },
 	common_attrs,
-	(listApp | apparatus_part+ | empty)
-}
-
-apparatus_part = element div {
-	attribute type { "textpart" },
-	attribute n { text },
-	common_attrs,
-	head,
-	(listApp | empty)
-}
-
-listApp = element listApp { app+ }
-
-head = element head {
-	any_attribute*,
-	any_contents*
-}
-
-app = element app {
-	attribute loc { string },
-	(lem, rdg*, note*)
-}
-
-lem = element lem {
-	any_attribute*,
-	any_contents*
-}
-
-note = element note {
-	any_attribute*,
-	any_contents*
-}
-
-rdg = element rdg {
-	any_attribute*,
 	any_contents*
 }
 
