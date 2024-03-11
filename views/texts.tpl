@@ -4,17 +4,28 @@
 
 <p>Texts database last updated {{last_updated}}.</p>
 
-<p>This table now only shows problematic files. You can use the
-<a href="/catalog">catalog interface</a> for searching texts.</p>
+<p>This table only shows problematic files. You can use the
+<a href="/catalog">catalog interface</a> for consulting all DHARMA texts.</p>
 
-<p>The "severity" parameter is interpreted as follows:</p>
+<p>In the form below, the "Edited by" field refers to Git's commit history, not
+to the editors mentioned in the XML file's <code>&lt;teiHeader&gt;</code>. Thus, if
+you select your name, you will see files that you modified at some point, even
+if you are not credited as an editor. Conversely, the files where you are
+credited as an editor but that you did not modify yourself will not be shown.</p>
+
+<p>The "Severity" parameter indicates how serious the problem is. There are
+three severity levels:</p>
 <ul>
-   <li>Warning. The file might present some problems but is OK overall.
-   <li>Error. The file does not adhere to the guidelines and might thus not be
+   <li>"Warning". The file might present some Unicode problems.
+   <li>"Error". The file does not adhere to the guidelines and might thus not be
    processed correctly.</li>
-   <li>Fatal. The file is not valid XML and cannot be processed at all. It is
-   not possible to display it, to search it, etc.</li>
+   <li>"Fatal". The file is not well-formed XML and cannot be processed at all.</li>
 </ul>
+
+<p>As a rule, files with a "Fatal" severity level should be amended as soon as
+possible, because it is impossible to do anything with them. To check whether
+a file is well-formed XML in Oxygen, click on the downwards arrow next to the "Validate"
+button in the toolbar, and click on "Check Well-Formedness".</p>
 
 <form action="/texts" method="get">
 <label for="select-owner">Edited by:</label>
