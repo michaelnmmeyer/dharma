@@ -1,0 +1,34 @@
+server {
+    listen 443 ssl;
+    server_name dharmalekha.info;
+
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/dharmalekha.info/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/dharmalekha.info/privkey.pem;
+
+    location /zotero-proxy/ {
+        proxy_pass http://localhost:8024/;
+    }
+
+    location / {
+        proxy_pass http://localhost:8023;
+    }
+}
+
+server {
+    listen 80;
+    server_name dharmalekha.info www.dharmalekha.info dharma.huma-num.fr;
+
+    return 301 https://dharmalekha.info$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name www.dharmalekha.info dharma.huma-num.fr;
+
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/dharmalekha.info/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/dharmalekha.info/privkey.pem;
+
+    return 301 https://dharmalekha.info$request_uri;
+}
