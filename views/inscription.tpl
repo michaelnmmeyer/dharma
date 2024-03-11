@@ -18,7 +18,7 @@ Display
 </h1>
 
 <p>
-{{numberize("Editor", doc.editors | length)}}:
+{{numberize("Editor", (doc.editors | length))}}:
 % for ed in doc.editors[:-1]:
    {{ed | safe}},
 % endfor
@@ -123,7 +123,7 @@ Version: {{doc.commit_date}}
 % for i, note in enumerate(doc.notes, 1):
 <div class="note" id="note-{{i}}">
 <a class="note-ref" href="#note-ref-{{i}}">↑{{i}}</a>
-{{note.render_logical | safe}}
+{{note.render_logical() | safe}}
 </div>
 % endfor
 </div>
