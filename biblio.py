@@ -435,8 +435,10 @@ def render_journal_article(rec, w, params):
 		w.space()
 		abbr = rec["journalAbbreviation"]
 		name = rec["publicationTitle"]
-		# Use the abbreviated journal name if possible
-		if abbr:
+		# Use the abbreviated journal name if possible. Note that some
+		# people set journalAbbreviation = publicationTitle, so in
+		# this case ignore the abbreviation.
+		if abbr and abbr != name:
 			if name:
 				name.name = "i"
 				tag = w.tag("abbr", {"data-tip": name.xml()})
