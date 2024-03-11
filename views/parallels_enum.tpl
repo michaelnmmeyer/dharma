@@ -1,11 +1,17 @@
-% rebase("base.tpl", title="Parallels")
+% extends "base.tpl"
+
+% block title
+Parallels
+% endblock
+
+% block body
 
 <h1>Parallel
 % if category == "padas":
    Pādas
 % else:
    {{category.title()}}
-% end
+% endif
 of <span class="text-id">{{file.removeprefix("DHARMA_")}}</span> {{number}}</h1>
 
 <table>
@@ -19,7 +25,7 @@ of <span class="text-id">{{file.removeprefix("DHARMA_")}}</span> {{number}}</h1>
 <tbody>
 <tr>
    <td><span class="text-id">{{file.removeprefix("DHARMA_")}}</span> {{number}}</td>
-   <td>{{!contents}}</td>
+   <td>{{contents | safe}}</td>
    <td>1.00</td>
 </tr>
 % for row in data:
@@ -28,9 +34,11 @@ of <span class="text-id">{{file.removeprefix("DHARMA_")}}</span> {{number}}</h1>
       <span class="text-id">{{row["file"].removeprefix("DHARMA_")}}</span>
    </a></td>
    <td>{{row["number"]}}</td>
-   <td>{{!row["contents"]}}</td>
+   <td>{{row["contents"] | safe}}</td>
    <td>{{"%.02f" % row["coeff"]}}</td>
 </tr>
-% end
+% endfor
 </tbody>
 </table>
+
+% endblock

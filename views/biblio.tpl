@@ -1,4 +1,10 @@
-% rebase("base.tpl", title="Bibliography")
+% extends "base.tpl"
+
+% block title
+Bibliography
+% endblock
+
+% block body
 
 <h1>Bibliography</h1>
 
@@ -13,29 +19,31 @@ of
    <a href="/bibliography/page/{{page - 1}}">← Previous</a>
 % else:
    ← Previous
-% end
+% endif
    |
 % if page < pages_nr:
    <a href="/bibliography/page/{{page + 1}}">Next →</a>
 % else:
    Next →
-% end
+% endif
 </div>
 
 % for entry in entries:
-   {{!entry}}
-% end
+   {{entry | safe}}
+% endfor
 
 <div class="pagination">
 % if page > 1:
    <a href="/bibliography/page/{{page - 1}}">← Previous</a>
 % else:
    ← Previous
-% end
+% endif
    |
 % if page < pages_nr:
    <a href="/bibliography/page/{{page + 1}}">Next →</a>
 % else:
    Next →
-% end
+% endif
 </div>
+
+% endblock

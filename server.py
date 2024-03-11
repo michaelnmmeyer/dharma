@@ -8,14 +8,14 @@ NGRAMS_DB = config.open_db("ngrams")
 @bottle.get("/")
 def index():
 	(date,) = config.DUMMY_DB.execute("select format_date(?)", (config.CODE_DATE,)).fetchone()
-	return bottle.template("index.tpl", code_hash=config.CODE_HASH, code_date=date)
+	return bottle.jinja2_template("index.tpl", code_hash=config.CODE_HASH, code_date=date)
 
 def is_robot(email):
 	return email in ("readme-bot@example.com", "github-actions@github.com")
 
 @bottle.get("/documentation")
 def show_documentation():
-	return bottle.template("documentation.tpl")
+	return bottle.jinja2_template("documentation.tpl")
 
 @bottle.get("/documentation/<name>")
 def show_tei_doc(name):
@@ -61,7 +61,7 @@ def show_texts():
 			join owners on people_github.git_name = owners.git_name
 		order by print_name""").fetchall()
 	conn.execute("commit")
-	return bottle.template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner, severity=severity)
+	return bottle.jinja2_template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner, severity=severity)
 
 # XXX simplify URL
 @bottle.get("/texts/<name>")
@@ -81,7 +81,7 @@ def show_text(name):
 	if row["status"] == validate.OK:
 		return bottle.redirect(url)
 	path = os.path.join(config.REPOS_DIR, row["repo"], row["xml_path"])
-	return bottle.template("invalid-text.tpl", text=row, github_url=url, result=validate.file(path))
+	return bottle.jinja2_template("invalid-text.tpl", text=row, github_url=url, result=validate.file(path))
 
 # Legacy url
 @bottle.get("/texts/<repo>/<hash>/<name>")
@@ -110,7 +110,7 @@ def show_repos():
 		json_group_array(json_array(editor, editor_prod)) as people
 	from repos_editors join repos_prod on repos_editors.name = repos_prod.name
 	group by repos_prod.name order by repos_prod.title""").fetchall()
-	return bottle.template("repos.tpl", rows=rows, json=json)
+	return bottle.jinja2_template("repos.tpl", rows=rows, json=json, enumerate=enumerate)
 
 @bottle.get("/parallels")
 @NGRAMS_DB.transaction
@@ -120,7 +120,7 @@ def show_parallels():
 		from metadata where key = 'last_updated'""").fetchone()
 	rows = NGRAMS_DB.execute("select * from sources where verses + hemistiches + padas > 0")
 	NGRAMS_DB.execute("commit")
-	return bottle.template("parallels.tpl", data=rows, last_updated=date)
+	return bottle.jinja2_template("parallels.tpl", data=rows, last_updated=date)
 
 parallels_types = {
 	"verses": 1,
@@ -135,7 +135,7 @@ def show_parallels_details(text, category):
 		select id, number, contents, parallels from passages
 		where type = ? and file = ? and parallels > 0
 	""", (type, text))
-	return bottle.template("parallels_details.tpl", file=text, category=category, data=rows)
+	return bottle.jinja2_template("parallels_details.tpl", file=text, category=category, data=rows)
 
 @bottle.get("/parallels/texts/<text>/<category>/<id:int>")
 @NGRAMS_DB.transaction
@@ -156,7 +156,7 @@ def show_parallels_full(text, category, id):
 		order by coeff desc
 	""", (type, id)).fetchall()
 	db.execute("commit")
-	return bottle.template("parallels_enum.tpl", category=category, file=text,
+	return bottle.jinja2_template("parallels_enum.tpl", category=category, file=text,
 		number=number, data=rows, contents=contents)
 
 @bottle.get("/catalog")
@@ -164,7 +164,7 @@ def show_catalog():
 	q = bottle.request.query.q
 	s = bottle.request.query.s
 	rows, last_updated = catalog.search(q, s)
-	return bottle.template("catalog.tpl", rows=rows, q=q, s=s, last_updated=last_updated, json=json)
+	return bottle.jinja2_template("catalog.tpl", rows=rows, q=q, s=s, last_updated=last_updated, json=json)
 
 @bottle.get("/langs")
 def show_langs():
@@ -177,7 +177,7 @@ def show_langs():
 		join langs_list on langs_list.id = json_each.value
 		join langs_by_code on langs_list.id = langs_by_code.id
 	group by langs_list.id order by langs_list.inverted_name collate icu""").fetchall()
-	return bottle.template("langs.tpl", rows=rows, json=json)
+	return bottle.jinja2_template("langs.tpl", rows=rows, json=json)
 
 @bottle.get("/parallels/search")
 def search_parallels():
@@ -195,7 +195,7 @@ def search_parallels():
 	else:
 		page = 1
 	ret, formatted_text, page, per_page, total = ngrams.search(text, type, page)
-	return bottle.template("parallels_search.tpl",
+	return bottle.jinja2_template("parallels_search.tpl",
 		data=ret, text=formatted_text,
 		category=type,
 		category_plural=type + (type == "hemistich" and "es" or "s"),
@@ -207,7 +207,7 @@ def search_parallels():
 @bottle.get("/display")
 def display_home():
 	texts = [t for (t,) in TEXTS_DB.execute("select name from texts where name glob 'DHARMA_INS*'")]
-	return bottle.template("display.tpl", texts=texts)
+	return bottle.jinja2_template("display.tpl", texts=texts)
 
 @bottle.get("/display/<text>")
 @TEXTS_DB.transaction
@@ -236,8 +236,8 @@ def display_text(text):
 	doc.title = title and title.split(document.PARA_SEP) or []
 	editors = doc.editors.render_logical()
 	doc.editors = editors and editors.split(document.PARA_SEP)
-	return bottle.template("inscription.tpl", doc=doc,
-		github_url=row["github_url"], text=text, numberize=parse.numberize)
+	return bottle.jinja2_template("inscription.tpl", doc=doc,
+		github_url=row["github_url"], text=text, numberize=parse.numberize, enumerate=enumerate)
 
 @bottle.post("/convert")
 def convert_text():
@@ -249,13 +249,13 @@ def convert_text():
 	doc.title = title and title.split(document.PARA_SEP) or []
 	editors = doc.editors.render_logical()
 	doc.editors = editors and editors.split(document.PARA_SEP)
-	return bottle.template("inscription.tpl", doc=doc, text=name,
+	return bottle.jinja2_template("inscription.tpl", doc=doc, text=name,
 		numberize=parse.numberize, root="https://dharman.in")
 	# XXX root does not work for bib entries, make it global
 
 @bottle.get("/test")
 def test():
-	return bottle.template("test.tpl")
+	return bottle.jinja2_template("test.tpl")
 
 @bottle.get("/bibliography/page/<page:int>")
 @TEXTS_DB.transaction
@@ -280,7 +280,7 @@ def display_biblio(page):
 	last_entry = page * biblio.PER_PAGE
 	if last_entry > entries_nr:
 		last_entry = entries_nr
-	return bottle.template("biblio.tpl", page=page, pages_nr=pages_nr,
+	return bottle.jinja2_template("biblio.tpl", page=page, pages_nr=pages_nr,
 		entries=entries, entries_nr=entries_nr, per_page=biblio.PER_PAGE,
 		first_entry=first_entry, last_entry=last_entry)
 

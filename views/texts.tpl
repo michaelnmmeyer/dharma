@@ -1,4 +1,10 @@
-% rebase("base.tpl", title="Texts")
+% extends "base.tpl"
+
+% block title
+Texts
+% endblock
+
+% block body
 
 <h1>Texts</h1>
 
@@ -34,14 +40,14 @@ button in the toolbar, and click on "Check Well-Formedness".</p>
    <option value="">Anybody</option>
 % else:
    <option value="" selected>Anybody</option>
-% end
+% endif
 % for author_id, author_name in authors:
    % if author_id == owner:
       <option value="{{author_id}}" selected>{{author_name}}</option>
    % else:
       <option value="{{author_id}}">{{author_name}}</option>
-   % end
-% end
+   % endif
+% endfor
 </select>
 <label for="select-severity">Severity:</label>
 <select name="severity" id="select-severity">
@@ -50,8 +56,8 @@ button in the toolbar, and click on "Check Well-Formedness".</p>
    <option value="{{value}}" selected>{{value.title()}}</option>
 % else:
    <option value="{{value}}">{{value.title()}}</option>
-% end
-% end
+% endif
+% endfor
 </select>
 <input type="submit" value="Reload">
 </form>
@@ -74,6 +80,8 @@ button in the toolbar, and click on "Check Well-Formedness".</p>
    </a></td>
    <td>{{text["readable_commit_date"]}}</td>
 </tr>
-% end
+% endfor
 </tbody>
 </table>
+
+% endblock

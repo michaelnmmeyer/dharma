@@ -1,6 +1,12 @@
-<!--
-% rebase("base.tpl", title="Documentation")
--->
+```{=html}
+% extends "base.tpl"
+
+% block title
+Documentation
+% endblock
+
+% block body
+```
 
 <h1>Documentation</h1>
 
@@ -326,3 +332,7 @@ Thus for instance, if you have:
 
 ... the reading XAY will be made searchable, but not XBY nor XCY. For this
 reason, you want to give the most probable reading first.
+
+```{=html}
+% endblock
+```

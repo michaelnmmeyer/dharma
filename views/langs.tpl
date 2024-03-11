@@ -1,4 +1,10 @@
-% rebase("base.tpl", title="Languages")
+% extends "base.tpl"
+
+% block title
+Languages
+% endblock
+
+% block body
 
 <h1>Languages</h1>
 
@@ -19,7 +25,7 @@
    <td>{{", ".join(json.loads(row["codes"]))}}</td>
    <td>{{row["iso"]}}</td>
 </tr>
-% end
+% endfor
 </tbody>
 </table>
 
@@ -28,3 +34,5 @@ href="https://iso639-3.sil.org">here</a>.</p>
 
 <p>For the ISO 639-5 standard (families of languages), see <a
 href="https://www.loc.gov/standards/iso639-5/index.html">here</a>.</p>
+
+% endblock

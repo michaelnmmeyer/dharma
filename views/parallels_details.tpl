@@ -1,11 +1,17 @@
-% rebase("base.tpl", title="Parallels")
+% extends "base.tpl"
+
+% block title
+Parallels
+% endblock
+
+% block body
 
 <h1>
 % if category == "padas":
    Pādas
 % else:
    {{category.title()}}
-% end
+% endif
 of <span class="text-id">{{file.removeprefix("DHARMA_")}}</span> that Have Parallels</h1>
 
 <table>
@@ -22,9 +28,11 @@ of <span class="text-id">{{file.removeprefix("DHARMA_")}}</span> that Have Paral
    <td><a href="/parallels/texts/{{file}}/{{category}}/{{row["id"]}}">
       <span class="text-id">{{row["number"]}}</span>
    </a></td>
-   <td>{{!row["contents"]}}</td>
+   <td>{{row["contents"] | safe}}</td>
    <td>{{row["parallels"]}}</td>
-% end
+% endfor
 </tr>
 </tbody>
 </table>
+
+% endblock

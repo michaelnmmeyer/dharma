@@ -1,4 +1,10 @@
-% rebase("base.tpl", title="Catalog")
+% extends "base.tpl"
+
+% block title
+Catalog
+% endblock
+
+% block body
 
 <h1>Catalog</h1>
 
@@ -41,7 +47,7 @@ table of languages <a href="/langs">here</a>.</p>
    value="{{q}}"
 % else:
    autofocus
-% end
+% endif
 ></input>
    </li>
    <li>
@@ -52,8 +58,8 @@ table of languages <a href="/langs">here</a>.</p>
       <option value="{{k}}" selected>{{v}}</option>
    % else:
       <option value="{{k}}">{{v}}</option>
-   % end
-% end
+   % endif
+% endfor
 </select>
    </li>
    <li>
@@ -62,7 +68,7 @@ table of languages <a href="/langs">here</a>.</p>
 </ul>
 </form>
 
-<p>Have {{len(rows)}} documents.</p>
+<p>Have {{rows | length}} documents.</p>
 
 <div class="catalog-list">
 % for row in rows:
@@ -72,46 +78,48 @@ table of languages <a href="/langs">here</a>.</p>
       <a href="/display/{{row["name"]}}">
    % elif not row["html_link"].endswith("/"):
       <a href="{{row["html_link"]}}">
-   % end
+   % endif
    % if row["title"]:
       % for chunk in row["title"]:
-         {{!chunk.rstrip(".")}}.
-      % end
+         {{chunk.rstrip(".") | safe}}.
+      % endfor
    % else:
       <i>Untitled</i>.
-   % end
+   % endif
    % if not row["html_link"].endswith("/") or row["name"].startswith("DHARMA_INS"):
       </a>
       % if not row["html_link"].endswith("/"):
           <a href="{{row["html_link"]}}">[🦕 Old display]</a>
-      % end
-   % end
+      % endif
+   % endif
    </p>
    <p>
    % for ed in row["editors"][:-1]:
-      {{!ed}},
-   % end
+      {{ed | safe}},
+   % endfor
    % if row["editors"]:
-      {{!row["editors"][-1]}}.
+      {{row["editors"][-1] | safe}}.
    % else:
       <i>Anonymous editor</i>.
-   % end
+   % endif
    </p>
    % if row["summary"]:
-   <p>Summary: {{!row["summary"]}}</p>
-   % end
+   <p>Summary: {{row["summary"] | safe}}</p>
+   % endif
    % if row["langs"]:
    <p>Languages:
       % for lang in json.loads(row["langs"])[:-1]:
          {{lang}},
-      % end
+      % endfor
          {{json.loads(row["langs"])[-1]}}.
    </p>
-   % end
+   % endif
    <p>
       <span class="text-id">{{row["name"]}}</span>
       (<span class="repo-id">{{row["repo"]}}</span>).
    </p>
 </div>
-% end
+% endfor
 </div>
+
+% endblock

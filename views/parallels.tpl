@@ -1,4 +1,10 @@
-% rebase("base.tpl", title="Parallels")
+% extends "base.tpl"
+
+% block title
+Parallels
+% endblock
+
+% block body
 
 <h1>Parallels</h1>
 
@@ -69,10 +75,12 @@ for details.</p>
    <a href="/parallels/texts/{{row["file"]}}/{{category}}">{{row[category]}}</a>
    % else:
    {{row[category]}}
-   % end
+   % endif
    </td>
-% end
+% endfor
 </tr>
-% end
+% endfor
 </tbody>
 </table>
+
+% endblock

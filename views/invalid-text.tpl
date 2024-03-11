@@ -1,4 +1,10 @@
-% rebase("base.tpl", title=text["name"].removeprefix("DHARMA_"))
+% extends "base.tpl"
+
+% block title
+{{text["name"].removeprefix("DHARMA_")}}
+% endblock
+
+% block body
 
 <h1><span class="text-id">{{text["name"].removeprefix("DHARMA_")}}</span></h1>
 <p>Committed {{text["readable_commit_date"]}} in
@@ -31,17 +37,17 @@ list of code points, so that I update the code.
 <tr>
    <td><a href="{{github_url}}#L{{rec["line_no"]}}">{{rec["line_no"]}}</a></td>
    <td>
-      <pre style="white-space:pre-line;">{{!rec["highlighted_line"]}}</pre>
+      <pre style="white-space:pre-line;">{{rec["highlighted_line"] | safe}}</pre>
       <ol>
       % for name in rec["grapheme"]:
          <li>{{name}}</li>
-      % end
+      % endfor
       </ol>
    </td>
-% end
-% end
+% endfor
 </tbody>
 </table>
+% endif
 
 % if result.messages:
 <h2>Schema Validation Issues</h2>
@@ -59,7 +65,9 @@ list of code points, so that I update the code.
    <td><a href="{{github_url}}#L{{msg.line}}">{{msg.line}}</a></td>
    <td>{{msg.text}}</td>
 </tr>
-% end
+% endfor
 </tbody>
 </table>
-% end
+% endif
+
+% endblock
