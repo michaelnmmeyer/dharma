@@ -149,7 +149,7 @@ def enum_verses(n, orig, norm):
 		vn = n
 		if len(orig) > 4:
 			vn += string.ascii_lowercase[i:i + 4]
-		vorig = '<div class="verse"><p>%s %s |</p><p>%s %s ||</p></div>' % \
+		vorig = '<div class="parallel-verse"><p>%s %s |</p><p>%s %s ||</p></div>' % \
 			tuple(html.escape(p) for p in orig[i:i + 4])
 		vnorm = " %s %s %s %s " % tuple(norm[i:i + 4])
 		yield vn, vorig, re.sub(r"\s{2,}", " ", vnorm)
@@ -161,7 +161,7 @@ def enum_hemistiches(n, orig, norm):
 			end = "||"
 		else:
 			end = "|"
-		vorig = '<div class="verse"><p>%s %s ' % tuple(html.escape(p) for p in orig[i:i + 2]) + \
+		vorig = '<div class="parallel-verse"><p>%s %s ' % tuple(html.escape(p) for p in orig[i:i + 2]) + \
 			'%s</p></div>' % end
 		vnorm = " %s %s " % tuple(norm[i:i + 2])
 		yield vn, vorig, re.sub(r"\s{2,}", " ", vnorm)
@@ -169,7 +169,7 @@ def enum_hemistiches(n, orig, norm):
 def enum_padas(n, orig, norm):
 	for i in range(len(orig)):
 		vn = n + string.ascii_lowercase[i]
-		vorig = '<div class="verse"><p>%s</p></div>' % orig[i]
+		vorig = '<div class="parallel-verse"><p>%s</p></div>' % orig[i]
 		vnorm = " %s " % norm[i]
 		yield vn, vorig, re.sub(r"\s{2,}", " ", vnorm)
 
@@ -255,12 +255,12 @@ def search(src_text, category, page):
 			danda = re.search("$", src_text)
 		one, two = src_text[:danda.end()], src_text[danda.end():]
 		src_norm = " %s %s " % (normalize(cleanup(one)), normalize(cleanup(two)))
-		formatted_text = '<div class="verse"><p>%s</p><p>%s</p></div>' % \
+		formatted_text = '<div class="parallel-verse"><p>%s</p><p>%s</p></div>' % \
 			(html.escape(one), html.escape(two))
 		type = 1
 	elif category == "hemistich" or category == "pada":
 		src_norm = " %s " % normalize(cleanup(src_text))
-		formatted_text = '<div class="verse"><p>%s</p></div>' % html.escape(src_text)
+		formatted_text = '<div class="parallel-verse"><p>%s</p></div>' % html.escape(src_text)
 		type = category == "hemistich" and 2 or 4
 	else:
 		return None, None, 0, PER_PAGE, 0
