@@ -237,7 +237,7 @@ def display_text(text):
 	editors = doc.editors.render_logical()
 	doc.editors = editors and editors.split(document.PARA_SEP)
 	return bottle.jinja2_template("inscription.tpl", doc=doc,
-		github_url=row["github_url"], text=text, numberize=parse.numberize, enumerate=enumerate)
+		github_url=row["github_url"], text=text, numberize=parse.numberize)
 
 @bottle.post("/convert")
 def convert_text():

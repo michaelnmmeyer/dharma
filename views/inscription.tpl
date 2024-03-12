@@ -96,9 +96,9 @@ Version: {{doc.commit_date}}
 </div>
 % endif
 
-% for i, trans in enumerate(doc.translation, 1):
+% for trans in doc.translation:
 <div class="trans">
-<h2 id="translation-{{i}}">{{trans.title | safe}}</h2>
+<h2 id="translation-{{loop.index}}">{{trans.title | safe}}</h2>
 {{trans.render_logical() | safe}}
 </div>
 % endfor
@@ -120,9 +120,9 @@ Version: {{doc.commit_date}}
 % if doc.notes:
 <div class="notes">
 <h2 id="notes">Notes</h2>
-% for i, note in enumerate(doc.notes, 1):
-<div class="note" id="note-{{i}}">
-<a class="note-ref" href="#note-ref-{{i}}">↑{{i}}</a>
+% for note in doc.notes:
+<div class="note" id="note-{{loop.index}}">
+<a class="note-ref" href="#note-ref-{{loop.index}}">↑{{loop.index}}</a>
 {{note.render_logical() | safe}}
 </div>
 % endfor
