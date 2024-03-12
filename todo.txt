@@ -3,6 +3,26 @@ multithreaded yet; check if current use of gevent is good enough
 
 prepare display for impression
 
+force reloading of static files with a ?v=x param
+
+set logging in nginx with https://www.velebit.ai/blog/nginx-json-logging/ ;
+and figure out a way to log exceptions conveniently
+format:
+
+  # the only reason we lowercase stuff and replace "-" is "_" is to make it
+  # easier to query the results with jq.
+  "remote": req.remote_addr,
+  "date": now.strftime("%Y-%m-%d_%H:%M:%S"),
+  "request": {
+          "method": req.method,
+          "url": url,
+          "headers": {k.lower().replace("-","_"): v for k, v in req.headers.items()},
+  },
+  "response": {
+          "status": res.status_code,
+          "headers": {k.lower().replace("-","_"): v for k, v in res.headers.items()},
+  },
+
 pour mai évaluation:
 - faire calendrier
 - milestones (phys)
