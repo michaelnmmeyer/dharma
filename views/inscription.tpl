@@ -56,6 +56,10 @@ Version: {{doc.commit_date}}
 </p>
 % endif
 
+% if not doc.valid:
+<h2>🐛 Invalid inscription</h2>
+% endif
+
 % if doc.edition:
 <div class="ed">
 

@@ -1,7 +1,7 @@
 from gevent import monkey; monkey.patch_all()
 import os, json, sys, unicodedata, hashlib, locale
 from datetime import datetime
-from dharma import config, bottle, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document
+from dharma import config, bottle, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document, tree
 
 TEXTS_DB = config.open_db("texts")
 NGRAMS_DB = config.open_db("ngrams")
@@ -228,15 +228,20 @@ def display_text(text):
 	if not row:
 		return bottle.abort(404, "Not found")
 	import parse_ins
-	doc = parse_ins.process_file(row["path"], TEXTS_DB)
+	try:
+		doc = parse_ins.process_file(row["path"], TEXTS_DB)
+		title = doc.title.render_logical()
+		doc.title = title and title.split(document.PARA_SEP) or []
+		editors = doc.editors.render_logical()
+		doc.editors = editors and editors.split(document.PARA_SEP)
+	except tree.Error as e:
+		doc = document.Document()
+		doc.valid = False
+		doc.ident = text
 	doc.repository = row["repo"]
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
 	doc.last_modified_commit = row["last_modified_commit"]
-	title = doc.title.render_logical()
-	doc.title = title and title.split(document.PARA_SEP) or []
-	editors = doc.editors.render_logical()
-	doc.editors = editors and editors.split(document.PARA_SEP)
 	return bottle.jinja2_template("inscription.tpl", doc=doc,
 		github_url=row["github_url"], text=text, numberize=parse.numberize)
 

@@ -518,6 +518,7 @@ class Document:
 	translation = None
 	commentary = None
 	bibliography = None
+	valid = True
 
 	xml = ""
 
@@ -530,6 +531,7 @@ class Document:
 		self.biblio = set()
 		self.gaiji = set()
 		self.notes = []
+		self.editors = []
 
 
 class PlainRenderer:
