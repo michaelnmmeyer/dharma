@@ -291,7 +291,6 @@ def display_biblio(page):
 		first_entry=first_entry, last_entry=last_entry)
 
 @bottle.get("/bibliography")
-@TEXTS_DB.transaction
 def display_biblio():
 	return bottle.redirect("/bibliography/page/1")
 
