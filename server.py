@@ -1,3 +1,4 @@
+from gevent import monkey; monkey.patch_all()
 import os, json, sys, unicodedata, hashlib, locale
 from datetime import datetime
 from dharma import config, bottle, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document
