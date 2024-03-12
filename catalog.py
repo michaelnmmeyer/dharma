@@ -44,7 +44,11 @@ def process_file(repo, path):
 		t = tree.parse(path)
 	except tree.Error as e:
 		print("catalog: %r %s" % (path, e), file=sys.stderr)
-		return
+		doc = document.Document()
+		doc.repository = repo
+		doc.ident = os.path.splitext(os.path.basename(path))[0]
+		doc.langs = ["und"]
+		return doc
 	langs = set()
 	for node in t.find("//*"):
 		if not "lang" in node.attrs:

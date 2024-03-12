@@ -3,7 +3,9 @@ multithreaded yet; check if current use of gevent is good enough
 
 prepare display for impression
 
-force reloading of static files with a ?v=x param
+force reloading of static files with a ?v=x param (unless this completely
+prevents caching, cannot tell) or by adding some unique identifier in the
+request path (better). best maybe: add the commit hash in the file path.
 
 set logging in nginx with https://www.velebit.ai/blog/nginx-json-logging/ ;
 and figure out a way to log exceptions conveniently
