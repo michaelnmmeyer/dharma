@@ -2,7 +2,6 @@ server {
     listen 443 ssl;
     server_name dharmalekha.info;
 
-    ssl on;
     ssl_certificate /etc/letsencrypt/live/dharmalekha.info/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/dharmalekha.info/privkey.pem;
 
@@ -26,9 +25,25 @@ server {
     listen 443 ssl;
     server_name www.dharmalekha.info dharma.huma-num.fr;
 
-    ssl on;
     ssl_certificate /etc/letsencrypt/live/dharmalekha.info/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/dharmalekha.info/privkey.pem;
+
+    return 301 https://dharmalekha.info$request_uri;
+}
+
+server {
+    listen 80;
+    server_name dharman.in www.dharman.in;
+
+    return 301 https://dharmalekha.info$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name dharman.in www.dharman.in;
+
+    ssl_certificate /etc/letsencrypt/live/dharman.in/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/dharman.in/privkey.pem;
 
     return 301 https://dharmalekha.info$request_uri;
 }
