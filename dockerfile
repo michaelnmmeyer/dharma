@@ -10,6 +10,7 @@ RUN apt-get update && \
 	pip3 install saxonche --break-system-packages && \
 	pip3 install websockets --break-system-packages && \
 	pip3 install Jinja2 --break-system-packages && \
+	pip3 install gevent --break-system-packages && \
 	apt-get clean -y && \
 	git config --global --add safe.directory '*' && \
 	git config --global user.email michaelnm.meyer@gmail.com && \
