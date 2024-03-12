@@ -1,25 +1,36 @@
-let displays = [
-	["physical", "#phys-btn", "#phys"],
-	["logical", "#log-btn", "#log"],
-	["full", "#full-btn", "#full"],
-	["xml", "#xml-btn", "#xml"],
-]
+let displays = ["logical", "physical", "full", "xml"]
+let currentDisplay = "logical"
+
+function displayButton(name) {
+	return document.querySelector("#" + name + "-btn")
+}
+
 function switchDisplayTo(name) {
-	for (let row of displays) {
-		if (row[0] == name) {
-			document.querySelector(row[1]).classList.add("active")
-			document.querySelector(row[2]).style.display = "block"
+	for (let display of displays) {
+		if (display == name) {
+			displayButton(name).classList.add("active")
 		} else {
-			document.querySelector(row[1]).classList.remove("active")
-			document.querySelector(row[2]).style.display = "none"
+			displayButton(name).classList.remove("active")
 		}
 	}
+	for (let node of document.querySelectorAll("[data-display]")) {
+		if (node.dataset.display == name) {
+			node.classList.remove("hidden")
+		} else {
+			node.classList.add("hidden")
+		}
+	}
+	currentDisplay = name
 }
 
 window.addEventListener("load", function () {
-	for (let row of displays) {
-		document.querySelector(row[1]).onclick = function () {
-			switchDisplayTo(row[0])
+	for (let name of displays) {
+		let button = displayButton(name)
+		if (!button) {
+			continue
 		}
+		button.addEventListener("click", function () {
+			switchDisplayTo(name)
+		})
 	}
 })

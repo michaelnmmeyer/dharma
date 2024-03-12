@@ -62,28 +62,28 @@ Version: {{doc.commit_date}}
 <h2 id="edition">Edition</h2>
 
 <ul class="ed-tabs">
-   <li id="log-btn" class="active"><a href="#ed">Logical</a></li>
-   <li id="phys-btn"><a href="#ed">Physical</a></li>
+   <li id="logical-btn" class="active"><a href="#ed">Logical</a></li>
+   <li id="physical-btn"><a href="#ed">Physical</a></li>
    <li id="full-btn"><a href="#ed">Full</a></li>
    <li id="xml-btn"><a href="#ed">XML</a></li>
 </ul>
 
-<div class="log" id="log">
+<div class="log" id="logical" data-display="logical">
 {{doc.edition.render_logical() | safe}}
 </div>
 
-<div class="phys" id="phys" style="display:none">
+<div class="phys hidden" id="physical" data-display="physical">
 {{doc.edition.render_physical() | safe}}
 </div>
 
-<div class="full" id="full" style="display:none">
+<div class="full hidden" id="full" data-display="full">
 {{doc.edition.render_full() | safe}}
 </div>
 
 </div> <!-- <div class="ed"> -->
 % endif
 
-<div class="xml" id="xml" style="display:none">
+<div class="xml hidden" id="xml" data-display="xml">
 <pre>
 {{doc.xml | safe}}
 </pre>

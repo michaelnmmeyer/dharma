@@ -140,6 +140,18 @@ function TOCEntryToHTML(entry, root) {
 		link.setAttribute("href", "#" + target)
 		link.innerHTML = heading.innerHTML
 		li.appendChild(link)
+		// TODO do something less stupid
+		for (let display of ["logical", "physical", "full", "xml"]) {
+			let tmp = document.querySelector("#" + display)
+			if (tmp && tmp.contains(heading)) {
+				li.dataset.display = display
+				if (display == currentDisplay) {
+					li.classList.remove("hidden")
+				} else {
+					li.classList.add("hidden")
+				}
+			}
+		}
 	}
 	let children = entry.children
 	if (children) {
@@ -147,10 +159,6 @@ function TOCEntryToHTML(entry, root) {
 		for (let child of children)
 			ul.appendChild(TOCEntryToHTML(child))
 		li.appendChild(ul)
-	}
-	if (heading && !heading.offsetParent) {
-		// display: none, see https://stackoverflow.com/questions/19669786/check-if-element-is-visible-in-dom
-		//li.style.display = "none" // XXX click still not working
 	}
 	return li
 }
