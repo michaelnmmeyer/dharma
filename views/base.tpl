@@ -24,9 +24,9 @@
       <li class="logo"><a href="{{root}}/">DHARMA</a></li>
       <li class="toggle" id="toggle-toc"><a><i class="fa-solid fa-table-list"></i></a></li>
       <li class="item"><a href="{{root}}/repositories"><i class="fa-brands fa-git-alt"></i> Repositories</a></li>
-      <li class="item"><a href="{{root}}/texts"><!--<i class="fa-solid fa-bug"></i>--> Texts</a></li>
-      <li class="item"><a href="{{root}}/catalog"><!--<i class="fa-solid
-      fa-magnifying-glass"></i>--> Catalog</a></li>
+      <li class="item"><a href="{{root}}/texts"><i class="fa-solid fa-bug"></i> Texts</a></li>
+      <li class="item"><a href="{{root}}/catalog"><i class="fa-solid
+      fa-magnifying-glass"></i> Catalog</a></li>
       <li class="item"><a href="{{root}}/parallels"><i class="fa-solid fa-grip-lines-vertical"></i>
       Parallels</a></li>
       <li class="item"><a href="{{root}}/bibliography"><i class="fa-solid fa-quote-left"></i> Bibliography</a></li>
