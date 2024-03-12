@@ -8,9 +8,9 @@ function displayButton(name) {
 function switchDisplayTo(name) {
 	for (let display of displays) {
 		if (display == name) {
-			displayButton(name).classList.add("active")
+			displayButton(display).classList.add("active")
 		} else {
-			displayButton(name).classList.remove("active")
+			displayButton(display).classList.remove("active")
 		}
 	}
 	for (let node of document.querySelectorAll("[data-display]")) {
