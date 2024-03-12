@@ -852,6 +852,9 @@ def parse_list(p, list):
 	else:
 		for item in list.find("item"):
 			p.add_log("<item")
+			# need a space after each item in physical, see
+			# DHARMA_INSSII0501358
+			p.add_html(" ", logical=False, plain=False)
 			p.dispatch_children(item)
 			p.add_log(">item")
 	p.add_log(">list", type=typ)
