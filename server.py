@@ -1,4 +1,4 @@
-from gevent import monkey; monkey.patch_all()
+#from gevent import monkey; monkey.patch_all()
 import os, json, sys, unicodedata, hashlib, locale
 from datetime import datetime
 from dharma import config, bottle, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document, tree
@@ -341,4 +341,4 @@ def handle_static(filename):
 
 if __name__ == "__main__":
 	bottle.run(host=config.HOST, port=config.PORT, debug=config.DEBUG,
-		reloader=config.DEBUG, server="gevent")
+		reloader=config.DEBUG)
