@@ -13,7 +13,7 @@ Display
    % endfor
    {{doc.title[-1]}}
 % else:
-   <i>Untitled</i>.
+   <i>Untitled</i>
 % endif
 </h1>
 
