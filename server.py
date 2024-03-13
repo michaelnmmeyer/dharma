@@ -20,7 +20,9 @@ def show_documentation():
 
 @app.get("/documentation/<name>")
 def show_tei_doc(name):
-	return bottle.static_file(name + ".html", root=config.path_of("schemas"))
+	path = config.path_of("schemas", name + ".html")
+	with open(path) as f:
+		return f.read()
 
 @app.get("/texts")
 @config.transaction("texts")
