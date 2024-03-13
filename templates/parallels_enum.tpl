@@ -32,7 +32,7 @@ of <span class="text-id">{{file.removeprefix("DHARMA_")}}</span> {{number}}</h1>
 <tr>
    <td><a href="/parallels/texts/{{row["file"]}}/{{category}}/{{row["id2"]}}">
       <span class="text-id">{{row["file"].removeprefix("DHARMA_")}}</span>
-   </a> {{row["number"]}}
+   {{row["number"]}} </a>
    </td>
    <td>{{row["contents"] | safe}}</td>
    <td>{{"%.02f" % row["coeff"]}}</td>
