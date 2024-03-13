@@ -1103,7 +1103,7 @@ def format_entry(key, rec, **params):
 	return w.output()
 
 def invalid_ref(ref, reason, missing=False):
-	r = tree.parse_string('<a class="bib-ref bib-ref-invalid"/>').root
+	r = tree.parse_string('<a class="nav-link bib-ref-invalid"/>').root
 	r["data-tip"] = reason
 	r.append(ref)
 	return r.xml()

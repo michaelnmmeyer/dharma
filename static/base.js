@@ -131,6 +131,7 @@ function TOCEntryToHTML(entry, root) {
 	let heading = entry.heading
 	if (heading) {
 		let link = document.createElement("a")
+		link.classList.add("nav-link")
 		let target = heading.getAttribute("id")
 		if (!target) {
 			idGenerator++
