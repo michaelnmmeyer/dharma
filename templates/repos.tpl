@@ -13,8 +13,8 @@ Repositories
 <div class="catalog-card">
 <p><b>{{repo["title"]}}</b> ({{repo["repo_prod"]}})</p>
 <p>Editors:
-% for i, (editor, count) in enumerate(json.loads(repo["people"])):
-{{editor}} ({{count}}){{i == loop.length - 1 and "." or ","}}
+% for editor, count in json.loads(repo["people"]):
+{{editor}} ({{count}}){{loop.index == loop.length - 1 and "." or ","}}
 % endfor
 </p>
 <p><span class="repo-id">{{repo["name"]}}</span></p>

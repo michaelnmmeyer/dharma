@@ -83,9 +83,8 @@ def normalize_name(s):
 	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
 	return unicodedata.normalize("NFC", s.strip())
 
-db = config.open_db("texts")
-
 def from_code(s):
+	db = config.open_db("texts")
 	(ret,) = db.execute("""select name
 		from langs_list natural join langs_by_code
 		where code = ?
@@ -93,6 +92,7 @@ def from_code(s):
 	return ret
 
 def make_db():
+	db = config.open_db("texts")
 	recs, index = load_data()
 	db.execute("delete from langs_by_code")
 	db.execute("delete from langs_by_name")

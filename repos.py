@@ -1,7 +1,5 @@
 from dharma import config
 
-db = config.open_db("texts")
-
 def iter_repos():
 	with open("repos.tsv") as f:
 		for line_no, line in enumerate(f, 1):
@@ -23,8 +21,9 @@ def load_data():
 		repos[row["name"]] = row
 	return repos
 
-@db.transaction
+@config.transaction("texts")
 def make_db():
+	db = config.open_db("texts")
 	db.execute("begin")
 	db.execute("delete from repos")
 	for _, rec in sorted(load_data().items()):

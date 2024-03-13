@@ -1,8 +1,6 @@
 import os, sys, unicodedata
 from dharma import config, tree
 
-db = config.open_db("texts")
-
 def load_data():
 	path = os.path.join(config.REPOS_DIR, "project-documentation", "DHARMA_prosodicPatterns_v01.xml")
 	xml = tree.parse(path)
@@ -27,6 +25,7 @@ def load_data():
 
 def make_db():
 	data = load_data()
+	db = config.open_db("texts")
 	db.execute("delete from prosody")
 	for name, pattern in sorted(data.items()):
 		db.execute("insert into prosody(name, pattern) values(?, ?)",

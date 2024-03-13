@@ -8,7 +8,6 @@
 import os, sys, subprocess, time, json, select, errno, logging, fcntl
 import argparse, traceback, collections
 from dharma import config, validate, texts, biblio, catalog, people, langs, gaiji, prosody, repos
-from dharma.config import command
 
 # The fifo must be accessible from outside docker image, so that we can
 # interact with it.
@@ -33,7 +32,7 @@ def clone_repo(name):
 		if e.errno == errno.ENOTEMPTY:
 			return False
 		raise
-	command("git", "clone", f"git@github.com:erc-dharma/{name}.git",
+	config.command("git", "clone", f"git@github.com:erc-dharma/{name}.git",
 		path, capture_output=False)
 	return True
 
@@ -49,10 +48,10 @@ def update_repo(name):
 	last_pull = now
 	if clone_repo(name):
 		return
-	return command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
+	return config.command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
 
 def latest_commit_in_repo(name):
-	r = command("git", "-C", os.path.join(config.REPOS_DIR, name), "log", "-1", "--format=%H %at")
+	r = config.command("git", "-C", os.path.join(config.REPOS_DIR, name), "log", "-1", "--format=%H %at")
 	hash, date = r.stdout.strip().split()
 	date = int(date)
 	return hash, date
@@ -185,9 +184,9 @@ def update_project():
 	# TODO store needed files from project-documentation in the db
 
 def backup_to_jawakuno():
-	command("bash", "-x", config.path_of("backup_to_jawakuno.sh"), capture_output=False)
+	config.command("bash", "-x", config.path_of("backup_to_jawakuno.sh"), capture_output=False)
 
-@db.transaction
+@config.transaction("texts")
 def handle_changes(name):
 	db.execute("begin immediate")
 	update_repo(name)

@@ -1,35 +1,35 @@
-#from gevent import monkey; monkey.patch_all()
-import os, json, sys, unicodedata, hashlib, locale
+import os, json, sys, unicodedata, hashlib, locale, time
 from datetime import datetime
-from dharma import config, bottle, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document, tree
+import flask
+from dharma import config, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document, tree
 
-TEXTS_DB = config.open_db("texts")
-NGRAMS_DB = config.open_db("ngrams")
+app = flask.Flask(__name__, static_url_path="")
+app.jinja_options["line_statement_prefix"] = "%"
 
-@bottle.get("/")
+@app.get("/")
 def index():
-	(date,) = config.DUMMY_DB.execute("select format_date(?)", (config.CODE_DATE,)).fetchone()
-	return bottle.jinja2_template("index.tpl", code_hash=config.CODE_HASH, code_date=date)
+	date = config.format_date(config.CODE_DATE)
+	return flask.render_template("index.tpl", code_hash=config.CODE_HASH, code_date=date)
 
 def is_robot(email):
 	return email in ("readme-bot@example.com", "github-actions@github.com")
 
-@bottle.get("/documentation")
+@app.get("/documentation")
 def show_documentation():
-	return bottle.jinja2_template("documentation.tpl")
+	return flask.render_template("documentation.tpl")
 
-@bottle.get("/documentation/<name>")
+@app.get("/documentation/<name>")
 def show_tei_doc(name):
 	return bottle.static_file(name + ".html", root=config.path_of("schemas"))
 
-@bottle.get("/texts")
-@TEXTS_DB.transaction
+@app.get("/texts")
+@config.transaction("texts")
 def show_texts():
-	conn = TEXTS_DB
+	conn = config.open_db("texts")
 	conn.execute("begin")
 	(last_updated,) = conn.execute("select format_date(value) from metadata where key = 'last_updated'").fetchone()
-	owner = bottle.request.query.owner
-	severity = bottle.request.query.severity
+	owner = flask.request.args.get("owner")
+	severity = flask.request.args.get("severity")
 	if severity not in ("warning", "error", "fatal"):
 		severity = "warning"
 	if severity == "warning":
@@ -61,14 +61,15 @@ def show_texts():
 		from people_main natural join people_github
 			join owners on people_github.git_name = owners.git_name
 		order by print_name""").fetchall()
-	conn.execute("commit")
-	return bottle.jinja2_template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner, severity=severity)
+	conn.execute("rollback")
+	return flask.render_template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner, severity=severity)
 
 # XXX simplify URL
-@bottle.get("/texts/<name>")
+@app.get("/texts/<name>")
+@config.transaction("texts")
 def show_text(name):
-	conn = TEXTS_DB
-	row = conn.execute("""
+	db = config.open_db("texts")
+	row = db.execute("""
 		select name, commits.repo, commit_hash, code_hash, status, path as xml_path, html_path,
 			format_date(commit_date) as readable_commit_date
 		from texts natural join files
@@ -76,22 +77,24 @@ def show_text(name):
 		where name = ?
 	""", (name,)).fetchone()
 	if not row:
-		bottle.abort(404, "Not found")
+		return flask.abort(404)
 	url = config.format_url("https://github.com/erc-dharma/%s/blob/%s/%s",
 		row['repo'], row['commit_hash'], row['xml_path'])
 	if row["status"] == validate.OK:
-		return bottle.redirect(url)
+		return flask.redirect(url)
 	path = os.path.join(config.REPOS_DIR, row["repo"], row["xml_path"])
-	return bottle.jinja2_template("invalid-text.tpl", text=row, github_url=url, result=validate.file(path))
+	return flask.render_template("invalid-text.tpl", text=row, github_url=url, result=validate.file(path))
 
 # Legacy url
-@bottle.get("/texts/<repo>/<hash>/<name>")
+@app.get("/texts/<repo>/<hash>/<name>")
 def show_text_legacy(repo, hash, name):
-	return bottle.redirect(config.format_url("/texts/%s", name))
+	return flask.redirect(config.format_url("/texts/%s", name))
 
-@bottle.get("/repositories")
+@app.get("/repositories")
+@config.transaction("texts")
 def show_repos():
-	rows = TEXTS_DB.execute("""
+	db = config.open_db("texts")
+	rows = db.execute("""
 	with repos_editors as (
 		select repo as name,
 			json_each.value as editor,
@@ -111,17 +114,18 @@ def show_repos():
 		json_group_array(json_array(editor, editor_prod)) as people
 	from repos_editors join repos_prod on repos_editors.name = repos_prod.name
 	group by repos_prod.name order by repos_prod.title""").fetchall()
-	return bottle.jinja2_template("repos.tpl", rows=rows, json=json, enumerate=enumerate)
+	return flask.render_template("repos.tpl", rows=rows, json=json)
 
-@bottle.get("/parallels")
-@NGRAMS_DB.transaction
+@app.get("/parallels")
+@config.transaction("ngrams")
 def show_parallels():
-	NGRAMS_DB.execute("begin")
-	(date,) = NGRAMS_DB.execute("""select format_date(value)
+	db = config.open_db("ngrams")
+	db.execute("begin")
+	(date,) = db.execute("""select format_date(value)
 		from metadata where key = 'last_updated'""").fetchone()
-	rows = NGRAMS_DB.execute("select * from sources where verses + hemistiches + padas > 0")
-	NGRAMS_DB.execute("commit")
-	return bottle.jinja2_template("parallels.tpl", data=rows, last_updated=date)
+	rows = db.execute("select * from sources where verses + hemistiches + padas > 0")
+	db.execute("commit")
+	return flask.render_template("parallels.tpl", data=rows, last_updated=date)
 
 parallels_types = {
 	"verses": 1,
@@ -129,26 +133,28 @@ parallels_types = {
 	"padas": 4,
 }
 
-@bottle.get("/parallels/texts/<text>/<category>")
+@app.get("/parallels/texts/<text>/<category>")
+@config.transaction("ngrams")
 def show_parallels_details(text, category):
+	db = config.open_db("ngrams")
 	type = parallels_types[category]
-	rows = NGRAMS_DB.execute("""
+	rows = db.execute("""
 		select id, number, contents, parallels from passages
 		where type = ? and file = ? and parallels > 0
 	""", (type, text))
-	return bottle.jinja2_template("parallels_details.tpl", file=text, category=category, data=rows)
+	return flask.render_template("parallels_details.tpl", file=text, category=category, data=rows)
 
-@bottle.get("/parallels/texts/<text>/<category>/<id:int>")
-@NGRAMS_DB.transaction
+@app.get("/parallels/texts/<text>/<category>/<int:id>")
+@config.transaction("ngrams")
 def show_parallels_full(text, category, id):
+	db = config.open_db("ngrams")
 	type = parallels_types[category]
-	db = NGRAMS_DB
 	db.execute("begin")
 	ret = db.execute("""
 		select number, contents from passages where type = ? and id = ?
 		""", (type, id)).fetchone()
 	if not ret:
-		bottle.abort(404, "Not found")
+		return flask.abort(404)
 	number, contents = ret
 	rows = db.execute("""
 		select file, number, contents, id2, coeff
@@ -157,19 +163,21 @@ def show_parallels_full(text, category, id):
 		order by coeff desc
 	""", (type, id)).fetchall()
 	db.execute("commit")
-	return bottle.jinja2_template("parallels_enum.tpl", category=category, file=text,
+	return flask.render_template("parallels_enum.tpl", category=category, file=text,
 		number=number, data=rows, contents=contents)
 
-@bottle.get("/catalog")
+@app.get("/catalog")
 def show_catalog():
-	q = bottle.request.query.q
-	s = bottle.request.query.s
+	q = flask.request.args.get("q", "")
+	s = flask.request.args.get("s", "")
 	rows, last_updated = catalog.search(q, s)
-	return bottle.jinja2_template("catalog.tpl", rows=rows, q=q, s=s, last_updated=last_updated, json=json)
+	return flask.render_template("catalog.tpl", rows=rows, q=q, s=s, last_updated=last_updated, json=json)
 
-@bottle.get("/langs")
+@app.get("/langs")
+@config.transaction("texts")
 def show_langs():
-	rows = TEXTS_DB.execute("""
+	db = config.open_db("texts")
+	rows = db.execute("""
 	select langs_list.inverted_name as name,
 		json_group_array(distinct(langs_by_code.code)) as codes,
 		printf('639-%d', iso) as iso
@@ -178,17 +186,17 @@ def show_langs():
 		join langs_list on langs_list.id = json_each.value
 		join langs_by_code on langs_list.id = langs_by_code.id
 	group by langs_list.id order by langs_list.inverted_name collate icu""").fetchall()
-	return bottle.jinja2_template("langs.tpl", rows=rows, json=json)
+	return flask.render_template("langs.tpl", rows=rows, json=json)
 
-@bottle.get("/parallels/search")
+@app.get("/parallels/search")
 def search_parallels():
-	text = bottle.request.query.text
+	text = flask.request.args.get("text")
 	orig_text = text
-	type = bottle.request.query.type
+	type = flask.request.args.get("type")
 	if not text or not type:
-		return bottle.redirect("/parallels")
+		return flask.redirect("/parallels")
 	text = unicodedata.normalize("NFC", text)
-	page = bottle.request.query.page
+	page = flask.request.args.get("page")
 	if page and page.isdigit():
 		page = int(page)
 		if page < 1:
@@ -196,7 +204,7 @@ def search_parallels():
 	else:
 		page = 1
 	ret, formatted_text, page, per_page, total = ngrams.search(text, type, page)
-	return bottle.jinja2_template("parallels_search.tpl",
+	return flask.render_template("parallels_search.tpl",
 		data=ret, text=formatted_text,
 		category=type,
 		category_plural=type + (type == "hemistich" and "es" or "s"),
@@ -205,15 +213,18 @@ def search_parallels():
 		orig_text=orig_text,
 		total=total)
 
-@bottle.get("/display")
+@app.get("/display")
+@config.transaction("texts")
 def display_home():
-	texts = [t for (t,) in TEXTS_DB.execute("select name from texts where name glob 'DHARMA_INS*'")]
-	return bottle.jinja2_template("display.tpl", texts=texts)
+	db = config.open_db("texts")
+	texts = [t for (t,) in db.execute("select name from texts where name glob 'DHARMA_INS*'")]
+	return flask.render_template("display.tpl", texts=texts)
 
-@bottle.get("/display/<text>")
-@TEXTS_DB.transaction
+@app.get("/display/<text>")
+@config.transaction("texts")
 def display_text(text):
-	row = TEXTS_DB.execute("""
+	db = config.open_db("texts")
+	row = db.execute("""
 		select
 			printf('%s/%s/%s', ?, repo, path) as path,
 			repo,
@@ -226,10 +237,10 @@ def display_text(text):
 		where name = ?""",
 		(config.REPOS_DIR, text)).fetchone()
 	if not row:
-		return bottle.abort(404, "Not found")
+		return flask.abort(404)
 	import parse_ins
 	try:
-		doc = parse_ins.process_file(row["path"], TEXTS_DB)
+		doc = parse_ins.process_file(row["path"], db)
 		title = doc.title.render_logical()
 		doc.title = title and title.split(document.PARA_SEP) or []
 		editors = doc.editors.render_logical()
@@ -242,12 +253,12 @@ def display_text(text):
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
 	doc.last_modified_commit = row["last_modified_commit"]
-	return bottle.jinja2_template("inscription.tpl", doc=doc,
+	return flask.render_template("inscription.tpl", doc=doc,
 		github_url=row["github_url"], text=text, numberize=parse.numberize)
 
-@bottle.post("/convert")
+@app.post("/convert")
 def convert_text():
-	file = bottle.request.files.get("file")
+	file = flask.request.files.get("file")
 	name = os.path.splitext(os.path.basename(file.filename))[0]
 	import parse_ins
 	doc = parse_ins.process_file(file.file, path=name)
@@ -255,18 +266,18 @@ def convert_text():
 	doc.title = title and title.split(document.PARA_SEP) or []
 	editors = doc.editors.render_logical()
 	doc.editors = editors and editors.split(document.PARA_SEP)
-	return bottle.jinja2_template("inscription.tpl", doc=doc, text=name,
+	return flask.render_template("inscription.tpl", doc=doc, text=name,
 		numberize=parse.numberize, root="https://dharman.in")
 	# XXX root does not work for bib entries, make it global
 
-@bottle.get("/test")
+@app.get("/test")
 def test():
-	return bottle.jinja2_template("test.tpl")
+	return flask.render_template("test.tpl")
 
-@bottle.get("/bibliography/page/<page:int>")
-@TEXTS_DB.transaction
-def display_biblio(page):
-	db = TEXTS_DB
+@app.get("/bibliography/page/<int:page>")
+@config.transaction("texts")
+def display_biblio_page(page):
+	db = config.open_db("texts")
 	db.execute("begin")
 	(entries_nr,) = db.execute("select count(*) from biblio_data where sort_key is not null").fetchone()
 	pages_nr = (entries_nr + biblio.PER_PAGE - 1) // biblio.PER_PAGE
@@ -286,17 +297,17 @@ def display_biblio(page):
 	last_entry = page * biblio.PER_PAGE
 	if last_entry > entries_nr:
 		last_entry = entries_nr
-	return bottle.jinja2_template("biblio.tpl", page=page, pages_nr=pages_nr,
+	return flask.render_template("biblio.tpl", page=page, pages_nr=pages_nr,
 		entries=entries, entries_nr=entries_nr, per_page=biblio.PER_PAGE,
 		first_entry=first_entry, last_entry=last_entry)
 
-@bottle.get("/bibliography")
+@app.get("/bibliography")
 def display_biblio():
-	return bottle.redirect("/bibliography/page/1")
+	return flask.redirect("/bibliography/page/1")
 
-@bottle.post("/validate/oxygen")
+@app.post("/validate/oxygen")
 def do_validate():
-	upload = bottle.request.files.get("upload")
+	upload = flask.request.files.get("upload")
 	if validate.schema_from_filename(upload.filename) != "inscription":
 		yield "Type: F\n"
 		yield "Description: cannot validate this file (not an inscription)\n"
@@ -322,9 +333,9 @@ def do_validate():
 		yield "\n"
 		break
 
-@bottle.post("/github-event")
+@app.post("/github-event")
 def handle_github():
-	js = bottle.request.json
+	js = flask.request.json
 	repo = js["repository"]["name"]
 	if not js.get("commits"):
 		return
@@ -333,11 +344,5 @@ def handle_github():
 		return
 	change.notify(repo)
 
-@bottle.get("/<filename:path>")
-def handle_static(filename):
-	ret = bottle.static_file(filename, root=config.STATIC_DIR)
-	return ret
-
 if __name__ == "__main__":
-	bottle.run(host=config.HOST, port=config.PORT, debug=config.DEBUG,
-		reloader=config.DEBUG)
+	app.run(host=config.HOST, port=config.PORT, debug=config.DEBUG)

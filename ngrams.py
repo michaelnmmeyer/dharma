@@ -44,8 +44,6 @@ create table if not exists jaccard(
 commit;
 """
 
-NGRAMS_DB = config.open_db("ngrams", SCHEMA)
-
 translit_tbl = [
 	("r\N{COMBINING RING BELOW}", "ṛ"),
 	("r\N{COMBINING RING BELOW}\N{COMBINING MACRON}", "ṝ"),
@@ -206,9 +204,9 @@ def make_jaccard(type, db):
 				continue
 			db.execute("insert into jaccard values(?, ?, ?, ?)", (type, id1, id2, jaccard))
 
-@NGRAMS_DB.transaction
+@config.transaction("ngrams")
 def make_database():
-	db = NGRAMS_DB
+	db = config.open_db("ngrams")
 	db.execute("begin")
 	for tbl in ("jaccard", "passages", "sources"):
 		db.execute(f"delete from {tbl}")
@@ -243,12 +241,12 @@ def jaccard(s1, s2):
 	except ZeroDivisionError:
 		return 0
 
-NGRAMS_DB.create_function("jaccard", 2, jaccard, deterministic=True)
-
 PER_PAGE = 50
 
-@NGRAMS_DB.transaction
+@config.transaction("ngrams")
 def search(src_text, category, page):
+	db = config.open_db("ngrams")
+	db.create_function("jaccard", 2, jaccard, deterministic=True)
 	if category == "verse":
 		danda = re.search(r"[/|।]", src_text)
 		if not danda:
@@ -267,7 +265,6 @@ def search(src_text, category, page):
 	src_norm = re.sub(r"\s{2,}", " ", src_norm)
 	offset = (page - 1) * PER_PAGE
 	limit = PER_PAGE + 1
-	db = NGRAMS_DB
 	db.execute("begin")
 	# XXX don't do writes here, find another solution
 	db.execute("""

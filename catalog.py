@@ -1,8 +1,6 @@
 import os, sys
 from dharma import tree, parse, texts, config, document
 
-db = config.open_db("texts")
-
 class Query:
 
 	def __init__(self, query, field=""):
@@ -175,8 +173,9 @@ def patch_languages(db, q):
 		else:
 			clause.query = "" # prevent matching
 
-@db.transaction
+@config.transaction("texts")
 def search(q, s):
+	db = config.open_db("texts")
 	db.execute("begin")
 	sql = """
 		select documents.name, documents.repo, documents.title,

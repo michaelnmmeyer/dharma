@@ -1,4 +1,4 @@
-import os, sys, logging, sqlite3, json, subprocess, re, ssl
+import os, sys, logging, sqlite3, json, subprocess, re, ssl, threading, time, functools
 from urllib.parse import urlparse, quote
 import icu
 
@@ -17,8 +17,6 @@ LOGS_DIR = os.path.join(THIS_DIR, "logs")
 
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(level=LOG_LEVEL)
-
-DUMMY_DB = None
 
 with open(os.path.join(THIS_DIR, "version.txt")) as f:
 	CODE_HASH = f.readline().strip()
@@ -40,10 +38,11 @@ def db_path(name):
 	return os.path.join(DBS_DIR, name + ".sqlite")
 
 def format_date(obj):
-	(ret,) = DUMMY_DB.execute("select strftime('%Y-%m-%d %H:%M', ?, 'auto', 'localtime')", (obj,)).fetchone()
-	return ret
+	ret = time.localtime(int(obj))
+	return time.strftime('%Y-%m-%d %H:%M', ret)
 
-DBS = {}
+# Each thread has its own db objects
+DBS = threading.local()
 
 # The point of this wrapper is to make sure we don't use functions that might
 # mess with transactions and use the same logic everywhere e.g.
@@ -58,24 +57,6 @@ class DB:
 
 	def create_function(self, *args, **kwargs):
 		return self._conn.create_function(*args, **kwargs)
-
-	# We don't begin/commit transactions implicitly, might be error-prone
-	# and not clear enough. OTOH, we rollback transactions when an
-	# exception happens and isn't catched, and we make sure that no
-	# transaction is opened when the wrapped function is called and when it
-	# returns.
-	def transaction(self, f):
-		def wrapper(*args, **kwargs):
-			assert not self._conn.in_transaction
-			try:
-				ret = f(*args, **kwargs)
-			except Exception:
-				if self._conn.in_transaction:
-					self.execute("rollback")
-				raise
-			assert not self._conn.in_transaction
-			return ret
-		return wrapper
 
 # Like the eponymous function in xslt
 def normalize_space(s):
@@ -112,24 +93,17 @@ def format_url(*args):
 	return quote(ret, safe="/:")
 
 def open_db(name, schema=None):
-	if name == "texts":
-		assert not schema
-		with open(path_of("schema.sql")) as f:
-			schema = f.read()
-	if name == ":memory:":
-		path = name
-	else:
-		conn = DBS.get(name)
-		if conn:
-			return conn
-		path = db_path(name)
+	db = getattr(DBS, name, None)
+	if db:
+		return db
+	path = db_path(name)
 	# The python sqlite3 module messes with sqlite's transaction mechanism.
 	# This is error-prone, we don't want that, thus we set
 	# isolation_level=None. Likewise, db.executescript() is a mess, we only
 	# use it for initialization code.
 	# https://docs.python.org/3/library/sqlite3.html#transaction-control
-	kwargs = {"detect_types": sqlite3.PARSE_DECLTYPES, "isolation_level": None}
-	conn = sqlite3.connect(path, **kwargs)
+	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES,
+		isolation_level=None)
 	# We use "pragma query_only" instead of opening the db in read-only mode
 	# because we want to be able to optimize the db at exit.
 	if READ_ONLY and name == "texts":
@@ -139,15 +113,31 @@ def open_db(name, schema=None):
 	conn.create_function("format_date", 1, format_date, deterministic=True)
 	conn.create_function("format_url", -1, format_url, deterministic=True)
 	conn.create_collation("icu", collate_icu)
-	# Only
-	if schema and os.path.basename(sys.argv[0]) != "server.py":
-		conn.executescript(schema)
-	assert not conn.in_transaction
 	db = DB(conn)
-	DBS[name] = db
+	setattr(DBS, name, db)
 	return db
 
-DUMMY_DB = open_db(":memory:")
+# We don't begin/commit transactions implicitly, might be error-prone
+# and not clear enough. OTOH, we rollback transactions when an
+# exception happens and isn't catched, and we make sure that no
+# transaction is opened when the wrapped function is called and when it
+# returns.
+def transaction(db_name):
+	def decorator(f):
+		@functools.wraps(f)
+		def decorated(*args, **kwargs):
+			db = open_db(db_name)
+			assert not db._conn.in_transaction
+			try:
+				ret = f(*args, **kwargs)
+			except Exception:
+				if db._conn.in_transaction:
+					db.execute("rollback")
+				raise
+			assert not db._conn.in_transaction
+			return ret
+		return decorated
+	return decorator
 
 def json_converter(blob):
 	return json.loads(blob.decode())
