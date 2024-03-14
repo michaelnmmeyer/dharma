@@ -48,10 +48,6 @@ forever:
 		$(cmd) || true; \
 	done
 
-version.txt:
-	git rev-parse HEAD > version.txt
-	git show --no-patch --format=%at HEAD >> version.txt
-
 image:
 	git pull
 	$(MAKE) version.txt
@@ -84,6 +80,10 @@ deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
 	cp schemas/prosody.rng repos/project-documentation/schema/latest/DHARMA_ProsodySchema.rng
 	git -C repos/project-documentation commit -am "Schema update" && git -C repos/project-documentation push
 
+deploy-nginx:
+	sudo cp nginx.conf /etc/nginx/nginx.conf
+	sudo nginx -s reload
+
 missing-git-names:
 	@for d in repos/*; do \
 		test -d $$d || continue; \
@@ -93,7 +93,11 @@ missing-git-names:
 		|| echo "$$name" ; \
 	done
 
-.PHONY: all clean update-repos update-texts download-dbs list-texts forever version.txt image docker-clean commit-all deploy-schemas missing-git-names
+version.txt:
+	git rev-parse HEAD > version.txt
+	git show --no-patch --format=%at HEAD >> version.txt
+
+.PHONY: all clean update-repos update-texts download-dbs list-texts arlo-plain forever image docker-clean commit-all deploy-schemas missing-git-names version.txt
 
 templates/%.tpl: templates/%.md
 	pandoc -f markdown -t html $^ -o $@
