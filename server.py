@@ -340,12 +340,12 @@ def handle_github():
 	js = flask.request.json
 	repo = js["repository"]["name"]
 	if not js.get("commits"):
-		return
+		return ""
 	# XXX remove special case, add hooks or something for each repo
 	if repo != "tfd-nusantara-philology" and all(is_robot(commit["author"]["email"]) for commit in js["commits"]):
-		return
+		return ""
 	change.notify(repo)
-	return "yeah"
+	return ""
 
 if __name__ == "__main__":
 	app.run(host=config.HOST, port=config.PORT, debug=config.DEBUG)
