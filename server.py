@@ -345,6 +345,7 @@ def handle_github():
 	if repo != "tfd-nusantara-philology" and all(is_robot(commit["author"]["email"]) for commit in js["commits"]):
 		return
 	change.notify(repo)
+	return ""
 
 if __name__ == "__main__":
 	app.run(host=config.HOST, port=config.PORT, debug=config.DEBUG)
