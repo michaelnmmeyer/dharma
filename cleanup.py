@@ -101,7 +101,7 @@ def normalize_in_place(*files):
 			err = True
 		except Exception as e:
 			die(e)
-	exit(not err)
+	exit(err)
 
 
 if __name__ == "__main__":
