@@ -74,26 +74,27 @@ function prepareTips() {
 	}
 }
 
-function flashTarget() {
+function handleClick(event) {
 	if (!this.href)
 		return
 	let url = new URL(this.href)
+	if (url.hash.length == 0)
+		return
 	if (url.origin != window.location.origin)
 		return
 	if (url.path != window.location.path)
 		return
-	highlightFragment(url)
+	let target = document.querySelector(url.hash)
+	if (!target)
+		return
+	event.preventDefault()
+	target.scrollIntoView()
+	highlightFragment(target)
 }
 
 let flashDuration = null
 
-function highlightFragment(url) {
-	let hash = url.hash
-	if (!hash)
-		return
-	let node = document.querySelector(hash)
-	if (!node)
-		return
+function highlightFragment(node) {
 	node.classList.add("flash")
 	setTimeout(function () {
 		node.classList.remove("flash")
@@ -184,9 +185,14 @@ window.addEventListener("load", function () {
 		// Assume in seconds
 		flashDuration *= 1000
 	}
-	highlightFragment(window.location)
-	for (let node of document.querySelectorAll("a"))
-		node.addEventListener("click", flashTarget)
+	let frag = window.location.hash
+	if (!frag)
+		return
+	let target = document.querySelector(frag)
+	if (!target)
+		return
+	target.scrollIntoView()
+	highlightFragment(target)
 })
 
 window.addEventListener("load", function () {
@@ -207,4 +213,6 @@ window.addEventListener("load", function () {
 			node.appendChild(a)
 		}
 	}
+	for (let node of document.querySelectorAll("a"))
+		node.addEventListener("click", handleClick)
 })
