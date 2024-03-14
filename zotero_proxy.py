@@ -1,3 +1,4 @@
+from gevent import monkey; monkey.patch_all()
 from gevent.pywsgi import WSGIServer
 import time
 from urllib.parse import urlparse
@@ -6,7 +7,6 @@ import flask, requests
 app = flask.Flask(__name__)
 
 def copy_response(r):
-
 	ret = flask.Response(r.text)
 	v = r.headers.get("Content-Type")
 	if v:
