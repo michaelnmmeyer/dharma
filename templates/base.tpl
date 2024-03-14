@@ -42,7 +42,7 @@
 % endblock
 </main>
 <footer>
-<p>© <a href="https://dharma.hypotheses.org">ERC-DHARMA Project</a>, 2019-2024</p>
+<p><small>© <a href="https://dharma.hypotheses.org">ERC-DHARMA Project</a>, 2019-2024</small></p>
 </footer>
 </div>
 
