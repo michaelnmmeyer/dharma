@@ -156,7 +156,7 @@ def append_unique(items, item):
 	return items
 
 def command(*cmd, **kwargs):
-	print(*cmd, file=sys.stderr)
+	logging.info("run %s" % " ".join(cmd))
 	kwargs.setdefault("capture_output", True)
 	kwargs.setdefault("check", True)
 	kwargs.setdefault("env", os.environ)
@@ -165,8 +165,7 @@ def command(*cmd, **kwargs):
 		ret = subprocess.run(cmd, encoding="UTF-8", **kwargs)
 	except subprocess.CalledProcessError:
 		if ret:
-			sys.stderr.write(ret.stderr)
-			sys.stderr.flush()
+			logging.info(ret.stderr)
 		raise
 	return ret
 
