@@ -83,7 +83,7 @@ def insert(file, db):
 		fmt_title = fmt_title.split(document.PARA_SEP)
 	else:
 		fmt_title = []
-	fmt_editors = doc.editors.render_logical()
+	fmt_editors = doc.editors and doc.editors.render_logical() or []
 	if fmt_editors:
 		fmt_editors = fmt_editors.split(document.PARA_SEP)
 	else:
