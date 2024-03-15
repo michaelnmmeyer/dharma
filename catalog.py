@@ -38,6 +38,7 @@ def delete(name, db):
 
 def process_file(repo, path):
 	print(path)
+	db = config.open_db("texts")
 	try:
 		t = tree.parse(path)
 	except tree.Error as e:
