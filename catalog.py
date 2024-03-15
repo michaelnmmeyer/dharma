@@ -97,7 +97,7 @@ def insert(file, db):
 	db.execute("""insert into documents_index(name, ident, repo, title, author, editor, lang, summary)
 		values (?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.ident.lower(),
 		doc.repository.lower(), doc.title.searchable_text(), doc.author.searchable_text(),
-		doc.editors.searchable_text(), "---".join(doc.langs), doc.summary.searchable_text()))
+		doc.editors and doc.editors.searchable_text() or "", "---".join(doc.langs), doc.summary.searchable_text()))
 
 class InvalidQuery(Exception):
 	pass
