@@ -29,6 +29,8 @@ Languages
 </tbody>
 </table>
 
+<p>For the canonical list of languages of the DHARMA project, see <a href="https://github.com/erc-dharma/project-documentation/blob/master/DHARMA_languages.tsv">here</a>.</p>
+
 <p>For the ISO 639-3 standard (languages), see <a
 href="https://iso639-3.sil.org">here</a>.</p>
 

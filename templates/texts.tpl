@@ -17,7 +17,7 @@ Texts
 to the editors mentioned in the XML file's <code>&lt;teiHeader&gt;</code>. Thus, if
 you select your name, you will see files that you modified at some point, even
 if you are not credited as an editor. Conversely, the files where you are
-credited as an editor but that you did not modify yourself will not be shown.</p>
+credited as an editor but that you did not modify yourself will not be shown. The rationale for referring to Git's commit history is that it is not possible to extract editor names from invalid XML files.</p>
 
 <p>The "Severity" parameter indicates how serious the problem is. There are
 three severity levels:</p>
