@@ -34,34 +34,43 @@ a file is well-formed XML in Oxygen, click on the downwards arrow next to the "V
 button in the toolbar, and click on "Check Well-Formedness".</p>
 
 <form action="/texts" method="get">
-<label for="select-owner">Edited by:</label>
-<select name="owner" id="select-owner">
-% if owner:
-   <option value="">Anybody</option>
-% else:
-   <option value="" selected>Anybody</option>
-% endif
-% for author_id, author_name in authors:
-   % if author_id == owner:
-      <option value="{{author_id}}" selected>{{author_name}}</option>
+<ul>
+<li>
+   <label for="select-owner">Edited by:</label>
+   <select name="owner" id="select-owner">
+   % if owner:
+      <option value="">Anybody</option>
    % else:
-      <option value="{{author_id}}">{{author_name}}</option>
+      <option value="" selected>Anybody</option>
    % endif
-% endfor
-</select>
-<label for="select-severity">Severity:</label>
-<select name="severity" id="select-severity">
-% for value in ("warning", "error", "fatal"):
-% if value == severity:
-   <option value="{{value}}" selected>{{value.title()}}</option>
-% else:
-   <option value="{{value}}">{{value.title()}}</option>
-% endif
-% endfor
-</select>
-<input type="submit" value="Reload">
+   % for author_id, author_name in authors:
+      % if author_id == owner:
+         <option value="{{author_id}}" selected>{{author_name}}</option>
+      % else:
+         <option value="{{author_id}}">{{author_name}}</option>
+      % endif
+   % endfor
+   </select>
+</li>
+<li>
+   <label for="select-severity">Severity:</label>
+   <select name="severity" id="select-severity">
+   % for value in ("warning", "error", "fatal"):
+   % if value == severity:
+      <option value="{{value}}" selected>{{value.title()}}</option>
+   % else:
+      <option value="{{value}}">{{value.title()}}</option>
+   % endif
+   % endfor
+   </select>
+</li>
+<li>
+   <input type="submit" value="Reload">
+</li>
+</ul>
 </form>
 
+% if texts:
 <table>
 <thead>
 <tr>
@@ -83,5 +92,8 @@ button in the toolbar, and click on "Check Well-Formedness".</p>
 % endfor
 </tbody>
 </table>
+% else
+<p>🍾 All good!</p>
+% endif
 
 % endblock
