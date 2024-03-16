@@ -1,3 +1,7 @@
+function unwrap(node) {
+	node.replaceWith(...node.childNodes)
+}
+
 function toggleMenu() {
 	let menu = document.querySelector("menu")
 	if (menu.classList.contains("active")) {
@@ -141,6 +145,9 @@ function TOCEntryToHTML(entry, root) {
 		}
 		link.setAttribute("href", "#" + target)
 		link.innerHTML = heading.innerHTML
+		// Remove inner links
+		for (let a of link.querySelectorAll("a[href]"))
+			unwrap(a)
 		li.appendChild(link)
 		// TODO do something less stupid
 		for (let display of ["logical", "physical", "full", "xml"]) {
@@ -216,3 +223,4 @@ window.addEventListener("load", function () {
 	for (let node of document.querySelectorAll("a"))
 		node.addEventListener("click", handleClick)
 })
+
