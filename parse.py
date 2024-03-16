@@ -556,6 +556,8 @@ def numberize(s, n):
 	return s + "s"
 
 def titlecase(s):
+	if not s:
+		return ""
 	t = s.split(None, 1)
 	t[0] = t[0].title()
 	return " ".join(t)
@@ -733,17 +735,12 @@ def parse_surplus(p, node):
 
 def parse_p(p, para):
 	if para["rend"] == "stanza":
-		n = para["n"] or "?"
-		if n.isdigit():
-			n = to_roman(int(n))
-		p.add_log("<head", level=6)
-		p.add_html("%s." % n, plain=True)
-		p.add_log(">head", level=6)
-		p.add_log("<para", rend="verse")
+		# See e.g. INSPallava06 <p rend="stanza" n="1">...
+		parse_lg(p, para)
 	else:
 		p.add_log("<para")
-	p.dispatch_children(para)
-	p.add_log(">para")
+		p.dispatch_children(para)
+		p.add_log(">para")
 
 def parse_ab(p, ab):
 	p.add_log("<para")
@@ -803,7 +800,7 @@ def parse_lg(p, lg):
 	n = lg["n"] or "?"
 	if n.isdigit():
 		n = to_roman(int(n))
-	met = titlecase(lg["met"] or "unknown meter")
+	met = titlecase(lg["met"])
 	p.add_log("<head", level=6)
 	p.add_html("%s. %s" % (n, met), plain=True)
 	p.add_log(">head", level=6)
