@@ -78,6 +78,15 @@ function prepareTips() {
 	}
 }
 
+let flashDuration = null
+
+function highlightFragment(node) {
+	node.classList.add("flash")
+	setTimeout(function () {
+		node.classList.remove("flash")
+	}, flashDuration)
+}
+
 function handleClick(event) {
 	if (!this.href)
 		return
@@ -96,13 +105,23 @@ function handleClick(event) {
 	highlightFragment(target)
 }
 
-let flashDuration = null
-
-function highlightFragment(node) {
-	node.classList.add("flash")
-	setTimeout(function () {
-		node.classList.remove("flash")
-	}, flashDuration)
+function initFlashing() {
+	let t = getCSSVar("--flash-duration")
+	flashDuration = parseInt(t)
+	if (!t.endsWith("ms")) {
+		// Assume in seconds
+		flashDuration *= 1000
+	}
+	for (let node of document.querySelectorAll("a"))
+		node.addEventListener("click", handleClick)
+	let frag = window.location.hash
+	if (!frag)
+		return
+	let target = document.querySelector(frag)
+	if (!target)
+		return
+	target.scrollIntoView()
+	highlightFragment(target)
 }
 
 function popTOCStack(stack, level) {
@@ -150,7 +169,7 @@ function TOCEntryToHTML(entry, root) {
 			unwrap(a)
 		li.appendChild(link)
 		// TODO do something less stupid
-		for (let display of ["logical", "physical", "full", "xml"]) {
+		for (let display of displays) {
 			let tmp = document.querySelector("#" + display)
 			if (tmp && tmp.contains(heading)) {
 				li.dataset.display = display
@@ -179,48 +198,56 @@ function displayTOC() {
 	let root = makeTOC()
 	if (root.children.length == 0)
 		return
-	document.querySelector("#toc-heading").style.display = "block"
+	document.querySelector("#toc-heading").classList.remove("hidden")
 	TOCEntryToHTML(root, toc)
+}
+
+function getCSSVar(name) {
+	return getComputedStyle(document.documentElement).getPropertyValue(name)
+}
+
+let displays = ["logical", "physical", "full", "xml"]
+let currentDisplay = "logical"
+
+function displayButton(name) {
+	return document.querySelector("#" + name + "-btn")
+}
+
+function switchDisplayTo(name) {
+	for (let display of displays) {
+		if (display == name) {
+			displayButton(display).classList.add("active")
+		} else {
+			displayButton(display).classList.remove("active")
+		}
+	}
+	for (let node of document.querySelectorAll("[data-display]")) {
+		if (node.dataset.display == name) {
+			node.classList.remove("hidden")
+		} else {
+			node.classList.add("hidden")
+		}
+	}
+	currentDisplay = name
+}
+
+function initDisplays() {
+	for (let name of displays) {
+		let button = displayButton(name)
+		if (!button)
+			continue
+		button.addEventListener("click", function (event) {
+			switchDisplayTo(name)
+			event.preventDefault()
+		})
+	}
 }
 
 window.addEventListener("load", function () {
 	prepareTips()
 	displayTOC()
-	let t = getComputedStyle(document.documentElement).getPropertyValue("--flash-duration")
-	flashDuration = parseInt(t)
-	if (!t.endsWith("ms")) {
-		// Assume in seconds
-		flashDuration *= 1000
-	}
-	let frag = window.location.hash
-	if (!frag)
-		return
-	let target = document.querySelector(frag)
-	if (!target)
-		return
-	target.scrollIntoView()
-	highlightFragment(target)
-})
-
-window.addEventListener("load", function () {
 	document.querySelector("#toggle-menu").addEventListener("click", toggleMenu, false)
 	document.querySelector("#toggle-toc").addEventListener("click", toggleTOC, false)
-	for (let node of document.querySelectorAll("[data-href]")) {
-		node.style.cursor = "pointer"
-		node.addEventListener("click", function() {
-			let href = this.getAttribute('data-href')
-			window.location.href = href
-		})
-	}
-	for (let node of document.querySelectorAll("h1, h2, h3, h4, h5, h6")) {
-		let id = node.id
-		if (id) {
-			let a = document.createElement("a")
-			a.href = "#" + id
-			node.appendChild(a)
-		}
-	}
-	for (let node of document.querySelectorAll("a"))
-		node.addEventListener("click", handleClick)
+	initDisplays()
+	initFlashing()
 })
-

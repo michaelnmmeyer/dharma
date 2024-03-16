@@ -10,10 +10,8 @@
    <link rel="stylesheet" href="{{root}}/fonts.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    <link rel="stylesheet" href="{{root}}/base.css">
-   <link rel="stylesheet" href="{{root}}/inscription.css">
    <script src="{{root}}/pack.js"></script>
    <script src="{{root}}/base.js"></script>
-   <script src="{{root}}/inscription.js"></script>
 </head>
 <body>
 
@@ -34,7 +32,7 @@
    </menu>
 </header>
 <aside>
-   <div id="toc-heading" class="toc-heading" style="display:none">Contents</div>
+   <div id="toc-heading" class="toc-heading hidden">Contents</div>
    <nav id="toc"></nav>
 </aside>
 <main>
