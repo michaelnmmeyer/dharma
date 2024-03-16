@@ -4,12 +4,12 @@ function unwrap(node) {
 
 function toggleMenu() {
 	let menu = document.querySelector("menu")
-	if (menu.classList.contains("active")) {
-		menu.classList.remove("active")
+	if (menu.classList.contains("menu-active")) {
+		menu.classList.remove("menu-active")
 		// adds the menu (hamburger) icon
 		document.querySelector("#toggle-menu a").innerHTML = "<i class='fa-solid fa-bars'></i>"
 	} else {
-		menu.classList.add("active")
+		menu.classList.add("menu-active")
 		// adds the close (x) icon
 		document.querySelector("#toggle-menu a").innerHTML = "<i class='fa-solid fa-times'></i>"
 	}
