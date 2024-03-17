@@ -12,6 +12,26 @@ all: $(generated_tei) $(generated_views)
 clean:
 	rm -f $(generated_tei) $(generated_views)
 
+.PHONY: all clean
+
+services = $(notdir $(wildcard systemd/*.service))
+
+start:
+	for service in $(services); do \
+		sudo systemctl restart $$service; \
+	done
+
+stop:
+	for service in $(services); do \
+		sudo systemctl stop $$service; \
+	done
+
+deploy-systemd:
+	sudo cp systemd/*.service /etc/systemd/system
+	sudo systemctl daemon-reload
+
+.PHONY: start stop deploy-systemd
+
 update-repos:
 	for d in repos/*; do \
 		test -d $$d && git -C $$d pull; \
