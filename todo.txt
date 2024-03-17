@@ -1,17 +1,17 @@
-prepare display for impression
+make docker not use root (and thus maybe avoid the git trust repo issue in
+dockerfile)
+
+do not reopen the same text file several times, only read it a single time and
+do not access the external file once stored in the db.
+
+find a way to signal duplicate files and duplicate bib entries.
+
+check that we support invalid texts in catalog; add a dummy repo that contains sample files for testing
 
 force reloading of static files with a ?v=x param (unless this completely
 prevents caching, cannot tell) or by adding some unique identifier in the
 request path (better). best maybe: add the commit hash in the file path.
 
-pour mai évaluation:
-- faire calendrier
-- milestones (phys)
-- numéros de ligne
-- métadonnées + authorities
-- tamil epigraphical lexicon + external lexia
-- éditions critiques d'arlo ; cf. martina?
-2 ans + 1/2 (til october)
 
 actually use dharma.rng, only in /texts for now, afterwards distribute it;
 check that we're correct at each step; add somewhere a date indicating when we
@@ -48,9 +48,6 @@ shouldn't pop when we arrive to the page footer, how? The left sidebard should
 be resizable, but then dimensions need to be saved as a cookie because reloading
 the page will mess up the size.
 
-LaTeX ; tfa-cirkali-epigraphy correction diacrtitiques + conversion vrs xml +
-conversion vers PDF.
-
 Generate a site map (wget?).
 
 Use the w3c validator API https://validator.w3.org/docs/api.html with random
@@ -59,11 +56,6 @@ urls to detect issues; submit URLs like so:
   https://validator.w3.org/nu/?out=json&doc=$URL
 
 Check for multiple uses of the same bib entry as in https://dharman.in/display/DHARMA_INSBengalCharters00050#bibliography (disallow?)
-
-Change how the "Logical", "Physical" etc. stuff works in such a way that opening
-a new tab by clicking on Logical, etc. works. But how to deal with history
-feature? Keep track of it at all? Maybe shouldn't for display pages, but then
-permalinks will work weirdly.
 
 Work on parse and find a protocol for correcting files. Would probably be best
 to do the parsing and correcting in the same spot, for easier maintenance, but
@@ -88,7 +80,7 @@ Print somewhere which git names we don't have, auto-update it.
 ===
 
 Merge catalog and texts into a single interface. Need first to add a search
-field to filter by error status. Must also be prepared to index documents that are completely invalid, in which case just display text id + repo in the catalog, and the XML in the display.
+field to filter by error status.
 
 ===
 
@@ -121,8 +113,6 @@ populate aside menu on phone
 
 when flashing entries in the global biblio, the flashed entry is below the bar on mobile.
 XXX still so?
-
-make docker not use root (and thus maybe avoid the git trust repo issue in dockerfile)
 
 Script maturity is for use only with the class "Brahmi and derivatives" (and
 its subcategories); for any other script classes it is not optional but
@@ -158,25 +148,6 @@ Display remainder of teiheader. What needs to be shown?
 /TEI/teiHeader/fileDesc/sourceDesc
 
 ===========================================================
-
-add a side menu for navigating inscriptions. on mobile, make it collapse. the
-toggle button should be on the menu bar, to save space.
-even on pc, must have a button to hide/show it. also must be possible to
-redimension it.
-XXX the menu on the left is not really sticky.
-
-   Metadata
-   Edition+
-   Apparatus?
-   Translation*
-   Commentary?
-   Bibliography?
-   Notes?
-   XML source
-
-for the catalog, we'll also need a sidebar.
-
---------------------------------------------------------
 
 # Testing
 
