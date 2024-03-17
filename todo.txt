@@ -1,5 +1,7 @@
 make docker not use root (and thus maybe avoid the git trust repo issue in
 dockerfile)
+maybe not use docker?
+systemd-run --uid $(id -u) --gid $(id -g) -u dharma -d -E PYTHONPATH=/home/michael:$PYTHONPATH python3 server.py
 
 do not reopen the same text file several times, only read it a single time and
 do not access the external file once stored in the db.
