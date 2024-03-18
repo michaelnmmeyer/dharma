@@ -169,43 +169,9 @@ def process_file(file, db=None, **kwargs):
 		p.document.langs = sorted(langs)
 	return p.document
 
-def export_arlo_plain_numbered(files):
-	renderer = parse.PlainRenderer(strip_physical=False, arlo_normalize=True)
-	out_dir = config.path_of("arlo_plain", "plain_numbered")
-	os.makedirs(out_dir, exist_ok=True)
-	for file in files:
-		ret = renderer.render(file)
-		out_file = os.path.join(out_dir, file.ident + "_numbered.txt")
-		with open(out_file, "w") as f:
-			f.write(ret)
-
-def export_arlo_plain_raw(files):
-	renderer = parse.PlainRenderer(strip_physical=True, arlo_normalize=True)
-	out_dir = config.path_of("arlo_plain", "plain_raw")
-	os.makedirs(out_dir, exist_ok=True)
-	for file in files:
-		ret = renderer.render(file)
-		out_file = os.path.join(out_dir, file.ident + "_raw.txt")
-		with open(out_file, "w") as f:
-			f.write(ret)
-
-def export_arlo():
-	db = config.open_db("texts")
-	files = []
-	for (name,) in db.execute("""
-		select name from documents, json_each(documents.langs)
-		where json_each.value = 'kaw' and name glob 'DHARMA_INS*'
-		"""):
-		path = config.path_of("texts", name + ".xml")
-		print(path)
-		file = process_file(path)
-		files.append(file)
-	export_arlo_plain_numbered(files)
-	export_arlo_plain_raw(files)
-
 def export_plain():
 	db = config.open_db("texts")
-	renderer = parse.PlainRenderer(strip_physical=True, arlo_normalize=False)
+	renderer = parse.PlainRenderer(strip_physical=True)
 	out_dir = config.path_of("plain")
 	os.makedirs(out_dir, exist_ok=True)
 	for name, path in db.execute("""
@@ -228,7 +194,6 @@ if __name__ == "__main__":
 			document.write_debug(t, data, **params)
 		#ret = parse.PlainRenderer().render(doc)
 		#sys.stdout.write(ret)
-		#export_arlo()
 		#export_plain()
 	except (KeyboardInterrupt, BrokenPipeError):
 		pass

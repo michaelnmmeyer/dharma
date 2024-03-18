@@ -12,7 +12,26 @@ all: $(generated_tei) $(generated_views)
 clean:
 	rm -f $(generated_tei) $(generated_views)
 
-.PHONY: all clean
+# Usage: make forever cmd="echo hello"
+cmd := $(MAKE) -j3
+forever:
+	@$(cmd) || true
+	@while inotifywait -qqre modify . @dbs @docs @notes @repos @schemas; do \
+		$(cmd) || true; \
+	done
+
+# Usage: make commit-all m="Commit message"
+m := "Address encoding problems"
+commit-all:
+	for d in repos/*; do \
+		test -d $$d || continue; \
+		test -n "`git status -s`" || continue; \
+		git -C $$d add --all; \
+		git -C $$d commit -m "$(m)"; \
+		git -C $$d push; \
+	done
+
+.PHONY: all clean forever commit-all
 
 services = $(notdir $(wildcard systemd/*.service))
 
@@ -46,40 +65,6 @@ update-texts:
 		ln -s $$f texts/$$(basename $$f); \
 	done
 
-download-dbs:
-	rsync --progress 'dharma:dharma/dbs/*.sqlite*' dbs/
-
-list-texts:
-	@sqlite3 dbs/texts.sqlite "select printf('repos/%s/%s', repo, path) \
-		from texts natural join files order by name"
-
-ARLO_PLAIN=repos/jawakuno/texts/txt/prasasti/DHARMA_export
-arlo-plain:
-	python3 parse_ins.py && \
-		rm -rf $(ARLO_PLAIN) && \
-		mv arlo_plain $(ARLO_PLAIN) && \
-		git -C repos/jawakuno commit -am "Update DHARMA inscriptions" && \
-		git -C repos/jawakuno push
-
-# Usage: make forever cmd="echo hello"
-cmd := $(MAKE) -j3
-forever:
-	@$(cmd) || true
-	@while inotifywait -qqre modify . @dbs @docs @notes @past @repos @schemas; do \
-		$(cmd) || true; \
-	done
-
-# Usage: make commit-all m="Commit message"
-m := "Address encoding problems"
-commit-all:
-	for d in repos/*; do \
-		test -d $$d || continue; \
-		test -n "`git status -s`" || continue; \
-		git -C $$d add --all; \
-		git -C $$d commit -m "$(m)"; \
-		git -C $$d push; \
-	done
-
 deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
 	cp schemas/inscription.xml repos/project-documentation/schema/DHARMA_INSSchema_v01.xml
 	cp schemas/bestow.xml repos/project-documentation/schema/DHARMA_BESTOW_v01.xml
@@ -110,7 +95,7 @@ version.txt:
 	git rev-parse HEAD > version.txt
 	git show --no-patch --format=%at HEAD >> version.txt
 
-.PHONY: all clean update-repos update-texts download-dbs list-texts arlo-plain forever commit-all deploy-schemas missing-git-names version.txt
+.PHONY: update-repos update-texts deploy-schemas deploy-nginx missing-git-names version.txt
 
 templates/%.tpl: templates/%.md
 	pandoc -f markdown -t html $^ -o $@

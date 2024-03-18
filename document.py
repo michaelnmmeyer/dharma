@@ -536,9 +536,8 @@ class Document:
 
 class PlainRenderer:
 
-	def __init__(self, strip_physical=True, arlo_normalize=False):
+	def __init__(self, strip_physical=True):
 		self.strip_physical = strip_physical
-		self.arlo_normalize = arlo_normalize
 
 	def reset(self, buf=""):
 		self.buf = buf
@@ -555,30 +554,6 @@ class PlainRenderer:
 		if data.strip() and self.buf and self.buf[-1] == "\n":
 			self.buf += self.indent * "\t"
 		self.buf += data
-
-	def kawi_normalize(self, text):
-		text = text.replace("ḥ", "h")
-		text = text.replace("ṁ", "ṅ")
-		text = text.replace("⌈", "")
-		text = text.replace("⌉", "")
-		text = text.replace("ə:", "ə̄")
-		text = text.replace("Ə:", "Ə̄")
-		text = text.replace("·", "")
-		text = text.replace("=", "")
-		text = text.replace("R\N{combining ring below}", "rə")
-		text = text.replace("L\N{combining ring below}", "lə")
-		text = text.casefold()
-		for vowel in "aiu":
-			# Ă, ă, ĭ, etc. -> ā, ā, ī, etc.
-			orig = unicodedata.normalize("NFC", vowel + "\N{combining breve}")
-			repl = unicodedata.normalize("NFC", vowel + "\N{combining macron}")
-			text = text.replace(orig, repl)
-		for vowel in "ṛṝḷḹ":
-			repl = unicodedata.normalize("NFD", vowel)
-			repl = repl.replace("\N{combining dot below}", "\N{combining ring below}")
-			repl = unicodedata.normalize("NFC", repl)
-			text = text.replace(vowel, repl)
-		return text
 
 	def render(self, doc):
 		self.reset()
@@ -612,8 +587,6 @@ class PlainRenderer:
 			self.render_block(doc.edition[0])
 		text = unicodedata.normalize("NFC", "".join(self.buf).rstrip() + "\n")
 		self.reset(buf)
-		if self.arlo_normalize:
-			text = self.kawi_normalize(text)
 		self.add(text)
 		return re.sub(r"\n{2,}", "\n\n", self.buf)
 
