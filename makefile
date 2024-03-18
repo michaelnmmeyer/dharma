@@ -31,7 +31,7 @@ commit-all:
 
 .PHONY: all clean forever commit-all
 
-services = $(notdir $(wildcard systemd/*.service))
+services = $(notdir $(wildcard config/*.service))
 
 start:
 	for service in $(services); do \
@@ -45,7 +45,7 @@ status:
 	sudo systemctl status 'dharma.*'
 
 deploy-systemd:
-	sudo cp systemd/*.service /etc/systemd/system
+	sudo cp config/*.service /etc/systemd/system
 	sudo systemctl daemon-reload
 
 .PHONY: start stop status deploy-systemd
@@ -77,7 +77,7 @@ deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
 	git -C repos/project-documentation commit -am "Schema update" && git -C repos/project-documentation push
 
 deploy-nginx:
-	sudo cp nginx.conf /etc/nginx/nginx.conf
+	sudo cp config/nginx.conf /etc/nginx/nginx.conf
 	sudo nginx -s reload
 
 missing-git-names:
