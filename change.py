@@ -150,7 +150,7 @@ def update_db(repo):
 	db.execute("insert or replace into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
 		(changes.repo, changes.commit_hash, changes.commit_date))
 	for name in changes.delete:
-		catalog.delete(name, db)
+		catalog.delete(name)
 		db.execute("delete from owners where name = ?", (name,))
 		db.execute("delete from texts where name = ?", (name,))
 		db.execute("delete from files where repo = ? and name = ?", (changes.repo, name))
@@ -166,7 +166,7 @@ def update_db(repo):
 		for git_name in file.owners:
 			db.execute("insert or ignore into owners(name, git_name) values(?, ?)",
 				(file.name, git_name))
-		catalog.insert(file, db)
+		catalog.insert(file)
 
 # We should always put stuff like names, etc. in the db instead of keeping it
 # in-memory, so that we can tell what's the current data just by looking at

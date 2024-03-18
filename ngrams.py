@@ -129,7 +129,10 @@ def number_of(verse):
 	return n
 
 def extract_verses(path):
-	xml = tree.parse(path)
+	try:
+		xml = tree.parse(path)
+	except tree.Error:
+		return
 	for verse in xml.find("//lg"):
 		padas = extract_padas(verse)
 		if not padas:
@@ -186,7 +189,8 @@ def process_file(path, id):
 				id += 1
 				yield type, id, file, number, contents, normalized
 
-def make_jaccard(type, db):
+def make_jaccard(type):
+	db = config.db("ngrams")
 	data = []
 	for id, normalized in db.execute("select id, normalized from passages where type = ?", (type,)):
 		data.append((id, set(trigrams(normalized))))
@@ -219,7 +223,7 @@ def make_database():
 				values(?, ?, ?, ?, ?, ?)""", row)
 			id = row[1]
 	for type, _ in enum_funcs:
-		make_jaccard(type, db)
+		make_jaccard(type)
 	db.execute("insert into jaccard select type, id2, id, coeff from jaccard")
 	db.execute("""update passages set parallels = (select count(*) from jaccard
 		where jaccard.type = passages.type and jaccard.id = passages.id)""")

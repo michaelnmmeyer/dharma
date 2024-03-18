@@ -32,7 +32,8 @@ class OR(Query):
 	def __str__(self):
 		return "(%s)" % " OR ".join(str(clause) for clause in self.clauses)
 
-def delete(name, db):
+def delete(name):
+	db = config.db("texts")
 	db.execute("delete from documents_index where name = ?", (name,))
 	db.execute("delete from documents where name = ?", (name,))
 
@@ -68,7 +69,8 @@ def process_file(repo, path):
 	doc.repository = repo
 	return doc
 
-def insert(file, db):
+def insert(file):
+	db = config.db("texts")
 	doc = process_file(file.repo, file.full_path)
 	if not doc:
 		return
@@ -158,7 +160,8 @@ def parse_query(q):
 			i += 1
 	return AND(clauses)
 
-def patch_languages(db, q):
+def patch_languages(q):
+	db = config.db("texts")
 	for clause in q.clauses:
 		if clause.field != "lang":
 			continue
@@ -192,7 +195,7 @@ def search(q, s):
 	q = " ".join(document.normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
 	if q:
 		q = parse_query(q)
-		patch_languages(db, q)
+		patch_languages(q)
 		q = (str(q),)
 		sql += " where documents_index match ? "
 	else:

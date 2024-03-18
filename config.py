@@ -3,16 +3,15 @@ from urllib.parse import urlparse, quote
 import icu
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+# For subprocesses
 os.environ["DHARMA_HOME"] = THIS_DIR
 
 def path_of(*path_elems):
 	return os.path.join(THIS_DIR, *path_elems)
 
-DEBUG = bool(int(os.environ.get("DEBUG", 1)))
 REPOS_DIR = os.path.join(THIS_DIR, "repos")
 
-LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
-logging.basicConfig(level=LOG_LEVEL)
+logging.basicConfig(level="INFO")
 
 # Report exceptions within user functions on stderr. Otherwise we only get a
 # message that says an exception was raised, without more info.
@@ -118,15 +117,15 @@ def transaction(db_name):
 	def decorator(f):
 		@functools.wraps(f)
 		def decorated(*args, **kwargs):
-			db = db(db_name)
-			assert not db._conn.in_transaction
+			d = db(db_name)
+			assert not d._conn.in_transaction
 			try:
 				ret = f(*args, **kwargs)
 			except Exception:
-				if db._conn.in_transaction:
-					db.execute("rollback")
+				if d._conn.in_transaction:
+					d.execute("rollback")
 				raise
-			assert not db._conn.in_transaction
+			assert not d._conn.in_transaction
 			return ret
 		return decorated
 	return decorator

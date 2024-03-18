@@ -7,11 +7,11 @@
    % block title
    % endblock
    </title>
-   <link rel="stylesheet" href="{{root}}/fonts.css?{{code_hash}}">
+   <link rel="stylesheet" href="{{root}}/fonts.css?v={{code_hash}}">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   <link rel="stylesheet" href="{{root}}/base.css?{{code_hash}}">
-   <script src="{{root}}/pack.js?{{code_hash}}"></script>
-   <script src="{{root}}/base.js?{{code_hash}}"></script>
+   <link rel="stylesheet" href="{{root}}/base.css?v={{code_hash}}">
+   <script src="{{root}}/pack.js?v={{code_hash}}"></script>
+   <script src="{{root}}/base.js?v={{code_hash}}"></script>
 </head>
 <body>
 

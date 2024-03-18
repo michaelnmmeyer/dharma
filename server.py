@@ -229,6 +229,7 @@ def display_home():
 @config.transaction("texts")
 def display_text(text):
 	db = config.db("texts")
+	db.execute("begin")
 	row = db.execute("""
 		select
 			printf('%s/%s/%s', ?, repo, path) as path,
@@ -245,7 +246,7 @@ def display_text(text):
 		return flask.abort(404)
 	import parse_ins
 	try:
-		doc = parse_ins.process_file(row["path"], db)
+		doc = parse_ins.process_file(row["path"])
 		title = doc.title.render_logical()
 		doc.title = title and title.split(document.PARA_SEP) or []
 		editors = doc.editors.render_logical()
@@ -258,6 +259,7 @@ def display_text(text):
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
 	doc.last_modified_commit = row["last_modified_commit"]
+	db.execute("rollback")
 	return flask.render_template("inscription.tpl", doc=doc,
 		github_url=row["github_url"], text=text, numberize=parse.numberize)
 
@@ -266,7 +268,7 @@ def convert_text():
 	file = flask.request.files.get("file")
 	name = os.path.splitext(os.path.basename(file.filename))[0]
 	import parse_ins
-	doc = parse_ins.process_file(file.file, path=name)
+	doc = parse_ins.process_file(file.file)
 	title = doc.title.render_logical()
 	doc.title = title and title.split(document.PARA_SEP) or []
 	editors = doc.editors.render_logical()
@@ -351,6 +353,6 @@ def handle_github():
 	return ""
 
 if __name__ == "__main__":
-	app.run(host="localhost", port=8023, debug=config.DEBUG)
+	app.run(host="localhost", port=8023, debug=True)
 	# To run with gunicorn, use:
 	# gunicorn -w 4 -b localhost:8023 dharma.server:app

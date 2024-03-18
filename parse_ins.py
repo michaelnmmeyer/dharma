@@ -139,8 +139,8 @@ def update_handlers_map(m):
 HANDLERS = parse.HANDLERS.copy()
 update_handlers_map(HANDLERS)
 
-def process_file(file, db=None, **kwargs):
-	t = tree.parse(file, **kwargs)
+def process_file(file):
+	t = tree.parse(file)
 	f = t.first("//teiHeader/encodingDesc")
 	if f:
 		f.delete()
@@ -156,17 +156,17 @@ def process_file(file, db=None, **kwargs):
 	body = t.first("//body")
 	if body:
 		p.document.xml = tree.html_format(body)
-	if db:
-		langs = set()
-		for node in t.find("//*"):
-			if not "lang" in node.attrs:
-				continue
-			lang = node["lang"]
-			(code,) = db.execute("select ifnull((select id from langs_by_code where code = ?), 'und')", (lang,)).fetchone()
-			langs.add(code)
-		if not langs:
-			langs.add("und")
-		p.document.langs = sorted(langs)
+	db = config.db("texts")
+	langs = set()
+	for node in t.find("//*"):
+		if not "lang" in node.attrs:
+			continue
+		lang = node["lang"]
+		(code,) = db.execute("select ifnull((select id from langs_by_code where code = ?), 'und')", (lang,)).fetchone()
+		langs.add(code)
+	if not langs:
+		langs.add("und")
+	p.document.langs = sorted(langs)
 	return p.document
 
 def export_plain():
