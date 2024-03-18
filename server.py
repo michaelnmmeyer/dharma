@@ -6,6 +6,10 @@ from dharma import config, change, people, ngrams, catalog, parse, validate, par
 app = flask.Flask(__name__, static_url_path="")
 app.jinja_options["line_statement_prefix"] = "%"
 
+@app.context_processor
+def inject_global_vars():
+	return {"code_hash": config.CODE_HASH}
+
 @app.get("/")
 def index():
 	date = config.format_date(config.CODE_DATE)
@@ -66,7 +70,6 @@ def show_texts():
 	conn.execute("rollback")
 	return flask.render_template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner, severity=severity)
 
-# XXX simplify URL
 @app.get("/texts/<name>")
 @config.transaction("texts")
 def show_text(name):
