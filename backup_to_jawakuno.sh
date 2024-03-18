@@ -1,8 +1,6 @@
 set -e errexit
 
-if test -z "$DHARMA_HOME"; then
-	DHARMA_HOME=/home/michael/dharma
-fi
+test -n "$DHARMA_HOME"
 
 cd "$DHARMA_HOME/repos/jawakuno"
 git pull

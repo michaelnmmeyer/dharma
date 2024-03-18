@@ -3,6 +3,7 @@ from urllib.parse import urlparse, quote
 import icu
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+os.environ["DHARMA_HOME"] = THIS_DIR
 
 def path_of(*path_elems):
 	return os.path.join(THIS_DIR, *path_elems)
