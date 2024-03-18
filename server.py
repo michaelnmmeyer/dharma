@@ -234,6 +234,7 @@ def display_text(text):
 		select
 			printf('%s/%s/%s', ?, repo, path) as path,
 			repo,
+			data,
 			commit_hash,
 			format_date(commit_date) as commit_date,
 			format_date(last_modified) as last_modified,
@@ -246,7 +247,7 @@ def display_text(text):
 		return flask.abort(404)
 	import parse_ins
 	try:
-		doc = parse_ins.process_file(row["path"])
+		doc = parse_ins.process_file(row["path"], row["data"])
 		title = doc.title.render_logical()
 		doc.title = title and title.split(document.PARA_SEP) or []
 		editors = doc.editors.render_logical()
@@ -268,7 +269,7 @@ def convert_text():
 	file = flask.request.files.get("file")
 	name = os.path.splitext(os.path.basename(file.filename))[0]
 	import parse_ins
-	doc = parse_ins.process_file(file.file)
+	doc = parse_ins.process_file(file.file, file.filename)
 	title = doc.title.render_logical()
 	doc.title = title and title.split(document.PARA_SEP) or []
 	editors = doc.editors.render_logical()
@@ -311,34 +312,6 @@ def display_biblio_page(page):
 @app.get("/bibliography")
 def display_biblio():
 	return flask.redirect("/bibliography/page/1")
-
-@app.post("/validate/oxygen")
-def do_validate():
-	upload = flask.request.files.get("upload")
-	if validate.schema_from_filename(upload.filename) != "inscription":
-		yield "Type: F\n"
-		yield "Description: cannot validate this file (not an inscription)\n"
-		yield "\n"
-		return
-	doc = parse_ins.process_file(upload.file)
-	errs = sorted(doc.tree.bad_nodes, key=lambda node: node.location)
-	if not errs:
-		yield "Type: W\n"
-		yield "SystemID: %s\n" % upload.filename
-		yield "Description: OK\n"
-		yield "\n"
-		return
-	for node in errs:
-		line, col = node.location
-		yield "Type: E\n"
-		yield "SystemID: %s\n" % upload.filename
-		yield "Line: %d\n" % 20
-		yield "Column: %d\n" % 10
-		yield "EndLine: %d\n" % 20
-		yield "EndColumn: %d\n" % 15
-		yield "Description: %s\n" % ", ".join(node.problems)
-		yield "\n"
-		break
 
 @app.post("/github-event")
 def handle_github():

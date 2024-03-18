@@ -10,6 +10,12 @@
 -- if this would allow us to fetch updates faster than with git, or more
 -- reliably.
 
+pragma page_size = 16384;
+pragma journal_mode = wal;
+pragma synchronous = normal;
+pragma foreign_keys = on;
+pragma secure_delete = off;
+
 begin;
 
 create table if not exists metadata(
@@ -19,9 +25,9 @@ create table if not exists metadata(
 -- 'last_updated' is a timestamp updated after each transaction in change.py.
 -- The value is only meant for display.
 insert or ignore into metadata values('last_updated', 0);
--- All records in biblio_data have a version <= 'biblio_latest_version'. So
--- for updating the biblio we need to fetch all records for which
--- version > 'biblio_latest_version'. XXX why are we not using max(...)?
+-- To update the bibliography, we need to pull all zotero items whose version
+-- is > biblio_latest_version. We might already have such items in the db if
+-- a request to the Zotero API failed.
 insert or ignore into metadata values('biblio_latest_version', 0);
 
 -- Repositories description. This is filled with repos.tsv.
@@ -155,6 +161,7 @@ create table if not exists langs_list(
 	name text,
 	-- Cham, Old
 	inverted_name text,
+	-- iso is null when the language code is a custom one
 	iso integer check(iso is null or iso = 3 or iso = 5),
 	custom boolean
 );

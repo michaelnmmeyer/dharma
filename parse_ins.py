@@ -139,8 +139,8 @@ def update_handlers_map(m):
 HANDLERS = parse.HANDLERS.copy()
 update_handlers_map(HANDLERS)
 
-def process_file(file):
-	t = tree.parse(file)
+def process_file(path, data):
+	t = tree.parse_string(data, path=path)
 	f = t.first("//teiHeader/encodingDesc")
 	if f:
 		f.delete()
@@ -174,13 +174,13 @@ def export_plain():
 	renderer = parse.PlainRenderer(strip_physical=True)
 	out_dir = config.path_of("plain")
 	os.makedirs(out_dir, exist_ok=True)
-	for name, path in db.execute("""
-		select name, printf('%s/%s/%s', ?, repo, path)
+	for name, path, data in db.execute("""
+		select name, printf('%s/%s/%s', ?, repo, path), data
 		from texts natural join files where name glob 'DHARMA_INS*'
 		""", (config.REPOS_DIR,)):
 		print(path)
 		try:
-			ret = renderer.render(process_file(path))
+			ret = renderer.render(process_file(path, data))
 		except tree.Error:
 			continue
 		out_file = os.path.join(out_dir, name + ".txt")
@@ -188,8 +188,10 @@ def export_plain():
 			f.write(ret)
 
 if __name__ == "__main__":
+	path = sys.argv[1]
+	data = open(path, "rb").read()
 	try:
-		doc = process_file(sys.argv[1])
+		doc = process_file(path, data)
 		for t, data, params in doc.edition.code:
 			document.write_debug(t, data, **params)
 		#ret = parse.PlainRenderer().render(doc)

@@ -37,11 +37,11 @@ def delete(name):
 	db.execute("delete from documents_index where name = ?", (name,))
 	db.execute("delete from documents where name = ?", (name,))
 
-def process_file(repo, path):
+def process_file(repo, path, data):
 	print(path)
 	db = config.db("texts")
 	try:
-		t = tree.parse(path)
+		t = tree.parse_string(data, path=path)
 	except tree.Error as e:
 		print("catalog: %r %s" % (path, e), file=sys.stderr)
 		doc = document.Document()
@@ -71,7 +71,7 @@ def process_file(repo, path):
 
 def insert(file):
 	db = config.db("texts")
-	doc = process_file(file.repo, file.full_path)
+	doc = process_file(file.repo, file.full_path, file.data)
 	if not doc:
 		return
 	for key in ("title", "author", "editors", "summary"):

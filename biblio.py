@@ -41,6 +41,8 @@ def zotero_items(latest_version, ret):
 	s = requests.Session()
 	s.headers["Zotero-API-Version"] = "3"
 	s.headers["Zotero-API-Key"] = MY_API_KEY
+	# The "since" param is not inclusive, this returns items whose version
+	# is > latest_version.
 	url = f"https://api.zotero.org/groups/{LIBRARY_ID}/items?since={latest_version}"
 	logging.info(url)
 	r = s.get(url)

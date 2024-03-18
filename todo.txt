@@ -1,12 +1,14 @@
 do not reopen the same text file several times, only read it a single time and
 do not access the external file once stored in the db, because it might disappear
-or be modified by chjange.py.
+or be modified by change.py.
 look at validate.py and parse_ins, mostly
+XXX maybe better to use a dummy file object that is adapted from the db
+and contains the file path + the data + maybe other useful stuff; reuse what
+we have for File() in validate.py
 
 trigger a full rebuild after projdoc is updated _but_ do not reread files,
-fetch them from the db
-
-note invalid local uris with @ref, color in red or sth.
+fetch them from the db instead. we should only change stuff in the db, do
+not keep anything in-memory, otherwise the logic will break.
 
 find a way to signal duplicate files and duplicate bib entries.
 
@@ -19,6 +21,9 @@ add somewhere a date indicating when we
 last updated the validation code
 
 == refs
+
+note invalid local uris with @ref, color in red or sth. but we should resolve
+links later on!
 
 § "Referring to inscriptions in the DHARMABase"
 for ref @target, must not use @n and must use normalized urls; propose:

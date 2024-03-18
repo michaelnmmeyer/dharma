@@ -159,15 +159,6 @@ def file(path):
 		return # XXX
 	return validator.process(path)
 
-def validate_extra(file):
-	schema = schema_from_filename(file)
-	if not schema or schema.name != "inscription":
-		return
-	doc = parse_ins.process_file(file)
-	errs = sorted(doc.tree.bad_nodes, key=lambda node: node.location)
-	for node in errs:
-		print(node, node.problems)
-
 def files(itor):
 	schemas = {}
 	files = sorted(itor)

@@ -63,10 +63,14 @@ class File:
 	html = None
 	status = None
 
+	_data = None
+
 	@property
 	def data(self):
-		with open(self.full_path) as f:
-			return f.read()
+		if self._data is None:
+			with open(self.full_path) as f:
+				self._data = f.read()
+		return self._data
 
 	@property
 	def owners(self):
