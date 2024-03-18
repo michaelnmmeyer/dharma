@@ -170,7 +170,7 @@ def process_file(file, db=None, **kwargs):
 	return p.document
 
 def export_plain():
-	db = config.open_db("texts")
+	db = config.db("texts")
 	renderer = parse.PlainRenderer(strip_physical=True)
 	out_dir = config.path_of("plain")
 	os.makedirs(out_dir, exist_ok=True)

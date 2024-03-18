@@ -25,7 +25,7 @@ def load_data():
 
 def make_db():
 	data = load_data()
-	db = config.open_db("texts")
+	db = config.db("texts")
 	db.execute("delete from prosody")
 	for name, pattern in sorted(data.items()):
 		db.execute("insert into prosody(name, pattern) values(?, ?)",

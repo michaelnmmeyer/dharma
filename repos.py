@@ -23,7 +23,7 @@ def load_data():
 
 @config.transaction("texts")
 def make_db():
-	db = config.open_db("texts")
+	db = config.db("texts")
 	db.execute("begin")
 	db.execute("delete from repos")
 	for _, rec in sorted(load_data().items()):

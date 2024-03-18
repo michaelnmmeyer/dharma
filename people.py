@@ -40,7 +40,7 @@ def iter_members_list():
 		yield row
 
 def make_db():
-	db = config.open_db("texts")
+	db = config.db("texts")
 	db.execute("delete from people_github")
 	db.execute("delete from people_main")
 	for row in iter_members_list():
@@ -60,12 +60,12 @@ def make_db():
 			db.execute("insert into people_github(git_name, dh_id) values(?, ?)", (key, value))
 
 def plain(ident):
-	db = config.open_db("texts")
+	db = config.db("texts")
 	ret = db.execute("select print_name from people_main where dh_id = ?", (ident,)).fetchone()
 	return ret and ret[0] or None
 
 def plain_from_github(github_id):
-	db = config.open_db("texts")
+	db = config.db("texts")
 	ret = db.execute("""select print_name
 		from people_main natural join people_github
 		where git_name = ?""", (github_id,)).fetchone()

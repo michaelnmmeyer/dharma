@@ -11,7 +11,7 @@ from dharma import config, validate, texts, biblio, catalog, people, langs, gaij
 
 FIFO_ADDR = config.path_of("change.hid")
 
-db = config.open_db("texts")
+db = config.db("texts")
 
 REPOS = sorted(repos.load_data().keys())
 

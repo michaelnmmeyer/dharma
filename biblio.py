@@ -79,7 +79,7 @@ def zotero_items(latest_version, ret):
 
 @config.transaction("texts")
 def update():
-	db = config.open_db("texts")
+	db = config.db("texts")
 	db.execute("begin")
 	(max_version,) = db.execute("select value from metadata where key = 'biblio_latest_version'").fetchone()
 	ret = []
@@ -1067,7 +1067,7 @@ def fix_loc(rec, loc):
       loc.insert(0, ("page", page))
 
 def get_entry(ref, **params):
-	db = config.open_db("texts")
+	db = config.db("texts")
 	recs = db.execute("select key, json ->> '$.data' from biblio_data where short_title = ?", (ref,)).fetchall()
 	if len(recs) == 0:
 		return invalid_entry(ref, "Not found in bibliography")
@@ -1111,7 +1111,7 @@ def invalid_ref(ref, reason, missing=False):
 PER_PAGE = 100
 
 def page_of(key):
-	db = config.open_db("texts")
+	db = config.db("texts")
 	(index,) = db.execute("""select pos - 1
 		from (select row_number() over(order by sort_key) as pos,
 			key from biblio_data where sort_key is not null)
@@ -1119,7 +1119,7 @@ def page_of(key):
 	return (index + PER_PAGE - 1) // PER_PAGE
 
 def get_ref(ref, **params):
-	db = config.open_db("texts")
+	db = config.db("texts")
 	recs = db.execute("select key, json ->> '$.data' from biblio_data where short_title = ?", (ref,)).fetchall()
 	if len(recs) == 0:
 		return invalid_ref(ref, "Not found in bibliography")
@@ -1189,7 +1189,7 @@ def sort_key(rec):
 # XXX must be run when changing the "sort_key" func
 @config.transaction("texts")
 def update_sort_keys():
-	db = config.open_db("texts")
+	db = config.db("texts")
 	db.execute("begin")
 	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
 		rec = json.loads(rec)

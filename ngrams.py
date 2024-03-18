@@ -206,7 +206,7 @@ def make_jaccard(type, db):
 
 @config.transaction("ngrams")
 def make_database():
-	db = config.open_db("ngrams")
+	db = config.db("ngrams")
 	db.execute("begin")
 	for tbl in ("jaccard", "passages", "sources"):
 		db.execute(f"delete from {tbl}")
@@ -245,7 +245,7 @@ PER_PAGE = 50
 
 @config.transaction("ngrams")
 def search(src_text, category, page):
-	db = config.open_db("ngrams")
+	db = config.db("ngrams")
 	db.create_function("jaccard", 2, jaccard, deterministic=True)
 	if category == "verse":
 		danda = re.search(r"[/|।]", src_text)

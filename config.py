@@ -84,10 +84,10 @@ def format_url(*args):
 		ret = ret % args[1:]
 	return quote(ret, safe="/:")
 
-def open_db(name, schema=None):
-	db = getattr(DBS, name, None)
-	if db:
-		return db
+def db(name, schema=None):
+	ret = getattr(DBS, name, None)
+	if ret:
+		return ret
 	path = db_path(name)
 	# The python sqlite3 module messes with sqlite's transaction mechanism.
 	# This is error-prone, we don't want that, thus we set
@@ -105,9 +105,9 @@ def open_db(name, schema=None):
 	conn.create_function("format_date", 1, format_date, deterministic=True)
 	conn.create_function("format_url", -1, format_url, deterministic=True)
 	conn.create_collation("icu", collate_icu)
-	db = DB(conn)
-	setattr(DBS, name, db)
-	return db
+	ret = DB(conn)
+	setattr(DBS, name, ret)
+	return ret
 
 # We don't begin/commit transactions implicitly, might be error-prone
 # and not clear enough. OTOH, we rollback transactions when an
@@ -118,7 +118,7 @@ def transaction(db_name):
 	def decorator(f):
 		@functools.wraps(f)
 		def decorated(*args, **kwargs):
-			db = open_db(db_name)
+			db = db(db_name)
 			assert not db._conn.in_transaction
 			try:
 				ret = f(*args, **kwargs)

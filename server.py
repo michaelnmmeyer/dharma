@@ -31,7 +31,7 @@ def show_tei_doc(name):
 @app.get("/texts")
 @config.transaction("texts")
 def show_texts():
-	conn = config.open_db("texts")
+	conn = config.db("texts")
 	conn.execute("begin")
 	(last_updated,) = conn.execute("select format_date(value) from metadata where key = 'last_updated'").fetchone()
 	owner = flask.request.args.get("owner")
@@ -73,7 +73,7 @@ def show_texts():
 @app.get("/texts/<name>")
 @config.transaction("texts")
 def show_text(name):
-	db = config.open_db("texts")
+	db = config.db("texts")
 	row = db.execute("""
 		select name, commits.repo, commit_hash, code_hash, status, path as xml_path, html_path,
 			format_date(commit_date) as readable_commit_date
@@ -98,7 +98,7 @@ def show_text_legacy(repo, hash, name):
 @app.get("/repositories")
 @config.transaction("texts")
 def show_repos():
-	db = config.open_db("texts")
+	db = config.db("texts")
 	rows = db.execute("""
 	with repos_editors as (
 		select repo as name,
@@ -124,7 +124,7 @@ def show_repos():
 @app.get("/parallels")
 @config.transaction("ngrams")
 def show_parallels():
-	db = config.open_db("ngrams")
+	db = config.db("ngrams")
 	db.execute("begin")
 	(date,) = db.execute("""select format_date(value)
 		from metadata where key = 'last_updated'""").fetchone()
@@ -141,7 +141,7 @@ parallels_types = {
 @app.get("/parallels/texts/<text>/<category>")
 @config.transaction("ngrams")
 def show_parallels_details(text, category):
-	db = config.open_db("ngrams")
+	db = config.db("ngrams")
 	type = parallels_types[category]
 	rows = db.execute("""
 		select id, number, contents, parallels from passages
@@ -152,7 +152,7 @@ def show_parallels_details(text, category):
 @app.get("/parallels/texts/<text>/<category>/<int:id>")
 @config.transaction("ngrams")
 def show_parallels_full(text, category, id):
-	db = config.open_db("ngrams")
+	db = config.db("ngrams")
 	type = parallels_types[category]
 	db.execute("begin")
 	ret = db.execute("""
@@ -181,7 +181,7 @@ def show_catalog():
 @app.get("/langs")
 @config.transaction("texts")
 def show_langs():
-	db = config.open_db("texts")
+	db = config.db("texts")
 	rows = db.execute("""
 	select langs_list.inverted_name as name,
 		json_group_array(distinct(langs_by_code.code)) as codes,
@@ -221,14 +221,14 @@ def search_parallels():
 @app.get("/display")
 @config.transaction("texts")
 def display_home():
-	db = config.open_db("texts")
+	db = config.db("texts")
 	texts = [t for (t,) in db.execute("select name from texts where name glob 'DHARMA_INS*'")]
 	return flask.render_template("display.tpl", texts=texts)
 
 @app.get("/display/<text>")
 @config.transaction("texts")
 def display_text(text):
-	db = config.open_db("texts")
+	db = config.db("texts")
 	row = db.execute("""
 		select
 			printf('%s/%s/%s', ?, repo, path) as path,
@@ -282,7 +282,7 @@ def test():
 @app.get("/bibliography/page/<int:page>")
 @config.transaction("texts")
 def display_biblio_page(page):
-	db = config.open_db("texts")
+	db = config.db("texts")
 	db.execute("begin")
 	(entries_nr,) = db.execute("select count(*) from biblio_data where sort_key is not null").fetchone()
 	pages_nr = (entries_nr + biblio.PER_PAGE - 1) // biblio.PER_PAGE
