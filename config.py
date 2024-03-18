@@ -7,7 +7,7 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 def path_of(*path_elems):
 	return os.path.join(THIS_DIR, *path_elems)
 
-HOST = os.getenv("WITHIN_DOCKER") and "0.0.0.0" or "localhost"
+HOST = "localhost"
 PORT = 8023
 DEBUG = bool(int(os.environ.get("DEBUG", 1)))
 DBS_DIR = os.path.join(THIS_DIR, "dbs")

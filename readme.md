@@ -2,27 +2,6 @@
 
 This is the newest code for the DHARMA project.
 
-## Running the application
-
-To install and run it, you need, at a minimum, docker (the package name is
-`docker.io` in Debian), git, and make. Clone this repository into `~/`:
-
-	cd
-	git clone --recursive https://github.com/michaelnmmeyer/dharma.git
-
-Make sure you have admin access to the dharma repositories on github, and copy
-the private SSH key you are using for github to `~/dharma/ssh_key`. Then build
-the container with:
-
-	make image
-
-Copy the dharma databases (not available yet!) into `~/dharma/dbs`. Finally, run
-the container with:
-
-	bash run.sh
-
-You can then open http://localhost:8023 to look at the website.
-
 ##  Basic architecture
 
 The overall architecture is as simple as feasible. We store our data in a few

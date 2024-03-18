@@ -17,6 +17,7 @@ clean:
 services = $(notdir $(wildcard systemd/*.service))
 
 start:
+	$(MAKE) version.txt
 	for service in $(services); do \
 		sudo systemctl restart $$service; \
 	done
@@ -68,14 +69,6 @@ forever:
 		$(cmd) || true; \
 	done
 
-image:
-	git pull
-	$(MAKE) version.txt
-	sudo docker build -t dharma .
-
-docker-clean:
-	sudo docker system prune
-
 # Usage: make commit-all m="Commit message"
 m := "Address encoding problems"
 commit-all:
@@ -117,7 +110,7 @@ version.txt:
 	git rev-parse HEAD > version.txt
 	git show --no-patch --format=%at HEAD >> version.txt
 
-.PHONY: all clean update-repos update-texts download-dbs list-texts arlo-plain forever image docker-clean commit-all deploy-schemas missing-git-names version.txt
+.PHONY: all clean update-repos update-texts download-dbs list-texts arlo-plain forever commit-all deploy-schemas missing-git-names version.txt
 
 templates/%.tpl: templates/%.md
 	pandoc -f markdown -t html $^ -o $@
