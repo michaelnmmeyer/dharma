@@ -1,23 +1,10 @@
-import os, re, sys
+import os, re, sys, logging
 from dharma.cleanup import cleanup_file
 from dharma import config
-
-def complain(s):
-	print(f"BUG: {s}", file=sys.stderr)
-
-files_to_ignore = {"DHARMA_INSCIKthaiTest.xml"}
-
-repos_to_ignore = {
-	"digital-areal",
-	"mdt-authorities",
-	"project-documentation",
-}
 
 valid_prefixes = {"DHARMA_INS", "DHARMA_DiplEd", "DHARMA_CritEd"}
 
 def iter_texts_in_repo(name):
-	if name in repos_to_ignore:
-		return
 	path = os.path.join(config.REPOS_DIR, name)
 	for root, dirs, files in os.walk(path):
 		# There are generated files in
@@ -41,8 +28,6 @@ def iter_texts_in_repo(name):
 				continue
 			if "template" in file.lower():
 				continue
-			if file in files_to_ignore:
-				continue
 			yield os.path.join(root, file)
 
 def iter_texts():
@@ -54,7 +39,7 @@ def iter_texts():
 	for base, files in sorted(unique.items()):
 		files.sort()
 		if len(files) > 1:
-			complain(f"several files bear the same name: {files}")
+			logging.error(f"several files bear the same name: {files}")
 			# Refuse to process them
 		else:
 			yield files[0]
@@ -66,10 +51,7 @@ def owners_of(path):
 	repo, relpath = path[:slash], path[slash + 1:]
 	ret = config.command("git", "-C", os.path.join(config.REPOS_DIR, repo), "log", "--follow", "--format=%aN", "--", relpath)
 	authors = set(ret.stdout.splitlines())
-	ids = set()
-	for author in authors:
-		ids.add(author)
-	return sorted(ids)
+	return sorted(authors)
 
 def last_mod_of(path):
 	path = os.path.relpath(path, config.REPOS_DIR)
