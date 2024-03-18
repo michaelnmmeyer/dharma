@@ -1,10 +1,10 @@
 set -e errexit
 
 if test -z "$DHARMA_HOME"; then
-	DHARMA_HOME=.
+	DHARMA_HOME=/home/michael/dharma
 fi
 
-cd "$DHARMA_HOME"/repos/jawakuno
+cd "$DHARMA_HOME/repos/jawakuno"
 git pull
 
 inp_dir=$DHARMA_HOME/repos/tfd-nusantara-philology/output/critical-edition/texts
