@@ -47,5 +47,5 @@ def reply():
 	raise Exception(repr((r.headers, r.text)))
 
 if __name__ == "__main__":
-	server = WSGIServer(("0.0.0.0", 8024), app)
+	server = WSGIServer(("localhost", 8024), app)
 	server.serve_forever()

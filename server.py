@@ -348,6 +348,6 @@ def handle_github():
 	return ""
 
 if __name__ == "__main__":
-	app.run(host=config.HOST, port=config.PORT, debug=config.DEBUG)
+	app.run(host="localhost", port=8023, debug=config.DEBUG)
 	# To run with gunicorn, use:
 	# gunicorn -w 4 -b localhost:8023 dharma.server:app

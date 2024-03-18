@@ -7,17 +7,11 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 def path_of(*path_elems):
 	return os.path.join(THIS_DIR, *path_elems)
 
-HOST = "localhost"
-PORT = 8023
 DEBUG = bool(int(os.environ.get("DEBUG", 1)))
 REPOS_DIR = os.path.join(THIS_DIR, "repos")
 
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(level=LOG_LEVEL)
-
-with open(os.path.join(THIS_DIR, "version.txt")) as f:
-	CODE_HASH = f.readline().strip()
-	CODE_DATE = int(f.readline().strip())
 
 # Report exceptions within user functions on stderr. Otherwise we only get a
 # message that says an exception was raised, without more info.
@@ -165,6 +159,10 @@ def command(*cmd, **kwargs):
 			logging.info(ret.stderr)
 		raise
 	return ret
+
+CODE_HASH, CODE_DATE = command("git", "show", "--no-patch", "--format=%H %at",
+	"HEAD").stdout.strip().split()
+CODE_DATE = int(CODE_DATE)
 
 def normalize_url(url):
 	url = url.rstrip("/") # XXX might not work for some websites

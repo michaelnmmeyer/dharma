@@ -36,7 +36,6 @@ commit-all:
 services = $(notdir $(wildcard systemd/*.service))
 
 start:
-	$(MAKE) version.txt
 	for service in $(services); do \
 		sudo systemctl restart $$service; \
 	done
@@ -91,11 +90,7 @@ missing-git-names:
 		|| echo "$$name" ; \
 	done
 
-version.txt:
-	git rev-parse HEAD > version.txt
-	git show --no-patch --format=%at HEAD >> version.txt
-
-.PHONY: update-repos update-texts deploy-schemas deploy-nginx missing-git-names version.txt
+.PHONY: update-repos update-texts deploy-schemas deploy-nginx missing-git-names
 
 templates/%.tpl: templates/%.md
 	pandoc -f markdown -t html $^ -o $@
