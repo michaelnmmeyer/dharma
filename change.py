@@ -9,7 +9,7 @@ import os, sys, subprocess, time, json, select, errno, logging, fcntl
 import argparse, traceback, collections
 from dharma import config, validate, texts, biblio, catalog, people, langs, gaiji, prosody, repos
 
-FIFO_ADDR = os.path.join(config.REPOS_DIR, "change.hid")
+FIFO_ADDR = config.path_of("change.hid")
 
 db = config.open_db("texts")
 

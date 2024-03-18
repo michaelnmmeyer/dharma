@@ -6,6 +6,6 @@ User=michael
 Group=michael
 WorkingDirectory=/home/michael/dharma
 Environment="PYTHONPATH=/home/michael:$PYTHONPATH"
-ExecStart=python3 zotero_proxy.py
+ExecStart=gunicorn -k gevent -w 4 -b localhost:8024 dharma.zotero_proxy:app
+ExecReload=kill -HUP $MAINPID
 Restart=on-failure
-

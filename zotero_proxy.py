@@ -1,5 +1,3 @@
-from gevent import monkey; monkey.patch_all()
-from gevent.pywsgi import WSGIServer
 import time
 from urllib.parse import urlparse
 import flask, requests
@@ -47,5 +45,5 @@ def reply():
 	raise Exception(repr((r.headers, r.text)))
 
 if __name__ == "__main__":
-	server = WSGIServer(("localhost", 8024), app)
-	server.serve_forever()
+	app.run(host="localhost", port=8024)
+	# gunicorn -k gevent -w 4 -b localhost:8024 dharma.zotero_proxy:app

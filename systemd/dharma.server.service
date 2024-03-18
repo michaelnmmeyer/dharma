@@ -1,5 +1,4 @@
 [Unit]
-Description=dharma.server
 Wants=network-online.target
 
 [Service]
@@ -7,6 +6,7 @@ User=michael
 Group=michael
 WorkingDirectory=/home/michael/dharma
 Environment="PYTHONPATH=/home/michael:$PYTHONPATH"
-ExecStart=python3 server.py
+ExecStart=gunicorn -k sync -w 4 -b localhost:8023 dharma.server:app
+ExecReload=kill -HUP $MAINPID
 Restart=on-failure
 

@@ -24,10 +24,8 @@ forever:
 m := "Address encoding problems"
 commit-all:
 	for d in repos/*; do \
-		test -d $$d || continue; \
-		test -n "`git status -s`" || continue; \
 		git -C $$d add --all; \
-		git -C $$d commit -m "$(m)"; \
+		git -C $$d commit -m "$(m)" || true; \
 		git -C $$d push; \
 	done
 
@@ -37,23 +35,24 @@ services = $(notdir $(wildcard systemd/*.service))
 
 start:
 	for service in $(services); do \
-		sudo systemctl restart $$service; \
+		sudo systemctl reload-or-restart $$service ; \
 	done
 
 stop:
-	for service in $(services); do \
-		sudo systemctl stop $$service; \
-	done
+	sudo systemctl stop 'dharma.*'
+
+status:
+	sudo systemctl status 'dharma.*'
 
 deploy-systemd:
 	sudo cp systemd/*.service /etc/systemd/system
 	sudo systemctl daemon-reload
 
-.PHONY: start stop deploy-systemd
+.PHONY: start stop status deploy-systemd
 
 update-repos:
 	for d in repos/*; do \
-		test -d $$d && git -C $$d pull; \
+		git -C $$d pull; \
 	done
 
 update-texts:
@@ -83,7 +82,6 @@ deploy-nginx:
 
 missing-git-names:
 	@for d in repos/*; do \
-		test -d $$d || continue; \
 		git -C $$d log --format="%aN"; \
 	done | sort -u | while read name; do \
 		grep -q "^$$name" repos/project-documentation/DHARMA_gitNames.tsv \
