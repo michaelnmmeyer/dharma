@@ -10,10 +10,7 @@ def path_of(*path_elems):
 HOST = "localhost"
 PORT = 8023
 DEBUG = bool(int(os.environ.get("DEBUG", 1)))
-DBS_DIR = os.path.join(THIS_DIR, "dbs")
 REPOS_DIR = os.path.join(THIS_DIR, "repos")
-STATIC_DIR = os.path.join(THIS_DIR, "static")
-LOGS_DIR = os.path.join(THIS_DIR, "logs")
 
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(level=LOG_LEVEL)
@@ -35,7 +32,7 @@ pragma secure_delete = off;
 """
 
 def db_path(name):
-	return os.path.join(DBS_DIR, name + ".sqlite")
+	return path_of("dbs", name + ".sqlite")
 
 def format_date(obj):
 	ret = time.localtime(int(obj))
