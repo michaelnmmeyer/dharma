@@ -1,7 +1,7 @@
 set -e errexit
 
 if test -z "$DHARMA_HOME"; then
-	DHARMA_HOME=./
+	DHARMA_HOME=.
 fi
 
 cd "$DHARMA_HOME"/repos/jawakuno
