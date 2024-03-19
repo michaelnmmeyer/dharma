@@ -11,7 +11,6 @@
 import sys, logging, io, json, unicodedata, html, re, time
 from urllib.parse import urlparse
 import requests
-from xml.parsers import expat
 from dharma import config, tree
 
 LIBRARY_ID = 1633743

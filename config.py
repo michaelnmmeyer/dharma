@@ -25,9 +25,6 @@ pragma foreign_keys = on;
 pragma secure_delete = off;
 """
 
-def db_path(name):
-	return path_of("dbs", name + ".sqlite")
-
 def format_date(obj):
 	ret = time.localtime(int(obj))
 	return time.strftime('%Y-%m-%d %H:%M', ret)
@@ -87,7 +84,7 @@ def db(name, schema=None):
 	ret = getattr(DBS, name, None)
 	if ret:
 		return ret
-	path = db_path(name)
+	path = path_of("dbs", name + ".sqlite")
 	# The python sqlite3 module messes with sqlite's transaction mechanism.
 	# This is error-prone, we don't want that, thus we set
 	# isolation_level=None. Likewise, db.executescript() is a mess, we only

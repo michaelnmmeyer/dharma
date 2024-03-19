@@ -101,6 +101,7 @@ def make_db():
 		db.execute("""
 			insert into langs_list(id, name, inverted_name, iso, custom)
 			values(:id, :name, :inverted_name, :iso, :custom)""", rec)
-		db.execute("insert into langs_by_name(id, name) values(?, ?)", (rec["id"], normalize_name(rec["name"])))
+		db.execute("insert into langs_by_name(id, name) values(?, ?)",
+			(rec["id"], normalize_name(rec["name"])))
 	for code, rec in sorted(index.items()):
 		db.execute("insert into langs_by_code(code, id) values(?, ?)", (code, rec["id"]))
