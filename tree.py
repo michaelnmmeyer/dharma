@@ -40,8 +40,9 @@ attribute_tbl = str.maketrans({
 	"&": "&amp;",
 })
 
-# We don't use xml.sax.saxutils.quoteattr because it tries to use ' as
-# delimitor.
+# We don't use xml.sax.saxutils.quoteattr because it tries to use ' for
+# quoting attributes, and people generally use " instead. We want to preserve
+# the original as much as possible.
 def quote_attribute(s):
 	return s.translate(attribute_tbl)
 

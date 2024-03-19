@@ -5,7 +5,7 @@
 # implement any buffering for passing messages, because pipe buffers are big
 # enough for our purposes.
 
-import os, sys, subprocess, time, json, select, errno, logging, fcntl
+import os, sys, subprocess, time, select, errno, logging, fcntl
 import argparse, traceback, collections
 from dharma import config, validate, texts, biblio, catalog, people, langs, gaiji, prosody, repos
 
@@ -13,13 +13,14 @@ FIFO_ADDR = config.path_of("change.hid")
 
 db = config.db("texts")
 
-# XXX don't use this var, query the db directly
-REPOS = sorted(repos.load_data().keys())
-
 # Timestamp of the last git pull/clone
 last_pull = 0
 # Wait this long between two pulls, counting in seconds
 min_pull_wait = 10
+
+def all_useful_repos():
+	ret = db.execute("select repo from repos where textual or repo = 'project-documentation'")
+	return [name for (name,) in ret]
 
 def clone_repo(name):
 	path = os.path.join(config.REPOS_DIR, name)
@@ -103,9 +104,9 @@ class Changes:
 		self.commit_hash, self.commit_date = latest_commit_in_repo(self.repo)
 
 	def check_db(self):
-		if db.execute("select 1 from commits where repo = ? and commit_hash = ?",
+		if db.execute("select 1 from repos where repos.repo = ? and repos.commit_hash = ?",
 			(self.repo, self.commit_hash)).fetchone():
-			if db.execute("select 1 from texts where repo = ? and code_hash = ?",
+			if db.execute("select 1 from documents where documents.repo = ? and documents.code_hash = ?",
 				(self.repo, config.CODE_HASH)).fetchone():
 				self.done = True
 				return
@@ -156,22 +157,18 @@ def update_db(repo):
 	if changes.done:
 		return
 	changes.check_repo()
-	db.execute("insert or replace into commits(repo, commit_hash, commit_date) values(?, ?, ?)",
-		(changes.repo, changes.commit_hash, changes.commit_date))
+	db.execute("""update repos set commit_hash = ?, commit_date = ?
+		where repo = ?""",
+		(changes.commit_hash, changes.commit_date, changes.repo))
 	for name in changes.delete:
 		catalog.delete(name)
 		db.execute("delete from owners where name = ?", (name,))
-		db.execute("delete from texts where name = ?", (name,))
-		db.execute("delete from files where repo = ? and name = ?", (changes.repo, name))
+		db.execute("delete from files where name = ?", (name,))
 	for file in changes.insert + changes.update:
 		db.execute("""insert or replace into files(
 			name, repo, path, mtime, last_modified_commit, last_modified, data)
 			values(?, ?, ?, ?, ?, ?, ?)""",
 			(file.name, file.repo, file.path, file.mtime, *file.last_modified, file.data))
-		db.execute("""insert or replace into texts(
-			name, repo, html_path, code_hash, status)
-			values(?, ?, ?, ?, ?)""",
-			(file.name, file.repo, file.html, config.CODE_HASH, file.status))
 		for git_name in file.owners:
 			db.execute("insert or ignore into owners(name, git_name) values(?, ?)",
 				(file.name, git_name))
@@ -191,17 +188,21 @@ def update_project():
 	# XXX what about schemas and docs? run make? this should be built as
 	# part of project-documentation, and we should not store schemas in
 	# the app repo.
-	# XXX make sure project-doc has upd prio over other repos
 	# TODO store needed files from project-documentation in the db, otherwise
 	# we're gonna get stuck later on
 	catalog.rebuild()
+	repo = "project-documentation"
+	commit_hash, commit_date = latest_commit_in_repo(repo)
+	db.execute("""update repos set commit_hash = ?, commit_date = ?
+		where repo = ?""",
+		(commit_hash, commit_date, repo))
 
 def backup_to_jawakuno():
 	config.command("bash", "-x", config.path_of("backup_to_jawakuno.sh"), capture_output=False)
 
 @config.transaction("texts")
 def handle_changes(name):
-	db.execute("begin immediate")
+	db.execute("begin")
 	update_repo(name)
 	if name == "project-documentation":
 		update_project()
@@ -251,9 +252,10 @@ def read_names(fd):
 
 def read_changes(fd):
 	for name in read_names(fd):
+		repos = all_useful_repos()
 		if name == "all":
 			logging.info("updating everything...")
-			for name in REPOS:
+			for name in repos:
 				logging.info("updating %r" % name)
 				handle_changes(name)
 				logging.info("updated %r" % name)
@@ -265,7 +267,7 @@ def read_changes(fd):
 			logging.info("updating biblio...")
 			biblio.update()
 			logging.info("updated biblio")
-		elif name in REPOS:
+		elif name in repos:
 			logging.info("updating single repo %r..." % name)
 			handle_changes(name)
 			logging.info("updated single repo %r" % name)

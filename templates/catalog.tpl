@@ -108,10 +108,10 @@ table of languages <a href="/langs">here</a>.</p>
    % endif
    % if row["langs"]:
    <p>Languages:
-      % for lang in json.loads(row["langs"])[:-1]:
+      % for lang in from_json(row["langs"])[:-1]:
          {{lang}},
       % endfor
-         {{json.loads(row["langs"])[-1]}}.
+         {{from_json(row["langs"])[-1]}}.
    </p>
    % endif
    <p>

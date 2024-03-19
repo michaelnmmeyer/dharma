@@ -12,7 +12,7 @@ def iter_texts_in_repo(name):
 		# They are produced with
 		# repos/project-documentation/editorialStylesheets/tpl-editorialConvention.xsl
 		# This does some basic formatting (space, quotation marks), but
-		# doesn't change the structure of the document, so we can
+		# doesn't change the structure of the document, so we
 		# ignore it and work on the originals. We'll add something do
 		# this kind of formatting later on, for all documents, or maybe
 		# just modify files directly.

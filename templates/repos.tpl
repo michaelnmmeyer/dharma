@@ -13,7 +13,7 @@ Repositories
 <div class="catalog-card">
 <p><b>{{repo["title"]}}</b> ({{repo["repo_prod"]}})</p>
 <p>Editors:
-% for editor, count in json.loads(repo["people"]):
+% for editor, count in from_json(repo["people"]):
 {{editor}} ({{count}}){{loop.index == loop.length - 1 and "." or ","}}
 % endfor
 </p>

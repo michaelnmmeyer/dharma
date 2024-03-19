@@ -1,15 +1,16 @@
-import os, sys, logging, sqlite3, json, subprocess, re, ssl, threading, time, functools
+import os, sys, logging, sqlite3, json, subprocess, re, ssl, threading, time
+import functools
 from urllib.parse import urlparse, quote
 import icu
 
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-# For subprocesses
-os.environ["DHARMA_HOME"] = THIS_DIR
+DHARMA_HOME = os.path.dirname(os.path.abspath(__file__))
+# Export it for subprocesses
+os.environ["DHARMA_HOME"] = DHARMA_HOME
 
 def path_of(*path_elems):
-	return os.path.join(THIS_DIR, *path_elems)
+	return os.path.join(DHARMA_HOME, *path_elems)
 
-REPOS_DIR = os.path.join(THIS_DIR, "repos")
+REPOS_DIR = os.path.join(DHARMA_HOME, "repos")
 
 logging.basicConfig(level="INFO")
 
@@ -17,23 +18,19 @@ logging.basicConfig(level="INFO")
 # message that says an exception was raised, without more info.
 sqlite3.enable_callback_tracebacks(True)
 
-common_schema = """
-pragma page_size = 16384;
-pragma journal_mode = wal;
-pragma synchronous = normal;
-pragma foreign_keys = on;
-pragma secure_delete = off;
-"""
-
 def format_date(obj):
 	ret = time.localtime(int(obj))
 	return time.strftime('%Y-%m-%d %H:%M', ret)
 
-# Each thread has its own db objects
+# Python's sqlite wrapper does not allow us to share database objects between
+# threads, even though sqlite itself is OK with that. So we allocate new
+# database objects for each thread. In a given thread, there is no point
+# allocating more than one database object, so we allocate just one, and
+# create it on demand.
 DBS = threading.local()
 
 # The point of this wrapper is to make sure we don't use functions that might
-# mess with transactions and use the same logic everywhere e.g.
+# mess with transactions, and that we use the same logic everywhere e.g.
 # db.execute("commit") instead of the (redundant) db.commit().
 class DB:
 
@@ -42,9 +39,6 @@ class DB:
 
 	def execute(self, *args, **kwargs):
 		return self._conn.execute(*args, **kwargs)
-
-	def create_function(self, *args, **kwargs):
-		return self._conn.create_function(*args, **kwargs)
 
 # Like the eponymous function in xslt
 def normalize_space(s):
@@ -67,11 +61,6 @@ def collate_icu(a, b):
 		return -1
 	return COLLATOR.compare(a, b)
 
-if os.path.basename(sys.argv[0]) == "server.py":
-	READ_ONLY = True
-else:
-	READ_ONLY = False
-
 def format_url(*args):
 	if len(args) == 0:
 		return ""
@@ -80,7 +69,19 @@ def format_url(*args):
 		ret = ret % args[1:]
 	return quote(ret, safe="/:")
 
-def db(name, schema=None):
+def trigrams(s):
+	return (s[i:i + 3] for i in range(len(s) - 3 + 1))
+
+def jaccard(s1, s2):
+	ngrams1 = set(trigrams(s1))
+	ngrams2 = set(trigrams(s2))
+	try:
+		inter = len(ngrams1 & ngrams2)
+		return inter / (len(ngrams1) + len(ngrams2) - inter)
+	except ZeroDivisionError:
+		return 0
+
+def db(name):
 	ret = getattr(DBS, name, None)
 	if ret:
 		return ret
@@ -92,14 +93,14 @@ def db(name, schema=None):
 	# https://docs.python.org/3/library/sqlite3.html#transaction-control
 	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES,
 		isolation_level=None)
-	# We use "pragma query_only" instead of opening the db in read-only mode
-	# because we want to be able to optimize the db at exit.
-	if READ_ONLY and name == "texts":
-		conn.execute("pragma query_only = yes")
 	conn.row_factory = sqlite3.Row
-	conn.executescript(common_schema)
+	conn.execute("pragma query_only = yes")
+	conn.execute("pragma synchronous = normal")
+	conn.execute("pragma foreign_keys = on")
+	conn.execute("pragma secure_delete = off")
 	conn.create_function("format_date", 1, format_date, deterministic=True)
 	conn.create_function("format_url", -1, format_url, deterministic=True)
+	conn.create_function("jaccard", 2, jaccard, deterministic=True)
 	conn.create_collation("icu", collate_icu)
 	ret = DB(conn)
 	setattr(DBS, name, ret)
@@ -127,15 +128,18 @@ def transaction(db_name):
 		return decorated
 	return decorator
 
-def json_converter(blob):
-	return json.loads(blob.decode())
+def from_json(s):
+	if isinstance(s, bytes):
+		s = s.decode()
+	return json.loads(s)
 
-def json_adapter(obj):
-	return json.dumps(obj, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+def to_json(obj):
+	return json.dumps(obj, ensure_ascii=False, separators=(",", ":"),
+		sort_keys=True)
 
-sqlite3.register_converter("json", json_converter)
-sqlite3.register_adapter(list, json_adapter)
-sqlite3.register_adapter(dict, json_adapter)
+sqlite3.register_converter("json", from_json)
+sqlite3.register_adapter(list, to_json)
+sqlite3.register_adapter(dict, to_json)
 
 def append_unique(items, item):
 	if item in items:

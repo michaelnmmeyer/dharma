@@ -8,7 +8,7 @@
 # For the conversion zotero->tei:
 # https://github.com/zotero/translators/blob/master/TEI.js
 
-import sys, logging, io, json, unicodedata, html, re, time
+import sys, logging, io, unicodedata, html, re, time
 from urllib.parse import urlparse
 import requests
 from dharma import config, tree
@@ -1075,7 +1075,7 @@ def get_entry(ref, **params):
 	if len(recs) > 1:
 		return invalid_entry(ref, "Multiple bibliographic entries bear this short title")
 	key, rec = recs[0]
-	rec = json.loads(rec)
+	rec = config.from_json(rec)
 	f = renderers.get(rec["itemType"])
 	if not f:
 		return invalid_entry(ref, "Entry type '%s' not supported" % rec["itemType"], key)
@@ -1127,7 +1127,7 @@ def get_ref(ref, **params):
 	if len(recs) > 1:
 		return invalid_ref(ref, "Multiple bibliographic entries bear this short title")
 	key, rec = recs[0]
-	rec = json.loads(rec)
+	rec = config.from_json(rec)
 	fix_rec(rec)
 	w = Writer()
 	w.xml.name = "span"
@@ -1193,7 +1193,7 @@ def update_sort_keys():
 	db = config.db("texts")
 	db.execute("begin")
 	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
-		rec = json.loads(rec)
+		rec = config.from_json(rec)
 		db.execute("update biblio_data set sort_key = ? where key = ?", (sort_key(rec), key))
 	db.execute("commit")
 

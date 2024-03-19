@@ -76,7 +76,6 @@ class Validator:
 		self.rng(file, val, xml)
 		self.sch(file, val, xml)
 		self.uni(file, val, xml)
-		# XXX fix sorting of error messages, see https://dharman.in/texts/tfd-nusantara-philology/b2f464385320afc185560c9a42b8ed71873b3171/DHARMA_CritEdCalonArang
 		val.messages.sort(key=lambda x: (x.line, x.column))
 		return val
 
@@ -86,6 +85,10 @@ class Validator:
 			return
 		val.status = ERROR
 		for err in errs:
+			# for "more error messages follow but were truncated"
+			# XXX find another way to signal that errors were truncated?
+			if err.line < 0 and "were truncated" in err.text:
+				continue
 			m = Message()
 			m.line = err.line
 			m.column = err.column

@@ -1,4 +1,4 @@
-import os, json, sys, unicodedata, hashlib, locale, time
+import os, sys, unicodedata, hashlib, locale, time
 from datetime import datetime
 import flask
 from dharma import config, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document, tree
@@ -6,15 +6,18 @@ from dharma import config, change, people, ngrams, catalog, parse, validate, par
 app = flask.Flask(__name__, static_url_path="")
 app.jinja_options["line_statement_prefix"] = "%"
 
-# Global variables within jinja templates.
+# Global variables accessible from within jinja templates.
 @app.context_processor
 def inject_global_vars():
-	return {"code_hash": config.CODE_HASH}
+	return {
+		"code_hash": config.CODE_HASH,
+		"from_json": config.from_json,
+	}
 
 @app.get("/")
 def index():
-	date = config.format_date(config.CODE_DATE)
-	return flask.render_template("index.tpl", code_hash=config.CODE_HASH, code_date=date)
+	code_date = config.format_date(config.CODE_DATE)
+	return flask.render_template("index.tpl", code_date=code_date)
 
 @app.get("/documentation")
 def show_documentation():
@@ -45,21 +48,23 @@ def show_texts():
 		min_status = validate.FATAL
 	if owner:
 		rows = conn.execute("""
-			select texts.name, commits.repo, commit_hash,
-				format_date(commit_date) as readable_commit_date, status
-			from texts
-				join owners on texts.name = owners.name
-				join commits on texts.repo = commits.repo
+			select documents.name, repos.repo, repos.commit_hash,
+				format_date(repos.commit_date) as readable_commit_date,
+				documents.status
+			from documents
+				join repos on documents.repo = repos.repo
+				join owners on documents.name = owners.name
 				join people_github on owners.git_name = people_github.git_name
-			where dh_id = ? and status >= ?
-			order by texts.name""", (owner, min_status)).fetchall()
+			where dh_id = ? and documents.status >= ?
+			order by documents.name""", (owner, min_status)).fetchall()
 	else:
 		rows = conn.execute("""
-			select texts.name, commits.repo, commit_hash,
-				format_date(commit_date) as readable_commit_date, status
-			from texts join commits on texts.repo = commits.repo
-			where status >= ?
-			order by name""", (min_status,)).fetchall()
+			select documents.name, repos.repo, repos.commit_hash,
+				format_date(repos.commit_date) as readable_commit_date,
+				documents.status
+			from documents join repos on documents.repo = repos.repo
+			where documents.status >= ?
+			order by documents.name""", (min_status,)).fetchall()
 	authors = conn.execute("""
 		select distinct dh_id, print_name
 		from people_main natural join people_github
@@ -73,11 +78,11 @@ def show_texts():
 def show_text(name):
 	db = config.db("texts")
 	row = db.execute("""
-		select name, commits.repo, commit_hash, code_hash, status, path as xml_path, html_path,
+		select documents.name, repos.repo, commit_hash, code_hash, status, path as xml_path, html_path,
 			format_date(commit_date) as readable_commit_date
-		from texts natural join files
-			join commits on texts.repo = commits.repo
-		where name = ?
+		from documents join files on documents.name = files.name
+			join repos on documents.repo = repos.repo
+		where documents.name = ?
 	""", (name,)).fetchone()
 	if not row:
 		return flask.abort(404)
@@ -117,7 +122,7 @@ def show_repos():
 		json_group_array(json_array(editor, editor_prod)) as people
 	from repos_editors join repos_prod on repos_editors.name = repos_prod.name
 	group by repos_prod.name order by repos_prod.title""").fetchall()
-	return flask.render_template("repos.tpl", rows=rows, json=json)
+	return flask.render_template("repos.tpl", rows=rows)
 
 @app.get("/parallels")
 @config.transaction("ngrams")
@@ -174,7 +179,7 @@ def show_catalog():
 	q = flask.request.args.get("q", "")
 	s = flask.request.args.get("s", "")
 	rows, last_updated = catalog.search(q, s)
-	return flask.render_template("catalog.tpl", rows=rows, q=q, s=s, last_updated=last_updated, json=json)
+	return flask.render_template("catalog.tpl", rows=rows, q=q, s=s, last_updated=last_updated)
 
 @app.get("/langs")
 @config.transaction("texts")
@@ -189,7 +194,7 @@ def show_langs():
 		join langs_list on langs_list.id = json_each.value
 		join langs_by_code on langs_list.id = langs_by_code.id
 	group by langs_list.id order by langs_list.inverted_name collate icu""").fetchall()
-	return flask.render_template("langs.tpl", rows=rows, json=json)
+	return flask.render_template("langs.tpl", rows=rows)
 
 @app.get("/parallels/search")
 def search_parallels():
@@ -220,7 +225,7 @@ def search_parallels():
 @config.transaction("texts")
 def display_home():
 	db = config.db("texts")
-	texts = [t for (t,) in db.execute("select name from texts where name glob 'DHARMA_INS*'")]
+	texts = [t for (t,) in db.execute("select name from documents where name glob 'DHARMA_INS*'")]
 	return flask.render_template("display.tpl", texts=texts)
 
 @app.get("/display/<text>")
@@ -230,16 +235,18 @@ def display_text(text):
 	db.execute("begin")
 	row = db.execute("""
 		select
-			printf('%s/%s/%s', ?, repo, path) as path,
-			repo,
+			printf('%s/%s/%s', ?, repos.repo, path) as path,
+			repos.repo,
 			data,
 			commit_hash,
 			format_date(commit_date) as commit_date,
 			format_date(last_modified) as last_modified,
 			last_modified_commit,
-			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repo, commit_hash, path) as github_url
-		from texts natural join files natural join commits
-		where name = ?""",
+			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo, commit_hash, path) as github_url
+		from documents
+			join files on documents.name = files.name
+			join repos on documents.repo = repos.repo
+		where documents.name = ?""",
 		(config.REPOS_DIR, text)).fetchone()
 	if not row:
 		return flask.abort(404)
@@ -262,12 +269,28 @@ def display_text(text):
 	return flask.render_template("inscription.tpl", doc=doc,
 		github_url=row["github_url"], text=text, numberize=parse.numberize)
 
+def base_name_windows(path):
+	i = len(path)
+	while i > 0 and path[i - 1] != "\\":
+		i -= 1
+	return path[i:]
+
+assert base_name_windows(r"C:\Users\john\Documents\file.txt") == "file.txt"
+
 @app.post("/convert")
 def convert_text():
-	file = flask.request.files.get("file")
-	name = os.path.splitext(os.path.basename(file.filename))[0]
+	doc = flask.request.json
+	path, data = doc["path"], doc["data"]
+	base = os.path.basename(path)
+	if base == path:
+		# Oxygen gives us absolute paths, so we are probably given a
+		# Windows-like path if we end up here. Ideally, we should send
+		# platform infos in the convert.py script, but we did not
+		# think to do that, and people are already using the code.
+		base = base_name_windows(path)
+	name = os.path.splitext(base)[0]
 	import parse_ins
-	doc = parse_ins.process_file(file.file, file.filename)
+	doc = parse_ins.process_file(path, data)
 	title = doc.title.render_logical()
 	doc.title = title and title.split(document.PARA_SEP) or []
 	editors = doc.editors.render_logical()
@@ -295,7 +318,7 @@ def display_biblio_page(page):
 	for key, entry in db.execute("""select key, json ->> '$.data' from biblio_data
 		where sort_key is not null
 		order by sort_key limit ? offset ?""", (biblio.PER_PAGE, (page - 1) * biblio.PER_PAGE)):
-		entries.append(biblio.format_entry(key, json.loads(entry), loc=[], n=None))
+		entries.append(biblio.format_entry(key, config.from_json(entry), loc=[], n=None))
 	db.execute("commit")
 	first_entry = (page - 1) * biblio.PER_PAGE + 1
 	if first_entry < 0:

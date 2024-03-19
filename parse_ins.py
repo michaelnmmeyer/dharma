@@ -176,7 +176,7 @@ def export_plain():
 	os.makedirs(out_dir, exist_ok=True)
 	for name, path, data in db.execute("""
 		select name, printf('%s/%s/%s', ?, repo, path), data
-		from texts natural join files where name glob 'DHARMA_INS*'
+		from documents natural join files where name glob 'DHARMA_INS*'
 		""", (config.REPOS_DIR,)):
 		print(path)
 		try:

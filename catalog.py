@@ -73,7 +73,7 @@ def insert(file):
 	db = config.db("texts")
 	doc = process_file(file.repo, file.full_path, file.data)
 	if not doc:
-		return
+		return # XXX no
 	for key in ("title", "author", "editors", "summary"):
 		val = getattr(doc, key)
 		if val is None:
@@ -90,10 +90,12 @@ def insert(file):
 		fmt_editors = fmt_editors.split(document.PARA_SEP)
 	else:
 		fmt_editors = []
-	db.execute("""insert or replace into documents(name, repo, title, author, editors, langs, summary)
-		values (?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
+	db.execute("""insert or replace into documents(name, repo, title,
+		author, editors, langs, summary, html_path, code_hash, status)
+		values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
 			fmt_title, doc.author.render_logical(), fmt_editors,
-			doc.langs, doc.summary.render_logical()))
+			doc.langs, doc.summary.render_logical(),
+			file.html, config.CODE_HASH, file.status))
 	# No primary key on documents_index, so we cannot use "insert or replace"
 	db.execute("delete from documents_index where name = ?", (doc.ident,))
 	db.execute("""insert into documents_index(name, ident, repo, title, author, editor, lang, summary)
@@ -187,7 +189,6 @@ def search(q, s):
 			format_url('https://erc-dharma.github.io/%s/%s', documents.repo, html_path) as html_link
 		from documents
 			join documents_index on documents.name = documents_index.name
-			natural join texts
 			join json_each(documents.langs)
 			join langs_by_code on langs_by_code.code = json_each.value
 			join langs_list on langs_list.id = langs_by_code.id
@@ -228,9 +229,5 @@ def rebuild():
 		file._data = data
 		# XXX use a File object in validate.status()
 		file.status = validate.status(file.full_path)
-		# XXX no reason to have separate tables for "texts" and "documents",
-		# move all in "documents"
-		db.execute("update texts set status = ? where name = ?",
-			(file.status, file.name))
 		insert(file)
 	logging.info("rebuilded the catalog")

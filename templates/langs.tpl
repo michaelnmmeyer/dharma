@@ -22,7 +22,7 @@ Languages
 % for row in rows:
 <tr>
    <td>{{row["name"]}}</td>
-   <td>{{", ".join(json.loads(row["codes"]))}}</td>
+   <td>{{", ".join(from_json(row["codes"]))}}</td>
    <td>{{row["iso"]}}</td>
 </tr>
 % endfor

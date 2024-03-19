@@ -236,21 +236,11 @@ def make_database():
 	db.execute("commit")
 	db.execute("vacuum")
 
-def jaccard(s1, s2):
-	ngrams1 = set(trigrams(s1))
-	ngrams2 = set(trigrams(s2))
-	try:
-		inter = len(ngrams1 & ngrams2)
-		return inter / (len(ngrams1) + len(ngrams2) - inter)
-	except ZeroDivisionError:
-		return 0
-
 PER_PAGE = 50
 
 @config.transaction("ngrams")
 def search(src_text, category, page):
 	db = config.db("ngrams")
-	db.create_function("jaccard", 2, jaccard, deterministic=True)
 	if category == "verse":
 		danda = re.search(r"[/|।]", src_text)
 		if not danda:
@@ -270,26 +260,16 @@ def search(src_text, category, page):
 	offset = (page - 1) * PER_PAGE
 	limit = PER_PAGE + 1
 	db.execute("begin")
-	# XXX don't do writes here, find another solution
-	db.execute("""
-		create temp table parallels_search_results(
-			id integer primary key,
-			coeff real
-		)
-	""")
-	db.execute("""
-		insert into parallels_search_results
-		select id, jaccard(?, normalized) as coeff
-		from passages where type = ? and coeff > 0""",
-		(src_norm, type))
-	(total,) = db.execute("select count(*) from parallels_search_results").fetchone()
+	(total,) = db.execute("""
+		select count(*) from passages
+		where type = ? and jaccard(?, normalized) > 0""",
+		(type, src_norm)).fetchone()
 	ret = db.execute("""
-		select id, file, number, contents, coeff
-		from parallels_search_results natural join passages
+		select id, file, number, contents, jaccard(?, normalized) as coeff
+		from passages where type = ? and coeff > 0
 		order by coeff desc
-		limit ? offset ?""", (limit, offset)).fetchall()
-	db.execute("drop table parallels_search_results")
-	db.execute("commit")
+		limit ? offset ?""", (src_norm, type, limit, offset)).fetchall()
+	db.execute("rollback")
 	return ret, formatted_text, page, PER_PAGE, total
 
 if __name__ == "__main__":

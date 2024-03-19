@@ -1,3 +1,40 @@
+update popperjs
+
+== manu
+
+INSII0400223 ; afficher p/@n de la trad comme les numéros de ligne
+dans l'éd.
+
+Pallava469 : dans la réf biblio on devrait avoir seulement author mais on
+a aussi éditeur ; avoir point dans book display après maison d'édition. biblio
+entrée donner les nums de page de l'entrée.
+
+cartouche plus light moins épaisse et espace interligne plus important;  cirkali 33.
+
+INSII0400223 plus d'espace entre chaque item dans nār-patt' '... (comme saut
+para)
+
+INSII0400223 notes pas en exposant dans le texte plus fix interligne.
+
+
+===
+
+
+
+shouldn't store separately the app from all the data files, because we need the
+data files to be present to do anything with the db. the app code is useless
+on its own. add projdoc as a submodule? can we still do a git pull in the app
+repo without having git complain that the repo has been modified?
+everything should be in the same repo. maybe use a reload command that reloads
+data files _but not the code_?
+
+in fact we have 2 build levels: fetch files from the fs, and parse the
+documents. should do the minimum whenever possible.
+
+for now, when processing docs, store both the commit of the app and the commit
+of projdoc. but first actually put the schemas + html into projdoc
+
+===
 
 do not reopen the same text file several times, only read it a single time and
 do not access the external file once stored in the db, because it might disappear
@@ -8,6 +45,8 @@ and contains the file path + the data + maybe other useful stuff; reuse what
 we have for File() in validate.py, and put it in texts.py
 
 FILE ABSTRACTION object (copy go stuff)
+
+===
 
 think about decorator to add for logging activity automatically for important
 funcs; also might add a timer to these functions, so that we have "starting X"

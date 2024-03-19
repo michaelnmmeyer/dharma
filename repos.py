@@ -25,10 +25,12 @@ def load_data():
 def make_db():
 	db = config.db("texts")
 	db.execute("begin")
-	db.execute("delete from repos")
 	for _, rec in sorted(load_data().items()):
-		db.execute("""insert into repos(repo, textual, title)
-			values(:name, :textual, :title)""", rec)
+		db.execute("""
+			insert into repos(repo, textual, title)
+				values(:name, :textual, :title)
+			on conflict do update
+			set textual = excluded.textual, title = excluded.title""", rec)
 	db.execute("commit")
 
 if __name__ == "__main__":
