@@ -30,15 +30,19 @@ insert or ignore into metadata values('last_updated', 0);
 -- a request to the Zotero API failed.
 insert or ignore into metadata values('biblio_latest_version', 0);
 
--- Repositories description. This is filled with repos.tsv.
+-- Repositories description. This is filled with repos.tsv. We do not attempt
+-- to update repos that do not appear there, even if these repos are cloned
+-- into repos/. XXX should trigger a clone-or-pull when this is changed.
 create table if not exists repos(
 	repo text primary key check(length(repo) > 0),
-	-- Whether contains edited texts
+	-- Whether contains or might contain edited texts (texts that we can
+	-- display in the catalog), per contrast with repos that just include
+	-- metadata or other stuff.
 	textual boolean check(textual = 0 or textual = 1),
 	title text check(length(title) > 0)
 );
 
--- Latest commit of each repo we keep track of.
+-- Latest commit of each repo we keep track of. XXX what if not yet cloned?
 create table if not exists commits(
 	repo text primary key,
 	commit_hash text check(length(commit_hash) = 2 * 20),
@@ -65,10 +69,13 @@ create table if not exists files(
 	-- When the file was last modified according to git.
 	last_modified timestamp,
 	last_modified_commit text check(length(last_modified_commit) = 2 * 20),
-	data text,
+	data text, -- XXX this should be a blob, because we parse XML as byte strings anyway and
+	-- because we probably also will store binary files
 	-- The following are stored because format_url is an external function and
 	-- because we want to be able to check this field from the sqlite command-line
 	-- tool.
+	-- XXX don't use external functions like that, prevents us from creating
+	-- the db outside of python.
 	github_view_url text as (format_url('https://github.com/erc-dharma/%s/blob/master/%s', repo, path)) stored,
 	github_raw_url text as (format_url('https://raw.githubusercontent.com/erc-dharma/%s/master/%s', repo, path)) stored,
 	primary key(name, repo),
@@ -86,8 +93,8 @@ create table if not exists texts(
 	foreign key(name, repo) references files(name, repo)
 );
 
--- For each file, names of the people who modified it at some point in time,
--- so generally multiple "owners" per file.
+-- For each file, git names of the people who modified it at some point in time.
+-- We thus often have multiple "owners" per file.
 create table if not exists owners(
 	name text,
 	git_name text,
@@ -118,8 +125,12 @@ create table if not exists people_main(
 	wikidata text unique
 );
 
--- This is filled with git_names.csv. To dump a list of all contributors:
--- for repo in repos/*; do test -d $repo && git -C $repo log --format=%aN; done | sort -u
+-- This is filled with the git names data file. To dump a list of all
+-- contributors:
+-- for repo in repos/*; do git -C $repo log --format=%aN; done | sort -u
+-- XXX Apparently there is no internal git ids or something to identify
+-- Maybe we should use the tuple (user.name,user.email) as key, or just
+-- user.email? Problem with user.email is that github assigns generated emails.
 create table if not exists people_github(
 	git_name text primary key not null,
 	-- Might be null, not all people on github have a dharma id.
@@ -140,7 +151,7 @@ create table if not exists documents(
 );
 
 create virtual table if not exists documents_index using fts5(
-	name unindexed, -- text primary key references documents(name)
+	name unindexed, -- references documents(name)
 	ident,
 	repo,
 	title,
@@ -152,8 +163,9 @@ create virtual table if not exists documents_index using fts5(
 );
 
 -- Language codes and names, extracted from the data table distributed
--- with the relevant standards. We include everything, not just languages
--- used in the project, for simplicity.
+-- with the relevant standards and with the DHARMA-specific language table.
+-- We include everything, not just languages used in the project, for
+-- simplicity.
 create table if not exists langs_list(
 	-- Principal language code
 	id text primary key check(length(id) >= 3),
@@ -161,7 +173,8 @@ create table if not exists langs_list(
 	name text,
 	-- Cham, Old
 	inverted_name text,
-	-- iso is null when the language code is a custom one
+	-- "iso" is null when the language code is a custom one viz. a
+	-- DHARMA-specific one.
 	iso integer check(iso is null or iso = 3 or iso = 5),
 	custom boolean
 );
@@ -169,11 +182,12 @@ create table if not exists langs_list(
 -- A single language can have several codes.
 create table if not exists langs_by_code(
 	code text primary key,
-	id text, foreign key(id) references langs_list(id)
+	id text,
+	foreign key(id) references langs_list(id)
 );
 
 create virtual table if not exists langs_by_name using fts5(
-	id unindexed, -- text primary key, foreign key(id) references langs_list(id)
+	id unindexed, -- references langs_list(id)
 	name,
 	tokenize = "trigram"
 );
@@ -189,7 +203,8 @@ create table if not exists gaiji(
 	description text
 );
 
--- All bibliographic records from Zotero.
+-- All bibliographic records from Zotero. Includes data that we do not care
+-- about.
 create table if not exists biblio_data(
 	key text primary key not null,
 	version integer not null,

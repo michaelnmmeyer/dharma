@@ -46,4 +46,3 @@ def reply():
 
 if __name__ == "__main__":
 	app.run(host="localhost", port=8024, debug=True)
-	# gunicorn -k gevent -w 4 -b localhost:8024 dharma.zotero_proxy:app

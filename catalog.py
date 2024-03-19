@@ -1,5 +1,5 @@
-import os, sys
-from dharma import tree, parse, texts, config, document
+import os, sys, logging
+from dharma import tree, parse, texts, config, document, validate
 
 class Query:
 
@@ -213,3 +213,24 @@ def search(q, s):
 		from metadata where key = 'last_updated'""").fetchone()
 	db.execute("commit")
 	return ret, last_updated
+
+# Rebuild the full catalog with the data already present in the db.
+def rebuild():
+	logging.info("rebuilding the catalog")
+	db = config.db("texts")
+	db.execute("delete from documents_index")
+	db.execute("delete from documents")
+	import change # XXX circular import
+	for repo, path, data in db.execute("select repo, path, data from files"):
+		file = change.File()
+		file.repo = repo
+		file.path = path
+		file._data = data
+		# XXX use a File object in validate.status()
+		file.status = validate.status(file.full_path)
+		# XXX no reason to have separate tables for "texts" and "documents",
+		# move all in "documents"
+		db.execute("update texts set status = ? where name = ?",
+			(file.status, file.name))
+		insert(file)
+	logging.info("rebuilded the catalog")

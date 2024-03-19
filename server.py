@@ -6,6 +6,7 @@ from dharma import config, change, people, ngrams, catalog, parse, validate, par
 app = flask.Flask(__name__, static_url_path="")
 app.jinja_options["line_statement_prefix"] = "%"
 
+# Global variables within jinja templates.
 @app.context_processor
 def inject_global_vars():
 	return {"code_hash": config.CODE_HASH}
@@ -14,9 +15,6 @@ def inject_global_vars():
 def index():
 	date = config.format_date(config.CODE_DATE)
 	return flask.render_template("index.tpl", code_hash=config.CODE_HASH, code_date=date)
-
-def is_robot(email):
-	return email in ("readme-bot@example.com", "github-actions@github.com")
 
 @app.get("/documentation")
 def show_documentation():
@@ -313,12 +311,16 @@ def display_biblio_page(page):
 def display_biblio():
 	return flask.redirect("/bibliography/page/1")
 
+def is_robot(email):
+	return email in ("readme-bot@example.com", "github-actions@github.com")
+
 @app.post("/github-event")
 def handle_github():
+	# XXX remove as much logic as possible from here
 	js = flask.request.json
-	repo = js["repository"]["name"]
 	if not js.get("commits"):
 		return ""
+	repo = js["repository"]["name"]
 	# XXX remove special case, add hooks or something for each repo
 	if repo != "tfd-nusantara-philology" and all(is_robot(commit["author"]["email"]) for commit in js["commits"]):
 		return ""
@@ -327,5 +329,3 @@ def handle_github():
 
 if __name__ == "__main__":
 	app.run(host="localhost", port=8023, debug=True)
-	# To run with gunicorn, use:
-	# gunicorn -w 4 -b localhost:8023 dharma.server:app

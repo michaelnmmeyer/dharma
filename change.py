@@ -13,6 +13,7 @@ FIFO_ADDR = config.path_of("change.hid")
 
 db = config.db("texts")
 
+# XXX don't use this var, query the db directly
 REPOS = sorted(repos.load_data().keys())
 
 # Timestamp of the last git pull/clone
@@ -44,6 +45,7 @@ def update_repo(name):
 	if diff < min_pull_wait:
 		time.sleep(min_pull_wait - diff)
 	last_pull = now
+	# Attempt to clone the repo, in case we don't have it. Otherwise pull.
 	if clone_repo(name):
 		return
 	return config.command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
@@ -56,14 +58,18 @@ def latest_commit_in_repo(name):
 
 class File:
 
-	repo = None
-	name = None
-	path = None
+	repo = None # Repo name (tfa-pallava-epigraphy, etc.)
+	path = None # Relative to the repository directory
 	mtime = 0
-	html = None
+	html = None # Path of the corresponding HTML file generated with XSLT
 	status = None
 
 	_data = None
+
+	# File basename without the extension
+	@property
+	def name(self):
+		return os.path.splitext(os.path.basename(self.path))[0]
 
 	@property
 	def data(self):
@@ -125,7 +131,6 @@ class Changes:
 			mtime = int(os.stat(path).st_mtime)
 			file = File()
 			file.repo = self.repo
-			file.name = os.path.splitext(name)[0]
 			file.path = os.path.relpath(path, repo_dir)
 			file.mtime = mtime
 			if name not in self.before:
@@ -177,13 +182,19 @@ def update_db(repo):
 # the db. Otherwise would have to write introspection code. Other reason: at
 # some point, we want to have a downloadable read-only db.
 def update_project():
+	# XXX add a test to verify whether the files we need changed, to avoid
+	# doing a full rebuild when not necessary.
 	people.make_db()
 	langs.make_db()
 	gaiji.make_db()
 	prosody.make_db()
-	# XXX what about schemas and docs? run make?
+	# XXX what about schemas and docs? run make? this should be built as
+	# part of project-documentation, and we should not store schemas in
+	# the app repo.
 	# XXX make sure project-doc has upd prio over other repos
-	# TODO store needed files from project-documentation in the db
+	# TODO store needed files from project-documentation in the db, otherwise
+	# we're gonna get stuck later on
+	catalog.rebuild()
 
 def backup_to_jawakuno():
 	config.command("bash", "-x", config.path_of("backup_to_jawakuno.sh"), capture_output=False)
