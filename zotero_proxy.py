@@ -25,7 +25,7 @@ MY_API_KEY = "ojTBU4SxEQ4L0OqUhFVyImjq"
 
 @app.get("/zotero-proxy/groups/1633743/items")
 def reply():
-	url = urlparse(flask.request.url)
+	url = urlparse(flask.request.url.removeprefix("/zotero-proxy"))
 	url = url._replace(scheme="https", netloc="api.zotero.org")
 	url = url.geturl()
 	s = requests.Session()
