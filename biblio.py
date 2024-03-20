@@ -201,7 +201,11 @@ class Writer:
 		self.period()
 
 	def ref(self, rec):
-		authors = rec["creators"]
+		authors = []
+		for creator in rec["creators"]:
+			if rec["itemType"] == "bookSection" and creator["creatorType"] == "editor":
+				continue
+			authors.append(creator)
 		if len(authors) == 0:
 			self.add(anonymous)
 		elif len(authors) == 1:
