@@ -94,7 +94,7 @@ def db(name):
 	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES,
 		isolation_level=None)
 	conn.row_factory = sqlite3.Row
-	if os.path.basename(sys.argv[0]) != "change.py":
+	if os.path.basename(sys.argv[0]) not in ("change.py", "repos.py"):
 		conn.execute("pragma query_only = yes")
 	conn.execute("pragma synchronous = normal")
 	conn.execute("pragma foreign_keys = on")
