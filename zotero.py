@@ -21,7 +21,7 @@ create_subscriptions = config.to_json({
 
 delete_subscriptions = config.to_json({
 	"action": "deleteSubscriptions",
-	"subscriptions": [{"apiKey": MY_API_KEY}]
+	"subscriptions": [{"apiKey": biblio.MY_API_KEY}]
 })
 # Response:
 # {"event":"subscriptionsDeleted","subscriptions":[{"apiKey":"ojTBU4SxEQ4L0OqUhFVyImjq","topics":["/groups/1633743","/groups/5336269"]}]}
