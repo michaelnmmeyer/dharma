@@ -23,15 +23,18 @@ def format_date(obj):
 	return time.strftime('%Y-%m-%d %H:%M', ret)
 
 # Python's sqlite wrapper does not allow us to share database objects between
-# threads, even though sqlite itself is OK with that. So we allocate new
-# database objects for each thread. In a given thread, there is no point
-# allocating more than one database object, so we allocate just one, and
-# create it on demand.
+# threads, even though sqlite itself is OK with that. (But this changed in
+# python3.11, see:
+# https://docs.python.org/3/library/sqlite3.html#sqlite3.threadsafety.)
+# So we allocate new database objects for each thread. In a given thread, there
+# is no point allocating more than one database object, so we allocate just one,
+# and create it on demand.
 DBS = threading.local()
 
 # The point of this wrapper is to make sure we don't use functions that might
-# mess with transactions, and that we use the same logic everywhere e.g.
-# db.execute("commit") instead of the (redundant) db.commit().
+# mess with transactions (conn.executescript() in particular is dangerous),
+# and that we use the same logic everywhere e.g. db.execute("commit") instead
+# of the (redundant) db.commit().
 class DB:
 
 	def __init__(self, conn):
@@ -52,7 +55,8 @@ COLLATOR = icu.Collator.createInstance()
 COLLATOR.setAttribute(icu.UCollAttribute.ALTERNATE_HANDLING, icu.UCollAttributeValue.SHIFTED)
 
 def collate_icu(a, b):
-	# HACK
+	# HACK the problem is that we are sorting by json fields and that
+	# we must handle null values
 	if a == "[]":
 		if b == "[]":
 			return 0
