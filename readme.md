@@ -4,8 +4,6 @@ This is the newest code for the DHARMA project.
 
 ## Installation
 
-`ICU` is required libicu-dev
-
 The following Python packages need to be installed with `pip`:
 
 	flask
