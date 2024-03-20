@@ -1,4 +1,5 @@
-import os, sys, re, icu, unicodedata, html
+import os, sys, re, unicodedata, html
+import icu # pip install PyICU
 from dharma import texts, cleanup
 
 def graphemes(s):

@@ -10,7 +10,7 @@
 
 import sys, logging, io, unicodedata, html, re, time
 from urllib.parse import urlparse
-import requests
+import requests # pip install requests
 from dharma import config, tree
 
 LIBRARY_ID = 1633743

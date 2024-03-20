@@ -1,6 +1,7 @@
 # XSLT transforms for schemas. It's faster to use the python bindings than the Java code.
 
-import sys, saxonche
+import sys
+import saxonche # pip install saxonche
 
 if __name__ == "__main__":
 	proc = saxonche.PySaxonProcessor(license=False)

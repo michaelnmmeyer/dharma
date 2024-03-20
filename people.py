@@ -1,5 +1,5 @@
 import os, re, io, unicodedata
-import requests
+import requests # pip install requests
 from dharma import config, tree
 
 ID_TYPES = """

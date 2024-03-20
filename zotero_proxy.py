@@ -1,6 +1,7 @@
 import time
 from urllib.parse import urlparse
-import flask, requests
+import flask # pip install flask
+import requests # pip install requests
 
 app = flask.Flask(__name__)
 

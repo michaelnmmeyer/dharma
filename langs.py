@@ -2,7 +2,8 @@
 # For ISO 639-5 (language families), the authority is
 # https://www.loc.gov/standards/iso639-5/index.html
 
-import os, requests, unicodedata
+import os, unicodedata
+import requests # pip install requests
 from dharma import config
 
 def fetch_tsv(url):

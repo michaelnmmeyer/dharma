@@ -2,6 +2,21 @@
 
 This is the newest code for the DHARMA project.
 
+## Installation
+
+`ICU` is required libicu-dev
+
+The following Python packages need to be installed with `pip`:
+
+	flask
+	PyICU
+	requests
+	saxonche
+	websockets
+
+`PyICU` wants all the ICU stuff to be installed, so install `libicu-dev` or
+`libicu-devel`, depending on the distribution.
+
 ##  Basic architecture
 
 The overall architecture is as simple as feasible. We store our data in a few

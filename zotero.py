@@ -3,7 +3,8 @@
 # https://www.zotero.org/support/dev/web_api/v3/streaming_api
 
 import logging, traceback
-from websockets.sync.client import connect # https://websockets.readthedocs.io
+# Documentation at https://websockets.readthedocs.io
+from websockets.sync.client import connect # pip install websockets
 from dharma import config, change, biblio
 
 create_subscriptions = config.to_json({

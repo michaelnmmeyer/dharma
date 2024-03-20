@@ -1,7 +1,7 @@
 import os, sys, logging, sqlite3, json, subprocess, re, ssl, threading, time
 import functools
 from urllib.parse import urlparse, quote
-import icu
+import icu # pip install PyICU
 
 DHARMA_HOME = os.path.dirname(os.path.abspath(__file__))
 # Export it for subprocesses
@@ -47,13 +47,13 @@ class DB:
 def normalize_space(s):
 	s = s.strip()
 	return re.sub(r"\s+", " ", s)
-
+"""
 # For seeing how different collations work, see:
 # https://icu4c-demos.unicode.org/icu-bin/collation.html
 COLLATOR = icu.Collator.createInstance()
 # The following is for ignoring punctuation
 COLLATOR.setAttribute(icu.UCollAttribute.ALTERNATE_HANDLING, icu.UCollAttributeValue.SHIFTED)
-
+"""
 def collate_icu(a, b):
 	# HACK the problem is that we are sorting by json fields and that
 	# we must handle null values

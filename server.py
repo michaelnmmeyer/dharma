@@ -1,6 +1,6 @@
 import os, sys, unicodedata, hashlib, locale, time
 from datetime import datetime
-import flask
+import flask # pip install flask
 from dharma import config, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document, tree
 
 app = flask.Flask(__name__, static_url_path="")
