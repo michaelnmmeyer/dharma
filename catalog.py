@@ -186,7 +186,7 @@ def search(q, s):
 	sql = """
 		select documents.name, documents.repo, documents.title,
 			documents.author, documents.editors, json_group_array(distinct langs_list.name) as langs, documents.summary,
-			format_url('https://erc-dharma.github.io/%s/%s', documents.repo, html_path) as html_link
+			html_path
 		from documents
 			join documents_index on documents.name = documents_index.name
 			join json_each(documents.langs)

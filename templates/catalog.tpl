@@ -76,8 +76,8 @@ table of languages <a href="/langs">here</a>.</p>
    <p>
    % if row["name"].startswith("DHARMA_INS"):
       <a href="/display/{{row["name"]}}">
-   % elif not row["html_link"].endswith("/"):
-      <a href="{{row["html_link"]}}">
+   % elif row["html_path"]:
+      <a href="{{format_url('https://erc-dharma.github.io/%s/%s', row['repo'], row['html_path'])}}">
    % endif
    % if row["title"]:
       % for chunk in row["title"]:
@@ -86,11 +86,13 @@ table of languages <a href="/langs">here</a>.</p>
    % else:
       <i>Untitled</i>.
    % endif
-   % if not row["html_link"].endswith("/") or row["name"].startswith("DHARMA_INS"):
+   % if row["name"].startswith("DHARMA_INS") or row["html_path"]:
       </a>
-      % if not row["html_link"].endswith("/"):
-          <a href="{{row["html_link"]}}">[🦕 Old display]</a>
-      % endif
+   % endif
+   % if row["html_path"] and row["name"].startswith("DHARMA_INS"):
+      <a href="{{format_url('https://erc-dharma.github.io/%s/%s', row['repo'], row['html_path'])}}">
+      [🦕 Old display]
+      </a>
    % endif
    </p>
    <p>
