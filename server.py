@@ -93,35 +93,30 @@ def show_text(name):
 	path = os.path.join(config.REPOS_DIR, row["repo"], row["xml_path"])
 	return flask.render_template("invalid-text.tpl", text=row, github_url=url, result=validate.file(path))
 
-# Legacy url
-@app.get("/texts/<repo>/<hash>/<name>")
-def show_text_legacy(repo, hash, name):
-	return flask.redirect(config.format_url("/texts/%s", name))
-
 @app.get("/repositories")
 @config.transaction("texts")
 def show_repos():
 	db = config.db("texts")
 	rows = db.execute("""
-	with repos_editors as (
-		select repo as name,
-			json_each.value as editor,
-			count(*) as editor_prod
-		from documents, json_each(documents.editors)
-		group by repo, json_each.value
-		order by repo asc, editor_prod desc
-	), repos_prod as (
-		select repos.repo as name,
-			repos.title as title,
+	with repos_stats as (
+		select repos.repo,
 			count(*) as repo_prod
 		from repos join documents on repos.repo = documents.repo
-		group by documents.repo
-	) select repos_editors.name as name,
+		group by repos.repo
+		order by repos.repo
+	)
+	select repos.repo,
+		repos.title,
 		repo_prod,
-		title,
-		json_group_array(json_array(editor, editor_prod)) as people
-	from repos_editors join repos_prod on repos_editors.name = repos_prod.name
-	group by repos_prod.name order by repos_prod.title""").fetchall()
+		editors_prod as people,
+		langs_prod as langs
+	from repos
+		left join repos_stats on repos.repo = repos_stats.repo
+		left join repos_editors_stats_json on repos.repo = repos_editors_stats_json.repo
+		left join repos_langs_stats_json on repos.repo = repos_langs_stats_json.repo
+	group by repos.repo
+	order by repos.title
+	""").fetchall()
 	return flask.render_template("repos.tpl", rows=rows)
 
 @app.get("/parallels")

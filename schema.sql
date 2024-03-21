@@ -227,4 +227,31 @@ create table if not exists biblio_data(
 create index if not exists biblio_data_short_title on biblio_data(short_title);
 create index if not exists biblio_data_sort_key on biblio_data(sort_key);
 
+create view if not exists repos_editors_stats as
+	select repo,
+		json_each.value as editor,
+		count(*) as editor_prod
+	from documents, json_each(documents.editors)
+	group by repo, json_each.value
+	order by repo asc, editor_prod desc, editor asc;
+
+create view if not exists repos_editors_stats_json as
+	select repo,
+		json_group_array(json_array(editor, editor_prod)) as editors_prod
+	from repos_editors_stats group by repo;
+
+create view if not exists repos_langs_stats as
+	select repo,
+		langs_list.name as lang,
+		count(*) as lang_prod
+	from documents, json_each(documents.langs)
+		left join langs_list on langs_list.id = json_each.value
+	group by repo, json_each.value
+	order by repo asc, lang_prod desc, lang asc;
+
+create view if not exists repos_langs_stats_json as
+	select repo,
+		json_group_array(json_array(lang, lang_prod)) as langs_prod
+	from repos_langs_stats group by repo;
+
 commit;
