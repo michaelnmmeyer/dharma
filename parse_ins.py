@@ -192,7 +192,7 @@ if __name__ == "__main__":
 	data = open(path, "rb").read()
 	try:
 		doc = process_file(path, data)
-		for t, data, params in doc.edition.code:
+		for t, data, params in doc.translation[-1].code:
 			document.write_debug(t, data, **params)
 		#ret = parse.PlainRenderer().render(doc)
 		#sys.stdout.write(ret)

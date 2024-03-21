@@ -3,7 +3,8 @@
 We do not use Google Fonts' HTTP API because, for some reason, they do not
 include COMBINING RING BELOW in the fonts accessible through the API, although
 the character is present in the full fonts that can be manually downloaded from
-the website. They also probably exclude other characters useful for us.
+the website. They also probably exclude other characters useful for us, not
+checked further.
 
 Useful documentation for fonts subsetting:
 
@@ -48,3 +49,15 @@ hinted one without too much loss apparently. And choosing variable fonts makes
 us use a single font file instead of many for each font weight, which makes
 things simpler; variable font files might also be smaller overall, did not
 check that.
+
+## Update
+
+Stopped using NotoSansMath, NotoSansSymbols and NotoSansSymbols2, even though
+they have symbols we do need and that are not available in Noto Serif, e.g. ↓.
+Using them screws up space between lines, maybe because the fonts do not have
+the same parameters and are not serif. In any case, Web browsers are able to
+pull missing chars from some more adequate fonts, so we are OK.
+
+Also stopped using Noto Emoji, because it is really massive. People probably
+already have an Emoji font somewhere on their computer. We could also pull
+Noto Emoji from an official source to help with caching.
