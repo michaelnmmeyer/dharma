@@ -238,7 +238,8 @@ def display_text(text):
 			format_date(commit_date) as commit_date,
 			format_date(last_modified) as last_modified,
 			last_modified_commit,
-			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo, commit_hash, path) as github_url
+			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
+				commit_hash, path) as github_url
 		from documents
 			join files on documents.name = files.name
 			join repos on documents.repo = repos.repo
@@ -249,10 +250,10 @@ def display_text(text):
 	import parse_ins
 	try:
 		doc = parse_ins.process_file(row["path"], row["data"])
-		title = doc.title.render_logical()
+		title = doc.title and doc.title.render_logical() or []
 		doc.title = title and title.split(document.PARA_SEP) or []
-		editors = doc.editors.render_logical()
-		doc.editors = editors and editors.split(document.PARA_SEP)
+		editors = doc.editors and doc.editors.render_logical() or []
+		doc.editors = editors and editors.split(document.PARA_SEP) or []
 	except tree.Error as e:
 		doc = document.Document()
 		doc.valid = False
