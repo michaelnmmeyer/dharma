@@ -737,10 +737,15 @@ def parse_p(p, para):
 	if para["rend"] == "stanza":
 		# See e.g. INSPallava06 <p rend="stanza" n="1">...
 		parse_lg(p, para)
-	else:
-		p.add_log("<para")
-		p.dispatch_children(para)
-		p.add_log(">para")
+		return
+	p.add_log("<para")
+	if para["n"]:
+		# See e.g. http://localhost:8023/display/DHARMA_INSSII0400223
+		# Should be displayed like <lb/> in the edition.
+		n = html.escape(para["n"])
+		p.add_html(f'<span class="lb" data-tip="Paragraph start">({n})</span>')
+	p.dispatch_children(para)
+	p.add_log(">para")
 
 def parse_ab(p, ab):
 	p.add_log("<para")
