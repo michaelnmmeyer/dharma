@@ -8490,10 +8490,7 @@ attributes @target and @cRef may be supplied on <name/>.</report>
     <ref target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/SA.html#SAPT">16.1. Links</ref>
   </listRef></elementSpec><elementSpec rend="change" module="core" ident="list"><gloss versionDate="2007-06-12" xml:lang="fr">liste</gloss><gloss versionDate="2016-11-25" xml:lang="de">Liste</gloss><desc versionDate="2005-01-14" xml:lang="en">contains any sequence of items organized as a list.</desc><desc versionDate="2007-12-20" xml:lang="ko">목록의 형태로 정리된 항목을 포함한다.</desc><desc versionDate="2007-05-02" xml:lang="zh-TW">包含以列表方式呈現的任何連續項目。</desc><desc versionDate="2008-04-05" xml:lang="ja">リストのような，項目列を示す．</desc><desc versionDate="2007-06-12" xml:lang="fr">contient une suite d'items ordonnés dans une liste.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene cualquier secuencia de ítems o elementos
     organizados en una lista.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una qualsiasi sequenza di voci organizzate in
-    una lista.</desc><desc versionDate="2016-11-25" xml:lang="de">enthält eine Reihe von Listenpunkten, die als Liste organisiert sind.</desc><classes><memberOf key="att.global"/><memberOf key="att.sortable"/><memberOf key="att.typed"/><memberOf key="model.listLike"/></classes><content><alternate minOccurs="1" maxOccurs="1"><alternate minOccurs="1" maxOccurs="unbounded"><elementRef key="item"/></alternate><sequence minOccurs="1" maxOccurs="unbounded"><elementRef key="label"/><elementRef key="item"/></sequence></alternate></content><constraintSpec scheme="isoschematron" ident="lists">
-                        <constraint><sch:rule context="tei:list"><sch:assert test="parent::tei:p">List can only be used inside a paragraph
-                                element.</sch:assert></sch:rule></constraint>
-                    </constraintSpec><constraintSpec ident="gloss-list-must-have-labels" scheme="schematron">
+    una lista.</desc><desc versionDate="2016-11-25" xml:lang="de">enthält eine Reihe von Listenpunkten, die als Liste organisiert sind.</desc><classes><memberOf key="att.global"/><memberOf key="att.sortable"/><memberOf key="att.typed"/><memberOf key="model.listLike"/></classes><content><alternate minOccurs="1" maxOccurs="1"><alternate minOccurs="1" maxOccurs="unbounded"><elementRef key="item"/></alternate><sequence minOccurs="1" maxOccurs="unbounded"><elementRef key="label"/><elementRef key="item"/></sequence></alternate></content><constraintSpec ident="gloss-list-must-have-labels" scheme="schematron">
     <constraint>
       <sch:rule context="tei:list[@type='gloss']">
 	<sch:assert test="tei:label">The content of a "gloss" list should include a sequence of one or more pairs of a label element followed by an item element</sch:assert>
@@ -16583,7 +16580,7 @@ généralement dans des textes oraux</desc>
                     <content>
                         <valList>
                             <valItem ident="maturity:00000">
-                                <desc>null</desc>é~
+                                <desc>null</desc>
                             </valItem>
                             <valItem ident="maturity:83207">
                                 <desc>early Brāhmī</desc>

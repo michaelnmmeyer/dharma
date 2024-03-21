@@ -12,9 +12,11 @@ Repositories
 % for repo in rows:
 <div class="catalog-card">
 <p>
-	<b><a href="{{url_for('show_catalog', q='repo:' + repo['repo'])}}">{{repo["title"]}}</a></b>
 % if repo["repo_prod"] is not none:
+	<b><a href="{{url_for('show_catalog', q='repo:' + repo['repo'])}}">{{repo["title"]}}</a></b>
 	({{repo["repo_prod"]}} texts)
+% else:
+	<b>{{repo["title"]}}</b>
 % endif
 </p>
 % if repo["people"]:
