@@ -21,15 +21,23 @@ depending on the unit you choose. This interface is not meant to be used for
 searching arbitrary substrings.</p>
 
 <form action="/parallels/search" method="get">
-<label for="text-input">Text:</label>
-<input name="text" id="text-input"></input>
-<label for="select-type">Unit:</label>
-<select name="type" id="select-type">
-   <option value="verse">Verse</option>
-   <option value="hemistich">Hemistich</option>
-   <option value="pada">Pāda</option>
-</select>
-<input type="submit" value="Search">
+<ul>
+   <li>
+      <label for="text-input">Text:</label>
+      <input name="text" id="text-input"></input>
+   </li>
+   <li>
+      <label for="select-type">Unit:</label>
+      <select name="type" id="select-type">
+         <option value="verse">Verse</option>
+         <option value="hemistich">Hemistich</option>
+         <option value="pada">Pāda</option>
+      </select>
+   </li>
+   <li>
+      <input type="submit" value="Search">
+   </li>
+</ul>
 </form>
 
 <p>The table at the bottom of this page displays, for each text that has at
