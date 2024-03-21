@@ -433,13 +433,23 @@ h6 {
 }
 
 /* Lists examples in
- * http://localhost:8023/display/DHARMA_INSIDENKAlasantan#translation-1
+ * http://localhost:8023/display/DHARMA_INSIDENKAlasantan
+ * http://localhost:8023/display/DHARMA_INSSII0400223
  */
 .list-plain {
 	list-style: none;
 }
 .list {
 	padding-left: 2.4em;
+}
+/* More space between <li> */
+.list li:not(:last-child) {
+	margin-bottom: 0.8em;
+}
+/* More space before and after nested lists */
+.list li .list {
+	padding-top: 0.8em;
+	padding-bottom: 0.8em;
 }
 dl.list { /* XXX ugly on mobile! */
 	display:grid;
