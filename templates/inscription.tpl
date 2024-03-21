@@ -126,7 +126,7 @@ Version: {{doc.commit_date}}
 <h2 id="notes">Notes</h2>
 % for note in doc.notes:
 <div class="note" id="note-{{loop.index}}">
-<a class="note-ref" href="#note-ref-{{loop.index}}">↑{{loop.index}}</a>
+<a class="note-ref" href="#note-ref-{{loop.index}}">{{loop.index}}</a>
 {{note.render_logical() | safe}}
 </div>
 % endfor
