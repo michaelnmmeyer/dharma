@@ -12,6 +12,7 @@ def inject_global_vars():
 	return {
 		"code_hash": config.CODE_HASH,
 		"from_json": config.from_json,
+		"format_url": config.format_url,
 	}
 
 @app.get("/")

@@ -12,7 +12,7 @@ Repositories
 % for repo in rows:
 <div class="catalog-card">
 <p>
-	<b>{{repo["title"]}}</b>
+	<b><a href="{{url_for('show_catalog', q='repo:' + repo['repo'])}}">{{repo["title"]}}</a></b>
 % if repo["repo_prod"] is not none:
 	({{repo["repo_prod"]}} texts)
 % endif
@@ -31,7 +31,7 @@ Repositories
 % endfor
 </p>
 % endif
-<p><span class="repo-id">{{repo["repo"]}}</span></p>
+<p><a href="https://github.com/erc-dharma/{{format_url(repo['repo'])}}"><i class="fa-brands fa-github"></i> <span class="repo-id">{{repo["repo"]}}</span></a></p>
 </div> <!-- class="catalog-card" -->
 % endfor
 </div> <!-- class="catalog-list" -->
