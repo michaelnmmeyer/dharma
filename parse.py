@@ -744,6 +744,7 @@ def parse_p(p, para):
 		# Should be displayed like <lb/> in the edition.
 		n = html.escape(para["n"])
 		p.add_html(f'<span class="lb" data-tip="Paragraph start">({n})</span>')
+		p.add_html(" ")
 	p.dispatch_children(para)
 	p.add_log(">para")
 
