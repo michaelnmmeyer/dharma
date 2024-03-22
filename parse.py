@@ -7,9 +7,6 @@ class Parser:
 
 	div_level = 0
 
-	# For HTML output; used in crit_ed
-	heading_shift = 1
-
 	def __init__(self, tree, handlers):
 		self.tree = tree
 		self.document = Document()

@@ -46,12 +46,11 @@ html, body {
 html {
 	/* I always display the scrollbar to make sure the layout does not
 	 * shift between pages. Can't find out how to style edges with
-	 * scrollbar-gutter: stable both-edges.
+	 * scrollbar-gutter: stable both-edges, so we just display a scrollbar
+	 * all the time. There aren't many pages that fit in less than one
+	 * screen so this is not much of an annoyance.
 	 */
 	overflow-y: scroll;
-}
-body {
-	line-height: 1.5em;
 }
 
 #contents {
@@ -117,6 +116,7 @@ body {
 	color: black;
 	background-color: white;
 	overflow-wrap: break-word;
+	line-height: 1.5em;
 }
 pre, code {
 	font-family: 'Noto Mono', monospace;
