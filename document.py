@@ -275,7 +275,7 @@ class Block:
 					buf.append('</dd>')
 				elif data == "=note":
 					n = params["n"]
-					buf.append(f'<a class="nav-link note-ref" href="#note-{n}" id="note-ref-{n}">{n}</a>')
+					buf.append(f'<sup><a class="nav-link" href="#note-{n}" id="note-ref-{n}">{n}</a></sup>')
 				elif data == "<blockquote":
 					buf.append('<blockquote>')
 				elif data == ">blockquote":
@@ -388,7 +388,7 @@ class Block:
 					buf.append('</dd>')
 				elif data == "=note":
 					n = params["n"]
-					buf.append(f'<a class="nav-link note-ref" href="#note-{n}" id="note-ref-{n}">{n}</a>')
+					buf.append(f'<sup><a class="nav-link" href="#note-{n}" id="note-ref-{n}">{n}</a></sup>')
 				elif data == "<blockquote":
 					buf.append('<blockquote>')
 				elif data == ">blockquote":

@@ -44,10 +44,14 @@ html, body {
 	width: 100%;
 }
 html {
-	overflow-y: scroll;
-	/* can't find out how to style edges with
-	 * scrollbar-gutter: stable both-edges;
+	/* I always display the scrollbar to make sure the layout does not
+	 * shift between pages. Can't find out how to style edges with
+	 * scrollbar-gutter: stable both-edges.
 	 */
+	overflow-y: scroll;
+}
+body {
+	line-height: 1.5em;
 }
 
 #contents {
@@ -126,10 +130,6 @@ pre {
 }
 p {
 	text-align: justify;
-	line-height: 1.4em;
-}
-h1, h2, h3, h4, h5, h6 {
-	line-height: 1.4em;
 }
 
 /* Tables */
@@ -442,6 +442,12 @@ h6 {
 	color: black;
 }
 
+sup {
+	vertical-align: baseline;
+	position: relative;
+	top: -0.4em;
+}
+
 /* Lists.
  * Examples in:
  * http://localhost:8023/display/DHARMA_INSIDENKAlasantan
@@ -477,11 +483,6 @@ dl.list > dd {
 	grid-column-start: 2;
 }
 /* End lists */
-
-.note-ref {
-	font-size: 80%;
-	vertical-align: top;
-}
 
 
 /* Editions */
