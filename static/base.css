@@ -259,6 +259,16 @@ menu a:hover {
 
 /* End menu */
 
+@media print {
+	/* For printing, hide useless stuff. */
+	header {
+		display: none;
+	}
+	aside {
+		display: none;
+	}
+}
+
 
 /* Catalog */
 
@@ -432,7 +442,8 @@ h6 {
 	color: black;
 }
 
-/* Lists examples in
+/* Lists.
+ * Examples in:
  * http://localhost:8023/display/DHARMA_INSIDENKAlasantan
  * http://localhost:8023/display/DHARMA_INSSII0400223
  */
@@ -448,7 +459,9 @@ h6 {
 .list {
 	padding-left: 2.4em;
 }
-/* More space between <li> */
+/* More space between list items. This is mostly for plain lists, because it
+ * is hard to distinguish paragraph lines from item lines.
+ */
 .list li:not(:last-child) {
 	margin-bottom: 0.8em;
 }
@@ -463,6 +476,7 @@ dl.list > dt {
 dl.list > dd {
 	grid-column-start: 2;
 }
+/* End lists */
 
 .note-ref {
 	font-size: 80%;
