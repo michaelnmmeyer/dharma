@@ -11,7 +11,7 @@ wikidata
 """.strip().split()
 
 def iter_members_list():
-	path = os.path.join(config.REPOS_DIR, "project-documentation/DHARMA_idListMembers_v01.xml")
+	path = config.path_of("repos/project-documentation/DHARMA_idListMembers_v01.xml")
 	xml = tree.parse(path)
 	for person in xml.find("//person"):
 		row = {}

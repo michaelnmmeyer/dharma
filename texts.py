@@ -60,10 +60,10 @@ class File:
 	# /home/michael/dharma/repos/tfa-pallava-epigraphy/texts/xml/DHARMA_INSPallava00002.xml"
 	@property
 	def full_path(self):
-		return os.path.join(config.REPOS_DIR, self.repo, self.path)
+		return config.path_of("repos", self.repo, self.path)
 
 def iter_texts_in_repo(name):
-	path = os.path.join(config.REPOS_DIR, name)
+	path = config.path_of("repos", name)
 	for root, dirs, files in os.walk(path):
 		# There are generated files in
 		# repos/tfc-nusantara-epigraphy/workflow-output/editedxml
@@ -90,7 +90,7 @@ def iter_texts_in_repo(name):
 
 def iter_texts():
 	unique = {}
-	for repo in os.listdir(config.REPOS_DIR):
+	for repo in os.listdir(config.path_of("repos")):
 		for file in iter_texts_in_repo(repo):
 			base = os.path.basename(file)
 			unique.setdefault(base, []).append(file)
@@ -104,25 +104,25 @@ def iter_texts():
 
 def owners_of(path):
 	from dharma import people
-	path = os.path.relpath(path, config.REPOS_DIR)
+	path = os.path.relpath(path, config.path_of("repos"))
 	slash = path.index("/")
 	repo, relpath = path[:slash], path[slash + 1:]
-	ret = config.command("git", "-C", os.path.join(config.REPOS_DIR, repo), "log", "--follow", "--format=%aN", "--", relpath)
+	ret = config.command("git", "-C", config.path_of("repos", repo), "log", "--follow", "--format=%aN", "--", relpath)
 	authors = set(ret.stdout.splitlines())
 	return sorted(authors)
 
 def last_mod_of(path):
-	path = os.path.relpath(path, config.REPOS_DIR)
+	path = os.path.relpath(path, config.path_of("repos"))
 	slash = path.index("/")
 	repo, relpath = path[:slash], path[slash + 1:]
-	ret = config.command("git", "-C", os.path.join(config.REPOS_DIR, repo), "log", "-1", "--format=%H %at", "--", relpath)
+	ret = config.command("git", "-C", config.path_of("repos", repo), "log", "-1", "--format=%H %at", "--", relpath)
 	commit, date = ret.stdout.strip().split()
 	return commit, int(date)
 
 # Create a map xml->web page (for debugging)
 def gather_web_pages(recs):
 	tbl = {file.name: file for file in recs}
-	for root, dirs, files in os.walk(config.REPOS_DIR): # XXX only the repo dir!
+	for root, dirs, files in os.walk(config.path_of("repos")): # XXX only the repo dir!
 		for file in files:
 			name, ext = os.path.splitext(file)
 			if ext != ".html":
@@ -131,4 +131,4 @@ def gather_web_pages(recs):
 			if not rec:
 				continue
 			html = os.path.join(root, file)
-			rec.html = os.path.relpath(html, os.path.join(config.REPOS_DIR, rec.repo))
+			rec.html = os.path.relpath(html, config.path_of("repos", rec.repo))

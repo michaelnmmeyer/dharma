@@ -2,7 +2,7 @@ import os, sys, unicodedata
 from dharma import config, tree
 
 def load_data():
-	path = os.path.join(config.REPOS_DIR, "project-documentation", "DHARMA_prosodicPatterns_v01.xml")
+	path = config.path_of("repos/project-documentation/DHARMA_prosodicPatterns_v01.xml")
 	xml = tree.parse(path)
 	items = {}
 	for item in xml.find("//item"):

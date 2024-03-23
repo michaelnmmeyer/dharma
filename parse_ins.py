@@ -177,7 +177,7 @@ def export_plain():
 	for name, path, data in db.execute("""
 		select name, printf('%s/%s/%s', ?, repo, path), data
 		from documents natural join files where name glob 'DHARMA_INS*'
-		""", (config.REPOS_DIR,)):
+		""", (config.path_of("repos"),)):
 		print(path)
 		try:
 			ret = renderer.render(process_file(path, data))

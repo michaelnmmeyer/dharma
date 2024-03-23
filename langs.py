@@ -32,7 +32,7 @@ def load_data():
 	tbl3 = fetch_tsv("https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab")
 	tbl3_bis = fetch_tsv("https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3_Name_Index.tab")
 	tbl5 = fetch_tsv("http://id.loc.gov/vocabulary/iso639-5.tsv")
-	tbl0 = fetch_tsv(os.path.join(config.REPOS_DIR, "project-documentation/DHARMA_languages.tsv"))
+	tbl0 = fetch_tsv(config.path_of("repos/project-documentation/DHARMA_languages.tsv"))
 	recs = []
 	index = {}
 	for row in tbl3:

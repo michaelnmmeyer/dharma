@@ -26,7 +26,7 @@ def all_useful_repos():
 	return [name for (name,) in ret]
 
 def clone_repo(name):
-	path = os.path.join(config.REPOS_DIR, name)
+	path = config.path_of("repos", name)
 	# The simplest way to determine if we already have cloned the repo is
 	# to check if we have a non-empty directory at the expected location.
 	try:
@@ -54,10 +54,10 @@ def update_repo(name):
 	# Attempt to clone the repo, in case we don't have it. Otherwise pull.
 	if clone_repo(name):
 		return
-	return config.command("git", "-C", os.path.join(config.REPOS_DIR, name), "pull", capture_output=False)
+	return config.command("git", "-C", config.path_of("repos", name), "pull", capture_output=False)
 
 def latest_commit_in_repo(name):
-	r = config.command("git", "-C", os.path.join(config.REPOS_DIR, name), "log", "-1", "--format=%H %at")
+	r = config.command("git", "-C", config.path_of("repos", name), "log", "-1", "--format=%H %at")
 	hash, date = r.stdout.strip().split()
 	date = int(date)
 	return hash, date
@@ -94,7 +94,7 @@ class Changes:
 		if self.done:
 			return
 		seen = set()
-		repo_dir = os.path.join(config.REPOS_DIR, self.repo)
+		repo_dir = config.path_of("repos", self.repo)
 		for path in texts.iter_texts_in_repo(self.repo):
 			name = os.path.basename(os.path.splitext(path)[0])
 			if name in seen:
@@ -261,7 +261,7 @@ def notify(name):
 
 def run():
 	try:
-		os.mkdir(config.REPOS_DIR)
+		os.mkdir(config.path_of("repos"))
 	except FileExistsError:
 		pass
 	try:

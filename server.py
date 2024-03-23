@@ -91,7 +91,7 @@ def show_text(name):
 		row['repo'], row['commit_hash'], row['xml_path'])
 	if row["status"] == validate.OK:
 		return flask.redirect(url)
-	path = os.path.join(config.REPOS_DIR, row["repo"], row["xml_path"])
+	path = config.path_of("repos", row["repo"], row["xml_path"])
 	return flask.render_template("invalid-text.tpl", text=row, github_url=url, result=validate.file(path))
 
 @app.get("/repositories")
@@ -244,7 +244,7 @@ def display_text(text):
 			join files on documents.name = files.name
 			join repos on documents.repo = repos.repo
 		where documents.name = ?""",
-		(config.REPOS_DIR, text)).fetchone()
+		(config.path_of("repos"), text)).fetchone()
 	if not row:
 		db.execute("abort")
 		return flask.abort(404)

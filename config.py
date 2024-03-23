@@ -10,8 +10,6 @@ os.environ["DHARMA_HOME"] = DHARMA_HOME
 def path_of(*path_elems):
 	return os.path.join(DHARMA_HOME, *path_elems)
 
-REPOS_DIR = os.path.join(DHARMA_HOME, "repos")
-
 logging.basicConfig(level="INFO")
 
 # Report exceptions within user functions on stderr. Otherwise we only get a
