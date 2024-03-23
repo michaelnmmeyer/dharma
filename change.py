@@ -21,11 +21,14 @@ last_pull = 0
 min_pull_wait = 10
 
 def all_useful_repos():
-	ret = db.execute("select repo from repos where textual or repo = 'project-documentation'")
+	# Always process repos in the same order.
+	ret = db.execute("select repo from repos where textual or repo = 'project-documentation' order by repo")
 	return [name for (name,) in ret]
 
 def clone_repo(name):
 	path = os.path.join(config.REPOS_DIR, name)
+	# The simplest way to determine if we already have cloned the repo is
+	# to check if we have a non-empty directory at the expected location.
 	try:
 		os.rmdir(path)
 	except FileNotFoundError:
@@ -58,64 +61,6 @@ def latest_commit_in_repo(name):
 	hash, date = r.stdout.strip().split()
 	date = int(date)
 	return hash, date
-
-class File:
-
-	# Repo name ("tfa-pallava-epigraphy", etc.)
-	repo = None
-
-	# File path, relative to the repository directory e.g.
-	# "texts/xml/DHARMA_INSPallava00002.xml"
-	path = None
-
-	# Value of st_mtime. We use this to figure out which files have been
-	# updated after we do a pull. We do not rely on git both because it is
-	# unnecessary and because at a later point we will want to track local
-	# dirs with inotify or friends.
-	mtime = 0
-
-	# Path of the corresponding HTML file generated with XSLT, relative to
-	# the repo root, e.g.
-	# "texts/htmloutput/DHARMA_INSPallava00002.html"
-	html = None
-
-	# Validation status. See the enum in validate.py.
-	status = None
-
-	_data = None
-
-	# File basename without the extension e.g. DHARMA_INSPallava00002
-	@property
-	def name(self):
-		return os.path.splitext(os.path.basename(self.path))[0]
-
-	# File contents, as a byte string
-	@property
-	def data(self):
-		if self._data is None:
-			with open(self.full_path, "rb") as f:
-				self._data = f.read()
-		return self._data
-
-	# Git names of the people who modified this file, as a sorted set.
-	# This is used in the debugging page so that people can filter by
-	# their name.
-	@property
-	def owners(self):
-		return texts.owners_of(self.full_path)
-
-	# When the file was last modified according to git. A tuple
-	# (commit_hash, commit_timestamp). This is only for display, for
-	# convenience.
-	@property
-	def last_modified(self):
-		return texts.last_mod_of(self.full_path)
-
-	# Full absolute path of the file in the file system, e.g.
-	# /home/michael/dharma/repos/tfa-pallava-epigraphy/texts/xml/DHARMA_INSPallava00002.xml"
-	@property
-	def full_path(self):
-		return os.path.join(config.REPOS_DIR, self.repo, self.path)
 
 class Changes:
 
@@ -156,7 +101,7 @@ class Changes:
 				continue # XXX how to complain? XXX cannot happen see iter_text_in_repo
 			seen.add(name)
 			mtime = int(os.stat(path).st_mtime)
-			file = File()
+			file = texts.File()
 			file.repo = self.repo
 			file.path = os.path.relpath(path, repo_dir)
 			file.mtime = mtime

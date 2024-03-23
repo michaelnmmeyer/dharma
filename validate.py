@@ -150,11 +150,11 @@ def schema_from_filename(file):
 		if base.startswith(schema.prefix):
 			return schema
 
-def status(path):
-	validator = schema_from_filename(path)
+def status(file):
+	validator = schema_from_filename(file.name)
 	if not validator:
 		return
-	return validator.quick_check(path)
+	return validator.quick_check(file.full_path)
 
 def file(path):
 	validator = schema_from_filename(path)

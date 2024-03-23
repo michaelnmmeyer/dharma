@@ -143,6 +143,10 @@ def to_json(obj):
 		sort_keys=True)
 
 sqlite3.register_converter("json", from_json)
+# Python has a default converter for "timestamp" which is not only deprecated
+# but also expects to find something else than a single int in the column,
+# probably because other sql databases use a dedicated format for that<>.
+sqlite3.register_converter("timestamp", int)
 sqlite3.register_adapter(list, to_json)
 sqlite3.register_adapter(dict, to_json)
 

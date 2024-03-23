@@ -222,12 +222,14 @@ def rebuild():
 	db.execute("delete from documents_index")
 	db.execute("delete from documents")
 	import change # XXX circular import
-	for repo, path, data in db.execute("select repo, path, data from files"):
-		file = change.File()
+	for repo, path, mtime, data in db.execute("""
+		select repo, path, mtime, data from files order by name"""):
+		file = texts.File()
 		file.repo = repo
 		file.path = path
+		file.mtime = mtime
 		file._data = data
 		# XXX use a File object in validate.status()
-		file.status = validate.status(file.full_path)
+		file.status = validate.status(file)
 		insert(file)
 	logging.info("rebuilded the catalog")
