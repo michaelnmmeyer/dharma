@@ -37,16 +37,16 @@ def delete(name):
 	db.execute("delete from documents_index where name = ?", (name,))
 	db.execute("delete from documents where name = ?", (name,))
 
-def process_file(repo, path, data):
-	print(path)
+def process_file(file):
+	print(file.full_path)
 	db = config.db("texts")
 	try:
-		t = tree.parse_string(data, path=path)
+		t = tree.parse_string(file.data, path=file.full_path)
 	except tree.Error as e:
-		print("catalog: %r %s" % (path, e), file=sys.stderr)
+		print("catalog: %r %s" % (file.full_path, e), file=sys.stderr)
 		doc = document.Document()
-		doc.repository = repo
-		doc.ident = os.path.splitext(os.path.basename(path))[0]
+		doc.repository = file.repo
+		doc.ident = file.name
 		doc.langs = ["und"]
 		return doc
 	langs = set()
@@ -54,7 +54,7 @@ def process_file(repo, path, data):
 		if not "lang" in node.attrs:
 			continue
 		lang = node["lang"]
-		(code,) = db.execute("select ifnull((select id from langs_by_code where code = ?), 'und')", (lang,)).fetchone()
+		(code,) = db.execute("select id from langs_by_code where code = ?", (lang,)).fetchone() or ("und",)
 		langs.add(code)
 	if not langs:
 		langs.add("und")
@@ -66,16 +66,14 @@ def process_file(repo, path, data):
 	p.dispatch(p.tree.root)
 	doc = p.document
 	doc.langs = sorted(langs)
-	doc.repository = repo
+	doc.repository = file.repo
 	return doc
 
 def insert(file):
 	db = config.db("texts")
-	doc = process_file(file.repo, file.full_path, file.data)
-	if not doc:
-		return # XXX no
+	doc = process_file(file)
 	for key in ("title", "author", "editors", "summary"):
-		val = getattr(doc, key)
+		val = getattr(doc, key, None)
 		if val is None:
 			val = parse.Block(val)
 			val.finish()
@@ -91,17 +89,24 @@ def insert(file):
 	else:
 		fmt_editors = []
 	db.execute("""insert or replace into documents(name, repo, title,
-		author, editors, langs, summary, html_path, code_hash, status)
+		author, editors, editors_ids, langs, summary, html_path, status)
 		values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
 			fmt_title, doc.author.render_logical(), fmt_editors,
+			doc.editors_ids,
 			doc.langs, doc.summary.render_logical(),
-			file.html, config.CODE_HASH, file.status))
+			file.html, file.status))
 	# No primary key on documents_index, so we cannot use "insert or replace"
 	db.execute("delete from documents_index where name = ?", (doc.ident,))
-	db.execute("""insert into documents_index(name, ident, repo, title, author, editor, lang, summary)
-		values (?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.ident.lower(),
+	db.execute("""insert into documents_index(
+		name, ident, repo, title, author,
+		editor, editor_id, lang, summary)
+		values (?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
+		doc.ident, doc.ident.lower(),
 		doc.repository.lower(), doc.title.searchable_text(), doc.author.searchable_text(),
-		doc.editors and doc.editors.searchable_text() or "", "---".join(doc.langs), doc.summary.searchable_text()))
+		doc.editors and doc.editors.searchable_text() or "",
+		doc.editors_ids and "|||".join(doc.editors_ids) or "",
+		"---".join(doc.langs),
+		doc.summary.searchable_text()))
 
 class InvalidQuery(Exception):
 	pass
@@ -143,7 +148,10 @@ def tokenize_query(q):
 			toks.append(tok)
 	return toks
 
-search_fields = {"ident", "repo", "title", "author", "editor", "summary", "lang"}
+search_fields = {
+	"ident", "repo", "title", "author",
+	"editor", "editor_id", "summary", "lang",
+}
 
 def parse_query(q):
 	toks = tokenize_query(q)
@@ -220,16 +228,14 @@ def rebuild():
 	logging.info("rebuilding the catalog")
 	db = config.db("texts")
 	db.execute("delete from documents_index")
-	db.execute("delete from documents")
-	import change # XXX circular import
-	for repo, path, mtime, data in db.execute("""
-		select repo, path, mtime, data from files order by name"""):
-		file = texts.File()
-		file.repo = repo
-		file.path = path
-		file.mtime = mtime
-		file._data = data
-		# XXX use a File object in validate.status()
-		file.status = validate.status(file)
+	for repo, path, mtime, data, html in db.execute("""
+		select files.repo, path, mtime, data, html_path
+		from files join documents on files.name = documents.name
+		order by files.repo, files.name"""):
+		file = texts.File(repo, path)
+		file.html = html
+		setattr(file, "_mtime", mtime)
+		setattr(file, "_data", data)
+		setattr(file, "_status", validate.status(file))
 		insert(file)
 	logging.info("rebuilded the catalog")

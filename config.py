@@ -17,6 +17,8 @@ logging.basicConfig(level="INFO")
 sqlite3.enable_callback_tracebacks(True)
 
 def format_date(obj):
+	if obj is None:
+		return
 	ret = time.localtime(int(obj))
 	return time.strftime('%Y-%m-%d %H:%M', ret)
 
@@ -83,6 +85,13 @@ def jaccard(s1, s2):
 	except ZeroDivisionError:
 		return 0
 
+def read_only_db():
+	if os.path.basename(sys.argv[0]) in ("change.py", "repos.py"):
+		return False
+	if os.getenv("DHARMA_TEST"):
+		return False
+	return True
+
 def db(name):
 	ret = getattr(DBS, name, None)
 	if ret:
@@ -96,7 +105,7 @@ def db(name):
 	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES,
 		isolation_level=None)
 	conn.row_factory = sqlite3.Row
-	if os.path.basename(sys.argv[0]) not in ("change.py", "repos.py"):
+	if read_only_db():
 		conn.execute("pragma query_only = yes")
 	conn.execute("pragma synchronous = normal")
 	conn.execute("pragma foreign_keys = on")

@@ -113,14 +113,6 @@ def validate(s):
 			problems.append(problem)
 	return problems
 
-def validate_repo(name):
-	ret = {}
-	for file in texts.iter_texts_in_repo(name):
-		with open(file) as f:
-			problems = validate(f)
-		ret[file] = problems
-	return ret
-
 if __name__ == "__main__":
 	for line in sys.stdin:
 		p = 0

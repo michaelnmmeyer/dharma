@@ -11,6 +11,7 @@ create_subscriptions = config.to_json({
 	"action": "createSubscriptions",
 	"subscriptions": [{
 		"apiKey": biblio.MY_API_KEY,
+		# The second group is a dummy one for testing.
 		"topics": [f"/groups/{biblio.LIBRARY_ID}", "/groups/5336269"]
 	}]
 })

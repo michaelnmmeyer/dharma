@@ -21,9 +21,9 @@ Searching for strings that contain less than three characters is not
 possible.</p>
 
 <p>Per default, all metadata fields are searched (except "lang", see below).
-Metadata fields are (for now): "title", "editor", "summary", "lang", "repo",
-"ident". You can restrict search to a specific field by using a field prefix,
-as in <a href="/catalog?q=editor:manu">editor:manu</a> or <a
+Metadata fields are (for now): "title", "editor", "editor_id", "summary",
+"lang", "repo", "ident". You can restrict search to a specific field by using a
+field prefix, as in <a href="/catalog?q=editor:manu">editor:manu</a> or <a
 href="/catalog?q=title:&quot;critical%20edition&quot">title:"critical
 edition"</a>. Several clauses can be added successively, separated with
 whitespace. In this case, for a document to be considered a match, all query

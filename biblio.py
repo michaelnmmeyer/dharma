@@ -85,8 +85,10 @@ def update():
 	(max_version,) = db.execute("select value from metadata where key = 'biblio_latest_version'").fetchone()
 	ret = []
 	for entry in zotero_items(max_version, ret):
-		db.execute("""insert or replace into biblio_data(key, version, json, sort_key)
-			values(?, ?, ?, ?)""", (entry["key"], entry["version"], entry, sort_key(entry["data"])))
+		db.execute("""insert or replace
+			into biblio_data(key, version, json, sort_key)
+			values(?, ?, ?, ?)""",
+			(entry["key"], entry["version"], entry, sort_key(entry["data"])))
 	assert len(ret) == 1
 	db.execute("update metadata set value = ? where key = 'biblio_latest_version'", tuple(ret))
 	db.execute("commit")

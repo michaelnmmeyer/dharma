@@ -508,6 +508,7 @@ class Document:
 	title = None
 	author = None
 	editors = None
+	editors_ids = None # list of dharma ids (part:XXXX)
 	langs = None
 	edition_main_langs = None
 	summary = None
@@ -532,6 +533,7 @@ class Document:
 		self.gaiji = set()
 		self.notes = []
 		self.editors = []
+		self.editors_ids = []
 
 
 class PlainRenderer:

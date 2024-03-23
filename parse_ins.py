@@ -162,7 +162,7 @@ def process_file(path, data):
 		if not "lang" in node.attrs:
 			continue
 		lang = node["lang"]
-		(code,) = db.execute("select ifnull((select id from langs_by_code where code = ?), 'und')", (lang,)).fetchone()
+		(code,) = db.execute("select id from langs_by_code where code = ?", (lang,)).fetchone() or ("und",)
 		langs.add(code)
 	if not langs:
 		langs.add("und")

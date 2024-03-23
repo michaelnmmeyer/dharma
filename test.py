@@ -6,7 +6,5 @@ files = sorted(f for f in iglob("texts/DHARMA_INS*") if not "DHARMA_INSEC" in f)
 
 for file in files:
 	xml = tree.parse(file)
-	for p in xml.find("//div"):
-		if not p["type"] == "translation":
-			continue
-		print(p["resp"])
+	for p in xml.find("//persName"):
+		print(p["ref"])

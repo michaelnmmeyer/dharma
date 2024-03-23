@@ -39,7 +39,8 @@ insert or ignore into metadata values('biblio_latest_version', 0);
 -- Repositories description. This is initially filled with repos.tsv. We do
 -- not attempt to update repos that do not appear there, even if these repos are
 -- cloned into repos/.
--- XXX should trigger a clone-or-pull when this is changed.
+-- XXX should trigger a clone-or-pull when this is changed, should allow
+-- deletion
 create table if not exists repos(
 	-- Repository name, e.g. tfa-pallava-epigraphy
 	repo text primary key check(length(repo) > 0),
@@ -53,7 +54,11 @@ create table if not exists repos(
 	title text check(length(title) > 0),
 	-- Latest commit in this repo.
 	commit_hash text check(commit_hash is null or length(commit_hash) = 2 * 20),
-	commit_date timestamp check(commit_date is null or typeof(commit_date) = 'integer')
+	commit_date timestamp check(commit_date is null or typeof(commit_date) = 'integer'),
+	-- Commit hash of the python code that was used for processing this
+	-- repository. We need to process it again if the python code has been
+	-- updated in the meantime.
+	code_hash text check(code_hash is null or length(code_hash) = 2 * 20)
 );
 
 -- We store raw xml files in the db. The point is to make it possible to use
@@ -124,10 +129,7 @@ create table if not exists people_main(
 -- Maybe we should use the tuple (user.name,user.email) as key, or just
 -- user.email? Problem with user.email is that github assigns generated emails.
 create table if not exists people_github(
-	git_name text primary key not null,
-	-- Might be null, not all people who contributed on github have a
-	-- dharma id. When someone has a dharma id, we display on the website
-	-- his or her full name, otherwise we use git_name.
+	git_name text primary key check(length(git_name) > 0),
 	dh_id text,
 	foreign key(dh_id) references people_main(dh_id)
 );
@@ -139,14 +141,12 @@ create table if not exists documents(
 	title json check(json_type(title) = 'array'),
 	author text,
 	editors json check(json_type(editors) = 'array'),
+	-- Dharma members ids viz. the xxxx in part:xxxx.
+	editors_ids check(json_type(editors_ids) = 'array'),
 	langs json check(json_type(langs) = 'array'),
 	summary text,
-	-- The corresponding file is at https://erc-dharma.github.io/$repo/$home_path
+	-- The corresponding file is at https://erc-dharma.github.io/$repo/$html_path
 	html_path text check(html_path is null or length(html_path) > 1),
-	-- Commit hash of the python code that was used for processing this
-	-- file. We need to process it again if the python code has been
-	-- updated in the meantime.
-	code_hash text check(length(code_hash) = 2 * 20),
 	-- See the enum in change.py
 	status integer check(status >= 0 and status <= 3),
 	foreign key(name, repo) references files(name, repo)
@@ -161,6 +161,7 @@ create virtual table if not exists documents_index using fts5(
 	title,
 	author,
 	editor,
+	editor_id,
 	lang,
 	summary,
 	tokenize = "trigram"
@@ -213,15 +214,16 @@ create table if not exists gaiji(
 -- All bibliographic records from Zotero. Includes data that we do not care
 -- about.
 create table if not exists biblio_data(
-	key text primary key not null,
-	version integer not null,
+	key text primary key check(length(key) > 0),
+	version integer check(version > 0),
 	json json not null check(json_valid(json)),
-	-- We don't need to store the short_title, both because it is fast to extract
-	-- and because we have an index on it which stores it anyway.
+	-- We don't need to store the short_title, both because it is fast to
+	-- extract and because we have an index on it which stores it anyway.
 	short_title text as (json ->> '$.data.shortTitle'),
 	item_type text as (json ->> '$.data.itemType'),
 	-- Null if this is not an entry we can display viz. if it is not of the
-	-- item types we support (book, etc.)
+	-- item types we support (book, etc.).
+	-- XXX sort this out
 	sort_key blob
 );
 create index if not exists biblio_data_short_title on biblio_data(short_title);
@@ -229,19 +231,24 @@ create index if not exists biblio_data_sort_key on biblio_data(sort_key);
 
 create view if not exists repos_editors_stats as
 	select repo,
-		json_each.value as editor,
+		json_each.value as editor_id,
+		people_main.print_name as editor,
 		count(*) as editor_prod
-	from documents, json_each(documents.editors)
+	from documents
+		join json_each(documents.editors_ids)
+		join people_main on people_main.dh_id = json_each.value
 	group by repo, json_each.value
-	order by repo asc, editor_prod desc, editor asc;
+	order by repo asc, editor_prod desc, people_main.inverted_name asc;
 
 create view if not exists repos_editors_stats_json as
 	select repo,
-		json_group_array(json_array(editor, editor_prod)) as editors_prod
+		json_group_array(json_array(editor_id, editor, editor_prod))
+			as editors_prod
 	from repos_editors_stats group by repo;
 
 create view if not exists repos_langs_stats as
 	select repo,
+		langs_list.id as lang_id,
 		langs_list.name as lang,
 		count(*) as lang_prod
 	from documents, json_each(documents.langs)
@@ -251,7 +258,7 @@ create view if not exists repos_langs_stats as
 
 create view if not exists repos_langs_stats_json as
 	select repo,
-		json_group_array(json_array(lang, lang_prod)) as langs_prod
+		json_group_array(json_array(lang_id, lang, lang_prod)) as langs_prod
 	from repos_langs_stats group by repo;
 
 commit;

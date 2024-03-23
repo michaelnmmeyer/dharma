@@ -22,7 +22,9 @@ min_pull_wait = 10
 
 def all_useful_repos():
 	# Always process repos in the same order.
-	ret = db.execute("select repo from repos where textual or repo = 'project-documentation' order by repo")
+	ret = db.execute("""select repo from repos
+		where textual or repo = 'project-documentation'
+		order by repo""")
 	return [name for (name,) in ret]
 
 def clone_repo(name):
@@ -54,10 +56,12 @@ def update_repo(name):
 	# Attempt to clone the repo, in case we don't have it. Otherwise pull.
 	if clone_repo(name):
 		return
-	return config.command("git", "-C", config.path_of("repos", name), "pull", capture_output=False)
+	return config.command("git", "-C", config.path_of("repos", name),
+		"pull", capture_output=False)
 
 def latest_commit_in_repo(name):
-	r = config.command("git", "-C", config.path_of("repos", name), "log", "-1", "--format=%H %at")
+	r = config.command("git", "-C", config.path_of("repos", name),
+		"log", "-1", "--format=%H %at")
 	hash, date = r.stdout.strip().split()
 	date = int(date)
 	return hash, date
@@ -75,47 +79,46 @@ class Changes:
 		self.commit_hash, self.commit_date = latest_commit_in_repo(self.repo)
 
 	def check_db(self):
-		if db.execute("select 1 from repos where repos.repo = ? and repos.commit_hash = ?",
-			(self.repo, self.commit_hash)).fetchone():
-			if db.execute("select 1 from documents where documents.repo = ? and documents.code_hash = ?",
-				(self.repo, config.CODE_HASH)).fetchone():
+		commit_hash, code_hash = db.execute("""
+			select commit_hash, code_hash
+			from repos where repo = ?""",
+			(self.repo,)).fetchone() or (None, None)
+		if commit_hash == self.commit_hash:
+			if code_hash == config.CODE_HASH:
 				self.done = True
 				return
-			# The code changed, update everything (even possibly
-			# deleted files, file matching rules might have
-			# changed).
+			# The code changed, we need to update everything
+			# (even possibly deleted files, file matching rules
+			# might have changed).
 		else:
-			(self.since,) = db.execute("select max(mtime) from files where repo = ?",
+			# Need to update all files that have been modified
+			# since the last commit viz. files that have been
+			# modified more recently than the newest file seen
+			# so far in this repo.
+			(self.since,) = db.execute("""select max(mtime)
+				from files where repo = ?""",
 				(self.repo,)).fetchone() or (-1,)
-		for (name,) in db.execute("select name from files where repo = ?", (self.repo,)):
+		for (name,) in db.execute("""select name from files
+			where repo = ?""", (self.repo,)):
 			self.before.add(name)
 
 	def check_repo(self):
 		if self.done:
 			return
 		seen = set()
-		repo_dir = config.path_of("repos", self.repo)
-		for path in texts.iter_texts_in_repo(self.repo):
-			name = os.path.basename(os.path.splitext(path)[0])
-			if name in seen:
-				continue # XXX how to complain? XXX cannot happen see iter_text_in_repo
-			seen.add(name)
-			mtime = int(os.stat(path).st_mtime)
-			file = texts.File()
-			file.repo = self.repo
-			file.path = os.path.relpath(path, repo_dir)
-			file.mtime = mtime
-			if name not in self.before:
+		for file in texts.iter_texts_in_repo(self.repo):
+			seen.add(file.name)
+			if file.name not in self.before:
 				self.insert.append(file)
-			elif mtime > self.since:
+			elif file.mtime > self.since:
 				self.update.append(file)
 			else:
 				continue
-			file.status = validate.status(path)
+			setattr(file, "_status", validate.status(file))
 		for name in self.before:
 			if name not in seen:
 				self.delete.append(name)
-		texts.gather_web_pages(self.insert + self.update)
+		texts.gather_web_pages(self.repo, self.insert + self.update)
 		# Always process files in the same order, for reproductibility.
 		self.insert.sort(key=lambda file: file.name)
 		self.update.sort(key=lambda file: file.name)
@@ -128,21 +131,25 @@ def update_db(repo):
 	if changes.done:
 		return
 	changes.check_repo()
-	db.execute("""update repos set commit_hash = ?, commit_date = ?
+	db.execute("""update repos
+		set commit_hash = ?, commit_date = ?, code_hash = ?
 		where repo = ?""",
-		(changes.commit_hash, changes.commit_date, changes.repo))
+		(changes.commit_hash, changes.commit_date, config.CODE_HASH, changes.repo))
 	for name in changes.delete:
 		catalog.delete(name)
 		db.execute("delete from owners where name = ?", (name,))
 		db.execute("delete from files where name = ?", (name,))
 	for file in changes.insert + changes.update:
-		db.execute("""insert or replace into files(
-			name, repo, path, mtime, last_modified_commit, last_modified, data)
+		db.execute("""
+			insert or replace into files(
+				name, repo, path, mtime,
+				last_modified_commit, last_modified, data)
 			values(?, ?, ?, ?, ?, ?, ?)""",
 			(file.name, file.repo, file.path, file.mtime, *file.last_modified, file.data))
 		for git_name in file.owners:
-			db.execute("insert or ignore into owners(name, git_name) values(?, ?)",
-				(file.name, git_name))
+			db.execute("""
+				insert or ignore into owners(name, git_name)
+				values(?, ?)""", (file.name, git_name))
 		catalog.insert(file)
 
 # We should always put stuff like names, etc. in the db instead of keeping it
@@ -164,10 +171,12 @@ def update_project():
 	catalog.rebuild()
 	repo = "project-documentation"
 	commit_hash, commit_date = latest_commit_in_repo(repo)
-	db.execute("""update repos set commit_hash = ?, commit_date = ?
+	db.execute("""update repos
+		set commit_hash = ?, commit_date = ?, code_hash = ?
 		where repo = ?""",
-		(commit_hash, commit_date, repo))
+		(commit_hash, commit_date, config.CODE_HASH, repo))
 
+# Request from Arlo.
 def backup_to_jawakuno():
 	config.command("bash", "-x", config.path_of("backup_to_jawakuno.sh"),
 		capture_output=False)

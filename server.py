@@ -1,9 +1,10 @@
 import os, sys, unicodedata, hashlib, locale, time
 from datetime import datetime
 import flask # pip install flask
+from bs4 import BeautifulSoup # pip install bs4
 from dharma import config, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document, tree
 
-app = flask.Flask(__name__, static_url_path="")
+app = flask.Flask(__name__, static_url_path="", template_folder="views")
 app.jinja_options["line_statement_prefix"] = "%"
 
 # Global variables accessible from within jinja templates.
@@ -13,6 +14,7 @@ def inject_global_vars():
 		"code_hash": config.CODE_HASH,
 		"from_json": config.from_json,
 		"format_url": config.format_url,
+		"numberize": parse.numberize,
 	}
 
 @app.get("/")
@@ -110,7 +112,9 @@ def show_repos():
 		repos.title,
 		repo_prod,
 		editors_prod as people,
-		langs_prod as langs
+		langs_prod as langs,
+		repos.commit_hash,
+		format_date(repos.commit_date) as commit_date
 	from repos
 		left join repos_stats on repos.repo = repos_stats.repo
 		left join repos_editors_stats_json on repos.repo = repos_editors_stats_json.repo
@@ -270,7 +274,7 @@ def display_text(text):
 	doc.last_modified_commit = row["last_modified_commit"]
 	db.execute("rollback")
 	return flask.render_template("inscription.tpl", doc=doc,
-		github_url=row["github_url"], text=text, numberize=parse.numberize)
+		github_url=row["github_url"], text=text)
 
 def base_name_windows(path):
 	i = len(path)
@@ -279,6 +283,21 @@ def base_name_windows(path):
 	return path[i:]
 
 assert base_name_windows(r"C:\Users\john\Documents\file.txt") == "file.txt"
+
+def patch_links(soup, attr):
+	from urllib.parse import urlparse
+	for link in soup.find_all(**{attr: True}):
+		url = urlparse(link[attr])
+		if url.scheme or url.netloc:
+			# Assume this is a full URL
+			continue
+		if not url.path:
+			# Assume this is just a fragment
+			continue
+		if not url.path.startswith("/"):
+			url = url._replace(path=f"/display/{url.path}")
+		url = url._replace(scheme="https", netloc="dharmalekha.info")
+		link[attr] = url.geturl()
 
 @app.post("/convert")
 def convert_text():
@@ -298,9 +317,11 @@ def convert_text():
 	doc.title = title and title.split(document.PARA_SEP) or []
 	editors = doc.editors.render_logical()
 	doc.editors = editors and editors.split(document.PARA_SEP)
-	return flask.render_template("inscription.tpl", doc=doc, text=name,
-		numberize=parse.numberize, root="https://dharman.in")
-	# XXX root does not work for bib entries, make it global
+	html = flask.render_template("inscription.tpl", doc=doc, text=name)
+	soup = BeautifulSoup(html, "html.parser")
+	patch_links(soup, "href")
+	patch_links(soup, "src")
+	return str(soup)
 
 @app.get("/test")
 def test():

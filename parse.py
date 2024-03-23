@@ -545,7 +545,7 @@ def parse_term(p, node):
 
 def numberize(s, n):
 	last_word = s.split()[-1].lower()
-	if last_word not in ("character", "component", "line", "page", "editor"):
+	if last_word not in ("character", "component", "line", "page", "editor", "text"):
 		print("cannot numberize term %r" % last_word, file=sys.stderr)
 		return s
 	if n == 1:
@@ -965,19 +965,28 @@ def parse_cit(p, cit):
 def gather_people(stmt, *paths):
 	nodes = [node for path in paths for node in stmt.find(path)]
 	nodes.sort(key=lambda node: node.location.start)
-	ret = []
+	full_names = []
+	dharma_ids = []
 	for node in nodes:
 		ident = node["ref"]
+		# XXX always use the indent here, don't resolve it. but what if
+		# we don't have any? for now use two fields: one where we list
+		# all full names, and another where we list only people who
+		# have a dharma id, viz. the "real" dharma editors.
 		if ident and ident.startswith("part:"):
-			if ident == "part:jodo":
+			if ident == "part:jodo": # John Doe, placeholder
 				continue
-			name = people.plain(ident.removeprefix("part:"))
+			ident = ident.removeprefix("part:")
+			name = people.plain(ident)
+			if not name:
+				continue # XXX keep the id in this case?
+			config.append_unique(dharma_ids, ident)
 		else:
 			name = config.normalize_space(node.text(space="preserve"))
 			if not name:
 				continue
-		config.append_unique(ret, name)
-	return ret
+		config.append_unique(full_names, name)
+	return full_names, dharma_ids
 
 def parse_titleStmt(p, stmt):
 	# We only have several <title> in DiplEd and CritEd and INSEC, not in
@@ -989,17 +998,18 @@ def parse_titleStmt(p, stmt):
 		p.dispatch_children(title)
 	p.document.title = p.pop()
 	p.push("author")
-	authors = gather_people(stmt, "author")
+	authors, _ = gather_people(stmt, "author")
 	for author in authors:
 		p.start_item()
 		p.add_text(author)
 	p.document.author = p.pop()
 	p.push("editors")
-	editors = gather_people(stmt, "editor", "principal", "respStmt/persName")
+	editors, editors_ids = gather_people(stmt, "editor", "principal", "respStmt/persName")
 	for editor in editors:
 		p.start_item()
 		p.add_text(editor)
 	p.document.editors = p.pop()
+	p.document.editors_ids = editors_ids
 
 def parse_publicationStmt(p, stmt):
 	pass

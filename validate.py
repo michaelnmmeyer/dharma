@@ -13,7 +13,7 @@ WARNING = 1	# Possible Unicode issues
 ERROR = 2	# Schema error
 FATAL = 3	# Invalid XML, cannot be processed at all
 
-def splitlines(text):
+def split_lines(text):
 	return re.findall(r"(.*)(?:\r\n|\r|\n)", text)
 
 class Message:
@@ -48,12 +48,14 @@ class Validator:
 		path = config.path_of("schemas", self.name + ".rng")
 		self.rng_schema = relaxng.Schema(path)
 
+	# Here we don't care about error details, we just want to know the
+	# error severity level, so this can be optimized further.
 	def quick_check(self, file):
 		try:
-			tree.parse(file)
+			tree.parse_string(file.data)
 		except tree.Error:
 			return FATAL
-		if self.rng_schema(file):
+		if self.rng_schema(file.data):
 			return ERROR
 		if self.sch_error_nodes(file):
 			return ERROR
@@ -64,7 +66,7 @@ class Validator:
 	def process(self, file):
 		val = Result()
 		try:
-			xml = tree.parse(file)
+			xml = tree.parse_string(file.data)
 		except tree.Error as e:
 			val.status = FATAL
 			m = Message()
@@ -80,7 +82,7 @@ class Validator:
 		return val
 
 	def rng(self, file, val, xml):
-		errs = self.rng_schema(file)
+		errs = self.rng_schema(file.data)
 		if not errs:
 			return
 		val.status = ERROR
@@ -100,8 +102,9 @@ class Validator:
 		# buggy. When the filename contains space characters, it
 		# returns None. So we read the file manually and use
 		# transform_to_string(xdm_node=doc) instead, which does work.
-		with open(file) as f:
-			text = f.read()
+		text = file.data.decode()
+		# Saxon does not want to find an initial BOM, complains about
+		# contents not allowed in prolog.
 		if text.startswith("\N{BOM}"):
 			text = text[1:]
 		doc = self.saxon_proc.parse_xml(xml_text=text)
@@ -126,9 +129,7 @@ class Validator:
 			val.messages.append(m)
 
 	def uni_errors(self, file):
-		with open(file) as f:
-			text = f.read()
-		return unicode.validate(text)
+		return unicode.validate(file.data.decode())
 
 	def uni(self, file, val, xml):
 		ret = self.uni_errors(file)
@@ -154,30 +155,13 @@ def status(file):
 	validator = schema_from_filename(file.name)
 	if not validator:
 		return
-	return validator.quick_check(file.full_path)
+	return validator.quick_check(file)
 
-def file(path):
-	validator = schema_from_filename(path)
+def file(file_obj):
+	validator = schema_from_filename(file_obj.name)
 	if not validator:
-		return # XXX
-	return validator.process(path)
-
-def files(itor):
-	schemas = {}
-	files = sorted(itor)
-	for file in files:
-		schema = schema_from_filename(file)
-		if not schema:
-			continue
-		schemas.setdefault(schema, set()).add(file)
-	# We don't validate files against epidoc at this stage. If our schemas
-	# are correct, our texts should also validate against epidoc. It's
-	# something we must check internally, this doesn't concern the user.
-	errors = {}
-	for schema, texts in schemas.items():
-		for text, errs in schema.rng(texts).items():
-			errors.setdefault(text, set()).update(errs)
-	return {text: sorted(errs) for text, errs in errors.items()}
+		return
+	return validator.process(file_obj)
 
 if __name__ == "__main__":
 	schema = Validator("inscription", "DHARMA_INS")

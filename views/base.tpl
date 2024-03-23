@@ -7,11 +7,11 @@
    % block title
    % endblock
    </title>
-   <link rel="stylesheet" href="{{root}}/fonts.css?v={{code_hash}}">
+   <link rel="stylesheet" href="/fonts.css?v={{code_hash}}">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   <link rel="stylesheet" href="{{root}}/base.css?v={{code_hash}}">
-   <script src="{{root}}/pack.js?v={{code_hash}}"></script>
-   <script src="{{root}}/base.js?v={{code_hash}}"></script>
+   <link rel="stylesheet" href="/base.css?v={{code_hash}}">
+   <script src="/pack.js?v={{code_hash}}"></script>
+   <script src="/base.js?v={{code_hash}}"></script>
 </head>
 <body>
 
@@ -19,16 +19,16 @@
 <header>
    <menu>
       <li class="toggle" id="toggle-menu"><a><i class="fa-solid fa-bars"></i></a></li>
-      <li class="logo"><a href="{{root}}/">DHARMA</a></li>
+      <li class="logo"><a href="/">DHARMA</a></li>
       <li class="toggle" id="toggle-toc"><a><i class="fa-solid fa-table-list"></i></a></li>
-      <li class="item"><a href="{{root}}/repositories"><i class="fa-brands fa-git-alt"></i> Repositories</a></li>
-      <li class="item"><a href="{{root}}/texts"><i class="fa-solid fa-bug"></i> Texts</a></li>
-      <li class="item"><a href="{{root}}/catalog"><i class="fa-solid
+      <li class="item"><a href="/repositories"><i class="fa-brands fa-git-alt"></i> Repositories</a></li>
+      <li class="item"><a href="/texts"><i class="fa-solid fa-bug"></i> Texts</a></li>
+      <li class="item"><a href="/catalog"><i class="fa-solid
       fa-magnifying-glass"></i> Catalog</a></li>
-      <li class="item"><a href="{{root}}/parallels"><i class="fa-solid fa-grip-lines-vertical"></i>
+      <li class="item"><a href="/parallels"><i class="fa-solid fa-grip-lines-vertical"></i>
       Parallels</a></li>
-      <li class="item"><a href="{{root}}/bibliography"><i class="fa-solid fa-quote-left"></i> Bibliography</a></li>
-      <li class="item"><a href="{{root}}/documentation"><i class="fa-regular fa-circle-question"></i> Documentation</a>
+      <li class="item"><a href="/bibliography"><i class="fa-solid fa-quote-left"></i> Bibliography</a></li>
+      <li class="item"><a href="/documentation"><i class="fa-regular fa-circle-question"></i> Documentation</a>
    </menu>
 </header>
 <aside>
