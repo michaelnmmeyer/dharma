@@ -26,6 +26,7 @@ commit-all:
 	for d in repos/*; do \
 		git -C $$d add --all; \
 		git -C $$d commit -m "$(m)" || true; \
+		git -C $$d pull; \
 		git -C $$d push; \
 	done
 

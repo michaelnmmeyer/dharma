@@ -7,7 +7,8 @@
 
 import os, sys, subprocess, time, select, errno, logging, fcntl
 import argparse, traceback, collections
-from dharma import config, validate, texts, biblio, catalog, people, langs, gaiji, prosody, repos
+from dharma import config, validate, texts, biblio, catalog, people, langs
+from dharma import gaiji, prosody, repos
 
 FIFO_ADDR = config.path_of("change.hid")
 
@@ -15,6 +16,7 @@ db = config.db("texts")
 
 # Timestamp of the last git pull/clone
 last_pull = 0
+
 # Wait this long between two pulls, counting in seconds
 min_pull_wait = 10
 
@@ -59,34 +61,58 @@ def latest_commit_in_repo(name):
 
 class File:
 
-	repo = None # Repo name (tfa-pallava-epigraphy, etc.)
-	path = None # Relative to the repository directory
+	# Repo name ("tfa-pallava-epigraphy", etc.)
+	repo = None
+
+	# File path, relative to the repository directory e.g.
+	# "texts/xml/DHARMA_INSPallava00002.xml"
+	path = None
+
+	# Value of st_mtime. We use this to figure out which files have been
+	# updated after we do a pull. We do not rely on git both because it is
+	# unnecessary and because at a later point we will want to track local
+	# dirs with inotify or friends.
 	mtime = 0
-	html = None # Path of the corresponding HTML file generated with XSLT
+
+	# Path of the corresponding HTML file generated with XSLT, relative to
+	# the repo root, e.g.
+	# "texts/htmloutput/DHARMA_INSPallava00002.html"
+	html = None
+
+	# Validation status. See the enum in validate.py.
 	status = None
 
 	_data = None
 
-	# File basename without the extension
+	# File basename without the extension e.g. DHARMA_INSPallava00002
 	@property
 	def name(self):
 		return os.path.splitext(os.path.basename(self.path))[0]
 
+	# File contents, as a byte string
 	@property
 	def data(self):
 		if self._data is None:
-			with open(self.full_path) as f:
+			with open(self.full_path, "rb") as f:
 				self._data = f.read()
 		return self._data
 
+	# Git names of the people who modified this file, as a sorted set.
+	# This is used in the debugging page so that people can filter by
+	# their name.
 	@property
 	def owners(self):
 		return texts.owners_of(self.full_path)
 
+	# When the file was last modified according to git. A tuple
+	# (commit_hash, commit_timestamp). This is only for display, for
+	# convenience.
 	@property
 	def last_modified(self):
 		return texts.last_mod_of(self.full_path)
 
+	# Full absolute path of the file in the file system, e.g.
+	# /home/michael/dharma/repos/tfa-pallava-epigraphy/texts/xml/DHARMA_INSPallava00002.xml"
 	@property
 	def full_path(self):
 		return os.path.join(config.REPOS_DIR, self.repo, self.path)
@@ -145,7 +171,7 @@ class Changes:
 			if name not in seen:
 				self.delete.append(name)
 		texts.gather_web_pages(self.insert + self.update)
-		# Always process files in the same order.
+		# Always process files in the same order, for reproductibility.
 		self.insert.sort(key=lambda file: file.name)
 		self.update.sort(key=lambda file: file.name)
 		self.delete.sort()
@@ -198,7 +224,8 @@ def update_project():
 		(commit_hash, commit_date, repo))
 
 def backup_to_jawakuno():
-	config.command("bash", "-x", config.path_of("backup_to_jawakuno.sh"), capture_output=False)
+	config.command("bash", "-x", config.path_of("backup_to_jawakuno.sh"),
+		capture_output=False)
 
 @config.transaction("texts")
 def handle_changes(name):
@@ -215,8 +242,10 @@ def handle_changes(name):
 
 # Must be at least this big in POSIX. Linux currently has 4096.
 PIPE_BUF = 512
+
 # When we should force a full update. We perform one at startup.
 NEXT_FULL_UPDATE = time.time()
+
 # Force a full update every FORCE_UPDATE_DELTA seconds.
 FORCE_UPDATE_DELTA = 1 * 60 * 60
 
@@ -326,7 +355,8 @@ def main():
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
-	parser.add_argument("-k", "--skip-update", action="store_true")
+	parser.add_argument("-k", "--skip-update", action="store_true", help="""
+		do not force an update at startup""")
 	args = parser.parse_args()
 	if args.skip_update:
 		NEXT_FULL_UPDATE += FORCE_UPDATE_DELTA
