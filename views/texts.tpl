@@ -8,7 +8,7 @@ Texts
 
 <h1>Texts</h1>
 
-<p>Texts database last updated {{last_updated}}.</p>
+<p>Texts database last updated {{last_updated | format_date}}.</p>
 
 <p>This table only shows problematic files. You can use the
 <a href="/catalog">catalog interface</a> for consulting all DHARMA texts.</p>
@@ -87,7 +87,7 @@ button in the toolbar, and click on "Check Well-Formedness".</p>
    <td><a href="https://github.com/erc-dharma/{{text['repo']}}">
       <span class="repo-id">{{text["repo"]}}</span>
    </a></td>
-   <td>{{text["readable_commit_date"]}}</td>
+   <td>{{text["commit_date"] | format_date}}</td>
 </tr>
 % endfor
 </tbody>

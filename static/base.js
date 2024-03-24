@@ -243,7 +243,21 @@ function initDisplays() {
 	}
 }
 
+// Localize <time> nodes
+function convertDates() {
+	for (let node of document.querySelectorAll("time")) {
+		let when = new Date(node.dateTime)
+		let year = when.getFullYear()
+		let month = new String(when.getMonth() + 1).padStart(2, "0")
+		let day = new String(when.getDate()).padStart(2, "0")
+		let hour = new String(when.getHours()).padStart(2, "0")
+		let minute = new String(when.getMinutes()).padStart(2, "0")
+		node.innerText = `${year}-${month}-${day} ${hour}:${minute}`
+	}
+}
+
 window.addEventListener("load", function () {
+	convertDates()
 	prepareTips()
 	displayTOC()
 	document.querySelector("#toggle-menu").addEventListener("click", toggleMenu, false)

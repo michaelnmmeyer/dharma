@@ -16,12 +16,6 @@ logging.basicConfig(level="INFO")
 # message that says an exception was raised, without more info.
 sqlite3.enable_callback_tracebacks(True)
 
-def format_date(obj):
-	if obj is None:
-		return
-	ret = time.localtime(int(obj))
-	return time.strftime('%Y-%m-%d %H:%M', ret)
-
 # Python's sqlite wrapper does not allow us to share database objects between
 # threads, even though sqlite itself is OK with that. (But this changed in
 # python3.11, see:
@@ -110,7 +104,6 @@ def db(name):
 	conn.execute("pragma synchronous = normal")
 	conn.execute("pragma foreign_keys = on")
 	conn.execute("pragma secure_delete = off")
-	conn.create_function("format_date", 1, format_date, deterministic=True)
 	conn.create_function("format_url", -1, format_url, deterministic=True)
 	conn.create_function("jaccard", 2, jaccard, deterministic=True)
 	conn.create_collation("icu", collate_icu)

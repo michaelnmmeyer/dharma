@@ -5,7 +5,7 @@ generated_tei = \
 	$(addsuffix .html,$(schemas)) \
 	$(addsuffix .oddc,$(schemas)) \
 	$(addsuffix .sch,$(schemas))
-generated_views = $(patsubst %.md,%.tpl,$(wildcard templates/*.md))
+generated_views = $(patsubst %.md,%.tpl,$(wildcard views/*.md))
 
 all: $(generated_tei) $(generated_views)
 
@@ -91,7 +91,7 @@ missing-git-names:
 
 .PHONY: update-repos update-texts deploy-schemas deploy-nginx missing-git-names
 
-templates/%.tpl: templates/%.md
+views/%.tpl: views/%.md
 	pandoc -f markdown -t html $^ -o $@
 
 trang := java -jar jars/trang.jar

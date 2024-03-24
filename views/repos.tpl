@@ -41,8 +41,8 @@ of them; in particular, it does not show private repositories.</p>
 <p><a href="https://github.com/erc-dharma/{{format_url(repo['repo'])}}"><i class="fa-brands fa-github"></i> <span class="repo-id">{{repo["repo"]}}</span></a></p>
 % if repo["commit_hash"]:
 <p>
-Last updated {{repo["commit_date"]}}
-(<a href="https://github.com/erc-dharma/{{repo['repo']}}/commit/{{repo['commit_hash']}}">{{repo["commit_hash"][:7]}}</a>)
+Last updated {{repo["commit_date"] | format_date}}
+(<a href="https://github.com/erc-dharma/{{repo['repo']}}/commit/{{repo['commit_hash']}}"><span class="commit-hash">{{repo["commit_hash"][:7]}}</span></a>)
 <i class="fa-regular fa-circle-question" data-tip="This is the latest commit
 processed by the DHARMA application. The repository might contain more recent
 commits."></i>

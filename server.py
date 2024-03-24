@@ -1,5 +1,4 @@
-import os, sys, unicodedata, hashlib, locale, time
-from datetime import datetime
+import os, sys, unicodedata, hashlib, locale, time, datetime, html
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
 from dharma import config, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document, tree
@@ -7,20 +6,29 @@ from dharma import config, change, people, ngrams, catalog, parse, validate, par
 app = flask.Flask(__name__, static_url_path="", template_folder="views")
 app.jinja_options["line_statement_prefix"] = "%"
 
+@app.template_filter("format_date")
+def format_date(when):
+	assert isinstance(when, int)
+	when_obj = datetime.datetime.fromtimestamp(when).astimezone()
+	when_detailed = html.escape(when_obj.strftime("%FT%T%z"))
+	when_readable = html.escape(when_obj.strftime("%F %R"))
+	return f'<time datetime="{when_detailed}">{when_readable}</time>'
+
 # Global variables accessible from within jinja templates.
+templates_globals = {
+	"code_date": config.CODE_DATE,
+	"code_hash": config.CODE_HASH,
+	"from_json": config.from_json,
+	"format_url": config.format_url,
+	"numberize": parse.numberize,
+}
 @app.context_processor
 def inject_global_vars():
-	return {
-		"code_hash": config.CODE_HASH,
-		"from_json": config.from_json,
-		"format_url": config.format_url,
-		"numberize": parse.numberize,
-	}
+	return templates_globals
 
 @app.get("/")
 def index():
-	code_date = config.format_date(config.CODE_DATE)
-	return flask.render_template("index.tpl", code_date=code_date)
+	return flask.render_template("index.tpl")
 
 @app.get("/documentation")
 def show_documentation():
@@ -37,7 +45,7 @@ def show_tei_doc(name):
 def show_texts():
 	conn = config.db("texts")
 	conn.execute("begin")
-	(last_updated,) = conn.execute("select format_date(value) from metadata where key = 'last_updated'").fetchone()
+	(last_updated,) = conn.execute("select cast(value as int) from metadata where key = 'last_updated'").fetchone()
 	owner = flask.request.args.get("owner")
 	severity = flask.request.args.get("severity")
 	if severity not in ("warning", "error", "fatal"):
@@ -52,7 +60,7 @@ def show_texts():
 	if owner:
 		rows = conn.execute("""
 			select documents.name, repos.repo, repos.commit_hash,
-				format_date(repos.commit_date) as readable_commit_date,
+				repos.commit_date,
 				documents.status
 			from documents
 				join repos on documents.repo = repos.repo
@@ -63,7 +71,7 @@ def show_texts():
 	else:
 		rows = conn.execute("""
 			select documents.name, repos.repo, repos.commit_hash,
-				format_date(repos.commit_date) as readable_commit_date,
+				repos.commit_date,
 				documents.status
 			from documents join repos on documents.repo = repos.repo
 			where documents.status >= ?
@@ -82,7 +90,7 @@ def show_text(name):
 	db = config.db("texts")
 	row = db.execute("""
 		select documents.name, repos.repo, commit_hash, code_hash, status, path as xml_path, html_path,
-			format_date(commit_date) as readable_commit_date
+			commit_date
 		from documents join files on documents.name = files.name
 			join repos on documents.repo = repos.repo
 		where documents.name = ?
@@ -114,7 +122,7 @@ def show_repos():
 		editors_prod as people,
 		langs_prod as langs,
 		repos.commit_hash,
-		format_date(repos.commit_date) as commit_date
+		repos.commit_date
 	from repos
 		left join repos_stats on repos.repo = repos_stats.repo
 		left join repos_editors_stats_json on repos.repo = repos_editors_stats_json.repo
@@ -129,7 +137,7 @@ def show_repos():
 def show_parallels():
 	db = config.db("ngrams")
 	db.execute("begin")
-	(date,) = db.execute("""select format_date(value)
+	(date,) = db.execute("""select cast(value as int)
 		from metadata where key = 'last_updated'""").fetchone()
 	rows = db.execute("select * from sources where verses + hemistiches + padas > 0")
 	db.execute("commit")
@@ -239,8 +247,8 @@ def display_text(text):
 			repos.repo,
 			data,
 			commit_hash,
-			format_date(commit_date) as commit_date,
-			format_date(last_modified) as last_modified,
+			commit_date,
+			last_modified,
 			last_modified_commit,
 			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
 				commit_hash, path) as github_url

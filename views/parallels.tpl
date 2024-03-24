@@ -8,7 +8,7 @@ Parallels
 
 <h1>Parallels</h1>
 
-<p>Parallels database last updated {{last_updated}}.</p>
+<p>Parallels database last updated {{last_updated | format_date}}.</p>
 
 <p>This interface allows you to look for parallel verse passages—verses,
 hemistiches or pādas—in the DHARMA texts collection. Parallels are found with

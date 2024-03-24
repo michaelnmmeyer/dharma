@@ -218,7 +218,7 @@ def search(q, s):
 	sql += " group by documents.name order by documents.%s collate icu " % s
 	ret = db.execute(sql, q).fetchall()
 	(last_updated,) = db.execute("""
-		select format_date(value)
+		select cast(value as int)
 		from metadata where key = 'last_updated'""").fetchone()
 	db.execute("commit")
 	return ret, last_updated

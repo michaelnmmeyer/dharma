@@ -8,7 +8,7 @@ Catalog
 
 <h1>Catalog</h1>
 
-<p>Texts database last updated {{last_updated}}.</p>
+<p>Texts database last updated {{last_updated | format_date}}.</p>
 
 <p>This interface allows you to look for texts in the DHARMA collection. The
 search form below can be used for filtering results. Matching is
