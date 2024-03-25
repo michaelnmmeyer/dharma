@@ -110,6 +110,7 @@ class Block:
 		params.setdefault("plain", False)
 		params.setdefault("logical", True)
 		params.setdefault("physical", True)
+		params.setdefault("full", True)
 		return self.add_code("html", data, **params)
 
 	def close_line(self, brk):
@@ -308,7 +309,7 @@ class Block:
 				else:
 					assert 0, data
 			elif t == "html":
-				if params["logical"]:
+				if params["logical"] or params["full"]:
 					buf.append(data)
 			else:
 				self.render_common(buf, t, data, params)

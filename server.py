@@ -304,7 +304,10 @@ def patch_links(soup, attr):
 			continue
 		if not url.path.startswith("/"):
 			url = url._replace(path=f"/display/{url.path}")
-		url = url._replace(scheme="https", netloc="dharmalekha.info")
+		if os.getenv("DHARMA_DEBUG"):
+			url = url._replace(scheme="http", netloc="localhost:8023")
+		else:
+			url = url._replace(scheme="https", netloc="dharmalekha.info")
 		link[attr] = url.geturl()
 
 @app.post("/convert")

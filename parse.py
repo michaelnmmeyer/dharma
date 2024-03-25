@@ -447,11 +447,11 @@ def parse_choice(p, node):
 # Valid cases are:
 #
 #	<space [type="semantic"]/> (shorthand is '_')
-#	<space [type="semantic"] quantity=... unit="characters"/>
-#	<space type="vacat" quantity=... unit="characters"/>
+#	<space [type="semantic"] quantity=... unit="character"/>
+#	<space type="vacat" quantity=... unit="character"/>
 #	<space type="(binding-hole|descender|ascender|defect|feature)"/>
 #	<space type="unclassified"/>
-#	<space type="unclassified" quantity=... unit="characters"/>
+#	<space type="unclassified" quantity=... unit="character"/>
 #
 # OK
 space_types = {
@@ -512,7 +512,7 @@ def parse_space(p, space):
 			tip = f"large {typ} space (about {quant} {unit}s wide)"
 		text *= quant
 	p.start_span(klass="space", tip=titlecase(tip))
-	p.add_html(text, logical=False)
+	p.add_html(text, physical=True, logical=False, full=True)
 	p.end_span()
 
 # <abbreviations
