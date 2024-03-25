@@ -233,7 +233,7 @@ def display_text(text):
 		where documents.name = ?""",
 		(config.path_of("repos"), text)).fetchone()
 	if not row:
-		db.execute("abort")
+		db.execute("rollback")
 		return flask.abort(404)
 	import parse_ins
 	try:

@@ -265,3 +265,24 @@ window.addEventListener("load", function () {
 	initDisplays()
 	initFlashing()
 })
+
+
+
+import {computePosition, shift, offset} from 'https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.3/+esm';
+
+window.addEventListener("load", function () {
+	const reference = document.getElementById("reference");
+	console.log(typeof(reference), reference);
+	const floating = document.getElementById("floating");
+
+	computePosition(reference, floating, {
+		// Try changing this to a different side.
+		placement: "bottom-start",
+		middleware: [offset(20), shift()]
+	}).then(function ({x, y}) {
+		Object.assign(floating.style, {
+			top: `${y}px`,
+			left: `${x}px`
+		});
+	});
+})
