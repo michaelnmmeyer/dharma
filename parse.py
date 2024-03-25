@@ -507,10 +507,9 @@ def parse_space(p, space):
 	text = info["text"]
 	if typ in ("semantic", "vacat", "unclassified"):
 		if quant < 2:
-			s = "small space (from barely noticeable to less than two average character widths in extent)"
+			tip = f"small {typ} space (from barely noticeable to less than two average character widths in extent)"
 		else:
-			s = f"large space (about {quant} {unit}s wide)"
-		tip = "%s; %s" % (s, tip)
+			tip = f"large {typ} space (about {quant} {unit}s wide)"
 		text *= quant
 	p.start_span(klass="space", tip=titlecase(tip))
 	p.add_html(text, logical=False)
