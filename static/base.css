@@ -623,15 +623,44 @@ dl.list > dd {
 
 
 
-
-#floating {
-position: absolute;
-background: gray;
-color: white;
-display:none; /* TODO */
+#submenu-button {
+	cursor: pointer;
 }
-
-
+#submenu {
+	position: absolute;
+	background: gray;
+	color: white;
+	/* Avoid layout interference */
+	width: max-content;
+	top: 0;
+	left: 0;
+}
+#submenu ul {
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: flex-start;
+	row-gap: 0.7em;
+}
+#submenu {
+	padding: 0.7em 1em;
+	margin: 0;
+	background-color: black;
+	font-size: larger;
+	border-radius: var(--border-radius);
+}
+#submenu a {
+	color: white;
+	text-decoration: none;
+	padding: 0.2em 0.5em;
+}
+#submenu li:hover {
+	background-color: gray;
+	border-radius: var(--border-radius);
+}
 
 
 

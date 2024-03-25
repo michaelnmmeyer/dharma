@@ -22,13 +22,11 @@
       <li class="logo"><a href="/">DHARMA</a></li>
       <li class="toggle" id="toggle-toc"><a><i class="fa-solid fa-table-list"></i></a></li>
       <li class="item"><a href="/repositories"><i class="fa-brands fa-git-alt"></i> Repositories</a></li>
-      <li class="item"><a href="/texts"><i class="fa-solid fa-bug"></i> Texts</a></li>
-      <li class="item"><a href="/catalog"><i class="fa-solid
-      fa-magnifying-glass"></i> Catalog</a></li>
+      <li class="item"><a href="{{url_for("show_catalog")}}"><i class="fa-regular fa-file-lines"></i> Texts</a></li>
+      <li class="item"><a href="{{url_for("show_editorial_conventions")}}">Editorial Conventions</a></li>
       <li class="item"><a href="/parallels"><i class="fa-solid fa-grip-lines-vertical"></i>
       Parallels</a></li>
-      <li id="reference" class="item"><a href="/bibliography"><i class="fa-solid fa-quote-left"></i> Bibliography</a></li>
-      <li class="item"><a href="/documentation"><i class="fa-regular fa-circle-question"></i> Documentation</a>
+      <li class="item" id="submenu-button"><a>Project Internal <i class="fa-solid fa-caret-down"></i></a></li>
    </menu>
 </header>
 <aside>
@@ -50,10 +48,19 @@
 </div>
 
 
-    <div id="app">
-      <div></div>
-      <div id="floating">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."</div>
-    </div>
+<div id="submenu" class="hidden">
+<ul>
+<li class="item">
+   <a href="{{url_for("show_texts_errors")}}"><i class="fa-solid fa-bug"></i> Errors</a>
+</li>
+<li class="item">
+   <a href="/documentation">
+   <i class="fa-regular fa-circle-question"></i>
+   Technical Documentation
+   </a>
+</li>
+</ul>
+</div>
 
 </body>
 </html>

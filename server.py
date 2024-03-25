@@ -1,7 +1,7 @@
 import os, sys, unicodedata, hashlib, locale, time, datetime, html
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
-from dharma import config, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document, tree
+from dharma import config, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document, tree, texts
 
 app = flask.Flask(__name__, static_url_path="", template_folder="views")
 app.jinja_options["line_statement_prefix"] = "%"
@@ -40,9 +40,9 @@ def show_tei_doc(name):
 	with open(path) as f:
 		return f.read()
 
-@app.get("/texts")
+@app.get("/errors")
 @config.transaction("texts")
-def show_texts():
+def show_texts_errors():
 	conn = config.db("texts")
 	conn.execute("begin")
 	(last_updated,) = conn.execute("select cast(value as int) from metadata where key = 'last_updated'").fetchone()
@@ -84,12 +84,13 @@ def show_texts():
 	conn.execute("rollback")
 	return flask.render_template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner, severity=severity)
 
-@app.get("/texts/<name>")
+@app.get("/errors/<name>")
 @config.transaction("texts")
-def show_text(name):
+def show_text_errors(name):
 	db = config.db("texts")
 	row = db.execute("""
-		select documents.name, repos.repo, commit_hash, code_hash, status, path as xml_path, html_path,
+		select documents.name, repos.repo, commit_hash, code_hash,
+			status, mtime, path as xml_path, data, html_path,
 			commit_date
 		from documents join files on documents.name = files.name
 			join repos on documents.repo = repos.repo
@@ -102,7 +103,13 @@ def show_text(name):
 	if row["status"] == validate.OK:
 		return flask.redirect(url)
 	path = config.path_of("repos", row["repo"], row["xml_path"])
-	return flask.render_template("invalid-text.tpl", text=row, github_url=url, result=validate.file(path))
+	file = texts.File(row["repo"], row["xml_path"])
+	file.html = row["html_path"]
+	setattr(file, "_mtime", row["mtime"])
+	setattr(file, "_data", row["data"])
+	setattr(file, "_status", row["status"])
+	return flask.render_template("invalid-text.tpl",
+		text=row, github_url=url, result=validate.file(file))
 
 @app.get("/repositories")
 @config.transaction("texts")
@@ -162,11 +169,19 @@ def show_parallels_full(text, category, id):
 		number=number, data=rows, contents=contents)
 
 @app.get("/catalog")
+def legacy_show_catalog():
+	return flask.redirect(flask.url_for("show_catalog"), code=302)
+
+@app.get("/texts")
 def show_catalog():
 	q = flask.request.args.get("q", "")
 	s = flask.request.args.get("s", "")
 	rows, last_updated = catalog.search(q, s)
 	return flask.render_template("catalog.tpl", rows=rows, q=q, s=s, last_updated=last_updated)
+
+@app.get("/editorial-conventions")
+def show_editorial_conventions():
+	return flask.render_template("editorial.tpl")
 
 @app.get("/languages")
 @config.transaction("texts")
@@ -212,6 +227,10 @@ def display_home():
 	return flask.render_template("display.tpl", texts=texts)
 
 @app.get("/display/<text>")
+def legacy_display_text(text):
+	return flask.redirect(flask.url_for("display_text", text=text), code=302)
+
+@app.get("/texts/<text>")
 @config.transaction("texts")
 def display_text(text):
 	db = config.db("texts")
@@ -278,7 +297,7 @@ def patch_links(soup, attr):
 			# Assume this is just a fragment
 			continue
 		if not url.path.startswith("/"):
-			url = url._replace(path=f"/display/{url.path}")
+			url = url._replace(flask.url_for("display_text", text=url.path))
 		if os.getenv("DHARMA_DEBUG"):
 			url = url._replace(scheme="http", netloc="localhost:8023")
 		else:
@@ -308,10 +327,6 @@ def convert_text():
 	patch_links(soup, "href")
 	patch_links(soup, "src")
 	return str(soup)
-
-@app.get("/test")
-def test():
-	return flask.render_template("test.tpl")
 
 @app.get("/bibliography/page/<int:page>")
 @config.transaction("texts")

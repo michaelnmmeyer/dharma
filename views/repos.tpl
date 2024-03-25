@@ -9,8 +9,7 @@ Repositories
 <h1>Repositories</h1>
 
 <p>Most of our git repositories are hosted <a
-href="https://github.com/erc-dharma">here</a>. The table below does not show all
-of them; in particular, it does not show private repositories.</p>
+href="https://github.com/erc-dharma">here</a>. The table below does not show them all; in particular, it does not show private repositories.</p>
 
 <div class="catalog-list">
 

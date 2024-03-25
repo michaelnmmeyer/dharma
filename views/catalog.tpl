@@ -75,7 +75,7 @@ table of languages <a href="/langs">here</a>.</p>
 <div class="catalog-card">
    <p>
    % if row["name"].startswith("DHARMA_INS"):
-      <a href="/display/{{row["name"]}}">
+      <a href="{{url_for("display_text", text=row["name"])}}">
    % elif row["html_path"]:
       <a href="{{format_url('https://erc-dharma.github.io/%s/%s', row['repo'], row['html_path'])}}">
    % endif

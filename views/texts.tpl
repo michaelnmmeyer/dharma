@@ -1,17 +1,17 @@
 % extends "base.tpl"
 
 % block title
-Texts
+Errors
 % endblock
 
 % block body
 
-<h1>Texts</h1>
+<h1>Errors</h1>
 
 <p>Texts database last updated {{last_updated | format_date}}.</p>
 
 <p>This table only shows problematic files. You can use the
-<a href="/catalog">catalog interface</a> for consulting all DHARMA texts.</p>
+<a href="{{url_for("show_catalog")}}">catalog interface</a> for consulting all DHARMA texts.</p>
 
 <p>In the form below, the "Edited by" field refers to Git's commit history, not
 to the editors mentioned in the XML file's <code>&lt;teiHeader&gt;</code>. Thus, if
@@ -33,7 +33,7 @@ possible, because it is impossible to do anything with them. To check whether
 a file is well-formed XML in Oxygen, click on the downwards arrow next to the "Validate"
 button in the toolbar, and click on "Check Well-Formedness".</p>
 
-<form action="/texts" method="get">
+<form action="{{url_for("show_texts_errors")}}" method="get">
 <ul>
 <li>
    <label for="select-owner">Edited by:</label>
@@ -81,7 +81,7 @@ button in the toolbar, and click on "Check Well-Formedness".</p>
 <tbody>
 % for text in texts:
 <tr>
-   <td><a href="texts/{{text["name"]}}">
+   <td><a href="{{url_for("show_text_errors", name=text["name"])}}">
       <span class="text-id">{{text["name"].removeprefix("DHARMA_")}}</span>
    </a></td>
    <td><a href="https://github.com/erc-dharma/{{text['repo']}}">

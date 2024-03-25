@@ -267,22 +267,41 @@ window.addEventListener("load", function () {
 })
 
 
+// TODO must use sth else for mobile
 
-import {computePosition, shift, offset} from 'https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.3/+esm';
+import {computePosition, shift, autoUpdate, offset} from 'https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.3/+esm';
+
+let submenuCleanup = null
+let floating = null
 
 window.addEventListener("load", function () {
-	const reference = document.getElementById("reference");
-	console.log(typeof(reference), reference);
-	const floating = document.getElementById("floating");
+	const reference = document.getElementById("submenu-button")
+	floating = document.getElementById("submenu")
 
-	computePosition(reference, floating, {
-		// Try changing this to a different side.
-		placement: "bottom-start",
-		middleware: [offset(20), shift()]
-	}).then(function ({x, y}) {
-		Object.assign(floating.style, {
-			top: `${y}px`,
-			left: `${x}px`
-		});
-	});
+	floating.remove()
+	floating.classList.remove("hidden")
+
+	function updatePosition() {
+		computePosition(reference, floating, {
+			// Try changing this to a different side.
+			placement: "bottom",
+		  middleware: [offset(3), shift()]
+		}).then(function ({x, y}) {
+			Object.assign(floating.style, {
+				top: `${y}px`,
+				left: `${x}px`
+			})
+		})
+	}
+
+	reference.addEventListener("click", function () {
+		if (submenuCleanup) {
+			floating.remove()
+			submenuCleanup()
+			submenuCleanup = null
+		} else {
+			document.body.append(floating)
+			submenuCleanup = autoUpdate(reference, floating, updatePosition)
+		}
+	})
 })
