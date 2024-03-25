@@ -39,8 +39,6 @@ insert or ignore into metadata values('biblio_latest_version', 0);
 -- Repositories description. This is initially filled with repos.tsv. We do
 -- not attempt to update repos that do not appear there, even if these repos are
 -- cloned into repos/.
--- XXX should trigger a clone-or-pull when this is changed, should allow
--- deletion
 create table if not exists repos(
 	-- Repository name, e.g. tfa-pallava-epigraphy
 	repo text primary key check(length(repo) > 0),
@@ -93,8 +91,8 @@ create table if not exists files(
 -- For each file, git names of the people who modified it at some point in time.
 -- We thus often have multiple "owners" per file.
 create table if not exists owners(
-	name text,
-	git_name text,
+	name text check(length(name) > 0),
+	git_name text check(length(git_name) > 0),
 	primary key(name, git_name),
 	foreign key(name) references files(name)
 );
@@ -103,13 +101,16 @@ create index if not exists owners_index on owners(git_name);
 -- All people mentioned in XML files, both DHARMA people and people
 -- outside the project, including historical figures.
 create table if not exists people_main(
+	-- Two forms: ["Emmanuel", "Francis"] or ["Tyassanti Kusumo Dewanti"]
 	name json check(
 		json_array_length(name) between 1 and 2
 		and json_type(name -> 0) = 'text'
 		and json_array_length(name) = 1 or json_type(name -> 1) = 'text'),
+	-- e.g. "Emmanuel Francis"
 	print_name text as (iif(json_array_length(name) = 1,
 		name ->> 0,
 		printf('%s %s', name ->> 0, name ->> 1))),
+	-- e.g. "Francis, Emmanuel"
 	inverted_name text as (iif(json_array_length(name) = 1,
 		name ->> 0,
 		printf('%s, %s', name ->> 1, name ->> 0))),
@@ -177,18 +178,25 @@ create table if not exists langs_list(
 	-- languages.
 	id text primary key check(length(id) >= 3),
 	-- E.g. "Old Cham"
-	name text,
+	name text check(length(name) > 0),
 	-- E.g. "Cham, Old". Used for sorting.
-	inverted_name text,
+	inverted_name text check(length(name) > 0),
 	-- "iso" is null when the language code is a custom one viz. a
 	-- dharma-specific one.
 	iso integer check(iso is null or iso = 3 or iso = 5),
-	custom boolean
+	-- custom is true if we ha checkve modified the default name and
+	-- inverted_name values present in the ISO standard, or if the language
+	-- code is a DHARMA-specific one.
+	custom boolean,
+	check(length(id) = 3 and iso is not null
+		or length(id) > 3 and iso is null and custom)
 );
 
 -- A single language can have several codes.
 create table if not exists langs_by_code(
-	code text primary key,
+	-- Length two or three for ISO codes, length > 3 for custom DHARMA
+	-- codes.
+	code text primary key check(length(code) >= 2),
 	id text,
 	foreign key(id) references langs_list(id)
 );
@@ -201,20 +209,22 @@ create virtual table if not exists langs_by_name using fts5(
 );
 
 create table if not exists prosody(
-	name text primary key not null,
-	pattern text not null
+	name text primary key check(length(name) > 0),
+	pattern text check(length(pattern) > 0)
 );
 
 create table if not exists gaiji(
-	name text primary key not null,
-	text text,
-	description text
+	name text primary key check(length(name) > 0),
+	text text check(text is null or length(text) > 0),
+	description text check(description is null or length(description) > 0)
 );
 
 -- All bibliographic records from Zotero. Includes data that we do not care
 -- about.
 create table if not exists biblio_data(
 	key text primary key check(length(key) > 0),
+	-- We expect version numbers to be > 0, otherwise the update code is
+	-- broken.
 	version integer check(version > 0),
 	json json not null check(json_valid(json)),
 	-- We don't need to store the short_title, both because it is fast to
@@ -223,7 +233,8 @@ create table if not exists biblio_data(
 	item_type text as (json ->> '$.data.itemType'),
 	-- Null if this is not an entry we can display viz. if it is not of the
 	-- item types we support (book, etc.).
-	-- XXX sort this out
+	-- XXX sort this out, should be build with a builtin function, and
+	-- should be rebuilt whenever the code commit changes.
 	sort_key blob
 );
 create index if not exists biblio_data_short_title on biblio_data(short_title);
