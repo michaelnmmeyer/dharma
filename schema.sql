@@ -184,10 +184,12 @@ create table if not exists langs_list(
 	-- "iso" is null when the language code is a custom one viz. a
 	-- dharma-specific one.
 	iso integer check(iso is null or iso = 3 or iso = 5),
-	-- custom is true if we ha checkve modified the default name and
+	-- custom is true if we have modified the default name and
 	-- inverted_name values present in the ISO standard, or if the language
 	-- code is a DHARMA-specific one.
 	custom boolean,
+	-- dharma is true if the language appears in the DHARMA languages list
+	dharma boolean,
 	check(length(id) = 3 and iso is not null
 		or length(id) > 3 and iso is null and custom)
 );
@@ -207,6 +209,68 @@ create virtual table if not exists langs_by_name using fts5(
 	name,
 	tokenize = "trigram"
 );
+
+create view if not exists langs_prod as
+	select json_each.value as lang,
+		count(*) as lang_prod
+	from documents join json_each(documents.langs)
+	group by lang;
+
+create view if not exists langs_editors_prod as
+	select langs_iter.value as lang,
+		editor_iter.value as editor,
+		count(*) as editor_prod
+	from documents
+		join json_each(documents.langs) as langs_iter
+		join json_each(documents.editors_ids) as editor_iter
+	group by lang, editor
+	order by lang, editor_prod desc;
+
+create view if not exists langs_repos_prod as
+	select langs_iter.value as lang,
+		repo,
+		count(*) as repo_prod
+	from documents
+		join json_each(documents.langs) as langs_iter
+	group by lang, repo
+	order by lang, repo_prod desc;
+
+create view if not exists langs_display as
+	with langs_editors_prod_json as (
+		select lang,
+			json_group_array(json_array(dh_id, print_name, editor_prod))
+				as editors
+		from langs_editors_prod
+			join people_main on langs_editors_prod.editor = people_main.dh_id
+		group by lang
+		order by editor_prod desc, inverted_name
+	), langs_repos_prod_json as (
+		select lang,
+			json_group_array(json_array(repo, repo_prod)) as repos
+		from langs_repos_prod
+		group by lang
+	)
+	select
+		langs_list.id as lang,
+		langs_list.name as name,
+		langs_prod.lang_prod as prod,
+		editors,
+		repos,
+		case iso
+			when null then 'DHARMA-specific'
+			else case custom
+				when true then printf('ISO 639-%d (modified)', iso)
+				else printf('ISO 639-%d', iso)
+			end
+		end as standard
+	from langs_list
+		join langs_prod
+			on langs_list.id = langs_prod.lang
+		join langs_editors_prod_json
+			on langs_list.id = langs_editors_prod_json.lang
+		join langs_repos_prod_json
+			on langs_list.id = langs_repos_prod_json.lang
+	order by langs_list.inverted_name;
 
 create table if not exists prosody(
 	name text primary key check(length(name) > 0),
@@ -271,5 +335,29 @@ create view if not exists repos_langs_stats_json as
 	select repo,
 		json_group_array(json_array(lang_id, lang, lang_prod)) as langs_prod
 	from repos_langs_stats group by repo;
+
+create view if not exists repos_display as
+	with repos_stats as (
+		select repos.repo,
+			count(*) as repo_prod
+		from repos join documents on repos.repo = documents.repo
+		group by repos.repo
+		order by repos.repo
+	)
+	select repos.repo,
+		repos.title,
+		repo_prod,
+		editors_prod as people,
+		langs_prod as langs,
+		repos.commit_hash,
+		repos.commit_date
+	from repos
+		left join repos_stats on repos.repo = repos_stats.repo
+		left join repos_editors_stats_json
+			on repos.repo = repos_editors_stats_json.repo
+		left join repos_langs_stats_json
+			on repos.repo = repos_langs_stats_json.repo
+	group by repos.repo
+	order by repos.title;
 
 commit;

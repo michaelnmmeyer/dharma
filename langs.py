@@ -36,7 +36,13 @@ def load_data():
 	recs = []
 	index = {}
 	for row in tbl3:
-		rec = {"id": row["Id"], "name": row["Ref_Name"], "iso": 3, "custom": False}
+		rec = {
+			"id": row["Id"],
+			"name": row["Ref_Name"],
+			"iso": 3,
+			"custom": False,
+			"dharma": False,
+		}
 		recs.append(rec)
 		# "Part2b", "Part2t", "Part1" are alternate language codes.
 		for field in ("Id", "Part2b", "Part2t", "Part1"):
@@ -53,6 +59,7 @@ def load_data():
 			"inverted_name": row["Label (English)"],
 			"iso": 5,
 			"custom": False,
+			"dharma": False,
 		}
 		recs.append(rec)
 		add_to_index(rec["id"], index, rec)
@@ -66,6 +73,7 @@ def load_data():
 				"inverted_name": row["Inverted_Name"],
 				"iso": None,
 				"custom": True,
+				"dharma": True,
 			}
 			recs.append(rec)
 			add_to_index(rec["id"], index, rec)
@@ -73,6 +81,7 @@ def load_data():
 			rec["name"] = row["Print_Name"]
 			rec["inverted_name"] = row["Inverted_Name"]
 			rec["custom"] = True
+		rec["dharma"] = True
 	assert all("inverted_name" in rec for rec in recs)
 	recs.sort(key=lambda rec: rec["id"])
 	return recs, index
@@ -100,8 +109,10 @@ def make_db():
 	db.execute("delete from langs_list")
 	for rec in recs:
 		db.execute("""
-			insert into langs_list(id, name, inverted_name, iso, custom)
-			values(:id, :name, :inverted_name, :iso, :custom)""", rec)
+			insert into langs_list(id, name, inverted_name, iso,
+				custom, dharma)
+			values(:id, :name, :inverted_name, :iso,
+				:custom, :dharma)""", rec)
 		db.execute("insert into langs_by_name(id, name) values(?, ?)",
 			(rec["id"], normalize_name(rec["name"])))
 	for code, rec in sorted(index.items()):

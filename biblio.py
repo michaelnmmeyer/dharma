@@ -91,6 +91,11 @@ def update():
 			(entry["key"], entry["version"], entry, sort_key(entry["data"])))
 	assert len(ret) == 1
 	db.execute("update metadata set value = ? where key = 'biblio_latest_version'", tuple(ret))
+	# For now, use brute force for generating sort keys. But we only need
+	# to do that when the code changes.
+	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
+		rec = config.from_json(rec)
+		db.execute("update biblio_data set sort_key = ? where key = ?", (sort_key(rec), key))
 	db.execute("commit")
 
 anonymous = "No name"
@@ -1193,18 +1198,7 @@ def sort_key(rec):
 	key += rec["title"] + " " + rec["key"]
 	return config.COLLATOR.getSortKey(key)
 
-# XXX must be run when changing the "sort_key" func
-@config.transaction("texts")
-def update_sort_keys():
-	db = config.db("texts")
-	db.execute("begin")
-	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
-		rec = config.from_json(rec)
-		db.execute("update biblio_data set sort_key = ? where key = ?", (sort_key(rec), key))
-	db.execute("commit")
-
 if __name__ == "__main__":
-	update_sort_keys()
 	#params = {"rend": "default", "loc": [], "n": "", "missing": False}
 	#r = get_entry(sys.argv[1], **params)
 	pass

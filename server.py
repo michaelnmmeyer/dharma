@@ -108,28 +108,7 @@ def show_text(name):
 @config.transaction("texts")
 def show_repos():
 	db = config.db("texts")
-	rows = db.execute("""
-	with repos_stats as (
-		select repos.repo,
-			count(*) as repo_prod
-		from repos join documents on repos.repo = documents.repo
-		group by repos.repo
-		order by repos.repo
-	)
-	select repos.repo,
-		repos.title,
-		repo_prod,
-		editors_prod as people,
-		langs_prod as langs,
-		repos.commit_hash,
-		repos.commit_date
-	from repos
-		left join repos_stats on repos.repo = repos_stats.repo
-		left join repos_editors_stats_json on repos.repo = repos_editors_stats_json.repo
-		left join repos_langs_stats_json on repos.repo = repos_langs_stats_json.repo
-	group by repos.repo
-	order by repos.title
-	""").fetchall()
+	rows = db.execute("select * from repos_display").fetchall()
 	return flask.render_template("repos.tpl", rows=rows)
 
 @app.get("/parallels")
@@ -193,15 +172,7 @@ def show_catalog():
 @config.transaction("texts")
 def show_langs():
 	db = config.db("texts")
-	rows = db.execute("""
-	select langs_list.inverted_name as name,
-		json_group_array(distinct(langs_by_code.code)) as codes,
-		printf('639-%d', iso) as iso
-	from documents
-		join json_each(documents.langs)
-		join langs_list on langs_list.id = json_each.value
-		join langs_by_code on langs_list.id = langs_by_code.id
-	group by langs_list.id order by langs_list.inverted_name collate icu""").fetchall()
+	rows = db.execute("select * from langs_display").fetchall()
 	return flask.render_template("langs.tpl", rows=rows)
 
 @app.get("/parallels/search")

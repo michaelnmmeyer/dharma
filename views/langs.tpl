@@ -8,26 +8,46 @@ Languages
 
 <h1>Languages</h1>
 
-<p>The following table displays languages that currently appear in the DHARMA database.</p>
+<p>The following only displays languages that currently appear in the DHARMA database.</p>
 
-<table>
-<thead>
-<tr>
-   <th>Name</th>
-   <th>Codes</th>
-   <th>ISO Standard</th>
-</tr>
-</thead>
-<tbody>
+<div class="catalog-list">
+
 % for row in rows:
-<tr>
-   <td>{{row["name"]}}</td>
-   <td>{{", ".join(from_json(row["codes"]))}}</td>
-   <td>{{row["iso"]}}</td>
-</tr>
+<div class="catalog-card">
+
+<p>
+	<b>{{row["name"]}}</b>
+% if row["prod"] is not none:
+	(<a href="{{url_for('show_catalog', q='lang:' + row['lang'])}}">{{row["prod"]}} {{numberize("text", row["prod"])}}</a>)
+% endif
+</p>
+
+% if row["repos"]:
+<p>
+Repositories:
+% for repo, repo_prod in from_json(row["repos"]):
+   <span class="repo-id">{{repo}}</span>
+   (<a href="{{url_for('show_catalog', q='lang:%s repo:%s' % (row["lang"], repo))}}">{{repo_prod}}</a>){{loop.index == loop.length and "." or ","}}
 % endfor
-</tbody>
-</table>
+</p>
+% endif
+
+% if row["editors"]:
+<p>
+Editors:
+% for editor_id, editor, editor_prod in from_json(row["editors"]):
+   {{editor}}
+   (<a href="{{url_for('show_catalog', q='lang:%s editor_id:%s' % (row["lang"], editor_id))}}">{{editor_prod}}</a>){{loop.index == loop.length and "." or ","}}
+% endfor
+</p>
+% endif
+
+<p>Standard: {{row["standard"]}}.</p>
+
+</div>
+% endfor
+
+</div> <!-- class="catalog-list" -->
 
 <p>For the canonical list of languages of the DHARMA project, see <a href="https://github.com/erc-dharma/project-documentation/blob/master/DHARMA_languages.tsv">here</a>.</p>
 
