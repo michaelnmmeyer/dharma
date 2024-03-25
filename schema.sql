@@ -24,6 +24,8 @@ pragma secure_delete = off;
 
 begin;
 
+select 'drop view ' || name || ';' from sqlite_master where type = 'view';
+
 create table if not exists metadata(
 	key text primary key,
 	value blob
