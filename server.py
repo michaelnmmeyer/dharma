@@ -168,12 +168,16 @@ def show_catalog():
 	rows, last_updated = catalog.search(q, s)
 	return flask.render_template("catalog.tpl", rows=rows, q=q, s=s, last_updated=last_updated)
 
-@app.get("/langs")
+@app.get("/languages")
 @config.transaction("texts")
 def show_langs():
 	db = config.db("texts")
 	rows = db.execute("select * from langs_display").fetchall()
 	return flask.render_template("langs.tpl", rows=rows)
+
+@app.get("/langs")
+def show_lang_old():
+	return flask.redirect("/languages", code=301)
 
 @app.get("/parallels/search")
 def search_parallels():
