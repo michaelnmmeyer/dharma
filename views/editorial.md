@@ -2,11 +2,12 @@
 % extends "base.tpl"
 
 % block title
-Documentation
+Editorial Conventions
 % endblock
 
 % block body
 ```
+# Editorial Conventions
 
 |Description|DHARMA markup|DHARMA display|
 |:-----:|:-----:|:-----:|

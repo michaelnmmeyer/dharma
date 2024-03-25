@@ -82,7 +82,7 @@ def show_texts_errors():
 			join owners on people_github.git_name = owners.git_name
 		order by print_name""").fetchall()
 	conn.execute("rollback")
-	return flask.render_template("texts.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner, severity=severity)
+	return flask.render_template("errors.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner, severity=severity)
 
 @app.get("/errors/<name>")
 @config.transaction("texts")
@@ -177,7 +177,8 @@ def show_catalog():
 	q = flask.request.args.get("q", "")
 	s = flask.request.args.get("s", "")
 	rows, last_updated = catalog.search(q, s)
-	return flask.render_template("catalog.tpl", rows=rows, q=q, s=s, last_updated=last_updated)
+	return flask.render_template("texts.tpl",
+		rows=rows, q=q, s=s, last_updated=last_updated)
 
 @app.get("/editorial-conventions")
 def show_editorial_conventions():

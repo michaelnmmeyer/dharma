@@ -1,10 +1,11 @@
 % extends "base.tpl"
 
 % block title
-Documentation
+Editorial Conventions
 % endblock
 
 % block body
+<h1 id="editorial-conventions">Editorial Conventions</h1>
 <table>
 <colgroup>
 <col style="width: 33%" />

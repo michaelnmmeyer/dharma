@@ -1,99 +1,127 @@
 % extends "base.tpl"
 
 % block title
-Errors
+Texts
 % endblock
 
 % block body
 
-<h1>Errors</h1>
+<h1>Texts</h1>
 
 <p>Texts database last updated {{last_updated | format_date}}.</p>
 
-<p>This table only shows problematic files. You can use the
-<a href="{{url_for("show_catalog")}}">catalog interface</a> for consulting all DHARMA texts.</p>
+<p>This interface allows you to look for texts in the DHARMA collection. The
+search form below can be used for filtering results. Matching is
+case-insensitive, does not take diacritics into account, and looks for
+substrings instead of terms. For instance, the query <a
+href="/catalog?q=edit">edit</a> matches "edition" or "meditation". To look for
+a phrase, surround it with double quotes, as in <a
+href="/catalog?q=&quot;old%20javanese&quot;">&quot;old javanese&quot;</a>.
+Searching for strings that contain less than three characters is not
+possible.</p>
 
-<p>In the form below, the "Edited by" field refers to Git's commit history, not
-to the editors mentioned in the XML file's <code>&lt;teiHeader&gt;</code>. Thus, if
-you select your name, you will see files that you modified at some point, even
-if you are not credited as an editor. Conversely, the files where you are
-credited as an editor but that you did not modify yourself will not be shown. The rationale for referring to Git's commit history is that it is not possible to extract editor names from invalid XML files.</p>
+<p>Per default, all metadata fields are searched (except "lang", see below).
+Metadata fields are (for now): "title", "editor", "editor_id", "summary",
+"lang", "repo", "ident". You can restrict search to a specific field by using a
+field prefix, as in <a href="/catalog?q=editor:manu">editor:manu</a> or <a
+href="/catalog?q=title:&quot;critical%20edition&quot">title:"critical
+edition"</a>. Several clauses can be added successively, separated with
+whitespace. In this case, for a document to be considered a match, all query
+clauses must match. Try for instance <a
+href="/catalog?q=editor:manu%20title:stone">editor:manu title:stone</a>.</p>
 
-<p>The "Severity" parameter indicates how serious the problem is. There are
-three severity levels:</p>
+<p>The "lang" field is special. If you look for a string that contains two or
+three letters only, as in <a href="/catalog?q=lang:en">lang:en</a> or <a
+href="/catalog?q=lang:san">lang:san</a>, it is assumed to refer to an ISO 639
+language code, and an exact comparison is performed. If you look for a string
+longer than that, it is assumed to refer to a language name and the
+above-mentioned substring matching technique will be used instead. You can consult a
+table of languages <a href="/langs">here</a>.</p>
+
+<form action="/catalog" method="get">
 <ul>
-   <li>"Warning". The file might present some Unicode problems.
-   <li>"Error". The file does not adhere to the guidelines and might thus not be
-   processed correctly.</li>
-   <li>"Fatal". The file is not well-formed XML and cannot be processed at all.</li>
-</ul>
-
-<p>As a rule, files with a "Fatal" severity level should be amended as soon as
-possible, because it is impossible to do anything with them. To check whether
-a file is well-formed XML in Oxygen, click on the downwards arrow next to the "Validate"
-button in the toolbar, and click on "Check Well-Formedness".</p>
-
-<form action="{{url_for("show_texts_errors")}}" method="get">
-<ul>
-<li>
-   <label for="select-owner">Edited by:</label>
-   <select name="owner" id="select-owner">
-   % if owner:
-      <option value="">Anybody</option>
+   <li>
+<label for="text-input">Find:</label>
+<input name="q" id="text-input"
+% if q != "*":
+   value="{{q}}"
+% else:
+   autofocus
+% endif
+></input>
+   </li>
+   <li>
+<label for="sort-select">Sort by:</label>
+<select name="s" id="sort-select">
+% for k, v in (("title", "Title"), ("repo", "Repository"), ("ident", "Identifier")):
+   % if k == s:
+      <option value="{{k}}" selected>{{v}}</option>
    % else:
-      <option value="" selected>Anybody</option>
+      <option value="{{k}}">{{v}}</option>
    % endif
-   % for author_id, author_name in authors:
-      % if author_id == owner:
-         <option value="{{author_id}}" selected>{{author_name}}</option>
-      % else:
-         <option value="{{author_id}}">{{author_name}}</option>
-      % endif
-   % endfor
-   </select>
-</li>
-<li>
-   <label for="select-severity">Severity:</label>
-   <select name="severity" id="select-severity">
-   % for value in ("warning", "error", "fatal"):
-   % if value == severity:
-      <option value="{{value}}" selected>{{value.title()}}</option>
-   % else:
-      <option value="{{value}}">{{value.title()}}</option>
-   % endif
-   % endfor
-   </select>
-</li>
-<li>
-   <input type="submit" value="Reload">
-</li>
+% endfor
+</select>
+   </li>
+   <li>
+<input type="submit" value="Search">
+   </li>
 </ul>
 </form>
 
-% if texts:
-<table>
-<thead>
-<tr>
-   <th>Identifier</th>
-   <th>Repository</th>
-   <th>Commit date</th>
-</tr>
-<tbody>
-% for text in texts:
-<tr>
-   <td><a href="{{url_for("show_text_errors", name=text["name"])}}">
-      <span class="text-id">{{text["name"].removeprefix("DHARMA_")}}</span>
-   </a></td>
-   <td><a href="https://github.com/erc-dharma/{{text['repo']}}">
-      <span class="repo-id">{{text["repo"]}}</span>
-   </a></td>
-   <td>{{text["commit_date"] | format_date}}</td>
-</tr>
+<p>Have {{rows | length}} documents.</p>
+
+<div class="catalog-list">
+% for row in rows:
+<div class="catalog-card">
+   <p>
+   % if row["name"].startswith("DHARMA_INS"):
+      <a href="{{url_for("display_text", text=row["name"])}}">
+   % elif row["html_path"]:
+      <a href="{{format_url('https://erc-dharma.github.io/%s/%s', row['repo'], row['html_path'])}}">
+   % endif
+   % if row["title"]:
+      % for chunk in row["title"]:
+         {{chunk.rstrip(".") | safe}}.
+      % endfor
+   % else:
+      <i>Untitled</i>.
+   % endif
+   % if row["name"].startswith("DHARMA_INS") or row["html_path"]:
+      </a>
+   % endif
+   % if row["html_path"] and row["name"].startswith("DHARMA_INS"):
+      <a href="{{format_url('https://erc-dharma.github.io/%s/%s', row['repo'], row['html_path'])}}">
+      [🦕 Old display]
+      </a>
+   % endif
+   </p>
+   <p>
+   % for ed in row["editors"][:-1]:
+      {{ed | safe}},
+   % endfor
+   % if row["editors"]:
+      {{row["editors"][-1] | safe}}.
+   % else:
+      <i>Anonymous editor</i>.
+   % endif
+   </p>
+   % if row["summary"]:
+   <p>Summary: {{row["summary"] | safe}}</p>
+   % endif
+   % if row["langs"]:
+   <p>Languages:
+      % for lang in from_json(row["langs"])[:-1]:
+         {{lang}},
+      % endfor
+         {{from_json(row["langs"])[-1]}}.
+   </p>
+   % endif
+   <p>
+      <span class="text-id">{{row["name"]}}</span>
+      (<span class="repo-id">{{row["repo"]}}</span>).
+   </p>
+</div>
 % endfor
-</tbody>
-</table>
-% else
-<p>🍾 All good!</p>
-% endif
+</div>
 
 % endblock
