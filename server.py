@@ -1,10 +1,18 @@
 import os, sys, unicodedata, hashlib, locale, time, datetime, html, urllib
 import flask # pip install flask
+import flask_cors # pip install flask-cors
 from bs4 import BeautifulSoup # pip install bs4
-from dharma import config, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document, tree, texts
+from dharma import config, change, people, ngrams, catalog, parse, validate
+from dharma import parse_ins, biblio, document, tree, texts
 
+# We don't use the name "templates" for the template folder because we also
+# put other stuff in the same directory, not just templates.
 app = flask.Flask(__name__, static_url_path="", template_folder="views")
 app.jinja_options["line_statement_prefix"] = "%"
+
+# We need this for the HTML conversion tool in Oxygen. Otherwise the browser
+# refuses to fetch fonts
+flask_cors.CORS(app, resources={"/fonts/*": {"origins": "*"}})
 
 @app.template_filter("format_date")
 def format_date(when):
@@ -13,10 +21,6 @@ def format_date(when):
 	when_detailed = html.escape(when_obj.strftime("%FT%T%z"))
 	when_readable = html.escape(when_obj.strftime("%F %R"))
 	return f'<time datetime="{when_detailed}">{when_readable}</time>'
-
-@app.template_filter("quote_plus")
-def quote_plus(s):
-	return urllib.parse.quote_plus(s)
 
 # Global variables accessible from within jinja templates.
 templates_globals = {
@@ -112,7 +116,7 @@ def show_text_errors(name):
 	setattr(file, "_mtime", row["mtime"])
 	setattr(file, "_data", row["data"])
 	setattr(file, "_status", row["status"])
-	return flask.render_template("invalid-text.tpl",
+	return flask.render_template("invalid_text.tpl",
 		text=row, github_url=url, result=validate.file(file))
 
 @app.get("/repositories")
@@ -228,7 +232,8 @@ def search_parallels():
 @config.transaction("texts")
 def display_list():
 	db = config.db("texts")
-	texts = [t for (t,) in db.execute("select name from documents where name glob 'DHARMA_INS*'")]
+	texts = [t for (t,) in db.execute("""select name from documents
+		where name glob 'DHARMA_INS*'""")]
 	return flask.render_template("display.tpl", texts=texts)
 
 @app.get("/display/<text>")
@@ -262,7 +267,6 @@ def display_text(text):
 	if not row:
 		db.execute("rollback")
 		return flask.abort(404)
-	import parse_ins
 	try:
 		doc = parse_ins.process_file(row["path"], row["data"])
 		title = doc.title and doc.title.render_logical() or []
@@ -327,7 +331,6 @@ def convert_text():
 		# think to do that, and people are already using the code.
 		base = base_name_windows(path)
 	name = os.path.splitext(base)[0]
-	import parse_ins
 	doc = parse_ins.process_file(path, data)
 	title = doc.title.render_logical()
 	doc.title = title and title.split(document.PARA_SEP) or []
@@ -335,15 +338,6 @@ def convert_text():
 	doc.editors = editors and editors.split(document.PARA_SEP)
 	html = flask.render_template("inscription.tpl", doc=doc, text=name)
 	soup = BeautifulSoup(html, "html.parser")
-	# HACK
-	# Chrome doesn't attempt to fetch remote modules apparently, so we
-	# just include the module contents in the html page. Would be better
-	# not to use modules at all and just use raw includes, even if messier.
-	script = soup.find("script", {"type": "module"})
-	assert script
-	with open(config.path_of("static/base.js")) as f:
-		script.string = f.read()
-	del script["src"]
 	patch_links(soup, "href")
 	patch_links(soup, "src")
 	return str(soup)

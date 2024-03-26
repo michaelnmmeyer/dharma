@@ -1,5 +1,5 @@
 import os, sys, logging, sqlite3, json, subprocess, re, ssl, threading, time
-import functools
+import functools, traceback
 from urllib.parse import urlparse, quote
 import icu # pip install PyICU
 
@@ -15,6 +15,17 @@ logging.basicConfig(level="INFO")
 # Report exceptions within user functions on stderr. Otherwise we only get a
 # message that says an exception was raised, without more info.
 sqlite3.enable_callback_tracebacks(True)
+
+def report_callback_error(e):
+	print(f"Exception of type {e.exc_type} in object {e.object!r}",
+		file=sys.stderr)
+	print(f"Value: {e.exc_value!r}", file=sys.stderr)
+	print(f"Message: {e.err_msg}", file=sys.stderr)
+	if e.exc_traceback:
+		traceback.print_tb(e.exc_traceback, file=sys.stderr)
+	os._exit(1) # exits without raising an exception SystemExit
+
+sys.unraisablehook = report_callback_error
 
 # Python's sqlite wrapper does not allow us to share database objects between
 # threads, even though sqlite itself is OK with that. (But this changed in
@@ -86,6 +97,8 @@ def read_only_db():
 		return False
 	return True
 
+# TODO use this instead:
+# https://stackoverflow.com/questions/880530/can-modules-have-properties-the-same-way-that-objects-can
 def db(name):
 	ret = getattr(DBS, name, None)
 	if ret:

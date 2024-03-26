@@ -4,7 +4,7 @@ to repos or sth, but probably not feasible without patching python's binary or
 creating users, etc. in fact, we only need access to /views and /static, and we
 shouldn't use immediate opens. use a decorator like:
 
-  @requires("foo.xml", "bar.xml")
+  @requires_files("foo.xml", "bar.xml")
   def func(foo, bar):
     pass
 
@@ -16,6 +16,12 @@ maybe just patch the open func as a primary check to verify that we don't
 open files for no reason?
 
 for https://github.com/erc-dharma/project-documentation/issues/266#issue-2207593274
+
+
+
+
+# https://serverfault.com/questions/636790/nginx-log-complete-request-response-with-all-headers
+Should also store a local copy of files we fetch from web
 
 
 

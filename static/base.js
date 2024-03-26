@@ -2,6 +2,10 @@ function unwrap(node) {
 	node.replaceWith(...node.childNodes)
 }
 
+function getCSSVar(name) {
+	return getComputedStyle(document.documentElement).getPropertyValue(name)
+}
+
 function toggleMenu() {
 	let menu = document.querySelector("menu")
 	if (menu.classList.contains("menu-active")) {
@@ -202,10 +206,6 @@ function displayTOC() {
 	TOCEntryToHTML(root, toc)
 }
 
-function getCSSVar(name) {
-	return getComputedStyle(document.documentElement).getPropertyValue(name)
-}
-
 let displays = ["logical", "physical", "full", "xml"]
 let currentDisplay = "logical"
 
@@ -243,21 +243,26 @@ function initDisplays() {
 	}
 }
 
-// Localize <time> nodes
-function convertDates() {
-	for (let node of document.querySelectorAll("time")) {
-		let when = new Date(node.dateTime)
-		let year = when.getFullYear()
-		let month = new String(when.getMonth() + 1).padStart(2, "0")
-		let day = new String(when.getDate()).padStart(2, "0")
-		let hour = new String(when.getHours()).padStart(2, "0")
-		let minute = new String(when.getMinutes()).padStart(2, "0")
-		node.innerText = `${year}-${month}-${day} ${hour}:${minute}`
-	}
+// Localize <time> nodes. The node initially contains the date in the server's
+// time zone. We use the same format everywhere, on purpose, for simplicity,
+// but we do use the user's local time zone when possible.
+function localizeDate(node) {
+	console.assert(node.localName == "time" && node.dateTime)
+	let when = new Date(node.dateTime)
+	let year = when.getFullYear()
+	let month = new String(when.getMonth() + 1).padStart(2, "0")
+	let day = new String(when.getDate()).padStart(2, "0")
+	let hour = new String(when.getHours()).padStart(2, "0")
+	let minute = new String(when.getMinutes()).padStart(2, "0")
+	node.innerText = `${year}-${month}-${day} ${hour}:${minute}`
+}
+function localizeDates() {
+	for (let node of document.querySelectorAll("time"))
+		localizeDate(node)
 }
 
 window.addEventListener("load", function () {
-	convertDates()
+	localizeDates()
 	prepareTips()
 	displayTOC()
 	document.querySelector("#toggle-menu").addEventListener("click", toggleMenu, false)
@@ -266,11 +271,11 @@ window.addEventListener("load", function () {
 	initFlashing()
 })
 
+// TODO must use sth else than float for mobile
+// put the submenu div in a subdiv within the menu
 
-// TODO must use sth else for mobile
-
-import {computePosition, shift, autoUpdate, offset} from 'https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.3/+esm';
-
+let floatingUI = window.FloatingUIDOM
+console.assert(floatingUI)
 let submenuCleanup = null
 let floating = null
 
@@ -282,9 +287,9 @@ window.addEventListener("load", function () {
 	floating.classList.remove("hidden")
 
 	function updatePosition() {
-		computePosition(reference, floating, {
+		floatingUI.computePosition(reference, floating, {
 			placement: "bottom",
-			middleware: [offset(3), shift()]
+			middleware: [floatingUI.offset(3), floatingUI.shift()]
 		}).then(function ({x, y}) {
 			Object.assign(floating.style, {
 				top: `${y}px`,
@@ -295,7 +300,7 @@ window.addEventListener("load", function () {
 
 	function showSubmenu() {
 		document.body.append(floating)
-		submenuCleanup = autoUpdate(reference, floating, updatePosition)
+		submenuCleanup = floatingUI.autoUpdate(reference, floating, updatePosition)
 	}
 
 	function hideSubmenu() {
@@ -304,12 +309,13 @@ window.addEventListener("load", function () {
 		submenuCleanup = null
 	}
 
+	// Hide the submenu if the user clicks anywhere on the page.
 	document.addEventListener("click", function (event) {
-		if (!reference.contains(event.target) && submenuCleanup) {
+		if (submenuCleanup && !reference.contains(event.target))
 			hideSubmenu()
-		}
 	})
 
+	// Show/hide the submenu if the user clicks on the menu button.
 	reference.addEventListener("click", function () {
 		if (submenuCleanup) {
 			hideSubmenu()
