@@ -6,8 +6,6 @@ Bibliography
 
 % block body
 
-<h1>Bibliography</h1>
-
 <p>Entries
 {{"%d\N{en dash}%d" % (first_entry, last_entry)}}
 of

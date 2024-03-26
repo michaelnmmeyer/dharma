@@ -6,8 +6,6 @@ Errors
 
 % block body
 
-<h1>Errors</h1>
-
 <p>Texts database last updated {{last_updated | format_date}}.</p>
 
 <p>This table only shows problematic files. You can use the

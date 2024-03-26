@@ -60,7 +60,7 @@ update-texts:
 	mkdir -p texts
 	rm -f texts/*
 	sqlite3 dbs/texts.sqlite "select printf('../repos/%s/%s', repo, path) \
-		from texts natural join files" | while read f; do \
+		from documents natural join files" | while read f; do \
 		ln -s $$f texts/$$(basename $$f); \
 	done
 

@@ -6,8 +6,6 @@ Languages
 
 % block body
 
-<h1>Languages</h1>
-
 <p>The following only displays languages that currently appear in the DHARMA database.</p>
 
 <div class="catalog-list">

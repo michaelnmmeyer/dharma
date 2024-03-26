@@ -5,9 +5,6 @@ Documentation
 % endblock
 
 % block body
-<h1>
-Documentation
-</h1>
 <p>This is a complement to the various guides of the project. It
 addresses some issues that are not covered by the guides, and points out
 how I deviate from the guidelines, when I do deviate from them.</p>

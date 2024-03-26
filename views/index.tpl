@@ -1,12 +1,10 @@
 % extends "base.tpl"
 
 % block title
-Home
+ERC-DHARMA Database
 % endblock
 
 % block body
-
-<h1>ERC-DHARMA Database</h1>
 
 <p>For general information about the project and its goals, head over to <a href="https://dharma.hypotheses.org">our blog on Hypotheses.org</a>. The present website allows you to access the
 project's database, but it does not record participants' other activities. You migh also want to consult <a href="https://erc-dharma.github.io">our previous website</a>, which is more documented than this one.</p>

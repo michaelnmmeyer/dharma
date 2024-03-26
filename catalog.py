@@ -37,6 +37,19 @@ def delete(name):
 	db.execute("delete from documents_index where name = ?", (name,))
 	db.execute("delete from documents where name = ?", (name,))
 
+def gather_languages(t):
+	db = config.db("texts")
+	ret = set()
+	for node in t.find("//*"):
+		if not "lang" in node.attrs:
+			continue
+		lang = node["lang"]
+		(code,) = db.execute("select id from langs_by_code where code = ?", (lang,)).fetchone() or ("und",)
+		ret.add(code)
+	if not ret:
+		ret.add("und")
+	return ret
+
 def process_file(file):
 	print(file.full_path)
 	db = config.db("texts")
@@ -49,15 +62,7 @@ def process_file(file):
 		doc.ident = file.name
 		doc.langs = ["und"]
 		return doc
-	langs = set()
-	for node in t.find("//*"):
-		if not "lang" in node.attrs:
-			continue
-		lang = node["lang"]
-		(code,) = db.execute("select id from langs_by_code where code = ?", (lang,)).fetchone() or ("und",)
-		langs.add(code)
-	if not langs:
-		langs.add("und")
+	langs = gather_languages(t)
 	# Delete <body> so that we don't process the whole file.
 	node = t.first("//body")
 	if node is not None:

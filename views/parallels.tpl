@@ -6,8 +6,6 @@ Parallels
 
 % block body
 
-<h1>Parallels</h1>
-
 <p>Parallels database last updated {{last_updated | format_date}}.</p>
 
 <p>This interface allows you to look for parallel verse passages—verses,

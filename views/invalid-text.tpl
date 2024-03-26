@@ -1,12 +1,11 @@
 % extends "base.tpl"
 
 % block title
-{{text["name"].removeprefix("DHARMA_")}}
+<span class="text-id">{{text["name"].removeprefix("DHARMA_")}}{{text["name"].removeprefix("DHARMA_")}}</span>
 % endblock
 
 % block body
 
-<h1><span class="text-id">{{text["name"].removeprefix("DHARMA_")}}</span></h1>
 <p>Committed {{text["commit_date"] | format_date}} in
 <a
 href="https://github.com/erc-dharma/{{text["repo"]}}/commit/{{text["commit_hash"]}}"><span class="commit-hash">{{text["commit_hash"]}}</span></a>.

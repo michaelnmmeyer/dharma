@@ -7,7 +7,6 @@ Editorial Conventions
 
 % block body
 ```
-# Editorial Conventions
 
 |Description|DHARMA markup|DHARMA display|
 |:-----:|:-----:|:-----:|

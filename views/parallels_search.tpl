@@ -1,12 +1,10 @@
 % extends "base.tpl"
 
 % block title
-Parallels
+Parallels Search Results
 % endblock
 
 % block body
-
-<h1>Parallels Search Results</h1>
 
 % if data is none:
 <p>Bad input.</p>

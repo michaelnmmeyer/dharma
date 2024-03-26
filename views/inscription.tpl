@@ -1,12 +1,6 @@
 % extends "base.tpl"
 
 % block title
-Display
-% endblock
-
-% block body
-
-<h1>
 % if doc.title:
    % for part in doc.title[:-1]:
       {{part | safe}}:
@@ -15,7 +9,9 @@ Display
 % else:
    <i>Untitled</i>
 % endif
-</h1>
+% endblock
+
+% block body
 
 <p>
 {{numberize("Editor", (doc.editors | length))}}:

@@ -1,18 +1,16 @@
 % extends "base.tpl"
 
 % block title
-Parallels
-% endblock
-
-% block body
-
-<h1>
 % if category == "padas":
    Pādas
 % else:
    {{category.title()}}
 % endif
-of <span class="text-id">{{file.removeprefix("DHARMA_")}}</span> that Have Parallels</h1>
+   of <span class="text-id">{{file.removeprefix("DHARMA_")}}</span>
+   that Have Parallels
+% endblock
+
+% block body
 
 <table>
 <thead>

@@ -6,8 +6,6 @@ Texts
 
 % block body
 
-<h1>Texts</h1>
-
 <p>Texts database last updated {{last_updated | format_date}}.</p>
 
 <p>This interface allows you to look for texts in the DHARMA collection. The
