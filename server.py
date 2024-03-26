@@ -339,9 +339,9 @@ def convert_text():
 	# just include the module contents in the html page. Would be better
 	# not to use modules at all and just use raw includes, even if messier.
 	script = soup.find("script", {"type": "module"})
-	assert script and script["src"] == "/base.js"
+	assert script
 	with open(config.path_of("static/base.js")) as f:
-		script.text = f.read()
+		script.string = f.read()
 	del script["src"]
 	patch_links(soup, "href")
 	patch_links(soup, "src")
