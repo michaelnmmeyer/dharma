@@ -9,9 +9,11 @@ shouldn't use immediate opens. use a decorator like:
     pass
 
 where foo and bar are File objs constructed for the occasion. this way, we know
-which files we need to store in the files table and we do this automatically.
+which files we need to store in the files table and we can store files
+automatically in the caller func.
 
-
+maybe just patch the open func as a primary check to verify that we don't
+open files for no reason?
 
 for https://github.com/erc-dharma/project-documentation/issues/266#issue-2207593274
 
@@ -32,7 +34,11 @@ file in the db (might need the original later on for e.g. hashing), we can
 either do normalization on-the-fly or store a copy of the normalized text in
 documents.
 
-BUG xml.pretty removes soaces it shouldn't
+BUG xml.pretty removes spaces it shouldn't
+
+Run the website with a debug interface always, copy the whole raw request
+somewhere (secondary db?), and do that in python without buffering, so that we
+can track issues
 
 == manu
 
@@ -41,7 +47,8 @@ entrée donner les nums de page de l'entrée. Tout ça à confirmer, trouver
 format approprié.
 
 FIX <p><ul></ul></p> not allowed in HTML5, fix that by using a <div> instead of
-<p> or better
+<p>, or, better pop and reopen <p> elements when needed when compiling
+stuff.
 
 ===
 
