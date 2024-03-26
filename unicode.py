@@ -32,6 +32,18 @@ def hyphenate(s):
 
 # TODO reenable only for mobile+tablet or find a way to exclude soft hyphenate
 # from clipboard copy, see https://stackoverflow.com/questions/28837944/simplest-way-to-filter-text-copied-from-a-web-page-using-javascript
+# or use css for including the hyphen
+# TODO try
+"""
+.hyphen::before {
+  content: '\00AD';
+}
+and then
+hel<span class=".hyphen"/>lo
+# NO, the css solution does not work
+# TODO: or just don't justify the text when it looks like it won't fit correctly
+# (not enough spaces and hyphens), or maybe don't use justification at all.
+"""
 # def hyphenate(s):
 # 	buf = ""
 # 	brk = False

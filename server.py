@@ -335,6 +335,7 @@ def convert_text():
 	doc.editors = editors and editors.split(document.PARA_SEP)
 	html = flask.render_template("inscription.tpl", doc=doc, text=name)
 	soup = BeautifulSoup(html, "html.parser")
+	# HACK
 	# Chrome doesn't attempt to fetch remote modules apparently, so we
 	# just include the module contents in the html page. Would be better
 	# not to use modules at all and just use raw includes, even if messier.
