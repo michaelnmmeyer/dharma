@@ -252,7 +252,8 @@ def display_text(text):
 			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
 				commit_hash, path) as github_commit_url,
 			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
-				last_modified_commit, path) as github_last_modified_commit_url
+				last_modified_commit, path) as github_last_modified_commit_url,
+			repos.title as repo_title
 		from documents
 			join files on documents.name = files.name
 			join repos on documents.repo = repos.repo
@@ -285,6 +286,7 @@ def display_text(text):
 	return flask.render_template("inscription.tpl", doc=doc,
 		github_commit_url=row["github_commit_url"],
 		github_last_modified_commit_url=row["github_last_modified_commit_url"],
+		repo_title=row["repo_title"],
 		text=text)
 
 def base_name_windows(path):

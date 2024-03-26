@@ -194,9 +194,11 @@ def search(q, s):
 	sql = """
 		select documents.name, documents.repo, documents.title,
 			documents.author, documents.editors, json_group_array(distinct langs_list.name) as langs, documents.summary,
+			repos.title as repo_title,
 			html_path
 		from documents
 			join documents_index on documents.name = documents_index.name
+			join repos on documents.repo = repos.repo
 			join json_each(documents.langs)
 			join langs_by_code on langs_by_code.code = json_each.value
 			join langs_list on langs_list.id = langs_by_code.id

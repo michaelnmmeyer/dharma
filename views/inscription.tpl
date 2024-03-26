@@ -45,7 +45,7 @@ Identifier: <span class="text-id">{{text}}</span>.
 % endif
 
 % if doc.repository:
-<p>Repository: <span class="repo-id">{{doc.repository}}</span>.</p>
+<p>Repository: {{repo_title}} (<span class="repo-id">{{doc.repository}}</span>).</p>
 % endif
 
 % if doc.commit_date:

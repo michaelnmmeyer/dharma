@@ -71,7 +71,7 @@ table of languages <a href="/langs">here</a>.</p>
 <div class="catalog-list">
 % for row in rows:
 <div class="catalog-card">
-   <p>
+   <div class="catalog-card-heading">
    % if row["name"].startswith("DHARMA_INS"):
       <a href="{{url_for("display_text", text=row["name"])}}">
    % elif row["html_path"]:
@@ -92,7 +92,7 @@ table of languages <a href="/langs">here</a>.</p>
       [🦕 Old display]
       </a>
    % endif
-   </p>
+   </div>
    <p>
    % for ed in row["editors"][:-1]:
       {{ed | safe}},
@@ -115,9 +115,9 @@ table of languages <a href="/langs">here</a>.</p>
    </p>
    % endif
    <p>
-      <span class="text-id">{{row["name"]}}</span>
-      (<span class="repo-id">{{row["repo"]}}</span>).
+      Repository: {{row["repo_title"]}} (<span class="repo-id">{{row["repo"]}}</span>).
    </p>
+   <p><span class="text-id">{{row["name"]}}</span>.</p>
 </div>
 % endfor
 </div>

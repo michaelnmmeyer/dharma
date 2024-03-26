@@ -305,7 +305,7 @@ window.addEventListener("load", function () {
 	}
 
 	document.addEventListener("click", function (event) {
-		if (!reference.contains(event.target)) {
+		if (!reference.contains(event.target) && submenuCleanup) {
 			hideSubmenu()
 		}
 	})
