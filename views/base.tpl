@@ -61,6 +61,9 @@ Untitled
    Technical Documentation
    </a>
 </li>
+<li class="item">
+   <a href="{{url_for("display_list")}}">Display List</a>
+</li>
 </ul>
 </div>
 

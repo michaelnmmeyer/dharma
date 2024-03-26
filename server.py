@@ -226,7 +226,7 @@ def search_parallels():
 
 @app.get("/display")
 @config.transaction("texts")
-def display_home():
+def display_list():
 	db = config.db("texts")
 	texts = [t for (t,) in db.execute("select name from documents where name glob 'DHARMA_INS*'")]
 	return flask.render_template("display.tpl", texts=texts)
