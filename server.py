@@ -1,4 +1,4 @@
-import os, sys, unicodedata, hashlib, locale, time, datetime, html
+import os, sys, unicodedata, hashlib, locale, time, datetime, html, urllib
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
 from dharma import config, change, people, ngrams, catalog, parse, validate, parse_ins, biblio, document, tree, texts
@@ -13,6 +13,10 @@ def format_date(when):
 	when_detailed = html.escape(when_obj.strftime("%FT%T%z"))
 	when_readable = html.escape(when_obj.strftime("%F %R"))
 	return f'<time datetime="{when_detailed}">{when_readable}</time>'
+
+@app.template_filter("quote_plus")
+def quote_plus(s):
+	return urllib.parse.quote_plus(s)
 
 # Global variables accessible from within jinja templates.
 templates_globals = {

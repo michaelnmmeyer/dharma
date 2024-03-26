@@ -26,7 +26,7 @@
       <li class="item"><a href="{{url_for("show_editorial_conventions")}}">Editorial Conventions</a></li>
       <li class="item"><a href="/parallels"><i class="fa-solid fa-grip-lines-vertical"></i>
       Parallels</a></li>
-      <li class="item" id="submenu-button"><a>Project Internal <i class="fa-solid fa-caret-down"></i></a></li>
+      <li class="item" id="submenu-button"><a href="#">Project Internal <i class="fa-solid fa-caret-down"></i></a></li>
    </menu>
 </header>
 <aside>

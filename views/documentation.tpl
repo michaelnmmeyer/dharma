@@ -261,7 +261,7 @@ role, so all people mentioned in this element are assumed to be editors,
 regardless of what <code>&lt;resp&gt;</code> contains. If you need to
 distinguish several roles, say, “editor”, “collaborator”, etc., bring
 this to the attention of the guides’ authors.</p>
-<p>In the <a href="/catalog">catalog display</a> and when displaying
+<p>In the <a href="/texts">catalog display</a> and when displaying
 editions, person names are enumerated in the order they appear within
 the file, so you might want to add the names of the most important
 contributors at the top.</p>

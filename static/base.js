@@ -283,9 +283,8 @@ window.addEventListener("load", function () {
 
 	function updatePosition() {
 		computePosition(reference, floating, {
-			// Try changing this to a different side.
 			placement: "bottom",
-		  middleware: [offset(3), shift()]
+			middleware: [offset(3), shift()]
 		}).then(function ({x, y}) {
 			Object.assign(floating.style, {
 				top: `${y}px`,
@@ -294,14 +293,28 @@ window.addEventListener("load", function () {
 		})
 	}
 
+	function showSubmenu() {
+		document.body.append(floating)
+		submenuCleanup = autoUpdate(reference, floating, updatePosition)
+	}
+
+	function hideSubmenu() {
+		floating.remove()
+		submenuCleanup()
+		submenuCleanup = null
+	}
+
+	document.addEventListener("click", function (event) {
+		if (!reference.contains(event.target)) {
+			hideSubmenu()
+		}
+	})
+
 	reference.addEventListener("click", function () {
 		if (submenuCleanup) {
-			floating.remove()
-			submenuCleanup()
-			submenuCleanup = null
+			hideSubmenu()
 		} else {
-			document.body.append(floating)
-			submenuCleanup = autoUpdate(reference, floating, updatePosition)
+			showSubmenu()
 		}
 	})
 })

@@ -272,7 +272,7 @@ what `<resp>` contains. If you need to distinguish several roles, say,
 "editor", "collaborator", etc., bring this to the attention of the guides'
 authors.
 
-In the [catalog display](/catalog) and when displaying editions, person names
+In the [catalog display](/texts) and when displaying editions, person names
 are enumerated in the order they appear within the file, so you might want to
 add the names of the most important contributors at the top.
 
