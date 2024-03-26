@@ -156,7 +156,7 @@ def process_file(path, data):
 	p.dispatch(p.tree.root)
 	body = t.first("//body")
 	if body:
-		p.document.xml = tree.html_format(body)
+		p.document.xml = tree.html_format(t)
 	db = config.db("texts")
 	langs = set()
 	for node in t.find("//*"):
