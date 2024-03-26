@@ -24,8 +24,6 @@ pragma secure_delete = off;
 
 begin;
 
-select 'drop view ' || name || ';' from sqlite_master where type = 'view';
-
 create table if not exists metadata(
 	key text primary key,
 	value blob
@@ -295,12 +293,14 @@ create table if not exists biblio_data(
 	json json not null check(json_valid(json)),
 	-- We don't need to store the short_title, both because it is fast to
 	-- extract and because we have an index on it which stores it anyway.
-	short_title text as (json ->> '$.data.shortTitle'),
-	item_type text as (json ->> '$.data.itemType'),
+	short_title text as (case json ->> '$.data.shortTitle'
+		when '' then null
+		else json ->> '$.data.shortTitle'
+		end),
+	item_type text as (json ->> '$.data.itemType')
+		check(item_type is not null),
 	-- Null if this is not an entry we can display viz. if it is not of the
 	-- item types we support (book, etc.).
-	-- XXX sort this out, should be build with a builtin function, and
-	-- should be rebuilt whenever the code commit changes.
 	sort_key blob
 );
 create index if not exists biblio_data_short_title on biblio_data(short_title);
