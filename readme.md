@@ -6,6 +6,7 @@ This is the newest code for the DHARMA project.
 
 The following Python packages need to be installed with `pip`:
 
+	bs4
 	flask
 	PyICU
 	requests

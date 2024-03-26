@@ -250,7 +250,9 @@ def display_text(text):
 			last_modified,
 			last_modified_commit,
 			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
-				commit_hash, path) as github_url
+				commit_hash, path) as github_commit_url,
+			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
+				last_modified_commit, path) as github_last_modified_commit_url
 		from documents
 			join files on documents.name = files.name
 			join repos on documents.repo = repos.repo
@@ -281,7 +283,9 @@ def display_text(text):
 	doc.last_modified_commit = row["last_modified_commit"]
 	db.execute("rollback")
 	return flask.render_template("inscription.tpl", doc=doc,
-		github_url=row["github_url"], text=text)
+		github_commit_url=row["github_commit_url"],
+		github_last_modified_commit_url=row["github_last_modified_commit_url"],
+		text=text)
 
 def base_name_windows(path):
 	i = len(path)
