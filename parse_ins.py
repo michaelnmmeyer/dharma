@@ -72,7 +72,8 @@ def process_translation(p, div):
 			title += fetch_resp(resp)
 	source = div["source"]
 	if source:
-		source = biblio.get_ref(source.removeprefix("bib:"), missing=False, rend="default", loc="") or html.escape(source)
+		ref = source.removeprefix("bib:")
+		source = biblio.get_ref(ref, missing=ref not in p.document.biblio, rend="default", loc="") or html.escape(source)
 		title += f" by {source}"
 	trans.title = title
 	return trans
