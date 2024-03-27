@@ -3,9 +3,8 @@ import functools, traceback, unicodedata
 from urllib.parse import urlparse, quote
 import icu # pip install PyICU
 
-# Export this for subprocesses
 DHARMA_HOME = os.path.dirname(os.path.abspath(__file__))
-os.environ["DHARMA_HOME"] = DHARMA_HOME
+os.environ["DHARMA_HOME"] = DHARMA_HOME # for subprocesses
 
 def path_of(*path_elems):
 	return os.path.join(DHARMA_HOME, *path_elems)
