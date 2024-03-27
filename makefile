@@ -60,8 +60,9 @@ update-texts:
 	mkdir -p texts
 	rm -f texts/*
 	sqlite3 dbs/texts.sqlite "select printf('../repos/%s/%s', repo, path) \
-		from documents natural join files" | while read f; do \
-		ln -s $$f texts/$$(basename $$f); \
+		from documents natural join files \
+		where name glob 'DHARMA_INS*'" | while read f; do \
+		ln -s "$$f" "texts/$$(basename "$$f")"; \
 	done
 
 deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
