@@ -97,7 +97,7 @@ def iter_texts_in_repo(repo):
 	for root, dirs, files in os.walk(repo_path):
 		for file in files:
 			_, ext = os.path.splitext(file)
-			if ext != ".xml":
+			if ext.lower() != ".xml":
 				continue
 			if not any(file.startswith(p) for p in valid_prefixes):
 				continue

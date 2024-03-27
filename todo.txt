@@ -12,8 +12,28 @@ where foo and bar are File objs constructed for the occasion. this way, we know
 which files we need to store in the files table and we can store files
 automatically in the caller func.
 
+
+no, just use
+
+  fetch_file_from_fs(repo, name)
+  fetch_file_from_db(repo, name)
+
+would be convenient to have position-independent files, viz. assume file
+basenames are unique AND also extension-independent files to allow people to
+move files around.
+
+should always show the most recent file when we have duplicates. and add an error message on the displayed inscriptions that tells the file is not unique and that provides a way to
+see the other files.
+
+
+=====
+
+
 maybe just patch the open func as a primary check to verify that we don't
 open files for no reason?
+
+
+=====
 
 for https://github.com/erc-dharma/project-documentation/issues/266#issue-2207593274
 
