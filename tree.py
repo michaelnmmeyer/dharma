@@ -48,14 +48,15 @@ def quote_attribute(s):
 
 class Error(Exception):
 
-	def __init__(self, line=0, column=0, text="", source=b""):
+	def __init__(self, line=0, column=0, text="", source=b"", path=""):
+		self.path = path
 		self.line = line
 		self.column = column
 		self.text = text
 		self.source = source
 
 	def __str__(self):
-		return f"Error(line={self.line}, column={self.column}, text={repr(self.text)})"
+		return f"Error(path='{path}' line={self.line}, column={self.column}, text={repr(self.text)})"
 
 def unique(items):
 	ret = []
@@ -690,7 +691,7 @@ def parse_string(source, **kwargs):
 		err = e
 	# https://docs.python.org/3/library/pyexpat.html#xml.parsers.expat.XMLParserType
 	# err.offset counts columns from 0
-	raise Error(line=err.lineno, column=err.offset + 1, text=expat.errors.messages[err.code], source=source)
+	raise Error(path='', line=err.lineno, column=err.offset + 1, text=expat.errors.messages[err.code], source=source)
 
 # file can be either a file-like object or a string
 def parse(file, **kwargs):

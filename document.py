@@ -463,11 +463,10 @@ class Block:
 					buf.append('<span class="pagelike" data-tip="Page start">(\N{next page} %s)</span> ' % html.escape(params["n"]))
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
-					text = f"({unit} {params['n']}"
+					text = f"{unit} {params['n']}"
 					if params["label"]:
 						text += f": {params['label']}"
-					text += ")"
-					buf.append('<span class="pagelike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
+					buf.append('<h3><span data-tip="%s start">%s</span></h3>' % (unit, html.escape(text)))
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
 					text = f"({unit} {params['n']}"
