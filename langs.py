@@ -2,7 +2,7 @@
 # For ISO 639-5 (language families), the authority is
 # https://www.loc.gov/standards/iso639-5/index.html
 
-import os, unicodedata
+import os
 import requests # pip install requests
 from dharma import config
 
@@ -86,13 +86,6 @@ def load_data():
 	recs.sort(key=lambda rec: rec["id"])
 	return recs, index
 
-def normalize_name(s):
-	s = unicodedata.normalize("NFKD", s)
-	s = "".join(c for c in s if not unicodedata.combining(c))
-	s = s.casefold()
-	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
-	return unicodedata.normalize("NFC", s.strip())
-
 def from_code(s):
 	db = config.db("texts")
 	(ret,) = db.execute("""select name
@@ -114,6 +107,6 @@ def make_db():
 			values(:id, :name, :inverted_name, :iso,
 				:custom, :dharma)""", rec)
 		db.execute("insert into langs_by_name(id, name) values(?, ?)",
-			(rec["id"], normalize_name(rec["name"])))
+			(rec["id"], config.normalize_text(rec["name"])))
 	for code, rec in sorted(index.items()):
 		db.execute("insert into langs_by_code(code, id) values(?, ?)", (code, rec["id"]))

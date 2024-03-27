@@ -113,6 +113,22 @@ def insert(file):
 		"---".join(doc.langs),
 		doc.summary.searchable_text()))
 
+# Rebuild the full catalog with the data already present in the db.
+def rebuild():
+	logging.info("rebuilding the catalog")
+	db = config.db("texts")
+	db.execute("delete from documents_index")
+	for repo, path, mtime, data, html in db.execute("""
+		select files.repo, path, mtime, data, html_path
+		from files join documents on files.name = documents.name
+		order by files.repo, files.name"""):
+		file = texts.File(repo, path)
+		file.html = html
+		setattr(file, "_mtime", mtime)
+		setattr(file, "_data", data)
+		insert(file)
+	logging.info("rebuilded the catalog")
+
 class InvalidQuery(Exception):
 	pass
 
@@ -208,7 +224,8 @@ def search(q, s):
 			join langs_by_code on langs_by_code.code = json_each.value
 			join langs_list on langs_list.id = langs_by_code.id
 	"""
-	q = " ".join(document.normalize(t) for t in q.split() if t not in ("AND", "OR", "NOT"))
+	q = " ".join(document.normalize(t) for t in q.split()
+		if t not in ("AND", "OR", "NOT"))
 	if q:
 		q = parse_query(q)
 		patch_languages(q)
@@ -229,20 +246,3 @@ def search(q, s):
 		from metadata where key = 'last_updated'""").fetchone()
 	db.execute("commit")
 	return ret, last_updated
-
-# Rebuild the full catalog with the data already present in the db.
-def rebuild():
-	logging.info("rebuilding the catalog")
-	db = config.db("texts")
-	db.execute("delete from documents_index")
-	for repo, path, mtime, data, html in db.execute("""
-		select files.repo, path, mtime, data, html_path
-		from files join documents on files.name = documents.name
-		order by files.repo, files.name"""):
-		file = texts.File(repo, path)
-		file.html = html
-		setattr(file, "_mtime", mtime)
-		setattr(file, "_data", data)
-		setattr(file, "_status", validate.status(file))
-		insert(file)
-	logging.info("rebuilded the catalog")

@@ -114,14 +114,13 @@ class Changes:
 				self.update.append(file)
 			else:
 				continue
-			setattr(file, "_status", validate.status(file))
 		for name in self.before:
 			if name not in seen:
 				self.delete.append(name)
 		texts.gather_web_pages(self.repo, self.insert + self.update)
 		# Always process files in the same order, for reproductibility.
-		self.insert.sort(key=lambda file: file.name)
-		self.update.sort(key=lambda file: file.name)
+		self.insert.sort(key=lambda file: file.name, reverse=True)
+		self.update.sort(key=lambda file: file.name, reverse=True)
 		self.delete.sort()
 		self.done = True
 
@@ -139,18 +138,21 @@ def update_db(repo):
 		catalog.delete(name)
 		db.execute("delete from owners where name = ?", (name,))
 		db.execute("delete from files where name = ?", (name,))
-	for file in changes.insert + changes.update:
-		db.execute("""
-			insert or replace into files(
-				name, repo, path, mtime,
-				last_modified_commit, last_modified, data)
-			values(?, ?, ?, ?, ?, ?, ?)""",
-			(file.name, file.repo, file.path, file.mtime, *file.last_modified, file.data))
-		for git_name in file.owners:
+	for todo in ("insert", "update"):
+		todo = getattr(changes, todo)
+		while todo:
+			file = todo.pop()
 			db.execute("""
-				insert or ignore into owners(name, git_name)
-				values(?, ?)""", (file.name, git_name))
-		catalog.insert(file)
+				insert or replace into files(
+					name, repo, path, mtime,
+					last_modified_commit, last_modified, data)
+				values(?, ?, ?, ?, ?, ?, ?)""",
+				(file.name, file.repo, file.path, file.mtime, *file.last_modified, file.data))
+			for git_name in file.owners:
+				db.execute("""
+					insert or ignore into owners(name, git_name)
+					values(?, ?)""", (file.name, git_name))
+			catalog.insert(file)
 
 # We should always put stuff like names, etc. in the db instead of keeping it
 # in-memory, so that we can tell what's the current data just by looking at

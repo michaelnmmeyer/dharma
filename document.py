@@ -506,7 +506,7 @@ class Block:
 			if not t == "text":
 				continue
 			buf.append(data)
-		return normalize("".join(buf))
+		return config.normalize_text("".join(buf))
 
 class Document:
 

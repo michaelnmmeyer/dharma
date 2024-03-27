@@ -289,12 +289,13 @@ create table if not exists gaiji(
 );
 
 -- All bibliographic records from Zotero. Includes data that we do not care
--- about.
+-- about e.g. attachments records.
 create table if not exists biblio_data(
 	key text primary key check(length(key) > 0),
 	-- We expect version numbers to be > 0, otherwise the update code is
 	-- broken.
 	version integer check(version > 0),
+	-- Full record we get from the Zotero API.
 	json json not null check(json_valid(json)),
 	-- We don't need to store the short_title, both because it is fast to
 	-- extract and because we have an index on it which stores it anyway.

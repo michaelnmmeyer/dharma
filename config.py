@@ -1,5 +1,5 @@
 import os, sys, logging, sqlite3, json, subprocess, re, ssl, threading, time
-import functools, traceback
+import functools, traceback, unicodedata
 from urllib.parse import urlparse, quote
 import icu # pip install PyICU
 
@@ -52,6 +52,18 @@ class DB:
 def normalize_space(s):
 	s = s.strip()
 	return re.sub(r"\s+", " ", s)
+
+def normalize_text(s):
+	if s is None:
+		s = ""
+	elif not isinstance(s, str):
+		# Make sure matching doesn't work across array elements.
+		s = "!!!!!".join(s)
+	s = unicodedata.normalize("NFKD", s)
+	s = "".join(c for c in s if not unicodedata.combining(c))
+	s = s.casefold()
+	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
+	return unicodedata.normalize("NFC", s.strip())
 
 # For seeing how different collations work, see:
 # https://icu4c-demos.unicode.org/icu-bin/collation.html

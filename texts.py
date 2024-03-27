@@ -25,10 +25,11 @@ class File:
 	# Validation status. See the enum in validate.py.
 	@property
 	def status(self):
-		# We use accessors like this because we want the field to be
-		# explicitly set to avoid having an unexpected default None
-		# value.
-		return self._status
+		ret = getattr(self, "_status", None)
+		if ret is None:
+			ret = validate.status(self)
+			setattr(self, "_status", ret)
+		return ret
 
 	# File basename without the extension e.g. DHARMA_INSPallava00002
 	@property
