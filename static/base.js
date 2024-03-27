@@ -47,7 +47,7 @@ function addTooltip() {
 	this.owning = true
 	this.classList.add("tipped")
 	tipBox.setAttribute("data-show", "")
-	popperInstance = createPopper(this, tipBox, {
+	popperInstance = Popper.createPopper(this, tipBox, {
 		modifiers: [{
 			name: "offset",
 			options: {

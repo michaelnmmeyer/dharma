@@ -11,7 +11,7 @@
    <link rel="stylesheet" href="/base.css?v={{code_hash}}">
    <script src="https://cdn.jsdelivr.net/npm/@floating-ui/core@1.6.0"></script>
    <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.3"></script>
-   <script src="/pack.js?v={{code_hash}}"></script>
+   <script src="https://unpkg.com/@popperjs/core@2"></script>
    <script src="/base.js?v={{code_hash}}"></script>
 </head>
 <body>
