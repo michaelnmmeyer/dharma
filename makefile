@@ -34,13 +34,21 @@ commit-all:
 
 services = $(notdir $(wildcard config/*.service))
 
-start:
+start-all:
 	for service in $(services); do \
 		sudo systemctl reload-or-restart $$service ; \
 	done
 
-stop:
+stop-all:
 	sudo systemctl stop 'dharma.*'
+
+start:
+	sudo systemctl reload-or-restart dharma.server
+	sudo systemctl reload-or-restart dharma.change
+
+stop:
+	sudo systemctl stop dharma.server
+	sudo systemctl stop dharma.change
 
 status:
 	sudo systemctl status 'dharma.*'
@@ -49,7 +57,7 @@ deploy-systemd:
 	sudo cp config/*.service /etc/systemd/system
 	sudo systemctl daemon-reload
 
-.PHONY: start stop status deploy-systemd
+.PHONY: start-all stop-all start stop status deploy-systemd
 
 update-repos:
 	for d in repos/*; do \

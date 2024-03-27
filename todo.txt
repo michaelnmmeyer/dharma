@@ -2,18 +2,7 @@ in server add stuff to ensure we don't try to access repos/, all accesses to
 repos should go through the db. could also run the process without write perms
 to repos or sth, but probably not feasible without patching python's binary or
 creating users, etc. in fact, we only need access to /views and /static, and we
-shouldn't use immediate opens. use a decorator like:
-
-  @requires_files("foo.xml", "bar.xml")
-  def func(foo, bar):
-    pass
-
-where foo and bar are File objs constructed for the occasion. this way, we know
-which files we need to store in the files table and we can store files
-automatically in the caller func.
-
-
-no, just use
+shouldn't use immediate opens. use:
 
   fetch_file_from_fs(repo, name)
   fetch_file_from_db(repo, name)
@@ -37,7 +26,8 @@ open files for no reason?
 
 for https://github.com/erc-dharma/project-documentation/issues/266#issue-2207593274
 
-don't use href in in-page links, it's confusing; use data-href instead
+don't use href in in-page links, it's confusing; use data-href instead; and this
+would allow us to distinguish page-internal links from the others.
 
 
 # https://serverfault.com/questions/636790/nginx-log-complete-request-response-with-all-headers

@@ -2,7 +2,7 @@ import os
 from dharma import config
 
 def iter_rows():
-	path = config.path_of("repos/project-documentation/gaiji/gaiji.tsv")
+	path = config.path_of("repos/project-documentation/gaiji/DHARMA_gaiji.tsv")
 	field_names = None
 	with open(path) as f:
 		for line_no, line in enumerate(f, 1):
