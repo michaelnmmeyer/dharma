@@ -1,6 +1,5 @@
 import os, sys, unicodedata, hashlib, locale, time, datetime, html, urllib
 import flask # pip install flask
-import flask_cors # pip install flask-cors
 from bs4 import BeautifulSoup # pip install bs4
 from dharma import config, change, people, ngrams, catalog, parse, validate
 from dharma import parse_ins, biblio, document, tree, texts
@@ -9,10 +8,6 @@ from dharma import parse_ins, biblio, document, tree, texts
 # put other stuff in the same directory, not just templates.
 app = flask.Flask(__name__, static_url_path="", template_folder="views")
 app.jinja_options["line_statement_prefix"] = "%"
-
-# We need this for the HTML conversion tool in Oxygen. Otherwise the browser
-# refuses to fetch fonts
-flask_cors.CORS(app, resources={"/fonts/*": {"origins": "*"}})
 
 @app.template_filter("format_date")
 def format_date(when):
@@ -37,6 +32,10 @@ def inject_global_vars():
 @app.get("/")
 def index():
 	return flask.render_template("index.tpl")
+
+@app.get("/fonts/<path:path>")
+def serve_fonts(path):
+	return flask.send_from_directory("static/fonts", path)
 
 @app.get("/documentation")
 def show_documentation():
@@ -397,14 +396,13 @@ def is_robot(email):
 
 @app.post("/github-event")
 def handle_github():
-	# XXX remove as much logic as possible from here
 	js = flask.request.json
-	if not js.get("commits"):
+	commits = js.get("commits")
+	if not commits:
+		return ""
+	if all(is_robot(commit["author"]["email"]) for commit in commits):
 		return ""
 	repo = js["repository"]["name"]
-	# XXX remove special case, add hooks or something for each repo
-	if repo != "tfd-nusantara-philology" and all(is_robot(commit["author"]["email"]) for commit in js["commits"]):
-		return ""
 	change.notify(repo)
 	return ""
 
