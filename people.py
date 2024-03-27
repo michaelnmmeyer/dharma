@@ -32,11 +32,16 @@ def iter_members_list():
 			assert typ in ID_TYPES
 			assert not ltyp in row
 			val = idno.text()
-			if ltyp != "idhal" and val:
-				val = config.normalize_url(val)
+			# Only keep the last path component:
+			# http://viaf.org/viaf/11026260 -> 11026260
+			val = val.rsplit("/", 1)[-1]
 			row[ltyp] = val or None
 		for typ in ID_TYPES:
 			row.setdefault(typ.lower(), None)
+		affil = rec.first("affiliation")
+		if affil:
+			affil = affil.text()
+		row["affiliation"] = affil or None
 		yield row
 
 def make_db():
@@ -45,8 +50,8 @@ def make_db():
 	db.execute("delete from people_main")
 	for row in iter_members_list():
 		db.execute("""
-			insert into people_main(name, dh_id, idhal, idref, orcid, viaf, wikidata)
-			values(:name, :dh_id, :idhal, :idref, :orcid, :viaf, :wikidata)""", row)
+			insert into people_main(name, dh_id, affiliation, idhal, idref, orcid, viaf, wikidata)
+			values(:name, :dh_id, :affiliation, :idhal, :idref, :orcid, :viaf, :wikidata)""", row)
 	with open(config.path_of("repos/project-documentation/DHARMA_gitNames.tsv")) as f:
 		seen = set()
 		for line_no, line in enumerate(f, 1):

@@ -126,6 +126,24 @@ def show_repos():
 	rows = db.execute("select * from repos_display").fetchall()
 	return flask.render_template("repos.tpl", rows=rows)
 
+@app.get("/people")
+@config.transaction("texts")
+def show_people():
+	db = config.db("texts")
+	rows = db.execute("""select inverted_name, dh_id, affiliation,
+		idhal, idref, orcid, viaf, wikidata
+		from people_main where dh_id is not null
+		order by inverted_name""").fetchall()
+	return flask.render_template("people.tpl", rows=rows)
+
+@app.get("/people/<dharma_id>")
+@config.transaction("texts")
+def show_person(dharma_id):
+	db = config.db("texts")
+	if db.execute("select 1 from people_main where dh_id = ?", (dharma_id,)).fetchone():
+		return flask.redirect(f"/people#person-{dharma_id}")
+	return flask.abort(404)
+
 @app.get("/parallels")
 @config.transaction("ngrams")
 def show_parallels():
@@ -152,7 +170,8 @@ def show_parallels_details(text, category):
 		select id, number, contents, parallels from passages
 		where type = ? and file = ? and parallels > 0
 	""", (type, text))
-	return flask.render_template("parallels_details.tpl", file=text, category=category, data=rows)
+	return flask.render_template("parallels_details.tpl",
+		file=text, category=category, data=rows)
 
 @app.get("/parallels/texts/<text>/<category>/<int:id>")
 @config.transaction("ngrams")

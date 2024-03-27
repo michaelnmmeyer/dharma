@@ -47,9 +47,9 @@ create table if not exists repos(
 	-- that include other kinds of stuff (metadata, plain text, etc.). We
 	-- use this to avoid processing repositories that do not contain data
 	-- useful for the app.
-	textual boolean check(textual = 0 or textual = 1),
+	textual boolean check(textual = 0 or textual = 1) default true,
 	-- User-readable name for the repository. Displayed on the website.
-	title text check(length(title) > 0),
+	title text check(title != '') default 'Untitled',
 	-- Latest commit in this repo.
 	commit_hash text check(commit_hash is null or length(commit_hash) = 2 * 20),
 	commit_date timestamp check(commit_date is null or typeof(commit_date) = 'integer'),
@@ -58,6 +58,9 @@ create table if not exists repos(
 	-- updated in the meantime.
 	code_hash text check(code_hash is null or length(code_hash) = 2 * 20)
 );
+
+-- We need this to trigger the first update in change.py
+insert or ignore into repos(repo) values('project-documentation');
 
 -- We store raw xml files in the db. The point is to make it possible to use
 -- the main db read-only, without having to clone repos somewhere. Not
@@ -116,17 +119,19 @@ create table if not exists people_main(
 		printf('%s, %s', name ->> 1, name ->> 0))),
 	-- All the following can be null.
 	dh_id text unique check(dh_id is null or length(dh_id) = 4),
-	idhal text unique,
-	idref text unique,
-	orcid text unique,
-	viaf text unique,
-	wikidata text unique
+	affiliation text check(affiliation != ''),
+	idhal text unique check(idhal != ''),
+	idref text unique check(idref != ''),
+	orcid text unique check(orcid != ''),
+	viaf text unique check(viaf != ''),
+	wikidata text unique check(wikidata != '')
 );
 
 -- This is filled with the git names data file. To dump a list of all
 -- contributors:
--- for repo in repos/*; do git -C $repo log --format=%aN; done | sort -u
--- XXX Apparently there is no internal git ids or something to identify
+-- for repo in repos/*; do git -C $repo log --format="%aN|%aE"; done | sort -u | while IFS='|' read -r name; do grep "^$name"$'\t' repos/project-documentation/DHARMA_gitNames.tsv || echo "$name"; done
+-- TODO git names data file not exhaustive
+-- TODO Apparently there is no internal git ids or something to identify
 -- Maybe we should use the tuple (user.name,user.email) as key, or just
 -- user.email? Problem with user.email is that github assigns generated emails.
 create table if not exists people_github(
