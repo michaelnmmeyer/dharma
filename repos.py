@@ -1,7 +1,7 @@
 from dharma import config
 
 def iter_repos():
-	with open(config.path_of("repos.tsv")) as f:
+	with open(config.path_of("repos/project-documentation/DHARMA_repositories.tsv")) as f:
 		for line_no, line in enumerate(f, 1):
 			fields = [field.strip() for field in line.split("\t")]
 			if line_no == 1:
