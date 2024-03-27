@@ -32,6 +32,18 @@ commit-all:
 
 .PHONY: all clean forever commit-all
 
+install-systemd:
+	sudo cp config/*.service /etc/systemd/system
+	sudo systemctl daemon-reload
+
+install-nginx:
+	sudo cp config/nginx.conf /etc/nginx/nginx.conf
+	sudo nginx -s reload
+
+install: install-systemd install-nginx
+
+.PHONY: install-systemd install-nginx install
+
 services = $(notdir $(wildcard config/*.service))
 
 start-all:
@@ -53,11 +65,7 @@ stop:
 status:
 	sudo systemctl status 'dharma.*'
 
-deploy-systemd:
-	sudo cp config/*.service /etc/systemd/system
-	sudo systemctl daemon-reload
-
-.PHONY: start-all stop-all start stop status deploy-systemd
+.PHONY: start-all stop-all start stop status
 
 update-repos:
 	for d in repos/*; do \
@@ -86,10 +94,6 @@ deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
 	cp schemas/prosody.rng repos/project-documentation/schema/latest/DHARMA_ProsodySchema.rng
 	git -C repos/project-documentation commit -am "Schema update" && git -C repos/project-documentation push
 
-deploy-nginx:
-	sudo cp config/nginx.conf /etc/nginx/nginx.conf
-	sudo nginx -s reload
-
 missing-git-names:
 	@for d in repos/*; do \
 		git -C $$d log --format="%aN"; \
@@ -98,7 +102,7 @@ missing-git-names:
 		|| echo "$$name" ; \
 	done
 
-.PHONY: update-repos update-texts deploy-schemas deploy-nginx missing-git-names
+.PHONY: update-repos update-texts deploy-schemas missing-git-names
 
 views/%.tpl: views/%.md
 	pandoc -f markdown -t html $^ -o $@
