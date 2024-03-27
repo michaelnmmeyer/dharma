@@ -196,6 +196,8 @@ class String(Node, collections.UserString):
 	def xml(self, **kwargs):
 		return quote_string(str(self.data))
 
+	# Per default, we do normalize-space(); to prevent this, use
+	# text(space="preserve")
 	def text(self, **kwargs):
 		data = str(self.data) # casting is necessary for String
 		space = kwargs.get("space")

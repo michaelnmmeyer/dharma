@@ -3,8 +3,8 @@ import functools, traceback
 from urllib.parse import urlparse, quote
 import icu # pip install PyICU
 
+# Export this for subprocesses
 DHARMA_HOME = os.path.dirname(os.path.abspath(__file__))
-# Export it for subprocesses
 os.environ["DHARMA_HOME"] = DHARMA_HOME
 
 def path_of(*path_elems):
@@ -201,3 +201,12 @@ def normalize_url(url):
 	# Could also check that the url actually works, and also use link
 	# rel=canonical, but this is slow. Should keep track of all URLs and
 	# systematically submit them to the Wayback machine.
+
+def numberize(s, n):
+	last_word = s.split()[-1].lower()
+	if last_word not in ("character", "component", "line", "page", "editor", "text"):
+		print("cannot numberize term %r" % last_word, file=sys.stderr)
+		return s
+	if n == 1:
+		return s
+	return s + "s"

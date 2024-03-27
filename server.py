@@ -28,7 +28,7 @@ templates_globals = {
 	"code_hash": config.CODE_HASH,
 	"from_json": config.from_json,
 	"format_url": config.format_url,
-	"numberize": parse.numberize,
+	"numberize": config.numberize,
 }
 @app.context_processor
 def inject_global_vars():

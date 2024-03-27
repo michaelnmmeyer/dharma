@@ -10,56 +10,64 @@
 import os, sys, re, io, copy, html, unicodedata
 from dharma import prosody, people, tree, gaiji, config, unicode, biblio
 
-write = sys.stdout.write
+class BlockDebugFormatter:
 
-force_color = True
-def term_color(code=None):
-	if not os.isatty(1) and not force_color:
-		return
-	if not code:
-		write("\N{ESC}[0m")
-		return
-	code = code.lstrip("#")
-	assert len(code) == 6
-	R = int(code[0:2], 16)
-	G = int(code[2:4], 16)
-	B = int(code[4:6], 16)
-	write(f"\N{ESC}[38;2;{R};{G};{B}m")
+	def __init__(self, write=sys.stdout.write):
+		self.write = write
+		self.force_color = True
 
-def term_html(): term_color("#5f00ff")
-def term_bib(): term_color("#aa007f")
-def term_log(): term_color("#008700")
-def term_phys(): term_color("#0055ff")
-def term_text(): term_color("#aa007f")
-def term_span(): term_color("#b15300")
-def term_reset(): term_color()
+	def format(self, block):
+		self.write(f"<Block name={block.name} title={block.title}\n")
+		for t, data, params in block.code:
+			self.write_debug(t, data, **params)
+		self.write(">Block\n")
 
-def write_debug(t, data, **params):
-	if t == "html":
-		term_html()
-	elif t == "log":
-		term_log()
-	elif t == "phys":
-		term_phys()
-	elif t == "text":
-		term_text()
-	elif t == "span":
-		term_span()
-	elif t == "bib" or t == "ref":
-		term_bib()
-	else:
-		assert 0, t
-	write("%-04s" % t)
-	if data:
-		if t in ("text", "html"):
-			write(" %r" % data)
+	def term_color(self, code=None):
+		if not os.isatty(1) and not force_color:
+			return
+		if not code:
+			return self.write("\N{ESC}[0m")
+		code = code.lstrip("#")
+		assert len(code) == 6
+		R = int(code[0:2], 16)
+		G = int(code[2:4], 16)
+		B = int(code[4:6], 16)
+		self.write(f"\N{ESC}[38;2;{R};{G};{B}m")
+
+	def term_html(self): self.term_color("#5f00ff")
+	def term_bib(self): self.term_color("#aa007f")
+	def term_log(self): self.term_color("#008700")
+	def term_phys(self): self.term_color("#0055ff")
+	def term_text(self): self.term_color("#aa007f")
+	def term_span(self): self.term_color("#b15300")
+	def term_reset(self): self.term_color()
+
+	def write_debug(self, t, data, **params):
+		if t == "html":
+			self.term_html()
+		elif t == "log":
+			self.term_log()
+		elif t == "phys":
+			self.term_phys()
+		elif t == "text":
+			self.term_text()
+		elif t == "span":
+			self.term_span()
+		elif t == "bib" or t == "ref":
+			self.term_bib()
 		else:
-			write(" %s" % data)
-	if params:
-		for k, v in sorted(params.items()):
-			write(" :%s %r" % (k, v))
-	term_reset()
-	write("\n")
+			assert 0, t
+		self.write("%-04s" % t)
+		if data:
+			if t in ("text", "html"):
+				self.write(" %r" % data)
+			else:
+				self.write(" %s" % data)
+		if params:
+			for k, v in sorted(params.items()):
+				self.write(" :%s %r" % (k, v))
+		self.term_reset()
+		self.write("\n")
 
 PARA_SEP = chr(1)
 
@@ -85,6 +93,12 @@ class Block:
 
 	def __repr__(self):
 		return "<Block(%s) %r>" % (self.name, self.code)
+
+	def __str__(self):
+		buf = []
+		fmt = BlockDebugFormatter(buf.append)
+		fmt.format(self)
+		return "".join(buf)
 
 	def empty(self):
 		for cmd, data, params in self.code:

@@ -95,6 +95,12 @@ class Parser:
 		for child in node:
 			self.dispatch(child)
 
+	def dispatch_tags(self, node):
+		for child in node:
+			if not node.type == "tag":
+				continue
+			self.dispatch(child)
+
 	def complain(self, msg):
 		print("UNKNOWN %s" % msg)
 		pass
@@ -542,14 +548,7 @@ def parse_expan(p, node):
 def parse_term(p, node):
 	p.dispatch_children(node)
 
-def numberize(s, n):
-	last_word = s.split()[-1].lower()
-	if last_word not in ("character", "component", "line", "page", "editor", "text"):
-		print("cannot numberize term %r" % last_word, file=sys.stderr)
-		return s
-	if n == 1:
-		return s
-	return s + "s"
+
 
 def titlecase(s):
 	if not s:
@@ -620,7 +619,7 @@ def parse_gap(p, gap):
 		elif unit == "character component":
 			repl += quantity * "."
 		else:
-			repl += "%d %s %s" % (quantity, reason, numberize(unit, quantity))
+			repl += "%d %s %s" % (quantity, reason, config.numberize(unit, quantity))
 		repl += "]"
 		phys_repl = "["
 		if precision == "low" and unit != "character":
@@ -630,18 +629,18 @@ def parse_gap(p, gap):
 		elif unit == "character component":
 			phys_repl += quantity * "."
 		else:
-			phys_repl += "%d %s %s" % (quantity, reason, numberize(unit, quantity))
+			phys_repl += "%d %s %s" % (quantity, reason, config.numberize(unit, quantity))
 		phys_repl += "]"
 		tip = ""
 		if precision == "low":
 			tip += "About "
-		tip += "%d %s %s" % (quantity, reason, numberize(unit, quantity))
+		tip += "%d %s %s" % (quantity, reason, config.numberize(unit, quantity))
 	else:
 		if unit == "character":
 			repl = "[…]"
 		else:
-			repl = "[unknown number of %s %s]" % (reason, numberize(unit, +333))
-		tip = "Unknown number of %s %s" % (reason, numberize(unit, +333))
+			repl = "[unknown number of %s %s]" % (reason, config.numberize(unit, +333))
+		tip = "Unknown number of %s %s" % (reason, config.numberize(unit, +333))
 	# <seg met="+++-++"><gap reason="lost" quantity="6" unit="character">
 	# In this case, keep the tooltip, but display the meter instead of ****, etc.
 	parent = gap.parent
@@ -732,14 +731,16 @@ def parse_surplus(p, node):
 def parse_p(p, para):
 	if para["rend"] == "stanza":
 		# See e.g. INSPallava06 <p rend="stanza" n="1">...
-		parse_lg(p, para)
+		return parse_lg(p, para)
+	# Skip if we don't have anything to display (empty para, no attr).
+	if not para["n"] and not para.text():
 		return
 	p.add_log("<para")
 	if para["n"]:
 		# See e.g. http://localhost:8023/display/DHARMA_INSSII0400223
 		# Should be displayed like <lb/> in the edition.
 		n = html.escape(para["n"])
-		p.add_html(f'<span class="lb" data-tip="Paragraph start">({n})</span>')
+		p.add_html(f'<span class="lb" data-tip="Line start">({n})</span>')
 		p.add_html(" ")
 	p.dispatch_children(para)
 	p.add_log(">para")
@@ -888,7 +889,7 @@ def extract_bibl_items(p, listBibl):
 	ret = []
 	for rec in recs:
 		ref, loc = extract_bib_ref(p, rec)
-		if not ref:
+		if not ref or ref == "AuthorYear_01":
 			continue
 		ret.append((rec, ref, loc))
 	return ret
