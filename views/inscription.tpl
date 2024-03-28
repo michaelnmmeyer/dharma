@@ -9,6 +9,7 @@
 % endblock
 
 % block sidebar
+% if row:
 <div class="toc-heading">External Links</div>
 <nav>
 <ul>
@@ -18,6 +19,7 @@
 % endif
 </ul>
 </nav>
+% endif
 % endblock
 
 

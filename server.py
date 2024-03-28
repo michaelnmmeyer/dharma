@@ -361,7 +361,10 @@ def patch_links(soup, attr):
 		link[attr] = url.geturl()
 
 @app.post("/convert")
+@config.transaction("texts")
 def convert_text():
+	db = config.db("texts")
+	db.execute("begin")
 	doc = flask.request.json
 	path, data = doc["path"], doc["data"]
 	base = os.path.basename(path)
@@ -373,6 +376,7 @@ def convert_text():
 		base = base_name_windows(path)
 	name = os.path.splitext(base)[0]
 	doc = parse_ins.process_file(path, data)
+	db.execute("end")
 	doc.title = doc.title and doc.title.render_logical() or ""
 	editors = doc.editors.render_logical()
 	doc.editors = editors and editors.split(document.PARA_SEP)
