@@ -318,12 +318,13 @@ def display_text(text):
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
 	doc.last_modified_commit = row["last_modified_commit"]
-	db.execute("rollback")
-	return flask.render_template("inscription.tpl", doc=doc,
+	ret = flask.render_template("inscription.tpl", doc=doc,
 		github_commit_url=row["github_commit_url"],
 		github_last_modified_commit_url=row["github_last_modified_commit_url"],
 		repo_title=row["repo_title"],
 		text=text)
+	db.execute("end")
+	return ret
 
 def base_name_windows(path):
 	i = len(path)

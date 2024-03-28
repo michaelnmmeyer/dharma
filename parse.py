@@ -339,18 +339,25 @@ def parse_lb(p, elem):
 	p.add_phys("line", n=n, brk=brk)
 
 def parse_fw(p, fw):
-	pass # we deal with it within <pb>
+	# We deal with this within parse_pb.
+	pass
 
 def parse_pb(p, elem):
 	n = milestone_n(p, elem)
 	brk = milestone_break(elem)
-	fw = elem.next
-	if fw and fw.name == "fw":
-		place = fw["place"]
-	else:
-		place = ""
-	p.add_phys("=page", n=n, brk=brk)
-	#p.dispatch_children(fw) TODO
+	p.add_phys("{page", n=n, brk=brk)
+	while True:
+		fw = elem.next
+		if not fw or not fw.name == "fw":
+			break
+		p.start_span(klass="fw", tip="Foliation work")
+		if fw["place"]:
+			p.add_text(f"{fw['place']}: ")
+		p.dispatch_children(fw)
+		p.add_text(" ")
+		p.end_span()
+		elem = fw
+	p.add_phys("}page")
 
 # >milestones
 

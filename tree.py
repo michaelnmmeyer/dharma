@@ -89,6 +89,9 @@ class Node(object):
 			return
 		return self.tree.source[self.location.start:self.location.end].decode()
 
+	# Immediate next sibling node of type "tag". We skip blank text,
+	# comments and instructions, but we don't attempt to go past non-blank
+	# text.
 	@property
 	def next(self):
 		parent = self.parent
@@ -96,8 +99,12 @@ class Node(object):
 			return
 		i = parent.index(self) + 1
 		while i < len(parent):
-			if parent[i].type == "tag":
-				return parent[i]
+			node = parent[i]
+			assert not node.type == "tree"
+			if node.type == "tag":
+				return node
+			if node.type == "string" and node.data and not node.data.isspace():
+				return
 			i += 1
 
 	@property
@@ -107,8 +114,12 @@ class Node(object):
 			return
 		i = parent.index(self) - 1
 		while i >= 0:
-			if parent[i].type == "tag":
-				return parent[i]
+			node = parent[i]
+			assert not node.type == "tree"
+			if node.type == "tag":
+				return node
+			if node.type == "string" and node.data and not node.data.isspace():
+				return
 			i -= 1
 
 	def delete(self):

@@ -139,7 +139,7 @@ class Block:
 				continue
 			if rcmd != "phys":
 				continue
-			if rdata.startswith("=") and not rparams.get("type") == "gridlike":
+			if (rdata.startswith("=") or rdata.startswith("{") or rdata.startswith("}")) and not rparams.get("type") == "gridlike":
 				p = i
 				continue
 			if rdata == "<line":
@@ -149,7 +149,7 @@ class Block:
 	def add_phys(self, data, **params):
 		# XXX handle breaks consistently, trim space always?
 		if data != "line":
-			assert data.startswith("=")
+			assert data.startswith("=") or data.startswith("{") or data.startswith("}")
 			self.add_code("phys", data, **params)
 			return
 		brk = params["brk"]
@@ -304,8 +304,10 @@ class Block:
 						buf.append(" ")
 				elif data == ">line":
 					pass
-				elif data == "=page":
-					buf.append('<span class="pagelike" data-tip="Page start">(\N{next page} %s)</span>' % html.escape(params["n"]))
+				elif data == "{page":
+					buf.append('<span class="pagelike" data-tip="Page start">(\N{next page} %s)' % html.escape(params["n"]))
+				elif data == "}page":
+					buf.append("</span>")
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
 					text = f"({unit} {params['n']}"
@@ -417,8 +419,10 @@ class Block:
 						buf.append(" ")
 				elif data == ">line":
 					pass
-				elif data == "=page":
-					buf.append('<span class="pagelike" data-tip="Page start">(\N{next page} %s)</span>' % html.escape(params["n"]))
+				elif data == "{page":
+					buf.append('<span class="pagelike" data-tip="Page start">(\N{next page} %s)' % html.escape(params["n"]))
+				elif data == "}page":
+					buf.append("</span>")
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
 					text = f"({unit} {params['n']}"
@@ -459,8 +463,10 @@ class Block:
 					if not params["brk"]:
 						buf.append('<span class="hyphen-break" data-tip="Hyphen break">-</span>')
 					buf.append('</p>')
-				elif data == "=page":
-					buf.append('<span class="pagelike" data-tip="Page start">(\N{next page} %s)</span> ' % html.escape(params["n"]))
+				elif data == "{page":
+					buf.append('<div class="pagelike"><span data-tip="Page start">(\N{next page} %s) ' % html.escape(params["n"]))
+				elif data == "}page":
+					buf.append("</span></div>")
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
 					text = f"{unit} {params['n']}"
