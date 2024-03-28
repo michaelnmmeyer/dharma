@@ -24,10 +24,13 @@ min_pull_wait = 10
 
 def all_useful_repos():
 	# Always process repos in the same order.
+	db.execute("begin")
 	ret = db.execute("""select repo from repos
 		where textual or repo = 'project-documentation'
 		order by repo""")
-	return [name for (name,) in ret]
+	ret = [name for (name,) in ret]
+	db.execute("end")
+	return ret
 
 def clone_repo(name):
 	path = config.path_of("repos", name)
