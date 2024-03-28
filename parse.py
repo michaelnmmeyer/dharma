@@ -309,14 +309,11 @@ def milestone_break(node):
 
 milestone_units = "block column face faces fragment item segment zone".split()
 
-page_like = set("column face faces item zone".split())
-grid_like = set("block column face fragment zone".split())
-
 def milestone_unit_type(milestone):
 	unit = milestone["unit"] or "column"
 	typ = milestone["type"]
 	if typ not in ("pagelike", "gridlike"):
-		typ = unit in grid_like and "gridlike" or "pagelike"
+		typ = "gridlike"
 	return unit, typ
 
 def parse_milestone(p, milestone):
