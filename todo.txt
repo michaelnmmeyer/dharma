@@ -115,13 +115,11 @@ funcs; also might add a timer to these functions, so that we have "starting X"
 find a way to signal duplicate files and duplicate bib entries and errors in
 projdoc.
 
-check that we support invalid texts in catalog; add a dummy repo that contains
-sample files for testing; ithoink there is alreadsy onr
-
 actually use dharma.rng, only in /texts for now, afterwards distribute it;
 
 add somewhere a date indicating when we
-last updated the validation code (project-doc)
+last updated the validation code (project-doc); but first need to deploy
+schemas outside of my rtepo
 
 do a redirect /foo/ -> /foo in nginx _but_ watch out with the /zotero-proxy
 stuff.
@@ -173,41 +171,15 @@ Work on parse and find a protocol for correcting files. Would probably be best
 to do the parsing and correcting in the same spot, for easier maintenance, but
 should not do this on the same tree.
 
-# Names
-
-Don't expand names in documents tables! Because must be automatically
-updated after a modif to idListMembers. Should store the dharma id (part:xxxx)
-instead, even if we don't find it in idListmembers. When there is none, store
-the name directly. Or update everything each time "idListMembers" is modified.
-
-In fact we still need to update the search index, so do a full update. Simplest
-is to force a full update each time project-documentation is modified. Language
-names too need to be indexed.
-
-Can make a distinction between DHARMA members and others just by looking whether we have a DHARMA id.
-
 Print somewhere which git names we don't have, auto-update it.
 
 
-===
-
-Merge catalog and texts into a single interface. Need first to add a search
-field to filter by error status.
-
-===
+Add a "status" search field to catalog to filter by error status.
 
 add tooltip for expan in <abbr><expan> in phys disp; but need to know how to do
 that
 
 merge parse.py and parse_ins.py
-
-===
-
-# Find solution for nesting of phys structure (rel. to phys and log)
-
-manu: <milestone unit="zone">; should be a title, with <lb> as children
-ordre des milestones à standardiser et à corriger automatiquement, voir
-avec daniel
 
 ===
 
