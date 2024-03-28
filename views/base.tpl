@@ -32,6 +32,8 @@
 <aside>
    <div id="toc-heading" class="toc-heading hidden">Contents</div>
    <nav id="toc"></nav>
+% block sidebar
+% endblock
 </aside>
 <main>
 <h1>

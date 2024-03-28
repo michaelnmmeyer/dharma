@@ -290,7 +290,14 @@ def display_text(text):
 			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
 				commit_hash, path) as github_commit_url,
 			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
-				last_modified_commit, path) as github_last_modified_commit_url,
+				last_modified_commit, path)
+				as github_last_modified_commit_url,
+			format_url('https://raw.githubusercontent.com/erc-dharma/%s/%s/%s',
+				repos.repo, commit_hash, path)
+				as github_download_url,
+			case when html_path is null then null else format_url('https://erc-dharma.github.io/%s/%s',
+				repos.repo, html_path)
+			end as static_website_url,
 			repos.title as repo_title
 		from documents
 			join files on documents.name = files.name
@@ -322,6 +329,7 @@ def display_text(text):
 		github_commit_url=row["github_commit_url"],
 		github_last_modified_commit_url=row["github_last_modified_commit_url"],
 		repo_title=row["repo_title"],
+		row=row,
 		text=text)
 	db.execute("end")
 	return ret

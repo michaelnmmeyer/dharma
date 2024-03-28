@@ -76,16 +76,11 @@ table of languages <a href="/langs">here</a>.</p>
       <a href="{{format_url('https://erc-dharma.github.io/%s/%s', row['repo'], row['html_path'])}}">
    % endif
    % if row["title"]:
-      {{row["title"] | safe}}.
+      {{row["title"] | safe}}
    % else:
-      <i>Untitled</i>.
+      <i>Untitled</i>
    % endif
    % if row["name"].startswith("DHARMA_INS") or row["html_path"]:
-      </a>
-   % endif
-   % if row["html_path"] and row["name"].startswith("DHARMA_INS"):
-      <a href="{{format_url('https://erc-dharma.github.io/%s/%s', row['repo'], row['html_path'])}}">
-      [🦕 Old display]
       </a>
    % endif
    </div>

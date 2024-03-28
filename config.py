@@ -223,7 +223,7 @@ def normalize_url(url):
 
 def numberize(s, n):
 	last_word = s.rsplit(None, 1)[-1].casefold()
-	if last_word not in ("character", "component", "line", "page", "editor", "text"):
+	if last_word not in ("character", "component", "line", "page", "editor", "text", "link"):
 		print("cannot numberize term %r" % last_word, file=sys.stderr)
 		return s
 	if n == 1:
