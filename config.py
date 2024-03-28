@@ -177,7 +177,7 @@ def to_json(obj):
 sqlite3.register_converter("json", from_json)
 # Python has a default converter for "timestamp" which is not only deprecated
 # but also expects to find something else than a single int in the column,
-# probably because other sql databases use a dedicated format for that<>.
+# probably because other sql databases use a dedicated format for that.
 sqlite3.register_converter("timestamp", int)
 sqlite3.register_adapter(list, to_json)
 sqlite3.register_adapter(dict, to_json)
@@ -222,7 +222,7 @@ def normalize_url(url):
 	# systematically submit them to the Wayback machine.
 
 def numberize(s, n):
-	last_word = s.split()[-1].lower()
+	last_word = s.rsplit(None, 1)[-1].casefold()
 	if last_word not in ("character", "component", "line", "page", "editor", "text"):
 		print("cannot numberize term %r" % last_word, file=sys.stderr)
 		return s
