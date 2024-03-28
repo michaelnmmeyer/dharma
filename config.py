@@ -43,9 +43,13 @@ class DB:
 
 	def __init__(self, conn):
 		self._conn = conn
+		self._protected = False
 
-	def execute(self, *args, **kwargs):
-		return self._conn.execute(*args, **kwargs)
+	def execute(self, sql, *args, **kwargs):
+		# We should never do anything outside of an explicitly
+		# opened transaction.
+		assert self._conn.in_transaction or sql.startswith("begin")
+		return self._conn.execute(sql, *args, **kwargs)
 
 # Like the eponymous function in xslt
 def normalize_space(s):
@@ -145,13 +149,17 @@ def transaction(db_name):
 		@functools.wraps(f)
 		def decorated(*args, **kwargs):
 			d = db(db_name)
+			assert not d._protected
 			assert not d._conn.in_transaction
+			d._protected = True
 			try:
 				ret = f(*args, **kwargs)
 			except Exception:
 				if d._conn.in_transaction:
 					d.execute("rollback")
 				raise
+			finally:
+				d._protected = False
 			assert not d._conn.in_transaction
 			return ret
 		return decorated

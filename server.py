@@ -95,6 +95,7 @@ def show_texts_errors():
 @config.transaction("texts")
 def show_text_errors(name):
 	db = config.db("texts")
+	db.execute("begin")
 	row = db.execute("""
 		select documents.name, repos.repo, commit_hash, code_hash,
 			status, mtime, path as xml_path, data, html_path,
@@ -103,6 +104,7 @@ def show_text_errors(name):
 			join repos on documents.repo = repos.repo
 		where documents.name = ?
 	""", (name,)).fetchone()
+	db.execute("end")
 	if not row:
 		return flask.abort(404)
 	url = config.format_url("https://github.com/erc-dharma/%s/blob/%s/%s",
@@ -122,24 +124,31 @@ def show_text_errors(name):
 @config.transaction("texts")
 def show_repos():
 	db = config.db("texts")
+	db.execute("begin")
 	rows = db.execute("select * from repos_display").fetchall()
+	db.execute("end")
 	return flask.render_template("repos.tpl", rows=rows)
 
 @app.get("/people")
 @config.transaction("texts")
 def show_people():
 	db = config.db("texts")
+	db.execute("begin")
 	rows = db.execute("""select inverted_name, dh_id, affiliation,
 		idhal, idref, orcid, viaf, wikidata
 		from people_main where dh_id is not null
 		order by inverted_name""").fetchall()
+	db.execute("end")
 	return flask.render_template("people.tpl", rows=rows)
 
 @app.get("/people/<dharma_id>")
 @config.transaction("texts")
 def show_person(dharma_id):
 	db = config.db("texts")
-	if db.execute("select 1 from people_main where dh_id = ?", (dharma_id,)).fetchone():
+	db.execute("begin")
+	exists = db.execute("select 1 from people_main where dh_id = ?", (dharma_id,)).fetchone()
+	db.execute("end")
+	if exists:
 		return flask.redirect(f"/people#person-{dharma_id}")
 	return flask.abort(404)
 
@@ -151,7 +160,7 @@ def show_parallels():
 	(date,) = db.execute("""select cast(value as int)
 		from metadata where key = 'last_updated'""").fetchone()
 	rows = db.execute("select * from sources where verses + hemistiches + padas > 0")
-	db.execute("commit")
+	db.execute("end")
 	return flask.render_template("parallels.tpl", data=rows, last_updated=date)
 
 parallels_types = {
@@ -165,10 +174,12 @@ parallels_types = {
 def show_parallels_details(text, category):
 	db = config.db("ngrams")
 	type = parallels_types[category]
+	db.execute("begin")
 	rows = db.execute("""
 		select id, number, contents, parallels from passages
 		where type = ? and file = ? and parallels > 0
-	""", (type, text))
+	""", (type, text)).fetchall()
+	db.execute("end")
 	return flask.render_template("parallels_details.tpl",
 		file=text, category=category, data=rows)
 
@@ -214,7 +225,9 @@ def show_editorial_conventions():
 @config.transaction("texts")
 def show_langs():
 	db = config.db("texts")
+	db.execute("begin")
 	rows = db.execute("select * from langs_display").fetchall()
+	db.execute("end")
 	return flask.render_template("langs.tpl", rows=rows)
 
 @app.get("/langs")
@@ -250,8 +263,10 @@ def search_parallels():
 @config.transaction("texts")
 def display_list():
 	db = config.db("texts")
+	db.execute("begin")
 	texts = [t for (t,) in db.execute("""select name from documents
 		where name glob 'DHARMA_INS*'""")]
+	db.execute("end")
 	return flask.render_template("display.tpl", texts=texts)
 
 @app.get("/display/<text>")
