@@ -2,6 +2,8 @@
 :root {
 	--border-radius: 0.3em;
 	--flash-duration: 2s;
+	--menu-background: #323142;
+	--menu-foreground: white;
 }
 
 .toc-heading {
@@ -204,13 +206,13 @@ menu {
 	align-items: center;
 	padding: 0.7em 1em;
 	margin: 0;
-	background-color: black;
+	background-color: var(--menu-background);
 	list-style: none;
 	font-size: larger;
 	row-gap: 0.5em;
 }
 menu a {
-	color: white;
+	color: var(--menu-foreground);
 	text-decoration: none;
 	padding: 0.2em 0.5em;
 }
@@ -641,7 +643,7 @@ div.pagelike {
 #submenu {
 	position: absolute;
 	background: gray;
-	color: white;
+	color: var(--menu-foreground);
 	/* Avoid layout interference */
 	width: max-content;
 	top: 0;
@@ -661,12 +663,13 @@ div.pagelike {
 }
 #submenu {
 	margin: 0;
-	background-color: black;
+	background-color: var(--menu-background);
 	font-size: larger;
-	border-radius: var(--border-radius);
+	border-bottom-left-radius: var(--border-radius);
+	border-bottom-right-radius: var(--border-radius);
 }
 #submenu a {
-	color: white;
+	color: var(--menu-foreground);
 	text-decoration: none;
 	display: block;
 	padding: 0.3em 0.7em;
@@ -677,5 +680,16 @@ div.pagelike {
 }
 
 
+.notes ol {
+	list-style: none;
+	padding-left: 0;
+}
+.notes li:not(:last-child) {
+	margin-bottom: 0.4em;
+}
+.note-ref {
+	display: inline-block;
+	min-width: 1em;
+}
 
 

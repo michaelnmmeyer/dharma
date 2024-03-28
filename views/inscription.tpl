@@ -130,12 +130,14 @@ Version: {{doc.commit_date | format_date}}
 % if doc.notes:
 <div class="notes">
 <h2 id="notes">Notes</h2>
+<ol>
 % for note in doc.notes:
-<div class="note" id="note-{{loop.index}}">
-<a class="note-ref" href="#note-ref-{{loop.index}}">{{loop.index}}</a>
+<li class="note" id="note-{{loop.index}}">
+<a class="note-ref" href="#note-ref-{{loop.index}}">{{loop.index}}.</a>
 {{note.render_logical() | safe}}
-</div>
+</li>
 % endfor
+</ol>
 </div>
 % endif
 
