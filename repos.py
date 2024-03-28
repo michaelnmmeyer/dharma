@@ -21,17 +21,20 @@ def load_data():
 		repos[row["name"]] = row
 	return repos
 
-@config.transaction("texts")
 def make_db():
 	db = config.db("texts")
-	db.execute("begin")
 	for _, rec in sorted(load_data().items()):
 		db.execute("""
 			insert into repos(repo, textual, title)
 				values(:name, :textual, :title)
 			on conflict do update
 			set textual = excluded.textual, title = excluded.title""", rec)
-	db.execute("commit")
 
 if __name__ == "__main__":
-	make_db()
+	@config.transaction("texts")
+	def main():
+		db = config.db("texts")
+		db.execute("begin")
+		make_db()
+		db.execute("commit")
+	main()

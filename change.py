@@ -172,6 +172,7 @@ def update_project():
 	langs.make_db()
 	gaiji.make_db()
 	prosody.make_db()
+	repos.make_db()
 	# XXX what about schemas and docs? run make? this should be built as
 	# part of project-documentation, and we should not store schemas in
 	# the app repo.
