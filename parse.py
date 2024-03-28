@@ -998,8 +998,9 @@ def parse_titleStmt(p, stmt):
 	# normal INS files.
 	p.push("title")
 	titles = stmt.find("title")
-	for title in titles:
-		p.start_item()
+	for i, title in enumerate(titles):
+		if i > 0:
+			p.add_text(" \N{en dash} ")
 		p.dispatch_children(title)
 	p.document.title = p.pop()
 	p.push("author")

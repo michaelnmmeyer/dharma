@@ -287,8 +287,7 @@ def display_text(text):
 		return flask.abort(404)
 	try:
 		doc = parse_ins.process_file(row["path"], row["data"])
-		title = doc.title and doc.title.render_logical() or []
-		doc.title = title and title.split(document.PARA_SEP) or []
+		doc.title = doc.title and doc.title.render_logical() or ""
 		editors = doc.editors and doc.editors.render_logical() or []
 		doc.editors = editors and editors.split(document.PARA_SEP) or []
 	except tree.Error as e:
@@ -350,8 +349,7 @@ def convert_text():
 		base = base_name_windows(path)
 	name = os.path.splitext(base)[0]
 	doc = parse_ins.process_file(path, data)
-	title = doc.title.render_logical()
-	doc.title = title and title.split(document.PARA_SEP) or []
+	doc.title = doc.title and doc.title.render_logical() or ""
 	editors = doc.editors.render_logical()
 	doc.editors = editors and editors.split(document.PARA_SEP)
 	html = flask.render_template("inscription.tpl", doc=doc, text=name)

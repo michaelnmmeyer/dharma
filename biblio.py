@@ -1162,10 +1162,6 @@ def get_ref(ref, **params):
 		tag.delete()
 		w.add(siglum)
 	else:
-		if params["missing"]:
-			pass
-			#w.xml["data-tip"] = "Missing in bibliography"
-			#w.xml["class"] += " bib-ref-invalid"
 		fmt = params["rend"]
 		if fmt == "omitname":
 			w.date(rec, end_field=False)

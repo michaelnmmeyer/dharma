@@ -577,10 +577,9 @@ class PlainRenderer:
 			buf = self.buf
 			self.reset()
 			self.render_block(doc.title)
-			titles = "".join(self.buf).split(PARA_SEP)
+			title = self.buf
 			self.reset(buf)
-			for title in titles:
-				self.add(title + "\n")
+			self.add(title + "\n")
 		else:
 			self.add("Untitled\n")
 		if doc.editors:
@@ -596,11 +595,12 @@ class PlainRenderer:
 				if len(editors) > 1:
 					self.add(" and %s" % editors[-1])
 			self.add("\n")
+		self.add(f"URL: https://dharmalekha.info/texts/{doc.ident}\n")
 		self.add("---\n\n")
 		buf = unicodedata.normalize("NFC", self.buf)
 		self.reset()
 		if doc.edition:
-			self.render_block(doc.edition[0])
+			self.render_block(doc.edition)
 		text = unicodedata.normalize("NFC", "".join(self.buf).rstrip() + "\n")
 		self.reset(buf)
 		self.add(text)

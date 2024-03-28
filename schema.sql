@@ -101,24 +101,23 @@ create table if not exists owners(
 );
 create index if not exists owners_index on owners(git_name);
 
--- All people mentioned in XML files, both DHARMA people and people
--- outside the project, including historical figures.
+-- All DHARMA people who have a DHARMA id, and only them.
 create table if not exists people_main(
+	dh_id text primary key check(length(dh_id) = 4),
 	-- Two forms: ["Emmanuel", "Francis"] or ["Tyassanti Kusumo Dewanti"]
 	name json check(
 		json_array_length(name) between 1 and 2
 		and json_type(name -> 0) = 'text'
 		and json_array_length(name) = 1 or json_type(name -> 1) = 'text'),
-	-- e.g. "Emmanuel Francis"
+	-- e.g. "Emmanuel Francis" or "Tyassanti Kusumo Dewanti"
 	print_name text as (iif(json_array_length(name) = 1,
 		name ->> 0,
 		printf('%s %s', name ->> 0, name ->> 1))),
-	-- e.g. "Francis, Emmanuel"
+	-- e.g. "Francis, Emmanuel" or "Tyassanti Kusumo Dewanti"
 	inverted_name text as (iif(json_array_length(name) = 1,
 		name ->> 0,
 		printf('%s, %s', name ->> 1, name ->> 0))),
 	-- All the following can be null.
-	dh_id text unique check(dh_id is null or length(dh_id) = 4),
 	affiliation text check(affiliation != ''),
 	idhal text unique check(idhal != ''),
 	idref text unique check(idref != ''),
@@ -144,11 +143,11 @@ create table if not exists people_github(
 create table if not exists documents(
 	name text primary key,
 	repo text,
-	title json check(json_type(title) = 'array'),
-	author text,
+	title text check(title is null or title != ''),
+	author text check(author is null or author != ''),
 	editors json check(json_type(editors) = 'array'),
 	-- Dharma members ids viz. the xxxx in part:xxxx.
-	editors_ids check(json_type(editors_ids) = 'array'),
+	editors_ids json check(json_type(editors_ids) = 'array'),
 	langs json check(json_type(langs) = 'array'),
 	summary text,
 	-- The corresponding file is at https://erc-dharma.github.io/$repo/$html_path

@@ -1,6 +1,6 @@
 import os, sys, re, subprocess
 from glob import glob
-from dharma import config, tree, parse_ins, unicode, relaxng
+from dharma import config, tree, unicode, relaxng
 from saxonche import PySaxonProcessor # pip install saxonche
 
 # What should we use for representing error locations? Maybe just the patch the

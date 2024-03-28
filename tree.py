@@ -56,7 +56,7 @@ class Error(Exception):
 		self.source = source
 
 	def __str__(self):
-		return f"Error(path='{path}' line={self.line}, column={self.column}, text={repr(self.text)})"
+		return f"Error(path='{self.path}' line={self.line}, column={self.column}, text={repr(self.text)})"
 
 def unique(items):
 	ret = []

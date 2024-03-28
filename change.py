@@ -10,6 +10,8 @@ import argparse, traceback, collections
 from dharma import config, validate, texts, biblio, catalog, people, langs
 from dharma import gaiji, prosody, repos
 
+SKIP_PULL = False
+
 FIFO_ADDR = config.path_of("change.hid")
 
 db = config.db("texts")
@@ -47,6 +49,8 @@ def clone_repo(name):
 # message "kex_exchange_identification: read: Connection reset by peer". So we
 # wait a bit between pulls.
 def update_repo(name):
+	if SKIP_PULL:
+		return
 	global last_pull
 	now = time.time()
 	diff = now - last_pull
@@ -313,7 +317,11 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-k", "--skip-update", action="store_true", help="""
 		do not force an update at startup""")
+	parser.add_argument("-l", "--local", action="store_true", help="""
+		do not pull git repositories""")
 	args = parser.parse_args()
 	if args.skip_update:
 		NEXT_FULL_UPDATE += FORCE_UPDATE_DELTA
+	if args.local:
+		SKIP_PULL = True
 	main()

@@ -76,9 +76,7 @@ table of languages <a href="/langs">here</a>.</p>
       <a href="{{format_url('https://erc-dharma.github.io/%s/%s', row['repo'], row['html_path'])}}">
    % endif
    % if row["title"]:
-      % for chunk in row["title"]:
-         {{chunk.rstrip(".") | safe}}.
-      % endfor
+      {{row["title"] | safe}}.
    % else:
       <i>Untitled</i>.
    % endif

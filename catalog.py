@@ -83,11 +83,6 @@ def insert(file):
 			val = parse.Block(val)
 			val.finish()
 			setattr(doc, key, val)
-	fmt_title = doc.title.render_logical()
-	if fmt_title:
-		fmt_title = fmt_title.split(document.PARA_SEP)
-	else:
-		fmt_title = []
 	fmt_editors = doc.editors and doc.editors.render_logical() or []
 	if fmt_editors:
 		fmt_editors = fmt_editors.split(document.PARA_SEP)
@@ -96,7 +91,7 @@ def insert(file):
 	db.execute("""insert or replace into documents(name, repo, title,
 		author, editors, editors_ids, langs, summary, html_path, status)
 		values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
-			fmt_title, doc.author.render_logical(), fmt_editors,
+			doc.title.render_logical() or None, doc.author.render_logical(), fmt_editors,
 			doc.editors_ids,
 			doc.langs, doc.summary.render_logical(),
 			file.html, file.status))
@@ -239,7 +234,7 @@ def search(q, s):
 		pass
 	else:
 		s = "title"
-	sql += " group by documents.name order by documents.%s collate icu " % s
+	sql += " group by documents.name order by documents.%s collate icu nulls last " % s
 	ret = db.execute(sql, q).fetchall()
 	(last_updated,) = db.execute("""
 		select cast(value as int)

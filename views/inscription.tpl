@@ -2,10 +2,7 @@
 
 % block title
 % if doc.title:
-   % for part in doc.title[:-1]:
-      {{part | safe}}:
-   % endfor
-   {{doc.title[-1]}}
+   {{doc.title | safe}}
 % else:
    <i>Untitled</i>
 % endif

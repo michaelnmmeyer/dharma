@@ -172,7 +172,7 @@ def process_file(path, data):
 
 def export_plain():
 	db = config.db("texts")
-	renderer = parse.PlainRenderer(strip_physical=True)
+	renderer = document.PlainRenderer(strip_physical=True)
 	out_dir = config.path_of("plain")
 	os.makedirs(out_dir, exist_ok=True)
 	for name, path, data in db.execute("""
@@ -189,6 +189,8 @@ def export_plain():
 			f.write(ret)
 
 if __name__ == "__main__":
+	export_plain()
+"""
 	path = sys.argv[1]
 	data = open(path, "rb").read()
 	try:
@@ -196,3 +198,4 @@ if __name__ == "__main__":
 		print(doc.apparatus)
 	except (KeyboardInterrupt, BrokenPipeError):
 		pass
+"""
