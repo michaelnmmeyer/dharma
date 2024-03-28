@@ -72,4 +72,12 @@ for file in files:
 	xml = tree.parse(file)
 	edition = xml.first("//div")
 	assert edition["type"] == "edition"
+	elems = set()
+	"""
+	for elem in edition.find("//*"):
+		if elem.name == "milestone" and (not elem["type"] or elem["type"] == "gridlike"):
+			elems.add(elem["unit"])
+	if len(elems) > 1:
+		print(file, sorted(elems))
+		"""
 	print_phys_nums(edition, 1, "")

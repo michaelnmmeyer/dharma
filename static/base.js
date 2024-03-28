@@ -289,7 +289,7 @@ window.addEventListener("load", function () {
 	function updatePosition() {
 		floatingUI.computePosition(reference, floating, {
 			placement: "bottom",
-			middleware: [floatingUI.offset(3), floatingUI.shift()]
+			middleware: [floatingUI.offset(13), floatingUI.shift()]
 		}).then(function ({x, y}) {
 			Object.assign(floating.style, {
 				top: `${y}px`,
