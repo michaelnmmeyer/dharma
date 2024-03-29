@@ -22,17 +22,14 @@ def report_callback_error(e):
 	print(f"Message: {e.err_msg}", file=sys.stderr)
 	if e.exc_traceback:
 		traceback.print_tb(e.exc_traceback, file=sys.stderr)
-	os._exit(1) # exits without raising an exception SystemExit
+	os._exit(1) # exits without raising a SystemExit exception
 
 sys.unraisablehook = report_callback_error
 
-# Python's sqlite wrapper does not allow us to share database objects between
-# threads, even though sqlite itself is OK with that. (But this changed in
-# python3.11, see:
-# https://docs.python.org/3/library/sqlite3.html#sqlite3.threadsafety.)
-# So we allocate new database objects for each thread. In a given thread, there
-# is no point allocating more than one database object, so we allocate just one,
-# and create it on demand.
+# We can only have one transaction active per database object, so we allocate
+# new database objects for each thread. In a given thread, there is no point
+# allocating more than one database object, so we allocate just one, and create
+# it on demand.
 DBS = threading.local()
 
 # The point of this wrapper is to make sure we don't use functions that might

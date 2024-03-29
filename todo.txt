@@ -1,8 +1,6 @@
 Add something to rebuild the database and deploy automatically when we make changes to the
 schema and that restarts the server and changepy.
 
-deal with this:https://github.com/erc-dharma/project-documentation/issues/269
-
 in server add stuff to ensure we don't try to access repos/, all accesses to
 repos should go through the db. could also run the process without write perms
 to repos or sth, but probably not feasible without patching python's binary or
@@ -20,6 +18,7 @@ should always show the most recent file when we have duplicates. and add an erro
 see the other files.
 
 deal with rendition and xml:lang, which must cover the whole text in div type edition.
+must be dealt with in tree.py
 
 =====
 
@@ -37,7 +36,8 @@ would allow us to distinguish page-internal links from the others.
 
 
 # https://serverfault.com/questions/636790/nginx-log-complete-request-response-with-all-headers
-Should also store a local copy of files we fetch from web
+Should also store a local copy of files we fetch from the web, in a cache. this
+cache would be written to only by change.py, when orocessing files.
 
 
 
@@ -272,7 +272,8 @@ Put the tab button somewhere else.
 
 ------------------------------------------------------------------
 
-stop using tables in website, annoying to style. use cards instead.
+stop using tables in website, annoying to style. use cards instead. and they
+should be convertible to tables if we have enough space.
 
 for rng: rng2srng-20020831
 

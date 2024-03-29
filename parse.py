@@ -799,7 +799,7 @@ roman_table = [
 	("I", 1),
 ]
 def to_roman(x):
-	if x <= 0 or x > 3000:
+	if x <= 0 or x >= 4000:
 		return str(x)
 	buf = ""
 	for roman, arabic in roman_table:

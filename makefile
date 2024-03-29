@@ -76,17 +76,11 @@ update-texts:
 	mkdir -p texts
 	rm -f texts/*
 	sqlite3 dbs/texts.sqlite "select printf('../repos/%s/%s', repo, path) \
-		from documents natural join files \
-		where name glob 'DHARMA_INS*'" | while read f; do \
+		from documents natural join files" | while read f; do \
 		ln -s "$$f" "texts/$$(basename "$$f")"; \
 	done
 
 deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
-	cp schemas/inscription.xml repos/project-documentation/schema/DHARMA_INSSchema_v01.xml
-	cp schemas/bestow.xml repos/project-documentation/schema/DHARMA_BESTOW_v01.xml
-	cp schemas/critical.xml repos/project-documentation/schema/DHARMA_CritEdSchema_v02.xml
-	cp schemas/diplomatic.xml repos/project-documentation/schema/DHARMA_DiplEDSchema_v01.xml
-	cp schemas/prosody.xml repos/project-documentation/schema/DHARMA_ProsodySchema_v01.xml
 	cp schemas/inscription.rng repos/project-documentation/schema/latest/DHARMA_Schema.rng
 	cp schemas/bestow.rng repos/project-documentation/schema/latest/DHARMA_BESTOW.rng
 	cp schemas/critical.rng repos/project-documentation/schema/latest/DHARMA_CritEdSchema.rng
