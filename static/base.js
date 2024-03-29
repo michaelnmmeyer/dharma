@@ -7,26 +7,16 @@ function getCSSVar(name) {
 }
 
 function toggleMenu() {
-	let menu = document.querySelector("menu")
-	if (menu.classList.contains("menu-active")) {
-		menu.classList.remove("menu-active")
-		// adds the menu (hamburger) icon
-		document.querySelector("#toggle-menu a").innerHTML = "<i class='fa-solid fa-bars'></i>"
+	let menuContents = document.querySelector("#menu-contents")
+	let icon = document.querySelector("#toggle-menu i")
+	if (menuContents.classList.contains("hidden")) {
+		menuContents.classList.remove("hidden")
+		icon.classList.remove("fa-bars")
+		icon.classList.add("fa-times")
 	} else {
-		menu.classList.add("menu-active")
-		// adds the close (x) icon
-		document.querySelector("#toggle-menu a").innerHTML = "<i class='fa-solid fa-times'></i>"
-	}
-}
-
-function toggleTOC() {
-	let toc = document.querySelector("aside")
-	if (toc.classList.contains("active")) {
-		toc.classList.remove("active")
-		document.querySelector("#toggle-toc a").innerHTML = "<i class='fa-solid fa-table-list'></i>"
-	} else {
-		toc.classList.add("active")
-		document.querySelector("#toggle-toc a").innerHTML = "<i class='fa-solid fa-times'></i>"
+		menuContents.classList.add("hidden")
+		icon.classList.remove("fa-times")
+		icon.classList.add("fa-bars")
 	}
 }
 
@@ -266,7 +256,6 @@ window.addEventListener("load", function () {
 	prepareTips()
 	displayTOC()
 	document.querySelector("#toggle-menu").addEventListener("click", toggleMenu, false)
-	document.querySelector("#toggle-toc").addEventListener("click", toggleTOC, false)
 	initDisplays()
 	initFlashing()
 })
@@ -280,6 +269,17 @@ let submenuCleanup = null
 let floating = null
 
 window.addEventListener("load", function () {
+	let button = document.querySelector("#submenu-button")
+	button.addEventListener("click", function (event) {
+		let button = document.querySelector("#submenu")
+		if (button.classList.contains("hidden"))
+			button.classList.remove("hidden")
+		else
+			button.classList.add("hidden")
+	})
+})
+
+window.addEventListener("loadssss", function () {
 	const reference = document.getElementById("submenu-button")
 	floating = document.getElementById("submenu")
 

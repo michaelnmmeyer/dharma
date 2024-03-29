@@ -191,6 +191,23 @@ form ul {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Menu; see
    https://webdesign.tutsplus.com/how-to-build-a-responsive-navigation-bar-with-flexbox--cms-33535t
  */
@@ -200,36 +217,58 @@ header {
 	top: 0;
 }
 menu {
+	margin: 0;
+	padding: 0;
+	color: var(--menu-foreground);
+	background-color: var(--menu-background);
+	font-size: larger;
+}
+menu {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
 	padding: 0.7em 1em;
 	margin: 0;
-	background-color: var(--menu-background);
 	list-style: none;
-	font-size: larger;
-	row-gap: 0.5em;
+}
+#menu-contents {
+	margin: 0;
+	padding: 0;
+	width: 100%; /* Force it to be on its own row */
+}
+#menu-contents ul {
+	list-style: inherit;
+	margin: 0;
+	padding: 0;
 }
 menu a {
-	color: var(--menu-foreground);
 	text-decoration: none;
+	color: inherit;
 	padding: 0.2em 0.5em;
 }
 menu a:hover {
 	background-color: gray;
 	border-radius: var(--border-radius);
 }
-.menu-active .item {
-	display: block;
+ul.submenu {
+	list-style: none;
+	margin: 1em;
+	color: var(--menu-foreground);
+	background-color: var(--menu-background);
+	border-bottom-left-radius: var(--border-radius);
+	border-bottom-right-radius: var(--border-radius);
 }
-.item {
-	width: 100%;
-	text-align: left;
-	display: none;
+.submenu li:hover {
+	border-radius: var(--border-radius);
+}
+.submenu a {
+	color: var(--menu-foreground);
+	text-decoration: none;
 }
 
-/* Desktop display  */
+/* Desktop display */
+/*
 @media all and (min-width: 960px) {
 	#contents {
 		grid-template-rows: auto 1fr auto;
@@ -245,6 +284,7 @@ menu a:hover {
 	menu {
 		align-items: flex-start;
 		flex-wrap: nowrap;
+		row-gap: 0.5em;
 	}
 	.item {
 		display: block;
@@ -260,9 +300,57 @@ menu a:hover {
 		max-height: 100vh;
 		overflow-y: auto;
 	}
+
+
+.submenu {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: max-content;
+	font-size: larger;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+.submenu li {
+	width: 100%;
+}
+.submenu li:hover {
+	background-color: gray;
+}
+.submenu a {
+	display: block;
+	padding: 0.3em 0.7em;
 }
 
+}*/
+
 /* End menu */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media print {
 	/* For printing, hide useless stuff. */
@@ -632,54 +720,6 @@ div.pagelike {
 }
 
 
-
-
-
-
-
-#submenu-button {
-	cursor: pointer;
-}
-#submenu {
-	position: absolute;
-	background: gray;
-	color: var(--menu-foreground);
-	/* Avoid layout interference */
-	width: max-content;
-	top: 0;
-	left: 0;
-}
-#submenu ul {
-	padding: 0;
-	margin: 0;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	align-items: flex-start;
-}
-#submenu li {
-	width: 100%;
-}
-#submenu {
-	margin: 0;
-	background-color: var(--menu-background);
-	font-size: larger;
-	border-bottom-left-radius: var(--border-radius);
-	border-bottom-right-radius: var(--border-radius);
-}
-#submenu a {
-	color: var(--menu-foreground);
-	text-decoration: none;
-	display: block;
-	padding: 0.3em 0.7em;
-}
-#submenu li:hover {
-	background-color: gray;
-	border-radius: var(--border-radius);
-}
-
-
 .notes ol {
 	list-style: none;
 	padding-left: 0;
@@ -691,5 +731,13 @@ div.pagelike {
 	display: inline-block;
 	min-width: 1em;
 }
+
+
+
+
+
+
+
+
 
 
