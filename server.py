@@ -376,11 +376,11 @@ def convert_text():
 		base = base_name_windows(path)
 	name = os.path.splitext(base)[0]
 	doc = parse_ins.process_file(path, data)
-	db.execute("end")
 	doc.title = doc.title and doc.title.render_logical() or ""
 	editors = doc.editors.render_logical()
 	doc.editors = editors and editors.split(document.PARA_SEP)
 	html = flask.render_template("inscription.tpl", doc=doc, text=name)
+	db.execute("end")
 	soup = BeautifulSoup(html, "html.parser")
 	patch_links(soup, "href")
 	patch_links(soup, "src")
