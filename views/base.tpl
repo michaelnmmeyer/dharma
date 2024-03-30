@@ -18,36 +18,40 @@
 <div id="contents">
 <header>
    <menu>
-   <li id="toggle-menu"><a><i class="fa-solid fa-bars fa-fw"></i></a></li>
-   <li><a href="/">DHARMA</a></li>
-   <li id="toggle-toc"><a><i class="fa-solid fa-table-list"></i></a></li>
-<li id="menu-contents" class="hidden">
-<ul>
-   <li><a href="/repositories"><i class="fa-brands fa-git-alt"></i> Repositories</a></li>
-   <li id="submenu-button"><a>Project Internal <i class="fa-solid fa-caret-down"></i></a>
-         <ul id="submenu" class="submenu hidden">
-      <li>
-         <a href="{{url_for('show_texts_errors')}}">
-         <i class="fa-solid fa-bug"></i> Errors
-         </a>
-      </li>
-      <li>
-         <a href="/documentation">
-         <i class="fa-regular fa-circle-question"></i>
-         Technical Documentation
-         </a>
-      </li>
-      <li>
-         <a href="{{url_for('display_list')}}">Display List</a>
-      </li>
+<a href="/">DHARMA</a>
+<a id="menu-toggle"><i class="fa-solid fa-caret-down fa-fw"></i></a>
+<ul id="menu" class="hidden">
+   <li>
+      <a href="/repositories">
+      <i class="fa-brands fa-git-alt"></i> Repositories</a>
+   </li>
+   <li>
+      <a href="{{url_for("show_catalog")}}">
+      <i class="fa-regular fa-file-lines"></i> Texts</a>
+   </li>
+   <li><a href="/editorial-conventions">Editorial Conventions</a></li>
+   <li>
+      <a href="/parallels">
+      <i class="fa-solid fa-grip-lines-vertical"></i> Parallels</a>
+   </li>
+   <li id="submenu" class="submenu">
+      <a>Project Internal <i class="fa-solid fa-caret-down"></i></a>
+      <ul class="hidden">
+         <li>
+            <a href="{{url_for('show_texts_errors')}}">
+            <i class="fa-solid fa-bug"></i> Errors</a>
+         </li>
+         <li>
+            <a href="/documentation">
+            <i class="fa-regular fa-circle-question"></i>
+            Technical Documentation</a>
+         </li>
+         <li>
+            <a href="{{url_for('display_list')}}">Display List</a>
+         </li>
       </ul>
    </li>
-   <li><a href="{{url_for("show_catalog")}}"><i class="fa-regular fa-file-lines"></i> Texts</a></li>
 </ul>
-</li>
-
-
-
    </menu>
 </header>
 <aside>

@@ -4,6 +4,8 @@
 	--flash-duration: 2s;
 	--menu-background: #323142;
 	--menu-foreground: white;
+	--menu-hover: gray;
+	--menu-height: 2.6em;
 }
 
 .toc-heading {
@@ -206,130 +208,108 @@ form ul {
 
 
 
+/******************************** Begin menu **********************************/
 
-
-/* Menu; see
-   https://webdesign.tutsplus.com/how-to-build-a-responsive-navigation-bar-with-flexbox--cms-33535t
+/* I used:
+ * https://codepen.io/alvarotrigo/pen/MWEJEWG
+ * https://webdesign.tutsplus.com/how-to-build-a-responsive-navigation-bar-with-flexbox--cms-33535t
  */
 
 header {
 	position: sticky;
 	top: 0;
-}
-menu {
-	margin: 0;
-	padding: 0;
-	color: var(--menu-foreground);
-	background-color: var(--menu-background);
-	font-size: larger;
+	left: 0;
 }
 menu {
 	display: flex;
-	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0.7em 1em;
+	padding: 0 0.7em;
 	margin: 0;
+	background: var(--menu-background);
+	color: var(--menu-foreground);
+	height: var(--menu-height);
+	font-size: larger;
+}
+menu ul {
 	list-style: none;
 }
-#menu-contents {
-	margin: 0;
-	padding: 0;
-	width: 100%; /* Force it to be on its own row */
-}
-#menu-contents ul {
-	list-style: inherit;
-	margin: 0;
-	padding: 0;
+menu li {
+	padding: 0.3em 0.7em;
 }
 menu a {
-	text-decoration: none;
 	color: inherit;
 	padding: 0.2em 0.5em;
+	display: block;
+	cursor: pointer;
+	border-radius: var(--border-radius);
 }
 menu a:hover {
-	background-color: gray;
-	border-radius: var(--border-radius);
+	background: var(--menu-hover);
 }
-ul.submenu {
-	list-style: none;
-	margin: 1em;
-	color: var(--menu-foreground);
-	background-color: var(--menu-background);
-	border-bottom-left-radius: var(--border-radius);
-	border-bottom-right-radius: var(--border-radius);
-}
-.submenu li:hover {
-	border-radius: var(--border-radius);
-}
-.submenu a {
-	color: var(--menu-foreground);
-	text-decoration: none;
-}
-
-/* Desktop display */
-/*
-@media all and (min-width: 960px) {
-	#contents {
-		grid-template-rows: auto 1fr auto;
-		grid-template-columns: 25% 75%;
-		grid-template-areas:
-			'header header'
-			'sidebar main'
-			'footer footer';
-	}
-	header {
-		position: relative;
-	}
-	menu {
-		align-items: flex-start;
-		flex-wrap: nowrap;
-		row-gap: 0.5em;
-	}
-	.item {
-		display: block;
-		width: auto;
-	}
-	.toggle {
-		display: none;
-	}
-	aside {
-		display: block;
-		position: sticky;
-		top: 0;
-		max-height: 100vh;
-		overflow-y: auto;
-	}
-
-
-.submenu {
+#menu {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: max-content;
-	font-size: larger;
+	margin-top: var(--menu-height);
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
 	padding: 0;
-	margin: 0;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	align-items: flex-start;
+	width: 100%; /* Force it to be on its own row */
+	background: inherit;
 }
-.submenu li {
-	width: 100%;
+.submenu > ul {
+	padding-left: 0.5em;
 }
-.submenu li:hover {
-	background-color: gray;
+
+/* Desktop display */
+
+@media all and (min-width: 1100px) {
+
+#contents {
+	grid-template-rows: auto 1fr auto;
+	grid-template-columns: 25% 75%;
+	grid-template-areas:
+		'header header'
+		'sidebar main'
+		'footer footer';
 }
-.submenu a {
+header {
+	position: static;
+}
+aside {
 	display: block;
-	padding: 0.3em 0.7em;
+	position: sticky;
+	top: 0;
+	max-height: 100vh;
+	overflow-y: auto;
+}
+#menu-toggle {
+	display: none;
+}
+menu ul {
+	margin: 0;
+}
+#menu {
+	display: flex;
+	position: static;
+	width: auto;
+	margin: 0;
+}
+.submenu > ul {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding-left: 0;
+	background: var(--menu-background);
+	border-bottom-left-radius: var(--border-radius);
+	border-bottom-right-radius: var(--border-radius);
 }
 
-}*/
+}
 
-/* End menu */
+/******************************* End menu *************************************/
 
 
 

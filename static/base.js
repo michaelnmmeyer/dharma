@@ -1,3 +1,5 @@
+const floatingUI = window.FloatingUIDOM
+
 function unwrap(node) {
 	node.replaceWith(...node.childNodes)
 }
@@ -6,19 +8,115 @@ function getCSSVar(name) {
 	return getComputedStyle(document.documentElement).getPropertyValue(name)
 }
 
-function toggleMenu() {
-	let menuContents = document.querySelector("#menu-contents")
-	let icon = document.querySelector("#toggle-menu i")
-	if (menuContents.classList.contains("hidden")) {
-		menuContents.classList.remove("hidden")
-		icon.classList.remove("fa-bars")
-		icon.classList.add("fa-times")
-	} else {
-		menuContents.classList.add("hidden")
-		icon.classList.remove("fa-times")
-		icon.classList.add("fa-bars")
-	}
+// menu
+
+let menu = null
+let menuIcon = null
+let menuVisible = null
+
+let submenu = null
+let submenuVisible = null
+let submenuContainer = null
+let submenuCleanup = null
+let submenuIcon = null
+
+function initMenu() {
+	menu = document.querySelector("#menu")
+	menuVisible = !menu.classList.contains("hidden")
+	menuIcon = document.querySelector("#menu-toggle i")
+	submenu = document.querySelector("#submenu > ul")
+	console.assert(submenu.classList.contains("hidden"))
+	submenuVisible = false
+	submenuContainer = document.querySelector("#submenu")
+	submenuIcon = document.querySelector("#submenu > a > i")
+	document.querySelector("#menu-toggle").addEventListener("click", toggleMenu, false)
+	document.querySelector("#submenu > a").addEventListener("click", toggleSubmenu, false)
 }
+
+function showMenu() {
+	console.assert(!menuVisible)
+	menu.classList.remove("hidden")
+	menuIcon.classList.remove("fa-caret-down")
+	menuIcon.classList.add("fa-caret-up")
+	menuVisible = true
+}
+
+function hideMenu() {
+	console.assert(menuVisible)
+	menu.classList.add("hidden")
+	menuIcon.classList.remove("fa-caret-up")
+	menuIcon.classList.add("fa-caret-down")
+	menuVisible = false
+}
+
+function toggleMenu() {
+	if (menuVisible)
+		hideMenu()
+	else
+		showMenu()
+}
+
+function updateSubmenuPosition() {
+	floatingUI.computePosition(submenuContainer, submenu, {
+		placement: "bottom-end",
+		middleware: [floatingUI.shift()]
+	}).then(function ({x, y}) {
+		submenu.style.top = `${y}px`,
+		submenu.style.left = `${x}px`
+	})
+}
+
+function showSubmenu() {
+	console.assert(!submenuVisible)
+	console.assert(!submenuCleanup)
+	console.assert(submenu.classList.contains("hidden"))
+	document.querySelector("#submenu").append(submenu)
+	submenu.classList.remove("hidden")
+	submenuCleanup = floatingUI.autoUpdate(submenuContainer, submenu,
+		updateSubmenuPosition)
+	submenuIcon.classList.remove("fa-caret-down")
+	submenuIcon.classList.add("fa-caret-up")
+	submenuVisible = true
+}
+
+function hideSubmenu() {
+	console.assert(submenuVisible)
+	console.assert(submenuCleanup)
+	console.assert(!submenu.classList.contains("hidden"))
+	submenu.classList.add("hidden")
+	submenu.remove()
+	submenuCleanup()
+	submenuCleanup = null
+	submenuIcon.classList.remove("fa-caret-up")
+	submenuIcon.classList.add("fa-caret-down")
+	submenuVisible = false
+}
+
+function toggleSubmenu() {
+	if (submenuVisible)
+		hideSubmenu()
+	else
+		showSubmenu()
+}
+
+window.addEventListener("load", function () {
+	// Hide the submenu if the user clicks anywhere on the page.
+	document.addEventListener("click", function (event) {
+		if (submenu.classList.contains("hidden"))
+			return
+		if (submenuContainer.contains(event.target))
+			return
+		hideSubmenu()
+	})
+	initMenu()
+})
+
+// end menu
+
+
+
+
+
 
 // See the popper doc + https://codepen.io/jsonc/pen/LYbyyaM
 let popperInstance = null
@@ -255,72 +353,6 @@ window.addEventListener("load", function () {
 	localizeDates()
 	prepareTips()
 	displayTOC()
-	document.querySelector("#toggle-menu").addEventListener("click", toggleMenu, false)
 	initDisplays()
 	initFlashing()
-})
-
-// TODO must use sth else than float for mobile
-// put the submenu div in a subdiv within the menu
-
-let floatingUI = window.FloatingUIDOM
-console.assert(floatingUI)
-let submenuCleanup = null
-let floating = null
-
-window.addEventListener("load", function () {
-	let button = document.querySelector("#submenu-button")
-	button.addEventListener("click", function (event) {
-		let button = document.querySelector("#submenu")
-		if (button.classList.contains("hidden"))
-			button.classList.remove("hidden")
-		else
-			button.classList.add("hidden")
-	})
-})
-
-window.addEventListener("loadssss", function () {
-	const reference = document.getElementById("submenu-button")
-	floating = document.getElementById("submenu")
-
-	floating.remove()
-	floating.classList.remove("hidden")
-
-	function updatePosition() {
-		floatingUI.computePosition(reference, floating, {
-			placement: "bottom",
-			middleware: [floatingUI.offset(13), floatingUI.shift()]
-		}).then(function ({x, y}) {
-			Object.assign(floating.style, {
-				top: `${y}px`,
-				left: `${x}px`
-			})
-		})
-	}
-
-	function showSubmenu() {
-		document.body.append(floating)
-		submenuCleanup = floatingUI.autoUpdate(reference, floating, updatePosition)
-	}
-
-	function hideSubmenu() {
-		floating.remove()
-		submenuCleanup()
-		submenuCleanup = null
-	}
-
-	// Hide the submenu if the user clicks anywhere on the page.
-	document.addEventListener("click", function (event) {
-		if (submenuCleanup && !reference.contains(event.target))
-			hideSubmenu()
-	})
-
-	// Show/hide the submenu if the user clicks on the menu button.
-	reference.addEventListener("click", function () {
-		if (submenuCleanup) {
-			hideSubmenu()
-		} else {
-			showSubmenu()
-		}
-	})
 })
