@@ -353,7 +353,7 @@ def patch_links(soup, attr):
 			# Assume this is just a fragment
 			continue
 		if not url.path.startswith("/"):
-			url = url._replace(flask.url_for("display_text", text=url.path))
+			url = url._replace(path=flask.url_for("display_text", text=url.path))
 		if os.getenv("DHARMA_DEBUG"):
 			url = url._replace(scheme="http", netloc="localhost:8023")
 		else:
