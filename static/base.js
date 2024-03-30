@@ -13,6 +13,7 @@ function getCSSVar(name) {
 let menu = null
 let menuIcon = null
 let menuVisible = null
+let menuContainer = null
 
 let submenu = null
 let submenuVisible = null
@@ -24,6 +25,7 @@ function initMenu() {
 	menu = document.querySelector("#menu")
 	menuVisible = !menu.classList.contains("hidden")
 	menuIcon = document.querySelector("#menu-toggle i")
+	menuContainer = document.querySelector("menu")
 	submenu = document.querySelector("#submenu > ul")
 	console.assert(submenu.classList.contains("hidden"))
 	submenuVisible = false
@@ -35,6 +37,7 @@ function initMenu() {
 
 function showMenu() {
 	console.assert(!menuVisible)
+	console.assert(menu.classList.contains("hidden"))
 	menu.classList.remove("hidden")
 	menuIcon.classList.remove("fa-caret-down")
 	menuIcon.classList.add("fa-caret-up")
@@ -43,6 +46,7 @@ function showMenu() {
 
 function hideMenu() {
 	console.assert(menuVisible)
+	console.assert(!menu.classList.contains("hidden"))
 	menu.classList.add("hidden")
 	menuIcon.classList.remove("fa-caret-up")
 	menuIcon.classList.add("fa-caret-down")
@@ -102,11 +106,10 @@ function toggleSubmenu() {
 window.addEventListener("load", function () {
 	// Hide the submenu if the user clicks anywhere on the page.
 	document.addEventListener("click", function (event) {
-		if (submenu.classList.contains("hidden"))
-			return
-		if (submenuContainer.contains(event.target))
-			return
-		hideSubmenu()
+		if (menuVisible && !menuContainer.contains(event.target))
+			hideMenu()
+		if (submenuVisible && !submenuContainer.contains(event.target))
+			hideSubmenu()
 	})
 	initMenu()
 })
