@@ -18,15 +18,40 @@
 <div id="contents">
 <header>
    <menu>
-      <li class="toggle" id="toggle-menu"><a><i class="fa-solid fa-bars"></i></a></li>
-      <li class="logo"><a href="/">DHARMA</a></li>
-      <li class="toggle" id="toggle-toc"><a><i class="fa-solid fa-table-list"></i></a></li>
-      <li class="item"><a href="/repositories"><i class="fa-brands fa-git-alt"></i> Repositories</a></li>
-      <li class="item"><a href="{{url_for("show_catalog")}}"><i class="fa-regular fa-file-lines"></i> Texts</a></li>
-      <li class="item"><a href="{{url_for("show_editorial_conventions")}}">Editorial Conventions</a></li>
-      <li class="item"><a href="/parallels"><i class="fa-solid fa-grip-lines-vertical"></i>
-      Parallels</a></li>
-      <li class="item" id="submenu-button"><a>Project Internal <i class="fa-solid fa-caret-down"></i></a></li>
+<a href="/">DHARMA</a>
+<a id="menu-toggle"><i class="fa-solid fa-caret-down fa-fw"></i></a>
+<ul id="menu" class="hidden">
+   <li>
+      <a href="/repositories">
+      <i class="fa-brands fa-git-alt"></i> Repositories</a>
+   </li>
+   <li>
+      <a href="{{url_for("show_catalog")}}">
+      <i class="fa-regular fa-file-lines"></i> Texts</a>
+   </li>
+   <li><a href="/editorial-conventions">Editorial Conventions</a></li>
+   <li>
+      <a href="/parallels">
+      <i class="fa-solid fa-grip-lines-vertical"></i> Parallels</a>
+   </li>
+   <li id="submenu" class="submenu">
+      <a>Project Internal <i class="fa-solid fa-caret-down"></i></a>
+      <ul class="hidden">
+         <li>
+            <a href="{{url_for('show_texts_errors')}}">
+            <i class="fa-solid fa-bug"></i> Errors</a>
+         </li>
+         <li>
+            <a href="/documentation">
+            <i class="fa-regular fa-circle-question"></i>
+            Technical Documentation</a>
+         </li>
+         <li>
+            <a href="{{url_for('display_list')}}">Display List</a>
+         </li>
+      </ul>
+   </li>
+</ul>
    </menu>
 </header>
 <aside>
@@ -51,22 +76,6 @@ Untitled
 <div id="tip-box">
    <div id="tip-contents"></div>
    <div id="tip-arrow" data-popper-arrow></div>
-</div>
-<div id="submenu" class="hidden">
-<ul>
-<li class="item">
-   <a href="{{url_for('show_texts_errors')}}"><i class="fa-solid fa-bug"></i> Errors</a>
-</li>
-<li class="item">
-   <a href="/documentation">
-   <i class="fa-regular fa-circle-question"></i>
-   Technical Documentation
-   </a>
-</li>
-<li class="item">
-   <a href="{{url_for('display_list')}}">Display List</a>
-</li>
-</ul>
 </div>
 </body>
 </html>

@@ -4,6 +4,8 @@
 	--flash-duration: 2s;
 	--menu-background: #323142;
 	--menu-foreground: white;
+	--menu-hover: gray;
+	--menu-height: 2.6em;
 }
 
 .toc-heading {
@@ -191,78 +193,144 @@ form ul {
 
 
 
-/* Menu; see
-   https://webdesign.tutsplus.com/how-to-build-a-responsive-navigation-bar-with-flexbox--cms-33535t
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/******************************** Begin menu **********************************/
+
+/* I used:
+ * https://codepen.io/alvarotrigo/pen/MWEJEWG
+ * https://webdesign.tutsplus.com/how-to-build-a-responsive-navigation-bar-with-flexbox--cms-33535t
  */
 
 header {
 	position: sticky;
 	top: 0;
+	left: 0;
 }
 menu {
 	display: flex;
-	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0.7em 1em;
+	padding: 0 0.7em;
 	margin: 0;
-	background-color: var(--menu-background);
-	list-style: none;
+	background: var(--menu-background);
+	color: var(--menu-foreground);
+	height: var(--menu-height);
 	font-size: larger;
-	row-gap: 0.5em;
+}
+menu ul {
+	list-style: none;
+}
+menu li {
+	padding: 0.3em 0.7em;
 }
 menu a {
-	color: var(--menu-foreground);
-	text-decoration: none;
+	color: inherit;
 	padding: 0.2em 0.5em;
-}
-menu a:hover {
-	background-color: gray;
+	display: block;
+	cursor: pointer;
 	border-radius: var(--border-radius);
 }
-.menu-active .item {
-	display: block;
+menu a:hover {
+	background: var(--menu-hover);
 }
-.item {
-	width: 100%;
-	text-align: left;
+#menu {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: var(--menu-height);
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	padding: 0;
+	width: 100%; /* Force it to be on its own row */
+	background: inherit;
+}
+.submenu > ul {
+	padding-left: 0.5em;
+}
+
+/* Desktop display */
+
+@media all and (min-width: 1100px) {
+
+#contents {
+	grid-template-rows: auto 1fr auto;
+	grid-template-columns: 25% 75%;
+	grid-template-areas:
+		'header header'
+		'sidebar main'
+		'footer footer';
+}
+header {
+	position: static;
+}
+aside {
+	display: block;
+	position: sticky;
+	top: 0;
+	max-height: 100vh;
+	overflow-y: auto;
+}
+#menu-toggle {
 	display: none;
 }
-
-/* Desktop display  */
-@media all and (min-width: 960px) {
-	#contents {
-		grid-template-rows: auto 1fr auto;
-		grid-template-columns: 25% 75%;
-		grid-template-areas:
-			'header header'
-			'sidebar main'
-			'footer footer';
-	}
-	header {
-		position: relative;
-	}
-	menu {
-		align-items: flex-start;
-		flex-wrap: nowrap;
-	}
-	.item {
-		display: block;
-		width: auto;
-	}
-	.toggle {
-		display: none;
-	}
-	aside {
-		display: block;
-		position: sticky;
-		top: 0;
-		max-height: 100vh;
-		overflow-y: auto;
-	}
+menu ul {
+	margin: 0;
+}
+#menu {
+	display: flex;
+	position: static;
+	width: auto;
+	margin: 0;
+}
+.submenu > ul {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding-left: 0;
+	background: var(--menu-background);
+	border-bottom-left-radius: var(--border-radius);
+	border-bottom-right-radius: var(--border-radius);
 }
 
-/* End menu */
+}
+
+/******************************* End menu *************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media print {
 	/* For printing, hide useless stuff. */
@@ -632,54 +700,6 @@ div.pagelike {
 }
 
 
-
-
-
-
-
-#submenu-button {
-	cursor: pointer;
-}
-#submenu {
-	position: absolute;
-	background: gray;
-	color: var(--menu-foreground);
-	/* Avoid layout interference */
-	width: max-content;
-	top: 0;
-	left: 0;
-}
-#submenu ul {
-	padding: 0;
-	margin: 0;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	align-items: flex-start;
-}
-#submenu li {
-	width: 100%;
-}
-#submenu {
-	margin: 0;
-	background-color: var(--menu-background);
-	font-size: larger;
-	border-bottom-left-radius: var(--border-radius);
-	border-bottom-right-radius: var(--border-radius);
-}
-#submenu a {
-	color: var(--menu-foreground);
-	text-decoration: none;
-	display: block;
-	padding: 0.3em 0.7em;
-}
-#submenu li:hover {
-	background-color: gray;
-	border-radius: var(--border-radius);
-}
-
-
 .notes ol {
 	list-style: none;
 	padding-left: 0;
@@ -691,5 +711,13 @@ div.pagelike {
 	display: inline-block;
 	min-width: 1em;
 }
+
+
+
+
+
+
+
+
 
 
