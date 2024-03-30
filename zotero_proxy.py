@@ -1,7 +1,8 @@
-import time
-from urllib.parse import urlparse
+import os, time, sys
+from urllib.parse import urlparse, parse_qs, urlencode
 import flask # pip install flask
 import requests # pip install requests
+from dharma import config
 
 app = flask.Flask(__name__)
 
@@ -24,9 +25,7 @@ def next_request_delay(r):
 
 MY_API_KEY = "ojTBU4SxEQ4L0OqUhFVyImjq"
 
-@app.get("/groups/1633743/items")
-def reply():
-	url = urlparse(flask.request.url)
+def do_reply(url):
 	url = url._replace(scheme="https", netloc="api.zotero.org")
 	url = url.geturl()
 	s = requests.Session()
@@ -44,6 +43,33 @@ def reply():
 			wait = 5
 		time.sleep(wait)
 	raise Exception(repr((r.headers, r.text)))
+
+@app.get("/groups/1633743/items")
+def reply():
+	url = urlparse(flask.request.url)
+	return do_reply(url)
+
+@config.transaction("texts")
+@app.get("/extra")
+def by_short_title():
+	short_title = flask.request.args["shortTitle"]
+	db = config.db("texts")
+	db.execute("begin")
+	(key,) = db.execute("select key from biblio_data where short_title = ?",
+		(short_title,)).fetchone() or (None,)
+	db.execute("end")
+	url = urlparse(flask.request.url)
+	params = parse_qs(url.query)
+	del params["shortTitle"]
+	assert not params.get("itemKey")
+	if key:
+		params["itemKey"] = key
+	else:
+		params["tag"] = "zpefiuhzçéé This won't match é)ç'çxhqaàçè-à)"
+	params = urlencode(params, doseq=True)
+	url = url._replace(path="/groups/1633743/items", query=params)
+	print(url.geturl(), file=sys.stderr)
+	return do_reply(url)
 
 if __name__ == "__main__":
 	app.run(host="localhost", port=8024, debug=True)
