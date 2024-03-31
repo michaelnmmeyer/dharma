@@ -414,8 +414,6 @@ class Tag(Branch):
 	def __repr__(self):
 		ret = "<%s" % self.name
 		for k, v in sorted(self.attrs.items()):
-			if isinstance(v, tuple):
-				v = "-".join(v)
 			ret += ' %s="%s"' % (k, quote_attribute(v))
 		ret += ">"
 		return ret
@@ -499,8 +497,6 @@ class Tag(Branch):
 		buf = ["<%s" % name]
 		# for now, don't sort attrs for normalization
 		for k, v in self.attrs.items():
-			if isinstance(v, tuple):
-				v = "-".join(v)
 			buf.append(' %s="%s"' % (k, quote_attribute(v)))
 		if len(self) == 0:
 			buf.append("/>")
@@ -736,12 +732,74 @@ colors = {
 	"attr-value": "#5500ff",
 }
 
+def space_before_opening(node):
+	assert node.type == "tag"
+	parent = node.parent
+	if not parent:
+		return False
+	i = parent.index(node) - 1
+	while i >= 0:
+		if parent[i].type == "string":
+			if parent[i].rstrip() != parent[i]:
+				return True
+			if parent[i] != "":
+				return False
+		elif parent[i].type not in ("comment", "instruction"):
+			return False
+		i -= 1
+	return False
+
+def space_after_opening(node):
+	assert node.type == "tag"
+	i = 0
+	while i < len(node):
+		if node[i].type == "string":
+			if node[i].lstrip() != node[i]:
+				return True
+			if node[i] != "":
+				return False
+		elif node[i].type not in ("comment", "instruction"):
+			return False
+		i += 1
+	return False
+
+def space_before_closing(node):
+	assert node.type == "tag"
+	i = len(node)
+	while i > 0:
+		i -= 1
+		if node[i].type == "string":
+			if node[i].rstrip() != node[i]:
+				return True
+			if node[i] != "":
+				return False
+		elif node[i].type not in ("comment", "instruction"):
+			return False
+	return False
+
+def space_after_closing(node):
+	assert node.type == "tag"
+	parent = node.parent
+	if not parent:
+		return False
+	i = parent.index(node) + 1
+	while i < len(parent):
+		if parent[i].type == "string":
+			if parent[i].lstrip() != parent[i]:
+				return True
+			if parent[i] != "":
+				return False
+		elif parent[i].type not in ("comment", "instruction"):
+			return False
+		i += 1
+	return False
+
+
 class Formatter:
 
-	indent_string = 2 * " "
-	max_width = 80 ** 10 # soft, not hard
-
-	def __init__(self, html=True, pretty=True, strip_comments=True, color=False):
+	def __init__(self, html=True, pretty=True, strip_comments=True,
+		color=False, max_width=80 ** 10, indent_string=2 * " "):
+		# max_width is soft, not hard.
 		self.indent = 0
 		self.offset = 0
 		self.buf = io.StringIO()
@@ -749,6 +807,8 @@ class Formatter:
 		self.pretty = pretty
 		self.strip_comments = strip_comments
 		self.color = color
+		self.max_width = max_width
+		self.indent_string = indent_string
 
 	def format(self, node):
 		if node.type == "tree":
@@ -766,6 +826,8 @@ class Formatter:
 
 	def format_tree(self, node):
 		self.write('<?xml version="1.0" encoding="UTF-8"?>', klass="instruction")
+		if self.pretty:
+			self.write("\n")
 		for child in node:
 			self.format(child)
 
@@ -775,9 +837,9 @@ class Formatter:
 			self.write("\n")
 
 	def format_comment(self, node):
-		node = node.data
 		if self.strip_comments:
 			return
+		node = node.data
 		if not self.pretty:
 			self.write(f"<!--{node}-->", klass="comment")
 			return
@@ -807,52 +869,60 @@ class Formatter:
 				self.write(" ")
 			self.write(quote_string(token))
 
-	def format_tag(self, node):
+	def format_opening_tag(self, node):
 		self.write("<", klass="tag")
-		self.write("%s" % node.name, klass="tag")
+		self.write(node.name, klass="tag")
 		attrs = node.attrs.items()
 		if self.pretty:
+			# TODO might want to sort tags in different ways,
+			# depending on the tag name, for readability and to
+			# follow people's habits
 			attrs = sorted(attrs)
 		for k, v in attrs:
 			if k in ("lang", "space", "base", "id"):
 				k = f"xml:{k}" # HACK
-			if isinstance(v, tuple):
-				v = "-".join(v)
 			self.write(" ")
 			self.write("%s" % k, klass="attr-name")
 			self.write("=")
 			self.write('"%s"' % quote_attribute(v), klass="attr-value")
-		if len(node) == 0:
+		if len(node) == 0: # might also have non-consodilated nodes XXX
 			self.write("/>", klass="tag")
 		else:
 			self.write(">", klass="tag")
-			brk = False
-			if self.pretty:
-				if node[0].type == "string" and len(node[0].data) > 0 and node[0].data[0].isspace():
-					self.write("\n")
-					brk = True
-				if brk:
-					self.indent += 1
-				for child in node:
-					self.format(child)
-				if brk:
-					self.indent -= 1
-			else:
-				for child in node:
-					self.format(child)
-			self.write("</", klass="tag")
-			self.write("%s" % node.name, klass="tag")
-			self.write(">", klass="tag")
-		if not self.pretty:
+
+	def format_closing_tag(self, node):
+		if len(node) == 0:
 			return
-		if node.parent:
-			i = node.parent.index(node) + 1
-			if i >= len(node.parent):
-				return
-			next = node.parent[i]
-			if next.type != "string" or len(next.data) < 1 or not next.data[0].isspace():
-				return
-		self.write("\n")
+		self.write("</", klass="tag")
+		self.write("%s" % node.name, klass="tag")
+		self.write(">", klass="tag")
+
+	def format_tag(self, node):
+		if not self.pretty:
+			self.format_opening_tag(node)
+			for child in node:
+				self.format(child)
+			self.format_closing_tag(node)
+			return
+		if space_before_opening(node) and not self.wrote_space():
+			if space_after_opening(node) and space_before_closing(node):
+				self.write("\n")
+			else:
+				self.write("\n")
+		self.format_opening_tag(node)
+		if space_after_opening(node) and space_before_closing(node):
+			self.write("\n")
+			self.indent += 1
+			for child in node:
+				self.format(child)
+			self.indent -= 1
+			self.write("\n")
+		else:
+			self.indent += 1
+			for child in node:
+				self.format(child)
+			self.indent -= 1
+		self.format_closing_tag(node)
 
 	def write(self, text, klass=None):
 		if klass:
@@ -867,8 +937,8 @@ class Formatter:
 				self.offset = 0
 			else:
 				if self.offset == 0:
-					self.buf.write(self.indent_string * max(0, self.indent))
-					self.offset += len(self.indent_string) * max(0, self.indent)
+					self.offset += self.buf.write(
+						self.indent_string * self.indent)
 				if self.html:
 					self.buf.write(quote_string(text))
 				else:
@@ -876,13 +946,18 @@ class Formatter:
 				self.offset += len(text)
 		else:
 			if self.html:
-				text = quote_string(text)
-			self.buf.write(text)
+				self.buf.write(quote_string(text))
+			else:
+				self.buf.write(text)
+			self.offset += len(text)
 		if klass:
 			if self.html:
 				self.buf.write("</span>")
 			elif self.color:
 				self.buf.write(term_color())
+
+	def wrote_space(self):
+		return self.buf.getvalue()[-1].isspace()
 
 	def text(self):
 		return self.buf.getvalue()
@@ -914,7 +989,7 @@ if __name__ == "__main__":
 		exit()
 	try:
 		tree = parse(sys.argv[1])
-		fmt = Formatter(pretty=True, html=False, color=True)
+		fmt = Formatter(pretty=False, html=False, color=True)
 		fmt.format(tree)
 		sys.stdout.write(fmt.text())
 	except (BrokenPipeError, KeyboardInterrupt):

@@ -555,6 +555,10 @@ class Document:
 		self.editors = []
 		self.editors_ids = []
 
+	def plain_text(self, *args, **kwargs):
+		renderer = PlainRenderer(*args, **kwargs)
+		return renderer.render(self)
+
 
 class PlainRenderer:
 
@@ -704,10 +708,12 @@ class PlainRenderer:
 					self.add(" ")
 			elif data == ">line":
 				pass
-			elif data == "=page":
+			elif data == "{page":
 				if self.strip_physical and not params["brk"]:
 					return
 				self.add('(Page %s)' % params["n"])
+			elif data == "}page":
+				pass
 			elif data.startswith("=") and params["type"] == "pagelike":
 				if self.strip_physical:
 					return
