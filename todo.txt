@@ -1,5 +1,4 @@
-Add something to rebuild the database and deploy automatically when we make changes to the
-schema and that restarts the server and changepy.
+## FS access
 
 in server add stuff to ensure we don't try to access repos/, all accesses to
 repos should go through the db. could also run the process without write perms
@@ -10,93 +9,9 @@ shouldn't use immediate opens. use:
   fetch_file_from_fs(repo, name)
   fetch_file_from_db(repo, name)
 
-would be convenient to have position-independent files, viz. assume file
-basenames are unique AND also extension-independent files to allow people to
-move files around.
-
-should always show the most recent file when we have duplicates. and add an error message on the displayed inscriptions that tells the file is not unique and that provides a way to
-see the other files. no, should show the most ancient file,
-
-deal with rendition and xml:lang, which must cover the whole text in div type edition.
-must be dealt with in tree.py
-
-deal with uniqueness of phys elements
-
-=====
-
-
 maybe just patch the open func as a primary check to verify that we don't
 open files for no reason? not sufficient, plenty of ways we might access the fs.
 should have a flag in the File obj
-
-
-=====
-
-for https://github.com/erc-dharma/project-documentation/issues/266#issue-2207593274
-
-don't use href in in-page links, it's confusing; use data-href instead; and this
-would allow us to distinguish page-internal links from the others.
-
-
-# https://serverfault.com/questions/636790/nginx-log-complete-request-response-with-all-headers
-Should also store a local copy of files we fetch from the web, in a cache. this
-cache would be written to only by change.py, when orocessing files.
-
-
-
-update popperjs
-read the tuto. figure out how to reprod tooltip functionality.
-
-XXX find some way to report non unique files ; could use an intermediate table
-that stores duplicates, like for zotero; for duplicate files in the same repo,
-we are sure there is a problem and we can complain early on while processing the
-repo itself (to whom, however?); but if the files are in distinct repos, we
-cannot tell whether the file is being moved or anything, because there is no
-global commit across all repos and the order of operations is not guaranteed.
-
-in any case, we must preserve the fact that a given ident always corresponds to
-exactly one elem; so if we have a duplicate ident, do not use this
-duplicate ident, instead generate new ones and delete these when appropriate.
-
-XXX we must do NFC normalization at some point; when? not before storing the
-file in the db (might need the original later on for e.g. hashing), we can
-either do normalization on-the-fly or store a copy of the normalized text in
-documents.
-
-BUG xml.pretty removes spaces it shouldn't
-
-Run the website with a debug interface always, copy the whole raw request
-somewhere (secondary db?), and do that in python without buffering, so that we
-can track issues
-
-== manu
-
-Pallava469 : avoir point dans book display après maison d'édition. biblio
-entrée donner les nums de page de l'entrée. Tout ça à confirmer, trouver
-format approprié.
-
-FIX <p><ul></ul></p> not allowed in HTML5, fix that by using a <div> instead of
-<p>, or, better pop and reopen <p> elements when needed when compiling
-stuff.
-
-===
-
-
-
-shouldn't store separately the app from all the data files, because we need the
-data files to be present to do anything with the db. the app code is useless
-on its own. add projdoc as a submodule? can we still do a git pull in the app
-repo without having git complain that the repo has been modified?
-everything should be in the same repo. maybe use a reload command that reloads
-data files _but not the code_?
-
-in fact we have 2 build levels: fetch files from the fs, and parse the
-documents. should do the minimum whenever possible.
-
-for now, when processing docs, store both the commit of the app and the commit
-of projdoc. but first actually put the schemas + html into projdoc
-
-===
 
 do not reopen the same text file several times, only read it a single time and
 do not access the external file once stored in the db, because it might disappear
@@ -109,49 +24,113 @@ we have for File() in validate.py, and put it in texts.py
 FILE ABSTRACTION object (copy go stuff)
 should have File class + a MemFile that overrides the relevant methods
 
-===
 
-think about decorator to add for logging activity automatically for important
-funcs; also might add a timer to these functions, so that we have "starting X"
-"X completed in ...".
+## Refactoring
 
-find a way to signal duplicate files and duplicate bib entries and errors in
-projdoc.
+open/close read transactions automatically for each server request; won't cost
+much and is simpler to maintain.
+
+# https://serverfault.com/questions/636790/nginx-log-complete-request-response-with-all-headers
+Should also store a local copy of files we fetch from the web (e.g. the iso 639
+data), in a cache, wihtin the dame db. this cache would be written to only by
+change.py, when processing files.
+
+XXX we must do NFC normalization at some point; when? not before storing the
+file in the db (might need the original later on for e.g. hashing), we can
+either do normalization on-the-fly or store a copy of the normalized text in
+documents.
+
+shouldn't store separately the app from all the data files, because we need the
+data files to be present to do anything with the db. the app code is useless
+on its own. add projdoc as a submodule? can we still do a git pull in the app
+repo without having git complain that the repo has been modified?
+everything should be in the same repo. maybe use a reload command that reloads
+data files _but not the code_?
+
+in fact we have 2 build levels: fetch files from the fs, and parse the
+documents. should do the minimum whenever possible.
+
+
+## Validation
+
+Script maturity is for use only with the class "Brahmi and derivatives" (and
+its subcategories); for any other script classes it is not optional but
+"forbidden". For Brahmi, it is mandatory. Amend rules accordingly.
+
+deal with uniqueness of phys elements:
+* pb and pagelike milestones must have unique @n in the whole div/edition
+
+Check for multiple uses of the same bib entry as in https://dharman.in/display/DHARMA_INSBengalCharters00050#bibliography (disallow?)
 
 actually use dharma.rng, only in /texts for now, afterwards distribute it;
 
-add somewhere a date indicating when we
-last updated the validation code (project-doc); but first need to deploy
-schemas outside of my rtepo
 
-do a redirect /foo/ -> /foo in nginx _but_ watch out with the /zotero-proxy
+## Display
+
+deal with rendition and xml:lang, which must cover the whole text in div type edition.
+must be dealt with in tree.py
+
+manu: In physical display, do not display editorial hyphens, but do show them
+in logical display. For this to work, need to tag languages. XXX
+hyphens between words? or at the end fo a line?
+
+FIX <p><ul></ul></p> not allowed in HTML5, fix that by using a <div> instead of
+<p>, or, better pop and reopen <p> elements when needed when compiling
 stuff.
 
-== refs
+manu: grantha translit with button several states translit methods
 
-note invalid local uris with @ref, color in red or sth. but we should resolve
-links later on!
+* fix incorrect verse numbers that should be in Roman in DHARMA_INSCIC00066
+  https://dharmalekha.info/texts/DHARMA_INSCIC00066#translation-1
 
-§ "Referring to inscriptions in the DHARMABase"
-for ref @target, must not use @n and must use normalized urls; propose:
+* Sort out languages tagging; assign language categories (lang of
+  the ed. or of the rest, main or secondary lang; probably not
+  useful to keep track of <foreign>)
 
-  /corpus/DHARMA_INSSomething
-  /repositories/tfd-nusantara-philology
-  /participants/argr (= part:argr (participant))
-
-but oxygen suggests for @target all files in the same dir as the one being
-edited, must change that as well
-
-=== manu
+add tooltip for expan in <abbr><expan> in phys disp; but need to know how to do
+that
 
 div rendition="class:38768 maturity:83213" (grantha) à mettre en gras pas seulement hi rend=grantha ; pour SII0501358
 idem pour <lg rendition=...> dans Tiruvavatuturai01
 
-think about parallel display of edition & translation
+don't think we are formarring abbr/expan as supposed
 
-====
 
-fix all XXX | FIXME
+## Problems with @n.
+
+The repetitive scheme is not clear and unpredictable. Should have a clearer
+convention.
+
+
+## XML display
+
+Put the tab button somewhere else.
+
+* Need to have a pretty-print func that preserves space and
+  doesn't add unnecessary space.
+* Also add line numbers
+* Style the thing with a color for comments and tags, maybe different colors
+  for milestones and logical elements.
+* Add error messages with popups in the XML.
+
+
+## Website
+
+stop using tables in website, annoying to style and sucks on mobile. use cards
+instead. and they should be convertible to tables if we have enough space.
+
+Parse urls and make them clickable.
+
+for https://github.com/erc-dharma/project-documentation/issues/266#issue-2207593274
+don't use href in in-page links, it's confusing; use data-href instead; and this
+would allow us to distinguish page-internal links from the others.
+
+when a file is completely invalid, show the raw xml in the displqay (not pretty-printed).
+
+update popperjs. read the tuto. figure out how to reprod tooltip functionality.
+
+do a redirect /foo/ -> /foo in nginx _but_ watch out with the /zotero-proxy
+stuff.
 
 cumulative timeout for flashing https://developer.mozilla.org/fr/docs/Web/API/setTimeout
 
@@ -168,126 +147,7 @@ urls to detect issues; submit URLs like so:
 
   https://validator.w3.org/nu/?out=json&doc=$URL
 
-Check for multiple uses of the same bib entry as in https://dharman.in/display/DHARMA_INSBengalCharters00050#bibliography (disallow?)
-
-Work on parse and find a protocol for correcting files. Would probably be best
-to do the parsing and correcting in the same spot, for easier maintenance, but
-should not do this on the same tree.
-
-Print somewhere which git names we don't have, auto-update it.
-
-
 Add a "status" search field to catalog to filter by error status.
-
-add tooltip for expan in <abbr><expan> in phys disp; but need to know how to do
-that
-
-merge parse.py and parse_ins.py
-
-===
-
-make biblio searchable
-
-  cited:true
-  from-editor:
-  from-repo:
-  ...
-
-allow click to make tips persistent on PC (already automatic on phone) so that
-we can select and copy-paste footnotes' contents.
-
-populate aside menu on phone
-
-when flashing entries in the global biblio, the flashed entry is below the bar on mobile.
-XXX still so?
-
-Script maturity is for use only with the class "Brahmi and derivatives" (and
-its subcategories); for any other script classes it is not optional but
-"forbidden". For Brahmi, it is mandatory. Amend rules accordingly.
-
-* fix incorrect verse numbers that should be in Roman in DHARMA_INSCIC00066
-
-* Sort out languages tagging; assign language categories (lang of
-  the ed. or of the rest, main or secondary lang; probably not
-  useful to keep track of <foreign>)
-
---------------------------------------------------------- manu
-
-
-
-manu: In physical display, do not display editorial hyphens, but do show them
-  in logical display. For this to work, need to tag languages. XXX
-  hyphens between words? or at the end fo a line?
-
-
-
-manu: grantha translit with button several states translit methods
-
------------------------------------------------------------
-
-Display remainder of teiheader. What needs to be shown?
-
-/TEI/teiHeader/fileDesc/publicationStmt
-   ./pubPlace (ignore the rest)
-
-/TEI/teiHeader/fileDesc/publicationStmt
-
-/TEI/teiHeader/fileDesc/sourceDesc
-
-===========================================================
-
-# Testing
-
-check that the new change.py works
-check that zotero syncing works
-
-Must add tests for this, with dummy repos
-
-Also create a few test files for checking display is working
-
-XXX make sure we complain when file names are not unique across all repos
-
-
----------------------------------------------------------global
-
-
-Problems with @n.
-* We should restrict the number of containers where numbers should be unique to
-just divs and lgs + maybe a special case for p that contains @n + paras
-(Andrea). Also need to discuss Andrea's case.
-* There should be no distinction of namespace for different types of
-milestones.
-* The repetitive scheme is not clear and unpredictable. Should have a clearer
-convention.
-
-------------------------------------------------------------------
-
-# XML display
-
-Put the tab button somewhere else.
-
-* Need to have a pretty-print func that preserves space and
-  doesn't add unnecessary space.
-* Also add line numbers
-* Style the thing with a color for comments and tags, maybe different colors
-  for milestones and logical elements.
-* Add error messages with popups in the XML.
-
-------------------------------------------------------------------
-
-stop using tables in website, annoying to style. use cards instead. and they
-should be convertible to tables if we have enough space.
-
-for rng: rng2srng-20020831
-
-note that we can link to a span of text on github by adding sth like
-#L8C23-L14C34 at the end; but doesn't work with just #L8C23.
-
-
-
-
-Parse urls and make them clickable
-
 
 
 # Tamil
@@ -311,9 +171,23 @@ passages, allow overlaps viz. "foo"f"fo" match "foo". Or not? require the
 matched strings to occur in the same order? In fact having a second field for
 filtering seems better.
 
-This should be linked to the catalog search features.
+This should be linked to the catalog search features, but we must first
+integrate with the main db.
 
-==
 
-amandine: material + date + place
-numérotation
+## Report problems with duplicate idents
+
+would be convenient to have position-independent files, viz. assume file
+basenames are unique AND also extension-independent files to allow people to
+move files around.
+
+find some way to report non unique files ; could use an intermediate table
+that stores duplicates, like for zotero; for duplicate files in the same repo,
+we are sure there is a problem and we can complain early on while processing the
+repo itself (to whom, however?); but if the files are in distinct repos, we
+cannot tell whether the file is being moved or anything, because there is no
+global commit across all repos and the order of operations is not guaranteed.
+
+in any case, we must preserve the fact that a given ident always corresponds to
+exactly one elem; so if we have a duplicate ident, do not use this
+duplicate ident, instead generate new ones and delete these when appropriate.

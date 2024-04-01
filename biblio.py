@@ -92,7 +92,7 @@ def update():
 	assert len(ret) == 1
 	db.execute("update metadata set value = ? where key = 'biblio_latest_version'", tuple(ret))
 	# For now, use brute force for generating sort keys. But we only need
-	# to do that when the code changes.
+	# to do that when the code that generates the sort key changes.
 	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
 		rec = config.from_json(rec)
 		db.execute("update biblio_data set sort_key = ? where key = ?", (sort_key(rec), key))
@@ -1006,8 +1006,7 @@ def fix_value(s):
 	s = html.unescape(s)
 	s = unicodedata.normalize("NFC", s)
 	# XXX tell people not to use HTML entities.
-	# XXX can't replace & with &amp; in <a href="..."/>
-	# XXX shouldn't replace &lt; and instead of &gt;
+	# XXX shouldn't replace &lt; and &gt;
 	s = s.replace("&", "&amp;")
 	try:
 		s = tree.parse_string("<X>%s</X>" % s)
