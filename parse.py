@@ -314,8 +314,6 @@ def milestone_break(node):
 		brk = "yes"
 	return brk == "yes"
 
-milestone_units = "block column face faces fragment item segment zone".split()
-
 def milestone_unit_type(milestone):
 	unit = milestone["unit"] or "column"
 	typ = milestone["type"]
