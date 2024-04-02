@@ -2354,8 +2354,8 @@
                 <elementSpec ident="fw" module="transcr" mode="change">
                     <constraintSpec scheme="schematron" ident="fw-after-pb">
                         <constraint><sch:rule context="tei:fw"><sch:report
-                                    test="not(preceding-sibling::tei:pb[1])"> The element fw must
-                                    always be preceded by the element pb.
+                            test="not(preceding-sibling::tei:pb[1] or preceding-sibling::tei:fw[1])"> The element fw must
+                                    always be preceded by the element pb or by the element fw.
                                 </sch:report></sch:rule></constraint>
                     </constraintSpec>
                     <attList>
@@ -2387,6 +2387,7 @@
                             </datatype>
                         </attDef>
                         <attDef ident="place" mode="change" usage="req">
+                            <defaultVal>top</defaultVal>
                             <valList type="closed" mode="replace">
                                 <valItem ident="top-left"/>
                                 <valItem ident="top"/>

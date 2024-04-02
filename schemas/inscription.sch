@@ -1679,14 +1679,14 @@ attributes @target and @cRef may be supplied on <xsl:text/>
    <xsl:template match="tei:fw" priority="1000" mode="M37">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:fw"/>
       <!--REPORT -->
-      <xsl:if test="not(preceding-sibling::tei:pb[1])">
+      <xsl:if test="not(preceding-sibling::tei:pb[1] or preceding-sibling::tei:fw[1])">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="not(preceding-sibling::tei:pb[1])">
+                                 test="not(preceding-sibling::tei:pb[1] or preceding-sibling::tei:fw[1])">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
             <svrl:text> The element fw must
-                                    always be preceded by the element pb.
+                                    always be preceded by the element pb or by the element fw.
                                 </svrl:text>
          </svrl:successful-report>
       </xsl:if>
