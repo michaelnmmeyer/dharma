@@ -670,6 +670,7 @@ def parse_gap(p, gap):
 
 def parse_g_numeral(p, node):
 	assert node["type"] == "numeral"
+	# XXX if we have a fraction, should format it
 	m = re.match(r"([0-9]+)/([0-9]+)", node.text())
 	if not m:
 		# No special formatting
@@ -682,10 +683,12 @@ def parse_g(p, node):
 	# <g type="...">.</g> for punctuation marks
 	# <g type="...">§</g> for space fillers
 	# <g type="..."></g> in the other cases viz. for symbols whose functions is unclear
-	# The guide talks about subtype, but
+	# The guide talks about subtype, but we don't allow it for now.
 	t = node["type"] or "symbol"
+	# Quirk with @subtype, shouldn't have to do this
+	if t == "symbol" and node["subtype"]:
+		t = node["subtype"]
 	if t == "numeral":
-		# XXX if we have a fraction, format it
 		return parse_g_numeral(p, node)
 	text = node.text()
 	if text == ".":
@@ -694,13 +697,12 @@ def parse_g(p, node):
 		cat = "space-filler"
 	else:
 		cat = "unclear"
-	st = node["subtype"]
-	if t == "symbol" and st: # quirk, shouldn't have to do this
-		t = st
 	p.document.gaiji.add(t)
 	info = gaiji.get(t)
-	tip = titlecase(info["description"])
-	tip = "%s (category: %s)" % (tip, cat)
+	tip = f"symbol: {info["description"]}"
+	if cat != "unclear":
+		tip = f"{cat} {tip}"
+	tip = titlecase(tip)
 	if info["text"]:
 		p.start_span(klass="symbol", tip=tip)
 		p.add_html(html.escape(info["text"]), plain=True)
