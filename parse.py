@@ -559,11 +559,11 @@ def parse_term(p, node):
 
 
 
-def titlecase(s):
+def titlecase(s): # XXX just a capital to the first letter, should rename the func to "sentence"
 	if not s:
 		return ""
 	t = s.split(None, 1)
-	t[0] = t[0].title()
+	t[0] = t[0].capitalize()
 	return " ".join(t)
 
 # TODO more styling
@@ -670,7 +670,6 @@ def parse_gap(p, gap):
 
 def parse_g_numeral(p, node):
 	assert node["type"] == "numeral"
-	# XXX if we have a fraction, should format it
 	m = re.match(r"([0-9]+)/([0-9]+)", node.text())
 	if not m:
 		# No special formatting
@@ -680,8 +679,8 @@ def parse_g_numeral(p, node):
 	p.add_html(f"<sup>{num}</sup>\N{fraction slash}<sub>{den}</sub>")
 
 def parse_g(p, node):
-	# <g type="...">.</g> for punctuation marks
-	# <g type="...">§</g> for space fillers
+	# <g type="...">\.</g> for punctuation marks
+	# <g type="...">§+</g> for space fillers
 	# <g type="..."></g> in the other cases viz. for symbols whose functions is unclear
 	# The guide talks about subtype, but we don't allow it for now.
 	t = node["type"] or "symbol"
