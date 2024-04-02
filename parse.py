@@ -693,13 +693,13 @@ def parse_g(p, node):
 	text = node.text()
 	if text == ".":
 		cat = "punctuation"
-	elif text == "§":
+	elif text.startswith("§"):
 		cat = "space-filler"
 	else:
 		cat = "unclear"
 	p.document.gaiji.add(t)
 	info = gaiji.get(t)
-	tip = f"symbol: {info["description"]}"
+	tip = f"symbol: {info['description']}"
 	if cat != "unclear":
 		tip = f"{cat} {tip}"
 	tip = titlecase(tip)
