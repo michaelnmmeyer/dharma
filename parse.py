@@ -183,8 +183,15 @@ def parse_listApp(p, listApp):
 	p.add_log(">para")
 
 def parse_num(p, num):
-	# for now we don't deal with @value, @atLeast and @atMost
-	p.dispatch_children(num)
+	# TODO for now we don't deal with @atLeast and @atMost
+	if num["value"] and num.text() != num["value"]:
+		p.start_span(klass="num", tip=f"Numeral {num['value']}")
+		p.dispatch_children(num)
+		p.end_span()
+	else:
+		p.start_span(klass="num")
+		p.dispatch_children(num)
+		p.end_span()
 
 # EGD "Additions to the translation"
 # EGD "Marking up restored text"
@@ -352,6 +359,8 @@ fw_places = {
 	"top-left": "top left",
 	"top-right": "top right",
 }
+# TODO the guide does not talk about using <fw> about other page-like, but
+# we should allow this anyway.
 def parse_pb(p, elem):
 	n = milestone_n(p, elem)
 	brk = milestone_break(elem)
