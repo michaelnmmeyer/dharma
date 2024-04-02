@@ -69,7 +69,7 @@ Version: {{doc.commit_date | format_date}}
 % endif
 
 % if doc.edition:
-<div class="ed">
+<div class="edition">
 
 <h2 id="edition">Edition</h2>
 
@@ -80,11 +80,11 @@ Version: {{doc.commit_date | format_date}}
    <li id="xml-btn"><a href="#ed">XML</a></li>
 </ul>
 
-<div class="log" id="logical" data-display="logical">
+<div class="logical" id="logical" data-display="logical">
 {{doc.edition.render_logical() | safe}}
 </div>
 
-<div class="phys hidden" id="physical" data-display="physical">
+<div class="physical hidden" id="physical" data-display="physical">
 {{doc.edition.render_physical() | safe}}
 </div>
 

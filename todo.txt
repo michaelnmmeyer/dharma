@@ -1,13 +1,18 @@
-  # afficher siglum instead of bib ref in <app><notes><ptr target="bib:xxxxxx"/></notes><app>
-  un <ptr> seul dans app/note représenté par siglum.
+xpath dispatching like XSLT
 
-plus d'interligne cf cirkali 33
+====
+
+convention: display siglum instead of bib ref when there is a lone
+<ptr target="bib:xxxxxx"/> under //app/notes
+for this to work, need to implement xpath dispatching in parse.py
+idem for https://github.com/erc-dharma/project-documentation/issues/272#issuecomment-2028717827
 
 pour languages dans display, tous ceux de div type=edition + écrfiture
 écritures à gérer
 "Tamil in Tamil Script; Sanskrit in Grnatha script"
 
-================
+================ end manu
+
 
 .pagelike: <pb> + <milestone type="page-like">
   Use a single instruction for representing them, taking into account <fw>
@@ -113,8 +118,6 @@ div rendition="class:38768 maturity:83213" (grantha) à mettre en gras pas seule
 idem pour <lg rendition=...> dans Tiruvavatuturai01
 
 don't think we are formarring abbr/expan as supposed
-
-title type=alt
 
 ## Problems with @n.
 

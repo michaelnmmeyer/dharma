@@ -287,7 +287,7 @@ function TOCEntryToHTML(entry, root) {
 }
 
 function displayTOC() {
-	let toc = document.getElementById("toc")
+	let toc = document.querySelector("#toc")
 	if (!toc)
 		return
 	let root = makeTOC()

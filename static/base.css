@@ -623,22 +623,22 @@ dl.list > dd {
 }
 
 /* Logical display */
-.log {
+.logical {
 	text-align: justify;
 }
-.log .sic {
+.logical .sic {
 	display: none;
 }
-.log .orig {
+.logical .orig {
 	display: none;
 }
-.log .surplus {
+.logical .surplus {
 	display: none;
 }
-.log .hyphen-break {
+.logical .hyphen-break {
 	display: none;
 }
-.log .abbr-mark {
+.logical .abbr-mark {
 	display: none;
 }
 
@@ -661,7 +661,7 @@ dl.list > dd {
 }
 
 /* <fw>; only visible in phys display and in full */
-.log .fw {
+.logical .fw {
 	display: none;
 }
 .fw-contents {
@@ -675,31 +675,34 @@ dl.list > dd {
 	color: var(--tooltip-selection-foreground);
 }
 
-
+/* More space between lines for
+ * https://dharmalekha.info/texts/DHARMA_INSCirkali00033
+ */
+.physical, .logical {
+	line-height: 1.75;
+}
 
 /* Physical display */
-div.pagelike {
+.physical .pagelike {
 	padding-top: 1em; /* XXX except for the first item in a div, etc. */
 	font-weight: bolder;
 }
-
-/* Physical display */
-.phys {
+.physical {
 	text-align: left;
 }
-.phys .line {
+.physical .line {
 	margin-block-start: 0.3em;
 	margin-block-end: 0.3em;
 }
-.phys .pagelike {
+.physical .pagelike {
 }
-.phys .corr {
+.physical .corr {
 	display: none;
 }
-.phys .reg {
+.physical .reg {
 	display: none;
 }
-.phys .abbr-expansion {
+.physical .abbr-expansion {
 	display: none;
 }
 
