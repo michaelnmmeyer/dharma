@@ -342,21 +342,49 @@ def parse_fw(p, fw):
 	# We deal with this within parse_pb.
 	pass
 
+fw_places = {
+	"bot-left": "bottom left",
+	"bot-right": "bottom right",
+	"bottom": "bottom",
+	"left": "left",
+	"right": "right",
+	"top": "top",
+	"top-left": "top left",
+	"top-right": "top right",
+}
 def parse_pb(p, elem):
 	n = milestone_n(p, elem)
 	brk = milestone_break(elem)
 	p.add_phys("{page", n=n, brk=brk)
+	fws = []
 	while True:
 		fw = elem.next
 		if not fw or not fw.name == "fw":
 			break
-		p.start_span(klass="fw", tip="Foliation work")
-		if fw["place"]:
-			p.add_text(f"{fw['place']}: ")
-		p.dispatch_children(fw)
-		p.add_text(" ")
-		p.end_span()
+		fws.append(fw)
 		elem = fw
+	# XXX should mark fws as visited, so that a misplaced fw is
+	# still displayed by parse_fw. idem for <head> and such.
+	if fws:
+		for i, fw in enumerate(fws):
+			p.start_span(klass="fw", tip="Foliation work")
+			place = fw["place"]
+			if not place:
+				place = "top"
+			elif place in fw_places:
+				place = fw_places[place]
+			else:
+				# keep the given value, even though it's wrong
+				pass
+			p.add_html("(", logical=False, physical=False, full=True)
+			p.add_text(f"{place}: ")
+			p.start_span(klass="fw-contents")
+			p.dispatch_children(fw)
+			p.end_span()
+			p.add_html(")", logical=False, physical=False, full=True)
+			p.end_span()
+			if i < len(fws) - 1:
+				p.add_html(" ", logical=False, physical=True, full=False)
 	p.add_phys("}page")
 
 # >milestones

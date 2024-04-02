@@ -6,6 +6,8 @@
 	--menu-foreground: white;
 	--menu-hover: #8788b0;
 	--menu-height: 2.6em;
+	--tooltip-selection-foreground: white;
+	--tooltip-selection-background: black;
 }
 
 .toc-heading {
@@ -383,8 +385,8 @@ i.tipped:hover {
 	border-radius: initial;
 }
 .tipped:hover {
-	color: white;
-	background-color: black;
+	color: var(--tooltip-selection-foreground);
+	background-color: var(--tooltip-selection-background);
 	border-radius: var(--border-radius);
 }
 /* div that contains the tooltip (used for all tooltips) */
@@ -658,9 +660,21 @@ dl.list > dd {
 	text-align: left;
 }
 
-.log .fw, .full .fw {
+/* <fw>; only visible in phys display and in full */
+.log .fw {
 	display: none;
 }
+.fw-contents {
+	/* Main text color, not gray, since this belongs to the text,
+	 * sort-of.
+	 */
+	color: black;
+}
+.tipped .fw-contents {
+	color: var(--tooltip-selection-foreground);
+}
+
+
 
 div.pagelike {
 	padding-top: 1em;

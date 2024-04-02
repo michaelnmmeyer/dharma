@@ -176,7 +176,10 @@ class Block:
 
 	def start_span(self, **params):
 		params["klass"] = [params["klass"]]
-		params["tip"] = [params["tip"]]
+		if params.get("tip"):
+			params["tip"] = [params["tip"]]
+		else:
+			params["tip"] = []
 		self.add_code("span", "<", **params)
 
 	def end_span(self):
@@ -200,9 +203,13 @@ class Block:
 			buf.append(text)
 		elif t == "span":
 			if data == "<":
-				klasses = " ".join(params["klass"])
+				klasses = html.escape(" ".join(params["klass"]))
 				tip = " | ".join(params["tip"])
-				buf.append('<span class="%s" data-tip="%s">' % (html.escape(klasses), html.escape(tip)))
+				if tip:
+					tip = html.escape(tip)
+					buf.append(f'<span class="{klasses}" data-tip="{tip}">')
+				else:
+					buf.append(f'<span class="{klasses}">')
 			elif data == ">":
 				buf.append('</span>')
 			else:
