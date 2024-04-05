@@ -1,7 +1,19 @@
-import os, sys, re, io, copy, html, unicodedata
+import os, sys, re, io, copy, html, unicodedata, functools
 from urllib.parse import urlparse
-from dharma import prosody, people, tree, gaiji, config, unicode, biblio
+from dharma import prosody, people, tree, gaiji, config, unicode, biblio, langs, document
 from dharma.document import Document, Block
+
+HANDLERS = {}
+
+def handler(name):
+	def decorator(f):
+		assert not name in HANDLERS
+		HANDLERS[name] = f
+		@functools.wraps(f)
+		def decorated(*args, **kwargs):
+			return f(*args, **kwargs)
+		return decorated
+	return decorator
 
 class Parser:
 
@@ -81,6 +93,7 @@ class Parser:
 			self.add_text(str(node).replace("'", "’"))
 			return
 		assert node.type == "tag"
+		# TODO do something less stupid
 		f = self.handlers.get(node.name)
 		if not f:
 			self.complain(node)
@@ -95,19 +108,15 @@ class Parser:
 		for child in node:
 			self.dispatch(child)
 
-	def dispatch_tags(self, node):
-		for child in node:
-			if not node.type == "tag":
-				continue
-			self.dispatch(child)
-
 	def complain(self, msg):
 		print("UNKNOWN %s" % msg)
 		pass
 
+@handler("lem")
 def parse_lem(p, lem):
 	p.dispatch_children(lem)
 
+@handler("ptr")
 def parse_ptr(p, ptr):
 	ref = ptr["target"]
 	if not ref.startswith("bib:"):
@@ -115,6 +124,7 @@ def parse_ptr(p, ptr):
 	ref = ref.removeprefix("bib:")
 	p.add_code("ref", ref, rend="default", loc=[], missing=ref not in p.document.biblio)
 
+@handler("ref")
 def parse_ref(p, ref):
 	# See e.g. TamilNadu07
 	target = ref["target"]
@@ -131,6 +141,7 @@ def parse_ref(p, ref):
 	if target:
 		p.add_html(f'</a>')
 
+@handler("rdg")
 def parse_rdg(p, rdg):
 	p.start_span(klass="reading", tip="Reading")
 	p.dispatch_children(rdg)
@@ -143,6 +154,7 @@ def parse_rdg(p, rdg):
 		siglum = p.document.sigla.get(ref)
 		p.add_code("ref", ref, rend="default", loc=[], siglum=siglum, missing=ref not in p.document.biblio)
 
+@handler("app")
 def parse_app(p, app):
 	loc = app["loc"] or "?"
 	p.start_span(klass="lb", tip="Line start")
@@ -166,6 +178,7 @@ def parse_app(p, app):
 		p.add_text(" • ")
 		p.dispatch_children(note)
 
+@handler("listApp")
 def parse_listApp(p, listApp):
 	apps = listApp.find("app")
 	if not apps:
@@ -182,6 +195,7 @@ def parse_listApp(p, listApp):
 		prev_loc = app["loc"]
 	p.add_log(">para")
 
+@handler("num")
 def parse_num(p, num):
 	# TODO for now we don't deal with @atLeast and @atMost
 	if num["value"] and num.text() != num["value"]:
@@ -213,6 +227,7 @@ supplied_tbl = {
 	"undefined": ("[]", "Lost or omitted text") # manu: trouver autre texte pour infobulle
 }
 # OK
+@handler("supplied")
 def parse_supplied(p, supplied):
 	seps, tip = supplied_tbl.get(supplied["reason"], supplied_tbl["lost"])
 	if supplied["cert"] == "low":
@@ -243,6 +258,7 @@ add_place_tbl = {
 	"overstrike": " made in the space where a previous string of text has been erased",
 	"unspecified": "(no location information available)",
 }
+@handler("add")
 def parse_add(p, node):
 	place = node["place"]
 	tip = add_place_tbl.get(place, add_place_tbl["unspecified"])
@@ -260,6 +276,7 @@ del_rend_tbl = {
 	"other": "",
 	"corrected": "corrected text",
 }
+@handler("del")
 def parse_del(p, node):
 	tip = del_rend_tbl.get(node["rend"], "")
 	if tip:
@@ -274,6 +291,7 @@ def parse_del(p, node):
 
 # § Premodern correction
 # OK
+@handler("subst")
 def parse_subst(p, subst):
 	# (del, add)
 	# Use the text of <add> for search
@@ -281,6 +299,7 @@ def parse_subst(p, subst):
 
 # We also deal with notes in <app>
 # TODO there are attributes,see EGD
+@handler("note")
 def parse_note(p, note):
 	# Avoid nesting notes
 	if p.top.name == "note":
@@ -292,6 +311,7 @@ def parse_note(p, note):
 	ret = p.pop()
 	p.document.notes.append(ret)
 
+@handler("foreign")
 def parse_foreign(p, foreign):
 	p.add_html("<i>")
 	p.dispatch_children(foreign)
@@ -321,6 +341,7 @@ def milestone_unit_type(milestone):
 		typ = "gridlike"
 	return unit, typ
 
+@handler("milestone")
 def parse_milestone(p, milestone):
 	n = milestone_n(p, milestone)
 	brk = milestone_break(milestone)
@@ -332,17 +353,19 @@ def parse_milestone(p, milestone):
 		label = None
 	p.add_phys("=" + unit, type=typ, n=n, brk=brk, label=label)
 
+@handler("lb")
 def parse_lb(p, elem):
 	n = milestone_n(p, elem)
 	brk = milestone_break(elem)
 	# On alignment, EGD §7.5.2
-	m = re.match(r"^text-align:\s*(right|center|left|justify)\s*$", elem["style"])
+	m = re.match(r"^text-align:\s?(right|center|left|justify)$", elem["style"])
 	if m:
 		align = m.group(1)
 	else:
 		align = "left"
 	p.add_phys("line", n=n, brk=brk)
 
+@handler("fw")
 def parse_fw(p, fw):
 	# We deal with this within parse_pb.
 	pass
@@ -359,6 +382,7 @@ fw_places = {
 }
 # TODO the guide does not talk about using <fw> about other page-like, but
 # we should allow this anyway.
+@handler("pb")
 def parse_pb(p, elem):
 	n = milestone_n(p, elem)
 	brk = milestone_break(elem)
@@ -410,6 +434,7 @@ def text_to_html(p, mark):
 		mark += 1
 
 # OK
+@handler("sic")
 def parse_sic(p, sic, corr=None):
 	tip = "Incorrect text"
 	if corr:
@@ -423,6 +448,7 @@ def parse_sic(p, sic, corr=None):
 	p.end_span()
 
 # OK
+@handler("corr")
 def parse_corr(p, corr, sic=None):
 	tip = "Emended text"
 	if sic:
@@ -434,6 +460,7 @@ def parse_corr(p, corr, sic=None):
 	p.end_span()
 
 # OK
+@handler("orig")
 def parse_orig(p, orig, reg=None):
 	tip = "Non-standard text"
 	if reg:
@@ -447,6 +474,7 @@ def parse_orig(p, orig, reg=None):
 	p.end_span()
 
 # OK
+@handler("reg")
 def parse_reg(p, reg, orig=None):
 	tip = "Standardised text"
 	if orig:
@@ -460,6 +488,7 @@ def parse_reg(p, reg, orig=None):
 # TODO For now there is no nesting of <choice>, but it is allowed in some
 # cases. This happens within <orig> and <reg> so must deal with it when parsing
 # these tags.
+@handler("choice")
 def parse_choice(p, node):
 	children = node.children()
 	if all(child.name == "unclear" for child in children):
@@ -538,6 +567,7 @@ space_types = {
 		"tip": "significant space that does not fit other categories",
 	}
 }
+@handler("space")
 def parse_space(p, space):
 	typ = space["type"]
 	if typ not in space_types:
@@ -567,11 +597,13 @@ def parse_space(p, space):
 
 # <abbreviations
 
+@handler("abbr")
 def parse_abbr(p, node):
 	p.start_span(klass="abbr", tip="Abbreviated text")
 	p.dispatch_children(node)
 	p.end_span()
 
+@handler("ex")
 def parse_ex(p, node):
 	p.start_span(klass="abbr-expansion", tip="Abbreviation expansion")
 	p.add_html("(")
@@ -579,16 +611,19 @@ def parse_ex(p, node):
 	p.add_html(")")
 	p.end_span()
 
+@handler("am")
 def parse_am(p, am):
 	p.start_span(klass="abbr-mark", tip="Abbreviation mark")
 	p.dispatch_children(node)
 	p.end_span()
 
+@handler("expan")
 def parse_expan(p, node):
 	p.dispatch_children(node)
 
 # >abbreviations
 
+@handler("term")
 def parse_term(p, node):
 	p.dispatch_children(node)
 
@@ -602,6 +637,7 @@ def titlecase(s): # XXX just a capital to the first letter, should rename the fu
 	return " ".join(t)
 
 # TODO more styling
+@handler("seg")
 def parse_seg(p, seg):
 	first = seg.first("*")
 	if first and first.name == "gap":
@@ -630,6 +666,7 @@ def parse_seg(p, seg):
 # "component" is for character components like vowel markers, etc.; "character" is for akṣaras
 # EGD: The EpiDoc element <gap/> ff (full section 5.4)
 # EGD: "Scribal Omission without Editorial Restoration"
+@handler("gap")
 def parse_gap(p, gap):
 	reason = gap["reason"] or "undefined" # most generic choice
 	quantity = gap["quantity"]
@@ -713,6 +750,7 @@ def parse_g_numeral(p, node):
 	num, den = m.groups()
 	p.add_html(f"<sup>{num}</sup>\N{fraction slash}<sub>{den}</sub>")
 
+@handler("g")
 def parse_g(p, node):
 	# <g type="...">\.</g> for punctuation marks
 	# <g type="...">§+</g> for space fillers
@@ -748,6 +786,7 @@ def parse_g(p, node):
 	# had '<img alt="%s" class="svg" src="%s"/>' % (info["name"], info["img"]))
 
 # OK
+@handler("unclear")
 def parse_unclear(p, node):
 	tip = "Unclear text"
 	if node["cert"] == "low":
@@ -766,6 +805,7 @@ def parse_unclear(p, node):
 	p.end_span()
 
 # EGD "Editorial deletion (suppression)"
+@handler("surplus")
 def parse_surplus(p, node):
 	p.start_span(klass="surplus", tip="Superfluous text erroneously added by the scribe")
 	p.add_html("{")
@@ -773,6 +813,7 @@ def parse_surplus(p, node):
 	p.add_html("}")
 	p.end_span()
 
+@handler("p")
 def parse_p(p, para):
 	if para["rend"] == "stanza":
 		# See e.g. INSPallava06 <p rend="stanza" n="1">...
@@ -790,6 +831,7 @@ def parse_p(p, para):
 	p.dispatch_children(para)
 	p.add_log(">para")
 
+@handler("ab")
 def parse_ab(p, ab):
 	p.add_log("<para")
 	p.dispatch_children(ab)
@@ -803,6 +845,7 @@ hi_table = {
 	"check": {"klass": "check"},
 	"grantha": {"klass": "grantha", "tip": "Grantha text"},
 }
+@handler("hi")
 def parse_hi(p, hi):
 	rends = hi["rend"].split()
 	tags = list(filter(None, (hi_table.get(rend) for rend in rends)))
@@ -844,6 +887,7 @@ def to_roman(x):
 			x -= arabic
 	return buf
 
+@handler("lg")
 def parse_lg(p, lg):
 	n = lg["n"] or "?"
 	if n.isdigit():
@@ -857,6 +901,7 @@ def parse_lg(p, lg):
 	p.dispatch_children(lg)
 	p.add_log(">verse")
 
+@handler("l")
 def parse_l(p, l):
 	n = l["n"] or "?"
 	p.add_log("<line", n=n)
@@ -873,6 +918,7 @@ def is_description_list(nodes):
 			return False
 	return True
 
+@handler("list")
 def parse_list(p, list):
 	typ = list["rend"]
 	if typ not in ("plain", "bulleted", "numbered", "description"):
@@ -939,9 +985,11 @@ def extract_bibl_items(p, listBibl):
 		ret.append((rec, ref, loc))
 	return ret
 
+@handler("label")
 def parse_label(p, label):
 	pass # We deal with this in other handlers
 
+@handler("listBibl")
 def parse_listBibl(p, node):
 	recs = extract_bibl_items(p, node)
 	# Avoid displaying "Primary" or "Secondary" if there is nothing there.
@@ -955,6 +1003,7 @@ def parse_listBibl(p, node):
 	for rec, ref, loc in recs:
 		p.add_code("bib", ref, loc=loc, n=rec["n"])
 
+@handler("bibl")
 def parse_bibl(p, node):
 	rend = node["rend"]
 	if rend not in ("omitname", "ibid", "default"):
@@ -964,13 +1013,11 @@ def parse_bibl(p, node):
 		return
 	p.add_code("ref", ref, rend=rend, loc=loc, missing=ref not in p.document.biblio)
 
-def parse_body(p, body):
-	for elem in body.children():
-		p.dispatch(elem)
-
+@handler("title")
 def parse_title(p, title):
 	p.dispatch_children(title)
 
+@handler("q")
 def parse_q(p, q):
 	if q["rend"] == "block": # TODO other usual values for @rend?
 		p.add_log("<blockquote")
@@ -981,9 +1028,11 @@ def parse_q(p, q):
 		p.dispatch_children(q)
 		p.add_html("”")
 
+@handler("quote")
 def parse_quote(p, quote):
 	return parse_q(p, quote)
 
+@handler("cit")
 def parse_cit(p, cit):
 	# <cit>
 	#    <quote>the text</quote>
@@ -1033,6 +1082,7 @@ def gather_people(stmt, *paths):
 		config.append_unique(full_names, name)
 	return full_names, dharma_ids
 
+@handler("titleStmt")
 def parse_titleStmt(p, stmt):
 	# We only have several <title> in DiplEd and CritEd and INSEC, not in
 	# normal INS files.
@@ -1057,25 +1107,32 @@ def parse_titleStmt(p, stmt):
 	p.document.editors = p.pop()
 	p.document.editors_ids = editors_ids
 
+@handler("publicationStmt")
 def parse_publicationStmt(p, stmt):
 	pass
 	# TODO extract the pub place
 
+@handler("roleName")
 def parse_roleName(p, node):
 	p.dispatch_children(node)
 
+@handler("placeName")
 def parse_placeName(p, node):
 	p.dispatch_children(node)
 
+@handler("persName")
 def parse_persName(p, node):
 	p.dispatch_children(node)
 
+@handler("measure")
 def parse_measure(p, node):
 	p.dispatch_children(node)
 
+@handler("date")
 def parse_date(p, node):
 	p.dispatch_children(node)
 
+@handler("sourceDesc")
 def parse_sourceDesc(p, desc):
 	summ = desc.first("msDesc/msContents/summary")
 	if not summ:
@@ -1087,28 +1144,211 @@ def parse_sourceDesc(p, desc):
 	p.dispatch_children(summ)
 	p.document.summary = p.pop()
 
+@handler("facsimile")
 def parse_facsimile(p, node):
 	pass # for images, will see later on
 
+@handler("fileDesc")
 def parse_fileDesc(p, node):
 	p.dispatch_children(node)
 
+@handler("teiHeader")
 def parse_teiHeader(p, node):
 	p.dispatch_children(node)
 
+@handler("text")
 def parse_text(p, node):
 	p.dispatch_children(node)
 
+@handler("TEI")
 def parse_TEI(p, node):
 	p.dispatch_children(node)
 
-def make_handlers_map():
-	ret = {}
-	for name, obj in copy.copy(globals()).items():
-		if not name.startswith("parse_"):
-			continue
-		name = name.removeprefix("parse_")
-		ret[name] = obj
-	return ret
+# Within inscriptions, <div> shouldn't nest, except that we can have
+# <div type="textpart"> within <div type="edition">.
+# All the DHARMA_INSEC* stuff don't follow the ins schema, too different.
+@handler("div")
+def parse_div(p, div):
+	if div["type"] != "textpart":
+		p.complain(div)
+		return
+	n = milestone_n(p, div)
+	# rend style subtype
+	children = div.children()
+	i = 0
+	# <head> is supposed to only occur in this context in inscriptions, but
+	# in fact we don't really care, might allow it somewhere else
+	p.start_div(n=n)
+	if children and children[0].name == "head":
+		p.add_log("<head")
+		p.add_text(n)
+		p.add_text(". ")
+		p.dispatch_children(children[0])
+		p.add_log(">head")
+		i += 1
+	for child in children[i:]:
+		p.dispatch(child)
+	p.end_div()
 
-HANDLERS = make_handlers_map()
+def gather_sections(p, div):
+	p.push(div["type"])
+	for child in div:
+		if child.type == "tag" and child.name == "div":
+			if p.within_div:
+				p.end_div()
+			p.dispatch(child)
+		elif child.type not in ("comment", "instruction"):
+			if not p.within_div:
+				if child.type == "string" and not child.strip():
+					continue
+				p.start_div()
+			p.dispatch(child)
+	if p.within_div:
+		p.end_div()
+	return p.pop()
+
+def fetch_resp(resp):
+	resp = people.plain(resp.removeprefix("part:")) or resp
+	return html.escape(resp)
+
+def process_translation(p, div):
+	trans = gather_sections(p, div)
+	if not trans:
+		return
+	title = "Translation"
+	lang = div["lang"]
+	if lang:
+		lang = html.escape(langs.from_code(lang) or lang)
+		title += f" into {lang}"
+	resp = div["resp"]
+	if resp:
+		title += " by "
+		resps = resp.split()
+		for i, resp in enumerate(resps):
+			if i == 0:
+				pass
+			elif i < len(resps) - 1:
+				title += ", "
+			else:
+				title += " and "
+			title += fetch_resp(resp)
+	source = div["source"]
+	if source:
+		ref = source.removeprefix("bib:")
+		source = biblio.get_ref(ref, missing=ref not in p.document.biblio, rend="default", loc="") or html.escape(source)
+		title += f" by {source}"
+	trans.title = title
+	return trans
+
+def gather_biblio(p, body):
+	for bibl in body.find("//listBibl/bibl"):
+		siglum = bibl["n"]
+		ptr = bibl.first("ptr")
+		if not ptr:
+			continue
+		target = ptr["target"]
+		if not target.startswith("bib:"):
+			continue
+		target = target.removeprefix("bib:")
+		# TODO add checks
+		if siglum:
+			p.document.sigla[target] = siglum
+		p.document.biblio.add(target)
+
+@handler("body")
+def parse_body(p, body):
+	gather_biblio(p, body)
+	for div in body.children():
+		type = div["type"]
+		if not div.name == "div" or not type in ("edition", "translation", "commentary", "bibliography", "apparatus"):
+			p.complain(div)
+			continue
+		p.divs.clear()
+		p.divs.append(set())
+		if type == "edition":
+			if "lang" in div.attrs:
+				config.append_unique(p.document.edition_main_langs, div["lang"])
+			else:
+				for textpart in div.find("//div"):
+					if not textpart["type"] == "textpart":
+						continue
+					if not "lang" in textpart.attrs:
+						continue
+					config.append_unique(p.document.edition_main_langs, textpart["lang"])
+			# XXX Add sec. languages https://github.com/erc-dharma/project-documentation/issues/250
+			#and add validity check (in schema?)
+			edition = gather_sections(p, div)
+			if edition:
+				p.document.edition = edition
+		elif type == "apparatus":
+			p.document.apparatus = gather_sections(p, div)
+		elif type == "translation":
+			trans = process_translation(p, div)
+			if trans:
+				p.document.translation.append(trans)
+		elif type == "commentary":
+			p.document.commentary = gather_sections(p, div)
+		elif type == "bibliography":
+			p.document.bibliography = gather_sections(p, div)
+		else:
+			assert 0
+
+def process_file(path, data):
+	t = tree.parse_string(data, path=path)
+	f = t.first("//teiHeader/encodingDesc")
+	if f:
+		f.delete()
+	f = t.first("//teiHeader/revisionDesc")
+	if f:
+		f.delete()
+	f = t.first("//publicationStmt")
+	if f:
+		f.delete()
+	p = Parser(t, HANDLERS)
+	p.document.tree = t
+	p.dispatch(p.tree.root)
+	body = t.first("//body")
+	if body:
+		p.document.xml = tree.html_format(t)
+	db = config.db("texts")
+	langs = set()
+	for node in t.find("//*"):
+		if not "lang" in node.attrs:
+			continue
+		lang = node["lang"]
+		(code,) = db.execute("select id from langs_by_code where code = ?", (lang,)).fetchone() or ("und",)
+		langs.add(code)
+	if not langs:
+		langs.add("und")
+	p.document.langs = sorted(langs)
+	return p.document
+
+def export_plain():
+	db = config.db("texts")
+	renderer = document.PlainRenderer(strip_physical=True)
+	out_dir = config.path_of("plain")
+	os.makedirs(out_dir, exist_ok=True)
+	for name, path, data in db.execute("""
+		select name, printf('%s/%s/%s', ?, repo, path), data
+		from documents natural join files where name glob 'DHARMA_INS*'
+		""", (config.path_of("repos"),)):
+		print(path)
+		try:
+			ret = renderer.render(process_file(path, data))
+		except tree.Error:
+			continue
+		out_file = os.path.join(out_dir, name + ".txt")
+		with open(out_file, "w") as f:
+			f.write(ret)
+
+if __name__ == "__main__":
+	export_plain()
+"""
+	path = sys.argv[1]
+	data = open(path, "rb").read()
+	try:
+		doc = process_file(path, data)
+		print(doc.apparatus)
+	except (KeyboardInterrupt, BrokenPipeError):
+		pass
+"""

@@ -2,7 +2,7 @@ import os, sys, unicodedata, hashlib, locale, time, datetime, html, urllib
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
 from dharma import config, change, people, ngrams, catalog, parse, validate
-from dharma import parse_ins, biblio, document, tree, texts
+from dharma import parse, biblio, document, tree, texts
 
 # We don't use the name "templates" for the template folder because we also
 # put other stuff in the same directory, not just templates.
@@ -308,7 +308,7 @@ def display_text(text):
 		db.execute("rollback")
 		return flask.abort(404)
 	try:
-		doc = parse_ins.process_file(row["path"], row["data"])
+		doc = parse.process_file(row["path"], row["data"])
 		doc.title = doc.title and doc.title.render_logical() or ""
 		editors = doc.editors and doc.editors.render_logical() or []
 		doc.editors = editors and editors.split(document.PARA_SEP) or []
@@ -375,7 +375,7 @@ def convert_text():
 		# think to do that, and people are already using the code.
 		base = base_name_windows(path)
 	name = os.path.splitext(base)[0]
-	doc = parse_ins.process_file(path, data)
+	doc = parse.process_file(path, data)
 	doc.title = doc.title and doc.title.render_logical() or ""
 	editors = doc.editors.render_logical()
 	doc.editors = editors and editors.split(document.PARA_SEP)

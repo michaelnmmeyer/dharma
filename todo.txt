@@ -1,4 +1,25 @@
-xpath dispatching like XSLT
+arie:
+first file we have:
+<!--<p>Ā A2 A4 Ã Ä A9 B1 B2 B9 C1 C3 C4 C6 D1 Ḍ D4 D5 D6 E1 E2 E4 E5 Ë F1 G6 H2 Ī I2 I4 Ï K1 K2 K6
+Ḷ L6 M3 M7 Ṇ Ṅ Ñ N6 O1 O4 Õ P1 Q4 Ṛ R6 S1 Ṣ Ś S6 Ṭ T6 Ū U5 Ü V6 ā a2 a3 a4 ã a6 ä c1
+ḍ d6 e0 ē e4 e5 ë g6 h2 h6 ī i2 i4 i5 ï i9 k2 ḵ l1 ḷ ḻ ṃ ṁ m6 n1 ṇ ṅ n4 ñ ṉ n7 o0 ō
+o3 o4 õ o6 ö o8 o9 p2 p6 ṛ r3 ṟ r7 ṣ s3 ś s6 ṭ t6 t8 ū u2 u3 u4 u5 u6 ü u8 v2 v3 v4 v7 x3
+x4 x7 y3 z2 z6</p>-->
+look how evolved and also see if we sth similar in second file.
+
+
+
+== xpath dispatching
+
+make this less stupid. could cache the result of absolute locations search in
+the tree itself. more generally, could save the result of a relative search
+on the node it is called on.
+
+in node.find(xpath) allow
+  //div[@type='edition']
+maybe just borrow the code from xml.etree? no, it's C code.
+
+
 
 ====
 
@@ -9,10 +30,13 @@ idem for https://github.com/erc-dharma/project-documentation/issues/272#issuecom
 
 pour languages dans display, tous ceux de div type=edition + écrfiture
 écritures à gérer
-"Tamil in Tamil Script; Sanskrit in Grnatha script"
+"Tamil in Tamil Script; Sanskrit in Grnatha script":
 
 ================ end manu
 
+https://mail.google.com/mail/u/0/popout?ver=1g3ytthb29lwb&cat=Work&qid=D33D63CF-AA8E-482A-B581-217499DB57B8&search=cat&th=%23thread-f%3A1794923140307345636&cvid=3
+https://mail.google.com/mail/u/0/popout?ver=1g3ytthb29lwb&cat=Work&qid=D33D63CF-AA8E-482A-B581-217499DB57B8&search=cat&th=%23thread-f%3A1794915809975259102&cvid=1
+https://mail.google.com/mail/u/0/popout?ver=1g3ytthb29lwb&cat=Work&qid=D33D63CF-AA8E-482A-B581-217499DB57B8&search=cat&th=%23thread-f%3A1794781717221740805&cvid=2
 
 .pagelike: <pb> + <milestone type="page-like">
   Use a single instruction for representing them, taking into account <fw>
