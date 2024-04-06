@@ -1,6 +1,33 @@
-# TODO add a node set at the root of the tree to check that we don't attempt to
-# insert the same node at several locations; or maybe just duplicate the node
-# automatically if we see it's a duplicate. yes, solution 2 is best
+'''XML tree representation
+
+Node types are: `Tree`, `Tag`, `Comment`, `String`, `Instruction`. They all
+derive from an abstract base class `Node`. There is no inheritance relationship
+between the different kinds of nodes: `Comment` is not a subclass of `String`
+(unlike in bs4). Thus, to check whether a node is of a given type, using
+`isinstance(node, Comment)`, etc. is sufficient.
+
+`Tree` is the XML document proper, which contains a single tag node and
+optionally comments and processing instructions. The XML tradition is to
+treat the document itself as the root of the tree, while in the DOM
+the document's root is not the document itself but its unique element node,
+viz. `<html>` in HTML documents.
+
+We follow the second model, mostly out of habit. This means that the tree root
+e.g. `<TEI>` and other nodes at this level have no parent (`node.parent` is None
+for them). Still, the `Tree` node is considered to have children, which is
+admittedly weird. Nodes that have been detached from the tree with
+`node.unwrap()`, etc. also have no parent (nor tree). If we did not use the DOM,
+we would have to attach them all to new trees to keep the behavior consistent.
+
+When parsing documents, we always normalize spaces in attributes: we replace
+all sequences of whitespace characters with " " and we trim whitespace
+from both sides.
+
+For simplicity, we do not deal with XML namespaces at all. We just remove
+namespace prefixes in both elements and attributes. Thus, `<xsl:template>`
+becomes `<template>`, and `<foo xml:lang="eng">` becomes `<foo lang="eng">`.
+This means that we cannot deal with documents where namespaces are significant.
+'''
 
 import os, re, io, collections, copy, sys
 from xml.parsers import expat
@@ -13,6 +40,7 @@ DEFAULT_LANG = "eng"
 DEFAULT_SPACE = "default"
 
 Location = collections.namedtuple("Location", "start end line column")
+'''Represents the location of a node in an XML file.'''
 
 attribute_tbl = str.maketrans({
 	'"': "&quot;",
@@ -28,6 +56,8 @@ def quote_attribute(s):
 	return '"' + s.translate(attribute_tbl) + '"'
 
 class Error(Exception):
+
+	"Raised for parsing errors."
 
 	def __init__(self, line=0, column=0, text="", source=b"", path=""):
 		self.path = path
@@ -46,53 +76,36 @@ def unique(items):
 			ret.append(item)
 	return ret
 
-# Node types are: Tree, Tag, Comment, String, Instruction. None of these is a
-# subclass of another, unlike in bs4, where the Comment node is a subclass of
-# String. Thus, to check whether a node is a String, we check that
-# isinstance(node, String) is true, while in bs4 we need to check both if
-# isinstance(node, String) is true and if isinstance(node, Comment) is false.
-#
-# Tree is the XML document proper, which contains a single tag node and
-# optionally comments and processing instructions. The XML tradition is to
-# treat the document itself as the root of the tree, while in the DOM
-# the document's root is not the document itself but its unique element node,
-# viz. <html> in HTML documents.
-#
-# We follow the second model, mostly out of habit. This means that the tree
-# root e.g. <TEI> and other nodes at this level have no parent (node.parent is
-# None for them). Still, the Tree node is considered to have children, which
-# is weird. Nodes that have been detached from the tree with unwrap() also
-# have no parent (nor tree). If we did not use the DOM, we would have to attach
-# them all to new trees to keep the behavior consistent.
-#
-# When parsing documents, we always normalize spaces in attributes: we replace
-# all sequences of whitespace characters with " " and we trim whitespace
-# from both sides.
-#
-# We don't deal with XML namespaces at all. We just remove namespace prefixes
-# in both elements and attributes. This means that we can't deal with
-# documents where namespaces are significant.
-
 class Node(object):
 
-	# Tree this node belongs to. Is None for nodes detached with uwrap().
 	tree = None
-	# Location object: boundaries of the node in the source code.
+	'''`Tree` this node belongs to. This can be `None`, because nodes do not
+	necessarily belong to a `Tree`. The only node type that necessarily
+	belongs to a `Tree` is `Tree`.'''
 	location = None
-	# Is None for the root element node and other direct children of the
-	# Tree node. Is also None for nodes detached with unwrap().
+	'''`Location` object, which indicates the boundaries of the node in the
+	XML source it was constructed from, if any.'''
 	parent = None
+	'''Is always `None` for `Tree` nodes, for children of `Tree` nodes, and
+	for root `Tag` nodes that are not attached to a `Tree`.'''
+	type = None
+	'A string, one of "tree", "tag", "string", "comment", "instruction".'
 
 	def __hash__(self):
 		return id(self)
 
-	# A string, one of "tree", "tag", "string", "comment", "instruction".
-	@property
-	def type(self):
-		raise NotImplementedError
+	def __bool__(self):
+		return True
 
 	@property
 	def source(self):
+		'''XML source of this subtree, as it appears in the file it
+		was parsed from.
+
+		If the subtree has been constructed programmatically, or if
+		it was modified, extracted from its tree, etc., this is set
+		to None.
+		'''
 		if not self.location or not self.tree:
 			return
 		return self.tree.source[self.location.start:self.location.end].decode()
@@ -138,27 +151,75 @@ class Node(object):
 			i -= 1
 
 	def delete(self):
+		"""Removes this node and all its descendants from the tree.
+		Returns the removed subtree."""
 		parent = self.parent
 		if parent:
 			return parent.remove(self)
+		tree = self.tree
 		self.tree = None
 		self.parent = None
 		self.location = None
+		if tree:
+			tree.node_set.remove(self)
 		return self
 
 	def replace_with(self, other):
-		if not isinstance(other, Tag):
+		'''Removes this node and its descendants from the tree, and
+		puts another node in its place. Returns the removed subtree.
+		'''
+		if not isinstance(other, Node):
 			assert isinstance(other, str)
 			other = String(other)
 		parent = self.parent
-		assert parent is not None
+		if parent is None:
+			# We can in fact replace root nodes that are anchored
+			# to a tree. Only detached root nodes cannot be
+			# replaced.
+			raise Exception("cannot replace a root node")
 		i = parent.index(self)
-		self.delete()
+		del parent[i]
 		parent.insert(i, other)
 		return self
 
-	def text(self, **kwargs):
+	def text(self, space="default"):
+		'''Returns the text contents of this subtree. Per default, we do
+		normalize-space(); to prevent this, pass `space="preserve"`.
+		'''
 		return ""
+
+	def xml(self, **kwargs):
+		'''Returns an XML representation of this subtree, typically not
+		identical to the original XML source, if any.'''
+		raise NotImplementedError
+
+	def copy(self):
+		'''Makes a copy of this subtree. The returned object holds no
+		reference to the original.
+
+		If the copied node is the tree itself, the file path of the
+		copied tree is set to None, whether or not the original did
+		have a file path. Children nodes of the new tree will reference
+		this new tree.
+
+		If the copied node is a child node of a tree object, then it
+		will not have a parent node, and both itself and its children
+		node will have an empty tree attribute.
+		'''
+		raise NotImplementedError
+
+	def unwrap(self):
+		'''Removes a node from the tree but leaves its descendants
+		in-place. Cannot be called on a `Tree` node or on a root `Tag`
+		node. Calling this on other types of nodes just deletes them.
+		'''
+		self.delete()
+
+	def coalesce(self):
+		'''Coalesce adjacent string nodes and removes empty string
+		nodes from this subtree. Has no effect on nodes other than
+		`Tree` and `Tag`.'''
+		pass
 
 class Instruction(Node):
 
@@ -166,10 +227,7 @@ class Instruction(Node):
 
 	def __init__(self, target, data):
 		self.target = target
-		self.data = data or ""
-
-	def __bool__(self):
-		return True
+		self.data = data
 
 	def __str__(self):
 		return "<?%s %s?>" % (self.target, self.data)
@@ -180,11 +238,10 @@ class Instruction(Node):
 	def xml(self, **kwargs):
 		return "<?%s %s?>\n" % (self.target, self.data)
 
-class String(Node, collections.UserString):
+	def copy(self):
+		return Instruction(self.target, self.data)
 
-	# Quirk: string nodes are False when empty, unlike other nodes.
-	# OTOH, empty strings are not supposed to appear in a tree that is
-	# consolidated.
+class String(Node, collections.UserString):
 
 	type = "string"
 
@@ -221,8 +278,6 @@ class String(Node, collections.UserString):
 	def xml(self, **kwargs):
 		return quote_string(str(self.data))
 
-	# Per default, we do normalize-space(); to prevent this, use
-	# text(space="preserve")
 	def text(self, **kwargs):
 		data = str(self.data) # casting is necessary for String
 		space = kwargs.get("space")
@@ -234,6 +289,9 @@ class String(Node, collections.UserString):
 		data = re.sub(r"\s+", " ", data)
 		return data
 
+	def copy(self):
+		return String(self.data)
+
 class Comment(Node, collections.UserString):
 
 	type = "comment"
@@ -244,9 +302,6 @@ class Comment(Node, collections.UserString):
 	def __str__(self):
 		return self.xml()
 
-	def __bool__(self):
-		return True
-
 	def xml(self, **kwargs):
 		if kwargs.get("strip_comments"):
 			return ""
@@ -255,11 +310,11 @@ class Comment(Node, collections.UserString):
 	def text(self, **kwargs):
 		return ""
 
+	def copy(self):
+		return Comment(self.data)
+
 # Common code for Tree and Tag nodes.
 class Branch(Node, list):
-
-	def __bool__(self):
-		return True
 
 	# Note that we check for objects identity: we compare pointers instead
 	# of using __eq__.
@@ -269,7 +324,6 @@ class Branch(Node, list):
 				return True
 		return False
 
-	# Merge adjacent string nodes
 	def coalesce(self):
 		i = 0
 		while i < len(self):
@@ -277,20 +331,14 @@ class Branch(Node, list):
 			if isinstance(cur, String):
 				if not cur.data:
 					del self[i]
-					cur.tree = None
-					cur.parent = None
-					cur.location = None
 				elif i < len(self) - 1 and isinstance(self[i + 1], String):
-					next = self[i + 1]
-					cur.append(next)
+					cur.append(self[i + 1])
 					del self[i + 1]
-					next.tree = None
-					next.parent = None
-					next.location = None
-					continue
 			elif isinstance(cur, Tag):
 				cur.coalesce()
-			i += 1
+				i += 1
+			else:
+				i += 1
 
 	# Note that we check for objects identity: we compare pointers instead
 	# of using __eq__.
@@ -300,14 +348,28 @@ class Branch(Node, list):
 				return i
 		raise ValueError("not found")
 
+	# Remove the given child node
 	def remove(self, node):
-		assert self.tree.root.parent is None
-		assert node in self
+		i = self.index(node)
+		del self[i]
+
+	def clear(self):
+		while len(self) > 0:
+			del self[0]
+
+	def __setitem__(self, key, value):
+		assert isinstance(key, int)
+		self[key].replace_with(value)
+
+	def __delitem__(self, i):
+		node = self[i]
+		tree = node.tree
 		node.tree = None
 		node.parent = None
 		node.location = None
-		i = self.index(node)
-		del self[i]
+		list.__delitem__(self, i)
+		if tree:
+			tree.node_set.remove(node)
 		if not isinstance(node, Tag):
 			return node
 		stack = [node]
@@ -402,12 +464,33 @@ class Branch(Node, list):
 		if ret:
 			return ret[0]
 
+	def ensure_unique(self, node):
+		assert not node in self.tree.node_set
+		self.tree.node_set.add(node)
+		if not isinstance(node, Tag):
+			return
+		stack = [node]
+		while stack:
+			node = stack.pop()
+			for child in node:
+				assert not child in self.tree.node_set
+				self.tree.node_set.add(child)
+				if isinstance(child, Tag):
+					stack.append(child)
+
 	def insert(self, i, node):
-		if not isinstance(node, Node):
+		if isinstance(node, Node):
+			assert not isinstance(node, Tree)
+			# Detach the node from the tree it belongs to, if any.
+			# This might our own tree.
+			node.delete()
+			# We could also check nodes for uniqueness when we
+			# don't have a tree object. This is more expensive.
+			if self.tree:
+				self.ensure_unique(node)
+		else:
 			assert isinstance(node, str), "%r" % node
 			node = String(node)
-		if node in self:
-			raise Exception("attempt to insert the same (%s) node %r multiple times" % (node.type, node))
 		if i < 0:
 			i += len(self)
 			if i < 0:
@@ -418,6 +501,16 @@ class Branch(Node, list):
 		node.parent = self
 		node.tree = self.tree
 		node.location = None
+		if isinstance(node, Tag):
+			stack = [node]
+			while stack:
+				node = stack.pop()
+				for child in node:
+					assert not isinstance(child, Tree)
+					child.tree = self.tree
+					child.location = None
+					if isinstance(child, Tag):
+						stack.append(child)
 
 	def append(self, node):
 		self.insert(len(self), node)
@@ -430,20 +523,39 @@ class Tag(Branch):
 	type = "tag"
 	attrs = None
 
-	def __init__(self, name, *args, **kwargs):
+	def __init__(self, name, *attributes_iter, **attributes):
+		'''The argument `name` is the name of the node as a string, e.g.
+		"html". The positional argument `*attributes_iter` is optional.
+		If given, it must be a single iterator that returns tuples
+		of the form `(key, value)`, or a `dict` subclass. Attributes
+		can also be passed as keyword arguments with `**attributes`.
+
+		Attributes ordering is preserved for attributes passed through
+		`*attributes_iter`. New attributes created manually with e.g.
+		`node["attr"] = "foo"` are added at the end of the attributes
+		list.
+		'''
 		self.name = name
 		self.attrs = collections.OrderedDict()
 		self.problems = []
-		if args:
-			assert len(args) == 1
-			assert not kwargs
-			(attrs,) = args
+		if attributes_iter:
+			assert len(attributes_iter) == 1
+			attrs = attributes_iter[0]
 			if isinstance(attrs, dict):
 				attrs = attrs.items()
-		else:
-			attrs = kwargs.items()
-		for key, value in attrs:
+			for key, value in attrs:
+				self[key] = value
+		for key, value in attributes.items():
 			self[key] = value
+
+	def __hash__(self):
+		return id(self)
+
+	def copy(self):
+		ret = Tag(self.name, self.attrs)
+		for child in self:
+			ret.append(child.copy())
+		return ret
 
 	def __repr__(self):
 		ret = "<%s" % self.name
@@ -452,28 +564,29 @@ class Tag(Branch):
 		ret += ">"
 		return ret
 
-	def __hash__(self):
-		return id(self)
+	def __contains__(self, val):
+		if isinstance(val, Node):
+			return super().__contains__(val)
+		assert isinstance(val, str)
+		return val in self.attrs
 
 	def unwrap(self):
 		parent = self.parent
 		if not parent:
 			raise Exception("attempt to unwrap a root node")
 		i = parent.index(self)
-		del parent[i]
+		list.__delitem__(parent, i)
 		for p, node in enumerate(self, i):
 			node.parent = parent
 			list.insert(parent, p, node)
 		self.tree = None
 		self.parent = None
 		self.location = None
-		self.clear()
+		list.clear(self)
 		return self
 
 	def bad(self, msg):
 		self.problems.append(msg)
-		if self.tree:
-			self.tree.bad_nodes.add(self)
 
 	@property
 	def path(self):
@@ -490,29 +603,31 @@ class Tag(Branch):
 		buf.reverse()
 		return "".join("/%s[%d]" % p for p in buf)
 
-	def __eq__(self, other):
-		return id(self) == id(other)
-
 	def __getitem__(self, key):
 		if isinstance(key, int):
-			return list.__getitem__(self, key)
+			return super().__getitem__(key)
+		assert isinstance(key, str)
 		return self.attrs.get(key, "")
 
 	def __setitem__(self, key, value):
 		if isinstance(key, int):
-			raise NotImplementedError
-		# Always normalize space.
-		value = " ".join(str(value).strip().split())
-		self.attrs[key] = value
+			super().__setitem__(key, value)
+		else:
+			assert isinstance(key, str)
+			assert isinstance(value, str)
+			# Always normalize space.
+			value = " ".join(value.strip().split())
+			self.attrs[key] = value
 
 	def __delitem__(self, key):
 		if isinstance(key, int):
-			list.__delitem__(self, key)
-			return
-		try:
-			del self.attrs[key]
-		except KeyError:
-			pass
+			super().__delitem__(key)
+		else:
+			assert isinstance(key, str)
+			try:
+				del self.attrs[key]
+			except KeyError:
+				pass
 
 	def xml(self, **kwargs):
 		name = self.name
@@ -538,15 +653,22 @@ class Tag(Branch):
 class Tree(Branch):
 
 	type = "tree"
-	file = None	# path of the XML file (if a file)
 	path = "/"
-	root = None	# might be None
-	# XML source, in bytes, encoded as UTF-8
+	file = None
+	"Path of the XML file this tree was constructed from."
+	root = None
+	'''The tree root tag. Might be None if the Tree node is created
+	programmatically.'''
 	source = None
+	"XML source, in bytes, encoded as UTF-8."
+	location = None
 
 	def __init__(self):
 		self.tree = self
-		self.bad_nodes = set()
+		# All nodes in this tree. This is a safeguard, used to
+		# prevent us from trying to insert the same node object
+		# several times.
+		self.node_set = {self}
 
 	def __repr__(self):
 		if self.file:
@@ -559,25 +681,34 @@ class Tree(Branch):
 			ret.append(node.xml(**kwargs))
 		return "".join(ret)
 
-	def tag(self, name, *args, **kwargs):
-		tag = Tag(name, *args, **kwargs)
-		tag.tree = self
-		return tag
-
 	def text(self, **kwargs):
 		if self.root:
 			return self.root.text(**kwargs)
-		return ""
 
 	def delete(self):
-		raise Exception("not supported")
+		raise Exception("nodes of type 'tree' cannot be deleted")
 
 	def remove(self, node):
-		if node == self.root:
+		if node is self.root:
 			raise Exception("attempt to delete the tree's root")
-		NodeList.remove(self, node)
+		super().remove(node)
 
-	replace_with = None
+	def insert(self, i, node):
+		if isinstance(node, Tag):
+			if self.root:
+				raise Exception("cannot add a root tag to a tree that already has one")
+			self.root = node
+		super().insert(i, node)
+
+	def copy(self):
+		ret = Tree()
+		for node in self:
+			ret.append(node.copy())
+		return ret
+
+	def replace_with(self, other):
+		raise Exception("cannot replace Tree nodes")
+
 	next = None
 	prev = None
 
@@ -625,6 +756,7 @@ class Parser:
 		if parent is not self.tree:
 			node.parent = parent
 		list.append(parent, node)
+		self.tree.node_set.add(node)
 		if klass is Tag:
 			self.stack.append(node)
 		self.set_location(node)
@@ -652,7 +784,7 @@ class Parser:
 		raise NotImplementedError
 
 	def StartElementHandler(self, name, attributes):
-		# Drop all namespaces.
+		# Drop all namespaces, in the tag name and in attributes.
 		colon = name.find(":")
 		if colon >= 0:
 			name = name[colon + 1:]
@@ -674,14 +806,14 @@ class Parser:
 		self.set_location(node, close=True)
 
 	def ProcessingInstructionHandler(self, target, data):
-		self.make_node(Instruction, target, data)
+		self.make_node(Instruction, target, data or "")
 
 	def CharacterDataHandler(self, data):
 		assert len(data) > 0
 		parent = self.stack[-1]
 		if len(parent) > 0 and isinstance(parent[-1], String):
-			# need to save the location because we set it to None
-			# when the string is modified
+			# Need to save and restore the location because we set
+			# it to None when the string is modified
 			loc = parent[-1].location
 			parent[-1].append(data)
 			parent[-1].location = loc
@@ -729,7 +861,7 @@ def parse_string(source, **kwargs):
 		err = e
 	# https://docs.python.org/3/library/pyexpat.html#xml.parsers.expat.XMLParserType
 	# err.offset counts columns from 0
-	raise Error(kwargs.get("path", "<memory>"),
+	raise Error(path=kwargs.get("path", "<memory>"),
 		line=err.lineno, column=err.offset + 1,
 		text=expat.errors.messages[err.code], source=source)
 
@@ -829,7 +961,6 @@ def space_after_closing(node):
 				return False
 		i += 1
 	return False
-
 
 class Formatter:
 

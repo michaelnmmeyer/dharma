@@ -19,7 +19,7 @@ class Parser:
 
 	div_level = 0
 
-	def __init__(self, tree, handlers):
+	def __init__(self, tree, handlers=HANDLERS):
 		self.tree = tree
 		self.document = Document()
 		self.document.ident = os.path.basename(os.path.splitext(tree.file)[0])
@@ -1342,8 +1342,8 @@ def export_plain():
 			f.write(ret)
 
 if __name__ == "__main__":
-	export_plain()
-"""
+	db = config.db("texts")
+	db.execute("begin")
 	path = sys.argv[1]
 	data = open(path, "rb").read()
 	try:
@@ -1351,4 +1351,4 @@ if __name__ == "__main__":
 		print(doc.apparatus)
 	except (KeyboardInterrupt, BrokenPipeError):
 		pass
-"""
+	db.execute("end")

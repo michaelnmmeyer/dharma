@@ -67,7 +67,7 @@ def process_file(file):
 	node = t.first("//body")
 	if node is not None:
 		node.delete()
-	p = parse.Parser(t, parse.make_handlers_map())
+	p = parse.Parser(t)
 	p.dispatch(p.tree.root)
 	doc = p.document
 	doc.langs = sorted(langs)

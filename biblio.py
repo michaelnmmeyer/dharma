@@ -130,10 +130,6 @@ class Writer:
 	def add(self, s):
 		self.xml.append(s)
 
-	def tag(self, name, *args, **kwargs):
-		self.xml.coalesce()
-		return self.xml.tree.tag(name, *args, **kwargs)
-
 	def name_first_last(self, rec):
 		first, last = rec.get("firstName"), rec.get("lastName")
 		if first and last:
@@ -226,7 +222,7 @@ class Writer:
 		else:
 			self.name_last(authors[0])
 			self.space()
-			tag = self.tag("i")
+			tag = tree.Tag("i")
 			tag.append("et al.")
 			self.add(tag)
 		self.space()
@@ -255,7 +251,7 @@ class Writer:
 	def italic(self, title):
 		self.space()
 		if title:
-			tag = self.tag("i")
+			tag = tree.Tag("i")
 			tag.append(title)
 			self.add(tag)
 		else:
@@ -339,7 +335,7 @@ class Writer:
 		self.space()
 		self.add("DOI:")
 		self.space()
-		tag = self.tag("a", {"class": "url", "href": f"https://doi.org/{doi}"})
+		tag = tree.Tag("a", {"class": "url", "href": f"https://doi.org/{doi}"})
 		tag.append(doi)
 		self.add(tag)
 		self.period()
@@ -362,7 +358,7 @@ class Writer:
 		self.space()
 		for i, url in enumerate(urls):
 			url = config.normalize_url(url)
-			tag = self.tag("a", {"class": "url", "href": url})
+			tag = tree.Tag("a", {"class": "url", "href": url})
 			tag.append(url)
 			self.add(tag)
 			if i < len(urls) - 1:
@@ -452,17 +448,17 @@ def render_journal_article(rec, w, params):
 		if abbr and abbr != name:
 			if name:
 				name.name = "i"
-				tag = w.tag("abbr", {"data-tip": name.xml()})
-				tagi = w.tag("i")
+				tag = tree.Tag("abbr", {"data-tip": name.xml()})
+				tagi = tree.Tag("i")
 				tagi.append(abbr)
 				tag.append(tagi)
 				w.add(tag)
 			else:
-				tag = w.tag("i")
+				tag = tree.Tag("i")
 				tag.append(abbr)
 				w.add(tag)
 		else:
-			tag = w.tag("i")
+			tag = tree.Tag("i")
 			tag.append(name)
 			w.add(tag)
 		if rec["volume"]:
@@ -1061,7 +1057,7 @@ def invalid_entry(ref, reason, key=None):
 	r = tree.parse_string('<p class="bib-entry"/>').root
 	if key:
 		r["id"] = f"bib-key-{key}"
-	span = r.tree.tag("span", **{"class": "bib-ref-invalid"})
+	span = tree.Tag("span", **{"class": "bib-ref-invalid"})
 	span["data-tip"] = reason
 	span.append(ref)
 	r.append(span)
@@ -1098,7 +1094,7 @@ def format_entry(key, rec, **params):
 	w = Writer()
 	w.xml["id"] = f"bib-key-{key}"
 	if params["n"]:
-		tag = w.tag("b")
+		tag = tree.Tag("b")
 		tag.append("[")
 		tag.append(params["n"])
 		tag.append("]")
@@ -1106,9 +1102,9 @@ def format_entry(key, rec, **params):
 		w.space()
 	f(rec, w, params)
 	w.space()
-	tag = w.tag("i", {"class": "fas fa-edit", "style": "display:inline;color:black;", "data-tip": "Edit on zotero.org"})
+	tag = tree.Tag("i", {"class": "fas fa-edit", "style": "display:inline;color:black;", "data-tip": "Edit on zotero.org"})
 	tag.append(" ")
-	lnk = w.tag("a", href=f"https://www.zotero.org/groups/1633743/erc-dharma/items/{key}")
+	lnk = tree.Tag("a", href=f"https://www.zotero.org/groups/1633743/erc-dharma/items/{key}")
 	lnk.append(tag)
 	w.add(lnk)
 	return w.output()
@@ -1142,7 +1138,7 @@ def get_ref(ref, **params):
 	w = Writer()
 	w.xml.name = "span"
 	w.xml.attrs.clear()
-	tag = w.tag("a", {"class": "bib-ref"})
+	tag = tree.Tag("a", {"class": "bib-ref"})
 	if params["missing"]:
 		page = page_of(key)
 		tag["href"] = f"/bibliography/page/{page}#bib-key-{key}"
@@ -1152,7 +1148,7 @@ def get_ref(ref, **params):
 	w.xml = tag
 	siglum = params.get("siglum")
 	if siglum:
-		tag = w.tag("span")
+		tag = tree.Tag("span")
 		w.xml.append(tag)
 		w.xml = tag
 		w.ref(rec)
@@ -1165,7 +1161,7 @@ def get_ref(ref, **params):
 		if fmt == "omitname":
 			w.date(rec, end_field=False)
 		elif fmt == "ibid":
-			tag = w.tag("i")
+			tag = tree.Tag("i")
 			tag.append("ibid.")
 			w.add(tag)
 		elif fmt == "default":
