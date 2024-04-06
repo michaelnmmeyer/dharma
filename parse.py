@@ -22,7 +22,7 @@ class Parser:
 	def __init__(self, tree, handlers):
 		self.tree = tree
 		self.document = Document()
-		self.document.ident = os.path.basename(os.path.splitext(tree.path)[0])
+		self.document.ident = os.path.basename(os.path.splitext(tree.file)[0])
 		# Stack of blocks.
 		self.blocks = [Block()]
 		self.handlers = handlers

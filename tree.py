@@ -1,9 +1,3 @@
-# We could use lxml.etree, xml.etree, or bs4. We don't because we want to track
-# accurate file locations (line + column). An annoyance of bs4 is that it tries
-# to fix invalid files, this is great for some use cases but we don't want
-# that. Using our code is also convenient for adding extra attributes or
-# methods to nodes.
-
 # TODO add a node set at the root of the tree to check that we don't attempt to
 # insert the same node at several locations; or maybe just duplicate the node
 # automatically if we see it's a duplicate. yes, solution 2 is best
@@ -14,19 +8,6 @@ from xml.sax.handler import ContentHandler, ErrorHandler
 from xml.sax.saxutils import escape as quote_string
 from xml.sax.xmlreader import XMLReader
 from xml.sax.expatreader import create_parser
-from xml.etree import ElementTree
-
-try:
-	from xml.sax.handler import LexicalHandler
-except ImportError:
-	# Older python < 3.11
-	class LexicalHandler:
-		startCDATA = None
-		endCDATA = None
-		startDTD = None
-		endDTD = None
-
-__all__ = ["Error", "parse"]
 
 DEFAULT_LANG = "eng"
 DEFAULT_SPACE = "default"
@@ -44,7 +25,7 @@ attribute_tbl = str.maketrans({
 # quoting attributes, and people generally use " instead. We want to preserve
 # the original as much as possible.
 def quote_attribute(s):
-	return s.translate(attribute_tbl)
+	return '"' + s.translate(attribute_tbl) + '"'
 
 class Error(Exception):
 
@@ -65,23 +46,50 @@ def unique(items):
 			ret.append(item)
 	return ret
 
-# Node types are: Tag, Comment, String, Instruction, Tree. Tree is not really a
-# node, but we define it as one nonetheless because we want it to have the same
-# basic methods. Tree is the XML document proper: it holds processing
-# instructions, the root node, and comments that appear outside of the root
-# node. The only reason we need it is precisely so that we can keep track of
-# everything that is outside the document's root (in particular processing
-# instructions) and can thus reproduce it in full, including comments.
+# Node types are: Tree, Tag, Comment, String, Instruction. None of these is a
+# subclass of another, unlike in bs4, where the Comment node is a subclass of
+# String. Thus, to check whether a node is a String, we check that
+# isinstance(node, String) is true, while in bs4 we need to check both if
+# isinstance(node, String) is true and if isinstance(node, Comment) is false.
+#
+# Tree is the XML document proper, which contains a single tag node and
+# optionally comments and processing instructions. The XML tradition is to
+# treat the document itself as the root of the tree, while in the DOM
+# the document's root is not the document itself but its unique element node,
+# viz. <html> in HTML documents.
+#
+# We follow the second model, mostly out of habit. This means that the tree
+# root e.g. <TEI> and other nodes at this level have no parent (node.parent is
+# None for them). Still, the Tree node is considered to have children, which
+# is weird. Nodes that have been detached from the tree with unwrap() also
+# have no parent (nor tree). If we did not use the DOM, we would have to attach
+# them all to new trees to keep the behavior consistent.
+#
+# When parsing documents, we always normalize spaces in attributes: we replace
+# all sequences of whitespace characters with " " and we trim whitespace
+# from both sides.
+#
+# We don't deal with XML namespaces at all. We just remove namespace prefixes
+# in both elements and attributes. This means that we can't deal with
+# documents where namespaces are significant.
 
 class Node(object):
 
-	type = None # "tree", "tag", "string", "comment", "instruction"
-	tree = None # tree this node belongs to
-	location = None # Location object
+	# Tree this node belongs to. Is None for nodes detached with uwrap().
+	tree = None
+	# Location object: boundaries of the node in the source code.
+	location = None
+	# Is None for the root element node and other direct children of the
+	# Tree node. Is also None for nodes detached with unwrap().
 	parent = None
 
 	def __hash__(self):
 		return id(self)
+
+	# A string, one of "tree", "tag", "string", "comment", "instruction".
+	@property
+	def type(self):
+		raise NotImplementedError
 
 	@property
 	def source(self):
@@ -91,7 +99,8 @@ class Node(object):
 
 	# Immediate next sibling node of type "tag". We skip blank text,
 	# comments and instructions, but we don't attempt to go past non-blank
-	# text.
+	# text. XXX stupid! should have a differentt method for this
+	# peculiar use case, we're supposed to return siblings with this one.
 	@property
 	def next(self):
 		parent = self.parent
@@ -100,11 +109,14 @@ class Node(object):
 		i = parent.index(self) + 1
 		while i < len(parent):
 			node = parent[i]
-			assert not node.type == "tree"
-			if node.type == "tag":
-				return node
-			if node.type == "string" and node.data and not node.data.isspace():
-				return
+			match node:
+				case Tag():
+					return node
+				case String():
+					if node.data and not node.data.isspace():
+						return
+				case Tree():
+					assert 0
 			i += 1
 
 	@property
@@ -115,11 +127,14 @@ class Node(object):
 		i = parent.index(self) - 1
 		while i >= 0:
 			node = parent[i]
-			assert not node.type == "tree"
-			if node.type == "tag":
-				return node
-			if node.type == "string" and node.data and not node.data.isspace():
-				return
+			match node:
+				case Tag():
+					return node
+				case String():
+					if node.data and not node.data.isspace():
+						return
+				case Tree():
+					assert 0
 			i -= 1
 
 	def delete(self):
@@ -145,19 +160,13 @@ class Node(object):
 	def text(self, **kwargs):
 		return ""
 
-class Instruction(Node, dict):
+class Instruction(Node):
 
 	type = "instruction"
 
 	def __init__(self, target, data):
 		self.target = target
 		self.data = data or ""
-		if self.target != "xml-model":
-			return
-		# quick 'n dirty parsing just to get the data as a dict
-		tree = ElementTree.parse(io.StringIO("<foo %s/>" % self.data))
-		root = tree.getroot()
-		self.update(root.attrib)
 
 	def __bool__(self):
 		return True
@@ -172,6 +181,10 @@ class Instruction(Node, dict):
 		return "<?%s %s?>\n" % (self.target, self.data)
 
 class String(Node, collections.UserString):
+
+	# Quirk: string nodes are False when empty, unlike other nodes.
+	# OTOH, empty strings are not supposed to appear in a tree that is
+	# consolidated.
 
 	type = "string"
 
@@ -214,18 +227,14 @@ class String(Node, collections.UserString):
 		data = str(self.data) # casting is necessary for String
 		space = kwargs.get("space")
 		if not space:
-			if self.parent:
-				space = self.parent["space"]
-			else:
-				space = "default"
-		if space == "preserve":
+			space = "default"
+		elif space == "preserve":
 			return data
-		assert space == "default"
 		data = data.strip()
 		data = re.sub(r"\s+", " ", data)
 		return data
 
-class Comment(String):
+class Comment(Node, collections.UserString):
 
 	type = "comment"
 
@@ -235,6 +244,9 @@ class Comment(String):
 	def __str__(self):
 		return self.xml()
 
+	def __bool__(self):
+		return True
+
 	def xml(self, **kwargs):
 		if kwargs.get("strip_comments"):
 			return ""
@@ -243,33 +255,45 @@ class Comment(String):
 	def text(self, **kwargs):
 		return ""
 
+# Common code for Tree and Tag nodes.
 class Branch(Node, list):
 
 	def __bool__(self):
 		return True
 
+	# Note that we check for objects identity: we compare pointers instead
+	# of using __eq__.
 	def __contains__(self, node):
 		for child in self:
 			if child is node:
 				return True
 		return False
 
-	# merge adjacent string nodes
+	# Merge adjacent string nodes
 	def coalesce(self):
-		i = 1
+		i = 0
 		while i < len(self):
 			cur = self[i]
-			if self[i - 1].type == "string" and cur.type == "string":
-				self[i - 1].append(cur)
-				del self[i]
-				cur.tree = None
-				cur.parent = None
-				cur.location = None
-			else:
-				if cur.type == "tag":
-					cur.coalesce()
-				i += 1
+			if isinstance(cur, String):
+				if not cur.data:
+					del self[i]
+					cur.tree = None
+					cur.parent = None
+					cur.location = None
+				elif i < len(self) - 1 and isinstance(self[i + 1], String):
+					next = self[i + 1]
+					cur.append(next)
+					del self[i + 1]
+					next.tree = None
+					next.parent = None
+					next.location = None
+					continue
+			elif isinstance(cur, Tag):
+				cur.coalesce()
+			i += 1
 
+	# Note that we check for objects identity: we compare pointers instead
+	# of using __eq__.
 	def index(self, node):
 		for i, child in enumerate(self):
 			if child is node:
@@ -317,6 +341,16 @@ class Branch(Node, list):
 			if name == "*" or node.name == name:
 				ret.append(node)
 			ret.extend(node.descendants(name))
+		return ret
+
+	def ancestors(self):
+		ret = []
+		node = self
+		while True:
+			node = node.parent
+			if not node:
+				break
+			ret.append(node)
 		return ret
 
 	def _split_name_index(self, name):
@@ -413,8 +447,8 @@ class Tag(Branch):
 
 	def __repr__(self):
 		ret = "<%s" % self.name
-		for k, v in sorted(self.attrs.items()):
-			ret += ' %s="%s"' % (k, quote_attribute(v))
+		for k, v in self.attrs.items():
+			ret += ' %s=%s' % (k, quote_attribute(v))
 		ret += ">"
 		return ret
 
@@ -462,26 +496,14 @@ class Tag(Branch):
 	def __getitem__(self, key):
 		if isinstance(key, int):
 			return list.__getitem__(self, key)
-		if key != "lang" and key != "space":
-			return self.attrs.get(key, "")
-		node = self
-		while not node.attrs.get(key):
-			node = node.parent
-			if not node:
-				return key == "lang" and DEFAULT_LANG or DEFAULT_SPACE
-		return node.attrs[key]
+		return self.attrs.get(key, "")
 
 	def __setitem__(self, key, value):
 		if isinstance(key, int):
-			raise Exception("not supported")
-		if key == "lang":
-			if isinstance(value, str):
-				value = value.rsplit("-", 1)
-			assert isinstance(value, list) or isinstance(value, tuple)
-			assert 1 <= len(value) <= 2
-			value = value[0]
-		# always normalize space # XXX do that on the xml not on str(xml)
-		self.attrs[key] = " ".join(str(value).strip().split())
+			raise NotImplementedError
+		# Always normalize space.
+		value = " ".join(str(value).strip().split())
+		self.attrs[key] = value
 
 	def __delitem__(self, key):
 		if isinstance(key, int):
@@ -495,9 +517,9 @@ class Tag(Branch):
 	def xml(self, **kwargs):
 		name = self.name
 		buf = ["<%s" % name]
-		# for now, don't sort attrs for normalization
+		# For now, don't sort attrs for normalization.
 		for k, v in self.attrs.items():
-			buf.append(' %s="%s"' % (k, quote_attribute(v)))
+			buf.append(' %s=%s' % (k, quote_attribute(v)))
 		if len(self) == 0:
 			buf.append("/>")
 			return "".join(buf)
@@ -516,7 +538,8 @@ class Tag(Branch):
 class Tree(Branch):
 
 	type = "tree"
-	path = None	# path of the XML file (if a file)
+	file = None	# path of the XML file (if a file)
+	path = "/"
 	root = None	# might be None
 	# XML source, in bytes, encoded as UTF-8
 	source = None
@@ -526,8 +549,8 @@ class Tree(Branch):
 		self.bad_nodes = set()
 
 	def __repr__(self):
-		if self.path:
-			return "<Tree path=%r>" % self.path
+		if self.file:
+			return "<Tree file=%r>" % self.file
 		return "<Tree>"
 
 	def xml(self, **kwargs):
@@ -560,8 +583,7 @@ class Tree(Branch):
 
 class Parser:
 
-	def __init__(self, source, path=None, keep_namespaces=False):
-		self.keep_namespaces = keep_namespaces
+	def __init__(self, source, path=None):
 		self.parser = expat.ParserCreate()
 		self.parser.ordered_attributes = 1
 		for attr in dir(self):
@@ -574,7 +596,7 @@ class Parser:
 		self.tree = Tree()
 		self.stack = [self.tree]
 		self.tree.source = source
-		self.tree.path = path
+		self.tree.file = path
 		self.tree.location = Location(0, len(source), 1, 1)
 		self.last_node = None
 
@@ -608,32 +630,41 @@ class Parser:
 		self.set_location(node)
 
 	def XmlDeclHandler(self, version, encoding, standalone):
-		pass
+		data = ""
+		if version is not None:
+			data += " version=" + quote_attribute(version)
+		if encoding is not None:
+			data += " encoding=" + quote_attribute(encoding)
+		if standalone != -1:
+			data += " standalone=" + quote_attribute(standalone and "yes" or "no")
+		self.make_node(Instruction, "xml", data[1:])
 
 	def StartDoctypeDeclHandler(self, doctypeName, systemId, publicId, has_internal_subset):
-		raise Exception
+		raise NotImplementedError
 
 	def EndDoctypeDeclHandler(self):
-		raise Exception
+		raise NotImplementedError
 
 	def ElementDeclHandler(self, name, model):
-		raise Exception
+		raise NotImplementedError
 
 	def AttlistDeclHandler(self, elname, attname, type, default, required):
-		raise Exception
+		raise NotImplementedError
 
 	def StartElementHandler(self, name, attributes):
+		# Drop all namespaces.
+		colon = name.find(":")
+		if colon >= 0:
+			name = name[colon + 1:]
 		attrs = []
-		if not self.keep_namespaces:
-			colon = name.find(":")
-			if colon >= 0:
-				name = name[colon + 1:]
 		for i in range(0, len(attributes), 2):
 			key, value = attributes[i:i + 2]
-			if not self.keep_namespaces:
-				colon = key.find(":")
-				if colon >= 0:
-					key = key[colon + 1:]
+			colon = key.find(":")
+			if colon >= 0:
+				key = key[colon + 1:]
+			if key == "lang":
+				# san-Latn -> san
+				value = value.rsplit("-", 1)[0]
 			attrs.append((key, value))
 		self.make_node(Tag, name, attrs)
 
@@ -648,7 +679,7 @@ class Parser:
 	def CharacterDataHandler(self, data):
 		assert len(data) > 0
 		parent = self.stack[-1]
-		if len(parent) > 0 and parent[-1].type == "string":
+		if len(parent) > 0 and isinstance(parent[-1], String):
 			# need to save the location because we set it to None
 			# when the string is modified
 			loc = parent[-1].location
@@ -658,36 +689,36 @@ class Parser:
 			self.make_node(String, data)
 
 	def EntityDeclHandler(self, entityName, is_parameter_entity, value, base, systemId, publicId, notationName):
-		raise Exception
+		raise NotImplementedError
 
 	def NotationDeclHandler(self, notationName, base, systemId, publicId):
-		raise Exception
+		raise NotImplementedError
 
 	def StartNamespaceDeclHandler(self, prefix, uri):
-		raise Exception
+		raise NotImplementedError
 
 	def EndNamespaceDeclHandler(self, prefix):
-		raise Exception
+		raise NotImplementedError
 
 	def CommentHandler(self, data):
 		self.make_node(Comment, data)
 
 	def StartCdataSectionHandler(self):
-		raise Exception
+		raise NotImplementedError
 
 	def EndCdataSectionHandler(self):
-		raise Exception
+		raise NotImplementedError
 
 	def DefaultHandler(self, data):
 		if data.strip():
-			raise Exception
+			raise NotImplementedError
 		self.CharacterDataHandler(data)
 
 	def NotStandaloneHandler(self):
-		raise Exception
+		raise NotImplementedError
 
 	def ExternalEntityRefHandler(self, context, base, systemId, publicId):
-		raise Exception
+		raise NotImplementedError
 
 def parse_string(source, **kwargs):
 	if isinstance(source, str):
@@ -698,7 +729,9 @@ def parse_string(source, **kwargs):
 		err = e
 	# https://docs.python.org/3/library/pyexpat.html#xml.parsers.expat.XMLParserType
 	# err.offset counts columns from 0
-	raise Error(path='', line=err.lineno, column=err.offset + 1, text=expat.errors.messages[err.code], source=source)
+	raise Error(kwargs.get("path", "<memory>"),
+		line=err.lineno, column=err.offset + 1,
+		text=expat.errors.messages[err.code], source=source)
 
 # file can be either a file-like object or a string
 def parse(file, **kwargs):
@@ -733,7 +766,7 @@ colors = {
 }
 
 def space_before_opening(node):
-	assert node.type == "tag"
+	assert isinstance(node, Tag)
 	parent = node.parent
 	if not parent:
 		return False
@@ -750,7 +783,7 @@ def space_before_opening(node):
 	return False
 
 def space_after_opening(node):
-	assert node.type == "tag"
+	assert isinstance(node, Tag)
 	i = 0
 	while i < len(node):
 		if node[i].type == "string":
@@ -764,7 +797,7 @@ def space_after_opening(node):
 	return False
 
 def space_before_closing(node):
-	assert node.type == "tag"
+	assert isinstance(node, Tag)
 	i = len(node)
 	while i > 0:
 		i -= 1
@@ -778,19 +811,22 @@ def space_before_closing(node):
 	return False
 
 def space_after_closing(node):
-	assert node.type == "tag"
+	assert isinstance(node, Tag)
 	parent = node.parent
 	if not parent:
 		return False
 	i = parent.index(node) + 1
 	while i < len(parent):
-		if parent[i].type == "string":
-			if parent[i].lstrip() != parent[i]:
-				return True
-			if parent[i] != "":
+		match parent[i]:
+			case String() if node.data and not node.data.isspace():
+				if parent[i].lstrip() != parent[i]:
+					return True
+				if parent[i] != "":
+					return False
+			case Comment() | Instruction():
+				pass
+			case _:
 				return False
-		elif parent[i].type not in ("comment", "instruction"):
-			return False
 		i += 1
 	return False
 
@@ -811,23 +847,21 @@ class Formatter:
 		self.indent_string = indent_string
 
 	def format(self, node):
-		if node.type == "tree":
-			return self.format_tree(node)
-		elif node.type == "tag":
-			return self.format_tag(node)
-		elif node.type == "string":
-			return self.format_string(node)
-		elif node.type == "comment":
-			return self.format_comment(node)
-		elif node.type == "instruction":
-			return self.format_instruction(node)
-		else:
-			assert 0
+		match node:
+			case Tree():
+				return self.format_tree(node)
+			case Tag():
+				return self.format_tag(node)
+			case String():
+				return self.format_string(node)
+			case Comment():
+				return self.format_comment(node)
+			case Instruction():
+				return self.format_instruction(node)
+			case _:
+				assert 0
 
 	def format_tree(self, node):
-		self.write('<?xml version="1.0" encoding="UTF-8"?>', klass="instruction")
-		if self.pretty:
-			self.write("\n")
 		for child in node:
 			self.format(child)
 
@@ -874,7 +908,7 @@ class Formatter:
 		self.write(node.name, klass="tag")
 		attrs = node.attrs.items()
 		if self.pretty:
-			# TODO might want to sort tags in different ways,
+			# We might want to sort tags in different ways,
 			# depending on the tag name, for readability and to
 			# follow people's habits
 			attrs = sorted(attrs)
@@ -884,7 +918,7 @@ class Formatter:
 			self.write(" ")
 			self.write("%s" % k, klass="attr-name")
 			self.write("=")
-			self.write('"%s"' % quote_attribute(v), klass="attr-value")
+			self.write('%s' % quote_attribute(v), klass="attr-value")
 		if len(node) == 0: # might also have non-consodilated nodes XXX
 			self.write("/>", klass="tag")
 		else:
@@ -965,11 +999,6 @@ class Formatter:
 def html_format(node):
 	fmt = Formatter(pretty=False)
 	fmt.format(node)
-	return fmt.text()
-
-def pretty(node):
-	fmt = Formatter(html=False)
-	fmt.format_tag(node)
 	return fmt.text()
 
 def xml(node):
