@@ -156,7 +156,7 @@ def parse_rdg(p, rdg):
 	p.start_span(klass="reading", tip="Reading")
 	p.dispatch_children(rdg)
 	p.end_span()
-	add_lemmas_links(p, rdg["sources"])
+	add_lemmas_links(p, rdg["source"])
 
 @handler("app")
 def parse_app(p, app):
