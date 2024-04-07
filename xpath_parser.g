@@ -1,3 +1,8 @@
+# Relevant documentation:
+# https://www.w3.org/TR/1999/REC-xpath-19991116
+# https://github.com/we-like-parsers/pegen
+# https://we-like-parsers.github.io/pegen
+
 @subheader'''
 def assign(obj, **kwargs):
 	for k, v in kwargs.items():
@@ -98,8 +103,7 @@ NameTest:
 	| r=NAME { assign(Step(), name_test=r.string) }
 
 Predicate: '[' r=PredicateExpr ']' { r }
-PredicateExpr:
-	| Expr
+PredicateExpr: Expr
 
 Expr: OrExpr
 PrimaryExpr:
@@ -112,7 +116,12 @@ OrExpr:
 	| r=OrExpr "or" s=AndExpr { Op("or", r, s) }
 	| AndExpr
 AndExpr:
-	| r=AndExpr "and" s=EqualityExpr { Op("and", r, s) }
+	| r=AndExpr "and" s=NotExpr { Op("and", r, s) }
+	| NotExpr
+# The xpath spec defines 'not' as a function, but we make it an operator.
+# Thus both foo[not(kid)] and foo[not kid] can be used and are equivalent.
+NotExpr:
+	| "not" r=NotExpr { Op("not", None, r) }
 	| EqualityExpr
 EqualityExpr:
 	| r=EqualityExpr '=' s=RelationalExpr { Op("==", r, s) }
@@ -132,11 +141,9 @@ PathExpr:
 	| LocationPath
 FilterExpr: PrimaryExpr
 
-FunctionCall: r=FunctionName '(' s=Arguments? ')' { Func(r, s or []) }
+FunctionCall: r=FunctionName '(' Arguments? ')' { Func(r, s or []) }
 FunctionName: r=NAME { r.string }
-Arguments:
-	| r=Arguments ',' s=Argument { r + [s] }
-	| r=Argument { [r] }
+Arguments: ','.Argument+ { r + [s] }
 Argument: Expr
 
 Literal: r=STRING { r.string }

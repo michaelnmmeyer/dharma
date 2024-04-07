@@ -392,16 +392,34 @@ class GeneratedParser(Parser):
 
     @memoize_left_rec
     def AndExpr(self) -> Optional[Any]:
-        # AndExpr: AndExpr "and" EqualityExpr | EqualityExpr
+        # AndExpr: AndExpr "and" NotExpr | NotExpr
         mark = self._mark()
         if (
             (r := self.AndExpr())
             and
             (self.expect("and"))
             and
-            (s := self.EqualityExpr())
+            (s := self.NotExpr())
         ):
             return Op ( "and" , r , s );
+        self._reset(mark)
+        if (
+            (NotExpr := self.NotExpr())
+        ):
+            return NotExpr;
+        self._reset(mark)
+        return None;
+
+    @memoize
+    def NotExpr(self) -> Optional[Any]:
+        # NotExpr: "not" NotExpr | EqualityExpr
+        mark = self._mark()
+        if (
+            (self.expect("not"))
+            and
+            (r := self.NotExpr())
+        ):
+            return Op ( "not" , None , r );
         self._reset(mark)
         if (
             (EqualityExpr := self.EqualityExpr())
@@ -544,7 +562,7 @@ class GeneratedParser(Parser):
             and
             (self.expect('('))
             and
-            (s := self.Arguments(),)
+            (self.Arguments(),)
             and
             (self.expect(')'))
         ):
@@ -563,23 +581,14 @@ class GeneratedParser(Parser):
         self._reset(mark)
         return None;
 
-    @memoize_left_rec
+    @memoize
     def Arguments(self) -> Optional[Any]:
-        # Arguments: Arguments ',' Argument | Argument
+        # Arguments: ','.Argument+
         mark = self._mark()
         if (
-            (r := self.Arguments())
-            and
-            (self.expect(','))
-            and
-            (s := self.Argument())
+            (self._gather_2())
         ):
             return r + [s];
-        self._reset(mark)
-        if (
-            (r := self.Argument())
-        ):
-            return [r];
         self._reset(mark)
         return None;
 
@@ -618,8 +627,38 @@ class GeneratedParser(Parser):
         self._reset(mark)
         return children;
 
+    @memoize
+    def _loop0_3(self) -> Optional[Any]:
+        # _loop0_3: ',' Argument
+        mark = self._mark()
+        children = []
+        while (
+            (self.expect(','))
+            and
+            (elem := self.Argument())
+        ):
+            children.append(elem)
+            mark = self._mark()
+        self._reset(mark)
+        return children;
+
+    @memoize
+    def _gather_2(self) -> Optional[Any]:
+        # _gather_2: Argument _loop0_3
+        mark = self._mark()
+        if (
+            (elem := self.Argument())
+            is not None
+            and
+            (seq := self._loop0_3())
+            is not None
+        ):
+            return [elem] + seq;
+        self._reset(mark)
+        return None;
+
     KEYWORDS = ()
-    SOFT_KEYWORDS = ('ancestor', 'and', 'child', 'descendant', 'or', 'parent', 'self')
+    SOFT_KEYWORDS = ('ancestor', 'and', 'child', 'descendant', 'not', 'or', 'parent', 'self')
 
 
 if __name__ == '__main__':

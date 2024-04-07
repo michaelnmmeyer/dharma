@@ -1,21 +1,27 @@
-# https://www.w3.org/TR/1999/REC-xpath-19991116
-# https://github.com/we-like-parsers/pegen
-# https://we-like-parsers.github.io/pegen/
+'''XPath expressions
+
+We only support a small subset of xpath. Most notably, it is only possible to
+select tag nodes and the XML tree itself. Other types of nodes, e.g. attributes,
+can only be used as predicates, as in `foo[@bar]`. We also do not support
+expressions that index node sets in some way: testing a node position in a node
+set is not possible.
+
+To evaluate an expression, we first convert it to straightforward python source
+code, then compile the result, and finally run the code. Compiled expressions
+are saved in a global table and are systematically reused. No caching policy for
+now.
+'''
 
 import inspect, fnmatch, argparse, io, os, sys, tokenize, traceback
 from pegen.tokenizer import Tokenizer
 from dharma import tree
 from dharma.xpath_parser import *
 
-def xpath_not(node, result):
-	return not result
-
 def xpath_glob(node, pattern):
 	assert isinstance(pattern, str)
 	return fnmatch.fnmatchcase(node.text(), pattern)
 
 xpath_funcs = {
-	"not": xpath_not,
 	"glob": xpath_glob,
 }
 
@@ -77,7 +83,7 @@ class Generator:
 		self.indents.append(0)
 		self.bufs.append(buf)
 		self.routines_nr += 1
-		return f"xpath_expression_{self.routines_nr}"
+		return f"xpath_expression_{self.routines_nr}", len(self.bufs) == 1
 
 	def end_routine(self):
 		self.routines.append(self.bufs.pop())
@@ -91,8 +97,7 @@ class Generator:
 		if os.getenv("DHARMA_DEBUG"):
 			print(tree, file=sys.stderr)
 		assert isinstance(tree, Path)
-		main = f"xpath_expression_{self.routines_nr + 1}"
-		self.generate(tree)
+		main = self.generate(tree)
 		buf = []
 		for i, routine in enumerate(self.routines):
 			for line in routine:
@@ -113,18 +118,22 @@ class Generator:
 	def generate(self, expr):
 		match expr:
 			case Path():
-				name = self.start_routine()
-				self.generate_path(expr, name)
+				name, is_main = self.start_routine()
+				self.generate_path(expr, name, is_main)
 				self.end_routine()
-				return f"(next({name}(node), None) is None)"
+				if is_main:
+					return name
+				return f"{name}(node)"
 			case Step():
 				self.generate_step(expr)
 			case str():
 				return expr
 			case Op(val="or") | Op(val="and"):
 				return f"bool({self.generate(expr.l)} {expr.val} {self.generate(expr.r)})"
+			case Op(val="not"):
+				return f"not {self.generate(expr.r)}"
 			case Op():
-				return f"({self.generate(expr.l)} {expr.val} {self.generate(expr.r)})"
+				return f"{self.generate(expr.l)} {expr.val} {self.generate(expr.r)}"
 			case Func():
 				return self.generate_call(expr)
 			case _:
@@ -136,13 +145,13 @@ class Generator:
 			or line.startswith("for "):
 			self.indents[-1] += 1
 
-	def generate_path(self, path, func_name):
+	def generate_path(self, path, func_name, is_main):
 		self.append(f"def {func_name}(node):")
 		if path.absolute:
 			self.append("node = node.tree")
 		for step in path.steps:
 			self.generate(step)
-		self.append("yield node")
+		self.append(is_main and "yield node" or "return True")
 
 	def generate_step(self, step):
 		match step.axis:
@@ -200,7 +209,7 @@ def main():
 		except tree.Error:
 			continue
 		for result in f(t):
-			print(f"--- {file}")
+			print(f"{tree.term_color('#9d40b4')}--- {file}{tree.term_color()}")
 			print(result.xml())
 
 if __name__ == "__main__":
