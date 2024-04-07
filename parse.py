@@ -115,6 +115,7 @@ class Parser:
 @handler("lem")
 def parse_lem(p, lem):
 	p.dispatch_children(lem)
+	add_lemmas_links(p, lem["source"])
 
 @handler("ptr")
 def parse_ptr(p, ptr):
@@ -141,18 +142,21 @@ def parse_ref(p, ref):
 	if target:
 		p.add_html(f'</a>')
 
+def add_lemmas_links(p, sources):
+	if not sources:
+		return
+	sources = [source.removeprefix("bib:") for source in sources.split()]
+	for ref in sources:
+		p.add_text(" ")
+		siglum = p.document.sigla.get(ref)
+		p.add_code("ref", ref, rend="default", loc=[], siglum=siglum, missing=ref not in p.document.biblio)
+
 @handler("rdg")
 def parse_rdg(p, rdg):
 	p.start_span(klass="reading", tip="Reading")
 	p.dispatch_children(rdg)
 	p.end_span()
-	sources = [source.removeprefix("bib:") for source in rdg["source"].split()]
-	if not sources:
-		return
-	for ref in sources:
-		p.add_text(" ")
-		siglum = p.document.sigla.get(ref)
-		p.add_code("ref", ref, rend="default", loc=[], siglum=siglum, missing=ref not in p.document.biblio)
+	add_lemmas_links(p, rdg["sources"])
 
 @handler("app")
 def parse_app(p, app):
