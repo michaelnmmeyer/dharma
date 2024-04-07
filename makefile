@@ -6,11 +6,13 @@ generated_tei = \
 	$(addsuffix .oddc,$(schemas)) \
 	$(addsuffix .sch,$(schemas))
 generated_views = $(patsubst %.md,%.tpl,$(wildcard views/*.md))
+generated_parsers = $(patsubst %.g,%.py,$(wildcard *.g))
+generated = $(generated_tei) $(generated_views) $(generated_parsers)
 
-all: $(generated_tei) $(generated_views)
+all: $(generated)
 
 clean:
-	rm -f $(generated_tei) $(generated_views)
+	rm -f $(generated)
 
 # Usage: make forever cmd="echo hello"
 cmd := $(MAKE) -j3
@@ -77,7 +79,7 @@ update-texts:
 	rm -f texts/*
 	sqlite3 dbs/texts.sqlite "select printf('../repos/%s/%s', repo, path) \
 		from documents natural join files" | while read f; do \
-		ln -s "$$f" "texts/$$(basename "$$f")"; \
+		ln -s "$$f" "texts/$$(basename """$$f""")"; \
 	done
 
 deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
@@ -97,6 +99,9 @@ missing-git-names:
 	done
 
 .PHONY: update-repos update-texts deploy-schemas missing-git-names
+
+%.py: %.g
+	python3 -m pegen -q $^ -o $@
 
 views/%.tpl: views/%.md
 	pandoc -f markdown -t html $^ -o $@

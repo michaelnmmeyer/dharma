@@ -12,9 +12,10 @@ The following Python packages need to be installed with `pip`:
 	requests
 	saxonche
 	websockets
+	pegen
 
-`PyICU` wants all the ICU stuff to be installed, so install `libicu-dev` or
-`libicu-devel`, depending on the distribution.
+`PyICU` wants all the ICU stuff to be installed, including the build tools,
+so install `libicu-dev` or `libicu-devel`, depending on the distribution.
 
 ##  Basic architecture
 

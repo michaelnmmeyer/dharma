@@ -1,10 +1,11 @@
 '''XML tree representation
 
-Node types are: `Tree`, `Tag`, `Comment`, `String`, `Instruction`. They all
-derive from an abstract base class `Node`. There is no inheritance relationship
-between the different kinds of nodes: `Comment` is not a subclass of `String`
-(unlike in bs4). Thus, to check whether a node is of a given type, using
-`isinstance(node, Comment)`, etc. is sufficient.
+Node types are: `Tree`, `Tag`, `Comment`, `String`, `Instruction`. Attributes
+are not represented as nodes. All node types derive from an abstract base class
+`Node`. There is no inheritance relationship between the different kinds of
+nodes: `Comment` is not a subclass of `String` (unlike in bs4). Thus, to check
+whether a node is of a given type, using `isinstance(node, Comment)`, etc. is
+sufficient.
 
 `Tree` is the XML document proper, which contains a single tag node and
 optionally comments and processing instructions. The XML tradition is to
