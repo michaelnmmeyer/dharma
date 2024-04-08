@@ -14,8 +14,8 @@ now.
 
 import inspect, fnmatch, argparse, io, os, sys, tokenize, traceback
 from pegen.tokenizer import Tokenizer
+from dharma.xpath_parser import Path, Step, Op, Func, GeneratedParser
 from dharma import tree
-from dharma.xpath_parser import *
 
 def xpath_glob(node, pattern):
 	assert isinstance(pattern, str)
@@ -26,21 +26,25 @@ xpath_funcs = {
 }
 
 def children(node):
+	assert isinstance(node, tree.Branch)
 	for child in node:
 		if isinstance(child, tree.Tag):
 			yield child
 
 def descendants(node):
+	assert isinstance(node, tree.Branch)
 	for child in node:
 		if isinstance(child, tree.Tag):
 			yield child
 			yield from descendants(child)
 
 def descendants_or_self(node):
+	assert isinstance(node, tree.Branch)
 	yield node
 	yield from descendants(node)
 
 def ancestors(node):
+	assert isinstance(node, tree.Branch)
 	while True:
 		node = node.parent
 		if not node:
@@ -48,6 +52,7 @@ def ancestors(node):
 		yield node
 
 def ancestors_or_self(node):
+	assert isinstance(node, tree.Branch)
 	yield node
 	yield from ancestors(node)
 
@@ -93,11 +98,11 @@ class Generator:
 		f = self.table.get(expr)
 		if f:
 			return f
-		tree = self.parse(expr)
+		t = self.parse(expr)
 		if os.getenv("DHARMA_DEBUG"):
-			print(tree, file=sys.stderr)
-		assert isinstance(tree, Path)
-		main = self.generate(tree)
+			print(t, file=sys.stderr)
+		assert isinstance(t, Path)
+		main = self.generate(t)
 		buf = []
 		for i, routine in enumerate(self.routines):
 			for line in routine:
@@ -194,12 +199,18 @@ class Generator:
 		buf.append(")")
 		return "".join(buf)
 
+generator = Generator()
+
+def find(node, expr):
+	f = generator.compile(expr)
+	return list(f(node))
+
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("expression")
 	parser.add_argument("file", nargs="*")
 	args = parser.parse_args()
-	f = Generator().compile(args.expression)
+	f = generator.compile(args.expression)
 	if not args.file:
 		sys.stdout.write(f.source_code)
 		return

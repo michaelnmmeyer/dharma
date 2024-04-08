@@ -89,12 +89,12 @@ AxisName:
 	# Python's tokenizer treats these as separate tokens. We should modify
 	# it instead of doing the following.
 	| "ancestor" "-" "or" "-" "self" { "ancestor-or-self" }
-	| "ancestor" { r.string }
-	| "child" { r.string }
+	| r="ancestor" { r.string }
+	| r="child" { r.string }
 	| "descendant" "-" "or" "-" "self" { "descendant-or-self" }
-	| "descendant" { r.string }
-	| "parent" { r.string }
-	| "self" { r.string }
+	| r="descendant" { r.string }
+	| r="parent" { r.string }
+	| r="self" { r.string }
 
 NodeTest: NameTest
 
@@ -141,9 +141,9 @@ PathExpr:
 	| LocationPath
 FilterExpr: PrimaryExpr
 
-FunctionCall: r=FunctionName '(' Arguments? ')' { Func(r, s or []) }
+FunctionCall: r=FunctionName '(' s=Arguments? ')' { Func(r, s or []) }
 FunctionName: r=NAME { r.string }
-Arguments: ','.Argument+ { r + [s] }
+Arguments: r=','.Argument+ { r }
 Argument: Expr
 
 Literal: r=STRING { r.string }

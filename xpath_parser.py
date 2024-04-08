@@ -235,12 +235,12 @@ class GeneratedParser(Parser):
             return "ancestor-or-self";
         self._reset(mark)
         if (
-            (self.expect("ancestor"))
+            (r := self.expect("ancestor"))
         ):
             return r . string;
         self._reset(mark)
         if (
-            (self.expect("child"))
+            (r := self.expect("child"))
         ):
             return r . string;
         self._reset(mark)
@@ -258,17 +258,17 @@ class GeneratedParser(Parser):
             return "descendant-or-self";
         self._reset(mark)
         if (
-            (self.expect("descendant"))
+            (r := self.expect("descendant"))
         ):
             return r . string;
         self._reset(mark)
         if (
-            (self.expect("parent"))
+            (r := self.expect("parent"))
         ):
             return r . string;
         self._reset(mark)
         if (
-            (self.expect("self"))
+            (r := self.expect("self"))
         ):
             return r . string;
         self._reset(mark)
@@ -562,7 +562,7 @@ class GeneratedParser(Parser):
             and
             (self.expect('('))
             and
-            (self.Arguments(),)
+            (s := self.Arguments(),)
             and
             (self.expect(')'))
         ):
@@ -586,9 +586,9 @@ class GeneratedParser(Parser):
         # Arguments: ','.Argument+
         mark = self._mark()
         if (
-            (self._gather_2())
+            (r := self._gather_2())
         ):
-            return r + [s];
+            return r;
         self._reset(mark)
         return None;
 

@@ -1,6 +1,6 @@
 import os, sys, re, io, copy, html, unicodedata, functools
 from urllib.parse import urlparse
-from dharma import prosody, people, tree, gaiji, config, unicode, biblio, langs, document
+from dharma import prosody, people, tree, gaiji, config, unicode, biblio, langs, document, xpath
 from dharma.document import Document, Block
 
 HANDLERS = {}
@@ -93,7 +93,6 @@ class Parser:
 			self.add_text(str(node).replace("'", "’"))
 			return
 		assert node.type == "tag"
-		# TODO do something less stupid
 		f = self.handlers.get(node.name)
 		if not f:
 			self.complain(node)
@@ -123,7 +122,14 @@ def parse_ptr(p, ptr):
 	if not ref.startswith("bib:"):
 		return
 	ref = ref.removeprefix("bib:")
-	p.add_code("ref", ref, rend="default", loc=[], missing=ref not in p.document.biblio)
+	print("have ", p.document.sigla.get(ref))
+	kwargs = {
+		"rend": "default",
+		"loc": [],
+		"missing": ref not in p.document.biblio,
+		"siglum": p.document.sigla.get(ref),
+	}
+	p.add_code("ref", ref, **kwargs)
 
 @handler("ref")
 def parse_ref(p, ref):
