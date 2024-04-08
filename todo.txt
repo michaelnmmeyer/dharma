@@ -7,19 +7,9 @@ o3 o4 õ o6 ö o8 o9 p2 p6 ṛ r3 ṟ r7 ṣ s3 ś s6 ṭ t6 t8 ū u2 u3 u4 u5 u
 x4 x7 y3 z2 z6</p>-->
 look how evolved and also see if we sth similar in second file.
 
+add display for prosody.
 
-
-== xpath dispatching
-
-make this less stupid. could cache the result of absolute locations search in
-the tree itself. more generally, could save the result of a relative search
-on the node it is called on.
-
-in node.find(xpath) allow
-  //div[@type='edition']
-maybe just borrow the code from xml.etree? no, it's C code.
-
-
+deal with xpath dispatching (reverse evaluation)
 
 ====
 
@@ -27,6 +17,7 @@ convention: display siglum instead of bib ref when there is a lone
 <ptr target="bib:xxxxxx"/> under //app/notes
 for this to work, need to implement xpath dispatching in parse.py
 idem for https://github.com/erc-dharma/project-documentation/issues/272#issuecomment-2028717827
+
 
 pour languages dans display, tous ceux de div type=edition + écrfiture
 écritures à gérer
