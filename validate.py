@@ -1,7 +1,6 @@
 import os, sys, re, subprocess
 from glob import glob
-from dharma import config, tree, unicode, relaxng
-from saxonche import PySaxonProcessor # pip install saxonche
+from dharma import config, tree, unicode, relaxng, xslt
 
 # What should we use for representing error locations? Maybe just the patch the
 # tree directly, since we're already doing that in python. But then must be able
@@ -47,10 +46,7 @@ class Validator:
 	def __init__(self, name, prefix):
 		self.name = name
 		self.prefix = prefix
-		self.saxon_proc = PySaxonProcessor(license=False)
-		xslt_proc = self.saxon_proc.new_xslt30_processor()
-		path = config.path_of("schemas", self.name + ".sch")
-		self.sch_script = xslt_proc.compile_stylesheet(stylesheet_file=path)
+		self.sch_script = config.path_of("schemas", self.name + ".sch")
 		path = config.path_of("schemas", self.name + ".rng")
 		self.rng_schema = relaxng.Schema(path)
 
@@ -104,18 +100,8 @@ class Validator:
 			val.messages.append(m)
 
 	def sch_error_nodes(self, file):
-		# PyXslt30Processor.transform_to_string(source_file=path) is
-		# buggy. When the filename contains space characters, it
-		# returns None. So we read the file manually and use
-		# transform_to_string(xdm_node=doc) instead, which does work.
 		text = file.data.decode()
-		# Saxon does not want to find an initial BOM, complains about
-		# contents not allowed in prolog.
-		if text.startswith("\N{BOM}"):
-			text = text[1:]
-		doc = self.saxon_proc.parse_xml(xml_text=text)
-		ret = self.sch_script.transform_to_string(xdm_node=doc)
-		assert ret is not None, file
+		ret = xslt.transform(self.sch_script, text)
 		rep = tree.parse_string(ret)
 		return rep.find("//successful-report")
 
