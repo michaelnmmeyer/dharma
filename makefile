@@ -15,7 +15,7 @@ clean:
 	rm -f $(generated)
 
 # Usage: make forever cmd="echo hello"
-cmd := $(MAKE) -j3
+cmd := $(MAKE) -j4
 forever:
 	@$(cmd) || true
 	@while inotifywait -qqre modify . @dbs @docs @notes @repos @schemas; do \
