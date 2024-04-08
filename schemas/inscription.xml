@@ -1477,10 +1477,12 @@
                         </sequence>
                     </content>
                     <constraintSpec scheme="schematron" ident="one-lem">
-                        <constraint><sch:rule context="tei:app"><sch:report
-                                    test="count(child::tei:lem) eq 1 and not(child::tei:lem[@source]) and not(child::tei:rdg or child::tei:note)"
-                                    >When the apparatus entry contains only a lem, the @source is
-                                    mandatory</sch:report></sch:rule></constraint>
+                        <constraint><sch:rule context="tei:app">
+                            <sch:report test="count(child::tei:lem) eq 1 and not(child::tei:lem[@source]) and not(child::tei:rdg or child::tei:note)">
+                                When the apparatus entry contains only a lem, the @source is mandatory</sch:report>
+                            <sch:assert test="parent::tei:listApp">
+                                element app must be a child of element listApp</sch:assert>
+                            </sch:rule></constraint>
                     </constraintSpec>
                     <attList>
                         <attDef ident="ana" mode="delete"/>

@@ -2133,10 +2133,23 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>When the apparatus entry contains only a lem, the @source is
-                                    mandatory</svrl:text>
+            <svrl:text>
+                                When the apparatus entry contains only a lem, the @source is mandatory</svrl:text>
          </svrl:successful-report>
       </xsl:if>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="parent::tei:listApp"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="parent::tei:listApp">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text>
+                                element app must be a child of element listApp</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
       <xsl:apply-templates select="*" mode="M46"/>
    </xsl:template>
    <xsl:template match="text()" priority="-1" mode="M46"/>
