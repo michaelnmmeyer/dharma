@@ -1,5 +1,4 @@
 [Unit]
-WantedBy=multi-user.target
 
 [Service]
 User=michael
@@ -9,3 +8,5 @@ Environment="PYTHONPATH=/home/michael:$PYTHONPATH"
 ExecStart=python3 change.py
 Restart=on-failure
 
+[Install]
+WantedBy=multi-user.target

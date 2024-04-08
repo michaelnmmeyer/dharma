@@ -1,5 +1,4 @@
 [Unit]
-WantedBy=multi-user.target
 
 [Service]
 User=michael
@@ -10,3 +9,5 @@ ExecStart=gunicorn -k sync -w 4 -b localhost:8023 dharma.server:app
 ExecReload=kill -HUP $MAINPID
 Restart=on-failure
 
+[Install]
+WantedBy=multi-user.target

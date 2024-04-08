@@ -1,5 +1,4 @@
 [Unit]
-WantedBy=multi-user.target
 
 [Service]
 User=michael
@@ -9,3 +8,6 @@ Environment="PYTHONPATH=/home/michael:$PYTHONPATH"
 ExecStart=gunicorn -k gevent -w 4 -b localhost:8024 dharma.zotero_proxy:app
 ExecReload=kill -HUP $MAINPID
 Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
