@@ -1,11 +1,15 @@
 'XSLT transforms'
 
+# We use saxon because the current code uses xslt2, and because pysaxonc is
+# apparently the only python library that supports it. Libxslt would be
+# preferable, but it only supports xslt1, like most libraries.
+#
 # Saxon's API doc is here:
 # https://www.saxonica.com/saxon-c/doc12/html/saxonc.html
 # Experiments show that some objects cannot be shared between threads, and that
-# funny things happen when objects that likely reference others go out of scope,
-# so we just allocate one processor for each thread, and keep the thing alive
-# until the thread exits.
+# funny things happen when objects that are likely referenced by others go out
+# of scope, so we just allocate one processor for each thread, and keep the
+# thing alive until the thread exits.
 
 import sys, argparse, threading
 import saxonche # pip install saxonche
@@ -46,7 +50,7 @@ def transform(xslt_path, text):
 
 if __name__ == "__main__":
 	# It is faster to use the python bindings than the Java code for ad hoc
-	# transforms, due to Java slow startup time.
+	# transforms from the command line, due to Java's slow startup time.
 	parser = argparse.ArgumentParser()
 	parser.add_argument("stylesheet")
 	parser.add_argument("input_file", nargs="?")
