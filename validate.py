@@ -12,7 +12,6 @@ WARNING = 1	# Possible Unicode issues
 ERROR = 2	# Schema error
 FATAL = 3	# Invalid XML, cannot be processed at all
 
-
 # For simplifying RNG files, download rng2srng-20020831
 
 # Nnote that we can link to a span of text on github by adding a fragment like
@@ -115,7 +114,7 @@ class Validator:
 			loc = re.sub(r"/\*:([a-zA-Z]+)\[.+?\]\[([0-9]+)\]", r"/\1[\2]", loc)
 			test = node["test"]
 			msg = node.text()
-			where = xml.first(loc).location
+			where = xml.locate(loc).location
 			m = Message()
 			m.line, m.column, m.text, m.assertion = where.line, where.column, msg, test
 			val.messages.append(m)

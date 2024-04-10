@@ -1,11 +1,11 @@
 '''XML tree representation
 
 Node types are: `Tree`, `Tag`, `Comment`, `String`, `Instruction`. Attributes
-are not represented as nodes. All node types derive from an abstract base class
-`Node`. There is no inheritance relationship between the different kinds of
-nodes: `Comment` is not a subclass of `String` (unlike in bs4). Thus, to check
-whether a node is of a given type, using `isinstance(node, Comment)`, etc. is
-sufficient.
+are not represented as nodes, because I don't really see the point. All node
+types derive from an abstract base class `Node`. There is no inheritance
+relationship between the different kinds of nodes: `Comment` is not a subclass
+of `String` (unlike in bs4). Thus, to check whether a node is of a given type,
+using `isinstance(node, Comment)`, etc. is sufficient.
 
 `Tree` is the XML document proper, which contains a single tag node and
 optionally comments and processing instructions. The XML tradition is to
@@ -32,10 +32,7 @@ This means that we cannot deal with documents where namespaces are significant.
 
 import os, re, io, collections, copy, sys
 from xml.parsers import expat
-from xml.sax.handler import ContentHandler, ErrorHandler
 from xml.sax.saxutils import escape as quote_string
-from xml.sax.xmlreader import XMLReader
-from xml.sax.expatreader import create_parser
 
 DEFAULT_LANG = "eng"
 DEFAULT_SPACE = "default"
@@ -383,6 +380,37 @@ class Branch(Node, list):
 					stack.append(child)
 		return node
 
+	_location_re = re.compile(r"/(\w+)\[([1-9][0-9]*)\]", re.ASCII)
+
+	def locate(self, path):
+		'''Find the node that matches the given xpath expression.
+		This only works for basic expressions of the form:
+		`/`, `/foo[1]`, `/foo[1]/bar[5]`, etc. The path of a Node
+		is given in its path attribute.
+		'''
+		orig = path
+		node = self.tree
+		if path == "/":
+			return node
+		while True:
+			match = self._location_re.match(path)
+			if not match:
+				raise Exception(f"invalid location {repr(orig)}")
+			name, index = match.group(1), int(match.group(2))
+			i = 0
+			for node in node:
+				if isinstance(node, Tag) and node.name == name:
+					i += 1
+					if i == index:
+						break
+			else:
+				raise Exception(f"node {repr(orig)} not found")
+			end = match.end()
+			if end == len(path):
+				break
+			path = path[end:]
+		return node
+
 	def children(self, name="*", index=0):
 		ret = []
 		i = 0
@@ -479,6 +507,11 @@ class Branch(Node, list):
 				if isinstance(child, Tag):
 					stack.append(child)
 
+	@property
+	def path(self):
+		"The path of this node"
+		raise NotImplementedError
+
 	def insert(self, i, node):
 		if isinstance(node, Node):
 			assert not isinstance(node, Tree)
@@ -532,9 +565,10 @@ class Tag(Branch):
 		can also be passed as keyword arguments with `**attributes`.
 
 		Attributes ordering is preserved for attributes passed through
-		`*attributes_iter`. New attributes created manually with e.g.
-		`node["attr"] = "foo"` are added at the end of the attributes
-		list.
+		`*attributes_iter`. This is the reason we have it. New
+		attributes created manually with e.g. `node["attr"] = "foo"`
+		are added at the end of the attributes list (we use an
+		OrderedDict under the hood).
 		'''
 		self.name = name
 		self.attrs = collections.OrderedDict()
@@ -658,8 +692,9 @@ class Tree(Branch):
 	file = None
 	"Path of the XML file this tree was constructed from."
 	root = None
-	'''The tree root tag. Might be None if the Tree node is created
-	programmatically.'''
+	'''The tree root tag. Might be None temporarily, if the Tree node is
+	created programmatically, but in any case it should have a root to
+	become a valid XML document.'''
 	source = None
 	"XML source, in bytes, encoded as UTF-8."
 	location = None
