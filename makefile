@@ -14,12 +14,10 @@ all: $(generated) tree.html
 clean:
 	rm -f $(generated)
 
-# Usage: make forever cmd="echo hello"
-cmd := $(MAKE) -j4
 forever:
-	@$(cmd) || true
-	@while inotifywait -qqre modify . @dbs @docs @notes @repos @schemas; do \
-		$(cmd) || true; \
+	@$(MAKE) || true
+	@while inotifywait -qqre modify . @texts @dbs @docs @notes @repos; do \
+		$(MAKE) || true; \
 	done
 
 # Usage: make commit-all m="Commit message"

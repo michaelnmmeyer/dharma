@@ -169,7 +169,7 @@ class Generator:
 			case "descendant-or-self":
 				self.append("for node in descendants_or_self(node):")
 			case "parent":
-				self.append("node = node.parent or node.tree")
+				self.append("node = node.parent")
 				self.append("if node:")
 			case "ancestor":
 				self.append("for node in ancestors(node):")

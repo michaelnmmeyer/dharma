@@ -953,7 +953,7 @@ def fix_markup(xml):
 		tag.attrs.clear()
 		tag["href"] = link
 	for tag in xml.find(".//*"):
-		if tag.name not in valid_tags and tag.parent:
+		if tag.name not in valid_tags and isinstance(tag.parent, tree.Tag):
 			tag.unwrap()
 			continue
 		if tag.name != "span":
@@ -1136,8 +1136,10 @@ def get_ref(ref, **params):
 	rec = config.from_json(rec)
 	fix_rec(rec)
 	w = Writer()
+	print(w.xml.tree.xml())
 	w.xml.name = "span"
 	w.xml.attrs.clear()
+	print(1, w.xml.tree.xml())
 	tag = tree.Tag("a", {"class": "bib-ref"})
 	if params["missing"]:
 		page = page_of(key)
@@ -1145,6 +1147,7 @@ def get_ref(ref, **params):
 	else:
 		tag["href"] = f"#bib-key-{key}"
 	w.xml.append(tag)
+	assert tag.parent is w.xml
 	w.xml = tag
 	siglum = params.get("siglum")
 	if siglum:

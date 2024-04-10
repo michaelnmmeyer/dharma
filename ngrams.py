@@ -119,9 +119,9 @@ def number_of(verse):
 	node = verse
 	while True:
 		node = node.parent
-		while node and node.name != "div":
+		while isinstance(node, tree.Tag) and node.name != "div":
 			node = node.parent
-		if not node:
+		if not isinstance(node, tree.Tag):
 			break
 		pn = node["n"]
 		if pn:

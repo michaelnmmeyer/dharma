@@ -735,7 +735,7 @@ def parse_gap(p, gap):
 	# <seg met="+++-++"><gap reason="lost" quantity="6" unit="character">
 	# In this case, keep the tooltip, but display the meter instead of ****, etc.
 	parent = gap.parent
-	if parent and parent.name == "seg" and parent["met"]:
+	if isinstance(parent, tree.Tag) and parent.name == "seg" and parent["met"]:
 		met = parent["met"]
 		if prosody.is_pattern(met):
 			met = prosody.render_pattern(met)
@@ -1359,6 +1359,6 @@ if __name__ == "__main__":
 	try:
 		doc = process_file(path, data)
 		print(doc.apparatus)
-	except (KeyboardInterrupt, BrokenPipeError):
+	except BrokenPipeError:
 		pass
 	db.execute("end")
