@@ -1,33 +1,45 @@
-'''XML tree representation
+'''XML tree representation.
 
 Node types are: `Tree`, `Tag`, `Comment`, `String`, `Instruction`. Attributes
-are not represented as nodes, because I don't really see the point. All node
-types derive from an abstract base class `Node`. There is no inheritance
-relationship between the different kinds of nodes: `Comment` is not a subclass
-of `String` (unlike in bs4), etc. Thus, to check whether a node is of a given
-type, using `isinstance(node, Comment)`, etc. is sufficient.
+are not represented as nodes, even though they are treated like that in the
+xpath model, because this would be weird in python.
 
-When parsing documents, we always normalize spaces in attributes: we replace
-all sequences of whitespace characters with " " and we trim whitespace
-from both sides.
+All node types derive from an abstract base class `Node`. `Tree` and `Tag` nodes
+derive from a `Branch` abstract class, which itself derives from `Node`. There
+is no inheritance relationship between concrete node types. For instance,
+`Comment` is not a subclass of `String`, unlike in bs4. Thus, to check whether a
+node is of a concrete given type `T`, using `isinstance(node, T)`, etc. is
+sufficient. And to check whether a node is a branch or a leaf, it is sufficient
+to check `isinstance(node, Branch)`.
+
+When parsing documents and when modifying attributes, we always normalize spaces
+in attributes: we replace all sequences of whitespace characters with " " and we
+trim whitespace from both sides.
 
 For simplicity, we do not deal with XML namespaces at all. We just remove
-namespace prefixes in both elements and attributes. Thus, `<xsl:template>`
-becomes `<template>`, and `<foo xml:lang="eng">` becomes `<foo lang="eng">`.
-This means that we cannot deal with documents where namespaces are significant.
-This also means that we cannot serialize properly XML documents that used
-namespaces initially.
+namespace prefixes in both elements and attributes. Thus,
+`<xsl:template>` becomes `<template>`, and `<foo xml:lang="eng">` becomes `<foo
+lang="eng">`. This means that we cannot deal with documents where namespaces are
+significant. This also means that we cannot serialize properly XML documents
+that used namespaces initially.
 '''
 
 import os, re, io, collections, copy, sys
 from xml.parsers import expat
 from xml.sax.saxutils import escape as quote_string
+from dharma import xpath
 
 DEFAULT_LANG = "eng"
 DEFAULT_SPACE = "default"
 
 Location = collections.namedtuple("Location", "start end line column")
-'''Represents the location of a node in an XML file.'''
+'''Represents the location of a node in an XML file. Fields are:
+
+* `start`: byte index of the start of the node
+* `end`: idem for the end of the node
+* `line`: line number (one-based)
+* `column`: column number (one-based)
+'''
 
 attribute_tbl = str.maketrans({
 	'"': "&quot;",
@@ -49,35 +61,42 @@ def unique(items):
 			ret.append(item)
 	return ret
 
-def parse_string(source, **kwargs):
-	'''Parse a string into a tree.'''
+def parse_string(source, path=None):
+	'''Parse an XML string into a `Tree`. If `path` is given, it will be
+	used as filename in error messages, and will be accessible through
+	the `file` attribute.'''
 	#  We always pass byte strings to the parser because expat only
-	# reports byte offsets, not code points offsets.
+	# reports byte offsets, not code points offsets, so, to report
+	# errors locations properly, we need a byte string.
 	if isinstance(source, str):
 		source = source.encode()
 	try:
-		return Parser(source, **kwargs).parse()
+		return Parser(source, path=path).parse()
 	except expat.ExpatError as e:
 		err = e
 	# https://docs.python.org/3/library/pyexpat.html#xml.parsers.expat.XMLParserType
 	# err.offset counts columns from 0
-	raise Error(path=kwargs.get("path", "<memory>"),
+	raise Error(path=path or "<memory>",
 		line=err.lineno, column=err.offset + 1,
 		text=expat.errors.messages[err.code], source=source)
 
-def parse(file, **kwargs):
-	'''File can be either a file-like object or a string.'''
+def parse(file, path=None):
+	'''Parse an XML file into a `Tree`. The `file` argument can either be a
+	file-like object or a string that indicates the file's path. The `path`
+	argument can be used to indicate the file's path, for errors messages.
+	If it is not given, the path of the file will be deduced from `file`,
+	if possible.'''
 	if hasattr(file, "read"):
 		# assume file-like
 		source = file.read()
-		if not kwargs.get("path") and file is not sys.stdin and hasattr(file, "name"):
-			kwargs["path"] = os.path.abspath(str(file.name))
+		if not path and file is not sys.stdin and hasattr(file, "name"):
+			path = os.path.abspath(str(file.name))
 	else:
 		with open(file, "rb") as f:
 			source = f.read()
-		if not kwargs.get("path"):
-			kwargs["path"] = os.path.abspath(file)
-	return parse_string(source, **kwargs)
+		if not path:
+			path = os.path.abspath(file)
+	return parse_string(source, path=path)
 
 class Node(object):
 
@@ -108,6 +127,11 @@ class Node(object):
 	def parent(self):
 		'''Parent node. All nodes have a parent, except `Tree` nodes,
 		whose parent is `None`.'''
+		# Newly created nodes are not immediately attached to a tree.
+		# It is only if an attempt is made to access a node's tree
+		# that a new tree is allocated. We do this to avoid creating
+		# new tree objects for each new node, when in practice most
+		# nodes will be immediately appended to an existing tree.
 		ret = self._parent
 		if ret is None:
 			ret = Tree()
@@ -119,10 +143,6 @@ class Node(object):
 	def path(self):
 		"The path of this node. See the `locate` method."
 		raise NotImplementedError
-
-	type = None
-	'''A string describing the node type: one of "tree", "tag", "string",
-	"comment", "instruction".'''
 
 	def __hash__(self):
 		return id(self)
@@ -206,8 +226,8 @@ class Node(object):
 	def locate(self, path):
 		'''Finds the node that matches the given xpath expression.
 		This only works for basic expressions of the form:
-		`/`, `/foo[1]`, `/foo[1]/bar[5]`, etc. The path of a Node
-		is given in its path attribute.
+		`/`, `/foo[1]`, `/foo[1]/bar[5]`, etc. The path of a node
+		is given in its `path` attribute.
 		'''
 		orig = path
 		node = self.tree
@@ -232,6 +252,21 @@ class Node(object):
 			path = path[end:]
 		return node
 
+	def find(self, path):
+		'''Find nodes that match the given XPath expression. Returns a
+		list of matching nodes.
+		'''
+		return xpath.find(self, path)
+
+	def first(self, path):
+		'''Like the `find` method, but returns only the first matching
+		node, or `None` if there is no match.'''
+		return xpath.first(self, path)
+
+	def children(self):
+		'''Returns a list of `Tag` children of this node.'''
+		return []
+
 	def replace_with(self, other):
 		'''Removes this node and its descendants from the tree, and
 		puts another node in its place. Returns the removed subtree.
@@ -248,10 +283,20 @@ class Node(object):
 		'''
 		return ""
 
-	def xml(self, space="default", strip_comments=False):
-		'''Returns an XML representation of this subtree, typically not
-		identical to the original XML source, if any.'''
-		raise NotImplementedError
+	def xml(self, pretty=False, strip_comments=False,
+		strip_instructions=False, html=False, color=False):
+		'''Returns an XML representation of this subtree.
+
+		If `html` is true, the result will be escaped, for inclusion
+		in an HTML file. If `color` is true, the result will be
+		colorized, either through CSS classes (if `html` is true),
+		or with ANSI escapes codes (otherwise).
+		'''
+		fmt = Formatter(pretty=pretty, strip_comments=strip_comments,
+			strip_instructions=strip_instructions, html=html,
+			color=color)
+		fmt.format(self)
+		return fmt.text()
 
 	def __copy__(self):
 		return self.copy()
@@ -261,129 +306,80 @@ class Node(object):
 
 	def copy(self):
 		'''Makes a copy of this subtree. The returned object holds no
-		reference to the original.'''
+		reference to the original. It is bound to a new `Tree`.'''
 		raise NotImplementedError
 
 	def unwrap(self):
 		'''Removes a node from the tree but leaves its descendants
-		in-place. Cannot be called on a `Tree` node. Note that
+		in-place. Returns the detached node.
+
+		This cannot be called on a `Tree` node. Also note that
 		unwrapping the root `Tag` node of a `Tree` might yield
 		an invalid XML document that contains several roots.'''
 		self.delete()
+		return self
 
 	def coalesce(self):
 		'''Coalesces adjacent string nodes and removes empty string
-		nodes from this subtree. Has no effect on nodes other than
-		`Tree` and `Tag`. In particular, if this is called on an
-		empty `String` node, this node will not be removed from the
-		tree.'''
+		nodes from this subtree. Has no effect on leaf nodes. In
+		particular, if this is  called on an empty `String` node, this
+		node will not be removed from the tree.'''
 		pass
 
-class String(Node, collections.UserString):
-	""
-
-	type = "string"
-
-	def clear(self):
-		if self.data == "":
-			return
-		self.location = None
-		self.data = ""
-
-	def append(self, data):
-		if not data:
-			return
-		self.location = None
-		self.data += data
-
-	def prepend(self, data):
-		if not data:
-			return
-		self.location = None
-		self.data = data + self.data
-
-	def insert(self, i, data):
-		if not data:
-			return
-		self.location = None
-		if i < 0:
-			i += len(self.data)
-			if i < 0:
-				i = 0
-		elif i > len(self.data):
-			i = len(self.data)
-		self.data = self.data[:i] + data + self.data[i:]
-
-	def xml(self, **kwargs):
-		return quote_string(str(self.data))
-
-	def text(self, **kwargs):
-		data = str(self.data) # casting is necessary for String
-		space = kwargs.get("space")
-		if not space:
-			space = "default"
-		elif space == "preserve":
-			return data
-		data = data.strip()
-		data = re.sub(r"\s+", " ", data)
-		return data
-
-	def copy(self):
-		return String(self.data)
-
-class Comment(Node, collections.UserString):
-	""
-
-	type = "comment"
-
-	def __repr__(self):
-		return self.xml()
-
-	def __str__(self):
-		return self.xml()
-
-	def xml(self, **kwargs):
-		if kwargs.get("strip_comments"):
-			return ""
-		return f"<!--{self.data}-->"
-
-	def text(self, **kwargs):
-		return ""
-
-	def copy(self):
-		return Comment(self.data)
-
-class Instruction(Node):
-	"Represents a processing instruction."
-
-	type = "instruction"
-
-	def __init__(self, target, data):
-		self.target = target
-		self.data = data
-
-	def __str__(self):
-		return "<?%s %s?>" % (self.target, self.data)
-
-	def __repr__(self):
-		return str(self)
-
-	def xml(self, **kwargs):
-		return "<?%s %s?>" % (self.target, self.data)
-
-	def copy(self):
-		return Instruction(self.target, self.data)
-
 class Branch(Node, list):
-	# Non-leaf nodes viz. `Tree` nodes and `Tag` nodes.
+	'''Base class for non-leaf nodes viz. `Tree` nodes and `Tag` nodes.
 
-	# Note that we check for objects identity: we compare pointers instead
-	# of using __eq__.
-	def __contains__(self, node):
-		for child in self:
-			if child is node:
-				return True
-		return False
+	Branches are represented as lists of nodes. They support most `list`
+	operations. Those that are not implemented will raise an exception if
+	called.
+	'''
+
+	def __add__(self, value):
+		ret = self.copy()
+		ret.extend(value.copy())
+		return ret
+
+	def __eq__(self, value):
+		raise NotImplementedError
+
+	def __ge__(self, value):
+		raise NotImplementedError
+
+	def __gt__(self, value):
+		raise NotImplementedError
+
+	def __iadd__(self, value):
+		self.extend(value)
+
+	def __imul__(self, value):
+		raise NotImplementedError
+
+	def __le__(self, value):
+		raise NotImplementedError
+
+	def __lt__(self, value):
+		raise NotImplementedError
+
+	def __mul__(self, value):
+		raise NotImplementedError
+
+	def __ne__(self, value):
+		raise NotImplementedError
+
+	def __rmul__(self, value):
+		raise NotImplementedError
+
+	def count(self, value):
+		raise NotImplementedError
+
+	def pop(self, index=-1):
+		node = self[index]
+		del self[index]
+		return node
+
+	def extend(self, iterable):
+		for node in iterable:
+			self.append(node)
 
 	def coalesce(self):
 		i = 0
@@ -409,6 +405,21 @@ class Branch(Node, list):
 				return i
 		raise ValueError("not found")
 
+	# Note that we check for objects identity: we compare pointers instead
+	# of using __eq__.
+	def __contains__(self, node):
+		for child in self:
+			if child is node:
+				return True
+		return False
+
+	def children(self):
+		ret = []
+		for node in self:
+			if isinstance(node, Tag):
+				ret.append(node)
+		return ret
+
 	# Remove the given child node
 	def remove(self, node):
 		i = self.index(node)
@@ -428,86 +439,6 @@ class Branch(Node, list):
 		node.location = None
 		list.__delitem__(self, i)
 
-	def children(self, name="*", index=0):
-		ret = []
-		i = 0
-		for node in self:
-			if not isinstance(node, Tag):
-				continue
-			if node.name == name:
-				i += 1
-			if name == "*" or node.name == name:
-				if index == 0 or index == i:
-					ret.append(node)
-		return ret
-
-	def descendants(self, name="*"):
-		ret = []
-		for node in self:
-			if not isinstance(node, Tag):
-				continue
-			if name == "*" or node.name == name:
-				ret.append(node)
-			ret.extend(node.descendants(name))
-		return ret
-
-	def ancestors(self):
-		ret = []
-		node = self
-		while True:
-			node = node.parent
-			if not node:
-				break
-			ret.append(node)
-		return ret
-
-	def _split_name_index(self, name):
-		m = re.match(r"^(?P<name>[*-.\w]+)(?:\[(?P<index>[0-9]+)\])?$", name)
-		assert m, name
-		index = m.group("index")
-		if index:
-			index = int(index)
-			assert index > 0, "xpath indexes are one-based"
-		else:
-			index = 0
-		return m.group("name"), index
-
-	def find(self, path):
-		assert len(path) > 0
-		if path[0] == "/":
-			roots = [self.tree]
-			path = path[1:]
-		else:
-			if path.startswith("./"):
-				path = path[2:]
-			roots = [self]
-		while path:
-			end = path.find("/")
-			if end == 0: # have //
-				path = path[1:]
-				end = path.find("/")
-				if end < 0:
-					end = len(path)
-				name, index = self._split_name_index(path[:end])
-				assert index == 0, "cannot use indexes when looking for descendants"
-				path = path[end + 1:]
-				roots = [node for root in roots for node in root.descendants(name)]
-				continue
-			if end < 0:
-				end = len(path)
-			name, index = self._split_name_index(path[:end])
-			if name == ".":
-				pass
-			else:
-				roots = [node for root in roots for node in root.children(name, index)]
-			path = path[end + 1:]
-		return roots
-
-	def first(self, path):
-		ret = self.find(path)
-		if ret:
-			return ret[0]
-
 	def insert(self, i, node):
 		if isinstance(node, Node):
 			assert not isinstance(node, Tree)
@@ -515,7 +446,7 @@ class Branch(Node, list):
 			# The node might already belong to this tree.
 			node.delete()
 		else:
-			assert isinstance(node, str), "%r" % node
+			assert isinstance(node, str), repr(node)
 			node = String(node)
 		if i < 0:
 			i += len(self)
@@ -539,7 +470,6 @@ class Tree(Branch):
 	new lines, etc.
 	'''
 
-	type = "tree"
 	path = "/"
 
 	_byte_source = None
@@ -547,6 +477,8 @@ class Tree(Branch):
 	location = None
 
 	def __init__(self):
+		# Prevent initialization with an iterator, because in `Tag`
+		# we do not allows this either.
 		pass
 
 	parent = None
@@ -559,10 +491,15 @@ class Tree(Branch):
 
 	@property
 	def root(self):
+		ret = None
 		for node in self:
 			if isinstance(node, Tag):
-				return node
-		raise Exception("attempt to retrieve the root tag of a tree that does not have one")
+				if ret is not None:
+					raise Exception("multiple root tags in XML document")
+				ret = node
+		if not ret:
+			raise Exception("attempt to retrieve the root tag of a tree that does not have one")
+		return ret
 
 	@property
 	def byte_source(self):
@@ -573,12 +510,6 @@ class Tree(Branch):
 			return f"<Tree file={self.file!r}>"
 		return "<Tree>"
 
-	def xml(self, **kwargs):
-		ret = []
-		for node in self:
-			ret.append(node.xml(**kwargs))
-		return "".join(ret)
-
 	def text(self, **kwargs):
 		if self.root:
 			return self.root.text(**kwargs)
@@ -586,11 +517,14 @@ class Tree(Branch):
 	def delete(self):
 		raise Exception("nodes of type 'tree' cannot be deleted")
 
-	def insert(self, i, node):
+	def insert(self, index, node):
 		if isinstance(node, Tag):
-			if self.root:
+			if any(isinstance(child, Tag) for child in self):
 				raise Exception("cannot add a root tag to a tree that already has one")
-		super().insert(i, node)
+		elif isinstance(node, (String, str)):
+			if not node.isspace():
+				raise Exception("cannot add text contents to a Tree node")
+		super().insert(index, node)
 
 	def copy(self):
 		ret = Tree()
@@ -605,22 +539,38 @@ class Tree(Branch):
 	prev = None
 
 class Tag(Branch):
+	'''Represents element nodes.
 
-	type = "tag"
-	attrs = None
+	`Tag` objects have both a `list`-like and a `dict`-like interface.
+
+	When they are indexed with integers, the children of the node are
+	accessed. When they are indexed with strings, XML attributes are
+	accessed. Indexing an attribute that the `Tag` does not possess is
+	not treated as an error, and returns the empty string.
+
+	The `in` operator also takes types into account: if a `Node` is given,
+	it will check whether this node is a child of `Tag`. Otherwise, it
+	assumes the argument is an attribute name, and checks whether the
+	`Tag` bears this attribute.
+
+	Iterating over a `Tag` node yields the tag's children. The methods
+	`keys()`, `values()` and `items()` can be used for iterating over
+	attributes.
+	'''
 
 	def __init__(self, name, *attributes_iter, **attributes):
 		'''The argument `name` is the name of the node as a string, e.g.
-		"html". The positional argument `*attributes_iter` is optional.
-		If given, it must be a single iterator that returns tuples
-		of the form `(key, value)`, or a `dict` subclass. Attributes
-		can also be passed as keyword arguments with `**attributes`.
+		"html". This argument can be followed by a single positional
+		argument `attributes_iter`. If given, it must be an
+		iterator that returns tuples of the form `(key, value)`, or a
+		`dict` subclass. Attributes can also be passed as keyword
+		arguments with `**attributes`.
 
 		Attributes ordering is preserved for attributes passed through
-		`*attributes_iter`. This is the reason we have it. New
+		`attributes_iter`. This is the reason we have it. New
 		attributes created manually with e.g. `node["attr"] = "foo"`
-		are added at the end of the attributes list (we use an
-		OrderedDict under the hood).
+		are added at the end of the attributes list. (We use an
+		OrderedDict under the hood.)
 		'''
 		self.name = name
 		self.attrs = collections.OrderedDict()
@@ -656,10 +606,19 @@ class Tag(Branch):
 			ret.append(child.copy())
 		return ret
 
+	def keys(self):
+		return self.attrs.keys()
+
+	def values(self):
+		return self.attrs.values()
+
+	def items(self):
+		return self.attrs.items()
+
 	def __repr__(self):
-		ret = "<%s" % self.name
+		ret = f"<{self.name}"
 		for k, v in self.attrs.items():
-			ret += ' %s=%s' % (k, quote_attribute(v))
+			ret += f' {k}={quote_attribute(v)}'
 		ret += ">"
 		return ret
 
@@ -731,32 +690,108 @@ class Tag(Branch):
 			except KeyError:
 				pass
 
-	def xml(self, **kwargs):
-		name = self.name
-		buf = ["<%s" % name]
-		# For now, don't sort attrs for normalization.
-		for k, v in self.attrs.items():
-			buf.append(' %s=%s' % (k, quote_attribute(v)))
-		if len(self) == 0:
-			buf.append("/>")
-			return "".join(buf)
-		buf.append(">")
-		for node in self:
-			buf.append(node.xml(**kwargs))
-		buf.append("</%s>" % self.name)
-		return "".join(buf)
-
 	def text(self, **kwargs):
 		buf = []
 		for node in self:
 			buf.append(node.text(**kwargs))
 		return "".join(buf)
 
+class String(Node, collections.UserString):
+	'''Represents a text node.
+
+	`String` nodes behave like normal `str` objects, but they can also be
+	edited in-place with the following methods.'''
+
+	def clear(self):
+		"Sets this `String` to the empty string."
+		if self.data == "":
+			return
+		self.location = None
+		self.data = ""
+
+	def append(self, data):
+		"Adds text at the end of this `String`."
+		if not data:
+			return
+		self.location = None
+		self.data += data
+
+	def prepend(self, data):
+		"Adds text at the beginning of this `String`."
+		if not data:
+			return
+		self.location = None
+		self.data = data + self.data
+
+	def insert(self, index, data):
+		"Adds text at the given index of this `String`."
+		if not data:
+			return
+		self.location = None
+		if index < 0:
+			index += len(self.data)
+			if index < 0:
+				index = 0
+		elif index > len(self.data):
+			index = len(self.data)
+		self.data = self.data[:index] + data + self.data[index:]
+
+	def text(self, **kwargs):
+		data = str(self.data) # casting is necessary for String
+		space = kwargs.get("space")
+		if not space:
+			space = "default"
+		elif space == "preserve":
+			return data
+		data = data.strip()
+		data = re.sub(r"\s+", " ", data)
+		return data
+
+	def copy(self):
+		return String(self.data)
+
+class Comment(Node, collections.UserString):
+	'''Represents a comment.
+
+	`Comment` nodes behave like strings.
+	'''
+
+	def __repr__(self):
+		return self.xml()
+
+	def __str__(self):
+		return self.xml()
+
+	def copy(self):
+		return Comment(self.data)
+
+class Instruction(Node):
+	'''Represents a processing instruction.
+
+	Initial XML declarations e.g. `<?xml version="1.0"?>` are also
+	represented as processing instructions.
+	'''
+
+	def __init__(self, target, data):
+		self.target = target
+		self.data = data
+
+	def __str__(self):
+		return self.xml()
+
+	def __repr__(self):
+		return self.xml()
+
+	def copy(self):
+		return Instruction(self.target, self.data)
+
 class Parser:
 
 	def __init__(self, source, path=None):
 		self.parser = expat.ParserCreate()
 		self.parser.ordered_attributes = 1
+		self.parser.SetParamEntityParsing(expat.XML_PARAM_ENTITY_PARSING_NEVER)
+		self.parser.buffer_text = True
 		for attr in dir(self):
 			if not attr[0].isupper():
 				continue
@@ -775,14 +810,17 @@ class Parser:
 		self.parser.Parse(self.tree.byte_source, True)
 		if self.last_node:
 			loc = self.last_node.location
-			self.last_node.location = Location(loc.start, len(self.tree.byte_source), loc.line, loc.column)
+			self.last_node.location = Location(loc.start,
+				len(self.tree.byte_source),
+				loc.line, loc.column)
 		return self.tree
 
 	def set_location(self, node, close=False):
 		start = self.parser.CurrentByteIndex
 		if self.last_node is not None:
 			last = self.last_node.location
-			self.last_node.location = Location(last.start, start, last.line, last.column)
+			self.last_node.location = Location(last.start, start,
+				last.line, last.column)
 		if not close:
 			line = self.parser.CurrentLineNumber
 			column = self.parser.CurrentColumnNumber
@@ -809,8 +847,8 @@ class Parser:
 				standalone and "yes" or "no")
 		self.make_node(Instruction, "xml", data[1:])
 
-	def StartDoctypeDeclHandler(self, doctypeName, systemId, publicId,
-		has_internal_subset):
+	def StartDoctypeDeclHandler(self, doctypeName, systemId,
+		publicId, has_internal_subset):
 		raise NotImplementedError
 
 	def EndDoctypeDeclHandler(self):
@@ -929,12 +967,12 @@ def space_before_opening(node):
 		return False
 	i = parent.index(node) - 1
 	while i >= 0:
-		if parent[i].type == "string":
+		if isinstance(parent[i], String):
 			if parent[i].rstrip() != parent[i]:
 				return True
 			if parent[i] != "":
 				return False
-		elif parent[i].type not in ("comment", "instruction"):
+		elif not isinstance(parent[i], (Comment, Instruction)):
 			return False
 		i -= 1
 	return False
@@ -943,12 +981,12 @@ def space_after_opening(node):
 	assert isinstance(node, Tag)
 	i = 0
 	while i < len(node):
-		if node[i].type == "string":
+		if isinstance(node[i], String):
 			if node[i].lstrip() != node[i]:
 				return True
 			if node[i] != "":
 				return False
-		elif node[i].type not in ("comment", "instruction"):
+		elif not isinstance(node[i], (Comment, Instruction)):
 			return False
 		i += 1
 	return False
@@ -958,12 +996,12 @@ def space_before_closing(node):
 	i = len(node)
 	while i > 0:
 		i -= 1
-		if node[i].type == "string":
+		if isinstance(node[i], String):
 			if node[i].rstrip() != node[i]:
 				return True
 			if node[i] != "":
 				return False
-		elif node[i].type not in ("comment", "instruction"):
+		elif not isinstance(node[i], (Comment, Instruction)):
 			return False
 	return False
 
@@ -990,6 +1028,7 @@ def space_after_closing(node):
 class Formatter:
 
 	def __init__(self, html=True, pretty=True, strip_comments=True,
+		strip_instructions=False,
 		color=False, max_width=80 ** 10, indent_string=2 * " "):
 		# max_width is soft, not hard.
 		self.indent = 0
@@ -1001,6 +1040,7 @@ class Formatter:
 		self.color = color
 		self.max_width = max_width
 		self.indent_string = indent_string
+		self.strip_instructions = strip_instructions
 
 	def format(self, node):
 		match node:
@@ -1022,9 +1062,12 @@ class Formatter:
 			self.format(child)
 
 	def format_instruction(self, node):
-		self.write("<?%s %s?>" % (node.target, node.data), klass="instruction")
-		if self.pretty:
-			self.write("\n")
+		if self.strip_instructions:
+			return
+		self.write(f"<?{node.target} {node.data}?>", klass="instruction")
+		if not self.pretty:
+			return
+		self.write("\n")
 
 	def format_comment(self, node):
 		if self.strip_comments:
@@ -1033,16 +1076,15 @@ class Formatter:
 		if not self.pretty:
 			self.write(f"<!--{node}-->", klass="comment")
 			return
-		if self.pretty:
-			lines = node.splitlines()
-			if len(lines) == 1:
-				self.write(f"<!--{lines[0]}-->", klass="comment")
-			else:
-				self.write("<!--")
-				for line in lines:
-					self.write(line, klass="comment")
-					self.write("\n")
-				self.write("-->")
+		lines = node.splitlines()
+		if len(lines) == 1:
+			self.write(f"<!--{lines[0]}-->", klass="comment")
+		else:
+			self.write("<!--")
+			for line in lines:
+				self.write(line, klass="comment")
+				self.write("\n")
+			self.write("-->")
 
 	def format_string(self, node):
 		node = str(node)
@@ -1066,25 +1108,25 @@ class Formatter:
 		if self.pretty:
 			# We might want to sort tags in different ways,
 			# depending on the tag name, for readability and to
-			# follow people's habits
+			# follow people's habits.
 			attrs = sorted(attrs)
 		for k, v in attrs:
 			if k in ("lang", "space", "base", "id"):
-				k = f"xml:{k}" # HACK
+				k = f"xml:{k}" # This is a hack.
 			self.write(" ")
-			self.write("%s" % k, klass="attr-name")
+			self.write(k, klass="attr-name")
 			self.write("=")
-			self.write('%s' % quote_attribute(v), klass="attr-value")
-		if len(node) == 0: # might also have non-consodilated nodes XXX
+			self.write(quote_attribute(v), klass="attr-value")
+		if not node.text(space="preserve"):
 			self.write("/>", klass="tag")
 		else:
 			self.write(">", klass="tag")
 
 	def format_closing_tag(self, node):
-		if len(node) == 0:
+		if not node.text(space="preserve"):
 			return
 		self.write("</", klass="tag")
-		self.write("%s" % node.name, klass="tag")
+		self.write(node.name, klass="tag")
 		self.write(">", klass="tag")
 
 	def format_tag(self, node):
@@ -1117,7 +1159,7 @@ class Formatter:
 	def write(self, text, klass=None):
 		if klass:
 			if self.html:
-				self.buf.write('<span class="%s">' % klass)
+				self.buf.write(f'<span class="{klass}">')
 			elif self.color:
 				self.buf.write(term_color(colors[klass]))
 		if self.pretty:
@@ -1154,11 +1196,6 @@ class Formatter:
 
 def html_format(node):
 	fmt = Formatter(pretty=False)
-	fmt.format(node)
-	return fmt.text()
-
-def xml(node):
-	fmt = Formatter(html=False, pretty=False, strip_comments=False)
 	fmt.format(node)
 	return fmt.text()
 

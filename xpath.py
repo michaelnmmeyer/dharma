@@ -205,6 +205,10 @@ def find(node, expr):
 	f = generator.compile(expr)
 	return list(f(node))
 
+def first(node, expr):
+	f = generator.compile(expr)
+	return next(f(node), None)
+
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("expression")

@@ -445,7 +445,7 @@ def render_journal_article(rec, w, params):
 		# Use the abbreviated journal name if possible. Note that some
 		# people set journalAbbreviation = publicationTitle, so in
 		# this case ignore the abbreviation.
-		if abbr and abbr != name:
+		if abbr.xml() and abbr.xml() != name.xml():
 			if name:
 				name.name = "i"
 				tag = tree.Tag("abbr", {"data-tip": name.xml()})
@@ -975,10 +975,11 @@ def fix_markup(xml):
 
 def text_nodes(xml):
 	for node in xml:
-		if node.type == "string":
-			yield node
-		elif node.type == "tag":
-			yield from text_nodes(node)
+		match node:
+			case tree.String():
+				yield node
+			case tree.Tag():
+				yield from text_nodes(node)
 
 def normalize_space(xml):
 	nodes = list(text_nodes(xml))
@@ -1136,10 +1137,8 @@ def get_ref(ref, **params):
 	rec = config.from_json(rec)
 	fix_rec(rec)
 	w = Writer()
-	print(w.xml.tree.xml())
 	w.xml.name = "span"
 	w.xml.attrs.clear()
-	print(1, w.xml.tree.xml())
 	tag = tree.Tag("a", {"class": "bib-ref"})
 	if params["missing"]:
 		page = page_of(key)
@@ -1147,7 +1146,6 @@ def get_ref(ref, **params):
 	else:
 		tag["href"] = f"#bib-key-{key}"
 	w.xml.append(tag)
-	assert tag.parent is w.xml
 	w.xml = tag
 	siglum = params.get("siglum")
 	if siglum:

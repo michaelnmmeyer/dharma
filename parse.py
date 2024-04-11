@@ -87,12 +87,16 @@ class Parser:
 		return self.top.end_span()
 
 	def dispatch(self, node):
-		if node.type in ("comment", "instruction"):
-			return
-		if node.type == "string":
-			self.add_text(str(node).replace("'", "’"))
-			return
-		assert node.type == "tag"
+		match node:
+			case tree.Comment() | tree.Instruction():
+				return
+			case tree.String():
+				self.add_text(str(node).replace("'", "’"))
+				return
+			case tree.Tag():
+				pass
+			case _:
+				assert 0
 		f = self.handlers.get(node.name)
 		if not f:
 			self.complain(node)
@@ -1203,13 +1207,13 @@ def parse_div(p, div):
 def gather_sections(p, div):
 	p.push(div["type"])
 	for child in div:
-		if child.type == "tag" and child.name == "div":
+		if isinstance(child, tree.Tag) and child.name == "div":
 			if p.within_div:
 				p.end_div()
 			p.dispatch(child)
-		elif child.type not in ("comment", "instruction"):
+		elif not isinstance(child, (tree.Comment, tree.Instruction)):
 			if not p.within_div:
-				if child.type == "string" and not child.strip():
+				if isinstance(child, tree.String) and not child.strip():
 					continue
 				p.start_div()
 			p.dispatch(child)

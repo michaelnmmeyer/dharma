@@ -9,7 +9,7 @@ generated_views = $(patsubst %.md,%.tpl,$(wildcard views/*.md))
 generated_parsers = $(patsubst %.g,%.py,$(wildcard *.g))
 generated = $(generated_tei) $(generated_views) $(generated_parsers)
 
-all: $(generated) tree.html
+all: $(generated) tree.md
 
 clean:
 	rm -f $(generated)
@@ -98,8 +98,8 @@ missing-git-names:
 
 .PHONY: update-repos update-texts deploy-schemas missing-git-names
 
-tree.html: tree.py
-	pydoc-markdown -m dharma.tree | pandoc -fmarkdown -thtml -s > $@
+tree.md: tree.py
+	pydoc-markdown -m dharma.tree > $@
 
 %.py: %.g
 	python3 -m pegen -q $^ -o $@

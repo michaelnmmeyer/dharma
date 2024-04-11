@@ -24,7 +24,7 @@ def fix_g(xml):
 	for g in xml.find("//g"):
 		if g["type"] or g["subtype"]:
 			continue
-		if len(g) > 1 or not g[0].type == "string":
+		if len(g) > 1 or not isinstance(g, tree.String):
 			continue
 		if g[0] in ("|", "।"):
 			g["type"] = "danda"
@@ -61,4 +61,4 @@ for key, value in globals().copy().items():
 		print(key, file=sys.stderr)
 		value(t)
 
-sys.stdout.write(tree.xml(t))
+sys.stdout.write(t.xml())
