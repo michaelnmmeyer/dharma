@@ -84,17 +84,15 @@ Step:
 	| q=AxisSpecifier? r=NodeTest s=Predicate* {
 		assign(r, axis=q or "child", predicates=s) }
 	| r=AbbreviatedStep { r }
-AxisSpecifier: r=AxisName ':' ':' { r }
+AxisSpecifier: r=AxisName ':' ':' { r.string }
 AxisName:
-	# Python's tokenizer treats these as separate tokens. We should modify
-	# it instead of doing the following.
-	| "ancestor" "-" "or" "-" "self" { "ancestor-or-self" }
-	| r="ancestor" { r.string }
-	| r="child" { r.string }
-	| "descendant" "-" "or" "-" "self" { "descendant-or-self" }
-	| r="descendant" { r.string }
-	| r="parent" { r.string }
-	| r="self" { r.string }
+	| "ancestor-or-self"
+	| "ancestor"
+	| "child"
+	| "descendant-or-self"
+	| "descendant"
+	| "parent"
+	| "self"
 
 NodeTest: NameTest
 
@@ -110,7 +108,7 @@ PrimaryExpr:
 	| '(' r=Expr ')' { r }
 	| Literal
 	| FunctionCall
-	| '@' r=NAME { "(node[%r])" % r.string }
+	| '@' r=NAME { f"(node[{r.string!r}])" }
 
 OrExpr:
 	| r=OrExpr "or" s=AndExpr { Op("or", r, s) }

@@ -27,6 +27,17 @@ lang="eng">`. This means that we cannot deal with documents where namespaces are
 significant. This also means that we cannot serialize properly XML documents
 that used namespaces initially.
 
+We only support a small subset of xpath. Most notably, it is only possible to
+select tag nodes and the XML tree itself. Other types of nodes, e.g. attributes,
+can only be used as predicates, as in `foo[@bar]`. We also do not support
+expressions that index node sets in some way: testing a node position in a node
+set is not possible.
+
+To evaluate an expression, we first convert it to straightforward python source
+code, then compile the result, and finally run the code. Compiled expressions
+are saved in a global table and are systematically reused. No caching policy for
+now.
+
 <a id="dharma.tree.Location"></a>
 
 #### Location
@@ -195,7 +206,7 @@ is given in its `path` attribute.
 def find(path)
 ```
 
-Find nodes that match the given XPath expression. Returns a
+Finds nodes that match the given XPath expression. Returns a
 list of matching nodes.
 
 <a id="dharma.tree.Node.first"></a>
@@ -208,6 +219,16 @@ def first(path)
 
 Like the `find` method, but returns only the first matching
 node, or `None` if there is no match.
+
+<a id="dharma.tree.Node.matches"></a>
+
+#### matches
+
+```python
+def matches(path)
+```
+
+Checks if this node matches the given XPath expression.
 
 <a id="dharma.tree.Node.children"></a>
 

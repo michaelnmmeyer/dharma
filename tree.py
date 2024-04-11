@@ -22,12 +22,25 @@ namespace prefixes in both elements and attributes. Thus,
 lang="eng">`. This means that we cannot deal with documents where namespaces are
 significant. This also means that we cannot serialize properly XML documents
 that used namespaces initially.
+
+We only support a small subset of xpath. Most notably, it is only possible to
+select tag nodes and the XML tree itself. Other types of nodes, e.g. attributes,
+can only be used as predicates, as in `foo[@bar]`. We also do not support
+expressions that index node sets in some way: testing a node position in a node
+set is not possible.
+
+To evaluate an expression, we first convert it to straightforward python source
+code, then compile the result, and finally run the code. Compiled expressions
+are saved in a global table and are systematically reused. No caching policy for
+now.
 '''
 
-import os, re, io, collections, copy, sys
+import os, re, io, collections, copy, sys, inspect, fnmatch, argparse, tokenize
+import traceback
 from xml.parsers import expat
 from xml.sax.saxutils import escape as quote_string
-from dharma import xpath
+from pegen.tokenizer import Tokenizer
+from dharma.xpath_parser import Path, Step, Op, Func, GeneratedParser
 
 DEFAULT_LANG = "eng"
 DEFAULT_SPACE = "default"
@@ -253,15 +266,22 @@ class Node(object):
 		return node
 
 	def find(self, path):
-		'''Find nodes that match the given XPath expression. Returns a
+		'''Finds nodes that match the given XPath expression. Returns a
 		list of matching nodes.
 		'''
-		return xpath.find(self, path)
+		f = generator.compile(path)
+		return list(f(self))
 
 	def first(self, path):
 		'''Like the `find` method, but returns only the first matching
 		node, or `None` if there is no match.'''
-		return xpath.first(self, path)
+		f = generator.compile(path)
+		return next(f(self), None)
+
+	def matches(self, path):
+		'''Checks if this node matches the given XPath expression.'''
+		f = generator.compile(path, search=False)
+		return f(self)
 
 	def children(self):
 		'''Returns a list of `Tag` children of this node.'''
@@ -942,6 +962,272 @@ class Error(Exception):
 	def __str__(self):
 		return f"Error(path='{self.path}' line={self.line}, column={self.column}, text={repr(self.text)})"
 
+def xpath_glob(node, pattern, *arg):
+	assert isinstance(pattern, str)
+	(text,) = arg or (node.text(),)
+	return fnmatch.fnmatchcase(text, pattern)
+
+xpath_funcs = {
+	"glob": xpath_glob,
+}
+
+def children(node):
+	for child in node:
+		if isinstance(child, Tag):
+			yield child
+
+def descendants(node):
+	for child in node:
+		if isinstance(child, Tag):
+			yield child
+			yield from descendants(child)
+
+def descendants_or_self(node):
+	yield node
+	yield from descendants(node)
+
+def ancestors(node):
+	while True:
+		node = node.parent
+		if not node:
+			break
+		yield node
+
+def ancestors_or_self(node):
+	yield node
+	yield from ancestors(node)
+
+def handle_token(buf, tok):
+	match len(buf):
+		case 0:
+			match tok.type:
+				case tokenize.NEWLINE:
+					pass
+				case tokenize.NAME:
+					buf.append(tok)
+				case _:
+					yield tok
+		case 1:
+			match tok.type:
+				case tokenize.NEWLINE:
+					yield buf[0]
+					buf.clear()
+				case tokenize.OP if tok.string == "-" and buf[0].end == tok.start:
+					buf.append(tok)
+				case _:
+					yield buf[0]
+					buf.clear()
+					yield tok
+		case 2:
+			match tok.type:
+				case tokenize.NEWLINE:
+					yield buf[0]
+					yield buf[1]
+					buf.clear()
+				case tokenize.NAME if buf[1].end == tok.start:
+					info = tokenize.TokenInfo(
+						type=tokenize.NAME,
+						string=buf[0].string + "-" + tok.string,
+						start=buf[0].start, end=tok.end, line=buf[0].line)
+					buf.clear()
+					buf.append(info)
+				case _:
+					yield buf[0]
+					yield buf[1]
+					buf.clear()
+					yield tok
+
+
+# Like Python's tokenizer, but treats strings like "foo-bar-baz" as names.
+def tokenize_xpath(s):
+	buf = []
+	for tok in tokenize.generate_tokens(io.StringIO(s).readline):
+		yield from handle_token(buf, tok)
+
+class Generator:
+
+	def __init__(self):
+		self.code = ""
+		self.indents = []
+		self.bufs = []
+		self.routines_nr = 0
+		self.env = {f.__name__: f
+			for funcs in (xpath_funcs.values(), (Tag, Tree,
+				children, descendants, descendants_or_self,
+				ancestors, ancestors_or_self))
+				for f in funcs}
+		self.search = {}
+		self.match = {}
+
+	def parse(self, expr):
+		gen = tokenize_xpath(expr)
+		tokenizer = Tokenizer(gen, verbose=False)
+		parser = GeneratedParser(tokenizer, verbose=False)
+		root = parser.start()
+		if not root:
+			err = parser.make_syntax_error("<xpath expression>")
+			traceback.print_exception(err.__class__, err, None)
+			raise err
+		return root
+
+	def append(self, line):
+		self.bufs[-1].append(self.indents[-1] * "\t" + line + "\n")
+		if line.startswith("def ") or line.startswith("if ") \
+			or line.startswith("for "):
+			self.indents[-1] += 1
+
+	def start_routine(self):
+		buf = []
+		self.indents.append(0)
+		self.bufs.append(buf)
+		self.routines_nr += 1
+		return f"xpath_expression_{self.routines_nr}"
+
+	def end_routine(self):
+		code = self.bufs.pop()
+		if self.bufs:
+			code.append("\n")
+		self.code += "".join(code)
+		self.indents.pop()
+
+	def compile(self, expr, search=True):
+		if search:
+			table, main_func = self.search, self.generate_main_search
+		else:
+			table, main_func = self.match, self.generate_main_match
+		f = table.get(expr)
+		if f:
+			return f
+		t = self.parse(expr)
+		if os.getenv("DHARMA_DEBUG"):
+			print(t, file=sys.stderr)
+		assert isinstance(t, Path)
+		main = main_func(t, expr)
+		code = compile(self.code, "<xpath expression>", "exec")
+		exec(code, self.env)
+		f = self.env[main]
+		setattr(f, "source_code", self.code)
+		table[expr] = f
+		self.code = ""
+		self.indents.clear()
+		self.bufs.clear()
+		return f
+
+	def generate(self, expr, code=None):
+		match expr:
+			case Path():
+				name = self.start_routine()
+				self.generate_path(expr, name)
+				self.end_routine()
+				return f"{name}(node)"
+			case Step():
+				self.generate_step(expr)
+			case str():
+				return expr
+			case Op(val="or") | Op(val="and"):
+				return f"bool({self.generate(expr.l)} {expr.val} {self.generate(expr.r)})"
+			case Op(val="not"):
+				return f"not {self.generate(expr.r)}"
+			case Op():
+				return f"{self.generate(expr.l)} {expr.val} {self.generate(expr.r)}"
+			case Func():
+				return self.generate_call(expr)
+			case _:
+				assert 0, "%r" % expr
+
+	def generate_main_search(self, path, code):
+		func_name = self.start_routine()
+		self.append(f"def {func_name}(node):")
+		self.append(repr(code))
+		if path.absolute:
+			self.append("node = node.tree")
+		for step in path.steps:
+			self.generate(step)
+		self.append("yield node")
+		self.end_routine()
+		return func_name
+
+	def generate_main_match(self, path, code):
+		func_name = self.start_routine()
+		self.append(f"def {func_name}(node):")
+		self.append(repr(code))
+		steps = list(reversed(path.steps))
+		for i, step in enumerate(steps):
+			if step.name_test:
+				self.append(f"if isinstance(node, Tag) and node.name == {step.name_test!r}:")
+			for pred in step.predicates:
+				self.append(f"if {self.generate(pred)}:")
+			if i == len(steps) - 1:
+				if path.absolute and step.axis == "child":
+					self.append("node = node.parent")
+					self.append("if isinstance(node, Tree):")
+				break
+			match step.axis:
+				case "self":
+					pass
+				case "child":
+					self.append("node = node.parent")
+					if not step.name_test:
+						self.append("if node is not None:")
+				case "descendant-or-self":
+					self.append("for node in ancestors_or_self(node):")
+				case _:
+					assert 0, f"repr(step.axis) not allowed"
+		self.append("return True")
+		self.indents[-1] = 1
+		self.append("return False")
+		self.end_routine()
+		return func_name
+
+	def generate_path(self, path, func_name):
+		self.append(f"def {func_name}(node):")
+		if path.absolute:
+			self.append("node = node.tree")
+		for step in path.steps:
+			self.generate(step)
+		self.append("return True")
+		self.indents[-1] = 1
+		self.append("return False")
+
+	def generate_step(self, step):
+		match step.axis:
+			case "self":
+				pass
+			case "child":
+				self.append("for node in children(node):")
+			case "descendant":
+				self.append("for node in descendants(node):")
+			case "descendant-or-self":
+				self.append("for node in descendants_or_self(node):")
+			case "parent":
+				self.append("node = node.parent")
+				self.append("if node is not None:")
+			case "ancestor":
+				self.append("for node in ancestors(node):")
+			case "ancestor-or-self":
+				self.append("for node in ancestors_or_self(node):")
+			case _:
+				assert 0, repr(step.axis)
+		if step.name_test:
+			self.append(f"if isinstance(node, Tag) and node.name == {step.name_test!r}:")
+		for pred in step.predicates:
+			self.append(f"if {self.generate(pred)}:")
+
+	def generate_call(self, func):
+		buf = []
+		f = xpath_funcs.get(func.name)
+		if not f:
+			raise Exception(f"xpath function '{func.name}' not defined")
+		buf.append(f"{f.__name__}(node, ")
+		for i, arg in enumerate(func.args):
+			buf.append(self.generate(arg))
+			if i < len(func.args) - 1:
+				buf.append(", ")
+		buf.append(")")
+		return "".join(buf)
+
+generator = Generator()
+
 def term_color(code=None):
 	if not code:
 		return "\N{ESC}[0m"
@@ -1208,6 +1494,6 @@ if __name__ == "__main__":
 		fmt.format(tree)
 		sys.stdout.write(fmt.text())
 	except (BrokenPipeError, KeyboardInterrupt):
-		pass
+		exit(1)
 	except Error as err:
 		print(err, file=sys.stderr)

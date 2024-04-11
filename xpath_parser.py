@@ -213,64 +213,48 @@ class GeneratedParser(Parser):
             and
             (self.expect(':'))
         ):
-            return r;
+            return r . string;
         self._reset(mark)
         return None;
 
     @memoize
     def AxisName(self) -> Optional[Any]:
-        # AxisName: "ancestor" "-" "or" "-" "self" | "ancestor" | "child" | "descendant" "-" "or" "-" "self" | "descendant" | "parent" | "self"
+        # AxisName: "ancestor-or-self" | "ancestor" | "child" | "descendant-or-self" | "descendant" | "parent" | "self"
         mark = self._mark()
         if (
-            (self.expect("ancestor"))
-            and
-            (self.expect("-"))
-            and
-            (self.expect("or"))
-            and
-            (self.expect("-"))
-            and
-            (self.expect("self"))
+            (literal := self.expect("ancestor-or-self"))
         ):
-            return "ancestor-or-self";
+            return literal;
         self._reset(mark)
         if (
-            (r := self.expect("ancestor"))
+            (literal := self.expect("ancestor"))
         ):
-            return r . string;
+            return literal;
         self._reset(mark)
         if (
-            (r := self.expect("child"))
+            (literal := self.expect("child"))
         ):
-            return r . string;
+            return literal;
         self._reset(mark)
         if (
-            (self.expect("descendant"))
-            and
-            (self.expect("-"))
-            and
-            (self.expect("or"))
-            and
-            (self.expect("-"))
-            and
-            (self.expect("self"))
+            (literal := self.expect("descendant-or-self"))
         ):
-            return "descendant-or-self";
+            return literal;
         self._reset(mark)
         if (
-            (r := self.expect("descendant"))
+            (literal := self.expect("descendant"))
         ):
-            return r . string;
+            return literal;
         self._reset(mark)
         if (
-            (r := self.expect("parent"))
+            (literal := self.expect("parent"))
         ):
-            return r . string;
+            return literal;
         self._reset(mark)
         if (
-            (r := self.expect("self"))
+            (literal := self.expect("self"))
         ):
-            return r . string;
+            return literal;
         self._reset(mark)
         return None;
 
@@ -366,7 +350,7 @@ class GeneratedParser(Parser):
             and
             (r := self.name())
         ):
-            return "(node[%r])" % r . string;
+            return f"(node[{r.string!r}])";
         self._reset(mark)
         return None;
 

@@ -1,6 +1,7 @@
 import os, sys, re, io, copy, html, unicodedata, functools
 from urllib.parse import urlparse
-from dharma import prosody, people, tree, gaiji, config, unicode, biblio, langs, document, xpath
+from dharma import prosody, people, tree, gaiji, config, unicode, biblio
+from dharma import langs, document
 from dharma.document import Document, Block
 
 HANDLERS = {}
