@@ -3,7 +3,7 @@ import bs4
 
 def parse_xml(cell):
 	t = tree.parse_string(f"<x>{cell}</x>", path="whatever")
-	html = tree.html_format(t.first("x"), skip_root=True)
+	html = tree.html_format(t.first("//x"), skip_root=True)
 	p = parse.Parser(t)
 	p.divs.append(set())
 	p.push("block")
@@ -13,11 +13,12 @@ def parse_xml(cell):
 
 class Item:
 
-	def __init__(self, description, markup, block, remark):
+	def __init__(self, description, markup, block, remark, type):
 		self.description = description
 		self.markup = markup
 		self.block = block
 		self.remark = remark
+		self.type = type
 
 def parse_html():
 	text = open("DHARMAEditorialConventionsdraft2024.html").read()
@@ -29,8 +30,11 @@ def parse_html():
 	ret = []
 	for node in soup.find_all(title_or_tag):
 		if node.name == "h2":
+			title = node.get_text().strip()
+			if not title:
+				continue
 			items = []
-			ret.append((node.get_text(), items))
+			ret.append((title, items))
 		else:
 			rows = node.find_all("tr")[1:]
 			for row in rows:
@@ -38,7 +42,10 @@ def parse_html():
 				assert len(cells) == 4
 				description, markup, _, remark = cells
 				markup = markup.replace('”', '"')
+				type = "edition"
+				if "translation" in title.lower():
+					type = "translation"
 				block, markup = parse_xml(markup)
-				items.append(Item(description, markup, block, remark))
+				items.append(Item(description, markup, block, remark, type))
 	return ret
 

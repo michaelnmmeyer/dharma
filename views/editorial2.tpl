@@ -18,7 +18,7 @@ Editorial Conventions
 <pre class="xml">
 {{item.markup}}
 </pre>
-<div class="ed full edition-demo">
+<div class="ed {{item.type == "edition" and "full" or "translation"}} edition-demo">
 	{{item.block.render_full() | safe}}
 </div>
 % if item.remark:

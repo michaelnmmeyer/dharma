@@ -707,7 +707,7 @@ def parse_gap(p, gap):
 			if reason == "lost":
 				repl += f"{quantity}+"
 			elif reason == "illegible":
-				repl += f"{quantity}x"
+				repl += f"{quantity}×"
 			else:
 				# reason = "undefined" (lost or illegible)
 				repl += f"{quantity}*"
@@ -748,7 +748,7 @@ def parse_gap(p, gap):
 	p.start_span(klass="gap", tip=tip)
 	if phys_repl is not None and phys_repl != repl:
 		p.add_html(html.escape(repl), plain=True, physical=False)
-		p.add_html(html.escape(phys_repl), plain=True, logical=False)
+		p.add_html(html.escape(phys_repl), plain=True, logical=False, full=False)
 	else:
 		p.add_html(html.escape(repl), plain=True)
 	p.end_span()
