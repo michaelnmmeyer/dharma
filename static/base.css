@@ -8,7 +8,60 @@
 	--menu-height: 2.6em;
 	--tooltip-selection-foreground: white;
 	--tooltip-selection-background: black;
+	--card-heading-background: #e3e3ed;
+	--card-border: #c2c2d3;
+	--code-background: #eaeaea;
 }
+
+.data {
+	display: grid;
+	grid-template-columns: auto 1fr;
+}
+.data > * {
+	padding: 0 0.5em;
+}
+/* Keys */
+.data > :nth-child(odd) {
+	text-align: right;
+}
+
+
+
+
+
+.card-list .card {
+	margin: 1em 0;
+}
+.card-list .card:nth-child(odd) {
+}
+.card-list .card:nth-child(even) {
+}
+.card p {
+	text-align: left;
+}
+.card p:first-child {
+	margin-block-start: 0;
+}
+.card p:last-child {
+	margin-block-end: 0;
+}
+.card {
+	border-top-left-radius: var(--border-radius);
+	border-top-right-radius: var(--border-radius);
+	border: 1px solid var(--card-border);
+	border-bottom: 0;
+}
+.card-heading {
+	font-size: 110%;
+	background: var(--card-heading-background);
+	margin: 0;
+	padding: 0.3em 0.6em;
+}
+.card-body {
+	padding: 0.5em 0.6em;
+	background: #fafafa;
+}
+
 
 .toc-heading {
 	font-size: larger;
@@ -18,7 +71,17 @@
 
 .edition-demo {
 	background: white;
-	padding: 0.5em;
+	border-radius: var(--border-radius);
+	border: 1px solid gray;
+	margin: 1em 0.5em;
+}
+.edition-demo > .xml {
+	margin: 0;
+}
+.edition-demo > .ed {
+	margin: 0;
+	padding: 0.3em 1em;
+	background: white;
 	border-radius: var(--border-radius);
 }
 
@@ -135,9 +198,13 @@ body {
 }
 pre, code {
 	font-family: 'Noto Mono', monospace;
-	background-color: #eaeaea;
+	background-color: var(--code-background);
 	border-radius: var(--border-radius);
 	font-size: 92%;
+	hyphens: none;
+}
+code {
+	overflow-wrap: anywhere;
 }
 pre {
 	overflow: auto;

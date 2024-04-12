@@ -29,12 +29,17 @@
       <a href="{{url_for("show_catalog")}}">
       <i class="fa-regular fa-file-lines"></i> Texts</a>
    </li>
-   <li><a href="/editorial-conventions">Editorial Conventions</a></li>
+   <li class="submenu">
+      <a>Conventions <i class="fa-solid fa-caret-down"></i></a>
+      <ul class="hidden">
+         <li><a href="/editorial-conventions">Editorial Conventions</a></li>
+         <li><a href="/prosody">Prosodic Patterns</a></li>
+      </ul>
    <li>
       <a href="/parallels">
       <i class="fa-solid fa-grip-lines-vertical"></i> Parallels</a>
    </li>
-   <li id="submenu" class="submenu">
+   <li class="submenu">
       <a>Project Internal <i class="fa-solid fa-caret-down"></i></a>
       <ul class="hidden">
          <li>

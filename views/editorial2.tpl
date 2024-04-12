@@ -9,28 +9,31 @@ Editorial Conventions
 % for title, items in data:
 <h2>{{title}}</h2>
 
-<div class="catalog-list">
+<div class="card-list">
+
 % for item in items:
-<div class="catalog-card">
+<div class="card">
+
 % if item.description:
-<p class="catalog-card-heading">{{item.description}}</p>
+<div class="card-heading">{{item.description}}</div>
 % endif
-<pre class="xml">
-{{item.markup}}
-</pre>
-<div class="ed {{item.type == "edition" and "full" or "translation"}} edition-demo">
+
+<div class="card-body">
+<div class="edition-demo">
+	<pre class="xml">{{item.markup}}</pre>
+	<div class="ed {{item.type == "edition" and "full" or "translation"}}">
 	{{item.block.render_full() | safe}}
-</div>
+	</div>
+</div><!--class="edition-demo"-->
 % if item.remark:
-	{{item.remark}}
+	<p>{{item.remark}}</p>
 % endif
-</div>
+</div><!--class="card-body"-->
+
+</div><!--class="card"-->
 % endfor
-</div>
 
+</div><!--class="card-list"-->
 % endfor
-
-
-</div>
 
 % endblock

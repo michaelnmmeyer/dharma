@@ -2,7 +2,7 @@ import os, sys, unicodedata, hashlib, locale, time, datetime, html, urllib
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
 from dharma import config, change, people, ngrams, catalog, parse, validate
-from dharma import parse, biblio, document, tree, texts, editorial
+from dharma import parse, biblio, document, tree, texts, editorial, prosody
 
 # We don't use the name "templates" for the template folder because we also
 # put other stuff in the same directory, not just templates.
@@ -239,6 +239,16 @@ def show_langs():
 	rows = db.execute("select * from langs_display").fetchall()
 	db.execute("end")
 	return flask.render_template("langs.tpl", rows=rows)
+
+@app.get("/prosody")
+@config.transaction("texts")
+def show_prosody():
+	db = config.db("texts")
+	db.execute("begin")
+	data = prosody.parse_prosody()
+	ret = flask.render_template("prosody.tpl", data=data)
+	db.execute("end")
+	return ret
 
 @app.get("/langs")
 def show_lang_old():

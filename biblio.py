@@ -128,7 +128,10 @@ class Writer:
 		self.add(".")
 
 	def add(self, s):
-		self.xml.append(s)
+		if isinstance(s, tree.Node):
+			self.xml.append(s.copy())
+		else:
+			self.xml.append(s)
 
 	def name_first_last(self, rec):
 		first, last = rec.get("firstName"), rec.get("lastName")
@@ -445,7 +448,7 @@ def render_journal_article(rec, w, params):
 		# Use the abbreviated journal name if possible. Note that some
 		# people set journalAbbreviation = publicationTitle, so in
 		# this case ignore the abbreviation.
-		if abbr.xml() and abbr.xml() != name.xml():
+		if abbr: # XXX if abbr.xml() and abbr.xml() != name.xml():
 			if name:
 				name.name = "i"
 				tag = tree.Tag("abbr", {"data-tip": name.xml()})
@@ -1050,6 +1053,7 @@ def fix_rec(rec):
 				val = creator.get(field)
 				if not val:
 					continue
+				print(val, fix_value(val))
 				creator[field] = fix_value(val)
 
 # TODO generate ref and entries with 1918a, 1918b, etc. when necessary
@@ -1118,62 +1122,113 @@ def invalid_ref(ref, reason, missing=False):
 
 PER_PAGE = 100
 
-def page_of(key):
-	db = config.db("texts")
-	(index,) = db.execute("""select pos - 1
-		from (select row_number() over(order by sort_key) as pos,
-			key from biblio_data where sort_key is not null)
-		where key = ?""", (key,)).fetchone()
-	return (index + PER_PAGE - 1) // PER_PAGE
+class Entry:
 
-def get_ref(ref, **params):
-	db = config.db("texts")
-	recs = db.execute("select key, json ->> '$.data' from biblio_data where short_title = ?", (ref,)).fetchall()
-	if len(recs) == 0:
-		return invalid_ref(ref, "Not found in bibliography")
-	if len(recs) > 1:
-		return invalid_ref(ref, "Multiple bibliographic entries bear this short title")
-	key, rec = recs[0]
-	rec = config.from_json(rec)
-	fix_rec(rec)
-	w = Writer()
-	w.xml.name = "span"
-	w.xml.attrs.clear()
-	tag = tree.Tag("a", {"class": "bib-ref"})
-	if params["missing"]:
-		page = page_of(key)
-		tag["href"] = f"/bibliography/page/{page}#bib-key-{key}"
-	else:
-		tag["href"] = f"#bib-key-{key}"
-	w.xml.append(tag)
-	w.xml = tag
-	siglum = params.get("siglum")
-	if siglum:
-		tag = tree.Tag("span")
+	def __init__(self, short_title):
+		self.short_title = short_title
+		self._data = None
+		self.records_nr = -1
+		self._page = None
+
+	@property
+	def data(self):
+		if self.records_nr >= 0:
+			return self._data
+		recs = config.db("texts").execute("""
+			select json ->> '$.data'
+			from biblio_data where short_title = ?""",
+			(self.short_title,)).fetchall()
+		self.records_nr = len(recs)
+		if self.records_nr == 1:
+			self._data = config.from_json(recs[0][0])
+			fix_rec(self._data)
+		else:
+			self._page = -1
+		return self._data
+
+	@property
+	def page(self):
+		if self._page is not None:
+			return self._page
+		key = self.data["key"].text()
+		db = config.db("texts")
+		(index,) = db.execute("""
+			select pos - 1
+			from (select row_number() over(order by sort_key) as pos,
+				key from biblio_data where sort_key is not null)
+			where key = ?""", (key,)).fetchone()
+		self._page = (index + PER_PAGE - 1) // PER_PAGE
+		return self._page
+
+	def reference(self, rend="default", loc=[], missing=True, siglum=None):
+		return Reference(self, rend, loc, missing, siglum)
+
+class Reference:
+
+	def __init__(self, entry, rend, loc, missing, siglum):
+		self.entry = entry
+		self.rend = rend
+		self.loc = loc
+		self.missing = missing
+		self.siglum = siglum
+
+	def _invalid_ref(self, reason):
+		r = tree.Tag("a", {
+			"class": "nav-link bib-ref-invalid",
+			"data-tip": reason
+		})
+		r.append(self.entry.short_title)
+		return r.xml()
+
+	def __str__(self):
+		rec = self.entry.data
+		assert not self.entry.records_nr < 0
+		if self.entry.records_nr != 1:
+			if self.entry.records_nr == 0:
+				return self._invalid_ref("Not found in bibliography")
+			return self._invalid_ref("Multiple bibliographic entries bear this short title")
+		return self._make_reference(rec)
+
+	def _make_reference(self, rec):
+		w = Writer()
+		w.xml.name = "span"
+		w.xml.attrs.clear()
+		tag = tree.Tag("a", {"class": "bib-ref"})
+		key = rec["key"].text()
+		if self.missing:
+			tag["href"] = f"/bibliography/page/{self.entry.page}#bib-key-{key}"
+		else:
+			tag["href"] = f"#bib-key-{key}"
 		w.xml.append(tag)
 		w.xml = tag
-		w.ref(rec)
-		w.xml = w.xml.parent
-		w.xml["data-tip"] = tag.xml()
-		tag.delete()
-		w.add(siglum)
-	else:
-		fmt = params["rend"]
-		if fmt == "omitname":
-			w.date(rec, end_field=False)
-		elif fmt == "ibid":
-			tag = tree.Tag("i")
-			tag.append("ibid.")
-			w.add(tag)
-		elif fmt == "default":
+		if self.siglum:
+			tag = tree.Tag("span")
+			w.xml.append(tag)
+			w.xml = tag
 			w.ref(rec)
+			w.xml = w.xml.parent
+			w.xml["data-tip"] = tag.xml()
+			tag.delete()
+			w.add(self.siglum)
 		else:
-			assert 0
-	w.xml = w.xml.parent
-	if params["loc"]:
-		w.add(": ")
-		w.loc(params["loc"])
-	return w.output()
+			if self.rend == "omitname":
+				w.date(rec, end_field=False)
+			elif self.rend == "ibid":
+				tag = tree.Tag("i")
+				tag.append("ibid.")
+				w.add(tag)
+			elif self.rend == "default":
+				w.ref(rec)
+			else:
+				assert 0
+		w.xml = w.xml.parent
+		if self.loc:
+			w.add(": ")
+			w.loc(self.loc)
+		return w.output()
+
+def get_ref(ref, **params):
+	return str(Entry(ref).reference(**params))
 
 def sort_key(rec):
 	typ = rec["itemType"]
@@ -1188,7 +1243,7 @@ def sort_key(rec):
 		key += author + " " + rec.get("date") + " "
 		break
 	key += rec["title"] + " " + rec["key"]
-	return config.COLLATOR.getSortKey(key)
+	return config.COLLATOR.getSortKey(key) # XXX store in the db not a text val, not a  binary value, so that we can debug this and check if refs are not broken
 
 if __name__ == "__main__":
 	#params = {"rend": "default", "loc": [], "n": "", "missing": False}

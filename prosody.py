@@ -1,5 +1,5 @@
-import os, sys, unicodedata
-from dharma import config, tree
+import os, sys, unicodedata, json
+from dharma import config, tree, biblio, people
 
 def load_data():
 	path = config.path_of("repos/project-documentation/DHARMA_prosodicPatterns_v01.xml")
@@ -43,6 +43,156 @@ def render_pattern(p):
 def is_pattern(p):
 	return all(ord(c) in pattern_tbl or c.isdigit() or c in "|/" for c in p)
 
+def parse_front(xml):
+	table = xml.first("//front//table")
+	heading = table.first("head").text()
+	rows = []
+	for row in table.find("row[not @role='label']"):
+		cells = row.find("cell")
+		assert len(cells) == 3
+		description, xml_notation, prosody = [c.text() for c in cells]
+		if not prosody:
+			prosody = xml_notation
+		rows.append((description, xml_notation, prosody))
+	return {
+		"heading": heading,
+		"items": rows,
+	}
+
+bibl_units = set(biblio.cited_range_units)
+
+def extract_bib_ref(node):
+	assert node.name == "bibl"
+	ptr = node.first("ptr")
+	if not ptr:
+		return None, None
+	target = ptr["target"]
+	if not target.startswith("bib:"):
+		return None, None
+	if target == "bib:AuthorYear_01":
+		return None, None
+	ref = target.removeprefix("bib:")
+	loc = []
+	for r in node.find("citedRange"):
+		unit = r["unit"]
+		if not unit or unit not in bibl_units:
+			unit = "page"
+		val = r.text()
+		if not val:
+			continue
+		loc.append((unit, val))
+	return ref, loc
+
+def fetch_notes(item):
+	# <note resp="part:zapa">The name of this meter in CK is "kusumitagandha", while in Vr̥t is "kusumitajanma".</note>
+	notes = []
+	for note in item.find("note"):
+		text = note.text()
+		if not text:
+			continue
+		resps = []
+		for resp in note["resp"].split():
+			resp = resp.removeprefix("part:")
+			if not resp:
+				continue
+			name = people.plain(resp) or people.plain("jodo")
+			resps.append((resp, name))
+		notes.append({"authors": resps, "text": text})
+	return notes
+
+def parse_list_rec(item, bib_entries):
+	rec = {
+		"syllables": None,
+		"class": None,
+		"names": [],
+		"xml": None,
+		"prosody": None,
+		"gana": None,
+		"notes": [],
+		"bibliography": [],
+	}
+	# <measure unit="syllable">22</measure>
+	measure = item.find("measure")
+	assert len(measure) <= 1
+	if measure:
+		measure = measure[0]
+		assert measure["unit"] == "syllable"
+		measure = measure.text()
+		if measure:
+			rec["syllables"] = measure
+	# <label type="generic" xml:lang="san-Latn">vikr̥ti</label>
+	klass = item.find("label[@type='generic']")
+	assert len(klass) <= 1
+	if klass:
+		klass = klass[0]
+		lang = klass["lang"] or "und"
+		klass = klass.text()
+		if klass:
+			rec["class"] = (klass, lang)
+	rec["notes"] = fetch_notes(item)
+	# <name xml:lang="san-Latn">campakamālā</name>
+	names = item.find("name")
+	for name in names:
+		text = name.text()
+		if not text:
+			continue
+		lang = name["lang"] or "und"
+		rec["names"].append((text, lang))
+	# <seg type="xml">----+-+---+-+---=/++++-+-+---+-+---=</seg>
+	# <seg type="prosody">⏑⏑⏑⏑–⏑–⏑⏑⏑–⏑||–⏑⏑⏑⏓/––––⏑–⏑–⏑⏑⏑–⏑–⏑⏑⏑⏓</seg>
+	# <seg type="gana">na-ja-bha-ja-bha-la-ga/ma-ra-ja-sa-ja-sa</seg>
+	for type in ("xml", "prosody", "gana"):
+		seg = item.find(f"seg[@type='{type}']")
+		assert len(seg) <= 1
+		if not seg:
+			continue
+		seg = seg[0].text()
+		if not seg or seg == "no data available":
+			continue
+		if type == "prosody":
+			seg = render_pattern(seg)
+		rec[type] = seg
+	for bibl in item.find("listBibl/bibl"):
+		ref, loc = extract_bib_ref(bibl)
+		if not ref:
+			continue
+		entry = bib_entries.get(ref)
+		if not entry:
+			entry = biblio.Entry(ref)
+			bib_entries[ref] = entry
+		rec["bibliography"].append({
+			"ref": entry.reference(loc=loc),
+			"notes": fetch_notes(bibl),
+		})
+	return rec
+
+def parse_list(list):
+	heading = list.first("head").text()
+	items = []
+	bib_entries = {}
+	for item in list.find("item"):
+		items.append(parse_list_rec(item, bib_entries))
+	return {
+		"heading": heading,
+		"items": items,
+	}
+
+def parse_prosody():
+	path = config.path_of("repos/project-documentation/DHARMA_prosodicPatterns_v01.xml")
+	xml = tree.parse(path)
+	ret = {
+		"notation": parse_front(xml),
+		"lists": [],
+	}
+	for list in xml.find("//body/list"):
+		ret["lists"].append(parse_list(list))
+	return ret
+
 if __name__ == "__main__":
-	for name, pattern in sorted(load_data().items()):
-		print(name, pattern, sep="\t")
+	@config.transaction("texts")
+	def main():
+		db = config.db("texts")
+		db.execute("begin")
+		print(config.to_json(parse_prosody()))
+		db.execute("rollback")
+	main()

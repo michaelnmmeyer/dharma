@@ -167,9 +167,14 @@ def from_json(s):
 		s = s.decode()
 	return json.loads(s)
 
+class JSONEncoder(json.JSONEncoder):
+
+	def default(self, obj):
+		return str(obj)
+
 def to_json(obj):
 	return json.dumps(obj, ensure_ascii=False, separators=(",", ":"),
-		sort_keys=True)
+		sort_keys=True, cls=JSONEncoder)
 
 sqlite3.register_converter("json", from_json)
 # Python has a default converter for "timestamp" which is not only deprecated
@@ -220,9 +225,11 @@ def normalize_url(url):
 
 def numberize(s, n):
 	last_word = s.rsplit(None, 1)[-1].casefold()
-	if last_word not in ("character", "component", "line", "page", "editor", "text", "link"):
+	if last_word not in ("character", "component", "line", "page", "editor", "text", "link", "syllable"):
 		print("cannot numberize term %r" % last_word, file=sys.stderr)
 		return s
+	if isinstance(n, str):
+		n = n.isdigit() and int(n) or 0
 	if n == 1:
 		return s
 	return s + "s"

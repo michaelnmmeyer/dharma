@@ -16,23 +16,80 @@ let menuVisible = null
 let menuContainer = null
 
 let submenu = null
-let submenuVisible = null
-let submenuContainer = null
-let submenuCleanup = null
-let submenuIcon = null
+let submenus = []
+
+class Submenu {
+
+	constructor(node) {
+		this.container = node
+		this.submenu = node.querySelector("ul")
+		console.assert(this.submenu.classList.contains("hidden"))
+		this.visible = false
+		this.button = node.querySelector("a")
+		this.icon = this.button.querySelector("i")
+		this.button.addEventListener("click", () => {
+			this.toggle()
+		}, false)
+		this.cleanup = null
+	}
+
+	updatePosition() {
+		floatingUI.computePosition(this.container, this.submenu, {
+			placement: "bottom-end",
+			middleware: [floatingUI.shift()]
+		}).then(({x, y}) => {
+			this.submenu.style.top = `${y}px`,
+			this.submenu.style.left = `${x}px`
+		})
+	}
+
+	show() {
+		console.assert(!this.visible)
+		console.assert(!this.cleanup)
+		console.assert(this.submenu.classList.contains("hidden"))
+		this.container.append(this.submenu)
+		this.submenu.classList.remove("hidden")
+		this.cleanup = floatingUI.autoUpdate(this.container,
+			this.submenu, () => {this.updatePosition()})
+		this.icon.classList.remove("fa-caret-down")
+		this.icon.classList.add("fa-caret-up")
+		this.visible = true
+		submenu = this
+	}
+
+	hide() {
+		console.assert(this.visible)
+		console.assert(this.cleanup)
+		console.assert(!this.submenu.classList.contains("hidden"))
+		this.submenu.classList.add("hidden")
+		this.submenu.remove()
+		this.cleanup()
+		this.cleanup = null
+		this.icon.classList.remove("fa-caret-up")
+		this.icon.classList.add("fa-caret-down")
+		this.visible = false
+		submenu = null
+	}
+
+	toggle() {
+		if (submenu && submenu !== this) {
+			submenu.hide()
+		}
+		if (this.visible)
+			this.hide()
+		else
+			this.show()
+	}
+}
 
 function initMenu() {
 	menu = document.querySelector("#menu")
 	menuVisible = !menu.classList.contains("hidden")
 	menuIcon = document.querySelector("#menu-toggle i")
 	menuContainer = document.querySelector("menu")
-	submenu = document.querySelector("#submenu > ul")
-	console.assert(submenu.classList.contains("hidden"))
-	submenuVisible = false
-	submenuContainer = document.querySelector("#submenu")
-	submenuIcon = document.querySelector("#submenu > a > i")
+	for (let node of menu.querySelectorAll(".submenu"))
+		submenus.push(new Submenu(node))
 	document.querySelector("#menu-toggle").addEventListener("click", toggleMenu, false)
-	document.querySelector("#submenu > a").addEventListener("click", toggleSubmenu, false)
 }
 
 function showMenu() {
@@ -60,56 +117,15 @@ function toggleMenu() {
 		showMenu()
 }
 
-function updateSubmenuPosition() {
-	floatingUI.computePosition(submenuContainer, submenu, {
-		placement: "bottom-end",
-		middleware: [floatingUI.shift()]
-	}).then(function ({x, y}) {
-		submenu.style.top = `${y}px`,
-		submenu.style.left = `${x}px`
-	})
-}
-
-function showSubmenu() {
-	console.assert(!submenuVisible)
-	console.assert(!submenuCleanup)
-	console.assert(submenu.classList.contains("hidden"))
-	document.querySelector("#submenu").append(submenu)
-	submenu.classList.remove("hidden")
-	submenuCleanup = floatingUI.autoUpdate(submenuContainer, submenu,
-		updateSubmenuPosition)
-	submenuIcon.classList.remove("fa-caret-down")
-	submenuIcon.classList.add("fa-caret-up")
-	submenuVisible = true
-}
-
-function hideSubmenu() {
-	console.assert(submenuVisible)
-	console.assert(submenuCleanup)
-	console.assert(!submenu.classList.contains("hidden"))
-	submenu.classList.add("hidden")
-	submenu.remove()
-	submenuCleanup()
-	submenuCleanup = null
-	submenuIcon.classList.remove("fa-caret-up")
-	submenuIcon.classList.add("fa-caret-down")
-	submenuVisible = false
-}
-
-function toggleSubmenu() {
-	if (submenuVisible)
-		hideSubmenu()
-	else
-		showSubmenu()
-}
-
 window.addEventListener("load", function () {
 	// Hide the submenu if the user clicks anywhere on the page.
 	document.addEventListener("click", function (event) {
 		if (menuVisible && !menuContainer.contains(event.target))
 			hideMenu()
-		if (submenuVisible && !submenuContainer.contains(event.target))
-			hideSubmenu()
+		if (submenu && !submenu.container.contains(event.target)) {
+			submenu.hide()
+			submenu = null
+		}
 	})
 	initMenu()
 })

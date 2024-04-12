@@ -968,36 +968,13 @@ def parse_list(p, list):
 			p.add_log(">item")
 	p.add_log(">list", type=typ)
 
-def extract_bib_ref(p, node):
-	assert node.name == "bibl"
-	ptr = node.first("ptr")
-	if not ptr:
-		return None, None
-	target = ptr["target"]
-	if not target.startswith("bib:"):
-		p.complain(ptr)
-		return None, None
-	if target == "bib:AuthorYear_01":
-		return None, None
-	ref = target.removeprefix("bib:")
-	loc = []
-	for r in node.find("citedRange"):
-		unit = r["unit"]
-		if not unit or unit not in bibl_units:
-			unit = "page"
-		val = r.text().strip()
-		if not val:
-			continue
-		loc.append((unit, val))
-	return ref, loc
-
-bibl_units = set(biblio.cited_range_units)
+extract_bib_ref = prosody.extract_bib_ref
 
 def extract_bibl_items(p, listBibl):
 	recs = listBibl.find("bibl")
 	ret = []
 	for rec in recs:
-		ref, loc = extract_bib_ref(p, rec)
+		ref, loc = extract_bib_ref(rec)
 		if not ref or ref == "AuthorYear_01":
 			continue
 		ret.append((rec, ref, loc))
@@ -1026,7 +1003,7 @@ def parse_bibl(p, node):
 	rend = node["rend"]
 	if rend not in ("omitname", "ibid", "default"):
 		rend = "default"
-	ref, loc = extract_bib_ref(p, node)
+	ref, loc = extract_bib_ref(node)
 	if not ref:
 		return
 	p.add_code("ref", ref, rend=rend, loc=loc, missing=ref not in p.document.biblio)
@@ -1253,7 +1230,7 @@ def process_translation(p, div):
 	source = div["source"]
 	if source:
 		ref = source.removeprefix("bib:")
-		source = biblio.get_ref(ref, missing=ref not in p.document.biblio, rend="default", loc="") or html.escape(source)
+		source = biblio.get_ref(ref, missing=ref not in p.document.biblio, rend="default", loc="")
 		title += f" by {source}"
 	trans.title = title
 	return trans
