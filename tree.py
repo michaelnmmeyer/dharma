@@ -1328,6 +1328,10 @@ class Formatter:
 		self.indent_string = indent_string
 		self.strip_instructions = strip_instructions
 
+	def format_contents(self, node):
+		for child in node:
+			self.format(child)
+
 	def format(self, node):
 		match node:
 			case Tree():
@@ -1403,13 +1407,13 @@ class Formatter:
 			self.write(k, klass="attr-name")
 			self.write("=")
 			self.write(quote_attribute(v), klass="attr-value")
-		if not node.text(space="preserve"):
+		if len(node) == 0:
 			self.write("/>", klass="tag")
 		else:
 			self.write(">", klass="tag")
 
 	def format_closing_tag(self, node):
-		if not node.text(space="preserve"):
+		if len(node) == 0:
 			return
 		self.write("</", klass="tag")
 		self.write(node.name, klass="tag")
@@ -1480,9 +1484,12 @@ class Formatter:
 	def text(self):
 		return self.buf.getvalue()
 
-def html_format(node):
-	fmt = Formatter(pretty=False)
-	fmt.format(node)
+def html_format(node, skip_root=False, color=True):
+	fmt = Formatter(pretty=False, color=color)
+	if skip_root:
+		fmt.format_contents(node)
+	else:
+		fmt.format(node)
 	return fmt.text()
 
 if __name__ == "__main__":

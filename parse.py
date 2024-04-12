@@ -20,13 +20,14 @@ class Parser:
 
 	div_level = 0
 
-	def __init__(self, tree, handlers=HANDLERS):
+	def __init__(self, tree):
 		self.tree = tree
 		self.document = Document()
+		self.document.tree = tree
 		self.document.ident = os.path.basename(os.path.splitext(tree.file)[0])
 		# Stack of blocks.
 		self.blocks = [Block()]
-		self.handlers = handlers
+		self.handlers = HANDLERS
 		self.divs = []
 
 	@property
@@ -907,9 +908,13 @@ def parse_lg(p, lg):
 	n = lg["n"] or "?"
 	if n.isdigit():
 		n = to_roman(int(n))
-	met = titlecase(lg["met"])
+	met = lg["met"]
+	if prosody.is_pattern(met):
+		met = prosody.render_pattern(met)
+	else:
+		met = titlecase(met)
 	p.add_log("<head", level=6)
-	p.add_html("%s. %s" % (n, met), plain=True)
+	p.add_html(f"{n}. {met}", plain=True)
 	p.add_log(">head", level=6)
 	numbered = len(lg.find("l")) > 4
 	p.add_log("<verse", numbered=numbered)
@@ -1319,8 +1324,7 @@ def process_file(path, data):
 	f = t.first("//publicationStmt")
 	if f:
 		f.delete()
-	p = Parser(t, HANDLERS)
-	p.document.tree = t
+	p = Parser(t)
 	p.dispatch(p.tree.root)
 	body = t.first("//body")
 	if body:

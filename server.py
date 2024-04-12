@@ -2,7 +2,7 @@ import os, sys, unicodedata, hashlib, locale, time, datetime, html, urllib
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
 from dharma import config, change, people, ngrams, catalog, parse, validate
-from dharma import parse, biblio, document, tree, texts
+from dharma import parse, biblio, document, tree, texts, editorial
 
 # We don't use the name "templates" for the template folder because we also
 # put other stuff in the same directory, not just templates.
@@ -220,6 +220,16 @@ def show_catalog():
 @app.get("/editorial-conventions")
 def show_editorial_conventions():
 	return flask.render_template("editorial.tpl")
+
+@app.get("/editorial-conventions2")
+@config.transaction("texts")
+def show_editorial_conventions2():
+	db = config.db("texts")
+	db.execute("begin")
+	data = editorial.parse_html()
+	ret = flask.render_template("editorial2.tpl", data=data)
+	db.execute("end")
+	return ret
 
 @app.get("/languages")
 @config.transaction("texts")
