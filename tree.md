@@ -220,6 +220,18 @@ def first(path)
 Like the `find` method, but returns only the first matching
 node, or `None` if there is no match.
 
+<a id="dharma.tree.Node.match_func"></a>
+
+#### match\_func
+
+```python
+@staticmethod
+def match_func(path)
+```
+
+Returns a function that matches the given path if called on
+a node.
+
 <a id="dharma.tree.Node.matches"></a>
 
 #### matches

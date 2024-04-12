@@ -4,16 +4,12 @@ from dharma import prosody, people, tree, gaiji, config, unicode, biblio
 from dharma import langs, document
 from dharma.document import Document, Block
 
-HANDLERS = {}
+HANDLERS = []
 
-def handler(name):
+def handler(path):
 	def decorator(f):
-		assert not name in HANDLERS
-		HANDLERS[name] = f
-		@functools.wraps(f)
-		def decorated(*args, **kwargs):
-			return f(*args, **kwargs)
-		return decorated
+		HANDLERS.append((tree.Node.match_func(path), f))
+		return f
 	return decorator
 
 class Parser:
@@ -99,8 +95,10 @@ class Parser:
 				pass
 			case _:
 				assert 0
-		f = self.handlers.get(node.name)
-		if not f:
+		for matcher, f in self.handlers:
+			if matcher(node):
+				break
+		else:
 			self.complain(node)
 			self.add_text(node.text())
 			return

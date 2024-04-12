@@ -278,9 +278,15 @@ class Node(object):
 		f = generator.compile(path)
 		return next(f(self), None)
 
+	@staticmethod
+	def match_func(path):
+		'''Returns a function that matches the given path if called on
+		a node.'''
+		return generator.compile(path, search=False)
+
 	def matches(self, path):
 		'''Checks if this node matches the given XPath expression.'''
-		f = generator.compile(path, search=False)
+		f = self.match_func(path)
 		return f(self)
 
 	def children(self):
@@ -1314,7 +1320,7 @@ def space_after_closing(node):
 class Formatter:
 
 	def __init__(self, html=True, pretty=True, strip_comments=True,
-		strip_instructions=False,
+		strip_instructions=False, add_xml_prefix=False,
 		color=False, max_width=80 ** 10, indent_string=2 * " "):
 		# max_width is soft, not hard.
 		self.indent = 0
@@ -1327,6 +1333,7 @@ class Formatter:
 		self.max_width = max_width
 		self.indent_string = indent_string
 		self.strip_instructions = strip_instructions
+		self.add_xml_prefix = add_xml_prefix
 
 	def format_contents(self, node):
 		for child in node:
@@ -1401,8 +1408,8 @@ class Formatter:
 			# follow people's habits.
 			attrs = sorted(attrs)
 		for k, v in attrs:
-			if k in ("lang", "space", "base", "id"):
-				k = f"xml:{k}" # This is a hack.
+			if self.add_xml_prefix and k in ("lang", "space", "base", "id"):
+				k = f"xml:{k}"
 			self.write(" ")
 			self.write(k, klass="attr-name")
 			self.write("=")
@@ -1484,8 +1491,8 @@ class Formatter:
 	def text(self):
 		return self.buf.getvalue()
 
-def html_format(node, skip_root=False, color=True):
-	fmt = Formatter(pretty=False, color=color)
+def html_format(node, skip_root=False, color=True, add_xml_prefix=True):
+	fmt = Formatter(pretty=False, color=color, add_xml_prefix=add_xml_prefix)
 	if skip_root:
 		fmt.format_contents(node)
 	else:
