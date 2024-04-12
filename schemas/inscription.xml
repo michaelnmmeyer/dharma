@@ -2749,7 +2749,11 @@
                 </elementSpec>
                 <elementSpec ident="l" module="core" mode="change">
                     <constraintSpec scheme="schematron" ident="mixed-verse">
-                        <constraint><sch:rule context="tei:l[parent::tei:lg[@met='mixed']]">
+                        <constraint>
+                            <sch:rule context="tei:l">
+                                <sch:assert test="parent::tei:lg">element l must be wrapped in element lg</sch:assert>
+                            </sch:rule>
+                            <sch:rule context="tei:l[parent::tei:lg[@met='mixed']]">
                                 <sch:assert test="self::tei:l[@real or @met]">In a stanza identify
                                     as "mixed", the children verse lines must have at least an
                                     attribute @met or @real.</sch:assert>

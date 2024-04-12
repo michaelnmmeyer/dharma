@@ -1452,6 +1452,23 @@ attributes @target and @cRef may be supplied on <xsl:text/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-l-mixed-verse-25-->
    <!--RULE -->
+   <xsl:template match="tei:l" priority="1001" mode="M29">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:l"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="parent::tei:lg"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="parent::tei:lg">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text>element l must be wrapped in element lg</svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M29"/>
+   </xsl:template>
+   <!--RULE -->
    <xsl:template match="tei:l[parent::tei:lg[@met='mixed']]"
                  priority="1000"
                  mode="M29">
