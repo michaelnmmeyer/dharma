@@ -47,11 +47,6 @@
             <i class="fa-solid fa-bug"></i> Errors</a>
          </li>
          <li>
-            <a href="/documentation">
-            <i class="fa-regular fa-circle-question"></i>
-            Technical Documentation</a>
-         </li>
-         <li>
             <a href="{{url_for('display_list')}}">Display List</a>
          </li>
       </ul>
@@ -60,10 +55,14 @@
    </menu>
 </header>
 <aside>
-   <div id="toc-heading" class="toc-heading hidden">Contents</div>
-   <nav id="toc"></nav>
-% block sidebar
-% endblock
+   <div id="sidebar">
+      <div id="toc-heading" class="toc-heading hidden">Contents</div>
+      <nav id="toc"></nav>
+      % block sidebar
+      % endblock
+   </div>
+   <div id="sidebar-interact">
+   </div>
 </aside>
 <main>
 <h1>

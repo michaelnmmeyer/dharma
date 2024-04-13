@@ -214,10 +214,7 @@ class Block:
 				buf.append('</span>')
 			else:
 				assert 0, data
-		elif t == "bib":
-			ret = biblio.get_entry(data, **params)
-			buf.append(ret)
-		elif t == "ref":
+		elif t == "bib" or t == "ref":
 			buf.append(str(data))
 		else:
 			assert 0, t
@@ -744,8 +741,8 @@ class PlainRenderer:
 			ret = biblio.get_entry(data, **params)
 			self.add(ret)
 		elif t == "ref":
-			ret = biblio.get_ref(data, **params)
-			self.add(ret)
+			self.add(" ")
+			self.add(str(data))
 		else:
 			assert 0, t
 

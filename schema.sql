@@ -306,7 +306,7 @@ create table if not exists biblio_data(
 		check(item_type is not null),
 	-- Null if this is not an entry we can display viz. if it is not of the
 	-- item types we support (book, etc.).
-	sort_key blob
+	sort_key text collate icu
 );
 create index if not exists biblio_data_short_title on biblio_data(short_title);
 create index if not exists biblio_data_sort_key on biblio_data(sort_key);

@@ -24,6 +24,7 @@ templates_globals = {
 	"from_json": config.from_json,
 	"format_url": config.format_url,
 	"numberize": config.numberize,
+	"is_asian": config.is_asian,
 }
 @app.context_processor
 def inject_global_vars():
@@ -36,16 +37,6 @@ def index():
 @app.get("/fonts/<path:path>")
 def serve_fonts(path):
 	return flask.send_from_directory("static/fonts", path)
-
-@app.get("/documentation")
-def show_documentation():
-	return flask.render_template("documentation.tpl")
-
-@app.get("/documentation/<name>")
-def show_tei_doc(name):
-	path = config.path_of("schemas", name + ".html")
-	with open(path) as f:
-		return f.read()
 
 @app.get("/errors")
 @config.transaction("texts")
@@ -217,17 +208,17 @@ def show_catalog():
 	return flask.render_template("texts.tpl",
 		rows=rows, q=q, s=s, last_updated=last_updated)
 
-@app.get("/editorial-conventions")
-def show_editorial_conventions():
-	return flask.render_template("editorial.tpl")
-
 @app.get("/editorial-conventions2")
-@config.transaction("texts")
 def show_editorial_conventions2():
+	return flask.redirect("/editorial-conventions")
+
+@app.get("/editorial-conventions")
+@config.transaction("texts")
+def show_editorial_conventions():
 	db = config.db("texts")
 	db.execute("begin")
 	data = editorial.parse_html()
-	ret = flask.render_template("editorial2.tpl", data=data)
+	ret = flask.render_template("editorial.tpl", data=data)
 	db.execute("end")
 	return ret
 
@@ -411,27 +402,32 @@ def convert_text():
 def display_biblio_page(page):
 	db = config.db("texts")
 	db.execute("begin")
-	(entries_nr,) = db.execute("select count(*) from biblio_data where sort_key is not null").fetchone()
+	(entries_nr,) = db.execute("""select count(*) from biblio_data
+		where sort_key is not null""").fetchone()
 	pages_nr = (entries_nr + biblio.PER_PAGE - 1) // biblio.PER_PAGE
 	if page < 1:
 		page = 1
 	elif page > pages_nr:
 		page = pages_nr
 	entries = []
-	for key, entry in db.execute("""select key, json ->> '$.data' from biblio_data
+	for (entry,) in db.execute("""select json ->> '$.data'
+		from biblio_data
 		where sort_key is not null
-		order by sort_key limit ? offset ?""", (biblio.PER_PAGE, (page - 1) * biblio.PER_PAGE)):
-		entries.append(biblio.format_entry(key, config.from_json(entry), loc=[], n=None))
-	db.execute("commit")
+		order by sort_key limit ? offset ?""",
+		(biblio.PER_PAGE, (page - 1) * biblio.PER_PAGE)):
+		entry = biblio.Entry.wrap(config.from_json(entry))
+		entries.append(entry)
 	first_entry = (page - 1) * biblio.PER_PAGE + 1
 	if first_entry < 0:
 		first_entry = 0
 	last_entry = page * biblio.PER_PAGE
 	if last_entry > entries_nr:
 		last_entry = entries_nr
-	return flask.render_template("biblio.tpl", page=page, pages_nr=pages_nr,
+	ret = flask.render_template("biblio.tpl", page=page, pages_nr=pages_nr,
 		entries=entries, entries_nr=entries_nr, per_page=biblio.PER_PAGE,
 		first_entry=first_entry, last_entry=last_entry)
+	db.execute("rollback")
+	return ret
 
 @app.get("/bibliography")
 def display_biblio():

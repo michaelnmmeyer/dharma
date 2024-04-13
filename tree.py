@@ -24,10 +24,10 @@ significant. This also means that we cannot serialize properly XML documents
 that used namespaces initially.
 
 We only support a small subset of xpath. Most notably, it is only possible to
-select tag nodes and the XML tree itself. Other types of nodes, e.g. attributes,
-can only be used as predicates, as in `foo[@bar]`. We also do not support
+select `Tag` and `Tree` nodes. Other types of nodes, attributes in particular,
+can only be used in predicates, as in `foo[@bar]`. We also do not support
 expressions that index node sets in some way: testing a node position in a node
-set is not possible.
+set is not possible or evaluating the length of a node set is not possible.
 
 To evaluate an expression, we first convert it to straightforward python source
 code, then compile the result, and finally run the code. Compiled expressions
@@ -41,6 +41,7 @@ from xml.parsers import expat
 from xml.sax.saxutils import escape as quote_string
 from pegen.tokenizer import Tokenizer
 from dharma.xpath_parser import Path, Step, Op, Func, GeneratedParser
+from dharma import config
 
 DEFAULT_LANG = "eng"
 DEFAULT_SPACE = "default"
@@ -188,6 +189,7 @@ class Node(object):
 	# comments and instructions, but we don't attempt to go past non-blank
 	# text. XXX stupid! should have a differentt method for this
 	# peculiar use case, we're supposed to return siblings with this one.
+	# call the special-case func "adjacent_next" or sth.
 	@property
 	def next(self):
 		parent = self.parent
@@ -351,6 +353,10 @@ class Node(object):
 		particular, if this is  called on an empty `String` node, this
 		node will not be removed from the tree.'''
 		pass
+
+	@property
+	def lang(self):
+		return self.parent.lang
 
 class Branch(Node, list):
 	'''Base class for non-leaf nodes viz. `Tree` nodes and `Tag` nodes.
@@ -516,6 +522,10 @@ class Tree(Branch):
 		return self._file
 
 	@property
+	def lang(self):
+		return "eng"
+
+	@property
 	def root(self):
 		ret = None
 		for node in self:
@@ -640,6 +650,38 @@ class Tag(Branch):
 
 	def items(self):
 		return self.attrs.items()
+
+	@property
+	def lang(self):
+		'''
+
+		process forward:
+
+		if we meet a note tag, set the language to the latest
+		encountered european language
+		if we meet a foreign tag that has no @lang, toggle the
+		language between european and other
+		'''
+		nodes = reversed(list((ancestors_or_self(self))))
+		edition_lang = "san"
+		translation_lang = "eng"
+		lang = translation_lang
+		next(nodes) # Skip the Tree node.
+		for node in nodes:
+			have = node["lang"]
+			if have:
+				if config.is_asian(have):
+					edition_lang = lang = have
+				else:
+					translation_lang = lang = have
+			elif node.name == "foreign":
+				if lang == edition_lang:
+					lang = translation_lang
+				else:
+					lang = edition_lang
+			elif node.name == "note":
+				lang = translation_lang
+		return lang
 
 	def __repr__(self):
 		ret = f"<{self.name}"
@@ -787,6 +829,10 @@ class Comment(Node, collections.UserString):
 	def __str__(self):
 		return self.xml()
 
+	@property
+	def lang(self):
+		return "eng"
+
 	def copy(self):
 		return Comment(self.data)
 
@@ -806,6 +852,10 @@ class Instruction(Node):
 
 	def __repr__(self):
 		return self.xml()
+
+	@property
+	def lang(self):
+		return "eng"
 
 	def copy(self):
 		return Instruction(self.target, self.data)
@@ -972,8 +1022,13 @@ def xpath_glob(node, pattern, *arg):
 	(text,) = arg or (node.text(),)
 	return fnmatch.fnmatchcase(text, pattern)
 
+def xpath_lang(node):
+	assert isinstance(node, Node)
+	return node.lang
+
 xpath_funcs = {
 	"glob": xpath_glob,
+	"lang": xpath_lang,
 }
 
 def children(node):
@@ -1075,7 +1130,8 @@ class Generator:
 		self.env = {f.__name__: f
 			for funcs in (xpath_funcs.values(), (Tag, Tree,
 				children, descendants, descendants_or_self,
-				ancestors, ancestors_or_self))
+				ancestors, ancestors_or_self, following_siblings,
+				preceding_siblings))
 				for f in funcs}
 		self.search = {}
 		self.match = {}
@@ -1193,7 +1249,7 @@ class Generator:
 				case "descendant-or-self":
 					self.append("for node in ancestors_or_self(node):")
 				case _:
-					assert 0, f"repr(step.axis) not allowed"
+					raise Exception(f"axis {step.axis!r} not allowed in xpath matching functions")
 		self.append("return True")
 		self.indents[-1] = 1
 		self.append("return False")

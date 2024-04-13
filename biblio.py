@@ -280,7 +280,7 @@ class Writer:
 				sg, pl = cited_range_units[unit]
 				abbr = sg
 				# XXX not possible to tell unambiguously whether we have several units or not
-				if any(c in loc for c in ",-\N{EN DASH}\N{EM DASH}"):
+				if any(c in val for c in ",-\N{EN DASH}\N{EM DASH}"):
 					abbr = pl
 				self.add(abbr + "\N{NBSP}")
 				# XXX maybe not only for pages?
@@ -473,7 +473,7 @@ def render_journal_article(rec, w, params):
 			w.add(rec["issue"])
 			w.add(")")
 		if params["loc"]:
-			w.add(": ")
+			w.add(", ")
 			w.loc(params["loc"])
 		w.period()
 	w.idents(rec)
@@ -1040,7 +1040,7 @@ def fix_rec(rec):
 			publisher = None
 		rec["publisher"] = publisher
 	for key, value in rec.copy().items():
-		if key in ("filename", "itemType", "pages", "url", "DOI", "callNumber"): # XXX figure out other "id" fields
+		if key in ("key", "filename", "itemType", "pages", "url", "DOI", "callNumber"): # XXX figure out other "id" fields
 			continue
 		if isinstance(value, str):
 			rec[key] = fix_value(value)
@@ -1057,68 +1057,6 @@ def fix_rec(rec):
 
 # TODO generate ref and entries with 1918a, 1918b, etc. when necessary
 
-def invalid_entry(ref, reason, key=None):
-	r = tree.parse_string('<p class="bib-entry"/>').root
-	if key:
-		r["id"] = f"bib-key-{key}"
-	span = tree.Tag("span", **{"class": "bib-ref-invalid"})
-	span["data-tip"] = reason
-	span.append(ref)
-	r.append(span)
-	return r.xml()
-
-def fix_loc(rec, loc):
-      page = rec.get("pages")
-      if not page:
-              return
-      for i, (unit, val) in enumerate(loc):
-              loc[i] = (unit, val)
-              if unit == "page":
-                      return
-      loc.insert(0, ("page", page))
-
-def get_entry(ref, **params):
-	db = config.db("texts")
-	recs = db.execute("select key, json ->> '$.data' from biblio_data where short_title = ?", (ref,)).fetchall()
-	if len(recs) == 0:
-		return invalid_entry(ref, "Not found in bibliography")
-	if len(recs) > 1:
-		return invalid_entry(ref, "Multiple bibliographic entries bear this short title")
-	key, rec = recs[0]
-	rec = config.from_json(rec)
-	f = renderers.get(rec["itemType"])
-	if not f:
-		return invalid_entry(ref, "Entry type '%s' not supported" % rec["itemType"], key)
-	return format_entry(key, rec, **params)
-
-def format_entry(key, rec, **params):
-	f = renderers[rec["itemType"]]
-	fix_rec(rec)
-	fix_loc(rec, params["loc"])
-	w = Writer()
-	w.xml["id"] = f"bib-key-{key}"
-	if params["n"]:
-		tag = tree.Tag("b")
-		tag.append("[")
-		tag.append(params["n"])
-		tag.append("]")
-		w.add(tag)
-		w.space()
-	f(rec, w, params)
-	w.space()
-	tag = tree.Tag("i", {"class": "fas fa-edit", "style": "display:inline;color:black;", "data-tip": "Edit on zotero.org"})
-	tag.append(" ")
-	lnk = tree.Tag("a", href=f"https://www.zotero.org/groups/1633743/erc-dharma/items/{key}")
-	lnk.append(tag)
-	w.add(lnk)
-	return w.output()
-
-def invalid_ref(ref, reason, missing=False):
-	r = tree.parse_string('<a class="nav-link bib-ref-invalid"/>').root
-	r["data-tip"] = reason
-	r.append(ref)
-	return r.xml()
-
 PER_PAGE = 100
 
 class Entry:
@@ -1128,6 +1066,72 @@ class Entry:
 		self._data = None
 		self.records_nr = -1
 		self._page = None
+
+	@staticmethod
+	def wrap(data):
+		self = Entry(data["shortTitle"])
+		self._data = data
+		fix_rec(self._data)
+		self.records_nr = 1
+		return self
+
+	def __str__(self):
+		return self._try_format_entry()
+
+	def _try_format_entry(self, loc=[], n=None):
+		data = self.data
+		if not data:
+			if self.records_nr == 0:
+				return self._invalid_entry("Not found in bibliography")
+			return self._invalid_entry("Multiple bibliographic entries bear this short title")
+		f = renderers.get(data["itemType"])
+		if not f:
+			return self._invalid_entry(f"Entry type {data['itemType']!r} not supported")
+		return self._format_entry(f, data, loc, n)
+
+	@property
+	def key(self):
+		data = self.data
+		if not data:
+			return
+		return data["key"]
+
+	@property
+	def valid(self):
+		return bool(self.data)
+
+	def _format_entry(self, f, rec, loc, n):
+		w = Writer()
+		w.xml["id"] = f"bib-key-{self.key}"
+		if n:
+			tag = tree.Tag("b")
+			tag.append("[")
+			tag.append(n)
+			tag.append("]")
+			w.add(tag)
+			w.space()
+		f(rec, w, {"loc": loc, "n": n})
+		w.space()
+		tag = tree.Tag("i", {
+			"class": "fas fa-edit",
+			"style": "display:inline;color:black;",
+			"data-tip": "Edit on zotero.org",
+		})
+		tag.append(" ")
+		lnk = tree.Tag("a", href=f"https://www.zotero.org/groups/1633743/erc-dharma/items/{self.key}")
+		lnk.append(tag)
+		w.add(lnk)
+		return w.output()
+
+	def _invalid_entry(self, reason):
+		r = tree.Tag("p", **{"class": "bib-entry"})
+		if self.key:
+			r["id"] = f"bib-key-{self.key}"
+		span = tree.Tag("span", **{"class": "bib-ref-invalid"})
+		span["data-tip"] = reason
+		span.append(self.short_title)
+		r.append(span)
+		return r.xml()
 
 	@property
 	def data(self):
@@ -1149,32 +1153,47 @@ class Entry:
 	def page(self):
 		if self._page is not None:
 			return self._page
-		key = self.data["key"].text()
 		db = config.db("texts")
 		(index,) = db.execute("""
 			select pos - 1
-			from (select row_number() over(order by sort_key) as pos,
+			from (select row_number()
+				over(order by sort_key) as pos,
 				key from biblio_data where sort_key is not null)
-			where key = ?""", (key,)).fetchone()
+			where key = ?""", (self.key,)).fetchone()
 		self._page = (index + PER_PAGE - 1) // PER_PAGE
 		return self._page
 
-	def reference(self, rend="default", loc=[], missing=True, siglum=None):
-		return Reference(self, rend, loc, missing, siglum)
+	def reference(self, rend="default", loc=[], external_link=True, siglum=None):
+		return Reference(self, rend, loc, external_link, siglum)
+
+	def contents(self, loc=[], n=None):
+		if not loc and not n:
+			return self
+		return Contents(self, loc, n)
+
+class Contents:
+
+	def __init__(self, entry, loc, n):
+		self.entry = entry
+		self.loc = loc
+		self.n = n
+
+	def __str__(self):
+		return self.entry._try_format_entry(self.loc, self.n)
 
 class Reference:
 
-	def __init__(self, entry, rend, loc, missing, siglum):
+	def __init__(self, entry, rend, loc, external_link, siglum):
 		self.entry = entry
 		self.rend = rend
 		self.loc = loc
-		self.missing = missing
+		self.external_link = external_link
 		self.siglum = siglum
 
 	def _invalid_ref(self, reason):
 		r = tree.Tag("a", {
 			"class": "nav-link bib-ref-invalid",
-			"data-tip": reason
+			"data-tip": reason,
 		})
 		r.append(self.entry.short_title)
 		return r.xml()
@@ -1193,11 +1212,10 @@ class Reference:
 		w.xml.name = "span"
 		w.xml.attrs.clear()
 		tag = tree.Tag("a", {"class": "bib-ref"})
-		key = rec["key"].text()
-		if self.missing:
-			tag["href"] = f"/bibliography/page/{self.entry.page}#bib-key-{key}"
+		if self.external_link:
+			tag["href"] = f"/bibliography/page/{self.entry.page}#bib-key-{self.entry.key}"
 		else:
-			tag["href"] = f"#bib-key-{key}"
+			tag["href"] = f"#bib-key-{self.entry.key}"
 		w.xml.append(tag)
 		w.xml = tag
 		if self.siglum:
@@ -1222,12 +1240,9 @@ class Reference:
 				assert 0
 		w.xml = w.xml.parent
 		if self.loc:
-			w.add(": ")
+			w.add(", ")
 			w.loc(self.loc)
 		return w.output()
-
-def get_ref(ref, **params):
-	return str(Entry(ref).reference(**params))
 
 def sort_key(rec):
 	typ = rec["itemType"]
@@ -1242,9 +1257,7 @@ def sort_key(rec):
 		key += author + " " + rec.get("date") + " "
 		break
 	key += rec["title"] + " " + rec["key"]
-	return config.COLLATOR.getSortKey(key) # XXX store in the db not a text val, not a  binary value, so that we can debug this and check if refs are not broken
+	return key
 
 if __name__ == "__main__":
-	#params = {"rend": "default", "loc": [], "n": "", "missing": False}
-	#r = get_entry(sys.argv[1], **params)
 	pass

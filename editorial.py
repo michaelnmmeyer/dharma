@@ -48,4 +48,3 @@ def parse_html():
 				block, markup = parse_xml(markup)
 				items.append(Item(description, markup, block, remark, type))
 	return ret
-

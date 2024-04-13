@@ -3,6 +3,10 @@ import functools, traceback, unicodedata
 from urllib.parse import urlparse, quote
 import icu # pip install PyICU
 
+def is_asian(lang):
+	# XXX don't hardcode this
+	return lang not in ("eng", "fra", "nld", "deu")
+
 DHARMA_HOME = os.path.dirname(os.path.abspath(__file__))
 os.environ["DHARMA_HOME"] = DHARMA_HOME # for subprocesses
 
@@ -74,11 +78,11 @@ COLLATOR.setAttribute(icu.UCollAttribute.ALTERNATE_HANDLING, icu.UCollAttributeV
 def collate_icu(a, b):
 	# HACK the problem is that we are sorting by json fields and that
 	# we must handle null values
-	if a == "[]":
-		if b == "[]":
+	if a is None or a == "[]":
+		if b is None or b == "[]":
 			return 0
 		return 1
-	if b == "[]":
+	if b is None or b == "[]":
 		return -1
 	return COLLATOR.compare(a, b)
 
@@ -131,6 +135,7 @@ def db(name):
 	conn.execute("pragma secure_delete = off")
 	conn.create_function("format_url", -1, format_url, deterministic=True)
 	conn.create_function("jaccard", 2, jaccard, deterministic=True)
+	conn.create_function("is_asian", 1, is_asian, deterministic=True)
 	conn.create_collation("icu", collate_icu)
 	ret = DB(conn)
 	setattr(DBS, name, ret)

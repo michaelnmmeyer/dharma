@@ -28,10 +28,10 @@ significant. This also means that we cannot serialize properly XML documents
 that used namespaces initially.
 
 We only support a small subset of xpath. Most notably, it is only possible to
-select tag nodes and the XML tree itself. Other types of nodes, e.g. attributes,
-can only be used as predicates, as in `foo[@bar]`. We also do not support
+select `Tag` and `Tree` nodes. Other types of nodes, attributes in particular,
+can only be used in predicates, as in `foo[@bar]`. We also do not support
 expressions that index node sets in some way: testing a node position in a node
-set is not possible.
+set is not possible or evaluating the length of a node set is not possible.
 
 To evaluate an expression, we first convert it to straightforward python source
 code, then compile the result, and finally run the code. Compiled expressions
@@ -405,6 +405,22 @@ Attributes ordering is preserved for attributes passed through
 attributes created manually with e.g. `node["attr"] = "foo"`
 are added at the end of the attributes list. (We use an
 OrderedDict under the hood.)
+
+<a id="dharma.tree.Tag.lang"></a>
+
+#### lang
+
+```python
+@property
+def lang()
+```
+
+process forward:
+
+if we meet a note tag, set the language to the latest
+encountered european language
+if we meet a foreign tag that has no @lang, toggle the
+language between european and other
 
 <a id="dharma.tree.String"></a>
 

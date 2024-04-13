@@ -75,7 +75,7 @@ class Parser:
 	def add_log(self, data, **params):
 		return self.top.add_log(data, **params)
 
-	def add_bib_ref(self, ref, rend="default", loc=None, siglum=False):
+	def get_bib_ref(self, ref, rend="default", loc=None, siglum=False):
 		entry = self.document.bib_entries.get(ref)
 		if not entry:
 			entry = biblio.Entry(ref)
@@ -83,8 +83,11 @@ class Parser:
 		if siglum:
 			siglum = self.document.sigla.get(ref)
 		entry_ref = entry.reference(rend=rend, loc=loc, siglum=siglum,
-			missing = ref not in self.document.biblio)
-		self.top.add_code("ref", entry_ref)
+			external_link=ref not in self.document.biblio)
+		return entry_ref
+
+	def add_bib_ref(self, *args, **kwargs):
+		self.add_code("ref", self.get_bib_ref(*args, **kwargs))
 
 	def start_item(self):
 		return self.top.start_item()
@@ -227,13 +230,27 @@ def parse_num(p, num):
 		p.dispatch_children(num)
 		p.end_span()
 
+@handler("supplied[@reason='subaudible']")
+def parse_supplied_subaudible(p, supplied):
+	if config.is_asian(supplied.lang):
+		text = supplied.text()
+		if text in "'’":
+			tip = "<i>Avagraha</i> added by the editor to clarify the interpretation"
+		elif text == ".":
+			tip = "Punctuation added by the editor at semantic break"
+		else:
+			tip = None
+	else:
+		tip = "Text added to the translation for the sake of target language syntax"
+	return parse_supplied(p, supplied, tip=tip)
+
 # EGD "Additions to the translation"
 # EGD "Marking up restored text"
 # EGD "The basis of restoration"
 supplied_tbl = {
 	# EGD: "words added to the translation for the sake of target language
 	# syntax"
-	"subaudible": ("[]", "Text added to the translation for the sake of target language syntax"),
+	"subaudible": ("[]", "Editorial addition to clarify interpretation"),
 	# EGD: "words implied by the context and added to the translation for
 	# the sake of clarification or disambiguation"
 	"explanation": ("()", "Text implied by the context and added to the translation for the sake of clarification or disambiguation"),
@@ -248,8 +265,10 @@ supplied_tbl = {
 }
 # OK
 @handler("supplied")
-def parse_supplied(p, supplied):
-	seps, tip = supplied_tbl.get(supplied["reason"], supplied_tbl["lost"])
+def parse_supplied(p, supplied, tip=None):
+	seps, base_tip = supplied_tbl.get(supplied["reason"], supplied_tbl["lost"])
+	if not tip:
+		tip = base_tip
 	if supplied["cert"] == "low":
 		tip += " (low certainty)"
 	evidence = supplied["evidence"]
@@ -1002,7 +1021,8 @@ def parse_listBibl(p, node):
 		p.add_text(titlecase(typ))
 		p.add_log(">head")
 	for rec, ref, loc in recs:
-		p.add_code("bib", ref, loc=loc, n=rec["n"])
+		data = biblio.Entry(ref).contents(loc=loc, n=rec["n"])
+		p.add_code("bib", data)
 
 @handler("bibl")
 def parse_bibl(p, node):
@@ -1236,8 +1256,7 @@ def process_translation(p, div):
 	source = div["source"]
 	if source:
 		ref = source.removeprefix("bib:")
-		source = biblio.get_ref(ref, missing=ref not in p.document.biblio, rend="default", loc="")
-		title += f" by {source}"
+		title += f" by {p.get_bib_ref(ref)}"
 	trans.title = title
 	return trans
 

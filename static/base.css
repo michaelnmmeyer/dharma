@@ -150,16 +150,25 @@ main {
 	margin: 1em;
 }
 aside {
+	display: none;
 	grid-area: sidebar;
+}
+#sidebar {
 	background-color: #f2f1f1;
 	padding: 1em;
+	flex-grow: 1;
+}
+#sidebar ul {
+	padding-left: 1em;
+}
+#sidebar-interact {
+	background-color: blue;
+	width: 1.5em;
 	display: none;
 }
-aside.active {
-	display: block;
-}
-aside ul {
-	padding-left: 1em;
+#sidebar-interact:hover {
+	cursor: pointer;
+	background-color: red;
 }
 footer {
 	grid-area: footer;
@@ -354,7 +363,7 @@ header {
 	position: static;
 }
 aside {
-	display: block;
+	display: flex;
 	position: sticky;
 	top: 0;
 	max-height: 100vh;
@@ -626,7 +635,7 @@ sup {
 	margin-bottom: 0.8em;
 }
 dl.list { /* XXX ugly on mobile! */
-	display:grid;
+	display: grid;
 	grid-template-columns: max-content auto;
 }
 dl.list > dt {

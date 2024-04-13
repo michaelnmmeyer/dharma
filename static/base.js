@@ -23,6 +23,7 @@ class Submenu {
 	constructor(node) {
 		this.container = node
 		this.submenu = node.querySelector("ul")
+		this.submenu.style["min-width"] = getComputedStyle(this.container).getPropertyValue("width")
 		console.assert(this.submenu.classList.contains("hidden"))
 		this.visible = false
 		this.button = node.querySelector("a")
@@ -128,6 +129,14 @@ window.addEventListener("load", function () {
 		}
 	})
 	initMenu()
+	let sidebar = document.querySelector("#sidebar")
+	let sidebarClick = document.querySelector("#sidebar-interact")
+	sidebarClick.addEventListener("click", function () {
+		if (sidebar.style.display == "none")
+			sidebar.style.display = "flex"
+		else
+			sidebar.style.display = "none"
+	})
 })
 
 // end menu
