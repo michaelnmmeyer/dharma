@@ -34,7 +34,7 @@ def get_font_name(font):
 	recs = font["name"].names
 	rec = recs[FONT_SPECIFIER_NAME_ID - 1]
 	name = rec.string.decode("UTF-8")
-	print(name)
+	return name
 
 def get_font_chars(font):
 	cs = set()
@@ -49,7 +49,6 @@ def get_matching_fonts(paths, chars):
 		font_name, font_chars = get_font_name(font), get_font_chars(font)
 		font.close()
 		if font_chars.issuperset(chars):
-			print(font_path)
 			fonts.setdefault(font_name, set()).add(font_path)
 	return fonts
 
@@ -65,5 +64,5 @@ if __name__ == "__main__":
 			char = ord(char)
 		chars.add(char)
 	font_names = get_matching_fonts(FONTS_PATHS, chars)
-	for name in sorted(font_names):
-		print(name)
+	for name, paths in sorted(font_names.items()):
+		print(name, ",".join(sorted(paths)))
