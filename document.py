@@ -218,8 +218,7 @@ class Block:
 			ret = biblio.get_entry(data, **params)
 			buf.append(ret)
 		elif t == "ref":
-			ret = biblio.get_ref(data, **params)
-			buf.append(ret)
+			buf.append(str(data))
 		else:
 			assert 0, t
 
@@ -561,6 +560,7 @@ class Document:
 		self.notes = []
 		self.editors = []
 		self.editors_ids = []
+		self.bib_entries = {}
 
 	def plain_text(self, *args, **kwargs):
 		renderer = PlainRenderer(*args, **kwargs)

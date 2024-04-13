@@ -1053,7 +1053,6 @@ def fix_rec(rec):
 				val = creator.get(field)
 				if not val:
 					continue
-				print(val, fix_value(val))
 				creator[field] = fix_value(val)
 
 # TODO generate ref and entries with 1918a, 1918b, etc. when necessary

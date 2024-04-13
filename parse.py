@@ -122,10 +122,9 @@ def parse_lem(p, lem):
 
 @handler("ptr")
 def parse_ptr(p, ptr):
-	ref = ptr["target"]
-	if not ref.startswith("bib:"):
+	ref = ptr["target"].removeprefix("bib:")
+	if not ref:
 		return
-	ref = ref.removeprefix("bib:")
 	print("have ", p.document.sigla.get(ref))
 	kwargs = {
 		"rend": "default",
@@ -133,7 +132,11 @@ def parse_ptr(p, ptr):
 		"missing": ref not in p.document.biblio,
 		"siglum": p.document.sigla.get(ref),
 	}
-	p.add_code("ref", ref, **kwargs)
+	entry = p.document.bib_entries.get(ref)
+	if not entry:
+		entry = biblio.Entry(ref)
+		p.document.bib_entries[ref] = entry
+	p.add_code("ref", entry.reference(**kwargs))
 
 @handler("ref")
 def parse_ref(p, ref):
@@ -153,13 +156,18 @@ def parse_ref(p, ref):
 		p.add_html(f'</a>')
 
 def add_lemmas_links(p, sources):
-	if not sources:
-		return
-	sources = [source.removeprefix("bib:") for source in sources.split()]
-	for ref in sources:
+	for ref in sources.split():
+		ref = ref.removeprefix("bib:")
+		if not ref:
+			continue
 		p.add_text(" ")
 		siglum = p.document.sigla.get(ref)
-		p.add_code("ref", ref, rend="default", loc=[], siglum=siglum, missing=ref not in p.document.biblio)
+		entry = p.document.bib_entries.get(ref)
+		if not entry:
+			entry = biblio.Entry(ref)
+			p.document.bib_entries[ref] = entry
+		p.add_code("ref", entry.reference(siglum=siglum,
+			missing=ref not in p.document.biblio))
 
 @handler("rdg")
 def parse_rdg(p, rdg):
@@ -1006,7 +1014,12 @@ def parse_bibl(p, node):
 	ref, loc = extract_bib_ref(node)
 	if not ref:
 		return
-	p.add_code("ref", ref, rend=rend, loc=loc, missing=ref not in p.document.biblio)
+	entry = p.document.bib_entries.get(ref)
+	if not entry:
+		entry = biblio.Entry(ref)
+		p.document.bib_entries[ref] = entry
+	p.add_code("ref", entry.reference(rend=rend, loc=loc,
+		missing=ref not in p.document.biblio))
 
 @handler("title")
 def parse_title(p, title):
