@@ -691,10 +691,9 @@ class Tag(Branch):
 		return "".join(buf)
 
 	def __getitem__(self, key):
-		if isinstance(key, int):
-			return super().__getitem__(key)
-		assert isinstance(key, str)
-		return self.attrs.get(key, "")
+		if isinstance(key, str):
+			return self.attrs.get(key, "")
+		return super().__getitem__(key)
 
 	def __setitem__(self, key, value):
 		if isinstance(key, int):
@@ -1003,6 +1002,22 @@ def ancestors_or_self(node):
 	yield node
 	yield from ancestors(node)
 
+def following_siblings(node):
+	if isinstance(node, Tag):
+		parent = node.parent
+		i = parent.index(node)
+		for child in parent[i + 1:]:
+			if isinstance(child, Tag):
+				yield child
+
+def preceding_siblings(node):
+	if isinstance(node, Tag):
+		parent = node.parent
+		i = parent.index(node)
+		for child in reversed(parent[:i]):
+			if isinstance(child, Tag):
+				yield child
+
 def handle_token(buf, tok):
 	match len(buf):
 		case 0:
@@ -1212,6 +1227,10 @@ class Generator:
 				self.append("for node in ancestors(node):")
 			case "ancestor-or-self":
 				self.append("for node in ancestors_or_self(node):")
+			case "following-sibling":
+				self.append("for node in following_siblings(node):")
+			case "preceding-sibling":
+				self.append("for node in preceding_siblings(node):")
 			case _:
 				assert 0, repr(step.axis)
 		if step.name_test:

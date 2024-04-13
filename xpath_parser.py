@@ -219,7 +219,7 @@ class GeneratedParser(Parser):
 
     @memoize
     def AxisName(self) -> Optional[Any]:
-        # AxisName: "ancestor-or-self" | "ancestor" | "child" | "descendant-or-self" | "descendant" | "parent" | "self"
+        # AxisName: "ancestor-or-self" | "ancestor" | "child" | "descendant-or-self" | "descendant" | "following-sibling" | "parent" | "preceding-sibling" | "self"
         mark = self._mark()
         if (
             (literal := self.expect("ancestor-or-self"))
@@ -247,7 +247,17 @@ class GeneratedParser(Parser):
             return literal;
         self._reset(mark)
         if (
+            (literal := self.expect("following-sibling"))
+        ):
+            return literal;
+        self._reset(mark)
+        if (
             (literal := self.expect("parent"))
+        ):
+            return literal;
+        self._reset(mark)
+        if (
+            (literal := self.expect("preceding-sibling"))
         ):
             return literal;
         self._reset(mark)

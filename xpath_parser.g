@@ -91,7 +91,9 @@ AxisName:
 	| "child"
 	| "descendant-or-self"
 	| "descendant"
+	| "following-sibling"
 	| "parent"
+	| "preceding-sibling"
 	| "self"
 
 NodeTest: NameTest
