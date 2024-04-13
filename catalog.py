@@ -1,5 +1,5 @@
 import os, sys, logging
-from dharma import tree, parse, texts, config, document, validate
+from dharma import tree, parse, texts, config, document, validate, langs
 
 class Query:
 
@@ -40,17 +40,21 @@ def delete(name):
 def gather_languages(t):
 	db = config.db("texts")
 	ret = set()
-	for node in t.find("//*"):
-		if not "lang" in node.attrs:
-			continue
+	for node in t.find("//div[@type='edition']/descendant-or-self::*"):
 		lang = node["lang"]
-		(code,) = db.execute("select id from langs_by_code where code = ?", (lang,)).fetchone() or ("und",)
-		ret.add(code)
+		if lang:
+			ret.add(lang)
 	if not ret:
 		ret.add("und")
-	return ret
+	final = set()
+	for lang in ret:
+		lang = langs.Language(lang)
+		if config.is_asian(lang.id):
+			final.add(lang)
+	return sorted(final)
 
 def process_file(file):
+	# XXX move all this to parse; parse should return a full document;
 	print(file.full_path)
 	db = config.db("texts")
 	try:
@@ -60,19 +64,19 @@ def process_file(file):
 		doc = document.Document()
 		doc.repository = file.repo
 		doc.ident = file.name
-		doc.langs = ["und"]
+		doc.langs = [langs.Language("und")]
 		return doc
-	langs = gather_languages(t)
+	ret = gather_languages(t)
 	# Delete <body> so that we don't process the whole file.
 	node = t.first("//body")
 	if node is not None:
 		node.delete()
 	p = parse.Parser(t)
+	p.document.langs = ret
+	print(p.document.langs)
+	p.document.repository = file.repo
 	p.dispatch(p.tree.root)
-	doc = p.document
-	doc.langs = sorted(langs)
-	doc.repository = file.repo
-	return doc
+	return p.document
 
 def insert(file):
 	db = config.db("texts")
@@ -93,7 +97,7 @@ def insert(file):
 		values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
 			doc.title.render_logical() or None, doc.author.render_logical(), fmt_editors,
 			doc.editors_ids,
-			doc.langs, doc.summary.render_logical(),
+			[lang.id for lang in doc.langs], doc.summary.render_logical(),
 			file.html, file.status))
 	# No primary key on documents_index, so we cannot use "insert or replace"
 	db.execute("delete from documents_index where name = ?", (doc.ident,))
@@ -105,7 +109,7 @@ def insert(file):
 		doc.repository.lower(), doc.title.searchable_text(), doc.author.searchable_text(),
 		doc.editors and doc.editors.searchable_text() or "",
 		doc.editors_ids and "|||".join(doc.editors_ids) or "",
-		"---".join(doc.langs),
+		"---".join(lang.id for lang in doc.langs),
 		doc.summary.searchable_text()))
 
 # Rebuild the full catalog with the data already present in the db.
@@ -216,8 +220,8 @@ def search(q, s):
 			join documents_index on documents.name = documents_index.name
 			join repos on documents.repo = repos.repo
 			join json_each(documents.langs)
-			join langs_by_code on langs_by_code.code = json_each.value
-			join langs_list on langs_list.id = langs_by_code.id
+			left join langs_by_code on langs_by_code.code = json_each.value
+			left join langs_list on langs_list.id = langs_by_code.id
 	"""
 	q = " ".join(document.normalize(t) for t in q.split()
 		if t not in ("AND", "OR", "NOT"))

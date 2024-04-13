@@ -1,5 +1,5 @@
 import os, sys, logging, sqlite3, json, subprocess, re, ssl, threading, time
-import functools, traceback, unicodedata
+import functools, traceback, unicodedata, socket
 from urllib.parse import urlparse, quote
 import icu # pip install PyICU
 
@@ -221,7 +221,7 @@ def normalize_url(url):
 		try:
 			ssl.get_server_certificate((ret.hostname, ret.port or 443))
 			ret = ret._replace(scheme="https")
-		except ConnectionRefusedError:
+		except (ConnectionRefusedError, socket.gaierror):
 			pass
 	return ret.geturl()
 	# Could also check that the url actually works, and also use link
@@ -230,7 +230,7 @@ def normalize_url(url):
 
 def numberize(s, n):
 	last_word = s.rsplit(None, 1)[-1].casefold()
-	if last_word not in ("character", "component", "line", "page", "editor", "text", "link", "syllable"):
+	if last_word not in ("character", "component", "line", "page", "editor", "text", "link", "syllable", "language"):
 		print("cannot numberize term %r" % last_word, file=sys.stderr)
 		return s
 	if isinstance(n, str):

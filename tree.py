@@ -653,13 +653,12 @@ class Tag(Branch):
 
 	@property
 	def lang(self):
-		'''
+		'''Language of this node.
 
-		process forward:
-
-		if we meet a note tag, set the language to the latest
+		Processing top-down:
+		* if we meet a note tag, set the language to the latest
 		encountered european language
-		if we meet a foreign tag that has no @lang, toggle the
+		* if we meet a foreign tag that has no @lang, toggle the
 		language between european and other
 		'''
 		nodes = reversed(list((ancestors_or_self(self))))

@@ -134,6 +134,9 @@ def parse_lem(p, lem):
 	p.dispatch_children(lem)
 	add_lemmas_links(p, lem["source"])
 
+# When there is a <ptr target="bib:xxxxxx"/> in the apparatus, and that this
+# node is not wrapped into a <bib> element, display the siglum as clickable
+# element instead of Author+Data
 @handler("div[@type='apparatus']//ptr")
 def parse_ptr_apparatus(p, ptr):
 	return parse_ptr(p, ptr, siglum=True)
@@ -230,6 +233,8 @@ def parse_num(p, num):
 		p.dispatch_children(num)
 		p.end_span()
 
+# Try to have more precise tooltips for this. If this does not work, we fall
+# back to a generic one.
 @handler("supplied[@reason='subaudible']")
 def parse_supplied_subaudible(p, supplied):
 	if config.is_asian(supplied.lang):
@@ -294,7 +299,7 @@ add_place_tbl = {
 	"bottom": "in the bottom margin",
 	"left": "in the left margin",
 	"right": "in the right margin",
-	"overstrike": " made in the space where a previous string of text has been erased",
+	"overstrike": "made in the space where a previous string of text has been erased",
 	"unspecified": "(no location information available)",
 }
 @handler("add")
@@ -630,7 +635,7 @@ def parse_space(p, space):
 		else:
 			tip = f"large {typ} space (about {quant} {unit}s wide)"
 		text *= quant
-	p.start_span(klass="space", tip=titlecase(tip))
+	p.start_span(klass="space", tip=sentence_case(tip))
 	p.add_html(text, physical=True, logical=False, full=True)
 	p.end_span()
 
@@ -666,9 +671,7 @@ def parse_expan(p, node):
 def parse_term(p, node):
 	p.dispatch_children(node)
 
-
-
-def titlecase(s): # XXX just a capital to the first letter, should rename the func to "sentence"
+def sentence_case(s):
 	if not s:
 		return ""
 	t = s.split(None, 1)
@@ -813,7 +816,7 @@ def parse_g(p, node):
 	tip = f"symbol: {info['description']}"
 	if cat != "uninterpreted":
 		tip = f"{cat} {tip}"
-	tip = titlecase(tip)
+	tip = sentence_case(tip)
 	if info["text"]:
 		p.start_span(klass="symbol", tip=tip)
 		p.add_html(html.escape(info["text"]), plain=True)
@@ -834,7 +837,7 @@ def parse_unclear(p, node):
 	if reason:
 		if reason == "eccentric_ductus":
 			reason = f"<i>{reason}</i>"
-		tip += " (%s)" % reason.replace("_", " ")
+		tip += f" ({reason.replace('_', ' ')})"
 	p.start_span(klass="unclear", tip=tip)
 	p.add_html("(")
 	p.dispatch_children(node)
@@ -851,24 +854,6 @@ def parse_surplus(p, node):
 	p.dispatch_children(node)
 	p.add_html("}")
 	p.end_span()
-
-@handler("p")
-def parse_p(p, para):
-	if para["rend"] == "stanza":
-		# See e.g. INSPallava06 <p rend="stanza" n="1">...
-		return parse_lg(p, para)
-	# Skip if we don't have anything to display (empty para, no attr).
-	if not para["n"] and not para.text():
-		return
-	p.add_log("<para")
-	if para["n"]:
-		# See e.g. http://localhost:8023/display/DHARMA_INSSII0400223
-		# Should be displayed like <lb/> in the edition.
-		n = html.escape(para["n"])
-		p.add_html(f'<span class="lb" data-tip="Line start">({n})</span>')
-		p.add_html(" ")
-	p.dispatch_children(para)
-	p.add_log(">para")
 
 @handler("ab")
 def parse_ab(p, ab):
@@ -927,6 +912,7 @@ def to_roman(x):
 	return buf
 
 @handler("lg")
+@handler("p[@rend='stanza']")
 def parse_lg(p, lg):
 	n = lg["n"] or "?"
 	if n.isdigit():
@@ -935,7 +921,7 @@ def parse_lg(p, lg):
 	if prosody.is_pattern(met):
 		met = prosody.render_pattern(met)
 	else:
-		met = titlecase(met)
+		met = sentence_case(met)
 	p.add_log("<head", level=6)
 	p.add_html(f"{n}. {met}", plain=True)
 	p.add_log(">head", level=6)
@@ -943,6 +929,20 @@ def parse_lg(p, lg):
 	p.add_log("<verse", numbered=numbered)
 	p.dispatch_children(lg)
 	p.add_log(">verse")
+
+@handler("p")
+def parse_p(p, para):
+	# We deal with this elsewhere
+	assert not para["rend"] == "stanza"
+	p.add_log("<para")
+	if para["n"]:
+		# See e.g. http://localhost:8023/display/DHARMA_INSSII0400223
+		# Should be displayed like <lb/> in the edition.
+		n = html.escape(para["n"])
+		p.add_html(f'<span class="lb" data-tip="Line start">({n})</span>')
+		p.add_html(" ")
+	p.dispatch_children(para)
+	p.add_log(">para")
 
 @handler("l")
 def parse_l(p, l):
@@ -952,7 +952,7 @@ def parse_l(p, l):
 	p.add_log(">line", n=n)
 
 def is_description_list(nodes):
-	if len(nodes) % 2:
+	if len(nodes) % 2: # XXX watch out for fucked text
 		return False
 	for i in range(0, len(nodes), 2):
 		label = nodes[i]
@@ -1018,7 +1018,7 @@ def parse_listBibl(p, node):
 	typ = node["type"]
 	if typ:
 		p.add_log("<head")
-		p.add_text(titlecase(typ))
+		p.add_text(sentence_case(typ))
 		p.add_log(">head")
 	for rec, ref, loc in recs:
 		data = biblio.Entry(ref).contents(loc=loc, n=rec["n"])
@@ -1286,17 +1286,6 @@ def parse_body(p, body):
 		p.divs.clear()
 		p.divs.append(set())
 		if type == "edition":
-			if "lang" in div.attrs:
-				config.append_unique(p.document.edition_main_langs, div["lang"])
-			else:
-				for textpart in div.find("//div"):
-					if not textpart["type"] == "textpart":
-						continue
-					if not "lang" in textpart.attrs:
-						continue
-					config.append_unique(p.document.edition_main_langs, textpart["lang"])
-			# XXX Add sec. languages https://github.com/erc-dharma/project-documentation/issues/250
-			#and add validity check (in schema?)
 			edition = gather_sections(p, div)
 			if edition:
 				p.document.edition = edition

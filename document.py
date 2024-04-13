@@ -302,6 +302,8 @@ class Block:
 					assert 0, data
 			elif t == "phys":
 				if data == "<line":
+					if params["brk"]:
+						buf.append(" ")
 					buf.append('<span class="lb" data-tip="Line start">(%s)</span>' % html.escape(params["n"]))
 					if params["brk"]:
 						buf.append(" ")
@@ -417,6 +419,8 @@ class Block:
 					assert 0, data
 			elif t == "phys":
 				if data == "<line":
+					if params["brk"]:
+						buf.append(" ")
 					buf.append('<span class="lb" data-tip="Line start">(%s)</span>' % html.escape(params["n"]))
 					if params["brk"]:
 						buf.append(" ")
@@ -533,7 +537,6 @@ class Document:
 	editors = None
 	editors_ids = None # list of dharma ids (part:XXXX)
 	langs = None
-	edition_main_langs = None
 	summary = None
 
 	edition = None
@@ -548,7 +551,6 @@ class Document:
 
 	def __init__(self):
 		self.langs = []
-		self.edition_main_langs = []
 		self.edition = None
 		self.translation = []
 		self.sigla = {}

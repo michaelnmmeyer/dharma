@@ -2,7 +2,7 @@
 # For ISO 639-5 (language families), the authority is
 # https://www.loc.gov/standards/iso639-5/index.html
 
-import os
+import os, functools, collections
 import requests # pip install requests
 from dharma import config
 
@@ -18,7 +18,13 @@ def fetch_tsv(url):
 	fields = lines[0].split("\t")
 	ret = []
 	for line in lines[1:]:
-		row = zip(fields, (x.strip() for x in line.split("\t")))
+		items = [x.strip() for x in line.split("\t")]
+		# Fill with empty values in case lines were rstripped.
+		while len(items) < len(fields):
+			items.append("")
+		if len(items) > len(fields):
+			raise Exception("bad format")
+		row = zip(fields, items)
 		ret.append(dict(row))
 	return ret
 
@@ -93,6 +99,59 @@ def from_code(s):
 		where code = ?
 		""", (s,)).fetchone() or (None,)
 	return ret
+
+lang_data = collections.namedtuple("lang_data", "id name inverted_name")
+default_lang = lang_data("und", "Undetermined", "Undetermined")
+
+@functools.total_ordering
+class Language:
+
+	def __init__(self, key):
+		self.key = key
+		self._data = None
+
+	def _fetch(self):
+		ret = self._data
+		if not ret:
+			db = config.db("texts")
+			ret = db.execute("""select id, name, inverted_name
+			from langs_list natural join langs_by_code
+			where code = ?
+			""", (self.key,)).fetchone()
+			if ret:
+				ret = lang_data(ret["id"], ret["name"],
+					ret["inverted_name"])
+			else:
+				ret = default_lang
+			self._data = ret
+		return ret
+
+	def __str__(self):
+		return self.name
+
+	def __repr__(self):
+		return f"Lang({self.key})"
+
+	@property
+	def id(self):
+		return self._fetch().id
+
+	@property
+	def name(self):
+		return self._fetch().name
+
+	@property
+	def inverted_name(self):
+		return self._fetch().inverted_name
+
+	def __hash__(self):
+		return hash(self.id)
+
+	def __lt__(self, other):
+		return self.inverted_name < other.inverted_name
+
+	def __eq__(self, other):
+		return self.inverted_name == other.inverted_name
 
 def make_db():
 	db = config.db("texts")

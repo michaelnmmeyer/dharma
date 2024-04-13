@@ -39,6 +39,7 @@ class Step:
 
 class Op:
 
+	# l is None if this is a unary operator.
 	def __init__(self, val, l, r):
 		self.val = val
 		self.l = l

@@ -327,11 +327,6 @@ def display_text(text):
 		doc = document.Document()
 		doc.valid = False
 		doc.ident = text
-	langs = doc.langs
-	doc.langs = []
-	for lang in langs:
-		(lang,) = db.execute("select name from langs_list where id = ?", (lang,)).fetchone()
-		doc.langs.append(lang)
 	doc.repository = row["repo"]
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]

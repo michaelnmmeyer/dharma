@@ -98,11 +98,15 @@ table of languages <a href="/langs">here</a>.</p>
    <p>Summary: {{row["summary"] | safe}}</p>
    % endif
    % if row["langs"]:
-   <p>Languages:
-      % for lang in from_json(row["langs"])[:-1]:
+   % set langs = from_json(row["langs"])
+   <p>{{numberize("Language", langs | length)}}:
+      % for lang in langs:
+      % if loop.index < loop.length:
          {{lang}},
+      % else:
+         {{lang}}.
+      % endif
       % endfor
-         {{from_json(row["langs"])[-1]}}.
    </p>
    % endif
    <p>
