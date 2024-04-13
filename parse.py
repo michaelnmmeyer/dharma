@@ -75,6 +75,17 @@ class Parser:
 	def add_log(self, data, **params):
 		return self.top.add_log(data, **params)
 
+	def add_bib_ref(self, ref, rend="default", loc=None, siglum=False):
+		entry = self.document.bib_entries.get(ref)
+		if not entry:
+			entry = biblio.Entry(ref)
+			self.document.bib_entries[ref] = entry
+		if siglum:
+			siglum = self.document.sigla.get(ref)
+		entry_ref = entry.reference(rend=rend, loc=loc, siglum=siglum,
+			missing = ref not in self.document.biblio)
+		self.top.add_code("ref", entry_ref)
+
 	def start_item(self):
 		return self.top.start_item()
 
@@ -120,23 +131,16 @@ def parse_lem(p, lem):
 	p.dispatch_children(lem)
 	add_lemmas_links(p, lem["source"])
 
+@handler("div[@type='apparatus']//ptr")
+def parse_ptr_apparatus(p, ptr):
+	return parse_ptr(p, ptr, siglum=True)
+
 @handler("ptr")
-def parse_ptr(p, ptr):
+def parse_ptr(p, ptr, siglum=False):
 	ref = ptr["target"].removeprefix("bib:")
 	if not ref:
 		return
-	print("have ", p.document.sigla.get(ref))
-	kwargs = {
-		"rend": "default",
-		"loc": [],
-		"missing": ref not in p.document.biblio,
-		"siglum": p.document.sigla.get(ref),
-	}
-	entry = p.document.bib_entries.get(ref)
-	if not entry:
-		entry = biblio.Entry(ref)
-		p.document.bib_entries[ref] = entry
-	p.add_code("ref", entry.reference(**kwargs))
+	p.add_bib_ref(ref, siglum=siglum)
 
 @handler("ref")
 def parse_ref(p, ref):
@@ -161,13 +165,7 @@ def add_lemmas_links(p, sources):
 		if not ref:
 			continue
 		p.add_text(" ")
-		siglum = p.document.sigla.get(ref)
-		entry = p.document.bib_entries.get(ref)
-		if not entry:
-			entry = biblio.Entry(ref)
-			p.document.bib_entries[ref] = entry
-		p.add_code("ref", entry.reference(siglum=siglum,
-			missing=ref not in p.document.biblio))
+		p.add_bib_ref(ref, siglum=True)
 
 @handler("rdg")
 def parse_rdg(p, rdg):
@@ -1014,12 +1012,7 @@ def parse_bibl(p, node):
 	ref, loc = extract_bib_ref(node)
 	if not ref:
 		return
-	entry = p.document.bib_entries.get(ref)
-	if not entry:
-		entry = biblio.Entry(ref)
-		p.document.bib_entries[ref] = entry
-	p.add_code("ref", entry.reference(rend=rend, loc=loc,
-		missing=ref not in p.document.biblio))
+	p.add_bib_ref(ref, rend=rend, loc=loc)
 
 @handler("title")
 def parse_title(p, title):

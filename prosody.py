@@ -31,9 +31,10 @@ def make_db():
 		db.execute("insert into prosody(name, pattern) values(?, ?)",
 			(name, pattern))
 
+# TODO use Symbola for fonts symbol
 pattern_tbl = str.maketrans({
 	"-": "\N{metrical breve}",
-	"+": "\N{hyphen-minus}",
+	"+": "\N{en dash}",
 	"=": "\N{metrical short over long}",
 	"2": "\N{metrical two shorts over long}",
 })
