@@ -101,7 +101,6 @@ class Validator:
 	def sch_error_nodes(self, file):
 		text = file.data.decode()
 		ret = xslt.transform(self.sch_script, text)
-		print(ret)
 		rep = tree.parse_string(ret)
 		return rep.find("//successful-report") + rep.find("//failed-assert")
 
