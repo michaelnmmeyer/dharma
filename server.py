@@ -56,7 +56,7 @@ def show_texts_errors():
 		min_status = validate.FATAL
 	if owner:
 		rows = conn.execute("""
-			select documents.name, repos.repo, repos.commit_hash,
+			select distinct documents.name, repos.repo, repos.commit_hash,
 				repos.commit_date,
 				documents.status
 			from documents
