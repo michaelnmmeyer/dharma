@@ -3457,7 +3457,17 @@
                                     ><sch:report test="child::tei:note">Note(s) may not contain
                                     further notes (this is not a technical requirement but a
                                     convention we shall observe to reduce
-                                complication)</sch:report></sch:rule></constraint>
+                                complication)</sch:report></sch:rule>
+                        
+                            <sch:rule context="tei:div[@type='edition']">
+                                <sch:assert test="@xml:lang or count(*[@xml:lang]) = count(*)">
+                                    @lang must be set on div[@type='edition'] or on all its children
+                                </sch:assert>
+                                <sch:assert test="@rendition or count(*[@rendition]) = count(*)">
+                                    @rendition must be set on div[@type='edition'] or on all its children
+                                </sch:assert>
+                            </sch:rule>
+                        </constraint>
                     </constraintSpec>
                     <attList>
                         <attDef ident="ana" mode="delete"/>

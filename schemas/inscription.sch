@@ -1321,7 +1321,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-note-note-23-->
    <!--RULE -->
-   <xsl:template match="tei:note" priority="1002" mode="M27">
+   <xsl:template match="tei:note" priority="1003" mode="M27">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:note"/>
       <!--REPORT -->
       <xsl:if test="ancestor::tei:note">
@@ -1391,7 +1391,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M27"/>
    </xsl:template>
    <!--RULE -->
-   <xsl:template match="tei:note[parent::tei:app]" priority="1001" mode="M27">
+   <xsl:template match="tei:note[parent::tei:app]" priority="1002" mode="M27">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:note[parent::tei:app]"/>
       <!--REPORT -->
@@ -1408,7 +1408,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M27"/>
    </xsl:template>
    <!--RULE -->
-   <xsl:template match="tei:note" priority="1000" mode="M27">
+   <xsl:template match="tei:note" priority="1001" mode="M27">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:note"/>
       <!--REPORT -->
       <xsl:if test="child::tei:note">
@@ -1422,6 +1422,42 @@ attributes @target and @cRef may be supplied on <xsl:text/>
                                 complication)</svrl:text>
          </svrl:successful-report>
       </xsl:if>
+      <xsl:apply-templates select="*" mode="M27"/>
+   </xsl:template>
+   <!--RULE -->
+   <xsl:template match="tei:div[@type='edition']" priority="1000" mode="M27">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                       context="tei:div[@type='edition']"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="@xml:lang or count(*[@xml:lang]) = count(*)"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="@xml:lang or count(*[@xml:lang]) = count(*)">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text>
+                                    @lang must be set on div[@type='edition'] or on all its children
+                                </svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="@rendition or count(*[@rendition]) = count(*)"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="@rendition or count(*[@rendition]) = count(*)">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text>
+                                    @rendition must be set on div[@type='edition'] or on all its children
+                                </svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
       <xsl:apply-templates select="*" mode="M27"/>
    </xsl:template>
    <xsl:template match="text()" priority="-1" mode="M27"/>

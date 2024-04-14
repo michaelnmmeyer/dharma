@@ -9275,7 +9275,17 @@ entre les Romains.</label>
                                     entry</sch:report></sch:rule><sch:rule context="tei:note"><sch:report test="child::tei:note">Note(s) may not contain
                                     further notes (this is not a technical requirement but a
                                     convention we shall observe to reduce
-                                complication)</sch:report></sch:rule></constraint>
+                                complication)</sch:report></sch:rule>
+                        
+                            <sch:rule context="tei:div[@type='edition']">
+                                <sch:assert test="@xml:lang or count(*[@xml:lang]) = count(*)">
+                                    @lang must be set on div[@type='edition'] or on all its children
+                                </sch:assert>
+                                <sch:assert test="@rendition or count(*[@rendition]) = count(*)">
+                                    @rendition must be set on div[@type='edition'] or on all its children
+                                </sch:assert>
+                            </sch:rule>
+                        </constraint>
                     </constraintSpec><attList><attDef ident="ana" mode="delete"/><attDef ident="cert" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="evaluate" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="hand" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="place" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="subtype" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="target" mode="delete"/><attDef ident="targetLang" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:id" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="resp" mode="change">
                             <datatype maxOccurs="unbounded">
                                 <dataRef key="dharma.member"/>
