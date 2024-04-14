@@ -53,10 +53,9 @@ class DB:
 		assert self._conn.in_transaction or sql.startswith("begin")
 		return self._conn.execute(sql, *args, **kwargs)
 
-# We rollback transactions when an
-# exception happens and isn't catched, and we make sure that no
-# transaction is opened when the wrapped function is called and when it
-# returns.
+# We begin/end transactions around functions that are decorated with
+# `@transaction`. We rollback transactions when an exception occurs and is not
+# catched.
 def transaction(db_name):
 	def decorator(f):
 		@functools.wraps(f)
