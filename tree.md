@@ -415,11 +415,12 @@ OrderedDict under the hood.)
 def lang()
 ```
 
-process forward:
+Language of this node.
 
-if we meet a note tag, set the language to the latest
+Processing top-down:
+* if we meet a note tag, set the language to the latest
 encountered european language
-if we meet a foreign tag that has no @lang, toggle the
+* if we meet a foreign tag that has no @lang, toggle the
 language between european and other
 
 <a id="dharma.tree.String"></a>

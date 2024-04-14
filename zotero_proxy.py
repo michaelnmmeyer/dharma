@@ -54,10 +54,8 @@ def reply():
 def by_short_title():
 	short_title = flask.request.args["shortTitle"]
 	db = config.db("texts")
-	db.execute("begin")
 	(key,) = db.execute("select key from biblio_data where short_title = ?",
 		(short_title,)).fetchone() or (None,)
-	db.execute("end")
 	url = urlparse(flask.request.url)
 	params = parse_qs(url.query)
 	del params["shortTitle"]

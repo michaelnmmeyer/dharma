@@ -33,8 +33,5 @@ def make_db():
 if __name__ == "__main__":
 	@config.transaction("texts")
 	def main():
-		db = config.db("texts")
-		db.execute("begin")
 		make_db()
-		db.execute("commit")
 	main()

@@ -49,8 +49,36 @@ class DB:
 	def execute(self, sql, *args, **kwargs):
 		# We should never do anything outside of an explicitly
 		# opened transaction.
+		assert self._protected
 		assert self._conn.in_transaction or sql.startswith("begin")
 		return self._conn.execute(sql, *args, **kwargs)
+
+# We rollback transactions when an
+# exception happens and isn't catched, and we make sure that no
+# transaction is opened when the wrapped function is called and when it
+# returns.
+def transaction(db_name):
+	def decorator(f):
+		@functools.wraps(f)
+		def decorated(*args, **kwargs):
+			d = db(db_name)
+			assert not d._protected
+			assert not d._conn.in_transaction
+			d._protected = True
+			d.execute("begin")
+			try:
+				ret = f(*args, **kwargs)
+				d.execute("commit")
+			except Exception:
+				if d._conn.in_transaction:
+					d.execute("rollback")
+				raise
+			finally:
+				d._protected = False
+			assert not d._conn.in_transaction
+			return ret
+		return decorated
+	return decorator
 
 # Like the eponymous function in xslt
 def normalize_space(s):
@@ -140,32 +168,6 @@ def db(name):
 	ret = DB(conn)
 	setattr(DBS, name, ret)
 	return ret
-
-# We don't begin/commit transactions implicitly, might be error-prone
-# and not clear enough. OTOH, we rollback transactions when an
-# exception happens and isn't catched, and we make sure that no
-# transaction is opened when the wrapped function is called and when it
-# returns.
-def transaction(db_name):
-	def decorator(f):
-		@functools.wraps(f)
-		def decorated(*args, **kwargs):
-			d = db(db_name)
-			assert not d._protected
-			assert not d._conn.in_transaction
-			d._protected = True
-			try:
-				ret = f(*args, **kwargs)
-			except Exception:
-				if d._conn.in_transaction:
-					d.execute("rollback")
-				raise
-			finally:
-				d._protected = False
-			assert not d._conn.in_transaction
-			return ret
-		return decorated
-	return decorator
 
 def from_json(s):
 	if isinstance(s, bytes):

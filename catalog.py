@@ -210,7 +210,6 @@ def patch_languages(q):
 @config.transaction("texts")
 def search(q, s):
 	db = config.db("texts")
-	db.execute("begin")
 	sql = """
 		select documents.name, documents.repo, documents.title,
 			documents.author, documents.editors, json_group_array(distinct langs_list.name) as langs, documents.summary,
@@ -243,5 +242,4 @@ def search(q, s):
 	(last_updated,) = db.execute("""
 		select cast(value as int)
 		from metadata where key = 'last_updated'""").fetchone()
-	db.execute("commit")
 	return ret, last_updated

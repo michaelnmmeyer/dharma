@@ -211,7 +211,6 @@ def make_jaccard(type):
 @config.transaction("ngrams")
 def make_database():
 	db = config.db("ngrams")
-	db.execute("begin")
 	for tbl in ("jaccard", "passages", "sources"):
 		db.execute(f"delete from {tbl}")
 	id = 0
@@ -233,8 +232,6 @@ def make_database():
 		padas = (select count(*) from passages where passages.file = sources.file and type = 4 and parallels > 0)
 	""")
 	db.execute("insert or replace into metadata values('last_updated', strftime('%s', 'now'))")
-	db.execute("commit")
-	db.execute("vacuum")
 
 PER_PAGE = 50
 
@@ -259,7 +256,6 @@ def search(src_text, category, page):
 	src_norm = re.sub(r"\s{2,}", " ", src_norm)
 	offset = (page - 1) * PER_PAGE
 	limit = PER_PAGE + 1
-	db.execute("begin")
 	(total,) = db.execute("""
 		select count(*) from passages
 		where type = ? and jaccard(?, normalized) > 0""",
@@ -269,7 +265,6 @@ def search(src_text, category, page):
 		from passages where type = ? and coeff > 0
 		order by coeff desc
 		limit ? offset ?""", (src_norm, type, limit, offset)).fetchall()
-	db.execute("rollback")
 	return ret, formatted_text, page, PER_PAGE, total
 
 if __name__ == "__main__":

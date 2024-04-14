@@ -192,8 +192,5 @@ def parse_prosody():
 if __name__ == "__main__":
 	@config.transaction("texts")
 	def main():
-		db = config.db("texts")
-		db.execute("begin")
 		print(config.to_json(parse_prosody()))
-		db.execute("rollback")
 	main()

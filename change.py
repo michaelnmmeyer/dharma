@@ -22,14 +22,14 @@ last_pull = 0
 # Wait this long between two pulls, counting in seconds
 min_pull_wait = 10
 
+@config.transaction("texts")
 def all_useful_repos():
+	db = config.db("texts")
 	# Always process repos in the same order.
-	db.execute("begin")
 	ret = db.execute("""select repo from repos
 		where textual or repo = 'project-documentation'
 		order by repo""")
 	ret = [name for (name,) in ret]
-	db.execute("end")
 	return ret
 
 def clone_repo(name):
@@ -193,14 +193,12 @@ def backup_to_jawakuno():
 
 @config.transaction("texts")
 def handle_changes(name):
-	db.execute("begin")
 	update_repo(name)
 	if name == "project-documentation":
 		update_project()
 	else:
 		update_db(name)
 	db.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
-	db.execute("commit")
 	if name == "tfd-nusantara-philology":
 		backup_to_jawakuno()
 

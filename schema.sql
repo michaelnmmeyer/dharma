@@ -311,6 +311,11 @@ create table if not exists biblio_data(
 create index if not exists biblio_data_short_title on biblio_data(short_title);
 create index if not exists biblio_data_sort_key on biblio_data(sort_key);
 
+create view if not exists biblio_by_tag as
+	select json_each.value ->> '$.tag' as tag, biblio_data.key as key
+	from biblio_data join json_each(biblio_data.json -> '$.data.tags')
+	order by tag;
+
 create view if not exists repos_editors_stats as
 	select repo,
 		json_each.value as editor_id,

@@ -81,7 +81,6 @@ def zotero_items(latest_version, ret):
 @config.transaction("texts")
 def update():
 	db = config.db("texts")
-	db.execute("begin")
 	(max_version,) = db.execute("select value from metadata where key = 'biblio_latest_version'").fetchone()
 	ret = []
 	for entry in zotero_items(max_version, ret):
@@ -96,7 +95,6 @@ def update():
 	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
 		rec = config.from_json(rec)
 		db.execute("update biblio_data set sort_key = ? where key = ?", (sort_key(rec), key))
-	db.execute("commit")
 
 anonymous = "No name"
 

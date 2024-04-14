@@ -42,7 +42,6 @@ def serve_fonts(path):
 @config.transaction("texts")
 def show_texts_errors():
 	conn = config.db("texts")
-	conn.execute("begin")
 	(last_updated,) = conn.execute("select cast(value as int) from metadata where key = 'last_updated'").fetchone()
 	owner = flask.request.args.get("owner")
 	severity = flask.request.args.get("severity")
@@ -79,14 +78,12 @@ def show_texts_errors():
 		from people_main natural join people_github
 			join owners on people_github.git_name = owners.git_name
 		order by print_name""").fetchall()
-	conn.execute("rollback")
 	return flask.render_template("errors.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner, severity=severity)
 
 @app.get("/errors/<name>")
 @config.transaction("texts")
 def show_text_errors(name):
 	db = config.db("texts")
-	db.execute("begin")
 	row = db.execute("""
 		select documents.name, repos.repo, commit_hash, code_hash,
 			status, mtime, path as xml_path, data, html_path,
@@ -95,7 +92,6 @@ def show_text_errors(name):
 			join repos on documents.repo = repos.repo
 		where documents.name = ?
 	""", (name,)).fetchone()
-	db.execute("end")
 	if not row:
 		return flask.abort(404)
 	url = config.format_url("https://github.com/erc-dharma/%s/blob/%s/%s",
@@ -115,30 +111,24 @@ def show_text_errors(name):
 @config.transaction("texts")
 def show_repos():
 	db = config.db("texts")
-	db.execute("begin")
 	rows = db.execute("select * from repos_display").fetchall()
-	db.execute("end")
 	return flask.render_template("repos.tpl", rows=rows)
 
 @app.get("/people")
 @config.transaction("texts")
 def show_people():
 	db = config.db("texts")
-	db.execute("begin")
 	rows = db.execute("""select inverted_name, dh_id, affiliation,
 		idhal, idref, orcid, viaf, wikidata
 		from people_main where dh_id is not null
 		order by inverted_name""").fetchall()
-	db.execute("end")
 	return flask.render_template("people.tpl", rows=rows)
 
 @app.get("/people/<dharma_id>")
 @config.transaction("texts")
 def show_person(dharma_id):
 	db = config.db("texts")
-	db.execute("begin")
 	exists = db.execute("select 1 from people_main where dh_id = ?", (dharma_id,)).fetchone()
-	db.execute("end")
 	if exists:
 		return flask.redirect(f"/people#person-{dharma_id}")
 	return flask.abort(404)
@@ -147,11 +137,9 @@ def show_person(dharma_id):
 @config.transaction("ngrams")
 def show_parallels():
 	db = config.db("ngrams")
-	db.execute("begin")
 	(date,) = db.execute("""select cast(value as int)
 		from metadata where key = 'last_updated'""").fetchone()
 	rows = db.execute("select * from sources where verses + hemistiches + padas > 0")
-	db.execute("end")
 	return flask.render_template("parallels.tpl", data=rows, last_updated=date)
 
 parallels_types = {
@@ -165,12 +153,10 @@ parallels_types = {
 def show_parallels_details(text, category):
 	db = config.db("ngrams")
 	type = parallels_types[category]
-	db.execute("begin")
 	rows = db.execute("""
 		select id, number, contents, parallels from passages
 		where type = ? and file = ? and parallels > 0
 	""", (type, text)).fetchall()
-	db.execute("end")
 	return flask.render_template("parallels_details.tpl",
 		file=text, category=category, data=rows)
 
@@ -179,7 +165,6 @@ def show_parallels_details(text, category):
 def show_parallels_full(text, category, id):
 	db = config.db("ngrams")
 	type = parallels_types[category]
-	db.execute("begin")
 	ret = db.execute("""
 		select number, contents from passages where type = ? and id = ?
 		""", (type, id)).fetchone()
@@ -192,7 +177,6 @@ def show_parallels_full(text, category, id):
 		where jaccard.type = ? and jaccard.id = ?
 		order by coeff desc
 	""", (type, id)).fetchall()
-	db.execute("commit")
 	return flask.render_template("parallels_enum.tpl", category=category, file=text,
 		number=number, data=rows, contents=contents)
 
@@ -216,29 +200,23 @@ def show_editorial_conventions2():
 @config.transaction("texts")
 def show_editorial_conventions():
 	db = config.db("texts")
-	db.execute("begin")
 	data = editorial.parse_html()
 	ret = flask.render_template("editorial.tpl", data=data)
-	db.execute("end")
 	return ret
 
 @app.get("/languages")
 @config.transaction("texts")
 def show_langs():
 	db = config.db("texts")
-	db.execute("begin")
 	rows = db.execute("select * from langs_display").fetchall()
-	db.execute("end")
 	return flask.render_template("langs.tpl", rows=rows)
 
 @app.get("/prosody")
 @config.transaction("texts")
 def show_prosody():
 	db = config.db("texts")
-	db.execute("begin")
 	data = prosody.parse_prosody()
 	ret = flask.render_template("prosody.tpl", data=data)
-	db.execute("end")
 	return ret
 
 @app.get("/langs")
@@ -274,10 +252,8 @@ def search_parallels():
 @config.transaction("texts")
 def display_list():
 	db = config.db("texts")
-	db.execute("begin")
 	texts = [t for (t,) in db.execute("""select name from documents
 		where name glob 'DHARMA_INS*'""")]
-	db.execute("end")
 	return flask.render_template("display.tpl", texts=texts)
 
 @app.get("/display/<text>")
@@ -288,7 +264,6 @@ def legacy_display_text(text):
 @config.transaction("texts")
 def display_text(text):
 	db = config.db("texts")
-	db.execute("begin")
 	row = db.execute("""
 		select
 			printf('%s/%s/%s', ?, repos.repo, path) as path,
@@ -316,7 +291,6 @@ def display_text(text):
 		where documents.name = ?""",
 		(config.path_of("repos"), text)).fetchone()
 	if not row:
-		db.execute("rollback")
 		return flask.abort(404)
 	try:
 		doc = parse.process_file(row["path"], row["data"])
@@ -337,7 +311,6 @@ def display_text(text):
 		repo_title=row["repo_title"],
 		row=row,
 		text=text)
-	db.execute("end")
 	return ret
 
 def base_name_windows(path):
@@ -370,7 +343,6 @@ def patch_links(soup, attr):
 @config.transaction("texts")
 def convert_text():
 	db = config.db("texts")
-	db.execute("begin")
 	doc = flask.request.json
 	path, data = doc["path"], doc["data"]
 	base = os.path.basename(path)
@@ -386,7 +358,6 @@ def convert_text():
 	editors = doc.editors.render_logical()
 	doc.editors = editors and editors.split(document.PARA_SEP)
 	html = flask.render_template("inscription.tpl", doc=doc, text=name)
-	db.execute("end")
 	soup = BeautifulSoup(html, "html.parser")
 	patch_links(soup, "href")
 	patch_links(soup, "src")
@@ -396,7 +367,6 @@ def convert_text():
 @config.transaction("texts")
 def display_biblio_page(page):
 	db = config.db("texts")
-	db.execute("begin")
 	(entries_nr,) = db.execute("""select count(*) from biblio_data
 		where sort_key is not null""").fetchone()
 	pages_nr = (entries_nr + biblio.PER_PAGE - 1) // biblio.PER_PAGE
@@ -421,7 +391,6 @@ def display_biblio_page(page):
 	ret = flask.render_template("biblio.tpl", page=page, pages_nr=pages_nr,
 		entries=entries, entries_nr=entries_nr, per_page=biblio.PER_PAGE,
 		first_entry=first_entry, last_entry=last_entry)
-	db.execute("rollback")
 	return ret
 
 @app.get("/bibliography")

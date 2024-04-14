@@ -32,8 +32,8 @@ repositories or modify our Zotero bibliography. The code's entry point is in
 `change.py`. A single update process should run at a given time, not more.
 
 We use the WAL mode in SQLite. Thus, writers don't block readers and vice-versa,
-but writers do block each other, which is why we use just one and serialize
-writes.
+but writers still do block each other, which is why we use just one and
+serialize writes.
 
 In addition to the above, we run a WebSocket client that is hooked to Zotero
 and that notifies the update process whenever someone modifies the project's
