@@ -32,9 +32,14 @@ commit-all:
 
 .PHONY: all clean forever commit-all
 
+services = $(notdir $(wildcard config/*.service))
+
 install-systemd:
 	sudo cp config/*.service /etc/systemd/system
 	sudo systemctl daemon-reload
+	for service in $(services); do \
+		sudo systemctl enable $$service; \
+	done
 
 install-nginx:
 	sudo cp config/nginx.conf /etc/nginx/nginx.conf
@@ -43,8 +48,6 @@ install-nginx:
 install: install-systemd install-nginx
 
 .PHONY: install-systemd install-nginx install
-
-services = $(notdir $(wildcard config/*.service))
 
 start-all:
 	for service in $(services); do \

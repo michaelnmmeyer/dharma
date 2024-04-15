@@ -189,6 +189,20 @@ def parse_prosody():
 		ret["lists"].append(parse_list(list))
 	return ret
 
+def find_mismatching_xml_prosody():
+	path = config.path_of("repos/project-documentation/DHARMA_prosodicPatterns_v01.xml")
+	xml = tree.parse(path)
+	for item in xml.find("//item"):
+		x = item.first("seg[@type='xml']")
+		p = item.first("seg[@type='prosody']")
+		if x and p:
+			tr = render_pattern(x.text()).replace("\N{narrow no-break space}", "")
+			if tr != p.text():
+				print(item.first("name").text() or item.first("label").text())
+				print("  " + x.text())
+				print("  " + p.text())
+				print("")
+
 if __name__ == "__main__":
 	@config.transaction("texts")
 	def main():
