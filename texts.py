@@ -112,6 +112,12 @@ def iter_texts():
 	for repo in os.listdir(config.path_of("repos")):
 		yield from iter_texts_in_repo(repo)
 
+def save(repo, path):
+	file = File(repo, path)
+	db = config.db("texts")
+	db.save_file(file)
+	return file
+
 # Find out the path of HTML files generated from each file, so that we can link
 # to them in the website. The location of these files varies between repos, so
 # we use brute force instead of hardcoding stuff.

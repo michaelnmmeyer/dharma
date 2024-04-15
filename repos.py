@@ -1,18 +1,18 @@
-from dharma import config
+from dharma import config, texts
 
 def iter_repos():
-	with open(config.path_of("repos/project-documentation/DHARMA_repositories.tsv")) as f:
-		for line_no, line in enumerate(f, 1):
-			fields = [field.strip() for field in line.split("\t")]
-			if line_no == 1:
-				assert len(fields) == 3
-				field_names = fields
-			else:
-				row = dict(zip(field_names, fields))
-				assert len(row) == len(field_names)
-				assert row["textual"] in ("true", "false")
-				row["textual"] = row["textual"] == "true"
-				yield row
+	f = texts.save("project-documentation", "DHARMA_repositories.tsv")
+	for line_no, line in enumerate(f.data.decode().splitlines(), 1):
+		fields = [field.strip() for field in line.split("\t")]
+		if line_no == 1:
+			assert len(fields) == 3
+			field_names = fields
+		else:
+			row = dict(zip(field_names, fields))
+			assert len(row) == len(field_names)
+			assert row["textual"] in ("true", "false")
+			row["textual"] = row["textual"] == "true"
+			yield row
 
 def load_data():
 	repos = {}

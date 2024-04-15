@@ -4,14 +4,16 @@
 
 import os, functools, collections
 import requests # pip install requests
-from dharma import config
+from dharma import config, texts
 
-def fetch_tsv(url):
-	if url.startswith("/"):
+def fetch_tsv(file):
+	if isinstance(file, texts.File):
+		text = file.data.decode()
+	elif file.startswith("/"):
 		with open(url) as f:
 			text = f.read()
 	else:
-		r = requests.get(url)
+		r = requests.get(file)
 		r.raise_for_status()
 		text = r.text
 	lines = text.splitlines()
@@ -38,7 +40,7 @@ def load_data():
 	tbl3 = fetch_tsv("https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab")
 	tbl3_bis = fetch_tsv("https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3_Name_Index.tab")
 	tbl5 = fetch_tsv("http://id.loc.gov/vocabulary/iso639-5.tsv")
-	tbl0 = fetch_tsv(config.path_of("repos/project-documentation/DHARMA_languages.tsv"))
+	tbl0 = fetch_tsv(texts.save("project-documentation", "DHARMA_languages.tsv"))
 	recs = []
 	index = {}
 	for row in tbl3:

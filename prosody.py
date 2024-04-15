@@ -1,13 +1,15 @@
-import os, sys, unicodedata, json
-from dharma import config, tree, biblio, people
+import os, sys, unicodedata, json, logging
+from dharma import config, tree, biblio, people, texts
 
 def load_data():
-	path = config.path_of("repos/project-documentation/DHARMA_prosodicPatterns_v01.xml")
-	xml = tree.parse(path)
+	f = texts.save("project-documentation", "DHARMA_prosodicPatterns_v01.xml")
+	xml = tree.parse(f)
 	items = {}
 	for item in xml.find("//item"):
 		pros = [node for node in item.find(".//seg") if node["type"] == "prosody"]
-		assert len(pros) == 1
+		if len(pros) != 1:
+			logging.error("several prosodic entries in the same entry")
+			continue
 		pros = pros[0]
 		names = set()
 		for name in item.find("name") + item.find("label"):
@@ -143,11 +145,10 @@ def parse_list_rec(item, bib_entries):
 	# <seg type="prosody">⏑⏑⏑⏑–⏑–⏑⏑⏑–⏑||–⏑⏑⏑⏓/––––⏑–⏑–⏑⏑⏑–⏑–⏑⏑⏑⏓</seg>
 	# <seg type="gana">na-ja-bha-ja-bha-la-ga/ma-ra-ja-sa-ja-sa</seg>
 	for type in ("xml", "prosody", "gana"):
-		seg = item.find(f"seg[@type='{type}']")
-		assert len(seg) <= 1
+		seg = item.first(f"seg[@type='{type}']")
 		if not seg:
 			continue
-		seg = seg[0].text()
+		seg = seg.text()
 		if not seg or seg == "no data available":
 			continue
 		if type == "prosody":
@@ -179,8 +180,9 @@ def parse_list(list):
 	}
 
 def parse_prosody():
-	path = config.path_of("repos/project-documentation/DHARMA_prosodicPatterns_v01.xml")
-	xml = tree.parse(path)
+	db = config.db("texts")
+	f = db.load_file("DHARMA_prosodicPatterns_v01")
+	xml = tree.parse(f)
 	ret = {
 		"notation": parse_front(xml),
 		"lists": [],

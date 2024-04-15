@@ -1,3 +1,4 @@
+=================
 
 pour languages dans display, tous ceux de div type=edition + écrfiture
 écritures à gérer
@@ -5,9 +6,6 @@ pour languages dans display, tous ceux de div type=edition + écrfiture
 
 ================ end manu
 
-https://mail.google.com/mail/u/0/popout?ver=1g3ytthb29lwb&cat=Work&qid=D33D63CF-AA8E-482A-B581-217499DB57B8&search=cat&th=%23thread-f%3A1794923140307345636&cvid=3
-https://mail.google.com/mail/u/0/popout?ver=1g3ytthb29lwb&cat=Work&qid=D33D63CF-AA8E-482A-B581-217499DB57B8&search=cat&th=%23thread-f%3A1794915809975259102&cvid=1
-https://mail.google.com/mail/u/0/popout?ver=1g3ytthb29lwb&cat=Work&qid=D33D63CF-AA8E-482A-B581-217499DB57B8&search=cat&th=%23thread-f%3A1794781717221740805&cvid=2
 
 .pagelike: <pb> + <milestone type="page-like">
   Use a single instruction for representing them, taking into account <fw>
@@ -16,32 +14,6 @@ https://mail.google.com/mail/u/0/popout?ver=1g3ytthb29lwb&cat=Work&qid=D33D63CF-
 
 
 rm dipled schema, use ins schema for this.
-
-## FS access
-
-in server add stuff to ensure we don't try to access repos/, all accesses to
-repos should go through the db. could also run the process without write perms
-to repos or sth, but probably not feasible without patching python's binary or
-creating users, etc. in fact, we only need access to /views and /static, and we
-shouldn't use immediate opens. use:
-
-  fetch_file_from_fs(repo, name)
-  fetch_file_from_db(repo, name)
-
-maybe just patch the open func as a primary check to verify that we don't
-open files for no reason? not sufficient, plenty of ways we might access the fs.
-should have a flag in the File obj
-
-do not reopen the same text file several times, only read it a single time and
-do not access the external file once stored in the db, because it might disappear
-or be modified by change.py.
-look at validate.py and parse_ins, mostly
-XXX maybe better to use a dummy file object that is adapted from the db
-and contains the file path + the data + maybe other useful stuff; reuse what
-we have for File() in validate.py, and put it in texts.py
-
-FILE ABSTRACTION object (copy go stuff)
-should have File class + a MemFile that overrides the relevant methods
 
 
 ## Refactoring

@@ -53,9 +53,40 @@ class DB:
 		assert self._conn.in_transaction or sql.startswith("begin")
 		return self._conn.execute(sql, *args, **kwargs)
 
+	def save_file(self, file):
+		self.execute("""
+			insert or replace into files(
+				name, repo, path, mtime,
+				last_modified_commit, last_modified, data)
+			values(?, ?, ?, ?, ?, ?, ?)""",
+			(file.name, file.repo, file.path, file.mtime, *file.last_modified, file.data))
+		for git_name in file.owners:
+			self.execute("""
+				insert or ignore into owners(name, git_name)
+				values(?, ?)""", (file.name, git_name))
+
+	def load_file(self, name):
+		row = self.execute("""
+			select files.name as name,
+				repo, path, mtime,
+				last_modified_commit, last_modified, data,
+				json_group_array(owners.git_name) as file_owners
+			from files join owners on files.name = owners.name
+			where files.name = ? group by owners.git_name""",
+			(name,)).fetchone()
+		if not name:
+			raise Exception("not found")
+		from dharma import texts #XXX circular import
+		f = texts.File(name, row["repo"])
+		setattr(f, "_mtime", row["mtime"])
+		setattr(f, "_last_modified", (row["last_modified_commit"], row["last_modified"]))
+		setattr(f, "_data", row["data"])
+		setattr(f, "_owners", json.loads(row["file_owners"]))
+		return f
+
 # We begin/end transactions around functions that are decorated with
 # `@transaction`. We rollback transactions when an exception occurs and is not
-# catched.
+# catched. Nesting transactions is not possible.
 def transaction(db_name):
 	def decorator(f):
 		@functools.wraps(f)

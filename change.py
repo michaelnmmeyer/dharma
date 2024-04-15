@@ -149,35 +149,22 @@ def update_db(repo):
 		todo = getattr(changes, todo)
 		while todo:
 			file = todo.pop()
-			db.execute("""
-				insert or replace into files(
-					name, repo, path, mtime,
-					last_modified_commit, last_modified, data)
-				values(?, ?, ?, ?, ?, ?, ?)""",
-				(file.name, file.repo, file.path, file.mtime, *file.last_modified, file.data))
-			for git_name in file.owners:
-				db.execute("""
-					insert or ignore into owners(name, git_name)
-					values(?, ?)""", (file.name, git_name))
+			db.save_file(file)
 			catalog.insert(file)
 
 # We should always put stuff like names, etc. in the db instead of keeping it
 # in-memory, so that we can tell what's the current data just by looking at
 # the db. Otherwise would have to write introspection code. Other reason: at
-# some point, we want to have a downloadable read-only db.
+# some point, we want to have a downloadable read-only db. Ideally, it should
+# be possible to run the code without having to set up repositories.
 def update_project():
-	# XXX add a test to verify whether the files we need changed, to avoid
+	# TODO add tests to verify whether the files we need changed, to avoid
 	# doing a full rebuild when not necessary.
 	people.make_db()
 	langs.make_db()
 	gaiji.make_db()
 	prosody.make_db()
 	repos.make_db()
-	# XXX what about schemas and docs? run make? this should be built as
-	# part of project-documentation, and we should not store schemas in
-	# the app repo.
-	# TODO store needed files from project-documentation in the db, otherwise
-	# we're gonna get stuck later on
 	catalog.rebuild()
 	repo = "project-documentation"
 	commit_hash, commit_date = latest_commit_in_repo(repo)
@@ -185,6 +172,8 @@ def update_project():
 		set commit_hash = ?, commit_date = ?, code_hash = ?
 		where repo = ?""",
 		(commit_hash, commit_date, config.CODE_HASH, repo))
+	# XXX we also need to store schemas in the db, but for this we need to
+	# derive them at runtime
 
 # Request from Arlo.
 def backup_to_jawakuno():

@@ -1,11 +1,4 @@
-# When processing a text, oxygen generates zotero API calls like this:
-# https://api.zotero.org/groups/1633743/items?tag=ROD1914&format=tei
-#
-# This is why tags are used, but we can generate API call that us
-# the actual primary key:
-# https://api.zotero.org/groups/1633743/items/ZZH5G8PB?format=tei
-#
-# For the conversion zotero->tei:
+# For the conversion zotero->tei, this code is used:
 # https://github.com/zotero/translators/blob/master/TEI.js
 
 import sys, logging, io, unicodedata, html, re, time

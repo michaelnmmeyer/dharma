@@ -1,6 +1,6 @@
 import os, re, io, unicodedata
 import requests # pip install requests
-from dharma import config, tree
+from dharma import config, tree, texts
 
 ID_TYPES = """
 IdHAL
@@ -11,8 +11,8 @@ wikidata
 """.strip().split()
 
 def iter_members_list():
-	path = config.path_of("repos/project-documentation/DHARMA_idListMembers_v01.xml")
-	xml = tree.parse(path)
+	f = texts.save("project-documentation", "DHARMA_idListMembers_v01.xml")
+	xml = tree.parse(f)
 	for person in xml.find("//person"):
 		row = {}
 		row["dh_id"] = person["id"]
@@ -52,17 +52,17 @@ def make_db():
 		db.execute("""
 			insert into people_main(name, dh_id, affiliation, idhal, idref, orcid, viaf, wikidata)
 			values(:name, :dh_id, :affiliation, :idhal, :idref, :orcid, :viaf, :wikidata)""", row)
-	with open(config.path_of("repos/project-documentation/DHARMA_gitNames.tsv")) as f:
-		seen = set()
-		for line_no, line in enumerate(f, 1):
-			if line_no == 1:
-				continue
-			fields = [f.strip() for f in line.split("\t")]
-			assert len(fields) == 2, "wrong number of columns at line %d" % line_no
-			key, value = fields
-			assert key not in seen, "duplicate record %r at line %d" % (key, line_no)
-			seen.add(key)
-			db.execute("insert into people_github(git_name, dh_id) values(?, ?)", (key, value))
+	f = texts.save("project-documentation", "DHARMA_gitNames.tsv")
+	seen = set()
+	for line_no, line in enumerate(f.data.decode().splitlines(), 1):
+		if line_no == 1:
+			continue
+		fields = [f.strip() for f in line.split("\t")]
+		assert len(fields) == 2, "wrong number of columns at line %d" % line_no
+		key, value = fields
+		assert key not in seen, "duplicate record %r at line %d" % (key, line_no)
+		seen.add(key)
+		db.execute("insert into people_github(git_name, dh_id) values(?, ?)", (key, value))
 
 def plain(ident):
 	db = config.db("texts")

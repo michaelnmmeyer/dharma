@@ -41,7 +41,7 @@ from xml.parsers import expat
 from xml.sax.saxutils import escape as quote_string
 from pegen.tokenizer import Tokenizer
 from dharma.xpath_parser import Path, Step, Op, Func, GeneratedParser
-from dharma import config
+from dharma import config, texts
 
 DEFAULT_LANG = "eng"
 DEFAULT_SPACE = "default"
@@ -100,7 +100,11 @@ def parse(file, path=None):
 	argument can be used to indicate the file's path, for errors messages.
 	If it is not given, the path of the file will be deduced from `file`,
 	if possible.'''
-	if hasattr(file, "read"):
+	if isinstance(file, texts.File):
+		source = file.data
+		if not path:
+			path = file.full_path
+	elif hasattr(file, "read"):
 		# assume file-like
 		source = file.read()
 		if not path and file is not sys.stdin and hasattr(file, "name"):
