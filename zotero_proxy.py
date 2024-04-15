@@ -49,8 +49,8 @@ def reply():
 	url = urlparse(flask.request.url)
 	return do_reply(url)
 
-@config.transaction("texts")
 @app.get("/extra")
+@config.transaction("texts")
 def by_short_title():
 	short_title = flask.request.args["shortTitle"]
 	db = config.db("texts")
