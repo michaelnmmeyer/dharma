@@ -258,7 +258,7 @@ supplied_tbl = {
 	"subaudible": ("[]", "Editorial addition to clarify interpretation"),
 	# EGD: "words implied by the context and added to the translation for
 	# the sake of clarification or disambiguation"
-	"explanation": ("()", "Text implied by the context and added to the translation for the sake of clarification or disambiguation"),
+	"explanation": ("()", "Text inserted into the translation as explanation or disambiguation"),
 	# EGD: "lost" and "omitted" indicate "segments of translation corresponding
 	# to text restored by the editor in the original" (they are used both
 	# in the edition and in the translation)
