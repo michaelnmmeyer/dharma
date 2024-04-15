@@ -1492,13 +1492,15 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:l"/>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="parent::tei:lg"/>
+         <xsl:when test="parent::tei:lg or parent::tei:p[@rend='stanza']"/>
          <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="parent::tei:lg">
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="parent::tei:lg or parent::tei:p[@rend='stanza']">
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>element l must be wrapped in element lg</svrl:text>
+               <svrl:text>
+                                    element l must be wrapped in element lg or in p[@rend='stanza']</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>

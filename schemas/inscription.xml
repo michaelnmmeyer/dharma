@@ -2751,7 +2751,8 @@
                     <constraintSpec scheme="schematron" ident="mixed-verse">
                         <constraint>
                             <sch:rule context="tei:l">
-                                <sch:assert test="parent::tei:lg">element l must be wrapped in element lg</sch:assert>
+                                <sch:assert test="parent::tei:lg or parent::tei:p[@rend='stanza']">
+                                    element l must be wrapped in element lg or in p[@rend='stanza']</sch:assert>
                             </sch:rule>
                             <sch:rule context="tei:l[parent::tei:lg[@met='mixed']]">
                                 <sch:assert test="self::tei:l[@real or @met]">In a stanza identify
