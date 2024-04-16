@@ -242,7 +242,7 @@ class Block:
 				elif data == ">para":
 					buf.append("</p>")
 				elif data == "<line":
-					buf.append("<div>")
+					buf.append('<div class="verse-line">')
 					buf.append("<p>")
 				elif data == ">line":
 					buf.append("</p>")
@@ -359,7 +359,7 @@ class Block:
 				elif data == ">para":
 					buf.append("</p>")
 				elif data == "<line":
-					buf.append("<div>")
+					buf.append('<div class="verse-line">')
 					buf.append("<p>")
 				elif data == ">line":
 					buf.append("</p>")
