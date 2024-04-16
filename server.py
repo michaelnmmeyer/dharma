@@ -41,8 +41,8 @@ def serve_fonts(path):
 @app.get("/errors")
 @config.transaction("texts")
 def show_texts_errors():
-	conn = config.db("texts")
-	(last_updated,) = conn.execute("select cast(value as int) from metadata where key = 'last_updated'").fetchone()
+	db = config.db("texts")
+	(last_updated,) = db.execute("select cast(value as int) from metadata where key = 'last_updated'").fetchone()
 	owner = flask.request.args.get("owner")
 	severity = flask.request.args.get("severity")
 	if severity not in ("warning", "error", "fatal"):
@@ -55,30 +55,44 @@ def show_texts_errors():
 		assert severity == "fatal"
 		min_status = validate.FATAL
 	if owner:
-		rows = conn.execute("""
+		if owner.startswith("!"):
+			field, ident = "owners.git_name", owner[1:]
+		else:
+			field, ident = "dh_id", owner
+		rows = db.execute(f"""
 			select distinct documents.name, repos.repo, repos.commit_hash,
 				repos.commit_date,
 				documents.status
 			from documents
 				join repos on documents.repo = repos.repo
 				join owners on documents.name = owners.name
-				join people_github on owners.git_name = people_github.git_name
-			where dh_id = ? and documents.status >= ?
-			order by documents.name""", (owner, min_status)).fetchall()
+				left join people_github on owners.git_name = people_github.git_name
+			where {field} = ? and documents.status >= ?
+			order by documents.name""", (ident, min_status)).fetchall()
 	else:
-		rows = conn.execute("""
+		rows = db.execute("""
 			select documents.name, repos.repo, repos.commit_hash,
 				repos.commit_date,
 				documents.status
 			from documents join repos on documents.repo = repos.repo
 			where documents.status >= ?
 			order by documents.name""", (min_status,)).fetchall()
-	authors = conn.execute("""
-		select distinct dh_id, print_name
-		from people_main natural join people_github
-			join owners on people_github.git_name = owners.git_name
-		order by print_name""").fetchall()
-	return flask.render_template("errors.tpl", last_updated=last_updated, texts=rows, authors=authors, owner=owner, severity=severity)
+	authors = db.execute("""
+		select distinct
+			people_main.dh_id as ident,
+			print_name
+		from documents join owners on documents.name = owners.name
+			join people_github on people_github.git_name = owners.git_name
+			join people_main on people_github.dh_id = people_main.dh_id
+		union select distinct
+			printf('!%s', owners.git_name) as ident,
+			printf('%s (?)', owners.git_name) as print_name
+		from documents join owners on documents.name = owners.name
+			left join people_github on people_github.git_name = owners.git_name
+			where people_github.dh_id is null and owners.git_name != 'github-actions'
+		order by print_name collate icu""").fetchall()
+	return flask.render_template("errors.tpl", last_updated=last_updated,
+		texts=rows, authors=authors, owner=owner, severity=severity)
 
 @app.get("/errors/<name>")
 @config.transaction("texts")

@@ -41,12 +41,12 @@ button in the toolbar, and click on "Check Well-Formedness".</p>
    % else:
       <option value="" selected>Anybody</option>
    % endif
-   % for author_id, author_name in authors:
-      % if author_id == owner:
-         <option value="{{author_id}}" selected>{{author_name}}</option>
-      % else:
-         <option value="{{author_id}}">{{author_name}}</option>
-      % endif
+   % for author in authors:
+         % if author["ident"] == owner:
+         <option value="{{author["ident"]}}" selected>{{author["print_name"]}}</option>
+         % else:
+         <option value="{{author["ident"]}}">{{author["print_name"]}}</option>
+         % endif
    % endfor
    </select>
 </li>

@@ -69,6 +69,7 @@ class File:
 				"-C", config.path_of("repos", self.repo),
 				"log", "--follow", "--format=%aN", "--", self.path)
 			ret = sorted(set(out.stdout.splitlines()))
+			assert len(ret) > 0
 			setattr(self, "_owners", ret)
 		return ret
 
