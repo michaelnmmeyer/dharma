@@ -8,7 +8,7 @@
 
 <p>Committed {{text["commit_date"] | format_date}} in
 <a
-href="https://github.com/erc-dharma/{{text["repo"]}}/commit/{{text["commit_hash"]}}"><span class="commit-hash">{{text["commit_hash"]}}</span></a>.
+href="https://github.com/erc-dharma/{{text["repo"]}}/commit/{{text["commit_hash"]}}">{{text["commit_hash"] | format_commit_hash}}</a>.
 </p>
 
 % if result.unicode:

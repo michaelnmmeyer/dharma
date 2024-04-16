@@ -39,7 +39,7 @@ href="https://github.com/erc-dharma">here</a>. The table below does not show the
 % if repo["commit_hash"]:
 <p>
 Last updated {{repo["commit_date"] | format_date}}
-(<a href="https://github.com/erc-dharma/{{repo['repo']}}/commit/{{repo['commit_hash']}}"><span class="commit-hash">{{repo["commit_hash"][:7]}}</span></a>)
+(<a href="https://github.com/erc-dharma/{{repo['repo']}}/commit/{{repo['commit_hash']}}">{{repo["commit_hash"] | format_commit_hash}}</a>)
 <i class="fa-regular fa-circle-question" data-tip="This is the latest commit
 processed by the DHARMA application. The repository might contain more recent
 commits."></i>

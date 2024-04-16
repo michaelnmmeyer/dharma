@@ -262,11 +262,15 @@ def normalize_url(url):
 
 def numberize(s, n):
 	last_word = s.rsplit(None, 1)[-1].casefold()
-	if last_word not in ("character", "component", "line", "page", "editor", "text", "link", "syllable", "language"):
-		print("cannot numberize term %r" % last_word, file=sys.stderr)
-		return s
 	if isinstance(n, str):
 		n = n.isdigit() and int(n) or 0
-	if n == 1:
-		return s
-	return s + "s"
+	if last_word == "repository":
+		if n == 1:
+			return s
+		return s[:-1] + "ies"
+	elif last_word in ("character", "component", "line", "page", "editor", "text", "link", "syllable", "language"):
+		if n == 1:
+			return s
+		return s + "s"
+	print("cannot numberize term %r" % last_word, file=sys.stderr)
+	return s

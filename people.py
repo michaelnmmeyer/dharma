@@ -38,7 +38,7 @@ def iter_members_list():
 			row[ltyp] = val or None
 		for typ in ID_TYPES:
 			row.setdefault(typ.lower(), None)
-		affil = rec.first("affiliation")
+		affil = person.first("affiliation")
 		if affil:
 			affil = affil.text()
 		row["affiliation"] = affil or None
@@ -104,3 +104,9 @@ def plain_from_viaf(url, dflt=None):
 		counts[text] += 1
 	names = sorted(counts, key=lambda name: counts[name])
 	return names and names.pop() or dflt
+
+if __name__ == "__main__":
+	@config.transaction("texts")
+	def main():
+		make_db()
+	main()

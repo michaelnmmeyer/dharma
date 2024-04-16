@@ -17,6 +17,11 @@ def format_date(when):
 	when_readable = html.escape(when_obj.strftime("%F %R"))
 	return f'<time datetime="{when_detailed}">{when_readable}</time>'
 
+@app.template_filter("format_commit_hash")
+def format_commit_hash(hash):
+	hash = html.escape(hash[:7])
+	return f'<span class="commit-hash">{hash}</span>'
+
 # Global variables accessible from within jinja templates.
 templates_globals = {
 	"code_date": config.CODE_DATE,
@@ -132,10 +137,8 @@ def show_repos():
 @config.transaction("texts")
 def show_people():
 	db = config.db("texts")
-	rows = db.execute("""select inverted_name, dh_id, affiliation,
-		idhal, idref, orcid, viaf, wikidata
-		from people_main where dh_id is not null
-		order by inverted_name""").fetchall()
+	rows = db.execute("""select * from people_display
+		order by inverted_name collate icu""").fetchall()
 	return flask.render_template("people.tpl", rows=rows)
 
 @app.get("/people/<dharma_id>")

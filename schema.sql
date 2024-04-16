@@ -383,4 +383,39 @@ create view if not exists repos_display as
 	group by repos.repo
 	order by repos.title;
 
+create view if not exists people_display as
+	with texts_prod as (
+		select json_each.value as dh_id, count(*) as texts_prod
+		from documents join json_each(documents.editors_ids)
+		group by dh_id
+	), people_langs as (
+		select editors_iter.value as dh_id, langs_iter.value as lang,
+			count(*) as freq
+		from documents
+			join json_each(documents.editors_ids) as editors_iter
+			join json_each(documents.langs) as langs_iter
+		group by dh_id, lang
+	), people_repos as (
+		select editors_iter.value as dh_id, repo, count(*) as freq
+		from documents
+			join json_each(documents.editors_ids) as editors_iter
+		group by dh_id, repo
+	), people_langs_json as (
+		select dh_id,
+			json_group_array(json_array(lang, name, freq)) as langs_prod
+		from people_langs
+			join langs_list on people_langs.lang = langs_list.id
+			group by dh_id order by dh_id, freq, inverted_name
+	), people_repos_json as (
+		select dh_id, json_group_array(json_array(repos.repo, title, freq)) as repos_prod
+		from people_repos
+			join repos on people_repos.repo = repos.repo
+			group by dh_id order by dh_id, freq, repos.repo
+	) select people_main.dh_id as dh_id, inverted_name, affiliation, idhal,
+		idref, orcid, viaf, wikidata, texts_prod, langs_prod, repos_prod
+		from people_main
+			left join texts_prod on people_main.dh_id = texts_prod.dh_id
+			left join people_langs_json on people_main.dh_id = people_langs_json.dh_id
+			left join people_repos_json on people_main.dh_id = people_repos_json.dh_id;
+
 commit;
