@@ -88,6 +88,7 @@ def update():
 	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
 		rec = config.from_json(rec)
 		db.execute("update biblio_data set sort_key = ? where key = ?", (sort_key(rec), key))
+	db.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
 
 anonymous = "No name"
 

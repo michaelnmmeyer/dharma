@@ -28,12 +28,12 @@ create table if not exists metadata(
 	key text primary key,
 	value blob
 );
--- 'last_updated' is a timestamp updated after each transaction in change.py.
+-- 'last_updated' is a timestamp updated after each write transaction.
 -- The value is only meant for display.
 insert or ignore into metadata values('last_updated', 0);
 -- To update the bibliography, we need to pull from zotero.org all records
 -- whose version is > biblio_latest_version. We might already have such items in
--- the db if a request to the Zotero API failed.
+-- the db.
 insert or ignore into metadata values('biblio_latest_version', 0);
 
 -- Repositories description. This is initially filled with repos.tsv. We do
@@ -49,7 +49,7 @@ create table if not exists repos(
 	-- useful for the app.
 	textual boolean check(textual = 0 or textual = 1) default true,
 	-- User-readable name for the repository. Displayed on the website.
-	title text check(title != '') default 'Untitled',
+	title text check(title != ''),
 	-- Latest commit in this repo.
 	commit_hash text check(commit_hash is null or length(commit_hash) = 2 * 20),
 	commit_date timestamp check(commit_date is null or typeof(commit_date) = 'integer'),
@@ -62,10 +62,18 @@ create table if not exists repos(
 -- We need this to trigger the first update in change.py
 insert or ignore into repos(repo) values('project-documentation');
 
--- We store raw xml files in the db. The point is to make it possible to use
--- the main db read-only, without having to clone repos somewhere. Not
--- implemented for now, though. We want to store both texts and other xml
--- files we need to render them (prosody, members).
+-- We store the raw contents of all the files we process in the db.
+--
+-- We do this because it is necessary for preserving transactions' semantics.
+-- If we try to read files from the file system in the server code, we will at
+-- some point read files that are being modified with a git pull from change.py.
+-- To prevent this from happening, all main processes except the change process
+-- should only access files from the db itself, never from the file system.
+--
+-- There is also another motivation: ultimately, we want the app to be able to
+-- run read-only, on a personal computer, without having to clone repos
+-- somewhere and without accessing external services. This is not implemented
+-- for now, though.
 --
 -- The repo name is needed only in the commits table and in the files table.
 -- We reproduce it in other tables only to be able to easily delete everything
@@ -76,12 +84,15 @@ create table if not exists files(
 	path text,
 	-- Value of st_mtime. This is not the last time the file was modified
 	-- in git. We only use it to figure out which files changed after a
-	-- git pull, it is not meant to be displayed.
+	-- git pull, it is not meant to be displayed. We could also store a
+	-- hash of the file, to be able to tell which files actually changed,
+	-- but this seems unnecessary for now.
 	mtime timestamp,
-	-- When the file was last modified according to git.
+	-- When the file was last modified according to git. This is only used
+	-- for display.
 	last_modified timestamp,
 	last_modified_commit text check(length(last_modified_commit) = 2 * 20),
-	-- The data might not be valid UTF-8.
+	-- Raw data, might not be valid UTF-8.
 	data blob,
 	-- To view the file on github:
 	-- https://github.com/erc-dharma/$repo/blob/master/$path
@@ -92,7 +103,8 @@ create table if not exists files(
 );
 
 -- For each file, git names of the people who modified it at some point in time.
--- We thus often have multiple "owners" per file.
+-- We thus often have multiple "owners" per file. In any case, we should have at
+-- least one owner per file.
 create table if not exists owners(
 	name text check(length(name) > 0),
 	git_name text check(length(git_name) > 0),
@@ -129,7 +141,6 @@ create table if not exists people_main(
 -- This is filled with the git names data file. To dump a list of all
 -- contributors:
 -- for repo in repos/*; do git -C $repo log --format="%aN|%aE"; done | sort -u | while IFS='|' read -r name; do grep "^$name"$'\t' repos/project-documentation/DHARMA_gitNames.tsv || echo "$name"; done
--- TODO git names data file not exhaustive
 -- TODO Apparently there is no internal git ids or something to identify
 -- Maybe we should use the tuple (user.name,user.email) as key, or just
 -- user.email? Problem with user.email is that github assigns generated emails.
@@ -139,7 +150,7 @@ create table if not exists people_github(
 	foreign key(dh_id) references people_main(dh_id)
 );
 
--- All texts.
+-- All texts, parsed.
 create table if not exists documents(
 	name text primary key,
 	repo text,

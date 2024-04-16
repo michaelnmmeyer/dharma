@@ -22,6 +22,9 @@ class File:
 		self.repo = repo
 		self.path = path
 
+	def __iter__(self):
+		return iter(self.data.decode().splitlines())
+
 	# Validation status. See the enum in validate.py.
 	@property
 	def status(self):
