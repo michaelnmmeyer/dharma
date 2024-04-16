@@ -261,16 +261,28 @@ def normalize_url(url):
 	# systematically submit them to the Wayback machine.
 
 def numberize(s, n):
-	last_word = s.rsplit(None, 1)[-1].casefold()
+	# Late import to avoid loading this if not necessary.
+	from dharma import english
 	if isinstance(n, str):
 		n = n.isdigit() and int(n) or 0
-	if last_word == "repository":
-		if n == 1:
-			return s
-		return s[:-1] + "ies"
-	elif last_word in ("character", "component", "line", "page", "editor", "text", "link", "syllable", "language"):
-		if n == 1:
-			return s
+	if n == 1:
+		return s
+	chunks = s.rsplit(None, 1)
+	if len(chunks) == 1:
+		head, tail = "", chunks[0]
+	else:
+		head, tail = chunks
+	w = tail.casefold()
+	if w in english.S:
 		return s + "s"
-	print("cannot numberize term %r" % last_word, file=sys.stderr)
-	return s
+	elif w in english.ES:
+		return s + "es"
+	elif w in english.IES:
+		return s[:-1] + "ies"
+	elif w in english.IDENT:
+		return s
+	pl = english.REST.get(w)
+	if not pl:
+		print(f"cannot numberize term {s!r}", file=sys.stderr)
+		return s
+	return head + tail[:1] + pl[1:]
