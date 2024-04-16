@@ -6,9 +6,12 @@ import os, functools, collections
 import requests # pip install requests
 from dharma import config, texts
 
+# Should also store a local copy of files we fetch from the web (e.g. the iso639
+# data), in a cache, wihtin the dame db. this cache would be written to only by
+# change.py, when processing files.
 def fetch_tsv(file):
 	if isinstance(file, texts.File):
-		text = file.data.decode()
+		text = file.text
 	elif file.startswith("/"):
 		with open(url) as f:
 			text = f.read()

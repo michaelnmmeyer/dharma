@@ -22,9 +22,6 @@ class File:
 		self.repo = repo
 		self.path = path
 
-	def __iter__(self):
-		return iter(self.data.decode().splitlines())
-
 	# Validation status. See the enum in validate.py.
 	@property
 	def status(self):
@@ -60,6 +57,10 @@ class File:
 				ret = f.read()
 			setattr(self, "_data", ret)
 		return ret
+
+	@property
+	def text(self):
+		return unicodedata.normalize("NFC", self.data.decode())
 
 	# Git names of the people who modified this file, as a sorted set.
 	# This is used in the debugging page so that people can filter by

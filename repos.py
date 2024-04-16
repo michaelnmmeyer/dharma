@@ -2,7 +2,7 @@ from dharma import config, texts
 
 def iter_repos():
 	f = texts.save("project-documentation", "DHARMA_repositories.tsv")
-	for line_no, line in enumerate(f.data.decode().splitlines(), 1):
+	for line_no, line in enumerate(f.text.splitlines(), 1):
 		fields = [field.strip() for field in line.split("\t")]
 		if line_no == 1:
 			assert len(fields) == 3

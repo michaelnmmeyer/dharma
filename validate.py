@@ -99,8 +99,7 @@ class Validator:
 			val.messages.append(m)
 
 	def sch_error_nodes(self, file):
-		text = file.data.decode()
-		ret = xslt.transform(self.sch_script, text)
+		ret = xslt.transform(self.sch_script, file.text)
 		rep = tree.parse_string(ret)
 		return rep.find("//successful-report") + rep.find("//failed-assert")
 
@@ -120,7 +119,7 @@ class Validator:
 			val.messages.append(m)
 
 	def uni_errors(self, file):
-		return unicode.validate(file.data.decode())
+		return unicode.validate(file.text)
 
 	def uni(self, file, val, xml):
 		ret = self.uni_errors(file)

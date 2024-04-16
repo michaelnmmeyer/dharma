@@ -1,3 +1,24 @@
+https://github.com/erc-dharma/project-documentation/issues/226
+
+within //div[@type='apparatus']:
+  lemmas and readings are in the corresponding language of the edition
+  div or textpart; we might not be able to determine the language, in this
+  case set it to null or sth
+
+    app/lem
+    app/rdg
+
+    app/note inherits, but untagged foreign here have the matching language in div ed.
+
+//foreign[not @lang], when occurring within a modern context, is in the language of the matching portion in div[@type='edition']
+
+all this supposes that we know which languages are modern and which are not
+
+
+also have "zxx" for "not a language"
+
+
+
 =================
 
 pour languages dans display, tous ceux de div type=edition + écrfiture
@@ -18,18 +39,13 @@ rm dipled schema, use ins schema for this.
 
 ## Refactoring
 
-open/close read transactions automatically for each server request; won't cost
-much and is simpler to maintain.
 
-# https://serverfault.com/questions/636790/nginx-log-complete-request-response-with-all-headers
-Should also store a local copy of files we fetch from the web (e.g. the iso 639
-data), in a cache, wihtin the dame db. this cache would be written to only by
-change.py, when processing files.
-
-XXX we must do NFC normalization at some point; when? not before storing the
-file in the db (might need the original later on for e.g. hashing), we can
-either do normalization on-the-fly or store a copy of the normalized text in
-documents.
+we must do NFC normalization at some point; when? not before storing the
+file in the db (might need the original later on for e.g. hashing); simplest
+would be to do that just before parsing the file, but this will mess up
+columns numbers. still should do it, because we don't refer to columns for
+now and because all string comparisons will be messed up. do the final
+normalization step (new lines, etc.) when outputting documents.
 
 shouldn't store separately the app from all the data files, because we need the
 data files to be present to do anything with the db. the app code is useless
@@ -40,6 +56,7 @@ data files _but not the code_?
 
 in fact we have 2 build levels: fetch files from the fs, and parse the
 documents. should do the minimum whenever possible.
+
 
 
 ## Validation

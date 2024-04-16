@@ -54,7 +54,7 @@ def make_db():
 			values(:name, :dh_id, :affiliation, :idhal, :idref, :orcid, :viaf, :wikidata)""", row)
 	f = texts.save("project-documentation", "DHARMA_gitNames.tsv")
 	seen = set()
-	for line_no, line in enumerate(f.data.decode().splitlines(), 1):
+	for line_no, line in enumerate(f.text.splitlines(), 1):
 		if line_no == 1:
 			continue
 		fields = [f.strip() for f in line.split("\t")]

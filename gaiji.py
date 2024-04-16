@@ -4,7 +4,7 @@ from dharma import config, texts
 def iter_rows():
 	f = texts.save("project-documentation", "gaiji/DHARMA_gaiji.tsv")
 	field_names = None
-	for line_no, line in enumerate(f.data.decode().splitlines(), 1):
+	for line_no, line in enumerate(f.text.splitlines(), 1):
 		fields = [f.strip() for f in line.split("\t")]
 		if line_no == 1:
 			assert len(fields) == 3, fields
