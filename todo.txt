@@ -1,18 +1,39 @@
 https://github.com/erc-dharma/project-documentation/issues/226
 
-within //div[@type='apparatus']:
-  lemmas and readings are in the corresponding language of the edition
-  div or textpart; we might not be able to determine the language, in this
-  case set it to null or sth
 
-    app/lem
-    app/rdg
 
-    app/note inherits, but untagged foreign here have the matching language in div ed.
+in //div[@type='apparatus'], //app/lem and //app/rdg
 
-//foreign[not @lang], when occurring within a modern context, is in the language of the matching portion in div[@type='edition']
+  if they do not bear an explicit xml:lang,
+  they are in the language of the matching edition div, textpart or not;
+  we might not be able to determine the language if textparts don't match,
+  in this case set the language to "und"
 
-all this supposes that we know which languages are modern and which are not
+  and add err message to the div[@type='edition'] node that says :
+    "cannot determine the la"
+
+
+
+//foreign[not @lang], wherever it occurs
+
+  is assumed to refer to the language of the matching edition textpart or
+  of the edition; treated as an error if the inferred language would be the same
+  as the one of its parent element
+
+  matching textparts is only for translation and apparatus, where textparts are
+  expected; for commentary and biblio, where no matching texparts are expected,
+  we expect the language of //div[@type='edition'] to be set.
+
+
+in practice, start by identifying languages in div edition,
+then process the remainder of the doc (teiHeader included).
+
+we still need to know which languages are edition languages and which are not,
+because:
+1. some languages that we'd like to index might not appear at all in div edition.
+2. within div edition, we cannot tell whether an explicit language is an ed language
+   or not
+so we need a field in langs file.
 
 
 also have "zxx" for "not a language"
