@@ -429,18 +429,26 @@
                 </elementSpec>
                 <elementSpec ident="div" mode="change" module="textstructure">
                     <constraintSpec scheme="isoschematron" ident="div">
-                        <constraint><sch:rule context="tei:div"><sch:report
-                                    test="./@type != 'textpart' and parent::tei:div and @type!=parent::tei:div/@type"
-                                    > Divs other than @type=textpart may not nest in divs of
-                                    different @type </sch:report><sch:report
-                                    test="count(tei:div[@type='textpart'][parent::tei:div/@type='edition']) eq 1"
-                                    > At least two divs @type=textpart are expected in the
-                                    edition</sch:report><sch:report
-                                    test="@type='translation' and @resp and @source">@resp and
-                                    @source can not be used together</sch:report><sch:report
-                                    test="@type='translation' and not(@resp or @source)">@resp or
-                                    @source is expected for
-                                div[@type='translation']</sch:report></sch:rule></constraint>
+                        <constraint>
+                            <sch:rule context="tei:div">
+                                <sch:report test="./@type != 'textpart' and parent::tei:div and @type!=parent::tei:div/@type">
+                                    Divs other than @type=textpart may not nest in divs of
+                                    different @type
+                                </sch:report>
+                                <sch:report test="count(tei:div[@type='textpart'][parent::tei:div/@type='edition']) eq 1">
+                                    At least two divs @type=textpart are expected in the edition
+                                </sch:report>
+                                <sch:report test="@type='translation' and @resp and @source">
+                                    @resp and @source can not be used together
+                                </sch:report>
+                                <sch:report test="@type='translation' and not(@resp or @source)">
+                                    @resp or @source is expected for div[@type='translation']
+                                </sch:report>
+                                <sch:report test="@type='textpart' and ancestor::tei:div[@type='textpart']">
+                                    div[@type='textpart'] must not nest
+                                </sch:report>
+                            </sch:rule>
+                        </constraint>
                     </constraintSpec>
                     <attList>
                         <attDef ident="type" mode="change" usage="req">
@@ -3798,7 +3806,8 @@
                             <sch:rule context="tei:placeName[@type='undetermined']">
                                 <sch:assert test="not(@subtype)">@subtype isn't allowed with
                                     @type='undetermined'</sch:assert>
-                            </sch:rule></constraint>
+                            </sch:rule>
+                        </constraint>
                     </constraintSpec>
                     <attList>
                         <attDef ident="ana" mode="delete"/>

@@ -12684,12 +12684,26 @@ TEI namespace <code>http://www.tei-c.org/ns/1.0</code> on it, using
     corps d’un texte ou dans le texte postliminaire.</desc><desc versionDate="2017-06-13" xml:lang="de">enthält einen Unterabschnitt in Vorspann (front), Textkörper oder Nachspann (back) eines Textes.</desc><desc versionDate="2007-05-04" xml:lang="es">contiene una subdivisión del paratexto inicial, del
     cuerpo del texto o del paratexto final.</desc><desc versionDate="2007-01-21" xml:lang="it">contiene una suddivisione del peritesto iniziale, del
     corpo del testo, o del peritesto finale</desc><classes><memberOf key="att.global"/><memberOf key="att.divLike"/><memberOf key="att.typed"/><memberOf key="att.declaring"/><memberOf key="att.written"/><memberOf key="model.divLike"/></classes><content><sequence minOccurs="1" maxOccurs="1"><alternate minOccurs="0" maxOccurs="unbounded"><classRef key="model.divTop"/><classRef key="model.global"/></alternate><sequence minOccurs="0" maxOccurs="1"><alternate minOccurs="1" maxOccurs="1"><sequence minOccurs="1" maxOccurs="unbounded"><alternate minOccurs="1" maxOccurs="1"><classRef key="model.divLike"/><classRef key="model.divGenLike"/></alternate><classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/></sequence><sequence minOccurs="1" maxOccurs="1"><sequence minOccurs="1" maxOccurs="unbounded"><classRef key="model.common"/><classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/></sequence><sequence minOccurs="0" maxOccurs="unbounded"><alternate minOccurs="1" maxOccurs="1"><classRef key="model.divLike"/><classRef key="model.divGenLike"/></alternate><classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/></sequence></sequence></alternate><sequence minOccurs="0" maxOccurs="unbounded"><classRef key="model.divBottom"/><classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/></sequence></sequence></sequence></content><constraintSpec scheme="isoschematron" ident="div">
-                        <constraint><sch:rule context="tei:div"><sch:report test="./@type != 'textpart' and parent::tei:div and @type!=parent::tei:div/@type"> Divs other than @type=textpart may not nest in divs of
-                                    different @type </sch:report><sch:report test="count(tei:div[@type='textpart'][parent::tei:div/@type='edition']) eq 1"> At least two divs @type=textpart are expected in the
-                                    edition</sch:report><sch:report test="@type='translation' and @resp and @source">@resp and
-                                    @source can not be used together</sch:report><sch:report test="@type='translation' and not(@resp or @source)">@resp or
-                                    @source is expected for
-                                div[@type='translation']</sch:report></sch:rule></constraint>
+                        <constraint>
+                            <sch:rule context="tei:div">
+                                <sch:report test="./@type != 'textpart' and parent::tei:div and @type!=parent::tei:div/@type">
+                                    Divs other than @type=textpart may not nest in divs of
+                                    different @type
+                                </sch:report>
+                                <sch:report test="count(tei:div[@type='textpart'][parent::tei:div/@type='edition']) eq 1">
+                                    At least two divs @type=textpart are expected in the edition
+                                </sch:report>
+                                <sch:report test="@type='translation' and @resp and @source">
+                                    @resp and @source can not be used together
+                                </sch:report>
+                                <sch:report test="@type='translation' and not(@resp or @source)">
+                                    @resp or @source is expected for div[@type='translation']
+                                </sch:report>
+                                <sch:report test="@type='textpart' and ancestor::tei:div[@type='textpart']">
+                                    div[@type='textpart'] must not nest
+                                </sch:report>
+                            </sch:rule>
+                        </constraint>
                     </constraintSpec><constraintSpec ident="abstractModel-structure-l" scheme="schematron">
     <constraint>
       <report xmlns="http://purl.oclc.org/dsdl/schematron" test="ancestor::tei:l">
@@ -15736,7 +15750,8 @@ Thomas Gale and his son Roger.</p>
                             <sch:rule context="tei:placeName[@type='undetermined']">
                                 <sch:assert test="not(@subtype)">@subtype isn't allowed with
                                     @type='undetermined'</sch:assert>
-                            </sch:rule></constraint>
+                            </sch:rule>
+                        </constraint>
                     </constraintSpec><attList><attDef ident="ana" mode="delete"/><attDef ident="calendar" mode="delete"/><attDef ident="change" mode="delete"/><attDef ident="copyOf" mode="delete"/><attDef ident="corresp" mode="delete"/><attDef ident="datingMethod" mode="delete"/><attDef ident="datingPoint" mode="delete"/><attDef ident="evidence" mode="delete"/><attDef ident="exclude" mode="delete"/><attDef ident="facs" mode="delete"/><attDef ident="from" mode="delete"/><attDef ident="from-custom" mode="delete"/><attDef ident="from-iso" mode="delete"/><attDef ident="full" mode="delete"/><attDef ident="instant" mode="delete"/><attDef ident="n" mode="delete"/><attDef ident="next" mode="delete"/><attDef ident="prev" mode="delete"/><attDef ident="notAfter" mode="delete"/><attDef ident="notAfter-custom" mode="delete"/><attDef ident="notAfter-iso" mode="delete"/><attDef ident="notBefore" mode="delete"/><attDef ident="notBefore-custom" mode="delete"/><attDef ident="notBefore-iso" mode="delete"/><attDef ident="nymRef" mode="delete"/><attDef ident="period" mode="delete"/><attDef ident="rend" mode="delete"/><attDef ident="rendition" mode="delete"/><attDef ident="resp" mode="delete"/><attDef ident="role" mode="delete"/><attDef ident="sameAs" mode="delete"/><attDef ident="select" mode="delete"/><attDef ident="sort" mode="delete"/><attDef ident="source" mode="delete"/><attDef ident="style" mode="delete"/><attDef ident="synch" mode="delete"/><attDef ident="to" mode="delete"/><attDef ident="to-custom" mode="delete"/><attDef ident="to-iso" mode="delete"/><attDef ident="when" mode="delete"/><attDef ident="when-custom" mode="delete"/><attDef ident="when-iso" mode="delete"/><attDef ident="xml:base" mode="delete"/><attDef ident="xml:lang" mode="delete"/><attDef ident="xml:space" mode="delete"/><attDef ident="type" mode="change">
                             <valList type="open" mode="change">
                                 <valItem ident="region"/>

@@ -1612,8 +1612,10 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text> Divs other than @type=textpart may not nest in divs of
-                                    different @type </svrl:text>
+            <svrl:text>
+                                    Divs other than @type=textpart may not nest in divs of
+                                    different @type
+                                </svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -1623,8 +1625,9 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text> At least two divs @type=textpart are expected in the
-                                    edition</svrl:text>
+            <svrl:text>
+                                    At least two divs @type=textpart are expected in the edition
+                                </svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -1634,8 +1637,9 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>@resp and
-                                    @source can not be used together</svrl:text>
+            <svrl:text>
+                                    @resp and @source can not be used together
+                                </svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -1645,9 +1649,21 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>@resp or
-                                    @source is expected for
-                                div[@type='translation']</svrl:text>
+            <svrl:text>
+                                    @resp or @source is expected for div[@type='translation']
+                                </svrl:text>
+         </svrl:successful-report>
+      </xsl:if>
+      <!--REPORT -->
+      <xsl:if test="@type='textpart' and ancestor::tei:div[@type='textpart']">
+         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                 test="@type='textpart' and ancestor::tei:div[@type='textpart']">
+            <xsl:attribute name="location">
+               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+            </xsl:attribute>
+            <svrl:text>
+                                    div[@type='textpart'] must not nest
+                                </svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <xsl:apply-templates select="*" mode="M33"/>
