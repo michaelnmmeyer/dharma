@@ -118,6 +118,8 @@ def parse(file, path=None):
 
 class Node:
 
+	lang = None
+
 	@property
 	def tree(self):
 		'''The `Tree` this node belongs to. If the node is a `Tree`,
@@ -156,6 +158,12 @@ class Node:
 			self._parent = ret
 			list.append(ret, self)
 		return ret
+
+	def add_error(self, message):
+		errors = getattr(self, "errors", None)
+		if not errors:
+			setattr(self, "errors", [])
+		self.errors.append(message)
 
 	@property
 	def path(self):
@@ -364,10 +372,6 @@ class Node:
 		node will not be removed from the tree.'''
 		pass
 
-	@property
-	def lang(self):
-		return self.parent.lang
-
 class Branch(Node, list):
 	'''Base class for non-leaf nodes viz. `Tree` nodes and `Tag` nodes.
 
@@ -547,10 +551,6 @@ class Tree(Branch):
 		return self._file
 
 	@property
-	def lang(self):
-		return "eng"
-
-	@property
 	def root(self):
 		ret = None
 		for node in self:
@@ -675,37 +675,6 @@ class Tag(Branch):
 
 	def items(self):
 		return self.attrs.items()
-
-	@property
-	def lang(self):
-		'''Language of this node.
-
-		Processing top-down:
-		* if we meet a note tag, set the language to the latest
-		encountered european language
-		* if we meet a foreign tag that has no @lang, toggle the
-		language between european and other
-		'''
-		nodes = reversed(list((ancestors_or_self(self))))
-		edition_lang = "san"
-		translation_lang = "eng"
-		lang = translation_lang
-		next(nodes) # Skip the Tree node.
-		for node in nodes:
-			have = node["lang"]
-			if have:
-				if config.is_asian(have):
-					edition_lang = lang = have
-				else:
-					translation_lang = lang = have
-			elif node.name == "foreign":
-				if lang == edition_lang:
-					lang = translation_lang
-				else:
-					lang = edition_lang
-			elif node.name == "note":
-				lang = translation_lang
-		return lang
 
 	def __repr__(self):
 		ret = f"<{self.name}"
@@ -853,10 +822,6 @@ class Comment(Node, collections.UserString):
 	def __str__(self):
 		return self.xml()
 
-	@property
-	def lang(self):
-		return "eng"
-
 	def copy(self):
 		return Comment(self.data)
 
@@ -876,10 +841,6 @@ class Instruction(Node):
 
 	def __repr__(self):
 		return self.xml()
-
-	@property
-	def lang(self):
-		return "eng"
 
 	def copy(self):
 		return Instruction(self.target, self.data)

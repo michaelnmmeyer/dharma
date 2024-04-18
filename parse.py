@@ -373,7 +373,7 @@ def milestone_n(p, node):
 		n = "?"
 	n = n.replace("_", " ")
 	if not p.add_n(n):
-		node.bad("@n is not unique")
+		node.add_error("@n is not unique")
 	return n
 
 def milestone_break(node):

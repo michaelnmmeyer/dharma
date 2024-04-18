@@ -2,9 +2,98 @@
 # For ISO 639-5 (language families), the authority is
 # https://www.loc.gov/standards/iso639-5/index.html
 
-import os, functools, collections
+import os, sys, functools, collections
 import requests # pip install requests
-from dharma import config, texts
+from dharma import config, texts, tree
+
+AltLang = collections.namedtuple("AltLang", "lang children")
+
+def alloc_lang(ctx, lang, dflt):
+	if not lang:
+		return dflt
+	ret = ctx.get(lang)
+	if not ret:
+		tmp = Language(lang)
+		ret = ctx.get(tmp.id)
+		if not ret:
+			ret = tmp
+			ctx[ret.id] = ret
+	return ret
+
+def fetch_alt_langs(ctx, node):
+	path = ["TEI", "text", "body", "div[@type='edition']"]
+	lang = DEFAULT_LANG
+	for name in path:
+		node = node.first(name)
+		if not node:
+			return AltLang(lang, {})
+		lang = alloc_lang(ctx, node["lang"], lang)
+	final = AltLang(lang, {})
+	stack = [(node, final)]
+	while stack:
+		node, struct = stack.pop()
+		for child in node.children():
+			if child.name == "div" and child["type"] == "textpart" and child["n"]:
+				n = child["n"]
+				lang = alloc_lang(ctx, child["lang"], struct.lang)
+				child_struct = AltLang(lang, {})
+				struct.children[n] = child_struct
+				stack.append((child, child_struct))
+	return final
+
+def wait_div(ctx, node, parent_lang, alt_lang, f):
+	assert f is wait_div
+	if node.name == "div":
+		if node["type"] in ("edition", "apparatus", "translation", "commentary"):
+			f = wait_textpart
+		else:
+			f = assign_language
+	assign_language(ctx, node, parent_lang, alt_lang, f)
+
+def wait_textpart(ctx, node, parent_lang, alt_lang, f):
+	assert f is wait_textpart
+	if node.name == "div" and node["type"] == "textpart" and node["n"]:
+		n = node["n"]
+		child_lang = alt_lang.children.get(n)
+		if not child_lang:
+			child_lang = AltLang(alt_lang.lang, {})
+			alt_lang.children[n] = child_lang
+		alt_lang = child_lang
+	else:
+		f = assign_language
+	assign_language(ctx, node, parent_lang, alt_lang, f)
+
+def assign_language(ctx, node, parent_lang, alt_lang, f):
+	match node.name:
+		case "lem" | "rdg":
+			lang = alloc_lang(ctx, node["lang"], alt_lang.lang)
+		case "foreign":
+			lang = alloc_lang(ctx, node["lang"], alt_lang.lang)
+			if lang == parent_lang:
+				node.add_error(f'''Element "foreign" is in language {lang!r}, which is the same as its parent element. You might have forgotten to add an @xml:lang to div[@type='edition'] or its children text div[@type='textpart']. You might also need to add an explicit @xml:lang to this "foreign" element.''')
+		case "g":
+			node.lang = alloc_lang(ctx, node["lang"], parent_lang)
+			return
+		case _:
+			lang = alloc_lang(ctx, node["lang"], parent_lang)
+	langs = set()
+	for child in node:
+		match child:
+			case tree.String() if not child.isspace():
+				child.lang = lang
+			case tree.Tag():
+				f(ctx, child, lang, alt_lang, f)
+			case _:
+				continue
+		langs.add(child.lang)
+	if len(langs) == 1:
+		lang = langs.pop()
+	node.lang = lang
+
+def assign_languages(t):
+	ctx = {}
+	alt_lang = fetch_alt_langs(ctx, t)
+	wait_div(ctx, t.root, DEFAULT_LANG, alt_lang, wait_div)
 
 # Should also store a local copy of files we fetch from the web (e.g. the iso639
 # data), in a cache, wihtin the dame db. this cache would be written to only by
@@ -158,6 +247,8 @@ class Language:
 	def __eq__(self, other):
 		return self.inverted_name == other.inverted_name
 
+DEFAULT_LANG = Language("eng")
+
 def make_db():
 	db = config.db("texts")
 	recs, index = load_data()
@@ -174,3 +265,13 @@ def make_db():
 			(rec["id"], config.normalize_text(rec["name"])))
 	for code, rec in sorted(index.items()):
 		db.execute("insert into langs_by_code(code, id) values(?, ?)", (code, rec["id"]))
+
+@config.transaction("texts")
+def main():
+	t = tree.parse(sys.stdin)
+	assign_languages(t)
+	for node in t.find("//*"):
+		print(node.path, node.lang, node)
+
+if __name__ == "__main__":
+	main()
