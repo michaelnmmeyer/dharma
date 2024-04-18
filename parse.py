@@ -129,6 +129,10 @@ class Parser:
 		print("UNKNOWN %s" % msg)
 		pass
 
+def parse_languages(t):
+	pass #//div[@type='edition']
+
+
 @handler("lem")
 def parse_lem(p, lem):
 	p.dispatch_children(lem)

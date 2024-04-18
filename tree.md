@@ -80,7 +80,7 @@ if possible.
 ## Node Objects
 
 ```python
-class Node(object)
+class Node()
 ```
 
 <a id="dharma.tree.Node.tree"></a>
@@ -138,6 +138,18 @@ def path()
 ```
 
 The path of this node. See the `locate` method.
+
+<a id="dharma.tree.Node.mixed"></a>
+
+#### mixed
+
+```python
+@property
+def mixed()
+```
+
+Whether this node has both `Tag` and non-blank `String`
+children. This can only be called on `Branch` nodes.
 
 <a id="dharma.tree.Node.source"></a>
 

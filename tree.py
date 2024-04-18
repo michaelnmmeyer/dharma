@@ -116,7 +116,7 @@ def parse(file, path=None):
 			path = os.path.abspath(file)
 	return parse_string(source, path=path)
 
-class Node(object):
+class Node:
 
 	@property
 	def tree(self):
@@ -161,6 +161,12 @@ class Node(object):
 	def path(self):
 		"The path of this node. See the `locate` method."
 		raise NotImplementedError
+
+	@property
+	def mixed(self):
+		'''Whether this node has both `Tag` and non-blank `String`
+		children. This can only be called on `Branch` nodes.'''
+		raise Exception("invalid operation")
 
 	def __hash__(self):
 		return id(self)
@@ -455,6 +461,21 @@ class Branch(Node, list):
 			if isinstance(node, Tag):
 				ret.append(node)
 		return ret
+
+	@property
+	def mixed(self):
+		has_string = has_tag = False
+		for node in self:
+			match node:
+				case Tag():
+					if has_string:
+						return True
+					has_tag = True
+				case String() if not node.isspace():
+					if has_tag:
+						return True
+					has_string = True
+		return False
 
 	# Remove the given child node
 	def remove(self, node):
@@ -1029,9 +1050,14 @@ def xpath_lang(node):
 	assert isinstance(node, Node)
 	return node.lang
 
+def xpath_mixed(node):
+	assert isinstance(node, Node)
+	return node.mixed
+
 xpath_funcs = {
 	"glob": xpath_glob,
 	"lang": xpath_lang,
+	"mixed": xpath_mixed,
 }
 
 def children(node):

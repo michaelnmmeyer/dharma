@@ -1,44 +1,70 @@
 https://github.com/erc-dharma/project-documentation/issues/226
 
 
+within //div[@type='edition'], complain if //note does not bear a @lang.
 
 in //div[@type='apparatus'], //app/lem and //app/rdg
 
   if they do not bear an explicit xml:lang,
   they are in the language of the matching edition div, textpart or not;
   we might not be able to determine the language if textparts don't match,
-  in this case set the language to "und"
+  in this case set their language to "und".
 
-  and add err message to the div[@type='edition'] node that says :
-    "cannot determine the la"
-
-
+  no need to add error messages in this case, testing should be done at the time
+  of parsing the div edition, which should be completely covered, language-wise.
 
 //foreign[not @lang], wherever it occurs
 
   is assumed to refer to the language of the matching edition textpart or
-  of the edition; treated as an error if the inferred language would be the same
-  as the one of its parent element
+  of the edition div; treated as an error if the inferred language would be the same
+  as the one of its parent element (except for "und", which can nest, so that we don't get error messages in templates)
 
-  matching textparts is only for translation and apparatus, where textparts are
-  expected; for commentary and biblio, where no matching texparts are expected,
-  we expect the language of //div[@type='edition'] to be set.
+  matching textparts is only for edition, and apparatus, where textparts are
+  expected, possibly for translation too.
 
+  outside of div edition/translation/apparatus, where no matching texparts are expected,
+  we expect the language of //div[@type='edition'] to be set; if not, add to the
+  div ed a message that says:
 
-in practice, start by identifying languages in div edition,
+    "you need to specify a xml:lang here, or to add an explicit @lang to all "foreign" elements outside of
+    div edition/translation/apparatus
+
+in practice, start by identifying languages in div edition anbd get a map
+@n -> @lang
+
 then process the remainder of the doc (teiHeader included).
+
+
+to assign languages with a .lang thing, should only do this to leaf nodes that
+represent strings, thus <g> and strings and <fw>, a priori; and make sure to
+leave out <note>s when processing the edition.
+
+for search, we should assume that a paragraph, etc. with <foreign> should still be
+treated as a whole.
+
+for the edition, we should compute a percentage of language use. take as unit
+a grapheme cluster and ignore blank space; maybe omit punctuation too. instead
+of storing this percentage, would be better to save the length of each portion,
+and only at query time compute a percentage.
+
+
+
+
 
 we still need to know which languages are edition languages and which are not,
 because:
 1. some languages that we'd like to index might not appear at all in div edition.
 2. within div edition, we cannot tell whether an explicit language is an ed language
    or not
-so we need a field in langs file.
+so we need a field in langs file that tells us whether the lang should appear in aggregations
+(text metadata, lang stats, within repos stats, etc.) otherwise we never show it, but we still make it searchable.
 
 
 also have "zxx" for "not a language"
 
+================
 
+<note type="credit"> in egd, not supported
 
 =================
 
