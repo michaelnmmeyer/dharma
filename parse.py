@@ -270,7 +270,7 @@ supplied_tbl = {
 	"omitted": ("⟨⟩", "Omitted text"),
 	# EGD under "Marking up restored text" says that "undefined" is used when it's not possible
 	# to tell whether we have "lost" or "omitted"
-	"undefined": ("[]", "Lost or omitted text") # manu: trouver autre texte pour infobulle
+	"undefined": ("[]", "Text supplied for undefined reason (lost or omitted)")
 }
 # OK
 @handler("supplied")
