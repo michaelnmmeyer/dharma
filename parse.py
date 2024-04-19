@@ -241,7 +241,7 @@ def parse_num(p, num):
 # back to a generic one.
 @handler("supplied[@reason='subaudible']")
 def parse_supplied_subaudible(p, supplied):
-	if config.is_asian(supplied.lang):
+	if supplied.lang.is_source:
 		text = supplied.text()
 		if text in "'’":
 			tip = "<i>Avagraha</i> added by the editor to clarify the interpretation"
@@ -1306,8 +1306,18 @@ def parse_body(p, body):
 		else:
 			assert 0
 
-def process_file(path, data):
-	t = tree.parse_string(data, path=path)
+def process_file(file):
+	try:
+		t = tree.parse_string(file.data, path=file.full_path)
+	except tree.Error as e:
+		print("catalog: %r %s" % (file.full_path, e), file=sys.stderr)
+		doc = document.Document()
+		doc.valid = False
+		doc.repository = file.repo
+		doc.ident = file.name
+		doc.langs = [langs.Language("und")]
+		return doc
+	langs.assign_languages(t)
 	f = t.first("//teiHeader/encodingDesc")
 	if f:
 		f.delete()
@@ -1323,16 +1333,21 @@ def process_file(path, data):
 	if body:
 		p.document.xml = tree.html_format(t)
 	db = config.db("texts")
-	langs = set()
+	all_langs = set()
 	for node in t.find("//*"):
-		if not "lang" in node.attrs:
-			continue
-		lang = node["lang"]
-		(code,) = db.execute("select id from langs_by_code where code = ?", (lang,)).fetchone() or ("und",)
-		langs.add(code)
-	if not langs:
-		langs.add("und")
-	p.document.langs = sorted(langs)
+		all_langs.add(node.lang)
+	if not all_langs:
+		all_langs.add(langs.Undetermined)
+	p.document.langs = sorted(all_langs)
+	ed_langs = set()
+	for node in t.find("//div[@type='edition']/descendant-or-self::*"):
+		if node.lang.is_source:
+			ed_langs.add(node.lang)
+	if not ed_langs:
+		ed_langs.add(langs.Undetermined)
+	p.document.edition_langs = sorted(ed_langs)
+	print(p.document.edition_langs)
+	p.document.repository = file.repo
 	return p.document
 
 def export_plain():
@@ -1346,7 +1361,7 @@ def export_plain():
 		""", (config.path_of("repos"),)):
 		print(path)
 		try:
-			ret = renderer.render(process_file(path, data))
+			ret = renderer.render(process_file(path, data)) # XXX needs change
 		except tree.Error:
 			continue
 		out_file = os.path.join(out_dir, name + ".txt")
@@ -1357,7 +1372,7 @@ if __name__ == "__main__":
 	path = sys.argv[1]
 	data = open(path, "rb").read()
 	try:
-		doc = process_file(path, data)
+		doc = process_file(path, data) # XXX needs change
 		print(doc.apparatus)
 	except BrokenPipeError:
 		pass

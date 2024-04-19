@@ -37,50 +37,9 @@ def delete(name):
 	db.execute("delete from documents_index where name = ?", (name,))
 	db.execute("delete from documents where name = ?", (name,))
 
-def gather_languages(t):
-	db = config.db("texts")
-	ret = set()
-	for node in t.find("//div[@type='edition']/descendant-or-self::*"):
-		lang = node["lang"]
-		if lang:
-			ret.add(lang)
-	if not ret:
-		ret.add("und")
-	final = set()
-	for lang in ret:
-		lang = langs.Language(lang)
-		if config.is_asian(lang.id):
-			final.add(lang)
-	return sorted(final)
-
-def process_file(file):
-	# XXX move all this to parse; parse should return a full document;
-	print(file.full_path)
-	db = config.db("texts")
-	try:
-		t = tree.parse_string(file.data, path=file.full_path)
-	except tree.Error as e:
-		print("catalog: %r %s" % (file.full_path, e), file=sys.stderr)
-		doc = document.Document()
-		doc.repository = file.repo
-		doc.ident = file.name
-		doc.langs = [langs.Language("und")]
-		return doc
-	ret = gather_languages(t)
-	# Delete <body> so that we don't process the whole file.
-	node = t.first("//body")
-	if node is not None:
-		node.delete()
-	p = parse.Parser(t)
-	p.document.langs = ret
-	print(p.document.langs)
-	p.document.repository = file.repo
-	p.dispatch(p.tree.root)
-	return p.document
-
 def insert(file):
 	db = config.db("texts")
-	doc = process_file(file)
+	doc = parse.process_file(file)
 	for key in ("title", "author", "editors", "summary"):
 		val = getattr(doc, key, None)
 		if val is None:
@@ -97,7 +56,7 @@ def insert(file):
 		values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
 			doc.title.render_logical() or None, doc.author.render_logical(), fmt_editors,
 			doc.editors_ids,
-			[lang.id for lang in doc.langs], doc.summary.render_logical(),
+			[lang.id for lang in doc.edition_langs], doc.summary.render_logical(),
 			file.html, file.status))
 	# No primary key on documents_index, so we cannot use "insert or replace"
 	db.execute("delete from documents_index where name = ?", (doc.ident,))
@@ -109,7 +68,7 @@ def insert(file):
 		doc.repository.lower(), doc.title.searchable_text(), doc.author.searchable_text(),
 		doc.editors and doc.editors.searchable_text() or "",
 		doc.editors_ids and "|||".join(doc.editors_ids) or "",
-		"---".join(lang.id for lang in doc.langs),
+		"---".join(lang.id for lang in doc.edition_langs),
 		doc.summary.searchable_text()))
 
 # Rebuild the full catalog with the data already present in the db.

@@ -1,14 +1,23 @@
-from dharma import tree, parse, config
+from dharma import tree, parse, config, langs
 import bs4
 
+tpl = """
+<TEI>
+<text><body>
+<div type="edition" xml:lang="eng">
+{context}
+</div>
+</body></text>
+</TEI>
+"""
+
 def parse_xml(cell):
-	t = tree.parse_string(f"<x>{cell}</x>", path="whatever")
-	html = tree.html_format(t.first("//x"), skip_root=True)
+	t = tree.parse_string(tpl.format(context=cell), path="whatever")
+	langs.assign_languages(t)
+	html = tree.html_format(t.first("//div[@type='edition']"), skip_root=True)
 	p = parse.Parser(t)
-	p.divs.append(set())
-	p.push("block")
 	p.dispatch_children(t.root)
-	ret = p.pop()
+	ret = p.document.edition
 	return ret, html
 
 class Item:

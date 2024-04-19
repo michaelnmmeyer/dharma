@@ -1,34 +1,3 @@
-to assign languages with a .lang child_retthing, should only do this to leaf nodes that
-represent strings, thus <g> (not its contents!) and strings, a priori; and make sure to
-leave out <note>s when processing the edition.
-
-for search, we should assume that a paragraph, etc. with <foreign> should still be
-treated as a whole; more generally, lang of inline elements should not affect
-the one of their block container.
-
-for the edition, we should compute a percentage of language use. take as unit
-a grapheme cluster and ignore space; maybe omit punctuation too. treat <g> as a
-grapheme cluster. instead
-of storing this percentage, would be better to save the length of each portion,
-in a json and only at query time compute a percentage.
-
-
-
-
-
-we still need to know which languages are edition languages and which are not,
-because:
-1. some languages that we'd like to index might not appear at all in div edition.
-2. within div edition, we cannot tell whether an explicit language is an ed language
-   or not
-so we need a field in langs file that tells us whether the lang should appear in aggregations
-(text metadata, lang stats, within repos stats, etc.) otherwise we never show it, but we still make it searchable.
-
-
-also have "zxx" for "not a language"
-
-================
-
 <note type="credit"> in egd, not supported
 
 =================

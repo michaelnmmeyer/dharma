@@ -120,6 +120,10 @@ class Node:
 
 	lang = None
 
+	def __init__(self, *args, **kwargs):
+		self.errors = []
+		super().__init__(*args, **kwargs)
+
 	@property
 	def tree(self):
 		'''The `Tree` this node belongs to. If the node is a `Tree`,
@@ -537,14 +541,14 @@ class Tree(Branch):
 
 	location = None
 
-	def __init__(self):
-		# Prevent initialization with an iterator, because in `Tag`
-		# we do not allows this either.
-		pass
-
 	parent = None
 
 	_file = None
+
+	def __init__(self):
+		# Prevent initializing this with an iterator, because we don't
+		# do this in Tag.
+		super().__init__()
 
 	@property
 	def file(self):
@@ -645,6 +649,7 @@ class Tag(Branch):
 				self[key] = value
 		for key, value in attributes.items():
 			self[key] = value
+		super().__init__()
 
 	def __hash__(self):
 		return id(self)
@@ -835,6 +840,7 @@ class Instruction(Node):
 	def __init__(self, target, data):
 		self.target = target
 		self.data = data
+		super().__init__()
 
 	def __str__(self):
 		return self.xml()

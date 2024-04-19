@@ -43,9 +43,9 @@ Identifier: <span class="text-id">{{text}}</span>.
 <p>Summary: {{doc.summary.render_logical() | safe}}</p>
 % endif
 
-% if doc.edition_main_langs:
-<p>Languages:
-   % for lang in doc.edition_main_langs:
+% if doc.edition_langs:
+<p>{{numberize("Language", len(doc.edition_langs))}}:
+   % for lang in doc.edition_langs:
       % if loop.index < loop.length:
          {{lang}},
       % else:

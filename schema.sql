@@ -25,8 +25,8 @@ pragma secure_delete = off;
 begin;
 
 create table if not exists metadata(
-	key text primary key,
-	value blob
+	key text primary key check(typeof(key) = 'text'),
+	value any
 );
 -- 'last_updated' is a timestamp updated after each write transaction.
 -- The value is only meant for display.
@@ -41,26 +41,31 @@ insert or ignore into metadata values('biblio_latest_version', 0);
 -- cloned into repos/.
 create table if not exists repos(
 	-- Repository name, e.g. tfa-pallava-epigraphy
-	repo text primary key check(length(repo) > 0),
+	repo text primary key check(typeof(repo) = 'text' and length(repo) > 0),
 	-- Whether this repository contains or might contain edited texts
 	-- (texts that we can display in the catalog), per contrast with repos
 	-- that include other kinds of stuff (metadata, plain text, etc.). We
 	-- use this to avoid processing repositories that do not contain data
 	-- useful for the app.
-	textual boolean check(textual = 0 or textual = 1) default true,
+	textual boolean check(typeof(textual) = 'integer'
+		and textual = 0 or textual = 1),
 	-- User-readable name for the repository. Displayed on the website.
-	title text check(title != ''),
+	title text check(typeof(title) = 'text' and length(title) > 0),
 	-- Latest commit in this repo.
-	commit_hash text check(commit_hash is null or length(commit_hash) = 2 * 20),
-	commit_date timestamp check(commit_date is null or typeof(commit_date) = 'integer'),
+	commit_hash text check(commit_hash is null
+		or typeof(commit_hash) = 'text' and length(commit_hash) = 2 * 20),
+	commit_date timestamp check(commit_date is null
+		or typeof(commit_date) = 'integer' and commit_date >= 0),
 	-- Commit hash of the python code that was used for processing this
 	-- repository. We need to process it again if the python code has been
 	-- updated in the meantime.
-	code_hash text check(code_hash is null or length(code_hash) = 2 * 20)
+	code_hash text check(code_hash is null
+		or typeof(code_hash) = 'text' and length(code_hash) = 2 * 20)
 );
 
 -- We need this to trigger the first update in change.py
-insert or ignore into repos(repo) values('project-documentation');
+insert or ignore into repos(repo, textual, title)
+	values('project-documentation', false, 'Project documentation');
 
 -- We store the raw contents of all the files we process in the db.
 --
@@ -79,21 +84,23 @@ insert or ignore into repos(repo) values('project-documentation');
 -- We reproduce it in other tables only to be able to easily delete everything
 -- related to a repo when updating the db. XXX we don't do this anymore!
 create table if not exists files(
-	name text unique,
-	repo text,
-	path text,
+	name text unique check(typeof(name) = 'text' and length(name) > 0),
+	repo text check(typeof(repo) = 'text' and length(repo) > 0),
+	path text check(typeof(path) = 'text' and length(path) > 0),
 	-- Value of st_mtime. This is not the last time the file was modified
 	-- in git. We only use it to figure out which files changed after a
 	-- git pull, it is not meant to be displayed. We could also store a
 	-- hash of the file, to be able to tell which files actually changed,
 	-- but this seems unnecessary for now.
-	mtime timestamp,
+	mtime timestamp check(typeof(mtime) = 'integer' and mtime >= 0),
 	-- When the file was last modified according to git. This is only used
 	-- for display.
-	last_modified timestamp,
-	last_modified_commit text check(length(last_modified_commit) = 2 * 20),
+	last_modified timestamp check(typeof(last_modified) = 'integer'
+		and last_modified >= 0),
+	last_modified_commit text check(typeof(last_modified_commit) = 'text'
+		and length(last_modified_commit) = 2 * 20),
 	-- Raw data, might not be valid UTF-8.
-	data blob,
+	data blob not null,
 	-- To view the file on github:
 	-- https://github.com/erc-dharma/$repo/blob/master/$path
 	-- To view the raw file on github:
@@ -106,8 +113,8 @@ create table if not exists files(
 -- We thus often have multiple "owners" per file. In any case, we should have at
 -- least one owner per file.
 create table if not exists owners(
-	name text check(length(name) > 0),
-	git_name text check(length(git_name) > 0),
+	name text check(typeof(name) = 'text' and length(name) > 0),
+	git_name text check(typeof(git_name) = 'text' and length(git_name) > 0),
 	primary key(name, git_name),
 	foreign key(name) references files(name)
 );
@@ -115,10 +122,11 @@ create index if not exists owners_index on owners(git_name);
 
 -- All DHARMA people who have a DHARMA id, and only them.
 create table if not exists people_main(
-	dh_id text primary key check(length(dh_id) = 4),
+	dh_id text primary key check(typeof(dh_id) = 'text' and length(dh_id) = 4),
 	-- Two forms: ["Emmanuel", "Francis"] or ["Tyassanti Kusumo Dewanti"]
 	name json check(
-		json_array_length(name) between 1 and 2
+		typeof(name) = 'text'
+		and json_array_length(name) between 1 and 2
 		and json_type(name -> 0) = 'text'
 		and json_array_length(name) = 1 or json_type(name -> 1) = 'text'),
 	-- e.g. "Emmanuel Francis" or "Tyassanti Kusumo Dewanti"
@@ -130,12 +138,24 @@ create table if not exists people_main(
 		name ->> 0,
 		printf('%s, %s', name ->> 1, name ->> 0))),
 	-- All the following can be null.
-	affiliation text check(affiliation != ''),
-	idhal text unique check(idhal != ''),
-	idref text unique check(idref != ''),
-	orcid text unique check(orcid != ''),
-	viaf text unique check(viaf != ''),
-	wikidata text unique check(wikidata != '')
+	affiliation text check(
+		affiliation is null
+		or typeof(affiliation) = 'text' and length(affiliation) > 0),
+	idhal text unique check(
+		idhal is null
+		or typeof(idhal) = 'text' and length(idhal) > 0),
+	idref text unique check(
+		idref is null
+		or typeof(idref) = 'text' and length(idref) > 0),
+	orcid text unique check(
+		orcid is null
+		or typeof(orcid) = 'text' and length(orcid) > 0),
+	viaf text unique check(
+		viaf is null
+		or typeof(viaf) = 'text' and length(viaf) > 0),
+	wikidata text unique check(
+		wikidata is null
+		or typeof(wikidata) = 'text' and length(wikidata) > 0)
 );
 
 -- This is filled with the git names data file. To dump a list of all
@@ -145,7 +165,8 @@ create table if not exists people_main(
 -- Maybe we should use the tuple (user.name,user.email) as key, or just
 -- user.email? Problem with user.email is that github assigns generated emails.
 create table if not exists people_github(
-	git_name text primary key check(length(git_name) > 0),
+	git_name text primary key check(
+		typeof(git_name) = 'text' and length(git_name) > 0),
 	dh_id text,
 	foreign key(dh_id) references people_main(dh_id)
 );
@@ -154,17 +175,36 @@ create table if not exists people_github(
 create table if not exists documents(
 	name text primary key,
 	repo text,
-	title text check(title is null or title != ''),
-	author text check(author is null or author != ''),
-	editors json check(json_type(editors) = 'array'),
+	title text check(
+		title is null
+		or typeof(title) = 'text' and length(title) > 0),
+	author text check(
+		author is null
+		or typeof(author) = 'text' and length(author) > 0),
+	editors json check(
+		typeof(editors) = 'text'
+		and json_valid(editors)
+		and json_type(editors) = 'array'),
 	-- Dharma members ids viz. the xxxx in part:xxxx.
-	editors_ids json check(json_type(editors_ids) = 'array'),
-	langs json check(json_type(langs) = 'array'),
-	summary text,
+	editors_ids json check(
+		typeof(editors_ids) = 'text'
+		and json_valid(editors_ids)
+		and json_type(editors_ids) = 'array'),
+	langs json check(
+		typeof(langs) = 'text'
+		and json_valid(langs)
+		and json_type(langs) = 'array'
+		and json_array_length(langs) >= 1),
+	summary text check(
+		summary is null
+		or typeof(summary) = 'text' and length(summary) > 0),
 	-- The corresponding file is at https://erc-dharma.github.io/$repo/$html_path
-	html_path text check(html_path is null or length(html_path) > 1),
+	html_path text check(
+		html_path is null
+		or typeof(html_path) = 'text' and length(html_path) > 1),
 	-- See the enum in change.py
-	status integer check(status >= 0 and status <= 3),
+	status integer check(
+		typeof(status) = 'integer' and status between 0 and 3),
 	foreign key(name, repo) references files(name, repo)
 );
 
@@ -191,20 +231,37 @@ create table if not exists langs_list(
 	-- Principal language code. If this is an ISO code, it is always of
 	-- length 3. Longer language codes are used for custom dharma-specific
 	-- languages.
-	id text primary key check(length(id) >= 3),
+	id text primary key check(typeof(id) = 'text' and length(id) >= 3),
 	-- E.g. "Old Cham"
-	name text check(length(name) > 0),
+	name text check(typeof(name) = 'text' and length(name) > 0),
 	-- E.g. "Cham, Old". Used for sorting.
-	inverted_name text check(length(name) > 0),
+	inverted_name text check(
+		typeof(inverted_name) = 'text' and length(inverted_name) > 0),
 	-- "iso" is null when the language code is a custom one viz. a
 	-- dharma-specific one.
-	iso integer check(iso is null or iso = 3 or iso = 5),
-	-- custom is true if we have modified the default name and
+	iso integer check(
+		iso is null
+		or typeof(iso) = 'integer' and iso = 3 or iso = 5),
+	-- "custom" is true if we have modified the default name and
 	-- inverted_name values present in the ISO standard, or if the language
 	-- code is a DHARMA-specific one.
-	custom boolean,
-	-- dharma is true if the language appears in the DHARMA languages list
-	dharma boolean,
+	custom boolean check(
+		typeof(custom) = 'integer' and custom = 0 or custom = 1),
+	-- "dharma" is true if the language appears in the DHARMA languages
+	-- list, whether or not we modified its name. This implies that "dharma"
+	-- is true for all languages that have "custom" set to true.
+	dharma boolean check(
+		typeof(dharma) = 'integer' and dharma = 0 or dharma = 1),
+	-- "source" is true if the language should be treated as a source
+	-- language (typically an Asian one, in dharma's case). The most
+	-- important use case is to determine, when processing the edition
+	-- division of a text, which languages should not be considered as
+	-- edition languages, e.g. headings in English. Languages that have
+	-- "source" set to false are not included in aggregations and are
+	-- not displayed in the text's metadata. It is annoying to hardcode
+	-- this, but I see no better solution for now.
+	source boolean check(
+		typeof(source) = 'integer' and source = 0 or source = 1),
 	check(length(id) = 3 and iso is not null
 		or length(id) > 3 and iso is null and custom)
 );
@@ -213,7 +270,7 @@ create table if not exists langs_list(
 create table if not exists langs_by_code(
 	-- Length two or three for ISO codes, length > 3 for custom DHARMA
 	-- codes.
-	code text primary key check(length(code) >= 2),
+	code text primary key check(typeof(code) = 'text' and length(code) >= 2),
 	id text,
 	foreign key(id) references langs_list(id)
 );
@@ -225,33 +282,30 @@ create virtual table if not exists langs_by_name using fts5(
 	tokenize = "trigram"
 );
 
-create view if not exists langs_prod as
-	select json_each.value as lang,
-		count(*) as lang_prod
-	from documents join json_each(documents.langs)
-	group by lang;
-
-create view if not exists langs_editors_prod as
-	select langs_iter.value as lang,
-		editor_iter.value as editor,
-		count(*) as editor_prod
-	from documents
-		join json_each(documents.langs) as langs_iter
-		join json_each(documents.editors_ids) as editor_iter
-	group by lang, editor
-	order by lang, editor_prod desc;
-
-create view if not exists langs_repos_prod as
-	select langs_iter.value as lang,
-		repo,
-		count(*) as repo_prod
-	from documents
-		join json_each(documents.langs) as langs_iter
-	group by lang, repo
-	order by lang, repo_prod desc;
-
 create view if not exists langs_display as
-	with langs_editors_prod_json as (
+	with langs_prod as (
+		select json_each.value as lang,
+			count(*) as lang_prod
+		from documents join json_each(documents.langs)
+		group by lang
+	), langs_editors_prod as (
+		select langs_iter.value as lang,
+			editor_iter.value as editor,
+			count(*) as editor_prod
+		from documents
+			join json_each(documents.langs) as langs_iter
+			join json_each(documents.editors_ids) as editor_iter
+		group by lang, editor
+		order by lang, editor_prod desc
+	), langs_repos_prod as (
+		select langs_iter.value as lang,
+			repo,
+			count(*) as repo_prod
+		from documents
+			join json_each(documents.langs) as langs_iter
+		group by lang, repo
+		order by lang, repo_prod desc
+	), langs_editors_prod_json as (
 		select lang,
 			json_group_array(json_array(dh_id, print_name, editor_prod))
 				as editors
@@ -264,8 +318,7 @@ create view if not exists langs_display as
 			json_group_array(json_array(repo, repo_prod)) as repos
 		from langs_repos_prod
 		group by lang
-	)
-	select
+	) select
 		langs_list.id as lang,
 		langs_list.name as name,
 		langs_prod.lang_prod as prod,
@@ -285,28 +338,32 @@ create view if not exists langs_display as
 			on langs_list.id = langs_editors_prod_json.lang
 		join langs_repos_prod_json
 			on langs_list.id = langs_repos_prod_json.lang
+	where langs_list.source
 	order by langs_list.inverted_name;
 
 create table if not exists prosody(
-	name text primary key check(length(name) > 0),
-	pattern text check(length(pattern) > 0)
+	name text primary key check(typeof(name) = 'text' and length(name) > 0),
+	pattern text check(typeof(pattern) = 'text' and length(pattern) > 0)
 );
 
 create table if not exists gaiji(
-	name text primary key check(length(name) > 0),
-	text text check(text is null or length(text) > 0),
-	description text check(description is null or length(description) > 0)
+	name text primary key check(typeof(name) = 'text' and length(name) > 0),
+	text text check(
+		text is null or typeof(text) = 'text' and length(text) > 0),
+	description text check(
+		description is null
+		or typeof(description) = 'text' and length(description) > 0)
 );
 
 -- All bibliographic records from Zotero. Includes data that we do not care
 -- about e.g. attachments records.
 create table if not exists biblio_data(
-	key text primary key check(length(key) > 0),
+	key text primary key check(typeof(key) = 'text' and length(key) > 0),
 	-- We expect version numbers to be > 0, otherwise the update code is
 	-- broken.
-	version integer check(version > 0),
+	version integer check(typeof(version) = 'integer' and version > 0),
 	-- Full record we get from the Zotero API.
-	json json not null check(json_valid(json)),
+	json json not null check(typeof(json) = 'text' and json_valid(json)),
 	-- We don't need to store the short_title, both because it is fast to
 	-- extract and because we have an index on it which stores it anyway.
 	short_title text as (case json ->> '$.data.shortTitle'
@@ -317,7 +374,9 @@ create table if not exists biblio_data(
 		check(item_type is not null),
 	-- Null if this is not an entry we can display viz. if it is not of the
 	-- item types we support (book, etc.).
-	sort_key text collate icu
+	sort_key text collate icu check(
+		sort_key is null
+		or typeof(sort_key) = 'text' and length(sort_key) > 0)
 );
 create index if not exists biblio_data_short_title on biblio_data(short_title);
 create index if not exists biblio_data_sort_key on biblio_data(sort_key);
@@ -327,47 +386,44 @@ create view if not exists biblio_by_tag as
 	from biblio_data join json_each(biblio_data.json -> '$.data.tags')
 	order by tag;
 
-create view if not exists repos_editors_stats as
-	select repo,
-		json_each.value as editor_id,
-		people_main.print_name as editor,
-		count(*) as editor_prod
-	from documents
-		join json_each(documents.editors_ids)
-		join people_main on people_main.dh_id = json_each.value
-	group by repo, json_each.value
-	order by repo asc, editor_prod desc, people_main.inverted_name asc;
-
-create view if not exists repos_editors_stats_json as
-	select repo,
+create view if not exists repos_display as
+	with repos_editors_stats as (
+		select repo,
+			json_each.value as editor_id,
+			people_main.print_name as editor,
+			count(*) as editor_prod
+		from documents
+			join json_each(documents.editors_ids)
+			join people_main on people_main.dh_id = json_each.value
+		group by repo, json_each.value
+		order by repo asc, editor_prod desc, people_main.inverted_name asc
+	), repos_editors_stats_json as (
+		select repo,
 		json_group_array(json_array(editor_id, editor, editor_prod))
 			as editors_prod
-	from repos_editors_stats group by repo;
-
-create view if not exists repos_langs_stats as
-	select repo,
-		langs_list.id as lang_id,
-		langs_list.name as lang,
-		count(*) as lang_prod
-	from documents, json_each(documents.langs)
-		left join langs_list on langs_list.id = json_each.value
-	group by repo, json_each.value
-	order by repo asc, lang_prod desc, lang asc;
-
-create view if not exists repos_langs_stats_json as
-	select repo,
-		json_group_array(json_array(lang_id, lang, lang_prod)) as langs_prod
-	from repos_langs_stats group by repo;
-
-create view if not exists repos_display as
-	with repos_stats as (
+		from repos_editors_stats group by repo
+	), repos_langs_stats as (
+		select repo,
+			langs_list.id as lang_id,
+			langs_list.name as lang,
+			count(*) as lang_prod
+		from documents, json_each(documents.langs)
+			left join langs_list on langs_list.id = json_each.value
+		where langs_list.source
+		group by repo, json_each.value
+		order by repo asc, lang_prod desc, lang asc
+	), repos_langs_stats_json as (
+		select repo,
+			json_group_array(json_array(lang_id, lang, lang_prod))
+			as langs_prod
+		from repos_langs_stats group by repo
+	), repos_stats as (
 		select repos.repo,
 			count(*) as repo_prod
 		from repos join documents on repos.repo = documents.repo
 		group by repos.repo
 		order by repos.repo
-	)
-	select repos.repo,
+	) select repos.repo,
 		repos.title,
 		repo_prod,
 		editors_prod as people,
@@ -395,27 +451,32 @@ create view if not exists people_display as
 			join json_each(documents.editors_ids) as editors_iter
 			join json_each(documents.langs) as langs_iter
 		group by dh_id, lang
+		order by dh_id, freq desc
 	), people_repos as (
 		select editors_iter.value as dh_id, repo, count(*) as freq
 		from documents
 			join json_each(documents.editors_ids) as editors_iter
 		group by dh_id, repo
+		order by freq desc
 	), people_langs_json as (
 		select dh_id,
 			json_group_array(json_array(lang, name, freq)) as langs_prod
 		from people_langs
 			join langs_list on people_langs.lang = langs_list.id
-			group by dh_id order by dh_id, freq, inverted_name
+		where langs_list.source
+		group by dh_id order by dh_id, freq, inverted_name
 	), people_repos_json as (
 		select dh_id, json_group_array(json_array(repos.repo, title, freq)) as repos_prod
 		from people_repos
 			join repos on people_repos.repo = repos.repo
-			group by dh_id order by dh_id, freq, repos.repo
-	) select people_main.dh_id as dh_id, inverted_name, affiliation, idhal,
+		group by dh_id
+		order by dh_id, repos.repo
+	) select
+		people_main.dh_id as dh_id, inverted_name, affiliation, idhal,
 		idref, orcid, viaf, wikidata, texts_prod, langs_prod, repos_prod
-		from people_main
-			left join texts_prod on people_main.dh_id = texts_prod.dh_id
-			left join people_langs_json on people_main.dh_id = people_langs_json.dh_id
-			left join people_repos_json on people_main.dh_id = people_repos_json.dh_id;
+	from people_main
+		left join texts_prod on people_main.dh_id = texts_prod.dh_id
+		left join people_langs_json on people_main.dh_id = people_langs_json.dh_id
+		left join people_repos_json on people_main.dh_id = people_repos_json.dh_id;
 
 commit;

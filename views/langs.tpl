@@ -11,7 +11,6 @@ Languages
 <div class="catalog-list">
 
 % for row in rows:
-% if is_asian(row['lang']):
 <div class="catalog-card">
 
 <p>
@@ -44,7 +43,6 @@ Editors:
 <p>Standard: {{row["standard"]}}.</p>
 
 </div>
-% endif
 % endfor
 
 </div> <!-- class="catalog-list" -->

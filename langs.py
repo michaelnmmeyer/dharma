@@ -20,9 +20,9 @@ def alloc_lang(ctx, lang, dflt):
 			ctx[ret.id] = ret
 	return ret
 
-def fetch_alt_langs(ctx, node):
+def fetch_alt_langs(ctx, node, default_lang):
 	path = ["TEI", "text", "body", "div[@type='edition']"]
-	lang = DEFAULT_LANG
+	lang = default_lang
 	for name in path:
 		node = node.first(name)
 		if not node:
@@ -92,8 +92,9 @@ def assign_language(ctx, node, parent_lang, alt_lang, f):
 
 def assign_languages(t):
 	ctx = {}
-	alt_lang = fetch_alt_langs(ctx, t)
-	wait_div(ctx, t.root, DEFAULT_LANG, alt_lang, wait_div)
+	dflt = Language("eng")
+	alt_lang = fetch_alt_langs(ctx, t, dflt)
+	wait_div(ctx, t.root, dflt, alt_lang, wait_div)
 
 # Should also store a local copy of files we fetch from the web (e.g. the iso639
 # data), in a cache, wihtin the dame db. this cache would be written to only by
@@ -128,6 +129,15 @@ def add_to_index(code, index, rec):
 	assert not code in index or index[code] is rec
 	index[code] = rec
 
+def to_boolean(s, dflt):
+	match s.lower():
+		case "true" | "yes" | "on" | "1":
+			return True
+		case "false" | "no" | "off" | "0":
+			return False
+		case _:
+			return dflt
+
 def load_data():
 	tbl3 = fetch_tsv("https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab")
 	tbl3_bis = fetch_tsv("https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3_Name_Index.tab")
@@ -142,6 +152,7 @@ def load_data():
 			"iso": 3,
 			"custom": False,
 			"dharma": False,
+			"source": True,
 		}
 		recs.append(rec)
 		# "Part2b", "Part2t", "Part1" are alternate language codes.
@@ -160,6 +171,7 @@ def load_data():
 			"iso": 5,
 			"custom": False,
 			"dharma": False,
+			"source": True,
 		}
 		recs.append(rec)
 		add_to_index(rec["id"], index, rec)
@@ -174,6 +186,7 @@ def load_data():
 				"iso": None,
 				"custom": True,
 				"dharma": True,
+				"source": True,
 			}
 			recs.append(rec)
 			add_to_index(rec["id"], index, rec)
@@ -181,6 +194,9 @@ def load_data():
 			rec["name"] = row["Print_Name"]
 			rec["inverted_name"] = row["Inverted_Name"]
 			rec["custom"] = True
+			rec["source"] = to_boolean(row["source"], True)
+		else:
+			rec["source"] = to_boolean(row["source"], True)
 		rec["dharma"] = True
 	assert all("inverted_name" in rec for rec in recs)
 	recs.sort(key=lambda rec: rec["id"])
@@ -194,8 +210,8 @@ def from_code(s):
 		""", (s,)).fetchone() or (None,)
 	return ret
 
-lang_data = collections.namedtuple("lang_data", "id name inverted_name")
-default_lang = lang_data("und", "Undetermined", "Undetermined")
+lang_data = collections.namedtuple("lang_data", "id name inverted_name source")
+default_lang = lang_data("und", "Undetermined", "Undetermined", True) # XXX need this to actually exist in the DB!
 
 @functools.total_ordering
 class Language:
@@ -208,13 +224,14 @@ class Language:
 		ret = self._data
 		if not ret:
 			db = config.db("texts")
-			ret = db.execute("""select id, name, inverted_name
+			ret = db.execute("""
+			select id, name, inverted_name, source
 			from langs_list natural join langs_by_code
 			where code = ?
 			""", (self.key,)).fetchone()
 			if ret:
 				ret = lang_data(ret["id"], ret["name"],
-					ret["inverted_name"])
+					ret["inverted_name"], ret["source"])
 			else:
 				ret = default_lang
 			self._data = ret
@@ -238,6 +255,10 @@ class Language:
 	def inverted_name(self):
 		return self._fetch().inverted_name
 
+	@property
+	def is_source(self):
+		return self._fetch().source
+
 	def __hash__(self):
 		return hash(self.id)
 
@@ -246,8 +267,6 @@ class Language:
 
 	def __eq__(self, other):
 		return self.inverted_name == other.inverted_name
-
-DEFAULT_LANG = Language("eng")
 
 def make_db():
 	db = config.db("texts")
@@ -258,13 +277,16 @@ def make_db():
 	for rec in recs:
 		db.execute("""
 			insert into langs_list(id, name, inverted_name, iso,
-				custom, dharma)
+				custom, dharma, source)
 			values(:id, :name, :inverted_name, :iso,
-				:custom, :dharma)""", rec)
+				:custom, :dharma, :source)""", rec)
 		db.execute("insert into langs_by_name(id, name) values(?, ?)",
 			(rec["id"], config.normalize_text(rec["name"])))
 	for code, rec in sorted(index.items()):
 		db.execute("insert into langs_by_code(code, id) values(?, ?)", (code, rec["id"]))
+
+Undetermined = Language("und")
+Undetermined._data = default_lang
 
 @config.transaction("texts")
 def main():

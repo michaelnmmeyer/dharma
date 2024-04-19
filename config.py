@@ -3,10 +3,6 @@ import functools, traceback, unicodedata, socket
 from urllib.parse import urlparse, quote
 import icu # pip install PyICU
 
-def is_asian(lang):
-	# XXX don't hardcode this
-	return lang not in ("eng", "fra", "nld", "deu")
-
 DHARMA_HOME = os.path.dirname(os.path.abspath(__file__))
 os.environ["DHARMA_HOME"] = DHARMA_HOME # for subprocesses
 
@@ -186,15 +182,16 @@ def db(name):
 	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES,
 		isolation_level=None)
 	conn.row_factory = sqlite3.Row
-	if read_only_db():
-		conn.execute("pragma query_only = yes")
 	conn.execute("pragma synchronous = normal")
 	conn.execute("pragma foreign_keys = on")
-	conn.execute("pragma secure_delete = off")
 	conn.create_function("format_url", -1, format_url, deterministic=True)
 	conn.create_function("jaccard", 2, jaccard, deterministic=True)
-	conn.create_function("is_asian", 1, is_asian, deterministic=True)
 	conn.create_collation("icu", collate_icu)
+	if read_only_db():
+		conn.execute("pragma query_only = yes")
+	elif name == "texts":
+		with open(path_of("schema.sql")) as f:
+			conn.executescript(f.read())
 	ret = DB(conn)
 	setattr(DBS, name, ret)
 	return ret

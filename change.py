@@ -265,7 +265,11 @@ def notify(name):
 	finally:
 		os.close(fd)
 
-def run():
+def init_db():
+	db = config.db("texts")
+
+
+def main():
 	try:
 		os.mkdir(config.path_of("repos"))
 	except FileExistsError:
@@ -280,16 +284,11 @@ def run():
 	except OSError as e:
 		logging.error("cannot obtain lock, is another change process running?")
 		sys.exit(1)
+	init_db()
 	logging.info("ready")
-	try:
-		read_changes(fd)
-	finally:
-		os.close(fd)
-
-def main():
 	while True:
 		try:
-			run()
+			read_changes(fd)
 		except KeyboardInterrupt:
 			break
 		except Exception as e:

@@ -29,7 +29,7 @@ templates_globals = {
 	"from_json": config.from_json,
 	"format_url": config.format_url,
 	"numberize": config.numberize,
-	"is_asian": config.is_asian,
+	"len": len,
 }
 @app.context_processor
 def inject_global_vars():
@@ -309,16 +309,12 @@ def display_text(text):
 		(config.path_of("repos"), text)).fetchone()
 	if not row:
 		return flask.abort(404)
-	try:
-		doc = parse.process_file(row["path"], row["data"])
+	file = db.load_file(text)
+	doc = parse.process_file(file)
+	if doc.valid:
 		doc.title = doc.title and doc.title.render_logical() or ""
 		editors = doc.editors and doc.editors.render_logical() or []
 		doc.editors = editors and editors.split(document.PARA_SEP) or []
-	except tree.Error as e:
-		doc = document.Document()
-		doc.valid = False
-		doc.ident = text
-	doc.repository = row["repo"]
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
 	doc.last_modified_commit = row["last_modified_commit"]
@@ -367,13 +363,21 @@ def convert_text():
 		# Oxygen gives us absolute paths, so we are probably given a
 		# Windows-like path if we end up here. Ideally, we should send
 		# platform infos in the convert.py script, but we did not
-		# think to do that, and people are already using the code.
+		# think to do that when we wrote the script, and people are
+		# already using the code.
 		base = base_name_windows(path)
 	name = os.path.splitext(base)[0]
-	doc = parse.process_file(path, data)
-	doc.title = doc.title and doc.title.render_logical() or ""
-	editors = doc.editors.render_logical()
-	doc.editors = editors and editors.split(document.PARA_SEP)
+	f = texts.File(":memory:", name)
+	setattr(f, "_mtime", 0)
+	setattr(f, "_last_modified", ("", 0))
+	setattr(f, "_data", data)
+	setattr(f, "_owners", [])
+	doc = parse.process_file(f)
+	doc.repository = None
+	if doc.valid:
+		doc.title = doc.title and doc.title.render_logical() or ""
+		editors = doc.editors and doc.editors.render_logical() or []
+		doc.editors = editors and editors.split(document.PARA_SEP) or []
 	html = flask.render_template("inscription.tpl", doc=doc, text=name)
 	soup = BeautifulSoup(html, "html.parser")
 	patch_links(soup, "href")

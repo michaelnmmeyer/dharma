@@ -560,6 +560,7 @@ class Document:
 		self.editors = []
 		self.editors_ids = []
 		self.bib_entries = {}
+		self.edition_langs = []
 
 	def plain_text(self, *args, **kwargs):
 		renderer = PlainRenderer(*args, **kwargs)
