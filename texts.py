@@ -1,4 +1,4 @@
-import os, re, sys, logging
+import os, re, sys, logging, unicodedata
 from dharma.cleanup import cleanup_file
 from dharma import config, people, validate
 
