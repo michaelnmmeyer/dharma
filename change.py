@@ -268,7 +268,6 @@ def notify(name):
 def init_db():
 	db = config.db("texts")
 
-
 def main():
 	try:
 		os.mkdir(config.path_of("repos"))

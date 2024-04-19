@@ -1315,7 +1315,8 @@ def process_file(file):
 		doc.valid = False
 		doc.repository = file.repo
 		doc.ident = file.name
-		doc.langs = [langs.Language("und")]
+		doc.langs = [langs.Undetermined]
+		doc.edition_langs = [langs.Undetermined]
 		return doc
 	langs.assign_languages(t)
 	f = t.first("//teiHeader/encodingDesc")

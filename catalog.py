@@ -51,12 +51,13 @@ def insert(file):
 		fmt_editors = fmt_editors.split(document.PARA_SEP)
 	else:
 		fmt_editors = []
+	print([lang.id for lang in doc.edition_langs])
 	db.execute("""insert or replace into documents(name, repo, title,
 		author, editors, editors_ids, langs, summary, html_path, status)
 		values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
-			doc.title.render_logical() or None, doc.author.render_logical(), fmt_editors,
+			doc.title.render_logical() or None, doc.author.render_logical() or None, fmt_editors,
 			doc.editors_ids,
-			[lang.id for lang in doc.edition_langs], doc.summary.render_logical(),
+			[lang.id for lang in doc.edition_langs], doc.summary.render_logical() or None,
 			file.html, file.status))
 	# No primary key on documents_index, so we cannot use "insert or replace"
 	db.execute("delete from documents_index where name = ?", (doc.ident,))
