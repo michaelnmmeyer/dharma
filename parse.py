@@ -859,10 +859,10 @@ def parse_surplus(p, node):
 	p.add_html("}")
 	p.end_span()
 
-def print_as_grantha(p, node):
-	p.add_html('<div class="grantha">')
+def print_as_grantha(p, node): # XXX cannot nest <div> within <p>
+	#p.add_html('<div class="grantha">')
 	p.dispatch_children(node)
-	p.add_html('</div>')
+	#p.add_html('</div>')
 
 @handler("ab")
 def parse_ab(p, ab):
