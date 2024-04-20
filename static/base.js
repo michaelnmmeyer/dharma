@@ -203,8 +203,8 @@ function updateTooltipPosition() {
 		})
 	})
 }
-function removeTooltip(event) {
-	let node = event.target
+function removeTooltip() {
+	let node = this
 	if (node !== tipped)
 		return
 	tipped.classList.remove("tipped")
