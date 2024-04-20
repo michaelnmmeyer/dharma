@@ -1,8 +1,8 @@
 import argparse, os, sys
-from dharma import tree
+from dharma import config, tree, langs
 
+@config.transaction("texts")
 def main():
-	import tree
 	parser = argparse.ArgumentParser()
 	parser.add_argument("expression")
 	parser.add_argument("file", nargs="*")
@@ -14,10 +14,11 @@ def main():
 	for file in args.file:
 		try:
 			t = tree.parse(file)
+			langs.assign_languages(t)
 		except tree.Error:
 			continue
 		for result in f(t):
-			print(f"{tree.term_color('#9d40b4')}--- {file}{tree.term_color()}")
+			print(f"{tree.term_color('#9d40b4')}>>> {file}{tree.term_color()}")
 			print(result.xml())
 
 if __name__ == "__main__":

@@ -859,12 +859,22 @@ def parse_surplus(p, node):
 	p.add_html("}")
 	p.end_span()
 
+def print_as_grantha(p, node):
+	p.add_html('<div class="grantha">')
+	p.dispatch_children(node)
+	p.add_html('</div>')
+
 @handler("ab")
 def parse_ab(p, ab):
 	p.add_log("<para")
-	p.dispatch_children(ab)
+	if get_script(ab).ident == "grantha":
+		print_as_grantha(p, ab)
+	else:
+		p.dispatch_children(ab)
 	p.add_log(">para")
 
+# XXX we have intervening <lb/>, etc. within <hi>, so when rendering the
+# physical display, must use <div> for some of these.
 hi_table = {
 	"italic": "i",
 	"bold": "b",
@@ -931,7 +941,10 @@ def parse_lg(p, lg):
 	p.add_log(">head", level=6)
 	numbered = len(lg.find("l")) > 4
 	p.add_log("<verse", numbered=numbered)
-	p.dispatch_children(lg)
+	if get_script(lg).ident == "grantha":
+		print_as_grantha(p, lg)
+	else:
+		p.dispatch_children(lg)
 	p.add_log(">verse")
 
 @handler("p")
@@ -945,7 +958,10 @@ def parse_p(p, para):
 		n = html.escape(para["n"])
 		p.add_html(f'<span class="lb" data-tip="Line start">({n})</span>')
 		p.add_html(" ")
-	p.dispatch_children(para)
+	if get_script(para).ident == "grantha":
+		print_as_grantha(p, para)
+	else:
+		p.dispatch_children(para)
 	p.add_log(">para")
 
 @handler("l")
@@ -1188,6 +1204,14 @@ def parse_text(p, node):
 @handler("TEI")
 def parse_TEI(p, node):
 	p.dispatch_children(node)
+
+def get_script(node):
+	m = re.match(r"class:([^ ]+) maturity:(.+)", node["rendition"])
+	if not m:
+		return langs.get_script("")
+	klass, maturity = m.groups()
+	script = langs.get_script(klass)
+	return script
 
 # Within inscriptions, <div> shouldn't nest, except that we can have
 # <div type="textpart"> within <div type="edition">.

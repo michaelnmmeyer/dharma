@@ -13,6 +13,8 @@ from dharma import config, texts, tree
 Script = collections.namedtuple("Script", "level ident name klass")
 ScriptMaturity = collections.namedtuple("ScriptMaturity", "ident name klass")
 
+null_script = Script(0, "undetermined", "Undetermined", 0)
+
 scripts = (
 	Script(0, "arabic", "Arabic", 57471),
 	Script(1, "jawi", "Jawi", 70417),
@@ -42,6 +44,7 @@ scripts = (
 	Script(2, "chinese", "Chinese", 83221),
 	Script(0, "kharoṣṭhī", "Kharoṣṭhī", 83219),
 	Script(0, "undetermined", "Undetermined", 0),
+	null_script,
 )
 
 scripts_maturity = (
@@ -53,8 +56,12 @@ scripts_maturity = (
 	ScriptMaturity("null", "Null", 0),
 )
 
-script_from_class = {script.klass: script for script in scripts}
-script_from_ident = {script.ident: script for script in scripts}
+script_from_ident = {
+	**{script.ident: script for script in scripts},
+	**{str(script.klass): script for script in scripts},
+}
+def get_script(ident):
+	return script_from_ident.get(ident, null_script)
 
 AltLang = collections.namedtuple("AltLang", "lang children")
 
