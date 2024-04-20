@@ -145,53 +145,82 @@ window.addEventListener("load", function () {
 
 
 
-
-// See the popper doc + https://codepen.io/jsonc/pen/LYbyyaM
-let popperInstance = null
+let tipped = null
 let tipBox = null
+let tipContents = null
+let tipCleanup = null
+let tipArrow = null
 
 function addTooltip() {
-	let tip = this.dataset.tip
-	let tipContents = document.querySelector("#tip-contents")
-	if (popperInstance) {
+	let node = this
+	let tip = node.dataset.tip
+	if (tipped) {
 		let have = tipContents.innerHTML
 		tipContents.innerHTML = tip + " | " + have
-		this.owning = false
 		return
 	}
+	tipped = node
 	tipContents.innerHTML = tip
-	this.owning = true
-	this.classList.add("tipped")
-	tipBox.setAttribute("data-show", "")
-	popperInstance = Popper.createPopper(this, tipBox, {
-		modifiers: [{
-			name: "offset",
-			options: {
-				offset: [0, 8],
-			},
-		}, {
-			name: "eventListeners",
-			enabled: true,
-		}],
-	})
-	popperInstance.update()
+	node.classList.add("tipped")
+	tipBox.classList.remove("hidden")
+	document.body.append(tipBox)
+	tipCleanup = floatingUI.autoUpdate(tipped, tipBox, updateTooltipPosition)
 }
 
-function removeTooltip() {
-	if (!this.owning)
+function updateTooltipPosition() {
+	floatingUI.computePosition(tipped, tipBox, {
+		placement: "bottom",
+		middleware: [
+			floatingUI.offset(10),
+			floatingUI.flip(),
+			floatingUI.shift({padding: 10}),
+			floatingUI.arrow({element: tipArrow})
+		],
+	}).then(({x, y, placement, middlewareData}) => {
+		Object.assign(tipBox.style, {
+			left: `${x}px`,
+			top: `${y}px`,
+		})
+		const {x: arrowX, y: arrowY} = middlewareData.arrow;
+
+		const staticSide = {
+			top: ["bottom", "border-bottom-width", "border-right-width"],
+			right: ["left", "border-bottom-width", "border-left-width"],
+			bottom: ["top", "border-top-width", "border-left-width"],
+			left: ["right", "border-top-width", "border-right-width"],
+		}[placement.split("-")[0]]
+
+
+		Object.assign(tipArrow.style, {
+			left: arrowX != null ? `${arrowX}px` : "",
+			top: arrowY != null ? `${arrowY}px` : "",
+			right: "",
+			bottom: "",
+			[staticSide[0]]: "-6px",
+			["border-width"]: "",
+			[staticSide[1]]: "2px",
+			[staticSide[2]]: "2px",
+		})
+	})
+}
+function removeTooltip(event) {
+	let node = event.target
+	if (node !== tipped)
 		return
-	this.classList.remove("tipped")
-	tipBox.removeAttribute("data-show")
-	let tipContents = document.querySelector("#tip-contents")
+	tipped.classList.remove("tipped")
+	tipBox.classList.add("hidden")
 	tipContents.innerHTML = ""
-	popperInstance.destroy()
-	popperInstance = null
+	tipped = null
+	tipBox.remove()
+	tipCleanup()
+	tipCleanup = null
 }
 
 function prepareTips() {
 	tipBox = document.querySelector("#tip-box")
-	let tipContents = document.querySelector("#tip-contents")
-	console.assert(tipContents)
+	tipContents = document.querySelector("#tip-contents")
+	tipArrow = document.querySelector("#tip-arrow")
+	tipBox.remove()
 	for (let node of document.querySelectorAll("[data-tip]")) {
 		node.addEventListener("mouseover", addTooltip)
 		node.addEventListener("mouseout", removeTooltip)

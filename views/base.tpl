@@ -11,7 +11,6 @@
    <link rel="stylesheet" href="/base.css?v={{code_hash}}">
    <script src="https://cdn.jsdelivr.net/npm/@floating-ui/core@1.6.0"></script>
    <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.3"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
    <script src="/base.js?v={{code_hash}}"></script>
 </head>
 <body>
@@ -77,9 +76,9 @@ Untitled
 <p><small>© <a href="https://dharma.hypotheses.org">ERC-DHARMA Project</a>, 2019-2024</small></p>
 </footer>
 </div>
-<div id="tip-box">
+<div id="tip-box" class="hidden">
    <div id="tip-contents"></div>
-   <div id="tip-arrow" data-popper-arrow></div>
+   <div id="tip-arrow"></div>
 </div>
 </body>
 </html>

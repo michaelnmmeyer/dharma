@@ -25,10 +25,6 @@
 	text-align: right;
 }
 
-
-
-
-
 .card-list .card {
 	margin: 1em 0;
 }
@@ -474,55 +470,25 @@ i.tipped:hover {
 }
 /* div that contains the tooltip (used for all tooltips) */
 #tip-box {
-	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
 	background-color: #f1eeff;
-	border: solid black;
+	border: solid black 2px;
 	max-width: 30em;
 	border-radius: var(--border-radius);
 	padding: 0.3em;
 }
-
-#tip-box[data-show] {
-	display: block;
-}
-
-#tip-arrow, #tip-arrow::before {
+#tip-arrow {
 	position: absolute;
+	background-color: #f1eeff;
 	width: 8px;
 	height: 8px;
-	background: inherit;
-}
-
-#tip-arrow {
-	visibility: hidden;
-}
-
-#tip-arrow::before {
-	visibility: visible;
-	content: '';
-	border-top: solid black;
-	border-left: solid black;
+	border: solid black 0px;
 	transform: rotate(45deg);
 }
 
-#tip-box[data-popper-placement^='top'] > #tip-arrow {
-	bottom: -6px;
-}
-
-#tip-box[data-popper-placement^='bottom'] > #tip-arrow {
-	top: -6px;
-}
-
-#tip-box[data-popper-placement^='left'] > #tip-arrow {
-	right: -6px;
-}
-
-#tip-box[data-popper-placement^='right'] > #tip-arrow {
-	left: -6px;
-}
-
 /* End tooltips */
-
 
 a {
 	text-decoration: none;
@@ -675,15 +641,17 @@ dl.list > dd {
 .lb {
 	color: gray;
 	font-weight: initial;
+	font-style: initial;
 }
 .pagelike {
 	color: gray;
 	font-weight: initial;
-
+	font-style: initial;
 }
 .gridlike {
 	color: gray;
 	font-weight: initial;
+	font-style: initial;
 }
 .abbr {
 	color: brown;
