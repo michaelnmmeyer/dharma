@@ -6,6 +6,56 @@ import os, sys, functools, collections
 import requests # pip install requests
 from dharma import config, texts, tree
 
+# Scripts data pulled from opentheso
+# To link to opentheso, use https://opentheso.huma-num.fr/opentheso/?idc={classID}&idt={thesaurusID}
+# The thesaurusID of dharma is th347.
+
+Script = collections.namedtuple("Script", "level ident name klass")
+ScriptMaturity = collections.namedtuple("ScriptMaturity", "ident name klass")
+
+scripts = (
+	Script(0, "arabic", "Arabic", 57471),
+	Script(1, "jawi", "Jawi", 70417),
+	Script(0, "brāhmī", "Brāhmī and derivatives", 83217),
+	Script(1, "brāhmī_northern", "Northern class Brāhmī", 83223),
+	Script(2, "bhaikṣukī", "Bhaikṣukī", 84158),
+	Script(2, "gauḍī", "Gauḍī", 83229),
+	Script(2, "nāgarī", "Nāgarī", 38771),
+	Script(2, "siddhamātr̥kā", "Siddhamātr̥kā", 38774),
+	Script(1, "brāhmī_southeast_asian", "Southeast Asian Brāhmī", 83227),
+	Script(2, "balinese", "Balinese", 83239),
+	Script(2, "batak", "Batak", 38767),
+	Script(2, "cam", "Cam", 83233),
+	Script(2, "kawi", "Kawi", 38769),
+	Script(2, "khmer", "Khmer", 83231),
+	Script(2, "mon-burmese", "Mon-Burmese", 83235),
+	Script(2, "javanese_old_west", "Old West Javanese", 83241),
+	Script(2, "pyu", "Pyu", 83237),
+	Script(2, "sundanese", "Sundanese", 57470),
+	Script(1, "brāhmī_southern", "Southern class Brāhmī", 83225),
+	Script(2, "grantha", "Grantha", 38768),
+	Script(2, "kannada", "Kannada", 82857),
+	Script(2, "tamil", "Tamil", 38776),
+	Script(2, "tamil", "Tamil", 57475), # was "Tamil with Grantha", now deleted
+	Script(2, "telugu", "Telugu", 81340),
+	Script(2, "vaṭṭeḻuṭṭu", "Vaṭṭeḻuṭṭu", 70420),
+	Script(2, "chinese", "Chinese", 83221),
+	Script(0, "kharoṣṭhī", "Kharoṣṭhī", 83219),
+	Script(0, "undetermined", "Undetermined", 0),
+)
+
+scripts_maturity = (
+	ScriptMaturity("early", "Early Brāhmī", 83207),
+	ScriptMaturity("late", "Late Brāhmī", 83211),
+	ScriptMaturity("middle", "Middle Brāhmī", 83209),
+	ScriptMaturity("regional", "Regional Brāhmī-derived script", 83213),
+	ScriptMaturity("vernacular", "Vernacular Brāhmī-derived script", 83215),
+	ScriptMaturity("null", "Null", 0),
+)
+
+script_from_class = {script.klass: script for script in scripts}
+script_from_ident = {script.ident: script for script in scripts}
+
 AltLang = collections.namedtuple("AltLang", "lang children")
 
 def alloc_lang(ctx, lang, dflt):
@@ -70,7 +120,7 @@ def assign_language(ctx, node, parent_lang, alt_lang, f):
 		case "foreign":
 			lang = alloc_lang(ctx, node["lang"], alt_lang.lang)
 			if lang == parent_lang:
-				node.add_error(f'''Element "foreign" is in language {lang!r}, which is the same as its parent element. You might have forgotten to add an @xml:lang to div[@type='edition'] or its children text div[@type='textpart']. You might also need to add an explicit @xml:lang to this "foreign" element.''')
+				node.add_warning(f'''Element "foreign" is in language {lang!r}, which is the same as its parent element. You might have forgotten to add an @xml:lang to div[@type='edition'] or its children text div[@type='textpart']. You might also need to add an explicit @xml:lang to this "foreign" element.''')
 		case "g":
 			node.lang = alloc_lang(ctx, node["lang"], parent_lang)
 			return
@@ -97,7 +147,7 @@ def assign_languages(t):
 	wait_div(ctx, t.root, dflt, alt_lang, wait_div)
 
 # Should also store a local copy of files we fetch from the web (e.g. the iso639
-# data), in a cache, wihtin the dame db. this cache would be written to only by
+# data), in a cache, within the same db. this cache would be written to only by
 # change.py, when processing files.
 def fetch_tsv(file):
 	if isinstance(file, texts.File):
@@ -294,6 +344,14 @@ def main():
 	assign_languages(t)
 	for node in t.find("//*"):
 		print(node.path, node.lang, node)
+
+def print_scripts():
+	for script in scripts:
+		print(f'<valItem ident="class:{script.klass:0{5}}"><desc>{script.name}</desc></valItem>')
+		print(f'<valItem ident="class:{script.ident}"><desc>{script.name}</desc></valItem>')
+	for script in scripts_maturity:
+		print(f'<valItem ident="maturity:{script.klass:0{5}}"><desc>{script.name}</desc></valItem>')
+		print(f'<valItem ident="maturity:{script.ident}"><desc>{script.name}</desc></valItem>')
 
 if __name__ == "__main__":
 	main()

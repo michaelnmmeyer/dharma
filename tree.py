@@ -164,10 +164,10 @@ class Node:
 		return ret
 
 	def add_error(self, message):
-		errors = getattr(self, "errors", None)
-		if not errors:
-			setattr(self, "errors", [])
 		self.errors.append(message)
+
+	def add_warning(self, message):
+		pass # ignore for now
 
 	@property
 	def path(self):
@@ -1021,10 +1021,15 @@ def xpath_mixed(node):
 	assert isinstance(node, Node)
 	return node.mixed
 
+def xpath_errors(node):
+	assert isinstance(node, Node)
+	return bool(node.errors)
+
 xpath_funcs = {
 	"glob": xpath_glob,
 	"lang": xpath_lang,
 	"mixed": xpath_mixed,
+	"errors": xpath_errors,
 }
 
 def children(node):

@@ -1347,7 +1347,6 @@ def process_file(file):
 	if not ed_langs:
 		ed_langs.add(langs.Undetermined)
 	p.document.edition_langs = sorted(ed_langs)
-	print(p.document.edition_langs)
 	p.document.repository = file.repo
 	return p.document
 
