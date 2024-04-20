@@ -1374,18 +1374,19 @@ def process_file(file):
 	p.document.repository = file.repo
 	return p.document
 
+@config.transaction("texts")
 def export_plain():
 	db = config.db("texts")
 	renderer = document.PlainRenderer(strip_physical=True)
 	out_dir = config.path_of("plain")
 	os.makedirs(out_dir, exist_ok=True)
-	for name, path, data in db.execute("""
-		select name, printf('%s/%s/%s', ?, repo, path), data
+	for (name,) in db.execute("""
+		select name
 		from documents natural join files where name glob 'DHARMA_INS*'
-		""", (config.path_of("repos"),)):
-		print(path)
+		"""):
+		f = db.load_file(name)
 		try:
-			ret = renderer.render(process_file(path, data)) # XXX needs change
+			ret = renderer.render(process_file(f))
 		except tree.Error:
 			continue
 		out_file = os.path.join(out_dir, name + ".txt")
@@ -1393,6 +1394,8 @@ def export_plain():
 			f.write(ret)
 
 if __name__ == "__main__":
+	export_plain()
+	exit(0)
 	path = sys.argv[1]
 	data = open(path, "rb").read()
 	try:
