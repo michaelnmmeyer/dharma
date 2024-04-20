@@ -73,7 +73,7 @@ class DB:
 		if not name:
 			raise Exception("not found")
 		from dharma import texts #XXX circular import
-		f = texts.File(name, row["repo"])
+		f = texts.File(row["repo"], row["path"])
 		setattr(f, "_mtime", row["mtime"])
 		setattr(f, "_last_modified", (row["last_modified_commit"], row["last_modified"]))
 		setattr(f, "_data", row["data"])
