@@ -709,6 +709,12 @@ def parse_seg(p, seg):
 		p.add_html("}")
 		p.end_span()
 
+@handler("div[@type='translation']//gap[@reason='ellipsis']")
+def handle_gap_ellipsis(p, gap):
+	p.start_span(tip="Untranslated segment")
+	p.add_html("\N{horizontal ellipsis}", plain=True)
+	p.end_span()
+
 # "component" is for character components like vowel markers, etc.; "character" is for akṣaras
 # EGD: The EpiDoc element <gap/> ff (full section 5.4)
 # EGD: "Scribal Omission without Editorial Restoration"
