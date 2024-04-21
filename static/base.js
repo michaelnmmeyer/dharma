@@ -87,7 +87,7 @@ function initMenu() {
 	menu = document.querySelector("#menu")
 	menuVisible = !menu.classList.contains("hidden")
 	menuIcon = document.querySelector("#menu-toggle i")
-	menuContainer = document.querySelector("menu")
+	menuContainer = document.querySelector("#menu-bar")
 	for (let node of menu.querySelectorAll(".submenu"))
 		submenus.push(new Submenu(node))
 	document.querySelector("#menu-toggle").addEventListener("click", toggleMenu, false)

@@ -311,7 +311,7 @@ header {
 	top: 0;
 	left: 0;
 }
-menu {
+#menu-bar {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -322,20 +322,20 @@ menu {
 	height: var(--menu-height);
 	font-size: larger;
 }
-menu ul {
+#menu-bar ul {
 	list-style: none;
 }
-menu li {
+#menu-bar li {
 	padding: 0.3em 0.7em;
 }
-menu a {
+#menu-bar a {
 	color: inherit;
 	padding: 0.2em 0.5em;
 	display: block;
 	cursor: pointer;
 	border-radius: var(--border-radius);
 }
-menu a:hover {
+#menu-bar a:hover {
 	background: var(--menu-hover);
 }
 #menu {
@@ -350,10 +350,10 @@ menu a:hover {
 	width: 100%; /* Force it to be on its own row */
 	background: inherit;
 }
-.submenu > ul {
+#menu > .submenu > ul {
 	padding-left: 0.5em;
 }
-.submenu > ul > li {
+#menu > .submenu > ul > li {
 	padding: 0;
 }
 
@@ -379,10 +379,10 @@ aside {
 	max-height: 100vh;
 	overflow-y: auto;
 }
-#menu-toggle {
+#menu-bar #menu-toggle {
 	display: none;
 }
-menu ul {
+#menu-bar ul {
 	margin: 0;
 }
 #menu {
@@ -391,7 +391,7 @@ menu ul {
 	width: auto;
 	margin: 0;
 }
-.submenu > ul {
+#menu > .submenu > ul {
 	position: absolute;
 	top: 0;
 	left: 0;

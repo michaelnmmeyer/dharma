@@ -16,7 +16,7 @@
 <body>
 <div id="contents">
 <header>
-   <menu>
+   <div id="menu-bar">
 <a href="/">DHARMA</a>
 <a id="menu-toggle"><i class="fa-solid fa-caret-down fa-fw"></i></a>
 <ul id="menu" class="hidden">
@@ -51,7 +51,7 @@
       </ul>
    </li>
 </ul>
-   </menu>
+   </div>
 </header>
 <aside>
    <div id="sidebar">
