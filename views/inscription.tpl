@@ -22,7 +22,6 @@
 % endif
 % endblock
 
-
 % block body
 
 <p>
@@ -106,8 +105,12 @@ Version: {{doc.commit_date | format_date}}
 
 % if doc.apparatus:
 <div class="apparatus">
-<h2 id="apparatus">Apparatus</h2>
-{{doc.apparatus.render_logical() | safe}}
+   <h2 id="apparatus" class="collapsible">
+      <i class="fa-solid fa-angles-down"></i> Apparatus
+   </h2>
+   <div class="collapsible-content">
+   {{doc.apparatus.render_logical() | safe}}
+   </div>
 </div>
 % endif
 

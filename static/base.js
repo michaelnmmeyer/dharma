@@ -313,6 +313,11 @@ function TOCEntryToHTML(entry, root) {
 		}
 		link.setAttribute("href", "#" + target)
 		link.innerHTML = heading.innerHTML
+		// Prevent the button for collapsing the apparatus from
+		// appearing in the TOC
+		icon = link.querySelector("i")
+		if (icon)
+			icon.remove()
 		// Remove inner links
 		for (let a of link.querySelectorAll("a[href]"))
 			unwrap(a)
@@ -406,10 +411,31 @@ function localizeDates() {
 		localizeDate(node)
 }
 
+function prepareCollapsible() {
+	for (let node of document.querySelectorAll(".collapsible")) {
+		node.addEventListener("click", function() {
+			let content = this.nextElementSibling;
+			let icon = this.querySelector("i")
+			if (content.classList.contains("hidden")) {
+				content.classList.remove("hidden")
+				content.style.maxHeight = content.scrollHeight + "px"
+				icon.classList.remove("fa-angles-up")
+				icon.classList.add("fa-angles-down")
+			} else {
+				content.classList.add("hidden")
+				content.style.maxHeight = null
+				icon.classList.remove("fa-angles-down")
+				icon.classList.add("fa-angles-up")
+			}
+		});
+	}
+}
+
 window.addEventListener("load", function () {
 	localizeDates()
 	prepareTips()
 	displayTOC()
 	initDisplays()
 	initFlashing()
+	prepareCollapsible()
 })
