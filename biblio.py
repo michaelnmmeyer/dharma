@@ -161,7 +161,7 @@ class Writer:
 	def authors(self, rec, skip_editors=False):
 		authors = []
 		for creator in rec["creators"]:
-			if skip_editors and creator["creatorType"] == "editor":
+			if skip_editors and creator["creatorType"] in ("bookAuthor", "editor"):
 				continue
 			authors.append(creator)
 		if not authors:
@@ -179,29 +179,33 @@ class Writer:
 
 	def edited_by(self, rec):
 		editors = []
+		authors = []
 		for creator in rec["creators"]:
 			if creator["creatorType"] == "editor":
 				editors.append(creator)
-		if not editors:
-			return
-		self.space()
-		self.add("Edited by")
-		self.space()
-		for i, editor in enumerate(editors):
-			if i == 0:
-				self.name_first_last(editor)
+			elif creator["creatorType"] == "bookAuthor":
+				authors.append(creator)
+		for creators, s in [(authors, "By"), (editors, "Edited by")]:
+			if not creators:
 				continue
-			if i == len(editors) - 1:
-				self.add(" and ")
-			else:
-				self.add(", ")
-			self.name_first_last(editor)
-		self.period()
+			self.space()
+			self.add(s)
+			self.space()
+			for i, creator in enumerate(creators):
+				if i == 0:
+					self.name_first_last(creator)
+					continue
+				if i == len(creators) - 1:
+					self.add(" and ")
+				else:
+					self.add(", ")
+				self.name_first_last(creator)
+			self.period()
 
 	def ref(self, rec):
 		authors = []
 		for creator in rec["creators"]:
-			if rec["itemType"] == "bookSection" and creator["creatorType"] == "editor":
+			if rec["itemType"] == "bookSection" and creator["creatorType"] in ("editor", "bookAuthor"):
 				continue
 			authors.append(creator)
 		if len(authors) == 0:
@@ -1243,7 +1247,7 @@ def sort_key(rec):
 	skip_editors = typ == "bookSection"
 	key = ""
 	for creator in rec["creators"]:
-		if skip_editors and creator["creatorType"] == "editor":
+		if skip_editors and creator["creatorType"] in ("editor", "bookAuthor"):
 			continue
 		author = creator.get("lastName") or creator.get("name")
 		key += author + " " + rec.get("date") + " "
