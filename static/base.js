@@ -413,19 +413,15 @@ function localizeDates() {
 
 function prepareCollapsible() {
 	for (let node of document.querySelectorAll(".collapsible")) {
-		node.addEventListener("click", function() {
-			let content = this.nextElementSibling;
-			let icon = this.querySelector("i")
-			if (content.classList.contains("hidden")) {
-				content.classList.remove("hidden")
-				content.style.maxHeight = content.scrollHeight + "px"
-				icon.classList.remove("fa-angles-up")
-				icon.classList.add("fa-angles-down")
-			} else {
-				content.classList.add("hidden")
-				content.style.maxHeight = null
+		let content = node.nextElementSibling;
+		let icon = node.querySelector("i")
+		icon.addEventListener("click", function() {
+			if (content.classList.toggle("hidden")) {
 				icon.classList.remove("fa-angles-down")
 				icon.classList.add("fa-angles-up")
+			} else {
+				icon.classList.remove("fa-angles-up")
+				icon.classList.add("fa-angles-down")
 			}
 		});
 	}

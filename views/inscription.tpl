@@ -106,7 +106,7 @@ Version: {{doc.commit_date | format_date}}
 % if doc.apparatus:
 <div class="apparatus">
    <h2 id="apparatus" class="collapsible">
-      <i class="fa-solid fa-angles-down"></i> Apparatus
+      Apparatus <i class="fa-solid fa-angles-down"></i>
    </h2>
    <div class="collapsible-content">
    {{doc.apparatus.render_logical() | safe}}
