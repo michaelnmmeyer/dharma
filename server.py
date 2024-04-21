@@ -280,6 +280,10 @@ def legacy_display_text(text):
 @app.get("/texts/<text>")
 @config.transaction("texts")
 def display_text(text):
+	# /texts/INSPallava00196 -> /texts/DHARMA_INSPallava00196
+	if not text.startswith("DHARMA_"):
+		text = "DHARMA_" + text
+		return flask.redirect(flask.url_for("display_text", text=text))
 	db = config.db("texts")
 	row = db.execute("""
 		select
