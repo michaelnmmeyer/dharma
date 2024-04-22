@@ -101,7 +101,7 @@ def fetch_alt_langs(ctx, node, default_lang):
 def wait_div(ctx, node, parent_lang, alt_lang, f):
 	assert f is wait_div
 	if node.name == "div":
-		if node["type"] in ("edition", "apparatus", "translation", "commentary"):
+		if node["type"] in ("edition", "apparatus"):
 			f = wait_textpart
 		else:
 			f = assign_language
@@ -125,9 +125,7 @@ def assign_language(ctx, node, parent_lang, alt_lang, f):
 		case "lem" | "rdg":
 			lang = alloc_lang(ctx, node["lang"], alt_lang.lang)
 		case "foreign":
-			lang = alloc_lang(ctx, node["lang"], alt_lang.lang)
-			if lang == parent_lang:
-				node.add_warning(f'''Element "foreign" is in language {lang!r}, which is the same as its parent element. You might have forgotten to add an @xml:lang to div[@type='edition'] or its children text div[@type='textpart']. You might also need to add an explicit @xml:lang to this "foreign" element.''')
+			lang = alloc_lang(ctx, "und", alt_lang.lang)
 		case "g":
 			node.lang = alloc_lang(ctx, node["lang"], parent_lang)
 			return
