@@ -175,7 +175,11 @@ class Block:
 		self.add_code("log", data, **params)
 
 	def start_span(self, **params):
-		params["klass"] = [params["klass"]]
+		klass = params["klass"]
+		if klass:
+			params["klass"] = [klass]
+		else:
+			params["klass"] = []
 		if params.get("tip"):
 			params["tip"] = [params["tip"]]
 		else:

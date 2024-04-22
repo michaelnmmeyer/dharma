@@ -283,7 +283,7 @@ def parse_supplied(p, supplied, tip=None):
 	evidence = supplied["evidence"]
 	if evidence == "parallel":
 		tip += "; restoration based on previous edition (not assessable)"
-	elif tip == "previouseditor":
+	elif evidence == "previouseditor":
 		tip += "; restoration based on parallel"
 	p.start_span(klass="supplied", tip=tip)
 	if seps:
