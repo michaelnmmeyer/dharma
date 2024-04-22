@@ -1,5 +1,7 @@
 # For the conversion zotero->tei, this code is used:
 # https://github.com/zotero/translators/blob/master/TEI.js
+# The documentation for entry types and fields is at:
+# https://www.zotero.org/support/kb/item_types_and_fields
 
 import sys, logging, io, unicodedata, html, re, time
 from urllib.parse import urlparse
@@ -121,10 +123,10 @@ class Writer:
 
 	def add(self, s):
 		if isinstance(s, tree.Node):
-			self.xml.append(s.copy())
-		else:
-			self.xml.append(s)
+			s = s.copy()
+		self.xml.append(s)
 
+	# John Doe
 	def name_first_last(self, rec):
 		first, last = rec.get("firstName"), rec.get("lastName")
 		if first and last:
@@ -140,6 +142,7 @@ class Writer:
 		else:
 			self.add(rec.get("name") or anonymous)
 
+	# Doe, John
 	def name_last_first(self, rec):
 		first, last = rec.get("firstName"), rec.get("lastName")
 		if last and first:
@@ -155,6 +158,7 @@ class Writer:
 		else:
 			self.add(rec.get("name") or anonymous)
 
+	# Doe
 	def name_last(self, rec):
 		self.add(rec.get("lastName") or rec.get("name") or anonymous)
 
