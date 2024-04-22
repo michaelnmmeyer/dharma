@@ -2,7 +2,7 @@
 # The relevant documentation is at:
 # https://www.zotero.org/support/dev/web_api/v3/streaming_api
 
-import logging, traceback
+import logging
 # Documentation at https://websockets.readthedocs.io
 from websockets.sync.client import connect # pip install websockets
 from dharma import config, change, biblio

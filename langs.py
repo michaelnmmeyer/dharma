@@ -2,7 +2,7 @@
 # For ISO 639-5 (language families), the authority is
 # https://www.loc.gov/standards/iso639-5/index.html
 
-import os, sys, functools, collections
+import sys, functools, collections
 import requests # pip install requests
 from dharma import config, texts, tree
 
@@ -158,7 +158,7 @@ def fetch_tsv(file):
 	if isinstance(file, texts.File):
 		text = file.text
 	elif file.startswith("/"):
-		with open(url) as f:
+		with open(file) as f:
 			text = f.read()
 	else:
 		r = requests.get(file)

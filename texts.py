@@ -1,6 +1,5 @@
-import os, re, sys, logging, unicodedata
-from dharma.cleanup import cleanup_file
-from dharma import config, people, validate
+import os, unicodedata
+from dharma import config, validate
 
 valid_prefixes = {"DHARMA_INS", "DHARMA_DiplEd", "DHARMA_CritEd"}
 

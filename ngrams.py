@@ -1,5 +1,4 @@
-import os, sys, string, unicodedata, re, html
-from glob import glob
+import os, string, unicodedata, re, html
 from dharma import config, texts, tree
 
 # TODO try multisets: https://en.wikipedia.org/wiki/Jaccard_index

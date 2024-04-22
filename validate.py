@@ -1,5 +1,4 @@
-import os, sys, re, subprocess
-from glob import glob
+import os, sys, re
 from dharma import config, tree, unicode, relaxng, xslt
 
 # What should we use for representing error locations? Maybe just the patch the
@@ -155,8 +154,8 @@ def file(file_obj):
 
 if __name__ == "__main__":
 	schema = Validator("inscription", "DHARMA_INS")
-	for file in sys.argv[1:]:
-		ret = schema.process(file)
-		print(file, ret.status)
+	for path in sys.argv[1:]:
+		ret = schema.process(path)
+		print(path, ret.status)
 		for m in ret.messages:
-			print(f"{file}:{m}")
+			print(f"{path}:{m}")

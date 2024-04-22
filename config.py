@@ -1,4 +1,4 @@
-import os, sys, logging, sqlite3, json, subprocess, re, ssl, threading, time
+import os, sys, logging, sqlite3, json, subprocess, re, ssl, threading
 import functools, traceback, unicodedata, socket
 from urllib.parse import urlparse, quote
 import icu # pip install PyICU
@@ -283,6 +283,6 @@ def numberize(s, n):
 		return s
 	pl = english.REST.get(w)
 	if not pl:
-		print(f"cannot numberize term {s!r}", file=sys.stderr)
+		logging.error(f"cannot numberize term {s!r}")
 		return s
 	return head + tail[:1] + pl[1:]

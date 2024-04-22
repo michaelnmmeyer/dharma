@@ -68,7 +68,7 @@ def normalize_to_stdout(files):
 		complain("can only process a single file when writing to stdout")
 		exit(1)
 	try:
-		with open(name) as f:
+		with open(files[0]) as f:
 			normalize_filter(f, sys.stdout)
 	except Exception as e:
 		die(e)

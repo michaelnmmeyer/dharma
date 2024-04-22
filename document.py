@@ -7,8 +7,8 @@
 # to make sure we examine everything and to signal stuff we haven't taken into
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
-import os, sys, re, io, copy, html, unicodedata
-from dharma import prosody, people, tree, gaiji, config, unicode, biblio
+import os, sys, re, html, unicodedata
+from dharma import config, unicode, biblio
 
 class BlockDebugFormatter:
 
@@ -23,7 +23,7 @@ class BlockDebugFormatter:
 		self.write(">Block\n")
 
 	def term_color(self, code=None):
-		if not os.isatty(1) and not force_color:
+		if not os.isatty(1) and not self.force_color:
 			return
 		if not code:
 			return self.write("\N{ESC}[0m")

@@ -1,4 +1,3 @@
-import sys, re
 from glob import iglob
 from dharma import tree
 

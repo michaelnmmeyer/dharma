@@ -5,9 +5,8 @@
 # implement any buffering for passing messages, because pipe buffers are big
 # enough for our purposes.
 
-import os, sys, subprocess, time, select, errno, logging, fcntl
-import argparse, traceback, collections
-from dharma import config, validate, texts, biblio, catalog, people, langs
+import os, sys, time, select, errno, logging, fcntl, argparse, traceback
+from dharma import config, texts, biblio, catalog, people, langs
 from dharma import gaiji, prosody, repos
 
 SKIP_PULL = False
@@ -266,7 +265,7 @@ def notify(name):
 		os.close(fd)
 
 def init_db():
-	db = config.db("texts")
+	config.db("texts")
 
 def main():
 	try:
@@ -280,7 +279,7 @@ def main():
 	fd = os.open(FIFO_ADDR, os.O_RDWR)
 	try:
 		fcntl.lockf(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
-	except OSError as e:
+	except OSError:
 		logging.error("cannot obtain lock, is another change process running?")
 		sys.exit(1)
 	init_db()

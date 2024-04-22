@@ -1,6 +1,6 @@
-import os, sys, re, io, copy, html, unicodedata, functools
+import os, sys, re, html
 from urllib.parse import urlparse
-from dharma import prosody, people, tree, gaiji, config, unicode, biblio
+from dharma import prosody, people, tree, gaiji, config, biblio
 from dharma import langs, document
 from dharma.document import Document, Block
 
@@ -167,7 +167,7 @@ def parse_ref(p, ref):
 		p.add_html(f'<a href="{target}">')
 	p.dispatch_children(ref)
 	if target:
-		p.add_html(f'</a>')
+		p.add_html('</a>')
 
 def add_lemmas_links(p, sources):
 	for ref in sources.split():
@@ -662,7 +662,7 @@ def parse_ex(p, node):
 @handler("am")
 def parse_am(p, am):
 	p.start_span(klass="abbr-mark", tip="Abbreviation mark")
-	p.dispatch_children(node)
+	p.dispatch_children(am)
 	p.end_span()
 
 @handler("expan")
@@ -1363,7 +1363,6 @@ def process_file(file):
 	body = t.first("//body")
 	if body:
 		p.document.xml = tree.html_format(t)
-	db = config.db("texts")
 	all_langs = set()
 	for node in t.find("//*"):
 		all_langs.add(node.lang)

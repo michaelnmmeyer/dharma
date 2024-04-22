@@ -1,6 +1,5 @@
-import os, sys, re, unicodedata, html
+import sys, re, unicodedata, html
 import icu # pip install PyICU
-from dharma import texts, cleanup
 
 def graphemes(s):
 	# ICU returns UTF-16 offsets, but we're working at the code point-level.

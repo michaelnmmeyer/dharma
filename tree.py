@@ -36,13 +36,13 @@ are saved in a global table and are systematically reused. There is no caching
 policy for now.
 '''
 
-import os, re, io, collections, copy, sys, inspect, fnmatch, argparse, tokenize
+import os, re, io, collections, sys, fnmatch, tokenize
 import traceback
 from xml.parsers import expat
 from xml.sax.saxutils import escape as quote_string
 from pegen.tokenizer import Tokenizer
 from dharma.xpath_parser import Path, Step, Op, Func, GeneratedParser
-from dharma import config, texts
+from dharma import texts
 
 DEFAULT_LANG = "eng"
 DEFAULT_SPACE = "default"
@@ -659,18 +659,6 @@ class Tag(Branch):
 
 	def __hash__(self):
 		return id(self)
-
-	def __delitem__(self, i):
-		node = self[i]
-		node.location = None
-		stack = [node]
-		while stack:
-			root = stack.pop()
-			for child in root:
-				child.location = None
-				if isinstance(child, Tag):
-					stack.append(child)
-		super().__delitem__(i)
 
 	def copy(self):
 		ret = Tag(self.name, self.attrs)

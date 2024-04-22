@@ -1,4 +1,4 @@
-import os, re, io, unicodedata
+import os, io
 import requests # pip install requests
 from dharma import config, tree, texts
 

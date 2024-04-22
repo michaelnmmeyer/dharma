@@ -1,4 +1,3 @@
-import os
 from dharma import config, texts
 
 def iter_rows():

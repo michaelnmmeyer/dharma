@@ -1,4 +1,4 @@
-import os, time, sys
+import time, sys
 from urllib.parse import urlparse, parse_qs, urlencode
 import flask # pip install flask
 import requests # pip install requests

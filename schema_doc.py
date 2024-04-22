@@ -1,5 +1,5 @@
-import sys, re, io, html
-from dharma import tree, people, parse
+import sys, io, html
+from dharma import tree
 
 syms = {}
 

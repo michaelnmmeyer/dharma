@@ -1,8 +1,8 @@
-import os, sys, unicodedata, hashlib, locale, time, datetime, html, urllib
+import os, unicodedata, datetime, html
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
-from dharma import config, change, people, ngrams, catalog, parse, validate
-from dharma import parse, biblio, document, tree, texts, editorial, prosody
+from dharma import config, change, ngrams, catalog, parse, validate
+from dharma import biblio, document, texts, editorial, prosody
 
 # We don't use the name "templates" for the template folder because we also
 # put other stuff in the same directory, not just templates.
@@ -117,7 +117,6 @@ def show_text_errors(name):
 		row['repo'], row['commit_hash'], row['xml_path'])
 	if row["status"] == validate.OK:
 		return flask.redirect(url)
-	path = config.path_of("repos", row["repo"], row["xml_path"])
 	file = texts.File(row["repo"], row["xml_path"])
 	file.html = row["html_path"]
 	setattr(file, "_mtime", row["mtime"])
@@ -216,7 +215,6 @@ def show_editorial_conventions2():
 @app.get("/editorial-conventions")
 @config.transaction("texts")
 def show_editorial_conventions():
-	db = config.db("texts")
 	title, contents = editorial.parse_html()
 	ret = flask.render_template("editorial.tpl", title=title, contents=contents)
 	return ret
@@ -231,7 +229,6 @@ def show_langs():
 @app.get("/prosody")
 @config.transaction("texts")
 def show_prosody():
-	db = config.db("texts")
 	data = prosody.parse_prosody()
 	ret = flask.render_template("prosody.tpl", data=data)
 	return ret
@@ -360,7 +357,6 @@ def patch_links(soup, attr):
 @app.post("/convert")
 @config.transaction("texts")
 def convert_text():
-	db = config.db("texts")
 	doc = flask.request.json
 	path, data = doc["path"], doc["data"]
 	base = os.path.basename(path)

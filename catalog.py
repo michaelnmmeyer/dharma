@@ -1,5 +1,5 @@
-import os, sys, logging
-from dharma import tree, parse, texts, config, document, validate, langs
+import logging
+from dharma import parse, texts, config, document
 
 class Query:
 

@@ -1,4 +1,4 @@
-import os, sys, unicodedata, json, logging
+import sys, unicodedata, logging
 from dharma import config, tree, biblio, people, texts
 
 def load_data():

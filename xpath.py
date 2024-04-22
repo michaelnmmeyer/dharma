@@ -1,4 +1,4 @@
-import argparse, os, sys
+import argparse, sys
 from dharma import config, tree, langs
 
 @config.transaction("texts")

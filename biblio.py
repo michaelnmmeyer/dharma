@@ -3,7 +3,7 @@
 # The documentation for entry types and fields is at:
 # https://www.zotero.org/support/kb/item_types_and_fields
 
-import sys, logging, io, unicodedata, html, re, time
+import logging, unicodedata, html, re, time
 from urllib.parse import urlparse
 import requests # pip install requests
 from dharma import config, tree
