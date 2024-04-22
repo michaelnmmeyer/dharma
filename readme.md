@@ -2,7 +2,7 @@
 
 This is the newest code for the DHARMA project.
 
-## Installation
+## Dependencies
 
 The following Python packages need to be installed with `pip`:
 
@@ -17,7 +17,7 @@ The following Python packages need to be installed with `pip`:
 `PyICU` wants all the ICU stuff to be installed, including the build tools,
 so install `libicu-dev` or `libicu-devel`, depending on the distribution.
 
-Also need pandoc.
+[`Pandoc`](https://pandoc.org) must also be installed.
 
 ##  Basic architecture
 
@@ -27,7 +27,7 @@ process.
 
 The server process is used for read-only operations: display, search, etc. It
 never writes to a database. The code's entry point is in `server.py`. The
-server is thread-safe.
+server is thread-safe (or is supposed to be).
 
 The update process is used for updating databases when people push to git
 repositories or modify our Zotero bibliography. The code's entry point is in
