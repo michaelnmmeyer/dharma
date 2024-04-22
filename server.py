@@ -281,9 +281,10 @@ def legacy_display_text(text):
 @config.transaction("texts")
 def display_text(text):
 	# /texts/INSPallava00196 -> /texts/DHARMA_INSPallava00196
-	if not text.startswith("DHARMA_"):
+	if text.startswith("DHARMA_"):
+		return flask.redirect(flask.url_for("display_text", text=text.removeprefix("DHARMA_")))
+	else:
 		text = "DHARMA_" + text
-		return flask.redirect(flask.url_for("display_text", text=text))
 	db = config.db("texts")
 	row = db.execute("""
 		select
