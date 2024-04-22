@@ -38,6 +38,7 @@ class Step:
 		self.axis = "child"
 		self.name_test = None
 		self.predicates = []
+		self.abbreviated = False
 
 	def __repr__(self):
 		return "Step(axis=%r, name_test=%r, predicates=%r)" % (self.axis, self.name_test, self.predicates)
@@ -146,7 +147,7 @@ class GeneratedParser(Parser):
             and
             (r := self.RelativeLocationPath())
         ):
-            return r . prepend ( assign ( Step ( ) , axis = "descendant-or-self" ) );
+            return r . prepend ( assign ( Step ( ) , axis = "descendant-or-self" , abbreviated = True ) );
         self._reset(mark)
         return None;
 
@@ -161,7 +162,7 @@ class GeneratedParser(Parser):
             and
             (s := self.Step())
         ):
-            return r . append ( assign ( Step ( ) , axis = "descendant-or-self" ) ) . append ( s );
+            return r . append ( assign ( Step ( ) , axis = "descendant-or-self" , abbreviated = True ) ) . append ( s );
         self._reset(mark)
         return None;
 
@@ -174,12 +175,12 @@ class GeneratedParser(Parser):
             and
             (self.expect('.'))
         ):
-            return assign ( Step ( ) , axis = "parent" );
+            return assign ( Step ( ) , axis = "parent" , abbreviated = True );
         self._reset(mark)
         if (
             (self.expect('.'))
         ):
-            return assign ( Step ( ) , axis = "self" );
+            return assign ( Step ( ) , axis = "self" , abbreviated = True );
         self._reset(mark)
         return None;
 

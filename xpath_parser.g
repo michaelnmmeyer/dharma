@@ -33,6 +33,7 @@ class Step:
 		self.axis = "child"
 		self.name_test = None
 		self.predicates = []
+		self.abbreviated = False
 
 	def __repr__(self):
 		return "Step(axis=%r, name_test=%r, predicates=%r)" % (self.axis, self.name_test, self.predicates)
@@ -74,12 +75,12 @@ RelativeLocationPath:
 	| r=Step { Path().append(r) }
 
 AbbreviatedAbsoluteLocationPath: '//' r=RelativeLocationPath {
-	r.prepend(assign(Step(), axis="descendant-or-self")) }
+	r.prepend(assign(Step(), axis="descendant-or-self", abbreviated=True)) }
 AbbreviatedRelativeLocationPath: r=RelativeLocationPath '//' s=Step {
-	r.append(assign(Step(), axis="descendant-or-self")).append(s) }
+	r.append(assign(Step(), axis="descendant-or-self", abbreviated=True)).append(s) }
 AbbreviatedStep:
-	| '.' '.' { assign(Step(), axis="parent") }
-	| '.' { assign(Step(), axis="self") }
+	| '.' '.' { assign(Step(), axis="parent", abbreviated=True) }
+	| '.' { assign(Step(), axis="self", abbreviated=True) }
 
 Step:
 	| q=AxisSpecifier? r=NodeTest s=Predicate* {
@@ -119,8 +120,10 @@ OrExpr:
 AndExpr:
 	| r=AndExpr "and" s=NotExpr { Op("and", r, s) }
 	| NotExpr
-# The xpath spec defines 'not' as a function, but we make it an operator.
+# The xpath spec defines "not" as a function, but we make it an operator.
 # Thus both foo[not(kid)] and foo[not kid] can be used and are equivalent.
+# We use "not" as a soft keyword, so foo[not] is valid and refers to "foo"
+# elements that have "not" child elements.
 NotExpr:
 	| "not" r=NotExpr { Op("not", None, r) }
 	| EqualityExpr

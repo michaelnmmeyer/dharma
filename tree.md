@@ -24,19 +24,20 @@ For simplicity, we do not deal with XML namespaces at all. We just remove
 namespace prefixes in both elements and attributes. Thus,
 `<xsl:template>` becomes `<template>`, and `<foo xml:lang="eng">` becomes `<foo
 lang="eng">`. This means that we cannot deal with documents where namespaces are
-significant. This also means that we cannot serialize properly XML documents
+significant. This also means that we cannot properly serialize XML documents
 that used namespaces initially.
 
-We only support a small subset of xpath. Most notably, it is only possible to
+We use XPath expressions for searching and matching, but only support a small
+subset of it. Most notably, it is only possible to
 select `Tag` and `Tree` nodes. Other types of nodes, attributes in particular,
 can only be used in predicates, as in `foo[@bar]`. We also do not support
 expressions that index node sets in some way: testing a node position in a node
-set is not possible or evaluating the length of a node set is not possible.
+set or evaluating the length of a node set is not possible.
 
 To evaluate an expression, we first convert it to straightforward python source
 code, then compile the result, and finally run the code. Compiled expressions
-are saved in a global table and are systematically reused. No caching policy for
-now.
+are saved in a global table and are systematically reused. There is no caching
+policy for now.
 
 <a id="dharma.tree.Location"></a>
 
@@ -242,7 +243,7 @@ def match_func(path)
 ```
 
 Returns a function that matches the given path if called on
-a node.
+a `Node` object. See the documentation of `Node.matches()`.
 
 <a id="dharma.tree.Node.matches"></a>
 
@@ -253,6 +254,10 @@ def matches(path)
 ```
 
 Checks if this node matches the given XPath expression.
+Returns a boolean.
+
+The expression is evaluated like an XSLT pattern. For details,
+see the XSLT 1.0 standard, under § 5.2 Patterns.
 
 <a id="dharma.tree.Node.children"></a>
 
@@ -417,23 +422,6 @@ Attributes ordering is preserved for attributes passed through
 attributes created manually with e.g. `node["attr"] = "foo"`
 are added at the end of the attributes list. (We use an
 OrderedDict under the hood.)
-
-<a id="dharma.tree.Tag.lang"></a>
-
-#### lang
-
-```python
-@property
-def lang()
-```
-
-Language of this node.
-
-Processing top-down:
-* if we meet a note tag, set the language to the latest
-encountered european language
-* if we meet a foreign tag that has no @lang, toggle the
-language between european and other
 
 <a id="dharma.tree.String"></a>
 
