@@ -238,6 +238,9 @@ def command(*cmd, **kwargs):
 		raise
 	return ret
 
+def pandoc(text):
+	return command("pandoc", "-fmarkdown", "-thtml", input=text).stdout
+
 CODE_HASH, CODE_DATE = command("git", "show", "--no-patch", "--format=%H %at",
 	"HEAD").stdout.strip().split()
 CODE_DATE = int(CODE_DATE)

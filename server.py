@@ -217,8 +217,8 @@ def show_editorial_conventions2():
 @config.transaction("texts")
 def show_editorial_conventions():
 	db = config.db("texts")
-	data = editorial.parse_html()
-	ret = flask.render_template("editorial.tpl", data=data)
+	title, contents = editorial.parse_html()
+	ret = flask.render_template("editorial.tpl", title=title, contents=contents)
 	return ret
 
 @app.get("/languages")

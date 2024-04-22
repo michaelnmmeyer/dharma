@@ -17,6 +17,8 @@ The following Python packages need to be installed with `pip`:
 `PyICU` wants all the ICU stuff to be installed, including the build tools,
 so install `libicu-dev` or `libicu-devel`, depending on the distribution.
 
+Also need pandoc.
+
 ##  Basic architecture
 
 The overall architecture is as simple as feasible. We store our data in a few
