@@ -249,6 +249,12 @@ class Node:
 					assert 0
 			i -= 1
 
+	def stuck_child(self):
+		"""Returns the first `Tag` child of this node, if it has one
+		and if there is no intervening text in-between.
+		"""
+		pass
+
 	def delete(self):
 		"""Removes this node and all its descendants from the tree.
 		Returns the removed subtree."""
@@ -656,6 +662,21 @@ class Tag(Branch):
 		for key, value in attributes.items():
 			self[key] = value
 		super().__init__()
+
+	def stuck_child(self):
+		i = 0
+		while i < len(self):
+			node = self[i]
+			match node:
+				case Tag():
+					return node
+				case String() if node.isspace():
+					pass
+				case Comment() | Instruction():
+					pass
+				case _:
+					break
+			i += 1
 
 	def __hash__(self):
 		return id(self)

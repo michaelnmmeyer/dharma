@@ -187,6 +187,17 @@ def root()
 
 The root `Tag` node of the `Tree` this subtree belongs to.
 
+<a id="dharma.tree.Node.stuck_child"></a>
+
+#### stuck\_child
+
+```python
+def stuck_child()
+```
+
+Returns the first `Tag` child of this node, if it has one
+and if there is no intervening text in-between.
+
 <a id="dharma.tree.Node.delete"></a>
 
 #### delete

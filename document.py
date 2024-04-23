@@ -573,7 +573,6 @@ class Document:
 
 	def __init__(self):
 		self.langs = []
-		self.edition = None
 		self.translation = []
 		self.sigla = {}
 		self.biblio = set()

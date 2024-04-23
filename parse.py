@@ -47,6 +47,10 @@ class Parser:
 	def within_div(self):
 		return len(self.divs) > 1
 
+	def clear_divs(self):
+		self.divs.clear()
+		self.divs.append(set())
+
 	def add_n(self, n):
 		if n != "?" and n in self.divs[-1]: # XXX no "?" mess
 			return False
@@ -1243,11 +1247,8 @@ def get_script(node):
 # Within inscriptions, <div> shouldn't nest, except that we can have
 # <div type="textpart"> within <div type="edition">.
 # All the DHARMA_INSEC* stuff don't follow the ins schema, too different.
-@handler("div")
+@handler("div[@type='textpart']")
 def parse_div(p, div):
-	if div["type"] != "textpart":
-		p.complain(div)
-		return
 	n = milestone_n(p, div)
 	# rend style subtype
 	children = div.children()
@@ -1269,16 +1270,19 @@ def parse_div(p, div):
 def gather_sections(p, div):
 	p.push(div["type"])
 	for child in div:
-		if isinstance(child, tree.Tag) and child.name == "div":
-			if p.within_div:
-				p.end_div()
-			p.dispatch(child)
-		elif not isinstance(child, (tree.Comment, tree.Instruction)):
-			if not p.within_div:
-				if isinstance(child, tree.String) and not child.strip():
-					continue
-				p.start_div()
-			p.dispatch(child)
+		match child:
+			case tree.Tag() if child.name == "div":
+				if p.within_div:
+					p.end_div()
+				p.dispatch(child)
+			case tree.Comment() | tree.Instruction():
+				pass
+			case _:
+				if not p.within_div:
+					if isinstance(child, tree.String) and not child.strip():
+						continue
+					p.start_div()
+				p.dispatch(child)
 	if p.within_div:
 		p.end_div()
 	return p.pop()
@@ -1311,16 +1315,16 @@ def process_translation(p, div):
 		ref = source.removeprefix("bib:")
 		p.add_text(" by ")
 		p.add_html(str(p.get_bib_ref(ref)))
-	children = div.children()
 	# If we have a note as first child, we expect the note to bear
 	# @type='credit', but even if not so we consider the note as
 	# belonging to the title.
 	# TODO thus do the same for every section: if the section starts with
 	# a note not preceded by non-blank text, treat the note as part of
 	# the section's title.
-	if len(children) > 0 and children[0].matches("note"):
-		p.dispatch(children[0])
-		p.visited.add(children[0])
+	child = div.stuck_child()
+	if child and child.matches("note"):
+		p.dispatch(child)
+		p.visited.add(child)
 	title = p.pop().render_logical()
 	trans = gather_sections(p, div)
 	if not trans:
@@ -1343,32 +1347,23 @@ def gather_biblio(p, body):
 			p.document.sigla[target] = siglum
 		p.document.biblio.add(target)
 
+@handler("""div[@type='edition' or @type='apparatus' or @type='commentary'
+	or @type='bibliography']""")
+def parse_div_edition(p, div):
+	p.clear_divs()
+	setattr(p.document, div["type"], gather_sections(p, div))
+
+@handler("div[@type='translation']")
+def parse_div_translation(p, div):
+	p.clear_divs()
+	trans = process_translation(p, div)
+	if trans:
+		p.document.translation.append(trans)
+
 @handler("body")
 def parse_body(p, body):
 	gather_biblio(p, body)
-	for div in body.children():
-		type = div["type"]
-		if not div.name == "div" or not type in ("edition", "translation", "commentary", "bibliography", "apparatus"):
-			p.complain(div)
-			continue
-		p.divs.clear()
-		p.divs.append(set())
-		if type == "edition":
-			edition = gather_sections(p, div)
-			if edition:
-				p.document.edition = edition
-		elif type == "apparatus":
-			p.document.apparatus = gather_sections(p, div)
-		elif type == "translation":
-			trans = process_translation(p, div)
-			if trans:
-				p.document.translation.append(trans)
-		elif type == "commentary":
-			p.document.commentary = gather_sections(p, div)
-		elif type == "bibliography":
-			p.document.bibliography = gather_sections(p, div)
-		else:
-			assert 0
+	p.dispatch_children(body)
 
 def process_file(file, mode=None):
 	try:
