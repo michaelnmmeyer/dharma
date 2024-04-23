@@ -970,6 +970,10 @@ def parse_l(p, l):
 	enjamb = config.to_boolean(l["enjamb"], False)
 	p.add_log("<line", n=n)
 	p.dispatch_children(l)
+	if enjamb:
+		p.start_span(tip="Enjambement")
+		p.add_html("-")
+		p.end_span()
 	p.add_log(">line", n=n, enjamb=enjamb)
 
 def is_description_list(nodes):
