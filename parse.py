@@ -993,7 +993,7 @@ def parse_l(p, l):
 	p.add_log("<line", n=n)
 	p.dispatch_children(l)
 	if enjamb:
-		p.start_span(tip="Enjambement")
+		p.start_span(klass="enjamb", tip="Enjambement")
 		p.add_html("-")
 		p.end_span()
 	p.add_log(">line", n=n, enjamb=enjamb)
