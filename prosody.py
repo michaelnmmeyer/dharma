@@ -139,7 +139,7 @@ def parse_list_rec(item, bib_entries):
 		text = name.text()
 		if not text:
 			continue
-		lang = klass["lang"].split("-")[0] or "und"
+		lang = name["lang"].split("-")[0] or "und"
 		rec["names"].append((text, lang))
 	# <seg type="xml">----+-+---+-+---=/++++-+-+---+-+---=</seg>
 	# <seg type="prosody">⏑⏑⏑⏑–⏑–⏑⏑⏑–⏑||–⏑⏑⏑⏓/––––⏑–⏑–⏑⏑⏑–⏑–⏑⏑⏑⏓</seg>
