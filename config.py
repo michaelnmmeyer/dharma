@@ -261,10 +261,18 @@ def normalize_url(url):
 	# systematically submit them to the Wayback machine.
 
 def numberize(s, n):
-	# Late import to avoid loading this if not necessary.
+	# Late import to avoid loading this big file if not necessary.
 	from dharma import english
-	if isinstance(n, str):
-		n = n.isdigit() and int(n) or 0
+	match n:
+		case str() if n.isdigit():
+			if n.isdigit():
+				n = int(n)
+			else:
+				n = 0
+		case int():
+			assert n >= 0
+		case _:
+			n = len(n)
 	if n == 1:
 		return s
 	chunks = s.rsplit(None, 1)

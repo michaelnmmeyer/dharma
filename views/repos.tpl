@@ -20,16 +20,18 @@ href="https://github.com/erc-dharma">here</a>. The table below does not show the
 % endif
 </p>
 % if repo["people"]:
-<p>Editors:
-% for editor_id, editor, prod in from_json(repo["people"]):
+% set people = from_json(repo["people"])
+<p>{{numberize('Editor', people)}}:
+% for editor_id, editor, prod in people:
 {{editor}}
 (<a href="{{url_for('show_catalog', q='repo:%s editor_id:%s' % (repo["repo"], editor_id))}}">{{prod}}</a>){{loop.index == loop.length and "." or ","}}
 % endfor
 </p>
 % endif
 % if repo["langs"]:
-<p>Languages:
-% for lang_id, lang, prod in from_json(repo["langs"]):
+% set langs = from_json(repo["langs"])
+<p>{{numberize('Language', langs)}}:
+% for lang_id, lang, prod in langs:
 {{lang}}
 (<a href="{{url_for('show_catalog', q='repo:%s lang:%s' % (repo["repo"], lang_id))}}">{{prod}}</a>){{loop.index == loop.length and "." or ","}}
 % endfor
