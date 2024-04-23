@@ -1351,11 +1351,10 @@ def parse_body(p, body):
 		else:
 			assert 0
 
-def process_file(file):
+def process_file(file, mode=None):
 	try:
 		t = tree.parse_string(file.data, path=file.full_path)
-	except tree.Error as e:
-		print("catalog: %r %s" % (file.full_path, e), file=sys.stderr)
+	except tree.Error:
 		doc = document.Document()
 		doc.valid = False
 		doc.repository = file.repo
@@ -1364,15 +1363,19 @@ def process_file(file):
 		doc.edition_langs = [langs.Undetermined]
 		return doc
 	langs.assign_languages(t)
-	f = t.first("//teiHeader/encodingDesc")
-	if f:
-		f.delete()
-	f = t.first("//teiHeader/revisionDesc")
-	if f:
-		f.delete()
-	f = t.first("//publicationStmt")
-	if f:
-		f.delete()
+	to_delete = [
+		"//teiHeader/encodingDesc",
+		"//teiHeader/revisionDesc",
+		"//publicationStmt",
+	]
+	if mode == "catalog":
+		to_delete += [
+			"//teiHeader//title//note",
+			"//body",
+		]
+	for path in to_delete:
+		for node in t.find(path):
+			node.delete()
 	p = Parser(t)
 	p.dispatch(p.tree.root)
 	body = t.first("//body")

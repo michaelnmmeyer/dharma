@@ -39,7 +39,7 @@ def delete(name):
 
 def insert(file):
 	db = config.db("texts")
-	doc = parse.process_file(file)
+	doc = parse.process_file(file, mode="catalog")
 	for key in ("title", "author", "editors", "summary"):
 		val = getattr(doc, key, None)
 		if val is None:
@@ -51,7 +51,6 @@ def insert(file):
 		fmt_editors = fmt_editors.split(document.PARA_SEP)
 	else:
 		fmt_editors = []
-	print([lang.id for lang in doc.edition_langs])
 	db.execute("""insert or replace into documents(name, repo, title,
 		author, editors, editors_ids, langs, summary, html_path, status)
 		values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
