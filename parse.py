@@ -281,9 +281,9 @@ def parse_supplied(p, supplied, tip=None):
 		tip += " (low certainty)"
 	evidence = supplied["evidence"]
 	if evidence == "parallel":
-		tip += "; restoration based on previous edition (not assessable)"
-	elif evidence == "previouseditor":
 		tip += "; restoration based on parallel"
+	elif evidence == "previouseditor":
+		tip += "; restoration based on previous edition (not assessable)"
 	p.start_span(klass="supplied", tip=tip)
 	if seps:
 		p.add_html(seps[0])
