@@ -30,6 +30,21 @@ can only be used in predicates, as in `foo[@bar]`. We also do not support
 expressions that index node sets in some way: testing a node position in a node
 set or evaluating the length of a node set is not possible.
 
+XPath expressions can use the following functions:
+
+`glob(pattern[, text])`
+
+Checks if `text` matches the given glob `pattern`. If `text` is not given,
+it defaults to the node's text contents.
+
+`regex(pattern[, text])`
+
+Like `glob`, but for regular expressions. Matching is unanchored.
+
+`lang()`, `mixed()`, `empty()`, `errors()`
+
+Returns the corresponding attributes in `Node`.
+
 To evaluate an expression, we first convert it to straightforward python source
 code, then compile the result, and finally run the code. Compiled expressions
 are saved in a global table and are systematically reused. There is no caching
@@ -181,6 +196,12 @@ class Node:
 		children. This can only be called on `Branch` nodes.'''
 		raise Exception("invalid operation")
 
+	@property
+	def empty(self):
+		'''`True` if this node has no `Tag` children nor non-blank
+		`String` children. This can only be called on `Branch` nodes.'''
+		raise Exception("invalid operation")
+
 	def __hash__(self):
 		return id(self)
 
@@ -251,7 +272,7 @@ class Node:
 
 	def stuck_child(self):
 		"""Returns the first `Tag` child of this node, if it has one
-		and if there is no intervening text in-between.
+		and if there is no intervening non-blank text in-between.
 		"""
 		pass
 
@@ -280,7 +301,7 @@ class Node:
 		while True:
 			match = self._location_re.match(path)
 			if not match:
-				raise Exception(f"invalid location {repr(orig)}")
+				raise Exception(f"invalid location {orig!r}")
 			name, index = match.group(1), int(match.group(2))
 			i = 0
 			for node in node:
@@ -289,7 +310,7 @@ class Node:
 					if i == index:
 						break
 			else:
-				raise Exception(f"node {repr(orig)} not found")
+				raise Exception(f"node {orig!r} not found")
 			end = match.end()
 			if end == len(path):
 				break
@@ -411,7 +432,7 @@ class Branch(Node, list):
 		raise NotImplementedError
 
 	def __iadd__(self, value):
-		self.extend(value)
+		self.extend(value.copy())
 
 	def __imul__(self, value):
 		raise NotImplementedError
@@ -496,6 +517,16 @@ class Branch(Node, list):
 						return True
 					has_string = True
 		return False
+
+	@property
+	def empty(self):
+		for node in self:
+			match node:
+				case Tag():
+					return False
+				case String() if not node.isspace():
+					return False
+		return True
 
 	# Remove the given child node
 	def remove(self, node):
@@ -1025,6 +1056,11 @@ def xpath_glob(node, pattern, *arg):
 	(text,) = arg or (node.text(),)
 	return fnmatch.fnmatchcase(text, pattern)
 
+def xpath_regex(node, pattern, *arg):
+	assert isinstance(pattern, str)
+	(text,) = arg or (node.text(),)
+	return bool(re.search(pattern, text))
+
 def xpath_lang(node):
 	assert isinstance(node, Node)
 	return node.lang
@@ -1033,14 +1069,20 @@ def xpath_mixed(node):
 	assert isinstance(node, Node)
 	return node.mixed
 
+def xpath_empty(node):
+	assert isinstance(node, Node)
+	return node.empty
+
 def xpath_errors(node):
 	assert isinstance(node, Node)
 	return bool(node.errors)
 
 xpath_funcs = {
 	"glob": xpath_glob,
+	"regex": xpath_regex,
 	"lang": xpath_lang,
 	"mixed": xpath_mixed,
+	"empty": xpath_empty,
 	"errors": xpath_errors,
 }
 

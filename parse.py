@@ -219,7 +219,7 @@ def parse_app(p, app):
 
 @handler("listApp")
 def parse_listApp(p, listApp):
-	apps = listApp.find("app")
+	apps = listApp.find("app[lem[not empty()]]")
 	if not apps:
 		return
 	prev_loc = None
@@ -1047,11 +1047,10 @@ def parse_list(p, list):
 extract_bib_ref = prosody.extract_bib_ref
 
 def extract_bibl_items(p, listBibl):
-	recs = listBibl.find("bibl")
 	ret = []
-	for rec in recs:
+	for rec in listBibl.find("bibl[ptr[@target and @target!='bib:AuthorYear_01']]"):
 		ref, loc = extract_bib_ref(rec)
-		if not ref or ref == "AuthorYear_01":
+		if not ref:
 			continue
 		ret.append((rec, ref, loc))
 	return ret
@@ -1251,20 +1250,17 @@ def get_script(node):
 def parse_div(p, div):
 	n = milestone_n(p, div)
 	# rend style subtype
-	children = div.children()
-	i = 0
 	# <head> is supposed to only occur in this context in inscriptions, but
 	# in fact we don't really care, might allow it somewhere else
 	p.start_div(n=n)
-	if children and children[0].name == "head":
+	if (child := div.stuck_child()) and child.matches("head"):
 		p.add_log("<head")
 		p.add_text(n)
 		p.add_text(". ")
-		p.dispatch_children(children[0])
+		p.dispatch_children(child)
 		p.add_log(">head")
-		i += 1
-	for child in children[i:]:
-		p.dispatch(child)
+		p.visited.add(child)
+	p.dispatch_children(div)
 	p.end_div()
 
 def gather_sections(p, div):
@@ -1298,8 +1294,7 @@ def process_translation(p, div):
 	if lang:
 		lang = html.escape(langs.from_code(lang) or lang)
 		p.add_text(f" into {lang}")
-	resp = div["resp"]
-	if resp:
+	if (resp := div["resp"]):
 		p.add_text(" by ")
 		resps = resp.split()
 		for i, resp in enumerate(resps):
@@ -1310,8 +1305,7 @@ def process_translation(p, div):
 			else:
 				p.add_text(" and ")
 			p.add_html(fetch_resp(resp))
-	source = div["source"]
-	if source:
+	if (source := div["source"]):
 		ref = source.removeprefix("bib:")
 		p.add_text(" by ")
 		p.add_html(str(p.get_bib_ref(ref)))
@@ -1321,8 +1315,7 @@ def process_translation(p, div):
 	# TODO thus do the same for every section: if the section starts with
 	# a note not preceded by non-blank text, treat the note as part of
 	# the section's title.
-	child = div.stuck_child()
-	if child and child.matches("note"):
+	if (child := div.stuck_child()) and child.matches("note"):
 		p.dispatch(child)
 		p.visited.add(child)
 	title = p.pop().render_logical()
@@ -1356,8 +1349,7 @@ def parse_div_edition(p, div):
 @handler("div[@type='translation']")
 def parse_div_translation(p, div):
 	p.clear_divs()
-	trans = process_translation(p, div)
-	if trans:
+	if (trans := process_translation(p, div)):
 		p.document.translation.append(trans)
 
 @handler("body")

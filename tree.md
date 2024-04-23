@@ -34,6 +34,21 @@ can only be used in predicates, as in `foo[@bar]`. We also do not support
 expressions that index node sets in some way: testing a node position in a node
 set or evaluating the length of a node set is not possible.
 
+XPath expressions can use the following functions:
+
+`glob(pattern[, text])`
+
+Checks if `text` matches the given glob `pattern`. If `text` is not given,
+it defaults to the node's text contents.
+
+`regex(pattern[, text])`
+
+Like `glob`, but for regular expressions. Matching is unanchored.
+
+`lang()`, `mixed()`, `empty()`, `errors()`
+
+Returns the corresponding attributes in `Node`.
+
 To evaluate an expression, we first convert it to straightforward python source
 code, then compile the result, and finally run the code. Compiled expressions
 are saved in a global table and are systematically reused. There is no caching
@@ -152,6 +167,18 @@ def mixed()
 Whether this node has both `Tag` and non-blank `String`
 children. This can only be called on `Branch` nodes.
 
+<a id="dharma.tree.Node.empty"></a>
+
+#### empty
+
+```python
+@property
+def empty()
+```
+
+`True` if this node has no `Tag` children nor non-blank
+`String` children. This can only be called on `Branch` nodes.
+
 <a id="dharma.tree.Node.source"></a>
 
 #### source
@@ -196,7 +223,7 @@ def stuck_child()
 ```
 
 Returns the first `Tag` child of this node, if it has one
-and if there is no intervening text in-between.
+and if there is no intervening non-blank text in-between.
 
 <a id="dharma.tree.Node.delete"></a>
 
