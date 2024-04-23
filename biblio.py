@@ -309,12 +309,13 @@ class Writer:
 					unit = config.numberize(unit, 1)
 				if first:
 					unit = config.sentence_case(unit)
+					first = False
 				self.add(unit)
 				self.space()
 			if first:
 				val = config.sentence_case(val)
+				first = False
 			self.add(val)
-			first = False
 		self.period()
 
 	def loc(self, loc):
