@@ -288,6 +288,8 @@ def parse_supplied(p, supplied, tip=None):
 	if seps:
 		p.add_html(seps[0])
 	p.dispatch_children(supplied)
+	if supplied["reason"] in ("subaudible", "explanation") and supplied["cert"] == "low":
+		p.add_html("?")
 	if seps:
 		p.add_html(seps[1])
 	p.end_span()
@@ -965,9 +967,10 @@ def parse_p(p, para):
 @handler("l")
 def parse_l(p, l):
 	n = l["n"] or "?"
+	enjamb = config.to_boolean(l["enjamb"], False)
 	p.add_log("<line", n=n)
 	p.dispatch_children(l)
-	p.add_log(">line", n=n)
+	p.add_log(">line", n=n, enjamb=enjamb)
 
 def is_description_list(nodes):
 	if len(nodes) % 2: # XXX watch out for fucked text
@@ -1263,7 +1266,7 @@ def process_translation(p, div):
 	if not trans:
 		return
 	title = "Translation"
-	lang = div["lang"]
+	lang = div["lang"].split("-")[0]
 	if lang:
 		lang = html.escape(langs.from_code(lang) or lang)
 		title += f" into {lang}"

@@ -931,9 +931,6 @@ class Parser:
 			colon = key.find(":")
 			if colon >= 0:
 				key = key[colon + 1:]
-			if key == "lang":
-				# san-Latn -> san
-				value = value.rsplit("-", 1)[0]
 			attrs.append((key, value))
 		self.make_node(Tag, name, attrs)
 

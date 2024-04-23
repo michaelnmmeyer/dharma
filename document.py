@@ -249,6 +249,8 @@ class Block:
 					buf.append('<div class="verse-line">')
 					buf.append("<p>")
 				elif data == ">line":
+					if params.get("enjamb"):
+						buf.append('<span data-tip="Enjambment">-</span>')
 					buf.append("</p>")
 					buf.append(" <span>%s</span>" % html.escape(params["n"]))
 					buf.append("</div>")
@@ -366,6 +368,8 @@ class Block:
 					buf.append('<div class="verse-line">')
 					buf.append("<p>")
 				elif data == ">line":
+					if params.get("enjamb"):
+						buf.append('<span data-tip="Enjambment">-</span>')
 					buf.append("</p>")
 					buf.append(" <span>%s</span>" % html.escape(params["n"]))
 					buf.append("</div>")
@@ -646,6 +650,8 @@ class PlainRenderer:
 			elif data == "<line":
 				self.add("\t")
 			elif data == ">line":
+				if params.get("enjamb"):
+					self.add("-")
 				self.add("\n")
 			elif data == "<verse":
 				pass

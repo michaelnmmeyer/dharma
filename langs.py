@@ -84,7 +84,7 @@ def fetch_alt_langs(ctx, node, default_lang):
 		node = node.first(name)
 		if not node:
 			return AltLang(lang, {})
-		lang = alloc_lang(ctx, node["lang"], lang)
+		lang = alloc_lang(ctx, node["lang"].split("-")[0], lang)
 	final = AltLang(lang, {})
 	stack = [(node, final)]
 	while stack:
@@ -92,7 +92,7 @@ def fetch_alt_langs(ctx, node, default_lang):
 		for child in node.children():
 			if child.name == "div" and child["type"] == "textpart" and child["n"]:
 				n = child["n"]
-				lang = alloc_lang(ctx, child["lang"], struct.lang)
+				lang = alloc_lang(ctx, child["lang"].split("-")[0], struct.lang)
 				child_struct = AltLang(lang, {})
 				struct.children[n] = child_struct
 				stack.append((child, child_struct))
@@ -123,14 +123,14 @@ def wait_textpart(ctx, node, parent_lang, alt_lang, f):
 def assign_language(ctx, node, parent_lang, alt_lang, f):
 	match node.name:
 		case "lem" | "rdg":
-			lang = alloc_lang(ctx, node["lang"], alt_lang.lang)
+			lang = alloc_lang(ctx, node["lang"].split("-")[0], alt_lang.lang)
 		case "foreign":
-			lang = alloc_lang(ctx, node["lang"], Source)
+			lang = alloc_lang(ctx, node["lang"].split("-")[0], Source)
 		case "g":
-			node.lang = alloc_lang(ctx, node["lang"], parent_lang)
+			node.lang = alloc_lang(ctx, node["lang"].split("-")[0], parent_lang)
 			return
 		case _:
-			lang = alloc_lang(ctx, node["lang"], parent_lang)
+			lang = alloc_lang(ctx, node["lang"].split("-")[0], parent_lang)
 	langs = set()
 	for child in node:
 		match child:
@@ -183,15 +183,6 @@ def add_to_index(code, index, rec):
 		return
 	assert not code in index or index[code] is rec
 	index[code] = rec
-
-def to_boolean(s, dflt):
-	match s.lower():
-		case "true" | "yes" | "on" | "1":
-			return True
-		case "false" | "no" | "off" | "0":
-			return False
-		case _:
-			return dflt
 
 def load_data():
 	tbl3 = fetch_tsv("https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab")
@@ -249,9 +240,9 @@ def load_data():
 			rec["name"] = row["Print_Name"]
 			rec["inverted_name"] = row["Inverted_Name"]
 			rec["custom"] = True
-			rec["source"] = to_boolean(row["source"], True)
+			rec["source"] = config.to_boolean(row["source"], True)
 		else:
-			rec["source"] = to_boolean(row["source"], True)
+			rec["source"] = config.to_boolean(row["source"], True)
 		rec["dharma"] = True
 	assert all("inverted_name" in rec for rec in recs)
 	recs.sort(key=lambda rec: rec["id"])

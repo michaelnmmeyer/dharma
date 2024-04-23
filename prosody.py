@@ -128,7 +128,7 @@ def parse_list_rec(item, bib_entries):
 	assert len(klass) <= 1
 	if klass:
 		klass = klass[0]
-		lang = klass["lang"] or "und"
+		lang = klass["lang"].split("-")[0] or "und"
 		klass = klass.text()
 		if klass:
 			rec["class"] = (klass, lang)
@@ -139,7 +139,7 @@ def parse_list_rec(item, bib_entries):
 		text = name.text()
 		if not text:
 			continue
-		lang = name["lang"] or "und"
+		lang = klass["lang"].split("-")[0] or "und"
 		rec["names"].append((text, lang))
 	# <seg type="xml">----+-+---+-+---=/++++-+-+---+-+---=</seg>
 	# <seg type="prosody">⏑⏑⏑⏑–⏑–⏑⏑⏑–⏑||–⏑⏑⏑⏓/––––⏑–⏑–⏑⏑⏑–⏑–⏑⏑⏑⏓</seg>

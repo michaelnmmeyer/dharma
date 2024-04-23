@@ -293,3 +293,12 @@ def sentence_case(s):
 	t = s.split(None, 1)
 	t[0] = t[0].capitalize()
 	return " ".join(t)
+
+def to_boolean(s, dflt):
+	match s.lower():
+		case "true" | "yes" | "on" | "1":
+			return True
+		case "false" | "no" | "off" | "0":
+			return False
+		case _:
+			return dflt
