@@ -83,6 +83,23 @@ def normalize(s):
 	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
 	return unicodedata.normalize("NFC", s.strip())
 
+alignments = {
+	"right": "Right-aligned",
+	"left": "Left-aligned",
+	"center": "Centred",
+	"justify": "Justified",
+}
+
+def format_lb(n=None, brk=None, align=None):
+	assert n
+	n = html.escape(n)
+	if align:
+		tip = f'{alignments[align]} line start'
+	else:
+		tip = "Line start"
+	tip = html.escape(tip)
+	return f'<span class="lb" data-tip="{tip}">({n})</span>'
+
 class Block:
 
 	def __init__(self, name=""):
@@ -308,7 +325,7 @@ class Block:
 				if data == "<line":
 					if params["brk"]:
 						buf.append(" ")
-					buf.append('<span class="lb" data-tip="Line start">(%s)</span>' % html.escape(params["n"]))
+					buf.append(format_lb(**params))
 					if params["brk"]:
 						buf.append(" ")
 				elif data == ">line":
@@ -425,7 +442,7 @@ class Block:
 				if data == "<line":
 					if params["brk"]:
 						buf.append(" ")
-					buf.append('<span class="lb" data-tip="Line start">(%s)</span>' % html.escape(params["n"]))
+					buf.append(format_lb(**params))
 					if params["brk"]:
 						buf.append(" ")
 				elif data == ">line":
@@ -469,7 +486,8 @@ class Block:
 					continue
 			if t == "phys":
 				if data == "<line":
-					buf.append('<p class="line"><span class="lb" data-tip="Line start">(%s)</span> ' % html.escape(params["n"]))
+					buf.append('<p class="line">')
+					buf.append(format_lb(**params))
 				elif data == ">line":
 					if not params["brk"]:
 						buf.append('<span class="hyphen-break" data-tip="Hyphen break">-</span>')

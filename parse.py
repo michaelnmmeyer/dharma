@@ -305,13 +305,16 @@ add_place_tbl = {
 	"left": "in the left margin",
 	"right": "in the right margin",
 	"overstrike": "made in the space where a previous string of text has been erased",
-	"unspecified": "(no location information available)",
+	"unspecified": ": no location information available",
 }
 @handler("add")
-def parse_add(p, node):
+def parse_add(p, node, dele=None):
 	place = node["place"]
 	tip = add_place_tbl.get(place, add_place_tbl["unspecified"])
-	p.start_span(klass="add", tip=f"Scribal addition {tip}")
+	tip = f"Scribal addition {tip}"
+	if dele:
+		tip += f' (overwritten text: <span class="del">⟦{html.escape(dele)}⟧</span>)'
+	p.start_span(klass="add", tip=tip)
 	p.add_html("⟨⟨")
 	p.dispatch_children(node)
 	p.add_html("⟩⟩")
@@ -326,12 +329,14 @@ del_rend_tbl = {
 	"corrected": "corrected text",
 }
 @handler("del")
-def parse_del(p, node):
+def parse_del(p, node, add=None):
 	tip = del_rend_tbl.get(node["rend"], "")
 	if tip:
-		tip = f"Scribal deletion ({tip})"
+		tip = f"Scribal deletion: {tip}"
 	else:
 		tip = "Scribal deletion"
+	if add:
+		tip += f' (replacement text: <span class="add">⟨⟨{html.escape(add)}⟩⟩</add>)'
 	p.start_span(klass="del", tip=tip)
 	p.add_html("⟦")
 	p.dispatch_children(node)
@@ -344,7 +349,16 @@ def parse_del(p, node):
 def parse_subst(p, subst):
 	# (del, add)
 	# Use the text of <add> for search
-	p.dispatch_children(subst)
+	#XXX schema is valid?
+	children = subst.children()
+	if len(children) == 2 and children[0].matches("del") and children[1].matches("add"):
+		# TODO should be rendered into a block, not necessarily plain text!
+		parse_del(p, children[0], children[1].text())
+		parse_add(p, children[1], children[0].text())
+	else:
+		p.dispatch_children(subst)
+	# add: (overwritten text: X)
+	# del: (replacement text: X)
 
 # We also deal with notes in <app>
 # TODO there are attributes,see EGD
@@ -411,8 +425,10 @@ def parse_lb(p, elem):
 	if m:
 		align = m.group(1)
 	else:
-		align = "left"
-	p.add_phys("line", n=n, brk=brk)
+		# If not given, we assume it is not important and omit the
+		# alignment from the tooltip.
+		align = None
+	p.add_phys("line", n=n, brk=brk, align=align)
 
 @handler("fw")
 def parse_fw(p, fw):
@@ -561,6 +577,7 @@ def parse_choice(p, node):
 		# <choice><orig>...</orig><reg>...</reg></choice>
 		#
 		# For searching keep <corr> and <reg>, ignore the rest.
+		# TODO should be rendered into a block, not necessarily plain text!
 		if len(children) == 2 and children[0].name == "sic" and children[1].name == "corr":
 			parse_sic(p, children[0], children[1].text())
 			parse_corr(p, children[1], children[0].text())
@@ -717,7 +734,6 @@ def parse_gap(p, gap):
 	reason = gap["reason"] or "undefined" # most generic choice
 	quantity = gap["quantity"]
 	precision = gap["precision"]
-	extent = gap["extent"] or "unknown"
 	unit = gap["unit"] or "character"
 	if reason == "ellipsis":
 		p.add_html("\N{horizontal ellipsis}", plain=True)
