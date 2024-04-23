@@ -94,6 +94,9 @@ def update():
 
 anonymous = "No name"
 
+def multiple_pages(s):
+	return any(c in s for c in ",-\N{en dash}\N{em dash}")
+
 class Writer:
 
 	def __init__(self):
@@ -240,6 +243,7 @@ class Writer:
 		if end_field:
 			self.period()
 
+	# Quoted title (for articles, etc.)
 	def quoted(self, title):
 		self.space()
 		if title:
@@ -251,7 +255,8 @@ class Writer:
 			self.add("Untitled")
 			self.period()
 
-	def italic(self, title):
+	# Title in italics (for books, etc.)
+	def italics(self, title):
 		self.space()
 		if title:
 			tag = tree.Tag("i")
@@ -261,34 +266,91 @@ class Writer:
 			self.add("Untitled")
 		self.period()
 
-	def series(self, rec):
-		if not rec["series"]:
-			return
-		self.space()
-		self.add(rec["series"])
-		if rec["seriesNumber"]:
+	def volume_and_series(self, rec):
+		vol = rec.get("volume")
+		if vol:
 			self.space()
-			self.add(rec["seriesNumber"])
-		self.period()
+			self.add("Vol.\N{nbsp}")
+			self.add(vol)
+			self.period()
+		# seriesText and seriesTitle are apparently deprecated.
+		series = rec.get("series")
+		if series:
+			self.space()
+			self.add(series)
+			n = rec.get("seriesNumber")
+			if n:
+				self.space()
+				self.add(n)
+			self.period()
+		n = rec.get("numberOfVolumes")
+		if n:
+			self.space()
+			self.add(n)
+			self.space()
+			self.add("vols.")
 
-	def loc(self, loc):
-		sep = ""
+	def entry_loc(self, loc):
+		if not loc:
+			return
+		first = True
+		sep = " "
 		for unit, val in loc:
 			self.add(sep)
 			sep = ", "
 			if unit:
-				sg, pl = cited_range_units[unit]
-				abbr = sg
-				# XXX not possible to tell unambiguously whether we have several units or not
-				if any(c in val for c in ",-\N{EN DASH}\N{EM DASH}"):
-					abbr = pl
-				self.add(abbr + "\N{NBSP}")
-				# XXX maybe not only for pages?
 				if unit == "page":
-					val = val.replace("-", "\N{EN DASH}")
+					# TODO maybe not only for pages?
+					val = val.replace("-", "\N{en dash}")
+				# TODO not possible to tell unambiguously whether we have several units or not
+				if multiple_pages(val):
+					unit = config.numberize(unit, 2)
+				else:
+					unit = config.numberize(unit, 1)
+				if first:
+					unit = config.sentence_case(unit)
+				self.add(unit)
+				self.space()
+			if first:
+				val = config.sentence_case(val)
+			self.add(val)
+			first = False
+		self.period()
+
+	def loc(self, loc):
+		if not loc:
+			return
+		sep = " "
+		for unit, val in loc:
+			self.add(sep)
+			sep = ", "
+			if unit:
+				if unit == "page":
+					# TODO maybe not only for pages?
+					val = val.replace("-", "\N{en dash}")
+				abbr_sg, abbr_pl = cited_range_units[unit]
+				# TODO not possible to tell unambiguously whether we have several units or not
+				if multiple_pages(val):
+					unit = abbr_pl
+				else:
+					unit = abbr_sg
+				self.add(unit)
+				self.add("\N{nbsp}")
 			self.add(val)
 
-	def place_publisher_loc(self, rec, params):
+	def pages(self, rec):
+		s = rec.get("pages")
+		if not s:
+			return
+		self.add(", ")
+		if multiple_pages(s):
+			self.add("pp.\N{nbsp}")
+		else:
+			self.add("p.\N{nbsp}")
+		s = s.replace("-", "\N{en dash}")
+		self.add(s)
+
+	def place_publisher_loc(self, rec):
 		self.space()
 		if rec["place"]:
 			self.add(rec["place"])
@@ -298,9 +360,7 @@ class Writer:
 		if publisher:
 			self.add(": ")
 			self.add(publisher)
-		if params["loc"]:
-			self.add(", ")
-			self.loc(params["loc"])
+		self.pages(rec)
 		self.period()
 
 	def edition(self, rec):
@@ -445,22 +505,19 @@ def render_journal_article(rec, w, params):
 		w.space()
 		abbr = rec["journalAbbreviation"]
 		name = rec["publicationTitle"]
-		# Use the abbreviated journal name if possible. Note that some
-		# people set journalAbbreviation = publicationTitle, so in
-		# this case ignore the abbreviation.
-		if abbr: # XXX if abbr.xml() and abbr.xml() != name.xml():
-			if name:
-				name.name = "i"
-				tag = tree.Tag("abbr", {"data-tip": name.xml()})
-				tagi = tree.Tag("i")
-				tagi.append(abbr)
-				tag.append(tagi)
-				w.add(tag)
-			else:
-				tag = tree.Tag("i")
-				tag.append(abbr)
-				w.add(tag)
-		else:
+		# Use the abbreviated journal name if possible.
+		if abbr and name:
+			name.name = "i"
+			tag = tree.Tag("abbr", {"data-tip": name.xml()})
+			tagi = tree.Tag("i")
+			tagi.append(abbr)
+			tag.append(tagi)
+			w.add(tag)
+		elif abbr:
+			tag = tree.Tag("i")
+			tag.append(abbr)
+			w.add(tag)
+		elif name:
 			tag = tree.Tag("i")
 			tag.append(name)
 			w.add(tag)
@@ -472,11 +529,10 @@ def render_journal_article(rec, w, params):
 			w.add("(")
 			w.add(rec["issue"])
 			w.add(")")
-		if params["loc"]:
-			w.add(", ")
-			w.loc(params["loc"])
+		w.pages(rec)
 		w.period()
 	w.idents(rec)
+	w.entry_loc(params.get("loc"))
 
 # book
 """
@@ -530,10 +586,12 @@ def render_journal_article(rec, w, params):
 def render_book(rec, w, params):
 	w.authors(rec)
 	w.date(rec)
-	w.italic(rec["title"])
+	w.italics(rec["title"])
 	w.edition(rec)
-	w.place_publisher_loc(rec, params)
+	w.volume_and_series(rec)
+	w.place_publisher_loc(rec)
 	w.idents(rec)
+	w.entry_loc(params.get("loc"))
 
 # conference paper
 """
@@ -593,16 +651,12 @@ def render_conference_paper(rec, w, params):
 	if rec["proceedingsTitle"]:
 		w.space()
 		w.add("In: ")
-		w.italic(rec["proceedingsTitle"])
+		w.italics(rec["proceedingsTitle"])
 	w.edited_by(rec)
-	if rec["volume"]:
-		w.space()
-		w.add("Vol.\N{NBSP}")
-		w.add(rec["volume"])
-		w.period()
-	w.series(rec)
-	w.place_publisher_loc(rec, params)
+	w.volume_and_series(rec)
+	w.place_publisher_loc(rec)
 	w.idents(rec)
+	w.entry_loc(params.get("loc"))
 
 # report
 """
@@ -652,8 +706,9 @@ def render_report(rec, w, params):
 	w.authors(rec)
 	w.date(rec)
 	w.quoted(rec["title"])
-	w.place_publisher_loc(rec, params)
+	w.place_publisher_loc(rec)
 	w.idents(rec)
+	w.entry_loc(params.get("loc"))
 
 # book section
 """
@@ -711,22 +766,13 @@ def render_book_section(rec, w, params):
 	if rec["bookTitle"]:
 		w.space()
 		w.add("In: ")
-		w.italic(rec["bookTitle"])
+		w.italics(rec["bookTitle"])
 		w.edition(rec)
 	w.edited_by(rec)
-	if rec["volume"]:
-		w.space()
-		w.add("Vol.\N{NBSP}")
-		w.add(rec["volume"])
-		w.period()
-	w.series(rec)
-	if rec["numberOfVolumes"]:
-		w.space()
-		w.add(rec["numberOfVolumes"])
-		w.space()
-		w.add("vols.")
-	w.place_publisher_loc(rec, params)
+	w.volume_and_series(rec)
+	w.place_publisher_loc(rec)
 	w.idents(rec)
+	w.entry_loc(params.get("loc"))
 
 # thesis
 """
@@ -777,8 +823,9 @@ def render_thesis(rec, w, params):
 		w.add(", ")
 		w.add(rec["university"])
 	w.period()
-	w.place_publisher_loc(rec, params)
+	w.place_publisher_loc(rec)
 	w.idents(rec)
+	w.entry_loc(params.get("loc"))
 
 # web pages
 """
@@ -816,6 +863,7 @@ def render_webpage(rec, w, params):
 	w.date(rec)
 	w.quoted(rec["title"])
 	w.idents(rec)
+	w.entry_loc(params.get("loc"))
 
 """"
   {
@@ -857,11 +905,12 @@ def render_webpage(rec, w, params):
 def render_newspaper_article(rec, w, params):
 	w.authors(rec)
 	w.quoted(rec["title"])
-	w.italic(rec["publicationTitle"])
+	w.italics(rec["publicationTitle"])
 	w.date(rec)
 	w.edition(rec)
-	w.place_publisher_loc(rec, params)
+	w.place_publisher_loc(rec)
 	w.idents(rec)
+	w.entry_loc(params.get("loc"))
 
 """
 {
@@ -925,10 +974,8 @@ def render_dataset(rec, w, params):
 		w.space()
 		w.add(rec["repository"])
 		w.period()
-	if params["loc"]:
-		w.loc(params["loc"])
-		w.period()
 	w.idents(rec)
+	w.entry_loc(params.get("loc"))
 
 renderers = {
 	"book": render_book,

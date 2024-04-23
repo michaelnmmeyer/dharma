@@ -286,3 +286,10 @@ def numberize(s, n):
 		logging.error(f"cannot numberize term {s!r}")
 		return s
 	return head + tail[:1] + pl[1:]
+
+def sentence_case(s):
+	if not s:
+		return ""
+	t = s.split(None, 1)
+	t[0] = t[0].capitalize()
+	return " ".join(t)

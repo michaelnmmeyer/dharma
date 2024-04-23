@@ -125,7 +125,7 @@ def assign_language(ctx, node, parent_lang, alt_lang, f):
 		case "lem" | "rdg":
 			lang = alloc_lang(ctx, node["lang"], alt_lang.lang)
 		case "foreign":
-			lang = alloc_lang(ctx, "und", alt_lang.lang)
+			lang = alloc_lang(ctx, node["lang"], Source)
 		case "g":
 			node.lang = alloc_lang(ctx, node["lang"], parent_lang)
 			return
@@ -321,7 +321,7 @@ class Language:
 		return self.inverted_name < other.inverted_name
 
 	def __eq__(self, other):
-		return self.inverted_name == other.inverted_name
+		return self.id == other.id
 
 def make_db():
 	db = config.db("texts")
@@ -342,6 +342,9 @@ def make_db():
 
 Undetermined = Language("und")
 Undetermined._data = default_lang
+
+Source = Language("source")
+Source._data = lang_data("source", "Source", "Source", True) # XXX need to exist in the DB!
 
 @config.transaction("texts")
 def main():

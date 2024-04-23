@@ -1,7 +1,6 @@
 import os, sys, re, html
 from urllib.parse import urlparse
-from dharma import prosody, people, tree, gaiji, config, biblio
-from dharma import langs, document
+from dharma import prosody, people, tree, gaiji, config, biblio, langs, document
 from dharma.document import Document, Block
 
 HANDLERS = []
@@ -639,7 +638,7 @@ def parse_space(p, space):
 		else:
 			tip = f"large {typ} space (about {quant} {unit}s wide)"
 		text *= quant
-	p.start_span(klass="space", tip=sentence_case(tip))
+	p.start_span(klass="space", tip=config.sentence_case(tip))
 	p.add_html(text, physical=True, logical=False, full=True)
 	p.end_span()
 
@@ -674,13 +673,6 @@ def parse_expan(p, node):
 @handler("term")
 def parse_term(p, node):
 	p.dispatch_children(node)
-
-def sentence_case(s):
-	if not s:
-		return ""
-	t = s.split(None, 1)
-	t[0] = t[0].capitalize()
-	return " ".join(t)
 
 # TODO more styling
 @handler("seg")
@@ -826,7 +818,7 @@ def parse_g(p, node):
 	tip = f"symbol: {info['description']}"
 	if cat != "uninterpreted":
 		tip = f"{cat} {tip}"
-	tip = sentence_case(tip)
+	tip = config.sentence_case(tip)
 	if info["text"]:
 		p.start_span(klass="symbol", tip=tip)
 		p.add_html(html.escape(info["text"]), plain=True)
@@ -941,7 +933,7 @@ def parse_lg(p, lg):
 	if prosody.is_pattern(met):
 		met = prosody.render_pattern(met)
 	else:
-		met = sentence_case(met)
+		met = config.sentence_case(met)
 	p.add_log("<head", level=6)
 	p.add_html(f"{n}. {met}", plain=True)
 	p.add_log(">head", level=6)
@@ -1044,7 +1036,7 @@ def parse_listBibl(p, node):
 	typ = node["type"]
 	if typ:
 		p.add_log("<head")
-		p.add_text(sentence_case(typ))
+		p.add_text(config.sentence_case(typ))
 		p.add_log(">head")
 	for rec, ref, loc in recs:
 		data = biblio.Entry(ref).contents(loc=loc, n=rec["n"])
