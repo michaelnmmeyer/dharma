@@ -15,7 +15,7 @@
 <ul>
 <li><a href="{{row['github_download_url']}}"><i class="fa-solid fa-code"></i> XML File</a></li>
 % if row['static_website_url']:
-<li>🦕 <a href="{{row['static_website_url']}}">Old Display</a></li>
+<li><a href="{{row['static_website_url']}}">🦕 Old Display</a></li>
 % endif
 </ul>
 </nav>
