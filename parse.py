@@ -24,6 +24,10 @@ class Parser:
 		self.blocks = [Block()]
 		self.handlers = HANDLERS
 		self.divs = []
+		# Nodes in this set are ignored in dispatch(). These nodes
+		# still remain in the tree and are still accessible from
+		# within handlers.
+		self.visited = set()
 
 	@property
 	def top(self):
@@ -98,6 +102,8 @@ class Parser:
 		return self.top.end_span()
 
 	def dispatch(self, node):
+		if node in self.visited:
+			return
 		match node:
 			case tree.Comment() | tree.Instruction():
 				return
@@ -1282,30 +1288,43 @@ def fetch_resp(resp):
 	return html.escape(resp)
 
 def process_translation(p, div):
-	trans = gather_sections(p, div)
-	if not trans:
-		return
-	title = "Translation"
+	p.push("title")
+	p.add_text("Translation")
 	lang = div["lang"].split("-")[0]
 	if lang:
 		lang = html.escape(langs.from_code(lang) or lang)
-		title += f" into {lang}"
+		p.add_text(f" into {lang}")
 	resp = div["resp"]
 	if resp:
-		title += " by "
+		p.add_text(" by ")
 		resps = resp.split()
 		for i, resp in enumerate(resps):
 			if i == 0:
 				pass
 			elif i < len(resps) - 1:
-				title += ", "
+				p.add_text(", ")
 			else:
-				title += " and "
-			title += fetch_resp(resp)
+				p.add_text(" and ")
+			p.add_html(fetch_resp(resp))
 	source = div["source"]
 	if source:
 		ref = source.removeprefix("bib:")
-		title += f" by {p.get_bib_ref(ref)}"
+		p.add_text(" by ")
+		p.add_html(str(p.get_bib_ref(ref)))
+	children = div.children()
+	# If we have a note as first child, we expect the note to bear
+	# @type='credit', but even if not so we consider the note as
+	# belonging to the title.
+	# TODO thus do the same for every section: if the section starts with
+	# a note not preceded by non-blank text, treat the note as part of
+	# the section's title.
+	if len(children) > 0 and children[0].matches("note"):
+		p.dispatch(children[0])
+		p.visited.add(children[0])
+	title = p.pop().render_logical()
+	trans = gather_sections(p, div)
+	if not trans:
+		return
 	trans.title = title
 	return trans
 
