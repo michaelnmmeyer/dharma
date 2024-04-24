@@ -1,5 +1,5 @@
 import os, sys, re
-from dharma import config, tree, unicode, relaxng, xslt
+from dharma import common, tree, unicode, relaxng, xslt
 
 # What should we use for representing error locations? Maybe just the patch the
 # tree directly, since we're already doing that in python. But then must be able
@@ -44,8 +44,8 @@ class Validator:
 	def __init__(self, name, prefix):
 		self.name = name
 		self.prefix = prefix
-		self.sch_script = config.path_of("schemas", self.name + ".sch")
-		path = config.path_of("schemas", self.name + ".rng")
+		self.sch_script = common.path_of("schemas", self.name + ".sch")
+		path = common.path_of("schemas", self.name + ".rng")
 		self.rng_schema = relaxng.Schema(path)
 
 	# Here we don't care about error details, we just want to know the

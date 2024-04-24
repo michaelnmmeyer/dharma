@@ -1,5 +1,5 @@
 import os, string, unicodedata, re, html
-from dharma import config, texts, tree
+from dharma import common, texts, tree
 
 # TODO try multisets: https://en.wikipedia.org/wiki/Jaccard_index
 # better results? makes sense?
@@ -84,7 +84,7 @@ def cleanup(s):
 		elif c in "’'ʼ":
 			c = "’"
 		buf.append(c)
-	ret = config.normalize_space("".join(buf))
+	ret = common.normalize_space("".join(buf))
 	return ret
 
 def extract_pada(l):
@@ -189,7 +189,7 @@ def process_file(path, id):
 				yield type, id, file, number, contents, normalized
 
 def make_jaccard(type):
-	db = config.db("ngrams")
+	db = common.db("ngrams")
 	data = []
 	for id, normalized in db.execute("select id, normalized from passages where type = ?", (type,)):
 		data.append((id, set(trigrams(normalized))))
@@ -207,9 +207,9 @@ def make_jaccard(type):
 				continue
 			db.execute("insert into jaccard values(?, ?, ?, ?)", (type, id1, id2, jaccard))
 
-@config.transaction("ngrams")
+@common.transaction("ngrams")
 def make_database():
-	db = config.db("ngrams")
+	db = common.db("ngrams")
 	for tbl in ("jaccard", "passages", "sources"):
 		db.execute(f"delete from {tbl}")
 	id = 0
@@ -234,9 +234,9 @@ def make_database():
 
 PER_PAGE = 50
 
-@config.transaction("ngrams")
+@common.transaction("ngrams")
 def search(src_text, category, page):
-	db = config.db("ngrams")
+	db = common.db("ngrams")
 	if category == "verse":
 		danda = re.search(r"[/|।]", src_text)
 		if not danda:

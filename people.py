@@ -1,6 +1,6 @@
 import os, io
 import requests # pip install requests
-from dharma import config, tree, texts
+from dharma import common, tree, texts
 
 ID_TYPES = """
 IdHAL
@@ -45,7 +45,7 @@ def iter_members_list():
 		yield row
 
 def make_db():
-	db = config.db("texts")
+	db = common.db("texts")
 	db.execute("delete from people_github")
 	db.execute("delete from people_main")
 	for row in iter_members_list():
@@ -65,12 +65,12 @@ def make_db():
 		db.execute("insert into people_github(git_name, dh_id) values(?, ?)", (key, value))
 
 def plain(ident):
-	db = config.db("texts")
+	db = common.db("texts")
 	ret = db.execute("select print_name from people_main where dh_id = ?", (ident,)).fetchone()
 	return ret and ret[0] or None
 
 def plain_from_github(github_id):
-	db = config.db("texts")
+	db = common.db("texts")
 	ret = db.execute("""select print_name
 		from people_main natural join people_github
 		where git_name = ?""", (github_id,)).fetchone()
@@ -87,7 +87,7 @@ def plain_from_viaf(url, dflt=None):
 	# Choose the most common form of the name hoping it's the most adequate
 	counts = {}
 	for node in xml.find("//prefLabel"):
-		text = config.normalize_space(node.text())
+		text = common.normalize_space(node.text())
 		# try to strip dates at the end as in "Cœdès, George 1886-1969"
 		end = len(text)
 		while end > 0:
@@ -106,7 +106,7 @@ def plain_from_viaf(url, dflt=None):
 	return names and names.pop() or dflt
 
 if __name__ == "__main__":
-	@config.transaction("texts")
+	@common.transaction("texts")
 	def main():
 		make_db()
 	main()

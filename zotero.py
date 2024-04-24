@@ -5,9 +5,9 @@
 import logging
 # Documentation at https://websockets.readthedocs.io
 from websockets.sync.client import connect # pip install websockets
-from dharma import config, change, biblio
+from dharma import common, change, biblio
 
-create_subscriptions = config.to_json({
+create_subscriptions = common.to_json({
 	"action": "createSubscriptions",
 	"subscriptions": [{
 		"apiKey": biblio.MY_API_KEY,
@@ -21,7 +21,7 @@ create_subscriptions = config.to_json({
 # After an update we receive:
 # {"event":"topicUpdated","topic":"/groups/5336269","version":6}
 
-delete_subscriptions = config.to_json({
+delete_subscriptions = common.to_json({
 	"action": "deleteSubscriptions",
 	"subscriptions": [{"apiKey": biblio.MY_API_KEY}]
 })
@@ -31,7 +31,7 @@ delete_subscriptions = config.to_json({
 def read_message(sock):
 	ret = sock.recv()
 	logging.info(ret)
-	return config.from_json(ret)
+	return common.from_json(ret)
 
 def main(sock):
 	sock.send(create_subscriptions)

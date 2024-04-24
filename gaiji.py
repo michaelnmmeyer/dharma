@@ -1,4 +1,4 @@
-from dharma import config, texts
+from dharma import common, texts
 
 def iter_rows():
 	f = texts.save("project-documentation", "gaiji/DHARMA_gaiji.tsv")
@@ -31,7 +31,7 @@ def load_data():
 	return ret
 
 def get(name):
-	db = config.db("texts")
+	db = common.db("texts")
 	text, description = db.execute("""select text, description from gaiji
 		where name = ?""", (name,)).fetchone() or (None, None)
 	ret = {
@@ -42,7 +42,7 @@ def get(name):
 	return ret
 
 def make_db():
-	db = config.db("texts")
+	db = common.db("texts")
 	data = load_data()
 	db.execute("delete from gaiji")
 	for _, row in sorted(data.items()):

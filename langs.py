@@ -4,7 +4,7 @@
 
 import sys, functools, collections
 import requests # pip install requests
-from dharma import config, texts, tree
+from dharma import common, texts, tree
 
 # Scripts data pulled from opentheso
 # To link to opentheso, use https://opentheso.huma-num.fr/opentheso/?idc={classID}&idt={thesaurusID}
@@ -240,16 +240,16 @@ def load_data():
 			rec["name"] = row["Print_Name"]
 			rec["inverted_name"] = row["Inverted_Name"]
 			rec["custom"] = True
-			rec["source"] = config.to_boolean(row["source"], True)
+			rec["source"] = common.to_boolean(row["source"], True)
 		else:
-			rec["source"] = config.to_boolean(row["source"], True)
+			rec["source"] = common.to_boolean(row["source"], True)
 		rec["dharma"] = True
 	assert all("inverted_name" in rec for rec in recs)
 	recs.sort(key=lambda rec: rec["id"])
 	return recs, index
 
 def from_code(s):
-	db = config.db("texts")
+	db = common.db("texts")
 	(ret,) = db.execute("""select name
 		from langs_list natural join langs_by_code
 		where code = ?
@@ -269,7 +269,7 @@ class Language:
 	def _fetch(self):
 		ret = self._data
 		if not ret:
-			db = config.db("texts")
+			db = common.db("texts")
 			ret = db.execute("""
 			select id, name, inverted_name, source
 			from langs_list natural join langs_by_code
@@ -315,7 +315,7 @@ class Language:
 		return self.id == other.id
 
 def make_db():
-	db = config.db("texts")
+	db = common.db("texts")
 	recs, index = load_data()
 	db.execute("delete from langs_by_code")
 	db.execute("delete from langs_by_name")
@@ -327,7 +327,7 @@ def make_db():
 			values(:id, :name, :inverted_name, :iso,
 				:custom, :dharma, :source)""", rec)
 		db.execute("insert into langs_by_name(id, name) values(?, ?)",
-			(rec["id"], config.normalize_text(rec["name"])))
+			(rec["id"], common.normalize_text(rec["name"])))
 	for code, rec in sorted(index.items()):
 		db.execute("insert into langs_by_code(code, id) values(?, ?)", (code, rec["id"]))
 
@@ -337,7 +337,7 @@ Undetermined._data = default_lang
 Source = Language("source")
 Source._data = lang_data("source", "Source", "Source", True) # XXX need to exist in the DB!
 
-@config.transaction("texts")
+@common.transaction("texts")
 def main():
 	t = tree.parse(sys.stdin)
 	assign_languages(t)

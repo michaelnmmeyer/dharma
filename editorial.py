@@ -1,4 +1,4 @@
-from dharma import tree, parse, config, langs, texts
+from dharma import tree, parse, common, langs, texts
 import bs4, copy
 
 tpl = """
@@ -40,7 +40,7 @@ def is_heading(node):
 
 def parse_html():
 	f = texts.File("project-documentation", "website/editorial-conventions.md")
-	html = config.pandoc(f.text)
+	html = common.pandoc(f.text)
 	soup = bs4.BeautifulSoup(html, "html.parser")
 	title = soup.find("h1")
 	if title:
@@ -84,7 +84,7 @@ def parse_html():
 	return page_title, str(soup)
 
 if __name__ == "__main__":
-	@config.transaction("texts")
+	@common.transaction("texts")
 	def main():
 		parse_html()
 	main()

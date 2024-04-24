@@ -1,6 +1,6 @@
 import os, sys, re, html
 from urllib.parse import urlparse
-from dharma import prosody, people, tree, gaiji, config, biblio, langs, document
+from dharma import prosody, people, tree, gaiji, common, biblio, langs, document
 from dharma.document import Document, Block
 
 HANDLERS = []
@@ -679,7 +679,7 @@ def parse_space(p, space):
 		else:
 			tip = f"large {typ} space (about {quant} {unit}s wide)"
 		text *= quant
-	p.start_span(klass="space", tip=config.sentence_case(tip))
+	p.start_span(klass="space", tip=common.sentence_case(tip))
 	p.add_html(text, physical=True, logical=False, full=True)
 	p.end_span()
 
@@ -784,7 +784,7 @@ def parse_gap(p, gap):
 		elif unit == "character component":
 			repl += quantity * "."
 		else:
-			repl += "%d %s %s" % (quantity, reason, config.numberize(unit, quantity))
+			repl += "%d %s %s" % (quantity, reason, common.numberize(unit, quantity))
 		repl += "]"
 		phys_repl = "["
 		if precision == "low" and unit != "character":
@@ -794,18 +794,18 @@ def parse_gap(p, gap):
 		elif unit == "character component":
 			phys_repl += quantity * "."
 		else:
-			phys_repl += "%d %s %s" % (quantity, reason, config.numberize(unit, quantity))
+			phys_repl += "%d %s %s" % (quantity, reason, common.numberize(unit, quantity))
 		phys_repl += "]"
 		tip = ""
 		if precision == "low":
 			tip += "About "
-		tip += "%d %s %s" % (quantity, reason, config.numberize(unit, quantity))
+		tip += "%d %s %s" % (quantity, reason, common.numberize(unit, quantity))
 	else:
 		if unit == "character":
 			repl = "[…]"
 		else:
-			repl = "[unknown number of %s %s]" % (reason, config.numberize(unit, +333))
-		tip = "Unknown number of %s %s" % (reason, config.numberize(unit, +333))
+			repl = "[unknown number of %s %s]" % (reason, common.numberize(unit, +333))
+		tip = "Unknown number of %s %s" % (reason, common.numberize(unit, +333))
 	# <seg met="+++-++"><gap reason="lost" quantity="6" unit="character">
 	# In this case, keep the tooltip, but display the meter instead of ****, etc.
 	parent = gap.parent
@@ -858,7 +858,7 @@ def parse_g(p, node):
 	tip = f"symbol: {info['description']}"
 	if cat != "uninterpreted":
 		tip = f"{cat} {tip}"
-	tip = config.sentence_case(tip)
+	tip = common.sentence_case(tip)
 	if info["text"]:
 		p.start_span(klass="symbol", tip=tip)
 		p.add_html(html.escape(info["text"]), plain=True)
@@ -973,7 +973,7 @@ def parse_lg(p, lg):
 	if prosody.is_pattern(met):
 		met = prosody.render_pattern(met)
 	else:
-		met = config.sentence_case(met)
+		met = common.sentence_case(met)
 	p.add_log("<head", level=6)
 	p.add_html(f"{n}. {met}", plain=True)
 	p.add_log(">head", level=6)
@@ -1005,7 +1005,7 @@ def parse_p(p, para):
 @handler("l")
 def parse_l(p, l):
 	n = l["n"] or "?"
-	enjamb = config.to_boolean(l["enjamb"], False)
+	enjamb = common.to_boolean(l["enjamb"], False)
 	p.add_log("<line", n=n)
 	p.dispatch_children(l)
 	if enjamb:
@@ -1080,7 +1080,7 @@ def parse_listBibl(p, node):
 	typ = node["type"]
 	if typ:
 		p.add_log("<head")
-		p.add_text(config.sentence_case(typ))
+		p.add_text(common.sentence_case(typ))
 		p.add_log(">head")
 	for rec, ref, loc in recs:
 		data = biblio.Entry(ref).contents(loc=loc, n=rec["n"])
@@ -1157,12 +1157,12 @@ def gather_people(stmt, *paths):
 			name = people.plain(ident)
 			if not name:
 				continue # XXX keep the id in this case?
-			config.append_unique(dharma_ids, ident)
+			common.append_unique(dharma_ids, ident)
 		else:
-			name = config.normalize_space(node.text(space="preserve"))
+			name = common.normalize_space(node.text(space="preserve"))
 			if not name:
 				continue
-		config.append_unique(full_names, name)
+		common.append_unique(full_names, name)
 	return full_names, dharma_ids
 
 @handler("titleStmt")
@@ -1415,11 +1415,11 @@ def process_file(file, mode=None):
 	p.document.repository = file.repo
 	return p.document
 
-@config.transaction("texts")
+@common.transaction("texts")
 def export_plain():
-	db = config.db("texts")
+	db = common.db("texts")
 	renderer = document.PlainRenderer(strip_physical=True)
-	out_dir = config.path_of("plain")
+	out_dir = common.path_of("plain")
 	os.makedirs(out_dir, exist_ok=True)
 	for (name,) in db.execute("""
 		select name

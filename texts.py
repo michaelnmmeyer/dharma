@@ -1,5 +1,5 @@
 import os, unicodedata
-from dharma import config, validate
+from dharma import common, validate
 
 valid_prefixes = {"DHARMA_INS", "DHARMA_DiplEd", "DHARMA_CritEd"}
 
@@ -68,8 +68,8 @@ class File:
 	def owners(self):
 		ret = getattr(self, "_owners", None)
 		if ret is None:
-			out = config.command("git",
-				"-C", config.path_of("repos", self.repo),
+			out = common.command("git",
+				"-C", common.path_of("repos", self.repo),
 				"log", "--follow", "--format=%aN", "--", self.path)
 			ret = sorted(set(out.stdout.splitlines()))
 			assert len(ret) > 0
@@ -83,8 +83,8 @@ class File:
 	def last_modified(self):
 		ret = getattr(self, "_last_modified", None)
 		if ret is None:
-			out = config.command("git",
-				"-C", config.path_of("repos", self.repo), 		"log", "-1", "--format=%H %at", "--", self.path)
+			out = common.command("git",
+				"-C", common.path_of("repos", self.repo), 		"log", "-1", "--format=%H %at", "--", self.path)
 			commit, date = out.stdout.strip().split()
 			date = int(date)
 			ret = (commit, date)
@@ -95,10 +95,10 @@ class File:
 	# /home/michael/dharma/repos/tfa-pallava-epigraphy/texts/xml/DHARMA_INSPallava00002.xml"
 	@property
 	def full_path(self):
-		return config.path_of("repos", self.repo, self.path)
+		return common.path_of("repos", self.repo, self.path)
 
 def iter_texts_in_repo(repo):
-	repo_path = config.path_of("repos", repo)
+	repo_path = common.path_of("repos", repo)
 	for root, dirs, files in os.walk(repo_path):
 		for file in files:
 			_, ext = os.path.splitext(file)
@@ -113,12 +113,12 @@ def iter_texts_in_repo(repo):
 			yield File(repo, rel_path)
 
 def iter_texts():
-	for repo in os.listdir(config.path_of("repos")):
+	for repo in os.listdir(common.path_of("repos")):
 		yield from iter_texts_in_repo(repo)
 
 def save(repo, path):
 	file = File(repo, path)
-	db = config.db("texts")
+	db = common.db("texts")
 	db.save_file(file)
 	return file
 
@@ -127,7 +127,7 @@ def save(repo, path):
 # we use brute force instead of hardcoding stuff.
 def gather_web_pages(repo, recs):
 	lookup = {file.name: file for file in recs}
-	repo_path = config.path_of("repos", repo)
+	repo_path = common.path_of("repos", repo)
 	for root, dirs, files in os.walk(repo_path):
 		for file in files:
 			name, ext = os.path.splitext(file)

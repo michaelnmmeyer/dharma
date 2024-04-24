@@ -1,7 +1,7 @@
 import argparse, sys
-from dharma import config, tree, langs
+from dharma import common, tree, langs
 
-@config.transaction("texts")
+@common.transaction("texts")
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("expression")

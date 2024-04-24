@@ -6,14 +6,14 @@
 # enough for our purposes.
 
 import os, sys, time, select, errno, logging, fcntl, argparse, traceback
-from dharma import config, texts, biblio, catalog, people, langs
+from dharma import common, texts, biblio, catalog, people, langs
 from dharma import gaiji, prosody, repos
 
 SKIP_PULL = False
 
-FIFO_ADDR = config.path_of("change.hid")
+FIFO_ADDR = common.path_of("change.hid")
 
-db = config.db("texts")
+db = common.db("texts")
 
 # Timestamp of the last git pull/clone
 last_pull = 0
@@ -21,9 +21,9 @@ last_pull = 0
 # Wait this long between two pulls, counting in seconds
 min_pull_wait = 10
 
-@config.transaction("texts")
+@common.transaction("texts")
 def all_useful_repos():
-	db = config.db("texts")
+	db = common.db("texts")
 	# Always process repos in the same order.
 	ret = db.execute("""select repo from repos
 		where textual or repo = 'project-documentation'
@@ -32,7 +32,7 @@ def all_useful_repos():
 	return ret
 
 def clone_repo(name):
-	path = config.path_of("repos", name)
+	path = common.path_of("repos", name)
 	# The simplest way to determine if we already have cloned the repo is
 	# to check if we have a non-empty directory at the expected location.
 	try:
@@ -43,7 +43,7 @@ def clone_repo(name):
 		if e.errno == errno.ENOTEMPTY:
 			return False
 		raise
-	config.command("git", "clone", f"git@github.com:erc-dharma/{name}.git",
+	common.command("git", "clone", f"git@github.com:erc-dharma/{name}.git",
 		path, capture_output=False)
 	return True
 
@@ -62,11 +62,11 @@ def update_repo(name):
 	# Attempt to clone the repo, in case we don't have it. Otherwise pull.
 	if clone_repo(name):
 		return
-	return config.command("git", "-C", config.path_of("repos", name),
+	return common.command("git", "-C", common.path_of("repos", name),
 		"pull", capture_output=False)
 
 def latest_commit_in_repo(name):
-	r = config.command("git", "-C", config.path_of("repos", name),
+	r = common.command("git", "-C", common.path_of("repos", name),
 		"log", "-1", "--format=%H %at")
 	hash, date = r.stdout.strip().split()
 	date = int(date)
@@ -90,7 +90,7 @@ class Changes:
 			from repos where repo = ?""",
 			(self.repo,)).fetchone() or (None, None)
 		if commit_hash == self.commit_hash:
-			if code_hash == config.CODE_HASH:
+			if code_hash == common.CODE_HASH:
 				self.done = True
 				return
 			# The code changed, we need to update everything
@@ -139,7 +139,7 @@ def update_db(repo):
 	db.execute("""update repos
 		set commit_hash = ?, commit_date = ?, code_hash = ?
 		where repo = ?""",
-		(changes.commit_hash, changes.commit_date, config.CODE_HASH, changes.repo))
+		(changes.commit_hash, changes.commit_date, common.CODE_HASH, changes.repo))
 	for name in changes.delete:
 		catalog.delete(name)
 		db.execute("delete from owners where name = ?", (name,))
@@ -170,16 +170,16 @@ def update_project():
 	db.execute("""update repos
 		set commit_hash = ?, commit_date = ?, code_hash = ?
 		where repo = ?""",
-		(commit_hash, commit_date, config.CODE_HASH, repo))
+		(commit_hash, commit_date, common.CODE_HASH, repo))
 	# XXX we also need to store schemas in the db, but for this we need to
 	# derive them at runtime
 
 # Request from Arlo.
 def backup_to_jawakuno():
-	config.command("bash", "-x", config.path_of("backup_to_jawakuno.sh"),
+	common.command("bash", "-x", common.path_of("backup_to_jawakuno.sh"),
 		capture_output=False)
 
-@config.transaction("texts")
+@common.transaction("texts")
 def handle_changes(name):
 	update_repo(name)
 	if name == "project-documentation":
@@ -265,11 +265,11 @@ def notify(name):
 		os.close(fd)
 
 def init_db():
-	config.db("texts")
+	common.db("texts")
 
 def main():
 	try:
-		os.mkdir(config.path_of("repos"))
+		os.mkdir(common.path_of("repos"))
 	except FileExistsError:
 		pass
 	try:

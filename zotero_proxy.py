@@ -2,7 +2,7 @@ import time, sys
 from urllib.parse import urlparse, parse_qs, urlencode
 import flask # pip install flask
 import requests # pip install requests
-from dharma import config
+from dharma import common
 
 app = flask.Flask(__name__)
 
@@ -50,10 +50,10 @@ def reply():
 	return do_reply(url)
 
 @app.get("/extra")
-@config.transaction("texts")
+@common.transaction("texts")
 def by_short_title():
 	short_title = flask.request.args["shortTitle"]
-	db = config.db("texts")
+	db = common.db("texts")
 	(key,) = db.execute("select key from biblio_data where short_title = ?",
 		(short_title,)).fetchone() or (None,)
 	url = urlparse(flask.request.url)

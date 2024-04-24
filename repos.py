@@ -1,4 +1,4 @@
-from dharma import config, texts
+from dharma import common, texts
 
 def iter_repos():
 	f = texts.save("project-documentation", "DHARMA_repositories.tsv")
@@ -22,7 +22,7 @@ def load_data():
 	return repos
 
 def make_db():
-	db = config.db("texts")
+	db = common.db("texts")
 	for _, rec in sorted(load_data().items()):
 		db.execute("""
 			insert into repos(repo, textual, title)
@@ -31,7 +31,7 @@ def make_db():
 			set textual = excluded.textual, title = excluded.title""", rec)
 
 if __name__ == "__main__":
-	@config.transaction("texts")
+	@common.transaction("texts")
 	def main():
 		make_db()
 	main()

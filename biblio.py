@@ -6,7 +6,7 @@
 import logging, unicodedata, html, re, time
 from urllib.parse import urlparse
 import requests # pip install requests
-from dharma import config, tree
+from dharma import common, tree
 
 LIBRARY_ID = 1633743
 MY_API_KEY = "ojTBU4SxEQ4L0OqUhFVyImjq"
@@ -73,9 +73,9 @@ def zotero_items(latest_version, ret):
 		r = s.get(url)
 	ret.append(cutoff)
 
-@config.transaction("texts")
+@common.transaction("texts")
 def update():
-	db = config.db("texts")
+	db = common.db("texts")
 	(max_version,) = db.execute("select value from metadata where key = 'biblio_latest_version'").fetchone()
 	ret = []
 	for entry in zotero_items(max_version, ret):
@@ -88,7 +88,7 @@ def update():
 	# For now, use brute force for generating sort keys. But we only need
 	# to do that when the code that generates the sort key changes.
 	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
-		rec = config.from_json(rec)
+		rec = common.from_json(rec)
 		db.execute("update biblio_data set sort_key = ? where key = ?", (sort_key(rec), key))
 	db.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
 
@@ -304,16 +304,16 @@ class Writer:
 					val = val.replace("-", "\N{en dash}")
 				# TODO not possible to tell unambiguously whether we have several units or not
 				if multiple_pages(val):
-					unit = config.numberize(unit, 2)
+					unit = common.numberize(unit, 2)
 				else:
-					unit = config.numberize(unit, 1)
+					unit = common.numberize(unit, 1)
 				if first:
-					unit = config.sentence_case(unit)
+					unit = common.sentence_case(unit)
 					first = False
 				self.add(unit)
 				self.space()
 			if first:
-				val = config.sentence_case(val)
+				val = common.sentence_case(val)
 				first = False
 			self.add(val)
 		self.period()
@@ -386,7 +386,7 @@ class Writer:
 		doi = rec.get("DOI")
 		if not doi:
 			return
-		url = config.normalize_url(doi)
+		url = common.normalize_url(doi)
 		doi = urlparse(url).path.lstrip("/")
 		# All DOI start with "10.". We remove everything before that in the URI:
 		# https://doi.org/10.1163/22134379-9000164 -> 10.1163/22134379-9000164
@@ -421,7 +421,7 @@ class Writer:
 			self.add("URLs:")
 		self.space()
 		for i, url in enumerate(urls):
-			url = config.normalize_url(url)
+			url = common.normalize_url(url)
 			tag = tree.Tag("a", {"class": "url", "href": url})
 			tag.append(url)
 			self.add(tag)
@@ -1185,13 +1185,13 @@ class Entry:
 	def data(self):
 		if self.records_nr >= 0:
 			return self._data
-		recs = config.db("texts").execute("""
+		recs = common.db("texts").execute("""
 			select json ->> '$.data'
 			from biblio_data where short_title = ?""",
 			(self.short_title,)).fetchall()
 		self.records_nr = len(recs)
 		if self.records_nr == 1:
-			self._data = config.from_json(recs[0][0])
+			self._data = common.from_json(recs[0][0])
 			fix_rec(self._data)
 		else:
 			self._page = -1
@@ -1201,7 +1201,7 @@ class Entry:
 	def page(self):
 		if self._page is not None:
 			return self._page
-		db = config.db("texts")
+		db = common.db("texts")
 		(index,) = db.execute("""
 			select pos - 1
 			from (select row_number()

@@ -163,8 +163,6 @@ def jaccard(s1, s2):
 def read_only_db():
 	if os.path.basename(sys.argv[0]) in ("change.py", "repos.py"):
 		return False
-	if os.getenv("DHARMA_TEST"):
-		return False
 	return True
 
 # TODO use this instead:
@@ -182,16 +180,22 @@ def db(name):
 	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES,
 		isolation_level=None)
 	conn.row_factory = sqlite3.Row
-	conn.execute("pragma synchronous = normal")
-	conn.execute("pragma foreign_keys = on")
 	conn.create_function("format_url", -1, format_url, deterministic=True)
 	conn.create_function("jaccard", 2, jaccard, deterministic=True)
 	conn.create_collation("icu", collate_icu)
-	if read_only_db():
-		conn.execute("pragma query_only = yes")
-	elif name == "texts":
+	if name == "texts":
 		with open(path_of("schema.sql")) as f:
-			conn.executescript(f.read())
+			sql = f.read()
+		if read_only_db():
+			# Make sure we do not attempt to modify the database.
+			# And only execute pragmas in the schema, not the
+			# create table, etc. stuff.
+			conn.execute("pragma query_only = true")
+			for line in sql.splitlines():
+				if line.lstrip().startswith("pragma "):
+					conn.execute(line)
+		else:
+			conn.executescript(sql)
 	ret = DB(conn)
 	setattr(DBS, name, ret)
 	return ret

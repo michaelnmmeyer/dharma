@@ -8,7 +8,7 @@
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
 import os, sys, re, html, unicodedata
-from dharma import config, unicode, biblio
+from dharma import common, unicode, biblio
 
 class BlockDebugFormatter:
 
@@ -539,7 +539,7 @@ class Block:
 			if not t == "text":
 				continue
 			buf.append(data)
-		return config.normalize_text("".join(buf))
+		return common.normalize_text("".join(buf))
 
 class Document:
 

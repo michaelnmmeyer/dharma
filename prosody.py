@@ -1,5 +1,5 @@
 import sys, unicodedata, logging
-from dharma import config, tree, biblio, people, texts
+from dharma import common, tree, biblio, people, texts
 
 def load_data():
 	f = texts.save("project-documentation", "DHARMA_prosodicPatterns_v01.xml")
@@ -27,7 +27,7 @@ def load_data():
 
 def make_db():
 	data = load_data()
-	db = config.db("texts")
+	db = common.db("texts")
 	db.execute("delete from prosody")
 	for name, pattern in sorted(data.items()):
 		db.execute("insert into prosody(name, pattern) values(?, ?)",
@@ -180,7 +180,7 @@ def parse_list(list):
 	}
 
 def parse_prosody():
-	db = config.db("texts")
+	db = common.db("texts")
 	f = db.load_file("DHARMA_prosodicPatterns_v01")
 	xml = tree.parse(f)
 	ret = {
@@ -192,7 +192,7 @@ def parse_prosody():
 	return ret
 
 def find_mismatching_xml_prosody():
-	path = config.path_of("repos/project-documentation/DHARMA_prosodicPatterns_v01.xml")
+	path = common.path_of("repos/project-documentation/DHARMA_prosodicPatterns_v01.xml")
 	xml = tree.parse(path)
 	for item in xml.find("//item"):
 		x = item.first("seg[@type='xml']")
@@ -206,7 +206,7 @@ def find_mismatching_xml_prosody():
 				print("")
 
 if __name__ == "__main__":
-	@config.transaction("texts")
+	@common.transaction("texts")
 	def main():
-		print(config.to_json(parse_prosody()))
+		print(common.to_json(parse_prosody()))
 	main()

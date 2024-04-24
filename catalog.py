@@ -1,5 +1,5 @@
 import logging
-from dharma import parse, texts, config, document
+from dharma import parse, texts, common, document
 
 class Query:
 
@@ -33,12 +33,12 @@ class OR(Query):
 		return "(%s)" % " OR ".join(str(clause) for clause in self.clauses)
 
 def delete(name):
-	db = config.db("texts")
+	db = common.db("texts")
 	db.execute("delete from documents_index where name = ?", (name,))
 	db.execute("delete from documents where name = ?", (name,))
 
 def insert(file):
-	db = config.db("texts")
+	db = common.db("texts")
 	doc = parse.process_file(file, mode="catalog")
 	for key in ("title", "author", "editors", "summary"):
 		val = getattr(doc, key, None)
@@ -74,7 +74,7 @@ def insert(file):
 # Rebuild the full catalog with the data already present in the db.
 def rebuild():
 	logging.info("rebuilding the catalog")
-	db = config.db("texts")
+	db = common.db("texts")
 	db.execute("delete from documents_index")
 	for repo, path, mtime, data, html in db.execute("""
 		select files.repo, path, mtime, data, html_path
@@ -150,7 +150,7 @@ def parse_query(q):
 	return AND(clauses)
 
 def patch_languages(q):
-	db = config.db("texts")
+	db = common.db("texts")
 	for clause in q.clauses:
 		if clause.field != "lang":
 			continue
@@ -166,9 +166,9 @@ def patch_languages(q):
 		else:
 			clause.query = "" # prevent matching
 
-@config.transaction("texts")
+@common.transaction("texts")
 def search(q, s):
-	db = config.db("texts")
+	db = common.db("texts")
 	sql = """
 		select documents.name, documents.repo, documents.title,
 			documents.author, documents.editors, json_group_array(distinct langs_list.name) as langs, documents.summary,
