@@ -71,6 +71,9 @@ Location = collections.namedtuple("Location", "start end line column")
 * `column`: column number (one-based)
 '''
 
+# We don't use xml.sax.saxutils.quoteattr because it tries to use ' for
+# quoting attributes, and people generally use " instead. We want to preserve
+# the original as much as possible.
 attribute_tbl = str.maketrans({
 	'"': "&quot;",
 	"<": "&lt;",
@@ -78,11 +81,11 @@ attribute_tbl = str.maketrans({
 	"&": "&amp;",
 })
 
-# We don't use xml.sax.saxutils.quoteattr because it tries to use ' for
-# quoting attributes, and people generally use " instead. We want to preserve
-# the original as much as possible.
+def escape_attribute(s):
+	return s.translate(attribute_tbl)
+
 def quote_attribute(s):
-	return '"' + s.translate(attribute_tbl) + '"'
+	return f'"{escape_attribute(s)}"'
 
 def unique(items):
 	ret = []
@@ -366,8 +369,8 @@ class Node:
 		'''
 		return ""
 
-	def xml(self, pretty=False, strip_comments=False,
-		strip_instructions=False, html=False, color=False):
+	def xml(self, strip_comments=False, strip_instructions=False,
+		html=False, color=False):
 		'''Returns an XML representation of this subtree.
 
 		If `html` is true, the result will be escaped, for inclusion
@@ -375,10 +378,10 @@ class Node:
 		colorized, either through CSS classes (if `html` is true),
 		or with ANSI escapes codes (otherwise).
 		'''
-		fmt = Formatter(pretty=pretty, strip_comments=strip_comments,
+		fmt = Formatter(strip_comments=strip_comments,
 			strip_instructions=strip_instructions, html=html,
 			color=color)
-		fmt.format(self)
+		fmt.process(self)
 		return fmt.text()
 
 	def __copy__(self):
@@ -1447,9 +1450,23 @@ def space_after_closing(node):
 		i += 1
 	return False
 
+def tag_category(node):
+	assert isinstance(node, Tag)
+	match node.name:
+		case "pb" | "milestone" | "lb":
+			return "struct-physical"
+		case "rdg":
+			return "reading"
+		#case "head":
+		#	return "xml-heading"
+		case "sic" | "corr" | "orig" | "reg" | "foreign" | "abbr":
+			return node.name
+		case _:
+			return ""
+
 class Formatter:
 
-	def __init__(self, html=True, pretty=True, strip_comments=True,
+	def __init__(self, html=True, strip_comments=True,
 		strip_instructions=False, add_xml_prefix=False,
 		color=False, max_width=80 ** 10, indent_string=2 * " "):
 		# max_width is soft, not hard.
@@ -1457,26 +1474,47 @@ class Formatter:
 		self.offset = 0
 		self.buf = io.StringIO()
 		self.html = html
-		self.pretty = pretty
+		self.line_no = 0
 		self.strip_comments = strip_comments
 		self.color = color
 		self.max_width = max_width
 		self.indent_string = indent_string
 		self.strip_instructions = strip_instructions
 		self.add_xml_prefix = add_xml_prefix
+		self.state = "wait_line"
 
 	def format_contents(self, node):
 		for child in node:
 			self.format(child)
 
-	def format(self, node):
+	def process(self, node):
+		self.format(node)
+		match self.state:
+			case "wait_end":
+				self.end_line()
+			case "wait_line":
+				pass
+			case _:
+				assert 0
+
+	def process_contents(self, node):
+		self.format_contents(node)
+		match self.state:
+			case "wait_end":
+				self.end_line()
+			case "wait_line":
+				pass
+			case _:
+				assert 0
+
+	def format(self, node, cat=""):
 		match node:
 			case Tree():
 				return self.format_tree(node)
 			case Tag():
 				return self.format_tag(node)
 			case String():
-				return self.format_string(node)
+				return self.format_string(node, cat)
 			case Comment():
 				return self.format_comment(node)
 			case Instruction():
@@ -1492,128 +1530,107 @@ class Formatter:
 		if self.strip_instructions:
 			return
 		self.write(f"<?{node.target} {node.data}?>", klass="instruction")
-		if not self.pretty:
-			return
-		self.write("\n")
 
 	def format_comment(self, node):
 		if self.strip_comments:
 			return
 		node = node.data
-		if not self.pretty:
-			self.write(f"<!--{node}-->", klass="comment")
-			return
-		lines = node.splitlines()
-		if len(lines) == 1:
-			self.write(f"<!--{lines[0]}-->", klass="comment")
-		else:
-			self.write("<!--")
-			for line in lines:
-				self.write(line, klass="comment")
-				self.write("\n")
-			self.write("-->")
+		self.write(f"<!--{node}-->", klass="comment")
 
-	def format_string(self, node):
+	def format_string(self, node, cat=""):
 		node = str(node)
-		if not self.pretty:
-			self.write(quote_string(node))
-			return
-		text = re.sub(r"\s+", " ", node.strip())
-		if not text:
-			return
-		for i, token in enumerate(text.split()):
-			if i > 0 and self.offset + 1 + len(token) > self.max_width:
-				self.write("\n")
-			elif i > 0:
-				self.write(" ")
-			self.write(quote_string(token))
+		self.write(quote_string(node), klass=f"string {cat}")
 
-	def format_opening_tag(self, node):
-		self.write("<", klass="tag")
-		self.write(node.name, klass="tag")
+	def format_opening_tag(self, node, cat):
+		self.write("<", klass=f"tag tag-punct {cat}")
+		self.write(node.name, klass=f"tag {cat}")
 		attrs = node.attrs.items()
-		if self.pretty:
-			# We might want to sort tags in different ways,
-			# depending on the tag name, for readability and to
-			# follow people's habits.
-			attrs = sorted(attrs)
 		for k, v in attrs:
 			if self.add_xml_prefix and k in ("lang", "space", "base", "id"):
 				k = f"xml:{k}"
 			self.write(" ")
-			self.write(k, klass="attr-name")
-			self.write("=")
-			self.write(quote_attribute(v), klass="attr-value")
+			if node.name in ("div", "listBibl") and k in ("type", "n"):
+				ncat = f"{cat} xml-heading"
+			elif k == "n" or k == "loc":
+				ncat = f"{cat} attr-n"
+			else:
+				ncat = cat
+			self.write(k, klass=f"tag attr-name {cat}")
+			self.write("=",  klass=f"tag tag-punct {cat}")
+			self.write('"',  klass=f"tag tag-punct {cat}")
+			self.write(escape_attribute(v), klass=f"tag attr-value {ncat}")
+			self.write('"',  klass=f"tag tag-punct {cat}")
 		if len(node) == 0:
-			self.write("/>", klass="tag")
+			self.write("/>", klass=f"tag tag-punct {cat}")
 		else:
-			self.write(">", klass="tag")
+			self.write(">", klass=f"tag tag-punct {cat}")
 
-	def format_closing_tag(self, node):
+	def format_closing_tag(self, node, cat):
 		if len(node) == 0:
 			return
-		self.write("</", klass="tag")
-		self.write(node.name, klass="tag")
-		self.write(">", klass="tag")
+		self.write("</", klass=f"tag tag-punct {cat}")
+		self.write(node.name, klass=f"tag {cat}")
+		self.write(">", klass=f"tag tag-punct {cat}")
 
 	def format_tag(self, node):
-		if not self.pretty:
-			self.format_opening_tag(node)
-			for child in node:
-				self.format(child)
-			self.format_closing_tag(node)
-			return
-		if space_before_opening(node) and not self.wrote_space():
-			if space_after_opening(node) and space_before_closing(node):
-				self.write("\n")
+		cat = tag_category(node)
+		self.format_opening_tag(node, cat)
+		for child in node:
+			self.format(child, cat)
+		self.format_closing_tag(node, cat)
+
+	def start_line(self):
+		self.line_no += 1
+		if self.html:
+			self.buf.write('<div class="xml-line">')
+			no = self.line_no
+			if no == 1 or no % 5 == 0:
+				pass
 			else:
-				self.write("\n")
-		self.format_opening_tag(node)
-		if space_after_opening(node) and space_before_closing(node):
-			self.write("\n")
-			self.indent += 1
-			for child in node:
-				self.format(child)
-			self.indent -= 1
-			self.write("\n")
-		else:
-			self.indent += 1
-			for child in node:
-				self.format(child)
-			self.indent -= 1
-		self.format_closing_tag(node)
+				no = "·"
+			self.buf.write(f'<span class="xml-line-no hidden">{no}</span>')
+			self.buf.write('<span class="xml-line-contents">')
+		self.state = "wait_end"
+
+	def end_line(self):
+		if self.html:
+			self.buf.write('\n</span>')
+			self.buf.write("</div>")
+		self.buf.write("\n")
+		self.state = "wait_line"
 
 	def write(self, text, klass=None):
-		if klass:
-			if self.html:
-				self.buf.write(f'<span class="{klass}">')
-			elif self.color:
-				self.buf.write(term_color(colors[klass]))
-		if self.pretty:
-			assert text == "\n" or not "\n" in text
-			if text == "\n":
-				self.buf.write("\n")
-				self.offset = 0
-			else:
-				if self.offset == 0:
-					self.offset += self.buf.write(
-						self.indent_string * self.indent)
-				if self.html:
-					self.buf.write(quote_string(text))
-				else:
-					self.buf.write(text)
-				self.offset += len(text)
+		for chunk in re.findall(r"(?:[^\r\n]+)|(?:\r\n|\r|\n)", text):
+			if chunk in ("\r", "\n", "\r\n"):
+				chunk = ""
+			match self.state:
+				case "wait_line":
+					self.start_line()
+					if chunk:
+						self.write_styled(chunk, klass)
+					else:
+						self.end_line()
+				case "wait_end":
+					if chunk:
+						self.write_styled(chunk, klass)
+					else:
+						self.end_line()
+				case _:
+					assert 0
+
+	def write_styled(self, text, klass):
+		if klass and self.html:
+			self.buf.write(f'<span class="{klass}">')
+			self.buf.write(quote_string(text))
+			self.buf.write('</span>')
+		elif klass and self.color:
+			self.buf.write(term_color(colors[klass]))
+			self.buf.write(text)
+			self.buf.write(term_color())
+		elif self.html:
+			self.buf.write(quote_string(text))
 		else:
-			if self.html:
-				self.buf.write(quote_string(text))
-			else:
-				self.buf.write(text)
-			self.offset += len(text)
-		if klass:
-			if self.html:
-				self.buf.write("</span>")
-			elif self.color:
-				self.buf.write(term_color())
+			self.buf.write(text)
 
 	def wrote_space(self):
 		return self.buf.getvalue()[-1].isspace()
@@ -1621,12 +1638,14 @@ class Formatter:
 	def text(self):
 		return self.buf.getvalue()
 
-def html_format(node, skip_root=False, color=True, add_xml_prefix=True):
-	fmt = Formatter(pretty=False, color=color, add_xml_prefix=add_xml_prefix)
+def html_format(node, skip_root=False, color=True, add_xml_prefix=True,
+	strip_comments=False):
+	fmt = Formatter(color=color, add_xml_prefix=add_xml_prefix,
+		strip_comments=strip_comments)
 	if skip_root:
-		fmt.format_contents(node)
+		fmt.process_contents(node)
 	else:
-		fmt.format(node)
+		fmt.process(node)
 	return fmt.text()
 
 if __name__ == "__main__":
@@ -1635,7 +1654,7 @@ if __name__ == "__main__":
 	try:
 		tree = parse(sys.argv[1])
 		fmt = Formatter(pretty=False, html=False, color=True)
-		fmt.format(tree)
+		fmt.process(tree)
 		sys.stdout.write(fmt.text())
 	except (BrokenPipeError, KeyboardInterrupt):
 		exit(1)

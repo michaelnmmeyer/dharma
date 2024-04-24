@@ -287,6 +287,62 @@ def display_list():
 def legacy_display_text(text):
 	return flask.redirect(flask.url_for("display_text", text=text), code=302)
 
+@app.get("/texts/<text>/source")
+@common.transaction("texts")
+def display_text_xml(text):
+	# /texts/INSPallava00196 -> /texts/DHARMA_INSPallava00196
+	if text.startswith("DHARMA_"):
+		return flask.redirect(flask.url_for("display_text_xml",
+			text=text.removeprefix("DHARMA_")))
+	else:
+		text = "DHARMA_" + text
+	db = common.db("texts")
+	row = db.execute("""
+		select
+			printf('%s/%s/%s', ?, repos.repo, path) as path,
+			repos.repo,
+			data,
+			commit_hash,
+			commit_date,
+			last_modified,
+			last_modified_commit,
+			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
+				commit_hash, path) as github_commit_url,
+			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
+				last_modified_commit, path)
+				as github_last_modified_commit_url,
+			format_url('https://raw.githubusercontent.com/erc-dharma/%s/%s/%s',
+				repos.repo, commit_hash, path)
+				as github_download_url,
+			case when html_path is null then null else format_url('https://erc-dharma.github.io/%s/%s',
+				repos.repo, html_path)
+			end as static_website_url,
+			repos.title as repo_title
+		from documents
+			join files on documents.name = files.name
+			join repos on documents.repo = repos.repo
+		where documents.name = ?""",
+		(common.path_of("repos"), text)).fetchone()
+	if not row:
+		return flask.abort(404)
+	file = db.load_file(text)
+	doc = parse.process_file(file)
+	if doc.valid:
+		doc.title = doc.title and doc.title.render_logical() or ""
+		editors = doc.editors and doc.editors.render_logical() or []
+		doc.editors = editors and editors.split(document.PARA_SEP) or []
+	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
+	doc.last_modified = row["last_modified"]
+	doc.last_modified_commit = row["last_modified_commit"]
+	ret = flask.render_template("inscription_xml.tpl", doc=doc,
+		github_commit_url=row["github_commit_url"],
+		github_last_modified_commit_url=row["github_last_modified_commit_url"],
+		repo_title=row["repo_title"],
+		row=row,
+		text=text,
+		no_sidebar=True)
+	return ret
+
 @app.get("/texts/<text>")
 @common.transaction("texts")
 def display_text(text):

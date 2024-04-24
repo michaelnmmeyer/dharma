@@ -98,9 +98,7 @@ Version: {{doc.commit_date | format_date}}
 % endif
 
 <div class="xml hidden" id="xml" data-display="xml">
-<pre>
 {{doc.xml | safe}}
-</pre>
 </div>
 
 % if doc.apparatus:

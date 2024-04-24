@@ -415,7 +415,7 @@ function prepareCollapsible() {
 	for (let node of document.querySelectorAll(".collapsible")) {
 		let content = node.nextElementSibling;
 		let icon = node.querySelector("i")
-		icon.addEventListener("click", function() {
+		icon.addEventListener("click", function () {
 			if (content.classList.toggle("hidden")) {
 				icon.classList.remove("fa-angles-down")
 				icon.classList.add("fa-angles-up")
@@ -427,6 +427,19 @@ function prepareCollapsible() {
 	}
 }
 
+function toggleXMLDisplay(name) {
+	for (let node of document.querySelectorAll("#xml ." + name))
+		node.classList.toggle("hidden")
+}
+
+function initDisplayOptions() {
+	for (let node of document.querySelectorAll(".display-option")) {
+		node.addEventListener("change", function () {
+			toggleXMLDisplay(node.name)
+		})
+	}
+}
+
 window.addEventListener("load", function () {
 	localizeDates()
 	prepareTips()
@@ -434,4 +447,5 @@ window.addEventListener("load", function () {
 	initDisplays()
 	initFlashing()
 	prepareCollapsible()
+	initDisplayOptions()
 })

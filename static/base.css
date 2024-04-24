@@ -136,7 +136,7 @@ html {
 	overflow-y: scroll;
 }
 
-#contents {
+#contents, #contents.no-sidebar {
 	display: grid;
 	grid-template-areas:
 		'header'
@@ -146,6 +146,9 @@ html {
 	grid-template-rows: auto auto 1fr auto;
 	grid-template-columns: 100%;
 	min-height: 100%;
+}
+#contents.no-sidebar div#sidebar {
+	display: none;
 }
 header {
 	grid-area: header;
@@ -772,17 +775,73 @@ dl.list > dd {
 }
 
 /* XML display */
+#xml {
+	border: solid gray;
+	border-radius: var(--border-radius);
+}
 .xml {
+	font-family: monospace;
+	font-size: larger;
+	overflow: auto;
+}
+.xml-line {
+	line-height: 1.5rem;
+	display: table-row;
+}
+.xml-line-no {
+	white-space: pre;
+	padding: 0 0.5em;
+	display: table-cell;
+	text-align: right;
+	background: ghostwhite;
+	user-select: none;
+	color: dimgray;
+	width: 2em;
+}
+.xml-line-no.hidden {
+	display: none;
+}
+.xml-line-contents {
+	white-space: pre;
+	padding: 0 0.5em;
+	display: table-cell;
+	/* Enable this for word wrap:
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+	*/
 }
 .xml .tag {
-	color: blue;
+	color: midnightblue;
 }
 .xml .attr-name {
-	color: green;
+	color: midnightblue;
 }
 .xml .attr-value {
-	color: purple;
+	color: midnightblue;
 }
+.xml .instruction {
+	color: darkgray;
+}
+.xml .comment {
+	color: gray;
+}
+.xml .foreign.string {
+	font-style: italic;
+}
+.xml .xml-heading.string, .xml .xml-heading.attr-value {
+	color: black;
+	font-weight: bolder;
+	text-decoration: underline;
+}
+.xml .attr-n {
+	color: darkslategray;
+	font-weight: bolder;
+}
+.xml .reading.tag, .xml .reading.attr-name, .xml .reading.attr-value {
+	font-style: initial;
+}
+
+
 
 
 .notes ol {

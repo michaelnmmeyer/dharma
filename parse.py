@@ -1381,6 +1381,8 @@ def process_file(file, mode=None):
 		doc.edition_langs = [langs.Undetermined]
 		return doc
 	langs.assign_languages(t)
+	p = Parser(t)
+	p.document.xml = tree.html_format(t)
 	to_delete = [
 		"//teiHeader/encodingDesc",
 		"//teiHeader/revisionDesc",
@@ -1394,11 +1396,7 @@ def process_file(file, mode=None):
 	for path in to_delete:
 		for node in t.find(path):
 			node.delete()
-	p = Parser(t)
 	p.dispatch(p.tree.root)
-	body = t.first("//body")
-	if body:
-		p.document.xml = tree.html_format(t)
 	all_langs = set()
 	for node in t.find("//*"):
 		all_langs.add(node.lang)

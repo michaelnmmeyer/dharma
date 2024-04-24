@@ -4,9 +4,7 @@ import bs4, copy
 tpl = """
 <TEI>
 <text><body>
-<div type="{context}" xml:lang="eng">
-{code}
-</div>
+<div type="{context}" xml:lang="eng">{code}</div>
 </body></text>
 </TEI>
 """

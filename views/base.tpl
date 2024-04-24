@@ -14,7 +14,11 @@
    <script src="/base.js?v={{code_hash}}"></script>
 </head>
 <body>
+% if no_sidebar:
+<div id="contents" class="no-sidebar">
+% else:
 <div id="contents">
+% endif
 <header>
    <div id="menu-bar">
 <a href="/">DHARMA</a>
