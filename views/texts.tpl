@@ -40,8 +40,8 @@ table of languages <a href="/langs">here</a>.</p>
 <ul>
    <li>
    <label for="text-input">Find:</label>
-   % if q != "*":
-   <input name="q" id="text-input" value="{{q | escape}}"/>
+   % if q:
+   <input name="q" id="text-input" value="{{q | escape}}" autofocus/>
    % else:
    <input name="q" id="text-input" autofocus/>
    % endif
@@ -64,7 +64,16 @@ table of languages <a href="/langs">here</a>.</p>
 </ul>
 </form>
 
-<p>Have {{rows | length}} documents.</p>
+<p>Documents
+{{"%d\N{en dash}%d" % (first_entry, last_entry)}}
+of
+{{entries_nr}}
+% if q:
+matching.
+% else:
+total.
+% endif
+</p>
 
 <div class="catalog-list">
 % for row in rows:
@@ -115,6 +124,20 @@ table of languages <a href="/langs">here</a>.</p>
    <p><span class="text-id">{{row["name"]}}</span>.</p>
 </div>
 % endfor
+</div>
+
+<div class="pagination">
+% if page > 1:
+   <a href="{{url_for('show_catalog', q=q, p=page - 1, s=s)}}">← Previous</a>
+% else:
+   ← Previous
+% endif
+   |
+% if page < pages_nr:
+   <a href="{{url_for('show_catalog', q=q, p=page + 1, s=s)}}">Next →</a>
+% else:
+   Next →
+% endif
 </div>
 
 % endblock

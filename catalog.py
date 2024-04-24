@@ -166,9 +166,25 @@ def patch_languages(q):
 		else:
 			clause.query = "" # prevent matching
 
+def construct_query(q):
+	q = " ".join(document.normalize(t) for t in q.split()
+		if t not in ("AND", "OR", "NOT"))
+	if q:
+		q = parse_query(q)
+		patch_languages(q)
+		return str(q)
+
+PER_PAGE = 50
+
 @common.transaction("texts")
-def search(q, s):
+def search(q, sort, page):
 	db = common.db("texts")
+	q = construct_query(q)
+	if q:
+		(total,) = db.execute("""select count(*) from documents_index
+			where documents_index match ?""", (q,)).fetchone()
+	else:
+		(total,) = db.execute("select count(*) from documents_index").fetchone()
 	sql = """
 		select documents.name, documents.repo, documents.title,
 			documents.author, documents.editors, json_group_array(distinct langs_list.name) as langs, documents.summary,
@@ -181,24 +197,25 @@ def search(q, s):
 			left join langs_by_code on langs_by_code.code = json_each.value
 			left join langs_list on langs_list.id = langs_by_code.id
 	"""
-	q = " ".join(document.normalize(t) for t in q.split()
-		if t not in ("AND", "OR", "NOT"))
 	if q:
-		q = parse_query(q)
-		patch_languages(q)
-		q = (str(q),)
-		sql += " where documents_index match ? "
+		sql += " where documents_index match ?"
+	match sort:
+		case "ident":
+			sort = "name"
+		case "title" | "repo":
+			pass
+		case _:
+			sort = "title"
+	sql += f"""
+		group by documents.name order by documents.{sort} collate icu nulls last
+		limit ? offset ?"""
+	offset = (page - 1) * PER_PAGE
+	limit = PER_PAGE
+	if q:
+		ret = db.execute(sql, (q, limit, offset)).fetchall()
 	else:
-		q = ()
-	if s == "ident":
-		s = "name"
-	elif s == "title" or s == "repo":
-		pass
-	else:
-		s = "title"
-	sql += " group by documents.name order by documents.%s collate icu nulls last " % s
-	ret = db.execute(sql, q).fetchall()
+		ret = db.execute(sql, (limit, offset)).fetchall()
 	(last_updated,) = db.execute("""
 		select cast(value as int)
 		from metadata where key = 'last_updated'""").fetchone()
-	return ret, last_updated
+	return ret, total, PER_PAGE, last_updated

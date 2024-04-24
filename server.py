@@ -204,13 +204,26 @@ def legacy_show_catalog():
 def show_catalog():
 	q = flask.request.args.get("q", "")
 	s = flask.request.args.get("s", "")
-	rows, last_updated = catalog.search(q, s)
+	page = flask.request.args.get("p", "")
+	if page.isdigit():
+		page = int(page)
+		if page <= 0:
+			page = 1
+	else:
+		page = 1
+	rows, entries_nr, per_page, last_updated = catalog.search(q, s, page)
+	pages_nr = (entries_nr + per_page - 1) // per_page
+	first_entry = (page - 1) * per_page + 1
+	if first_entry < 0:
+		first_entry = 0
+	last_entry = page * per_page
+	if last_entry > entries_nr:
+		last_entry = entries_nr
 	return flask.render_template("texts.tpl",
-		rows=rows, q=q, s=s, last_updated=last_updated)
-
-@app.get("/editorial-conventions2")
-def show_editorial_conventions2():
-	return flask.redirect("/editorial-conventions")
+		rows=rows, q=q, s=s, page=page, entries_nr=entries_nr,
+		pages_nr=pages_nr,
+		first_entry=first_entry, last_entry=last_entry,
+		per_page=per_page, last_updated=last_updated)
 
 @app.get("/editorial-conventions")
 @common.transaction("texts")
