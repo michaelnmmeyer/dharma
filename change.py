@@ -4,6 +4,10 @@
 # reads the repository names and updates things accordingly. We do not
 # implement any buffering for passing messages, because pipe buffers are big
 # enough for our purposes.
+#
+# We use the WAL mode in SQLite. Thus, writers don't block readers and
+# vice-versa, but writers still do block each other, which is why we use just
+# one and serialize writes.
 
 import os, sys, time, select, errno, logging, fcntl, argparse, traceback
 from dharma import common, texts, biblio, catalog, people, langs
