@@ -191,17 +191,16 @@ class Block:
 	def add_log(self, data, **params):
 		self.add_code("log", data, **params)
 
-	def start_span(self, **params):
-		klass = params.get("klass")
-		if klass:
-			params["klass"] = [klass]
-		else:
-			params["klass"] = []
-		if params.get("tip"):
-			params["tip"] = [params["tip"]]
-		else:
-			params["tip"] = []
-		self.add_code("span", "<", **params)
+	def start_span(self, klass=None, tip=None):
+		if not klass:
+			klass = []
+		elif isinstance(klass, str):
+			klass = [klass]
+		if not tip:
+			tip = []
+		elif isinstance(tip, str):
+			tip = [tip]
+		self.add_code("span", "<", klass=klass, tip=tip)
 
 	def end_span(self):
 		self.add_code("span", ">")

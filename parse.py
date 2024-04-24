@@ -511,10 +511,13 @@ def text_to_html(p, mark):
 # OK
 @handler("sic")
 def parse_sic(p, sic, corr=None):
+	klass = "sic"
 	tip = "Incorrect text"
 	if corr:
 		tip += ' (emendation: <span class="corr">⟨%s⟩</span>)' % html.escape(corr)
-	p.start_span(klass="sic", tip=tip)
+	else:
+		klass = [klass, "standalone"]
+	p.start_span(klass=klass, tip=tip)
 	p.add_html("¿")
 	mark = len(p.top.code)
 	p.dispatch_children(sic)
@@ -525,10 +528,13 @@ def parse_sic(p, sic, corr=None):
 # OK
 @handler("corr")
 def parse_corr(p, corr, sic=None):
+	klass = "corr"
 	tip = "Emended text"
 	if sic:
 		tip += ' (original: <span class="sic">¿%s?</span>)' % html.escape(sic)
-	p.start_span(klass="corr", tip=tip)
+	else:
+		klass = [klass, "standalone"]
+	p.start_span(klass=klass, tip=tip)
 	p.add_html('⟨')
 	p.dispatch_children(corr)
 	p.add_html('⟩')
@@ -537,10 +543,13 @@ def parse_corr(p, corr, sic=None):
 # OK
 @handler("orig")
 def parse_orig(p, orig, reg=None):
+	klass = "orig"
 	tip = "Non-standard text"
 	if reg:
 		tip += ' (standardisation: <span class="reg">⟨%s⟩</span>)' % html.escape(reg)
-	p.start_span(klass="orig", tip=tip)
+	else:
+		klass = [klass, "standalone"]
+	p.start_span(klass=klass, tip=tip)
 	p.add_html("¡")
 	mark = len(p.top.code)
 	p.dispatch_children(orig)
@@ -551,10 +560,13 @@ def parse_orig(p, orig, reg=None):
 # OK
 @handler("reg")
 def parse_reg(p, reg, orig=None):
+	klass = "reg"
 	tip = "Standardised text"
 	if orig:
 		tip += ' (original: <span class="orig">¡%s!</span>)' % html.escape(orig)
-	p.start_span(klass="reg", tip=tip)
+	else:
+		klass = [klass, "standalone"]
+	p.start_span(klass=klass, tip=tip)
 	p.add_html("⟨")
 	p.dispatch_children(reg)
 	p.add_html("⟩")
