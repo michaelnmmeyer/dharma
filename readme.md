@@ -44,7 +44,7 @@ Thirdly, we have a WebSocket client that is hooked to Zotero and that notifies
 the update process whenever someone modifies the project's bibliography. The
 code is in `zotero.py`.
 
-Finally, we have program for accessing zotero.org. The code is in
+Finally, we have a program for accessing zotero.org. The code is in
 `zotero_proxy.py`. This is a server that is queried by XSLT files when they try
 to access the bibliography. They make a lot of calls to the Zotero API, and
 Zotero servers are often overloaded, thus we use a proxy that repeats API calls
