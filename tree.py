@@ -1459,8 +1459,6 @@ def tag_category(node):
 			return "struct-physical"
 		case "rdg":
 			return "reading"
-		#case "head":
-		#	return "xml-heading"
 		case "sic" | "corr" | "orig" | "reg" | "foreign" | "abbr":
 			return node.name
 		case "hi":
@@ -1479,6 +1477,9 @@ def attr_value_style(node, attr):
 		case "lg":
 			if attr in ("n", "met"):
 				return "attr-n"
+		case "listBibl":
+			if attr == "type":
+				return "xml-heading"
 		case "div":
 			if attr == "type":
 				return "xml-heading"

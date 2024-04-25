@@ -142,10 +142,8 @@ html {
 	display: grid;
 	grid-template-areas:
 		'header'
-		'sidebar'
-		'main'
-		'footer';
-	grid-template-rows: auto auto 1fr auto;
+		'main';
+	grid-template-rows: auto 1fr;
 	grid-template-columns: 100%;
 	min-height: 100%;
 }
@@ -168,12 +166,6 @@ main {
 }
 #sidebar ul {
 	padding-left: 1em;
-}
-footer {
-	grid-area: footer;
-	display: flex;
-	justify-content: space-around;
-	background-color: #f2f1f1;
 }
 
 .text-id, .repo-id, .member-id, .commit-hash, .url {
@@ -352,12 +344,11 @@ header {
 @media all and (min-width: 1100px) {
 
 #contents {
-	grid-template-rows: auto 1fr auto;
+	grid-template-rows: auto 1fr;
 	grid-template-columns: 23% 77%;
 	grid-template-areas:
 		'header header'
 		'sidebar main'
-		'footer footer';
 }
 header {
 	position: static;
@@ -371,7 +362,7 @@ header {
 	display: block;
 	position: sticky;
 	top: 0;
-	max-height: 100vh;
+	align-self: start;
 	overflow-y: auto;
 }
 #menu-bar #menu-toggle {

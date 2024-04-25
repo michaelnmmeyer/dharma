@@ -74,9 +74,6 @@ Untitled
 % block body
 % endblock
 </main>
-<footer>
-<p><small>© <a href="https://dharma.hypotheses.org">ERC-DHARMA Project</a>, 2019-2024</small></p>
-</footer>
 </div>
 <div id="tip-box" class="hidden">
    <div id="tip-contents"></div>

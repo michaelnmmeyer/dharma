@@ -11,7 +11,7 @@
 % block sidebar
 <div class="toc-heading">Display</div>
 <label>Source view
-   <input class="display-option" id="toggle-xml-display" type="checkbox">
+   <input id="toggle-xml-display" type="checkbox">
 </label>
 % if row:
 <div class="toc-heading">External Links</div>
