@@ -58,8 +58,10 @@
    </div>
 </header>
 <div id="sidebar">
-   <div id="toc-heading" class="toc-heading hidden">Contents</div>
-   <nav id="toc"></nav>
+   <div id="toc">
+      <div id="toc-heading" class="toc-heading hidden">Contents</div>
+      <nav id="toc-contents"></nav>
+   </div>
    % block sidebar
    % endblock
 </div>

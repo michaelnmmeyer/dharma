@@ -9,6 +9,10 @@
 % endblock
 
 % block sidebar
+<div class="toc-heading">Display</div>
+<label>Source view
+   <input class="display-option" id="toggle-xml-display" type="checkbox">
+</label>
 % if row:
 <div class="toc-heading">External Links</div>
 <nav>
@@ -23,6 +27,7 @@
 % endblock
 
 % block body
+<div id="inscription-display">
 
 <p>
 {{numberize("Editor", (doc.editors | length))}}:
@@ -79,7 +84,6 @@ Version: {{doc.commit_date | format_date}}
    <li id="logical-btn" class="active"><a href="#ed">Logical</a></li>
    <li id="physical-btn"><a href="#ed">Physical</a></li>
    <li id="full-btn"><a href="#ed">Full</a></li>
-   <li id="xml-btn"><a href="#ed">XML</a></li>
 </ul>
 
 <div class="logical" id="logical" data-display="logical">
@@ -97,10 +101,6 @@ Version: {{doc.commit_date | format_date}}
 </div> <!-- <div class="ed"> -->
 % endif
 
-<div class="xml hidden" id="xml" data-display="xml">
-{{doc.xml | safe}}
-</div>
-
 % if doc.apparatus:
 <div class="apparatus">
    <h2 id="apparatus" class="collapsible">
@@ -113,21 +113,21 @@ Version: {{doc.commit_date | format_date}}
 % endif
 
 % for trans in doc.translation:
-<div class="trans">
+<div class="translation">
 <h2 id="translation-{{loop.index}}">{{trans.title | safe}}</h2>
 {{trans.render_logical() | safe}}
 </div>
 % endfor
 
 % if doc.commentary:
-<div class="trans">
+<div class="commentary">
 <h2 id="commentary">Commentary</h2>
 {{doc.commentary.render_logical() | safe}}
 </div>
 % endif
 
 % if doc.bibliography:
-<div class="biblio">
+<div class="bibliography">
 <h2 id="bibliography">Bibliography</h2>
 {{doc.bibliography.render_logical() | safe}}
 </div>
@@ -147,4 +147,8 @@ Version: {{doc.commit_date | format_date}}
 </div>
 % endif
 
+</div><!-- id="inscription-display" -->
+<div class="xml hidden" id="inscription-source">
+{{doc.xml | safe}}
+</div>
 % endblock

@@ -338,7 +338,7 @@ function TOCEntryToHTML(entry, root) {
 }
 
 function displayTOC() {
-	let toc = document.querySelector("#toc")
+	let toc = document.querySelector("#toc-contents")
 	if (!toc)
 		return
 	let root = makeTOC()
@@ -348,7 +348,7 @@ function displayTOC() {
 	TOCEntryToHTML(root, toc)
 }
 
-let displays = ["logical", "physical", "full", "xml"]
+let displays = ["logical", "physical", "full"]
 let currentDisplay = "logical"
 
 function displayButton(name) {
@@ -430,6 +430,17 @@ function initDisplayOptions() {
 			toggleXMLDisplay(node.name)
 		})
 	}
+	let node = document.querySelector("#toggle-xml-display")
+	if (!node)
+		return
+	node.addEventListener("change", function () {
+		let display = document.querySelector("#inscription-display")
+		let source = document.querySelector("#inscription-source")
+		let toc = document.querySelector("#toc")
+		display.classList.toggle("hidden")
+		source.classList.toggle("hidden")
+		toc.classList.toggle("hidden")
+	})
 }
 
 window.addEventListener("load", function () {

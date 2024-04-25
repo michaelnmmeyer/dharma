@@ -1452,6 +1452,8 @@ def space_after_closing(node):
 
 def tag_category(node):
 	assert isinstance(node, Tag)
+	if node.matches("//teiHeader//title"):
+		return "xml-heading"
 	match node.name:
 		case "pb" | "milestone" | "lb":
 			return "struct-physical"
@@ -1461,6 +1463,11 @@ def tag_category(node):
 		#	return "xml-heading"
 		case "sic" | "corr" | "orig" | "reg" | "foreign" | "abbr":
 			return node.name
+		case "hi":
+			if node["rend"] == "grantha":
+				return "xml-grantha"
+		case "head":
+			return "xml-heading"
 		case _:
 			return ""
 
@@ -1472,6 +1479,11 @@ def attr_value_style(node, attr):
 		case "lg":
 			if attr in ("n", "met"):
 				return "attr-n"
+		case "div":
+			if attr == "type":
+				return "xml-heading"
+			if attr == "n":
+				return "xml-heading"
 		case _:
 			if attr == "n":
 				return "attr-n"
@@ -1573,7 +1585,7 @@ class Formatter:
 		self.write(">", klass=f"tag tag-punct {cat}")
 
 	def format_tag(self, node):
-		cat = "" #tag_category(node)
+		cat = tag_category(node)
 		self.format_opening_tag(node, cat)
 		for child in node:
 			self.format_node(child, cat)
