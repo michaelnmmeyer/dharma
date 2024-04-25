@@ -381,7 +381,7 @@ class Node:
 		fmt = Formatter(strip_comments=strip_comments,
 			strip_instructions=strip_instructions, html=html,
 			color=color)
-		fmt.process(self)
+		fmt.format(self)
 		return fmt.text()
 
 	def __copy__(self):
@@ -1464,6 +1464,22 @@ def tag_category(node):
 		case _:
 			return ""
 
+def attr_name_style(node, attr):
+	return ""
+
+def attr_value_style(node, attr):
+	match node.name:
+		case "lg":
+			if attr in ("n", "met"):
+				return "attr-n"
+		case _:
+			if attr == "n":
+				return "attr-n"
+	return ""
+
+def contents_style(node):
+	return ""
+
 class Formatter:
 
 	def __init__(self, html=True, strip_comments=True,
@@ -1485,10 +1501,14 @@ class Formatter:
 
 	def format_contents(self, node):
 		for child in node:
-			self.format(child)
+			self.format_node(child)
+		self.finish()
 
-	def process(self, node):
-		self.format(node)
+	def format(self, node):
+		self.format_node(node)
+		self.finish()
+
+	def finish(self):
 		match self.state:
 			case "wait_end":
 				self.end_line()
@@ -1497,20 +1517,10 @@ class Formatter:
 			case _:
 				assert 0
 
-	def process_contents(self, node):
-		self.format_contents(node)
-		match self.state:
-			case "wait_end":
-				self.end_line()
-			case "wait_line":
-				pass
-			case _:
-				assert 0
-
-	def format(self, node, cat=""):
+	def format_node(self, node, cat=""):
 		match node:
 			case Tree():
-				return self.format_tree(node)
+				return self.format_contents(node)
 			case Tag():
 				return self.format_tag(node)
 			case String():
@@ -1521,10 +1531,6 @@ class Formatter:
 				return self.format_instruction(node)
 			case _:
 				assert 0
-
-	def format_tree(self, node):
-		for child in node:
-			self.format(child)
 
 	def format_instruction(self, node):
 		if self.strip_instructions:
@@ -1549,16 +1555,10 @@ class Formatter:
 			if self.add_xml_prefix and k in ("lang", "space", "base", "id"):
 				k = f"xml:{k}"
 			self.write(" ")
-			if node.name in ("div", "listBibl") and k in ("type", "n"):
-				ncat = f"{cat} xml-heading"
-			elif k == "n" or k == "loc":
-				ncat = f"{cat} attr-n"
-			else:
-				ncat = cat
-			self.write(k, klass=f"tag attr-name {cat}")
+			self.write(k, klass=f"tag attr-name {attr_name_style(node, k)}")
 			self.write("=",  klass=f"tag tag-punct {cat}")
 			self.write('"',  klass=f"tag tag-punct {cat}")
-			self.write(escape_attribute(v), klass=f"tag attr-value {ncat}")
+			self.write(escape_attribute(v), klass=f"tag attr-value {attr_value_style(node, k)}")
 			self.write('"',  klass=f"tag tag-punct {cat}")
 		if len(node) == 0:
 			self.write("/>", klass=f"tag tag-punct {cat}")
@@ -1573,10 +1573,10 @@ class Formatter:
 		self.write(">", klass=f"tag tag-punct {cat}")
 
 	def format_tag(self, node):
-		cat = tag_category(node)
+		cat = "" #tag_category(node)
 		self.format_opening_tag(node, cat)
 		for child in node:
-			self.format(child, cat)
+			self.format_node(child, cat)
 		self.format_closing_tag(node, cat)
 
 	def start_line(self):
@@ -1643,9 +1643,9 @@ def html_format(node, skip_root=False, color=True, add_xml_prefix=True,
 	fmt = Formatter(color=color, add_xml_prefix=add_xml_prefix,
 		strip_comments=strip_comments)
 	if skip_root:
-		fmt.process_contents(node)
+		fmt.format_contents(node)
 	else:
-		fmt.process(node)
+		fmt.format(node)
 	return fmt.text()
 
 if __name__ == "__main__":
@@ -1654,7 +1654,7 @@ if __name__ == "__main__":
 	try:
 		tree = parse(sys.argv[1])
 		fmt = Formatter(pretty=False, html=False, color=True)
-		fmt.process(tree)
+		fmt.format(tree)
 		sys.stdout.write(fmt.text())
 	except (BrokenPipeError, KeyboardInterrupt):
 		exit(1)

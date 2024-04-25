@@ -60,7 +60,7 @@ def parse_html():
 					context = "edition"
 				display, pretty_xml = parse_xml(context, node.get_text())
 				demo = soup.new_tag("div", **{"class": "edition-demo"})
-				code = soup.new_tag("pre", **{"class": "xml"})
+				code = soup.new_tag("div", **{"class": "xml"})
 				code.append(bs4.BeautifulSoup(pretty_xml, "html.parser"))
 				rendered = soup.new_tag("div", **{"class": ["ed",
 					context == "edition" and "full" or "translation"]})

@@ -129,14 +129,6 @@ window.addEventListener("load", function () {
 		}
 	})
 	initMenu()
-	let sidebar = document.querySelector("#sidebar")
-	let sidebarClick = document.querySelector("#sidebar-interact")
-	sidebarClick.addEventListener("click", function () {
-		if (sidebar.style.display == "none")
-			sidebar.style.display = "flex"
-		else
-			sidebar.style.display = "none"
-	})
 })
 
 // end menu

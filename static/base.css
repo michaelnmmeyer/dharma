@@ -82,6 +82,8 @@
 }
 .edition-demo > .xml {
 	margin: 0;
+	padding: 0.5em;
+	border-bottom: 1px solid gray;
 }
 .edition-demo > .ed {
 	margin: 0;
@@ -150,6 +152,7 @@ html {
 #contents.no-sidebar div#sidebar {
 	display: none;
 }
+
 header {
 	grid-area: header;
 }
@@ -157,27 +160,14 @@ main {
 	grid-area: main;
 	margin: 1em;
 }
-aside {
-	display: none;
-	grid-area: sidebar;
-	background-color: #f2f1f1;
-}
 #sidebar {
+	display: none;
 	background-color: #f2f1f1;
 	padding: 1em;
 	flex-grow: 1;
 }
 #sidebar ul {
 	padding-left: 1em;
-}
-#sidebar-interact {
-	background-color: blue;
-	width: 1.5em;
-	display: none;
-}
-#sidebar-interact:hover {
-	cursor: pointer;
-	background-color: red;
 }
 footer {
 	grid-area: footer;
@@ -363,7 +353,7 @@ header {
 
 #contents {
 	grid-template-rows: auto 1fr auto;
-	grid-template-columns: 25% 75%;
+	grid-template-columns: 23% 77%;
 	grid-template-areas:
 		'header header'
 		'sidebar main'
@@ -372,8 +362,13 @@ header {
 header {
 	position: static;
 }
-aside {
-	display: flex;
+#sidebar {
+	/* TODO
+	 * resize: horizontal;
+	 * https://stackoverflow.com/questions/67943584/resize-column-across-multiple-rows-using-html-grid-layout
+	 */
+	grid-area: sidebar;
+	display: block;
 	position: sticky;
 	top: 0;
 	max-height: 100vh;
@@ -783,9 +778,12 @@ dl.list > dd {
 	font-family: monospace;
 	font-size: larger;
 	overflow: auto;
+	background: ghostwhite;
+	border-top-left-radius: var(--border-radius);
+	border-top-right-radius: var(--border-radius);
+	line-height: 1.5rem;
 }
 .xml-line {
-	line-height: 1.5rem;
 	display: table-row;
 }
 .xml-line-no {
@@ -793,7 +791,7 @@ dl.list > dd {
 	padding: 0 0.5em;
 	display: table-cell;
 	text-align: right;
-	background: ghostwhite;
+	background: #e8e8ff;
 	user-select: none;
 	color: dimgray;
 	width: 2em;

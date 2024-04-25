@@ -57,16 +57,12 @@
 </ul>
    </div>
 </header>
-<aside>
-   <div id="sidebar">
-      <div id="toc-heading" class="toc-heading hidden">Contents</div>
-      <nav id="toc"></nav>
-      % block sidebar
-      % endblock
-   </div>
-   <div id="sidebar-interact">
-   </div>
-</aside>
+<div id="sidebar">
+   <div id="toc-heading" class="toc-heading hidden">Contents</div>
+   <nav id="toc"></nav>
+   % block sidebar
+   % endblock
+</div>
 <main>
 <h1>
 % block title
