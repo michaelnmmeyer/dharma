@@ -1,15 +1,17 @@
 /* Global variables */
 :root {
 	--flash-duration: 2s;
-	--menu-background: #4a4866;
-	--menu-foreground: white;
-	--menu-hover: #8788b0;
-	--menu-height: 3rem;
-	--tooltip-selection-foreground: white;
-	--tooltip-selection-background: black;
 	--card-heading-background: #e3e3ed;
 	--card-border: #c2c2d3;
 }
+
+$tooltip-selection-foreground: white;
+$tooltip-selection-background: black;
+
+$menu-background: #4a4866;
+$menu-foreground: white;
+$menu-hover: #8788b0;
+$menu-height: 3rem;
 
 $border-radius: 0.3em;
 
@@ -165,7 +167,8 @@ body {
 	color: black;
 	background-color: white;
 	overflow-wrap: break-word;
-	line-height: 1.5; /* omitting the unit to make it work for <h1>, etc. */
+	/* Omitting the unit to make it work for <h1>, etc. */
+	line-height: 1.5;
 }
 
 /*************************************** Tables *******************************/
@@ -259,9 +262,9 @@ form ul {
 	align-items: center;
 	padding: 0 0.7rem;
 	margin: 0;
-	background: var(--menu-background);
-	color: var(--menu-foreground);
-	height: var(--menu-height);
+	background: $menu-background;
+	color: $menu-foreground;
+	height: $menu-height;
 	font-size: larger;
 }
 #menu-bar ul {
@@ -278,13 +281,13 @@ form ul {
 	border-radius: $border-radius;
 }
 #menu-bar a:hover {
-	background: var(--menu-hover);
+	background: $menu-hover;
 }
 #menu {
 	position: absolute;
 	top: 0;
 	left: 0;
-	margin-top: var(--menu-height);
+	margin-top: $menu-height;
 	margin-left: 0;
 	margin-right: 0;
 	margin-bottom: 0;
@@ -368,7 +371,7 @@ main {
 	top: 0;
 	left: 0;
 	padding: 0.4em;
-	background: var(--menu-background);
+	background: $menu-background;
 	border-bottom-left-radius: $border-radius;
 	border-bottom-right-radius: $border-radius;
 }
@@ -424,8 +427,8 @@ i.tipped:hover {
 	border-radius: initial;
 }
 .tipped:hover {
-	color: var(--tooltip-selection-foreground);
-	background-color: var(--tooltip-selection-background);
+	color: $tooltip-selection-foreground;
+	background-color: $tooltip-selection-background;
 	border-radius: $border-radius;
 }
 /* div that contains the tooltip (used for all tooltips) */
