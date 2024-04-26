@@ -41,7 +41,7 @@ pattern_tbl = str.maketrans({
 	"2": "\N{metrical two shorts over long}",
 })
 def render_pattern(p):
-	return "\N{narrow no-break space}".join(p.translate(pattern_tbl))
+	return p.translate(pattern_tbl)
 
 def is_pattern(p):
 	return all(ord(c) in pattern_tbl or c.isdigit() or c in "|/" for c in p)
@@ -198,7 +198,7 @@ def find_mismatching_xml_prosody():
 		x = item.first("seg[@type='xml']")
 		p = item.first("seg[@type='prosody']")
 		if x and p:
-			tr = render_pattern(x.text()).replace("\N{narrow no-break space}", "")
+			tr = render_pattern(x.text())
 			if tr != p.text():
 				print(item.first("name").text() or item.first("label").text())
 				print("  " + x.text())

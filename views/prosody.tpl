@@ -63,7 +63,7 @@ Prosodic Patterns
 	% endif
 	% if item["prosody"]:
 	<div>Prosody</div>
-	<div>{{item["prosody"]}}</div>
+	<div><span class="prosody">{{item["prosody"]}}</span></div>
 	% endif
 	% if item["gana"]:
 	<div>Gaṇa</div>

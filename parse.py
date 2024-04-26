@@ -817,14 +817,18 @@ def parse_gap(p, gap):
 		met = parent["met"]
 		if prosody.is_pattern(met):
 			met = prosody.render_pattern(met)
-		repl = "[%s]" % met
+		repl = f'[<span class="prosody">{html.escape(met)}</span>]'
 		phys_repl = None
+	else:
+		repl = html.escape(repl)
+		if phys_repl is not None:
+			phys_repl = html.escape(phys_repl)
 	p.start_span(klass="gap", tip=tip)
 	if phys_repl is not None and phys_repl != repl:
-		p.add_html(html.escape(repl), plain=True, physical=False)
-		p.add_html(html.escape(phys_repl), plain=True, logical=False, full=False)
+		p.add_html(repl, plain=True, physical=False)
+		p.add_html(phys_repl, plain=True, logical=False, full=False)
 	else:
-		p.add_html(html.escape(repl), plain=True)
+		p.add_html(repl, plain=True)
 	p.end_span()
 	# TODO merge consecutive values as in [ca.10x – – – ⏑ – – abc] in editorial
 
