@@ -334,8 +334,7 @@ normalize-space(); to prevent this, pass `space="preserve"`.
 #### xml
 
 ```python
-def xml(pretty=False,
-        strip_comments=False,
+def xml(strip_comments=False,
         strip_instructions=False,
         html=False,
         color=False)

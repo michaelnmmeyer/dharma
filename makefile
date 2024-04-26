@@ -9,7 +9,7 @@ generated_views = $(patsubst %.md,%.tpl,$(wildcard views/*.md))
 generated_parsers = $(patsubst %.g,%.py,$(wildcard *.g))
 generated = $(generated_tei) $(generated_views) $(generated_parsers)
 
-all: $(generated) tree.md
+all: $(generated) static/base.css tree.md
 
 clean:
 	rm -f $(generated)
@@ -129,6 +129,9 @@ global.rnc: $(wildcard texts/DHARMA_*.xml)
 
 %.rnc: %.rng
 	$(trang) $^ $@
+
+%.css: %.scss
+	sass --no-cache $^ > tmp && mv tmp $@
 
 %.rng: %.oddc
 	python3 xslt.py tei/odds/odd2relax.xsl $^ > $@

@@ -8,6 +8,22 @@ function getCSSVar(name) {
 	return getComputedStyle(document.documentElement).getPropertyValue(name)
 }
 
+let sidebarWidth = localStorage.getItem("sidebar-width") || "23vw"
+let style = document.createElement('style')
+document.head.appendChild(style)
+style.sheet.insertRule(
+`#sidebar {
+	width: ${sidebarWidth};\
+}`)
+
+document.addEventListener("visibilitychange", function () {
+	let node = document.querySelector("#sidebar")
+	if (!node)
+		return
+	let width = getComputedStyle(node).getPropertyValue("width")
+	localStorage.setItem("sidebar-width", width)
+})
+
 // menu
 
 let menu = null

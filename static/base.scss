@@ -1,0 +1,797 @@
+/* Global variables */
+:root {
+	--flash-duration: 2s;
+	--menu-background: #4a4866;
+	--menu-foreground: white;
+	--menu-hover: #8788b0;
+	--menu-height: 2.6em;
+	--tooltip-selection-foreground: white;
+	--tooltip-selection-background: black;
+	--card-heading-background: #e3e3ed;
+	--card-border: #c2c2d3;
+}
+
+$border-radius: 0.3em;
+
+@mixin monospace {
+	font-family: 'Noto mono', monospace;
+	font-size: 95%;
+}
+
+@mixin code {
+	@include monospace;
+	background-color: #eaeaea;
+	hyphens: none;
+}
+
+a {
+	text-decoration: none;
+}
+/* For links that point to the same page viz. internal navigation.
+ * Don't change color when visited.
+ */
+a.nav-link {
+	color: blue;
+}
+
+.collapsible i {
+	cursor: pointer;
+	border: solid transparent;
+	border-radius: $border-radius;
+}
+.collapsible i:hover {
+	border-color: black;
+}
+
+.data {
+	display: grid;
+	grid-template-columns: auto 1fr;
+}
+.data > * {
+	padding: 0 0.5em;
+}
+/* Keys */
+.data > :nth-child(odd) {
+	text-align: right;
+}
+
+.card-list .card {
+	margin: 1em 0;
+}
+.card-list .card:nth-child(odd) {
+}
+.card-list .card:nth-child(even) {
+}
+.card p {
+	text-align: left;
+}
+.card p:first-child {
+	margin-block-start: 0;
+}
+.card p:last-child {
+	margin-block-end: 0;
+}
+.card {
+	border-top-left-radius: $border-radius;
+	border-top-right-radius: $border-radius;
+	border: 1px solid var(--card-border);
+	border-bottom: 0;
+}
+.card-heading {
+	font-size: 110%;
+	background: var(--card-heading-background);
+	margin: 0;
+	padding: 0.3em 0.6em;
+}
+.card-body {
+	padding: 0.5em 0.6em;
+	background: #fafafa;
+}
+
+
+.toc-heading {
+	font-size: larger;
+	font-weight: bolder;
+	margin: 0.5em 0;
+}
+
+.edition-demo {
+	background: white;
+	border-radius: $border-radius;
+	border: 1px solid gray;
+	margin: 1em 0.5em;
+}
+.edition-demo > .xml {
+	margin: 0;
+	padding: 0.5em;
+	border-bottom: 1px solid gray;
+}
+.edition-demo > .ed {
+	margin: 0;
+	padding: 0.3em 1em;
+	background: white;
+	border-radius: $border-radius;
+}
+
+@keyframes flash {
+	0% {
+		background: yellow;
+	}
+	60% {
+		background: yellow;
+	}
+	100% {
+		background: none;
+	}
+}
+.flash {
+	animation: flash var(--flash-duration);
+}
+
+.bib-ref-invalid {
+	color: red;
+}
+.nav-link.bib-ref-invalid { /* override default blue color */
+	color: red;
+}
+
+p.bib-entry {
+	padding-left: 1.5em;
+	text-indent: -1.5em;
+}
+
+.text-id, .repo-id, .member-id, .commit-hash, .url {
+	@include monospace;
+}
+abbr {
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+}
+
+.hidden {
+	display: none;
+}
+
+.smallcaps {
+	font-variant: small-caps;
+}
+
+/* Global stuff */
+body {
+	font-family: 'Noto Serif', serif;
+	hyphens: auto;
+	padding: 0;
+	margin: 0;
+	color: black;
+	background-color: white;
+	overflow-wrap: break-word;
+	line-height: 1.5; /* omitting the unit to make it work for <h1>, etc. */
+}
+
+/*************************************** Tables *******************************/
+
+tr:hover td {
+	background-color: gray;
+}
+table tr:nth-child(odd) {
+	background-color: #eff0f1;
+}
+table tr:nth-child(even) {
+	background-color: #d9dadb;
+}
+table {
+	border-spacing: 0;
+	border-collapse: separate;
+	border-radius: $border-radius;
+	overflow: hidden;
+}
+td, th {
+	padding: 0.4em;
+}
+th {
+	background-color: #d9dadb;
+}
+
+
+input {
+	font-family: inherit;
+	font-size: inherit;
+}
+select {
+	font-family: inherit;
+	font-size: inherit;
+}
+button {
+	font-family: inherit;
+	font-size: inherit;
+}
+
+div.pagination {
+	text-align: center;
+	padding: 1em 0;
+}
+
+/* Forms */
+form ul {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	list-style: none;
+	padding: 0;
+	column-gap: 0.3em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************************************** Menu **********************************/
+
+/* I used:
+ * https://codepen.io/alvarotrigo/pen/MWEJEWG
+ * https://webdesign.tutsplus.com/how-to-build-a-responsive-navigation-bar-with-flexbox--cms-33535t
+ */
+
+#menu-bar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 0.7em;
+	margin: 0;
+	background: var(--menu-background);
+	color: var(--menu-foreground);
+	height: var(--menu-height);
+	font-size: larger;
+}
+#menu-bar ul {
+	list-style: none;
+}
+#menu-bar li {
+	padding: 0.3em 0.7em;
+}
+#menu-bar a {
+	color: inherit;
+	padding: 0.2em 0.5em;
+	display: block;
+	cursor: pointer;
+	border-radius: $border-radius;
+}
+#menu-bar a:hover {
+	background: var(--menu-hover);
+}
+#menu {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: var(--menu-height);
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	padding: 0;
+	width: 100%; /* Force it to be on its own row */
+	background: inherit;
+}
+#menu > .submenu > ul {
+	padding-left: 0.5em;
+}
+#menu > .submenu > ul > li {
+	padding: 0;
+}
+
+/******************************* Main layout **********************************/
+
+html, body {
+	height: 100vh;
+	width: 100vw;
+}
+
+#contents, #contents.no-sidebar {
+	display: grid;
+	grid-template-areas:
+		'header'
+		'main';
+	grid-template-rows: auto 1fr;
+	height: 100vh;
+	width: 100vw;
+}
+#contents.no-sidebar #sidebar {
+	display: none;
+}
+
+header {
+	grid-area: header;
+}
+main {
+	grid-area: main;
+	padding: 1em;
+	overflow-y: auto;
+}
+#sidebar {
+	grid-area: sidebar;
+	resize: horizontal;
+	display: none;
+	background-color: #f2f1f1;
+	padding: 1em;
+	overflow-y: auto;
+}
+#sidebar ul {
+	padding-left: 1em;
+}
+
+@media all and (min-width: 1100px) {
+
+#contents {
+	grid-template-rows: auto 1fr;
+	grid-template-columns: auto 1fr;
+	grid-template-areas:
+		'header header'
+		'sidebar main'
+}
+#sidebar {
+	display: block;
+}
+#menu-bar #menu-toggle {
+	display: none;
+}
+#menu-bar ul {
+	margin: 0;
+}
+#menu {
+	display: flex;
+	position: static;
+	width: auto;
+	margin: 0;
+}
+#menu > .submenu > ul {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0.4em;
+	background: var(--menu-background);
+	border-bottom-left-radius: $border-radius;
+	border-bottom-right-radius: $border-radius;
+}
+
+}
+
+@media print {
+	/* For printing, hide useless stuff. */
+	header {
+		display: none;
+	}
+	aside {
+		display: none;
+	}
+}
+
+/******************************* Catalog, old version *************************/
+
+
+.catalog-list div.catalog-card:first-child {
+	border-radius: $border-radius;
+}
+.catalog-list div.catalog-card:last-child {
+	border-radius: $border-radius;
+}
+.catalog-list div.catalog-card:nth-child(odd) {
+	background-color: #eff0f1;
+}
+.catalog-list div.catalog-card:nth-child(even) {
+	background-color: #d9dadb;
+}
+.catalog-card p {
+	text-align: left;
+}
+.catalog-card p:first-child {
+	margin-block-start: 0;
+}
+.catalog-card p:last-child {
+	margin-block-end: 0;
+}
+.catalog-card {
+	padding: 1em 0.7em;
+}
+.catalog-card-heading {
+	font-size: 110%;
+}
+
+/************************************* Tooltips *******************************/
+
+i.tipped:hover {
+	color: initial;
+	background-color: initial;
+	border-radius: initial;
+}
+.tipped:hover {
+	color: var(--tooltip-selection-foreground);
+	background-color: var(--tooltip-selection-background);
+	border-radius: $border-radius;
+}
+/* div that contains the tooltip (used for all tooltips) */
+#tip-box {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #f1eeff;
+	border: solid black 2px;
+	max-width: 30em;
+	border-radius: $border-radius;
+	padding: 0.3em;
+}
+#tip-arrow {
+	position: absolute;
+	background-color: #f1eeff;
+	width: 8px;
+	height: 8px;
+	border: solid black 0px;
+	transform: rotate(45deg);
+}
+
+/*************************** Parallels display ********************************/
+
+div.parallel-verse {
+	/* Same properties as a normal <p> */
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+}
+div.parallel-verse > p {
+	/* No space between hemistiches */
+	margin-block-start: 0em;
+	margin-block-end: 0em;
+	/* Hanging indent */
+	padding-left: 2em;
+	text-indent: -2em;
+}
+
+/*************************************** Verses *******************************/
+
+/* Numbered verse lines, for Manu. See e.g. DHARMA_INSTamilNadu00102 */
+.verse-numbered div {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	max-width: 29em;
+}
+.verse-line > span {
+	display: none;
+}
+.verse-numbered .verse-line:nth-child(1) > span {
+	display: inline;
+}
+.verse-numbered .verse-line:nth-child(5n) > span {
+	display: inline;
+}
+
+
+/* XXX this is for stanzas headings, should use a div instead */
+h6 {
+	font-size: initial;
+	margin-block-start: 0;
+	margin-block-end: 0;
+}
+
+.ed-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	list-style: none;
+	padding: 0;
+	/* column-gap: 0.7em; */
+	border-bottom: solid 2px;
+}
+.ed-tabs li {
+	border-top: solid;
+	border-left: solid;
+	border-right: solid;
+	border-top-left-radius: $border-radius;
+	border-top-right-radius: $border-radius;
+	padding: 0.2em 0.4em;
+	margin-left: 1em;
+	border-color: gray;
+}
+.ed-tabs li.active {
+	background-color: white;
+	border-color: black;
+	margin-bottom: -2px;
+}
+.ed-tabs a {
+	color: gray;
+}
+.active a {
+	color: black;
+}
+
+sup {
+	vertical-align: baseline;
+	position: relative;
+	top: -0.4em;
+}
+
+/***************************************** Lists ******************************/
+
+/* Examples in:
+ * http://localhost:8023/display/DHARMA_INSIDENKAlasantan
+ * http://localhost:8023/display/DHARMA_INSSII0400223
+ */
+.list-plain {
+	list-style: none;
+}
+.list-plain:hover {
+	list-style: initial;
+}
+.list-plain li::marker {
+	color: gray;
+}
+.list {
+	padding-left: 2.4em;
+}
+/* More space between list items. This is mostly for plain lists, because it
+ * is hard to distinguish paragraph lines from item lines.
+ */
+.list li:not(:last-child) {
+	margin-bottom: 0.8em;
+}
+dl.list { /* XXX ugly on mobile! */
+	display: grid;
+	grid-template-columns: max-content auto;
+}
+dl.list > dt {
+	grid-column-start: 1;
+	font-weight: bolder;
+}
+dl.list > dd {
+	grid-column-start: 2;
+}
+/* End lists */
+
+
+/* Editions */
+.grantha {
+	font-weight: bolder;
+}
+.reading {
+	font-style: italic;
+	color: green;
+}
+.milestone {
+	color: gray;
+	font-weight: initial;
+}
+.symbol {
+}
+.symbol-placeholder {
+	border: solid 1px;
+	border-radius: $border-radius;
+}
+.lb {
+	color: gray;
+	font-weight: initial;
+	font-style: initial;
+}
+.pagelike {
+	color: gray;
+	font-weight: initial;
+	font-style: initial;
+}
+.gridlike {
+	color: gray;
+	font-weight: initial;
+	font-style: initial;
+}
+.abbr {
+	color: brown;
+}
+.sic {
+	color: red;
+}
+.corr {
+	color: green;
+}
+.orig {
+	color: magenta;
+}
+.reg {
+	color: blue;
+}
+.check {
+	background-color: yellow;
+}
+
+/* Apparatus */
+.apparatus p {
+	text-align: left;
+}
+
+/* Logical display */
+.logical .sic:not(.standalone) {
+	display: none;
+}
+.logical .orig:not(.standalone) {
+	display: none;
+}
+.logical .surplus {
+	display: none;
+}
+.logical .hyphen-break {
+	display: none;
+}
+.logical .abbr-mark {
+	display: none;
+}
+
+.verse {
+	/* Same properties as a normal <p> */
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	padding-left: 0.5em;
+	border-left: solid;
+	border-color: gray;
+}
+.verse p {
+	/* No space between hemistiches */
+	margin-block-start: 0em;
+	margin-block-end: 0em;
+	/* Hanging indent */
+	padding-left: 2em;
+	text-indent: -2em;
+	text-align: left;
+}
+
+/* <fw>; only visible in phys display and in full */
+.logical .fw {
+	display: none;
+}
+.fw-contents {
+	/* Main text color, not gray, since this belongs to the text,
+	 * sort-of. See
+	 * https://github.com/erc-dharma/project-documentation/issues/269
+	 */
+	color: black;
+}
+.tipped .fw-contents {
+	color: var(--tooltip-selection-foreground);
+}
+
+/* More space between lines for
+ * https://dharmalekha.info/texts/DHARMA_INSCirkali00033
+ */
+.logical, .physical, .full {
+	line-height: 1.7;
+}
+
+/******************************** Physical display ****************************/
+
+.physical .pagelike {
+	padding-top: 1em; /* XXX except for the first item in a div, etc. */
+	font-weight: bolder;
+}
+.physical .enjamb {
+	display: none;
+}
+.physical {
+	text-align: left;
+}
+.physical .line {
+	margin-block-start: 0.3em;
+	margin-block-end: 0.3em;
+}
+.physical .pagelike {
+}
+.physical .corr:not(.standalone) {
+	display: none;
+}
+.physical .reg:not(.standalone) {
+	display: none;
+}
+.physical .abbr-expansion {
+	display: none;
+}
+
+/********************************* Code display *******************************/
+
+code {
+	@include code;
+	overflow-wrap: anywhere;
+	border-radius: $border-radius;
+}
+pre {
+	@include code;
+	overflow: auto;
+	padding: 0.5em;
+	border-radius: $border-radius;
+}
+
+/********************************* XML display ********************************/
+
+#xml {
+	border: solid gray;
+	border-radius: $border-radius;
+}
+.xml {
+	@include code;
+	overflow: auto;
+	border-top-left-radius: $border-radius;
+	border-top-right-radius: $border-radius;
+	line-height: 1.5rem;
+}
+.xml-line {
+	display: table-row;
+}
+.xml-line-no {
+	white-space: pre;
+	padding: 0 0.5em;
+	display: table-cell;
+	text-align: right;
+	background: #e8e8ff;
+	user-select: none;
+	color: dimgray;
+	width: 2em;
+}
+.xml-line-no.hidden {
+	display: none;
+}
+.xml-line-contents {
+	white-space: pre;
+	padding: 0 0.5em;
+	display: table-cell;
+	/* Enable this for word wrap:
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+	*/
+}
+.xml {
+	.tag, .attr-name, .attr-value {
+		color: midnightblue;
+	}
+	.instruction {
+		color: darkgray;
+	}
+	.comment {
+		color: gray;
+	}
+	.foreign.string {
+		font-style: italic;
+	}
+	.xml-heading.string, .xml-heading.attr-value {
+		color: black;
+		font-weight: bolder;
+		text-decoration: underline;
+	}
+	.attr-n {
+		color: darkslategray;
+		font-weight: bolder;
+	}
+	.reading.tag, .reading.attr-name, .reading.attr-value {
+		font-style: initial;
+	}
+	.xml-grantha.string, .xml-heading.string {
+		font-weight: bold;
+	}
+}
+
+/*************************************** Footnotes ****************************/
+
+.notes ol {
+	list-style: none;
+	padding-left: 0;
+}
+.notes li:not(:last-child) {
+	margin-bottom: 0.4em;
+}
+.note-ref {
+	display: inline-block;
+	min-width: 1em;
+}
