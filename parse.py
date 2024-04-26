@@ -974,7 +974,7 @@ def to_roman(x):
 @handler("lg")
 @handler("p[@rend='stanza']")
 def parse_lg(p, lg):
-	n = get_n(lg["n"])
+	n = get_n(lg)
 	if n.isdigit():
 		n = to_roman(int(n))
 	met = lg["met"]
