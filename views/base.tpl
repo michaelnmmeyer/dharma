@@ -21,7 +21,7 @@
 % endif
 <header>
    <div id="menu-bar">
-<a href="/">DHARMA</a>
+<a id="dharma-logo" href="/"><img src="/dharma_bar_logo.svg"></a>
 <a id="menu-toggle"><i class="fa-solid fa-caret-down fa-fw"></i></a>
 <ul id="menu" class="hidden">
    <li>

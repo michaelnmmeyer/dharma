@@ -1,7 +1,7 @@
 % extends "base.tpl"
 
 % block title
-ERC-DHARMA Database
+DHARMA Database
 % endblock
 
 % block body

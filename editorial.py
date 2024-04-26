@@ -21,15 +21,6 @@ def parse_xml(context, code):
 		block = p.document.edition
 	return block.render_full(), html
 
-class Item:
-
-	def __init__(self, description, markup, block, remark, type):
-		self.description = description
-		self.markup = markup
-		self.block = block
-		self.remark = remark
-		self.type = type
-
 def is_heading(node):
 	if not isinstance(node, bs4.Tag):
 		return  False

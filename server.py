@@ -488,6 +488,23 @@ def display_biblio_page(page):
 def display_biblio():
 	return flask.redirect("/bibliography/page/1")
 
+def render_markdown(rel_path):
+	f = texts.File("project-documentation", rel_path)
+	html = common.pandoc(f.text)
+	soup = BeautifulSoup(html, "html.parser")
+	title = soup.find("h1")
+	if title:
+		page_title = "".join(t.get_text() for t in title)
+		title.decompose()
+	else:
+		page_title = "Untitled"
+	return flask.render_template("markdown.tpl", title=page_title,
+		contents=str(soup))
+
+@app.get("/legal-notice")
+def legal_notice():
+	return render_markdown("website/legal-notice.md")
+
 def is_robot(email):
 	return email in ("readme-bot@example.com", "github-actions@github.com")
 
