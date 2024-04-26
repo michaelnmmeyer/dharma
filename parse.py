@@ -390,13 +390,17 @@ def parse_foreign(p, foreign):
 	p.dispatch_children(foreign)
 	p.add_html("</i>")
 
+def get_n(node):
+	n = node["n"]
+	if not n:
+		return "?"
+	n = n.replace("_", " ").replace("-", "\N{en dash}")
+	return n
+
 # <milestones
 
 def milestone_n(p, node):
-	n = node["n"]
-	if not n:
-		n = "?"
-	n = n.replace("_", " ")
+	n = get_n(node)
 	if not p.add_n(n):
 		node.add_error("@n is not unique")
 	return n
@@ -966,7 +970,7 @@ def to_roman(x):
 @handler("lg")
 @handler("p[@rend='stanza']")
 def parse_lg(p, lg):
-	n = lg["n"] or "?"
+	n = get_n(lg["n"])
 	if n.isdigit():
 		n = to_roman(int(n))
 	met = lg["met"]
@@ -993,7 +997,7 @@ def parse_p(p, para):
 	if para["n"]:
 		# See e.g. http://localhost:8023/display/DHARMA_INSSII0400223
 		# Should be displayed like <lb/> in the edition.
-		n = html.escape(para["n"])
+		n = html.escape(get_n(para))
 		p.add_html(f'<span class="lb" data-tip="Line start">({n})</span>')
 		p.add_html(" ")
 	if get_script(para).ident == "grantha":
@@ -1004,7 +1008,7 @@ def parse_p(p, para):
 
 @handler("l")
 def parse_l(p, l):
-	n = l["n"] or "?"
+	n = get_n(l)
 	enjamb = common.to_boolean(l["enjamb"], False)
 	p.add_log("<line", n=n)
 	p.dispatch_children(l)
@@ -1339,7 +1343,7 @@ def process_translation(p, div):
 
 def gather_biblio(p, body):
 	for bibl in body.find("//listBibl/bibl"):
-		siglum = bibl["n"]
+		siglum = get_n(bibl)
 		ptr = bibl.first("ptr")
 		if not ptr:
 			continue
