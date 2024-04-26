@@ -404,16 +404,7 @@ class Writer:
 		self.add(tag)
 		self.period()
 
-	def url(self, rec):
-		# Don't use the URL if not needed. Mostly because URL are
-		# typically invalid or point to private or semi-private
-		# locations (sharedocs, academia) and that we don't want to
-		# deal with the mess.
-		if rec["itemType"] not in ("report", "webpage"):
-			return
-		urls = rec["url"].split()
-		if not urls:
-			return
+	def url_visible(self, urls):
 		self.space()
 		if len(urls) == 1:
 			self.add("URL:")
@@ -421,13 +412,32 @@ class Writer:
 			self.add("URLs:")
 		self.space()
 		for i, url in enumerate(urls):
-			url = common.normalize_url(url)
 			tag = tree.Tag("a", {"class": "url", "href": url})
 			tag.append(url)
 			self.add(tag)
 			if i < len(urls) - 1:
 				self.add("; ")
 		self.period()
+
+	def url_hidden(self, urls):
+		for url in urls:
+			tag = tree.Tag("a", {"href": url})
+			tag.append("[URL]")
+			self.space()
+			self.add(tag)
+		self.period()
+
+	def url(self, rec):
+		urls = [common.normalize_url(url.rstrip(";"))
+			for url in rec["url"].split()]
+		if not urls:
+			return
+		# I would rather show the full URL if needed to identify the
+		# record, in case people want to print it.
+		if rec["itemType"] in ("report", "webpage") and False:
+			self.url_visible(urls)
+		else:
+			self.url_hidden(urls)
 
 	def idents(self, rec):
 		self.doi(rec)
