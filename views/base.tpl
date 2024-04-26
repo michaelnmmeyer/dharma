@@ -9,6 +9,7 @@
    <link rel="stylesheet" href="/fonts.css?v={{code_hash}}">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    <link rel="stylesheet" href="/base.css?v={{code_hash}}">
+   <link rel="icon" href="favicon.svg">
    <script src="https://cdn.jsdelivr.net/npm/@floating-ui/core@1.6.0"></script>
    <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.3"></script>
    <script src="/base.js?v={{code_hash}}"></script>
@@ -21,7 +22,7 @@
 % endif
 <header>
    <div id="menu-bar">
-<a id="dharma-logo" href="/"><img src="/dharma_bar_logo.svg"></a>
+<a id="dharma-logo" href="/"><img alt="DHARMA Logo" src="/dharma_bar_logo.svg"></a>
 <a id="menu-toggle"><i class="fa-solid fa-caret-down fa-fw"></i></a>
 <ul id="menu" class="hidden">
    <li>

@@ -1172,7 +1172,7 @@ class Entry:
 		w.space()
 		tag = tree.Tag("i", {
 			"class": "fas fa-edit",
-			"style": "display:inline;color:black;",
+			"style": "display:inline;",
 			"data-tip": "Edit on zotero.org",
 		})
 		tag.append(" ")
