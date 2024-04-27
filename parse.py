@@ -979,9 +979,9 @@ def parse_lg(p, lg):
 		n = to_roman(int(n))
 	met = lg["met"]
 	if prosody.is_pattern(met):
-		met = prosody.render_pattern(met)
+		met = f'<span class="prosody">{html.escape(prosody.render_pattern(met))}</span>'
 	else:
-		met = common.sentence_case(met)
+		met = html.escape(common.sentence_case(met))
 	p.add_log("<head", level=6)
 	p.add_html(f"{n}. {met}", plain=True)
 	p.add_log(">head", level=6)

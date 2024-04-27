@@ -22,7 +22,7 @@ $border-radius: 0.3em;
 
 @mixin code {
 	@include monospace;
-	background-color: #eaeaea;
+	background-color: ghostwhite;
 	hyphens: none;
 }
 
@@ -739,25 +739,33 @@ pre {
 .xml-line-no {
 	white-space: pre;
 	padding: 0 0.5em;
-	display: table-cell;
+	display: hidden;
 	text-align: right;
 	background: #e8e8ff;
 	user-select: none;
 	color: dimgray;
 	width: 2em;
 }
-.xml-line-no.hidden {
-	display: none;
+.xml-line-nos .xml-line-no  {
+	display: table-cell;
 }
 .xml-line-contents {
 	white-space: pre;
 	padding: 0 0.5em;
 	display: table-cell;
-	/* Enable this for word wrap:
+}
+
+.xml-wrap .xml-line-contents {
 	white-space: pre-wrap;
 	overflow-wrap: anywhere;
-	*/
 }
+.xml.xml-hide-comments .comment {
+	display: none;
+}
+.xml.xml-hide-instructions .instruction {
+	display: none;
+}
+
 .xml {
 	.tag, .attr-name, .attr-value {
 		color: midnightblue;
@@ -786,6 +794,13 @@ pre {
 	.xml-grantha.string, .xml-heading.string {
 		font-weight: bold;
 	}
+}
+
+fieldset {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	column-gap: 1em;
 }
 
 /*************************************** Footnotes ****************************/

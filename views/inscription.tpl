@@ -148,7 +148,24 @@ Version: {{doc.commit_date | format_date}}
 % endif
 
 </div><!-- id="inscription-display" -->
-<div class="xml hidden" id="inscription-source">
+<div class="hidden" id="inscription-source">
+<fieldset>
+<legend>Display Options</legend>
+	<label>Word Wrap
+		<input class="display-option" name="xml-wrap" type="checkbox" checked>
+	</label>
+	<label>Line Numbers
+		<input class="display-option" name="xml-line-nos" type="checkbox" checked>
+	</label>
+	<label>Comments
+		<input class="display-option" name="xml-hide-comments" type="checkbox" checked>
+	</label>
+	<label>Processing Instructions
+		<input class="display-option" name="xml-hide-instructions" type="checkbox" checked>
+	</label>
+</fieldset>
+<div id="xml" class="xml xml-wrap xml-line-nos">
 {{doc.xml | safe}}
+</div>
 </div>
 % endblock

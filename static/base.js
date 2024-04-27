@@ -435,15 +435,10 @@ function prepareCollapsible() {
 	}
 }
 
-function toggleXMLDisplay(name) {
-	for (let node of document.querySelectorAll("#xml ." + name))
-		node.classList.toggle("hidden")
-}
-
 function initDisplayOptions() {
 	for (let node of document.querySelectorAll(".display-option")) {
 		node.addEventListener("change", function () {
-			toggleXMLDisplay(node.name)
+			document.querySelector("#xml").classList.toggle(node.name)
 		})
 	}
 	let node = document.querySelector("#toggle-xml-display")
