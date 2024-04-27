@@ -232,52 +232,19 @@ class Node:
 		'''
 		return self.tree.root
 
-	# Immediate next sibling node of type "tag". We skip blank text,
-	# comments and instructions, but we don't attempt to go past non-blank
-	# text. XXX stupid! should have a differentt method for this
-	# peculiar use case, we're supposed to return siblings with this one.
-	# call the special-case func "adjacent_next" or sth.
-	@property
-	def next(self):
-		parent = self.parent
-		if parent is None:
-			return
-		i = parent.index(self) + 1
-		while i < len(parent):
-			node = parent[i]
-			match node:
-				case Tag():
-					return node
-				case String():
-					if node.data and not node.data.isspace():
-						return
-				case Tree():
-					assert 0
-			i += 1
-
-	@property
-	def prev(self):
-		parent = self.parent
-		if parent is None:
-			return
-		i = parent.index(self) - 1
-		while i >= 0:
-			node = parent[i]
-			match node:
-				case Tag():
-					return node
-				case String():
-					if node.data and not node.data.isspace():
-						return
-				case Tree():
-					assert 0
-			i -= 1
-
 	def stuck_child(self):
 		"""Returns the first `Tag` child of this node, if it has one
-		and if there is no intervening non-blank text in-between.
+		and if there is no intervening non-blank text in-between. Can
+		only be called on `Branch` nodes.
 		"""
 		pass
+
+	def stuck_following_sibling(self):
+		"""Returns the first `Tag` sibling of this node, if it has one
+		and if there is no intervening non-blank text in-between. Can
+		only be called on `Tag` nodes.
+		"""
+		raise Exception("bad operation")
 
 	def delete(self):
 		"""Removes this node and all its descendants from the tree.
@@ -616,6 +583,21 @@ class Tree(Branch):
 	def byte_source(self):
 		return self._byte_source
 
+	def stuck_child(self):
+		i = 0
+		while i < len(self):
+			node = self[i]
+			match node:
+				case Tag():
+					return node
+				case String() if node.isspace():
+					pass
+				case Comment() | Instruction():
+					pass
+				case _:
+					break
+			i += 1
+
 	def __repr__(self):
 		if self.file:
 			return f"<Tree file={self.file!r}>"
@@ -697,10 +679,11 @@ class Tag(Branch):
 			self[key] = value
 		super().__init__()
 
-	def stuck_child(self):
-		i = 0
-		while i < len(self):
-			node = self[i]
+	def stuck_following_sibling(self):
+		parent = self.parent
+		i = parent.index(self) + 1
+		while i < len(parent):
+			node = parent[i]
 			match node:
 				case Tag():
 					return node

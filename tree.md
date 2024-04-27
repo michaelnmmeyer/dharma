@@ -223,7 +223,20 @@ def stuck_child()
 ```
 
 Returns the first `Tag` child of this node, if it has one
-and if there is no intervening non-blank text in-between.
+and if there is no intervening non-blank text in-between. Can
+only be called on `Branch` nodes.
+
+<a id="dharma.tree.Node.stuck_following_sibling"></a>
+
+#### stuck\_following\_sibling
+
+```python
+def stuck_following_sibling()
+```
+
+Returns the first `Tag` sibling of this node, if it has one
+and if there is no intervening non-blank text in-between. Can
+only be called on `Tag` nodes.
 
 <a id="dharma.tree.Node.delete"></a>
 

@@ -1,6 +1,8 @@
 import sys, unicodedata, logging
 from dharma import common, tree, biblio, people, texts
 
+null = object()
+
 def load_data():
 	f = texts.save("project-documentation", "DHARMA_prosodicPatterns_v01.xml")
 	xml = tree.parse(f)
@@ -33,7 +35,7 @@ def make_db():
 		db.execute("insert into prosody(name, pattern) values(?, ?)",
 			(name, pattern))
 
-# TODO use Symbola for fonts symbol
+# TODO use Symbola for fonts symbol; no, is proprietary, find sth else
 pattern_tbl = str.maketrans({
 	"-": "\N{metrical breve}",
 	"+": "\N{en dash}",
@@ -102,6 +104,8 @@ def fetch_notes(item):
 			resps.append((resp, name))
 		notes.append({"authors": resps, "text": text})
 	return notes
+
+latex_note_symbols = ("*", "†", "‡", "§", "¶", "‖", "**", "††", "‡‡")
 
 def parse_list_rec(item, bib_entries):
 	rec = {

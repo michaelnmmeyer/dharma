@@ -1,13 +1,43 @@
-handle "Lacuna with differently treated parts" in edito
+for met names, add in a tooltip the prosody, and hyperlink to the
+prosody table
 
-when apparatus hidden, remove it headings from submenu; and add ellipsis after
-apparatus heading
+in db:
+
+create table if not exists prosody(
+  id integer primary key,
+  names json as (data -> '$.names')
+  class text as (data ->> '$.class')
+  data json check(json_valid(data))
+);
+
+create view if not exists prosody_lookup as
+  select id, json_each.value as name, data
+  from prosody join json_each(prosody.names)
+  where name is not null
+union
+  select id, class as name, data
+  from prosody
+  where name is not null
+order by name;
+
+
+# if no prosody available, use gana pattern; if still not, use xml pattern;
+we might not have any of them
+
+handle "Lacuna with differently treated parts" in edito
+  when we have sibling tags like this
+  gap[@reason='lost' or @reason='illegible' or @reason='undefined']
+  seg[@met and gap[@reason='lost' or @reason='illegible' or @reason='undefined']]
+  supplied[@reason='lost']
+only if gap[@unit='character']? whatever the order? grouping only gaps and
+seg/gap, not supplied, seems
 
 shorthand in bib
 
-<note type="credit"> in egd, not supported
+when apparatus hidden, remove its headings from submenu; and add ellipsis after
+apparatus heading
 
-annotate divs grantha with tooltip
+deal with divs grantha; for this need to use a tree, not bytecode
 
 https://github.com/erc-dharma/project-documentation/issues/288
 
@@ -18,7 +48,6 @@ pour languages dans display, tous ceux de div type=edition + écrfiture
 "Tamil in Tamil Script; Sanskrit in Grnatha script":
 
 ================ end manu
-
 
 .pagelike: <pb> + <milestone type="page-like">
   Use a single instruction for representing them, taking into account <fw>

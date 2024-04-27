@@ -96,6 +96,19 @@ class Parser:
 	def add_bib_ref(self, *args, **kwargs):
 		self.add_code("ref", self.get_bib_ref(*args, **kwargs))
 
+	def get_prosody_entry(self, name):
+		# if no prosody available, use gana pattern; if still not,
+		# use xml pattern
+		entry = self.document.prosody_entries.get(name)
+		if entry is None:
+			db = common.db("texts")
+			(entry,) = db.execute(
+				"select pattern from prosody where name = ?",
+				(name,)).fetchone() or (prosody.null,)
+			self.document.prosody_entries[name] = entry
+		if entry is not prosody.null:
+			return entry
+
 	def start_item(self):
 		return self.top.start_item()
 
@@ -423,7 +436,7 @@ def parse_milestone(p, milestone):
 	n = milestone_n(p, milestone)
 	brk = milestone_break(milestone)
 	unit, typ = milestone_unit_type(milestone)
-	next_sibling = milestone.next
+	next_sibling = milestone.stuck_following_sibling()
 	if next_sibling and next_sibling.name == "label":
 		label = next_sibling.text() # XXX markup?
 	else:
@@ -468,7 +481,7 @@ def parse_pb(p, elem):
 	p.add_phys("{page", n=n, brk=brk)
 	fws = []
 	while True:
-		fw = elem.next
+		fw = elem.stuck_following_sibling()
 		if not fw or not fw.name == "fw":
 			break
 		fws.append(fw)
@@ -981,7 +994,13 @@ def parse_lg(p, lg):
 	if prosody.is_pattern(met):
 		met = f'<span class="prosody">{html.escape(prosody.render_pattern(met))}</span>'
 	else:
-		met = html.escape(common.sentence_case(met))
+		name = html.escape(common.sentence_case(met))
+		pattern = p.get_prosody_entry(met)
+		if pattern:
+			tip = f'<span class="prosody">{html.escape(pattern)}</span>'
+			met = f'<span data-tip="{html.escape(tip)}">{name}</span>'
+		else:
+			met = name
 	p.add_log("<head", level=6)
 	p.add_html(f"{n}. {met}", plain=True)
 	p.add_log(">head", level=6)

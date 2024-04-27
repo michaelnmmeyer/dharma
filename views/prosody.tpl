@@ -86,6 +86,7 @@ Prosodic Patterns
 % endfor
 
 % if item["bibliography"]:
+% set note_nr = 0
 <p>
 	See
 	% for rec in item["bibliography"]:
@@ -94,11 +95,25 @@ Prosodic Patterns
 		% else:
 			{{rec["ref"]}}.
 		% endif
-	% if rec["notes"]:
-		{{rec["notes"]}}
-	% endif
+		% for note in rec["notes"]:
+			% set note_nr = note_nr + 1
+			% if loop.index > 1:
+
+			% else:
+
+			% endif
+		% endfor
 	% endfor
 </p>
+% if note_nr > 0:
+	% set note_nr = 0
+	% for rec in item["bibliography"]:
+		% for note in rec["notes"]:
+			% set note_nr = note_nr + 1
+			{{"*" * note_nr}}
+		% endfor
+	% endfor
+% endif
 % endif
 
 </div>
