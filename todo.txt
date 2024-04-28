@@ -1,34 +1,3 @@
-in db:
-
-create table if not exists prosody(
-  id integer primary key,
-  names json as (data -> '$.names') check(json_type(names) = 'array'),
-  class json as (data -> '$.class') check(json_type(class) = 'array'),
-  pattern json as (case
-    when data ->> '$.prosody' is not null then
-      json_array('prosody', data ->> '$.prosody')
-    when data ->> '$.xml' is not null then
-      json_array('xml', data ->> '$.xml')
-    when data ->> '$.gana' is not null then
-      json_array('gana', data ->> '$.gana')
-    else
-      null
-    end)
-  data json check(json_valid(data))
-);
-
-create view if not exists prosody_lookup(id, name, data) as
-  select id, json_each.value ->> 0 as name, data
-  from prosody join json_each(prosody.names)
-union
-  select id, class as name, data
-  from prosody
-  where name is not null
-order by name;
-
-
-# if no prosody available, use gana pattern; if still not, use xml pattern;
-we might not have any of them, on this case show nothing
 
 handle "Lacuna with differently treated parts" in edito
   when we have sibling tags like this

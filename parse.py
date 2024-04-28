@@ -153,6 +153,11 @@ class Parser:
 def parse_languages(t):
 	pass #//div[@type='edition']
 
+@handler("code")
+def parse_code(p, code):
+	p.add_html("<code>")
+	p.dispatch_children(code)
+	p.add_html("</code>")
 
 @handler("lem")
 def parse_lem(p, lem):
