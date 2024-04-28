@@ -33,7 +33,7 @@ Prosodic Patterns
 <div class="card-list">
 
 % for item in list["items"]:
-<div class="card">
+<div class="card" id="prosody-{{item['id']}}">
 
 <div class="card-heading">
 % if item["syllables"]:
@@ -85,35 +85,32 @@ Prosodic Patterns
 </p>
 % endfor
 
-% if item["bibliography"]:
-% set note_nr = 0
+% if item["bibliography"]["refs"]:
 <p>
 	See
-	% for rec in item["bibliography"]:
+	% for ref in item["bibliography"]["refs"]:
 		% if loop.index < loop.length:
-			{{rec["ref"]}};
+			{{ref | safe}};
 		% else:
-			{{rec["ref"]}}.
+			{{ref | safe}}.
 		% endif
-		% for note in rec["notes"]:
-			% set note_nr = note_nr + 1
-			% if loop.index > 1:
-
-			% else:
-
-			% endif
-		% endfor
 	% endfor
 </p>
-% if note_nr > 0:
-	% set note_nr = 0
-	% for rec in item["bibliography"]:
-		% for note in rec["notes"]:
-			% set note_nr = note_nr + 1
-			{{"*" * note_nr}}
-		% endfor
-	% endfor
 % endif
+% if item["bibliography"]["notes"]
+	% for note in item["bibliography"]["notes"]:
+	<p>
+	{{note["symbol"]}}
+	% for author_id, author_name in note["authors"]:
+		% if loop.index < loop.length:
+			<a href="/people/{{author_id}}">{{author_name}}</a>,
+		% else:
+			<a href="/people/{{author_id}}">{{author_name}}</a>:
+		% endif
+	% endfor
+	{{note["text"]}}
+	</p>
+	% endfor
 % endif
 
 </div>

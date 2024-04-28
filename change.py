@@ -1,7 +1,10 @@
 # To keep things simple, we use a FIFO for IPC. The server process is hooked to
 # Github. Whenever a repository is updated, it writes to the FIFO the name of
 # this repository, followed by a line break. On its side, the update process
-# reads the repository names and updates things accordingly. We do not
+# reads the repository names and updates things accordingly. The same is done
+# for bibliography updates.
+#
+# We do not
 # implement any buffering for passing messages, because pipe buffers are big
 # enough for our purposes.
 #

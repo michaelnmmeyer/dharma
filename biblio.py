@@ -1298,7 +1298,7 @@ class Reference:
 				assert 0
 		w.xml = w.xml.parent
 		if self.loc:
-			w.add(", ")
+			w.add(",")
 			w.loc(self.loc)
 		return w.output()
 
@@ -1318,4 +1318,8 @@ def sort_key(rec):
 	return key
 
 if __name__ == "__main__":
-	pass
+	@common.transaction("texts")
+	def main():
+		e = Entry("Zoetmulder1974_01")
+		print(repr(str(e.reference())))
+	main()

@@ -342,8 +342,10 @@ create view if not exists langs_display as
 	order by langs_list.inverted_name;
 
 create table if not exists prosody(
-	name text primary key check(typeof(name) = 'text' and length(name) > 0),
-	pattern text check(typeof(pattern) = 'text' and length(pattern) > 0)
+	name text not null check(typeof(name) = 'text' and length(name) > 0),
+	pattern text check(pattern is null
+		or typeof(pattern) = 'text' and length(pattern) > 0),
+	entry_id integer not null check(typeof(entry_id) = 'integer')
 );
 
 create table if not exists gaiji(

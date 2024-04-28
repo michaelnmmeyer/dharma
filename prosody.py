@@ -1,39 +1,14 @@
-import sys, unicodedata, logging
+import html
 from dharma import common, tree, biblio, people, texts
 
-null = object()
-
-def load_data():
-	f = texts.save("project-documentation", "DHARMA_prosodicPatterns_v01.xml")
-	xml = tree.parse(f)
-	items = {}
-	for item in xml.find("//item"):
-		pros = [node for node in item.find(".//seg") if node["type"] == "prosody"]
-		if len(pros) != 1:
-			logging.error("several prosodic entries in the same entry")
-			continue
-		pros = pros[0]
-		names = set()
-		for name in item.find("name") + item.find("label"):
-			name = name.text()
-			if not name:
-				continue
-			name = unicodedata.normalize("NFC", name)
-			names.add(name)
-		for name in names:
-			if name in items:
-				print(f"duplicate meter: {name}", file=sys.stderr)
-				continue
-			items[name] = pros.text()
-	return items
-
 def make_db():
-	data = load_data()
+	texts.save("project-documentation", "DHARMA_prosodicPatterns_v01.xml")
+	_, index = parse_prosody()
 	db = common.db("texts")
 	db.execute("delete from prosody")
-	for name, pattern in sorted(data.items()):
-		db.execute("insert into prosody(name, pattern) values(?, ?)",
-			(name, pattern))
+	for row in index:
+		db.execute("""insert into prosody(name, pattern, entry_id)
+			values(:name, :pattern, :entry_id)""", row)
 
 # TODO use Symbola for fonts symbol; no, is proprietary, find sth else
 pattern_tbl = str.maketrans({
@@ -116,7 +91,10 @@ def parse_list_rec(item, bib_entries):
 		"prosody": None,
 		"gana": None,
 		"notes": [],
-		"bibliography": [],
+		"bibliography": {
+			"refs": [],
+			"notes": [],
+		},
 	}
 	# <measure unit="syllable">22</measure>
 	measure = item.find("measure")
@@ -158,6 +136,7 @@ def parse_list_rec(item, bib_entries):
 		if type == "prosody":
 			seg = render_pattern(seg)
 		rec[type] = seg
+	symbols = iter(latex_note_symbols)
 	for bibl in item.find("listBibl/bibl"):
 		ref, loc = extract_bib_ref(bibl)
 		if not ref:
@@ -166,10 +145,14 @@ def parse_list_rec(item, bib_entries):
 		if not entry:
 			entry = biblio.Entry(ref)
 			bib_entries[ref] = entry
-		rec["bibliography"].append({
-			"ref": entry.reference(loc=loc),
-			"notes": fetch_notes(bibl),
-		})
+		syms = ""
+		for note in fetch_notes(bibl):
+			symbol = next(symbols)
+			note["symbol"] = symbol
+			syms += symbol
+			rec["bibliography"]["notes"].append(note)
+		ref = f'{entry.reference(loc=loc)}<sup>{syms}</sup>'
+		rec["bibliography"]["refs"].append(ref)
 	return rec
 
 def parse_list(list):
@@ -183,6 +166,35 @@ def parse_list(list):
 		"items": items,
 	}
 
+def make_name_index(lists):
+	item_id = 0
+	index = [] # might contain duplicates
+	for list in lists:
+		for item in list["items"]:
+			item_id += 1
+			item["id"] = item_id
+			if item["prosody"]:
+				pattern = f'<span class="prosody">{html.escape(item["prosody"])}</span>'
+			elif item["xml"]:
+				pattern = f'<span class="xml">{html.escape(item["xml"])}</span>'
+			elif item["gana"]:
+				pattern = html.escape(item["gana"])
+			else:
+				pattern = None
+			if item["class"]:
+				index.append({
+					"name": item["class"][0],
+					"entry_id": item_id,
+					"pattern": pattern,
+				})
+			for name in item["names"]:
+				index.append({
+					"name": name[0],
+					"entry_id": item_id,
+					"pattern": pattern,
+				})
+	return index
+
 def parse_prosody():
 	db = common.db("texts")
 	f = db.load_file("DHARMA_prosodicPatterns_v01")
@@ -193,7 +205,8 @@ def parse_prosody():
 	}
 	for list in xml.find("//body/list"):
 		ret["lists"].append(parse_list(list))
-	return ret
+	index = make_name_index(ret["lists"])
+	return ret, index
 
 def find_mismatching_xml_prosody():
 	path = common.path_of("repos/project-documentation/DHARMA_prosodicPatterns_v01.xml")

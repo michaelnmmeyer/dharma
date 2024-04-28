@@ -242,7 +242,7 @@ def show_langs():
 @app.get("/prosody")
 @common.transaction("texts")
 def show_prosody():
-	data = prosody.parse_prosody()
+	data, _ = prosody.parse_prosody()
 	ret = flask.render_template("prosody.tpl", data=data)
 	return ret
 

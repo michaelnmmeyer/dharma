@@ -96,18 +96,17 @@ class Parser:
 	def add_bib_ref(self, *args, **kwargs):
 		self.add_code("ref", self.get_bib_ref(*args, **kwargs))
 
-	def get_prosody_entry(self, name):
+	def get_prosody_entries(self, name):
 		# if no prosody available, use gana pattern; if still not,
 		# use xml pattern
-		entry = self.document.prosody_entries.get(name)
-		if entry is None:
+		entries = self.document.prosody_entries.get(name)
+		if entries is None:
 			db = common.db("texts")
-			(entry,) = db.execute(
-				"select pattern from prosody where name = ?",
-				(name,)).fetchone() or (prosody.null,)
-			self.document.prosody_entries[name] = entry
-		if entry is not prosody.null:
-			return entry
+			entries = db.execute(
+				"select pattern, entry_id from prosody where name = ?",
+				(name,)).fetchall()
+			self.document.prosody_entries[name] = entries
+		return entries
 
 	def start_item(self):
 		return self.top.start_item()
@@ -995,12 +994,15 @@ def parse_lg(p, lg):
 		met = f'<span class="prosody">{html.escape(prosody.render_pattern(met))}</span>'
 	else:
 		name = html.escape(common.sentence_case(met))
-		pattern = p.get_prosody_entry(met)
-		if pattern:
-			tip = f'<span class="prosody">{html.escape(pattern)}</span>'
-			met = f'<span data-tip="{html.escape(tip)}">{name}</span>'
-		else:
-			met = name
+		entries = p.get_prosody_entries(met)
+		if len(entries) == 1:
+			pattern, entry_id = entries[0]
+			if pattern:
+				met = f'<span data-tip="{html.escape(pattern)}">{name}</span>'
+			met = f'<a href="/prosody#prosody-{entry_id}">{met}</a>'
+		elif len(entries) > 1:
+			if pattern:
+				met = f'<span data-tip="{pattern}">{met}</span>'
 	p.add_log("<head", level=6)
 	p.add_html(f"{n}. {met}", plain=True)
 	p.add_log(">head", level=6)
@@ -1418,8 +1420,8 @@ def process_file(file, mode=None):
 	if mode == "catalog":
 		to_delete += [
 			"//teiHeader//title//note",
-			"//body",
 		]
+		p.visited.add(t.first("//body"))
 	for path in to_delete:
 		for node in t.find(path):
 			node.delete()

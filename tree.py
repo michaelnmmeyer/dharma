@@ -450,8 +450,24 @@ class Branch(Node, list):
 			else:
 				i += 1
 
+	def stuck_child(self):
+		i = 0
+		while i < len(self):
+			node = self[i]
+			match node:
+				case Tag():
+					return node
+				case String() if node.isspace():
+					pass
+				case Comment() | Instruction():
+					pass
+				case _:
+					break
+			i += 1
+
 	# Note that we check for objects identity: we compare pointers instead
-	# of using __eq__.
+	# of using __eq__. This kinda breaks semantics, but we want to be
+	# able to compare String nodes with the usual operator.
 	def index(self, node):
 		for i, child in enumerate(self):
 			if child is node:
@@ -582,21 +598,6 @@ class Tree(Branch):
 	@property
 	def byte_source(self):
 		return self._byte_source
-
-	def stuck_child(self):
-		i = 0
-		while i < len(self):
-			node = self[i]
-			match node:
-				case Tag():
-					return node
-				case String() if node.isspace():
-					pass
-				case Comment() | Instruction():
-					pass
-				case _:
-					break
-			i += 1
 
 	def __repr__(self):
 		if self.file:
@@ -1507,7 +1508,10 @@ class Formatter:
 	def finish(self):
 		match self.state:
 			case "wait_end":
-				self.end_line()
+				if self.html:
+					self.buf.write('</span>')
+					self.buf.write("</div>")
+				self.state = "wait_line"
 			case "wait_line":
 				pass
 			case _:
