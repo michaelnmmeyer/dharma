@@ -66,7 +66,8 @@ def make_db():
 
 def plain(ident):
 	db = common.db("texts")
-	ret = db.execute("select print_name from people_main where dh_id = ?", (ident,)).fetchone()
+	ret = db.execute("select print_name from people_main where dh_id = ?",
+		(ident,)).fetchone()
 	return ret and ret[0] or None
 
 def plain_from_github(github_id):

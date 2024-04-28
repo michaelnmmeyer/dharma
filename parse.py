@@ -150,9 +150,6 @@ class Parser:
 		print("UNKNOWN %s" % msg)
 		pass
 
-def parse_languages(t):
-	pass #//div[@type='edition']
-
 @handler("code")
 def parse_code(p, code):
 	p.add_html("<code>")
@@ -492,6 +489,7 @@ def parse_pb(p, elem):
 		elem = fw
 	# XXX should mark fws as visited, so that a misplaced fw is
 	# still displayed by parse_fw. idem for <head> and such.
+	# and should also mark text nodes in-between!
 	if fws:
 		for i, fw in enumerate(fws):
 			p.start_span(klass="fw", tip="Foliation work")
@@ -1180,10 +1178,6 @@ def gather_people(stmt, *paths):
 	dharma_ids = []
 	for node in nodes:
 		ident = node["ref"]
-		# XXX always use the indent here, don't resolve it. but what if
-		# we don't have any? for now use two fields: one where we list
-		# all full names, and another where we list only people who
-		# have a dharma id, viz. the "real" dharma editors.
 		if ident and ident.startswith("part:"):
 			if ident == "part:jodo": # John Doe, placeholder
 				continue
@@ -1224,30 +1218,23 @@ def parse_titleStmt(p, stmt):
 	p.document.editors = p.pop()
 	p.document.editors_ids = editors_ids
 
-@handler("publicationStmt")
-def parse_publicationStmt(p, stmt):
-	pass
-	# TODO extract the pub place
-
 @handler("roleName")
-def parse_roleName(p, node):
-	p.dispatch_children(node)
-
-@handler("placeName")
-def parse_placeName(p, node):
-	p.dispatch_children(node)
-
-@handler("persName")
-def parse_persName(p, node):
-	p.dispatch_children(node)
-
 @handler("measure")
-def parse_measure(p, node):
+@handler("date")
+@handler("placeName")
+@handler("persName")
+@handler("fileDesc")
+@handler("teiHeader")
+@handler("text")
+@handler("TEI")
+def parse_just_dispatch(p, node):
 	p.dispatch_children(node)
 
-@handler("date")
-def parse_date(p, node):
-	p.dispatch_children(node)
+@handler("publicationStmt")
+@handler("editionStmt")
+@handler("facsimile") # for images, will see later on
+def parse_ignore(p, node):
+	pass
 
 @handler("sourceDesc")
 def parse_sourceDesc(p, desc):
@@ -1260,26 +1247,6 @@ def parse_sourceDesc(p, desc):
 	p.push("summary")
 	p.dispatch_children(summ)
 	p.document.summary = p.pop()
-
-@handler("facsimile")
-def parse_facsimile(p, node):
-	pass # for images, will see later on
-
-@handler("fileDesc")
-def parse_fileDesc(p, node):
-	p.dispatch_children(node)
-
-@handler("teiHeader")
-def parse_teiHeader(p, node):
-	p.dispatch_children(node)
-
-@handler("text")
-def parse_text(p, node):
-	p.dispatch_children(node)
-
-@handler("TEI")
-def parse_TEI(p, node):
-	p.dispatch_children(node)
 
 def get_script(node):
 	m = re.match(r"class:([^ ]+) maturity:(.+)", node["rendition"])

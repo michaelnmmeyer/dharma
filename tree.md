@@ -179,6 +179,19 @@ def empty()
 `True` if this node has no `Tag` children nor non-blank
 `String` children. This can only be called on `Branch` nodes.
 
+<a id="dharma.tree.Node.plain"></a>
+
+#### plain
+
+```python
+@property
+def plain()
+```
+
+`True` if this node is a `String`, or if it is a `Branch`
+that has no children or only `String` children (discounting
+comments and processing instructions).
+
 <a id="dharma.tree.Node.source"></a>
 
 #### source

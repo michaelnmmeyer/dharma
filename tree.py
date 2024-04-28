@@ -205,6 +205,13 @@ class Node:
 		`String` children. This can only be called on `Branch` nodes.'''
 		raise Exception("invalid operation")
 
+	@property
+	def plain(self):
+		'''`True` if this node is a `String`, or if it is a `Branch`
+		that has no children or only `String` children (discounting
+		comments and processing instructions).'''
+		return False
+
 	def __hash__(self):
 		return id(self)
 
@@ -386,6 +393,10 @@ class Branch(Node, list):
 	operations. Those that are not implemented will raise an exception if
 	called.
 	'''
+
+	@property
+	def plain(self):
+		return all(not isinstance(node, Tag) for node in self)
 
 	def __add__(self, value):
 		ret = self.copy()
@@ -807,6 +818,10 @@ class String(Node, collections.UserString):
 		self.location = None
 		self.data = ""
 
+	@property
+	def plain(self):
+		return True
+
 	def append(self, data):
 		"Adds text at the end of this `String`."
 		if not data:
@@ -1060,6 +1075,10 @@ def xpath_empty(node):
 	assert isinstance(node, Node)
 	return node.empty
 
+def xpath_plain(node):
+	assert isinstance(node, Node)
+	return node.plain
+
 def xpath_errors(node):
 	assert isinstance(node, Node)
 	return bool(node.errors)
@@ -1074,21 +1093,81 @@ xpath_funcs = {
 }
 
 def children(node):
+	assert isinstance(node, Node)
 	for child in node:
 		if isinstance(child, Tag):
 			yield child
 
+def stuck_children(node):
+	assert isinstance(node, Node)
+	if not isinstance(node, Branch):
+		return
+	i = 0
+	while i < len(node):
+		child = node[i]
+		match child:
+			case Tag():
+				yield child
+			case String() if child.isspace():
+				pass
+			case Comment() | Instruction():
+				pass
+			case _:
+				break
+		i += 1
+
+def stuck_following_siblings(node):
+	assert isinstance(node, Node)
+	if not isinstance(node, Tag):
+		return
+	parent = node.parent
+	i = parent.index(node) + 1
+	while i < len(parent):
+		child = parent[i]
+		match child:
+			case Tag():
+				yield child
+			case String() if child.isspace():
+				pass
+			case Comment() | Instruction():
+				pass
+			case _:
+				break
+		i += 1
+
+def stuck_preceding_siblings(node):
+	assert isinstance(node, Node)
+	if not isinstance(node, Tag):
+		return
+	parent = node.parent
+	i = parent.index(node) - 1
+	while i >= 0:
+		child = parent[i]
+		match child:
+			case Tag():
+				yield child
+			case String() if child.isspace():
+				pass
+			case Comment() | Instruction():
+				pass
+			case _:
+				break
+		i -= 1
+
 def descendants(node):
+	assert isinstance(node, Node)
 	for child in node:
 		if isinstance(child, Tag):
 			yield child
 			yield from descendants(child)
 
 def descendants_or_self(node):
+	assert isinstance(node, Node)
 	yield node
 	yield from descendants(node)
 
 def ancestors(node):
+	assert isinstance(node, Node)
 	while True:
 		node = node.parent
 		if not node:
@@ -1096,10 +1175,12 @@ def ancestors(node):
 		yield node
 
 def ancestors_or_self(node):
+	assert isinstance(node, Node)
 	yield node
 	yield from ancestors(node)
 
 def following_siblings(node):
+	assert isinstance(node, Node)
 	if isinstance(node, Tag):
 		parent = node.parent
 		i = parent.index(node)
@@ -1108,6 +1189,7 @@ def following_siblings(node):
 				yield child
 
 def preceding_siblings(node):
+	assert isinstance(node, Node)
 	if isinstance(node, Tag):
 		parent = node.parent
 		i = parent.index(node)
@@ -1171,9 +1253,11 @@ class Generator:
 		self.routines_nr = 0
 		self.env = {f.__name__: f
 			for funcs in (xpath_funcs.values(), (Tag, Tree,
-				children, descendants, descendants_or_self,
-				ancestors, ancestors_or_self, following_siblings,
-				preceding_siblings))
+				children, stuck_children,
+				descendants, descendants_or_self,
+				ancestors, ancestors_or_self,
+				following_siblings, stuck_following_siblings,
+				preceding_siblings, stuck_preceding_siblings))
 				for f in funcs}
 		self.search = {}
 		self.match = {}
@@ -1314,6 +1398,8 @@ class Generator:
 				pass
 			case "child":
 				self.append("for node in children(node):")
+			case "stuck-child":
+				self.append("for node in stuck_children(node):")
 			case "descendant":
 				self.append("for node in descendants(node):")
 			case "descendant-or-self":

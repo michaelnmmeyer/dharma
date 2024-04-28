@@ -487,6 +487,7 @@ class Block:
 				if data == "<line":
 					buf.append('<p class="line">')
 					buf.append(format_lb(**params))
+					buf.append(" ")
 				elif data == ">line":
 					if not params["brk"]:
 						buf.append('<span class="hyphen-break" data-tip="Hyphen break">-</span>')

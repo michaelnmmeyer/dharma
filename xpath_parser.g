@@ -97,6 +97,9 @@ AxisName:
 	| "parent"
 	| "preceding-sibling"
 	| "self"
+	| "stuck-child"
+	| "stuck-following-sibling"
+	| "stuck-preceding-sibling"
 
 NodeTest: NameTest
 
