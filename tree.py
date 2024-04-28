@@ -1089,6 +1089,7 @@ xpath_funcs = {
 	"lang": xpath_lang,
 	"mixed": xpath_mixed,
 	"empty": xpath_empty,
+	"plain": xpath_plain,
 	"errors": xpath_errors,
 }
 
