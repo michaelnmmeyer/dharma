@@ -1,4 +1,4 @@
-import html
+import html, re
 from dharma import common, tree, biblio, people, texts, langs
 
 def make_db():
@@ -16,9 +16,25 @@ pattern_tbl = str.maketrans({
 	"+": "\N{en dash}",
 	"=": "\N{metrical short over long}",
 	"2": "\N{metrical two shorts over long}",
+	"\N{devanagari danda}": "|",
+	"\N{devanagari double danda}": "||",
 })
 def render_pattern(p):
-	return p.translate(pattern_tbl)
+	buf = []
+	for seg in re.findall(r"(?:\|\|)|(?:[0-9]{2,})|(?:.)", p):
+		if len(seg) > 1:
+			if not seg.isdigit():
+				seg = seg.translate(pattern_tbl)
+			# .prosody-segment is for letter-spacing. We keep
+			# together groups of digits and double daṇḍas, otherwise
+			# we add a bit a space.
+			buf.append(f'<span class="prosody-segment">{seg[:-1]}</span>')
+			buf.append(seg[-1])
+		else:
+			seg = seg.translate(pattern_tbl)
+			buf.append(html.escape(seg))
+	p = "".join(buf)
+	return f'<span class="prosody">{p}</span>'
 
 def is_pattern(p):
 	return all(ord(c) in pattern_tbl or c.isdigit() or c in "|/" for c in p)
@@ -215,20 +231,6 @@ def parse_prosody():
 		ret["lists"].append(parse_list(list, langs))
 	index = make_name_index(ret["lists"])
 	return ret, index
-
-def find_mismatching_xml_prosody():
-	path = common.path_of("repos/project-documentation/DHARMA_prosodicPatterns_v01.xml")
-	xml = tree.parse(path)
-	for item in xml.find("//item"):
-		x = item.first("seg[@type='xml']")
-		p = item.first("seg[@type='prosody']")
-		if x and p:
-			tr = render_pattern(x.text())
-			if tr != p.text():
-				print(item.first("name").text() or item.first("label").text())
-				print("  " + x.text())
-				print("  " + p.text())
-				print("")
 
 if __name__ == "__main__":
 	@common.transaction("texts")

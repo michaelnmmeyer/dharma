@@ -7,7 +7,7 @@
 # to make sure we examine everything and to signal stuff we haven't taken into
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
-import os, sys, re, html, unicodedata
+import os, sys, re, html, unicodedata, prosody
 from dharma import common, unicode, biblio
 
 class BlockDebugFormatter:
@@ -263,7 +263,11 @@ class Block:
 					buf.append("</p>")
 				elif data == "<line":
 					buf.append('<div class="verse-line">')
-					buf.append("<p>")
+					tip = html.escape(params.get("tip"))
+					if tip:
+						buf.append(f'<p data-tip="{tip}">')
+					else:
+						buf.append("<p>")
 				elif data == ">line":
 					buf.append("</p>")
 					buf.append(" <span>%s</span>" % html.escape(params["n"]))
@@ -380,7 +384,11 @@ class Block:
 					buf.append("</p>")
 				elif data == "<line":
 					buf.append('<div class="verse-line">')
-					buf.append("<p>")
+					tip = html.escape(params.get("tip"))
+					if tip:
+						buf.append(f'<p data-tip="{tip}">')
+					else:
+						buf.append("<p>")
 				elif data == ">line":
 					buf.append("</p>")
 					buf.append(" <span>%s</span>" % html.escape(params["n"]))

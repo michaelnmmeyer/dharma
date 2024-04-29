@@ -832,7 +832,9 @@ def parse_gap(p, gap):
 		met = parent["met"]
 		if prosody.is_pattern(met):
 			met = prosody.render_pattern(met)
-		repl = f'[<span class="prosody">{html.escape(met)}</span>]'
+		else:
+			met = html.escape(met)
+		repl = f'[{met}]'
 		phys_repl = None
 	else:
 		repl = html.escape(repl)
@@ -994,7 +996,7 @@ def parse_lg(p, lg):
 		n = to_roman(int(n))
 	met = lg["met"]
 	if prosody.is_pattern(met):
-		met = f'<span class="prosody">{html.escape(prosody.render_pattern(met))}</span>'
+		met = prosody.render_pattern(met)
 	else:
 		name = html.escape(common.sentence_case(met))
 		entries = p.get_prosody_entries(met)
@@ -1004,8 +1006,9 @@ def parse_lg(p, lg):
 				met = f'<span data-tip="{html.escape(pattern)}">{name}</span>'
 			met = f'<a href="/prosody#prosody-{entry_id}">{met}</a>'
 		elif len(entries) > 1:
-			if pattern:
-				met = f'<span data-tip="{pattern}">{met}</span>'
+			patterns = " or ".join(html.escape(pattern) for pattern, _ in entries if pattern)
+			if patterns:
+				met = f'<span data-tip="{patterns}">{met}</span>'
 	p.add_log("<head", level=6)
 	p.add_html(f"{n}. {met}", plain=True)
 	p.add_log(">head", level=6)
@@ -1037,14 +1040,42 @@ def parse_p(p, para):
 @handler("l")
 def parse_l(p, l):
 	n = get_n(l)
-	enjamb = common.to_boolean(l["enjamb"], False)
-	p.add_log("<line", n=n)
+	tip = ""
+	met = l["met"]
+	if met:
+		if prosody.is_pattern(met):
+			met = prosody.render_pattern(met)
+		else:
+			name = html.escape(met)
+			entries = p.get_prosody_entries(met)
+			if entries:
+				met = f'{name} ({" or ".join(p for p, _ in entries if p)})'
+			else:
+				met = name
+		tip = f'Meter: {met}'
+	real = l["real"]
+	if real:
+		if prosody.is_pattern(real):
+			real = prosody.render_pattern(real)
+		else:
+			real = html.escape(real)
+		tip = f'Irregular meter: {real}'
+		if met:
+			tip += f'; based on {met}'
+	p.add_log("<line", n=n, tip=tip)
 	p.dispatch_children(l)
+	enjamb = common.to_boolean(l["enjamb"], False)
 	if enjamb:
 		p.start_span(klass="enjamb", tip="Enjambement")
 		p.add_html("-")
 		p.end_span()
 	p.add_log(">line", n=n, enjamb=enjamb)
+
+	if prosody.is_pattern(met):
+		met = prosody.render_pattern(met)
+	else:
+		name = html.escape(common.sentence_case(met))
+		entries = p.get_prosody_entries(met)
 
 def is_description_list(nodes):
 	if len(nodes) % 2: # XXX watch out for fucked text

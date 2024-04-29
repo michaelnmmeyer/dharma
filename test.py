@@ -8,6 +8,6 @@ for f in files:
 		t = tree.parse(f)
 	except tree.Error:
 		continue
-	for node in t.find("//revisionDesc"):
-		print(node.attrs)
+	for node in t.find("//*[@met or @real]"):
+		print(node["met"] or node["real"])
 
