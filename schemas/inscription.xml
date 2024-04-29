@@ -133,7 +133,7 @@
                 </dataSpec>
                 <dataSpec ident="dharma.language">
                     <content>
-                        <valList type="open">
+                        <valList type="closed">
                             <valItem ident="ara"><desc>Arabic</desc></valItem>
                             <valItem ident="ban"><desc>Balinese</desc></valItem>
                             <valItem ident="bya"><desc>Batak</desc></valItem>
@@ -170,8 +170,6 @@
                             <valItem ident="vie"><desc>Vietnamese</desc></valItem>
                             <valItem ident="xhm"><desc>Khmer, Middle (1400 to 1850 CE)</desc></valItem>
                             <valItem ident="zlm"><desc>Malay (individual language)</desc></valItem>
-                            
-                            
                             <valItem ident="ara-Latn"><desc>Arabic</desc></valItem>
                             <valItem ident="ban-Latn"><desc>Balinese</desc></valItem>
                             <valItem ident="bya-Latn"><desc>Batak</desc></valItem>
@@ -213,7 +211,7 @@
                 </dataSpec>
                 <dataSpec ident="dharma.script_name">
                     <content>
-                        <valList>
+                        <valList type="closed">
                             <valItem ident="class:57471"><desc>Arabic</desc></valItem>
                             <valItem ident="class:arabic"><desc>Arabic</desc></valItem>
                             <valItem ident="class:70417"><desc>Jawi</desc></valItem>
@@ -270,13 +268,12 @@
                             <valItem ident="class:kharoṣṭhī"><desc>Kharoṣṭhī</desc></valItem>
                             <valItem ident="class:00000"><desc>Undetermined</desc></valItem>
                             <valItem ident="class:undetermined"><desc>Undetermined</desc></valItem>
-                            
                         </valList>
                     </content>
                 </dataSpec>
                 <dataSpec ident="dharma.script_maturity">
                     <content>
-                        <valList>
+                        <valList type="closed">
                             <valItem ident="maturity:83207"><desc>Early Brāhmī</desc></valItem>
                             <valItem ident="maturity:early"><desc>Early Brāhmī</desc></valItem>
                             <valItem ident="maturity:83211"><desc>Late Brāhmī</desc></valItem>
@@ -287,9 +284,8 @@
                             <valItem ident="maturity:regional"><desc>Regional Brāhmī-derived script</desc></valItem>
                             <valItem ident="maturity:83215"><desc>Vernacular Brāhmī-derived script</desc></valItem>
                             <valItem ident="maturity:vernacular"><desc>Vernacular Brāhmī-derived script</desc></valItem>
-                            <valItem ident="maturity:00000"><desc>Null</desc></valItem>
-                            <valItem ident="maturity:null"><desc>Null</desc></valItem>
-                            
+                            <valItem ident="maturity:00000"><desc>Undetermined</desc></valItem>
+                            <valItem ident="maturity:undetermined"><desc>Undetermined</desc></valItem>
                         </valList>
                     </content>
                 </dataSpec>
@@ -1313,11 +1309,12 @@
                             <datatype>
                                 <dataRef name="string"/>
                             </datatype>
-                            <valList type="open" mode="replace">
+                            <!-- @reason='illegible' not mentioned in the EGD, we use at only as
+                            default value -->
+                            <defaultVal>illegible</defaultVal>
+                            <valList type="closed" mode="replace">
                                 <valItem ident="eccentric_ductus"/>
                                 <valItem ident="illegible"/>
-                                <valItem ident="faded"/>
-                                <valItem ident="background_noise"/>
                             </valList>
                         </attDef>
                         <attDef ident="rend" mode="change">
@@ -2440,7 +2437,10 @@
                             </valList>
                         </attDef>
                         <attDef ident="style" mode="change">
-                            <valList type="open" mode="replace">
+                            <!-- For this one, no default value, we assume that the alignment
+                            is insignificant and do not mention it if it is not given; could
+                            have @style='default' or sth. -->
+                            <valList type="closed" mode="replace">
                                 <valItem ident="text-align: right"/>
                                 <valItem ident="text-align: center"/>
                                 <valItem ident="text-align: left"/>
@@ -2486,8 +2486,9 @@
                         <attDef ident="xml:space" mode="delete"/>
                         <attDef ident="type" mode="change" usage="req">
                             <datatype>
-                                <dataRef name="NCName"/>
+                                <rng:text/>
                             </datatype>
+                            <!-- g/@type must remain open -->
                             <valList mode="change" type="open">
                                 <valItem ident="numeral"/>
                             </valList>
@@ -2709,7 +2710,7 @@
                         <attDef ident="xml:space" mode="delete"/>
                         <attDef ident="type" mode="change">
                             <defaultVal>filename</defaultVal>
-                            <valList type="open" mode="replace">
+                            <valList type="closed" mode="replace">
                                 <valItem ident="filename"/>
                             </valList>
                         </attDef>
@@ -2777,13 +2778,16 @@
                         <attDef ident="xml:id" mode="delete"/>
                         <attDef ident="xml:space" mode="delete"/>
                         <attDef ident="enjamb" mode="change">
+                            <datatype>
+                                <dataRef name="string"/>
+                            </datatype>
                             <defaultVal>yes</defaultVal>
                             <valList type="closed" mode="replace">
                                 <valItem ident="yes"/>
                             </valList>
                         </attDef>
                         <attDef ident="met" mode="change">
-                            <!--TODO fill with prosody data-->
+                            <!--TODO fill with prosody data, attr must remain open -->
                             <valList type="open" mode="replace">
                                 <valItem ident="sumānikā"/>
                                 <valItem ident="anuṣṭubh"/>
@@ -2835,6 +2839,7 @@
                             </valList>
                         </attDef>
                         <attDef ident="real" mode="change">
+                            <!-- attlist must remain open -->
                             <valList type="open" mode="replace">
                                 <valItem ident="sumānikā"/>
                                 <valItem ident="anuṣṭubh"/>
@@ -2888,7 +2893,7 @@
                             <datatype maxOccurs="unbounded">
                                 <rng:text/>
                             </datatype>
-                            <valList type="open" mode="replace">
+                            <valList type="closed" mode="replace">
                                 <valItem ident="grantha"/>
                                 <valItem ident="ornate"/>
                                 <valItem ident="large"/>
@@ -2974,6 +2979,7 @@
                         <attDef ident="xml:space" mode="delete"/>
                         <attDef ident="met" mode="change" usage="req">
                             <!-- TODO replace with db values -->
+                            <!-- list must remain open -->
                             <valList type="open" mode="replace">
                                 <valItem ident="sumānikā"/>
                                 <valItem ident="anuṣṭubh"/>
@@ -3040,7 +3046,7 @@
                             </datatype>
                         </attDef>
                         <attDef ident="rend" mode="change">
-                            <valList type="open" mode="replace">
+                            <valList type="closed" mode="replace">
                                 <valItem ident="grantha"/>
                                 <valItem ident="ornate"/>
                                 <valItem ident="large"/>
@@ -3599,7 +3605,7 @@
                         <attDef ident="next" mode="delete"/>
                         <attDef ident="prev" mode="delete"/>
                         <attDef ident="rend" mode="change">
-                            <valList type="open" mode="replace">
+                            <valList type="closed" mode="replace">
                                 <valItem ident="ornate"/>
                                 <valItem ident="large"/>
                                 <valItem ident="small"/>
@@ -3723,6 +3729,7 @@
                         <attDef ident="xml:lang" mode="delete"/>
                         <attDef ident="xml:space" mode="delete"/>
                         <attDef ident="type" mode="change">
+                            <!-- open list by design -->
                             <valList type="open" mode="replace">
                                 <valItem ident="divine"/>
                                 <valItem ident="human"/>
@@ -3730,6 +3737,7 @@
                             </valList>
                         </attDef>
                         <attDef ident="subtype" mode="change">
+                            <!-- open list by design -->
                             <valList type="open" mode="replace">
                                 <valItem ident="coronation"/>
                                 <valItem ident="sobriquet"/>
@@ -3843,6 +3851,7 @@
                         <attDef ident="xml:lang" mode="delete"/>
                         <attDef ident="xml:space" mode="delete"/>
                         <attDef ident="type" mode="change">
+                            <!-- open list by design -->
                             <valList type="open" mode="change">
                                 <valItem ident="region"/>
                                 <valItem ident="settlement"/>
@@ -3854,6 +3863,7 @@
                             </valList>
                         </attDef>
                         <attDef ident="subtype" mode="change">
+                            <!-- open list by design -->
                             <valList type="open" mode="change">
                                 <valItem ident="province"/>
                                 <valItem ident="district"/>
@@ -4023,7 +4033,7 @@
                         <attDef ident="xml:lang" mode="delete"/>
                         <attDef ident="xml:space" mode="delete"/>
                         <attDef ident="rend" mode="change">
-                            <valList type="open" mode="replace">
+                            <valList type="closed" mode="replace">
                                 <valItem ident="block"/>
                             </valList>
                         </attDef>
@@ -4270,15 +4280,7 @@
                         <attDef ident="xml:id" mode="delete"/>
                         <attDef ident="xml:lang" mode="delete"/>
                         <attDef ident="xml:space" mode="delete"/>
-                        <attDef ident="status" mode="change">
-                            <valList type="closed" mode="replace">
-                                <valItem ident="draft"/>
-                                <valItem ident="candidate"/>
-                                <valItem ident="approved"/>
-                                <valItem ident="published"/>
-                                <valItem ident="withdrawn"/>
-                            </valList>
-                        </attDef>
+                        <attDef ident="status" mode="delete"/> 
                     </attList>
                 </elementSpec>
                 <elementSpec ident="roleName" module="namesdates" mode="change">
@@ -4312,6 +4314,7 @@
                         <attDef ident="xml:lang" mode="delete"/>
                         <attDef ident="xml:space" mode="delete"/>
                         <attDef ident="type" mode="change">
+                            <!-- open list by design -->
                             <valList type="open" mode="replace">
                                 <valItem ident="king"/>
                                 <valItem ident="queen"/>
@@ -4376,6 +4379,7 @@
                             </valList>
                         </attDef>
                         <attDef ident="met" mode="change">
+                            <!-- open list by design -->
                             <valList type="open" mode="replace">
                                 <valItem ident="sumānikā"/>
                                 <valItem ident="anuṣṭubh"/>
@@ -4426,7 +4430,7 @@
                             </valList>
                         </attDef>
                         <attDef ident="subtype" mode="change">
-                            <valList type="open" mode="replace">
+                            <valList type="closed" mode="replace">
                                 <valItem ident="body"/>
                                 <valItem ident="superscript"/>
                                 <valItem ident="subscript"/>
@@ -4438,8 +4442,8 @@
                             </valList>
                         </attDef>
                         <attDef ident="type" mode="change">
-                            <valList type="open" mode="replace">
-                                <valItem ident="askara"/>
+                            <valList type="closed" mode="replace">
+                                <valItem ident="aksara"/>
                                 <valItem ident="component"/>
                             </valList>
                         </attDef>
@@ -5536,72 +5540,6 @@
                         <attDef ident="default" mode="delete"/>
                     </attList>
                 </elementSpec>
-                <elementSpec ident="language" module="header" mode="change">
-                    <content>
-                        <textNode/>
-                    </content>
-                    <attList>
-                        <attDef ident="ident" mode="change">
-                            <datatype>
-                                <dataRef name="string"/>
-                            </datatype>
-                            <valList mode="replace">
-                                <valItem ident="und"/>
-                                <valItem ident="mya"/>
-                                <valItem ident="obr"/>
-                                <valItem ident="cjm"/>
-                                <valItem ident="ocm"/>
-                                <valItem ident="nld"/>
-                                <valItem ident="eng"/>
-                                <valItem ident="fra"/>
-                                <valItem ident="ind"/>
-                                <valItem ident="jpn"/>
-                                <valItem ident="jav"/>
-                                <valItem ident="kaw"/>
-                                <valItem ident="kan"/>
-                                <valItem ident="khm"/>
-                                <valItem ident="okz"/>
-                                <valItem ident="zlm"/>
-                                <valItem ident="omy"/>
-                                <valItem ident="omx"/>
-                                <valItem ident="pli"/>
-                                <valItem ident="pra"/>
-                                <valItem ident="pyx"/>
-                                <valItem ident="san"/>
-                                <valItem ident="osn"/>
-                                <valItem ident="tam"/>
-                                <valItem ident="tel"/>
-                                <valItem ident="vie"/>
-                                <valItem ident="cja"/>
-                                <valItem ident="xhm"/>
-                                <valItem ident="ori"/>
-                            </valList>
-                        </attDef>
-                        <attDef ident="rend" mode="delete"/>
-                        <attDef ident="style" mode="delete"/>
-                        <attDef ident="rendition" mode="delete"/>
-                        <attDef ident="corresp" mode="delete"/>
-                        <attDef ident="synch" mode="delete"/>
-                        <attDef ident="sameAs" mode="delete"/>
-                        <attDef ident="copyOf" mode="delete"/>
-                        <attDef ident="next" mode="delete"/>
-                        <attDef ident="prev" mode="delete"/>
-                        <attDef ident="exclude" mode="delete"/>
-                        <attDef ident="select" mode="delete"/>
-                        <attDef ident="ana" mode="delete"/>
-                        <attDef ident="facs" mode="delete"/>
-                        <attDef ident="change" mode="delete"/>
-                        <attDef ident="cert" mode="delete"/>
-                        <attDef ident="resp" mode="delete"/>
-                        <attDef ident="source" mode="delete"/>
-                        <attDef ident="xml:id" mode="delete"/>
-                        <attDef ident="n" mode="delete"/>
-                        <attDef ident="xml:lang" mode="delete"/>
-                        <attDef ident="xml:base" mode="delete"/>
-                        <attDef ident="xml:space" mode="delete"/>
-                        <attDef ident="usage" mode="delete"/>
-                    </attList>
-                </elementSpec>
                 <elementSpec ident="facsimile" module="transcr" mode="change">
                     <attList>
                         <attDef ident="rend" mode="delete"/>
@@ -6512,6 +6450,7 @@
                 <elementSpec ident="speaker" mode="delete"/>
                 <elementSpec ident="msItem" mode="delete"/>
                 <elementSpec ident="rs" mode="delete"/>
+                <elementSpec ident="language" mode="delete"/>
             </schemaSpec>
         </body>
     </text>
