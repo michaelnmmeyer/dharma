@@ -804,10 +804,16 @@
                 </elementSpec>
                 <elementSpec ident="cit" module="core" mode="change">
                     <content>
-                        <sequence>
-                            <elementRef key="quote"/>
-                            <elementRef key="bibl"/>
-                        </sequence>
+                        <alternate>
+                            <sequence>
+                                <elementRef key="quote"/>
+                                <elementRef key="bibl"/>
+                            </sequence>
+                            <sequence>
+                                <elementRef key="q"/>
+                                <elementRef key="bibl"/>
+                            </sequence>
+                        </alternate>
                     </content>
                     <attList>
                         <attDef ident="rend" mode="delete"/>
@@ -4897,7 +4903,11 @@
                         <attDef ident="n" mode="delete"/>
                         <attDef ident="next" mode="delete"/>
                         <attDef ident="prev" mode="delete"/>
-                        <attDef ident="rend" mode="delete"/>
+                        <attDef ident="rend" mode="change">
+                            <valList type="closed" mode="replace">
+                                <valItem ident="block"/>
+                            </valList>
+                        </attDef>
                         <attDef ident="rendition" mode="delete"/>
                         <attDef ident="resp" mode="delete"/>
                         <attDef ident="sameAs" mode="delete"/>
