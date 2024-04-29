@@ -1134,7 +1134,7 @@ def parse_title(p, title):
 
 @handler("q")
 def parse_q(p, q):
-	if q["rend"] == "block": # TODO other usual values for @rend?
+	if q["rend"] == "block":
 		p.add_log("<blockquote")
 		p.dispatch_children(q)
 		p.add_log(">blockquote")
@@ -1155,21 +1155,26 @@ def parse_cit(p, cit):
 	# </cit>
 	#
 	# "the text" (Agrawala 1983)
-	q = cit.first("quote")
-	block = False
-	if q and q["rend"] == "block":
-		block = True
-	if block:
+	children = cit.children()
+	if len(children) != 2 or children[0].name not in ("q", "quote") \
+		or children[1].name != "bibl":
+		p.dispatch_children(p)
+		return
+	q, bibl = children
+	if q["rend"] == "block":
 		p.add_log("<blockquote")
-	for node in cit.children():
-		if node.name == "bibl":
-			p.add_text(" (")
-			p.dispatch(node)
-			p.add_text(")")
-		elif node.name == "quote" and block:
-			p.dispatch_children(node)
-	if block:
+		p.dispatch_children(q)
+		p.add_text(" (")
+		p.dispatch(bibl)
+		p.add_text(")")
 		p.add_log(">blockquote")
+	else:
+		p.add_html("“")
+		p.dispatch_children(q)
+		p.add_html("”")
+		p.add_text(" (")
+		p.dispatch(bibl)
+		p.add_text(")")
 
 def gather_people(stmt, *paths):
 	nodes = [node for path in paths for node in stmt.find(path)]
