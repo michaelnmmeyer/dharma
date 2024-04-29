@@ -1,5 +1,5 @@
 import html
-from dharma import common, tree, biblio, people, texts
+from dharma import common, tree, biblio, people, texts, langs
 
 def make_db():
 	texts.save("project-documentation", "DHARMA_prosodicPatterns_v01.xml")
@@ -82,7 +82,14 @@ def fetch_notes(item):
 
 latex_note_symbols = ("*", "†", "‡", "§", "¶", "‖", "**", "††", "‡‡")
 
-def parse_list_rec(item, bib_entries):
+def get_lang(cache, code):
+	ret = cache.get(code)
+	if not ret:
+		ret = langs.Language(code)
+		cache[ret.id] = ret
+	return ret
+
+def parse_list_rec(item, bib_entries, langs):
 	rec = {
 		"syllables": None,
 		"class": None,
@@ -110,7 +117,7 @@ def parse_list_rec(item, bib_entries):
 	assert len(klass) <= 1
 	if klass:
 		klass = klass[0]
-		lang = klass["lang"].split("-")[0] or "und"
+		lang = get_lang(langs, klass["lang"].split("-")[0] or "und")
 		klass = klass.text()
 		if klass:
 			rec["class"] = (klass, lang)
@@ -121,7 +128,7 @@ def parse_list_rec(item, bib_entries):
 		text = name.text()
 		if not text:
 			continue
-		lang = name["lang"].split("-")[0] or "und"
+		lang = get_lang(langs, name["lang"].split("-")[0] or "und")
 		rec["names"].append((text, lang))
 	# <seg type="xml">----+-+---+-+---=/++++-+-+---+-+---=</seg>
 	# <seg type="prosody">⏑⏑⏑⏑–⏑–⏑⏑⏑–⏑||–⏑⏑⏑⏓/––––⏑–⏑–⏑⏑⏑–⏑–⏑⏑⏑⏓</seg>
@@ -155,12 +162,12 @@ def parse_list_rec(item, bib_entries):
 		rec["bibliography"]["refs"].append(ref)
 	return rec
 
-def parse_list(list):
+def parse_list(list, langs):
 	heading = list.first("head").text()
 	items = []
 	bib_entries = {}
 	for item in list.find("item"):
-		items.append(parse_list_rec(item, bib_entries))
+		items.append(parse_list_rec(item, bib_entries, langs))
 	return {
 		"heading": heading,
 		"items": items,
@@ -203,8 +210,9 @@ def parse_prosody():
 		"notation": parse_front(xml),
 		"lists": [],
 	}
+	langs = {}
 	for list in xml.find("//body/list"):
-		ret["lists"].append(parse_list(list))
+		ret["lists"].append(parse_list(list, langs))
 	index = make_name_index(ret["lists"])
 	return ret, index
 
