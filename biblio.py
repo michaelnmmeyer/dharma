@@ -31,7 +31,7 @@ def next_request_delay(r):
 # record is added/modified, its "version" key is set to the current global
 # version, so that it's possible to detect items that have been added/modified
 # since a given version.
-def zotero_items(latest_version, ret):
+def zotero_modified(latest_version, ret):
 	s = requests.Session()
 	s.headers["Zotero-API-Version"] = "3"
 	s.headers["Zotero-API-Key"] = MY_API_KEY
@@ -73,18 +73,33 @@ def zotero_items(latest_version, ret):
 		r = s.get(url)
 	ret.append(cutoff)
 
+def zotero_deleted(latest_version):
+	s = requests.Session()
+	s.headers["Zotero-API-Version"] = "3"
+	s.headers["Zotero-API-Key"] = MY_API_KEY
+	# Only a single page for this request.
+	url = f"https://api.zotero.org/groups/{LIBRARY_ID}/deleted?since={latest_version}"
+	logging.info(url)
+	r = s.get(url)
+	r.raise_for_status()
+	return r.json().get("items", [])
+
 @common.transaction("texts")
 def update():
 	db = common.db("texts")
-	(max_version,) = db.execute("select value from metadata where key = 'biblio_latest_version'").fetchone()
+	(min_version,) = db.execute("select value from metadata where key = 'biblio_latest_version'").fetchone()
 	ret = []
-	for entry in zotero_items(max_version, ret):
+	for entry in zotero_modified(min_version, ret):
 		db.execute("""insert or replace
 			into biblio_data(key, version, json, sort_key)
 			values(?, ?, ?, ?)""",
 			(entry["key"], entry["version"], entry, sort_key(entry["data"])))
+
 	assert len(ret) == 1
-	db.execute("update metadata set value = ? where key = 'biblio_latest_version'", tuple(ret))
+	max_version = ret.pop()
+	for key in zotero_deleted(min_version):
+		db.execute("delete from biblio_data where key = ? and version <= max_version", (key, max_version))
+	db.execute("update metadata set value = ? where key = 'biblio_latest_version'", (max_version,))
 	# For now, use brute force for generating sort keys. But we only need
 	# to do that when the code that generates the sort key changes.
 	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
@@ -1134,13 +1149,18 @@ def fix_rec(rec):
 			continue
 		assert key == "creators", key
 		for creator in value:
+			print(rec["key"], creator)
 			for field in ("firstName", "lastName", "name"):
 				val = creator.get(field)
 				if not val:
 					continue
+				# The zotero people changed str to list in
+				# more recent entries.
+				if isinstance(val, list):
+					val = " ".join(val)
 				creator[field] = fix_value(val)
 
-# TODO generate ref and entries with 1918a, 1918b, etc. when necessary
+# TODO generate ref and entries with 1918a, 1918b, etc. when necessary; in the global biblio or in the local one? and is this really needed?
 
 PER_PAGE = 100
 
@@ -1338,20 +1358,23 @@ class Reference:
 		return w.output()
 
 def sort_key(rec):
-	# XXX fix for shorthand
+	rec = rec.copy()
 	typ = rec["itemType"]
 	if typ not in renderers:
 		return
 	skip_editors = typ == "bookSection"
 	key = ""
+	fix_rec(rec)
+	if (shorthand := rec.get("_shorthand")):
+		return str(shorthand) + " " + str(rec["key"])
 	for creator in rec["creators"]:
 		if skip_editors and creator["creatorType"] in ("editor", "bookAuthor"):
 			continue
 		author = creator.get("lastName") or creator.get("name")
-		key += author + " " + rec.get("date") + " "
+		key += str(author) + " " + str(rec.get("date")) + " "
 		break
-	key += rec["title"] + " " + rec["key"]
-	return key
+	key += str(rec["title"]) + " " + str(rec["key"])
+	return str(key)
 
 if __name__ == "__main__":
 	@common.transaction("texts")
