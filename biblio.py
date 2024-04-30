@@ -375,7 +375,7 @@ class Writer:
 			self.add(publisher)
 		if rec.get("_shorthand") and rec["date"]:
 			self.add(", ")
-			self.date(end_field=False)
+			self.date(rec, end_field=False)
 		self.pages(rec)
 		self.period()
 
@@ -887,7 +887,7 @@ def render_webpage(rec, w, params):
 	w.authors_date(rec)
 	w.quoted(rec["title"])
 	if rec.get("_shorthand") and rec["date"]:
-		w.date()
+		w.date(rec)
 	w.idents(rec)
 	w.entry_loc(params.get("loc"))
 
@@ -999,7 +999,7 @@ def render_dataset(rec, w, params):
 		w.add(rec["repository"])
 		w.period()
 	if rec.get("_shorthand") and rec["date"]:
-		w.date()
+		w.date(rec)
 	w.idents(rec)
 	w.entry_loc(params.get("loc"))
 
