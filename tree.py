@@ -39,9 +39,10 @@ it defaults to the node's text contents.
 
 `regex(pattern[, text])`
 
-Like `glob`, but for regular expressions. Matching is unanchored.
+Like `glob`, but for regular expressions. Matching is unanchored, so `^` and
+`$` must be used if the idea is to match a full string.
 
-`lang()`, `mixed()`, `empty()`, `errors()`
+`lang()`, `mixed()`, `empty()`, `plain()`, `errors()`
 
 Returns the corresponding attributes in `Node`.
 

@@ -7,7 +7,7 @@
 # to make sure we examine everything and to signal stuff we haven't taken into
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
 
-import os, sys, re, html, unicodedata, prosody
+import os, sys, re, html, unicodedata
 from dharma import common, unicode, biblio
 
 class BlockDebugFormatter:
@@ -391,7 +391,8 @@ class Block:
 						buf.append("<p>")
 				elif data == ">line":
 					buf.append("</p>")
-					buf.append(" <span>%s</span>" % html.escape(params["n"]))
+					n = html.escape(params["n"])
+					buf.append(f' <span data-tip="Verse line number">{n}</span>')
 					buf.append("</div>")
 				elif data == "<list":
 					typ = params["type"]
