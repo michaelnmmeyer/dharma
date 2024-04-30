@@ -94,7 +94,6 @@ def update():
 			into biblio_data(key, version, json, sort_key)
 			values(?, ?, ?, ?)""",
 			(entry["key"], entry["version"], entry, sort_key(entry["data"])))
-
 	assert len(ret) == 1
 	max_version = ret.pop()
 	for key in zotero_deleted(min_version):
@@ -1149,7 +1148,6 @@ def fix_rec(rec):
 			continue
 		assert key == "creators", key
 		for creator in value:
-			print(rec["key"], creator)
 			for field in ("firstName", "lastName", "name"):
 				val = creator.get(field)
 				if not val:

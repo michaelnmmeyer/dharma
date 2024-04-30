@@ -197,7 +197,7 @@ def make_name_index(lists):
 			item_id += 1
 			item["id"] = item_id
 			if item["prosody"]:
-				pattern = f'<span class="prosody">{html.escape(item["prosody"])}</span>'
+				pattern = item["prosody"]
 			elif item["xml"]:
 				pattern = f'<span class="xml">{html.escape(item["xml"])}</span>'
 			elif item["gana"]:
