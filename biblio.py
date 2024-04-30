@@ -165,7 +165,7 @@ class Writer:
 	def name_last(self, rec):
 		self.add(rec.get("lastName") or rec.get("name") or anonymous)
 
-	def authors(self, rec, skip_editors=False, skip_anonymous=True):
+	def authors(self, rec, skip_editors=False, skip_anonymous=True, space=False):
 		authors = []
 		for creator in rec["creators"]:
 			if skip_editors and creator["creatorType"] in ("bookAuthor", "editor"):
@@ -174,9 +174,13 @@ class Writer:
 		if not authors:
 			if skip_anonymous:
 				return
+			if space:
+				self.space()
 			self.add(anonymous)
 		for i, author in enumerate(authors):
 			if i == 0:
+				if space:
+					self.space()
 				self.name_last_first(author)
 				continue
 			if i == len(authors) - 1:
@@ -191,7 +195,7 @@ class Writer:
 		if shorthand:
 			self.add(shorthand)
 			self.period()
-			self.authors(rec, skip_editors=skip_editors, skip_anonymous=True)
+			self.authors(rec, skip_editors=skip_editors, skip_anonymous=True, space=True)
 		else:
 			self.authors(rec, skip_editors)
 			self.date(rec)
