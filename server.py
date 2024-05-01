@@ -214,7 +214,7 @@ def show_catalog():
 	rows, entries_nr, per_page, last_updated = catalog.search(q, s, page)
 	pages_nr = (entries_nr + per_page - 1) // per_page
 	first_entry = (page - 1) * per_page + 1
-	if first_entry < 0:
+	if first_entry > entries_nr:
 		first_entry = 0
 	last_entry = page * per_page
 	if last_entry > entries_nr:
@@ -474,7 +474,7 @@ def display_biblio_page(page):
 		entry = biblio.Entry.wrap(common.from_json(entry))
 		entries.append(entry)
 	first_entry = (page - 1) * biblio.PER_PAGE + 1
-	if first_entry < 0:
+	if first_entry > entries_nr:
 		first_entry = 0
 	last_entry = page * biblio.PER_PAGE
 	if last_entry > entries_nr:

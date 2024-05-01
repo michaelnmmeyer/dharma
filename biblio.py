@@ -97,7 +97,7 @@ def update():
 	assert len(ret) == 1
 	max_version = ret.pop()
 	for key in zotero_deleted(min_version):
-		db.execute("delete from biblio_data where key = ? and version <= max_version", (key, max_version))
+		db.execute("delete from biblio_data where key = ? and version <= ?", (key, max_version))
 	db.execute("update metadata set value = ? where key = 'biblio_latest_version'", (max_version,))
 	# For now, use brute force for generating sort keys. But we only need
 	# to do that when the code that generates the sort key changes.
@@ -1111,13 +1111,14 @@ def fix_value(s):
 	return s.root
 
 def fix_rec(rec):
+	# TODO normalize_space()
 	date = rec.get("date")
 	if date:
 		# Always use "-"
 		date = date.replace("\N{en dash}", "-")
 		# The ZG prescribes to use n.d."
 		if re.match(r"^n\.\s?d\.?$", date, re.I):
-			date = None
+			date = ""
 		rec["date"] = date
 	page = rec.get("pages")
 	if page:
@@ -1128,7 +1129,7 @@ def fix_rec(rec):
 	if publisher:
 		# The ZG prescribes to use "n.pub" when there is no publisher
 		if re.match(r"^n\.\s?pub\.?$", publisher, re.I):
-			publisher = None
+			publisher = ""
 		rec["publisher"] = publisher
 	for line in rec.get("extra", "").splitlines():
 		chunks = [common.normalize_space(c)
@@ -1139,24 +1140,21 @@ def fix_rec(rec):
 		if key.lower() == "shorthand":
 			rec["_shorthand"] = value
 	for key, value in rec.copy().items():
-		if key in ("key", "filename", "itemType", "pages", "url", "DOI", "callNumber", "extra"): # XXX figure out other "id" fields
+		# TODO should only allow html in specific fields (title?)
+		# because gets messy
+		if key in ("key", "filename", "itemType", "pages", "url", "DOI", "callNumber", "extra", "_shorthand", "date"): # XXX figure out other "id" fields
 			continue
 		if isinstance(value, str):
 			rec[key] = fix_value(value)
-			continue
-		if key != "creators":
-			continue
-		assert key == "creators", key
-		for creator in value:
-			for field in ("firstName", "lastName", "name"):
-				val = creator.get(field)
-				if not val:
-					continue
-				# The zotero people changed str to list in
-				# more recent entries.
-				if isinstance(val, list):
-					val = " ".join(val)
-				creator[field] = fix_value(val)
+	# The zotero people changed str to list in more recent entries.
+	for creator in rec["creators"]:
+		for field in ("firstName", "lastName", "name"):
+			val = creator.get(field)
+			if not val:
+				continue
+			if isinstance(val, list):
+				val = " ".join(val)
+			creator[field] = val
 
 # TODO generate ref and entries with 1918a, 1918b, etc. when necessary; in the global biblio or in the local one? and is this really needed?
 
@@ -1361,22 +1359,28 @@ def sort_key(rec):
 	if typ not in renderers:
 		return
 	skip_editors = typ == "bookSection"
-	key = ""
 	fix_rec(rec)
+	key = ""
 	if (shorthand := rec.get("_shorthand")):
-		return str(shorthand) + " " + str(rec["key"])
-	for creator in rec["creators"]:
-		if skip_editors and creator["creatorType"] in ("editor", "bookAuthor"):
-			continue
-		author = creator.get("lastName") or creator.get("name")
-		key += str(author) + " " + str(rec.get("date")) + " "
-		break
-	key += str(rec["title"]) + " " + str(rec["key"])
-	return str(key)
+		key = shorthand
+	else:
+		# Only pick the first creator.
+		for creator in rec["creators"]:
+			if skip_editors and creator["creatorType"] in ("editor", "bookAuthor"):
+				continue
+			author = creator.get("lastName") or creator.get("name", "")
+			key = author + " " + rec["date"]
+			break
+	key += " " + rec["key"]
+	return key
 
 if __name__ == "__main__":
 	@common.transaction("texts")
 	def main():
-		e = Entry("Zoetmulder1974_01")
-		print(repr(str(e.reference())))
+		db = common.db("texts")
+		for (doc,) in db.execute("""select json ->> '$.data' from biblio_data
+			where sort_key is not null
+		"""):
+			doc = common.from_json(doc)
+			print(doc, sort_key(doc))
 	main()

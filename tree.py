@@ -873,9 +873,6 @@ class Comment(Node, collections.UserString):
 	def __repr__(self):
 		return self.xml()
 
-	def __str__(self):
-		return self.xml()
-
 	def copy(self):
 		return Comment(self.data)
 
@@ -890,9 +887,6 @@ class Instruction(Node):
 		self.target = target
 		self.data = data
 		super().__init__()
-
-	def __str__(self):
-		return self.xml()
 
 	def __repr__(self):
 		return self.xml()
