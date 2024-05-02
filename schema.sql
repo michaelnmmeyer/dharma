@@ -82,7 +82,7 @@ insert or ignore into repos(repo, textual, title)
 --
 -- The repo name is needed only in the commits table and in the files table.
 -- We reproduce it in other tables only to be able to easily delete everything
--- related to a repo when updating the db. XXX we don't do this anymore!
+-- related to a repo when updating the db.
 create table if not exists files(
 	name text unique check(typeof(name) = 'text' and length(name) > 0),
 	repo text check(typeof(repo) = 'text' and length(repo) > 0),
