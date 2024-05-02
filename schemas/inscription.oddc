@@ -12632,7 +12632,7 @@ TEI namespace <code>http://www.tei-c.org/ns/1.0</code> on it, using
                                 <sch:assert test="count(distinct-values(.//(tei:pb | tei:milestone[@type='pagelike'])/@n))                                     = count(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)">
                                     pb and pagelike milestone elements do not have unique @n within this division
                                 </sch:assert>
-                                <sch:assert test="count(distinct-values(.//tei:lb/@n)) = count(.//tei:lb/@n)">
+                                <sch:assert test="count(distinct-values(*/tei:lb/@n)) = count(*/tei:lb/@n)">
                                     lb elements do not have unique @n within this division
                                 </sch:assert>
                             </sch:rule>
@@ -12669,7 +12669,7 @@ TEI namespace <code>http://www.tei-c.org/ns/1.0</code> on it, using
                                 <sch:assert test="count(distinct-values((tei:ab | tei:p)/@n)) = count((tei:ab | tei:p)/@n)">
                                     ab and p elements do not have unique @n within this division
                                 </sch:assert>
-                                <sch:assert test="count(distinct-values(tei:lb/@n)) = count(tei:lb/@n)">
+                                <sch:assert test="count(distinct-values(*/tei:lb/@n)) = count(*/tei:lb/@n)">
                                     lb elements do not have unique @n within this division
                                 </sch:assert>
                             </sch:rule>

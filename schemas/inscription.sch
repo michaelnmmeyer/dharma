@@ -1632,10 +1632,10 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       </xsl:choose>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="count(distinct-values(.//tei:lb/@n)) = count(.//tei:lb/@n)"/>
+         <xsl:when test="count(distinct-values(*/tei:lb/@n)) = count(*/tei:lb/@n)"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(distinct-values(.//tei:lb/@n)) = count(.//tei:lb/@n)">
+                                test="count(distinct-values(*/tei:lb/@n)) = count(*/tei:lb/@n)">
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
@@ -1787,10 +1787,10 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       </xsl:choose>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="count(distinct-values(tei:lb/@n)) = count(tei:lb/@n)"/>
+         <xsl:when test="count(distinct-values(*/tei:lb/@n)) = count(*/tei:lb/@n)"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(distinct-values(tei:lb/@n)) = count(tei:lb/@n)">
+                                test="count(distinct-values(*/tei:lb/@n)) = count(*/tei:lb/@n)">
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
