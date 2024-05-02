@@ -420,10 +420,10 @@
                                     = count(tei:div[@type='textpart']/@n)">
                                     textpart @n are not unique in this division
                                 </sch:assert>
-                                <sch:assert test="count(distinct-values(.//tei:lg/@n)) = count(.//tei:lg/@n)">
+                                <sch:assert test="count(distinct-values(tei:lg/@n)) = count(tei:lg/@n)">
                                     lg elements do not have unique @n within this division
                                 </sch:assert>
-                                <sch:assert test="count(distinct-values(.//(tei:ab | tei:p)/@n)) = count(.//(tei:ab | tei:p)/@n)">
+                                <sch:assert test="count(distinct-values((tei:ab | tei:p)/@n)) = count((tei:ab | tei:p)/@n)">
                                     ab and p elements do not have unique @n within this division
                                 </sch:assert>
                                 <sch:assert test="count(distinct-values(.//(tei:pb | tei:milestone[@type='pagelike'])/@n))
@@ -461,13 +461,13 @@
                                 </sch:report>
                             </sch:rule>
                             <sch:rule context="tei:div[@type='edition']/tei:div[@type='textpart']">
-                                <sch:assert test="count(distinct-values(.//tei:lg/@n)) = count(.//tei:lg/@n)">
+                                <sch:assert test="count(distinct-values(tei:lg/@n)) = count(tei:lg/@n)">
                                    lg elements do not have unique @n within this division
                                 </sch:assert>
-                                <sch:assert test="count(distinct-values(.//(tei:ab | tei:p)/@n)) = count(.//(tei:ab | tei:p)/@n)">
+                                <sch:assert test="count(distinct-values((tei:ab | tei:p)/@n)) = count((tei:ab | tei:p)/@n)">
                                     ab and p elements do not have unique @n within this division
                                 </sch:assert>
-                                <sch:assert test="count(distinct-values(.//tei:lb/@n)) = count(.//tei:lb/@n)">
+                                <sch:assert test="count(distinct-values(tei:lb/@n)) = count(tei:lb/@n)">
                                     lb elements do not have unique @n within this division
                                 </sch:assert>
                             </sch:rule>
