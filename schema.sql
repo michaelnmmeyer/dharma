@@ -383,6 +383,14 @@ create table if not exists biblio_data(
 create index if not exists biblio_data_short_title on biblio_data(short_title);
 create index if not exists biblio_data_sort_key on biblio_data(sort_key);
 
+create view if not exists biblio_authors as
+	select biblio_data.key as key,
+		json_each.value ->> '$.creatorType' as creator_type,
+		json_each.value ->> '$.firstName' as first_name,
+		json_each.value ->> '$.lastName' as last_name,
+		json_each.value ->> '$.name' as name
+	from biblio_data join json_each(biblio_data.json -> '$.data.creators');
+
 create view if not exists biblio_by_tag as
 	select json_each.value ->> '$.tag' as tag, biblio_data.key as key
 	from biblio_data join json_each(biblio_data.json -> '$.data.tags')

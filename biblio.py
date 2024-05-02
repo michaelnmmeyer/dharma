@@ -179,22 +179,19 @@ class Writer:
 	def name_last(self, rec):
 		self.add(rec.get("lastName") or rec.get("name") or anonymous)
 
-	def authors(self, rec, skip_editors=False, skip_anonymous=True, space=False):
+	def front_creators(self, rec, skip_editors=False):
 		authors = []
 		for creator in rec["creators"]:
-			if skip_editors and creator["creatorType"] in ("bookAuthor", "editor"):
+			if creator["creatorType"] in ("bookAuthor", "editor"):
+				if skip_editors:
+					continue
+			elif creator["creatorType"] != "author":
 				continue
 			authors.append(creator)
 		if not authors:
-			if skip_anonymous:
-				return
-			if space:
-				self.space()
 			self.add(anonymous)
 		for i, author in enumerate(authors):
 			if i == 0:
-				if space:
-					self.space()
 				self.name_last_first(author)
 				continue
 			if i == len(authors) - 1:
@@ -204,24 +201,27 @@ class Writer:
 			self.name_first_last(author)
 		self.period()
 
-	def authors_date(self, rec, skip_editors=False):
-		shorthand = rec.get("_shorthand")
-		if shorthand:
-			self.add(shorthand)
-			self.period()
-			self.authors(rec, skip_editors=skip_editors, skip_anonymous=True, space=True)
-		else:
-			self.authors(rec, skip_editors)
-			self.date(rec)
+	def by_editors(self, rec):
+		self.back_creators(rec, use_authors=False, use_editors=True)
 
-	def edited_by(self, rec):
+	def by_authors(self, rec):
+		self.back_creators(rec, use_authors=True, use_editors=False)
+
+	def by_all_authors(self, rec):
+		self.back_creators(rec, use_authors=True, use_editors=True)
+
+	def back_creators(self, rec, use_authors=False, use_editors=True):
 		editors = []
 		authors = []
 		for creator in rec["creators"]:
-			if creator["creatorType"] == "editor":
-				editors.append(creator)
-			elif creator["creatorType"] == "bookAuthor":
-				authors.append(creator)
+			if use_authors:
+				if creator["creatorType"] == "author":
+					authors.append(creator)
+			if use_editors:
+				if creator["creatorType"] == "editor":
+					editors.append(creator)
+				elif creator["creatorType"] == "bookAuthor":
+					authors.append(creator)
 		for creators, s in [(authors, "By"), (editors, "Edited by")]:
 			if not creators:
 				continue
@@ -238,6 +238,17 @@ class Writer:
 					self.add(", ")
 				self.name_first_last(creator)
 			self.period()
+
+	def shorthand(self, rec):
+		self.add(rec["_shorthand"])
+		self.period()
+
+	def entry_front(self, rec, skip_editors=False):
+		if rec["_shorthand"]:
+			self.shorthand(rec)
+		else:
+			self.front_creators(rec, skip_editors)
+			self.date(rec)
 
 	def ref(self, rec):
 		authors = []
@@ -492,6 +503,8 @@ cited_range_units = {
 	"line": ("l.", "ll."),
 }
 
+creator_types = ["author", "editor", "bookAuthor"]
+
 # journal article
 """
   {
@@ -542,8 +555,10 @@ cited_range_units = {
   }
 """
 def render_journal_article(rec, w, params):
-	w.authors_date(rec)
+	w.entry_front(rec)
 	w.quoted(rec["title"])
+	if rec["_shorthand"]:
+		w.by_authors(rec)
 	if rec["publicationTitle"]:
 		w.space()
 		abbr = rec["journalAbbreviation"]
@@ -572,7 +587,7 @@ def render_journal_article(rec, w, params):
 			w.add("(")
 			w.add(rec["issue"])
 			w.add(")")
-		if rec.get("_shorthand") and rec["date"]:
+		if rec["_shorthand"] and rec["date"]:
 			w.space()
 			w.add("(")
 			w.date(rec, end_field=False, space=False)
@@ -632,8 +647,10 @@ def render_journal_article(rec, w, params):
   }
 """
 def render_book(rec, w, params):
-	w.authors_date(rec)
+	w.entry_front(rec)
 	w.italics(rec["title"])
+	if rec["_shorthand"]:
+		w.by_all_authors(rec)
 	w.edition(rec)
 	w.volume_and_series(rec)
 	w.place_publisher_loc(rec)
@@ -692,13 +709,15 @@ def render_book(rec, w, params):
   }
 """
 def render_conference_paper(rec, w, params):
-	w.authors_date(rec, skip_editors=True)
+	w.entry_front(rec, skip_editors=True)
 	w.quoted(rec["title"])
+	if rec["_shorthand"]:
+		w.by_authors(rec)
 	if rec["proceedingsTitle"]:
 		w.space()
 		w.add("In: ")
 		w.italics(rec["proceedingsTitle"])
-	w.edited_by(rec)
+	w.by_editors(rec)
 	w.volume_and_series(rec)
 	w.place_publisher_loc(rec)
 	w.idents(rec)
@@ -749,8 +768,10 @@ def render_conference_paper(rec, w, params):
   }
 """
 def render_report(rec, w, params):
-	w.authors_date(rec)
+	w.entry_front(rec)
 	w.quoted(rec["title"])
+	if rec["_shorthand"]:
+		w.by_authors(rec)
 	w.place_publisher_loc(rec)
 	w.idents(rec)
 	w.entry_loc(params.get("loc"))
@@ -805,14 +826,16 @@ def render_report(rec, w, params):
   }
 """
 def render_book_section(rec, w, params):
-	w.authors_date(rec, skip_editors=True)
+	w.entry_front(rec, skip_editors=True)
 	w.quoted(rec["title"])
+	if rec["_shorthand"]:
+		w.by_authors(rec)
 	if rec["bookTitle"]:
 		w.space()
 		w.add("In: ")
 		w.italics(rec["bookTitle"])
 		w.edition(rec)
-	w.edited_by(rec)
+	w.by_editors(rec)
 	w.volume_and_series(rec)
 	w.place_publisher_loc(rec)
 	w.idents(rec)
@@ -858,8 +881,10 @@ def render_book_section(rec, w, params):
   }
 """
 def render_thesis(rec, w, params):
-	w.authors_date(rec)
+	w.entry_front(rec)
 	w.quoted(rec["title"])
+	if rec["_shorthand"]:
+		w.by_authors(rec)
 	w.space()
 	w.add(rec["thesisType"] or "Thesis")
 	if rec["university"]:
@@ -902,9 +927,11 @@ def render_thesis(rec, w, params):
   }
 """
 def render_webpage(rec, w, params):
-	w.authors_date(rec)
+	w.entry_front(rec)
 	w.quoted(rec["title"])
-	if rec.get("_shorthand") and rec["date"]:
+	if rec["_shorthand"]:
+		w.by_authors(rec)
+	if rec["_shorthand"] and rec["date"]:
 		w.date(rec)
 	w.idents(rec)
 	w.entry_loc(params.get("loc"))
@@ -947,8 +974,10 @@ def render_webpage(rec, w, params):
   }
 """
 def render_newspaper_article(rec, w, params):
-	w.authors_date(rec)
+	w.entry_front(rec)
 	w.quoted(rec["title"])
+	if rec["_shorthand"]:
+		w.by_authors(rec)
 	w.italics(rec["publicationTitle"])
 	w.edition(rec)
 	w.place_publisher_loc(rec)
@@ -1010,13 +1039,15 @@ def render_newspaper_article(rec, w, params):
 }
 """
 def render_dataset(rec, w, params):
-	w.authors_date(rec)
+	w.entry_front(rec)
 	w.quoted(rec["title"])
+	if rec["_shorthand"]:
+		w.by_authors(rec)
 	if rec["repository"]:
 		w.space()
 		w.add(rec["repository"])
 		w.period()
-	if rec.get("_shorthand") and rec["date"]:
+	if rec["_shorthand"] and rec["date"]:
 		w.date(rec)
 	w.idents(rec)
 	w.entry_loc(params.get("loc"))
@@ -1139,6 +1170,7 @@ def fix_rec(rec):
 		key, value = chunks
 		if key.lower() == "shorthand":
 			rec["_shorthand"] = value
+	rec.setdefault("_shorthand", "")
 	for key, value in rec.copy().items():
 		# TODO should only allow html in specific fields (title?)
 		# because gets messy
@@ -1146,7 +1178,7 @@ def fix_rec(rec):
 			continue
 		if isinstance(value, str):
 			rec[key] = fix_value(value)
-	# The zotero people changed str to list in more recent entries.
+	# The zotero people changed str to list in recent entries.
 	for creator in rec["creators"]:
 		for field in ("firstName", "lastName", "name"):
 			val = creator.get(field)
