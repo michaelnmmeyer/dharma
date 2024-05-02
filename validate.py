@@ -153,9 +153,14 @@ def file(file_obj):
 	return validator.process(file_obj)
 
 if __name__ == "__main__":
+	from dharma import texts
 	schema = Validator("inscription", "DHARMA_INS")
 	for path in sys.argv[1:]:
-		ret = schema.process(path)
+		repo = os.path.dirname(os.path.relpath(os.path.abspath(path), common.path_of("repos")))
+		child = os.path.relpath(os.path.abspath(path), common.path_of("repos", repo))
+		f = texts.File(repo, child)
+		ret = schema.process(f)
 		print(path, ret.status)
 		for m in ret.messages:
 			print(f"{path}:{m}")
+		print(schema.sch_error_nodes(f))

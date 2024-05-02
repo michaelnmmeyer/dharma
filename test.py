@@ -8,6 +8,6 @@ for f in files:
 		t = tree.parse(f)
 	except tree.Error:
 		continue
-	for node in t.find("//ref"):
-		print(node["target"])
+	for node in t.find("//*[@n]"):
+		print(node.name)
 

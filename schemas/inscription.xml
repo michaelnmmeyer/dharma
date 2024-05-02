@@ -415,6 +415,33 @@
                 <elementSpec ident="div" mode="change" module="textstructure">
                     <constraintSpec scheme="isoschematron" ident="div">
                         <constraint>
+                            <sch:rule context="tei:div[@type='edition']">
+                                <sch:assert test="count(distinct-values(tei:div[@type='textpart']/@n))
+                                    = count(tei:div[@type='textpart']/@n)">
+                                    textpart @n are not unique in this division
+                                </sch:assert>
+                                <sch:assert test="count(distinct-values(.//tei:lg/@n)) = count(.//tei:lg/@n)">
+                                    lg elements do not have unique @n within this division
+                                </sch:assert>
+                                <sch:assert test="count(distinct-values(.//(tei:ab | tei:p)/@n)) = count(.//(tei:ab | tei:p)/@n)">
+                                    ab and p elements do not have unique @n within this division
+                                </sch:assert>
+                                <sch:assert test="count(distinct-values(.//(tei:pb | tei:milestone[@type='pagelike'])/@n))
+                                    = count(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)">
+                                    pb and pagelike milestone elements do not have unique @n within this division
+                                </sch:assert>
+                                <sch:assert test="count(distinct-values(.//tei:lb/@n)) = count(.//tei:lb/@n)">
+                                    lb elements do not have unique @n within this division
+                                </sch:assert>
+                            </sch:rule>
+                            <sch:rule context="tei:div[@type='edition']">
+                                <sch:assert test="@xml:lang or count(*[@xml:lang]) = count(*)">
+                                    @lang must be set on div[@type='edition'] or on all its children
+                                </sch:assert>
+                                <sch:assert test="@rendition or count(*[@rendition]) = count(*)">
+                                    @rendition must be set on div[@type='edition'] or on all its children
+                                </sch:assert>
+                            </sch:rule>
                             <sch:rule context="tei:div">
                                 <sch:report test="./@type != 'textpart' and parent::tei:div and @type!=parent::tei:div/@type">
                                     Divs other than @type=textpart may not nest in divs of
@@ -432,6 +459,17 @@
                                 <sch:report test="@type='textpart' and ancestor::tei:div[@type='textpart']">
                                     div[@type='textpart'] must not nest
                                 </sch:report>
+                            </sch:rule>
+                            <sch:rule context="tei:div[@type='edition']/tei:div[@type='textpart']">
+                                <sch:assert test="count(distinct-values(.//tei:lg/@n)) = count(.//tei:lg/@n)">
+                                   lg elements do not have unique @n within this division
+                                </sch:assert>
+                                <sch:assert test="count(distinct-values(.//(tei:ab | tei:p)/@n)) = count(.//(tei:ab | tei:p)/@n)">
+                                    ab and p elements do not have unique @n within this division
+                                </sch:assert>
+                                <sch:assert test="count(distinct-values(.//tei:lb/@n)) = count(.//tei:lb/@n)">
+                                    lb elements do not have unique @n within this division
+                                </sch:assert>
                             </sch:rule>
                         </constraint>
                     </constraintSpec>
@@ -3468,15 +3506,6 @@
                                     further notes (this is not a technical requirement but a
                                     convention we shall observe to reduce
                                 complication)</sch:report></sch:rule>
-                        
-                            <sch:rule context="tei:div[@type='edition']">
-                                <sch:assert test="@xml:lang or count(*[@xml:lang]) = count(*)">
-                                    @lang must be set on div[@type='edition'] or on all its children
-                                </sch:assert>
-                                <sch:assert test="@rendition or count(*[@rendition]) = count(*)">
-                                    @rendition must be set on div[@type='edition'] or on all its children
-                                </sch:assert>
-                            </sch:rule>
                         </constraint>
                     </constraintSpec>
                     <attList>
@@ -3597,7 +3626,7 @@
                                 <sch:assert
                                     test="@rend='stanza' and ancestor::tei:div[@type='translation']"
                                     >@corresp can only be used with p in the context of a
-                                    @rend="stanza" and inside a translatio </sch:assert>
+                                    @rend="stanza" and inside a translation </sch:assert>
                             </sch:rule>
                         </constraint>
                     </constraintSpec>
@@ -3620,6 +3649,7 @@
                                 <valItem ident="tall"/>
                                 <valItem ident="wide"/>
                                 <valItem ident="expanded"/>
+                                <valItem ident="stanza"/>
                             </valList>
                         </attDef>
                         <attDef ident="resp" mode="delete"/>
