@@ -2998,6 +2998,15 @@
                     </attList>
                 </elementSpec>
                 <elementSpec ident="lg" module="core" mode="change">
+                    <constraintSpec scheme="schematron" ident="lg-sch">
+                        <constraint>
+                            <sch:rule context="tei:lg">
+                                <sch:assert test="count(distinct-values(tei:l/@n)) = count(tei:l/@n)">
+                                    l elements do not have unique @n within this lg
+                                </sch:assert>
+                            </sch:rule>
+                        </constraint>
+                    </constraintSpec>
                     <attList>
                         <attDef ident="ana" mode="delete"/>
                         <attDef ident="cert" mode="delete"/>
