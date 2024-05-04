@@ -433,13 +433,14 @@ def milestone_unit_type(milestone):
 	return unit, typ
 
 @handler("milestone")
+# TODO milestone type="ref"
 def parse_milestone(p, milestone):
 	n = milestone_n(p, milestone)
 	brk = milestone_break(milestone)
 	unit, typ = milestone_unit_type(milestone)
 	next_sibling = milestone.stuck_following_sibling()
 	if next_sibling and next_sibling.name == "label":
-		label = next_sibling.text() # XXX markup?
+		label = next_sibling.text() # XXX handle markup
 	else:
 		label = None
 	p.add_phys("=" + unit, type=typ, n=n, brk=brk, label=label)
@@ -1159,9 +1160,25 @@ def parse_bibl(p, node):
 		return
 	p.add_bib_ref(ref, rend=rend, loc=loc)
 
-@handler("title")
-def parse_title(p, title):
+@handler("titleStmt/title")
+def parse_title_in_header(p, title):
 	p.dispatch_children(title)
+
+@handler("title")
+# EGD 10.4.2. Encoding titles.
+def parse_title(p, title):
+	p.start_span(tip="Work title")
+	if title["level"] == "a":
+		p.add_text("“")
+		p.dispatch_children(title)
+		p.add_text("”")
+	elif title["rend"] == "plain":
+		p.dispatch_children(title)
+	else:
+		p.start_span(klass="title")
+		p.dispatch_children(title)
+		p.end_span()
+	p.end_span()
 
 @handler("q")
 def parse_q(p, q):
