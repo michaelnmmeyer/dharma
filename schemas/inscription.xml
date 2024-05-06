@@ -5861,30 +5861,6 @@
                     </attList>
                 </elementSpec>
                 <elementSpec ident="date" module="core" mode="change">
-                    <constraintSpec scheme="schematron" ident="attributes">
-                        <constraint><sch:rule
-                            context="tei:date[not(parent::tei:bibl)][@notBefore-custom or @notAfter-custom]"
-                            ><sch:assert test="@notBefore-custom and @notAfter-custom"
-                                >@notBefore-custom and @notAfter-custom must be used
-                                together</sch:assert></sch:rule><sch:rule
-                                    context="tei:date[not(parent::tei:bibl)][@notBefore or @notAfter]"
-                                    ><sch:assert test="@notBefore and @notAfter">@notBefore and
-                                        @notAfter must be used together</sch:assert></sch:rule><sch:rule
-                                            context="tei:date[not(parent::tei:bibl)][@from-custom or @to-custom]"
-                                            ><sch:assert test="@from-custom and @to-custom">The attributes
-                                                @from-custom and @to-custom must be used
-                                                together</sch:assert></sch:rule><sch:rule
-                                                    context="tei:date[not(parent::tei:bibl)][@when-custom or @notAfter-custom or @notBefore-custom or @from-custom or @to-custom]"
-                                                    ><sch:assert test="@datingMethod">When using a custom attribute
-                                                        such as @when-custom or @notAfter-custom or @notBefore-custom,
-                                                        the attribute @datingMethod is mandatory and should declare the
-                                                        calendar used to convert the dates expressed in those previous
-                                                        attributes.</sch:assert></sch:rule><sch:rule
-                                                            context="tei:date[not(parent::tei:bibl)][@when-custom or @notAfter-custom or @notBefore-custom or @from-custom or @to-custom]"
-                                                            ><sch:assert test="matches(., '\d\d\d\d')">Only the year in a 4
-                                                                digits format can be given for the vernacular
-                                                                calendar.</sch:assert></sch:rule></constraint>
-                    </constraintSpec>
                     <attList>
                         <attDef ident="ana" mode="delete"/>
                         <attDef ident="atLeast" mode="delete"/>
