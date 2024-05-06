@@ -10,7 +10,7 @@ for define in xml.find("/grammar/define"):
 	syms[define["name"]] = define
 
 def print_node(node, write):
-	if node.type == "tag":
+	if isinstance(node, tree.Tag):
 		if node.name == "ref":
 			define = syms.get(node["name"])
 			if not define:
@@ -23,8 +23,8 @@ def print_node(node, write):
 			if node["a"]:
 				del node.attrs["a"]
 			write("<%s" % node.name)
-			for k, v in node.attrs.items():
-				write(' %s="%s"' % (k, tree.quote_attribute(v)))
+			for k, v in node.items():
+				write(' %s=%s' % (k, tree.quote_attribute(v)))
 			write(">")
 			for child in node:
 				print_node(child, write)

@@ -21,6 +21,14 @@ pragma foreign_keys = on;
 -- secure_delete is enabled per default on some platforms. We do not manage
 -- sensible data, so the overhead is uneeded.
 pragma secure_delete = off;
+-- The following is necessary to detect modifications to the collation
+-- implementation, in particular.
+-- For how to handle modifications to a collation implementation, see:
+-- https://sqlite.org/forum/info/5317344555f7a5f2
+-- When we change a collation (or other custom functions that modify
+-- columns, etc.), should always issue a reindex.
+pragma integrity_check;
+
 
 begin;
 
@@ -175,7 +183,7 @@ create table if not exists people_github(
 create table if not exists documents(
 	name text primary key,
 	repo text,
-	title text check(
+	title html check(
 		title is null
 		or typeof(title) = 'text' and length(title) > 0),
 	author text check(

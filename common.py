@@ -1,7 +1,11 @@
-import os, sys, logging, sqlite3, json, subprocess, re, ssl, threading
+import os, sys, logging, sqlite3, json, subprocess, re, ssl, threading, warnings
 import functools, traceback, unicodedata, socket
 from urllib.parse import urlparse, quote
 import icu # pip install PyICU
+import bs4
+
+warnings.filterwarnings("ignore", category=bs4.MarkupResemblesLocatorWarning,
+	module="bs4")
 
 DHARMA_HOME = os.path.dirname(os.path.abspath(__file__))
 os.environ["DHARMA_HOME"] = DHARMA_HOME # for subprocesses
@@ -140,6 +144,17 @@ def collate_icu(a, b):
 		return -1
 	return COLLATOR.compare(a, b)
 
+def collate_html_icu(a, b):
+	if a is None:
+		if b is None:
+			return 0
+		return 1
+	elif b is None:
+		return -1
+	a = bs4.BeautifulSoup(a, "html.parser").get_text()
+	b = bs4.BeautifulSoup(b, "html.parser").get_text()
+	return COLLATOR.compare(a, b)
+
 def format_url(*args):
 	if len(args) == 0:
 		return ""
@@ -183,6 +198,7 @@ def db(name):
 	conn.create_function("format_url", -1, format_url, deterministic=True)
 	conn.create_function("jaccard", 2, jaccard, deterministic=True)
 	conn.create_collation("icu", collate_icu)
+	conn.create_collation("html_icu", collate_html_icu)
 	if name == "texts":
 		with open(path_of("schema.sql")) as f:
 			sql = f.read()

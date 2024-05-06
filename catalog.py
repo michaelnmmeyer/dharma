@@ -206,8 +206,13 @@ def search(q, sort, page):
 			pass
 		case _:
 			sort = "title"
+	match sort:
+		case "title":
+			collation = "html_icu"
+		case _:
+			collation = "icu"
 	sql += f"""
-		group by documents.name order by documents.{sort} collate icu nulls last
+		group by documents.name order by documents.{sort} collate {collation} nulls last
 		limit ? offset ?"""
 	offset = (page - 1) * PER_PAGE
 	limit = PER_PAGE

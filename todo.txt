@@ -1,56 +1,10 @@
-deal with @n uniqueness + generation
-must address the following elements
-
-# no nesting
-physical
-  milestone @type=pagelike | pb
-    unique in main div namespace
-      "page @n" (and for other page units, we use @unit instead)
-  lb
-    unique in parent div namespace
-      "../div/@n, line @n"
-
-logical: nesting applies
-  div
-    ab
-    p
-    lg
-      l
-
-
-  ab | p
-    should have a single numerotation, but apparently they are never
-    numbered within the edition; what does the guide say?
-
-  lg
-    need to have a separate numerotation because they are represented with
-    Roman numbers
-
-    l (unique within lg)
-
-
-
-
-
-
-
-
-
-
-
-
-
-================
-
-
-
-
+change doc sorting to ignore html: http://localhost:8023/texts
+should have a collation option for ignoring html or json; have html_icu,
+etc.
 
 deal with <note> after divs and headings
 https://dharmalekha.info/texts/INSEIAD00079
 
-should use the lang attribute in html to tag appropriately xml elements
-with an @xml:lang.
 
 handle "Lacuna with differently treated parts" in edito
   when we have sibling tags like this
@@ -158,6 +112,9 @@ idem pour <lg rendition=...> dans Tiruvavatuturai01
 
 don't think we are formarring abbr/expan as supposed
 
+should use the lang attribute in html to tag appropriately xml elements
+with an @xml:lang.
+
 ## Problems with @n.
 
 The repetitive scheme is not clear and unpredictable. Should have a clearer
@@ -214,7 +171,6 @@ Add a "status" search field to catalog to filter by error status.
 add global table of gaiji symbols actually found in inscriptions.
 we will add links to inscriptions within this table so that we can find which
 inscriptions, etc. contain which symbols.
-
 
 # Tamil
 

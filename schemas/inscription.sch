@@ -1114,7 +1114,7 @@ The element indicated by @spanTo (<xsl:text/>
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
                <svrl:text>@notBefore-custom and @notAfter-custom must be used
-                                    together</svrl:text>
+                                together</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
@@ -1135,7 +1135,7 @@ The element indicated by @spanTo (<xsl:text/>
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
                <svrl:text>@notBefore and
-                                    @notAfter must be used together</svrl:text>
+                                        @notAfter must be used together</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
@@ -1157,8 +1157,8 @@ The element indicated by @spanTo (<xsl:text/>
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
                <svrl:text>The attributes
-                                    @from-custom and @to-custom must be used
-                                together</svrl:text>
+                                                @from-custom and @to-custom must be used
+                                                together</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
@@ -1179,10 +1179,10 @@ The element indicated by @spanTo (<xsl:text/>
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
                <svrl:text>When using a custom attribute
-                                    such as @when-custom or @notAfter-custom or @notBefore-custom,
-                                    the attribute @datingMethod is mandatory and should declare the
-                                    calendar used to convert the dates expressed in those previous
-                                    attributes.</svrl:text>
+                                                        such as @when-custom or @notAfter-custom or @notBefore-custom,
+                                                        the attribute @datingMethod is mandatory and should declare the
+                                                        calendar used to convert the dates expressed in those previous
+                                                        attributes.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
@@ -1203,8 +1203,8 @@ The element indicated by @spanTo (<xsl:text/>
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
                <svrl:text>Only the year in a 4
-                                    digits format can be given for the vernacular
-                                    calendar.</svrl:text>
+                                                                digits format can be given for the vernacular
+                                                                calendar.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
@@ -1636,21 +1636,6 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       </xsl:choose>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="count(distinct-values((tei:ab | tei:p)/@n)) = count((tei:ab | tei:p)/@n)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(distinct-values((tei:ab | tei:p)/@n)) = count((tei:ab | tei:p)/@n)">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-                                    ab and p elements do not have unique @n within this division
-                                </svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <!--ASSERT -->
-      <xsl:choose>
          <xsl:when test="count(distinct-values(.//(tei:pb | tei:milestone[@type='pagelike'])/@n))                                     = count(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -1800,21 +1785,6 @@ attributes @target and @cRef may be supplied on <xsl:text/>
                </xsl:attribute>
                <svrl:text>
                                    lg elements do not have unique @n within this division
-                                </svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="count(distinct-values((tei:ab | tei:p)/@n)) = count((tei:ab | tei:p)/@n)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(distinct-values((tei:ab | tei:p)/@n)) = count((tei:ab | tei:p)/@n)">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-                                    ab and p elements do not have unique @n within this division
                                 </svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>

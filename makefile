@@ -9,7 +9,7 @@ generated_views = $(patsubst %.md,%.tpl,$(wildcard views/*.md))
 generated_parsers = $(patsubst %.g,%.py,$(wildcard *.g))
 generated = $(generated_tei) $(generated_views) $(generated_parsers)
 
-all: $(generated) static/base.css tree.md
+all: $(generated) static/base.css tree.md schema_doc.html
 
 clean:
 	rm -f $(generated)
@@ -163,3 +163,6 @@ global.rnc: $(wildcard texts/DHARMA_*.xml)
 %.oddc: %.xml
 	# curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml > $@
 	python3 xslt.py tei/odds/odd2odd.xsl $^ > $@
+
+schema_doc.html: schema_doc.py schemas/inscription.rng
+	python3 $^ > $@
