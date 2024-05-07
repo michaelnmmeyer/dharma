@@ -404,14 +404,14 @@ def parse_foreign(p, foreign):
 	p.dispatch_children(foreign)
 	p.add_html("</i>")
 
+# <milestones
+
 def get_n(node):
 	n = node["n"]
 	if not n:
 		return "?"
 	n = n.replace("_", " ").replace("-", "\N{en dash}")
 	return n
-
-# <milestones
 
 def milestone_n(p, node):
 	n = get_n(node)
@@ -730,10 +730,6 @@ def parse_expan(p, node):
 	p.dispatch_children(node)
 
 # >abbreviations
-
-@handler("term")
-def parse_term(p, node):
-	p.dispatch_children(node)
 
 # TODO more styling
 @handler("seg")
@@ -1280,6 +1276,8 @@ def parse_titleStmt(p, stmt):
 @handler("teiHeader")
 @handler("text")
 @handler("TEI")
+@handler("term")
+@handler("gloss")
 def parse_just_dispatch(p, node):
 	p.dispatch_children(node)
 
