@@ -299,12 +299,20 @@ main {
     border-bottom-left-radius: 0.3em;
     border-bottom-right-radius: 0.3em; } }
 @media print {
-  /* For printing, hide useless stuff. */
-  header {
+  header, #sidebar {
     display: none; }
 
-  aside {
-    display: none; } }
+  html, body, #contents {
+    height: 100%;
+    width: 100%; }
+
+  main {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0; } }
 /******************************* Catalog, old version *************************/
 .catalog-list div.catalog-card:first-child {
   border-radius: 0.3em; }

@@ -379,13 +379,27 @@ main {
 
 }
 
+// See https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Printing
 @media print {
-	/* For printing, hide useless stuff. */
-	header {
+	// Hide everything except main
+	header, #sidebar {
 		display: none;
 	}
-	aside {
-		display: none;
+	// Go back to using % instead of vh and vw. Chrome is OK with vh and vw,
+	// it prints the full documents, but Firefox only shows the first
+	// page. Bug reported by Manu.
+	html, body, #contents {
+		height: 100%;
+		width: 100%;
+	}
+	// Remove space around main. TODO: remove the apparatus button.
+	main {
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0;
+		padding: 0;
 	}
 }
 
