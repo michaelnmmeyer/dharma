@@ -23,7 +23,8 @@ forever:
 # Usage: make commit-all m="Commit message"
 m := "Address encoding problems"
 commit-all:
-	for d in repos/*; do \
+	@for d in repos/*; do \
+		echo "% $$d"; \
 		git -C $$d add --all; \
 		git -C $$d commit -m "$(m)" || true; \
 		git -C $$d pull; \
@@ -71,7 +72,8 @@ status:
 .PHONY: start-all stop-all start stop status
 
 update-repos:
-	for d in repos/*; do \
+	@for d in repos/*; do \
+		echo "% $$d"; \
 		git -C $$d pull; \
 	done
 
