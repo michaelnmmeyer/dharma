@@ -70,9 +70,9 @@ def extract_bib_ref(node):
 	ref = target.removeprefix("bib:")
 	loc = []
 	for r in node.find("citedRange"):
-		unit = r["unit"]
-		if not unit or unit not in bibl_units:
-			unit = "page"
+		unit = r["unit"] or "page"
+		if unit not in bibl_units:
+			unit = "mixed"
 		val = r.text()
 		if not val:
 			continue

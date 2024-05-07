@@ -340,7 +340,8 @@ class Writer:
 		for unit, val in loc:
 			self.add(sep)
 			sep = ", "
-			if unit:
+			assert unit in cited_range_units
+			if unit != "mixed":
 				if unit == "page":
 					# TODO maybe not only for pages?
 					val = val.replace("-", "\N{en dash}")
@@ -367,7 +368,8 @@ class Writer:
 		for unit, val in loc:
 			self.add(sep)
 			sep = ", "
-			if unit:
+			assert unit in cited_range_units
+			if unit != "mixed":
 				if unit == "page":
 					# TODO maybe not only for pages?
 					val = val.replace("-", "\N{en dash}")
@@ -501,6 +503,7 @@ cited_range_units = {
 	"part": ("part", "parts"),
 	"entry": ("s.v.", "s.vv.",),
 	"line": ("l.", "ll."),
+	"mixed": None,
 }
 
 creator_types = ["author", "editor", "bookAuthor"]
