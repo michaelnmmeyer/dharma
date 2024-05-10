@@ -1,3 +1,44 @@
+Inscriptions Cane
+
+Cher Manu,
+
+Je viens d'exporter les inscriptions en question dans
+tfa-cempiyan-mahadevi-epigraphy, sous le dossier "cane".
+
+Plusieurs inscriptions n'ont pas de texte. En ce cas, je n'ai pas généré de
+fichier. Les transformations opérées sont les suivantes :
+
+gras -> <hi rend="grantha">
+
+[abc*] -> laissé tel quel
+[||*], [|*] -> laissés en l'état; dans ce contexte, les daṇḍas sont généralement
+	en gras, donc il faut chercher [<hi rend="grantha">||</hi>*], etc.
+[abc] -> <unclear>abc</unclear>
+[...] -> <gap reason="lost" extent="unknown" unit="character"/>
+
+Les séquences ° + voyelle (°a, etc.) sont remplacées par la voyelle en capitale.
+Il reste deux ° qui précèdent des consonnes (r et h). Je les ai laissés en
+l'état.
+
+Dans les passages originellement en italique, j'ai inséré = entre les consonnes,
+e.g. n=ti, s=vas=ti ś=rī. Je ne suis pas sûr que ce soit ce que tu attendais, ça
+peut se corriger.
+
+J'ajoute toujours un saut de ligne avant <lb>, même quand @break="no".
+L'application ne retire pas les espaces superflues pour le moment, mais je
+vais ajouter cette fonctionnalité.
+
+Il y quatre symboles à remplacer par <g type="...">: ꜔, ☼, ◯, ✿.
+
+Bien à toi,
+
+Michaël
+
+
+
+
+========
+
 
 template manu
 
@@ -6,10 +47,6 @@ italique (ins. 1 on a italique, italique + gras)
 [ā*] -> [ā*] OU [ī*] et [ū*]
 [|*] -> [||*] ? paragraph break
 {ā}
-
-tout ça, littéral?
-
-pas d'ex. pour les deux derniers
 
 nti en ital. -> n=ti etc.
 

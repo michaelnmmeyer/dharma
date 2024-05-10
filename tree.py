@@ -788,7 +788,10 @@ class Tag(Branch):
 			assert isinstance(value, str)
 			# Always normalize space.
 			value = " ".join(value.strip().split())
-			self.attrs[key] = value
+			if value:
+				self.attrs[key] = value
+			elif key in self.attrs:
+				del self.attrs[key]
 
 	def __delitem__(self, key):
 		if isinstance(key, int):
