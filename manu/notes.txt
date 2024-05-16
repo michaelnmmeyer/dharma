@@ -1,65 +1,15 @@
-Inscriptions Cane
+DHARMA_INSTamilNadu00401-00500 = Piranmalai (VVG encoded by EF)
 
-Cher Manu,
-
-Je viens d'exporter les inscriptions en question dans
-tfa-cempiyan-mahadevi-epigraphy, sous le dossier "cane".
-
-Plusieurs inscriptions n'ont pas de texte. En ce cas, je n'ai pas généré de
-fichier. Les transformations opérées sont les suivantes :
-
-gras -> <hi rend="grantha">
-
-[abc*] -> laissé tel quel
-[||*], [|*] -> laissés en l'état; dans ce contexte, les daṇḍas sont généralement
-	en gras, donc il faut chercher [<hi rend="grantha">||</hi>*], etc.
-[abc] -> <unclear>abc</unclear>
-[...] -> <gap reason="lost" extent="unknown" unit="character"/>
-
-Les séquences ° + voyelle (°a, etc.) sont remplacées par la voyelle en capitale.
-Il reste deux ° qui précèdent des consonnes (r et h). Je les ai laissés en
-l'état.
-
-Dans les passages originellement en italique, j'ai inséré = entre les consonnes,
-e.g. n=ti, s=vas=ti ś=rī. Je ne suis pas sûr que ce soit ce que tu attendais, ça
-peut se corriger.
-
-J'ajoute toujours un saut de ligne avant <lb>, même quand @break="no".
-L'application ne retire pas les espaces superflues pour le moment, mais je
-vais ajouter cette fonctionnalité.
-
-Il y quatre symboles à remplacer par <g type="...">: ꜔, ☼, ◯, ✿.
-
-Bien à toi,
-
-Michaël
+modèle :
+<idno type="filename">DHARMA_INSTamilNadu00401</idno>
 
 
+100 inscriptions en tout (avec des doublets: 11-1 et 11-2; 77-1 et 77-2)
+
+1. 	>>	<lb n="1"/>
+etc.
+
+.	>>	<gap reason="lost" quantity="1" unit="character" precision="low"/>
+etc.
 
 
-========
-
-
-template manu
-
-italique (ins. 1 on a italique, italique + gras)
-
-[ā*] -> [ā*] OU [ī*] et [ū*]
-[|*] -> [||*] ? paragraph break
-{ā}
-
-nti en ital. -> n=ti etc.
-
----
-
-unité monnaies -> à mettre dans <g type="abc">
-
-trailing hyphen for lb break=no
-
-remplacer °i -> I, etc. en début de mot
-/ = représente sorte de milestone
-
-see
-https://mail.google.com/mail/u/0/#label/Work/FMfcgzGxSRNXcrmSZTwkRmZczhzcdwXs
-template:
-https://mail.google.com/mail/u/0/#label/Work/FMfcgzGxTFWCHKBGtLwDqlbMVqQVFNfk
