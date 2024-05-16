@@ -976,6 +976,7 @@ roman_table = [
 	("I", 1),
 ]
 def to_roman(x):
+	# Limited to 0...3999
 	if x <= 0 or x >= 4000:
 		return str(x)
 	buf = ""
