@@ -502,12 +502,12 @@ def parse_pb(p, elem):
 			else:
 				# keep the given value, even though it's wrong
 				pass
-			p.add_html("(", logical=True, physical=False, full=True)
+			p.add_html("⟨", logical=True, physical=False, full=True)
 			p.add_text(f"{place}: ")
 			p.start_span(klass="fw-contents")
 			p.dispatch_children(fw)
 			p.end_span()
-			p.add_html(")", logical=True, physical=False, full=True)
+			p.add_html("⟩", logical=True, physical=False, full=True)
 			p.end_span()
 			if i < len(fws) - 1:
 				p.add_html(" ", logical=False, physical=True, full=False)

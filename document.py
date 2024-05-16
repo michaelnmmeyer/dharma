@@ -98,7 +98,7 @@ def format_lb(n=None, brk=None, align=None):
 	else:
 		tip = "Line start"
 	tip = html.escape(tip)
-	return f'<span class="lb" data-tip="{tip}">({n})</span>'
+	return f'<span class="lb" data-tip="{tip}">⟨{n}⟩</span>'
 
 class Block:
 
@@ -334,22 +334,22 @@ class Block:
 				elif data == ">line":
 					pass
 				elif data == "{page":
-					buf.append('<span class="pagelike" data-tip="Page start">(Page %s)' % html.escape(params["n"]))
+					buf.append('<span class="pagelike" data-tip="Page start">⟨Page %s⟩' % html.escape(params["n"]))
 				elif data == "}page":
 					buf.append("</span>")
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
-					text = f"({unit} {params['n']}"
+					text = f"⟨{unit} {params['n']}"
 					if params["label"]:
 						text += f": {params['label']}"
-					text += ")"
+					text += "⟩"
 					buf.append('<span class="pagelike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
-					text = f"({unit} {params['n']}"
+					text = f"⟨{unit} {params['n']}"
 					if params["label"]:
 						text += f": {params['label']}"
-					text += ")"
+					text += "⟩"
 					buf.append('<span class="gridlike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
 				else:
 					assert 0, data
@@ -456,22 +456,22 @@ class Block:
 				elif data == ">line":
 					pass
 				elif data == "{page":
-					buf.append('<span class="pagelike" data-tip="Page start">(Page %s)' % html.escape(params["n"]))
+					buf.append('<span class="pagelike" data-tip="Page start">⟨Page %s⟩' % html.escape(params["n"]))
 				elif data == "}page":
 					buf.append("</span>")
 				elif data.startswith("=") and params["type"] == "pagelike":
 					unit = html.escape(data[1:].title())
-					text = f"({unit} {params['n']}"
+					text = f"⟨{unit} {params['n']}"
 					if params["label"]:
 						text += f": {params['label']}"
-					text += ")"
+					text += "⟩"
 					buf.append('<span class="pagelike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
-					text = f"({unit} {params['n']}"
+					text = f"⟨{unit} {params['n']}"
 					if params["label"]:
 						text += f": {params['label']}"
-					text += ")"
+					text += "⟩"
 					buf.append('<span class="gridlike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
 				else:
 					assert 0, data
@@ -502,7 +502,7 @@ class Block:
 						buf.append('<span class="hyphen-break" data-tip="Hyphen break">-</span>')
 					buf.append('</p>')
 				elif data == "{page":
-					buf.append('<div class="pagelike"><span data-tip="Page start">(Page %s) ' % html.escape(params["n"]))
+					buf.append('<div class="pagelike"><span data-tip="Page start">⟨Page %s⟩ ' % html.escape(params["n"]))
 				elif data == "}page":
 					buf.append("</span></div>")
 				elif data.startswith("=") and params["type"] == "pagelike":
@@ -513,10 +513,10 @@ class Block:
 					buf.append('<div class="pagelike"><span data-tip="%s start">%s</span></div>' % (unit, html.escape(text)))
 				elif data.startswith("=") and params["type"] == "gridlike":
 					unit = html.escape(data[1:].title())
-					text = f"({unit} {params['n']}"
+					text = f"⟨{unit} {params['n']}"
 					if params["label"]:
 						text += f": {params['label']}"
-					text += ")"
+					text += "⟩"
 					buf.append('<span class="gridlike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
 				else:
 					assert 0, data
@@ -741,7 +741,7 @@ class PlainRenderer:
 			if data == "<line":
 				if self.strip_physical and not params["brk"]:
 					return
-				self.add('(%s)' % params["n"])
+				self.add('⟨%s⟩' % params["n"])
 				if params["brk"]:
 					self.add(" ")
 			elif data == ">line":
@@ -749,7 +749,7 @@ class PlainRenderer:
 			elif data == "{page":
 				if self.strip_physical and not params["brk"]:
 					return
-				self.add('(Page %s)' % params["n"])
+				self.add('⟨Page %s⟩' % params["n"])
 			elif data == "}page":
 				pass
 			elif data.startswith("=") and params["type"] == "pagelike":
@@ -757,13 +757,13 @@ class PlainRenderer:
 					return
 				unit = data[1:].title()
 				n = params["n"]
-				self.add(f'({unit} {n})')
+				self.add(f'⟨{unit} {n}⟩')
 			elif data.startswith("=") and params["type"] == "gridlike":
 				if self.strip_physical:
 					return
 				unit = data[1:].title()
 				n = params["n"]
-				self.add(f'({unit} {n})')
+				self.add(f'⟨{unit} {n}⟩')
 			else:
 				assert 0, data
 		elif t == "html":
