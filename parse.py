@@ -406,10 +406,10 @@ def parse_foreign(p, foreign):
 
 # <milestones
 
-def get_n(node):
+def get_n(node, default="?"):
 	n = node["n"]
 	if not n:
-		return "?"
+		return default
 	n = n.replace("_", " ").replace("-", "\N{en dash}")
 	return n
 
@@ -988,11 +988,13 @@ def to_roman(x):
 @handler("lg")
 @handler("p[@rend='stanza']")
 def parse_lg(p, lg):
-	n = get_n(lg)
+	n = get_n(lg, default="")
 	if n.isdigit():
 		n = to_roman(int(n))
 	met = lg["met"]
-	if prosody.is_pattern(met):
+	if not met:
+		pass
+	elif prosody.is_pattern(met):
 		met = prosody.render_pattern(met)
 	else:
 		name = html.escape(common.sentence_case(met))
@@ -1006,9 +1008,15 @@ def parse_lg(p, lg):
 			patterns = " or ".join(html.escape(pattern) for pattern, _ in entries if pattern)
 			if patterns:
 				met = f'<span data-tip="{patterns}">{met}</span>'
-	p.add_log("<head", level=6)
-	p.add_html(f"{n}. {met}", plain=True)
-	p.add_log(">head", level=6)
+	if n or met:
+		p.add_log("<head", level=6)
+		if n and met:
+			p.add_html(f"{n}. {met}", plain=True)
+		elif n:
+			p.add_html(f"{n}", plain=True)
+		elif met:
+			p.add_html(f"{met}", plain=True)
+		p.add_log(">head", level=6)
 	numbered = len(lg.find("l")) > 4
 	p.add_log("<verse", numbered=numbered)
 	if get_script(lg).ident == "grantha":
