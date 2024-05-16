@@ -250,15 +250,21 @@ def parse_listApp(p, listApp):
 
 @handler("num")
 def parse_num(p, num):
-	# TODO for now we don't deal with @atLeast and @atMost
-	if num["value"] and num.text() != num["value"]:
-		p.start_span(klass="num", tip=f"Numeral {num['value']}")
-		p.dispatch_children(num)
-		p.end_span()
-	else:
-		p.start_span(klass="num")
-		p.dispatch_children(num)
-		p.end_span()
+	tip = ""
+	if num["value"]:
+		if num.text() != num["value"] or num["cert"] == "low":
+			tip = f"Numeral {num['value']}"
+	elif num["atLeast"] and num["atMost"]:
+		tip = f"Numeral between {num['atLeast']} and {num['atMost']} inclusive"
+	elif num["atLeast"]:
+		tip = f"Numeral greater than or equal to {num['atLeast']}"
+	elif num["atMost"]:
+		tip = f"Numeral smaller than or equal to {num['atMost']}"
+	if tip and num["cert"] == "low":
+		tip += " (low certainty)"
+	p.start_span(klass="num", tip=tip)
+	p.dispatch_children(num)
+	p.end_span()
 
 # Try to have more precise tooltips for this. If this does not work, we fall
 # back to a generic one.
