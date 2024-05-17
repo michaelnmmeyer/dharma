@@ -24,11 +24,11 @@ forever:
 m := "Address encoding problems"
 commit-all:
 	@for d in repos/*; do \
-		echo "% $$d"; \
+		echo "% $$(basename $$d)"; \
 		git -C $$d add --all; \
 		git -C $$d commit -m "$(m)" || true; \
-		git -C $$d pull; \
-		git -C $$d push; \
+		git -C $$d pull -q; \
+		git -C $$d push -q; \
 	done
 
 .PHONY: all clean forever commit-all
@@ -73,8 +73,8 @@ status:
 
 update-repos:
 	@for d in repos/*; do \
-		echo "% $$d"; \
-		git -C $$d pull; \
+		echo "% $$(basename $$d)"; \
+		git -C $$d pull -q; \
 	done
 
 update-texts:
@@ -91,7 +91,7 @@ deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
 	cp schemas/critical.rng repos/project-documentation/schema/latest/DHARMA_CritEdSchema.rng
 	cp schemas/diplomatic.rng repos/project-documentation/schema/latest/DHARMA_DiplEDSchema.rng
 	cp schemas/prosody.rng repos/project-documentation/schema/latest/DHARMA_ProsodySchema.rng
-	git -C repos/project-documentation commit -am "Schema update" && git -C repos/project-documentation push
+	git -C repos/project-documentation commit -am "Schema update" && git -C repos/project-documentation pull && git -C repos/project-documentation push
 
 missing-git-names:
 	@for d in repos/*; do \
