@@ -97,8 +97,6 @@ class Parser:
 		self.add_code("ref", self.get_bib_ref(*args, **kwargs))
 
 	def get_prosody_entries(self, name):
-		# if no prosody available, use gana pattern; if still not,
-		# use xml pattern
 		entries = self.document.prosody_entries.get(name)
 		if entries is None:
 			db = common.db("texts")
@@ -271,6 +269,7 @@ def parse_num(p, num):
 @handler("supplied[@reason='subaudible']")
 def parse_supplied_subaudible(p, supplied):
 	if supplied.lang.is_source:
+		brackets = None
 		text = supplied.text()
 		if text in "'’":
 			tip = "<i>Avagraha</i> added by the editor to clarify the interpretation"
@@ -280,7 +279,8 @@ def parse_supplied_subaudible(p, supplied):
 			tip = None
 	else:
 		tip = "Text added to the translation for the sake of target language syntax"
-	return parse_supplied(p, supplied, tip=tip)
+		brackets = "[]"
+	return parse_supplied(p, supplied, tip=tip, brackets=brackets)
 
 # EGD "Additions to the translation"
 # EGD "Marking up restored text"
@@ -288,7 +288,7 @@ def parse_supplied_subaudible(p, supplied):
 supplied_tbl = {
 	# EGD: "words added to the translation for the sake of target language
 	# syntax"
-	"subaudible": ("[]", "Editorial addition to clarify interpretation"),
+	"subaudible": ("⟨⟩", "Editorial addition to clarify interpretation"),
 	# EGD: "words implied by the context and added to the translation for
 	# the sake of clarification or disambiguation"
 	"explanation": ("()", "Text inserted into the translation as explanation or disambiguation"),
@@ -303,10 +303,13 @@ supplied_tbl = {
 }
 # OK
 @handler("supplied")
-def parse_supplied(p, supplied, tip=None):
-	seps, base_tip = supplied_tbl.get(supplied["reason"], supplied_tbl["lost"])
+def parse_supplied(p, supplied, tip=None, brackets=None):
+	base_brackets, base_tip = supplied_tbl.get(supplied["reason"], supplied_tbl["lost"])
 	if not tip:
 		tip = base_tip
+	if not brackets:
+		brackets = base_brackets
+	assert brackets
 	if supplied["cert"] == "low":
 		tip += " (low certainty)"
 	evidence = supplied["evidence"]
@@ -315,13 +318,12 @@ def parse_supplied(p, supplied, tip=None):
 	elif evidence == "previouseditor":
 		tip += "; restoration based on previous edition (not assessable)"
 	p.start_span(klass="supplied", tip=tip)
-	if seps:
-		p.add_html(seps[0])
+	p.add_html(brackets[0])
 	p.dispatch_children(supplied)
-	if supplied["reason"] in ("subaudible", "explanation") and supplied["cert"] == "low":
+	if supplied["reason"] in ("subaudible", "explanation") \
+		and supplied["cert"] == "low":
 		p.add_html("?")
-	if seps:
-		p.add_html(seps[1])
+	p.add_html(brackets[1])
 	p.end_span()
 
 # § Premodern insertion
