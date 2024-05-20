@@ -17,7 +17,7 @@ clean:
 forever:
 	@$(MAKE) || true
 	@while inotifywait -qqre modify . @texts @dbs @docs @notes @repos; do \
-		@$(MAKE) || true; \
+		$(MAKE) || true; \
 	done
 
 # Usage: make commit-all m="Commit message"
