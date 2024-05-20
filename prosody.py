@@ -7,8 +7,9 @@ def make_db():
 	db = common.db("texts")
 	db.execute("delete from prosody")
 	for row in index:
-		db.execute("""insert into prosody(name, pattern, entry_id)
-			values(:name, :pattern, :entry_id)""", row)
+		db.execute("""
+			insert into prosody(name, pattern, description, entry_id)
+			values(:name, :pattern, :description, :entry_id)""", row)
 
 # TODO use Symbola for fonts symbol; no, is proprietary, find sth else
 pattern_tbl = str.maketrans({
@@ -196,25 +197,28 @@ def make_name_index(lists):
 		for item in list["items"]:
 			item_id += 1
 			item["id"] = item_id
+			pattern = description = None
 			if item["prosody"]:
 				pattern = item["prosody"]
 			elif item["xml"]:
 				pattern = f'<span class="xml">{html.escape(item["xml"])}</span>'
 			elif item["gana"]:
 				pattern = html.escape(item["gana"])
-			else:
-				pattern = None
+			if not pattern and item["notes"]:
+				description = html.escape(item["notes"][0]["text"])
 			if item["class"]:
 				index.append({
 					"name": item["class"][0],
 					"entry_id": item_id,
 					"pattern": pattern,
+					"description": description,
 				})
 			for name in item["names"]:
 				index.append({
 					"name": name[0],
 					"entry_id": item_id,
 					"pattern": pattern,
+					"description": description,
 				})
 	return index
 

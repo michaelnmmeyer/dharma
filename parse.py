@@ -101,7 +101,8 @@ class Parser:
 		if entries is None:
 			db = common.db("texts")
 			entries = db.execute(
-				"select pattern, entry_id from prosody where name = ?",
+				"""select pattern, description, entry_id
+				from prosody where name = ?""",
 				(name,)).fetchall()
 			self.document.prosody_entries[name] = entries
 		return entries
@@ -309,7 +310,7 @@ def parse_supplied(p, supplied, tip=None, brackets=None):
 		tip = base_tip
 	if not brackets:
 		brackets = base_brackets
-	assert brackets
+	assert len(brackets) == 2
 	if supplied["cert"] == "low":
 		tip += " (low certainty)"
 	evidence = supplied["evidence"]
@@ -1009,14 +1010,14 @@ def parse_lg(p, lg):
 		name = html.escape(common.sentence_case(met))
 		entries = p.get_prosody_entries(met)
 		if len(entries) == 1:
-			pattern, entry_id = entries[0]
-			if pattern:
-				met = f'<span data-tip="{html.escape(pattern)}">{name}</span>'
+			pattern, description, entry_id = entries[0]
+			value = pattern or description or "No metre description available"
+			met = f'<span data-tip="{html.escape(value)}">{name}</span>'
 			met = f'<a href="/prosody#prosody-{entry_id}">{met}</a>'
 		elif len(entries) > 1:
-			patterns = " or ".join(html.escape(pattern) for pattern, _ in entries if pattern)
-			if patterns:
-				met = f'<span data-tip="{patterns}">{met}</span>'
+		 	patterns = " or ".join(html.escape(pattern or "undefined pattern") for pattern, _, _ in entries)
+		 	if patterns:
+		 		met = f'<span data-tip="{patterns}">{met}</span>'
 	if n or met:
 		p.add_log("<head", level=6)
 		if n and met:
@@ -1063,7 +1064,7 @@ def parse_l(p, l):
 			name = html.escape(met)
 			entries = p.get_prosody_entries(met)
 			if entries:
-				met = f'{name} ({" or ".join(p for p, _ in entries if p)})'
+				met = f'{name} ({" or ".join(p or "undefined pattern" for p, _, _ in entries)})'
 			else:
 				met = name
 		tip = f'Meter: {met}'
@@ -1084,12 +1085,6 @@ def parse_l(p, l):
 		p.add_html("-")
 		p.end_span()
 	p.add_log(">line", n=n, enjamb=enjamb)
-
-	if prosody.is_pattern(met):
-		met = prosody.render_pattern(met)
-	else:
-		name = html.escape(common.sentence_case(met))
-		entries = p.get_prosody_entries(met)
 
 def is_description_list(nodes):
 	if len(nodes) % 2: # XXX watch out for fucked text

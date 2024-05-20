@@ -353,6 +353,8 @@ create table if not exists prosody(
 	name text not null check(typeof(name) = 'text' and length(name) > 0),
 	pattern text check(pattern is null
 		or typeof(pattern) = 'text' and length(pattern) > 0),
+	description text check(description is null
+		or typeof(description) = 'text' and length(description) > 0),
 	entry_id integer not null check(typeof(entry_id) = 'integer')
 );
 
