@@ -276,12 +276,17 @@ class Writer:
 		self.date(rec, end_field=False)
 
 	def date(self, rec, end_field=True, space=True):
+		buf = ""
+		orig_date = rec.get("_original_date")
+		if orig_date:
+			buf += f"[{orig_date}] "
 		date = rec["date"]
 		if not date:
 			date = "N.d."
+		buf += date
 		if space:
 			self.space()
-		self.add(date)
+		self.add(buf)
 		if end_field:
 			self.period()
 
@@ -1171,13 +1176,16 @@ def fix_rec(rec):
 		if len(chunks) != 2:
 			continue
 		key, value = chunks
-		if key.lower() == "shorthand":
+		key = key.lower().replace(" ", "")
+		if key == "shorthand":
 			rec["_shorthand"] = value
+		elif key == "originaldate":
+			rec["_original_date"] = value
 	rec.setdefault("_shorthand", "")
 	for key, value in rec.copy().items():
 		# TODO should only allow html in specific fields (title?)
 		# because gets messy
-		if key in ("key", "filename", "itemType", "pages", "url", "DOI", "callNumber", "extra", "_shorthand", "date"): # XXX figure out other "id" fields
+		if key in ("key", "filename", "itemType", "pages", "url", "DOI", "callNumber", "extra", "_shorthand", "date", "_original_date"): # XXX figure out other "id" fields
 			continue
 		if isinstance(value, str):
 			rec[key] = fix_value(value)
