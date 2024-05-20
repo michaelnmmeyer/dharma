@@ -905,7 +905,7 @@ def parse_g(p, node):
 def parse_unclear(p, node):
 	tip = "Unclear text"
 	if node["cert"] == "low":
-		tip = "Very unclear text"
+		tip = "Tentative reading"
 	reason = node["reason"]
 	if reason:
 		if reason == "eccentric_ductus":
