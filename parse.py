@@ -344,7 +344,7 @@ add_place_tbl = {
 def parse_add(p, node, dele=None):
 	place = node["place"]
 	tip = add_place_tbl.get(place, add_place_tbl["unspecified"])
-	tip = f"Addition {tip}"
+	tip = f"Scribal addition {tip}"
 	if dele:
 		tip += f' (overwritten text: <span class="del">⟦{html.escape(dele)}⟧</span>)'
 	p.start_span(klass="add", tip=tip)
@@ -365,9 +365,9 @@ del_rend_tbl = {
 def parse_del(p, node, add=None):
 	tip = del_rend_tbl.get(node["rend"], "")
 	if tip:
-		tip = f"Deletion: {tip}"
+		tip = f"Scribal deletion: {tip}"
 	else:
-		tip = "Deletion"
+		tip = "Scribal deletion"
 	if add:
 		tip += f' (replacement text: <span class="add">⟨⟨{html.escape(add)}⟩⟩</add>)'
 	p.start_span(klass="del", tip=tip)
@@ -922,7 +922,7 @@ def parse_unclear(p, node):
 # EGD "Editorial deletion (suppression)"
 @handler("surplus")
 def parse_surplus(p, node):
-	p.start_span(klass="surplus", tip="Superfluous text added erroneously")
+	p.start_span(klass="surplus", tip="Superfluous text erroneously added by the scribe")
 	p.add_html("{")
 	p.dispatch_children(node)
 	p.add_html("}")
