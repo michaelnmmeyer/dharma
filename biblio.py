@@ -1292,7 +1292,7 @@ class Entry:
 		# which would be too slow.
 		recs = common.db("texts").execute("""
 			select json ->> '$.data' from biblio_data
-			where short_title = ? and not json ->> '$.data.deleted'""",
+			where short_title = ? and json ->> '$.data.deleted' is null""",
 			(self.short_title,)).fetchall()
 		self.records_nr = len(recs)
 		if self.records_nr == 1:
