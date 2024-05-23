@@ -1281,9 +1281,18 @@ class Entry:
 	def data(self):
 		if self.records_nr >= 0:
 			return self._data
+		# Zotero adds a 'deleted: 1' flag to entries marked as duplicates.
+		# The entry is not deleted until some trashbin is emptied.
+		# See https://github.com/erc-dharma/project-documentation/issues/311
+		# for details. (I believe the 'deleted' flag is under '$.data', but
+		# not sure I remember correctly, so the following should be
+		# checked.) We ignore entries marked as deleted when looking
+		# them up by key, but not in the global bibliography display,
+		# because this would force a full scan of the biblio table,
+		# which would be too slow.
 		recs = common.db("texts").execute("""
-			select json ->> '$.data'
-			from biblio_data where short_title = ?""",
+			select json ->> '$.data' from biblio_data
+			where short_title = ? and not json ->> '$.data.deleted'""",
 			(self.short_title,)).fetchall()
 		self.records_nr = len(recs)
 		if self.records_nr == 1:
