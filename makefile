@@ -74,6 +74,7 @@ status:
 update-repos:
 	@for d in repos/*; do \
 		echo "% $$(basename $$d)"; \
+		git -C $$d reset -q --hard HEAD; \
 		git -C $$d pull -q; \
 	done
 

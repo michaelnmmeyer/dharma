@@ -269,7 +269,7 @@ def parse_num(p, num):
 # back to a generic one.
 @handler("supplied[@reason='subaudible']")
 def parse_supplied_subaudible(p, supplied):
-	if supplied.lang.is_source:
+	if supplied.assigned_lang.is_source:
 		brackets = None
 		text = supplied.text()
 		if text in "'’":

@@ -127,15 +127,16 @@ def assign_language(ctx, node, parent_lang, alt_lang, f):
 		case "foreign":
 			lang = alloc_lang(ctx, node["lang"].split("-")[0], Source)
 		case "g":
-			node.lang = alloc_lang(ctx, node["lang"].split("-")[0], parent_lang)
+			node.lang = node.assigned_lang = alloc_lang(ctx, node["lang"].split("-")[0], parent_lang)
 			return
 		case _:
 			lang = alloc_lang(ctx, node["lang"].split("-")[0], parent_lang)
+	node.assigned_lang = lang
 	langs = set()
 	for child in node:
 		match child:
 			case tree.String() if not child.isspace():
-				child.lang = lang
+				child.lang = child.assigned_lang = lang
 			case tree.Tag():
 				f(ctx, child, lang, alt_lang, f)
 			case _:
