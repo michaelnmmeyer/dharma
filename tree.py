@@ -809,9 +809,14 @@ class Tag(Branch):
 
 	def text(self, **kwargs):
 		buf = []
+		config = kwargs.copy()
+		config["space"] = "preserve"
 		for node in self:
-			buf.append(node.text(**kwargs))
-		return "".join(buf)
+			buf.append(node.text(**config))
+		data = "".join(buf)
+		if kwargs.get("space", "default") == "default":
+			data = re.sub(r"\s+", " ", data.strip())
+		return data
 
 class String(Node, collections.UserString):
 	'''Represents a text node.
@@ -859,10 +864,8 @@ class String(Node, collections.UserString):
 
 	def text(self, **kwargs):
 		data = str(self.data) # casting is necessary for String
-		space = kwargs.get("space")
-		if not space:
-			space = "default"
-		elif space == "preserve":
+		space = kwargs.get("space", "default")
+		if space == "preserve":
 			return data
 		data = data.strip()
 		data = re.sub(r"\s+", " ", data)

@@ -1497,12 +1497,17 @@ def export_plain():
 			f.write(ret)
 
 if __name__ == "__main__":
-	export_plain()
-	exit(0)
-	path = sys.argv[1]
-	data = open(path, "rb").read()
-	try:
-		doc = process_file(path, data) # XXX needs change
-		print(doc.apparatus)
-	except BrokenPipeError:
-		pass
+	#export_plain()
+	#exit(0)
+
+	from dharma import texts
+	@common.transaction("texts")
+	def main():
+		path = os.path.abspath(sys.argv[1])
+		try:
+			f = texts.File("/", path)
+			doc = process_file(f)
+			print(doc.bibliography)
+		except BrokenPipeError:
+			pass
+	main()
