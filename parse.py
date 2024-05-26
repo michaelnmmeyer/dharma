@@ -1214,7 +1214,7 @@ def parse_cit(p, cit):
 	children = cit.children()
 	if len(children) != 2 or children[0].name not in ("q", "quote") \
 		or children[1].name != "bibl":
-		p.dispatch_children(p)
+		p.dispatch_children(cit)
 		return
 	q, bibl = children
 	if q["rend"] == "block":
