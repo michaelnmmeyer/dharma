@@ -100,6 +100,19 @@ if possible.
 class Node()
 ```
 
+<a id="dharma.tree.Node.lang"></a>
+
+#### lang
+
+Actual language, inferred by bubbling up the language of children
+elements.
+
+<a id="dharma.tree.Node.assigned_lang"></a>
+
+#### assigned\_lang
+
+Language assigned by the user.
+
 <a id="dharma.tree.Node.tree"></a>
 
 #### tree
