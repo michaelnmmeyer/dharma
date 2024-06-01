@@ -209,9 +209,7 @@ def parse_rdg(p, rdg):
 @handler("app")
 def parse_app(p, app):
 	loc = app["loc"] or "?"
-	p.start_span(klass="lb", tip="Line start")
-	p.add_text("(%s)" % loc)
-	p.end_span()
+	p.add_html(document.format_lb(n=loc))
 	p.add_text(" ")
 	lem = app.first("lem")
 	if lem:
@@ -1507,7 +1505,7 @@ if __name__ == "__main__":
 		try:
 			f = texts.File("/", path)
 			doc = process_file(f)
-			print(doc.bibliography)
+			print(doc.apparatus)
 		except BrokenPipeError:
 			pass
 	main()
