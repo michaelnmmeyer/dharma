@@ -488,6 +488,16 @@ def display_biblio_page(page):
 def display_biblio():
 	return flask.redirect("/bibliography/page/1")
 
+@app.get("/bibliography-errors")
+@common.transaction("texts")
+def display_biblio_errors():
+	db = common.db("texts")
+	entries = db.execute("""
+		select short_title from biblio_data
+		where short_title is not null
+		group by short_title having count(*) > 1""").fetchall()
+	return flask.render_template("biblio_errors.tpl", entries=entries)
+
 def render_markdown(rel_path):
 	f = texts.File("project-documentation", rel_path)
 	html = common.pandoc(f.text)

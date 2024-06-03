@@ -48,7 +48,11 @@
       <ul class="hidden">
          <li>
             <a href="{{url_for('show_texts_errors')}}">
-            <i class="fa-solid fa-bug"></i> Errors</a>
+            <i class="fa-solid fa-bug"></i> Texts Errors</a>
+         </li>
+         <li>
+            <a href="{{url_for('display_biblio_errors')}}">
+            <i class="fa-solid fa-bug"></i> Bibliography Errors</a>
          </li>
          <li>
             <a href="{{url_for('display_list')}}">Display List</a>
