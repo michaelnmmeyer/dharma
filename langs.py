@@ -40,7 +40,7 @@ scripts = (
 	Script(2, "tamil", "Tamil", 38776),
 	Script(2, "tamil", "Tamil", 57475), # was "Tamil with Grantha", now deleted
 	Script(2, "telugu", "Telugu", 81340),
-	Script(2, "vaṭṭeḻuṭṭu", "Vaṭṭeḻuṭṭu", 70420),
+	Script(2, "vaṭṭeḻuttu", "Vaṭṭeḻuttu", 70420),
 	Script(2, "chinese", "Chinese", 83221),
 	Script(0, "kharoṣṭhī", "Kharoṣṭhī", 83219),
 	Script(0, "undetermined", "Undetermined", 0),
