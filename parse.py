@@ -1326,17 +1326,23 @@ def get_script(node):
 @handler("div[@type='textpart']")
 def parse_div(p, div):
 	n = milestone_n(p, div)
-	# rend style subtype
-	# <head> is supposed to only occur in this context in inscriptions, but
-	# in fact we don't really care, might allow it somewhere else
 	p.start_div(n=n)
+	p.add_log("<head")
 	if (head := div.first("stuck-child::head")):
-		p.add_log("<head")
-		p.add_text(n)
-		p.add_text(". ")
 		p.dispatch_children(head)
-		p.add_log(">head")
 		p.visited.add(head)
+		if (note := head.first("stuck-following-sibling::note")):
+			p.dispatch(note)
+			p.visited.add(note)
+	else:
+		subtype = div["subtype"] or "part"
+		p.add_text(common.sentence_case(subtype))
+		p.add_text(" ")
+		p.add_text(n)
+		if (note := div.first("stuck-child::note")):
+			p.dispatch(note)
+			p.visited.add(note)
+	p.add_log(">head")
 	p.dispatch_children(div)
 	p.end_div()
 
@@ -1407,8 +1413,6 @@ def process_translation(p, div):
 			p.visited.add(note)
 	title = p.pop().render_logical()
 	trans = gather_sections(p, div)
-	if not trans:
-		return
 	trans.title = title
 	return trans
 
@@ -1436,7 +1440,8 @@ def parse_div_edition(p, div):
 @handler("div[@type='translation']")
 def parse_div_translation(p, div):
 	p.clear_divs()
-	if (trans := process_translation(p, div)):
+	trans = process_translation(p, div)
+	if trans is not None:
 		p.document.translation.append(trans)
 
 @handler("body")

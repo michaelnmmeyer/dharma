@@ -9,7 +9,5 @@ for f in files:
 		t = tree.parse(f)
 	except tree.Error:
 		continue
-	for node in t.find("//head"):
-		for child in node.find("*"):
-			print(child.name)
-
+	for node in t.find("//div"):
+		print(node["source"])
