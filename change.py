@@ -181,9 +181,14 @@ def update_project():
 	# XXX we also need to store schemas in the db, but for this we need to
 	# derive them at runtime
 
-# Request from Arlo.
+# Request from Arlo. This should eventually removed in favor of an export to
+# electronic-texts.
 def backup_to_jawakuno():
 	common.command("bash", "-x", common.path_of("backup_to_jawakuno.sh"),
+		capture_output=False)
+
+def backup_biblio():
+	common.command("bash", "-x", common.path_of("backup_biblio.sh"),
 		capture_output=False)
 
 @common.transaction("texts")
@@ -248,11 +253,13 @@ def read_changes(fd):
 			logging.info("updating biblio...")
 			biblio.update()
 			logging.info("updated biblio")
+			backup_biblio()
 			logging.info("updated everything")
 		elif name == "bib":
 			logging.info("updating biblio...")
 			biblio.update()
 			logging.info("updated biblio")
+			backup_biblio()
 		elif name in repos:
 			logging.info("updating single repo %r..." % name)
 			handle_changes(name)
