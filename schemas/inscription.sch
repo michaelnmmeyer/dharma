@@ -1182,17 +1182,6 @@ attributes @target and @cRef may be supplied on <xsl:text/>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
-      <xsl:if test="not(ancestor::tei:div[@type='translation'] or ancestor::tei:div[@type='commentary'] or ancestor::tei:div[@type='apparatus'] or ancestor::tei:teiHeader or ancestor::tei:div[@type='bibliography'])">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="not(ancestor::tei:div[@type='translation'] or ancestor::tei:div[@type='commentary'] or ancestor::tei:div[@type='apparatus'] or ancestor::tei:teiHeader or ancestor::tei:div[@type='bibliography'])">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>Note is prohibited in
-                                    div[@type='edition']</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <!--REPORT -->
       <xsl:if test="ancestor::tei:div[@type='commentary'] and not(parent::tei:p or parent::tei:item)">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="ancestor::tei:div[@type='commentary'] and not(parent::tei:p or parent::tei:item)">
