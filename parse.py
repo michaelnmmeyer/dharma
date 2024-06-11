@@ -996,9 +996,12 @@ def to_roman(x):
 @handler("lg")
 @handler("p[@rend='stanza']")
 def parse_lg(p, lg):
-	n = get_n(lg, default="")
-	if n.isdigit():
-		n = to_roman(int(n))
+	parts = get_n(lg, default="").split("\N{en dash}")
+	for i, part in enumerate(parts):
+		if part.isdigit():
+			part = to_roman(int(part))
+			parts[i] = part
+	n = "\N{en dash}".join(parts)
 	met = lg["met"]
 	if not met:
 		pass
