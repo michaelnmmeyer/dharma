@@ -2410,12 +2410,13 @@
                     </attList>
                 </elementSpec>
                 <elementSpec ident="head" module="core" mode="change">
-                    <constraintSpec scheme="schematron" ident="head-childs">
-                        <constraint><sch:rule context="tei:head/child::tei:*"><sch:assert
-                                    test="local-name()= ('foreign')">Foreign is the only element
-                                    allowed as child of the element
-                            head</sch:assert></sch:rule></constraint>
-                    </constraintSpec>
+                    <content>
+                        <alternate minOccurs="0" maxOccurs="unbounded">
+                            <elementRef key="foreign"/>
+                            <elementRef key="note"/>
+                            <textNode/>
+                        </alternate>
+                    </content>
                     <attList>
                         <attDef ident="ana" mode="delete"/>
                         <attDef ident="cert" mode="delete"/>
