@@ -1421,6 +1421,10 @@ class Generator:
 				self.append("for node in following_siblings(node):")
 			case "preceding-sibling":
 				self.append("for node in preceding_siblings(node):")
+			case "stuck-following-sibling":
+				self.append("for node in stuck_following_siblings(node):")
+			case "stuck-preceding-sibling":
+				self.append("for node in stuck_preceding_siblings(node):")
 			case _:
 				assert 0, repr(step.axis)
 		if step.name_test:

@@ -9,6 +9,7 @@ for f in files:
 		t = tree.parse(f)
 	except tree.Error:
 		continue
-	for node in t.find(r"//num[not regex('\\d+')]"):
-		print(node.text())
+	for node in t.find("//head"):
+		for child in node.find("*"):
+			print(child.name)
 

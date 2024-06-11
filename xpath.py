@@ -20,6 +20,7 @@ def main():
 		for result in f(t):
 			print(f"{tree.term_color('#9d40b4')}>>> {file}{tree.term_color()}")
 			print(result.xml())
+			sys.stdout.flush()
 
 if __name__ == "__main__":
 	try:

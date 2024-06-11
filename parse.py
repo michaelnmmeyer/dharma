@@ -1330,13 +1330,13 @@ def parse_div(p, div):
 	# <head> is supposed to only occur in this context in inscriptions, but
 	# in fact we don't really care, might allow it somewhere else
 	p.start_div(n=n)
-	if (child := div.stuck_child()) and child.matches("head"):
+	if (head := div.first("stuck-child::head")):
 		p.add_log("<head")
 		p.add_text(n)
 		p.add_text(". ")
-		p.dispatch_children(child)
+		p.dispatch_children(head)
 		p.add_log(">head")
-		p.visited.add(child)
+		p.visited.add(head)
 	p.dispatch_children(div)
 	p.end_div()
 
@@ -1364,8 +1364,7 @@ def fetch_resp(resp):
 	resp = people.plain(resp.removeprefix("part:")) or resp
 	return html.escape(resp)
 
-def process_translation(p, div):
-	p.push("title")
+def make_translation_title(p, div):
 	p.add_text("Translation")
 	lang = div["lang"].split("-")[0]
 	if lang:
@@ -1386,15 +1385,26 @@ def process_translation(p, div):
 		ref = source.removeprefix("bib:")
 		p.add_text(" by ")
 		p.add_html(str(p.get_bib_ref(ref)))
+
+def process_translation(p, div):
 	# If we have a note as first child, we expect the note to bear
 	# @type='credit', but even if not so we consider the note as
 	# belonging to the title.
 	# TODO thus do the same for every section: if the section starts with
 	# a note not preceded by non-blank text, treat the note as part of
 	# the section's title.
-	if (child := div.stuck_child()) and child.matches("note"):
-		p.dispatch(child)
-		p.visited.add(child)
+	p.push("title")
+	if (head := div.first("stuck-child::head")):
+		p.dispatch_children(head)
+		p.visited.add(head)
+		if (note := head.first("stuck-following-sibling::note")):
+			p.dispatch(note)
+			p.visited.add(note)
+	else:
+		make_translation_title(p, div)
+		if (note := div.first("stuck-child::note")):
+			p.dispatch(note)
+			p.visited.add(note)
 	title = p.pop().render_logical()
 	trans = gather_sections(p, div)
 	if not trans:
