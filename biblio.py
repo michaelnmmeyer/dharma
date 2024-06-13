@@ -1307,13 +1307,16 @@ class Entry:
 		if self._page is not None:
 			return self._page
 		db = common.db("texts")
-		(index,) = db.execute("""
+		index = db.execute("""
 			select pos - 1
 			from (select row_number()
 				over(order by sort_key) as pos,
 				key from biblio_data where sort_key is not null)
 			where key = ?""", (self.key,)).fetchone()
-		self._page = (index + PER_PAGE - 1) // PER_PAGE
+		if not index:
+			self._page = 0
+		else:
+			self._page = (index[0] + PER_PAGE - 1) // PER_PAGE
 		return self._page
 
 	def reference(self, rend="default", loc=[], external_link=True, siglum=None):
