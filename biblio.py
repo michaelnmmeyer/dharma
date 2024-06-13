@@ -1314,7 +1314,7 @@ class Entry:
 				key from biblio_data where sort_key is not null)
 			where key = ?""", (self.key,)).fetchone()
 		if not index:
-			self._page = 0
+			self._page = -1
 		else:
 			self._page = (index[0] + PER_PAGE - 1) // PER_PAGE
 		return self._page
@@ -1369,7 +1369,12 @@ class Reference:
 		w.xml.attrs.clear()
 		tag = tree.Tag("a", {"class": "bib-ref"})
 		if self.external_link:
-			tag["href"] = f"/bibliography/page/{self.entry.page}#bib-key-{self.entry.key}"
+			f = renderers.get(rec["itemType"])
+			if not f:
+				tag["class"] += " bib-ref-invalid"
+				tag["data-tip"] = f"Entry type {rec['itemType']!r} not supported"
+			else:
+				tag["href"] = f"/bibliography/page/{self.entry.page}#bib-key-{self.entry.key}"
 		else:
 			tag["href"] = f"#bib-key-{self.entry.key}"
 		w.xml.append(tag)
