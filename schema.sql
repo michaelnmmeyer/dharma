@@ -21,6 +21,8 @@ pragma foreign_keys = on;
 -- secure_delete is enabled per default on some platforms. We do not manage
 -- sensible data, so the overhead is uneeded.
 pragma secure_delete = off;
+-- We can fit the whole db into primary memory.
+pragma mmap_size = 4 * 1024 * 1024 * 1024;
 -- The following is necessary to detect modifications to the collation
 -- implementation, in particular.
 -- For how to handle modifications to a collation implementation, see:
