@@ -49,3 +49,24 @@ Finally, we have a program for accessing zotero.org. The code is in
 to access the bibliography. They make a lot of calls to the Zotero API, and
 Zotero servers are often overloaded, thus we use a proxy that repeats API calls
 on error, to prevent our builds from failing all the time.
+
+## Configuration
+
+The `config` directory holds configuration files that are deployed on our
+server. There is a config file for `nginx`, as well as `systemd` unit files.
+`systemd` tasks are scheduled to run at startup, so nothing special needs to
+be done after rebooting the server. To install all config files, use:
+
+	make install
+
+Then, services can be started (or restarted) and stopped with:
+
+	make start-all
+	make stop-all
+
+After code modifications, it is typically only necessary to start the
+`dharma.change` and `dharma.server` tasks, so there are also two `make` targets
+for that:
+
+	make start
+	make stop
