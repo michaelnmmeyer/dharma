@@ -484,16 +484,19 @@ div.parallel-verse > p {
 	display: flex;
 	align-items: baseline;
 	justify-content: space-between;
-	max-width: 29em;
+	max-width: 31em;
 }
 .verse-line > span {
 	display: none;
 }
-.verse-numbered .verse-line:nth-child(1) > span {
-	display: inline;
-}
+.verse-numbered .verse-line:nth-child(1) > span,
 .verse-numbered .verse-line:nth-child(5n) > span {
 	display: inline;
+}
+.verse-numbered .verse-line:nth-child(1):hover,
+.verse-numbered .verse-line:nth-child(5n):hover {
+	background: lavender;
+	border-radius: $border-radius;
 }
 
 
