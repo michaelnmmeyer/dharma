@@ -380,6 +380,7 @@ create table if not exists biblio_data(
 	json json not null check(typeof(json) = 'text' and json_valid(json)),
 	-- We don't need to store the short_title, both because it is fast to
 	-- extract and because we have an index on it which stores it anyway.
+	data json as (json -> '$.data'),
 	short_title text as (case json ->> '$.data.shortTitle'
 		when '' then null
 		else json ->> '$.data.shortTitle'
