@@ -313,6 +313,17 @@ class Writer:
 			self.add("Untitled")
 		self.period()
 
+	def blog_title(self, title):
+		if not title:
+			return
+		self.space()
+		tag = tree.Tag("i")
+		tag.append(title)
+		self.add(tag)
+		self.space()
+		self.add("(blog)")
+		self.period()
+
 	def volume_and_series(self, rec):
 		vol = rec.get("volume")
 		if vol:
@@ -944,6 +955,53 @@ def render_webpage(rec, w, params):
 	w.idents(rec)
 	w.entry_loc(params.get("loc"))
 
+# blog posts
+"""
+  {
+    "abstractNote": "",
+    "accessDate": "2020-04-01",
+    "blogTitle": "Sarasvatam",
+    "collections": [
+      "NYLTL87Y"
+    ],
+    "creators": [
+      {
+        "creatorType": "author",
+        "name": "Sankara Narayanan"
+      }
+    ],
+    "date": "2016",
+    "dateAdded": "2020-04-01T16:23:51Z",
+    "dateModified": "2024-05-12T11:55:31Z",
+    "extra": "",
+    "itemType": "blogPost",
+    "key": "Q35VRHG9",
+    "language": "",
+    "relations": {},
+    "rights": "",
+    "shortTitle": "SankaraNarayanan2016_01",
+    "tags": [
+      {
+        "tag": "SankaraNarayanan2016_01"
+      }
+    ],
+    "title": "A Pallava inscriptional poem in Sanskrit",
+    "url": "http://sarasvatam.in/en/2016/01/26/va%e1%b9%ad%e1%b9%ade%e1%b8%b9uttu-inscription-of-paramesvara-varma-i-from-kar%e1%b9%87a%e1%b9%adaka/",
+    "version": 216856,
+    "websiteType": ""
+  }
+"""
+def render_blog_post(rec, w, params):
+	w.entry_front(rec)
+	w.quoted(rec["title"])
+	if rec["_shorthand"]:
+		w.by_authors(rec)
+	if rec["_shorthand"] and rec["date"]:
+		w.date(rec)
+	w.blog_title(rec["blogTitle"])
+	w.idents(rec)
+	w.entry_loc(params.get("loc"))
+
 """"
   {
   "data": {
@@ -1070,6 +1128,7 @@ renderers = {
 	"webpage": render_webpage,
 	"newspaperArticle": render_newspaper_article,
 	"dataset": render_dataset,
+	"blogPost": render_blog_post,
 }
 
 # See https://www.zotero.org/support/kb/rich_text_bibliography
