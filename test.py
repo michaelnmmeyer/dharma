@@ -9,5 +9,5 @@ for f in files:
 		t = tree.parse(f)
 	except tree.Error:
 		continue
-	for node in t.find("//div"):
-		print(node["source"])
+	for node in t.find("//*[@rendition]"):
+		print(node.name)

@@ -113,6 +113,18 @@ elements.
 
 Language assigned by the user.
 
+<a id="dharma.tree.Node.script"></a>
+
+#### script
+
+Inferred script
+
+<a id="dharma.tree.Node.assigned_script"></a>
+
+#### assigned\_script
+
+Script assigned by the user.
+
 <a id="dharma.tree.Node.tree"></a>
 
 #### tree
