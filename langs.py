@@ -17,30 +17,30 @@ null_script = Script(0, "undetermined", "Undetermined", 0)
 
 scripts = (
 	Script(0, "arabic", "Arabic", 57471),
-	Script(1, "jawi", "Jawi", 70417),
+		Script(1, "jawi", "Jawi", 70417),
 	Script(0, "brāhmī", "Brāhmī and derivatives", 83217),
-	Script(1, "brāhmī_northern", "Northern class Brāhmī", 83223),
-	Script(2, "bhaikṣukī", "Bhaikṣukī", 84158),
-	Script(2, "gauḍī", "Gauḍī", 83229),
-	Script(2, "nāgarī", "Nāgarī", 38771),
-	Script(2, "siddhamātr̥kā", "Siddhamātr̥kā", 38774),
-	Script(1, "brāhmī_southeast_asian", "Southeast Asian Brāhmī", 83227),
-	Script(2, "balinese", "Balinese", 83239),
-	Script(2, "batak", "Batak", 38767),
-	Script(2, "cam", "Cam", 83233),
-	Script(2, "kawi", "Kawi", 38769),
-	Script(2, "khmer", "Khmer", 83231),
-	Script(2, "mon-burmese", "Mon-Burmese", 83235),
-	Script(2, "javanese_old_west", "Old West Javanese", 83241),
-	Script(2, "pyu", "Pyu", 83237),
-	Script(2, "sundanese", "Sundanese", 57470),
-	Script(1, "brāhmī_southern", "Southern class Brāhmī", 83225),
-	Script(2, "grantha", "Grantha", 38768),
-	Script(2, "kannada", "Kannada", 82857),
-	Script(2, "tamil", "Tamil", 38776),
-	Script(2, "telugu", "Telugu", 81340),
-	Script(2, "vaṭṭeḻuttu", "Vaṭṭeḻuttu", 70420),
-	Script(2, "chinese", "Chinese", 83221),
+		Script(1, "brāhmī_northern", "Northern class Brāhmī", 83223),
+			Script(2, "bhaikṣukī", "Bhaikṣukī", 84158),
+			Script(2, "gauḍī", "Gauḍī", 83229),
+			Script(2, "nāgarī", "Nāgarī", 38771),
+			Script(2, "siddhamātr̥kā", "Siddhamātr̥kā", 38774),
+		Script(1, "brāhmī_southeast_asian", "Southeast Asian Brāhmī", 83227),
+			Script(2, "balinese", "Balinese", 83239),
+			Script(2, "batak", "Batak", 38767),
+			Script(2, "cam", "Cam", 83233),
+			Script(2, "kawi", "Kawi", 38769),
+			Script(2, "khmer", "Khmer", 83231),
+			Script(2, "mon-burmese", "Mon-Burmese", 83235),
+			Script(2, "javanese_old_west", "Old West Javanese", 83241),
+			Script(2, "pyu", "Pyu", 83237),
+			Script(2, "sundanese", "Sundanese", 57470),
+		Script(1, "brāhmī_southern", "Southern class Brāhmī", 83225),
+			Script(2, "grantha", "Grantha", 38768),
+			Script(2, "kannada", "Kannada", 82857),
+			Script(2, "tamil", "Tamil", 38776),
+			Script(2, "telugu", "Telugu", 81340),
+			Script(2, "vaṭṭeḻuttu", "Vaṭṭeḻuttu", 70420),
+			Script(2, "chinese", "Chinese", 83221),
 	Script(0, "kharoṣṭhī", "Kharoṣṭhī", 83219),
 	Script(0, "undetermined", "Undetermined", 0),
 	null_script,
@@ -75,6 +75,27 @@ def alloc_lang(ctx, lang, dflt):
 			ret = tmp
 			ctx[ret.id] = ret
 	return ret
+
+# For assigning languages, we follow the basic inheritance rule: if a tag does
+# not have an @xml:lang, it is assigned the language assigned to its parent. But
+# there are exceptions:
+# * If the tag is "lem" or "rdg" and does not have an @xml:lang, we assign it
+#   the language it would be assigned if it occurred in the edition div, under
+#   the same textparts (if any). We only expect to find "lem" and "rdg" in the
+#   apparatus.
+# * If the tag is foreign and does not have an @xml:lang, we assume it is in
+#   some source language (as per the guide), and assigns it a generic language
+#   code named "source" that represents any source language (per contrast with
+#   languages used in translations).
+#
+# Furthermore, we store two language values per node:
+# * Inherited language. Assigned when traversing the tree top-down.
+# * Inferred language. Assigned by bubbling up language values bottom-up. This
+#   value is intended to be used for text processing (tokenization, etc.).
+# If e.g. the original XML is <a lang="eng"><b lang="fra"><c>foo</c></b></a>
+# the inherited language of c is "fra", and the inferred language of "a" is
+# "fra" (even though it is assigned the language "eng"), because it only
+# contains French text.
 
 def fetch_alt_langs(ctx, node, default_lang):
 	path = ["TEI", "text", "body", "div[@type='edition']"]
@@ -352,5 +373,60 @@ def print_scripts():
 		print(f'<valItem ident="maturity:{script.klass:0{5}}"><desc>{script.name}</desc></valItem>')
 		print(f'<valItem ident="maturity:{script.ident}"><desc>{script.name}</desc></valItem>')
 
+
+scripts_list = [
+	[("arabic", "Arabic", 57471),
+		("jawi", "Jawi", 70417)
+	],
+	[("brāhmī", "Brāhmī", 83217, "Brāhmī"),
+		[("brāhmī_northern", "Northern Brāhmī", 83223, "Brāhmī, Northern"),
+			("bhaikṣukī", "Bhaikṣukī", 84158),
+			("gauḍī", "Gauḍī", 83229),
+			("nāgarī", "Nāgarī", 38771),
+			("siddhamātr̥kā", "Siddhamātr̥kā", 38774)],
+		[("brāhmī_southeast_asian", "Southeast Asian Brāhmī", 83227, "Brāhmī, Southeast Asian"),
+			("balinese", "Balinese", 83239),
+			("batak", "Batak", 38767),
+			("cam", "Cam", 83233),
+			("kawi", "Kawi", 38769),
+			("khmer", "Khmer", 83231),
+			("mon-burmese", "Mon-Burmese", 83235),
+			("javanese_old_west", "Old West Javanese", 83241, "Javanese, Old West"),
+			("pyu", "Pyu", 83237),
+			("sundanese", "Sundanese", 57470)],
+		[("brāhmī_southern", "Southern Brāhmī", 83225, "Brāhmī, Southern"),
+			("grantha", "Grantha", 38768),
+			("kannada", "Kannada", 82857),
+			("tamil", "Tamil", 38776),
+			("telugu", "Telugu", 81340),
+			("vaṭṭeḻuttu", "Vaṭṭeḻuttu", 70420),
+			("chinese", "Chinese", 83221)],
+	],
+	("kharoṣṭhī", "Kharoṣṭhī", 83219),
+	("undetermined", "Undetermined", 0),
+]
+@common.transaction("texts")
+def insert_scripts():
+	db = common.db("texts")
+	db.execute("delete from scripts_list")
+	def inner(scripts, parent):
+		for items in scripts:
+			if isinstance(items, list):
+				script = items[0]
+			else:
+				script = items
+			if len(script) == 3:
+				ident, name, opentheso_id = script
+				inverted_name = name
+			elif len(script) == 4:
+				ident, name, opentheso_id, inverted_name = script
+			print(ident, parent, name, opentheso_id, sep="\t")
+			db.execute("""
+			insert into scripts_list(id, parent, name, inverted_name, opentheso_id)
+			values(?, ?, ?, ?, ?)""", (ident, parent, name, inverted_name, opentheso_id))
+			if isinstance(items, list):
+				inner(items[1:], ident)
+	inner(scripts_list, None)
+
 if __name__ == "__main__":
-	main()
+	insert_scripts()

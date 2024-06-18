@@ -233,6 +233,25 @@ create virtual table if not exists documents_index using fts5(
 	tokenize = "trigram"
 );
 
+create table if not exists scripts_list(
+	-- DHARMA-specific id, e.g. "kharoṣṭhī" or "cam".
+	id text primary key check(typeof(id) = 'text'),
+	-- E.g. Brāhmī
+	name text check(typeof(name) = 'text' and length(name) > 0),
+	-- Name for sorting, e.g. "Brāhmī, Northern" for "Northern Brāhmī".
+	inverted_name text check(typeof(inverted_name) = 'text'
+		and length(inverted_name) > 0),
+	-- Parent script if there is one, null otherwise. References this table.
+	parent text check(parent is null or typeof(parent) = 'text'),
+	-- Identifier on https://opentheso.huma-num.fr/opentheso/?idt=th347
+	-- For some reason, our ontologies are on opentheso. We do not actually
+	-- use any of its functionalities. In particular, there are no automatic
+	-- updates of our database if someone modifies the opentheso data. The
+	-- data is manually copied.
+	opentheso_id integer unique check(typeof(opentheso_id) = 'integer'),
+	foreign key(parent) references scripts_list(id)
+);
+
 -- Language codes and names, extracted from the data table distributed
 -- with the relevant standards and from the dharma-specific language table
 -- stored in project-documentation. We include everything, not just languages

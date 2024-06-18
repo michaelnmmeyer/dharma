@@ -176,7 +176,7 @@ def jaccard(s1, s2):
 		return 0
 
 def read_only_db():
-	if os.path.basename(sys.argv[0]) in ("change.py", "repos.py"):
+	if os.path.basename(sys.argv[0]) in ("change.py", "repos.py", "langs.py"):
 		return False
 	return True
 
