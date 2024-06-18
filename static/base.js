@@ -1,7 +1,13 @@
 const floatingUI = window.FloatingUIDOM
 
+// Remove a node from the tree but keep its descendants in-place.
 function unwrap(node) {
 	node.replaceWith(...node.childNodes)
+}
+
+// Remove a node and its descendants.
+function decompose(node) {
+	node.replaceWith("")
 }
 
 function getCSSVar(name) {
@@ -326,6 +332,9 @@ function TOCEntryToHTML(entry, root) {
 		icon = link.querySelector("i")
 		if (icon)
 			icon.remove()
+		// Remove footnote markers
+		for (let note of link.querySelectorAll("sup > a.nav-link"))
+			decompose(note)
 		// Remove inner links
 		for (let a of link.querySelectorAll("a[href]"))
 			unwrap(a)

@@ -1329,19 +1329,21 @@ def parse_div(p, div):
 	p.start_div(n=n)
 	p.add_log("<head")
 	if (head := div.first("stuck-child::head")):
+		# User-specified heading, use it.
 		p.dispatch_children(head)
 		p.visited.add(head)
-		if (note := head.first("stuck-following-sibling::note")):
-			p.dispatch(note)
-			p.visited.add(note)
+		note = head.first("stuck-following-sibling::note")
 	else:
+		# No user-specified heading, generate one.
 		subtype = div["subtype"] or "part"
 		p.add_text(common.sentence_case(subtype))
 		p.add_text(" ")
 		p.add_text(n)
-		if (note := div.first("stuck-child::note")):
-			p.dispatch(note)
-			p.visited.add(note)
+		note = div.first("stuck-child::note")
+	while note:
+		p.dispatch(note)
+		p.visited.add(note)
+		note = note.first("stuck-following-sibling::note")
 	p.add_log(">head")
 	p.dispatch_children(div)
 	p.end_div()
@@ -1401,16 +1403,18 @@ def process_translation(p, div):
 	# the section's title.
 	p.push("title")
 	if (head := div.first("stuck-child::head")):
+		# User-specified heading, use it.
 		p.dispatch_children(head)
 		p.visited.add(head)
-		if (note := head.first("stuck-following-sibling::note")):
-			p.dispatch(note)
-			p.visited.add(note)
+		note = head.first("stuck-following-sibling::note")
 	else:
+		# No user-specified heading, generate one.
 		make_translation_title(p, div)
-		if (note := div.first("stuck-child::note")):
-			p.dispatch(note)
-			p.visited.add(note)
+		note = div.first("stuck-child::note")
+	while note:
+		p.dispatch(note)
+		p.visited.add(note)
+		note = note.first("stuck-following-sibling::note")
 	title = p.pop().render_logical()
 	trans = gather_sections(p, div)
 	trans.title = title
