@@ -46,13 +46,15 @@ scripts = (
 	null_script,
 )
 
+null_script_maturity = ScriptMaturity("null", "Null", 0)
+
 scripts_maturity = (
 	ScriptMaturity("early", "Early Brāhmī", 83207),
 	ScriptMaturity("late", "Late Brāhmī", 83211),
 	ScriptMaturity("middle", "Middle Brāhmī", 83209),
 	ScriptMaturity("regional", "Regional Brāhmī-derived script", 83213),
 	ScriptMaturity("vernacular", "Vernacular Brāhmī-derived script", 83215),
-	ScriptMaturity("null", "Null", 0),
+	null_script_maturity,
 )
 
 script_from_ident = {
@@ -61,6 +63,13 @@ script_from_ident = {
 }
 def get_script(ident):
 	return script_from_ident.get(ident, null_script)
+
+script_maturity_from_ident = {
+	**{script.ident: script for script in scripts_maturity},
+	**{str(script.klass): script for script in scripts_maturity},
+}
+def get_script_maturity(ident):
+	return script_maturity_from_ident.get(ident, null_script_maturity)
 
 AltLang = collections.namedtuple("AltLang", "lang children")
 

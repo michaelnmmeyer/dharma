@@ -235,7 +235,7 @@ create virtual table if not exists documents_index using fts5(
 
 create table if not exists scripts_list(
 	-- DHARMA-specific id, e.g. "kharoṣṭhī" or "cam".
-	id text primary key check(typeof(id) = 'text'),
+	id text primary key check(typeof(id) = 'text' and length(id) > 0),
 	-- E.g. Brāhmī
 	name text check(typeof(name) = 'text' and length(name) > 0),
 	-- Name for sorting, e.g. "Brāhmī, Northern" for "Northern Brāhmī".
