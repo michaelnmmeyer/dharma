@@ -1465,10 +1465,10 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       </xsl:choose>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="count(distinct-values(.//(tei:pb | tei:milestone[@type='pagelike'])/@n))                                     = count(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)"/>
+         <xsl:when test="count(distinct-values(*/(tei:pb | tei:milestone[@type='pagelike'])/@n))                                     = count(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(distinct-values(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)) = count(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)">
+                                test="count(distinct-values(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)) = count(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)">
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
@@ -1629,6 +1629,36 @@ attributes @target and @cRef may be supplied on <xsl:text/>
                </xsl:attribute>
                <svrl:text>
                                     lb elements do not have unique @n within this division
+                                </svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="count(distinct-values(*/(tei:pb | tei:milestone[@type='pagelike'])/@n))                                     = count(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="count(distinct-values(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)) = count(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text>
+                                    pb and pagelike milestone elements do not have unique @n within this division
+                                </svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="count(distinct-values(tei:lg/@n)) = count(tei:lg/@n)"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="count(distinct-values(tei:lg/@n)) = count(tei:lg/@n)">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text>
+                                    lg elements do not have unique @n within this division
                                 </svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
