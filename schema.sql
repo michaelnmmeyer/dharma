@@ -241,8 +241,6 @@ create table if not exists scripts_list(
 	-- Name for sorting, e.g. "Brāhmī, Northern" for "Northern Brāhmī".
 	inverted_name text check(typeof(inverted_name) = 'text'
 		and length(inverted_name) > 0),
-	-- Parent script if there is one, null otherwise. References this table.
-	parent text check(parent is null or typeof(parent) = 'text'),
 	-- Identifier on https://opentheso.huma-num.fr/opentheso/?idt=th347
 	-- For some reason, our ontologies are on opentheso. We do not actually
 	-- use any of its functionalities. In particular, there are no automatic

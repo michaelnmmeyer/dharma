@@ -1,5 +1,13 @@
 Scripts
 
+check uniqueness of pb and page milestone better
+
+change category names in the main table:
+  arabic -> arabic_other
+  brāhmī -> brāhmī_other
+  brāhmī_northern -> brāhmī_northern_other
+  brāhmī_southeast
+  brāhmī_southern
 
 
 
@@ -14,14 +22,6 @@ Scripts
 
 
 
-
-
-
-// See https://www.sqlite.org/lang_with.html
-with rec(id, level, name) as (
-  select id, 0, name from scripts_list where parent is null
-  union all select scripts_list.id, rec.level+1, scripts_list.name as level from scripts_list join rec where scripts_list.parent = rec.id order by level desc)
-select substr('..........',1,level*3) || name from rec;
 
 gather script infos in langs.py
 what shall we do with script maturity? and with the script hierarchy?
