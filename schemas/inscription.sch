@@ -519,8 +519,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">isoschematron-constraint-dharma-placeName-div-42</xsl:attribute>
-            <xsl:attribute name="name">isoschematron-constraint-dharma-placeName-div-42</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-dharma-app-one-lem-42</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-dharma-app-one-lem-42</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M44"/>
@@ -528,8 +528,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-app-one-lem-43</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-app-one-lem-43</xsl:attribute>
+            <xsl:attribute name="id">isoschematron-constraint-dharma-listApp-div-43</xsl:attribute>
+            <xsl:attribute name="name">isoschematron-constraint-dharma-listApp-div-43</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M45"/>
@@ -537,8 +537,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">isoschematron-constraint-dharma-listApp-div-44</xsl:attribute>
-            <xsl:attribute name="name">isoschematron-constraint-dharma-listApp-div-44</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-dharma-lem-exclusion-inside-lem-44</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-dharma-lem-exclusion-inside-lem-44</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M46"/>
@@ -546,20 +546,11 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-lem-exclusion-inside-lem-45</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-lem-exclusion-inside-lem-45</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-dharma-rdg-exclusion-inside-lem-45</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-dharma-rdg-exclusion-inside-lem-45</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M47"/>
-         <svrl:active-pattern>
-            <xsl:attribute name="document">
-               <xsl:value-of select="document-uri(/)"/>
-            </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-rdg-exclusion-inside-lem-46</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-rdg-exclusion-inside-lem-46</xsl:attribute>
-            <xsl:apply-templates/>
-         </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M48"/>
       </svrl:schematron-output>
    </xsl:template>
    <!--SCHEMATRON PATTERNS-->
@@ -1430,109 +1421,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
    </xsl:template>
    <!--PATTERN isoschematron-constraint-dharma-div-div-30-->
    <!--RULE -->
-   <xsl:template match="tei:div[@type='edition']" priority="1003" mode="M32">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:div[@type='edition']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="count(distinct-values(tei:div[@type='textpart']/@n))                                     = count(tei:div[@type='textpart']/@n)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(distinct-values(tei:div[@type='textpart']/@n)) = count(tei:div[@type='textpart']/@n)">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-                                    textpart @n are not unique in this division
-                                </svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="count(distinct-values(tei:lg/@n)) = count(tei:lg/@n)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(distinct-values(tei:lg/@n)) = count(tei:lg/@n)">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-                                    lg elements do not have unique @n within this division
-                                </svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="count(distinct-values(*/(tei:pb | tei:milestone[@type='pagelike'])/@n))                                     = count(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(distinct-values(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)) = count(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-                                    pb and pagelike milestone elements do not have unique @n within this division
-                                </svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="count(distinct-values(*/tei:lb/@n)) = count(*/tei:lb/@n)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(distinct-values(*/tei:lb/@n)) = count(*/tei:lb/@n)">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-                                    lb elements do not have unique @n within this division
-                                </svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M32"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:div[@type='edition']" priority="1002" mode="M32">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:div[@type='edition']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@xml:lang or count(*[@xml:lang]) = count(*)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@xml:lang or count(*[@xml:lang]) = count(*)">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-                                    @lang must be set on div[@type='edition'] or on all its children
-                                </svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@rendition or count(*[@rendition]) = count(*)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@rendition or count(*[@rendition]) = count(*)">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-                                    @rendition must be set on div[@type='edition'] or on all its children
-                                </svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M32"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:div" priority="1001" mode="M32">
+   <xsl:template match="tei:div" priority="1002" mode="M32">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
       <!--REPORT -->
       <xsl:if test="./@type != 'textpart' and parent::tei:div and @type!=parent::tei:div/@type">
@@ -1598,47 +1487,75 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M32"/>
    </xsl:template>
    <!--RULE -->
-   <xsl:template match="tei:div[@type='edition']/tei:div[@type='textpart']"
-                 priority="1000"
-                 mode="M32">
+   <xsl:template match="tei:div[@type='edition']" priority="1001" mode="M32">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:div[@type='edition']/tei:div[@type='textpart']"/>
+                       context="tei:div[@type='edition']"/>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="count(distinct-values(tei:lg/@n)) = count(tei:lg/@n)"/>
+         <xsl:when test="@xml:lang or count(*[@xml:lang]) = count(*)"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(distinct-values(tei:lg/@n)) = count(tei:lg/@n)">
+                                test="@xml:lang or count(*[@xml:lang]) = count(*)">
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
                <svrl:text>
-                                   lg elements do not have unique @n within this division
+                                    @lang must be set on div[@type='edition'] or on all its children
                                 </svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="count(distinct-values(*/tei:lb/@n)) = count(*/tei:lb/@n)"/>
+         <xsl:when test="@rendition or count(*[@rendition]) = count(*)"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(distinct-values(*/tei:lb/@n)) = count(*/tei:lb/@n)">
+                                test="@rendition or count(*[@rendition]) = count(*)">
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
                <svrl:text>
-                                    lb elements do not have unique @n within this division
+                                    @rendition must be set on div[@type='edition'] or on all its children
                                 </svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="count(distinct-values(*/(tei:pb | tei:milestone[@type='pagelike'])/@n))                                     = count(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)"/>
+         <xsl:when test="count(distinct-values(tei:div[@type='textpart']/@n))                                     = count(tei:div[@type='textpart']/@n)"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(distinct-values(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)) = count(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)">
+                                test="count(distinct-values(tei:div[@type='textpart']/@n)) = count(tei:div[@type='textpart']/@n)">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text>
+                                    textpart @n are not unique in this division
+                                </svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="tei:div[@type='textpart'] or count(distinct-values(.//tei:lg/@n)) = count(.//tei:lg/@n)"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="tei:div[@type='textpart'] or count(distinct-values(.//tei:lg/@n)) = count(.//tei:lg/@n)">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text>
+                                    lg elements do not have unique @n within this division
+                                </svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="tei:div[@type='textpart'] or count(distinct-values(.//(tei:pb | tei:milestone[@type='pagelike'])/@n))                                     = count(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="tei:div[@type='textpart'] or count(distinct-values(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)) = count(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)">
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
@@ -1650,15 +1567,68 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       </xsl:choose>
       <!--ASSERT -->
       <xsl:choose>
-         <xsl:when test="count(distinct-values(tei:lg/@n)) = count(tei:lg/@n)"/>
+         <xsl:when test="tei:div[@type='textpart'] or count(distinct-values(.//tei:lb/@n)) = count(.//tei:lb/@n)"/>
          <xsl:otherwise>
             <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(distinct-values(tei:lg/@n)) = count(tei:lg/@n)">
+                                test="tei:div[@type='textpart'] or count(distinct-values(.//tei:lb/@n)) = count(.//tei:lb/@n)">
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
                <svrl:text>
-                                    lg elements do not have unique @n within this division
+                                    lb elements do not have unique @n within this division
+                                </svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M32"/>
+   </xsl:template>
+   <!--RULE -->
+   <xsl:template match="tei:div[@type='edition']/tei:div[@type='textpart']"
+                 priority="1000"
+                 mode="M32">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                       context="tei:div[@type='edition']/tei:div[@type='textpart']"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="count(distinct-values(.//tei:lg/@n)) = count(.//tei:lg/@n)"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="count(distinct-values(.//tei:lg/@n)) = count(.//tei:lg/@n)">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text>
+                                   lg elements do not have unique @n within this division
+                                </svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="count(distinct-values(.//tei:lb/@n)) = count(.//tei:lb/@n)"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="count(distinct-values(.//tei:lb/@n)) = count(.//tei:lb/@n)">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text>
+                                    lb elements do not have unique @n within this division
+                                </svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="count(distinct-values(.//(tei:pb | tei:milestone[@type='pagelike'])/@n))                                     = count(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="count(distinct-values(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)) = count(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text>
+                                    pb and pagelike milestone elements do not have unique @n within this division
                                 </svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
@@ -2015,184 +1985,9 @@ attributes @target and @cRef may be supplied on <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M43">
       <xsl:apply-templates select="*" mode="M43"/>
    </xsl:template>
-   <!--PATTERN isoschematron-constraint-dharma-placeName-div-42-->
+   <!--PATTERN schematron-constraint-dharma-app-one-lem-42-->
    <!--RULE -->
-   <xsl:template match="tei:placeName[@type='region']" priority="1006" mode="M44">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='region']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@subtype='district' or @subtype='province' or @subtype='country' or @subtype='undetermined' or @subtype='land' or @subtype='island'"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@subtype='district' or @subtype='province' or @subtype='country' or @subtype='undetermined' or @subtype='land' or @subtype='island'">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>For @type="region", the @subtype should be one of the following
-                                    values: @subtype='district' or @subtype='province' or
-                                    @subtype='country' or @subtype='undetermined' or @subtype='land'
-                                    or @subtype='island'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M44"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:placeName[@type='settlement']"
-                 priority="1005"
-                 mode="M44">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='settlement']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@subtype='town' or @subtype='village' or @subtype='hamlet' or @subtype='armyCamp' or @subtype='undetermined' or @subtype='establishment'"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@subtype='town' or @subtype='village' or @subtype='hamlet' or @subtype='armyCamp' or @subtype='undetermined' or @subtype='establishment'">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>For @type="settlement", the @subtype should be one of the
-                                    following values: @subtype='town' or @subtype='village' or
-                                    @subtype='hamlet' or @subtype='armyCamp' or
-                                    @subtype='undetermined' or
-                                @subtype='establishment'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M44"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:placeName[@type='builtPlace']"
-                 priority="1004"
-                 mode="M44">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='builtPlace']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@subtype='temple' or @subtype='monastery' or @subtype='feedingHall' or @subtype='pavillion' or @subtype='undetermined'"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@subtype='temple' or @subtype='monastery' or @subtype='feedingHall' or @subtype='pavillion' or @subtype='undetermined'">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>For @type="builtPlace", the @subtype should be one of the
-                                    following values: @subtype='temple' or @subtype='monastery' or
-                                    @subtype='feedingHall' or @subtype='pavillion' or
-                                    @subtype='undetermined'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M44"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:placeName[@type='cultivation']"
-                 priority="1003"
-                 mode="M44">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='cultivation']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@subtype='garden' or @subtype='field' or @subtype='fieldPaddy' or @subtype='fieldMillet' or @subtype='orchard' or @subtype='orchardAreca' or @subtype='orchardCitrus' or @subtype='fieldIrrigated' or @subtype='fieldDry' or @subtype='fieldSalted' or @subtype='undetermined' or @subtype='nursery'"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@subtype='garden' or @subtype='field' or @subtype='fieldPaddy' or @subtype='fieldMillet' or @subtype='orchard' or @subtype='orchardAreca' or @subtype='orchardCitrus' or @subtype='fieldIrrigated' or @subtype='fieldDry' or @subtype='fieldSalted' or @subtype='undetermined' or @subtype='nursery'">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>For @type="cultivation", the @subtype should be one of the
-                                    following values: @subtype='garden' or @subtype='field' or
-                                    @subtype='fieldPaddy' or @subtype='fieldMillet' or
-                                    @subtype='orchard' or @subtype='orchardAreca' or
-                                    @subtype='orchardCitrus' or @subtype='fieldIrrigated' or
-                                    @subtype='fieldDry' or @subtype='fieldSalted' or
-                                    @subtype='undetermined' or
-                                @subtype='nursery'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M44"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:placeName[@type='hydrographic']"
-                 priority="1002"
-                 mode="M44">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='hydrographic']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@subtype='tank' or @subtype='river' or @subtype='pond' or @subtype='canal' or @subtype='undetermined' or @subtype='wetland' or @sutype='pool' or @subtype='lake'"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@subtype='tank' or @subtype='river' or @subtype='pond' or @subtype='canal' or @subtype='undetermined' or @subtype='wetland' or @sutype='pool' or @subtype='lake'">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>For @type="hydrographic", the @subtype should be one of the
-                                    following values: @subtype='tank' or @subtype='river' or
-                                    @subtype='pond' or @subtype='canal' or @subtype='undetermined'
-                                    or @subtype='wetland' or @sutype='pool' or
-                                    @subtype='lake'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M44"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:placeName[@type='naturalPlace']"
-                 priority="1001"
-                 mode="M44">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='naturalPlace']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@subtype='forest' or @subtype='wood' or @subtype='grove' or @subtype='tree' or @subtype='mountain' or @subtype='undetermined' or @subtype='mount'"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@subtype='forest' or @subtype='wood' or @subtype='grove' or @subtype='tree' or @subtype='mountain' or @subtype='undetermined' or @subtype='mount'">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>For @type="naturalPlace", the @subtype should be one of the
-                                    following values: @subtype='forest' or @subtype='wood' or
-                                    @subtype='grove' or @subtype='tree' or @subtype='mountain' or
-                                    @subtype='undetermined' or
-                                @subtype='mount'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M44"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:placeName[@type='undetermined']"
-                 priority="1000"
-                 mode="M44">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='undetermined']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="not(@subtype)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="not(@subtype)">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>@subtype isn't allowed with
-                                    @type='undetermined'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M44"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M44"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M44">
-      <xsl:apply-templates select="*" mode="M44"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-app-one-lem-43-->
-   <!--RULE -->
-   <xsl:template match="tei:app" priority="1000" mode="M45">
+   <xsl:template match="tei:app" priority="1000" mode="M44">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:app"/>
       <!--REPORT -->
       <xsl:if test="count(child::tei:lem) eq 1 and not(child::tei:lem[@source]) and not(child::tei:rdg or child::tei:note)">
@@ -2218,15 +2013,15 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M45"/>
+      <xsl:apply-templates select="*" mode="M44"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M45"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M45">
-      <xsl:apply-templates select="*" mode="M45"/>
+   <xsl:template match="text()" priority="-1" mode="M44"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M44">
+      <xsl:apply-templates select="*" mode="M44"/>
    </xsl:template>
-   <!--PATTERN isoschematron-constraint-dharma-listApp-div-44-->
+   <!--PATTERN isoschematron-constraint-dharma-listApp-div-43-->
    <!--RULE -->
-   <xsl:template match="tei:listApp" priority="1000" mode="M46">
+   <xsl:template match="tei:listApp" priority="1000" mode="M45">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:listApp"/>
       <!--ASSERT -->
       <xsl:choose>
@@ -2242,15 +2037,15 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M46"/>
+      <xsl:apply-templates select="*" mode="M45"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M46"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M46">
-      <xsl:apply-templates select="*" mode="M46"/>
+   <xsl:template match="text()" priority="-1" mode="M45"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M45">
+      <xsl:apply-templates select="*" mode="M45"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-lem-exclusion-inside-lem-45-->
+   <!--PATTERN schematron-constraint-dharma-lem-exclusion-inside-lem-44-->
    <!--RULE -->
-   <xsl:template match="tei:lem" priority="1000" mode="M47">
+   <xsl:template match="tei:lem" priority="1000" mode="M46">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:lem"/>
       <!--REPORT -->
       <xsl:if test="child::tei:p">
@@ -2293,15 +2088,15 @@ attributes @target and @cRef may be supplied on <xsl:text/>
                             them</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M47"/>
+      <xsl:apply-templates select="*" mode="M46"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M47"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M47">
-      <xsl:apply-templates select="*" mode="M47"/>
+   <xsl:template match="text()" priority="-1" mode="M46"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M46">
+      <xsl:apply-templates select="*" mode="M46"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-rdg-exclusion-inside-lem-46-->
+   <!--PATTERN schematron-constraint-dharma-rdg-exclusion-inside-lem-45-->
    <!--RULE -->
-   <xsl:template match="tei:rdg" priority="1000" mode="M48">
+   <xsl:template match="tei:rdg" priority="1000" mode="M47">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rdg"/>
       <!--REPORT -->
       <xsl:if test="child::tei:p">
@@ -2343,10 +2138,10 @@ attributes @target and @cRef may be supplied on <xsl:text/>
                                     rdg</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M48"/>
+      <xsl:apply-templates select="*" mode="M47"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M48"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M48">
-      <xsl:apply-templates select="*" mode="M48"/>
+   <xsl:template match="text()" priority="-1" mode="M47"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M47">
+      <xsl:apply-templates select="*" mode="M47"/>
    </xsl:template>
 </xsl:stylesheet>

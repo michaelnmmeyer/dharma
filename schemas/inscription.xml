@@ -413,30 +413,6 @@
                 <elementSpec ident="div" mode="change" module="textstructure">
                     <constraintSpec scheme="isoschematron" ident="div">
                         <constraint>
-                            <sch:rule context="tei:div[@type='edition']">
-                                <sch:assert test="count(distinct-values(tei:div[@type='textpart']/@n))
-                                    = count(tei:div[@type='textpart']/@n)">
-                                    textpart @n are not unique in this division
-                                </sch:assert>
-                                <sch:assert test="count(distinct-values(tei:lg/@n)) = count(tei:lg/@n)">
-                                    lg elements do not have unique @n within this division
-                                </sch:assert>
-                                <sch:assert test="count(distinct-values(*/(tei:pb | tei:milestone[@type='pagelike'])/@n))
-                                    = count(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)">
-                                    pb and pagelike milestone elements do not have unique @n within this division
-                                </sch:assert>
-                                <sch:assert test="count(distinct-values(*/tei:lb/@n)) = count(*/tei:lb/@n)">
-                                    lb elements do not have unique @n within this division
-                                </sch:assert>
-                            </sch:rule>
-                            <sch:rule context="tei:div[@type='edition']">
-                                <sch:assert test="@xml:lang or count(*[@xml:lang]) = count(*)">
-                                    @lang must be set on div[@type='edition'] or on all its children
-                                </sch:assert>
-                                <sch:assert test="@rendition or count(*[@rendition]) = count(*)">
-                                    @rendition must be set on div[@type='edition'] or on all its children
-                                </sch:assert>
-                            </sch:rule>
                             <sch:rule context="tei:div">
                                 <sch:report test="./@type != 'textpart' and parent::tei:div and @type!=parent::tei:div/@type">
                                     Divs other than @type=textpart may not nest in divs of
@@ -455,19 +431,38 @@
                                     div[@type='textpart'] must not nest
                                 </sch:report>
                             </sch:rule>
-                            <sch:rule context="tei:div[@type='edition']/tei:div[@type='textpart']">
-                                <sch:assert test="count(distinct-values(tei:lg/@n)) = count(tei:lg/@n)">
-                                   lg elements do not have unique @n within this division
+                            <sch:rule context="tei:div[@type='edition']">
+                                <sch:assert test="@xml:lang or count(*[@xml:lang]) = count(*)">
+                                    @lang must be set on div[@type='edition'] or on all its children
                                 </sch:assert>
-                                <sch:assert test="count(distinct-values(*/tei:lb/@n)) = count(*/tei:lb/@n)">
-                                    lb elements do not have unique @n within this division
+                                <sch:assert test="@rendition or count(*[@rendition]) = count(*)">
+                                    @rendition must be set on div[@type='edition'] or on all its children
                                 </sch:assert>
-                                <sch:assert test="count(distinct-values(*/(tei:pb | tei:milestone[@type='pagelike'])/@n))
-                                    = count(*/(tei:pb | tei:milestone[@type='pagelike'])/@n)">
+                                <sch:assert test="count(distinct-values(tei:div[@type='textpart']/@n))
+                                    = count(tei:div[@type='textpart']/@n)">
+                                    textpart @n are not unique in this division
+                                </sch:assert>
+                                <sch:assert test="tei:div[@type='textpart'] or count(distinct-values(.//tei:lg/@n)) = count(.//tei:lg/@n)">
+                                    lg elements do not have unique @n within this division
+                                </sch:assert>
+                                <sch:assert test="tei:div[@type='textpart'] or count(distinct-values(.//(tei:pb | tei:milestone[@type='pagelike'])/@n))
+                                    = count(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)">
                                     pb and pagelike milestone elements do not have unique @n within this division
                                 </sch:assert>
-                                <sch:assert test="count(distinct-values(tei:lg/@n)) = count(tei:lg/@n)">
-                                    lg elements do not have unique @n within this division
+                                <sch:assert test="tei:div[@type='textpart'] or count(distinct-values(.//tei:lb/@n)) = count(.//tei:lb/@n)">
+                                    lb elements do not have unique @n within this division
+                                </sch:assert>
+                            </sch:rule>
+                            <sch:rule context="tei:div[@type='edition']/tei:div[@type='textpart']">
+                                <sch:assert test="count(distinct-values(.//tei:lg/@n)) = count(.//tei:lg/@n)">
+                                   lg elements do not have unique @n within this division
+                                </sch:assert>
+                                <sch:assert test="count(distinct-values(.//tei:lb/@n)) = count(.//tei:lb/@n)">
+                                    lb elements do not have unique @n within this division
+                                </sch:assert>
+                                <sch:assert test="count(distinct-values(.//(tei:pb | tei:milestone[@type='pagelike'])/@n))
+                                    = count(.//(tei:pb | tei:milestone[@type='pagelike'])/@n)">
+                                    pb and pagelike milestone elements do not have unique @n within this division
                                 </sch:assert>
                             </sch:rule>
                         </constraint>
@@ -3547,57 +3542,6 @@
                     </attList>
                 </elementSpec>
                 <elementSpec ident="placeName" module="namesdates" mode="change">
-                    <!--Vérifier l'usage des @subtype selon la valeur du @type -->
-                    <constraintSpec scheme="isoschematron" ident="div">
-                        <constraint><sch:rule context="tei:placeName[@type='region']"><sch:assert
-                                    test="@subtype='district' or @subtype='province' or @subtype='country' or @subtype='undetermined' or @subtype='land' or @subtype='island'"
-                                    >For @type="region", the @subtype should be one of the following
-                                    values: @subtype='district' or @subtype='province' or
-                                    @subtype='country' or @subtype='undetermined' or @subtype='land'
-                                    or @subtype='island'</sch:assert></sch:rule><sch:rule
-                                context="tei:placeName[@type='settlement']"><sch:assert
-                                    test="@subtype='town' or @subtype='village' or @subtype='hamlet' or @subtype='armyCamp' or @subtype='undetermined' or @subtype='establishment'"
-                                    >For @type="settlement", the @subtype should be one of the
-                                    following values: @subtype='town' or @subtype='village' or
-                                    @subtype='hamlet' or @subtype='armyCamp' or
-                                    @subtype='undetermined' or
-                                @subtype='establishment'</sch:assert></sch:rule><sch:rule
-                                context="tei:placeName[@type='builtPlace']"><sch:assert
-                                    test="@subtype='temple' or @subtype='monastery' or @subtype='feedingHall' or @subtype='pavillion' or @subtype='undetermined'"
-                                    >For @type="builtPlace", the @subtype should be one of the
-                                    following values: @subtype='temple' or @subtype='monastery' or
-                                    @subtype='feedingHall' or @subtype='pavillion' or
-                                    @subtype='undetermined'</sch:assert></sch:rule><sch:rule
-                                context="tei:placeName[@type='cultivation']"><sch:assert
-                                    test="@subtype='garden' or @subtype='field' or @subtype='fieldPaddy' or @subtype='fieldMillet' or @subtype='orchard' or @subtype='orchardAreca' or @subtype='orchardCitrus' or @subtype='fieldIrrigated' or @subtype='fieldDry' or @subtype='fieldSalted' or @subtype='undetermined' or @subtype='nursery'"
-                                    >For @type="cultivation", the @subtype should be one of the
-                                    following values: @subtype='garden' or @subtype='field' or
-                                    @subtype='fieldPaddy' or @subtype='fieldMillet' or
-                                    @subtype='orchard' or @subtype='orchardAreca' or
-                                    @subtype='orchardCitrus' or @subtype='fieldIrrigated' or
-                                    @subtype='fieldDry' or @subtype='fieldSalted' or
-                                    @subtype='undetermined' or
-                                @subtype='nursery'</sch:assert></sch:rule><sch:rule
-                                context="tei:placeName[@type='hydrographic']"><sch:assert
-                                    test="@subtype='tank' or @subtype='river' or @subtype='pond' or @subtype='canal' or @subtype='undetermined' or @subtype='wetland' or @sutype='pool' or @subtype='lake'"
-                                    >For @type="hydrographic", the @subtype should be one of the
-                                    following values: @subtype='tank' or @subtype='river' or
-                                    @subtype='pond' or @subtype='canal' or @subtype='undetermined'
-                                    or @subtype='wetland' or @sutype='pool' or
-                                    @subtype='lake'</sch:assert></sch:rule><sch:rule
-                                context="tei:placeName[@type='naturalPlace']"><sch:assert
-                                    test="@subtype='forest' or @subtype='wood' or @subtype='grove' or @subtype='tree' or @subtype='mountain' or @subtype='undetermined' or @subtype='mount'"
-                                    >For @type="naturalPlace", the @subtype should be one of the
-                                    following values: @subtype='forest' or @subtype='wood' or
-                                    @subtype='grove' or @subtype='tree' or @subtype='mountain' or
-                                    @subtype='undetermined' or
-                                @subtype='mount'</sch:assert></sch:rule>
-                            <sch:rule context="tei:placeName[@type='undetermined']">
-                                <sch:assert test="not(@subtype)">@subtype isn't allowed with
-                                    @type='undetermined'</sch:assert>
-                            </sch:rule>
-                        </constraint>
-                    </constraintSpec>
                     <attList>
                         <attDef ident="ana" mode="delete"/>
                         <attDef ident="calendar" mode="delete"/>
