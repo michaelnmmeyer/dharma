@@ -1,6 +1,8 @@
 import html, re
 from dharma import common, tree, biblio, people, texts, langs
 
+lang_attr = langs.lang_attr
+
 def make_db():
 	texts.save("project-documentation", "DHARMA_prosodicPatterns_v01.xml")
 	_, index = parse_prosody()
@@ -134,7 +136,7 @@ def parse_list_rec(item, bib_entries, langs):
 	assert len(klass) <= 1
 	if klass:
 		klass = klass[0]
-		lang = get_lang(langs, klass["lang"].split("-")[0] or "und")
+		lang = get_lang(langs, lang_attr(klass) or "und")
 		klass = klass.text()
 		if klass:
 			rec["class"] = (klass, lang)
@@ -145,7 +147,7 @@ def parse_list_rec(item, bib_entries, langs):
 		text = name.text()
 		if not text:
 			continue
-		lang = get_lang(langs, name["lang"].split("-")[0] or "und")
+		lang = get_lang(langs, lang_attr(name) or "und")
 		rec["names"].append((text, lang))
 	# <seg type="xml">----+-+---+-+---=/++++-+-+---+-+---=</seg>
 	# <seg type="prosody">⏑⏑⏑⏑–⏑–⏑⏑⏑–⏑||–⏑⏑⏑⏓/––––⏑–⏑–⏑⏑⏑–⏑–⏑⏑⏑⏓</seg>
