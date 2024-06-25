@@ -42,7 +42,7 @@ it defaults to the node's text contents.
 Like `glob`, but for regular expressions. Matching is unanchored, so `^` and
 `$` must be used if the idea is to match a full string.
 
-`lang()`, `mixed()`, `empty()`, `plain()`, `errors()`
+`lang()`, `mixed()`, `empty()`, `plain()`, `errors()`, `name()`
 
 Returns the corresponding attributes in `Node`.
 
@@ -1088,6 +1088,10 @@ def xpath_errors(node):
 	assert isinstance(node, Node)
 	return bool(node.errors)
 
+def xpath_name(node):
+	assert isinstance(node, Tag)
+	return node.name
+
 xpath_funcs = {
 	"glob": xpath_glob,
 	"regex": xpath_regex,
@@ -1096,6 +1100,7 @@ xpath_funcs = {
 	"empty": xpath_empty,
 	"plain": xpath_plain,
 	"errors": xpath_errors,
+	"name": xpath_name,
 }
 
 def children(node):

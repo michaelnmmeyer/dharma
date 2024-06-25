@@ -46,7 +46,7 @@ it defaults to the node's text contents.
 Like `glob`, but for regular expressions. Matching is unanchored, so `^` and
 `$` must be used if the idea is to match a full string.
 
-`lang()`, `mixed()`, `empty()`, `plain()`, `errors()`
+`lang()`, `mixed()`, `empty()`, `plain()`, `errors()`, `name()`
 
 Returns the corresponding attributes in `Node`.
 
