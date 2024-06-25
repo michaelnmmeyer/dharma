@@ -245,9 +245,9 @@ create table if not exists scripts_list(
 	-- For some reason, our ontologies are on opentheso. We do not actually
 	-- use any of its functionalities. In particular, there are no automatic
 	-- updates of our database if someone modifies the opentheso data. The
-	-- data is manually copied.
-	opentheso_id integer unique check(typeof(opentheso_id) = 'integer'),
-	foreign key(parent) references scripts_list(id)
+	-- data is manually copied. We keep these identifiers here because they
+	-- are used in XML files. We do not use them for any other purposes.
+	opentheso_id integer unique check(typeof(opentheso_id) = 'integer')
 );
 
 -- Language codes and names, extracted from the data table distributed

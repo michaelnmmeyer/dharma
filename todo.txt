@@ -1,4 +1,33 @@
+support the post-xpath1 subset that allows expressions more complicated than
+NameTest
+
+
 # Scripts
+
+only attempt to find @rendition in div[@type='edition'] and in div[@type='apparatus']
+(because we will need transliteration there). ignore @rendition in other locations.
+should use the same rule we use for languages, for simplicity.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+should assume that scripts are inherited, but are set to "undefined"
+when in a foreign element, and maybe when the language changes.
 
 change category names in the main table:
   arabic -> arabic_other
@@ -7,9 +36,8 @@ change category names in the main table:
   brāhmī_southeast
   brāhmī_southern
 
-gather script infos in langs.py
-what shall we do with script maturity? ignore for now
-what should we do with the script hierarchy?
+what should we do with the script hierarchy? can store it in a sql table,
+but in this case add something for converting this to a json doc.
 
 add a script table to the website
 

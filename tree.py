@@ -144,11 +144,6 @@ class Node:
 	assigned_lang = None
 	"""Language assigned by the user."""
 
-	script = None
-	"Inferred script"
-	assigned_script = None
-	"""Script assigned by the user."""
-
 	def __init__(self, *args, **kwargs):
 		self.errors = []
 		super().__init__(*args, **kwargs)

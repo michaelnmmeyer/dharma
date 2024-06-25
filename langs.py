@@ -86,25 +86,29 @@ def alloc_lang(ctx, lang, dflt):
 	return ret
 
 # For assigning languages, we follow the basic inheritance rule: if a tag does
-# not have an @xml:lang, it is assigned the language assigned to its parent. But
+# not have an @xml:lang, it is assigned the language assigned of its parent. But
 # there are exceptions:
 # * If the tag is "lem" or "rdg" and does not have an @xml:lang, we assign it
 #   the language it would be assigned if it occurred in the edition div, under
 #   the same textparts (if any). We only expect to find "lem" and "rdg" in the
 #   apparatus.
-# * If the tag is foreign and does not have an @xml:lang, we assume it is in
-#   some source language (as per the guide), and assigns it a generic language
+# * If the tag is "foreign" and does not have an @xml:lang, we assume it is in
+#   some source language (as per the guide) and assign it a generic language
 #   code named "source" that represents any source language (per contrast with
-#   languages used in translations).
+#   languages used in translations) viz. the union of all source languages.
 #
 # Furthermore, we store two language values per node:
-# * Inherited language. Assigned when traversing the tree top-down.
+# * Inherited language. Assigned when traversing the tree top-down. This follows
+#   what people have indicated.
 # * Inferred language. Assigned by bubbling up language values bottom-up. This
 #   value is intended to be used for text processing (tokenization, etc.).
 # If e.g. the original XML is <a lang="eng"><b lang="fra"><c>foo</c></b></a>
-# the inherited language of c is "fra", and the inferred language of "a" is
-# "fra" (even though it is assigned the language "eng"), because it only
+# the inherited language of c is "fra"; and the inferred language of "a" is
+# "fra", even though the user assigned it the language "eng", because it only
 # contains French text.
+
+def lang_attr(node):
+	return node["lang"].split("-")[0]
 
 def fetch_alt_langs(ctx, node, default_lang):
 	path = ["TEI", "text", "body", "div[@type='edition']"]
@@ -113,7 +117,7 @@ def fetch_alt_langs(ctx, node, default_lang):
 		node = node.first(name)
 		if not node:
 			return AltLang(lang, {})
-		lang = alloc_lang(ctx, node["lang"].split("-")[0], lang)
+		lang = alloc_lang(ctx, lang_attr(node), lang)
 	final = AltLang(lang, {})
 	stack = [(node, final)]
 	while stack:
@@ -121,7 +125,7 @@ def fetch_alt_langs(ctx, node, default_lang):
 		for child in node.children():
 			if child.name == "div" and child["type"] == "textpart" and child["n"]:
 				n = child["n"]
-				lang = alloc_lang(ctx, child["lang"].split("-")[0], struct.lang)
+				lang = alloc_lang(ctx, lang_attr(child), struct.lang)
 				child_struct = AltLang(lang, {})
 				struct.children[n] = child_struct
 				stack.append((child, child_struct))
@@ -152,14 +156,14 @@ def wait_textpart(ctx, node, parent_lang, alt_lang, f):
 def assign_language(ctx, node, parent_lang, alt_lang, f):
 	match node.name:
 		case "lem" | "rdg":
-			lang = alloc_lang(ctx, node["lang"].split("-")[0], alt_lang.lang)
+			lang = alloc_lang(ctx, lang_attr(node), alt_lang.lang)
 		case "foreign":
-			lang = alloc_lang(ctx, node["lang"].split("-")[0], Source)
+			lang = alloc_lang(ctx, lang_attr(node), Source)
 		case "g":
-			node.lang = node.assigned_lang = alloc_lang(ctx, node["lang"].split("-")[0], parent_lang)
+			node.lang = node.assigned_lang = alloc_lang(ctx, lang_attr(node), parent_lang)
 			return
 		case _:
-			lang = alloc_lang(ctx, node["lang"].split("-")[0], parent_lang)
+			lang = alloc_lang(ctx, lang_attr(node), parent_lang)
 	node.assigned_lang = lang
 	langs = set()
 	for child in node:
@@ -429,10 +433,9 @@ def insert_scripts():
 				inverted_name = name
 			elif len(script) == 4:
 				ident, name, opentheso_id, inverted_name = script
-			print(ident, parent, name, opentheso_id, sep="\t")
 			db.execute("""
-			insert into scripts_list(id, parent, name, inverted_name, opentheso_id)
-			values(?, ?, ?, ?, ?)""", (ident, parent, name, inverted_name, opentheso_id))
+			insert into scripts_list(id, name, inverted_name, opentheso_id)
+			values(?, ?, ?, ?)""", (ident, name, inverted_name, opentheso_id))
 			if isinstance(items, list):
 				inner(items[1:], ident)
 	inner(scripts_list, None)
