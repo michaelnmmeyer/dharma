@@ -1,29 +1,20 @@
-# Scripts
+in tree rename
+
+  assigned_lang -> lang
+  lang (= inferred_lang) -> inferred_lang
+
+and we will have a "script" field which means assigned_script
+
+---
+
+== Scripts
 
 only attempt to find @rendition in div[@type='edition'] and in div[@type='apparatus']
 (because we will need transliteration there). ignore @rendition in other locations.
-should use the same rule we use for languages, for simplicity. although we don't
-need
+should use the same rule we use for languages, for simplicity. but we don't
+need the distinction assigned/inferred for scripts.
 
 pair (language,script)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 should assume that scripts are inherited, but are set to "undefined"
 when in a foreign element, and maybe when the language changes.
@@ -49,6 +40,9 @@ rassembler 4 listes pour div[@type='edition']
 save that in the catalog, we will decide what to display later on
 
 ===
+
+find a way to merge the parallels db with the main one
+
 
 add a timer to the update process, to measure how long it takes us to update
 the database after a repo has been pushed to github. this should remain

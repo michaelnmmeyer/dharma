@@ -934,7 +934,7 @@ def print_as_grantha(p, node): # XXX cannot nest <div> within <p>
 @handler("ab")
 def parse_ab(p, ab):
 	p.add_log("<para")
-	if get_script(ab).ident == "grantha":
+	if get_script(ab).id == "grantha":
 		print_as_grantha(p, ab)
 	else:
 		p.dispatch_children(ab)
@@ -1030,7 +1030,7 @@ def parse_lg(p, lg):
 		p.add_log(">head", level=6)
 	numbered = len(lg.find("l")) > 4
 	p.add_log("<verse", numbered=numbered)
-	if get_script(lg).ident == "grantha":
+	if get_script(lg).id == "grantha":
 		print_as_grantha(p, lg)
 	else:
 		p.dispatch_children(lg)
@@ -1047,7 +1047,7 @@ def parse_p(p, para):
 		n = html.escape(get_n(para))
 		p.add_html(f'<span class="lb" data-tip="Line start">({n})</span>')
 		p.add_html(" ")
-	if get_script(para).ident == "grantha":
+	if get_script(para).id == "grantha":
 		print_as_grantha(p, para)
 	else:
 		p.dispatch_children(para)

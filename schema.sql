@@ -254,6 +254,10 @@ create table if not exists scripts_list(
 -- with the relevant standards and from the dharma-specific language table
 -- stored in project-documentation. We include everything, not just languages
 -- used in the project, to allow people to use new language codes if need be.
+-- We have a languages list on opentheso:
+-- https://opentheso.huma-num.fr/opentheso/?idc=84144&idt=th347
+-- It is outdated, not in sync with this one. We do not need to modify
+-- opentheso stuff.
 create table if not exists langs_list(
 	-- Principal language code. If this is an ISO code, it is always of
 	-- length 3. Longer language codes are used for custom dharma-specific

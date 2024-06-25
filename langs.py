@@ -10,8 +10,8 @@ from dharma import common, texts, tree
 # To link to opentheso, use https://opentheso.huma-num.fr/opentheso/?idc={classID}&idt={thesaurusID}
 # The thesaurusID of dharma is th347.
 
-Script = collections.namedtuple("Script", "level ident name klass")
-ScriptMaturity = collections.namedtuple("ScriptMaturity", "ident name klass")
+Script = collections.namedtuple("Script", "level id name klass")
+ScriptMaturity = collections.namedtuple("ScriptMaturity", "id name klass")
 
 null_script = Script(0, "undetermined", "Undetermined", 0)
 
@@ -46,6 +46,8 @@ scripts = (
 	null_script,
 )
 
+default_script = null_script
+
 null_script_maturity = ScriptMaturity("null", "Null", 0)
 
 scripts_maturity = (
@@ -58,27 +60,43 @@ scripts_maturity = (
 )
 
 script_from_ident = {
-	**{script.ident: script for script in scripts},
+	**{script.id: script for script in scripts},
 	**{str(script.klass): script for script in scripts},
 }
 def get_script(ident):
 	return script_from_ident.get(ident, null_script)
 
 script_maturity_from_ident = {
-	**{script.ident: script for script in scripts_maturity},
+	**{script.id: script for script in scripts_maturity},
 	**{str(script.klass): script for script in scripts_maturity},
 }
 def get_script_maturity(ident):
 	return script_maturity_from_ident.get(ident, null_script_maturity)
 
+Pair = collections.namedtuple("Pair", "lang script children")
+
 AltLang = collections.namedtuple("AltLang", "lang children")
 
-def alloc_lang(ctx, lang, dflt):
+def alloc_lang(ctx, node, dflt):
+	lang = lang_attr(node)
 	if not lang:
 		return dflt
 	ret = ctx.get(lang)
 	if not ret:
 		tmp = Language(lang)
+		ret = ctx.get(tmp.id)
+		if not ret:
+			ret = tmp
+			ctx[ret.id] = ret
+	return ret
+
+def alloc_script(ctx, node, dflt):
+	script = script_attr(node)
+	if not script:
+		return dflt
+	ret = ctx.get(script)
+	if not ret:
+		tmp = Script(script)
 		ret = ctx.get(tmp.id)
 		if not ret:
 			ret = tmp
@@ -110,25 +128,32 @@ def alloc_lang(ctx, lang, dflt):
 def lang_attr(node):
 	return node["lang"].split("-")[0]
 
+def script_attr(node):
+	for field in node["rendition"].split():
+		val = field.removeprefix("class:")
+		if val:
+			return val
+	return ""
+
+
 def fetch_alt_langs(ctx, node, default_lang):
-	path = ["TEI", "text", "body", "div[@type='edition']"]
+	path = "TEI/text/body/div[@type='edition']".split("/")
 	lang = default_lang
 	for name in path:
 		node = node.first(name)
 		if not node:
 			return AltLang(lang, {})
-		lang = alloc_lang(ctx, lang_attr(node), lang)
+		lang = alloc_lang(ctx, node, lang)
 	final = AltLang(lang, {})
 	stack = [(node, final)]
 	while stack:
 		node, struct = stack.pop()
-		for child in node.children():
-			if child.name == "div" and child["type"] == "textpart" and child["n"]:
-				n = child["n"]
-				lang = alloc_lang(ctx, lang_attr(child), struct.lang)
-				child_struct = AltLang(lang, {})
-				struct.children[n] = child_struct
-				stack.append((child, child_struct))
+		for child in node.find("div[@type='textpart' and @n]"):
+			n = child["n"]
+			lang = alloc_lang(ctx, child, struct.lang)
+			child_struct = AltLang(lang, {})
+			struct.children[n] = child_struct
+			stack.append((child, child_struct))
 	return final
 
 def wait_div(ctx, node, parent_lang, alt_lang, f):
@@ -142,7 +167,7 @@ def wait_div(ctx, node, parent_lang, alt_lang, f):
 
 def wait_textpart(ctx, node, parent_lang, alt_lang, f):
 	assert f is wait_textpart
-	if node.name == "div" and node["type"] == "textpart" and node["n"]:
+	if node.matches("div[@type='textpart' and @n]"):
 		n = node["n"]
 		child_lang = alt_lang.children.get(n)
 		if not child_lang:
@@ -156,14 +181,14 @@ def wait_textpart(ctx, node, parent_lang, alt_lang, f):
 def assign_language(ctx, node, parent_lang, alt_lang, f):
 	match node.name:
 		case "lem" | "rdg":
-			lang = alloc_lang(ctx, lang_attr(node), alt_lang.lang)
+			lang = alloc_lang(ctx, node, alt_lang.lang)
 		case "foreign":
-			lang = alloc_lang(ctx, lang_attr(node), Source)
+			lang = alloc_lang(ctx, node, Source)
 		case "g":
-			node.lang = node.assigned_lang = alloc_lang(ctx, lang_attr(node), parent_lang)
+			node.lang = node.assigned_lang = alloc_lang(ctx, node, parent_lang)
 			return
 		case _:
-			lang = alloc_lang(ctx, lang_attr(node), parent_lang)
+			lang = alloc_lang(ctx, node, parent_lang)
 	node.assigned_lang = lang
 	langs = set()
 	for child in node:
@@ -293,6 +318,64 @@ def from_code(s):
 lang_data = collections.namedtuple("lang_data", "id name inverted_name source")
 default_lang = lang_data("und", "Undetermined", "Undetermined", True) # XXX need this to actually exist in the DB!
 
+script_data = collections.namedtuple("script_data", "id name inverted_name opentheso_id")
+default_script = script_data("undetermined", "Undetermined", "Undetermined", 0)
+
+@functools.total_ordering
+class Script2:
+
+	def __init__(self, key):
+		self.key = key
+		self._data = None
+
+	def _fetch(self):
+		ret = self._data
+		if not ret:
+			db = common.db("texts")
+			ret = db.execute("""
+			select id, name, inverted_name, opentheso_id
+			from scripts_list
+			where id = ? or opentheso_id = ?
+			""", (self.key,)).fetchone()
+			if ret:
+				ret = script_data(ret["id"], ret["name"],
+					ret["inverted_name"], ret["opentheso_id"])
+			else:
+				ret = default_script
+			self._data = ret
+		return ret
+
+	def __str__(self):
+		return self.name
+
+	def __repr__(self):
+		return f"Script({self.key})"
+
+	@property
+	def id(self):
+		return self._fetch().id
+
+	@property
+	def name(self):
+		return self._fetch().name
+
+	@property
+	def inverted_name(self):
+		return self._fetch().inverted_name
+
+	@property
+	def opentheso_id(self):
+		return self._fetch().opentheso_id
+
+	def __hash__(self):
+		return hash(self.id)
+
+	def __lt__(self, other):
+		return self.inverted_name < other.inverted_name
+
+	def __eq__(self, other):
+		return self.id == other.id
+
 @functools.total_ordering
 class Language:
 
@@ -381,10 +464,10 @@ def main():
 def print_scripts():
 	for script in scripts:
 		print(f'<valItem ident="class:{script.klass:0{5}}"><desc>{script.name}</desc></valItem>')
-		print(f'<valItem ident="class:{script.ident}"><desc>{script.name}</desc></valItem>')
+		print(f'<valItem ident="class:{script.id}"><desc>{script.name}</desc></valItem>')
 	for script in scripts_maturity:
 		print(f'<valItem ident="maturity:{script.klass:0{5}}"><desc>{script.name}</desc></valItem>')
-		print(f'<valItem ident="maturity:{script.ident}"><desc>{script.name}</desc></valItem>')
+		print(f'<valItem ident="maturity:{script.id}"><desc>{script.name}</desc></valItem>')
 
 
 scripts_list = [
