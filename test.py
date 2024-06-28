@@ -9,13 +9,8 @@ for f in files:
 		t = tree.parse(f)
 	except tree.Error:
 		continue
-	for node in t.find("//*[@rendition]"):
-		klass, maturity = [x.split(":", 1)[1] for x in node["rendition"].split()]
-		script = langs.get_script(klass)
-		maturity = langs.get_script_maturity(maturity)
-		#if script.name == "Southern class Brāhmī":
-		#	print(f)
-		print(maturity.name)
+	for node in t.find("//ref[@target]"):
+		print(node["target"])
 
 """
 
