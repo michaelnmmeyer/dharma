@@ -359,7 +359,7 @@ class Node:
 		'''
 		fmt = Formatter(strip_comments=strip_comments,
 			strip_instructions=strip_instructions, html=html,
-			color=color)
+			color=color, add_xml_prefix=True)
 		fmt.format(self)
 		return fmt.text()
 
@@ -792,10 +792,14 @@ class Tag(Branch):
 			assert isinstance(value, str)
 			# Always normalize space.
 			value = " ".join(value.strip().split())
+			self.attrs[key] = value
+			# XXX still have "replacementPattern" that needs an empty string
+			"""
 			if value:
 				self.attrs[key] = value
 			elif key in self.attrs:
 				del self.attrs[key]
+         """
 
 	def __delitem__(self, key):
 		if isinstance(key, int):
