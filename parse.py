@@ -500,7 +500,7 @@ def parse_pb(p, elem):
 	# and should also mark text nodes in-between!
 	if fws:
 		for i, fw in enumerate(fws):
-			p.start_span(klass="fw", tip="Foliation work")
+			p.start_span(klass="fw", tip="Foliation")
 			place = fw["place"]
 			if not place:
 				place = "top"
