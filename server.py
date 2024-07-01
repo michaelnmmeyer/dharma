@@ -343,14 +343,22 @@ def display_text_xml(text):
 		no_sidebar=True)
 	return ret
 
+# Redirect all forms
+# /texts/DHARMA_INSPallava00196.xml
+# /texts/INSPallava00196.xml
+# /texts/DHARMA_INSPallava00196
+# to
+# /texts/INSPallava00196
+@app.get("/texts/DHARMA_<text>.xml")
+@app.get("/texts/<text>.xml")
+@app.get("/texts/DHARMA_<text>")
+def redirect_to_display_text(text):
+	return flask.redirect(flask.url_for("display_text", text=text))
+
 @app.get("/texts/<text>")
 @common.transaction("texts")
 def display_text(text):
-	# /texts/INSPallava00196 -> /texts/DHARMA_INSPallava00196
-	if text.startswith("DHARMA_"):
-		return flask.redirect(flask.url_for("display_text", text=text.removeprefix("DHARMA_")))
-	else:
-		text = "DHARMA_" + text
+	text = "DHARMA_" + text
 	db = common.db("texts")
 	row = db.execute("""
 		select
