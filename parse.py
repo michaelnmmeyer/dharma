@@ -1,5 +1,4 @@
-import os, sys, re, html
-from urllib.parse import urlparse
+import os, sys, re, html, urllib.parse
 from dharma import prosody, people, tree, gaiji, common, biblio, langs, document
 from dharma.document import Document, Block
 
@@ -176,20 +175,43 @@ def parse_ptr(p, ptr, siglum=False):
 
 @handler("ref")
 def parse_ref(p, ref):
-	# See e.g. TamilNadu07
 	target = ref["target"]
-	if target:
-		url = urlparse(target)
-		# Drop the file extension if on our server (for dealing with
-		# e.g. "DHARMA_INSIDENKTuhanyaru.xml").
-		if not url.hostname:
-			path = os.path.splitext(url.path)[0]
-			url = url._replace(path=path)
-			target = url.geturl()
-		p.add_html(f'<a href="{target}">')
-	p.dispatch_children(ref)
-	if target:
-		p.add_html('</a>')
+	if not target:
+		p.dispatch_children(ref)
+		return
+	url = urllib.parse.urlparse(target)
+	name = None # if <ref> is empty
+	klass = "url"
+	# Simplify https?://dharmalekha.info/foo -> /foo
+	if url.scheme in ("http", "https") and url.netloc == "dharmalekha.info":
+		url = url._replace(scheme="", netloc="")
+	if url.hostname:
+		# This is a URL.
+		if ref.empty:
+			name = target
+		target = common.normalize_url(target)
+	else:
+		# This is a path, thus something on our server.
+		path = urllib.parse.unquote(url.path)
+		path = os.path.join("/texts", path)
+		# Drop the file extension (for dealing with e.g. "DHARMA_INSIDENKTuhanyaru.xml").
+		path = os.path.splitext(path)[0]
+		if ref.empty:
+			name = path
+			if path.startswith("/texts/"):
+				name = name.removeprefix("/texts/")
+				name = name.removeprefix("DHARMA_")
+				klass = [klass, "text-id"]
+		url = url._replace(path=urllib.parse.quote(path))
+		target = common.normalize_url(url.geturl())
+	p.add_html(f'<a href="{target}">')
+	if name:
+		p.start_span(klass=klass)
+		p.add_text(name)
+		p.end_span()
+	else:
+		p.dispatch_children(ref)
+	p.add_html('</a>')
 
 def add_lemmas_links(p, sources):
 	for ref in sources.split():
