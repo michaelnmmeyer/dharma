@@ -110,7 +110,7 @@ def parse_string(source, path=None):
 		err = e
 	# https://docs.python.org/3/library/pyexpat.html#xml.parsers.expat.XMLParserType
 	# err.offset counts columns from 0
-	raise Error(path=path or "<memory>",
+	raise Error(path=path,
 		line=err.lineno, column=err.offset + 1,
 		text=expat.errors.messages[err.code], source=source)
 
@@ -1050,7 +1050,8 @@ class Parser:
 		raise NotImplementedError
 
 class Error(Exception):
-	"Raised for parsing errors."
+	"""Raised for parsing errors viz. for malformed XML files. Schema
+	errors do not raise exceptions."""
 
 	def __init__(self, line=0, column=0, text="", source=b"", path=""):
 		self.path = path
