@@ -1505,14 +1505,14 @@ def process_file(file, mode=None):
 	p.dispatch(p.tree.root)
 	all_langs = set()
 	for node in t.find("//*"):
-		all_langs.add(node.lang)
+		all_langs.add(node.assigned_lang)
 	if not all_langs:
 		all_langs.add(langs.Undetermined)
 	p.document.langs = sorted(all_langs)
 	ed_langs = set()
 	for node in t.find("//div[@type='edition']/descendant-or-self::*"):
-		if node.lang.is_source:
-			ed_langs.add(node.lang)
+		if node.assigned_lang.is_source:
+			ed_langs.add(node.assigned_lang)
 	if not ed_langs:
 		ed_langs.add(langs.Undetermined)
 	p.document.edition_langs = sorted(ed_langs)

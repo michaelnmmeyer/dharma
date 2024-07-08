@@ -185,7 +185,7 @@ def assign_language(ctx, node, parent_lang, alt_lang, f):
 		case "foreign":
 			lang = alloc_lang(ctx, node, Source)
 		case "g":
-			node.lang = node.assigned_lang = alloc_lang(ctx, node, parent_lang)
+			node.assigned_lang = node.inferred_lang = alloc_lang(ctx, node, parent_lang)
 			return
 		case _:
 			lang = alloc_lang(ctx, node, parent_lang)
@@ -194,15 +194,15 @@ def assign_language(ctx, node, parent_lang, alt_lang, f):
 	for child in node:
 		match child:
 			case tree.String() if not child.isspace():
-				child.lang = child.assigned_lang = lang
+				child.assigned_lang = child.inferred_lang = lang
 			case tree.Tag():
 				f(ctx, child, lang, alt_lang, f)
 			case _:
 				continue
-		langs.add(child.lang)
+		langs.add(child.inferred_lang)
 	if len(langs) == 1:
 		lang = langs.pop()
-	node.lang = lang
+	node.inferred_lang = lang
 
 def assign_languages(t):
 	ctx = {}
@@ -459,7 +459,7 @@ def main():
 	t = tree.parse(sys.stdin)
 	assign_languages(t)
 	for node in t.find("//*"):
-		print(node.path, node.lang, node)
+		print(node.path, node.assigned_lang, node)
 
 def print_scripts():
 	for script in scripts:

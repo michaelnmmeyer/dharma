@@ -138,11 +138,11 @@ def parse(file, path=None):
 
 class Node:
 
-	lang = None
-	"""Actual language, inferred by bubbling up the language of children
-	elements."""
 	assigned_lang = None
 	"""Language assigned by the user."""
+	inferred_lang = None
+	"""Actual language, inferred by bubbling up the language of children
+	elements."""
 
 	def __init__(self, *args, **kwargs):
 		self.errors = []
@@ -1074,7 +1074,7 @@ def xpath_regex(node, pattern, *arg):
 
 def xpath_lang(node):
 	assert isinstance(node, Node)
-	return node.lang
+	return node.assigned_lang
 
 def xpath_mixed(node):
 	assert isinstance(node, Node)
