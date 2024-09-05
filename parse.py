@@ -1549,7 +1549,7 @@ if __name__ == "__main__":
 		try:
 			f = texts.File("/", path)
 			doc = process_file(f)
-			print(doc.apparatus)
+			print(doc.bibliography)
 		except BrokenPipeError:
 			pass
 	main()
