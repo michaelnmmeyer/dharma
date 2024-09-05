@@ -253,7 +253,7 @@ class Writer:
 	def ref(self, rec):
 		authors = []
 		for creator in rec["creators"]:
-			if rec["itemType"] == "bookSection" and creator["creatorType"] in ("editor", "bookAuthor"):
+			if rec["itemType"] in ("bookSection", "journalArticle") and creator["creatorType"] in ("editor", "bookAuthor"):
 				continue
 			authors.append(creator)
 		if len(authors) == 0:
@@ -1477,7 +1477,10 @@ def sort_key(rec):
 	typ = rec["itemType"]
 	if typ not in renderers:
 		return
-	skip_editors = typ == "bookSection"
+	# XXX this is broken, need to have a common function that determines
+	# where the authors, etc. depending on the item type and the creator's
+	# role.
+	skip_editors = typ in ("bookSection", "journalArticle")
 	fix_rec(rec)
 	key = ""
 	if (shorthand := rec.get("_shorthand")):
@@ -1503,3 +1506,14 @@ if __name__ == "__main__":
 			doc = common.from_json(doc)
 			print(doc, sort_key(doc))
 	main()
+
+
+# https://github.com/erc-dharma/project-documentation/issues/327
+"""
+STELE9JW
+
+Griffiths2021-2022_01
+
+{"data":{"DOI":"","ISSN":"","abstractNote":"This paper presents the epigraphic evidence relating to the history of Buddhist monasticism in Indonesia, and more particularly on the island of Java. I will discuss the problem of distinguishing Buddhist from non-Buddhist actors and institutions in the epigraphic record, focusing on the terminological distinctions that are relevant in this connection—especially that between kuṭi and vihāra—both of which are used to designate Buddhist institutions. An attempt will be made to extract from the relevant records what can be known about the patronage and naming patterns for monasteries attested in the epigraphic record, about the socio-economic functioning of these institutions at their time, and the fiscal regimes that were in force. To this end, I will analyze the Sanskrit and Old Javanese technical terminology that is used in relation to monastic institutions and attempt to determine whether any difference can be discerned from the contemporary functioning of establishments pertaining to other religions. Finally, I will discuss why explicit mentions of bhikṣus or the saṅgha are so rare, and what this near silence of the sources may mean for the nature of Buddhist monasticism in ancient Java.","accessDate":"","archive":"","archiveLocation":"","callNumber":"","collections":["MY3EUEE8","EBTHLX5L","GTGFAWD3","FPFUDRMH","KNIM44PU","TWIRRRVP","DLDV4H4V","9QJSGD2Y","77WZM6IC"],"creators":[{"creatorType":"author","firstName":"Arlo","lastName":"Griffiths"},{"creatorType":"editor","firstName":"Ryosuke","lastName":"Furui"},{"creatorType":"editor","firstName":"Arlo","lastName":"Griffiths"},{"creatorType":"editor","firstName":"Annette","lastName":"Schmiedchen"}],"date":"2021-2022","dateAdded":"2023-02-19T10:57:59Z","dateModified":"2024-08-16T02:49:39Z","extra":"Original date: 2023","issue":"","itemType":"journalArticle","journalAbbreviation":"BLS","key":"STELE9JW","language":"English","libraryCatalog":"","pages":"143-229","publicationTitle":"Buddhism, Law & Society","relations":{"dc:replaces":"http://zotero.org/groups/1633743/items/MGI3XF9Q"},"rights":"","series":"","seriesText":"","seriesTitle":"","shortTitle":"Griffiths2021-2022_01","tags":[],"title":"The terms <i>kuṭi</i> and <i>vihāra</i> in Old Javanese epigraphy and the modes of Buddhist monasticism in early Java","url":"https://shs.hal.science/halshs-04086296","version":222518,"volume":"7 (Special volume on Epigraphic Evidence on Patronage and Social Contexts of Buddhist Monasteries in Medieval South and Southeast Asia)"},"key":"STELE9JW","library":{"id":1633743,"links":{"alternate":{"href":"https://www.zotero.org/groups/erc-dharma","type":"text/html"}},"name":"ERC-DHARMA","type":"group"},"links":{"alternate":{"href":"https://www.zotero.org/groups/erc-dharma/items/STELE9JW","type":"text/html"},"self":{"href":"https://api.zotero.org/groups/1633743/items/STELE9JW","type":"application/json"}},"meta":{"createdByUser":{"id":1544859,"links":{"alternate":{"href":"https://www.zotero.org/arlogriffiths","type":"text/html"}},"name":"Arlo Griffiths","username":"arlogriffiths"},"creatorSummary":"Griffiths","numChildren":1,"parsedDate":"2021"},"version":222518}
+
+"""

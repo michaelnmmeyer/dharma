@@ -66,8 +66,6 @@ def extract_bib_ref(node):
 	if not ptr:
 		return None, None
 	target = ptr["target"]
-	if not target.startswith("bib:"):
-		return None, None
 	if target == "bib:AuthorYear_01":
 		return None, None
 	ref = target.removeprefix("bib:")
