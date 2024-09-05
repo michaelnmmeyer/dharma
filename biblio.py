@@ -1508,6 +1508,7 @@ if __name__ == "__main__":
 	main()
 
 
+# Use this as test sample:
 # https://github.com/erc-dharma/project-documentation/issues/327
 """
 STELE9JW
