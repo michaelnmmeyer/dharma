@@ -1,0 +1,77 @@
+default namespace = ""
+
+start =
+  element root {
+    element doc {
+      element H1 {
+        (text
+         | lb
+         | element arie {
+             attribute n { xsd:integer },
+             attribute ref { xsd:NCName }
+           })+
+      },
+      (Footnote
+       | H
+       | element H2 { (text | Footnote | i | lb | pb | supplied)+ }
+       | element H3 { (text | i | supplied)+ }
+       | element H4 { (text | i)+ }
+       | element INSCRIPTION {
+           element S { (text | i | pb)+ }?,
+           (Footnote | H*),
+           (element MST { (text | lb)+ },
+            element MSL { text },
+            element MSE { text })?,
+           element MM { (text | lb)+ }?,
+           (element D {
+              (text | apb | b | i | lb | pb | supplied | tamil)+
+            }
+            | element K { (text | apb | i | lb)+ }
+            | element L { (text | apb | i | lb | pb)+ }
+            | element P { (text | Footnote | apb | b | i | lb)+ }
+            | element RY { text }
+            | element SY { text }
+            | element Y { (text | apb | i | lb)+ })*,
+           element JY { text }?,
+           element O { (text | lb)+ }*,
+           element E { (text | i | lb)+ }?,
+           element R {
+             (text
+              | Footnote
+              | apb
+              | b
+              | i
+              | lb
+              | pb
+              | supplied
+              | tamil
+              | element p { (text | i | lb | pb)+ }
+              | element sup { xsd:integer })+
+           }*
+         }
+       | element Nil { pb })+
+    }+
+  }
+lb =
+  element lb {
+    attribute break { xsd:NCName }?
+  }
+pb =
+  element pb {
+    attribute n { xsd:NMTOKEN }?
+  }
+supplied =
+  element supplied {
+    attribute reason { xsd:NCName }?,
+    text
+  }
+Footnote = element Footnote { (text | i | lb)+ }
+i = element i { (text | apb | lb | tamil)+ }
+H =
+  element H {
+    attribute type { xsd:NCName },
+    (text | lb | pb)+
+  }
+b = element b { (text | lb)+ }
+apb = element apb { empty }
+tamil = element tamil { (text | lb)+ }
