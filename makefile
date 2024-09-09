@@ -23,10 +23,10 @@ forever:
 # Usage: make commit-all m="Commit message"
 m := "Address encoding problems"
 commit-all:
-	@for d in repos/*; do \
+	for d in repos/*; do \
 		echo "% $$(basename $$d)"; \
 		git -C $$d add --all; \
-		git -C $$d commit -m "$(m)" || true; \
+		git -C $$d commit -m $(m) || true; \
 		git -C $$d pull -q; \
 		git -C $$d push -q; \
 	done
