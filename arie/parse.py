@@ -58,16 +58,27 @@ H, H1, H2, H3, H4
 	<H type="subdistrict">Ron Taluk</H>
 		petites caps et centré
 
+<Nil>
+	<pb n="109:64"/>
+</Nil>
+<Nil>
+	<pb n="110:22"/>
+</Nil>
+	enveloppe des sauts de page qui sont en-dehors de
+	<INSCRIPTION>...</INSCRIPTION>
+
+<apb>	indique que l'enregistrement se poursuit sur la page suivante;
+	le marqueur est présent dans chaque colonne qui se poursuit sur
+	la page suivante. info pas très utile, sauf pour renvoyer à des
+	numéros de page de l'édition papier.
+
+
+
+
+
 weird:
 	<Footnote> (l'une d'elle est précédée de <sup> [1 seule occ.] pour l'appel)
 
-	<Nil>
-		<pb n="109:64"/>
-	</Nil>
-	<Nil>
-		<pb n="110:22"/>
-	</Nil>
 
-	<apb> ? column break
 
 """
