@@ -107,7 +107,7 @@ Version: {{doc.commit_date | format_date}}
       Apparatus <i class="fa-solid fa-angles-down"></i>
    </h2>
    <div class="collapsible-content">
-   {{doc.apparatus.render_logical() | safe}}
+   {{doc.apparatus.render_full() | safe}}
    </div>
 </div>
 % endif
