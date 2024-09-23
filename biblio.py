@@ -279,9 +279,12 @@ class Writer:
 		buf = ""
 		orig_date = rec.get("_original_date")
 		if orig_date:
+			orig_date = orig_date.replace("-", "\N{en dash}")
 			buf += f"[{orig_date}] "
 		date = rec["date"]
-		if not date:
+		if date:
+			date = date.replace("-", "\N{en dash}")
+		else:
 			date = "N.d."
 		buf += date
 		if space:
@@ -1239,7 +1242,7 @@ def fix_rec(rec):
 		if key == "shorthand":
 			rec["_shorthand"] = value
 		elif key == "originaldate":
-			rec["_original_date"] = value
+			rec["_original_date"] = value.replace("\N{en dash}", "-")
 	rec.setdefault("_shorthand", "")
 	for key, value in rec.copy().items():
 		# TODO should only allow html in specific fields (title?)
