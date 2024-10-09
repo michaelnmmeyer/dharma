@@ -18,11 +18,12 @@ start =
        | element H4 { (text | i)+ }
        | element INSCRIPTION {
            element S { (text | i | pb)+ }?,
-           (Footnote | H*),
+           Footnote?,
            (element MST { (text | lb)+ },
             element MSL { text },
             element MSE { text })?,
-           element MM { (text | lb)+ }?,
+           (element MM { (text | lb)+ }
+            | H*),
            (element D {
               (text | apb | b | i | lb | pb | supplied | tamil)+
             }
@@ -45,11 +46,9 @@ start =
               | pb
               | supplied
               | tamil
-              | element p { (text | i | lb | pb)+ }
-              | element sup { xsd:integer })+
+              | element p { (text | i | lb | pb)+ })+
            }*
-         }
-       | element Nil { pb })+
+         })+
     }+
   }
 lb =
@@ -72,6 +71,6 @@ H =
     attribute type { xsd:NCName },
     (text | lb | pb)+
   }
-b = element b { (text | lb)+ }
 apb = element apb { empty }
+b = element b { (text | lb)+ }
 tamil = element tamil { (text | lb)+ }
