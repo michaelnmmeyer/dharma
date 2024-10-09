@@ -1,4 +1,4 @@
-import os, string, unicodedata, re, html
+import os, string, unicodedata, re, html, sqlite3, sys
 from dharma import common, texts, tree
 
 # TODO try multisets: https://en.wikipedia.org/wiki/Jaccard_index
@@ -213,12 +213,14 @@ def make_database():
 	for tbl in ("jaccard", "passages", "sources"):
 		db.execute(f"delete from {tbl}")
 	id = 0
-	for path in texts.iter_texts():
-		file = os.path.basename(os.path.splitext(path)[0])
-		db.execute("insert into sources(file) values(?)", (file,))
-		for row in process_file(path, id):
-			db.execute("""insert into passages(type, id, file, number, contents, normalized)
-				values(?, ?, ?, ?, ?, ?)""", row)
+	for file in texts.iter_texts():
+		try:
+			db.execute("insert into sources(file) values(?)", (file.name,))
+		except sqlite3.IntegrityError as e:
+			print(e, file=sys.stderr)
+			continue
+		for row in process_file(file.full_path, id):
+			db.execute("""insert into passages(type, id, file, number, contents, normalized) values(?, ?, ?, ?, ?, ?)""", row)
 			id = row[1]
 	for type, _ in enum_funcs:
 		make_jaccard(type)
