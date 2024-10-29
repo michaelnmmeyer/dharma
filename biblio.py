@@ -1,3 +1,7 @@
+# BUG we sometimes miss entries while updating the bib, why?
+# Maybe we should force a full bibliography update from time to time just in
+# case.
+
 # For the conversion zotero->tei, this code is used:
 # https://github.com/zotero/translators/blob/master/TEI.js
 # The documentation for entry types and fields is at:
@@ -100,7 +104,8 @@ def update():
 		db.execute("delete from biblio_data where key = ? and version <= ?", (key, max_version))
 	db.execute("update metadata set value = ? where key = 'biblio_latest_version'", (max_version,))
 	# For now, use brute force for generating sort keys. But we only need
-	# to do that when the code that generates the sort key changes.
+	# to do that when the code that generates the sort key changes (and when
+	# the item is updated).
 	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
 		rec = common.from_json(rec)
 		db.execute("update biblio_data set sort_key = ? where key = ?", (sort_key(rec), key))

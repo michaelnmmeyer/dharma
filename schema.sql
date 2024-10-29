@@ -43,7 +43,9 @@ create table if not exists metadata(
 insert or ignore into metadata values('last_updated', 0);
 -- To update the bibliography, we need to pull from zotero.org all records
 -- whose version is > biblio_latest_version. We might already have such items in
--- the db.
+-- the db. To fully rebuild bibliography tables, use:
+-- insert or replace into metadata(key, value) values('biblio_latest_version', 0);
+-- then run the update process.
 insert or ignore into metadata values('biblio_latest_version', 0);
 
 -- Repositories description. This is initially filled with repos.tsv. We do

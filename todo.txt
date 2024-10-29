@@ -1,78 +1,64 @@
-M9K4R5SG|216933|{"data":{"DOI":"","ISSN":"","abstractNote":"","accessDate":"","archive":"","archiveLocation":"","callNumber":"","collections":[],"creators":[{"creatorType":"author","firstName":"H.","lastName":"Krishna Sastri"}],"date":"","dateAdded":"2024-05-13T15:25:35Z","dateModified":"2024-05-13T15:29:00Z","extra":"","issue":"","itemType":"journalArticle","journalAbbreviation":"EI","key":"M9K4R5SG","language":"","libraryCatalog":"","pages":"291-309","publicationTitle":"Epigraphia Indica","relations":{},"rights":"","series":"","seriesText":"","seriesTitle":"","shortTitle":"KrishnaSastri1923-1924_01","tags":[{"tag":"KrishnaSastri1923-1924_01"}],"title":"Velvikudi Grant of Nedunjadaiyan, the third year of reign","url":"","version":216933,"volume":"17"},"key":"M9K4R5SG","library":{"id":1633743,"links":{"alternate":{"href":"https://www.zotero.org/groups/erc-dharma","type":"text/html"}},"name":"ERC-DHARMA","type":"group"},"links":{"alternate":{"href":"https://www.zotero.org/groups/erc-dharma/items/M9K4R5SG","type":"text/html"},"self":{"href":"https://api.zotero.org/groups/1633743/items/M9K4R5SG","type":"application/json"}},"meta":{"createdByUser":{"id":1975187,"links":{"alternate":{"href":"https://www.zotero.org/amandine.bricout","type":"text/html"}},"name":"","username":"amandine.bricout"},"creatorSummary":"Krishna Sastri","numChildren":0},"version":216933}|KrishnaSastri1923-1924_01|journalArticle|Krishna Sastri  M9K4R5SG
-U6Y2GCMZ|223903|{"data":{"DOI":"","ISSN":"","abstractNote":"","accessDate":"","archive":"","archiveLocation":"","callNumber":"","collections":[],"creators":[{"creatorType":"author","firstName":"H.","lastName":"Krishna Sastri"}],"date":"1923-1924","dateAdded":"2024-09-14T13:44:19Z","dateModified":"2024-09-14T13:50:37Z","extra":"","issue":"","itemType":"journalArticle","journalAbbreviation":"EI","key":"U6Y2GCMZ","language":"English","libraryCatalog":"","pages":"291-309","publicationTitle":"Epigraphia Indica","relations":{},"rights":"","series":"","seriesText":"","seriesTitle":"","shortTitle":"KrishnaSastri1923-1924_01","tags":[],"title":"Velvikudi grant of Netunjadaiyan: the third year of reign","url":"","version":223903,"volume":"17"},"key":"U6Y2GCMZ","library":{"id":1633743,"links":{"alternate":{"href":"https://www.zotero.org/groups/erc-dharma","type":"text/html"}},"name":"ERC-DHARMA","type":"group"},"links":{"alternate":{"href":"https://www.zotero.org/groups/erc-dharma/items/U6Y2GCMZ","type":"text/html"},"self":{"href":"https://api.zotero.org/groups/1633743/items/U6Y2GCMZ","type":"application/json"}},"meta":{"createdByUser":{"id":1559253,"links":{"alternate":{"href":"https://www.zotero.org/manufrancis","type":"text/html"}},"name":"","username":"manufrancis"},"creatorSummary":"Krishna Sastri","numChildren":0,"parsedDate":"1923"},"version":223903}|KrishnaSastri1923-1924_01|journalArticle|Krishna Sastri 1923-1924 U6Y2GCMZ
+# parsing
+
+should build trees for each display: logical, physical, full (might be possible
+to derive logical from full, not sure; might have problem with whitespace). from
+these 3 trees, we derive 3 programs; and from each program, we derive plain and
+html.
+
+need to know the search representation to be able to figure out what instruction
+set we should use.
+
+for highlighting and snippets to work, must be able to do matching and html
+conversion simultaneously; iow, it must be possible to go from a search offset
+to a display offset. but:
+
+* a single search unit might represent several display units, if we have
+  e.g. {dh}{a}{r}{m}{a} -> dharma
+* a display unit might not have a search unit, e.g. hyphens might need to be
+  stripped. in this case, should not select the omitted units unless they
+  appear between two search units, so with display: "-a-b-c-" and query
+  "ab" should select "-{a-b}-c-".
+* can we have several search units matching a single display unit? I can only
+  think of gaiji stuff, if we allow searching (parts of) gaiji symbol names.
+  not sure we need this functionality though.
 
 
+# Display
+
+will have problems with block-level tags, bugs:
+* BUG: <p><ul></ul></p> not allowed in HTML5, fix that by using a <div> instead of
+  <p>, or, better pop and reopen <p> elements when needed when compiling
+  stuff.
+* need to address spaces
+* BUG: DHARMA_INSPandya10002.xml <g type=floret> manque espace avant dans la visualisation
+
+improve: delete automatically spaces around milestones/lb/pb break="no", etc.
+improve: handle sibling footnotes: add , between note refs
+improve: Parse urls and make them clickable.
 
 
+# Manu copy-paste
 
-conserver mise en forme quand copier/coller; Word; marche pas à cause de Windows visiblement, il faut utiliser des raw tags apparemment.
+manu a win10 pro; test conserver mise en forme quand copier/coller; Word; marche pas à cause de Windows visiblement; essayer de se limiter aux tags basiques <i>, <b> ou (peut-être) ne pas employer de classes
+suis sur que les tags suivants sont OK: gras = strong / italique = em / couleur = ?
+il faut aussi conserver des niveaux de titres cohérents, ça se copie automatiquement sous word.
 
-INSPandya10002 KrishnaShastri est pas en double dans la biblio, pb de mise à jour.
 
-DHARMA_INSPandya10002.xml <g type=floret> manque espace avant dans la visualisation
+# Manu reste
 
-=======
+demander amandine si ses metadata complètes, puis faire un export dans dépôt
+perso, puis parser
 
-transférer ARIE sur nouveau site. outil de recherche. mais les 1959-1960 à mettre
-en privé derrière mot de passe authentification.
+suivre ariane puis faire demande télétravail
 
-métadonnées à regarder.
 
-add tests for the biblio
-
-for invalid inscriptions, show the xml, but without formatting tags, etc.
-need to convert the error (line,column) to an offset
-use xmlparser.ErrorByteIndex instead of donig a manual conversion
-https://docs.python.org/3/library/pyexpat.html
-
-== Scripts
-
-only attempt to find @rendition in div[@type='edition'] and in div[@type='apparatus']
-(because we will need transliteration there). ignore @rendition in other locations.
-should use the same rule we use for languages, for simplicity. but we don't
-need the distinction assigned/inferred for scripts.
-
-pair (language,script)
-
-should assume that scripts are inherited, but are set to "undefined"
-when in a foreign element, and maybe when the language changes.
-
-change category names in the main table:
-  arabic -> arabic_other
-  brāhmī -> brāhmī_other
-  brāhmī_northern -> brāhmī_northern_other
-  brāhmī_southeast
-  brāhmī_southern
-
-what should we do with the script hierarchy? can store it in a sql table,
-but in this case add something for converting this to a json doc.
-
-add a script table to the website
-
-afficher scripts de chaque inscription dans display. il faut se préparer à
-rassembler 4 listes pour div[@type='edition']
-1. all langs
-2. all scripts
-3. for each lang, the script that appear within it
-4. for each script, the langs that appear within it
-save that in the catalog, we will decide what to display later on
 
 ===
 
-find a way to merge the parallels db with the main one
 
 
-to errors list, add as warning gaiji not present in the table
-
-
-add a timer to the update process, to measure how long it takes us to update
-the database after a repo has been pushed to github. this should remain
-reasonable.
-
-delete automatically spaces around milestones/lb/pb break="no", etc. need to
-move to the AST system first
-
-handle sibling footnotes: add , between note refs
+find a way to merge the parallels db with the main one; it should be updated
+every week or so
 
 
 in biblio, move sharedocs links to notes; requires to have
@@ -86,6 +72,7 @@ all custom stuff (additions to the egd).
 
 prosodic patterns; be careful about placemenbt of guillemets and footnote nums.
 
+
 ===
 
 in xpath maybe support yielding strings (only need this for the last component,
@@ -93,7 +80,7 @@ for use in the command-line tool)
 
 allow selection of attrs in xpath, useful for doing searches from the cmd line
 
-need to fix the datatype mess in schema; distinguish between attrs that accept
+need to fix the datatype mess in rng schema; distinguish between attrs that accept
 a single value and the others.
 
 shorthand in bib
@@ -102,6 +89,7 @@ when apparatus hidden, remove its headings from submenu; and add ellipsis after
 apparatus heading
 
 deal with divs grantha; for this need to use a tree, not bytecode
+
 
 =================
 
@@ -173,16 +161,17 @@ actually use dharma.rng, only in /texts for now, afterwards distribute it;
 
 ## Display
 
+for invalid inscriptions, show the xml, but without formatting tags, etc.
+need to convert the error (line,column) to an offset
+use xmlparser.ErrorByteIndex instead of donig a manual conversion
+https://docs.python.org/3/library/pyexpat.html
+
 deal with rendition and xml:lang, which must cover the whole text in div type edition.
 must be dealt with in tree.py
 
 manu: In physical display, do not display editorial hyphens, but do show them
 in logical display. For this to work, need to tag languages. XXX
 hyphens between words? or at the end fo a line?
-
-FIX <p><ul></ul></p> not allowed in HTML5, fix that by using a <div> instead of
-<p>, or, better pop and reopen <p> elements when needed when compiling
-stuff.
 
 manu: grantha translit with button several states translit methods
 
@@ -203,6 +192,7 @@ don't think we are formarring abbr/expan as supposed
 
 should use the lang attribute in html to tag appropriately xml elements
 with an @xml:lang.
+
 
 ## Problems with @n.
 
@@ -227,15 +217,11 @@ the sidebar, too. when it is completemy closed, what to display?
 
 ## Website
 
-Parse urls and make them clickable.
-
 for https://github.com/erc-dharma/project-documentation/issues/266#issue-2207593274
 don't use href in in-page links, it's confusing; use data-href instead; and this
 would allow us to distinguish page-internal links from the others.
 
 when a file is completely invalid, show the raw xml in the displqay (not pretty-printed).
-
-update popperjs. read the tuto. figure out how to reprod tooltip functionality.
 
 do a redirect /foo/ -> /foo in nginx _but_ watch out with the /zotero-proxy
 stuff.
@@ -261,18 +247,8 @@ add global table of gaiji symbols actually found in inscriptions.
 we will add links to inscriptions within this table so that we can find which
 inscriptions, etc. contain which symbols.
 
-# Tamil
 
-Should we do the search stuff in Python, go or C? Since we are going to query
-the db, might be simpler to have a SQLite extension, but then we must write
-at least the binding code in C. For testing, it would be better to have an
-interface that accepts commands, separate from sqlite. It's probably best to
-do everything through a sqlite extension, even if it's annoying, because this
-way we're protected from transaction issues.
-
-Write the main code in go for simplicity. Add a basic argc,argv func as an
-entry point, and wrap this function in C with minimum code.
-
+--------------------- Enhancements
 
 # Parallels
 
@@ -303,20 +279,6 @@ in any case, we must preserve the fact that a given ident always corresponds to
 exactly one elem; so if we have a duplicate ident, do not use this
 duplicate ident, instead generate new ones and delete these when appropriate.
 
-## Corpora
-
-ARIE
-first file we have:
-<!--<p>Ā A2 A4 Ã Ä A9 B1 B2 B9 C1 C3 C4 C6 D1 Ḍ D4 D5 D6 E1 E2 E4 E5 Ë F1 G6 H2 Ī I2 I4 Ï K1 K2 K6
-Ḷ L6 M3 M7 Ṇ Ṅ Ñ N6 O1 O4 Õ P1 Q4 Ṛ R6 S1 Ṣ Ś S6 Ṭ T6 Ū U5 Ü V6 ā a2 a3 a4 ã a6 ä c1
-ḍ d6 e0 ē e4 e5 ë g6 h2 h6 ī i2 i4 i5 ï i9 k2 ḵ l1 ḷ ḻ ṃ ṁ m6 n1 ṇ ṅ n4 ñ ṉ n7 o0 ō
-o3 o4 õ o6 ö o8 o9 p2 p6 ṛ r3 ṟ r7 ṣ s3 ś s6 ṭ t6 t8 ū u2 u3 u4 u5 u6 ü u8 v2 v3 v4 v7 x3
-x4 x7 y3 z2 z6</p>-->
-look how evolved and also see if we sth similar in second file.
-
-SII (south indian inscriptions), on attend livraison finale
-Epigraphia carnatica
-
 == EGD
 
 <ref target="C00007.xml">C. 7</ref>
@@ -328,9 +290,3 @@ questions: titlecase or not?
 q and quote; treated identically
 affiliation in people file
 repo description?
-
-
-===
-EGC prép. planning ; Arlo prévoit 1 j/s ; feuilleter guide et faire liste diff.
-avoid duplication; should not have distinct processors.
-

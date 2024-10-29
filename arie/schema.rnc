@@ -11,49 +11,52 @@ start =
              attribute ref { xsd:NCName }
            })+
       },
-      (Footnote
-       | H
-       | element H2 { (text | Footnote | i | lb | pb | supplied)+ }
+      (H
+       | note
+       | element H2 { (text | i | lb | note | pb | supplied)+ }
        | element H3 { (text | i | supplied)+ }
        | element H4 { (text | i)+ }
        | element INSCRIPTION {
-           element S { (text | i | pb)+ }?,
-           Footnote?,
+           element S { (text | i | note | pb | supplied)+ },
+           element MM { (text | lb)+ }?,
            (element MST { (text | lb)+ },
             element MSL { text },
             element MSE { text })?,
-           (element MM { (text | lb)+ }
-            | H*),
+           (note | H*),
            (element D {
               (text | apb | b | i | lb | pb | supplied | tamil)+
             }
             | element K { (text | apb | i | lb)+ }
             | element L { (text | apb | i | lb | pb)+ }
-            | element P { (text | Footnote | apb | b | i | lb)+ }
+            | element P { (text | apb | b | i | lb)+ }
             | element RY { text }
             | element SY { text }
             | element Y { (text | apb | i | lb)+ })*,
-           element JY { text }?,
            element O { (text | lb)+ }*,
            element E { (text | i | lb)+ }?,
-           element R {
-             (text
-              | Footnote
-              | apb
-              | b
-              | i
-              | lb
-              | pb
-              | supplied
-              | tamil
-              | element p { (text | i | lb | pb)+ })+
-           }*
+           (element JY { text }
+            | element R {
+                (text
+                 | apb
+                 | b
+                 | i
+                 | lb
+                 | pb
+                 | supplied
+                 | tamil
+                 | element p { (text | i | lb | pb)+ })+
+              }*)
          })+
     }+
   }
 lb =
   element lb {
     attribute break { xsd:NCName }?
+  }
+note =
+  element note {
+    attribute n { text }?,
+    (text | i | lb)+
   }
 pb =
   element pb {
@@ -64,13 +67,12 @@ supplied =
     attribute reason { xsd:NCName }?,
     text
   }
-Footnote = element Footnote { (text | i | lb)+ }
-i = element i { (text | apb | lb | tamil)+ }
+i = element i { (text | apb | lb | note | tamil)+ }
 H =
   element H {
     attribute type { xsd:NCName },
     (text | lb | pb)+
   }
+b = element b { (text | lb | note)+ }
 apb = element apb { empty }
-b = element b { (text | lb)+ }
 tamil = element tamil { (text | lb)+ }

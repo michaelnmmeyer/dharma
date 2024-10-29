@@ -2,6 +2,39 @@
 # For ISO 639-5 (language families), the authority is
 # https://www.loc.gov/standards/iso639-5/index.html
 
+"""TODO
+
+only attempt to find @rendition in div[@type='edition'] and in div[@type='apparatus']
+(because we will need transliteration there). ignore @rendition in other locations.
+should use the same rule we use for languages, for simplicity. but we don't
+need the distinction assigned/inferred for scripts.
+
+pair (language,script)
+
+should assume that scripts are inherited, but are set to "undefined"
+when in a foreign element, and maybe when the language changes.
+
+change category names in the main table:
+  arabic -> arabic_other
+  brāhmī -> brāhmī_other
+  brāhmī_northern -> brāhmī_northern_other
+  brāhmī_southeast
+  brāhmī_southern
+
+what should we do with the script hierarchy? can store it in a sql table,
+but in this case add something for converting this to a json doc.
+
+add a script table to the website
+
+afficher scripts de chaque inscription dans display. il faut se préparer à
+rassembler 4 listes pour div[@type='edition']
+1. all langs
+2. all scripts
+3. for each lang, the script that appear within it
+4. for each script, the langs that appear within it
+save that in the catalog, we will decide what to display later on
+"""
+
 import sys, functools, collections
 import requests # pip install requests
 from dharma import common, texts, tree
