@@ -1,0 +1,26 @@
+will things be fast enough for basic re search?
+
+chercher une représentation unique pour les métadonnées en général pour le
+texte, doit être en mesure de chercher deux représentations: physical+logical
+que garder de la structure du texte? at least: titres, sauts de paragraphes (on
+considère les éléments d'une liste comme des paragraphes),
+
+to simplify re matching must use some msgpack-like format. we should be able to
+search the whole document in one go. we can assume that there is a fixed set of
+fields, so no need to store the field name.
+
+need to have some custom encoding(s), but can do that later on.
+when encoding is done, might want to modify the library, for:
+1. simplifying search. could be useful for enabling/disabling diacritics
+   matching if we encode this info in each char.
+2. make matching faster (we can avoid useless memory allocs).
+
+Should we do the search stuff in Python, go or C? Since we are going to query
+the db, might be simpler to have a SQLite extension, but then we must write
+at least the binding code in C. For testing, it would be better to have an
+interface that accepts commands, separate from sqlite. It's probably best to
+do everything through a sqlite extension, even if it's annoying, because this
+way we're protected from transaction issues.
+
+Write the main code in go for simplicity. Add a basic argc,argv func as an
+entry point, and wrap this function in C with minimum code.
