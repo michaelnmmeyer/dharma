@@ -1319,20 +1319,20 @@ def parse_just_dispatch(p, node):
 @handler("publicationStmt")
 @handler("editionStmt")
 @handler("facsimile") # for images, will see later on
+@handler("handShift")
 def parse_ignore(p, node):
 	pass
 
 @handler("sourceDesc")
 def parse_sourceDesc(p, desc):
 	summ = desc.first("msDesc/msContents/summary")
-	if not summ:
-		return
-	# remove paragraphs
-	for para in summ.find(".//p"):
-		para.unwrap()
-	p.push("summary")
-	p.dispatch_children(summ)
-	p.document.summary = p.pop()
+	if summ:
+		# remove paragraphs
+		for para in summ.find(".//p"):
+			para.unwrap()
+		p.push("summary")
+		p.dispatch_children(summ)
+		p.document.summary = p.pop()
 
 def get_script(node):
 	m = re.match(r"class:([^ ]+) maturity:(.+)", node["rendition"])
