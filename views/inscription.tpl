@@ -44,12 +44,12 @@
 Identifier: <span class="text-id">{{text}}</span>.
 </p>
 % if doc.summary:
-<p>Summary: {{doc.summary.render_logical() | safe}}</p>
+<p>Summary: {{doc.summary.render_full() | safe}}</p>
 % endif
 % if doc.hand_desc:
 <p>Hand description:</p>
 <div>
-{{doc.hand_desc.render_logical() | safe}}
+{{doc.hand_desc.render_full() | safe}}
 </div>
 % endif
 
@@ -121,21 +121,21 @@ Version: {{doc.commit_date | format_date}}
 % for trans in doc.translation:
 <div class="translation">
 <h2 id="translation-{{loop.index}}">{{trans.title | safe}}</h2>
-{{trans.render_logical() | safe}}
+{{trans.render_full() | safe}}
 </div>
 % endfor
 
 % if doc.commentary:
 <div class="commentary">
 <h2 id="commentary">Commentary</h2>
-{{doc.commentary.render_logical() | safe}}
+{{doc.commentary.render_full() | safe}}
 </div>
 % endif
 
 % if doc.bibliography:
 <div class="bibliography">
 <h2 id="bibliography">Bibliography</h2>
-{{doc.bibliography.render_logical() | safe}}
+{{doc.bibliography.render_full() | safe}}
 </div>
 % endif
 
@@ -146,7 +146,7 @@ Version: {{doc.commit_date | format_date}}
 % for note in doc.notes:
 <li class="note" id="note-{{loop.index}}">
 <a class="note-ref" href="#note-ref-{{loop.index}}">{{loop.index}}.</a>
-{{note.render_logical() | safe}}
+{{note.render_full() | safe}}
 </li>
 % endfor
 </ol>
