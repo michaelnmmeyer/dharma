@@ -1323,16 +1323,32 @@ def parse_just_dispatch(p, node):
 def parse_ignore(p, node):
 	pass
 
+def parse_handDesc(p, desc):
+	root = desc.first("summary") or desc
+	p.push("hand_desc")
+	found = False
+	for para in root.find("p"):
+		p.dispatch(para)
+		found = True
+	p.document.hand_desc = p.pop()
+	if not found:
+		p.document.hand_desc = None
+
 @handler("sourceDesc")
 def parse_sourceDesc(p, desc):
 	summ = desc.first("msDesc/msContents/summary")
 	if summ:
-		# remove paragraphs
+		# remove paragraphs XXX why? I think this is because we sometimes
+		# have a mix of <p> and text elements at the same level, check.
 		for para in summ.find(".//p"):
 			para.unwrap()
 		p.push("summary")
 		p.dispatch_children(summ)
 		p.document.summary = p.pop()
+	hd = desc.first("msDesc/physDesc/handDesc")
+	if hd:
+		parse_handDesc(p, hd)
+
 
 def get_script(node):
 	m = re.match(r"class:([^ ]+) maturity:(.+)", node["rendition"])
@@ -1549,7 +1565,7 @@ if __name__ == "__main__":
 		try:
 			f = texts.File("/", path)
 			doc = process_file(f)
-			print(doc.edition)
+			print(doc.hand_desc)
 		except BrokenPipeError:
 			pass
 	main()

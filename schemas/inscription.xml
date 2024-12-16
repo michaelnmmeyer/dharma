@@ -2316,6 +2316,15 @@
                     </attList>
                 </elementSpec>
                 <elementSpec ident="handDesc" module="msdescription" mode="change">
+                    <content>
+                        <alternate minOccurs="1" maxOccurs="1">
+                            <elementRef key="p" minOccurs="1" maxOccurs="unbounded"/>
+                            <sequence minOccurs="1" maxOccurs="1">
+                                <elementRef key="summary" minOccurs="0"/>
+                                <elementRef key="handNote" minOccurs="1" maxOccurs="unbounded"/>
+                            </sequence>
+                        </alternate>
+                    </content>
                     <attList>
                         <attDef ident="ana" mode="delete"/>
                         <attDef ident="cert" mode="delete"/>

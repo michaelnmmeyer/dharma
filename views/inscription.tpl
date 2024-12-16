@@ -46,6 +46,12 @@ Identifier: <span class="text-id">{{text}}</span>.
 % if doc.summary:
 <p>Summary: {{doc.summary.render_logical() | safe}}</p>
 % endif
+% if doc.hand_desc:
+<p>Hand description:</p>
+<div>
+{{doc.hand_desc.render_logical() | safe}}
+</div>
+% endif
 
 % if doc.edition_langs:
 <p>{{numberize("Language", len(doc.edition_langs))}}:

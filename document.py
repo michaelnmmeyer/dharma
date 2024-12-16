@@ -569,6 +569,7 @@ class Document:
 	editors_ids = None # list of dharma ids (part:XXXX)
 	langs = None
 	summary = None
+	hand_desc = None
 
 	edition = None
 	apparatus = None
