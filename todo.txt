@@ -1,3 +1,89 @@
+# parsing
+
+should build trees for each display: logical, physical, full (might be possible
+to derive logical from full, not sure; might have problem with whitespace). from
+these 3 trees, we derive 3 programs; and from each program, we derive plain and
+html.
+
+need to know the search representation to be able to figure out what instruction
+set we should use.
+
+for highlighting and snippets to work, must be able to do matching and html
+conversion simultaneously; iow, it must be possible to go from a search offset
+to a display offset. but:
+
+* a single search unit might represent several display units, if we have
+  e.g. {dh}{a}{r}{m}{a} -> dharma
+* a display unit might not have a search unit, e.g. hyphens might need to be
+  stripped. in this case, should not select the omitted units unless they
+  appear between two search units, so with display: "-a-b-c-" and query
+  "ab" should select "-{a-b}-c-".
+* can we have several search units matching a single display unit? I can only
+  think of gaiji stuff, if we allow searching (parts of) gaiji symbol names.
+  not sure we need this functionality though.
+
+find coherent solution for spaces around lb, pb and milestone (and in fact all
+elements). delete them when appropriate, add them when needed.
+
+# Display
+
+implement: https://github.com/erc-dharma/project-documentation/issues/282#issuecomment-2444650894
+
+will have problems with block-level tags, bugs:
+* BUG: <p><ul></ul></p> not allowed in HTML5, fix that by using a <div> instead of
+  <p>, or, better pop and reopen <p> elements when needed when compiling
+  stuff.
+* need to address spaces
+* BUG: DHARMA_INSPandya10002.xml <g type=floret> manque espace avant dans la visualisation
+
+improve: delete automatically spaces around milestones/lb/pb break="no", etc.
+improve: handle sibling footnotes: add , between note refs
+improve: Parse urls and make them clickable.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=================================
+
 https://mail.google.com/mail/u/0/#label/Work/FMfcgzGxTFdwWWMKhmGhVzhnHBXcBwQV
 https://mail.google.com/mail/u/0/#label/Work/FMfcgzQXJtDPgHCpTSWgzdvRZrVzdPdJ
 https://mail.google.com/mail/u/0/#label/Work/FMfcgzGxTPFzPVKbpkWPhGsWTkBBKSnB
@@ -53,47 +139,6 @@ store several URLs for each inscription; add a menu in left margin that enumerat
 react:
 https://github.com/erc-dharma/project-documentation/issues/310#issuecomment-2444531530
 
-# parsing
-
-should build trees for each display: logical, physical, full (might be possible
-to derive logical from full, not sure; might have problem with whitespace). from
-these 3 trees, we derive 3 programs; and from each program, we derive plain and
-html.
-
-need to know the search representation to be able to figure out what instruction
-set we should use.
-
-for highlighting and snippets to work, must be able to do matching and html
-conversion simultaneously; iow, it must be possible to go from a search offset
-to a display offset. but:
-
-* a single search unit might represent several display units, if we have
-  e.g. {dh}{a}{r}{m}{a} -> dharma
-* a display unit might not have a search unit, e.g. hyphens might need to be
-  stripped. in this case, should not select the omitted units unless they
-  appear between two search units, so with display: "-a-b-c-" and query
-  "ab" should select "-{a-b}-c-".
-* can we have several search units matching a single display unit? I can only
-  think of gaiji stuff, if we allow searching (parts of) gaiji symbol names.
-  not sure we need this functionality though.
-
-find coherent solution for spaces around lb, pb and milestone (and in fact all
-elements). delete them when appropriate, add them when needed.
-
-# Display
-
-implement: https://github.com/erc-dharma/project-documentation/issues/282#issuecomment-2444650894
-
-will have problems with block-level tags, bugs:
-* BUG: <p><ul></ul></p> not allowed in HTML5, fix that by using a <div> instead of
-  <p>, or, better pop and reopen <p> elements when needed when compiling
-  stuff.
-* need to address spaces
-* BUG: DHARMA_INSPandya10002.xml <g type=floret> manque espace avant dans la visualisation
-
-improve: delete automatically spaces around milestones/lb/pb break="no", etc.
-improve: handle sibling footnotes: add , between note refs
-improve: Parse urls and make them clickable.
 
 
 # Manu copy-paste
