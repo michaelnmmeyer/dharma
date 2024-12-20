@@ -1,4 +1,4 @@
-import os, sys, re, html, urllib.parse
+import os, sys, re, html, urllib.parse, logging
 from dharma import prosody, people, tree, gaiji, common, biblio, langs, document
 from dharma.document import Document, Block
 
@@ -1553,13 +1553,16 @@ def export_plain():
 			ret = renderer.render(process_file(f))
 		except tree.Error:
 			continue
+		except Exception as e:
+			logging.error(f"cannot process {name} ({e})")
+			continue
 		out_file = os.path.join(out_dir, name + ".txt")
 		with open(out_file, "w") as f:
 			f.write(ret)
 
 if __name__ == "__main__":
-	#export_plain()
-	#exit(0)
+	export_plain()
+	exit(0)
 
 	from dharma import texts
 	@common.transaction("texts")
