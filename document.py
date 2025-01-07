@@ -6,6 +6,9 @@
 #
 # to make sure we examine everything and to signal stuff we haven't taken into
 # account, might want to add a "visited" flag to @. maybe id. for text nodes.
+#
+# If the idea is to convert texts to many formats, we might want to use
+# pandoc's data model. See https://boisgera.github.io/pandoc/document
 
 import os, sys, re, html, unicodedata
 from dharma import common, unicode, biblio

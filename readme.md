@@ -18,7 +18,8 @@ Note that the Python package for [ICU](https://icu.unicode.org/) is `PyICU`, not
 `icu`! PyICU does not automatically install the libraries it needs to work, and
 it wants all the ICU stuff to be installed, including the build tools, so you
 need to install `libicu-dev` or `libicu-devel` (depending on the distribution),
-not just `libicu`.
+not just `libicu`. You also need to install Python's headers (`python-devel` or
+`python-dev`).
 
 [`Pandoc`](https://pandoc.org) must also be installed, we use it at runtime
 for rendering Markdown files.

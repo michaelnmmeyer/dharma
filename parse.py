@@ -2,9 +2,6 @@ import os, sys, re, html, urllib.parse, logging
 from dharma import prosody, people, tree, gaiji, common, biblio, langs, document
 from dharma.document import Document, Block
 
-# If the idea is to convert texts to many formats, we might want to use
-# pandoc's data model. See https://boisgera.github.io/pandoc/document
-
 HANDLERS = []
 
 def handler(path):

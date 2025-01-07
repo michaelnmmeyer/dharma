@@ -1,12 +1,44 @@
 # parsing
 
-should build trees for each display: logical, physical, full (might be possible
-to derive logical from full, not sure; might have problem with whitespace). from
-these 3 trees, we derive 3 programs; and from each program, we derive plain and
-html.
+if we want to be able to fix whitespace-related issues in the original XML (like spaces between <pb> and <lb>), we need to sort them out directly on the XML tree. OTOH, stuff like nesting of <p> and <list> must be done on the generated tree.
+
+to simplify processing, build the tree first, then fix it. once the tree is constructed, validate it against a (strict) rng schema, for error checking. generated documents should always validate, otherwise there's a bug.
+
+---
+
+for div/@type='edition', should build trees for each display: logical, physical, full. (might be possible to derive logical from full, not sure; might have problems with whitespace.) work on "full" first. use simple XML trees for representing them. use the same elements for logical, physical and full, indistinguishably.
+
+the search system should be able to run completely independently from the update system, for testing. must have a language-agnostic interface (through SQL?). also maybe run as a separate process, but in this case it should have its own db, or have a predictable update pattern.
+
+the mapping between search offsets and display offsets must be handled by the search system. this means that the search system should be able to decode the display representation, or at least understand what's relevant (like e.g. nesting, for highlighting to work).
+
+<div
+<head level=[digit]
+<para
+<verse
+<line	# verse line in logical, text line in physical
+<list type=plain|bulleted|numbered|description
+	<item
+	<key
+	<value
+<blockquote
+
+=note
+text
+span klass=... tip=...
+bib
+ref
+html
+
+{page, }page
+=[unit] type=pagelike|gridlike
+
+---
 
 need to know the search representation to be able to figure out what instruction
-set we should use.
+set we should use. would be faster to have a single string for each document,
+so that we can perform a single scan of everything, but this is more complicated,
+so, for now, just store fields separately in the db.
 
 for highlighting and snippets to work, must be able to do matching and html
 conversion simultaneously; iow, it must be possible to go from a search offset
