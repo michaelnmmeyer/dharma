@@ -1,5 +1,7 @@
 # parsing
 
+work on a duplicate, reproduce functionalities. then compare the output.
+
 if we want to be able to fix whitespace-related issues in the original XML (like spaces between <pb> and <lb>), we need to sort them out directly on the XML tree. OTOH, stuff like nesting of <p> and <list> must be done on the generated tree.
 
 to simplify processing, build the tree first, then fix it. once the tree is constructed, validate it against a (strict) rng schema, for error checking. generated documents should always validate, otherwise there's a bug.
@@ -10,7 +12,11 @@ for div/@type='edition', should build trees for each display: logical, physical,
 
 the search system should be able to run completely independently from the update system, for testing. must have a language-agnostic interface (through SQL?). also maybe run as a separate process, but in this case it should have its own db, or have a predictable update pattern.
 
-the mapping between search offsets and display offsets must be handled by the search system. this means that the search system should be able to decode the display representation, or at least understand what's relevant (like e.g. nesting, for highlighting to work).
+the mapping between search offsets and display offsets must be handled by the search system. this means that the search system should be able to decode the display representation, or at least understand what's relevant. firstly, it must understand the distinction between block-level elements and inline elements (all the others); this is necessary for highlighting to work.
+
+to simplify processing, have the Document object be a single tree that can be serialized, but also have fields of this class that point to interesting nodes in the tree ("physical", "logical", "langs", etc.). those should be @attributes that fetch the appropriate node, to simplify the logic.
+
+which set of elements/attributes should we have? the minimum necessary to generate both the display and the search representation.
 
 <div
 <head level=[digit]
