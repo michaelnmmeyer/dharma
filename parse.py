@@ -1,3 +1,5 @@
+# For parsing TEI files into a Document object
+
 import os, sys, re, html, urllib.parse, logging
 from dharma import prosody, people, tree, gaiji, common, biblio, langs, document
 from dharma.document import Document, Block

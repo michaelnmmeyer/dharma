@@ -1,6 +1,6 @@
 # parsing
 
-work on a duplicate, reproduce functionalities. then compare the output.
+add extra funcs to the current parsing code instead of duplicating parse.py. add test files. then compare the output. and finally remove the old code.
 
 if we want to be able to fix whitespace-related issues in the original XML (like spaces between <pb> and <lb>), we need to sort them out directly on the XML tree. OTOH, stuff like nesting of <p> and <list> must be done on the generated tree.
 
@@ -8,7 +8,7 @@ to simplify processing, build the tree first, then fix it. once the tree is cons
 
 ---
 
-for div/@type='edition', should build trees for each display: logical, physical, full. (might be possible to derive logical from full, not sure; might have problems with whitespace.) work on "full" first. use simple XML trees for representing them. use the same elements for logical, physical and full, indistinguishably.
+should build (sub)trees of div/@type='edition' for each display: logical, physical, full. (might be possible to derive logical from full, not sure; might have problems with whitespace.) work on "full" first. use simple XML trees for representing them. use the same elements for logical, physical and full, indistinguishably.
 
 the search system should be able to run completely independently from the update system, for testing. must have a language-agnostic interface (through SQL?). also maybe run as a separate process, but in this case it should have its own db, or have a predictable update pattern.
 
@@ -16,7 +16,9 @@ the mapping between search offsets and display offsets must be handled by the se
 
 to simplify processing, have the Document object be a single tree that can be serialized, but also have fields of this class that point to interesting nodes in the tree ("physical", "logical", "langs", etc.). those should be @attributes that fetch the appropriate node, to simplify the logic.
 
-which set of elements/attributes should we have? the minimum necessary to generate both the display and the search representation.
+which set of elements/attributes should we have? the minimum necessary to generate both the display and the search representation. should use a single tag for inline spans; probably simpler and more readable than nesting presentation-related infos tags like <b>, <i>, etc.
+
+must keep the distinction between add_html() and add_text(); but call it add_display() and add_search() or sth. except that add_display() should preferably only be used for adding character data that should be ignored when searching (per contrast with tags); wrap the characters in a <display> element, and ignore descendants of this element when creating the search representation.
 
 <div
 <head level=[digit]

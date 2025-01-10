@@ -1,11 +1,11 @@
+# Internal representation of parsed TEI documents, and code to convert this
+# representation to HTML and plain text.
+#
 # I initially wanted to do validation and display together, with a real parser,
 # possibly bound to rng. But in practice, we need to generate a useful display
 # even when texts are not valid. So many files are invalid that being too
 # strict would leave us with not much, and even so not being able to display a
 # text at all because of a single error would be super annoying.
-#
-# to make sure we examine everything and to signal stuff we haven't taken into
-# account, might want to add a "visited" flag to @. maybe id. for text nodes.
 #
 # If the idea is to convert texts to many formats, we might want to use
 # pandoc's data model. See https://boisgera.github.io/pandoc/document
