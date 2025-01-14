@@ -2,13 +2,13 @@
 
 add extra funcs to the current parsing code instead of duplicating parse.py. add test files. then compare the output. and finally remove the old code.
 
-if we want to be able to fix whitespace-related issues in the original XML (like spaces between <pb> and <lb>), we need to sort them out directly on the XML tree. OTOH, stuff like nesting of <p> and <list> must be done on the generated tree.
+if we want to be able to fix whitespace-related issues in the original XML (like spaces between <pb> and <lb>), we need to sort them out directly on the XML tree. but do not modify trees in the pipeline. OTOH, stuff like nesting of <p> and <list> must be done on the generated tree.
 
 to simplify processing, build the tree first, then fix it. once the tree is constructed, validate it against a (strict) rng schema, for error checking. generated documents should always validate, otherwise there's a bug.
 
 ---
 
-should build (sub)trees of div/@type='edition' for each display: logical, physical, full. (might be possible to derive logical from full, not sure; might have problems with whitespace.) work on "full" first. use simple XML trees for representing them. use the same elements for logical, physical and full, indistinguishably.
+should build (sub)trees of div/@type='edition' for each display: logical, physical, full. (might be possible to derive logical from full, not sure; might have problems with whitespace. for search, we should preferabky be abke to highlight the "full" display). work on "full" first. use simple XML trees for representing them. use the same elements for logical, physical and full, indistinguishably.
 
 the search system should be able to run completely independently from the update system, for testing. must have a language-agnostic interface (through SQL?). also maybe run as a separate process, but in this case it should have its own db, or have a predictable update pattern.
 
