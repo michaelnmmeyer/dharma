@@ -1,24 +1,75 @@
+# search
+
+each searchable field must have a predefined type; more accurately, a processor name,  which must define how to process the field to make it searchable (optionally indexable). use static typing, same processor for a given field in a given collection.
+
+for selecting snippets. try to select complete block elements. but also cap the length of a block element, to avoid degenerate cases. in any case, must make sure to select balanced elements. when generating snippets/highlighting, we should never attempt to select part of an inline element. we need to distinguish between block and inline elements.
+
+when processing div headings, add an infinite amount of space before and after the title. there should also be an infinite amount of space between divisions (but not between paragraphs, list elements, etc.). to represent infinite space, use a special Unicode character that cannot appear in the text; but won't work with TRE and if we use wildcards; could patch TRE to bail out when it finds some given character. when we have nested divs, just flatten the hierarchy, doesn't matter.
+
+the search representation needs:
+
+¶ an element that represents stuff that should be displayed but not made searchable. however, for generating snippets and highlighting stuff, it might be useful to keep track of choice viz. sic/corr orig/reg couples, to know where we should cut stuff. so we would have either a "replace" function (for couples) or an "insert" functions (for addition) or a "delete" function (for deletions). use one element for each operation.
+
+¶ clear distinction between "block" and "inline" elements;
+
+¶
+
+so we need to care about:
+
+	<div>
+		(only textparts, need to find another mechanism for funky divs in criteds)
+	<heading>
+		...
+	<replace>, <insert>, <delete>
+		...
+	[other block]
+		<p>, etc.
+	[other inline]
+		<i>, etc.
+
+for highlighting and snippets to work, must be able to do matching and html conversion simultaneously; iow, it must be possible to go from a search offset to a display offset. but:
+
+* a single search unit might represent several display units, if we have e.g.
+  {dh}{a}{r}{m}{a} -> dharma
+* a display unit might not have a search unit, e.g. hyphens might need to be
+  stripped. in this case, should not select the omitted units unless they
+  appear between two search units, so with display: "-a-b-c-" and query
+  "ab" should select "-{a-b}-c-".
+* can we have several search units matching a single display unit? I can only
+  think of gaiji stuff, if we allow searching (parts of) gaiji symbol names.
+  not sure we need this functionality though.
+
+would be faster to have a single string for each document, so that we can perform a single scan of everything, but this is more complicated, so, for now, just store fields separately in the db.
+
+
+# validation
+
+need something to ensure that the order of milestone-like elements is what we expect. best would be to write a parser for it. though maybe could be done with relaxng. also note that there is a definite order of succession for <p>, <div>, etc. and milestone-like elements, defined in the EGD.
+
 # parsing
 
-add extra funcs to the current parsing code instead of duplicating parse.py. add test files. then compare the output. and finally remove the old code.
+add test files. add extra funcs to the current parsing code instead of duplicating parse.py. then compare the output. and finally remove the old code.
 
-if we want to be able to fix whitespace-related issues in the original XML (like spaces between <pb> and <lb>), we need to sort them out directly on the XML tree. but do not modify trees in the pipeline. OTOH, stuff like nesting of <p> and <list> must be done on the generated tree.
+find coherent solution for spaces around lb, pb and milestone (and in fact all elements). delete them when appropriate, add them when needed. if we want to be able to fix whitespace-related issues in the original XML (like spaces between <pb> and <lb>), we need to sort them out directly on the XML tree. but do not modify trees in the pipeline; this should not be part of the update process. still, _do_ fix whitespace-related issues in the generated tree. stuff like nesting of <p> and <list> must also be done on the generated tree.
 
-to simplify processing, build the tree first, then fix it. once the tree is constructed, validate it against a (strict) rng schema, for error checking. generated documents should always validate, otherwise there's a bug.
+to simplify processing, build the tree first, then fix it. once the tree is constructed, validate it against a (strict) rng schema, for error checking. or maybe a peg grammar. generated documents should always validate, otherwise there's a bug.
 
 ---
 
-should build (sub)trees of div/@type='edition' for each display: logical, physical, full. (might be possible to derive logical from full, not sure; might have problems with whitespace. for search, we should preferabky be abke to highlight the "full" display). work on "full" first. use simple XML trees for representing them. use the same elements for logical, physical and full, indistinguishably.
+should build (sub)trees of div/@type='edition' for each display: logical, physical, full. (might be possible to derive logical from full, not sure; might have problems with whitespace. for search, we should preferably be able to highlight the "full" display). work on "full" first. use simple XML trees for representing them. use the same elements for logical, physical and full, indistinguishably.
 
 the search system should be able to run completely independently from the update system, for testing. must have a language-agnostic interface (through SQL?). also maybe run as a separate process, but in this case it should have its own db, or have a predictable update pattern.
 
 the mapping between search offsets and display offsets must be handled by the search system. this means that the search system should be able to decode the display representation, or at least understand what's relevant. firstly, it must understand the distinction between block-level elements and inline elements (all the others); this is necessary for highlighting to work.
 
-to simplify processing, have the Document object be a single tree that can be serialized, but also have fields of this class that point to interesting nodes in the tree ("physical", "logical", "langs", etc.). those should be @attributes that fetch the appropriate node, to simplify the logic.
+to simplify processing, have the Document object be a single tree that can be serialized, but also have fields of this class that point to interesting nodes in the tree ("physical", "logical", "langs", etc.). those should be @attributes that fetch the appropriate node, to simplify the caching logic. just don't cache anything for now.
+NO. this is too annoying because we have many metadata fields; better have classes that can be converted to an XML tree.
 
-which set of elements/attributes should we have? the minimum necessary to generate both the display and the search representation. should use a single tag for inline spans; probably simpler and more readable than nesting presentation-related infos tags like <b>, <i>, etc.
+which set of elements/attributes should we have? the minimum necessary to generate both the display and the search representation. should use a single tag for inline spans; probably simpler and more readable than nesting presentation-related infos tags like <b>, <i>, etc. also simpler because for producing the search representation; we will have to examine each element to see whether it's relevant, so better not to add too many. must have a lookup table for inline elements and block elements.
 
-must keep the distinction between add_html() and add_text(); but call it add_display() and add_search() or sth. except that add_display() should preferably only be used for adding character data that should be ignored when searching (per contrast with tags); wrap the characters in a <display> element, and ignore descendants of this element when creating the search representation.
+in search. must keep the distinction between add_html() and add_text(); but call it add_display() and add_search() or sth. except that add_display() should preferably only be used for adding character data that should be ignored when searching (per contrast with tags). wrap the data in a <display> element, and ignore descendants of this element when creating the search representation. for add_text(), just don't enclose the thing within <display>.
+
+try to choose a representation that is straightforward to convert to the pandoc document model.
 
 <div
 <head level=[digit]
@@ -41,29 +92,8 @@ html
 {page, }page
 =[unit] type=pagelike|gridlike
 
+
 ---
-
-need to know the search representation to be able to figure out what instruction
-set we should use. would be faster to have a single string for each document,
-so that we can perform a single scan of everything, but this is more complicated,
-so, for now, just store fields separately in the db.
-
-for highlighting and snippets to work, must be able to do matching and html
-conversion simultaneously; iow, it must be possible to go from a search offset
-to a display offset. but:
-
-* a single search unit might represent several display units, if we have
-  e.g. {dh}{a}{r}{m}{a} -> dharma
-* a display unit might not have a search unit, e.g. hyphens might need to be
-  stripped. in this case, should not select the omitted units unless they
-  appear between two search units, so with display: "-a-b-c-" and query
-  "ab" should select "-{a-b}-c-".
-* can we have several search units matching a single display unit? I can only
-  think of gaiji stuff, if we allow searching (parts of) gaiji symbol names.
-  not sure we need this functionality though.
-
-find coherent solution for spaces around lb, pb and milestone (and in fact all
-elements). delete them when appropriate, add them when needed.
 
 # Display
 

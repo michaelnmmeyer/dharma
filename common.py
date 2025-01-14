@@ -258,6 +258,8 @@ def command(*cmd, **kwargs):
 		raise
 	return ret
 
+# Note that there is a pandoc python library. It probably only wraps the pandoc
+# binary, and we don't have complicated use cases for now, so we don't use it.
 def pandoc(text):
 	return command("pandoc", "-fmarkdown", "-thtml", input=text).stdout
 
