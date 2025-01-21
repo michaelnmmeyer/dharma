@@ -1,4 +1,53 @@
-will things be fast enough for basic re search?
+each searchable field must have a predefined type; more accurately, a processor name, which must define how to process the field to make it searchable (optionally indexable). use static typing, same processor for a given field in a given collection of fields.
+
+for selecting snippets. try to select complete block elements. because we can't tell where we should cut the text otherwise (before or after <lb/>? etc.). but also cap the length of a snippet, to avoid degenerate cases. in any case, must make sure to select balanced elements. when generating snippets/highlighting, we should never attempt to select part of an inline element. we need to distinguish between block and inline elements.
+
+but the block/inline distinction is not enough for the phys display; consecutive lines should be part of a single search unit, but be displayed separately. so in fact we should have a search block unit in addition to display block units. but for now just support searching the logical display.
+
+when processing div headings, add an infinite amount of space before and after the title. there should also be an infinite amount of space between divisions (but not between paragraphs, list elements, and other kinds of blocks). to represent infinite space, use a special Unicode character that cannot appear in the text; but won't work with TRE and if we use wildcards; could patch TRE to bail out when it finds some given character, but quite dirty. in fact, no, that's just like using \n for line-based matching; we could even just use \n for separating all records; see agrep's -e option ("set the record delimiter regular expression"). when we have nested divs, just flatten the hierarchy, doesn't matter.
+
+in fact, for matching, we could just have a sequence of lines (paragraphs) and not allow matches to cross lines, like grep.
+
+we might also want to treat the base text as a single string, with no gap between divisions. we should start with that: just make the base text searchable, not titles; use '\n' for separating paragraphs.
+
+if we want to add an index, it should index the search representation, not the generated intermediary XML.
+
+the search representation needs:
+
+¶ an element that represents stuff that should be displayed but not made searchable. however, for generating snippets and highlighting stuff, it might be useful to keep track of choice viz. sic/corr orig/reg couples, to know where we should cut stuff. so we would have either a "replace" function (for couples) or an "insert" functions (for addition) or a "delete" function (for deletions). use one element for each operation.
+
+¶ clear distinction between "block" and "inline" elements;
+
+so we need to care about:
+
+	<div>
+		(only textparts, need to find another mechanism for funky divs in criteds)
+	<heading>
+		...
+	<replace>, <insert>, <delete>
+		...
+	[other block]
+		<p>, etc.
+	[other inline]
+		<i>, etc.
+
+for highlighting and snippets to work, must be able to do matching and html conversion simultaneously; iow, it must be possible to go from a search offset to a display offset. but:
+
+* a single search unit might represent several display units, if we have e.g.
+  {dh}{a}{r}{m}{a} -> dharma
+* a sequence of display units might not have a search unit, e.g. hyphens might need to be
+  stripped or even spaces. in this case, should not select the omitted units unless they
+  appear between two consecutive search units, so with display: "-a-b-c-" and query
+  "ab" should select "-{a-b}-c-".
+* can we have several search units matching a single display unit? I can only
+  think of gaiji stuff, if we allow searching (parts of) gaiji symbol names.
+  not sure we need this functionality though.
+
+would be faster to have a single string for each document, so that we can perform a single scan of everything, but this is more complicated, so, for now, just store fields separately in the db.
+
+---
+
+will things be fast enough for basic re search? assume that yes
 
 chercher une représentation unique pour les métadonnées en général pour le
 texte, doit être en mesure de chercher deux représentations: physical+logical
@@ -18,9 +67,11 @@ when encoding is done, might want to modify the library, for:
 Should we do the search stuff in Python, go or C? Since we are going to query
 the db, might be simpler to have a SQLite extension, but then we must write
 at least the binding code in C. For testing, it would be better to have an
-interface that accepts commands, separate from sqlite. It's probably best to
+interface that accepts commands, separate from sqlite, should have a cmd line
+interface. It's probably best to
 do everything through a sqlite extension, even if it's annoying, because this
-way we're protected from transaction issues.
+way we're protected from transaction issues; but this requires us to store stuff
+in sqlite tabvles.
 
-Write the main code in go for simplicity. Add a basic argc,argv func as an
+Write the main code in python first. Then switch to go if not fast enough. Add a basic argc,argv func as an
 entry point, and wrap this function in C with minimum code.
