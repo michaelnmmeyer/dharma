@@ -1,11 +1,25 @@
+arie
+
+# metadata
+
+commencer par métadonnées du texte
+
+dans le menu de gauche: metadata + visual documentation
+
+
+# crited
+
 <sourceDesc>
 	<listWit>
 		...
+
+change <editor>...</editor> to <respStmt><resp>author of digital edition</resp>...</respStmt>
 
 we have <rdg source="bib:Foo"> in EGD, but <rdg wit="#foo"> in EGC. why this discrepancy? apparently both @source and wit can be used at the same time, see the tei doc
 likewise, EGD has sigla in the biblio, but they are in <witness> in EGC
 
 use include system for the separate trzanslation thing; can use XInclude; but does oxygen support this? no, just ask people to use split view. (Oxygen: Window > Split Editor Horizontally/Vertically; VSCode: View > Editor Layout > Split Up/Down/Left/Right.) no need to reduce files sizes. people can use different files for working if they want to, but this should not be part of the system.
+
 
 # search
 
@@ -13,7 +27,7 @@ each searchable field must have a predefined type; more accurately, a processor 
 
 for selecting snippets. try to select complete block elements. this because we can't tell where we should cut the text otherwise (before or after <lb/>? etc.). but also cap the length of a snippet, to avoid degenerate cases. in any case, must make sure to select balanced elements. when generating snippets/highlighting, we should never attempt to select part of an inline element. we need to distinguish between block and inline elements.
 
-but the block/inline distinction is not enough for the phys display; consecutive lines should be part of a single search unit, but be displayed separately.
+but the block/inline distinction is not enough for the phys display; consecutive lines should be part of a single search unit, but be displayed separately. so in fact we should have a search block unit in addition to display block units.
 
 when processing div headings, add an infinite amount of space before and after the title. there should also be an infinite amount of space between divisions (but not between paragraphs, list elements, etc.). to represent infinite space, use a special Unicode character that cannot appear in the text; but won't work with TRE and if we use wildcards; could patch TRE to bail out when it finds some given character. when we have nested divs, just flatten the hierarchy, doesn't matter.
 
@@ -23,7 +37,6 @@ the search representation needs:
 
 ¶ clear distinction between "block" and "inline" elements;
 
-¶
 
 so we need to care about:
 
@@ -475,3 +488,6 @@ questions: titlecase or not?
 q and quote; treated identically
 affiliation in people file
 repo description?
+
+
+
