@@ -1193,12 +1193,14 @@ def parse_bibl(p, node):
 		return
 	p.add_bib_ref(ref, rend=rend, loc=loc)
 
+# Title of the edited text.
 @handler("titleStmt/title")
 def parse_title_in_header(p, title):
 	p.dispatch_children(title)
 
-@handler("title")
+# Titles within the document body (per contrast with the title of the edition).
 # EGD 10.4.2. Encoding titles.
+@handler("title")
 def parse_title(p, title):
 	p.start_span(tip="Work title")
 	if title["level"] == "a":
@@ -1281,8 +1283,9 @@ def gather_people(stmt, *paths):
 
 @handler("titleStmt")
 def parse_titleStmt(p, stmt):
-	# We only have several <title> in DiplEd and CritEd and INSEC, not in
-	# normal INS files.
+	# We only have several <title> in critical editions, not in
+	# inscriptions. Not supporting what the EGC prescribes, we just treat
+	# several <title> as a sequence of title elements.
 	p.push("title")
 	titles = stmt.find("title")
 	for i, title in enumerate(titles):

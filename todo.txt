@@ -1,8 +1,19 @@
+<sourceDesc>
+	<listWit>
+		...
+
+we have <rdg source="bib:Foo"> in EGD, but <rdg wit="#foo"> in EGC. why this discrepancy? apparently both @source and wit can be used at the same time, see the tei doc
+likewise, EGD has sigla in the biblio, but they are in <witness> in EGC
+
+use include system for the separate trzanslation thing; can use XInclude; but does oxygen support this? no, just ask people to use split view. (Oxygen: Window > Split Editor Horizontally/Vertically; VSCode: View > Editor Layout > Split Up/Down/Left/Right.) no need to reduce files sizes. people can use different files for working if they want to, but this should not be part of the system.
+
 # search
 
-each searchable field must have a predefined type; more accurately, a processor name,  which must define how to process the field to make it searchable (optionally indexable). use static typing, same processor for a given field in a given collection.
+each searchable field must have a predefined type; more accurately, a processor name, which must define how to process the field to make it searchable (optionally indexable). use static typing, same processor for a given field in a given collection of documents.
 
-for selecting snippets. try to select complete block elements. but also cap the length of a block element, to avoid degenerate cases. in any case, must make sure to select balanced elements. when generating snippets/highlighting, we should never attempt to select part of an inline element. we need to distinguish between block and inline elements.
+for selecting snippets. try to select complete block elements. this because we can't tell where we should cut the text otherwise (before or after <lb/>? etc.). but also cap the length of a snippet, to avoid degenerate cases. in any case, must make sure to select balanced elements. when generating snippets/highlighting, we should never attempt to select part of an inline element. we need to distinguish between block and inline elements.
+
+but the block/inline distinction is not enough for the phys display; consecutive lines should be part of a single search unit, but be displayed separately.
 
 when processing div headings, add an infinite amount of space before and after the title. there should also be an infinite amount of space between divisions (but not between paragraphs, list elements, etc.). to represent infinite space, use a special Unicode character that cannot appear in the text; but won't work with TRE and if we use wildcards; could patch TRE to bail out when it finds some given character. when we have nested divs, just flatten the hierarchy, doesn't matter.
 

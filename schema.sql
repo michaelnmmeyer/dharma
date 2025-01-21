@@ -190,9 +190,6 @@ create table if not exists documents(
 	title html check(
 		title is null
 		or typeof(title) = 'text' and length(title) > 0),
-	author text check(
-		author is null
-		or typeof(author) = 'text' and length(author) > 0),
 	editors json check(
 		typeof(editors) = 'text'
 		and json_valid(editors)
@@ -227,7 +224,6 @@ create virtual table if not exists documents_index using fts5(
 	ident,
 	repo,
 	title,
-	author,
 	editor,
 	editor_id,
 	lang,

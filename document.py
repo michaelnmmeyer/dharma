@@ -567,7 +567,7 @@ class Document:
 	ident = ""
 
 	title = None
-	author = None
+	author = None # TODO drop this (also in the DB)
 	editors = None
 	editors_ids = None # list of dharma ids (part:XXXX)
 	langs = None
