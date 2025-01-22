@@ -4,9 +4,9 @@ for selecting snippets. try to select complete block elements. because we can't 
 
 but the block/inline distinction is not enough for the phys display; consecutive lines should be part of a single search unit, but be displayed separately. so in fact we should have a search block unit in addition to display block units. but for now just support searching the logical display.
 
-when processing div headings, add an infinite amount of space before and after the title. there should also be an infinite amount of space between divisions (but not between paragraphs, list elements, and other kinds of blocks). to represent infinite space, use a special Unicode character that cannot appear in the text; but won't work with TRE and if we use wildcards; could patch TRE to bail out when it finds some given character, but quite dirty. in fact, no, that's just like using \n for line-based matching; we could even just use \n for separating all records; see agrep's -e option ("set the record delimiter regular expression"). when we have nested divs, just flatten the hierarchy, doesn't matter.
+when processing div headings, add an infinite amount of space before and after the title. there should also be an infinite amount of space between divisions (but not between paragraphs, list elements, and other kinds of blocks[?]). to represent infinite space, use a special Unicode character that cannot appear in the text; but won't work with TRE and if we use wildcards; could patch TRE to bail out when it finds some given character, but quite dirty. in fact, no, that's just like using \n for line-based matching; we could even just use \n for separating all records; see agrep's -e option ("set the record delimiter regular expression"). when we have nested divs, just flatten the hierarchy, doesn't matter.
 
-in fact, for matching, we could just have a sequence of lines (paragraphs) and not allow matches to cross lines, like grep.
+in fact, for matching, we could just have a sequence of lines (paragraphs) and not allow matches to cross lines, like grep. for the physical display, should just keep lines in a single block upto the next div, if any.
 
 we might also want to treat the base text as a single string, with no gap between divisions. we should start with that: just make the base text searchable, not titles; use '\n' for separating paragraphs.
 
@@ -14,7 +14,7 @@ if we want to add an index, it should index the search representation, not the g
 
 the search representation needs:
 
-¶ an element that represents stuff that should be displayed but not made searchable. however, for generating snippets and highlighting stuff, it might be useful to keep track of choice viz. sic/corr orig/reg couples, to know where we should cut stuff. so we would have either a "replace" function (for couples) or an "insert" functions (for addition) or a "delete" function (for deletions). use one element for each operation.
+¶ an element that represents stuff that should be displayed but not made searchable. call it <nosearch> or sth. per default, everything is made searchable.
 
 ¶ clear distinction between "block" and "inline" elements;
 
@@ -24,7 +24,7 @@ so we need to care about:
 		(only textparts, need to find another mechanism for funky divs in criteds)
 	<heading>
 		...
-	<replace>, <insert>, <delete>
+	<span> (different variations; use classes systematically)
 		...
 	[other block]
 		<p>, etc.
