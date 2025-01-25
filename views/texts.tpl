@@ -19,7 +19,7 @@ Searching for strings that contain less than three characters is not
 possible.</p>
 
 <p>Per default, all metadata fields are searched (except "lang", see below).
-Metadata fields are (for now): "title", "editor", "editor_id", "summary",
+Metadata fields are (for now): "title", "editor", "editor_id", "author", "summary",
 "lang", "repo", "ident". You can restrict search to a specific field by using a
 field prefix, as in <a href="{{url_for('show_catalog', q='editor:manu')}}">editor:manu</a> or <a
 href="/texts?q=title:&quot;critical%20edition&quot;">title:"critical
@@ -27,6 +27,8 @@ edition"</a>. Several clauses can be added successively, separated with
 whitespace. In this case, for a document to be considered a match, all query
 clauses must match. Try for instance <a
 href="{{url_for("show_catalog", q='editor:manu title:stone')}}">editor:manu title:stone</a>.</p>
+
+<p>Note the use of quotation marks: the query <a href="/texts?q=editor:&quot;emmanuel%20francis&quot;">editor:"emmanuel francis"</a> matches all documents edited by Emmanuel Francis, but the query <a href="/texts?q=editor:emmanuel%20francis">editor:emmanuel francis</a> matches all documents edited by someone called Emmanuel <em>and that also include the name Francis in any metadata field</em>.</p>
 
 <p>The "lang" field is special. If you look for a string that contains two or
 three letters only, as in <a href="{{url_for("show_catalog", q="lang:en")}}">lang:en</a> or <a
