@@ -2,7 +2,7 @@ import os, unicodedata, datetime, html
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
 from dharma import common, change, ngrams, catalog, parse, validate
-from dharma import biblio, document, texts, editorial, prosody
+from dharma import biblio, texts, editorial, prosody
 
 # We don't use the name "templates" for the template folder because we also
 # put other stuff in the same directory, not just templates.
@@ -329,8 +329,6 @@ def display_text_xml(text):
 	doc = parse.process_file(file)
 	if doc.valid:
 		doc.title = doc.title and doc.title.render_logical() or ""
-		editors = doc.editors and doc.editors.render_logical() or []
-		doc.editors = editors and editors.split(document.PARA_SEP) or []
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
 	doc.last_modified_commit = row["last_modified_commit"]
@@ -392,8 +390,6 @@ def display_text(text):
 	doc = parse.process_file(file)
 	if doc.valid:
 		doc.title = doc.title and doc.title.render_logical() or ""
-		editors = doc.editors and doc.editors.render_logical() or []
-		doc.editors = editors and editors.split(document.PARA_SEP) or []
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
 	doc.last_modified_commit = row["last_modified_commit"]
@@ -454,8 +450,6 @@ def convert_text():
 	doc.repository = None
 	if doc.valid:
 		doc.title = doc.title and doc.title.render_logical() or ""
-		editors = doc.editors and doc.editors.render_logical() or []
-		doc.editors = editors and editors.split(document.PARA_SEP) or []
 	html = flask.render_template("inscription.tpl", doc=doc, text=name)
 	soup = BeautifulSoup(html, "html.parser")
 	patch_links(soup, "href")

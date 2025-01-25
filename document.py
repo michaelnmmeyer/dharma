@@ -72,8 +72,6 @@ class BlockDebugFormatter:
 		self.term_reset()
 		self.write("\n")
 
-PARA_SEP = chr(1)
-
 def normalize(s):
 	if s is None:
 		s = ""
@@ -129,10 +127,6 @@ class Block:
 
 	def __bool__(self):
 		return not self.empty()
-
-	def start_item(self):
-		if any(cmd == "text" for cmd, _, _ in self.code):
-			self.add_text(PARA_SEP)
 
 	def add_text(self, data):
 		if not data:
@@ -567,9 +561,6 @@ class Document:
 	ident = ""
 
 	title = None
-	author = None # TODO drop this (also in the DB)
-	editors = None
-	editors_ids = None # list of dharma ids (part:XXXX)
 	langs = None
 	summary = None
 	hand_desc = None
@@ -591,7 +582,9 @@ class Document:
 		self.biblio = set()
 		self.gaiji = set()
 		self.notes = []
+		self.authors = []
 		self.editors = []
+		# list of dharma ids (part:XXXX)
 		self.editors_ids = []
 		self.bib_entries = {}
 		self.edition_langs = []
@@ -635,17 +628,11 @@ class PlainRenderer:
 		else:
 			self.add("Untitled\n")
 		if doc.editors:
-			buf = self.buf
-			self.reset()
-			self.render_block(doc.editors)
-			editors = "".join(self.buf).split(PARA_SEP)
-			self.reset(buf)
-			if len(editors) > 0:
-				self.add("Ed. by %s" % editors[0])
-				for editor in editors[1:-1]:
-					self.add(", %s" % editor)
-				if len(editors) > 1:
-					self.add(" and %s" % editors[-1])
+			self.add("Ed. by %s" % doc.editors[0])
+			for editor in doc.editors[1:-1]:
+				self.add(", %s" % editor)
+			if len(doc.editors) > 1:
+				self.add(" and %s" % doc.editors[-1])
 			self.add("\n")
 		self.add(f"URL: https://dharmalekha.info/texts/{doc.ident}\n")
 		self.add("---\n\n")

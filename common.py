@@ -245,7 +245,7 @@ def append_unique(items, item):
 	return items
 
 def command(*cmd, **kwargs):
-	logging.info("run %s" % " ".join(cmd))
+	logging.debug("run %s" % " ".join(cmd))
 	kwargs.setdefault("capture_output", True)
 	kwargs.setdefault("check", True)
 	kwargs.setdefault("env", os.environ)

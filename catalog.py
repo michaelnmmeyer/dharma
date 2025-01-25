@@ -40,21 +40,16 @@ def delete(name):
 def insert(file):
 	db = common.db("texts")
 	doc = parse.process_file(file, mode="catalog")
-	for key in ("title", "author", "editors", "summary"):
+	for key in ("title", "authors", "editors", "summary"):
 		val = getattr(doc, key, None)
 		if val is None:
 			val = parse.Block(val)
 			val.finish()
 			setattr(doc, key, val)
-	fmt_editors = doc.editors and doc.editors.render_logical() or []
-	if fmt_editors:
-		fmt_editors = fmt_editors.split(document.PARA_SEP)
-	else:
-		fmt_editors = []
 	db.execute("""insert or replace into documents(name, repo, title,
-		author, editors, editors_ids, langs, summary, html_path, status)
+		authors, editors, editors_ids, langs, summary, html_path, status)
 		values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
-			doc.title.render_logical() or None, doc.author.render_logical() or None, fmt_editors,
+			doc.title.render_logical() or None, doc.authors, doc.editors,
 			doc.editors_ids,
 			[lang.id for lang in doc.edition_langs], doc.summary.render_logical() or None,
 			file.html, file.status))
@@ -65,9 +60,10 @@ def insert(file):
 		editor, editor_id, lang, summary)
 		values (?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
 		doc.ident, doc.ident.lower(),
-		doc.repository.lower(), doc.title.searchable_text(), doc.author.searchable_text(),
-		doc.editors and doc.editors.searchable_text() or "",
-		doc.editors_ids and "|||".join(doc.editors_ids) or "",
+		doc.repository.lower(), doc.title.searchable_text(),
+		"|||".join(doc.authors),
+		"|||".join(doc.editors),
+		"|||".join(doc.editors_ids) or "",
 		"---".join(lang.id for lang in doc.edition_langs),
 		doc.summary.searchable_text()))
 
@@ -187,7 +183,7 @@ def search(q, sort, page):
 		(total,) = db.execute("select count(*) from documents_index").fetchone()
 	sql = """
 		select documents.name, documents.repo, documents.title,
-			documents.author, documents.editors, json_group_array(distinct langs_list.name) as langs, documents.summary,
+			documents.authors, documents.editors, json_group_array(distinct langs_list.name) as langs, documents.summary,
 			repos.title as repo_title,
 			html_path
 		from documents

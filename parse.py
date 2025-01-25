@@ -4,6 +4,8 @@ import os, sys, re, html, urllib.parse, logging
 from dharma import prosody, people, tree, gaiji, common, biblio, langs, document
 from dharma.document import Document, Block
 
+# Handlers are tested per order of appearance in this file, so the most
+# specific ones should come first.
 HANDLERS = []
 
 def handler(path):
@@ -107,9 +109,6 @@ class Parser:
 				(name,)).fetchall()
 			self.document.prosody_entries[name] = entries
 		return entries
-
-	def start_item(self):
-		return self.top.start_item()
 
 	def start_span(self, **params):
 		return self.top.start_span(**params)
@@ -1261,6 +1260,7 @@ def parse_cit(p, cit):
 
 def gather_people(stmt, *paths):
 	nodes = [node for path in paths for node in stmt.find(path)]
+	# Sort people by order of appearance in the file.
 	nodes.sort(key=lambda node: node.location.start)
 	full_names = []
 	dharma_ids = []
@@ -1293,18 +1293,10 @@ def parse_titleStmt(p, stmt):
 			p.add_text(" \N{en dash} ")
 		p.dispatch_children(title)
 	p.document.title = p.pop()
-	p.push("author")
 	authors, _ = gather_people(stmt, "author")
-	for author in authors:
-		p.start_item()
-		p.add_text(author)
-	p.document.author = p.pop()
-	p.push("editors")
+	p.document.authors = authors
 	editors, editors_ids = gather_people(stmt, "editor", "principal", "respStmt/persName")
-	for editor in editors:
-		p.start_item()
-		p.add_text(editor)
-	p.document.editors = p.pop()
+	p.document.editors = editors
 	p.document.editors_ids = editors_ids
 
 @handler("roleName")
