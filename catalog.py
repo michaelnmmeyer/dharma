@@ -61,9 +61,9 @@ def insert(file):
 		values (?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
 		doc.ident, doc.ident.lower(),
 		doc.repository.lower(), doc.title.searchable_text(),
-		"|||".join(doc.authors),
-		"|||".join(doc.editors),
-		"|||".join(doc.editors_ids) or "",
+		common.normalize_text("|||".join(doc.authors)),
+		common.normalize_text("|||".join(doc.editors)),
+		common.normalize_text("|||".join(doc.editors_ids)),
 		"---".join(lang.id for lang in doc.edition_langs),
 		doc.summary.searchable_text()))
 

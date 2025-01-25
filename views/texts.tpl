@@ -28,7 +28,7 @@ whitespace. In this case, for a document to be considered a match, all query
 clauses must match. Try for instance <a
 href="{{url_for("show_catalog", q='editor:manu title:stone')}}">editor:manu title:stone</a>.</p>
 
-<p>Note the use of quotation marks: the query <a href="/texts?q=editor:&quot;emmanuel%20francis&quot;">editor:"emmanuel francis"</a> matches all documents edited by Emmanuel Francis, but the query <a href="/texts?q=editor:emmanuel%20francis">editor:emmanuel francis</a> matches all documents edited by someone called Emmanuel <em>and that also include the name Francis in any metadata field</em>.</p>
+<p>Note the use of quotation marks: the query <a href="/texts?q=editor:&quot;emmanuel%20francis&quot;">editor:"emmanuel francis"</a> matches all documents edited by Emmanuel Francis, but the query <a href="/texts?q=editor:emmanuel%20francis">editor:emmanuel francis</a> matches all documents edited by someone called Emmanuel <em>and</em> that also include the name Francis in any metadata field.</p>
 
 <p>The "lang" field is special. If you look for a string that contains two or
 three letters only, as in <a href="{{url_for("show_catalog", q="lang:en")}}">lang:en</a> or <a
@@ -86,8 +86,13 @@ total.
    % elif row["html_path"]:
       <a href="{{format_url('https://erc-dharma.github.io/%s/%s', row['repo'], row['html_path'])}}">
    % endif
+   % if row["authors"]:
+	% for author in row["authors"]:
+		{{author}}{{": " if loop.last else ", "}}
+	% endfor
+   % endif
    % if row["title"]:
-      {{row["title"] | safe}}
+	{{row["title"] | safe}}
    % else:
       <i>Untitled</i>
    % endif
@@ -97,10 +102,10 @@ total.
    </div>
    <p>
    % for ed in row["editors"][:-1]:
-      {{ed | safe}},
+      {{ed}},
    % endfor
    % if row["editors"]:
-      {{row["editors"][-1] | safe}}.
+      {{row["editors"][-1]}}.
    % else:
       <i>Anonymous editor</i>.
    % endif
