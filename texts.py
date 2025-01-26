@@ -1,3 +1,5 @@
+# Stuff for enumerating texts (inscriptions, etc.) in a repository.
+
 import os, unicodedata
 from dharma import common, validate
 

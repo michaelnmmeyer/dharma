@@ -100,14 +100,14 @@ class Parser:
 		self.add_code("ref", self.get_bib_ref(*args, **kwargs))
 
 	def get_prosody_entries(self, name):
-		entries = self.document.prosody_entries.get(name)
+		entries = self.document._prosody_entries.get(name)
 		if entries is None:
 			db = common.db("texts")
 			entries = db.execute(
 				"""select pattern, description, entry_id
 				from prosody where name = ?""",
 				(name,)).fetchall()
-			self.document.prosody_entries[name] = entries
+			self.document._prosody_entries[name] = entries
 		return entries
 
 	def start_span(self, **params):

@@ -287,6 +287,7 @@ def display_list():
 def legacy_display_text(text):
 	return flask.redirect(flask.url_for("display_text", text=text), code=302)
 
+# For displaying a text's source XML.
 @app.get("/texts/<text>/source")
 @common.transaction("texts")
 def display_text_xml(text):

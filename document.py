@@ -72,6 +72,7 @@ class BlockDebugFormatter:
 		self.term_reset()
 		self.write("\n")
 
+# Turns some object (strings, list of strings or None) into a searchable string.
 def normalize(s):
 	if s is None:
 		s = ""
@@ -558,42 +559,55 @@ class Document:
 	last_modified = ""
 	last_modified_commit = ""
 
-	ident = ""
-
+	# Title, summary and hand_desc are all blocks
 	title = None
-	langs = None
 	summary = None
 	hand_desc = None
 
-	edition = None
-	apparatus = None
-	# we can have several translations e.g. DHARMA_INSPallava00002
-	translation = None
-	commentary = None
-	bibliography = None
 	valid = True
 
 	xml = ""
 
 	def __init__(self):
+		# Dharma identifier viz. the file's basename without the extension.
+		self.ident = ""
+		# All languages used in the document (with @xml:lang), as a list
+		# of unique langs.Language objects.
 		self.langs = []
+		# Like self.langs, but only for languages used in the edition
+		# division that do not correspond to a modern, translation-only
+		# language.
+		self.edition_langs = []
+		# One field for each main div.
+		self.edition = None
+		self.apparatus = None
+		self.commentary = None
+		self.bibliography = None
+		# A single document can have zero or more translations.
+		# E.g. DHARMA_INSPallava00002 has several translations.
 		self.translation = []
-		self.sigla = {}
 		self.biblio = set()
+		# Names of all Gaiji (<g>) symbols used in the document.
 		self.gaiji = set()
+		# List of footnotes (<note> element in TEI, except that we
+		# don't include here <note> elements from the apparatus because
+		# they do not actually represent footnotes; we should probably
+		# support notes within notes in the apparatus, because in this
+		# case the nesting is justified).
 		self.notes = []
+		# List of authors (strings)
 		self.authors = []
+		# List of editors (strings)
 		self.editors = []
-		# list of dharma ids (part:XXXX)
+		# List of dharma editors ids (the xxxx stuff in "part:xxxx")
+		# TODO should merge self.editors with self.editors_ids and have
+		# a "Person" object, like we are doin for langs.
 		self.editors_ids = []
 		self.bib_entries = {}
-		self.edition_langs = []
-		self.prosody_entries = {}
-
-	def plain_text(self, *args, **kwargs):
-		renderer = PlainRenderer(*args, **kwargs)
-		return renderer.render(self)
-
+		# The following are only used temporarily, while parsing the document.
+		# TODO this should be attached to the Parser object instead.
+		self._prosody_entries = {}
+		self.sigla = {}
 
 class PlainRenderer:
 
