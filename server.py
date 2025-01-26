@@ -328,8 +328,6 @@ def display_text_xml(text):
 		return flask.abort(404)
 	file = db.load_file(text)
 	doc = parse.process_file(file)
-	if doc.valid:
-		doc.title = doc.title and doc.title.render_logical() or ""
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
 	doc.last_modified_commit = row["last_modified_commit"]
@@ -389,8 +387,6 @@ def display_text(text):
 		return flask.abort(404)
 	file = db.load_file(text)
 	doc = parse.process_file(file)
-	if doc.valid:
-		doc.title = doc.title and doc.title.render_logical() or ""
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
 	doc.last_modified_commit = row["last_modified_commit"]
@@ -449,8 +445,6 @@ def convert_text():
 	setattr(f, "_owners", [])
 	doc = parse.process_file(f)
 	doc.repository = None
-	if doc.valid:
-		doc.title = doc.title and doc.title.render_logical() or ""
 	html = flask.render_template("inscription.tpl", doc=doc, text=name)
 	soup = BeautifulSoup(html, "html.parser")
 	patch_links(soup, "href")

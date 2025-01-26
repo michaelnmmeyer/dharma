@@ -2,7 +2,7 @@
 
 % block title
 % if doc.title:
-   {{doc.title | safe}}
+   {{doc.title.render_logical() | safe}}
 % else:
    <i>Untitled</i>
 % endif
