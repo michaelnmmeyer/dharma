@@ -554,16 +554,19 @@ class Document:
 	tree = None # tree.Tree
 
 	repository = ""
-	commit_hash = ""
-	commit_date = ""
-	last_modified = ""
-	last_modified_commit = ""
 
 	valid = True
 
 	xml = ""
 
 	def __init__(self):
+		# The commit we extracted this file from (not necessarily the latest
+		# commit where the file was modified).
+		self.commit_hash = ""
+		self.commit_date = ""
+		# The latest commit that modified this file.
+		self.last_modified = ""
+		self.last_modified_commit = ""
 		# Dharma identifier viz. the file's basename without the extension.
 		self.ident = ""
 		# Title, summary and hand_desc are all blocks

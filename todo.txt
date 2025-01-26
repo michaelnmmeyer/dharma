@@ -53,29 +53,32 @@ which set of elements/attributes should we have? the minimum necessary to genera
 
 in search. must keep the distinction between add_html() and add_text(); but call it add_display() and add_search() or sth. except that add_display() should preferably only be used for adding character data that should be ignored when searching (per contrast with tags). wrap the data in a <display> element, and ignore descendants of this element when creating the search representation. for add_text(), just don't enclose the thing within <display>.
 
-try to choose a representation that is straightforward to convert to the pandoc document model.
-
 <div
 <head level=[digit]
 <para
 <verse
-<line	# verse line in logical, text line in physical
+<line	# verse line in logical, text line in physical; dedup this! > line, verse-line
 <list type=plain|bulleted|numbered|description
 	<item
 	<key
 	<value
 <blockquote
 
-=note
+=note > footnote
 text
 span klass=... tip=...
 bib
+	a full bibliography entry
 ref
-html
+	a bibliographic reference; rename to "cite"
 
 {page, }page
 =[unit] type=pagelike|gridlike
 
+html
+	have: <code>, <a href="...">, <i>, <b>, <sup>, <sub>
+
+to make copy-paste to work for manu, simpler method would be to describe in some file what CSS classes should produce bold, italics, etc., and use the info to insert extra <b>, <i>, etc. tags when generating the html.
 
 ---
 
