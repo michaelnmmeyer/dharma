@@ -559,11 +559,6 @@ class Document:
 	last_modified = ""
 	last_modified_commit = ""
 
-	# Title, summary and hand_desc are all blocks
-	title = None
-	summary = None
-	hand_desc = None
-
 	valid = True
 
 	xml = ""
@@ -571,6 +566,10 @@ class Document:
 	def __init__(self):
 		# Dharma identifier viz. the file's basename without the extension.
 		self.ident = ""
+		# Title, summary and hand_desc are all blocks
+		self.title = None
+		self.summary = None
+		self.hand_desc = None
 		# All languages used in the document (with @xml:lang), as a list
 		# of unique langs.Language objects.
 		self.langs = []
