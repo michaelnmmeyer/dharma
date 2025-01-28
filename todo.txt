@@ -1,4 +1,24 @@
+manu
+---
+
+# When there is a <ptr target="bib:xxxxxx"/> anywhere in the file and that is not
+# wrapped by <bib>, display the siglum as clickable. XXX todo
+
+INSTiruvavatuturai00010:
+28r=28: <expan><abbr>I</abbr><ex>raṇṭu</ex><abbr>m</abbr><ex/></expan>
+"abbreviated text" pour <expan> pour display physical ajouter l'expansion de <ex> entre parenthèses
+
+pallava 373 : should allow <note>foo<quote>bar</quote></quote>
+
+<citedRange unit="page|pages">, use explicit singular and plural.
+
+====
+
+
+
 # crited
+
+if someone else works on criteds, we can get something working by doing a transform to the intermediate representation I have yet to define.
 
 <sourceDesc>
 	<listWit>
@@ -29,104 +49,6 @@ dans le menu de gauche: metadata + visual documentation
 # validation
 
 need something to ensure that the order of milestone-like elements is what we expect. best would be to write a parser for it. though maybe could be done with relaxng. also note that there is a definite order of succession for <p>, <div>, etc. and milestone-like elements, defined in the EGD.
-
-# parsing
-
-add test files. add extra funcs to the current parsing code instead of duplicating parse.py. then compare the output. and finally remove the old code.
-
-find coherent solution for spaces around lb, pb and milestone (and in fact all elements). delete them when appropriate, add them when needed. if we want to be able to fix whitespace-related issues in the original XML (like spaces between <pb> and <lb>), we need to sort them out directly on the XML tree. but do not modify trees in the pipeline; this should not be part of the update process. still, _do_ fix whitespace-related issues in the generated tree. stuff like nesting of <p> and <list> must also be done on the generated tree.
-
-to simplify processing, build the tree first, then fix it. once the tree is constructed, validate it against a (strict) rng schema, for error checking. or maybe a peg grammar. generated documents should always validate, otherwise there's a bug.
-
----
-
-should build (sub)trees of div/@type='edition' for each display: logical, physical, full. (might be possible to derive logical from full, not sure; might have problems with whitespace. for search, we should preferably be able to highlight the "full" display). work on "full" first. use simple XML trees for representing them. use the same elements for logical, physical and full, indistinguishably.
-
-the search system should be able to run completely independently from the update system, for testing. must have a language-agnostic interface (through SQL?). also maybe run as a separate process, but in this case it should have its own db, or have a predictable update pattern.
-
-the mapping between search offsets and display offsets must be handled by the search system. this means that the search system should be able to decode the display representation, or at least understand what's relevant. firstly, it must understand the distinction between block-level elements and inline elements (all the others); this is necessary for highlighting to work.
-
-to simplify processing, have the Document object be a single tree that can be serialized, but also have fields of this class that point to interesting nodes in the tree ("physical", "logical", "langs", etc.). those should be @attributes that fetch the appropriate node, to simplify the caching logic. just don't cache anything for now.
-NO. this is too annoying because we have many metadata fields; better have classes that can be converted to an XML tree.
-
-which set of elements/attributes should we have? the minimum necessary to generate both the display and the search representation. should use a single tag for inline spans; probably simpler and more readable than nesting presentation-related infos tags like <b>, <i>, etc. also simpler because for producing the search representation; we will have to examine each element to see whether it's relevant, so better not to add too many. must have a lookup table for inline elements and block elements.
-
-in search. must keep the distinction between add_html() and add_text(); but call it add_display() and add_search() or sth. except that add_display() should preferably only be used for adding character data that should be ignored when searching (per contrast with tags). wrap the data in a <display> element, and ignore descendants of this element when creating the search representation. for add_text(), just don't enclose the thing within <display>.
-
-<div
-<head level=[digit]
-<para
-<verse
-<line	# verse line in logical, text line in physical; dedup this! > line, verse-line
-<list type=plain|bulleted|numbered|description
-	<item
-	<key
-	<value
-<blockquote
-
-=note > footnote
-text
-span klass=... tip=...
-bib
-	a full bibliography entry
-ref
-	a bibliographic reference; rename to "cite"
-
-{page, }page
-=[unit] type=pagelike|gridlike
-
-html
-	have: <code>, <a href="...">, <i>, <b>, <sup>, <sub>
-
-to make copy-paste to work for manu, simpler method would be to describe in some file what CSS classes should produce bold, italics, etc., and use the info to insert extra <b>, <i>, etc. tags when generating the html.
-
----
-
-# Display
-
-implement: https://github.com/erc-dharma/project-documentation/issues/282#issuecomment-2444650894
-
-will have problems with block-level tags, bugs:
-* BUG: <p><ul></ul></p> not allowed in HTML5, fix that by using a <div> instead of
-  <p>, or, better pop and reopen <p> elements when needed when compiling
-  stuff.
-* need to address spaces
-* BUG: DHARMA_INSPandya10002.xml <g type=floret> manque espace avant dans la visualisation
-
-improve: delete automatically spaces around milestones/lb/pb break="no", etc.
-improve: handle sibling footnotes: add , between note refs
-improve: Parse urls and make them clickable.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

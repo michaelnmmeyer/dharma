@@ -203,6 +203,9 @@ create table if not exists documents(
 		typeof(editors_ids) = 'text'
 		and json_valid(editors_ids)
 		and json_type(editors_ids) = 'array'),
+	-- There is always at least one assigned language, even when none are
+	-- explicitly given in the source file. (In this case, we assign it the
+	-- language "und").
 	langs json check(
 		typeof(langs) = 'text'
 		and json_valid(langs)
@@ -525,5 +528,12 @@ create view if not exists people_display as
 		left join texts_prod on people_main.dh_id = texts_prod.dh_id
 		left join people_langs_json on people_main.dh_id = people_langs_json.dh_id
 		left join people_repos_json on people_main.dh_id = people_repos_json.dh_id;
+
+create view if not exists errors_display as
+	select documents.name, repos.repo, commit_hash, code_hash,
+		status, mtime, path as xml_path, data, html_path,
+		commit_date
+	from documents join files on documents.name = files.name
+		join repos on documents.repo = repos.repo;
 
 commit;

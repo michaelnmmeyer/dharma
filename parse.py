@@ -18,11 +18,11 @@ class Parser:
 
 	div_level = 0
 
-	def __init__(self, tree):
-		self.tree = tree
+	def __init__(self, t):
+		self.tree = t
 		self.document = Document()
-		self.document.tree = tree
-		self.document.ident = os.path.basename(os.path.splitext(tree.file)[0])
+		self.document.tree = self.tree
+		self.document.ident = os.path.basename(os.path.splitext(self.tree.file)[0])
 		# Stack of blocks.
 		self.blocks = [Block()]
 		self.handlers = HANDLERS
@@ -31,6 +31,15 @@ class Parser:
 		# still remain in the tree and are still accessible from
 		# within handlers.
 		self.visited = set()
+		#-----
+		self.out = tree.Tag("document")
+		self.stack = [self.out]
+
+	def xpush(self, node):
+		self.stack.append(node)
+
+	def xpop(self):
+		return self.stack.pop()
 
 	@property
 	def top(self):
@@ -160,8 +169,8 @@ def parse_lem(p, lem):
 	p.dispatch_children(lem)
 	add_lemmas_links(p, lem["source"])
 
-# When there is a <ptr target="bib:xxxxxx"/> in the apparatus, and that this
-# node is not wrapped into a <bib> element, display the siglum as clickable
+# When there is a <ptr target="bib:xxxxxx"/> anywhere in the file and that is not
+# wrapped by <bib>, display the siglum as clickable. XXX todo
 # element instead of Author+Data
 @handler("div[@type='apparatus']//ptr")
 def parse_ptr_apparatus(p, ptr):
@@ -1507,6 +1516,8 @@ def process_file(file, mode=None):
 		"//teiHeader/revisionDesc",
 		"//publicationStmt",
 	]
+	# When we are parsing the file, not to display it but to extract
+	# metadata for the catalog, avoid doing unneeded work.
 	if mode == "catalog":
 		to_delete += [
 			"//teiHeader//title//note",
@@ -1555,8 +1566,8 @@ def export_plain():
 			f.write(ret)
 
 if __name__ == "__main__":
-	export_plain()
-	exit(0)
+	# export_plain()
+	# exit(0)
 
 	from dharma import texts
 	@common.transaction("texts")

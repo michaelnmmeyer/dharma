@@ -551,15 +551,11 @@ class Block:
 
 class Document:
 
-	tree = None # tree.Tree
-
-	repository = ""
-
-	valid = True
-
-	xml = ""
-
 	def __init__(self):
+		self.tree = None # tree.Tree
+		self.valid = True
+		self.xml = ""
+		self.repository = ""
 		# The commit we extracted this file from (not necessarily the latest
 		# commit where the file was modified).
 		self.commit_hash = ""
@@ -605,9 +601,10 @@ class Document:
 		# TODO should merge self.editors with self.editors_ids and have
 		# a "Person" object, like we are doin for langs.
 		self.editors_ids = []
+		# Map of cite keys -> bibliography entries
 		self.bib_entries = {}
 		# The following are only used temporarily, while parsing the document.
-		# TODO this should be attached to the Parser object instead.
+		# TODO if possible, this should be attached to the Parser object instead.
 		self._prosody_entries = {}
 		self.sigla = {}
 

@@ -52,8 +52,7 @@ are saved in a global table and are systematically reused. There is no caching
 policy for now.
 '''
 
-import os, re, io, collections, sys, fnmatch, tokenize
-import traceback
+import os, re, io, collections, sys, fnmatch, tokenize, traceback
 from xml.parsers import expat
 from xml.sax.saxutils import escape as quote_string
 from pegen.tokenizer import Tokenizer

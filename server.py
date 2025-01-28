@@ -104,12 +104,9 @@ def show_texts_errors():
 def show_text_errors(name):
 	db = common.db("texts")
 	row = db.execute("""
-		select documents.name, repos.repo, commit_hash, code_hash,
-			status, mtime, path as xml_path, data, html_path,
-			commit_date
-		from documents join files on documents.name = files.name
-			join repos on documents.repo = repos.repo
-		where documents.name = ?
+		select name, repo, commit_hash, code_hash, status, mtime,
+			xml_path, data, html_path, commit_date
+		from errors_display where name = ?
 	""", (name,)).fetchone()
 	if not row:
 		return flask.abort(404)
