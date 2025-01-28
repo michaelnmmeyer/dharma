@@ -688,17 +688,11 @@
                 </elementSpec>
                 <elementSpec ident="expan" module="transcr" mode="change">
                     <content>
-                        <sequence maxOccurs="unbounded">
+                        <alternate maxOccurs="unbounded">
                             <elementRef key="abbr"/>
                             <elementRef key="ex"/>
-                        </sequence>
+                        </alternate>
                     </content>
-                    <!-- testing for <expan> with no descendant <ex> -->
-                    <constraintSpec scheme="isoschematron" ident="expan">
-                        <constraint><sch:rule context="tei:expan"><sch:report
-                                    test="not(descendant::tei:ex or descendant::tei:abbr)">expan
-                                    should contain ex or abbr</sch:report></sch:rule></constraint>
-                    </constraintSpec>
                     <attList>
                         <attDef ident="ana" mode="delete"/>
                         <attDef ident="cert" mode="delete"/>
