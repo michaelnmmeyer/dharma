@@ -3235,7 +3235,7 @@
                         <constraint><sch:rule context="tei:note"><sch:report
                                     test="ancestor::tei:note"
                                     >notes cannot nest</sch:report><sch:report
-                                    test="ancestor::tei:div[@type='commentary'] and not(parent::tei:p or parent::tei:item)"
+                                    test="ancestor::tei:div[@type='commentary'] and not(ancestor::tei:p or ancestor::tei:item)"
                                     >Inside div[@type='commentary'], note should be wrapped inside a
                                     p or an item element</sch:report><sch:report
                                     test="ancestor::tei:div[@type='apparatus'] and not(parent::tei:app)"

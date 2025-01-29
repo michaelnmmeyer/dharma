@@ -1143,9 +1143,9 @@ attributes @target and @cRef may be supplied on <xsl:text/>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
-      <xsl:if test="ancestor::tei:div[@type='commentary'] and not(parent::tei:p or parent::tei:item)">
+      <xsl:if test="ancestor::tei:div[@type='commentary'] and not(ancestor::tei:p or ancestor::tei:item)">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="ancestor::tei:div[@type='commentary'] and not(parent::tei:p or parent::tei:item)">
+                                 test="ancestor::tei:div[@type='commentary'] and not(ancestor::tei:p or ancestor::tei:item)">
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
