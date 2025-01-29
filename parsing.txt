@@ -1,6 +1,25 @@
 # parsing
 
-first parse the whole document into an "out" tree that contains the full representation of the document. then generate from the document's edition div the "logical" and "physical" representations.
+first parse the whole document into an "out" tree that contains the full representation of the document. then generate from the document's edition div the "logical" and "physical" representations. would be better than mixing logical/physical/etc.
+
+shape of the generated xml?
+
+<document>
+	<metadata>
+		stuff from the tei header + from csvs
+	<edition>
+		contents...
+	<apparatus>?
+		contents...
+	<translation>+
+		contents...
+	<commentary>?
+		contents...
+	<bibliography>?
+		contents...
+</document>
+
+also need to store in the same structure query results from the db (the search system will need the info). it should be possible to display the document and index it/make it searchable without accessing the db at all.
 
 
 
