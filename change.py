@@ -12,6 +12,8 @@
 # vice-versa, but writers still do block each other, which is why we use just
 # one and serialize writes.
 
+# TODO add an option for turning off web access (no git pulls, no backups)
+
 import os, sys, time, select, errno, logging, fcntl, argparse, traceback
 from dharma import common, texts, biblio, catalog, people, langs
 from dharma import gaiji, prosody, repos

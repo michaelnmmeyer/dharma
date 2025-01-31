@@ -7,6 +7,7 @@ shape of the generated xml?
 <document>
 	<metadata>
 		stuff from the tei header + from csvs
+
 	<edition>
 		contents...
 	<apparatus>?
@@ -19,7 +20,10 @@ shape of the generated xml?
 		contents...
 </document>
 
-also need to store in the same structure query results from the db (the search system will need the info). it should be possible to display the document and index it/make it searchable without accessing the db at all.
+also might want to store in the same structure query results from the db, because the search system will need the info, and we assume it doesn't know about the database structure. it should be possible to to make the document searchable without accessing the db at all. but it's kinda stupid to have to parse/unparse the data just for display.
+
+no. better use two passes. in the second one, fetch stuff from the db. but try to avoid cascading.
+
 
 
 

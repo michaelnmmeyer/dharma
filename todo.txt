@@ -1,22 +1,28 @@
 manu
 ---
 
-# When there is a <ptr target="bib:xxxxxx"/> anywhere in the file and that is not
-# wrapped by <bib>, display the siglum as clickable. XXX todo
+WAIT When there is a <ptr target="bib:xxxxxx"/> anywhere in the file and that is not wrapped by <bib>, display the siglum as clickable. XXX todo
 
-dans le physical display de <expan>, ajouter l'expansion de(s) abbrs en infobulle (et supprimer les infobulles internes expan/abbr expan/ex
+dans le physical display de <expan>, ajouter l'expansion de(s) abbrs en infobulle (et supprimer les infobulles internes expan/abbr expan/ex)
 
-pallava 373 : should allow <note>foo<quote>bar</quote></quote>
-
-<citedRange unit="page|pages">, use explicit singular and plural.
+WAIT <citedRange unit="page|pages">, use explicit singular and plural.
 
 ====
 
 
-
 # crited
 
-if someone else works on criteds, we can get something working by doing a transform to the intermediate representation I have yet to define.
+on va avoir une représentation intermédiaire d'une édition, que je suis en train de définir. l'idée est que ça puisse représenter tout type d'édition. il faut que ce soit fait proprement. we can get something working by doing a transform to the intermediate representation.
+
+distinction entre:
+* les éditions en ligne intégrées dans la base de données
+* éditions latex pour produire un PDF. je pense qu'il ne vaut pas la peine de faire ça proprement. ça ne peut être fait que de manière ad hoc, parce qu'il faut toujours des interventions manuelles pour produire une publication de qualité.
+
+
+compatibilité: modifier le modèle des éditions de manuscrits de telle sorte que les éditions d'inscriptions en soient un sous-ensemble. faire en sorte qu'il soit possible de traiter les deux types sans avoir besoin de savoir si l'on a affaire à une édition de manuscrit ou d'inscription.
+
+inversement: simplifier l'encodage des éditions de manuscripts lorsqu'il est plus cimplexe que celui des inscriptions. plus petit dénominateur.
+
 
 <sourceDesc>
 	<listWit>
@@ -30,6 +36,8 @@ likewise, EGD has sigla in the biblio, but they are in <witness> in EGC
 For the <titleStmt>. Only allow a single <title> element, like in the EGD?
 
 For the apparatus. We currently allow both <variantEncoding method="location-referenced"> and <variantEncoding method="parallel-segmentation">. But a single file uses <variantEncoding method="location-referenced"> (DHARMA_CritEdKakavinParthayajna), so we might want to abandon this method. The apparatus would be assumed to be inlined in the edition _unless_ there is a <div type="apparatus"> (sibling of <div type="edition">).
+
+weirdness with <div type="dyad|metrical|liminal">; we don't really care about the hierarchy  of other types, it only matters do the display.
 
 
 -----

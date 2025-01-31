@@ -585,8 +585,6 @@ class Document:
 		# E.g. DHARMA_INSPallava00002 has several translations.
 		self.translation = []
 		self.biblio = set()
-		# Names of all Gaiji (<g>) symbols used in the document.
-		self.gaiji = set()
 		# List of footnotes (<note> element in TEI, except that we
 		# don't include here <note> elements from the apparatus because
 		# they do not actually represent footnotes; we should probably
@@ -606,6 +604,7 @@ class Document:
 		# The following are only used temporarily, while parsing the document.
 		# TODO if possible, this should be attached to the Parser object instead.
 		self._prosody_entries = {}
+		# Map of biblio entry short title (string) -> siglum (string)
 		self.sigla = {}
 
 class PlainRenderer:

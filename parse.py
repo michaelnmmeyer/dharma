@@ -16,8 +16,6 @@ def handler(path):
 
 class Parser:
 
-	div_level = 0
-
 	def __init__(self, t):
 		self.tree = t
 		self.document = Document()
@@ -31,7 +29,7 @@ class Parser:
 		# still remain in the tree and are still accessible from
 		# within handlers.
 		self.visited = set()
-		#-----
+		#----- NEW stuff
 		self.out = tree.Tag("document")
 		self.stack = [self.out]
 
@@ -40,6 +38,10 @@ class Parser:
 
 	def xpop(self):
 		return self.stack.pop()
+
+	@property
+	def xtop(self):
+		return self.stack[-1]
 
 	@property
 	def top(self):
@@ -62,12 +64,6 @@ class Parser:
 	def clear_divs(self):
 		self.divs.clear()
 		self.divs.append(set())
-
-	def add_n(self, n):
-		if n != "?" and n in self.divs[-1]: # XXX no "?" mess
-			return False
-		self.divs[-1].add(n)
-		return True
 
 	def start_div(self, n="?"): # XXX no "?" mess
 		# we could duplicate <div in log and phys, for commodity
@@ -453,10 +449,7 @@ def get_n(node, default="?"):
 	return n
 
 def milestone_n(p, node):
-	n = get_n(node)
-	if not p.add_n(n):
-		node.add_error("@n is not unique")
-	return n
+	return get_n(node)
 
 def milestone_break(node):
 	brk = node["break"]
@@ -914,7 +907,6 @@ def parse_g(p, node):
 		cat = "space-filler"
 	else:
 		cat = "uninterpreted"
-	p.document.gaiji.add(t)
 	info = gaiji.get(t)
 	tip = f"symbol: {info['description']}"
 	if cat != "uninterpreted":
@@ -1577,6 +1569,9 @@ if __name__ == "__main__":
 			f = texts.File("/", path)
 			doc = process_file(f)
 			print(doc.hand_desc)
+			print(repr(doc.bib_entries))
+			print(repr(doc._prosody_entries))
+			print(repr(doc.sigla))
 		except BrokenPipeError:
 			pass
 	main()
