@@ -553,7 +553,9 @@ class Document:
 
 	def __init__(self):
 		self.tree = None # tree.Tree
+		# Whether the XML is well-formed.
 		self.valid = True
+		# XML source code, HTML-encoded.
 		self.xml = ""
 		self.repository = ""
 		# The commit we extracted this file from (not necessarily the latest
@@ -581,8 +583,8 @@ class Document:
 		self.apparatus = None
 		self.commentary = None
 		self.bibliography = None
-		# A single document can have zero or more translations.
-		# E.g. DHARMA_INSPallava00002 has several translations.
+		# A single document can have zero or more translations (see e.g.
+		# DHARMA_INSPallava00002), so this is a list.
 		self.translation = []
 		self.biblio = set()
 		# List of footnotes (<note> element in TEI, except that we

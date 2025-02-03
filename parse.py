@@ -30,14 +30,15 @@ class Parser:
 		# within handlers.
 		self.visited = set()
 		#----- NEW stuff
-		self.out = tree.Tag("document")
-		self.stack = [self.out]
+		self.xstack = []
 
-	def xpush(self, node):
-		self.stack.append(node)
+	def xpush(self, node=None):
+		if node is None:
+			node = tree.Tree()
+		self.xstack.append(node)
 
 	def xpop(self):
-		return self.stack.pop()
+		return self.xstack.pop()
 
 	@property
 	def xtop(self):
@@ -1339,7 +1340,7 @@ def parse_sourceDesc(p, desc):
 		# remove paragraphs XXX why? I think this is because we sometimes
 		# have a mix of <p> and text elements at the same level, check.
 		for para in summ.find(".//p"):
-			para.unwrap()
+			para.unwrap() # XXX don't edit the tree!
 		p.push("summary")
 		p.dispatch_children(summ)
 		p.document.summary = p.pop()
@@ -1358,7 +1359,7 @@ def get_script(node):
 
 # Within inscriptions, <div> shouldn't nest, except that we can have
 # <div type="textpart"> within <div type="edition">.
-# All the DHARMA_INSEC* stuff don't follow the ins schema, too different.
+# All the DHARMA_INSEC* stuff don't follow the INS schema, too different.
 @handler("div[@type='textpart']")
 def parse_div(p, div):
 	n = milestone_n(p, div)
