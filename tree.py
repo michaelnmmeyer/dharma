@@ -630,9 +630,10 @@ class Tree(Branch):
 		if isinstance(node, Tag):
 			if any(isinstance(child, Tag) for child in self):
 				raise Exception("cannot add a root tag to a tree that already has one")
-		elif isinstance(node, (String, str)):
-			if not node.isspace():
-				raise Exception("cannot add text contents to a Tree node")
+		#
+		# elif isinstance(node, (String, str)):
+		# 	if not node.isspace():
+		# 		raise Exception("cannot add text contents to a Tree node")
 		super().insert(index, node)
 
 	def copy(self):

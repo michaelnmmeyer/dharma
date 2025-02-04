@@ -30,33 +30,36 @@ class Parser:
 		# within handlers.
 		self.visited = set()
 		#----- NEW stuff
-		self.xstack = []
+		self.stack = []
 
-	def xpush(self, node=None):
+	def push(self, node=None):
 		if node is None:
 			node = tree.Tree()
-		self.xstack.append(node)
+		self.stack.append(node)
 
-	def xpop(self):
-		return self.xstack.pop()
-
-	@property
-	def xtop(self):
-		return self.stack[-1]
+	def pop(self):
+		return self.stack.pop()
 
 	@property
 	def top(self):
-		return self.blocks[-1]
+		return self.stack[-1]
 
-	def push(self, name):
-		b = Block(name)
-		self.blocks.append(b)
-		return b
+	def start_span(self, klass=None, tip=None):
+		span = tree.Tag("span")
+		if klass:
+			span["class"] = klass
+		if tip:
+			if isinstance(tip, tree.Node):
+				tip = tip.xml()
+			else:
+				assert isinstance(tip, str)
+			span["tip"] = html.escape(tip)
+		self.push(span)
 
-	def pop(self):
-		b = self.blocks.pop()
-		b.finish()
-		return b
+	def end_span(self):
+		span = self.pop()
+		assert span.name == "span"
+		self.top.append(span) # XXX str + tree.Tag
 
 	@property
 	def within_div(self):
@@ -77,7 +80,11 @@ class Parser:
 		self.add_log(">div")
 
 	def add_text(self, text):
-		return self.top.add_text(text)
+		assert isinstance(text, str)
+		self.top.append(str(text))
+
+	def add_display(self, text):
+		self.add_text(text)
 
 	def add_html(self, data, **params):
 		return self.top.add_html(data, **params)
@@ -116,12 +123,6 @@ class Parser:
 			self.document._prosody_entries[name] = entries
 		return entries
 
-	def start_span(self, **params):
-		return self.top.start_span(**params)
-
-	def end_span(self):
-		return self.top.end_span()
-
 	def dispatch(self, node):
 		if node in self.visited:
 			return
@@ -147,8 +148,10 @@ class Parser:
 		except tree.Error as e:
 			self.complain(e)
 
-	def dispatch_children(self, node):
+	def dispatch_children(self, node, only_tags=False):
 		for child in node:
+			if only_tags and not isinstance(child, tree.Tag):
+				continue
 			self.dispatch(child)
 
 	def complain(self, msg):
@@ -208,7 +211,7 @@ def parse_ref(p, ref):
 			if path.startswith("/texts/"):
 				name = name.removeprefix("/texts/")
 				name = name.removeprefix("DHARMA_")
-				klass = [klass, "text-id"]
+				klass = f"{klass} text-id"
 		url = url._replace(path=urllib.parse.quote(path))
 		target = common.normalize_url(url.geturl())
 	p.add_html(f'<a href="{target}">')
@@ -569,7 +572,7 @@ def parse_sic(p, sic, corr=None):
 	if corr:
 		tip += ' (emendation: <span class="corr">⟨%s⟩</span>)' % html.escape(corr)
 	else:
-		klass = [klass, "standalone"]
+		klass = f"{klass} standalone"
 	p.start_span(klass=klass, tip=tip)
 	p.add_html("¿")
 	mark = len(p.top.code)
@@ -586,7 +589,7 @@ def parse_corr(p, corr, sic=None):
 	if sic:
 		tip += ' (original: <span class="sic">¿%s?</span>)' % html.escape(sic)
 	else:
-		klass = [klass, "standalone"]
+		klass = f"{klass} standalone"
 	p.start_span(klass=klass, tip=tip)
 	p.add_html('⟨')
 	p.dispatch_children(corr)
@@ -601,7 +604,7 @@ def parse_orig(p, orig, reg=None):
 	if reg:
 		tip += ' (standardisation: <span class="reg">⟨%s⟩</span>)' % html.escape(reg)
 	else:
-		klass = [klass, "standalone"]
+		klass = f"{klass} standalone"
 	p.start_span(klass=klass, tip=tip)
 	p.add_html("¡")
 	mark = len(p.top.code)
@@ -618,7 +621,7 @@ def parse_reg(p, reg, orig=None):
 	if orig:
 		tip += ' (original: <span class="orig">¡%s!</span>)' % html.escape(orig)
 	else:
-		klass = [klass, "standalone"]
+		klass = f"{klass} standalone"
 	p.start_span(klass=klass, tip=tip)
 	p.add_html("⟨")
 	p.dispatch_children(reg)
@@ -774,7 +777,7 @@ def parse_seg(p, seg):
 		return
 	rend = seg["rend"].split()
 	if "pun" in rend:
-		p.start_span(klass="pun", tip="Pun (<i>ślesa</i>)")
+		p.start_span(klass="pun", tip="Pun (<i>ślesa</i>)") # XXX tip should be a tree
 		p.add_html("{")
 	if "check" in rend:
 		p.start_span(klass="check", tip="To check")
@@ -923,32 +926,32 @@ def parse_g(p, node):
 		p.end_span()
 	# had '<img alt="%s" class="svg" src="%s"/>' % (info["name"], info["img"]))
 
-# OK
 @handler("unclear")
 def parse_unclear(p, node):
-	tip = "Unclear text"
 	if node["cert"] == "low":
 		tip = "Tentative reading"
+	else:
+		tip = "Unclear text"
 	reason = node["reason"]
 	if reason:
 		if reason == "eccentric_ductus":
 			reason = f"<i>{reason}</i>"
-		tip += f" ({reason.replace('_', ' ')})"
+		tip += f" ({reason.replace('_', ' ')})" # XXX escape
 	p.start_span(klass="unclear", tip=tip)
-	p.add_html("(")
+	p.add_display("(")
 	p.dispatch_children(node)
 	if node["cert"] == "low":
-		p.add_html("?")
-	p.add_html(")")
+		p.add_display("?")
+	p.add_display(")")
 	p.end_span()
 
 # EGD "Editorial deletion (suppression)"
 @handler("surplus")
 def parse_surplus(p, node):
 	p.start_span(klass="surplus", tip="Superfluous text erroneously added by the scribe")
-	p.add_html("{")
+	p.add_display("{")
 	p.dispatch_children(node)
-	p.add_html("}")
+	p.add_display("}")
 	p.end_span()
 
 def print_as_grantha(p, node): # XXX cannot nest <div> within <p>
@@ -1194,7 +1197,7 @@ def parse_bibl(p, node):
 		return
 	p.add_bib_ref(ref, rend=rend, loc=loc)
 
-# Title of the edited text.
+# Title of the edited text (in the teiHeader).
 @handler("titleStmt/title")
 def parse_title_in_header(p, title):
 	p.dispatch_children(title)
@@ -1260,44 +1263,62 @@ def parse_cit(p, cit):
 		p.dispatch(bibl)
 		p.add_text(")")
 
+# We don't attempty to preserve the structure <forename>+<surname> for
+# searching, because we can also have just <name>, so it's better to just have
+# a simple string.
 def gather_people(stmt, *paths):
 	nodes = [node for path in paths for node in stmt.find(path)]
-	# Sort people by order of appearance in the file.
+	# Sort by order of appearance in the file
 	nodes.sort(key=lambda node: node.location.start)
 	full_names = []
 	dharma_ids = []
 	for node in nodes:
 		ident = node["ref"]
-		if ident and ident.startswith("part:"):
-			if ident == "part:jodo": # John Doe, placeholder
-				continue
+		if ident == "part:jodo": # John Doe, placeholder
+			continue
+		if ident.startswith("part:"):
 			ident = ident.removeprefix("part:")
+			# Use the name given in the contributors list instead of
+			# the one given here.
 			name = people.plain(ident)
-			if not name:
-				continue # XXX keep the id in this case?
-			common.append_unique(dharma_ids, ident)
-		else:
-			name = common.normalize_space(node.text(space="preserve"))
-			if not name:
+			if name:
+				common.append_unique(dharma_ids, ident)
+				common.append_unique(full_names, name)
 				continue
+		# We should have either <forename>+<surname> or just <name>. But
+		# also prepare for <surname>+<forename> or a plain string.
+		first, last = node.first("forename"), node.first("surname")
+		if first and last:
+			name = first.text(space="preserve") + " " + last.text(space="preserve")
+		else:
+			name = node.text(space="preserve")
+		name = common.normalize_space(name)
 		common.append_unique(full_names, name)
 	return full_names, dharma_ids
 
+# We only expect this to appear at /TEI/teiHeader/fileDesc/titleStmt (and a
+# single occurrence).
 @handler("titleStmt")
 def parse_titleStmt(p, stmt):
-	# We only have several <title> in critical editions, not in
-	# inscriptions. Not supporting what the EGC prescribes, we just treat
-	# several <title> as a sequence of title elements.
-	p.push("title")
-	titles = stmt.find("title")
-	for i, title in enumerate(titles):
+	# Text title.
+	# We should only have a single <title> elements, but, if there are many,
+	# join them into a single string.
+	# The EGD prescribes to only use a plain string within <title>, but we
+	# relax this rule and allow tags here. See e.g. DHARMA_INSPallava00506.
+	p.push()
+	parts = stmt.find("title")
+	for i, part in enumerate(parts):
 		if i > 0:
 			p.add_text(" \N{en dash} ")
-		p.dispatch_children(title)
+		p.dispatch(part)
 	p.document.title = p.pop()
+	# Author of the text (only for critical editions).
 	authors, _ = gather_people(stmt, "author")
 	p.document.authors = authors
-	editors, editors_ids = gather_people(stmt, "editor", "principal", "respStmt/persName")
+	# Editor(s) of the text.
+	# The only allowed form is respStmt/persName, but also prepare for a few
+	# other forms that are valid TEI but not valid DHARMA.
+	editors, editors_ids = gather_people(stmt, "respStmt/persName", "editor", "principal", "respStmt/name")
 	p.document.editors = editors
 	p.document.editors_ids = editors_ids
 
@@ -1313,7 +1334,7 @@ def parse_titleStmt(p, stmt):
 @handler("term")
 @handler("gloss")
 def parse_just_dispatch(p, node):
-	p.dispatch_children(node)
+	p.dispatch_children(node, only_tags=True)
 
 @handler("publicationStmt")
 @handler("editionStmt")
@@ -1333,17 +1354,21 @@ def parse_handDesc(p, desc):
 	if not found:
 		p.document.hand_desc = None
 
-@handler("sourceDesc")
-def parse_sourceDesc(p, desc):
-	summ = desc.first("msDesc/msContents/summary")
-	if summ:
-		# remove paragraphs XXX why? I think this is because we sometimes
-		# have a mix of <p> and text elements at the same level, check.
-		for para in summ.find(".//p"):
-			para.unwrap() # XXX don't edit the tree!
-		p.push("summary")
-		p.dispatch_children(summ)
-		p.document.summary = p.pop()
+# We expect a single occurrence.
+@handler("sourceDesc/msDesc/msContents/summary")
+def parse_contents_summary(p, summ):
+	# remove paragraphs XXX why? I think this is because we sometimes
+	# have a mix of <p> and text elements at the same level, check. in any
+	# case, should have as output a sequence of <p>...</p>
+	for para in summ.find(".//p"):
+		para.unwrap() # XXX don't edit the tree!
+	p.push("summary")
+	p.dispatch_children(summ)
+	p.document.summary = p.pop()
+
+# We expect a single occurrence.
+@handler("sourceDesc/msDesc/physDesc/handDesc")
+def parse_source_handDesc(p, desc):
 	hd = desc.first("msDesc/physDesc/handDesc")
 	if hd:
 		parse_handDesc(p, hd)
@@ -1385,6 +1410,7 @@ def parse_div(p, div):
 	p.dispatch_children(div)
 	p.end_div()
 
+# We're supposed to have either a series of <div> that covers all the text, or no div at all.
 def gather_sections(p, div):
 	p.push(div["type"])
 	for child in div:
@@ -1487,6 +1513,7 @@ def parse_div_translation(p, div):
 
 @handler("body")
 def parse_body(p, body):
+	# Process the bibliography first, to gather sigla.
 	gather_biblio(p, body)
 	p.dispatch_children(body)
 
@@ -1519,7 +1546,7 @@ def process_file(file, mode=None):
 	for path in to_delete:
 		for node in t.find(path):
 			node.delete()
-	p.dispatch(p.tree.root)
+	p.dispatch(p.tree.first("//titleStmt"))#XXX
 	all_langs = set()
 	for node in t.find("//*"):
 		all_langs.add(node.assigned_lang)
@@ -1569,10 +1596,9 @@ if __name__ == "__main__":
 		try:
 			f = texts.File("/", path)
 			doc = process_file(f)
-			print(doc.hand_desc)
-			print(repr(doc.bib_entries))
-			print(repr(doc._prosody_entries))
-			print(repr(doc.sigla))
+			print(doc.title.xml())
+			print(doc.authors)
+			print(doc.editors)
 		except BrokenPipeError:
 			pass
 	main()

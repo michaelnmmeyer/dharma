@@ -129,12 +129,6 @@ class Block:
 	def __bool__(self):
 		return not self.empty()
 
-	def add_text(self, data):
-		if not data:
-			return
-		data = re.sub(r"\s+", " ", data)
-		return self.add_code("text", data)
-
 	def add_html(self, data, **params):
 		params.setdefault("plain", False)
 		params.setdefault("logical", True)
@@ -189,20 +183,6 @@ class Block:
 	def add_log(self, data, **params):
 		self.add_code("log", data, **params)
 
-	def start_span(self, klass=None, tip=None):
-		if not klass:
-			klass = []
-		elif isinstance(klass, str):
-			klass = [klass]
-		if not tip:
-			tip = []
-		elif isinstance(tip, str):
-			tip = [tip]
-		self.add_code("span", "<", klass=klass, tip=tip)
-
-	def end_span(self):
-		self.add_code("span", ">")
-
 	def add_code(self, t, data=None, **params):
 		rec = (t, data, params)
 		self.code.append(rec)
@@ -222,7 +202,7 @@ class Block:
 		elif t == "span":
 			if data == "<":
 				klasses = html.escape(" ".join(params["klass"]))
-				tip = " | ".join(params["tip"])
+				tip = params["tip"]
 				if tip:
 					tip = html.escape(tip)
 					buf.append(f'<span class="{klasses}" data-tip="{tip}">')
@@ -593,9 +573,9 @@ class Document:
 		# support notes within notes in the apparatus, because in this
 		# case the nesting is justified).
 		self.notes = []
-		# List of authors (strings)
+		# List of authors (plain strings)
 		self.authors = []
-		# List of editors (strings)
+		# List of editors (plain strings)
 		self.editors = []
 		# List of dharma editors ids (the xxxx stuff in "part:xxxx")
 		# TODO should merge self.editors with self.editors_ids and have
