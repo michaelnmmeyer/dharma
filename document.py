@@ -11,7 +11,7 @@
 # pandoc's data model. See https://boisgera.github.io/pandoc/document
 
 import os, sys, re, html, unicodedata
-from dharma import common, unicode, biblio
+from dharma import common, unicode, biblio, tree
 
 class BlockDebugFormatter:
 
@@ -129,12 +129,12 @@ class Block:
 	def __bool__(self):
 		return not self.empty()
 
-	def add_html(self, data, **params):
-		params.setdefault("plain", False)
-		params.setdefault("logical", True)
-		params.setdefault("physical", True)
-		params.setdefault("full", True)
-		return self.add_code("html", data, **params)
+	# def add_html(self, data, **params):
+	# 	params.setdefault("plain", False)
+	# 	params.setdefault("logical", True)
+	# 	params.setdefault("physical", True)
+	# 	params.setdefault("full", True)
+	# 	return self.add_code("html", data, **params)
 
 	def close_line(self, brk):
 		# Try to figure out where we should insert an EOL marker
@@ -180,12 +180,12 @@ class Block:
 				break
 		self.add_code("phys", "<line", **params)
 
-	def add_log(self, data, **params):
-		self.add_code("log", data, **params)
+	# def add_log(self, data, **params):
+	# 	self.add_code("log", data, **params)
 
-	def add_code(self, t, data=None, **params):
-		rec = (t, data, params)
-		self.code.append(rec)
+	# def add_code(self, t, data=None, **params):
+	# 	rec = (t, data, params)
+	# 	self.code.append(rec)
 
 	def finish(self):
 		self.close_line(True)
@@ -529,6 +529,28 @@ class Block:
 			buf.append(data)
 		return common.normalize_text("".join(buf))
 
+class Serializer:
+
+	def __init__(self):
+		self.tree = tree.Tree()
+		self.stack = [self.tree]
+
+	def push(self, node):
+		if not isinstance(node, tree.Node):
+			node = tree.String(node)
+		self.stack.append(node.copy()) # XXX should clarify copies in tree.py
+
+	def pop(self):
+		assert len(self.stack) > 1
+		node = self.stack.pop()
+		self.append(node)
+
+	def append(self, node):
+		self.stack[-1].append(node.copy()) # XXX should clarify copies in tree.py
+
+	def extend(self, node_iter):
+		self.stack[-1].extend(x.copy() for x in node_iter) # XXX should clarify copies in tree.py
+
 class Document:
 
 	def __init__(self):
@@ -566,7 +588,6 @@ class Document:
 		# A single document can have zero or more translations (see e.g.
 		# DHARMA_INSPallava00002), so this is a list.
 		self.translation = []
-		self.biblio = set()
 		# List of footnotes (<note> element in TEI, except that we
 		# don't include here <note> elements from the apparatus because
 		# they do not actually represent footnotes; we should probably
@@ -581,13 +602,51 @@ class Document:
 		# TODO should merge self.editors with self.editors_ids and have
 		# a "Person" object, like we are doin for langs.
 		self.editors_ids = []
-		# Map of cite keys -> bibliography entries
+
+		## Biblio stuff
+		# XXX just process the div[@type='bibliography'] before the rest; NO, can't really do that, because the div can contain paras that reference bib entries, thus we must go directly for the listBibl/bibl items.
+		# XXX delete "biblio"
+		# XXX rename bib_entries -> bibliography_entries
+		# Map of biblio short titles -> bibliography entries
 		self.bib_entries = {}
+		# Set of biblio short title
+		self.biblio = set()
+		# Map of biblio entry short title (string) -> siglum (string)
+		self.sigla = {}
+
 		# The following are only used temporarily, while parsing the document.
 		# TODO if possible, this should be attached to the Parser object instead.
 		self._prosody_entries = {}
-		# Map of biblio entry short title (string) -> siglum (string)
-		self.sigla = {}
+
+	def serialize(self):
+		f = Serializer()
+		f.push(tree.Tag("document"))
+		if self.title:
+			f.push(tree.Tag("title"))
+			f.extend(self.title)
+			f.pop()
+		for author in self.authors:
+			f.push(tree.Tag("author"))
+			f.append(author)
+			f.pop()
+		for editor in self.editors:
+			f.push(tree.Tag("editor"))
+			f.append(editor)
+			f.pop()
+		for editor_id in self.editors_ids:
+			f.push(tree.Tag("editor_id"))
+			f.append(editor_id)
+			f.pop()
+		if self.summary:
+			f.push(tree.Tag("summary"))
+			f.extend(self.summary)
+			f.pop()
+		if self.edition:
+			f.push(tree.Tag("edition"))
+			f.extend(self.edition)
+			f.pop()
+		f.pop()
+		return f.tree
 
 class PlainRenderer:
 

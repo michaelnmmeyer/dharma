@@ -49,7 +49,9 @@ Returns the corresponding attributes in `Node`.
 To evaluate an expression, we first convert it to straightforward python source
 code, then compile the result, and finally run the code. Compiled expressions
 are saved in a global table and are systematically reused. There is no caching
-policy for now.
+policy for now, so it is not a good idea to generate expressions on-the-fly.
+
+Use the xpath.py command-line tool for evaluating xpath expressions.
 '''
 
 import os, re, io, collections, sys, fnmatch, tokenize, traceback
@@ -627,9 +629,9 @@ class Tree(Branch):
 		raise Exception("nodes of type 'tree' cannot be deleted")
 
 	def insert(self, index, node):
-		if isinstance(node, Tag):
-			if any(isinstance(child, Tag) for child in self):
-				raise Exception("cannot add a root tag to a tree that already has one")
+		#if isinstance(node, Tag):
+		#	if any(isinstance(child, Tag) for child in self):
+		#		raise Exception("cannot add a root tag to a tree that already has one")
 		#
 		# elif isinstance(node, (String, str)):
 		# 	if not node.isspace():

@@ -268,7 +268,7 @@ CODE_HASH, CODE_DATE = command("git", "show", "--no-patch", "--format=%H %at",
 CODE_DATE = int(CODE_DATE)
 
 def normalize_url(url):
-	url = url.rstrip("/") # XXX might not work for some websites
+	url = url.rstrip("/") or "/" # XXX might not work for some websites
 	# XXX too slow to do live, should use a cache
 	return url
 	ret = urlparse(url)

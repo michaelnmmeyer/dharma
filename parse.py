@@ -1,8 +1,7 @@
 # For parsing TEI files into a Document object
 
-import os, sys, re, html, urllib.parse, logging
+import os, sys, re, html, urllib.parse, logging, posixpath
 from dharma import prosody, people, tree, gaiji, common, biblio, langs, document
-from dharma.document import Document, Block
 
 # Handlers are tested per order of appearance in this file, so the most
 # specific ones should come first.
@@ -18,13 +17,13 @@ class Parser:
 
 	def __init__(self, t):
 		self.tree = t
-		self.document = Document()
+		self.document = document.Document()
 		self.document.tree = self.tree
 		self.document.ident = os.path.basename(os.path.splitext(self.tree.file)[0])
 		# Stack of blocks.
-		self.blocks = [Block()]
+		#self.blocks = [Block()]
 		self.handlers = HANDLERS
-		self.divs = []
+		#self.divs = []
 		# Nodes in this set are ignored in dispatch(). These nodes
 		# still remain in the tree and are still accessible from
 		# within handlers.
@@ -61,42 +60,47 @@ class Parser:
 		assert span.name == "span"
 		self.top.append(span) # XXX str + tree.Tag
 
-	@property
-	def within_div(self):
-		return len(self.divs) > 1
+	def append(self, node):
+		self.append(node)
 
-	def clear_divs(self):
-		self.divs.clear()
-		self.divs.append(set())
+#	@property
+#	def within_div(self):
+#		return len(self.divs) > 1
 
-	def start_div(self, n="?"): # XXX no "?" mess
-		# we could duplicate <div in log and phys, for commodity
-		self.add_log("<div", n=n)
-		self.divs.append(set())
+#	def clear_divs(self):
+#		self.divs.clear()
+#		self.divs.append(set())
 
-	def end_div(self):
-		assert self.within_div
-		self.divs.pop()
-		self.add_log(">div")
+#	def start_div(self, n="?"): # XXX no "?" mess
+#		# we could duplicate <div in log and phys, for commodity
+#		self.add_log("<div", n=n)
+#		self.divs.append(set())
+
+#	def end_div(self):
+#		assert self.within_div
+#		self.divs.pop()
+#		self.add_log(">div")
 
 	def add_text(self, text):
-		assert isinstance(text, str)
 		self.top.append(str(text))
+
+	def add_display(self, text):
+		self.top.append(str(text)) # str() in case this is a tree.String
 
 	def add_display(self, text):
 		self.add_text(text)
 
-	def add_html(self, data, **params):
-		return self.top.add_html(data, **params)
+#	def add_html(self, data, **params):
+#		return self.top.add_html(data, **params)
 
-	def add_phys(self, data, **params):
-		return self.top.add_phys(data, **params)
+#	def add_phys(self, data, **params):
+#		return self.top.add_phys(data, **params)
 
-	def add_code(self, t, data=None, **params):
-		return self.top.add_code(t, data, **params)
+#	def add_code(self, t, data=None, **params):
+#		return self.top.add_code(t, data, **params)
 
-	def add_log(self, data, **params):
-		return self.top.add_log(data, **params)
+#	def add_log(self, data, **params):
+#		return self.top.add_log(data, **params)
 
 	def get_bib_ref(self, ref, rend="default", loc=None, siglum=False):
 		entry = self.document.bib_entries.get(ref)
@@ -109,8 +113,8 @@ class Parser:
 			external_link=ref not in self.document.biblio)
 		return entry_ref
 
-	def add_bib_ref(self, *args, **kwargs):
-		self.add_code("ref", self.get_bib_ref(*args, **kwargs))
+	def add_bib_ref(self, ref, rend="default", loc=None, siglum=False):
+		self.add_code("ref", self.get_bib_ref(ref, rend=rend, loc=loc, siglum=siglum))
 
 	def get_prosody_entries(self, name):
 		entries = self.document._prosody_entries.get(name)
@@ -155,8 +159,7 @@ class Parser:
 			self.dispatch(child)
 
 	def complain(self, msg):
-		print("UNKNOWN %s" % msg)
-		pass
+		print("UNKNOWN %s" % msg, file=sys.stderr)
 
 @handler("code")
 def parse_code(p, code):
@@ -169,9 +172,13 @@ def parse_lem(p, lem):
 	p.dispatch_children(lem)
 	add_lemmas_links(p, lem["source"])
 
-# When there is a <ptr target="bib:xxxxxx"/> anywhere in the file and that is not
-# wrapped by <bib>, display the siglum as clickable. XXX todo
-# element instead of Author+Data
+
+"""
+TODO
+XXX
+
+We had:
+
 @handler("div[@type='apparatus']//ptr")
 def parse_ptr_apparatus(p, ptr):
 	return parse_ptr(p, ptr, siglum=True)
@@ -183,45 +190,87 @@ def parse_ptr(p, ptr, siglum=False):
 		return
 	p.add_bib_ref(ref, siglum=siglum)
 
-@handler("ref")
-def parse_ref(p, ref):
-	target = ref["target"]
-	if not target:
-		p.dispatch_children(ref)
-		return
-	url = urllib.parse.urlparse(target)
-	name = None # if <ref> is empty
-	klass = "url"
-	# Simplify https?://dharmalekha.info/foo -> /foo
+
+For bib:foobar, manu wants:
+
+: bibl/ptr
+<bibl><ptr target="bib:foobar"/>...</bibl> -> Author+date
+
+: ptr # ptr[not ../../bibl]
+<ptr target="bib:foobar"/> everywhere else -> siglum.
+	(or fallback to Author+date if we have that)
+	(this is already the case for the apparatus, but manu wants it to work
+	everywhere)
+
+what shall we do if the <ptr> is not empty? make what's within it clickable,
+and make it poitn to the bibliography entry
+
+(and idem for ref)
+
+"""
+
+def process_url(link):
+	url = urllib.parse.urlparse(link)
+	# Simplify the URL if it refers to something on our server:
+	# http(s?)://dharmalekha.info/foo -> /foo
 	if url.scheme in ("http", "https") and url.netloc == "dharmalekha.info":
 		url = url._replace(scheme="", netloc="")
 	if url.hostname:
-		# This is a URL.
-		if ref.empty:
-			name = target
-		target = common.normalize_url(target)
-	else:
-		# This is a path, thus something on our server.
-		path = urllib.parse.unquote(url.path)
-		path = os.path.join("/texts", path)
-		# Drop the file extension (for dealing with e.g. "DHARMA_INSIDENKTuhanyaru.xml").
-		path = os.path.splitext(path)[0]
-		if ref.empty:
-			name = path
-			if path.startswith("/texts/"):
-				name = name.removeprefix("/texts/")
-				name = name.removeprefix("DHARMA_")
-				klass = f"{klass} text-id"
-		url = url._replace(path=urllib.parse.quote(path))
-		target = common.normalize_url(url.geturl())
-	p.add_html(f'<a href="{target}">')
-	if name:
-		p.start_span(klass=klass)
-		p.add_text(name)
-		p.end_span()
-	else:
-		p.dispatch_children(ref)
-	p.add_html('</a>')
+		# It doesn't point to something on our server.
+		return url.geturl()
+	# We're dealing with a path ("foo", "/foo", etc.), thus something hosted
+	# on our server. Make the path absolute and drop trailing slashes.
+	# We have one of:
+	# "foo" -> "/texts/foo"
+	# "/foo" -> "/foo"
+	# "/foo/" -> "/foo"
+	path = url.path.rstrip("/") or "/"
+	path = posixpath.join("/texts", path)
+	# If this is a text, drop the file extension, thus
+	# "/texts/DHARMA_INSIDENKTuhanyaru.xml" -> "/texts/DHARMA_INSIDENKTuhanyaru"
+	# And also remove the "DHARMA_" prefix:
+	# "/texts/DHARMA_INSIDENKTuhanyaru" -> "/texts/INSIDENKTuhanyaru"
+	if path.startswith("/texts/"):
+		name = posixpath.basename(path)
+		name = os.path.splitext(name)[0]
+		name = name.removeprefix("DHARMA_")
+		path = os.path.join(posixpath.dirname(path), name)
+	url = url._replace(path=path)
+	return url.geturl()
+
+# The syntax for ref is <ref target="myurl">foo</ref>, equivalent to the HTML
+# <a href="myurl">foo</ref>. <ptr/> is like <ref> except that it is supposed
+# to be empty. Even so, we try to deal appropriately with a non-empty <ptr/>.
+@handler("ref[@target and not empty()]")
+@handler("ptr[@target and not empty()]")
+def parse_ref(p, ref):
+	assert ref["target"] and not ref.empty
+	url = process_url(ref["target"])
+	klass = "url"
+	if url.startswith("/texts/"):
+		klass += " text-id"
+	p.push(tree.Tag("a", **{"href": url, "class": klass}))
+	p.dispatch_children(ref)
+	p.append(p.pop())
+
+@handler("ref[@target]") # ref[@target and empty()]
+@handler("ptr[@target]") # ptr[@target and empty()]
+def parse_ref_empty(p, ref):
+	assert ref["target"] and ref.empty
+	url = process_url(ref["target"])
+	klass = "url"
+	if url.startswith("/texts/"):
+		klass += " text-id"
+	p.push(tree.Tag("a", **{"href": url, "class": klass}))
+	p.add_text(url.removeprefix("/texts/"))
+	p.append(p.pop())
+
+@handler("ref") # ref[not @target]
+@handler("ptr") # ptr[not @target]
+def parse_other_ref(p, ref):
+	assert not ref["target"]
+	p.dispatch_children(ref)
+>>>>>>> 90a0871a (Rewrite)
 
 def add_lemmas_links(p, sources):
 	for ref in sources.split():
@@ -437,11 +486,17 @@ def parse_note(p, note):
 	ret = p.pop()
 	p.document.notes.append(ret)
 
+# When <foreign> occurs within div[@type='edition'], don't put it in italics.
+@handler("div[@type='edition']//foreign")
+def parse_foreign_in_edition(p, foreign):
+	p.dispatch_children(foreign)
+
+# Put <foreign> in italics when it occurs outside of div[@type='edition']
 @handler("foreign")
 def parse_foreign(p, foreign):
-	p.add_html("<i>")
+	p.push(tree.Tag("i"))
 	p.dispatch_children(foreign)
-	p.add_html("</i>")
+	p.append(p.pop())
 
 # <milestones
 
@@ -1066,9 +1121,9 @@ def parse_lg(p, lg):
 
 @handler("p")
 def parse_p(p, para):
-	# We deal with this elsewhere
+	# We deal with stanzas rendering elsewhere
 	assert not para["rend"] == "stanza"
-	p.add_log("<para")
+	p.push(tree.Tag("para"))
 	if para["n"]:
 		# See e.g. http://localhost:8023/display/DHARMA_INSSII0400223
 		# Should be displayed like <lb/> in the edition.
@@ -1079,7 +1134,7 @@ def parse_p(p, para):
 		print_as_grantha(p, para)
 	else:
 		p.dispatch_children(para)
-	p.add_log(">para")
+	p.append(p.pop())
 
 @handler("l")
 def parse_l(p, l):
@@ -1172,6 +1227,10 @@ def extract_bibl_items(p, listBibl):
 def parse_label(p, label):
 	pass # We deal with this in other handlers
 
+# I really don't like the encoding we use for <listBibl>, because there is no
+# reason why a <ptr> should produce something other than a link, but we're
+# stuck with that. Apparently, this was borrowed from epiDoc, see:
+# https://epidoc.stoa.org/gl/latest/supp-bibliography.html
 @handler("listBibl")
 def parse_listBibl(p, node):
 	recs = extract_bibl_items(p, node)
@@ -1327,12 +1386,18 @@ def parse_titleStmt(p, stmt):
 @handler("date")
 @handler("placeName")
 @handler("persName")
-@handler("fileDesc")
-@handler("teiHeader")
 @handler("text")
-@handler("TEI")
 @handler("term")
 @handler("gloss")
+def parse_just_dispatch_all(p, node):
+	p.dispatch_children(node)
+
+@handler("/TEI")
+@handler("teiHeader") # /TEI/teiHeader
+@handler("fileDesc") # /TEI/teiHeader/fileDesc
+@handler("sourceDesc") # /TEI/teiHeader/fileDesc/sourceDesc
+@handler("msDesc") # /TEI/teiHeader/fileDesc/sourceDesc/msDesc
+@handler("msContents") # /TEI/teiHeader/fileDesc/sourceDesc/msDesc/msContents
 def parse_just_dispatch(p, node):
 	p.dispatch_children(node, only_tags=True)
 
@@ -1340,6 +1405,10 @@ def parse_just_dispatch(p, node):
 @handler("editionStmt")
 @handler("facsimile") # for images, will see later on
 @handler("handShift")
+@handler("publicationStmt") # /TEI/teiHeader/fileDesc/publicationStmt
+@handler("msIdentifier") # /TEI/teiHeader/fileDesc/sourceDesc/msDesc/msIdentifier
+@handler("encodingDesc") # /TEI/teiHeader/encodingDesc
+@handler("revisionDesc") # /TEI/teiHeader/revisionDesc
 def parse_ignore(p, node):
 	pass
 
@@ -1354,16 +1423,20 @@ def parse_handDesc(p, desc):
 	if not found:
 		p.document.hand_desc = None
 
+# /TEI/teiHeader/fileDesc/sourceDesc/msDesc/msContents/summary
 # We expect a single occurrence.
 @handler("sourceDesc/msDesc/msContents/summary")
 def parse_contents_summary(p, summ):
-	# remove paragraphs XXX why? I think this is because we sometimes
-	# have a mix of <p> and text elements at the same level, check. in any
-	# case, should have as output a sequence of <p>...</p>
-	for para in summ.find(".//p"):
-		para.unwrap() # XXX don't edit the tree!
-	p.push("summary")
-	p.dispatch_children(summ)
+	# We're supposed to have either a series of <p>, or a piece of text
+	# without divisions. If we have no <p>, create one and wrap the
+	# whole contents into it.
+	p.push()
+	if summ.find("p"):
+		p.dispatch_children(summ)
+	else:
+		p.push(tree.Tag("p"))
+		p.dispatch_children(summ)
+		p.append(p.pop())
 	p.document.summary = p.pop()
 
 # We expect a single occurrence.
@@ -1483,24 +1556,31 @@ def process_translation(p, div):
 	trans.title = title
 	return trans
 
-def gather_biblio(p, body):
-	for bibl in body.find("//listBibl/bibl"):
-		siglum = get_n(bibl)
+# We must process the bibliography in two steps. First, collect bibliography
+# entries. Then, process bibliographic references (Author+Date or equivalent).
+# Otherwise, we'd have to delay the rendering of bibliographic references until
+# we parse the appropriate entry.
+def gather_biblio(p):
+	for bibl in p.tree.find("//div[@type='bibliography']//listBibl/bibl[ptr]"):
 		ptr = bibl.first("ptr")
-		if not ptr:
+		short_title = ptr["target"].removeprefix("bib:")
+		if not short_title or short_title == "AuthorYear_01":
 			continue
-		target = ptr["target"]
-		if not target.startswith("bib:"):
-			continue
-		target = target.removeprefix("bib:")
-		# TODO add checks
+		siglum = bibl["n"]
 		if siglum:
-			p.document.sigla[target] = siglum
-		p.document.biblio.add(target)
+			p.document.sigla[short_title] = siglum
+		# XXX What if the same short title is used in several bibliographic entries, possibly with different sigla or page, etc. ranges? Should still display the second occurrence, but make it apparent that it should not be there.
+		p.document.bib_entries[short_title] =
+
+@handler("div[@type='edition']")
+def parse_div_edition(p, div):
+	p.push()
+	p.dispatch_children(div)
+	p.document.edition = p.pop()
 
 @handler("""div[@type='edition' or @type='apparatus' or @type='commentary'
 	or @type='bibliography']""")
-def parse_div_edition(p, div):
+def parse_div_edition2(p, div):
 	p.clear_divs()
 	setattr(p.document, div["type"], gather_sections(p, div))
 
@@ -1513,8 +1593,6 @@ def parse_div_translation(p, div):
 
 @handler("body")
 def parse_body(p, body):
-	# Process the bibliography first, to gather sigla.
-	gather_biblio(p, body)
 	p.dispatch_children(body)
 
 def process_file(file, mode=None):
@@ -1531,22 +1609,22 @@ def process_file(file, mode=None):
 	langs.assign_languages(t)
 	p = Parser(t)
 	p.document.xml = tree.html_format(t)
-	to_delete = [
-		"//teiHeader/encodingDesc",
-		"//teiHeader/revisionDesc",
-		"//publicationStmt",
-	]
+	to_delete = []
 	# When we are parsing the file, not to display it but to extract
 	# metadata for the catalog, avoid doing unneeded work.
 	if mode == "catalog":
 		to_delete += [
-			"//teiHeader//title//note",
+			"/TEI/teiHeader//title//note",
+			"/TEI/text"
 		]
-		p.visited.add(t.first("//body"))
 	for path in to_delete:
 		for node in t.find(path):
-			node.delete()
-	p.dispatch(p.tree.first("//titleStmt"))#XXX
+			p.visited.add(node)
+	# Process the bibliography first, to gather sigla.
+	# We do this early because we might need to access bibliographical
+	# data when parsing e.g. the msContents/summary.
+	gather_biblio(p)
+	p.dispatch(p.tree.first("//div[@type='edition']"))#XXX
 	all_langs = set()
 	for node in t.find("//*"):
 		all_langs.add(node.assigned_lang)
@@ -1596,9 +1674,7 @@ if __name__ == "__main__":
 		try:
 			f = texts.File("/", path)
 			doc = process_file(f)
-			print(doc.title.xml())
-			print(doc.authors)
-			print(doc.editors)
+			print(doc.serialize().xml())
 		except BrokenPipeError:
 			pass
 	main()

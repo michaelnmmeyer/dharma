@@ -1266,7 +1266,9 @@ def fix_rec(rec):
 				val = " ".join(val)
 			creator[field] = val
 
-# TODO generate ref and entries with 1918a, 1918b, etc. when necessary; in the global biblio or in the local one? and is this really needed?
+""" TODO
+# generate ref and entries with 1918a, 1918b, etc. when necessary. in the global biblio or in the local one? ideally in both. problem: references that point to the global biblio need to be affected the "global" letter. would be confusing otherwise
+"""
 
 PER_PAGE = 100
 
