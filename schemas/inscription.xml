@@ -413,6 +413,12 @@
                 <elementSpec ident="div" mode="change" module="textstructure">
                     <constraintSpec scheme="isoschematron" ident="div">
                         <constraint>
+                            <sch:rule context="tei:div[@type='bibliography']">
+                                <sch:assert test="count(distinct-values(.//tei:listBibl/tei:bibl/tei:ptr[@target != 'bib:AuthorYear_01']/@target))
+                                    = count(.//tei:listBibl/tei:bibl/tei:ptr[@target != 'bib:AuthorYear_01']/@target)">
+                                    the same short title is used for several bibliographical entries, but should appear only once
+                                </sch:assert>
+                            </sch:rule>
                             <sch:rule context="tei:div">
                                 <sch:report test="./@type != 'textpart' and parent::tei:div and @type!=parent::tei:div/@type">
                                     Divs other than @type=textpart may not nest in divs of

@@ -1391,6 +1391,27 @@ attributes @target and @cRef may be supplied on <xsl:text/>
    </xsl:template>
    <!--PATTERN isoschematron-constraint-dharma-div-div-29-->
    <!--RULE -->
+   <xsl:template match="tei:div[@type='bibliography']" priority="1003" mode="M31">
+      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                       context="tei:div[@type='bibliography']"/>
+      <!--ASSERT -->
+      <xsl:choose>
+         <xsl:when test="count(distinct-values(.//tei:listBibl/tei:bibl/tei:ptr[@target != 'bib:AuthorYear_01']/@target))                                     = count(.//tei:listBibl/tei:bibl/tei:ptr[@target != 'bib:AuthorYear_01']/@target)"/>
+         <xsl:otherwise>
+            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                                test="count(distinct-values(.//tei:listBibl/tei:bibl/tei:ptr[@target != 'bib:AuthorYear_01']/@target)) = count(.//tei:listBibl/tei:bibl/tei:ptr[@target != 'bib:AuthorYear_01']/@target)">
+               <xsl:attribute name="location">
+                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
+               </xsl:attribute>
+               <svrl:text>
+                                    the same short title is used for several bibliographical entries, but should appear only once
+                                </svrl:text>
+            </svrl:failed-assert>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="*" mode="M31"/>
+   </xsl:template>
+   <!--RULE -->
    <xsl:template match="tei:div" priority="1002" mode="M31">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
       <!--REPORT -->
