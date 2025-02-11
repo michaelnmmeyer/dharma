@@ -1569,8 +1569,12 @@ def gather_biblio(p):
 		siglum = bibl["n"]
 		if siglum:
 			p.document.sigla[short_title] = siglum
-		# XXX What if the same short title is used in several bibliographic entries, possibly with different sigla or page, etc. ranges? Should still display the second occurrence, but make it apparent that it should not be there.
-		p.document.bib_entries[short_title] =
+		p.document.bib_entries[short_title] = biblio.Entry(short_title)
+		# The same short title might be used in several bibliographic
+		# entries, possibly with different sigla, page ranges, etc.,
+		# even though this is forbidden by the schema. If this happens,
+		# just display the duplicates, but take care not to generate
+		# duplicate anchors in the HTML.
 
 @handler("div[@type='edition']")
 def parse_div_edition(p, div):
@@ -1609,17 +1613,16 @@ def process_file(file, mode=None):
 	langs.assign_languages(t)
 	p = Parser(t)
 	p.document.xml = tree.html_format(t)
-	to_delete = []
 	# When we are parsing the file, not to display it but to extract
-	# metadata for the catalog, avoid doing unneeded work.
+	# metadata for the catalog, we only need to parse the teiHeader and
+	# can ignore the text body. Furthermore, we need to remove footnotes
+	# in the metadata; they should not be shown within the catalog.
+	# (Alternatively, we could have a mouseover, but not sure it would be
+	# worth it.)
 	if mode == "catalog":
-		to_delete += [
-			"/TEI/teiHeader//title//note",
-			"/TEI/text"
-		]
-	for path in to_delete:
-		for node in t.find(path):
-			p.visited.add(node)
+		for path in ("/TEI/teiHeader//title//note", "/TEI/text"):
+			for node in t.find(path):
+				p.visited.add(node)
 	# Process the bibliography first, to gather sigla.
 	# We do this early because we might need to access bibliographical
 	# data when parsing e.g. the msContents/summary.

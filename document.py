@@ -609,8 +609,6 @@ class Document:
 		# XXX rename bib_entries -> bibliography_entries
 		# Map of biblio short titles -> bibliography entries
 		self.bib_entries = {}
-		# Set of biblio short title
-		self.biblio = set()
 		# Map of biblio entry short title (string) -> siglum (string)
 		self.sigla = {}
 
