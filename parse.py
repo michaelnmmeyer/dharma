@@ -1568,13 +1568,18 @@ def gather_biblio(p):
 			continue
 		siglum = bibl["n"]
 		if siglum:
-			p.document.sigla[short_title] = siglum
-		p.document.bib_entries[short_title] = biblio.Entry(short_title)
-		# The same short title might be used in several bibliographic
-		# entries, possibly with different sigla, page ranges, etc.,
-		# even though this is forbidden by the schema. If this happens,
-		# just display the duplicates, but take care not to generate
-		# duplicate anchors in the HTML.
+			# The same siglum might erroneously be used for several
+			# entries. In this case, map it to the first one (since
+			# this is what we are doing with duplicate short titles).
+			p.document.sigla.setdefault(short_title, siglum)
+		if short_title not in p.document.bib_entries:
+			entry = biblio.Entry(short_title)
+			p.document.bib_entries[short_title] = entry
+			# The same short title might be used in several bibliographic
+			# entries, possibly with different sigla, page ranges, etc.,
+			# even though this is forbidden by the schema. If this happens,
+			# just display the duplicates, but take care not to generate
+			# duplicate anchors in the HTML.
 
 @handler("div[@type='edition']")
 def parse_div_edition(p, div):
@@ -1625,9 +1630,12 @@ def process_file(file, mode=None):
 				p.visited.add(node)
 	# Process the bibliography first, to gather sigla.
 	# We do this early because we might need to access bibliographical
-	# data when parsing e.g. the msContents/summary.
+	# data when parsing e.g. the //teiHeader//msContents/summary. Note that
+	# we can't even parse the div[@type='bibliography'] before other stuff
+	# in the file, because this div might itself reference bibliography
+	# entries. We thus need to go directly for the listBibl/bibl items.
 	gather_biblio(p)
-	p.dispatch(p.tree.first("//div[@type='edition']"))#XXX
+	p.dispatch(p.tree.first("//div[@type='bibliography']"))#XXX
 	all_langs = set()
 	for node in t.find("//*"):
 		all_langs.add(node.assigned_lang)

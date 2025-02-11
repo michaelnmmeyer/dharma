@@ -604,9 +604,6 @@ class Document:
 		self.editors_ids = []
 
 		## Biblio stuff
-		# XXX just process the div[@type='bibliography'] before the rest; NO, can't really do that, because the div can contain paras that reference bib entries, thus we must go directly for the listBibl/bibl items.
-		# XXX delete "biblio"
-		# XXX rename bib_entries -> bibliography_entries
 		# Map of biblio short titles -> bibliography entries
 		self.bib_entries = {}
 		# Map of biblio entry short title (string) -> siglum (string)
