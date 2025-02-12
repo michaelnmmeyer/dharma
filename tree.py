@@ -552,7 +552,10 @@ class Branch(Node, list):
 
 	def insert(self, i, node):
 		if isinstance(node, Node):
-			assert not isinstance(node, Tree)
+			if isinstance(node, Tree):
+				for j, child in enumerate(node):
+					self.insert(i + j, child)
+				return
 			# Detach the node from the tree it belongs to, if any.
 			# The node might already belong to this tree.
 			node.delete()
@@ -622,8 +625,7 @@ class Tree(Branch):
 		return "<Tree>"
 
 	def text(self, **kwargs):
-		if self.root:
-			return self.root.text(**kwargs)
+		return "".join(node.text(**kwargs) for node in self)
 
 	def delete(self):
 		raise Exception("nodes of type 'tree' cannot be deleted")

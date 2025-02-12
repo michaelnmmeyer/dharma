@@ -194,7 +194,7 @@ def parse_ptr(p, ptr, siglum=False):
 For bib:foobar, manu wants:
 
 : bibl/ptr
-<bibl><ptr target="bib:foobar"/>...</bibl> -> Author+date
+<bibl><ptr target="bib:foobar"/>...</bibl> -> <a href="xxxxx">Author+date
 
 : ptr # ptr[not ../../bibl]
 <ptr target="bib:foobar"/> everywhere else -> siglum.
@@ -1587,11 +1587,16 @@ def parse_div_edition(p, div):
 	p.dispatch_children(div)
 	p.document.edition = p.pop()
 
-@handler("""div[@type='edition' or @type='apparatus' or @type='commentary'
-	or @type='bibliography']""")
+@handler("div[@type='edition' or @type='apparatus' or @type='commentary']")
 def parse_div_edition2(p, div):
 	p.clear_divs()
 	setattr(p.document, div["type"], gather_sections(p, div))
+
+@handler("div[@type='bibliography']")
+def parse_div_bibliography(p, div):
+	p.push()
+	p.dispatch_children(div)
+	p.document.bibliography = p.pop()
 
 @handler("div[@type='translation']")
 def parse_div_translation(p, div):
@@ -1635,7 +1640,7 @@ def process_file(file, mode=None):
 	# in the file, because this div might itself reference bibliography
 	# entries. We thus need to go directly for the listBibl/bibl items.
 	gather_biblio(p)
-	p.dispatch(p.tree.first("//div[@type='bibliography']"))#XXX
+	p.dispatch(p.tree.first("//div[@type='edition']"))#XXX
 	all_langs = set()
 	for node in t.find("//*"):
 		all_langs.add(node.assigned_lang)

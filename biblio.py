@@ -1,6 +1,7 @@
-# BUG we sometimes miss entries while updating the bib, why?
-# Maybe we should force a full bibliography update from time to time just in
-# case.
+# BUG We sometimes miss entries while updating the bib, why? I am sure we are
+# missing deletions, but I haven't checked whether we are missing added
+# entries. We should force a full bibliography update from time to time just in
+# case, as we are doing for the catalog.
 
 # For the conversion zotero->tei, this code is used:
 # https://github.com/zotero/translators/blob/master/TEI.js
@@ -119,12 +120,27 @@ def multiple_pages(s):
 class Writer:
 
 	def __init__(self):
-		self.xml = tree.parse_string('<p class="bib-entry"/>').root
+		self.xml = tree.Tree()
+		self.stack = [self.xml]
+
+	def push(self, node):
+		if isinstance(node, tree.Node):
+			node = node.copy()
+		else:
+			node = tree.String(node)
+		self.stack[-1].append(node)
+		self.stack.append(node)
+
+	def pop(self):
+		# We should never be asked to pop the tree node.
+		assert len(self.stack) > 1
+		return self.stack.pop()
 
 	def output(self):
 		for X in self.xml.find(".//X"):
 			X.unwrap()
-		return self.xml.xml()
+		assert len(self.stack) == 1, self.stack
+		return self.stack[-1]
 
 	def space(self):
 		text = self.xml.text(space="preserve")
@@ -146,7 +162,7 @@ class Writer:
 	def add(self, s):
 		if isinstance(s, tree.Node):
 			s = s.copy()
-		self.xml.append(s)
+		self.stack[-1].append(s)
 
 	# John Doe
 	def name_first_last(self, rec):
@@ -1194,11 +1210,6 @@ def normalize_space(xml):
 			s = s.rstrip()
 		node.replace_with(s)
 
-# TODO:
-# add interface for correcting entries
-# we're supposed to not have space between initials, as in T.V. instead
-# of T. V. ; try to fix this when possible
-# try to fix trailing [;,.] in URIs
 def fix_value(s):
 	s = html.unescape(s)
 	s = unicodedata.normalize("NFC", s)
@@ -1214,7 +1225,8 @@ def fix_value(s):
 	normalize_space(s)
 	if not s.text():
 		return ""
-	return s.root
+	s.root.unwrap()
+	return s
 
 def fix_rec(rec):
 	# TODO normalize_space()
@@ -1288,7 +1300,7 @@ class Entry:
 		self.records_nr = 1
 		return self
 
-	def __str__(self):
+	def xml(self):
 		return self._try_format_entry()
 
 	def _try_format_entry(self, loc=[], n=None):
@@ -1313,28 +1325,28 @@ class Entry:
 	def valid(self):
 		return bool(self.data)
 
-	def _format_entry(self, f, rec, loc, n):
+	def _format_entry(self, f, rec, loc, siglum):
 		w = Writer()
-		w.xml["id"] = f"bib-key-{self.key}"
-		if n:
-			tag = tree.Tag("b")
-			tag.append("[")
-			tag.append(n)
-			tag.append("]")
-			w.add(tag)
+		w.push(tree.Tag("bib-entry", short_title=self.key))
+		if siglum:
+			w.push(tree.Tag("b"))
+			w.add("[")
+			w.add(siglum)
+			w.add("]")
+			w.pop()
 			w.space()
-		f(rec, w, {"loc": loc, "n": n})
+		f(rec, w, {"loc": loc, "n": siglum})
 		w.space()
-		tag = tree.Tag("i", {
+		w.push(tree.Tag("a", href=f"https://www.zotero.org/groups/1633743/erc-dharma/items/{self.key}"))
+		w.push(tree.Tag("i", {
 			"class": "fas fa-edit",
 			"style": "display:inline;",
 			"data-tip": "Edit on zotero.org",
-		})
-		tag.append(" ")
-		lnk = tree.Tag("a", href=f"https://www.zotero.org/groups/1633743/erc-dharma/items/{self.key}")
-		lnk.append(tag)
-		w.add(lnk)
-		return w.output()
+		}))
+		w.add(" ")
+		w.pop()
+		w.pop()
+		return w.pop()
 
 	def _invalid_entry(self, reason):
 		r = tree.Tag("p", **{"class": "bib-entry"})
@@ -1344,7 +1356,7 @@ class Entry:
 		span["data-tip"] = reason
 		span.append(self.short_title)
 		r.append(span)
-		return r.xml()
+		return r
 
 	@property
 	def data(self):
@@ -1403,11 +1415,16 @@ class Contents:
 		self.loc = loc
 		self.n = n
 
-	def __str__(self):
+	def xml(self):
 		return self.entry._try_format_entry(self.loc, self.n)
 
 class Reference:
 
+	# "external_link" is a boolean. If true, the reference will be made to
+	# point to the project-wide bibliography. Otherwise, it will be made to
+	# point to some id on the same page.
+	# "siglum" is a str. if given, we display it instead of the usual
+	# author+date format.
 	def __init__(self, entry, rend, loc, external_link, siglum):
 		self.entry = entry
 		self.rend = rend
@@ -1421,9 +1438,9 @@ class Reference:
 			"data-tip": reason,
 		})
 		r.append(self.entry.short_title)
-		return r.xml()
+		return r
 
-	def __str__(self):
+	def xml(self):
 		rec = self.entry.data
 		assert not self.entry.records_nr < 0
 		if self.entry.records_nr != 1:
@@ -1434,8 +1451,7 @@ class Reference:
 
 	def _make_reference(self, rec):
 		w = Writer()
-		w.xml.name = "span"
-		w.xml.attrs.clear()
+		w.push(tree.Tag("span", {"class": "bib-ref"}))
 		tag = tree.Tag("a", {"class": "bib-ref"})
 		if self.external_link:
 			f = renderers.get(rec["itemType"])
@@ -1446,7 +1462,7 @@ class Reference:
 				tag["href"] = f"/bibliography/page/{self.entry.page}#bib-key-{self.entry.key}"
 		else:
 			tag["href"] = f"#bib-key-{self.entry.key}"
-		w.xml.append(tag)
+		w.push(tag)
 		w.xml = tag
 		if self.siglum:
 			tag = tree.Tag("span")
@@ -1480,6 +1496,7 @@ class Reference:
 		if self.loc:
 			w.add(",")
 			w.loc(self.loc)
+		w.pop()
 		return w.output()
 
 def sort_key(rec):
@@ -1506,13 +1523,19 @@ def sort_key(rec):
 	key += " " + rec["key"]
 	return key
 
+@common.transaction("texts")
+def display_sort_keys():
+	db = common.db("texts")
+	for (doc,) in db.execute("""select json ->> '$.data' from biblio_data
+		where sort_key is not null
+	"""):
+		doc = common.from_json(doc)
+		print(doc, sort_key(doc))
+
 if __name__ == "__main__":
+	import sys
 	@common.transaction("texts")
 	def main():
-		db = common.db("texts")
-		for (doc,) in db.execute("""select json ->> '$.data' from biblio_data
-			where sort_key is not null
-		"""):
-			doc = common.from_json(doc)
-			print(doc, sort_key(doc))
+		entry = Entry(sys.argv[1])
+		print(entry.xml().xml())
 	main()
