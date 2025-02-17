@@ -434,14 +434,7 @@ def parse_note(p, note):
 	ret = p.pop()
 	p.document.notes.append(ret)
 
-# Don't transform <foreign> to italics when it appears within the edition div.
-# (Note that, for now, we don't have <note> within this div.)
-@handler("div[@type='edition']//foreign")
-def parse_edition_foreign(p, foreign):
-	p.dispatch_children(foreign)
-
-# Transform <foreign> to italics, but only when it appears outside of the
-# edition div.
+# Transform <foreign> to italics.
 @handler("foreign")
 def parse_foreign(p, foreign):
 	p.add_html("<i>")
