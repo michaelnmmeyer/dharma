@@ -58,10 +58,14 @@ class Parser:
 	def end_span(self):
 		span = self.pop()
 		assert span.name == "span"
-		self.top.append(span) # XXX str + tree.Tag
+		self.append(span)
 
 	def append(self, node):
-		self.append(node)
+		self.top.append(node)
+
+	def extend(self, nodes):
+		for node in nodes:
+			self.append(node)
 
 #	@property
 #	def within_div(self):
@@ -87,9 +91,6 @@ class Parser:
 	def add_display(self, text):
 		self.top.append(str(text)) # str() in case this is a tree.String
 
-	def add_display(self, text):
-		self.add_text(text)
-
 #	def add_html(self, data, **params):
 #		return self.top.add_html(data, **params)
 
@@ -102,19 +103,43 @@ class Parser:
 #	def add_log(self, data, **params):
 #		return self.top.add_log(data, **params)
 
-	def get_bib_ref(self, ref, rend="default", loc=None, siglum=False):
-		entry = self.document.bib_entries.get(ref)
-		if not entry:
-			entry = biblio.Entry(ref)
-			self.document.bib_entries[ref] = entry
-		if siglum:
-			siglum = self.document.sigla.get(ref)
-		entry_ref = entry.reference(rend=rend, loc=loc, siglum=siglum,
-			external_link=ref not in self.document.biblio)
-		return entry_ref
+	# def get_bib_ref(self, ref, rend="default", loc=None, siglum=False):
+	# 	entry = self.document.bib_entries.get(ref)
+	# 	if not entry:
+	# 		entry = biblio.Entry(ref)
+	# 		self.document.bib_entries[ref] = entry
+	# 	if siglum:
+	# 		siglum = self.document.sigla.get(ref)
+	# 	entry_ref = entry.reference(rend=rend, loc=loc, siglum=siglum,
+	# 		external_link=ref not in self.document.biblio)
+	# 	return entry_ref
+ #
+	# def add_bib_ref(self, ref, rend="default", loc=None, siglum=False):
+	# 	self.add_code("ref", self.get_bib_ref(ref, rend=rend, loc=loc, siglum=siglum))
 
-	def add_bib_ref(self, ref, rend="default", loc=None, siglum=False):
-		self.add_code("ref", self.get_bib_ref(ref, rend=rend, loc=loc, siglum=siglum))
+	def _get_bib_entry(self, short_title):
+		external = False
+		entry = self.document.bib_entries.get(short_title)
+		if not entry:
+			# It should occur in the global bibliography. We cache
+			# the result to only perform a single database lookup.
+			external = True
+			entry = self.document.external_bib_entries.get(short_title)
+			if not entry:
+				entry = biblio.Entry(short_title)
+				self.document.external_bib_entries[short_title] = entry
+		return entry, external
+
+	def bib_entry(self, short_title):
+		entry = self.document.bib_entries[short_title]
+		return entry.xml()
+
+	def bib_reference(self, short_title, rend="default", loc=None):
+		entry, external = self._get_bib_entry(short_title)
+		ref = entry.reference(rend=rend, loc=loc,
+			siglum=self.document.sigla.get(short_title),
+			external_link=external)
+		return ref
 
 	def get_prosody_entries(self, name):
 		entries = self.document._prosody_entries.get(name)
@@ -172,48 +197,31 @@ def parse_lem(p, lem):
 	p.dispatch_children(lem)
 	add_lemmas_links(p, lem["source"])
 
-
 """
-TODO
-XXX
+the format of the contents doesn't depend directly on what the link points to:
+* text id (put in monospace)
+* url (in monospace)
+* siglum (not monospace)
+¶ if there is no @href, put the link in red
 
-We had:
+the bib link itself must be <a>contents</a>
+but always wrap them inside a <span class="bib-reference"> to account for the citedRrange
 
-@handler("div[@type='apparatus']//ptr")
-def parse_ptr_apparatus(p, ptr):
-	return parse_ptr(p, ptr, siglum=True)
-
-@handler("ptr")
-def parse_ptr(p, ptr, siglum=False):
-	ref = ptr["target"].removeprefix("bib:")
-	if not ref:
-		return
-	p.add_bib_ref(ref, siglum=siglum)
-
-
-For bib:foobar, manu wants:
-
-: bibl/ptr
-<bibl><ptr target="bib:foobar"/>...</bibl> -> <a href="xxxxx">Author+date
-
-: ptr # ptr[not ../../bibl]
-<ptr target="bib:foobar"/> everywhere else -> siglum.
-	(or fallback to Author+date if we have that)
-	(this is already the case for the apparatus, but manu wants it to work
-	everywhere)
-
-what shall we do if the <ptr> is not empty? make what's within it clickable,
-and make it poitn to the bibliography entry
-
-(and idem for ref)
-
+for now the formatting of biblio references is in biblio.py, is it better if we
+do everything in the present file? no, because the biblio entries formatting
+MUST be done in the biblio module.
 """
 
 def process_url(link):
 	url = urllib.parse.urlparse(link)
+	# The fancy prefixes we use like "bib" and "part" are private URI
+	# schemes. See https://tei-c.org/release/doc/tei-p5-doc/en/html/SA.html#SAPU
+	# However, we ignore what <listPrefixDef> says about the scheme.
+	if url.scheme == "bib":
+		return url.geturl()
 	# Simplify the URL if it refers to something on our server:
-	# http(s?)://dharmalekha.info/foo -> /foo
-	if url.scheme in ("http", "https") and url.netloc == "dharmalekha.info":
+	# http(s)?://(www\.)?dharmalekha.info/foo -> /foo
+	if url.scheme in ("http", "https") and url.netloc in ("dharmalekha.info", "www.dharmalekha.info"):
 		url = url._replace(scheme="", netloc="")
 	if url.hostname:
 		# It doesn't point to something on our server.
@@ -232,11 +240,66 @@ def process_url(link):
 	# "/texts/DHARMA_INSIDENKTuhanyaru" -> "/texts/INSIDENKTuhanyaru"
 	if path.startswith("/texts/"):
 		name = posixpath.basename(path)
-		name = os.path.splitext(name)[0]
+		name = posixpath.splitext(name)[0]
 		name = name.removeprefix("DHARMA_")
-		path = os.path.join(posixpath.dirname(path), name)
+		path = posixpath.join(posixpath.dirname(path), name)
 	url = url._replace(path=path)
 	return url.geturl()
+
+bibl_units = set(biblio.cited_range_units)
+
+def extract_bib_ref(node):
+	assert node.name == "bibl"
+	ptr = node.first("ptr")
+	if not ptr:
+		return None, None
+	target = ptr["target"]
+	if target == "bib:AuthorYear_01":
+		return None, None
+	ref = target.removeprefix("bib:")
+	loc = []
+	for r in node.find("citedRange"):
+		unit = r["unit"] or "page"
+		if unit not in bibl_units:
+			unit = "mixed"
+		val = r.text()
+		if not val:
+			continue
+		loc.append((unit, val))
+	return ref, loc
+
+# For printing entries within the bibliography.
+@handler("listBibl/bibl")
+def parse_listbibl_bibl(p, bibl):
+	short_title, loc = extract_bib_ref(bibl)
+	if not short_title:
+		return # XXX use a dummy entry
+	p.append(p.bib_entry(short_title, loc=loc))
+
+bibl_rend_formats = {"default", "omitname", "ibid", "siglum"}
+
+# XXX but not in the bibliography! in this case must print the entry instead of the reference
+@handler("bibl[ptr[@target and empty()]]")
+@handler("bibl[ref[@target and empty()]]")
+def parse_bibl_ref(p, bibl):
+	rend = bibl["rend"]
+	if rend not in bibl_rend_formats:
+		rend = "default"
+		assert rend in bibl_rend_formats
+	ref = bibl.first("ptr") or bibl.first("ref") # TODO really need XPath2 for matching (ptr|ref) and such
+	assert ref["target"] and ref.empty
+	# The ptr/@target is supposed to start with "bib:". If it doesn't, we
+	# still assume it refers to a bibliography entry.
+	short_title = ref["target"].removeprefix("bib:")
+	#ref, loc = extract_bib_ref(rec) XXX
+	p.append(p.bib_reference(short_title, rend=rend))
+	# Use short title when we have bibl/ptr with a bib pointer, in all other
+	# cases use the siglum with author+date in tooltip (or author+date if there is no siglum; or whatever the
+	# contents of the point is if it is not empty).
+
+@handler("bibl")
+def parse_bibl(p, bibl):
+	p.dispatch_children(bibl)
 
 # The syntax for ref is <ref target="myurl">foo</ref>, equivalent to the HTML
 # <a href="myurl">foo</ref>. <ptr/> is like <ref> except that it is supposed
@@ -270,7 +333,6 @@ def parse_ref_empty(p, ref):
 def parse_other_ref(p, ref):
 	assert not ref["target"]
 	p.dispatch_children(ref)
->>>>>>> 90a0871a (Rewrite)
 
 def add_lemmas_links(p, sources):
 	for ref in sources.split():
@@ -486,12 +548,7 @@ def parse_note(p, note):
 	ret = p.pop()
 	p.document.notes.append(ret)
 
-# When <foreign> occurs within div[@type='edition'], don't put it in italics.
-@handler("div[@type='edition']//foreign")
-def parse_foreign_in_edition(p, foreign):
-	p.dispatch_children(foreign)
-
-# Put <foreign> in italics when it occurs outside of div[@type='edition']
+# Put <foreign> in italics.
 @handler("foreign")
 def parse_foreign(p, foreign):
 	p.push(tree.Tag("i"))
@@ -1212,17 +1269,6 @@ def parse_list(p, list):
 			p.add_log(">item")
 	p.add_log(">list", type=typ)
 
-extract_bib_ref = prosody.extract_bib_ref
-
-def extract_bibl_items(p, listBibl):
-	ret = []
-	for rec in listBibl.find("bibl[ptr[@target and @target!='bib:AuthorYear_01']]"):
-		ref, loc = extract_bib_ref(rec)
-		if not ref:
-			continue
-		ret.append((rec, ref, loc))
-	return ret
-
 @handler("label")
 def parse_label(p, label):
 	pass # We deal with this in other handlers
@@ -1231,30 +1277,18 @@ def parse_label(p, label):
 # reason why a <ptr> should produce something other than a link, but we're
 # stuck with that. Apparently, this was borrowed from epiDoc, see:
 # https://epidoc.stoa.org/gl/latest/supp-bibliography.html
+# Still doesn't make it a good idea.
 @handler("listBibl")
 def parse_listBibl(p, node):
-	recs = extract_bibl_items(p, node)
-	# Avoid displaying "Primary" or "Secondary" if there is nothing there.
-	if not recs:
-		return
+	# We expect @type to be one of "primary" or "secondary", but
+	# still accept other values; just put the @type in capitals, so it
+	# mostly works with custom values.
 	typ = node["type"]
 	if typ:
-		p.add_log("<head")
+		p.push(tree.Tag("head"))
 		p.add_text(common.sentence_case(typ))
-		p.add_log(">head")
-	for rec, ref, loc in recs:
-		data = biblio.Entry(ref).contents(loc=loc, n=rec["n"])
-		p.add_code("bib", data)
-
-@handler("bibl")
-def parse_bibl(p, node):
-	rend = node["rend"]
-	if rend not in ("omitname", "ibid", "default"):
-		rend = "default"
-	ref, loc = extract_bib_ref(node)
-	if not ref:
-		return
-	p.add_bib_ref(ref, rend=rend, loc=loc)
+		p.append(p.pop())
+	p.dispatch_children(node)
 
 # Title of the edited text (in the teiHeader).
 @handler("titleStmt/title")
@@ -1528,7 +1562,7 @@ def make_translation_title(p, div):
 	if (source := div["source"]):
 		ref = source.removeprefix("bib:")
 		p.add_text(" by ")
-		p.add_html(str(p.get_bib_ref(ref)))
+		p.add_html(str(p.bib_reference(ref)))
 
 def process_translation(p, div):
 	# If we have a note as first child, we expect the note to bear
@@ -1557,9 +1591,11 @@ def process_translation(p, div):
 	return trans
 
 # We must process the bibliography in two steps. First, collect bibliography
-# entries. Then, process bibliographic references (Author+Date or equivalent).
-# Otherwise, we'd have to delay the rendering of bibliographic references until
-# we parse the appropriate entry.
+# entries in div[@type='bibliography']. Then, process bibliographic references
+# (Author+Date or equivalent). This order because we need to tell from the get
+# go where a reference will point, which requires us to know which entries are
+# present in the file-specific bibliography and which are not. (The latter
+# need to be presented within the project-wide bibliography.)
 def gather_biblio(p):
 	for bibl in p.tree.find("//div[@type='bibliography']//listBibl/bibl[ptr]"):
 		ptr = bibl.first("ptr")
@@ -1575,6 +1611,7 @@ def gather_biblio(p):
 		if short_title not in p.document.bib_entries:
 			entry = biblio.Entry(short_title)
 			p.document.bib_entries[short_title] = entry
+			# XXX move this comment at proper location
 			# The same short title might be used in several bibliographic
 			# entries, possibly with different sigla, page ranges, etc.,
 			# even though this is forbidden by the schema. If this happens,

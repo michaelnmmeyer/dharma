@@ -136,6 +136,10 @@ class Writer:
 		assert len(self.stack) > 1
 		return self.stack.pop()
 
+	@property
+	def top(self):
+		return self.stack[-1]
+
 	def output(self):
 		for X in self.xml.find(".//X"):
 			X.unwrap()
@@ -1211,6 +1215,7 @@ def normalize_space(xml):
 		node.replace_with(s)
 
 def fix_value(s):
+	# XXX this is broken, figure out something.
 	s = html.unescape(s)
 	s = unicodedata.normalize("NFC", s)
 	# XXX tell people not to use HTML entities.
@@ -1289,7 +1294,7 @@ class Entry:
 	def __init__(self, short_title):
 		self.short_title = short_title
 		self._data = None
-		self.records_nr = -1
+		self._records_nr = -1
 		self._page = None
 
 	@staticmethod
@@ -1297,7 +1302,7 @@ class Entry:
 		self = Entry(data["shortTitle"])
 		self._data = data
 		fix_rec(self._data)
-		self.records_nr = 1
+		self._records_nr = 1
 		return self
 
 	def xml(self):
@@ -1306,7 +1311,7 @@ class Entry:
 	def _try_format_entry(self, loc=[], n=None):
 		data = self.data
 		if not data:
-			if self.records_nr == 0:
+			if self._records_nr == 0:
 				return self._invalid_entry("Not found in bibliography")
 			return self._invalid_entry("Multiple bibliographic entries bear this short title")
 		f = renderers.get(data["itemType"])
@@ -1349,18 +1354,18 @@ class Entry:
 		return w.pop()
 
 	def _invalid_entry(self, reason):
-		r = tree.Tag("p", **{"class": "bib-entry"})
+		r = tree.Tag("p", {"class": "bib-entry"})
 		if self.key:
 			r["id"] = f"bib-key-{self.key}"
-		span = tree.Tag("span", **{"class": "bib-ref-invalid"})
+		span = tree.Tag("span", {"class": "bib-ref-invalid"})
 		span["data-tip"] = reason
-		span.append(self.short_title)
+		span.append(self.short_title or "?")
 		r.append(span)
 		return r
 
 	@property
 	def data(self):
-		if self.records_nr >= 0:
+		if self._records_nr >= 0:
 			return self._data
 		# Zotero adds a 'deleted: 1' flag to entries marked as duplicates.
 		# The entry is not deleted until some trashbin is emptied.
@@ -1375,8 +1380,8 @@ class Entry:
 			select json ->> '$.data' from biblio_data
 			where short_title = ? and json ->> '$.data.deleted' is null""",
 			(self.short_title,)).fetchall()
-		self.records_nr = len(recs)
-		if self.records_nr == 1:
+		self._records_nr = len(recs)
+		if self._records_nr == 1:
 			self._data = common.from_json(recs[0][0])
 			fix_rec(self._data)
 		else:
@@ -1392,16 +1397,31 @@ class Entry:
 			select pos - 1
 			from (select row_number()
 				over(order by sort_key) as pos,
-				key from biblio_data where sort_key is not null)
+				key from biblio_data where sort_key is not null
+				and json ->> '$.data.deleted' is null)
 			where key = ?""", (self.key,)).fetchone()
+		# TODO create a view for selecting all entries that are not
+		# marked as deleted (we need at in several spots)
 		if not index:
 			self._page = -1
 		else:
 			self._page = (index[0] + PER_PAGE - 1) // PER_PAGE
 		return self._page
 
+	# "rend" is one of "omitname", "ibid", "default", "siglum". "omitname" for just
+	# printing the date; "ibid" for omitting both the author and the date
+	# and printing "ibid." instead; "default" for the default, which is
+	# to print the author and the date, in this order; "siglum" to print
+	# a siglum instead of author+date.
+	# "external_link" is a boolean. If true, the reference will be made to
+	# point to the project-wide bibliography. Otherwise, it will be made to
+	# point to some id on the same page.
+	# "siglum" is a str or None. if given, we display it instead of the usual
+	# author+date format.
+	# XXX there is no reason to use a "reference" object, just render
+	# things directly.
 	def reference(self, rend="default", loc=[], external_link=True, siglum=None):
-		return Reference(self, rend, loc, external_link, siglum)
+		return Reference(self, rend, loc, external_link, siglum).xml()
 
 	def contents(self, loc=[], n=None):
 		if not loc and not n:
@@ -1418,13 +1438,13 @@ class Contents:
 	def xml(self):
 		return self.entry._try_format_entry(self.loc, self.n)
 
+def make_author_year(rec):
+	x = Writer()
+	x.ref(rec)
+	return x.output()
+
 class Reference:
 
-	# "external_link" is a boolean. If true, the reference will be made to
-	# point to the project-wide bibliography. Otherwise, it will be made to
-	# point to some id on the same page.
-	# "siglum" is a str. if given, we display it instead of the usual
-	# author+date format.
 	def __init__(self, entry, rend, loc, external_link, siglum):
 		self.entry = entry
 		self.rend = rend
@@ -1433,18 +1453,20 @@ class Reference:
 		self.siglum = siglum
 
 	def _invalid_ref(self, reason):
-		r = tree.Tag("a", {
+		a = tree.Tag("a", {
 			"class": "nav-link bib-ref-invalid",
 			"data-tip": reason,
 		})
-		r.append(self.entry.short_title)
-		return r
+		a.append(self.entry.short_title)
+		span = tree.Tag("span", {"class": "bib-ref"})
+		span.append(a)
+		return span
 
 	def xml(self):
 		rec = self.entry.data
-		assert not self.entry.records_nr < 0
-		if self.entry.records_nr != 1:
-			if self.entry.records_nr == 0:
+		assert not self.entry._records_nr < 0
+		if self.entry._records_nr != 1:
+			if self.entry._records_nr == 0:
 				return self._invalid_ref("Not found in bibliography")
 			return self._invalid_ref("Multiple bibliographic entries bear this short title")
 		return self._make_reference(rec)
@@ -1452,52 +1474,49 @@ class Reference:
 	def _make_reference(self, rec):
 		w = Writer()
 		w.push(tree.Tag("span", {"class": "bib-ref"}))
-		tag = tree.Tag("a", {"class": "bib-ref"})
+		a = tree.Tag("a", {"class": "bib-ref"})
 		if self.external_link:
-			f = renderers.get(rec["itemType"])
-			if not f:
-				tag["class"] += " bib-ref-invalid"
-				tag["data-tip"] = f"Entry type {rec['itemType']!r} not supported"
+			if renderers.get(rec["itemType"]):
+				a["href"] = f"/bibliography/page/{self.entry.page}#bib-key-{self.entry.key}"
 			else:
-				tag["href"] = f"/bibliography/page/{self.entry.page}#bib-key-{self.entry.key}"
+				a["class"] += " bib-ref-invalid"
+				a["data-tip"] = f"Entry type {rec['itemType']!r} not supported"
 		else:
-			tag["href"] = f"#bib-key-{self.entry.key}"
-		w.push(tag)
-		w.xml = tag
-		if self.siglum:
-			tag = tree.Tag("span")
-			w.xml.append(tag)
-			w.xml = tag
-			w.ref(rec)
-			w.xml = w.xml.parent
-			w.xml["data-tip"] = tag.xml()
-			tag.delete()
-			w.add(self.siglum)
-		else:
-			if self.rend == "omitname":
-				shorthand = rec.get("_shorthand")
-				if shorthand:
-					w.add(shorthand)
-				else:
-					w.date(rec, end_field=False)
-			elif self.rend == "ibid":
-				tag = tree.Tag("i")
-				tag.append("ibid.")
-				w.add(tag)
-			elif self.rend == "default":
+			a["href"] = f"#bib-key-{self.entry.key}"
+		w.push(a)
+		rend = self.rend
+		if rend == "siglum" and not self.siglum:
+			rend = "default"
+		match rend:
+			case "default":
 				shorthand = rec.get("_shorthand")
 				if shorthand:
 					w.add(shorthand)
 				else:
 					w.ref(rec)
-			else:
-				assert 0
-		w.xml = w.xml.parent
+			case "omitname":
+				shorthand = rec.get("_shorthand")
+				if shorthand:
+					w.add(shorthand)
+				else:
+					# Add the entry's Author+year in the tooltip
+					w.top["data-tip"] = make_author_year(rec).xml()
+					w.date(rec, end_field=False)
+			case "ibid":
+				# Add the entry's Author+year in the tooltip
+				w.top["data-tip"] = make_author_year(rec).xml()
+				tag = tree.Tag("i")
+				tag.append("ibid.")
+				w.add(tag)
+			case "siglum":
+				# Add the entry's Author+year in the tooltip
+				w.top["data-tip"] = make_author_year(rec).xml()
+				w.add(self.siglum)
+		w.pop() # ...</a>
 		if self.loc:
 			w.add(",")
 			w.loc(self.loc)
-		w.pop()
-		return w.output()
+		return w.pop()
 
 def sort_key(rec):
 	rec = rec.copy()
@@ -1537,5 +1556,5 @@ if __name__ == "__main__":
 	@common.transaction("texts")
 	def main():
 		entry = Entry(sys.argv[1])
-		print(entry.xml().xml())
+		print(entry.reference().xml().xml())
 	main()

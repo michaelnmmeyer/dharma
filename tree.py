@@ -677,7 +677,7 @@ class Tag(Branch):
 		"html". This argument can be followed by a single positional
 		argument `attributes_iter`. If given, it must be an
 		iterator that returns tuples of the form `(key, value)`, or a
-		`dict` subclass. Attributes can also be passed as keyword
+		`dict`-like object. Attributes can also be passed as keyword
 		arguments with `**attributes`.
 
 		Attributes ordering is preserved for attributes passed through
@@ -1112,6 +1112,13 @@ xpath_funcs = {
 	"name": xpath_name,
 }
 
+def stuck_parent(node):
+	if isinstance(node, Tree):
+		return
+	parent = node.parent
+	if parent.stuck_child() is node:
+		return parent
+
 def children(node):
 	assert isinstance(node, Node)
 	for child in node:
@@ -1390,6 +1397,10 @@ class Generator:
 					pass
 				case "child":
 					self.append("node = node.parent")
+					if not step.name_test:
+						self.append("if node is not None:")
+				case "stuck-child":
+					self.append("node = stuck_parent(node)")
 					if not step.name_test:
 						self.append("if node is not None:")
 				case "descendant-or-self" if step.abbreviated:

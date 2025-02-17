@@ -604,8 +604,14 @@ class Document:
 		self.editors_ids = []
 
 		## Biblio stuff
-		# Map of biblio short titles -> bibliography entries
+		# Map of biblio short titles -> bibliography entries. Only
+		# includes bibliography entries that appear in the
+		# div[@type='bibliography'].
 		self.bib_entries = {}
+		# Like bib_entries, but for bibliography entries that are
+		# referred to in the file but that do not appear in the
+		# div[@type='bibliography'].
+		self.external_bib_entries = {}
 		# Map of biblio entry short title (string) -> siglum (string)
 		self.sigla = {}
 
@@ -639,6 +645,10 @@ class Document:
 		if self.edition:
 			f.push(tree.Tag("edition"))
 			f.extend(self.edition)
+			f.pop()
+		if self.bibliography:
+			f.push(tree.Tag("bibliography"))
+			f.extend(self.bibliography)
 			f.pop()
 		f.pop()
 		return f.tree
