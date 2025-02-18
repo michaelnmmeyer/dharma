@@ -75,16 +75,6 @@ class Parser:
 #		self.divs.clear()
 #		self.divs.append(set())
 
-#	def start_div(self, n="?"): # XXX no "?" mess
-#		# we could duplicate <div in log and phys, for commodity
-#		self.add_log("<div", n=n)
-#		self.divs.append(set())
-
-#	def end_div(self):
-#		assert self.within_div
-#		self.divs.pop()
-#		self.add_log(">div")
-
 	def add_text(self, text):
 		self.top.append(str(text))
 
@@ -130,15 +120,16 @@ class Parser:
 				self.document.external_bib_entries[short_title] = entry
 		return entry, external
 
-	def bib_entry(self, short_title):
+	def bib_entry(self, short_title, loc=[], siglum=None):
 		entry = self.document.bib_entries[short_title]
-		return entry.xml()
+		return entry.xml(loc=loc, siglum=siglum)
 
-	def bib_reference(self, short_title, rend="default", loc=None):
+	def bib_reference(self, short_title, rend="default", location=[], contents=[]):
 		entry, external = self._get_bib_entry(short_title)
-		ref = entry.reference(rend=rend, loc=loc,
+		ref = entry.reference(rend=rend, location=location,
 			siglum=self.document.sigla.get(short_title),
-			external_link=external)
+			external_link=external,
+			contents=contents)
 		return ref
 
 	def get_prosody_entries(self, name):
@@ -268,38 +259,48 @@ def extract_bib_ref(node):
 		loc.append((unit, val))
 	return ref, loc
 
-# For printing entries within the bibliography.
+# For printing entries within the bibliography. In this context, bibl needs to
+# be replaced with the bibliography entry.
 @handler("listBibl/bibl")
 def parse_listbibl_bibl(p, bibl):
 	short_title, loc = extract_bib_ref(bibl)
 	if not short_title:
 		return # XXX use a dummy entry
-	p.append(p.bib_entry(short_title, loc=loc))
+	siglum = p.sigla.get(short_title)
+	p.append(p.bib_entry(short_title, loc=loc, siglum=siglum))
 
 bibl_rend_formats = {"default", "omitname", "ibid", "siglum"}
 
-# XXX but not in the bibliography! in this case must print the entry instead of the reference
-@handler("bibl[ptr[@target and empty()]]")
-@handler("bibl[ref[@target and empty()]]")
+@handler("bibl[ptr]")
+@handler("bibl[ref]")
 def parse_bibl_ref(p, bibl):
 	rend = bibl["rend"]
 	if rend not in bibl_rend_formats:
 		rend = "default"
 		assert rend in bibl_rend_formats
-	ref = bibl.first("ptr") or bibl.first("ref") # TODO really need XPath2 for matching (ptr|ref) and such
-	assert ref["target"] and ref.empty
+	ref = bibl.first("ptr") or bibl.first("ref")
 	# The ptr/@target is supposed to start with "bib:". If it doesn't, we
 	# still assume it refers to a bibliography entry.
 	short_title = ref["target"].removeprefix("bib:")
-	#ref, loc = extract_bib_ref(rec) XXX
-	p.append(p.bib_reference(short_title, rend=rend))
-	# Use short title when we have bibl/ptr with a bib pointer, in all other
+	location = []
+	for r in bibl.find("citedRange"):
+		unit = r["unit"] or "page"
+		if unit not in bibl_units:
+			unit = "mixed"
+		value = r.text()
+		if not value:
+			continue
+		location.append((unit, value))
+	p.append(p.bib_reference(short_title, rend=rend, contents=ref, location=location))
+	# XXX move this comment Use short title when we have bibl/ptr with a bib pointer, in all other
 	# cases use the siglum with author+date in tooltip (or author+date if there is no siglum; or whatever the
 	# contents of the point is if it is not empty).
 
 @handler("bibl")
 def parse_bibl(p, bibl):
+	p.start_span(klass="bib-ref")
 	p.dispatch_children(bibl)
+	p.end_span()
 
 # The syntax for ref is <ref target="myurl">foo</ref>, equivalent to the HTML
 # <a href="myurl">foo</ref>. <ptr/> is like <ref> except that it is supposed
@@ -312,7 +313,7 @@ def parse_ref(p, ref):
 	klass = "url"
 	if url.startswith("/texts/"):
 		klass += " text-id"
-	p.push(tree.Tag("a", **{"href": url, "class": klass}))
+	p.push(tree.Tag("a", {"href": url, "class": klass}))
 	p.dispatch_children(ref)
 	p.append(p.pop())
 
@@ -324,7 +325,7 @@ def parse_ref_empty(p, ref):
 	klass = "url"
 	if url.startswith("/texts/"):
 		klass += " text-id"
-	p.push(tree.Tag("a", **{"href": url, "class": klass}))
+	p.push(tree.Tag("a", {"href": url, "class": klass}))
 	p.add_text(url.removeprefix("/texts/"))
 	p.append(p.pop())
 
@@ -1495,8 +1496,8 @@ def get_script(node):
 @handler("div[@type='textpart']")
 def parse_div(p, div):
 	n = milestone_n(p, div)
-	p.start_div(n=n)
-	p.add_log("<head")
+	p.push(tree.Tag("div", n=n))
+	p.push(tree.Tag("head"))
 	if (head := div.first("stuck-child::head")):
 		# User-specified heading, use it.
 		p.dispatch_children(head)
@@ -1513,9 +1514,9 @@ def parse_div(p, div):
 		p.dispatch(note)
 		p.visited.add(note)
 		note = note.first("stuck-following-sibling::note")
-	p.add_log(">head")
+	p.append(p.pop()) # </head>
 	p.dispatch_children(div)
-	p.end_div()
+	p.append(p.pop()) # </div>
 
 # We're supposed to have either a series of <div> that covers all the text, or no div at all.
 def gather_sections(p, div):
@@ -1608,15 +1609,14 @@ def gather_biblio(p):
 			# entries. In this case, map it to the first one (since
 			# this is what we are doing with duplicate short titles).
 			p.document.sigla.setdefault(short_title, siglum)
+		# The same short title might be used in several bibliographic
+		# entries, possibly with different sigla, page ranges, etc.,
+		# even though this is forbidden by the schema. If this happens,
+		# we will just display the duplicates, but we should also take
+		# care not to generate duplicate anchors in the HTML. XXX not done so far
 		if short_title not in p.document.bib_entries:
 			entry = biblio.Entry(short_title)
 			p.document.bib_entries[short_title] = entry
-			# XXX move this comment at proper location
-			# The same short title might be used in several bibliographic
-			# entries, possibly with different sigla, page ranges, etc.,
-			# even though this is forbidden by the schema. If this happens,
-			# just display the duplicates, but take care not to generate
-			# duplicate anchors in the HTML.
 
 @handler("div[@type='edition']")
 def parse_div_edition(p, div):

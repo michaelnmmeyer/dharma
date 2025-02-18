@@ -168,6 +168,10 @@ class Writer:
 			s = s.copy()
 		self.stack[-1].append(s)
 
+	def extend(self, nodes):
+		for node in nodes:
+			self.add(node)
+
 	# John Doe
 	def name_first_last(self, rec):
 		first, last = rec.get("firstName"), rec.get("lastName")
@@ -1305,19 +1309,21 @@ class Entry:
 		self._records_nr = 1
 		return self
 
-	def xml(self):
-		return self._try_format_entry()
+	def xml(self, loc=[], siglum=None):
+		return self._try_format_entry(loc=loc, siglum=siglum)
 
-	def _try_format_entry(self, loc=[], n=None):
+	def _try_format_entry(self, loc=[], siglum=None):
 		data = self.data
 		if not data:
-			if self._records_nr == 0:
+			if not self.short_title:
+				return self._invalid_entry("Missing short title")
+			elif self._records_nr == 0:
 				return self._invalid_entry("Not found in bibliography")
 			return self._invalid_entry("Multiple bibliographic entries bear this short title")
 		f = renderers.get(data["itemType"])
 		if not f:
 			return self._invalid_entry(f"Entry type {data['itemType']!r} not supported")
-		return self._format_entry(f, data, loc, n)
+		return self._format_entry(f, data, loc, siglum)
 
 	@property
 	def key(self):
@@ -1420,8 +1426,8 @@ class Entry:
 	# author+date format.
 	# XXX there is no reason to use a "reference" object, just render
 	# things directly.
-	def reference(self, rend="default", loc=[], external_link=True, siglum=None):
-		return Reference(self, rend, loc, external_link, siglum).xml()
+	def reference(self, rend="default", location=[], external_link=True, siglum=None, contents=[]):
+		return Reference(self, rend, location, external_link, siglum, contents).xml()
 
 	def contents(self, loc=[], n=None):
 		if not loc and not n:
@@ -1445,19 +1451,23 @@ def make_author_year(rec):
 
 class Reference:
 
-	def __init__(self, entry, rend, loc, external_link, siglum):
+	def __init__(self, entry, rend, location, external_link, siglum, contents):
 		self.entry = entry
 		self.rend = rend
-		self.loc = loc
+		self.loc = location
 		self.external_link = external_link
 		self.siglum = siglum
+		self.contents = contents
 
 	def _invalid_ref(self, reason):
 		a = tree.Tag("a", {
 			"class": "nav-link bib-ref-invalid",
 			"data-tip": reason,
 		})
-		a.append(self.entry.short_title)
+		if len(self.contents) > 0:
+			a.extend(self.contents)
+		else:
+			a.append(self.entry.short_title or "?")
 		span = tree.Tag("span", {"class": "bib-ref"})
 		span.append(a)
 		return span
@@ -1465,11 +1475,13 @@ class Reference:
 	def xml(self):
 		rec = self.entry.data
 		assert not self.entry._records_nr < 0
-		if self.entry._records_nr != 1:
-			if self.entry._records_nr == 0:
-				return self._invalid_ref("Not found in bibliography")
-			return self._invalid_ref("Multiple bibliographic entries bear this short title")
-		return self._make_reference(rec)
+		if self.entry._records_nr == 1:
+			return self._make_reference(rec)
+		if self.entry._records_nr == 0:
+			if not self.entry.short_title:
+				return self._invalid_ref("Missing short title")
+			return self._invalid_ref("Not found in bibliography")
+		return self._invalid_ref("Multiple bibliographic entries bear this short title")
 
 	def _make_reference(self, rec):
 		w = Writer()
@@ -1483,14 +1495,17 @@ class Reference:
 				a["data-tip"] = f"Entry type {rec['itemType']!r} not supported"
 		else:
 			a["href"] = f"#bib-key-{self.entry.key}"
+			a["data-tip"] = make_author_year(rec).xml()
 		w.push(a)
 		rend = self.rend
 		if rend == "siglum" and not self.siglum:
 			rend = "default"
 		match rend:
 			case "default":
-				shorthand = rec.get("_shorthand")
-				if shorthand:
+				if len(self.contents) > 0:
+					w.top["data-tip"] = make_author_year(rec).xml()
+					w.extend(self.contents)
+				elif (shorthand := rec.get("_shorthand")):
 					w.add(shorthand)
 				else:
 					w.ref(rec)
