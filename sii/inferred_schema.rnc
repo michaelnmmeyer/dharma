@@ -1,16 +1,16 @@
 default namespace = ""
 
-start = element doc { (\div | pb)+ }
+start = element doc { \div+ }
 \div =
   element div {
     attribute type { xsd:NCName },
     (text
-     | F
      | TL
      | b
      | c1
      | c2
      | c3
+     | ch
      | de
      | \div
      | footnote
@@ -26,6 +26,8 @@ start = element doc { (\div | pb)+ }
      | p
      | pb
      | ref
+     | sqc
+     | sqo
      | ta
      | table
      | te
@@ -40,20 +42,20 @@ start = element doc { (\div | pb)+ }
      | element c4 { (text | i)+ }
      | element c5 { ka }
      | element h1 { (text | lb | pb)+ }
-     | element h2 { (text | em | footnote | i | lb | pb | ref)+ }
+     | element h2 { (text | em | i | lb | pb | sqc | sqo)+ }
      | element h3 {
          (text
-          | F
           | b
           | ch
-          | de
-          | em
+          | footnote
           | gr
           | i
           | lb
           | ns
           | pb
           | ref
+          | sqc
+          | sqo
           | sup
           | ta)+
        }
@@ -61,15 +63,12 @@ start = element doc { (\div | pb)+ }
      | element malayalam { empty }
      | element urdu { empty })+
   }
-pb =
-  element pb {
-    attribute n { xsd:NMTOKEN }
-  }
 de =
   element de {
     (text
      | b
      | ch
+     | de
      | g
      | lb
      | ns
@@ -77,41 +76,31 @@ de =
      | ta
      | element breve { empty })+
   }
+sqc = element sqc { empty }
 ns = element ns { empty }
-F = element F { (text | i | id | l | lb | p | te | tlka)+ }
+pb =
+  element pb {
+    attribute n { xsd:NMTOKEN }
+  }
 lb =
   element lb {
     attribute break { xsd:NCName }?
   }
-ref =
-  element ref {
-    attribute n { xsd:NMTOKEN }?,
-    attribute t { text }?,
-    attribute type { xsd:NCName }?,
-    (text
-     | TL
-     | ch
-     | de
-     | dqc
-     | dqo
-     | em
-     | g
-     | gr
-     | h4
-     | i
-     | l
-     | lb
-     | ns
-     | p
-     | q
-     | qq
-     | ta
-     | tlka
-     | element Table { (text | i | lb)+ }
-     | element Tl { empty })+
+sqo = element sqo { empty }
+em =
+  element em {
+    (text | ch | dqc | dqo | i | lb | pb | ref | sqc | sqo)+
   }
-em = element em { (text | ch | dqc | dqo | i | lb | pb | ref)+ }
-i = element i { (text | ch | dqc | dqo | em | lb | pb | ref)+ }
+i =
+  element i {
+    (text | ch | dqc | dqo | em | lb | pb | ref | sqc | sqo)+
+  }
+b =
+  element b { (text | ch | dqc | dqo | i | lb | pb | sqc | sqo | sup)+ }
+ch =
+  element ch {
+    attribute xx { xsd:NCName }?
+  }
 footnote =
   element footnote {
     (text
@@ -127,12 +116,11 @@ footnote =
      | l
      | lb
      | p
-     | sup)+
-  }
-b = element b { (text | ch | i | lb | pb)+ }
-ch =
-  element ch {
-    attribute xx { xsd:NCName }?
+     | sqc
+     | sqo
+     | sup
+     | te
+     | tlka)+
   }
 gr = element gr { (text | ch | g | lb | ref | sup)+ }
 ta =
@@ -156,13 +144,43 @@ ta =
        })+
   }
 sup = element sup { xsd:integer }
+ref =
+  element ref {
+    attribute n { xsd:NMTOKEN }?,
+    attribute t { text }?,
+    attribute type { xsd:NCName }?,
+    (text
+     | ch
+     | de
+     | dqc
+     | dqo
+     | em
+     | g
+     | gr
+     | h4
+     | i
+     | id
+     | l
+     | lb
+     | ns
+     | p
+     | q
+     | qq
+     | sqc
+     | sqo
+     | ta
+     | tlka
+     | ṭḷ
+     | element Table { (text | i | lb)+ }
+     | element Tl { empty })+
+  }
 h4 =
   element h4 {
     (text
-     | F
      | b
      | ch
      | de
+     | footnote
      | g
      | gr
      | i
@@ -177,10 +195,11 @@ h4 =
      | tlka
      | element AR { empty })+
   }
-ka = element ka { (text | b | ch | g | ka | lb | pb)+ }
+ka = element ka { (text | b | ch | g | ka | lb | pb | sup)+ }
 id =
   element id {
-    attribute n { text }
+    attribute h { text }?,
+    attribute l { text }?
   }
 table =
   element table {
@@ -194,17 +213,13 @@ g =
 l =
   element l {
     (text
-     | F
      | TL
-     | b
      | ch
      | de
-     | em
      | footnote
      | g
      | gr
      | i
-     | id
      | ins
      | ka
      | l
@@ -213,11 +228,28 @@ l =
      | pb
      | pr
      | ref
+     | sup
      | ta
      | te
      | tl
      | tlka
-     | element KA { empty })+
+     | ṭḷ
+     | element arab { i }
+     | element arn { xsd:integer }
+     | element brtr { text }
+     | element ce { (text | lb)+ }
+     | element detr { text }
+     | element devtr { text }
+     | element dutch { (text | ch | gr | lb | ref)+ }
+     | element eng { text }
+     | element katr { (text | lb)+ }
+     | element lat { text }
+     | element pers { (text | i | sqc | sqo)+ }
+     | element prtr { (text | lb)+ }
+     | element simtr { (text | b | lb)+ }
+     | element skttr { (text | lb | pb)+ }
+     | element tetr { (text | ch | lb)+ }
+     | element unkntr { text })+
   }
 p =
   element p {
@@ -241,6 +273,8 @@ p =
      | q
      | qq
      | ref
+     | sqc
+     | sqo
      | sup
      | ta
      | table
@@ -251,13 +285,14 @@ p =
 c1 = element c1 { (text | i | ka)+ }
 c2 = element c2 { (text | i | ka | lb)+ }
 c3 = element c3 { (text | i | ka | lb | pb)+ }
-te = element te { (text | ch | g | lb | pb)+ }
+te = element te { (text | ch | g | lb | pb | sup)+ }
 tlka = element tlka { (text | ref)+ }
-TL = element TL { text }
+TL = element TL { empty }
 tl = element tl { empty }
-qq = element qq { empty }
 dqo = element dqo { empty }
-q = element q { empty }
 dqc = element dqc { empty }
+q = element q { empty }
+qq = element qq { empty }
+ṭḷ = element ṭḷ { text }
 pr = element pr { (text | lb)+ }
 ins = element ins { (text | tlka)+ }
