@@ -5,23 +5,30 @@ are not represented as nodes, even though they are treated like that in the
 xpath model, because this would be weird in python.
 
 All node types derive from an abstract base class `Node`. `Tree` and `Tag` nodes
-derive from a `Branch` abstract class, which itself derives from `Node`. There
+derive from an abstract class `Branch`, which itself derives from `Node`. There
 is no inheritance relationship between concrete node types. For instance,
-`Comment` is not a subclass of `String`, unlike in bs4. Thus, to check whether a
+`Comment` is not a subclass of `String`, unlike in BeautifulSoup. Thus, to check whether a
 node is of a concrete given type `T`, using `isinstance(node, T)`, etc. is
 sufficient. And to check whether a node is a branch or a leaf, it is sufficient
 to check `isinstance(node, Branch)`.
 
 When parsing documents and when modifying attributes, we always normalize spaces
 in attributes: we replace all sequences of whitespace characters with " " and we
-trim whitespace from both sides.
+trim whitespace from both sides. Thus, an attribute with only whitespace is
+considered empty. Furthermore, we don't make a distinction between an empty or
+blank attribute and an attribute that is not explicitly given. Thus, we assume
+that <foo bar=""> and <foo bar="  "> are identical to <foo>. This is wrong, but
+it doesn't cause much harm in practice, and considerably simplifies processing.
+It is still possible to check whether an attribute is explicitly given by
+using the Node.keys() method.
 
 For simplicity, we do not deal with XML namespaces at all. We just remove
 namespace prefixes in both elements and attributes. Thus,
 `<xsl:template>` becomes `<template>`, and `<foo xml:lang="eng">` becomes `<foo
 lang="eng">`. This means that we cannot deal with documents where namespaces are
 significant. This also means that we cannot properly serialize XML documents
-that used namespaces initially.
+that used namespaces initially. However, the resulting simplicity trumps this
+not-so-accurate processing.
 
 We use XPath expressions for searching and matching, but only support a small
 subset of it. Most notably, it is only possible to
