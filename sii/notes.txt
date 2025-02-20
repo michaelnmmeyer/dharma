@@ -1,3 +1,54 @@
+replace
+
+	<id l="39:287:266:7"/><l>...</l>
+	->
+	<l id="39:287:266:7">...</l>
+
+	<div type="insc"><id h="4:227:705A"/>...</div>
+	->
+	<div type="insc" id="4:227:705A">...</div>
+
+for splicing:
+see if we can tell whether we're overriding important data
+make sure we don't insert extra pb and ref
+
+
+b	bold
+	<hi rend="bold">
+c[1-6]	table cells; the table itself is not wrapped in <table> or sth
+ch	placeholder for characters the people working on this could not decipher
+	best to keep as is
+de	devanagari
+	<seg rendition="class:nāgarī">
+doc	document root
+gra | gr
+	grantha
+	<seg rendition="class:grantha">
+h3	inscription title
+h4	title within an inscription
+	<milestone type="pagelike"> + commented out contents of h4
+i	italics
+	<hi rend="italic">
+id	for line ids and ins id
+ka	kannada
+l	line container
+lb	"presentation" line breaks
+		if we have -<lb/>, replace with nothing
+		if we just have <lb/>, replace with a space
+p	paragraph that does not correspond to a line of the inscription
+pb	page break
+pers	persian?
+	<seg rendition="class:arabic">
+ta	tamil
+	<seg rendition="class:tamil">
+table	table; but note that beyong the ones we added there were existing ones
+	with attrs
+te	telugu
+	<seg rendition="class:telugu">
+
+
+
+
 have a series of <div type="insc">. apparently the first stuck child is always of the form <id h="x:y:z"/>, where
 	x = volume
 	y = page
@@ -11,3 +62,5 @@ SII: texte + traduction ; la traduction présente seulement dans les trois premi
 <ch> is for characters that the people encoding the text cannot decipher.
 
 malten notes, see https://mail.google.com/mail/u/0/#inbox/FMfcgzQXJkXtGvTXPQmJmnfZbggXmpld
+
+should create a bib reference with the correct vol and page nos.
