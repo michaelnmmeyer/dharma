@@ -66,7 +66,6 @@ for v in t.find("/doc/div[@type='vol']"):
 			# assert cur_page == page, x.xml()
 			if not x["type"] == "repeated": foots.setdefault(x["t"], []).append(x)
 
-
 for foot, vals in sorted(foots.items()):
 	if len(vals) == 1:
 		continue
@@ -82,4 +81,4 @@ for foot, vals in sorted(foots.items()):
 			continue
 		prev = val
 
-open("out.xml", "w").write(t.xml())
+#open("out.xml", "w").write(t.xml())
