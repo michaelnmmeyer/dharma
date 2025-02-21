@@ -1,16 +1,8 @@
-replace
-
-	<id l="39:287:266:7"/><l>...</l>
-	->
-	<l id="39:287:266:7">...</l>
-
-	<div type="insc"><id h="4:227:705A"/>...</div>
-	->
-	<div type="insc" id="4:227:705A">...</div>
+be wary of tables
 
 for splicing:
-see if we can tell whether we're overriding important data ; if we just have a title in <h3>, overriding is OK, otherwise might want to check
-make sure we don't insert extra pb and ref
+see if we can tell whether we're overriding important data ; if we just have a title in <h3>, overriding is probably OK, otherwise might want to check
+make sure we don't insert extra pb and ref, harder to tell
 
 
 b	bold
@@ -47,14 +39,6 @@ te	telugu
 	<seg rendition="class:telugu">
 
 
-
-
-have a series of <div type="insc">. apparently the first stuck child is always of the form <id h="x:y:z"/>, where
-	x = volume
-	y = page
-	z = inscription number
-
-
 SII: texte + traduction ; la traduction présente seulement dans les trois premiers volumes.
 	pattern: DHARMA_INSII + 01 + 00001 (%02d volume + %05d inscription no)
 	les mettre ds exchange_aurorachana
@@ -64,3 +48,8 @@ SII: texte + traduction ; la traduction présente seulement dans les trois premi
 malten notes, see https://mail.google.com/mail/u/0/#inbox/FMfcgzQXJkXtGvTXPQmJmnfZbggXmpld
 
 should create a bib reference with the correct vol and page nos.
+
+====
+
+
+it is likely some footnote page numbers are wrong; in a few instances, they occur on the next page

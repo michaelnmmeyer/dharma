@@ -1,17 +1,14 @@
 from dharma import tree
-import sys, re
+import sys, re, collections
 
-t = tree.parse(sys.argv[1])
+tadd = tree.parse("sii_add.hid.xml")
+tall = tree.parse("sii_all.hid.xml")
 
-nodes = t.find(".//*")
-nodes.sort(key=lambda x: x.location)
+tbl = {}
+for x in tall.find("//div[@type='insc']"):
+	vol, page, ins = re.fullmatch(r"([1-9][0-9]*):([1-9][0-9]*):(.+)", x["n"]).groups()
+	tbl.setdefault((vol, page), []).append(x["n"])
 
-for x in nodes:
-	if x.name == "ref":
-		assert isinstance(x[0], tree.String), x.xml()
-		m = re.match(r"((?:[1-9][0-9]*\*?)|\*)[)][ \n]?(.*)", str(x[0]))
-		assert m, x.xml()
-		bef = x.xml().replace("\n", " ")
-		x[0].replace_with(m.group(2))
-
-sys.stdout.write(t.xml())
+for id, items in tbl.items():
+	if len(items) > 1:
+		print(items)
