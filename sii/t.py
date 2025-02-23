@@ -1,24 +1,46 @@
 from dharma import tree
 import sys, re, collections
 
-#tadd = tree.parse("sii_add.hid.xml")
 tall = tree.parse("sii_all.hid.xml")
+tadd = tree.parse("sii_add.hid.xml")
 
-tbl = {}
+tall_data = {}
 for x in tall.find("//div[@type='insc']"):
-	m = re.fullmatch(r"([1-9][0-9]*):([1-9][0-9]*):(.+)", x["n"])
-	assert m, x
-	vol, page, ins = m.groups()
-	tbl.setdefault((vol, ins.rstrip("X")), []).append(x)
+	id = x["n"]
+	tall_data[id] = x
 
-for id, items in sorted(tbl.items()):
-	if len(items) > 1:
-		Y = ""
-		for item in items:
-			item["n"] = item["n"].rstrip("X") + Y
-			Y += "Y"
-		#print(items)
-	else:
-		assert not items[0]["n"].endswith("X")
+adds = tadd.find("//div[@type='insc']")
+start = tadd.first("//div[@type='insc' and @n='4:206:673']")
+assert start is not None
+i = 0
+while i < len(adds):
+	if adds[i] is start:
+		break
+	i += 1
+assert i < len(adds)
+
+for add in adds:#[i:]:
+	id = add["n"]
+	all = tall_data[id]
+	assert len(all.find("h3")) == 1, id
+	assert len(add.find("h3")) <= 1, id
+	all.first("h3").delete()
+	# all_h4 = all.find("h4")
+	# add_h4 = add.find("h4")
+	# if all_h4 and len(all_h4) != len(add.find("h4")):
+	# 	print(id)
+	# 	continue
+	# if all_h4:
+	# 	l4 = "".join(x.text().strip() for x in all_h4)
+	# 	d4 = "".join(x.text().strip() for x in add_h4)
+	# 	if l4 != d4: print(id)
+	# continue
+	for tag in ("tlka", "h4", "TL", "pb"):
+		for node in all.find(tag):
+			node.delete()
+	for elem in add:
+		all.append(elem.copy())
+	# if not all.empty:
+	# 	print(id, "notempty")
 
 sys.stdout.write(tall.xml())
