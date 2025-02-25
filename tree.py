@@ -350,8 +350,8 @@ class Node:
 		parent.insert(i, other)
 		return self
 
-	def comment_out(self):
-		tmp = self.xml()
+	def comment_out(self, **kwargs):
+		tmp = self.xml(**kwargs)
 		self.replace_with(Comment(tmp))
 		return self
 
