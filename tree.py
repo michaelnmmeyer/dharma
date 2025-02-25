@@ -351,6 +351,8 @@ class Node:
 		return self
 
 	def comment_out(self, **kwargs):
+		"""Comment out a node viz. replace it with a commented out XML
+		representation of it."""
 		tmp = self.xml(**kwargs)
 		self.replace_with(Comment(tmp))
 		return self

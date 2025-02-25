@@ -367,6 +367,17 @@ def replace_with(other)
 Removes this node and its descendants from the tree, and
 puts another node in its place. Returns the removed subtree.
 
+<a id="dharma.tree.Node.comment_out"></a>
+
+#### comment\_out
+
+```python
+def comment_out(**kwargs)
+```
+
+Comment out a node viz. replace it with a commented out XML
+representation of it.
+
 <a id="dharma.tree.Node.text"></a>
 
 #### text
