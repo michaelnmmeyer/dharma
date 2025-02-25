@@ -350,6 +350,11 @@ class Node:
 		parent.insert(i, other)
 		return self
 
+	def comment_out(self):
+		tmp = self.xml()
+		self.replace_with(Comment(tmp))
+		return self
+
 	def text(self, space="default"):
 		'''Returns the text contents of this subtree. Per default, we do
 		normalize-space(); to prevent this, pass `space="preserve"`.
@@ -1668,7 +1673,8 @@ class Formatter:
 	def format_comment(self, node):
 		if self.strip_comments:
 			return
-		node = node.data
+		# Escape --
+		node = node.data.replace("--", "-&#45;")
 		self.write(f"<!--{node}-->", klass="comment")
 
 	def format_string(self, node, cat=""):
