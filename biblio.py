@@ -124,7 +124,7 @@ class Writer:
 	def output(self):
 		for X in self.xml.find(".//X"):
 			X.unwrap()
-		return self.xml.xml()
+		return self.xml.xml(add_xml_prefix=False)
 
 	def space(self):
 		text = self.xml.text(space="preserve")
