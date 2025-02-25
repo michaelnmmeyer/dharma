@@ -39,7 +39,7 @@ set or evaluating the length of a node set is not possible.
 
 XPath expressions can use the following functions:
 
-`glob(pattern[, text])`
+`glob(pattern[, text])`, `iglob(pattern[, text])`
 
 Checks if `text` matches the given glob `pattern`. If `text` is not given,
 it defaults to the node's text contents.
@@ -1086,6 +1086,11 @@ def xpath_glob(node, pattern, *arg):
 	(text,) = arg or (node.text(),)
 	return fnmatch.fnmatchcase(text, pattern)
 
+def xpath_iglob(node, pattern, *arg):
+	assert isinstance(pattern, str)
+	(text,) = arg or (node.text(),)
+	return fnmatch.fnmatchcase(text.lower(), pattern.lower())
+
 def xpath_regex(node, pattern, *arg):
 	assert isinstance(pattern, str)
 	(text,) = arg or (node.text(),)
@@ -1117,6 +1122,7 @@ def xpath_name(node):
 
 xpath_funcs = {
 	"glob": xpath_glob,
+	"iglob": xpath_iglob,
 	"regex": xpath_regex,
 	"lang": xpath_lang,
 	"mixed": xpath_mixed,
