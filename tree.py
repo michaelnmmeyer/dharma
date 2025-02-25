@@ -348,7 +348,7 @@ class Node:
 		return ""
 
 	def xml(self, strip_comments=False, strip_instructions=False,
-		html=False, color=False):
+		html=False, color=False, add_xml_prefix=True):
 		'''Returns an XML representation of this subtree.
 
 		If `html` is true, the result will be escaped, for inclusion
@@ -358,7 +358,7 @@ class Node:
 		'''
 		fmt = Formatter(strip_comments=strip_comments,
 			strip_instructions=strip_instructions, html=html,
-			color=color, add_xml_prefix=True)
+			color=color, add_xml_prefix=add_xml_prefix)
 		fmt.format(self)
 		return fmt.text()
 
