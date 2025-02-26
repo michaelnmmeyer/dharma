@@ -987,6 +987,9 @@ def render_webpage(rec, w, params):
 	w.idents(rec)
 	w.entry_loc(params.get("loc"))
 
+def render_document(rec, w, params):
+	return render_webpage(rec, w, params)
+
 # blog posts
 """
   {
@@ -1158,6 +1161,7 @@ renderers = {
 	"bookSection": render_book_section,
 	"thesis": render_thesis,
 	"webpage": render_webpage,
+	"document": render_document,
 	"newspaperArticle": render_newspaper_article,
 	"dataset": render_dataset,
 	"blogPost": render_blog_post,
