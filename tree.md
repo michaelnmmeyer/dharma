@@ -43,7 +43,7 @@ set or evaluating the length of a node set is not possible.
 
 XPath expressions can use the following functions:
 
-`glob(pattern[, text])`
+`glob(pattern[, text])`, `iglob(pattern[, text])`
 
 Checks if `text` matches the given glob `pattern`. If `text` is not given,
 it defaults to the node's text contents.
@@ -366,6 +366,30 @@ def replace_with(other)
 
 Removes this node and its descendants from the tree, and
 puts another node in its place. Returns the removed subtree.
+
+<a id="dharma.tree.Node.insert_after"></a>
+
+#### insert\_after
+
+```python
+def insert_after(other)
+```
+
+Insert a node just after the current one.
+
+This cannot be called on a `Tree`, obviously.
+
+<a id="dharma.tree.Node.insert_before"></a>
+
+#### insert\_before
+
+```python
+def insert_before(other)
+```
+
+Insert a node just before the current one.
+
+This cannot be called on a `Tree`, obviously.
 
 <a id="dharma.tree.Node.comment_out"></a>
 

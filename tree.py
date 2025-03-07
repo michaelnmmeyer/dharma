@@ -271,7 +271,8 @@ class Node:
 		Returns the removed subtree."""
 		parent = self._parent
 		if parent:
-			return parent.remove(self)
+			parent.remove(self)
+			return self
 		self._parent = None
 		self.location = None
 		return self
@@ -349,6 +350,22 @@ class Node:
 		del parent[i]
 		parent.insert(i, other)
 		return self
+
+	def insert_after(self, other):
+		'''Insert a node just after the current one.
+
+		This cannot be called on a `Tree`, obviously.'''
+		parent = self.parent
+		i = parent.index(self)
+		parent.insert(i + 1, other)
+
+	def insert_before(self, other):
+		'''Insert a node just before the current one.
+
+		This cannot be called on a `Tree`, obviously.'''
+		parent = self.parent
+		i = parent.index(self)
+		parent.insert(i, other)
 
 	def comment_out(self, **kwargs):
 		"""Comment out a node viz. replace it with a commented out XML
@@ -653,6 +670,12 @@ class Tree(Branch):
 		# 	if not node.isspace():
 		# 		raise Exception("cannot add text contents to a Tree node")
 		super().insert(index, node)
+
+	def insert_before(self, node):
+		raise Exception("cannot insert a node before a tree")
+
+	def insert_after(self, node):
+		raise Exception("cannot insert a node after a tree")
 
 	def copy(self):
 		ret = Tree()
