@@ -479,7 +479,7 @@ class Branch(Node, list):
 		return node
 
 	def extend(self, iterable):
-		for node in iterable:
+		for node in list(iterable):
 			self.append(node)
 
 	def coalesce(self):
