@@ -488,10 +488,12 @@ class Branch(Node, list):
 			cur = self[i]
 			if isinstance(cur, String):
 				if not cur.data:
-					del self[i]
+					cur.delete()
 				elif i < len(self) - 1 and isinstance(self[i + 1], String):
-					cur.append(self[i + 1])
-					del self[i + 1]
+					cur.replace_with(cur.data + self[i + 1].data)
+					self[i + 1].delete()
+				else:
+					i += 1
 			elif isinstance(cur, Tag):
 				cur.coalesce()
 				i += 1
