@@ -81,32 +81,6 @@ class Parser:
 	def add_display(self, text):
 		self.top.append(str(text)) # str() in case this is a tree.String
 
-#	def add_html(self, data, **params):
-#		return self.top.add_html(data, **params)
-
-#	def add_phys(self, data, **params):
-#		return self.top.add_phys(data, **params)
-
-#	def add_code(self, t, data=None, **params):
-#		return self.top.add_code(t, data, **params)
-
-#	def add_log(self, data, **params):
-#		return self.top.add_log(data, **params)
-
-	# def get_bib_ref(self, ref, rend="default", loc=None, siglum=False):
-	# 	entry = self.document.bib_entries.get(ref)
-	# 	if not entry:
-	# 		entry = biblio.Entry(ref)
-	# 		self.document.bib_entries[ref] = entry
-	# 	if siglum:
-	# 		siglum = self.document.sigla.get(ref)
-	# 	entry_ref = entry.reference(rend=rend, loc=loc, siglum=siglum,
-	# 		external_link=ref not in self.document.biblio)
-	# 	return entry_ref
- #
-	# def add_bib_ref(self, ref, rend="default", loc=None, siglum=False):
-	# 	self.add_code("ref", self.get_bib_ref(ref, rend=rend, loc=loc, siglum=siglum))
-
 	def _get_bib_entry(self, short_title):
 		external = False
 		entry = self.document.bib_entries.get(short_title)
@@ -1012,7 +986,7 @@ def parse_g(p, node):
 	# <g type="..."></g> in the other cases viz. for symbols whose functions is unclear
 	# The guide talks about subtype, but we don't allow it for now.
 	t = node["type"] or "symbol"
-	# Quirk with @subtype, shouldn't have to do this
+	# TODO legacy quirk with @subtype, should fix files and remove this
 	if t == "symbol" and node["subtype"]:
 		t = node["subtype"]
 	if t == "numeral":
