@@ -755,6 +755,22 @@ class Tag(Branch):
 					break
 			i += 1
 
+	def stuck_preceding_sibling(self):
+		parent = self.parent
+		i = parent.index(self) - 1
+		while i >= 0:
+			node = parent[i]
+			match node:
+				case Tag():
+					return node
+				case String() if node.isspace():
+					pass
+				case Comment() | Instruction():
+					pass
+				case _:
+					break
+			i -= 1
+
 	def __hash__(self):
 		return id(self)
 

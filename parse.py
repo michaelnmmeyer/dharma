@@ -153,9 +153,9 @@ class Parser:
 
 @handler("code")
 def parse_code(p, code):
-	p.add_html("<code>")
+	p.push(tree.Tag("code"))
 	p.dispatch_children(code)
-	p.add_html("</code>")
+	p.append(p.pop())
 
 @handler("lem")
 def parse_lem(p, lem):
@@ -435,12 +435,12 @@ def parse_supplied(p, supplied, tip=None, brackets=None):
 	elif evidence == "previouseditor":
 		tip += "; restoration based on previous edition (not assessable)"
 	p.start_span(klass="supplied", tip=tip)
-	p.add_html(brackets[0])
+	p.add_display(brackets[0])
 	p.dispatch_children(supplied)
 	if supplied["reason"] in ("subaudible", "explanation") \
 		and supplied["cert"] == "low":
-		p.add_html("?")
-	p.add_html(brackets[1])
+		p.add_display("?")
+	p.add_display(brackets[1])
 	p.end_span()
 
 # § Premodern insertion
@@ -969,49 +969,74 @@ def parse_gap(p, gap):
 	p.end_span()
 	# TODO merge consecutive values as in [ca.10x – – – ⏑ – – abc] in editorial
 
+# See mkfractiontable.py.
+composed_fractions = {
+	(0, 3): "\N{vulgar fraction zero thirds}",
+	(1, 2): "\N{vulgar fraction one half}",
+	(1, 3): "\N{vulgar fraction one third}",
+	(1, 4): "\N{vulgar fraction one quarter}",
+	(1, 5): "\N{vulgar fraction one fifth}",
+	(1, 6): "\N{vulgar fraction one sixth}",
+	(1, 7): "\N{vulgar fraction one seventh}",
+	(1, 8): "\N{vulgar fraction one eighth}",
+	(1, 9): "\N{vulgar fraction one ninth}",
+	(2, 3): "\N{vulgar fraction two thirds}",
+	(2, 5): "\N{vulgar fraction two fifths}",
+	(3, 4): "\N{vulgar fraction three quarters}",
+	(3, 5): "\N{vulgar fraction three fifths}",
+	(3, 8): "\N{vulgar fraction three eighths}",
+	(4, 5): "\N{vulgar fraction four fifths}",
+	(5, 6): "\N{vulgar fraction five sixths}",
+	(5, 8): "\N{vulgar fraction five eighths}",
+	(7, 8): "\N{vulgar fraction seven eighths}",
+}
+# We try to use a uniform representation for fractions. If there is a
+# precomposed code point for the given fraction, we use it, otherwise we use
+# <sup>9</sup> + fraction slash + <sub>8</sub>.
+@handler("g[@type='numeral']")
 def parse_g_numeral(p, node):
-	assert node["type"] == "numeral"
-	m = re.match(r"([0-9]+)/([0-9]+)", node.text())
-	if not m:
-		# No special formatting
+	p.push(tree.Tag("numeral"))
+	frac = re.match("([0-9]+)[/\N{fraction slash}]([0-9]+)", node.text())
+	if frac:
+		num, den = int(frac.group(1)), int(frac.group(2))
+		composed = composed_fractions.get((num, den))
+		if composed:
+			p.append(composed)
+		else:
+			sup = tree.Tag("sup")
+			sup.append(str(num))
+			p.append(sup)
+			p.append("\N{fraction slash}")
+			sub = tree.Tag("sub")
+			sub.append(str(den))
+			p.append(sub)
+	else:
 		p.dispatch_children(node)
-		return
-	num, den = m.groups()
-	p.add_html(f"<sup>{num}</sup>\N{fraction slash}<sub>{den}</sub>")
+	p.append(p.pop())
 
+# g[not @type='numeral']
 @handler("g")
 def parse_g(p, node):
 	# <g type="...">\.</g> for punctuation marks
 	# <g type="...">§+</g> for space fillers
-	# <g type="..."></g> in the other cases viz. for symbols whose functions is unclear
-	# The guide talks about subtype, but we don't allow it for now.
-	t = node["type"] or "symbol"
-	# TODO legacy quirk with @subtype, should fix files and remove this
-	if t == "symbol" and node["subtype"]:
-		t = node["subtype"]
-	if t == "numeral":
-		return parse_g_numeral(p, node)
+	# <g type="..."></g> in the other cases viz. for symbols whose function
+	# is unclear.
 	text = node.text()
+	info = gaiji.get(node["type"])
 	if text == ".":
-		cat = "punctuation"
-	elif text.startswith("§"):
-		cat = "space-filler"
+		tip = f"Punctuation symbol: {info['description']}"
+	elif re.fullmatch("§+", text):
+		tip = f"Space-filler symbol: {info['description']}"
 	else:
-		cat = "uninterpreted"
-	info = gaiji.get(t)
-	tip = f"symbol: {info['description']}"
-	if cat != "uninterpreted":
-		tip = f"{cat} {tip}"
-	tip = common.sentence_case(tip)
+		tip = f"Symbol: {info['description']}"
+	sym = tree.Tag("symbol", tip=tip)
 	if info["text"]:
-		p.start_span(klass="symbol", tip=tip)
-		p.add_html(html.escape(info["text"]), plain=True)
-		p.end_span()
+		sym["class"] = "symbol"
+		sym.append(info["text"])
 	else:
-		p.start_span(klass="symbol-placeholder", tip=tip)
-		p.add_html(html.escape("<%s>" % info["name"]), plain=True)
-		p.end_span()
-	# had '<img alt="%s" class="svg" src="%s"/>' % (info["name"], info["img"]))
+		sym["class"] = "symbol-placeholder"
+		sym.append(f"<{info['name']}>")
+	p.append(sym)
 
 @handler("unclear")
 def parse_unclear(p, node):
@@ -1212,37 +1237,52 @@ def is_description_list(nodes):
 			return False
 	return True
 
-@handler("list")
-def parse_list(p, list):
-	typ = list["rend"]
-	if typ not in ("plain", "bulleted", "numbered", "description"):
-		typ = "plain"
-	children = list.children()
-	if is_description_list(children): # try to infer it
-		typ = "description"
-	p.add_log("<list", type=typ)
-	if typ == "description":
-		# (label, item)*
-		for i in range(0, len(children), 2):
-			label = children[i]
-			item = children[i + 1]
-			if label.name != "label" or item.name != "item":
-				continue
-			p.add_log("<key")
+"""
+XXX special type for manu?
+
+INSII2400053
+
+réduire les espaces entre ce qui précède et suit du para + entre les items
+(pas paragraphe "purs", mais sauts de lignes).
+
+<p><list><item>...</list></p>
+
+<p>bla bla bla <list><item>...</item></list> bla bla bla</p>
+
+<p>bla bla bla <list><item>...</item></list></p>
+
+<p><list><item>...</item></list> bla bla bla</p>
+"""
+
+@handler("list[@rend='description' or label]")
+def parse_description_list(p, lst):
+	p.push(tree.Tag("dlist"))
+	# We expect a series of (label, item).
+	for item in lst.find("item"):
+		label = item.first("stuck-preceding-sibling::label")
+		p.push(tree.Tag("key"))
+		if label:
 			p.dispatch_children(label)
-			p.add_log(">key")
-			p.add_log("<value")
-			p.dispatch_children(item)
-			p.add_log(">value")
-	else:
-		for item in list.find("item"):
-			p.add_log("<item")
-			# need a space after each item in physical, see
-			# DHARMA_INSSII0501358
-			p.add_html(" ", logical=False, plain=False)
-			p.dispatch_children(item)
-			p.add_log(">item")
-	p.add_log(">list", type=typ)
+		p.append(p.pop())
+		p.push(tree.Tag("value"))
+		p.dispatch_children(item)
+		p.append(p.pop())
+	p.append(p.pop())
+
+@handler("list")
+def parse_list(p, lst):
+	rend = lst["rend"]
+	if rend not in ("plain", "bulleted", "numbered"):
+		rend = "plain"
+	p.push(tree.Tag("list", type=rend))
+	for item in lst.find("item"):
+		p.push(tree.Tag("item"))
+		# XXX need a space after each item in physical, see
+		# DHARMA_INSSII0501358; deal with that in the rendering
+		# code
+		p.dispatch_children(item)
+		p.append(p.pop())
+	p.append(p.pop())
 
 @handler("label")
 def parse_label(p, label):
