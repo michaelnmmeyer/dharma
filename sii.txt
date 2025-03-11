@@ -1,0 +1,33 @@
+tfa-sii... nom = "South Indian Inscriptions (tfa)"
+ajouter south-indian-inscriptions to repos list (and find sometyhing better)
+
+
+titleStmt/title
+	SII 6.1: Original Edition by Subrahmanya Aiyer
+
+title/@type="alt"
+	mettre ça dans les métadonnées ; et virer éléments, plain text
+
+pour div[@apparatus], si vide ou blanc, rien afficher dans l'output.
+
+pour les <ns>, virer les espaces
+
+	<id l="6:1:2:1"/><l>1 <gr>svasti śrī [||*] tribhu</gr><ns/> <ta>vaṉa</ta><ns/>
+<gr>ccakra</gr><ns/> <ta>vatti konerimeṉkoṇṭāṉ pāṇṭikulācaṉi- <lb
+break="no"/>vaḷanāṭṭu uṭaiyār tirukkāṭṭuppaḷḷiuṭaiyār koyil tevakaṉmi[kku]-</ta></l>
+
+toutye voyelle précédée par espace > mêṃe voyelle mais en maj
+
+	[aeiou] bref/long
+
+les <hi rend="grantha">[0-9]+</hi> dans les textes à transformer. cf. notes manu
+	restreindre aux passages en tamoul avec grantha à l'int.
+	< 10 pas à mettre dans <num value="..."></num>
+
+g(\s*)k -> ṅ(\s*)k
+
+retirer les macrons de 'e' et 'o' seulement pour le grantha
+
+wrap <l> with <p>
+
+for <seg> attribute @xml:lang should be allowed

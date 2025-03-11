@@ -1254,6 +1254,15 @@ réduire les espaces entre ce qui précède et suit du para + entre les items
 <p><list><item>...</item></list> bla bla bla</p>
 """
 
+"""
+In HTML, we cannot have <p><ul>...</ul></p>, the <ul> or <ol> must be outside of
+<p>, so we need to generate a compatible representation.
+
+Should we interpret <item><p>foo</p></item> the same as <item>foo</item>? I
+think so.
+
+"""
+
 @handler("list[@rend='description' or label]")
 def parse_description_list(p, lst):
 	p.push(tree.Tag("dlist"))
