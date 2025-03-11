@@ -3,7 +3,11 @@ support deleting/renaming repos
 	delete from repos where repo='repo-test';
 	delete from files where repo='repo-test';
 	delete from documents where repo='repo-test';
-	delete from documents_index where repo='repo-test';
+	delete from documents_index where repo='repo-test'; **but lowercasing!**
+
+should probably deal with that with triggers
+
+and remove the directory; for locking see https://git-scm.com/docs/api-lockfile
 
 ===
 
