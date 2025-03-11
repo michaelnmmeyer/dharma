@@ -69,7 +69,10 @@ stop:
 status:
 	sudo systemctl status 'dharma.*'
 
-.PHONY: start-all stop-all start stop status
+follow:
+	sudo journalctl -fu 'dharma.change'
+
+.PHONY: start-all stop-all start stop status follow
 
 update-repos:
 	@for d in repos/*; do \
