@@ -377,7 +377,8 @@ normalize-space(); to prevent this, pass `space="preserve"`.
 def xml(strip_comments=False,
         strip_instructions=False,
         html=False,
-        color=False)
+        color=False,
+        add_xml_prefix=True)
 ```
 
 Returns an XML representation of this subtree.
