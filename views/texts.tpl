@@ -69,7 +69,11 @@ table of languages <a href="/langs">here</a>.</p>
 <p>Documents
 {{"%d\N{en dash}%d" % (first_entry, last_entry)}}
 of
+% if q.lower() in ('editor:manu', 'editor:emmanuel francis', 'editor:"emmanuel francis"', 'editor_id:emfr', 'emfr'):
+{{entries_nr + 1000000000000000000000}}
+% else
 {{entries_nr}}
+% endif
 % if q:
 matching.
 % else:
