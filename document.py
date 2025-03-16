@@ -13,65 +13,6 @@
 import os, sys, re, html, unicodedata
 from dharma import common, unicode, biblio, tree
 
-class BlockDebugFormatter:
-
-	def __init__(self, write=sys.stdout.write):
-		self.write = write
-		self.force_color = True
-
-	def format(self, block):
-		self.write(f"<Block name={block.name} title={block.title}\n")
-		for t, data, params in block.code:
-			self.write_debug(t, data, **params)
-		self.write(">Block\n")
-
-	def term_color(self, code=None):
-		if not os.isatty(1) and not self.force_color:
-			return
-		if not code:
-			return self.write("\N{ESC}[0m")
-		code = code.lstrip("#")
-		assert len(code) == 6
-		R = int(code[0:2], 16)
-		G = int(code[2:4], 16)
-		B = int(code[4:6], 16)
-		self.write(f"\N{ESC}[38;2;{R};{G};{B}m")
-
-	def term_html(self): self.term_color("#5f00ff")
-	def term_bib(self): self.term_color("#aa007f")
-	def term_log(self): self.term_color("#008700")
-	def term_phys(self): self.term_color("#0055ff")
-	def term_text(self): self.term_color("#aa007f")
-	def term_span(self): self.term_color("#b15300")
-	def term_reset(self): self.term_color()
-
-	def write_debug(self, t, data, **params):
-		if t == "html":
-			self.term_html()
-		elif t == "log":
-			self.term_log()
-		elif t == "phys":
-			self.term_phys()
-		elif t == "text":
-			self.term_text()
-		elif t == "span":
-			self.term_span()
-		elif t == "bib" or t == "ref":
-			self.term_bib()
-		else:
-			assert 0, t
-		self.write("%-04s" % t)
-		if data:
-			if t in ("text", "html"):
-				self.write(" %r" % data)
-			else:
-				self.write(" %s" % data)
-		if params:
-			for k, v in sorted(params.items()):
-				self.write(" :%s %r" % (k, v))
-		self.term_reset()
-		self.write("\n")
-
 # Turns some object (strings, list of strings or None) into a searchable string.
 def normalize(s):
 	if s is None:
@@ -102,433 +43,8 @@ def format_lb(n=None, brk=None, align=None):
 	tip = html.escape(tip)
 	return f'<span class="lb" data-tip="{tip}">⟨{n}⟩</span>'
 
-class Block:
-
-	def __init__(self, name=""):
-		self.name = name
-		self.title = ""
-		self.code = []
-		self.finished = False
-
-	def __repr__(self):
-		return "<Block(%s) %r>" % (self.name, self.code)
-
-	def __str__(self):
-		buf = []
-		fmt = BlockDebugFormatter(buf.append)
-		fmt.format(self)
-		return "".join(buf)
-
-	def empty(self):
-		for cmd, data, params in self.code:
-			if cmd == "text" and data == " ":
-				continue
-			return False
-		return True
-
-	def __bool__(self):
-		return not self.empty()
-
-	# def add_html(self, data, **params):
-	# 	params.setdefault("plain", False)
-	# 	params.setdefault("logical", True)
-	# 	params.setdefault("physical", True)
-	# 	params.setdefault("full", True)
-	# 	return self.add_code("html", data, **params)
-
-	def close_line(self, brk):
-		# Try to figure out where we should insert an EOL marker
-		i = len(self.code)
-		p = i
-		while i > 0:
-			i -= 1
-			rcmd, rdata, rparams = self.code[i]
-			if rcmd == "log" and rdata == ">div":
-				p = i
-				continue
-			if rcmd != "phys":
-				continue
-			if (rdata.startswith("=") or rdata.startswith("{") or rdata.startswith("}")) and not rparams.get("type") == "gridlike":
-				p = i
-				continue
-			if rdata == "<line":
-				self.code.insert(p, ("phys", ">line", {"brk": brk}))
-				break
-
-	def add_phys(self, data, **params):
-		# XXX handle breaks consistently, trim space always?
-		if data != "line":
-			assert data.startswith("=") or data.startswith("{") or data.startswith("}")
-			self.add_code("phys", data, **params)
-			return
-		brk = params["brk"]
-		self.close_line(brk)
-		if not brk:
-			i = len(self.code)
-			while i > 0:
-				i -= 1
-				rcmd, rdata, rparams = self.code[i]
-				if rcmd == "span" and data == "<" and "space" in rparams["klass"]:
-					break
-				if rcmd != "text":
-					continue
-				rdata = rdata.rstrip()
-				if not rdata:
-					del self.code[i]
-					continue
-				self.code[i] = (rcmd, rdata, rparams)
-				break
-		self.add_code("phys", "<line", **params)
-
-	# def add_log(self, data, **params):
-	# 	self.add_code("log", data, **params)
-
-	# def add_code(self, t, data=None, **params):
-	# 	rec = (t, data, params)
-	# 	self.code.append(rec)
-
-	def finish(self):
-		self.close_line(True)
-		self.finished = True
-
-	def render_common(self, buf, t, data, params):
-		if t == "text":
-			# TODO be more accurate, only need to hyphenate Indic
-			# languages
-			if self.name == "edition":
-				data = unicode.hyphenate(data)
-			text = html.escape(data)
-			buf.append(text)
-		elif t == "span":
-			if data == "<":
-				klasses = html.escape(" ".join(params["klass"]))
-				tip = params["tip"]
-				if tip:
-					tip = html.escape(tip)
-					buf.append(f'<span class="{klasses}" data-tip="{tip}">')
-				else:
-					buf.append(f'<span class="{klasses}">')
-			elif data == ">":
-				buf.append('</span>')
-			else:
-				assert 0, data
-		elif t == "bib" or t == "ref":
-			buf.append(str(data))
-		else:
-			assert 0, t
-
-	def render_full(self):
-		assert self.finished
-		buf = []
-		for t, data, params in self.code:
-			if t == "log":
-				if data == "<div":
-					buf.append('<div class="ed-section">')
-				elif data == ">div":
-					buf.append('</div>')
-				elif data == "<head":
-					lvl = params.get("level", 3)
-					buf.append('<h%d class="ed-heading">' % lvl)
-				elif data == ">head":
-					lvl = params.get("level", 3)
-					buf.append('</h%d>' % lvl)
-				elif data == "<para":
-					if params.get("rend") == "verse":
-						buf.append('<p class="verse">')
-					else:
-						buf.append("<p>")
-				elif data == ">para":
-					buf.append("</p>")
-				elif data == "<line":
-					buf.append('<div class="verse-line">')
-					tip = html.escape(params.get("tip"))
-					if tip:
-						buf.append(f'<p data-tip="{tip}">')
-					else:
-						buf.append("<p>")
-				elif data == ">line":
-					buf.append("</p>")
-					buf.append(" <span>%s</span>" % html.escape(params["n"]))
-					buf.append("</div>")
-				elif data == "<list":
-					typ = params["type"]
-					if typ == "plain":
-						buf.append('<ul class="list list-plain">')
-					elif typ == "bulleted":
-						buf.append('<ul class="list">')
-					elif typ == "numbered":
-						buf.append('<ol class="list">')
-					elif typ == "description":
-						buf.append('<dl class="list">')
-					else:
-						assert 0
-				elif data == ">list":
-					typ = params["type"]
-					if typ == "plain":
-						buf.append('</ul>')
-					elif typ == "bulleted":
-						buf.append('</ul>')
-					elif typ == "numbered":
-						buf.append('</ol>')
-					elif typ == "description":
-						buf.append('</dl>')
-					else:
-						assert 0
-				elif data == "<verse":
-					if params["numbered"]:
-						buf.append('<div class="verse verse-numbered">')
-					else:
-						buf.append('<div class="verse">')
-				elif data == ">verse":
-					buf.append('</div>')
-				elif data == "<item":
-					buf.append('<li>')
-				elif data == ">item":
-					buf.append('</li>')
-				elif data == "<key":
-					buf.append('<dt>')
-				elif data == ">key":
-					buf.append('</dt>')
-				elif data == "<value":
-					buf.append('<dd>')
-				elif data == ">value":
-					buf.append('</dd>')
-				elif data == "=note":
-					n = params["n"]
-					buf.append(f'<sup><a class="nav-link" href="#note-{n}" id="note-ref-{n}">{n}</a></sup>')
-				elif data == "<blockquote":
-					buf.append('<blockquote>')
-				elif data == ">blockquote":
-					buf.append('</blockquote>')
-				else:
-					assert 0, data
-			elif t == "phys":
-				if data == "<line":
-					if params["brk"]:
-						buf.append(" ")
-					buf.append(format_lb(**params))
-					if params["brk"]:
-						buf.append(" ")
-				elif data == ">line":
-					pass
-				elif data == "{page":
-					buf.append('<span class="pagelike" data-tip="Page start">⟨Page %s⟩' % html.escape(params["n"]))
-				elif data == "}page":
-					buf.append("</span>")
-				elif data.startswith("=") and params["type"] == "pagelike":
-					unit = html.escape(data[1:].title())
-					text = f"⟨{unit} {params['n']}"
-					if params["label"]:
-						text += f": {params['label']}"
-					text += "⟩"
-					buf.append('<span class="pagelike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
-				elif data.startswith("=") and params["type"] == "gridlike":
-					unit = html.escape(data[1:].title())
-					text = f"⟨{unit} {params['n']}"
-					if params["label"]:
-						text += f": {params['label']}"
-					text += "⟩"
-					buf.append('<span class="gridlike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
-				else:
-					assert 0, data
-			elif t == "html":
-				if params["logical"] or params["full"]:
-					buf.append(data)
-			else:
-				self.render_common(buf, t, data, params)
-		return "".join(buf)
-
-	def render_logical(self):
-		assert self.finished
-		buf = []
-		for t, data, params in self.code:
-			if t == "log":
-				if data == "<div":
-					buf.append('<div class="ed-section">')
-				elif data == ">div":
-					buf.append('</div>')
-				elif data == "<head":
-					lvl = params.get("level", 3)
-					buf.append('<h%d class="ed-heading">' % lvl)
-				elif data == ">head":
-					lvl = params.get("level", 3)
-					buf.append('</h%d>' % lvl)
-				elif data == "<para":
-					if params.get("rend") == "verse":
-						buf.append('<p class="verse">')
-					else:
-						buf.append("<p>")
-				elif data == ">para":
-					buf.append("</p>")
-				elif data == "<line":
-					buf.append('<div class="verse-line">')
-					tip = html.escape(params.get("tip"))
-					if tip:
-						buf.append(f'<p data-tip="{tip}">')
-					else:
-						buf.append("<p>")
-				elif data == ">line":
-					buf.append("</p>")
-					n = html.escape(params["n"])
-					buf.append(f' <span data-tip="Verse line number">{n}</span>')
-					buf.append("</div>")
-				elif data == "<list":
-					typ = params["type"]
-					if typ == "plain":
-						buf.append('<ul class="list list-plain">')
-					elif typ == "bulleted":
-						buf.append('<ul class="list">')
-					elif typ == "numbered":
-						buf.append('<ol class="list">')
-					elif typ == "description":
-						buf.append('<dl class="list">')
-					else:
-						assert 0
-				elif data == ">list":
-					typ = params["type"]
-					if typ == "plain":
-						buf.append('</ul>')
-					elif typ == "bulleted":
-						buf.append('</ul>')
-					elif typ == "numbered":
-						buf.append('</ol>')
-					elif typ == "description":
-						buf.append('</dl>')
-					else:
-						assert 0
-				elif data == "<verse":
-					if params["numbered"]:
-						buf.append('<div class="verse verse-numbered">')
-					else:
-						buf.append('<div class="verse">')
-				elif data == ">verse":
-					buf.append('</div>')
-				elif data == "<item":
-					buf.append('<li>')
-				elif data == ">item":
-					buf.append('</li>')
-				elif data == "<key":
-					buf.append('<dt>')
-				elif data == ">key":
-					buf.append('</dt>')
-				elif data == "<value":
-					buf.append('<dd>')
-				elif data == ">value":
-					buf.append('</dd>')
-				elif data == "=note":
-					n = params["n"]
-					buf.append(f'<sup><a class="nav-link" href="#note-{n}" id="note-ref-{n}">{n}</a></sup>')
-				elif data == "<blockquote":
-					buf.append('<blockquote>')
-				elif data == ">blockquote":
-					buf.append('</blockquote>')
-				else:
-					assert 0, data
-			elif t == "phys":
-				if data == "<line":
-					if params["brk"]:
-						buf.append(" ")
-					buf.append(format_lb(**params))
-					if params["brk"]:
-						buf.append(" ")
-				elif data == ">line":
-					pass
-				elif data == "{page":
-					buf.append('<span class="pagelike" data-tip="Page start">⟨Page %s⟩' % html.escape(params["n"]))
-				elif data == "}page":
-					buf.append("</span>")
-				elif data.startswith("=") and params["type"] == "pagelike":
-					unit = html.escape(data[1:].title())
-					text = f"⟨{unit} {params['n']}"
-					if params["label"]:
-						text += f": {params['label']}"
-					text += "⟩"
-					buf.append('<span class="pagelike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
-				elif data.startswith("=") and params["type"] == "gridlike":
-					unit = html.escape(data[1:].title())
-					text = f"⟨{unit} {params['n']}"
-					if params["label"]:
-						text += f": {params['label']}"
-					text += "⟩"
-					buf.append('<span class="gridlike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
-				else:
-					assert 0, data
-			elif t == "html":
-				if params["logical"]:
-					buf.append(data)
-			else:
-				self.render_common(buf, t, data, params)
-		return "".join(buf)
-
-	def render_physical(self):
-		assert self.finished
-		buf = []
-		skip = 0
-		for t, data, params in self.code:
-			if skip > 0:
-				if t == "log" and (data == ">head" or data == "<head") and params.get("level"):
-					pass
-				else:
-					continue
-			if t == "phys":
-				if data == "<line":
-					buf.append('<p class="line">')
-					buf.append(format_lb(**params))
-					buf.append(" ")
-				elif data == ">line":
-					if not params["brk"]:
-						buf.append('<span class="hyphen-break" data-tip="Hyphen break">-</span>')
-					buf.append('</p>')
-				elif data == "{page":
-					buf.append('<div class="pagelike"><span data-tip="Page start">⟨Page %s⟩ ' % html.escape(params["n"]))
-				elif data == "}page":
-					buf.append("</span></div>")
-				elif data.startswith("=") and params["type"] == "pagelike":
-					unit = html.escape(data[1:].title())
-					text = f"{unit} {params['n']}"
-					if params["label"]:
-						text += f": {params['label']}"
-					buf.append('<div class="pagelike"><span data-tip="%s start">%s</span></div>' % (unit, html.escape(text)))
-				elif data.startswith("=") and params["type"] == "gridlike":
-					unit = html.escape(data[1:].title())
-					text = f"⟨{unit} {params['n']}"
-					if params["label"]:
-						text += f": {params['label']}"
-					text += "⟩"
-					buf.append('<span class="gridlike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
-				else:
-					assert 0, data
-			elif t == "log":
-				if data == "<div":
-					buf.append('<div class="ed-section">')
-				elif data == ">div":
-					buf.append('</div>')
-				elif data == "<head":
-					if params.get("level"): # verse header
-						skip += 1
-					else:
-						buf.append('<h3 class="ed-heading">')
-				elif data == ">head":
-					if params.get("level"): # verse header
-						skip -= 1
-					else:
-						buf.append('</h3>')
-			elif t == "html":
-				if params["physical"]:
-					buf.append(data)
-			else:
-				self.render_common(buf, t, data, params)
-		return "".join(buf)
-
-	def searchable_text(self):
-		assert self.finished
-		buf = []
-		for t, data, _ in self.code:
-			if not t == "text":
-				continue
-			buf.append(data)
-		return common.normalize_text("".join(buf))
-
+# TODO Should merge this with the thing we have for the biblio and with the
+# one we have in the parser. Or at least use the same method names.
 class Serializer:
 
 	def __init__(self):
@@ -538,18 +54,20 @@ class Serializer:
 	def push(self, node):
 		if not isinstance(node, tree.Node):
 			node = tree.String(node)
-		self.stack.append(node.copy()) # XXX should clarify copies in tree.py
+		self.stack.append(node.copy())
 
 	def pop(self):
 		assert len(self.stack) > 1
-		node = self.stack.pop()
-		self.append(node)
+		return self.stack.pop()
+
+	def join(self):
+		self.append(self.pop())
 
 	def append(self, node):
-		self.stack[-1].append(node.copy()) # XXX should clarify copies in tree.py
+		self.stack[-1].append(node.copy())
 
 	def extend(self, node_iter):
-		self.stack[-1].extend(x.copy() for x in node_iter) # XXX should clarify copies in tree.py
+		self.stack[-1].extend(node.copy() for node in node_iter)
 
 class Document:
 
@@ -569,7 +87,7 @@ class Document:
 		self.last_modified_commit = ""
 		# Dharma identifier viz. the file's basename without the extension.
 		self.ident = ""
-		# Title, summary and hand_desc are all blocks
+		# Title, summary and hand_desc are all trees.
 		self.title = None
 		self.summary = None
 		self.hand_desc = None
@@ -625,43 +143,108 @@ class Document:
 		if self.title:
 			f.push(tree.Tag("title"))
 			f.extend(self.title)
-			f.pop()
+			f.join()
 		for author in self.authors:
 			f.push(tree.Tag("author"))
 			f.append(author)
-			f.pop()
+			f.join()
 		for editor in self.editors:
 			f.push(tree.Tag("editor"))
 			f.append(editor)
-			f.pop()
+			f.join()
 		for editor_id in self.editors_ids:
 			f.push(tree.Tag("editor_id"))
 			f.append(editor_id)
-			f.pop()
+			f.join()
 		if self.summary:
 			f.push(tree.Tag("summary"))
 			f.extend(self.summary)
-			f.pop()
+			f.join()
 		if self.edition:
 			f.push(tree.Tag("edition"))
 			f.extend(self.edition)
-			f.pop()
+			f.join()
 		if self.bibliography:
 			f.push(tree.Tag("bibliography"))
 			f.extend(self.bibliography)
-			f.pop()
-		f.pop()
+			f.join()
+		f.join()
 		return f.tree
+
+class HTMLRenderer(Serializer):
+
+	def __init__(self, document):
+		self.document = document
+		super().__init__()
+
+	def render_title(self):
+		assert self.document.title
+		self.render_common(self.document.title)
+		return self.tree
+
+	def render_children(self, node):
+		for child in node:
+			self.render_common(child)
+
+	def render_common(self, node):
+		match node:
+			case tree.Tree():
+				for child in node:
+					self.render_common(child)
+			case tree.String():
+				self.append(node)
+			case tree.Tag():
+				self.render_tag(node)
+			case _:
+				pass
+
+	def render_tag(self, node):
+		assert isinstance(node, tree.Tag)
+		match node.name:
+			case "para":
+				self.push(tree.Tag("p"))
+				for child in node:
+					self.render_common(child)
+				self.join()
+			case "list":
+				self.render_list(node)
+
+			case _:
+				assert 0, node
+
+	def render_list(self, node):
+		match node["type"]:
+			case "plain":
+				self.push(tree.Tag("ul", {"class": "list list-plain"}))
+			case "bulleted":
+				self.push(tree.Tag("ul", {"class": "list"}))
+			case "numbered":
+				self.push(tree.Tag("ol", {"class": "list"}))
+		for item in node.find("item"):
+			self.push(tree.Tag("li"))
+			self.render_children(item)
+			self.join()
+		self.join()
+
+	def render_dlist(self, node):
+		self.push(tree.Tag("dl"))
+		for child in node.children():
+			match child.name:
+				case "key":
+					self.push(tree.Tag("dt"))
+				case "value":
+					self.push(tree.Tag("dd"))
+				case _:
+					assert 0
+			self.render_children(child)
+			self.join()
+		self.join()
+
 
 class PlainRenderer:
 
 	def __init__(self, strip_physical=True):
 		self.strip_physical = strip_physical
-
-	def reset(self, buf=""):
-		self.buf = buf
-		self.indent = 0
-		self.list = []
 
 	def add(self, data):
 		if len(self.buf) == 0 or self.buf[-1] == "\n":

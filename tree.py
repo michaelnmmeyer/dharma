@@ -31,18 +31,39 @@ that used namespaces initially. However, the resulting simplicity trumps this
 not-so-accurate processing.
 
 We use XPath expressions for searching and matching, but only support a small
-subset of it. Most notably, it is only possible to
-select `Tag` and `Tree` nodes. Other types of nodes, attributes in particular,
-can only be used in predicates, as in `foo[@bar]`. We also do not support
-expressions that index node sets in some way: testing a node position in a node
-set or evaluating the length of a node set is not possible.
+subset of it. Most notably, it is only possible to select `Tag` and `Tree`
+nodes. Other types of nodes, attributes in particular, can only be used in
+predicates viz. within brackets, as in `foo[@bar]`. We also do not support
+expressions that index node sets in some way (because we are using generators
+instead of lists for computing intermediate results). Thus, testing a node
+position in a node set or evaluating the length of a node set is not possible.
+
+There is one notable difference with XPath: the text() function does not return
+strings from the tree, but returns instead a (space-normalized) string which
+concatenates all string nodes under a given subtree.
+
+For convenience, we add a few extra axes to XPath's default. They are:
+
+* `stuck-child`.
+	Returns the first child element of the current node, iff there
+	is no text or just whitespace between the current node and this
+	child.
+* `stuck-parent`.
+	Reverse of stuck-child.
+* `stuck-following-sibling`.
+	Like following-sibling, but only returns the following sibling
+	if there is no text or just whitespace between the current node
+	and the following one.
+* `stuck-preceding-sibling`.
+	Reverse of stuck-preceding-sibling.
 
 XPath expressions can use the following functions:
 
 `glob(pattern[, text])`, `iglob(pattern[, text])`
 
 Checks if `text` matches the given glob `pattern`. If `text` is not given,
-it defaults to the node's text contents.
+it defaults to the node's text contents. `iglob` is like `glob`, but is
+case-insensitive. In addition, we have:
 
 `regex(pattern[, text])`
 
@@ -58,7 +79,9 @@ code, then compile the result, and finally run the code. Compiled expressions
 are saved in a global table and are systematically reused. There is no caching
 policy for now, so it is not a good idea to generate expressions on-the-fly.
 
-Use the xpath.py command-line tool for evaluating xpath expressions.
+The xpath.py command-line tool can be used for evaluating xpath expressions. If
+it is not given any file to search into, it just prints the Python code that
+will be used for evaluating the given expression.
 '''
 
 import os, re, io, collections, sys, fnmatch, tokenize, traceback
@@ -259,12 +282,21 @@ class Node:
 		"""
 		pass
 
+	def stuck_parent(self):
+		"Reverse of `stuck_child()`."
+		parent = self.parent
+		if parent and parent.stuck_child() is self:
+			return parent
+
 	def stuck_following_sibling(self):
 		"""Returns the first `Tag` sibling of this node, if it has one
 		and if there is no intervening non-blank text in-between. Can
 		only be called on `Tag` nodes.
 		"""
 		raise Exception("bad operation")
+
+	def strings(self):
+		return []
 
 	def delete(self):
 		"""Removes this node and all its descendants from the tree.
@@ -610,6 +642,16 @@ class Branch(Node, list):
 	def prepend(self, node):
 		self.insert(0, node)
 
+	def strings(self):
+		ret = []
+		for node in self:
+			match node:
+				case String():
+					ret.append(node)
+				case Tag():
+					ret.extend(node.strings())
+		return ret
+
 class Tree(Branch):
 	'''`Tree` represents the XML document proper. It must contain a single
 	tag node and optionally comments and processing instructions. `Tree`
@@ -898,6 +940,9 @@ class String(Node, collections.UserString):
 	def plain(self):
 		return True
 
+	def strings(self):
+		return [self]
+
 	def append(self, data):
 		"Adds text at the end of this `String`."
 		if not data:
@@ -1178,31 +1223,7 @@ def stuck_parent(node):
 		return
 	parent = node.parent
 	if parent.stuck_child() is node:
-		return parent
-
-def children(node):
-	assert isinstance(node, Node)
-	for child in node:
-		if isinstance(child, Tag):
-			yield child
-
-def stuck_children(node):
-	assert isinstance(node, Node)
-	if not isinstance(node, Branch):
-		return
-	i = 0
-	while i < len(node):
-		child = node[i]
-		match child:
-			case Tag():
-				yield child
-			case String() if child.isspace():
-				pass
-			case Comment() | Instruction():
-				pass
-			case _:
-				break
-		i += 1
+		yield parent
 
 def stuck_following_siblings(node):
 	assert isinstance(node, Node)
@@ -1241,6 +1262,12 @@ def stuck_preceding_siblings(node):
 			case _:
 				break
 		i -= 1
+
+def children(node):
+	assert isinstance(node, Node)
+	for child in node:
+		if isinstance(child, Tag):
+			yield child
 
 def descendants(node):
 	assert isinstance(node, Node)
@@ -1341,7 +1368,7 @@ class Generator:
 		self.routines_nr = 0
 		self.env = {f.__name__: f
 			for funcs in (xpath_funcs.values(), (Tag, Tree,
-				children, stuck_children,
+				children,
 				descendants, descendants_or_self,
 				ancestors, ancestors_or_self,
 				following_siblings, stuck_following_siblings,
@@ -1461,7 +1488,11 @@ class Generator:
 					if not step.name_test:
 						self.append("if node is not None:")
 				case "stuck-child":
-					self.append("node = stuck_parent(node)")
+					self.append("node = node.stuck_parent()")
+					if not step.name_test:
+						self.append("if node is not None:")
+				case "stuck-parent":
+					self.append("node = node.stuck_child()")
 					if not step.name_test:
 						self.append("if node is not None:")
 				case "descendant-or-self" if step.abbreviated:
@@ -1491,7 +1522,11 @@ class Generator:
 			case "child":
 				self.append("for node in children(node):")
 			case "stuck-child":
-				self.append("for node in stuck_children(node):")
+				self.append("node = node.stuck_child()")
+				self.append("if node is not None:")
+			case "stuck-parent":
+				self.append("node = node.stuck_parent()")
+				self.append("if node is not None:")
 			case "descendant":
 				self.append("for node in descendants(node):")
 			case "descendant-or-self":

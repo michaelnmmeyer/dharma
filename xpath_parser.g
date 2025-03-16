@@ -98,6 +98,7 @@ AxisName:
 	| "preceding-sibling"
 	| "self"
 	| "stuck-child"
+	| "stuck-parent"
 	| "stuck-following-sibling"
 	| "stuck-preceding-sibling"
 

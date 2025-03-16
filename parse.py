@@ -1,4 +1,4 @@
-# For parsing TEI files into a Document object
+# For parsing TEI files into Document objects
 
 import os, sys, re, html, urllib.parse, logging, posixpath
 from dharma import prosody, people, tree, gaiji, common, biblio, langs, document
@@ -31,13 +31,21 @@ class Parser:
 		#----- NEW stuff
 		self.stack = []
 
-	def push(self, node=None):
-		if node is None:
-			node = tree.Tree()
+	def push(self, node, **attrs):
+		match node:
+			case tree.Node():
+				pass
+			case str():
+				node = tree.Tag(node, attrs)
+			case _:
+				raise Exception
 		self.stack.append(node)
 
 	def pop(self):
 		return self.stack.pop()
+
+	def join(self):
+		self.append(self.pop())
 
 	@property
 	def top(self):
@@ -155,7 +163,7 @@ class Parser:
 def parse_code(p, code):
 	p.push(tree.Tag("code"))
 	p.dispatch_children(code)
-	p.append(p.pop())
+	p.join()
 
 @handler("lem")
 def parse_lem(p, lem):
@@ -289,7 +297,7 @@ def parse_ref(p, ref):
 		klass += " text-id"
 	p.push(tree.Tag("a", {"href": url, "class": klass}))
 	p.dispatch_children(ref)
-	p.append(p.pop())
+	p.join()
 
 @handler("ref[@target]") # ref[@target and empty()]
 @handler("ptr[@target]") # ptr[@target and empty()]
@@ -301,7 +309,7 @@ def parse_ref_empty(p, ref):
 		klass += " text-id"
 	p.push(tree.Tag("a", {"href": url, "class": klass}))
 	p.add_text(url.removeprefix("/texts/"))
-	p.append(p.pop())
+	p.join()
 
 @handler("ref") # ref[not @target]
 @handler("ptr") # ptr[not @target]
@@ -528,7 +536,7 @@ def parse_note(p, note):
 def parse_foreign(p, foreign):
 	p.push(tree.Tag("i"))
 	p.dispatch_children(foreign)
-	p.append(p.pop())
+	p.join()
 
 # <milestones
 
@@ -543,17 +551,14 @@ def milestone_n(p, node):
 	return get_n(node)
 
 def milestone_break(node):
-	brk = node["break"]
-	if brk not in ("yes", "no"):
-		brk = "yes"
-	return brk == "yes"
+	return common.to_boolean(node["break"], True)
 
 def milestone_unit_type(milestone):
 	unit = milestone["unit"] or "column"
-	typ = milestone["type"]
-	if typ not in ("pagelike", "gridlike"):
-		typ = "gridlike"
-	return unit, typ
+	type = milestone["type"]
+	if type not in ("pagelike", "gridlike"):
+		type = "gridlike"
+	return unit, type
 
 @handler("milestone")
 # TODO milestone type="ref"
@@ -1012,7 +1017,7 @@ def parse_g_numeral(p, node):
 			p.append(sub)
 	else:
 		p.dispatch_children(node)
-	p.append(p.pop())
+	p.join()
 
 # g[not @type='numeral']
 @handler("g")
@@ -1191,7 +1196,7 @@ def parse_p(p, para):
 		print_as_grantha(p, para)
 	else:
 		p.dispatch_children(para)
-	p.append(p.pop())
+	p.join()
 
 @handler("l")
 def parse_l(p, l):
@@ -1254,14 +1259,10 @@ réduire les espaces entre ce qui précède et suit du para + entre les items
 <p><list><item>...</item></list> bla bla bla</p>
 """
 
-"""
-In HTML, we cannot have <p><ul>...</ul></p>, the <ul> or <ol> must be outside of
-<p>, so we need to generate a compatible representation.
-
-Should we interpret <item><p>foo</p></item> the same as <item>foo</item>? I
-think so.
-
-"""
+# In HTML, we cannot have <p><ul>...</ul></p>, the <ul> or <ol> must be outside
+# of <p>, so we need to generate a compatible representation. OTOH, HTML allows
+# <dl> within <p>, so no special treatment is needed in this case. Still, it
+# might be better to use the same structure for both.
 
 @handler("list[@rend='description' or label]")
 def parse_description_list(p, lst):
@@ -1272,11 +1273,11 @@ def parse_description_list(p, lst):
 		p.push(tree.Tag("key"))
 		if label:
 			p.dispatch_children(label)
-		p.append(p.pop())
+		p.join()
 		p.push(tree.Tag("value"))
 		p.dispatch_children(item)
-		p.append(p.pop())
-	p.append(p.pop())
+		p.join()
+	p.join()
 
 @handler("list")
 def parse_list(p, lst):
@@ -1290,8 +1291,8 @@ def parse_list(p, lst):
 		# DHARMA_INSSII0501358; deal with that in the rendering
 		# code
 		p.dispatch_children(item)
-		p.append(p.pop())
-	p.append(p.pop())
+		p.join()
+	p.join()
 
 @handler("label")
 def parse_label(p, label):
@@ -1311,7 +1312,7 @@ def parse_listBibl(p, node):
 	if typ:
 		p.push(tree.Tag("head"))
 		p.add_text(common.sentence_case(typ))
-		p.append(p.pop())
+		p.join()
 	p.dispatch_children(node)
 
 # Title of the edited text (in the teiHeader).
@@ -1422,7 +1423,7 @@ def parse_titleStmt(p, stmt):
 	# join them into a single string.
 	# The EGD prescribes to only use a plain string within <title>, but we
 	# relax this rule and allow tags here. See e.g. DHARMA_INSPallava00506.
-	p.push()
+	p.push(tree.Tree())
 	parts = stmt.find("title")
 	for i, part in enumerate(parts):
 		if i > 0:
@@ -1488,13 +1489,13 @@ def parse_contents_summary(p, summ):
 	# We're supposed to have either a series of <p>, or a piece of text
 	# without divisions. If we have no <p>, create one and wrap the
 	# whole contents into it.
-	p.push()
+	p.push(tree.Tree())
 	if summ.find("p"):
 		p.dispatch_children(summ)
 	else:
 		p.push(tree.Tag("p"))
 		p.dispatch_children(summ)
-		p.append(p.pop())
+		p.join()
 	p.document.summary = p.pop()
 
 # We expect a single occurrence.
@@ -1513,33 +1514,84 @@ def get_script(node):
 	script = langs.get_script(klass)
 	return script
 
+def trim_left(strings):
+	while strings:
+		s = strings[0]
+		if len(s) == 0 or s.isspace():
+			s.delete()
+			del strings[0]
+			continue
+		if s[0].isspace():
+			s.replace_with(s.data.lstrip())
+		break
+
+def trim_right(strings):
+	while strings:
+		s = strings[-1]
+		if len(s) == 0 or s.isspace():
+			s.delete()
+			strings.pop()
+			continue
+		if s[0].isspace():
+			s.replace_with(s.data.lstrip())
+		break
+
+def squeeze(strings):
+	i = 0
+	while i < len(strings):
+		s = strings[i]
+		if len(s) == 0:
+			s.delete()
+			del strings[i]
+			continue
+		ret = re.sub(r"\s+", " ", s.data)
+		if ret[0] == " " and i > 0 and strings[i - 1][-1] == " ":
+			ret = ret[1:]
+		if ret != s.data:
+			s.replace_with(ret)
+		i += 1
+
+def cleanup_descendant_spaces(node):
+	strings = node.strings()
+	trim_left(strings)
+	trim_right(strings)
+	squeeze(strings)
+
+def cleanup_child_spaces(node):
+	strings = [child for child in node if isinstance(child, tree.String)]
+	trim_left(strings)
+	trim_right(strings)
+	squeeze(strings)
+
 # Within inscriptions, <div> shouldn't nest, except that we can have
 # <div type="textpart"> within <div type="edition">.
-# All the DHARMA_INSEC* stuff don't follow the INS schema, too different.
+# The DHARMA_INSEC* stuff don't follow the INS schema, too different.
+# We expect:
+# <div type="textpart" n="..."><head>...</head>?<note>?
 @handler("div[@type='textpart']")
 def parse_div(p, div):
 	n = milestone_n(p, div)
 	p.push(tree.Tag("div", n=n))
 	p.push(tree.Tag("head"))
+	# If there is a user-specified heading, use it, otherwise generate one.
 	if (head := div.first("stuck-child::head")):
-		# User-specified heading, use it.
 		p.dispatch_children(head)
 		p.visited.add(head)
 		note = head.first("stuck-following-sibling::note")
 	else:
-		# No user-specified heading, generate one.
 		subtype = div["subtype"] or "part"
 		p.add_text(common.sentence_case(subtype))
 		p.add_text(" ")
 		p.add_text(n)
 		note = div.first("stuck-child::note")
-	while note:
+	if note:
 		p.dispatch(note)
 		p.visited.add(note)
 		note = note.first("stuck-following-sibling::note")
-	p.append(p.pop()) # </head>
-	p.dispatch_children(div)
-	p.append(p.pop()) # </div>
+	p.join() # </head>
+	p.dispatch_children(div, only_tags=True)
+	p.join() # </div>
+	cleanup_child_spaces(p.top)
 
 # We're supposed to have either a series of <div> that covers all the text, or no div at all.
 def gather_sections(p, div):
@@ -1643,8 +1695,8 @@ def gather_biblio(p):
 
 @handler("div[@type='edition']")
 def parse_div_edition(p, div):
-	p.push()
-	p.dispatch_children(div)
+	p.push(tree.Tree())
+	p.dispatch_children(div, only_tags=True)
 	p.document.edition = p.pop()
 
 @handler("div[@type='edition' or @type='apparatus' or @type='commentary']")
@@ -1654,13 +1706,14 @@ def parse_div_edition2(p, div):
 
 @handler("div[@type='bibliography']")
 def parse_div_bibliography(p, div):
-	p.push()
-	p.dispatch_children(div)
+	p.push(tree.Tree())
+	p.dispatch_children(div, only_tags=True)
 	p.document.bibliography = p.pop()
 
 @handler("div[@type='translation']")
 def parse_div_translation(p, div):
 	p.clear_divs()
+	p.dispatch_children(div, only_tags=True)
 	trans = process_translation(p, div)
 	if trans is not None:
 		p.document.translation.append(trans)

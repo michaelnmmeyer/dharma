@@ -35,18 +35,39 @@ that used namespaces initially. However, the resulting simplicity trumps this
 not-so-accurate processing.
 
 We use XPath expressions for searching and matching, but only support a small
-subset of it. Most notably, it is only possible to
-select `Tag` and `Tree` nodes. Other types of nodes, attributes in particular,
-can only be used in predicates, as in `foo[@bar]`. We also do not support
-expressions that index node sets in some way: testing a node position in a node
-set or evaluating the length of a node set is not possible.
+subset of it. Most notably, it is only possible to select `Tag` and `Tree`
+nodes. Other types of nodes, attributes in particular, can only be used in
+predicates viz. within brackets, as in `foo[@bar]`. We also do not support
+expressions that index node sets in some way (because we are using generators
+instead of lists for computing intermediate results). Thus, testing a node
+position in a node set or evaluating the length of a node set is not possible.
+
+There is one notable difference with XPath: the text() function does not return
+strings from the tree, but returns instead a (space-normalized) string which
+concatenates all string nodes under a given subtree.
+
+For convenience, we add a few extra axes to XPath's default. They are:
+
+* `stuck-child`.
+	Returns the first child element of the current node, iff there
+	is no text or just whitespace between the current node and this
+	child.
+* `stuck-parent`.
+	Reverse of stuck-child.
+* `stuck-following-sibling`.
+	Like following-sibling, but only returns the following sibling
+	if there is no text or just whitespace between the current node
+	and the following one.
+* `stuck-preceding-sibling`.
+	Reverse of stuck-preceding-sibling.
 
 XPath expressions can use the following functions:
 
 `glob(pattern[, text])`, `iglob(pattern[, text])`
 
 Checks if `text` matches the given glob `pattern`. If `text` is not given,
-it defaults to the node's text contents.
+it defaults to the node's text contents. `iglob` is like `glob`, but is
+case-insensitive. In addition, we have:
 
 `regex(pattern[, text])`
 
@@ -62,7 +83,9 @@ code, then compile the result, and finally run the code. Compiled expressions
 are saved in a global table and are systematically reused. There is no caching
 policy for now, so it is not a good idea to generate expressions on-the-fly.
 
-Use the xpath.py command-line tool for evaluating xpath expressions.
+The xpath.py command-line tool can be used for evaluating xpath expressions. If
+it is not given any file to search into, it just prints the Python code that
+will be used for evaluating the given expression.
 
 <a id="dharma.tree.Location"></a>
 
@@ -261,6 +284,16 @@ def stuck_child()
 Returns the first `Tag` child of this node, if it has one
 and if there is no intervening non-blank text in-between. Can
 only be called on `Branch` nodes.
+
+<a id="dharma.tree.Node.stuck_parent"></a>
+
+#### stuck\_parent
+
+```python
+def stuck_parent()
+```
+
+Reverse of `stuck_child()`.
 
 <a id="dharma.tree.Node.stuck_following_sibling"></a>
 
