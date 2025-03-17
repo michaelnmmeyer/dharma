@@ -64,6 +64,8 @@ class Serializer:
 		self.append(self.pop())
 
 	def append(self, node):
+		if not isinstance(node, tree.Node):
+			node = tree.String(node)
 		self.stack[-1].append(node.copy())
 
 	def extend(self, node_iter):
@@ -171,15 +173,22 @@ class Document:
 		f.join()
 		return f.tree
 
+	def html(self, what):
+		match what:
+			case "title":
+				return HTMLRenderer(self.title).render()
+			case _:
+				raise Exception
+
 class HTMLRenderer(Serializer):
 
-	def __init__(self, document):
-		self.document = document
+	def __init__(self, root):
+		assert root
+		self.root = root
 		super().__init__()
 
-	def render_title(self):
-		assert self.document.title
-		self.render_common(self.document.title)
+	def render(self):
+		self.render_common(self.root)
 		return self.tree
 
 	def render_children(self, node):
@@ -189,8 +198,7 @@ class HTMLRenderer(Serializer):
 	def render_common(self, node):
 		match node:
 			case tree.Tree():
-				for child in node:
-					self.render_common(child)
+				self.render_children(node)
 			case tree.String():
 				self.append(node)
 			case tree.Tag():
@@ -228,7 +236,7 @@ class HTMLRenderer(Serializer):
 
 	def render_dlist(self, node):
 		self.push(tree.Tag("dl"))
-		for child in node.children():
+		for child in node.find("*"):
 			match child.name:
 				case "key":
 					self.push(tree.Tag("dt"))

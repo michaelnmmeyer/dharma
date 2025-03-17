@@ -19,10 +19,10 @@ def iter_members_list():
 		rec = person.first("persName")
 		name = rec.find("name")
 		if name:
-			assert len(rec.children()) == 1, rec
+			assert len(rec.find("*")) == 1, rec
 			row["name"] = [name[0].text()]
 		else:
-			assert len(rec.children()) == 2, rec
+			assert len(rec.find("*")) == 2, rec
 			first = rec.first("forename").text()
 			last = rec.first("surname").text()
 			row["name"] = [first, last]

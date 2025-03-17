@@ -10,7 +10,10 @@ HANDLERS = []
 def handler(path):
 	def decorator(f):
 		HANDLERS.append((tree.Node.match_func(path), f))
-		return f
+		def inner(*args, **kwargs):
+			print(f"at {path!r}, func {f.__name__}", file=sys.stderr)
+			f(*args, **kwargs)
+		return inner
 	return decorator
 
 class Parser:
@@ -20,10 +23,7 @@ class Parser:
 		self.document = document.Document()
 		self.document.tree = self.tree
 		self.document.ident = os.path.basename(os.path.splitext(self.tree.file)[0])
-		# Stack of blocks.
-		#self.blocks = [Block()]
 		self.handlers = HANDLERS
-		#self.divs = []
 		# Nodes in this set are ignored in dispatch(). These nodes
 		# still remain in the tree and are still accessible from
 		# within handlers.
@@ -74,14 +74,6 @@ class Parser:
 	def extend(self, nodes):
 		for node in nodes:
 			self.append(node)
-
-#	@property
-#	def within_div(self):
-#		return len(self.divs) > 1
-
-#	def clear_divs(self):
-#		self.divs.clear()
-#		self.divs.append(set())
 
 	def add_text(self, text):
 		self.top.append(str(text))
@@ -135,7 +127,7 @@ class Parser:
 				self.add_text(str(node).replace("'", "’"))
 				return
 			case tree.Tag():
-				pass
+				print(node.path, file=sys.stderr)
 			case _:
 				assert 0
 		for matcher, f in self.handlers:
@@ -472,9 +464,9 @@ def parse_add(p, node, dele=None):
 	if dele:
 		tip += f' (overwritten text: <span class="del">⟦{html.escape(dele)}⟧</span>)'
 	p.start_span(klass="add", tip=tip)
-	p.add_html("⟨⟨")
+	p.add_text("⟨⟨")
 	p.dispatch_children(node)
-	p.add_html("⟩⟩")
+	p.add_text("⟩⟩")
 	p.end_span()
 
 # § Premodern deletion
@@ -495,9 +487,9 @@ def parse_del(p, node, add=None):
 	if add:
 		tip += f' (replacement text: <span class="add">⟨⟨{html.escape(add)}⟩⟩</add>)'
 	p.start_span(klass="del", tip=tip)
-	p.add_html("⟦")
+	p.add_text("⟦")
 	p.dispatch_children(node)
-	p.add_html("⟧")
+	p.add_text("⟧")
 	p.end_span()
 
 # § Premodern correction
@@ -507,7 +499,7 @@ def parse_subst(p, subst):
 	# (del, add)
 	# Use the text of <add> for search
 	#XXX schema is valid?
-	children = subst.children()
+	children = subst.find("*")
 	if len(children) == 2 and children[0].matches("del") and children[1].matches("add"):
 		# TODO should be rendered into a block, not necessarily plain text!
 		parse_del(p, children[0], children[1].text())
@@ -540,43 +532,71 @@ def parse_foreign(p, foreign):
 
 # <milestones
 
-def get_n(node, default="?"):
+def get_n(node):
 	n = node["n"]
 	if not n:
-		return default
+		return
 	n = n.replace("_", " ").replace("-", "\N{en dash}")
 	return n
-
-def milestone_n(p, node):
-	return get_n(node)
-
-def milestone_break(node):
-	return common.to_boolean(node["break"], True)
-
-def milestone_unit_type(milestone):
-	unit = milestone["unit"] or "column"
-	type = milestone["type"]
-	if type not in ("pagelike", "gridlike"):
-		type = "gridlike"
-	return unit, type
 
 @handler("milestone")
 # TODO milestone type="ref"
 def parse_milestone(p, milestone):
-	n = milestone_n(p, milestone)
-	brk = milestone_break(milestone)
-	unit, typ = milestone_unit_type(milestone)
+	n = get_n(milestone)
+	brk = common.to_boolean(milestone["break"], True)
+	unit = milestone["unit"] or "column"
+	type = milestone["type"]
+	if type not in ("pagelike", "gridlike"):
+		type = "gridlike"
 	next_sibling = milestone.stuck_following_sibling()
 	if next_sibling and next_sibling.name == "label":
 		label = next_sibling.text() # XXX handle markup
 	else:
 		label = None
-	p.add_phys("=" + unit, type=typ, n=n, brk=brk, label=label)
+	p.add_phys("=" + unit, type=type, n=n, brk=brk, label=label)
+
+"""
+what shall we do
+
+
+LOGICAL
+elif data.startswith("=") and params["type"] == "pagelike":
+	unit = html.escape(data[1:].title())
+	text = f"⟨{unit} {params['n']}"
+	if params["label"]:
+		text += f": {params['label']}"
+	text += "⟩"
+	buf.append('<span class="pagelike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
+elif data.startswith("=") and params["type"] == "gridlike":
+	unit = html.escape(data[1:].title())
+	text = f"⟨{unit} {params['n']}"
+	if params["label"]:
+		text += f": {params['label']}"
+	text += "⟩"
+	buf.append('<span class="gridlike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
+else:
+
+PHYSICAL
+elif data.startswith("=") and params["type"] == "pagelike":
+	unit = html.escape(data[1:].title())
+	text = f"{unit} {params['n']}"
+	if params["label"]:
+		text += f": {params['label']}"
+	buf.append('<div class="pagelike"><span data-tip="%s start">%s</span></div>' % (unit, html.escape(text)))
+elif data.startswith("=") and params["type"] == "gridlike":
+	unit = html.escape(data[1:].title())
+	text = f"⟨{unit} {params['n']}"
+	if params["label"]:
+		text += f": {params['label']}"
+	text += "⟩"
+	buf.append('<span class="gridlike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
+else:
+"""
 
 @handler("lb")
 def parse_lb(p, elem):
-	n = milestone_n(p, elem)
-	brk = milestone_break(elem)
+	n = get_n(elem)
+	brk = common.to_boolean(elem["break"], True)
 	# On alignment, EGD §7.5.2
 	m = re.match(r"^text-align:\s?(right|center|left|justify)$", elem["style"])
 	if m:
@@ -606,7 +626,7 @@ fw_places = {
 # we should allow this anyway.
 @handler("pb")
 def parse_pb(p, elem):
-	n = milestone_n(p, elem)
+	n = get_n(elem)
 	brk = milestone_break(elem)
 	p.add_phys("{page", n=n, brk=brk)
 	fws = []
@@ -725,7 +745,7 @@ def parse_reg(p, reg, orig=None):
 # these tags.
 @handler("choice")
 def parse_choice(p, node):
-	children = node.children()
+	children = node.find("*")
 	if all(child.name == "unclear" for child in children):
 		# <choice>(<unclear>...</unclear>)+</choice>
 		# In this case for search and plain just keep the text of the 1st unclear.
@@ -1076,15 +1096,6 @@ def print_as_grantha(p, node): # XXX cannot nest <div> within <p>
 	p.dispatch_children(node)
 	#p.add_html('</div>')
 
-@handler("ab")
-def parse_ab(p, ab):
-	p.add_log("<para")
-	if get_script(ab).id == "grantha":
-		print_as_grantha(p, ab)
-	else:
-		p.dispatch_children(ab)
-	p.add_log(">para")
-
 # XXX we have intervening <lb/>, etc. within <hi>, so when rendering the
 # physical display, must use <div> for some of these.
 hi_table = {
@@ -1181,6 +1192,13 @@ def parse_lg(p, lg):
 		p.dispatch_children(lg)
 	p.add_log(">verse")
 
+@handler("ab")
+def parse_ab(p, ab):
+	p.push(tree.Tag("para"))
+	p.dispatch_children(ab)
+	p.join()
+	cleanup_descendant_spaces(p.top)
+
 @handler("p")
 def parse_p(p, para):
 	# We deal with stanzas rendering elsewhere
@@ -1197,6 +1215,7 @@ def parse_p(p, para):
 	else:
 		p.dispatch_children(para)
 	p.join()
+	cleanup_descendant_spaces(p.top)
 
 @handler("l")
 def parse_l(p, l):
@@ -1338,19 +1357,16 @@ def parse_title(p, title):
 	p.end_span()
 
 @handler("q")
-def parse_q(p, q):
-	if q["rend"] == "block":
-		p.add_log("<blockquote")
-		p.dispatch_children(q)
-		p.add_log(">blockquote")
-	else:
-		p.add_html("“")
-		p.dispatch_children(q)
-		p.add_html("”")
-
 @handler("quote")
-def parse_quote(p, quote):
-	return parse_q(p, quote)
+def parse_quote(p, q):
+	if q["rend"] == "block":
+		p.push(tree.Tag("blockquote"))
+		p.dispatch_children(q)
+		p.join()
+	else:
+		p.add_text("“")
+		p.dispatch_children(q)
+		p.add_text("”")
 
 @handler("cit")
 def parse_cit(p, cit):
@@ -1360,23 +1376,25 @@ def parse_cit(p, cit):
 	# </cit>
 	#
 	# "the text" (Agrawala 1983)
-	children = cit.children()
-	if len(children) != 2 or children[0].name not in ("q", "quote") \
-		or children[1].name != "bibl":
-		p.dispatch_children(cit)
+	q = cit.first("*[name() = 'q' or name() = 'quote']")
+	bibl = cit.first("bibl")
+	if not bibl and not q:
 		return
-	q, bibl = children
+	if not bibl:
+		return p.dispatch_children(q)
+	if not q:
+		return p.dispatch_children(bibl)
 	if q["rend"] == "block":
-		p.add_log("<blockquote")
+		p.push(tree.Tag("blockquote"))
 		p.dispatch_children(q)
 		p.add_text(" (")
 		p.dispatch(bibl)
 		p.add_text(")")
-		p.add_log(">blockquote")
+		p.join()
 	else:
-		p.add_html("“")
+		p.add_text("“")
 		p.dispatch_children(q)
-		p.add_html("”")
+		p.add_text("”")
 		p.add_text(" (")
 		p.dispatch(bibl)
 		p.add_text(")")
@@ -1440,23 +1458,26 @@ def parse_titleStmt(p, stmt):
 	p.document.editors = editors
 	p.document.editors_ids = editors_ids
 
-@handler("roleName")
-@handler("measure")
-@handler("date")
-@handler("placeName")
-@handler("persName")
-@handler("text")
-@handler("term")
-@handler("gloss")
+# XXX we don't want inner calls, these shouldn't pile up!
+@handler("text//roleName")
+@handler("text//measure")
+@handler("text//date")
+@handler("text//placeName")
+@handler("text//persName")
+@handler("text//text")
+@handler("text//term")
+@handler("text//gloss")
 def parse_just_dispatch_all(p, node):
 	p.dispatch_children(node)
 
-@handler("/TEI")
+@handler("TEI") # /TEI
 @handler("teiHeader") # /TEI/teiHeader
 @handler("fileDesc") # /TEI/teiHeader/fileDesc
 @handler("sourceDesc") # /TEI/teiHeader/fileDesc/sourceDesc
 @handler("msDesc") # /TEI/teiHeader/fileDesc/sourceDesc/msDesc
 @handler("msContents") # /TEI/teiHeader/fileDesc/sourceDesc/msDesc/msContents
+@handler("text") # /TEI/text
+@handler("body") # /TEI/text/body
 def parse_just_dispatch(p, node):
 	p.dispatch_children(node, only_tags=True)
 
@@ -1570,7 +1591,7 @@ def cleanup_child_spaces(node):
 # <div type="textpart" n="..."><head>...</head>?<note>?
 @handler("div[@type='textpart']")
 def parse_div(p, div):
-	n = milestone_n(p, div)
+	n = get_n(div)
 	p.push(tree.Tag("div", n=n))
 	p.push(tree.Tag("head"))
 	# If there is a user-specified heading, use it, otherwise generate one.
@@ -1718,9 +1739,9 @@ def parse_div_translation(p, div):
 	if trans is not None:
 		p.document.translation.append(trans)
 
-@handler("body")
-def parse_body(p, body):
-	p.dispatch_children(body)
+@handler("teiHeader/*")
+def parse_in_teiHeader(p, node):
+	p.dispatch_children(node, only_tags=True)
 
 def process_file(file, mode=None):
 	try:
@@ -1753,7 +1774,7 @@ def process_file(file, mode=None):
 	# in the file, because this div might itself reference bibliography
 	# entries. We thus need to go directly for the listBibl/bibl items.
 	gather_biblio(p)
-	p.dispatch(p.tree.first("//div[@type='edition']"))#XXX
+	p.dispatch(p.tree.root)
 	all_langs = set()
 	for node in t.find("//*"):
 		all_langs.add(node.assigned_lang)

@@ -2,7 +2,7 @@
 
 % block title
 % if doc.title:
-   {{doc.title.render_logical() | safe}}
+   {{doc.html("title") | safe}}
 % else:
    <i>Untitled</i>
 % endif
@@ -25,6 +25,8 @@
 </nav>
 % endif
 % endblock
+
+{#
 
 % block body
 <div id="inscription-display">
@@ -175,3 +177,5 @@ Version: {{doc.commit_date | format_date}}
 </div>
 </div>
 % endblock
+
+#}

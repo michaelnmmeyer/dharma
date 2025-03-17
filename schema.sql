@@ -28,7 +28,7 @@ pragma mmap_size = 4294967296;
 -- For how to handle modifications to a collation implementation, see:
 -- https://sqlite.org/forum/info/5317344555f7a5f2
 -- When we change a collation (or other custom functions that modify
--- columns, etc.), should always issue a reindex.
+-- columns, etc.), should always issue a reindex, but this is not done for now.
 pragma integrity_check;
 
 

@@ -1929,7 +1929,7 @@ contains an expression in some formal style definition language which defines th
 <b>
 @type
 </b>
-characterizes the element in some sense, using any convenient classification scheme or typology. Sample values include: 1] numeral
+characterizes the element in some sense, using any convenient classification scheme or typology.
 </li>
 </ul>
 <h4>Parents</h4>
@@ -2815,14 +2815,68 @@ points to a description of the rendering or presentation used for this element i
 <h3>
 &lt;lb&gt;:
 </h3>
- (line-beginning) marks the start of each line of the transcribed text, including the first [3.10.3. Milestone Elements 7.2.5. Speech Contents]
+ (line beginning) marks the beginning of a new (typographic) line in some edition or version of a text. [3.10.3. Milestone Elements 7.2.5. Speech Contents]
 <h4>Attributes</h4>
 <ul>
+<li>
+<b>
+@ana
+</b>
+(analysis) indicates one or more elements containing interpretations of the element on which the @ana attribute appears.
+</li>
 <li>
 <b>
 @break
 </b>
 indicates whether or not the element bearing this attribute should be considered to mark the end of an orthographic token in the same way as whitespace.
+</li>
+<li>
+<b>
+@cert
+</b>
+(certainty) signifies the degree of certainty associated with the intervention or interpretation.
+</li>
+<li>
+<b>
+@change
+</b>
+points to one or more &lt;change&gt; elements documenting a state or revision campaign to which the element bearing this attribute and its children have been assigned by the encoder.
+</li>
+<li>
+<b>
+@copyOf
+</b>
+points to an element of which the current element is a copy.
+</li>
+<li>
+<b>
+@corresp
+</b>
+(corresponds) points to elements that correspond to the current element in some way.
+</li>
+<li>
+<b>
+@ed
+</b>
+(edition) supplies a sigil or other arbitrary identifier for the source edition in which the associated feature (for example, a page, column, or line break) occurs at this point in the text.
+</li>
+<li>
+<b>
+@edRef
+</b>
+(edition reference) provides a pointer to the source edition in which the associated feature (for example, a page, column, or line break) occurs at this point in the text.
+</li>
+<li>
+<b>
+@exclude
+</b>
+points to elements that are in exclusive alternation with the current element.
+</li>
+<li>
+<b>
+@facs
+</b>
+(facsimile) points to all or part of an image which corresponds with the content of the element.
 </li>
 <li>
 <b>
@@ -2832,15 +2886,105 @@ indicates whether or not the element bearing this attribute should be considered
 </li>
 <li>
 <b>
+@next
+</b>
+points to the next element of a virtual aggregate of which the current element is part.
+</li>
+<li>
+<b>
+@prev
+</b>
+(previous) points to the previous element of a virtual aggregate of which the current element is part.
+</li>
+<li>
+<b>
 @rend
 </b>
 (rendition) indicates how the element in question was rendered or presented in the source text.
 </li>
 <li>
 <b>
+@rendition
+</b>
+points to a description of the rendering or presentation used for this element in the source text.
+</li>
+<li>
+<b>
+@resp
+</b>
+(responsible party) indicates the agency responsible for the intervention or interpretation, for example an editor or transcriber.
+</li>
+<li>
+<b>
+@sameAs
+</b>
+points to an element that is the same as the current element.
+</li>
+<li>
+<b>
+@select
+</b>
+selects one or more alternants; if one alternant is selected, the ambiguity or uncertainty is marked as resolved. If more than one alternant is selected, the degree of ambiguity or uncertainty is marked as reduced by the number of alternants not selected.
+</li>
+<li>
+<b>
+@source
+</b>
+specifies the source from which some aspect of this element is drawn.
+</li>
+<li>
+<b>
+@spanTo
+</b>
+indicates the end of a span initiated by the element bearing this attribute.
+</li>
+<li>
+<b>
 @style
 </b>
 contains an expression in some formal style definition language which defines the rendering or presentation used for this element in the source text
+</li>
+<li>
+<b>
+@subtype
+</b>
+provides a sub-categorization of the element, if needed
+</li>
+<li>
+<b>
+@synch
+</b>
+(synchronous) points to elements that are synchronous with the current element.
+</li>
+<li>
+<b>
+@type
+</b>
+characterizes the element in some sense, using any convenient classification scheme or typology.
+</li>
+<li>
+<b>
+@xml:base
+</b>
+provides a base URI reference with which applications can resolve relative URI references into absolute URI references.
+</li>
+<li>
+<b>
+@xml:id
+</b>
+(identifier) provides a unique identifier for the element bearing the attribute.
+</li>
+<li>
+<b>
+@xml:lang
+</b>
+(language) indicates the language of the element content using a tag generated according to BCP 47.
+</li>
+<li>
+<b>
+@xml:space
+</b>
+signals an intention about how white space should be managed by applications.
 </li>
 </ul>
 <h4>Parents</h4>

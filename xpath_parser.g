@@ -94,6 +94,7 @@ AxisName:
 	| "descendant-or-self"
 	| "descendant"
 	| "following-sibling"
+	| "following"
 	| "parent"
 	| "preceding-sibling"
 	| "self"
