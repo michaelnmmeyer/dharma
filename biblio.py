@@ -345,6 +345,13 @@ class Writer:
 			self.add("Untitled")
 		self.period()
 
+	def roman(self, title):
+		if not title:
+			return
+		self.space()
+		self.add(title)
+		self.period()
+
 	def blog_title(self, title):
 		if not title:
 			return
@@ -979,11 +986,14 @@ def render_thesis(rec, w, params):
 """
 def render_webpage(rec, w, params):
 	w.entry_front(rec)
-	w.quoted(rec["title"])
+	if rec["title"]:
+		w.quoted(rec["title"])
 	if rec["_shorthand"]:
 		w.by_authors(rec)
 	if rec["_shorthand"] and rec["date"]:
 		w.date(rec)
+	if rec["websiteTitle"]:
+		w.roman(rec["websiteTitle"])
 	w.idents(rec)
 	w.entry_loc(params.get("loc"))
 
@@ -1575,5 +1585,5 @@ if __name__ == "__main__":
 	@common.transaction("texts")
 	def main():
 		entry = Entry(sys.argv[1])
-		print(entry.reference().xml().xml())
+		print(entry.xml().xml())
 	main()
