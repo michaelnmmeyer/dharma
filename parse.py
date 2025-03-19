@@ -10,10 +10,7 @@ HANDLERS = []
 def handler(path):
 	def decorator(f):
 		HANDLERS.append((tree.Node.match_func(path), f))
-		def inner(*args, **kwargs):
-			print(f"at {path!r}, func {f.__name__}", file=sys.stderr)
-			f(*args, **kwargs)
-		return inner
+		return f
 	return decorator
 
 class Parser:
@@ -124,10 +121,12 @@ class Parser:
 			case tree.Comment() | tree.Instruction():
 				return
 			case tree.String():
+				# XXX rather do that on the final representation
 				self.add_text(str(node).replace("'", "’"))
 				return
 			case tree.Tag():
-				print(node.path, file=sys.stderr)
+				#print(node.path, file=sys.stderr)
+				pass
 			case _:
 				assert 0
 		for matcher, f in self.handlers:
@@ -151,18 +150,14 @@ class Parser:
 	def complain(self, msg):
 		print("UNKNOWN %s" % msg, file=sys.stderr)
 
-@handler("code")
-def parse_code(p, code):
-	p.push(tree.Tag("code"))
-	p.dispatch_children(code)
-	p.join()
-
+# In the apparatus
 @handler("lem")
 def parse_lem(p, lem):
 	p.dispatch_children(lem)
 	add_lemmas_links(p, lem["source"])
 
 """
+				XXX finish with this mess
 the format of the contents doesn't depend directly on what the link points to:
 * text id (put in monospace)
 * url (in monospace)
@@ -365,21 +360,25 @@ def parse_listApp(p, listApp):
 
 @handler("num")
 def parse_num(p, num):
-	tip = ""
-	if num["value"]:
-		if num.text() != num["value"] or num["cert"] == "low":
-			tip = f"Numeral {num['value']}"
+	if num["value"] and num["value"] == num.text() and not num["cert"] == "low":
+		tip = "" # Pointless to add a tooltip in this case.
+	elif num["value"]:
+		tip = f"Numeral {num['value']}"
 	elif num["atLeast"] and num["atMost"]:
 		tip = f"Numeral between {num['atLeast']} and {num['atMost']} inclusive"
 	elif num["atLeast"]:
 		tip = f"Numeral greater than or equal to {num['atLeast']}"
 	elif num["atMost"]:
 		tip = f"Numeral smaller than or equal to {num['atMost']}"
-	if tip and num["cert"] == "low":
+	elif num.text().isdigit() and not num["cert"] == "low":
+		tip = "" # Pointless to add a tooltip in this case.
+	else:
+		tip = "Numeral"
+	if num["cert"] == "low":
 		tip += " (low certainty)"
-	p.start_span(klass="num", tip=tip)
+	p.push(tree.Tag("span", class_="num", tip=tip or None))
 	p.dispatch_children(num)
-	p.end_span()
+	p.join()
 
 # Try to have more precise tooltips for this. If this does not work, we fall
 # back to a generic one.
@@ -513,15 +512,12 @@ def parse_subst(p, subst):
 # TODO there are attributes,see EGD
 @handler("note")
 def parse_note(p, note):
-	# Avoid nesting notes
-	if p.top.name == "note":
-		p.dispatch_children(note)
-		return
-	p.add_log("=note", n=len(p.document.notes) + 1)
-	p.push("note")
+	# XXX Avoid nesting notes. Simpler to do that after processing.
+	p.push(tree.Tag("note"))
 	p.dispatch_children(note)
-	ret = p.pop()
-	p.document.notes.append(ret)
+	note = p.top
+	p.join()
+	p.document.notes.append(note)
 
 # Put <foreign> in italics.
 @handler("foreign")
@@ -535,7 +531,7 @@ def parse_foreign(p, foreign):
 def get_n(node):
 	n = node["n"]
 	if not n:
-		return
+		return ""
 	n = n.replace("_", " ").replace("-", "\N{en dash}")
 	return n
 
@@ -551,6 +547,7 @@ def parse_milestone(p, milestone):
 	next_sibling = milestone.stuck_following_sibling()
 	if next_sibling and next_sibling.name == "label":
 		label = next_sibling.text() # XXX handle markup
+		p.visited.add(next_sibling)
 	else:
 		label = None
 	p.add_phys("=" + unit, type=type, n=n, brk=brk, label=label)
@@ -627,7 +624,7 @@ fw_places = {
 @handler("pb")
 def parse_pb(p, elem):
 	n = get_n(elem)
-	brk = milestone_break(elem)
+	brk = common.to_boolean(elem["break"], True)
 	p.add_phys("{page", n=n, brk=brk)
 	fws = []
 	while True:
@@ -825,10 +822,10 @@ space_types = {
 }
 @handler("space")
 def parse_space(p, space):
-	typ = space["type"]
-	if typ not in space_types:
-		typ = "semantic"
-	if typ in ("semantic", "vacat", "unclassified"):
+	type = space["type"]
+	if type not in space_types:
+		type = "semantic"
+	if type in ("semantic", "vacat", "unclassified"):
 		quant = space["quantity"]
 		if not quant.isdigit():
 			quant = "1"
@@ -838,18 +835,18 @@ def parse_space(p, space):
 		unit = space["unit"]
 		if unit != "character":
 			unit = "character"
-	info = space_types[typ]
+	info = space_types[type]
 	tip = info["tip"]
 	text = info["text"]
-	if typ in ("semantic", "vacat", "unclassified"):
+	if type in ("semantic", "vacat", "unclassified"):
 		if quant < 2:
-			tip = f"small {typ} space (from barely noticeable to less than two average character widths in extent)"
+			tip = f"small {type} space (from barely noticeable to less than two average character widths in extent)"
 		else:
-			tip = f"large {typ} space (about {quant} {unit}s wide)"
+			tip = f"large {type} space (about {quant} {unit}s wide)"
 		text *= quant
-	p.start_span(klass="space", tip=common.sentence_case(tip))
-	p.add_html(text, physical=True, logical=False, full=True)
-	p.end_span()
+	p.push(tree.Tag("span", {"class": "space", "tip": common.sentence_case(tip)}))
+	p.add_text(text) # XXX must only be made visible in physical and full, not in logical
+	p.join()
 
 # <abbreviations
 
@@ -1197,7 +1194,6 @@ def parse_ab(p, ab):
 	p.push(tree.Tag("para"))
 	p.dispatch_children(ab)
 	p.join()
-	cleanup_descendant_spaces(p.top)
 
 @handler("p")
 def parse_p(p, para):
@@ -1215,7 +1211,6 @@ def parse_p(p, para):
 	else:
 		p.dispatch_children(para)
 	p.join()
-	cleanup_descendant_spaces(p.top)
 
 @handler("l")
 def parse_l(p, l):
@@ -1361,10 +1356,14 @@ def parse_title(p, title):
 def parse_quote(p, q):
 	if q["rend"] == "block":
 		p.push(tree.Tag("blockquote"))
+		# XXX <blockquote> cannot appear within a <p> in HTML!
+		# and idem for <cit> bleow
+		# https://html.spec.whatwg.org/#elements-3
 		p.dispatch_children(q)
 		p.join()
 	else:
 		p.add_text("“")
+		# XXX should fix up space here
 		p.dispatch_children(q)
 		p.add_text("”")
 
@@ -1572,6 +1571,13 @@ def squeeze(strings):
 			s.replace_with(ret)
 		i += 1
 
+"""
+must remove spaces before <note>
+must remove spaces around milestones and add them back as appropriate depending
+on the value of @break
+(also reposition milestones)
+
+"""
 def cleanup_descendant_spaces(node):
 	strings = node.strings()
 	trim_left(strings)
@@ -1583,36 +1589,6 @@ def cleanup_child_spaces(node):
 	trim_left(strings)
 	trim_right(strings)
 	squeeze(strings)
-
-# Within inscriptions, <div> shouldn't nest, except that we can have
-# <div type="textpart"> within <div type="edition">.
-# The DHARMA_INSEC* stuff don't follow the INS schema, too different.
-# We expect:
-# <div type="textpart" n="..."><head>...</head>?<note>?
-@handler("div[@type='textpart']")
-def parse_div(p, div):
-	n = get_n(div)
-	p.push(tree.Tag("div", n=n))
-	p.push(tree.Tag("head"))
-	# If there is a user-specified heading, use it, otherwise generate one.
-	if (head := div.first("stuck-child::head")):
-		p.dispatch_children(head)
-		p.visited.add(head)
-		note = head.first("stuck-following-sibling::note")
-	else:
-		subtype = div["subtype"] or "part"
-		p.add_text(common.sentence_case(subtype))
-		p.add_text(" ")
-		p.add_text(n)
-		note = div.first("stuck-child::note")
-	if note:
-		p.dispatch(note)
-		p.visited.add(note)
-		note = note.first("stuck-following-sibling::note")
-	p.join() # </head>
-	p.dispatch_children(div, only_tags=True)
-	p.join() # </div>
-	cleanup_child_spaces(p.top)
 
 # We're supposed to have either a series of <div> that covers all the text, or no div at all.
 def gather_sections(p, div):
@@ -1638,54 +1614,6 @@ def gather_sections(p, div):
 def fetch_resp(resp):
 	resp = people.plain(resp.removeprefix("part:")) or resp
 	return html.escape(resp)
-
-def make_translation_title(p, div):
-	p.add_text("Translation")
-	lang = div["lang"].split("-")[0]
-	if lang:
-		lang = html.escape(langs.from_code(lang) or lang)
-		p.add_text(f" into {lang}")
-	if (resp := div["resp"]):
-		p.add_text(" by ")
-		resps = resp.split()
-		for i, resp in enumerate(resps):
-			if i == 0:
-				pass
-			elif i < len(resps) - 1:
-				p.add_text(", ")
-			else:
-				p.add_text(" and ")
-			p.add_html(fetch_resp(resp))
-	if (source := div["source"]):
-		ref = source.removeprefix("bib:")
-		p.add_text(" by ")
-		p.add_html(str(p.bib_reference(ref)))
-
-def process_translation(p, div):
-	# If we have a note as first child, we expect the note to bear
-	# @type='credit', but even if not so we consider the note as
-	# belonging to the title.
-	# TODO thus do the same for every section: if the section starts with
-	# a note not preceded by non-blank text, treat the note as part of
-	# the section's title.
-	p.push("title")
-	if (head := div.first("stuck-child::head")):
-		# User-specified heading, use it.
-		p.dispatch_children(head)
-		p.visited.add(head)
-		note = head.first("stuck-following-sibling::note")
-	else:
-		# No user-specified heading, generate one.
-		make_translation_title(p, div)
-		note = div.first("stuck-child::note")
-	while note:
-		p.dispatch(note)
-		p.visited.add(note)
-		note = note.first("stuck-following-sibling::note")
-	title = p.pop().render_logical()
-	trans = gather_sections(p, div)
-	trans.title = title
-	return trans
 
 # We must process the bibliography in two steps. First, collect bibliography
 # entries in div[@type='bibliography']. Then, process bibliographic references
@@ -1714,30 +1642,77 @@ def gather_biblio(p):
 			entry = biblio.Entry(short_title)
 			p.document.bib_entries[short_title] = entry
 
-@handler("div[@type='edition']")
-def parse_div_edition(p, div):
-	p.push(tree.Tree())
-	p.dispatch_children(div, only_tags=True)
-	p.document.edition = p.pop()
+# Within inscriptions, <div> shouldn't nest, except that we can have
+# <div type="textpart"> within <div type="edition">.
+# The DHARMA_INSEC* stuff don't follow the INS schema, too different.
+# We expect:
+# <div type="textpart" n="..."><head>...</head>?<note>?
+@handler("div[@type='textpart']")
+def parse_div(p, div):
+	def make_textpart_heading():
+		subtype = div["subtype"] or "part"
+		p.add_text(common.sentence_case(subtype))
+		if (n := get_n(div)):
+			p.add_text(f" {n}")
+	p.push(tree.Tag("div"))
+	add_div_heading(p, div, make_textpart_heading)
+	p.join() # </div>
 
-@handler("div[@type='edition' or @type='apparatus' or @type='commentary']")
-def parse_div_edition2(p, div):
-	p.clear_divs()
-	setattr(p.document, div["type"], gather_sections(p, div))
-
-@handler("div[@type='bibliography']")
-def parse_div_bibliography(p, div):
+@handler("div[regex('edition|apparatus|commentary|bibliography', @type)]")
+def parse_main_div(p, div):
 	p.push(tree.Tree())
+	add_div_heading(p, div, div["type"].title())
 	p.dispatch_children(div, only_tags=True)
-	p.document.bibliography = p.pop()
+	setattr(p.document, div["type"], p.pop())
+
+def add_div_heading(p, div, dflt):
+	p.push("head")
+	if (head := div.first("stuck-child::head")):
+		# User-specified heading, use it.
+		p.dispatch_children(head)
+		p.visited.add(head)
+	else:
+		# No user-specified heading, generate one.
+		if callable(dflt):
+			dflt()
+		else:
+			assert isinstance(dflt, str)
+			p.append(dflt)
+		if (note := div.first("stuck-child::note")):
+			p.dispatch(note)
+			p.visited.add(note)
+	p.join()
 
 @handler("div[@type='translation']")
 def parse_div_translation(p, div):
-	p.clear_divs()
+	def make_translation_heading():
+		p.add_text("Translation")
+		lang = div["lang"].split("-")[0]
+		if lang and lang != "eng": # XXX normalize value before
+			lang = langs.from_code(lang) or lang
+			p.add_text(f" into {lang}")
+		if (resp := div["resp"]):
+			p.add_text(" by ")
+			resps = resp.split()
+			for i, resp in enumerate(resps):
+				if i == 0:
+					pass
+				elif i < len(resps) - 1:
+					p.add_text(", ")
+				else:
+					p.add_text(" and ")
+				p.add_text(fetch_resp(resp))
+		if (source := div["source"]):
+			ref = source.removeprefix("bib:")
+			p.add_text(" by ")
+			p.append(p.bib_reference(ref))
+	p.push(tree.Tree())
+	# TODO do the same for every section: if the section starts with
+	# a note not preceded by non-blank text, treat the note as part of
+	# the section's title.
+	add_div_heading(p, div, make_translation_heading)
 	p.dispatch_children(div, only_tags=True)
-	trans = process_translation(p, div)
-	if trans is not None:
-		p.document.translation.append(trans)
+	p.document.translation.append(p.pop())
 
 @handler("teiHeader/*")
 def parse_in_teiHeader(p, node):

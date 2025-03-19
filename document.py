@@ -166,6 +166,18 @@ class Document:
 			f.push(tree.Tag("edition"))
 			f.extend(self.edition)
 			f.join()
+		if self.apparatus:
+			f.push(tree.Tag("apparatus"))
+			f.extend(self.apparatus)
+			f.join()
+		for trans in self.translation:
+			f.push(tree.Tag("translation"))
+			f.extend(trans)
+			f.join()
+		if self.commentary:
+			f.push(tree.Tag("commentary"))
+			f.extend(self.commentary)
+			f.join()
 		if self.bibliography:
 			f.push(tree.Tag("bibliography"))
 			f.extend(self.bibliography)

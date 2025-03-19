@@ -778,6 +778,11 @@ class Tag(Branch):
 			for key, value in attrs:
 				self[key] = value
 		for key, value in attributes.items():
+			# Special case, for passing python keywords conveniently,
+			# as in tree.Tag("span", class_="hello"), which can be
+			# used instead of tree.Tag("span", {"class": "hello"})
+			if len(key) > 1 and key[-1] == "_":
+				key = key[:-1]
 			self[key] = value
 		super().__init__()
 
@@ -890,11 +895,14 @@ class Tag(Branch):
 			super().__setitem__(key, value)
 		else:
 			assert isinstance(key, str)
+			if value is None:
+				del self[key]
+				return
 			assert isinstance(value, str)
 			# Always normalize space.
 			value = " ".join(value.strip().split())
 			self.attrs[key] = value
-			# XXX still have "replacementPattern" that needs an empty string
+			# XXX still have "replacementPattern" that is required and needs an empty string in tei
 			"""
 			if value:
 				self.attrs[key] = value
