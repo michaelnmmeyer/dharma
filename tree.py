@@ -1214,6 +1214,13 @@ def xpath_name(node):
 	assert isinstance(node, Tag)
 	return node.name
 
+def xpath_stuck_following_sibling(node):
+	assert isinstance(node, Tag)
+	try:
+		return next(stuck_following_siblings(node))
+	except StopIteration:
+		pass
+
 xpath_funcs = {
 	"glob": xpath_glob,
 	"iglob": xpath_iglob,
@@ -1224,6 +1231,7 @@ xpath_funcs = {
 	"plain": xpath_plain,
 	"errors": xpath_errors,
 	"name": xpath_name,
+	"stuck-following-sibling": xpath_stuck_following_sibling,
 }
 
 def stuck_parent(node):

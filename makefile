@@ -77,11 +77,13 @@ follow:
 update-repos:
 	@for d in repos/*; do \
 		echo "% $$(basename $$d)"; \
-		git -C $$d reset -q --hard HEAD; \
 		git -C $$d pull -q; \
 	done
 
-update-texts:
+update-db:
+	rsync dharma:dbs/texts.sqlite dharma:dbs/texts.sqlite-wal dbs/
+
+update-texts: update-repos update-db
 	mkdir -p texts
 	rm -f texts/*
 	sqlite3 -noheader dbs/texts.sqlite "select printf('../repos/%s/%s', repo, path) \
@@ -105,7 +107,7 @@ missing-git-names:
 		|| echo "$$name" ; \
 	done
 
-.PHONY: update-repos update-texts deploy-schemas missing-git-names
+.PHONY: update-repos update-db update-texts deploy-schemas missing-git-names
 
 tree.md: tree.py
 	pydoc-markdown -m dharma.tree > $@

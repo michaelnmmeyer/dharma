@@ -1,7 +1,12 @@
 # For parsing TEI files into Document objects
 
-import os, sys, re, html, urllib.parse, logging, posixpath
+import os, sys, re, html, urllib.parse, logging, posixpath, copy
 from dharma import prosody, people, tree, gaiji, common, biblio, langs, document
+
+def XML(s):
+	r = tree.parse_string(f"<root>{s}</root>")
+	r.root.unwrap()
+	return r
 
 # Handlers are tested per order of appearance in this file, so the most
 # specific ones should come first.
@@ -27,6 +32,8 @@ class Parser:
 		self.visited = set()
 		#----- NEW stuff
 		self.stack = []
+		# Flag
+		self.ignore_notes = False
 
 	def push(self, node, **attrs):
 		match node:
@@ -37,6 +44,7 @@ class Parser:
 			case _:
 				raise Exception
 		self.stack.append(node)
+		return node
 
 	def pop(self):
 		return self.stack.pop()
@@ -125,10 +133,9 @@ class Parser:
 				self.add_text(str(node).replace("'", "’"))
 				return
 			case tree.Tag():
-				#print(node.path, file=sys.stderr)
 				pass
 			case _:
-				assert 0
+				assert 0, repr(node)
 		for matcher, f in self.handlers:
 			if matcher(node):
 				break
@@ -380,23 +387,23 @@ def parse_num(p, num):
 	p.dispatch_children(num)
 	p.join()
 
+# < emendation
+
 # Try to have more precise tooltips for this. If this does not work, we fall
 # back to a generic one.
 @handler("supplied[@reason='subaudible']")
 def parse_supplied_subaudible(p, supplied):
-	if supplied.assigned_lang.is_source:
-		brackets = None
-		text = supplied.text()
-		if text in "'’":
-			tip = "<i>Avagraha</i> added by the editor to clarify the interpretation"
-		elif text == ".":
-			tip = "Punctuation added by the editor at semantic break"
-		else:
-			tip = None
-	else:
+	if not supplied.assigned_lang.is_source:
 		tip = "Text added to the translation for the sake of target language syntax"
-		brackets = "[]"
-	return parse_supplied(p, supplied, tip=tip, brackets=brackets)
+		return emit_supplied(p, supplied, tip, "[]")
+	match supplied.text():
+		case "'" | "’":
+			tip = XML("<i>Avagraha</i> added by the editor to clarify the interpretation")
+		case ".":
+			tip = "Punctuation added by the editor at semantic break"
+		case _:
+			tip = "Editorial addition to clarify interpretation"
+	return emit_supplied(p, supplied, tip, "⟨⟩")
 
 # EGD "Additions to the translation"
 # EGD "Marking up restored text"
@@ -404,7 +411,7 @@ def parse_supplied_subaudible(p, supplied):
 supplied_tbl = {
 	# EGD: "words added to the translation for the sake of target language
 	# syntax"
-	"subaudible": ("⟨⟩", "Editorial addition to clarify interpretation"),
+	# subaudible is handled separately
 	# EGD: "words implied by the context and added to the translation for
 	# the sake of clarification or disambiguation"
 	"explanation": ("()", "Text inserted into the translation as explanation or disambiguation"),
@@ -418,106 +425,123 @@ supplied_tbl = {
 	"undefined": ("[]", "Text supplied for undefined reason (lost or omitted)")
 }
 # OK
-@handler("supplied")
-def parse_supplied(p, supplied, tip=None, brackets=None):
-	base_brackets, base_tip = supplied_tbl.get(supplied["reason"], supplied_tbl["lost"])
-	if not tip:
-		tip = base_tip
-	if not brackets:
-		brackets = base_brackets
-	assert len(brackets) == 2
+@handler("supplied") # [not @reason='subaudible']
+def parse_supplied(p, supplied):
+	brackets, tip = supplied_tbl.get(supplied["reason"], supplied_tbl["lost"])
+	return emit_supplied(p, supplied, tip, brackets)
+
+def emit_supplied(p, supplied, tip, brackets):
+	ldelim, rdelim = brackets
+	p.push(tree.Tree())
+	# XXX must omit <note> in all cases where we construct a tooltip
+	p.append(copy.copy(tip))
 	if supplied["cert"] == "low":
-		tip += " (low certainty)"
-	evidence = supplied["evidence"]
-	if evidence == "parallel":
-		tip += "; restoration based on parallel"
-	elif evidence == "previouseditor":
-		tip += "; restoration based on previous edition (not assessable)"
-	p.start_span(klass="supplied", tip=tip)
-	p.add_display(brackets[0])
+		p.append(" (low certainty)")
+	match supplied["evidence"]:
+		case "parallel":
+			p.append("; restoration based on parallel")
+		case "previouseditor":
+			p.append("; restoration based on previous edition (not assessable)")
+	tip = p.pop().xml()
+	p.push(tree.Tag("span", class_="supplied", tip=tip))
+	p.add_display(ldelim)
 	p.dispatch_children(supplied)
-	if supplied["reason"] in ("subaudible", "explanation") \
-		and supplied["cert"] == "low":
+	if supplied["cert"] == "low":
 		p.add_display("?")
-	p.add_display(brackets[1])
-	p.end_span()
+	p.add_display(rdelim)
+	p.join()
 
 # § Premodern insertion
-# OK
 add_place_tbl = {
-	"inline": "within the same line or in the immediate vicinity of the locus",
-	"below": "below the line",
-	"above": "above the line",
-	"top": "in the top margin",
-	"bottom": "in the bottom margin",
-	"left": "in the left margin",
-	"right": "in the right margin",
-	"overstrike": "made in the space where a previous string of text has been erased",
-	"unspecified": ": no location information available",
+	"inline": "Scribal addition within the same line or in the immediate vicinity of the locus",
+	"below": "Scribal addition below the line",
+	"above": "Scribal addition above the line",
+	"top": "Scribal addition in the top margin",
+	"bottom": "Scribal addition in the bottom margin",
+	"left": "Scribal addition in the left margin",
+	"right": "Scribal addition in the right margin",
+	"overstrike": "Scribal addition made in the space where a previous string of text has been erased",
+	"unspecified": "Scribal addition: no location information available",
 }
 @handler("add")
-def parse_add(p, node, dele=None):
-	place = node["place"]
-	tip = add_place_tbl.get(place, add_place_tbl["unspecified"])
-	tip = f"Scribal addition {tip}"
-	if dele:
-		tip += f' (overwritten text: <span class="del">⟦{html.escape(dele)}⟧</span>)'
-	p.start_span(klass="add", tip=tip)
-	p.add_text("⟨⟨")
+def parse_add(p, node, deleted=None):
+	p.push(tree.Tree())
+	tip = add_place_tbl.get(node["place"], add_place_tbl["unspecified"])
+	p.append(tip)
+	if deleted:
+		p.append(" (overwritten text: ")
+		p.push(tree.Tag("span", class_="del"))
+		p.append("⟦")
+		p.dispatch_children(deleted)
+		p.append("⟧")
+		p.join()
+		p.append(")")
+	tip = p.pop().xml()
+	p.push(tree.Tag("span", class_="add", tip=tip))
+	p.add_display("⟨⟨")
 	p.dispatch_children(node)
-	p.add_text("⟩⟩")
-	p.end_span()
+	p.add_display("⟩⟩")
+	p.join()
 
 # § Premodern deletion
-# OK
 del_rend_tbl = {
-	"strikeout": "text struck through or cross-hatched",
-	"ui": "combined application of vowel markers <i>u</i> and <i>i</i> to characters to be deleted",
-	"other": "",
-	"corrected": "corrected text",
+	"strikeout": "Scribal deletion: text struck through or cross-hatched",
+	"ui": XML("Scribal deletion: combined application of vowel markers <i>u</i> and <i>i</i> to characters to be deleted"),
+	"other": "Scribal deletion",
+	"corrected": "Scribal deletion: corrected text",
 }
 @handler("del")
-def parse_del(p, node, add=None):
-	tip = del_rend_tbl.get(node["rend"], "")
-	if tip:
-		tip = f"Scribal deletion: {tip}"
-	else:
-		tip = "Scribal deletion"
-	if add:
-		tip += f' (replacement text: <span class="add">⟨⟨{html.escape(add)}⟩⟩</add>)'
-	p.start_span(klass="del", tip=tip)
-	p.add_text("⟦")
+def parse_del(p, node, added=None):
+	p.push(tree.Tree())
+	tip = del_rend_tbl.get(node["rend"], del_rend_tbl["other"])
+	p.append(copy.copy(tip))
+	if added:
+		p.append(" (replacement text: ")
+		p.push(tree.Tag("span", class_="add"))
+		p.add_text("⟨⟨")
+		p.dispatch_children(added)
+		p.add_text("⟩⟩")
+		p.join()
+		p.append(")")
+	tip = p.pop().xml()
+	p.push(tree.Tag("span", class_="del", tip=tip))
+	p.add_display("⟦")
 	p.dispatch_children(node)
-	p.add_text("⟧")
-	p.end_span()
+	p.add_display("⟧")
+	p.join()
 
 # § Premodern correction
-# OK
 @handler("subst")
 def parse_subst(p, subst):
-	# (del, add)
-	# Use the text of <add> for search
-	#XXX schema is valid?
-	children = subst.find("*")
-	if len(children) == 2 and children[0].matches("del") and children[1].matches("add"):
-		# TODO should be rendered into a block, not necessarily plain text!
-		parse_del(p, children[0], children[1].text())
-		parse_add(p, children[1], children[0].text())
-	else:
-		p.dispatch_children(subst)
-	# add: (overwritten text: X)
-	# del: (replacement text: X)
+	# For search, should just keep the text of <add>
+	add = subst.first("add")
+	dele = subst.first("del")
+	if not add or not dele:
+		return p.dispatch_children(subst)
+	parse_del(p, dele, add)
+	parse_add(p, add, dele)
 
-# We also deal with notes in <app>
+# > emendation
+
+# For <note> elements anywhere but in the apparatus, where <note> has a peculiar
+# purpose.
 # TODO there are attributes,see EGD
 @handler("note")
 def parse_note(p, note):
-	# XXX Avoid nesting notes. Simpler to do that after processing.
-	p.push(tree.Tag("note"))
+	if p.ignore_notes:
+		return
+	out = p.push(tree.Tag("note"))
+	p.ignore_notes = True
+	if (resps := note["resp"]):
+		append_names(p, resps.split())
+		p.add_text(": ")
+	elif (refs := note["source"]):
+		append_sources(p, refs.split())
+		p.add_text(": ")
 	p.dispatch_children(note)
-	note = p.top
+	p.ignore_notes = False
 	p.join()
-	p.document.notes.append(note)
+	p.document.notes.append(out)
 
 # Put <foreign> in italics.
 @handler("foreign")
@@ -535,21 +559,24 @@ def get_n(node):
 	n = n.replace("_", " ").replace("-", "\N{en dash}")
 	return n
 
+def milestone_break(node):
+	return common.to_boolean(node["break"], True)
+
 @handler("milestone")
 # TODO milestone type="ref"
-def parse_milestone(p, milestone):
-	n = get_n(milestone)
-	brk = common.to_boolean(milestone["break"], True)
-	unit = milestone["unit"] or "column"
-	type = milestone["type"]
+def parse_milestone(p, node):
+	n = get_n(node)
+	brk = milestone_break(node)
+	unit = node["unit"] or "column"
+	type = node["type"]
 	if type not in ("pagelike", "gridlike"):
 		type = "gridlike"
-	next_sibling = milestone.stuck_following_sibling()
-	if next_sibling and next_sibling.name == "label":
-		label = next_sibling.text() # XXX handle markup
-		p.visited.add(next_sibling)
-	else:
-		label = None
+	label = None
+	if (after := node.find("stuck-following-sibling::label")):
+		p.push(tree.Tree())
+		p.dispatch_children(after)
+		p.visited.add(after)
+		label = p.pop().xml()
 	p.add_phys("=" + unit, type=type, n=n, brk=brk, label=label)
 
 """
@@ -593,7 +620,7 @@ else:
 @handler("lb")
 def parse_lb(p, elem):
 	n = get_n(elem)
-	brk = common.to_boolean(elem["break"], True)
+	brk = milestone_break(elem)
 	# On alignment, EGD §7.5.2
 	m = re.match(r"^text-align:\s?(right|center|left|justify)$", elem["style"])
 	if m:
@@ -624,7 +651,7 @@ fw_places = {
 @handler("pb")
 def parse_pb(p, elem):
 	n = get_n(elem)
-	brk = common.to_boolean(elem["break"], True)
+	brk = milestone_break(elem)
 	p.add_phys("{page", n=n, brk=brk)
 	fws = []
 	while True:
@@ -1648,7 +1675,7 @@ def gather_biblio(p):
 # We expect:
 # <div type="textpart" n="..."><head>...</head>?<note>?
 @handler("div[@type='textpart']")
-def parse_div(p, div):
+def parse_div_textpart(p, div):
 	def make_textpart_heading():
 		subtype = div["subtype"] or "part"
 		p.add_text(common.sentence_case(subtype))
@@ -1656,6 +1683,7 @@ def parse_div(p, div):
 			p.add_text(f" {n}")
 	p.push(tree.Tag("div"))
 	add_div_heading(p, div, make_textpart_heading)
+	p.dispatch_children(div)
 	p.join() # </div>
 
 @handler("div[regex('edition|apparatus|commentary|bibliography', @type)]")
@@ -1671,6 +1699,9 @@ def add_div_heading(p, div, dflt):
 		# User-specified heading, use it.
 		p.dispatch_children(head)
 		p.visited.add(head)
+		# We support notes here because the guide says so, but putting
+		# them within <head>< should be preferred.
+		note = head.first("stuck-following-sibling::note")
 	else:
 		# No user-specified heading, generate one.
 		if callable(dflt):
@@ -1678,34 +1709,48 @@ def add_div_heading(p, div, dflt):
 		else:
 			assert isinstance(dflt, str)
 			p.append(dflt)
-		if (note := div.first("stuck-child::note")):
-			p.dispatch(note)
-			p.visited.add(note)
+		note = div.first("stuck-child::note")
+	if note:
+		p.dispatch(note)
+		p.visited.add(note)
 	p.join()
+
+def append_names(p, resps):
+	for i, resp in enumerate(resps):
+		resp = resp.removeprefix("part:")
+		if i == 0:
+			pass
+		elif i < len(resps) - 1:
+			p.add_text(", ")
+		else:
+			p.add_text(" and ")
+		p.add_text(fetch_resp(resp))
+
+def append_sources(p, refs):
+	for i, ref in enumerate(refs):
+		ref = ref.removeprefix("bib:")
+		if i == 0:
+			pass
+		elif i < len(refs) - 1:
+			p.add_text(", ")
+		else:
+			p.add_text(" and ")
+		p.append(p.bib_reference(ref))
 
 @handler("div[@type='translation']")
 def parse_div_translation(p, div):
 	def make_translation_heading():
 		p.add_text("Translation")
 		lang = div["lang"].split("-")[0]
-		if lang and lang != "eng": # XXX normalize value before
+		if lang and lang != "eng": # XXX normalize lang code before
 			lang = langs.from_code(lang) or lang
 			p.add_text(f" into {lang}")
-		if (resp := div["resp"]):
+		if (resps := div["resp"]):
 			p.add_text(" by ")
-			resps = resp.split()
-			for i, resp in enumerate(resps):
-				if i == 0:
-					pass
-				elif i < len(resps) - 1:
-					p.add_text(", ")
-				else:
-					p.add_text(" and ")
-				p.add_text(fetch_resp(resp))
-		if (source := div["source"]):
-			ref = source.removeprefix("bib:")
+			append_names(p, resps.split())
+		elif (sources := div["source"]):
 			p.add_text(" by ")
-			p.append(p.bib_reference(ref))
+			append_sources(p, sources.split())
 	p.push(tree.Tree())
 	# TODO do the same for every section: if the section starts with
 	# a note not preceded by non-blank text, treat the note as part of
