@@ -47,13 +47,13 @@ For convenience, we add a few extra axes to XPath's default. They are:
 * `stuck-child`.
 	Returns the first child element of the current node, iff there
 	is no text or just whitespace between the current node and this
-	child.
+	child. This only ever returns one child.
 * `stuck-parent`.
 	Reverse of stuck-child.
 * `stuck-following-sibling`.
-	Like following-sibling, but only returns the following sibling
-	if there is no text or just whitespace between the current node
-	and the following one.
+	Returns the first following sibling of the current node, iff there is
+	no text or just whitespace between the current node and this sibling.
+	This only ever returns one sibling.
 * `stuck-preceding-sibling`.
 	Reverse of stuck-preceding-sibling.
 
@@ -70,7 +70,10 @@ case-insensitive. In addition, we have:
 Like `glob`, but for regular expressions. Matching is unanchored, so `^` and
 `$` must be used if the idea is to match a full string.
 
-`lang()`, `mixed()`, `empty()`, `plain()`, `errors()`, `name()`
+`name()`
+`errors()`
+`lang()`, `assigned-lang()`, inferred-lang()`
+`mixed()`, `empty()`, `plain()`
 
 Returns the corresponding attributes in `Node`.
 
@@ -293,6 +296,10 @@ class Node:
 		and if there is no intervening non-blank text in-between. Can
 		only be called on `Tag` nodes.
 		"""
+		raise Exception("bad operation")
+
+	def stuck_preceding_sibling(self):
+		"""Reverse of stuck_preceding_sibling()."""
 		raise Exception("bad operation")
 
 	def strings(self):
@@ -705,16 +712,6 @@ class Tree(Branch):
 	def delete(self):
 		raise Exception("nodes of type 'tree' cannot be deleted")
 
-	def insert(self, index, node):
-		#if isinstance(node, Tag):
-		#	if any(isinstance(child, Tag) for child in self):
-		#		raise Exception("cannot add a root tag to a tree that already has one")
-		#
-		# elif isinstance(node, (String, str)):
-		# 	if not node.isspace():
-		# 		raise Exception("cannot add text contents to a Tree node")
-		super().insert(index, node)
-
 	def insert_before(self, node):
 		raise Exception("cannot insert a node before a tree")
 
@@ -729,9 +726,6 @@ class Tree(Branch):
 
 	def replace_with(self, other):
 		raise Exception("cannot replace Tree nodes")
-
-	next = None
-	prev = None
 
 class Tag(Branch):
 	'''Represents element nodes.
@@ -898,7 +892,7 @@ class Tag(Branch):
 			if value is None:
 				del self[key]
 				return
-			assert isinstance(value, str)
+			assert isinstance(value, str), repr(value)
 			# Always normalize space.
 			value = " ".join(value.strip().split())
 			self.attrs[key] = value
@@ -1192,7 +1186,15 @@ def xpath_regex(node, pattern, *arg):
 
 def xpath_lang(node):
 	assert isinstance(node, Node)
-	return node.assigned_lang
+	return node.assigned_lang.id
+
+def xpath_assigned_lang(node):
+	assert isinstance(node, Node)
+	return node.assigned_lang.id
+
+def xpath_inferred_lang(node):
+	assert isinstance(node, Node)
+	return node.inferred_lang.id
 
 def xpath_mixed(node):
 	assert isinstance(node, Node)
@@ -1214,24 +1216,24 @@ def xpath_name(node):
 	assert isinstance(node, Tag)
 	return node.name
 
-def xpath_stuck_following_sibling(node):
-	assert isinstance(node, Tag)
-	try:
-		return next(stuck_following_siblings(node))
-	except StopIteration:
-		pass
+def xpath_is_source_lang(node, s):
+	assert isinstance(s, str), s
+	from dharma import langs
+	return langs.Language(s).is_source
 
 xpath_funcs = {
 	"glob": xpath_glob,
 	"iglob": xpath_iglob,
 	"regex": xpath_regex,
 	"lang": xpath_lang,
+	"assigned-lang": xpath_assigned_lang,
+	"inferred-lang": xpath_inferred_lang,
+	"is-source-lang": xpath_is_source_lang,
 	"mixed": xpath_mixed,
 	"empty": xpath_empty,
 	"plain": xpath_plain,
 	"errors": xpath_errors,
 	"name": xpath_name,
-	"stuck-following-sibling": xpath_stuck_following_sibling,
 }
 
 def stuck_parent(node):
@@ -1240,25 +1242,6 @@ def stuck_parent(node):
 	parent = node.parent
 	if parent.stuck_child() is node:
 		yield parent
-
-def stuck_following_siblings(node):
-	assert isinstance(node, Node)
-	if not isinstance(node, Tag):
-		return
-	parent = node.parent
-	i = parent.index(node) + 1
-	while i < len(parent):
-		child = parent[i]
-		match child:
-			case Tag():
-				yield child
-			case String() if child.isspace():
-				pass
-			case Comment() | Instruction():
-				pass
-			case _:
-				break
-		i += 1
 
 def following(node):
 	def inner(nodes):
@@ -1270,25 +1253,6 @@ def following(node):
 		i = node.parent.index(node)
 		yield from inner(node.parent[i + 1:])
 		node = node.parent
-
-def stuck_preceding_siblings(node):
-	assert isinstance(node, Node)
-	if not isinstance(node, Tag):
-		return
-	parent = node.parent
-	i = parent.index(node) - 1
-	while i >= 0:
-		child = parent[i]
-		match child:
-			case Tag():
-				yield child
-			case String() if child.isspace():
-				pass
-			case Comment() | Instruction():
-				pass
-			case _:
-				break
-		i -= 1
 
 def children(node):
 	assert isinstance(node, Node)
@@ -1356,6 +1320,9 @@ def handle_token(buf, tok):
 					buf.clear()
 				case tokenize.OP if tok.string == "-" and buf[0].end == tok.start:
 					buf.append(tok)
+				case tokenize.NAME:
+					yield buf[0]
+					buf[0] = tok
 				case _:
 					yield buf[0]
 					buf.clear()
@@ -1367,20 +1334,20 @@ def handle_token(buf, tok):
 					yield buf[1]
 					buf.clear()
 				case tokenize.NAME if buf[1].end == tok.start:
-					info = tokenize.TokenInfo(
+					tok = tokenize.TokenInfo(
 						type=tokenize.NAME,
 						string=buf[0].string + "-" + tok.string,
 						start=buf[0].start, end=tok.end, line=buf[0].line)
 					buf.clear()
-					buf.append(info)
+					buf.append(tok)
 				case _:
 					yield buf[0]
 					yield buf[1]
 					buf.clear()
 					yield tok
 
-
-# Like Python's tokenizer, but treats strings like "foo-bar-baz" as names.
+# Like Python's tokenizer, but treats strings like "foo-bar-baz" as names, and
+# also ignores newlines..
 def tokenize_xpath(s):
 	buf = []
 	for tok in tokenize.generate_tokens(io.StringIO(s).readline):
@@ -1398,8 +1365,8 @@ class Generator:
 				children,
 				descendants, descendants_or_self,
 				ancestors, ancestors_or_self,
-				following_siblings, stuck_following_siblings,
-				preceding_siblings, stuck_preceding_siblings,
+				following_siblings,
+				preceding_siblings,
 				following))
 				for f in funcs}
 		self.search = {}
@@ -1545,12 +1512,6 @@ class Generator:
 				pass
 			case "child":
 				self.append("for node in children(node):")
-			case "stuck-child":
-				self.append("node = node.stuck_child()")
-				self.append("if node is not None:")
-			case "stuck-parent":
-				self.append("node = node.stuck_parent()")
-				self.append("if node is not None:")
 			case "descendant":
 				self.append("for node in descendants(node):")
 			case "descendant-or-self":
@@ -1568,10 +1529,14 @@ class Generator:
 				self.append("for node in following(node):")
 			case "preceding-sibling":
 				self.append("for node in preceding_siblings(node):")
+			case "stuck-child":
+				self.append("if (node := node.stuck_child()) is not None:")
+			case "stuck-parent":
+				self.append("if (node := node.stuck_parent()) is not None:")
 			case "stuck-following-sibling":
-				self.append("for node in stuck_following_siblings(node):")
+				self.append("if (node := node.stuck_following_sibling()) is not None:")
 			case "stuck-preceding-sibling":
-				self.append("for node in stuck_preceding_siblings(node):")
+				self.append("if (node := node.stuck_preceding_sibling()) is not None:")
 			case _:
 				assert 0, repr(step.axis)
 		if step.name_test:

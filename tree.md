@@ -51,13 +51,13 @@ For convenience, we add a few extra axes to XPath's default. They are:
 * `stuck-child`.
 	Returns the first child element of the current node, iff there
 	is no text or just whitespace between the current node and this
-	child.
+	child. This only ever returns one child.
 * `stuck-parent`.
 	Reverse of stuck-child.
 * `stuck-following-sibling`.
-	Like following-sibling, but only returns the following sibling
-	if there is no text or just whitespace between the current node
-	and the following one.
+	Returns the first following sibling of the current node, iff there is
+	no text or just whitespace between the current node and this sibling.
+	This only ever returns one sibling.
 * `stuck-preceding-sibling`.
 	Reverse of stuck-preceding-sibling.
 
@@ -74,7 +74,10 @@ case-insensitive. In addition, we have:
 Like `glob`, but for regular expressions. Matching is unanchored, so `^` and
 `$` must be used if the idea is to match a full string.
 
-`lang()`, `mixed()`, `empty()`, `plain()`, `errors()`, `name()`
+`name()`
+`errors()`
+`lang()`, `assigned-lang()`, inferred-lang()`
+`mixed()`, `empty()`, `plain()`
 
 Returns the corresponding attributes in `Node`.
 
@@ -306,6 +309,16 @@ def stuck_following_sibling()
 Returns the first `Tag` sibling of this node, if it has one
 and if there is no intervening non-blank text in-between. Can
 only be called on `Tag` nodes.
+
+<a id="dharma.tree.Node.stuck_preceding_sibling"></a>
+
+#### stuck\_preceding\_sibling
+
+```python
+def stuck_preceding_sibling()
+```
+
+Reverse of stuck_preceding_sibling().
 
 <a id="dharma.tree.Node.delete"></a>
 

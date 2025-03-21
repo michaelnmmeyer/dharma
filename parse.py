@@ -521,11 +521,160 @@ def parse_subst(p, subst):
 	parse_del(p, dele, add)
 	parse_add(p, add, dele)
 
+def text_to_html(p, mark):
+	block = p.top
+	while mark < len(block.code):
+		t, data, params = block.code[mark]
+		if t == "text":
+			params.setdefault("plain", False)
+			params.setdefault("logical", True)
+			params.setdefault("physical", True)
+			block.code[mark] = ("html", html.escape(data), params)
+		mark += 1
+
+@handler("sic")
+def parse_sic(p, sic, corr=None):
+	p.push(tree.Tree())
+	p.append("Incorrect text")
+	if corr:
+		class_ = "sic"
+		p.append(" (emendation: ")
+		p.push(tree.Tag("span", class_="corr"))
+		p.add_text("⟨")
+		p.dispatch_children(corr)
+		p.add_text("⟩")
+		p.join()
+		p.add_text(")")
+	else:
+		class_ = "sic standalone"
+	p.push(tree.Tag("span", class_=class_, tip=p.pop().xml()))
+	p.add_text("¿")
+	p.dispatch_children(sic)
+	p.add_text("?")
+	p.join()
+
+@handler("corr")
+def parse_corr(p, corr, sic=None):
+	p.push(tree.Tree())
+	p.append("Emended text")
+	if sic:
+		class_ = "corr"
+		p.append(" (original: ")
+		p.push(tree.Tag("span", class_="sic"))
+		p.add_text("¿")
+		p.dispatch_children(sic)
+		p.add_text("?")
+		p.join()
+		p.add_text(")")
+	else:
+		class_ = "corr standalone"
+	p.push(tree.Tag("span", class_=class_, tip=p.pop().xml()))
+	p.add_text('⟨')
+	p.dispatch_children(corr)
+	p.add_text('⟩')
+	p.join()
+
+@handler("orig")
+def parse_orig(p, orig, reg=None):
+	p.push(tree.Tree())
+	p.append("Non-standard text")
+	if reg:
+		class_ = "orig"
+		p.append(" (standardisation: ")
+		p.push(tree.Tag("span", class_="reg"))
+		p.add_text("⟨")
+		p.dispatch_children(reg)
+		p.add_text("⟩")
+		p.join()
+		p.add_text(")")
+
+	else:
+		class_ = "orig standalone"
+	p.push(tree.Tag("span", class_=class_, tip=p.pop().xml()))
+	p.add_text("¡")
+	p.dispatch_children(orig)
+	p.add_text("!")
+	p.join()
+
+@handler("reg")
+def parse_reg(p, reg, orig=None):
+	p.push(tree.Tree())
+	p.append("Standardised text")
+	if orig:
+		class_ = "reg"
+		p.append(" (original: ")
+		p.push(tree.Tag("span", class_="orig"))
+		p.add_text("¡")
+		p.dispatch_children(orig)
+		p.add_text("!")
+		p.join()
+		p.add_text(")")
+	else:
+		class_ = "reg standalone"
+	p.push(tree.Tag("span", class_=class_, tip=p.pop().xml()))
+	p.add_text("⟨")
+	p.dispatch_children(reg)
+	p.add_text("⟩")
+	p.join()
+
+@handler("unclear")
+def parse_unclear(p, node, standalone=True):
+	p.push(tree.Tree())
+	if node["cert"] == "low":
+		p.append("Tentative reading")
+	else:
+		p.append("Unclear text")
+	if node["reason"] == "eccentric_ductus":
+		p.append(" (")
+		p.push(tree.Tag("i"))
+		p.append("eccentric_ductus")
+		p.join()
+		p.append(")")
+	p.push(tree.Tag("span", class_="unclear", tip=p.pop().xml()))
+	if standalone:
+		p.append("(")
+	p.dispatch_children(node)
+	if node["cert"] == "low":
+		p.append("?")
+	if standalone:
+		p.append(")")
+	p.join()
+
+# We expect one of:
+#
+# <choice>(<unclear>...</unclear>)+</choice>
+# <choice><sic>...</sic><corr>...</corr></choice>
+# <choice><orig>...</orig><reg>...</reg></choice>
+#
+# In case #1, for search and plain should just keep the text of the 1st unclear.
+# For #2 and #3, for searching should keep <corr> and <reg>, ignore the rest.
+@handler("choice")
+def parse_choice(p, node):
+	children = node.find("*")
+	if all(child.name == "unclear" for child in children):
+		p.push(tree.Tag("span", tip="Unclear (several possible readings)"))
+		p.append("(")
+		for i, child in enumerate(children):
+			p.dispatch_children(child)
+			if i < len(children) - 1:
+				p.append("/")
+		p.append(")")
+		p.join()
+	elif len(children) != 2:
+		p.dispatch_children(node)
+	elif (sic := node.first("sic")) and (corr := node.first("corr")):
+		parse_sic(p, sic, corr)
+		parse_corr(p, corr, sic)
+	elif (orig := node.first("orig")) and (reg := node.first("reg")):
+		parse_orig(p, orig, reg)
+		parse_reg(p, reg, orig)
+	else:
+		p.dispatch_children(node)
+
 # > emendation
 
 # For <note> elements anywhere but in the apparatus, where <note> has a peculiar
 # purpose.
-# TODO there are attributes,see EGD
 @handler("note")
 def parse_note(p, note):
 	if p.ignore_notes:
@@ -562,6 +711,12 @@ def get_n(node):
 def milestone_break(node):
 	return common.to_boolean(node["break"], True)
 
+def from_boolean(obj):
+	if obj is True:
+		return "true"
+	assert obj is False
+	return "false"
+
 @handler("milestone")
 # TODO milestone type="ref"
 def parse_milestone(p, node):
@@ -577,7 +732,7 @@ def parse_milestone(p, node):
 		p.dispatch_children(after)
 		p.visited.add(after)
 		label = p.pop().xml()
-	p.add_phys("=" + unit, type=type, n=n, brk=brk, label=label)
+	p.append(tree.Tag(type, unit=unit, n=n, break_=from_boolean(brk), label=label))
 
 """
 what shall we do
@@ -687,132 +842,13 @@ def parse_pb(p, elem):
 
 # >milestones
 
-# <editorial
-
-def text_to_html(p, mark):
-	block = p.top
-	while mark < len(block.code):
-		t, data, params = block.code[mark]
-		if t == "text":
-			params.setdefault("plain", False)
-			params.setdefault("logical", True)
-			params.setdefault("physical", True)
-			block.code[mark] = ("html", html.escape(data), params)
-		mark += 1
-
-# OK
-@handler("sic")
-def parse_sic(p, sic, corr=None):
-	klass = "sic"
-	tip = "Incorrect text"
-	if corr:
-		tip += ' (emendation: <span class="corr">⟨%s⟩</span>)' % html.escape(corr)
-	else:
-		klass = f"{klass} standalone"
-	p.start_span(klass=klass, tip=tip)
-	p.add_html("¿")
-	mark = len(p.top.code)
-	p.dispatch_children(sic)
-	text_to_html(p, mark)
-	p.add_html("?")
-	p.end_span()
-
-# OK
-@handler("corr")
-def parse_corr(p, corr, sic=None):
-	klass = "corr"
-	tip = "Emended text"
-	if sic:
-		tip += ' (original: <span class="sic">¿%s?</span>)' % html.escape(sic)
-	else:
-		klass = f"{klass} standalone"
-	p.start_span(klass=klass, tip=tip)
-	p.add_html('⟨')
-	p.dispatch_children(corr)
-	p.add_html('⟩')
-	p.end_span()
-
-# OK
-@handler("orig")
-def parse_orig(p, orig, reg=None):
-	klass = "orig"
-	tip = "Non-standard text"
-	if reg:
-		tip += ' (standardisation: <span class="reg">⟨%s⟩</span>)' % html.escape(reg)
-	else:
-		klass = f"{klass} standalone"
-	p.start_span(klass=klass, tip=tip)
-	p.add_html("¡")
-	mark = len(p.top.code)
-	p.dispatch_children(orig)
-	text_to_html(p, mark)
-	p.add_html("!")
-	p.end_span()
-
-# OK
-@handler("reg")
-def parse_reg(p, reg, orig=None):
-	klass = "reg"
-	tip = "Standardised text"
-	if orig:
-		tip += ' (original: <span class="orig">¡%s!</span>)' % html.escape(orig)
-	else:
-		klass = f"{klass} standalone"
-	p.start_span(klass=klass, tip=tip)
-	p.add_html("⟨")
-	p.dispatch_children(reg)
-	p.add_html("⟩")
-	p.end_span()
-
-# TODO For now there is no nesting of <choice>, but it is allowed in some
-# cases. This happens within <orig> and <reg> so must deal with it when parsing
-# these tags.
-@handler("choice")
-def parse_choice(p, node):
-	children = node.find("*")
-	if all(child.name == "unclear" for child in children):
-		# <choice>(<unclear>...</unclear>)+</choice>
-		# In this case for search and plain just keep the text of the 1st unclear.
-		p.start_span(klass="choice-unclear", tip="Unclear (several possible readings)")
-		p.add_html("(")
-		mark = -1
-		for child in children:
-			if mark >= 0:
-				p.add_html("/")
-			p.dispatch_children(child)
-			if mark < 0:
-				mark = len(p.top.code)
-		text_to_html(p, mark)
-		p.add_html(")")
-		p.end_span()
-	else:
-		# <choice><sic>...</sic><corr>...</corr></choice>
-		# OR
-		# <choice><orig>...</orig><reg>...</reg></choice>
-		#
-		# For searching keep <corr> and <reg>, ignore the rest.
-		# TODO should be rendered into a block, not necessarily plain text!
-		if len(children) == 2 and children[0].name == "sic" and children[1].name == "corr":
-			parse_sic(p, children[0], children[1].text())
-			parse_corr(p, children[1], children[0].text())
-		elif len(children) == 2 and children[0].name == "orig" and children[1].name == "reg":
-			parse_orig(p, children[0], children[1].text())
-			parse_reg(p, children[1], children[0].text())
-		else:
-			p.dispatch_children(node)
-
-# >editorial
-
 # Valid cases are:
-#
 #	<space [type="semantic"]/> (shorthand is '_')
 #	<space [type="semantic"] quantity=... unit="character"/>
 #	<space type="vacat" quantity=... unit="character"/>
 #	<space type="(binding-hole|descender|ascender|defect|feature)"/>
 #	<space type="unclassified"/>
 #	<space type="unclassified" quantity=... unit="character"/>
-#
-# OK
 space_types = {
 	"semantic": {
 		"text": "_",
@@ -871,7 +907,7 @@ def parse_space(p, space):
 		else:
 			tip = f"large {type} space (about {quant} {unit}s wide)"
 		text *= quant
-	p.push(tree.Tag("span", {"class": "space", "tip": common.sentence_case(tip)}))
+	p.push(tree.Tag("span", class_="space", tip=common.sentence_case(tip)))
 	p.add_text(text) # XXX must only be made visible in physical and full, not in logical
 	p.join()
 
@@ -879,56 +915,88 @@ def parse_space(p, space):
 
 @handler("abbr")
 def parse_abbr(p, node):
-	p.start_span(klass="abbr", tip="Abbreviated text")
+	p.push(tree.Tag("span", class_="abbr", tip="Abbreviated text"))
 	p.dispatch_children(node)
-	p.end_span()
+	p.join()
 
 @handler("ex")
 def parse_ex(p, node):
-	p.start_span(klass="abbr-expansion", tip="Abbreviation expansion")
-	p.add_html("(")
+	if node["cert"] == "low":
+		tip = "Abbreviation expansion (uncertain)"
+	else:
+		tip = "Abbreviation expansion"
+	p.push(tree.Tag("span", class_="abbr-expansion", tip=tip))
+	p.append("(")
 	p.dispatch_children(node)
-	p.add_html(")")
-	p.end_span()
+	p.append(")")
+	p.join()
 
 @handler("am")
 def parse_am(p, am):
-	p.start_span(klass="abbr-mark", tip="Abbreviation mark")
+	p.push(tree.Tag("span", class_="abbr-mark", tip="Abbreviation mark"))
 	p.dispatch_children(am)
-	p.end_span()
+	p.join()
 
+# We expect:
+#	<expan>((<abbr>(text|<am>...</am>)</abbr>)|(<ex>...</ex>))+</expan>
+# This is not good (can't deal with <note>, etc.). Need to straighten this out.
 @handler("expan")
 def parse_expan(p, node):
+	def iter_abbr_without_am(cur):
+		match cur:
+			case tree.Tag(name="am"):
+				pass
+			case tree.Tag():
+				for child in cur:
+					yield from iter_abbr_without_am(child)
+			case tree.String():
+				yield cur
+	p.push(tree.Tree())
+	p.append("Abbreviation (contracted form: ")
+	p.push(tree.Tag("span", class_="abbr-contracted"))
+	for abbr in node.find("abbr"):
+		p.append(abbr.text())
+	p.join()
+	p.append("; expanded form: ")
+	p.push(tree.Tag("span", class_="abbr-expanded"))
+	for child in node.find("*[name() = 'abbr' or name() = 'ex']"):
+		if child.name == "ex":
+			p.append(child.text())
+			continue
+		for s in iter_abbr_without_am(child):
+			p.append(s.copy())
+	p.join()
+	p.append(")")
+	p.push(tree.Tag("span", class_="abbr-full", tip=p.pop().xml()))
 	p.dispatch_children(node)
+	p.join()
 
 # >abbreviations
 
-# TODO more styling
-@handler("seg")
+# XXX @rend="check" should be handled everywhere but is not
+
+# There is @type=aksara|component which we are not dealing with but that is
+# apparently useless.
+@handler("seg[not stuck-child::gap]")
 def parse_seg(p, seg):
-	first = seg.first("*")
-	if first and first.name == "gap":
-		# We deal with this within parse_gap
-		p.dispatch_children(seg)
-		return
 	rend = seg["rend"].split()
 	if "pun" in rend:
-		p.start_span(klass="pun", tip="Pun (<i>ślesa</i>)") # XXX tip should be a tree
-		p.add_html("{")
+		p.push(tree.Tag("span", class_="pun", tip=XML("Pun (<i>ślesa</i>").xml()))
+		p.append("{")
 	if "check" in rend:
-		p.start_span(klass="check", tip="To check")
+		p.push(tree.Tag("span", class_="check", tip="To check"))
 	if seg["cert"] == "low":
-		p.start_span(klass="check-uncertain", tip="Uncertain segment")
-		p.add_html("¿")
+		p.push(tree.Tag("span", tip="Uncertain segment"))
+		p.append("¿")
 	p.dispatch_children(seg)
 	if seg["cert"] == "low":
-		p.add_html("?")
-		p.end_span()
+		p.append("?")
+		p.join()
 	if "check" in rend:
-		p.end_span()
+		p.join()
 	if "pun" in rend:
-		p.add_html("}")
-		p.end_span()
+		p.append("}")
+		p.join()
 
 @handler("div[@type='translation']//gap[@reason='ellipsis']")
 def handle_gap_ellipsis(p, gap):
@@ -1086,25 +1154,6 @@ def parse_g(p, node):
 		sym["class"] = "symbol-placeholder"
 		sym.append(f"<{info['name']}>")
 	p.append(sym)
-
-@handler("unclear")
-def parse_unclear(p, node):
-	if node["cert"] == "low":
-		tip = "Tentative reading"
-	else:
-		tip = "Unclear text"
-	reason = node["reason"]
-	if reason:
-		if reason == "eccentric_ductus":
-			reason = f"<i>{reason}</i>"
-		tip += f" ({reason.replace('_', ' ')})" # XXX escape
-	p.start_span(klass="unclear", tip=tip)
-	p.add_display("(")
-	p.dispatch_children(node)
-	if node["cert"] == "low":
-		p.add_display("?")
-	p.add_display(")")
-	p.end_span()
 
 # EGD "Editorial deletion (suppression)"
 @handler("surplus")
