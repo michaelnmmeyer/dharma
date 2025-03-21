@@ -23,7 +23,7 @@ pattern_tbl = str.maketrans({
 	"\N{devanagari double danda}": "||",
 })
 def render_pattern(p):
-	buf = []
+	ret = tree.Tag("span", class_="prosody")
 	for seg in re.findall(r"(?:\|\|)|(?:[0-9]{2,})|(?:.)", p):
 		if len(seg) > 1:
 			if not seg.isdigit():
@@ -31,13 +31,14 @@ def render_pattern(p):
 			# .prosody-segment is for letter-spacing. We keep
 			# together groups of digits and double daṇḍas, otherwise
 			# we add a bit a space.
-			buf.append(f'<span class="prosody-segment">{seg[:-1]}</span>')
-			buf.append(seg[-1])
+			span = tree.Tag("span", class_="prosody-segment")
+			span.append(seg[:-1])
+			ret.append(span)
+			ret.append(seg[-1])
 		else:
 			seg = seg.translate(pattern_tbl)
-			buf.append(html.escape(seg))
-	p = "".join(buf)
-	return f'<span class="prosody">{p}</span>'
+			ret.append(seg)
+	return ret
 
 def is_pattern(p):
 	return all(ord(c) in pattern_tbl or c.isdigit() or c in "|/" for c in p)

@@ -387,7 +387,7 @@ def parse_num(p, num):
 	p.dispatch_children(num)
 	p.join()
 
-# < emendation
+# < editorial
 
 # Try to have more precise tooltips for this. If this does not work, we fall
 # back to a generic one.
@@ -671,7 +671,16 @@ def parse_choice(p, node):
 	else:
 		p.dispatch_children(node)
 
-# > emendation
+# EGD "Editorial deletion (suppression)"
+@handler("surplus")
+def parse_surplus(p, node):
+	p.push(tree.Tag("span", class_="surplus", tip="Superfluous text erroneously added by the scribe"))
+	p.append("{")
+	p.dispatch_children(node)
+	p.append("}")
+	p.join()
+
+# > editorial
 
 # For <note> elements anywhere but in the apparatus, where <note> has a peculiar
 # purpose.
@@ -973,6 +982,7 @@ def parse_expan(p, node):
 
 # >abbreviations
 
+# XXX not refactored
 # XXX @rend="check" should be handled everywhere but is not
 
 # There is @type=aksara|component which we are not dealing with but that is
@@ -998,12 +1008,14 @@ def parse_seg(p, seg):
 		p.append("}")
 		p.join()
 
+# XXX not general enough
 @handler("div[@type='translation']//gap[@reason='ellipsis']")
 def handle_gap_ellipsis(p, gap):
 	p.start_span(tip="Untranslated segment")
 	p.add_html("\N{horizontal ellipsis}", plain=True)
 	p.end_span()
 
+# XXX not refactored
 # "component" is for character components like vowel markers, etc.; "character" is for akṣaras
 # EGD: The EpiDoc element <gap/> ff (full section 5.4)
 # EGD: "Scribal Omission without Editorial Restoration"
@@ -1084,7 +1096,6 @@ def parse_gap(p, gap):
 	else:
 		p.add_html(repl, plain=True)
 	p.end_span()
-	# TODO merge consecutive values as in [ca.10x – – – ⏑ – – abc] in editorial
 
 # See mkfractiontable.py.
 composed_fractions = {
@@ -1155,46 +1166,30 @@ def parse_g(p, node):
 		sym.append(f"<{info['name']}>")
 	p.append(sym)
 
-# EGD "Editorial deletion (suppression)"
-@handler("surplus")
-def parse_surplus(p, node):
-	p.start_span(klass="surplus", tip="Superfluous text erroneously added by the scribe")
-	p.add_display("{")
-	p.dispatch_children(node)
-	p.add_display("}")
-	p.end_span()
-
-def print_as_grantha(p, node): # XXX cannot nest <div> within <p>
-	#p.add_html('<div class="grantha">')
-	p.dispatch_children(node)
-	#p.add_html('</div>')
-
-# XXX we have intervening <lb/>, etc. within <hi>, so when rendering the
-# physical display, must use <div> for some of these.
+# XXX This doesn't always work, because we have intervening <lb/>, etc. within
+# <hi>, so we need to split the <hi> into several elements. Needs to be done
+# after building the output tree.
 hi_table = {
-	"italic": "i",
-	"bold": "b",
-	"superscript": "sup",
-	"subscript": "sub",
-	"check": {"klass": "check"},
-	"grantha": {"klass": "grantha", "tip": "Grantha text"},
+	"italic": tree.Tag("i"),
+	"bold": tree.Tag("b"),
+	"superscript": tree.Tag("sup"),
+	"subscript": tree.Tag("sub"),
+	"check": tree.Tag("span", class_="check"),
+	"grantha": tree.Tag("span", class_="grantha", tip="Grantha text"),
 }
 @handler("hi")
 def parse_hi(p, hi):
-	rends = hi["rend"].split()
-	tags = list(filter(None, (hi_table.get(rend) for rend in rends)))
-	for tag in tags:
-		if isinstance(tag, str):
-			p.add_html("<%s>" % tag)
-		else:
-			p.start_span(**tag)
+	n = 0
+	for rend in common.unique(hi["rend"].split()):
+		node = hi_table.get(rend)
+		if node:
+			p.push(node.copy())
+			n += 1
 	p.dispatch_children(hi)
-	tags.reverse()
-	for tag in tags:
-		if isinstance(tag, str):
-			p.add_html("</%s>" % tag)
-		else:
-			p.end_span()
+	for _ in range(n):
+		p.join()
+
+# < para-like
 
 roman_table = [
 	("M", 1000),
@@ -1225,19 +1220,21 @@ def to_roman(x):
 @handler("lg")
 @handler("p[@rend='stanza']")
 def parse_lg(p, lg):
-	parts = get_n(lg, default="").split("\N{en dash}")
-	for i, part in enumerate(parts):
-		if part.isdigit():
-			part = to_roman(int(part))
-			parts[i] = part
-	n = "\N{en dash}".join(parts)
+	# Generally we have a single number e.g. "10", but sometimes ranges
+	# e.g. "10-20" (with various types of dashes). Try to do the most
+	# generic thing viz. replace sequences of digits with the corresponding
+	# Roman number whenever possible.
+	n = re.sub(r"[0-9]+", get_n(lg), lambda m: to_roman(int(m.group())))
 	met = lg["met"]
 	if not met:
 		pass
 	elif prosody.is_pattern(met):
 		met = prosody.render_pattern(met)
 	else:
-		name = html.escape(common.sentence_case(met))
+		# Assume this is a meter name.
+		# XXX REPR HERE
+		# XXX should _really_ not have several entries in the DB.
+		name = common.sentence_case(met)
 		entries = p.get_prosody_entries(met)
 		if len(entries) == 1:
 			pattern, description, entry_id = entries[0]
@@ -1256,16 +1253,14 @@ def parse_lg(p, lg):
 			p.add_html(f"{n}", plain=True)
 		elif met:
 			p.add_html(f"{met}", plain=True)
-		p.add_log(">head", level=6)
+		p.add_log(">head", level=6) # XXX shouldn't hardcode heading levels, and btw this probably should not be a heading at all
 	numbered = len(lg.find("l")) > 4
 	p.add_log("<verse", numbered=numbered)
-	if get_script(lg).id == "grantha":
-		print_as_grantha(p, lg)
-	else:
-		p.dispatch_children(lg)
+	p.dispatch_children(lg)
 	p.add_log(">verse")
 
 @handler("ab")
+# As far as we're concerned, <ab> is just a <p>.
 def parse_ab(p, ab):
 	p.push(tree.Tag("para"))
 	p.dispatch_children(ab)
@@ -1276,16 +1271,14 @@ def parse_p(p, para):
 	# We deal with stanzas rendering elsewhere
 	assert not para["rend"] == "stanza"
 	p.push(tree.Tag("para"))
-	if para["n"]:
+	if (n := get_n(para)):
 		# See e.g. http://localhost:8023/display/DHARMA_INSSII0400223
-		# Should be displayed like <lb/> in the edition.
-		n = html.escape(get_n(para))
-		p.add_html(f'<span class="lb" data-tip="Line start">({n})</span>')
-		p.add_html(" ")
-	if get_script(para).id == "grantha":
-		print_as_grantha(p, para)
-	else:
-		p.dispatch_children(para)
+		# Should be displayed like <lb/> is in the edition.
+		p.push(tree.Tag("span", class_="lb", tip="Line start"))
+		p.append(f"({n})")
+		p.join()
+		p.append(" ")
+	p.dispatch_children(para)
 	p.join()
 
 @handler("l")
@@ -1322,15 +1315,7 @@ def parse_l(p, l):
 		p.end_span()
 	p.add_log(">line", n=n, enjamb=enjamb)
 
-def is_description_list(nodes):
-	if len(nodes) % 2: # XXX watch out for fucked text
-		return False
-	for i in range(0, len(nodes), 2):
-		label = nodes[i]
-		item = nodes[i + 1]
-		if label.name != "label" or item.name != "item":
-			return False
-	return True
+# > para-like
 
 """
 XXX special type for manu?

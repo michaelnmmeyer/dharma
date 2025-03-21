@@ -2,6 +2,9 @@
 # For ISO 639-5 (language families), the authority is
 # https://www.loc.gov/standards/iso639-5/index.html
 
+#XXX we need to treat the apparatus separately when assigning languages. the
+# default should be something like "undetermined source language".
+
 """TODO
 
 only attempt to find @rendition in div[@type='edition'] and in div[@type='apparatus']

@@ -239,9 +239,22 @@ sqlite3.register_adapter(list, to_json)
 sqlite3.register_adapter(dict, to_json)
 
 def append_unique(items, item):
+	"In-place"
 	if item in items:
 		return
 	items.append(item)
+	return items
+
+def unique(items):
+	"In-place"
+	seen = set()
+	i = 0
+	while i < len(items):
+		if items[i] in seen:
+			del items[i]
+		else:
+			seen.add(items[i])
+			i += 1
 	return items
 
 def command(*cmd, **kwargs):
