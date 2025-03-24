@@ -1,3 +1,4 @@
+#XXX cleanup this
 import html, re
 from dharma import common, tree, biblio, people, texts, langs
 
@@ -9,11 +10,17 @@ def make_db():
 	db = common.db("texts")
 	db.execute("delete from prosody")
 	for row in index:
+		print(row)
+		if isinstance(row["pattern"], tree.Node):#XXX cleanup
+			row["pattern"] = row["pattern"].xml()
+		# TODO do something sensible when we have duplicates. Should
+		# print an error message, but where? Can't keep adding error
+		# pages for each XML file.
 		db.execute("""
 			insert into prosody(name, pattern, description, entry_id)
-			values(:name, :pattern, :description, :entry_id)""", row)
+			values(:name, :pattern, :description, :entry_id)
+			on conflict do nothing""", row)
 
-# TODO use Symbola for fonts symbol; no, is proprietary, find sth else
 pattern_tbl = str.maketrans({
 	"-": "\N{metrical breve}",
 	"+": "\N{en dash}",
@@ -40,8 +47,10 @@ def render_pattern(p):
 			ret.append(seg)
 	return ret
 
+pattern_chars = set(chr(c) for c in pattern_tbl) | set("0123456789|/")
+
 def is_pattern(p):
-	return all(ord(c) in pattern_tbl or c.isdigit() or c in "|/" for c in p)
+	return len(p) > 0 and all(c in pattern_chars for c in p)
 
 def parse_front(xml):
 	table = xml.first("//front//table")
@@ -176,7 +185,7 @@ def parse_list_rec(item, bib_entries, langs):
 			note["symbol"] = symbol
 			syms += symbol
 			rec["bibliography"]["notes"].append(note)
-		ref = f'{entry.reference(loc=loc)}<sup>{syms}</sup>'
+		ref = f'{entry.reference(location=loc).xml()}<sup>{syms}</sup>'
 		rec["bibliography"]["refs"].append(ref)
 	return rec
 
@@ -207,13 +216,6 @@ def make_name_index(lists):
 				pattern = html.escape(item["gana"])
 			if not pattern and item["notes"]:
 				description = html.escape(item["notes"][0]["text"])
-			if item["class"]:
-				index.append({
-					"name": item["class"][0],
-					"entry_id": item_id,
-					"pattern": pattern,
-					"description": description,
-				})
 			for name in item["names"]:
 				index.append({
 					"name": name[0],
@@ -240,5 +242,6 @@ def parse_prosody():
 if __name__ == "__main__":
 	@common.transaction("texts")
 	def main():
-		print(common.to_json(parse_prosody()))
+		#print(common.to_json(parse_prosody()))
+		make_db()
 	main()

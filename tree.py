@@ -886,23 +886,18 @@ class Tag(Branch):
 
 	def __setitem__(self, key, value):
 		if isinstance(key, int):
-			super().__setitem__(key, value)
-		else:
-			assert isinstance(key, str)
-			if value is None:
-				del self[key]
-				return
-			assert isinstance(value, str), repr(value)
-			# Always normalize space.
-			value = " ".join(value.strip().split())
+			return super().__setitem__(key, value)
+		assert isinstance(key, str)
+		if value is None:
+			del self[key]
+			return
+		assert isinstance(value, str), type(value)
+		# Always normalize space.
+		value = " ".join(value.strip().split())
+		if value:
 			self.attrs[key] = value
-			# XXX still have "replacementPattern" that is required and needs an empty string in tei
-			"""
-			if value:
-				self.attrs[key] = value
-			elif key in self.attrs:
-				del self.attrs[key]
-         """
+		elif key in self.attrs:
+			del self.attrs[key]
 
 	def __delitem__(self, key):
 		if isinstance(key, int):

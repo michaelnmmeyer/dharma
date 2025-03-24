@@ -379,11 +379,16 @@ create view if not exists langs_display as
 	order by langs_list.inverted_name;
 
 create table if not exists prosody(
-	name text not null check(typeof(name) = 'text' and length(name) > 0),
+	-- Name, only of actual meters (they have a <name> in the prosody
+	-- file), not of generic meters (they have a <label> instead of a
+	-- <name> in the prosody file).
+	name text primary key check(typeof(name) = 'text' and length(name) > 0),
 	pattern text check(pattern is null
 		or typeof(pattern) = 'text' and length(pattern) > 0),
 	description text check(description is null
 		or typeof(description) = 'text' and length(description) > 0),
+	-- This is used for generating anchors. We use these anchors to
+	-- link to prosody entries.
 	entry_id integer not null check(typeof(entry_id) = 'integer')
 );
 

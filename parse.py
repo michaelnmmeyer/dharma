@@ -111,16 +111,16 @@ class Parser:
 			contents=contents)
 		return ref
 
-	def get_prosody_entries(self, name):
-		entries = self.document._prosody_entries.get(name)
-		if entries is None:
+	def get_prosody_entry(self, name):
+		entry = self.document._prosody_entries.get(name, object)
+		if entry is object:
 			db = common.db("texts")
-			entries = db.execute(
+			entry = db.execute(
 				"""select pattern, description, entry_id
 				from prosody where name = ?""",
-				(name,)).fetchall()
-			self.document._prosody_entries[name] = entries
-		return entries
+				(name,)).fetchone() or None
+			self.document._prosody_entries[name] = entry
+		return entry
 
 	def dispatch(self, node):
 		if node in self.visited:
@@ -1217,105 +1217,107 @@ def to_roman(x):
 			x -= arabic
 	return buf
 
+def make_meter_heading(p, met):
+	if not met:
+		return
+	if prosody.is_pattern(met):
+		return prosody.render_pattern(met)
+	entry = p.get_prosody_entry(met)
+	if not entry:
+		ret = tree.Tag("span")
+		ret.append(met)
+		return ret
+	pattern, description, entry_id = entry
+	name = common.sentence_case(met)
+	value = pattern or description or "No metre description available"
+	p.push(tree.Tag("a", href=f"/prosody#prosody-{entry_id}"))
+	p.push(tree.Tag("span", tip=value))
+	p.append(name)
+	p.join()
+	return p.pop()
+
+# The guide does not talk about ab[@rend='stanza'], but still try to process it
+# if it appears in an edition.
 @handler("lg")
 @handler("p[@rend='stanza']")
+@handler("ab[@rend='stanza']")
 def parse_lg(p, lg):
+	numbered = from_boolean(len(lg.find("l")) > 4)
+	p.push(tree.Tag("verse", numbered=numbered))
 	# Generally we have a single number e.g. "10", but sometimes ranges
 	# e.g. "10-20" (with various types of dashes). Try to do the most
 	# generic thing viz. replace sequences of digits with the corresponding
 	# Roman number whenever possible.
-	n = re.sub(r"[0-9]+", get_n(lg), lambda m: to_roman(int(m.group())))
-	met = lg["met"]
-	if not met:
-		pass
-	elif prosody.is_pattern(met):
-		met = prosody.render_pattern(met)
-	else:
-		# Assume this is a meter name.
-		# XXX REPR HERE
-		# XXX should _really_ not have several entries in the DB.
-		name = common.sentence_case(met)
-		entries = p.get_prosody_entries(met)
-		if len(entries) == 1:
-			pattern, description, entry_id = entries[0]
-			value = pattern or description or "No metre description available"
-			met = f'<span data-tip="{html.escape(value)}">{name}</span>'
-			met = f'<a href="/prosody#prosody-{entry_id}">{met}</a>'
-		elif len(entries) > 1:
-		 	patterns = " or ".join(html.escape(pattern or "undefined pattern") for pattern, _, _ in entries)
-		 	if patterns:
-		 		met = f'<span data-tip="{patterns}">{met}</span>'
+	n = re.sub(r"[0-9]+", lambda m: to_roman(int(m.group())), get_n(lg))
+	met = make_meter_heading(p, lg["met"])
 	if n or met:
-		p.add_log("<head", level=6)
+		p.push(tree.Tag("head"))
 		if n and met:
-			p.add_html(f"{n}. {met}", plain=True)
+			p.append(n)
+			p.append(". ")
+			p.append(met)
 		elif n:
-			p.add_html(f"{n}", plain=True)
-		elif met:
-			p.add_html(f"{met}", plain=True)
-		p.add_log(">head", level=6) # XXX shouldn't hardcode heading levels, and btw this probably should not be a heading at all
-	numbered = len(lg.find("l")) > 4
-	p.add_log("<verse", numbered=numbered)
+			p.append(n)
+		else:
+			assert met
+			p.append(met)
+		p.join()
 	p.dispatch_children(lg)
-	p.add_log(">verse")
-
-@handler("ab")
-# As far as we're concerned, <ab> is just a <p>.
-def parse_ab(p, ab):
-	p.push(tree.Tag("para"))
-	p.dispatch_children(ab)
 	p.join()
 
+# As far as we're concerned, <ab> is just a <p>, so we treat them identically.
+@handler("ab")
 @handler("p")
 def parse_p(p, para):
-	# We deal with stanzas rendering elsewhere
+	# We deal with stanzas in another handler
 	assert not para["rend"] == "stanza"
 	p.push(tree.Tag("para"))
 	if (n := get_n(para)):
 		# See e.g. http://localhost:8023/display/DHARMA_INSSII0400223
 		# Should be displayed like <lb/> is in the edition.
-		p.push(tree.Tag("span", class_="lb", tip="Line start"))
+		p.push(tree.Tag("span", class_="lb"))
 		p.append(f"({n})")
 		p.join()
 		p.append(" ")
 	p.dispatch_children(para)
 	p.join()
 
+def append_meter_description(p, met):
+	if prosody.is_pattern(met):
+		p.append(prosody.render_pattern(met))
+	elif (entry := p.get_prosody_entry(met)):
+		pattern, _, _ = entry
+		p.append(met)
+		p.append(" (")
+		p.append(pattern)
+		p.append(")")
+	else:
+		p.append(met)
+
 @handler("l")
 def parse_l(p, l):
-	n = get_n(l)
-	tip = ""
-	met = l["met"]
-	if met:
-		if prosody.is_pattern(met):
-			met = prosody.render_pattern(met)
-		else:
-			name = html.escape(met)
-			entries = p.get_prosody_entries(met)
-			if entries:
-				met = f'{name} ({" or ".join(p or "undefined pattern" for p, _, _ in entries)})'
-			else:
-				met = name
-		tip = f'Meter: {met}'
-	real = l["real"]
-	if real:
-		if prosody.is_pattern(real):
-			real = prosody.render_pattern(real)
-		else:
-			real = html.escape(real)
-		tip = f'Irregular meter: {real}'
-		if met:
-			tip += f'; based on {met}'
-	p.add_log("<line", n=n, tip=tip)
+	p.push(tree.Tree())
+	if (real := l["real"]):
+		p.append("Irregular meter: ")
+		append_meter_description(p, real)
+		if (met := l["met"]):
+			p.append("; based on ")
+			append_meter_description(p, met)
+	elif (met := l["met"]):
+		p.append("Meter: ")
+		append_meter_description(p, met)
+	p.push(tree.Tag("verse-line", n=get_n(l), tip=p.pop().xml()))
 	p.dispatch_children(l)
-	enjamb = common.to_boolean(l["enjamb"], False)
-	if enjamb:
-		p.start_span(klass="enjamb", tip="Enjambement")
-		p.add_html("-")
-		p.end_span()
-	p.add_log(">line", n=n, enjamb=enjamb)
+	if common.to_boolean(l["enjamb"], False):
+		# #XXX should remove whitespace at end of line
+		p.push(tree.Tag("span", class_="enjamb", tip="Enjambement"))
+		p.append("-")
+		p.join()
+	p.join()
 
 # > para-like
+
+# < lists
 
 """
 XXX special type for manu?
@@ -1369,12 +1371,10 @@ def parse_list(p, lst):
 		p.join()
 	p.join()
 
-@handler("label")
-def parse_label(p, label):
-	pass # We deal with this in other handlers
+# > lists
 
 # I really don't like the encoding we use for <listBibl>, because there is no
-# reason why a <ptr> should produce something other than a link, but we're
+# reason why a <ptr> should produce something other than a link. But we're
 # stuck with that. Apparently, this was borrowed from epiDoc, see:
 # https://epidoc.stoa.org/gl/latest/supp-bibliography.html
 # Still doesn't make it a good idea.
@@ -1518,7 +1518,6 @@ def parse_titleStmt(p, stmt):
 	p.document.editors = editors
 	p.document.editors_ids = editors_ids
 
-# XXX we don't want inner calls, these shouldn't pile up!
 @handler("text//roleName")
 @handler("text//measure")
 @handler("text//date")
@@ -1585,7 +1584,6 @@ def parse_source_handDesc(p, desc):
 	hd = desc.first("msDesc/physDesc/handDesc")
 	if hd:
 		parse_handDesc(p, hd)
-
 
 def get_script(node):
 	m = re.match(r"class:([^ ]+) maturity:(.+)", node["rendition"])
@@ -1715,7 +1713,7 @@ def parse_div_textpart(p, div):
 		p.add_text(common.sentence_case(subtype))
 		if (n := get_n(div)):
 			p.add_text(f" {n}")
-	p.push(tree.Tag("div"))
+	p.push(tree.Tag("textpart"))
 	add_div_heading(p, div, make_textpart_heading)
 	p.dispatch_children(div)
 	p.join() # </div>
