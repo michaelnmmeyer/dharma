@@ -708,40 +708,7 @@ def parse_foreign(p, foreign):
 	p.dispatch_children(foreign)
 	p.join()
 
-# <milestones
-
-def get_n(node):
-	n = node["n"]
-	if not n:
-		return ""
-	n = n.replace("_", " ").replace("-", "\N{en dash}")
-	return n
-
-def milestone_break(node):
-	return common.to_boolean(node["break"], True)
-
-def from_boolean(obj):
-	if obj is True:
-		return "true"
-	assert obj is False
-	return "false"
-
-@handler("milestone")
-# TODO milestone type="ref"
-def parse_milestone(p, node):
-	n = get_n(node)
-	brk = milestone_break(node)
-	unit = node["unit"] or "column"
-	type = node["type"]
-	if type not in ("pagelike", "gridlike"):
-		type = "gridlike"
-	label = None
-	if (after := node.find("stuck-following-sibling::label")):
-		p.push(tree.Tree())
-		p.dispatch_children(after)
-		p.visited.add(after)
-		label = p.pop().xml()
-	p.append(tree.Tag(type, unit=unit, n=n, break_=from_boolean(brk), label=label))
+# < milestones
 
 """
 what shall we do
@@ -781,24 +748,75 @@ elif data.startswith("=") and params["type"] == "gridlike":
 else:
 """
 
-@handler("lb")
-def parse_lb(p, elem):
-	n = get_n(elem)
-	brk = milestone_break(elem)
-	# On alignment, EGD §7.5.2
-	m = re.match(r"^text-align:\s?(right|center|left|justify)$", elem["style"])
-	if m:
+def get_n(node):
+	n = node["n"]
+	if not n:
+		return ""
+	n = n.replace("_", " ").replace("-", "\N{en dash}")
+	return n
+
+def milestone_break(node):
+	return common.to_boolean(node["break"], True)
+
+def from_boolean(obj):
+	if obj is True:
+		return "true"
+	assert obj is False
+	return "false"
+
+def append_milestone_label(p, node):
+	p.push(tree.Tag("span"))
+	# On alignment, EGD § "Alignment"
+	if (style := node["style"]) and (m := re.fullmatch(r"text-align:\s?(right|center|left|justify);?", style)):
 		align = m.group(1)
 	else:
 		# If not given, we assume it is not important and omit the
 		# alignment from the tooltip.
 		align = None
-	p.add_phys("line", n=n, brk=brk, align=align)
+	unit = (node["unit"] or "column").title()
+	p.append("⟨")
+	p.append(unit)
+	if (n := get_n(node)):
+		p.append(" ")
+		p.append(n)
+	if (label := node.first("stuck-following-sibling::label")):
+		p.append(": ")
+		p.dispatch_children(label)
+		p.visited.add(label)
+	p.append("⟩")
+	p.join()
 
-@handler("fw")
-def parse_fw(p, fw):
-	# We deal with this within parse_pb.
-	pass
+@handler("milestone")
+def parse_milestone(p, node):
+	break_ = milestone_break(node)
+	match node["type"]:
+		case "pagelike":
+			type = "page"
+		case "gridlike" | _:
+			type = "cell"
+	p.push(tree.Tag(type, break_=from_boolean(break_)))
+	append_milestone_label(p, node)
+	p.join()
+
+"""
+
+def format_lb(n=None, brk=None, align=None):
+	assert n
+	n = html.escape(n)
+	if align:
+		tip = f'{alignments[align]} line start'
+	else:
+		tip = "Line start"
+	tip = html.escape(tip)
+	return f'<span class="lb" data-tip="{tip}">⟨{n}⟩</span>'
+
+"""
+@handler("lb")
+def parse_lb(p, node):
+	break_ = milestone_break(node)
+	p.push(tree.Tag("line", break_=from_boolean(break_)))
+	append_milestone_label(p, node)
+	p.join()
 
 fw_places = {
 	"bot-left": "bottom left",
@@ -813,10 +831,13 @@ fw_places = {
 # TODO the guide does not talk about using <fw> about other page-like, but
 # we should allow this anyway.
 @handler("pb")
-def parse_pb(p, elem):
-	n = get_n(elem)
-	brk = milestone_break(elem)
-	p.add_phys("{page", n=n, brk=brk)
+def parse_pb(p, node):
+	n = get_n(node)
+	brk = milestone_break(node)
+	p.push(tree.Tag("page", unit="page", n=n, break_=from_boolean(brk)))
+	append_milestone_label(p, node)
+	p.join()
+	"""
 	fws = []
 	while True:
 		fw = elem.stuck_following_sibling()
@@ -848,8 +869,9 @@ def parse_pb(p, elem):
 			if i < len(fws) - 1:
 				p.add_html(" ", logical=False, physical=True, full=False)
 	p.add_phys("}page")
+	"""
 
-# >milestones
+# > milestones
 
 # Valid cases are:
 #	<space [type="semantic"]/> (shorthand is '_')
@@ -1630,13 +1652,6 @@ def squeeze(strings):
 			s.replace_with(ret)
 		i += 1
 
-"""
-must remove spaces before <note>
-must remove spaces around milestones and add them back as appropriate depending
-on the value of @break
-(also reposition milestones)
-
-"""
 def cleanup_descendant_spaces(node):
 	strings = node.strings()
 	trim_left(strings)
@@ -1784,9 +1799,6 @@ def parse_div_translation(p, div):
 			p.add_text(" by ")
 			append_sources(p, sources.split())
 	p.push(tree.Tree())
-	# TODO do the same for every section: if the section starts with
-	# a note not preceded by non-blank text, treat the note as part of
-	# the section's title.
 	add_div_heading(p, div, make_translation_heading)
 	p.dispatch_children(div, only_tags=True)
 	p.document.translation.append(p.pop())
