@@ -1,3 +1,7 @@
+amandine: ajouter https://dharmalekha.info/ avant tous les @target ; également liens biblio; sur bestow les <ref target=""> à remplacer avec titre de l'insc
+
+<lb break autocompletion broken
+
 
 add transforms (and tests; verification can be automated):
 
@@ -14,50 +18,15 @@ move spaces outside of the current element; only if whitespace is significant fo
 * elements where all space should be removed, typically elements that can only have elements as children (lg, most stuff in the teiHeader)
 * elements 
 
-safer to define elements that have non-significant whitespace than the reverse (if we forget one). which elements does this include?
+ safer to define elements that have non-significant whitespace than the reverse (if we forget one). which elements does this include?
 
-  app
-  availability
-  bibl
-  biblFull
-  body
-  choice
-  cit
-  div
-  editionStmt
-  encodingDesc
-  facsimile
-  fileDesc
-  graphics
-  handDesc
-  handShift
-  langUsage
-  lg
-  licence
-  list
-  listApp
-  listBibl
-  listPrefixDef
-  msContents
-  msDesc
-  msIdentifier
-  physDesc
-  profileDesc
-  projectDesc
-  publicationStmt
-  respStmt
-  revisionDesc
-  revisionDesc
-  sourceDesc
-  TEI
-  teiHeader
-  teiHeader//persName
-  text
-  titleStmt
+some tags should not inherit spaces from their parent (just trim them without trying to move spaces outside of them):
+  
+  label
+  head
+  note
 
-special case for label, head, fw and friends
-
-special case with <note>. always trim its contents without moving spaces outside it. and always remove spaces before the <note>. (but special case for notes within the apparatus: we could have notes (footnotes) within notes (text to be displayed in the body of the apparatus).)
+special case of nested notes within the apparatus, should allow this. we could have notes (footnotes) within notes (text to be displayed in the body of the apparatus).)
 
 ¶ remove spaces around milestones and add them back as appropriate depending on the value of @break (also reposition milestones)
 

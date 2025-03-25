@@ -311,6 +311,30 @@ def parse_other_ref(p, ref):
 	assert not ref["target"]
 	p.dispatch_children(ref)
 
+@handler("num")
+def parse_num(p, num):
+	if num["value"] and num["value"] == num.text() and not num["cert"] == "low":
+		tip = "" # Pointless to add a tooltip in this case.
+	elif num["value"]:
+		tip = f"Numeral {num['value']}"
+	elif num["atLeast"] and num["atMost"]:
+		tip = f"Numeral between {num['atLeast']} and {num['atMost']} inclusive"
+	elif num["atLeast"]:
+		tip = f"Numeral greater than or equal to {num['atLeast']}"
+	elif num["atMost"]:
+		tip = f"Numeral smaller than or equal to {num['atMost']}"
+	elif num.text().isdigit() and not num["cert"] == "low":
+		tip = "" # Pointless to add a tooltip in this case.
+	else:
+		tip = "Numeral"
+	if num["cert"] == "low":
+		tip += " (low certainty)"
+	p.push(tree.Tag("span", class_="num", tip=tip or None))
+	p.dispatch_children(num)
+	p.join()
+
+# < apparatus
+
 def add_lemmas_links(p, sources):
 	for ref in sources.split():
 		ref = ref.removeprefix("bib:")
@@ -365,27 +389,7 @@ def parse_listApp(p, listApp):
 		prev_loc = app["loc"]
 	p.add_log(">para")
 
-@handler("num")
-def parse_num(p, num):
-	if num["value"] and num["value"] == num.text() and not num["cert"] == "low":
-		tip = "" # Pointless to add a tooltip in this case.
-	elif num["value"]:
-		tip = f"Numeral {num['value']}"
-	elif num["atLeast"] and num["atMost"]:
-		tip = f"Numeral between {num['atLeast']} and {num['atMost']} inclusive"
-	elif num["atLeast"]:
-		tip = f"Numeral greater than or equal to {num['atLeast']}"
-	elif num["atMost"]:
-		tip = f"Numeral smaller than or equal to {num['atMost']}"
-	elif num.text().isdigit() and not num["cert"] == "low":
-		tip = "" # Pointless to add a tooltip in this case.
-	else:
-		tip = "Numeral"
-	if num["cert"] == "low":
-		tip += " (low certainty)"
-	p.push(tree.Tag("span", class_="num", tip=tip or None))
-	p.dispatch_children(num)
-	p.join()
+# > apparatus
 
 # < editorial
 
@@ -1538,7 +1542,6 @@ def parse_just_dispatch_all(p, node):
 def parse_just_dispatch(p, node):
 	p.dispatch_children(node, only_tags=True)
 
-@handler("publicationStmt")
 @handler("editionStmt")
 @handler("facsimile") # for images, will see later on
 @handler("handShift")
@@ -1587,9 +1590,56 @@ def get_script(node):
 	m = re.match(r"class:([^ ]+) maturity:(.+)", node["rendition"])
 	if not m:
 		return langs.get_script("")
-	klass, maturity = m.groups()
+	klass, _ = m.groups()
 	script = langs.get_script(klass)
 	return script
+
+# If the following elements have whitespace as children, whatever the context, these
+# spaces can be removed. All these elements are plain(), but not all plain() elements
+# are here.
+child_space_not_significant = {
+	"app",
+	"availability",
+	"bibl",
+	"biblFull",
+	"body",
+	"choice",
+	"cit",
+	"div",
+	"editionStmt",
+	"encodingDesc",
+	"facsimile",
+	"fileDesc",
+	"graphics",
+	"handDesc",
+	"handShift",
+	"langUsage",
+	"lg",
+	"licence",
+	"list",
+	"listApp",
+	"listBibl",
+	"listPrefixDef",
+	"msContents",
+	"msDesc",
+	"msIdentifier",
+	"physDesc",
+	"profileDesc",
+	"projectDesc",
+	"publicationStmt",
+	"respStmt",
+	"revisionDesc",
+	"revisionDesc",
+	"sourceDesc",
+	"TEI",
+	# "teiHeader",
+	# "teiHeader//persName",
+	"text",
+	"titleStmt",
+}
+def child_space_not_significant_for(node):
+	return child_space_not_significant
+
 
 def trim_left(strings):
 	while strings:
@@ -1778,10 +1828,6 @@ def parse_div_translation(p, div):
 	add_div_heading(p, div, make_translation_heading)
 	p.dispatch_children(div, only_tags=True)
 	p.document.translation.append(p.pop())
-
-@handler("teiHeader/*")
-def parse_in_teiHeader(p, node):
-	p.dispatch_children(node, only_tags=True)
 
 def process_file(file, mode=None):
 	try:
