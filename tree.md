@@ -77,7 +77,7 @@ Like `glob`, but for regular expressions. Matching is unanchored, so `^` and
 `name()`
 `errors()`
 `lang()`, `assigned-lang()`, inferred-lang()`
-`mixed()`, `empty()`, `plain()`
+`mixed()`, `empty()`, `plain()`, `text()`
 
 Returns the corresponding attributes in `Node`.
 

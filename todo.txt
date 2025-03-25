@@ -1,13 +1,69 @@
-deal with milestones 
 
-add transforms:
-  must remove spaces before <note>
-  must remove spaces around milestones and add them back as appropriate depending
-  on the value of @break
-  (also reposition milestones)
+add transforms (and tests; verification can be automated):
+
+generally speaking, should move spaces outside of elements, viz. make it so that we can safely assume that spaces just after an opening element and spaces just before a closing element can be ignored (to make it easier to pretty-print stuff).
+
+  <p>foo bar<span> hello </span>world</p>
+
+  <p>foo bar <span>hello</span> world</p>
+
+start with innermost tags;
+squeeze the current element;
+move spaces outside of the current element; only if whitespace is significant for the parent element, otherwise, just trim the contents in-place
+
+* elements where all space should be removed, typically elements that can only have elements as children (lg, most stuff in the teiHeader)
+* elements 
+
+safer to define elements that have non-significant whitespace than the reverse (if we forget one). which elements does this include?
+
+  app
+  availability
+  bibl
+  biblFull
+  body
+  choice
+  cit
+  div
+  editionStmt
+  encodingDesc
+  facsimile
+  fileDesc
+  graphics
+  handDesc
+  handShift
+  langUsage
+  lg
+  licence
+  list
+  listApp
+  listBibl
+  listPrefixDef
+  msContents
+  msDesc
+  msIdentifier
+  physDesc
+  profileDesc
+  projectDesc
+  publicationStmt
+  respStmt
+  revisionDesc
+  revisionDesc
+  sourceDesc
+  TEI
+  teiHeader
+  teiHeader//persName
+  text
+  titleStmt
+
+special case for label, head, fw and friends
+
+special case with <note>. always trim its contents without moving spaces outside it. and always remove spaces before the <note>. (but special case for notes within the apparatus: we could have notes (footnotes) within notes (text to be displayed in the body of the apparatus).)
+
+¶ remove spaces around milestones and add them back as appropriate depending on the value of @break (also reposition milestones)
+
+=== 
 
 deal with conversion full>log and full>phys
-
 
 add tests for the apparatus display
 add tests for biblio entries formatting
@@ -24,7 +80,7 @@ support deleting/renaming repos
 	delete from documents where repo='repo-test';
 	delete from documents_index where repo='repo-test'; **but lowercasing!**
 
-should probably deal with that with triggers
+should probably use triggers for dealing with this
 
 and remove the directory; for locking see https://git-scm.com/docs/api-lockfile
 

@@ -73,7 +73,7 @@ Like `glob`, but for regular expressions. Matching is unanchored, so `^` and
 `name()`
 `errors()`
 `lang()`, `assigned-lang()`, inferred-lang()`
-`mixed()`, `empty()`, `plain()`
+`mixed()`, `empty()`, `plain()`, `text()`
 
 Returns the corresponding attributes in `Node`.
 
@@ -1216,6 +1216,10 @@ def xpath_is_source_lang(node, s):
 	from dharma import langs
 	return langs.Language(s).is_source
 
+def xpath_text(node):
+	assert isinstance(node, Node)
+	return node.text()
+
 xpath_funcs = {
 	"glob": xpath_glob,
 	"iglob": xpath_iglob,
@@ -1229,6 +1233,7 @@ xpath_funcs = {
 	"plain": xpath_plain,
 	"errors": xpath_errors,
 	"name": xpath_name,
+	"text": xpath_text,
 }
 
 def stuck_parent(node):
