@@ -1594,9 +1594,9 @@ def get_script(node):
 	script = langs.get_script(klass)
 	return script
 
-# If the following elements have whitespace as children, whatever the context, these
-# spaces can be removed. All these elements are plain(), but not all plain() elements
-# are here.
+# If the following elements have whitespace as children, whatever the context,
+# these spaces can be removed. All these elements are plain(), but not all
+# plain() elements are here.
 child_space_not_significant = {
 	"app",
 	"availability",
