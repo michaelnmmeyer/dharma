@@ -766,13 +766,6 @@ def from_boolean(obj):
 
 def append_milestone_label(p, node):
 	p.push(tree.Tag("span"))
-	# On alignment, EGD § "Alignment"
-	if (style := node["style"]) and (m := re.fullmatch(r"text-align:\s?(right|center|left|justify);?", style)):
-		align = m.group(1)
-	else:
-		# If not given, we assume it is not important and omit the
-		# alignment from the tooltip.
-		align = None
 	unit = (node["unit"] or "column").title()
 	p.append("⟨")
 	p.append(unit)
@@ -796,21 +789,10 @@ def parse_milestone(p, node):
 			type = "cell"
 	p.push(tree.Tag(type, break_=from_boolean(break_)))
 	append_milestone_label(p, node)
+	if type == "page":
+		append_fws(p, node)
 	p.join()
 
-"""
-
-def format_lb(n=None, brk=None, align=None):
-	assert n
-	n = html.escape(n)
-	if align:
-		tip = f'{alignments[align]} line start'
-	else:
-		tip = "Line start"
-	tip = html.escape(tip)
-	return f'<span class="lb" data-tip="{tip}">⟨{n}⟩</span>'
-
-"""
 @handler("lb")
 def parse_lb(p, node):
 	break_ = milestone_break(node)
@@ -818,6 +800,8 @@ def parse_lb(p, node):
 	append_milestone_label(p, node)
 	p.join()
 
+# <fw> is for pagelike milestones only.
+# See https://www.tei-c.org/release/doc/tei-p5-doc/en/html/PH.html#PHSK
 fw_places = {
 	"bot-left": "bottom left",
 	"bot-right": "bottom right",
@@ -828,48 +812,40 @@ fw_places = {
 	"top-left": "top left",
 	"top-right": "top right",
 }
-# TODO the guide does not talk about using <fw> about other page-like, but
-# we should allow this anyway.
+@handler("fw")
+def parse_fw(p, fw):
+	p.push(tree.Tag("span", class_="fw", tip="Foliation"))
+	# XXX need different formatting for phys/log/full
+	p.append("⟨")
+	if (place := fw["place"]):
+		# If the value is not in our table, keep it, even
+		# though it's wrong.
+		place = fw_places.get(place, place)
+	else:
+		place = "top"
+	p.append(place)
+	if not fw.empty:
+		p.append(": ")
+		p.push(tree.Tag("span", class_="fw-contents"))
+		p.dispatch_children(fw)
+		p.join()
+	p.append("⟩")
+	p.join()
+
+def append_fws(p, pb):
+	node = pb.first("stuck-following-sibling::label") or pb
+	while (fw := node.first("stuck-following-sibling::fw")):
+		p.dispatch(fw)
+		p.visited.add(fw)
+		node = fw
+
 @handler("pb")
 def parse_pb(p, node):
-	n = get_n(node)
-	brk = milestone_break(node)
-	p.push(tree.Tag("page", unit="page", n=n, break_=from_boolean(brk)))
+	break_ = milestone_break(node)
+	p.push(tree.Tag("page", break_=from_boolean(break_)))
 	append_milestone_label(p, node)
+	append_fws(p, node)
 	p.join()
-	"""
-	fws = []
-	while True:
-		fw = elem.stuck_following_sibling()
-		if not fw or not fw.name == "fw":
-			break
-		fws.append(fw)
-		elem = fw
-	# XXX should mark fws as visited, so that a misplaced fw is
-	# still displayed by parse_fw. idem for <head> and such.
-	# and should also mark text nodes in-between!
-	if fws:
-		for i, fw in enumerate(fws):
-			p.start_span(klass="fw", tip="Foliation")
-			place = fw["place"]
-			if not place:
-				place = "top"
-			elif place in fw_places:
-				place = fw_places[place]
-			else:
-				# keep the given value, even though it's wrong
-				pass
-			p.add_html("⟨", logical=True, physical=False, full=True)
-			p.add_text(f"{place}: ")
-			p.start_span(klass="fw-contents")
-			p.dispatch_children(fw)
-			p.end_span()
-			p.add_html("⟩", logical=True, physical=False, full=True)
-			p.end_span()
-			if i < len(fws) - 1:
-				p.add_html(" ", logical=False, physical=True, full=False)
-	p.add_phys("}page")
-	"""
 
 # > milestones
 
