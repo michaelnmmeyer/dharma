@@ -1,7 +1,35 @@
-amandine: ajouter https://dharmalekha.info/ avant tous les @target ; également liens biblio; sur bestow les <ref target=""> à remplacer avec titre de l'insc
+SII  vol. 5 et 14 enlever "partie p1" dans la biblio et dans le titre
+-Āvatu >> <g type="dash"/>Āvatu
+<g type="pillaiyarc"> >> <g type="pc">
+<hi rend="grantha">[1-9]</hi> -> unwrap()
 
-<lb break autocompletion broken
+||\N{emdash} >>	<g type="ddanda">.</g><g type="dashLong">.</g>
 
+xml:lang="tam" >> "tam-Latn", etc.
+
+dans ins en tamoul seulement:
+	śrī >> <hi rend="grantha">śrī</hi>
+	sa|sā|si, etc. > <hi rend="grantha">sa</hi>...
+
+===
+
+break=yes|no >> break=no
+
+===
+
+search
+
+write POC ;
+
+daṇḍa taṇṭa
+dāna tā(_n)a tāna
+
+===
+
+amandine:
+  également liens biblio;
+  bestow les <ref target=""> à remplacer avec titre de l'insc
+  <lb break autocompletion broken
 
 add transforms (and tests; verification can be automated):
 
@@ -16,12 +44,12 @@ squeeze the current element;
 move spaces outside of the current element; only if whitespace is significant for the parent element, otherwise, just trim the contents in-place
 
 * elements where all space should be removed, typically elements that can only have elements as children (lg, most stuff in the teiHeader)
-* elements 
+* elements
 
  safer to define elements that have non-significant whitespace than the reverse (if we forget one). which elements does this include?
 
 some tags should not inherit spaces from their parent (just trim them without trying to move spaces outside of them):
-  
+
   label
   head
   note
@@ -30,7 +58,7 @@ special case of nested notes within the apparatus, should allow this. we could h
 
 ¶ remove spaces around milestones and add them back as appropriate depending on the value of @break (also reposition milestones)
 
-=== 
+===
 
 deal with conversion full>log and full>phys
 

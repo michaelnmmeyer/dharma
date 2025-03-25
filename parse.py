@@ -1632,14 +1632,14 @@ child_space_not_significant = {
 	"revisionDesc",
 	"sourceDesc",
 	"TEI",
-	# "teiHeader",
-	# "teiHeader//persName",
+	"teiHeader",
 	"text",
 	"titleStmt",
 }
 def child_space_not_significant_for(node):
-	return child_space_not_significant
-
+	if node.name in child_space_not_significant:
+		return True
+	return node.matches("teiHeader//persName")
 
 def trim_left(strings):
 	while strings:
