@@ -574,21 +574,13 @@ attributes.
 #### \_\_init\_\_
 
 ```python
-def __init__(name, *attributes_iter, **attributes)
+def __init__(name, **attributes)
 ```
 
 The argument `name` is the name of the node as a string, e.g.
-"html". This argument can be followed by a single positional
-argument `attributes_iter`. If given, it must be an
-iterator that returns tuples of the form `(key, value)`, or a
-`dict`-like object. Attributes can also be passed as keyword
-arguments with `**attributes`.
-
-Attributes ordering is preserved for attributes passed through
-`attributes_iter`. This is the reason we have it. New
-attributes created manually with e.g. `node["attr"] = "foo"`
-are added at the end of the attributes list. (We use an
-OrderedDict under the hood.)
+"html". Attributes can be passed as keyword arguments with
+`**attributes` (their order is preserved, see
+https://docs.python.org/3/whatsnew/3.6.html#whatsnew36-pep468).
 
 <a id="dharma.tree.String"></a>
 
