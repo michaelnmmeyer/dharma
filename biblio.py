@@ -500,7 +500,7 @@ class Writer:
 		self.space()
 		self.add("DOI:")
 		self.space()
-		tag = tree.Tag("a", {"class": "url", "href": f"https://doi.org/{doi}"})
+		tag = tree.Tag("a", class_="url", href_=f"https://doi.org/{doi}")
 		tag.append(doi)
 		self.add(tag)
 		self.period()
@@ -513,7 +513,7 @@ class Writer:
 			self.add("URLs:")
 		self.space()
 		for i, url in enumerate(urls):
-			tag = tree.Tag("a", {"class": "url", "href": url})
+			tag = tree.Tag("a", class_="url", href=url)
 			tag.append(url)
 			self.add(tag)
 			if i < len(urls) - 1:
@@ -522,7 +522,7 @@ class Writer:
 
 	def url_hidden(self, urls):
 		for url in urls:
-			tag = tree.Tag("a", {"href": url})
+			tag = tree.Tag("a", href=url)
 			tag.append("[URL]")
 			self.space()
 			self.add(tag)
@@ -624,7 +624,7 @@ def render_journal_article(rec, w, params):
 		# Use the abbreviated journal name if possible.
 		if abbr and name:
 			name.name = "i"
-			tag = tree.Tag("abbr", {"data-tip": name.xml()})
+			tag = tree.Tag("abbr", **{"data-tip": name.xml()})
 			tagi = tree.Tag("i")
 			tagi.append(abbr)
 			tag.append(tagi)
@@ -1363,7 +1363,7 @@ class Entry:
 		f(rec, w, {"loc": loc, "n": siglum})
 		w.space()
 		w.push(tree.Tag("a", href=f"https://www.zotero.org/groups/1633743/erc-dharma/items/{self.key}"))
-		w.push(tree.Tag("i", {
+		w.push(tree.Tag("i", **{
 			"class": "fas fa-edit",
 			"style": "display:inline;",
 			"data-tip": "Edit on zotero.org",
@@ -1374,10 +1374,10 @@ class Entry:
 		return w.pop()
 
 	def _invalid_entry(self, reason):
-		r = tree.Tag("p", {"class": "bib-entry"})
+		r = tree.Tag("p", class_="bib-entry")
 		if self.key:
 			r["id"] = f"bib-key-{self.key}"
-		span = tree.Tag("span", {"class": "bib-ref-invalid"})
+		span = tree.Tag("span", class_="bib-ref-invalid")
 		span["data-tip"] = reason
 		span.append(self.short_title or "?")
 		r.append(span)
@@ -1474,7 +1474,7 @@ class Reference:
 		self.contents = contents
 
 	def _invalid_ref(self, reason):
-		a = tree.Tag("a", {
+		a = tree.Tag("a", **{
 			"class": "nav-link bib-ref-invalid",
 			"data-tip": reason,
 		})
@@ -1482,7 +1482,7 @@ class Reference:
 			a.extend(self.contents)
 		else:
 			a.append(self.entry.short_title or "?")
-		span = tree.Tag("span", {"class": "bib-ref"})
+		span = tree.Tag("span", class_="bib-ref")
 		span.append(a)
 		return span
 
@@ -1499,8 +1499,8 @@ class Reference:
 
 	def _make_reference(self, rec):
 		w = Writer()
-		w.push(tree.Tag("span", {"class": "bib-ref"}))
-		a = tree.Tag("a", {"class": "bib-ref"})
+		w.push(tree.Tag("span", class_="bib-ref"))
+		a = tree.Tag("a", class_="bib-ref")
 		if self.external_link:
 			if renderers.get(rec["itemType"]):
 				a["href"] = f"/bibliography/page/{self.entry.page}#bib-key-{self.entry.key}"

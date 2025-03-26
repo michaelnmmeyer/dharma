@@ -235,11 +235,11 @@ class HTMLRenderer(Serializer):
 	def render_list(self, node):
 		match node["type"]:
 			case "plain":
-				self.push(tree.Tag("ul", {"class": "list list-plain"}))
+				self.push(tree.Tag("ul", class_="list list-plain"))
 			case "bulleted":
-				self.push(tree.Tag("ul", {"class": "list"}))
+				self.push(tree.Tag("ul", class_="list"))
 			case "numbered":
-				self.push(tree.Tag("ol", {"class": "list"}))
+				self.push(tree.Tag("ol", class_="list"))
 		for item in node.find("item"):
 			self.push(tree.Tag("li"))
 			self.render_children(item)

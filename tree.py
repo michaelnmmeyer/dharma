@@ -774,7 +774,7 @@ class Tag(Branch):
 		for key, value in attributes.items():
 			# Special case, for passing python keywords conveniently,
 			# as in tree.Tag("span", class_="hello"), which can be
-			# used instead of tree.Tag("span", {"class": "hello"})
+			# used instead of tree.Tag("span", **{"class": "hello"})
 			if len(key) > 1 and key[-1] == "_":
 				key = key[:-1]
 			self[key] = value
@@ -816,7 +816,7 @@ class Tag(Branch):
 		return id(self)
 
 	def copy(self):
-		ret = Tag(self.name, self.attrs)
+		ret = Tag(self.name, **self.attrs)
 		for child in self:
 			ret.append(child.copy())
 		return ret

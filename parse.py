@@ -40,7 +40,7 @@ class Parser:
 			case tree.Node():
 				pass
 			case str():
-				node = tree.Tag(node, attrs)
+				node = tree.Tag(node, **attrs)
 			case _:
 				raise Exception
 		self.stack.append(node)
@@ -289,7 +289,7 @@ def parse_ref(p, ref):
 	klass = "url"
 	if url.startswith("/texts/"):
 		klass += " text-id"
-	p.push(tree.Tag("a", {"href": url, "class": klass}))
+	p.push(tree.Tag("a", href=url, class_=klass))
 	p.dispatch_children(ref)
 	p.join()
 
@@ -301,7 +301,7 @@ def parse_ref_empty(p, ref):
 	klass = "url"
 	if url.startswith("/texts/"):
 		klass += " text-id"
-	p.push(tree.Tag("a", {"href": url, "class": klass}))
+	p.push(tree.Tag("a", href=url, class_=klass))
 	p.add_text(url.removeprefix("/texts/"))
 	p.join()
 
@@ -1695,7 +1695,7 @@ def gather_sections(p, div):
 	p.push(div["type"])
 	for child in div:
 		match child:
-			case tree.Tag() if child.name == "div":
+			case tree.Tag(name="div"):
 				if p.within_div:
 					p.end_div()
 				p.dispatch(child)
