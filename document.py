@@ -26,23 +26,6 @@ def normalize(s):
 	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
 	return unicodedata.normalize("NFC", s.strip())
 
-alignments = {
-	"right": "Right-aligned",
-	"left": "Left-aligned",
-	"center": "Centred",
-	"justify": "Justified",
-}
-
-def format_lb(n=None, brk=None, align=None):
-	assert n
-	n = html.escape(n)
-	if align:
-		tip = f'{alignments[align]} line start'
-	else:
-		tip = "Line start"
-	tip = html.escape(tip)
-	return f'<span class="lb" data-tip="{tip}">⟨{n}⟩</span>'
-
 # TODO Should merge this with the thing we have for the biblio and with the
 # one we have in the parser. Or at least use the same method names.
 class Serializer:

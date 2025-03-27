@@ -87,6 +87,10 @@ it is not given any file to search into, it just prints the Python code that
 will be used for evaluating the given expression.
 '''
 
+# TODO add a "fallback" handler (or maybe a different parser) for processing
+# stuff simple document that are not necessarily XML viz. documents with
+# several root elements or without a root element.
+
 import os, re, io, collections, sys, fnmatch, tokenize, traceback
 from xml.parsers import expat
 from xml.sax.saxutils import escape as quote_string
@@ -408,7 +412,8 @@ class Node:
 
 	def comment_out(self, **kwargs):
 		"""Comment out a node viz. replace it with a commented out XML
-		representation of it."""
+		representation of it. Keyword arguments are the same as the ones
+		of the `.xml()` method."""
 		tmp = self.xml(**kwargs)
 		self.replace_with(Comment(tmp))
 		return self
@@ -1039,8 +1044,8 @@ class Parser:
 			node.location = Location(start, None, line, column)
 		self.last_node = node
 
-	def make_node(self, klass, *args):
-		node = klass(*args)
+	def make_node(self, klass, *args, **kwargs):
+		node = klass(*args, **kwargs)
 		parent = self.stack[-1]
 		node._parent = parent
 		list.append(parent, node)
@@ -1084,7 +1089,7 @@ class Parser:
 			if colon >= 0:
 				key = key[colon + 1:]
 			attrs.append((key, value))
-		self.make_node(Tag, name, attrs)
+		self.make_node(Tag, name, **dict(attrs))
 
 	def EndElementHandler(self, name):
 		node = self.stack.pop()

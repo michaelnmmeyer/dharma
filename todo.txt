@@ -1,3 +1,63 @@
+apparatus+biblio
+
+# add transforms (and tests; verification can be automated):
+
+new elements:
+
+	¶ data fields: title, author, editor
+	  (these elements should not contain paragraphs)
+	¶ divisions: summary, edition, translation, commentary, bibliography, textpart
+	  (all their children strings should be removed)
+	¶ para-like: para verse head blockquote dlist list
+	¶ sub-para element: verse-line (verse) key value (dlist) item (list)
+	¶ inline text: span a numeral symbol
+	¶ milestones: page line cell
+	¶ other: note
+
+always remove spaces around: page line cell note
+
+should segregate tips from formatting stuff, to make it easier to merge formatting stuff.
+
+should reorder milestones
+
+===
+
+generally speaking, should move spaces outside of elements, viz. make it so that we can safely assume that spaces just after an opening element and spaces just before a closing element can be ignored, to make it easier to pretty-print stuff.
+
+	<p>foo bar<span> hello </span>world</p>
+
+	<p>foo bar <span>hello</span> world</p>
+
+¶ some tags are only supposed to hold tags; in this case, delete all their child strings. (would be better to preserve the text, still, but not sure how). applies to the Tree node. if these tags have whitespace as children, whatever the context, these spaces can be removed. all these elements should have as children only elements, not text nodes.
+
+	cell page line
+
+	app availability bibl biblFull body choice cit div editionStmt encodingDesc facsimile fileDesc graphics handDesc handShift langUsage lg licence list listApp listBibl listPrefixDef msContents msDesc msIdentifier physDesc profileDesc projectDesc publicationStmt respStmt revisionDesc revisionDesc sourceDesc TEI teiHeader text titleStmt teiHeader//persName
+
+¶ for some tags, inner spaces should not be moved to their parent, because they introduce a different context. this is true for "note", also for "label" and "head"; in this case, should just trim() them.
+
+¶ there are tags around which spaces should be deleted: milestone, pb, lb, note.
+
+special case of nested notes within the apparatus, should allow this. we could have notes (footnotes) within notes (text to be displayed in the body of the apparatus).)
+
+¶ remove spaces around milestones and add them back as appropriate depending on the value of @break (also reposition milestones)
+
+
+* if the node is a tree, delete all strings, continue
+* move spaces outside of the current element; if it only contains whitespace, add a space after the current elem, not before (so basically, do rtrim() before ltrim())
+* if the elem is whitespace-insensitive, delete all strings; otherwise squeeze it
+
+
+
+===
+
+deal with conversion full>log and full>phys
+
+add tests for the apparatus display
+add tests for biblio entries formatting
+
+===
+
 search
 
 write POC ;
@@ -8,43 +68,9 @@ dāna = tā(_n)a = tāna
 ===
 
 amandine:
-  également liens biblio;
-  bestow les <ref target=""> à remplacer avec titre de l'insc
-  <lb break autocompletion broken
-
-add transforms (and tests; verification can be automated):
-
-generally speaking, should move spaces outside of elements, viz. make it so that we can safely assume that spaces just after an opening element and spaces just before a closing element can be ignored (to make it easier to pretty-print stuff).
-
-  <p>foo bar<span> hello </span>world</p>
-
-  <p>foo bar <span>hello</span> world</p>
-
-start with innermost tags;
-squeeze the current element;
-move spaces outside of the current element; only if whitespace is significant for the parent element, otherwise, just trim the contents in-place
-
-* elements where all space should be removed, typically elements that can only have elements as children (lg, most stuff in the teiHeader)
-* elements
-
- safer to define elements that have non-significant whitespace than the reverse (if we forget one). which elements does this include?
-
-some tags should not inherit spaces from their parent (just trim them without trying to move spaces outside of them):
-
-  label
-  head
-  note
-
-special case of nested notes within the apparatus, should allow this. we could have notes (footnotes) within notes (text to be displayed in the body of the apparatus).)
-
-¶ remove spaces around milestones and add them back as appropriate depending on the value of @break (also reposition milestones)
-
-===
-
-deal with conversion full>log and full>phys
-
-add tests for the apparatus display
-add tests for biblio entries formatting
+	également liens biblio;
+	bestow les <ref target=""> à remplacer avec titre de l'insc
+	<lb break autocompletion broken
 
 ===
 
@@ -141,7 +167,7 @@ For the <titleStmt>. Only allow a single <title> element, like in the EGD?
 
 For the apparatus. We currently allow both <variantEncoding method="location-referenced"> and <variantEncoding method="parallel-segmentation">. But a single file uses <variantEncoding method="location-referenced"> (DHARMA_CritEdKakavinParthayajna), so we might want to abandon this method. The apparatus would be assumed to be inlined in the edition _unless_ there is a <div type="apparatus"> (sibling of <div type="edition">).
 
-weirdness with <div type="dyad|metrical|liminal">; we don't really care about the hierarchy  of other types, it only matters do the display.
+weirdness with <div type="dyad|metrical|liminal">; we don't really care about the hierarchy	 of other types, it only matters do the display.
 
 
 -----
@@ -308,9 +334,9 @@ pour languages dans display, tous ceux de div type=edition + écrfiture
 ================ end manu
 
 .pagelike: <pb> + <milestone type="page-like">
-  Use a single instruction for representing them, taking into account <fw>
+	Use a single instruction for representing them, taking into account <fw>
 .linelike: <lb>
-.gridlike  <milestone type="grid-like">
+.gridlike	 <milestone type="grid-like">
 
 
 rm dipled schema, use ins schema for this.
@@ -369,11 +395,11 @@ hyphens between words? or at the end fo a line?
 manu: grantha translit with button several states translit methods
 
 * fix incorrect verse numbers that should be in Roman in DHARMA_INSCIC00066
-  https://dharmalekha.info/texts/DHARMA_INSCIC00066#translation-1
+	https://dharmalekha.info/texts/DHARMA_INSCIC00066#translation-1
 
 * Sort out languages tagging; assign language categories (lang of
-  the ed. or of the rest, main or secondary lang; probably not
-  useful to keep track of <foreign>)
+	the ed. or of the rest, main or secondary lang; probably not
+	useful to keep track of <foreign>)
 
 add tooltip for expan in <abbr><expan> in phys disp; but need to know how to do
 that
@@ -399,12 +425,12 @@ Put the tab button in the sidebar, call it "view source". Should allow resizing
 the sidebar, too. when it is completemy closed, what to display?
 
 * when displaying the sidebar, add toc headings for navigating the xml: header,
-  edition, translation, etc.
+	edition, translation, etc.
 * Need to have a pretty-print func that preserves space and
-  doesn't add unnecessary space.
+	doesn't add unnecessary space.
 * Also add line numbers
 * Style the thing with a color for comments and tags, maybe different colors
-  for milestones and logical elements.
+	for milestones and logical elements.
 * Add error messages with popups in the XML.
 
 
@@ -432,7 +458,7 @@ Generate a site map (wget?).
 Use the w3c validator API https://validator.w3.org/docs/api.html with random
 urls to detect issues; submit URLs like so:
 
-  https://validator.w3.org/nu/?out=json&doc=$URL
+	https://validator.w3.org/nu/?out=json&doc=$URL
 
 Add a "status" search field to catalog to filter by error status.
 
@@ -476,7 +502,7 @@ duplicate ident, instead generate new ones and delete these when appropriate.
 
 <ref target="C00007.xml">C. 7</ref>
 <ref n="tfa-pallava-epigraphy" target="Pallava00001.xml">Pallava 1</ref>
-  new format: <ref target="DHARMA_INSPallava00001.xml"
+	new format: <ref target="DHARMA_INSPallava00001.xml"
 
 ====
 questions: titlecase or not?

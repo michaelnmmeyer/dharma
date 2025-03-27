@@ -298,7 +298,7 @@ class Writer:
 		else:
 			self.name_last(authors[0])
 			self.space()
-			tag = tree.Tag("i")
+			tag = tree.Tag("span", class_="italics")
 			tag.append("et al.")
 			self.add(tag)
 		self.space()
@@ -338,7 +338,7 @@ class Writer:
 	def italics(self, title):
 		self.space()
 		if title:
-			tag = tree.Tag("i")
+			tag = tree.Tag("span", class_="italics")
 			tag.append(title)
 			self.add(tag)
 		else:
@@ -356,7 +356,7 @@ class Writer:
 		if not title:
 			return
 		self.space()
-		tag = tree.Tag("i")
+		tag = tree.Tag("span", class_="italics")
 		tag.append(title)
 		self.add(tag)
 		self.space()
@@ -630,11 +630,11 @@ def render_journal_article(rec, w, params):
 			tag.append(tagi)
 			w.add(tag)
 		elif abbr:
-			tag = tree.Tag("i")
+			tag = tree.Tag("span", class_="italics")
 			tag.append(abbr)
 			w.add(tag)
 		elif name:
-			tag = tree.Tag("i")
+			tag = tree.Tag("span", class_="italics")
 			tag.append(name)
 			w.add(tag)
 		if rec["volume"]:
@@ -1182,7 +1182,8 @@ valid_tags = {"a", "i", "b", "sub", "sup", "span"}
 
 def fix_markup(xml):
 	for tag in xml.find(".//em"):
-		tag.name = "i"
+		tag.name = "span"
+		tag["class"] = "italics"
 	for tag in xml.find(".//a"):
 		link = tag["href"]
 		if not link:
@@ -1194,6 +1195,7 @@ def fix_markup(xml):
 		if tag.name not in valid_tags and isinstance(tag.parent, tree.Tag):
 			tag.unwrap()
 			continue
+		# XXX and rename sup, sub, a, b
 		if tag.name != "span":
 			continue
 		klass = tag["class"]
@@ -1534,7 +1536,7 @@ class Reference:
 			case "ibid":
 				# Add the entry's Author+year in the tooltip
 				w.top["data-tip"] = make_author_year(rec).xml()
-				tag = tree.Tag("i")
+				tag = tree.Tag("span", class_="italics")
 				tag.append("ibid.")
 				w.add(tag)
 			case "siglum":

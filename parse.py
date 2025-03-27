@@ -32,7 +32,7 @@ class Parser:
 		self.visited = set()
 		#----- NEW stuff
 		self.stack = []
-		# Flag
+		# Flag XXX
 		self.ignore_notes = False
 
 	def push(self, node, **attrs):
@@ -56,35 +56,12 @@ class Parser:
 	def top(self):
 		return self.stack[-1]
 
-	def start_span(self, klass=None, tip=None):
-		span = tree.Tag("span")
-		if klass:
-			span["class"] = klass
-		if tip:
-			if isinstance(tip, tree.Node):
-				tip = tip.xml()
-			else:
-				assert isinstance(tip, str)
-			span["tip"] = html.escape(tip)
-		self.push(span)
-
-	def end_span(self):
-		span = self.pop()
-		assert span.name == "span"
-		self.append(span)
-
 	def append(self, node):
 		self.top.append(node)
 
 	def extend(self, nodes):
 		for node in nodes:
 			self.append(node)
-
-	def add_text(self, text):
-		self.top.append(str(text))
-
-	def add_display(self, text):
-		self.top.append(str(text)) # str() in case this is a tree.String
 
 	def _get_bib_entry(self, short_title):
 		external = False
@@ -130,7 +107,7 @@ class Parser:
 				return
 			case tree.String():
 				# XXX rather do that on the final representation
-				self.add_text(str(node).replace("'", "’"))
+				self.append(str(node).replace("'", "’"))
 				return
 			case tree.Tag():
 				pass
@@ -141,7 +118,7 @@ class Parser:
 				break
 		else:
 			self.complain(node)
-			self.add_text(node.text())
+			self.append(node.text())
 			return
 		try:
 			f(self, node)
@@ -242,7 +219,7 @@ def parse_listbibl_bibl(p, bibl):
 	short_title, loc = extract_bib_ref(bibl)
 	if not short_title:
 		return # XXX use a dummy entry
-	siglum = p.sigla.get(short_title)
+	siglum = p.document.sigla.get(short_title)
 	p.append(p.bib_entry(short_title, loc=loc, siglum=siglum))
 
 bibl_rend_formats = {"default", "omitname", "ibid", "siglum"}
@@ -274,9 +251,9 @@ def parse_bibl_ref(p, bibl):
 
 @handler("bibl")
 def parse_bibl(p, bibl):
-	p.start_span(klass="bib-ref")
+	p.push(tree.Tag("span", class_="bib-ref"))
 	p.dispatch_children(bibl)
-	p.end_span()
+	p.join()
 
 # The syntax for ref is <ref target="myurl">foo</ref>, equivalent to the HTML
 # <a href="myurl">foo</ref>. <ptr/> is like <ref> except that it is supposed
@@ -302,7 +279,7 @@ def parse_ref_empty(p, ref):
 	if url.startswith("/texts/"):
 		klass += " text-id"
 	p.push(tree.Tag("a", href=url, class_=klass))
-	p.add_text(url.removeprefix("/texts/"))
+	p.append(url.removeprefix("/texts/"))
 	p.join()
 
 @handler("ref") # ref[not @target]
@@ -340,36 +317,47 @@ def add_lemmas_links(p, sources):
 		ref = ref.removeprefix("bib:")
 		if not ref:
 			continue
-		p.add_text(" ")
-		p.add_bib_ref(ref, siglum=True)
+		p.append(" ")
+		p.append(p.bib_reference(ref, rend="siglum"))
 
 @handler("rdg")
 def parse_rdg(p, rdg):
-	p.start_span(klass="reading", tip="Reading")
+	p.push(tree.Tag("span", class_="reading", tip="Reading"))
 	p.dispatch_children(rdg)
-	p.end_span()
+	p.join()
 	add_lemmas_links(p, rdg["source"])
+
+alignments = {
+	"right": "Right-aligned",
+	"left": "Left-aligned",
+	"center": "Centred",
+	"justify": "Justified",
+}
+
+
 
 @handler("app")
 def parse_app(p, app):
 	loc = app["loc"] or "?"
-	p.add_html(document.format_lb(n=loc))
-	p.add_text(" ")
-	lem = app.first("lem")
-	if lem:
+	p.push(tree.Tag("line", break_=from_boolean(True)))
+	p.append("⟨")
+	p.append(loc)
+	p.append("⟩")
+	p.join()
+	if (lem := app.first("lem")):
 		p.dispatch(lem)
 	rdgs = app.find("rdg")
 	if rdgs:
-		p.add_text(" \N{white medium diamond} ")
+		p.append(" \N{white medium diamond} ")
 	notes = app.find("note") # we deal with other notes elsewhere
 	for i, rdg in enumerate(rdgs):
 		p.dispatch(rdg)
 		if i < len(rdgs) - 1:
-			p.add_text("; ")
+			p.append("; ")
 		elif not notes:
-			p.add_text(".")
+			p.append(".")
 	for note in notes:
-		p.add_text(" • ")
+		p.append(" • ")
 		p.dispatch_children(note)
 
 @handler("listApp")
@@ -380,14 +368,14 @@ def parse_listApp(p, listApp):
 	prev_loc = None
 	for app in apps:
 		if prev_loc == app["loc"]:
-			p.add_text(" \N{EM DASH} ")
+			p.append(" \N{EM DASH} ")
 		else:
 			if prev_loc is not None:
-				p.add_log(">para")
-			p.add_log("<para")
+				p.join()
+			p.push("para")
 		p.dispatch(app)
 		prev_loc = app["loc"]
-	p.add_log(">para")
+	p.join()
 
 # > apparatus
 
@@ -448,11 +436,11 @@ def emit_supplied(p, supplied, tip, brackets):
 			p.append("; restoration based on previous edition (not assessable)")
 	tip = p.pop().xml()
 	p.push(tree.Tag("span", class_="supplied", tip=tip))
-	p.add_display(ldelim)
+	p.append(ldelim)
 	p.dispatch_children(supplied)
 	if supplied["cert"] == "low":
-		p.add_display("?")
-	p.add_display(rdelim)
+		p.append("?")
+	p.append(rdelim)
 	p.join()
 
 # § Premodern insertion
@@ -482,9 +470,9 @@ def parse_add(p, node, deleted=None):
 		p.append(")")
 	tip = p.pop().xml()
 	p.push(tree.Tag("span", class_="add", tip=tip))
-	p.add_display("⟨⟨")
+	p.append("⟨⟨")
 	p.dispatch_children(node)
-	p.add_display("⟩⟩")
+	p.append("⟩⟩")
 	p.join()
 
 # § Premodern deletion
@@ -502,16 +490,16 @@ def parse_del(p, node, added=None):
 	if added:
 		p.append(" (replacement text: ")
 		p.push(tree.Tag("span", class_="add"))
-		p.add_text("⟨⟨")
+		p.append("⟨⟨")
 		p.dispatch_children(added)
-		p.add_text("⟩⟩")
+		p.append("⟩⟩")
 		p.join()
 		p.append(")")
 	tip = p.pop().xml()
 	p.push(tree.Tag("span", class_="del", tip=tip))
-	p.add_display("⟦")
+	p.append("⟦")
 	p.dispatch_children(node)
-	p.add_display("⟧")
+	p.append("⟧")
 	p.join()
 
 # § Premodern correction
@@ -544,17 +532,17 @@ def parse_sic(p, sic, corr=None):
 		class_ = "sic"
 		p.append(" (emendation: ")
 		p.push(tree.Tag("span", class_="corr"))
-		p.add_text("⟨")
+		p.append("⟨")
 		p.dispatch_children(corr)
-		p.add_text("⟩")
+		p.append("⟩")
 		p.join()
-		p.add_text(")")
+		p.append(")")
 	else:
 		class_ = "sic standalone"
 	p.push(tree.Tag("span", class_=class_, tip=p.pop().xml()))
-	p.add_text("¿")
+	p.append("¿")
 	p.dispatch_children(sic)
-	p.add_text("?")
+	p.append("?")
 	p.join()
 
 @handler("corr")
@@ -565,17 +553,17 @@ def parse_corr(p, corr, sic=None):
 		class_ = "corr"
 		p.append(" (original: ")
 		p.push(tree.Tag("span", class_="sic"))
-		p.add_text("¿")
+		p.append("¿")
 		p.dispatch_children(sic)
-		p.add_text("?")
+		p.append("?")
 		p.join()
-		p.add_text(")")
+		p.append(")")
 	else:
 		class_ = "corr standalone"
 	p.push(tree.Tag("span", class_=class_, tip=p.pop().xml()))
-	p.add_text('⟨')
+	p.append('⟨')
 	p.dispatch_children(corr)
-	p.add_text('⟩')
+	p.append('⟩')
 	p.join()
 
 @handler("orig")
@@ -586,18 +574,18 @@ def parse_orig(p, orig, reg=None):
 		class_ = "orig"
 		p.append(" (standardisation: ")
 		p.push(tree.Tag("span", class_="reg"))
-		p.add_text("⟨")
+		p.append("⟨")
 		p.dispatch_children(reg)
-		p.add_text("⟩")
+		p.append("⟩")
 		p.join()
-		p.add_text(")")
+		p.append(")")
 
 	else:
 		class_ = "orig standalone"
 	p.push(tree.Tag("span", class_=class_, tip=p.pop().xml()))
-	p.add_text("¡")
+	p.append("¡")
 	p.dispatch_children(orig)
-	p.add_text("!")
+	p.append("!")
 	p.join()
 
 @handler("reg")
@@ -608,17 +596,17 @@ def parse_reg(p, reg, orig=None):
 		class_ = "reg"
 		p.append(" (original: ")
 		p.push(tree.Tag("span", class_="orig"))
-		p.add_text("¡")
+		p.append("¡")
 		p.dispatch_children(orig)
-		p.add_text("!")
+		p.append("!")
 		p.join()
-		p.add_text(")")
+		p.append(")")
 	else:
 		class_ = "reg standalone"
 	p.push(tree.Tag("span", class_=class_, tip=p.pop().xml()))
-	p.add_text("⟨")
+	p.append("⟨")
 	p.dispatch_children(reg)
-	p.add_text("⟩")
+	p.append("⟩")
 	p.join()
 
 @handler("unclear")
@@ -630,7 +618,7 @@ def parse_unclear(p, node, standalone=True):
 		p.append("Unclear text")
 	if node["reason"] == "eccentric_ductus":
 		p.append(" (")
-		p.push(tree.Tag("i"))
+		p.push(tree.Tag("span", class_="italics"))
 		p.append("eccentric_ductus")
 		p.join()
 		p.append(")")
@@ -696,10 +684,10 @@ def parse_note(p, note):
 	p.ignore_notes = True
 	if (resps := note["resp"]):
 		append_names(p, resps.split())
-		p.add_text(": ")
+		p.append(": ")
 	elif (refs := note["source"]):
 		append_sources(p, refs.split())
-		p.add_text(": ")
+		p.append(": ")
 	p.dispatch_children(note)
 	p.ignore_notes = False
 	p.join()
@@ -708,7 +696,7 @@ def parse_note(p, note):
 # Put <foreign> in italics.
 @handler("foreign")
 def parse_foreign(p, foreign):
-	p.push(tree.Tag("i"))
+	p.push(tree.Tag("span", class_="italics"))
 	p.dispatch_children(foreign)
 	p.join()
 
@@ -919,7 +907,7 @@ def parse_space(p, space):
 			tip = f"large {type} space (about {quant} {unit}s wide)"
 		text *= quant
 	p.push(tree.Tag("span", class_="space", tip=common.sentence_case(tip)))
-	p.add_text(text) # XXX must only be made visible in physical and full, not in logical
+	p.append(text) # XXX must only be made visible in physical and full, not in logical
 	p.join()
 
 # <abbreviations
@@ -1013,9 +1001,9 @@ def parse_seg(p, seg):
 # XXX not general enough
 @handler("div[@type='translation']//gap[@reason='ellipsis']")
 def handle_gap_ellipsis(p, gap):
-	p.start_span(tip="Untranslated segment")
-	p.add_html("\N{horizontal ellipsis}", plain=True)
-	p.end_span()
+	p.push(tree.Tag("span", tip="Untranslated segment"))
+	p.append("\N{horizontal ellipsis}")
+	p.join()
 
 # XXX not refactored
 # "component" is for character components like vowel markers, etc.; "character" is for akṣaras
@@ -1028,7 +1016,7 @@ def parse_gap(p, gap):
 	precision = gap["precision"]
 	unit = gap["unit"] or "character"
 	if reason == "ellipsis":
-		p.add_html("\N{horizontal ellipsis}", plain=True)
+		p.append("\N{horizontal ellipsis}", plain=True)
 		return
 	if reason == "undefined":
 		reason = "lost or illegible"
@@ -1091,13 +1079,14 @@ def parse_gap(p, gap):
 		repl = html.escape(repl)
 		if phys_repl is not None:
 			phys_repl = html.escape(phys_repl)
-	p.start_span(klass="gap", tip=tip)
+	p.push(tree.Tag("span", class_="gap", tip=tip))
+	# XXX different formatting to do depending on phys/log/full
 	if phys_repl is not None and phys_repl != repl:
-		p.add_html(repl, plain=True, physical=False)
-		p.add_html(phys_repl, plain=True, logical=False, full=False)
+		p.append(repl)
+		p.append(phys_repl)
 	else:
-		p.add_html(repl, plain=True)
-	p.end_span()
+		p.append(repl)
+	p.join()
 
 # See mkfractiontable.py.
 composed_fractions = {
@@ -1172,10 +1161,10 @@ def parse_g(p, node):
 # <hi>, so we need to split the <hi> into several elements. Needs to be done
 # after building the output tree.
 hi_table = {
-	"italic": tree.Tag("i"),
-	"bold": tree.Tag("b"),
-	"superscript": tree.Tag("sup"),
-	"subscript": tree.Tag("sub"),
+	"italic": tree.Tag("span", class_="italics"),
+	"bold": tree.Tag("span", class_="bold"),
+	"superscript": tree.Tag("span", class_="sup"),
+	"subscript": tree.Tag("span", class_="sub"),
 	"check": tree.Tag("span", class_="check"),
 	"grantha": tree.Tag("span", class_="grantha", tip="Grantha text"),
 }
@@ -1388,7 +1377,7 @@ def parse_listBibl(p, node):
 	typ = node["type"]
 	if typ:
 		p.push(tree.Tag("head"))
-		p.add_text(common.sentence_case(typ))
+		p.append(common.sentence_case(typ))
 		p.join()
 	p.dispatch_children(node)
 
@@ -1401,18 +1390,18 @@ def parse_title_in_header(p, title):
 # EGD 10.4.2. Encoding titles.
 @handler("title")
 def parse_title(p, title):
-	p.start_span(tip="Work title")
+	p.push(tree.Tag("span", tip="Work title"))
 	if title["level"] == "a":
-		p.add_text("“")
+		p.append("“")
 		p.dispatch_children(title)
-		p.add_text("”")
+		p.append("”")
 	elif title["rend"] == "plain":
 		p.dispatch_children(title)
 	else:
-		p.start_span(klass="title")
+		p.push(tree.Tag("span", class_="title"))
 		p.dispatch_children(title)
-		p.end_span()
-	p.end_span()
+		p.join()
+	p.join()
 
 @handler("q")
 @handler("quote")
@@ -1425,10 +1414,10 @@ def parse_quote(p, q):
 		p.dispatch_children(q)
 		p.join()
 	else:
-		p.add_text("“")
+		p.append("“")
 		# XXX should fix up space here
 		p.dispatch_children(q)
-		p.add_text("”")
+		p.append("”")
 
 @handler("cit")
 def parse_cit(p, cit):
@@ -1449,17 +1438,17 @@ def parse_cit(p, cit):
 	if q["rend"] == "block":
 		p.push(tree.Tag("blockquote"))
 		p.dispatch_children(q)
-		p.add_text(" (")
+		p.append(" (")
 		p.dispatch(bibl)
-		p.add_text(")")
+		p.append(")")
 		p.join()
 	else:
-		p.add_text("“")
+		p.append("“")
 		p.dispatch_children(q)
-		p.add_text("”")
-		p.add_text(" (")
+		p.append("”")
+		p.append(" (")
 		p.dispatch(bibl)
-		p.add_text(")")
+		p.append(")")
 
 # We don't attempty to preserve the structure <forename>+<surname> for
 # searching, because we can also have just <name>, so it's better to just have
@@ -1507,7 +1496,7 @@ def parse_titleStmt(p, stmt):
 	parts = stmt.find("title")
 	for i, part in enumerate(parts):
 		if i > 0:
-			p.add_text(" \N{en dash} ")
+			p.append(" \N{en dash} ")
 		p.dispatch(part)
 	p.document.title = p.pop()
 	# Author of the text (only for critical editions).
@@ -1539,6 +1528,7 @@ def parse_just_dispatch_all(p, node):
 @handler("msContents") # /TEI/teiHeader/fileDesc/sourceDesc/msDesc/msContents
 @handler("text") # /TEI/text
 @handler("body") # /TEI/text/body
+@handler("physDesc")
 def parse_just_dispatch(p, node):
 	p.dispatch_children(node, only_tags=True)
 
@@ -1574,7 +1564,7 @@ def parse_contents_summary(p, summ):
 	if summ.find("p"):
 		p.dispatch_children(summ)
 	else:
-		p.push(tree.Tag("p"))
+		p.push(tree.Tag("para"))
 		p.dispatch_children(summ)
 		p.join()
 	p.document.summary = p.pop()
@@ -1594,74 +1584,35 @@ def get_script(node):
 	script = langs.get_script(klass)
 	return script
 
-# If the following elements have whitespace as children, whatever the context,
-# these spaces can be removed. All these elements are plain(), but not all
-# plain() elements are here.
-child_space_not_significant = {
-	"app",
-	"availability",
-	"bibl",
-	"biblFull",
-	"body",
-	"choice",
-	"cit",
-	"div",
-	"editionStmt",
-	"encodingDesc",
-	"facsimile",
-	"fileDesc",
-	"graphics",
-	"handDesc",
-	"handShift",
-	"langUsage",
-	"lg",
-	"licence",
-	"list",
-	"listApp",
-	"listBibl",
-	"listPrefixDef",
-	"msContents",
-	"msDesc",
-	"msIdentifier",
-	"physDesc",
-	"profileDesc",
-	"projectDesc",
-	"publicationStmt",
-	"respStmt",
-	"revisionDesc",
-	"revisionDesc",
-	"sourceDesc",
-	"TEI",
-	"teiHeader",
-	"text",
-	"titleStmt",
-}
-def child_space_not_significant_for(node):
-	if node.name in child_space_not_significant:
-		return True
-	return node.matches("teiHeader//persName")
-
 def trim_left(strings):
+	trimmed = False
 	while strings:
 		s = strings[0]
 		if len(s) == 0 or s.isspace():
+			if len(s) > 0:
+				trimmed = True
 			s.delete()
 			del strings[0]
 			continue
 		if s[0].isspace():
 			s.replace_with(s.data.lstrip())
 		break
+	return trimmed
 
 def trim_right(strings):
+	trimmed = False
 	while strings:
 		s = strings[-1]
 		if len(s) == 0 or s.isspace():
+			if len(s) > 0:
+				trimmed = True
 			s.delete()
 			strings.pop()
 			continue
 		if s[0].isspace():
 			s.replace_with(s.data.lstrip())
 		break
+	return trimmed
 
 def squeeze(strings):
 	i = 0
@@ -1677,18 +1628,6 @@ def squeeze(strings):
 		if ret != s.data:
 			s.replace_with(ret)
 		i += 1
-
-def cleanup_descendant_spaces(node):
-	strings = node.strings()
-	trim_left(strings)
-	trim_right(strings)
-	squeeze(strings)
-
-def cleanup_child_spaces(node):
-	strings = [child for child in node if isinstance(child, tree.String)]
-	trim_left(strings)
-	trim_right(strings)
-	squeeze(strings)
 
 # We're supposed to have either a series of <div> that covers all the text, or no div at all.
 def gather_sections(p, div):
@@ -1751,9 +1690,9 @@ def gather_biblio(p):
 def parse_div_textpart(p, div):
 	def make_textpart_heading():
 		subtype = div["subtype"] or "part"
-		p.add_text(common.sentence_case(subtype))
+		p.append(common.sentence_case(subtype))
 		if (n := get_n(div)):
-			p.add_text(f" {n}")
+			p.append(f" {n}")
 	p.push(tree.Tag("textpart"))
 	add_div_heading(p, div, make_textpart_heading)
 	p.dispatch_children(div)
@@ -1794,10 +1733,10 @@ def append_names(p, resps):
 		if i == 0:
 			pass
 		elif i < len(resps) - 1:
-			p.add_text(", ")
+			p.append(", ")
 		else:
-			p.add_text(" and ")
-		p.add_text(fetch_resp(resp))
+			p.append(" and ")
+		p.append(fetch_resp(resp))
 
 def append_sources(p, refs):
 	for i, ref in enumerate(refs):
@@ -1805,24 +1744,24 @@ def append_sources(p, refs):
 		if i == 0:
 			pass
 		elif i < len(refs) - 1:
-			p.add_text(", ")
+			p.append(", ")
 		else:
-			p.add_text(" and ")
+			p.append(" and ")
 		p.append(p.bib_reference(ref))
 
 @handler("div[@type='translation']")
 def parse_div_translation(p, div):
 	def make_translation_heading():
-		p.add_text("Translation")
+		p.append("Translation")
 		lang = div["lang"].split("-")[0]
 		if lang and lang != "eng": # XXX normalize lang code before
 			lang = langs.from_code(lang) or lang
-			p.add_text(f" into {lang}")
+			p.append(f" into {lang}")
 		if (resps := div["resp"]):
-			p.add_text(" by ")
+			p.append(" by ")
 			append_names(p, resps.split())
 		elif (sources := div["source"]):
-			p.add_text(" by ")
+			p.append(" by ")
 			append_sources(p, sources.split())
 	p.push(tree.Tree())
 	add_div_heading(p, div, make_translation_heading)
@@ -1860,6 +1799,8 @@ def process_file(file, mode=None):
 	# in the file, because this div might itself reference bibliography
 	# entries. We thus need to go directly for the listBibl/bibl items.
 	gather_biblio(p)
+	# XXX shouldn't need to add a root Tree just for whitespace
+	p.push(tree.Tree())
 	p.dispatch(p.tree.root)
 	all_langs = set()
 	for node in t.find("//*"):
