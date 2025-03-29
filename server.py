@@ -1,4 +1,4 @@
-import os, unicodedata, datetime, html
+import os, unicodedata, datetime, html, urllib
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
 from dharma import common, change, ngrams, catalog, parse, validate
@@ -195,7 +195,7 @@ def show_parallels_full(text, category, id):
 
 @app.get("/catalog")
 def legacy_show_catalog():
-	return flask.redirect(flask.url_for("show_catalog"), code=302)
+	return flask.redirect(flask.url_for("show_catalog"))
 
 @app.get("/texts")
 def show_catalog():
@@ -448,33 +448,47 @@ def convert_text():
 	patch_links(soup, "src")
 	return str(soup)
 
+BIBLIO_PER_PAGE = 100
+
+@app.get("/bibliography/entry/<short_title>")
+@common.transaction("texts")
+def display_biblio_entry(short_title):
+	db = common.db("texts")
+	index = db.execute("""
+		select pos - 1
+		from (select row_number() over(order by sort_key) as pos,
+		    short_title from biblio)
+		where short_title = ?""", (short_title,)).fetchone()
+	if not index:
+		return flask.abort(404)
+	page = (index[0] + BIBLIO_PER_PAGE - 1) // BIBLIO_PER_PAGE
+	quoted_title = urllib.parse.quote(short_title, safe="")
+	return flask.redirect(f"/bibliography/page/{page}#{quoted_title}")
+
 @app.get("/bibliography/page/<int:page>")
 @common.transaction("texts")
 def display_biblio_page(page):
 	db = common.db("texts")
-	(entries_nr,) = db.execute("""select count(*) from biblio_data
-		where sort_key is not null""").fetchone()
-	pages_nr = (entries_nr + biblio.PER_PAGE - 1) // biblio.PER_PAGE
+	(entries_nr,) = db.execute("select count(*) from biblio").fetchone()
+	pages_nr = (entries_nr + BIBLIO_PER_PAGE - 1) // BIBLIO_PER_PAGE
 	if page < 1:
 		page = 1
 	elif page > pages_nr:
 		page = pages_nr
 	entries = []
-	for (entry,) in db.execute("""select json ->> '$.data'
-		from biblio_data
-		where sort_key is not null
+	for (entry,) in db.execute("""select data from biblio
 		order by sort_key limit ? offset ?""",
-		(biblio.PER_PAGE, (page - 1) * biblio.PER_PAGE)):
-		entry = biblio.Entry.wrap(common.from_json(entry))
+		(BIBLIO_PER_PAGE, (page - 1) * BIBLIO_PER_PAGE)):
+		entry = biblio.Entry.wrap(entry)
 		entries.append(entry)
-	first_entry = (page - 1) * biblio.PER_PAGE + 1
+	first_entry = (page - 1) * BIBLIO_PER_PAGE + 1
 	if first_entry > entries_nr:
 		first_entry = 0
-	last_entry = page * biblio.PER_PAGE
+	last_entry = page * BIBLIO_PER_PAGE
 	if last_entry > entries_nr:
 		last_entry = entries_nr
 	ret = flask.render_template("biblio.tpl", page=page, pages_nr=pages_nr,
-		entries=entries, entries_nr=entries_nr, per_page=biblio.PER_PAGE,
+		entries=entries, entries_nr=entries_nr, per_page=BIBLIO_PER_PAGE,
 		first_entry=first_entry, last_entry=last_entry)
 	return ret
 

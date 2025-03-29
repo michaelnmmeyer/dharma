@@ -1337,7 +1337,6 @@ class Entry:
 	def __init__(self, short_title):
 		self.short_title = short_title
 		self._data = None
-		self._records_nr = -1
 		self._page = None
 
 	@staticmethod
@@ -1345,7 +1344,6 @@ class Entry:
 		self = Entry(data["shortTitle"])
 		self._data = data
 		fix_rec(self._data)
-		self._records_nr = 1
 		return self
 
 	def xml(self, loc=[], siglum=None):
@@ -1370,10 +1368,6 @@ class Entry:
 		if not data:
 			return
 		return data["key"]
-
-	@property
-	def valid(self):
-		return bool(self.data)
 
 	def _format_entry(self, f, rec, loc, siglum):
 		w = Writer()
@@ -1517,15 +1511,8 @@ class Reference:
 		w.push(tree.Tag("span", class_="bib-ref"))
 		a = tree.Tag("a", class_="bib-ref")
 		if self.external_link:
-			if renderers.get(rec["itemType"]):
-				# XXX don't hardcode the link! this should be resolved on
-				# lookup, we shouldn't have to figure out the page no,
-				# because it might change in the meantime.
-				# XXX and also should not use the actual primary key for lookup, use the short title instead.
-				a["href"] = f"/bibliography/page/{self.entry.page}#bib-key-{self.entry.key}"
-			else:
-				a["class"] += " bib-ref-invalid"
-				a["tip"] = f"Entry type {rec['itemType']!r} not supported"
+			quoted = urllib.parse.quote(self.entry.short_title, safe="")
+			a["href"] = f"/bibliography/entry/{quoted}"
 		else:
 			a["href"] = f"#bib-key-{self.entry.key}"
 			a["tip"] = make_author_year(rec).xml()
