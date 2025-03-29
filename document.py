@@ -31,6 +31,9 @@ def normalize(s):
 class Serializer:
 
 	def __init__(self):
+		self.clear()
+
+	def clear(self):
 		self.tree = tree.Tree()
 		self.stack = [self.tree]
 
@@ -72,10 +75,10 @@ class Document:
 		self.last_modified_commit = ""
 		# Dharma identifier viz. the file's basename without the extension.
 		self.ident = ""
-		# Title, summary and hand_desc are all trees.
+		# Title, summary and hand are all trees.
 		self.title = None
 		self.summary = None
-		self.hand_desc = None
+		self.hand = None
 		# All languages used in the document (with @xml:lang), as a list
 		# of unique langs.Language objects.
 		self.langs = []
@@ -97,14 +100,11 @@ class Document:
 		# support notes within notes in the apparatus, because in this
 		# case the nesting is justified).
 		self.notes = []
-		# List of authors (plain strings)
+		# List of authors and of editors. List of tuples
+		# (dharma_id, name) where dharma_id is the xxxx stuff in
+		# "part:xxxx" and name is a string.  dharma_id can be None
 		self.authors = []
-		# List of editors (plain strings)
 		self.editors = []
-		# List of dharma editors ids (the xxxx stuff in "part:xxxx")
-		# TODO should merge self.editors with self.editors_ids and have
-		# a "Person" object, like we are doin for langs.
-		self.editors_ids = []
 
 		## Biblio stuff
 		# Map of biblio short titles -> bibliography entries. Only
@@ -133,13 +133,9 @@ class Document:
 			f.push(tree.Tag("author"))
 			f.append(author)
 			f.join()
-		for editor in self.editors:
-			f.push(tree.Tag("editor"))
-			f.append(editor)
-			f.join()
-		for editor_id in self.editors_ids:
-			f.push(tree.Tag("editor_id"))
-			f.append(editor_id)
+		for editor_id, editor_name in self.editors:
+			f.push(tree.Tag("editor", ident=editor_id))
+			f.append(editor_name)
 			f.join()
 		if self.summary:
 			f.push(tree.Tag("summary"))
@@ -168,29 +164,67 @@ class Document:
 		f.join()
 		return f.tree
 
-	def html(self, what):
-		match what:
-			case "title":
-				return HTMLRenderer(self.title).render()
-			case _:
-				raise Exception
+	def to_html(self):
+		render = HTMLRenderer()
+		ret = HTMLDocument()
+		ret.valid = self.valid
+		if self.title:
+			ret.title = render(self.title)
+		ret.authors = self.authors.copy()
+		ret.editors = self.editors.copy()
+		if self.summary:
+			ret.summary = render(self.summary)
+		if self.hand:
+			ret.hand = render(self.hand)
+		if self.edition:
+			ret.edition_full = render(self.edition)
+		if self.apparatus:
+			ret.apparatus = render(self.apparatus)
+		for trans in self.translation:
+			ret.translations.append(render(trans))
+		if self.commentary:
+			ret.commentary = render(self.commentary)
+		if self.bibliography:
+			ret.bibliography = render(self.bibliography)
+		return ret
+
+class HTMLDocument:
+
+	def __init__(self):
+		self.valid = False
+		self.title = None
+		self.authors = []
+		self.editors = []
+		self.summary = None
+		self.hand = None
+		self.edition_full = None
+		self.edition_logical = None
+		self.edition_physical = None
+		self.apparatus = None
+		self.translations = []
+		self.commentary = None
+		self.bibliography = None
+		self.notes = []
+		self.commit_hash = None
+		self.commit_date = None
+		self.last_modified = None
+		self.last_modified_date = None
 
 class HTMLRenderer(Serializer):
 
-	def __init__(self, root):
-		assert root
-		self.root = root
+	def __init__(self):
+		self.notes = []
+		self.heading_level = 1
 		super().__init__()
 
-	def render(self):
-		self.render_common(self.root)
+	def __call__(self, node):
+		self.clear()
+		self.heading_level += 1
+		self.render(node)
+		self.heading_level -= 1
 		return self.tree
 
-	def render_children(self, node):
-		for child in node:
-			self.render_common(child)
-
-	def render_common(self, node):
+	def render(self, node):
 		match node:
 			case tree.Tree():
 				self.render_children(node)
@@ -201,19 +235,45 @@ class HTMLRenderer(Serializer):
 			case _:
 				pass
 
+	def render_children(self, node):
+		for child in node:
+			self.render(child)
+
 	def render_tag(self, node):
 		assert isinstance(node, tree.Tag)
 		match node.name:
 			case "para":
 				self.push(tree.Tag("p"))
 				for child in node:
-					self.render_common(child)
+					self.render(child)
 				self.join()
 			case "list":
 				self.render_list(node)
-
+			case "note":
+				self.render_note_ref(node)
+			case "div":
+				self.heading_level += 1
+				self.render_children(node)
+				self.heading_level -= 1
+			case "head":
+				self.push(tree.Tag(f"h{self.heading_level}"))
+				self.render_children(node)
+				self.join()
+			case "page" | "line" | "cell":
+				self.render_children(node)
+			case "span" | "a":
+				self.append(node)
 			case _:
 				assert 0, node
+
+	def render_note_ref(self, node):
+		self.notes.append(node)
+		n = len(self.notes)
+		self.push(tree.Tag("sup"))
+		self.push(tree.Tag("a", class_="nav-link", href=f"#note-{n}", id=f"note-ref-{n}"))
+		self.append(str(n))
+		self.join()
+		self.join()
 
 	def render_list(self, node):
 		match node["type"]:

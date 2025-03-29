@@ -21,18 +21,15 @@ def handler(path):
 class Parser:
 
 	def __init__(self, t):
-		self.tree = t
 		self.document = document.Document()
-		self.document.tree = self.tree
+		self.document.tree = self.tree = t
 		self.document.ident = os.path.basename(os.path.splitext(self.tree.file)[0])
 		self.handlers = HANDLERS
 		# Nodes in this set are ignored in dispatch(). These nodes
 		# still remain in the tree and are still accessible from
 		# within handlers.
 		self.visited = set()
-		#----- NEW stuff
 		self.stack = []
-		# Flag XXX
 		self.ignore_notes = False
 
 	def push(self, node, **attrs):
@@ -52,16 +49,9 @@ class Parser:
 	def join(self):
 		self.append(self.pop())
 
-	@property
-	def top(self):
-		return self.stack[-1]
-
 	def append(self, node):
-		self.top.append(node)
-
-	def extend(self, nodes):
-		for node in nodes:
-			self.append(node)
+		assert self.stack
+		self.stack[-1].append(node)
 
 	def _get_bib_entry(self, short_title):
 		external = False
@@ -134,11 +124,6 @@ class Parser:
 	def complain(self, msg):
 		print("UNKNOWN %s" % msg, file=sys.stderr)
 
-# In the apparatus
-@handler("lem")
-def parse_lem(p, lem):
-	p.dispatch_children(lem)
-	add_lemmas_links(p, lem["source"])
 
 """
 				XXX finish with this mess
@@ -266,8 +251,10 @@ def parse_ref(p, ref):
 	klass = "url"
 	if url.startswith("/texts/"):
 		klass += " text-id"
-	p.push(tree.Tag("a", href=url, class_=klass))
+	p.push(tree.Tag("a", href=url))
+	p.push(tree.Tag("span", class_=klass))
 	p.dispatch_children(ref)
+	p.join()
 	p.join()
 
 @handler("ref[@target]") # ref[@target and empty()]
@@ -312,38 +299,35 @@ def parse_num(p, num):
 
 # < apparatus
 
-def add_lemmas_links(p, sources):
-	for ref in sources.split():
-		ref = ref.removeprefix("bib:")
-		if not ref:
+def append_sources(p, sources):
+	for short_title in sources.split():
+		short_title = short_title.removeprefix("bib:")
+		if not short_title:
 			continue
 		p.append(" ")
-		p.append(p.bib_reference(ref, rend="siglum"))
+		p.append(p.bib_reference(short_title, rend="siglum"))
+
+# In the apparatus
+@handler("lem")
+def parse_lem(p, lem):
+	p.dispatch_children(lem)
+	append_sources(p, lem["source"])
 
 @handler("rdg")
 def parse_rdg(p, rdg):
 	p.push(tree.Tag("span", class_="reading", tip="Reading"))
 	p.dispatch_children(rdg)
 	p.join()
-	add_lemmas_links(p, rdg["source"])
-
-alignments = {
-	"right": "Right-aligned",
-	"left": "Left-aligned",
-	"center": "Centred",
-	"justify": "Justified",
-}
-
-
+	append_sources(p, rdg["source"])
 
 @handler("app")
 def parse_app(p, app):
-	loc = app["loc"] or "?"
-	p.push(tree.Tag("line", break_=from_boolean(True)))
-	p.append("⟨")
-	p.append(loc)
-	p.append("⟩")
-	p.join()
+	if (loc := app["loc"]):
+		p.push(tree.Tag("line", break_=from_boolean(True)))
+		p.append("⟨")
+		p.append(loc)
+		p.append("⟩")
+		p.join()
 	if (lem := app.first("lem")):
 		p.dispatch(lem)
 	rdgs = app.find("rdg")
@@ -513,17 +497,6 @@ def parse_subst(p, subst):
 	parse_del(p, dele, add)
 	parse_add(p, add, dele)
 
-def text_to_html(p, mark):
-	block = p.top
-	while mark < len(block.code):
-		t, data, params = block.code[mark]
-		if t == "text":
-			params.setdefault("plain", False)
-			params.setdefault("logical", True)
-			params.setdefault("physical", True)
-			block.code[mark] = ("html", html.escape(data), params)
-		mark += 1
-
 @handler("sic")
 def parse_sic(p, sic, corr=None):
 	p.push(tree.Tree())
@@ -676,12 +649,12 @@ def parse_surplus(p, node):
 
 # For <note> elements anywhere but in the apparatus, where <note> has a peculiar
 # purpose.
+# XXX handle nested notes here, or fix them afterwards?
 @handler("note")
 def parse_note(p, note):
-	if p.ignore_notes:
-		return
 	out = p.push(tree.Tag("note"))
-	p.ignore_notes = True
+	if not note.first("p"):
+		p.push(tree.Tag("para"))
 	if (resps := note["resp"]):
 		append_names(p, resps.split())
 		p.append(": ")
@@ -689,7 +662,8 @@ def parse_note(p, note):
 		append_sources(p, refs.split())
 		p.append(": ")
 	p.dispatch_children(note)
-	p.ignore_notes = False
+	if not note.first("p"):
+		p.join()
 	p.join()
 	p.document.notes.append(out)
 
@@ -756,13 +730,15 @@ def from_boolean(obj):
 	assert obj is False
 	return "false"
 
-def append_milestone_label(p, node):
+def append_milestone_label(p, node, unit=None):
 	p.push(tree.Tag("span"))
-	unit = (node["unit"] or "column").title()
 	p.append("⟨")
-	p.append(unit)
-	if (n := get_n(node)):
-		p.append(" ")
+	if unit:
+		p.append(unit.title())
+		if (n := get_n(node)):
+			p.append(" ")
+			p.append(n)
+	elif (n := get_n(node)):
 		p.append(n)
 	if (label := node.first("stuck-following-sibling::label")):
 		p.append(": ")
@@ -780,7 +756,7 @@ def parse_milestone(p, node):
 		case "gridlike" | _:
 			type = "cell"
 	p.push(tree.Tag(type, break_=from_boolean(break_)))
-	append_milestone_label(p, node)
+	append_milestone_label(p, node, node["unit"] or "column")
 	if type == "page":
 		append_fws(p, node)
 	p.join()
@@ -1372,14 +1348,15 @@ def parse_list(p, lst):
 @handler("listBibl")
 def parse_listBibl(p, node):
 	# We expect @type to be one of "primary" or "secondary", but
-	# still accept other values; just put the @type in capitals, so it
-	# mostly works with custom values.
-	typ = node["type"]
-	if typ:
+	# still accept other values. In the latter case, we just put the @type
+	# in capitals, so it kinda works with custom values.
+	p.push(tree.Tag("div"))
+	if (type := node["type"]):
 		p.push(tree.Tag("head"))
-		p.append(common.sentence_case(typ))
+		p.append(common.sentence_case(type))
 		p.join()
 	p.dispatch_children(node)
+	p.join()
 
 # Title of the edited text (in the teiHeader).
 @handler("titleStmt/title")
@@ -1407,8 +1384,8 @@ def parse_title(p, title):
 @handler("quote")
 def parse_quote(p, q):
 	if q["rend"] == "block":
-		p.push(tree.Tag("blockquote"))
-		# XXX <blockquote> cannot appear within a <p> in HTML!
+		p.push(tree.Tag("quote"))
+		# XXX <quote> cannot appear within a <p> in HTML!
 		# and idem for <cit> bleow
 		# https://html.spec.whatwg.org/#elements-3
 		p.dispatch_children(q)
@@ -1436,7 +1413,7 @@ def parse_cit(p, cit):
 	if not q:
 		return p.dispatch_children(bibl)
 	if q["rend"] == "block":
-		p.push(tree.Tag("blockquote"))
+		p.push(tree.Tag("quote"))
 		p.dispatch_children(q)
 		p.append(" (")
 		p.dispatch(bibl)
@@ -1451,14 +1428,13 @@ def parse_cit(p, cit):
 		p.append(")")
 
 # We don't attempty to preserve the structure <forename>+<surname> for
-# searching, because we can also have just <name>, so it's better to just have
+# searching, because we can also have just <name>, so it's simpler to use
 # a simple string.
 def gather_people(stmt, *paths):
 	nodes = [node for path in paths for node in stmt.find(path)]
 	# Sort by order of appearance in the file
 	nodes.sort(key=lambda node: node.location.start)
-	full_names = []
-	dharma_ids = []
+	ret = []
 	for node in nodes:
 		ident = node["ref"]
 		if ident == "part:jodo": # John Doe, placeholder
@@ -1466,11 +1442,11 @@ def gather_people(stmt, *paths):
 		if ident.startswith("part:"):
 			ident = ident.removeprefix("part:")
 			# Use the name given in the contributors list instead of
-			# the one given here.
+			# the one given in this XML file. If the id invalid,
+			# use the name given in the XML.
 			name = people.plain(ident)
 			if name:
-				common.append_unique(dharma_ids, ident)
-				common.append_unique(full_names, name)
+				common.append_unique(ret, (ident, name))
 				continue
 		# We should have either <forename>+<surname> or just <name>. But
 		# also prepare for <surname>+<forename> or a plain string.
@@ -1480,8 +1456,8 @@ def gather_people(stmt, *paths):
 		else:
 			name = node.text(space="preserve")
 		name = common.normalize_space(name)
-		common.append_unique(full_names, name)
-	return full_names, dharma_ids
+		common.append_unique(ret, (None, name))
+	return ret
 
 # We only expect this to appear at /TEI/teiHeader/fileDesc/titleStmt (and a
 # single occurrence).
@@ -1500,23 +1476,20 @@ def parse_titleStmt(p, stmt):
 		p.dispatch(part)
 	p.document.title = p.pop()
 	# Author of the text (only for critical editions).
-	authors, _ = gather_people(stmt, "author")
-	p.document.authors = authors
+	p.document.authors = gather_people(stmt, "author")
 	# Editor(s) of the text.
 	# The only allowed form is respStmt/persName, but also prepare for a few
 	# other forms that are valid TEI but not valid DHARMA.
-	editors, editors_ids = gather_people(stmt, "respStmt/persName", "editor", "principal", "respStmt/name")
-	p.document.editors = editors
-	p.document.editors_ids = editors_ids
+	p.document.editors = gather_people(stmt, "respStmt/persName", "editor", "principal", "respStmt/name")
 
-@handler("text//roleName")
-@handler("text//measure")
-@handler("text//date")
-@handler("text//placeName")
-@handler("text//persName")
-@handler("text//text")
-@handler("text//term")
-@handler("text//gloss")
+@handler("roleName")
+@handler("measure")
+@handler("date")
+@handler("placeName")
+@handler("persName")
+@handler("text")
+@handler("term")
+@handler("gloss")
 def parse_just_dispatch_all(p, node):
 	p.dispatch_children(node)
 
@@ -1544,14 +1517,15 @@ def parse_ignore(p, node):
 
 def parse_handDesc(p, desc):
 	root = desc.first("summary") or desc
-	p.push("hand_desc")
-	found = False
-	for para in root.find("p"):
-		p.dispatch(para)
-		found = True
-	p.document.hand_desc = p.pop()
-	if not found:
-		p.document.hand_desc = None
+	p.push(tree.Tree())
+	paras = root.find("p")
+	if not paras:
+		p.push(tree.Tag("para"))
+		p.dispatch_children(root)
+		p.join()
+	else:
+		p.dispatch_children(root)
+	p.document.hand = p.pop()
 
 # /TEI/teiHeader/fileDesc/sourceDesc/msDesc/msContents/summary
 # We expect a single occurrence.
@@ -1561,7 +1535,7 @@ def parse_contents_summary(p, summ):
 	# without divisions. If we have no <p>, create one and wrap the
 	# whole contents into it.
 	p.push(tree.Tree())
-	if summ.find("p"):
+	if summ.first("p"):
 		p.dispatch_children(summ)
 	else:
 		p.push(tree.Tag("para"))
@@ -1583,51 +1557,6 @@ def get_script(node):
 	klass, _ = m.groups()
 	script = langs.get_script(klass)
 	return script
-
-def trim_left(strings):
-	trimmed = False
-	while strings:
-		s = strings[0]
-		if len(s) == 0 or s.isspace():
-			if len(s) > 0:
-				trimmed = True
-			s.delete()
-			del strings[0]
-			continue
-		if s[0].isspace():
-			s.replace_with(s.data.lstrip())
-		break
-	return trimmed
-
-def trim_right(strings):
-	trimmed = False
-	while strings:
-		s = strings[-1]
-		if len(s) == 0 or s.isspace():
-			if len(s) > 0:
-				trimmed = True
-			s.delete()
-			strings.pop()
-			continue
-		if s[0].isspace():
-			s.replace_with(s.data.lstrip())
-		break
-	return trimmed
-
-def squeeze(strings):
-	i = 0
-	while i < len(strings):
-		s = strings[i]
-		if len(s) == 0:
-			s.delete()
-			del strings[i]
-			continue
-		ret = re.sub(r"\s+", " ", s.data)
-		if ret[0] == " " and i > 0 and strings[i - 1][-1] == " ":
-			ret = ret[1:]
-		if ret != s.data:
-			s.replace_with(ret)
-		i += 1
 
 # We're supposed to have either a series of <div> that covers all the text, or no div at all.
 def gather_sections(p, div):
@@ -1693,7 +1622,7 @@ def parse_div_textpart(p, div):
 		p.append(common.sentence_case(subtype))
 		if (n := get_n(div)):
 			p.append(f" {n}")
-	p.push(tree.Tag("textpart"))
+	p.push(tree.Tag("div"))
 	add_div_heading(p, div, make_textpart_heading)
 	p.dispatch_children(div)
 	p.join() # </div>
@@ -1852,6 +1781,7 @@ if __name__ == "__main__":
 			f = texts.File("/", path)
 			doc = process_file(f)
 			print(doc.serialize().xml())
+			#print(doc.to_html().edition_full.xml())
 		except BrokenPipeError:
 			pass
 	main()

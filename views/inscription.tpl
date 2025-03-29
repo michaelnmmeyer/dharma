@@ -2,7 +2,7 @@
 
 % block title
 % if doc.title:
-   {{doc.html("title") | safe}}
+   {{doc.title.html() | safe}}
 % else:
    <i>Untitled</i>
 % endif
@@ -26,32 +26,31 @@
 % endif
 % endblock
 
-{#
-
 % block body
 <div id="inscription-display">
 
+% if doc.editors:
 <p>
 {{numberize("Editor", (doc.editors | length))}}:
-% for ed in doc.editors[:-1]:
-   {{ed | safe}},
+% for editor_id, editor_name in doc.editors:
+   % if loop.index < loop.length:
+      {{editor_name}},
+   % else:
+      {{editor_name}}.
+   % endif
 % endfor
-% if doc.editors:
-   {{doc.editors[-1] | safe}}.
-% else:
-   <i>Anonymous editor</i>.
-% endif
 </p>
+% endif
 <p>
 Identifier: <span class="text-id">{{text}}</span>.
 </p>
 % if doc.summary:
-<p>Summary: {{doc.summary.render_full() | safe}}</p>
+<p>Summary: {{doc.summary.html() | safe}}</p>
 % endif
-% if doc.hand_desc:
+% if doc.hand:
 <p>Hand description:</p>
 <div>
-{{doc.hand_desc.render_full() | safe}}
+{{doc.hand.html() | safe}}
 </div>
 % endif
 
@@ -83,27 +82,25 @@ Version: {{doc.commit_date | format_date}}
 <h2>🐛 Invalid inscription</h2>
 % endif
 
-% if doc.edition:
+% if doc.edition_full:
 <div class="edition">
 
-<h2 id="edition">Edition</h2>
-
 <ul class="ed-tabs">
-   <li id="logical-btn" class="active"><a href="#ed">Logical</a></li>
-   <li id="physical-btn"><a href="#ed">Physical</a></li>
-   <li id="full-btn"><a href="#ed">Full</a></li>
+   <li id="logical-btn" class="active"><a href="#">Logical</a></li>
+   <li id="physical-btn"><a href="#">Physical</a></li>
+   <li id="full-btn"><a href="#">Full</a></li>
 </ul>
 
 <div class="logical" id="logical" data-display="logical">
-{{doc.edition.render_logical() | safe}}
+{{doc.edition_full.html() | safe}}
 </div>
 
 <div class="physical hidden" id="physical" data-display="physical">
-{{doc.edition.render_physical() | safe}}
+{{doc.edition_full.html() | safe}}
 </div>
 
 <div class="full hidden" id="full" data-display="full">
-{{doc.edition.render_full() | safe}}
+{{doc.edition_full.html() | safe}}
 </div>
 
 </div> <!-- <div class="ed"> -->
@@ -115,29 +112,26 @@ Version: {{doc.commit_date | format_date}}
       Apparatus <i class="fa-solid fa-angles-down"></i>
    </h2>
    <div class="collapsible-content">
-   {{doc.apparatus.render_full() | safe}}
+   {{doc.apparatus.html() | safe}}
    </div>
 </div>
 % endif
 
-% for trans in doc.translation:
+% for translation in doc.translations:
 <div class="translation">
-<h2 id="translation-{{loop.index}}">{{trans.title | safe}}</h2>
-{{trans.render_full() | safe}}
+{{translation.html() | safe}}
 </div>
 % endfor
 
 % if doc.commentary:
 <div class="commentary">
-<h2 id="commentary">Commentary</h2>
-{{doc.commentary.render_full() | safe}}
+{{doc.commentary.html() | safe}}
 </div>
 % endif
 
 % if doc.bibliography:
 <div class="bibliography">
-<h2 id="bibliography">Bibliography</h2>
-{{doc.bibliography.render_full() | safe}}
+{{doc.bibliography.html() | safe}}
 </div>
 % endif
 
@@ -148,7 +142,7 @@ Version: {{doc.commit_date | format_date}}
 % for note in doc.notes:
 <li class="note" id="note-{{loop.index}}">
 <a class="note-ref" href="#note-ref-{{loop.index}}">{{loop.index}}.</a>
-{{note.render_full() | safe}}
+{{note.html() | safe}}
 </li>
 % endfor
 </ol>
@@ -176,6 +170,5 @@ Version: {{doc.commit_date | format_date}}
 {{doc.xml | safe}}
 </div>
 </div>
-% endblock
 
-#}
+% endblock

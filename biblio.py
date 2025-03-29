@@ -1,7 +1,7 @@
 # BUG We sometimes miss entries while updating the bib, why? I am sure we are
 # missing deletions, but I haven't checked whether we are missing added
 # entries. We should force a full bibliography update from time to time just in
-# case, as we are doing for the catalog.
+# case, as we are doing for the catalog. One-off error with versions no.?
 
 # For the conversion zotero->tei, this code is used:
 # https://github.com/zotero/translators/blob/master/TEI.js
@@ -89,28 +89,47 @@ def zotero_deleted(latest_version):
 	r.raise_for_status()
 	return r.json().get("items", [])
 
+def insert_entry(db, entry):
+	db.execute("""insert or replace into biblio_data(key, json)
+		values(?, ?)""", (entry["key"], entry))
+	# Zotero adds a .data.deleted=1 flag to entries marked as duplicates.
+	# The entry is not deleted until some trashbin is emptied.
+	# See https://github.com/erc-dharma/project-documentation/issues/311
+	# for details.
+	if entry["data"].get("deleted"):
+		db.execute("delete from biblio where key = ?", (entry["key"],))
+		return
+	short_title = entry["data"].get("shortTitle")
+	if not short_title:
+		return
+	sort_key = make_sort_key(entry["data"])
+	if not sort_key:
+		return
+	db.execute("""insert or replace into biblio(short_title, key, sort_key,
+		data) values(?, ?, ?, ?)""", (short_title, entry["key"],
+		sort_key, entry["data"]))
+
 @common.transaction("texts")
 def update():
 	db = common.db("texts")
-	(min_version,) = db.execute("select value from metadata where key = 'biblio_latest_version'").fetchone()
+	(min_version,) = db.execute("""select value from metadata
+		where key = 'biblio_latest_version'""").fetchone()
 	ret = []
 	for entry in zotero_modified(min_version, ret):
-		db.execute("""insert or replace
-			into biblio_data(key, version, json, sort_key)
-			values(?, ?, ?, ?)""",
-			(entry["key"], entry["version"], entry, sort_key(entry["data"])))
+		insert_entry(db, entry)
 	assert len(ret) == 1
 	max_version = ret.pop()
 	for key in zotero_deleted(min_version):
-		db.execute("delete from biblio_data where key = ? and version <= ?", (key, max_version))
-	db.execute("update metadata set value = ? where key = 'biblio_latest_version'", (max_version,))
-	# For now, use brute force for generating sort keys. But we only need
-	# to do that when the code that generates the sort key changes (and when
-	# the item is updated).
-	for key, rec in db.execute("select key, json -> '$.data' from biblio_data"):
-		rec = common.from_json(rec)
-		db.execute("update biblio_data set sort_key = ? where key = ?", (sort_key(rec), key))
-	db.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
+		(version,) = db.execute("""select version from biblio_data
+			  where key = ?""", (key,)).fetchone() or (min_version + 1,)
+		if version > min_version:
+			continue
+		db.execute("delete from biblio where key = ?", (key,))
+		db.execute("delete from biblio_data where key = ?", (key,))
+	db.execute("""update metadata set value = ?
+	    where key = 'biblio_latest_version'""", (max_version,))
+	db.execute("""replace into metadata
+	    values('last_updated', strftime('%s', 'now'))""")
 
 anonymous = "No name"
 
@@ -500,9 +519,11 @@ class Writer:
 		self.space()
 		self.add("DOI:")
 		self.space()
-		tag = tree.Tag("a", class_="url", href_=f"https://doi.org/{doi}")
+		tag = tree.Tag("a", href_=f"https://doi.org/{doi}")
 		tag.append(doi)
-		self.add(tag)
+		span = tree.Tag("span", class_="url")
+		span.append(tag)
+		self.add(span)
 		self.period()
 
 	def url_visible(self, urls):
@@ -513,9 +534,11 @@ class Writer:
 			self.add("URLs:")
 		self.space()
 		for i, url in enumerate(urls):
-			tag = tree.Tag("a", class_="url", href=url)
+			tag = tree.Tag("a", href=url)
 			tag.append(url)
-			self.add(tag)
+			span = tree.Tag("span", class_="url")
+			span.append(tag)
+			self.add(span)
 			if i < len(urls) - 1:
 				self.add("; ")
 		self.period()
@@ -624,7 +647,7 @@ def render_journal_article(rec, w, params):
 		# Use the abbreviated journal name if possible.
 		if abbr and name:
 			name.name = "i"
-			tag = tree.Tag("abbr", **{"data-tip": name.xml()})
+			tag = tree.Tag("abbr", **{"tip": name.xml()})
 			tagi = tree.Tag("i")
 			tagi.append(abbr)
 			tag.append(tagi)
@@ -1354,9 +1377,9 @@ class Entry:
 
 	def _format_entry(self, f, rec, loc, siglum):
 		w = Writer()
-		w.push(tree.Tag("bib-entry", short_title=self.key))
+		w.push(tree.Tag("para", anchor=self.key))
 		if siglum:
-			w.push(tree.Tag("b"))
+			w.push(tree.Tag("span", class_="bold"))
 			w.add("[")
 			w.add(siglum)
 			w.add("]")
@@ -1368,7 +1391,7 @@ class Entry:
 		w.push(tree.Tag("i", **{
 			"class": "fas fa-edit",
 			"style": "display:inline;",
-			"data-tip": "Edit on zotero.org",
+			"tip": "Edit on zotero.org",
 		}))
 		w.add(" ")
 		w.pop()
@@ -1376,28 +1399,19 @@ class Entry:
 		return w.pop()
 
 	def _invalid_entry(self, reason):
-		r = tree.Tag("p", class_="bib-entry")
+		r = tree.Tag("para", class_="bib-entry")
 		if self.key:
 			r["id"] = f"bib-key-{self.key}"
 		span = tree.Tag("span", class_="bib-ref-invalid")
-		span["data-tip"] = reason
+		span["tip"] = reason
 		span.append(self.short_title or "?")
 		r.append(span)
-		return r
+		return r.tree
 
 	@property
 	def data(self):
 		if self._records_nr >= 0:
 			return self._data
-		# Zotero adds a 'deleted: 1' flag to entries marked as duplicates.
-		# The entry is not deleted until some trashbin is emptied.
-		# See https://github.com/erc-dharma/project-documentation/issues/311
-		# for details. (I believe the 'deleted' flag is under '$.data', but
-		# not sure I remember correctly, so the following should be
-		# checked.) We ignore entries marked as deleted when looking
-		# them up by key, but not in the global bibliography display,
-		# because this would force a full scan of the biblio table,
-		# which would be too slow.
 		recs = common.db("texts").execute("""
 			select json ->> '$.data' from biblio_data
 			where short_title = ? and json ->> '$.data.deleted' is null""",
@@ -1478,13 +1492,12 @@ class Reference:
 	def _invalid_ref(self, reason):
 		a = tree.Tag("a", **{
 			"class": "nav-link bib-ref-invalid",
-			"data-tip": reason,
 		})
-		if len(self.contents) > 0:
-			a.extend(self.contents)
+		if self.contents:
+			a.append(self.contents)
 		else:
 			a.append(self.entry.short_title or "?")
-		span = tree.Tag("span", class_="bib-ref")
+		span = tree.Tag("span", tip=reason, class_="bib-ref bib-ref-invalid")
 		span.append(a)
 		return span
 
@@ -1505,22 +1518,26 @@ class Reference:
 		a = tree.Tag("a", class_="bib-ref")
 		if self.external_link:
 			if renderers.get(rec["itemType"]):
+				# XXX don't hardcode the link! this should be resolved on
+				# lookup, we shouldn't have to figure out the page no,
+				# because it might change in the meantime.
+				# XXX and also should not use the actual primary key for lookup, use the short title instead.
 				a["href"] = f"/bibliography/page/{self.entry.page}#bib-key-{self.entry.key}"
 			else:
 				a["class"] += " bib-ref-invalid"
-				a["data-tip"] = f"Entry type {rec['itemType']!r} not supported"
+				a["tip"] = f"Entry type {rec['itemType']!r} not supported"
 		else:
 			a["href"] = f"#bib-key-{self.entry.key}"
-			a["data-tip"] = make_author_year(rec).xml()
+			a["tip"] = make_author_year(rec).xml()
 		w.push(a)
 		rend = self.rend
 		if rend == "siglum" and not self.siglum:
 			rend = "default"
 		match rend:
 			case "default":
-				if len(self.contents) > 0:
-					w.top["data-tip"] = make_author_year(rec).xml()
-					w.extend(self.contents)
+				if self.contents:
+					w.top["tip"] = make_author_year(rec).xml()
+					w.add(self.contents)
 				elif (shorthand := rec.get("_shorthand")):
 					w.add(shorthand)
 				else:
@@ -1531,17 +1548,17 @@ class Reference:
 					w.add(shorthand)
 				else:
 					# Add the entry's Author+year in the tooltip
-					w.top["data-tip"] = make_author_year(rec).xml()
+					w.top["tip"] = make_author_year(rec).xml()
 					w.date(rec, end_field=False)
 			case "ibid":
 				# Add the entry's Author+year in the tooltip
-				w.top["data-tip"] = make_author_year(rec).xml()
+				w.top["tip"] = make_author_year(rec).xml()
 				tag = tree.Tag("span", class_="italics")
 				tag.append("ibid.")
 				w.add(tag)
 			case "siglum":
 				# Add the entry's Author+year in the tooltip
-				w.top["data-tip"] = make_author_year(rec).xml()
+				w.top["tip"] = make_author_year(rec).xml()
 				w.add(self.siglum)
 		w.pop() # ...</a>
 		if self.loc:
@@ -1549,7 +1566,9 @@ class Reference:
 			w.loc(self.loc)
 		return w.pop()
 
-def sort_key(rec):
+# XXX the db needs to be updated manually if this function is changed, address
+# that.
+def make_sort_key(rec):
 	rec = rec.copy()
 	typ = rec["itemType"]
 	if typ not in renderers:
@@ -1580,12 +1599,14 @@ def display_sort_keys():
 		where sort_key is not null
 	"""):
 		doc = common.from_json(doc)
-		print(doc, sort_key(doc))
+		print(doc, make_sort_key(doc))
 
 if __name__ == "__main__":
 	import sys
 	@common.transaction("texts")
 	def main():
-		entry = Entry(sys.argv[1])
-		print(entry.xml().xml())
+		db = common.db("texts")
+		for line in sys.stdin:
+			entry = common.from_json(line)
+			insert_entry(db, entry)
 	main()

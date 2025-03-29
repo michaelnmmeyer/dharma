@@ -1,22 +1,28 @@
-apparatus+biblio
+ASK should list items be treated as paragraphs
+apparatus+biblio+tests
+links+tests
 
 # add transforms (and tests; verification can be automated):
 
 new elements:
 
-	¶ data fields: title, author, editor
-	  (these elements should not contain paragraphs)
-	¶ divisions: summary, edition, translation, commentary, bibliography, textpart
-	  (all their children strings should be removed)
-	¶ para-like: para verse head blockquote dlist list
-	¶ sub-para element: verse-line (verse) key value (dlist) item (list)
-	¶ inline text: span a numeral symbol
-	¶ milestones: page line cell
-	¶ other: note
+¶ data fields: title*, author?, editor* (these elements should not contain paragraphs)
+¶ divisions: summary, edition, apparatus, translation, commentary, bibliography, div (all their children strings should be removed)
+¶ para-like: para verse head quote (should not overlap)
+¶ para containers: dlist list note
+¶ sub-para element: verse-line (verse) key value (dlist) item (list)
+¶ inline text: span link numeral symbol
+¶ milestones: page line cell
 
-always remove spaces around: page line cell note
+always remove spaces around: milestones and "note"; add a space after note, and remove it if need be when formatting the parent paragraph
+delete strings from: all kinds of divisions and all kinds of lists.
 
-should segregate tips from formatting stuff, to make it easier to merge formatting stuff.
+number headings (h1, h2, etc.) depending on their nesting levels
+also number notes (with a span)
+delete empty paras
+merge consecutive spans
+
+should segregate tips from formatting stuff, to make it easier to merge formatting stuff. and use a special tag just for formatting and CSS classes, this way we can omit it from the output easily for debugging.
 
 should reorder milestones
 
@@ -47,14 +53,9 @@ special case of nested notes within the apparatus, should allow this. we could h
 * move spaces outside of the current element; if it only contains whitespace, add a space after the current elem, not before (so basically, do rtrim() before ltrim())
 * if the elem is whitespace-insensitive, delete all strings; otherwise squeeze it
 
-
-
 ===
 
 deal with conversion full>log and full>phys
-
-add tests for the apparatus display
-add tests for biblio entries formatting
 
 ===
 

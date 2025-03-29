@@ -407,38 +407,41 @@ create table if not exists biblio_data(
 	key text primary key check(typeof(key) = 'text' and length(key) > 0),
 	-- We expect version numbers to be > 0, otherwise the update code is
 	-- broken.
-	version integer check(typeof(version) = 'integer' and version > 0),
+	version integer as (json ->> '$.version')
+		check(typeof(version) = 'integer' and version > 0),
 	-- Full record we get from the Zotero API.
-	json json not null check(typeof(json) = 'text' and json_valid(json)),
-	-- We don't need to store the short_title, both because it is fast to
-	-- extract and because we have an index on it which stores it anyway.
-	data json as (json -> '$.data'),
-	short_title text as (case json ->> '$.data.shortTitle'
-		when '' then null
-		else json ->> '$.data.shortTitle'
-		end),
-	item_type text as (json ->> '$.data.itemType')
-		check(item_type is not null),
-	-- Null if this is not an entry we can display viz. if it is not of the
-	-- item types we support (book, etc.).
-	sort_key text collate icu check(
-		sort_key is null
-		or typeof(sort_key) = 'text' and length(sort_key) > 0)
+	json json not null check(typeof(json) = 'text' and json_valid(json))
 );
-create index if not exists biblio_data_short_title on biblio_data(short_title);
-create index if not exists biblio_data_sort_key on biblio_data(sort_key);
+
+-- Bibliographic records we do care about, viz. records that observe the
+-- following criteria: 1) bear a short title; 2) have an item type that we can
+-- handle; 3) don't have a .data.deleted flag.
+create table if not exists biblio(
+	short_title text primary key
+		check(typeof(short_title) = 'text' and length(short_title) > 0),
+	key text unique
+		check(typeof(key) = 'text' and length(key) > 0),
+	sort_key text collate icu
+		check(typeof(sort_key) = 'text' and length(sort_key) > 0),
+	data json check(typeof(data) = 'text' and json_valid(data)),
+	item_type text as (data ->> '$.itemType')
+		check(item_type is not null),
+	foreign key(key) references biblio_data(key)
+);
+-- Needed for displaying the global bibliography in the appropriate order.
+create index if not exists biblio_sort_key on biblio(sort_key);
 
 create view if not exists biblio_authors as
-	select biblio_data.key as key,
+	select biblio.key as key,
 		json_each.value ->> '$.creatorType' as creator_type,
 		json_each.value ->> '$.firstName' as first_name,
 		json_each.value ->> '$.lastName' as last_name,
 		json_each.value ->> '$.name' as name
-	from biblio_data join json_each(biblio_data.json -> '$.data.creators');
+	from biblio_data join json_each(biblio.data -> '$.creators');
 
 create view if not exists biblio_by_tag as
-	select json_each.value ->> '$.tag' as tag, biblio_data.key as key
-	from biblio_data join json_each(biblio_data.json -> '$.data.tags')
+	select json_each.value ->> '$.tag' as tag, biblio.key as key
+	from biblio_data join json_each(biblio.data -> '$.tags')
 	order by tag;
 
 create view if not exists repos_display as

@@ -383,7 +383,7 @@ def display_text(text):
 	if not row:
 		return flask.abort(404)
 	file = db.load_file(text)
-	doc = parse.process_file(file)
+	doc = parse.process_file(file).to_html()
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
 	doc.last_modified_commit = row["last_modified_commit"]

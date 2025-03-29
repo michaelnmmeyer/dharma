@@ -439,6 +439,12 @@ class Node:
 		fmt.format(self)
 		return fmt.text()
 
+	def html(self):
+		fmt = Formatter(strip_comments=True, strip_instructions=True,
+			html=False, color=False, add_xml_prefix=False)
+		fmt.format(self)
+		return fmt.text()
+
 	def __copy__(self):
 		return self.copy()
 
