@@ -11,22 +11,21 @@ create_subscriptions = common.to_json({
 	"action": "createSubscriptions",
 	"subscriptions": [{
 		"apiKey": biblio.MY_API_KEY,
-		# The second group is a dummy one for testing.
-		"topics": [f"/groups/{biblio.LIBRARY_ID}", "/groups/5336269"]
+		"topics": [f"/groups/{biblio.LIBRARY_ID}"]
 	}]
 })
 # Response:
-# {"event":"","subscriptions":[{"apiKey":"ojTBU4SxEQ4L0OqUhFVyImjq","topics":["/groups/1633743","/groups/5336269"]}],"errors":[]}
+# {"event":"","subscriptions":[{"apiKey":"ojTBU4SxEQ4L0OqUhFVyImjq","topics":["/groups/1633743"]}],"errors":[]}
 
 # After an update we receive:
-# {"event":"topicUpdated","topic":"/groups/5336269","version":6}
+# {"event":"topicUpdated","topic":"/groups/1633743","version":6}
 
 delete_subscriptions = common.to_json({
 	"action": "deleteSubscriptions",
 	"subscriptions": [{"apiKey": biblio.MY_API_KEY}]
 })
 # Response:
-# {"event":"subscriptionsDeleted","subscriptions":[{"apiKey":"ojTBU4SxEQ4L0OqUhFVyImjq","topics":["/groups/1633743","/groups/5336269"]}]}
+# {"event":"subscriptionsDeleted","subscriptions":[{"apiKey":"ojTBU4SxEQ4L0OqUhFVyImjq","topics":["/groups/1633743"]}]}
 
 def read_message(sock):
 	ret = sock.recv()
