@@ -8,8 +8,7 @@
 # The documentation for entry types and fields is at:
 # https://www.zotero.org/support/kb/item_types_and_fields
 
-import logging, unicodedata, html, re, time
-from urllib.parse import urlparse
+import logging, unicodedata, html, re, time, sys, urllib
 import requests # pip install requests
 from dharma import common, tree
 
@@ -136,42 +135,15 @@ anonymous = "No name"
 def multiple_pages(s):
 	return any(c in s for c in ",-\N{en dash}\N{em dash}")
 
-class Writer:
-
-	def __init__(self):
-		self.xml = tree.Tree()
-		self.stack = [self.xml]
-
-	def push(self, node):
-		if isinstance(node, tree.Node):
-			node = node.copy()
-		else:
-			node = tree.String(node)
-		self.stack[-1].append(node)
-		self.stack.append(node)
-
-	def pop(self):
-		# We should never be asked to pop the tree node.
-		assert len(self.stack) > 1
-		return self.stack.pop()
-
-	@property
-	def top(self):
-		return self.stack[-1]
-
-	def output(self):
-		for X in self.xml.find(".//X"):
-			X.unwrap()
-		assert len(self.stack) == 1, self.stack
-		return self.stack[-1]
+class Writer(tree.Serializer):
 
 	def space(self):
-		text = self.xml.text(space="preserve")
+		text = self.top.text(space="preserve")
 		if text and not text[-1].isspace():
-			self.add(" ")
+			self.append(" ")
 
 	def period(self):
-		text = self.xml.text()
+		text = self.top.text()
 		j = len(text)
 		while j > 0:
 			j -= 1
@@ -180,52 +152,43 @@ class Writer:
 				return
 			if c.isalpha() or c.isdigit():
 				break
-		self.add(".")
-
-	def add(self, s):
-		if isinstance(s, tree.Node):
-			s = s.copy()
-		self.stack[-1].append(s)
-
-	def extend(self, nodes):
-		for node in nodes:
-			self.add(node)
+		self.append(".")
 
 	# John Doe
 	def name_first_last(self, rec):
 		first, last = rec.get("firstName"), rec.get("lastName")
 		if first and last:
-			self.add(first)
+			self.append(first)
 			self.space()
-			self.add(last)
+			self.append(last)
 		elif last:
-			self.add(last)
+			self.append(last)
 		elif first:
-			self.add(first)
+			self.append(first)
 			self.space()
-			self.add(anonymous)
+			self.append(anonymous)
 		else:
-			self.add(rec.get("name") or anonymous)
+			self.append(rec.get("name") or anonymous)
 
 	# Doe, John
 	def name_last_first(self, rec):
 		first, last = rec.get("firstName"), rec.get("lastName")
 		if last and first:
-			self.add(last)
-			self.add(", ")
-			self.add(first)
+			self.append(last)
+			self.append(", ")
+			self.append(first)
 		elif last:
-			self.add(last)
+			self.append(last)
 		elif first:
-			self.add(anonymous)
-			self.add(", ")
-			self.add(first)
+			self.append(anonymous)
+			self.append(", ")
+			self.append(first)
 		else:
-			self.add(rec.get("name") or anonymous)
+			self.append(rec.get("name") or anonymous)
 
 	# Doe
 	def name_last(self, rec):
-		self.add(rec.get("lastName") or rec.get("name") or anonymous)
+		self.append(rec.get("lastName") or rec.get("name") or anonymous)
 
 	def front_creators(self, rec, skip_editors=False):
 		authors = []
@@ -237,15 +200,15 @@ class Writer:
 				continue
 			authors.append(creator)
 		if not authors:
-			self.add(anonymous)
+			self.append(anonymous)
 		for i, author in enumerate(authors):
 			if i == 0:
 				self.name_last_first(author)
 				continue
 			if i == len(authors) - 1:
-				self.add(" and ")
+				self.append(" and ")
 			else:
-				self.add(", ")
+				self.append(", ")
 			self.name_first_last(author)
 		self.period()
 
@@ -274,21 +237,21 @@ class Writer:
 			if not creators:
 				continue
 			self.space()
-			self.add(s)
+			self.append(s)
 			self.space()
 			for i, creator in enumerate(creators):
 				if i == 0:
 					self.name_first_last(creator)
 					continue
 				if i == len(creators) - 1:
-					self.add(" and ")
+					self.append(" and ")
 				else:
-					self.add(", ")
+					self.append(", ")
 				self.name_first_last(creator)
 			self.period()
 
 	def shorthand(self, rec):
-		self.add(rec["_shorthand"])
+		self.append(rec["_shorthand"])
 		self.period()
 
 	def entry_front(self, rec, skip_editors=False):
@@ -305,13 +268,13 @@ class Writer:
 				continue
 			authors.append(creator)
 		if len(authors) == 0:
-			self.add(anonymous)
+			self.append(anonymous)
 		elif len(authors) == 1:
 			self.name_last(authors[0])
 		elif len(authors) == 2:
 			self.name_last(authors[0])
 			self.space()
-			self.add("and")
+			self.append("and")
 			self.space()
 			self.name_last(authors[1])
 		else:
@@ -319,7 +282,7 @@ class Writer:
 			self.space()
 			tag = tree.Tag("span", class_="italics")
 			tag.append("et al.")
-			self.add(tag)
+			self.append(tag)
 		self.space()
 		self.date(rec, end_field=False)
 
@@ -337,7 +300,7 @@ class Writer:
 		buf += date
 		if space:
 			self.space()
-		self.add(buf)
+		self.append(buf)
 		if end_field:
 			self.period()
 
@@ -345,12 +308,12 @@ class Writer:
 	def quoted(self, title):
 		self.space()
 		if title:
-			self.add("“")
-			self.add(title)
+			self.append("“")
+			self.append(title)
 			self.period()
-			self.add("”")
+			self.append("”")
 		else:
-			self.add("Untitled")
+			self.append("Untitled")
 			self.period()
 
 	# Title in italics (for books, etc.)
@@ -359,16 +322,16 @@ class Writer:
 		if title:
 			tag = tree.Tag("span", class_="italics")
 			tag.append(title)
-			self.add(tag)
+			self.append(tag)
 		else:
-			self.add("Untitled")
+			self.append("Untitled")
 		self.period()
 
 	def roman(self, title):
 		if not title:
 			return
 		self.space()
-		self.add(title)
+		self.append(title)
 		self.period()
 
 	def blog_title(self, title):
@@ -377,34 +340,34 @@ class Writer:
 		self.space()
 		tag = tree.Tag("span", class_="italics")
 		tag.append(title)
-		self.add(tag)
+		self.append(tag)
 		self.space()
-		self.add("(blog)")
+		self.append("(blog)")
 		self.period()
 
 	def volume_and_series(self, rec):
 		vol = rec.get("volume")
 		if vol:
 			self.space()
-			self.add("Vol.\N{nbsp}")
-			self.add(vol)
+			self.append("Vol.\N{nbsp}")
+			self.append(vol)
 			self.period()
 		# seriesText and seriesTitle are apparently deprecated.
 		series = rec.get("series")
 		if series:
 			self.space()
-			self.add(series)
+			self.append(series)
 			n = rec.get("seriesNumber")
 			if n:
 				self.space()
-				self.add(n)
+				self.append(n)
 			self.period()
 		n = rec.get("numberOfVolumes")
 		if n:
 			self.space()
-			self.add(n)
+			self.append(n)
 			self.space()
-			self.add("vols.")
+			self.append("vols.")
 
 	def entry_loc(self, loc):
 		if not loc:
@@ -412,7 +375,7 @@ class Writer:
 		first = True
 		sep = " "
 		for unit, val in loc:
-			self.add(sep)
+			self.append(sep)
 			sep = ", "
 			assert unit in cited_range_units
 			if unit != "mixed":
@@ -427,12 +390,12 @@ class Writer:
 				if first:
 					unit = common.sentence_case(unit)
 					first = False
-				self.add(unit)
+				self.append(unit)
 				self.space()
 			if first:
 				val = common.sentence_case(val)
 				first = False
-			self.add(val)
+			self.append(val)
 		self.period()
 
 	def loc(self, loc):
@@ -440,7 +403,7 @@ class Writer:
 			return
 		sep = " "
 		for unit, val in loc:
-			self.add(sep)
+			self.append(sep)
 			sep = ", "
 			assert unit in cited_range_units
 			if unit != "mixed":
@@ -453,33 +416,33 @@ class Writer:
 					unit = abbr_pl
 				else:
 					unit = abbr_sg
-				self.add(unit)
-				self.add("\N{nbsp}")
-			self.add(val)
+				self.append(unit)
+				self.append("\N{nbsp}")
+			self.append(val)
 
 	def pages(self, rec):
 		s = rec.get("pages")
 		if not s:
 			return
-		self.add(", ")
+		self.append(", ")
 		if multiple_pages(s):
-			self.add("pp.\N{nbsp}")
+			self.append("pp.\N{nbsp}")
 		else:
-			self.add("p.\N{nbsp}")
+			self.append("p.\N{nbsp}")
 		s = s.replace("-", "\N{en dash}")
-		self.add(s)
+		self.append(s)
 
 	def place_publisher_loc(self, rec):
 		self.space()
 		if (place := rec.get("place")):
-			self.add(place)
+			self.append(place)
 		else:
-			self.add("No place")
+			self.append("No place")
 		if (publisher := rec.get("publisher")):
-			self.add(": ")
-			self.add(publisher)
+			self.append(": ")
+			self.append(publisher)
 		if rec.get("_shorthand") and rec["date"]:
-			self.add(", ")
+			self.append(", ")
 			self.date(rec, end_field=False)
 		self.pages(rec)
 		self.period()
@@ -491,15 +454,15 @@ class Writer:
 		self.space()
 		txt = ed.text()
 		if txt == "1":
-			self.add("1st edition")
+			self.append("1st edition")
 		elif txt == "2":
-			self.add("2nd edition")
+			self.append("2nd edition")
 		elif txt == "3":
-			self.add("3rd edition")
+			self.append("3rd edition")
 		elif txt.isdigit():
-			self.add(f"{txt}th edition")
+			self.append(f"{txt}th edition")
 		else:
-			self.add(ed)
+			self.append(ed)
 		self.period()
 
 	def doi(self, rec):
@@ -507,7 +470,7 @@ class Writer:
 		if not doi:
 			return
 		url = common.normalize_url(doi)
-		doi = urlparse(url).path.lstrip("/")
+		doi = urllib.parse.urlparse(url).path.lstrip("/")
 		# All DOI start with "10.". We remove everything before that in the URI:
 		# https://doi.org/10.1163/22134379-9000164 -> 10.1163/22134379-9000164
 		# https://what.com/the/10.1163/22134379-9000164 -> 10.1163/22134379-9000164
@@ -517,30 +480,30 @@ class Writer:
 				return # invalid
 			doi = doi[slash + 1:]
 		self.space()
-		self.add("DOI:")
+		self.append("DOI:")
 		self.space()
 		tag = tree.Tag("a", href_=f"https://doi.org/{doi}")
 		tag.append(doi)
 		span = tree.Tag("span", class_="url")
 		span.append(tag)
-		self.add(span)
+		self.append(span)
 		self.period()
 
 	def url_visible(self, urls):
 		self.space()
 		if len(urls) == 1:
-			self.add("URL:")
+			self.append("URL:")
 		else:
-			self.add("URLs:")
+			self.append("URLs:")
 		self.space()
 		for i, url in enumerate(urls):
 			tag = tree.Tag("a", href=url)
 			tag.append(url)
 			span = tree.Tag("span", class_="url")
 			span.append(tag)
-			self.add(span)
+			self.append(span)
 			if i < len(urls) - 1:
-				self.add("; ")
+				self.append("; ")
 		self.period()
 
 	def url_hidden(self, urls):
@@ -548,7 +511,7 @@ class Writer:
 			tag = tree.Tag("a", href=url)
 			tag.append("[URL]")
 			self.space()
-			self.add(tag)
+			self.append(tag)
 		self.period()
 
 	def url(self, rec):
@@ -635,7 +598,7 @@ creator_types = ["author", "editor", "bookAuthor"]
     "volume": "7"
   }
 """
-def render_journal_article(rec, w, params):
+def render_journal_article(rec, w):
 	w.entry_front(rec)
 	w.quoted(rec["title"])
 	if rec["_shorthand"]:
@@ -647,36 +610,35 @@ def render_journal_article(rec, w, params):
 		# Use the abbreviated journal name if possible.
 		if abbr and name:
 			name.name = "i"
-			tag = tree.Tag("abbr", **{"tip": name.xml()})
-			tagi = tree.Tag("i")
+			tag = tree.Tag("abbr", tip=name.xml())
+			tagi = tree.Tag("span", class_="italics")
 			tagi.append(abbr)
 			tag.append(tagi)
-			w.add(tag)
+			w.append(tag)
 		elif abbr:
 			tag = tree.Tag("span", class_="italics")
 			tag.append(abbr)
-			w.add(tag)
+			w.append(tag)
 		elif name:
 			tag = tree.Tag("span", class_="italics")
 			tag.append(name)
-			w.add(tag)
+			w.append(tag)
 		if rec["volume"]:
 			w.space()
-			w.add(rec["volume"])
+			w.append(rec["volume"])
 		if rec["issue"]:
 			w.space()
-			w.add("(")
-			w.add(rec["issue"])
-			w.add(")")
+			w.append("(")
+			w.append(rec["issue"])
+			w.append(")")
 		if rec["_shorthand"] and rec["date"]:
 			w.space()
-			w.add("(")
+			w.append("(")
 			w.date(rec, end_field=False, space=False)
-			w.add(")")
+			w.append(")")
 		w.pages(rec)
 		w.period()
 	w.idents(rec)
-	w.entry_loc(params.get("loc"))
 
 # book
 """
@@ -727,7 +689,7 @@ def render_journal_article(rec, w, params):
     "volume": ""
   }
 """
-def render_book(rec, w, params):
+def render_book(rec, w):
 	w.entry_front(rec)
 	w.italics(rec["title"])
 	if rec["_shorthand"]:
@@ -736,7 +698,6 @@ def render_book(rec, w, params):
 	w.volume_and_series(rec)
 	w.place_publisher_loc(rec)
 	w.idents(rec)
-	w.entry_loc(params.get("loc"))
 
 # conference paper
 """
@@ -789,20 +750,19 @@ def render_book(rec, w, params):
     "volume": ""
   }
 """
-def render_conference_paper(rec, w, params):
+def render_conference_paper(rec, w):
 	w.entry_front(rec, skip_editors=True)
 	w.quoted(rec["title"])
 	if rec["_shorthand"]:
 		w.by_authors(rec)
 	if rec["proceedingsTitle"]:
 		w.space()
-		w.add("In: ")
+		w.append("In: ")
 		w.italics(rec["proceedingsTitle"])
 	w.by_editors(rec)
 	w.volume_and_series(rec)
 	w.place_publisher_loc(rec)
 	w.idents(rec)
-	w.entry_loc(params.get("loc"))
 
 # report
 """
@@ -848,14 +808,13 @@ def render_conference_paper(rec, w, params):
     "version": 196839
   }
 """
-def render_report(rec, w, params):
+def render_report(rec, w):
 	w.entry_front(rec)
 	w.quoted(rec["title"])
 	if rec["_shorthand"]:
 		w.by_authors(rec)
 	w.place_publisher_loc(rec)
 	w.idents(rec)
-	w.entry_loc(params.get("loc"))
 
 # book section
 """
@@ -906,21 +865,20 @@ def render_report(rec, w, params):
     "volume": ""
   }
 """
-def render_book_section(rec, w, params):
+def render_book_section(rec, w):
 	w.entry_front(rec, skip_editors=True)
 	w.quoted(rec["title"])
 	if rec["_shorthand"]:
 		w.by_authors(rec)
 	if rec["bookTitle"]:
 		w.space()
-		w.add("In: ")
+		w.append("In: ")
 		w.italics(rec["bookTitle"])
 		w.edition(rec)
 	w.by_editors(rec)
 	w.volume_and_series(rec)
 	w.place_publisher_loc(rec)
 	w.idents(rec)
-	w.entry_loc(params.get("loc"))
 
 # thesis
 """
@@ -961,20 +919,19 @@ def render_book_section(rec, w, params):
     "version": 199074
   }
 """
-def render_thesis(rec, w, params):
+def render_thesis(rec, w):
 	w.entry_front(rec)
 	w.quoted(rec["title"])
 	if rec["_shorthand"]:
 		w.by_authors(rec)
 	w.space()
-	w.add(rec["thesisType"] or "Thesis")
+	w.append(rec["thesisType"] or "Thesis")
 	if rec["university"]:
-		w.add(", ")
-		w.add(rec["university"])
+		w.append(", ")
+		w.append(rec["university"])
 	w.period()
 	w.place_publisher_loc(rec)
 	w.idents(rec)
-	w.entry_loc(params.get("loc"))
 
 # web pages
 """
@@ -1007,7 +964,7 @@ def render_thesis(rec, w, params):
     "websiteType": ""
   }
 """
-def render_webpage(rec, w, params):
+def render_webpage(rec, w):
 	w.entry_front(rec)
 	if rec["title"]:
 		w.quoted(rec["title"])
@@ -1018,10 +975,16 @@ def render_webpage(rec, w, params):
 	if rec["websiteTitle"]:
 		w.roman(rec["websiteTitle"])
 	w.idents(rec)
-	w.entry_loc(params.get("loc"))
 
-def render_document(rec, w, params):
-	return render_webpage(rec, w, params)
+def render_document(rec, w):
+	w.entry_front(rec)
+	if rec["title"]:
+		w.quoted(rec["title"])
+	if rec["_shorthand"]:
+		w.by_authors(rec)
+	if rec["_shorthand"] and rec["date"]:
+		w.date(rec)
+	w.idents(rec)
 
 # blog posts
 """
@@ -1059,7 +1022,7 @@ def render_document(rec, w, params):
     "websiteType": ""
   }
 """
-def render_blog_post(rec, w, params):
+def render_blog_post(rec, w):
 	w.entry_front(rec)
 	w.quoted(rec["title"])
 	if rec["_shorthand"]:
@@ -1068,7 +1031,6 @@ def render_blog_post(rec, w, params):
 		w.date(rec)
 	w.blog_title(rec["blogTitle"])
 	w.idents(rec)
-	w.entry_loc(params.get("loc"))
 
 """"
   {
@@ -1107,7 +1069,7 @@ def render_blog_post(rec, w, params):
     "version": 188223
   }
 """
-def render_newspaper_article(rec, w, params):
+def render_newspaper_article(rec, w):
 	w.entry_front(rec)
 	w.quoted(rec["title"])
 	if rec["_shorthand"]:
@@ -1116,7 +1078,6 @@ def render_newspaper_article(rec, w, params):
 	w.edition(rec)
 	w.place_publisher_loc(rec)
 	w.idents(rec)
-	w.entry_loc(params.get("loc"))
 
 """
 {
@@ -1172,19 +1133,18 @@ def render_newspaper_article(rec, w, params):
     "versionNumber": "7"
 }
 """
-def render_dataset(rec, w, params):
+def render_dataset(rec, w):
 	w.entry_front(rec)
 	w.quoted(rec["title"])
 	if rec["_shorthand"]:
 		w.by_authors(rec)
 	if rec["repository"]:
 		w.space()
-		w.add(rec["repository"])
+		w.append(rec["repository"])
 		w.period()
 	if rec["_shorthand"] and rec["date"]:
 		w.date(rec)
 	w.idents(rec)
-	w.entry_loc(params.get("loc"))
 
 renderers = {
 	"book": render_book,
@@ -1277,29 +1237,32 @@ def fix_value(s):
 	return s
 
 def fix_rec(rec):
+	if rec.get("_fixed"):
+		return rec
+	rec = rec.copy()
+	rec["_fixed"] = True
+	rec.setdefault("_shorthand", "")
+	rec.setdefault("_original_date", "")
 	# TODO normalize_space()
-	date = rec.get("date")
-	if date:
+	if (date := rec.get("date")):
 		# Always use "-"
 		date = date.replace("\N{en dash}", "-")
-		# The ZG prescribes to use n.d."
-		if re.match(r"^n\.\s?d\.?$", date, re.I):
+		# The ZG prescribes to use n.d., empty out the field in this
+		# case.
+		if re.fullmatch(r"\s*n\.\s*d\.?\s*", date, re.I):
 			date = ""
 		rec["date"] = date
-	page = rec.get("pages")
-	if page:
+	if (page := rec.get("pages")):
 		# Always use "-"
 		page = page.replace("\N{en dash}", "-")
 		rec["pages"] = page
-	publisher = rec.get("publisher")
-	if publisher:
+	if (publisher := rec.get("publisher")):
 		# The ZG prescribes to use "n.pub" when there is no publisher
-		if re.match(r"^n\.\s?pub\.?$", publisher, re.I):
-			publisher = ""
-		rec["publisher"] = publisher
+		if re.fullmatch(r"\s*n\.\s*pub\.?\s*", publisher, re.I):
+			rec["publisher"] = ""
 	for line in rec.get("extra", "").splitlines():
-		chunks = [common.normalize_space(c)
-			for c in re.split(r"[=:]", line, maxsplit=1)]
+		chunks = [common.normalize_space(chunk)
+			for chunk in re.split(r"[=:]", line, maxsplit=1)]
 		if len(chunks) != 2:
 			continue
 		key, value = chunks
@@ -1307,12 +1270,12 @@ def fix_rec(rec):
 		if key == "shorthand":
 			rec["_shorthand"] = value
 		elif key == "originaldate":
-			rec["_original_date"] = value.replace("\N{en dash}", "-")
-	rec.setdefault("_shorthand", "")
-	for key, value in rec.copy().items():
+			value = value.replace("\N{en dash}", "-")
+			rec["_original_date"] = value
+	for key, value in list(rec.items()):
 		# TODO should only allow html in specific fields (title?)
 		# because gets messy
-		if key in ("key", "filename", "itemType", "pages", "url", "DOI", "callNumber", "extra", "_shorthand", "date", "_original_date"): # XXX figure out other "id" fields
+		if key in ("key", "filename", "itemType", "pages", "url", "DOI", "callNumber", "extra", "_shorthand", "date", "_original_date", "shortTitle"): # XXX figure out other "id" fields
 			continue
 		if isinstance(value, str):
 			rec[key] = fix_value(value)
@@ -1325,6 +1288,7 @@ def fix_rec(rec):
 			if isinstance(val, list):
 				val = " ".join(val)
 			creator[field] = val
+	return rec
 
 """ TODO
 # generate ref and entries with 1918a, 1918b, etc. when necessary. in the global biblio or in the local one? ideally in both. problem: references that point to the global biblio need to be affected the "global" letter. would be confusing otherwise
@@ -1332,146 +1296,63 @@ def fix_rec(rec):
 
 PER_PAGE = 100
 
-class Entry:
+"""
+	if not data:
+		elif self._records_nr == 0:
+			return self._invalid_entry("Not found in bibliography")
+		return self._invalid_entry("Multiple bibliographic entries bear this short title")
+	f = renderers.get(data["itemType"])
+	if not f:
+		return self._invalid_entry(f"Entry type {data['itemType']!r} not supported")
+"""
 
-	def __init__(self, short_title):
-		self.short_title = short_title
-		self._data = None
-		self._page = None
+def lookup_entry(short_title):
+	db = common.db("texts")
+	(data,) = db.execute("select data from biblio where short_title = ?",
+		(short_title,)).fetchone() or (None,)
+	if data:
+		# TODO Add duplicate flag if necessary
+		return fix_rec(data)
+	# else: tell whether we don't have the entry or we don't have a renderer or both
 
-	@staticmethod
-	def wrap(data):
-		self = Entry(data["shortTitle"])
-		self._data = data
-		fix_rec(self._data)
-		return self
+def wrap_entry(data):
+	return fix_rec(data)
 
-	def xml(self, loc=[], siglum=None):
-		return self._try_format_entry(loc=loc, siglum=siglum)
+def format_entry(data, loc=[], siglum=None):
+	data = fix_rec(data)
+	out = Writer()
+	out.push(tree.Tag("para", anchor=data["shortTitle"]))
+	if siglum:
+		out.push(tree.Tag("span", class_="bold"))
+		out.append("[")
+		out.append(siglum)
+		out.append("]")
+		out.join()
+		out.space()
+	renderers[data["itemType"]](data, out)
+	if loc:
+		out.entry_loc(loc)
+	return out.pop()
 
-	def _try_format_entry(self, loc=[], siglum=None):
-		data = self.data
-		if not data:
-			if not self.short_title:
-				return self._invalid_entry("Missing short title")
-			elif self._records_nr == 0:
-				return self._invalid_entry("Not found in bibliography")
-			return self._invalid_entry("Multiple bibliographic entries bear this short title")
-		f = renderers.get(data["itemType"])
-		if not f:
-			return self._invalid_entry(f"Entry type {data['itemType']!r} not supported")
-		return self._format_entry(f, data, loc, siglum)
-
-	@property
-	def key(self):
-		data = self.data
-		if not data:
-			return
-		return data["key"]
-
-	def _format_entry(self, f, rec, loc, siglum):
-		w = Writer()
-		w.push(tree.Tag("para", anchor=self.key))
-		if siglum:
-			w.push(tree.Tag("span", class_="bold"))
-			w.add("[")
-			w.add(siglum)
-			w.add("]")
-			w.pop()
-			w.space()
-		f(rec, w, {"loc": loc, "n": siglum})
-		w.space()
-		w.push(tree.Tag("a", href=f"https://www.zotero.org/groups/1633743/erc-dharma/items/{self.key}"))
-		w.push(tree.Tag("i", **{
-			"class": "fas fa-edit",
-			"style": "display:inline;",
-			"tip": "Edit on zotero.org",
-		}))
-		w.add(" ")
-		w.pop()
-		w.pop()
-		return w.pop()
-
-	def _invalid_entry(self, reason):
-		r = tree.Tag("para", class_="bib-entry")
-		if self.key:
-			r["id"] = f"bib-key-{self.key}"
-		span = tree.Tag("span", class_="bib-ref-invalid")
-		span["tip"] = reason
-		span.append(self.short_title or "?")
-		r.append(span)
-		return r.tree
-
-	@property
-	def data(self):
-		if self._records_nr >= 0:
-			return self._data
-		recs = common.db("texts").execute("""
-			select json ->> '$.data' from biblio_data
-			where short_title = ? and json ->> '$.data.deleted' is null""",
-			(self.short_title,)).fetchall()
-		self._records_nr = len(recs)
-		if self._records_nr == 1:
-			self._data = common.from_json(recs[0][0])
-			fix_rec(self._data)
-		else:
-			self._page = -1
-		return self._data
-
-	@property
-	def page(self):
-		if self._page is not None:
-			return self._page
-		db = common.db("texts")
-		index = db.execute("""
-			select pos - 1
-			from (select row_number()
-				over(order by sort_key) as pos,
-				key from biblio_data where sort_key is not null
-				and json ->> '$.data.deleted' is null)
-			where key = ?""", (self.key,)).fetchone()
-		# TODO create a view for selecting all entries that are not
-		# marked as deleted (we need at in several spots)
-		if not index:
-			self._page = -1
-		else:
-			self._page = (index[0] + PER_PAGE - 1) // PER_PAGE
-		return self._page
-
-	# "rend" is one of "omitname", "ibid", "default", "siglum". "omitname" for just
-	# printing the date; "ibid" for omitting both the author and the date
-	# and printing "ibid." instead; "default" for the default, which is
-	# to print the author and the date, in this order; "siglum" to print
-	# a siglum instead of author+date.
-	# "external_link" is a boolean. If true, the reference will be made to
-	# point to the project-wide bibliography. Otherwise, it will be made to
-	# point to some id on the same page.
-	# "siglum" is a str or None. if given, we display it instead of the usual
-	# author+date format.
-	# XXX there is no reason to use a "reference" object, just render
-	# things directly.
-	def reference(self, rend="default", location=[], external_link=True, siglum=None, contents=[]):
-		return Reference(self, rend, location, external_link, siglum, contents).xml()
-
-	def contents(self, loc=[], n=None):
-		if not loc and not n:
-			return self
-		return Contents(self, loc, n)
-
-class Contents:
-
-	def __init__(self, entry, loc, n):
-		self.entry = entry
-		self.loc = loc
-		self.n = n
-
-	def xml(self):
-		return self.entry._try_format_entry(self.loc, self.n)
+# "rend" is one of "omitname", "ibid", "default", "siglum". "omitname" for just
+# printing the date; "ibid" for omitting both the author and the date
+# and printing "ibid." instead; "default" for the default, which is
+# to print the author and the date, in this order; "siglum" to print
+# a siglum instead of author+date.
+# "external_link" is a boolean. If true, the reference will be made to
+# point to the project-wide bibliography. Otherwise, it will be made to
+# point to some id on the same page.
+# "siglum" is a str or None. if given, we display it instead of the usual
+# author+date format.
+# XXX there is no reason to use a "reference" object, just render
+# things directly.
+def reference(self, rend="default", location=[], external_link=True, siglum=None, contents=[]):
+	return Reference(self, rend, location, external_link, siglum, contents).xml()
 
 def make_author_year(rec):
 	x = Writer()
 	x.ref(rec)
-	return x.output()
+	return x.pop()
 
 class Reference:
 
@@ -1484,9 +1365,7 @@ class Reference:
 		self.contents = contents
 
 	def _invalid_ref(self, reason):
-		a = tree.Tag("a", **{
-			"class": "nav-link bib-ref-invalid",
-		})
+		a = tree.Tag("a", class_="nav-link bib-ref-invalid")
 		if self.contents:
 			a.append(self.contents)
 		else:
@@ -1524,15 +1403,15 @@ class Reference:
 			case "default":
 				if self.contents:
 					w.top["tip"] = make_author_year(rec).xml()
-					w.add(self.contents)
+					w.append(self.contents)
 				elif (shorthand := rec.get("_shorthand")):
-					w.add(shorthand)
+					w.append(shorthand)
 				else:
 					w.ref(rec)
 			case "omitname":
 				shorthand = rec.get("_shorthand")
 				if shorthand:
-					w.add(shorthand)
+					w.append(shorthand)
 				else:
 					# Add the entry's Author+year in the tooltip
 					w.top["tip"] = make_author_year(rec).xml()
@@ -1542,29 +1421,28 @@ class Reference:
 				w.top["tip"] = make_author_year(rec).xml()
 				tag = tree.Tag("span", class_="italics")
 				tag.append("ibid.")
-				w.add(tag)
+				w.append(tag)
 			case "siglum":
 				# Add the entry's Author+year in the tooltip
 				w.top["tip"] = make_author_year(rec).xml()
-				w.add(self.siglum)
+				w.append(self.siglum)
 		w.pop() # ...</a>
 		if self.loc:
-			w.add(",")
+			w.append(",")
 			w.loc(self.loc)
 		return w.pop()
 
 # XXX the db needs to be updated manually if this function is changed, address
 # that.
 def make_sort_key(rec):
-	rec = rec.copy()
-	typ = rec["itemType"]
-	if typ not in renderers:
+	type = rec["itemType"]
+	if type not in renderers:
 		return
 	# XXX this is broken, need to have a common function that determines
 	# where the authors, etc. depending on the item type and the creator's
 	# role.
-	skip_editors = typ in ("bookSection", "journalArticle")
-	fix_rec(rec)
+	skip_editors = type in ("bookSection", "journalArticle")
+	rec = fix_rec(rec)
 	key = ""
 	if (shorthand := rec.get("_shorthand")):
 		key = shorthand
@@ -1574,7 +1452,7 @@ def make_sort_key(rec):
 			if skip_editors and creator["creatorType"] in ("editor", "bookAuthor"):
 				continue
 			author = creator.get("lastName") or creator.get("name", "")
-			key = author + " " + rec["date"]
+			key = author + " " + rec["date"] # XXX convert to int!
 			break
 	key += " " + rec["key"]
 	return key
@@ -1588,12 +1466,19 @@ def display_sort_keys():
 		doc = common.from_json(doc)
 		print(doc, make_sort_key(doc))
 
+# For loading the bibliography from a backup. See the "bibliography" repo.
+@common.transaction("texts")
+def load_biblio_from_file():
+	db = common.db("texts")
+	for line in sys.stdin:
+		entry = common.from_json(line)
+		insert_entry(db, entry)
+
+@common.transaction("texts")
+def print_entries(pattern="*"):
+	db = common.db("texts")
+	for (entry,) in db.execute("select data from biblio where short_title glob ?", (pattern,)):
+		print(format_entry(entry).xml())
+
 if __name__ == "__main__":
-	import sys
-	@common.transaction("texts")
-	def main():
-		db = common.db("texts")
-		for line in sys.stdin:
-			entry = common.from_json(line)
-			insert_entry(db, entry)
-	main()
+	print_entries()

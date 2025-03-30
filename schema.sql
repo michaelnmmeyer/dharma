@@ -409,9 +409,14 @@ create table if not exists biblio_data(
 	-- broken.
 	version integer as (json ->> '$.version')
 		check(typeof(version) = 'integer' and version > 0),
+	short_title text as (case json ->> '$.data.shortTitle'
+		when '' then null
+		else json ->> '$.data.shortTitle'
+		end),
 	-- Full record we get from the Zotero API.
 	json json not null check(typeof(json) = 'text' and json_valid(json))
 );
+create index if not exists biblio_data_short_title on biblio_data(short_title);
 
 -- Bibliographic records we do care about, viz. records that observe the
 -- following criteria: 1) bear a short title; 2) have an item type that we can

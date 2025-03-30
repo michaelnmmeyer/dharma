@@ -404,9 +404,8 @@ def base_name_windows(path):
 assert base_name_windows(r"C:\Users\john\Documents\file.txt") == "file.txt"
 
 def patch_links(soup, attr):
-	from urllib.parse import urlparse
 	for link in soup.find_all(**{attr: True}):
-		url = urlparse(link[attr])
+		url = urllib.parse.urlparse(link[attr])
 		if url.scheme or url.netloc:
 			# Assume this is a full URL
 			continue

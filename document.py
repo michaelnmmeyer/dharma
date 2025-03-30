@@ -26,37 +26,6 @@ def normalize(s):
 	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
 	return unicodedata.normalize("NFC", s.strip())
 
-# TODO Should merge this with the thing we have for the biblio and with the
-# one we have in the parser. Or at least use the same method names.
-class Serializer:
-
-	def __init__(self):
-		self.clear()
-
-	def clear(self):
-		self.tree = tree.Tree()
-		self.stack = [self.tree]
-
-	def push(self, node):
-		if not isinstance(node, tree.Node):
-			node = tree.String(node)
-		self.stack.append(node.copy())
-
-	def pop(self):
-		assert len(self.stack) > 1
-		return self.stack.pop()
-
-	def join(self):
-		self.append(self.pop())
-
-	def append(self, node):
-		if not isinstance(node, tree.Node):
-			node = tree.String(node)
-		self.stack[-1].append(node.copy())
-
-	def extend(self, node_iter):
-		self.stack[-1].extend(node.copy() for node in node_iter)
-
 class Document:
 
 	def __init__(self):
@@ -123,7 +92,7 @@ class Document:
 		self._prosody_entries = {}
 
 	def serialize(self):
-		f = Serializer()
+		f = tree.Serializer()
 		f.push(tree.Tag("document"))
 		if self.title:
 			f.push(tree.Tag("title"))
@@ -210,7 +179,7 @@ class HTMLDocument:
 		self.last_modified = None
 		self.last_modified_date = None
 
-class HTMLRenderer(Serializer):
+class HTMLRenderer(tree.Serializer):
 
 	def __init__(self):
 		self.notes = []
