@@ -29,27 +29,44 @@
 % block body
 
 <div id="inscription-display">
-{doc.body.html() | safe}
-</div>
-
-{#
-
-<div id="inscription-display">
-
-{# Start metadata #}
 
 % if doc.editors:
 <p>
 {{numberize("Editor", (doc.editors | length))}}:
-% for editor_id, editor_name in doc.editors:
-   % if loop.index < loop.length:
-      {{editor_name}},
-   % else:
-      {{editor_name}}.
-   % endif
+% for editor_ident, editor_name in doc.editors:
+   {{editor_name.html() | safe}}
+   (<a href="/people/{{editor_ident.text()}}" class="monospace">{{editor_ident.html() | safe}}</a>){% if loop.index < loop.length %},{% else %}.{% endif %}
 % endfor
 </p>
 % endif
+
+{{doc.body.html() | safe}}
+</div>
+
+<!--<div class="hidden" id="inscription-source">
+<fieldset>
+<legend>Display Options</legend>
+	<label>Word Wrap
+		<input class="display-option" name="xml-wrap" type="checkbox" checked>
+	</label>
+	<label>Line Numbers
+		<input class="display-option" name="xml-line-nos" type="checkbox" checked>
+	</label>
+	<label>Comments
+		<input class="display-option" name="xml-hide-comments" type="checkbox" checked>
+	</label>
+	<label>Processing Instructions
+		<input class="display-option" name="xml-hide-instructions" type="checkbox" checked>
+	</label>
+</fieldset>
+<div id="xml" class="xml xml-wrap xml-line-nos">
+{{doc.xml | safe}}
+</div>
+</div>-->
+
+% endblock
+
+{#
 
 <p>
 Identifier: <span class="text-id">{{text}}</span>.
@@ -89,7 +106,6 @@ Version: {{doc.commit_date | format_date}}
 </p>
 % endif
 
-{# End metadata #}
 
 % if not doc.valid:
 <h2>🐛 Invalid inscription</h2>
@@ -166,25 +182,3 @@ Version: {{doc.commit_date | format_date}}
 
 #}
 
-<div class="hidden" id="inscription-source">
-<fieldset>
-<legend>Display Options</legend>
-	<label>Word Wrap
-		<input class="display-option" name="xml-wrap" type="checkbox" checked>
-	</label>
-	<label>Line Numbers
-		<input class="display-option" name="xml-line-nos" type="checkbox" checked>
-	</label>
-	<label>Comments
-		<input class="display-option" name="xml-hide-comments" type="checkbox" checked>
-	</label>
-	<label>Processing Instructions
-		<input class="display-option" name="xml-hide-instructions" type="checkbox" checked>
-	</label>
-</fieldset>
-<div id="xml" class="xml xml-wrap xml-line-nos">
-{{doc.xml | safe}}
-</div>
-</div>
-
-% endblock

@@ -13,22 +13,28 @@ def render_document(self, node):
 	self.heading_level += 1
 	self.push(tree.Tag("div", id="inscription-display"))
 	self.dispatch_children(node)
-	self.heading_level -= 1
 	if self.notes:
 		self.push(tree.Tag("div", class_="notes"))
 		render_head(self, "Notes")
 		self.push(tree.Tag("ol"))
 		for n, note in enumerate(self.notes, 1):
 			self.push(tree.Tag("li", class_="note", id=f"note-{n}"))
+			paras = note.find("para")
+			self.push(tree.Tag("p"))
 			self.push(tree.Tag("a", class_="note-ref", href=f"#note-ref-{n}"))
-			self.append(str(n))
+			self.append(f"{n}.")
 			self.join()
-			self.dispatch_children(note)
+			self.append(" ")
+			self.dispatch_children(paras[0])
+			self.join()
+			for para in paras[1:]:
+				self.dispatch(para)
 			self.join()
 		self.join() # ol
 		self.join() # div
 	self.join()
 	self.document.body = self.top
+	self.heading_level -= 1
 
 @handler("list")
 def render_list(self, node):
@@ -45,12 +51,33 @@ def render_list(self, node):
 		self.join()
 	self.join()
 
+@handler("editor")
+def process_editor(self, node):
+	name = node.first("name")
+	self.push(tree.Tree())
+	self.dispatch_children(name)
+	name = self.pop()
+	identifier = node.first("identifier")
+	self.push(tree.Tree())
+	self.dispatch_children(identifier)
+	identifier = self.pop()
+	self.document.editors.append((identifier, name))
+
 @handler("summary")
 @handler("hand")
+@handler("edition-languages")
+@handler("repository")
+@handler("identifier")
+@handler("valid")
 @handler("editor")
-def TODO(self, node):
-	#self.dispatch_children(node)
-	pass
+@handler("language")
+@handler("editor")
+@handler("name")
+def TODO(self, node): # XXX
+	self.push(tree.Tree())
+	self.dispatch_children(node)
+	name = node.name.replace("-", "_")
+	setattr(self, name, self.pop())
 
 edition_tabs = tree.parse_string("""
 <ul class="ed-tabs">
@@ -77,14 +104,6 @@ def render_edition_display(self, node):
 	if node.name != "logical":
 		self.top["class"] += " hidden"
 	self.dispatch_children(node)
-	self.join()
-
-@handler("note")
-def handle_note(self, node):
-	self.notes.append(node)
-	n = len(self.notes)
-	self.push(tree.Tag("a", class_="nav-link", href=f"#note-{n}", id="note-ref-{n}"))
-	self.append(str(n))
 	self.join()
 
 @handler("title")
@@ -142,6 +161,16 @@ def render_milestone(self, node):
 	self.dispatch_children(node)
 	self.join()
 
+@handler("note")
+def render_note_ref(self, node):
+	self.notes.append(node)
+	n = len(self.notes)
+	self.push(tree.Tag("sup"))
+	self.push(tree.Tag("a", class_="nav-link", href=f"#note-{n}", id=f"note-ref-{n}"))
+	self.append(str(n))
+	self.join()
+	self.join()
+
 @handler("*")
 def render_tag(self, node):
 	assert isinstance(node, tree.Tag)
@@ -156,20 +185,20 @@ def render_tag(self, node):
 		case _:
 			raise Exception(f"unknown: {node.name}")
 
-@handler("note")
-def render_note_ref(self, node):
-	self.notes.append(node)
-	n = len(self.notes)
-	self.push(tree.Tag("sup"))
-	self.push(tree.Tag("a", class_="nav-link", href=f"#note-{n}", id=f"note-ref-{n}"))
-	self.append(str(n))
-	self.join()
-	self.join()
-
 class HTMLDocument:
 
 	def __init__(self):
+		# We are using several trees, even for basic stuff like
+		# repository, because we expect even fields like that to be
+		# highlightable in search results.
 		self.title = None
+		self.summary = None
+		self.hand = None
+		self.editors = []
+		self.edition_languages = []
+		self.repository = None
+		self.identifier = None
+		self.valid = None
 		self.body = None
 
 class HTMLRenderer(tree.Serializer):
@@ -215,3 +244,4 @@ def process(doc):
 	render = HTMLRenderer(doc)
 	doc = render()
 	print(doc.body.html())
+	return doc

@@ -575,7 +575,7 @@ attributes.
 #### \_\_init\_\_
 
 ```python
-def __init__(name, **attributes)
+def __init__(name_, **attributes)
 ```
 
 The argument `name` is the name of the node as a string, e.g.

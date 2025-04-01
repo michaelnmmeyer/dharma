@@ -1745,8 +1745,8 @@ if __name__ == "__main__":
 		try:
 			f = texts.File("/", path)
 			doc = process_file(f)
-			print(doc.serialize().xml())
-			#ret = doc.to_html()
+			#print(doc.serialize().xml())
+			ret = doc.to_html()
 			#print(ret.title.xml())
 		except BrokenPipeError:
 			pass

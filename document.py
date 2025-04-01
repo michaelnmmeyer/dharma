@@ -188,8 +188,13 @@ class Document:
 			f.append(author)
 			f.join()
 		for editor_id, editor_name in self.editors:
-			f.push(tree.Tag("editor", ident=editor_id))
+			f.push(tree.Tag("editor"))
+			f.push(tree.Tag("name"))
 			f.append(editor_name)
+			f.join()
+			f.push(tree.Tag("identifier"))
+			f.append(editor_id)
+			f.join()
 			f.join()
 		if self.summary:
 			f.push(tree.Tag("summary"))

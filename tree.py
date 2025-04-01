@@ -758,13 +758,13 @@ class Tag(Branch):
 	attributes.
 	'''
 
-	def __init__(self, name, **attributes):
+	def __init__(self, name_, **attributes):
 		'''The argument `name` is the name of the node as a string, e.g.
 		"html". Attributes can be passed as keyword arguments with
 		`**attributes` (their order is preserved, see
 		https://docs.python.org/3/whatsnew/3.6.html#whatsnew36-pep468).
 		'''
-		self.name = name
+		self.name = name_
 		self.attrs = collections.OrderedDict()
 		self.problems = []
 		for key, value in attributes.items():
