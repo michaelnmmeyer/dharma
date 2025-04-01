@@ -26,15 +26,93 @@ def normalize(s):
 	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
 	return unicodedata.normalize("NFC", s.strip())
 
+def trim_left(strings):
+	trimmed = False
+	while strings:
+		s = strings[0]
+		if len(s) == 0 or s.isspace():
+			if len(s) > 0:
+				trimmed = True
+			s.delete()
+			del strings[0]
+			continue
+		if s[0].isspace():
+			trimmed = True
+			t = tree.String(s.data.lstrip())
+			s.replace_with(t)
+			strings[0] = t
+		break
+	return trimmed
+
+def trim_right(strings):
+	trimmed = False
+	while strings:
+		s = strings[-1]
+		if len(s) == 0 or s.isspace():
+			if len(s) > 0:
+				trimmed = True
+			s.delete()
+			strings.pop()
+			continue
+		if s[-1].isspace():
+			trimmed = True
+			t = tree.String(s.data.rstrip())
+			s.replace_with(t)
+			strings[-1] = t
+		break
+	return trimmed
+
+def squeeze(strings):
+	i = 0
+	while i < len(strings):
+		s = strings[i]
+		if len(s) == 0:
+			s.delete()
+			del strings[i]
+			continue
+		ret = re.sub(r"\s+", " ", s.data)
+		if ret[0] == " " and i > 0 and strings[i - 1][-1] == " ":
+			ret = ret[1:]
+		if ret != s.data:
+			s.replace_with(tree.String(ret))
+			strings[i] = ret
+		i += 1
+
+def cleanup_tree(t):
+	for node in t.find("//div"):
+		for child in node:
+			if not isinstance(child, tree.Tag):
+				child.delete()
+	for node in t.find("//para") + t.find("//head"):
+		strings = node.strings()
+		trim_left(strings)
+		trim_right(strings)
+		squeeze(strings)
+
+def cleanup(doc):
+	for attr in dir(doc):
+		if attr == "tree":
+			continue
+		value = getattr(doc, attr)
+		match value:
+			case tree.Tree():
+				cleanup_tree(value)
+			case list():
+				for elem in value:
+					if isinstance(elem, tree.Tree):
+						cleanup_tree(elem)
+
 class Document:
 
 	def __init__(self):
 		self.tree = None # tree.Tree
 		# Whether the XML is well-formed.
 		self.valid = True
+		self.repository = ""
+		# Dharma identifier viz. the file's basename without the extension.
+		self.identifier = ""
 		# XML source code, HTML-encoded.
 		self.xml = ""
-		self.repository = ""
 		# The commit we extracted this file from (not necessarily the latest
 		# commit where the file was modified).
 		self.commit_hash = ""
@@ -42,24 +120,22 @@ class Document:
 		# The latest commit that modified this file.
 		self.last_modified = ""
 		self.last_modified_commit = ""
-		# Dharma identifier viz. the file's basename without the extension.
-		self.ident = ""
 		# Title, summary and hand are all trees.
 		self.title = None
 		self.summary = None
 		self.hand = None
-		# All languages used in the document (with @xml:lang), as a list
-		# of unique langs.Language objects.
-		self.langs = []
-		# Like self.langs, but only for languages used in the edition
-		# division that do not correspond to a modern, translation-only
-		# language.
+		# Languages used in the edition division that do not correspond
+		# to a modern, translation-only language.
 		self.edition_langs = []
 		# One field for each main div.
 		self.edition = None
 		self.apparatus = None
 		self.commentary = None
 		self.bibliography = None
+		# One per display.
+		self.edition_full = None
+		self.edition_logical = None
+		self.edition_physical = None
 		# A single document can have zero or more translations (see e.g.
 		# DHARMA_INSPallava00002), so this is a list.
 		self.translation = []
@@ -94,6 +170,15 @@ class Document:
 	def serialize(self):
 		f = tree.Serializer()
 		f.push(tree.Tag("document"))
+		f.push(tree.Tag("identifier"))
+		f.append(self.identifier)
+		f.join()
+		f.push(tree.Tag("repository"))
+		f.append(self.repository)
+		f.join()
+		f.push(tree.Tag("valid"))
+		f.append(common.from_boolean(self.valid))
+		f.join()
 		if self.title:
 			f.push(tree.Tag("title"))
 			f.extend(self.title)
@@ -110,9 +195,25 @@ class Document:
 			f.push(tree.Tag("summary"))
 			f.extend(self.summary)
 			f.join()
+		if self.hand:
+			f.push(tree.Tag("hand"))
+			f.extend(self.hand)
+			f.join()
+		f.push(tree.Tag("edition-languages"))
+		for lang in self.edition_langs:
+			f.push(tree.Tag("language", ident=lang.id))
+			f.append(lang.name)
+			f.join()
+		f.join()
 		if self.edition:
 			f.push(tree.Tag("edition"))
-			f.extend(self.edition)
+			head = self.edition.first("head")
+			i = self.edition.index(head) + 1
+			f.append(head)
+			for display in ("logical", "physical", "full"):
+				f.push(tree.Tag(display))
+				f.extend(self.edition[i:])
+				f.join()
 			f.join()
 		if self.apparatus:
 			f.push(tree.Tag("apparatus"))
@@ -134,319 +235,5 @@ class Document:
 		return f.tree
 
 	def to_html(self):
-		render = HTMLRenderer()
-		ret = HTMLDocument()
-		ret.valid = self.valid
-		if self.title:
-			ret.title = render(self.title)
-		ret.authors = self.authors.copy()
-		ret.editors = self.editors.copy()
-		if self.summary:
-			ret.summary = render(self.summary)
-		if self.hand:
-			ret.hand = render(self.hand)
-		if self.edition:
-			ret.edition_full = render(self.edition)
-		if self.apparatus:
-			ret.apparatus = render(self.apparatus)
-		for trans in self.translation:
-			ret.translations.append(render(trans))
-		if self.commentary:
-			ret.commentary = render(self.commentary)
-		if self.bibliography:
-			ret.bibliography = render(self.bibliography)
-		return ret
-
-class HTMLDocument:
-
-	def __init__(self):
-		self.valid = False
-		self.title = None
-		self.authors = []
-		self.editors = []
-		self.summary = None
-		self.hand = None
-		self.edition_full = None
-		self.edition_logical = None
-		self.edition_physical = None
-		self.apparatus = None
-		self.translations = []
-		self.commentary = None
-		self.bibliography = None
-		self.notes = []
-		self.commit_hash = None
-		self.commit_date = None
-		self.last_modified = None
-		self.last_modified_date = None
-
-class HTMLRenderer(tree.Serializer):
-
-	def __init__(self):
-		self.notes = []
-		self.heading_level = 1
-		super().__init__()
-
-	def __call__(self, node):
-		self.clear()
-		self.heading_level += 1
-		self.render(node)
-		self.heading_level -= 1
-		return self.tree
-
-	def render(self, node):
-		match node:
-			case tree.Tree():
-				self.render_children(node)
-			case tree.String():
-				self.append(node)
-			case tree.Tag():
-				self.render_tag(node)
-			case _:
-				pass
-
-	def render_children(self, node):
-		for child in node:
-			self.render(child)
-
-	def render_tag(self, node):
-		assert isinstance(node, tree.Tag)
-		match node.name:
-			case "para":
-				self.push(tree.Tag("p"))
-				for child in node:
-					self.render(child)
-				self.join()
-			case "list":
-				self.render_list(node)
-			case "note":
-				self.render_note_ref(node)
-			case "div":
-				self.heading_level += 1
-				self.render_children(node)
-				self.heading_level -= 1
-			case "head":
-				self.push(tree.Tag(f"h{self.heading_level}"))
-				self.render_children(node)
-				self.join()
-			case "page" | "line" | "cell":
-				self.render_children(node)
-			case "span" | "a":
-				self.append(node)
-			case _:
-				assert 0, node
-
-	def render_note_ref(self, node):
-		self.notes.append(node)
-		n = len(self.notes)
-		self.push(tree.Tag("sup"))
-		self.push(tree.Tag("a", class_="nav-link", href=f"#note-{n}", id=f"note-ref-{n}"))
-		self.append(str(n))
-		self.join()
-		self.join()
-
-	def render_list(self, node):
-		match node["type"]:
-			case "plain":
-				self.push(tree.Tag("ul", class_="list list-plain"))
-			case "bulleted":
-				self.push(tree.Tag("ul", class_="list"))
-			case "numbered":
-				self.push(tree.Tag("ol", class_="list"))
-		for item in node.find("item"):
-			self.push(tree.Tag("li"))
-			self.render_children(item)
-			self.join()
-		self.join()
-
-	def render_dlist(self, node):
-		self.push(tree.Tag("dl"))
-		for child in node.find("*"):
-			match child.name:
-				case "key":
-					self.push(tree.Tag("dt"))
-				case "value":
-					self.push(tree.Tag("dd"))
-				case _:
-					assert 0
-			self.render_children(child)
-			self.join()
-		self.join()
-
-
-class PlainRenderer:
-
-	def __init__(self, strip_physical=True):
-		self.strip_physical = strip_physical
-
-	def add(self, data):
-		if len(self.buf) == 0 or self.buf[-1] == "\n":
-			data = data.lstrip(" ")
-		if self.buf and self.buf[-1] == " ":
-			data = data.lstrip(" ")
-		if not data:
-			return
-		if data.strip() and self.buf and self.buf[-1] == "\n":
-			self.buf += self.indent * "\t"
-		self.buf += data
-
-	def render(self, doc):
-		self.reset()
-		if doc.title:
-			buf = self.buf
-			self.reset()
-			self.render_block(doc.title)
-			title = self.buf
-			self.reset(buf)
-			self.add(title + "\n")
-		else:
-			self.add("Untitled\n")
-		if doc.editors:
-			self.add("Ed. by %s" % doc.editors[0])
-			for editor in doc.editors[1:-1]:
-				self.add(", %s" % editor)
-			if len(doc.editors) > 1:
-				self.add(" and %s" % doc.editors[-1])
-			self.add("\n")
-		self.add(f"URL: https://dharmalekha.info/texts/{doc.ident}\n")
-		self.add("---\n\n")
-		buf = unicodedata.normalize("NFC", self.buf)
-		self.reset()
-		if doc.edition:
-			self.render_block(doc.edition)
-		text = unicodedata.normalize("NFC", "".join(self.buf).rstrip() + "\n")
-		self.reset(buf)
-		self.add(text)
-		return re.sub(r"\n{2,}", "\n\n", self.buf)
-
-	def render_instr(self, t, data, params):
-		if t == "log":
-			if data == "<div":
-				pass
-			elif data == ">div":
-				pass
-			elif data == "<head":
-				self.add("\n\n")
-				level = params.get("level", 3) - 2
-				self.add(level * "#" + " ")
-			elif data == ">head":
-				self.add("\n\n")
-			elif data == "<para":
-				pass
-			elif data == ">para":
-				self.add("\n\n")
-			elif data == "<line":
-				self.add("\t")
-			elif data == ">line":
-				self.add("\n")
-			elif data == "<verse":
-				pass
-			elif data == ">verse":
-				self.add("\n\n")
-			elif data == "<list":
-				typ = params["type"]
-				if typ == "plain":
-					self.list.append("plain")
-				elif typ == "bulleted":
-					self.list.append("bulleted")
-				elif typ == "numbered":
-					self.list.append(0)
-				elif typ == "description":
-					self.list.append("description")
-				else:
-					assert 0
-				self.indent += 1
-			elif data == ">list":
-				typ = params["type"]
-				if typ == "plain":
-					pass
-				elif typ == "bulleted":
-					pass
-				elif typ == "numbered":
-					pass
-				elif typ == "description":
-					pass
-				else:
-					assert 0
-				self.list.pop()
-				self.indent -= 1
-			elif data == "<item":
-				if self.list[-1] == "plain":
-					pass
-				elif self.list[-1] == "bulleted":
-					self.add("• ")
-				elif self.list[-1] == "description":
-					assert 0
-				else:
-					assert isinstance(self.list[-1], int)
-					n = self.list[-1]
-					self.add("%d. " % n)
-			elif data == ">item":
-				self.add("\n")
-			elif data == "<key":
-				pass
-			elif data == ">key":
-				self.add(". ")
-			elif data == "<value":
-				pass
-			elif data == ">value":
-				self.add("\n")
-			elif data == "=note":
-				pass
-			elif data == "<blockquote":
-				self.indent += 1
-			elif data == ">blockquote":
-				self.indent -= 1
-				self.add("\n\n")
-			else:
-				assert 0, data
-		elif t == "text":
-			self.add(data)
-		elif t == "phys":
-			if data == "<line":
-				if self.strip_physical and not params["brk"]:
-					return
-				self.add('⟨%s⟩' % params["n"])
-				if params["brk"]:
-					self.add(" ")
-			elif data == ">line":
-				pass
-			elif data == "{page":
-				if self.strip_physical and not params["brk"]:
-					return
-				self.add('⟨Page %s⟩' % params["n"])
-			elif data == "}page":
-				pass
-			elif data.startswith("=") and params["type"] == "pagelike":
-				if self.strip_physical:
-					return
-				unit = data[1:].title()
-				n = params["n"]
-				self.add(f'⟨{unit} {n}⟩')
-			elif data.startswith("=") and params["type"] == "gridlike":
-				if self.strip_physical:
-					return
-				unit = data[1:].title()
-				n = params["n"]
-				self.add(f'⟨{unit} {n}⟩')
-			else:
-				assert 0, data
-		elif t == "html":
-			if params.get("plain"):
-				self.add(html.unescape(data))
-		elif t == "span":
-			pass
-		elif t == "bib":
-			ret = biblio.get_entry(data, **params)
-			self.add(ret)
-		elif t == "ref":
-			self.add(" ")
-			self.add(str(data))
-		else:
-			assert 0, t
-
-	def render_block(self, block):
-		# Special elements: sic/corr, orig/reg; only keep corr and reg.
-		if block is None:
-			return
-		for t, data, params in block.code:
-			self.render_instr(t, data, params)
+		from dharma import tohtml
+		return tohtml.process(self.serialize())

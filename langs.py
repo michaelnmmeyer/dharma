@@ -465,6 +465,8 @@ class Language:
 		return self.inverted_name < other.inverted_name
 
 	def __eq__(self, other):
+		if isinstance(other, str):
+			return self.id == other
 		return self.id == other.id
 
 def make_db():

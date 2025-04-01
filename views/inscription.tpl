@@ -27,7 +27,16 @@
 % endblock
 
 % block body
+
 <div id="inscription-display">
+{doc.body.html() | safe}
+</div>
+
+{#
+
+<div id="inscription-display">
+
+{# Start metadata #}
 
 % if doc.editors:
 <p>
@@ -41,13 +50,15 @@
 % endfor
 </p>
 % endif
+
 <p>
 Identifier: <span class="text-id">{{text}}</span>.
 </p>
+
 % if doc.summary:
 <p>Summary: {{doc.summary.html() | safe}}</p>
 % endif
-% if doc.hand:
+
 <p>Hand description:</p>
 <div>
 {{doc.hand.html() | safe}}
@@ -77,6 +88,8 @@ Version: {{doc.commit_date | format_date}}
 {{doc.last_modified | format_date}} (<a href="{{github_last_modified_commit_url}}">{{doc.last_modified_commit | format_commit_hash}}</a>).
 </p>
 % endif
+
+{# End metadata #}
 
 % if not doc.valid:
 <h2>🐛 Invalid inscription</h2>
@@ -150,6 +163,9 @@ Version: {{doc.commit_date | format_date}}
 % endif
 
 </div><!-- id="inscription-display" -->
+
+#}
+
 <div class="hidden" id="inscription-source">
 <fieldset>
 <legend>Display Options</legend>

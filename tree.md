@@ -446,7 +446,8 @@ def comment_out(**kwargs)
 ```
 
 Comment out a node viz. replace it with a commented out XML
-representation of it.
+representation of it. Keyword arguments are the same as the ones
+of the `.xml()` method.
 
 <a id="dharma.tree.Node.text"></a>
 
@@ -670,4 +671,14 @@ class Error(Exception)
 
 Raised for parsing errors viz. for malformed XML files. Schema
 errors do not raise exceptions.
+
+<a id="dharma.tree.Serializer"></a>
+
+## Serializer Objects
+
+```python
+class Serializer()
+```
+
+Helper for building XML trees.
 

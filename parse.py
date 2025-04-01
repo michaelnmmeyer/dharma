@@ -18,61 +18,39 @@ def handler(path):
 		return f
 	return decorator
 
-class Parser:
+class Parser(tree.Serializer):
 
 	def __init__(self, t):
+		super().__init__()
 		self.document = document.Document()
-		self.document.tree = self.tree = t
-		self.document.ident = os.path.basename(os.path.splitext(self.tree.file)[0])
-		self.handlers = HANDLERS
+		self.document.tree = t
+		self.document.identifier = os.path.basename(os.path.splitext(t.file)[0])
 		# Nodes in this set are ignored in dispatch(). These nodes
 		# still remain in the tree and are still accessible from
 		# within handlers.
 		self.visited = set()
-		self.stack = []
-		self.ignore_notes = False
-
-	def push(self, node, **attrs):
-		match node:
-			case tree.Node():
-				pass
-			case str():
-				node = tree.Tag(node, **attrs)
-			case _:
-				raise Exception
-		self.stack.append(node)
-		return node
-
-	def pop(self):
-		return self.stack.pop()
-
-	def join(self):
-		self.append(self.pop())
-
-	def append(self, node):
-		assert self.stack
-		self.stack[-1].append(node)
 
 	def _get_bib_entry(self, short_title):
 		external = False
 		entry = self.document.bib_entries.get(short_title)
 		if not entry:
 			# It should occur in the global bibliography. We cache
-			# the result to only perform a single database lookup.
+			# the result to ensure we only perform a single database
+			# lookup.
 			external = True
 			entry = self.document.external_bib_entries.get(short_title)
 			if not entry:
-				entry = biblio.Entry(short_title)
+				entry = biblio.lookup_entry(short_title)
 				self.document.external_bib_entries[short_title] = entry
 		return entry, external
 
-	def bib_entry(self, short_title, loc=[], siglum=None):
+	def bib_entry(self, short_title, location=[], siglum=None):
 		entry = self.document.bib_entries[short_title]
-		return entry.xml(loc=loc, siglum=siglum)
+		return biblio.format_entry(entry, location=location, siglum=siglum)
 
 	def bib_reference(self, short_title, rend="default", location=[], contents=[]):
 		entry, external = self._get_bib_entry(short_title)
-		ref = entry.reference(rend=rend, location=location,
+		ref = biblio.format_reference(entry, rend=rend, location=location,
 			siglum=self.document.sigla.get(short_title),
 			external_link=external,
 			contents=contents)
@@ -103,7 +81,7 @@ class Parser:
 				pass
 			case _:
 				assert 0, repr(node)
-		for matcher, f in self.handlers:
+		for matcher, f in HANDLERS:
 			if matcher(node):
 				break
 		else:
@@ -205,7 +183,7 @@ def parse_listbibl_bibl(p, bibl):
 	if not short_title:
 		return # XXX use a dummy entry
 	siglum = p.document.sigla.get(short_title)
-	p.append(p.bib_entry(short_title, loc=loc, siglum=siglum))
+	p.append(p.bib_entry(short_title, location=loc, siglum=siglum))
 
 bibl_rend_formats = {"default", "omitname", "ibid", "siglum"}
 
@@ -229,7 +207,7 @@ def parse_bibl_ref(p, bibl):
 		if not value:
 			continue
 		location.append((unit, value))
-	p.append(p.bib_reference(short_title, rend=rend, contents=ref, location=location))
+	p.append(p.bib_reference(short_title, rend=rend, contents=list(ref), location=location))
 	# XXX move this comment Use short title when we have bibl/ptr with a bib pointer, in all other
 	# cases use the siglum with author+date in tooltip (or author+date if there is no siglum; or whatever the
 	# contents of the point is if it is not empty).
@@ -299,7 +277,7 @@ def parse_num(p, num):
 
 # < apparatus
 
-def append_sources(p, sources):
+def append_reading_sources(p, sources):
 	for short_title in sources.split():
 		short_title = short_title.removeprefix("bib:")
 		if not short_title:
@@ -311,19 +289,19 @@ def append_sources(p, sources):
 @handler("lem")
 def parse_lem(p, lem):
 	p.dispatch_children(lem)
-	append_sources(p, lem["source"])
+	append_reading_sources(p, lem["source"])
 
 @handler("rdg")
 def parse_rdg(p, rdg):
 	p.push(tree.Tag("span", class_="reading", tip="Reading"))
 	p.dispatch_children(rdg)
 	p.join()
-	append_sources(p, rdg["source"])
+	append_reading_sources(p, rdg["source"])
 
 @handler("app")
 def parse_app(p, app):
 	if (loc := app["loc"]):
-		p.push(tree.Tag("line", break_=from_boolean(True)))
+		p.push(tree.Tag("nline", break_=common.from_boolean(True)))
 		p.append("⟨")
 		p.append(loc)
 		p.append("⟩")
@@ -356,7 +334,7 @@ def parse_listApp(p, listApp):
 		else:
 			if prev_loc is not None:
 				p.join()
-			p.push("para")
+			p.push(tree.Tag("para"))
 		p.dispatch(app)
 		prev_loc = app["loc"]
 	p.join()
@@ -724,12 +702,6 @@ def get_n(node):
 def milestone_break(node):
 	return common.to_boolean(node["break"], True)
 
-def from_boolean(obj):
-	if obj is True:
-		return "true"
-	assert obj is False
-	return "false"
-
 def append_milestone_label(p, node, unit=None):
 	p.push(tree.Tag("span"))
 	p.append("⟨")
@@ -752,10 +724,10 @@ def parse_milestone(p, node):
 	break_ = milestone_break(node)
 	match node["type"]:
 		case "pagelike":
-			type = "page"
+			type = "npage"
 		case "gridlike" | _:
-			type = "cell"
-	p.push(tree.Tag(type, break_=from_boolean(break_)))
+			type = "ncell"
+	p.push(tree.Tag(type, break_=common.from_boolean(break_)))
 	append_milestone_label(p, node, node["unit"] or "column")
 	if type == "page":
 		append_fws(p, node)
@@ -764,7 +736,7 @@ def parse_milestone(p, node):
 @handler("lb")
 def parse_lb(p, node):
 	break_ = milestone_break(node)
-	p.push(tree.Tag("line", break_=from_boolean(break_)))
+	p.push(tree.Tag("nline", break_=common.from_boolean(break_)))
 	append_milestone_label(p, node)
 	p.join()
 
@@ -810,7 +782,7 @@ def append_fws(p, pb):
 @handler("pb")
 def parse_pb(p, node):
 	break_ = milestone_break(node)
-	p.push(tree.Tag("page", break_=from_boolean(break_)))
+	p.push(tree.Tag("page", break_=common.from_boolean(break_)))
 	append_milestone_label(p, node)
 	append_fws(p, node)
 	p.join()
@@ -1209,7 +1181,7 @@ def make_meter_heading(p, met):
 @handler("p[@rend='stanza']")
 @handler("ab[@rend='stanza']")
 def parse_lg(p, lg):
-	numbered = from_boolean(len(lg.find("l")) > 4)
+	numbered = common.from_boolean(len(lg.find("l")) > 4)
 	p.push(tree.Tag("verse", numbered=numbered))
 	# Generally we have a single number e.g. "10", but sometimes ranges
 	# e.g. "10-20" (with various types of dashes). Try to do the most
@@ -1590,7 +1562,7 @@ def fetch_resp(resp):
 # present in the file-specific bibliography and which are not. (The latter
 # need to be presented within the project-wide bibliography.)
 def gather_biblio(p):
-	for bibl in p.tree.find("//div[@type='bibliography']//listBibl/bibl[ptr]"):
+	for bibl in p.document.tree.find("//div[@type='bibliography']//listBibl/bibl[ptr]"):
 		ptr = bibl.first("ptr")
 		short_title = ptr["target"].removeprefix("bib:")
 		if not short_title or short_title == "AuthorYear_01":
@@ -1607,7 +1579,7 @@ def gather_biblio(p):
 		# we will just display the duplicates, but we should also take
 		# care not to generate duplicate anchors in the HTML. XXX not done so far
 		if short_title not in p.document.bib_entries:
-			entry = biblio.Entry(short_title)
+			entry = biblio.lookup_entry(short_title)
 			p.document.bib_entries[short_title] = entry
 
 # Within inscriptions, <div> shouldn't nest, except that we can have
@@ -1635,7 +1607,7 @@ def parse_main_div(p, div):
 	setattr(p.document, div["type"], p.pop())
 
 def add_div_heading(p, div, dflt):
-	p.push("head")
+	p.push(tree.Tag("head"))
 	if (head := div.first("stuck-child::head")):
 		# User-specified heading, use it.
 		p.dispatch_children(head)
@@ -1682,10 +1654,9 @@ def append_sources(p, refs):
 def parse_div_translation(p, div):
 	def make_translation_heading():
 		p.append("Translation")
-		lang = div["lang"].split("-")[0]
-		if lang and lang != "eng": # XXX normalize lang code before
+		if div.assigned_lang != "eng":
 			lang = langs.from_code(lang) or lang
-			p.append(f" into {lang}")
+			p.append(f" into {div.assigned_lang.name}")
 		if (resps := div["resp"]):
 			p.append(" by ")
 			append_names(p, resps.split())
@@ -1704,8 +1675,7 @@ def process_file(file, mode=None):
 		doc = document.Document()
 		doc.valid = False
 		doc.repository = file.repo
-		doc.ident = file.name
-		doc.langs = [langs.Undetermined]
+		doc.identifier = file.name
 		doc.edition_langs = [langs.Undetermined]
 		return doc
 	langs.assign_languages(t)
@@ -1730,13 +1700,7 @@ def process_file(file, mode=None):
 	gather_biblio(p)
 	# XXX shouldn't need to add a root Tree just for whitespace
 	p.push(tree.Tree())
-	p.dispatch(p.tree.root)
-	all_langs = set()
-	for node in t.find("//*"):
-		all_langs.add(node.assigned_lang)
-	if not all_langs:
-		all_langs.add(langs.Undetermined)
-	p.document.langs = sorted(all_langs)
+	p.dispatch(p.document.tree.root)
 	ed_langs = set()
 	for node in t.find("//div[@type='edition']/descendant-or-self::*"):
 		if node.assigned_lang.is_source:
@@ -1745,6 +1709,7 @@ def process_file(file, mode=None):
 		ed_langs.add(langs.Undetermined)
 	p.document.edition_langs = sorted(ed_langs)
 	p.document.repository = file.repo
+	document.cleanup(p.document)
 	return p.document
 
 @common.transaction("texts")
@@ -1781,7 +1746,8 @@ if __name__ == "__main__":
 			f = texts.File("/", path)
 			doc = process_file(f)
 			print(doc.serialize().xml())
-			#print(doc.to_html().edition_full.xml())
+			#ret = doc.to_html()
+			#print(ret.title.xml())
 		except BrokenPipeError:
 			pass
 	main()

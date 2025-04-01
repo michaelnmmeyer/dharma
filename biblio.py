@@ -1318,10 +1318,10 @@ def lookup_entry(short_title):
 def wrap_entry(data):
 	return fix_rec(data)
 
-def format_entry(data, loc=[], siglum=None):
-	data = fix_rec(data)
+def format_entry(rec, location=[], siglum=None):
+	rec = fix_rec(rec)
 	out = Writer()
-	out.push(tree.Tag("para", anchor=data["shortTitle"]))
+	out.push(tree.Tag("para", class_="bib-entry", anchor=rec["shortTitle"]))
 	if siglum:
 		out.push(tree.Tag("span", class_="bold"))
 		out.append("[")
@@ -1329,9 +1329,9 @@ def format_entry(data, loc=[], siglum=None):
 		out.append("]")
 		out.join()
 		out.space()
-	renderers[data["itemType"]](data, out)
-	if loc:
-		out.entry_loc(loc)
+	renderers[rec["itemType"]](rec, out)
+	if location:
+		out.entry_loc(location)
 	return out.pop()
 
 # "rend" is one of "omitname", "ibid", "default", "siglum". "omitname" for just
@@ -1344,93 +1344,63 @@ def format_entry(data, loc=[], siglum=None):
 # point to some id on the same page.
 # "siglum" is a str or None. if given, we display it instead of the usual
 # author+date format.
-# XXX there is no reason to use a "reference" object, just render
-# things directly.
-def reference(self, rend="default", location=[], external_link=True, siglum=None, contents=[]):
-	return Reference(self, rend, location, external_link, siglum, contents).xml()
+# "contents" is a list of tree.Node that should be used instead of the usual
+# author+year, if applicable.
+def format_reference(rec, rend="default", location=[], external_link=True,
+	siglum=None, contents=[]):
+	assert rec
+	out = Writer()
+	out.push(tree.Tag("span", class_="bib-ref"))
+	out.push(tree.Tag("a", class_="bib-ref"))
+	if external_link:
+		quoted = urllib.parse.quote(rec["shortTitle"], safe="")
+		out.top["href"] = f"/bibliography/entry/{quoted}"
+	else:
+		out.top["href"] = f"#bib-key-{rec['key']}"
+		out.top["tip"] = make_author_year(rec).html()
+	if rend == "siglum" and not siglum:
+		rend = "default"
+	match rend:
+		case "default":
+			if contents:
+				out.top["tip"] = make_author_year(rec).html()
+				out.extend(contents)
+			elif (shorthand := rec.get("_shorthand")):
+				out.append(shorthand)
+			else:
+				out.ref(rec)
+		case "omitname":
+			shorthand = rec.get("_shorthand")
+			if shorthand:
+				out.append(shorthand)
+			else:
+				# Add the entry's Author+year in the tooltip
+				out.top["tip"] = make_author_year(rec).html()
+				out.date(rec, end_field=False)
+		case "ibid":
+			# Add the entry's Author+year in the tooltip
+			out.top["tip"] = make_author_year(rec).html()
+			out.push(tree.Tag("span", class_="italics"))
+			out.append("ibid.")
+			out.join()
+		case "siglum":
+			# Add the entry's Author+year in the tooltip
+			out.top["tip"] = make_author_year(rec).html()
+			out.append(siglum)
+		case _:
+			raise Exception
+	out.join() # ...</a>
+	if location:
+		out.append(",")
+		out.loc(location)
+	out.join() # ...</span>
+	assert len(out.stack)==1
+	return out.tree
 
 def make_author_year(rec):
 	x = Writer()
 	x.ref(rec)
-	return x.pop()
-
-class Reference:
-
-	def __init__(self, entry, rend, location, external_link, siglum, contents):
-		self.entry = entry
-		self.rend = rend
-		self.loc = location
-		self.external_link = external_link
-		self.siglum = siglum
-		self.contents = contents
-
-	def _invalid_ref(self, reason):
-		a = tree.Tag("a", class_="nav-link bib-ref-invalid")
-		if self.contents:
-			a.append(self.contents)
-		else:
-			a.append(self.entry.short_title or "?")
-		span = tree.Tag("span", tip=reason, class_="bib-ref bib-ref-invalid")
-		span.append(a)
-		return span
-
-	def xml(self):
-		rec = self.entry.data
-		assert not self.entry._records_nr < 0
-		if self.entry._records_nr == 1:
-			return self._make_reference(rec)
-		if self.entry._records_nr == 0:
-			if not self.entry.short_title:
-				return self._invalid_ref("Missing short title")
-			return self._invalid_ref("Not found in bibliography")
-		return self._invalid_ref("Multiple bibliographic entries bear this short title")
-
-	def _make_reference(self, rec):
-		w = Writer()
-		w.push(tree.Tag("span", class_="bib-ref"))
-		a = tree.Tag("a", class_="bib-ref")
-		if self.external_link:
-			quoted = urllib.parse.quote(self.entry.short_title, safe="")
-			a["href"] = f"/bibliography/entry/{quoted}"
-		else:
-			a["href"] = f"#bib-key-{self.entry.key}"
-			a["tip"] = make_author_year(rec).xml()
-		w.push(a)
-		rend = self.rend
-		if rend == "siglum" and not self.siglum:
-			rend = "default"
-		match rend:
-			case "default":
-				if self.contents:
-					w.top["tip"] = make_author_year(rec).xml()
-					w.append(self.contents)
-				elif (shorthand := rec.get("_shorthand")):
-					w.append(shorthand)
-				else:
-					w.ref(rec)
-			case "omitname":
-				shorthand = rec.get("_shorthand")
-				if shorthand:
-					w.append(shorthand)
-				else:
-					# Add the entry's Author+year in the tooltip
-					w.top["tip"] = make_author_year(rec).xml()
-					w.date(rec, end_field=False)
-			case "ibid":
-				# Add the entry's Author+year in the tooltip
-				w.top["tip"] = make_author_year(rec).xml()
-				tag = tree.Tag("span", class_="italics")
-				tag.append("ibid.")
-				w.append(tag)
-			case "siglum":
-				# Add the entry's Author+year in the tooltip
-				w.top["tip"] = make_author_year(rec).xml()
-				w.append(self.siglum)
-		w.pop() # ...</a>
-		if self.loc:
-			w.append(",")
-			w.loc(self.loc)
-		return w.pop()
+	return x.tree
 
 # XXX the db needs to be updated manually if this function is changed, address
 # that.
@@ -1475,7 +1445,8 @@ def load_biblio_from_file():
 		insert_entry(db, entry)
 
 @common.transaction("texts")
-def print_entries(pattern="*"):
+def print_entries():
+	pattern = len(sys.argv) > 1 and sys.argv[1] or "*"
 	db = common.db("texts")
 	for (entry,) in db.execute("select data from biblio where short_title glob ?", (pattern,)):
 		print(format_entry(entry).xml())

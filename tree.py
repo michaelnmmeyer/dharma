@@ -1008,41 +1008,6 @@ class Instruction(Node):
 	def copy(self):
 		return Instruction(self.target, self.data)
 
-class Serializer:
-	"Helper for building XML trees."
-
-	def __init__(self):
-		self.clear()
-
-	def clear(self):
-		self.tree = Tree()
-		self.stack = [self.tree]
-
-	def push(self, node):
-		if isinstance(node, Node):
-			node = node.copy()
-		self.stack.append(node)
-
-	@property
-	def top(self):
-		return self.stack[-1]
-
-	def pop(self):
-		assert len(self.stack) > 1
-		return self.stack.pop()
-
-	def join(self):
-		self.append(self.pop())
-
-	def append(self, node):
-		if isinstance(node, Node):
-			node = node.copy()
-		self.stack[-1].append(node)
-
-	def extend(self, node_iter):
-		for node in list(node_iter):
-			self.append(node)
-
 class Parser:
 
 	def __init__(self, source, path=None):
@@ -1890,6 +1855,45 @@ def html_format(node, skip_root=False, color=True, add_xml_prefix=True,
 	else:
 		fmt.format(node)
 	return fmt.text()
+
+class Serializer:
+	"Helper for building XML trees."
+
+	def __init__(self):
+		self.clear()
+
+	def clear(self):
+		self.tree = Tree()
+		self.stack = [self.tree]
+
+	def push(self, node, **attrs):
+		if isinstance(node, Node):
+			assert not attrs
+			node = node.copy()
+		else:
+			node = Tag(node, **attrs)
+		self.stack.append(node)
+
+	@property
+	def top(self):
+		return self.stack[-1]
+
+	def pop(self):
+		assert len(self.stack) > 1 # Should never pop the root tree.
+		return self.stack.pop()
+
+	def join(self):
+		self.append(self.pop())
+
+	def append(self, node):
+		if isinstance(node, Node):
+			node = node.copy()
+		self.stack[-1].append(node)
+
+	def extend(self, node_iter):
+		for node in list(node_iter):
+			self.append(node)
+
 
 if __name__ == "__main__":
 	if len(sys.argv) <= 1:

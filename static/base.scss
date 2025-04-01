@@ -26,6 +26,14 @@ $border-radius: 0.3em;
 	hyphens: none;
 }
 
+@mixin hanging {
+	padding-left: 1.5em;
+	text-indent: -1.5em;
+}
+.hanging {
+	@include hanging;
+}
+
 a {
 	text-decoration: none;
 }
@@ -141,8 +149,14 @@ a.nav-link {
 }
 
 p.bib-entry {
-	padding-left: 1.5em;
-	text-indent: -1.5em;
+	@include hanging;
+}
+
+.bold {
+	font-weight: bold;
+}
+.italics {
+	font-style: italic;
 }
 
 .text-id, .repo-id, .member-id, .commit-hash, .url {
@@ -595,8 +609,6 @@ dl.list > dd {
 .milestone {
 	color: gray;
 	font-weight: initial;
-}
-.symbol {
 }
 .symbol-placeholder {
 	border: solid 1px;

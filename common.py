@@ -338,6 +338,12 @@ def sentence_case(s):
 	t[0] = t[0].capitalize()
 	return " ".join(t)
 
+def from_boolean(obj):
+	if obj is True:
+		return "true"
+	assert obj is False
+	return "false"
+
 def to_boolean(s, dflt):
 	match s.lower():
 		case "true" | "yes" | "on" | "1":
