@@ -974,7 +974,15 @@ def render_webpage(rec, w, params):
 	w.entry_loc(params.get("loc"))
 
 def render_document(rec, w, params):
-	return render_webpage(rec, w, params)
+	w.entry_front(rec)
+	if rec["title"]:
+		w.quoted(rec["title"])
+	if rec["_shorthand"]:
+		w.by_authors(rec)
+	if rec["_shorthand"] and rec["date"]:
+		w.date(rec)
+	w.idents(rec)
+	w.entry_loc(params.get("loc"))
 
 # blog posts
 """
