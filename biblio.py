@@ -1321,7 +1321,7 @@ def wrap_entry(data):
 def format_entry(rec, location=[], siglum=None):
 	rec = fix_rec(rec)
 	out = Writer()
-	out.push(tree.Tag("para", class_="bib-entry", anchor=rec["shortTitle"]))
+	out.push(tree.Tag("para", class_="bib-entry", anchor=f"bib-{rec["shortTitle"]}"))
 	if siglum:
 		out.push(tree.Tag("span", class_="bold"))
 		out.append("[")
@@ -1356,7 +1356,7 @@ def format_reference(rec, rend="default", location=[], external_link=True,
 		quoted = urllib.parse.quote(rec["shortTitle"], safe="")
 		out.top["href"] = f"/bibliography/entry/{quoted}"
 	else:
-		out.top["href"] = f"#bib-key-{rec['key']}"
+		out.top["href"] = f"#bib-{rec['shortTitle']}"
 		out.top["tip"] = make_author_year(rec).html()
 	if rend == "siglum" and not siglum:
 		rend = "default"
@@ -1394,7 +1394,7 @@ def format_reference(rec, rend="default", location=[], external_link=True,
 		out.append(",")
 		out.loc(location)
 	out.join() # ...</span>
-	assert len(out.stack)==1
+	assert len(out.stack) == 1
 	return out.tree
 
 def make_author_year(rec):
@@ -1430,9 +1430,8 @@ def make_sort_key(rec):
 @common.transaction("texts")
 def display_sort_keys():
 	db = common.db("texts")
-	for (doc,) in db.execute("""select json ->> '$.data' from biblio_data
-		where sort_key is not null
-	"""):
+	for (doc,) in db.execute("""select json ->> '$.data' from biblio
+		where sort_key is not null"""):
 		doc = common.from_json(doc)
 		print(doc, make_sort_key(doc))
 

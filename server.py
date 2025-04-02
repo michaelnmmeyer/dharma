@@ -1,7 +1,7 @@
 import os, unicodedata, datetime, html, urllib
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
-from dharma import common, change, ngrams, catalog, parse, validate
+from dharma import common, change, ngrams, catalog, validate, tointernal
 from dharma import biblio, texts, editorial, prosody
 
 # We don't use the name "templates" for the template folder because we also
@@ -128,6 +128,15 @@ def show_repos():
 	db = common.db("texts")
 	rows = db.execute("select * from repos_display").fetchall()
 	return flask.render_template("repos.tpl", rows=rows)
+
+@app.get("/repositories/<ident>")
+@common.transaction("texts")
+def show_repo(ident):
+	db = common.db("texts")
+	exists = db.execute("select 1 from repos where repo = ?", (ident,)).fetchone()
+	if exists:
+		return flask.redirect(f"/repositories#repo-{ident}")
+	return flask.abort(404)
 
 @app.get("/people")
 @common.transaction("texts")
@@ -324,7 +333,7 @@ def display_text_xml(text):
 	if not row:
 		return flask.abort(404)
 	file = db.load_file(text)
-	doc = parse.process_file(file)
+	doc = tointernal.process_file(file)
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
 	doc.last_modified_commit = row["last_modified_commit"]
@@ -383,7 +392,7 @@ def display_text(text):
 	if not row:
 		return flask.abort(404)
 	file = db.load_file(text)
-	doc = parse.process_file(file).to_html()
+	doc = tointernal.process_file(file).to_html()
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
 	doc.last_modified_commit = row["last_modified_commit"]
@@ -439,7 +448,7 @@ def convert_text():
 	setattr(f, "_last_modified", ("", 0))
 	setattr(f, "_data", data)
 	setattr(f, "_owners", [])
-	doc = parse.process_file(f)
+	doc = tointernal.process_file(f)
 	doc.repository = None
 	html = flask.render_template("inscription.tpl", doc=doc, text=name)
 	soup = BeautifulSoup(html, "html.parser")

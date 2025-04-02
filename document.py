@@ -62,6 +62,13 @@ def trim_right(strings):
 		break
 	return trimmed
 
+def trim_before(node):
+	parent = node.parent
+	i = parent.index(node)
+	if i > 0 and isinstance(parent[i - 1], tree.String) and parent[i - 1].endswith(" "):
+		parent[i - 1].replace_with(parent[i - 1].data.rstrip())
+
+
 def squeeze(strings):
 	i = 0
 	while i < len(strings):
@@ -88,6 +95,8 @@ def cleanup_tree(t):
 		trim_left(strings)
 		trim_right(strings)
 		squeeze(strings)
+	for node in t.find("//*[name() = 'npage' or name() = 'nline' or name() = 'ncell']"):
+		trim_before(node)
 
 def cleanup(doc):
 	for attr in dir(doc):
@@ -108,7 +117,8 @@ class Document:
 		self.tree = None # tree.Tree
 		# Whether the XML is well-formed.
 		self.valid = True
-		self.repository = ""
+		self.repository = None
+		self.repository_title = None
 		# Dharma identifier viz. the file's basename without the extension.
 		self.identifier = ""
 		# XML source code, HTML-encoded.
@@ -163,22 +173,27 @@ class Document:
 		# Map of biblio entry short title (string) -> siglum (string)
 		self.sigla = {}
 
-		# The following are only used temporarily, while parsing the document.
-		# TODO if possible, this should be attached to the Parser object instead.
-		self._prosody_entries = {}
-
 	def serialize(self):
 		f = tree.Serializer()
 		f.push(tree.Tag("document"))
 		f.push(tree.Tag("identifier"))
 		f.append(self.identifier)
 		f.join()
-		f.push(tree.Tag("repository"))
-		f.append(self.repository)
-		f.join()
+		if self.repository or self.repository_title:
+			f.push(tree.Tag("repository"))
+			if self.repository:
+				f.push(tree.Tag("identifier"))
+				f.append(self.repository)
+				f.join()
+			if self.repository_title:
+				f.push(tree.Tag("name"))
+				f.append(self.repository_title)
+				f.join()
+			f.join()
 		f.push(tree.Tag("valid"))
 		f.append(common.from_boolean(self.valid))
 		f.join()
+		# If not valid, the following are omitted.
 		if self.title:
 			f.push(tree.Tag("title"))
 			f.extend(self.title)

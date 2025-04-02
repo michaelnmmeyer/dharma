@@ -1,5 +1,5 @@
 import logging
-from dharma import parse, texts, common, document
+from dharma import texts, common, document, tointernal
 
 class Query:
 
@@ -39,11 +39,11 @@ def delete(name):
 
 def insert(file):
 	db = common.db("texts")
-	doc = parse.process_file(file, mode="catalog")
+	doc = tointernal.process_file(file, mode="catalog")
 	for key in ("title", "authors", "editors", "summary"):
 		val = getattr(doc, key, None)
 		if val is None:
-			val = parse.Block(val)
+			val = tointernal.Block(val)
 			val.finish()
 			setattr(doc, key, val)
 	db.execute("""insert or replace into documents(name, repo, title,

@@ -1,3 +1,4 @@
+import collections
 from dharma import tree
 
 HANDLERS = []
@@ -51,33 +52,44 @@ def render_list(self, node):
 		self.join()
 	self.join()
 
+paired = collections.namedtuple("paired", "identifier name")
+
+def extract_paired(self, node):
+	name = node.first("name")
+	if name:
+		self.push(tree.Tree())
+		self.dispatch_children(name)
+		name = self.pop()
+	identifier = node.first("identifier")
+	if identifier:
+		self.push(tree.Tree())
+		self.dispatch_children(identifier)
+		identifier = self.pop()
+	return paired(identifier, name)
+
 @handler("editor")
 def process_editor(self, node):
-	name = node.first("name")
-	self.push(tree.Tree())
-	self.dispatch_children(name)
-	name = self.pop()
-	identifier = node.first("identifier")
-	self.push(tree.Tree())
-	self.dispatch_children(identifier)
-	identifier = self.pop()
-	self.document.editors.append((identifier, name))
+	self.document.editors.append(extract_paired(self, node))
+
+@handler("repository")
+def process_repository(self, node):
+	self.document.repository = extract_paired(self, node)
 
 @handler("summary")
 @handler("hand")
-@handler("edition-languages")
-@handler("repository")
 @handler("identifier")
-@handler("valid")
-@handler("editor")
-@handler("language")
-@handler("editor")
-@handler("name")
-def TODO(self, node): # XXX
+def render_section(self, node):
 	self.push(tree.Tree())
 	self.dispatch_children(node)
 	name = node.name.replace("-", "_")
-	setattr(self, name, self.pop())
+	setattr(self.document, name, self.pop())
+
+@handler("valid") #XXX
+@handler("language") #XXX
+@handler("edition-languages") #XXX
+def TODO(self, node):
+	pass
+	#XXX
 
 edition_tabs = tree.parse_string("""
 <ul class="ed-tabs">
@@ -171,16 +183,24 @@ def render_note_ref(self, node):
 	self.join()
 	self.join()
 
+@handler("span")
+def render_span(self, node):
+	span = tree.Tag("span", class_=node["class"], data_tip=node["tip"])
+	self.push(span)
+	self.dispatch_children(node)
+	self.join()
+
+@handler("para")
+def render_para(self, node):
+	self.push(tree.Tag("p", class_=node["class"], id=node["anchor"]))
+	self.dispatch_children(node)
+	self.join()
+
 @handler("*")
 def render_tag(self, node):
 	assert isinstance(node, tree.Tag)
 	match node.name:
-		case "para":
-			self.push(tree.Tag("p"))
-			for child in node:
-				self.dispatch(child)
-			self.join()
-		case "span" | "a":
+		case "a":
 			self.append(node)
 		case _:
 			raise Exception(f"unknown: {node.name}")
@@ -243,5 +263,5 @@ class HTMLRenderer(tree.Serializer):
 def process(doc):
 	render = HTMLRenderer(doc)
 	doc = render()
-	print(doc.body.html())
+	#print(doc.repository, doc.identifier)
 	return doc

@@ -40,6 +40,34 @@
 </p>
 % endif
 
+% if doc.summary:
+<div class="metadata-paras">
+<p>Summary: </p>
+{{doc.summary.html() | safe}}
+</div>
+% endif
+
+% if doc.hand:
+<div class="metadata-paras">
+<p>Hand description: p>
+{{doc.hand.html() | safe}}
+</div>
+% endif
+
+% if doc.identifier:
+<p>Identifier: <span class="text-id">{{doc.identifier.html() | safe}}</span>.</p>
+% endif
+
+% if doc.repository:
+% if doc.repository.name and doc.repository.identifier:
+<p>Repository: {{doc.repository.name.html() | safe}} (<a class="repo-id" href="/repositories/{{doc.repository.identifier.text()}}">{{doc.repository.identifier.html() | safe}}</a>).</p>
+% elif doc.repository.name:
+<p>Repository: {{doc.repository.name.html() | safe}}.</p>
+% elif doc.repository.identifier:
+<p>Repository: <a class="repo-id" href="/repositories/{{doc.repository.identifier.text()}}">{{doc.repository.identifier.html() | safe}}</a>.</p>
+% endif
+% endif
+
 {{doc.body.html() | safe}}
 </div>
 
@@ -68,19 +96,7 @@
 
 {#
 
-<p>
-Identifier: <span class="text-id">{{text}}</span>.
-</p>
 
-% if doc.summary:
-<p>Summary: {{doc.summary.html() | safe}}</p>
-% endif
-
-<p>Hand description:</p>
-<div>
-{{doc.hand.html() | safe}}
-</div>
-% endif
 
 % if doc.edition_langs:
 <p>{{numberize("Language", len(doc.edition_langs))}}:
@@ -92,10 +108,6 @@ Identifier: <span class="text-id">{{text}}</span>.
       % endif
    % endfor
 </p>
-% endif
-
-% if doc.repository:
-<p>Repository: {{repo_title}} (<span class="repo-id">{{doc.repository}}</span>).</p>
 % endif
 
 % if doc.commit_date:

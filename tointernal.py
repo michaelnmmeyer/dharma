@@ -29,6 +29,7 @@ class Parser(tree.Serializer):
 		# still remain in the tree and are still accessible from
 		# within handlers.
 		self.visited = set()
+		self._prosody_entries = {}
 
 	def _get_bib_entry(self, short_title):
 		external = False
@@ -57,14 +58,14 @@ class Parser(tree.Serializer):
 		return ref
 
 	def get_prosody_entry(self, name):
-		entry = self.document._prosody_entries.get(name, object)
+		entry = self._prosody_entries.get(name, object)
 		if entry is object:
 			db = common.db("texts")
 			entry = db.execute(
 				"""select pattern, description, entry_id
 				from prosody where name = ?""",
 				(name,)).fetchone() or None
-			self.document._prosody_entries[name] = entry
+			self._prosody_entries[name] = entry
 		return entry
 
 	def dispatch(self, node):
@@ -1096,13 +1097,13 @@ def parse_g(p, node):
 		tip = f"Space-filler symbol: {info['description']}"
 	else:
 		tip = f"Symbol: {info['description']}"
-	sym = tree.Tag("symbol", tip=tip)
+	sym = tree.Tag("span", tip=tip)
 	if info["text"]:
 		sym["class"] = "symbol"
 		sym.append(info["text"])
 	else:
 		sym["class"] = "symbol-placeholder"
-		sym.append(f"<{info['name']}>")
+		sym.append(f"<{info['name']}>") # should not include that in search
 	p.append(sym)
 
 # XXX This doesn't always work, because we have intervening <lb/>, etc. within
@@ -1217,7 +1218,6 @@ def parse_p(p, para):
 		p.push(tree.Tag("span", class_="lb"))
 		p.append(f"({n})")
 		p.join()
-		p.append(" ")
 	p.dispatch_children(para)
 	p.join()
 
@@ -1655,7 +1655,6 @@ def parse_div_translation(p, div):
 	def make_translation_heading():
 		p.append("Translation")
 		if div.assigned_lang != "eng":
-			lang = langs.from_code(lang) or lang
 			p.append(f" into {div.assigned_lang.name}")
 		if (resps := div["resp"]):
 			p.append(" by ")
@@ -1668,6 +1667,12 @@ def parse_div_translation(p, div):
 	p.dispatch_children(div, only_tags=True)
 	p.document.translation.append(p.pop())
 
+def repository_title(ident):
+	db = common.db("texts")
+	title = db.execute("select title from repos where repo = ?", (ident,)).fetchone()
+	if title:
+		return title[0]
+
 def process_file(file, mode=None):
 	try:
 		t = tree.parse_string(file.data, path=file.full_path)
@@ -1675,6 +1680,7 @@ def process_file(file, mode=None):
 		doc = document.Document()
 		doc.valid = False
 		doc.repository = file.repo
+		doc.repository_title = repository_title(doc.repository)
 		doc.identifier = file.name
 		doc.edition_langs = [langs.Undetermined]
 		return doc
@@ -1709,30 +1715,9 @@ def process_file(file, mode=None):
 		ed_langs.add(langs.Undetermined)
 	p.document.edition_langs = sorted(ed_langs)
 	p.document.repository = file.repo
+	p.document.repository_title = repository_title(p.document.repository)
 	document.cleanup(p.document)
 	return p.document
-
-@common.transaction("texts")
-def export_plain():
-	db = common.db("texts")
-	renderer = document.PlainRenderer(strip_physical=True)
-	out_dir = common.path_of("plain")
-	os.makedirs(out_dir, exist_ok=True)
-	for (name,) in db.execute("""
-		select name
-		from documents natural join files where name glob 'DHARMA_INS*'
-		"""):
-		f = db.load_file(name)
-		try:
-			ret = renderer.render(process_file(f))
-		except tree.Error:
-			continue
-		except Exception as e:
-			logging.error(f"cannot process {name} ({e})")
-			continue
-		out_file = os.path.join(out_dir, name + ".txt")
-		with open(out_file, "w") as f:
-			f.write(ret)
 
 if __name__ == "__main__":
 	# export_plain()
@@ -1745,8 +1730,8 @@ if __name__ == "__main__":
 		try:
 			f = texts.File("/", path)
 			doc = process_file(f)
-			#print(doc.serialize().xml())
-			ret = doc.to_html()
+			print(doc.serialize().xml())
+			#ret = doc.to_html()
 			#print(ret.title.xml())
 		except BrokenPipeError:
 			pass
