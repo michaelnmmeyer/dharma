@@ -81,8 +81,17 @@ entry point, and wrap this function in C with minimum code.
 ===
 
 fts5 would be ok for modern languages. but we will still need to add some stuff.
-* add a tokenizer with stemmers from libstemmer
+* custom fts5 tokenizer with stemmers from libstemmer
 * for faceting, if we use traditional builtin sqlite stuff, we will have to
   issue a query two times, once for retrieving matching documents, the second
-  time to retrieve aggregate data.
-*
+  time to retrieve aggregate data. might be slow, particularly if we use
+  regexes.
+* there is a NEAR operator, be we can't get an ordered window, would need to
+  implement that
+* it's not possible to artificially increase space between tokens, so we can't
+  do stuff like "restrict search to a paragraph", etc.
+
+
+space-insensitive
+case-insensitive
+folding
