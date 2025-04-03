@@ -1,5 +1,5 @@
 import logging
-from dharma import texts, common, document, tointernal
+from dharma import texts, common, tointernal
 
 class Query:
 
@@ -163,7 +163,7 @@ def patch_languages(q):
 			clause.query = "" # prevent matching
 
 def construct_query(q):
-	q = " ".join(document.normalize(t) for t in q.split()
+	q = " ".join(tointernal.normalize(t) for t in q.split()
 		if t not in ("AND", "OR", "NOT"))
 	if q:
 		q = parse_query(q)

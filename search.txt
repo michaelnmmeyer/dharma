@@ -1,3 +1,5 @@
+facets: language, script, repository
+
 each searchable field must have a predefined type; more accurately, a processor name, which must define how to process the field to make it searchable (optionally indexable). use static typing, same processor for a given field in a given collection of fields.
 
 for selecting snippets. try to select complete block elements. because we can't tell where we should cut the text otherwise (before or after <lb/>? etc.). but also cap the length of a snippet, to avoid degenerate cases. in any case, must make sure to select balanced elements. when generating snippets/highlighting, we should never attempt to select part of an inline element. we need to distinguish between block and inline elements.
@@ -54,7 +56,7 @@ texte, doit être en mesure de chercher deux représentations: physical+logical
 que garder de la structure du texte? at least: titres, sauts de paragraphes (on
 considère les éléments d'une liste comme des paragraphes),
 
-to simplify re matching must use some msgpack-like format. we should be able to
+to make regex matching faster can use some msgpack-like format. we should be able to
 search the whole document in one go. we can assume that there is a fixed set of
 fields, so no need to store the field name.
 
@@ -75,3 +77,12 @@ in sqlite tabvles.
 
 Write the main code in python first. Then switch to go if not fast enough. Add a basic argc,argv func as an
 entry point, and wrap this function in C with minimum code.
+
+===
+
+fts5 would be ok for modern languages. but we will still need to add some stuff.
+* add a tokenizer with stemmers from libstemmer
+* for faceting, if we use traditional builtin sqlite stuff, we will have to
+  issue a query two times, once for retrieving matching documents, the second
+  time to retrieve aggregate data.
+*
