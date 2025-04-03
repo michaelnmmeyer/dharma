@@ -186,6 +186,7 @@
                             <valItem ident="kaw-Latn"><desc>Kawi</desc></valItem>
                             <valItem ident="khm-Latn"><desc>Khmer</desc></valItem>
                             <valItem ident="kxm-Latn"><desc>Khmer, Northern</desc></valItem>
+                            <valItem ident="mar-Latn"><desc>Marathi</desc></valItem>
                             <valItem ident="mya-Latn"><desc>Burmese</desc></valItem>
                             <valItem ident="nld-Latn"><desc>Dutch</desc></valItem>
                             <valItem ident="obr-Latn"><desc>Burmese, Old</desc></valItem>
@@ -413,12 +414,6 @@
                 <elementSpec ident="div" mode="change" module="textstructure">
                     <constraintSpec scheme="isoschematron" ident="div">
                         <constraint>
-                            <sch:rule context="tei:div[@type='bibliography']">
-                                <sch:assert test="count(distinct-values(.//tei:listBibl/tei:bibl/tei:ptr[@target != 'bib:AuthorYear_01']/@target))
-                                    = count(.//tei:listBibl/tei:bibl/tei:ptr[@target != 'bib:AuthorYear_01']/@target)">
-                                    the same short title is used for several bibliographical entries, but should appear only once
-                                </sch:assert>
-                            </sch:rule>
                             <sch:rule context="tei:div">
                                 <sch:report test="./@type != 'textpart' and parent::tei:div and @type!=parent::tei:div/@type">
                                     Divs other than @type=textpart may not nest in divs of
@@ -921,7 +916,8 @@
                         <attDef ident="xml:space" mode="delete"/>
                     </attList>
                 </elementSpec>
-                <elementSpec ident="space" module="transcr" mode="change">
+                <!-- change definition of <lb> to "line beginning" -->
+<elementSpec ident="space" module="transcr" mode="change">
                     <content>
                         <empty/>
                     </content>
@@ -2179,12 +2175,12 @@
                         <attDef ident="xml:space" mode="delete"/>
                         <attDef ident="type" mode="change" usage="req">
                             <datatype>
-                                <rng:text/>
+                                <rng:choice>
+                                    <rng:value>numeral</rng:value>
+                                    <rng:text/>
+                                </rng:choice>
                             </datatype>
                             <!-- g/@type must remain open -->
-                            <valList mode="change" type="open">
-                                <valItem ident="numeral"/>
-                            </valList>
                         </attDef>
                         <attDef ident="subtype" mode="delete"/>
                     </attList>
@@ -3278,98 +3274,6 @@
                         <attDef ident="xml:space" mode="delete"/>
                     </attList>
                 </elementSpec>
-                <!-- change definition of <lb> to "line beginning" -->
-                <elementSpec ident="lb" mode="change" module="core">
-                    <gloss>line-beginning</gloss>
-                    <desc>marks the start of each line of the transcribed text, including the
-                        first</desc>
-                    <!-- offer value "no" for lb/@break -->
-                    <attList>
-                        <attDef ident="break" mode="change" usage="opt">
-                            <datatype>
-                                <dataRef name="string"/>
-                            </datatype>
-                            <defaultVal>yes</defaultVal>
-                            <valList type="closed" mode="replace">
-                                <valItem ident="yes"/>
-                                <valItem ident="no"/>
-                            </valList>
-                        </attDef>
-                        <attDef ident="ana" mode="delete"/>
-                        <attDef ident="cert" mode="delete"/>
-                        <attDef ident="change" mode="delete"/>
-                        <attDef ident="copyOf" mode="delete"/>
-                        <attDef ident="corresp" mode="delete"/>
-                        <attDef ident="ed" mode="delete"/>
-                        <attDef ident="edRef" mode="delete"/>
-                        <attDef ident="exclude" mode="delete"/>
-                        <attDef ident="facs" mode="delete"/>
-                        <attDef ident="next" mode="delete"/>
-                        <attDef ident="prev" mode="delete"/>
-                        <attDef ident="rendition" mode="delete"/>
-                        <attDef ident="resp" mode="delete"/>
-                        <attDef ident="sameAs" mode="delete"/>
-                        <attDef ident="select" mode="delete"/>
-                        <attDef ident="source" mode="delete"/>
-                        <attDef ident="spanTo" mode="delete"/>
-                        <attDef ident="subtype" mode="delete"/>
-                        <attDef ident="synch" mode="delete"/>
-                        <attDef ident="type" mode="delete"/>
-                        <attDef ident="xml:base" mode="delete"/>
-                        <attDef ident="xml:id" mode="delete"/>
-                        <attDef ident="xml:lang" mode="delete"/>
-                        <attDef ident="xml:space" mode="delete"/>
-                        <attDef ident="n" mode="change" usage="req">
-                            <datatype>
-                                <dataRef key="dharma.n"/>
-                            </datatype>
-                        </attDef>
-                        <attDef ident="rend" mode="change">
-                            <datatype>
-                                <rng:text/>
-                            </datatype>
-                            <valList type="closed" mode="replace">
-                                <valItem ident="bt-rotated">
-                                    <desc> written vertically from bottom to top, with the tops of
-                                        characters facing left </desc>
-                                </valItem>
-                                <valItem ident="tb-rotated">
-                                    <desc> written vertically from top to bottom, with the tops of
-                                        characters facing right </desc>
-                                </valItem>
-                                <valItem ident="bt-upright">
-                                    <desc> written vertically from bottom to top, with the tops of
-                                        characters facing upward </desc>
-                                </valItem>
-                                <valItem ident="tb-upright">
-                                    <desc> written vertically from top to bottom, with the tops of
-                                        characters facing upward </desc>
-                                </valItem>
-                                <valItem ident="rl-upright">
-                                    <desc> written horizontally from right to left, with characters
-                                        in their regular orientation </desc>
-                                </valItem>
-                                <valItem ident="rl-flipper">
-                                    <desc> written horizontally from right to left, with characters
-                                        mirrored around their vertical axis as in true boustrophedon
-                                    </desc>
-                                </valItem>
-                                <valItem ident="rl-rotated">
-                                    <desc> written horizontally from right to left, with the tops of
-                                        characters facing downward </desc>
-                                </valItem>
-                            </valList>
-                        </attDef>
-                        <attDef ident="style" mode="change" usage="opt">
-                            <valList type="closed" mode="replace">
-                                <valItem ident="text-align: right"/>
-                                <valItem ident="text-align: center"/>
-                                <valItem ident="text-align: left"/>
-                                <valItem ident="text-align: justify"/>
-                            </valList>
-                        </attDef>
-                    </attList>
-                </elementSpec>
                 <elementSpec ident="p" module="core" mode="change">
                     <constraintSpec scheme="schematron" ident="p">
                         <constraint>
@@ -3746,6 +3650,98 @@
                         <attDef ident="xml:id" mode="delete"/>
                         <attDef ident="xml:lang" mode="delete"/>
                         <attDef ident="xml:space" mode="delete"/>
+                    </attList>
+                </elementSpec>
+                <!-- change definition of <lb> to "line beginning" -->
+                <elementSpec ident="lb" mode="change" module="core">
+                    <gloss>line-beginning</gloss>
+                    <desc>marks the start of each line of the transcribed text, including the
+                        first</desc>
+                    <!-- offer value "no" for lb/@break -->
+                    <attList>
+                        <attDef ident="break" mode="change" usage="opt">
+                            <datatype>
+                                <dataRef name="string"/>
+                            </datatype>
+                            <defaultVal>yes</defaultVal>
+                            <valList type="closed" mode="replace">
+                                <valItem ident="yes"/>
+                                <valItem ident="no"/>
+                            </valList>
+                        </attDef>
+                        <attDef ident="ana" mode="delete"/>
+                        <attDef ident="cert" mode="delete"/>
+                        <attDef ident="change" mode="delete"/>
+                        <attDef ident="copyOf" mode="delete"/>
+                        <attDef ident="corresp" mode="delete"/>
+                        <attDef ident="ed" mode="delete"/>
+                        <attDef ident="edRef" mode="delete"/>
+                        <attDef ident="exclude" mode="delete"/>
+                        <attDef ident="facs" mode="delete"/>
+                        <attDef ident="next" mode="delete"/>
+                        <attDef ident="prev" mode="delete"/>
+                        <attDef ident="rendition" mode="delete"/>
+                        <attDef ident="resp" mode="delete"/>
+                        <attDef ident="sameAs" mode="delete"/>
+                        <attDef ident="select" mode="delete"/>
+                        <attDef ident="source" mode="delete"/>
+                        <attDef ident="spanTo" mode="delete"/>
+                        <attDef ident="subtype" mode="delete"/>
+                        <attDef ident="synch" mode="delete"/>
+                        <attDef ident="type" mode="delete"/>
+                        <attDef ident="xml:base" mode="delete"/>
+                        <attDef ident="xml:id" mode="delete"/>
+                        <attDef ident="xml:lang" mode="delete"/>
+                        <attDef ident="xml:space" mode="delete"/>
+                        <attDef ident="n" mode="change" usage="req">
+                            <datatype>
+                                <dataRef key="dharma.n"/>
+                            </datatype>
+                        </attDef>
+                        <attDef ident="rend" mode="change">
+                            <datatype>
+                                <rng:text/>
+                            </datatype>
+                            <valList type="closed" mode="replace">
+                                <valItem ident="bt-rotated">
+                                    <desc> written vertically from bottom to top, with the tops of
+                                        characters facing left </desc>
+                                </valItem>
+                                <valItem ident="tb-rotated">
+                                    <desc> written vertically from top to bottom, with the tops of
+                                        characters facing right </desc>
+                                </valItem>
+                                <valItem ident="bt-upright">
+                                    <desc> written vertically from bottom to top, with the tops of
+                                        characters facing upward </desc>
+                                </valItem>
+                                <valItem ident="tb-upright">
+                                    <desc> written vertically from top to bottom, with the tops of
+                                        characters facing upward </desc>
+                                </valItem>
+                                <valItem ident="rl-upright">
+                                    <desc> written horizontally from right to left, with characters
+                                        in their regular orientation </desc>
+                                </valItem>
+                                <valItem ident="rl-flipper">
+                                    <desc> written horizontally from right to left, with characters
+                                        mirrored around their vertical axis as in true boustrophedon
+                                    </desc>
+                                </valItem>
+                                <valItem ident="rl-rotated">
+                                    <desc> written horizontally from right to left, with the tops of
+                                        characters facing downward </desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
+                        <attDef ident="style" mode="change" usage="opt">
+                            <valList type="closed" mode="replace">
+                                <valItem ident="text-align: right"/>
+                                <valItem ident="text-align: center"/>
+                                <valItem ident="text-align: left"/>
+                                <valItem ident="text-align: justify"/>
+                            </valList>
+                        </attDef>
                     </attList>
                 </elementSpec>
                 <elementSpec ident="quote" module="core" mode="change">
