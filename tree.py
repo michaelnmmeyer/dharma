@@ -1249,9 +1249,22 @@ def following(node):
 			if isinstance(node, tree.Tag):
 				yield from inner(node)
 	while not isinstance(node, tree.Tree):
+		parent = node.parent
+		i = parent.index(node)
+		yield from inner(parent[i + 1:])
+		node = parent
+
+def preceding(node):
+	def inner(nodes):
+		for node in reversed(nodes):
+			yield node
+			if isinstance(node, tree.Tag):
+				yield from inner(node)
+	while not isinstance(node, tree.Tree):
+		parent = node.parent
 		i = node.parent.index(node)
-		yield from inner(node.parent[i + 1:])
-		node = node.parent
+		yield from inner(parent[:i])
+		node = parent
 
 def children(node):
 	assert isinstance(node, Node)
@@ -1364,9 +1377,8 @@ class Generator:
 				children,
 				descendants, descendants_or_self,
 				ancestors, ancestors_or_self,
-				following_siblings,
-				preceding_siblings,
-				following))
+				following_siblings, preceding_siblings,
+				following, preceding))
 				for f in funcs}
 		self.search = {}
 		self.match = {}
@@ -1528,6 +1540,8 @@ class Generator:
 				self.append("for node in following(node):")
 			case "preceding-sibling":
 				self.append("for node in preceding_siblings(node):")
+			case "preceding":
+				self.append("for node in preceding(node):")
 			case "stuck-child":
 				self.append("if (node := node.stuck_child()) is not None:")
 			case "stuck-parent":
