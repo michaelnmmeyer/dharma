@@ -9,7 +9,7 @@ generated_views = $(patsubst %.md,%.tpl,$(wildcard views/*.md))
 generated_parsers = $(patsubst %.g,%.py,$(wildcard *.g))
 generated = $(generated_tei) $(generated_views) $(generated_parsers)
 
-all: $(generated) static/base.css tree.md schema_doc.html
+all: $(generated) static/base.css
 
 clean:
 	rm -f $(generated)
@@ -109,9 +109,6 @@ missing-git-names:
 
 .PHONY: update-repos update-db update-texts deploy-schemas missing-git-names
 
-tree.md: tree.py
-	pydoc-markdown -m dharma.tree > $@
-
 %.py: %.g
 	python3 -m pegen -q $^ -o $@
 
@@ -171,6 +168,3 @@ global.rnc: $(wildcard texts/DHARMA_*.xml)
 %.oddc: %.xml
 	# curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml > $@
 	python3 xslt.py tei/odds/odd2odd.xsl $^ > $@
-
-schema_doc.html: schema_doc.py schemas/inscription.rng
-	python3 $^ > $@
