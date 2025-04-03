@@ -75,8 +75,24 @@ do everything through a sqlite extension, even if it's annoying, because this
 way we're protected from transaction issues; but this requires us to store stuff
 in sqlite tabvles.
 
-Write the main code in python first. Then switch to go if not fast enough. Add a basic argc,argv func as an
-entry point, and wrap this function in C with minimum code.
+Write the main code in python first. Then switch to go if not fast enough. Add a
+basic argc,argv func as an entry point, and wrap this function in C with minimum
+code.
+
+should do all the text preprocessing stuff in python, including tokenization,
+because it's where all libraries are. we can use some binary format to indicate
+to the engine what it should index. only the matching engine should be in
+C or Go. could in fact do all the indexing in python, and the search stuff in
+C/Go.
+
+probably useful transfos:
+
+  space-insensitive
+  case-insensitive
+  diacritics-insensitive viz. ASCII for phone search
+  remove aspiration (dh>d, th>t, etc.)
+  folding
+
 
 ===
 
@@ -88,10 +104,6 @@ fts5 would be ok for modern languages. but we will still need to add some stuff.
   regexes.
 * there is a NEAR operator, be we can't get an ordered window, would need to
   implement that
-* it's not possible to artificially increase space between tokens, so we can't
-  do stuff like "restrict search to a paragraph", etc.
-
-
-space-insensitive
-case-insensitive
-folding
+* phrase matches can be restricted to a paragraph by adding an EOP token, but
+  this will impact ranking, and furthermore we can't do things like "find these
+  2 phrases in the same paragraph".
