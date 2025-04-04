@@ -47,7 +47,7 @@ for highlighting and snippets to work, must be able to do matching and html conv
 
 would be faster to have a single string for each document, so that we can perform a single scan of everything, but this is more complicated, so, for now, just store fields separately in the db.
 
----
+===
 
 will things be fast enough for basic re search? assume that yes
 
@@ -79,7 +79,7 @@ Write the main code in python first. Then switch to go if not fast enough. Add a
 basic argc,argv func as an entry point, and wrap this function in C with minimum
 code.
 
-should do all the text preprocessing stuff in python, including tokenization,
+should do all the text preprocessing stuff in python, including for modern languages, tokenization,
 because it's where all libraries are. we can use some binary format to indicate
 to the engine what it should index. only the matching engine should be in
 C or Go. could in fact do all the indexing in python, and the search stuff in
@@ -91,8 +91,37 @@ probably useful transfos:
   case-insensitive
   diacritics-insensitive viz. ASCII for phone search
   remove aspiration (dh>d, th>t, etc.)
-  folding
+  folding several into one e.g. vv>v ddh>dh
+  folding one into several e.g. œ>oe æ>ae β>ss
 
+still, we should start with a simple substring search function that searches the
+exact text representation, and add a function for highlighting the stuff it
+matches. then, handle hyphenated words, <unclear>, etc. and adjust
+highlighting accordingly. only then, start to do sth interesting search-wise.
+
+for indexing:
+
+¶ in python, transform the xml into the search representation. do so in such a
+way that we can map selected text to an offset in the XML representation. iow, for each string we emit, we must know its boundaries in the search representation. don't use XML for the output because no XML parser in go. use a simple textual format.
+
+.field <TAB> title
+.text <TAB> here one paragraph or sentence or single value
+.text <TAB> another one
+...
+.field <TAB> edition.physical
+.text <TAB> ...
+
+prefix each string with its length. the search tool should use a single-byte
+encoding, for commodity in the matching code. we could also use bits to encode
+diacritics, case differences, whether aspirate or not. if this is faster than
+just scanning the string.
+
+each phrase should be numbered. this way, the search tool can return offsets of
+the form start_phrase_no:start_offset TO end_phrase_no:end_offset, for
+readability.
+
+on the python side, use xpath rather than offsets for locating nodes. (in fact,
+should do that everywhere.)
 
 ===
 
