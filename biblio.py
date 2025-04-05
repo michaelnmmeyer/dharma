@@ -260,6 +260,8 @@ class Writer:
 		for creator in rec["creators"]:
 			if rec["itemType"] in ("bookSection", "journalArticle") and creator["creatorType"] in ("editor", "bookAuthor"):
 				continue
+			if creator["creatorType"] not in ("editor", "bookAuthor", "author"):
+				continue
 			authors.append(creator)
 		if len(authors) == 0:
 			self.add(anonymous)
