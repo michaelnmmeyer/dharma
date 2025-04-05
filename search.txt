@@ -102,7 +102,7 @@ highlighting accordingly. only then, start to do sth interesting search-wise.
 for indexing:
 
 ¶ in python, transform the xml into the search representation. do so in such a
-way that we can map selected text to an offset in the XML representation. iow, for each string we emit, we must know its boundaries in the search representation. don't use XML for the output because no XML parser in go. use a simple textual format.
+way that we can map selected text to an offset in the XML representation. iow, for each string we emit, we must know its boundaries in the search representation. don't use XML for the output because no XML parser in go. use a simple textual format. don't use formats that you escape chars be escaped, to make sure we get proper offsets back. msgpack would do, too.
 
 .field <TAB> title
 .text <TAB> here one paragraph or sentence or single value
@@ -120,7 +120,7 @@ each phrase should be numbered. this way, the search tool can return offsets of
 the form start_phrase_no:start_offset TO end_phrase_no:end_offset, for
 readability.
 
-on the python side, use xpath rather than offsets for locating nodes. (in fact,
+on the python side, use xpath rather than offsets for locating paras nodes. (in fact,
 should do that everywhere.)
 
 ===
