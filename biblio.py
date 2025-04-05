@@ -266,6 +266,8 @@ class Writer(tree.Serializer):
 		for creator in rec["creators"]:
 			if rec["itemType"] in ("bookSection", "journalArticle") and creator["creatorType"] in ("editor", "bookAuthor"):
 				continue
+			if creator["creatorType"] not in ("author", "editor", "bookAuthor"):
+				continue
 			authors.append(creator)
 		if len(authors) == 0:
 			self.append(anonymous)
