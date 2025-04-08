@@ -69,7 +69,8 @@
 % endif
 
 {{doc.body.html() | safe}}
-</div>
+
+</div><!--id="inscription-display"-->
 
 <!--<div class="hidden" id="inscription-source">
 <fieldset>
@@ -96,8 +97,6 @@
 
 {#
 
-
-
 % if doc.edition_langs:
 <p>{{numberize("Language", len(doc.edition_langs))}}:
    % for lang in doc.edition_langs:
@@ -122,75 +121,6 @@ Version: {{doc.commit_date | format_date}}
 % if not doc.valid:
 <h2>🐛 Invalid inscription</h2>
 % endif
-
-% if doc.edition_full:
-<div class="edition">
-
-<ul class="ed-tabs">
-   <li id="logical-btn" class="active"><a href="#">Logical</a></li>
-   <li id="physical-btn"><a href="#">Physical</a></li>
-   <li id="full-btn"><a href="#">Full</a></li>
-</ul>
-
-<div class="logical" id="logical" data-display="logical">
-{{doc.edition_full.html() | safe}}
-</div>
-
-<div class="physical hidden" id="physical" data-display="physical">
-{{doc.edition_full.html() | safe}}
-</div>
-
-<div class="full hidden" id="full" data-display="full">
-{{doc.edition_full.html() | safe}}
-</div>
-
-</div> <!-- <div class="ed"> -->
-% endif
-
-% if doc.apparatus:
-<div class="apparatus">
-   <h2 id="apparatus" class="collapsible">
-      Apparatus <i class="fa-solid fa-angles-down"></i>
-   </h2>
-   <div class="collapsible-content">
-   {{doc.apparatus.html() | safe}}
-   </div>
-</div>
-% endif
-
-% for translation in doc.translations:
-<div class="translation">
-{{translation.html() | safe}}
-</div>
-% endfor
-
-% if doc.commentary:
-<div class="commentary">
-{{doc.commentary.html() | safe}}
-</div>
-% endif
-
-% if doc.bibliography:
-<div class="bibliography">
-{{doc.bibliography.html() | safe}}
-</div>
-% endif
-
-% if doc.notes:
-<div class="notes">
-<h2 id="notes">Notes</h2>
-<ol>
-% for note in doc.notes:
-<li class="note" id="note-{{loop.index}}">
-<a class="note-ref" href="#note-ref-{{loop.index}}">{{loop.index}}.</a>
-{{note.html() | safe}}
-</li>
-% endfor
-</ol>
-</div>
-% endif
-
-</div><!-- id="inscription-display" -->
 
 #}
 

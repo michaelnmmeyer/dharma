@@ -223,8 +223,13 @@ class Document:
 			f.join()
 		f.push(tree.Tag("edition-languages"))
 		for lang in self.edition_langs:
-			f.push(tree.Tag("language", ident=lang.id))
+			f.push(tree.Tag("language"))
+			f.push(tree.Tag("name"))
 			f.append(lang.name)
+			f.join()
+			f.push(tree.Tag("identifier"))
+			f.append(lang.id)
+			f.join()
 			f.join()
 		f.join()
 		if self.edition:
@@ -1294,7 +1299,33 @@ def parse_gap(p, gap):
 		p.append(repl)
 	p.join()
 
-# See mkfractiontable.py.
+# The following table was produced with this code:
+#
+# import requests, csv, io, re
+#
+# NAME_COLUMN = 1
+# DECOMP_COLUMN = 5
+#
+# r = requests.get("https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt")
+# rows = csv.reader(io.StringIO(r.text), delimiter=";")
+# tbl = {}
+# for row in rows:
+#         m = re.fullmatch(r"<fraction> ([0-9A-Fa-f]+) 2044 ([0-9A-Fa-f]+)", row[DECOMP_COLUMN])
+#         if not m:
+#                 continue
+#         name = row[NAME_COLUMN]
+#         num, den = m.group(1), m.group(2)
+#         num, den = int(num, 16), int(den, 16)
+#         num, den = chr(num), chr(den)
+#         tbl[name] = (num, den)
+#
+# rev = {}
+# for k, v in tbl.items():
+#         assert not v in rev
+#         rev[v] = k
+#
+# for k, v in sorted(rev.items()):
+#         print('(%s, %s): "\\N{%s}",' % (k[0], k[1], v.lower()))
 composed_fractions = {
 	(0, 3): "\N{vulgar fraction zero thirds}",
 	(1, 2): "\N{vulgar fraction one half}",
@@ -1734,6 +1765,7 @@ def parse_just_dispatch_all(p, node):
 def parse_just_dispatch(p, node):
 	p.dispatch_children(node, only_tags=True)
 
+# These elements and their children should be ignored.
 @handler("editionStmt")
 @handler("facsimile") # for images, will see later on
 @handler("handShift")
@@ -1744,11 +1776,13 @@ def parse_just_dispatch(p, node):
 def parse_ignore(p, node):
 	pass
 
+# We expect a single occurrence at
+# /TEI/teiHeader/fileDesc/sourceDesc/msDesc/physDesc/handDesc
+@handler("handDesc")
 def parse_handDesc(p, desc):
 	root = desc.first("summary") or desc
 	p.push(tree.Tree())
-	paras = root.find("p")
-	if not paras:
+	if not root.first("p"):
 		p.push(tree.Tag("para"))
 		p.dispatch_children(root)
 		p.join()
@@ -1756,9 +1790,9 @@ def parse_handDesc(p, desc):
 		p.dispatch_children(root)
 	p.document.hand = p.pop()
 
+# We expect a single occurrence at
 # /TEI/teiHeader/fileDesc/sourceDesc/msDesc/msContents/summary
-# We expect a single occurrence.
-@handler("sourceDesc/msDesc/msContents/summary")
+@handler("summary")
 def parse_contents_summary(p, summ):
 	# We're supposed to have either a series of <p>, or a piece of text
 	# without divisions. If we have no <p>, create one and wrap the
@@ -1771,13 +1805,6 @@ def parse_contents_summary(p, summ):
 		p.dispatch_children(summ)
 		p.join()
 	p.document.summary = p.pop()
-
-# We expect a single occurrence.
-@handler("sourceDesc/msDesc/physDesc/handDesc")
-def parse_source_handDesc(p, desc):
-	hd = desc.first("msDesc/physDesc/handDesc")
-	if hd:
-		parse_handDesc(p, hd)
 
 def get_script(node):
 	m = re.match(r"class:([^ ]+) maturity:(.+)", node["rendition"])
