@@ -436,17 +436,17 @@ create table if not exists biblio(
 -- Needed for displaying the global bibliography in the appropriate order.
 create index if not exists biblio_sort_key on biblio(sort_key);
 
-create view if not exists biblio_authors as
+create view if not exists biblio_authors(key, creator_type, first_name, last_name, name) as
 	select biblio.key as key,
 		json_each.value ->> '$.creatorType' as creator_type,
 		json_each.value ->> '$.firstName' as first_name,
 		json_each.value ->> '$.lastName' as last_name,
 		json_each.value ->> '$.name' as name
-	from biblio_data join json_each(biblio.data -> '$.creators');
+	from biblio join json_each(biblio.data -> '$.creators');
 
-create view if not exists biblio_by_tag as
+create view if not exists biblio_by_tag(tag, key) as
 	select json_each.value ->> '$.tag' as tag, biblio.key as key
-	from biblio_data join json_each(biblio.data -> '$.tags')
+	from biblio join json_each(biblio.data -> '$.tags')
 	order by tag;
 
 create view if not exists repos_display as

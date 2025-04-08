@@ -1453,4 +1453,4 @@ def print_entries():
 		print(format_entry(entry).xml())
 
 if __name__ == "__main__":
-	print_entries()
+	load_biblio_from_file()
