@@ -2,7 +2,7 @@ import os, unicodedata, datetime, html, urllib
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
 from dharma import common, change, ngrams, catalog, validate, tointernal
-from dharma import biblio, texts, editorial, prosody
+from dharma import biblio, texts, editorial, prosody, tohtml
 
 # We don't use the name "templates" for the template folder because we also
 # put other stuff in the same directory, not just templates.
@@ -240,10 +240,19 @@ def show_editorial_conventions():
 
 @app.get("/languages")
 @common.transaction("texts")
-def show_langs():
+def show_languages_list():
 	db = common.db("texts")
 	rows = db.execute("select * from langs_display").fetchall()
 	return flask.render_template("langs.tpl", rows=rows)
+
+@app.get("/languages/<code>")
+@common.transaction("texts")
+def show_language(code):
+	db = common.db("texts")
+	(ident,) = db.execute("select id from langs_by_code where code = ?", (code,)).fetchone() or (None,)
+	if not ident:
+		return flask.abort(404)
+	return flask.redirect(f"/languages#lang-{ident}")
 
 @app.get("/prosody")
 @common.transaction("texts")
@@ -251,10 +260,6 @@ def show_prosody():
 	data, _ = prosody.parse_prosody()
 	ret = flask.render_template("prosody.tpl", data=data)
 	return ret
-
-@app.get("/langs")
-def show_lang_old():
-	return flask.redirect("/languages", code=301)
 
 @app.get("/parallels/search")
 def search_parallels():
@@ -487,8 +492,8 @@ def display_biblio_page(page):
 	for (entry,) in db.execute("""select data from biblio
 		order by sort_key limit ? offset ?""",
 		(BIBLIO_PER_PAGE, (page - 1) * BIBLIO_PER_PAGE)):
-		entry = biblio.Entry.wrap(entry)
-		entries.append(entry)
+		entry = biblio.format_entry(entry)
+		entries.append(tohtml.process_partial(entry))
 	first_entry = (page - 1) * BIBLIO_PER_PAGE + 1
 	if first_entry > entries_nr:
 		first_entry = 0

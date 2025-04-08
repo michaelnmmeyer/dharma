@@ -611,20 +611,20 @@ def render_journal_article(rec, w):
 		name = rec["publicationTitle"]
 		# Use the abbreviated journal name if possible.
 		if abbr and name:
-			name.name = "i"
-			tag = tree.Tag("abbr", tip=name.xml())
-			tagi = tree.Tag("span", class_="italics")
-			tagi.append(abbr)
-			tag.append(tagi)
-			w.append(tag)
+			w.push(tree.Tag("span", class_="italics"))
+			w.append(name)
+			tip = w.pop().xml()
+			w.push(tree.Tag("span", class_="italics journal-abbr", tip=tip))
+			w.append(abbr)
+			w.join()
 		elif abbr:
-			tag = tree.Tag("span", class_="italics")
-			tag.append(abbr)
-			w.append(tag)
+			w.push(tree.Tag("span", class_="italics"))
+			w.append(abbr)
+			w.join()
 		elif name:
-			tag = tree.Tag("span", class_="italics")
-			tag.append(name)
-			w.append(tag)
+			w.push(tree.Tag("span", class_="italics"))
+			w.append(name)
+			w.join()
 		if rec["volume"]:
 			w.space()
 			w.append(rec["volume"])

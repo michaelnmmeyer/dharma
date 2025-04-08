@@ -1,4 +1,4 @@
-import collections
+import sys, collections
 from dharma import tree
 
 HANDLERS = []
@@ -75,8 +75,11 @@ def process_editor(self, node):
 def process_repository(self, node):
 	self.document.repository = extract_paired(self, node)
 
-@handler("summary")
-@handler("hand")
+@handler("edition-languages")
+def process_edition_languages(self, node):
+	for lang in node.find("language"):
+		self.document.edition_languages.append(extract_paired(self, lang))
+
 @handler("identifier")
 def render_section(self, node):
 	self.push(tree.Tree())
@@ -84,17 +87,24 @@ def render_section(self, node):
 	name = node.name.replace("-", "_")
 	setattr(self.document, name, self.pop())
 
-@handler("valid") #XXX
-@handler("language") #XXX
-@handler("edition-languages") #XXX
-def TODO(self, node):
-	pass
-	#XXX
+@handler("summary")
+def render_summary(self, node):
+	self.push(tree.Tree())
+	self.dispatch_children(node)
+	self.document.summary = self.pop()
+	self.document.summary.first("p").prepend("Summary: ")
+
+@handler("hand")
+def render_hand(self, node):
+	self.push(tree.Tree())
+	self.dispatch_children(node)
+	self.document.hand = self.pop()
+	self.document.hand.first("p").prepend("Hand description: ")
 
 edition_tabs = tree.parse_string("""
 <ul class="ed-tabs">
-	<li id="logical-btn" class="active"><a href="#">Logical</a></li>
-	<li id="physical-btn"><a href="#">Physical</a></li>
+	<li id="physical-btn" class="active"><a href="#">Physical</a></li>
+	<li id="logical-btn"><a href="#">Logical</a></li>
 	<li id="full-btn"><a href="#">Full</a></li>
 </ul>""")
 
@@ -113,7 +123,7 @@ def render_section(self, node):
 @handler("full")
 def render_edition_display(self, node):
 	self.push("div", class_=node.name, id=node.name, data_display=node.name)
-	if node.name != "logical":
+	if node.name != "physical":
 		self.top["class"] += " hidden"
 	self.dispatch_children(node)
 	self.join()
@@ -173,15 +183,30 @@ def render_milestone(self, node):
 	self.dispatch_children(node)
 	self.join()
 
-@handler("note")
-def render_note_ref(self, node):
+def make_note_ref(self, node, id_prefix):
 	self.notes.append(node)
 	n = len(self.notes)
 	self.push(tree.Tag("sup"))
-	self.push(tree.Tag("a", class_="nav-link", href=f"#note-{n}", id=f"note-ref-{n}"))
+	self.push(tree.Tag("a", class_="nav-link", href=f"#note-{n}", id=f"{id_prefix}-{n}"))
 	self.append(str(n))
 	self.join()
 	self.join()
+
+@handler("physical//note")
+def render_physical_note_ref(self, node):
+	return make_note_ref(self, node, "note-ref-physical")
+
+@handler("logical//note")
+def render_logical_note_ref(self, node):
+	return make_note_ref(self, node, "note-ref-logical")
+
+@handler("full//note")
+def render_full_note_ref(self, node):
+	return make_note_ref(self, node, "note-ref-full")
+
+@handler("note")
+def render_note_ref(self, node):
+	return make_note_ref(self, node, "note-ref")
 
 @handler("span")
 def render_span(self, node):
@@ -196,14 +221,14 @@ def render_para(self, node):
 	self.dispatch_children(node)
 	self.join()
 
+@handler("a")
+def render_link(self, node):
+	self.append(node)
+
 @handler("*")
 def render_tag(self, node):
 	assert isinstance(node, tree.Tag)
-	match node.name:
-		case "a":
-			self.append(node)
-		case _:
-			raise Exception(f"unknown: {node.name}")
+	print(f"UNKNOWN: {node.name}", file=sys.stderr)
 
 class HTMLDocument:
 
@@ -265,3 +290,23 @@ def process(doc):
 	doc = render()
 	#print(doc.repository, doc.identifier)
 	return doc
+
+def process_partial(xml):
+	render = HTMLRenderer(xml)
+	render()
+	return render.tree
+
+if __name__ == "__main__":
+	import os
+	from dharma import texts, tointernal, common
+	@common.transaction("texts")
+	def main():
+		path = os.path.abspath(sys.argv[1])
+		try:
+			f = texts.File("/", path)
+			doc = tointernal.process_file(f)
+			html = doc.to_html()
+			print(html.body.xml())
+		except BrokenPipeError:
+			pass
+	main()

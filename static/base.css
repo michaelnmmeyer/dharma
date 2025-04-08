@@ -129,6 +129,10 @@ abbr {
   text-decoration-line: underline;
   text-decoration-style: dotted; }
 
+.journal-abbr {
+  text-decoration-line: underline;
+  text-decoration-style: dotted; }
+
 .hidden {
   display: none; }
 
@@ -705,11 +709,12 @@ pre {
 .xml .xml-grantha.string, .xml .xml-heading.string {
   font-weight: bold; }
 
-.metadata-paras :nth-child(1) {
-  display: inline; }
+.metadata-item > p:first-child {
+  padding-left: 1.5em;
+  text-indent: -1.5em; }
 
-.metadata-paras :nth-child(2) {
-  display: inline; }
+.metadata-item > p:nth-child(n + 1) {
+  padding-left: 1.5em; }
 
 fieldset {
   display: flex;

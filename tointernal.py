@@ -97,8 +97,12 @@ def cleanup_tree(t):
 		trim_left(strings)
 		trim_right(strings)
 		squeeze(strings)
+		if node.empty:
+			node.delete()
 	for node in t.find("//*[name() = 'npage' or name() = 'nline' or name() = 'ncell']"):
 		trim_before(node)
+	if not t.empty:
+		return t
 
 def cleanup(doc):
 	for attr in dir(doc):
@@ -107,11 +111,11 @@ def cleanup(doc):
 		value = getattr(doc, attr)
 		match value:
 			case tree.Tree():
-				cleanup_tree(value)
+				setattr(doc, attr, cleanup_tree(value))
 			case list():
-				for elem in value:
+				for i, elem in enumerate(value):
 					if isinstance(elem, tree.Tree):
-						cleanup_tree(elem)
+						value[i] = cleanup_tree(elem)
 
 class Document:
 
@@ -206,12 +210,14 @@ class Document:
 			f.join()
 		for editor_id, editor_name in self.editors:
 			f.push(tree.Tag("editor"))
+			assert editor_name
 			f.push(tree.Tag("name"))
 			f.append(editor_name)
 			f.join()
-			f.push(tree.Tag("identifier"))
-			f.append(editor_id)
-			f.join()
+			if editor_id:
+				f.push(tree.Tag("identifier"))
+				f.append(editor_id)
+				f.join()
 			f.join()
 		if self.summary:
 			f.push(tree.Tag("summary"))
@@ -237,7 +243,7 @@ class Document:
 			head = self.edition.first("head")
 			i = self.edition.index(head) + 1
 			f.append(head)
-			for display in ("logical", "physical", "full"):
+			for display in ("physical", "logical", "full"):
 				f.push(tree.Tag(display))
 				f.extend(self.edition[i:])
 				f.join()
@@ -565,9 +571,11 @@ def parse_rdg(p, rdg):
 def parse_app(p, app):
 	if (loc := app["loc"]):
 		p.push(tree.Tag("nline", break_=common.from_boolean(True)))
+		p.push(tree.Tag("span", tip=f"Line {loc}"))
 		p.append("⟨")
 		p.append(loc)
 		p.append("⟩")
+		p.join()
 		p.join()
 	if (lem := app.first("lem")):
 		p.dispatch(lem)
@@ -965,8 +973,9 @@ def get_n(node):
 def milestone_break(node):
 	return common.to_boolean(node["break"], True)
 
-def append_milestone_label(p, node, unit=None):
-	p.push(tree.Tag("span"))
+def append_milestone_label(p, node, unit=None, tip=None):
+	span = tree.Tag("span", tip=tip)
+	p.push(span)
 	p.append("⟨")
 	if unit:
 		p.append(unit.title())
@@ -992,7 +1001,7 @@ def parse_milestone(p, node):
 			type = "ncell"
 	p.push(tree.Tag(type, break_=common.from_boolean(break_)))
 	append_milestone_label(p, node, node["unit"] or "column")
-	if type == "page":
+	if node["type"] == "pagelike":
 		append_fws(p, node)
 	p.join()
 
@@ -1000,7 +1009,7 @@ def parse_milestone(p, node):
 def parse_lb(p, node):
 	break_ = milestone_break(node)
 	p.push(tree.Tag("nline", break_=common.from_boolean(break_)))
-	append_milestone_label(p, node)
+	append_milestone_label(p, node, tip="Line number")
 	p.join()
 
 # <fw> is for pagelike milestones only.
@@ -1045,8 +1054,8 @@ def append_fws(p, pb):
 @handler("pb")
 def parse_pb(p, node):
 	break_ = milestone_break(node)
-	p.push(tree.Tag("page", break_=common.from_boolean(break_)))
-	append_milestone_label(p, node)
+	p.push(tree.Tag("npage", break_=common.from_boolean(break_)))
+	append_milestone_label(p, node, tip="Page number")
 	append_fws(p, node)
 	p.join()
 
@@ -1503,8 +1512,8 @@ def parse_p(p, para):
 	if (n := get_n(para)):
 		# See e.g. http://localhost:8023/display/DHARMA_INSSII0400223
 		# Should be displayed like <lb/> is in the edition.
-		p.push(tree.Tag("span", class_="lb"))
-		p.append(f"({n})")
+		p.push(tree.Tag("span", class_="lb", tip="Line number"))
+		p.append(f"⟨{n}⟩")
 		p.join()
 	p.dispatch_children(para)
 	p.join()
@@ -1615,7 +1624,7 @@ def parse_listBibl(p, node):
 		p.push(tree.Tag("head"))
 		p.append(common.sentence_case(type))
 		p.join()
-	p.dispatch_children(node)
+	p.dispatch_children(node, only_tags=True)
 	p.join()
 
 # Title of the edited text (in the teiHeader).
@@ -1696,18 +1705,16 @@ def gather_people(stmt, *paths):
 	nodes.sort(key=lambda node: node.location.start)
 	ret = []
 	for node in nodes:
-		ident = node["ref"]
-		if ident == "part:jodo": # John Doe, placeholder
+		ident = node["ref"].removeprefix("part:")
+		if ident == "jodo": # John Doe, placeholder
 			continue
-		if ident.startswith("part:"):
-			ident = ident.removeprefix("part:")
-			# Use the name given in the contributors list instead of
-			# the one given in this XML file. If the id invalid,
-			# use the name given in the XML.
-			name = people.plain(ident)
-			if name:
-				common.append_unique(ret, (ident, name))
-				continue
+		# Use the name given in the contributors list instead of
+		# the one given in this XML file. If the id invalid,
+		# use the name given in the XML.
+		name = people.plain(ident)
+		if name:
+			common.append_unique(ret, (ident, name))
+			continue
 		# We should have either <forename>+<surname> or just <name>. But
 		# also prepare for <surname>+<forename> or a plain string.
 		first, last = node.first("forename"), node.first("surname")
@@ -1716,6 +1723,8 @@ def gather_people(stmt, *paths):
 		else:
 			name = node.text(space="preserve")
 		name = common.normalize_space(name)
+		if not name:
+			continue
 		common.append_unique(ret, (None, name))
 	return ret
 
@@ -1780,14 +1789,16 @@ def parse_ignore(p, node):
 # /TEI/teiHeader/fileDesc/sourceDesc/msDesc/physDesc/handDesc
 @handler("handDesc")
 def parse_handDesc(p, desc):
+	# TODO the guide should really disallow summary and just allow a
+	# sequence of paragraphs.
 	root = desc.first("summary") or desc
 	p.push(tree.Tree())
-	if not root.first("p"):
+	if root.first("p"):
+		p.dispatch_children(root, only_tags=True)
+	else:
 		p.push(tree.Tag("para"))
 		p.dispatch_children(root)
 		p.join()
-	else:
-		p.dispatch_children(root)
 	p.document.hand = p.pop()
 
 # We expect a single occurrence at
@@ -1799,7 +1810,7 @@ def parse_contents_summary(p, summ):
 	# whole contents into it.
 	p.push(tree.Tree())
 	if summ.first("p"):
-		p.dispatch_children(summ)
+		p.dispatch_children(summ, only_tags=True)
 	else:
 		p.push(tree.Tag("para"))
 		p.dispatch_children(summ)

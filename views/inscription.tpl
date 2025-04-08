@@ -31,34 +31,48 @@
 <div id="inscription-display">
 
 % if doc.editors:
+<div class="metadata-item">
 <p>
-{{numberize("Editor", (doc.editors | length))}}:
+{{numberize("Author", (doc.editors | length))}} of digital edition:
 % for editor_ident, editor_name in doc.editors:
-   {{editor_name.html() | safe}}
-   (<a href="/people/{{editor_ident.text()}}" class="monospace">{{editor_ident.html() | safe}}</a>){% if loop.index < loop.length %},{% else %}.{% endif %}
+   {{editor_name.html() | safe}}{% if editor_ident %}
+   (<a href="/people/{{editor_ident.text()}}" class="monospace">{{editor_ident.html() | safe}}</a>){% endif %}{% if loop.index < loop.length %},{% else %}.{% endif %}
 % endfor
 </p>
+</div>
 % endif
 
 % if doc.summary:
-<div class="metadata-paras">
-<p>Summary: </p>
+<div class="metadata-item">
 {{doc.summary.html() | safe}}
 </div>
 % endif
 
 % if doc.hand:
-<div class="metadata-paras">
-<p>Hand description: p>
+<div class="metadata-item">
 {{doc.hand.html() | safe}}
 </div>
 % endif
 
+% if doc.edition_languages:
+<div class="metadata-item">
+<p>{{numberize("Language", len(doc.edition_languages))}}:
+   % for lang_ident, lang_name in doc.edition_languages:
+      {{lang_name.html() | safe}}
+      (<a href="/languages/{{lang_ident.text()}}" class="monospace">{{lang_ident.html() | safe}}</a>){% if loop.index < loop.length %},{% else %}.{% endif %}
+   % endfor
+</p>
+</div>
+% endif
+
 % if doc.identifier:
+<div class="metadata-item">
 <p>Identifier: <span class="text-id">{{doc.identifier.html() | safe}}</span>.</p>
+</div>
 % endif
 
 % if doc.repository:
+<div class="metadata-item">
 % if doc.repository.name and doc.repository.identifier:
 <p>Repository: {{doc.repository.name.html() | safe}} (<a class="repo-id" href="/repositories/{{doc.repository.identifier.text()}}">{{doc.repository.identifier.html() | safe}}</a>).</p>
 % elif doc.repository.name:
@@ -66,6 +80,7 @@
 % elif doc.repository.identifier:
 <p>Repository: <a class="repo-id" href="/repositories/{{doc.repository.identifier.text()}}">{{doc.repository.identifier.html() | safe}}</a>.</p>
 % endif
+</div>
 % endif
 
 {{doc.body.html() | safe}}
@@ -96,18 +111,6 @@
 % endblock
 
 {#
-
-% if doc.edition_langs:
-<p>{{numberize("Language", len(doc.edition_langs))}}:
-   % for lang in doc.edition_langs:
-      % if loop.index < loop.length:
-         {{lang}},
-      % else:
-         {{lang}}.
-      % endif
-   % endfor
-</p>
-% endif
 
 % if doc.commit_date:
 <p>

@@ -36,6 +36,9 @@ $border-radius: 0.3em;
 .hanging {
 	@include hanging;
 }
+@mixin indented {
+	padding-left: 1.5em;
+}
 
 a {
 	text-decoration: none;
@@ -166,6 +169,10 @@ p.bib-entry {
 	@include monospace;
 }
 abbr {
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+}
+.journal-abbr {
 	text-decoration-line: underline;
 	text-decoration-style: dotted;
 }
@@ -828,11 +835,11 @@ pre {
 }
 
 // Put <p>Summary: </p><p>Something</p> on the same line
-.metadata-paras :nth-child(1) {
-	display: inline;
+.metadata-item > p:first-child {
+	@include hanging;
 }
-.metadata-paras :nth-child(2) {
-	display: inline;
+.metadata-item > p:nth-child(n + 1) {
+	@include indented;
 }
 
 fieldset {
