@@ -102,10 +102,10 @@ highlighting accordingly. only then, start to do sth interesting search-wise.
 for indexing:
 
 ¶ in python, transform the xml into the search representation. do so in such a
-way that we can map selected text to an offset in the XML representation. iow, for each string we emit, we must know its boundaries in the search representation. don't use XML for the output because no XML parser in go. use a simple textual format. don't use formats that you escape chars be escaped, to make sure we get proper offsets back. msgpack would do, too.
+way that we can map the selected text to an offset in the XML representation. iow, for each string we emit, we must know its boundaries in the search representation. don't use XML for the output because no XML parser in go, only a module for marshalling data structures (and because XML requires escaping). use a simple textual format. don't use formats that use escape sequences, to make sure we get proper offsets back. msgpack would do, too.
 
 .field <TAB> title
-.text <TAB> here one paragraph or sentence or single value
+.text <TAB> here one paragraph or sentence or phrase or single value
 .text <TAB> another one
 ...
 .field <TAB> edition.physical
@@ -114,14 +114,119 @@ way that we can map selected text to an offset in the XML representation. iow, f
 prefix each string with its length. the search tool should use a single-byte
 encoding, for commodity in the matching code. we could also use bits to encode
 diacritics, case differences, whether aspirate or not. if this is faster than
-just scanning the string.
+just scanning the string. what shall we do with extra chars? just ignore them? or replace them with some 0xff?
 
 each phrase should be numbered. this way, the search tool can return offsets of
 the form start_phrase_no:start_offset TO end_phrase_no:end_offset, for
-readability.
+readability. and we only need to process a single phrase for highlighting the match.
 
 on the python side, use xpath rather than offsets for locating paras nodes. (in fact,
-should do that everywhere.)
+should do that everywhere in the code.)
+
+===
+
+for regex matching, there is also https://intel.github.io/hyperscan/dev-reference/intro.html which can do approx matching (hamming+levenshtein). could be useful as an optimization. and there are python bindings.
+
+and the regex python library also supports approx matching, based on tre's code apparently (see github issues one the subject).
+
+===
+
+from the wikipedia iso 15919 chart, we use:
+
+a ā i ī u ū ŭ
+r̥ r̥̄ l̥ (no l̥̄)
+e ē ai o ō au
+ṁ m̐ ḥ ẖ ḫ
+ḵ
+k kh g gh ṅ
+c ch j jh ñ
+ṭ ṭh ḍ ḍh ṇ
+t th d dh n
+p ph b bh m
+ṟ
+ṉ
+ḻ
+y r l ḷ v
+ś ṣ s
+h
+'
+q
+
+---
+
+punctuation: |, || (and convert the nagari equivalents to this)
+ '‖' = double vertical line
+
+---
+
+we have the i in sajĭvakāla, encoding error?
+as well the a in prăṇa, encoding error?
+ạ ṙ
+one occ. of ḹ, legit consonant?
+
+
+do we have a copy od the standard
+
+---
+
+[0-9];
+fractions!
+
+
+===
+
+for the edited text
+
+convert the text to nfd? tokenize by grapheme cluster (with the unicode algorithm). then by phoneme. each phoneme should have start and end offsets viz. should be a single token. this way, we can easily select matches (skipping hyphens or other ignorable characters).
+
+ignore non-starters that we do not recognize. thus if we have some alpha char plus diacritics, skip its diacritics and just emit the char. for starters that we don't recognize, use equivalence classes.
+
+¶ keep other ascii letters as is (but without diacritics)
+¶ characters that can occur within a cluster and that don't break this cluster into pieces; if they are letter, to be folded to a single character; if hyphens, etc., just skip them
+¶ characters that always indicate cluster boundaries. could add assertions in tre to check whether we are at the beginning/end of a cluster, but might be simpler to implement if we add spaces or other special characters to represent delimitors.
+
+colons are used for indicating a hiatus, as in pra:uga and ca:uttho and da:iā. but treat them as separators if they are followed by a space or EOS. can also be praüga and caüttho and daïā. can also be praUga and caUttho and daIĀ. (capital = initial vowel per contrast with vowel marks)
+
+REPR p 11
+
+capitals can be used for the same purpose, thus praUga. always fold capitals to lowercase.
+
+spaces are supposed to be used as much as possible. but this might not be the case in practice.
+
+hyphens are optional and are used for several purposes, not just for marking members of compounds, so just ignore them when processing the text.
+
+deal with the avagraha ['’]. when ['’] occurs just before a whitespace character or at the end of a string,  don't treat it like an avagraha.
+
+in tamil, a ['’] before a space or at the end of a string represent an elided 'u'
+
+ṛ and ṝ and the equivalent with a ring are not ambiguous. but not so for ḷ and ḹ.
+
+ṃ adn ṁ and m̐ (anunāsika) to anusvāra
+
+convert ḫ (upadhmānīya) and ẖ (jihvāmūlīya) to visarga
+
+tamil: @manu treatment of ḵ and ḷ and ṟ and ḻ (guide section 3 "Alphabet characters")
+
+cam: m̃ to just anusvāra
+
+[latin small letter schwa]
+[latin small letter turned e]
+[CYRILLIC SMALL LETTER IE]
+vowel short schwa: fold ə and Ə and the cyrillic variants (Ә and ә) and ĕ
+vowel long schwa: fold ə̄ and so on and also ə: and so on
+
+??? for Mon and Pyu: ḅ and ṃ
+
+e/ē and o/ō
+
+ignore middle dots (zero vowel marker)
+
+vowel support: q + vowel -> vowel
+
+XXX nto sure for vowel support
+
+REPR À P.19
+
 
 ===
 

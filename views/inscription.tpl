@@ -83,9 +83,17 @@
 </div>
 % endif
 
+% if doc.commit_date:
+<p>
+Version: {{row["commit_date"] | format_date}}
+(<a href="{{row["github_commit_url"]}}">{{row["commit_hash"] | format_commit_hash}}</a>), last modified
+{{row["last_modified"] | format_date}} (<a href="{{row["github_last_modified_commit_url"]}}">{{row["last_modified_commit"] | format_commit_hash}}</a>).
+</p>
+% endif
+
 {{doc.body.html() | safe}}
 
-</div><!--id="inscription-display"-->
+</div>{# id="inscription-display" #}
 
 <!--<div class="hidden" id="inscription-source">
 <fieldset>
@@ -111,15 +119,6 @@
 % endblock
 
 {#
-
-% if doc.commit_date:
-<p>
-Version: {{doc.commit_date | format_date}}
-(<a href="{{github_commit_url}}">{{doc.commit_hash | format_commit_hash}}</a>), last modified
-{{doc.last_modified | format_date}} (<a href="{{github_last_modified_commit_url}}">{{doc.last_modified_commit | format_commit_hash}}</a>).
-</p>
-% endif
-
 
 % if not doc.valid:
 <h2>🐛 Invalid inscription</h2>

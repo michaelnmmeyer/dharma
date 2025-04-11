@@ -306,7 +306,7 @@ if __name__ == "__main__":
 			f = texts.File("/", path)
 			doc = tointernal.process_file(f)
 			html = doc.to_html()
-			print(html.body.xml())
+			print(html.body.html())
 		except BrokenPipeError:
 			pass
 	main()

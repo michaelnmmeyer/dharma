@@ -339,15 +339,7 @@ def display_text_xml(text):
 		return flask.abort(404)
 	file = db.load_file(text)
 	doc = tointernal.process_file(file)
-	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
-	doc.last_modified = row["last_modified"]
-	doc.last_modified_commit = row["last_modified_commit"]
-	ret = flask.render_template("inscription_xml.tpl", doc=doc,
-		github_commit_url=row["github_commit_url"],
-		github_last_modified_commit_url=row["github_last_modified_commit_url"],
-		repo_title=row["repo_title"],
-		row=row,
-		text=text,
+	ret = flask.render_template("inscription_xml.tpl", doc=doc, row=row,
 		no_sidebar=True)
 	return ret
 

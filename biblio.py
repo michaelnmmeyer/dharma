@@ -605,7 +605,7 @@ def render_journal_article(rec, w):
 	w.quoted(rec["title"])
 	if rec["_shorthand"]:
 		w.by_authors(rec)
-	if rec["publicationTitle"]:
+	if rec["publicationTitle"] or rec["journalAbbreviation"]:
 		w.space()
 		abbr = rec["journalAbbreviation"]
 		name = rec["publicationTitle"]

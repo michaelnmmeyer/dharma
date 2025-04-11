@@ -129,13 +129,6 @@ class Document:
 		self.identifier = ""
 		# XML source code, HTML-encoded.
 		self.xml = ""
-		# The commit we extracted this file from (not necessarily the latest
-		# commit where the file was modified).
-		self.commit_hash = ""
-		self.commit_date = ""
-		# The latest commit that modified this file.
-		self.last_modified = ""
-		self.last_modified_commit = ""
 		# Title, summary and hand are all trees.
 		self.title = None
 		self.summary = None
@@ -346,7 +339,7 @@ class Parser(tree.Serializer):
 				# XXX rather do that on the final representation
 				self.append(str(node).replace("'", "’"))
 				return
-			case tree.Tag():
+			case tree.Tag() | tree.Tree():
 				pass
 			case _:
 				assert 0, repr(node)
@@ -1055,7 +1048,7 @@ def append_fws(p, pb):
 def parse_pb(p, node):
 	break_ = milestone_break(node)
 	p.push(tree.Tag("npage", break_=common.from_boolean(break_)))
-	append_milestone_label(p, node, tip="Page number")
+	append_milestone_label(p, node, unit="page")
 	append_fws(p, node)
 	p.join()
 

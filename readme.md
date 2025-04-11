@@ -24,6 +24,10 @@ not just `libicu`. You also need to install Python's headers (`python-devel` or
 [`Pandoc`](https://pandoc.org) must also be installed, we use it at runtime
 for rendering Markdown files.
 
+The code's documentation can be browsed with the `pdoc` tool:
+
+	pdoc dharma
+
 ##  Entry points
 
 There are four main programs. On our server, they run concurrently and are
