@@ -225,6 +225,23 @@ def render_para(self, node):
 def render_link(self, node):
 	self.append(node)
 
+@handler("verse")
+def render_verse(self, node):
+	self.push("div", class_="verse")
+	if (head := node.first("stuck-child::head")):
+		self.push("div", class_="verse-heading")
+		self.dispatch_children(head)
+		self.join()
+	self.push("div", class_="verse-lines")
+	#len(lg.find("l")) > 4
+	lines = node.find("verse-line")
+	for line in lines:
+		self.push("div", class_="verse-line")
+		self.dispatch_children(line)
+		self.join()
+	self.join()
+	self.join()
+
 @handler("*")
 def render_tag(self, node):
 	assert isinstance(node, tree.Tag)

@@ -1,3 +1,32 @@
+need to make displays distinctions for the display, but do we also need it for search?
+
+in fact, not exactly. for a start, search only needs to know logical and physical, not full. for sic/corr and orig/reg and abbrevs (am and ex), we do need two versions of the text.
+
+	physical
+		hide corr, but only if paired with sic
+		hide reg, but only if paired with orig
+		hide ex (abbreviation expansion)
+
+	logical
+		hide sic, but only if paired with corr
+		hide orig, but only if paired with reg
+		hide am (abbreviation mark)
+
+for dealing with hyphenation, watch out:
+
+	for milestones (npage, nline, ncell).
+	for verses, we have l/@enjamb which must be treated specially.
+
+should arrange milestones in a tree (at most 2 levels are necessary, we don't care about gridlike milestones; but should still check they are positioned appropriately).
+
+should use special characters for representing boundaries (start/end of cluster or line or page or verse or para). maybe set the most significant bit and use the 7 remaining bits to encode which kind of boundary is represented. this would limit us to 128 values for the rest.
+
+	cluster		independent of the others
+	line		implies a page break
+	page		implies a line break
+
+===
+
 facets: language, script, repository
 
 each searchable field must have a predefined type; more accurately, a processor name, which must define how to process the field to make it searchable (optionally indexable). use static typing, same processor for a given field in a given collection of fields.

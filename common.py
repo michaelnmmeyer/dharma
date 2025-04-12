@@ -339,10 +339,7 @@ def sentence_case(s):
 	return " ".join(t)
 
 def from_boolean(obj):
-	if obj is True:
-		return "true"
-	assert obj is False
-	return "false"
+	return obj and "true" or "false"
 
 def to_boolean(s, dflt):
 	match s.lower():

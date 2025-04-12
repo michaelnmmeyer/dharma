@@ -457,9 +457,12 @@ function initDisplayOptions() {
 		let display = document.querySelector("#inscription-display")
 		let source = document.querySelector("#inscription-source")
 		let toc = document.querySelector("#toc")
-		display.classList.toggle("hidden")
-		source.classList.toggle("hidden")
-		toc.classList.toggle("hidden")
+		if (display)
+			display.classList.toggle("hidden")
+		if (source)
+			source.classList.toggle("hidden")
+		if (toc)
+			toc.classList.toggle("hidden")
 	})
 }
 

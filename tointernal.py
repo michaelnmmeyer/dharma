@@ -744,7 +744,6 @@ def parse_sic(p, sic, corr=None):
 	p.push(tree.Tree())
 	p.append("Incorrect text")
 	if corr:
-		class_ = "sic"
 		p.append(" (emendation: ")
 		p.push(tree.Tag("span", class_="corr"))
 		p.append("⟨")
@@ -752,9 +751,8 @@ def parse_sic(p, sic, corr=None):
 		p.append("⟩")
 		p.join()
 		p.append(")")
-	else:
-		class_ = "sic standalone"
-	p.push(tree.Tag("span", class_=class_, tip=p.pop().xml()))
+	stand = common.from_boolean(corr)
+	p.push(tree.Tag("span", class_="sic", standalone=stand, tip=p.pop().xml()))
 	p.append("¿")
 	p.dispatch_children(sic)
 	p.append("?")
@@ -765,7 +763,6 @@ def parse_corr(p, corr, sic=None):
 	p.push(tree.Tree())
 	p.append("Emended text")
 	if sic:
-		class_ = "corr"
 		p.append(" (original: ")
 		p.push(tree.Tag("span", class_="sic"))
 		p.append("¿")
@@ -773,9 +770,8 @@ def parse_corr(p, corr, sic=None):
 		p.append("?")
 		p.join()
 		p.append(")")
-	else:
-		class_ = "corr standalone"
-	p.push(tree.Tag("span", class_=class_, tip=p.pop().xml()))
+	stand = common.from_boolean(sic)
+	p.push(tree.Tag("span", class_="corr", standalone=stand, tip=p.pop().xml()))
 	p.append('⟨')
 	p.dispatch_children(corr)
 	p.append('⟩')
@@ -794,10 +790,8 @@ def parse_orig(p, orig, reg=None):
 		p.append("⟩")
 		p.join()
 		p.append(")")
-
-	else:
-		class_ = "orig standalone"
-	p.push(tree.Tag("span", class_=class_, tip=p.pop().xml()))
+	stand = common.from_boolean(reg)
+	p.push(tree.Tag("span", class_="orig", standalone=stand, tip=p.pop().xml()))
 	p.append("¡")
 	p.dispatch_children(orig)
 	p.append("!")
@@ -808,7 +802,6 @@ def parse_reg(p, reg, orig=None):
 	p.push(tree.Tree())
 	p.append("Standardised text")
 	if orig:
-		class_ = "reg"
 		p.append(" (original: ")
 		p.push(tree.Tag("span", class_="orig"))
 		p.append("¡")
@@ -816,9 +809,10 @@ def parse_reg(p, reg, orig=None):
 		p.append("!")
 		p.join()
 		p.append(")")
-	else:
-		class_ = "reg standalone"
-	p.push(tree.Tag("span", class_=class_, tip=p.pop().xml()))
+	stand = common.from_boolean(orig)
+	p.push(tree.Tag("span", class_="reg", standalone=stand, tip=p.pop().xml()))
+	if orig:
+		p.top["standalone"] = "1"
 	p.append("⟨")
 	p.dispatch_children(reg)
 	p.append("⟩")
@@ -1229,7 +1223,7 @@ def parse_gap(p, gap):
 	precision = gap["precision"]
 	unit = gap["unit"] or "character"
 	if reason == "ellipsis":
-		p.append("\N{horizontal ellipsis}", plain=True)
+		p.append("\N{horizontal ellipsis}")
 		return
 	if reason == "undefined":
 		reason = "lost or illegible"
@@ -1472,8 +1466,7 @@ def make_meter_heading(p, met):
 @handler("p[@rend='stanza']")
 @handler("ab[@rend='stanza']")
 def parse_lg(p, lg):
-	numbered = common.from_boolean(len(lg.find("l")) > 4)
-	p.push(tree.Tag("verse", numbered=numbered))
+	p.push(tree.Tag("verse"))
 	# Generally we have a single number e.g. "10", but sometimes ranges
 	# e.g. "10-20" (with various types of dashes). Try to do the most
 	# generic thing viz. replace sequences of digits with the corresponding
@@ -1817,27 +1810,6 @@ def get_script(node):
 	klass, _ = m.groups()
 	script = langs.get_script(klass)
 	return script
-
-# We're supposed to have either a series of <div> that covers all the text, or no div at all.
-def gather_sections(p, div):
-	p.push(div["type"])
-	for child in div:
-		match child:
-			case tree.Tag(name="div"):
-				if p.within_div:
-					p.end_div()
-				p.dispatch(child)
-			case tree.Comment() | tree.Instruction():
-				pass
-			case _:
-				if not p.within_div:
-					if isinstance(child, tree.String) and not child.strip():
-						continue
-					p.start_div()
-				p.dispatch(child)
-	if p.within_div:
-		p.end_div()
-	return p.pop()
 
 def fetch_resp(resp):
 	resp = people.plain(resp.removeprefix("part:")) or resp

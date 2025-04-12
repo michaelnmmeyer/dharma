@@ -65,12 +65,6 @@
 </div>
 % endif
 
-% if doc.identifier:
-<div class="metadata-item">
-<p>Identifier: <span class="text-id">{{doc.identifier.html() | safe}}</span>.</p>
-</div>
-% endif
-
 % if doc.repository:
 <div class="metadata-item">
 % if doc.repository.name and doc.repository.identifier:
@@ -80,6 +74,12 @@
 % elif doc.repository.identifier:
 <p>Repository: <a class="repo-id" href="/repositories/{{doc.repository.identifier.text()}}">{{doc.repository.identifier.html() | safe}}</a>.</p>
 % endif
+</div>
+% endif
+
+% if doc.identifier:
+<div class="metadata-item">
+<p>Identifier: <span class="text-id">{{doc.identifier.html() | safe}}</span>.</p>
 </div>
 % endif
 

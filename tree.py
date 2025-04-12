@@ -17,7 +17,7 @@ in attributes: we replace all sequences of whitespace characters with " " and we
 trim whitespace from both sides. Thus, an attribute with only whitespace is
 considered empty. Furthermore, we don't make a distinction between an empty or
 blank attribute and an attribute that is not explicitly given. Thus, we assume
-that <foo bar=""> and <foo bar="  "> are identical to <foo>. This is wrong, but
+that `<foo bar="">` and `<foo bar="  ">` are identical to `<foo>`. This is wrong, but
 it doesn't cause much harm in practice, and considerably simplifies processing.
 It is still possible to check whether an attribute is explicitly given by
 using the Node.keys() method.
@@ -126,13 +126,6 @@ def escape_attribute(s):
 def quote_attribute(s):
 	return f'"{escape_attribute(s)}"'
 
-def unique(items):
-	ret = []
-	for item in items:
-		if not item in ret:
-			ret.append(item)
-	return ret
-
 def parse_string(source, path=None):
 	'''Parse an XML string into a `Tree`. If `path` is given, it will be
 	used as filename in error messages, and will be accessible through
@@ -143,7 +136,7 @@ def parse_string(source, path=None):
 	if isinstance(source, str):
 		source = source.encode()
 	try:
-		return Parser(source, path=path).parse()
+		return _Parser(source, path=path).parse()
 	except expat.ExpatError as e:
 		err = e
 	# https://docs.python.org/3/library/pyexpat.html#xml.parsers.expat.XMLParserType
@@ -1008,7 +1001,7 @@ class Instruction(Node):
 	def copy(self):
 		return Instruction(self.target, self.data)
 
-class Parser:
+class _Parser:
 
 	def __init__(self, source, path=None):
 		self.parser = expat.ParserCreate()
@@ -1365,7 +1358,7 @@ def tokenize_xpath(s):
 	for tok in tokenize.generate_tokens(io.StringIO(s).readline):
 		yield from handle_token(buf, tok)
 
-class Generator:
+class _Generator:
 
 	def __init__(self):
 		self.code = ""
@@ -1570,7 +1563,7 @@ class Generator:
 		buf.append(")")
 		return "".join(buf)
 
-generator = Generator()
+generator = _Generator()
 
 def term_color(code=None):
 	if not code:

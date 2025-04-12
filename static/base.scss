@@ -505,12 +505,32 @@ div.parallel-verse > p {
 
 /*************************************** Verses *******************************/
 
+.verse-heading {
+	font-weight: bold;
+}
+.verse-lines {
+	/* Same properties as a normal <p> */
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	padding-left: 0.5em;
+	border-left: solid;
+	border-color: gray;
+}
+.verse-lines p {
+	/* No space between hemistiches */
+	margin-block-start: 0em;
+	margin-block-end: 0em;
+	/* Hanging indent */
+	padding-left: 2em;
+	text-indent: -2em;
+	text-align: left;
+}
 /* Numbered verse lines, for Manu. See e.g. DHARMA_INSTamilNadu00102 */
 .verse-numbered div {
 	display: flex;
 	align-items: baseline;
 	justify-content: space-between;
-	max-width: 31em;
+	max-width: 31em; //XXX shouldn't hardcode this!
 }
 .verse-line > span {
 	display: none;
@@ -525,13 +545,14 @@ div.parallel-verse > p {
 	border-radius: $border-radius;
 }
 
-
 /* XXX this is for stanzas headings, should use a div instead */
-h6 {
+.verse-heading {
 	font-size: initial;
 	margin-block-start: 0;
 	margin-block-end: 0;
 }
+
+////////////////////////////////////////////////////////////////////////////////
 
 .ed-tabs {
 	display: flex;
@@ -678,24 +699,6 @@ dl.list > dd {
 }
 .logical .abbr-mark { //XXX do this server-side
 	display: none;
-}
-
-.verse {
-	/* Same properties as a normal <p> */
-	margin-block-start: 1em;
-	margin-block-end: 1em;
-	padding-left: 0.5em;
-	border-left: solid;
-	border-color: gray;
-}
-.verse p {
-	/* No space between hemistiches */
-	margin-block-start: 0em;
-	margin-block-end: 0em;
-	/* Hanging indent */
-	padding-left: 2em;
-	text-indent: -2em;
-	text-align: left;
 }
 
 .fw-contents {
