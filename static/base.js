@@ -466,8 +466,33 @@ function initDisplayOptions() {
 	})
 }
 
+function getConfigInt(key, dflt) {
+	let val = localStorage.getItem(key)
+	if (!val) {
+		val = parseInt(val)
+		if (!isNaN(val))
+			return val
+	}
+	return dflt
+}
+
+function initNumberedVerses() {
+	let minLines = getConfigInt("verses-numbered-min-lines", 5)
+	let step = getConfigInt("verses-numbered-step", 5)
+	for (let node of document.querySelectorAll(".verse-lines")) {
+		let children = node.querySelectorAll(":scope > .verse-line")
+		if (children.length < minLines)
+			continue
+		node.classList.add("verse-lines-numbered")
+		for (let i = 1; i <= children.length; i++)
+			if (i == 1 || i % step == 0)
+				children[i - 1].classList.add("verse-line-numbered")
+	}
+}
+
 window.addEventListener("load", function () {
 	localizeDates()
+	initNumberedVerses()
 	prepareTips()
 	displayTOC()
 	initDisplays()

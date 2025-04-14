@@ -434,7 +434,7 @@ class Node:
 
 	def html(self):
 		fmt = Formatter(strip_comments=True, strip_instructions=True,
-			html=False, color=False, add_xml_prefix=False)
+			html=False, color=False, add_xml_prefix=False, self_closing=False)
 		fmt.format(self)
 		return fmt.text()
 
@@ -1695,7 +1695,8 @@ class Formatter:
 
 	def __init__(self, html=True, strip_comments=True,
 		strip_instructions=False, add_xml_prefix=False,
-		color=False, max_width=80 ** 10, indent_string=2 * " "):
+		color=False, max_width=80 ** 10, indent_string=2 * " ",
+		self_closing=True):
 		# max_width is soft, not hard.
 		self.indent = 0
 		self.offset = 0
@@ -1709,6 +1710,7 @@ class Formatter:
 		self.strip_instructions = strip_instructions
 		self.add_xml_prefix = add_xml_prefix
 		self.state = "wait_line"
+		self.self_closing = self_closing
 
 	def format_contents(self, node):
 		for child in node:
@@ -1775,13 +1777,13 @@ class Formatter:
 			self.write('"',  klass=f"tag tag-punct {cat}")
 			self.write(escape_attribute(v), klass=f"tag attr-value {attr_value_style(node, k)}")
 			self.write('"',  klass=f"tag tag-punct {cat}")
-		if len(node) == 0:
+		if self.self_closing and len(node) == 0:
 			self.write("/>", klass=f"tag tag-punct {cat}")
 		else:
 			self.write(">", klass=f"tag tag-punct {cat}")
 
 	def format_closing_tag(self, node, cat):
-		if len(node) == 0:
+		if self.self_closing and len(node) == 0:
 			return
 		self.write("</", klass=f"tag tag-punct {cat}")
 		self.write(node.name, klass=f"tag {cat}")

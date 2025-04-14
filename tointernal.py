@@ -13,7 +13,7 @@
 # pandoc's data model. See https://boisgera.github.io/pandoc/document
 
 import os, sys, re, html, urllib.parse, posixpath, copy, unicodedata
-from dharma import common, prosody, people, tree, gaiji, biblio, langs
+from dharma import common, prosody, people, tree, gaiji, biblio, langs, todisplays
 
 # Turns some object (strings, list of strings or None) into a searchable string.
 def normalize(s):
@@ -80,12 +80,32 @@ def squeeze(strings):
 			del strings[i]
 			continue
 		ret = re.sub(r"\s+", " ", s.data)
-		if ret[0] == " " and i > 0 and strings[i - 1][-1] == " ":
+		if ret[0] == " " and i > 0 and strings[i - 1].endswith(" "):
 			ret = ret[1:]
 		if ret != s.data:
 			s.replace_with(tree.String(ret))
 			strings[i] = ret
 		i += 1
+
+def traverse_milestones(root):
+	match root:
+		case tree.Tag() if root.name in ("npage", "nline", "ncell"):
+			yield root
+		case tree.Tag() | tree.Tree():
+			for node in root:
+				yield from traverse_milestones(node)
+
+def complete_milestones(t):
+	stack = []
+	nodes = list(traverse_milestones(t))
+# 	match node.name:
+# 		case "npage":
+# 			pass
+# 		case "nline":
+# 			pass
+# 		case "ncell":
+# 			pass
+	return t
 
 def cleanup_tree(t):
 	for node in t.find("//div"):
@@ -116,6 +136,8 @@ def cleanup(doc):
 				for i, elem in enumerate(value):
 					if isinstance(elem, tree.Tree):
 						value[i] = cleanup_tree(elem)
+	if doc.edition:
+		doc.edition = complete_milestones(doc.edition)
 
 class Document:
 
@@ -141,10 +163,6 @@ class Document:
 		self.apparatus = None
 		self.commentary = None
 		self.bibliography = None
-		# One per display.
-		self.edition_full = None
-		self.edition_logical = None
-		self.edition_physical = None
 		# A single document can have zero or more translations (see e.g.
 		# DHARMA_INSPallava00002), so this is a list.
 		self.translation = []
@@ -236,9 +254,12 @@ class Document:
 			head = self.edition.first("head")
 			i = self.edition.index(head) + 1
 			f.append(head)
-			for display in ("physical", "logical", "full"):
+			full = todisplays.to_full(self.edition.copy())
+			logical = todisplays.to_logical(full.copy())
+			physical = todisplays.to_physical(self.edition.copy())
+			for display, contents in (("physical", physical), ("logical", logical), ("full", full)):
 				f.push(tree.Tag(display))
-				f.extend(self.edition[i:])
+				f.extend(contents[i:])
 				f.join()
 			f.join()
 		if self.apparatus:
@@ -365,28 +386,43 @@ class Parser(tree.Serializer):
 		print("UNKNOWN %s" % msg, file=sys.stderr)
 
 
+################################# Links ########################################
+
+# The syntax for ref is <ref target="myurl">foo</ref>, equivalent to the HTML
+# <a href="myurl">foo</ref>. <ptr/> is like <ref> except that it is supposed
+# to be empty. Even so, we try to deal appropriately with a non-empty <ptr/>.
+
 """
-				XXX finish with this mess
-the format of the contents doesn't depend directly on what the link points to:
+XXX finish with this mess
+the format of the contents varies:
+* if there is something within the link (foo in <ref target="xxx">foo</ref>),
+  apply no special formatting
+* otherwise, format the link depending on the @target. if the target is bib:...,
+  generate a siglum and add no special formatting. otherwise, put the link in
+  monospace
+
+
 * text id (put in monospace)
 * url (in monospace)
 * siglum (not monospace)
 ¶ if there is no @href, put the link in red
 
 the bib link itself must be <a>contents</a>
-but always wrap them inside a <span class="bib-reference"> to account for the citedRrange
+but always wrap them inside a <span class="bib-reference"> to account for the citedRrange, if any.
 
 for now the formatting of biblio references is in biblio.py, is it better if we
 do everything in the present file? no, because the biblio entries formatting
 MUST be done in the biblio module.
 """
 
-def process_url(link):
+def simplify_url(link):
 	url = urllib.parse.urlparse(link)
+	# We do not deal with bib: and part: here.
 	# The fancy prefixes we use like "bib" and "part" are private URI
-	# schemes. See https://tei-c.org/release/doc/tei-p5-doc/en/html/SA.html#SAPU
+	# schemes.
+	# See https://tei-c.org/release/doc/tei-p5-doc/en/html/SA.html#SAPU
 	# However, we ignore what <listPrefixDef> says about the scheme.
-	if url.scheme == "bib":
+	if url.scheme and url.scheme not in ("http", "https"):
 		return url.geturl()
 	# Simplify the URL if it refers to something on our server:
 	# http(s)?://(www\.)?dharmalekha.info/foo -> /foo
@@ -417,37 +453,33 @@ def process_url(link):
 
 bibl_units = set(biblio.cited_range_units)
 
-def extract_bib_ref(node):
-	assert node.name == "bibl"
-	ptr = node.first("ptr")
-	if not ptr:
-		return None, None
-	target = ptr["target"]
-	if target == "bib:AuthorYear_01":
-		return None, None
-	ref = target.removeprefix("bib:")
-	loc = []
-	for r in node.find("citedRange"):
-		unit = r["unit"] or "page"
+def extract_bib_ref(bibl, ref):
+	# The ptr/@target is supposed to start with "bib:". If it doesn't, we
+	# still assume it refers to a bibliography entry.
+	short_title = ref["target"].removeprefix("bib:")
+	location = []
+	for range in bibl.find("citedRange"):
+		unit = range["unit"] or "page"
 		if unit not in bibl_units:
 			unit = "mixed"
-		val = r.text()
-		if not val:
+		value = range.text()
+		if not value:
 			continue
-		loc.append((unit, val))
-	return ref, loc
+		location.append((unit, value))
+	return short_title, location
 
 # For printing entries within the bibliography. In this context, bibl needs to
 # be replaced with the bibliography entry.
 @handler("listBibl/bibl")
 def parse_listbibl_bibl(p, bibl):
-	short_title, loc = extract_bib_ref(bibl)
-	if not short_title:
-		return # XXX use a dummy entry
+	ref = bibl.first("ptr") or bibl.first("ref")
+	if not ref:
+		return # XXX do sth sensible, use a dummy entry?
+	short_title, location = extract_bib_ref(bibl, ref)
 	siglum = p.document.sigla.get(short_title)
-	p.append(p.bib_entry(short_title, location=loc, siglum=siglum))
+	p.append(p.bib_entry(short_title, location=location, siglum=siglum))
 
-bibl_rend_formats = {"default", "omitname", "ibid", "siglum"}
+bibl_rend_formats = ("default", "omitname", "ibid", "siglum")
 
 @handler("bibl[ptr]")
 @handler("bibl[ref]")
@@ -457,18 +489,9 @@ def parse_bibl_ref(p, bibl):
 		rend = "default"
 		assert rend in bibl_rend_formats
 	ref = bibl.first("ptr") or bibl.first("ref")
-	# The ptr/@target is supposed to start with "bib:". If it doesn't, we
-	# still assume it refers to a bibliography entry.
-	short_title = ref["target"].removeprefix("bib:")
-	location = []
-	for r in bibl.find("citedRange"):
-		unit = r["unit"] or "page"
-		if unit not in bibl_units:
-			unit = "mixed"
-		value = r.text()
-		if not value:
-			continue
-		location.append((unit, value))
+	if not ref:
+		return # XXX do something sensible
+	short_title, location = extract_bib_ref(bibl, ref)
 	p.append(p.bib_reference(short_title, rend=rend, contents=list(ref), location=location))
 	# XXX move this comment Use short title when we have bibl/ptr with a bib pointer, in all other
 	# cases use the siglum with author+date in tooltip (or author+date if there is no siglum; or whatever the
@@ -476,32 +499,23 @@ def parse_bibl_ref(p, bibl):
 
 @handler("bibl")
 def parse_bibl(p, bibl):
-	p.push(tree.Tag("span", class_="bib-ref"))
 	p.dispatch_children(bibl)
-	p.join()
 
-# The syntax for ref is <ref target="myurl">foo</ref>, equivalent to the HTML
-# <a href="myurl">foo</ref>. <ptr/> is like <ref> except that it is supposed
-# to be empty. Even so, we try to deal appropriately with a non-empty <ptr/>.
-@handler("ref[@target and not empty()]")
-@handler("ptr[@target and not empty()]")
+# Links with a @target and with contents.
+@handler("ref[@target and text()]")
+@handler("ptr[@target and text()]")
 def parse_ref(p, ref):
-	assert ref["target"] and not ref.empty
-	url = process_url(ref["target"])
-	klass = "url"
-	if url.startswith("/texts/"):
-		klass += " text-id"
+	url = simplify_url(ref["target"])
 	p.push(tree.Tag("a", href=url))
-	p.push(tree.Tag("span", class_=klass))
 	p.dispatch_children(ref)
 	p.join()
-	p.join()
 
-@handler("ref[@target]") # ref[@target and empty()]
-@handler("ptr[@target]") # ptr[@target and empty()]
+# Links with a @target but without contents.
+@handler("ref[@target]")
+@handler("ptr[@target]")
 def parse_ref_empty(p, ref):
 	assert ref["target"] and ref.empty
-	url = process_url(ref["target"])
+	url = simplify_url(ref["target"])
 	klass = "url"
 	if url.startswith("/texts/"):
 		klass += " text-id"
@@ -509,35 +523,13 @@ def parse_ref_empty(p, ref):
 	p.append(url.removeprefix("/texts/"))
 	p.join()
 
-@handler("ref") # ref[not @target]
-@handler("ptr") # ptr[not @target]
+# Links without a @target and without contents
+@handler("ref")
+@handler("ptr")
 def parse_other_ref(p, ref):
-	assert not ref["target"]
 	p.dispatch_children(ref)
 
-@handler("num")
-def parse_num(p, num):
-	if num["value"] and num["value"] == num.text() and not num["cert"] == "low":
-		tip = "" # Pointless to add a tooltip in this case.
-	elif num["value"]:
-		tip = f"Numeral {num['value']}"
-	elif num["atLeast"] and num["atMost"]:
-		tip = f"Numeral between {num['atLeast']} and {num['atMost']} inclusive"
-	elif num["atLeast"]:
-		tip = f"Numeral greater than or equal to {num['atLeast']}"
-	elif num["atMost"]:
-		tip = f"Numeral smaller than or equal to {num['atMost']}"
-	elif num.text().isdigit() and not num["cert"] == "low":
-		tip = "" # Pointless to add a tooltip in this case.
-	else:
-		tip = "Numeral"
-	if num["cert"] == "low":
-		tip += " (low certainty)"
-	p.push(tree.Tag("span", class_="num", tip=tip or None))
-	p.dispatch_children(num)
-	p.join()
-
-# < apparatus
+################################# Apparatus ###################################
 
 def append_reading_sources(p, sources):
 	for short_title in sources.split():
@@ -547,7 +539,6 @@ def append_reading_sources(p, sources):
 		p.append(" ")
 		p.append(p.bib_reference(short_title, rend="siglum"))
 
-# In the apparatus
 @handler("lem")
 def parse_lem(p, lem):
 	p.dispatch_children(lem)
@@ -564,7 +555,7 @@ def parse_rdg(p, rdg):
 def parse_app(p, app):
 	if (loc := app["loc"]):
 		p.push(tree.Tag("nline", break_=common.from_boolean(True)))
-		p.push(tree.Tag("span", tip=f"Line {loc}"))
+		p.push(tree.Tag("span", tip=f"Line number"))
 		p.append("⟨")
 		p.append(loc)
 		p.append("⟩")
@@ -603,9 +594,29 @@ def parse_listApp(p, listApp):
 		prev_loc = app["loc"]
 	p.join()
 
-# > apparatus
+################################# Editorial ####################################
 
-# < editorial
+@handler("num")
+def parse_num(p, num):
+	if num["value"] and num["value"] == num.text() and not num["cert"] == "low":
+		tip = "" # Pointless to add a tooltip in this case.
+	elif num["value"]:
+		tip = f"Numeral {num['value']}"
+	elif num["atLeast"] and num["atMost"]:
+		tip = f"Numeral between {num['atLeast']} and {num['atMost']} inclusive"
+	elif num["atLeast"]:
+		tip = f"Numeral greater than or equal to {num['atLeast']}"
+	elif num["atMost"]:
+		tip = f"Numeral smaller than or equal to {num['atMost']}"
+	elif num.text().isdigit() and not num["cert"] == "low":
+		tip = "" # Pointless to add a tooltip in this case.
+	else:
+		tip = "Numeral"
+	if num["cert"] == "low":
+		tip += " (low certainty)"
+	p.push(tree.Tag("span", class_="num", tip=tip or None))
+	p.dispatch_children(num)
+	p.join()
 
 # Try to have more precise tooltips for this. If this does not work, we fall
 # back to a generic one.
@@ -751,7 +762,7 @@ def parse_sic(p, sic, corr=None):
 		p.append("⟩")
 		p.join()
 		p.append(")")
-	stand = common.from_boolean(corr)
+	stand = common.from_boolean(not corr)
 	p.push(tree.Tag("span", class_="sic", standalone=stand, tip=p.pop().xml()))
 	p.append("¿")
 	p.dispatch_children(sic)
@@ -770,7 +781,7 @@ def parse_corr(p, corr, sic=None):
 		p.append("?")
 		p.join()
 		p.append(")")
-	stand = common.from_boolean(sic)
+	stand = common.from_boolean(not sic)
 	p.push(tree.Tag("span", class_="corr", standalone=stand, tip=p.pop().xml()))
 	p.append('⟨')
 	p.dispatch_children(corr)
@@ -790,7 +801,7 @@ def parse_orig(p, orig, reg=None):
 		p.append("⟩")
 		p.join()
 		p.append(")")
-	stand = common.from_boolean(reg)
+	stand = common.from_boolean(not reg)
 	p.push(tree.Tag("span", class_="orig", standalone=stand, tip=p.pop().xml()))
 	p.append("¡")
 	p.dispatch_children(orig)
@@ -809,10 +820,8 @@ def parse_reg(p, reg, orig=None):
 		p.append("!")
 		p.join()
 		p.append(")")
-	stand = common.from_boolean(orig)
+	stand = common.from_boolean(not orig)
 	p.push(tree.Tag("span", class_="reg", standalone=stand, tip=p.pop().xml()))
-	if orig:
-		p.top["standalone"] = "1"
 	p.append("⟨")
 	p.dispatch_children(reg)
 	p.append("⟩")
@@ -910,7 +919,7 @@ def parse_foreign(p, foreign):
 	p.dispatch_children(foreign)
 	p.join()
 
-# < milestones
+################################# Milestones ###################################
 
 """
 what shall we do
@@ -1449,7 +1458,7 @@ def make_meter_heading(p, met):
 	entry = p.get_prosody_entry(met)
 	if not entry:
 		ret = tree.Tag("span")
-		ret.append(met)
+		ret.append(common.sentence_case(met))
 		return ret
 	pattern, description, entry_id = entry
 	name = common.sentence_case(met)
@@ -1474,7 +1483,7 @@ def parse_lg(p, lg):
 	n = re.sub(r"[0-9]+", lambda m: to_roman(int(m.group())), get_n(lg))
 	met = make_meter_heading(p, lg["met"])
 	if n or met:
-		p.push(tree.Tag("head"))
+		p.push(tree.Tag("verse-head"))
 		if n and met:
 			p.append(n)
 			p.append(". ")

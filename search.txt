@@ -12,12 +12,17 @@ in fact, not exactly. for a start, search only needs to know logical and physica
 		hide orig, but only if paired with reg
 		hide am (abbreviation mark)
 
+	full+logical
+
+
 for dealing with hyphenation, watch out:
 
 	for milestones (npage, nline, ncell).
 	for verses, we have l/@enjamb which must be treated specially.
 
 should arrange milestones in a tree (at most 2 levels are necessary, we don't care about gridlike milestones; but should still check they are positioned appropriately).
+
+
 
 should use special characters for representing boundaries (start/end of cluster or line or page or verse or para). maybe set the most significant bit and use the 7 remaining bits to encode which kind of boundary is represented. this would limit us to 128 values for the rest.
 

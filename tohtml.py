@@ -223,21 +223,26 @@ def render_para(self, node):
 
 @handler("a")
 def render_link(self, node):
-	self.append(node)
+	self.push(tree.Tag("a", href=node["href"]))
+	self.dispatch_children(node)
+	self.join()
 
 @handler("verse")
 def render_verse(self, node):
 	self.push("div", class_="verse")
-	if (head := node.first("stuck-child::head")):
+	if (head := node.first("stuck-child::verse-head")):
 		self.push("div", class_="verse-heading")
 		self.dispatch_children(head)
 		self.join()
 	self.push("div", class_="verse-lines")
-	#len(lg.find("l")) > 4
-	lines = node.find("verse-line")
-	for line in lines:
+	for line in node.find("verse-line"):
 		self.push("div", class_="verse-line")
+		self.push("p")
 		self.dispatch_children(line)
+		self.join()
+		self.push("span", data_tip="Verse line number")
+		self.append(line["n"])
+		self.join()
 		self.join()
 	self.join()
 	self.join()

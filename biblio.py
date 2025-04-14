@@ -1352,14 +1352,15 @@ def format_reference(rec, rend="default", location=[], external_link=True,
 	siglum=None, contents=[]):
 	assert rec
 	out = Writer()
-	out.push(tree.Tag("span", class_="bib-ref"))
-	out.push(tree.Tag("a", class_="bib-ref"))
 	if external_link:
 		quoted = urllib.parse.quote(rec["shortTitle"], safe="")
-		out.top["href"] = f"/bibliography/entry/{quoted}"
+		href = f"/bibliography/entry/{quoted}"
+		tip = None
 	else:
-		out.top["href"] = f"#bib-{rec['shortTitle']}"
-		out.top["tip"] = make_author_year(rec).html()
+		href = f"#bib-{rec['shortTitle']}"
+		tip = make_author_year(rec).html()
+	out.push(tree.Tag("a", href=href))
+	out.push(tree.Tag("span", tip=tip))
 	if rend == "siglum" and not siglum:
 		rend = "default"
 	match rend:
