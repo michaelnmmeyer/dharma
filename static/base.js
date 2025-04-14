@@ -275,8 +275,11 @@ function initFlashing() {
 		// Assume in seconds
 		flashDuration *= 1000
 	}
-	for (let node of document.querySelectorAll("a"))
+	for (let node of document.querySelectorAll("a")) {
 		node.addEventListener("click", handleClick)
+		if (!node.getAttribute("href"))
+			node.classList.add("invalid-link")
+	}
 	let frag = window.location.hash
 	if (!frag)
 		return

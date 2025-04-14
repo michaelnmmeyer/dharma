@@ -418,8 +418,6 @@ def patch_links(soup, attr):
 		if not url.path:
 			# Assume this is just a fragment
 			continue
-		if not url.path.startswith("/"):
-			url = url._replace(path=flask.url_for("display_text", text=url.path))
 		if os.getenv("DHARMA_DEBUG"):
 			url = url._replace(scheme="http", netloc="localhost:8023")
 		else:
@@ -447,6 +445,7 @@ def convert_text():
 	setattr(f, "_owners", [])
 	doc = tointernal.process_file(f)
 	doc.repository = None
+	doc = doc.to_html()
 	html = flask.render_template("inscription.tpl", doc=doc, text=name)
 	soup = BeautifulSoup(html, "html.parser")
 	patch_links(soup, "href")
@@ -468,7 +467,7 @@ def display_biblio_entry(short_title):
 		return flask.abort(404)
 	page = (index[0] + BIBLIO_PER_PAGE - 1) // BIBLIO_PER_PAGE
 	quoted_title = urllib.parse.quote(short_title, safe="")
-	return flask.redirect(f"/bibliography/page/{page}#{quoted_title}")
+	return flask.redirect(f"/bibliography/page/{page}#bib-{quoted_title}")
 
 @app.get("/bibliography/page/<int:page>")
 @common.transaction("texts")

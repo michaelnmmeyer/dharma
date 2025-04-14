@@ -1298,16 +1298,6 @@ def fix_rec(rec):
 
 PER_PAGE = 100
 
-"""
-	if not data:
-		elif self._records_nr == 0:
-			return self._invalid_entry("Not found in bibliography")
-		return self._invalid_entry("Multiple bibliographic entries bear this short title")
-	f = renderers.get(data["itemType"])
-	if not f:
-		return self._invalid_entry(f"Entry type {data['itemType']!r} not supported")
-"""
-
 def lookup_entry(short_title):
 	db = common.db("texts")
 	(data,) = db.execute("select data from biblio where short_title = ?",
@@ -1352,15 +1342,14 @@ def format_reference(rec, rend="default", location=[], external_link=True,
 	siglum=None, contents=[]):
 	assert rec
 	out = Writer()
+	out.push(tree.Tag("span"))
+	quoted = urllib.parse.quote(rec["shortTitle"], safe="")
 	if external_link:
-		quoted = urllib.parse.quote(rec["shortTitle"], safe="")
-		href = f"/bibliography/entry/{quoted}"
-		tip = None
+		out.push(tree.Tag("a", href=f"/bibliography/entry/{quoted}"))
+		out.push(tree.Tag("span"))
 	else:
-		href = f"#bib-{rec['shortTitle']}"
-		tip = make_author_year(rec).html()
-	out.push(tree.Tag("a", href=href))
-	out.push(tree.Tag("span", tip=tip))
+		out.push(tree.Tag("a", href=f"#bib-{quoted}"))
+		out.push(tree.Tag("span"))
 	if rend == "siglum" and not siglum:
 		rend = "default"
 	match rend:
@@ -1392,6 +1381,7 @@ def format_reference(rec, rend="default", location=[], external_link=True,
 			out.append(siglum)
 		case _:
 			raise Exception
+	out.join() # ...</span>
 	out.join() # ...</a>
 	if location:
 		out.append(",")
@@ -1399,6 +1389,16 @@ def format_reference(rec, rend="default", location=[], external_link=True,
 	out.join() # ...</span>
 	assert len(out.stack) == 1
 	return out.tree
+
+def unsupported_entry(short_title):
+	"""True iff the entry in the global bibliography and if we can't display
+	it."""
+	db = common.db("texts")
+	ret = db.execute("""select 1
+		from biblio_data left join biblio on biblio_data.key = biblio.key
+		where biblio_data.short_title = ? and biblio.key is null""",
+		(short_title,))
+	return bool(ret.fetchone())
 
 def make_author_year(rec):
 	x = Writer()

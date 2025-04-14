@@ -327,12 +327,27 @@ class Parser(tree.Serializer):
 				self.document.external_bib_entries[short_title] = entry
 		return entry, external
 
-	def bib_entry(self, short_title, location=[], siglum=None):
+	def bib_entry(self, short_title, location=[]):
+		siglum = self.document.sigla.get(short_title)
 		entry = self.document.bib_entries[short_title]
+		# XXX warn about duplicate entries
 		return biblio.format_entry(entry, location=location, siglum=siglum)
 
 	def bib_reference(self, short_title, rend="default", location=[], contents=[]):
 		entry, external = self._get_bib_entry(short_title)
+		if not entry:
+			if not short_title:
+				short_title = "???"
+				tip = "Missing short title"
+			elif biblio.unsupported_entry(short_title):
+				tip = "Unsupported entry type"
+			else:
+				tip = "Not in bibliography"
+			span = tree.Tag("span", tip=tip)
+			span.append(short_title)
+			ref = tree.Tag("a")
+			ref.append(span)
+			return ref
 		ref = biblio.format_reference(entry, rend=rend, location=location,
 			siglum=self.document.sigla.get(short_title),
 			external_link=external,
@@ -392,68 +407,9 @@ class Parser(tree.Serializer):
 # <a href="myurl">foo</ref>. <ptr/> is like <ref> except that it is supposed
 # to be empty. Even so, we try to deal appropriately with a non-empty <ptr/>.
 
-"""
-XXX finish with this mess
-the format of the contents varies:
-* if there is something within the link (foo in <ref target="xxx">foo</ref>),
-  apply no special formatting
-* otherwise, format the link depending on the @target. if the target is bib:...,
-  generate a siglum and add no special formatting. otherwise, put the link in
-  monospace
-
-
-* text id (put in monospace)
-* url (in monospace)
-* siglum (not monospace)
-¶ if there is no @href, put the link in red
-
-the bib link itself must be <a>contents</a>
-but always wrap them inside a <span class="bib-reference"> to account for the citedRrange, if any.
-
-for now the formatting of biblio references is in biblio.py, is it better if we
-do everything in the present file? no, because the biblio entries formatting
-MUST be done in the biblio module.
-"""
-
-def simplify_url(link):
-	url = urllib.parse.urlparse(link)
-	# We do not deal with bib: and part: here.
-	# The fancy prefixes we use like "bib" and "part" are private URI
-	# schemes.
-	# See https://tei-c.org/release/doc/tei-p5-doc/en/html/SA.html#SAPU
-	# However, we ignore what <listPrefixDef> says about the scheme.
-	if url.scheme and url.scheme not in ("http", "https"):
-		return url.geturl()
-	# Simplify the URL if it refers to something on our server:
-	# http(s)?://(www\.)?dharmalekha.info/foo -> /foo
-	if url.scheme in ("http", "https") and url.netloc in ("dharmalekha.info", "www.dharmalekha.info"):
-		url = url._replace(scheme="", netloc="")
-	if url.hostname:
-		# It doesn't point to something on our server.
-		return url.geturl()
-	# We're dealing with a path ("foo", "/foo", etc.), thus something hosted
-	# on our server. Make the path absolute and drop trailing slashes.
-	# We have one of:
-	# "foo" -> "/texts/foo"
-	# "/foo" -> "/foo"
-	# "/foo/" -> "/foo"
-	path = url.path.rstrip("/") or "/"
-	path = posixpath.join("/texts", path)
-	# If this is a text, drop the file extension, thus
-	# "/texts/DHARMA_INSIDENKTuhanyaru.xml" -> "/texts/DHARMA_INSIDENKTuhanyaru"
-	# And also remove the "DHARMA_" prefix:
-	# "/texts/DHARMA_INSIDENKTuhanyaru" -> "/texts/INSIDENKTuhanyaru"
-	if path.startswith("/texts/"):
-		name = posixpath.basename(path)
-		name = posixpath.splitext(name)[0]
-		name = name.removeprefix("DHARMA_")
-		path = posixpath.join(posixpath.dirname(path), name)
-	url = url._replace(path=path)
-	return url.geturl()
-
 bibl_units = set(biblio.cited_range_units)
 
-def extract_bib_ref(bibl, ref):
+def extract_bibl_ref(bibl, ref):
 	# The ptr/@target is supposed to start with "bib:". If it doesn't, we
 	# still assume it refers to a bibliography entry.
 	short_title = ref["target"].removeprefix("bib:")
@@ -474,68 +430,100 @@ def extract_bib_ref(bibl, ref):
 def parse_listbibl_bibl(p, bibl):
 	ref = bibl.first("ptr") or bibl.first("ref")
 	if not ref:
-		return # XXX do sth sensible, use a dummy entry?
-	short_title, location = extract_bib_ref(bibl, ref)
-	siglum = p.document.sigla.get(short_title)
-	p.append(p.bib_entry(short_title, location=location, siglum=siglum))
+		return
+	short_title, location = extract_bibl_ref(bibl, ref)
+	if not short_title:
+		return
+	p.append(p.bib_entry(short_title, location=location))
 
 bibl_rend_formats = ("default", "omitname", "ibid", "siglum")
 
-@handler("bibl[ptr]")
-@handler("bibl[ref]")
+# For printing bibliographic references.
+@handler("bibl")
 def parse_bibl_ref(p, bibl):
 	rend = bibl["rend"]
 	if rend not in bibl_rend_formats:
 		rend = "default"
 		assert rend in bibl_rend_formats
-	ref = bibl.first("ptr") or bibl.first("ref")
-	if not ref:
-		return # XXX do something sensible
-	short_title, location = extract_bib_ref(bibl, ref)
-	p.append(p.bib_reference(short_title, rend=rend, contents=list(ref), location=location))
-	# XXX move this comment Use short title when we have bibl/ptr with a bib pointer, in all other
-	# cases use the siglum with author+date in tooltip (or author+date if there is no siglum; or whatever the
-	# contents of the point is if it is not empty).
+	# We use a dummy node if there is no ptr nor ref.
+	ref = bibl.first("ptr") or bibl.first("ref") or tree.Tag("ref")
+	short_title, location = extract_bibl_ref(bibl, ref)
+	p.append(p.bib_reference(short_title, rend=rend, contents=list(ref),
+		location=location))
+	if (note := bibl.first("note")):
+		p.dispatch(note)
 
-@handler("bibl")
-def parse_bibl(p, bibl):
-	p.dispatch_children(bibl)
-
-# Links with a @target and with contents.
-@handler("ref[@target and text()]")
-@handler("ptr[@target and text()]")
-def parse_ref(p, ref):
-	url = simplify_url(ref["target"])
-	p.push(tree.Tag("a", href=url))
-	p.dispatch_children(ref)
-	p.join()
-
-# Links with a @target but without contents.
-@handler("ref[@target]")
-@handler("ptr[@target]")
-def parse_ref_empty(p, ref):
-	assert ref["target"] and ref.empty
-	url = simplify_url(ref["target"])
-	klass = "url"
-	if url.startswith("/texts/"):
-		klass += " text-id"
-	p.push(tree.Tag("a", href=url, class_=klass))
-	p.append(url.removeprefix("/texts/"))
-	p.join()
-
-# Links without a @target and without contents
 @handler("ref")
 @handler("ptr")
-def parse_other_ref(p, ref):
-	p.dispatch_children(ref)
+def parse_ref(p, ref):
+	url = ref["target"]
+	if not url:
+		return p.dispatch_children(ref)
+	url = urllib.parse.urlparse(url)
+	# The fancy prefixes we use like "bib" and "part" are private URI
+	# schemes.
+	# See https://tei-c.org/release/doc/tei-p5-doc/en/html/SA.html#SAPU
+	# However, we ignore what <listPrefixDef> says about the scheme. This
+	# is hardcoded here.
+	if url.scheme == "bib":
+		p.append(p.bib_reference(url.path, rend="siglum", contents=list(ref)))
+	# Simplify the URL if it refers to something on our server:
+	# http(s)?://(www\.)?dharmalekha.info/foo -> /foo
+	if url.scheme in ("http", "https") and url.netloc in ("dharmalekha.info", "www.dharmalekha.info"):
+		url = url._replace(scheme="", netloc="")
+	if url.hostname:
+		# It doesn't point to something on our server.
+		url = url.geturl()
+		p.push(tree.Tag("a", href=url))
+		if ref.text():
+			p.dispatch_children(ref)
+		else:
+			p.push(tree.Tag("span", class_="url"))
+			p.append(url)
+			p.join()
+		return p.join()
+	# We're dealing with a path ("foo", "/foo", etc.), thus something hosted
+	# on our server. Make the path absolute and drop trailing slashes.
+	# We have one of:
+	# "foo" -> "/texts/foo"
+	# "/texts/foo" -> "/texts/foo"
+	# "/foo" -> "/foo"
+	# "/foo/" -> "/foo"
+	path = url.path.rstrip("/") or "/"
+	path = posixpath.join("/texts", path)
+	# If this is a text, drop the file extension, thus
+	# "/texts/DHARMA_INSIDENKTuhanyaru.xml" -> "/texts/DHARMA_INSIDENKTuhanyaru"
+	# And also remove the "DHARMA_" prefix:
+	# "/texts/DHARMA_INSIDENKTuhanyaru" -> "/texts/INSIDENKTuhanyaru"
+	if path.startswith("/texts/"):
+		name = posixpath.basename(path)
+		name = posixpath.splitext(name)[0]
+		name = name.removeprefix("DHARMA_")
+		path = posixpath.join(posixpath.dirname(path), name)
+	url = url._replace(path=path).geturl()
+	p.push(tree.Tag("a", href=url))
+	if ref.text():
+		p.dispatch_children(ref)
+	elif path.startswith("/texts/"):
+		p.push(tree.Tag("span", class_="text-id"))
+		p.append(path.removeprefix("/texts/"))
+		p.join()
+	else:
+		p.push(tree.Tag("span", class_="url"))
+		p.append(path)
+		p.join()
+	p.join()
 
 ################################# Apparatus ###################################
 
 def append_reading_sources(p, sources):
+	refs = []
 	for short_title in sources.split():
 		short_title = short_title.removeprefix("bib:")
 		if not short_title:
 			continue
+		common.append_unique(refs, short_title)
+	for short_title in refs:
 		p.append(" ")
 		p.append(p.bib_reference(short_title, rend="siglum"))
 
@@ -1908,7 +1896,11 @@ def append_names(p, resps):
 			p.append(" and ")
 		p.append(fetch_resp(resp))
 
-def append_sources(p, refs):
+def append_sources(p, bib_refs):
+	refs = []
+	for ref in bib_refs:
+		ref = ref.removeprefix("bib:")
+		common.append_unique(refs, ref)
 	for i, ref in enumerate(refs):
 		ref = ref.removeprefix("bib:")
 		if i == 0:
