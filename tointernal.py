@@ -466,7 +466,8 @@ def parse_ref(p, ref):
 	# However, we ignore what <listPrefixDef> says about the scheme. This
 	# is hardcoded here.
 	if url.scheme == "bib":
-		p.append(p.bib_reference(url.path, rend="siglum", contents=list(ref)))
+		return p.append(p.bib_reference(url.path, rend="siglum",
+			contents=list(ref)))
 	# Simplify the URL if it refers to something on our server:
 	# http(s)?://(www\.)?dharmalekha.info/foo -> /foo
 	if url.scheme in ("http", "https") and url.netloc in ("dharmalekha.info", "www.dharmalekha.info"):
