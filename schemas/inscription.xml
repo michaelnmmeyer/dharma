@@ -425,9 +425,6 @@
                                 <sch:report test="@type='translation' and @resp and @source">
                                     @resp and @source can not be used together
                                 </sch:report>
-                                <sch:report test="@type='translation' and not(@resp or @source)">
-                                    @resp or @source is expected for div[@type='translation']
-                                </sch:report>
                                 <sch:report test="@type='textpart' and ancestor::tei:div[@type='textpart']">
                                     div[@type='textpart'] must not nest
                                 </sch:report>
@@ -3584,13 +3581,21 @@
                         <attDef ident="style" mode="delete"/>
                         <attDef ident="subtype" mode="delete"/>
                         <attDef ident="synch" mode="delete"/>
+                        <attDef ident="target" mode="change">
+                            <desc>
+                                specifies the destination of the reference by
+                                supplying a URI reference
+                            </desc>
+                            <datatype>
+                                <dataRef key="teidata.pointer"/>
+                            </datatype>
+                        </attDef>
                         <attDef ident="targetLang" mode="delete"/>
                         <attDef ident="type" mode="delete"/>
                         <attDef ident="xml:base" mode="delete"/>
                         <attDef ident="xml:id" mode="delete"/>
                         <attDef ident="xml:lang" mode="delete"/>
                         <attDef ident="xml:space" mode="delete"/>
-                        <attDef ident="target" mode="change"/>
                     </attList>
                 </elementSpec>
                 <elementSpec ident="publicationStmt" module="header" mode="change">
@@ -3844,6 +3849,15 @@
                         <attDef ident="style" mode="delete"/>
                         <attDef ident="subtype" mode="delete"/>
                         <attDef ident="synch" mode="delete"/>
+                        <attDef ident="target" mode="change">
+                            <desc>
+                                specifies the destination of the reference by
+                                supplying a URI reference
+                            </desc>
+                            <datatype>
+                                <dataRef key="teidata.pointer"/>
+                            </datatype>
+                        </attDef>
                         <attDef ident="targetLang" mode="delete"/>
                         <attDef ident="type" mode="delete"/>
                         <attDef ident="xml:base" mode="delete"/>

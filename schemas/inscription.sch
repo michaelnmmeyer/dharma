@@ -1431,18 +1431,6 @@ attributes @target and @cRef may be supplied on <xsl:text/>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
-      <xsl:if test="@type='translation' and not(@resp or @source)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="@type='translation' and not(@resp or @source)">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-                                    @resp or @source is expected for div[@type='translation']
-                                </svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <!--REPORT -->
       <xsl:if test="@type='textpart' and ancestor::tei:div[@type='textpart']">
          <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                                  test="@type='textpart' and ancestor::tei:div[@type='textpart']">
