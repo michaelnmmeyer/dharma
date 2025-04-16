@@ -1,28 +1,40 @@
 from dharma import tree
 
 """
+preprocessing for logical and full:
+	complete pbs, etc.
+	find a convention for the placement of pbs, etc. (beginning of node and end of previous node? within which container? etc.)
+
 for physical:
 
 traverse the tree in order, and make a stack of:
 	npage
 	nline
 	ncell
-we will have to allocate phantom pages for inscriptions that start with a line.
-at the end of the parse, if we haven't found a single explicit page, unwrap the
-single page we have. and do the same with phantom lines and cells.
+we will have to allocate phantom pages/lines/cells, when a) the encoding is incorrect b) the encoding is correct but a category is missing. it is best to keep these phantom elements in the output than to remove them, for search.
 
-except that if they occur within one of these, leave them as-is.
+except that if they occur within one of these, leave them as-is (viz. replace them with an inline annotation <1>, etc.).
 	head
 	note
 
-unwrap:
+we can't really tell whether numbering is continuous between textparts or not, so if we have:
+	<pb n=X>foo<div type="textpart">bar<pb n=Z>
+we assume that page X continues in the next textpart (instead of assuming that the next textpart is missing a <pb n=Y> at the very beginning). to represent the fact that page X continues in the next textpart, use a cont=true flag in the first div we generate within the next textpart.
+
+when generating the search representation, not sure what to do with the textpart heading in the middle. might want to index separately the TOC (with all headings)
+and the text (without interruption)
+
+unwrap these elements:
 	para
 	verse
 	verse-line
 	list
 	dlist
 
-split if needed:
+delete this one:
+	verse-head
+
+split these elements if needed:
 	a
 	para
 
@@ -30,13 +42,12 @@ keep as is:
 	div
 
 
-<page>
-	<line>
-		<cell>
-			<a>
-			<span>
-
-
+The resulting hierarchy must be:
+	<page>
+		<line>
+			<cell>
+				<a>
+				<span>
 """
 
 class PhysicalParser:

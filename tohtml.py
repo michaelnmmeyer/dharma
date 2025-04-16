@@ -99,7 +99,7 @@ def render_hand(self, node):
 	self.push(tree.Tree())
 	self.dispatch_children(node)
 	self.document.hand = self.pop()
-	self.document.hand.first("p").prepend("Hand description: ")
+	self.document.hand.first("p").prepend("Palaeographic description: ")
 
 edition_tabs = tree.parse_string("""
 <ul class="ed-tabs">
@@ -221,7 +221,7 @@ def render_para(self, node):
 	self.dispatch_children(node)
 	self.join()
 
-@handler("a")
+@handler("link")
 def render_link(self, node):
 	self.push(tree.Tag("a", href=node["href"]))
 	self.dispatch_children(node)

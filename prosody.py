@@ -177,7 +177,7 @@ def parse_list_rec(item, bib_entries, langs):
 			continue
 		entry = bib_entries.get(ref)
 		if not entry:
-			entry = biblio.Entry(ref)
+			entry = biblio.lookup_entry(ref)
 			bib_entries[ref] = entry
 		syms = ""
 		for note in fetch_notes(bibl):
@@ -185,7 +185,7 @@ def parse_list_rec(item, bib_entries, langs):
 			note["symbol"] = symbol
 			syms += symbol
 			rec["bibliography"]["notes"].append(note)
-		ref = f'{entry.reference(location=loc).xml()}<sup>{syms}</sup>'
+		ref = f'{biblio.format_reference(entry, location=loc).xml()}<sup>{syms}</sup>'
 		rec["bibliography"]["refs"].append(ref)
 	return rec
 

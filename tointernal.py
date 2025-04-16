@@ -70,7 +70,6 @@ def trim_before(node):
 	if i > 0 and isinstance(parent[i - 1], tree.String) and parent[i - 1].endswith(" "):
 		parent[i - 1].replace_with(parent[i - 1].data.rstrip())
 
-
 def squeeze(strings):
 	i = 0
 	while i < len(strings):
@@ -98,13 +97,7 @@ def traverse_milestones(root):
 def complete_milestones(t):
 	stack = []
 	nodes = list(traverse_milestones(t))
-# 	match node.name:
-# 		case "npage":
-# 			pass
-# 		case "nline":
-# 			pass
-# 		case "ncell":
-# 			pass
+
 	return t
 
 def cleanup_tree(t):
@@ -345,7 +338,7 @@ class Parser(tree.Serializer):
 				tip = "Not in bibliography"
 			span = tree.Tag("span", tip=tip)
 			span.append(short_title)
-			ref = tree.Tag("a")
+			ref = tree.Tag("link")
 			ref.append(span)
 			return ref
 		ref = biblio.format_reference(entry, rend=rend, location=location,
@@ -475,7 +468,7 @@ def parse_ref(p, ref):
 	if url.hostname:
 		# It doesn't point to something on our server.
 		url = url.geturl()
-		p.push(tree.Tag("a", href=url))
+		p.push(tree.Tag("link", href=url))
 		if ref.text():
 			p.dispatch_children(ref)
 		else:
@@ -502,7 +495,7 @@ def parse_ref(p, ref):
 		name = name.removeprefix("DHARMA_")
 		path = posixpath.join(posixpath.dirname(path), name)
 	url = url._replace(path=path).geturl()
-	p.push(tree.Tag("a", href=url))
+	p.push(tree.Tag("link", href=url))
 	if ref.text():
 		p.dispatch_children(ref)
 	elif path.startswith("/texts/"):
@@ -1452,7 +1445,7 @@ def make_meter_heading(p, met):
 	pattern, description, entry_id = entry
 	name = common.sentence_case(met)
 	value = pattern or description or "No metre description available"
-	p.push(tree.Tag("a", href=f"/prosody#prosody-{entry_id}"))
+	p.push(tree.Tag("link", href=f"/prosody#prosody-{entry_id}"))
 	p.push(tree.Tag("span", tip=value))
 	p.append(name)
 	p.join()
@@ -1820,7 +1813,7 @@ def fetch_resp(resp):
 # present in the file-specific bibliography and which are not. (The latter
 # need to be presented within the project-wide bibliography.)
 def gather_biblio(p):
-	for bibl in p.document.tree.find("//div[@type='bibliography']//listBibl/bibl[ptr]"):
+	for bibl in p.document.tree.find("listBibl/bibl[ptr]"):
 		ptr = bibl.first("ptr")
 		short_title = ptr["target"].removeprefix("bib:")
 		if not short_title or short_title == "AuthorYear_01":

@@ -383,10 +383,11 @@ create table if not exists prosody(
 	-- file), not of generic meters (they have a <label> instead of a
 	-- <name> in the prosody file).
 	name text primary key check(typeof(name) = 'text' and length(name) > 0),
-	pattern text check(pattern is null
+	pattern html check(pattern is null
 		or typeof(pattern) = 'text' and length(pattern) > 0),
 	description text check(description is null
 		or typeof(description) = 'text' and length(description) > 0),
+	--XXX remove this
 	-- This is used for generating anchors. We use these anchors to
 	-- link to prosody entries.
 	entry_id integer not null check(typeof(entry_id) = 'integer')

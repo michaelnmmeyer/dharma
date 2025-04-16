@@ -484,7 +484,7 @@ class Writer(tree.Serializer):
 		self.space()
 		self.append("DOI:")
 		self.space()
-		tag = tree.Tag("a", href_=f"https://doi.org/{doi}")
+		tag = tree.Tag("link", href_=f"https://doi.org/{doi}")
 		tag.append(doi)
 		span = tree.Tag("span", class_="url")
 		span.append(tag)
@@ -499,7 +499,7 @@ class Writer(tree.Serializer):
 			self.append("URLs:")
 		self.space()
 		for i, url in enumerate(urls):
-			tag = tree.Tag("a", href=url)
+			tag = tree.Tag("link", href=url)
 			tag.append(url)
 			span = tree.Tag("span", class_="url")
 			span.append(tag)
@@ -510,7 +510,7 @@ class Writer(tree.Serializer):
 
 	def url_hidden(self, urls):
 		for url in urls:
-			tag = tree.Tag("a", href=url)
+			tag = tree.Tag("link", href=url)
 			tag.append("[URL]")
 			self.space()
 			self.append(tag)
@@ -1180,7 +1180,7 @@ def fix_markup(xml):
 		if tag.name not in valid_tags and isinstance(tag.parent, tree.Tag):
 			tag.unwrap()
 			continue
-		# XXX and rename sup, sub, a, b
+		# XXX and rename sup, sub, a, b with a span
 		if tag.name != "span":
 			continue
 		klass = tag["class"]
@@ -1345,10 +1345,10 @@ def format_reference(rec, rend="default", location=[], external_link=True,
 	out.push(tree.Tag("span"))
 	quoted = urllib.parse.quote(rec["shortTitle"], safe="")
 	if external_link:
-		out.push(tree.Tag("a", href=f"/bibliography/entry/{quoted}"))
+		out.push(tree.Tag("link", href=f"/bibliography/entry/{quoted}"))
 		out.push(tree.Tag("span"))
 	else:
-		out.push(tree.Tag("a", href=f"#bib-{quoted}"))
+		out.push(tree.Tag("link", href=f"#bib-{quoted}"))
 		out.push(tree.Tag("span"))
 	if rend == "siglum" and not siglum:
 		rend = "default"
