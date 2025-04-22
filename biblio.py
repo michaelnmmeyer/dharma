@@ -1164,39 +1164,43 @@ renderers = {
 
 # See https://www.zotero.org/support/kb/rich_text_bibliography
 valid_tags = {"a", "i", "b", "sub", "sup", "span"}
+def fix_tag(tag):
+	match tag.name:
+		case "a":
+			tag.name = "link"
+		case "em" | "i":
+			tag.name = "span"
+			tag["class"] = "italics"
+		case "b":
+			tag.name = "span"
+			tag["class"] = "bold"
+		case "sub":
+			tag.name = "span"
+			tag["class"] = "sub"
+		case "sup":
+			tag.name = "span"
+			tag["class"] = "sup"
+		case "span":
+			klass = tag["class"]
+			style = tag["style"]
+			if klass != "nocase":
+				klass = ""
+			if not re.match(r"^font-variant\s*:\s*small-caps\s*;?$", style):
+				style = ""
+			tag.attrs.clear()
+			if not klass and not style:
+				tag.unwrap()
+				return
+			if klass:
+				tag["class"] = klass
+			if style:
+				tag["style"] = style
+		case _:
+			tag.unwrap()
 
 def fix_markup(xml):
-	for tag in xml.find(".//em"):
-		tag.name = "span"
-		tag["class"] = "italics"
-	for tag in xml.find(".//a"):
-		link = tag["href"]
-		if not link:
-			tag.unwrap()
-			continue
-		tag.attrs.clear()
-		tag["href"] = link
 	for tag in xml.find(".//*"):
-		if tag.name not in valid_tags and isinstance(tag.parent, tree.Tag):
-			tag.unwrap()
-			continue
-		# XXX and rename sup, sub, a, b with a span
-		if tag.name != "span":
-			continue
-		klass = tag["class"]
-		style = tag["style"]
-		if klass != "nocase":
-			klass = ""
-		if not re.match(r"^font-variant\s*:\s*small-caps\s*;?$", style):
-			style = ""
-		tag.attrs.clear()
-		if not klass and not style:
-			tag.unwrap()
-			continue
-		if klass:
-			tag["class"] = klass
-		if style:
-			tag["style"] = style
+		fix_tag(tag)
 
 def text_nodes(xml):
 	for node in xml:
@@ -1231,11 +1235,11 @@ def fix_value(s):
 	except tree.Error:
 		# Don't try to fix this.
 		s = tree.parse_string("<X>%s</X>" % html.escape(s))
+	s.root.unwrap()
 	fix_markup(s)
 	normalize_space(s)
 	if not s.text():
 		return ""
-	s.root.unwrap()
 	return s
 
 def fix_rec(rec):

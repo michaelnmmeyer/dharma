@@ -11,9 +11,13 @@
 #
 # If the idea is to convert texts to many formats, we might want to use
 # pandoc's data model. See https://boisgera.github.io/pandoc/document
+# and https://hackage.haskell.org/package/pandoc-types-1.23.1/docs/Text-Pandoc-Definition.html
+
+#XXX seg not yet handled
 
 import os, sys, re, html, urllib.parse, posixpath, copy, unicodedata
-from dharma import common, prosody, people, tree, gaiji, biblio, langs, todisplays
+import dataclasses
+from dharma import common, prosody, people, tree, gaiji, biblio, langs
 
 # Turns some object (strings, list of strings or None) into a searchable string.
 def normalize(s):
@@ -28,160 +32,57 @@ def normalize(s):
 	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
 	return unicodedata.normalize("NFC", s.strip())
 
-def trim_left(strings):
-	trimmed = False
-	while strings:
-		s = strings[0]
-		if len(s) == 0 or s.isspace():
-			if len(s) > 0:
-				trimmed = True
-			s.delete()
-			del strings[0]
-			continue
-		if s[0].isspace():
-			trimmed = True
-			t = tree.String(s.data.lstrip())
-			s.replace_with(t)
-			strings[0] = t
-		break
-	return trimmed
+def init(class_):
+	return dataclasses.field(default_factory=class_)
 
-def trim_right(strings):
-	trimmed = False
-	while strings:
-		s = strings[-1]
-		if len(s) == 0 or s.isspace():
-			if len(s) > 0:
-				trimmed = True
-			s.delete()
-			strings.pop()
-			continue
-		if s[-1].isspace():
-			trimmed = True
-			t = tree.String(s.data.rstrip())
-			s.replace_with(t)
-			strings[-1] = t
-		break
-	return trimmed
-
-def trim_before(node):
-	parent = node.parent
-	i = parent.index(node)
-	if i > 0 and isinstance(parent[i - 1], tree.String) and parent[i - 1].endswith(" "):
-		parent[i - 1].replace_with(parent[i - 1].data.rstrip())
-
-def squeeze(strings):
-	i = 0
-	while i < len(strings):
-		s = strings[i]
-		if len(s) == 0:
-			s.delete()
-			del strings[i]
-			continue
-		ret = re.sub(r"\s+", " ", s.data)
-		if ret[0] == " " and i > 0 and strings[i - 1].endswith(" "):
-			ret = ret[1:]
-		if ret != s.data:
-			s.replace_with(tree.String(ret))
-			strings[i] = ret
-		i += 1
-
-def traverse_milestones(root):
-	match root:
-		case tree.Tag() if root.name in ("npage", "nline", "ncell"):
-			yield root
-		case tree.Tag() | tree.Tree():
-			for node in root:
-				yield from traverse_milestones(node)
-
-def complete_milestones(t):
-	stack = []
-	nodes = list(traverse_milestones(t))
-
-	return t
-
-def cleanup_tree(t):
-	for node in t.find("//div"):
-		for child in node:
-			if not isinstance(child, tree.Tag):
-				child.delete()
-	for node in t.find("//para") + t.find("//head"):
-		strings = node.strings()
-		trim_left(strings)
-		trim_right(strings)
-		squeeze(strings)
-		if node.empty:
-			node.delete()
-	for node in t.find("//*[name() = 'npage' or name() = 'nline' or name() = 'ncell']"):
-		trim_before(node)
-	if not t.empty:
-		return t
-
-def cleanup(doc):
-	for attr in dir(doc):
-		if attr == "tree":
-			continue
-		value = getattr(doc, attr)
-		match value:
-			case tree.Tree():
-				setattr(doc, attr, cleanup_tree(value))
-			case list():
-				for i, elem in enumerate(value):
-					if isinstance(elem, tree.Tree):
-						value[i] = cleanup_tree(elem)
-	if doc.edition:
-		doc.edition = complete_milestones(doc.edition)
-
+@dataclasses.dataclass
 class Document:
 
-	def __init__(self):
-		self.tree = None # tree.Tree
-		# Whether the XML is well-formed.
-		self.valid = True
-		self.repository = None
-		self.repository_title = None
-		# Dharma identifier viz. the file's basename without the extension.
-		self.identifier = ""
-		# XML source code, HTML-encoded.
-		self.xml = ""
-		# Title, summary and hand are all trees.
-		self.title = None
-		self.summary = None
-		self.hand = None
-		# Languages used in the edition division that do not correspond
-		# to a modern, translation-only language.
-		self.edition_langs = []
-		# One field for each main div.
-		self.edition = None
-		self.apparatus = None
-		self.commentary = None
-		self.bibliography = None
-		# A single document can have zero or more translations (see e.g.
-		# DHARMA_INSPallava00002), so this is a list.
-		self.translation = []
-		# List of footnotes (<note> element in TEI, except that we
-		# don't include here <note> elements from the apparatus because
-		# they do not actually represent footnotes; we should probably
-		# support notes within notes in the apparatus, because in this
-		# case the nesting is justified).
-		self.notes = []
-		# List of authors and of editors. List of tuples
-		# (dharma_id, name) where dharma_id is the xxxx stuff in
-		# "part:xxxx" and name is a string.  dharma_id can be None
-		self.authors = []
-		self.editors = []
+	# Whether the XML is well-formed.
+	valid: bool = True
+	repository: str = ""
+	repository_title: str = ""
+	# Dharma identifier viz. the file's basename without the extension.
+	identifier: str = ""
+	# XML source code, HTML-encoded.
+	xml: str = ""
+	title: list[tree.Tree] = init(list)
+	summary: tree.Tree = init(tree.Tree)
+	hand: tree.Tree = init(tree.Tree)
+	# Languages used in the edition division that do not correspond
+	# to a modern, translation-only language.
+	edition_langs: list[str] = init(list)
+	# One field for each main div.
+	edition: tree.Tree = init(tree.Tree)
+	apparatus: tree.Tree = init(tree.Tree)
+	commentary: tree.Tree = init(tree.Tree)
+	bibliography: tree.Tree = init(tree.Tree)
+	# A single document can have zero or more translations (see e.g.
+	# DHARMA_INSPallava00002), so this is a list.
+	translation: list[tree.Tree] = init(list)
+	# List of footnotes (<note> element in TEI, except that we
+	# don't include here <note> elements from the apparatus because
+	# they do not actually represent footnotes; we should probably
+	# support notes within notes in the apparatus, because in this
+	# case the nesting is justified).
+	notes: list[tree.Tree] = init(list)
+	# List of authors and of editors. List of tuples
+	# (dharma_id, name) where dharma_id is the xxxx stuff in
+	# "part:xxxx" and name is a string.  dharma_id can be None
+	authors: list[(str, str)] = init(list)
+	editors: list[(str, str)] = init(list)
 
-		## Biblio stuff
-		# Map of biblio short titles -> bibliography entries. Only
-		# includes bibliography entries that appear in the
-		# div[@type='bibliography'].
-		self.bib_entries = {}
-		# Like bib_entries, but for bibliography entries that are
-		# referred to in the file but that do not appear in the
-		# div[@type='bibliography'].
-		self.external_bib_entries = {}
-		# Map of biblio entry short title (string) -> siglum (string)
-		self.sigla = {}
+	## Biblio stuff
+	# Map of biblio short titles -> bibliography entries. Only
+	# includes bibliography entries that appear in the
+	# div[@type='bibliography'].
+	bib_entries: dict[str, tree.Tree] = init(dict)
+	# Like bib_entries, but for bibliography entries that are
+	# referred to in the file but that do not appear in the
+	# div[@type='bibliography'].
+	external_bib_entries: dict[str, tree.Tree] = init(dict)
+	# Map of biblio entry short title (string) -> siglum (string)
+	sigla: dict[str, str] = init(dict)
 
 	def serialize(self):
 		f = tree.Serializer()
@@ -204,9 +105,9 @@ class Document:
 		f.append(common.from_boolean(self.valid))
 		f.join()
 		# If not valid, the following are omitted.
-		if self.title:
+		for title in self.title:
 			f.push(tree.Tag("title"))
-			f.extend(self.title)
+			f.extend(title)
 			f.join()
 		for author in self.authors:
 			f.push(tree.Tag("author"))
@@ -244,16 +145,19 @@ class Document:
 		f.join()
 		if self.edition:
 			f.push(tree.Tag("edition"))
-			head = self.edition.first("head")
-			i = self.edition.index(head) + 1
-			f.append(head)
-			full = todisplays.to_full(self.edition.copy())
-			logical = todisplays.to_logical(full.copy())
-			physical = todisplays.to_physical(self.edition.copy())
-			for display, contents in (("physical", physical), ("logical", logical), ("full", full)):
-				f.push(tree.Tag(display))
-				f.extend(contents[i:])
-				f.join()
+			# XXX not here!
+			# head = self.edition.first("head")
+			# i = self.edition.index(head) + 1
+			# f.append(head)
+			# full = todisplays.to_full(self.edition.copy())
+			# logical = todisplays.to_logical(full.copy())
+			# physical = todisplays.to_physical(self.edition.copy())
+			# for display, contents in (("physical", physical), ("logical", logical), ("full", full)):
+			# 	f.push(tree.Tag(display))
+			# 	f.extend(contents[i:])
+			# 	f.join()
+			# f.join()
+			f.extend(self.edition)
 			f.join()
 		if self.apparatus:
 			f.push(tree.Tag("apparatus"))
@@ -275,8 +179,8 @@ class Document:
 		return f.tree
 
 	def to_html(self):
-		from dharma import tohtml
-		return tohtml.process(self.serialize())
+		from dharma import expanded2html
+		return expanded2html.process(self.serialize())
 
 def XML(s):
 	r = tree.parse_string(f"<root>{s}</root>")
@@ -321,8 +225,19 @@ class Parser(tree.Serializer):
 		return entry, external
 
 	def bib_entry(self, short_title, location=[]):
+		assert short_title
+		entry = self.document.bib_entries.get(short_title)
+		if not entry:
+			if biblio.unsupported_entry(short_title):
+				tip = "Unsupported entry type"
+			else:
+				tip = "Not in bibliography"
+			span = tree.Tag("span", class_="invalid", tip=tip)
+			span.append(short_title)
+			ret = tree.Tag("para", class_="hanging")
+			ret.append(span)
+			return ret
 		siglum = self.document.sigla.get(short_title)
-		entry = self.document.bib_entries[short_title]
 		# XXX warn about duplicate entries
 		return biblio.format_entry(entry, location=location, siglum=siglum)
 
@@ -376,23 +291,14 @@ class Parser(tree.Serializer):
 			if matcher(node):
 				break
 		else:
-			self.complain(node)
-			self.append(node.text())
-			return
-		try:
-			f(self, node)
-		except tree.Error as e:
-			self.complain(e)
+			raise Exception(f"cannot handle {node!r}")
+		f(self, node)
 
 	def dispatch_children(self, node, only_tags=False):
 		for child in node:
 			if only_tags and not isinstance(child, tree.Tag):
 				continue
 			self.dispatch(child)
-
-	def complain(self, msg):
-		print("UNKNOWN %s" % msg, file=sys.stderr)
-
 
 ################################# Links ########################################
 
@@ -1522,10 +1428,7 @@ def parse_l(p, l):
 	p.push(tree.Tag("verse-line", n=get_n(l), tip=p.pop().xml()))
 	p.dispatch_children(l)
 	if common.to_boolean(l["enjamb"], False):
-		# #XXX should remove whitespace at end of line
-		p.push(tree.Tag("span", class_="enjamb", tip="Enjambement"))
-		p.append("-")
-		p.join()
+		p.append(tree.Tag("break"))
 	p.join()
 
 # > para-like
@@ -1714,13 +1617,10 @@ def parse_titleStmt(p, stmt):
 	# join them into a single string.
 	# The EGD prescribes to only use a plain string within <title>, but we
 	# relax this rule and allow tags here. See e.g. DHARMA_INSPallava00506.
-	p.push(tree.Tree())
-	parts = stmt.find("title")
-	for i, part in enumerate(parts):
-		if i > 0:
-			p.append(" \N{en dash} ")
-		p.dispatch(part)
-	p.document.title = p.pop()
+	for title in stmt.find("title"):
+		p.push(tree.Tree())
+		p.dispatch(title)
+		p.document.title.append(p.pop())
 	# Author of the text (only for critical editions).
 	p.document.authors = gather_people(stmt, "author")
 	# Editor(s) of the text.
@@ -1813,7 +1713,7 @@ def fetch_resp(resp):
 # present in the file-specific bibliography and which are not. (The latter
 # need to be presented within the project-wide bibliography.)
 def gather_biblio(p):
-	for bibl in p.document.tree.find("listBibl/bibl[ptr]"):
+	for bibl in p.document.tree.find("//listBibl/bibl[ptr]"):
 		ptr = bibl.first("ptr")
 		short_title = ptr["target"].removeprefix("bib:")
 		if not short_title or short_title == "AuthorYear_01":
@@ -1922,6 +1822,11 @@ def parse_div_translation(p, div):
 	p.dispatch_children(div, only_tags=True)
 	p.document.translation.append(p.pop())
 
+@handler("*")
+def parse_remainder(self, node):
+	print(f"UNKNOWN {node!r}", file=sys.stderr)
+	self.append(node.text())
+
 def repository_title(ident):
 	db = common.db("texts")
 	title = db.execute("select title from repos where repo = ?", (ident,)).fetchone()
@@ -1971,7 +1876,6 @@ def process_file(file, mode=None):
 	p.document.edition_langs = sorted(ed_langs)
 	p.document.repository = file.repo
 	p.document.repository_title = repository_title(p.document.repository)
-	cleanup(p.document)
 	return p.document
 
 if __name__ == "__main__":

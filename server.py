@@ -1,8 +1,8 @@
 import os, unicodedata, datetime, html, urllib
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
-from dharma import common, change, ngrams, catalog, validate, tointernal
-from dharma import biblio, texts, editorial, prosody, tohtml
+from dharma import common, change, ngrams, catalog, validate, tei2internal
+from dharma import biblio, texts, editorial, prosody, expanded2html
 
 # We don't use the name "templates" for the template folder because we also
 # put other stuff in the same directory, not just templates.
@@ -338,7 +338,7 @@ def display_text_xml(text):
 	if not row:
 		return flask.abort(404)
 	file = db.load_file(text)
-	doc = tointernal.process_file(file)
+	doc = tei2internal.process_file(file)
 	ret = flask.render_template("inscription_xml.tpl", doc=doc, row=row,
 		no_sidebar=True)
 	return ret
@@ -389,7 +389,7 @@ def display_text(text):
 	if not row:
 		return flask.abort(404)
 	file = db.load_file(text)
-	doc = tointernal.process_file(file).to_html()
+	doc = tei2internal.process_file(file).to_html()
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
 	doc.last_modified_commit = row["last_modified_commit"]
@@ -443,7 +443,7 @@ def convert_text():
 	setattr(f, "_last_modified", ("", 0))
 	setattr(f, "_data", data)
 	setattr(f, "_owners", [])
-	doc = tointernal.process_file(f)
+	doc = tei2internal.process_file(f)
 	doc.repository = None
 	doc = doc.to_html()
 	html = flask.render_template("inscription.tpl", doc=doc, text=name)
@@ -484,7 +484,7 @@ def display_biblio_page(page):
 		order by sort_key limit ? offset ?""",
 		(BIBLIO_PER_PAGE, (page - 1) * BIBLIO_PER_PAGE)):
 		entry = biblio.format_entry(entry)
-		entries.append(tohtml.process_partial(entry))
+		entries.append(expanded2html.process_partial(entry))
 	first_entry = (page - 1) * BIBLIO_PER_PAGE + 1
 	if first_entry > entries_nr:
 		first_entry = 0

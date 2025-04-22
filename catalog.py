@@ -1,5 +1,5 @@
 import logging
-from dharma import texts, common, tointernal
+from dharma import texts, common, tei2internal
 
 class Query:
 
@@ -39,11 +39,11 @@ def delete(name):
 
 def insert(file):
 	db = common.db("texts")
-	doc = tointernal.process_file(file, mode="catalog")
+	doc = tei2internal.process_file(file, mode="catalog")
 	for key in ("title", "authors", "editors", "summary"):
 		val = getattr(doc, key, None)
 		if val is None:
-			val = tointernal.Block(val)
+			val = tei2internal.Block(val)
 			val.finish()
 			setattr(doc, key, val)
 	db.execute("""insert or replace into documents(name, repo, title,
@@ -163,7 +163,7 @@ def patch_languages(q):
 			clause.query = "" # prevent matching
 
 def construct_query(q):
-	q = " ".join(tointernal.normalize(t) for t in q.split()
+	q = " ".join(tei2internal.normalize(t) for t in q.split()
 		if t not in ("AND", "OR", "NOT"))
 	if q:
 		q = parse_query(q)

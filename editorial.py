@@ -1,4 +1,4 @@
-from dharma import tree, common, langs, texts, tointernal
+from dharma import tree, common, langs, texts, tei2internal
 import bs4, copy
 
 tpl = """
@@ -13,7 +13,7 @@ def parse_xml(context, code):
 	t = tree.parse_string(tpl.format(context=context, code=code), path="whatever")
 	langs.assign_languages(t)
 	html = tree.html_format(t.first(f"//div[@type='{context}']"), skip_root=True)
-	p = tointernal.Parser(t)
+	p = tei2internal.Parser(t)
 	p.dispatch_children(t.root)
 	if context == "translation":
 		block = p.document.translation[0]

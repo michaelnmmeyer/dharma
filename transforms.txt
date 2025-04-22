@@ -1,0 +1,148 @@
+--- Initial cleanup
+
+class State:
+
+	def __init__(self):
+		self.stack = []
+		self.space = False
+		self.space_before = None
+
+	def handle_string(self, node):
+		match self.space:
+			case True:
+				node = squeeze(node.data.rstrip())
+				if len(node) == 0:
+					return
+				self.stack.append(" ")
+				self.stack.append(node)
+				self.space = None
+			case _:
+				if self.space_before is None and len(node) > 0:
+					self.space_before = node[0].isspace()
+				node = squeeze(node.data.lstrip())
+				if len(node) == 0:
+					return
+				if node[-1].isspace():
+					node = node[:-1]
+					self.stack.append(node)
+					self.space = True
+				self.stack.append(node)
+				self.space = None
+
+	def handle_tag(self, node):
+		match self.space:
+			case True:
+				left_space, repl, right_space = cleanup_tag(node)
+				if left_space is not False:
+					stack.append(" ")
+				if repl:
+					stack.append(repl)
+				return right_space
+			case False:
+				_, repl, right_space = cleanup_tag(node)
+				if repl:
+					stack.append(repl)
+				return right_space
+			case None:
+				left_space, repl, right_space = cleanup_tag(node)
+				if left_space:
+					stack.append(" ")
+				if repl:
+					stack.append(repl)
+				return right_space
+
+
+stack = []
+space_before = None
+space = False
+for node in root:
+	match node:
+		case tree.String():
+			space = handle_string(node, space, stack)
+		case tree.Tag():
+			space = handle_tag(node, space, stack)
+
+match root.name:
+	case "npage" | "nline" | "ncell" | "document":
+		node = tree.Tag(root.name, **root.attrs.copy())
+		node.extend(stack)
+	case _:
+		if stack:
+			node = tree.Tag(root.name, **root.attrs.copy())
+		else:
+			node = None
+match root.name:
+	case "note":
+		return True, node, None
+	case "npage" | "nline" | "ncell":
+		return False, node, False
+	case "span" | "link":
+		return state.star_space, node, space or None
+	case _:
+		return None, node, None
+
+
+
+drop: remove spaces until we end up on a string, then -> none
+
+	note:
+		(drop, none)
+
+	npage | nline | ncell:
+		(drop, drop)
+
+	span | link:
+		(none | add, none | add)
+
+	*:
+		(none, none)
+
+kill empty nodes except: npage | nline | ncell | document
+
+--- Once this is done:
+
+push milestones forward, stick them to the left of the next string node. but create paragraphs to store them if we have blank. keep these paragraphs for logical, remove them for physical.
+
+While parsing a paragraph: if we have a list, dlist or quote, move it one step up. They should be paragraph-level items.
+
+number notes. will need this for rendering properly notes within the edition.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+new elements:
+
+¶ data fields: title, author, editor
+(these elements should not contain paragraphs)
+
+¶ divisions: summary, hand, edition, apparatus, translation, commentary, bibliography, div (all their children strings should be removed)
+
+¶ para-like: para verse(>verse-line) head quote
+
+¶ para containers: dlist(>(key, value)) list(>item) note
+
+¶ sub-paragraphs divisions: item, key, value, verse-line
+(can only contain inline)
+
+¶ inline: span link
+
+¶ milestones: npage nline ncell

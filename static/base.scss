@@ -46,6 +46,16 @@ $border-radius: 0.3em;
 	font-style: initial;
 }
 
+@mixin sup {
+	vertical-align: baseline;
+	position: relative;
+	top: -0.4em;
+}
+
+@mixin sub {
+	vertical-align: sub;
+}
+
 a {
 	text-decoration: none;
 }
@@ -159,8 +169,10 @@ a.nav-link {
 .italics {
 	font-style: italic;
 }
-.invalid-link {
+.invalid {
 	color: red;
+	text-decoration-line: underline;
+	text-decoration-style: wavy;
 }
 .text-id, .repo-id, .member-id, .commit-hash, .url {
 	@include monospace;
@@ -579,9 +591,7 @@ div.parallel-verse > p {
 }
 
 sup {
-	vertical-align: baseline;
-	position: relative;
-	top: -0.4em;
+	@include sup;
 }
 
 /***************************************** Lists ******************************/

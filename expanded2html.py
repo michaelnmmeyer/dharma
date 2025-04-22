@@ -250,7 +250,7 @@ def render_verse(self, node):
 @handler("*")
 def render_tag(self, node):
 	assert isinstance(node, tree.Tag)
-	print(f"tohtml: UNKNOWN: {node.name}", file=sys.stderr)
+	print(f"expanded2html: UNKNOWN: {node.name}", file=sys.stderr)
 
 class HTMLDocument:
 

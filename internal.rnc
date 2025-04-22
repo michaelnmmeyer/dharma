@@ -1,0 +1,125 @@
+default namespace = ""
+
+start =
+  element document {
+    identifier,
+    element repository { identifier },
+    element valid { xsd:boolean },
+    element title { (text | note | span)+ }?,
+    element editor { name, identifier? }*,
+    element summary { para+ }?,
+    element hand { para+ }?,
+    element edition-languages {
+      element language { name, identifier }+
+    },
+    element edition {
+      (text
+       | \div
+       | head
+       | ncell
+       | nline
+       | npage
+       | para
+       | span
+       | verse)+
+    }?,
+    element apparatus {
+      (text | \div | head | link | nline | npage | para | span)+
+    }?,
+    element translation {
+      head, \div*, npage?, (note | para | span | verse)*
+    }*,
+    element commentary { head, (para | verse)*, \div* }?,
+    element bibliography { head, para*, \div*, span? }?
+  }
+identifier = element identifier { text }
+note = element note { (text | link | para | span)+ }
+span =
+  element span {
+    attribute class { text }?,
+    attribute standalone { xsd:boolean }?,
+    attribute style { xsd:anyURI }?,
+    attribute tip { text }?,
+    (text | link | ncell | nline | note | npage | numeral | span)+
+  }
+name = element name { text }
+para =
+  element para {
+    attribute anchor { text }?,
+    attribute class { xsd:NCName }?,
+    (text
+     | link
+     | \list
+     | ncell
+     | nline
+     | note
+     | npage
+     | numeral
+     | span
+     | verse
+     | verse-line
+     | element dlist {
+         (element key { (text | span)+ }
+          | element value { (text | note | span)+ })+
+       }
+     | element quote { (text | span | verse)+ })+
+  }
+head = element head { (text | link | note | span)+ }
+\div =
+  element div {
+    (text
+     | \div
+     | head
+     | \list
+     | ncell
+     | nline
+     | npage
+     | para
+     | span
+     | verse)+
+  }
+nline =
+  element nline {
+    attribute break { xsd:boolean },
+    span
+  }
+verse =
+  element verse {
+    (text
+     | link
+     | nline
+     | note
+     | npage
+     | span
+     | verse-line
+     | element verse-head { (text | link | span)+ })+
+  }
+ncell =
+  element ncell {
+    attribute break { xsd:boolean },
+    span
+  }
+npage =
+  element npage {
+    attribute break { xsd:boolean },
+    span+
+  }
+link =
+  element link {
+    attribute href { text }?,
+    (text | span)+
+  }
+numeral = element numeral { text }
+\list =
+  element list {
+    attribute type { xsd:NCName },
+    element item {
+      (text | link | \list | nline | note | npage | para | span)+
+    }+
+  }
+verse-line =
+  element verse-line {
+    attribute n { xsd:NMTOKEN }?,
+    attribute tip { text }?,
+    (text | ncell | nline | note | npage | span)+
+  }

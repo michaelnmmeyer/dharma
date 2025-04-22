@@ -275,10 +275,11 @@ function initFlashing() {
 		// Assume in seconds
 		flashDuration *= 1000
 	}
+	// Annotate invalid links viz. links that don't have a target.
 	for (let node of document.querySelectorAll("a")) {
 		node.addEventListener("click", handleClick)
 		if (!node.getAttribute("href"))
-			node.classList.add("invalid-link")
+			node.classList.add("invalid")
 	}
 	let frag = window.location.hash
 	if (!frag)
