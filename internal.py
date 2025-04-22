@@ -191,25 +191,99 @@ def cleanup_tree(root):
 	if not t.empty:
 		return t
 
-def cleanup_tag(node):
+
+
+
+
+def squeeze(s):
+	return re.sub(r"\s+", " ", s)
+
+def handle_string(buf, space, node):
+	match space:
+		case "add":
+			text = squeeze(node.data.lstrip())
+			if len(text) == 0:
+				return "add"
+			buf.append(" ")
+			if text[-1].isspace():
+				text = text[:-1]
+				buf.append(text)
+				return "add"
+			buf.append(text)
+			return "none"
+		case "drop":
+			text = squeeze(node.data.lstrip())
+			if len(text) == 0:
+				return "drop"
+			if text[-1].isspace():
+				text = text[:-1]
+				buf.append(text)
+				return "add"
+			buf.append(text)
+			return "none"
+		case "none":
+			text = squeeze(node.data.lstrip())
+			if len(text) == 0:
+				assert len(node) > 0
+				return "add"
+			if text[0].isspace():
+				buf.append(" ")
+				text = text[1:]
+			if text[-1].isspace():
+				text = text[:-1]
+				buf.append(text)
+				return "add"
+			buf.append(text)
+			return "none"
+
+def handle_tag(buf, space, node):
+	left_space, repl, right_space = handle_subtree(node)
+	match space:
+		case "add":
+			match left_space:
+				case "add" | "none":
+					buf.append(" ")
+		case "drop":
+			if len(buf) > 0:
+				match buf[-1]:
+					case tree.String(data=" "):
+						buf.pop()
+		case "none":
+			match left_space:
+				case "add":
+					buf.append(" ")
+	if repl:
+		buf.append(repl)
 	match node.name:
-		case "note"
+		case "note":
+			return "drop", space
+		case "npage" | "nline" | "ncell":
+			return "drop", "drop"
+		case "span" | "link":
+			return left_space, right_space
+		case _:
+			return "none", "none"
 
-def cleanup_node(node):
-	match node:
-		case tree.Tag():
-			return cleanup_node(node)
-		case tree.String():
-			assert len(node) > 0
-			return node.lstrip()
-
+def handle_subtree(root):
+	buf = tree.Tag(root.name, **root.attrs)
+	space = "drop"
+	if len(root) > 0:
+		match (node := root[0]):
+			case tree.String():
+				left_space = space = handle_string(buf, space, node)
+			case tree.Tag():
+				left_space, space = handle_tag(buf, space, node)
+		for node in root[1:]:
+			match node:
+				case tree.String():
+					space = handle_string(buf, space, node)
+				case tree.Tag():
+					_, space = handle_tag(buf, space, node)
+	return left_space, buf, space
 
 def cleanup(doc: tree.Tree):
-	# MUST be coalesced
-	for node in doc:
-		match node:
-			case tree.Tag():
-				cleanup_node(node)
+	# MUST be coalesced XXX add assertions
+	return handle_subtree(doc.root)
 
 """
 preprocessing for logical and full:

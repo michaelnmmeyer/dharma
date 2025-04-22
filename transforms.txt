@@ -1,66 +1,58 @@
---- Initial cleanup
+might be more convenient to replace sequences of spaces with <space/>. then, make a list of all strings in the tree. iterate over these strings. when there are consecutive spaces, delete the new spaces. if we are on a space
 
-class State:
-
-	def __init__(self):
-		self.stack = []
-		self.space = False
-		self.space_before = None
-
-	def handle_string(self, node):
-		match self.space:
-			case True:
-				node = squeeze(node.data.rstrip())
-				if len(node) == 0:
-					return
-				self.stack.append(" ")
-				self.stack.append(node)
-				self.space = None
-			case _:
-				if self.space_before is None and len(node) > 0:
-					self.space_before = node[0].isspace()
-				node = squeeze(node.data.lstrip())
-				if len(node) == 0:
-					return
-				if node[-1].isspace():
-					node = node[:-1]
-					self.stack.append(node)
-					self.space = True
-				self.stack.append(node)
-				self.space = None
-
-	def handle_tag(self, node):
-		match self.space:
-			case True:
-				left_space, repl, right_space = cleanup_tag(node)
-				if left_space is not False:
-					stack.append(" ")
-				if repl:
-					stack.append(repl)
-				return right_space
-			case False:
-				_, repl, right_space = cleanup_tag(node)
-				if repl:
-					stack.append(repl)
-				return right_space
-			case None:
-				left_space, repl, right_space = cleanup_tag(node)
-				if left_space:
-					stack.append(" ")
-				if repl:
-					stack.append(repl)
-				return right_space
+wait before emitting each
 
 
-stack = []
-space_before = None
-space = False
-for node in root:
-	match node:
-		case tree.String():
-			space = handle_string(node, space, stack)
-		case tree.Tag():
-			space = handle_tag(node, space, stack)
+
+
+
+
+all nodes must be squeezed. but spacing outside of nodes must be taken care of.
+
+drop > none > add
+
+	note:
+		(drop, none)
+
+	npage | nline | ncell:
+		(drop, drop)
+
+	span | link:
+		(none | add, none | add)
+
+	*:
+		(none, none)
+
+kill empty nodes except: npage | nline | ncell | document
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 match root.name:
 	case "npage" | "nline" | "ncell" | "document":
@@ -83,6 +75,7 @@ match root.name:
 
 
 
+<<<<<<< HEAD
 drop: remove spaces until we end up on a string, then -> none
 
 	note:
@@ -98,6 +91,10 @@ drop: remove spaces until we end up on a string, then -> none
 		(none, none)
 
 kill empty nodes except: npage | nline | ncell | document
+=======
+
+
+>>>>>>> d1ea7878 (Refactoring)
 
 --- Once this is done:
 
