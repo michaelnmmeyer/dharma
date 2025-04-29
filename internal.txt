@@ -1,0 +1,43 @@
+document: metadata_fields main_division
+
+metadata_fields =
+	identifier?
+	repository?
+	title?
+	editor?
+	summary?
+	hand?
+
+main_divisions:
+	edition?
+	apparatus?
+	translation*
+	commentary?
+	bibliography?
+
+edition: division
+apparatus: division
+translation: division
+commentary: division
+bibliography: division
+div: division
+
+division: head division_contents
+
+para_like: para | verse | quote | dlist | list
+milestone: npage | nline | ncell
+
+inline = span | link | TEXT
+
+
+
+
+¶ data fields: title, author, editor
+(these elements should not contain paragraphs)
+¶ divisions: summary, hand, edition, apparatus, translation, commentary,
+bibliography, div
+(all their children strings should be removed)
+¶ para-like: para verse(>verse-line) head quote
+¶ para containers: dlist(>(key, value)) list(>item) note
+¶ sub-paragraphs divisions: item, key, value, verse-line
+(can only contain inline)

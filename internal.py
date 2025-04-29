@@ -1,202 +1,87 @@
 import re
 from dharma import tree
 
-def trim_left(strings):
-	trimmed = False
-	while strings:
-		s = strings[0]
-		if len(s) == 0 or s.isspace():
-			if len(s) > 0:
-				trimmed = True
-			s.delete()
-			del strings[0]
-			continue
-		if s[0].isspace():
-			trimmed = True
-			t = tree.String(s.data.lstrip())
-			s.replace_with(t)
-			strings[0] = t
-		break
-	return trimmed
+# Summary of new elements:
+#
+# ¶ data fields: title, author, editor
+# (these elements should not contain paragraphs)
+#
+# ¶ divisions: summary, hand, edition, apparatus, translation, commentary,
+# bibliography, div
+# (all their children strings should be removed)
+#
+# ¶ para-like: para verse(>verse-line) head quote
+#
+# ¶ para containers: dlist(>(key, value)) list(>item) note
+#
+# ¶ sub-paragraphs divisions: item, key, value, verse-line
+# (can only contain inline)
+#
+# ¶ inline: span link
+#
+# ¶ milestones: npage nline ncell
 
-def trim_right(strings):
-	trimmed = False
-	while strings:
-		s = strings[-1]
-		if len(s) == 0 or s.isspace():
-			if len(s) > 0:
-				trimmed = True
-			s.delete()
-			strings.pop()
-			continue
-		if s[-1].isspace():
-			trimmed = True
-			t = tree.String(s.data.rstrip())
-			s.replace_with(t)
-			strings[-1] = t
-		break
-	return trimmed
+# Whitespace fixing
+#
+# We basically do what follows. We remove spaces at the beginning and at the end
+# of each; furthermore, we squeeze spaces (collapse sequences of spaces into a
+# single space).
+#
+# We transfer spaces at the beginning and at the end of a subtree to the parent
+# element, recursively. Thus,
+#
+#	<para>foo<span><link> bar</link></span></para>
+#
+# is turned into:
+#
+#	<para>foo <span><link>bar</link></span></para>
+#
+# We only do that for "span" and "link" (inline tags, per contrast with
+# block-level ones). For "note" tags, we drop preceding whitespace. For all
+# other tags, we drop spaces both before and after them.
+#
+# Finally, we delete all empty elements except the tree's root viz. "document"
+# and milestones.
 
-def trim_before(node):
-	parent = node.parent
-	i = parent.index(node)
-	if i > 0 and isinstance(parent[i - 1], tree.String) and parent[i - 1].endswith(" "):
-		parent[i - 1].replace_with(parent[i - 1].data.rstrip())
+def fix_spaces(doc: tree.Tree):
+	_, root, _ = handle_subtree(doc.root)
+	doc.root.replace_with(root)
+	return doc
 
-def squeeze(strings):
-	i = 0
-	while i < len(strings):
-		s = strings[i]
-		if len(s) == 0:
-			s.delete()
-			del strings[i]
-			continue
-		ret = re.sub(r"\s+", " ", s.data)
-		if ret[0] == " " and i > 0 and strings[i - 1].endswith(" "):
-			ret = ret[1:]
-		if ret != s.data:
-			s.replace_with(tree.String(ret))
-			strings[i] = ret
-		i += 1
-
-def traverse_milestones(root):
-	match root:
-		case tree.Tag() if root.name in ("npage", "nline", "ncell"):
-			yield root
-		case tree.Tag() | tree.Tree():
-			for node in root:
-				yield from traverse_milestones(node)
-
-def complete_milestones(t):
-	stack = []
-	nodes = list(traverse_milestones(t))
-	#XXX TODO
-	return t
-
-
-
-
-
-
-
-def impossible(node):
-	if isinstance(node, tree.Branch):
-		print("BAD", node.path, file=sys.stderr)
-	else:
-		print("BAD", node, file=sys.stderr)
-	node.delete()
-
-def full_squeeze(node):
-	strings = node.strings()
-	trim_left(strings)
-	trim_right(strings)
-	squeeze(strings)
-
-def cleanup_inline(root):
-	for node in list(root):
-		match node:
-			case tree.String():
-				yield node
-			case tree.Tag(name="span") | tree.Tag(name="link"):
-				yield node
-
-def cleanup_paras(root):
-	for node in list(root):
-		match node:
-			case tree.Tag(name="para"):
-				yield from cleanup_para(node)
-
-def cleanup_para(root):
+# space is one of "add", "drop", "keep".
+# * add: a space character should be added here, but if preceded by drop, then
+# don't add one.
+# * drop: remove all following spaces
+# * keep: preserve whitespace in the output
+def handle_subtree(root: tree.Tag):
+	buf = tree.Tag(root.name, **root.attrs)
+	left_space = "keep"
+	space = "drop"
+	first = True
 	for node in root:
 		match node:
-			case tree.Tag(name="list"):
-				pass # TODO
-			case tree.Tag(name="dlist"):
-				pass # TODO
-			case tree.Tag(name="quote"):
-				pass # TODO
 			case tree.String():
+				if first:
+					if len(node) == 0:
+						continue
+					left_space = space = handle_string(buf, space, node)
+					first = False
+				else:
+					space = handle_string(buf, space, node)
+			case tree.Tag():
+				if first:
+					left_space, space = handle_tag(buf, space, node)
+					first = False
+				else:
+					_, space = handle_tag(buf, space, node)
+	# Delete all empty nodes except the root tag and milestones.
+	if len(buf) == 0:
+		match root.name:
+			case "npage" | "nline" | "ncell" | "document":
 				pass
-			case tree.Tag(name="span") | tree.Tag(name="link"):
-				pass
-
-def cleanup_division(root):
-	itor = iter(list(root))
-	for node in itor:
-		match node:
-			case tree.Tag(name="head"):
-				yield from cleanup_inline(node)
-				break
-	for node in itor:
-		if not isinstance(node, tree.Tag):
-			continue
-		match node.name:
-			case "div":
-				yield from cleanup_division(node)
-			case "para" | "verse":
-				yield from cleanup_para(node)
-			case "npage" | "nline" | "ncell":
-				pass # TODO
-
-def cleanup_plain(root):
-	for node in list(root):
-		match node:
-			case tree.String():
-				yield node
-
-def cleanup_person(node):
-	pass
-
-def cleanup_document(root):
-	for node in root:
-		if not isinstance(node, tree.Tag):
-			continue
-		match node.name:
-			case "title":
-				yield from cleanup_inline(node)
-			case "author" | "editor":
-				yield from cleanup_person(node)
-			case "repository" | "identifier":
-				yield from cleanup_plain(node)
-			case "summary" | "hand":
-				yield from cleanup_paras(node)
-			case "edition" | "apparatus" | "translation" | \
-				"commentary" | "bibliography":
-				yield from cleanup_division(node)
-
-def cleanup_tree(root):
-	for node in root:
-		match node:
-			case tree.Tag(name="document"):
-				yield from cleanup_document(node)
-	return
-
-	# TODO delete comments + processing instr
-	for node in t.find("//div") + t.find("//verse"):
-		for child in node:
-			if not isinstance(child, tree.Tag):
-				child.delete()
-	for node in t.find("//note"):
-		if node.empty:
-			node.delete()
-	for node in t.find("//para") + t.find("//head"):
-		strings = node.strings()
-		trim_left(strings)
-		trim_right(strings)
-		squeeze(strings)
-		if node.empty:
-			node.delete()
-	for node in t.find("//*[name() = 'npage' or name() = 'nline' or name() = 'ncell']"):
-		trim_before(node)
-	if not t.empty:
-		return t
-
-
-
-
-
-def squeeze(s):
-	return re.sub(r"\s+", " ", s)
+			case _:
+				buf = None
+	return left_space, buf, space
 
 def handle_string(buf, space, node):
 	match space:
@@ -204,86 +89,66 @@ def handle_string(buf, space, node):
 			text = squeeze(node.data.lstrip())
 			if len(text) == 0:
 				return "add"
-			buf.append(" ")
-			if text[-1].isspace():
-				text = text[:-1]
-				buf.append(text)
-				return "add"
-			buf.append(text)
-			return "none"
+			add_space(buf)
 		case "drop":
 			text = squeeze(node.data.lstrip())
 			if len(text) == 0:
 				return "drop"
-			if text[-1].isspace():
-				text = text[:-1]
-				buf.append(text)
-				return "add"
-			buf.append(text)
-			return "none"
-		case "none":
-			text = squeeze(node.data.lstrip())
+		case "keep":
+			text = squeeze(node.data)
 			if len(text) == 0:
-				assert len(node) > 0
+				return "keep"
+			if text == " ":
 				return "add"
 			if text[0].isspace():
-				buf.append(" ")
+				add_space(buf)
 				text = text[1:]
-			if text[-1].isspace():
-				text = text[:-1]
-				buf.append(text)
-				return "add"
-			buf.append(text)
-			return "none"
+	if text[-1].isspace():
+		text = text[:-1]
+		buf.append(text)
+		return "add"
+	buf.append(text)
+	return "keep"
 
 def handle_tag(buf, space, node):
 	left_space, repl, right_space = handle_subtree(node)
-	match space:
-		case "add":
-			match left_space:
-				case "add" | "none":
-					buf.append(" ")
-		case "drop":
-			if len(buf) > 0:
-				match buf[-1]:
-					case tree.String(data=" "):
-						buf.pop()
-		case "none":
-			match left_space:
-				case "add":
-					buf.append(" ")
+	if len(buf) > 0:
+		match space:
+			case "add":
+				match left_space:
+					case "add" | "keep":
+						add_space(buf)
+			case "drop":
+				if is_space(buf[-1]):
+					buf.pop()
+			case "keep":
+				match left_space:
+					case "add":
+						add_space(buf)
 	if repl:
 		buf.append(repl)
 	match node.name:
 		case "note":
 			return "drop", space
-		case "npage" | "nline" | "ncell":
-			return "drop", "drop"
 		case "span" | "link":
 			return left_space, right_space
 		case _:
-			return "none", "none"
+			return "drop", "drop"
 
-def handle_subtree(root):
-	buf = tree.Tag(root.name, **root.attrs)
-	space = "drop"
-	if len(root) > 0:
-		match (node := root[0]):
-			case tree.String():
-				left_space = space = handle_string(buf, space, node)
-			case tree.Tag():
-				left_space, space = handle_tag(buf, space, node)
-		for node in root[1:]:
-			match node:
-				case tree.String():
-					space = handle_string(buf, space, node)
-				case tree.Tag():
-					_, space = handle_tag(buf, space, node)
-	return left_space, buf, space
+def squeeze(s):
+	return re.sub(r"\s+", " ", s)
 
-def cleanup(doc: tree.Tree):
-	# MUST be coalesced XXX add assertions
-	return handle_subtree(doc.root)
+def add_space(buf):
+	#buf.append(tree.Tag("space"))
+	buf.append(" ")
+
+def is_space(node):
+	# match node:
+	# 	case tree.Tag(name_="space"):
+	# 		return True
+	# 	case _:
+	# 		return False
+	return isinstance(node, str) and str(node) == " "
 
 """
 preprocessing for logical and full:
@@ -422,7 +287,24 @@ def to_full(t):
 	return t
 
 if __name__ == "__main__":
-	import sys
-	t = tree.parse(sys.stdin)
-	cleanup(t)
-	sys.stdout.write(t.xml())
+	import os, sys
+	from dharma import tei2internal, common, texts
+
+	@common.transaction("texts")
+	def main():
+		path = os.path.abspath(sys.argv[1])
+		f = texts.File("/", path)
+		doc = tei2internal.process_file(f)
+		t = doc.serialize()
+		t = fix_spaces(t)
+		sys.stdout.write(t.xml())
+
+	try:
+		main()
+	except BrokenPipeError:
+		pass
+
+
+
+
+

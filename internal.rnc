@@ -30,7 +30,7 @@ start =
       head, \div*, npage?, (note | para | span | verse)*
     }*,
     element commentary { head, (para | verse)*, \div* }?,
-    element bibliography { head, para*, \div*, span? }?
+    element bibliography { head, para*, \div*, (link | span)* }?
   }
 identifier = element identifier { text }
 note = element note { (text | link | para | span)+ }
@@ -55,6 +55,7 @@ para =
      | note
      | npage
      | numeral
+     | para
      | span
      | verse
      | verse-line
@@ -119,7 +120,13 @@ numeral = element numeral { text }
   }
 verse-line =
   element verse-line {
-    attribute n { xsd:NMTOKEN }?,
+    attribute n { text }?,
     attribute tip { text }?,
-    (text | ncell | nline | note | npage | span)+
+    (text
+     | ncell
+     | nline
+     | note
+     | npage
+     | span
+     | element break { empty })+
   }

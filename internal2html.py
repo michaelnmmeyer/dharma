@@ -250,7 +250,7 @@ def render_verse(self, node):
 @handler("*")
 def render_tag(self, node):
 	assert isinstance(node, tree.Tag)
-	print(f"expanded2html: UNKNOWN: {node.name}", file=sys.stderr)
+	print(f"internal2html: UNKNOWN: {node.name}", file=sys.stderr)
 
 class HTMLDocument:
 
@@ -320,13 +320,13 @@ def process_partial(xml):
 
 if __name__ == "__main__":
 	import os
-	from dharma import texts, tointernal, common
+	from dharma import texts, tei2internal, common
 	@common.transaction("texts")
 	def main():
 		path = os.path.abspath(sys.argv[1])
 		try:
 			f = texts.File("/", path)
-			doc = tointernal.process_file(f)
+			doc = tei2internal.process_file(f)
 			html = doc.to_html()
 			print(html.body.html())
 		except BrokenPipeError:

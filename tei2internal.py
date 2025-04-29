@@ -179,8 +179,8 @@ class Document:
 		return f.tree
 
 	def to_html(self):
-		from dharma import expanded2html
-		return expanded2html.process(self.serialize())
+		from dharma import internal2html
+		return internal2html.process(self.serialize())
 
 def XML(s):
 	r = tree.parse_string(f"<root>{s}</root>")
@@ -1864,7 +1864,6 @@ def process_file(file, mode=None):
 	# in the file, because this div might itself reference bibliography
 	# entries. We thus need to go directly for the listBibl/bibl items.
 	gather_biblio(p)
-	# XXX shouldn't need to add a root Tree just for whitespace
 	p.push(tree.Tree())
 	p.dispatch(p.document.tree.root)
 	ed_langs = set()

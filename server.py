@@ -2,7 +2,7 @@ import os, unicodedata, datetime, html, urllib
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
 from dharma import common, change, ngrams, catalog, validate, tei2internal
-from dharma import biblio, texts, editorial, prosody, expanded2html
+from dharma import biblio, texts, editorial, prosody, internal2html
 
 # We don't use the name "templates" for the template folder because we also
 # put other stuff in the same directory, not just templates.
@@ -484,7 +484,7 @@ def display_biblio_page(page):
 		order by sort_key limit ? offset ?""",
 		(BIBLIO_PER_PAGE, (page - 1) * BIBLIO_PER_PAGE)):
 		entry = biblio.format_entry(entry)
-		entries.append(expanded2html.process_partial(entry))
+		entries.append(internal2html.process_partial(entry))
 	first_entry = (page - 1) * BIBLIO_PER_PAGE + 1
 	if first_entry > entries_nr:
 		first_entry = 0

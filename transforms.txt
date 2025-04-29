@@ -1,7 +1,8 @@
-might be more convenient to replace sequences of spaces with <space/>. then, make a list of all strings in the tree. iterate over these strings. when there are consecutive spaces, delete the new spaces. if we are on a space
+Cleanup whitespace and empty elements -- OK
 
-wait before emitting each
+remove unknown elements in appropriate contexts.
 
+<<<<<<< HEAD
 
 
 
@@ -97,49 +98,10 @@ kill empty nodes except: npage | nline | ncell | document
 >>>>>>> d1ea7878 (Refactoring)
 
 --- Once this is done:
+=======
+while parsing a paragraph: if we have a list, dlist or quote, move it one step up. They should be paragraph-level items.
+>>>>>>> d2fd9e03 (Refactoring)
 
 push milestones forward, stick them to the left of the next string node. but create paragraphs to store them if we have blank. keep these paragraphs for logical, remove them for physical.
 
-While parsing a paragraph: if we have a list, dlist or quote, move it one step up. They should be paragraph-level items.
-
 number notes. will need this for rendering properly notes within the edition.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-
-new elements:
-
-¶ data fields: title, author, editor
-(these elements should not contain paragraphs)
-
-¶ divisions: summary, hand, edition, apparatus, translation, commentary, bibliography, div (all their children strings should be removed)
-
-¶ para-like: para verse(>verse-line) head quote
-
-¶ para containers: dlist(>(key, value)) list(>item) note
-
-¶ sub-paragraphs divisions: item, key, value, verse-line
-(can only contain inline)
-
-¶ inline: span link
-
-¶ milestones: npage nline ncell
