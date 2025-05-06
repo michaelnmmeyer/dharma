@@ -50,7 +50,8 @@ class Submenu {
 		this.visible = false
 		this.button = node.querySelector("a")
 		this.icon = this.button.querySelector("i")
-		this.button.addEventListener("click", () => {
+		this.button.addEventListener("click", (event) => {
+			event.preventDefault()
 			this.toggle()
 		}, false)
 		this.cleanup = null
@@ -275,8 +276,10 @@ function initFlashing() {
 		// Assume in seconds
 		flashDuration *= 1000
 	}
-	// Annotate invalid links viz. links that don't have a target.
-	for (let node of document.querySelectorAll("a")) {
+	// Annotate invalid links viz. links that don't have a target. Only do
+	// this in the sidebar and in the menu (we use links without href in the
+	// menu)
+	for (let node of document.querySelectorAll("main a, #sidebar a")) {
 		node.addEventListener("click", handleClick)
 		if (!node.getAttribute("href"))
 			node.classList.add("invalid")

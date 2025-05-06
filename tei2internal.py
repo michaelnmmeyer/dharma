@@ -17,7 +17,7 @@
 
 import os, sys, re, html, urllib.parse, posixpath, copy, unicodedata
 import dataclasses
-from dharma import common, prosody, people, tree, gaiji, biblio, langs
+from dharma import common, prosody, people, tree, gaiji, biblio, langs, internal
 
 # Turns some object (strings, list of strings or None) into a searchable string.
 def normalize(s):
@@ -71,18 +71,6 @@ class Document:
 	# "part:xxxx" and name is a string.  dharma_id can be None
 	authors: list[(str, str)] = init(list)
 	editors: list[(str, str)] = init(list)
-
-	## Biblio stuff
-	# Map of biblio short titles -> bibliography entries. Only
-	# includes bibliography entries that appear in the
-	# div[@type='bibliography'].
-	bib_entries: dict[str, tree.Tree] = init(dict)
-	# Like bib_entries, but for bibliography entries that are
-	# referred to in the file but that do not appear in the
-	# div[@type='bibliography'].
-	external_bib_entries: dict[str, tree.Tree] = init(dict)
-	# Map of biblio entry short title (string) -> siglum (string)
-	sigla: dict[str, str] = init(dict)
 
 	def serialize(self):
 		f = tree.Serializer()
@@ -180,7 +168,7 @@ class Document:
 
 	def to_html(self):
 		from dharma import internal2html
-		return internal2html.process(self.serialize())
+		return internal2html.process(internal.fix_spaces(self.serialize()))
 
 def XML(s):
 	r = tree.parse_string(f"<root>{s}</root>")
@@ -209,24 +197,35 @@ class Parser(tree.Serializer):
 		# within handlers.
 		self.visited = set()
 		self._prosody_entries = {}
+		## Biblio stuff
+		# Map of biblio short titles -> bibliography entries. Only
+		# includes bibliography entries that appear in the
+		# div[@type='bibliography'].
+		self.bib_entries: dict[str, tree.Tree] = {}
+		# Like bib_entries, but for bibliography entries that are
+		# referred to in the file but that do not appear in the
+		# div[@type='bibliography'].
+		self.external_bib_entries: dict[str, tree.Tree] = {}
+		# Map of biblio entry short title (string) -> siglum (string)
+		self.sigla: dict[str, str] = {}
 
 	def _get_bib_entry(self, short_title):
 		external = False
-		entry = self.document.bib_entries.get(short_title)
+		entry = self.bib_entries.get(short_title)
 		if not entry:
 			# It should occur in the global bibliography. We cache
 			# the result to ensure we only perform a single database
 			# lookup.
 			external = True
-			entry = self.document.external_bib_entries.get(short_title)
+			entry = self.external_bib_entries.get(short_title)
 			if not entry:
 				entry = biblio.lookup_entry(short_title)
-				self.document.external_bib_entries[short_title] = entry
+				self.external_bib_entries[short_title] = entry
 		return entry, external
 
 	def bib_entry(self, short_title, location=[]):
 		assert short_title
-		entry = self.document.bib_entries.get(short_title)
+		entry = self.bib_entries.get(short_title)
 		if not entry:
 			if biblio.unsupported_entry(short_title):
 				tip = "Unsupported entry type"
@@ -237,7 +236,7 @@ class Parser(tree.Serializer):
 			ret = tree.Tag("para", class_="hanging")
 			ret.append(span)
 			return ret
-		siglum = self.document.sigla.get(short_title)
+		siglum = self.sigla.get(short_title)
 		# XXX warn about duplicate entries
 		return biblio.format_entry(entry, location=location, siglum=siglum)
 
@@ -257,7 +256,7 @@ class Parser(tree.Serializer):
 			ref.append(span)
 			return ref
 		ref = biblio.format_reference(entry, rend=rend, location=location,
-			siglum=self.document.sigla.get(short_title),
+			siglum=self.sigla.get(short_title),
 			external_link=external,
 			contents=contents)
 		return ref
@@ -1357,8 +1356,8 @@ def make_meter_heading(p, met):
 	p.join()
 	return p.pop()
 
-# The guide does not talk about ab[@rend='stanza'], but still try to process it
-# if it appears in an edition.
+# The guide does not talk about ab[@rend='stanza'], but we still try to process
+# it if it appears in an edition.
 @handler("lg")
 @handler("p[@rend='stanza']")
 @handler("ab[@rend='stanza']")
@@ -1382,7 +1381,15 @@ def parse_lg(p, lg):
 			assert met
 			p.append(met)
 		p.join()
-	p.dispatch_children(lg)
+	# Ensure that we always have at least one verse-line. Note that people
+	# do use <l> within <p rend="stanza"> in the traduction, so we do it
+	# even for <p>, not just <lg>.
+	if not lg.first("l"):
+		p.push(tree.Tag("verse-line"))
+		p.dispatch_children(lg)
+		p.join()
+	else:
+		p.dispatch_children(lg)
 	p.join()
 
 # As far as we're concerned, <ab> is just a <p>, so we treat them identically.
@@ -1723,15 +1730,15 @@ def gather_biblio(p):
 			# The same siglum might erroneously be used for several
 			# entries. In this case, map it to the first one (since
 			# this is what we are doing with duplicate short titles).
-			p.document.sigla.setdefault(short_title, siglum)
+			p.sigla.setdefault(short_title, siglum)
 		# The same short title might be used in several bibliographic
 		# entries, possibly with different sigla, page ranges, etc.,
 		# even though this is forbidden by the schema. If this happens,
 		# we will just display the duplicates, but we should also take
 		# care not to generate duplicate anchors in the HTML. XXX not done so far
-		if short_title not in p.document.bib_entries:
+		if short_title not in p.bib_entries:
 			entry = biblio.lookup_entry(short_title)
-			p.document.bib_entries[short_title] = entry
+			p.bib_entries[short_title] = entry
 
 # Within inscriptions, <div> shouldn't nest, except that we can have
 # <div type="textpart"> within <div type="edition">.

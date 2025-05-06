@@ -151,28 +151,7 @@ def is_space(node):
 	return isinstance(node, str) and str(node) == " "
 
 """
-preprocessing for logical and full:
-	complete pbs, etc.
-	find a convention for the placement of pbs, etc. (beginning of node and end of previous node? within which container? etc.)
-
 for physical:
-
-traverse the tree in order, and make a stack of:
-	npage
-	nline
-	ncell
-we will have to allocate phantom pages/lines/cells, when a) the encoding is incorrect b) the encoding is correct but a category is missing. it is best to keep these phantom elements in the output than to remove them, for search.
-
-except that if they occur within one of these, leave them as-is (viz. replace them with an inline annotation <1>, etc.).
-	head
-	note
-
-we can't really tell whether numbering is continuous between textparts or not, so if we have:
-	<pb n=X>foo<div type="textpart">bar<pb n=Z>
-we assume that page X continues in the next textpart (instead of assuming that the next textpart is missing a <pb n=Y> at the very beginning). to represent the fact that page X continues in the next textpart, use a cont=true flag in the first div we generate within the next textpart.
-
-when generating the search representation, not sure what to do with the textpart heading in the middle. might want to index separately the TOC (with all headings)
-and the text (without interruption)
 
 unwrap these elements:
 	para
@@ -198,6 +177,91 @@ The resulting hierarchy must be:
 			<cell>
 				<link>
 				<span>
+"""
+
+
+
+
+
+
+
+
+"""
+use a convention for the placement of pbs, etc.
+
+
+
+furthermore, milestones should only appear at the start of an element. when they are located
+
+---
+
+gather all milestones in a list. then traverse the list.
+
+1) apply placement conventions
+
+for each milestone.
+
+if the milestone appears at the very beginning or end of an element, move the milestone to the parent element as much as possible _but_ stop as soon as the parent is one of: para verse-line item key value quote. milestones should only appear within one of these. in practice, we should only move up from inline elements (span, link), must be checked; probably best to move up only while the parent is an inline (span, link) _and_ while the milestone is at the beginning/end of this inline.
+
+if the milestone is not within one of the milestone-accepting elements, move it forward to the beginning of the next element (viz. following::*, but note that we might leave an empty element if the element only contains the milestone) until this element is one of those that can hold a milestone (but skip <note> and its descendants). exception if the milestone is a ncell and appears at the very end of the edition, in which case leave it where it is.
+
+what about consecutive npages, etc.?
+
+2) complete milestones
+
+nodes = [<npage>, <npage>, etc.]
+insert = first insertion point in <edition> viz. start of first para|verse-line|...
+	when the edition is empty, might not have any insert point;
+	in this case return
+npage = nline = ncell = None
+
+cur = insert
+if cur not immediately followed by a npage
+	insert an npage after it, cur=npage
+else
+	cur = next
+if cur not immediately followed by a nline
+	insert an nline after it, cur=nline
+else
+	cur = next
+if cur not immediately followed by a ncell
+	insert an ncell after it, cur=ncell
+else
+	cur = next
+
+cur = next(nodes)
+if cur is npage
+	if cur not immediately followed by nline
+		insert a nline after it, cur=nline
+	else
+		cur = the following nline
+	if cur not immediately followed by a ncell:
+		insert a ncell after it, cur=ncell
+	else
+		cur = next
+elif cur is nline
+	if cur not immediately followed by a ncell:
+		insert a ncell after it, cur=ncell
+	else
+		cur = next
+elif cur is ncell
+	pass
+
+
+
+---
+
+we have to allocate phantom pages/lines/cells, when a) the encoding is incorrect; b) the encoding is correct but a category is missing. it is best to keep these phantom elements in the output than to remove them, for search.
+
+except that if they occur within "head" or "note, leave them as-is (viz. replace them with <span> and don't consider them meaningful). and also replace them with <span> when they appear outside of the edition
+
+we can't really tell whether numbering is continuous between textparts or not, so if we have:
+	<pb n=X>foo<div type="textpart">bar<pb n=Z>
+we assume that page X continues in the next textpart (instead of assuming that the next textpart is missing a <pb n=Y> at the very beginning). to represent the fact that page X continues in the next textpart, use a cont=true flag in the first div we generate within the next textpart.
+
+when generating the search representation, not sure what to do with the textpart heading in the middle. might want to index separately the TOC (with all headings)
+and the text (without interruption).
+
 """
 
 class PhysicalParser:
@@ -298,13 +362,7 @@ if __name__ == "__main__":
 		t = doc.serialize()
 		t = fix_spaces(t)
 		sys.stdout.write(t.xml())
-
 	try:
 		main()
 	except BrokenPipeError:
 		pass
-
-
-
-
-
