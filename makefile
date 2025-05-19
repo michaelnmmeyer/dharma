@@ -1,4 +1,4 @@
-schemas = $(addprefix schemas/,inscription bestow critical diplomatic prosody tei-epidoc)
+schemas = $(addprefix schemas/,inscription bestow prosody tei-epidoc)
 
 generated_tei = \
 	$(addsuffix .rng,$(schemas)) \
@@ -94,8 +94,6 @@ update-texts: update-repos update-db
 deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
 	cp schemas/inscription.rng repos/project-documentation/schema/latest/DHARMA_Schema.rng
 	cp schemas/bestow.rng repos/project-documentation/schema/latest/DHARMA_BESTOW.rng
-	cp schemas/critical.rng repos/project-documentation/schema/latest/DHARMA_CritEdSchema.rng
-	cp schemas/diplomatic.rng repos/project-documentation/schema/latest/DHARMA_DiplEDSchema.rng
 	cp schemas/prosody.rng repos/project-documentation/schema/latest/DHARMA_ProsodySchema.rng
 	git -C repos/project-documentation commit -am "Schema update" && git -C repos/project-documentation pull && git -C repos/project-documentation push
 
@@ -118,15 +116,6 @@ views/%.tpl: views/%.md
 trang := java -jar jars/trang.jar
 
 inscription.rnc: $(wildcard texts/DHARMA_INS*.xml)
-	$(trang) $^ $@
-
-diplomatic.rnc: $(wildcard texts/DHARMA_DiplEd*.xml)
-	$(trang) $^ $@
-
-critical_translation.rnc: $(wildcard texts/DHARMA_CritEd*_trans*.xml)
-	$(trang) $^ $@
-
-critical_edition.rnc: $(filter-out $(wildcard texts/DHARMA_CritEd*_trans*.xml),$(wildcard texts/DHARMA_CritEd*.xml))
 	$(trang) $^ $@
 
 global.rnc: $(wildcard texts/DHARMA_*.xml)
