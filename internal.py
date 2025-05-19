@@ -183,29 +183,47 @@ The resulting hierarchy must be:
 
 
 
-
-
+def find_milestone_parent(parent):
+	while parent.name in ("span", "link"):
+		parent = parent.parent
+	return parent
 
 """
-use a convention for the placement of pbs, etc.
+Apply placement conventions for each milestone.
 
+milestone-accepting elements: para verse-line item key value quote
+	note that these should *not* overlap
 
+inline elements: span link
 
-furthermore, milestones should only appear at the start of an element. when they are located
+1) If the milestone appears at the very beginning or end of an element, move the milestone before or after (respectively) the parent element, and repeat as much as possible, stopping as soon as the parent is a milestone-accepting element. Milestones should only appear within one of these. In practice, we should only move up from inline elements, but this must be checked. Probably simpler to move it up only while the parent is an inline _and_ while the milestone is at the beginning/end of this inline.
 
----
+2) If the milestone is not within one of the milestone-accepting elements, move it forward to the beginning of the next element (in following::* order), but note that we might leave an empty element if the element only contains the milestone) until this element is a milestone-accepting element (but skip <note> and its descendants). Exception if the milestone is a ncell and appears at the very end of the edition: in this case, leave the milestone where it is.
 
+What about consecutive npages, etc.? We need to create extra <p> for them, but we should do this only when rendering the physical display.
+
+	<para> <span> A <span><npage/>B</span> C </span> </para>
+
+	<para> A <span> B <npage/> </span> </para>
+"""
+def fix_milestones_location(doc: tree.Tree):
+	milestones = doc.find("/document/edition//*[name()='npage' or name()='nline' or name()='ncell' and not ancestor::note]")
+	for mile in milestones:
+		parent = mile.parent
+		while parent.name in ("span", "link"):
+			if parent[0] is mile:
+				parent.insert_before(mile)
+			elif parent[-1] is mile:
+				parent.insert_after(mile)
+			else:
+				break
+			parent = parent.parent
+
+"""
 gather all milestones in a list. then traverse the list.
 
-1) apply placement conventions
-
-for each milestone.
-
-if the milestone appears at the very beginning or end of an element, move the milestone to the parent element as much as possible _but_ stop as soon as the parent is one of: para verse-line item key value quote. milestones should only appear within one of these. in practice, we should only move up from inline elements (span, link), must be checked; probably best to move up only while the parent is an inline (span, link) _and_ while the milestone is at the beginning/end of this inline.
-
-if the milestone is not within one of the milestone-accepting elements, move it forward to the beginning of the next element (viz. following::*, but note that we might leave an empty element if the element only contains the milestone) until this element is one of those that can hold a milestone (but skip <note> and its descendants). exception if the milestone is a ncell and appears at the very end of the edition, in which case leave it where it is.
-
-what about consecutive npages, etc.?
+then
+1) ...
 
 2) complete milestones
 
@@ -361,6 +379,7 @@ if __name__ == "__main__":
 		doc = tei2internal.process_file(f)
 		t = doc.serialize()
 		t = fix_spaces(t)
+		fix_milestones_location(t)
 		sys.stdout.write(t.xml())
 	try:
 		main()
