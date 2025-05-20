@@ -1239,9 +1239,9 @@ def following(node):
 	def inner(nodes):
 		for node in nodes:
 			yield node
-			if isinstance(node, tree.Tag):
+			if isinstance(node, Tag):
 				yield from inner(node)
-	while not isinstance(node, tree.Tree):
+	while not isinstance(node, Tree):
 		parent = node.parent
 		i = parent.index(node)
 		yield from inner(parent[i + 1:])
@@ -1251,9 +1251,9 @@ def preceding(node):
 	def inner(nodes):
 		for node in reversed(nodes):
 			yield node
-			if isinstance(node, tree.Tag):
+			if isinstance(node, Tag):
 				yield from inner(node)
-	while not isinstance(node, tree.Tree):
+	while not isinstance(node, Tree):
 		parent = node.parent
 		i = node.parent.index(node)
 		yield from inner(parent[:i])
@@ -1472,6 +1472,8 @@ class _Generator:
 		for i, step in enumerate(steps):
 			if step.name_test:
 				self.append(f"if isinstance(node, Tag) and node.name == {step.name_test!r}:")
+			else:
+				self.append("if isinstance(node, Tag):")
 			for pred in step.predicates:
 				self.append(f"if {self.generate(pred)}:")
 			if i == len(steps) - 1:
@@ -1547,6 +1549,8 @@ class _Generator:
 				assert 0, repr(step.axis)
 		if step.name_test:
 			self.append(f"if isinstance(node, Tag) and node.name == {step.name_test!r}:")
+		else:
+			self.append("if isinstance(node, Tag):")
 		for pred in step.predicates:
 			self.append(f"if {self.generate(pred)}:")
 

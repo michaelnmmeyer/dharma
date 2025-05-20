@@ -180,14 +180,6 @@ The resulting hierarchy must be:
 """
 
 
-
-
-
-def find_milestone_parent(parent):
-	while parent.name in ("span", "link"):
-		parent = parent.parent
-	return parent
-
 """
 Apply placement conventions for each milestone.
 
@@ -196,28 +188,78 @@ milestone-accepting elements: para verse-line item key value quote
 
 inline elements: span link
 
-1) If the milestone appears at the very beginning or end of an element, move the milestone before or after (respectively) the parent element, and repeat as much as possible, stopping as soon as the parent is a milestone-accepting element. Milestones should only appear within one of these. In practice, we should only move up from inline elements, but this must be checked. Probably simpler to move it up only while the parent is an inline _and_ while the milestone is at the beginning/end of this inline.
+1) If the milestone appears at the very beginning or end of an element, move the milestone before or after (respectively) the parent element, and repeat as much as possible, stopping as soon as the parent is a milestone-accepting element. Milestones should only appear within one of these. In practice, we should only move up from inline elements, but this must be checked. Probably simpler to move it up only while the parent is an inline element *and* while the milestone is at the beginning/end of this inline.
 
-2) If the milestone is not within one of the milestone-accepting elements, move it forward to the beginning of the next element (in following::* order), but note that we might leave an empty element if the element only contains the milestone) until this element is a milestone-accepting element (but skip <note> and its descendants). Exception if the milestone is a ncell and appears at the very end of the edition: in this case, leave the milestone where it is.
+Problem: moving things up would not work properly if we do some transformations on the contents (add a prefix or suffix), as in:
 
-What about consecutive npages, etc.? We need to create extra <p> for them, but we should do this only when rendering the physical display.
+	<supplied><lb n="1"/>foo</supplied>
+
+	<span class="supplied" tip="Lost text">[<nline break="true"><span tip="Line number">⟨1⟩</span></nline>foo]</span>
+
+To fix this, we wrap the added contents within <display> and treat this tag as empty while moving up the milestone, thus:
+
+	<supplied><lb n="1"/>foo</supplied>
+
+	... results in:
+
+	<span class="supplied" tip="Lost text"><display>[</display><nline break="true"><span tip="Line number">⟨1⟩</span></nline><span>foo</span><display>]</display></span>
+
+	... which results in:
+
+	<nline break="true"><span tip="Line number">⟨1⟩</span></nline><span class="supplied" tip="Lost text"><display>[</display><span>foo</span><display>]</display></span>
+
+Another (maybe preferable) solution would be to leave the displayed milestone in place and move up only a structural element (which would not be displayed).
+
+2) If the milestone is not within one of the milestone-accepting elements, move it forward to the beginning of the next milestone-accepting element (in following::* order) (but skip <note> and its descendants). Exception if the milestone is a ncell and appears at the very end of the edition: in this case, leave the milestone where it is.
+
+
+
+What about consecutive npages, etc.? We need to create an extra <p> for them, but we should do this only when rendering the physical display.
 
 	<para> <span> A <span><npage/>B</span> C </span> </para>
 
 	<para> A <span> B <npage/> </span> </para>
 """
+
+milestone_accepting = ("para", "verse-line", "item", "key", "value", "quote")
+
+def in_milestone_accepting(node):
+	for parent in node.find("ancestor::*"):
+		if parent.name in milestone_accepting:
+			return True
+	return False
+
+def first_milestone_accepting(node):
+	for anchor in node.find("following::*"):
+		if anchor.name in milestone_accepting:
+			return anchor
+
 def fix_milestones_location(doc: tree.Tree):
 	milestones = doc.find("/document/edition//*[name()='npage' or name()='nline' or name()='ncell' and not ancestor::note]")
 	for mile in milestones:
 		parent = mile.parent
-		while parent.name in ("span", "link"):
-			if parent[0] is mile:
+		while isinstance(parent, tree.Tag) and parent.name in ("span", "link"):
+			if front_node(parent) is mile:
 				parent.insert_before(mile)
-			elif parent[-1] is mile:
+			elif back_node(parent) is mile:
 				parent.insert_after(mile)
 			else:
 				break
 			parent = parent.parent
+		if not in_milestone_accepting(mile) and (anchor := first_milestone_accepting(mile)):
+			anchor.prepend(mile)
+
+def front_node(node):
+	for child in node:
+		if isinstance(child, tree.Tag) and child.name == "display":
+			continue
+		return child
+
+def back_node(node):
+	for child in reversed(node):
+		if isinstance(child, tree.Tag) and child.name == "display":
+			continue
+		return child
 
 """
 gather all milestones in a list. then traverse the list.
@@ -281,71 +323,6 @@ when generating the search representation, not sure what to do with the textpart
 and the text (without interruption).
 
 """
-
-class PhysicalParser:
-
-	def __init__(self, input):
-		self.input = input
-		self.stack = [tree.Tree()] # tree > page > line > cell
-
-	def __call__(self):
-		self.traverse(self.input)
-		self.pop_stack(1)
-		return self.stack[-1]
-
-	def append(self, node):
-		self.stack[-1].append(node.copy())
-
-	def traverse(self, input):
-		for node in input:
-			match node:
-				case tree.Tag():
-					self.elem(node)
-				case tree.String():
-					self.append(node)
-
-	def npage(self, node):
-		while len(self.stack) >= 2:
-			elem = self.stack.pop()
-			self.stack[-1].append(elem)
-		self.stack.append(tree.Tag("page", break_=node["break"]))
-
-	def nline(self, node):
-		if len(self.stack) < 2:
-			self.stack.append(tree.Tag("page", break_="true"))
-		while len(self.stack) >= 3:
-			elem = self.stack.pop()
-			self.stack[-1].append(elem)
-		self.stack.append(tree.Tag("line", break_=node["break"]))
-
-	def ncell(self, node):
-		if len(self.stack) < 2:
-			self.stack.append(tree.Tag("page", break_="true"))
-		if len(self.stack) < 3:
-			self.stack.append(tree.Tag("line", break_="true"))
-		while len(self.stack) >= 4:
-			elem = self.stack.pop()
-			self.stack[-1].append(elem)
-		self.stack.append(tree.Tag("cell", break_=node["break"]))
-
-	def elem(self, node):
-		match node.name:
-			case "npage":
-				self.npage(node)
-			case "nline":
-				self.nline(node)
-			case "ncell":
-				self.ncell(node)
-			case "head" | "note":
-				self.append(node)
-			case "verse-head":
-				pass
-			case "para" | "verse" | "verse-line" | "list" | "dlist":
-				self.traverse(node)
-			case "link" | "span":
-				pass
-			case _:
-				raise Exception("unexpected: {node!r}")
 
 def to_physical(t):
 	for node in t.find(".//span[@class='corr' and @standalone='false']"):

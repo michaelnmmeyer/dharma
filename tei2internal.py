@@ -209,6 +209,11 @@ class Parser(tree.Serializer):
 		# Map of biblio entry short title (string) -> siglum (string)
 		self.sigla: dict[str, str] = {}
 
+	def append_display(self, text):
+		self.push(tree.Tag("display"))
+		self.append(text)
+		self.join()
+
 	def _get_bib_entry(self, short_title):
 		external = False
 		entry = self.bib_entries.get(short_title)
@@ -560,11 +565,11 @@ def emit_supplied(p, supplied, tip, brackets):
 			p.append("; restoration based on previous edition (not assessable)")
 	tip = p.pop().xml()
 	p.push(tree.Tag("span", class_="supplied", tip=tip))
-	p.append(ldelim)
+	p.append_display(ldelim)
 	p.dispatch_children(supplied)
 	if supplied["cert"] == "low":
-		p.append("?")
-	p.append(rdelim)
+		p.append_display("?")
+	p.append_display(rdelim)
 	p.join()
 
 # § Premodern insertion
@@ -594,9 +599,9 @@ def parse_add(p, node, deleted=None):
 		p.append(")")
 	tip = p.pop().xml()
 	p.push(tree.Tag("span", class_="add", tip=tip))
-	p.append("⟨⟨")
+	p.append_display("⟨⟨")
 	p.dispatch_children(node)
-	p.append("⟩⟩")
+	p.append_display("⟩⟩")
 	p.join()
 
 # § Premodern deletion
@@ -621,9 +626,9 @@ def parse_del(p, node, added=None):
 		p.append(")")
 	tip = p.pop().xml()
 	p.push(tree.Tag("span", class_="del", tip=tip))
-	p.append("⟦")
+	p.append_display("⟦")
 	p.dispatch_children(node)
-	p.append("⟧")
+	p.append_display("⟧")
 	p.join()
 
 # § Premodern correction
@@ -651,9 +656,9 @@ def parse_sic(p, sic, corr=None):
 		p.append(")")
 	stand = common.from_boolean(not corr)
 	p.push(tree.Tag("span", class_="sic", standalone=stand, tip=p.pop().xml()))
-	p.append("¿")
+	p.append_display("¿")
 	p.dispatch_children(sic)
-	p.append("?")
+	p.append_display("?")
 	p.join()
 
 @handler("corr")
@@ -670,9 +675,9 @@ def parse_corr(p, corr, sic=None):
 		p.append(")")
 	stand = common.from_boolean(not sic)
 	p.push(tree.Tag("span", class_="corr", standalone=stand, tip=p.pop().xml()))
-	p.append('⟨')
+	p.append_display('⟨')
 	p.dispatch_children(corr)
-	p.append('⟩')
+	p.append_display('⟩')
 	p.join()
 
 @handler("orig")
@@ -690,9 +695,9 @@ def parse_orig(p, orig, reg=None):
 		p.append(")")
 	stand = common.from_boolean(not reg)
 	p.push(tree.Tag("span", class_="orig", standalone=stand, tip=p.pop().xml()))
-	p.append("¡")
+	p.append_display("¡")
 	p.dispatch_children(orig)
-	p.append("!")
+	p.append_display("!")
 	p.join()
 
 @handler("reg")
@@ -709,9 +714,9 @@ def parse_reg(p, reg, orig=None):
 		p.append(")")
 	stand = common.from_boolean(not orig)
 	p.push(tree.Tag("span", class_="reg", standalone=stand, tip=p.pop().xml()))
-	p.append("⟨")
+	p.append_display("⟨")
 	p.dispatch_children(reg)
-	p.append("⟩")
+	p.append_display("⟩")
 	p.join()
 
 @handler("unclear")
@@ -729,12 +734,12 @@ def parse_unclear(p, node, standalone=True):
 		p.append(")")
 	p.push(tree.Tag("span", class_="unclear", tip=p.pop().xml()))
 	if standalone:
-		p.append("(")
+		p.append_display("(")
 	p.dispatch_children(node)
 	if node["cert"] == "low":
-		p.append("?")
+		p.append_display("?")
 	if standalone:
-		p.append(")")
+		p.append_display(")")
 	p.join()
 
 # We expect one of:
@@ -743,7 +748,7 @@ def parse_unclear(p, node, standalone=True):
 # <choice><sic>...</sic><corr>...</corr></choice>
 # <choice><orig>...</orig><reg>...</reg></choice>
 #
-# In case #1, for search and plain should just keep the text of the 1st unclear.
+# XXX TODO In case #1, for search and plain should just keep the text of the 1st unclear.
 # For #2 and #3, for searching should keep <corr> and <reg>, ignore the rest.
 @handler("choice")
 def parse_choice(p, node):
@@ -772,9 +777,9 @@ def parse_choice(p, node):
 @handler("surplus")
 def parse_surplus(p, node):
 	p.push(tree.Tag("span", class_="surplus", tip="Superfluous text erroneously added by the scribe"))
-	p.append("{")
+	p.append_display("{")
 	p.dispatch_children(node)
-	p.append("}")
+	p.append_display("}")
 	p.join()
 
 # > editorial
@@ -1028,9 +1033,9 @@ def parse_ex(p, node):
 	else:
 		tip = "Abbreviation expansion"
 	p.push(tree.Tag("span", class_="abbr-expansion", tip=tip))
-	p.append("(")
+	p.append_display("(")
 	p.dispatch_children(node)
-	p.append(")")
+	p.append_display(")")
 	p.join()
 
 @handler("am")
@@ -1085,20 +1090,20 @@ def parse_seg(p, seg):
 	rend = seg["rend"].split()
 	if "pun" in rend:
 		p.push(tree.Tag("span", class_="pun", tip=XML("Pun (<i>ślesa</i>").xml()))
-		p.append("{")
+		p.append_display("{")
 	if "check" in rend:
 		p.push(tree.Tag("span", class_="check", tip="To check"))
 	if seg["cert"] == "low":
 		p.push(tree.Tag("span", tip="Uncertain segment"))
-		p.append("¿")
+		p.append_display("¿")
 	p.dispatch_children(seg)
 	if seg["cert"] == "low":
-		p.append("?")
+		p.append_display("?")
 		p.join()
 	if "check" in rend:
 		p.join()
 	if "pun" in rend:
-		p.append("}")
+		p.append_display("}")
 		p.join()
 
 # XXX not general enough
