@@ -61,9 +61,9 @@ def by_short_title():
 	del params["shortTitle"]
 	assert not params.get("itemKey")
 	if key:
-		params["itemKey"] = key
+		params["itemKey"] = [key]
 	else:
-		params["tag"] = "zpefiuhzçéé This won't match é)ç'çxhqaàçè-à)"
+		params["tag"] = ["thiswontmatchxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"]
 	params = urlencode(params, doseq=True)
 	url = url._replace(path="/groups/1633743/items", query=params)
 	print(url.geturl(), file=sys.stderr)

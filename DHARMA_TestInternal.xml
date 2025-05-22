@@ -1,0 +1,50 @@
+<TEI>
+    <text xml:space="preserve">
+        <body>
+            <div type="edition">
+
+<div type="textpart">
+    <!-- The following lb should be moved up the tree -->
+    <p><foreign><lb n="1"/>foo</foreign></p>
+    <!-- The following lb should be moved up the tree -->
+    <p><foreign>foo<lb n="2"/></foreign></p>
+    <!-- The following lb should *not* be moved up the tree (because it doesn't appear at the beginning or the end of its parent) -->
+    <p><foreign>foo<lb n="3"/>bar</foreign></p>
+</div>
+
+<!-- Idem, with <display> elements -->
+<div type="textpart">
+    <!-- The following lb should be moved up the tree -->
+    <p><sic><lb n="1"/>foo</sic></p>
+    <!-- The following lb should be moved up the tree -->
+    <p><sic>foo<lb n="2"/></sic></p>
+    <!-- The following lb should *not* be moved up the tree (because it doesn't appear at the beginning or the end of its parent) -->
+    <p><sic>foo<lb n="3"/>bar</sic></p>
+</div>
+
+<!-- Idem, with 2 levels -->
+<div type="textpart">
+    <!-- The following lb should be moved up the tree -->
+    <p><hi rend="bold"><foreign><lb n="1"/>foo</foreign></hi></p>
+    <!-- The following lb should be moved up the tree -->
+    <p><hi rend="bold"><foreign>foo<lb n="2"/></foreign></hi></p>
+    <!-- The following lb should *not* be moved up the tree (because it doesn't appear at the beginning or the end of its parent) -->
+    <p><hi rend="bold"><foreign>foo<lb n="3"/>bar</foreign></hi></p>
+</div>
+
+<!-- Test moving isolated milestones to the next milestone-accepting element -->
+<div type="textpart">
+    <!-- The lb should be moved to the beginning of the following -->
+    <lb n="A"/><p>hello</p> <!-- para -->
+    <lb n="B"/><lg>hello</lg> <!-- verse-line -->
+    <lb n="C"/><list><item>foo</item></list> <!-- item -->
+    <lb n="D"/><list><label>foo</label><item>bar</item></list> <!-- key (value is theoretical) -->
+    <lb n="E"/><quote rend="block">foo</quote> <!-- quote -->
+    <!-- No moving when descendant of a note -->
+    <note><p>foo</p><lb n="F"/><p>bar</p></note>
+</div>
+
+            </div>
+        </body>
+    </text>
+</TEI>
