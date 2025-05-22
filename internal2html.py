@@ -247,6 +247,10 @@ def render_verse(self, node):
 	self.join()
 	self.join()
 
+@handler("display")
+def just_dispatch(self, node):
+	self.dispatch_children(node)
+
 @handler("*")
 def render_tag(self, node):
 	assert isinstance(node, tree.Tag)
