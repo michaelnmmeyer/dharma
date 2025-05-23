@@ -57,6 +57,9 @@
          <li>
             <a href="{{url_for('display_list')}}">Display List</a>
          </li>
+         <li>
+            <a href="/languages">Languages</a>
+         </li>
       </ul>
    </li>
 </ul>
