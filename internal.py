@@ -306,11 +306,10 @@ elif cur is nline
 		cur = next
 elif cur is ncell
 	pass
+"""
 
 
-
----
-
+"""
 we have to allocate phantom pages/lines/cells, when a) the encoding is incorrect; b) the encoding is correct but a category is missing. it is best to keep these phantom elements in the output than to remove them, for search.
 
 except that if they occur within "head" or "note, leave them as-is (viz. replace them with <span> and don't consider them meaningful). and also replace them with <span> when they appear outside of the edition
@@ -321,9 +320,7 @@ we assume that page X continues in the next textpart (instead of assuming that t
 
 when generating the search representation, not sure what to do with the textpart heading in the middle. might want to index separately the TOC (with all headings)
 and the text (without interruption).
-
 """
-
 def to_physical(t):
 	for node in t.find(".//span[@class='corr' and @standalone='false']"):
 		node.delete()
@@ -345,6 +342,32 @@ def to_logical(t):
 def to_full(t):
 	return t
 
+def process(t):
+	fix_spaces(t)
+	fix_milestones_location(t)
+	return t
+	# TODO reenable
+	if (edition := t.first("/document/edition")):
+		full = edition.copy()
+		full.name = "full"
+		if (head := full.first("head")):
+			head.delete()
+		to_full(full)
+		physical = full.copy()
+		physical.name = "physical"
+		to_physical(physical)
+		logical = full.copy()
+		logical.name = "logical"
+		to_logical(logical)
+		head = edition.first("head")
+		edition.clear()
+		if head:
+			edition.append(head)
+		edition.append(physical)
+		edition.append(logical)
+		edition.append(full)
+	return t
+
 if __name__ == "__main__":
 	import os, sys
 	from dharma import tei2internal, common, texts
@@ -353,10 +376,8 @@ if __name__ == "__main__":
 	def main():
 		path = os.path.abspath(sys.argv[1])
 		f = texts.File("/", path)
-		doc = tei2internal.process_file(f)
-		t = doc.serialize()
-		t = fix_spaces(t)
-		fix_milestones_location(t)
+		t = tei2internal.process_file(f).serialize()
+		t = process(t)
 		sys.stdout.write(t.xml())
 	try:
 		main()

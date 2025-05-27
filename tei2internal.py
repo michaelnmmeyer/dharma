@@ -167,8 +167,8 @@ class Document:
 		return f.tree
 
 	def to_html(self):
-		from dharma import internal2html
-		return internal2html.process(internal.fix_spaces(self.serialize()))
+		from dharma import internal, internal2html
+		return internal2html.process(internal.process(self.serialize()))
 
 def XML(s):
 	r = tree.parse_string(f"<root>{s}</root>")
