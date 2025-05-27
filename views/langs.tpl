@@ -11,7 +11,7 @@ Languages
 <div class="catalog-list">
 
 % for row in rows:
-<div id=lang-"{{row['lang']}}" class="catalog-card">
+<div id="lang-{{row['lang']}}" class="catalog-card">
 
 <p>
 	<b>{{row["name"]}}</b> [<span class="monospace">{{row["lang"]}}</span>]
