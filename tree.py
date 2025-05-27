@@ -1261,21 +1261,23 @@ def preceding(node):
 
 def children(node):
 	assert isinstance(node, Node)
-	for child in node:
-		if isinstance(child, Tag):
+	if isinstance(node, Branch):
+		for child in node:
 			yield child
 
 def descendants(node):
 	assert isinstance(node, Node)
-	for child in node:
-		if isinstance(child, Tag):
+	if isinstance(node, Branch):
+		for child in node:
 			yield child
-			yield from descendants(child)
+			if isinstance(child, Tag):
+				yield from descendants(child)
 
 def descendants_or_self(node):
 	assert isinstance(node, Node)
 	yield node
-	yield from descendants(node)
+	if isinstance(node, Branch):
+		yield from descendants(node)
 
 def ancestors(node):
 	assert isinstance(node, Node)
@@ -1366,7 +1368,7 @@ class _Generator:
 		self.bufs = []
 		self.routines_nr = 0
 		self.env = {f.__name__: f
-			for funcs in (xpath_funcs.values(), (Tag, Tree,
+			for funcs in (xpath_funcs.values(), (Tag, Tree, Branch,
 				children,
 				descendants, descendants_or_self,
 				ancestors, ancestors_or_self,
@@ -1550,7 +1552,7 @@ class _Generator:
 		if step.name_test:
 			self.append(f"if isinstance(node, Tag) and node.name == {step.name_test!r}:")
 		else:
-			self.append("if isinstance(node, Tag):")
+			self.append("if isinstance(node, Branch):")
 		for pred in step.predicates:
 			self.append(f"if {self.generate(pred)}:")
 
