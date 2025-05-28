@@ -262,12 +262,7 @@ def back_node(node):
 		return child
 
 """
-gather all milestones in a list. then traverse the list.
-
-then
-1) ...
-
-2) complete milestones
+gather all milestones in a list. then traverse the list and complete milestones.
 
 nodes = [<npage>, <npage>, etc.]
 insert = first insertion point in <edition> viz. start of first para|verse-line|...
@@ -279,33 +274,36 @@ cur = insert
 if cur not immediately followed by a npage
 	insert an npage after it, cur=npage
 else
-	cur = next
+	cur = next(nodes)
 if cur not immediately followed by a nline
 	insert an nline after it, cur=nline
 else
-	cur = next
+	cur = next(nodes)
 if cur not immediately followed by a ncell
 	insert an ncell after it, cur=ncell
 else
-	cur = next
+	cur = next(nodes)
 
-cur = next(nodes)
-if cur is npage
-	if cur not immediately followed by nline
-		insert a nline after it, cur=nline
-	else
-		cur = the following nline
-	if cur not immediately followed by a ncell:
-		insert a ncell after it, cur=ncell
-	else
-		cur = next
-elif cur is nline
-	if cur not immediately followed by a ncell:
-		insert a ncell after it, cur=ncell
-	else
-		cur = next
-elif cur is ncell
-	pass
+while True:
+	cur = next(nodes)
+	if not cur:
+		break
+	if cur is npage
+		if cur not immediately followed by nline
+			insert a nline after it, cur=nline
+		else
+			cur = the following nline
+		if cur not immediately followed by a ncell:
+			insert a ncell after it, cur=ncell
+		else
+			cur = next
+	elif cur is nline
+		if cur not immediately followed by a ncell:
+			insert a ncell after it, cur=ncell
+		else
+			cur = next
+	elif cur is ncell
+		pass
 """
 
 
