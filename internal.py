@@ -220,17 +220,16 @@ What about consecutive npages, etc.? We need to create an extra <p> for them, bu
 
 	<para> A <span> B <npage/> </span> </para>
 """
-
 milestone_accepting = ("para", "verse-line", "item", "key", "value", "quote")
 
 def in_milestone_accepting(node):
-	for parent in node.find("ancestor::*"):
+	for parent in node.find("ancestor::*"): # XXX nesting
 		if parent.name in milestone_accepting:
 			return True
 	return False
 
 def first_milestone_accepting(node):
-	for anchor in node.find("following::*"):
+	for anchor in node.find("following::*"): # XXX nesting
 		if anchor.name in milestone_accepting:
 			return anchor
 
@@ -262,53 +261,7 @@ def back_node(node):
 		return child
 
 """
-gather all milestones in a list. then traverse the list and complete milestones.
-
-nodes = [<npage>, <npage>, etc.]
-insert = first insertion point in <edition> viz. start of first para|verse-line|...
-	when the edition is empty, might not have any insert point;
-	in this case return
-npage = nline = ncell = None
-
-cur = insert
-if cur not immediately followed by a npage
-	insert an npage after it, cur=npage
-else
-	cur = next(nodes)
-if cur not immediately followed by a nline
-	insert an nline after it, cur=nline
-else
-	cur = next(nodes)
-if cur not immediately followed by a ncell
-	insert an ncell after it, cur=ncell
-else
-	cur = next(nodes)
-
-while True:
-	cur = next(nodes)
-	if not cur:
-		break
-	if cur is npage
-		if cur not immediately followed by nline
-			insert a nline after it, cur=nline
-		else
-			cur = the following nline
-		if cur not immediately followed by a ncell:
-			insert a ncell after it, cur=ncell
-		else
-			cur = next
-	elif cur is nline
-		if cur not immediately followed by a ncell:
-			insert a ncell after it, cur=ncell
-		else
-			cur = next
-	elif cur is ncell
-		pass
-"""
-
-
-"""
-we have to allocate phantom pages/lines/cells, when a) the encoding is incorrect; b) the encoding is correct but a category is missing. it is best to keep these phantom elements in the output than to remove them, for search.
+We have to allocate phantom pages/lines/cells, when a) the encoding is incorrect; b) the encoding is correct but a category is missing. it is best to keep these phantom elements in the output than to remove them, for search.
 
 except that if they occur within "head" or "note, leave them as-is (viz. replace them with <span> and don't consider them meaningful). and also replace them with <span> when they appear outside of the edition
 
@@ -319,6 +272,64 @@ we assume that page X continues in the next textpart (instead of assuming that t
 when generating the search representation, not sure what to do with the textpart heading in the middle. might want to index separately the TOC (with all headings)
 and the text (without interruption).
 """
+def add_phantom_milestones(doc):
+	edition = doc.first("/document/edition")
+	if not edition:
+		return
+	milestones = edition.find(".//*[name()='npage' or name()='nline' or name()='ncell' and not ancestor::note]")
+	for node in edition.find(".//*"):
+		if node.name in milestone_accepting:
+			insert = node
+			break
+	else:
+		assert not milestones
+		return
+	if len(insert) > 0 and isinstance(insert[0], tree.Tag) and insert[0].name == "npage":
+		assert len(milestones) > 0
+		assert insert[0] is milestones[0]
+	else:
+		mile = tree.Tag("npage")
+		insert.insert(0, mile)
+		milestones.insert(0, mile)
+	if len(insert) > 1 and isinstance(insert[1], tree.Tag) and insert[1].name == "nline":
+		assert len(milestones) > 1
+		assert insert[1] is milestones[1]
+	else:
+		mile = tree.Tag("nline")
+		insert.insert(1, mile)
+		milestones.insert(1, mile)
+	if len(insert) > 2 and isinstance(insert[2], tree.Tag) and insert[2].name == "ncell":
+		assert len(milestones) > 2
+		assert insert[2] is milestones[2]
+	else:
+		mile = tree.Tag("ncell")
+		insert.insert(2, mile)
+		milestones.insert(2, mile)
+	for mile in milestones[3:]:
+		if mile.name == "npage":
+			if (tmp := mile.first("following-sibling::*")) and tmp.name == "nline":
+				mile = tmp
+			else:
+				tmp = tree.Tag("nline")
+				mile.insert_after(tmp)
+				mile = tmp
+			if (tmp := mile.first("following-sibling::*")) and tmp.name == "ncell":
+				mile = tmp
+			else:
+				tmp = tree.Tag("ncell")
+				mile.insert_after(tmp)
+				mile = tmp
+		elif mile.name == "nline":
+			if (tmp := mile.first("following-sibling::*")) and tmp.name == "ncell":
+				pass
+			else:
+				tmp = tree.Tag("ncell")
+				mile.insert_after(tmp)
+		elif mile.name == "ncell":
+			pass
+		else:
+			raise Exception
+
 def to_physical(t):
 	for node in t.find(".//span[@class='corr' and @standalone='false']"):
 		node.delete()
@@ -343,8 +354,7 @@ def to_full(t):
 def process(t):
 	fix_spaces(t)
 	fix_milestones_location(t)
-	return t
-	# TODO reenable
+	add_phantom_milestones(t)
 	if (edition := t.first("/document/edition")):
 		full = edition.copy()
 		full.name = "full"
