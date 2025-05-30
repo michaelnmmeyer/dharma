@@ -71,7 +71,6 @@ Like `glob`, but for regular expressions. Matching is unanchored, so `^` and
 `$` must be used if the idea is to match a full string.
 
 `name()`
-`errors()`
 `lang()`, `assigned-lang()`, inferred-lang()`
 `mixed()`, `empty()`, `plain()`, `text()`
 
@@ -176,7 +175,6 @@ class Node:
 	elements."""
 
 	def __init__(self, *args, **kwargs):
-		self.errors = []
 		super().__init__(*args, **kwargs)
 
 	@property
@@ -217,12 +215,6 @@ class Node:
 			self._parent = ret
 			list.append(ret, self)
 		return ret
-
-	def add_error(self, message):
-		self.errors.append(message)
-
-	def add_warning(self, message):
-		pass # ignore for now
 
 	@property
 	def path(self):
@@ -1195,13 +1187,9 @@ def xpath_plain(node):
 	assert isinstance(node, Node)
 	return node.plain
 
-def xpath_errors(node):
-	assert isinstance(node, Node)
-	return bool(node.errors)
-
 def xpath_name(node):
-	assert isinstance(node, Tag)
-	return node.name
+	assert isinstance(node, Node)
+	return isinstance(node, Tag) and node.name or None
 
 def xpath_is_source_lang(node, s):
 	assert isinstance(s, str), s
@@ -1223,7 +1211,6 @@ xpath_funcs = {
 	"mixed": xpath_mixed,
 	"empty": xpath_empty,
 	"plain": xpath_plain,
-	"errors": xpath_errors,
 	"name": xpath_name,
 	"text": xpath_text,
 }
