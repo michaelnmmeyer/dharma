@@ -260,6 +260,14 @@ def back_node(node):
 			continue
 		return child
 
+def expand_useless_milestones(doc: tree.Tree):
+	keep = set()
+	for mile in doc.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not ancestor::*[name()='note' or name()='head']]"):
+		keep.add(mile)
+	for mile in doc.find("//*[name()='npage' or name()='nline' or name()='ncell']"):
+		if mile not in keep:
+			mile.unwrap()
+
 """
 We have to allocate phantom pages/lines/cells, when a) the encoding is incorrect; b) the encoding is correct but a category is missing. it is best to keep these phantom elements in the output than to remove them, for search.
 
@@ -276,7 +284,7 @@ def add_phantom_milestones(doc):
 	edition = doc.first("/document/edition")
 	if not edition:
 		return
-	milestones = edition.find(".//*[name()='npage' or name()='nline' or name()='ncell' and not ancestor::note]")
+	milestones = edition.find(".//*[name()='npage' or name()='nline' or name()='ncell']")
 	for node in edition.find(".//*"):
 		if node.name in milestone_accepting:
 			insert = node
@@ -288,21 +296,21 @@ def add_phantom_milestones(doc):
 		assert len(milestones) > 0
 		assert insert[0] is milestones[0]
 	else:
-		mile = tree.Tag("npage")
+		mile = tree.Tag("npage", phantom="true")
 		insert.insert(0, mile)
 		milestones.insert(0, mile)
 	if len(insert) > 1 and isinstance(insert[1], tree.Tag) and insert[1].name == "nline":
 		assert len(milestones) > 1
 		assert insert[1] is milestones[1]
 	else:
-		mile = tree.Tag("nline")
+		mile = tree.Tag("nline", phantom="true")
 		insert.insert(1, mile)
 		milestones.insert(1, mile)
 	if len(insert) > 2 and isinstance(insert[2], tree.Tag) and insert[2].name == "ncell":
 		assert len(milestones) > 2
 		assert insert[2] is milestones[2]
 	else:
-		mile = tree.Tag("ncell")
+		mile = tree.Tag("ncell", phantom="true")
 		insert.insert(2, mile)
 		milestones.insert(2, mile)
 	for mile in milestones[3:]:
@@ -310,25 +318,26 @@ def add_phantom_milestones(doc):
 			if (tmp := mile.first("following-sibling::*")) and tmp.name == "nline":
 				mile = tmp
 			else:
-				tmp = tree.Tag("nline")
+				tmp = tree.Tag("nline", phantom="true")
 				mile.insert_after(tmp)
 				mile = tmp
 			if (tmp := mile.first("following-sibling::*")) and tmp.name == "ncell":
 				mile = tmp
 			else:
-				tmp = tree.Tag("ncell")
+				tmp = tree.Tag("ncell", phantom="true")
 				mile.insert_after(tmp)
 				mile = tmp
 		elif mile.name == "nline":
 			if (tmp := mile.first("following-sibling::*")) and tmp.name == "ncell":
 				pass
 			else:
-				tmp = tree.Tag("ncell")
+				tmp = tree.Tag("ncell", phantom="true")
 				mile.insert_after(tmp)
 		elif mile.name == "ncell":
 			pass
 		else:
 			raise Exception
+	# XXX TODO add explicit break=False to the relevant items.
 
 def to_physical(t):
 	for node in t.find(".//span[@class='corr' and @standalone='false']"):
@@ -353,27 +362,30 @@ def to_full(t):
 
 def process(t):
 	fix_spaces(t)
+	expand_useless_milestones(t)
 	fix_milestones_location(t)
 	add_phantom_milestones(t)
-	if (edition := t.first("/document/edition")):
-		full = edition.copy()
-		full.name = "full"
-		if (head := full.first("head")):
-			head.delete()
-		to_full(full)
-		physical = full.copy()
-		physical.name = "physical"
-		to_physical(physical)
-		logical = full.copy()
-		logical.name = "logical"
-		to_logical(logical)
-		head = edition.first("head")
-		edition.clear()
-		if head:
-			edition.append(head)
-		edition.append(physical)
-		edition.append(logical)
-		edition.append(full)
+	edition = t.first("/document/edition")
+	if not edition:
+		return t
+	full = edition.copy()
+	full.name = "full"
+	if (head := full.first("head")):
+		head.delete()
+	to_full(full)
+	physical = full.copy()
+	physical.name = "physical"
+	to_physical(physical)
+	logical = full.copy()
+	logical.name = "logical"
+	to_logical(logical)
+	head = edition.first("head")
+	edition.clear()
+	if head:
+		edition.append(head)
+	edition.append(physical)
+	edition.append(logical)
+	edition.append(full)
 	return t
 
 if __name__ == "__main__":
