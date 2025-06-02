@@ -4,7 +4,7 @@ from dharma import tree
 today = datetime.datetime.today().strftime("%Y-%m-%d")
 
 """
-pandoc cleaned.odt -t tei -o cleaned.xml
+pandoc cleaned.odt --wrap none -t tei -o cleaned.xml
 
 java -jar ~/dharma/jars/trang.jar -O rnc cleaned.xml schema.rnc
 
@@ -197,10 +197,12 @@ def process_ins(ins):
 	out = tree.parse("tpl.xml")
 	out.first("//idno").append(mkident(ins))
 	out.first("//change[@who='part:mime']")["when"] = today
+	# summary
 	tmp = out.first("//summary")
 	tmp.extend(ins.summary)
 	tmp.append("\n\n")
 	tmp.coalesce()
+	# edition
 	tmp = out.first("//div[@type='edition']")
 	tmp.append(ins.edition)
 	tmp.append("\n\n")
@@ -220,10 +222,12 @@ def process_ins(ins):
 		r = add_gaps(s.data)
 		s.replace_with(r)
 		r.unwrap()
+	# translation
 	tmp = out.first("//div[@type='translation']")
 	tmp.extend(ins.translation)
 	fix_paren(tmp)
 	tmp.coalesce()
+	# all
 	out.coalesce()
 	for s in strings(out):
 		r = fix_supplied(s.data)
@@ -236,8 +240,10 @@ def process_ins(ins):
 
 """TODO
 
+write common function that seeks delimitors properly: {{x}}, [x], (x)
+
 dans la trad:
-	{{abc}} >>> supplied reason=lost
+	{{abc}} supplied reason=lost
 	[abc] supplied reason=subaudible
 	(abc) supplied reason=explanation
 
