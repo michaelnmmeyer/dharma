@@ -280,7 +280,7 @@ we assume that page X continues in the next textpart (instead of assuming that t
 when generating the search representation, not sure what to do with the textpart heading in the middle. might want to index separately the TOC (with all headings)
 and the text (without interruption).
 """
-def add_phantom_milestones(doc):
+def add_phantom_milestones(doc: tree.Tree):
 	edition = doc.first("/document/edition")
 	if not edition:
 		return
@@ -337,7 +337,68 @@ def add_phantom_milestones(doc):
 			pass
 		else:
 			raise Exception
-	# XXX TODO add explicit break=False to the relevant items.
+	assert len(milestones) >= 3
+	assert milestones[0].name == "npage"
+	assert milestones[1].name == "nline"
+	assert milestones[2].name == "ncell"
+	assert milestones[-1].name == "ncell"
+
+"""
+Add missing @break to each milestone and make @break consistent.
+
+¶ The 3 initial milestones (at the very beginning of the first
+milestone-accepting element) must have @break="yes".
+
+¶ If there is a milestone at the very end of the text (at the very end of the
+last milestone-accepting element), it must have @break="yes".
+
+¶ Otherwise, we must necessarily have coherent milestones for sequences
+npage+nline+ncell or nline+ncell; if there is a break="false" among any of
+these, it was explicitly specified in the original TEI, so set @break="false"
+to all other milestones accordingly.
+"""
+def add_milestones_breaks(doc: tree.Tree):
+	milestones = doc.find("/document/edition//*[name()='npage' or name()='nline' or name()='ncell']")
+	if not milestones:
+		return
+	for mile in milestones[:3]:
+		mile["break"] = "true"
+	miles = iter(milestones[3:-1])
+	for mile in miles:
+		if mile.name == "npage":
+			tmp = [mile, next(miles), next(miles)]
+			if all(common.from_boolean(mile["break"]) for mile in tmp):
+				pass
+			else:
+				for mile in tmp:
+					mile["break"] = "false"
+		elif mile.name == "nline":
+			tmp = [mile, next(miles)]
+			if all(common.from_boolean(mile["break"]) for mile in tmp):
+				pass
+			else:
+				for mile in tmp:
+					mile["break"] = "false"
+		elif mile.name == "ncell":
+			pass
+		else:
+			assert 0
+	mile = milestones[-1]
+	if milestone_is_terminal(doc, mile):
+		mile["break"] = "true"
+	else:
+		mile["break"] = "false"
+
+def milestone_is_terminal(doc, mile):
+	"""Whether this milestone (which must be a cell) occurs at the very end
+	of the text"""
+	assert mile.name == "ncell"
+	last = None
+	for node in doc.find("//*"):
+		if node.name not in milestone_accepting:
+			continue
+		last = node
+	return last is mile
 
 def to_physical(t):
 	for node in t.find(".//span[@class='corr' and @standalone='false']"):
@@ -360,11 +421,12 @@ def to_logical(t):
 def to_full(t):
 	return t
 
-def process(t):
+def process(t: tree.Tree):
 	fix_spaces(t)
 	expand_useless_milestones(t)
 	fix_milestones_location(t)
 	add_phantom_milestones(t)
+	add_milestones_breaks(t)
 	edition = t.first("/document/edition")
 	if not edition:
 		return t

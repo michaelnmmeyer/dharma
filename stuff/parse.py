@@ -230,10 +230,18 @@ def process_ins(ins):
 		s.replace_with(r)
 		r.unwrap()
 	out = out.xml()
-	out = out.replace("‡", '<g type="kaḻañcu"/>')
 	out = re.sub(r"(…|\.\.\.)(…|\.)*", ' <gap reason="lost" extent="unknown" unit="character"/> ', out)
 	out = re.sub(r" +", " ", out)
 	return out
+
+"""TODO
+
+dans la trad:
+	{{abc}} >>> supplied reason=lost
+	[abc] supplied reason=subaudible
+	(abc) supplied reason=explanation
+
+"""
 
 def mkident(ins):
 	return f"DHARMA_INSMelKil{ins.ident:05}"
@@ -243,3 +251,4 @@ for ins in inscriptions:
 	path = f"out/~{ident}.xml"
 	with open(path, "w") as f:
 		f.write(process_ins(ins))
+
