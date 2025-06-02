@@ -1,5 +1,5 @@
 import re
-from dharma import tree
+from dharma import tree, common
 
 # Summary of new elements:
 #
@@ -24,8 +24,8 @@ from dharma import tree
 # Whitespace fixing
 #
 # We basically do what follows. We remove spaces at the beginning and at the end
-# of each; furthermore, we squeeze spaces (collapse sequences of spaces into a
-# single space).
+# of each element. Furthermore, we squeeze spaces (collapse sequences of spaces
+# into a single space within each element.
 #
 # We transfer spaces at the beginning and at the end of a subtree to the parent
 # element, recursively. Thus,
@@ -48,15 +48,16 @@ def fix_spaces(doc: tree.Tree):
 	doc.root.replace_with(root)
 	return doc
 
+#XXX REPR add tests for clean_spaces (TestInternalSpaces)
+
 # space is one of "add", "drop", "keep".
-# * add: a space character should be added here, but if preceded by drop, then
+# ¶ add: a space character should be added here, but if preceded by drop, then
 # don't add one.
-# * drop: remove all following spaces
-# * keep: preserve whitespace in the output
+# ¶ drop: remove all following spaces
+# ¶ keep: preserve whitespace in the output
 def handle_subtree(root: tree.Tag):
 	buf = tree.Tag(root.name, **root.attrs)
-	left_space = "keep"
-	space = "drop"
+	left_space = space = "drop"
 	first = True
 	for node in root:
 		match node:
@@ -74,7 +75,9 @@ def handle_subtree(root: tree.Tag):
 					first = False
 				else:
 					_, space = handle_tag(buf, space, node)
-	# Delete all empty nodes except the root tag and milestones.
+	# Delete all empty nodes except the root tag (needed for producing a
+	# valid XML document) and milestones (they are meaningful on their own,
+	# without contents)
 	if len(buf) == 0:
 		match root.name:
 			case "npage" | "nline" | "ncell" | "document":
@@ -103,6 +106,9 @@ def handle_string(buf, space, node):
 			if text[0].isspace():
 				add_space(buf)
 				text = text[1:]
+		case _:
+			assert 0
+			return
 	if text[-1].isspace():
 		text = text[:-1]
 		buf.append(text)
@@ -127,13 +133,14 @@ def handle_tag(buf, space, node):
 						add_space(buf)
 	if repl:
 		buf.append(repl)
-	match node.name:
+	match buf.name:
 		case "note":
-			return "drop", space
+			left_space, right_space = "drop", space
 		case "span" | "link":
-			return left_space, right_space
+			pass # use the child's values
 		case _:
-			return "drop", "drop"
+			left_space = right_space = "drop"
+	return left_space, right_space
 
 def squeeze(s):
 	return re.sub(r"\s+", " ", s)
@@ -151,26 +158,6 @@ def is_space(node):
 	return isinstance(node, str) and str(node) == " "
 
 """
-for physical:
-
-unwrap these elements:
-	para
-	verse
-	verse-line
-	list
-	dlist
-
-delete this one:
-	verse-head
-
-split these elements if needed:
-	a
-	para
-
-keep as is:
-	div
-
-
 The resulting hierarchy must be:
 	<page>
 		<line>
@@ -337,11 +324,13 @@ def add_phantom_milestones(doc: tree.Tree):
 			pass
 		else:
 			raise Exception
-	assert len(milestones) >= 3
-	assert milestones[0].name == "npage"
-	assert milestones[1].name == "nline"
-	assert milestones[2].name == "ncell"
-	assert milestones[-1].name == "ncell"
+	if __debug__:
+		milestones = edition.find(".//*[name()='npage' or name()='nline' or name()='ncell']")
+		assert len(milestones) >= 3
+		assert milestones[0].name == "npage"
+		assert milestones[1].name == "nline"
+		assert milestones[2].name == "ncell"
+		assert milestones[-1].name == "ncell"
 
 """
 Add missing @break to each milestone and make @break consistent.
@@ -363,7 +352,7 @@ def add_milestones_breaks(doc: tree.Tree):
 		return
 	for mile in milestones[:3]:
 		mile["break"] = "true"
-	miles = iter(milestones[3:-1])
+	miles = iter(milestones[3:])
 	for mile in miles:
 		if mile.name == "npage":
 			tmp = [mile, next(miles), next(miles)]
@@ -374,7 +363,7 @@ def add_milestones_breaks(doc: tree.Tree):
 					mile["break"] = "false"
 		elif mile.name == "nline":
 			tmp = [mile, next(miles)]
-			if all(common.from_boolean(mile["break"]) for mile in tmp):
+			if all(common.from_boolean(mile["break"]) for mile in tmp if mile["break"]):
 				pass
 			else:
 				for mile in tmp:
@@ -400,14 +389,53 @@ def milestone_is_terminal(doc, mile):
 		last = node
 	return last is mile
 
+"""
+under /document/edition, unwrap everything except: div, head, span, link, npage,
+nline, ncell, note. should remove only: para, verse verse-line head quote dlist key value list item
+
+XXX TODO
+for physical:
+
+unwrap these elements:
+	para
+	verse
+	verse-line
+	list
+	dlist
+
+delete this one:
+	verse-head
+
+split these elements if needed:
+	a
+	para
+
+keep as is:
+	div
+"""
+def unwrap_for_physical(root: tree.Branch):
+	for node in list(root):
+		if not isinstance(node, tree.Tag):
+			continue
+		match node.name:
+			case "note":
+				continue
+			case "div" | "head" | "span" | "link" | "npage" | "nline" | "ncell":
+				unwrap_for_physical(node)
+			case "verse-head":
+				node.delete()
+			case _:
+				assert node.name in ("para", "verse", "verse-line", "head", "quote", "dlist", "key", "value", "list", "item")
+				node.unwrap()
+
 def to_physical(t):
+	unwrap_for_physical(t)
 	for node in t.find(".//span[@class='corr' and @standalone='false']"):
 		node.delete()
 	for node in t.find(".//span[@class='reg' and @standalone='false']"):
 		node.delete()
 	for node in t.find(".//ex"):
 		node.delete()
-	return t
 
 def to_logical(t):
 	for node in t.find(".//span[@class='sic' and @standalone='false']"):
@@ -416,12 +444,14 @@ def to_logical(t):
 		node.delete()
 	for node in t.find(".//am"):
 		node.delete()
-	return t
 
 def to_full(t):
-	return t
+	pass
 
 def process(t: tree.Tree):
+	fix_spaces(t)
+	print(t.xml())
+	exit()
 	fix_spaces(t)
 	expand_useless_milestones(t)
 	fix_milestones_location(t)
