@@ -447,7 +447,7 @@ def parse_rdg(p, rdg):
 def parse_app(p, app):
 	if (loc := app["loc"]):
 		p.push(tree.Tag("nline", break_=common.from_boolean(True)))
-		p.push(tree.Tag("span", tip=f"Line number"))
+		p.push(tree.Tag("span", class_="lb", tip=f"Line number"))
 		p.append("⟨")
 		p.append(loc)
 		p.append("⟩")

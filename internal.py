@@ -48,8 +48,6 @@ def fix_spaces(doc: tree.Tree):
 	doc.root.replace_with(root)
 	return doc
 
-#XXX REPR add tests for clean_spaces (TestInternalSpaces)
-
 # space is one of "add", "drop", "keep".
 # ¶ add: a space character should be added here, but if preceded by drop, then
 # don't add one.
@@ -57,21 +55,22 @@ def fix_spaces(doc: tree.Tree):
 # ¶ keep: preserve whitespace in the output
 def handle_subtree(root: tree.Tag):
 	buf = tree.Tag(root.name, **root.attrs)
-	left_space = space = "drop"
+	left_space = space = "keep"
 	first = True
 	for node in root:
+		print(left_space, node, space)
 		match node:
 			case tree.String():
 				if first:
 					if len(node) == 0:
 						continue
-					left_space = space = handle_string(buf, space, node)
+					left_space = space = handle_string(buf, "drop", node)
 					first = False
 				else:
 					space = handle_string(buf, space, node)
 			case tree.Tag():
 				if first:
-					left_space, space = handle_tag(buf, space, node)
+					left_space, space = handle_tag(buf, "drop", node)
 					first = False
 				else:
 					_, space = handle_tag(buf, space, node)
@@ -145,17 +144,23 @@ def handle_tag(buf, space, node):
 def squeeze(s):
 	return re.sub(r"\s+", " ", s)
 
+debug_space = True
+
 def add_space(buf):
-	#buf.append(tree.Tag("space"))
-	buf.append(" ")
+	if debug_space:
+		buf.append(tree.Tag("space"))
+	else:
+		buf.append(" ")
 
 def is_space(node):
-	# match node:
-	# 	case tree.Tag(name_="space"):
-	# 		return True
-	# 	case _:
-	# 		return False
-	return isinstance(node, str) and str(node) == " "
+	if debug_space:
+		match node:
+			case tree.Tag(name_="space"):
+				return True
+			case _:
+				return False
+	else:
+		return isinstance(node, str) and str(node) == " "
 
 """
 The resulting hierarchy must be:
@@ -449,9 +454,6 @@ def to_full(t):
 	pass
 
 def process(t: tree.Tree):
-	fix_spaces(t)
-	print(t.xml())
-	exit()
 	fix_spaces(t)
 	expand_useless_milestones(t)
 	fix_milestones_location(t)
