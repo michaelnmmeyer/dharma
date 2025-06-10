@@ -1092,7 +1092,7 @@ def parse_seg(p, seg):
 		p.push(tree.Tag("span", class_="pun", tip=XML("Pun (<i>ślesa</i>").xml()))
 		p.append_display("{")
 	if "check" in rend:
-		p.push(tree.Tag("span", class_="check", tip="To check"))
+		p.push(tree.Tag("span", class_="check", tip="To be checked"))
 	if seg["cert"] == "low":
 		p.push(tree.Tag("span", tip="Uncertain segment"))
 		p.append_display("¿")

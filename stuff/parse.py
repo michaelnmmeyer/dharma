@@ -3,23 +3,45 @@ from dharma import tree
 
 today = datetime.datetime.today().strftime("%Y-%m-%d")
 
+THE_FILE = sys.argv[1]
+match THE_FILE:
+	case "vg1.xml":
+		THE_TEMPLATE = "tpl1.xml"
+		def mkident(ins):
+			return f"DHARMA_INSMelKil{ins.ident:05}"
+	case "vg2.xml":
+		THE_TEMPLATE = "tpl2.xml"
+		GN = 10000
+		def mkident(ins):
+			global GN
+			GN += 1
+			return f"DHARMA_INSTamilNadu{GN}"
+	case "vg3.xml":
+		THE_TEMPLATE = "tpl3.xml"
+		GN = 20000
+		def mkident(ins):
+			global GN
+			GN += 1
+			return f"DHARMA_INSTamilNadu{GN}"
+	case "vg4.xml":
+		THE_TEMPLATE = "tpl4.xml"
+		GN = 30000
+		def mkident(ins):
+			global GN
+			GN += 1
+			return f"DHARMA_INSTamilNadu{GN}"
+	case "vg5.xml":
+		THE_TEMPLATE = "tpl5.xml"
+		GN = 40000
+		def mkident(ins):
+			global GN
+			GN += 1
+			return f"DHARMA_INSTamilNadu{GN}"
+
 """
 pandoc cleaned.odt --wrap none -t tei -o cleaned.xml
 
 java -jar ~/dharma/jars/trang.jar -O rnc cleaned.xml schema.rnc
-
-default namespace = ""
-
-start = element root { p+ }
-p =
-  element p {
-    (text
-     | element hi {
-         attribute rendition { xsd:NMTOKEN },
-         text
-       }
-     | element note { p? })+
-  }
 
 """
 
@@ -35,7 +57,10 @@ class Inscription:
 		self.edition.append("\n")
 		self.translation = tree.Tree()
 
-t = tree.parse("cleaned.xml")
+t = tree.parse(THE_FILE)
+
+for div in t.find("//div"):
+	div.unwrap()
 
 for node in t.find("//hi[@rendition='simple:italic']"):
 	node.name = "foreign"
@@ -50,7 +75,8 @@ for node in t.find("//hi[@rendition='simple:superscript']"):
 	node.unwrap()
 
 for node in t.find("//note/p"):
-	assert isinstance(node[0], tree.String)
+	if not isinstance(node[0], tree.String):
+		continue
 	node[0].replace_with(node[0].strip())
 for node in t.find("//note"):
 	assert all(child.name == "p" for child in node.find("*"))
@@ -79,18 +105,25 @@ def strings(node):
 section = None
 inscriptions = []
 ins = Inscription()
-for p in t.find("/root/p"):
+for p in t.find("/root/*[name()='p' or name()='head']"):
 	if p.empty:
+		continue
+	if p.name == "head":
+		getattr(ins, section).append(p)
 		continue
 	text = p.text()
 	if text.startswith("#"):
 		ins = Inscription()
 		inscriptions.append(ins)
 		m = re.match(r"^#([0-9]+)[^.]*\.\s*", text)
-		assert m
+		assert m, text
 		ins.ident = int(m.group(1))
 		ins.summary.append(p)
 		section = "summary"
+		continue
+	if text.startswith("<<<"):
+		section = text.strip("<").strip()
+		assert section in ("summary", "edition", "translation")
 		continue
 	if section == "summary":
 		m = re.match(r"^\(.+?\)", text)
@@ -105,6 +138,8 @@ for p in t.find("/root/p"):
 			lb = tree.Tag("lb", n=m.group(1))
 			ins.edition.append(lb)
 			assert p[0].startswith(m.group())
+			if THE_FILE == "vg5.xml" and p[0].removeprefix(m.group()) == p[0].removeprefix(m.group()).lstrip():
+				lb["break"] = "no"
 			p[0].replace_with(p[0].removeprefix(m.group()).strip())
 			ins.edition.extend(p)
 			ins.edition.append("\n")
@@ -121,6 +156,26 @@ def fix_vowels(s):
 		return m.group(1).upper()
 	return re.sub(r"˚([aāiīuūeēoō])", repl, s, flags=re.I)
 
+def is_vowel(c):
+	import unicodedata
+	return unicodedata.normalize("NFD", c.lower())[0] in "aeiou"
+
+def fix_vowels2(root):
+	space = True
+	for s in strings(root):
+		for i in range(len(s)):
+			c = s.data[i]
+			if c.isspace():
+				space = True
+			elif space and is_vowel(c):
+				tmp = tree.String(s[:i] + c.upper() + s[i + 1:])
+				s.replace_with(tmp)
+				s = tmp
+				space = False
+			else:
+				space = False
+
+
 def add_gaps(s):
 	ret = tree.Tag("root")
 	i = 0
@@ -131,47 +186,6 @@ def add_gaps(s):
 		ret.append(" ")
 		ret.append(tree.Tag("gap", reason="lost", quantity=str(n), unit="character"))
 		ret.append(" ")
-		i = end
-	ret.append(s[i:])
-	ret.coalesce()
-	return ret
-
-# # MERGE
-# def fix_unclear(s):
-# 	ret = tree.Tag("root")
-# 	i = 0
-# 	for m in re.finditer(r"\[([^[].*?)\]", s):
-# 		start, end = m.start(), m.end()
-# 		ret.append(s[i:start])
-# 		text = m.group(1)
-# 		chunks = text.split("/")
-# 		# [abc] <unclear>abc</unclear>
-# 		# [ab/cd] <choice><unclear>ab</unclear><unclear>cd</unclear></choice>
-# 		if len(chunks) == 1:
-# 			tmp = tree.Tag("unclear")
-# 			tmp.append(text)
-# 		else:
-# 			tmp = tree.Tag("choice")
-# 			for chunk in chunks:
-# 				unclear = tree.Tag("unclear")
-# 				unclear.append(chunk)
-# 				tmp.append(unclear)
-# 		ret.append(tmp)
-# 		i = end
-# 	ret.append(s[i:])
-# 	ret.coalesce()
-# 	return ret
-
-# MERGE
-def fix_supplied(s):
-	ret = tree.Tag("root")
-	i = 0
-	for m in re.finditer(r"\{\{(.+?)\}\}", s):
-		start, end = m.start(), m.end()
-		ret.append(s[i:start])
-		tmp = tree.Tag("supplied", reason="lost")
-		tmp.append(m.group(1))
-		ret.append(tmp)
 		i = end
 	ret.append(s[i:])
 	ret.coalesce()
@@ -241,6 +255,13 @@ def replace_delimited(root, start, end, tag):
 
 def replace_choices(root):
 	assert root.name == "unclear"
+	# [abc*] <supplied reason="omitted">abc</supplied>
+	if THE_FILE == "vg5.xml" and isinstance(root[-1], tree.String) and root[-1].endswith("*"):
+		root.name = "supplied"
+		root.attrs.clear()
+		root["reason"] = "omitted"
+		root[-1].replace_with(root[-1][:-1])
+		return
 	choice = tree.Tag("choice")
 	unclear = tree.Tag("unclear")
 	choice.append(unclear)
@@ -255,12 +276,11 @@ def replace_choices(root):
 				choice.append(unclear)
 			unclear.append(chunk)
 	if len(choice) > 1:
-		print(choice.xml())
 		root.replace_with(choice)
 
-def process_ins(ins):
-	out = tree.parse("tpl.xml")
-	out.first("//idno").append(mkident(ins))
+def process_ins(ins, ident):
+	out = tree.parse(THE_TEMPLATE)
+	out.first("//idno").append(ident)
 	out.first("//change[@who='part:mime']")["when"] = today
 	# summary
 	tmp = out.first("//summary")
@@ -278,6 +298,9 @@ def process_ins(ins):
 	tmp.coalesce()
 	for s in strings(tmp):
 		s.replace_with(fix_vowels(s.data))
+	tmp.coalesce()
+	if THE_FILE == "vg5.xml":
+		fix_vowels2(tmp)
 	tmp.coalesce()
 	for s in strings(tmp):
 		r = add_gaps(s.data)
@@ -324,12 +347,11 @@ dans l'édition:
 	[abc] <unclear>abc</unclear>
 """
 
-def mkident(ins):
-	return f"DHARMA_INSMelKil{ins.ident:05}"
-
+for f in os.listdir("out"):
+	path = os.path.join("out", f)
+	os.remove(path)
 for ins in inscriptions:
 	ident = mkident(ins)
 	path = f"out/~{ident}.xml"
 	with open(path, "w") as f:
-		f.write(process_ins(ins))
-
+		f.write(process_ins(ins, ident))

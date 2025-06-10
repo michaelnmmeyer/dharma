@@ -1,3 +1,29 @@
+
+bouton translittération
+
+should have:
+
+def handle_tag(buf, space, node):
+	for child in node:
+		handle_thing(child)
+
+def spacing_of(name, space):
+	match name:
+		case "note":
+			return "drop", space
+		case "span" | "link":
+			pass # use the child's values
+		case "npage" | "nline" | "ncell":
+			return "drop", "drop"
+		case _:
+			left_space = right_space = "drop"
+
+which would return space_before, space_after
+
+
+
+
+
 numéro de vers à mettre pas en romain
 
 for crited; fill this in
