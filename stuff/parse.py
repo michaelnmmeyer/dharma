@@ -223,7 +223,9 @@ def replace_delimited_in(root, start, end, tag):
 		for node in nodes[x + 1:y]:
 			repl.append(node)
 		repl.append(nodes[y][:j])
-		nodes[x].replace_with(nodes[x][:i])
+		tmp = tree.String(nodes[x][:i])
+		nodes[x].replace_with(tmp)
+		nodes[x] = tmp
 		tmp = tree.String(nodes[y][j + len(end):])
 		nodes[y].replace_with(tmp)
 		nodes[y] = tmp
@@ -236,6 +238,25 @@ def replace_delimited(root, start, end, tag):
 		if not isinstance(node, tree.Tag):
 			continue
 		replace_delimited(node, start, end, tag)
+
+def replace_choices(root):
+	assert root.name == "unclear"
+	choice = tree.Tag("choice")
+	unclear = tree.Tag("unclear")
+	choice.append(unclear)
+	for node in root:
+		if not isinstance(node, tree.String):
+			unclear.append(node.copy())
+			continue
+		chunks = node.split("/")
+		for i, chunk in enumerate(chunks):
+			if i > 0:
+				unclear = tree.Tag("unclear")
+				choice.append(unclear)
+			unclear.append(chunk)
+	if len(choice) > 1:
+		print(choice.xml())
+		root.replace_with(choice)
 
 def process_ins(ins):
 	out = tree.parse("tpl.xml")
@@ -254,10 +275,6 @@ def process_ins(ins):
 	for gr in tmp.find(".//foreign"):
 		gr.name = "hi"
 		gr["rend"] = "grantha"
-	# for s in strings(tmp):
-	# 	r = fix_unclear(s.data)
-	# 	s.replace_with(r)
-	# 	r.unwrap()
 	tmp.coalesce()
 	for s in strings(tmp):
 		s.replace_with(fix_vowels(s.data))
@@ -266,18 +283,28 @@ def process_ins(ins):
 		r = add_gaps(s.data)
 		s.replace_with(r)
 		r.unwrap()
+	replace_delimited(tmp, "[[", "]]", tree.Tag("dbracket"))
+	replace_delimited(tmp, "[", "]", tree.Tag("unclear"))
+	tmp.coalesce()
+	for unclear in tmp.find(".//unclear"):
+		replace_choices(unclear)
+	tmp.coalesce()
 	# translation
 	tmp = out.first("//div[@type='translation']")
 	tmp.extend(ins.translation)
 	tmp.coalesce()
+	replace_delimited(tmp, "[[", "]]", tree.Tag("dbracket"))
+	replace_delimited(tmp, "[", "]", tree.Tag("supplied", reason="subaudible"))
+	replace_delimited(tmp, "(", ")", tree.Tag("supplied", reason="explanation"))
 	# all
 	out.coalesce()
-	# for s in strings(out):
-	# 	r = fix_supplied(s.data)
-	# 	s.replace_with(r)
-	# 	r.unwrap()
+	replace_delimited(out, "{{", "}}", tree.Tag("supplied", reason="lost"))
+	for db in out.find(".//dbracket"):
+		db.insert_before("[[")
+		db.insert_after("]]")
+		db.unwrap()
 	out = out.xml()
-	out = re.sub(r"(…|\.\.\.)(…|\.)*", ' <gap reason="lost" extent="unknown" unit="character"/> ', out)
+	out = re.sub(r"(…|\.\.\.)(…|\.)*", '<gap reason="lost" extent="unknown" unit="character"/>', out)
 	out = re.sub(r" +", " ", out)
 	return out
 
@@ -285,13 +312,14 @@ def process_ins(ins):
 
 write common function that seeks delimitors properly: {{x}}, [x], (x)
 
-dans la trad:
+partout:
 	{{abc}} supplied reason=lost
+
+dans la trad:
 	[abc] supplied reason=subaudible
 	(abc) supplied reason=explanation
 
 dans l'édition:
-	{{abc}} supplied reason=lost
 	[ab/cd] <choice><unclear>ab</unclear><unclear>cd</unclear></choice>
 	[abc] <unclear>abc</unclear>
 """
