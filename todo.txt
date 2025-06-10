@@ -1,30 +1,22 @@
+for subtrees,
 
-bouton translittération
 
-should have:
-
-def handle_tag(buf, space, node):
-	for child in node:
-		handle_thing(child)
-
-def spacing_of(name, space):
+spacing:
 	match name:
 		case "note":
-			return "drop", space
+			return "drop", right_space
 		case "span" | "link":
-			pass # use the child's values
+			return left_space, right_space # back from kid to parent
 		case "npage" | "nline" | "ncell":
 			return "drop", "drop"
 		case _:
-			left_space = right_space = "drop"
+			return "keep", "keep"
 
-which would return space_before, space_after
-
-
-
-
+=========
 
 numéro de vers à mettre pas en romain
+
+bouton de translittération à ajouter pour le tamoul
 
 for crited; fill this in
     <!-- repository name -->

@@ -64,13 +64,13 @@ def handle_subtree(root: tree.Tag):
 				if first:
 					if len(node) == 0:
 						continue
-					left_space = space = handle_string(buf, "drop", node)
+					space = handle_string(buf, space, node)
 					first = False
 				else:
 					space = handle_string(buf, space, node)
 			case tree.Tag():
 				if first:
-					left_space, space = handle_tag(buf, "drop", node)
+					left_space, space = handle_tag(buf, left_space, node)
 					first = False
 				else:
 					_, space = handle_tag(buf, space, node)
@@ -137,6 +137,8 @@ def handle_tag(buf, space, node):
 			left_space, right_space = "drop", space
 		case "span" | "link":
 			pass # use the child's values
+		case "npage" | "nline" | "ncell":
+			left_space = right_space = "keep"
 		case _:
 			left_space = right_space = "drop"
 	return left_space, right_space
