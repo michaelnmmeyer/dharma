@@ -55,25 +55,24 @@ def fix_spaces(doc: tree.Tree):
 # ¶ keep: preserve whitespace in the output
 def handle_subtree(root: tree.Tag):
 	buf = tree.Tag(root.name, **root.attrs)
-	left_space = space = "keep"
+	space = "keep"
 	first = True
 	for node in root:
-		print(left_space, node, space)
 		match node:
 			case tree.String():
+				if len(node) == 0:
+					continue
 				if first:
-					if len(node) == 0:
-						continue
-					space = handle_string(buf, space, node)
+					space = append_string(buf, "drop", node)
 					first = False
 				else:
-					space = handle_string(buf, space, node)
+					space = append_string(buf, space, node)
 			case tree.Tag():
 				if first:
-					left_space, space = handle_tag(buf, left_space, node)
+					space = append_tag(buf, "drop", node)
 					first = False
 				else:
-					_, space = handle_tag(buf, space, node)
+					space = append_tag(buf, space, node)
 	# Delete all empty nodes except the root tag (needed for producing a
 	# valid XML document) and milestones (they are meaningful on their own,
 	# without contents)
@@ -82,10 +81,19 @@ def handle_subtree(root: tree.Tag):
 			case "npage" | "nline" | "ncell" | "document":
 				pass
 			case _:
-				buf = None
+				return "keep", None, "keep"
+	match root.name:
+		case "note":
+			left_space = "drop"
+		case "span" | "link":
+			pass # use the child's values
+		case "npage" | "nline" | "ncell":
+			left_space = space = "drop"
+		case _:
+			left_space = space = "drop"
 	return left_space, buf, space
 
-def handle_string(buf, space, node):
+def append_string(buf, space, node):
 	match space:
 		case "add":
 			text = squeeze(node.data.lstrip())
@@ -115,7 +123,7 @@ def handle_string(buf, space, node):
 	buf.append(text)
 	return "keep"
 
-def handle_tag(buf, space, node):
+def append_tag(buf, space, node):
 	left_space, repl, right_space = handle_subtree(node)
 	if len(buf) > 0:
 		match space:
@@ -132,16 +140,7 @@ def handle_tag(buf, space, node):
 						add_space(buf)
 	if repl:
 		buf.append(repl)
-	match buf.name:
-		case "note":
-			left_space, right_space = "drop", space
-		case "span" | "link":
-			pass # use the child's values
-		case "npage" | "nline" | "ncell":
-			left_space = right_space = "keep"
-		case _:
-			left_space = right_space = "drop"
-	return left_space, right_space
+	return right_space
 
 def squeeze(s):
 	return re.sub(r"\s+", " ", s)
