@@ -3,6 +3,19 @@ squeeze all strings
 if the current element is span|link, detach leading/trailing spaces and move them to the parent recursively (or delete them if there is already a space at the insert location); otherwise, ltrim+rtrim the element
 
 
+
+	# Delete all empty nodes except the root tag (needed for producing a
+	# valid XML document) and milestones (they are meaningful on their own,
+	# without contents)
+	if len(buf) == 0:
+		match root.name:
+			case "npage" | "nline" | "ncell" | "document":
+				pass
+			case _:
+				return "keep", None, "keep"
+
+
+
 spacing:
 	match name:
 		case "note":

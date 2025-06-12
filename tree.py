@@ -517,7 +517,7 @@ class Branch(Node, list):
 		for node in list(iterable):
 			self.append(node)
 
-	def coalesce(self):
+	def coalesce(self, recursive=True):
 		i = 0
 		while i < len(self):
 			cur = self[i]
@@ -529,7 +529,7 @@ class Branch(Node, list):
 					self[i + 1].delete()
 				else:
 					i += 1
-			elif isinstance(cur, Tag):
+			elif recursive and isinstance(cur, Tag):
 				cur.coalesce()
 				i += 1
 			else:

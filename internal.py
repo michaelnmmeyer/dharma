@@ -44,103 +44,80 @@ from dharma import tree, common
 # and milestones.
 
 def fix_spaces(doc: tree.Tree):
-	_, root, _ = handle_subtree(doc.root)
-	doc.root.replace_with(root)
-	return doc
+	fix_elements(doc.root)
 
-# space is one of "add", "drop", "keep".
-# ¶ add: a space character should be added here, but if preceded by drop, then
-# don't add one.
-# ¶ drop: remove all following spaces
-# ¶ keep: preserve whitespace in the output
-def handle_subtree(root: tree.Tag):
-	buf = tree.Tag(root.name, **root.attrs)
-	space = "keep"
-	first = True
+def add_space_before(root):
+	parent = root.parent
+	i = parent.index(root)
+	if i > 0 and isinstance(parent[i - 1], tree.String):
+		node = parent[i - 1]
+		if len(node) > 0 and node[-1].isspace():
+			pass
+		else:
+			node.replace_with(node.data + " ")
+	else:
+		parent.insert(i, " ")
+
+def add_space_after(root):
+	parent = root.parent
+	i = parent.index(root)
+	if i < len(parent) - 1 and isinstance(parent[i + 1], tree.String):
+		node = parent[i + 1]
+		if len(node) > 0 and node[0].isspace():
+			pass
+		else:
+			node.replace_with(" " + node.data)
+	else:
+		parent.insert(i + 1, " ")
+
+def starts_with_space(s):
+	return len(s) > 0 and s[0].isspace()
+
+def ends_with_space(s):
+	return len(s) > 0 and s[-1].isspace()
+
+def fix_elements(root: tree.Tag):
+	nodes = []
 	for node in root:
-		match node:
-			case tree.String():
-				if len(node) == 0:
-					continue
-				if first:
-					space = append_string(buf, "drop", node)
-					first = False
-				else:
-					space = append_string(buf, space, node)
-			case tree.Tag():
-				if first:
-					space = append_tag(buf, "drop", node)
-					first = False
-				else:
-					space = append_tag(buf, space, node)
-	# Delete all empty nodes except the root tag (needed for producing a
-	# valid XML document) and milestones (they are meaningful on their own,
-	# without contents)
-	if len(buf) == 0:
-		match root.name:
-			case "npage" | "nline" | "ncell" | "document":
-				pass
-			case _:
-				return "keep", None, "keep"
-	match root.name:
-		case "note":
-			left_space = "drop"
-		case "span" | "link":
-			pass # use the child's values
-		case "npage" | "nline" | "ncell":
-			left_space = space = "drop"
-		case _:
-			left_space = space = "drop"
-	return left_space, buf, space
-
-def append_string(buf, space, node):
-	match space:
-		case "add":
-			text = squeeze(node.data.lstrip())
-			if len(text) == 0:
-				return "add"
-			add_space(buf)
-		case "drop":
-			text = squeeze(node.data.lstrip())
-			if len(text) == 0:
-				return "drop"
-		case "keep":
-			text = squeeze(node.data)
-			if len(text) == 0:
-				return "keep"
-			if text == " ":
-				return "add"
-			if text[0].isspace():
-				add_space(buf)
-				text = text[1:]
-		case _:
-			assert 0
-			return
-	if text[-1].isspace():
-		text = text[:-1]
-		buf.append(text)
-		return "add"
-	buf.append(text)
-	return "keep"
-
-def append_tag(buf, space, node):
-	left_space, repl, right_space = handle_subtree(node)
-	if len(buf) > 0:
-		match space:
-			case "add":
-				match left_space:
-					case "add" | "keep":
-						add_space(buf)
-			case "drop":
-				if is_space(buf[-1]):
-					buf.pop()
-			case "keep":
-				match left_space:
-					case "add":
-						add_space(buf)
-	if repl:
-		buf.append(repl)
-	return right_space
+		if isinstance(node, tree.Tag):
+			nodes.append(node)
+	for node in nodes:
+		fix_elements(node)
+	root.coalesce(recursive=False)
+	nodes.clear()
+	for node in root:
+		if isinstance(node, (tree.Tag, tree.String)):
+			nodes.append(node)
+	forward_spaces = root.name in ("span", "link")
+	for i, node in enumerate(nodes):
+		if not isinstance(node, tree.String):
+			continue
+		repl = squeeze(node.data)
+		assert len(repl) > 0
+		if i < len(nodes) - 1 and ends_with_space(repl) \
+			and isinstance(nodes[i + 1], tree.Tag) \
+			and nodes[i + 1].name in ("npage", "nline", "ncell", "note"):
+			repl = repl.rstrip()
+		if i > 0 and starts_with_space(repl) \
+			and isinstance(nodes[i - 1], tree.Tag) \
+			and nodes[i - 1].name in ("npage", "nline", "ncell"):
+			repl = repl.lstrip()
+		if i == 0 and starts_with_space(repl):
+			repl = repl.lstrip()
+			if forward_spaces:
+				add_space_before(root)
+		if i == len(nodes) - 1 and len(repl) > 0 and repl[-1] == " ":
+			repl = repl.rstrip()
+			if forward_spaces:
+				add_space_after(root)
+		if not repl:
+			node.delete()
+		elif repl != node.data:
+			node.replace_with(repl)
+	# Delete all empty elements except the XML document's root and
+	# milestones.
+	if len(root) == 0 and root.name not in ("document", "npage", "nline", "ncell"):
+		root.delete()
 
 def squeeze(s):
 	return re.sub(r"\s+", " ", s)
@@ -493,6 +470,11 @@ if __name__ == "__main__":
 		f = texts.File("/", path)
 		t = tei2internal.process_file(f).serialize()
 		t = process(t)
+		for s in t.strings():
+			if s[0] == " ":
+				s.insert_before(tree.Comment("space"))
+			if s[-1] == " " and len(s) > 1:
+				s.insert_after(tree.Comment("space"))
 		sys.stdout.write(t.xml())
 	try:
 		main()
