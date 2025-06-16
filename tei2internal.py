@@ -447,7 +447,7 @@ def parse_rdg(p, rdg):
 def parse_app(p, app):
 	if (loc := app["loc"]):
 		p.push(tree.Tag("nline", break_=common.from_boolean(True)))
-		p.push(tree.Tag("span", class_="lb", tip=f"Line number"))
+		p.push(tree.Tag("span", class_="lb", tip=f"Line start"))
 		p.append("⟨")
 		p.append(loc)
 		p.append("⟩")
@@ -861,11 +861,11 @@ def get_n(node):
 def milestone_break(node):
 	return common.to_boolean(node["break"], True)
 
-def append_milestone_label(p, node, unit=None, tip=None):
-	span = tree.Tag("span", tip=tip)
+def append_milestone_label(p, node, unit):
+	span = tree.Tag("span", tip=f"{unit.title()} start")
 	p.push(span)
 	p.append("⟨")
-	if unit:
+	if unit != "line":
 		p.append(unit.title())
 		if (n := get_n(node)):
 			p.append(" ")
@@ -897,7 +897,7 @@ def parse_milestone(p, node):
 def parse_lb(p, node):
 	break_ = milestone_break(node)
 	p.push(tree.Tag("nline", break_=common.from_boolean(break_)))
-	append_milestone_label(p, node, tip="Line number")
+	append_milestone_label(p, node, "line")
 	p.join()
 
 # <fw> is for pagelike milestones only.
@@ -1369,10 +1369,8 @@ def make_meter_heading(p, met):
 def parse_lg(p, lg):
 	p.push(tree.Tag("verse"))
 	# Generally we have a single number e.g. "10", but sometimes ranges
-	# e.g. "10-20" (with various types of dashes). Try to do the most
-	# generic thing viz. replace sequences of digits with the corresponding
-	# Roman number whenever possible.
-	n = re.sub(r"[0-9]+", lambda m: to_roman(int(m.group())), get_n(lg))
+	# e.g. "10-20" (with various types of dashes).
+	n = get_n(lg)
 	met = make_meter_heading(p, lg["met"])
 	if n or met:
 		p.push(tree.Tag("verse-head"))
@@ -1407,7 +1405,7 @@ def parse_p(p, para):
 	if (n := get_n(para)):
 		# See e.g. http://localhost:8023/display/DHARMA_INSSII0400223
 		# Should be displayed like <lb/> is in the edition.
-		p.push(tree.Tag("span", class_="lb", tip="Line number"))
+		p.push(tree.Tag("span", class_="lb", tip="Line start"))
 		p.append(f"⟨{n}⟩")
 		p.join()
 	p.dispatch_children(para)

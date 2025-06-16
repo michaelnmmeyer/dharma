@@ -43,6 +43,10 @@ from dharma import tree, common
 # Finally, we delete all empty elements except the tree's root viz. "document"
 # and milestones.
 
+"""
+delete all spaces around tags _except_ if the tag is an inline
+"""
+
 def fix_spaces(doc: tree.Tree):
 	fix_elements(doc.root)
 
@@ -96,11 +100,11 @@ def fix_elements(root: tree.Tag):
 		assert len(repl) > 0
 		if i < len(nodes) - 1 and ends_with_space(repl) \
 			and isinstance(nodes[i + 1], tree.Tag) \
-			and nodes[i + 1].name in ("npage", "nline", "ncell", "note"):
+			and nodes[i + 1].name not in ("span", "link"):
 			repl = repl.rstrip()
 		if i > 0 and starts_with_space(repl) \
 			and isinstance(nodes[i - 1], tree.Tag) \
-			and nodes[i - 1].name in ("npage", "nline", "ncell"):
+			and nodes[i - 1].name not in ("span", "link", "note"):
 			repl = repl.lstrip()
 		if i == 0 and starts_with_space(repl):
 			repl = repl.lstrip()
@@ -121,24 +125,6 @@ def fix_elements(root: tree.Tag):
 
 def squeeze(s):
 	return re.sub(r"\s+", " ", s)
-
-debug_space = True
-
-def add_space(buf):
-	if debug_space:
-		buf.append(tree.Tag("space"))
-	else:
-		buf.append(" ")
-
-def is_space(node):
-	if debug_space:
-		match node:
-			case tree.Tag(name_="space"):
-				return True
-			case _:
-				return False
-	else:
-		return isinstance(node, str) and str(node) == " "
 
 """
 The resulting hierarchy must be:
@@ -194,7 +180,7 @@ milestone_accepting = ("para", "verse-line", "item", "key", "value", "quote")
 
 def in_milestone_accepting(node):
 	for parent in node.find("ancestor::*"): # XXX nesting
-		if parent.name in milestone_accepting:
+		if isinstance(parent, tree.Tag) and parent.name in milestone_accepting:
 			return True
 	return False
 
@@ -373,21 +359,9 @@ def milestone_is_terminal(doc, mile):
 	return last is mile
 
 """
-under /document/edition, unwrap everything except: div, head, span, link, npage,
-nline, ncell, note. should remove only: para, verse verse-line head quote dlist key value list item
+TODO for physical:
 
-XXX TODO
-for physical:
-
-unwrap these elements:
-	para
-	verse
-	verse-line
-	list
-	dlist
-
-delete this one:
-	verse-head
+wrap lines within <para>
 
 split these elements if needed:
 	a
@@ -395,6 +369,7 @@ split these elements if needed:
 
 keep as is:
 	div
+	note
 """
 def unwrap_for_physical(root: tree.Branch):
 	for node in list(root):
@@ -402,17 +377,41 @@ def unwrap_for_physical(root: tree.Branch):
 			continue
 		match node.name:
 			case "note":
-				continue
+				pass
 			case "div" | "head" | "span" | "link" | "npage" | "nline" | "ncell":
 				unwrap_for_physical(node)
 			case "verse-head":
 				node.delete()
 			case _:
-				assert node.name in ("para", "verse", "verse-line", "head", "quote", "dlist", "key", "value", "list", "item")
+				assert node.name in ("para", "verse", "verse-line", "quote", "dlist", "key", "value", "list", "item")
 				node.unwrap()
+
+# People often use div[@type='textpart'] instead of page-like milestones for
+# indicating physical divisions. We thus have a lot of inscriptions that
+# have two textparts "Seal" and "Plates". In such cases, a new textpart means
+# a new page-like division. But people also use textparts independently of
+# page-like milestones. We can't tell what the user means, so do nothing
+# special for now.
+def wrap_for_physical(root: tree.Tag):
+	para = None
+	for node in list(root):
+		match node:
+			case tree.Tag(name="npage"):
+				pass
+			case tree.Tag(name="div"):
+				para = None
+				wrap_for_physical(node)
+			case tree.Tag(name="head"):
+				para = None
+			case _:
+				if not para:
+					para = tree.Tag("para")
+					node.insert_before(para)
+				para.append(node)
 
 def to_physical(t):
 	unwrap_for_physical(t)
+	wrap_for_physical(t)
 	for node in t.find(".//span[@class='corr' and @standalone='false']"):
 		node.delete()
 	for node in t.find(".//span[@class='reg' and @standalone='false']"):
@@ -428,8 +427,28 @@ def to_logical(t):
 	for node in t.find(".//am"):
 		node.delete()
 
+def milestone_at_block_start(mile):
+	parent = mile.parent
+	while isinstance(parent, tree.Tag) and parent.name in ("span", "link"):
+		mile = parent
+		parent = parent.parent
+	i = 0
+	while i < len(parent):
+		if parent[i] is mile:
+			return True
+		if not isinstance(parent[i], tree.Comment):
+			return False
+		i += 1
+
 def to_full(t):
-	pass
+	for node in t.find(".//*[name()='npage' or name()='nline' or name()='ncell']"):
+		if common.to_boolean(node["break"], False):
+			node.append(" ")
+			# Also add a space before the milestone if this is a
+			# npage and if this npage is not at the beginning of a
+			# block-like element.
+			if not milestone_at_block_start(node):
+				node.prepend(" ")
 
 def process(t: tree.Tree):
 	fix_spaces(t)
@@ -444,10 +463,10 @@ def process(t: tree.Tree):
 	full.name = "full"
 	if (head := full.first("head")):
 		head.delete()
-	to_full(full)
 	physical = full.copy()
 	physical.name = "physical"
 	to_physical(physical)
+	to_full(full)
 	logical = full.copy()
 	logical.name = "logical"
 	to_logical(logical)
@@ -470,12 +489,13 @@ if __name__ == "__main__":
 		f = texts.File("/", path)
 		t = tei2internal.process_file(f).serialize()
 		t = process(t)
+		# Make spaces apparent around tags.
 		for s in t.strings():
 			if s[0] == " ":
 				s.insert_before(tree.Comment("space"))
 			if s[-1] == " " and len(s) > 1:
 				s.insert_after(tree.Comment("space"))
-		sys.stdout.write(t.xml())
+		sys.stdout.write(t.first("//full").xml())
 	try:
 		main()
 	except BrokenPipeError:

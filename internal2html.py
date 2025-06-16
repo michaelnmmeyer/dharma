@@ -81,7 +81,7 @@ def process_edition_languages(self, node):
 		self.document.edition_languages.append(extract_paired(self, lang))
 
 @handler("identifier")
-def render_section(self, node):
+def render_identifier(self, node):
 	self.push(tree.Tree())
 	self.dispatch_children(node)
 	name = node.name.replace("-", "_")
@@ -168,6 +168,13 @@ def render_head(self, node):
 	self.dispatch_children(node)
 	self.join()
 
+
+@handler("physical//npage")
+def render_physical_npage(self, node):
+	self.push(tree.Tag("div", class_="pagelike"))
+	self.dispatch_children(node)
+	self.join()
+
 @handler("npage")
 @handler("nline")
 @handler("ncell")
@@ -179,6 +186,8 @@ def render_milestone(self, node):
 			class_ = "lb"
 		case "ncell":
 			class_ = "gridlike"
+		case _:
+			raise Exception
 	self.push(tree.Tag("span", class_=class_))
 	self.dispatch_children(node)
 	self.join()
@@ -191,6 +200,10 @@ def make_note_ref(self, node, id_prefix):
 	self.append(str(n))
 	self.join()
 	self.join()
+
+@handler("apparatus//note")
+def render_apparatus_note_ref(self):
+	pass
 
 @handler("physical//note")
 def render_physical_note_ref(self, node):
