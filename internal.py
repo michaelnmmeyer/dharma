@@ -1,53 +1,51 @@
 import re
 from dharma import tree, common
 
-# Summary of new elements:
-#
-# ¶ data fields: title, author, editor
-# (these elements should not contain paragraphs)
-#
-# ¶ divisions: summary, hand, edition, apparatus, translation, commentary,
-# bibliography, div
-# (all their children strings should be removed)
-#
-# ¶ para-like: para verse(>verse-line) head quote
-#
-# ¶ para containers: dlist(>(key, value)) list(>item) note
-#
-# ¶ sub-paragraphs divisions: item, key, value, verse-line
-# (can only contain inline)
-#
-# ¶ inline: span link
-#
-# ¶ milestones: npage nline ncell
+# XXX should have an axis for "everything except <note>", because there are a
+# lot of cases where we _must_ avoid <note>, and it's not immediately clear
+# where, and iot's error-prone.
 
-# Whitespace fixing
-#
-# We basically do what follows. We remove spaces at the beginning and at the end
-# of each element. Furthermore, we squeeze spaces (collapse sequences of spaces
-# into a single space within each element.
-#
-# We transfer spaces at the beginning and at the end of a subtree to the parent
-# element, recursively. Thus,
-#
-#	<para>foo<span><link> bar</link></span></para>
-#
-# is turned into:
-#
-#	<para>foo <span><link>bar</link></span></para>
-#
-# We only do that for "span" and "link" (inline tags, per contrast with
-# block-level ones). For "note" tags, we drop preceding whitespace. For all
-# other tags, we drop spaces both before and after them.
-#
-# Finally, we delete all empty elements except the tree's root viz. "document"
-# and milestones.
+# XXX fix nesting of para with lg, etc. and write appropriate rnc schema and
+# try to validate all files to ensure we do transforms correctly.
+
+# XXX for milestones, should keep a @n, but only a @n (preconstructed, so that
+# it is unique across the whole file).
 
 """
-delete all spaces around tags _except_ if the tag is an inline
+Summary of new elements:
+
+¶ data fields: title, author, editor
+(these elements should not contain paragraphs)
+¶ divisions: summary, hand, edition, apparatus, translation, commentary,
+bibliography, div
+(all their children strings should be removed)
+¶ para-like: para verse(>verse-line) head quote
+¶ para containers: dlist(>(key, value)) list(>item) note
+¶ sub-paragraphs divisions: item, key, value, verse-line
+(can only contain inline)
+¶ inline: span link
+¶ milestones: npage nline ncell
+
+Whitespace fixing
+We basically do what follows. We remove spaces at the beginning and at the end
+of each element. Furthermore, we squeeze spaces (collapse sequences of spaces
+into a single space within each element.
+We transfer spaces at the beginning and at the end of a subtree to the parent
+element, recursively. Thus,
+<para>foo<span><link> bar</link></span></para>
+is turned into:
+<para>foo <span><link>bar</link></span></para>
+We only do that for "span" and "link" (inline tags, per contrast with
+block-level ones). For "note" tags, we drop preceding whitespace. For all
+other tags, we drop spaces both before and after them.
+Finally, we delete all empty elements except the tree's root viz. "document"
+and milestones.
+
+Delete all spaces around tags _except_ if the tag is an inline.
 """
 
 def fix_spaces(doc: tree.Tree):
+
 	fix_elements(doc.root)
 
 def add_space_before(root):
@@ -126,71 +124,93 @@ def fix_elements(root: tree.Tag):
 def squeeze(s):
 	return re.sub(r"\s+", " ", s)
 
-"""
-The resulting hierarchy must be:
-	<page>
-		<line>
-			<cell>
-				<link>
-				<span>
-"""
 
+################################ Milestones ####################################
 
-"""
-Apply placement conventions for each milestone.
+def fix_milestones(t):
+	"""The point of these transformations (besides display-related stuff)
+	is to ensure all editions have the same milestones structure.
 
-milestone-accepting elements: para verse-line item key value quote
-	note that these should *not* overlap
+	After transforms, we have a hierarchy: page > line > cell, where each
+	inscription that has an edition has 1+ page(s); where each page
+	contains 1+ line(s); and where each line contains at least 1+ cell(s).
+	Thus each inscription that does have an edition contains at least three
+	milestones: one page, one line, one cell. We add "phantom" pages, lines
+	and cells in such a way that they cover the whole inscription.
+	"""
+	milestones = mark_useless_milestones(t)
+	if not milestones:
+		return
+	fix_milestones_location(milestones)
+	assert milestones == t.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not @ignore]")
+	add_phantom_milestones(t, milestones)
+	assert milestones == t.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not @ignore]")
+	add_milestones_breaks(milestones)
+	assert milestones == t.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not @ignore]")
+	fix_milestones_spaces(t)
+	assert milestones == t.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not @ignore]")
 
-inline elements: span link
+def mark_useless_milestones(doc: tree.Tree):
+	"""Distinguish npage, nline, ncell elements that we will use for search
+	from the others."""
+	milestones = doc.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not ancestor::*[name()='note' or name()='head']]")
+	keep = set(milestones)
+	for mile in doc.find("//*[name()='npage' or name()='nline' or name()='ncell']"):
+		if mile not in keep:
+			mile["ignore"] = "true"
+	return milestones
 
-1) If the milestone appears at the very beginning or end of an element, move the milestone before or after (respectively) the parent element, and repeat as much as possible, stopping as soon as the parent is a milestone-accepting element. Milestones should only appear within one of these. In practice, we should only move up from inline elements, but this must be checked. Probably simpler to move it up only while the parent is an inline element *and* while the milestone is at the beginning/end of this inline.
-
-Problem: moving things up would not work properly if we do some transformations on the contents (add a prefix or suffix), as in:
-
-	<supplied><lb n="1"/>foo</supplied>
-
-	<span class="supplied" tip="Lost text">[<nline break="true"><span tip="Line number">⟨1⟩</span></nline>foo]</span>
-
-To fix this, we wrap the added contents within <display> and treat this tag as empty while moving up the milestone, thus:
-
-	<supplied><lb n="1"/>foo</supplied>
-
-	... results in:
-
-	<span class="supplied" tip="Lost text"><display>[</display><nline break="true"><span tip="Line number">⟨1⟩</span></nline><span>foo</span><display>]</display></span>
-
-	... which results in:
-
-	<nline break="true"><span tip="Line number">⟨1⟩</span></nline><span class="supplied" tip="Lost text"><display>[</display><span>foo</span><display>]</display></span>
-
-Another (maybe preferable) solution would be to leave the displayed milestone in place and move up only a structural element (which would not be displayed).
-
-2) If the milestone is not within one of the milestone-accepting elements, move it forward to the beginning of the next milestone-accepting element (in following::* order) (but skip <note> and its descendants). Exception if the milestone is a ncell and appears at the very end of the edition: in this case, leave the milestone where it is.
-
-
-
-What about consecutive npages, etc.? We need to create an extra <p> for them, but we should do this only when rendering the physical display.
-
-	<para> <span> A <span><npage/>B</span> C </span> </para>
-
-	<para> A <span> B <npage/> </span> </para>
-"""
 milestone_accepting = ("para", "verse-line", "item", "key", "value", "quote")
 
 def in_milestone_accepting(node):
-	for parent in node.find("ancestor::*"): # XXX nesting
+	for parent in node.find("ancestor::*"): # XXX nesting? and also <note>
 		if isinstance(parent, tree.Tag) and parent.name in milestone_accepting:
 			return True
 	return False
 
 def first_milestone_accepting(node):
-	for anchor in node.find("following::*"): # XXX nesting
+	for anchor in node.find("following::*"): # XXX nesting? and also <note>
 		if anchor.name in milestone_accepting:
 			return anchor
 
-def fix_milestones_location(doc: tree.Tree):
-	milestones = doc.find("/document/edition//*[name()='npage' or name()='nline' or name()='ncell' and not ancestor::note]")
+def fix_milestones_location(milestones):
+	"""Apply placement conventions for each milestone.
+
+	milestone-accepting elements: para verse-line item key value quote
+		note that these should *not* overlap
+
+	inline elements: span link
+
+	1) If the milestone appears at the very beginning or end of an element, move the milestone before or after (respectively) the parent element, and repeat as much as possible, stopping as soon as the parent is a milestone-accepting element. Milestones should only appear within one of these. In practice, we should only move up from inline elements, but this must be checked. Probably simpler to move it up only while the parent is an inline element *and* while the milestone is at the beginning/end of this inline.
+
+	Problem: moving things up would not work properly if we do some transformations on the contents (add a prefix or suffix), as in:
+
+		<supplied><lb n="1"/>foo</supplied>
+
+		<span class="supplied" tip="Lost text">[<nline break="true"><span tip="Line number">⟨1⟩</span></nline>foo]</span>
+
+	To fix this, we wrap the added contents within <display> and treat this tag as empty while moving up the milestone, thus:
+
+		<supplied><lb n="1"/>foo</supplied>
+
+		... results in:
+
+		<span class="supplied" tip="Lost text"><display>[</display><nline break="true"><span tip="Line number">⟨1⟩</span></nline><span>foo</span><display>]</display></span>
+
+		... which results in:
+
+		<nline break="true"><span tip="Line number">⟨1⟩</span></nline><span class="supplied" tip="Lost text"><display>[</display><span>foo</span><display>]</display></span>
+
+	Another (maybe preferable) solution would be to leave the displayed milestone in place and move up only a structural element (which would not be displayed).
+
+	2) If the milestone is not within one of the milestone-accepting elements, move it forward to the beginning of the next milestone-accepting element (in following::* order) (but skip <note> and its descendants). Exception if the milestone is a ncell and appears at the very end of the edition: in this case, leave the milestone where it is.
+
+	What about consecutive npages, etc.? We need to create an extra <p> for them, but we should do this only when rendering the physical display.
+
+		<para> <span> A <span><npage/>B</span> C </span> </para>
+
+		<para> A <span> B <npage/> </span> </para>
+	"""
 	for mile in milestones:
 		parent = mile.parent
 		while isinstance(parent, tree.Tag) and parent.name in ("span", "link"):
@@ -216,38 +236,24 @@ def back_node(node):
 			continue
 		return child
 
-def expand_useless_milestones(doc: tree.Tree):
-	keep = set()
-	for mile in doc.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not ancestor::*[name()='note' or name()='head']]"):
-		keep.add(mile)
-	for mile in doc.find("//*[name()='npage' or name()='nline' or name()='ncell']"):
-		if mile not in keep:
-			mile.unwrap()
+def add_phantom_milestones(doc: tree.Tree, milestones):
+	"""We have to allocate phantom pages/lines/cells, when a) the encoding is incorrect; b) the encoding is correct but a category is missing. it is best to keep these phantom elements in the output than to remove them, for search.
 
-"""
-We have to allocate phantom pages/lines/cells, when a) the encoding is incorrect; b) the encoding is correct but a category is missing. it is best to keep these phantom elements in the output than to remove them, for search.
+	except that if they occur within "head" or "note, leave them as-is (viz. replace them with <span> and don't consider them meaningful). and also replace them with <span> when they appear outside of the edition
 
-except that if they occur within "head" or "note, leave them as-is (viz. replace them with <span> and don't consider them meaningful). and also replace them with <span> when they appear outside of the edition
+	we can't really tell whether numbering is continuous between textparts or not, so if we have:
+		<pb n=X>foo<div type="textpart">bar<pb n=Z>
+	we assume that page X continues in the next textpart (instead of assuming that the next textpart is missing a <pb n=Y> at the very beginning). to represent the fact that page X continues in the next textpart, use a cont=true flag in the first div we generate within the next textpart.
 
-we can't really tell whether numbering is continuous between textparts or not, so if we have:
-	<pb n=X>foo<div type="textpart">bar<pb n=Z>
-we assume that page X continues in the next textpart (instead of assuming that the next textpart is missing a <pb n=Y> at the very beginning). to represent the fact that page X continues in the next textpart, use a cont=true flag in the first div we generate within the next textpart.
-
-when generating the search representation, not sure what to do with the textpart heading in the middle. might want to index separately the TOC (with all headings)
-and the text (without interruption).
-"""
-def add_phantom_milestones(doc: tree.Tree):
-	edition = doc.first("/document/edition")
-	if not edition:
-		return
-	milestones = edition.find(".//*[name()='npage' or name()='nline' or name()='ncell']")
-	for node in edition.find(".//*"):
+	when generating the search representation, not sure what to do with the textpart heading in the middle. might want to index separately the TOC (with all headings)
+	and the text (without interruption).
+	"""
+	for node in doc.find("/document/edition//*"):
 		if node.name in milestone_accepting:
 			insert = node
 			break
 	else:
-		assert not milestones
-		return
+		raise Exception
 	if len(insert) > 0 and isinstance(insert[0], tree.Tag) and insert[0].name == "npage":
 		assert len(milestones) > 0
 		assert insert[0] is milestones[0]
@@ -270,6 +276,7 @@ def add_phantom_milestones(doc: tree.Tree):
 		insert.insert(2, mile)
 		milestones.insert(2, mile)
 	for mile in milestones[3:]:
+		#XXX REPR HERE add created milestones to the list
 		if mile.name == "npage":
 			if (tmp := mile.first("following-sibling::*")) and tmp.name == "nline":
 				mile = tmp
@@ -293,38 +300,34 @@ def add_phantom_milestones(doc: tree.Tree):
 			pass
 		else:
 			raise Exception
-	if __debug__:
-		milestones = edition.find(".//*[name()='npage' or name()='nline' or name()='ncell']")
-		assert len(milestones) >= 3
-		assert milestones[0].name == "npage"
-		assert milestones[1].name == "nline"
-		assert milestones[2].name == "ncell"
-		assert milestones[-1].name == "ncell"
 
-"""
-Add missing @break to each milestone and make @break consistent.
+def add_milestones_breaks(milestones):
+	"""Add missing @break to each milestone and make @break consistent.
 
-¶ The 3 initial milestones (at the very beginning of the first
-milestone-accepting element) must have @break="yes".
+	¶ The 3 initial milestones (at the very beginning of the first
+	milestone-accepting element) must have @break="yes".
 
-¶ If there is a milestone at the very end of the text (at the very end of the
-last milestone-accepting element), it must have @break="yes".
+	¶ The last ncell, which is necessarily a ncell, must have @break="yes".
+	Idem for the preceding nline and npage if they appear right before the
+	ncell, without any text or other tag in-between.
 
-¶ Otherwise, we must necessarily have coherent milestones for sequences
-npage+nline+ncell or nline+ncell; if there is a break="false" among any of
-these, it was explicitly specified in the original TEI, so set @break="false"
-to all other milestones accordingly.
-"""
-def add_milestones_breaks(doc: tree.Tree):
-	milestones = doc.find("/document/edition//*[name()='npage' or name()='nline' or name()='ncell']")
-	if not milestones:
-		return
+	¶ Otherwise, we must necessarily have coherent milestones for sequences
+	npage+nline+ncell or nline+ncell; if there is a break="false" among any of
+	these, it was explicitly specified in the original TEI, so set @break="false"
+	to all other milestones accordingly.
+	"""
+	assert len(milestones) >= 3
+	assert milestones[0].name == "npage"
+	assert milestones[1].name == "nline"
+	assert milestones[2].name == "ncell"
 	for mile in milestones[:3]:
 		mile["break"] = "true"
 	miles = iter(milestones[3:])
 	for mile in miles:
 		if mile.name == "npage":
 			tmp = [mile, next(miles), next(miles)]
+			assert tmp[1].name == "nline"
+			assert tmp[2].name == "ncell"
 			if all(common.from_boolean(mile["break"]) for mile in tmp):
 				pass
 			else:
@@ -332,20 +335,23 @@ def add_milestones_breaks(doc: tree.Tree):
 					mile["break"] = "false"
 		elif mile.name == "nline":
 			tmp = [mile, next(miles)]
+			assert tmp[1].name == "ncell"
 			if all(common.from_boolean(mile["break"]) for mile in tmp if mile["break"]):
 				pass
 			else:
 				for mile in tmp:
 					mile["break"] = "false"
 		elif mile.name == "ncell":
-			pass
+			mile["break"] = "false"
 		else:
-			assert 0
-	mile = milestones[-1]
-	if milestone_is_terminal(doc, mile):
-		mile["break"] = "true"
-	else:
-		mile["break"] = "false"
+			raise Exception
+	cell = milestones[-1]
+	if milestone_is_terminal(doc, cell):
+		cell["break"] = "true"
+		if (line := cell.first("stuck-preceding-sibling::nline")):
+			line["break"] = "true"
+			if (page := line.first("stuck-preceding-sibling::npage")):
+				page["break"] = "true"
 
 def milestone_is_terminal(doc, mile):
 	"""Whether this milestone (which must be a cell) occurs at the very end
@@ -358,20 +364,37 @@ def milestone_is_terminal(doc, mile):
 		last = node
 	return last is mile
 
-"""
-TODO for physical:
+def milestone_at_block_start(mile):
+	parent = mile.parent
+	while isinstance(parent, tree.Tag) and parent.name in ("span", "link"):
+		mile = parent
+		parent = parent.parent
+	i = 0
+	while i < len(parent):
+		if parent[i] is mile:
+			return True
+		if not isinstance(parent[i], tree.Comment):
+			return False
+		i += 1
 
-wrap lines within <para>
+def fix_milestones_spaces(t: tree.Tree):
+	for node in t.find(".//*[name()='npage' or name()='nline' or name()='ncell']"):
+		if common.to_boolean(node["break"], False):
+			node.append(" ")
+			# Also add a space before the milestone if it is not at
+			# the beginning of a block-like element.
+			if not milestone_at_block_start(node):
+				node.prepend(" ")
 
-split these elements if needed:
-	a
-	para
 
-keep as is:
-	div
-	note
-"""
+########################### Physical Display ###################################
+
+# XXX TODO for physical:
+# wrap lines within <para>
+# split these elements if needed: a, para
+
 def unwrap_for_physical(root: tree.Branch):
+	"Unwraps tag not necessary for the physical display."
 	for node in list(root):
 		if not isinstance(node, tree.Tag):
 			continue
@@ -380,11 +403,29 @@ def unwrap_for_physical(root: tree.Branch):
 				pass
 			case "div" | "head" | "span" | "link" | "npage" | "nline" | "ncell":
 				unwrap_for_physical(node)
+			case "verse":
+				unwrap_for_physical(node)
+				node.unwrap()
 			case "verse-head":
 				node.delete()
 			case _:
-				assert node.name in ("para", "verse", "verse-line", "quote", "dlist", "key", "value", "list", "item")
+				assert node.name in ("para", "verse-line", "quote", "dlist", "key", "value", "list", "item")
 				node.unwrap()
+
+"""
+SPACING!!!!
+key + ' ' + value
+verse-line + '- ' + verse-line
+div
+(all their children strings should be removed)
+¶ para-like: para verse(>verse-line) head quote
+¶ para containers: dlist(>(key, value)) list(>item) note
+¶ sub-paragraphs divisions: item, key, value, verse-line
+(can only contain inline)
+¶ inline: span link
+¶ milestones: npage nline ncell
+
+"""
 
 # People often use div[@type='textpart'] instead of page-like milestones for
 # indicating physical divisions. We thus have a lot of inscriptions that
@@ -392,26 +433,49 @@ def unwrap_for_physical(root: tree.Branch):
 # a new page-like division. But people also use textparts independently of
 # page-like milestones. We can't tell what the user means, so do nothing
 # special for now.
-def wrap_for_physical(root: tree.Tag):
-	para = None
+def wrap_for_physical(root, page=None, line=None):
 	for node in list(root):
 		match node:
-			case tree.Tag(name="npage"):
-				pass
-			case tree.Tag(name="div"):
-				para = None
-				wrap_for_physical(node)
-			case tree.Tag(name="head"):
-				para = None
+			case tree.Tag("div"):
+				page = line = None
+				wrap_for_physical(node, page, line)
+			case tree.Tag("head"):
+				page = line = None
+			case tree.Tag("npage"):
+				page = tree.Tag("div")
+				node.insert_before(page)
+				head = tree.Tag("head")
+				head.append(node)
+				page.append(head)
+				line = None
+			case tree.Tag("nline"):
+				if not page:
+					page = tree.Tag("div")
+					node.insert_before(page)
+				line = tree.Tag("para")
+				page.append(line)
+				line.append(node)
+			case tree.Tag("ncell") | tree.Tag("span") | tree.Tag("link") \
+				| tree.Tag("note") | tree.String():
+				if not page:
+					page = tree.Tag("div")
+					node.insert_before(page)
+				if not line:
+					line = tree.Tag("para")
+					page.append(line)
+				line.append(node)
 			case _:
-				if not para:
-					para = tree.Tag("para")
-					node.insert_before(para)
-				para.append(node)
+				raise Exception(f"unexpected: {node!r}")
 
 def to_physical(t):
 	unwrap_for_physical(t)
 	wrap_for_physical(t)
+	# We need to add a hyphen break after all the milestone @break=no,
+	# whether or not there is a hyphen break at the end of the line.
+	# (We also have preceding hyphens sometimes, but this is not OK I
+	# think.)
+	# Use <display><span tip="Hyphen break">-</span> at the end of each
+	# line
 	for node in t.find(".//span[@class='corr' and @standalone='false']"):
 		node.delete()
 	for node in t.find(".//span[@class='reg' and @standalone='false']"):
@@ -427,35 +491,10 @@ def to_logical(t):
 	for node in t.find(".//am"):
 		node.delete()
 
-def milestone_at_block_start(mile):
-	parent = mile.parent
-	while isinstance(parent, tree.Tag) and parent.name in ("span", "link"):
-		mile = parent
-		parent = parent.parent
-	i = 0
-	while i < len(parent):
-		if parent[i] is mile:
-			return True
-		if not isinstance(parent[i], tree.Comment):
-			return False
-		i += 1
-
-def to_full(t):
-	for node in t.find(".//*[name()='npage' or name()='nline' or name()='ncell']"):
-		if common.to_boolean(node["break"], False):
-			node.append(" ")
-			# Also add a space before the milestone if this is a
-			# npage and if this npage is not at the beginning of a
-			# block-like element.
-			if not milestone_at_block_start(node):
-				node.prepend(" ")
-
 def process(t: tree.Tree):
 	fix_spaces(t)
-	expand_useless_milestones(t)
-	fix_milestones_location(t)
-	add_phantom_milestones(t)
-	add_milestones_breaks(t)
+	fix_milestones(t)
+	# And create the three displays.
 	edition = t.first("/document/edition")
 	if not edition:
 		return t
@@ -466,7 +505,6 @@ def process(t: tree.Tree):
 	physical = full.copy()
 	physical.name = "physical"
 	to_physical(physical)
-	to_full(full)
 	logical = full.copy()
 	logical.name = "logical"
 	to_logical(logical)
@@ -479,6 +517,17 @@ def process(t: tree.Tree):
 	edition.append(full)
 	return t
 
+def make_pretty_printable(t: tree.Tree):
+	t.coalesce()
+	# Make spaces apparent around tags.
+	for s in t.strings():
+		if s[0] == " ":
+			s.insert_before(tree.Comment("space"))
+		if s[-1] == " " and len(s) > 1:
+			s.insert_after(tree.Comment("space"))
+	for node in t.find("//display"):
+		node.unwrap()
+
 if __name__ == "__main__":
 	import os, sys
 	from dharma import tei2internal, common, texts
@@ -489,13 +538,8 @@ if __name__ == "__main__":
 		f = texts.File("/", path)
 		t = tei2internal.process_file(f).serialize()
 		t = process(t)
-		# Make spaces apparent around tags.
-		for s in t.strings():
-			if s[0] == " ":
-				s.insert_before(tree.Comment("space"))
-			if s[-1] == " " and len(s) > 1:
-				s.insert_after(tree.Comment("space"))
-		sys.stdout.write(t.first("//full").xml())
+		make_pretty_printable(t)
+		sys.stdout.write(t.first("//physical").xml())
 	try:
 		main()
 	except BrokenPipeError:

@@ -203,6 +203,7 @@ create table if not exists documents(
 		typeof(editors_ids) = 'text'
 		and json_valid(editors_ids)
 		and json_type(editors_ids) = 'array'),
+	-- Languages (as assigned by the user in each file).
 	-- There is always at least one assigned language, even when none are
 	-- explicitly given in the source file. (In this case, we assign it the
 	-- language "und").

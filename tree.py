@@ -336,26 +336,26 @@ class Node:
 			path = path[end:]
 		return node
 
-	def find(self, path):
+	def find(self, path: str):
 		'''Finds nodes that match the given XPath expression. Returns a
 		list of matching nodes.
 		'''
 		f = generator.compile(path)
 		return list(f(self))
 
-	def first(self, path):
+	def first(self, path: str):
 		'''Like the `find` method, but returns only the first matching
 		node, or `None` if there is no match.'''
 		f = generator.compile(path)
 		return next(f(self), None)
 
 	@staticmethod
-	def match_func(path):
+	def match_func(path: str):
 		'''Returns a function that matches the given path if called on
 		a `Node` object. See the documentation of `Node.matches()`.'''
 		return generator.compile(path, search=False)
 
-	def matches(self, path):
+	def matches(self, path: str):
 		'''Checks if this node matches the given XPath expression.
 		Returns a boolean.
 
@@ -742,6 +742,8 @@ class Tag(Branch):
 	`keys()`, `values()` and `items()` can be used for iterating over
 	attributes.
 	'''
+
+	__match_args__ = ("name",)
 
 	def __init__(self, name_, **attributes):
 		'''The argument `name` is the name of the node as a string, e.g.

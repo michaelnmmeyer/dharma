@@ -11,7 +11,8 @@
 #
 # If the idea is to convert texts to many formats, we might want to use
 # pandoc's data model. See https://boisgera.github.io/pandoc/document
-# and https://hackage.haskell.org/package/pandoc-types-1.23.1/docs/Text-Pandoc-Definition.html
+# and more importantly:
+# https://hackage.haskell.org/package/pandoc-types-1.23.1/docs/Text-Pandoc-Definition.html
 
 #XXX seg not yet handled
 
@@ -445,12 +446,10 @@ def parse_rdg(p, rdg):
 
 @handler("app")
 def parse_app(p, app):
-	if (loc := app["loc"]):
+	if (n := app["loc"]):
 		p.push(tree.Tag("nline", break_=common.from_boolean(True)))
-		p.push(tree.Tag("span", class_="lb", tip=f"Line start"))
-		p.append("⟨")
-		p.append(loc)
-		p.append("⟩")
+		p.push(tree.Tag("span", class_="lb", tip="Line start"))
+		p.append(f"⟨{n}⟩")
 		p.join()
 		p.join()
 	if (lem := app.first("lem")):
@@ -943,7 +942,7 @@ def append_fws(p, pb):
 def parse_pb(p, node):
 	break_ = milestone_break(node)
 	p.push(tree.Tag("npage", break_=common.from_boolean(break_)))
-	append_milestone_label(p, node, unit="page")
+	append_milestone_label(p, node, "page")
 	append_fws(p, node)
 	p.join()
 
@@ -1051,7 +1050,7 @@ def parse_am(p, am):
 def parse_expan(p, node):
 	def iter_abbr_without_am(cur):
 		match cur:
-			case tree.Tag(name="am"):
+			case tree.Tag("am"):
 				pass
 			case tree.Tag():
 				for child in cur:
