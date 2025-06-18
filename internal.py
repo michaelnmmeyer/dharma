@@ -142,18 +142,21 @@ def fix_milestones(t):
 	if not milestones:
 		return
 	fix_milestones_location(milestones)
-	assert milestones == t.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not @ignore]")
+	assert milestones == useful_milestones(t)
 	add_phantom_milestones(t, milestones)
-	assert milestones == t.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not @ignore]")
-	add_milestones_breaks(milestones)
-	assert milestones == t.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not @ignore]")
+	assert milestones == useful_milestones(t)
+	add_milestones_breaks(t, milestones)
+	assert milestones == useful_milestones(t)
 	fix_milestones_spaces(t)
-	assert milestones == t.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not @ignore]")
+	assert milestones == useful_milestones(t)
+
+def useful_milestones(doc: tree.Tree):
+	return doc.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not ancestor::*[name()='note' or name()='head']]")
 
 def mark_useless_milestones(doc: tree.Tree):
 	"""Distinguish npage, nline, ncell elements that we will use for search
 	from the others."""
-	milestones = doc.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not ancestor::*[name()='note' or name()='head']]")
+	milestones = useful_milestones(doc)
 	keep = set(milestones)
 	for mile in doc.find("//*[name()='npage' or name()='nline' or name()='ncell']"):
 		if mile not in keep:
@@ -275,8 +278,9 @@ def add_phantom_milestones(doc: tree.Tree, milestones):
 		mile = tree.Tag("ncell", phantom="true")
 		insert.insert(2, mile)
 		milestones.insert(2, mile)
-	for mile in milestones[3:]:
-		#XXX REPR HERE add created milestones to the list
+	i = 3
+	while i < len(milestones):
+		mile = milestones[i]
 		if mile.name == "npage":
 			if (tmp := mile.first("following-sibling::*")) and tmp.name == "nline":
 				mile = tmp
@@ -284,24 +288,29 @@ def add_phantom_milestones(doc: tree.Tree, milestones):
 				tmp = tree.Tag("nline", phantom="true")
 				mile.insert_after(tmp)
 				mile = tmp
+				milestones.insert(i + 1, tmp)
 			if (tmp := mile.first("following-sibling::*")) and tmp.name == "ncell":
 				mile = tmp
 			else:
 				tmp = tree.Tag("ncell", phantom="true")
 				mile.insert_after(tmp)
 				mile = tmp
+				milestones.insert(i + 2, tmp)
+			i += 3
 		elif mile.name == "nline":
 			if (tmp := mile.first("following-sibling::*")) and tmp.name == "ncell":
 				pass
 			else:
 				tmp = tree.Tag("ncell", phantom="true")
 				mile.insert_after(tmp)
+				milestones.insert(i + 1, tmp)
+			i += 2
 		elif mile.name == "ncell":
-			pass
+			i += 1
 		else:
 			raise Exception
 
-def add_milestones_breaks(milestones):
+def add_milestones_breaks(doc, milestones):
 	"""Add missing @break to each milestone and make @break consistent.
 
 	¶ The 3 initial milestones (at the very beginning of the first
@@ -377,14 +386,32 @@ def milestone_at_block_start(mile):
 			return False
 		i += 1
 
-def fix_milestones_spaces(t: tree.Tree):
-	for node in t.find(".//*[name()='npage' or name()='nline' or name()='ncell']"):
-		if common.to_boolean(node["break"], False):
-			node.append(" ")
-			# Also add a space before the milestone if it is not at
-			# the beginning of a block-like element.
-			if not milestone_at_block_start(node):
-				node.prepend(" ")
+def milestone_at_block_end(node):
+	while True:
+		parent = node.parent
+		assert isinstance(parent, tree.Tag)
+		if parent.name not in ("span", "link"):
+			return False
+		i = parent.index(node)
+		if i < len(parent) - 1:
+			return True
+		node = parent
+
+def fix_milestones_spaces(t: tree.Tree, break_=True):
+	"""Add spaces around milestones, where needed. This is only performed
+	for milestones that have a @break that matches the boolean given as
+	argument. (For the logical and full display, we only apply add spaces
+	when @break=true, while for the physical display we add spaces for all
+	values of @break.)"""
+	# Note that @phantom milestones must be excluded.
+	for node in t.find(".//*[(name()='npage' or name()='nline' or name()='ncell') and not @phantom]"):
+		if common.to_boolean(node["break"], True) is not break_:
+			continue
+		if milestone_at_block_end(node):
+			continue
+		node.append(" ")
+		if not milestone_at_block_start(node):
+			node.prepend(" ")
 
 
 ########################### Physical Display ###################################
@@ -470,6 +497,7 @@ def wrap_for_physical(root, page=None, line=None):
 def to_physical(t):
 	unwrap_for_physical(t)
 	wrap_for_physical(t)
+	fix_milestones_spaces(t, break_=False)
 	# We need to add a hyphen break after all the milestone @break=no,
 	# whether or not there is a hyphen break at the end of the line.
 	# (We also have preceding hyphens sometimes, but this is not OK I
