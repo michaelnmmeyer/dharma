@@ -13,6 +13,8 @@
 # pandoc's data model. See https://boisgera.github.io/pandoc/document
 # and more importantly:
 # https://hackage.haskell.org/package/pandoc-types-1.23.1/docs/Text-Pandoc-Definition.html
+# Our internal representation must be close enough to this one to allow us to
+# use pandoc at some point.
 
 #XXX seg not yet handled
 
