@@ -449,11 +449,10 @@ def parse_rdg(p, rdg):
 @handler("app")
 def parse_app(p, app):
 	if (n := app["loc"]):
-		p.push(tree.Tag("nline", break_=common.from_boolean(True)))
 		p.push(tree.Tag("span", class_="lb", tip="Line start"))
 		p.append(f"⟨{n}⟩")
 		p.join()
-		p.join()
+		p.append(" ")
 	if (lem := app.first("lem")):
 		p.dispatch(lem)
 	rdgs = app.find("rdg")
@@ -1409,6 +1408,7 @@ def parse_p(p, para):
 		p.push(tree.Tag("span", class_="lb", tip="Line start"))
 		p.append(f"⟨{n}⟩")
 		p.join()
+		p.append(" ")
 	p.dispatch_children(para)
 	p.join()
 

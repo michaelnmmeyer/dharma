@@ -305,9 +305,11 @@ function popTOCStack(stack, level) {
 }
 
 function makeTOC() {
-	let headings = document.body.querySelectorAll("h2, h3, h4, h5")
+	let headings = document.body.querySelectorAll("h2, h3, h4, h5, h6")
 	let stack = [{"children": []}]
 	for (let heading of headings) {
+		if (heading.classList.contains("skip-toc"))
+			continue
 		let level = parseInt(heading.tagName.substring(1))
 		popTOCStack(stack, level)
 		while (stack.length < level - 1)

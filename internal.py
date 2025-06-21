@@ -17,6 +17,19 @@ bibliography, div
 ¶ milestones: npage nline ncell
 """
 
+"""
+XXX
+
+remove unknown elements in appropriate contexts. removing totally unknown elements is not the most useful, removing (or fixing) known elements that are being misused is important.
+
+
+while parsing a paragraph: if we have a list, dlist or quote, move it one step up. They should be paragraph-level items.
+
+number notes. will need this for rendering properly notes within the edition.
+
+
+"""
+
 # XXX should have an axis for "everything except <note>", because there are a
 # lots of cases where we _must_ avoid <note>, and it's not immediately clear
 # where, and it's error-prone.
@@ -507,7 +520,7 @@ def wrap_for_physical(root, page=None, line=None):
 			case tree.Tag("head"):
 				page = line = None
 			case tree.Tag("npage"):
-				page = tree.Tag("div", class_="page")
+				page = tree.Tag("page")
 				node.insert_before(page)
 				head = tree.Tag("head")
 				head.append(node)
@@ -515,25 +528,25 @@ def wrap_for_physical(root, page=None, line=None):
 				line = None
 			case tree.Tag("nline"):
 				if not page:
-					page = tree.Tag("div", class_="page")
+					page = tree.Tag("page")
 					node.insert_before(page)
-				line = tree.Tag("para")
+				line = tree.Tag("line")
 				page.append(line)
 				line.append(node)
 			case tree.Tag("ncell") | tree.Tag("span") | tree.Tag("link") \
 				| tree.Tag("note") | tree.String():
 				if not page:
-					page = tree.Tag("div", class_="page")
+					page = tree.Tag("page")
 					node.insert_before(page)
 				if not line:
-					line = tree.Tag("para")
+					line = tree.Tag("line")
 					page.append(line)
 				line.append(node)
 			case _:
 				raise Exception(f"unexpected: {node!r}")
 
 def add_hyphens(t):
-	lines = t.find(".//div[@class='page']/para")
+	lines = t.find(".//line")
 	i = 1
 	while i < len(lines):
 		head = lines[i][0]
@@ -620,7 +633,7 @@ if __name__ == "__main__":
 		t = tei2internal.process_file(f).serialize()
 		t = process(t)
 		make_pretty_printable(t)
-		sys.stdout.write(t.first("//physical").xml())
+		sys.stdout.write(t.xml())
 	try:
 		main()
 	except BrokenPipeError:

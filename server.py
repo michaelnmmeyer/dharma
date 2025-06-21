@@ -398,7 +398,8 @@ def display_text(text):
 		github_last_modified_commit_url=row["github_last_modified_commit_url"],
 		repo_title=row["repo_title"],
 		row=row,
-		text=text)
+		text=text,
+		doc_source=doc_source)
 	return ret
 
 def base_name_windows(path):

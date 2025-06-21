@@ -95,7 +95,7 @@ Version: {{row["commit_date"] | format_date}}
 
 </div>{# id="inscription-display" #}
 
-<!--<div class="hidden" id="inscription-source">
+<div class="hidden" id="inscription-source">
 <fieldset>
 <legend>Display Options</legend>
 	<label>Word Wrap
@@ -112,9 +112,9 @@ Version: {{row["commit_date"] | format_date}}
 	</label>
 </fieldset>
 <div id="xml" class="xml xml-wrap xml-line-nos">
-{{doc.xml | safe}}
+{{doc_source | safe}}
 </div>
-</div>-->
+</div>
 
 % endblock
 

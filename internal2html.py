@@ -9,6 +9,24 @@ def handler(path):
 		return f
 	return decorator
 
+@handler("page")
+def render_page(self, node):
+	self.push(tree.Tag("div", class_="page"))
+	self.dispatch_children(node)
+	self.join()
+
+@handler("page/stuck-child::head")
+def render_page_head(self, node):
+	self.push(tree.Tag("div", class_="pagelike"))
+	self.dispatch_children(node)
+	self.join()
+
+@handler("line")
+def render_page_line(self, node):
+	self.push(tree.Tag(f"p", class_="line"))
+	self.dispatch_children(node)
+	self.join()
+
 @handler("document")
 def render_document(self, node):
 	self.heading_level += 1
@@ -109,13 +127,32 @@ edition_tabs = tree.parse_string("""
 </ul>""")
 
 @handler("edition")
-@handler("apparatus")
 @handler("translation")
 @handler("commentary")
 @handler("bibliography")
 def render_section(self, node):
 	self.push("div", class_=node.name)
 	self.dispatch_children(node)
+	self.join()
+
+@handler("apparatus")
+def render_apparatus(self, node):
+	self.push("div", class_="apparatus")
+	# Heading
+	head = node.first("head")
+	assert head
+	self.push(tree.Tag(f"h{self.heading_level}", class_="collapsible"))
+	self.dispatch_children(head)
+	self.append(" ")
+	self.append(tree.Tag("i", class_="fa-solid fa-angles-down"))
+	self.join()
+	# Contents
+	self.push("div")
+	for child in node:
+		if child is not head:
+			self.dispatch(child)
+	self.join()
+	# End
 	self.join()
 
 @handler("logical")
@@ -165,13 +202,6 @@ def render_edition_head(self, node):
 @handler("head")
 def render_head(self, node):
 	self.push(tree.Tag(f"h{self.heading_level}"))
-	self.dispatch_children(node)
-	self.join()
-
-
-@handler("physical//npage")
-def render_physical_npage(self, node):
-	self.push(tree.Tag("div", class_="pagelike"))
 	self.dispatch_children(node)
 	self.join()
 
@@ -327,7 +357,6 @@ class HTMLRenderer(tree.Serializer):
 def process(doc):
 	render = HTMLRenderer(doc)
 	doc = render()
-	#print(doc.repository, doc.identifier)
 	return doc
 
 def process_partial(xml):
