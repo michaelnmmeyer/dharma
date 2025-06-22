@@ -112,7 +112,7 @@ Version: {{row["commit_date"] | format_date}}
 	</label>
 </fieldset>
 <div id="xml" class="xml xml-wrap xml-line-nos">
-{{doc_source | safe}}
+{{doc.highlighted_xml | safe}}
 </div>
 </div>
 

@@ -20,7 +20,8 @@
 
 import os, sys, re, html, urllib.parse, posixpath, copy, unicodedata
 import dataclasses
-from dharma import common, prosody, people, tree, gaiji, biblio, langs, internal
+from dharma import common, prosody, people, tree, gaiji, biblio, langs
+from dharma import internal2internal
 
 # Turns some object (strings, list of strings or None) into a searchable string.
 def normalize(s):
@@ -48,7 +49,7 @@ class Document:
 	# Dharma identifier viz. the file's basename without the extension.
 	identifier: str = ""
 	# XML source code, HTML-encoded.
-	xml: str = ""
+	highlighted_xml: str = ""
 	title: list[tree.Tree] = init(list)
 	summary: tree.Tree = init(tree.Tree)
 	hand: tree.Tree = init(tree.Tree)
@@ -170,8 +171,10 @@ class Document:
 		return f.tree
 
 	def to_html(self):
-		from dharma import internal, internal2html
-		return internal2html.process(internal.process(self.serialize()))
+		from dharma import internal2html
+		ret = internal2html.process(internal2internal.process(self.serialize()))
+		ret.highlighted_xml = self.highlighted_xml
+		return ret
 
 def XML(s):
 	r = tree.parse_string(f"<root>{s}</root>")
@@ -1587,6 +1590,19 @@ def parse_cit(p, cit):
 		p.dispatch(bibl)
 		p.append(")")
 
+def append_unique_name(items, ident, name):
+	for i, (cand_ident, cand_name) in enumerate(items):
+		if ident is None:
+			if cand_name == name:
+				return
+		elif cand_ident is None:
+			if cand_name == name:
+				items[i] = (ident, name)
+				return
+		elif cand_ident == ident or cand_name == name:
+			return
+	items.append((ident, name))
+
 # We don't attempty to preserve the structure <forename>+<surname> for
 # searching, because we can also have just <name>, so it's simpler to use
 # a simple string.
@@ -1597,14 +1613,17 @@ def gather_people(stmt, *paths):
 	ret = []
 	for node in nodes:
 		ident = node["ref"].removeprefix("part:")
-		if ident == "jodo": # John Doe, placeholder
+		if ident == "jodo":
+			# John Doe, placeholder. Alternatively, we could keep it
+			# only if no author is given (we're already doing that
+			# for languages, with "und").
 			continue
-		# Use the name given in the contributors list instead of
-		# the one given in this XML file. If the id invalid,
-		# use the name given in the XML.
+		# Use the name given in the contributors list instead of the one
+		# given in this XML file. If the id is invalid or not given,
+		# however, use the name given in the XML file.
 		name = people.plain(ident)
 		if name:
-			common.append_unique(ret, (ident, name))
+			append_unique_name(ret, ident, name)
 			continue
 		# We should have either <forename>+<surname> or just <name>. But
 		# also prepare for <surname>+<forename> or a plain string.
@@ -1616,7 +1635,7 @@ def gather_people(stmt, *paths):
 		name = common.normalize_space(name)
 		if not name:
 			continue
-		common.append_unique(ret, (None, name))
+		append_unique_name(ret, None, name)
 	return ret
 
 # We only expect this to appear at /TEI/teiHeader/fileDesc/titleStmt (and a
@@ -1857,6 +1876,7 @@ def process_file(file, mode=None):
 		return doc
 	langs.assign_languages(t)
 	p = Parser(t)
+	p.document.highlighted_xml = tree.html_format(t)
 	# When we are parsing the file, not to display it but to extract
 	# metadata for the catalog, we only need to parse the teiHeader and
 	# can ignore the text body. Furthermore, we need to remove footnotes

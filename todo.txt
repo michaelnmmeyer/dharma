@@ -1,31 +1,11 @@
+check that the tra,sform endpoint works;
+check the prosody page
+idem for editorial
+see for catalog updates
+
 coalesce
 squeeze all strings
 if the current element is span|link, detach leading/trailing spaces and move them to the parent recursively (or delete them if there is already a space at the insert location); otherwise, ltrim+rtrim the element
-
-
-
-	# Delete all empty nodes except the root tag (needed for producing a
-	# valid XML document) and milestones (they are meaningful on their own,
-	# without contents)
-	if len(buf) == 0:
-		match root.name:
-			case "npage" | "nline" | "ncell" | "document":
-				pass
-			case _:
-				return "keep", None, "keep"
-
-
-
-spacing:
-	match name:
-		case "note":
-			return "drop", right_space
-		case "span" | "link":
-			return left_space, right_space # back from kid to parent
-		case "npage" | "nline" | "ncell":
-			return "drop", "drop"
-		case _:
-			return "keep", "keep"
 
 =========
 

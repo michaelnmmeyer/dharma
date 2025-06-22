@@ -298,51 +298,6 @@ def display_list():
 def legacy_display_text(text):
 	return flask.redirect(flask.url_for("display_text", text=text), code=302)
 
-# For displaying a text's source XML.
-@app.get("/texts/<text>/source")
-@common.transaction("texts")
-def display_text_xml(text):
-	# /texts/INSPallava00196 -> /texts/DHARMA_INSPallava00196
-	if text.startswith("DHARMA_"):
-		return flask.redirect(flask.url_for("display_text_xml",
-			text=text.removeprefix("DHARMA_")))
-	else:
-		text = "DHARMA_" + text
-	db = common.db("texts")
-	row = db.execute("""
-		select
-			printf('%s/%s/%s', ?, repos.repo, path) as path,
-			repos.repo,
-			data,
-			commit_hash,
-			commit_date,
-			last_modified,
-			last_modified_commit,
-			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
-				commit_hash, path) as github_commit_url,
-			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
-				last_modified_commit, path)
-				as github_last_modified_commit_url,
-			format_url('https://raw.githubusercontent.com/erc-dharma/%s/%s/%s',
-				repos.repo, commit_hash, path)
-				as github_download_url,
-			case when html_path is null then null else format_url('https://erc-dharma.github.io/%s/%s',
-				repos.repo, html_path)
-			end as static_website_url,
-			repos.title as repo_title
-		from documents
-			join files on documents.name = files.name
-			join repos on documents.repo = repos.repo
-		where documents.name = ?""",
-		(common.path_of("repos"), text)).fetchone()
-	if not row:
-		return flask.abort(404)
-	file = db.load_file(text)
-	doc = tei2internal.process_file(file)
-	ret = flask.render_template("inscription_xml.tpl", doc=doc, row=row,
-		no_sidebar=True)
-	return ret
-
 # Redirect all forms
 # /texts/DHARMA_INSPallava00196.xml
 # /texts/INSPallava00196.xml
@@ -389,8 +344,6 @@ def display_text(text):
 	if not row:
 		return flask.abort(404)
 	file = db.load_file(text)
-	t = tree.parse_string(file.data, path=file.full_path)
-	doc_source = tree.html_format(t)
 	doc = tei2internal.process_file(file).to_html()
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
@@ -400,8 +353,7 @@ def display_text(text):
 		github_last_modified_commit_url=row["github_last_modified_commit_url"],
 		repo_title=row["repo_title"],
 		row=row,
-		text=text,
-		doc_source=doc_source)
+		text=text)
 	return ret
 
 def base_name_windows(path):
@@ -431,6 +383,7 @@ def patch_links(soup, attr):
 @common.transaction("texts")
 def convert_text():
 	doc = flask.request.json
+	assert doc
 	path, data = doc["path"], doc["data"]
 	base = os.path.basename(path)
 	if base == path:
@@ -447,7 +400,7 @@ def convert_text():
 	setattr(f, "_data", data)
 	setattr(f, "_owners", [])
 	doc = tei2internal.process_file(f)
-	doc.repository = None
+	doc.repository = ""
 	doc = doc.to_html()
 	html = flask.render_template("inscription.tpl", doc=doc, text=name)
 	soup = BeautifulSoup(html, "html.parser")

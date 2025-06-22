@@ -314,6 +314,11 @@ class HTMLDocument:
 		self.identifier = None
 		self.valid = None
 		self.body = None
+		self.highlighted_xml = None
+		self.commit_hash = None
+		self.commit_date = None
+		self.last_modified = None
+		self.last_modified_commit = None
 
 class HTMLRenderer(tree.Serializer):
 
@@ -354,10 +359,10 @@ class HTMLRenderer(tree.Serializer):
 # We have an XML tree instead of a Document object as input because 1) we will
 # need to process an XML tree for highlighting; and 2) because it is more
 # convenient to use xpath.
-def process(doc):
+def process(doc: tree.Tree):
 	render = HTMLRenderer(doc)
-	doc = render()
-	return doc
+	ret = render()
+	return ret
 
 def process_partial(xml):
 	render = HTMLRenderer(xml)

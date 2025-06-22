@@ -106,6 +106,20 @@ def starts_with_space(s):
 def ends_with_space(s):
 	return len(s) > 0 and s[-1].isspace()
 
+def delete_if_empty(root: tree.Tag):
+	"""Delete all empty elements (except the XML document's root and
+	milestones).
+
+	Divisions that have a heading but no contents are also considered empty.
+	We do not try to distinguish "default" headings (like "Apparatus", etc.)
+	from non-default ones. Not sure how this should be made to work, because
+	for <translation> we have several variations of "default" headings."""
+	if len(root) == 0:
+		if root.name not in ("document", "npage", "nline", "ncell"):
+			root.delete()
+	elif len(root) == 1 and isinstance(root[0], tree.Tag) and root[0].name == "head":
+		root.delete()
+
 def fix_elements(root: tree.Tag):
 	nodes = []
 	for node in root:
@@ -144,16 +158,20 @@ def fix_elements(root: tree.Tag):
 			node.delete()
 		elif repl != node.data:
 			node.replace_with(repl)
-	# Delete all empty elements except the XML document's root and
-	# milestones.
-	if len(root) == 0 and root.name not in ("document", "npage", "nline", "ncell"):
-		root.delete()
+	delete_if_empty(root)
 
 def squeeze(s):
 	return re.sub(r"\s+", " ", s)
 
 
 ################################ Milestones ####################################
+
+def check_milestones_valid(t, milestones):
+	if __debug__:
+		tmp = useful_milestones(t)
+		assert len(milestones) == len(tmp)
+		assert all(m is n for m, n in zip(milestones, tmp))
+		print(milestones, tmp)
 
 def fix_milestones(t):
 	"""The point of these transformations (besides display-related stuff)
@@ -170,11 +188,11 @@ def fix_milestones(t):
 	if not milestones:
 		return
 	fix_milestones_location(milestones)
-	assert milestones == useful_milestones(t)
+	check_milestones_valid(t, milestones)
 	add_phantom_milestones(t, milestones)
-	assert milestones == useful_milestones(t)
+	check_milestones_valid(t, milestones)
 	add_milestones_breaks(t, milestones)
-	assert milestones == useful_milestones(t)
+	check_milestones_valid(t, milestones)
 
 def useful_milestones(doc: tree.Tree):
 	return doc.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not ancestor::*[name()='note' or name()='head']]")
