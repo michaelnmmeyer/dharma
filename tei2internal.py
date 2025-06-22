@@ -1857,7 +1857,6 @@ def process_file(file, mode=None):
 		return doc
 	langs.assign_languages(t)
 	p = Parser(t)
-	p.document.xml = tree.html_format(t)
 	# When we are parsing the file, not to display it but to extract
 	# metadata for the catalog, we only need to parse the teiHeader and
 	# can ignore the text body. Furthermore, we need to remove footnotes

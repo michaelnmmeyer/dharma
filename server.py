@@ -1,7 +1,7 @@
 import os, unicodedata, datetime, html, urllib
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
-from dharma import common, change, ngrams, catalog, validate, tei2internal
+from dharma import common, change, ngrams, catalog, validate, tei2internal, tree
 from dharma import biblio, texts, editorial, prosody, internal2html
 
 # We don't use the name "templates" for the template folder because we also
@@ -389,6 +389,8 @@ def display_text(text):
 	if not row:
 		return flask.abort(404)
 	file = db.load_file(text)
+	t = tree.parse_string(file.data, path=file.full_path)
+	doc_source = tree.html_format(t)
 	doc = tei2internal.process_file(file).to_html()
 	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
 	doc.last_modified = row["last_modified"]
