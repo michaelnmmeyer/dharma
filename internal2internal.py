@@ -1,4 +1,4 @@
-import re
+import re, sys
 from dharma import tree, common
 
 """
@@ -169,9 +169,19 @@ def squeeze(s):
 def check_milestones_valid(t, milestones):
 	if __debug__:
 		tmp = useful_milestones(t)
+		tmpl = [id(x) for x in tmp]
+		for x in milestones:
+			if not id(x) in tmpl:
+				print(x.xml())
 		assert len(milestones) == len(tmp)
-		assert all(m is n for m, n in zip(milestones, tmp))
-		print(milestones, tmp)
+		for i, (m, n) in enumerate(zip(milestones, tmp)):
+			if m is not n:
+				print(f"diff at {i}", file=sys.stderr)
+				print(milestones[i].xml(), file=sys.stderr)
+				print(tmp[i].xml(), file=sys.stderr)
+				print(milestones, file=sys.stderr)
+				print(tmp, file=sys.stderr)
+				raise Exception
 
 def fix_milestones(t):
 	"""The point of these transformations (besides display-related stuff)
@@ -260,9 +270,9 @@ def fix_milestones_location(milestones):
 	2) If the milestone is not within one of the milestone-accepting
 	   elements, move it forward to the beginning of the next
 	   milestone-accepting element (in following::* order) (but skip <note>
-	   and its descendants). Exception if the milestone is a ncell and
-	   appears at the very end of the edition: in this case, leave the
-	   milestone where it is.
+	   and its descendants). Exception if the milestone appears at the very
+	   end of the edition: in this case, leave it where it is. But what if
+	   the milestone is outside of a <p>?
 
 	What about consecutive npages, etc.? We need to create an extra <p> for
 	them, but we should do this only when rendering the physical display.

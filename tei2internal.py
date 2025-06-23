@@ -16,8 +16,6 @@
 # Our internal representation must be close enough to this one to allow us to
 # use pandoc at some point.
 
-#XXX seg not yet handled
-
 import os, sys, re, html, urllib.parse, posixpath, copy, unicodedata
 import dataclasses
 from dharma import common, prosody, people, tree, gaiji, biblio, langs
@@ -1216,7 +1214,7 @@ def parse_gap(p, gap):
 #         name = row[NAME_COLUMN]
 #         num, den = m.group(1), m.group(2)
 #         num, den = int(num, 16), int(den, 16)
-#         num, den = chr(num), chr(den)
+#         num, den = chr(num), @)
 #         tbl[name] = (num, den)
 #
 # rev = {}
@@ -1666,6 +1664,7 @@ def parse_titleStmt(p, stmt):
 @handler("text")
 @handler("term")
 @handler("gloss")
+@handler("seg")
 def parse_just_dispatch_all(p, node):
 	p.dispatch_children(node)
 
