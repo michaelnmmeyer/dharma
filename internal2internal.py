@@ -197,8 +197,6 @@ def fix_milestones(t):
 	milestones = useful_milestones(t)
 	if not milestones:
 		return
-	fix_milestones_location(milestones)
-	check_milestones_valid(t, milestones)
 	add_phantom_milestones(t, milestones)
 	check_milestones_valid(t, milestones)
 	add_milestones_breaks(t, milestones)
@@ -293,6 +291,21 @@ def fix_milestones_location(milestones):
 			parent = parent.parent
 		if not in_milestone_accepting(mile) and (anchor := first_milestone_accepting(mile)):
 			anchor.prepend(mile)
+
+def is_milestone(node):
+	return isinstance(node, tree.Tag) and node.name in ("npage", "nline", "ncell")
+
+def fix_milestones_location2(root: tree.Tag):
+	for node in list(root):
+		if not isinstance(node, tree.Tag) or is_milestone(node):
+			continue
+		fix_milestones_location2(node)
+	if root.name not in ("span", "link"):
+		return
+	while len(root) > 0 and is_milestone(root[0]):
+		root.insert_before(root[0])
+	while len(root) > 0 and is_milestone(root[-1]):
+		root.insert_after(root[-1])
 
 def front_node(node):
 	for child in node:
