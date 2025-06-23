@@ -1107,6 +1107,10 @@ def parse_seg(p, seg):
 		p.append_display("}")
 		p.join()
 
+@handler("seg")
+def parse_other_seg(p, seg):
+	pass
+
 # XXX not general enough
 @handler("div[@type='translation']//gap[@reason='ellipsis']")
 def handle_gap_ellipsis(p, gap):
@@ -1129,9 +1133,8 @@ def parse_gap(p, gap):
 		return
 	if reason == "undefined":
 		reason = "lost or illegible"
-	child = gap.first("certainty")
-	if child and child["match"] == ".." and child["locus"] == "name":
-		reason = "possibly %s" % reason
+	if gap.first("stuck-child::certainty[@match='..' and @locus='name']"):
+		reason = f"possibly {reason}"
 	if unit == "component":
 		unit = "character component"
 	phys_repl = None
@@ -1184,10 +1187,6 @@ def parse_gap(p, gap):
 			met = html.escape(met)
 		repl = f'[{met}]'
 		phys_repl = None
-	else:
-		repl = html.escape(repl)
-		if phys_repl is not None:
-			phys_repl = html.escape(phys_repl)
 	p.push(tree.Tag("span", class_="gap", tip=tip))
 	# XXX different formatting to do depending on phys/log/full
 	if phys_repl is not None and phys_repl != repl:
@@ -1197,33 +1196,35 @@ def parse_gap(p, gap):
 		p.append(repl)
 	p.join()
 
-# The following table was produced with this code:
-#
-# import requests, csv, io, re
-#
-# NAME_COLUMN = 1
-# DECOMP_COLUMN = 5
-#
-# r = requests.get("https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt")
-# rows = csv.reader(io.StringIO(r.text), delimiter=";")
-# tbl = {}
-# for row in rows:
-#         m = re.fullmatch(r"<fraction> ([0-9A-Fa-f]+) 2044 ([0-9A-Fa-f]+)", row[DECOMP_COLUMN])
-#         if not m:
-#                 continue
-#         name = row[NAME_COLUMN]
-#         num, den = m.group(1), m.group(2)
-#         num, den = int(num, 16), int(den, 16)
-#         num, den = chr(num), @)
-#         tbl[name] = (num, den)
-#
-# rev = {}
-# for k, v in tbl.items():
-#         assert not v in rev
-#         rev[v] = k
-#
-# for k, v in sorted(rev.items()):
-#         print('(%s, %s): "\\N{%s}",' % (k[0], k[1], v.lower()))
+"""
+The following table was produced with this code:
+
+import requests, csv, io, re
+
+NAME_COLUMN = 1
+DECOMP_COLUMN = 5
+
+r = requests.get("https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt")
+rows = csv.reader(io.StringIO(r.text), delimiter=";")
+tbl = {}
+for row in rows:
+        m = re.fullmatch(r"<fraction> ([0-9A-Fa-f]+) 2044 ([0-9A-Fa-f]+)", row[DECOMP_COLUMN])
+        if not m:
+                continue
+        name = row[NAME_COLUMN]
+        num, den = m.group(1), m.group(2)
+        num, den = int(num, 16), int(den, 16)
+        num, den = chr(num), @)
+        tbl[name] = (num, den)
+
+rev = {}
+for k, v in tbl.items():
+        assert not v in rev
+        rev[v] = k
+
+for k, v in sorted(rev.items()):
+        print('(%s, %s): "\\N{%s}",' % (k[0], k[1], v.lower()))
+"""
 composed_fractions = {
 	(0, 3): "\N{vulgar fraction zero thirds}",
 	(1, 2): "\N{vulgar fraction one half}",
@@ -1664,7 +1665,6 @@ def parse_titleStmt(p, stmt):
 @handler("text")
 @handler("term")
 @handler("gloss")
-@handler("seg")
 def parse_just_dispatch_all(p, node):
 	p.dispatch_children(node)
 
