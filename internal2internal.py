@@ -509,16 +509,26 @@ def milestone_at_block_end(node):
 		node = parent
 
 def fix_milestones_spaces(t: tree.Branch, physical=False):
-	"""Add spaces around milestones, where needed. This is only performed
+	"""Add spaces around milestones, where needed. If physical is False,
+	only add spaces if @break=true; otherwise, take all milestones into account.
+	This is only performed
 	for milestones that have a @break that matches the boolean given as
 	argument. (For the logical and full display, we only apply add spaces
 	when @break=true, while for the physical display we add spaces for all
 	values of @break.)
 	"""
-	# Note that @phantom milestones must be excluded.
+	# Note that @phantom milestones must be excluded (we don't
+	# actually display them). Also note that we replace all milestones,
+	# even the ones in the apparatus.
 	for node in t.find(".//*[(name()='npage' or name()='nline' or name()='ncell') and not @phantom]"):
-		if not physical and not common.to_boolean(node["break"], True):
-			continue
+		if physical:
+			# There is exactly one case in which we must not add
+			# any spaces: ncell[@break="no"]
+			if node.name == "ncell" and not common.to_boolean(node["break"], True):
+				continue
+		else:
+			if not common.to_boolean(node["break"], True):
+				continue
 		if not milestone_at_block_start(node):
 			node.prepend(" ")
 		if not milestone_at_block_end(node):
@@ -541,14 +551,16 @@ def unwrap_for_physical(root: tree.Branch):
 				pass
 			case "div" | "head" | "span" | "link" | "npage" | "nline" | "ncell":
 				unwrap_for_physical(node)
-			case "verse":
+			case "verse" | "dlist" | "list":
 				unwrap_for_physical(node)
 				node.unwrap()
 			case "verse-head":
 				node.delete()
-			case _:
-				assert node.name in ("para", "verse-line", "quote", "dlist", "key", "value", "list", "item")
+			case "para" | "verse-line" | "quote" | "key" | "value" | "item":
+				node.prepend(" ")
 				node.unwrap()
+			case _:
+				raise Exception
 
 """
 SPACING!!!!
@@ -699,6 +711,7 @@ def fix_physical_inlines(t):
 
 def to_physical(t):
 	unwrap_for_physical(t)
+	fix_spaces(t)
 	fix_physical_inlines(t)
 	wrap_for_physical(t)
 	fix_milestones_spaces(t, physical=True)
