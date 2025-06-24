@@ -179,8 +179,8 @@ def check_milestones_valid(t, milestones):
 				print(f"diff at {i}", file=sys.stderr)
 				print(milestones[i].xml(), file=sys.stderr)
 				print(tmp[i].xml(), file=sys.stderr)
-				print(milestones, file=sys.stderr)
-				print(tmp, file=sys.stderr)
+				print([x.xml() for x in milestones], file=sys.stderr)
+				print([x.xml() for x in tmp], file=sys.stderr)
 				raise Exception
 
 def fix_milestones(t):
@@ -197,28 +197,48 @@ def fix_milestones(t):
 	milestones = useful_milestones(t)
 	if not milestones:
 		return
+	fix_milestones_location(t, milestones)
+	check_milestones_valid(t, milestones)
 	add_phantom_milestones(t, milestones)
 	check_milestones_valid(t, milestones)
 	add_milestones_breaks(t, milestones)
 	check_milestones_valid(t, milestones)
+	# XXX do this better
+	for mile in milestones:
+		mile["milestone-keep"] = "true"
 
-def useful_milestones(doc: tree.Tree):
-	return doc.find("/document/edition//*[(name()='npage' or name()='nline' or name()='ncell') and not ancestor::*[name()='note' or name()='head']]")
+def useful_milestones(t: tree.Tree):
+	def inner(root, out):
+		for node in root:
+			if not isinstance(node, tree.Tag):
+				continue
+			match node.name:
+				case "note" | "head":
+					continue
+				case "npage" | "nline" | "ncell":
+					out.append(node)
+				case _:
+					inner(node, out)
+	out = []
+	if (root := t.first("/document/edition")):
+		inner(root, out)
+	return out
 
 milestone_accepting = ("para", "verse-line", "item", "key", "value", "quote")
 
 def in_milestone_accepting(node):
-	for parent in node.find("ancestor::*"): # XXX nesting? and also <note>
-		if isinstance(parent, tree.Tag) and parent.name in milestone_accepting:
+	while True:
+		parent = node.parent
+		if not isinstance(parent, tree.Tag):
+			return False
+		if parent.name in ("span", "link"):
+			node = parent
+			continue
+		if parent.name in milestone_accepting:
 			return True
-	return False
+		return False
 
-def first_milestone_accepting(node):
-	for anchor in node.find("following::*"): # XXX nesting? and also <note>
-		if anchor.name in milestone_accepting:
-			return anchor
-
-def fix_milestones_location(milestones):
+def fix_milestones_location(t, milestones):
 	"""Apply placement conventions for each milestone.
 
 	milestone-accepting elements: para verse-line item key value quote
@@ -278,33 +298,32 @@ def fix_milestones_location(milestones):
 	        <para> <span> A <span><npage/>B</span> C </span> </para>
 
 	        <para> A <span> B <npage/> </span> </para>
+
+moving up milestones must be done in a definite order, in two passes.
+iter milestones and move them up from left to right (for start) and the reverse (for end), then proceed with the upper level. if we end up in a non-inline, we should be within some kind of division; move the milestone forward if possible, otherwise move it backward, otherwise create a <p> at this location (and this <p> should be the only p within the edityion)
+
+if there is no milestone-accepting element, we should end up with just milestones, so put them in a newly-created p.
 	"""
+	milestones_ids = set(id(mile) for mile in milestones)
+	fix_milestones_location_inner(t.first("document"), milestones_ids)
+	check_milestones_valid(t, milestones)
 	for mile in milestones:
-		parent = mile.parent
-		while isinstance(parent, tree.Tag) and parent.name in ("span", "link"):
-			if front_node(parent) is mile:
-				parent.insert_before(mile)
-			elif back_node(parent) is mile:
-				parent.insert_after(mile)
-			else:
-				break
-			parent = parent.parent
-		if not in_milestone_accepting(mile) and (anchor := first_milestone_accepting(mile)):
-			anchor.prepend(mile)
+		if not in_milestone_accepting(mile):
+			tmp = tree.Tag("para")
+			mile.insert_after(tmp)
+			tmp.append(mile)
 
-def is_milestone(node):
-	return isinstance(node, tree.Tag) and node.name in ("npage", "nline", "ncell")
-
-def fix_milestones_location2(root: tree.Tag):
+def fix_milestones_location_inner(root: tree.Tag, milestones_ids):
+	assert isinstance(root, tree.Tag)
 	for node in list(root):
-		if not isinstance(node, tree.Tag) or is_milestone(node):
+		if not isinstance(node, tree.Tag) or node.name in ("npage", "nline", "ncell"):
 			continue
-		fix_milestones_location2(node)
+		fix_milestones_location_inner(node, milestones_ids)
 	if root.name not in ("span", "link"):
 		return
-	while len(root) > 0 and is_milestone(root[0]):
+	while len(root) > 0 and id(root[0]) in milestones_ids:
 		root.insert_before(root[0])
-	while len(root) > 0 and is_milestone(root[-1]):
+	while len(root) > 0 and id(root[-1]) in milestones_ids:
 		root.insert_after(root[-1])
 
 def front_node(node):
@@ -513,7 +532,7 @@ def fix_milestones_spaces(t: tree.Branch, physical=False):
 # split these elements if needed: a, para
 
 def unwrap_for_physical(root: tree.Branch):
-	"Unwraps tag not necessary for the physical display."
+	"Unwraps tags that are not necessary for the physical display."
 	for node in list(root):
 		if not isinstance(node, tree.Tag):
 			continue
@@ -598,8 +617,89 @@ def add_hyphens(t):
 			lines[i - 1].append(span)
 		i += 1
 
+def split_around_milestone(inline, mile):
+	"""We only split on the first milestone.
+	"""
+	left = None
+	stack = []
+	line = cell = None
+	def inner(root):
+		nonlocal left, stack, line, cell
+		stack.append(tree.Tag(root.name, **root.attrs))
+		i = 0
+		while i < len(root):
+			elem = root[i]
+			if not isinstance(elem, tree.Tag):
+				stack[-1].append(elem.copy())
+				i += 1
+				continue
+			if elem is not mile:
+				elem = inner(elem)
+				stack[-1].append(elem)
+				i += 1
+				continue
+			if mile.name == "npage":
+				assert i < len(root) - 2 \
+					and isinstance(root[i + 1], tree.Tag) \
+					and root[i + 1].name == "nline" \
+					and isinstance(root[i + 2], tree.Tag) \
+					and root[i + 2].name == "ncell"
+				line = root[i + 1]
+				cell = root[i + 2]
+				i += 3
+			else:
+				assert mile.name == "nline"
+				assert i < len(root) - 1 \
+					and isinstance(root[i + 1], tree.Tag) \
+					and root[i + 1].name == "ncell"
+				cell = root[i + 1]
+				i += 2
+			new_stack = []
+			for tag in stack:
+				new_stack.append(tree.Tag(tag.name, **tag.attrs))
+			while len(stack) > 1:
+				tag = stack.pop()
+				stack[-1].append(tag)
+			left = stack.pop()
+			stack = new_stack
+		return stack.pop()
+	right = inner(inline)
+	assert left
+	assert mile.name == "npage" and line or line is None
+	assert cell
+	inline.insert_before(left)
+	if mile.name == "npage":
+		left.insert_after(mile)
+		assert line
+		mile.insert_after(line)
+		line.insert_after(cell)
+	else:
+		assert mile.name == "nline"
+		left.insert_after(mile)
+		mile.insert_after(cell)
+	cell.insert_after(right)
+	inline.delete()
+
+def fix_physical_inlines(t):
+	milestones = t.find(".//*[@milestone-keep]")
+	for mile in milestones:
+		if mile.name == "ncell":
+			# Cells should remain inlines
+			continue
+		inline = mile.parent
+		if inline.name not in ("span", "link"):
+			continue
+		while True:
+			parent = inline.parent
+			if isinstance(parent, tree.Tag) and parent.name in ("span", "link"):
+				inline = parent
+			else:
+				break
+		split_around_milestone(inline, mile)
+
 def to_physical(t):
 	unwrap_for_physical(t)
+	fix_physical_inlines(t)
 	wrap_for_physical(t)
 	fix_milestones_spaces(t, physical=True)
 	add_hyphens(t)
@@ -650,6 +750,8 @@ def process(t: tree.Tree):
 	edition.append(physical)
 	edition.append(logical)
 	edition.append(full)
+	for node in t.find(".//*[@milestone-keep]"):
+		del node["milestone-keep"]
 	return t
 
 def make_pretty_printable(t: tree.Tree):

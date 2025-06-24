@@ -1,7 +1,8 @@
-moving up milestones must be done in a definite order, in two passes.
-iter milestones and move them up from left to right (for start) and the reverse (for end), then proceed with the upper level. if we end up in a non-inline, we should be within some kind of division; move the milestone forward if possible, otherwise move it backward, otherwise create a <p> at this location (and this <p> should be the only p within the edityion)
+after that, check all inlines; and split them if necessary when doing the full>phys conversion
 
-if there is no milestone-accepting element, we should end up with just milestones, so put them in a newly-created p.
+XXX add extra spaces in physical between </p> and <p> (closing and opening)?
+idem for other equivalent elements.
+also handle about <l enjamb="yes|no">,
 
 =========
 
