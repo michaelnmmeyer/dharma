@@ -5,7 +5,7 @@ start =
     identifier,
     element repository { identifier },
     element valid { xsd:boolean },
-    element title { (text | note | span)+ }?,
+    element title { (text | span)+ },
     element editor { name, identifier? }*,
     element summary { para+ }?,
     element hand { para+ }?,
@@ -13,34 +13,37 @@ start =
       element language { name, identifier }+
     },
     element edition {
-      (text
-       | \div
-       | head
-       | ncell
-       | nline
-       | npage
-       | para
-       | span
-       | verse)+
-    }?,
-    element apparatus {
-      (text | \div | head | link | nline | npage | para | span)+
-    }?,
+      head,
+      element physical { page+ | \div+ },
+      element logical { (para | verse)+ | \div+ },
+      element full { (para | verse)+ | \div+ }
+    },
+    element apparatus { head, (\div+ | para+) }?,
     element translation {
-      head, \div*, npage?, (note | para | span | verse)*
+      head,
+      (\div+ | (para | verse)+)
     }*,
-    element commentary { head, (para | verse)*, \div* }?,
-    element bibliography { head, para*, \div*, (link | span)* }?
+    element commentary {
+      head,
+      ((para | verse)+ | \div+)
+    }?,
+    element bibliography { head, para*, \div* }?
   }
 identifier = element identifier { text }
-note = element note { (text | link | para | span)+ }
 span =
   element span {
     attribute class { text }?,
     attribute standalone { xsd:boolean }?,
     attribute style { xsd:anyURI }?,
     attribute tip { text }?,
-    (text | link | ncell | nline | note | npage | numeral | span)+
+    (text
+     | link
+     | ncell
+     | nline
+     | note
+     | span
+     | verse
+     | element numeral { xsd:NMTOKEN })+
   }
 name = element name { text }
 para =
@@ -54,79 +57,57 @@ para =
      | nline
      | note
      | npage
-     | numeral
-     | para
      | span
-     | verse
-     | verse-line
-     | element dlist {
-         (element key { (text | span)+ }
-          | element value { (text | note | span)+ })+
-       }
-     | element quote { (text | span | verse)+ })+
+     | element quote { (text | verse)+ })+
   }
-head = element head { (text | link | note | span)+ }
+head = element head { (text | npage | span)+ }
+page =
+  element page {
+    head?,
+    element line { (text | ncell | nline | note | span)+ }+
+  }
 \div =
   element div {
-    (text
-     | \div
-     | head
-     | \list
-     | ncell
-     | nline
-     | npage
-     | para
-     | span
-     | verse)+
-  }
-nline =
-  element nline {
-    attribute break { xsd:boolean },
-    span
+    head,
+    ((\list | para | verse)+ | page+)
   }
 verse =
   element verse {
-    (text
-     | link
-     | nline
-     | note
-     | npage
-     | span
-     | verse-line
-     | element verse-head { (text | link | span)+ })+
+    element verse-head { (text | link | span)+ }?,
+    (para
+     | element verse-line {
+         attribute break { xsd:boolean }?,
+         attribute n { xsd:NMTOKEN }?,
+         attribute tip { text }?,
+         (text | link | ncell | nline | note | npage | span)+
+       })*
+  }
+note = element note { (text | link | para | span)+ }
+nline =
+  element nline {
+    attribute break { xsd:boolean }?,
+    attribute phantom { xsd:boolean }?,
+    span?
+  }
+link =
+  element link {
+    attribute href { xsd:anyURI }?,
+    (text | span)+
   }
 ncell =
   element ncell {
-    attribute break { xsd:boolean },
-    span
+    attribute break { xsd:boolean }?,
+    attribute phantom { xsd:boolean }?,
+    span?
+  }
+\list =
+  element list {
+    attribute type { xsd:NCName },
+    element item { (text | link | note | para | span)+ }+
   }
 npage =
   element npage {
     attribute break { xsd:boolean },
-    span+
-  }
-link =
-  element link {
-    attribute href { text }?,
-    (text | span)+
-  }
-numeral = element numeral { text }
-\list =
-  element list {
-    attribute type { xsd:NCName },
-    element item {
-      (text | link | \list | nline | note | npage | para | span)+
-    }+
-  }
-verse-line =
-  element verse-line {
-    attribute n { text }?,
-    attribute tip { text }?,
-    (text
-     | ncell
-     | nline
-     | note
-     | npage
-     | span
-     | element break { empty })+
+    attribute phantom { xsd:boolean }?,
+    span?
   }

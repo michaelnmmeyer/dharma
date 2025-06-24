@@ -2,23 +2,25 @@ import re, sys
 from dharma import tree, common
 
 """
-Summary of new elements:
+Summary of new elements.
 
-¶ data fields: title, author, editor
-(these elements should not contain paragraphs)
-¶ divisions: summary, hand, edition, apparatus, translation, commentary,
-bibliography, div
-(all their children strings should be removed)
-¶ para-like: para verse(>verse-line) head quote
-¶ para containers: dlist(>(key, value)) list(>item) note
-¶ sub-paragraphs divisions: item, key, value, verse-line
-(can only contain inline)
-¶ inline: span link
-¶ milestones: npage nline ncell
+We have two basic categories: inline elements (links and spans of text) and
+block elements (divisions, paragraphs, etc.).
+
+* Data fields: title, author, editor. These elements should not
+contain paragraphs.
+
+* Divisions: summary, hand, edition, apparatus, translation,
+commentary, bibliography, div.
+
+* Paragraph-like: para, verse(>verse-line), head, quote.
+
+* Containers: dlist(>(key, value)), list(>item), note.
+
+* Inline elements: span, link, milestones (npage, nline, ncell).
 """
 
 """
-XXX
 
 remove unknown elements in appropriate contexts. removing totally unknown elements is not the most useful, removing (or fixing) known elements that are being misused is important.
 
