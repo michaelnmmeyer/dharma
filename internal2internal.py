@@ -1,7 +1,5 @@
-import re, sys
-from dharma import tree, common
+"""Internal transformations.
 
-"""
 Summary of new elements.
 
 We have two basic categories: inline elements (links and spans of text) and
@@ -19,6 +17,9 @@ commentary, bibliography, div.
 
 * Inline elements: span, link, milestones (npage, nline, ncell).
 """
+
+import re, sys
+from dharma import tree, common
 
 """
 
@@ -340,6 +341,22 @@ def back_node(node):
 			continue
 		return child
 
+def first_milestone_accepting_node(doc):
+	def inner(root):
+		for node in root:
+			if not isinstance(node, tree.Tag):
+				continue
+			if node.name in milestone_accepting:
+				return node
+			ret = inner(node)
+			if ret:
+				return ret
+	root = doc.first("/document/edition")
+	assert root
+	ret = inner(root)
+	assert ret
+	return ret
+
 def add_phantom_milestones(doc: tree.Tree, milestones):
 	"""
 	We have to allocate phantom pages/lines/cells, when (a) the encoding is
@@ -366,12 +383,7 @@ def add_phantom_milestones(doc: tree.Tree, milestones):
 	textpart heading in the middle. might want to index separately the TOC
 	(with all headings) and the text (without interruption).
 	"""
-	for node in doc.find("/document/edition//*"):
-		if node.name in milestone_accepting:
-			insert = node
-			break
-	else:
-		raise Exception
+	insert = first_milestone_accepting_node(doc)
 	if len(insert) > 0 and isinstance(insert[0], tree.Tag) and insert[0].name == "npage":
 		assert len(milestones) > 0
 		assert insert[0] is milestones[0]
