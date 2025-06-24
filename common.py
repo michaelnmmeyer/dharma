@@ -341,7 +341,7 @@ def sentence_case(s):
 def from_boolean(obj):
 	return obj and "true" or "false"
 
-def to_boolean(s, dflt):
+def to_boolean(s, dflt=None):
 	match s.lower():
 		case "true" | "yes" | "on" | "1":
 			return True

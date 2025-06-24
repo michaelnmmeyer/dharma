@@ -1395,6 +1395,23 @@ def parse_lg(p, lg):
 		p.join()
 	else:
 		p.dispatch_children(lg)
+		# Deal with l/@enjamb: <l>foo</l> <l>bar</l> means that the text
+		# is "foo bar", but <l enjamb="yes">foo</l> <l>bar</l> means
+		# that the text is "foobar". We convert this @enjamb to a @break
+		# attribute on verse-line: verse-line[@break='no'] means that
+		# there is no break between the current verse-line and the
+		# preceding one; while verse-line[@break='yes'] means that a
+		# space should be inserted at the beginning of the current
+		# verse-line while converting the text to the physical display
+		# mode.
+		olds = lg.find("l")
+		news = p.top.find("verse-line")
+		assert len(olds) == len(news)
+		for i, new in enumerate(news):
+			if i == 0 or not common.to_boolean(olds[i - 1]["enjamb"], False):
+				new["break"] = "true"
+			else:
+				new["break"] = "false"
 	p.join()
 
 # As far as we're concerned, <ab> is just a <p>, so we treat them identically.

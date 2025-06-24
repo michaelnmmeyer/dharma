@@ -557,11 +557,20 @@ def unwrap_for_physical(root: tree.Branch):
 				node.unwrap()
 			case "verse-head":
 				node.delete()
-			case "para" | "verse-line" | "quote" | "key" | "value" | "item":
+			case "para" | "quote" | "key" | "value" | "item":
 				node.prepend(" ")
+				node.unwrap()
+			case "verse-line":
+				if common.to_boolean(node["break"]):
+					node.prepend(" ")
 				node.unwrap()
 			case _:
 				raise Exception
+
+"""
+For l[@enjamb='yes']: <l>foo</l> <l>bar</l> means that the text is "foo bar",
+but <l enjamb="yes">foo</l> <l>bar</l> means that the text is "foobar".
+"""
 
 """
 SPACING!!!!
