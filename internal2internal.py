@@ -450,7 +450,7 @@ def add_milestones_breaks(doc, milestones):
 			tmp = [mile, next(miles), next(miles)]
 			assert tmp[1].name == "nline"
 			assert tmp[2].name == "ncell"
-			if all(common.from_boolean(mile["break"]) for mile in tmp):
+			if all(common.to_boolean(mile["break"], True) for mile in tmp):
 				pass
 			else:
 				for mile in tmp:
@@ -458,13 +458,14 @@ def add_milestones_breaks(doc, milestones):
 		elif mile.name == "nline":
 			tmp = [mile, next(miles)]
 			assert tmp[1].name == "ncell"
-			if all(common.from_boolean(mile["break"]) for mile in tmp if mile["break"]):
+			if all(common.to_boolean(mile["break"], True) for mile in tmp if mile["break"]):
 				pass
 			else:
 				for mile in tmp:
 					mile["break"] = "false"
 		elif mile.name == "ncell":
-			mile["break"] = "false"
+			if not mile["break"]:
+				mile["break"] = "false"
 		else:
 			raise Exception
 	cell = milestones[-1]
@@ -618,7 +619,11 @@ def wrap_for_physical(root, page=None, line=None):
 				raise Exception(f"unexpected: {node!r}")
 
 def add_hyphens(t):
-	lines = t.find(".//line")
+	# Exclude phantom lines because we sometimes have:
+	# foo<pb n="1" break="no"/><pb n="2" break="no"/>bar
+	# In this case, we must add a hyphen after "foo", but in the phantom
+	# line between pages 1 and 2.
+	lines = t.find(".//line[not stuck-child::nline[@phantom]]")
 	i = 1
 	while i < len(lines):
 		head = lines[i][0]
