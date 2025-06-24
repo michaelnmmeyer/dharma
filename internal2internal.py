@@ -635,7 +635,10 @@ def add_hyphens(t):
 		i += 1
 
 def split_around_milestone(inline, mile):
-	"""We only split on the first milestone.
+	"""We only perform a split on the first milestone. Thus, if there are
+	several same-level milestones in a single span, this only takes into
+	account the one given as argument (and the line/cell that immediately
+	follow).
 	"""
 	left = None
 	stack = []
