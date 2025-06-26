@@ -1,3 +1,65 @@
+recursively, iter on block-only elements and wrap inlines in paras.
+
+structural errors with verse:
+
+	<lg n="25" met="upajāti" xml:lang="san-Latn"><milestone type="pagelike" unit="item" n="B"/><label xml:lang="eng">Face</label>
+	<l n="a"><lb n="B1"/>dhanaṁ dhanaṁ dhānya-suvarṇṇa-rūpya<space/></l>
+	<l n="b">pūrvvaṁ satāmraṁ saha dāsadāsī<space/></l>
+	<l n="c">tasmin sa lakṣmīndrapade śive dā<space/>d</l>
+	<l n="d">go-bhūmi-pūrvvaṁ mahiṣañ ca ratnam<unclear>· <g type="ddanda">.</g></unclear></l>
+	</lg>
+
+	in cases like that, move the milestone to the next <l> (or if not, put
+	it at the end of the last one)
+
+	need a special case for relocating milestones
+
+
+we have structural errors with use of inlines in places where blocks are expected; fixed that for milestones,;see
+
+	if there is no milestone-accepting element, we should end up with just milestones, so put them in a newly-created p.
+
+but remain cases where wrapping is necessary; basically
+
+	<inline/>
+		instead of <block><inline/></block>
+	<inline><block/></inline>
+		INVALID (fix by unwrapping the block?)
+
+	<para><list/></para>
+		need to set rules for nesting stuff
+
+div:  head (block | div)+
+head: inline+
+
+verse: verse-head? verse-line+
+verse-head: inline+
+verse-line: inline+
+
+para: inline+
+quote: inline+
+list: item+
+dlist: (key value)+
+note: para+
+
+inline: span | link | milestone | note | TEXT
+milestone: npage | nline | ncell
+note: restricted_block+
+
+restricted_block: "like a normal block but disallowing nested notes"
+
+
+will need to review metadata fields, not sure which we should have, depends how we do the search stuff.
+
+
+=====
+
+
+DOC:
+
+link/@href not mandatory
+
+
 
 
 ========= before publishing the new version
@@ -7,8 +69,10 @@ check the prosody page
 idem for editorial
 see for catalog updates
 
-we should attribute all files without an editor to John Doe (so that we don't
-have to check this special case)
+we should attribute all files without an editor to John Doe so that we don't
+have to check this special case when filtering by authors, etc.; generally
+speaking, we should always have a default predefined value for empty fields;
+should never have null.
 
 =========
 
@@ -24,8 +88,6 @@ for crited; fill this in
     </xsl:variable>
 
 Hide "Language: Undetermined" when no language found in div type edition.
-
-facets: date + lieu (pays > région > ...)
 
 ====
 

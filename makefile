@@ -81,7 +81,7 @@ update-repos:
 	done
 
 update-db:
-	rsync dharma:dbs/texts.sqlite dharma:dbs/texts.sqlite-wal dbs/
+	rsync --progress dharma:dbs/texts.sqlite dharma:dbs/texts.sqlite-wal dbs/
 
 update-texts: update-repos update-db
 	mkdir -p texts

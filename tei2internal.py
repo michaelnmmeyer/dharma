@@ -1250,7 +1250,6 @@ composed_fractions = {
 # <sup>9</sup> + fraction slash + <sub>8</sub>.
 @handler("g[@type='numeral']")
 def parse_g_numeral(p, node):
-	p.push(tree.Tag("numeral"))
 	frac = re.match("([0-9]+)[/\N{fraction slash}]([0-9]+)", node.text())
 	if frac:
 		num, den = int(frac.group(1)), int(frac.group(2))
@@ -1258,16 +1257,15 @@ def parse_g_numeral(p, node):
 		if composed:
 			p.append(composed)
 		else:
-			sup = tree.Tag("sup")
+			sup = tree.Tag("span", class_="sup")
 			sup.append(str(num))
 			p.append(sup)
 			p.append("\N{fraction slash}")
-			sub = tree.Tag("sub")
+			sub = tree.Tag("span", class_="sub")
 			sub.append(str(den))
 			p.append(sub)
 	else:
 		p.dispatch_children(node)
-	p.join()
 
 # g[not @type='numeral']
 @handler("g")
@@ -1510,9 +1508,6 @@ def parse_list(p, lst):
 	p.push(tree.Tag("list", type=rend))
 	for item in lst.find("item"):
 		p.push(tree.Tag("item"))
-		# XXX need a space after each item in physical, see
-		# DHARMA_INSSII0501358; deal with that in the rendering
-		# code
 		p.dispatch_children(item)
 		p.join()
 	p.join()

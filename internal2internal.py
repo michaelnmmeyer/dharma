@@ -5,15 +5,17 @@ Summary of new elements.
 We have two basic categories: inline elements (links and spans of text) and
 block elements (divisions, paragraphs, etc.).
 
-* Data fields: title, author, editor. These elements should not
-contain paragraphs.
+* Data fields: title, author, editor. These elements should not contain
+paragraphs.
 
-* Divisions: summary, hand, edition, apparatus, translation,
-commentary, bibliography, div.
+* Main divisions: summary, hand, edition, apparatus, translation, commentary,
+bibliography.
+
+* Other division: div.
 
 * Paragraph-like: para, verse(>verse-line), head, quote.
 
-* Containers: dlist(>(key, value)), list(>item), note.
+* Containers: list(>item), dlist(>(key, value)), note.
 
 * Inline elements: span, link, milestones (npage, nline, ncell).
 """
@@ -36,9 +38,6 @@ number notes. will need this for rendering properly notes within the edition.
 # XXX should have an axis for "everything except <note>", because there are a
 # lots of cases where we _must_ avoid <note>, and it's not immediately clear
 # where, and it's error-prone.
-
-# XXX fix invalid nesting of para with lg, etc. and write appropriate rnc schema and
-# try to validate all files after the transforms to ensure we do transforms correctly.
 
 # XXX handle notes in the edition (handle the multiple displays) ; use e.g. http://localhost:8023/texts/INSKarnataka00007
 
@@ -111,14 +110,14 @@ def ends_with_space(s):
 
 def delete_if_empty(root: tree.Tag):
 	"""Delete all empty elements (except the XML document's root and
-	milestones).
+	milestones and <key>).
 
 	Divisions that have a heading but no contents are also considered empty.
 	We do not try to distinguish "default" headings (like "Apparatus", etc.)
 	from non-default ones. Not sure how this should be made to work, because
 	for <translation> we have several variations of "default" headings."""
 	if len(root) == 0:
-		if root.name not in ("document", "npage", "nline", "ncell"):
+		if root.name not in ("document", "npage", "nline", "ncell", "key"):
 			root.delete()
 	elif len(root) == 1 and isinstance(root[0], tree.Tag) and root[0].name == "head":
 		root.delete()
@@ -328,18 +327,6 @@ def fix_milestones_location_inner(root: tree.Tag, milestones_ids):
 		root.insert_before(root[0])
 	while len(root) > 0 and id(root[-1]) in milestones_ids:
 		root.insert_after(root[-1])
-
-def front_node(node):
-	for child in node:
-		if isinstance(child, tree.Tag) and child.name == "display":
-			continue
-		return child
-
-def back_node(node):
-	for child in reversed(node):
-		if isinstance(child, tree.Tag) and child.name == "display":
-			continue
-		return child
 
 def first_milestone_accepting_node(doc):
 	def inner(root):
@@ -563,6 +550,10 @@ def unwrap_for_physical(root: tree.Branch):
 			continue
 		match node.name:
 			case "note":
+				# No recursion here, the node is part of the
+				# text.
+				pass
+			case "display":
 				pass
 			case "div" | "head" | "span" | "link" | "npage" | "nline" | "ncell":
 				unwrap_for_physical(node)
@@ -572,34 +563,16 @@ def unwrap_for_physical(root: tree.Branch):
 			case "verse-head":
 				node.delete()
 			case "para" | "quote" | "key" | "value" | "item":
+				unwrap_for_physical(node)
 				node.prepend(" ")
 				node.unwrap()
 			case "verse-line":
+				unwrap_for_physical(node)
 				if common.to_boolean(node["break"]):
 					node.prepend(" ")
 				node.unwrap()
 			case _:
-				raise Exception
-
-"""
-For l[@enjamb='yes']: <l>foo</l> <l>bar</l> means that the text is "foo bar",
-but <l enjamb="yes">foo</l> <l>bar</l> means that the text is "foobar".
-"""
-
-"""
-SPACING!!!!
-key + ' ' + value
-verse-line + '- ' + verse-line
-div
-(all their children strings should be removed)
-¶ para-like: para verse(>verse-line) head quote
-¶ para containers: dlist(>(key, value)) list(>item) note
-¶ sub-paragraphs divisions: item, key, value, verse-line
-(can only contain inline)
-¶ inline: span link
-¶ milestones: npage nline ncell
-
-"""
+				raise Exception(f"unexpected: {node!r}")
 
 # People often use div[@type='textpart'] instead of page-like milestones for
 # indicating physical divisions. We thus have a lot of inscriptions that
@@ -609,28 +582,36 @@ div
 # special for now.
 def wrap_for_physical(root, page=None, line=None):
 	for node in list(root):
-		match node:
-			case tree.Tag("div"):
+		if not isinstance(node, tree.Tag):
+			if not page:
+				page = tree.Tag("page")
+				node.insert_before(page)
+			if not line:
+				line = tree.Tag("line")
+				page.append(line)
+			line.append(node)
+			continue
+		match node.name:
+			case "div":
 				page = line = None
 				wrap_for_physical(node, page, line)
-			case tree.Tag("head"):
+			case "head":
 				page = line = None
-			case tree.Tag("npage"):
+			case "npage":
 				page = tree.Tag("page")
 				node.insert_before(page)
 				head = tree.Tag("head")
 				head.append(node)
 				page.append(head)
 				line = None
-			case tree.Tag("nline"):
+			case "nline":
 				if not page:
 					page = tree.Tag("page")
 					node.insert_before(page)
 				line = tree.Tag("line")
 				page.append(line)
 				line.append(node)
-			case tree.Tag("ncell") | tree.Tag("span") | tree.Tag("link") \
-				| tree.Tag("note") | tree.String():
+			case "ncell" | "span" | "link" | "note":
 				if not page:
 					page = tree.Tag("page")
 					node.insert_before(page)
@@ -641,6 +622,27 @@ def wrap_for_physical(root, page=None, line=None):
 			case _:
 				raise Exception(f"unexpected: {node!r}")
 
+def fix_lists_and_quotes(t: tree.Tree):
+	for node in t.find(".//para/*[name()='list' or name()='dlist' or name()='quote']"):
+		move_up_from_para(node)
+
+def move_up_from_para(node):
+	para = node.parent
+	assert isinstance(para, tree.Tag) and para.name == "para"
+	left = tree.Tag("para")
+	right = tree.Tag("para")
+	buf = left
+	for child in para:
+		if child is node:
+			buf = right
+		else:
+			buf.append(child)
+	if len(left) > 0:
+		para.insert_before(left)
+	para.replace_with(node)
+	if len(right) > 0:
+		node.insert_after(right)
+
 def add_hyphens(t):
 	# Exclude phantom lines because we sometimes have:
 	# foo<pb n="1" break="no"/><pb n="2" break="no"/>bar
@@ -650,7 +652,7 @@ def add_hyphens(t):
 	i = 1
 	while i < len(lines):
 		head = lines[i][0]
-		assert isinstance(head, tree.Tag) and head.name == "nline"
+		assert isinstance(head, tree.Tag) and head.name == "nline", lines[i].xml()
 		if not common.to_boolean(head["break"], True):
 			span = tree.Tag("span", tip="Hyphen break")
 			span.append("-")
@@ -769,6 +771,7 @@ def to_logical(t):
 		node.delete()
 
 def process(t: tree.Tree):
+	fix_lists_and_quotes(t)
 	fix_spaces(t)
 	fix_milestones(t)
 	# And create the three displays.
