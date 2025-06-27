@@ -644,6 +644,12 @@ def move_up_from_para(node):
 		node.insert_after(right)
 
 def add_hyphens(t):
+	# We need to add a hyphen break after all the milestone @break=no,
+	# whether or not there is a hyphen break at the end of the line.
+	# (We also have preceding hyphens sometimes, but this is not OK I
+	# think.)
+	# Use <display><span tip="Hyphen break">-</span> at the end of each
+	# line
 	# Exclude phantom lines because we sometimes have:
 	# foo<pb n="1" break="no"/><pb n="2" break="no"/>bar
 	# In this case, we must add a hyphen after "foo", but in the phantom
@@ -749,12 +755,6 @@ def to_physical(t):
 	wrap_for_physical(t)
 	fix_milestones_spaces(t, physical=True)
 	add_hyphens(t)
-	# We need to add a hyphen break after all the milestone @break=no,
-	# whether or not there is a hyphen break at the end of the line.
-	# (We also have preceding hyphens sometimes, but this is not OK I
-	# think.)
-	# Use <display><span tip="Hyphen break">-</span> at the end of each
-	# line
 	for node in t.find(".//span[@class='corr' and @standalone='false']"):
 		node.delete()
 	for node in t.find(".//span[@class='reg' and @standalone='false']"):

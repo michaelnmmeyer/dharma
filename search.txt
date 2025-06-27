@@ -1,7 +1,3 @@
-manu: facets: date + lieu (pays > région > ...)
-
-
-
 need to make displays distinctions for the display, but do we also need it for search?
 
 in fact, not exactly. for a start, search only needs to know logical and physical, not full. for sic/corr and orig/reg and abbrevs (am and ex), we do need two versions of the text.
@@ -16,18 +12,6 @@ in fact, not exactly. for a start, search only needs to know logical and physica
 		hide orig, but only if paired with reg
 		hide am (abbreviation mark)
 
-	full+logical
-
-
-for dealing with hyphenation, watch out:
-
-	for milestones (npage, nline, ncell).
-	for verses, we have l/@enjamb which must be treated specially.
-
-should arrange milestones in a tree (at most 2 levels are necessary, we don't care about gridlike milestones; but should still check they are positioned appropriately).
-
-
-
 should use special characters for representing boundaries (start/end of cluster or line or page or verse or para). maybe set the most significant bit and use the 7 remaining bits to encode which kind of boundary is represented. this would limit us to 128 values for the rest.
 
 	cluster		independent of the others
@@ -36,13 +20,13 @@ should use special characters for representing boundaries (start/end of cluster 
 
 ===
 
-facets: language, script, repository
+facets: type (inscription or manuscript), date, place, language, script, repository
 
 each searchable field must have a predefined type; more accurately, a processor name, which must define how to process the field to make it searchable (optionally indexable). use static typing, same processor for a given field in a given collection of fields.
 
-for selecting snippets. try to select complete block elements. because we can't tell where we should cut the text otherwise (before or after <lb/>? etc.). but also cap the length of a snippet, to avoid degenerate cases. in any case, must make sure to select balanced elements. when generating snippets/highlighting, we should never attempt to select part of an inline element. we need to distinguish between block and inline elements.
+for selecting snippets. for simplicity, try to select complete (balanced) block elements. but also need to cap the length of a snippet, to avoid degenerate cases with overlong paragraphs. we can abbreviate a block with '[...]' in appropriate spots. will need to define rules for deciding where exactly we can split a block.
 
-but the block/inline distinction is not enough for the phys display; consecutive lines should be part of a single search unit, but be displayed separately. so in fact we should have a search block unit in addition to display block units. but for now just support searching the logical display.
+but the block/inline distinction is not enough for the phys display. for consecutive lines should be part of a single search unit, but be displayed separately. so in fact we should have a "search block" unit in addition to display block units. but for now just support searching the logical display.
 
 when processing div headings, add an infinite amount of space before and after the title. there should also be an infinite amount of space between divisions (but not between paragraphs, list elements, and other kinds of blocks[?]). to represent infinite space, use a special Unicode character that cannot appear in the text; but won't work with TRE and if we use wildcards; could patch TRE to bail out when it finds some given character, but quite dirty. in fact, no, that's just like using \n for line-based matching; we could even just use \n for separating all records; see agrep's -e option ("set the record delimiter regular expression"). when we have nested divs, just flatten the hierarchy, doesn't matter.
 
