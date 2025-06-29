@@ -1531,10 +1531,8 @@ def sort_key(rec):
 if __name__ == "__main__":
 	@common.transaction("texts")
 	def main():
+		import sys
 		db = common.db("texts")
-		for (doc,) in db.execute("""select json ->> '$.data' from biblio_data
-			where sort_key is not null
-		"""):
-			doc = common.from_json(doc)
-			print(doc, sort_key(doc))
+		for arg in sys.argv[1:]:
+			db.execute("delete from biblio_data where key = ?", (arg,))
 	main()
