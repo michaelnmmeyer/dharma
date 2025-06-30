@@ -29,7 +29,7 @@ pattern_tbl = str.maketrans({
 	"\N{devanagari danda}": "|",
 	"\N{devanagari double danda}": "||",
 })
-def render_pattern(p):
+def render_pattern(p: str) -> tree.Tag:
 	ret = tree.Tag("span", class_="prosody")
 	for seg in re.findall(r"(?:\|\|)|(?:[0-9]{2,})|(?:.)", p):
 		if len(seg) > 1:
@@ -49,7 +49,7 @@ def render_pattern(p):
 
 pattern_chars = set(chr(c) for c in pattern_tbl) | set("0123456789|/")
 
-def is_pattern(p):
+def is_pattern(p: str) -> bool:
 	return len(p) > 0 and all(c in pattern_chars for c in p)
 
 def parse_front(xml):

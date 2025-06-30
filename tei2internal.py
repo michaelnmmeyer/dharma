@@ -273,13 +273,17 @@ class Parser(tree.Serializer):
 	def get_prosody_entry(self, name):
 		entry = self._prosody_entries.get(name, object)
 		if entry is object:
+			# Not yet fetched from the db.
 			db = common.db("texts")
 			entry = db.execute(
 				"""select pattern, description, entry_id
 				from prosody where name = ?""",
 				(name,)).fetchone() or None
 			self._prosody_entries[name] = entry
-		return entry
+		if entry:
+			pattern, description, entry_id = entry
+			pattern = tree.parse_string(pattern)
+			return pattern, description, entry_id
 
 	def dispatch(self, node):
 		if node in self.visited:
@@ -1081,12 +1085,34 @@ def parse_expan(p, node):
 
 # >abbreviations
 
-# XXX not refactored
-# XXX @rend="check" should be handled everywhere but is not
+@handler("seg[stuck-child::gap]")
+def parse_other_seg(p, seg):
+	# We expect something like:
+	# <seg met="+++-++"><gap reason="lost" quantity="6" unit="character"/></seg>
+	# In this case, use the same tooltip we would use for <gap>, but display
+	# the meter instead of ****, etc.
+	# XXX what about search? For now let's just convert prosodic pattern
+	met = seg["met"]
+	if not met:
+		return p.dispatch_children(seg)
+	if prosody.is_pattern(met):
+		met = prosody.render_pattern(met)
+	elif (entry := p.get_prosody_entry(met)):
+		met, _, _ = entry
+	else:
+		return p.dispatch_children(seg)
+	_, _, tip = parse_gap(p, seg.first("stuck-child::gap"))
+	if tip:
+		p.push(tree.Tag("span", tip=tip))
+	p.append_display("[")
+	p.append(met)
+	p.append_display("]")
+	if tip:
+		p.join()
 
 # There is @type=aksara|component which we are not dealing with but that is
 # apparently useless.
-@handler("seg[not stuck-child::gap]")
+@handler("seg") # seg[not stuck-child::gap]
 def parse_seg(p, seg):
 	rend = seg["rend"].split()
 	if "pun" in rend:
@@ -1107,10 +1133,6 @@ def parse_seg(p, seg):
 		p.append_display("}")
 		p.join()
 
-@handler("seg")
-def parse_other_seg(p, seg):
-	pass
-
 # XXX not general enough
 @handler("div[@type='translation']//gap[@reason='ellipsis']")
 def handle_gap_ellipsis(p, gap):
@@ -1118,19 +1140,14 @@ def handle_gap_ellipsis(p, gap):
 	p.append("\N{horizontal ellipsis}")
 	p.join()
 
-# XXX not refactored
-# "component" is for character components like vowel markers, etc.; "character" is for akṣaras
-# EGD: The EpiDoc element <gap/> ff (full section 5.4)
-# EGD: "Scribal Omission without Editorial Restoration"
-@handler("gap")
 def parse_gap(p, gap):
 	reason = gap["reason"] or "undefined" # most generic choice
 	quantity = gap["quantity"]
 	precision = gap["precision"]
 	unit = gap["unit"] or "character"
 	if reason == "ellipsis":
-		p.append("\N{horizontal ellipsis}")
-		return
+		repl = "\N{horizontal ellipsis}"
+		return repl, repl, ""
 	if reason == "undefined":
 		reason = "lost or illegible"
 	if gap.first("stuck-child::certainty[@match='..' and @locus='name']"):
@@ -1176,25 +1193,26 @@ def parse_gap(p, gap):
 		else:
 			repl = "[unknown number of %s %s]" % (reason, common.numberize(unit, +333))
 		tip = "Unknown number of %s %s" % (reason, common.numberize(unit, +333))
-	# <seg met="+++-++"><gap reason="lost" quantity="6" unit="character">
-	# In this case, keep the tooltip, but display the meter instead of ****, etc.
-	parent = gap.parent
-	if isinstance(parent, tree.Tag) and parent.name == "seg" and parent["met"]:
-		met = parent["met"]
-		if prosody.is_pattern(met):
-			met = prosody.render_pattern(met)
-		else:
-			met = html.escape(met)
-		repl = f'[{met}]'
-		phys_repl = None
-	p.push(tree.Tag("span", class_="gap", tip=tip))
-	# XXX different formatting to do depending on phys/log/full
-	if phys_repl is not None and phys_repl != repl:
-		p.append(repl)
-		p.append(phys_repl)
-	else:
-		p.append(repl)
+	return phys_repl or repl, repl, tip
+
+# XXX not refactored
+# "component" is for character components like vowel markers, etc.; "character" is for akṣaras
+# EGD: The EpiDoc element <gap/> ff (full section 5.4)
+# EGD: "Scribal Omission without Editorial Restoration"
+@handler("gap")
+def handle_gap(p, gap):
+	# XXX need to wrap the [] inside <display>
+	phys_repl, log_repl, tip = parse_gap(p, gap)
+	if tip:
+		p.push(tree.Tag("span", tip=tip))
+	p.push(tree.Tag("display", name="physical"))
+	p.append(phys_repl)
 	p.join()
+	p.push(tree.Tag("display", name="logical"))
+	p.append(log_repl)
+	p.join()
+	if tip:
+		p.join()
 
 """
 The following table was produced with this code:
@@ -1354,7 +1372,12 @@ def make_meter_heading(p, met):
 		return ret
 	pattern, description, entry_id = entry
 	name = common.sentence_case(met)
-	value = pattern or description or "No metre description available"
+	if pattern:
+		value = pattern.xml()
+	elif description:
+		value = description
+	else:
+		value = "No metre description available"
 	p.push(tree.Tag("link", href=f"/prosody#prosody-{entry_id}"))
 	p.push(tree.Tag("span", tip=value))
 	p.append(name)
