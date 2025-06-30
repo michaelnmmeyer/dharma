@@ -83,7 +83,7 @@ update-repos:
 update-db:
 	rsync --progress dharma:dbs/texts.sqlite dharma:dbs/texts.sqlite-wal dbs/
 
-update-texts: update-repos update-db
+update-texts:
 	mkdir -p texts
 	rm -f texts/*
 	sqlite3 -noheader dbs/texts.sqlite "select printf('../repos/%s/%s', repo, path) \
