@@ -101,7 +101,7 @@ def update():
 	assert len(ret) == 1
 	max_version = ret.pop()
 	for key in zotero_deleted(min_version):
-		db.execute("delete from biblio_data where key = ? and version <= ?", (key, max_version))
+		db.execute("delete from biblio_data where key = ?", (key,))
 	db.execute("update metadata set value = ? where key = 'biblio_latest_version'", (max_version,))
 	# For now, use brute force for generating sort keys. But we only need
 	# to do that when the code that generates the sort key changes (and when
