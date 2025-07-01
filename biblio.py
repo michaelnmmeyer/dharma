@@ -38,13 +38,23 @@ def next_request_delay(r):
 # record is added/modified, its "version" key is set to the current global
 # version, so that it's possible to detect items that have been added/modified
 # since a given version.
+#
+# Note that items might be added or modified between the time this function is
+# called and the time it returns. To address this, we save the global version
+# number zotero gives us during the first call to its API. This version number
+# is necessarily <= the version number zotero gives us during the last call to
+# its API. If the version number does not change while we're updating things,
+# all is well. Otherwise, we will need to fetch newly created and modified
+# entries at a later point.
+#
+# The global version number is saved in the 'metadata' table.
 def zotero_modified(latest_version, ret):
 	s = requests.Session()
 	s.headers["Zotero-API-Version"] = "3"
 	s.headers["Zotero-API-Key"] = MY_API_KEY
 	# The "since" param is not inclusive, this returns items whose version
 	# is > latest_version.
-	url = f"https://api.zotero.org/groups/{LIBRARY_ID}/items?since={latest_version}"
+	url = f"https://api.zotero.org/groups/{LIBRARY_ID}/items?since={latest_version}&includeTrashed=1"
 	logging.info(url)
 	r = s.get(url)
 	cutoff = 0
@@ -62,15 +72,11 @@ def zotero_modified(latest_version, ret):
 		if not cutoff:
 			cutoff = new_version
 			logging.info(f"zotero new version: {cutoff}")
+		else:
+			assert new_version >= cutoff
 		entries = r.json()
 		assert isinstance(entries, list)
 		for entry in entries:
-			# Ignore all entries modified since our first request,
-			# because in this case we can't rely on the pagination
-			# to be correct and we might miss entries. We will
-			# update these new entries later on.
-			if entry["version"] > cutoff:
-				continue
 			yield entry
 		next_page = re.search(r'<([^>]+)>;\s*rel="next"', r.headers.get("Link", ""))
 		if not next_page:
@@ -90,6 +96,8 @@ def zotero_deleted(latest_version):
 	logging.info(url)
 	r = s.get(url)
 	r.raise_for_status()
+	new_version = int(r.headers["Last-Modified-Version"])
+	assert new_version >= latest_version
 	return r.json().get("items", [])
 
 def insert_entry(db, entry):
