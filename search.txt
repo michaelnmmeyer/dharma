@@ -1,3 +1,11 @@
+maybe simplest: store separately the raw text and the structure of the document, to make it easy to do regex matching against the raw text, without having to modify TRE. but weird behaviour if we have text:
+
+	AB<new para>B
+
+and we match the regex 'A.*B', TRE will return the longest match "AB B"; but if we filter this match out because of <new para>, we're left with no match at all. making matching non-greedy would not address this. we might want e.g. to find occurrences of 'A.*B' that cover at least 3 paragraphs. but non-greedy seems better anyway, so do that. ideally, need to add custom zero-width assertions, but need modifs to tre to allow that.
+
+===
+
 need to make displays distinctions for the display, but do we also need it for search?
 
 in fact, not exactly. for a start, search only needs to know logical and physical, not full. for sic/corr and orig/reg and abbrevs (am and ex), we do need two versions of the text.

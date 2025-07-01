@@ -23,6 +23,8 @@ bibliography.
 import re, sys
 from dharma import tree, common
 
+# XXX in physical, differenciate between continuation lines and others?
+
 """
 
 remove unknown elements in appropriate contexts. removing totally unknown elements is not the most useful, removing (or fixing) known elements that are being misused is important.
