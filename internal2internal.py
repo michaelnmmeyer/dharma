@@ -666,7 +666,9 @@ def add_hyphens(t):
 	i = 1
 	while i < len(lines):
 		head = lines[i][0]
-		assert isinstance(head, tree.Tag) and head.name == "nline", lines[i].xml()
+		if not isinstance(head, tree.Tag) or not head.name == "nline":
+			i += 1
+			continue
 		if not common.to_boolean(head["break"], True):
 			span = tree.Tag("span", tip="Hyphen break")
 			span.append("-")
