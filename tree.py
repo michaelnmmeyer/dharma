@@ -336,14 +336,14 @@ class Node:
 			path = path[end:]
 		return node
 
-	def find(self, path: str):
+	def find(self, path: str) -> list['Node']:
 		'''Finds nodes that match the given XPath expression. Returns a
 		list of matching nodes.
 		'''
 		f = generator.compile(path)
 		return list(f(self))
 
-	def first(self, path: str):
+	def first(self, path: str) -> "Node | None":
 		'''Like the `find` method, but returns only the first matching
 		node, or `None` if there is no match.'''
 		f = generator.compile(path)
@@ -355,7 +355,7 @@ class Node:
 		a `Node` object. See the documentation of `Node.matches()`.'''
 		return generator.compile(path, search=False)
 
-	def matches(self, path: str):
+	def matches(self, path: str) -> bool:
 		'''Checks if this node matches the given XPath expression.
 		Returns a boolean.
 
@@ -365,11 +365,11 @@ class Node:
 		f = self.match_func(path)
 		return f(self)
 
-	def children(self):
+	def children(self) -> list['Node']:
 		'''Returns a list of `Tag` children of this node.'''
 		return []
 
-	def replace_with(self, other):
+	def replace_with(self, other) -> 'Node':
 		'''Removes this node and its descendants from the tree, and
 		puts another node in its place. Returns the removed subtree.
 		'''

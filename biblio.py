@@ -1,7 +1,10 @@
-# BUG We sometimes miss entries while updating the bib, why? I am sure we are
-# missing deletions, but I haven't checked whether we are missing added
-# entries. We should force a full bibliography update from time to time just in
-# case, as we are doing for the catalog. One-off error with versions no.?
+# BUG We sometimes miss updates, why?
+# I am sure we are sometimes missing deletions, but I haven't checked whether
+# we are also missing new entries. Due to one-off error with versions no.?
+# Or the isloation level in sqlite? Or just zotero itself?
+# Other option:
+# We should force a full bibliography update from time to time just in
+# case, as we are doing for the catalog.
 
 # For the conversion zotero->tei, this code is used:
 # https://github.com/zotero/translators/blob/master/TEI.js
@@ -64,7 +67,8 @@ def zotero_modified(latest_version, ret):
 		for entry in entries:
 			# Ignore all entries modified since our first request,
 			# because in this case we can't rely on the pagination
-			# to be correct and we might miss entries.
+			# to be correct and we might miss entries. We will
+			# update these new entries later on.
 			if entry["version"] > cutoff:
 				continue
 			yield entry
@@ -119,10 +123,6 @@ def update():
 	assert len(ret) == 1
 	max_version = ret.pop()
 	for key in zotero_deleted(min_version):
-		(version,) = db.execute("""select version from biblio_data
-			  where key = ?""", (key,)).fetchone() or (min_version + 1,)
-		if version > min_version:
-			continue
 		db.execute("delete from biblio where key = ?", (key,))
 		db.execute("delete from biblio_data where key = ?", (key,))
 	db.execute("""update metadata set value = ?

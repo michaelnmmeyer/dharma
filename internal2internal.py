@@ -554,7 +554,15 @@ def unwrap_for_physical(root: tree.Branch):
 				# text.
 				pass
 			case "display":
-				pass
+				if not node["name"]:
+					pass
+				elif node["name"] == "physical":
+					unwrap_for_physical(node)
+					node.unwrap()
+				elif node["name"] == "logical":
+					node.delete()
+				else:
+					raise Exception
 			case "div" | "head" | "span" | "link" | "npage" | "nline" | "ncell":
 				unwrap_for_physical(node)
 			case "verse" | "dlist" | "list":
@@ -785,6 +793,8 @@ def process(t: tree.Tree):
 	physical = full.copy()
 	physical.name = "physical"
 	to_physical(physical)
+	for node in full.find(".//display[@name='physical']"): # XXX find other encoding
+		node.delete()
 	fix_milestones_spaces(full)
 	logical = full.copy()
 	logical.name = "logical"
