@@ -1,4 +1,14 @@
+# XXX document this and cleanup
+
+# XXX among structural stuff to fix: nested divisions; we should allow them,
+# because will be needed at some point, but be careful.
+
 """Internal transformations.
+
+This fixes various things in the internal XML representation and produces three
+displays: physical, logical, full.
+
+Among other things, we remove all non-significant space from the input tree.
 
 Summary of new elements.
 
@@ -23,7 +33,7 @@ bibliography.
 import re, sys
 from dharma import tree, common
 
-# XXX in physical, differenciate between continuation lines and others?
+
 
 """
 
@@ -201,7 +211,7 @@ def fix_milestones(t):
 	milestones = useful_milestones(t)
 	if not milestones:
 		return
-	fix_milestones_location(t, milestones)
+	fix_milestones_locations(t, milestones)
 	check_milestones_valid(t, milestones)
 	add_phantom_milestones(t, milestones)
 	check_milestones_valid(t, milestones)
@@ -242,7 +252,7 @@ def in_milestone_accepting(node):
 			return True
 		return False
 
-def fix_milestones_location(t, milestones):
+def fix_milestones_locations(t, milestones):
 	"""Apply placement conventions for each milestone.
 
 	milestone-accepting elements: para verse-line item key value quote
@@ -631,6 +641,13 @@ def wrap_for_physical(root, page=None, line=None):
 				line.append(node)
 			case _:
 				raise Exception(f"unexpected: {node!r}")
+
+# XXX in physical, differenciate between continuation lines and others?
+# yes, a continuation page/line/cell is one that meets all following criteria:
+# 1) appears at the beginning of a division
+# 2) a milestone we generated viz. that the user did not specifify
+# 3) is not the first npage/nline/ncell in the <edition>
+# it is only created in wrap-for-physical, so do necessary stuff here.
 
 def fix_lists_and_quotes(t: tree.Tree):
 	for node in t.find(".//para/*[name()='list' or name()='dlist' or name()='quote']"):

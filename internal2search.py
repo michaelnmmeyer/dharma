@@ -10,6 +10,15 @@ def handler(path):
 		return f
 	return decorator
 
+@handler("/document/logical")
+def render_edition(self, node):
+	self.dispatch_children(node)
+
+@handler("logical//para")
+def render_para(self, node):
+	for child in node:
+		if
+
 @handler("*")
 def render_rest(self, node):
 	pass
@@ -17,7 +26,8 @@ def render_rest(self, node):
 class SearchDocument:
 
 	def __init__(self):
-		pass
+		self.text = ""
+		self.offset = 0
 
 class SearchRenderer(tree.Serializer):
 
@@ -56,8 +66,24 @@ class SearchRenderer(tree.Serializer):
 # We have an XML tree instead of a Document object as input because 1) we will
 # need to process an XML tree for highlighting; and 2) because it is more
 # convenient to use xpath.
-def process(doc):
-	render = SearchRenderer(doc)
-	doc = render()
-	print(doc)
-	return doc
+def process(t: tree.Tree):
+	render = SearchRenderer(t)
+	ret = render()
+	return ret
+
+if __name__ == "__main__":
+	import os, sys
+	from dharma import tei2internal, internal2internal, common, texts
+
+	@common.transaction("texts")
+	def main():
+		path = os.path.abspath(sys.argv[1])
+		f = texts.File("/", path)
+		t = tei2internal.process_file(f).serialize()
+		t = internal2internal.process(t)
+		doc = process(t)
+		print(doc)
+	try:
+		main()
+	except BrokenPipeError:
+		pass

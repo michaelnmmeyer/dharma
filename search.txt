@@ -1,8 +1,36 @@
-maybe simplest: store separately the raw text and the structure of the document, to make it easy to do regex matching against the raw text, without having to modify TRE. but weird behaviour if we have text:
+for converting the internal representation to the search one. watch out for @break
+
+logical:
+
+
+===
+
+maybe simplest: store separately the raw text and the structure of the document, to make it easy to do regex matching against the raw text, without having to modify TRE. in any case, it's probably the best of course of action.
+
+we thus would have:
+
+* the raw text, as a single string
+
+* a series of pointers arrays, one for each text span we might be interested in.
+to save space, might want to use varints and delta-encode the array. we might be
+interested in: cluster boundaries, alnum seq boundaries ("words" or "compound
+members"), page/line/cell, prose/verse units.
+
+* an offset map to convert a text offset to a location in the internal XML. in
+fact it's not really needed, would likely be simpler to just reprocess the XML
+and annotate interesting segments as we go.
+
+concerning the matching behaviour:
+
+watch out for regexes that would match the empty string. simplest method maybe: check if the regex matches the empty string before actually searching the db. if it does, inform the user and don't search anything. but we should still return all documents in the collection.
+
+we should probably be non-greedy by default. makes more sense than the reverse in a FTS search context. unless we restrict regex matching to a single cluster: in this case greedy matching should be the norm, because we would be trying to match a whole cluster.
 
 	AB<new para>B
 
 and we match the regex 'A.*B', TRE will return the longest match "AB B"; but if we filter this match out because of <new para>, we're left with no match at all. making matching non-greedy would not address this. we might want e.g. to find occurrences of 'A.*B' that cover at least 3 paragraphs. but non-greedy seems better anyway, so do that. ideally, need to add custom zero-width assertions, but need modifs to tre to allow that.
+
+maybe we should make repetition operators not cross spaces per default, so they would match at most one cluster. would be cleaner in the general case. then the rest of the matching would be performed with normal FTS cursors (phrase search).
 
 ===
 
@@ -109,11 +137,15 @@ Write the main code in python first. Then switch to go if not fast enough. Add a
 basic argc,argv func as an entry point, and wrap this function in C with minimum
 code.
 
-should do all the text preprocessing stuff in python, including for modern languages, tokenization,
-because it's where all libraries are. we can use some binary format to indicate
-to the engine what it should index. only the matching engine should be in
-C or Go. could in fact do all the indexing in python, and the search stuff in
-C/Go.
+should do all the text preprocessing stuff in python, including for modern
+languages, tokenization, because it's where all libraries are. we can use some
+binary format to indicate to the engine what it should index. only the matching
+engine should be in C or Go. could in fact do all the indexing in python, and
+the search stuff in C/Go.
+
+In fact we can't really do auxiliary stuff like highlighting in anything else
+than python, because need to navigate XML stuff. So should probably just write
+everything in python and deal with slowness later on.
 
 probably useful transfos:
 

@@ -234,7 +234,7 @@ class Node:
 		raise Exception("invalid operation")
 
 	@property
-	def plain(self):
+	def plain(self) -> bool:
 		'''`True` if this node is a `String`, or if it is a `Branch`
 		that has no children or only `String` children (discounting
 		comments and processing instructions).'''
@@ -430,6 +430,9 @@ class Node:
 		fmt.format(self)
 		return fmt.text()
 
+	def __iter__(self):
+		raise NotImplementedError
+
 	def __copy__(self):
 		return self.copy()
 
@@ -469,6 +472,9 @@ class Branch(Node, list):
 	@property
 	def plain(self):
 		return all(not isinstance(node, Tag) for node in self)
+
+	def __iter__(self):
+		return list.__iter__(self)
 
 	def __add__(self, value):
 		ret = self.copy()
