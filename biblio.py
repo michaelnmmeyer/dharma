@@ -1325,7 +1325,7 @@ def wrap_entry(data):
 def format_entry(rec, location=[], siglum=None):
 	rec = fix_rec(rec)
 	out = Writer()
-	out.push(tree.Tag("para", class_="bib-entry", anchor=f"bib-{rec["shortTitle"]}"))
+	out.push(tree.Tag("para", class_="bib-entry", anchor=f"bib-{rec['shortTitle']}"))
 	if siglum:
 		out.push(tree.Tag("span", class_="bold"))
 		out.append("[")
