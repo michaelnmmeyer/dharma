@@ -125,6 +125,11 @@ def update():
 	db = common.db("texts")
 	(min_version,) = db.execute("""select value from metadata
 		where key = 'biblio_latest_version'""").fetchone()
+	if min_version <= 0:
+		# Empty out the biblio, in case the version number has been
+		# changed manually and reset to 0.
+		db.execute("delete from biblio")
+		db.execute("delete from biblio_data")
 	ret = []
 	for entry in zotero_modified(min_version, ret):
 		insert_entry(db, entry)

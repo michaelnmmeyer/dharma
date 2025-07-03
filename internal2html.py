@@ -37,10 +37,11 @@ def render_document(self, node):
 		render_head(self, "Notes")
 		self.push(tree.Tag("ol"))
 		for n, note in enumerate(self.notes, 1):
+			assert n == int(note["n"])
 			self.push(tree.Tag("li", class_="note", id=f"note-{n}"))
 			paras = note.find("para")
 			self.push(tree.Tag("p"))
-			self.push(tree.Tag("a", class_="note-ref", href=f"#note-ref-{n}"))
+			self.push(tree.Tag("a", class_="note-ref", data_note_n=str(n), href="#"))
 			self.append(f"{n}.")
 			self.join()
 			self.append(" ")
@@ -222,11 +223,18 @@ def render_milestone(self, node):
 	self.dispatch_children(node)
 	self.join()
 
-def make_note_ref(self, node, id_prefix):
-	self.notes.append(node)
-	n = len(self.notes)
+def make_note_ref(self, node, display=None):
+	n = int(node["n"])
+	if n < len(self.notes) + 1:
+		pass
+	else:
+		assert n == len(self.notes) + 1
+		self.notes.append(node)
 	self.push(tree.Tag("sup"))
-	self.push(tree.Tag("a", class_="nav-link", href=f"#note-{n}", id=f"{id_prefix}-{n}"))
+	anchor = f"note-ref-{n}"
+	if display:
+		anchor += f"-{display}"
+	self.push(tree.Tag("a", class_="nav-link", href=f"#note-{n}", id=anchor))
 	self.append(str(n))
 	self.join()
 	self.join()
@@ -237,19 +245,19 @@ def render_apparatus_note_ref(self):
 
 @handler("physical//note")
 def render_physical_note_ref(self, node):
-	return make_note_ref(self, node, "note-ref-physical")
+	return make_note_ref(self, node, "physical")
 
 @handler("logical//note")
 def render_logical_note_ref(self, node):
-	return make_note_ref(self, node, "note-ref-logical")
+	return make_note_ref(self, node, "logical")
 
 @handler("full//note")
 def render_full_note_ref(self, node):
-	return make_note_ref(self, node, "note-ref-full")
+	return make_note_ref(self, node, "full")
 
 @handler("note")
 def render_note_ref(self, node):
-	return make_note_ref(self, node, "note-ref")
+	return make_note_ref(self, node)
 
 @handler("span")
 def render_span(self, node):

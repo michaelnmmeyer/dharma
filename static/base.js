@@ -382,8 +382,8 @@ function displayTOC() {
 	TOCEntryToHTML(root, toc)
 }
 
-let displays = ["logical", "physical", "full"]
-let currentDisplay = "logical"
+let displays = ["physical", "logical", "full"]
+let currentDisplay = "physical"
 
 function displayButton(name) {
 	return document.querySelector("#" + name + "-btn")
@@ -407,6 +407,20 @@ function switchDisplayTo(name) {
 	currentDisplay = name
 }
 
+function handleNoteBackLink(event) {
+	let n = this.getAttribute("data-note-n")
+	let anchor = "#note-ref-" + n
+	let target = document.querySelector(anchor)
+	if (!target) {
+		anchor += "-" + currentDisplay
+		target = document.querySelector(anchor)
+		if (!target)
+			return
+	}
+	this.href = anchor
+	// And let the next handler deal with scrolling.
+}
+
 function initDisplays() {
 	for (let name of displays) {
 		let button = displayButton(name)
@@ -417,6 +431,8 @@ function initDisplays() {
 			event.preventDefault()
 		})
 	}
+	for (let node of document.querySelectorAll(".note-ref"))
+		node.addEventListener("click", handleNoteBackLink)
 }
 
 // Localize <time> nodes. The node initially contains the date in the server's

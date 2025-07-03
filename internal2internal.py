@@ -1,7 +1,33 @@
+
+
+"""XXX TODO
+
 # XXX document this and cleanup
 
 # XXX among structural stuff to fix: nested divisions; we should allow them,
 # because will be needed at some point, but be careful.
+
+
+remove unknown elements in appropriate contexts. removing totally unknown elements is not the most useful, removing (or fixing) known elements that are being misused is important.
+
+
+while parsing a paragraph: if we have a list, dlist or quote, move it one step up. They should be paragraph-level items.
+
+number notes. will need this for rendering properly notes within the edition.
+
+XXX for milestones, should keep a @n, but only a @n that is unique across the whole file (and that we thus need to preconstruct in some cases).
+
+should ensure the uniqueness of @n across both npage and nline; ncell need not be numbered.
+
+we can't tell in advance whether @n is unique across the whole file or across the textpart, so, after gathering all milestones, first check if they are unique across the whole file. if so, keep their @n as-is. otherwise, prefix the page number to the @n of nlines and check if unique. if so, stop there. otherwise, invent unique @n for each milestone.
+
+# XXX should have an axis for "everything except <note>", because there are a
+# lots of cases where we _must_ avoid <note>, and it's not immediately clear
+# where, and it's error-prone.
+
+# <p class="line"> to handle
+
+"""
 
 """Internal transformations.
 
@@ -32,39 +58,6 @@ bibliography.
 
 import re, sys
 from dharma import tree, common
-
-
-
-"""
-
-remove unknown elements in appropriate contexts. removing totally unknown elements is not the most useful, removing (or fixing) known elements that are being misused is important.
-
-
-while parsing a paragraph: if we have a list, dlist or quote, move it one step up. They should be paragraph-level items.
-
-number notes. will need this for rendering properly notes within the edition.
-
-
-"""
-
-# XXX should have an axis for "everything except <note>", because there are a
-# lots of cases where we _must_ avoid <note>, and it's not immediately clear
-# where, and it's error-prone.
-
-# XXX handle notes in the edition (handle the multiple displays) ; use e.g. http://localhost:8023/texts/INSKarnataka00007
-
-# <p class="line"> to handle
-
-"""
-XXX for milestones, should keep a @n, but only a @n that is unique across the whole file (and that we thus need to preconstruct in some cases).
-
-should ensure the uniqueness of @n across both npage and nline; ncell need not be numbered.
-
-we can't tell in advance whether @n is unique across the whole file or across the textpart, so, after gathering all milestones, first check if they are unique across the whole file. if so, keep their @n as-is. otherwise, prefix the page number to the @n of nlines and check if unique. if so, stop there. otherwise, invent unique @n for each milestone.
-
-
-
-"""
 
 def fix_spaces(doc: tree.Tree):
 	"""Whitespace normalization.
@@ -255,68 +248,74 @@ def in_milestone_accepting(node):
 def fix_milestones_locations(t, milestones):
 	"""Apply placement conventions for each milestone.
 
-	milestone-accepting elements: para verse-line item key value quote
-	        note that these should *not* overlap
+        milestone-accepting elements: para verse-line item key value quote
+                note that these should *not* overlap
 
-	inline elements: span link
+        inline elements: span link
 
-	1) If the milestone appears at the very beginning or end of an element,
-	   move the milestone before or after (respectively) the parent element,
-	   and repeat as much as possible, stopping as soon as the parent is a
-	   milestone-accepting element. Milestones should only appear within one
-	   of these. In practice, we should only move up from inline elements,
-	   but this must be checked. Probably simpler to move it up only while
-	   the parent is an inline element *and* while the milestone is at the
-	   beginning/end of this inline.
+        1) If the milestone appears at the very beginning or end of an element,
+           move the milestone before or after (respectively) the parent element,
+           and repeat as much as possible, stopping as soon as the parent is a
+           milestone-accepting element. Milestones should only appear within one
+           of these. In practice, we should only move up from inline elements,
+           but this must be checked. Probably simpler to move it up only while
+           the parent is an inline element *and* while the milestone is at the
+           beginning/end of this inline.
 
-	Problem: moving things up would not work properly if we do some
-	transformations on the contents (add a prefix or suffix), as in:
+        Problem: moving things up would not work properly if we do some
+        transformations on the contents (add a prefix or suffix), as in:
 
-	        <supplied><lb n="1"/>foo</supplied>
+                <supplied><lb n="1"/>foo</supplied>
 
-	        <span class="supplied" tip="Lost text">[<nline
-	        break="true"><span tip="Line
-	        number">⟨1⟩</span></nline>foo]</span>
+                <span class="supplied" tip="Lost text">[<nline
+                break="true"><span tip="Line
+                number">⟨1⟩</span></nline>foo]</span>
 
-	To fix this, we wrap the added contents within <display> and treat this
-	tag as empty while moving up the milestone, thus:
+        To fix this, we wrap the added contents within <display> and treat this
+        tag as empty while moving up the milestone, thus:
 
-	        <supplied><lb n="1"/>foo</supplied>
+                <supplied><lb n="1"/>foo</supplied>
 
-	        ... results in:
+                ... results in:
 
-	        <span class="supplied" tip="Lost
-	        text"><display>[</display><nline break="true"><span tip="Line
-	        number">⟨1⟩</span></nline><span>foo</span><display>]</display></span>
+                <span class="supplied" tip="Lost
+                text"><display>[</display><nline break="true"><span tip="Line
+                number">⟨1⟩</span></nline><span>foo</span><display>]</display></span>
 
-	        ... which results in:
+                ... which results in:
 
-	        <nline break="true"><span tip="Line
-	        number">⟨1⟩</span></nline><span class="supplied" tip="Lost
-	        text"><display>[</display><span>foo</span><display>]</display></span>
+                <nline break="true"><span tip="Line
+                number">⟨1⟩</span></nline><span class="supplied" tip="Lost
+                text"><display>[</display><span>foo</span><display>]</display></span>
 
-	Another (maybe preferable) solution would be to leave the displayed
-	milestone in place and move up only a structural element (which would
-	not be displayed).
+        Another (maybe preferable) solution would be to leave the displayed
+        milestone in place and move up only a structural element (which would
+        not be displayed).
 
-	2) If the milestone is not within one of the milestone-accepting
-	   elements, move it forward to the beginning of the next
-	   milestone-accepting element (in following::* order) (but skip <note>
-	   and its descendants). Exception if the milestone appears at the very
-	   end of the edition: in this case, leave it where it is. But what if
-	   the milestone is outside of a <p>?
+        2) If the milestone is not within one of the milestone-accepting
+           elements, move it forward to the beginning of the next
+           milestone-accepting element (in following::* order) (but skip <note>
+           and its descendants). Exception if the milestone appears at the very
+           end of the edition: in this case, leave it where it is. But what if
+           the milestone is outside of a <p>?
 
-	What about consecutive npages, etc.? We need to create an extra <p> for
-	them, but we should do this only when rendering the physical display.
+        What about consecutive npages, etc.? We need to create an extra <p> for
+        them, but we should do this only when rendering the physical display.
 
-	        <para> <span> A <span><npage/>B</span> C </span> </para>
+                <para> <span> A <span><npage/>B</span> C </span> </para>
 
-	        <para> A <span> B <npage/> </span> </para>
+                <para> A <span> B <npage/> </span> </para>
 
-moving up milestones must be done in a definite order, in two passes.
-iter milestones and move them up from left to right (for start) and the reverse (for end), then proceed with the upper level. if we end up in a non-inline, we should be within some kind of division; move the milestone forward if possible, otherwise move it backward, otherwise create a <p> at this location (and this <p> should be the only p within the edityion)
+	moving up milestones must be done in a definite order, in two passes.
+	iter milestones and move them up from left to right (for start) and the
+	reverse (for end), then proceed with the upper level. if we end up in a
+	non-inline, we should be within some kind of division; move the
+	milestone forward if possible, otherwise move it backward, otherwise
+	create a <p> at this location (and this <p> should be the only p within
+	the edityion)
 
-if there is no milestone-accepting element, we should end up with just milestones, so put them in a newly-created p.
+	if there is no milestone-accepting element, we should end up with just
+	milestones, so put them in a newly-created p.
 	"""
 	milestones_ids = set(id(mile) for mile in milestones)
 	fix_milestones_location_inner(t.first("document"), milestones_ids)
@@ -383,28 +382,19 @@ def add_phantom_milestones(doc: tree.Tree, milestones):
 	(with all headings) and the text (without interruption).
 	"""
 	insert = first_milestone_accepting_node(doc)
-	if len(insert) > 0 and isinstance(insert[0], tree.Tag) and insert[0].name == "npage":
-		assert len(milestones) > 0
-		assert insert[0] is milestones[0]
-	else:
-		mile = tree.Tag("npage", phantom="true")
-		insert.insert(0, mile)
-		milestones.insert(0, mile)
-	if len(insert) > 1 and isinstance(insert[1], tree.Tag) and insert[1].name == "nline":
-		assert len(milestones) > 1
-		assert insert[1] is milestones[1]
-	else:
-		mile = tree.Tag("nline", phantom="true")
-		insert.insert(1, mile)
-		milestones.insert(1, mile)
-	if len(insert) > 2 and isinstance(insert[2], tree.Tag) and insert[2].name == "ncell":
-		assert len(milestones) > 2
-		assert insert[2] is milestones[2]
-	else:
-		mile = tree.Tag("ncell", phantom="true")
-		insert.insert(2, mile)
-		milestones.insert(2, mile)
-	i = 3
+	i = 0
+	units = ("npage", "nline", "ncell")
+	while i < 3:
+		unit = units[i]
+		if len(insert) > i and isinstance(insert[i], tree.Tag) and insert[i].name == unit:
+			assert len(milestones) > i
+			assert insert[i] is milestones[i]
+		else:
+			mile = tree.Tag(unit, phantom="true")
+			insert.insert(i, mile)
+			milestones.insert(i, mile)
+		i += 1
+	assert i == 3
 	while i < len(milestones):
 		mile = milestones[i]
 		if mile.name == "npage":
@@ -799,10 +789,18 @@ def to_logical(t):
 	for node in t.find(".//am"):
 		node.delete()
 
+def number_notes(t):
+	"""We number notes before we create the three displays, to make it
+	easier later on to figure out which notes are duplicates."""
+	notes = t.find("//note")
+	for i, note in enumerate(notes, 1):
+		note["n"] = str(i)
+
 def process(t: tree.Tree):
 	fix_lists_and_quotes(t)
 	fix_spaces(t)
 	fix_milestones(t)
+	number_notes(t)
 	# And create the three displays.
 	edition = t.first("/document/edition")
 	if not edition:
