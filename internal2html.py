@@ -41,7 +41,7 @@ def render_document(self, node):
 			self.push(tree.Tag("li", class_="note", id=f"note-{n}"))
 			paras = note.find("para")
 			self.push(tree.Tag("p"))
-			self.push(tree.Tag("a", class_="note-ref", data_note_n=str(n), href="#"))
+			self.push(tree.Tag("a", class_="note-ref", data_note_n=str(n), href=f"#note-ref-{n}"))
 			self.append(f"{n}.")
 			self.join()
 			self.append(" ")

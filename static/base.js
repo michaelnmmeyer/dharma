@@ -407,6 +407,15 @@ function switchDisplayTo(name) {
 	currentDisplay = name
 }
 
+// Handle clicks on a footnote number in the footnote area at the bottom of the
+// page. They should scroll up the page to the footnote mark.
+//
+// We modify the @href dynamically because, since we have three displays, each
+// footnote mark in the edition appears three times. Footnote marks outside of
+// the edition have an @id of the form "note-ref-$n", where $n is the footnote
+// number; footnote marks within the edition have the form
+// "note-ref-$n-$display", where $display is one of "physical", "logical",
+// "full".
 function handleNoteBackLink(event) {
 	let n = this.getAttribute("data-note-n")
 	let anchor = "#note-ref-" + n
@@ -431,6 +440,8 @@ function initDisplays() {
 			event.preventDefault()
 		})
 	}
+	// And prepare to patch notes backlinks (from the footnote to the
+	// text body)
 	for (let node of document.querySelectorAll(".note-ref"))
 		node.addEventListener("click", handleNoteBackLink)
 }
