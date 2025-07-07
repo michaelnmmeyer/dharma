@@ -1133,7 +1133,10 @@ def parse_seg(p, seg):
 		p.append_display("}")
 		p.join()
 
-# XXX not general enough
+# XXX TODO for gaps, the search representation should be a sequence of some
+# special placeholder character (if @unit='character')
+
+# XXX not general enough; might be better to take into account the langguage instead
 @handler("div[@type='translation']//gap[@reason='ellipsis']")
 def handle_gap_ellipsis(p, gap):
 	p.push(tree.Tag("span", tip="Untranslated segment"))
@@ -1309,9 +1312,6 @@ def parse_g(p, node):
 		sym.append(f"<{info['name']}>") # should not include that in search
 	p.append(sym)
 
-# XXX This doesn't always work, because we have intervening <lb/>, etc. within
-# <hi>, so we need to split the <hi> into several elements. Needs to be done
-# after building the output tree.
 hi_table = {
 	"italic": tree.Tag("span", class_="italics"),
 	"bold": tree.Tag("span", class_="bold"),
@@ -1394,6 +1394,10 @@ def parse_lg(p, lg):
 	# Generally we have a single number e.g. "10", but sometimes ranges
 	# e.g. "10-20" (with various types of dashes).
 	n = get_n(lg)
+	unsure = False
+	if (tmp := lg.first("stuck-child::certainty[@match='../@met' and @locus='value']")):
+		p.visited.add(tmp)
+		unsure = True
 	met = make_meter_heading(p, lg["met"])
 	if n or met:
 		p.push(tree.Tag("verse-head"))
@@ -1401,11 +1405,15 @@ def parse_lg(p, lg):
 			p.append(n)
 			p.append(". ")
 			p.append(met)
+			if unsure:
+				p.append("(?)")
 		elif n:
 			p.append(n)
 		else:
 			assert met
 			p.append(met)
+			if unsure:
+				p.append("(?)")
 		p.join()
 	# Ensure that we always have at least one verse-line. Note that people
 	# do use <l> within <p rend="stanza"> in the traduction, so we do it

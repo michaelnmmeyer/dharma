@@ -2,19 +2,6 @@
 
 recursively, iter on block-only elements and wrap inlines in paras.
 
-structural errors inside a <verse>, special case:
-
-	<lg n="25" met="upajāti" xml:lang="san-Latn"><milestone type="pagelike" unit="item" n="B"/><label xml:lang="eng">Face</label>
-	<l n="a"><lb n="B1"/>dhanaṁ dhanaṁ dhānya-suvarṇṇa-rūpya<space/></l>
-	<l n="b">pūrvvaṁ satāmraṁ saha dāsadāsī<space/></l>
-	<l n="c">tasmin sa lakṣmīndrapade śive dā<space/>d</l>
-	<l n="d">go-bhūmi-pūrvvaṁ mahiṣañ ca ratnam<unclear>· <g type="ddanda">.</g></unclear></l>
-	</lg>
-
-	in cases like that, move the milestone to the next <l> (or if not, put
-	it at the end of the last one)
-
-	need a special case for relocating milestones
 
 
 we have structural errors with use of inlines in places where blocks are expected; fixed that for milestones,;see
@@ -23,13 +10,17 @@ we have structural errors with use of inlines in places where blocks are expecte
 
 but remain cases where wrapping is necessary; basically
 
-	<inline/>
+	<inline/> within a division
 		instead of <block><inline/></block>
+
 	<inline><block/></inline>
 		INVALID (fix by unwrapping the block?)
+		but not invalid for <note>
 
 	<para><list/></para>
-		need to set rules for nesting stuff
+		need to set rules for nesting stuff; basically, only divisions
+		should hold block elements. otherwise, unwrap the outermost
+		block element.
 
 div:  head (block | div)+
 head: inline+
@@ -48,9 +39,9 @@ inline: span | link | milestone | note | TEXT
 milestone: npage | nline | ncell
 note: restricted_block+
 
-restricted_block: "like a normal block but disallowing nested notes"
+restricted_block: like a normal block but disallowing nested notes
 
-will need to review metadata fields, not sure which we should have, depends how we do the search stuff.
+will need to review metadata fields, not sure which we should keep, depends how we do the search stuff.
 
 =====
 
@@ -74,20 +65,10 @@ should never have null.
 
 bouton de translittération à ajouter pour le tamoul
 
-for crited; fill this in
-    <!-- repository name -->
-    <xsl:variable name="repository-name">
-        <xsl:choose>
-            <xsl:when test="contains($fileuri, 'tfd-nusantara')">tfd-nusantara-philology</xsl:when>
-            <xsl:when test="contains($fileuri, 'tfd-sanskrit')">tfd-sanskrit-philology</xsl:when>
-        </xsl:choose>
-    </xsl:variable>
-
 Hide "Language: Undetermined" when no language found in div type edition.
 
 ====
 
-fix https://github.com/erc-dharma/project-documentation/issues/373
 see https://github.com/erc-dharma/project-documentation/issues/372
 
 
