@@ -59,6 +59,12 @@ bibliography.
 import re, sys
 from dharma import tree, common
 
+def is_division(node):
+	if not isinstance(node, tree.Tag):
+		return False
+	return node.name in ("summary", "hand", "edition", "apparatus",
+		"translation", "commentary", "bibliography", "div")
+
 def fix_spaces(doc: tree.Tree):
 	"""Whitespace normalization.
 
@@ -204,7 +210,7 @@ def fix_milestones(t):
 	milestones = useful_milestones(t)
 	if not milestones:
 		return
-	fix_milestones_locations(t, milestones)
+	fix_milestones_location(t, milestones)
 	check_milestones_valid(t, milestones)
 	add_phantom_milestones(t, milestones)
 	check_milestones_valid(t, milestones)
@@ -231,6 +237,8 @@ def useful_milestones(t: tree.Tree):
 		inner(root, out)
 	return out
 
+# Elements within which a milestone can appear. Note that these should *not*
+# overlap.
 milestone_accepting = ("para", "verse-line", "item", "key", "value", "quote")
 
 def in_milestone_accepting(node):
@@ -245,16 +253,31 @@ def in_milestone_accepting(node):
 			return True
 		return False
 
-def fix_milestones_locations(t, milestones):
-	"""Apply placement conventions for each milestone.
+def fix_milestone_location(mile):
+	match mile.parent.name:
+		case "para" | "verse-line" | "item" | "key" | "value" | "quote":
+			pass
+		case "summary" | "hand" | "edition" | "apparatus" \
+			| "translation" | "commentary" | "bibliography" | "div":
+			tmp = tree.Tag("para")
+			mile.insert_after(tmp)
+			tmp.append(mile)
+		case "verse":
+			shift_milestones_in_verse(mile)
+		case "list":
+			shift_milestones_in_list(mile)
+		case "dlist":
+			shift_milestones_in_dlist(mile)
+		case _:
+			raise Exception(f"unexpected {mile.parent!r}")
 
-        milestone-accepting elements: para verse-line item key value quote
-                note that these should *not* overlap
+def fix_milestones_location(t, milestones):
+	"""Move milestones in appropriate spots.
 
-        inline elements: span link
+        If the milestone appears at the beginning or at the end of an inline
+        element (span or link), we move the milestone outside of this element.
 
-        1) If the milestone appears at the very beginning or end of an element,
-           move the milestone before or after (respectively) the parent element,
+        before or after (respectively) the parent element,
            and repeat as much as possible, stopping as soon as the parent is a
            milestone-accepting element. Milestones should only appear within one
            of these. In practice, we should only move up from inline elements,
@@ -306,34 +329,93 @@ def fix_milestones_locations(t, milestones):
 
                 <para> A <span> B <npage/> </span> </para>
 
-	moving up milestones must be done in a definite order, in two passes.
-	iter milestones and move them up from left to right (for start) and the
-	reverse (for end), then proceed with the upper level. if we end up in a
-	non-inline, we should be within some kind of division; move the
-	milestone forward if possible, otherwise move it backward, otherwise
-	create a <p> at this location (and this <p> should be the only p within
-	the edityion)
-
-	if there is no milestone-accepting element, we should end up with just
-	milestones, so put them in a newly-created p.
+        moving up milestones must be done in a definite order, in two passes.
+        iter milestones and move them up from left to right (for start) and the
+        reverse (for end), then proceed with the upper level. if we end up in a
+        non-inline, we should be within some kind of division; move the
+        milestone forward if possible, otherwise move it backward, otherwise
+        create a <p> at this location (and this <p> should be the only p within
+        the edityion)
 	"""
 	milestones_ids = set(id(mile) for mile in milestones)
-	fix_milestones_location_inner(t.first("document"), milestones_ids)
+	move_up_milestones(t.root, milestones_ids)
 	check_milestones_valid(t, milestones)
+	# Milestones that are not in a milestone-accepting element. If the
+	# milestone's parent is a division, wrap the milestone within a <p>.
+	# XXX not enough, need to do that with other elements.
 	for mile in milestones:
-		if not in_milestone_accepting(mile):
-			tmp = tree.Tag("para")
-			mile.insert_after(tmp)
-			tmp.append(mile)
+		fix_milestone_location(mile)
 
-def fix_milestones_location_inner(root: tree.Tag, milestones_ids):
+def is_milestone(node):
+	return isinstance(node, tree.Tag) and node.name in ("npage", "nline", "ncell")
+
+def shift_milestones(parent, skip, xpath):
+	matching = parent.find(xpath)
+	# Move all initial milestones to the beginning of the first container
+	first = matching[0]
+	j = 0
+	while is_milestone(parent[skip]):
+		first.insert(j, parent[skip])
+		j += 1
+	# Idem for terminal milestones
+	last = matching[-1]
+	j = 0
+	while is_milestone(parent[-1]):
+		last.insert(len(last) - j, parent[-1])
+		j += 1
+
+def shift_milestones_in_verse(mile):
+	parent = mile.parent
+	assert all(isinstance(elem, tree.Tag) for elem in parent)
+	# We should have at least one <verse-line>, for holding the milestone.
+	# Create one if need be.
+	if not any(elem.name == "verse-line" for elem in parent):
+		parent.append(tree.Tag("verse-line"))
+	# Skip the heading, if any. Besides it, should only have as children
+	# either milestones or verse-line.
+	if parent[0].name == "verse-head":
+		skip = 1
+	else:
+		skip = 0
+	assert all(elem.name in ("npage", "nline", "ncell", "verse-line") for elem in parent[skip:])
+	return shift_milestones(parent, skip, "verse-line")
+
+def shift_milestones_in_list(mile):
+	parent = mile.parent
+	assert all(isinstance(elem, tree.Tag) for elem in parent)
+	# We should have at least one <item>, for holding the milestone.
+	# Create one if need be.
+	if not any(elem.name == "item" for elem in parent):
+		parent.append(tree.Tag("item"))
+	assert all(elem.name in ("npage", "nline", "ncell", "item") for elem in parent)
+	return shift_milestones(parent, 0, "item")
+
+def shift_milestones_in_dlist(mile):
+	parent = mile.parent
+	assert all(isinstance(elem, tree.Tag) for elem in parent)
+	# We should have at least one <key>/<value> pair, for holding the
+	# milestone. Create one if need be.
+	if not any(elem.name == "value" for elem in parent):
+		parent.append(tree.Tag("key"))
+		parent.append(tree.Tag("value"))
+	assert all(elem.name in ("npage", "nline", "ncell", "key", "value") for elem in parent)
+	return shift_milestones(parent, 0, "*[name()='key' or name()='value']")
+
+def move_up_milestones(root: tree.Tag, milestones_ids):
 	assert isinstance(root, tree.Tag)
 	for node in list(root):
 		if not isinstance(node, tree.Tag) or node.name in ("npage", "nline", "ncell"):
 			continue
-		fix_milestones_location_inner(node, milestones_ids)
+		move_up_milestones(node, milestones_ids)
 	if root.name not in ("span", "link"):
 		return
+	# We have an inline element (<span> or <link>). Move all milestones
+	# at the beginning of the element to before the element; thus:
+	#
+	# 	before: foo <span><nline/><ncell/>bar</span> baz
+	#	after:  foo <nline/><ncell/><span>bar</span> baz
+	#
+	# Idem for milestones at the end of the inline element.
 	while len(root) > 0 and id(root[0]) in milestones_ids:
 		root.insert_before(root[0])
 	while len(root) > 0 and id(root[-1]) in milestones_ids:
@@ -797,8 +879,8 @@ def number_notes(t):
 		note["n"] = str(i)
 
 def process(t: tree.Tree):
-	fix_lists_and_quotes(t)
 	fix_spaces(t)
+	fix_lists_and_quotes(t)
 	fix_milestones(t)
 	number_notes(t)
 	# And create the three displays.
