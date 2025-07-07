@@ -403,7 +403,7 @@ class Node:
 		self.replace_with(Comment(tmp))
 		return self
 
-	def text(self, space="default"):
+	def text(self, space="default") -> str:
 		'''Returns the text contents of this subtree. Per default, we do
 		normalize-space(); to prevent this, pass `space="preserve"`.
 		'''
