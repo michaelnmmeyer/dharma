@@ -173,6 +173,7 @@ class Node:
 	inferred_lang = None
 	"""Actual language, inferred by bubbling up the language of children
 	elements."""
+	# XXX likewise need to add assigned_script and inferred_script
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -1173,14 +1174,17 @@ def xpath_regex(node, pattern, *arg):
 
 def xpath_lang(node):
 	assert isinstance(node, Node)
+	assert node.assigned_lang is not None
 	return node.assigned_lang.id
 
 def xpath_assigned_lang(node):
 	assert isinstance(node, Node)
+	assert node.assigned_lang is not None
 	return node.assigned_lang.id
 
 def xpath_inferred_lang(node):
 	assert isinstance(node, Node)
+	assert node.inferred_lang is not None
 	return node.inferred_lang.id
 
 def xpath_mixed(node):

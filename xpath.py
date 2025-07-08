@@ -1,6 +1,12 @@
 import argparse, sys
 from dharma import common, tree, langs
 
+# TODO
+# in xpath maybe support yielding strings (only need this for the last component,
+# for use in the command-line tool)
+# allow selection of attrs in xpath, useful for doing searches from the cmd line
+
+
 @common.transaction("texts")
 def main():
 	parser = argparse.ArgumentParser()

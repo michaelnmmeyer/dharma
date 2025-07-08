@@ -1758,6 +1758,14 @@ def gather_biblio(p):
 			entry = biblio.lookup_entry(short_title)
 			p.bib_entries[short_title] = entry
 
+@handler("div[regex('edition|apparatus|commentary|bibliography', @type)]")
+def parse_main_div(p, div):
+	p.push(tree.Tree())
+	add_div_heading(p, div, div["type"].title())
+	p.dispatch_children(div, only_tags=True)
+	setattr(p.document, div["type"], p.pop())
+
+# For div[@type='textpart'].
 # Within inscriptions, <div> shouldn't nest, except that we can have
 # <div type="textpart"> within <div type="edition">.
 # The DHARMA_INSEC* stuff don't follow the INS schema, too different.
@@ -1774,13 +1782,6 @@ def parse_div_textpart(p, div):
 	add_div_heading(p, div, make_textpart_heading)
 	p.dispatch_children(div)
 	p.join() # </div>
-
-@handler("div[regex('edition|apparatus|commentary|bibliography', @type)]")
-def parse_main_div(p, div):
-	p.push(tree.Tree())
-	add_div_heading(p, div, div["type"].title())
-	p.dispatch_children(div, only_tags=True)
-	setattr(p.document, div["type"], p.pop())
 
 def add_div_heading(p, div, dflt):
 	p.push(tree.Tag("head"))

@@ -144,8 +144,6 @@ def render_apparatus(self, node):
 	assert head
 	self.push(tree.Tag(f"h{self.heading_level}", class_="collapsible"))
 	self.dispatch_children(head)
-	self.append(" ")
-	self.append(tree.Tag("i", class_="fa-solid fa-angles-down"))
 	self.join()
 	# Contents
 	self.push("div")

@@ -245,13 +245,23 @@ function prepareTips() {
 let flashDuration = null
 
 function highlightFragment(node) {
-	node.classList.add("flash")
-	setTimeout(function () {
+	let id = parseInt(node.dataset["flash"])
+	if (id) {
+		console.log("clearing timeout " + id)
+		clearTimeout(id)
 		node.classList.remove("flash")
+	}
+	node.classList.add("flash")
+	node.dataset["flash"] = setTimeout(function () {
+		console.log("end of timeout " + node.dataset["flash"])
+		node.classList.remove("flash")
+		delete node.dataset["flash"]
 	}, flashDuration)
 }
 
 function handleClick(event) {
+	// Don't do anything special if the URL points to a different page.
+	// We only care about fragments here.
 	if (!this.href)
 		return
 	let url = new URL(this.href)
@@ -264,6 +274,15 @@ function handleClick(event) {
 	let target = document.querySelector(url.hash)
 	if (!target)
 		return
+	// If the thing is hidden, make it visible.
+	// XXX BUG when making visible collapsible stuff like the apparatus, need to toggle the button accordingly
+	let node = target
+	while (!node.checkVisibility()) {
+		node = node.parentElement
+		if (!node)
+			break
+		node.classList.remove("hidden")
+	}
 	event.preventDefault()
 	target.scrollIntoView()
 	highlightFragment(target)
@@ -337,7 +356,7 @@ function TOCEntryToHTML(entry, root) {
 		link.setAttribute("href", "#" + target)
 		link.innerHTML = heading.innerHTML
 		// Prevent the button for collapsing the apparatus from
-		// appearing in the TOC
+		// appearing in the TOC in the sidebar.
 		icon = link.querySelector("i")
 		if (icon)
 			icon.remove()
@@ -465,9 +484,15 @@ function localizeDates() {
 }
 
 function prepareCollapsible() {
-	for (let node of document.querySelectorAll(".collapsible")) {
-		let content = node.nextElementSibling;
-		let icon = node.querySelector("i")
+	for (let head of document.querySelectorAll(".collapsible")) {
+		// The next sibling should be a div and contain the stuff to
+		// make visible or not.
+		let content = head.nextElementSibling
+		// Add a button after the heading for folding up/down.
+		let icon = document.createElement("i")
+		icon.classList.add("fa-solid", "fa-angles-down")
+		head.append(" ", icon)
+		// And handle clicks.
 		icon.addEventListener("click", function () {
 			if (content.classList.toggle("hidden")) {
 				icon.classList.remove("fa-angles-down")

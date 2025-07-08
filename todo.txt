@@ -1,5 +1,21 @@
+deal with elem flashing:
+cumulative timeout for flashing https://developer.mozilla.org/fr/docs/Web/API/setTimeout
+repr here https://stackoverflow.com/questions/29017379/how-to-make-fadeout-effect-with-pure-javascript
+
+
+merge transforms.md and parsing.txt
+
+===
+
+restaurer DHARMA_INSII workflow-output.
+
+make a root div without anything else a div[@type='edition']
+and make "textpart" optional in children of root divs.
+
 
 ========= before publishing the new version
+
+deal with the display of invalid XML files
 
 check that the transform endpoint works; check the editorial page; they should
 use the same processing code.
@@ -20,7 +36,7 @@ storing files.
 in the db, stop using "und" as default for languages that don't have one, we should have an empty array in such cases. the "empty" value for everything should be null. and also hide "Language: Undetermined" when no language found in div type edition.
 
 ¶ support adding/deleting/renaming repos; should have a single entry point for
-this.
+this. and should document it somewhere.
 
 	delete from repos where repo='repo-test';
 	delete from files where repo='repo-test';
@@ -36,14 +52,12 @@ every week or so
 
 transfo des éditions critiques
 
-manu: pour le display des métadonnées, avoir un bouton expand/unexpand comme pour l'apparat
-commencer à réfléchir à la faceted search.
 
 ====
 
 ===
 
-# manu
+## Manu
 
 Pour les unités dans la bibliographie, utiliser explicitement le singulier et le pluriel ? <citedRange unit="page|pages">. Manu et moi sommes pour, Arlo et Daniel pas vraiment.
 
@@ -62,24 +76,19 @@ all custom stuff (additions to the egd).
 
 prosodic patterns; be careful about placemenbt of guillemets and footnote nums.
 
+manu: pour le display des métadonnées, avoir un bouton expand/unexpand comme pour l'apparat
+commencer à réfléchir à la faceted search.
+
 
 ===
 
-in xpath maybe support yielding strings (only need this for the last component,
-for use in the command-line tool)
+## ODD schema
 
-allow selection of attrs in xpath, useful for doing searches from the cmd line
+need to fix the datatype mess in rng schema; distinguish between attrs that
+accept a single value and the others.
 
-need to fix the datatype mess in rng schema; distinguish between attrs that accept
-a single value and the others.
-
-shorthand in bib
-
-when apparatus hidden, remove its headings from submenu; and add ellipsis after
-apparatus heading
-
-deal with divs grantha; for this need to use a tree, not bytecode
-
+deal with div with @rendition class:grantha, should be put in bold. need first
+to deal with
 
 =================
 
@@ -108,9 +117,6 @@ pour languages dans display, tous ceux de div type=edition + écrfiture
 	Use a single instruction for representing them, taking into account <fw>
 .linelike: <lb>
 .gridlike	 <milestone type="grid-like">
-
-
-rm dipled schema, use ins schema for this.
 
 
 ## Refactoring
@@ -213,7 +219,8 @@ when a file is completely invalid, show the raw xml in the displqay (not pretty-
 do a redirect /foo/ -> /foo in nginx _but_ watch out with the /zotero-proxy
 stuff.
 
-cumulative timeout for flashing https://developer.mozilla.org/fr/docs/Web/API/setTimeout
+
+
 
 Make the top menu sticky on pc? no. Add a button to show/hide the left sidebar (on
 pc); where? left of the top menu downward-pointing > thing. The left sidebar
@@ -252,12 +259,13 @@ would be convenient to have position-independent files, viz. assume file
 basenames are unique AND also extension-independent files, to allow people to
 move files around.
 
-find some way to report non unique files ; could use an intermediate table
-that stores duplicates, like for zotero; for duplicate files in the same repo,
-we are sure there is a problem and we can complain early on while processing the
-repo itself (to whom, however?); but if the files are in distinct repos, we
-cannot tell whether the file is being moved or anything, because there is no
-global commit across all repos and the order of operations is not guaranteed.
+find some way to report non unique files ; could use an intermediate table that
+stores duplicates, like for zotero; for duplicate files in the same repo, we are
+sure there is a problem and we can complain early on while processing the repo
+itself (to whom, however?), but we don't need to do it early; but if the files
+are in distinct repos, we cannot tell whether the file is being moved or
+anything, because there is no global commit across all repos and the order of
+operations is not guaranteed.
 
 in any case, we must preserve the fact that a given ident always corresponds to
 exactly one elem; so if we have a duplicate ident, do not use this
