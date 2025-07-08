@@ -11,7 +11,7 @@
 # The documentation for entry types and fields is at:
 # https://www.zotero.org/support/kb/item_types_and_fields
 
-import logging, unicodedata, html, re, time, sys, urllib
+import logging, unicodedata, html, re, time, sys, urllib, urllib.parse
 import requests # pip install requests
 from dharma import common, tree
 
@@ -1448,16 +1448,9 @@ def make_sort_key(rec):
 	return key
 
 @common.transaction("texts")
-def display_sort_keys():
-	db = common.db("texts")
-	for (doc,) in db.execute("""select json ->> '$.data' from biblio
-		where sort_key is not null"""):
-		doc = common.from_json(doc)
-		print(doc, make_sort_key(doc))
-
-# For loading the bibliography from a backup. See the "bibliography" repo.
-@common.transaction("texts")
 def load_biblio_from_file():
+	"""For loading the bibliography from a backup. See the "bibliography"
+	repo."""
 	db = common.db("texts")
 	for line in sys.stdin:
 		entry = common.from_json(line)

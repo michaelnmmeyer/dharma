@@ -781,10 +781,17 @@ def parse_note(p, note):
 	p.join()
 	p.document.notes.append(out)
 
-# Put <foreign> in italics.
+# Put <foreign> in italics, unless @rend="roman"
 @handler("foreign")
 def parse_foreign(p, foreign):
-	p.push(tree.Tag("span", class_="italics"))
+	class_ = "italics"
+	for word in foreign["rend"].lower().split():
+		match word:
+			case "italic" | "italics":
+				class_ = "italics"
+			case "roman":
+				class_ = "roman"
+	p.push(tree.Tag("span", class_=class_))
 	p.dispatch_children(foreign)
 	p.join()
 

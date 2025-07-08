@@ -1976,7 +1976,17 @@
                         <attDef ident="n" mode="delete"/>
                         <attDef ident="next" mode="delete"/>
                         <attDef ident="prev" mode="delete"/>
-                        <attDef ident="rend" mode="delete"/>
+                        <attDef ident="rend" mode="change" usage="opt">
+                            <defaultVal>italics</defaultVal>
+                            <valList type="closed" mode="replace">
+                                <valItem ident="italics">
+                                    <desc>display in italics</desc>
+                                </valItem>
+                                <valItem ident="roman">
+                                    <desc>display in a Roman typeface</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
                         <attDef ident="rendition" mode="delete"/>
                         <attDef ident="resp" mode="delete"/>
                         <attDef ident="sameAs" mode="delete"/>

@@ -19,6 +19,7 @@
       <xsl:value-of select="document-uri(/)"/>
    </xsl:variable>
    <!--PHASES-->
+
    <!--PROLOG-->
    <xsl:output xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                method="xml"
@@ -26,8 +27,11 @@
                standalone="yes"
                indent="yes"/>
    <!--XSD TYPES FOR XSLT2-->
+
    <!--KEYS AND FUNCTIONS-->
+
    <!--DEFAULT RULES-->
+
    <!--MODE: SCHEMATRON-SELECT-FULL-PATH-->
    <!--This mode can be used to generate an ugly though full XPath for locators-->
    <xsl:template match="*" mode="schematron-select-full-path">
@@ -646,6 +650,7 @@
    <!--SCHEMATRON PATTERNS-->
    <svrl:text xmlns:svrl="http://purl.oclc.org/dsdl/svrl">ISO Schematron rules</svrl:text>
    <!--PATTERN schematron-constraint-tei-epidoc-att.datable.w3c-att-datable-w3c-when-1-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@when]" priority="1000" mode="M5">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@when]"/>
@@ -667,6 +672,7 @@
       <xsl:apply-templates select="*" mode="M5"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-att.datable.w3c-att-datable-w3c-from-2-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@from]" priority="1000" mode="M6">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@from]"/>
@@ -687,6 +693,7 @@
       <xsl:apply-templates select="*" mode="M6"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-att.datable.w3c-att-datable-w3c-to-3-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@to]" priority="1000" mode="M7">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@to]"/>
@@ -707,6 +714,7 @@
       <xsl:apply-templates select="*" mode="M7"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-att.datable-calendar-calendar-4-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@calendar]" priority="1000" mode="M8">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
@@ -734,6 +742,7 @@
       <xsl:apply-templates select="*" mode="M8"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-att.global.source-source-only_1_ODD_source-5-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@source]" priority="1000" mode="M9">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@source]"/>
@@ -763,6 +772,7 @@
       <xsl:apply-templates select="*" mode="M9"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-att.measurement-att-measurement-unitRef-6-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@unitRef]" priority="1000" mode="M10">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@unitRef]"/>
@@ -783,6 +793,7 @@
       <xsl:apply-templates select="*" mode="M10"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-att.typed-subtypeTyped-7-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@subtype]" priority="1000" mode="M11">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@subtype]"/>
@@ -807,6 +818,7 @@
       <xsl:apply-templates select="*" mode="M11"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-att.pointing-targetLang-targetLang-8-->
+
    <!--RULE -->
    <xsl:template match="tei:*[not(self::tei:schemaSpec)][@targetLang]"
                  priority="1000"
@@ -834,6 +846,7 @@
       <xsl:apply-templates select="*" mode="M12"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-att.spanning-spanTo-spanTo-points-to-following-9-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@spanTo]" priority="1000" mode="M13">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@spanTo]"/>
@@ -863,6 +876,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M13"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-att.styleDef-schemeVersion-schemeVersionRequiresScheme-10-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@schemeVersion]" priority="1000" mode="M14">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@schemeVersion]"/>
@@ -888,6 +902,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M14"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-p-abstractModel-structure-p-in-ab-or-p-11-->
+
    <!--RULE -->
    <xsl:template match="tei:p" priority="1000" mode="M15">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:p"/>
@@ -910,6 +925,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M15"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-p-abstractModel-structure-p-in-l-or-lg-12-->
+
    <!--RULE -->
    <xsl:template match="tei:p" priority="1000" mode="M16">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:p"/>
@@ -932,6 +948,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M16"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-desc-deprecationInfo-only-in-deprecated-13-->
+
    <!--RULE -->
    <xsl:template match="tei:desc[ @type eq 'deprecationInfo']"
                  priority="1000"
@@ -961,6 +978,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M17"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-rt-target-rt-target-not-span-14-->
+
    <!--RULE -->
    <xsl:template match="tei:rt/@target" priority="1000" mode="M18">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rt/@target"/>
@@ -981,6 +999,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M18"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-rt-from-rt-from-15-->
+
    <!--RULE -->
    <xsl:template match="tei:rt/@from" priority="1000" mode="M19">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rt/@from"/>
@@ -1006,6 +1025,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M19"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-rt-to-rt-to-16-->
+
    <!--RULE -->
    <xsl:template match="tei:rt/@to" priority="1000" mode="M20">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rt/@to"/>
@@ -1031,6 +1051,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M20"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-gap-gap-17-->
+
    <!--RULE -->
    <xsl:template match="tei:gap" priority="1000" mode="M21">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:gap"/>
@@ -1069,6 +1090,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M21"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-expan-expan-18-->
+
    <!--RULE -->
    <xsl:template match="tei:expan" priority="1000" mode="M22">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:expan"/>
@@ -1088,6 +1110,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M22"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-ptr-ptrAtts-19-->
+
    <!--RULE -->
    <xsl:template match="tei:ptr" priority="1000" mode="M23">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ptr"/>
@@ -1110,6 +1133,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M23"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-ref-refAtts-20-->
+
    <!--RULE -->
    <xsl:template match="tei:ref" priority="1000" mode="M24">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ref"/>
@@ -1133,6 +1157,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M24"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-list-gloss-list-must-have-labels-21-->
+
    <!--RULE -->
    <xsl:template match="tei:list[@type='gloss']" priority="1000" mode="M25">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -1156,6 +1181,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M25"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-relatedItem-targetorcontent1-22-->
+
    <!--RULE -->
    <xsl:template match="tei:relatedItem" priority="1000" mode="M26">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:relatedItem"/>
@@ -1193,6 +1219,7 @@ relatedItem element must be empty</svrl:text>
       <xsl:apply-templates select="*" mode="M26"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-l-abstractModel-structure-l-in-l-23-->
+
    <!--RULE -->
    <xsl:template match="tei:l" priority="1000" mode="M27">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:l"/>
@@ -1215,6 +1242,7 @@ relatedItem element must be empty</svrl:text>
       <xsl:apply-templates select="*" mode="M27"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-lg-atleast1oflggapl-24-->
+
    <!--RULE -->
    <xsl:template match="tei:lg" priority="1000" mode="M28">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:lg"/>
@@ -1239,6 +1267,7 @@ relatedItem element must be empty</svrl:text>
       <xsl:apply-templates select="*" mode="M28"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-lg-abstractModel-structure-lg-in-l-25-->
+
    <!--RULE -->
    <xsl:template match="tei:lg" priority="1000" mode="M29">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:lg"/>
@@ -1261,6 +1290,7 @@ relatedItem element must be empty</svrl:text>
       <xsl:apply-templates select="*" mode="M29"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-quotation-quotationContents-26-->
+
    <!--RULE -->
    <xsl:template match="tei:quotation" priority="1000" mode="M30">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:quotation"/>
@@ -1284,6 +1314,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M30"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-citeStructure-match-citestructure-outer-match-27-->
+
    <!--RULE -->
    <xsl:template match="tei:citeStructure[not(parent::tei:citeStructure)]"
                  priority="1000"
@@ -1311,6 +1342,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M31"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-citeStructure-match-citestructure-inner-match-28-->
+
    <!--RULE -->
    <xsl:template match="tei:citeStructure[parent::tei:citeStructure]"
                  priority="1000"
@@ -1339,6 +1371,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M32"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-div-div-31-->
+
    <!--RULE -->
    <xsl:template match="tei:div" priority="1000" mode="M33">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
@@ -1361,6 +1394,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M33"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-div-abstractModel-structure-div-in-l-or-lg-32-->
+
    <!--RULE -->
    <xsl:template match="tei:div" priority="1000" mode="M34">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
@@ -1383,6 +1417,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M34"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-div-abstractModel-structure-div-in-ab-or-p-33-->
+
    <!--RULE -->
    <xsl:template match="tei:div" priority="1000" mode="M35">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
@@ -1405,6 +1440,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M35"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-facsimile-no_facsimile_text_nodes-34-->
+
    <!--RULE -->
    <xsl:template match="tei:facsimile//tei:line | tei:facsimile//tei:zone"
                  priority="1000"
@@ -1431,6 +1467,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M36"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-path-pathmustnotbeclosed-35-->
+
    <!--RULE -->
    <xsl:template match="tei:path[@points]" priority="1000" mode="M37">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:path[@points]"/>
@@ -1460,6 +1497,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M37"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-addSpan-addSpan-requires-spanTo-36-->
+
    <!--RULE -->
    <xsl:template match="tei:addSpan" priority="1000" mode="M38">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:addSpan"/>
@@ -1484,6 +1522,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M38"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-delSpan-delSpan-requires-spanTo-38-->
+
    <!--RULE -->
    <xsl:template match="tei:delSpan" priority="1000" mode="M39">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:delSpan"/>
@@ -1508,6 +1547,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M39"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-ex-ex-40-->
+
    <!--RULE -->
    <xsl:template match="tei:ex" priority="1000" mode="M40">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ex"/>
@@ -1536,6 +1576,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M40"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-space-space-41-->
+
    <!--RULE -->
    <xsl:template match="tei:space" priority="1000" mode="M41">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:space"/>
@@ -1567,6 +1608,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M41"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-subst-substContents1-42-->
+
    <!--RULE -->
    <xsl:template match="tei:subst" priority="1000" mode="M42">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:subst"/>
@@ -1593,6 +1635,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M42"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-s-noNestedS-43-->
+
    <!--RULE -->
    <xsl:template match="tei:s" priority="1000" mode="M43">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:s"/>
@@ -1613,6 +1656,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M43"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-link-linkTargets3-44-->
+
    <!--RULE -->
    <xsl:template match="tei:link" priority="1000" mode="M44">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:link"/>
@@ -1639,6 +1683,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M44"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-ab-abstractModel-structure-ab-in-l-or-lg-45-->
+
    <!--RULE -->
    <xsl:template match="tei:ab" priority="1000" mode="M45">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ab"/>
@@ -1661,6 +1706,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M45"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-join-joinTargets3-46-->
+
    <!--RULE -->
    <xsl:template match="tei:join" priority="1000" mode="M46">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:join"/>
@@ -1687,6 +1733,7 @@ You must supply at least two values for @target on <xsl:text/>
       <xsl:apply-templates select="*" mode="M46"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-standOff-nested_standOff_should_be_typed-47-->
+
    <!--RULE -->
    <xsl:template match="tei:standOff" priority="1000" mode="M47">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:standOff"/>
@@ -1717,6 +1764,7 @@ You must supply at least two values for @target on <xsl:text/>
       <xsl:apply-templates select="*" mode="M47"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-catchwords-catchword_in_msDesc-48-->
+
    <!--RULE -->
    <xsl:template match="tei:catchwords" priority="1000" mode="M48">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:catchwords"/>
@@ -1742,6 +1790,7 @@ You must supply at least two values for @target on <xsl:text/>
       <xsl:apply-templates select="*" mode="M48"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-dimensions-duplicateDim-49-->
+
    <!--RULE -->
    <xsl:template match="tei:dimensions" priority="1000" mode="M49">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:dimensions"/>
@@ -1791,6 +1840,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M49"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-secFol-secFol_in_msDesc-50-->
+
    <!--RULE -->
    <xsl:template match="tei:secFol" priority="1000" mode="M50">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:secFol"/>
@@ -1816,6 +1866,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M50"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-signatures-signatures_in_msDesc-51-->
+
    <!--RULE -->
    <xsl:template match="tei:signatures" priority="1000" mode="M51">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:signatures"/>
@@ -1841,6 +1892,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M51"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-msIdentifier-msId_minimal-52-->
+
    <!--RULE -->
    <xsl:template match="tei:msIdentifier" priority="1000" mode="M52">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:msIdentifier"/>
@@ -1861,6 +1913,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M52"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-relation-reforkeyorname-53-->
+
    <!--RULE -->
    <xsl:template match="tei:relation" priority="1000" mode="M53">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:relation"/>
@@ -1883,6 +1936,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M53"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-relation-activemutual-54-->
+
    <!--RULE -->
    <xsl:template match="tei:relation" priority="1000" mode="M54">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:relation"/>
@@ -1902,6 +1956,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M54"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-relation-activepassive-55-->
+
    <!--RULE -->
    <xsl:template match="tei:relation" priority="1000" mode="M55">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:relation"/>
@@ -1922,6 +1977,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M55"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-rdgGrp-only1lem-56-->
+
    <!--RULE -->
    <xsl:template match="tei:rdgGrp" priority="1000" mode="M56">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rdgGrp"/>
@@ -1944,6 +2000,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M56"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-tei-epidoc-variantEncoding-location-variantEncodingLocation-57-->
+
    <!--RULE -->
    <xsl:template match="tei:variantEncoding" priority="1000" mode="M57">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:variantEncoding"/>
