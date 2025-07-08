@@ -1,3 +1,23 @@
+# I initially wanted to do validation and display together, with a real parser,
+# possibly bound to rng. But in practice, we need to generate a useful display
+# even when texts are not valid. So many files are invalid that being too
+# strict would leave us with not much, and even so not being able to display a
+# text at all because of a single error would be super annoying.
+
+# If the idea is to convert texts to many formats, we might want to use
+# pandoc's data model. See https://boisgera.github.io/pandoc/document
+# and more importantly:
+# https://hackage.haskell.org/package/pandoc-types-1.23.1/docs/Text-Pandoc-Definition.html
+# Our internal representation must be close enough to this one to allow us to
+# use pandoc at some point.
+
+==
+
+Note that link/@href is not mandatory; when it is not given, we mark the link
+as invalid.
+
+# TODO turn this into rnc
+
 document: metadata_fields main_division
 
 metadata_fields =
@@ -27,9 +47,14 @@ division: head division_contents
 para_like: para | verse | quote | dlist | list
 milestone: npage | nline | ncell
 
-inline = span | link | TEXT
+inline = span | link | note | TEXT# If the idea is to convert texts to many formats, we might want to use
+# pandoc's data model. See https://boisgera.github.io/pandoc/document
+# and more importantly:
+# https://hackage.haskell.org/package/pandoc-types-1.23.1/docs/Text-Pandoc-Definition.html
+# Our internal representation must be close enough to this one to allow us to
+# use pandoc at some point.
 
-
+note: para+
 
 
 ¶ data fields: title, author, editor

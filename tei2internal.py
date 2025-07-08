@@ -1,20 +1,4 @@
-# For parsing TEI files into Document objects
-#
-# Internal representation of parsed TEI documents, and code to convert this
-# representation to HTML and plain text.
-#
-# I initially wanted to do validation and display together, with a real parser,
-# possibly bound to rng. But in practice, we need to generate a useful display
-# even when texts are not valid. So many files are invalid that being too
-# strict would leave us with not much, and even so not being able to display a
-# text at all because of a single error would be super annoying.
-#
-# If the idea is to convert texts to many formats, we might want to use
-# pandoc's data model. See https://boisgera.github.io/pandoc/document
-# and more importantly:
-# https://hackage.haskell.org/package/pandoc-types-1.23.1/docs/Text-Pandoc-Definition.html
-# Our internal representation must be close enough to this one to allow us to
-# use pandoc at some point.
+"For parsing TEI files into an internal XML representation."
 
 import os, sys, re, html, urllib.parse, posixpath, copy, unicodedata
 import dataclasses
@@ -135,18 +119,6 @@ class Document:
 		f.join()
 		if self.edition:
 			f.push(tree.Tag("edition"))
-			# XXX not here!
-			# head = self.edition.first("head")
-			# i = self.edition.index(head) + 1
-			# f.append(head)
-			# full = todisplays.to_full(self.edition.copy())
-			# logical = todisplays.to_logical(full.copy())
-			# physical = todisplays.to_physical(self.edition.copy())
-			# for display, contents in (("physical", physical), ("logical", logical), ("full", full)):
-			# 	f.push(tree.Tag(display))
-			# 	f.extend(contents[i:])
-			# 	f.join()
-			# f.join()
 			f.extend(self.edition)
 			f.join()
 		if self.apparatus:
@@ -1333,32 +1305,6 @@ def parse_hi(p, hi):
 		p.join()
 
 # < para-like
-
-roman_table = [
-	("M", 1000),
-	("CM", 900),
-	("D", 500),
-	("CD", 400),
-	("C", 100),
-	("XC", 90),
-	("L", 50),
-	("XL", 40),
-	("X", 10),
-	("IX", 9),
-	("V", 5),
-	("IV", 4),
-	("I", 1),
-]
-def to_roman(x):
-	# Limited to 0...3999
-	if x <= 0 or x >= 4000:
-		return str(x)
-	buf = ""
-	for roman, arabic in roman_table:
-		while x >= arabic:
-			buf += roman
-			x -= arabic
-	return buf
 
 def make_meter_heading(p, met):
 	if not met:

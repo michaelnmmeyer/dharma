@@ -1,26 +1,22 @@
-=== Address structural errors in internal2internal
+== structural errors in internal2internal
 
 recursively, iter on block-only elements and wrap inlines in paras.
-
-
 
 we have structural errors with use of inlines in places where blocks are expected; fixed that for milestones,;see
 
 	if there is no milestone-accepting element, we should end up with just milestones, so put them in a newly-created p.
 
-but remain cases where wrapping is necessary; basically
+but remain cases where wrapping is necessary; basically:
 
-	<inline/> within a division
-		instead of <block><inline/></block>
+within divisions. wrap all child <inline/> elements inside a <para>.
 
-	<inline><block/></inline>
-		INVALID (fix by unwrapping the block?)
-		but not invalid for <note>
+within inlines (span, link, but not note). <inline><block/></inline> ->
+unwrap the block (and child blocks)
 
-	<para><list/></para>
-		need to set rules for nesting stuff; basically, only divisions
-		should hold block elements. otherwise, unwrap the outermost
-		block element.
+within blocks. forbid other blocks, thus <para><list/></para>.
+	need to set rules for nesting stuff; basically, only divisions
+	should hold block elements. otherwise, unwrap the outermost
+	block element.
 
 div:  head (block | div)+
 head: inline+
@@ -43,67 +39,18 @@ restricted_block: like a normal block but disallowing nested notes
 
 will need to review metadata fields, not sure which we should keep, depends how we do the search stuff.
 
-=====
-
-DOC:
-
-link/@href not mandatory
-
 ========= before publishing the new version
 
-check that the tra,sform endpoint works;
+check that the transform endpoint works;
 check the prosody page
 idem for editorial
 see for catalog updates
 
-we should attribute all files without an editor to John Doe so that we don't
-have to check this special case when filtering by authors, etc.; generally
-speaking, we should always have a default predefined value for empty fields;
-should never have null.
+in the db, stop using "und" as default for languages that don't have one, we should have an empty array in such cases. the "empty" value for everything should be null. and also hide "Language: Undetermined" when no language found in div type edition.
 
-=========
+========= database
 
-bouton de translittération à ajouter pour le tamoul
-
-Hide "Language: Undetermined" when no language found in div type edition.
-
-====
-
-see https://github.com/erc-dharma/project-documentation/issues/372
-
-
-DHARMA_INSSIIv03p0i0207 ; notes de bas de page apparaissent que dans le display logical
-
-ASK should list items be treated as paragraphs
-apparatus+biblio+tests
-links+tests
-
-===
-
-deal with conversion full>log and full>phys
-
-===
-
-search
-
-write POC ;
-
-daṇḍa = taṇṭa
-dāna = tā(_n)a = tāna
-
-===
-
-amandine:
-	également liens biblio;
-	bestow les <ref target=""> à remplacer avec titre de l'insc
-	<lb break autocompletion broken
-
-===
-
-pour div[@apparatus], si vide ou blanc, rien afficher dans l'output.
-
-
-support deleting/renaming repos
+support adding/deleting/renaming repos
 
 	delete from repos where repo='repo-test';
 	delete from files where repo='repo-test';
@@ -112,25 +59,12 @@ support deleting/renaming repos
 
 should probably use triggers for dealing with this
 
-and remove the directory; for locking see https://git-scm.com/docs/api-lockfile
-
-===
-
-deal with this:
-https://mail.google.com/mail/u/0/#label/Work/FMfcgzQZTVsfctRwJKcjdHLRflLBQZTr
-
 ====
 
-working on "list"
+transfo des éditions critiques
 
-faire un display des éditions crfitiques sur dharmalekha, faire la transfo sur dharmalekha
-recherche éditions critiques+métadonnées
-mois avril conversations avec arlo sur convergence
-
-pour le display des métadonnées, avoir un bouton expand/unexpand comme pour l'apparat
+manu: pour le display des métadonnées, avoir un bouton expand/unexpand comme pour l'apparat
 commencer à réfléchir à la faceted search.
-
-faire un mail à arlo pour expliquer mon agenda et ce que je fais
 
 ====
 
@@ -420,9 +354,6 @@ hyphens between words? or at the end fo a line?
 
 manu: grantha translit with button several states translit methods
 
-* fix incorrect verse numbers that should be in Roman in DHARMA_INSCIC00066
-	https://dharmalekha.info/texts/DHARMA_INSCIC00066#translation-1
-
 * Sort out languages tagging; assign language categories (lang of
 	the ed. or of the rest, main or secondary lang; probably not
 	useful to keep track of <foreign>)
@@ -536,5 +467,5 @@ q and quote; treated identically
 affiliation in people file
 repo description?
 
-
+bouton de translittération à ajouter pour le tamoul
 
