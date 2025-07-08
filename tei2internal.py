@@ -1030,7 +1030,7 @@ def parse_am(p, am):
 
 # We expect:
 #	<expan>((<abbr>(text|<am>...</am>)</abbr>)|(<ex>...</ex>))+</expan>
-# This is not good (can't deal with <note>, etc.). Need to straighten this out.
+# XXX This is not good (can't deal with <note>, etc.). Need to straighten this out.
 @handler("expan")
 def parse_expan(p, node):
 	def iter_abbr_without_am(cur):

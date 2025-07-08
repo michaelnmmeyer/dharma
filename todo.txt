@@ -1,56 +1,26 @@
-== structural errors in internal2internal
-
-recursively, iter on block-only elements and wrap inlines in paras.
-
-we have structural errors with use of inlines in places where blocks are expected; fixed that for milestones,;see
-
-	if there is no milestone-accepting element, we should end up with just milestones, so put them in a newly-created p.
-
-but remain cases where wrapping is necessary; basically:
-
-within divisions. wrap all child <inline/> elements inside a <para>.
-
-within inlines (span, link, but not note). <inline><block/></inline> ->
-unwrap the block (and child blocks)
-
-within blocks. forbid other blocks, thus <para><list/></para>.
-	need to set rules for nesting stuff; basically, only divisions
-	should hold block elements. otherwise, unwrap the outermost
-	block element.
-
-div:  head (block | div)+
-head: inline+
-
-verse: verse-head? verse-line+
-verse-head: inline+
-verse-line: inline+
-
-para: inline+
-quote: inline+
-list: item+
-dlist: (key value)+
-note: para+
-
-inline: span | link | milestone | note | TEXT
-milestone: npage | nline | ncell
-note: restricted_block+
-
-restricted_block: like a normal block but disallowing nested notes
-
-will need to review metadata fields, not sure which we should keep, depends how we do the search stuff.
 
 ========= before publishing the new version
 
-check that the transform endpoint works;
+check that the transform endpoint works; check the editorial page; they should
+use the same processing code.
+
 check the prosody page
-idem for editorial
 see for catalog updates
+
+
+# Database
+
+Need to add locks when reading from a github repo (for when we want to do manual
+maintenance while the app is running).
+
+Need to make sure that all the files we need for display, etc., are stored in
+the db. Currently, this is not the case. Should have a unique mechanism for
+storing files.
 
 in the db, stop using "und" as default for languages that don't have one, we should have an empty array in such cases. the "empty" value for everything should be null. and also hide "Language: Undetermined" when no language found in div type edition.
 
-========= database
-
-support adding/deleting/renaming repos
+¶ support adding/deleting/renaming repos; should have a single entry point for
+this.
 
 	delete from repos where repo='repo-test';
 	delete from files where repo='repo-test';
@@ -58,6 +28,9 @@ support adding/deleting/renaming repos
 	delete from documents_index where repo='repo-test'; **but lowercasing!**
 
 should probably use triggers for dealing with this
+
+find a way to merge the parallels db with the main one; it should be updated
+every week or so
 
 ====
 
@@ -68,176 +41,21 @@ commencer à réfléchir à la faceted search.
 
 ====
 
-pour la issue 345
-add foreign/@rend=(italic|roman) with default being italics.
-
 ===
 
-manu
----
+# manu
 
-TODO When there is a <ptr target="bib:xxxxxx"/> anywhere in the file and that is not wrapped by <bib>, display the siglum as clickable. XXX todo
+Pour les unités dans la bibliographie, utiliser explicitement le singulier et le pluriel ? <citedRange unit="page|pages">. Manu et moi sommes pour, Arlo et Daniel pas vraiment.
 
-dans le physical display de <expan>, ajouter l'expansion de(s) abbrs en infobulle (et supprimer les infobulles internes expan/abbr expan/ex)
+Pour le display des metadata, Manu voudrait ceci. metadata: short display: langue, écriture, date, summary; long display: avoir un bouton pour afficher les métadonnées au complet.
 
-TODO <citedRange unit="page|pages">, use explicit singular and plural.
+Bouton de translittération à ajouter pour le tamoul
 
-[A-F]/[0]{4}-[0]{4}
-B/1934-1935
-
-authority lists, check
-metadata: short: langue, écriture, date, summary; long: avoir un bouton pour afficher les métadonnées au complet.
-
-
-
-====
-
-
-# crited
-
-on va avoir une représentation intermédiaire d'une édition, que je suis en train de définir. l'idée est que ça puisse représenter tout type d'édition. il faut que ce soit fait proprement. we can get something working by doing a transform to the intermediate representation.
-
-distinction entre:
-* les éditions en ligne intégrées dans la base de données
-* éditions latex pour produire un PDF. je pense qu'il ne vaut pas la peine de faire ça proprement. ça ne peut être fait que de manière ad hoc, parce qu'il faut toujours des interventions manuelles pour produire une publication de qualité.
-
-
-compatibilité: modifier le modèle des éditions de manuscrits de telle sorte que les éditions d'inscriptions en soient un sous-ensemble. faire en sorte qu'il soit possible de traiter les deux types sans avoir besoin de savoir si l'on a affaire à une édition de manuscrit ou d'inscription.
-
-inversement: simplifier l'encodage des éditions de manuscripts lorsqu'il est plus cimplexe que celui des inscriptions. plus petit dénominateur.
-
-
-<sourceDesc>
-	<listWit>
-		...
-
-change <editor>...</editor> to <respStmt><resp>author of digital edition</resp>...</respStmt>
-
-we have <rdg source="bib:Foo"> in EGD, but <rdg wit="#foo"> in EGC. why this discrepancy? apparently both @source and wit can be used at the same time, see the tei doc
-likewise, EGD has sigla in the biblio, but they are in <witness> in EGC
-
-For the <titleStmt>. Only allow a single <title> element, like in the EGD?
-
-For the apparatus. We currently allow both <variantEncoding method="location-referenced"> and <variantEncoding method="parallel-segmentation">. But a single file uses <variantEncoding method="location-referenced"> (DHARMA_CritEdKakavinParthayajna), so we might want to abandon this method. The apparatus would be assumed to be inlined in the edition _unless_ there is a <div type="apparatus"> (sibling of <div type="edition">).
-
-weirdness with <div type="dyad|metrical|liminal">; we don't really care about the hierarchy	 of other types, it only matters do the display.
-
-
------
-
-see https://github.com/erc-dharma/project-documentation/issues/334#issuecomment-2607595057
-
-# arie
-
-# metadata
-
-commencer par métadonnées du texte
-
-dans le menu de gauche: metadata + visual documentation
-
-# validation
-
-need something to ensure that the order of milestone-like elements is what we expect. best would be to write a parser for it. though maybe could be done with relaxng. also note that there is a definite order of succession for <p>, <div>, etc. and milestone-like elements, defined in the EGD.
-
-
-
-
-
-
-
-
-
-
-
-
-=================================
-
-https://mail.google.com/mail/u/0/#label/Work/FMfcgzGxTFdwWWMKhmGhVzhnHBXcBwQV
-https://mail.google.com/mail/u/0/#label/Work/FMfcgzQXJtDPgHCpTSWgzdvRZrVzdPdJ
-https://mail.google.com/mail/u/0/#label/Work/FMfcgzGxTPFzPVKbpkWPhGsWTkBBKSnB
-https://mail.google.com/mail/u/0/#label/Work/FMfcgzQXJsztsXjqQVmFQZcttVBzmXGd
-https://mail.google.com/mail/u/0/#label/Work/FMfcgzQXJsxlqtxSJzqxPHbcFtfjSWQZ
-
----
-
-
-work on sii, then arie
-
-mettre les SII, un fichier ppour chaque inscription dans exchange_aurorachana; regarder Michaël_memo pour détail.
-
------
-
-crited et dipled, fichiers prioritaires
-
-DiplEd
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_DiplEdCandrakiranaGriaCau.xml
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_DiplEdCandrakiranaPerpusnasL241.xml
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_DiplEdCandrakiranaPerpusnasL298.xml
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_DiplEdCandrakiranaPerpusnasL631.xml
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_DiplEdKutaraManavaLeidenOr2215.xml
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_DiplEdKutaraManavaManchesterB2.xml
-
-https://github.com/erc-dharma/tfd-sanskrit-philology/blob/master/texts/xml/DHARMA_DiplEdSarvavajrodayaCodex.xml
-
-CritEd (ces fichiers peuvent avoir des fichier _transEng01.xml liés)
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_CritEdBhuvanakosa.xml
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_CritEdCandrakirana.xml
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_CritEdKakavinParthayajna.xml
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_CritEdSarasamuccayaVararuci.xml
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_CritEdSasanaMahaguru.xml
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_CritEdSiksaGuru.xml
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_CritEdSiksaKandangKaresian.xml
-https://github.com/erc-dharma/tfd-nusantara-philology/blob/master/editions/DHARMA_CritEdSvayambhu.xml
-
-https://github.com/erc-dharma/tfd-sanskrit-philology/blob/master/texts/xml/DHARMA_CritEdSarvavajrodaya.xml
-
-
-
-
-------
-
-images: nakala (humanum)
-manu emploie didomena (EHESS)
-3d: conservatoire national des données 3d (humanum)
-
-store several URLs for each inscription; add a menu in left margin that enumerates these URLs.
-
-------------
-
-react:
-https://github.com/erc-dharma/project-documentation/issues/310#issuecomment-2444531530
-
-
-
-# Manu copy-paste
-
-manu a win10 pro; test conserver mise en forme quand copier/coller; Word; marche pas à cause de Windows visiblement; essayer de se limiter aux tags basiques <i>, <b> ou (peut-être) ne pas employer de classes
-suis sur que les tags suivants sont OK: gras = strong / italique = em / couleur = ?
-il faut aussi conserver des niveaux de titres cohérents, ça se copie automatiquement sous word.
-
-
-# Manu reste
-
-demander amandine si ses metadata complètes, puis faire un export dans dépôt
-perso, puis parser
-
-suivre ariane puis faire demande télétravail
-
-
-
-===
-
-
-
-find a way to merge the parallels db with the main one; it should be updated
-every week or so
-
+Pour le copier/coller sous Word, fonctionne pas très bien pour Manu (plutôt que d'utiliser des classes, il faut employer des éléments <b>, etc.)
 
 in biblio, move sharedocs links to notes; requires to have
 * a mechanism for updating the biblio
 * a mechanism for adding notes and linking them to an existing entry
-
-Tamil: word split vs. metrical split
 
 attr to <p> for marking up blessings/curses? @ana? find something generic for
 all custom stuff (additions to the egd).
@@ -416,10 +234,7 @@ add global table of gaiji symbols actually found in inscriptions.
 we will add links to inscriptions within this table so that we can find which
 inscriptions, etc. contain which symbols.
 
-
---------------------- Enhancements
-
-# Parallels
+## Parallels
 
 Allow quoting part of the input with "..." to force an exact substring match.
 Still keep using the same similarity measure. When there are several quoted
@@ -434,7 +249,7 @@ integrate with the main db.
 ## Duplicate file idents and zotero idents
 
 would be convenient to have position-independent files, viz. assume file
-basenames are unique AND also extension-independent files to allow people to
+basenames are unique AND also extension-independent files, to allow people to
 move files around.
 
 find some way to report non unique files ; could use an intermediate table
@@ -447,18 +262,4 @@ global commit across all repos and the order of operations is not guaranteed.
 in any case, we must preserve the fact that a given ident always corresponds to
 exactly one elem; so if we have a duplicate ident, do not use this
 duplicate ident, instead generate new ones and delete these when appropriate.
-
-== EGD
-
-<ref target="C00007.xml">C. 7</ref>
-<ref n="tfa-pallava-epigraphy" target="Pallava00001.xml">Pallava 1</ref>
-	new format: <ref target="DHARMA_INSPallava00001.xml"
-
-====
-questions: titlecase or not?
-q and quote; treated identically
-affiliation in people file
-repo description?
-
-bouton de translittération à ajouter pour le tamoul
 

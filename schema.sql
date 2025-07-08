@@ -38,16 +38,15 @@ create table if not exists metadata(
 	key text primary key check(typeof(key) = 'text'),
 	value any
 );
--- 'last_updated' is a timestamp updated after each write transaction.
--- The value is only meant for display.
+-- 'last_updated' is a timestamp updated after each write transaction. The value
+-- is only meant for display on the Website.
 insert or ignore into metadata values('last_updated', 0);
--- To update the bibliography, we need to pull from zotero.org all records
--- whose version is > biblio_latest_version. We might already have such items in
--- the db. All remote zotero entries with a version number
--- <= biblio_latest_version should be in our local copy, otherwise there is a
--- bug. To fully rebuild bibliography tables, use:
--- update metadata set value = 0 where key = 'biblio_latest_version';
--- then run the update process.
+-- To update the bibliography, we need to pull from zotero.org all records whose
+-- version is > biblio_latest_version. We might already have such items in the
+-- db. All remote zotero entries with a version number <= biblio_latest_version
+-- should be in our local copy, otherwise there is a bug. To fully rebuild
+-- bibliography tables, use: update metadata set value = 0 where key =
+-- 'biblio_latest_version'; then run the update process.
 insert or ignore into metadata values('biblio_latest_version', 0);
 
 -- Repositories description. This is initially filled with repos.tsv. We do
