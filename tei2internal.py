@@ -1321,6 +1321,11 @@ def make_meter_heading(p, met):
 	entry = p.get_prosody_entry(met)
 	if not entry:
 		ret = tree.Tag("span")
+		match met:
+			case "mixed" | "uncertain":
+				met += " meter"
+			case "free":
+				met += " verse"
 		ret.append(common.sentence_case(met))
 		return ret
 	pattern, description, entry_id = entry
@@ -1362,6 +1367,7 @@ def parse_lg(p, lg):
 				p.append("(?)")
 		elif n:
 			p.append(n)
+			p.append(".")
 		else:
 			assert met
 			p.append(met)
