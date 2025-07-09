@@ -245,17 +245,9 @@ function prepareTips() {
 let flashDuration = null
 
 function highlightFragment(node) {
-	let id = parseInt(node.dataset["flash"])
-	if (id) {
-		console.log("clearing timeout " + id)
-		clearTimeout(id)
-		node.classList.remove("flash")
-	}
 	node.classList.add("flash")
-	node.dataset["flash"] = setTimeout(function () {
-		console.log("end of timeout " + node.dataset["flash"])
+	setTimeout(function () {
 		node.classList.remove("flash")
-		delete node.dataset["flash"]
 	}, flashDuration)
 }
 
