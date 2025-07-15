@@ -1879,7 +1879,7 @@ def process_file(file, mode=None):
 		ed_langs.add(langs.Undetermined)
 	p.document.edition_langs = sorted(ed_langs)
 	p.document.repository = file.repo
-	p.document.repository_title = repository_title(p.document.repository)
+	p.document.repository_title = repository_title(p.document.repository) or ""
 	return p.document
 
 if __name__ == "__main__":
