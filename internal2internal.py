@@ -2,6 +2,9 @@
 
 """XXX TODO
 
+make a root div without anything else a div[@type='edition']
+and make "textpart" optional in children of root divs.
+
 # XXX document this and cleanup
 
 # XXX among structural stuff to fix: nested divisions; we should allow them,

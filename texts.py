@@ -1,4 +1,4 @@
-# Stuff for enumerating texts (inscriptions, etc.) in a repository.
+"Stuff for enumerating texts (inscriptions, etc.) in a repository."
 
 import os, unicodedata
 from dharma import common, validate
@@ -86,7 +86,8 @@ class File:
 		ret = getattr(self, "_last_modified", None)
 		if ret is None:
 			out = common.command("git",
-				"-C", common.path_of("repos", self.repo), 		"log", "-1", "--format=%H %at", "--", self.path)
+				"-C", common.path_of("repos", self.repo),
+				"log", "-1", "--format=%H %at", "--", self.path)
 			commit, date = out.stdout.strip().split()
 			date = int(date)
 			ret = (commit, date)
@@ -130,7 +131,7 @@ def save(repo, path):
 def gather_web_pages(repo, recs):
 	lookup = {file.name: file for file in recs}
 	repo_path = common.path_of("repos", repo)
-	for root, dirs, files in os.walk(repo_path):
+	for root, _, files in os.walk(repo_path):
 		for file in files:
 			name, ext = os.path.splitext(file)
 			if ext != ".html":

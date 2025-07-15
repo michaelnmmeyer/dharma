@@ -242,7 +242,8 @@ class Parser(tree.Serializer):
 			contents=contents)
 		return ref
 
-	def get_prosody_entry(self, name):
+	def get_prosody_entry(self, name: str) \
+		-> (tuple[tree.Tree | None, str | None, int] | None):
 		entry = self._prosody_entries.get(name, object)
 		if entry is object:
 			# Not yet fetched from the db.
@@ -254,7 +255,9 @@ class Parser(tree.Serializer):
 			self._prosody_entries[name] = entry
 		if entry:
 			pattern, description, entry_id = entry
-			pattern = tree.parse_string(pattern)
+			if pattern:
+				# We do need a new copy in the calling code.
+				pattern = tree.parse_string(pattern)
 			return pattern, description, entry_id
 
 	def dispatch(self, node):
@@ -1318,14 +1321,17 @@ def make_meter_heading(p, met):
 		return
 	if prosody.is_pattern(met):
 		return prosody.render_pattern(met)
+	if met in ("mixed", "uncertain"):
+		ret = tree.Tag("span")
+		ret.append(common.sentence_case(met) + " meter")
+		return ret
+	if met == "free":
+		ret = tree.Tag("span")
+		ret.append("Free verse")
+		return ret
 	entry = p.get_prosody_entry(met)
 	if not entry:
 		ret = tree.Tag("span")
-		match met:
-			case "mixed" | "uncertain":
-				met += " meter"
-			case "free":
-				met += " verse"
 		ret.append(common.sentence_case(met))
 		return ret
 	pattern, description, entry_id = entry

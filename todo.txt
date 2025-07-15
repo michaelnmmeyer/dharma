@@ -1,42 +1,36 @@
-should do an autoreplace from my code to the xml schema; for @met, @lang, @rendition
+should do an autoreplace from my code to the xml schema; for at least:
 
-XXX enjamb; hyphen? add tests; also for lb/pb
+- prosody @met
+- language codes @lang
+- script age + maturity @rendition
+
+for this we need to access the app's repo.
+
+===
 
 deal with elem flashing:
 cumulative timeout for flashing https://developer.mozilla.org/fr/docs/Web/API/setTimeout
 repr here https://stackoverflow.com/questions/29017379/how-to-make-fadeout-effect-with-pure-javascript
 
-merge transforms.md and parsing.txt
-
-===
-
-restaurer DHARMA_INSII workflow-output.
-
-make a root div without anything else a div[@type='edition']
-and make "textpart" optional in children of root divs.
-
-
 ========= before publishing the new version
 
-deal with the display of invalid XML files
+deal with the display of invalid XML files (need to check the <valid> thing)
 
-check that the transform endpoint works; check the editorial page; they should
+check that the transform endpoint works; check the editorial page; check the catalog; they should
 use the same processing code.
-
-check the prosody page
-see for catalog updates
-
 
 # Database
 
-Need to add locks when reading from a github repo (for when we want to do manual
-maintenance while the app is running).
+Need to have some locking logic when reading from a github repo. For when we
+want to do manual maintenance while the app is running.
 
 Need to make sure that all the files we need for display, etc., are stored in
-the db. Currently, this is not the case. Should have a unique mechanism for
-storing files.
+the db. Currently, this is not the case. Not easy to guarantee. unless we have a
+reliable access method. Should have a unique mechanism for storing files.
 
-in the db, stop using "und" as default for languages that don't have one, we should have an empty array in such cases. the "empty" value for everything should be null. and also hide "Language: Undetermined" when no language found in div type edition.
+[after we're done with the catalog]. in the db, stop using "und" as default for languages that don't have one, we should have an empty array in such cases. the "empty" value for everything should be null. and also hide "Language: Undetermined" when no language found in div type edition. be careful that we are using languages in search.
+
+¶ need a protocol for bootstrapping the db.
 
 ¶ support adding/deleting/renaming repos; should have a single entry point for
 this. and should document it somewhere.
@@ -46,7 +40,7 @@ this. and should document it somewhere.
 	delete from documents where repo='repo-test';
 	delete from documents_index where repo='repo-test'; **but lowercasing!**
 
-should probably use triggers for dealing with this
+should probably use triggers for dealing with this. need to remove all files related to a repo.
 
 find a way to merge the parallels db with the main one; it should be updated
 every week or so
@@ -54,7 +48,6 @@ every week or so
 ====
 
 transfo des éditions critiques
-
 
 ====
 
@@ -122,15 +115,19 @@ pour languages dans display, tous ceux de div type=edition + écrfiture
 .gridlike	 <milestone type="grid-like">
 
 
-## Refactoring
+## Parsing
 
-
-we must do NFC normalization at some point; when? not before storing the
+We must do NFC normalization at some point; when? not before storing the
 file in the db (might need the original later on for e.g. hashing); simplest
 would be to do that just before parsing the file, but this will mess up
 columns numbers. still should do it, because we don't refer to columns for
 now and because all string comparisons will be messed up. do the final
 normalization step (new lines, etc.) when outputting documents.
+
+OTOH, we shouldn't do anything with column numbers. This is too inconvenient.
+Idem for byte offsets.
+
+## Refactoring
 
 shouldn't store separately the app from all the data files, because we need the
 data files to be present to do anything with the db. the app code is useless
@@ -159,6 +156,10 @@ actually use dharma.rng, only in /texts for now, afterwards distribute it;
 
 
 ## Display
+
+Parse urls and make them clickable.
+
+Some stuff to implement in the display of the apparatus: https://github.com/erc-dharma/project-documentation/issues/282#issuecomment-2444650894
 
 for invalid inscriptions, show the xml, but without formatting tags, etc.
 need to convert the error (line,column) to an offset

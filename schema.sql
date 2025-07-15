@@ -389,7 +389,7 @@ create table if not exists prosody(
 		or typeof(pattern) = 'text' and length(pattern) > 0),
 	description text check(description is null
 		or typeof(description) = 'text' and length(description) > 0),
-	--XXX remove this
+	--XXX remove this because we're now using the name as prim key
 	-- This is used for generating anchors. We use these anchors to
 	-- link to prosody entries.
 	entry_id integer not null check(typeof(entry_id) = 'integer')
