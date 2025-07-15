@@ -814,13 +814,16 @@ def append_milestone_label(p, node, unit):
 	span = tree.Tag("span", tip=f"{unit.title()} start")
 	p.push(span)
 	p.append("⟨")
-	if unit != "line":
+	if unit == "line":
+		if (n := get_n(node)):
+			p.append(n)
+		else:
+			p.append("Line")
+	else:
 		p.append(unit.title())
 		if (n := get_n(node)):
 			p.append(" ")
 			p.append(n)
-	elif (n := get_n(node)):
-		p.append(n)
 	if (label := node.first("stuck-following-sibling::label")):
 		p.append(": ")
 		p.dispatch_children(label)
