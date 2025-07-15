@@ -37,7 +37,7 @@ class Document:
 	hand: tree.Tree = init(tree.Tree)
 	# Languages used in the edition division that do not correspond
 	# to a modern, translation-only language.
-	edition_langs: list[str] = init(list)
+	edition_langs: list[langs.Language] = init(list)
 	# One field for each main div.
 	edition: tree.Tree = init(tree.Tree)
 	apparatus: tree.Tree = init(tree.Tree)
@@ -55,8 +55,8 @@ class Document:
 	# List of authors and of editors. List of tuples
 	# (dharma_id, name) where dharma_id is the xxxx stuff in
 	# "part:xxxx" and name is a string.  dharma_id can be None
-	authors: list[(str, str)] = init(list)
-	editors: list[(str, str)] = init(list)
+	authors: list[tuple[str, str]] = init(list)
+	editors: list[tuple[str, str]] = init(list)
 
 	def serialize(self):
 		f = tree.Serializer()
@@ -947,6 +947,8 @@ def parse_space(p, space):
 	type = space["type"]
 	if type not in space_types:
 		type = "semantic"
+	quant = 0
+	unit = ""
 	if type in ("semantic", "vacat", "unclassified"):
 		quant = space["quantity"]
 		if not quant.isdigit():
@@ -1843,7 +1845,7 @@ def process_file(file, mode=None):
 		doc = Document()
 		doc.valid = False
 		doc.repository = file.repo
-		doc.repository_title = repository_title(doc.repository)
+		doc.repository_title = repository_title(doc.repository) or ""
 		doc.identifier = file.name
 		doc.edition_langs = [langs.Undetermined]
 		return doc
