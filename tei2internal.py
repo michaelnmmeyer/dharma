@@ -800,44 +800,6 @@ def parse_foreign(p, foreign):
 
 ################################# Milestones ###################################
 
-"""
-what shall we do
-
-
-LOGICAL
-elif data.startswith("=") and params["type"] == "pagelike":
-	unit = html.escape(data[1:].title())
-	text = f"⟨{unit} {params['n']}"
-	if params["label"]:
-		text += f": {params['label']}"
-	text += "⟩"
-	buf.append('<span class="pagelike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
-elif data.startswith("=") and params["type"] == "gridlike":
-	unit = html.escape(data[1:].title())
-	text = f"⟨{unit} {params['n']}"
-	if params["label"]:
-		text += f": {params['label']}"
-	text += "⟩"
-	buf.append('<span class="gridlike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
-else:
-
-PHYSICAL
-elif data.startswith("=") and params["type"] == "pagelike":
-	unit = html.escape(data[1:].title())
-	text = f"{unit} {params['n']}"
-	if params["label"]:
-		text += f": {params['label']}"
-	buf.append('<div class="pagelike"><span data-tip="%s start">%s</span></div>' % (unit, html.escape(text)))
-elif data.startswith("=") and params["type"] == "gridlike":
-	unit = html.escape(data[1:].title())
-	text = f"⟨{unit} {params['n']}"
-	if params["label"]:
-		text += f": {params['label']}"
-	text += "⟩"
-	buf.append('<span class="gridlike" data-tip="%s start">%s</span>' % (unit, html.escape(text)))
-else:
-"""
-
 def get_n(node):
 	n = node["n"]
 	if not n:
