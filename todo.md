@@ -13,7 +13,7 @@ for this we need to access the app's repo. can either do the transform within th
 
 ## Before publishing the new version
 
-deal with the display of invalid XML files (need to check the <valid> thing)
+deal with the display of invalid XML files (need to check the `<valid>` thing)
 
 check that the transform endpoint works; check the editorial page; check the catalog; they should
 use the same processing code.
@@ -53,19 +53,19 @@ transfo des éditions critiques
 
 ## Manu
 
-Pour les unités dans la bibliographie, utiliser explicitement le singulier et le pluriel ? <citedRange unit="page|pages">. Manu et moi sommes pour, Arlo et Daniel pas vraiment.
+Pour les unités dans la bibliographie, utiliser explicitement le singulier et le pluriel ? `<citedRange unit="page|pages">`. Manu et moi sommes pour, Arlo et Daniel pas vraiment.
 
 Pour le display des metadata, Manu voudrait ceci. metadata: short display: langue, écriture, date, summary; long display: avoir un bouton pour afficher les métadonnées au complet.
 
 Bouton de translittération à ajouter pour le tamoul
 
-Pour le copier/coller sous Word, fonctionne pas très bien pour Manu (plutôt que d'utiliser des classes, il faut employer des éléments <b>, etc.)
+Pour le copier/coller sous Word, fonctionne pas très bien pour Manu (plutôt que d'utiliser des classes, il faut employer des éléments `<b>`, etc.)
 
 in biblio, move sharedocs links to notes; requires to have
 * a mechanism for updating the biblio
 * a mechanism for adding notes and linking them to an existing entry
 
-attr to <p> for marking up blessings/curses? @ana? find something generic for
+attr to `<p>` for marking up blessings/curses? @ana? find something generic for
 all custom stuff (additions to the egd).
 
 prosodic patterns; be careful about placemenbt of guillemets and footnote nums.
@@ -166,13 +166,13 @@ manu: grantha translit with button several states translit methods
 
 * Sort out languages tagging; assign language categories (lang of
 	the ed. or of the rest, main or secondary lang; probably not
-	useful to keep track of <foreign>)
+	useful to keep track of `<foreign>`)
 
-add tooltip for expan in <abbr><expan> in phys disp; but need to know how to do
+add tooltip for expan in `<abbr><expan>` in phys disp; but need to know how to do
 that
 
 div rendition="class:38768 maturity:83213" (grantha) à mettre en gras pas seulement hi rend=grantha ; pour SII0501358
-idem pour <lg rendition=...> dans Tiruvavatuturai01
+idem pour `<lg rendition=...>` dans Tiruvavatuturai01
 
 don't think we are formarring abbr/expan as supposed
 
