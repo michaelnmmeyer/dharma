@@ -1,5 +1,28 @@
 # TODO
 
+## Misc
+
+ultimately, we should remove the bs4 dependency, but for this we need a HTML
+parser _and also_ a serialization method that does the appropriate thing for
+self-closing tags.
+
+
+## Before publishing the new version
+
+use a single processing func for:
+
+- transform endpoint
+- editorial page; need to be able to perform partial transforms
+- catalog
+- display
+
+check all these and add tests (at least for verifying that no error is raised).
+
+deal with the display of invalid XML files (need to check the `<valid>` thing)
+
+
+## XML Schema
+
 should do an autoreplace from my code to the xml schema; for at least:
 
 - prosody @met
@@ -9,14 +32,6 @@ should do an autoreplace from my code to the xml schema; for at least:
 - and for bib:xxx, we could perform http requests in schematron, but might be too slow
 
 for this we need to access the app's repo. can either do the transform within the app's repo; or within project-documentation.
-
-
-## Before publishing the new version
-
-deal with the display of invalid XML files (need to check the `<valid>` thing)
-
-check that the transform endpoint works; check the editorial page; check the catalog; they should
-use the same processing code.
 
 
 ## Database
@@ -186,7 +201,7 @@ The repetitive scheme is not clear and unpredictable. Should have a clearer
 convention.
 
 
-## XML display
+## XML source display
 
 Put the tab button in the sidebar, call it "view source". Should allow resizing
 the sidebar, too. when it is completemy closed, what to display?
@@ -202,6 +217,8 @@ the sidebar, too. when it is completemy closed, what to display?
 
 
 ## Website
+
+in the "texts errors" page, have a column with the severity level
 
 for https://github.com/erc-dharma/project-documentation/issues/266#issue-2207593274
 don't use href in in-page links, it's confusing; use data-href instead; and this

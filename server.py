@@ -476,8 +476,10 @@ def render_markdown(rel_path):
 		title.decompose()
 	else:
 		page_title = "Untitled"
+	contents = str(soup.find("body"))
+	assert contents
 	return flask.render_template("markdown.tpl", title=page_title,
-		contents=str(soup))
+		contents=contents)
 
 @app.get("/legal-notice")
 def legal_notice():
