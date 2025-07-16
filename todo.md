@@ -1,25 +1,25 @@
+# TODO
+
 should do an autoreplace from my code to the xml schema; for at least:
 
 - prosody @met
+- people; the "part:xxxx" stuff
 - language codes @lang
 - script age + maturity @rendition
+- and for bib:xxx, we could perform http requests in schematron, but might be too slow
 
-for this we need to access the app's repo.
+for this we need to access the app's repo. can either do the transform within the app's repo; or within project-documentation.
 
-===
 
-deal with elem flashing:
-cumulative timeout for flashing https://developer.mozilla.org/fr/docs/Web/API/setTimeout
-repr here https://stackoverflow.com/questions/29017379/how-to-make-fadeout-effect-with-pure-javascript
-
-========= before publishing the new version
+## Before publishing the new version
 
 deal with the display of invalid XML files (need to check the <valid> thing)
 
 check that the transform endpoint works; check the editorial page; check the catalog; they should
 use the same processing code.
 
-# Database
+
+## Database
 
 Need to have some locking logic when reading from a github repo. For when we
 want to do manual maintenance while the app is running.
@@ -45,11 +45,11 @@ should probably use triggers for dealing with this. need to remove all files rel
 find a way to merge the parallels db with the main one; it should be updated
 every week or so
 
+
 ## Arlo
 
 transfo des éditions critiques
 
-===
 
 ## Manu
 
@@ -73,8 +73,6 @@ prosodic patterns; be careful about placemenbt of guillemets and footnote nums.
 manu: pour le display des métadonnées, avoir un bouton expand/unexpand comme pour l'apparat
 commencer à réfléchir à la faceted search.
 
-
-===
 
 ## ODD schema
 
@@ -105,13 +103,6 @@ pour languages dans display, tous ceux de div type=edition + écrfiture
 écritures à gérer
 "Tamil in Tamil Script; Sanskrit in Grnatha script":
 
-================ end manu
-
-.pagelike: <pb> + <milestone type="page-like">
-	Use a single instruction for representing them, taking into account <fw>
-.linelike: <lb>
-.gridlike	 <milestone type="grid-like">
-
 
 ## Parsing
 
@@ -125,6 +116,7 @@ normalization step (new lines, etc.) when outputting documents.
 OTOH, we shouldn't do anything with column numbers. This is too inconvenient.
 Idem for byte offsets.
 
+
 ## Refactoring
 
 shouldn't store separately the app from all the data files, because we need the
@@ -136,7 +128,6 @@ data files _but not the code_?
 
 in fact we have 2 build levels: fetch files from the fs, and parse the
 documents. should do the minimum whenever possible.
-
 
 
 ## Validation
@@ -221,8 +212,9 @@ when a file is completely invalid, show the raw xml in the displqay (not pretty-
 do a redirect /foo/ -> /foo in nginx _but_ watch out with the /zotero-proxy
 stuff.
 
-
-
+deal with elem flashing:
+cumulative timeout for flashing https://developer.mozilla.org/fr/docs/Web/API/setTimeout
+repr here https://stackoverflow.com/questions/29017379/how-to-make-fadeout-effect-with-pure-javascript
 
 Make the top menu sticky on pc? no. Add a button to show/hide the left sidebar (on
 pc); where? left of the top menu downward-pointing > thing. The left sidebar
@@ -242,6 +234,7 @@ Add a "status" search field to catalog to filter by error status.
 add global table of gaiji symbols actually found in inscriptions.
 we will add links to inscriptions within this table so that we can find which
 inscriptions, etc. contain which symbols.
+
 
 ## Parallels
 
