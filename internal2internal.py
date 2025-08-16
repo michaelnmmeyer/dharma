@@ -1,6 +1,35 @@
+"""Internal transformations.
+
+This fixes various things in the internal XML representation and produces three
+displays: physical, logical, full.
+
+Among other things, we remove all non-significant space from the input tree.
+
+Summary of new elements.
+
+We have two basic categories: inline elements (links and spans of text) and
+block elements (divisions, paragraphs, etc.).
+
+* Data fields: title, author, editor. These elements should not contain
+paragraphs.
+
+* Main divisions: summary, hand, edition, apparatus, translation, commentary,
+bibliography.
+
+* Other division: div.
+
+* Paragraph-like: para, verse(>verse-line), head, quote.
+
+* Containers: list(>item), dlist(>(key, value)), note.
+
+* Inline elements: span, link, milestones (npage, nline, ncell).
+"""
+
 
 
 """XXX TODO
+
+at the root of divisions, cover everything with <p>
 
 make a root div without anything else a div[@type='edition']
 and make "textpart" optional in children of root divs.
@@ -32,32 +61,7 @@ we can't tell in advance whether @n is unique across the whole file or across th
 
 """
 
-"""Internal transformations.
 
-This fixes various things in the internal XML representation and produces three
-displays: physical, logical, full.
-
-Among other things, we remove all non-significant space from the input tree.
-
-Summary of new elements.
-
-We have two basic categories: inline elements (links and spans of text) and
-block elements (divisions, paragraphs, etc.).
-
-* Data fields: title, author, editor. These elements should not contain
-paragraphs.
-
-* Main divisions: summary, hand, edition, apparatus, translation, commentary,
-bibliography.
-
-* Other division: div.
-
-* Paragraph-like: para, verse(>verse-line), head, quote.
-
-* Containers: list(>item), dlist(>(key, value)), note.
-
-* Inline elements: span, link, milestones (npage, nline, ncell).
-"""
 
 import re, sys
 from dharma import tree, common

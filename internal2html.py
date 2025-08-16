@@ -308,9 +308,10 @@ def render_tag(self, node):
 class HTMLDocument:
 
 	def __init__(self):
-		# We are using several trees, even for basic stuff like
-		# repository, because we expect even fields like that to be
-		# highlightable in search results.
+		# We are using XML trees instead of str, even for basic stuff
+		# like repository, because we expect even fields like that to be
+		# highlightable in search results; and, for this to be possible,
+		# we need to use trees.
 		self.title = None
 		self.summary = None
 		self.hand = None

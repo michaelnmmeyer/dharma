@@ -1741,7 +1741,7 @@ def gather_biblio(p):
 def parse_main_div(p, div):
 	p.push(tree.Tree())
 	add_div_heading(p, div, div["type"].title())
-	p.dispatch_children(div, only_tags=True)
+	p.dispatch_children(div)
 	setattr(p.document, div["type"], p.pop())
 
 # For div[@type='textpart'].
@@ -1824,7 +1824,7 @@ def parse_div_translation(p, div):
 			append_sources(p, sources.split())
 	p.push(tree.Tree())
 	add_div_heading(p, div, make_translation_heading)
-	p.dispatch_children(div, only_tags=True)
+	p.dispatch_children(div)
 	p.document.translation.append(p.pop())
 
 @handler("*")
@@ -1869,10 +1869,13 @@ def process_file(file, mode=None):
 	# in the file, because this div might itself reference bibliography
 	# entries. We thus need to go directly for the listBibl/bibl items.
 	gather_biblio(p)
-	p.push(tree.Tree())
+	r = tree.Tree()
+	p.push(r)
 	p.dispatch(p.document.tree.root)
+	assert r.empty, r.xml()
 	ed_langs = set()
 	for node in t.find("//div[@type='edition']/descendant-or-self::*"):
+		assert node.assigned_lang
 		if node.assigned_lang.is_source:
 			ed_langs.add(node.assigned_lang)
 	if not ed_langs:

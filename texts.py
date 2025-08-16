@@ -8,6 +8,10 @@ valid_prefixes = {"DHARMA_INS", "DHARMA_DiplEd", "DHARMA_CritEd"}
 # XXX need to have static methods for creating files: from a real file on disk;
 # from the db (in-memory file maskerading as a real one, see save_file()); and for creating an
 # anonymous in-memory file (for editorial, maybe somewhere else too).
+# .from_string
+# .from_db
+# .from_disk
+
 class File:
 
 	# Repo name ("tfa-pallava-epigraphy", etc.)

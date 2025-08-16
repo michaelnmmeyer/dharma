@@ -1,5 +1,11 @@
 # TODO
 
+Especially on the technical details: using ref to point to an authority file (identified by a prefix) and the actual encoding details of the authority file?
+
+continue editorial
+
+
+
 ## Misc
 
 ultimately, we should remove the bs4 dependency, but for this we need a HTML
