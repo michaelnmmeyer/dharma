@@ -353,7 +353,9 @@ def render_inscription(file: texts.File, data: dict):
 	try:
 		t = tree.parse_string(file.data, path=file.full_path)
 	except tree.Error:
-		data["highlighted_xml"] = tree.html_format(file.data)
+		# XXX still need improvements for the display of invalid
+		# inscriptions
+		data["highlighted_xml"] = tree.html_format(file.text)
 		return flask.render_template("invalid_inscription.tpl", **data)
 	data["doc"] = tei2internal.process_tree(t).to_html()
 	data["highlighted_xml"] = tree.html_format(t)
