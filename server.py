@@ -466,7 +466,7 @@ def render_markdown(rel_path):
 	soup = BeautifulSoup(html, "html.parser")
 	title = soup.find("h1")
 	if title:
-		page_title = "".join(t.get_text() for t in title)
+		page_title = title.get_text()
 		title.decompose()
 	else:
 		page_title = "Untitled"

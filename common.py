@@ -277,7 +277,7 @@ def pandoc(text: str) -> str:
 	# Note that there is a pandoc python library. It probably only wraps the
 	# pandoc binary, and we don't have complicated use cases for now, so we
 	# don't use it.
-	return command("pandoc", "--from=markdown", "--to=html", "--standalone=true", input=text).stdout
+	return command("pandoc", "--from=markdown", "--to=html", "--standalone", input=text).stdout
 
 CODE_HASH, CODE_DATE = command("git", "-C", DHARMA_HOME, "show", "--no-patch", "--format=%H %at", "HEAD").stdout.strip().split()
 CODE_DATE = int(CODE_DATE)
