@@ -262,7 +262,7 @@ def in_milestone_accepting(node):
 
 def fix_milestone_location(mile):
 	match mile.parent.name:
-		case "para" | "verse-line" | "item" | "key" | "value" | "quote" | "span":
+		case "para" | "verse-line" | "item" | "key" | "value" | "quote" | "span" | "link":
 			pass
 		case "summary" | "hand" | "edition" | "apparatus" \
 			| "translation" | "commentary" | "bibliography" | "div":
@@ -412,7 +412,9 @@ def shift_milestones_in_dlist(mile):
 def move_up_milestones(root: tree.Tag, milestones_ids):
 	assert isinstance(root, tree.Tag)
 	for node in list(root):
-		if not isinstance(node, tree.Tag) or node.name in ("npage", "nline", "ncell"):
+		if not isinstance(node, tree.Tag):
+			continue
+		if node.name in ("npage", "nline", "ncell"):
 			continue
 		move_up_milestones(node, milestones_ids)
 	if root.name not in ("span", "link"):
@@ -424,10 +426,17 @@ def move_up_milestones(root: tree.Tag, milestones_ids):
 	#	after:  foo <nline/><ncell/><span>bar</span> baz
 	#
 	# Idem for milestones at the end of the inline element.
-	while len(root) > 0 and id(root[0]) in milestones_ids:
-		root.insert_before(root[0])
-	while len(root) > 0 and id(root[-1]) in milestones_ids:
-		root.insert_after(root[-1])
+	i = 0
+	while i < len(root) and isinstance(root[i], tree.Tag) and root[i].name == "display":
+		i += 1
+	while len(root) > i and id(root[i]) in milestones_ids:
+		root.insert_before(root[i])
+	j = len(root)
+	while j > i and isinstance(root[j - 1], tree.Tag) and root[j - 1].name == "display":
+		j -= 1
+	while j > i and id(root[j - 1]) in milestones_ids:
+		root.insert_after(root[j - 1])
+		j -= 1
 
 def first_milestone_accepting_node(doc):
 	def inner(root):

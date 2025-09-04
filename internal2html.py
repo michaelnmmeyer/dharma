@@ -27,6 +27,12 @@ def render_page_line(self, node):
 	self.dispatch_children(node)
 	self.join()
 
+@handler("quote")
+def render_quote(self, node):
+	self.push(tree.Tag("blockquote"))
+	self.dispatch_children(node)
+	self.join()
+
 @handler("document")
 def render_document(self, node):
 	self.heading_level += 1
