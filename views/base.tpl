@@ -34,7 +34,7 @@
       <i class="fa-regular fa-file-lines"></i> Texts</a>
    </li>
    <li class="submenu">
-      <a>Conventions <i class="fa-solid fa-caret-down"></i></a>
+      <a href="#">Conventions <i class="fa-solid fa-caret-down"></i></a>
       <ul class="hidden">
          <li><a href="/editorial-conventions">Editorial Conventions</a></li>
          <li><a href="/prosody">Prosodic Patterns</a></li>
@@ -44,7 +44,7 @@
       <i class="fa-solid fa-grip-lines-vertical"></i> Parallels</a>
    </li>
    <li class="submenu">
-      <a>Project Internal <i class="fa-solid fa-caret-down"></i></a>
+      <a href="#">Project Internal <i class="fa-solid fa-caret-down"></i></a>
       <ul class="hidden">
          <li>
             <a href="{{url_for('show_texts_errors')}}">
@@ -56,6 +56,9 @@
          </li>
          <li>
             <a href="{{url_for('display_list')}}">Display List</a>
+         </li>
+         <li>
+            <a href="/languages">Languages</a>
          </li>
       </ul>
    </li>

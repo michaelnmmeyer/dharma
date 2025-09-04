@@ -1,5 +1,5 @@
 import logging
-from dharma import parse, texts, common, document
+from dharma import tree, texts, common, tei2internal, internal2html
 
 class Query:
 
@@ -37,37 +37,118 @@ def delete(name):
 	db.execute("delete from documents_index where name = ?", (name,))
 	db.execute("delete from documents where name = ?", (name,))
 
-def insert(file):
-	db = common.db("texts")
-	doc = parse.process_file(file, mode="catalog")
-	for key in ("title", "authors", "editors", "summary"):
-		val = getattr(doc, key, None)
-		if val is None:
-			val = parse.Block(val)
-			val.finish()
-			setattr(doc, key, val)
-	db.execute("""insert or replace into documents(name, repo, title,
-		authors, editors, editors_ids, langs, summary, html_path, status)
-		values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (doc.ident, doc.repository,
-			doc.title.render_logical() or None, doc.authors, doc.editors,
-			doc.editors_ids,
-			[lang.id for lang in doc.edition_langs], doc.summary.render_logical() or None,
-			file.html, file.status))
-	# No primary key on documents_index, so we cannot use "insert or replace"
-	db.execute("delete from documents_index where name = ?", (doc.ident,))
-	db.execute("""insert into documents_index(
-		name, ident, repo, title, author,
-		editor, editor_id, lang, summary)
-		values (?, ?, ?, ?, ?, ?, ?, ?, ?)""", (
-		doc.ident, doc.ident.lower(),
-		doc.repository.lower(), doc.title.searchable_text(),
-		common.normalize_text("|||".join(doc.authors)),
-		common.normalize_text("|||".join(doc.editors)),
-		common.normalize_text("|||".join(doc.editors_ids)),
-		"---".join(lang.id for lang in doc.edition_langs),
-		doc.summary.searchable_text()))
+def copy_node_contents(node):
+	assert isinstance(node, tree.Tag) or node is None
+	if node is None or node.empty:
+		return node
+	node = node.copy()
+	ret = node.tree
+	node.unwrap()
+	return ret
 
-# Rebuild the full catalog with the data already present in the db.
+def make_document_record(file, doc: tree.Tree):
+	rec = {}
+	rec["title"] = copy_node_contents(doc.first("/document/title"))
+	authors = []
+	for node in doc.find("/document/author"):
+		authors.append(node.text())
+	rec["authors"] = authors
+	langs = []
+	for node in doc.find("/document/edition-languages/language/identifier"):
+		langs.append(node.text())
+	if not langs:
+		langs = ["und"]
+	rec["langs"] = langs
+	editors = []
+	for node in doc.find("/document/editor/name"):
+		editors.append(node.text())
+	rec["editors"] = editors
+	editors_ids = []
+	for node in doc.find("/document/editor/identifier"):
+		editors_ids.append(node.text())
+	rec["editors_ids"] = editors_ids
+	rec["summary"] = copy_node_contents(doc.first("/document/summary"))
+	return rec
+
+def make_searchable_record(data):
+	rec = {}
+	rec["name"] = data["name"]
+	rec["ident"] = common.normalize_text(data["name"])
+	if (repo := data.get("repo")):
+		rec["repo"]= common.normalize_text(repo)
+	else:
+		rec["repo"] = None
+	if (title := data.get("title")):
+		rec["title"] = common.normalize_text(title.text())
+	else:
+		rec["title"] = None
+	if (authors := data.get("authors")):
+		rec["author"] = common.normalize_text("|".join(authors))
+	else:
+		rec["author"] = None
+	if (editors := data.get("editors")):
+		rec["editor"] = common.normalize_text("|".join(editors))
+	else:
+		rec["editor"] = None
+	if (editors_ids := data.get("editors_ids")):
+		rec["editor_id"] = common.normalize_text("|".join(editors_ids))
+	else:
+		rec["editor_id"] = None
+	if (langs := data.get("langs")):
+		rec["lang"] = common.normalize_text("|".join(langs))
+	else:
+		rec["lang"] = None
+	if (summary := data.get("summary")):
+		rec["summary"] = common.normalize_text(summary.text())
+	else:
+		rec["summary"] = None
+	return rec
+
+def insert(file: texts.File):
+	db = common.db("texts")
+	logging.info(f"processing {file!r}")
+	# XXX should store XML fields as such in the DB, not as HTML, because
+	# we need to be able to highlight them.
+	try:
+		doc = tei2internal.process_file(file)
+		data = make_document_record(file, doc.to_internal())
+		html_doc = doc.to_html()
+	except tree.Error:
+		data = {}
+		data["title"] = None
+		data["authors"] = []
+		data["langs"] = ["und"]
+		data["editors"] = []
+		data["editors_ids"] = []
+		data["summary"] = None
+		html_doc = internal2html.HTMLDocument()
+	data["name"] = file.name
+	data["repo"] = file.repo
+	data["html_path"] = file.html
+	data["status"] = file.status
+	search = make_searchable_record(data)
+	if html_doc and html_doc.title:
+		data["title"] = html_doc.title.html()
+	if html_doc and html_doc.summary:
+		data["summary"] = html_doc.summary.html()
+	db.execute("""
+	insert or replace into documents(name, repo, title, authors, editors,
+		editors_ids, langs, summary, html_path, status)
+	values (:name, :repo, :title, :authors, :editors, :editors_ids, :langs,
+	    	:summary, :html_path, :status)""", data)
+	# We cannot have a primary key on documents_index (because fts virtual
+	# tables do not support this), so we cannot use "insert or replace" and
+	# must instead do a delete followed by an insert.
+	db.execute("delete from documents_index where name = ?", (file.name,))
+	db.execute("""
+	insert into documents_index(name, ident, repo, title, author, editor,
+		editor_id, lang, summary)
+	values (:name, :ident, :repo, :title, :author, :editor,
+		:editor_id, :lang, :summary)""", search)
+
+# Rebuild the full catalog with the data already present in the db, i.e. without
+# fetching files from github repos but instead from the db. This should be used
+# after modifications to the processing code.
 def rebuild():
 	logging.info("rebuilding the catalog")
 	db = common.db("texts")
@@ -163,13 +244,14 @@ def patch_languages(q):
 			clause.query = "" # prevent matching
 
 def construct_query(q):
-	q = " ".join(document.normalize(t) for t in q.split()
+	q = " ".join(common.normalize_text(t) for t in q.split()
 		if t not in ("AND", "OR", "NOT"))
 	if q:
 		q = parse_query(q)
 		patch_languages(q)
 		return str(q)
 
+# Number of catalog entries per page for the display at /texts
 PER_PAGE = 50
 
 @common.transaction("texts")

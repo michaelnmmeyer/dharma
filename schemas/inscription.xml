@@ -1976,7 +1976,17 @@
                         <attDef ident="n" mode="delete"/>
                         <attDef ident="next" mode="delete"/>
                         <attDef ident="prev" mode="delete"/>
-                        <attDef ident="rend" mode="delete"/>
+                        <attDef ident="rend" mode="change" usage="opt">
+                            <defaultVal>italics</defaultVal>
+                            <valList type="closed" mode="replace">
+                                <valItem ident="italics">
+                                    <desc>display in italics</desc>
+                                </valItem>
+                                <valItem ident="roman">
+                                    <desc>display in a Roman typeface</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
                         <attDef ident="rendition" mode="delete"/>
                         <attDef ident="resp" mode="delete"/>
                         <attDef ident="sameAs" mode="delete"/>
@@ -2532,6 +2542,7 @@
                                 <valItem ident="sragdharā"/>
                                 <valItem ident="uncertain"/>
                                 <valItem ident="mixed"/>
+                                <valItem ident="free"/>
                             </valList>
                         </attDef>
                         <attDef ident="real" mode="change">
@@ -2743,6 +2754,7 @@
                                 <valItem ident="vañcippā"/>
                                 <valItem ident="maruṭpā"/>
                                 <valItem ident="mixed"/>
+                                <valItem ident="free"/>
                             </valList>
                         </attDef>
                         <attDef ident="n" mode="change" usage="opt">
@@ -4180,6 +4192,7 @@
                                 <valItem ident="suvadanā"/>
                                 <valItem ident="sragdharā"/>
                                 <valItem ident="uncertain"/>
+                                <valItem ident="free"/>
                             </valList>
                         </attDef>
                         <attDef ident="subtype" mode="change">

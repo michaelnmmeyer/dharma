@@ -2,9 +2,6 @@
 # https://www.w3.org/TR/1999/REC-xpath-19991116
 # https://github.com/we-like-parsers/pegen
 # https://we-like-parsers.github.io/pegen
-#
-# TODO can in fact use the entry point we want in the generated parser, so
-# that for supporting match patterns
 
 @subheader'''
 def assign(obj, **kwargs):
@@ -97,10 +94,13 @@ AxisName:
 	| "descendant-or-self"
 	| "descendant"
 	| "following-sibling"
+	| "following"
 	| "parent"
 	| "preceding-sibling"
+	| "preceding"
 	| "self"
 	| "stuck-child"
+	| "stuck-parent"
 	| "stuck-following-sibling"
 	| "stuck-preceding-sibling"
 

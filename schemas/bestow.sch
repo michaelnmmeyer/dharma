@@ -19,6 +19,7 @@
       <xsl:value-of select="document-uri(/)"/>
    </xsl:variable>
    <!--PHASES-->
+
    <!--PROLOG-->
    <xsl:output xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                method="xml"
@@ -26,8 +27,11 @@
                standalone="yes"
                indent="yes"/>
    <!--XSD TYPES FOR XSLT2-->
+
    <!--KEYS AND FUNCTIONS-->
+
    <!--DEFAULT RULES-->
+
    <!--MODE: SCHEMATRON-SELECT-FULL-PATH-->
    <!--This mode can be used to generate an ugly though full XPath for locators-->
    <xsl:template match="*" mode="schematron-select-full-path">
@@ -691,6 +695,7 @@
    <!--SCHEMATRON PATTERNS-->
    <svrl:text xmlns:svrl="http://purl.oclc.org/dsdl/svrl">ISO Schematron rules</svrl:text>
    <!--PATTERN schematron-constraint-dharma-att.datable.w3c-att-datable-w3c-when-1-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@when]" priority="1000" mode="M5">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@when]"/>
@@ -712,6 +717,7 @@
       <xsl:apply-templates select="*" mode="M5"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-att.datable.w3c-att-datable-w3c-from-2-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@from]" priority="1000" mode="M6">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@from]"/>
@@ -732,6 +738,7 @@
       <xsl:apply-templates select="*" mode="M6"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-att.datable.w3c-att-datable-w3c-to-3-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@to]" priority="1000" mode="M7">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@to]"/>
@@ -752,6 +759,7 @@
       <xsl:apply-templates select="*" mode="M7"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-att.datable-calendar-calendar-4-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@calendar]" priority="1000" mode="M8">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
@@ -778,6 +786,7 @@
       <xsl:apply-templates select="*" mode="M8"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-att.measurement-att-measurement-unitRef-5-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@unitRef]" priority="1000" mode="M9">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@unitRef]"/>
@@ -798,6 +807,7 @@
       <xsl:apply-templates select="*" mode="M9"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-att.typed-subtypeTyped-6-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@subtype]" priority="1000" mode="M10">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@subtype]"/>
@@ -822,6 +832,7 @@
       <xsl:apply-templates select="*" mode="M10"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-att.pointing-targetLang-targetLang-7-->
+
    <!--RULE -->
    <xsl:template match="tei:*[not(self::tei:schemaSpec)][@targetLang]"
                  priority="1000"
@@ -849,6 +860,7 @@
       <xsl:apply-templates select="*" mode="M11"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-att.spanning-spanTo-spanTo-2-8-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@spanTo]" priority="1000" mode="M12">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@spanTo]"/>
@@ -878,6 +890,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M12"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-att.styleDef-schemeVersion-schemeVersionRequiresScheme-9-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@schemeVersion]" priority="1000" mode="M13">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@schemeVersion]"/>
@@ -903,6 +916,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M13"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-p-p-10-->
+
    <!--RULE -->
    <xsl:template match="tei:p" priority="1000" mode="M14">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:p"/>
@@ -923,6 +937,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M14"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-p-abstractModel-structure-p-11-->
+
    <!--RULE -->
    <xsl:template match="tei:p" priority="1000" mode="M15">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:p"/>
@@ -945,6 +960,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M15"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-p-abstractModel-structure-l-12-->
+
    <!--RULE -->
    <xsl:template match="tei:p" priority="1000" mode="M16">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:p"/>
@@ -967,6 +983,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M16"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-desc-deprecationInfo-only-in-deprecated-13-->
+
    <!--RULE -->
    <xsl:template match="tei:desc[ @type eq 'deprecationInfo']"
                  priority="1000"
@@ -996,6 +1013,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M17"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-choice-unclear-limit-14-->
+
    <!--RULE -->
    <xsl:template match="tei:choice" priority="1000" mode="M18">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:choice"/>
@@ -1018,6 +1036,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M18"/>
    </xsl:template>
    <!--PATTERN isoschematron-constraint-dharma-gap-gap-15-->
+
    <!--RULE -->
    <xsl:template match="tei:gap" priority="1003" mode="M19">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:gap"/>
@@ -1142,6 +1161,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M19"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-rs-rs-rules-16-->
+
    <!--RULE -->
    <xsl:template match="tei:rs[@type='month']" priority="1012" mode="M20">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rs[@type='month']"/>
@@ -1402,6 +1422,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M20"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-num-valeur-or-interval-17-->
+
    <!--RULE -->
    <xsl:template match="tei:num" priority="1000" mode="M21">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:num"/>
@@ -1445,6 +1466,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M21"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-date-attributes-18-->
+
    <!--RULE -->
    <xsl:template match="tei:date[not(parent::tei:bibl)][@notBefore-custom or @notAfter-custom]"
                  priority="1004"
@@ -1552,6 +1574,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M22"/>
    </xsl:template>
    <!--PATTERN isoschematron-constraint-dharma-expan-expan-19-->
+
    <!--RULE -->
    <xsl:template match="tei:expan" priority="1000" mode="M23">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:expan"/>
@@ -1572,6 +1595,7 @@ The element indicated by @spanTo (<xsl:text/>
       <xsl:apply-templates select="*" mode="M23"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-ptr-ptrAtts-20-->
+
    <!--RULE -->
    <xsl:template match="tei:ptr" priority="1000" mode="M24">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ptr"/>
@@ -1594,6 +1618,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M24"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-ref-refAtts-21-->
+
    <!--RULE -->
    <xsl:template match="tei:ref" priority="1000" mode="M25">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ref"/>
@@ -1617,6 +1642,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M25"/>
    </xsl:template>
    <!--PATTERN isoschematron-constraint-dharma-list-lists-22-->
+
    <!--RULE -->
    <xsl:template match="tei:list" priority="1000" mode="M26">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:list"/>
@@ -1639,6 +1665,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M26"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-list-gloss-list-must-have-labels-23-->
+
    <!--RULE -->
    <xsl:template match="tei:list[@type='gloss']" priority="1000" mode="M27">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -1662,6 +1689,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M27"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-head-head-childs-24-->
+
    <!--RULE -->
    <xsl:template match="tei:head/child::tei:*" priority="1000" mode="M28">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:head/child::tei:*"/>
@@ -1686,6 +1714,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M28"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-note-note-25-->
+
    <!--RULE -->
    <xsl:template match="tei:note" priority="1002" mode="M29">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:note"/>
@@ -1741,6 +1770,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M29"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-milestone-att-unit-n-26-->
+
    <!--RULE -->
    <xsl:template match="tei:milestone" priority="1004" mode="M30">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:milestone"/>
@@ -1839,6 +1869,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M30"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-citedRange-note-27-->
+
    <!--RULE -->
    <xsl:template match="tei:citedRange" priority="1000" mode="M31">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:citedRange"/>
@@ -1861,6 +1892,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M31"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-bibl-siglum-28-->
+
    <!--RULE -->
    <xsl:template match="tei:bibl[ancestor::tei:listBibl]" priority="1001" mode="M32">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -1901,6 +1933,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M32"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-l-mixed-verse-29-->
+
    <!--RULE -->
    <xsl:template match="tei:l[parent::tei:lg[@met='mixed']]"
                  priority="1000"
@@ -1927,6 +1960,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M33"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-l-abstractModel-structure-l-30-->
+
    <!--RULE -->
    <xsl:template match="tei:l" priority="1000" mode="M34">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:l"/>
@@ -1949,6 +1983,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M34"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-lg-atleast1oflggapl-31-->
+
    <!--RULE -->
    <xsl:template match="tei:lg" priority="1000" mode="M35">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:lg"/>
@@ -1973,6 +2008,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M35"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-lg-abstractModel-structure-l-32-->
+
    <!--RULE -->
    <xsl:template match="tei:lg" priority="1000" mode="M36">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:lg"/>
@@ -1995,6 +2031,7 @@ attributes @target and @cRef may be supplied on <xsl:text/>
       <xsl:apply-templates select="*" mode="M36"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-quotation-quotationContents-33-->
+
    <!--RULE -->
    <xsl:template match="tei:quotation" priority="1000" mode="M37">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:quotation"/>
@@ -2018,6 +2055,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M37"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-change-responsability-34-->
+
    <!--RULE -->
    <xsl:template match="@who" priority="1000" mode="M38">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="@who"/>
@@ -2041,6 +2079,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M38"/>
    </xsl:template>
    <!--PATTERN isoschematron-constraint-dharma-div-div-37-->
+
    <!--RULE -->
    <xsl:template match="tei:div" priority="1000" mode="M39">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
@@ -2051,6 +2090,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M39"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-div-abstractModel-structure-l-38-->
+
    <!--RULE -->
    <xsl:template match="tei:div" priority="1000" mode="M40">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
@@ -2072,6 +2112,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M40"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-div-abstractModel-structure-p-39-->
+
    <!--RULE -->
    <xsl:template match="tei:div" priority="1000" mode="M41">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
@@ -2094,6 +2135,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M41"/>
    </xsl:template>
    <!--PATTERN isoschematron-constraint-dharma-ex-ex-40-->
+
    <!--RULE -->
    <xsl:template match="tei:ex" priority="1000" mode="M42">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ex"/>
@@ -2124,6 +2166,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M42"/>
    </xsl:template>
    <!--PATTERN isoschematron-constraint-dharma-am-ex-42-->
+
    <!--RULE -->
    <xsl:template match="tei:am" priority="1000" mode="M44">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:am"/>
@@ -2144,6 +2187,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M44"/>
    </xsl:template>
    <!--PATTERN isoschematron-constraint-dharma-space-space-43-->
+
    <!--RULE -->
    <xsl:template match="tei:space" priority="1002" mode="M45">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:space"/>
@@ -2200,6 +2244,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M45"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-subst-substContents1-44-->
+
    <!--RULE -->
    <xsl:template match="tei:subst" priority="1000" mode="M46">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:subst"/>
@@ -2226,6 +2271,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M46"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-certainty-usage-certainty-45-->
+
    <!--RULE -->
    <xsl:template match="tei:certainty" priority="1003" mode="M47">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:certainty"/>
@@ -2301,6 +2347,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M47"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-ab-abstractModel-structure-ab-46-->
+
    <!--RULE -->
    <xsl:template match="tei:ab" priority="1000" mode="M48">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ab"/>
@@ -2323,6 +2370,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M48"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-ab-abstractModel-structure-l-47-->
+
    <!--RULE -->
    <xsl:template match="tei:ab" priority="1000" mode="M49">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ab"/>
@@ -2345,6 +2393,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M49"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-seg-att-type-subtype-48-->
+
    <!--RULE -->
    <xsl:template match="tei:seg" priority="1000" mode="M50">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:seg"/>
@@ -2388,6 +2437,7 @@ On <xsl:text/>
       <xsl:apply-templates select="*" mode="M50"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-dimensions-duplicateDim-49-->
+
    <!--RULE -->
    <xsl:template match="tei:dimensions" priority="1000" mode="M51">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:dimensions"/>
@@ -2437,6 +2487,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M51"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-origDate-origDate-50-->
+
    <!--RULE -->
    <xsl:template match="tei:origDate[ancestor::tei:teiHeader]"
                  priority="1000"
@@ -2463,6 +2514,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M52"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-signatures-signatures_in_msDesc-51-->
+
    <!--RULE -->
    <xsl:template match="tei:signatures" priority="1000" mode="M53">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:signatures"/>
@@ -2488,6 +2540,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M53"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-msIdentifier-msId_minimal-52-->
+
    <!--RULE -->
    <xsl:template match="tei:msIdentifier" priority="1000" mode="M54">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:msIdentifier"/>
@@ -2508,6 +2561,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M54"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-persName-reference-53-->
+
    <!--RULE -->
    <xsl:template match="tei:persName/@ref[ancestor::tei:teiHeader]"
                  priority="1000"
@@ -2535,6 +2589,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M55"/>
    </xsl:template>
    <!--PATTERN isoschematron-constraint-dharma-placeName-div-54-->
+
    <!--RULE -->
    <xsl:template match="tei:placeName[@type='region']" priority="1006" mode="M56">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -2690,6 +2745,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M56"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-objectIdentifier-objectIdentifier_minimal-55-->
+
    <!--RULE -->
    <xsl:template match="tei:objectIdentifier" priority="1000" mode="M57">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:objectIdentifier"/>
@@ -2709,6 +2765,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M57"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-app-one-lem-56-->
+
    <!--RULE -->
    <xsl:template match="tei:app" priority="1000" mode="M58">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:app"/>
@@ -2741,6 +2798,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M58"/>
    </xsl:template>
    <!--PATTERN isoschematron-constraint-dharma-listApp-div-57-->
+
    <!--RULE -->
    <xsl:template match="tei:listApp" priority="1000" mode="M59">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:listApp"/>
@@ -2765,6 +2823,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M59"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-lem-exclusion-inside-lem-58-->
+
    <!--RULE -->
    <xsl:template match="tei:lem" priority="1000" mode="M60">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:lem"/>
@@ -2814,6 +2873,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M60"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-rdg-exclusion-inside-lem-59-->
+
    <!--RULE -->
    <xsl:template match="tei:rdg" priority="1000" mode="M61">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rdg"/>
@@ -2864,6 +2924,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M61"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-rdgGrp-only1lem-60-->
+
    <!--RULE -->
    <xsl:template match="tei:rdgGrp" priority="1000" mode="M62">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rdgGrp"/>
@@ -2886,6 +2947,7 @@ The element <xsl:text/>
       <xsl:apply-templates select="*" mode="M62"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-dharma-variantEncoding-location-variantEncodingLocation-61-->
+
    <!--RULE -->
    <xsl:template match="tei:variantEncoding" priority="1000" mode="M63">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:variantEncoding"/>

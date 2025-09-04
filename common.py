@@ -115,6 +115,7 @@ def normalize_space(s):
 	s = s.strip()
 	return re.sub(r"\s+", " ", s)
 
+# Turns some object (strings, list of strings or None) into a searchable string.
 def normalize_text(s):
 	if s is None:
 		s = ""
@@ -176,7 +177,7 @@ def jaccard(s1, s2):
 		return 0
 
 def read_only_db():
-	if os.path.basename(sys.argv[0]) in ("change.py", "repos.py", "langs.py", "biblio.py"):
+	if os.path.basename(sys.argv[0]) in ("change.py", "repos.py", "langs.py", "prosody.py", "biblio.py"):
 		return False
 	return True
 
@@ -239,9 +240,22 @@ sqlite3.register_adapter(list, to_json)
 sqlite3.register_adapter(dict, to_json)
 
 def append_unique(items, item):
+	"In-place"
 	if item in items:
 		return
 	items.append(item)
+	return items
+
+def unique(items):
+	"In-place"
+	seen = set()
+	i = 0
+	while i < len(items):
+		if items[i] in seen:
+			del items[i]
+		else:
+			seen.add(items[i])
+			i += 1
 	return items
 
 def command(*cmd, **kwargs):
@@ -258,17 +272,18 @@ def command(*cmd, **kwargs):
 		raise
 	return ret
 
-# Note that there is a pandoc python library. It probably only wraps the pandoc
-# binary, and we don't have complicated use cases for now, so we don't use it.
-def pandoc(text):
-	return command("pandoc", "-fmarkdown", "-thtml", input=text).stdout
+def pandoc(text: str) -> str:
+	"Markdown to HTML conversion."
+	# Note that there is a pandoc python library. It probably only wraps the
+	# pandoc binary, and we don't have complicated use cases for now, so we
+	# don't use it.
+	return command("pandoc", "--from=markdown", "--to=html", "--standalone=true", input=text).stdout
 
-CODE_HASH, CODE_DATE = command("git", "show", "--no-patch", "--format=%H %at",
-	"HEAD").stdout.strip().split()
+CODE_HASH, CODE_DATE = command("git", "-C", DHARMA_HOME, "show", "--no-patch", "--format=%H %at", "HEAD").stdout.strip().split()
 CODE_DATE = int(CODE_DATE)
 
 def normalize_url(url):
-	url = url.rstrip("/") # XXX might not work for some websites
+	url = url.rstrip("/") or "/" # XXX might not work for some websites
 	# XXX too slow to do live, should use a cache
 	return url
 	ret = urlparse(url)
@@ -326,7 +341,10 @@ def sentence_case(s):
 	t[0] = t[0].capitalize()
 	return " ".join(t)
 
-def to_boolean(s, dflt):
+def from_boolean(obj):
+	return obj and "true" or "false"
+
+def to_boolean(s, dflt=None):
 	match s.lower():
 		case "true" | "yes" | "on" | "1":
 			return True

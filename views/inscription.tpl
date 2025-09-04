@@ -2,7 +2,7 @@
 
 % block title
 % if doc.title:
-   {{doc.title.render_logical() | safe}}
+   {{doc.title.html() | safe}}
 % else:
    <i>Untitled</i>
 % endif
@@ -13,13 +13,15 @@
 <label>Source view
    <input id="toggle-xml-display" type="checkbox">
 </label>
-% if row:
+% if github_download_url or static_website_url:
 <div class="toc-heading">External Links</div>
 <nav>
 <ul>
-<li><a href="{{row['github_download_url']}}"><i class="fa-solid fa-code"></i> XML File</a></li>
-% if row['static_website_url']:
-<li><a href="{{row['static_website_url']}}">🦕 Old Display</a></li>
+% if github_download_url:
+<li><a href="{{github_download_url}}"><i class="fa-solid fa-code"></i> XML File</a></li>
+% endif
+% if static_website_url:
+<li><a href="{{static_website_url}}">🦕 Old Display</a></li>
 % endif
 </ul>
 </nav>
@@ -27,133 +29,74 @@
 % endblock
 
 % block body
+
 <div id="inscription-display">
 
-<p>
-{{numberize("Editor", (doc.editors | length))}}:
-% for ed in doc.editors[:-1]:
-   {{ed | safe}},
-% endfor
 % if doc.editors:
-   {{doc.editors[-1] | safe}}.
-% else:
-   <i>Anonymous editor</i>.
-% endif
-</p>
+<div class="metadata-item">
 <p>
-Identifier: <span class="text-id">{{text}}</span>.
+{{numberize("Author", (doc.editors | length))}} of digital edition:
+% for editor_ident, editor_name in doc.editors:
+   {{editor_name.html() | safe}}{% if editor_ident %}
+   (<a href="/people/{{editor_ident.text()}}" class="monospace">{{editor_ident.html() | safe}}</a>){% endif %}{% if loop.index < loop.length %},{% else %}.{% endif %}
+% endfor
 </p>
-% if doc.summary:
-<p>Summary: {{doc.summary.render_full() | safe}}</p>
-% endif
-% if doc.hand_desc:
-<p>Hand description:</p>
-<div>
-{{doc.hand_desc.render_full() | safe}}
 </div>
 % endif
 
-% if doc.edition_langs:
-<p>{{numberize("Language", len(doc.edition_langs))}}:
-   % for lang in doc.edition_langs:
-      % if loop.index < loop.length:
-         {{lang}},
-      % else:
-         {{lang}}.
-      % endif
+% if doc.summary:
+<div class="metadata-item">
+{{doc.summary.html() | safe}}
+</div>
+% endif
+
+% if doc.hand:
+<div class="metadata-item">
+{{doc.hand.html() | safe}}
+</div>
+% endif
+
+% if doc.edition_languages:
+<div class="metadata-item">
+<p>{{numberize("Language", len(doc.edition_languages))}}:
+   % for lang_ident, lang_name in doc.edition_languages:
+      {{lang_name.html() | safe}}
+      (<a href="/languages/{{lang_ident.text()}}" class="monospace">{{lang_ident.html() | safe}}</a>){% if loop.index < loop.length %},{% else %}.{% endif %}
    % endfor
 </p>
+</div>
 % endif
 
 % if doc.repository:
-<p>Repository: {{repo_title}} (<span class="repo-id">{{doc.repository}}</span>).</p>
+<div class="metadata-item">
+% if doc.repository.name and doc.repository.identifier:
+<p>Repository: {{doc.repository.name.html() | safe}} (<a class="repo-id" href="/repositories/{{doc.repository.identifier.text()}}">{{doc.repository.identifier.html() | safe}}</a>).</p>
+% elif doc.repository.name:
+<p>Repository: {{doc.repository.name.html() | safe}}.</p>
+% elif doc.repository.identifier:
+<p>Repository: <a class="repo-id" href="/repositories/{{doc.repository.identifier.text()}}">{{doc.repository.identifier.html() | safe}}</a>.</p>
+% endif
+</div>
 % endif
 
-% if doc.commit_date:
+% if doc.identifier:
+<div class="metadata-item">
+<p>Identifier: <span class="text-id">{{doc.identifier.html() | safe}}</span>.</p>
+</div>
+% endif
+
+% if commit_date:
 <p>
-Version: {{doc.commit_date | format_date}}
-(<a href="{{github_commit_url}}">{{doc.commit_hash | format_commit_hash}}</a>), last modified
-{{doc.last_modified | format_date}} (<a href="{{github_last_modified_commit_url}}">{{doc.last_modified_commit | format_commit_hash}}</a>).
+Version: {{commit_date | format_date}}
+(<a href="{{github_commit_url}}">{{commit_hash | format_commit_hash}}</a>), last modified
+{{last_modified | format_date}} (<a href="{{github_last_modified_commit_url}}">{{last_modified_commit | format_commit_hash}}</a>).
 </p>
 % endif
 
-% if not doc.valid:
-<h2>🐛 Invalid inscription</h2>
-% endif
+{{doc.body.html() | safe}}
 
-% if doc.edition:
-<div class="edition">
+</div>{# id="inscription-display" #}
 
-<h2 id="edition">Edition</h2>
-
-<ul class="ed-tabs">
-   <li id="logical-btn" class="active"><a href="#ed">Logical</a></li>
-   <li id="physical-btn"><a href="#ed">Physical</a></li>
-   <li id="full-btn"><a href="#ed">Full</a></li>
-</ul>
-
-<div class="logical" id="logical" data-display="logical">
-{{doc.edition.render_logical() | safe}}
-</div>
-
-<div class="physical hidden" id="physical" data-display="physical">
-{{doc.edition.render_physical() | safe}}
-</div>
-
-<div class="full hidden" id="full" data-display="full">
-{{doc.edition.render_full() | safe}}
-</div>
-
-</div> <!-- <div class="ed"> -->
-% endif
-
-% if doc.apparatus:
-<div class="apparatus">
-   <h2 id="apparatus" class="collapsible">
-      Apparatus <i class="fa-solid fa-angles-down"></i>
-   </h2>
-   <div class="collapsible-content">
-   {{doc.apparatus.render_full() | safe}}
-   </div>
-</div>
-% endif
-
-% for trans in doc.translation:
-<div class="translation">
-<h2 id="translation-{{loop.index}}">{{trans.title | safe}}</h2>
-{{trans.render_full() | safe}}
-</div>
-% endfor
-
-% if doc.commentary:
-<div class="commentary">
-<h2 id="commentary">Commentary</h2>
-{{doc.commentary.render_full() | safe}}
-</div>
-% endif
-
-% if doc.bibliography:
-<div class="bibliography">
-<h2 id="bibliography">Bibliography</h2>
-{{doc.bibliography.render_full() | safe}}
-</div>
-% endif
-
-% if doc.notes:
-<div class="notes">
-<h2 id="notes">Notes</h2>
-<ol>
-% for note in doc.notes:
-<li class="note" id="note-{{loop.index}}">
-<a class="note-ref" href="#note-ref-{{loop.index}}">{{loop.index}}.</a>
-{{note.render_full() | safe}}
-</li>
-% endfor
-</ol>
-</div>
-% endif
-
-</div><!-- id="inscription-display" -->
 <div class="hidden" id="inscription-source">
 <fieldset>
 <legend>Display Options</legend>
@@ -171,7 +114,8 @@ Version: {{doc.commit_date | format_date}}
 	</label>
 </fieldset>
 <div id="xml" class="xml xml-wrap xml-line-nos">
-{{doc.xml | safe}}
+{{highlighted_xml | safe}}
 </div>
 </div>
-% endblock
+
+% endblock body

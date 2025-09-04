@@ -27,7 +27,7 @@ of
 </div>
 
 % for entry in entries:
-   {{entry | safe}}
+   {{entry.html() | safe}}
 % endfor
 
 <div class="pagination">

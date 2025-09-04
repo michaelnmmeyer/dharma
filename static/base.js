@@ -50,7 +50,8 @@ class Submenu {
 		this.visible = false
 		this.button = node.querySelector("a")
 		this.icon = this.button.querySelector("i")
-		this.button.addEventListener("click", () => {
+		this.button.addEventListener("click", (event) => {
+			event.preventDefault()
 			this.toggle()
 		}, false)
 		this.cleanup = null
@@ -251,6 +252,8 @@ function highlightFragment(node) {
 }
 
 function handleClick(event) {
+	// Don't do anything special if the URL points to a different page.
+	// We only care about fragments here.
 	if (!this.href)
 		return
 	let url = new URL(this.href)
@@ -263,6 +266,15 @@ function handleClick(event) {
 	let target = document.querySelector(url.hash)
 	if (!target)
 		return
+	// If the thing is hidden, make it visible.
+	// XXX BUG when making visible collapsible stuff like the apparatus, need to toggle the button accordingly
+	let node = target
+	while (!node.checkVisibility()) {
+		node = node.parentElement
+		if (!node)
+			break
+		node.classList.remove("hidden")
+	}
 	event.preventDefault()
 	target.scrollIntoView()
 	highlightFragment(target)
@@ -275,8 +287,14 @@ function initFlashing() {
 		// Assume in seconds
 		flashDuration *= 1000
 	}
-	for (let node of document.querySelectorAll("a"))
+	// Annotate invalid links viz. links that don't have a target. Only do
+	// this in the sidebar and in the menu (we use links without href in the
+	// menu)
+	for (let node of document.querySelectorAll("main a, #sidebar a")) {
 		node.addEventListener("click", handleClick)
+		if (!node.getAttribute("href"))
+			node.classList.add("invalid")
+	}
 	let frag = window.location.hash
 	if (!frag)
 		return
@@ -298,9 +316,11 @@ function popTOCStack(stack, level) {
 }
 
 function makeTOC() {
-	let headings = document.body.querySelectorAll("h2, h3, h4, h5")
+	let headings = document.body.querySelectorAll("h2, h3, h4, h5, h6")
 	let stack = [{"children": []}]
 	for (let heading of headings) {
+		if (heading.classList.contains("skip-toc"))
+			continue
 		let level = parseInt(heading.tagName.substring(1))
 		popTOCStack(stack, level)
 		while (stack.length < level - 1)
@@ -328,7 +348,7 @@ function TOCEntryToHTML(entry, root) {
 		link.setAttribute("href", "#" + target)
 		link.innerHTML = heading.innerHTML
 		// Prevent the button for collapsing the apparatus from
-		// appearing in the TOC
+		// appearing in the TOC in the sidebar.
 		icon = link.querySelector("i")
 		if (icon)
 			icon.remove()
@@ -373,8 +393,8 @@ function displayTOC() {
 	TOCEntryToHTML(root, toc)
 }
 
-let displays = ["logical", "physical", "full"]
-let currentDisplay = "logical"
+let displays = ["physical", "logical", "full"]
+let currentDisplay = "physical"
 
 function displayButton(name) {
 	return document.querySelector("#" + name + "-btn")
@@ -398,6 +418,29 @@ function switchDisplayTo(name) {
 	currentDisplay = name
 }
 
+// Handle clicks on a footnote number in the footnote area at the bottom of the
+// page. They should scroll up the page to the footnote mark.
+//
+// We modify the @href dynamically because, since we have three displays, each
+// footnote mark in the edition appears three times. Footnote marks outside of
+// the edition have an @id of the form "note-ref-$n", where $n is the footnote
+// number; footnote marks within the edition have the form
+// "note-ref-$n-$display", where $display is one of "physical", "logical",
+// "full".
+function handleNoteBackLink(event) {
+	let n = this.getAttribute("data-note-n")
+	let anchor = "#note-ref-" + n
+	let target = document.querySelector(anchor)
+	if (!target) {
+		anchor += "-" + currentDisplay
+		target = document.querySelector(anchor)
+		if (!target)
+			return
+	}
+	this.href = anchor
+	// And let the next handler deal with scrolling.
+}
+
 function initDisplays() {
 	for (let name of displays) {
 		let button = displayButton(name)
@@ -408,6 +451,10 @@ function initDisplays() {
 			event.preventDefault()
 		})
 	}
+	// And prepare to patch notes backlinks (from the footnote to the
+	// text body)
+	for (let node of document.querySelectorAll(".note-ref"))
+		node.addEventListener("click", handleNoteBackLink)
 }
 
 // Localize <time> nodes. The node initially contains the date in the server's
@@ -429,9 +476,15 @@ function localizeDates() {
 }
 
 function prepareCollapsible() {
-	for (let node of document.querySelectorAll(".collapsible")) {
-		let content = node.nextElementSibling;
-		let icon = node.querySelector("i")
+	for (let head of document.querySelectorAll(".collapsible")) {
+		// The next sibling should be a div and contain the stuff to
+		// make visible or not.
+		let content = head.nextElementSibling
+		// Add a button after the heading for folding up/down.
+		let icon = document.createElement("i")
+		icon.classList.add("fa-solid", "fa-angles-down")
+		head.append(" ", icon)
+		// And handle clicks.
 		icon.addEventListener("click", function () {
 			if (content.classList.toggle("hidden")) {
 				icon.classList.remove("fa-angles-down")
@@ -457,14 +510,42 @@ function initDisplayOptions() {
 		let display = document.querySelector("#inscription-display")
 		let source = document.querySelector("#inscription-source")
 		let toc = document.querySelector("#toc")
-		display.classList.toggle("hidden")
-		source.classList.toggle("hidden")
-		toc.classList.toggle("hidden")
+		if (display)
+			display.classList.toggle("hidden")
+		if (source)
+			source.classList.toggle("hidden")
+		if (toc)
+			toc.classList.toggle("hidden")
 	})
+}
+
+function getConfigInt(key, dflt) {
+	let val = localStorage.getItem(key)
+	if (!val) {
+		val = parseInt(val)
+		if (!isNaN(val))
+			return val
+	}
+	return dflt
+}
+
+function initNumberedVerses() {
+	let minLines = getConfigInt("verses-numbered-min-lines", 5)
+	let step = getConfigInt("verses-numbered-step", 5)
+	for (let node of document.querySelectorAll(".verse-lines")) {
+		let children = node.querySelectorAll(":scope > .verse-line")
+		if (children.length < minLines)
+			continue
+		node.classList.add("verse-lines-numbered")
+		for (let i = 1; i <= children.length; i++)
+			if (i == 1 || i % step == 0)
+				children[i - 1].classList.add("verse-line-numbered")
+	}
 }
 
 window.addEventListener("load", function () {
 	localizeDates()
+	initNumberedVerses()
 	prepareTips()
 	displayTOC()
 	initDisplays()

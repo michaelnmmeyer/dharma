@@ -1,4 +1,4 @@
-schemas = $(addprefix schemas/,inscription bestow critical diplomatic prosody tei-epidoc)
+schemas = $(addprefix schemas/,inscription bestow prosody tei-epidoc critical)
 
 generated_tei = \
 	$(addsuffix .rng,$(schemas)) \
@@ -9,7 +9,7 @@ generated_views = $(patsubst %.md,%.tpl,$(wildcard views/*.md))
 generated_parsers = $(patsubst %.g,%.py,$(wildcard *.g))
 generated = $(generated_tei) $(generated_views) $(generated_parsers)
 
-all: $(generated) static/base.css tree.md schema_doc.html
+all: $(generated) static/base.css
 
 clean:
 	rm -f $(generated)
@@ -69,14 +69,19 @@ stop:
 status:
 	sudo systemctl status 'dharma.*'
 
-.PHONY: start-all stop-all start stop status
+follow:
+	sudo journalctl -fu 'dharma.change'
+
+.PHONY: start-all stop-all start stop status follow
 
 update-repos:
 	@for d in repos/*; do \
 		echo "% $$(basename $$d)"; \
-		git -C $$d reset -q --hard HEAD; \
 		git -C $$d pull -q; \
 	done
+
+update-db:
+	rsync --progress dharma:dbs/texts.sqlite dharma:dbs/texts.sqlite-wal dbs/
 
 update-texts:
 	mkdir -p texts
@@ -89,9 +94,8 @@ update-texts:
 deploy-schemas: $(addsuffix .xml,$(schemas)) $(addsuffix .rng,$(schemas))
 	cp schemas/inscription.rng repos/project-documentation/schema/latest/DHARMA_Schema.rng
 	cp schemas/bestow.rng repos/project-documentation/schema/latest/DHARMA_BESTOW.rng
-	cp schemas/critical.rng repos/project-documentation/schema/latest/DHARMA_CritEdSchema.rng
-	cp schemas/diplomatic.rng repos/project-documentation/schema/latest/DHARMA_DiplEDSchema.rng
 	cp schemas/prosody.rng repos/project-documentation/schema/latest/DHARMA_ProsodySchema.rng
+	cp schemas/critical.rng repos/project-documentation/schema/latest/DHARMA_CritEdSchema.rng
 	git -C repos/project-documentation commit -am "Schema update" && git -C repos/project-documentation pull && git -C repos/project-documentation push
 
 missing-git-names:
@@ -102,10 +106,7 @@ missing-git-names:
 		|| echo "$$name" ; \
 	done
 
-.PHONY: update-repos update-texts deploy-schemas missing-git-names
-
-tree.md: tree.py
-	pydoc-markdown -m dharma.tree > $@
+.PHONY: update-repos update-db update-texts deploy-schemas missing-git-names
 
 %.py: %.g
 	python3 -m pegen -q $^ -o $@
@@ -116,15 +117,6 @@ views/%.tpl: views/%.md
 trang := java -jar jars/trang.jar
 
 inscription.rnc: $(wildcard texts/DHARMA_INS*.xml)
-	$(trang) $^ $@
-
-diplomatic.rnc: $(wildcard texts/DHARMA_DiplEd*.xml)
-	$(trang) $^ $@
-
-critical_translation.rnc: $(wildcard texts/DHARMA_CritEd*_trans*.xml)
-	$(trang) $^ $@
-
-critical_edition.rnc: $(filter-out $(wildcard texts/DHARMA_CritEd*_trans*.xml),$(wildcard texts/DHARMA_CritEd*.xml))
 	$(trang) $^ $@
 
 global.rnc: $(wildcard texts/DHARMA_*.xml)
@@ -166,6 +158,3 @@ global.rnc: $(wildcard texts/DHARMA_*.xml)
 %.oddc: %.xml
 	# curl -F fileToConvert=@$^ https://teigarage.tei-c.org/ege-webservice/Conversions/ODD%3Atext%3Axml/ODDC%3Atext%3Axml > $@
 	python3 xslt.py tei/odds/odd2odd.xsl $^ > $@
-
-schema_doc.html: schema_doc.py schemas/inscription.rng
-	python3 $^ > $@

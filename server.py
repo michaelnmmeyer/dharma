@@ -1,13 +1,15 @@
-import os, unicodedata, datetime, html
+import os, unicodedata, datetime, html, urllib, urllib.parse, ntpath
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
-from dharma import common, change, ngrams, catalog, parse, validate
-from dharma import biblio, texts, editorial, prosody
+from dharma import common, change, ngrams, catalog, validate, tei2internal, tree
+from dharma import biblio, texts, editorial, prosody, internal2html
 
 # We don't use the name "templates" for the template folder because we also
 # put other stuff in the same directory, not just templates.
 app = flask.Flask(__name__, static_url_path="", template_folder="views")
 app.jinja_options["line_statement_prefix"] = "%"
+app.jinja_options["lstrip_blocks"] = True
+app.jinja_options["trim_blocks"] = True
 
 @app.template_filter("format_date")
 def format_date(when):
@@ -129,6 +131,15 @@ def show_repos():
 	rows = db.execute("select * from repos_display").fetchall()
 	return flask.render_template("repos.tpl", rows=rows)
 
+@app.get("/repositories/<ident>")
+@common.transaction("texts")
+def show_repo(ident):
+	db = common.db("texts")
+	exists = db.execute("select 1 from repos where repo = ?", (ident,)).fetchone()
+	if exists:
+		return flask.redirect(f"/repositories#repo-{ident}")
+	return flask.abort(404)
+
 @app.get("/people")
 @common.transaction("texts")
 def show_people():
@@ -195,7 +206,7 @@ def show_parallels_full(text, category, id):
 
 @app.get("/catalog")
 def legacy_show_catalog():
-	return flask.redirect(flask.url_for("show_catalog"), code=302)
+	return flask.redirect(flask.url_for("show_catalog"))
 
 @app.get("/texts")
 def show_catalog():
@@ -231,10 +242,19 @@ def show_editorial_conventions():
 
 @app.get("/languages")
 @common.transaction("texts")
-def show_langs():
+def show_languages_list():
 	db = common.db("texts")
 	rows = db.execute("select * from langs_display").fetchall()
 	return flask.render_template("langs.tpl", rows=rows)
+
+@app.get("/languages/<code>")
+@common.transaction("texts")
+def show_language(code):
+	db = common.db("texts")
+	(ident,) = db.execute("select id from langs_by_code where code = ?", (code,)).fetchone() or (None,)
+	if not ident:
+		return flask.abort(404)
+	return flask.redirect(f"/languages#lang-{ident}")
 
 @app.get("/prosody")
 @common.transaction("texts")
@@ -242,10 +262,6 @@ def show_prosody():
 	data, _ = prosody.parse_prosody()
 	ret = flask.render_template("prosody.tpl", data=data)
 	return ret
-
-@app.get("/langs")
-def show_lang_old():
-	return flask.redirect("/languages", code=301)
 
 @app.get("/parallels/search")
 def search_parallels():
@@ -284,59 +300,6 @@ def display_list():
 def legacy_display_text(text):
 	return flask.redirect(flask.url_for("display_text", text=text), code=302)
 
-# For displaying a text's source XML.
-@app.get("/texts/<text>/source")
-@common.transaction("texts")
-def display_text_xml(text):
-	# /texts/INSPallava00196 -> /texts/DHARMA_INSPallava00196
-	if text.startswith("DHARMA_"):
-		return flask.redirect(flask.url_for("display_text_xml",
-			text=text.removeprefix("DHARMA_")))
-	else:
-		text = "DHARMA_" + text
-	db = common.db("texts")
-	row = db.execute("""
-		select
-			printf('%s/%s/%s', ?, repos.repo, path) as path,
-			repos.repo,
-			data,
-			commit_hash,
-			commit_date,
-			last_modified,
-			last_modified_commit,
-			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
-				commit_hash, path) as github_commit_url,
-			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
-				last_modified_commit, path)
-				as github_last_modified_commit_url,
-			format_url('https://raw.githubusercontent.com/erc-dharma/%s/%s/%s',
-				repos.repo, commit_hash, path)
-				as github_download_url,
-			case when html_path is null then null else format_url('https://erc-dharma.github.io/%s/%s',
-				repos.repo, html_path)
-			end as static_website_url,
-			repos.title as repo_title
-		from documents
-			join files on documents.name = files.name
-			join repos on documents.repo = repos.repo
-		where documents.name = ?""",
-		(common.path_of("repos"), text)).fetchone()
-	if not row:
-		return flask.abort(404)
-	file = db.load_file(text)
-	doc = parse.process_file(file)
-	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
-	doc.last_modified = row["last_modified"]
-	doc.last_modified_commit = row["last_modified_commit"]
-	ret = flask.render_template("inscription_xml.tpl", doc=doc,
-		github_commit_url=row["github_commit_url"],
-		github_last_modified_commit_url=row["github_last_modified_commit_url"],
-		repo_title=row["repo_title"],
-		row=row,
-		text=text,
-		no_sidebar=True)
-	return ret
-
 # Redirect all forms
 # /texts/DHARMA_INSPallava00196.xml
 # /texts/INSPallava00196.xml
@@ -354,78 +317,55 @@ def redirect_to_display_text(text):
 def display_text(text):
 	text = "DHARMA_" + text
 	db = common.db("texts")
-	row = db.execute("""
-		select
-			printf('%s/%s/%s', ?, repos.repo, path) as path,
-			repos.repo,
-			data,
-			commit_hash,
-			commit_date,
-			last_modified,
-			last_modified_commit,
-			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
-				commit_hash, path) as github_commit_url,
-			format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
-				last_modified_commit, path)
-				as github_last_modified_commit_url,
-			format_url('https://raw.githubusercontent.com/erc-dharma/%s/%s/%s',
-				repos.repo, commit_hash, path)
-				as github_download_url,
-			case when html_path is null then null else format_url('https://erc-dharma.github.io/%s/%s',
-				repos.repo, html_path)
-			end as static_website_url,
-			repos.title as repo_title
-		from documents
-			join files on documents.name = files.name
-			join repos on documents.repo = repos.repo
-		where documents.name = ?""",
-		(common.path_of("repos"), text)).fetchone()
-	if not row:
+	data = db.execute("""
+	select
+		printf('%s/%s/%s', ?, repos.repo, path) as path,
+		repos.repo,
+		data,
+		commit_hash,
+		commit_date,
+		last_modified,
+		last_modified_commit,
+		format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
+			commit_hash, path) as github_commit_url,
+		format_url('https://github.com/erc-dharma/%s/blob/%s/%s', repos.repo,
+			last_modified_commit, path)
+			as github_last_modified_commit_url,
+		format_url('https://raw.githubusercontent.com/erc-dharma/%s/%s/%s',
+			repos.repo, commit_hash, path)
+			as github_download_url,
+		case when html_path is null
+			then null
+			else format_url('https://erc-dharma.github.io/%s/%s', repos.repo, html_path)
+		end as static_website_url,
+		repos.title as repo_title
+	from documents
+		join files on documents.name = files.name
+		join repos on documents.repo = repos.repo
+	where documents.name = ?""", (common.path_of("repos"), text)).fetchone()
+	if not data:
 		return flask.abort(404)
 	file = db.load_file(text)
-	doc = parse.process_file(file)
-	doc.commit_hash, doc.commit_date = row["commit_hash"], row["commit_date"]
-	doc.last_modified = row["last_modified"]
-	doc.last_modified_commit = row["last_modified_commit"]
-	ret = flask.render_template("inscription.tpl", doc=doc,
-		github_commit_url=row["github_commit_url"],
-		github_last_modified_commit_url=row["github_last_modified_commit_url"],
-		repo_title=row["repo_title"],
-		row=row,
-		text=text)
-	return ret
+	return render_inscription(file, dict(data))
 
-def base_name_windows(path):
-	i = len(path)
-	while i > 0 and path[i - 1] != "\\":
-		i -= 1
-	return path[i:]
-
-assert base_name_windows(r"C:\Users\john\Documents\file.txt") == "file.txt"
-
-def patch_links(soup, attr):
-	from urllib.parse import urlparse
-	for link in soup.find_all(**{attr: True}):
-		url = urlparse(link[attr])
-		if url.scheme or url.netloc:
-			# Assume this is a full URL
-			continue
-		if not url.path:
-			# Assume this is just a fragment
-			continue
-		if not url.path.startswith("/"):
-			url = url._replace(path=flask.url_for("display_text", text=url.path))
-		if os.getenv("DHARMA_DEBUG"):
-			url = url._replace(scheme="http", netloc="localhost:8023")
-		else:
-			url = url._replace(scheme="https", netloc="dharmalekha.info")
-		link[attr] = url.geturl()
+def render_inscription(file: texts.File, data: dict):
+	data["text"] = file.name
+	try:
+		t = tree.parse_string(file.data, path=file.full_path)
+	except tree.Error:
+		data["highlighted_xml"] = tree.html_format(file.data)
+		return flask.render_template("invalid_inscription.tpl", **data)
+	data["doc"] = tei2internal.process_tree(t).to_html()
+	data["highlighted_xml"] = tree.html_format(t)
+	return flask.render_template("inscription.tpl", **data)
 
 @app.post("/convert")
 @common.transaction("texts")
 def convert_text():
-	doc = flask.request.json
-	path, data = doc["path"], doc["data"]
+	json = flask.request.json
+	if not json:
+		return flask.abort(400)
+	path, data = json["path"], json["data"]
 	base = os.path.basename(path)
 	if base == path:
 		# Oxygen gives us absolute paths, so we are probably given a
@@ -433,48 +373,76 @@ def convert_text():
 		# platform infos in the convert.py script, but we did not
 		# think to do that when we wrote the script, and people are
 		# already using the code.
-		base = base_name_windows(path)
+		base = ntpath.basename(path)
 	name = os.path.splitext(base)[0]
-	f = texts.File(":memory:", name)
-	setattr(f, "_mtime", 0)
-	setattr(f, "_last_modified", ("", 0))
-	setattr(f, "_data", data)
-	setattr(f, "_owners", [])
-	doc = parse.process_file(f)
-	doc.repository = None
-	html = flask.render_template("inscription.tpl", doc=doc, text=name)
+	file = texts.File(":memory:", name)
+	setattr(file, "_mtime", 0)
+	setattr(file, "_last_modified", ("", 0))
+	setattr(file, "_data", data)
+	setattr(file, "_owners", [])
+	html = render_inscription(file, {})
 	soup = BeautifulSoup(html, "html.parser")
-	patch_links(soup, "href")
-	patch_links(soup, "src")
+	make_links_absolute(soup, "href")
+	make_links_absolute(soup, "src")
 	return str(soup)
+
+def make_links_absolute(soup, attr):
+	for link in soup.find_all(**{attr: True}):
+		url = urllib.parse.urlparse(link[attr])
+		if url.scheme or url.netloc:
+			# Assume this is a full URL
+			continue
+		if not url.path:
+			# Assume this is just a fragment
+			continue
+		if os.getenv("DHARMA_DEBUG"):
+			url = url._replace(scheme="http", netloc="localhost:8023")
+		else:
+			url = url._replace(scheme="https", netloc="dharmalekha.info")
+		link[attr] = url.geturl()
+
+# Number of bibliographic entries to display on a single Web page.
+BIBLIO_PER_PAGE = 100
+
+@app.get("/bibliography/entry/<short_title>")
+@common.transaction("texts")
+def display_biblio_entry(short_title):
+	db = common.db("texts")
+	index = db.execute("""
+		select pos - 1
+		from (select row_number() over(order by sort_key) as pos,
+		    short_title from biblio)
+		where short_title = ?""", (short_title,)).fetchone()
+	if not index:
+		return flask.abort(404)
+	page = (index[0] + BIBLIO_PER_PAGE - 1) // BIBLIO_PER_PAGE
+	quoted_title = urllib.parse.quote(short_title, safe="")
+	return flask.redirect(f"/bibliography/page/{page}#bib-{quoted_title}")
 
 @app.get("/bibliography/page/<int:page>")
 @common.transaction("texts")
 def display_biblio_page(page):
 	db = common.db("texts")
-	(entries_nr,) = db.execute("""select count(*) from biblio_data
-		where sort_key is not null""").fetchone()
-	pages_nr = (entries_nr + biblio.PER_PAGE - 1) // biblio.PER_PAGE
+	(entries_nr,) = db.execute("select count(*) from biblio").fetchone()
+	pages_nr = (entries_nr + BIBLIO_PER_PAGE - 1) // BIBLIO_PER_PAGE
 	if page < 1:
 		page = 1
 	elif page > pages_nr:
 		page = pages_nr
 	entries = []
-	for (entry,) in db.execute("""select json ->> '$.data'
-		from biblio_data
-		where sort_key is not null
+	for (entry,) in db.execute("""select data from biblio
 		order by sort_key limit ? offset ?""",
-		(biblio.PER_PAGE, (page - 1) * biblio.PER_PAGE)):
-		entry = biblio.Entry.wrap(common.from_json(entry))
-		entries.append(entry)
-	first_entry = (page - 1) * biblio.PER_PAGE + 1
+		(BIBLIO_PER_PAGE, (page - 1) * BIBLIO_PER_PAGE)):
+		entry = biblio.format_entry(entry)
+		entries.append(internal2html.process_partial(entry))
+	first_entry = (page - 1) * BIBLIO_PER_PAGE + 1
 	if first_entry > entries_nr:
 		first_entry = 0
-	last_entry = page * biblio.PER_PAGE
+	last_entry = page * BIBLIO_PER_PAGE
 	if last_entry > entries_nr:
 		last_entry = entries_nr
 	ret = flask.render_template("biblio.tpl", page=page, pages_nr=pages_nr,
-		entries=entries, entries_nr=entries_nr, per_page=biblio.PER_PAGE,
+		entries=entries, entries_nr=entries_nr, per_page=BIBLIO_PER_PAGE,
 		first_entry=first_entry, last_entry=last_entry)
 	return ret
 
@@ -502,8 +470,10 @@ def render_markdown(rel_path):
 		title.decompose()
 	else:
 		page_title = "Untitled"
+	contents = str(soup.find("body"))
+	assert contents
 	return flask.render_template("markdown.tpl", title=page_title,
-		contents=str(soup))
+		contents=contents)
 
 @app.get("/legal-notice")
 def legal_notice():
@@ -515,6 +485,8 @@ def is_robot(email):
 @app.post("/github-event")
 def handle_github():
 	js = flask.request.json
+	if not js:
+		return flask.abort(400)
 	commits = js.get("commits")
 	if not commits:
 		return ""

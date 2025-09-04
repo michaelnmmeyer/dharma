@@ -19,6 +19,9 @@ $border-radius: 0.3em;
 	font-family: 'Noto mono', monospace;
 	font-size: 95%;
 }
+.monospace {
+	@include monospace;
+}
 
 @mixin code {
 	@include monospace;
@@ -26,11 +29,44 @@ $border-radius: 0.3em;
 	hyphens: none;
 }
 
+@mixin hanging {
+	padding-left: 1.5em;
+	text-indent: -1.5em;
+}
+.hanging {
+	@include hanging;
+}
+@mixin indented {
+	padding-left: 1.5em;
+}
+
+@mixin milestone {
+	color: gray;
+	font-weight: initial;
+	font-style: initial;
+}
+
+@mixin sup {
+	vertical-align: baseline;
+	position: relative;
+	top: -0.4em;
+}
+
+@mixin sub {
+	vertical-align: sub;
+}
+.sup {
+	@include sup;
+}
+.sub {
+	@include sub;
+}
+
 a {
 	text-decoration: none;
 }
 /* For links that point to the same page viz. internal navigation.
- * Don't change color when visited.
+ * Don't change color when visited. XXX don't hardcode the class!
  */
 a.nav-link {
 	color: blue;
@@ -62,10 +98,6 @@ a.nav-link {
 
 .card-list .card {
 	margin: 1em 0;
-}
-.card-list .card:nth-child(odd) {
-}
-.card-list .card:nth-child(even) {
 }
 .card p {
 	text-align: left;
@@ -133,22 +165,29 @@ a.nav-link {
 	animation: flash var(--flash-duration);
 }
 
-.bib-ref-invalid {
-	color: red;
-}
-.nav-link.bib-ref-invalid { /* override default blue color */
-	color: red;
+.bib-entry {
+	@include hanging;
 }
 
-p.bib-entry {
-	padding-left: 1.5em;
-	text-indent: -1.5em;
+.bold {
+	font-weight: bold;
 }
-
+.italics {
+	font-style: italic;
+}
+.invalid {
+	color: red;
+	text-decoration-line: underline;
+	text-decoration-style: wavy;
+}
 .text-id, .repo-id, .member-id, .commit-hash, .url {
 	@include monospace;
 }
 abbr {
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+}
+.journal-abbr {
 	text-decoration-line: underline;
 	text-decoration-style: dotted;
 }
@@ -479,35 +518,52 @@ div.parallel-verse > p {
 	text-indent: -2em;
 }
 
-/*************************************** Verses *******************************/
+/************************************ Verses **********************************/
 
-/* Numbered verse lines, for Manu. See e.g. DHARMA_INSTamilNadu00102 */
-.verse-numbered div {
-	display: flex;
-	align-items: baseline;
-	justify-content: space-between;
-	max-width: 31em;
-}
-.verse-line > span {
-	display: none;
-}
-.verse-numbered .verse-line:nth-child(1) > span,
-.verse-numbered .verse-line:nth-child(5n) > span {
-	display: inline;
-}
-.verse-numbered .verse-line:nth-child(1):hover,
-.verse-numbered .verse-line:nth-child(5n):hover {
-	background: lavender;
-	border-radius: $border-radius;
-}
+// Numbered verse lines are Manu's requests. See e.g. DHARMA_INSTamilNadu00102.
 
-
-/* XXX this is for stanzas headings, should use a div instead */
-h6 {
+.verse-heading {
 	font-size: initial;
+	font-weight: bold;
 	margin-block-start: 0;
 	margin-block-end: 0;
 }
+.verse-lines {
+	/* Same properties as a normal <p> */
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	padding-left: 0.5em;
+	border-left: solid;
+	border-color: gray;
+}
+.verse-lines p {
+	/* No space between hemistiches */
+	margin-block-start: 0em;
+	margin-block-end: 0em;
+	/* Hanging indent */
+	padding-left: 2em;
+	text-indent: -2em;
+	text-align: left;
+}
+.verse-line > span {
+	@include milestone;
+	display: none;
+	user-select: none;
+}
+.verse-lines-numbered > .verse-line {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+}
+.verse-lines-numbered > .verse-line:hover {
+	background: lavender;
+	border-radius: $border-radius;
+}
+.verse-lines-numbered > .verse-line-numbered > span {
+	display: inline;
+}
+
+/******************************************************************************/
 
 .ed-tabs {
 	display: flex;
@@ -541,9 +597,7 @@ h6 {
 }
 
 sup {
-	vertical-align: baseline;
-	position: relative;
-	top: -0.4em;
+	@include sup;
 }
 
 /***************************************** Lists ******************************/
@@ -593,29 +647,20 @@ dl.list > dd {
 	color: green;
 }
 .milestone {
-	color: gray;
-	font-weight: initial;
-}
-.symbol {
+	@include milestone;
 }
 .symbol-placeholder {
 	border: solid 1px;
 	border-radius: $border-radius;
 }
 .lb {
-	color: gray;
-	font-weight: initial;
-	font-style: initial;
+	@include milestone;
 }
 .pagelike {
-	color: gray;
-	font-weight: initial;
-	font-style: initial;
+	@include milestone;
 }
 .gridlike {
-	color: gray;
-	font-weight: initial;
-	font-style: initial;
+	@include milestone;
 }
 .abbr {
 	color: brown;
@@ -644,38 +689,6 @@ dl.list > dd {
 	text-align: left;
 }
 
-/* Logical display */
-.logical .sic:not(.standalone) {
-	display: none;
-}
-.logical .orig:not(.standalone) {
-	display: none;
-}
-.logical .hyphen-break {
-	display: none;
-}
-.logical .abbr-mark {
-	display: none;
-}
-
-.verse {
-	/* Same properties as a normal <p> */
-	margin-block-start: 1em;
-	margin-block-end: 1em;
-	padding-left: 0.5em;
-	border-left: solid;
-	border-color: gray;
-}
-.verse p {
-	/* No space between hemistiches */
-	margin-block-start: 0em;
-	margin-block-end: 0em;
-	/* Hanging indent */
-	padding-left: 2em;
-	text-indent: -2em;
-	text-align: left;
-}
-
 .fw-contents {
 	/* Main text color, not gray, since this belongs to the text,
 	 * sort-of. See
@@ -697,8 +710,9 @@ dl.list > dd {
 /******************************** Physical display ****************************/
 
 .physical .pagelike {
-	padding-top: 1em; /* XXX except for the first item in a div, etc. */
-	font-weight: bolder;
+	font-size: 1.1rem;
+	font-weight: bold;
+	margin-block: 0.83em;
 }
 .physical .enjamb {
 	display: none;
@@ -707,19 +721,8 @@ dl.list > dd {
 	text-align: left;
 }
 .physical .line {
-	margin-block-start: 0.3em;
-	margin-block-end: 0.3em;
-}
-.physical .pagelike {
-}
-.physical .corr:not(.standalone) {
-	display: none;
-}
-.physical .reg:not(.standalone) {
-	display: none;
-}
-.physical .abbr-expansion {
-	display: none;
+	margin-block-start: 0.5em;
+	margin-block-end: 0.5em;
 }
 
 /********************************* Code display *******************************/
@@ -810,6 +813,14 @@ pre {
 	.xml-grantha.string, .xml-heading.string {
 		font-weight: bold;
 	}
+}
+
+// Put <p>Summary: </p><p>Something</p> on the same line
+.metadata-item > p:first-child {
+	@include hanging;
+}
+.metadata-item > p:nth-child(n + 1) {
+	@include indented;
 }
 
 fieldset {

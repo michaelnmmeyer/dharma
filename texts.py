@@ -1,31 +1,36 @@
-# Stuff for enumerating texts (inscriptions, etc.) in a repository.
+"Stuff for enumerating texts (inscriptions, etc.) in a repository."
 
-import os, unicodedata
+import os, os.path, unicodedata
 from dharma import common, validate
 
 valid_prefixes = {"DHARMA_INS", "DHARMA_DiplEd", "DHARMA_CritEd"}
 
+# XXX need to have static methods for creating files: from a real file on disk;
+# from the db (in-memory file maskerading as a real one, see save_file()); and for creating an
+# anonymous in-memory file (for editorial, maybe somewhere else too).
+# .from_string
+# .from_db
+# .from_disk
+
 class File:
 
-	# Repo name ("tfa-pallava-epigraphy", etc.)
-	repo = None
-
-	# File path relative to the repository directory e.g.
-	# "texts/xml/DHARMA_INSPallava00002.xml"
-	path = None
-
-	# Path of the corresponding HTML file generated with XSLT, relative to
-	# the repo root, e.g.
-	# "texts/htmloutput/DHARMA_INSPallava00002.html"
-	html = None
-
 	def __init__(self, repo, path):
+		# Repo name ("tfa-pallava-epigraphy", etc.)
 		self.repo = repo
+		# File path relative to the repository directory e.g.
+		# "texts/xml/DHARMA_INSPallava00002.xml"
 		self.path = path
+		# Path of the corresponding HTML file generated with XSLT,
+		# relative to the repo root, e.g.
+		# "texts/htmloutput/DHARMA_INSPallava00002.html"
+		self.html = None
+
+	def __repr__(self):
+		return f"File({self.repo!r}, {self.path!r})"
 
 	# Validation status. See the enum in validate.py.
 	@property
-	def status(self):
+	def status(self) -> int:
 		ret = getattr(self, "_status", None)
 		if ret is None:
 			ret = validate.status(self)
@@ -34,7 +39,7 @@ class File:
 
 	# File basename without the extension e.g. DHARMA_INSPallava00002
 	@property
-	def name(self):
+	def name(self) -> str:
 		return os.path.splitext(os.path.basename(self.path))[0]
 
 	# Value of st_mtime. We use this to figure out which files have been
@@ -42,7 +47,7 @@ class File:
 	# unnecessary and because at a later point we will want to be able to
 	# track other sources than git repos, maybe with inotify or friends.
 	@property
-	def mtime(self):
+	def mtime(self) -> int:
 		ret = getattr(self, "_mtime", None)
 		if ret is None:
 			ret = int(os.stat(self.full_path).st_mtime)
@@ -51,7 +56,7 @@ class File:
 
 	# File contents, as a byte string
 	@property
-	def data(self):
+	def data(self) -> bytes:
 		ret = getattr(self, "_data", None)
 		if ret is None:
 			with open(self.full_path, "rb") as f:
@@ -60,14 +65,14 @@ class File:
 		return ret
 
 	@property
-	def text(self):
+	def text(self) -> str:
 		return unicodedata.normalize("NFC", self.data.decode())
 
 	# Git names of the people who modified this file, as a sorted set.
 	# This is used in the debugging page so that people can filter by
 	# their name.
 	@property
-	def owners(self):
+	def owners(self) -> list[str]:
 		ret = getattr(self, "_owners", None)
 		if ret is None:
 			out = common.command("git",
@@ -82,11 +87,12 @@ class File:
 	# (commit_hash, commit_timestamp). This is only for display, for
 	# convenience.
 	@property
-	def last_modified(self):
+	def last_modified(self) -> tuple[str, int]:
 		ret = getattr(self, "_last_modified", None)
 		if ret is None:
 			out = common.command("git",
-				"-C", common.path_of("repos", self.repo), 		"log", "-1", "--format=%H %at", "--", self.path)
+				"-C", common.path_of("repos", self.repo),
+				"log", "-1", "--format=%H %at", "--", self.path)
 			commit, date = out.stdout.strip().split()
 			date = int(date)
 			ret = (commit, date)
@@ -96,12 +102,12 @@ class File:
 	# Full absolute path of the file in the file system, e.g.
 	# /home/michael/dharma/repos/tfa-pallava-epigraphy/texts/xml/DHARMA_INSPallava00002.xml"
 	@property
-	def full_path(self):
+	def full_path(self) -> str:
 		return common.path_of("repos", self.repo, self.path)
 
 def iter_texts_in_repo(repo):
 	repo_path = common.path_of("repos", repo)
-	for root, dirs, files in os.walk(repo_path):
+	for root, _, files in os.walk(repo_path):
 		for file in files:
 			_, ext = os.path.splitext(file)
 			if ext.lower() != ".xml":
@@ -130,7 +136,7 @@ def save(repo, path):
 def gather_web_pages(repo, recs):
 	lookup = {file.name: file for file in recs}
 	repo_path = common.path_of("repos", repo)
-	for root, dirs, files in os.walk(repo_path):
+	for root, _, files in os.walk(repo_path):
 		for file in files:
 			name, ext = os.path.splitext(file)
 			if ext != ".html":

@@ -17,6 +17,7 @@
       <xsl:value-of select="document-uri(/)"/>
    </xsl:variable>
    <!--PHASES-->
+
    <!--PROLOG-->
    <xsl:output xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                method="xml"
@@ -24,8 +25,11 @@
                standalone="yes"
                indent="yes"/>
    <!--XSD TYPES FOR XSLT2-->
+
    <!--KEYS AND FUNCTIONS-->
+
    <!--DEFAULT RULES-->
+
    <!--MODE: SCHEMATRON-SELECT-FULL-PATH-->
    <!--This mode can be used to generate an ugly though full XPath for locators-->
    <xsl:template match="*" mode="schematron-select-full-path">
@@ -298,8 +302,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-l-16</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-l-16</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-l-22</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-l-22</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M17"/>
@@ -307,8 +311,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-ab-or-p-17</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-ab-or-p-17</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-ab-or-p-23</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-ab-or-p-23</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M18"/>
@@ -316,8 +320,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-ab-abstractModel-structure-ab-in-l-18</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-ab-abstractModel-structure-ab-in-l-18</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-DHARMA_ProsodySchema_v01-ab-abstractModel-structure-ab-in-l-24</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-DHARMA_ProsodySchema_v01-ab-abstractModel-structure-ab-in-l-24</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M19"/>
@@ -326,6 +330,7 @@
    <!--SCHEMATRON PATTERNS-->
    <svrl:text xmlns:svrl="http://purl.oclc.org/dsdl/svrl">ISO Schematron rules</svrl:text>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.cmc-generatedBy-CMC_generatedBy_within_post-1-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@generatedBy]" priority="1000" mode="M2">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@generatedBy]"/>
@@ -349,6 +354,7 @@
       <xsl:apply-templates select="*" mode="M2"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.datable.w3c-att-datable-w3c-when-2-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@when]" priority="1000" mode="M3">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@when]"/>
@@ -370,6 +376,7 @@
       <xsl:apply-templates select="*" mode="M3"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.datable.w3c-att-datable-w3c-from-3-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@from]" priority="1000" mode="M4">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@from]"/>
@@ -390,6 +397,7 @@
       <xsl:apply-templates select="*" mode="M4"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.datable.w3c-att-datable-w3c-to-4-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@to]" priority="1000" mode="M5">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@to]"/>
@@ -410,6 +418,7 @@
       <xsl:apply-templates select="*" mode="M5"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.global.source-source-only_1_ODD_source-5-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@source]" priority="1000" mode="M6">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@source]"/>
@@ -439,6 +448,7 @@
       <xsl:apply-templates select="*" mode="M6"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.measurement-att-measurement-unitRef-6-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@unitRef]" priority="1000" mode="M7">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@unitRef]"/>
@@ -459,6 +469,7 @@
       <xsl:apply-templates select="*" mode="M7"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.pointing-targetLang-targetLang-7-->
+
    <!--RULE -->
    <xsl:template match="tei:*[not(self::tei:schemaSpec)][@targetLang]"
                  priority="1000"
@@ -486,6 +497,7 @@
       <xsl:apply-templates select="*" mode="M8"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.typed-subtypeTyped-8-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@subtype]" priority="1000" mode="M9">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@subtype]"/>
@@ -510,6 +522,7 @@
       <xsl:apply-templates select="*" mode="M9"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-att.calendarSystem-calendar-calendar_attr_on_empty_element-9-->
+
    <!--RULE -->
    <xsl:template match="tei:*[@calendar]" priority="1000" mode="M10">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:*[@calendar]"/>
@@ -537,6 +550,7 @@
       <xsl:apply-templates select="*" mode="M10"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-p-abstractModel-structure-p-in-ab-or-p-10-->
+
    <!--RULE -->
    <xsl:template match="tei:p" priority="1000" mode="M11">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:p"/>
@@ -559,6 +573,7 @@
       <xsl:apply-templates select="*" mode="M11"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-p-abstractModel-structure-p-in-l-11-->
+
    <!--RULE -->
    <xsl:template match="tei:l//tei:p" priority="1000" mode="M12">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:l//tei:p"/>
@@ -584,6 +599,7 @@
       <xsl:apply-templates select="*" mode="M12"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-ptr-ptrAtts-12-->
+
    <!--RULE -->
    <xsl:template match="tei:ptr" priority="1000" mode="M13">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ptr"/>
@@ -605,6 +621,7 @@
       <xsl:apply-templates select="*" mode="M13"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-list-gloss-list-must-have-labels-13-->
+
    <!--RULE -->
    <xsl:template match="tei:list[@type='gloss']" priority="1000" mode="M14">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -628,6 +645,7 @@
       <xsl:apply-templates select="*" mode="M14"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-citedRange-note-14-->
+
    <!--RULE -->
    <xsl:template match="tei:citedRange" priority="1000" mode="M15">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:citedRange"/>
@@ -650,6 +668,7 @@
       <xsl:apply-templates select="*" mode="M15"/>
    </xsl:template>
    <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-bibl-siglum-15-->
+
    <!--RULE -->
    <xsl:template match="tei:bibl[ancestor::tei:listBibl]" priority="1000" mode="M16">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
@@ -671,7 +690,8 @@
    <xsl:template match="@*|node()" priority="-2" mode="M16">
       <xsl:apply-templates select="*" mode="M16"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-l-16-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-l-22-->
+
    <!--RULE -->
    <xsl:template match="tei:l//tei:div" priority="1000" mode="M17">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:l//tei:div"/>
@@ -696,7 +716,8 @@
    <xsl:template match="@*|node()" priority="-2" mode="M17">
       <xsl:apply-templates select="*" mode="M17"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-ab-or-p-17-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-div-abstractModel-structure-div-in-ab-or-p-23-->
+
    <!--RULE -->
    <xsl:template match="tei:div" priority="1000" mode="M18">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
@@ -718,7 +739,8 @@
    <xsl:template match="@*|node()" priority="-2" mode="M18">
       <xsl:apply-templates select="*" mode="M18"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-ab-abstractModel-structure-ab-in-l-18-->
+   <!--PATTERN schematron-constraint-DHARMA_ProsodySchema_v01-ab-abstractModel-structure-ab-in-l-24-->
+
    <!--RULE -->
    <xsl:template match="tei:l//tei:ab" priority="1000" mode="M19">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:l//tei:ab"/>

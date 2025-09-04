@@ -41,9 +41,9 @@ class Result:
 
 class Validator:
 
-	def __init__(self, name, prefix):
+	def __init__(self, name, prefixes):
 		self.name = name
-		self.prefix = prefix
+		self.prefixes = prefixes
 		self.sch_script = common.path_of("schemas", self.name + ".sch")
 		path = common.path_of("schemas", self.name + ".rng")
 		self.rng_schema = relaxng.Schema(path)
@@ -129,21 +129,21 @@ class Validator:
 		val.unicode = ret
 
 VALIDATORS = [
-	Validator("inscription", "DHARMA_INS"),
-	Validator("diplomatic", "DHARMA_DiplEd"),
-	Validator("critical", "DHARMA_CritEd"),
+	Validator("inscription", ["DHARMA_INS"]),
+	Validator("critical", ["DHARMA_DiplEd", "DHARMA_CritEd"])
 ]
 
 def schema_from_filename(file):
 	base = os.path.basename(file)
 	for schema in VALIDATORS:
-		if base.startswith(schema.prefix):
-			return schema
+		for prefix in schema.prefixes:
+			if base.startswith(prefix):
+				return schema
 
 def status(file):
 	validator = schema_from_filename(file.name)
 	if not validator:
-		return
+		return -1 # XXX
 	return validator.quick_check(file)
 
 def file(file_obj):

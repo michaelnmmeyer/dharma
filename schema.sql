@@ -28,7 +28,7 @@ pragma mmap_size = 4294967296;
 -- For how to handle modifications to a collation implementation, see:
 -- https://sqlite.org/forum/info/5317344555f7a5f2
 -- When we change a collation (or other custom functions that modify
--- columns, etc.), should always issue a reindex.
+-- columns, etc.), should always issue a reindex, but this is not done for now.
 pragma integrity_check;
 
 
@@ -38,14 +38,15 @@ create table if not exists metadata(
 	key text primary key check(typeof(key) = 'text'),
 	value any
 );
--- 'last_updated' is a timestamp updated after each write transaction.
--- The value is only meant for display.
+-- 'last_updated' is a timestamp updated after each write transaction. The value
+-- is only meant for display on the Website.
 insert or ignore into metadata values('last_updated', 0);
--- To update the bibliography, we need to pull from zotero.org all records
--- whose version is > biblio_latest_version. We might already have such items in
--- the db. To fully rebuild bibliography tables, use:
--- insert or replace into metadata(key, value) values('biblio_latest_version', 0);
--- then run the update process.
+-- To update the bibliography, we need to pull from zotero.org all records whose
+-- version is > biblio_latest_version. We might already have such items in the
+-- db. All remote zotero entries with a version number <= biblio_latest_version
+-- should be in our local copy, otherwise there is a bug. To fully rebuild
+-- bibliography tables, use: update metadata set value = 0 where key =
+-- 'biblio_latest_version'; then run the update process.
 insert or ignore into metadata values('biblio_latest_version', 0);
 
 -- Repositories description. This is initially filled with repos.tsv. We do
@@ -203,15 +204,16 @@ create table if not exists documents(
 		typeof(editors_ids) = 'text'
 		and json_valid(editors_ids)
 		and json_type(editors_ids) = 'array'),
+	-- Languages (as assigned by the user in each file).
 	-- There is always at least one assigned language, even when none are
 	-- explicitly given in the source file. (In this case, we assign it the
-	-- language "und").
+	-- language "und".)
 	langs json check(
 		typeof(langs) = 'text'
 		and json_valid(langs)
 		and json_type(langs) = 'array'
 		and json_array_length(langs) >= 1),
-	summary text check(
+	summary html check(
 		summary is null
 		or typeof(summary) = 'text' and length(summary) > 0),
 	-- The corresponding file is at https://erc-dharma.github.io/$repo/$html_path
@@ -379,11 +381,17 @@ create view if not exists langs_display as
 	order by langs_list.inverted_name;
 
 create table if not exists prosody(
-	name text not null check(typeof(name) = 'text' and length(name) > 0),
-	pattern text check(pattern is null
+	-- Name, only of actual meters (they have a <name> in the prosody
+	-- file), not of generic meters (they have a <label> instead of a
+	-- <name> in the prosody file).
+	name text primary key check(typeof(name) = 'text' and length(name) > 0),
+	pattern html check(pattern is null
 		or typeof(pattern) = 'text' and length(pattern) > 0),
 	description text check(description is null
 		or typeof(description) = 'text' and length(description) > 0),
+	--XXX remove this because we're now using the name as prim key
+	-- This is used for generating anchors. We use these anchors to
+	-- link to prosody entries.
 	entry_id integer not null check(typeof(entry_id) = 'integer')
 );
 
@@ -402,38 +410,46 @@ create table if not exists biblio_data(
 	key text primary key check(typeof(key) = 'text' and length(key) > 0),
 	-- We expect version numbers to be > 0, otherwise the update code is
 	-- broken.
-	version integer check(typeof(version) = 'integer' and version > 0),
-	-- Full record we get from the Zotero API.
-	json json not null check(typeof(json) = 'text' and json_valid(json)),
-	-- We don't need to store the short_title, both because it is fast to
-	-- extract and because we have an index on it which stores it anyway.
-	data json as (json -> '$.data'),
+	version integer as (json ->> '$.version')
+		check(typeof(version) = 'integer' and version > 0),
 	short_title text as (case json ->> '$.data.shortTitle'
 		when '' then null
 		else json ->> '$.data.shortTitle'
 		end),
-	item_type text as (json ->> '$.data.itemType')
-		check(item_type is not null),
-	-- Null if this is not an entry we can display viz. if it is not of the
-	-- item types we support (book, etc.).
-	sort_key text collate icu check(
-		sort_key is null
-		or typeof(sort_key) = 'text' and length(sort_key) > 0)
+	-- Full record we get from the Zotero API.
+	json json not null check(typeof(json) = 'text' and json_valid(json))
 );
 create index if not exists biblio_data_short_title on biblio_data(short_title);
-create index if not exists biblio_data_sort_key on biblio_data(sort_key);
 
-create view if not exists biblio_authors as
-	select biblio_data.key as key,
+-- Bibliographic records we do care about, viz. records that observe the
+-- following criteria: 1) bear a short title; 2) have an item type that we can
+-- handle; 3) don't have a .data.deleted flag.
+create table if not exists biblio(
+	short_title text primary key
+		check(typeof(short_title) = 'text' and length(short_title) > 0),
+	key text unique
+		check(typeof(key) = 'text' and length(key) > 0),
+	sort_key text collate icu
+		check(typeof(sort_key) = 'text' and length(sort_key) > 0),
+	data json check(typeof(data) = 'text' and json_valid(data)),
+	item_type text as (data ->> '$.itemType')
+		check(item_type is not null),
+	foreign key(key) references biblio_data(key)
+);
+-- Needed for displaying the global bibliography in the appropriate order.
+create index if not exists biblio_sort_key on biblio(sort_key);
+
+create view if not exists biblio_authors(key, creator_type, first_name, last_name, name) as
+	select biblio.key as key,
 		json_each.value ->> '$.creatorType' as creator_type,
 		json_each.value ->> '$.firstName' as first_name,
 		json_each.value ->> '$.lastName' as last_name,
 		json_each.value ->> '$.name' as name
-	from biblio_data join json_each(biblio_data.json -> '$.data.creators');
+	from biblio join json_each(biblio.data -> '$.creators');
 
-create view if not exists biblio_by_tag as
-	select json_each.value ->> '$.tag' as tag, biblio_data.key as key
-	from biblio_data join json_each(biblio_data.json -> '$.data.tags')
+create view if not exists biblio_by_tag(tag, key) as
+	select json_each.value ->> '$.tag' as tag, biblio.key as key
+	from biblio join json_each(biblio.data -> '$.tags')
 	order by tag;
 
 create view if not exists repos_display as

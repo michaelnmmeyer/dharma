@@ -1,4 +1,4 @@
-from dharma import tree, parse, common, langs, texts
+from dharma import tree, common, langs, texts, tei2internal
 import bs4, copy
 
 tpl = """
@@ -10,16 +10,22 @@ tpl = """
 """
 
 def parse_xml(context, code):
-	t = tree.parse_string(tpl.format(context=context, code=code), path="whatever")
+	data = tpl.format(context=context, code=code).encode()
+	t = tree.parse_string(data, path="whatever")
 	langs.assign_languages(t)
 	html = tree.html_format(t.first(f"//div[@type='{context}']"), skip_root=True)
-	p = parse.Parser(t)
-	p.dispatch_children(t.root)
-	if context == "translation":
-		block = p.document.translation[0]
-	else:
-		block = p.document.edition
-	return block.render_full(), html
+	file = texts.File("whatever", "whatever")
+	setattr(file, "_data", data)
+	block = tei2internal.process_file(file).to_html().body
+	# XXX
+	for expr in ["//h2", "//ul[@class='ed-tabs']", "//div[@class='physical' or @class='logical']"]:
+		for node in block.find(expr):
+			node.delete()
+	for node in block.find("//div[@class='full hidden']"):
+		node["class"] = "full"
+	block = block.html()
+	# XXX need some way to delimit the relevant HTML and also only to select the "full" display when we're parsing div[@type='edition']
+	return block, html
 
 def is_heading(node):
 	if not isinstance(node, bs4.Tag):
@@ -31,6 +37,7 @@ def parse_html():
 	f = texts.File("project-documentation", "website/editorial-conventions.md")
 	html = common.pandoc(f.text)
 	soup = bs4.BeautifulSoup(html, "html.parser")
+	# Grab the page title.
 	title = soup.find("h1")
 	if title:
 		page_title = "".join(t.get_text() for t in title)
@@ -70,7 +77,8 @@ def parse_html():
 		title.insert_after(div)
 	for code in soup.find_all("code"):
 		code.attrs.setdefault("class", []).append("xml")
-	return page_title, str(soup)
+	contents = str(soup.find("body"))
+	return page_title, contents
 
 if __name__ == "__main__":
 	@common.transaction("texts")

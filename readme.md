@@ -24,6 +24,10 @@ not just `libicu`. You also need to install Python's headers (`python-devel` or
 [`Pandoc`](https://pandoc.org) must also be installed, we use it at runtime
 for rendering Markdown files.
 
+The code's documentation can be browsed with the `pdoc` tool:
+
+	pdoc dharma
+
 ##  Entry points
 
 There are four main programs. On our server, they run concurrently and are
@@ -56,18 +60,20 @@ on error, to prevent our builds from failing all the time.
 The `config` directory holds configuration files that are deployed on our
 server. There is a config file for `nginx`, as well as `systemd` unit files.
 `systemd` tasks are scheduled to run at startup, so nothing special needs to
-be done after rebooting the server. To install all config files, use:
+be done after rebooting the server. To install all config files, run (as root):
 
 	make install
 
-Then, services can be started (or restarted) and stopped with:
+This moves configuration files to the proper system directories and reloads both
+`nginx` and `systemd`'s configuration manager. Then the app's services can be
+started (or restarted) and stopped with:
 
 	make start-all
 	make stop-all
 
-After code modifications, it is typically only necessary to start the
+After modifying the code, it is typically only necessary to start the
 `dharma.change` and `dharma.server` tasks, so there are also two `make` targets
-for that:
+that do just that:
 
 	make start
 	make stop

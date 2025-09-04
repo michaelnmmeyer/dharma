@@ -4,11 +4,27 @@
   --card-heading-background: #e3e3ed;
   --card-border: #c2c2d3; }
 
+.monospace {
+  font-family: 'Noto mono', monospace;
+  font-size: 95%; }
+
+.hanging {
+  padding-left: 1.5em;
+  text-indent: -1.5em; }
+
+.sup {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em; }
+
+.sub {
+  vertical-align: sub; }
+
 a {
   text-decoration: none; }
 
 /* For links that point to the same page viz. internal navigation.
- * Don't change color when visited.
+ * Don't change color when visited. XXX don't hardcode the class!
  */
 a.nav-link {
   color: blue; }
@@ -96,22 +112,30 @@ a.nav-link {
 .flash {
   animation: flash var(--flash-duration); }
 
-.bib-ref-invalid {
-  color: red; }
-
-.nav-link.bib-ref-invalid {
-  /* override default blue color */
-  color: red; }
-
-p.bib-entry {
+.bib-entry {
   padding-left: 1.5em;
   text-indent: -1.5em; }
+
+.bold {
+  font-weight: bold; }
+
+.italics {
+  font-style: italic; }
+
+.invalid {
+  color: red;
+  text-decoration-line: underline;
+  text-decoration-style: wavy; }
 
 .text-id, .repo-id, .member-id, .commit-hash, .url {
   font-family: 'Noto mono', monospace;
   font-size: 95%; }
 
 abbr {
+  text-decoration-line: underline;
+  text-decoration-style: dotted; }
+
+.journal-abbr {
   text-decoration-line: underline;
   text-decoration-style: dotted; }
 
@@ -383,32 +407,50 @@ div.parallel-verse > p {
   padding-left: 2em;
   text-indent: -2em; }
 
-/*************************************** Verses *******************************/
-/* Numbered verse lines, for Manu. See e.g. DHARMA_INSTamilNadu00102 */
-.verse-numbered div {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  max-width: 31em; }
-
-.verse-line > span {
-  display: none; }
-
-.verse-numbered .verse-line:nth-child(1) > span,
-.verse-numbered .verse-line:nth-child(5n) > span {
-  display: inline; }
-
-.verse-numbered .verse-line:nth-child(1):hover,
-.verse-numbered .verse-line:nth-child(5n):hover {
-  background: lavender;
-  border-radius: 0.3em; }
-
-/* XXX this is for stanzas headings, should use a div instead */
-h6 {
+/************************************ Verses **********************************/
+.verse-heading {
   font-size: initial;
+  font-weight: bold;
   margin-block-start: 0;
   margin-block-end: 0; }
 
+.verse-lines {
+  /* Same properties as a normal <p> */
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  padding-left: 0.5em;
+  border-left: solid;
+  border-color: gray; }
+
+.verse-lines p {
+  /* No space between hemistiches */
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  /* Hanging indent */
+  padding-left: 2em;
+  text-indent: -2em;
+  text-align: left; }
+
+.verse-line > span {
+  color: gray;
+  font-weight: initial;
+  font-style: initial;
+  display: none;
+  user-select: none; }
+
+.verse-lines-numbered > .verse-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between; }
+
+.verse-lines-numbered > .verse-line:hover {
+  background: lavender;
+  border-radius: 0.3em; }
+
+.verse-lines-numbered > .verse-line-numbered > span {
+  display: inline; }
+
+/******************************************************************************/
 .ed-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -490,7 +532,8 @@ dl.list > dd {
 
 .milestone {
   color: gray;
-  font-weight: initial; }
+  font-weight: initial;
+  font-style: initial; }
 
 .symbol-placeholder {
   border: solid 1px;
@@ -536,36 +579,6 @@ dl.list > dd {
 .apparatus p {
   text-align: left; }
 
-/* Logical display */
-.logical .sic:not(.standalone) {
-  display: none; }
-
-.logical .orig:not(.standalone) {
-  display: none; }
-
-.logical .hyphen-break {
-  display: none; }
-
-.logical .abbr-mark {
-  display: none; }
-
-.verse {
-  /* Same properties as a normal <p> */
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  padding-left: 0.5em;
-  border-left: solid;
-  border-color: gray; }
-
-.verse p {
-  /* No space between hemistiches */
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-  /* Hanging indent */
-  padding-left: 2em;
-  text-indent: -2em;
-  text-align: left; }
-
 .fw-contents {
   /* Main text color, not gray, since this belongs to the text,
    * sort-of. See
@@ -584,9 +597,9 @@ dl.list > dd {
 
 /******************************** Physical display ****************************/
 .physical .pagelike {
-  padding-top: 1em;
-  /* XXX except for the first item in a div, etc. */
-  font-weight: bolder; }
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-block: 0.83em; }
 
 .physical .enjamb {
   display: none; }
@@ -595,17 +608,8 @@ dl.list > dd {
   text-align: left; }
 
 .physical .line {
-  margin-block-start: 0.3em;
-  margin-block-end: 0.3em; }
-
-.physical .corr:not(.standalone) {
-  display: none; }
-
-.physical .reg:not(.standalone) {
-  display: none; }
-
-.physical .abbr-expansion {
-  display: none; }
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em; }
 
 /********************************* Code display *******************************/
 code {
@@ -690,6 +694,13 @@ pre {
   font-style: initial; }
 .xml .xml-grantha.string, .xml .xml-heading.string {
   font-weight: bold; }
+
+.metadata-item > p:first-child {
+  padding-left: 1.5em;
+  text-indent: -1.5em; }
+
+.metadata-item > p:nth-child(n + 1) {
+  padding-left: 1.5em; }
 
 fieldset {
   display: flex;

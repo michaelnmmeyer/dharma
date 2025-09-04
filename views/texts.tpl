@@ -43,9 +43,9 @@ table of languages <a href="/langs">here</a>.</p>
    <li>
    <label for="text-input">Find:</label>
    % if q:
-   <input name="q" id="text-input" value="{{q | escape}}" autofocus/>
+   <input name="q" id="text-input" value="{{q | escape}}" autocapitalize="off" autofocus/>
    % else:
-   <input name="q" id="text-input" autofocus/>
+   <input name="q" id="text-input" autocapitalize="off" autofocus/>
    % endif
    </li>
    <li>
@@ -69,11 +69,7 @@ table of languages <a href="/langs">here</a>.</p>
 <p>Documents
 {{"%d\N{en dash}%d" % (first_entry, last_entry)}}
 of
-% if q.lower() in ('editor:manu', 'editor:emmanuel francis', 'editor:"emmanuel francis"', 'editor_id:emfr', 'emfr'):
-{{entries_nr + 1000000000000000000000}}
-% else
 {{entries_nr}}
-% endif
 % if q:
 matching.
 % else:

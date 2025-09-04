@@ -221,7 +221,7 @@ class GeneratedParser(Parser):
 
     @memoize
     def AxisName(self) -> Optional[Any]:
-        # AxisName: "ancestor-or-self" | "ancestor" | "child" | "descendant-or-self" | "descendant" | "following-sibling" | "parent" | "preceding-sibling" | "self" | "stuck-child" | "stuck-following-sibling" | "stuck-preceding-sibling"
+        # AxisName: "ancestor-or-self" | "ancestor" | "child" | "descendant-or-self" | "descendant" | "following-sibling" | "following" | "parent" | "preceding-sibling" | "preceding" | "self" | "stuck-child" | "stuck-parent" | "stuck-following-sibling" | "stuck-preceding-sibling"
         mark = self._mark()
         if (
             (literal := self.expect("ancestor-or-self"))
@@ -254,6 +254,11 @@ class GeneratedParser(Parser):
             return literal;
         self._reset(mark)
         if (
+            (literal := self.expect("following"))
+        ):
+            return literal;
+        self._reset(mark)
+        if (
             (literal := self.expect("parent"))
         ):
             return literal;
@@ -264,12 +269,22 @@ class GeneratedParser(Parser):
             return literal;
         self._reset(mark)
         if (
+            (literal := self.expect("preceding"))
+        ):
+            return literal;
+        self._reset(mark)
+        if (
             (literal := self.expect("self"))
         ):
             return literal;
         self._reset(mark)
         if (
             (literal := self.expect("stuck-child"))
+        ):
+            return literal;
+        self._reset(mark)
+        if (
+            (literal := self.expect("stuck-parent"))
         ):
             return literal;
         self._reset(mark)
@@ -669,7 +684,7 @@ class GeneratedParser(Parser):
         return None;
 
     KEYWORDS = ()
-    SOFT_KEYWORDS = ('ancestor', 'and', 'child', 'descendant', 'not', 'or', 'parent', 'self')
+    SOFT_KEYWORDS = ('ancestor', 'and', 'child', 'descendant', 'following', 'not', 'or', 'parent', 'preceding', 'self')
 
 
 if __name__ == '__main__':

@@ -1,3 +1,4 @@
+#XXX cleanup this
 import html, re
 from dharma import common, tree, biblio, people, texts, langs
 
@@ -9,11 +10,17 @@ def make_db():
 	db = common.db("texts")
 	db.execute("delete from prosody")
 	for row in index:
+		print(row)
+		if isinstance(row["pattern"], tree.Node):#XXX cleanup
+			row["pattern"] = row["pattern"].xml()
+		# TODO do something sensible when we have duplicates. Should
+		# print an error message, but where? Can't keep adding error
+		# pages for each XML file.
 		db.execute("""
 			insert into prosody(name, pattern, description, entry_id)
-			values(:name, :pattern, :description, :entry_id)""", row)
+			values(:name, :pattern, :description, :entry_id)
+			on conflict do nothing""", row)
 
-# TODO use Symbola for fonts symbol; no, is proprietary, find sth else
 pattern_tbl = str.maketrans({
 	"-": "\N{metrical breve}",
 	"+": "\N{en dash}",
@@ -22,8 +29,8 @@ pattern_tbl = str.maketrans({
 	"\N{devanagari danda}": "|",
 	"\N{devanagari double danda}": "||",
 })
-def render_pattern(p):
-	buf = []
+def render_pattern(p: str) -> tree.Tag:
+	ret = tree.Tag("span", class_="prosody")
 	for seg in re.findall(r"(?:\|\|)|(?:[0-9]{2,})|(?:.)", p):
 		if len(seg) > 1:
 			if not seg.isdigit():
@@ -31,16 +38,19 @@ def render_pattern(p):
 			# .prosody-segment is for letter-spacing. We keep
 			# together groups of digits and double daṇḍas, otherwise
 			# we add a bit a space.
-			buf.append(f'<span class="prosody-segment">{seg[:-1]}</span>')
-			buf.append(seg[-1])
+			span = tree.Tag("span", class_="prosody-segment")
+			span.append(seg[:-1])
+			ret.append(span)
+			ret.append(seg[-1])
 		else:
 			seg = seg.translate(pattern_tbl)
-			buf.append(html.escape(seg))
-	p = "".join(buf)
-	return f'<span class="prosody">{p}</span>'
+			ret.append(seg)
+	return ret
 
-def is_pattern(p):
-	return all(ord(c) in pattern_tbl or c.isdigit() or c in "|/" for c in p)
+pattern_chars = set(chr(c) for c in pattern_tbl) | set("0123456789|/")
+
+def is_pattern(p: str) -> bool:
+	return len(p) > 0 and all(c in pattern_chars for c in p)
 
 def parse_front(xml):
 	table = xml.first("//front//table")
@@ -158,7 +168,7 @@ def parse_list_rec(item, bib_entries, langs):
 		if not seg or seg == "no data available":
 			continue
 		if type == "prosody":
-			seg = render_pattern(seg)
+			seg = render_pattern(seg).html()
 		rec[type] = seg
 	symbols = iter(latex_note_symbols)
 	for bibl in item.find("listBibl/bibl"):
@@ -167,7 +177,7 @@ def parse_list_rec(item, bib_entries, langs):
 			continue
 		entry = bib_entries.get(ref)
 		if not entry:
-			entry = biblio.Entry(ref)
+			entry = biblio.lookup_entry(ref)
 			bib_entries[ref] = entry
 		syms = ""
 		for note in fetch_notes(bibl):
@@ -175,7 +185,7 @@ def parse_list_rec(item, bib_entries, langs):
 			note["symbol"] = symbol
 			syms += symbol
 			rec["bibliography"]["notes"].append(note)
-		ref = f'{entry.reference(loc=loc)}<sup>{syms}</sup>'
+		ref = f'{biblio.format_reference(entry, location=loc).xml()}<sup>{syms}</sup>'
 		rec["bibliography"]["refs"].append(ref)
 	return rec
 
@@ -206,13 +216,6 @@ def make_name_index(lists):
 				pattern = html.escape(item["gana"])
 			if not pattern and item["notes"]:
 				description = html.escape(item["notes"][0]["text"])
-			if item["class"]:
-				index.append({
-					"name": item["class"][0],
-					"entry_id": item_id,
-					"pattern": pattern,
-					"description": description,
-				})
 			for name in item["names"]:
 				index.append({
 					"name": name[0],
@@ -240,4 +243,5 @@ if __name__ == "__main__":
 	@common.transaction("texts")
 	def main():
 		print(common.to_json(parse_prosody()))
+		#make_db()
 	main()

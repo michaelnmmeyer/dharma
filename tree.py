@@ -5,52 +5,90 @@ are not represented as nodes, even though they are treated like that in the
 xpath model, because this would be weird in python.
 
 All node types derive from an abstract base class `Node`. `Tree` and `Tag` nodes
-derive from a `Branch` abstract class, which itself derives from `Node`. There
+derive from an abstract class `Branch`, which itself derives from `Node`. There
 is no inheritance relationship between concrete node types. For instance,
-`Comment` is not a subclass of `String`, unlike in bs4. Thus, to check whether a
+`Comment` is not a subclass of `String`, unlike in BeautifulSoup. Thus, to check whether a
 node is of a concrete given type `T`, using `isinstance(node, T)`, etc. is
 sufficient. And to check whether a node is a branch or a leaf, it is sufficient
 to check `isinstance(node, Branch)`.
 
 When parsing documents and when modifying attributes, we always normalize spaces
 in attributes: we replace all sequences of whitespace characters with " " and we
-trim whitespace from both sides.
+trim whitespace from both sides. Thus, an attribute with only whitespace is
+considered empty. Furthermore, we don't make a distinction between an empty or
+blank attribute and an attribute that is not explicitly given. Thus, we assume
+that `<foo bar="">` and `<foo bar="  ">` are identical to `<foo>`. This is wrong, but
+it doesn't cause much harm in practice, and considerably simplifies processing.
+It is still possible to check whether an attribute is explicitly given by
+using the Node.keys() method.
 
 For simplicity, we do not deal with XML namespaces at all. We just remove
 namespace prefixes in both elements and attributes. Thus,
 `<xsl:template>` becomes `<template>`, and `<foo xml:lang="eng">` becomes `<foo
 lang="eng">`. This means that we cannot deal with documents where namespaces are
 significant. This also means that we cannot properly serialize XML documents
-that used namespaces initially.
+that used namespaces initially. However, the resulting simplicity trumps this
+not-so-accurate processing.
 
 We use XPath expressions for searching and matching, but only support a small
-subset of it. Most notably, it is only possible to
-select `Tag` and `Tree` nodes. Other types of nodes, attributes in particular,
-can only be used in predicates, as in `foo[@bar]`. We also do not support
-expressions that index node sets in some way: testing a node position in a node
-set or evaluating the length of a node set is not possible.
+subset of it. Most notably, it is only possible to select `Tag` and `Tree`
+nodes. Other types of nodes, attributes in particular, can only be used in
+predicates viz. within brackets, as in `foo[@bar]`. We also do not support
+expressions that index node sets in some way (because we are using generators
+instead of lists for computing intermediate results). Thus, testing a node
+position in a node set or evaluating the length of a node set is not possible.
+
+There is one notable difference with XPath: the text() function does not return
+strings from the tree, but returns instead a (space-normalized) string which
+concatenates all string nodes under a given subtree.
+
+For convenience, we add a few extra axes to XPath's default. They are:
+
+* `stuck-child`.
+	Returns the first child element of the current node, iff there
+	is no text or just whitespace between the current node and this
+	child. This only ever returns one child.
+* `stuck-parent`.
+	Reverse of stuck-child.
+* `stuck-following-sibling`.
+	Returns the first following sibling of the current node, iff there is
+	no text or just whitespace between the current node and this sibling.
+	This only ever returns one sibling.
+* `stuck-preceding-sibling`.
+	Reverse of stuck-preceding-sibling.
 
 XPath expressions can use the following functions:
 
-`glob(pattern[, text])`
+`glob(pattern[, text])`, `iglob(pattern[, text])`
 
 Checks if `text` matches the given glob `pattern`. If `text` is not given,
-it defaults to the node's text contents.
+it defaults to the node's text contents. `iglob` is like `glob`, but is
+case-insensitive. In addition, we have:
 
 `regex(pattern[, text])`
 
 Like `glob`, but for regular expressions. Matching is unanchored, so `^` and
 `$` must be used if the idea is to match a full string.
 
-`lang()`, `mixed()`, `empty()`, `plain()`, `errors()`, `name()`
+`name()`
+`lang()`, `assigned-lang()`, inferred-lang()`
+`mixed()`, `empty()`, `plain()`, `text()`
 
 Returns the corresponding attributes in `Node`.
 
 To evaluate an expression, we first convert it to straightforward python source
 code, then compile the result, and finally run the code. Compiled expressions
 are saved in a global table and are systematically reused. There is no caching
-policy for now.
+policy for now, so it is not a good idea to generate expressions on-the-fly.
+
+The xpath.py command-line tool can be used for evaluating xpath expressions. If
+it is not given any file to search into, it just prints the Python code that
+will be used for evaluating the given expression.
 '''
+
+# TODO add a "fallback" handler (or maybe a different parser) for processing
+# stuff simple document that are not necessarily XML viz. documents with
+# several root elements or without a root element.
 
 import os, re, io, collections, sys, fnmatch, tokenize, traceback
 from xml.parsers import expat
@@ -87,13 +125,6 @@ def escape_attribute(s):
 def quote_attribute(s):
 	return f'"{escape_attribute(s)}"'
 
-def unique(items):
-	ret = []
-	for item in items:
-		if not item in ret:
-			ret.append(item)
-	return ret
-
 def parse_string(source, path=None):
 	'''Parse an XML string into a `Tree`. If `path` is given, it will be
 	used as filename in error messages, and will be accessible through
@@ -104,7 +135,7 @@ def parse_string(source, path=None):
 	if isinstance(source, str):
 		source = source.encode()
 	try:
-		return Parser(source, path=path).parse()
+		return _Parser(source, path=path).parse()
 	except expat.ExpatError as e:
 		err = e
 	# https://docs.python.org/3/library/pyexpat.html#xml.parsers.expat.XMLParserType
@@ -142,9 +173,9 @@ class Node:
 	inferred_lang = None
 	"""Actual language, inferred by bubbling up the language of children
 	elements."""
+	# XXX likewise need to add assigned_script and inferred_script
 
 	def __init__(self, *args, **kwargs):
-		self.errors = []
 		super().__init__(*args, **kwargs)
 
 	@property
@@ -186,12 +217,6 @@ class Node:
 			list.append(ret, self)
 		return ret
 
-	def add_error(self, message):
-		self.errors.append(message)
-
-	def add_warning(self, message):
-		pass # ignore for now
-
 	@property
 	def path(self):
 		"The path of this node. See the `locate` method."
@@ -210,7 +235,7 @@ class Node:
 		raise Exception("invalid operation")
 
 	@property
-	def plain(self):
+	def plain(self) -> bool:
 		'''`True` if this node is a `String`, or if it is a `Branch`
 		that has no children or only `String` children (discounting
 		comments and processing instructions).'''
@@ -250,6 +275,12 @@ class Node:
 		"""
 		pass
 
+	def stuck_parent(self):
+		"Reverse of `stuck_child()`."
+		parent = self.parent
+		if parent and parent.stuck_child() is self:
+			return parent
+
 	def stuck_following_sibling(self):
 		"""Returns the first `Tag` sibling of this node, if it has one
 		and if there is no intervening non-blank text in-between. Can
@@ -257,12 +288,20 @@ class Node:
 		"""
 		raise Exception("bad operation")
 
+	def stuck_preceding_sibling(self):
+		"""Reverse of stuck_preceding_sibling()."""
+		raise Exception("bad operation")
+
+	def strings(self):
+		return []
+
 	def delete(self):
 		"""Removes this node and all its descendants from the tree.
 		Returns the removed subtree."""
 		parent = self._parent
 		if parent:
-			return parent.remove(self)
+			parent.remove(self)
+			return self
 		self._parent = None
 		self.location = None
 		return self
@@ -298,26 +337,26 @@ class Node:
 			path = path[end:]
 		return node
 
-	def find(self, path):
+	def find(self, path: str) -> list['Node']:
 		'''Finds nodes that match the given XPath expression. Returns a
 		list of matching nodes.
 		'''
 		f = generator.compile(path)
 		return list(f(self))
 
-	def first(self, path):
+	def first(self, path: str) -> "Node | None":
 		'''Like the `find` method, but returns only the first matching
 		node, or `None` if there is no match.'''
 		f = generator.compile(path)
 		return next(f(self), None)
 
 	@staticmethod
-	def match_func(path):
+	def match_func(path: str):
 		'''Returns a function that matches the given path if called on
 		a `Node` object. See the documentation of `Node.matches()`.'''
 		return generator.compile(path, search=False)
 
-	def matches(self, path):
+	def matches(self, path: str) -> bool:
 		'''Checks if this node matches the given XPath expression.
 		Returns a boolean.
 
@@ -327,11 +366,11 @@ class Node:
 		f = self.match_func(path)
 		return f(self)
 
-	def children(self):
+	def children(self) -> list['Node']:
 		'''Returns a list of `Tag` children of this node.'''
 		return []
 
-	def replace_with(self, other):
+	def replace_with(self, other) -> 'Node':
 		'''Removes this node and its descendants from the tree, and
 		puts another node in its place. Returns the removed subtree.
 		'''
@@ -341,14 +380,38 @@ class Node:
 		parent.insert(i, other)
 		return self
 
-	def text(self, space="default"):
+	def insert_after(self, other):
+		'''Insert a node just after the current one.
+
+		This cannot be called on a `Tree`, obviously.'''
+		parent = self.parent
+		i = parent.index(self)
+		parent.insert(i + 1, other)
+
+	def insert_before(self, other):
+		'''Insert a node just before the current one.
+
+		This cannot be called on a `Tree`, obviously.'''
+		parent = self.parent
+		i = parent.index(self)
+		parent.insert(i, other)
+
+	def comment_out(self, **kwargs):
+		"""Comment out a node viz. replace it with a commented out XML
+		representation of it. Keyword arguments are the same as the ones
+		of the `.xml()` method."""
+		tmp = self.xml(**kwargs)
+		self.replace_with(Comment(tmp))
+		return self
+
+	def text(self, space="default") -> str:
 		'''Returns the text contents of this subtree. Per default, we do
 		normalize-space(); to prevent this, pass `space="preserve"`.
 		'''
 		return ""
 
 	def xml(self, strip_comments=False, strip_instructions=False,
-		html=False, color=False, add_xml_prefix=True):
+		html=False, color=False):
 		'''Returns an XML representation of this subtree.
 
 		If `html` is true, the result will be escaped, for inclusion
@@ -358,9 +421,18 @@ class Node:
 		'''
 		fmt = Formatter(strip_comments=strip_comments,
 			strip_instructions=strip_instructions, html=html,
-			color=color, add_xml_prefix=add_xml_prefix)
+			color=color, add_xml_prefix=True)
 		fmt.format(self)
 		return fmt.text()
+
+	def html(self):
+		fmt = Formatter(strip_comments=True, strip_instructions=True,
+			html=False, color=False, add_xml_prefix=False, self_closing=False)
+		fmt.format(self)
+		return fmt.text()
+
+	def __iter__(self):
+		raise NotImplementedError
 
 	def __copy__(self):
 		return self.copy()
@@ -401,6 +473,9 @@ class Branch(Node, list):
 	@property
 	def plain(self):
 		return all(not isinstance(node, Tag) for node in self)
+
+	def __iter__(self):
+		return list.__iter__(self)
 
 	def __add__(self, value):
 		ret = self.copy()
@@ -446,20 +521,22 @@ class Branch(Node, list):
 		return node
 
 	def extend(self, iterable):
-		for node in iterable:
+		for node in list(iterable):
 			self.append(node)
 
-	def coalesce(self):
+	def coalesce(self, recursive=True):
 		i = 0
 		while i < len(self):
 			cur = self[i]
 			if isinstance(cur, String):
 				if not cur.data:
-					del self[i]
+					cur.delete()
 				elif i < len(self) - 1 and isinstance(self[i + 1], String):
-					cur.append(self[i + 1])
-					del self[i + 1]
-			elif isinstance(cur, Tag):
+					cur.replace_with(cur.data + self[i + 1].data)
+					self[i + 1].delete()
+				else:
+					i += 1
+			elif recursive and isinstance(cur, Tag):
 				cur.coalesce()
 				i += 1
 			else:
@@ -550,7 +627,10 @@ class Branch(Node, list):
 
 	def insert(self, i, node):
 		if isinstance(node, Node):
-			assert not isinstance(node, Tree)
+			if isinstance(node, Tree):
+				for j, child in enumerate(node):
+					self.insert(i + j, child)
+				return
 			# Detach the node from the tree it belongs to, if any.
 			# The node might already belong to this tree.
 			node.delete()
@@ -571,6 +651,16 @@ class Branch(Node, list):
 
 	def prepend(self, node):
 		self.insert(0, node)
+
+	def strings(self):
+		ret = []
+		for node in self:
+			match node:
+				case String():
+					ret.append(node)
+				case Tag():
+					ret.extend(node.strings())
+		return ret
 
 class Tree(Branch):
 	'''`Tree` represents the XML document proper. It must contain a single
@@ -620,20 +710,16 @@ class Tree(Branch):
 		return "<Tree>"
 
 	def text(self, **kwargs):
-		if self.root:
-			return self.root.text(**kwargs)
+		return "".join(node.text(**kwargs) for node in self)
 
 	def delete(self):
 		raise Exception("nodes of type 'tree' cannot be deleted")
 
-	def insert(self, index, node):
-		if isinstance(node, Tag):
-			if any(isinstance(child, Tag) for child in self):
-				raise Exception("cannot add a root tag to a tree that already has one")
-		elif isinstance(node, (String, str)):
-			if not node.isspace():
-				raise Exception("cannot add text contents to a Tree node")
-		super().insert(index, node)
+	def insert_before(self, node):
+		raise Exception("cannot insert a node before a tree")
+
+	def insert_after(self, node):
+		raise Exception("cannot insert a node after a tree")
 
 	def copy(self):
 		ret = Tree()
@@ -643,9 +729,6 @@ class Tree(Branch):
 
 	def replace_with(self, other):
 		raise Exception("cannot replace Tree nodes")
-
-	next = None
-	prev = None
 
 class Tag(Branch):
 	'''Represents element nodes.
@@ -667,31 +750,26 @@ class Tag(Branch):
 	attributes.
 	'''
 
-	def __init__(self, name, *attributes_iter, **attributes):
-		'''The argument `name` is the name of the node as a string, e.g.
-		"html". This argument can be followed by a single positional
-		argument `attributes_iter`. If given, it must be an
-		iterator that returns tuples of the form `(key, value)`, or a
-		`dict` subclass. Attributes can also be passed as keyword
-		arguments with `**attributes`.
+	__match_args__ = ("name",)
 
-		Attributes ordering is preserved for attributes passed through
-		`attributes_iter`. This is the reason we have it. New
-		attributes created manually with e.g. `node["attr"] = "foo"`
-		are added at the end of the attributes list. (We use an
-		OrderedDict under the hood.)
+	def __init__(self, name_, **attributes):
+		'''The argument `name` is the name of the node as a string, e.g.
+		"html". Attributes can be passed as keyword arguments with
+		`**attributes` (their order is preserved, see
+		https://docs.python.org/3/whatsnew/3.6.html#whatsnew36-pep468).
 		'''
-		self.name = name
+		self.name = name_
 		self.attrs = collections.OrderedDict()
 		self.problems = []
-		if attributes_iter:
-			assert len(attributes_iter) == 1
-			attrs = attributes_iter[0]
-			if isinstance(attrs, dict):
-				attrs = attrs.items()
-			for key, value in attrs:
-				self[key] = value
 		for key, value in attributes.items():
+			# Special case, for passing python keywords conveniently,
+			# as in tree.Tag("span", class_="hello"), which can be
+			# used instead of tree.Tag("span", **{"class": "hello"})
+			if len(key) > 1 and key[-1] == "_":
+				key = key[:-1]
+			# So that we can use tree.Tag("span", data_tip="foo")
+			# instead of tree.Tag("span", **{"data-tip": "foo"})
+			key = key.replace("_", "-")
 			self[key] = value
 		super().__init__()
 
@@ -711,11 +789,27 @@ class Tag(Branch):
 					break
 			i += 1
 
+	def stuck_preceding_sibling(self):
+		parent = self.parent
+		i = parent.index(self) - 1
+		while i >= 0:
+			node = parent[i]
+			match node:
+				case Tag():
+					return node
+				case String() if node.isspace():
+					pass
+				case Comment() | Instruction():
+					pass
+				case _:
+					break
+			i -= 1
+
 	def __hash__(self):
 		return id(self)
 
 	def copy(self):
-		ret = Tag(self.name, self.attrs)
+		ret = Tag(self.name, **self.attrs)
 		for child in self:
 			ret.append(child.copy())
 		return ret
@@ -785,20 +879,18 @@ class Tag(Branch):
 
 	def __setitem__(self, key, value):
 		if isinstance(key, int):
-			super().__setitem__(key, value)
-		else:
-			assert isinstance(key, str)
-			assert isinstance(value, str)
-			# Always normalize space.
-			value = " ".join(value.strip().split())
+			return super().__setitem__(key, value)
+		assert isinstance(key, str)
+		if value is None:
+			del self[key]
+			return
+		assert isinstance(value, str), type(value)
+		# Always normalize space.
+		value = " ".join(value.strip().split())
+		if value:
 			self.attrs[key] = value
-			# XXX still have "replacementPattern" that needs an empty string
-			"""
-			if value:
-				self.attrs[key] = value
-			elif key in self.attrs:
-				del self.attrs[key]
-         """
+		elif key in self.attrs:
+			del self.attrs[key]
 
 	def __delitem__(self, key):
 		if isinstance(key, int):
@@ -837,6 +929,9 @@ class String(Node, collections.UserString):
 	@property
 	def plain(self):
 		return True
+
+	def strings(self):
+		return [self]
 
 	def append(self, data):
 		"Adds text at the end of this `String`."
@@ -907,7 +1002,7 @@ class Instruction(Node):
 	def copy(self):
 		return Instruction(self.target, self.data)
 
-class Parser:
+class _Parser:
 
 	def __init__(self, source, path=None):
 		self.parser = expat.ParserCreate()
@@ -949,8 +1044,8 @@ class Parser:
 			node.location = Location(start, None, line, column)
 		self.last_node = node
 
-	def make_node(self, klass, *args):
-		node = klass(*args)
+	def make_node(self, klass, *args, **kwargs):
+		node = klass(*args, **kwargs)
 		parent = self.stack[-1]
 		node._parent = parent
 		list.append(parent, node)
@@ -994,7 +1089,7 @@ class Parser:
 			if colon >= 0:
 				key = key[colon + 1:]
 			attrs.append((key, value))
-		self.make_node(Tag, name, attrs)
+		self.make_node(Tag, name, **dict(attrs))
 
 	def EndElementHandler(self, name):
 		node = self.stack.pop()
@@ -1067,6 +1162,11 @@ def xpath_glob(node, pattern, *arg):
 	(text,) = arg or (node.text(),)
 	return fnmatch.fnmatchcase(text, pattern)
 
+def xpath_iglob(node, pattern, *arg):
+	assert isinstance(pattern, str)
+	(text,) = arg or (node.text(),)
+	return fnmatch.fnmatchcase(text.lower(), pattern.lower())
+
 def xpath_regex(node, pattern, *arg):
 	assert isinstance(pattern, str)
 	(text,) = arg or (node.text(),)
@@ -1074,7 +1174,18 @@ def xpath_regex(node, pattern, *arg):
 
 def xpath_lang(node):
 	assert isinstance(node, Node)
-	return node.assigned_lang
+	assert node.assigned_lang is not None
+	return node.assigned_lang.id
+
+def xpath_assigned_lang(node):
+	assert isinstance(node, Node)
+	assert node.assigned_lang is not None
+	return node.assigned_lang.id
+
+def xpath_inferred_lang(node):
+	assert isinstance(node, Node)
+	assert node.inferred_lang is not None
+	return node.inferred_lang.id
 
 def xpath_mixed(node):
 	assert isinstance(node, Node)
@@ -1088,98 +1199,84 @@ def xpath_plain(node):
 	assert isinstance(node, Node)
 	return node.plain
 
-def xpath_errors(node):
-	assert isinstance(node, Node)
-	return bool(node.errors)
-
 def xpath_name(node):
-	assert isinstance(node, Tag)
-	return node.name
+	assert isinstance(node, Node)
+	return isinstance(node, Tag) and node.name or None
+
+def xpath_is_source_lang(node, s):
+	assert isinstance(s, str), s
+	from dharma import langs
+	return langs.Language(s).is_source
+
+def xpath_text(node):
+	assert isinstance(node, Node)
+	return node.text()
 
 xpath_funcs = {
 	"glob": xpath_glob,
+	"iglob": xpath_iglob,
 	"regex": xpath_regex,
 	"lang": xpath_lang,
+	"assigned-lang": xpath_assigned_lang,
+	"inferred-lang": xpath_inferred_lang,
+	"is-source-lang": xpath_is_source_lang,
 	"mixed": xpath_mixed,
 	"empty": xpath_empty,
 	"plain": xpath_plain,
-	"errors": xpath_errors,
 	"name": xpath_name,
+	"text": xpath_text,
 }
+
+def stuck_parent(node):
+	if isinstance(node, Tree):
+		return
+	parent = node.parent
+	if parent.stuck_child() is node:
+		yield parent
+
+def following(node):
+	def inner(nodes):
+		for node in nodes:
+			yield node
+			if isinstance(node, Tag):
+				yield from inner(node)
+	while not isinstance(node, Tree):
+		parent = node.parent
+		i = parent.index(node)
+		yield from inner(parent[i + 1:])
+		node = parent
+
+def preceding(node):
+	def inner(nodes):
+		for node in reversed(nodes):
+			yield node
+			if isinstance(node, Tag):
+				yield from inner(node)
+	while not isinstance(node, Tree):
+		parent = node.parent
+		i = node.parent.index(node)
+		yield from inner(parent[:i])
+		node = parent
 
 def children(node):
 	assert isinstance(node, Node)
-	for child in node:
-		if isinstance(child, Tag):
+	if isinstance(node, Branch):
+		for child in node:
 			yield child
-
-def stuck_children(node):
-	assert isinstance(node, Node)
-	if not isinstance(node, Branch):
-		return
-	i = 0
-	while i < len(node):
-		child = node[i]
-		match child:
-			case Tag():
-				yield child
-			case String() if child.isspace():
-				pass
-			case Comment() | Instruction():
-				pass
-			case _:
-				break
-		i += 1
-
-def stuck_following_siblings(node):
-	assert isinstance(node, Node)
-	if not isinstance(node, Tag):
-		return
-	parent = node.parent
-	i = parent.index(node) + 1
-	while i < len(parent):
-		child = parent[i]
-		match child:
-			case Tag():
-				yield child
-			case String() if child.isspace():
-				pass
-			case Comment() | Instruction():
-				pass
-			case _:
-				break
-		i += 1
-
-def stuck_preceding_siblings(node):
-	assert isinstance(node, Node)
-	if not isinstance(node, Tag):
-		return
-	parent = node.parent
-	i = parent.index(node) - 1
-	while i >= 0:
-		child = parent[i]
-		match child:
-			case Tag():
-				yield child
-			case String() if child.isspace():
-				pass
-			case Comment() | Instruction():
-				pass
-			case _:
-				break
-		i -= 1
 
 def descendants(node):
 	assert isinstance(node, Node)
-	for child in node:
-		if isinstance(child, Tag):
+	if isinstance(node, Branch):
+		for child in node:
 			yield child
-			yield from descendants(child)
+			if isinstance(child, Tag):
+				yield from descendants(child)
 
 def descendants_or_self(node):
 	assert isinstance(node, Node)
 	yield node
-	yield from descendants(node)
+	if isinstance(node, Branch):
+		yield from descendants(node)
 
 def ancestors(node):
 	assert isinstance(node, Node)
@@ -1229,6 +1326,9 @@ def handle_token(buf, tok):
 					buf.clear()
 				case tokenize.OP if tok.string == "-" and buf[0].end == tok.start:
 					buf.append(tok)
+				case tokenize.NAME:
+					yield buf[0]
+					buf[0] = tok
 				case _:
 					yield buf[0]
 					buf.clear()
@@ -1240,26 +1340,26 @@ def handle_token(buf, tok):
 					yield buf[1]
 					buf.clear()
 				case tokenize.NAME if buf[1].end == tok.start:
-					info = tokenize.TokenInfo(
+					tok = tokenize.TokenInfo(
 						type=tokenize.NAME,
 						string=buf[0].string + "-" + tok.string,
 						start=buf[0].start, end=tok.end, line=buf[0].line)
 					buf.clear()
-					buf.append(info)
+					buf.append(tok)
 				case _:
 					yield buf[0]
 					yield buf[1]
 					buf.clear()
 					yield tok
 
-
-# Like Python's tokenizer, but treats strings like "foo-bar-baz" as names.
+# Like Python's tokenizer, but treats strings like "foo-bar-baz" as names, and
+# also ignores newlines..
 def tokenize_xpath(s):
 	buf = []
 	for tok in tokenize.generate_tokens(io.StringIO(s).readline):
 		yield from handle_token(buf, tok)
 
-class Generator:
+class _Generator:
 
 	def __init__(self):
 		self.code = ""
@@ -1267,12 +1367,12 @@ class Generator:
 		self.bufs = []
 		self.routines_nr = 0
 		self.env = {f.__name__: f
-			for funcs in (xpath_funcs.values(), (Tag, Tree,
-				children, stuck_children,
+			for funcs in (xpath_funcs.values(), (Tag, Tree, Branch,
+				children,
 				descendants, descendants_or_self,
 				ancestors, ancestors_or_self,
-				following_siblings, stuck_following_siblings,
-				preceding_siblings, stuck_preceding_siblings))
+				following_siblings, preceding_siblings,
+				following, preceding))
 				for f in funcs}
 		self.search = {}
 		self.match = {}
@@ -1317,8 +1417,6 @@ class Generator:
 		if f:
 			return f
 		t = self.parse(expr)
-		if os.getenv("DHARMA_DEBUG"):
-			print(t, file=sys.stderr)
 		assert isinstance(t, Path)
 		main = main_func(t, expr)
 		code = compile(self.code, "<xpath expression>", "exec")
@@ -1373,6 +1471,8 @@ class Generator:
 		for i, step in enumerate(steps):
 			if step.name_test:
 				self.append(f"if isinstance(node, Tag) and node.name == {step.name_test!r}:")
+			else:
+				self.append("if isinstance(node, Tag):")
 			for pred in step.predicates:
 				self.append(f"if {self.generate(pred)}:")
 			if i == len(steps) - 1:
@@ -1385,6 +1485,10 @@ class Generator:
 					pass
 				case "child":
 					self.append("node = node.parent")
+					if not step.name_test:
+						self.append("if node is not None:")
+				case "stuck-child":
+					self.append("node = node.stuck_parent()")
 					if not step.name_test:
 						self.append("if node is not None:")
 				case "descendant-or-self" if step.abbreviated:
@@ -1413,8 +1517,6 @@ class Generator:
 				pass
 			case "child":
 				self.append("for node in children(node):")
-			case "stuck-child":
-				self.append("for node in stuck_children(node):")
 			case "descendant":
 				self.append("for node in descendants(node):")
 			case "descendant-or-self":
@@ -1428,16 +1530,26 @@ class Generator:
 				self.append("for node in ancestors_or_self(node):")
 			case "following-sibling":
 				self.append("for node in following_siblings(node):")
+			case "following":
+				self.append("for node in following(node):")
 			case "preceding-sibling":
 				self.append("for node in preceding_siblings(node):")
+			case "preceding":
+				self.append("for node in preceding(node):")
+			case "stuck-child":
+				self.append("if (node := node.stuck_child()) is not None:")
+			case "stuck-parent":
+				self.append("if (node := node.stuck_parent()) is not None:")
 			case "stuck-following-sibling":
-				self.append("for node in stuck_following_siblings(node):")
+				self.append("if (node := node.stuck_following_sibling()) is not None:")
 			case "stuck-preceding-sibling":
-				self.append("for node in stuck_preceding_siblings(node):")
+				self.append("if (node := node.stuck_preceding_sibling()) is not None:")
 			case _:
 				assert 0, repr(step.axis)
 		if step.name_test:
 			self.append(f"if isinstance(node, Tag) and node.name == {step.name_test!r}:")
+		else:
+			self.append("if isinstance(node, Branch):")
 		for pred in step.predicates:
 			self.append(f"if {self.generate(pred)}:")
 
@@ -1454,7 +1566,7 @@ class Generator:
 		buf.append(")")
 		return "".join(buf)
 
-generator = Generator()
+generator = _Generator()
 
 def term_color(code=None):
 	if not code:
@@ -1586,7 +1698,8 @@ class Formatter:
 
 	def __init__(self, html=True, strip_comments=True,
 		strip_instructions=False, add_xml_prefix=False,
-		color=False, max_width=80 ** 10, indent_string=2 * " "):
+		color=False, max_width=80 ** 10, indent_string=2 * " ",
+		self_closing=True):
 		# max_width is soft, not hard.
 		self.indent = 0
 		self.offset = 0
@@ -1600,6 +1713,7 @@ class Formatter:
 		self.strip_instructions = strip_instructions
 		self.add_xml_prefix = add_xml_prefix
 		self.state = "wait_line"
+		self.self_closing = self_closing
 
 	def format_contents(self, node):
 		for child in node:
@@ -1608,6 +1722,10 @@ class Formatter:
 
 	def format(self, node):
 		self.format_node(node)
+		self.finish()
+
+	def format_invalid(self, xml):
+		self.write(xml)
 		self.finish()
 
 	def finish(self):
@@ -1645,7 +1763,8 @@ class Formatter:
 	def format_comment(self, node):
 		if self.strip_comments:
 			return
-		node = node.data
+		# Escape --
+		node = node.data.replace("--", "-&#45;")
 		self.write(f"<!--{node}-->", klass="comment")
 
 	def format_string(self, node, cat=""):
@@ -1665,13 +1784,13 @@ class Formatter:
 			self.write('"',  klass=f"tag tag-punct {cat}")
 			self.write(escape_attribute(v), klass=f"tag attr-value {attr_value_style(node, k)}")
 			self.write('"',  klass=f"tag tag-punct {cat}")
-		if len(node) == 0:
+		if self.self_closing and len(node) == 0:
 			self.write("/>", klass=f"tag tag-punct {cat}")
 		else:
 			self.write(">", klass=f"tag tag-punct {cat}")
 
 	def format_closing_tag(self, node, cat):
-		if len(node) == 0:
+		if self.self_closing and len(node) == 0:
 			return
 		self.write("</", klass=f"tag tag-punct {cat}")
 		self.write(node.name, klass=f"tag {cat}")
@@ -1743,24 +1862,70 @@ class Formatter:
 	def text(self):
 		return self.buf.getvalue()
 
-def html_format(node, skip_root=False, color=True, add_xml_prefix=True,
+def html_format(node: Node | str, skip_root=False, color=True, add_xml_prefix=True,
 	strip_comments=False):
 	fmt = Formatter(color=color, add_xml_prefix=add_xml_prefix,
 		strip_comments=strip_comments)
 	if skip_root:
+		assert isinstance(node, Node)
 		fmt.format_contents(node)
-	else:
+	elif isinstance(node, Node):
 		fmt.format(node)
+	else:
+		assert isinstance(node, str)
+		fmt.format_invalid(node)
 	return fmt.text()
+
+class Serializer:
+	"Helper for building XML trees."
+
+	def __init__(self):
+		self.clear()
+
+	def clear(self):
+		self.tree = Tree()
+		self.stack = [self.tree]
+
+	def push(self, node, **attrs):
+		if isinstance(node, Node):
+			assert not attrs
+			node = node.copy()
+		else:
+			node = Tag(node, **attrs)
+		self.stack.append(node)
+
+	@property
+	def top(self):
+		return self.stack[-1]
+
+	def pop(self):
+		assert len(self.stack) > 1 # Should never pop the root tree.
+		return self.stack.pop()
+
+	def join(self):
+		self.append(self.pop())
+
+	def append(self, node):
+		if isinstance(node, Node):
+			node = node.copy()
+		self.stack[-1].append(node)
+
+	def extend(self, node_iter):
+		for node in list(node_iter):
+			self.append(node)
+
 
 if __name__ == "__main__":
 	if len(sys.argv) <= 1:
 		exit()
 	try:
-		tree = parse(sys.argv[1])
-		fmt = Formatter(pretty=False, html=False, color=True)
-		fmt.format(tree)
-		sys.stdout.write(fmt.text())
+		try:
+			tree = parse(sys.argv[1])
+		except Error:
+			with open(sys.argv[1]) as f:
+				tree = f.read()
+		fmt = html_format(tree)
+		sys.stdout.write(fmt)
 	except (BrokenPipeError, KeyboardInterrupt):
 		exit(1)
 	except Error as err:

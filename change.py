@@ -1,18 +1,28 @@
-# To keep things simple, we use a FIFO for IPC. The server process is hooked to
-# Github. Whenever a repository is updated, it writes to the FIFO the name of
-# this repository, followed by a line break. On its side, the update process
-# reads the repository names and updates things accordingly. The same is done
-# for bibliography updates.
-#
-# We do not
-# implement any buffering for passing messages, because pipe buffers are big
-# enough for our purposes.
-#
-# We use the WAL mode in SQLite. Thus, writers don't block readers and
-# vice-versa, but writers still do block each other, which is why we use just
-# one and serialize writes.
+"""Database update logic.
 
-# TODO add an option for turning off web access (no git pulls, no backups)
+To keep things simple, we use a FIFO for IPC. The server process is hooked to
+Github. Whenever a repository is updated, it writes to the FIFO the name of this
+repository, followed by a line break. On its side, the update process reads the
+repository names and updates things accordingly. The same is done for
+bibliography updates.
+
+We do not implement any buffering for passing messages, because pipe buffers are
+big enough for our purposes.
+
+We use the WAL mode in SQLite. Thus, writers don't block readers and vice-versa,
+but writers still do block each other, which is why we use just one and
+serialize writes.
+
+TODO Add an option for turning off web access (no git pulls, no backups)
+
+TODO Try to keep all git repositories shallow, to save disk space. For this,
+modify git commands to make them do shallow clones or pulls instead of regular
+ones. Interesting commands are:
+
+Make a shallow clone: git clone <url> --depth 1
+Make an existing repository shallow: git pull --depth 1 && git gc --prune=now
+Make a repository unshallow: git fetch --unshallow
+"""
 
 import os, sys, time, select, errno, logging, fcntl, argparse, traceback
 from dharma import common, texts, biblio, catalog, people, langs
@@ -240,7 +250,6 @@ def read_names(fd):
 		if not rlist:
 			continue
 		data = os.read(fd, PIPE_BUF)
-		logging.info("read %d" % len(data))
 		buf += data.decode("ascii")
 
 def read_changes(fd):

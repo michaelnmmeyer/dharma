@@ -1,7 +1,7 @@
 % extends "base.tpl"
 
 % block title
-<span class="text-id">{{text["name"].removeprefix("DHARMA_")}}{{text["name"].removeprefix("DHARMA_")}}</span>
+<span class="text-id">{{text["name"].removeprefix("DHARMA_")}}</span>
 % endblock
 
 % block body

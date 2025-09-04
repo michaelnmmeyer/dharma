@@ -12,7 +12,7 @@ href="https://github.com/erc-dharma">here</a>. The table below does not show the
 <div class="catalog-list">
 
 % for repo in rows:
-<div class="catalog-card">
+<div class="catalog-card" id="repo-{{repo["repo"]}}">
 <p>
 	<b>{{repo["title"]}}</b>
 % if repo["repo_prod"] is not none:
