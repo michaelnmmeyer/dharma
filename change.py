@@ -62,7 +62,7 @@ def clone_repo(name):
 		if e.errno == errno.ENOTEMPTY:
 			return False
 		raise
-	common.command("git", "clone", f"git@github.com:erc-dharma/{name}.git",
+	common.command("git", "clone", "--depth=1", f"git@github.com:erc-dharma/{name}.git",
 		path, capture_output=False)
 	return True
 
