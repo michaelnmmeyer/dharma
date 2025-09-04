@@ -1,7 +1,5 @@
 # TODO
 
-should make sure we can bootstrap the thing; and document how.
-
 for highlighting, query evaluation. cursor objects need to work on the
 normalized text. once we've pinpointed the passages to highlight, redo the
 transform from XML to normalized text (which needs to operated char by char).
@@ -11,8 +9,6 @@ end-highlight element. then pass a reference to these two elements to some
 generic function that will figure out if it can just highlight the stuff in
 a single go or if it should break it into several portions (because the
 match crosses a paragraph, a list element, etc.).
-
-## Before publishing the new version
 
 in catalog.py insert(). title and summary must not be saved as html in the db,
 because we will need to highlight stuff, which requires it to be XML or plain
@@ -27,15 +23,6 @@ fields, this is only useful for search.
 the parsed document does not need to contain file-related data that can be
 fetched from elsewhere in the db (repository, languages, etc.), we can construct
 a "full" xml document on-the-fly.
-
----
-
-properly display invalid XML files
-
-fix convert endpoint
-
-fix editorial displays properly, still stuff that isn't supported
-
 
 ## Misc
 
