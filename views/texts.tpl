@@ -111,7 +111,7 @@ total.
    % endif
    </p>
    % if row["summary"]:
-   <p>Summary: {{row["summary"] | safe}}</p>
+   {{row["summary"] | safe}}
    % endif
    % if row["langs"]:
    % set langs = from_json(row["langs"])
