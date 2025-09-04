@@ -17,16 +17,32 @@ The following Python packages need to be installed with `pip`:
 Note that the Python package for [ICU](https://icu.unicode.org/) is `PyICU`, not
 `icu`! PyICU does not automatically install the libraries it needs to work, and
 it wants all the ICU stuff to be installed, including the build tools, so you
-need to install `libicu-dev` or `libicu-devel` (depending on the distribution),
+need to install `libicu-devel` or `libicu-dev` (depending on the distribution),
 not just `libicu`. You also need to install Python's headers (`python-devel` or
 `python-dev`).
 
-[`Pandoc`](https://pandoc.org) must also be installed, we use it at runtime
-for rendering Markdown files.
+Also needed are [`pandoc`](https://pandoc.org) (we use it at runtime
+for rendering Markdown files) and the `sqlite3` command-line tool.
 
 The code's documentation can be browsed with the `pdoc` tool:
 
 	pdoc dharma
+
+## Bootstrapping
+
+You need to clone this repository with its submodule:
+
+	git clone --recursive git@github.com:michaelnmmeyer/dharma.git
+
+The repository's directory must be placed somewhere on `$PYTHONPATH`, so you
+need to modify this variable accordingly (or to move the directory in one of the
+directories it enumerates).
+
+Once done, run:
+
+	python change.py
+
+This will clone all DHARMA repositories and create the database.
 
 ##  Entry points
 

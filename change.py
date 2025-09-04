@@ -32,8 +32,6 @@ SKIP_PULL = False
 
 FIFO_ADDR = common.path_of("change.hid")
 
-db = common.db("texts")
-
 # Timestamp of the last git pull/clone
 last_pull = 0
 
@@ -104,6 +102,7 @@ class Changes:
 		self.commit_hash, self.commit_date = latest_commit_in_repo(self.repo)
 
 	def check_db(self):
+		db = common.db("texts")
 		commit_hash, code_hash = db.execute("""
 			select commit_hash, code_hash
 			from repos where repo = ?""",
@@ -155,6 +154,7 @@ def update_db(repo):
 	if changes.done:
 		return
 	changes.check_repo()
+	db = common.db("texts")
 	db.execute("""update repos
 		set commit_hash = ?, commit_date = ?, code_hash = ?
 		where repo = ?""",
@@ -186,6 +186,7 @@ def update_project():
 	catalog.rebuild()
 	repo = "project-documentation"
 	commit_hash, commit_date = latest_commit_in_repo(repo)
+	db = common.db("texts")
 	db.execute("""update repos
 		set commit_hash = ?, commit_date = ?, code_hash = ?
 		where repo = ?""",
@@ -210,6 +211,7 @@ def handle_changes(name):
 		update_project()
 	else:
 		update_db(name)
+	db = common.db("texts")
 	db.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
 	if name == "tfd-nusantara-philology":
 		backup_to_jawakuno()
@@ -254,29 +256,39 @@ def read_names(fd):
 
 def read_changes(fd):
 	for name in read_names(fd):
-		repos = all_useful_repos()
 		if name == "all":
+			# For the initial run to work properly, need to update
+			# in this order: the bibliography (some files cite it in
+			# project-documentation); project-documentation (it
+			# contains a list of all dharma repos); and all other
+			# repos in whatever order.
 			logging.info("updating everything...")
-			for name in repos:
-				logging.info("updating %r" % name)
-				handle_changes(name)
-				logging.info("updated %r" % name)
 			logging.info("updating biblio...")
 			biblio.update()
 			logging.info("updated biblio")
+			name = "project-documentation"
+			logging.info(f"updating {name!r}")
+			handle_changes(name)
+			logging.info(f"updated {name!r}")
+			repos = all_useful_repos()
+			repos.remove(name)
+			for name in repos:
+				logging.info(f"updating {name!r}")
+				handle_changes(name)
+				logging.info(f"updated {name!r}")
 			backup_biblio()
 			logging.info("updated everything")
 		elif name == "bib":
 			logging.info("updating biblio...")
 			biblio.update()
-			logging.info("updated biblio")
 			backup_biblio()
-		elif name in repos:
-			logging.info("updating single repo %r..." % name)
+			logging.info("updated biblio")
+		elif name in all_useful_repos():
+			logging.info(f"updating single repo {name!r}...")
 			handle_changes(name)
-			logging.info("updated single repo %r" % name)
+			logging.info(f"updated single repo {name!r}")
 		else:
-			logging.warning("junk command: %r" % name)
+			logging.warning(f"junk command: {name!r}")
 
 # To be used by clients, not when running this __main__ (this would release the
 # lock we hold on the fifo).
@@ -295,6 +307,10 @@ def init_db():
 def main():
 	try:
 		os.mkdir(common.path_of("repos"))
+	except FileExistsError:
+		pass
+	try:
+		os.mkdir(common.path_of("dbs"))
 	except FileExistsError:
 		pass
 	try:
