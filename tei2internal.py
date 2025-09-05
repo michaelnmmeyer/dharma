@@ -1121,7 +1121,6 @@ def parse_gap(p, gap):
 # EGD: "Scribal Omission without Editorial Restoration"
 @handler("gap")
 def handle_gap(p, gap):
-	# XXX need to wrap the [] inside <display>
 	phys_repl, log_repl, tip = parse_gap(p, gap)
 	if tip:
 		p.push(tree.Tag("span", tip=tip))

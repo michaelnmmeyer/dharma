@@ -934,8 +934,12 @@ def process(t: tree.Tree):
 	edition.append(full)
 	for node in t.find(".//*[@milestone-keep]"):
 		del node["milestone-keep"]
-	for node in t.find(".//apparatus//display[@name='physical']"):
-		node.delete()
+	for node in t.find(".//display[@name]"):
+		if node["name"] == "physical":
+			node.delete()
+		else:
+			assert node["name"] == "logical"
+			del node["name"]
 	return t
 
 def make_pretty_printable(t: tree.Tree):
