@@ -1,35 +1,38 @@
 # TODO
 
-for highlighting, query evaluation. cursor objects need to work on the
-normalized text. once we've pinpointed the passages to highlight, redo the
-transform from XML to normalized text (which needs to operated char by char).
-when we're at the beginning of a portion of text to highlight, insert an empty
-start-highlight element. when we reach the end of this portion, insert an empty
-end-highlight element. then pass a reference to these two elements to some
-generic function that will figure out if it can just highlight the stuff in
-a single go or if it should break it into several portions (because the
-match crosses a paragraph, a list element, etc.).
+## First
 
-in catalog.py insert(). title and summary must not be saved as html in the db,
-because we will need to highlight stuff, which requires it to be XML or plain
-text. XML to html conversion must be done at display time. remember that we now
-have more than 1 title.
+need to restructure the documents table. depends on how we're going to access
+the data for search. we at least need to store the patched internal document,
+because it takes time to process. no need to store there file-related data that
+can be fetched from elsewhere in the db, we can construct an "extended" xml
+document on-the-fly quickly enough
 
-is it worth it to keep parsed data in the documents table? should keep the
-parsed xml representation, because it takes time to parse and we'll need it for
-highlighting stuff. however, no need to stick title, authors, etc. in different
-fields, this is only useful for search.
+highlighting. need cursor objects for query evaluation (that work on the
+normalized text), plus one cursor object that iterates over the XML tree while
+transforming the XML to the normalized text (char by char). iterate over all
+matches (have start:length infos corresponding to the normalized text) and, for
+each match, move the tree cursor forward. when we're at the beginning of a
+portion of text to highlight, insert an empty start-highlight element. when we
+reach the end of this portion, insert an empty end-highlight element. then pass
+a reference to these two elements to some generic function that will figure out
+if it can just highlight the stuff in a single go or if it should break it into
+several portions (because the match crosses a paragraph, a list element, etc.).
 
-the parsed document does not need to contain file-related data that can be
-fetched from elsewhere in the db (repository, languages, etc.), we can construct
-a "full" xml document on-the-fly.
+but if we have several different ways to normalize each field, we will need as
+many tree cursors, and we will need to merge their intervals.
+
+
+
 
 ## Misc
+
+deal with multiple titles (title type=alt, etc.); for crited, keep the first
+given title as the display one, the other ones as alternative titles.
 
 ultimately, we should remove the bs4 dependency, but for this we need a HTML
 parser _and also_ a serialization method that does the appropriate thing for
 self-closing tags.
-
 
 ## XML Schema
 
