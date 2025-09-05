@@ -81,11 +81,7 @@ total.
 % for row in rows:
 <div class="catalog-card">
    <div class="catalog-card-heading">
-   % if row["name"].startswith("DHARMA_INS"):
       <a href="{{url_for("display_text", text=row["name"])}}">
-   % elif row["html_path"]:
-      <a href="{{format_url('https://erc-dharma.github.io/%s/%s', row['repo'], row['html_path'])}}">
-   % endif
    % if row["authors"]:
 	% for author in row["authors"]:
 		{{author}}{{": " if loop.last else ", "}}

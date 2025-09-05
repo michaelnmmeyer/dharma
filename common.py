@@ -213,6 +213,10 @@ def db(name):
 					conn.execute(line)
 		else:
 			conn.executescript(sql)
+	elif name == "cache":
+		with open(path_of("cache.sql")) as f:
+			sql = f.read()
+		conn.executescript(sql)
 	ret = DB(conn)
 	setattr(DBS, name, ret)
 	return ret

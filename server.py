@@ -1,8 +1,8 @@
-import os, unicodedata, datetime, html, urllib, urllib.parse, ntpath
+import os, unicodedata, datetime, html, urllib, urllib.parse, ntpath, hashlib
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
 from dharma import common, change, ngrams, catalog, validate, tei2internal, tree
-from dharma import biblio, texts, editorial, prosody, internal2html
+from dharma import biblio, texts, editorial, prosody, internal2html, xslt
 
 # We don't use the name "templates" for the template folder because we also
 # put other stuff in the same directory, not just templates.
@@ -313,9 +313,14 @@ def redirect_to_display_text(text):
 	return flask.redirect(flask.url_for("display_text", text=text))
 
 @app.get("/texts/<text>")
-@common.transaction("texts")
 def display_text(text):
 	text = "DHARMA_" + text
+	if text.startswith("DHARMA_CritEd") or text.startswith("DHARMA_DiplEd"):
+		return display_critical(text)
+	return display_inscription(text)
+
+@common.transaction("texts")
+def display_inscription(text):
 	db = common.db("texts")
 	data = db.execute("""
 	select
@@ -360,6 +365,35 @@ def render_inscription(file: texts.File, data: dict):
 	data["doc"] = tei2internal.process_tree(t).to_html()
 	data["highlighted_xml"] = tree.html_format(t)
 	return flask.render_template("inscription.tpl", **data)
+
+@common.transaction("texts")
+def display_critical(text):
+	db = common.db("texts")
+	file = db.load_file(text)
+	file_hash = hashlib.sha1(file.data).hexdigest()
+
+	# TODO should have a context manager for stuff like this, even if rare.
+	@common.transaction("cache")
+	def retrieve():
+		db = common.db("cache")
+		ret = db.execute("""select page from critical_cache
+		where name = ? and file_hash = ? and code_commit = ?""",
+		(file.name, file_hash, common.CODE_HASH)).fetchone()
+		return ret and ret[0] or None
+
+	@common.transaction("cache")
+	def insert(page):
+		db = common.db("cache")
+		db.execute("""insert or replace into critical_cache(name,
+	     	file_hash, code_commit, page) values(?, ?, ?, ?)""", (file.name,
+		file_hash, common.CODE_HASH, page))
+
+	page = retrieve()
+	if page is None:
+		stylesheet = common.path_of("static/critical/start_v02.xsl")
+		page = xslt.transform(stylesheet, file.text)
+	insert(page)
+	return page
 
 @app.post("/convert")
 @common.transaction("texts")

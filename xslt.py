@@ -10,6 +10,11 @@
 # funny things happen when objects that are likely referenced by others go out
 # of scope, so we just allocate one processor for each thread, and keep the
 # thing alive until the thread exits.
+#
+# For Saxon's command-line use, the syntax is:
+# java -jar ~/dharma/jars/saxon10he.jar -s:myfile.xml -xsl:mystylesheet.xsl
+# See:
+# https://www.saxonica.com/documentation10/index.html#!using-xsl/commandline
 
 import sys, argparse, threading
 import saxonche # pip install saxonche
@@ -31,8 +36,8 @@ class Processor:
 		if text.startswith("\N{BOM}"):
 			text = text[1:]
 		# PyXslt30Processor.transform_to_string(source_file=path) is buggy.
-		# When the filename contains space characters, it returns None. So we
-		# need to read the file manually and to use
+		# When the filename contains space characters, it returns None.
+		# So we need to read the file manually and to use
 		# transform_to_string(xdm_node=doc) instead, which does work.
 		doc = self.saxon_proc.parse_xml(xml_text=text)
 		ret = script.transform_to_string(xdm_node=doc)

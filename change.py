@@ -32,10 +32,10 @@ SKIP_PULL = False
 
 FIFO_ADDR = common.path_of("change.hid")
 
-# Timestamp of the last git pull/clone
+# Timestamp of the last git pull/clone.
 last_pull = 0
 
-# Wait this long between two pulls, counting in seconds
+# Wait at least this long between two pulls, counting in seconds.
 min_pull_wait = 10
 
 @common.transaction("texts")
