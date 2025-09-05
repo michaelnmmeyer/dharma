@@ -743,18 +743,13 @@ def fix_lists_and_quotes(t: tree.Tree):
 	for node in t.find(".//para/*[name()='list' or name()='dlist' or name()='quote']"):
 		move_up_from_para(node)
 
-# XXX for all stuff like this should find something more solid
-def fix_misc(t: tree.Tree):
-	for node in t.find(".//verse/para"):
-		node.delete()
-
 def move_up_from_para(node):
 	para = node.parent
 	assert isinstance(para, tree.Tag) and para.name == "para"
 	left = tree.Tag("para")
 	right = tree.Tag("para")
 	buf = left
-	for child in para:
+	for child in list(para):
 		if child is node:
 			buf = right
 		else:
@@ -764,6 +759,11 @@ def move_up_from_para(node):
 	para.replace_with(node)
 	if len(right) > 0:
 		node.insert_after(right)
+
+# XXX for all stuff like this should find something more solid
+def fix_misc(t: tree.Tree):
+	for node in t.find(".//verse/para"):
+		node.delete()
 
 def add_hyphens(t):
 	# We need to add a hyphen break after all the milestone @break=no,
