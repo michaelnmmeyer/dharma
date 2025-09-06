@@ -1570,7 +1570,7 @@
     <xsl:template match="tei:encodingDesc">
         <hr/>
         <div class="editorial">
-            <h2 id="editorial" class="collapsible">Editorial <i class="fa-solid fa-angles-down"></i></h2>
+            <h2 id="editorial" class="collapsible">Editorial</h2>
         <div class="collapsible-content"><xsl:if test="tei:projectDesc/tei:p[2]/text()">
             <ul><li><b>Project</b>:
                 <ul><xsl:for-each select="tei:projectDesc/tei:p">

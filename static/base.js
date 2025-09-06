@@ -156,9 +156,7 @@ window.addEventListener("load", function () {
 
 // end menu
 
-
-
-
+// Start tooltips
 
 let tipped = null
 let tipBox = null
@@ -180,6 +178,12 @@ function addTooltip() {
 	tipBox.classList.remove("hidden")
 	document.body.append(tipBox)
 	tipCleanup = floatingUI.autoUpdate(tipped, tipBox, updateTooltipPosition)
+}
+
+function setTooltip(node, tip) {
+	node.dataset.tip = tip
+	if (tipped == node)
+		tipContents.innerHTML = tip
 }
 
 function updateTooltipPosition() {
@@ -218,6 +222,7 @@ function updateTooltipPosition() {
 		})
 	})
 }
+
 function removeTooltip() {
 	let node = this
 	if (node !== tipped)
@@ -483,15 +488,18 @@ function prepareCollapsible() {
 		// Add a button after the heading for folding up/down.
 		let icon = document.createElement("i")
 		icon.classList.add("fa-solid", "fa-angles-down")
+		setTooltip(icon, "Fold up")
 		head.append(" ", icon)
 		// And handle clicks.
 		icon.addEventListener("click", function () {
 			if (content.classList.toggle("hidden")) {
 				icon.classList.remove("fa-angles-down")
 				icon.classList.add("fa-angles-up")
+				setTooltip(icon, "Fold down")
 			} else {
 				icon.classList.remove("fa-angles-up")
 				icon.classList.add("fa-angles-down")
+				setTooltip(icon, "Fold up")
 			}
 		});
 	}
@@ -546,10 +554,10 @@ function initNumberedVerses() {
 window.addEventListener("load", function () {
 	localizeDates()
 	initNumberedVerses()
+	prepareCollapsible()
 	prepareTips()
 	displayTOC()
 	initDisplays()
 	initFlashing()
-	prepareCollapsible()
 	initDisplayOptions()
 })
