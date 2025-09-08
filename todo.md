@@ -22,7 +22,11 @@ several portions (because the match crosses a paragraph, a list element, etc.).
 but if we have several different ways to normalize each field, we will need as
 many tree cursors, and we will need to merge their intervals.
 
-
+what should the tree cursor look like? need a generator that iterates over
+strings in the tree (under some specific node). and a reference to it + an index
+into the current string + a computed "search" offset. then we can implement a
+seek() method. problem with the generator is that we will mess up iteration if
+we modify the tree immediately.
 
 
 ## Misc
