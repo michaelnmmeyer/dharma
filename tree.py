@@ -1006,7 +1006,7 @@ class _Parser:
 
 	def __init__(self, source, path=None):
 		self.parser = expat.ParserCreate()
-		self.parser.ordered_attributes = 1
+		self.parser.ordered_attributes = True
 		self.parser.SetParamEntityParsing(expat.XML_PARAM_ENTITY_PARSING_NEVER)
 		self.parser.buffer_text = True
 		for attr in dir(self):
