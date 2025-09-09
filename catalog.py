@@ -173,9 +173,13 @@ def tokenize_query(q):
 	while i < len(q):
 		c = q[i]
 		if c == ":":
+			# Separator between field name and field contents,
+			# e.g. title:hello
 			toks.append(c)
 			i += 1
 		elif c == '"':
+			# Quoted string. A backslash (\) can be used to escape
+			# the " char itself and a backslash.
 			i += 1
 			tok = ""
 			while i < len(q) and q[i] != '"':
@@ -190,6 +194,7 @@ def tokenize_query(q):
 			toks.append(tok)
 			i += 1
 		elif c.isspace():
+			# Split tokens on whitespace.
 			i += 1
 		else:
 			i += 1
