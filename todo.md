@@ -1,60 +1,6 @@
 # TODO
 
-need to restructure the documents table. depends on how we're going to access
-the data for search. we at least need to store the patched internal document,
-because it takes time to process. no need to store there file-related data that
-can be fetched from elsewhere in the db, we can construct an "extended" xml
-document on-the-fly quickly enough.
-
-## Query evaluation
-
-for now focus on searching logical.
-
-need to determine how to select snippets. must try to select whole semantic
-unit. start with selecting paragraphs or verses. if a paragraph is too long,
-split on ddanda and abbreviate segments that do not contain matches some with
-'[...]', proceeding from the longest segment to the shortest. in my own Sanskrit
-search tool, I used a minimum length of context (counting in phrases, but might
-also count clusters).
-
-for simplicity, try to select complete (balanced) block elements. but also need
-to cap the length of a snippet, to avoid degenerate cases with overlong
-paragraphs. we can abbreviate a block with '[...]' in appropriate spots. will
-need to define rules for deciding where exactly we can split a block.
-
-need a query tree for query evaluation. it should use cursor objects that work
-on the "searchable" text representation. for translating search offsets into
-original offsets, we need a tree cursor that iterates over the child nodes of a
-given field while transforming it to the normalized text, char by char. the role
-of a tree cursor is to translate a search offset into an highlight offset. if we
-have different ways to normalize each field, we will need to allocate as many
-tree cursors, and we will need to merge their intervals.
-
-how to represent an XML tree offset? we need to be able to merge intervals.
-could just use absolute offsets for each field, and do a final pass on the
-field to select segments. is that enough?
-
-for highlighting. the root of the cursor tree should be a tree cursor. within
-this cursor, iterate over all matches, each match being represented as a (start,
-end) tuple. for each match, move the tree cursor forward. when we're at the
-beginning of a portion of text to highlight, insert an empty start-highlight
-element. when we reach the end of this portion, insert an empty end-highlight
-element. then pass a reference to these two elements to some generic function
-that will figure out if it can just highlight the stuff in a single go or if it
-should break it into several portions (because the match crosses a paragraph, a
-list element, etc.).
-
-what should the tree cursor look like? need a generator that iterates over
-strings in the tree (under some specific node). and a reference to it + an index
-into the current string + a computed "search" offset. then we can implement a
-seek() method. problem with the generator is that we will mess up iteration if
-we modify the tree immediately.
-
-
 ## Misc
-
-deal with multiple titles (title type=alt, etc.); for crited, keep the first
-given title as the display one, the other ones as alternative titles.
 
 ultimately, we should remove the bs4 dependency, but for this we need a HTML
 parser _and also_ a serialization method that does the appropriate thing for

@@ -1,3 +1,71 @@
+need to restructure the documents table. depends on how we're going to access
+the data for search. we at least need to store the patched internal document,
+because it takes time to process. no need to store there file-related data that
+can be fetched from elsewhere in the db, we can construct an "extended" xml
+document on-the-fly quickly enough.
+
+## Query evaluation
+
+for now focus on searching logical.
+
+### snippets
+
+need to determine how to select snippets. must try to select whole semantic
+units. start with selecting paragraphs or verses. if a paragraph/verse is too
+long, split on dandas and abbreviate segments that do not contain matches with
+'[...]', proceeding from the longest segment to the shortest. in another search
+tool, i used a minimum length of context (counting in phrases, but might also
+count clusters). should do that here as well.
+
+for simplicity, try to select complete (balanced) block elements. but also need
+to cap the length of a snippet (or the cumulative length of all snippets), to
+avoid degenerate cases with overlong paragraphs. we can abbreviate a block with
+'[...]' in appropriate spots. will need to define rules for deciding where
+exactly we can split a block.
+
+### highlighting
+
+need a query tree for query evaluation. it should use cursor objects that work
+on the searchable text representation. for translating search offsets into
+original offsets, we need a tree cursor that iterates over the child nodes of a
+given field while transforming it to the normalized text, char by char. the role
+of a tree cursor is to translate a search offset into a display offset. if we
+have different ways to normalize each field, we will need to allocate as many
+tree cursors, and we will need to merge their intervals.
+
+how to represent an XML tree offset? we need to be able to merge adjacent and
+overlapping intervals. so we must use offsets that map to the string that will
+be generated. to make things simpler, could gather in an array the output
+string. the array would hold strings, possibly also <couple> elements containing
+<display> and <search> element (if the beginning of <search> matches, we select
+the whole <display> element, no partial highlighting because impossible) we
+could use absolute offsets, and do a final pass on the tree to select segments.
+is that enough?
+
+once we've delimited passages in the tree, pass a reference to these two
+elements to some generic function that will figure out if it can just highlight
+the stuff in a single go or if it should break it into several portions (because
+the match crosses a paragraph, a list element, etc.).
+
+what should the tree cursor look like? need a generator that iterates over
+strings in the tree (under some specific node). and a reference to it + an index
+into the current string + a computed "search" offset. then we can implement a
+seek() method. problem with the generator is that we will mess up iteration if
+we modify the tree immediately.
+
+
+
+
+
+
+
+
+
+
+
+
+========
+
 for converting the internal representation to the search one. watch out for @break, which should only occur on <l> elements and on milestones
 
 
