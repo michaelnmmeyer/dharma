@@ -127,8 +127,8 @@ def insert(file: texts.File):
 	data["html_path"] = file.html
 	data["status"] = file.status
 	search = make_searchable_record(data)
-	if html_doc and html_doc.title:
-		data["title"] = html_doc.title.html()
+	if html_doc and html_doc.titles:
+		data["title"] = html_doc.titles[0].html()
 	if html_doc and html_doc.summary:
 		data["summary"] = html_doc.summary.html()
 	db.execute("""

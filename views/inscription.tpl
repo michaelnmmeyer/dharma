@@ -1,8 +1,8 @@
 % extends "base.tpl"
 
 % block title
-% if doc.title:
-   {{doc.title.html() | safe}}
+% if doc.titles:
+   {{doc.titles[0].html() | safe}}
 % else:
    <i>Untitled</i>
 % endif
@@ -31,6 +31,22 @@
 % block body
 
 <div id="inscription-display">
+
+% if doc.titles | length > 1:
+<div class="metadata-item">
+	% if doc.titles | length == 2:
+		Alternative title:
+	% else
+		Alternative titles:
+	% endif
+	% for title in doc.titles[1:]:
+		“{{title.html() | safe}}”
+		% if not loop.last:
+		<br/>
+		% endif
+	% endfor
+</div>
+% endif
 
 % if doc.editors:
 <div class="metadata-item">

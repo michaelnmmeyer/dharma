@@ -178,7 +178,7 @@ def render_edition_display(self, node):
 def render_title(self, node):
 	self.push(tree.Tree())
 	self.dispatch_children(node)
-	self.document.title = self.pop()
+	self.document.titles.append(self.pop())
 
 @handler("dlist")
 def render_dlist(self, node):
@@ -317,7 +317,7 @@ class HTMLDocument:
 		# like repository, because we expect even fields like that to be
 		# highlightable in search results; and, for this to be possible,
 		# we need to use trees.
-		self.title = None
+		self.titles = []
 		self.summary = None
 		self.hand = None
 		self.editors = []
