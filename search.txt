@@ -38,20 +38,23 @@ overlapping intervals. so we must use offsets that map to the string that will
 be generated. to make things simpler, could gather in an array the output
 string. the array would hold strings, possibly also <couple> elements containing
 <display> and <search> element (if the beginning of <search> matches, we select
-the whole <display> element, no partial highlighting because impossible) we
-could use absolute offsets, and do a final pass on the tree to select segments.
-is that enough?
+the whole <display> element, no partial highlighting because impossible).
 
-once we've delimited passages in the tree, pass a reference to these two
-elements to some generic function that will figure out if it can just highlight
-the stuff in a single go or if it should break it into several portions (because
-the match crosses a paragraph, a list element, etc.).
+... we should just integer offsets (no objects), and do a final pass on the tree
+to select the corresponding segments. is that enough?
 
-what should the tree cursor look like? need a generator that iterates over
-strings in the tree (under some specific node). and a reference to it + an index
-into the current string + a computed "search" offset. then we can implement a
-seek() method. problem with the generator is that we will mess up iteration if
-we modify the tree immediately.
+once we've delimited matches in the tree, pass offsets to some generic function
+that will figure out if it can just highlight the stuff in a single go or if it
+should break it into several portions (because the match crosses a paragraph, a
+list element, etc.).
+
+what should the tree cursor look like? to make things simpler, it should iterate
+over an array of (string) nodes. then we can implement a seek() method. problem
+with the generator is that we will mess up iteration if we modify the tree
+immediately.
+
+ideally, the stuff for normalizing strings should advance by arbitrary intervals
+(so that we can use a lexer later on).
 
 
 
