@@ -1,21 +1,26 @@
 import unicodedata
-
 from dharma import tree
 
 class Cursor:
 
 	def __init__(self):
-		self.offset = 0
+		self.offset = -1
 
-	def next(self):
-		raise NotImplementedError
+	def next(self) -> bool:
+		return False
 
 	def match(self):
 		raise NotImplementedError
 
 	def seek(self, offset):
-		if self.offset < offset:
-			self.offset = offset
+		assert offset >= 0
+		assert self.offset <= offset
+		while self.offset < offset:
+			self.next()
+			if self.offset < 0:
+				return False
+		assert self.offset >= offset
+		return True
 
 class Substring(Cursor):
 
@@ -69,6 +74,21 @@ class Tree(Cursor):
 	def match(self):
 		return self.start, self.length
 
+def normalize_char(c):
+	c = c.casefold()
+	match c:
+		case "œ":
+			return "oe"
+		case "æ":
+			return "ae"
+		case "đ":
+			return "d"
+		case _:
+			return c
+
+def normalize_text(s):
+	return "".join(normalize_char(c) for c in s)
+
 class Tokenizer(Cursor):
 
 	def __init__(self, *chunks):
@@ -90,9 +110,9 @@ class Tokenizer(Cursor):
 			if self.chunk >= len(self.chunks):
 				return ""
 			chunk = self.chunks[self.chunk]
-		chars = chunk[self.chunk_offset].casefold()
+		chars = normalize_char(chunk[self.chunk_offset])
 		self.chunk_offset += 1
-		return chars
+		return 1, chars
 
 	def next_chars(self):
 		ret = self.try_next_chars()
@@ -100,55 +120,49 @@ class Tokenizer(Cursor):
 			raise Exception
 		return ret
 
-	def translate(self, start, length):
-		# süße > süsse
-		# search "se": süs[se] ; arrondir en-dessous sü[sse] (2, 4)
-		# search "üs": s[üs]se ; arrondir au-dessus  s[üss]e (1, 3)
+	def translate(self, start, length) -> tuple[int, int]:
+		# After casefolding süße > süsse
+		# search "se": süs[se]; produce the interval sü[sse]
+		# search "üs": s[üs]se; produce the interval s[üss]e
+		# search "s": [s]ü[s][s]e; produce the intervals [s]ü[ss]e
+		assert start >= 0 and length > 0
 		dstart = -1
 		dlength = 0
-		assert start >= 0 and length > 0
 		if self.search_offset > start:
 			if self.search_offset >= start + length:
-				# We are in this situation if there are more
-				# than one match in a single display unit. For
-				# instance, if the original text is "süße", the
-				# search text is "süsse", and the query is "s",
-				# there will be two matches for the single
-				# display unit "ß". In this case, we will
-				# highlight "ß" a single time, so we ignore the
-				# second match.
 				return -1, 0
 			start = self.search_offset
 		assert self.search_offset <= start
 		while self.search_offset < start:
-			cs = self.next_chars()
+			n, cs = self.next_chars()
 			if self.search_offset + len(cs) > start:
 				dstart = self.display_offset
-				self.display_offset += 1
+				self.display_offset += n
 				self.search_offset += len(cs)
 				if self.search_offset >= start + length:
 					dlength = self.display_offset - dstart
 					return dstart, dlength
+				break
 			else:
-				self.display_offset += 1
+				self.display_offset += n
 				self.search_offset += len(cs)
-		if dstart < 0:
+		else:
 			dstart = self.display_offset
 		assert self.search_offset >= start
 		while self.search_offset < start + length:
-			cs = self.next_chars()
+			n, cs = self.next_chars()
 			if self.search_offset + len(cs) > start + length:
-				self.display_offset += 1
+				self.display_offset += n
 				dlength = self.display_offset - dstart
 				self.search_offset += len(cs)
 				return dstart, dlength
-			self.display_offset += 1
+			self.display_offset += n
 			self.search_offset += len(cs)
 		dlength = self.display_offset - dstart
 		return dstart, dlength
 
 if __name__ == "__main__":
-	substring = Substring("se", "süsse")
+	substring = Substring("üs", "süsse")
 	t = tree.Tree()
 	t.append("süße")
 	cursor = Tree(t, substring)

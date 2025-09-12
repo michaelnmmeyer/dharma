@@ -125,7 +125,7 @@ def normalize_text(s):
 	s = unicodedata.normalize("NFKD", s)
 	s = "".join(c for c in s if not unicodedata.combining(c))
 	s = s.casefold()
-	s = s.replace("œ", "oe").replace("æ", "ae").replace("ß", "ss").replace("đ", "d")
+	s = s.replace("œ", "oe").replace("æ", "ae").replace("đ", "d")
 	return unicodedata.normalize("NFC", s.strip())
 
 # For seeing how different collations work, see:
@@ -228,8 +228,8 @@ def from_json(s):
 
 class JSONEncoder(json.JSONEncoder):
 
-	def default(self, obj):
-		return str(obj)
+	def default(self, o):
+		return str(o)
 
 def to_json(obj):
 	return json.dumps(obj, ensure_ascii=False, separators=(",", ":"),
