@@ -1,4 +1,3 @@
-import unicodedata
 from dharma import tree
 
 class Cursor:
@@ -9,10 +8,10 @@ class Cursor:
 	def next(self) -> bool:
 		return False
 
-	def match(self):
+	def match(self) -> tuple[int, int]:
 		raise NotImplementedError
 
-	def seek(self, offset):
+	def seek(self, offset) -> bool:
 		assert offset >= 0
 		assert self.offset <= offset
 		while self.offset < offset:
@@ -98,7 +97,7 @@ class Tokenizer(Cursor):
 		self.search_offset = 0
 		self.display_offset = 0
 
-	def try_next_chars(self):
+	def try_next_chars(self) -> str:
 		assert self.chunk <= len(self.chunks)
 		if self.chunk >= len(self.chunks):
 			return ""
@@ -162,9 +161,10 @@ class Tokenizer(Cursor):
 		return dstart, dlength
 
 if __name__ == "__main__":
-	substring = Substring("üs", "süsse")
+	text = "süße"
+	substring = Substring("üs", normalize_text(text))
 	t = tree.Tree()
-	t.append("süße")
+	t.append(text)
 	cursor = Tree(t, substring)
 	while cursor.next():
 		start, length = cursor.match()

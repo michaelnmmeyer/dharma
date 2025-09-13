@@ -1,3 +1,28 @@
+### cursors
+
+before highlighting a document in the internal representation, must fetch all
+fields so that we have them readily accessible from within a class. basically,
+map each searchable field to a xpath expression for retrieving the field, and
+fetch the fields lazily, so that we only fetch them if needed. at the end we
+should have an object with attributes:
+
+	class SearchableDocument:
+
+		@property
+		def summary(self):
+			return self.first("/document/summary")
+
+		...
+
+=====
+
+for search, we have an XML tree instead of a Document object as input because 1)
+we will need to process an XML tree for highlighting; and 2) because it is more
+convenient to use xpath.
+
+
+===========
+
 need to restructure the documents table. depends on how we're going to access
 the data for search. we at least need to store the patched internal document,
 because it takes time to process. no need to store there file-related data that
@@ -31,7 +56,7 @@ original offsets, we need a tree cursor that iterates over child nodes of a
 given field while transforming it to the normalized text, char by char. the role
 of a tree cursor is to translate a search offset into a display offset. if we
 have different ways to normalize each field, we will need to allocate as many
-tree cursors, and we will need to merge their intervals.
+tree cursors, and we will need to merge their (display) intervals.
 
 how to represent an XML tree offset? we need to be able to merge adjacent and
 overlapping intervals. so we must use offsets that map to the string that will
@@ -40,8 +65,8 @@ string. the array would hold strings, possibly also <couple> elements containing
 <display> and <search> element (if the beginning of <search> matches, we select
 the whole <display> element, no partial highlighting because impossible).
 
-... we should just integer offsets (no objects), and do a final pass on the tree
-to select the corresponding segments. is that enough?
+... we should just use integer offsets (no objects), and do a final pass on the
+tree to select the corresponding segments. is that enough?
 
 once we've delimited matches in the tree, pass offsets to some generic function
 that will figure out if it can just highlight the stuff in a single go or if it
