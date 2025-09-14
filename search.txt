@@ -1,18 +1,23 @@
-### cursors
+## cursors
 
-before highlighting a document in the internal representation, must fetch all
-fields so that we have them readily accessible from within a class. basically,
-map each searchable field to a xpath expression for retrieving the field, and
-fetch the fields lazily, so that we only fetch them if needed. at the end we
-should have an object with attributes:
+before highlighting a document in the internal representation.
 
-	class SearchableDocument:
+need to complete the document with all the data we might need for search
+(repository, file name, date of modification, etc.).
 
-		@property
-		def summary(self):
-			return self.first("/document/summary")
+must fetch all fields so that we have them readily accessible from within a
+class. basically, map each searchable field to a xpath expression for
+retrieving the field, and fetch the fields lazily, so that we only fetch them if
+needed. at the end should have a wrapper class over an xml internal document:
 
-		...
+to each field must also be mapped necessary info for tokenizing the field (data
+type, whether there can be several occurrences of the field, etc.). should have
+a global table that contains all the info.
+
+we must necessarily be able to search and highlight something else than text
+fields. as an optimization, at query time, we should use sqlite's functions,
+when available. so, basically, a query (sub)tree should be convertible to either
+a sql search expression or a cursor, depending on the context.
 
 =====
 

@@ -97,17 +97,17 @@ class Tokenizer(Cursor):
 		self.search_offset = 0
 		self.display_offset = 0
 
-	def try_next_chars(self) -> str:
+	def try_next_chars(self) -> tuple[int, str]:
 		assert self.chunk <= len(self.chunks)
 		if self.chunk >= len(self.chunks):
-			return ""
+			return 0, ""
 		chunk = self.chunks[self.chunk]
 		assert self.chunk_offset <= len(chunk)
 		if self.chunk_offset >= len(chunk):
 			self.chunk += 1
 			self.chunk_offset = 0
 			if self.chunk >= len(self.chunks):
-				return ""
+				return 0, ""
 			chunk = self.chunks[self.chunk]
 		chars = normalize_char(chunk[self.chunk_offset])
 		self.chunk_offset += 1
@@ -160,12 +160,17 @@ class Tokenizer(Cursor):
 		dlength = self.display_offset - dstart
 		return dstart, dlength
 
+class SearchableDocument:
+
+	def __init__(self, tree):
+		self.tree = tree
+
+	def field(self, name):
+		if name == "summary":
+			return self.tree.first("/document/summary")
+		raise NotImplementedError
+
 if __name__ == "__main__":
-	text = "süße"
-	substring = Substring("üs", normalize_text(text))
-	t = tree.Tree()
-	t.append(text)
-	cursor = Tree(t, substring)
-	while cursor.next():
-		start, length = cursor.match()
-		print(start, start + length)
+	from dharma import tree
+	t = tree.parse("texts.hid/DHARMA_INSKarnataka00007.xml")
+	doc = SearchableDocument(t)
