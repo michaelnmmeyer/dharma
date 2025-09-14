@@ -929,14 +929,11 @@ def wrap_inlines_in_paragraphs(root):
 	for node in root:
 		if not isinstance(node, tree.Tag):
 			continue
-		if node.name in ("summary", "hand", "note"):
+		if node.name in ("summary", "hand", "note", "edition",
+			"apparatus", "translation", "commentary",
+			"bibliography", "div"):
 			cover_inlines(node)
-		elif node.name in ("edition", "apparatus", "translation",
-			"commentary", "bibliography", "div"):
-			cover_inlines(node)
-			wrap_inlines_in_paragraphs(node)
-		else:
-			wrap_inlines_in_paragraphs(node)
+		wrap_inlines_in_paragraphs(node)
 
 def process(t: tree.Tree):
 	fix_misc(t)
