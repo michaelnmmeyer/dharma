@@ -2,7 +2,9 @@ default namespace = ""
 
 basic_block = para | \list | dlist | verse
 
-inline = text | span | link | note
+subdivision = div | basic_block
+
+inline = text | span | link | note | npage | nline | ncell
 
 start =
   element document {
@@ -88,7 +90,7 @@ para =
        | span)+
     }+
   }
-head = element head { (text | link | note | npage | span)+ }
+head = element head { inline+ }
 \div =
   element div {
     (text
@@ -106,11 +108,11 @@ head = element head { (text | link | note | npage | span)+ }
 page =
   element page {
     head?,
-    element line { (text | link | ncell | nline | note | span)+ }+
+    element line { inline+ }+
   }
 verse =
   element verse {
-    element verse-head { (text | link | span)+ }?,
+    element verse-head { inline+ }?,
     (ncell | nline | npage | span | verse-line)*,
     note?
   }
