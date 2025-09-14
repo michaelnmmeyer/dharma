@@ -736,9 +736,6 @@ def parse_surplus(p, node):
 @handler("note")
 def parse_note(p, note):
 	out = p.push(tree.Tag("note"))
-	has_paras = bool(note.first("stuck-child::p"))
-	if not has_paras:
-		p.push(tree.Tag("para"))
 	if (resps := note["resp"]):
 		append_names(p, resps.split())
 		p.append(": ")
@@ -746,8 +743,6 @@ def parse_note(p, note):
 		append_sources(p, refs.split())
 		p.append(": ")
 	p.dispatch_children(note)
-	if not has_paras:
-		p.join()
 	p.join()
 	p.document.notes.append(out)
 
@@ -1641,12 +1636,7 @@ def parse_handDesc(p, desc):
 	# sequence of paragraphs.
 	root = desc.first("summary") or desc
 	p.push(tree.Tree())
-	if root.first("p"):
-		p.dispatch_children(root, only_tags=True)
-	else:
-		p.push(tree.Tag("para"))
-		p.dispatch_children(root)
-		p.join()
+	p.dispatch_children(root)
 	p.document.hand = p.pop()
 
 # We expect a single occurrence at
@@ -1657,12 +1647,7 @@ def parse_contents_summary(p, summ):
 	# without divisions. If we have no <p>, create one and wrap the
 	# whole contents into it.
 	p.push(tree.Tree())
-	if summ.first("p"):
-		p.dispatch_children(summ, only_tags=True)
-	else:
-		p.push(tree.Tag("para"))
-		p.dispatch_children(summ)
-		p.join()
+	p.dispatch_children(summ)
 	p.document.summary = p.pop()
 
 def get_script(node):

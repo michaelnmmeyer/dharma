@@ -1,9 +1,8 @@
 """Internal transformations.
 
 This fixes various things in the internal XML representation and produces three
-displays: physical, logical, full.
-
-Among other things, we remove all non-significant space from the input tree.
+displays: physical, logical, full. Among other things, we remove all
+non-significant space from the input tree.
 
 Summary of new elements.
 
@@ -28,8 +27,6 @@ bibliography.
 
 
 """XXX TODO
-
-at the root of divisions, cover everything with <p>
 
 make a root div without anything else a div[@type='edition']
 and make "textpart" optional in children of root divs.
@@ -262,7 +259,8 @@ def in_milestone_accepting(node):
 
 def fix_milestone_location(mile):
 	match mile.parent.name:
-		case "para" | "verse-line" | "item" | "key" | "value" | "quote" | "span" | "link":
+		case "para" | "verse-line" | "item" | "key" | "value" \
+			| "quote" | "span" | "link":
 			pass
 		case "summary" | "hand" | "edition" | "apparatus" \
 			| "translation" | "commentary" | "bibliography" | "div":
@@ -901,8 +899,48 @@ def number_notes(t):
 	for i, note in enumerate(notes, 1):
 		note["n"] = str(i)
 
+def is_inline(node):
+	if isinstance(node, tree.String):
+		return True
+	if not isinstance(node, tree.Tag):
+		return False
+	return node.name in ("span", "link", "note", "npage", "nline", "ncell")
+
+def cover_inlines(root):
+	i = 0
+	while i < len(root):
+		if not is_inline(root[i]):
+			i += 1
+			continue
+		j = i + 1
+		while j < len(root) and is_inline(root[j]):
+			j += 1
+		para = tree.Tag("para")
+		para.extend(root[i:j])
+		root.insert(i, para)
+		i += 1
+
+def wrap_inlines_in_paragraphs(root):
+	"""Wraps within paragraphs inline children of divisions-like elements.
+
+	Divisions-like elements are <summary> and equivalent, as well as <note>
+	and all divisions generated from a <div> in TEI. Inline elements are:
+	<span>, <link>, <note> and milestones."""
+	for node in root:
+		if not isinstance(node, tree.Tag):
+			continue
+		if node.name in ("summary", "hand", "note"):
+			cover_inlines(node)
+		elif node.name in ("edition", "apparatus", "translation",
+			"commentary", "bibliography", "div"):
+			cover_inlines(node)
+			wrap_inlines_in_paragraphs(node)
+		else:
+			wrap_inlines_in_paragraphs(node)
+
 def process(t: tree.Tree):
 	fix_misc(t)
+	wrap_inlines_in_paragraphs(t)
 	fix_spaces(t)
 	fix_lists_and_quotes(t)
 	fix_milestones(t)

@@ -1,0 +1,152 @@
+default namespace = ""
+
+basic_block = para | \list | dlist | verse
+
+inline = text | span | link | note
+
+start =
+  element document {
+    element title { inline+ }*,
+    element author { name, identifier? }*,
+    element editor { name, identifier? }*,
+    element summary { basic_block+ }?,
+    element hand { basic_block+ }?,
+    element edition-languages {
+      element language { name, identifier }+
+    },
+    element edition {
+      head,
+      element physical { (\div | page)+ },
+      element logical { (text | \div | \list | para | span | verse)+ },
+      element full { (text | \div | \list | para | span | verse)+ }
+    }?,
+    element apparatus {
+      (text | \div | head | link | nline | npage | para | span)+
+    }?,
+    element translation {
+      (text
+       | \div
+       | dlist
+       | head
+       | \list
+       | note
+       | npage
+       | para
+       | span
+       | verse)+
+    }*,
+    element commentary {
+      (text | \div | head | \list | para | quote | verse)+
+    }?,
+    element bibliography {
+      head, (para | quote)*, \list?, \div*, (link | span)*
+    }?
+  }
+note =
+  element note {
+    attribute n { xsd:integer },
+    basic_block+
+  }
+span =
+  element span {
+    attribute class { text }?,
+    attribute standalone { xsd:boolean }?,
+    attribute style { xsd:anyURI }?,
+    attribute tip { text }?,
+    (text | link | ncell | nline | note | npage | span | verse)+
+  }
+name = element name { text }
+identifier = element identifier { text }
+para =
+  element para {
+    attribute anchor { text }?,
+    attribute class { text }?,
+    (text
+     | link
+     | \list
+     | ncell
+     | nline
+     | note
+     | npage
+     | para
+     | span
+     | verse
+     | verse-line)+
+  }
+\list =
+  element list {
+    attribute type { text },
+    element item {
+      (text
+       | link
+       | \list
+       | ncell
+       | nline
+       | note
+       | npage
+       | para
+       | span)+
+    }+
+  }
+head = element head { (text | link | note | npage | span)+ }
+\div =
+  element div {
+    (text
+     | \div
+     | dlist
+     | head
+     | \list
+     | note
+     | page
+     | para
+     | quote
+     | span
+     | verse)+
+  }
+page =
+  element page {
+    head?,
+    element line { (text | link | ncell | nline | note | span)+ }+
+  }
+verse =
+  element verse {
+    element verse-head { (text | link | span)+ }?,
+    (ncell | nline | npage | span | verse-line)*,
+    note?
+  }
+nline =
+  element nline {
+    attribute break { xsd:boolean }?,
+    attribute phantom { xsd:boolean }?,
+    span?
+  }
+link =
+  element link {
+    attribute href { text }?,
+    (text | span)+
+  }
+npage =
+  element npage {
+    attribute break { xsd:boolean },
+    attribute phantom { xsd:boolean }?,
+    span*
+  }
+dlist =
+  element dlist {
+    (element key { (text | span)+ }
+     | element value { (text | dlist | note | span)+ })+
+  }
+quote = element quote { (text | note | span | verse)+ }
+ncell =
+  element ncell {
+    attribute break { xsd:boolean }?,
+    attribute phantom { xsd:boolean }?,
+    span?
+  }
+verse-line =
+  element verse-line {
+    attribute break { xsd:boolean }?,
+    attribute n { text }?,
+    attribute tip { text }?,
+    (text | link | \list | ncell | nline | note | npage | span)+
+  }
