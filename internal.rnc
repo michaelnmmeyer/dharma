@@ -1,8 +1,6 @@
 default namespace = ""
 
-block = para | \list | dlist | verse
-
-subdivision = div | block
+block = para | \list | dlist | verse | quote
 
 inline = text | span | link | note | npage | nline | ncell
 
@@ -18,30 +16,22 @@ start =
     },
     element edition {
       head,
-      element physical { (\div | page)+ },
-      element logical { (text | \div | \list | para | span | verse)+ },
-      element full { (text | \div | \list | para | span | verse)+ }
+      element physical { (\div | page)+ }, # XXX should have (block+ | \div+): cover everything with div if needed (as for milestones)
+      element logical { (\div | block)+ },
+      element full { (\div | block)+ }
     }?,
-    element apparatus {
-      (text | \div | head | link | nline | npage | para | span)+
-    }?,
+    element apparatus { head, (\div+ | para+) }?,
     element translation {
-      (text
-       | \div
-       | dlist
-       | head
-       | \list
-       | note
-       | npage
-       | para
-       | span
-       | verse)+
+      head,
+      (\div | block)+
     }*,
     element commentary {
-      (text | \div | head | \list | para | quote | verse)+
+      head,
+      (\div | block)+
     }?,
     element bibliography {
-      head, (para | quote)*, \list?, \div*, (link | span)*
+      head,
+      (\div | block)+
     }?
   }
 note =
@@ -65,7 +55,6 @@ para =
     attribute class { text }?,
     (text
      | link
-     | \list
      | ncell
      | nline
      | note
@@ -93,17 +82,7 @@ para =
 head = element head { inline+ }
 \div =
   element div {
-    (text
-     | \div
-     | dlist
-     | head
-     | \list
-     | note
-     | page
-     | para
-     | quote
-     | span
-     | verse)+
+    (\div | dlist | head | \list | para | quote | verse)*, page*
   }
 page =
   element page {
@@ -135,10 +114,10 @@ npage =
   }
 dlist =
   element dlist {
-    (element key { (text | span)+ }
+    (element key { inline+ }
      | element value { (text | dlist | note | span)+ })+
   }
-quote = element quote { (text | note | span | verse)+ }
+quote = element quote { inline+ }
 ncell =
   element ncell {
     attribute break { xsd:boolean }?,

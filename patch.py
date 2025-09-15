@@ -187,7 +187,7 @@ def squeeze(s):
 
 def check_milestones_valid(t, milestones):
 	if __debug__:
-		tmp = useful_milestones(t)
+		tmp = significant_milestones(t)
 		tmpl = [id(x) for x in tmp]
 		for x in milestones:
 			if not id(x) in tmpl:
@@ -208,12 +208,13 @@ def fix_milestones(t):
 
 	After transforms, we have a hierarchy: page > line > cell, where each
 	inscription that has an edition has 1+ page(s); where each page contains
-	1+ line(s); and where each line contains 1+ cell(s). Thus each
-	inscription that does have an edition contains at least three
-	milestones: one page, one line, one cell. We add "phantom" pages, lines
-	and cells as needed to cover the whole text.
+	1+ line(s); and where each line contains 1+ cell(s). Thus, each
+	inscription that has an edition contains at least three milestones: one
+	page, one line, one cell. We add "phantom" (invisible) pages, lines and
+	cells as needed to cover the whole text. "Phantom" milestones have an
+	attribute @phantom.
 	"""
-	milestones = useful_milestones(t)
+	milestones = significant_milestones(t)
 	if not milestones:
 		return
 	fix_milestones_location(t, milestones)
@@ -226,7 +227,14 @@ def fix_milestones(t):
 	for mile in milestones:
 		mile["milestone-keep"] = "true"
 
-def useful_milestones(t: tree.Tree):
+def significant_milestones(t: tree.Tree):
+	"""Enumerates significant milestones.
+
+	A milestone is significant if it occurs within the edition division and
+	if it is not a descendant of a "note" or "head" element. We expect to
+	use significant milestones for search, and we also use them for
+	generating the 3 displays of the edition division.
+	"""
 	def inner(root, out):
 		for node in root:
 			if not isinstance(node, tree.Tag):
@@ -455,15 +463,12 @@ def first_milestone_accepting_node(doc):
 	return ret
 
 def add_phantom_milestones(doc: tree.Tree, milestones):
-	"""
-	We have to allocate phantom pages/lines/cells, when (a) the encoding is
-	incorrect; (b) the encoding is correct but a category is missing. it is
-	best to keep these phantom elements in the output than to remove them,
-	for search.
+	"""Allocate phantom milestones to fill up the edition.
 
-	except that if they occur within "head" or "note, leave them as-is (viz.
-	replace them with <span> and don't consider them meaningful). and also
-	replace them with <span> when they appear outside of the edition
+	We have to allocate phantom pages/lines/cells, when (a) the encoding is
+	incorrect; or (b) the encoding is correct but a category is missing. It
+	is best to keep these phantom elements in the output than to remove
+	them, for search.
 
 	we can't really tell whether numbering is continuous between textparts
 	or not, so if we have:
@@ -528,17 +533,22 @@ def add_phantom_milestones(doc: tree.Tree, milestones):
 def add_milestones_breaks(doc, milestones):
 	"""Add missing @break to each milestone and make @break consistent.
 
-	* The 3 initial milestones (at the very beginning of the first
+	The following rules are observed.
+
+	The 3 initial milestones (at the very beginning of the first
 	milestone-accepting element) must have @break="yes".
 
-	* The last ncell, which is necessarily a ncell, must have @break="yes".
-	Idem for the preceding nline and npage if they appear right before the
-	ncell, without any text or other tag in-between.
+	The last ncell in the edition must have @break="yes". Idem for the
+	preceding nline and npage if they appear right before the ncell, without
+	any text or other tag in-between.
 
-	* Otherwise, we must necessarily have coherent milestones for sequences
-	npage+nline+ncell or nline+ncell; if there is a break="false" among any
-	of these, it was explicitly specified in the original TEI, so set
-	@break="false" to all other milestones accordingly.
+	In all other cases, we must necessarily have homogeneous values for
+	@break in sequences of the forms <npage><nline><ncell> or
+	<nline><ncell>. If a milestone in such a sequence has @break="false", it
+	is because @break was explicitly given in the original TEI (per contrast
+	with @break="true", because "true" is the default value). We thus assume
+	that the author does mean @break="false" for adjacent milestones, too,
+	and thus we set @break="false" for these as well.
 	"""
 	assert len(milestones) >= 3
 	assert milestones[0].name == "npage"
@@ -560,7 +570,8 @@ def add_milestones_breaks(doc, milestones):
 		elif mile.name == "nline":
 			tmp = [mile, next(miles)]
 			assert tmp[1].name == "ncell"
-			if all(common.to_boolean(mile["break"], True) for mile in tmp if mile["break"]):
+			if all(common.to_boolean(mile["break"], True) \
+				for mile in tmp if mile["break"]):
 				pass
 			else:
 				for mile in tmp:

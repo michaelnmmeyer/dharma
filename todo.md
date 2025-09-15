@@ -1,5 +1,20 @@
 # TODO
 
+must allow (at least) <verse> within a <quote>. but note that for milestones we
+assume there is no overlap.
+
+DHARMA_INSCIC00137
+
+<quote>
+            <verse>
+                <verse-line break="true">āsādya <!--space-->
+                    <span class="bold">śaktiṁ</span><!--space--> vivudhopanītāṁ māheśvarīṁ jñānamayīm amoghām</verse-line>
+                <verse-line break="true">
+                    <span class="bold">kumāra</span>bhāve vijit<span class="bold">āri</span>varggo yo dīpayām āsa mahendralakṣmīm ||</verse-line>
+            </verse>After attaining the Power (or: weapon) of Maheśvara (Śiva) that consists in Knowledge, that is never failing (viz. after attaining initiation) [and that has been] transmitted by the gods, being in youth (or: as crown-prince, or: as Kumāra, i.e. Skanda) one whose enemies (or: passions) were conquered, he caused the glory of Mahendravarman to shine.</quote>
+
+
+
 ## Misc
 
 ultimately, we should remove the bs4 dependency, but for this we need a HTML
