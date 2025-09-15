@@ -286,7 +286,7 @@ def extract_bibl_ref(bibl, ref):
 @handler("listBibl/bibl")
 def parse_listbibl_bibl(p, bibl):
 	ref = bibl.first("ptr") or bibl.first("ref")
-	if not ref:
+	if not ref or ref["target"].removeprefix("bib:") == "AuthorYear_01":
 		return
 	short_title, location = extract_bibl_ref(bibl, ref)
 	if not short_title:
