@@ -21,7 +21,9 @@ bibliography.
 
 * Containers: list(>item), dlist(>(key, value)), note.
 
-* Inline elements: span, link, milestones (npage, nline, ncell).
+* Inline elements: span, link, milestones (npage, nline, ncell) and display.
+  <display> can bear @name="physical" or @name="logical" during before
+  patching is done.
 """
 
 
@@ -904,7 +906,8 @@ def is_inline(node):
 		return True
 	if not isinstance(node, tree.Tag):
 		return False
-	return node.name in ("span", "link", "note", "npage", "nline", "ncell")
+	return node.name in ("span", "link", "note", "npage", "nline", "ncell",
+		"display")
 
 def cover_inlines(root):
 	i = 0
