@@ -22,7 +22,7 @@ searching arbitrary substrings.</p>
 <ul>
    <li>
       <label for="text-input">Text:</label>
-      <input name="text" id="text-input"></input>
+      <input name="text" id="text-input" autocapitalize="off" autocorrect="off"></input>
    </li>
    <li>
       <label for="select-type">Unit:</label>

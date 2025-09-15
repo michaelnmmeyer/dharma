@@ -43,9 +43,9 @@ table of languages <a href="/langs">here</a>.</p>
    <li>
    <label for="text-input">Find:</label>
    % if q:
-   <input name="q" id="text-input" value="{{q | escape}}" autocapitalize="off" autofocus/>
+   <input name="q" id="text-input" value="{{q | escape}}" autocapitalize="off" autocorrect="off" autofocus/>
    % else:
-   <input name="q" id="text-input" autocapitalize="off" autofocus/>
+   <input name="q" id="text-input" autocapitalize="off" autocorrect="off" autofocus/>
    % endif
    </li>
    <li>
