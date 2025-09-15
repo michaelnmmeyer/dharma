@@ -233,6 +233,13 @@ def show_catalog():
 		first_entry=first_entry, last_entry=last_entry,
 		per_page=per_page, last_updated=last_updated)
 
+@app.get("/bestow")
+@common.transaction("texts")
+def show_bestow():
+	import bestow
+	doc = bestow.process().to_html(toc_depth=2)
+	return flask.render_template("bestow.tpl", doc=doc)
+
 @app.get("/editorial-conventions")
 @common.transaction("texts")
 def show_editorial_conventions():

@@ -32,6 +32,7 @@ class Document:
 		# "part:xxxx" and name is a string.  dharma_id can be None
 		self.authors: list[tuple[str, str]] = []
 		self.editors: list[tuple[str, str]] = []
+		self.extra = tree.Tree()
 
 	def serialize(self):
 		f = tree.Serializer()
@@ -101,6 +102,10 @@ class Document:
 			f.push(tree.Tag("bibliography"))
 			f.extend(self.bibliography)
 			f.join()
+		if self.extra:
+			f.push(tree.Tag("extra"))
+			f.extend(self.extra)
+			f.join()
 		f.join()
 		return f.tree
 
@@ -108,9 +113,9 @@ class Document:
 		ret = internal2internal.process(self.serialize())
 		return ret
 
-	def to_html(self):
+	def to_html(self, toc_depth=-1):
 		from dharma import internal2html
-		ret = internal2html.process(internal2internal.process(self.serialize()))
+		ret = internal2html.process(internal2internal.process(self.serialize()), toc_depth=toc_depth)
 		return ret
 
 def XML(s):
@@ -130,8 +135,9 @@ def handler(path):
 
 class Parser(tree.Serializer):
 
-	def __init__(self, t):
+	def __init__(self, t, handlers=HANDLERS):
 		super().__init__()
+		self.handlers = handlers
 		self.tree = t
 		self.document = Document()
 		# Nodes in this set are ignored in dispatch(). These nodes
@@ -240,17 +246,15 @@ class Parser(tree.Serializer):
 				pass
 			case _:
 				assert 0, repr(node)
-		for matcher, f in HANDLERS:
+		for matcher, f in self.handlers:
 			if matcher(node):
 				break
 		else:
 			raise Exception(f"cannot handle {node!r}")
 		f(self, node)
 
-	def dispatch_children(self, node, only_tags=False):
+	def dispatch_children(self, node):
 		for child in node:
-			if only_tags and not isinstance(child, tree.Tag):
-				continue
 			self.dispatch(child)
 
 ################################# Links ########################################
@@ -1454,7 +1458,7 @@ def parse_listBibl(p, node):
 		p.push(tree.Tag("head"))
 		p.append(common.sentence_case(type))
 		p.join()
-	p.dispatch_children(node, only_tags=True)
+	p.dispatch_children(node)
 	p.join()
 
 # Title of the edited text (in the teiHeader).
@@ -1615,7 +1619,7 @@ def parse_just_dispatch_all(p, node):
 @handler("body") # /TEI/text/body
 @handler("physDesc")
 def parse_just_dispatch(p, node):
-	p.dispatch_children(node, only_tags=True)
+	p.dispatch_children(node)
 
 # These elements and their children should be ignored.
 @handler("editionStmt")
@@ -1669,7 +1673,7 @@ def fetch_resp(resp):
 # present in the file-specific bibliography and which are not. (The latter
 # need to be presented within the project-wide bibliography.)
 def gather_biblio(p):
-	for bibl in p.tree.find("//listBibl/bibl[ptr]"):
+	for bibl in p.tree.find(".//listBibl/bibl[ptr]"):
 		ptr = bibl.first("ptr")
 		short_title = ptr["target"].removeprefix("bib:")
 		if not short_title or short_title == "AuthorYear_01":
@@ -1689,14 +1693,6 @@ def gather_biblio(p):
 			entry = biblio.lookup_entry(short_title)
 			p.bib_entries[short_title] = entry
 
-@handler("div[regex('edition|apparatus|commentary|bibliography', @type)]")
-def parse_main_div(p, div):
-	p.push(tree.Tree())
-	add_div_heading(p, div, div["type"].title())
-	p.dispatch_children(div)
-	assert hasattr(p.document, div["type"])
-	setattr(p.document, div["type"], p.pop())
-
 # For div[@type='textpart'].
 # Within inscriptions, <div> shouldn't nest, except that we can have
 # <div type="textpart"> within <div type="edition">.
@@ -1714,6 +1710,31 @@ def parse_div_textpart(p, div):
 	add_div_heading(p, div, make_textpart_heading)
 	p.dispatch_children(div)
 	p.join() # </div>
+
+@handler("div[regex('edition|apparatus|commentary|bibliography', @type)]")
+def parse_main_div(p, div):
+	p.push(tree.Tree())
+	add_div_heading(p, div, div["type"].title())
+	p.dispatch_children(div)
+	assert hasattr(p.document, div["type"])
+	setattr(p.document, div["type"], p.pop())
+
+@handler("div[@type='translation']")
+def parse_div_translation(p, div):
+	def make_translation_heading():
+		p.append("Translation")
+		if div.assigned_lang != "eng":
+			p.append(f" into {div.assigned_lang.name}")
+		if (resps := div["resp"]):
+			p.append(" by ")
+			append_names(p, resps.split())
+		elif (sources := div["source"]):
+			p.append(" by ")
+			append_sources(p, sources.split())
+	p.push(tree.Tree())
+	add_div_heading(p, div, make_translation_heading)
+	p.dispatch_children(div)
+	p.document.translation.append(p.pop())
 
 def add_div_heading(p, div, dflt):
 	p.push(tree.Tag("head"))
@@ -1735,7 +1756,7 @@ def add_div_heading(p, div, dflt):
 	if note:
 		p.dispatch(note)
 		p.visited.add(note)
-	p.join()
+	p.join() # </head>
 
 def append_names(p, resps):
 	for i, resp in enumerate(resps):
@@ -1763,23 +1784,6 @@ def append_sources(p, bib_refs):
 			p.append(" and ")
 		p.append(p.bib_reference(ref))
 
-@handler("div[@type='translation']")
-def parse_div_translation(p, div):
-	def make_translation_heading():
-		p.append("Translation")
-		if div.assigned_lang != "eng":
-			p.append(f" into {div.assigned_lang.name}")
-		if (resps := div["resp"]):
-			p.append(" by ")
-			append_names(p, resps.split())
-		elif (sources := div["source"]):
-			p.append(" by ")
-			append_sources(p, sources.split())
-	p.push(tree.Tree())
-	add_div_heading(p, div, make_translation_heading)
-	p.dispatch_children(div)
-	p.document.translation.append(p.pop())
-
 @handler("*")
 def parse_remainder(self, node):
 	print(f"UNKNOWN {node!r}", file=sys.stderr)
@@ -1789,9 +1793,9 @@ def process_file(file, mode=None):
 	t = tree.parse_string(file.data, path=file.full_path)
 	return process_tree(t, mode)
 
-def process_tree(t, mode=None):
+def process_tree(t, mode=None, handlers=HANDLERS):
 	langs.assign_languages(t)
-	p = Parser(t)
+	p = Parser(t, handlers=handlers)
 	# When we are parsing the file, not to display it but to extract
 	# metadata for the catalog, we only need to parse the teiHeader and
 	# can ignore the text body. Furthermore, we need to remove footnotes
@@ -1814,7 +1818,7 @@ def process_tree(t, mode=None):
 	p.dispatch(t.root)
 	assert r.empty, r.xml()
 	ed_langs = set()
-	for node in t.find("//div[@type='edition']/descendant-or-self::*"):
+	for node in t.find(".//div[@type='edition']/descendant-or-self::*"):
 		assert node.assigned_lang
 		if node.assigned_lang.is_source:
 			ed_langs.add(node.assigned_lang)

@@ -35,7 +35,6 @@ def render_quote(self, node):
 
 @handler("document")
 def render_document(self, node):
-	self.heading_level += 1
 	self.push(tree.Tag("div", id="inscription-display"))
 	self.dispatch_children(node)
 	if self.notes:
@@ -59,7 +58,6 @@ def render_document(self, node):
 		self.join() # div
 	self.join()
 	self.document.body = self.top
-	self.heading_level -= 1
 
 @handler("list")
 def render_list(self, node):
@@ -142,17 +140,31 @@ edition_tabs = tree.parse_string("""
 @handler("commentary")
 @handler("bibliography")
 def render_section(self, node):
+	self.heading_level += 1
 	self.push("div", class_=node.name)
 	self.dispatch_children(node)
 	self.join()
+	self.heading_level -= 1
+
+@handler("extra")
+def render_extra(self, node):
+	self.dispatch_children(node)
+
+def push_heading(self, level: int, class_: list[str] = []):
+	class_ = class_.copy()
+	if self.toc_depth >= 0 and self.heading_level > self.toc_depth:
+		class_.append("skip-toc")
+	self.push(tree.Tag(f"h{self.heading_level}", class_="".join(class_)))
+	tree.Tag(f"h{self.heading_level}")
 
 @handler("apparatus")
 def render_apparatus(self, node):
+	self.heading_level += 1
 	self.push("div", class_="apparatus")
 	# Heading
 	head = node.first("head")
 	assert head
-	self.push(tree.Tag(f"h{self.heading_level}", class_="collapsible"))
+	push_heading(self, self.heading_level, class_=["collapsible"])
 	self.dispatch_children(head)
 	self.join()
 	# Contents
@@ -163,6 +175,7 @@ def render_apparatus(self, node):
 	self.join()
 	# End
 	self.join()
+	self.heading_level -= 1
 
 @handler("logical")
 @handler("physical")
@@ -203,14 +216,14 @@ def render_div(self, node):
 
 @handler("edition/stuck-child::head")
 def render_edition_head(self, node):
-	self.push(tree.Tag(f"h{self.heading_level}"))
+	push_heading(self, self.heading_level)
 	self.dispatch_children(node)
 	self.join()
 	self.extend(edition_tabs)
 
 @handler("head")
 def render_head(self, node):
-	self.push(tree.Tag(f"h{self.heading_level}"))
+	push_heading(self, self.heading_level)
 	self.dispatch_children(node)
 	self.join()
 
@@ -326,8 +339,10 @@ class HTMLDocument:
 
 class HTMLRenderer(tree.Serializer):
 
-	def __init__(self, input):
+	def __init__(self, input, handlers=HANDLERS, toc_depth=-1):
 		super().__init__()
+		self.handlers = handlers
+		self.toc_depth = toc_depth
 		self.input = input
 		self.notes = []
 		self.heading_level = 1
@@ -349,7 +364,7 @@ class HTMLRenderer(tree.Serializer):
 				pass
 			case _:
 				raise Exception(f"unknown {node}")
-		for matcher, f in HANDLERS:
+		for matcher, f in self.handlers:
 			if matcher(node):
 				break
 		else:
@@ -363,8 +378,8 @@ class HTMLRenderer(tree.Serializer):
 # We have an XML tree instead of a Document object as input because 1) we will
 # need to process an XML tree for highlighting; and 2) because it is more
 # convenient to use xpath.
-def process(doc: tree.Tree):
-	render = HTMLRenderer(doc)
+def process(doc: tree.Tree, toc_depth=-1):
+	render = HTMLRenderer(doc, toc_depth=toc_depth)
 	ret = render()
 	return ret
 
