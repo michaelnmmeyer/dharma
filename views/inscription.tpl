@@ -13,16 +13,11 @@
 <label>Source view
    <input id="toggle-xml-display" type="checkbox">
 </label>
-% if github_download_url or static_website_url:
-<div class="toc-heading">External Links</div>
+% if github_download_url:
+<div class="toc-heading">External Link</div>
 <nav>
 <ul>
-% if github_download_url:
 <li><a href="{{github_download_url}}"><i class="fa-solid fa-code"></i> XML File</a></li>
-% endif
-% if static_website_url:
-<li><a href="{{static_website_url}}">🦕 Old Display</a></li>
-% endif
 </ul>
 </nav>
 % endif

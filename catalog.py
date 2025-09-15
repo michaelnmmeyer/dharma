@@ -124,7 +124,6 @@ def insert(file: texts.File):
 		html_doc = internal2html.HTMLDocument()
 	data["name"] = file.name
 	data["repo"] = file.repo
-	data["html_path"] = file.html
 	data["status"] = file.status
 	search = make_searchable_record(data)
 	if html_doc and html_doc.titles:
@@ -133,9 +132,9 @@ def insert(file: texts.File):
 		data["summary"] = html_doc.summary.html()
 	db.execute("""
 	insert or replace into documents(name, repo, title, authors, editors,
-		editors_ids, langs, summary, html_path, status)
+		editors_ids, langs, summary, status)
 	values (:name, :repo, :title, :authors, :editors, :editors_ids, :langs,
-	    	:summary, :html_path, :status)""", data)
+	    	:summary, :status)""", data)
 	# We cannot have a primary key on documents_index (because fts virtual
 	# tables do not support this), so we cannot use "insert or replace" and
 	# must instead do a delete followed by an insert.
@@ -153,12 +152,11 @@ def rebuild():
 	logging.info("rebuilding the catalog")
 	db = common.db("texts")
 	db.execute("delete from documents_index")
-	for repo, path, mtime, data, html in db.execute("""
-		select files.repo, path, mtime, data, html_path
+	for repo, path, mtime, data in db.execute("""
+		select files.repo, path, mtime, data
 		from files join documents on files.name = documents.name
 		order by files.repo, files.name"""):
 		file = texts.File(repo, path)
-		file.html = html
 		setattr(file, "_mtime", mtime)
 		setattr(file, "_data", data)
 		insert(file)
@@ -271,8 +269,7 @@ def search(q, sort, page):
 	sql = """
 		select documents.name, documents.repo, documents.title,
 			documents.authors, documents.editors, json_group_array(distinct langs_list.name) as langs, documents.summary,
-			repos.title as repo_title,
-			html_path
+			repos.title as repo_title
 		from documents
 			join documents_index on documents.name = documents_index.name
 			join repos on documents.repo = repos.repo

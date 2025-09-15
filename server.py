@@ -107,7 +107,7 @@ def show_text_errors(name):
 	db = common.db("texts")
 	row = db.execute("""
 		select name, repo, commit_hash, code_hash, status, mtime,
-			xml_path, data, html_path, commit_date
+			xml_path, data, commit_date
 		from errors_display where name = ?
 	""", (name,)).fetchone()
 	if not row:
@@ -117,7 +117,6 @@ def show_text_errors(name):
 	if row["status"] == validate.OK:
 		return flask.redirect(url)
 	file = texts.File(row["repo"], row["xml_path"])
-	file.html = row["html_path"]
 	setattr(file, "_mtime", row["mtime"])
 	setattr(file, "_data", row["data"])
 	setattr(file, "_status", row["status"])
@@ -346,10 +345,6 @@ def display_inscription(text):
 		format_url('https://raw.githubusercontent.com/erc-dharma/%s/%s/%s',
 			repos.repo, commit_hash, path)
 			as github_download_url,
-		case when html_path is null
-			then null
-			else format_url('https://erc-dharma.github.io/%s/%s', repos.repo, html_path)
-		end as static_website_url,
 		repos.title as repo_title
 	from documents
 		join files on documents.name = files.name

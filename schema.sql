@@ -216,10 +216,6 @@ create table if not exists documents(
 	summary html check(
 		summary is null
 		or typeof(summary) = 'text' and length(summary) > 0),
-	-- The corresponding file is at https://erc-dharma.github.io/$repo/$html_path
-	html_path text check(
-		html_path is null
-		or typeof(html_path) = 'text' and length(html_path) > 1),
 	-- See the enum in change.py
 	status integer check(
 		typeof(status) = 'integer' and status between 0 and 3),
@@ -547,8 +543,7 @@ create view if not exists people_display as
 
 create view if not exists errors_display as
 	select documents.name, repos.repo, commit_hash, code_hash,
-		status, mtime, path as xml_path, data, html_path,
-		commit_date
+		status, mtime, path as xml_path, data, commit_date
 	from documents join files on documents.name = files.name
 		join repos on documents.repo = repos.repo;
 

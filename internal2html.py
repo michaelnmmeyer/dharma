@@ -164,19 +164,18 @@ def render_apparatus(self, node):
 	self.heading_level += 1
 	self.push("div", class_="apparatus")
 	# Heading
-	head = node.first("head")
-	assert head
-	push_heading(self, self.heading_level, class_=["collapsible"])
-	self.dispatch_children(head)
-	self.join()
+	if (head := node.first("head")):
+		push_heading(self, self.heading_level, class_=["collapsible"])
+		self.dispatch_children(head)
+		self.join() # </head>
 	# Contents
 	self.push("div")
 	for child in node:
 		if child is not head:
 			self.dispatch(child)
-	self.join()
-	# End
-	self.join()
+	self.join() # </div>
+	# End contents
+	self.join() # </div class="apparatus"/>
 	self.heading_level -= 1
 
 @handler("logical")

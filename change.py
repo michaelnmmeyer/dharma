@@ -141,7 +141,6 @@ class Changes:
 		for name in self.before:
 			if name not in seen:
 				self.delete.append(name)
-		texts.gather_web_pages(self.repo, self.insert + self.update)
 		# Always process files in the same order, for reproductibility.
 		self.insert.sort(key=lambda file: file.name, reverse=True)
 		self.update.sort(key=lambda file: file.name, reverse=True)

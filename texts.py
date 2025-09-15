@@ -20,10 +20,6 @@ class File:
 		# File path relative to the repository directory e.g.
 		# "texts/xml/DHARMA_INSPallava00002.xml"
 		self.path = path
-		# Path of the corresponding HTML file generated with XSLT,
-		# relative to the repo root, e.g.
-		# "texts/htmloutput/DHARMA_INSPallava00002.html"
-		self.html = None
 
 	def __repr__(self):
 		return f"File({self.repo!r}, {self.path!r})"
@@ -129,20 +125,3 @@ def save(repo, path):
 	db = common.db("texts")
 	db.save_file(file)
 	return file
-
-# Find out the path of HTML files generated from each file, so that we can link
-# to them in the website. The location of these files varies between repos, so
-# we use brute force instead of hardcoding stuff.
-def gather_web_pages(repo, recs):
-	lookup = {file.name: file for file in recs}
-	repo_path = common.path_of("repos", repo)
-	for root, _, files in os.walk(repo_path):
-		for file in files:
-			name, ext = os.path.splitext(file)
-			if ext != ".html":
-				continue
-			rec = lookup.get(name)
-			if not rec:
-				continue
-			html = os.path.join(root, file)
-			rec.html = os.path.relpath(html, repo_path)

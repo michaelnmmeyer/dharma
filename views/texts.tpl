@@ -92,9 +92,7 @@ total.
    % else:
       <i>Untitled</i>
    % endif
-   % if row["name"].startswith("DHARMA_INS") or row["html_path"]:
       </a>
-   % endif
    </div>
    <p>
    % for ed in row["editors"][:-1]:
