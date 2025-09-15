@@ -1,7 +1,7 @@
 import os, unicodedata, datetime, html, urllib, urllib.parse, ntpath, hashlib
 import flask # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
-from dharma import common, change, ngrams, catalog, validate, tei2internal, tree
+from dharma import common, change, ngrams, catalog, validate, tei, tree
 from dharma import biblio, texts, editorial, prosody, internal2html, xslt
 
 # We don't use the name "templates" for the template folder because we also
@@ -369,7 +369,7 @@ def render_inscription(file: texts.File, data: dict):
 		# inscriptions
 		data["highlighted_xml"] = tree.html_format(file.text)
 		return flask.render_template("invalid_inscription.tpl", **data)
-	data["doc"] = tei2internal.process_tree(t).to_html()
+	data["doc"] = tei.process_tree(t).to_html()
 	data["highlighted_xml"] = tree.html_format(t)
 	return flask.render_template("inscription.tpl", **data)
 

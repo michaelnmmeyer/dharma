@@ -1,5 +1,5 @@
 import logging
-from dharma import tree, texts, common, tei2internal, internal2html
+from dharma import tree, texts, common, tei, internal2html
 
 class Query:
 
@@ -110,7 +110,7 @@ def insert(file: texts.File):
 	# XXX should store XML fields as such in the DB, not as HTML, because
 	# we need to be able to highlight them.
 	try:
-		doc = tei2internal.process_file(file)
+		doc = tei.process_file(file)
 		data = make_document_record(file, doc.to_internal())
 		html_doc = doc.to_html()
 	except tree.Error:

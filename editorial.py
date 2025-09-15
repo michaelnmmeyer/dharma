@@ -1,4 +1,4 @@
-from dharma import tree, common, langs, texts, tei2internal
+from dharma import tree, common, langs, texts, tei
 import bs4, copy
 
 tpl = """
@@ -16,7 +16,7 @@ def parse_xml(context, code):
 	html = tree.html_format(t.first(f"//div[@type='{context}']"), skip_root=True)
 	file = texts.File("whatever", "whatever")
 	setattr(file, "_data", data)
-	block = tei2internal.process_file(file).to_html().body
+	block = tei.process_file(file).to_html().body
 	# XXX
 	for expr in ["//h2", "//ul[@class='ed-tabs']", "//div[@class='physical' or @class='logical']"]:
 		for node in block.find(expr):

@@ -2,7 +2,7 @@
 
 import os, sys, re, html, urllib.parse, posixpath, copy
 from dharma import common, prosody, people, tree, gaiji, biblio, langs
-from dharma import internal2internal
+from dharma import patch
 
 class Document:
 
@@ -110,12 +110,12 @@ class Document:
 		return f.tree
 
 	def to_internal(self):
-		ret = internal2internal.process(self.serialize())
+		ret = patch.process(self.serialize())
 		return ret
 
 	def to_html(self, toc_depth=-1):
 		from dharma import internal2html
-		ret = internal2html.process(internal2internal.process(self.serialize()), toc_depth=toc_depth)
+		ret = internal2html.process(patch.process(self.serialize()), toc_depth=toc_depth)
 		return ret
 
 def XML(s):

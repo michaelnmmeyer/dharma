@@ -990,13 +990,13 @@ def make_pretty_printable(t: tree.Tree):
 
 if __name__ == "__main__":
 	import os, sys
-	from dharma import tei2internal, common, texts
+	from dharma import tei, common, texts
 
 	@common.transaction("texts")
 	def main():
 		path = os.path.abspath(sys.argv[1])
 		f = texts.File("/", path)
-		t = tei2internal.process_file(f).serialize()
+		t = tei.process_file(f).serialize()
 		t = process(t)
 		make_pretty_printable(t)
 		sys.stdout.write(t.xml())
