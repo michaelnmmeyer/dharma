@@ -103,7 +103,11 @@ class File:
 
 def iter_texts_in_repo(repo):
 	repo_path = common.path_of("repos", repo)
-	for root, _, files in os.walk(repo_path):
+	for root, dirs, files in os.walk(repo_path):
+		# Ignore hidden directories.
+		for dir in list(dirs):
+			if dir.startswith("."):
+				dirs.remove(dir)
 		for file in files:
 			_, ext = os.path.splitext(file)
 			if ext.lower() != ".xml":
