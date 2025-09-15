@@ -8,16 +8,16 @@ class Document:
 
 	def __init__(self):
 		self.title: list[tree.Tree] = []
-		self.summary: tree.Tree = tree.Tree()
-		self.hand: tree.Tree = tree.Tree()
+		self.summary = tree.Tree()
+		self.hand = tree.Tree()
 		# Languages used in the edition division that do not correspond
 		# to a modern, translation-only language.
 		self.edition_langs: list[langs.Language] = []
 		# One field for each main div.
-		self.edition: tree.Tree = tree.Tree()
-		self.apparatus: tree.Tree = tree.Tree()
-		self.commentary: tree.Tree = tree.Tree()
-		self.bibliography: tree.Tree = tree.Tree()
+		self.edition = tree.Tree()
+		self.apparatus = tree.Tree()
+		self.commentary = tree.Tree()
+		self.bibliography = tree.Tree()
 		# A single document can have zero or more translations (see e.g.
 		# DHARMA_INSPallava00002), so this is a list.
 		self.translation: list[tree.Tree] = []
@@ -32,6 +32,7 @@ class Document:
 		# "part:xxxx" and name is a string.  dharma_id can be None
 		self.authors: list[tuple[str, str]] = []
 		self.editors: list[tuple[str, str]] = []
+		# For bestow.
 		self.extra = tree.Tree()
 
 	def serialize(self):
@@ -63,11 +64,11 @@ class Document:
 				f.append(editor_id)
 				f.join()
 			f.join()
-		if self.summary:
+		if not self.summary.empty:
 			f.push(tree.Tag("summary"))
 			f.extend(self.summary)
 			f.join()
-		if self.hand:
+		if not self.hand.empty:
 			f.push(tree.Tag("hand"))
 			f.extend(self.hand)
 			f.join()
@@ -82,11 +83,11 @@ class Document:
 			f.join()
 			f.join()
 		f.join()
-		if self.edition:
+		if not self.edition.empty:
 			f.push(tree.Tag("edition"))
 			f.extend(self.edition)
 			f.join()
-		if self.apparatus:
+		if not self.apparatus.empty:
 			f.push(tree.Tag("apparatus"))
 			f.extend(self.apparatus)
 			f.join()
@@ -94,15 +95,15 @@ class Document:
 			f.push(tree.Tag("translation"))
 			f.extend(trans)
 			f.join()
-		if self.commentary:
+		if not self.commentary.empty:
 			f.push(tree.Tag("commentary"))
 			f.extend(self.commentary)
 			f.join()
-		if self.bibliography:
+		if not self.bibliography.empty:
 			f.push(tree.Tag("bibliography"))
 			f.extend(self.bibliography)
 			f.join()
-		if self.extra:
+		if not self.extra.empty:
 			f.push(tree.Tag("extra"))
 			f.extend(self.extra)
 			f.join()
@@ -1722,15 +1723,35 @@ def parse_main_div(p, div):
 @handler("div[@type='translation']")
 def parse_div_translation(p, div):
 	def make_translation_heading():
+		resps = div["resps"]
+		if resps:
+			# If translators names are the exact same set of people
+			# who edited the inscription, do not display them.
+			resps = resps.split()
+			editors = set(ident for ident, name in p.document.editors)
+			if editors != set(resps):
+				resps = None
 		p.append("Translation")
 		if div.assigned_lang != "eng":
+			# Only display the traduction's language if not English.
 			p.append(f" into {div.assigned_lang.name}")
-		if (resps := div["resp"]):
+		if (sources := div["source"]):
+			# Print in this order: bibliographic sources and names
+			# of DHARMA members. Because we assume that, if both
+			# are given, the DHARMA member is using an existing
+			# traduction that he is trying to improve, so the
+			# primary translator is the one mentioned in the
+			# bibliography.
 			p.append(" by ")
-			append_names(p, resps.split())
-		elif (sources := div["source"]):
+			finish_list = not resps
+			append_sources(p, sources.split(), finish_list)
+			if resps:
+				p.append(", ")
+				append_names(p, resps)
+		elif resps:
 			p.append(" by ")
-			append_sources(p, sources.split())
+			append_names(p, resps)
+
 	p.push(tree.Tree())
 	add_div_heading(p, div, make_translation_heading)
 	p.dispatch_children(div)
@@ -1769,7 +1790,7 @@ def append_names(p, resps):
 			p.append(" and ")
 		p.append(fetch_resp(resp))
 
-def append_sources(p, bib_refs):
+def append_sources(p, bib_refs, finish_list=True):
 	refs = []
 	for ref in bib_refs:
 		ref = ref.removeprefix("bib:")
@@ -1780,7 +1801,7 @@ def append_sources(p, bib_refs):
 			pass
 		elif i < len(refs) - 1:
 			p.append(", ")
-		else:
+		elif finish_list:
 			p.append(" and ")
 		p.append(p.bib_reference(ref))
 
