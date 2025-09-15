@@ -29,7 +29,7 @@ def handle_div(self, div):
 	self.push(tree.Tag("div"))
 	if div["type"] != "text":
 		self.push(tree.Tag("head"))
-		self.append(common.sentence_case(div["type"] or "?"))
+		self.append(common.sentence_case(div["type"] or "???"))
 		self.join() # </head>
 	self.dispatch_children(div)
 	self.join() # </div>
@@ -45,7 +45,7 @@ def handle_verse(self, div):
 	self.push(tree.Tree())
 	self.push(tree.Tag("div"))
 	self.push(tree.Tag("head"))
-	self.append(div["id"] or "?")
+	self.append(div["id"] or "???")
 	self.join() # </head>
 	self.dispatch_children(div)
 	self.join() # </div>
