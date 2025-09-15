@@ -1,8 +1,8 @@
 default namespace = ""
 
-basic_block = para | \list | dlist | verse
+block = para | \list | dlist | verse
 
-subdivision = div | basic_block
+subdivision = div | block
 
 inline = text | span | link | note | npage | nline | ncell
 
@@ -11,8 +11,8 @@ start =
     element title { inline+ }*,
     element author { name, identifier? }*,
     element editor { name, identifier? }*,
-    element summary { basic_block+ }?,
-    element hand { basic_block+ }?,
+    element summary { block+ }?,
+    element hand { block+ }?,
     element edition-languages {
       element language { name, identifier }+
     },
@@ -47,7 +47,7 @@ start =
 note =
   element note {
     attribute n { xsd:integer },
-    basic_block+
+    block+
   }
 span =
   element span {
