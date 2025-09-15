@@ -39,6 +39,7 @@ def render_document(self, node):
 	self.dispatch_children(node)
 	if self.notes:
 		self.push(tree.Tag("div", class_="notes"))
+		self.heading_level += 1
 		render_head(self, "Notes")
 		self.push(tree.Tag("ol"))
 		for n, note in enumerate(self.notes, 1):
@@ -55,6 +56,7 @@ def render_document(self, node):
 				self.dispatch(para)
 			self.join()
 		self.join() # ol
+		self.heading_level -= 1
 		self.join() # div
 	self.join()
 	self.document.body = self.top
