@@ -172,8 +172,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-att.datable.w3c-att-datable-w3c-when-1</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-att.datable.w3c-att-datable-w3c-when-1</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-att-datable-w3c-when-1</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-att-datable-w3c-when-1</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M5"/>
@@ -181,8 +181,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-att.datable.w3c-att-datable-w3c-from-2</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-att.datable.w3c-att-datable-w3c-from-2</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-att-datable-w3c-from-2</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-att-datable-w3c-from-2</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M6"/>
@@ -190,8 +190,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-att.datable.w3c-att-datable-w3c-to-3</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-att.datable.w3c-att-datable-w3c-to-3</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-att-datable-w3c-to-3</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-att-datable-w3c-to-3</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M7"/>
@@ -199,8 +199,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-att.datable-calendar-calendar-4</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-att.datable-calendar-calendar-4</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-calendar-4</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-calendar-4</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M8"/>
@@ -208,8 +208,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-att.measurement-att-measurement-unitRef-5</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-att.measurement-att-measurement-unitRef-5</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-att-measurement-unitRef-5</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-att-measurement-unitRef-5</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M9"/>
@@ -217,8 +217,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-att.typed-subtypeTyped-6</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-att.typed-subtypeTyped-6</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-subtypeTyped-6</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-subtypeTyped-6</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M10"/>
@@ -226,8 +226,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-att.pointing-targetLang-targetLang-7</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-att.pointing-targetLang-targetLang-7</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-targetLang-7</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-targetLang-7</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M11"/>
@@ -235,8 +235,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-att.spanning-spanTo-spanTo-2-8</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-att.spanning-spanTo-spanTo-2-8</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-spanTo-2-8</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-spanTo-2-8</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M12"/>
@@ -244,8 +244,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-att.styleDef-schemeVersion-schemeVersionRequiresScheme-9</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-att.styleDef-schemeVersion-schemeVersionRequiresScheme-9</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-schemeVersionRequiresScheme-9</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-schemeVersionRequiresScheme-9</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M13"/>
@@ -253,8 +253,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-p-p-10</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-p-p-10</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-p-10</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-p-10</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M14"/>
@@ -262,8 +262,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-p-abstractModel-structure-p-11</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-p-abstractModel-structure-p-11</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-deprecationInfo-only-in-deprecated-11</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-deprecationInfo-only-in-deprecated-11</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M15"/>
@@ -271,8 +271,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-p-abstractModel-structure-l-12</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-p-abstractModel-structure-l-12</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-unclear-limit-12</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-unclear-limit-12</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M16"/>
@@ -280,8 +280,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-desc-deprecationInfo-only-in-deprecated-13</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-desc-deprecationInfo-only-in-deprecated-13</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-rs-rules-17</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-rs-rules-17</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M17"/>
@@ -289,8 +289,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-choice-unclear-limit-14</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-choice-unclear-limit-14</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-rs-rules-18</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-rs-rules-18</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M18"/>
@@ -298,8 +298,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">isoschematron-constraint-dharma-gap-gap-15</xsl:attribute>
-            <xsl:attribute name="name">isoschematron-constraint-dharma-gap-gap-15</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-rs-rules-19</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-rs-rules-19</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M19"/>
@@ -307,8 +307,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-rs-rs-rules-16</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-rs-rs-rules-16</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-rs-rules-20</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-rs-rules-20</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M20"/>
@@ -316,8 +316,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-num-valeur-or-interval-17</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-num-valeur-or-interval-17</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-rs-rules-21</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-rs-rules-21</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M21"/>
@@ -325,8 +325,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-date-attributes-18</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-date-attributes-18</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-rs-rules-22</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-rs-rules-22</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M22"/>
@@ -334,8 +334,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">isoschematron-constraint-dharma-expan-expan-19</xsl:attribute>
-            <xsl:attribute name="name">isoschematron-constraint-dharma-expan-expan-19</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-rs-rules-23</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-rs-rules-23</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M23"/>
@@ -343,8 +343,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-ptr-ptrAtts-20</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-ptr-ptrAtts-20</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-rs-rules-24</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-rs-rules-24</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M24"/>
@@ -352,8 +352,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-ref-refAtts-21</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-ref-refAtts-21</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-rs-rules-25</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-rs-rules-25</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M25"/>
@@ -361,8 +361,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">isoschematron-constraint-dharma-list-lists-22</xsl:attribute>
-            <xsl:attribute name="name">isoschematron-constraint-dharma-list-lists-22</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-rs-rules-26</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-rs-rules-26</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M26"/>
@@ -370,8 +370,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-list-gloss-list-must-have-labels-23</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-list-gloss-list-must-have-labels-23</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-rs-rules-27</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-rs-rules-27</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M27"/>
@@ -379,8 +379,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-head-head-childs-24</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-head-head-childs-24</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-rs-rules-28</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-rs-rules-28</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M28"/>
@@ -388,8 +388,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-note-note-25</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-note-note-25</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-rs-rules-29</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-rs-rules-29</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M29"/>
@@ -397,8 +397,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-milestone-att-unit-n-26</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-milestone-att-unit-n-26</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-valeur-or-interval-30</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-valeur-or-interval-30</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M30"/>
@@ -406,8 +406,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-citedRange-note-27</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-citedRange-note-27</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-attributes-31</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-attributes-31</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M31"/>
@@ -415,8 +415,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-bibl-siglum-28</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-bibl-siglum-28</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-attributes-32</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-attributes-32</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M32"/>
@@ -424,8 +424,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-l-mixed-verse-29</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-l-mixed-verse-29</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-attributes-33</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-attributes-33</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M33"/>
@@ -433,8 +433,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-l-abstractModel-structure-l-30</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-l-abstractModel-structure-l-30</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-attributes-34</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-attributes-34</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M34"/>
@@ -442,8 +442,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-lg-atleast1oflggapl-31</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-lg-atleast1oflggapl-31</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-attributes-35</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-attributes-35</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M35"/>
@@ -451,8 +451,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-lg-abstractModel-structure-l-32</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-lg-abstractModel-structure-l-32</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-gloss-list-must-have-labels-38</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-gloss-list-must-have-labels-38</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M36"/>
@@ -460,8 +460,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-quotation-quotationContents-33</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-quotation-quotationContents-33</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-head-childs-39</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-head-childs-39</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M37"/>
@@ -469,8 +469,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-change-responsability-34</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-change-responsability-34</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-note-40</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-note-40</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M38"/>
@@ -478,8 +478,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">isoschematron-constraint-dharma-div-div-37</xsl:attribute>
-            <xsl:attribute name="name">isoschematron-constraint-dharma-div-div-37</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-note-41</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-note-41</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M39"/>
@@ -487,8 +487,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-div-abstractModel-structure-l-38</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-div-abstractModel-structure-l-38</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-note-42</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-note-42</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M40"/>
@@ -496,8 +496,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-div-abstractModel-structure-p-39</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-div-abstractModel-structure-p-39</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-att-unit-n-43</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-att-unit-n-43</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M41"/>
@@ -505,8 +505,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">isoschematron-constraint-dharma-ex-ex-40</xsl:attribute>
-            <xsl:attribute name="name">isoschematron-constraint-dharma-ex-ex-40</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-att-unit-n-44</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-att-unit-n-44</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M42"/>
@@ -514,8 +514,17 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">isoschematron-constraint-dharma-am-ex-42</xsl:attribute>
-            <xsl:attribute name="name">isoschematron-constraint-dharma-am-ex-42</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-att-unit-n-45</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-att-unit-n-45</xsl:attribute>
+            <xsl:apply-templates/>
+         </svrl:active-pattern>
+         <xsl:apply-templates select="/" mode="M43"/>
+         <svrl:active-pattern>
+            <xsl:attribute name="document">
+               <xsl:value-of select="document-uri(/)"/>
+            </xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-att-unit-n-46</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-att-unit-n-46</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M44"/>
@@ -523,8 +532,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">isoschematron-constraint-dharma-space-space-43</xsl:attribute>
-            <xsl:attribute name="name">isoschematron-constraint-dharma-space-space-43</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-att-unit-n-47</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-att-unit-n-47</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M45"/>
@@ -532,8 +541,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-subst-substContents1-44</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-subst-substContents1-44</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-note-48</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-note-48</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M46"/>
@@ -541,8 +550,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-certainty-usage-certainty-45</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-certainty-usage-certainty-45</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-siglum-49</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-siglum-49</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M47"/>
@@ -550,8 +559,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-ab-abstractModel-structure-ab-46</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-ab-abstractModel-structure-ab-46</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-siglum-50</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-siglum-50</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M48"/>
@@ -559,8 +568,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-ab-abstractModel-structure-l-47</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-ab-abstractModel-structure-l-47</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-mixed-verse-51</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-mixed-verse-51</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M49"/>
@@ -568,8 +577,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-seg-att-type-subtype-48</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-seg-att-type-subtype-48</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-responsability-52</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-responsability-52</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M50"/>
@@ -577,17 +586,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-dimensions-duplicateDim-49</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-dimensions-duplicateDim-49</xsl:attribute>
-            <xsl:apply-templates/>
-         </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M51"/>
-         <svrl:active-pattern>
-            <xsl:attribute name="document">
-               <xsl:value-of select="document-uri(/)"/>
-            </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-origDate-origDate-50</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-origDate-origDate-50</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-usage-certainty-59</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-usage-certainty-59</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M52"/>
@@ -595,8 +595,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-signatures-signatures_in_msDesc-51</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-signatures-signatures_in_msDesc-51</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-usage-certainty-60</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-usage-certainty-60</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M53"/>
@@ -604,8 +604,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-msIdentifier-msId_minimal-52</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-msIdentifier-msId_minimal-52</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-usage-certainty-61</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-usage-certainty-61</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M54"/>
@@ -613,8 +613,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-persName-reference-53</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-persName-reference-53</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-usage-certainty-62</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-usage-certainty-62</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M55"/>
@@ -622,8 +622,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">isoschematron-constraint-dharma-placeName-div-54</xsl:attribute>
-            <xsl:attribute name="name">isoschematron-constraint-dharma-placeName-div-54</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-att-type-subtype-63</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-att-type-subtype-63</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M56"/>
@@ -631,8 +631,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-objectIdentifier-objectIdentifier_minimal-55</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-objectIdentifier-objectIdentifier_minimal-55</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-origDate-64</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-origDate-64</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M57"/>
@@ -640,8 +640,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-app-one-lem-56</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-app-one-lem-56</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-reference-65</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-reference-65</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M58"/>
@@ -649,8 +649,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">isoschematron-constraint-dharma-listApp-div-57</xsl:attribute>
-            <xsl:attribute name="name">isoschematron-constraint-dharma-listApp-div-57</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-one-lem-73</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-one-lem-73</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M59"/>
@@ -658,8 +658,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-lem-exclusion-inside-lem-58</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-lem-exclusion-inside-lem-58</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-exclusion-inside-lem-75</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-exclusion-inside-lem-75</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M60"/>
@@ -667,8 +667,8 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-rdg-exclusion-inside-lem-59</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-rdg-exclusion-inside-lem-59</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-exclusion-inside-lem-76</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-exclusion-inside-lem-76</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M61"/>
@@ -676,25 +676,16 @@
             <xsl:attribute name="document">
                <xsl:value-of select="document-uri(/)"/>
             </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-rdgGrp-only1lem-60</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-rdgGrp-only1lem-60</xsl:attribute>
+            <xsl:attribute name="id">schematron-constraint-variantEncodingLocation-77</xsl:attribute>
+            <xsl:attribute name="name">schematron-constraint-variantEncodingLocation-77</xsl:attribute>
             <xsl:apply-templates/>
          </svrl:active-pattern>
          <xsl:apply-templates select="/" mode="M62"/>
-         <svrl:active-pattern>
-            <xsl:attribute name="document">
-               <xsl:value-of select="document-uri(/)"/>
-            </xsl:attribute>
-            <xsl:attribute name="id">schematron-constraint-dharma-variantEncoding-location-variantEncodingLocation-61</xsl:attribute>
-            <xsl:attribute name="name">schematron-constraint-dharma-variantEncoding-location-variantEncodingLocation-61</xsl:attribute>
-            <xsl:apply-templates/>
-         </svrl:active-pattern>
-         <xsl:apply-templates select="/" mode="M63"/>
       </svrl:schematron-output>
    </xsl:template>
    <!--SCHEMATRON PATTERNS-->
    <svrl:text xmlns:svrl="http://purl.oclc.org/dsdl/svrl">ISO Schematron rules</svrl:text>
-   <!--PATTERN schematron-constraint-dharma-att.datable.w3c-att-datable-w3c-when-1-->
+   <!--PATTERN schematron-constraint-att-datable-w3c-when-1-->
 
    <!--RULE -->
    <xsl:template match="tei:*[@when]" priority="1000" mode="M5">
@@ -716,7 +707,7 @@
    <xsl:template match="@*|node()" priority="-2" mode="M5">
       <xsl:apply-templates select="*" mode="M5"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-att.datable.w3c-att-datable-w3c-from-2-->
+   <!--PATTERN schematron-constraint-att-datable-w3c-from-2-->
 
    <!--RULE -->
    <xsl:template match="tei:*[@from]" priority="1000" mode="M6">
@@ -737,7 +728,7 @@
    <xsl:template match="@*|node()" priority="-2" mode="M6">
       <xsl:apply-templates select="*" mode="M6"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-att.datable.w3c-att-datable-w3c-to-3-->
+   <!--PATTERN schematron-constraint-att-datable-w3c-to-3-->
 
    <!--RULE -->
    <xsl:template match="tei:*[@to]" priority="1000" mode="M7">
@@ -758,7 +749,7 @@
    <xsl:template match="@*|node()" priority="-2" mode="M7">
       <xsl:apply-templates select="*" mode="M7"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-att.datable-calendar-calendar-4-->
+   <!--PATTERN schematron-constraint-calendar-4-->
 
    <!--RULE -->
    <xsl:template match="tei:*[@calendar]" priority="1000" mode="M8">
@@ -771,9 +762,7 @@
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text> @calendar indicates the system or calendar to
-              which the date represented by the content of this element belongs, but this
-              <xsl:text/>
+               <svrl:text> @calendar indicates the system or calendar to which the date represented by the content of this element belongs, but this <xsl:text/>
                   <xsl:value-of select="name(.)"/>
                   <xsl:text/> element has no textual content.</svrl:text>
             </svrl:failed-assert>
@@ -785,7 +774,7 @@
    <xsl:template match="@*|node()" priority="-2" mode="M8">
       <xsl:apply-templates select="*" mode="M8"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-att.measurement-att-measurement-unitRef-5-->
+   <!--PATTERN schematron-constraint-att-measurement-unitRef-5-->
 
    <!--RULE -->
    <xsl:template match="tei:*[@unitRef]" priority="1000" mode="M9">
@@ -806,7 +795,7 @@
    <xsl:template match="@*|node()" priority="-2" mode="M9">
       <xsl:apply-templates select="*" mode="M9"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-att.typed-subtypeTyped-6-->
+   <!--PATTERN schematron-constraint-subtypeTyped-6-->
 
    <!--RULE -->
    <xsl:template match="tei:*[@subtype]" priority="1000" mode="M10">
@@ -831,7 +820,7 @@
    <xsl:template match="@*|node()" priority="-2" mode="M10">
       <xsl:apply-templates select="*" mode="M10"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-att.pointing-targetLang-targetLang-7-->
+   <!--PATTERN schematron-constraint-targetLang-7-->
 
    <!--RULE -->
    <xsl:template match="tei:*[not(self::tei:schemaSpec)][@targetLang]"
@@ -859,7 +848,7 @@
    <xsl:template match="@*|node()" priority="-2" mode="M11">
       <xsl:apply-templates select="*" mode="M11"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-att.spanning-spanTo-spanTo-2-8-->
+   <!--PATTERN schematron-constraint-spanTo-2-8-->
 
    <!--RULE -->
    <xsl:template match="tei:*[@spanTo]" priority="1000" mode="M12">
@@ -873,8 +862,7 @@
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>
-The element indicated by @spanTo (<xsl:text/>
+               <svrl:text> The element indicated by @spanTo (<xsl:text/>
                   <xsl:value-of select="@spanTo"/>
                   <xsl:text/>) must follow the current element <xsl:text/>
                   <xsl:value-of select="name(.)"/>
@@ -889,7 +877,7 @@ The element indicated by @spanTo (<xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M12">
       <xsl:apply-templates select="*" mode="M12"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-att.styleDef-schemeVersion-schemeVersionRequiresScheme-9-->
+   <!--PATTERN schematron-constraint-schemeVersionRequiresScheme-9-->
 
    <!--RULE -->
    <xsl:template match="tei:*[@schemeVersion]" priority="1000" mode="M13">
@@ -903,9 +891,7 @@ The element indicated by @spanTo (<xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>
-              @schemeVersion can only be used if @scheme is specified.
-            </svrl:text>
+               <svrl:text> @schemeVersion can only be used if @scheme is specified.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
@@ -915,7 +901,7 @@ The element indicated by @spanTo (<xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M13">
       <xsl:apply-templates select="*" mode="M13"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-p-p-10-->
+   <!--PATTERN schematron-constraint-p-10-->
 
    <!--RULE -->
    <xsl:template match="tei:p" priority="1000" mode="M14">
@@ -936,58 +922,12 @@ The element indicated by @spanTo (<xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M14">
       <xsl:apply-templates select="*" mode="M14"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-p-abstractModel-structure-p-11-->
-
-   <!--RULE -->
-   <xsl:template match="tei:p" priority="1000" mode="M15">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:p"/>
-      <!--REPORT -->
-      <xsl:if test="not(ancestor::tei:floatingText) and (ancestor::tei:p or ancestor::tei:ab)          and not(parent::tei:exemplum                |parent::tei:item                |parent::tei:note                |parent::tei:q                |parent::tei:quote                |parent::tei:remarks                |parent::tei:said                |parent::tei:sp                |parent::tei:stage                |parent::tei:cell                |parent::tei:figure                )">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="not(ancestor::tei:floatingText) and (ancestor::tei:p or ancestor::tei:ab) and not(parent::tei:exemplum |parent::tei:item |parent::tei:note |parent::tei:q |parent::tei:quote |parent::tei:remarks |parent::tei:said |parent::tei:sp |parent::tei:stage |parent::tei:cell |parent::tei:figure )">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-        Abstract model violation: Paragraphs may not occur inside other paragraphs or ab elements.
-      </svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M15"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M15"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M15">
-      <xsl:apply-templates select="*" mode="M15"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-p-abstractModel-structure-l-12-->
-
-   <!--RULE -->
-   <xsl:template match="tei:p" priority="1000" mode="M16">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:p"/>
-      <!--REPORT -->
-      <xsl:if test="ancestor::tei:l[not(.//tei:note//tei:p[. = current()])]">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="ancestor::tei:l[not(.//tei:note//tei:p[. = current()])]">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-        Abstract model violation: Lines may not contain higher-level structural elements such as div, p, or ab.
-      </svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M16"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M16"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M16">
-      <xsl:apply-templates select="*" mode="M16"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-desc-deprecationInfo-only-in-deprecated-13-->
+   <!--PATTERN schematron-constraint-deprecationInfo-only-in-deprecated-11-->
 
    <!--RULE -->
    <xsl:template match="tei:desc[ @type eq 'deprecationInfo']"
                  priority="1000"
-                 mode="M17">
+                 mode="M15">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:desc[ @type eq 'deprecationInfo']"/>
       <!--ASSERT -->
@@ -998,24 +938,20 @@ The element indicated by @spanTo (<xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>Information about a
-	deprecation should only be present in a specification element
-	that is being deprecated: that is, only an element that has a
-	@validUntil attribute should have a child &lt;desc
-	type="deprecationInfo"&gt;.</svrl:text>
+               <svrl:text>Information about a deprecation should only be present in a specification element that is being deprecated: that is, only an element that has a @validUntil attribute should have a child &lt;desc type="deprecationInfo"&gt;.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M17"/>
+      <xsl:apply-templates select="*" mode="M15"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M17"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M17">
-      <xsl:apply-templates select="*" mode="M17"/>
+   <xsl:template match="text()" priority="-1" mode="M15"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M15">
+      <xsl:apply-templates select="*" mode="M15"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-choice-unclear-limit-14-->
+   <!--PATTERN schematron-constraint-unclear-limit-12-->
 
    <!--RULE -->
-   <xsl:template match="tei:choice" priority="1000" mode="M18">
+   <xsl:template match="tei:choice" priority="1000" mode="M16">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:choice"/>
       <!--REPORT -->
       <xsl:if test="child::tei:unclear and count(child::tei:unclear) &gt; 3">
@@ -1024,146 +960,19 @@ The element indicated by @spanTo (<xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>Choice
-                            can contained only maximum 3 unclear
-                            elements</svrl:text>
+            <svrl:text>Choice can contained only maximum 3 unclear elements</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M18"/>
+      <xsl:apply-templates select="*" mode="M16"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M18"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M18">
-      <xsl:apply-templates select="*" mode="M18"/>
+   <xsl:template match="text()" priority="-1" mode="M16"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M16">
+      <xsl:apply-templates select="*" mode="M16"/>
    </xsl:template>
-   <!--PATTERN isoschematron-constraint-dharma-gap-gap-15-->
+   <!--PATTERN schematron-constraint-rs-rules-17-->
 
    <!--RULE -->
-   <xsl:template match="tei:gap" priority="1003" mode="M19">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:gap"/>
-      <!--REPORT -->
-      <xsl:if test="@quantity and @extent">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@quantity and @extent">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>gap may have @quantity (a figure) or
-                            @extent (a descriptive text value) but not both</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <!--REPORT -->
-      <xsl:if test="@quantity and not(@unit)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@quantity and not(@unit)">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>If gap has @quantity then @unit is
-                            required</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <!--REPORT -->
-      <xsl:if test="not(@reason='ellipsis') and ancestor::tei:supplied[not(@reason='undefined')]">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="not(@reason='ellipsis') and ancestor::tei:supplied[not(@reason='undefined')]">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>gap may not appear within supplied text</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <!--REPORT -->
-      <xsl:if test="@precision and not(@quantity)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="@precision and not(@quantity)">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>@precision can be use only with
-                            @quantity</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <!--REPORT -->
-      <xsl:if test="ancestor::tei:div[@type='aparatus'] and not(@reason)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="ancestor::tei:div[@type='aparatus'] and not(@reason)">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>Only @reason
-                            is mandatory in
-                            div[@type='translation']</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M19"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:gap[@reason='ellipsis']" priority="1002" mode="M19">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:gap[@reason='ellipsis']"/>
-      <!--REPORT -->
-      <xsl:if test="not(ancestor::tei:div[@type='apparatus'] or ancestor::tei:div[@type='translation'])">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="not(ancestor::tei:div[@type='apparatus'] or ancestor::tei:div[@type='translation'])">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text> The element gap with @reason='ellipsis' can only be used inside the
-                            apparatus or in translation.</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M19"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:gap[@unit='component']" priority="1001" mode="M19">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:gap[@unit='component']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="parent::tei:seg[@type='component']"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="parent::tei:seg[@type='component']">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>Gap with the attribute
-                            @unit="component" can only be used inside seg with the
-                            @type="component". </svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M19"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:gap[@unit='line' and @quantity] "
-                 priority="1000"
-                 mode="M19">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:gap[@unit='line' and @quantity] "/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@precision='low' or child::tei:certainty"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@precision='low' or child::tei:certainty">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>The element gap with
-                            @quantity and @unit="line" expect either the use of @precision="low" or
-                            the element certainty.</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M19"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M19"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M19">
-      <xsl:apply-templates select="*" mode="M19"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-rs-rs-rules-16-->
-
-   <!--RULE -->
-   <xsl:template match="tei:rs[@type='month']" priority="1012" mode="M20">
+   <xsl:template match="tei:rs[@type='month']" priority="1000" mode="M17">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rs[@type='month']"/>
       <!--ASSERT -->
       <xsl:choose>
@@ -1174,16 +983,20 @@ The element indicated by @spanTo (<xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>
-                                with the @type="month", you should used one of the following values: caitra, vaisakha, jyaistha, asadha, sravana, bhadrapada, asvina, karttika, margasira, pausa, magha, phalguna.
-                            </svrl:text>
+               <svrl:text> with the @type="month", you should used one of the following values: caitra, vaisakha, jyaistha, asadha, sravana, bhadrapada, asvina, karttika, margasira, pausa, magha, phalguna.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M20"/>
+      <xsl:apply-templates select="*" mode="M17"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M17"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M17">
+      <xsl:apply-templates select="*" mode="M17"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-rs-rules-18-->
+
    <!--RULE -->
-   <xsl:template match="tei:rs[@type='fortnight']" priority="1011" mode="M20">
+   <xsl:template match="tei:rs[@type='fortnight']" priority="1000" mode="M18">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:rs[@type='fortnight']"/>
       <!--ASSERT -->
@@ -1195,16 +1008,20 @@ The element indicated by @spanTo (<xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>
-                                    with the @type="fortnight", you should used either @subtype="dark" or @subtype="bright".
-                                </svrl:text>
+               <svrl:text> with the @type="fortnight", you should used either @subtype="dark" or @subtype="bright".</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M20"/>
+      <xsl:apply-templates select="*" mode="M18"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M18"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M18">
+      <xsl:apply-templates select="*" mode="M18"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-rs-rules-19-->
+
    <!--RULE -->
-   <xsl:template match="tei:rs[@type='tithi']" priority="1010" mode="M20">
+   <xsl:template match="tei:rs[@type='tithi']" priority="1000" mode="M19">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rs[@type='tithi']"/>
       <!--REPORT -->
       <xsl:if test="@key">
@@ -1212,14 +1029,19 @@ The element indicated by @spanTo (<xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>@key shouldn't be used with tei:rs[@type='tithi'], favor @n.
-                                </svrl:text>
+            <svrl:text>@key shouldn't be used with tei:rs[@type='tithi'], favor @n.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M20"/>
+      <xsl:apply-templates select="*" mode="M19"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M19"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M19">
+      <xsl:apply-templates select="*" mode="M19"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-rs-rules-20-->
+
    <!--RULE -->
-   <xsl:template match="tei:rs[@type='naksatra']" priority="1009" mode="M20">
+   <xsl:template match="tei:rs[@type='naksatra']" priority="1000" mode="M20">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:rs[@type='naksatra']"/>
       <!--ASSERT -->
@@ -1237,8 +1059,14 @@ The element indicated by @spanTo (<xsl:text/>
       </xsl:choose>
       <xsl:apply-templates select="*" mode="M20"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M20"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M20">
+      <xsl:apply-templates select="*" mode="M20"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-rs-rules-21-->
+
    <!--RULE -->
-   <xsl:template match="tei:rs[@type='sadvara']" priority="1008" mode="M20">
+   <xsl:template match="tei:rs[@type='sadvara']" priority="1000" mode="M21">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:rs[@type='sadvara']"/>
       <!--ASSERT -->
@@ -1250,15 +1078,20 @@ The element indicated by @spanTo (<xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>With the @type='sadvara', you can only use one of the following values: tunglai, hariyang, wurukung, paniruan, was, mawulu.
-                            </svrl:text>
+               <svrl:text>With the @type='sadvara', you can only use one of the following values: tunglai, hariyang, wurukung, paniruan, was, mawulu.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M20"/>
+      <xsl:apply-templates select="*" mode="M21"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M21"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M21">
+      <xsl:apply-templates select="*" mode="M21"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-rs-rules-22-->
+
    <!--RULE -->
-   <xsl:template match="tei:rs[@type='pancavara']" priority="1007" mode="M20">
+   <xsl:template match="tei:rs[@type='pancavara']" priority="1000" mode="M22">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:rs[@type='pancavara']"/>
       <!--ASSERT -->
@@ -1270,15 +1103,20 @@ The element indicated by @spanTo (<xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>With the @type='pancavara', you can only use one of the following values: pahing, pon, wagai, kaliwuan, umanis.
-                                </svrl:text>
+               <svrl:text>With the @type='pancavara', you can only use one of the following values: pahing, pon, wagai, kaliwuan, umanis.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M20"/>
+      <xsl:apply-templates select="*" mode="M22"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M22"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M22">
+      <xsl:apply-templates select="*" mode="M22"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-rs-rules-23-->
+
    <!--RULE -->
-   <xsl:template match="tei:rs[@type='season']" priority="1006" mode="M20">
+   <xsl:template match="tei:rs[@type='season']" priority="1000" mode="M23">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:rs[@type='season']"/>
       <!--ASSERT -->
@@ -1290,15 +1128,20 @@ The element indicated by @spanTo (<xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>With the @type='season', you can only use one of the following values: hemanta, grisma, varsa.
-                                </svrl:text>
+               <svrl:text>With the @type='season', you can only use one of the following values: hemanta, grisma, varsa.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M20"/>
+      <xsl:apply-templates select="*" mode="M23"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M23"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M23">
+      <xsl:apply-templates select="*" mode="M23"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-rs-rules-24-->
+
    <!--RULE -->
-   <xsl:template match="tei:rs[@type='wuku']" priority="1005" mode="M20">
+   <xsl:template match="tei:rs[@type='wuku']" priority="1000" mode="M24">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rs[@type='wuku']"/>
       <!--ASSERT -->
       <xsl:choose>
@@ -1309,15 +1152,20 @@ The element indicated by @spanTo (<xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>With the @type='wuku' or you can only use one of the following values: sinta or landep or wukir or kurantil or tolu or gumbreg or warigalit or warigagung or julung or sungsang or galungan or dungulan or kuningan or langki or madasiha or pujut or pahang or kuruwlut or marakih or tambir or madangkungan or mahatal or wuyai or manahil or prangbakat or balamuki or wugu or wayang or kulawu or dukut or watugunung.
-                                </svrl:text>
+               <svrl:text>With the @type='wuku' or you can only use one of the following values: sinta or landep or wukir or kurantil or tolu or gumbreg or warigalit or warigagung or julung or sungsang or galungan or dungulan or kuningan or langki or madasiha or pujut or pahang or kuruwlut or marakih or tambir or madangkungan or mahatal or wuyai or manahil or prangbakat or balamuki or wugu or wayang or kulawu or dukut or watugunung.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M20"/>
+      <xsl:apply-templates select="*" mode="M24"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M24"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M24">
+      <xsl:apply-templates select="*" mode="M24"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-rs-rules-25-->
+
    <!--RULE -->
-   <xsl:template match="tei:rs[@type='chinese']" priority="1004" mode="M20">
+   <xsl:template match="tei:rs[@type='chinese']" priority="1000" mode="M25">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:rs[@type='chinese']"/>
       <!--ASSERT -->
@@ -1329,15 +1177,20 @@ The element indicated by @spanTo (<xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>With the @type='chinese', you can only use one of the following values: rat, buffalo-ox, tiger, hare-cat, dragon, snake, horse, goat, monkey, cock, dog, pig.
-                                </svrl:text>
+               <svrl:text>With the @type='chinese', you can only use one of the following values: rat, buffalo-ox, tiger, hare-cat, dragon, snake, horse, goat, monkey, cock, dog, pig.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M20"/>
+      <xsl:apply-templates select="*" mode="M25"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M25"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M25">
+      <xsl:apply-templates select="*" mode="M25"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-rs-rules-26-->
+
    <!--RULE -->
-   <xsl:template match="tei:rs[@type='solstice']" priority="1003" mode="M20">
+   <xsl:template match="tei:rs[@type='solstice']" priority="1000" mode="M26">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:rs[@type='solstice']"/>
       <!--ASSERT -->
@@ -1349,15 +1202,20 @@ The element indicated by @spanTo (<xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>With the @type='solstice', you can only use one of the following values: winter or summer.
-                                </svrl:text>
+               <svrl:text>With the @type='solstice', you can only use one of the following values: winter or summer.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M20"/>
+      <xsl:apply-templates select="*" mode="M26"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M26"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M26">
+      <xsl:apply-templates select="*" mode="M26"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-rs-rules-27-->
+
    <!--RULE -->
-   <xsl:template match="tei:rs[@type='equinox']" priority="1002" mode="M20">
+   <xsl:template match="tei:rs[@type='equinox']" priority="1000" mode="M27">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:rs[@type='equinox']"/>
       <!--ASSERT -->
@@ -1369,15 +1227,20 @@ The element indicated by @spanTo (<xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>With the @type='equinox', you can only use one of the following values: autumn or spring.
-                                </svrl:text>
+               <svrl:text>With the @type='equinox', you can only use one of the following values: autumn or spring.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M20"/>
+      <xsl:apply-templates select="*" mode="M27"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M27"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M27">
+      <xsl:apply-templates select="*" mode="M27"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-rs-rules-28-->
+
    <!--RULE -->
-   <xsl:template match="tei:rs[@type='eclipse']" priority="1001" mode="M20">
+   <xsl:template match="tei:rs[@type='eclipse']" priority="1000" mode="M28">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:rs[@type='eclipse']"/>
       <!--ASSERT -->
@@ -1389,17 +1252,22 @@ The element indicated by @spanTo (<xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>With the @type='eclipse', you can only use one of the following values: lunar or solar.
-                                </svrl:text>
+               <svrl:text>With the @type='eclipse', you can only use one of the following values: lunar or solar.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M20"/>
+      <xsl:apply-templates select="*" mode="M28"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M28"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M28">
+      <xsl:apply-templates select="*" mode="M28"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-rs-rules-29-->
+
    <!--RULE -->
    <xsl:template match="tei:rs[@type='individual-masc' or @type='individual-fem' or @type='individual-other']"
                  priority="1000"
-                 mode="M20">
+                 mode="M29">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:rs[@type='individual-masc' or @type='individual-fem' or @type='individual-other']"/>
       <!--ASSERT -->
@@ -1415,16 +1283,16 @@ The element indicated by @spanTo (<xsl:text/>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M20"/>
+      <xsl:apply-templates select="*" mode="M29"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M20"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M20">
-      <xsl:apply-templates select="*" mode="M20"/>
+   <xsl:template match="text()" priority="-1" mode="M29"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M29">
+      <xsl:apply-templates select="*" mode="M29"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-num-valeur-or-interval-17-->
+   <!--PATTERN schematron-constraint-valeur-or-interval-30-->
 
    <!--RULE -->
-   <xsl:template match="tei:num" priority="1000" mode="M21">
+   <xsl:template match="tei:num" priority="1000" mode="M30">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:num"/>
       <!--REPORT -->
       <xsl:if test="@value and (@atMost or @atLeast)">
@@ -1433,8 +1301,7 @@ The element indicated by @spanTo (<xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>@value can not be used with the
-                            attributes of date range</svrl:text>
+            <svrl:text>@value can not be used with the attributes of date range</svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -1444,8 +1311,7 @@ The element indicated by @spanTo (<xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>@atLeast is expected with
-                            @atMost</svrl:text>
+            <svrl:text>@atLeast is expected with @atMost</svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -1455,22 +1321,21 @@ The element indicated by @spanTo (<xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>@atMost
-                            is expected with @atLeast</svrl:text>
+            <svrl:text>@atMost is expected with @atLeast</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M21"/>
+      <xsl:apply-templates select="*" mode="M30"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M21"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M21">
-      <xsl:apply-templates select="*" mode="M21"/>
+   <xsl:template match="text()" priority="-1" mode="M30"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M30">
+      <xsl:apply-templates select="*" mode="M30"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-date-attributes-18-->
+   <!--PATTERN schematron-constraint-attributes-31-->
 
    <!--RULE -->
    <xsl:template match="tei:date[not(parent::tei:bibl)][@notBefore-custom or @notAfter-custom]"
-                 priority="1004"
-                 mode="M22">
+                 priority="1000"
+                 mode="M31">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:date[not(parent::tei:bibl)][@notBefore-custom or @notAfter-custom]"/>
       <!--ASSERT -->
@@ -1486,12 +1351,18 @@ The element indicated by @spanTo (<xsl:text/>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M22"/>
+      <xsl:apply-templates select="*" mode="M31"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M31"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M31">
+      <xsl:apply-templates select="*" mode="M31"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-attributes-32-->
+
    <!--RULE -->
    <xsl:template match="tei:date[not(parent::tei:bibl)][@notBefore or @notAfter]"
-                 priority="1003"
-                 mode="M22">
+                 priority="1000"
+                 mode="M32">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:date[not(parent::tei:bibl)][@notBefore or @notAfter]"/>
       <!--ASSERT -->
@@ -1506,12 +1377,18 @@ The element indicated by @spanTo (<xsl:text/>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M22"/>
+      <xsl:apply-templates select="*" mode="M32"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M32"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M32">
+      <xsl:apply-templates select="*" mode="M32"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-attributes-33-->
+
    <!--RULE -->
    <xsl:template match="tei:date[not(parent::tei:bibl)][@from-custom or @to-custom]"
-                 priority="1002"
-                 mode="M22">
+                 priority="1000"
+                 mode="M33">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:date[not(parent::tei:bibl)][@from-custom or @to-custom]"/>
       <!--ASSERT -->
@@ -1527,12 +1404,18 @@ The element indicated by @spanTo (<xsl:text/>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M22"/>
+      <xsl:apply-templates select="*" mode="M33"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M33"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M33">
+      <xsl:apply-templates select="*" mode="M33"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-attributes-34-->
+
    <!--RULE -->
    <xsl:template match="tei:date[not(parent::tei:bibl)][@when-custom or @notAfter-custom or @notBefore-custom or @from-custom or @to-custom]"
-                 priority="1001"
-                 mode="M22">
+                 priority="1000"
+                 mode="M34">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:date[not(parent::tei:bibl)][@when-custom or @notAfter-custom or @notBefore-custom or @from-custom or @to-custom]"/>
       <!--ASSERT -->
@@ -1547,12 +1430,18 @@ The element indicated by @spanTo (<xsl:text/>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M22"/>
+      <xsl:apply-templates select="*" mode="M34"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M34"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M34">
+      <xsl:apply-templates select="*" mode="M34"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-attributes-35-->
+
    <!--RULE -->
    <xsl:template match="tei:date[not(parent::tei:bibl)][@when-custom or @notAfter-custom or @notBefore-custom or @from-custom or @to-custom]"
                  priority="1000"
-                 mode="M22">
+                 mode="M35">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:date[not(parent::tei:bibl)][@when-custom or @notAfter-custom or @notBefore-custom or @from-custom or @to-custom]"/>
       <!--ASSERT -->
@@ -1567,107 +1456,16 @@ The element indicated by @spanTo (<xsl:text/>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M22"/>
+      <xsl:apply-templates select="*" mode="M35"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M22"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M22">
-      <xsl:apply-templates select="*" mode="M22"/>
+   <xsl:template match="text()" priority="-1" mode="M35"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M35">
+      <xsl:apply-templates select="*" mode="M35"/>
    </xsl:template>
-   <!--PATTERN isoschematron-constraint-dharma-expan-expan-19-->
+   <!--PATTERN schematron-constraint-gloss-list-must-have-labels-38-->
 
    <!--RULE -->
-   <xsl:template match="tei:expan" priority="1000" mode="M23">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:expan"/>
-      <!--REPORT -->
-      <xsl:if test="not(descendant::tei:ex or descendant::tei:abbr)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="not(descendant::tei:ex or descendant::tei:abbr)">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>expan should contain ex or abbr</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M23"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M23"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M23">
-      <xsl:apply-templates select="*" mode="M23"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-ptr-ptrAtts-20-->
-
-   <!--RULE -->
-   <xsl:template match="tei:ptr" priority="1000" mode="M24">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ptr"/>
-      <!--REPORT -->
-      <xsl:if test="@target and @cRef">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@target and @cRef">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>Only one of the
-attributes @target and @cRef may be supplied on <xsl:text/>
-               <xsl:value-of select="name(.)"/>
-               <xsl:text/>.</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M24"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M24"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M24">
-      <xsl:apply-templates select="*" mode="M24"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-ref-refAtts-21-->
-
-   <!--RULE -->
-   <xsl:template match="tei:ref" priority="1000" mode="M25">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ref"/>
-      <!--REPORT -->
-      <xsl:if test="@target and @cRef">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@target and @cRef">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>Only one of the
-	attributes @target' and @cRef' may be supplied on <xsl:text/>
-               <xsl:value-of select="name(.)"/>
-               <xsl:text/>
-            </svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M25"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M25"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M25">
-      <xsl:apply-templates select="*" mode="M25"/>
-   </xsl:template>
-   <!--PATTERN isoschematron-constraint-dharma-list-lists-22-->
-
-   <!--RULE -->
-   <xsl:template match="tei:list" priority="1000" mode="M26">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:list"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="parent::tei:p"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="parent::tei:p">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>List can only be used inside a paragraph element.</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M26"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M26"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M26">
-      <xsl:apply-templates select="*" mode="M26"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-list-gloss-list-must-have-labels-23-->
-
-   <!--RULE -->
-   <xsl:template match="tei:list[@type='gloss']" priority="1000" mode="M27">
+   <xsl:template match="tei:list[@type='gloss']" priority="1000" mode="M36">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:list[@type='gloss']"/>
       <!--ASSERT -->
@@ -1682,16 +1480,16 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M27"/>
+      <xsl:apply-templates select="*" mode="M36"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M27"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M27">
-      <xsl:apply-templates select="*" mode="M27"/>
+   <xsl:template match="text()" priority="-1" mode="M36"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M36">
+      <xsl:apply-templates select="*" mode="M36"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-head-head-childs-24-->
+   <!--PATTERN schematron-constraint-head-childs-39-->
 
    <!--RULE -->
-   <xsl:template match="tei:head/child::tei:*" priority="1000" mode="M28">
+   <xsl:template match="tei:head/child::tei:*" priority="1000" mode="M37">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:head/child::tei:*"/>
       <!--ASSERT -->
       <xsl:choose>
@@ -1702,21 +1500,20 @@ attributes @target and @cRef may be supplied on <xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>Foreign is the only element allowed as
-                            child of the element head</svrl:text>
+               <svrl:text>Foreign is the only element allowed as child of the element head</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M28"/>
+      <xsl:apply-templates select="*" mode="M37"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M28"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M28">
-      <xsl:apply-templates select="*" mode="M28"/>
+   <xsl:template match="text()" priority="-1" mode="M37"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M37">
+      <xsl:apply-templates select="*" mode="M37"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-note-note-25-->
+   <!--PATTERN schematron-constraint-note-40-->
 
    <!--RULE -->
-   <xsl:template match="tei:note" priority="1002" mode="M29">
+   <xsl:template match="tei:note" priority="1000" mode="M38">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:note"/>
       <!--REPORT -->
       <xsl:if test="parent::tei:bibl and ancestor::tei:listBibl and following-sibling::tei:*">
@@ -1725,14 +1522,19 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>Note should the last element of the
-                            biliography</svrl:text>
+            <svrl:text>Note should the last element of the biliography</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M29"/>
+      <xsl:apply-templates select="*" mode="M38"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M38"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M38">
+      <xsl:apply-templates select="*" mode="M38"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-note-41-->
+
    <!--RULE -->
-   <xsl:template match="tei:note[parent::tei:app]" priority="1001" mode="M29">
+   <xsl:template match="tei:note[parent::tei:app]" priority="1000" mode="M39">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:note[parent::tei:app]"/>
       <!--REPORT -->
@@ -1742,14 +1544,19 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>Note(s) be should the last element
-                            of the apparatus entry</svrl:text>
+            <svrl:text>Note(s) be should the last element of the apparatus entry</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M29"/>
+      <xsl:apply-templates select="*" mode="M39"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M39"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M39">
+      <xsl:apply-templates select="*" mode="M39"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-note-42-->
+
    <!--RULE -->
-   <xsl:template match="tei:note" priority="1000" mode="M29">
+   <xsl:template match="tei:note" priority="1000" mode="M40">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:note"/>
       <!--REPORT -->
       <xsl:if test="child::tei:note">
@@ -1757,22 +1564,19 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>Note(s) may not
-                            contain further notes (this is not a technical requirement but a
-                            convention we shall observe to reduce
-                            complication)</svrl:text>
+            <svrl:text>Note(s) may not contain further notes (this is not a technical requirement but a convention we shall observe to reduce complication)</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M29"/>
+      <xsl:apply-templates select="*" mode="M40"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M29"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M29">
-      <xsl:apply-templates select="*" mode="M29"/>
+   <xsl:template match="text()" priority="-1" mode="M40"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M40">
+      <xsl:apply-templates select="*" mode="M40"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-milestone-att-unit-n-26-->
+   <!--PATTERN schematron-constraint-att-unit-n-43-->
 
    <!--RULE -->
-   <xsl:template match="tei:milestone" priority="1004" mode="M30">
+   <xsl:template match="tei:milestone" priority="1000" mode="M41">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:milestone"/>
       <!--REPORT -->
       <xsl:if test="not(@unit and @n)">
@@ -1780,14 +1584,19 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text> for milestone using the attribut @unit, the
-                            attribute @n is mandatory</svrl:text>
+            <svrl:text> for milestone using the attribut @unit, the attribute @n is mandatory</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M30"/>
+      <xsl:apply-templates select="*" mode="M41"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M41"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M41">
+      <xsl:apply-templates select="*" mode="M41"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-att-unit-n-44-->
+
    <!--RULE -->
-   <xsl:template match="tei:milestone[@type='yati']" priority="1003" mode="M30">
+   <xsl:template match="tei:milestone[@type='yati']" priority="1000" mode="M42">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:milestone[@type='yati']"/>
       <!--ASSERT -->
@@ -1799,15 +1608,20 @@ attributes @target and @cRef may be supplied on <xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>Caesuras work with both @type='yati'
-                            and @break='no'.</svrl:text>
+               <svrl:text>Caesuras work with both @type='yati' and @break='no'.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M30"/>
+      <xsl:apply-templates select="*" mode="M42"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M42"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M42">
+      <xsl:apply-templates select="*" mode="M42"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-att-unit-n-45-->
+
    <!--RULE -->
-   <xsl:template match="tei:milestone[@type='ref']" priority="1002" mode="M30">
+   <xsl:template match="tei:milestone[@type='ref']" priority="1000" mode="M43">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:milestone[@type='ref']"/>
       <!--ASSERT -->
@@ -1819,16 +1633,20 @@ attributes @target and @cRef may be supplied on <xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>@type='ref' can only be
-                            used inside the translation part of the
-                            edition</svrl:text>
+               <svrl:text>@type='ref' can only be used inside the translation part of the edition</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M30"/>
+      <xsl:apply-templates select="*" mode="M43"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M43"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M43">
+      <xsl:apply-templates select="*" mode="M43"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-att-unit-n-46-->
+
    <!--RULE -->
-   <xsl:template match="tei:milestone[@type='ref']" priority="1001" mode="M30">
+   <xsl:template match="tei:milestone[@type='ref']" priority="1000" mode="M44">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:milestone[@type='ref']"/>
       <!--ASSERT -->
@@ -1840,15 +1658,20 @@ attributes @target and @cRef may be supplied on <xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>@type='ref' requires the use of
-                            @unit="stanza" or @unit="line'</svrl:text>
+               <svrl:text>@type='ref' requires the use of @unit="stanza" or @unit="line'</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M30"/>
+      <xsl:apply-templates select="*" mode="M44"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M44"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M44">
+      <xsl:apply-templates select="*" mode="M44"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-att-unit-n-47-->
+
    <!--RULE -->
-   <xsl:template match="tei:milestone[@type='ref']" priority="1000" mode="M30">
+   <xsl:template match="tei:milestone[@type='ref']" priority="1000" mode="M45">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:milestone[@type='ref']"/>
       <!--REPORT -->
@@ -1857,21 +1680,19 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>@n is
-                            mandatory with
-                            milestone/@type="ref"</svrl:text>
+            <svrl:text>@n is mandatory with milestone/@type="ref"</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M30"/>
+      <xsl:apply-templates select="*" mode="M45"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M30"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M30">
-      <xsl:apply-templates select="*" mode="M30"/>
+   <xsl:template match="text()" priority="-1" mode="M45"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M45">
+      <xsl:apply-templates select="*" mode="M45"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-citedRange-note-27-->
+   <!--PATTERN schematron-constraint-note-48-->
 
    <!--RULE -->
-   <xsl:template match="tei:citedRange" priority="1000" mode="M31">
+   <xsl:template match="tei:citedRange" priority="1000" mode="M46">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:citedRange"/>
       <!--REPORT -->
       <xsl:if test="child::tei:note and ancestor::tei:listBibl">
@@ -1880,21 +1701,19 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>Note can not be used
-                            as a child of the element citedRange, only as a sibling of this
-                            element</svrl:text>
+            <svrl:text>Note can not be used as a child of the element citedRange, only as a sibling of this element</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M31"/>
+      <xsl:apply-templates select="*" mode="M46"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M31"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M31">
-      <xsl:apply-templates select="*" mode="M31"/>
+   <xsl:template match="text()" priority="-1" mode="M46"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M46">
+      <xsl:apply-templates select="*" mode="M46"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-bibl-siglum-28-->
+   <!--PATTERN schematron-constraint-siglum-49-->
 
    <!--RULE -->
-   <xsl:template match="tei:bibl[ancestor::tei:listBibl]" priority="1001" mode="M32">
+   <xsl:template match="tei:bibl[ancestor::tei:listBibl]" priority="1000" mode="M47">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:bibl[ancestor::tei:listBibl]"/>
       <!--REPORT -->
@@ -1904,14 +1723,19 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>Note should be the last
-                            element of the bibl</svrl:text>
+            <svrl:text>Note should be the last element of the bibl</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M32"/>
+      <xsl:apply-templates select="*" mode="M47"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M47"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M47">
+      <xsl:apply-templates select="*" mode="M47"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-siglum-50-->
+
    <!--RULE -->
-   <xsl:template match="tei:bibl[child::tei:note]" priority="1000" mode="M32">
+   <xsl:template match="tei:bibl[child::tei:note]" priority="1000" mode="M48">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:bibl[child::tei:note]"/>
       <!--REPORT -->
@@ -1921,23 +1745,21 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>In the commentary, apparatus and the epigraphic lemma, note inside bibl
-                            is prohibited. Add the note element right after the bibl
-                            element.</svrl:text>
+            <svrl:text>In the commentary, apparatus and the epigraphic lemma, note inside bibl is prohibited. Add the note element right after the bibl element.</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M32"/>
+      <xsl:apply-templates select="*" mode="M48"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M32"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M32">
-      <xsl:apply-templates select="*" mode="M32"/>
+   <xsl:template match="text()" priority="-1" mode="M48"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M48">
+      <xsl:apply-templates select="*" mode="M48"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-l-mixed-verse-29-->
+   <!--PATTERN schematron-constraint-mixed-verse-51-->
 
    <!--RULE -->
    <xsl:template match="tei:l[parent::tei:lg[@met='mixed']]"
                  priority="1000"
-                 mode="M33">
+                 mode="M49">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:l[parent::tei:lg[@met='mixed']]"/>
       <!--ASSERT -->
@@ -1953,111 +1775,16 @@ attributes @target and @cRef may be supplied on <xsl:text/>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M33"/>
+      <xsl:apply-templates select="*" mode="M49"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M33"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M33">
-      <xsl:apply-templates select="*" mode="M33"/>
+   <xsl:template match="text()" priority="-1" mode="M49"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M49">
+      <xsl:apply-templates select="*" mode="M49"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-l-abstractModel-structure-l-30-->
+   <!--PATTERN schematron-constraint-responsability-52-->
 
    <!--RULE -->
-   <xsl:template match="tei:l" priority="1000" mode="M34">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:l"/>
-      <!--REPORT -->
-      <xsl:if test="ancestor::tei:l[not(.//tei:note//tei:l[. = current()])]">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="ancestor::tei:l[not(.//tei:note//tei:l[. = current()])]">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-        Abstract model violation: Lines may not contain lines or lg elements.
-      </svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M34"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M34"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M34">
-      <xsl:apply-templates select="*" mode="M34"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-lg-atleast1oflggapl-31-->
-
-   <!--RULE -->
-   <xsl:template match="tei:lg" priority="1000" mode="M35">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:lg"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="count(descendant::tei:lg|descendant::tei:l|descendant::tei:gap) &gt; 0"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="count(descendant::tei:lg|descendant::tei:l|descendant::tei:gap) &gt; 0">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>An lg element
-        must contain at least one child l, lg, or gap element.</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M35"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M35"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M35">
-      <xsl:apply-templates select="*" mode="M35"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-lg-abstractModel-structure-l-32-->
-
-   <!--RULE -->
-   <xsl:template match="tei:lg" priority="1000" mode="M36">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:lg"/>
-      <!--REPORT -->
-      <xsl:if test="ancestor::tei:l[not(.//tei:note//tei:lg[. = current()])]">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="ancestor::tei:l[not(.//tei:note//tei:lg[. = current()])]">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-        Abstract model violation: Lines may not contain line groups.
-      </svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M36"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M36"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M36">
-      <xsl:apply-templates select="*" mode="M36"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-quotation-quotationContents-33-->
-
-   <!--RULE -->
-   <xsl:template match="tei:quotation" priority="1000" mode="M37">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:quotation"/>
-      <!--REPORT -->
-      <xsl:if test="not(@marks) and not (tei:p)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="not(@marks) and not (tei:p)">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-On <xsl:text/>
-               <xsl:value-of select="name(.)"/>
-               <xsl:text/>, either the @marks attribute should be used, or a paragraph of description provided</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M37"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M37"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M37">
-      <xsl:apply-templates select="*" mode="M37"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-change-responsability-34-->
-
-   <!--RULE -->
-   <xsl:template match="@who" priority="1000" mode="M38">
+   <xsl:template match="@who" priority="1000" mode="M50">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="@who"/>
       <!--ASSERT -->
       <xsl:choose>
@@ -2067,213 +1794,20 @@ On <xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>Project members prefix is
-                            part:</svrl:text>
+               <svrl:text>Project members prefix is part:</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M38"/>
+      <xsl:apply-templates select="*" mode="M50"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M38"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M38">
-      <xsl:apply-templates select="*" mode="M38"/>
+   <xsl:template match="text()" priority="-1" mode="M50"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M50">
+      <xsl:apply-templates select="*" mode="M50"/>
    </xsl:template>
-   <!--PATTERN isoschematron-constraint-dharma-div-div-37-->
+   <!--PATTERN schematron-constraint-usage-certainty-59-->
 
    <!--RULE -->
-   <xsl:template match="tei:div" priority="1000" mode="M39">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
-      <xsl:apply-templates select="*" mode="M39"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M39"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M39">
-      <xsl:apply-templates select="*" mode="M39"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-div-abstractModel-structure-l-38-->
-
-   <!--RULE -->
-   <xsl:template match="tei:div" priority="1000" mode="M40">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
-      <!--REPORT -->
-      <xsl:if test="ancestor::tei:l">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="ancestor::tei:l">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-        Abstract model violation: Lines may not contain higher-level structural elements such as div.
-      </svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M40"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M40"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M40">
-      <xsl:apply-templates select="*" mode="M40"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-div-abstractModel-structure-p-39-->
-
-   <!--RULE -->
-   <xsl:template match="tei:div" priority="1000" mode="M41">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:div"/>
-      <!--REPORT -->
-      <xsl:if test="ancestor::tei:p or ancestor::tei:ab and not(ancestor::tei:floatingText)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="ancestor::tei:p or ancestor::tei:ab and not(ancestor::tei:floatingText)">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-        Abstract model violation: p and ab may not contain higher-level structural elements such as div.
-      </svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M41"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M41"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M41">
-      <xsl:apply-templates select="*" mode="M41"/>
-   </xsl:template>
-   <!--PATTERN isoschematron-constraint-dharma-ex-ex-40-->
-
-   <!--RULE -->
-   <xsl:template match="tei:ex" priority="1000" mode="M42">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ex"/>
-      <!--REPORT -->
-      <xsl:if test="not(ancestor::tei:expan)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="not(ancestor::tei:expan)">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>ex should only appear inside
-                            expan</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <!--REPORT -->
-      <xsl:if test="parent::tei:abbr">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="parent::tei:abbr">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>ex should not be a
-                            child of abbr</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M42"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M42"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M42">
-      <xsl:apply-templates select="*" mode="M42"/>
-   </xsl:template>
-   <!--PATTERN isoschematron-constraint-dharma-am-ex-42-->
-
-   <!--RULE -->
-   <xsl:template match="tei:am" priority="1000" mode="M44">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:am"/>
-      <!--REPORT -->
-      <xsl:if test="not(ancestor::tei:abbr)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="not(ancestor::tei:abbr)">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>am should only appear inside
-                            abbr</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M44"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M44"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M44">
-      <xsl:apply-templates select="*" mode="M44"/>
-   </xsl:template>
-   <!--PATTERN isoschematron-constraint-dharma-space-space-43-->
-
-   <!--RULE -->
-   <xsl:template match="tei:space" priority="1002" mode="M45">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:space"/>
-      <!--REPORT -->
-      <xsl:if test="@quantity and not(@unit)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@quantity and not(@unit)">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>If space has @quantity then @unit is
-                            required</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M45"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:space" priority="1001" mode="M45">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:space"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@type='binding-hole' or @type='descender' or @type='ascender' and @quantity and @unit"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@type='binding-hole' or @type='descender' or @type='ascender' and @quantity and @unit">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>Space can't have @quantity and @unit attributes with
-                            @type='binding-hole' or @type='descender' or @type='ascender', the only
-                            @type possible is @type='defect'.</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M45"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:space" priority="1000" mode="M45">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:space"/>
-      <!--REPORT -->
-      <xsl:if test="@unit='page'">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="@unit='page'">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>Please note that the
-                            use of "space" for blank copperplate pages has been discarded; encode
-                            only a "pb" for the blank page</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M45"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M45"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M45">
-      <xsl:apply-templates select="*" mode="M45"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-subst-substContents1-44-->
-
-   <!--RULE -->
-   <xsl:template match="tei:subst" priority="1000" mode="M46">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:subst"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="child::tei:add and child::tei:del"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="child::tei:add and child::tei:del">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>
-                  <xsl:text/>
-                  <xsl:value-of select="name(.)"/>
-                  <xsl:text/> must have at least one child add and at least one child del</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M46"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M46"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M46">
-      <xsl:apply-templates select="*" mode="M46"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-certainty-usage-certainty-45-->
-
-   <!--RULE -->
-   <xsl:template match="tei:certainty" priority="1003" mode="M47">
+   <xsl:template match="tei:certainty" priority="1000" mode="M52">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:certainty"/>
       <!--REPORT -->
       <xsl:if test="@match='../@met' and not(parent::tei:lg)">
@@ -2282,14 +1816,19 @@ On <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>The pattern used in
-                            @match works with the element lg[@met]</svrl:text>
+            <svrl:text>The pattern used in @match works with the element lg[@met]</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M47"/>
+      <xsl:apply-templates select="*" mode="M52"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M52"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M52">
+      <xsl:apply-templates select="*" mode="M52"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-usage-certainty-60-->
+
    <!--RULE -->
-   <xsl:template match="tei:certainty" priority="1002" mode="M47">
+   <xsl:template match="tei:certainty" priority="1000" mode="M53">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:certainty"/>
       <!--REPORT -->
       <xsl:if test="@match='..' and not(parent::tei:gap)">
@@ -2298,14 +1837,19 @@ On <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>The pattern used in @match
-                            works within the element gap</svrl:text>
+            <svrl:text>The pattern used in @match works within the element gap</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M47"/>
+      <xsl:apply-templates select="*" mode="M53"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M53"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M53">
+      <xsl:apply-templates select="*" mode="M53"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-usage-certainty-61-->
+
    <!--RULE -->
-   <xsl:template match="tei:certainty" priority="1001" mode="M47">
+   <xsl:template match="tei:certainty" priority="1000" mode="M54">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:certainty"/>
       <!--ASSERT -->
       <xsl:choose>
@@ -2316,15 +1860,20 @@ On <xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text> @match="../@met" and
-                            @locus="value" always work together. </svrl:text>
+               <svrl:text> @match="../@met" and @locus="value" always work together.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M47"/>
+      <xsl:apply-templates select="*" mode="M54"/>
    </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M54"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M54">
+      <xsl:apply-templates select="*" mode="M54"/>
+   </xsl:template>
+   <!--PATTERN schematron-constraint-usage-certainty-62-->
+
    <!--RULE -->
-   <xsl:template match="tei:certainty" priority="1000" mode="M47">
+   <xsl:template match="tei:certainty" priority="1000" mode="M55">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:certainty"/>
       <!--ASSERT -->
       <xsl:choose>
@@ -2335,67 +1884,20 @@ On <xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>@match='..' and @locus='name' always work
-                            together</svrl:text>
+               <svrl:text>@match='..' and @locus='name' always work together</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M47"/>
+      <xsl:apply-templates select="*" mode="M55"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M47"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M47">
-      <xsl:apply-templates select="*" mode="M47"/>
+   <xsl:template match="text()" priority="-1" mode="M55"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M55">
+      <xsl:apply-templates select="*" mode="M55"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-ab-abstractModel-structure-ab-46-->
+   <!--PATTERN schematron-constraint-att-type-subtype-63-->
 
    <!--RULE -->
-   <xsl:template match="tei:ab" priority="1000" mode="M48">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ab"/>
-      <!--REPORT -->
-      <xsl:if test="not(ancestor::tei:floatingText) and (ancestor::tei:p or ancestor::tei:ab)          and not(parent::tei:exemplum         |parent::tei:item         |parent::tei:note         |parent::tei:q         |parent::tei:quote         |parent::tei:remarks         |parent::tei:said         |parent::tei:sp         |parent::tei:stage         |parent::tei:cell         |parent::tei:figure)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="not(ancestor::tei:floatingText) and (ancestor::tei:p or ancestor::tei:ab) and not(parent::tei:exemplum |parent::tei:item |parent::tei:note |parent::tei:q |parent::tei:quote |parent::tei:remarks |parent::tei:said |parent::tei:sp |parent::tei:stage |parent::tei:cell |parent::tei:figure)">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-        Abstract model violation: ab may not occur inside paragraphs or other ab elements.
-      </svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M48"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M48"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M48">
-      <xsl:apply-templates select="*" mode="M48"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-ab-abstractModel-structure-l-47-->
-
-   <!--RULE -->
-   <xsl:template match="tei:ab" priority="1000" mode="M49">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:ab"/>
-      <!--REPORT -->
-      <xsl:if test="ancestor::tei:l or ancestor::tei:lg">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="ancestor::tei:l or ancestor::tei:lg">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-        Abstract model violation: Lines may not contain higher-level divisions such as p or ab.
-      </svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M49"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M49"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M49">
-      <xsl:apply-templates select="*" mode="M49"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-seg-att-type-subtype-48-->
-
-   <!--RULE -->
-   <xsl:template match="tei:seg" priority="1000" mode="M50">
+   <xsl:template match="tei:seg" priority="1000" mode="M56">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:seg"/>
       <!--REPORT -->
       <xsl:if test="@subtype and not(@type='component')">
@@ -2404,8 +1906,7 @@ On <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>@subtype requires
-                            @type='component' to be used</svrl:text>
+            <svrl:text>@subtype requires @type='component' to be used</svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -2415,8 +1916,7 @@ On <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>seg[@cert='low'] can be used only in
-                            div[@type='translation']</svrl:text>
+            <svrl:text>seg[@cert='low'] can be used only in div[@type='translation']</svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -2426,72 +1926,21 @@ On <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>seg[@rend='pun'] only avaailable in
-                            div[@type='translation']</svrl:text>
+            <svrl:text>seg[@rend='pun'] only avaailable in div[@type='translation']</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M50"/>
+      <xsl:apply-templates select="*" mode="M56"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M50"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M50">
-      <xsl:apply-templates select="*" mode="M50"/>
+   <xsl:template match="text()" priority="-1" mode="M56"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M56">
+      <xsl:apply-templates select="*" mode="M56"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-dimensions-duplicateDim-49-->
-
-   <!--RULE -->
-   <xsl:template match="tei:dimensions" priority="1000" mode="M51">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:dimensions"/>
-      <!--REPORT -->
-      <xsl:if test="count(tei:width)&gt; 1">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="count(tei:width)&gt; 1">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-The element <xsl:text/>
-               <xsl:value-of select="name(.)"/>
-               <xsl:text/> may appear once only
-      </svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <!--REPORT -->
-      <xsl:if test="count(tei:height)&gt; 1">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="count(tei:height)&gt; 1">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-The element <xsl:text/>
-               <xsl:value-of select="name(.)"/>
-               <xsl:text/> may appear once only
-      </svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <!--REPORT -->
-      <xsl:if test="count(tei:depth)&gt; 1">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="count(tei:depth)&gt; 1">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>
-The element <xsl:text/>
-               <xsl:value-of select="name(.)"/>
-               <xsl:text/> may appear once only
-      </svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M51"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M51"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M51">
-      <xsl:apply-templates select="*" mode="M51"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-origDate-origDate-50-->
+   <!--PATTERN schematron-constraint-origDate-64-->
 
    <!--RULE -->
    <xsl:template match="tei:origDate[ancestor::tei:teiHeader]"
                  priority="1000"
-                 mode="M52">
+                 mode="M57">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:origDate[ancestor::tei:teiHeader]"/>
       <!--ASSERT -->
@@ -2507,65 +1956,18 @@ The element <xsl:text/>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M52"/>
+      <xsl:apply-templates select="*" mode="M57"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M52"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M52">
-      <xsl:apply-templates select="*" mode="M52"/>
+   <xsl:template match="text()" priority="-1" mode="M57"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M57">
+      <xsl:apply-templates select="*" mode="M57"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-signatures-signatures_in_msDesc-51-->
-
-   <!--RULE -->
-   <xsl:template match="tei:signatures" priority="1000" mode="M53">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:signatures"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="ancestor::tei:msDesc or ancestor::tei:egXML"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="ancestor::tei:msDesc or ancestor::tei:egXML">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>The <xsl:text/>
-                  <xsl:value-of select="name(.)"/>
-                  <xsl:text/> element should not be used outside of msDesc.</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M53"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M53"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M53">
-      <xsl:apply-templates select="*" mode="M53"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-msIdentifier-msId_minimal-52-->
-
-   <!--RULE -->
-   <xsl:template match="tei:msIdentifier" priority="1000" mode="M54">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:msIdentifier"/>
-      <!--REPORT -->
-      <xsl:if test="not(parent::tei:msPart) and (local-name(*[1])='idno' or local-name(*[1])='altIdentifier' or normalize-space(.)='')">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                 test="not(parent::tei:msPart) and (local-name(*[1])='idno' or local-name(*[1])='altIdentifier' or normalize-space(.)='')">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>An msIdentifier must contain either a repository or location.</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M54"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M54"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M54">
-      <xsl:apply-templates select="*" mode="M54"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-persName-reference-53-->
+   <!--PATTERN schematron-constraint-reference-65-->
 
    <!--RULE -->
    <xsl:template match="tei:persName/@ref[ancestor::tei:teiHeader]"
                  priority="1000"
-                 mode="M55">
+                 mode="M58">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
                        context="tei:persName/@ref[ancestor::tei:teiHeader]"/>
       <!--ASSERT -->
@@ -2577,197 +1979,20 @@ The element <xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>Project members prefix is part: et non-members should be a
-                            URL</svrl:text>
+               <svrl:text>Project members prefix is part: et non-members should be a URL</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M55"/>
+      <xsl:apply-templates select="*" mode="M58"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M55"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M55">
-      <xsl:apply-templates select="*" mode="M55"/>
+   <xsl:template match="text()" priority="-1" mode="M58"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M58">
+      <xsl:apply-templates select="*" mode="M58"/>
    </xsl:template>
-   <!--PATTERN isoschematron-constraint-dharma-placeName-div-54-->
+   <!--PATTERN schematron-constraint-one-lem-73-->
 
    <!--RULE -->
-   <xsl:template match="tei:placeName[@type='region']" priority="1006" mode="M56">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='region']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@subtype='district' or @subtype='province' or @subtype='country' or @subtype='undetermined' or @subtype='land' or @subtype='island'"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@subtype='district' or @subtype='province' or @subtype='country' or @subtype='undetermined' or @subtype='land' or @subtype='island'">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>For @type="region", the @subtype should be one of the
-                            following values: @subtype='district' or @subtype='province' or @subtype='country' or @subtype='undetermined' or @subtype='land' or @subtype='island'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M56"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:placeName[@type='settlement']"
-                 priority="1005"
-                 mode="M56">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='settlement']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@subtype='town' or @subtype='village' or @subtype='hamlet' or @subtype='armyCamp' or @subtype='undetermined' or @subtype='establishment'"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@subtype='town' or @subtype='village' or @subtype='hamlet' or @subtype='armyCamp' or @subtype='undetermined' or @subtype='establishment'">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>For @type="settlement", the @subtype should be one of the
-                                following values: @subtype='town' or @subtype='village' or @subtype='hamlet' or @subtype='armyCamp' or @subtype='undetermined' or @subtype='establishment'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M56"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:placeName[@type='builtPlace']"
-                 priority="1004"
-                 mode="M56">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='builtPlace']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@subtype='temple' or @subtype='monastery' or @subtype='feedingHall' or @subtype='pavillion' or @subtype='undetermined'"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@subtype='temple' or @subtype='monastery' or @subtype='feedingHall' or @subtype='pavillion' or @subtype='undetermined'">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>For @type="builtPlace", the @subtype should be one of the following
-                                values: @subtype='temple' or @subtype='monastery' or @subtype='feedingHall' or @subtype='pavillion' or @subtype='undetermined'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M56"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:placeName[@type='cultivation']"
-                 priority="1003"
-                 mode="M56">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='cultivation']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@subtype='garden' or @subtype='field' or @subtype='fieldPaddy' or @subtype='fieldMillet' or @subtype='orchard' or @subtype='orchardAreca' or @subtype='orchardCitrus' or @subtype='fieldIrrigated' or @subtype='fieldDry' or @subtype='fieldSalted' or @subtype='undetermined' or @subtype='nursery'"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@subtype='garden' or @subtype='field' or @subtype='fieldPaddy' or @subtype='fieldMillet' or @subtype='orchard' or @subtype='orchardAreca' or @subtype='orchardCitrus' or @subtype='fieldIrrigated' or @subtype='fieldDry' or @subtype='fieldSalted' or @subtype='undetermined' or @subtype='nursery'">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>For @type="cultivation", the @subtype should be one of the following
-                                values: @subtype='garden' or @subtype='field' or @subtype='fieldPaddy' or @subtype='fieldMillet' or @subtype='orchard' or @subtype='orchardAreca' or @subtype='orchardCitrus' or @subtype='fieldIrrigated' or @subtype='fieldDry' or @subtype='fieldSalted' or @subtype='undetermined' or @subtype='nursery'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M56"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:placeName[@type='hydrographic']"
-                 priority="1002"
-                 mode="M56">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='hydrographic']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@subtype='tank' or @subtype='river' or @subtype='pond' or @subtype='canal' or @subtype='undetermined' or @subtype='wetland' or @sutype='pool' or @subtype='lake'"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@subtype='tank' or @subtype='river' or @subtype='pond' or @subtype='canal' or @subtype='undetermined' or @subtype='wetland' or @sutype='pool' or @subtype='lake'">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>For @type="hydrographic", the @subtype should be one of the following
-                                values: @subtype='tank' or @subtype='river' or @subtype='pond' or @subtype='canal' or @subtype='undetermined' or @subtype='wetland' or @sutype='pool' or @subtype='lake'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M56"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:placeName[@type='naturalPlace']"
-                 priority="1001"
-                 mode="M56">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='naturalPlace']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="@subtype='forest' or @subtype='wood' or @subtype='grove' or @subtype='tree' or @subtype='mountain' or @subtype='undetermined' or @subtype='mount'"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="@subtype='forest' or @subtype='wood' or @subtype='grove' or @subtype='tree' or @subtype='mountain' or @subtype='undetermined' or @subtype='mount'">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>For @type="naturalPlace", the @subtype should be one of the following
-                                values: @subtype='forest' or @subtype='wood' or @subtype='grove' or @subtype='tree' or @subtype='mountain' or @subtype='undetermined' or @subtype='mount'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M56"/>
-   </xsl:template>
-   <!--RULE -->
-   <xsl:template match="tei:placeName[@type='undetermined']"
-                 priority="1000"
-                 mode="M56">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                       context="tei:placeName[@type='undetermined']"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="not(@subtype)"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="not(@subtype)">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>@subtype isn't allowed with @type='undetermined'</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M56"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M56"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M56">
-      <xsl:apply-templates select="*" mode="M56"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-objectIdentifier-objectIdentifier_minimal-55-->
-
-   <!--RULE -->
-   <xsl:template match="tei:objectIdentifier" priority="1000" mode="M57">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:objectIdentifier"/>
-      <!--REPORT -->
-      <xsl:if test="not(count(*) gt 0)">
-         <svrl:successful-report xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="not(count(*) gt 0)">
-            <xsl:attribute name="location">
-               <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-            </xsl:attribute>
-            <svrl:text>An objectIdentifier must contain at minimum a single piece of locating or identifying information.</svrl:text>
-         </svrl:successful-report>
-      </xsl:if>
-      <xsl:apply-templates select="*" mode="M57"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M57"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M57">
-      <xsl:apply-templates select="*" mode="M57"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-app-one-lem-56-->
-
-   <!--RULE -->
-   <xsl:template match="tei:app" priority="1000" mode="M58">
+   <xsl:template match="tei:app" priority="1000" mode="M59">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:app"/>
       <!--REPORT -->
       <xsl:if test="not(count(child::tei:lem) &gt;= 1)">
@@ -2776,8 +2001,7 @@ The element <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>An apparatus entry must always
-                            contain a lem element</svrl:text>
+            <svrl:text>An apparatus entry must always contain a lem element</svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -2787,42 +2011,16 @@ The element <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>When the apparatus entry contains only a lem, the @source is
-                            mandatory</svrl:text>
+            <svrl:text>When the apparatus entry contains only a lem, the @source is mandatory</svrl:text>
          </svrl:successful-report>
       </xsl:if>
-      <xsl:apply-templates select="*" mode="M58"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M58"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M58">
-      <xsl:apply-templates select="*" mode="M58"/>
-   </xsl:template>
-   <!--PATTERN isoschematron-constraint-dharma-listApp-div-57-->
-
-   <!--RULE -->
-   <xsl:template match="tei:listApp" priority="1000" mode="M59">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:listApp"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="ancestor::tei:div[@type='apparatus']"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                test="ancestor::tei:div[@type='apparatus']">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>ListApp can only be used
-                            inside the apparatus.</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
       <xsl:apply-templates select="*" mode="M59"/>
    </xsl:template>
    <xsl:template match="text()" priority="-1" mode="M59"/>
    <xsl:template match="@*|node()" priority="-2" mode="M59">
       <xsl:apply-templates select="*" mode="M59"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-lem-exclusion-inside-lem-58-->
+   <!--PATTERN schematron-constraint-exclusion-inside-lem-75-->
 
    <!--RULE -->
    <xsl:template match="tei:lem" priority="1000" mode="M60">
@@ -2833,8 +2031,7 @@ The element <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>The
-                            element p is not allowed in lem</svrl:text>
+            <svrl:text>The element p is not allowed in lem</svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -2843,8 +2040,7 @@ The element <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>The element ab is not allowed in
-                            lem</svrl:text>
+            <svrl:text>The element ab is not allowed in lem</svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -2853,8 +2049,7 @@ The element <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>The element lg is not
-                            allowed in lem</svrl:text>
+            <svrl:text>The element lg is not allowed in lem</svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -2872,7 +2067,7 @@ The element <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M60">
       <xsl:apply-templates select="*" mode="M60"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-rdg-exclusion-inside-lem-59-->
+   <!--PATTERN schematron-constraint-exclusion-inside-lem-76-->
 
    <!--RULE -->
    <xsl:template match="tei:rdg" priority="1000" mode="M61">
@@ -2883,8 +2078,7 @@ The element <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>The
-                            element p is not allowed in rdg</svrl:text>
+            <svrl:text>The element p is not allowed in rdg</svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -2893,8 +2087,7 @@ The element <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>The element ab is not allowed in
-                            rdg</svrl:text>
+            <svrl:text>The element ab is not allowed in rdg</svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -2903,8 +2096,7 @@ The element <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>The element lg is not
-                            allowed in rdg</svrl:text>
+            <svrl:text>The element lg is not allowed in rdg</svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <!--REPORT -->
@@ -2913,8 +2105,7 @@ The element <xsl:text/>
             <xsl:attribute name="location">
                <xsl:apply-templates select="." mode="schematron-select-full-path"/>
             </xsl:attribute>
-            <svrl:text>The element l
-                            is not allowed in rdg</svrl:text>
+            <svrl:text>The element l is not allowed in rdg</svrl:text>
          </svrl:successful-report>
       </xsl:if>
       <xsl:apply-templates select="*" mode="M61"/>
@@ -2923,33 +2114,10 @@ The element <xsl:text/>
    <xsl:template match="@*|node()" priority="-2" mode="M61">
       <xsl:apply-templates select="*" mode="M61"/>
    </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-rdgGrp-only1lem-60-->
+   <!--PATTERN schematron-constraint-variantEncodingLocation-77-->
 
    <!--RULE -->
-   <xsl:template match="tei:rdgGrp" priority="1000" mode="M62">
-      <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:rdgGrp"/>
-      <!--ASSERT -->
-      <xsl:choose>
-         <xsl:when test="count(tei:lem) &lt; 2"/>
-         <xsl:otherwise>
-            <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl" test="count(tei:lem) &lt; 2">
-               <xsl:attribute name="location">
-                  <xsl:apply-templates select="." mode="schematron-select-full-path"/>
-               </xsl:attribute>
-               <svrl:text>Only one &lt;lem&gt; element may appear within a &lt;rdgGrp&gt;</svrl:text>
-            </svrl:failed-assert>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="*" mode="M62"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M62"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M62">
-      <xsl:apply-templates select="*" mode="M62"/>
-   </xsl:template>
-   <!--PATTERN schematron-constraint-dharma-variantEncoding-location-variantEncodingLocation-61-->
-
-   <!--RULE -->
-   <xsl:template match="tei:variantEncoding" priority="1000" mode="M63">
+   <xsl:template match="tei:variantEncoding" priority="1000" mode="M62">
       <svrl:fired-rule xmlns:svrl="http://purl.oclc.org/dsdl/svrl" context="tei:variantEncoding"/>
       <!--ASSERT -->
       <xsl:choose>
@@ -2960,16 +2128,14 @@ The element <xsl:text/>
                <xsl:attribute name="location">
                   <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                </xsl:attribute>
-               <svrl:text>
-              The @location value "external" is inconsistent with the
-              parallel-segmentation method of apparatus markup.</svrl:text>
+               <svrl:text> The @location value "external" is inconsistent with the parallel-segmentation method of apparatus markup.</svrl:text>
             </svrl:failed-assert>
          </xsl:otherwise>
       </xsl:choose>
-      <xsl:apply-templates select="*" mode="M63"/>
+      <xsl:apply-templates select="*" mode="M62"/>
    </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M63"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M63">
-      <xsl:apply-templates select="*" mode="M63"/>
+   <xsl:template match="text()" priority="-1" mode="M62"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M62">
+      <xsl:apply-templates select="*" mode="M62"/>
    </xsl:template>
 </xsl:stylesheet>
