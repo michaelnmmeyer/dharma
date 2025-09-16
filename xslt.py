@@ -24,6 +24,9 @@ class Processor:
 	def __init__(self):
 		self.saxon_proc = saxonche.PySaxonProcessor(license=False)
 		self.xslt_proc = self.saxon_proc.new_xslt30_processor()
+		# We set the lang parameter for tei/odds/extract-isosch.xsl.
+		lang = self.saxon_proc.make_string_value("en")
+		self.xslt_proc.set_parameter("lang", lang)
 		self.stylesheets = {}
 
 	def transform(self, xslt_path, text):
