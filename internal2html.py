@@ -143,7 +143,12 @@ edition_tabs = tree.parse_string("""
 @handler("bibliography")
 def render_section(self, node):
 	self.heading_level += 1
-	self.push("div", class_=node.name)
+	# XXX not necessarily correct! should use the actual @xml:lang
+	# everywhere.
+	lang = "en"
+	if node.name == "edition":
+		lang = "und"
+	self.push("div", class_=node.name, lang=lang)
 	self.dispatch_children(node)
 	self.join()
 	self.heading_level -= 1
