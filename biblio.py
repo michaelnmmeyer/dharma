@@ -1197,19 +1197,15 @@ def fix_tag(tag):
 			tag["class"] = "sup"
 		case "span":
 			klass = tag["class"]
-			style = tag["style"]
 			if klass != "nocase":
 				klass = ""
-			if not re.match(r"^font-variant\s*:\s*small-caps\s*;?$", style):
-				style = ""
+			if re.match(r"^font-variant\s*:\s*small-caps\s*;?$", tag["style"]):
+				if klass:
+					klass += " "
+				klass += "smallcaps" # See css
 			tag.attrs.clear()
-			if not klass and not style:
-				tag.unwrap()
-				return
 			if klass:
 				tag["class"] = klass
-			if style:
-				tag["style"] = style
 		case _:
 			tag.unwrap()
 

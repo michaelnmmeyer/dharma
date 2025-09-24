@@ -2,7 +2,7 @@ default namespace = ""
 
 block = para | \list | dlist | verse | quote
 
-inline = text | span | link | note | npage | nline | ncell
+inline = text | span | link | note | milestone
 
 start =
   element document {
@@ -16,7 +16,7 @@ start =
     },
     element edition {
       head,
-      element physical { (\div | page)+ }, # XXX should have (block+ | \div+): cover everything with div if needed (as for milestones)
+      element physical { (\div | page)+ }, # XXX should have (block+ | \div+): cover everything with div if needed (as for milestones), with "phantom" divisions. if we do this, a div should not have a mandatory <head>
       element logical { (\div | block)+ },
       element full { (\div | block)+ }
     }?,
@@ -36,14 +36,24 @@ start =
   }
 note =
   element note {
+    # Notes numbers must be unique, except within the edition division. Because
+    # in the latter, we generate three representations: physical, logical, full;
+    # thus there are 3 copies of each note.
     attribute n { xsd:integer },
     block+
   }
 span =
   element span {
     attribute class { text }?,
+    # standalone is for spans corresponding to one of sic corr orig reg; if
+    # standalone=false, the element is paired with another (sic/corr orig/reg),
+    # otherwise the element appears on its own, it is not on its own.
+    # XXX should get rid of standalone.
+    # we should just have sic corr orig reg elements in the internal format, and
+    # then the patch utility would pair back stuff. but then we can't
+    # distinguish between a sic followed by a corr and a pair sic/corr, so this
+    # should be annotated early.
     attribute standalone { xsd:boolean }?,
-    attribute style { xsd:anyURI }?,
     attribute tip { text }?,
     (text | link | ncell | nline | note | npage | span | verse)+
   }
@@ -79,6 +89,12 @@ para =
        | span)+
     }+
   }
+dlist =
+  element dlist {
+    (element key { inline+ }
+     | element value { (text | dlist | note | span)+ })+
+  }
+quote = element quote { inline+ }
 head = element head { inline+ }
 \div =
   element div {
@@ -95,33 +111,32 @@ verse =
     (ncell | nline | npage | span | verse-line)*,
     note?
   }
-nline =
-  element nline {
-    attribute break { xsd:boolean }?,
-    attribute phantom { xsd:boolean }?,
-    span?
-  }
 link =
   element link {
-    attribute href { text }?,
+    # @href is absent if the link is invalid.
+    attribute href { xsd:anyURI }?,
     (text | span)+
   }
+
+milestone = npage | nline | ncell
+
+# XXX we should have either no span or just one
 npage =
   element npage {
     attribute break { xsd:boolean },
-    attribute phantom { xsd:boolean }?,
+    attribute phantom { xsd:boolean },
     span*
   }
-dlist =
-  element dlist {
-    (element key { inline+ }
-     | element value { (text | dlist | note | span)+ })+
+nline =
+  element nline {
+    attribute break { xsd:boolean }?,
+    attribute phantom { xsd:boolean },
+    span?
   }
-quote = element quote { inline+ }
 ncell =
   element ncell {
     attribute break { xsd:boolean }?,
-    attribute phantom { xsd:boolean }?,
+    attribute phantom { xsd:boolean },
     span?
   }
 verse-line =

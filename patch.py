@@ -1,3 +1,6 @@
+# XXX in milestones, should always have @phantom with boolean, not have it be
+# sometimes empty; and also have @break always indicated.
+
 """Internal transformations.
 
 This fixes various things in the internal XML representation and produces three
@@ -214,6 +217,9 @@ def fix_milestones(t):
 	cells as needed to cover the whole text. "Phantom" milestones have an
 	attribute @phantom.
 	"""
+	false = common.from_boolean(False)
+	for mile in t.find(".//*[name()='npage' or name()='nline' or name()='ncell']"):
+		mile["phantom"] = false
 	milestones = significant_milestones(t)
 	if not milestones:
 		return
