@@ -1,5 +1,4 @@
-# XXX in milestones, should always have @phantom with boolean, not have it be
-# sometimes empty; and also have @break always indicated.
+# XXX in milestones, should always have @break.
 
 """Internal transformations.
 
@@ -218,6 +217,7 @@ def fix_milestones(t):
 	attribute @phantom.
 	"""
 	false = common.from_boolean(False)
+	# Make sure all milestones have a @phantom.
 	for mile in t.find(".//*[name()='npage' or name()='nline' or name()='ncell']"):
 		mile["phantom"] = false
 	milestones = significant_milestones(t)

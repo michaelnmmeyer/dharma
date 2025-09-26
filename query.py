@@ -160,17 +160,60 @@ class Tokenizer(Cursor):
 		dlength = self.display_offset - dstart
 		return dstart, dlength
 
+def extract_text(root):
+	buf = []
+	extract_text_inner(root, buf)
+	return buf
+
+def extract_text_inner(root, buf):
+	match root:
+		case tree.String():
+			print(root)
+			buf.append(root)
+			return
+		case tree.Tree():
+			raise Exception
+		case tree.Tag():
+			pass
+		case _:
+			return
+	match root.name:
+		case "logical" | "div":
+			for node in root:
+				extract_text_inner(node, buf)
+		# XXX won't work well for quote, list, dlist, can't recurse.
+		case "para" | "verse" | "quote" | "list" | "dlist":
+			for node in root:
+				extract_text_inner(node, buf)
+			buf.append("\n")
+		case "item" | "key" | "value" | "verse-line":
+			buf.append(" ")
+			for node in root:
+				extract_text_inner(node, buf)
+			buf.append(" ")
+		case "span" | "link":
+			for node in root:
+				extract_text_inner(node, buf)
+		case "note" | "head" | "verse-head" | "display" | "npage" \
+			| "nline" | "ncell":
+			pass
+		case _:
+			raise Exception(f"unsupported: {root.name}")
+
 class SearchableDocument:
 
 	def __init__(self, tree):
 		self.tree = tree
 
 	def field(self, name):
-		if name == "summary":
-			return self.tree.first("/document/summary")
+		if name == "edition":
+			return self.tree.first("/document/edition/logical")
 		raise NotImplementedError
 
 if __name__ == "__main__":
 	from dharma import tree
 	t = tree.parse("texts.hid/DHARMA_INSKarnataka00007.xml")
 	doc = SearchableDocument(t)
+	edition = doc.field("edition")
+	text = extract_text(edition)
+	print("".join(str(s) for s in text))
