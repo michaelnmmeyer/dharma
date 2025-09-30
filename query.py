@@ -1,4 +1,4 @@
-from dharma import tree
+from dharma import common, tree
 
 class Cursor:
 
@@ -168,13 +168,12 @@ def extract_text(root):
 def extract_text_inner(root, buf):
 	match root:
 		case tree.String():
-			print(root)
 			buf.append(root)
 			return
 		case tree.Tree():
 			raise Exception
 		case tree.Tag():
-			pass
+			pass # See below.
 		case _:
 			return
 	match root.name:
@@ -186,11 +185,15 @@ def extract_text_inner(root, buf):
 			for node in root:
 				extract_text_inner(node, buf)
 			buf.append("\n")
-		case "item" | "key" | "value" | "verse-line":
+		case "item" | "key" | "value":
 			buf.append(" ")
 			for node in root:
 				extract_text_inner(node, buf)
-			buf.append(" ")
+		case "verse-line":
+			if common.to_boolean(root["break"]):
+				buf.append(" ")
+			for node in root:
+				extract_text_inner(node, buf)
 		case "span" | "link":
 			for node in root:
 				extract_text_inner(node, buf)
@@ -212,7 +215,7 @@ class SearchableDocument:
 
 if __name__ == "__main__":
 	from dharma import tree
-	t = tree.parse("texts.hid/DHARMA_INSKarnataka00007.xml")
+	t = tree.parse("DHARMA_INSKarnataka00007.xml")
 	doc = SearchableDocument(t)
 	edition = doc.field("edition")
 	text = extract_text(edition)

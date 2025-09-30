@@ -980,6 +980,7 @@ def process(t: tree.Tree):
 	logical.name = "logical"
 	to_logical(logical)
 	head = edition.first("head")
+	assert isinstance(edition, tree.Branch)
 	edition.clear()
 	fix_milestones_spaces(t)
 	if head:
@@ -988,8 +989,10 @@ def process(t: tree.Tree):
 	edition.append(logical)
 	edition.append(full)
 	for node in t.find(".//*[@milestone-keep]"):
+		assert isinstance(node, tree.Tag)
 		del node["milestone-keep"]
 	for node in t.find(".//display[@name]"):
+		assert isinstance(node, tree.Tag)
 		if node["name"] == "physical":
 			node.delete()
 		else:
@@ -1005,8 +1008,8 @@ def make_pretty_printable(t: tree.Tree):
 			s.insert_before(tree.Comment("space"))
 		if s[-1] == " " and len(s) > 1:
 			s.insert_after(tree.Comment("space"))
-	for node in t.find("//display"):
-		node.unwrap()
+	# for node in t.find("//display"):
+	# node.unwrap()
 
 if __name__ == "__main__":
 	import os, sys
