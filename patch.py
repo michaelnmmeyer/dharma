@@ -28,8 +28,6 @@ bibliography.
   patching is done.
 """
 
-
-
 """XXX TODO
 
 make a root div without anything else a div[@type='edition']
@@ -640,7 +638,7 @@ def fix_milestones_spaces(t: tree.Branch, physical=False):
 	# Note that @phantom milestones must be excluded (we don't
 	# actually display them). Also note that we replace all milestones,
 	# even the ones in the apparatus.
-	for node in t.find(".//*[(name()='npage' or name()='nline' or name()='ncell') and not @phantom]"):
+	for node in t.find(".//*[(name()='npage' or name()='nline' or name()='ncell') and not @phantom='true']"):
 		assert isinstance(node, tree.Tag) # silence warnings
 		if physical:
 			# There is exactly one case in which we must not add
@@ -793,7 +791,7 @@ def add_hyphens(t):
 	# foo<pb n="1" break="no"/><pb n="2" break="no"/>bar
 	# In this case, we must add a hyphen after "foo", but in the phantom
 	# line between pages 1 and 2.
-	lines = t.find(".//line[not stuck-child::nline[@phantom]]")
+	lines = t.find(".//line[not stuck-child::nline[@phantom='true']]")
 	i = 1
 	while i < len(lines):
 		head = lines[i][0]
