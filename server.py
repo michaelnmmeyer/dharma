@@ -498,6 +498,17 @@ def display_biblio_errors():
 		group by short_title having count(*) > 1""").fetchall()
 	return flask.render_template("biblio_errors.tpl", entries=entries)
 
+@app.get("/cmd/count-biblio-short-title")
+@common.transaction("texts")
+def count_biblio_short_title():
+	val = flask.request.args.get("short-title")
+	if not val:
+		return flask.abort(400)
+	(n,) = common.db("texts").execute("""
+		select count(short_title) from biblio_data
+		where short_title = ?""", (val,)).fetchone()
+	return f"<count>{n}</count>"
+
 def render_markdown(rel_path):
 	f = texts.File("project-documentation", rel_path)
 	html = common.pandoc(f.text)
