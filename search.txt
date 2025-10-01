@@ -1,5 +1,8 @@
 ## cursors
 
+it is likely that the result of highlighting and of search will differ, even
+though this should not happen, so we must be prepared to deal with this.
+
 ===========
 
 before highlighting a document in the internal representation.
@@ -42,18 +45,16 @@ for now focus on searching logical.
 
 ### snippets
 
-need to determine how to select snippets. must try to select whole semantic
-units. start with selecting paragraphs or verses. if a paragraph/verse is too
-long, split on dandas and abbreviate segments that do not contain matches with
-'[...]', proceeding from the longest segment to the shortest. in another search
-tool, i used a minimum length of context (counting in phrases, but might also
-count clusters). should do that here as well.
+should define a maximum number of snippets to select. and also define the
+maximum length of a snippet (in characters).
 
-for simplicity, try to select complete (balanced) block elements. but also need
-to cap the length of a snippet (or the cumulative length of all snippets), to
-avoid degenerate cases with overlong paragraphs. we can abbreviate a block with
-'[...]' in appropriate spots. will need to define rules for deciding where
-exactly we can split a block.
+for simplicity, start by selecting whole semantic units (paragraphs or verses,
+for the logical display), and only keep those that contain the most relevant
+matches (using tf-idf or something). then, check the length of each snippet. if
+it is larger than the maximum allowed length, abbreviate the snippet by
+inserting "[...]" in appropriate locations. but where exactly should we
+abbreviate snippets?
+
 
 ### highlighting
 

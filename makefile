@@ -8,8 +8,9 @@ generated_tei = \
 generated_views = $(patsubst %.md,%.tpl,$(wildcard views/*.md))
 generated_parsers = $(patsubst %.g,%.py,$(wildcard *.g))
 generated = $(generated_tei) $(generated_views) $(generated_parsers)
+generated += static/base.css
 
-all: $(generated) static/base.css
+all: $(generated)
 
 clean:
 	rm -f $(generated)
@@ -86,8 +87,10 @@ update-db:
 update-texts:
 	mkdir -p texts
 	rm -f texts/*
-	sqlite3 -noheader dbs/texts.sqlite "select printf('../repos/%s/%s', repo, path) \
-		from documents natural join files" | while read f; do \
+	sqlite3 -noheader dbs/texts.sqlite "select \
+		printf('../repos/%s/%s', repo, path) from documents \
+		natural join files where name glob 'DHARMA_INS*'" | \
+	while read f; do \
 		ln -s "$$f" "texts/$$(basename """$$f""")"; \
 	done
 

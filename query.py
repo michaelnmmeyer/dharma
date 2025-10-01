@@ -48,8 +48,8 @@ class Substring(Cursor):
 
 class Tree(Cursor):
 
-	def __init__(self, root: tree.Branch, cursor: Cursor):
-		self.transformer = Tokenizer(*root.strings())
+	def __init__(self, text: list[str], cursor: Cursor):
+		self.transformer = Tokenizer(*text)
 		self.start = -1
 		self.length = 0
 		self.cursor = cursor

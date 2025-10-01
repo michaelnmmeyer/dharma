@@ -1,43 +1,53 @@
 default namespace = ""
 
-block = para | \list | dlist | verse | quote
+block = para | verse | quote | dlist | elist
 
-inline = text | span | link | note | milestone
+inline = text | span | link | note | milestone | display
 
-start =
-  element document {
-    element title { inline+ }*,
-    element author { name, identifier? }*,
-    element editor { name, identifier? }*,
-    element summary { block+ }?,
-    element hand { block+ }?,
-    element edition-languages {
-      element language { name, identifier }+
-    },
-    element edition {
-      head,
-      element physical { (\div | page)+ }, # XXX should have (block+ | \div+): cover everything with div if needed (as for milestones), with "phantom" divisions. if we do this, a div should not have a mandatory <head>
-      element logical { (\div | block)+ },
-      element full { (\div | block)+ }
-    }?,
-    element apparatus { head, (\div+ | para+) }?,
-    element translation {
-      head,
-      (\div | block)+
-    }*,
-    element commentary {
-      head,
-      (\div | block)+
-    }?,
-    element bibliography {
-      head,
-      (\div | block)+
-    }?
-  }
+milestone = npage | nline | ncell
+
+start = element document {
+	element title { inline+ }*,
+	element author { name, identifier? }*,
+	element editor { name, identifier? }*,
+	element summary { block+ }?,
+	element hand { block+ }?,
+	element edition-languages {
+		element language { name, identifier }+
+	},
+	edition?,
+	apparatus?,
+	translation*,
+	commentary?,
+	bibliography?
+}
+edition = element edition {
+	head,
+	element physical { (physical_div | page)+ }, # XXX should have (block+ | ediv+): cover everything with div if needed (as for milestones), with "phantom" divisions. if we do this, a div should not have a mandatory <head>
+	element logical { (ediv | block)+ },
+	element full { (ediv | block)+ }
+}
+apparatus = element apparatus {
+	head,
+	(ediv+ | para+)
+}
+translation = element translation {
+	head,
+	(ediv | block)+
+}
+commentary = element commentary {
+	head,
+	(ediv | block)+
+}
+bibliography = element bibliography {
+	head,
+	(ediv | block)+
+}
+
 note = element note {
 	# Notes numbers must be unique, except within the edition division.
 	# Because in the latter, we generate three representations: physical,
-	# logical, full; thus there are 3 copies of each note.
+	# logical, full; there are thus 3 copies of each note.
 	attribute n { xsd:integer },
 	block+
 }
@@ -62,28 +72,25 @@ para = element para {
 	attribute class { text }?,
 	inline+
 }
-\list = element list {
-	attribute type { text },
-	element item {
-	(text
-	| link
-	| \list
-	| ncell
-	| nline
-	| note
-	| npage
-	| para
-	| span)+
-	}+
+elist = element list {
+	attribute type { "plain" | "bulleted" | "numbered" },
+	element item { block+ }+
 }
 dlist = element dlist {
-	(element key { inline+ }
-	| element value { (text | dlist | note | span)+ })+
+	(element key { block+ }, element value { block+ })+
 }
-quote = element quote { inline+ }
+quote = element quote {
+	element source { inline+ }?,
+	block+
+}
 head = element head { inline+ }
-\div = element div {
-	(\div | dlist | head | \list | para | quote | verse)*, page*
+ediv = element div {
+	head?,
+	(ediv | block)+
+}
+physical_div = element div {
+	head?,
+	(physical_div | page)+
 }
 page = element page {
 	head?,
@@ -98,15 +105,17 @@ verse-line = element verse-line {
 	attribute break { xsd:boolean }?,
 	attribute n { text }?,
 	attribute tip { text }?,
-	(text | link | \list | ncell | nline | note | npage | span)+
+	(text | link | elist | ncell | nline | note | npage | span)+
 }
+
 link = element link {
 	# @href is absent if the link is invalid.
 	attribute href { xsd:anyURI }?,
-	(text | span)+
+	inline+
 }
 
-milestone = npage | nline | ncell
+display = element display { inline+ }
+
 npage = element npage {
 	attribute break { xsd:boolean },
 	attribute phantom { xsd:boolean },
@@ -122,3 +131,4 @@ ncell = element ncell {
 	attribute phantom { xsd:boolean },
 	span?
 }
+

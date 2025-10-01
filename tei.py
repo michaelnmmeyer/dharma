@@ -1518,10 +1518,10 @@ def parse_cit(p, cit):
 		return p.dispatch_children(bibl)
 	if q["rend"] == "block":
 		p.push(tree.Tag("quote"))
-		p.dispatch_children(q)
-		p.append(" (")
+		p.push(tree.Tag("source"))
 		p.dispatch(bibl)
-		p.append(")")
+		p.join()
+		p.dispatch_children(q)
 		p.join()
 	else:
 		p.append("“")

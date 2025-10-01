@@ -29,9 +29,20 @@ def render_page_line(self, node):
 
 @handler("quote")
 def render_quote(self, node):
+	self.push(tree.Tag("div", class_="quote"))
+	source = node.first("stuck-child::source")
+	if source:
+		self.visited.add(source)
 	self.push(tree.Tag("blockquote"))
 	self.dispatch_children(node)
-	self.join()
+	self.join() # </blockquote>
+	if source:
+		self.push(tree.Tag("p"))
+		self.push(tree.Tag("cite"))
+		self.dispatch_children(source)
+		self.join() # </cite>
+		self.join() # </p>
+	self.join() # </div>
 
 @handler("document")
 def render_document(self, node):
@@ -55,9 +66,9 @@ def render_document(self, node):
 			for para in paras[1:]:
 				self.dispatch(para)
 			self.join()
-		self.join() # ol
+		self.join() # </ol>
 		self.heading_level -= 1
-		self.join() # div
+		self.join() # </div>
 	self.join()
 	self.document.body = self.top
 
@@ -201,7 +212,7 @@ def render_title(self, node):
 
 @handler("dlist")
 def render_dlist(self, node):
-	self.push(tree.Tag("dl"))
+	self.push(tree.Tag("dl", class_="list"))
 	for child in node.find("*"):
 		match child.name:
 			case "key":
@@ -353,6 +364,7 @@ class HTMLRenderer(tree.Serializer):
 		self.notes = []
 		self.heading_level = 1
 		self.document = HTMLDocument()
+		self.visited = set()
 
 	def __call__(self):
 		self.clear()
@@ -360,6 +372,8 @@ class HTMLRenderer(tree.Serializer):
 		return self.document
 
 	def dispatch(self, node):
+		if node in self.visited:
+			return
 		match node:
 			case tree.Comment() | tree.Instruction():
 				return
