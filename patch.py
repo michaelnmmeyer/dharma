@@ -19,13 +19,19 @@ bibliography.
 
 * Other division: div.
 
-* Paragraph-like: para, verse(>verse-line), head, quote.
+* Paragraph-like: para, verse (which should only contain verse-line), head.
 
-* Containers: list(>item), dlist(>(key, value)), note.
+* Containers: list (which should only contain item),
+  dlist (which should only contain series of (key, value))
+
+* Division-like: note, quote, item, key, value. They should only contain
+  para, verse, list, dlist, quote.
 
 * Inline elements: span, link, milestones (npage, nline, ncell) and display.
   <display> can bear @name="physical" or @name="logical" during before
   patching is done.
+
+Also a <source> element.
 """
 
 """XXX TODO
@@ -361,7 +367,9 @@ def fix_milestones_location(t, milestones):
 		fix_milestone_location(mile)
 
 def is_milestone(node):
-	return isinstance(node, tree.Tag) and node.name in ("npage", "nline", "ncell")
+	if not isinstance(node, tree.Tag):
+		return False
+	return node.name in ("npage", "nline", "ncell")
 
 def shift_milestones(parent, skip, xpath):
 	matching = parent.find(xpath)
@@ -746,32 +754,6 @@ def wrap_for_physical(root, page=None, line=None):
 # 3) is not the first npage/nline/ncell in the <edition>
 # it is only created in wrap-for-physical, so do necessary stuff here.
 
-def fix_blocks_within_paras(t: tree.Tree):
-	for node in t.find(".//para/*[regex('^list|dlist|quote|verse$', name())]"):
-		move_up_from_para(node)
-
-def move_up_from_para(node):
-	para = node.parent
-	assert isinstance(para, tree.Tag) and para.name == "para"
-	left = tree.Tag("para")
-	right = tree.Tag("para")
-	buf = left
-	for child in list(para):
-		if child is node:
-			buf = right
-		else:
-			buf.append(child)
-	if len(left) > 0:
-		para.insert_before(left)
-	para.replace_with(node)
-	if len(right) > 0:
-		node.insert_after(right)
-
-# XXX for all stuff like this should find something more solid
-def fix_misc(t: tree.Tree):
-	for node in t.find(".//verse/para"):
-		node.delete()
-
 def add_hyphens(t):
 	# We need to add a hyphen break after all the milestone @break=no,
 	# whether or not there is a hyphen break at the end of the line.
@@ -941,17 +923,98 @@ def wrap_inlines_in_paragraphs(root):
 			cover_inlines(node)
 		wrap_inlines_in_paragraphs(node)
 
-def process(t: tree.Tree):
-	fix_misc(t)
-	wrap_inlines_in_paragraphs(t)
-	fix_spaces(t)
-	fix_blocks_within_paras(t)
-	fix_milestones(t)
-	number_notes(t)
-	# And create the three displays.
-	edition = t.first("/document/edition")
-	if not edition:
-		return t
+# XXX need more stuff for parsing <verse>, not sure we're exhaustive.
+
+def fix_blocks_nesting(t: tree.Tree):
+	"""Fix most nesting problems. If people followed the guide, these
+	should not arise.
+
+	We have a nesting problem if an inline element contains some kind of
+	block, or if one of para, verse, verse-line contains a block. When we
+	end up in this situation, we unwrap the inner block element. This is
+	probably the most sensible approach; we could also do the reverse viz.
+	unwrap the outer inline or block element, but this looks less clean.
+	"""
+	def inner(root):
+		assert isinstance(root, tree.Tag)
+		if is_inline(root) or root.name in ("para", "verse", "verse-line"):
+			unwrap_child_blocks(root)
+		for child in root:
+			if isinstance(child, tree.Tag):
+				inner(child)
+	root = t.first("document")
+	assert isinstance(root, tree.Tag)
+	inner(root)
+
+def unwrap_child_blocks(root: tree.Tag):
+	"""Unwraps block elements that are children of the given element, and
+	unwrap or delete as well their inner structural elements (source, key,
+	value, item...)."""
+	i = 0
+	while i < len(root):
+		node = root[i]
+		if not isinstance(node, tree.Tag):
+			i += 1
+			continue
+		match node.name:
+			case "div":
+				head = node.first("stuck-child::head")
+				if head:
+					head.delete()
+				node.unwrap()
+			case "para" | "head":
+				node.unwrap()
+			case "verse":
+				head = node.first("stuck-child::verse-head")
+				if head:
+					head.delete()
+				for line in node.find("verse-line"):
+					line.prepend(" ")
+					line.append(" ")
+					line.unwrap()
+				node.unwrap()
+			case "quote":
+				head = node.first("stuck-child::source")
+				if head:
+					head.delete()
+				node.unwrap()
+			case "list":
+				for elem in node.find("item"):
+					elem.prepend(" ")
+					elem.append(" ")
+					elem.unwrap()
+				node.unwrap()
+			case "dlist":
+				for elem in node.find("./*[name()='key' or name='value']"):
+					elem.prepend(" ")
+					elem.append(" ")
+					elem.unwrap()
+				node.unwrap()
+			case _:
+				i += 1
+
+def fix_blocks_within_paras(t: tree.Tree):
+	for node in t.find(".//para/*[regex('^list|dlist|quote$', name())]"):
+		move_up_from_para(node)
+
+def move_up_from_para(node):
+	para = node.parent
+	assert isinstance(para, tree.Tag) and para.name == "para"
+	left = tree.Tag("para")
+	right = tree.Tag("para")
+	buf = left
+	for child in list(para):
+		if child is node:
+			buf = right
+		else:
+			buf.append(child)
+	if len(left) > 0:
+		para.insert_before(left)
+	para.replace_with(node)
+	if len(right) > 0:
+		node.insert_after(right)
+
+def process_edition(t: tree.Tree, edition: tree.Tag):
 	full = edition.copy()
 	full.name = "full"
 	if (head := full.first("head")):
@@ -974,6 +1037,20 @@ def process(t: tree.Tree):
 	edition.append(physical)
 	edition.append(logical)
 	edition.append(full)
+
+def process(t: tree.Tree):
+	# Structural stuff.
+	fix_blocks_within_paras(t)
+	fix_blocks_nesting(t)
+	wrap_inlines_in_paragraphs(t)
+	# Rest
+	fix_spaces(t)
+	fix_milestones(t)
+	number_notes(t)
+	# And create the three displays.
+	if (edition := t.first("/document/edition")):
+		assert isinstance(edition, tree.Tag)
+		process_edition(t, edition)
 	for node in t.find(".//*[@milestone-keep]"):
 		assert isinstance(node, tree.Tag)
 		del node["milestone-keep"]

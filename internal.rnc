@@ -77,7 +77,7 @@ elist = element list {
 	element item { block+ }+
 }
 dlist = element dlist {
-	(element key { block+ }, element value { block+ })+
+	(element key { block* }, element value { block* })+
 }
 quote = element quote {
 	element source { inline+ }?,
@@ -116,19 +116,20 @@ link = element link {
 
 display = element display { inline+ }
 
+# Milestones. The contents is something to display. If the milestone has
+# @phantom=true, there is no contents to display.
 npage = element npage {
 	attribute break { xsd:boolean },
 	attribute phantom { xsd:boolean },
-	span?
+	inline*
 }
 nline = element nline {
 	attribute break { xsd:boolean },
 	attribute phantom { xsd:boolean },
-	span?
+	inline*
 }
 ncell = element ncell {
 	attribute break { xsd:boolean },
 	attribute phantom { xsd:boolean },
-	span?
+	inline*
 }
-

@@ -1343,11 +1343,16 @@ def parse_lg(p, lg):
 	p.join()
 
 # As far as we're concerned, <ab> is just a <p>, so we treat them identically.
+# We deal with stanzas in another handler.
 @handler("ab")
 @handler("p")
 def parse_p(p, para):
-	# We deal with stanzas in another handler
-	assert not para["rend"] == "stanza"
+	# If the para contains <l> elements, most likely the user forgot to add
+	# @rend='stanza'. <l> elements should only appear within a stanza. Thus
+	# we assume the user meant @rend='stanza' and parse the paragraph as a
+	# verse.
+	if para.first("l"):
+		return parse_lg(p, para)
 	p.push(tree.Tag("para"))
 	if (n := get_n(para)):
 		# See e.g. http://localhost:8023/display/DHARMA_INSSII0400223

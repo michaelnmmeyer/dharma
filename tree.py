@@ -268,6 +268,12 @@ class Node:
 		'''
 		return self.tree.root
 
+	def append(self, node):
+		raise NotImplementedError
+
+	def prepend(self, node):
+		raise NotImplementedError
+
 	def stuck_child(self):
 		"""Returns the first `Tag` child of this node, if it has one
 		and if there is no intervening non-blank text in-between. Can
@@ -669,7 +675,9 @@ class Tree(Branch):
 	new lines, etc.
 	'''
 
-	path = "/"
+	@property
+	def path(self):
+		return "/"
 
 	_byte_source = None
 
