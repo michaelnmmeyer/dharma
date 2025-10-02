@@ -119,12 +119,6 @@ views/%.tpl: views/%.md
 
 trang := java -jar jars/trang.jar
 
-inscription.rnc: $(wildcard texts/DHARMA_INS*.xml)
-	$(trang) $^ $@
-
-global.rnc: $(wildcard texts/DHARMA_*.xml)
-	$(trang) $^ $@
-
 %.rnc: %.rng
 	$(trang) $^ $@
 
