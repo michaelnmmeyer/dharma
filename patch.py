@@ -898,7 +898,7 @@ def is_inline(node):
 	return node.name in ("span", "link", "note", "npage", "nline", "ncell",
 		"display")
 
-def cover_inlines(root):
+def cover_inlines_with_paras(root):
 	i = 0
 	while i < len(root):
 		if not is_inline(root[i]):
@@ -912,6 +912,20 @@ def cover_inlines(root):
 		root.insert(i, para)
 		i += 1
 
+def cover_inlines_with_verse_lines(root):
+	i = 0
+	while i < len(root):
+		if not is_inline(root[i]) or is_milestone(root[i]):
+			i += 1
+			continue
+		j = i + 1
+		while j < len(root) and is_inline(root[j]) and not is_milestone(root[j]):
+			j += 1
+		para = tree.Tag("verse-line")
+		para.extend(root[i:j])
+		root.insert(i, para)
+		i += 1
+
 def wrap_inlines_in_paragraphs(root):
 	"Wraps within paragraphs inline children of divisions-like elements."
 	for node in root:
@@ -920,7 +934,9 @@ def wrap_inlines_in_paragraphs(root):
 		if node.name in ("summary", "hand", "note", "edition",
 			"apparatus", "translation", "commentary",
 			"bibliography", "div", "item", "key", "value", "quote"):
-			cover_inlines(node)
+			cover_inlines_with_paras(node)
+		elif node.name == "verse":
+			cover_inlines_with_verse_lines(node)
 		wrap_inlines_in_paragraphs(node)
 
 # XXX need more stuff for parsing <verse>, not sure we're exhaustive.
@@ -1037,6 +1053,9 @@ def process_edition(t: tree.Tree, edition: tree.Tag):
 	edition.append(physical)
 	edition.append(logical)
 	edition.append(full)
+
+# XXX covering inlines with para or verse-line doesn't interact properly with
+# milestones placement; should merge the processing code for both.
 
 def process(t: tree.Tree):
 	# Structural stuff.
