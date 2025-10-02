@@ -486,8 +486,7 @@ class Writer(tree.Serializer):
 		doi = rec.get("DOI")
 		if not doi:
 			return
-		url = common.normalize_url(doi)
-		doi = urllib.parse.urlparse(url).path.lstrip("/")
+		doi = urllib.parse.urlparse(doi).path.strip("/")
 		# All DOI start with "10.". We remove everything before that in the URI:
 		# https://doi.org/10.1163/22134379-9000164 -> 10.1163/22134379-9000164
 		# https://what.com/the/10.1163/22134379-9000164 -> 10.1163/22134379-9000164
@@ -532,8 +531,7 @@ class Writer(tree.Serializer):
 		self.period()
 
 	def url(self, rec):
-		urls = [common.normalize_url(url.rstrip(";"))
-			for url in rec["url"].split()]
+		urls = [url.rstrip(";") for url in rec["url"].split()]
 		if not urls:
 			return
 		# I would rather show the full URL if needed to identify the

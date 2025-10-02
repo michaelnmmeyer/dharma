@@ -286,23 +286,6 @@ def pandoc(text: str) -> str:
 CODE_HASH, CODE_DATE = command("git", "-C", DHARMA_HOME, "show", "--no-patch", "--format=%H %at", "HEAD").stdout.strip().split()
 CODE_DATE = int(CODE_DATE)
 
-def normalize_url(url):
-	url = url.rstrip("/") or "/" # XXX might not work for some websites
-	# XXX too slow to do live, should use a cache
-	return url
-	ret = urlparse(url)
-	if ret.scheme == "http":
-		# Supports SSL?
-		try:
-			ssl.get_server_certificate((ret.hostname, ret.port or 443))
-			ret = ret._replace(scheme="https")
-		except (ConnectionRefusedError, socket.gaierror):
-			pass
-	return ret.geturl()
-	# Could also check that the url actually works, and also use link
-	# rel=canonical, but this is slow. Should keep track of all URLs and
-	# systematically submit them to the Wayback machine.
-
 def numberize(s, n):
 	# Late import to avoid loading this big file if not necessary.
 	from dharma import english
