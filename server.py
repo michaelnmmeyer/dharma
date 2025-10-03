@@ -368,34 +368,19 @@ def render_inscription(file: texts.File, data: dict):
 	data["highlighted_xml"] = tree.html_format(t)
 	return flask.render_template("inscription.tpl", **data)
 
-@common.transaction("texts")
 def display_critical(text):
-	db = common.db("texts")
-	file = db.load_file(text)
-	file_hash = hashlib.sha1(file.data).hexdigest()
-
-	# TODO should have a context manager for stuff like this, even if rare.
-	@common.transaction("cache")
-	def retrieve():
-		db = common.db("cache")
-		ret = db.execute("""select page from critical_cache
-		where name = ? and file_hash = ? and code_commit = ?""",
-		(file.name, file_hash, common.CODE_HASH)).fetchone()
-		return ret and ret[0] or None
-
-	@common.transaction("cache")
-	def insert(page):
-		db = common.db("cache")
-		db.execute("""insert or replace into critical_cache(name,
-	     	file_hash, code_commit, page) values(?, ?, ?, ?)""", (file.name,
-		file_hash, common.CODE_HASH, page))
-
-	page = retrieve()
-	if page is None:
-		stylesheet = common.path_of("static/critical/start_v02.xsl")
-		page = xslt.transform(stylesheet, file.text)
-	insert(page)
-	return page
+	repos = ["tfd-sanskrit-philology", "tfd-nusantara-philology"]
+	data = None
+	for repo in repos:
+		path = common.path_of("repos", repo, "html", f"{text}.html")
+		try:
+			with open(path) as f:
+				data = f.read()
+		except FileNotFoundError:
+			pass
+	if not data:
+		return flask.abort(404)
+	return data
 
 @app.post("/convert")
 @common.transaction("texts")
