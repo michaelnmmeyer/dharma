@@ -1,5 +1,3 @@
-# XXX in milestones, should always have @break.
-
 """Internal transformations.
 
 This fixes various things in the internal XML representation and produces three
@@ -8,7 +6,7 @@ non-significant space from the input tree.
 
 Summary of new elements.
 
-We have two basic categories: inline elements (links and spans of text) and
+We have two basic categories: inline elements (links and spans of text, <group> and <display>) and
 block elements (divisions, paragraphs, etc.).
 
 * Data fields: title, author, editor. These elements should not contain
@@ -212,14 +210,16 @@ def fix_milestones(t):
 	inscription that has an edition contains at least three milestones: one
 	page, one line, one cell. We add "phantom" (invisible) pages, lines and
 	cells as needed to cover the whole text. "Phantom" milestones have an
-	attribute @phantom.
+	attribute @phantom='true', all other milestones have @phantom='false'.
 	"""
-	# Make sure all milestones have a @phantom.
+	milestones = significant_milestones(t)
+	# Make sure all milestones have a @phantom and a @break.
+	ids = set(id(mile) for mile in milestones)
 	for mile in t.find(".//*[name()='npage' or name()='nline' or name()='ncell']"):
 		if not mile["break"]:
 			mile["break"] = "true"
 		mile["phantom"] = "false"
-	milestones = significant_milestones(t)
+		mile["significant"] = id(mile) in ids and "true" or "false"
 	if not milestones:
 		return
 	fix_milestones_location(t, milestones)
@@ -228,9 +228,6 @@ def fix_milestones(t):
 	check_milestones_valid(t, milestones)
 	add_milestones_breaks(t, milestones)
 	check_milestones_valid(t, milestones)
-	# XXX do this better
-	for mile in milestones:
-		mile["milestone-keep"] = "true"
 
 def significant_milestones(t: tree.Tree):
 	"""Enumerates significant milestones.
@@ -238,7 +235,9 @@ def significant_milestones(t: tree.Tree):
 	A milestone is significant if it occurs within the edition division and
 	if it is not a descendant of a "note" or "head" element. We expect to
 	use significant milestones for search, and we also use them for
-	generating the 3 displays of the edition division.
+	generating the 3 displays of the edition division. Other,
+	non-significant milestones are displayed inline and are not interpreted
+	at all.
 	"""
 	def inner(root, out):
 		for node in root:
@@ -845,7 +844,7 @@ def split_around_milestone(inline, mile):
 	inline.delete()
 
 def fix_physical_inlines(t):
-	milestones = t.find(".//*[@milestone-keep]")
+	milestones = t.find(".//*[@significant and (name()='npage' or name()='nline' or name()='ncell')]")
 	for mile in milestones:
 		if mile.name == "ncell":
 			# Cells should remain inlines
@@ -1010,6 +1009,16 @@ def unwrap_child_blocks(root: tree.Tag):
 				i += 1
 
 def fix_blocks_within_paras(t: tree.Tree):
+	"""The guide prescribes to wrap lists and quotes within paragraphs, but
+	we do not want this in the internal representation. Most importantly,
+	because this does not produce valid HTML; but also because we need a
+	paragraph-like element that cannot possibly contain other paragraphs, so
+	might as well call it a paragraph.
+
+	In the future, might want to treat differently in the display lists and
+	quotes within paragraphs, on the one hand, lists and quotes outside of
+	paragraphs, on the other.
+	"""
 	for node in t.find(".//para/*[regex('^list|dlist|quote$', name())]"):
 		move_up_from_para(node)
 
@@ -1070,7 +1079,7 @@ def process(t: tree.Tree):
 	if (edition := t.first("/document/edition")):
 		assert isinstance(edition, tree.Tag)
 		process_edition(t, edition)
-	for node in t.find(".//*[@milestone-keep]"):
+	for node in t.find(".//*[@significant and (name()='npage' or name()='nline' or name()='ncell')]"):
 		assert isinstance(node, tree.Tag)
 		del node["milestone-keep"]
 	for node in t.find(".//display[@name]"):
