@@ -6,7 +6,7 @@ from dharma import biblio, texts, editorial, prosody, internal2html, xslt
 
 # We don't use the name "templates" for the template folder because we also
 # put other stuff in the same directory, not just templates.
-app = flask.Flask(__name__, static_url_path="", template_folder="views")
+app = flask.Flask(__name__, template_folder="views")
 app.jinja_options["line_statement_prefix"] = "%"
 app.jinja_options["lstrip_blocks"] = True
 app.jinja_options["trim_blocks"] = True
@@ -133,6 +133,11 @@ def show_repos():
 @app.get("/repositories/<ident>")
 @common.transaction("texts")
 def show_repo(ident):
+	# FIXME remove the following statement
+	tmp = common.path_of("repos/project-documentation/website/repositories", ident + ".md")
+	print(tmp)
+	if os.path.exists(tmp):
+		return render_rest(f"repositories/{ident}")
 	db = common.db("texts")
 	exists = db.execute("select 1 from repos where repo = ?", (ident,)).fetchone()
 	if exists:
@@ -495,25 +500,6 @@ def count_biblio_short_title():
 		where short_title = ?""", (val,)).fetchone()
 	return f"<count>{n}</count>"
 
-def render_markdown(rel_path):
-	f = texts.File("project-documentation", rel_path)
-	html = common.pandoc(f.text)
-	soup = BeautifulSoup(html, "html.parser")
-	title = soup.find("h1")
-	if title:
-		page_title = title.get_text()
-		title.decompose()
-	else:
-		page_title = "Untitled"
-	contents = str(soup.find("body"))
-	assert contents
-	return flask.render_template("markdown.tpl", title=page_title,
-		contents=contents)
-
-@app.get("/legal-notice")
-def legal_notice():
-	return render_markdown("website/legal-notice.md")
-
 def is_robot(email):
 	return email in ("readme-bot@example.com", "github-actions@github.com")
 
@@ -530,6 +516,33 @@ def handle_github():
 	repo = js["repository"]["name"]
 	change.notify(repo)
 	return ""
+
+def render_markdown(f: texts.File):
+	html = common.pandoc(f.text)
+	soup = BeautifulSoup(html, "html.parser")
+	title = soup.find("h1")
+	if title:
+		page_title = title.get_text()
+		title.decompose()
+	else:
+		page_title = "Untitled"
+	contents = str(soup.find("body"))
+	assert contents
+	return flask.render_template("markdown.tpl", title=page_title,
+		contents=contents)
+
+# Catchall.
+@app.get("/", defaults={"path": ""})
+@app.get("/<path:path>")
+def render_rest(path):
+	_, ext = os.path.splitext(path)
+	if not ext:
+		try:
+			f = texts.File("project-documentation", f"website/{path}.md")
+			return render_markdown(f)
+		except FileNotFoundError:
+			pass
+	return flask.send_from_directory("static", path)
 
 if __name__ == "__main__":
 	app.run(host="localhost", port=8023, debug=True)
