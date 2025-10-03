@@ -1,3 +1,7 @@
+# TODO the editorial stuff has become complicated enough that we should use a
+# TEI file for encoding it instead of a markdown file. Do this and reuse the
+# "common" code for parsing TEI files.
+
 from dharma import tree, common, langs, texts, tei
 import bs4, copy
 
