@@ -1815,11 +1815,14 @@ def parse_remainder(self, node):
 	print(f"UNKNOWN {node!r}", file=sys.stderr)
 	self.append(node.text())
 
-def process_file(file, mode=None):
+def process_file(file):
 	t = tree.parse_string(file.data, path=file.full_path)
-	return process_tree(t, mode)
+	only_body = False
+	if file.name.startswith("DHARMA_DiplEd") or file.name.startswith("DHARMA_CritEd"):
+		only_body = True
+	return process_tree(t, only_body)
 
-def process_tree(t, mode=None, handlers=HANDLERS):
+def process_tree(t, only_body: bool, handlers=HANDLERS):
 	langs.assign_languages(t)
 	p = Parser(t, handlers=handlers)
 	# When we are parsing the file, not to display it but to extract
@@ -1828,7 +1831,7 @@ def process_tree(t, mode=None, handlers=HANDLERS):
 	# in the metadata; they should not be shown within the catalog.
 	# (Alternatively, we could have a mouseover, but not sure it would be
 	# worth it.)
-	if mode == "catalog":
+	if only_body:
 		for path in ("/TEI/teiHeader//title//note", "/TEI/text"):
 			for node in t.find(path):
 				p.visited.add(node)
