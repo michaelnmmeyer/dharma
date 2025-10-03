@@ -1822,7 +1822,7 @@ def process_file(file):
 		only_body = True
 	return process_tree(t, only_body)
 
-def process_tree(t, only_body: bool, handlers=HANDLERS):
+def process_tree(t, only_body=False, handlers=HANDLERS):
 	langs.assign_languages(t)
 	p = Parser(t, handlers=handlers)
 	# When we are parsing the file, not to display it but to extract

@@ -376,6 +376,7 @@ def display_critical(text):
 		try:
 			with open(path) as f:
 				data = f.read()
+			break
 		except FileNotFoundError:
 			pass
 	if not data:
