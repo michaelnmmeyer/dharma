@@ -1,5 +1,5 @@
 import os, unicodedata, datetime, html, urllib, urllib.parse, ntpath, hashlib
-import flask # pip install flask
+import flask, werkzeug.security # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
 from dharma import common, change, ngrams, catalog, validate, tei, tree
 from dharma import biblio, texts, editorial, prosody, internal2html, xslt
@@ -531,17 +531,32 @@ def render_markdown(f: texts.File):
 	return flask.render_template("markdown.tpl", title=page_title,
 		contents=contents)
 
+def try_loading_markdown(web_path):
+	root = common.path_of("project-documentation")
+	path = werkzeug.security.safe_join(root, "website", web_path)
+	if path is None:
+		return
+	relpath = os.path.relpath(path, root)
+	try:
+		f = texts.File("project-documentation", relpath)
+		return render_markdown(f)
+	except FileNotFoundError:
+		pass
+
 # Catchall.
+# We try to serve a markdown file from project-documentation; failing that, we
+# look into our "static" directory.
 @app.get("/", defaults={"path": ""})
 @app.get("/<path:path>")
 def render_rest(path):
 	_, ext = os.path.splitext(path)
 	if not ext:
-		try:
-			f = texts.File("project-documentation", f"website/{path}.md")
-			return render_markdown(f)
-		except FileNotFoundError:
-			pass
+		ret = try_loading_markdown(f"{path}.md")
+		if ret:
+			return ret
+		ret = try_loading_markdown(f"{path}/index.md")
+		if ret:
+			return ret
 	return flask.send_from_directory("static", path)
 
 if __name__ == "__main__":
