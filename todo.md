@@ -2,9 +2,6 @@
 
 ## normal displ
 
-pour les dépôts ajouter quelques paragraphes de présentation; changer format de
-fichier pour les repos.
-
 Pallava00022 assignmeent des lanuges incorrect
 
 afficher identifiant, nom du dépôt
@@ -13,9 +10,6 @@ langue + écriture assignation.
 * Avoir "Tamil language in Tamil Script, Sanskrit in Grantha".
 * penser à hi rend="grantha" où on doit générer le bon script ([@rendition]) et
   aussi inversement quand le @rendition réfère à grantha, mettre le texte en gras.
-
-
-Cirkali00017: erreur qui s'affiche pas dans oxygen.
 
 ajouter lien vers people
 
