@@ -544,7 +544,7 @@ def try_loading_markdown(web_path):
 		pass
 
 # Catchall.
-# We try to serve a markdown file from project-documentation; failing that, we
+# We try to serve a markdown file from project-documentation. Failing that, we
 # look into our "static" directory.
 @app.get("/", defaults={"path": ""})
 @app.get("/<path:path>")
