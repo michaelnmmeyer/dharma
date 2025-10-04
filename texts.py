@@ -110,7 +110,7 @@ class File:
 		"""
 		return common.path_of("repos", self.repo, self.path)
 
-def iter_texts_in_repo(repo) -> typing.Generator[File]:
+def iter_texts_in_repo(repo) -> typing.Generator[File, None, None]:
 	"""Iterates over TEI editions in a repository. `repo` is the name of the
 	repository (e.g. `tfa-pallava-epigraphy`)."""
 	repo_path = common.path_of("repos", repo)
