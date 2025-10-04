@@ -1523,19 +1523,28 @@
                         <empty/>
                     </content>
                     <constraintSpec scheme="schematron" ident="usage-certainty">
-                        <constraint><sch:rule context="tei:certainty"><sch:report
-                                    test="@match='../@met' and not(parent::tei:lg)">The pattern used
-                                    in @match works with the element
-                                lg[@met]</sch:report></sch:rule><sch:rule context="tei:certainty"
-                                    ><sch:report test="@match='..' and not(parent::tei:gap)">The
-                                    pattern used in @match works within the element
-                                gap</sch:report></sch:rule><sch:rule context="tei:certainty"
-                                    ><sch:assert test="@match='../@met' and @locus='value'">
+                        <constraint>
+                            <sch:rule context="tei:certainty">
+                                <sch:report test="@match='../@met' and not(parent::tei:lg)">
+                                    The pattern used in @match works with the element lg[@met]
+                                </sch:report>
+                            </sch:rule>
+                            <sch:rule context="tei:certainty">
+                                <sch:report test="@match='..' and not(parent::tei:gap)">
+                                    The pattern used in @match works within the element gap
+                                </sch:report>
+                            </sch:rule>
+                            <sch:rule context="tei:certainty">
+                                <sch:report test="@match='../@met' and not(@locus='value')">
                                     @match="../@met" and @locus="value" always work together.
-                                </sch:assert></sch:rule><sch:rule context="tei:certainty"
-                                    ><sch:assert test="@match='..' and @locus='name'">@match='..'
-                                    and @locus='name' always work
-                            together</sch:assert></sch:rule></constraint>
+                                </sch:report>
+                            </sch:rule>
+                            <sch:rule context="tei:certainty">
+                                <sch:report test="@match='..' and not(@locus='name')">
+                                    @match='..' and @locus='name' always work together
+                                </sch:report>
+                            </sch:rule>
+                        </constraint>
                     </constraintSpec>
                     <attList>
                         <attDef ident="ana" mode="delete"/>
