@@ -148,9 +148,8 @@ def show_repos():
 @app.get("/repositories/<ident>")
 @common.transaction("texts")
 def show_repo(ident):
-	# FIXME remove the following statement
+	# FIXME should ultimately remove the following statement.
 	tmp = common.path_of("repos/project-documentation/website/repositories", ident + ".md")
-	print(tmp)
 	if os.path.exists(tmp):
 		return render_rest(f"repositories/{ident}")
 	db = common.db("texts")
