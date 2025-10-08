@@ -79,6 +79,7 @@ update-repos:
 	@for d in repos/*; do \
 		echo "% $$(basename $$d)"; \
 		git -C $$d pull -q; \
+		sleep 5; \
 	done
 
 update-db:
