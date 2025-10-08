@@ -18,6 +18,11 @@ href="https://github.com/erc-dharma">here</a>. The table below does not show the
 % if repo["repo_prod"] is not none:
 	(<a href="{{url_for('show_catalog', q='repo:' + repo['repo'])}}">{{repo["repo_prod"]}} {{numberize("text", repo["repo_prod"])}}</a>)
 % endif
+% if repo["has_description_page"]:
+<p>
+<a href="/repositories/{{repo["repo"]}}">Presentation</a>.
+<p>
+% endif
 </p>
 % if repo["people"]:
 % set people = from_json(repo["people"])

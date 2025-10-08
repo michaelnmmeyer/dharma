@@ -123,11 +123,26 @@ def show_text_errors(name):
 	return flask.render_template("invalid_text.tpl",
 		text=row, github_url=url, result=validate.file(file))
 
+def have_static_page(url: str) -> bool:
+	path = common.path_of("repos/project-documentation/website") + url
+	print(path)
+	if os.path.isfile(path + ".md"):
+		return True
+	path = common.path_of(path, "index")
+	if os.path.isfile(path + ".md"):
+		return True
+	return False
+
 @app.get("/repositories")
 @common.transaction("texts")
 def show_repos():
 	db = common.db("texts")
-	rows = db.execute("select * from repos_display").fetchall()
+	rows = []
+	for row in db.execute("select * from repos_display"):
+		row = dict(row)
+		static = have_static_page(f"/repositories/{row['repo']}")
+		row["has_description_page"] = static
+		rows.append(row)
 	return flask.render_template("repos.tpl", rows=rows)
 
 @app.get("/repositories/<ident>")
