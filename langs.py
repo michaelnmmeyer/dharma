@@ -2,10 +2,25 @@
 # For ISO 639-5 (language families), the authority is
 # https://www.loc.gov/standards/iso639-5/index.html
 
-#XXX we need to treat the apparatus separately when assigning languages. the
-# default should be something like "undetermined source language".
+"""TODO
+
+While processing a tree, need to gather the following info for displaying
+div[@type='edition']: (a) all langs (b) all scripts (c) for each lang, scripts
+it is associated with (d) for each script, langs is it associated with.
+
+In addition, should have stats (number of chars, of clusters, etc.) for each
+lang, script, pair of script+lang. But might be easier to fetch the info if we
+use the internal representation instead of the TEI one.
+
+Save all this stuff that in the catalog, we will decide what to display later
+on.
+
+"""
+
 
 """TODO
+# XXX we need to treat the apparatus separately when assigning languages. the
+# default should be something like "undetermined source language".
 
 only attempt to find @rendition in div[@type='edition'] and in div[@type='apparatus']
 (because we will need transliteration there). ignore @rendition in other locations.
@@ -27,15 +42,9 @@ change category names in the main table:
 what should we do with the script hierarchy? can store it in a sql table,
 but in this case add something for converting this to a json doc.
 
-add a script table to the website
+add a script table to the website, as we did for languages
 
-afficher scripts de chaque inscription dans display. il faut se préparer à
-rassembler 4 listes pour div[@type='edition']
-1. all langs
-2. all scripts
-3. for each lang, the script that appear within it
-4. for each script, the langs that appear within it
-save that in the catalog, we will decide what to display later on
+in the metadata display, print script information.
 """
 
 import sys, functools, collections
@@ -43,7 +52,8 @@ import requests # pip install requests
 from dharma import common, texts, tree
 
 # Scripts data pulled from opentheso
-# To link to opentheso, use https://opentheso.huma-num.fr/opentheso/?idc={classID}&idt={thesaurusID}
+# To link to opentheso, use addresses of the form:
+# https://opentheso.huma-num.fr/opentheso/?idc={classID}&idt={thesaurusID}
 # The thesaurusID of dharma is th347.
 
 Script = collections.namedtuple("Script", "level id name klass")
@@ -140,7 +150,7 @@ def alloc_script(ctx, node, dflt):
 	return ret
 
 # For assigning languages, we follow the basic inheritance rule: if a tag does
-# not have an @xml:lang, it is assigned the language assigned of its parent. But
+# not have an @xml:lang, it is assigned the language assigned its parent. But
 # there are exceptions:
 # * If the tag is "lem" or "rdg" and does not have an @xml:lang, we assign it
 #   the language it would be assigned if it occurred in the edition div, under
@@ -157,7 +167,7 @@ def alloc_script(ctx, node, dflt):
 # * Inferred language. Assigned by bubbling up language values bottom-up. This
 #   value is intended to be used for text processing (tokenization, etc.).
 # If e.g. the original XML is <a lang="eng"><b lang="fra"><c>foo</c></b></a>
-# the inherited language of c is "fra"; and the inferred language of "a" is
+# the inherited language of <c> is "fra"; and the inferred language of <a> is
 # "fra", even though the user assigned it the language "eng", because it only
 # contains French text.
 
@@ -170,7 +180,6 @@ def script_attr(node):
 		if val:
 			return val
 	return ""
-
 
 def fetch_alt_langs(ctx, node, default_lang):
 	path = "TEI/text/body/div[@type='edition']".split("/")
@@ -246,10 +255,16 @@ def assign_languages(t):
 	alt_lang = fetch_alt_langs(ctx, t, dflt)
 	wait_div(ctx, t.root, dflt, alt_lang, wait_div)
 
-# Should also store a local copy of files we fetch from the web (e.g. the iso639
-# data), in a cache, within the same db. this cache would be written to only by
-# change.py, when processing files.
 def fetch_tsv(file):
+	"""Fetch a TSV file from some given source. `file` can be: a
+	`texts.File` object, an absolute file path like `/foo/bar.tsv`, or an
+	URL like `https://foo.com/bar.tsv`. Returns a list of rows, where each
+	row is a `dict` mapping field names to field values in the given row.
+
+        TODO: Should also store a local copy of files we fetch from the web
+        (e.g. the iso639 data), in a cache, within the same db. this cache would
+        be written to only by change.py, when processing files.
+	"""
 	if isinstance(file, texts.File):
 		text = file.text
 	elif file.startswith("/"):
