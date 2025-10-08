@@ -2,10 +2,6 @@
 
 ## normal displ
 
-Sur la page des dépôts, ajouter "Presentation" + lien vers la description.
-
-Virer tfa-accalpuram-epigraphy (aussi dans la liste des dépîts)
-
 Pallava00022 assignmeent des lanuges incorrect
 
 afficher identifiant, nom du dépôt
