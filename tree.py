@@ -7,27 +7,27 @@ xpath model, because this would be weird in python.
 All node types derive from an abstract base class `Node`. `Tree` and `Tag` nodes
 derive from an abstract class `Branch`, which itself derives from `Node`. There
 is no inheritance relationship between concrete node types. For instance,
-`Comment` is not a subclass of `String`, unlike in BeautifulSoup. Thus, to check whether a
-node is of a concrete given type `T`, using `isinstance(node, T)`, etc. is
-sufficient. And to check whether a node is a branch or a leaf, it is sufficient
-to check `isinstance(node, Branch)`.
+`Comment` is not a subclass of `String`, unlike in BeautifulSoup. Thus, to check
+whether a node is of a concrete given type `T`, using `isinstance(node, T)`,
+etc. is sufficient. And to check whether a node is a branch or a leaf, it is
+sufficient to check `isinstance(node, Branch)`.
 
 When parsing documents and when modifying attributes, we always normalize spaces
 in attributes: we replace all sequences of whitespace characters with " " and we
 trim whitespace from both sides. Thus, an attribute with only whitespace is
 considered empty. Furthermore, we don't make a distinction between an empty or
 blank attribute and an attribute that is not explicitly given. Thus, we assume
-that `<foo bar="">` and `<foo bar="  ">` are identical to `<foo>`. This is wrong, but
-it doesn't cause much harm in practice, and considerably simplifies processing.
-It is still possible to check whether an attribute is explicitly given by
-using the Node.keys() method.
+that `<foo bar="">` and `<foo bar="  ">` are identical to `<foo>`. This is
+wrong, but it doesn't cause much harm in practice, and considerably simplifies
+processing. It is still possible to check whether an attribute is explicitly
+given by using the Node.keys() method.
 
 For simplicity, we do not deal with XML namespaces at all. We just remove
-namespace prefixes in both elements and attributes. Thus,
-`<xsl:template>` becomes `<template>`, and `<foo xml:lang="eng">` becomes `<foo
-lang="eng">`. This means that we cannot deal with documents where namespaces are
-significant. This also means that we cannot properly serialize XML documents
-that used namespaces initially. However, the resulting simplicity trumps this
+namespace prefixes in both elements and attributes. Thus, `<xsl:template>`
+becomes `<template>`, and `<foo xml:lang="eng">` becomes `<foo lang="eng">`.
+This means that we cannot deal with documents where namespaces are significant.
+This also means that we cannot properly serialize XML documents that used
+namespaces initially. However, the resulting simplicity trumps this
 not-so-accurate processing.
 
 We use XPath expressions for searching and matching, but only support a small
@@ -45,34 +45,33 @@ concatenates all string nodes under a given subtree.
 For convenience, we add a few extra axes to XPath's default. They are:
 
 * `stuck-child`.
-	Returns the first child element of the current node, iff there
-	is no text or just whitespace between the current node and this
-	child. This only ever returns one child.
+        Returns the first child element of the current node, iff there is no
+        text or just whitespace between the current node and this child. This
+        only ever returns one child.
 * `stuck-parent`.
-	Reverse of stuck-child.
+        Reverse of stuck-child.
 * `stuck-following-sibling`.
-	Returns the first following sibling of the current node, iff there is
-	no text or just whitespace between the current node and this sibling.
-	This only ever returns one sibling.
+        Returns the first following sibling of the current node, iff there is no
+        text or just whitespace between the current node and this sibling. This
+        only ever returns one sibling.
 * `stuck-preceding-sibling`.
-	Reverse of stuck-preceding-sibling.
+        Reverse of stuck-preceding-sibling.
 
 XPath expressions can use the following functions:
 
 `glob(pattern[, text])`, `iglob(pattern[, text])`
 
-Checks if `text` matches the given glob `pattern`. If `text` is not given,
-it defaults to the node's text contents. `iglob` is like `glob`, but is
+Checks if `text` matches the given glob `pattern`. If `text` is not given, it
+defaults to the node's text contents. `iglob` is like `glob`, but is
 case-insensitive. In addition, we have:
 
 `regex(pattern[, text])`
 
-Like `glob`, but for regular expressions. Matching is unanchored, so `^` and
-`$` must be used if the idea is to match a full string.
+Like `glob`, but for regular expressions. Matching is unanchored, so `^` and `$`
+must be used if the idea is to match a full string.
 
-`name()`
-`lang()`, `assigned-lang()`, inferred-lang()`
-`mixed()`, `empty()`, `plain()`, `text()`
+`name()` `lang()`, `assigned-lang()`, inferred-lang()` `mixed()`, `empty()`,
+`plain()`, `text()`
 
 Returns the corresponding attributes in `Node`.
 
@@ -168,15 +167,13 @@ def parse(file, path=None):
 
 class Node:
 
-	assigned_lang = None
-	"""Language assigned by the user."""
-	inferred_lang = None
-	"""Actual language, inferred by bubbling up the language of children
-	elements."""
-	# XXX likewise need to add assigned_script and inferred_script
-
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
+		self.assigned_lang = None
+		"""Language assigned by the user."""
+		self.inferred_lang = None
+		"""Actual language, inferred by bubbling up the language of
+		children elements."""
 
 	@property
 	def tree(self):
@@ -417,7 +414,7 @@ class Node:
 		return ""
 
 	def xml(self, strip_comments=False, strip_instructions=False,
-		html=False, color=False):
+		html=False, color=False, add_xml_prefix=True):
 		'''Returns an XML representation of this subtree.
 
 		If `html` is true, the result will be escaped, for inclusion
@@ -427,7 +424,7 @@ class Node:
 		'''
 		fmt = Formatter(strip_comments=strip_comments,
 			strip_instructions=strip_instructions, html=html,
-			color=color, add_xml_prefix=True)
+			color=color, add_xml_prefix=False)
 		fmt.format(self)
 		return fmt.text()
 
@@ -892,7 +889,7 @@ class Tag(Branch):
 		if value is None:
 			del self[key]
 			return
-		assert isinstance(value, str), type(value)
+		value = str(value)
 		# Always normalize space.
 		value = " ".join(value.strip().split())
 		if value:
@@ -987,7 +984,7 @@ class Comment(Node, collections.UserString):
 	'''
 
 	def __repr__(self):
-		return self.xml()
+		return repr(self.xml())
 
 	def copy(self):
 		return Comment(self.data)
