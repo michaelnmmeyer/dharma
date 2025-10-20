@@ -1,15 +1,57 @@
 # TODO
 
-for this need to annotate the internal tree with language infos, and do so for both assigned and inferred; or maybe do it just for assigned, and deduce inferred from the internal repr? yes, maybe better.
+---
+
+we're dealing with scripts representation in the db
+
+
+with recursive under_alice(id, level) as (
+values('any', 0)
+union all
+select scripts_list.id, under_alice.level+1
+from scripts_list join under_alice on scripts_list.parent=under_alice.id
+order by 2 desc
+) select substr('..........',1,level*3) || id from under_alice;
+
+
+with recursive under_alice(id, level) as (
+values('any', 0)
+union all
+select scripts_list.id, under_alice.level+1
+from scripts_list join under_alice on scripts_list.parent=under_alice.id
+order by 2 desc
+) select * from under_alice;
+
+
+
+Language assignment works like this.
+
+We do an initial pass on the original TEI document to annotate all nodes with
+language information, as a triple (language name, script name, script maturity).
+Barring a single exception for <foreign>, language information is inherited.
+Then, while parsing the TEI document, we add language information to nodes
+generated for the internal representation.
+
+On the internal representation, we simplify
+
+
+
+---
+
+need to annotate the internal tree with language infos, and do so for both assigned and inferred; or maybe do it just for assigned, and deduce inferred from the internal repr? yes, maybe better.
 
 XXX should extract languages and scripts on the internal representation, not on
 the tei thing.
 
-instead of sticking the assigned lang/inferred lang into the tree, should maintain a separate map, this is too ad hoc.
+instead of sticking the assigned lang/inferred lang into the tree, should maintain a separate map, because adding extra class fields like that is too ad hoc and creates a dependency on the langs module.
+
+---
+
+Dans INSTamilNadu00052, ZST bug:
+
+	{"data":{"ISBN":"","abstractNote":"","accessDate":"","archive":"","archiveLocation":"","callNumber":"","collections":["G2UUBH8S"],"creators":[{"creatorType":"editor","firstName":"Ā.","lastName":"Patmāvati"},{"creatorType":"seriesEditor","firstName":"Irā.","lastName":"Nākacāmi"}],"date":"1979","dateAdded":"2024-02-23T12:39:37Z","dateModified":"2024-02-23T12:45:47Z","edition":"","extra":"","itemType":"book","key":"XIVT87GE","language":"Tamil","libraryCatalog":"","numPages":"","numberOfVolumes":"","place":"Ceṉṉai","publisher":"Tamiḻnāṭu Aracu Tolporuḷ Āyvuttuṟai","relations":{},"rights":"","series":"Tamiḻnāṭṭu kalvetṭukaḷ","seriesNumber":"12","shortTitle":"Patmavati1979_01","tags":[{"tag":"Patmavati1979_01"}],"title":"Naṉṉilam kalveṭṭukkaḷ: mutal tokuti","url":"","version":241226,"volume":""},"key":"XIVT87GE","library":{"id":1633743,"links":{"alternate":{"href":"https://www.zotero.org/groups/erc-dharma","type":"text/html"}},"name":"ERC-DHARMA","type":"group"},"links":{"alternate":{"href":"https://www.zotero.org/groups/erc-dharma/items/XIVT87GE","type":"text/html"},"self":{"href":"https://api.zotero.org/groups/1633743/items/XIVT87GE","type":"application/json"}},"meta":{"createdByUser":{"id":1559253,"links":{"alternate":{"href":"https://www.zotero.org/manufrancis","type":"text/html"}},"name":"","username":"manufrancis"},"creatorSummary":"Patmāvati","numChildren":0,"parsedDate":"1979"},"version":241226}
 
 ## normal displ
-
-Pallava00022 assignmeent des lanuges incorrect
 
 afficher identifiant, nom du dépôt
 
