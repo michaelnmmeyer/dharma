@@ -65,7 +65,114 @@ we can't tell in advance whether @n is unique across the whole file or across th
 """
 
 import re, sys
-from dharma import tree, common
+from dharma import tree, common, languages
+
+########################## Language extraction #################################
+
+def extract_edition_languages(t):
+	"""Produces two maps of the form...
+
+		{lang: {script, script...}, lang: {script, script...}...}
+		{script: {lang, lang...}, script: {lang, lang...}...}
+	"""
+	langs = {}
+	scripts = set()
+	for node in t.find("/document/edition/descendant-or-self::*[@lang]"):
+		lang, script = node["lang"].split()
+		langs.setdefault(lang, set()).add(script)
+		scripts.add(script)
+	# Filter out non-source languages and scripts.
+	db = common.db("texts")
+	ignore_langs = []
+	lang_names = {}
+	for lang in langs:
+		name, src = db.execute("""select name, source from langs_list
+			where id = ?""", (lang,)).fetchone()
+		if src:
+			lang_names[lang] = name
+		else:
+			ignore_langs.append(lang)
+	ignore_scripts = []
+	script_names = {}
+	for script in scripts:
+		name, src = db.execute("""select name, source from scripts_list
+			where id = ?""", (script,)).fetchone()
+		if src:
+			script_names[script] = name
+		else:
+			ignore_scripts.append(script)
+	for lang in ignore_langs:
+		del langs[lang]
+	for lang, lang_scripts in langs.items():
+		for script in ignore_scripts:
+			lang_scripts.discard(script)
+	# And invert the langs map.
+	scripts = {}
+	for lang, lang_scripts in langs.items():
+		for script in lang_scripts:
+			scripts.setdefault(script, set()).add(lang)
+	return langs, scripts, lang_names, script_names
+
+def add_edition_languages(t):
+	"""Need to create a structure like this:
+
+	<document>
+		...
+		<languages>
+			<language id="xxx">
+				<script id="xxxxx"/>
+				<script id="xxxxx"/>
+			</language>
+			<script id="xxxxx">
+				<language id="xxx"/>
+				<language id="xxx"/>
+			</script>
+		</languages>
+		...
+	</document>
+
+	Or maybe it would be better to write a generic serialization function if
+	we need to use maps, etc. for something else.
+	"""
+	langs, scripts, lang_names, script_names = extract_edition_languages(t)
+	lang_nodes = {}
+	for lang in langs:
+		node = tree.Tag("language")
+		lang_id = tree.Tag("identifier")
+		lang_id.append(lang)
+		node.append(lang_id)
+		lang_name = tree.Tag("name")
+		lang_name.append(lang_names[lang])
+		node.append(lang_name)
+		lang_nodes[lang] = node
+	script_nodes = {}
+	for script in scripts:
+		node = tree.Tag("script")
+		script_id = tree.Tag("identifier")
+		script_id.append(script)
+		node.append(script_id)
+		script_name = tree.Tag("name")
+		script_name.append(script_names[script])
+		node.append(script_name)
+		script_nodes[script] = node
+	langs_root = tree.Tag("languages")
+	for lang, lang_scripts in sorted(langs.items()):
+		root = lang_nodes[lang].copy()
+		for script in sorted(lang_scripts):
+			root.append(script_nodes[script].copy())
+		langs_root.append(root)
+	scripts_root = tree.Tag("scripts")
+	for script, script_langs in sorted(scripts.items()):
+		root = script_nodes[script].copy()
+		for lang in sorted(script_langs):
+			root.append(lang_nodes[lang].copy())
+		scripts_root.append(root)
+	t.first("/document").prepend(scripts_root)
+	t.first("/document").prepend(langs_root)
+
+def fix_languages(t):
+	languages.complete_internal(t)
+	add_edition_languages(t)
 
 ################### Whitespace + removal of empty elements #####################
 
@@ -132,7 +239,7 @@ def delete_if_empty(root: tree.Tag):
 	from non-default ones. Not sure how this should be made to work, because
 	for <translation> we have several variations of "default" headings."""
 	if len(root) == 0:
-		if root.name not in ("document", "npage", "nline", "ncell", "key"):
+		if root.name not in ("document", "npage", "nline", "ncell", "key", "language", "script"):
 			root.delete()
 	elif len(root) == 1 and isinstance(root[0], tree.Tag) and root[0].name == "head":
 		root.delete()
@@ -671,7 +778,8 @@ def unwrap_for_physical(root: tree.Branch):
 				pass
 			case "display":
 				if not node["name"]:
-					pass
+					unwrap_for_physical(node)
+					node.unwrap()
 				elif node["name"] == "physical":
 					unwrap_for_physical(node)
 					node.unwrap()
@@ -1067,6 +1175,7 @@ def process_edition(t: tree.Tree, edition: tree.Tag):
 # milestones placement; should merge the processing code for both.
 
 def process(t: tree.Tree):
+	fix_languages(t)
 	# Structural stuff.
 	fix_blocks_within_paras(t)
 	fix_blocks_nesting(t)
@@ -1113,7 +1222,7 @@ if __name__ == "__main__":
 		t = tei.process_file(f).serialize()
 		t = process(t)
 		make_pretty_printable(t)
-		sys.stdout.write(t.xml())
+		sys.stdout.write(t.xml(add_xml_prefix=False))
 	try:
 		main()
 	except BrokenPipeError:

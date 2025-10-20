@@ -51,7 +51,6 @@ def make_db():
 	db.execute("delete from people_github")
 	db.execute("delete from people_main")
 	for row in iter_members_list():
-		logging.info(row)
 		db.execute("""
 		insert into people_main(name, dh_id, affiliation, idhal, idref,
 			orcid, viaf, wikidata)

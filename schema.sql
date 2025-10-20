@@ -29,7 +29,7 @@ pragma mmap_size = 4294967296;
 -- https://sqlite.org/forum/info/5317344555f7a5f2
 -- When we change a collation (or other custom functions that modify
 -- columns, etc.), should always issue a reindex, but this is not done for now.
-pragma integrity_check;
+---XXX pragma integrity_check;
 
 
 begin;
@@ -213,13 +213,21 @@ create table if not exists documents(
 		and json_valid(langs)
 		and json_type(langs) = 'array'
 		and json_array_length(langs) >= 1),
+	-- Scripts (as assigned by the user in each file). There is always at
+	-- least one assigned script, even when none are explicitly given in the
+	-- source file. (In this case, we assign it the script "source_other".)
+	scripts json check(
+		typeof(scripts) = 'text'
+		and json_valid(scripts)
+		and json_type(scripts) = 'array'
+		and json_array_length(scripts) >= 1),
 	summary html check(
 		summary is null
 		or typeof(summary) = 'text' and length(summary) > 0),
 	-- See the enum in change.py
 	status integer check(
 		typeof(status) = 'integer' and status between 0 and 3),
-	foreign key(name, repo) references files(name, repo)
+	foreign key(name) references files(name)
 );
 
 -- Inverted index for the catalog display. We have exactly one row for each text
@@ -233,10 +241,13 @@ create virtual table if not exists documents_index using fts5(
 	editor,
 	editor_id,
 	lang,
+	script,
 	summary,
 	tokenize = "trigram"
 );
 
+-- For fetching leaves: select t1.id from scripts_list t1 left join scripts_list t2 on t1.id = t2.parent where t2.parent is null;
+-- For fetching a subtree:
 create table if not exists scripts_list(
 	-- DHARMA-specific id, e.g. "kharoṣṭhī" or "cam".
 	id text primary key check(typeof(id) = 'text' and length(id) > 0),
@@ -245,14 +256,89 @@ create table if not exists scripts_list(
 	-- Name for sorting, e.g. "Brāhmī, Northern" for "Northern Brāhmī".
 	inverted_name text check(typeof(inverted_name) = 'text'
 		and length(inverted_name) > 0),
-	-- Identifier on https://opentheso.huma-num.fr/opentheso/?idt=th347
+	-- The id of this node's parent, or null if this is the root node.
+	-- There must be a single root node.
+	parent text check(parent is null or typeof(parent) = 'text'
+		and length(parent) > 0) references scripts_list(id),
+	-- Whether this is a script that can be used in an edited text (parallel
+	-- to the same column within the lanugages table).
+	source boolean check(
+		typeof(source) = 'integer' and source = 0 or source = 1)
+);
+
+create table if not exists scripts_by_code(
+        -- DHARMA-specific id (e.g. "kharoṣṭhī" or "cam") or opentheso id
+	-- (e.g. 83219 or 83233). For the opentheso stuff, see:
+	-- https://opentheso.huma-num.fr/opentheso/?idt=th347
 	-- For some reason, our ontologies are on opentheso. We do not actually
 	-- use any of its functionalities. In particular, there are no automatic
 	-- updates of our database if someone modifies the opentheso data. The
 	-- data is manually copied. We keep these identifiers here because they
 	-- are used in XML files. We do not use them for any other purposes.
-	opentheso_id integer unique check(typeof(opentheso_id) = 'integer')
+        code text primary key check(typeof(id) = 'text' and length(id) > 0),
+	id text,
+	foreign key(id) references scripts_list(id)
+		deferrable initially deferred
 );
+
+create view if not exists scripts_display as
+	with scripts_prod as (
+		select json_each.value as script,
+			count(*) as script_prod
+		from documents join json_each(documents.scripts)
+		group by script
+	), scripts_editors_prod as (
+		select scripts_iter.value as script,
+			editor_iter.value as editor,
+			count(*) as editor_prod
+		from documents
+			join json_each(documents.scripts) as scripts_iter
+			join json_each(documents.editors_ids) as editor_iter
+		group by script, editor
+		order by script, editor_prod desc
+	), scripts_repos_prod as (
+		select scripts_iter.value as script,
+			repo,
+			count(*) as repo_prod
+		from documents
+			join json_each(documents.scripts) as scripts_iter
+		group by script, repo
+		order by script, repo_prod desc
+	), scripts_editors_prod_json as (
+		select script,
+			json_group_array(json_array(dh_id, print_name, editor_prod))
+				as editors
+		from scripts_editors_prod
+			join people_main on scripts_editors_prod.editor = people_main.dh_id
+		group by script
+		order by editor_prod desc, inverted_name
+	), scripts_repos_prod_json as (
+		select script,
+			json_group_array(json_array(repo, repo_prod)) as repos
+		from scripts_repos_prod
+		group by script
+	) select
+		scripts_list.id as script,
+		scripts_list.name as name,
+		scripts_prod.script_prod as prod,
+		editors,
+		repos,
+		case iso
+			when null then 'DHARMA-specific'
+			else case custom
+				when true then printf('ISO 639-%d (modified)', iso)
+				else printf('ISO 639-%d', iso)
+			end
+		end as standard
+	from scripts_list
+		join scripts_prod
+			on scripts_list.id = scripts_prod.script
+		join scripts_editors_prod_json
+			on scripts_list.id = scripts_editors_prod_json.script
+		join scripts_repos_prod_json
+			on scripts_list.id = scripts_repos_prod_json.script
+	where scripts_list.source
+	order by scripts_list.inverted_name;
 
 -- Language codes and names, extracted from the data table distributed
 -- with the relevant standards and from the dharma-specific language table

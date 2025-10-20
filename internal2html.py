@@ -106,10 +106,18 @@ def extract_paired(self, node):
 def process_editor(self, node):
 	self.document.editors.append(extract_paired(self, node))
 
-@handler("edition-languages")
-def process_edition_languages(self, node):
-	for lang in node.find("language"):
-		self.document.edition_languages.append(extract_paired(self, lang))
+@handler("languages")
+def process_languages(self, node):
+	for lang_node in node.find("language"):
+		lang = extract_paired(self, lang_node)
+		scripts = []
+		for script_node in lang_node.find("script"):
+			scripts.append(extract_paired(self, script_node))
+		self.document.edition_languages.append((lang, scripts))
+
+@handler("scripts")
+def process_scripts(self, node):
+	pass
 
 @handler("identifier")
 def render_identifier(self, node):

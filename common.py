@@ -19,6 +19,9 @@ logging.basicConfig(level="INFO")
 # message that says an exception was raised, without more info.
 sqlite3.enable_callback_tracebacks(True)
 
+def db_trace_cb(stmt):
+	print(stmt, file=sys.stderr)
+
 def report_callback_error(e):
 	print(f"Exception of type {e.exc_type} in object {e.object!r}",
 		file=sys.stderr)
@@ -177,7 +180,7 @@ def jaccard(s1, s2):
 		return 0
 
 def read_only_db():
-	if os.path.basename(sys.argv[0]) in ("change.py", "repos.py", "langs.py", "prosody.py", "biblio.py"):
+	if os.path.basename(sys.argv[0]) in ("change.py", "repos.py", "languages.py", "prosody.py", "biblio.py"):
 		return False
 	return True
 
@@ -200,6 +203,8 @@ def db(name):
 	conn.create_function("jaccard", 2, jaccard, deterministic=True)
 	conn.create_collation("icu", collate_icu)
 	conn.create_collation("html_icu", collate_html_icu)
+	if os.getenv("DHARMA_DEBUG_SQL"):
+		conn.set_trace_callback(db_trace_cb)
 	if name == "texts":
 		with open(path_of("schema.sql")) as f:
 			sql = f.read()

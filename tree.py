@@ -1210,8 +1210,8 @@ def xpath_name(node):
 
 def xpath_is_source_lang(node, s):
 	assert isinstance(s, str), s
-	from dharma import langs
-	return langs.Language(s).is_source
+	from dharma import languages
+	return languages.Language(s).is_source
 
 def xpath_text(node):
 	assert isinstance(node, Node)

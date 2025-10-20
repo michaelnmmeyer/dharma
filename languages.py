@@ -1,259 +1,236 @@
+"Stuff for dealing with languages and scripts"
+
 # For ISO 639-3 (languages), the authority is https://iso639-3.sil.org
 # For ISO 639-5 (language families), the authority is
 # https://www.loc.gov/standards/iso639-5/index.html
 
 """TODO
 
+where should we stick lang infos in the internal representation? should have
+at least @lang and @script (maybe @maturity). add it to each element, so that
+we don't need stateful processing for figuring out languages.
+
 While processing a tree, need to gather the following info for displaying
-div[@type='edition']: (a) all langs (b) all scripts (c) for each lang, scripts
-it is associated with (d) for each script, langs is it associated with.
+div[@type='edition']: (a) all langs; (b) all scripts; (c) for each lang, scripts
+it is associated with; (d) for each script, langs is it associated with. It is
+simpler to do that on the constructed internal representation.
 
 In addition, should have stats (number of chars, of clusters, etc.) for each
-lang, script, pair of script+lang. But might be easier to fetch the info if we
-use the internal representation instead of the TEI one.
+lang, script, pair of script+lang. But might be easier to gather stats like this
+if we use the internal representation instead of the TEI one.
 
 Save all this stuff that in the catalog, we will decide what to display later
 on.
 
+Should print scripts in a specific page, or maybe on the same page as the one
+used for langs.
+
 """
 
-
-"""TODO
-# XXX we need to treat the apparatus separately when assigning languages. the
-# default should be something like "undetermined source language".
-
-only attempt to find @rendition in div[@type='edition'] and in div[@type='apparatus']
-(because we will need transliteration there). ignore @rendition in other locations.
-should use the same rule we use for languages, for simplicity. but we don't
-need the distinction assigned/inferred for scripts.
-
-pair (language,script)
-
-should assume that scripts are inherited, but are set to "undefined"
-when in a foreign element, and maybe when the language changes.
-
-change category names in the main table:
-  arabic -> arabic_other
-  brāhmī -> brāhmī_other
-  brāhmī_northern -> brāhmī_northern_other
-  brāhmī_southeast
-  brāhmī_southern
-
-what should we do with the script hierarchy? can store it in a sql table,
-but in this case add something for converting this to a json doc.
-
-add a script table to the website, as we did for languages
-
-in the metadata display, print script information.
-"""
-
-import sys, functools, collections
+import sys, re, copy
 import requests # pip install requests
 from dharma import common, texts, tree
 
-# Scripts data pulled from opentheso
-# To link to opentheso, use addresses of the form:
-# https://opentheso.huma-num.fr/opentheso/?idc={classID}&idt={thesaurusID}
-# The thesaurusID of dharma is th347.
 
-Script = collections.namedtuple("Script", "level id name klass")
-ScriptMaturity = collections.namedtuple("ScriptMaturity", "id name klass")
+######################## For annotating TEI documents ##########################
 
-null_script = Script(0, "undetermined", "Undetermined", 0)
-
-scripts = (
-	Script(0, "arabic", "Arabic", 57471),
-		Script(1, "jawi", "Jawi", 70417),
-	Script(0, "brāhmī", "Brāhmī and derivatives", 83217),
-		Script(1, "brāhmī_northern", "Northern class Brāhmī", 83223),
-			Script(2, "bhaikṣukī", "Bhaikṣukī", 84158),
-			Script(2, "gauḍī", "Gauḍī", 83229),
-			Script(2, "nāgarī", "Nāgarī", 38771),
-			Script(2, "siddhamātr̥kā", "Siddhamātr̥kā", 38774),
-		Script(1, "brāhmī_southeast_asian", "Southeast Asian Brāhmī", 83227),
-			Script(2, "balinese", "Balinese", 83239),
-			Script(2, "batak", "Batak", 38767),
-			Script(2, "cam", "Cam", 83233),
-			Script(2, "kawi", "Kawi", 38769),
-			Script(2, "khmer", "Khmer", 83231),
-			Script(2, "mon-burmese", "Mon-Burmese", 83235),
-			Script(2, "javanese_old_west", "Old West Javanese", 83241),
-			Script(2, "pyu", "Pyu", 83237),
-			Script(2, "sundanese", "Sundanese", 57470),
-		Script(1, "brāhmī_southern", "Southern class Brāhmī", 83225),
-			Script(2, "grantha", "Grantha", 38768),
-			Script(2, "kannada", "Kannada", 82857),
-			Script(2, "tamil", "Tamil", 38776),
-			Script(2, "telugu", "Telugu", 81340),
-			Script(2, "vaṭṭeḻuttu", "Vaṭṭeḻuttu", 70420),
-			Script(2, "chinese", "Chinese", 83221),
-	Script(0, "kharoṣṭhī", "Kharoṣṭhī", 83219),
-	Script(0, "undetermined", "Undetermined", 0),
-	null_script,
-)
-
-default_script = null_script
-
-null_script_maturity = ScriptMaturity("null", "Null", 0)
-
-scripts_maturity = (
-	ScriptMaturity("early", "Early Brāhmī", 83207),
-	ScriptMaturity("late", "Late Brāhmī", 83211),
-	ScriptMaturity("middle", "Middle Brāhmī", 83209),
-	ScriptMaturity("regional", "Regional Brāhmī-derived script", 83213),
-	ScriptMaturity("vernacular", "Vernacular Brāhmī-derived script", 83215),
-	null_script_maturity,
-)
-
-script_from_ident = {
-	**{script.id: script for script in scripts},
-	**{str(script.klass): script for script in scripts},
-}
-def get_script(ident):
-	return script_from_ident.get(ident, null_script)
-
-script_maturity_from_ident = {
-	**{script.id: script for script in scripts_maturity},
-	**{str(script.klass): script for script in scripts_maturity},
-}
-def get_script_maturity(ident):
-	return script_maturity_from_ident.get(ident, null_script_maturity)
-
-Pair = collections.namedtuple("Pair", "lang script children")
-
-AltLang = collections.namedtuple("AltLang", "lang children")
-
-def alloc_lang(ctx, node, dflt):
-	lang = lang_attr(node)
-	if not lang:
-		return dflt
-	ret = ctx.get(lang)
-	if not ret:
-		tmp = Language(lang)
-		ret = ctx.get(tmp.id)
-		if not ret:
-			ret = tmp
-			ctx[ret.id] = ret
-	return ret
-
-def alloc_script(ctx, node, dflt):
-	script = script_attr(node)
-	if not script:
-		return dflt
-	ret = ctx.get(script)
-	if not ret:
-		tmp = Script(script)
-		ret = ctx.get(tmp.id)
-		if not ret:
-			ret = tmp
-			ctx[ret.id] = ret
-	return ret
-
-# For assigning languages, we follow the basic inheritance rule: if a tag does
-# not have an @xml:lang, it is assigned the language assigned its parent. But
-# there are exceptions:
-# * If the tag is "lem" or "rdg" and does not have an @xml:lang, we assign it
-#   the language it would be assigned if it occurred in the edition div, under
-#   the same textparts (if any). We only expect to find "lem" and "rdg" in the
-#   apparatus.
-# * If the tag is "foreign" and does not have an @xml:lang, we assume it is in
-#   some source language (as per the guide) and assign it a generic language
-#   code named "source" that represents any source language (per contrast with
-#   languages used in translations) viz. the union of all source languages.
+# We interpret @xml:lang only on these elements. If another element has an
+# @xml:lang, we act as if it did not exist, and assign to it the language of its
+# parent node.
 #
-# Furthermore, we store two language values per node:
-# * Inherited language. Assigned when traversing the tree top-down. This follows
-#   what people have indicated.
-# * Inferred language. Assigned by bubbling up language values bottom-up. This
-#   value is intended to be used for text processing (tokenization, etc.).
-# If e.g. the original XML is <a lang="eng"><b lang="fra"><c>foo</c></b></a>
-# the inherited language of <c> is "fra"; and the inferred language of <a> is
-# "fra", even though the user assigned it the language "eng", because it only
-# contains French text.
+# This must be kept in sync with the TEI parsing code.
+#
+# The reason we do not take all elements into account is that this would entail
+# much modifications to the TEI parsing code (because we would need to pass
+# a @lang parameter to most newly created elements).
+tei_language_sensitive = {
+	"div", "note", "p", "ab", "lg", "q", "head", "quote",
+	"label", "foreign", "seg",
+}
 
-def lang_attr(node):
-	return node["lang"].split("-")[0]
+class LanguageInfo:
 
-def script_attr(node):
-	for field in node["rendition"].split():
-		val = field.removeprefix("class:")
-		if val:
-			return val
-	return ""
+	def __init__(self, language="eng", script="latin", maturity="", is_source=False):
+		self.language = language
+		self.is_source = is_source
+		self.script = script
+		self.script_maturity = maturity
 
-def fetch_alt_langs(ctx, node, default_lang):
-	path = "TEI/text/body/div[@type='edition']".split("/")
-	lang = default_lang
-	for name in path:
-		node = node.first(name)
-		if not node:
-			return AltLang(lang, {})
-		lang = alloc_lang(ctx, node, lang)
-	final = AltLang(lang, {})
-	stack = [(node, final)]
-	while stack:
-		node, struct = stack.pop()
-		for child in node.find("div[@type='textpart' and @n]"):
-			n = child["n"]
-			lang = alloc_lang(ctx, child, struct.lang)
-			child_struct = AltLang(lang, {})
-			struct.children[n] = child_struct
-			stack.append((child, child_struct))
-	return final
+	def __repr__(self):
+		return f"LanguageInfo({self.language}, {self.script}, {self.script_maturity})"
 
-def wait_div(ctx, node, parent_lang, alt_lang, f):
-	assert f is wait_div
-	if node.name == "div":
-		if node["type"] in ("edition", "apparatus"):
-			f = wait_textpart
-		else:
-			f = assign_language
-	assign_language(ctx, node, parent_lang, alt_lang, f)
+	def _fields(self):
+		return (self.language, self.script, self.script_maturity)
 
-def wait_textpart(ctx, node, parent_lang, alt_lang, f):
-	assert f is wait_textpart
-	if node.matches("div[@type='textpart' and @n]"):
-		n = node["n"]
-		child_lang = alt_lang.children.get(n)
-		if not child_lang:
-			child_lang = AltLang(alt_lang.lang, {})
-			alt_lang.children[n] = child_lang
-		alt_lang = child_lang
-	else:
-		f = assign_language
-	assign_language(ctx, node, parent_lang, alt_lang, f)
+	def __eq__(self, other):
+		return self._fields() == other._fields()
 
-def assign_language(ctx, node, parent_lang, alt_lang, f):
-	match node.name:
-		case "lem" | "rdg":
-			lang = alloc_lang(ctx, node, alt_lang.lang)
-		case "foreign":
-			lang = alloc_lang(ctx, node, Source)
-		case "g":
-			node.assigned_lang = node.inferred_lang = alloc_lang(ctx, node, parent_lang)
-			return
+	def __hash__(self):
+		return hash(self._fields())
+
+	def __str__(self):
+		return f"{self.language} {self.script}"
+
+	def copy(self):
+		import copy
+		return copy.copy(self)
+
+def recurse(root):
+	match root:
+		case tree.Tree():
+			root.assigned_lang = LanguageInfo()
+			for child in root:
+				recurse(child)
+		case tree.Tag():
+			root.assigned_lang = extract_language(root)
+			for child in root:
+				recurse(child)
 		case _:
-			lang = alloc_lang(ctx, node, parent_lang)
-	node.assigned_lang = lang
-	langs = set()
-	for child in node:
-		match child:
-			case tree.String() if not child.isspace():
-				child.assigned_lang = child.inferred_lang = lang
-			case tree.Tag():
-				f(ctx, child, lang, alt_lang, f)
-			case _:
-				continue
-		langs.add(child.inferred_lang)
-	if len(langs) == 1:
-		lang = langs.pop()
-	node.inferred_lang = lang
+			root.assigned_lang = root.parent.assigned_lang
+	root.inferred_lang = root.assigned_lang
+
+def language_significant(root):
+	match root:
+		case tree.Tree():
+			raise Exception
+		case tree.Tag():
+			return True
+		case tree.Comment():
+			return False
+		case tree.String():
+			return not root.isspace()
+		case tree.Instruction():
+			return False
+
+def bubble_up(root):
+	match root:
+		case tree.Branch():
+			for child in root:
+				bubble_up(child)
+			langs = set()
+			for child in root:
+				if not language_significant(child):
+					continue
+				langs.add(child.inferred_lang)
+			if len(langs) == 1:
+				root.inferred_lang = langs.pop()
+		case _:
+			pass
+
+def extract_language(node):
+	if node.assigned_lang:
+		return node.assigned_lang
+	if node.name not in tei_language_sensitive:
+		return node.parent.assigned_lang
+	lang_id = node["lang"].split("-")[0]
+	script_elems = node["rendition"].split()
+	script_id = script_maturity = ""
+	is_source = None
+	for elem in script_elems:
+		if elem.startswith("class:"):
+			tmp = elem.removeprefix("class:")
+			if tmp == "undetermined":
+				tmp = ""
+			script_id = tmp
+		if elem.startswith("maturity:"):
+			tmp = elem.removeprefix("maturity:")
+			if re.fullmatch(r"0+", tmp) or tmp == "undetermined":
+				tmp = ""
+			script_maturity = tmp
+	# We inherit separately: language and script, but _not_ the script
+	# maturity if it stands on its own.
+	if lang_id:
+		db = common.db("texts")
+		lang_id, is_source = db.execute("""
+			select langs_list.id, langs_list.source
+			from langs_list join langs_by_code
+				on langs_list.id = langs_by_code.id
+			where langs_by_code.code = ?""",
+			(lang_id,)).fetchone() or ("und", False)
+	if script_id:
+		db = common.db("texts")
+		(script_id,) = db.execute("""select id from scripts_by_code
+			where code = ?""", (script_id,)).fetchone() or ("any_other",)
+	if not lang_id and not script_id:
+		return node.parent.assigned_lang
+	infos = node.parent.assigned_lang.copy()
+	if lang_id:
+		infos.language = lang_id
+		infos.is_source = is_source
+	if script_id:
+		infos.script = script_id
+		if script_maturity:
+			infos.script_maturity = script_maturity
+		else:
+			infos.script_maturity = ""
+	if infos != node.parent.assigned_lang:
+		return infos
+	return node.parent.assigned_lang
 
 def assign_languages(t):
-	ctx = {}
-	dflt = Language("eng")
-	alt_lang = fetch_alt_langs(ctx, t, dflt)
-	wait_div(ctx, t.root, dflt, alt_lang, wait_div)
+	"""For assigning languages, we follow the basic inheritance rule: if a
+        tag does not have an @xml:lang, it is assigned the language assigned its
+        parent. But there are exceptions:
+
+        ¶ If the tag is "foreign" and does not have an @xml:lang, we assume it
+        is in some source language (as per the guide) and assign it a generic
+        language named "source" and a script named "source" as well. These
+        represent any source language (per contrast with languages used in
+        translations).
+
+	Furthermore, we store two language values per node:
+
+	¶ Assigned language. Assigned when traversing the tree top-down. This
+        follows what people explicitly indicate for @xml:lang.
+
+	¶ Inferred language. Assigned by bubbling up language values bottom-up.
+        This value is intended to be used for text processing (tokenization,
+        etc.). If e.g. the original XML is <a lang="eng"><b
+        lang="fra"><c>foo</c></b></a> the inherited language of <c> is "fra";
+        and the inferred language of <a> is "fra", even though the user assigned
+        it the language "eng", because it only contains French text.
+	"""
+	for node in t.find("//foreign[not @lang]"):
+		node.assigned_lang = LanguageInfo(language="und", script="source_other")
+	recurse(t)
+	bubble_up(t)
+
+##################### For annotating internal documents ########################
+
+# Assign a language attribute to all these tags, and only to them. In any
+# case, we need tags that might contain plain text to have a language tag, so
+# that, to check the language of any piece of text, we only need to check the
+# language assigned to its parent element.
+internal_language_accepting = {
+	"edition", "apparatus", "translation", "commentary", "bibliography",
+	"summary", "hand", "title",
+	"div", "head", "quote", "source", "note", "para", "verse",
+	"span", "link", "display",
+}
+
+def complete_internal(t):
+	add_language_info(t)
+
+def add_language_info(node, lang="eng latin"):
+	match node:
+		case tree.Tree():
+			for child in node:
+				add_language_info(child)
+		case tree.Tag():
+			if node.name in internal_language_accepting:
+				if node["lang"]:
+					lang = node["lang"]
+				else:
+					node["lang"] = lang
+			else:
+				assert not node["lang"], node.xml()
+			for child in node:
+				add_language_info(child, lang)
+		case _:
+			pass
+
+
+############################ Database access ###################################
 
 def fetch_tsv(file):
 	"""Fetch a TSV file from some given source. `file` can be: a
@@ -302,6 +279,7 @@ def load_data():
 	recs = []
 	index = {}
 	for row in tbl3:
+		assert row["Id"]
 		rec = {
 			"id": row["Id"],
 			"name": row["Ref_Name"],
@@ -366,124 +344,6 @@ def from_code(s):
 		""", (s,)).fetchone() or (None,)
 	return ret
 
-lang_data = collections.namedtuple("lang_data", "id name inverted_name source")
-default_lang = lang_data("und", "Undetermined", "Undetermined", True) # XXX need this to actually exist in the DB!
-
-script_data = collections.namedtuple("script_data", "id name inverted_name opentheso_id")
-default_script = script_data("undetermined", "Undetermined", "Undetermined", 0)
-
-@functools.total_ordering
-class Script2:
-
-	def __init__(self, key):
-		self.key = key
-		self._data = None
-
-	def _fetch(self):
-		ret = self._data
-		if not ret:
-			db = common.db("texts")
-			ret = db.execute("""
-			select id, name, inverted_name, opentheso_id
-			from scripts_list
-			where id = ? or opentheso_id = ?
-			""", (self.key,)).fetchone()
-			if ret:
-				ret = script_data(ret["id"], ret["name"],
-					ret["inverted_name"], ret["opentheso_id"])
-			else:
-				ret = default_script
-			self._data = ret
-		return ret
-
-	def __str__(self):
-		return self.name
-
-	def __repr__(self):
-		return f"Script({self.key})"
-
-	@property
-	def id(self):
-		return self._fetch().id
-
-	@property
-	def name(self):
-		return self._fetch().name
-
-	@property
-	def inverted_name(self):
-		return self._fetch().inverted_name
-
-	@property
-	def opentheso_id(self):
-		return self._fetch().opentheso_id
-
-	def __hash__(self):
-		return hash(self.id)
-
-	def __lt__(self, other):
-		return self.inverted_name < other.inverted_name
-
-	def __eq__(self, other):
-		return self.id == other.id
-
-@functools.total_ordering
-class Language:
-
-	def __init__(self, key):
-		self.key = key
-		self._data = None
-
-	def _fetch(self):
-		ret = self._data
-		if not ret:
-			db = common.db("texts")
-			ret = db.execute("""
-			select id, name, inverted_name, source
-			from langs_list natural join langs_by_code
-			where code = ?
-			""", (self.key,)).fetchone()
-			if ret:
-				ret = lang_data(ret["id"], ret["name"],
-					ret["inverted_name"], ret["source"])
-			else:
-				ret = default_lang
-			self._data = ret
-		return ret
-
-	def __str__(self):
-		return self.name
-
-	def __repr__(self):
-		return f"Lang({self.key})"
-
-	@property
-	def id(self):
-		return self._fetch().id
-
-	@property
-	def name(self):
-		return self._fetch().name
-
-	@property
-	def inverted_name(self):
-		return self._fetch().inverted_name
-
-	@property
-	def is_source(self):
-		return self._fetch().source
-
-	def __hash__(self):
-		return hash(self.id)
-
-	def __lt__(self, other):
-		return self.inverted_name < other.inverted_name
-
-	def __eq__(self, other):
-		if isinstance(other, str):
-			return self.id == other
-		return self.id == other.id
-
 def make_db():
 	db = common.db("texts")
 	recs, index = load_data()
@@ -501,80 +361,114 @@ def make_db():
 	for code, rec in sorted(index.items()):
 		db.execute("insert into langs_by_code(code, id) values(?, ?)", (code, rec["id"]))
 
-Undetermined = Language("und")
-Undetermined._data = default_lang
+class Script:
 
-Source = Language("source")
-Source._data = lang_data("source", "Source", "Source", True) # XXX need to exist in the DB!
+	def __init__(self, id, opentheso_id, name, inverted_name, children=[],
+		source=True):
+		self.id = id
+		self.opentheso_id = opentheso_id
+		self.name = name
+		self.inverted_name = inverted_name
+		self.children = children
+		self.source = source
+
+# In our TEI encoding, people have the option to use a non-leaf script category
+# (like "arabic") or a leaf script category (like "jawi"). For search, we want
+# all assigned scripts to be leaves. Thus, for the internal representation, we
+# create complementary categories in such a way that all branches have a
+# complementary leaf. For "arabic", we thus have two subcategories "jawi" and
+# "arabic_other"; the latter is used when the user indicated "arabic", so that
+# the identifier "arabic" remains available for search and does mean "anything
+# in arabic, whether jawi or not".
+scripts_hierarchy = Script("any", 0, "Any", "Any", children=[
+	Script("source", 0, "Source Script", "Source Script", children=[
+		Script("arabic", 57471, "Arabic", "Arabic", children=[
+			Script("jawi", 70417, "Jawi", "Jawi"),
+		]),
+		Script("brāhmī", 83217, "Brāhmī", "Brāhmī", children=[
+			Script("brāhmī_northern", 83223, "Northern Brāhmī", "Brāhmī, Northern", children=[
+				Script("bhaikṣukī", 84158, "Bhaikṣukī", "Bhaikṣukī"),
+				Script("gauḍī", 83229, "Gauḍī", "Gauḍī"),
+				Script("nāgarī", 38771, "Nāgarī", "Nāgarī"),
+				Script("siddhamātr̥kā", 38774, "Siddhamātr̥kā", "Siddhamātr̥kā"),
+			]),
+			Script("brāhmī_southeast_asian", 83227, "Southeast Asian Brāhmī", "Brāhmī, Southeast Asian", children=[
+				Script("balinese", 83239, "Balinese", "Balinese"),
+				Script("batak", 38767, "Batak", "Batak"),
+				Script("cam", 83233, "Cam", "Cam"),
+				Script("kawi", 38769, "Kawi", "Kawi"),
+				Script("khmer", 83231, "Khmer", "Khmer"),
+				Script("mon-burmese", 83235, "Mon-Burmese", "Mon-Burmese"),
+				Script("javanese_old_west", 83241, "Old West Javanese", "Javanese, Old West"),
+				Script("pyu", 83237, "Pyu", "Pyu"),
+				Script("sundanese", 57470, "Sundanese", "Sundanese"),
+			]),
+			Script("brāhmī_southern", 83225, "Southern Brāhmī", "Brāhmī, Southern", children=[
+				Script("grantha", 38768, "Grantha", "Grantha"),
+				Script("kannada", 82857, "Kannada", "Kannada"),
+				Script("tamil", 38776, "Tamil", "Tamil"),
+				Script("telugu", 81340, "Telugu", "Telugu"),
+				Script("vaṭṭeḻuttu", 70420, "Vaṭṭeḻuttu", "Vaṭṭeḻuttu"),
+			]),
+		]),
+		Script("chinese", 83221, "Chinese", "Chinese"),
+		Script("kharoṣṭhī", 83219, "Kharoṣṭhī", "Kharoṣṭhī"),
+	]),
+	Script("latin", 0, "Latin", "Latin", source=False),
+])
+
+def process_scripts(db, script, parent):
+	db.execute("""
+		insert into scripts_list(id, name, inverted_name, parent, source)
+		values(?, ?, ?, ?, ?)""", (script.id, script.name,
+		script.inverted_name, parent, script.source))
+	if script.children:
+		compl = Script(id=script.id + "_other",
+			opentheso_id=script.opentheso_id,
+			name=script.name + " (other)",
+			inverted_name=script.inverted_name + " (other)",
+			source=script.source)
+		script.children.append(compl)
+		db.execute("""insert into scripts_by_code(code, id)
+			values(?, ?)""", (script.id, script.id + "_other"))
+		for child in script.children:
+			process_scripts(db, child, script.id)
+	else:
+		codes = [script.id]
+		if script.opentheso_id:
+			codes.append(script.opentheso_id)
+		for code in codes:
+			db.execute("""insert into scripts_by_code(code, id)
+				values(?, ?)""", (code, script.id))
+
+@common.transaction("texts")
+def make_scripts_tables():
+	db = common.db("texts")
+	db.execute("delete from scripts_by_code")
+	db.execute("delete from scripts_list")
+	process_scripts(db, scripts_hierarchy, None)
 
 @common.transaction("texts")
 def main():
-	t = tree.parse(sys.stdin)
+	f = sys.argv[1]
+	t = tree.parse(f)
+
 	assign_languages(t)
-	for node in t.find("//*"):
-		print(node.path, node.assigned_lang, node)
 
-def print_scripts():
-	for script in scripts:
-		print(f'<valItem ident="class:{script.klass:0{5}}"><desc>{script.name}</desc></valItem>')
-		print(f'<valItem ident="class:{script.id}"><desc>{script.name}</desc></valItem>')
-	for script in scripts_maturity:
-		print(f'<valItem ident="maturity:{script.klass:0{5}}"><desc>{script.name}</desc></valItem>')
-		print(f'<valItem ident="maturity:{script.id}"><desc>{script.name}</desc></valItem>')
-
-
-scripts_list = [
-	[("arabic", "Arabic", 57471),
-		("jawi", "Jawi", 70417)
-	],
-	[("brāhmī", "Brāhmī", 83217, "Brāhmī"),
-		[("brāhmī_northern", "Northern Brāhmī", 83223, "Brāhmī, Northern"),
-			("bhaikṣukī", "Bhaikṣukī", 84158),
-			("gauḍī", "Gauḍī", 83229),
-			("nāgarī", "Nāgarī", 38771),
-			("siddhamātr̥kā", "Siddhamātr̥kā", 38774)],
-		[("brāhmī_southeast_asian", "Southeast Asian Brāhmī", 83227, "Brāhmī, Southeast Asian"),
-			("balinese", "Balinese", 83239),
-			("batak", "Batak", 38767),
-			("cam", "Cam", 83233),
-			("kawi", "Kawi", 38769),
-			("khmer", "Khmer", 83231),
-			("mon-burmese", "Mon-Burmese", 83235),
-			("javanese_old_west", "Old West Javanese", 83241, "Javanese, Old West"),
-			("pyu", "Pyu", 83237),
-			("sundanese", "Sundanese", 57470)],
-		[("brāhmī_southern", "Southern Brāhmī", 83225, "Brāhmī, Southern"),
-			("grantha", "Grantha", 38768),
-			("kannada", "Kannada", 82857),
-			("tamil", "Tamil", 38776),
-			("telugu", "Telugu", 81340),
-			("vaṭṭeḻuttu", "Vaṭṭeḻuttu", 70420),
-			("chinese", "Chinese", 83221)],
-	],
-	("kharoṣṭhī", "Kharoṣṭhī", 83219),
-	("undetermined", "Undetermined", 0),
-]
-@common.transaction("texts")
-def insert_scripts():
-	db = common.db("texts")
-	db.execute("delete from scripts_list")
-	def inner(scripts, parent):
-		for items in scripts:
-			if isinstance(items, list):
-				script = items[0]
-			else:
-				script = items
-			if len(script) == 3:
-				ident, name, opentheso_id = script
-				inverted_name = name
-			elif len(script) == 4:
-				ident, name, opentheso_id, inverted_name = script
-			db.execute("""
-			insert into scripts_list(id, name, inverted_name, opentheso_id)
-			values(?, ?, ?, ?)""", (ident, name, inverted_name, opentheso_id))
-			if isinstance(items, list):
-				inner(items[1:], ident)
-	inner(scripts_list, None)
+	def print_stuff(root):
+		match root:
+			case tree.Branch():
+				print(root.assigned_lang, root.inferred_lang, root)
+				for node in root:
+					print_stuff(node)
+			case _:
+				print(root.assigned_lang, root.inferred_lang, repr(root))
+	print_stuff(t)
 
 if __name__ == "__main__":
-	insert_scripts()
+	#main()
+	#make_scripts_tables()
+	@common.transaction("texts")
+	def f():
+		load_data()
+	f()

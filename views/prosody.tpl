@@ -45,11 +45,11 @@ Prosodic Patterns
 % endif
 
 % if item["names"]:
-% for name, lang in item["names"]:
+% for name, (lang_id, lang_name) in item["names"]:
 	% if loop.index < loop.length:
-		<i>{{name}}</i> ({{lang}}),
+		<i>{{name}}</i> ({{lang_name}}),
 	% else:
-		<i>{{name}}</i> ({{lang}})
+		<i>{{name}}</i> ({{lang_name}})
 	% endif
 % endfor
 % endif

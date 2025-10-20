@@ -54,11 +54,17 @@ def make_document_record(file, doc: tree.Tree):
 		authors.append(node.text())
 	rec["authors"] = authors
 	langs = []
-	for node in doc.find("/document/edition-languages/language/identifier"):
+	for node in doc.find("/document/languages/language/identifier"):
 		langs.append(node.text())
 	if not langs:
 		langs = ["und"]
 	rec["langs"] = langs
+	scripts = []
+	for node in doc.find("/document/scripts/script/identifier"):
+		scripts.append(node.text())
+	if not scripts:
+		scripts = ["source_other"]
+	rec["scripts"] = scripts
 	editors = []
 	for node in doc.find("/document/editor/name"):
 		editors.append(node.text())
@@ -98,6 +104,10 @@ def make_searchable_record(data):
 		rec["lang"] = common.normalize_text("|".join(langs))
 	else:
 		rec["lang"] = None
+	if (scripts := data.get("scripts")):
+		rec["script"] = common.normalize_text("|".join(scripts))
+	else:
+		rec["script"] = None
 	if (summary := data.get("summary")):
 		rec["summary"] = common.normalize_text(summary.text())
 	else:
@@ -118,6 +128,7 @@ def insert(file: texts.File):
 		data["title"] = None
 		data["authors"] = []
 		data["langs"] = ["und"]
+		data["scripts"] = ["source_other"]
 		data["editors"] = []
 		data["editors_ids"] = []
 		data["summary"] = None
@@ -132,18 +143,18 @@ def insert(file: texts.File):
 		data["summary"] = html_doc.summary.html()
 	db.execute("""
 	insert or replace into documents(name, repo, title, authors, editors,
-		editors_ids, langs, summary, status)
+		editors_ids, langs, summary, status, scripts)
 	values (:name, :repo, :title, :authors, :editors, :editors_ids, :langs,
-	    	:summary, :status)""", data)
+	    	:summary, :status, :scripts)""", data)
 	# We cannot have a primary key on documents_index (because fts virtual
 	# tables do not support this), so we cannot use "insert or replace" and
 	# must instead do a delete followed by an insert.
 	db.execute("delete from documents_index where name = ?", (file.name,))
 	db.execute("""
 	insert into documents_index(name, ident, repo, title, author, editor,
-		editor_id, lang, summary)
+		editor_id, lang, summary, script)
 	values (:name, :ident, :repo, :title, :author, :editor,
-		:editor_id, :lang, :summary)""", search)
+		:editor_id, :lang, :summary, :script)""", search)
 
 # Rebuild the full catalog with the data already present in the db, i.e. without
 # fetching files from github repos but instead from the db. This should be used

@@ -70,10 +70,19 @@
 % if doc.edition_languages:
 <div class="metadata-item">
 <p>{{numberize("Language", len(doc.edition_languages))}}:
-   % for lang_ident, lang_name in doc.edition_languages:
-      {{lang_name.html() | safe}}
-      (<a href="/languages/{{lang_ident.text()}}" class="monospace">{{lang_ident.html() | safe}}</a>){% if loop.index < loop.length %},{% else %}.{% endif %}
-   % endfor
+% for (lang_ident, lang_name), scripts in doc.edition_languages:
+	{{lang_name.html() | safe}}
+	(<a href="/languages/{{lang_ident.text()}}" class="monospace">{{lang_ident.html() | safe}}</a>)
+	{% if scripts %}
+	[
+	{%- for script_ident, script_name in scripts -%}
+		{{script_name.html() | safe}}
+		({{script_ident.html() | safe}})
+	{%- endfor -%}
+	]
+	{%- endif -%}
+	{%- if loop.index < loop.length %},{% else %}.{% endif -%}
+% endfor
 </p>
 </div>
 % endif

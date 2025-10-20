@@ -2,7 +2,7 @@
 # TEI file for encoding it instead of a markdown file. Do this and reuse the
 # "common" code for parsing TEI files.
 
-from dharma import tree, common, langs, texts, tei
+from dharma import tree, common, languages, texts, tei
 import bs4, copy
 
 tpl = """
@@ -16,7 +16,7 @@ tpl = """
 def parse_xml(context, code):
 	data = tpl.format(context=context, code=code).encode()
 	t = tree.parse_string(data, path="whatever")
-	langs.assign_languages(t)
+	languages.assign_languages(t)
 	html = tree.html_format(t.first(f"//div[@type='{context}']"), skip_root=True)
 	file = texts.File("whatever", "whatever")
 	setattr(file, "_data", data)

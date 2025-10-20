@@ -25,7 +25,7 @@ Make a repository unshallow: git fetch --unshallow
 """
 
 import os, sys, time, select, errno, logging, fcntl, argparse, traceback
-from dharma import common, texts, biblio, catalog, people, langs
+from dharma import common, texts, biblio, catalog, people, languages
 from dharma import gaiji, prosody, repos
 
 SKIP_PULL = False
@@ -178,7 +178,7 @@ def update_project():
 	# TODO add tests to verify whether the files we need changed, to avoid
 	# doing a full rebuild when not necessary.
 	people.make_db()
-	langs.make_db()
+	languages.make_db()
 	gaiji.make_db()
 	prosody.make_db()
 	repos.make_db()
@@ -193,12 +193,6 @@ def update_project():
 	# XXX we also need to store schemas in the db, but for this we need to
 	# derive them at runtime
 
-# Request from Arlo. This should eventually removed in favor of an export to
-# electronic-texts.
-def backup_to_jawakuno():
-	common.command("bash", "-x", common.path_of("backup_to_jawakuno.sh"),
-		capture_output=False)
-
 def backup_biblio():
 	common.command("bash", "-x", common.path_of("backup_biblio.sh"),
 		capture_output=False)
@@ -212,8 +206,6 @@ def handle_changes(name):
 		update_db(name)
 	db = common.db("texts")
 	db.execute("replace into metadata values('last_updated', strftime('%s', 'now'))")
-	if name == "tfd-nusantara-philology":
-		backup_to_jawakuno()
 
 # Must be at least this big in POSIX. Linux currently has 4096.
 PIPE_BUF = 512

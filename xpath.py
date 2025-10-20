@@ -1,5 +1,5 @@
 import argparse, sys
-from dharma import common, tree, langs
+from dharma import common, tree, languages
 
 # TODO
 # in xpath maybe support yielding strings (only need this for the last component,
@@ -20,7 +20,7 @@ def main():
 	for file in args.file:
 		try:
 			t = tree.parse(file)
-			langs.assign_languages(t)
+			languages.assign_languages(t)
 		except tree.Error:
 			continue
 		for result in f(t):

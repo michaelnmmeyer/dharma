@@ -1,6 +1,6 @@
 from glob import iglob
 import sys
-from dharma import tree, langs
+from dharma import tree, languages
 
 files = sorted(f for f in iglob("texts/DHARMA_INS*") if not "DHARMA_INSEC" in f)
 

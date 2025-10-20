@@ -2,6 +2,8 @@ import sys, re
 from dharma import tree
 
 """
+créer un display pour chaque année; et recherche sur tout le contenu.
+
 first file we have:
 <!--<p>Ā A2 A4 Ã Ä A9 B1 B2 B9 C1 C3 C4 C6 D1 Ḍ D4 D5 D6 E1 E2 E4 E5 Ë F1 G6 H2 Ī I2 I4 Ï K1 K2 K6
 Ḷ L6 M3 M7 Ṇ Ṅ Ñ N6 O1 O4 Õ P1 Q4 Ṛ R6 S1 Ṣ Ś S6 Ṭ T6 Ū U5 Ü V6 ā a2 a3 a4 ã a6 ä c1

@@ -1,8 +1,6 @@
 #XXX cleanup this
 import html, re
-from dharma import common, tree, biblio, people, texts, langs
-
-lang_attr = langs.lang_attr
+from dharma import common, tree, biblio, people, texts, languages
 
 def make_db():
 	texts.save("project-documentation", "DHARMA_prosodicPatterns_v01.xml")
@@ -10,7 +8,6 @@ def make_db():
 	db = common.db("texts")
 	db.execute("delete from prosody")
 	for row in index:
-		print(row)
 		if isinstance(row["pattern"], tree.Node):#XXX cleanup
 			row["pattern"] = row["pattern"].xml()
 		# TODO do something sensible when we have duplicates. Should
@@ -112,8 +109,12 @@ latex_note_symbols = ("*", "†", "‡", "§", "¶", "‖", "**", "††", "‡
 def get_lang(cache, code):
 	ret = cache.get(code)
 	if not ret:
-		ret = langs.Language(code)
-		cache[ret.id] = ret
+		(id, name) = common.db("texts").execute("""
+			select langs_list.id as id, langs_list.name as name
+			from langs_by_code join langs_list
+				on langs_by_code.id = langs_list.id
+			where langs_by_code.id = ?""", (code,)).fetchone()
+		cache[id] = ret = (id, name)
 	return ret
 
 def parse_list_rec(item, bib_entries, langs):
@@ -144,7 +145,7 @@ def parse_list_rec(item, bib_entries, langs):
 	assert len(klass) <= 1
 	if klass:
 		klass = klass[0]
-		lang = get_lang(langs, lang_attr(klass) or "und")
+		lang = get_lang(langs, klass["lang"].split("-")[0] or "und")
 		klass = klass.text()
 		if klass:
 			rec["class"] = (klass, lang)
@@ -155,7 +156,7 @@ def parse_list_rec(item, bib_entries, langs):
 		text = name.text()
 		if not text:
 			continue
-		lang = get_lang(langs, lang_attr(name) or "und")
+		lang = get_lang(langs, name["lang"].split("-")[0] or "und")
 		rec["names"].append((text, lang))
 	# <seg type="xml">----+-+---+-+---=/++++-+-+---+-+---=</seg>
 	# <seg type="prosody">⏑⏑⏑⏑–⏑–⏑⏑⏑–⏑||–⏑⏑⏑⏓/––––⏑–⏑–⏑⏑⏑–⏑–⏑⏑⏑⏓</seg>

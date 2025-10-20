@@ -1,5 +1,13 @@
 # TODO
 
+
+insert or replace into files(name, repo, path, mtime, last_modified_commit, last_modified, data) values('DHARMA_INSKarnataka20001', 'tfb-kalyanacalukya-epigraphy', 'xml-provisional/DHARMA_INSKarnataka20001.xml', 1761238022, 'c7eaea627a09428460bb664a955a1e0498121b9a', 1761030581, x'3c3f');
+
+
+
+XXX do commit several times (or maybe savepoint+release) when rebuilding the
+catalog.
+
 ---
 
 we're dealing with scripts representation in the db
@@ -24,15 +32,12 @@ order by 2 desc
 
 
 
-Language assignment works like this.
+Language assignment should work like this.
 
-We do an initial pass on the original TEI document to annotate all nodes with
-language information, as a triple (language name, script name, script maturity).
-Barring a single exception for <foreign>, language information is inherited.
-Then, while parsing the TEI document, we add language information to nodes
-generated for the internal representation.
-
-On the internal representation, we simplify
+Do an initial pass on the original TEI document to annotate all nodes with
+language information (language name, script name, script maturity). But we do
+not actually use script maturity for now, because this would create additional
+difficulties and does not seem really useful.
 
 
 
