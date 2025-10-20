@@ -1,5 +1,12 @@
 # TODO
 
+for this need to annotate the internal tree with language infos, and do so for both assigned and inferred; or maybe do it just for assigned, and deduce inferred from the internal repr? yes, maybe better.
+
+XXX should extract languages and scripts on the internal representation, not on
+the tei thing.
+
+instead of sticking the assigned lang/inferred lang into the tree, should maintain a separate map, this is too ad hoc.
+
 ## normal displ
 
 Pallava00022 assignmeent des lanuges incorrect
