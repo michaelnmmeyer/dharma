@@ -59,6 +59,7 @@
          </li>
          <li>
             <a href="/languages">Languages</a>
+	    <a href="/scripts">Scripts</a>
          </li>
       </ul>
    </li>

@@ -20,7 +20,7 @@ possible.</p>
 
 <p>Per default, all metadata fields are searched (except "lang", see below).
 Metadata fields are (for now): "title", "editor", "editor_id", "author", "summary",
-"lang", "repo", "ident". You can restrict search to a specific field by using a
+"lang", "script", "repo", "ident". You can restrict search to a specific field by using a
 field prefix, as in <a href="{{url_for('show_catalog', q='editor:manu')}}">editor:manu</a> or <a
 href="/texts?q=title:&quot;critical%20edition&quot;">title:"critical
 edition"</a>. Several clauses can be added successively, separated with

@@ -417,18 +417,26 @@ scripts_hierarchy = Script("any", 0, "Any", "Any", children=[
 	Script("latin", 0, "Latin", "Latin", source=False),
 ])
 
+def complete_scripts(script):
+	if not script.children:
+		return
+	compl = Script(id=script.id + "_other",
+		opentheso_id=script.opentheso_id,
+		name=script.name + " (other)",
+		inverted_name=script.inverted_name + " (other)",
+		source=script.source)
+	script.children.append(compl)
+	for child in script.children:
+		complete_scripts(child)
+
+complete_scripts(scripts_hierarchy)
+
 def process_scripts(db, script, parent):
 	db.execute("""
 		insert into scripts_list(id, name, inverted_name, parent, source)
 		values(?, ?, ?, ?, ?)""", (script.id, script.name,
 		script.inverted_name, parent, script.source))
 	if script.children:
-		compl = Script(id=script.id + "_other",
-			opentheso_id=script.opentheso_id,
-			name=script.name + " (other)",
-			inverted_name=script.inverted_name + " (other)",
-			source=script.source)
-		script.children.append(compl)
 		db.execute("""insert into scripts_by_code(code, id)
 			values(?, ?)""", (script.id, script.id + "_other"))
 		for child in script.children:
@@ -449,7 +457,7 @@ def make_scripts_tables():
 	process_scripts(db, scripts_hierarchy, None)
 
 @common.transaction("texts")
-def main():
+def debug():
 	f = sys.argv[1]
 	t = tree.parse(f)
 
@@ -466,9 +474,4 @@ def main():
 	print_stuff(t)
 
 if __name__ == "__main__":
-	#main()
-	#make_scripts_tables()
-	@common.transaction("texts")
-	def f():
-		load_data()
-	f()
+	make_scripts_tables()

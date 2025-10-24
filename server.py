@@ -2,7 +2,7 @@ import os, unicodedata, datetime, html, urllib, urllib.parse, ntpath, hashlib
 import flask, werkzeug.security # pip install flask
 from bs4 import BeautifulSoup # pip install bs4
 from dharma import common, change, ngrams, catalog, validate, tei, tree
-from dharma import biblio, texts, editorial, prosody, internal2html, xslt
+from dharma import biblio, texts, editorial, prosody, internal2html, languages
 
 # We don't use the name "templates" for the template folder because we also
 # put other stuff in the same directory, not just templates.
@@ -270,7 +270,7 @@ def show_editorial_conventions():
 def show_languages_list():
 	db = common.db("texts")
 	rows = db.execute("select * from langs_display").fetchall()
-	return flask.render_template("langs.tpl", rows=rows)
+	return flask.render_template("languages.tpl", rows=rows)
 
 @app.get("/languages/<code>")
 @common.transaction("texts")
@@ -280,6 +280,22 @@ def show_language(code):
 	if not ident:
 		return flask.abort(404)
 	return flask.redirect(f"/languages#lang-{ident}")
+
+@app.get("/scripts")
+@common.transaction("texts")
+def show_scripts_list():
+	db = common.db("texts")
+	rows = db.execute("select * from scripts_display").fetchall()
+	return flask.render_template("scripts.tpl", rows=rows)
+
+@app.get("/scripts/<code>")
+@common.transaction("texts")
+def show_script(code):
+	db = common.db("texts")
+	(ident,) = db.execute("select id from scripts_by_code where code = ?", (code,)).fetchone() or (None,)
+	if not ident:
+		return flask.abort(404)
+	return flask.redirect(f"/scripts#script-{ident}")
 
 @app.get("/prosody")
 @common.transaction("texts")

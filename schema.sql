@@ -247,7 +247,8 @@ create virtual table if not exists documents_index using fts5(
 );
 
 -- For fetching leaves: select t1.id from scripts_list t1 left join scripts_list t2 on t1.id = t2.parent where t2.parent is null;
--- For fetching a subtree:
+-- Interesting read for representing and querying trees in sqlite:
+-- https://charlesleifer.com/blog/querying-tree-structures-in-sqlite-using-python-and-the-transitive-closure-extension/
 create table if not exists scripts_list(
 	-- DHARMA-specific id, e.g. "kharoṣṭhī" or "cam".
 	id text primary key check(typeof(id) = 'text' and length(id) > 0),
@@ -322,14 +323,7 @@ create view if not exists scripts_display as
 		scripts_list.name as name,
 		scripts_prod.script_prod as prod,
 		editors,
-		repos,
-		case iso
-			when null then 'DHARMA-specific'
-			else case custom
-				when true then printf('ISO 639-%d (modified)', iso)
-				else printf('ISO 639-%d', iso)
-			end
-		end as standard
+		repos
 	from scripts_list
 		join scripts_prod
 			on scripts_list.id = scripts_prod.script

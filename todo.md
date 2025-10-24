@@ -1,37 +1,6 @@
 # TODO
 
 
-insert or replace into files(name, repo, path, mtime, last_modified_commit, last_modified, data) values('DHARMA_INSKarnataka20001', 'tfb-kalyanacalukya-epigraphy', 'xml-provisional/DHARMA_INSKarnataka20001.xml', 1761238022, 'c7eaea627a09428460bb664a955a1e0498121b9a', 1761030581, x'3c3f');
-
-
-
-XXX do commit several times (or maybe savepoint+release) when rebuilding the
-catalog.
-
----
-
-we're dealing with scripts representation in the db
-
-
-with recursive under_alice(id, level) as (
-values('any', 0)
-union all
-select scripts_list.id, under_alice.level+1
-from scripts_list join under_alice on scripts_list.parent=under_alice.id
-order by 2 desc
-) select substr('..........',1,level*3) || id from under_alice;
-
-
-with recursive under_alice(id, level) as (
-values('any', 0)
-union all
-select scripts_list.id, under_alice.level+1
-from scripts_list join under_alice on scripts_list.parent=under_alice.id
-order by 2 desc
-) select * from under_alice;
-
-
-
 Language assignment should work like this.
 
 Do an initial pass on the original TEI document to annotate all nodes with
@@ -55,6 +24,9 @@ instead of sticking the assigned lang/inferred lang into the tree, should mainta
 Dans INSTamilNadu00052, ZST bug:
 
 	{"data":{"ISBN":"","abstractNote":"","accessDate":"","archive":"","archiveLocation":"","callNumber":"","collections":["G2UUBH8S"],"creators":[{"creatorType":"editor","firstName":"Ā.","lastName":"Patmāvati"},{"creatorType":"seriesEditor","firstName":"Irā.","lastName":"Nākacāmi"}],"date":"1979","dateAdded":"2024-02-23T12:39:37Z","dateModified":"2024-02-23T12:45:47Z","edition":"","extra":"","itemType":"book","key":"XIVT87GE","language":"Tamil","libraryCatalog":"","numPages":"","numberOfVolumes":"","place":"Ceṉṉai","publisher":"Tamiḻnāṭu Aracu Tolporuḷ Āyvuttuṟai","relations":{},"rights":"","series":"Tamiḻnāṭṭu kalvetṭukaḷ","seriesNumber":"12","shortTitle":"Patmavati1979_01","tags":[{"tag":"Patmavati1979_01"}],"title":"Naṉṉilam kalveṭṭukkaḷ: mutal tokuti","url":"","version":241226,"volume":""},"key":"XIVT87GE","library":{"id":1633743,"links":{"alternate":{"href":"https://www.zotero.org/groups/erc-dharma","type":"text/html"}},"name":"ERC-DHARMA","type":"group"},"links":{"alternate":{"href":"https://www.zotero.org/groups/erc-dharma/items/XIVT87GE","type":"text/html"},"self":{"href":"https://api.zotero.org/groups/1633743/items/XIVT87GE","type":"application/json"}},"meta":{"createdByUser":{"id":1559253,"links":{"alternate":{"href":"https://www.zotero.org/manufrancis","type":"text/html"}},"name":"","username":"manufrancis"},"creatorSummary":"Patmāvati","numChildren":0,"parsedDate":"1979"},"version":241226}
+
+XXX do commit several times (or maybe savepoint+release) when rebuilding the
+catalog.
 
 ## normal displ
 

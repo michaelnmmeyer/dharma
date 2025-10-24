@@ -73,11 +73,11 @@
 % for (lang_ident, lang_name), scripts in doc.edition_languages:
 	{{lang_name.html() | safe}}
 	(<a href="/languages/{{lang_ident.text()}}" class="monospace">{{lang_ident.html() | safe}}</a>)
-	{% if scripts %}
+	{%- if scripts %}
 	[
 	{%- for script_ident, script_name in scripts -%}
 		{{script_name.html() | safe}}
-		({{script_ident.html() | safe}})
+		(<a href="/scripts/{{script_ident.text()}}" class="monospace">{{script_ident.html() | safe}}</a>)
 	{%- endfor -%}
 	]
 	{%- endif -%}
