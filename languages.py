@@ -417,7 +417,7 @@ scripts_hierarchy = Script("any", 0, "Any", "Any", children=[
 	Script("latin", 0, "Latin", "Latin", source=False),
 ])
 
-def complete_scripts(script):
+def patch_scripts_hierarchy(script):
 	if not script.children:
 		return
 	compl = Script(id=script.id + "_other",
@@ -427,9 +427,26 @@ def complete_scripts(script):
 		source=script.source)
 	script.children.append(compl)
 	for child in script.children:
-		complete_scripts(child)
+		patch_scripts_hierarchy(child)
 
-complete_scripts(scripts_hierarchy)
+patch_scripts_hierarchy(scripts_hierarchy)
+
+def scripts_hierarchy_to_html():
+	def inner(script):
+		ret = tree.Tag("li")
+		ret.append(script.name)
+		ret.append(" [")
+		span = tree.Tag("span", class_="monospace")
+		span.append(script.id)
+		ret.append(span)
+		ret.append("]")
+		if script.children:
+			children = tree.Tag("ul")
+			for child in script.children:
+				children.append(inner(child))
+			ret.append(children)
+		return ret
+	return inner(scripts_hierarchy)
 
 def process_scripts(db, script, parent):
 	db.execute("""

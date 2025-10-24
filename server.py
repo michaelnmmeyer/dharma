@@ -286,7 +286,8 @@ def show_language(code):
 def show_scripts_list():
 	db = common.db("texts")
 	rows = db.execute("select * from scripts_display").fetchall()
-	return flask.render_template("scripts.tpl", rows=rows)
+	return flask.render_template("scripts.tpl", rows=rows,
+		hierarchy=languages.scripts_hierarchy_to_html())
 
 @app.get("/scripts/<code>")
 @common.transaction("texts")

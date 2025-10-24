@@ -246,7 +246,6 @@ create virtual table if not exists documents_index using fts5(
 	tokenize = "trigram"
 );
 
--- For fetching leaves: select t1.id from scripts_list t1 left join scripts_list t2 on t1.id = t2.parent where t2.parent is null;
 -- Interesting read for representing and querying trees in sqlite:
 -- https://charlesleifer.com/blog/querying-tree-structures-in-sqlite-using-python-and-the-transitive-closure-extension/
 create table if not exists scripts_list(

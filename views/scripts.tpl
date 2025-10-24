@@ -6,6 +6,15 @@ Scripts
 
 % block body
 
+<h2>Scripts hierarchy</h2>
+
+<p>Scripts are arranged in a hierarchy, represented below. Some script identifiers
+have the form <span class="monospace">X_other</span>, where <span class="monospace">X</span> is the identifier of the parent category. They represent the remainder of the parent category.</span></p>
+
+<ul>{{hierarchy.html() | safe}}</ul>
+
+<h2>Statistics</h2>
+
 <p>The following only displays scripts that currently appear in the DHARMA database.</p>
 
 <div class="catalog-list">
