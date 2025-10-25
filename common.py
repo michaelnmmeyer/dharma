@@ -135,6 +135,7 @@ def normalize_text(s):
 # https://icu4c-demos.unicode.org/icu-bin/collation.html
 COLLATOR = icu.Collator.createInstance()
 # The following is for ignoring punctuation
+# The corresponding locale string for ucol_open() is 'en-u-ka-shifted'.
 COLLATOR.setAttribute(icu.UCollAttribute.ALTERNATE_HANDLING, icu.UCollAttributeValue.SHIFTED)
 
 def collate_icu(a, b):
