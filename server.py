@@ -139,7 +139,6 @@ def show_repos():
 	db = common.db("texts")
 	rows = []
 	for row in db.execute("select * from repos_display"):
-		row = dict(row)
 		static = have_static_page(f"/repositories/{row['repo']}")
 		row["has_description_page"] = static
 		rows.append(row)
@@ -238,6 +237,7 @@ def show_catalog():
 	else:
 		page = 1
 	rows, entries_nr, per_page, last_updated = catalog.search(q, s, page)
+	print(repr(entries_nr), repr(per_page), repr(last_updated))
 	pages_nr = (entries_nr + per_page - 1) // per_page
 	first_entry = (page - 1) * per_page + 1
 	if first_entry > entries_nr:

@@ -18,6 +18,7 @@ pragma journal_mode = wal;
 -- synchronous = off might be OK.
 pragma synchronous = normal;
 pragma foreign_keys = on;
+pragma recursive_triggers = on;
 -- secure_delete is enabled per default on some platforms. We do not manage
 -- sensible data, so the overhead is uneeded.
 pragma secure_delete = off;
@@ -29,8 +30,7 @@ pragma mmap_size = 4294967296;
 -- https://sqlite.org/forum/info/5317344555f7a5f2
 -- When we change a collation (or other custom functions that modify
 -- columns, etc.), should always issue a reindex, but this is not done for now.
----XXX pragma integrity_check;
-
+pragma integrity_check;
 
 begin;
 

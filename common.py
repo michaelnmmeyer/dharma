@@ -1,8 +1,13 @@
-import os, sys, logging, sqlite3, json, subprocess, re, ssl, threading, warnings
-import functools, traceback, unicodedata, socket
-from urllib.parse import urlparse, quote
+from __future__ import annotations
+import os, sys, logging, json, subprocess, re, threading, warnings
+import functools, unicodedata, collections.abc
+from urllib.parse import quote
 import icu # pip install PyICU
+import apsw, apsw.ext # pip install apsw
 import bs4
+
+# Forward sqlite logs to the logging python module.
+apsw.ext.log_sqlite()
 
 warnings.filterwarnings("ignore", category=bs4.MarkupResemblesLocatorWarning,
 	module="bs4")
@@ -14,104 +19,6 @@ def path_of(*path_elems):
 	return os.path.join(DHARMA_HOME, *path_elems)
 
 logging.basicConfig(level="INFO")
-
-# Report exceptions within user functions on stderr. Otherwise we only get a
-# message that says an exception was raised, without more info.
-sqlite3.enable_callback_tracebacks(True)
-
-def db_trace_cb(stmt):
-	print(stmt, file=sys.stderr)
-
-def report_callback_error(e):
-	print(f"Exception of type {e.exc_type} in object {e.object!r}",
-		file=sys.stderr)
-	print(f"Value: {e.exc_value!r}", file=sys.stderr)
-	print(f"Message: {e.err_msg}", file=sys.stderr)
-	if e.exc_traceback:
-		traceback.print_tb(e.exc_traceback, file=sys.stderr)
-	os._exit(1) # exits without raising a SystemExit exception
-
-sys.unraisablehook = report_callback_error
-
-# We can only have one transaction active per database object, so we allocate
-# new database objects for each thread. In a given thread, there is no point
-# allocating more than one database object, so we allocate just one, and create
-# it on demand.
-DBS = threading.local()
-
-# The point of this wrapper is to make sure we don't use functions that might
-# mess with transactions (conn.executescript() in particular is dangerous),
-# and that we use the same logic everywhere e.g. db.execute("commit") instead
-# of the (redundant) db.commit().
-class DB:
-
-	def __init__(self, conn):
-		self._conn = conn
-		self._protected = False
-
-	def execute(self, sql, *args, **kwargs):
-		# We should never do anything outside of an explicitly
-		# opened transaction.
-		assert self._protected
-		assert self._conn.in_transaction or sql.startswith("begin")
-		return self._conn.execute(sql, *args, **kwargs)
-
-	def save_file(self, file):
-		self.execute("""
-			insert or replace into files(
-				name, repo, path, mtime,
-				last_modified_commit, last_modified, data)
-			values(?, ?, ?, ?, ?, ?, ?)""",
-			(file.name, file.repo, file.path, file.mtime, *file.last_modified, file.data))
-		for git_name in file.owners:
-			self.execute("""
-				insert or ignore into owners(name, git_name)
-				values(?, ?)""", (file.name, git_name))
-
-	def load_file(self, name):
-		row = self.execute("""
-			select files.name as name,
-				repo, path, mtime,
-				last_modified_commit, last_modified, data,
-				json_group_array(owners.git_name) as file_owners
-			from files join owners on files.name = owners.name
-			where files.name = ? group by owners.git_name""",
-			(name,)).fetchone()
-		if not name:
-			raise Exception("not found")
-		from dharma import texts #XXX circular import
-		f = texts.File(row["repo"], row["path"])
-		setattr(f, "_mtime", row["mtime"])
-		setattr(f, "_last_modified", (row["last_modified_commit"], row["last_modified"]))
-		setattr(f, "_data", row["data"])
-		setattr(f, "_owners", json.loads(row["file_owners"]))
-		return f
-
-# We begin/end transactions around functions that are decorated with
-# `@transaction`. We rollback transactions when an exception occurs and is not
-# catched. Nesting transactions is not possible.
-def transaction(db_name):
-	def decorator(f):
-		@functools.wraps(f)
-		def decorated(*args, **kwargs):
-			d = db(db_name)
-			assert not d._protected
-			assert not d._conn.in_transaction
-			d._protected = True
-			d.execute("begin")
-			try:
-				ret = f(*args, **kwargs)
-				d.execute("commit")
-			except Exception:
-				if d._conn.in_transaction:
-					d.execute("rollback")
-				raise
-			finally:
-				d._protected = False
-			assert not d._conn.in_transaction
-			return ret
-		return decorated
-	return decorator
 
 # Like the eponymous function in xslt
 def normalize_space(s):
@@ -171,7 +78,8 @@ def format_url(*args):
 def trigrams(s):
 	return (s[i:i + 3] for i in range(len(s) - 3 + 1))
 
-def jaccard(s1, s2):
+def jaccard(*seqs):
+	s1, s2 = seqs
 	ngrams1 = set(trigrams(s1))
 	ngrams2 = set(trigrams(s2))
 	try:
@@ -180,36 +88,179 @@ def jaccard(s1, s2):
 	except ZeroDivisionError:
 		return 0
 
-def read_only_db():
-	if os.path.basename(sys.argv[0]) in ("change.py", "repos.py", "languages.py", "prosody.py", "biblio.py"):
-		return False
-	return True
+class Database:
+
+	def __init__(self, conn):
+		self._conn = conn
+		self._protected = False
+
+	def execute(self, sql, *args, **kwargs):
+		# We should never do anything outside of an explicitly
+		# opened transaction.
+		assert self._protected
+		assert self._conn.in_transaction or sql.startswith("begin")
+		return self._conn.execute(sql, *args, **kwargs)
+
+	def save_file(self, file):
+		self.execute("""
+			insert or replace into files(
+				name, repo, path, mtime,
+				last_modified_commit, last_modified, data)
+			values(?, ?, ?, ?, ?, ?, ?)""",
+			(file.name, file.repo, file.path, file.mtime, *file.last_modified, file.data))
+		for git_name in file.owners:
+			self.execute("""
+				insert or ignore into owners(name, git_name)
+				values(?, ?)""", (file.name, git_name))
+
+	def load_file(self, name):
+		row = self.execute("""
+			select files.name as name,
+				repo, path, mtime,
+				last_modified_commit, last_modified, data,
+				json_group_array(owners.git_name) as file_owners
+			from files join owners on files.name = owners.name
+			where files.name = ? group by owners.git_name""",
+			(name,)).fetchone()
+		if not name:
+			raise Exception("not found")
+		from dharma import texts #XXX circular import
+		f = texts.File(row["repo"], row["path"])
+		setattr(f, "_mtime", row["mtime"])
+		setattr(f, "_last_modified", (row["last_modified_commit"], row["last_modified"]))
+		setattr(f, "_data", row["data"])
+		setattr(f, "_owners", json.loads(row["file_owners"]))
+		return f
+
+class Cursor(apsw.Cursor):
+
+	def __init__(self, connection: apsw.Connection):
+		super().__init__(connection)
+		self.row_trace = Row
+
+	def execute(self, statements: str,
+		bindings: apsw.Bindings | None = None, *,
+		can_cache: bool = True, prepare_flags: int = 0,
+		explain: int = -1) -> apsw.Cursor:
+		return super().execute(statements,
+			self._wrap_bindings(bindings), can_cache=can_cache,
+			prepare_flags=prepare_flags, explain=explain)
+
+	def _wrap_bindings(self, bindings: apsw.Bindings | None) -> apsw.Bindings | None:
+		if bindings is None:
+			return None
+		if isinstance(bindings, (dict, collections.abc.Mapping)):
+			return {k: self._convert(bindings[k]) for k in bindings}
+		return tuple(self._convert(v) for v in bindings)
+
+	def _convert(self, value) -> apsw.SQLiteValue:
+		match value:
+			case None | int() | bytes() | str() | float():
+				return value
+			case dict() | list():
+				return to_json(value)
+			case _:
+				raise TypeError(f"No adapter registered for type {type(value)}")
+
+class Row:
+
+	def __init__(self, cursor: apsw.Cursor, row: apsw.SQLiteValues):
+		self._row = row
+		# get_description() returns a list of (col_name, col_type).
+		self._columns = cursor.get_description()
+
+	def __repr__(self):
+		buf = ["{"]
+		first = True
+		for i, (col_name, _) in enumerate(self._columns):
+			if first:
+				first = False
+			else:
+				buf.append(", ")
+			buf.append(repr(col_name))
+			buf.append(": ")
+			buf.append(repr(self._convert(i)))
+		buf.append("}")
+		return "".join(buf)
+
+	def _convert(self, i):
+		data = self._row[i]
+		_, col_type = self._columns[i]
+		if not isinstance(col_type, str):
+			return data
+		match col_type.lower():
+			case "json":
+				return from_json(data)
+			case "timestamp":
+				return int(data)
+			case _:
+				return data
+
+	def _column_name_to_index(self, name):
+		for i, (key, _) in enumerate(self._columns):
+			if key == name:
+				return i
+		return -1
+
+	def __getitem__(self, key):
+		if isinstance(key, int):
+			return self._convert(key)
+		column = self._column_name_to_index(key)
+		if column < 0:
+			raise KeyError
+		return self._convert(column)
+
+	def __setitem__(self, key, value):
+		if isinstance(self._row, tuple):
+			self._row = list(self._row)
+			self._columns = list(self._columns)
+		column = self._column_name_to_index(key)
+		if column < 0:
+			assert isinstance(self._columns, list)
+			self._columns.append((key, ""))
+			self._row.append(value)
+		else:
+			self._row[column] = value
+
+	def keys(self):
+		return (col_name for col_name, _ in self._columns)
+
+	def values(self):
+		for i in range(len(self._row)):
+			yield self._convert(i)
+
+	def items(self):
+		assert len(self._row) == len(self._columns)
+		return zip(self.keys(), self.values())
+
+def _read_only_db():
+	name = os.path.basename(sys.argv[0])
+	return name not in ("change.py", "repos.py", "languages.py",
+		"prosody.py", "biblio.py")
+
+# We can only have one transaction active per database object, so we allocate
+# new database objects for each thread. In a given thread, there is no point
+# allocating more than one database object, so we allocate just one, and create
+# it on demand.
+_DATABASES = threading.local()
 
 # TODO use this instead:
 # https://stackoverflow.com/questions/880530/can-modules-have-properties-the-same-way-that-objects-can
 def db(name):
-	ret = getattr(DBS, name, None)
+	ret = getattr(_DATABASES, name, None)
 	if ret:
 		return ret
 	path = path_of("dbs", name + ".sqlite")
-	# The python sqlite3 module messes with sqlite's transaction mechanism.
-	# This is error-prone, we don't want that, thus we set
-	# isolation_level=None. Likewise, db.executescript() is a mess, we only
-	# use it for initialization code.
-	# https://docs.python.org/3/library/sqlite3.html#transaction-control
-	conn = sqlite3.connect(path, detect_types=sqlite3.PARSE_DECLTYPES,
-		isolation_level=None)
-	conn.row_factory = sqlite3.Row
-	conn.create_function("format_url", -1, format_url, deterministic=True)
-	conn.create_function("jaccard", 2, jaccard, deterministic=True)
+	conn = apsw.Connection(path)
+	conn.create_scalar_function("format_url", format_url, numargs=-1, deterministic=True)
+	conn.create_scalar_function("jaccard", jaccard, numargs=2, deterministic=True)
 	conn.create_collation("icu", collate_icu)
 	conn.create_collation("html_icu", collate_html_icu)
-	if os.getenv("DHARMA_DEBUG_SQL"):
-		conn.set_trace_callback(db_trace_cb)
+	conn.cursor_factory = Cursor
 	if name == "texts":
 		with open(path_of("schema.sql")) as f:
 			sql = f.read()
-		if read_only_db():
+		if _read_only_db():
 			# Make sure we do not attempt to modify the database.
 			# And only execute pragmas in the schema, not the
 			# create table, etc. stuff.
@@ -218,15 +269,45 @@ def db(name):
 				if line.lstrip().startswith("pragma "):
 					conn.execute(line)
 		else:
-			conn.executescript(sql)
-	ret = DB(conn)
-	setattr(DBS, name, ret)
+			conn.execute(sql)
+	ret = Database(conn)
+	setattr(_DATABASES, name, ret)
 	return ret
 
-def from_json(s):
-	if isinstance(s, bytes):
-		s = s.decode()
-	return json.loads(s)
+def transaction(db_name):
+	"""We begin/end transactions around functions that are decorated with
+	`@transaction`. We rollback transactions when an exception occurs and is
+	not catched. Nesting transactions is not possible."""
+	def decorator(f):
+		@functools.wraps(f)
+		def decorated(*args, **kwargs):
+			d = db(db_name)
+			assert not d._protected
+			assert not d._conn.in_transaction
+			d._protected = True
+			d.execute("begin")
+			try:
+				ret = f(*args, **kwargs)
+				d.execute("commit")
+			except Exception:
+				if d._conn.in_transaction:
+					d.execute("rollback")
+				raise
+			finally:
+				d._protected = False
+			assert not d._conn.in_transaction
+			return ret
+		return decorated
+	return decorator
+
+def from_json(o):
+	match o:
+		case bytes():
+			return json.loads(o.decode())
+		case str():
+			return json.loads(o)
+		case _:
+			return o
 
 class JSONEncoder(json.JSONEncoder):
 
@@ -236,14 +317,6 @@ class JSONEncoder(json.JSONEncoder):
 def to_json(obj):
 	return json.dumps(obj, ensure_ascii=False, separators=(",", ":"),
 		sort_keys=True, cls=JSONEncoder)
-
-sqlite3.register_converter("json", from_json)
-# Python has a default converter for "timestamp" which is not only deprecated
-# but also expects to find something else than a single int in the column,
-# probably because other sql databases use a dedicated format for that.
-sqlite3.register_converter("timestamp", int)
-sqlite3.register_adapter(list, to_json)
-sqlite3.register_adapter(dict, to_json)
 
 def append_unique(items, item):
 	"In-place"
