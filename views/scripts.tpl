@@ -48,9 +48,6 @@ Editors:
 % endfor
 </p>
 % endif
-
-<p>Standard: {{row["standard"]}}.</p>
-
 </div>
 % endfor
 
