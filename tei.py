@@ -136,7 +136,7 @@ class Parser(tree.Serializer):
 
 	def append_display(self, text, name=None, lang=None):
 		assert name is None or name in ("physical", "logical")
-		tag = tree.Tag("display", lang=lang or "eng latin", name=name)
+		tag = tree.Tag("display", lang=lang or "study study", name=name)
 		self.push(tag)
 		self.append(text)
 		self.join()
@@ -397,7 +397,7 @@ def parse_app(p, app):
 			p.append(".")
 	for note in notes:
 		p.append(" • ")
-		p.push(tree.Tag("span", lang=note.assigned_lang))
+		p.push(tree.Tag("span", lang=note.notes["assigned_lang"]))
 		p.dispatch_children(note)
 		p.join()
 
@@ -446,7 +446,7 @@ def parse_num(p, num):
 # back to a generic one.
 @handler("supplied[@reason='subaudible']")
 def parse_supplied_subaudible(p, supplied):
-	if not supplied.assigned_lang.is_source:
+	if not supplied.notes["assigned_lang"].is_source:
 		tip = "Text added to the translation for the sake of target language syntax"
 		return emit_supplied(p, supplied, tip, "[]")
 	match supplied.text():
@@ -721,7 +721,7 @@ def parse_surplus(p, node):
 # XXX handle nested notes here, or fix them afterwards? fix them afterwards
 @handler("note")
 def parse_note(p, note):
-	out = p.push(tree.Tag("note", lang=note.assigned_lang))
+	out = p.push(tree.Tag("note", lang=note.notes["assigned_lang"]))
 	if (resps := note["resp"]):
 		append_names(p, resps.split())
 		p.append(": ")
@@ -742,7 +742,7 @@ def parse_foreign(p, foreign):
 				class_ = "italics"
 			case "roman":
 				class_ = "roman"
-	p.push(tree.Tag("span", class_=class_, lang=foreign.assigned_lang))
+	p.push(tree.Tag("span", class_=class_, lang=foreign.notes["assigned_lang"]))
 	p.dispatch_children(foreign)
 	p.join()
 
@@ -774,7 +774,7 @@ def append_milestone_label(p, node, unit):
 			p.append(n)
 	if (label := node.first("stuck-following-sibling::label")):
 		p.append(": ")
-		p.push(tree.Tag("span", lang=label.assigned_lang))
+		p.push(tree.Tag("span", lang=label.notes["assigned_lang"]))
 		p.dispatch_children(label)
 		p.join()
 		p.visited.add(label)
@@ -1000,7 +1000,7 @@ def parse_other_seg(p, seg):
 		met, _, _ = entry
 	else:
 		return parse_seg(p, seg)
-	p.push(tree.Tag("span", lang=seg.assigned_lang))
+	p.push(tree.Tag("span", lang=seg.notes["assigned_lang"]))
 	_, _, tip = parse_gap(p, seg.first("stuck-child::gap"))
 	if tip:
 		p.top["tip"] = tip
@@ -1013,7 +1013,7 @@ def parse_other_seg(p, seg):
 # apparently useless.
 @handler("seg") # seg[not stuck-child::gap]
 def parse_seg(p, seg):
-	p.push(tree.Tag("span", lang=seg.assigned_lang))
+	p.push(tree.Tag("span", lang=seg.notes["assigned_lang"]))
 	rend = seg["rend"].split()
 	if "pun" in rend:
 		p.push(tree.Tag("span", class_="pun", tip=XML('Pun (<span class="italics">ślesa</span>').xml()))
@@ -1109,8 +1109,8 @@ def handle_gap(p, gap):
 	phys_repl, log_repl, tip = parse_gap(p, gap)
 	if tip:
 		p.push(tree.Tag("span", tip=tip))
-	p.append_display(phys_repl, lang=gap.assigned_lang)
-	p.append_display(log_repl, lang=gap.assigned_lang)
+	p.append_display(phys_repl, lang=gap.notes["assigned_lang"])
+	p.append_display(log_repl, lang=gap.notes["assigned_lang"])
 	if tip:
 		p.join()
 
@@ -1269,7 +1269,7 @@ def make_meter_heading(p, met):
 @handler("p[@rend='stanza']")
 @handler("ab[@rend='stanza']")
 def parse_lg(p, lg):
-	p.push(tree.Tag("verse", lang=lg.assigned_lang))
+	p.push(tree.Tag("verse", lang=lg.notes["assigned_lang"]))
 	# Generally we have a single number e.g. "10", but sometimes ranges
 	# e.g. "10-20" (with various types of dashes).
 	n = get_n(lg)
@@ -1334,7 +1334,7 @@ def parse_p(p, para):
 	# verse.
 	if para.first("l"):
 		return parse_lg(p, para)
-	p.push(tree.Tag("para", lang=para.assigned_lang))
+	p.push(tree.Tag("para", lang=para.notes["assigned_lang"]))
 	if (n := get_n(para)):
 		# See e.g. http://localhost:8023/display/DHARMA_INSSII0400223
 		# Should be displayed like <lb/> is in the edition.
@@ -1409,7 +1409,7 @@ def parse_description_list(p, lst):
 		label = item.first("stuck-preceding-sibling::label")
 		p.push(tree.Tag("key"))
 		if label:
-			p.push(tree.Tag("span", lang=label.assigned_lang))
+			p.push(tree.Tag("span", lang=label.notes["assigned_lang"]))
 			p.dispatch_children(label)
 			p.join()
 		p.join()
@@ -1444,7 +1444,7 @@ def parse_listBibl(p, node):
 	# in capitals, so it kinda works with custom values.
 	p.push(tree.Tag("div"))
 	if (type := node["type"]):
-		p.push(tree.Tag("head", lang="eng latin"))
+		p.push(tree.Tag("head", lang="study study"))
 		p.append(common.sentence_case(type))
 		p.join()
 	p.dispatch_children(node)
@@ -1476,7 +1476,7 @@ def parse_title(p, title):
 @handler("quote")
 def parse_quote(p, q):
 	if q["rend"] == "block":
-		p.push(tree.Tag("quote", lang=q.assigned_lang))
+		p.push(tree.Tag("quote", lang=q.notes["assigned_lang"]))
 		# XXX <quote> cannot appear within a <p> in HTML!
 		# and idem for <cit> below.
 		# https://html.spec.whatwg.org/#elements-3
@@ -1485,7 +1485,7 @@ def parse_quote(p, q):
 	else:
 		p.append("“")
 		# XXX should fix up space here
-		p.push(tree.Tag("span", lang=q.assigned_lang))
+		p.push(tree.Tag("span", lang=q.notes["assigned_lang"]))
 		p.dispatch_children(q)
 		p.join()
 		p.append("”")
@@ -1507,15 +1507,15 @@ def parse_cit(p, cit):
 	if not q:
 		return p.dispatch_children(bibl)
 	if q["rend"] == "block":
-		p.push(tree.Tag("quote", lang=q.assigned_lang))
-		p.push(tree.Tag("source", lang="eng latin"))
+		p.push(tree.Tag("quote", lang=q.notes["assigned_lang"]))
+		p.push(tree.Tag("source", lang="study study"))
 		p.dispatch(bibl)
 		p.join()
 		p.dispatch_children(q)
 		p.join()
 	else:
 		p.append("“")
-		p.push(tree.Tag("span", lang=q.assigned_lang))
+		p.push(tree.Tag("span", lang=q.notes["assigned_lang"]))
 		p.dispatch_children(q)
 		p.join()
 		p.append("”")
@@ -1691,14 +1691,14 @@ def parse_div_textpart(p, div):
 		p.append(common.sentence_case(subtype))
 		if (n := get_n(div)):
 			p.append(f" {n}")
-	p.push(tree.Tag("div", lang=div.assigned_lang))
+	p.push(tree.Tag("div", lang=div.notes["assigned_lang"]))
 	add_div_heading(p, div, make_textpart_heading)
 	p.dispatch_children(div)
 	p.join() # </div>
 
 @handler("div[regex('edition|apparatus|commentary|bibliography', @type)]")
 def parse_main_div(p, div):
-	p.push(tree.Tag(div["type"], lang=div.assigned_lang))
+	p.push(tree.Tag(div["type"], lang=div.notes["assigned_lang"]))
 	add_div_heading(p, div, div["type"].title())
 	p.dispatch_children(div)
 	assert hasattr(p.document, div["type"])
@@ -1717,12 +1717,12 @@ def parse_div_translation(p, div):
 				resps = None
 		p.append("Translation")
 		# Only display the traduction's language if not English.
-		if div.assigned_lang.language != "eng":
+		if div.notes["assigned_lang"].language != "eng":
 			# The following should never fail, otherwise there is a
 			# bug in the languages module.
 			(name,) = common.db("texts").execute("""
 				select name from langs_list where id = ?""",
-				(div.assigned_lang.language,)).fetchone()
+				(div.notes["assigned_lang"].language,)).fetchone()
 			p.append(f" into {name}")
 		if (sources := div["source"]):
 			# Print in this order: bibliographic sources and names
@@ -1740,7 +1740,7 @@ def parse_div_translation(p, div):
 		elif resps:
 			p.append(" by ")
 			append_names(p, resps)
-	p.push(tree.Tag("translation", lang=div.assigned_lang))
+	p.push(tree.Tag("translation", lang=div.notes["assigned_lang"]))
 	add_div_heading(p, div, make_translation_heading)
 	p.dispatch_children(div)
 	p.document.translation.append(p.pop())
@@ -1749,14 +1749,14 @@ def add_div_heading(p, div, dflt):
 	p.push(tree.Tag("head"))
 	if (head := div.first("stuck-child::head")):
 		# User-specified heading, use it.
-		p.top["lang"] = head.assigned_lang
+		p.top["lang"] = head.notes["assigned_lang"]
 		p.dispatch_children(head)
 		p.visited.add(head)
 		# We support notes here because the guide says so, but putting
 		# them within <head>< should be preferred.
 		note = head.first("stuck-following-sibling::note")
 	else:
-		p.top["lang"] = "eng latin"
+		p.top["lang"] = "study study"
 		# No user-specified heading, generate one.
 		if callable(dflt):
 			dflt()

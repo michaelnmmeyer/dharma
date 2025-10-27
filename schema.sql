@@ -30,7 +30,7 @@ pragma mmap_size = 4294967296;
 -- https://sqlite.org/forum/info/5317344555f7a5f2
 -- When we change a collation (or other custom functions that modify
 -- columns, etc.), should always issue a reindex, but this is not done for now.
-pragma integrity_check;
+--pragma integrity_check;
 
 begin;
 
@@ -249,8 +249,9 @@ create virtual table if not exists documents_index using fts5(
 -- Interesting read for representing and querying trees in sqlite:
 -- https://charlesleifer.com/blog/querying-tree-structures-in-sqlite-using-python-and-the-transitive-closure-extension/
 create table if not exists scripts_list(
+	rid integer primary key check(typeof(rid) = 'integer'),
 	-- DHARMA-specific id, e.g. "kharoṣṭhī" or "cam".
-	id text primary key check(typeof(id) = 'text' and length(id) > 0),
+	id text unique check(typeof(id) = 'text' and length(id) > 0),
 	-- E.g. Brāhmī
 	name text check(typeof(name) = 'text' and length(name) > 0),
 	-- Name for sorting, e.g. "Brāhmī, Northern" for "Northern Brāhmī".
@@ -259,11 +260,7 @@ create table if not exists scripts_list(
 	-- The id of this node's parent, or null if this is the root node.
 	-- There must be a single root node.
 	parent text check(parent is null or typeof(parent) = 'text'
-		and length(parent) > 0) references scripts_list(id),
-	-- Whether this is a script that can be used in an edited text (parallel
-	-- to the same column within the lanugages table).
-	source boolean check(
-		typeof(source) = 'integer' and source = 0 or source = 1)
+		and length(parent) > 0) references scripts_list(rid)
 );
 
 create table if not exists scripts_by_code(
@@ -342,10 +339,11 @@ create view if not exists scripts_display as
 -- It is outdated, not in sync with this one. We do not need to modify
 -- opentheso stuff.
 create table if not exists langs_list(
+	rid integer primary key check(typeof(rid) = 'integer'),
 	-- Principal language code. If this is an ISO code, it is always of
 	-- length 3. Longer language codes are used for custom dharma-specific
 	-- languages.
-	id text primary key check(typeof(id) = 'text' and length(id) >= 3),
+	id text unique check(typeof(id) = 'text' and length(id) >= 3),
 	-- E.g. "Old Cham"
 	name text check(typeof(name) = 'text' and length(name) > 0),
 	-- E.g. "Cham, Old". Used for sorting.
@@ -366,16 +364,10 @@ create table if not exists langs_list(
 	-- is true for all languages that have "custom" set to true.
 	dharma boolean check(
 		typeof(dharma) = 'integer' and dharma = 0 or dharma = 1),
-	-- "source" is true if the language should be treated as a source
-	-- language (typically an Asian one, in dharma's case). The most
-	-- important use case is to determine, when processing the edition
-	-- division of a text, which languages should not be considered as
-	-- edition languages, e.g. headings in English. Languages that have
-	-- "source" set to false are not included in aggregations and are
-	-- not displayed in the text's metadata. It is annoying to hardcode
-	-- this, but I see no better solution for now.
-	source boolean check(
-		typeof(source) = 'integer' and source = 0 or source = 1),
+	-- The id of this node's parent, or null if this is the root node.
+	-- There must be a single root node.
+	parent integer check(parent is null or typeof(parent) = 'integer')
+		references langs_list(rid)
 	check(length(id) = 3 and iso is not null
 		or length(id) > 3 and iso is null and custom)
 );

@@ -6,6 +6,7 @@ This is the newest code for the DHARMA project.
 
 The following Python packages need to be installed with `pip`:
 
+	apsw
 	bs4
 	flask
 	PyICU
@@ -30,13 +31,13 @@ The code's documentation can be browsed with the `pdoc` tool:
 
 ## Bootstrapping
 
-You need to clone this repository with its submodule:
+You need to clone this repository with its submodules:
 
 	git clone --recursive git@github.com:michaelnmmeyer/dharma.git
 
 The repository's directory must be placed somewhere on `$PYTHONPATH`, so you
 need to modify this variable accordingly (or to move the directory in one of the
-directories it enumerates).
+directories enumerated in `$PYTHONPATH`).
 
 Once done, run:
 

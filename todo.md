@@ -1,23 +1,60 @@
 # TODO
 
+./configure --disable-shared --disable-static --disable-tcl --update-limit --all --column-metadata --with-icu-config=auto --icu-collations --scanstatus --amalgamation-extra-src="ext/misc/closure.c"
 
-Language assignment should work like this.
-
-Do an initial pass on the original TEI document to annotate all nodes with
-language information (language name, script name, script maturity). But we do
-not actually use script maturity for now, because this would create additional
-difficulties and does not seem really useful.
+and stick sqlite3.c sqlite3.h sqlite3ext.h in the apsw/sqlite3 dir and then run python setup.py build
 
 
+Extraire les scripts dans un fichier XML ad hoc et le mettre dans project documentation.
 
----
+Retirer distinction entre assigned lang et inferred lang, avoir une seule catégorie lang.
+
+Pour les langues, il faut avoir une hiérarchie à au moins deux niveaux (source, study). Et il faut la représenter dans le csv (en ajoutant les noms source et study pour chaque colonne).
+
+Ajouter tests. 1: rendition sur la div
+
+Pour les facettes, on devrai être en mesure de calculer la longueur d'un texte en phonèmes, en caractères, en lignes, en pages, en divisions, en paragraphes, etc.
+
+
+Si tous les éléments enfants d'un élément donné ont la même langue et que cette langue a été expréssément indiquée par l'utilisateur, on peut sans doute considérer que la langue indiquée par l'utilisateur sur l'élément donné doit être ignorée. Mais il faut être en mesure de dire si la langue est ou non indiquée par l'utilisateur, donc mieux vaut faire ça sur le TEI. Et on doit ino
+
+
 
 need to annotate the internal tree with language infos, and do so for both assigned and inferred; or maybe do it just for assigned, and deduce inferred from the internal repr? yes, maybe better.
 
-XXX should extract languages and scripts on the internal representation, not on
-the tei thing.
+Pour l'assignement des langues, vérifier que tout segment de texte  a un parent pourvu de l'attribut lang.
 
-instead of sticking the assigned lang/inferred lang into the tree, should maintain a separate map, because adding extra class fields like that is too ad hoc and creates a dependency on the langs module.
+Expliquer différences entre assignement des langues dans le tei et dans la représentation interne. Noter qu'on ne fait pas ce qu'il faut pour l'apparatus; on pourrait éventuellement simplement assigner 'source' aux lem et rdg.
+
+Au tableau des scripts by code, ajouter version avec l'autre r voyelle, éventuellement tout sans diacritiques. Oui en fait ajouter tout sans diacritiques et ajouter le vrai identifiant dans le tableau principal.
+
+Use the icu module from SQLite.
+
+For the schematron stuff, use a su module.
+
+For scripts, define short identifiées with three lettres, like for iso, for use in search.
+
+To the langs and scripts display, also display stats related to language usage. And also do that for the repos display.
+
+Il faut couvrir tous les sections principales avec des div, pour éviter qu'il y ait un mix de para et de div a un même niveau, et idem recursivement. On devrait avoir des div phantom pour toutes les div type édition, translation, etc., de telle sorte que toutes ces sections principales contiennent au moins une div (ainsi on pourra plus facilement calculer la taille d'une div, etc.)
+
+Dans la repr interne, Il faudrait éviter de hardcoder les noms des div (édition, translation, etc.), plus encore si on n'a pas besoin de savoir ce qu'elles contiennent. Parce que c'est chiant dans le code qui les parse, et parce qu'on doit prendre en charge d'autres types de div pour également bestow. il vaudrait. Mieux avoir seulement div comme élément.
+
+
+
+Ajuster dispositif n des milesyones en fonction de remplissage par para et verse-line éléments.
+
+Permettre les div imbriquées, et vérifier que les résultats est le bon. Autoriser tous types de div, pas seulement text part.
+
+Pour les sic/corr orig/reg et aussi les abbrevs, on devrait avoir un élément group qui réunit plusieurs inlines qui ne doivent pas être séparés dans les highlighted résultats. De même, dans les résultats de la recherche, on ne devrait jamais couper à l'intérieur d'un cluster. (Mais noter que les sic/corr, etc. peuvent contenir des espaces, donc l'emploi d'un élément group demeure nécessaire.)
+
+On va avoir besoin de élément split, lui-même contenant deux éléments: search and display. Utiliser cela pour encoder les gaiji.  Aussi pour les gaps. Pour simplifier le processing, on pourrait rendre l'usage de Split obligatoire même pour les display purs.
+
+On devrait avoir des lignes fantômes pour le physical aussi, dans la recherche.
+
+Pour rendre cherchaboes les notes, les placer.à la fin du document. Et considérer <note> comme une sorte de division. On devrai également considérer l'élément quote commee une div, et avoir des éléments para ou verse dedans. Idem for list and dlist items.
+
+For search ing, each span of text should be annotated with its language and with contextual info (whether we are in a title, a para, a verse, in a list item, etc.
 
 ---
 

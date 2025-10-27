@@ -70,8 +70,7 @@ case-insensitive. In addition, we have:
 Like `glob`, but for regular expressions. Matching is unanchored, so `^` and `$`
 must be used if the idea is to match a full string.
 
-`name()` `lang()`, `assigned-lang()`, inferred-lang()` `mixed()`, `empty()`,
-`plain()`, `text()`
+`name()` `mixed()`, `empty()`, `plain()`, `text()`
 
 Returns the corresponding attributes in `Node`.
 
@@ -95,9 +94,6 @@ from xml.sax.saxutils import escape as quote_string
 from pegen.tokenizer import Tokenizer
 from dharma.xpath_parser import Path, Step, Op, Func, GeneratedParser
 from dharma import texts
-
-DEFAULT_LANG = "eng"
-DEFAULT_SPACE = "default"
 
 Location = collections.namedtuple("Location", "start end line column")
 '''Represents the location of a node in an XML file. Fields are:
@@ -139,7 +135,7 @@ def parse_string(source, path=None):
 		err = e
 	# https://docs.python.org/3/library/pyexpat.html#xml.parsers.expat.XMLParserType
 	# err.offset counts columns from 0
-	raise Error(path=path,
+	raise Error(path=path or "",
 		line=err.lineno, column=err.offset + 1,
 		text=expat.errors.messages[err.code], source=source)
 
@@ -169,11 +165,17 @@ class Node:
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		self.assigned_lang = None
-		"""Language assigned by the user."""
-		self.inferred_lang = None
-		"""Actual language, inferred by bubbling up the language of
-		children elements."""
+		self.location: Location | None = None
+		'''`Location` object, which indicates the boundaries of the
+		subtree in the XML source it was constructed from. If the
+	        subtree does not come from an XML file, `Location` is `None`.
+	        Likewise, if the subtree is modified in some way, or if it is
+	        extracted from the original tree or copied from it, `Location`
+	        will be set to `None`.'''
+		# Parent node.
+		self._parent = None
+		self.notes: dict = {}
+		'''A dictionary for storing arbitrary data.'''
 
 	@property
 	def tree(self):
@@ -185,21 +187,12 @@ class Node:
 		return node
 
 	@property
-	def file(self):
+	def file(self) -> str | None:
 		"Path of the XML file this subtree was constructed from."
 		return self.tree.file
 
-	location = None
-	'''`Location` object, which indicates the boundaries of the subtree in the
-	XML source it was constructed from. If the subtree does not come from an
-	XML file, `Location` is `None`. Likewise, if the subtree is modified in
-	some way, or if it is extracted from the original tree or copied from it,
-	`Location` will be set to `None`.'''
-
-	_parent = None
-
 	@property
-	def parent(self):
+	def parent(self) -> "Branch | None":
 		'''Parent node. All nodes have a parent, except `Tree` nodes,
 		whose parent is `None`.'''
 		# Newly created nodes are not immediately attached to a tree.
@@ -215,18 +208,18 @@ class Node:
 		return ret
 
 	@property
-	def path(self):
+	def path(self) -> str:
 		"The path of this node. See the `locate` method."
 		raise NotImplementedError
 
 	@property
-	def mixed(self):
+	def mixed(self) -> bool:
 		'''Whether this node has both `Tag` and non-blank `String`
 		children. This can only be called on `Branch` nodes.'''
 		raise Exception("invalid operation")
 
 	@property
-	def empty(self):
+	def empty(self) -> bool:
 		'''`True` if this node has no `Tag` children nor non-blank
 		`String` children. This can only be called on `Branch` nodes.'''
 		raise Exception("invalid operation")
@@ -245,30 +238,34 @@ class Node:
 		return True
 
 	@property
-	def source(self):
+	def source(self) -> str | None:
 		'''XML source of this subtree, as it appears in the file it
 		was parsed from, as a string. If the `location` member is
 		`None`, `source` will also be `None`.
 		'''
-		return self.byte_source.decode()
+		source = self.byte_source
+		if source:
+			return source.decode()
 
 	@property
-	def byte_source(self):
+	def byte_source(self) -> bytes | None:
 		"XML source of this subtree, in bytes, encoded as UTF-8."
-		if not self.location:
-			return
-		return self.tree.byte_source[self.location.start:self.location.end]
+		source = self.tree.byte_source
+		location = self.location
+		if source and location:
+			return source[location.start:location.end]
 
 	@property
-	def root(self):
+	def root(self) -> "Tag":
 		'''The root `Tag` node of the `Tree` this subtree belongs to.
+		Raises an error if the `Tree` does not have one or has many.
 		'''
 		return self.tree.root
 
-	def append(self, node):
+	def append(self, node: "Node"):
 		raise NotImplementedError
 
-	def prepend(self, node):
+	def prepend(self, node: "Node"):
 		raise NotImplementedError
 
 	def stuck_child(self):
@@ -295,7 +292,7 @@ class Node:
 		"""Reverse of stuck_preceding_sibling()."""
 		raise Exception("bad operation")
 
-	def strings(self):
+	def strings(self) -> list["String"]:
 		return []
 
 	def delete(self):
@@ -388,14 +385,16 @@ class Node:
 
 		This cannot be called on a `Tree`, obviously.'''
 		parent = self.parent
+		assert parent is not None
 		i = parent.index(self)
 		parent.insert(i + 1, other)
 
-	def insert_before(self, other):
+	def insert_before(self, other: "Node | str"):
 		'''Insert a node just before the current one.
 
 		This cannot be called on a `Tree`, obviously.'''
 		parent = self.parent
+		assert parent is not None
 		i = parent.index(self)
 		parent.insert(i, other)
 
@@ -424,7 +423,7 @@ class Node:
 		'''
 		fmt = Formatter(strip_comments=strip_comments,
 			strip_instructions=strip_instructions, html=html,
-			color=color, add_xml_prefix=False)
+			color=color, add_xml_prefix=add_xml_prefix)
 		fmt.format(self)
 		return fmt.text()
 
@@ -472,6 +471,9 @@ class Branch(Node, list):
 	operations. Those that are not implemented will raise an exception if
 	called.
 	'''
+
+	def __init__(self):
+		super().__init__()
 
 	@property
 	def plain(self):
@@ -649,7 +651,7 @@ class Branch(Node, list):
 		node._parent = self
 		list.insert(self, i, node)
 
-	def append(self, node):
+	def append(self, node: Node | str):
 		self.insert(len(self), node)
 
 	def prepend(self, node):
@@ -672,22 +674,21 @@ class Tree(Branch):
 	new lines, etc.
 	'''
 
-	@property
-	def path(self):
-		return "/"
-
-	_byte_source = None
-
-	location = None
-
-	parent = None
-
-	_file = None
-
 	def __init__(self):
 		# Prevent initializing this with an iterator, because we don't
 		# do this in Tag.
 		super().__init__()
+		self._byte_source = None
+		self.location = None
+		self._file = None
+
+	@property
+	def path(self):
+		return "/"
+
+	@property
+	def parent(self):
+		return None
 
 	@property
 	def file(self):
@@ -763,6 +764,7 @@ class Tag(Branch):
 		`**attributes` (their order is preserved, see
 		https://docs.python.org/3/whatsnew/3.6.html#whatsnew36-pep468).
 		'''
+		super().__init__()
 		self.name = name_
 		self.attrs = collections.OrderedDict()
 		self.problems = []
@@ -776,7 +778,6 @@ class Tag(Branch):
 			# instead of tree.Tag("span", **{"data-tip": "foo"})
 			key = key.replace("_", "-")
 			self[key] = value
-		super().__init__()
 
 	def stuck_following_sibling(self):
 		parent = self.parent
@@ -997,9 +998,9 @@ class Instruction(Node):
 	'''
 
 	def __init__(self, target, data):
+		super().__init__()
 		self.target = target
 		self.data = data
-		super().__init__()
 
 	def __repr__(self):
 		return self.xml()
@@ -1177,21 +1178,6 @@ def xpath_regex(node, pattern, *arg):
 	(text,) = arg or (node.text(),)
 	return bool(re.search(pattern, text))
 
-def xpath_lang(node):
-	assert isinstance(node, Node)
-	assert node.assigned_lang is not None
-	return node.assigned_lang.id
-
-def xpath_assigned_lang(node):
-	assert isinstance(node, Node)
-	assert node.assigned_lang is not None
-	return node.assigned_lang.id
-
-def xpath_inferred_lang(node):
-	assert isinstance(node, Node)
-	assert node.inferred_lang is not None
-	return node.inferred_lang.id
-
 def xpath_mixed(node):
 	assert isinstance(node, Node)
 	return node.mixed
@@ -1208,11 +1194,6 @@ def xpath_name(node):
 	assert isinstance(node, Node)
 	return isinstance(node, Tag) and node.name or None
 
-def xpath_is_source_lang(node, s):
-	assert isinstance(s, str), s
-	from dharma import languages
-	return languages.Language(s).is_source
-
 def xpath_text(node):
 	assert isinstance(node, Node)
 	return node.text()
@@ -1221,10 +1202,6 @@ xpath_funcs = {
 	"glob": xpath_glob,
 	"iglob": xpath_iglob,
 	"regex": xpath_regex,
-	"lang": xpath_lang,
-	"assigned-lang": xpath_assigned_lang,
-	"inferred-lang": xpath_inferred_lang,
-	"is-source-lang": xpath_is_source_lang,
 	"mixed": xpath_mixed,
 	"empty": xpath_empty,
 	"plain": xpath_plain,
