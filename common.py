@@ -207,7 +207,7 @@ class Row:
 			return self._convert(key)
 		column = self._column_name_to_index(key)
 		if column < 0:
-			raise KeyError
+			raise KeyError(f"no column '{key}'")
 		return self._convert(column)
 
 	def __setitem__(self, key, value):
@@ -269,7 +269,7 @@ def db(name):
 				if line.lstrip().startswith("pragma "):
 					conn.execute(line)
 		else:
-			conn.execute(sql)
+			conn.execute(sql).fetchall()
 	ret = Database(conn)
 	setattr(_DATABASES, name, ret)
 	return ret

@@ -259,9 +259,24 @@ create table if not exists scripts_list(
 		and length(inverted_name) > 0),
 	-- The id of this node's parent, or null if this is the root node.
 	-- There must be a single root node.
-	parent text check(parent is null or typeof(parent) = 'text'
+	parent integer check(parent is null or typeof(parent) = 'integer'
 		and length(parent) > 0) references scripts_list(rid)
 );
+
+create index if not exists scripts_list_parent on scripts_list(parent);
+
+-- See https://stackoverflow.com/questions/54361430/performance-issue-on-sqlite-closure-table-implementation.
+-- There is also a closure implementation in the sqlite tree, see
+-- https://charlesleifer.com/blog/querying-tree-structures-in-sqlite-using-python-and-the-transitive-closure-extension/
+create view if not exists scripts_closure(rid, root, depth) as
+	with recursive closure as (
+		select rid, rid as root, 0 as depth from scripts_list
+		union all
+    		select closure.rid as rid, scripts_list.parent as root,
+			depth + 1 as depth
+			from closure, scripts_list
+			where closure.root = scripts_list.rid
+) select * from closure;
 
 create table if not exists scripts_by_code(
         -- DHARMA-specific id (e.g. "kharoṣṭhī" or "cam") or opentheso id
@@ -278,7 +293,8 @@ create table if not exists scripts_by_code(
 		deferrable initially deferred
 );
 
-create view if not exists scripts_display as
+create view if not exists scripts_display(script, name, inverted_name, prod,
+	editors, repos) as
 	with scripts_prod as (
 		select json_each.value as script,
 			count(*) as script_prod
@@ -314,9 +330,10 @@ create view if not exists scripts_display as
 			json_group_array(json_array(repo, repo_prod)) as repos
 		from scripts_repos_prod
 		group by script
-	) select
+	) select distinct
 		scripts_list.id as script,
 		scripts_list.name as name,
+		scripts_list.inverted_name as inverted_name,
 		scripts_prod.script_prod as prod,
 		editors,
 		repos
@@ -327,7 +344,10 @@ create view if not exists scripts_display as
 			on scripts_list.id = scripts_editors_prod_json.script
 		join scripts_repos_prod_json
 			on scripts_list.id = scripts_repos_prod_json.script
-	where scripts_list.source
+		join scripts_closure
+			on scripts_list.rid = scripts_closure.rid
+	where scripts_list.rid in (select rid from scripts_closure
+		where root = (select rid from scripts_list where id = 'source'))
 	order by scripts_list.inverted_name;
 
 -- Language codes and names, extracted from the data table distributed
@@ -372,6 +392,18 @@ create table if not exists langs_list(
 		or length(id) > 3 and iso is null and custom)
 );
 
+create index if not exists langs_list_parent on langs_list(parent);
+
+create view if not exists langs_closure(rid, root, depth) as
+	with recursive closure as (
+		select rid, rid as root, 0 as depth from langs_list
+		union all
+    		select closure.rid as rid, langs_list.parent as root,
+			depth + 1 as depth
+			from closure, langs_list
+			where closure.root = langs_list.rid
+) select * from closure;
+
 -- A single language can have several codes.
 create table if not exists langs_by_code(
 	-- Length two or three for ISO codes, length > 3 for custom DHARMA
@@ -388,7 +420,8 @@ create virtual table if not exists langs_by_name using fts5(
 	tokenize = "trigram"
 );
 
-create view if not exists langs_display as
+create view if not exists langs_display(lang, name, inverted_name, prod,
+	editors, repos, standard) as
 	with langs_prod as (
 		select json_each.value as lang,
 			count(*) as lang_prod
@@ -424,9 +457,10 @@ create view if not exists langs_display as
 			json_group_array(json_array(repo, repo_prod)) as repos
 		from langs_repos_prod
 		group by lang
-	) select
+	) select distinct
 		langs_list.id as lang,
 		langs_list.name as name,
+		langs_list.inverted_name as inverted_name,
 		langs_prod.lang_prod as prod,
 		editors,
 		repos,
@@ -444,7 +478,10 @@ create view if not exists langs_display as
 			on langs_list.id = langs_editors_prod_json.lang
 		join langs_repos_prod_json
 			on langs_list.id = langs_repos_prod_json.lang
-	where langs_list.source
+		join langs_closure
+			on langs_list.rid = langs_closure.rid
+	where langs_list.rid in (select rid from langs_closure
+		where root = (select rid from langs_list where id = 'source'))
 	order by langs_list.inverted_name;
 
 create table if not exists prosody(

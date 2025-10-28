@@ -40,8 +40,10 @@ def scripts_hierarchy_to_html() -> tree.Tag:
 	We use the data present in the db instead of the data defined in this
 	module to be sure we always use the same version of the data."""
 	db = common.db("texts")
-	row = db.execute("""select * from scripts_list
-		where parent is null""").fetchone()
+	row = db.execute("""
+	select scripts_list.rid as rid, id, name, inverted_name
+	from scripts_list natural join scripts_closure
+	where root is null""").fetchone()
 	assert row
 	root = tree.Tag("ul")
 	if not row:
@@ -57,8 +59,10 @@ def scripts_hierarchy_to_html() -> tree.Tag:
 		span.append(row["id"])
 		node.append(span)
 		node.append("]")
-		child_rows = db.execute("""select * from scripts_list
-			where parent = ?""", (row["id"],)).fetchall()
+		child_rows = db.execute("""
+		select scripts_list.rid as rid, id, name, inverted_name
+		from scripts_list natural join scripts_closure
+		where root = ? and depth = 1""", (row["rid"],)).fetchall()
 		if child_rows:
 			children = tree.Tag("ul")
 			for child_row in child_rows:
@@ -173,16 +177,19 @@ def extract_language(node):
 			script_id = tmp
 	if lang_id:
 		db = common.db("texts")
-		lang_id, is_source = db.execute("""
-			select langs_list.id, langs_list.source
-			from langs_list join langs_by_code
-				on langs_list.id = langs_by_code.id
-			where langs_by_code.code = ?""",
-			(lang_id,)).fetchone() or ("und", False)
+		lang_id, parent = db.execute("""
+		select langs_list.id, langs_list.parent
+		from langs_list join langs_by_code
+			on langs_list.id = langs_by_code.id
+		where langs_by_code.code = ?
+		""", (lang_id,)).fetchone() or ("source", "lang")
+		is_source = lang_id == "source" or parent == "source"
 	if script_id:
 		db = common.db("texts")
-		(script_id,) = db.execute("""select id from scripts_by_code
-			where code = ?""", (script_id,)).fetchone() or ("any_other",)
+		(script_id,) = db.execute("""
+		select id from scripts_by_code
+		where code = ? or code = ? order by id desc""",
+		(script_id, script_id + "_other")).fetchone() or ("source_other",)
 	if not lang_id and not script_id:
 		return parent_lang
 	node_lang = parent_lang.copy()
@@ -367,7 +374,6 @@ def load_langs():
 		rec["dharma"] = True
 		rec["parent"] = row["type"] or "source"
 	assert all("inverted_name" in rec for rec in recs)
-	recs.sort(key=lambda rec: rec["id"])
 	for rid, rec in enumerate(recs, 1):
 		rec["rid"] = rid
 	root = None

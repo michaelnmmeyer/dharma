@@ -23,7 +23,7 @@ have the form <span class="monospace">X_other</span>, where <span class="monospa
 <div id="script-{{row['script']}}" class="catalog-card">
 
 <p>
-	<b>{{row["name"]}}</b> [<span class="monospace">{{row["script"]}}</span>]
+	<b>{{row["inverted_name"]}}</b> [<span class="monospace">{{row["script"]}}</span>]
 % if row["prod"] is not none:
 	(<a href="{{url_for('show_catalog', q='script:' + row['script'])}}">{{row["prod"]}} {{numberize("text", row["prod"])}}</a>)
 % endif

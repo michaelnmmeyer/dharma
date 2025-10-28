@@ -178,7 +178,7 @@ def update_project():
 	# TODO add tests to verify whether the files we need changed, to avoid
 	# doing a full rebuild when not necessary.
 	people.make_db()
-	languages.make_db()
+	languages.update_db()
 	gaiji.make_db()
 	prosody.make_db()
 	repos.make_db()

@@ -86,8 +86,11 @@ def extract_edition_languages(t):
 	ignore_langs = []
 	lang_names = {}
 	for lang in langs:
-		name, src = db.execute("""select name, source from langs_list
-			where id = ?""", (lang,)).fetchone()
+		rid, name = db.execute("""select rid, name
+		from langs_list where id = ?""", (lang,)).fetchone()
+		src = db.execute("""select 1 from langs_closure
+		where root = (select rid from langs_list where id = 'source')
+		and rid = ?""", (rid,)).fetchone()
 		if src:
 			lang_names[lang] = name
 		else:
@@ -95,8 +98,11 @@ def extract_edition_languages(t):
 	ignore_scripts = []
 	script_names = {}
 	for script in scripts:
-		name, src = db.execute("""select name, source from scripts_list
-			where id = ?""", (script,)).fetchone()
+		rid, name = db.execute("""select rid, name
+		from scripts_list where id = ?""", (script,)).fetchone()
+		src = db.execute("""select 1 from scripts_closure
+		where root = (select rid from scripts_list where id = 'source')
+		and rid = ?""", (rid,)).fetchone()
 		if src:
 			script_names[script] = name
 		else:

@@ -14,7 +14,7 @@ Languages
 <div id="lang-{{row['lang']}}" class="catalog-card">
 
 <p>
-	<b>{{row["name"]}}</b> [<span class="monospace">{{row["lang"]}}</span>]
+	<b>{{row["inverted_name"]}}</b> [<span class="monospace">{{row["lang"]}}</span>]
 % if row["prod"] is not none:
 	(<a href="{{url_for('show_catalog', q='lang:' + row['lang'])}}">{{row["prod"]}} {{numberize("text", row["prod"])}}</a>)
 % endif
