@@ -181,8 +181,9 @@ def extract_language(node):
 		select langs_list.id, langs_list.parent
 		from langs_list join langs_by_code
 			on langs_list.id = langs_by_code.id
-		where langs_by_code.code = ?
-		""", (lang_id,)).fetchone() or ("source", "lang")
+		where langs_by_code.code = ? or langs_by_code.code = ?
+		order by langs_list.id desc
+		""", (lang_id, lang_id + "_other")).fetchone() or ("source", "lang")
 		is_source = lang_id == "source" or parent == "source"
 	if script_id:
 		db = common.db("texts")
@@ -226,9 +227,11 @@ def assign_languages(t):
 	¶ Assigned language. Assigned when traversing the tree top-down. This
         follows what people explicitly indicate for @xml:lang.
 	"""
+	src = LanguageInfo(language="source_other", script="source_other", is_source=True)
 	for node in t.find(".//*[(name()='foreign' or name()='lem' or name()='rdg') and not @lang]"):
-		node.notes["assigned_lang"] = LanguageInfo(language="source",
-			script="source_other")
+		node.notes["assigned_lang"] = src
+	for node in t.find(".//div[@type='edition' and not @lang]"):
+		node.notes["assigned_lang"] = src
 	recurse(t)
 
 ##################### For annotating internal documents ########################
@@ -319,6 +322,22 @@ def load_langs():
 		"custom": True,
 		"dharma": True,
 		"parent": "lang",
+	},  {
+		"id": "source_other",
+		"name": "Source Language (other)",
+		"inverted_name": "Source Language (other)",
+		"iso": None,
+		"custom": True,
+		"dharma": True,
+		"parent": "source",
+	}, {
+		"id": "study_other",
+		"name": "Study Language (other)",
+		"inverted_name": "Study Language (other)",
+		"iso": None,
+		"custom": True,
+		"dharma": True,
+		"parent": "study",
 	}]
 	index = {}
 	for rec in recs:
@@ -383,6 +402,7 @@ def load_langs():
 			root = rec
 			continue
 		rec["parent"] = index[rec["parent"]]["rid"]
+	assert "source_other" in index
 	return recs, index
 
 def fetch_tsv(file):
