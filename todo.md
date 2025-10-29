@@ -1,5 +1,17 @@
 # TODO
 
+display gap correctly with INSKotumpalur00036.xml
+
+dans TamilNadu01008 <l enjamb="yes">foo</l> à la fin de la ligne ajouter le tiret
+
+regarder TamilNadu01008 languages.
+
+there are two goals for languages/scripts: should be able to assign a @lang to
+all strings within the edition; and should be able to assign a @rendition to all
+strings within the edition.
+
+----
+
 Extraire les scripts dans un fichier XML ad hoc et le mettre dans project documentation.
 
 Retirer distinction entre assigned lang et inferred lang, avoir une seule catégorie lang.
