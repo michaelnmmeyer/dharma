@@ -69,7 +69,7 @@ from dharma import tree, common, languages
 
 ########################## Language extraction #################################
 
-def extract_edition_languages(t):
+def extract_edition_languages(root: tree.Branch):
 	"""Produces two maps of the form...
 
 		{lang: {script, script...}, lang: {script, script...}...}
@@ -77,7 +77,8 @@ def extract_edition_languages(t):
 	"""
 	langs = {}
 	scripts = set()
-	for node in t.find("/document/edition/descendant-or-self::*[@lang]"):
+	for node in root.find("descendant-or-self::*[@lang]"):
+		assert isinstance(node, tree.Tag)
 		lang, script = node["lang"].split()
 		langs.setdefault(lang, set()).add(script)
 		scripts.add(script)
@@ -120,21 +121,40 @@ def extract_edition_languages(t):
 	return langs, scripts, lang_names, script_names
 
 def add_edition_languages(t):
-	"""Need to create a structure like this:
+	"""Add language and script use info to the tree. Need to create a
+	structure like this:
 
 	<document>
-		...
-		<languages>
-			<language id="xxx">
-				<script id="xxxxx"/>
-				<script id="xxxxx"/>
-			</language>
-			<script id="xxxxx">
-				<language id="xxx"/>
-				<language id="xxx"/>
-			</script>
-		</languages>
-		...
+	        <languages>
+	                <language>
+	                        <identifier>san</identifier>
+	                        <name>Sanskrit</name>
+				<script>
+	                                <identifier>grantha</identifier>
+	                                <name>Grantha</name>
+	                        </script>
+				<script>
+	                                <identifier>tamil</identifier>
+	                                <name>Tamil</name>
+	                        </script>
+                        </language>
+			...
+	        </languages>
+	        <scripts>
+	                <script>
+	                        <identifier>grantha</identifier>
+	                        <name>Grantha</name>
+				<language>
+	                                <identifier>tam</identifier>
+	                                <name>Tamil</name>
+	                        </language>
+				<language>
+	                                <identifier>san</identifier>
+	                                <name>Sanskrit</name>
+	                        </language>
+                        </script>
+			...
+	        </scripts>
 	</document>
 
 	Or maybe it would be better to write a generic serialization function if
@@ -144,20 +164,20 @@ def add_edition_languages(t):
 	lang_nodes = {}
 	for lang in langs:
 		node = tree.Tag("language")
-		lang_id = tree.Tag("identifier")
+		lang_id = tree.Tag("identifier", lang="ident latin")
 		lang_id.append(lang)
 		node.append(lang_id)
-		lang_name = tree.Tag("name")
+		lang_name = tree.Tag("name", lang="eng latin")
 		lang_name.append(lang_names[lang])
 		node.append(lang_name)
 		lang_nodes[lang] = node
 	script_nodes = {}
 	for script in scripts:
 		node = tree.Tag("script")
-		script_id = tree.Tag("identifier")
+		script_id = tree.Tag("identifier", lang="ident latin")
 		script_id.append(script)
 		node.append(script_id)
-		script_name = tree.Tag("name")
+		script_name = tree.Tag("name", lang="eng latin")
 		script_name.append(script_names[script])
 		node.append(script_name)
 		script_nodes[script] = node
@@ -178,7 +198,6 @@ def add_edition_languages(t):
 
 def fix_languages(t):
 	languages.complete_internal(t)
-	add_edition_languages(t)
 
 ################### Whitespace + removal of empty elements #####################
 
@@ -390,7 +409,7 @@ def fix_milestone_location(mile):
 			pass
 		case "summary" | "hand" | "edition" | "apparatus" \
 			| "translation" | "commentary" | "bibliography" | "div":
-			tmp = tree.Tag("para")
+			tmp = tree.Tag("para", lang=mile.parent["lang"])
 			mile.insert_after(tmp)
 			tmp.append(mile)
 		case "verse":
@@ -504,7 +523,7 @@ def shift_milestones_in_verse(mile):
 	# We should have at least one <verse-line>, for holding the milestone.
 	# Create one if need be.
 	if not any(elem.name == "verse-line" for elem in parent):
-		parent.append(tree.Tag("verse-line"))
+		parent.append(tree.Tag("verse-line", lang=parent["lang"]))
 	# Skip the heading, if any. Besides it, should only have as children
 	# either milestones or verse-line.
 	if parent[0].name == "verse-head":
@@ -520,7 +539,7 @@ def shift_milestones_in_list(mile):
 	# We should have at least one <item>, for holding the milestone.
 	# Create one if need be.
 	if not any(elem.name == "item" for elem in parent):
-		parent.append(tree.Tag("item"))
+		parent.append(tree.Tag("item", lang=parent["lang"]))
 	assert all(elem.name in ("npage", "nline", "ncell", "item") for elem in parent)
 	return shift_milestones(parent, 0, "item")
 
@@ -530,8 +549,8 @@ def shift_milestones_in_dlist(mile):
 	# We should have at least one <key>/<value> pair, for holding the
 	# milestone. Create one if need be.
 	if not any(elem.name == "value" for elem in parent):
-		parent.append(tree.Tag("key"))
-		parent.append(tree.Tag("value"))
+		parent.append(tree.Tag("key", lang=parent["lang"]))
+		parent.append(tree.Tag("value", lang=parent["lang"]))
 	assert all(elem.name in ("npage", "nline", "ncell", "key", "value") for elem in parent)
 	return shift_milestones(parent, 0, "*[name()='key' or name()='value']")
 
@@ -822,10 +841,10 @@ def wrap_for_physical(root, page=None, line=None):
 	for node in list(root):
 		if not isinstance(node, tree.Tag):
 			if not page:
-				page = tree.Tag("page")
+				page = tree.Tag("page", lang=root["lang"])
 				node.insert_before(page)
 			if not line:
-				line = tree.Tag("line")
+				line = tree.Tag("line", lang=root["lang"])
 				page.append(line)
 			line.append(node)
 			continue
@@ -836,25 +855,25 @@ def wrap_for_physical(root, page=None, line=None):
 			case "head":
 				page = line = None
 			case "npage":
-				page = tree.Tag("page")
+				page = tree.Tag("page", lang=root["lang"])
 				node.insert_before(page)
-				head = tree.Tag("head")
+				head = tree.Tag("head", lang="zxx latin")
 				head.append(node)
 				page.append(head)
 				line = None
 			case "nline":
 				if not page:
-					page = tree.Tag("page")
+					page = tree.Tag("page", lang="zxx latin")
 					node.insert_before(page)
-				line = tree.Tag("line")
+				line = tree.Tag("line", lang=root["lang"])
 				page.append(line)
 				line.append(node)
 			case "ncell" | "span" | "link" | "note":
 				if not page:
-					page = tree.Tag("page")
+					page = tree.Tag("page", lang=root["lang"])
 					node.insert_before(page)
 				if not line:
-					line = tree.Tag("line")
+					line = tree.Tag("line", lang=root["lang"])
 					page.append(line)
 				line.append(node)
 			case _:
@@ -886,7 +905,7 @@ def add_hyphens_to_lines(t):
 			i += 1
 			continue
 		if not common.to_boolean(head["break"], True):
-			span = tree.Tag("span", tip="Hyphen break")
+			span = tree.Tag("span", tip="Hyphen break", lang="zxx latin")
 			span.append("-")
 			lines[i - 1].append(span)
 		i += 1
@@ -992,7 +1011,7 @@ def add_hyphens_to_verse_lines(t):
 	for line in t.find(".//verse-line[@break='false']"):
 		prev_line = line.first("stuck-preceding-sibling::*")
 		assert prev_line.name == "verse-line"
-		span = tree.Tag("span", tip="Hyphen break")
+		span = tree.Tag("span", tip="Hyphen break", lang="zxx latin")
 		span.append("-")
 		prev_line.append(span)
 
@@ -1029,7 +1048,7 @@ def cover_inlines_with_paras(root):
 		j = i + 1
 		while j < len(root) and is_inline(root[j]):
 			j += 1
-		para = tree.Tag("para")
+		para = tree.Tag("para", lang=root["lang"])
 		para.extend(root[i:j])
 		root.insert(i, para)
 		i += 1
@@ -1043,7 +1062,7 @@ def cover_inlines_with_verse_lines(root):
 		j = i + 1
 		while j < len(root) and is_inline(root[j]) and not is_milestone(root[j]):
 			j += 1
-		para = tree.Tag("verse-line")
+		para = tree.Tag("verse-line", lang=root["lang"])
 		para.extend(root[i:j])
 		root.insert(i, para)
 		i += 1
@@ -1148,8 +1167,8 @@ def fix_blocks_within_paras(t: tree.Tree):
 def move_up_from_para(node):
 	para = node.parent
 	assert isinstance(para, tree.Tag) and para.name == "para"
-	left = tree.Tag("para")
-	right = tree.Tag("para")
+	left = tree.Tag(para.name, **para.attrs)
+	right = tree.Tag(para.name, **para.attrs)
 	buf = left
 	for child in list(para):
 		if child is node:
@@ -1213,6 +1232,9 @@ def process(t: tree.Tree):
 		else:
 			assert node["name"] == "logical"
 			del node["name"]
+	languages.finish_internal(t)
+	if (root := t.first("/document/edition/logical")):
+		add_edition_languages(root)
 	return t
 
 def make_pretty_printable(t: tree.Tree):
@@ -1223,8 +1245,7 @@ def make_pretty_printable(t: tree.Tree):
 			s.insert_before(tree.Comment("space"))
 		if s[-1] == " " and len(s) > 1:
 			s.insert_after(tree.Comment("space"))
-	# for node in t.find("//display"):
-	# node.unwrap()
+	# for node in t.find("//display"): node.unwrap()
 
 if __name__ == "__main__":
 	import os, sys

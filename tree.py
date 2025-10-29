@@ -781,6 +781,7 @@ class Tag(Branch):
 
 	def stuck_following_sibling(self):
 		parent = self.parent
+		assert parent is not None
 		i = parent.index(self) + 1
 		while i < len(parent):
 			node = parent[i]
@@ -797,6 +798,7 @@ class Tag(Branch):
 
 	def stuck_preceding_sibling(self):
 		parent = self.parent
+		assert parent is not None
 		i = parent.index(self) - 1
 		while i >= 0:
 			node = parent[i]

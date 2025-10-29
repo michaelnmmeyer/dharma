@@ -57,7 +57,7 @@ class Document:
 			f.append(editor_name)
 			f.join()
 			if editor_id:
-				f.push(tree.Tag("identifier"))
+				f.push(tree.Tag("identifier", lang="ident latin"))
 				f.append(editor_id)
 				f.join()
 			f.join()
@@ -136,7 +136,7 @@ class Parser(tree.Serializer):
 
 	def append_display(self, text, name=None, lang=None):
 		assert name is None or name in ("physical", "logical")
-		tag = tree.Tag("display", lang=lang or "study_other study_other", name=name)
+		tag = tree.Tag("display", lang=lang or "study_other latin", name=name)
 		self.push(tag)
 		self.append(text)
 		self.join()
@@ -1445,7 +1445,7 @@ def parse_listBibl(p, node):
 	# in capitals, so it kinda works with custom values.
 	p.push(tree.Tag("div"))
 	if (type := node["type"]):
-		p.push(tree.Tag("head", lang="study_other study_other"))
+		p.push(tree.Tag("head", lang="study_other latin"))
 		p.append(common.sentence_case(type))
 		p.join()
 	p.dispatch_children(node)
@@ -1509,7 +1509,7 @@ def parse_cit(p, cit):
 		return p.dispatch_children(bibl)
 	if q["rend"] == "block":
 		p.push(tree.Tag("quote", lang=q.notes["assigned_lang"]))
-		p.push(tree.Tag("source", lang="study_other study_other"))
+		p.push(tree.Tag("source", lang="study_other latin"))
 		p.dispatch(bibl)
 		p.join()
 		p.dispatch_children(q)

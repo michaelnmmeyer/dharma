@@ -228,11 +228,11 @@ def extract_language_info(node):
 	else:
 		# If the parent has a source language and the child has a study
 		# one, don't inherit the parent's script but reset it to
-		# "study_other". Conversely, if the parent has a study language
+		# "latin". Conversely, if the parent has a study language
 		# language and the child a source one, reset the script to
 		# "source_other".
 		if parent_lang.is_source and not node_lang.is_source:
-			node_lang.script = "study_other"
+			node_lang.script = "latin"
 		if not parent_lang.is_source and node_lang.is_source:
 			node_lang.script = "source_other"
 	return node_lang
@@ -267,38 +267,45 @@ def assign_languages(t):
 
 ##################### For annotating internal documents ########################
 
-# Assign a language attribute to all these tags, and only to them. In any
-# case, we need tags that might contain plain text to have a language tag, so
-# that, to check the language of any piece of text, we only need to check the
-# language assigned to its parent element.
-internal_language_accepting = {
-	"edition", "apparatus", "translation", "commentary", "bibliography",
-	"summary", "hand", "title",
-	"div", "head", "quote", "source", "note", "para", "verse",
-	"span", "link", "display",
-}
+def complete_internal(t: tree.Tree):
+	for child in t:
+		complete_internal_any(child, "eng latin")
 
-def complete_internal(t):
-	add_language_info(t)
+def complete_internal_milestone(node, lang):
+	node["lang"] = "zxx latin"
+	for child in node:
+		match child:
+			case tree.Tag("span") if node["class"] == "fw-contents":
+				complete_internal_any(child, lang)
+			case tree.Tag():
+				complete_internal_milestone(child, lang)
 
-def add_language_info(node, lang="eng latin"):
+def complete_internal_any(node, lang):
+	match node:
+		case tree.Tag("npage") | tree.Tag("nline") | tree.Tag("ncell"):
+			# In this case, treat this node and all its descendants
+			# as if their @lang were `zxx` (non-linguistic data).
+			# But if one of this node's descendants is a
+			# span[@class='fw-contents'], treat it normally.
+			complete_internal_milestone(node, lang)
+		case tree.Tag():
+			if node["lang"]:
+				lang = node["lang"]
+			else:
+				node["lang"] = lang
+			for child in node:
+				complete_internal_any(child, lang)
+
+def finish_internal(node: tree.Node):
 	match node:
 		case tree.Tree():
 			for child in node:
-				add_language_info(child)
+				finish_internal(child)
 		case tree.Tag():
-			if node.name in internal_language_accepting:
-				if node["lang"]:
-					lang = node["lang"]
-				else:
-					node["lang"] = lang
-			else:
-				assert not node["lang"], node.xml()
+			if not any(isinstance(child, tree.String) for child in node):
+				del node["lang"]
 			for child in node:
-				add_language_info(child, lang)
-		case _:
-			pass
-
+				finish_internal(child)
 
 ########################## Database construction ###############################
 
@@ -417,10 +424,14 @@ def load_langs():
 			}
 			recs.append(rec)
 			add_to_index(rec["id"], index, rec)
-		elif row["Print_Name"] != rec["name"] or row["Inverted_Name"] != rec["inverted_name"]:
-			rec["name"] = row["Print_Name"]
-			rec["inverted_name"] = row["Inverted_Name"]
-			rec["custom"] = True
+		else:
+			rec["custom"] = False
+			if row["Print_Name"] and row["Print_Name"] != rec["name"]:
+				rec["name"] = row["Print_Name"]
+				rec["custom"] = True
+			if row["Inverted_Name"] and row["Inverted_Name"] != rec["inverted_name"]:
+				rec["inverted_name"] = row["Inverted_Name"]
+				rec["custom"] = True
 		rec["dharma"] = True
 		rec["parent"] = row["type"] or "source"
 	assert all("inverted_name" in rec for rec in recs)
@@ -564,8 +575,31 @@ def make_hierarchy(root, rid=0, parent=None):
 		rid = make_hierarchy(child, rid, root["rid"])
 	return rid
 
+@common.transaction("texts")
+def cmd_update_db():
+	update_db()
+
+@common.transaction("texts")
+def cmd_print_stuff():
+	import os, sys
+	from dharma import tei, common, texts, patch
+	path = os.path.abspath(sys.argv[1])
+	f = texts.File("/", path)
+	t = tei.process_file(f).serialize()
+	t = patch.process(t)
+	patch.make_pretty_printable(t)
+	root = t.first("/document")
+	assert root
+	for s in root.strings():
+		text = s.data.strip()
+		if not text:
+			continue
+		assert s.parent and isinstance(s.parent, tree.Tag)
+		assert s.parent["lang"], s.parent.xml()
+		print(s.parent["lang"], text, sep="\t")
+
 if __name__ == "__main__":
-	@common.transaction("texts")
-	def f():
-		update_db()
-	f()
+	try:
+		cmd_update_db()
+	except BrokenPipeError:
+		pass

@@ -2,11 +2,20 @@
 
 ---
 
-regarder INSTamilNadu01008.xml languages. à cause de la racine div[@type='edition'].
+@rendition does not only occur in div[@type='edition'].
 
-there are two goals for languages/scripts: should be able to assign a @lang to
-all strings within the edition; and should be able to assign a @rendition to all
-strings within the edition.
+
+regarder INSTamilNadu01008.xml languages. à cause de la racine
+div[@type='edition']. que faire dans ce cas?
+
+goals for languages/scripts:
+
+* need to be able to search for passages in a given language or in a given script
+* need to be able to look for files that use some given language (includes modern languages, like e.g. "find all inscriptions translated into French").
+* need to indicate, in the generated html, that portion X is in a given language, for better hyphenation in the browser
+* need to tell the user which languages are used in the edition; in this
+  context, should omit source_other for scripts and langs.
+* need to tell which languages are used anywhere in the file
 
 ---
 
