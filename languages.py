@@ -87,6 +87,7 @@ def scripts_hierarchy_to_html() -> tree.Tag:
 tei_language_sensitive = {
 	"div", "note", "p", "ab", "lg", "q", "head", "quote",
 	"label", "foreign", "seg",
+	"lem", "rdg"
 }
 
 class LanguageInfo:
@@ -137,7 +138,7 @@ def recurse(root):
 			for child in root:
 				recurse(child)
 		case tree.Tag():
-			root.notes["assigned_lang"] = extract_language(root)
+			root.notes["assigned_lang"] = extract_language_info(root)
 			for child in root:
 				recurse(child)
 			if (lang := should_bubble_up(root)):
@@ -159,44 +160,69 @@ def language_significant(root):
 		case tree.Instruction():
 			return False
 
-def extract_language(node):
+def extract_language_ident(node):
+	dflt = (None, None)
+	lang = node["lang"].split("-")[0]
+	if not lang:
+		return dflt
+	db = common.db("texts")
+	lang, rid = db.execute("""
+	select langs_list.id, langs_list.rid
+	from langs_list join langs_by_code
+		on langs_list.id = langs_by_code.id
+	where langs_by_code.code = ? or langs_by_code.code = ?
+	order by langs_by_code.id desc
+	""", (lang, lang + "_other")).fetchone() or dflt
+	if not lang:
+		return dflt
+	is_source = db.execute("""
+	select 1 from langs_closure
+	where root = (select rid from langs_list where id = 'source')
+	and rid = ?""", (rid,)).fetchone()
+	return lang, bool(is_source)
+
+def extract_script_ident(node):
+	dflt = (None, None)
+	script_elems = node["rendition"].split()
+	script = None
+	for elem in script_elems:
+		if elem.startswith("class:"):
+			tmp = elem.removeprefix("class:")
+			if tmp == "undetermined":
+				tmp = None
+			script = tmp
+	if not script:
+		return dflt
+	db = common.db("texts")
+	script, rid = db.execute("""
+	select scripts_list.id, scripts_list.rid
+	from scripts_list join scripts_by_code
+		on scripts_list.id = scripts_by_code.id
+	where scripts_by_code.code = ? or scripts_by_code.code = ?
+	order by scripts_list.id desc
+	""", (script, script + "_other")).fetchone() or dflt
+	if not script:
+		return dflt
+	is_source = db.execute("""
+	select 1 from scripts_closure
+	where root = (select rid from scripts_list where id = 'source')
+	and rid = ?""", (rid,)).fetchone()
+	return script, bool(is_source)
+
+def extract_language_info(node):
 	if (lang := node.notes.get("assigned_lang")):
 		return lang
 	parent_lang = node.parent.notes["assigned_lang"]
 	if node.name not in tei_language_sensitive:
 		return parent_lang
-	lang_id = node["lang"].split("-")[0]
-	script_elems = node["rendition"].split()
-	script_id = ""
-	is_source = None
-	for elem in script_elems:
-		if elem.startswith("class:"):
-			tmp = elem.removeprefix("class:")
-			if tmp == "undetermined":
-				tmp = ""
-			script_id = tmp
-	if lang_id:
-		db = common.db("texts")
-		lang_id, parent = db.execute("""
-		select langs_list.id, langs_list.parent
-		from langs_list join langs_by_code
-			on langs_list.id = langs_by_code.id
-		where langs_by_code.code = ? or langs_by_code.code = ?
-		order by langs_list.id desc
-		""", (lang_id, lang_id + "_other")).fetchone() or ("source", "lang")
-		is_source = lang_id == "source" or parent == "source"
-	if script_id:
-		db = common.db("texts")
-		(script_id,) = db.execute("""
-		select id from scripts_by_code
-		where code = ? or code = ? order by id desc""",
-		(script_id, script_id + "_other")).fetchone() or ("source_other",)
+	lang_id, lang_is_source = extract_language_ident(node)
+	script_id, _ = extract_script_ident(node)
 	if not lang_id and not script_id:
 		return parent_lang
 	node_lang = parent_lang.copy()
 	if lang_id:
 		node_lang.language = lang_id
-		node_lang.is_source = is_source
+		node_lang.is_source = lang_is_source
 	if script_id:
 		node_lang.script = script_id
 	else:
@@ -206,9 +232,9 @@ def extract_language(node):
 		# language and the child a source one, reset the script to
 		# "source".
 		if parent_lang.is_source and not node_lang.is_source:
-			node_lang.script = "study"
+			node_lang.script = "study_other"
 		if not parent_lang.is_source and node_lang.is_source:
-			node_lang.script = "source"
+			node_lang.script = "source_other"
 	return node_lang
 
 def assign_languages(t):
@@ -227,11 +253,16 @@ def assign_languages(t):
 	¶ Assigned language. Assigned when traversing the tree top-down. This
         follows what people explicitly indicate for @xml:lang.
 	"""
-	src = LanguageInfo(language="source_other", script="source_other", is_source=True)
-	for node in t.find(".//*[(name()='foreign' or name()='lem' or name()='rdg') and not @lang]"):
-		node.notes["assigned_lang"] = src
-	for node in t.find(".//div[@type='edition' and not @lang]"):
-		node.notes["assigned_lang"] = src
+	for node in t.find(".//*[name()='foreign' or name()='lem' or name()='rdg' or (name()='div' and @type='edition')]"):
+		assert not node.notes.get("assigned_lang")
+		lang, lang_is_source = extract_language_ident(node)
+		if not lang or not lang_is_source:
+			lang = "source_other"
+		script, script_is_source = extract_script_ident(node)
+		if not script or not script_is_source:
+			script = "source_other"
+		node.notes["assigned_lang"] = LanguageInfo(language=lang,
+			script=script, is_source=True)
 	recurse(t)
 
 ##################### For annotating internal documents ########################
@@ -402,7 +433,6 @@ def load_langs():
 			root = rec
 			continue
 		rec["parent"] = index[rec["parent"]]["rid"]
-	assert "source_other" in index
 	return recs, index
 
 def fetch_tsv(file):

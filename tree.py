@@ -1884,8 +1884,18 @@ class Serializer:
 		assert len(self.stack) > 1 # Should never pop the root tree.
 		return self.stack.pop()
 
-	def join(self):
-		self.append(self.pop())
+	def join(self, expect=None):
+		item = self.pop()
+		match expect:
+			case None:
+				pass
+			case Node():
+				assert item is expect
+			case str():
+				assert isinstance(item, Tag) and item.name == expect
+			case _:
+				raise Exception(f"bad value {expect!r}")
+		self.append(item)
 
 	def append(self, node):
 		if isinstance(node, Node):

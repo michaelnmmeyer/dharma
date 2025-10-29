@@ -136,7 +136,7 @@ class Parser(tree.Serializer):
 
 	def append_display(self, text, name=None, lang=None):
 		assert name is None or name in ("physical", "logical")
-		tag = tree.Tag("display", lang=lang or "study study", name=name)
+		tag = tree.Tag("display", lang=lang or "study_other study_other", name=name)
 		self.push(tag)
 		self.append(text)
 		self.join()
@@ -366,12 +366,14 @@ def append_reading_sources(p, sources):
 
 @handler("lem")
 def parse_lem(p, lem):
+	p.push(tree.Tag("span", lang=lem.notes["assigned_lang"]))
 	p.dispatch_children(lem)
+	p.join()
 	append_reading_sources(p, lem["source"])
 
 @handler("rdg")
 def parse_rdg(p, rdg):
-	p.push(tree.Tag("span", class_="reading", tip="Reading"))
+	p.push(tree.Tag("span", class_="reading", tip="Reading", lang=rdg.notes["assigned_lang"]))
 	p.dispatch_children(rdg)
 	p.join()
 	append_reading_sources(p, rdg["source"])
@@ -1444,7 +1446,7 @@ def parse_listBibl(p, node):
 	# in capitals, so it kinda works with custom values.
 	p.push(tree.Tag("div"))
 	if (type := node["type"]):
-		p.push(tree.Tag("head", lang="study study"))
+		p.push(tree.Tag("head", lang="study_other study_other"))
 		p.append(common.sentence_case(type))
 		p.join()
 	p.dispatch_children(node)
@@ -1508,7 +1510,7 @@ def parse_cit(p, cit):
 		return p.dispatch_children(bibl)
 	if q["rend"] == "block":
 		p.push(tree.Tag("quote", lang=q.notes["assigned_lang"]))
-		p.push(tree.Tag("source", lang="study study"))
+		p.push(tree.Tag("source", lang="study_other study_other"))
 		p.dispatch(bibl)
 		p.join()
 		p.dispatch_children(q)
@@ -1756,7 +1758,8 @@ def add_div_heading(p, div, dflt):
 		# them within <head>< should be preferred.
 		note = head.first("stuck-following-sibling::note")
 	else:
-		p.top["lang"] = "study study"
+		# All generated headings are in English.
+		p.top["lang"] = "eng latin"
 		# No user-specified heading, generate one.
 		if callable(dflt):
 			dflt()

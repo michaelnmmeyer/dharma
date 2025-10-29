@@ -1,10 +1,5 @@
 # TODO
 
-./configure --disable-shared --disable-static --disable-tcl --update-limit --all --column-metadata --with-icu-config=auto --icu-collations --scanstatus --amalgamation-extra-src="ext/misc/closure.c"
-
-and stick sqlite3.c sqlite3.h sqlite3ext.h in the apsw/sqlite3 dir and then run python setup.py build
-
-
 Extraire les scripts dans un fichier XML ad hoc et le mettre dans project documentation.
 
 Retirer distinction entre assigned lang et inferred lang, avoir une seule catégorie lang.
