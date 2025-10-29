@@ -1265,12 +1265,13 @@ def make_meter_heading(p, met):
 	p.join()
 	return p.pop()
 
-# The guide does not talk about ab[@rend='stanza'], but we still try to process
-# it if it appears in an edition.
 @handler("lg")
 @handler("p[@rend='stanza']")
 @handler("ab[@rend='stanza']")
 def parse_lg(p, lg):
+	"""The guide does not talk about ab[@rend='stanza'], but we still try
+	to process it if it appears in an edition.
+	"""
 	p.push(tree.Tag("verse", lang=lg.notes["assigned_lang"]))
 	# Generally we have a single number e.g. "10", but sometimes ranges
 	# e.g. "10-20" (with various types of dashes).
@@ -1307,7 +1308,7 @@ def parse_lg(p, lg):
 	else:
 		p.dispatch_children(lg)
 		# Deal with l/@enjamb: <l>foo</l> <l>bar</l> means that the text
-		# is "foo bar", but <l enjamb="yes">foo</l> <l>bar</l> means
+		# is "foo bar", while <l enjamb="yes">foo</l> <l>bar</l> means
 		# that the text is "foobar". We convert this @enjamb to a @break
 		# attribute on verse-line: verse-line[@break='no'] means that
 		# there is no break between the current verse-line and the
@@ -1373,8 +1374,6 @@ def parse_l(p, l):
 		append_meter_description(p, met)
 	p.push(tree.Tag("verse-line", n=get_n(l), tip=p.pop().xml()))
 	p.dispatch_children(l)
-	if common.to_boolean(l["enjamb"], False):
-		p.append(tree.Tag("break"))
 	p.join()
 
 # > para-like

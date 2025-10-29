@@ -262,10 +262,10 @@ class Node:
 		'''
 		return self.tree.root
 
-	def append(self, node: "Node"):
+	def append(self, node: "Node | str"):
 		raise NotImplementedError
 
-	def prepend(self, node: "Node"):
+	def prepend(self, node: "Node | str"):
 		raise NotImplementedError
 
 	def stuck_child(self):

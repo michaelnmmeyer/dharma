@@ -867,7 +867,7 @@ def wrap_for_physical(root, page=None, line=None):
 # 3) is not the first npage/nline/ncell in the <edition>
 # it is only created in wrap-for-physical, so do necessary stuff here.
 
-def add_hyphens(t):
+def add_hyphens_to_lines(t):
 	# We need to add a hyphen break after all the milestone @break=no,
 	# whether or not there is a hyphen break at the end of the line.
 	# (We also have preceding hyphens sometimes, but this is not OK I
@@ -980,7 +980,7 @@ def to_physical(t):
 	fix_physical_inlines(t)
 	wrap_for_physical(t)
 	fix_milestones_spaces(t, physical=True)
-	add_hyphens(t)
+	add_hyphens_to_lines(t)
 	for node in t.find(".//span[@class='corr' and @standalone='false']"):
 		node.delete()
 	for node in t.find(".//span[@class='reg' and @standalone='false']"):
@@ -988,7 +988,16 @@ def to_physical(t):
 	for node in t.find(".//ex"):
 		node.delete()
 
+def add_hyphens_to_verse_lines(t):
+	for line in t.find(".//verse-line[@break='false']"):
+		prev_line = line.first("stuck-preceding-sibling::*")
+		assert prev_line.name == "verse-line"
+		span = tree.Tag("span", tip="Hyphen break")
+		span.append("-")
+		prev_line.append(span)
+
 def to_logical(t):
+	add_hyphens_to_verse_lines(t)
 	for node in t.find(".//span[@class='sic' and @standalone='false']"):
 		node.delete()
 	for node in t.find(".//span[@class='orig' and @standalone='false']"):

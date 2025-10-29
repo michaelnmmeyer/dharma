@@ -1,10 +1,8 @@
 # TODO
 
-dans INSTamilNadu01008.xml <l enjamb="yes">foo</l> à la fin de la ligne ajouter le tiret
-
 ---
 
-regarder TamilNadu01008 languages.
+regarder INSTamilNadu01008.xml languages. à cause de la racine div[@type='edition'].
 
 there are two goals for languages/scripts: should be able to assign a @lang to
 all strings within the edition; and should be able to assign a @rendition to all
