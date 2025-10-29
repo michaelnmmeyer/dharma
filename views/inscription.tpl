@@ -78,6 +78,7 @@
 	{%- for script_ident, script_name in scripts -%}
 		{{script_name.html() | safe}}
 		(<a href="/scripts/{{script_ident.text()}}" class="monospace">{{script_ident.html() | safe}}</a>)
+		{%- if not loop.last %}, {% endif -%}
 	{%- endfor -%}
 	]
 	{%- endif -%}
