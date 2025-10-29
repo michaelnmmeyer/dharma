@@ -556,7 +556,8 @@ create view if not exists biblio_by_tag(tag, key) as
 	from biblio join json_each(biblio.data -> '$.tags')
 	order by tag;
 
-create view if not exists repos_display as
+create view if not exists repos_display(repo, title, repo_prod, people,
+	langs, scripts, commit_hash, commit_date) as
 	with repos_editors_stats as (
 		select repo,
 			json_each.value as editor_id,
@@ -579,7 +580,9 @@ create view if not exists repos_display as
 			count(*) as lang_prod
 		from documents, json_each(documents.langs)
 			left join langs_list on langs_list.id = json_each.value
-		where langs_list.source
+		where langs_list.rid in (select rid from langs_closure
+			where root = (select rid from langs_list
+				where id = 'source'))
 		group by repo, json_each.value
 		order by repo asc, lang_prod desc, lang asc
 	), repos_langs_stats_json as (
@@ -587,6 +590,23 @@ create view if not exists repos_display as
 			json_group_array(json_array(lang_id, lang, lang_prod))
 			as langs_prod
 		from repos_langs_stats group by repo
+	), repos_scripts_stats as (
+		select repo,
+			scripts_list.id as script_id,
+			scripts_list.name as script,
+			count(*) as script_prod
+		from documents, json_each(documents.scripts)
+			left join scripts_list on scripts_list.id = json_each.value
+		where scripts_list.rid in (select rid from scripts_closure
+			where root = (select rid from scripts_list
+				where id = 'source'))
+		group by repo, json_each.value
+		order by repo asc, script_prod desc, script asc
+	), repos_scripts_stats_json as (
+		select repo,
+			json_group_array(json_array(script_id, script, script_prod))
+			as scripts_prod
+		from repos_scripts_stats group by repo
 	), repos_stats as (
 		select repos.repo,
 			count(*) as repo_prod
@@ -598,6 +618,7 @@ create view if not exists repos_display as
 		repo_prod,
 		editors_prod as people,
 		langs_prod as langs,
+		scripts_prod as scripts,
 		repos.commit_hash,
 		repos.commit_date
 	from repos
@@ -606,6 +627,8 @@ create view if not exists repos_display as
 			on repos.repo = repos_editors_stats_json.repo
 		left join repos_langs_stats_json
 			on repos.repo = repos_langs_stats_json.repo
+		left join repos_scripts_stats_json
+			on repos.repo = repos_scripts_stats_json.repo
 	group by repos.repo
 	order by repos.title;
 

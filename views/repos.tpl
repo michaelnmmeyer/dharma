@@ -42,6 +42,15 @@ href="https://github.com/erc-dharma">here</a>. The table below does not show the
 % endfor
 </p>
 % endif
+% if repo["scripts"]:
+% set scripts = from_json(repo["scripts"])
+<p>{{numberize('Script', scripts)}}:
+% for script_id, script, prod in scripts:
+{{script}}
+(<a href="{{url_for('show_catalog', q='repo:%s script:%s' % (repo["repo"], script_id))}}">{{prod}}</a>){{loop.index == loop.length and "." or ","}}
+% endfor
+</p>
+% endif
 <p><a href="https://github.com/erc-dharma/{{format_url(repo['repo'])}}"><i class="fa-brands fa-github"></i> <span class="repo-id">{{repo["repo"]}}</span></a></p>
 % if repo["commit_hash"]:
 <p>

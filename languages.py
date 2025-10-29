@@ -228,9 +228,9 @@ def extract_language_info(node):
 	else:
 		# If the parent has a source language and the child has a study
 		# one, don't inherit the parent's script but reset it to
-		# "study". Conversely, if the parent has a study language
+		# "study_other". Conversely, if the parent has a study language
 		# language and the child a source one, reset the script to
-		# "source".
+		# "source_other".
 		if parent_lang.is_source and not node_lang.is_source:
 			node_lang.script = "study_other"
 		if not parent_lang.is_source and node_lang.is_source:
