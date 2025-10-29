@@ -1111,8 +1111,8 @@ def handle_gap(p, gap):
 	phys_repl, log_repl, tip = parse_gap(p, gap)
 	if tip:
 		p.push(tree.Tag("span", tip=tip))
-	p.append_display(phys_repl, lang=gap.notes["assigned_lang"])
-	p.append_display(log_repl, lang=gap.notes["assigned_lang"])
+	p.append_display(phys_repl, name="physical", lang=gap.notes["assigned_lang"])
+	p.append_display(log_repl, name="logical", lang=gap.notes["assigned_lang"])
 	if tip:
 		p.join()
 
