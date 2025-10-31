@@ -120,6 +120,24 @@ def escape_attribute(s):
 def quote_attribute(s):
 	return f'"{escape_attribute(s)}"'
 
+def _sorted(nodes):
+	"Sort nodes in document order. Returns a list."
+	nodes = list(nodes)
+	if not nodes:
+		return
+	node_set = set(nodes)
+	t = nodes[0].tree
+	nodes.clear()
+	def inner(root):
+		if root in node_set:
+			nodes.append(root)
+		if isinstance(root, Branch):
+			for child in root:
+				inner(child)
+	inner(t)
+	assert len(nodes) == len(node_set)
+	return nodes
+
 def parse_string(source, path=None):
 	'''Parse an XML string into a `Tree`. If `path` is given, it will be
 	used as filename in error messages, and will be accessible through
@@ -337,12 +355,16 @@ class Node:
 			path = path[end:]
 		return node
 
-	def find(self, path: str) -> list['Node']:
+	def find(self, path: str, sort: bool=False) -> list['Node']:
 		'''Finds nodes that match the given XPath expression. Returns a
-		list of matching nodes.
+		list of matching nodes. If `sort` is True, nodes are sorted in
+		document order before being returned.
 		'''
 		f = generator.compile(path)
+		if sort:
+			return _sorted(f(self))
 		return list(f(self))
+
 
 	def first(self, path: str) -> "Node | None":
 		'''Like the `find` method, but returns only the first matching
@@ -481,6 +503,9 @@ class Branch(Node, list):
 
 	def __iter__(self):
 		return list.__iter__(self)
+
+	def __hash__(self):
+		return id(self)
 
 	def __add__(self, value):
 		ret = self.copy()
@@ -681,6 +706,9 @@ class Tree(Branch):
 		self._byte_source = None
 		self.location = None
 		self._file = None
+
+	def __hash__(self):
+		return id(self)
 
 	@property
 	def path(self):
@@ -934,6 +962,9 @@ class String(Node, collections.UserString):
 		self.location = None
 		self.data = ""
 
+	def __hash__(self):
+		return id(self)
+
 	@property
 	def plain(self):
 		return True
@@ -992,6 +1023,9 @@ class Comment(Node, collections.UserString):
 	def copy(self):
 		return Comment(self.data)
 
+	def __hash__(self):
+		return id(self)
+
 class Instruction(Node):
 	'''Represents a processing instruction.
 
@@ -1006,6 +1040,9 @@ class Instruction(Node):
 
 	def __repr__(self):
 		return self.xml()
+
+	def __hash__(self):
+		return id(self)
 
 	def copy(self):
 		return Instruction(self.target, self.data)
@@ -1846,8 +1883,8 @@ class Formatter:
 	def text(self):
 		return self.buf.getvalue()
 
-def html_format(node: Node | str, skip_root=False, color=True, add_xml_prefix=True,
-	strip_comments=False):
+def html_format(node: Node | str, skip_root=False, color=True,
+	add_xml_prefix=True, strip_comments=False):
 	fmt = Formatter(color=color, add_xml_prefix=add_xml_prefix,
 		strip_comments=strip_comments)
 	if skip_root:
@@ -1870,7 +1907,7 @@ class Serializer:
 		self.tree = Tree()
 		self.stack = [self.tree]
 
-	def push(self, node, **attrs):
+	def push(self, node: Node | str, **attrs):
 		if isinstance(node, Node):
 			assert not attrs
 			node = node.copy()
@@ -1887,6 +1924,13 @@ class Serializer:
 		return self.stack.pop()
 
 	def join(self, expect=None):
+		"""Pop one node from the stack and append it to the node now
+		at the top of the stack.
+
+		`expect` is optional. If given, it should either be the node at
+		the top of the stack or the element name, if it is an element.
+		This is only used to detect push() and pop() that are not
+		paired properly."""
 		item = self.pop()
 		match expect:
 			case None:

@@ -1027,7 +1027,7 @@ def to_logical(t):
 def number_notes(t):
 	"""We number notes before we create the three displays, to make it
 	easier later on to figure out which notes are duplicates."""
-	notes = t.find("//note")
+	notes = t.find("//note", sort=True)
 	for i, note in enumerate(notes, 1):
 		note["n"] = str(i)
 

@@ -53,7 +53,8 @@ def render_document(self, node):
 		self.heading_level += 1
 		render_head(self, "Notes")
 		self.push(tree.Tag("ol"))
-		for n, note in enumerate(self.notes, 1):
+		for note in self.notes:
+			n = int(note["n"])
 			self.push(tree.Tag("li", class_="note", id=f"note-{n}"))
 			paras = note.find("para")
 			self.push(tree.Tag("p"))
@@ -271,10 +272,13 @@ def render_milestone(self, node):
 
 def make_note_ref(self, node, display=None):
 	n = int(node["n"])
-	if n < len(self.notes) + 1:
-		pass
-	else:
+	if n == len(self.notes) + 1:
 		self.notes.append(node)
+	else:
+		# This should be a note in the edition, which is duplicated
+		# in the tree for the 3 displays (physical, logical, full).
+		# We only need one version, so ignore the others.
+		assert n < len(self.notes) + 1, node.xml()
 	self.push(tree.Tag("sup"))
 	anchor = f"note-ref-{n}"
 	if display:
