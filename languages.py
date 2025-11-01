@@ -113,7 +113,7 @@ def should_bubble_up(root):
 	for child in root:
 		match child:
 			case tree.String():
-				if child.isspace():
+				if len(child) == 0 or child.isspace():
 					continue
 			case tree.Comment() | tree.Instruction():
 				continue
@@ -148,7 +148,7 @@ def language_significant(root):
 		case tree.Comment():
 			return False
 		case tree.String():
-			return not root.isspace()
+			return len(root) > 0 and not root.isspace()
 		case tree.Instruction():
 			return False
 
@@ -288,16 +288,21 @@ def complete_internal_any(node, lang):
 			for child in node:
 				complete_internal_any(child, lang)
 
-def finish_internal(node: tree.Node):
-	match node:
-		case tree.Tree():
-			for child in node:
-				finish_internal(child)
-		case tree.Tag():
-			if not any(isinstance(child, tree.String) for child in node):
-				del node["lang"]
-			for child in node:
-				finish_internal(child)
+def finish_internal(node: tree.Branch):
+	if isinstance(node, tree.Tag):
+		# Only keep @lang if the node actually contains text. Thus,
+		# all tags that have at least one non-empty string as child
+		# have a @lang, and only them.
+		for child in node:
+			if not isinstance(child, tree.String):
+				continue
+			if len(child) > 0 and not child.isspace():
+				break
+		else:
+			del node["lang"]
+	for child in node:
+		if isinstance(child, tree.Branch):
+			finish_internal(child)
 
 ########################## Database construction ###############################
 

@@ -641,9 +641,9 @@ def parse_reg(p, reg, orig=None):
 	if orig:
 		p.append(" (original: ")
 		p.push(tree.Tag("span", class_="orig"))
-		p.append("¡")
+		p.append_display("¡")
 		p.dispatch_children(orig)
-		p.append("!")
+		p.append_display("!")
 		p.join()
 		p.append(")")
 	stand = common.from_boolean(not orig)

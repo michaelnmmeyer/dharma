@@ -1,7 +1,10 @@
 # Schema for the internal representation.
 #
-# There are two basic categories of elements: inline elements (spans of text)
-# and block elements (divisions, paragraphs, etc.).
+# The internal representation has two states: 1) the output of the TEI parsing
+# code (in tei.py), which is an approximation of what the output should be; and
+# 2) the output of the patching code (in patch.py), which straightens out the
+# data representation. This schema only describes 2), the "actual" internal
+# representation.
 #
 # * Main divisions: summary, hand, edition, apparatus, translation, commentary,
 # bibliography.
@@ -22,75 +25,113 @@
 # <physical>, <logical>, <full>. This element is expanded differently depending on
 # the edition display.
 
-Also a <source> element.
+#Also a <source> element.
 
-default namespace = ""
+start = document
 
-block = para | verse | quote | dlist | elist
-
-# Elements that do not cross a paragraph boundary or a line boundary.
-inline = text | span | link | note | milestone | display | split
-
-milestone = npage | nline | ncell
-
-# This stores two things: display holds what we should display, search is a
-# textual representation of the same that will be used for searching.
-split = element split {
-	display,
-	element search { text }
-}
-
-start = element document {
-	# Three data fields: title, author, editor. They should not contain
-	# paragraphs. If there are several titles, the first one is the one that
-	# should be displayed.
-	element title { inline+ }*,
+document = element document {
+	# These indicate which languages and scripts are used in the edition.
+	languages?,
+	scripts?,
+	# Three inline data fields: "title", "author", "editor". If there are
+	# several titles, the first one is the one that should be displayed.
+	element title {
+		attribute lang { text }?,
+		inline+
+	}*,
 	element author { name, identifier? }*,
 	element editor { name, identifier? }*,
+	# Two fields "summary" and "hand" that can not contain divs.
 	element summary { block+ }?,
 	element hand { block+ }?,
-	element edition-languages {
-		element language { name, identifier }+
-	},
+	# Main divisions.
 	edition?,
 	apparatus?,
 	translation*,
 	commentary?,
 	bibliography?
 }
+
+# Source languages given in the edition division.
+languages = element languages {
+	element language {
+		identifier, name,
+		# Scripts that are used together with this language.
+		element script { identifier, name }+
+	}+
+}
+
+# Source scripts given in the edition division. This is the same map as
+# "languages", but inverted.
+scripts = element scripts {
+	element script {
+		identifier, name,
+		element language { identifier, name }+
+	}+
+}
+
+block = para | verse | quote | dlist | elist
+
+# Elements that do not cross a paragraph boundary (or a line boundary).
+inline = text | span | link | note | milestone | display | split
+
+# A "split" has two child nodes: "display" holds what we should display, "search"
+# is a textual representation of the same data that should be used for searching.
+split = element split {
+	display,
+	element search {
+		attribute lang { text },
+		text
+	}
+}
+
+# A "display" element represents something to display but that should not be
+# made searchable (like e.g. line numbers).
+display = element display {
+	attribute lang { text }?,
+	inline+
+}
+
 edition = element edition {
 	head,
-	element physical { (physical_div | page)+ }, # XXX should have (block+ | ediv+): cover everything with div if needed (as for milestones), with "phantom" divisions. if we do this, a div should not have a mandatory <head>. same applies to the other divs below: apparatus, etc.
-	element logical { (ediv | block)* },
-	element full { (ediv | block)* }
+	element physical { pdiv+ | page+ },
+	element logical { ediv+ | block+ },
+	element full { ediv+ | block+ }
 }
 apparatus = element apparatus {
 	head,
-	(ediv | block)*
+	(ediv+ | block+)
 }
 translation = element translation {
 	head,
-	(ediv | block)*
+	(ediv+ | block+)
 }
 commentary = element commentary {
 	head,
-	(ediv | block)*
+	(ediv+ | block+)
 }
 bibliography = element bibliography {
 	head,
-	(ediv | block)*
+	(ediv+ | block+)
 }
 
 note = element note {
-	# Notes numbers must be unique, except within the edition division.
+	# Notes numbers are unique, except within the edition division.
 	# Because in the latter, we generate three representations: physical,
-	# logical, full; there are thus 3 copies of each note.
+	# logical, full. There are thus exactly three copies of each note
+	# within the edition division.
 	attribute n { xsd:integer },
-	block*
+	# Note that inline content is not allowed.
+	block+
 }
+
+# Span of text (like in html).
 span = element span {
+	attribute lang { text }?,
+	# "class" is a list of CSS classes.
 	attribute class { text }?,
-	# standalone is for spans corresponding to one of sic corr orig reg; if
+	# XXX this sucks
+	# "standalone" is for spans corresponding to one of sic corr orig reg; if
 	# standalone=false, the element is paired with another (sic/corr
 	# orig/reg), otherwise the element appears on its own, it is not on its
 	# own. XXX should get rid of standalone. we should just have sic corr
@@ -102,9 +143,18 @@ span = element span {
 	attribute tip { text }?,
 	inline*
 }
-name = element name { text }
-identifier = element identifier { text }
+
+name = element name {
+	attribute lang { text },
+	text
+}
+identifier = element identifier {
+	attribute lang { text },
+	text
+}
+
 para = element para {
+	attribute lang { text }?,
 	attribute anchor { text }?,
 	attribute class { text }?,
 	inline*
@@ -113,59 +163,89 @@ elist = element elist {
 	attribute type { "plain" | "bulleted" | "numbered" },
 	element item { block* }*
 }
-dlist = element dlist {
-	(element key { block* }, element value { block* })*
-}
+# "dlist" is a definition list (converted to a dl in html). Note that we do not
+# allow it to store inlines directly.
+dlist = element dlist { pair+ }
+pair = element key { block* }, element value { block* }
+
+# "quote" is a block quotation. "source" is a line describing where it comes
+# from (typically, a pointer to the bibliography).
 quote = element quote {
-	element source { inline+ }?,
-	block*
+	element source {
+		attribute lang { text }?,
+		inline+
+	}?,
+	block+
 }
-head = element head { inline+ }
+
+head = element head {
+	attribute lang { text }?,
+	inline+
+}
+
+# "ediv" is a "normal" division (per contrast with the divisions we find in
+# the physical representation).
 ediv = element div {
+	# "phantom" is true if the division is one we created programmatically.
+	# In this case, it does not have a heading, and it should not actually
+	# create a div in the generated html.
+	attribute phantom { xsd:boolean },
+	# "head" is only given if the edition is not a phantom one.
 	head?,
 	(ediv* | block*)
 }
-physical_div = element div {
+
+# "pdiv" is a division within the /document/edition/physical node.
+pdiv = element div {
+	# For "phantom" and "head", same remarks as above for "ediv".
+	attribute phantom { xsd:boolean },
 	head?,
-	(physical_div* | page*)
+	(pdiv* | page*)
 }
-page = element page {
-	head?,
-	element line { inline* }*
+page = element page { head?, line* }
+line = element line {
+	attribute lang { text }?,
+	inline+
 }
+
 verse = element verse {
-	element verse-head { inline+ }?,
-	verse-line+,
+	element verse-head {
+		attribute lang { text }?,
+		inline+
+	}?,
+	verse-line+
 }
+
 verse-line = element verse-line {
-	attribute break { xsd:boolean }?,
+	attribute lang { text }?,
+	attribute break { xsd:boolean },
 	attribute n { text }?,
 	attribute tip { text }?,
-	(text | link | elist | ncell | nline | note | npage | span)*
+	inline*
 }
 
 link = element link {
-	# @href is absent if the link is invalid.
+	attribute lang { text }?,
+	# @href is absent if we should display an invalid link on the website
+	# (see e.g. how we represent invalid bibliography links).
 	attribute href { xsd:anyURI }?,
 	inline+
 }
 
-display = element display { inline+ }
+# Milestones. They all have the same structure. The contents is something to
+# display. If the milestone has @phantom=true, the element is empty (there is
+# nothing to display).
 
-# Milestones. The contents is something to display. If the milestone has
-# @phantom=true, there is no contents to display.
-npage = element npage {
+milestone = npage | nline | ncell
+
+npage = element npage { milestone_contents }
+nline = element nline { milestone_contents }
+ncell = element ncell { milestone_contents }
+
+milestone_contents = (
+	attribute lang { text }?,
+	attribute significant { xsd:boolean },
 	attribute break { xsd:boolean },
 	attribute phantom { xsd:boolean },
 	inline*
-}
-nline = element nline {
-	attribute break { xsd:boolean },
-	attribute phantom { xsd:boolean },
-	inline*
-}
-ncell = element ncell {
-	attribute break { xsd:boolean },
-	attribute phantom { xsd:boolean },
-	inline*
-}
+)

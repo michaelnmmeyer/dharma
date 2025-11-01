@@ -317,12 +317,12 @@ def fix_milestones(t):
 	"""
 	milestones = significant_milestones(t)
 	# Make sure all milestones have a @phantom and a @break.
-	ids = set(id(mile) for mile in milestones)
+	ids = set(milestones)
 	for mile in t.find(".//*[name()='npage' or name()='nline' or name()='ncell']"):
 		if not mile["break"]:
 			mile["break"] = "true"
 		mile["phantom"] = "false"
-		mile["significant"] = id(mile) in ids and "true" or "false"
+		mile["significant"] = mile in ids and "true" or "false"
 	if not milestones:
 		return
 	fix_milestones_location(t, milestones)
@@ -570,6 +570,10 @@ def first_milestone_accepting_node(doc):
 	assert ret
 	return ret
 
+def phantom_milestone(type: str):
+	assert type in ("npage", "nline", "ncell")
+	return tree.Tag(type, break_="true", phantom="true", significant="true")
+
 def add_phantom_milestones(doc: tree.Tree, milestones):
 	"""Allocate phantom milestones to fill up the edition.
 
@@ -602,7 +606,7 @@ def add_phantom_milestones(doc: tree.Tree, milestones):
 			assert len(milestones) > i
 			assert insert[i] is milestones[i]
 		else:
-			mile = tree.Tag(unit, break_="true", phantom="true")
+			mile = phantom_milestone(unit)
 			insert.insert(i, mile)
 			milestones.insert(i, mile)
 		i += 1
@@ -613,14 +617,14 @@ def add_phantom_milestones(doc: tree.Tree, milestones):
 			if (tmp := mile.first("following-sibling::*")) and tmp.name == "nline":
 				mile = tmp
 			else:
-				tmp = tree.Tag("nline", break_="true", phantom="true")
+				tmp = phantom_milestone("nline")
 				mile.insert_after(tmp)
 				mile = tmp
 				milestones.insert(i + 1, tmp)
 			if (tmp := mile.first("following-sibling::*")) and tmp.name == "ncell":
 				mile = tmp
 			else:
-				tmp = tree.Tag("ncell", break_="true", phantom="true")
+				tmp = phantom_milestone("ncell")
 				mile.insert_after(tmp)
 				mile = tmp
 				milestones.insert(i + 2, tmp)
@@ -629,7 +633,7 @@ def add_phantom_milestones(doc: tree.Tree, milestones):
 			if (tmp := mile.first("following-sibling::*")) and tmp.name == "ncell":
 				pass
 			else:
-				tmp = tree.Tag("ncell", break_="true", phantom="true")
+				tmp = phantom_milestone("ncell")
 				mile.insert_after(tmp)
 				milestones.insert(i + 1, tmp)
 			i += 2
@@ -977,16 +981,22 @@ def to_physical(t):
 	for node in t.find(".//ex"):
 		node.delete()
 
-def add_hyphens_to_verse_lines(t):
-	for line in t.find(".//verse-line[@break='false']"):
+def complete_verse_lines(t: tree.Tree):
+	"""Add a hyphen before verse-line elements that have @break='false', and
+	add a @break='true' attribute to all the others."""
+	for line in t.find(".//verse-line"):
+		assert isinstance(line, tree.Tag)
+		if common.to_boolean(line["break"], True):
+			line["break"] = "true"
+			continue
 		prev_line = line.first("stuck-preceding-sibling::*")
+		assert isinstance(prev_line, tree.Tag)
 		assert prev_line.name == "verse-line"
 		span = tree.Tag("span", tip="Hyphen break", lang="zxx latin")
 		span.append("-")
 		prev_line.append(span)
 
 def to_logical(t):
-	add_hyphens_to_verse_lines(t)
 	for node in t.find(".//span[@class='sic' and @standalone='false']"):
 		node.delete()
 	for node in t.find(".//span[@class='orig' and @standalone='false']"):
@@ -1198,34 +1208,58 @@ def move_up_from_para(node):
 	if len(right) > 0:
 		node.insert_after(right)
 
-def expand_view_nodes(views: dict[str, tree.Tag]):
-	# XXX note that the fact we expand it after the rest will prevent
-	# proper positioning of milestones, etc.
-	for name1, root in views.items():
-		for node in root.find(f"//views"):
-			for name2 in list(views):
-				display = node.first(name2)
-				assert display
-				if name1 == name2:
-					display.unwrap()
-				else:
-					display.delete()
-			node.unwrap()
+def expand_views(root: tree.Branch, keep_view=None):
+	"""Expands "views" element. They have the form:
+
+		<views>
+			<physical>X</physical>
+			<logical>Y</logical>
+			<full>Z</full>
+		</views>
+
+	And we end up with just X, Y or Z, depending on whether the node is a
+	descendant of //edition/physical, //edition/logical or //edition/full.
+	"views" nodes elsewhere in the document are treated as if they were
+	under //edition/full viz. we replace them with Z.
+
+	XXX note that the fact we expand it after the rest might prevent proper
+	positioning of milestones, etc.
+	"""
+	views = ("physical", "logical", "full")
+	if not keep_view:
+		if isinstance(root, tree.Tag) and root.name in views:
+			keep = keep_view = root.name
+		else:
+			keep = "full"
+	else:
+		keep = keep_view
+	for node in root.find("*"):
+		assert isinstance(node, tree.Tag)
+		if node.name != "views":
+			expand_views(node, keep_view)
+			continue
+		# Note that we don't expect "views" elements to nest.
+		for view in views:
+			target = node.first(view)
+			assert target
+			if view == keep:
+				target.unwrap()
+			else:
+				target.delete()
+		node.unwrap()
 
 def process_edition(t: tree.Tree, edition: tree.Tag):
-	views = {}
-	views["full"] = full = edition.copy()
+	full = edition.copy()
 	full.name = "full"
 	if (head := full.first("head")):
 		head.delete()
-	views["physical"] = physical = full.copy()
+	physical = full.copy()
 	physical.name = "physical"
 	to_physical(physical)
 	fix_milestones_spaces(full)
-	views["logical"] = logical = full.copy()
+	logical = full.copy()
 	logical.name = "logical"
 	to_logical(logical)
-	expand_view_nodes(views)
 	head = edition.first("head")
 	assert isinstance(edition, tree.Branch)
 	edition.clear()
@@ -1254,6 +1288,7 @@ def process(t: tree.Tree):
 	if (edition := t.first("/document/edition")):
 		assert isinstance(edition, tree.Tag)
 		process_edition(t, edition)
+	expand_views(t)
 	for node in t.find(".//*[@significant and (name()='npage' or name()='nline' or name()='ncell')]"):
 		assert isinstance(node, tree.Tag)
 		del node["milestone-keep"]
@@ -1264,10 +1299,11 @@ def process(t: tree.Tree):
 		else:
 			assert node["name"] == "logical"
 			del node["name"]
-	languages.finish_internal(t)
+	complete_verse_lines(t)
 	# And extract languages from the logical division.
 	if (root := t.first("/document/edition/logical")):
 		add_edition_languages(root)
+	languages.finish_internal(t)
 	return t
 
 def make_pretty_printable(t: tree.Tree):
