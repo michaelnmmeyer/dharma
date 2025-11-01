@@ -1,33 +1,25 @@
 """Stuff for dealing with languages and scripts.
 
-On the TEI tree, we annotate all nodes with language information: language name,
-script name.
+Goals for languages/scripts:
 
-where should we stick lang infos in the internal representation? should have at
-least @lang and @script. add it to each element, so that we don't need stateful
-processing for figuring out languages.
-
-While processing a tree, need to gather the following info for displaying
-div[@type='edition']: (a) all langs; (b) all scripts; (c) for each lang, scripts
-it is associated with; (d) for each script, langs is it associated with. It is
-simpler to do that on the constructed internal representation.
-
-In addition, should have stats (number of chars, of clusters, etc.) for each
-lang, script, pair of script+lang. But might be easier to gather stats like this
-if we use the internal representation instead of the TEI one.
-
-Save all this stuff that in the catalog, we will decide what to display later
-on.
-
-Should print scripts in a specific page, or maybe on the same page as the one
-used for langs.
+* need to be able to search for passages in a given language or in a given script
+* need to be able to look for files that use some given language (includes
+  modern languages, like e.g. "find all inscriptions translated into French").
+* need to indicate, in the generated html, that portion X is in a given
+  language, for better hyphenation in the browser
+* need to tell the user which languages are used in the edition; in this
+  context, should omit source_other for scripts and langs.
+* need to tell which languages are used anywhere in the file
+* In addition, should have stats (number of chars, of clusters, etc.) for each
+  lang, script, pair of script+lang. But might be easier to gather stats like
+  this if we use the internal representation instead of the TEI one.
 
 For ISO 639-3 (languages), the authority is https://iso639-3.sil.org.
 
 For ISO 639-5 (language families), the authority is
 https://www.loc.gov/standards/iso639-5/index.html.
 
-For scripts, we have dharma-internal codes.
+For scripts, we use dharma-internal codes.
 """
 
 import sys, re, copy
@@ -600,6 +592,6 @@ def cmd_print_stuff():
 
 if __name__ == "__main__":
 	try:
-		cmd_update_db()
+		cmd_print_stuff()
 	except BrokenPipeError:
 		pass

@@ -3,33 +3,6 @@
 This fixes various things in the internal XML representation and produces three
 displays: physical, logical, full. Among other things, we remove all
 non-significant space from the input tree.
-
-Summary of new elements.
-
-We have two basic categories: inline elements (links and spans of text, <group> and <display>) and
-block elements (divisions, paragraphs, etc.).
-
-* Data fields: title, author, editor. These elements should not contain
-paragraphs.
-
-* Main divisions: summary, hand, edition, apparatus, translation, commentary,
-bibliography.
-
-* Other division: div.
-
-* Paragraph-like: para, verse (which should only contain verse-line), head.
-
-* Containers: list (which should only contain item),
-  dlist (which should only contain series of (key, value))
-
-* Division-like: note, quote, item, key, value. They should only contain
-  para, verse, list, dlist, quote.
-
-* Inline elements: span, link, milestones (npage, nline, ncell) and display.
-  <display> can bear @name="physical" or @name="logical" during before
-  patching is done.
-
-Also a <source> element.
 """
 
 """XXX TODO
@@ -46,9 +19,7 @@ and make "textpart" optional in children of root divs.
 remove unknown elements in appropriate contexts. removing totally unknown elements is not the most useful, removing (or fixing) known elements that are being misused is important.
 
 
-while parsing a paragraph: if we have a list, dlist or quote, move it one step up. They should be paragraph-level items.
-
-number notes. will need this for rendering properly notes within the edition.
+while parsing a paragraph: if we have a elist, dlist or quote, move it one step up. They should be paragraph-level items.
 
 XXX for milestones, should keep a @n, but only a @n that is unique across the whole file (and that we thus need to preconstruct in some cases).
 
@@ -414,8 +385,8 @@ def fix_milestone_location(mile):
 			tmp.append(mile)
 		case "verse":
 			shift_milestones_in_verse(mile)
-		case "list":
-			shift_milestones_in_list(mile)
+		case "elist":
+			shift_milestones_in_elist(mile)
 		case "dlist":
 			shift_milestones_in_dlist(mile)
 		case _:
@@ -533,7 +504,7 @@ def shift_milestones_in_verse(mile):
 	assert all(elem.name in ("npage", "nline", "ncell", "verse-line") for elem in parent[skip:]), parent.xml()
 	return shift_milestones(parent, skip, "verse-line")
 
-def shift_milestones_in_list(mile):
+def shift_milestones_in_elist(mile):
 	parent = mile.parent
 	assert all(isinstance(elem, tree.Tag) for elem in parent)
 	# We should have at least one <item>, for holding the milestone.
@@ -572,12 +543,12 @@ def move_up_milestones(root: tree.Tag, milestones_ids):
 	#
 	# Idem for milestones at the end of the inline element.
 	i = 0
-	while i < len(root) and isinstance(root[i], tree.Tag) and root[i].name == "display":
+	while i < len(root) and isinstance(root[i], tree.Tag) and root[i].name in ("display", "views", "split"):
 		i += 1
 	while len(root) > i and id(root[i]) in milestones_ids:
 		root.insert_before(root[i])
 	j = len(root)
-	while j > i and isinstance(root[j - 1], tree.Tag) and root[j - 1].name == "display":
+	while j > i and isinstance(root[j - 1], tree.Tag) and root[j - 1].name in ("display", "views", "split"):
 		j -= 1
 	while j > i and id(root[j - 1]) in milestones_ids:
 		root.insert_after(root[j - 1])
@@ -791,7 +762,7 @@ def fix_milestones_spaces(t: tree.Branch, physical=False):
 # wrap lines within <para>
 # split these elements if needed: a, para
 
-def unwrap_for_physical(root: tree.Branch):
+def unwrap_for_physical(root: tree.Node):
 	"Unwraps tags that are not necessary for the physical display."
 	for node in list(root):
 		if not isinstance(node, tree.Tag):
@@ -802,19 +773,18 @@ def unwrap_for_physical(root: tree.Branch):
 				# text.
 				pass
 			case "display":
-				if not node["name"]:
-					unwrap_for_physical(node)
-					node.unwrap()
-				elif node["name"] == "physical":
-					unwrap_for_physical(node)
-					node.unwrap()
-				elif node["name"] == "logical":
-					node.delete()
-				else:
-					raise Exception
+				unwrap_for_physical(node)
+				node.unwrap()
+			case "split":
+				display = node.first("display")
+				assert display
+				unwrap_for_physical(display)
+			case "views":
+				# We deal with this elsewhere.
+				pass
 			case "div" | "head" | "span" | "link" | "npage" | "nline" | "ncell":
 				unwrap_for_physical(node)
-			case "verse" | "dlist" | "list" | "quote" | "key" | "value" | "item":
+			case "verse" | "dlist" | "elist" | "quote" | "key" | "value" | "item":
 				unwrap_for_physical(node)
 				node.unwrap()
 			case "verse-head" | "source":
@@ -868,7 +838,7 @@ def wrap_for_physical(root, page=None, line=None):
 				line = tree.Tag("line", lang=root["lang"])
 				page.append(line)
 				line.append(node)
-			case "ncell" | "span" | "link" | "note":
+			case "ncell" | "span" | "link" | "note" | "views" | "split":
 				if not page:
 					page = tree.Tag("page", lang=root["lang"])
 					node.insert_before(page)
@@ -1037,7 +1007,7 @@ def is_inline(node):
 	if not isinstance(node, tree.Tag):
 		return False
 	return node.name in ("span", "link", "note", "npage", "nline", "ncell",
-		"display")
+		"display", "views", "split")
 
 def cover_inlines_with_paras(root):
 	i = 0
@@ -1079,6 +1049,53 @@ def wrap_inlines_in_paragraphs(root):
 		elif node.name == "verse":
 			cover_inlines_with_verse_lines(node)
 		wrap_inlines_in_paragraphs(node)
+
+def add_phantom_divisions(root: tree.Branch):
+	"Wraps within divisions isolated paragraphs."
+	for node in root:
+		if not isinstance(node, tree.Tag):
+			continue
+		if node.name == "div":
+			node["phantom"] = "false"
+		if node.name in ("edition", "apparatus", "translation",
+			"commentary", "bibliography", "div"):
+			cover_contents_with_div(node)
+		add_phantom_divisions(node)
+
+def contains_div(root):
+	for child in root:
+		match child:
+			case tree.Tag("div"):
+				return True
+	return False
+
+def cover_contents_with_div(root: tree.Tag):
+	if not contains_div(root):
+		return
+	cur_div = None
+	for node in list(root):
+		match node:
+			case tree.String():
+				assert node.isspace()
+				continue
+			case tree.Tag():
+				pass
+			case tree.Comment():
+				continue
+			case _:
+				raise Exception(f"unexpected {node!r}")
+		match node.name:
+			case "para" | "quote" | "verse" | "dlist" | "elist":
+				if cur_div is None:
+					cur_div = tree.Tag("div", phantom="true")
+					node.insert_before(cur_div)
+				cur_div.append(node)
+			case "div":
+				cur_div = None
+			case "head":
+				pass
+			case _:
+				raise Exception(f"unexpected {node!r}")
 
 # XXX need more stuff for parsing <verse>, not sure we're exhaustive.
 
@@ -1135,7 +1152,7 @@ def unwrap_child_blocks(root: tree.Tag):
 				if head:
 					head.delete()
 				node.unwrap()
-			case "list":
+			case "elist":
 				for elem in node.find("item"):
 					elem.prepend(" ")
 					elem.append(" ")
@@ -1161,7 +1178,7 @@ def fix_blocks_within_paras(t: tree.Tree):
 	quotes within paragraphs, on the one hand, lists and quotes outside of
 	paragraphs, on the other.
 	"""
-	for node in t.find(".//para/*[regex('^list|dlist|quote$', name())]"):
+	for node in t.find(".//para/*[regex('^elist|dlist|quote$', name())]"):
 		move_up_from_para(node)
 
 def move_up_from_para(node):
@@ -1181,20 +1198,34 @@ def move_up_from_para(node):
 	if len(right) > 0:
 		node.insert_after(right)
 
+def expand_view_nodes(views: dict[str, tree.Tag]):
+	# XXX note that the fact we expand it after the rest will prevent
+	# proper positioning of milestones, etc.
+	for name1, root in views.items():
+		for node in root.find(f"//views"):
+			for name2 in list(views):
+				display = node.first(name2)
+				assert display
+				if name1 == name2:
+					display.unwrap()
+				else:
+					display.delete()
+			node.unwrap()
+
 def process_edition(t: tree.Tree, edition: tree.Tag):
-	full = edition.copy()
+	views = {}
+	views["full"] = full = edition.copy()
 	full.name = "full"
 	if (head := full.first("head")):
 		head.delete()
-	physical = full.copy()
+	views["physical"] = physical = full.copy()
 	physical.name = "physical"
 	to_physical(physical)
-	for node in full.find(".//display[@name='physical']"):
-		node.delete()
 	fix_milestones_spaces(full)
-	logical = full.copy()
+	views["logical"] = logical = full.copy()
 	logical.name = "logical"
 	to_logical(logical)
+	expand_view_nodes(views)
 	head = edition.first("head")
 	assert isinstance(edition, tree.Branch)
 	edition.clear()
@@ -1214,6 +1245,7 @@ def process(t: tree.Tree):
 	fix_blocks_within_paras(t)
 	fix_blocks_nesting(t)
 	wrap_inlines_in_paragraphs(t)
+	add_phantom_divisions(t)
 	# Rest
 	fix_spaces(t)
 	fix_milestones(t)
@@ -1233,6 +1265,7 @@ def process(t: tree.Tree):
 			assert node["name"] == "logical"
 			del node["name"]
 	languages.finish_internal(t)
+	# And extract languages from the logical division.
 	if (root := t.first("/document/edition/logical")):
 		add_edition_languages(root)
 	return t

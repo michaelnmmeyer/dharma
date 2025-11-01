@@ -1046,7 +1046,7 @@ def handle_gap_ellipsis(p, gap):
 	p.append("\N{horizontal ellipsis}")
 	p.join()
 
-def parse_gap(p, gap):
+def parse_gap(p, gap) -> tuple[str, str, str]:
 	reason = gap["reason"] or "undefined" # most generic choice
 	quantity = gap["quantity"]
 	precision = gap["precision"]
@@ -1109,12 +1109,19 @@ def parse_gap(p, gap):
 @handler("gap")
 def handle_gap(p, gap):
 	phys_repl, log_repl, tip = parse_gap(p, gap)
-	if tip:
-		p.push(tree.Tag("span", tip=tip))
-	p.append_display(phys_repl, name="physical", lang=gap.notes["assigned_lang"])
-	p.append_display(log_repl, name="logical", lang=gap.notes["assigned_lang"])
-	if tip:
+	assert not isinstance(log_repl, tree.Node)
+	p.push(tree.Tag("views"))
+	for display, node in (("physical", phys_repl), ("logical", log_repl),
+		("full", log_repl)):
+		p.push(tree.Tag(display, lang=gap.notes["assigned_lang"]))
+		if tip:
+			p.push(tree.Tag("span", tip=tip))
+			p.append(node)
+			p.join()
+		else:
+			p.append(node)
 		p.join()
+	p.join()
 
 """
 The following table was produced with this code:
@@ -1202,6 +1209,8 @@ def parse_g(p, node):
 		tip = f"Space-filler symbol: {info['description']}"
 	else:
 		tip = f"Symbol: {info['description']}"
+	p.push(tree.Tag("split"))
+	p.push(tree.Tag("display"))
 	sym = tree.Tag("span", tip=tip)
 	if info["text"]:
 		sym["class"] = "symbol"
@@ -1210,6 +1219,11 @@ def parse_g(p, node):
 		sym["class"] = "symbol-placeholder"
 		sym.append(f"<{info['name']}>") # should not include that in search
 	p.append(sym)
+	p.join()
+	p.push(tree.Tag("search"))
+	p.append('?') # TODO actually find something
+	p.join()
+	p.join("split")
 
 hi_table = {
 	"italic": tree.Tag("span", class_="italics"),
@@ -1424,7 +1438,7 @@ def parse_list(p, lst):
 	rend = lst["rend"]
 	if rend not in ("plain", "bulleted", "numbered"):
 		rend = "plain"
-	p.push(tree.Tag("list", type=rend))
+	p.push(tree.Tag("elist", type=rend))
 	for item in lst.find("item"):
 		p.push(tree.Tag("item"))
 		p.dispatch_children(item)

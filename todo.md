@@ -2,20 +2,7 @@
 
 ---
 
-@rendition does not only occur in div[@type='edition'].
 
-
-regarder INSTamilNadu01008.xml languages. à cause de la racine
-div[@type='edition']. que faire dans ce cas?
-
-goals for languages/scripts:
-
-* need to be able to search for passages in a given language or in a given script
-* need to be able to look for files that use some given language (includes modern languages, like e.g. "find all inscriptions translated into French").
-* need to indicate, in the generated html, that portion X is in a given language, for better hyphenation in the browser
-* need to tell the user which languages are used in the edition; in this
-  context, should omit source_other for scripts and langs.
-* need to tell which languages are used anywhere in the file
 
 ---
 
@@ -60,15 +47,9 @@ Ajuster dispositif n des milesyones en fonction de remplissage par para et verse
 
 Permettre les div imbriquées, et vérifier que les résultats est le bon. Autoriser tous types de div, pas seulement text part.
 
-Pour les sic/corr orig/reg et aussi les abbrevs, on devrait avoir un élément group qui réunit plusieurs inlines qui ne doivent pas être séparés dans les highlighted résultats. De même, dans les résultats de la recherche, on ne devrait jamais couper à l'intérieur d'un cluster. (Mais noter que les sic/corr, etc. peuvent contenir des espaces, donc l'emploi d'un élément group demeure nécessaire.)
-
-On va avoir besoin de élément split, lui-même contenant deux éléments: search and display. Utiliser cela pour encoder les gaiji.  Aussi pour les gaps. Pour simplifier le processing, on pourrait rendre l'usage de Split obligatoire même pour les display purs.
-
 On devrait avoir des lignes fantômes pour le physical aussi, dans la recherche.
 
-Pour rendre cherchaboes les notes, les placer.à la fin du document. Et considérer <note> comme une sorte de division. On devrai également considérer l'élément quote commee une div, et avoir des éléments para ou verse dedans. Idem for list and dlist items.
 
-For search ing, each span of text should be annotated with its language and with contextual info (whether we are in a title, a para, a verse, in a list item, etc.
 
 ---
 

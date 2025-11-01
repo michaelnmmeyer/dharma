@@ -1,19 +1,31 @@
 ## cursors
 
+======
+
+On va avoir besoin de élément <split>, lui-même contenant deux éléments: <search> and <display>. Utiliser cela pour encoder les gaiji.  Aussi pour les gaps. Pour simplifier le processing, on pourrait rendre l'usage de Split obligatoire même pour les display purs.
+
+Pour les sic/corr orig/reg et aussi les abbrevs, on devrait avoir un élément group qui réunit plusieurs inlines qui ne doivent pas être séparés dans les highlighted résultats. De même, dans les résultats de la recherche, on ne devrait jamais couper à l'intérieur d'un cluster. (Mais noter que les sic/corr, etc. peuvent contenir des espaces, donc l'emploi d'un élément group demeure nécessaire.)
+
+
+For search ing, each span of text should be annotated with its language and with contextual info (whether we are in a title, a para, a verse, in a list item, etc.
+
+===========
+
 it is likely that the result of highlighting and of search will differ, even
 though this should not happen, so we must be prepared to deal with this.
 
 ===========
 
-before highlighting a document in the internal representation.
-
-need to complete the document with all the data we might need for search
-(repository, file name, date of modification, etc.).
+before highlighting a document in the internal representation, need to complete
+the document with all the data we might need for search (repository, file name,
+date of modification, etc.). we have an XML tree instead of a Document object as
+input because 1) we will need to process an XML tree for highlighting; and 2)
+because it is more convenient to use xpath for extracting nodes.
 
 must fetch all fields so that we have them readily accessible from within a
-class. basically, map each searchable field to a xpath expression for
-retrieving the field, and fetch the fields lazily, so that we only fetch them if
-needed. at the end should have a wrapper class over an xml internal document.
+class. basically, map each searchable field to a xpath expression for retrieving
+the field, and fetch the fields lazily. we should have a wrapper class
+over an xml internal document.
 
 to each field must also be mapped necessary info for tokenizing the field (data
 type, whether there can be several occurrences of the field, etc.). should have
@@ -22,14 +34,8 @@ a global table that contains all the info.
 we must necessarily be able to search and highlight something else than text
 fields. as an optimization, at query time, we should use sqlite's functions,
 when available. so, basically, a query (sub)tree should be convertible to either
-a sql search expression or a cursor, depending on the context.
-
-=====
-
-for search, we have an XML tree instead of a Document object as input because 1)
-we will need to process an XML tree for highlighting; and 2) because it is more
-convenient to use xpath.
-
+a sql search expression or a cursor, depending on the context: a sql search
+expression for searching, a cursor for highlighting.
 
 ===========
 
@@ -95,7 +101,7 @@ ideally, the stuff for normalizing strings should advance by arbitrary intervals
 
 
 
-
+Pour rendre cherchaboes les notes, les placer.à la fin du document. Et considérer <note> comme une sorte de division. On devrai également considérer l'élément quote commee une div, et avoir des éléments para ou verse dedans. Idem for list and dlist items.
 
 
 

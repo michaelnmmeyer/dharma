@@ -73,7 +73,7 @@ def render_document(self, node):
 	self.join()
 	self.document.body = self.top
 
-@handler("list")
+@handler("elist")
 def render_list(self, node):
 	match node["type"]:
 		case "plain":
@@ -234,7 +234,7 @@ def render_dlist(self, node):
 		self.join()
 	self.join()
 
-@handler("div")
+@handler("div[@phantom='false']")
 def render_div(self, node):
 	self.heading_level += 1
 	self.dispatch_children(node)
@@ -278,6 +278,7 @@ def make_note_ref(self, node, display=None):
 		# This should be a note in the edition, which is duplicated
 		# in the tree for the 3 displays (physical, logical, full).
 		# We only need one version, so ignore the others.
+		assert display is not None
 		assert n < len(self.notes) + 1, node.xml()
 	self.push(tree.Tag("sup"))
 	anchor = f"note-ref-{n}"
@@ -344,8 +345,15 @@ def render_verse(self, node):
 	self.join()
 
 @handler("display")
+@handler("div") # phantom divisions
 def just_dispatch(self, node):
 	self.dispatch_children(node)
+
+@handler("split")
+def render_split(self, node):
+	display = node.first("display")
+	assert display
+	self.dispatch_children(display)
 
 @handler("*")
 def render_tag(self, node):

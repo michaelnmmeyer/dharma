@@ -1,12 +1,49 @@
+# Schema for the internal representation.
+#
+# There are two basic categories of elements: inline elements (spans of text)
+# and block elements (divisions, paragraphs, etc.).
+#
+# * Main divisions: summary, hand, edition, apparatus, translation, commentary,
+# bibliography.
+#
+# * Other division: div.
+#
+# * Paragraph-like: para, verse (which should only contain verse-line), head.
+#
+# * Containers: elist (which should only contain item), dlist (which should only
+#   contain series of (key, value))
+#
+# * Division-like: note, quote, item, key, value. They should only contain para,
+#   verse, elist, dlist, quote.
+#
+# * Inline elements: span, link, milestones (npage, nline, ncell), display, split.
+#
+# Before patching, can also have <views> which holds exactly three child nodes
+# <physical>, <logical>, <full>. This element is expanded differently depending on
+# the edition display.
+
+Also a <source> element.
+
 default namespace = ""
 
 block = para | verse | quote | dlist | elist
 
-inline = text | span | link | note | milestone | display
+# Elements that do not cross a paragraph boundary or a line boundary.
+inline = text | span | link | note | milestone | display | split
 
 milestone = npage | nline | ncell
 
+# This stores two things: display holds what we should display, search is a
+# textual representation of the same that will be used for searching.
+split = element split {
+	display,
+	element search { text }
+}
+
 start = element document {
+	# Three data fields: title, author, editor. They should not contain
+	# paragraphs. If there are several titles, the first one is the one that
+	# should be displayed.
 	element title { inline+ }*,
 	element author { name, identifier? }*,
 	element editor { name, identifier? }*,
@@ -23,25 +60,25 @@ start = element document {
 }
 edition = element edition {
 	head,
-	element physical { (physical_div | page)+ }, # XXX should have (block+ | ediv+): cover everything with div if needed (as for milestones), with "phantom" divisions. if we do this, a div should not have a mandatory <head>
-	element logical { (ediv | block)+ },
-	element full { (ediv | block)+ }
+	element physical { (physical_div | page)+ }, # XXX should have (block+ | ediv+): cover everything with div if needed (as for milestones), with "phantom" divisions. if we do this, a div should not have a mandatory <head>. same applies to the other divs below: apparatus, etc.
+	element logical { (ediv | block)* },
+	element full { (ediv | block)* }
 }
 apparatus = element apparatus {
 	head,
-	(ediv+ | para+)
+	(ediv | block)*
 }
 translation = element translation {
 	head,
-	(ediv | block)+
+	(ediv | block)*
 }
 commentary = element commentary {
 	head,
-	(ediv | block)+
+	(ediv | block)*
 }
 bibliography = element bibliography {
 	head,
-	(ediv | block)+
+	(ediv | block)*
 }
 
 note = element note {
@@ -49,7 +86,7 @@ note = element note {
 	# Because in the latter, we generate three representations: physical,
 	# logical, full; there are thus 3 copies of each note.
 	attribute n { xsd:integer },
-	block+
+	block*
 }
 span = element span {
 	attribute class { text }?,
@@ -63,49 +100,48 @@ span = element span {
 	# early.
 	attribute standalone { xsd:boolean }?,
 	attribute tip { text }?,
-	inline+
+	inline*
 }
 name = element name { text }
 identifier = element identifier { text }
 para = element para {
 	attribute anchor { text }?,
 	attribute class { text }?,
-	inline+
+	inline*
 }
-elist = element list {
+elist = element elist {
 	attribute type { "plain" | "bulleted" | "numbered" },
-	element item { block+ }+
+	element item { block* }*
 }
 dlist = element dlist {
-	(element key { block* }, element value { block* })+
+	(element key { block* }, element value { block* })*
 }
 quote = element quote {
 	element source { inline+ }?,
-	block+
+	block*
 }
 head = element head { inline+ }
 ediv = element div {
 	head?,
-	(ediv | block)+
+	(ediv* | block*)
 }
 physical_div = element div {
 	head?,
-	(physical_div | page)+
+	(physical_div* | page*)
 }
 page = element page {
 	head?,
-	element line { inline+ }+
+	element line { inline* }*
 }
 verse = element verse {
 	element verse-head { inline+ }?,
-	(ncell | nline | npage | span | verse-line)*,
-	note?
+	verse-line+,
 }
 verse-line = element verse-line {
 	attribute break { xsd:boolean }?,
 	attribute n { text }?,
 	attribute tip { text }?,
-	(text | link | elist | ncell | nline | note | npage | span)+
+	(text | link | elist | ncell | nline | note | npage | span)*
 }
 
 link = element link {
