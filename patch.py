@@ -164,113 +164,89 @@ def add_edition_languages(t):
 		for lang in sorted(script_langs):
 			root.append(lang_nodes[lang].copy())
 		scripts_root.append(root)
-	t.first("/document").prepend(scripts_root)
-	t.first("/document").prepend(langs_root)
+	t.root.prepend(scripts_root)
+	t.root.prepend(langs_root)
 
 def fix_languages(t):
 	languages.complete_internal(t)
 
-################### Whitespace + removal of empty elements #####################
+########## Normalization of whitespace + removal of empty elements #############
 
 def fix_spaces(doc: tree.Tree):
-	"""Whitespace normalization.
+	"""Whitespace normalization and removal of empty elements.
 
-	We basically do what follows. We remove spaces at the beginning and at
-	the end of each element (except if the element is an inline). Thus, no
-	element starts or ends with a space. Furthermore, we squeeze spaces
-	(collapse sequences of spaces into a single space within each element).
+	There are three cases.
+
+	We remove spaces at the beginning and at the end of all elements that
+	are not inline ones. After this, non-inline elements neither start with
+	a space nor end with one. Furthermore, we squeeze spaces (collapse
+	sequences of spaces into a single space ' ' within each element).
+
 	If the element is an inline, we transfer spaces at the beginning and at
-	the end of a subtree to the parent element, recursively. Thus,
+	the end of the subtree to the parent element, recursively. Thus,
 
 	        <para>foo<span><link> bar</link></span></para>
 
-	is turned into:
+	... is turned into:
 
 	        <para>foo <span><link>bar</link></span></para>
 
-	For <note> elements, we drop preceding whitespace. For all other tags,
-	we drop spaces both before and after them.
+	We drop all spaces before <note> elements (because there should be no
+	space between a footnote marker and the preceding text).
+	For all other tags, we drop spaces both before and after them.
 
 	Finally, we delete all empty elements except the tree's root viz.
 	<document> and milestones (<npage>, <nline>, <ncell>).
 	"""
-	fix_elements(doc.root)
+	fix_spaces_in_element(doc.root)
 
-def add_space_before(root):
-	parent = root.parent
-	i = parent.index(root)
-	if i > 0 and isinstance(parent[i - 1], tree.String):
-		node = parent[i - 1]
-		if len(node) > 0 and node[-1].isspace():
-			pass
-		else:
-			node.replace_with(node.data + " ")
-	else:
-		parent.insert(i, " ")
-
-def add_space_after(root):
-	parent = root.parent
-	i = parent.index(root)
-	if i < len(parent) - 1 and isinstance(parent[i + 1], tree.String):
-		node = parent[i + 1]
-		if len(node) > 0 and node[0].isspace():
-			pass
-		else:
-			node.replace_with(" " + node.data)
-	else:
-		parent.insert(i + 1, " ")
-
-def starts_with_space(s):
-	return len(s) > 0 and s[0].isspace()
-
-def ends_with_space(s):
-	return len(s) > 0 and s[-1].isspace()
-
-def delete_if_empty(root: tree.Tag):
-	"""Delete all empty elements (except the XML document's root and
-	milestones and <key>).
-
-	Divisions that have a heading but no contents are also considered empty.
-	We do not try to distinguish "default" headings (like "Apparatus", etc.)
-	from non-default ones. Not sure how this should be made to work, because
-	for <translation> we have several variations of "default" headings."""
-	if len(root) == 0:
-		if root.name not in ("document", "npage", "nline", "ncell", "key", "language", "script"):
-			root.delete()
-	elif len(root) == 1 and isinstance(root[0], tree.Tag) and root[0].name == "head":
-		root.delete()
-
-def fix_elements(root: tree.Tag):
+def fix_spaces_in_element(root: tree.Tag):
+	# We need to process subtrees first: spaces might pop up from them.
 	nodes = []
 	for node in root:
 		if isinstance(node, tree.Tag):
 			nodes.append(node)
 	for node in nodes:
-		fix_elements(node)
+		fix_spaces_in_element(node)
 	root.coalesce(recursive=False)
+	# Now we can process strings.
 	nodes.clear()
 	for node in root:
 		if isinstance(node, (tree.Tag, tree.String)):
 			nodes.append(node)
+	adjust_spaces(root, nodes)
+	delete_if_empty(root)
+
+def can_trim_before(name):
+	"Whether we can delete spaces before the given element."
+	return name not in ("span", "link", "display", "split")
+
+def can_trim_after(name):
+	"Whether we can delete spaces after the given element."
+	return name not in ("span", "link", "display", "split", "note")
+
+def adjust_spaces(root, nodes):
+	# forward_spaces is true if spaces at the beginning or at the end of
+	# this node should be moved outside of it.
 	forward_spaces = root.name in ("span", "link")
 	for i, node in enumerate(nodes):
 		if not isinstance(node, tree.String):
 			continue
 		repl = squeeze(node.data)
 		assert len(repl) > 0
-		if i < len(nodes) - 1 and ends_with_space(repl) \
+		if i < len(nodes) - 1 and repl and repl[-1] == " " \
 			and isinstance(nodes[i + 1], tree.Tag) \
-			and nodes[i + 1].name not in ("span", "link"):
+			and can_trim_before(nodes[i + 1].name):
 			repl = repl.rstrip()
-		if i > 0 and starts_with_space(repl) \
+		if i > 0 and repl and repl[0] == " " \
 			and isinstance(nodes[i - 1], tree.Tag) \
-			and nodes[i - 1].name not in ("span", "link", "note"):
+			and can_trim_after(nodes[i - 1].name):
 			repl = repl.lstrip()
-		if i == 0 and starts_with_space(repl):
+		if i == 0 and repl and repl[0] == " ":
 			repl = repl.lstrip()
 			if forward_spaces:
 				add_space_before(root)
-		if i == len(nodes) - 1 and len(repl) > 0 and repl[-1] == " ":
+		if i == len(nodes) - 1 and repl and repl[-1] == " ":
 			repl = repl.rstrip()
 			if forward_spaces:
 				add_space_after(root)
@@ -278,7 +254,61 @@ def fix_elements(root: tree.Tag):
 			node.delete()
 		elif repl != node.data:
 			node.replace_with(repl)
-	delete_if_empty(root)
+
+def add_space_before(root: tree.Tag):
+	"""Adds a space character right before a given node. If there is already
+	one, this does nothing."""
+	parent = root.parent
+	assert parent is not None
+	i = parent.index(root)
+	if i > 0 and isinstance(parent[i - 1], tree.String):
+		node = parent[i - 1]
+		if len(node) > 0 and node[-1].isspace():
+			# We have 'foo <root>', do nothing.
+			pass
+		else:
+			# We have 'foo<root>', transform it to 'foo <root>'
+			node.replace_with(node.data + " ")
+	else:
+		# We have '<foo><root>', transform it to '<foo> <root>'
+		parent.insert(i, " ")
+
+def add_space_after(root: tree.Tag):
+	"""Like `add_space_before()`, but inserts a space after the node
+	instead."""
+	parent = root.parent
+	assert parent is not None
+	i = parent.index(root)
+	if i < len(parent) - 1 and isinstance(parent[i + 1], tree.String):
+		node = parent[i + 1]
+		if len(node) > 0 and node[0].isspace():
+			# We have '<root> foo', do nothing.
+			pass
+		else:
+			# We have '<root>foo', transform it to '<root> foo'
+			node.replace_with(" " + node.data)
+	else:
+		# We have '<root> <foo>', transform it to '<root> <foo>'
+		parent.insert(i + 1, " ")
+
+def delete_if_empty(root: tree.Tag):
+	"""Deletes empty elements recursively, starting at the given one, and
+	including the given one.
+
+	Divisions that have a heading but no contents are also considered empty.
+	We do not try to distinguish "default" headings (like "Apparatus", etc.)
+	from non-default ones. Not sure how this should be made to work, because
+	for <translation> we have several variations of "default" headings.
+
+	Some elements are not deleted, even if they are empty. This includes
+	the document's root, `<document>` (otherwise, the output wouldn't be a
+	proper XML document), and a few others.
+	"""
+	if len(root) == 0:
+		if root.name not in ("document", "npage", "nline", "ncell", "key"):
+			root.delete()
+	elif len(root) == 1 and isinstance(root[0], tree.Tag) and root[0].name == "head":
+		root.delete()
 
 def squeeze(s):
 	return re.sub(r"\s+", " ", s)

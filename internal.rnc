@@ -25,8 +25,6 @@
 # <physical>, <logical>, <full>. This element is expanded differently depending on
 # the edition display.
 
-#Also a <source> element.
-
 start = document
 
 document = element document {
@@ -168,8 +166,8 @@ elist = element elist {
 dlist = element dlist { pair+ }
 pair = element key { block* }, element value { block* }
 
-# "quote" is a block quotation. "source" is a line describing where it comes
-# from (typically, a pointer to the bibliography).
+# "quote" is a block quotation. "source" is a line of text describing where
+# the quotation comes from (typically, a pointer to the bibliography).
 quote = element quote {
 	element source {
 		attribute lang { text }?,
