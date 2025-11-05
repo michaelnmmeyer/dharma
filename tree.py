@@ -744,7 +744,7 @@ class Tree(Branch):
 				if ret is not None:
 					raise Exception("multiple root tags in XML document")
 				ret = node
-		if not ret:
+		if ret is None:
 			raise Exception("attempt to retrieve the root tag of a tree that does not have one")
 		return ret
 
@@ -1957,10 +1957,16 @@ class Serializer:
 				raise Exception(f"bad value {expect!r}")
 		self.append(item)
 
-	def append(self, node):
-		if isinstance(node, Node):
-			node = node.copy()
-		self.stack[-1].append(node)
+	def append(self, node: Node | str):
+		match node:
+			case Tree():
+				node = node.copy()
+				for child in node:
+					self.stack[-1].append(child)
+			case Node():
+				self.stack[-1].append(node.copy())
+			case _:
+				self.stack[-1].append(node)
 
 	def extend(self, node_iter):
 		for node in list(node_iter):

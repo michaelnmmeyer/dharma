@@ -1,29 +1,20 @@
 # Schema for the internal representation.
 #
 # The internal representation has two states: 1) the output of the TEI parsing
-# code (in tei.py), which is an approximation of what the output should be; and
-# 2) the output of the patching code (in patch.py), which straightens out the
-# data representation. This schema only describes 2), the "actual" internal
-# representation.
+# code (in tei.py), which is an approximation of what the output should be and
+# is meant to be temporary (for now); and 2) the output of the patching code (in
+# patch.py), which straightens out the data representation, makes it easier to
+# process programmatically, and also generates the three displays (physical,
+# logical, full) of the edition div.
 #
-# * Main divisions: summary, hand, edition, apparatus, translation, commentary,
-# bibliography.
+# This schema only describes 2), the "actual" internal representation.
 #
-# * Other division: div.
-#
-# * Paragraph-like: para, verse (which should only contain verse-line), head.
-#
-# * Containers: elist (which should only contain item), dlist (which should only
-#   contain series of (key, value))
-#
-# * Division-like: note, quote, item, key, value. They should only contain para,
-#   verse, elist, dlist, quote.
-#
-# * Inline elements: span, link, milestones (npage, nline, ncell), display, split.
-#
-# Before patching, can also have <views> which holds exactly three child nodes
-# <physical>, <logical>, <full>. This element is expanded differently depending on
-# the edition display.
+# The representation 1) can contain `<views>` elements. A `<views>` element
+# holds exactly three child nodes: `<physical>`, `<logical>`, `<full>`, one per
+# display. After 2), `<views>` elements are replaced with the contents of
+# `<physical>`, `<logical>`, `<full>`, depending on the edition display. When a
+# `<views>` element appears outside of the edition div, we always use the
+# contents of its `<full>` child node.
 
 # Start state.
 start = document
@@ -74,8 +65,9 @@ block = para | verse | quote | dlist | elist
 # Elements that do not cross a paragraph boundary (or a line boundary).
 inline = text | span | link | note | milestone | display | split
 
-# A "split" has two child nodes: "display" holds what we should display, "search"
-# is a textual representation of the same data that should be used for searching.
+# A "split" has two child nodes: "display" holds what we should display,
+# "search" is a textual representation of the same data that should be used for
+# searching.
 split = element split {
 	display,
 	element search {
@@ -129,18 +121,9 @@ span = element span {
 	attribute lang { text }?,
 	# "class" is a list of CSS classes.
 	attribute class { text }?,
-	# XXX this sucks
-	# "standalone" is for spans corresponding to one of sic corr orig reg; if
-	# standalone=false, the element is paired with another (sic/corr
-	# orig/reg), otherwise the element appears on its own, it is not on its
-	# own. XXX should get rid of standalone. we should just have sic corr
-	# orig reg elements in the internal format, and then the patch utility
-	# would pair back stuff. but then we can't distinguish between a sic
-	# followed by a corr and a pair sic/corr, so this should be annotated
-	# early.
-	attribute standalone { xsd:boolean }?,
+	# Tooltip
 	attribute tip { text }?,
-	inline*
+	inline+
 }
 
 name = element name {
@@ -213,13 +196,9 @@ line = element line {
 	inline+
 }
 
-verse = element verse {
-	element head {
-		attribute lang { text }?,
-		inline+
-	}?,
-	verse-line+
-}
+# "verse" is a verse with an optional heading (indicating the meter) and
+# verse lines.
+verse = element verse { head?, verse-line+ }
 
 verse-line = element verse-line {
 	attribute lang { text }?,

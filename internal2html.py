@@ -181,8 +181,11 @@ def push_heading(self, level: int, class_: list[str] = []):
 	class_ = class_.copy()
 	if self.toc_depth >= 0 and self.heading_level > self.toc_depth:
 		class_.append("skip-toc")
-	self.push(tree.Tag(f"h{self.heading_level}", class_="".join(class_)))
-	tree.Tag(f"h{self.heading_level}")
+	# HTML headings stop at <h6>. We could do something sensible when
+	# heading_level > 6, but this is unlikely to happen, so we just act is
+	# if they had a level 6.
+	level = min(self.heading_level, 6)
+	self.push(tree.Tag(f"h{level}", class_="".join(class_)))
 
 @handler("apparatus")
 def render_apparatus(self, node):

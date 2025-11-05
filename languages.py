@@ -22,7 +22,6 @@ https://www.loc.gov/standards/iso639-5/index.html.
 For scripts, we use dharma-internal codes.
 """
 
-import sys, re, copy
 import requests # pip install requests
 from dharma import common, texts, tree
 
@@ -260,6 +259,7 @@ def assign_languages(t):
 ##################### For annotating internal documents ########################
 
 def complete_internal(t: tree.Tree):
+	"""Set a @lang attribute on all elements."""
 	for child in t:
 		complete_internal_any(child, "eng latin")
 

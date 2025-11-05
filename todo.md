@@ -1,5 +1,12 @@
 # TODO
 
+xxx can't just transfer spaces outside of split and views, do something more sensible.
+
+display of <am> <ex> in logical/physical/full?
+
+we have a switch on fw in the patching code, don't do that
+
+
 ---
 
 Retirer distinction entre assigned lang et inferred lang, avoir une seule catégorie lang.

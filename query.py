@@ -171,15 +171,21 @@ def extract_text_inner(root, buf):
 			buf.append(root)
 			return
 		case tree.Tree():
-			raise Exception
+			for node in root:
+				extract_text_inner(node, buf)
+			return
 		case tree.Tag():
 			pass # See below.
 		case _:
 			return
 	match root.name:
-		case "logical" | "div":
+		case "logical" | "div" | "search" | "unclear":
 			for node in root:
 				extract_text_inner(node, buf)
+		case "split":
+			search = root.first("search")
+			assert search is not None
+			extract_text_inner(search, buf)
 		# XXX won't work well for quote, list, dlist, can't recurse.
 		case "para" | "verse" | "quote" | "elist" | "dlist":
 			for node in root:

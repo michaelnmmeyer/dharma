@@ -588,8 +588,7 @@ def parse_sic(p, sic, corr=None):
 		p.append("⟩")
 		p.join()
 		p.append(")")
-	stand = common.from_boolean(not corr)
-	p.push(tree.Tag("span", class_="sic", standalone=stand, tip=p.pop().xml()))
+	p.push(tree.Tag("span", class_="sic", tip=p.pop().xml()))
 	p.append_display("¿")
 	p.dispatch_children(sic)
 	p.append_display("?")
@@ -607,8 +606,7 @@ def parse_corr(p, corr, sic=None):
 		p.append("?")
 		p.join()
 		p.append(")")
-	stand = common.from_boolean(not sic)
-	p.push(tree.Tag("span", class_="corr", standalone=stand, tip=p.pop().xml()))
+	p.push(tree.Tag("span", class_="corr", tip=p.pop().xml()))
 	p.append_display('⟨')
 	p.dispatch_children(corr)
 	p.append_display('⟩')
@@ -619,7 +617,6 @@ def parse_orig(p, orig, reg=None):
 	p.push(tree.Tree())
 	p.append("Non-standard text")
 	if reg:
-		class_ = "orig"
 		p.append(" (standardisation: ")
 		p.push(tree.Tag("span", class_="reg"))
 		p.append("⟨")
@@ -627,8 +624,7 @@ def parse_orig(p, orig, reg=None):
 		p.append("⟩")
 		p.join()
 		p.append(")")
-	stand = common.from_boolean(not reg)
-	p.push(tree.Tag("span", class_="orig", standalone=stand, tip=p.pop().xml()))
+	p.push(tree.Tag("span", class_="orig", tip=p.pop().xml()))
 	p.append_display("¡")
 	p.dispatch_children(orig)
 	p.append_display("!")
@@ -646,8 +642,7 @@ def parse_reg(p, reg, orig=None):
 		p.append_display("!")
 		p.join()
 		p.append(")")
-	stand = common.from_boolean(not orig)
-	p.push(tree.Tag("span", class_="reg", standalone=stand, tip=p.pop().xml()))
+	p.push(tree.Tag("span", class_="reg", tip=p.pop().xml()))
 	p.append_display("⟨")
 	p.dispatch_children(reg)
 	p.append_display("⟩")
@@ -676,36 +671,113 @@ def parse_unclear(p, node, standalone=True):
 		p.append_display(")")
 	p.join()
 
-# We expect one of:
-#
-# <choice>(<unclear>...</unclear>)+</choice>
-# <choice><sic>...</sic><corr>...</corr></choice>
-# <choice><orig>...</orig><reg>...</reg></choice>
-#
-# XXX TODO In case #1, for search and plain should just keep the text of the 1st unclear.
-# For #2 and #3, for searching should keep <corr> and <reg>, ignore the rest.
 @handler("choice")
 def parse_choice(p, node):
+	"""We expect one of the following:
+
+	#1 <choice>(<unclear>...</unclear>)+</choice>
+	#2 <choice><sic>...</sic><corr>...</corr></choice>
+	#3 <choice><orig>...</orig><reg>...</reg></choice>
+
+	And we need to generate:
+
+	#2
+
+	#3 <views>
+		<physical>orig</physical>
+		<logical>reg</logical>
+		<full>
+			<split>
+				<display>orig reg</display>
+				<search>reg</search>
+			</split>
+		</full>
+	</views>
+	"""
 	children = node.find("*")
 	if all(child.name == "unclear" for child in children):
-		p.push(tree.Tag("span", tip="Unclear (several possible readings)"))
-		p.append("(")
-		for i, child in enumerate(children):
-			p.dispatch_children(child)
-			if i < len(children) - 1:
-				p.append("/")
-		p.append(")")
-		p.join()
+		make_multiple_unclear(p, children)
 	elif len(children) != 2:
 		p.dispatch_children(node)
 	elif (sic := node.first("sic")) and (corr := node.first("corr")):
+		p.push(tree.Tree())
 		parse_sic(p, sic, corr)
+		one = p.pop()
+		p.push(tree.Tree())
 		parse_corr(p, corr, sic)
+		two = p.pop()
+		make_choice_pair(p, one, two)
 	elif (orig := node.first("orig")) and (reg := node.first("reg")):
+		p.push(tree.Tree())
 		parse_orig(p, orig, reg)
+		one = p.pop()
+		p.push(tree.Tree())
 		parse_reg(p, reg, orig)
+		two = p.pop()
+		make_choice_pair(p, one, two)
 	else:
 		p.dispatch_children(node)
+
+def make_multiple_unclear(p, nodes: list[tree.Node]):
+	"""Output:
+
+	<split>
+		<display>unclear1 unclear2</display>
+		<search>unclear1</search>
+	</split>
+	"""
+	p.push(tree.Tag("split"))
+	p.push(tree.Tag("display"))
+	p.push(tree.Tag("span", tip="Unclear (several possible readings)"))
+	p.append("(")
+	for i, node in enumerate(nodes):
+		p.dispatch_children(node)
+		if i < len(nodes) - 1:
+			p.append("/")
+	p.append(")")
+	p.join()
+	p.join("display")
+	p.push(tree.Tag("search"))
+	p.append(nodes[0])
+	p.join()
+	p.join("split")
+
+def make_choice_pair(p, one, two):
+	"""
+	<views>
+		<physical>one</physical>
+		<logical>two</logical>
+		<full>
+			<split>
+				<display>one two</display>
+				<search>two</search>
+			</split>
+		</full>
+	</views>
+	"""
+	# Three views
+	p.push(tree.Tag("views"))
+	# Physical
+	p.push("physical")
+	p.append(one)
+	p.join("physical")
+	# Logical
+	p.push("logical")
+	p.append(two)
+	p.join("logical")
+	# Full
+	p.push("full")
+	p.push("split")
+	p.push("display")
+	p.append(one)
+	p.append(two)
+	p.join("display")
+	p.push("search")
+	p.append(two)
+	p.join()
+	p.join()
+	p.join("full")
+	p.join("views")
 
 # EGD "Editorial deletion (suppression)"
 @handler("surplus")
@@ -774,7 +846,10 @@ def append_milestone_label(p, node, unit):
 		if (n := get_n(node)):
 			p.append(" ")
 			p.append(n)
-	if (label := node.first("stuck-following-sibling::label")):
+	# If a <label> follows immediately, associate it with the milestone.
+	# But not if this <label> is a list element, because in this case it
+	# has a different meaning.
+	if (label := node.first("stuck-following-sibling::label[not parent::list]")):
 		p.append(": ")
 		p.push(tree.Tag("span", lang=label.notes["assigned_lang"]))
 		p.dispatch_children(label)
@@ -1419,19 +1494,33 @@ réduire les espaces entre ce qui précède et suit du para + entre les items
 @handler("list[@rend='description' or label]")
 def parse_description_list(p, lst):
 	p.push(tree.Tag("dlist"))
-	# We expect a series of (label, item).
-	for item in lst.find("item"):
-		label = item.first("stuck-preceding-sibling::label")
-		p.push(tree.Tag("key"))
-		if label:
-			p.push(tree.Tag("span", lang=label.notes["assigned_lang"]))
-			p.dispatch_children(label)
-			p.join()
-		p.join()
-		p.push(tree.Tag("value"))
-		p.dispatch_children(item)
-		p.join()
-	p.join()
+	# We expect a series of (label, item). Only these elements are supposed
+	# to occur within a list. But still try to deal with other elements.
+	# In particular, people might be tempted to insert milestones between
+	# list items.
+	last = "item"
+	for thing in lst.find("*"):
+		assert isinstance(thing, tree.Tag)
+		if thing.name not in ("label", "item"):
+			p.dispatch(thing)
+			continue
+		match thing.name:
+			case "label":
+				if last == "label":
+					p.append(tree.Tag("value"))
+				p.push(tree.Tag("key"))
+				p.dispatch_children(thing)
+				p.join()
+			case "item":
+				if last == "item":
+					p.append(tree.Tag("key"))
+				p.push(tree.Tag("value"))
+				p.dispatch_children(thing)
+				p.join()
+		last = thing.name
+	if last == "label":
+		p.append(tree.Tag("value"))
+	p.join("dlist")
 
 @handler("list")
 def parse_list(p, lst):
@@ -1439,9 +1528,13 @@ def parse_list(p, lst):
 	if rend not in ("plain", "bulleted", "numbered"):
 		rend = "plain"
 	p.push(tree.Tag("elist", type=rend))
-	for item in lst.find("item"):
+	for thing in lst.find("*"):
+		assert isinstance(thing, tree.Tag)
+		if thing.name not in ("label", "item"):
+			p.dispatch(thing)
+			continue
 		p.push(tree.Tag("item"))
-		p.dispatch_children(item)
+		p.dispatch_children(thing)
 		p.join()
 	p.join()
 
@@ -1693,24 +1786,6 @@ def gather_biblio(p):
 			entry = biblio.lookup_entry(short_title)
 			p.bib_entries[short_title] = entry
 
-# For div[@type='textpart'].
-# Within inscriptions, <div> shouldn't nest, except that we can have
-# <div type="textpart"> within <div type="edition">.
-# The DHARMA_INSEC* stuff don't follow the INS schema, too different.
-# We expect:
-# <div type="textpart" n="..."><head>...</head>?<note>?
-@handler("div[@type='textpart']")
-def parse_div_textpart(p, div):
-	def make_textpart_heading():
-		subtype = div["subtype"] or "part"
-		p.append(common.sentence_case(subtype))
-		if (n := get_n(div)):
-			p.append(f" {n}")
-	p.push(tree.Tag("div", lang=div.notes["assigned_lang"]))
-	add_div_heading(p, div, make_textpart_heading)
-	p.dispatch_children(div)
-	p.join() # </div>
-
 @handler("div[regex('edition|apparatus|commentary|bibliography', @type)]")
 def parse_main_div(p, div):
 	p.push(tree.Tag(div["type"], lang=div.notes["assigned_lang"]))
@@ -1759,6 +1834,28 @@ def parse_div_translation(p, div):
 	add_div_heading(p, div, make_translation_heading)
 	p.dispatch_children(div)
 	p.document.translation.append(p.pop())
+
+@handler("div[@type='textpart']")
+@handler("div")
+def parse_div_textpart(p, div):
+	"""For div[@type='textpart']. We treat divs without a @type as if they
+	had @type='textpart'.
+
+	Within inscriptions, <div> shouldn't nest, except that we can have
+	<div type="textpart"> within <div type="edition">.
+	The DHARMA_INSEC* stuff don't follow the INS schema, too different.
+	We expect:
+	<div type="textpart" n="..."><head>...</head>?<note>?
+	"""
+	def make_textpart_heading():
+		subtype = div["subtype"] or "part"
+		p.append(common.sentence_case(subtype))
+		if (n := get_n(div)):
+			p.append(f" {n}")
+	p.push(tree.Tag("div", lang=div.notes["assigned_lang"]))
+	add_div_heading(p, div, make_textpart_heading)
+	p.dispatch_children(div)
+	p.join() # </div>
 
 def add_div_heading(p, div, dflt):
 	p.push(tree.Tag("head"))
