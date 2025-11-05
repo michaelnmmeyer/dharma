@@ -656,7 +656,9 @@ create view if not exists people_display as
 			json_group_array(json_array(lang, name, freq)) as langs_prod
 		from people_langs
 			join langs_list on people_langs.lang = langs_list.id
-		where langs_list.source
+		where langs_list.rid in (select rid from langs_closure
+			where root = (select rid from langs_list
+				where id = 'source'))
 		group by dh_id order by dh_id, freq, inverted_name
 	), people_repos_json as (
 		select dh_id, json_group_array(json_array(repos.repo, title, freq)) as repos_prod
