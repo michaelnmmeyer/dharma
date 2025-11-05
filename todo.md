@@ -1,12 +1,15 @@
 # TODO
 
+Fix pbs within <lg>
+
+<lg n="1" met="vasantatilakā">
+	<lb n="2"/><l n="a">yo dharma-ratna-kiraṇair apavidhya sāndra<supplied reason="omitted">ṁ</supplied></l>
+	<l n="b">mohāndhakāra-paṭalaṁ sakalaṁ tri<lb n="3" break="no"/>-lokaM| </l>
+	<l n="c">Āloka-lokam anayat s<choice><sic>u</sic><corr>a</corr></choice> jayaty udār<choice><sic>a</sic><corr>o</corr></choice></l>
+	<l n="d">dur-vāra-māra-visara<lb n="4" break="no"/>sya jayī jinendraḥ|| </l>
+</lg>
+
 ---
-
-space around <gap> INSKotumpalur00003
-
----
-
-Extraire les scripts dans un fichier XML ad hoc et le mettre dans project documentation.
 
 Retirer distinction entre assigned lang et inferred lang, avoir une seule catégorie lang.
 

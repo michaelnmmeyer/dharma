@@ -217,18 +217,30 @@ def fix_spaces_in_element(root: tree.Tag):
 	adjust_spaces(root, nodes)
 	delete_if_empty(root)
 
-def can_trim_before(name):
-	"Whether we can delete spaces before the given element."
+def should_trim_before(name):
+	"Whether we should delete spaces before the given element."
 	return name not in ("span", "link", "display", "split", "views")
 
-def can_trim_after(name):
-	"Whether we can delete spaces after the given element."
+def should_trim_after(name):
+	"Like `should_trim_before()`, but for spaces after the given element."
 	return name not in ("span", "link", "display", "split", "views", "note")
 
+def bubble_up_start_spaces(name):
+	"""If true, spaces at the beginning of this element should be moved up
+	the tree, otherwise they should just be removed. For instance, if we
+	have `<para>foo<span> bar</span></para>` and
+	`bubble_up_start_spaces("span")` is true, the output will be `<para>foo
+	<span>bar</span></para>`; but if `bubble_up_start_spaces("span")` is
+	false, the output will be `<para>foo<span>bar</span></para>`.
+	"""
+	return name in ("span", "link")
+
+def bubble_up_end_spaces(name):
+	"""Like `bubble_up_start_spaces()`, but for spaces at the end of this
+	element."""
+	return name in ("span", "link")
+
 def adjust_spaces(root, nodes):
-	# forward_spaces is true if spaces at the beginning or at the end of
-	# this node should be moved outside of it.
-	forward_spaces = root.name in ("span", "link")
 	for i, node in enumerate(nodes):
 		if not isinstance(node, tree.String):
 			continue
@@ -236,19 +248,19 @@ def adjust_spaces(root, nodes):
 		assert len(repl) > 0
 		if i < len(nodes) - 1 and repl and repl[-1] == " " \
 			and isinstance(nodes[i + 1], tree.Tag) \
-			and can_trim_before(nodes[i + 1].name):
+			and should_trim_before(nodes[i + 1].name):
 			repl = repl.rstrip()
 		if i > 0 and repl and repl[0] == " " \
 			and isinstance(nodes[i - 1], tree.Tag) \
-			and can_trim_after(nodes[i - 1].name):
+			and should_trim_after(nodes[i - 1].name):
 			repl = repl.lstrip()
 		if i == 0 and repl and repl[0] == " ":
 			repl = repl.lstrip()
-			if forward_spaces:
+			if bubble_up_start_spaces(root.name):
 				add_space_before(root)
 		if i == len(nodes) - 1 and repl and repl[-1] == " ":
 			repl = repl.rstrip()
-			if forward_spaces:
+			if bubble_up_end_spaces(root.name):
 				add_space_after(root)
 		if not repl:
 			node.delete()
@@ -1153,25 +1165,24 @@ def fix_blocks_nesting(t: tree.Tree):
 	should not arise.
 
 	We have a nesting problem if an inline element contains some kind of
-	block, or if one of para, verse, verse-line contains a block. When we
-	end up in this situation, we unwrap the inner block element. This is
-	probably the most sensible approach; we could also do the reverse viz.
-	unwrap the outer inline or block element, but this looks less clean.
+	block, or if para or verse-line contains a block (TODO other elements
+	are concerned). When we end up in this situation, we unwrap the inner
+	block element. This is probably the most sensible approach; we could
+	also do the reverse viz. unwrap the outer inline or block element, but
+	this looks less clean.
 	"""
 	def inner(root):
 		assert isinstance(root, tree.Tag)
-		if is_inline(root) or root.name in ("para", "verse", "verse-line"):
+		if is_inline(root) or root.name in ("para", "verse-line"):
 			unwrap_child_blocks(root)
 		for child in root:
 			if isinstance(child, tree.Tag):
 				inner(child)
-	root = t.first("document")
-	assert isinstance(root, tree.Tag)
-	inner(root)
+	inner(t.root)
 
 def unwrap_child_blocks(root: tree.Tag):
 	"""Unwraps block elements that are children of the given element, and
-	unwrap or delete as well their inner structural elements (source, key,
+	unwraps or deletes as well their inner structural elements (source, key,
 	value, item...)."""
 	i = 0
 	while i < len(root):
