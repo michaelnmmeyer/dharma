@@ -219,11 +219,11 @@ def fix_spaces_in_element(root: tree.Tag):
 
 def can_trim_before(name):
 	"Whether we can delete spaces before the given element."
-	return name not in ("span", "link", "display", "split")
+	return name not in ("span", "link", "display", "split", "views")
 
 def can_trim_after(name):
 	"Whether we can delete spaces after the given element."
-	return name not in ("span", "link", "display", "split", "note")
+	return name not in ("span", "link", "display", "split", "views", "note")
 
 def adjust_spaces(root, nodes):
 	# forward_spaces is true if spaces at the beginning or at the end of
@@ -300,6 +300,9 @@ def delete_if_empty(root: tree.Tag):
 	from non-default ones. Not sure how this should be made to work, because
 	for <translation> we have several variations of "default" headings.
 
+	`<verse>` follows the same treatment: if a verse only has a
+	`<head>`, we delete it.
+
 	Some elements are not deleted, even if they are empty. This includes
 	the document's root, `<document>` (otherwise, the output wouldn't be a
 	proper XML document), and a few others.
@@ -307,7 +310,8 @@ def delete_if_empty(root: tree.Tag):
 	if len(root) == 0:
 		if root.name not in ("document", "npage", "nline", "ncell", "key"):
 			root.delete()
-	elif len(root) == 1 and isinstance(root[0], tree.Tag) and root[0].name == "head":
+	elif len(root) == 1 and isinstance(root[0], tree.Tag) and \
+		root[0].name == "head":
 		root.delete()
 
 def squeeze(s):
@@ -527,7 +531,7 @@ def shift_milestones_in_verse(mile):
 		parent.append(tree.Tag("verse-line", lang=parent["lang"]))
 	# Skip the heading, if any. Besides it, should only have as children
 	# either milestones or verse-line.
-	if parent[0].name == "verse-head":
+	if parent[0].name == "head":
 		skip = 1
 	else:
 		skip = 0
@@ -818,10 +822,15 @@ def unwrap_for_physical(root: tree.Node):
 				pass
 			case "div" | "head" | "span" | "link" | "npage" | "nline" | "ncell":
 				unwrap_for_physical(node)
-			case "verse" | "dlist" | "elist" | "quote" | "key" | "value" | "item":
+			case "dlist" | "elist" | "quote" | "key" | "value" | "item":
 				unwrap_for_physical(node)
 				node.unwrap()
-			case "verse-head" | "source":
+			case "verse":
+				if (head := node.first("stuck-child::head")):
+					head.delete()
+				unwrap_for_physical(node)
+				node.unwrap()
+			case "source":
 				node.delete()
 			case "para":
 				unwrap_for_physical(node)
@@ -1179,7 +1188,7 @@ def unwrap_child_blocks(root: tree.Tag):
 			case "para" | "head":
 				node.unwrap()
 			case "verse":
-				head = node.first("stuck-child::verse-head")
+				head = node.first("stuck-child::head")
 				if head:
 					head.delete()
 				for line in node.find("verse-line"):

@@ -181,7 +181,7 @@ def extract_text_inner(root, buf):
 			for node in root:
 				extract_text_inner(node, buf)
 		# XXX won't work well for quote, list, dlist, can't recurse.
-		case "para" | "verse" | "quote" | "list" | "dlist":
+		case "para" | "verse" | "quote" | "elist" | "dlist":
 			for node in root:
 				extract_text_inner(node, buf)
 			buf.append("\n")
@@ -197,8 +197,7 @@ def extract_text_inner(root, buf):
 		case "span" | "link":
 			for node in root:
 				extract_text_inner(node, buf)
-		case "note" | "head" | "verse-head" | "display" | "npage" \
-			| "nline" | "ncell":
+		case "note" | "head" | "display" | "npage" | "nline" | "ncell":
 			pass
 		case _:
 			raise Exception(f"unsupported: {root.name}")

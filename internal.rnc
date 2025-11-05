@@ -25,6 +25,7 @@
 # <physical>, <logical>, <full>. This element is expanded differently depending on
 # the edition display.
 
+# Start state.
 start = document
 
 document = element document {
@@ -146,8 +147,11 @@ name = element name {
 	attribute lang { text },
 	text
 }
+# An identifier in the database.
 identifier = element identifier {
-	attribute lang { text },
+	# The "language" of an identifier is a special one "ident"; and
+	# identifiers are always in latin. Thus the following attribute.
+	attribute lang { "ident latin" },
 	text
 }
 
@@ -155,12 +159,15 @@ para = element para {
 	attribute lang { text }?,
 	attribute anchor { text }?,
 	attribute class { text }?,
-	inline*
+	inline+
 }
+
+# "elist" is an enumerated list. We have three forms, depending on @type.
 elist = element elist {
 	attribute type { "plain" | "bulleted" | "numbered" },
-	element item { block* }*
+	element item { block* }+
 }
+
 # "dlist" is a definition list (converted to a dl in html). Note that we do not
 # allow it to store inlines directly.
 dlist = element dlist { pair+ }
@@ -190,7 +197,7 @@ ediv = element div {
 	attribute phantom { xsd:boolean },
 	# "head" is only given if the edition is not a phantom one.
 	head?,
-	(ediv* | block*)
+	(ediv+ | block+)
 }
 
 # "pdiv" is a division within the /document/edition/physical node.
@@ -198,16 +205,16 @@ pdiv = element div {
 	# For "phantom" and "head", same remarks as above for "ediv".
 	attribute phantom { xsd:boolean },
 	head?,
-	(pdiv* | page*)
+	(pdiv+ | page+)
 }
-page = element page { head?, line* }
+page = element page { head?, line+ }
 line = element line {
 	attribute lang { text }?,
 	inline+
 }
 
 verse = element verse {
-	element verse-head {
+	element head {
 		attribute lang { text }?,
 		inline+
 	}?,
@@ -219,31 +226,44 @@ verse-line = element verse-line {
 	attribute break { xsd:boolean },
 	attribute n { text }?,
 	attribute tip { text }?,
-	inline*
+	inline+
 }
 
 link = element link {
 	attribute lang { text }?,
 	# @href is absent if we should display an invalid link on the website
-	# (see e.g. how we represent invalid bibliography links).
+	# (see e.g. how we represent invalid bibliography links). In other
+	# words, @href is absent if we are supposed to display a link but
+	# but cannot make it clickable for some reason.
 	attribute href { xsd:anyURI }?,
 	inline+
 }
 
 # Milestones. They all have the same structure. The contents is something to
-# display. If the milestone has @phantom=true, the element is empty (there is
-# nothing to display).
+# display. If the milestone has @phantom=true, and only in this case, the
+# element is empty (there is nothing to display).
 
 milestone = npage | nline | ncell
 
-npage = element npage { milestone_contents }
-nline = element nline { milestone_contents }
-ncell = element ncell { milestone_contents }
+npage = element npage {
+	phantom_milestone_contents | explicit_milestone_contents
+}
+nline = element nline {
+	phantom_milestone_contents | explicit_milestone_contents
+}
+ncell = element ncell {
+	phantom_milestone_contents | explicit_milestone_contents
+}
 
-milestone_contents = (
+phantom_milestone_contents = (
+	attribute significant { "true" },
+	attribute break { xsd:boolean },
+	attribute phantom { "true" }
+)
+explicit_milestone_contents = (
 	attribute lang { text }?,
 	attribute significant { xsd:boolean },
 	attribute break { xsd:boolean },
-	attribute phantom { xsd:boolean },
-	inline*
+	attribute phantom { "false" },
+	inline+
 )

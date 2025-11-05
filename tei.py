@@ -1296,7 +1296,7 @@ def parse_lg(p, lg):
 		unsure = True
 	met = make_meter_heading(p, lg["met"])
 	if n or met:
-		p.push(tree.Tag("verse-head"))
+		p.push(tree.Tag("head"))
 		if n and met:
 			p.append(n)
 			p.append(". ")

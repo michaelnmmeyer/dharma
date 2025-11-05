@@ -327,7 +327,7 @@ def render_link(self, node):
 @handler("verse")
 def render_verse(self, node):
 	self.push("div", class_="verse")
-	if (head := node.first("stuck-child::verse-head")):
+	if (head := node.first("stuck-child::head")):
 		self.push("div", class_="verse-heading")
 		self.dispatch_children(head)
 		self.join()
