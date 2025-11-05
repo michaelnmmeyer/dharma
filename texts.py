@@ -7,6 +7,8 @@ _valid_prefixes = {"DHARMA_INS", "DHARMA_DiplEd", "DHARMA_CritEd"}
 """Files that start with these prefixes are assumed to be TEI editions (but
 there are other additional criteria, see the code)."""
 
+_ignore_dirs = {"sii-corpus"}
+
 # XXX need to have static methods for creating files: from a real file on disk;
 # from the db (in-memory file maskerading as a real one, see save_file()); and for creating an
 # anonymous in-memory file (for editorial, maybe somewhere else too).
@@ -118,6 +120,8 @@ def iter_texts_in_repo(repo) -> typing.Generator[File, None, None]:
 		# Ignore hidden directories.
 		for dir in list(dirs):
 			if dir.startswith("."):
+				dirs.remove(dir)
+			if dir in _ignore_dirs:
 				dirs.remove(dir)
 		for file in files:
 			_, ext = os.path.splitext(file)
