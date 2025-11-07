@@ -738,7 +738,7 @@ def make_multiple_unclear(p, nodes: list[tree.Node]):
 	p.join()
 	p.join("display")
 	p.push(tree.Tag("search"))
-	p.append(nodes[0])
+	p.dispatch_children(nodes[0])
 	p.join()
 	p.join("split")
 

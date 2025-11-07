@@ -230,7 +230,7 @@ def bubble_up_start_spaces(name):
 	<span>bar</span></para>`; but if `bubble_up_start_spaces("span")` is
 	false, the output will be `<para>foo<span>bar</span></para>`.
 	"""
-	return name in ("span", "link", "display")
+	return name in ("span", "link", "display", "split")
 
 def bubble_up_end_spaces(name):
 	"""Like `bubble_up_start_spaces()`, but for spaces at the end of this
