@@ -501,11 +501,12 @@ create table if not exists prosody(
 
 create table if not exists gaiji(
 	name text primary key check(typeof(name) = 'text' and length(name) > 0),
-	text text check(
-		text is null or typeof(text) = 'text' and length(text) > 0),
-	description text check(
-		description is null
-		or typeof(description) = 'text' and length(description) > 0)
+	text text check(text is null
+		or typeof(text) = 'text' and length(text) > 0),
+	description text check(description is null
+		or typeof(description) = 'text' and length(description) > 0),
+	search text check(search is null
+		or typeof(search) = 'text' and length(search) > 0)
 );
 
 -- All bibliographic records from Zotero. Includes data that we do not care

@@ -1,21 +1,9 @@
 from dharma import common, texts
 
-def iter_rows():
-	f = texts.save("project-documentation", "gaiji/DHARMA_gaiji.tsv")
-	field_names = None
-	for line_no, line in enumerate(f.text.splitlines(), 1):
-		fields = [f.strip() for f in line.split("\t")]
-		if line_no == 1:
-			assert len(fields) == 3, fields
-			field_names = fields
-			continue
-		fields = dict(zip(field_names, fields))
-		assert len(fields) == 3, fields
-		yield line_no, fields
-
 def load_data():
 	ret = {}
-	for line_no, row in iter_rows():
+	f = texts.save("project-documentation", "gaiji/DHARMA_gaiji.tsv")
+	for row in common.fetch_tsv(f):
 		assert row["names"], "the column 'names' should not be empty"
 		names = set(row["names"].split())
 		if not row["description"]:
@@ -27,17 +15,21 @@ def load_data():
 			rec["name"] = name
 			if not rec["text"]:
 				rec["text"] = None
+			if not rec["search"]:
+				rec["search"] = rec["text"]
 			ret[name] = rec
 	return ret
 
 def get(name):
 	db = common.db("texts")
-	text, description = db.execute("""select text, description from gaiji
-		where name = ?""", (name,)).fetchone() or (None, None)
+	text, description, search = db.execute("""
+		select text, description, search from gaiji
+		where name = ?""", (name,)).fetchone() or (None, None, None)
 	ret = {
 		"name": name,
 		"text": text,
 		"description": description or "no description available",
+		"search": search,
 	}
 	return ret
 

@@ -4,6 +4,7 @@ import functools, unicodedata, collections.abc
 from urllib.parse import quote
 import icu # pip install PyICU
 import apsw, apsw.ext # pip install apsw
+import requests # pip install requests
 import bs4
 
 # Forward sqlite logs to the logging python module.
@@ -357,6 +358,41 @@ def pandoc(text: str) -> str:
 	# pandoc binary, and we don't have complicated use cases for now, so we
 	# don't use it.
 	return command("pandoc", "--from=markdown", "--to=html", "--standalone", input=text).stdout
+
+def fetch_tsv(file):
+	"""Fetch a TSV file from some given source. `file` can be: a
+	`texts.File` object, an absolute file path like `/foo/bar.tsv`, or an
+	URL like `https://foo.com/bar.tsv`. Returns a list of rows, where each
+	row is a `dict` mapping field names to field values in the given row.
+	We assume the first row contains field names.
+
+        TODO: Should also store a local copy of files we fetch from the web
+        (e.g. the iso639 data), in a cache, within the same db. this cache would
+        be written to only by change.py, when processing files.
+	"""
+	from dharma import texts
+	if isinstance(file, texts.File):
+		text = file.text
+	elif file.startswith("/"):
+		with open(file) as f:
+			text = f.read()
+	else:
+		r = requests.get(file)
+		r.raise_for_status()
+		text = r.text
+	lines = text.splitlines()
+	fields = lines[0].split("\t")
+	ret = []
+	for line in lines[1:]:
+		items = [x.strip() for x in line.split("\t")]
+		# Fill with empty values in case lines were rstripped.
+		while len(items) < len(fields):
+			items.append("")
+		if len(items) > len(fields):
+			raise Exception("bad format")
+		row = zip(fields, items)
+		ret.append(dict(row))
+	return ret
 
 CODE_HASH, CODE_DATE = command("git", "-C", DHARMA_HOME, "show", "--no-patch", "--format=%H %at", "HEAD").stdout.strip().split()
 CODE_DATE = int(CODE_DATE)

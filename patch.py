@@ -317,7 +317,8 @@ def delete_if_empty(root: tree.Tag):
 	proper XML document), and a few others.
 	"""
 	if len(root) == 0:
-		if root.name not in ("document", "npage", "nline", "ncell", "key", "value"):
+		if root.name not in ("document", "npage", "nline", "ncell",
+			"key", "value", "search"):
 			root.delete()
 	elif len(root) == 1 and isinstance(root[0], tree.Tag) and \
 		root[0].name == "head":

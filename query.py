@@ -219,8 +219,9 @@ class SearchableDocument:
 		raise NotImplementedError
 
 if __name__ == "__main__":
+	import sys
 	from dharma import tree
-	t = tree.parse("DHARMA_INSKarnataka00007.xml")
+	t = tree.parse(sys.argv[1])
 	doc = SearchableDocument(t)
 	edition = doc.field("edition")
 	text = extract_text(edition)

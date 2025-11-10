@@ -22,7 +22,6 @@ https://www.loc.gov/standards/iso639-5/index.html.
 For scripts, we use dharma-internal codes.
 """
 
-import requests # pip install requests
 from dharma import common, texts, tree
 
 def scripts_hierarchy_to_html() -> tree.Tag:
@@ -328,10 +327,10 @@ def update_langs():
 		db.execute("insert into langs_by_code(code, id) values(?, ?)", (code, rec["id"]))
 
 def load_langs():
-	tbl3 = fetch_tsv("https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab")
-	tbl3_bis = fetch_tsv("https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3_Name_Index.tab")
-	tbl5 = fetch_tsv("http://id.loc.gov/vocabulary/iso639-5.tsv")
-	tbl0 = fetch_tsv(texts.save("project-documentation", "DHARMA_languages.tsv"))
+	tbl3 = common.fetch_tsv("https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3.tab")
+	tbl3_bis = common.fetch_tsv("https://iso639-3.sil.org/sites/iso639-3/files/downloads/iso-639-3_Name_Index.tab")
+	tbl5 = common.fetch_tsv("http://id.loc.gov/vocabulary/iso639-5.tsv")
+	tbl0 = common.fetch_tsv(texts.save("project-documentation", "DHARMA_languages.tsv"))
 	recs = [
 	{
 		"id": "lang",
@@ -442,40 +441,6 @@ def load_langs():
 			continue
 		rec["parent"] = index[rec["parent"]]["rid"]
 	return recs, index
-
-def fetch_tsv(file):
-	"""Fetch a TSV file from some given source. `file` can be: a
-	`texts.File` object, an absolute file path like `/foo/bar.tsv`, or an
-	URL like `https://foo.com/bar.tsv`. Returns a list of rows, where each
-	row is a `dict` mapping field names to field values in the given row.
-	We assume the first row contains field names.
-
-        TODO: Should also store a local copy of files we fetch from the web
-        (e.g. the iso639 data), in a cache, within the same db. this cache would
-        be written to only by change.py, when processing files.
-	"""
-	if isinstance(file, texts.File):
-		text = file.text
-	elif file.startswith("/"):
-		with open(file) as f:
-			text = f.read()
-	else:
-		r = requests.get(file)
-		r.raise_for_status()
-		text = r.text
-	lines = text.splitlines()
-	fields = lines[0].split("\t")
-	ret = []
-	for line in lines[1:]:
-		items = [x.strip() for x in line.split("\t")]
-		# Fill with empty values in case lines were rstripped.
-		while len(items) < len(fields):
-			items.append("")
-		if len(items) > len(fields):
-			raise Exception("bad format")
-		row = zip(fields, items)
-		ret.append(dict(row))
-	return ret
 
 def add_to_index(code, index, rec):
 	if not code:

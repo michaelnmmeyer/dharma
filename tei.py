@@ -1296,7 +1296,7 @@ def parse_g(p, node):
 	p.append(sym)
 	p.join()
 	p.push(tree.Tag("search"))
-	p.append('?') # TODO actually find something
+	p.append(info["search"] or "�")
 	p.join()
 	p.join("split")
 
