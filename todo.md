@@ -1,24 +1,9 @@
 # TODO
 
-xxx can't just transfer spaces outside of views, do something more sensible. No,
-too messy, should just apply space normalization after we've expanded
-everything. But need to make sure that we don't rely on space normalization in
-preceding operations. This concerns:
+---
 
-	fix_milestones(t)
-	number_notes(t)
-	# And create the three displays.
-	if (edition := t.first("/document/edition")):
-		assert isinstance(edition, tree.Tag)
-		process_edition(t, edition)
-
-
-
-
-display of <am> <ex> in logical/physical/full?
-
-we have a switch on fw in the patching code, don't do that
-
+should add extra commands to change.py to do more granular updates. because, at
+startup, we start with project-documentation and thus reindex the whole catalog only to then update each repo again. we should skip the whole catalog reindexing at startup (and only in this circumstance.)
 
 ---
 

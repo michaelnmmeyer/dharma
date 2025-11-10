@@ -7,6 +7,24 @@ input tree.
 
 TODO
 
+xxx can't just transfer spaces outside of views, do something more sensible. No,
+too messy, should just apply space normalization after we've expanded
+everything. But need to make sure that we don't rely on space normalization in
+preceding operations. This concerns:
+
+	fix_milestones(t)
+	number_notes(t)
+	# And create the three displays.
+	if (edition := t.first("/document/edition")):
+		assert isinstance(edition, tree.Tag)
+		process_edition(t, edition)
+
+display of <am> <ex> in logical/physical/full?
+
+we have a switch on fw in the patching code, don't do that
+
+---
+
 for milestones, should keep a @n, but only a @n that is unique across the whole
 file (and that we thus need to preconstruct in some cases). should ensure the
 uniqueness of @n across both npage and nline; ncell need not be numbered. (we

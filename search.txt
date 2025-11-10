@@ -1,18 +1,10 @@
 ## cursors
 
-======
-
-On va avoir besoin de élément <split>, lui-même contenant deux éléments: <search> and <display>. Utiliser cela pour encoder les gaiji.  Aussi pour les gaps. Pour simplifier le processing, on pourrait rendre l'usage de Split obligatoire même pour les display purs.
-
-Pour les sic/corr orig/reg et aussi les abbrevs, on devrait avoir un élément group qui réunit plusieurs inlines qui ne doivent pas être séparés dans les highlighted résultats. De même, dans les résultats de la recherche, on ne devrait jamais couper à l'intérieur d'un cluster. (Mais noter que les sic/corr, etc. peuvent contenir des espaces, donc l'emploi d'un élément group demeure nécessaire.)
-
-
-For search ing, each span of text should be annotated with its language and with contextual info (whether we are in a title, a para, a verse, in a list item, etc.
-
 ===========
 
 it is likely that the result of highlighting and of search will differ, even
-though this should not happen, so we must be prepared to deal with this.
+though this should not happen, so we must be prepared to deal with this (and
+log the error somewhere).
 
 ===========
 

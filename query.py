@@ -160,7 +160,7 @@ class Tokenizer(Cursor):
 		dlength = self.display_offset - dstart
 		return dstart, dlength
 
-def extract_text(root):
+def extract_text(root: tree.Node):
 	buf = []
 	extract_text_inner(root, buf)
 	return buf
