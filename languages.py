@@ -548,7 +548,7 @@ def cmd_print_stuff():
 	path = os.path.abspath(sys.argv[1])
 	f = texts.File("/", path)
 	t = tei.process_file(f).serialize()
-	t = patch.process(t)
+	patch.process(t)
 	patch.make_pretty_printable(t)
 	root = t.first("/document")
 	assert root

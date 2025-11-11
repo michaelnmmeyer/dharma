@@ -87,12 +87,15 @@ class Document:
 		return f.tree
 
 	def to_internal(self):
-		ret = patch.process(self.serialize())
+		ret = self.serialize()
+		patch.process(ret)
 		return ret
 
 	def to_html(self, toc_depth=-1):
 		from dharma import internal2html
-		ret = internal2html.process(patch.process(self.serialize()), toc_depth=toc_depth)
+		ret = self.serialize()
+		patch.process(ret)
+		ret = internal2html.process(ret, toc_depth=toc_depth)
 		return ret
 
 def XML(s):

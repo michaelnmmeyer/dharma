@@ -1,6 +1,54 @@
 ## cursors
 
-write cursors for: intersection, union, negation
+write highlighting code for a basic cursor.
+
+the input is a cursor object for iterating over matches, plus the tree.
+
+we will probably need to look at the surrounding context while delimiting
+snippets and such, so instead of display offsets, we should have a "real" cursor
+on the doc tree. it should store at least: string node where the passage starts
+and offset into it, string node where the passage ends and offset into it.
+
+for this to work, all strings should be present in the tree, so might need
+some adjustments to the internal representation.
+
+
+### highlighting
+
+need a query tree for query evaluation. it should use cursor objects that work
+on the searchable text representation. for translating search offsets into
+original offsets, we need a tree cursor that iterates over child nodes of a
+given field while transforming it to the normalized text, grapheme by grapheme.
+the role of a tree cursor is to translate a search offset into a display offset.
+if we have different ways to normalize each field, we will need to allocate as
+many tree cursors, and we will need to merge their (display) intervals.
+
+how to represent an XML tree offset? we need to be able to merge adjacent and
+overlapping intervals. so we must use offsets that map to the string that will
+be generated. to make things simpler, could gather in an array the output
+string. the array would hold strings, possibly also <split> elements containing
+<display> and <search> element (if the beginning of <search> matches, we select
+the whole <display> element, no partial highlighting because impossible).
+
+... we should just use integer offsets (no objects), and do a final pass on the
+tree to select the corresponding segments. is that enough?
+
+once we've delimited matches in the tree, pass offsets to some generic function
+that will figure out if it can just highlight the stuff in a single go or if it
+should break it into several portions (because the match crosses a paragraph, a
+list element, etc.).
+
+what should the tree cursor look like? to make things simpler, it should iterate
+over an array of (string) nodes. then we can implement a seek() method. problem
+with the generator is that we will mess up iteration if we modify the tree
+immediately.
+
+ideally, the stuff for normalizing strings should advance by arbitrary intervals
+(so that we can use a lexer later on).
+
+
+=====
+
 
 ===========
 
@@ -56,39 +104,8 @@ length, abbreviate the snippet by inserting "[...]" in appropriate locations.
 but where exactly should we abbreviate snippets?
 
 
-### highlighting
 
-need a query tree for query evaluation. it should use cursor objects that work
-on the searchable text representation. for translating search offsets into
-original offsets, we need a tree cursor that iterates over child nodes of a
-given field while transforming it to the normalized text, char by char. the role
-of a tree cursor is to translate a search offset into a display offset. if we
-have different ways to normalize each field, we will need to allocate as many
-tree cursors, and we will need to merge their (display) intervals.
-
-how to represent an XML tree offset? we need to be able to merge adjacent and
-overlapping intervals. so we must use offsets that map to the string that will
-be generated. to make things simpler, could gather in an array the output
-string. the array would hold strings, possibly also <couple> elements containing
-<display> and <search> element (if the beginning of <search> matches, we select
-the whole <display> element, no partial highlighting because impossible).
-
-... we should just use integer offsets (no objects), and do a final pass on the
-tree to select the corresponding segments. is that enough?
-
-once we've delimited matches in the tree, pass offsets to some generic function
-that will figure out if it can just highlight the stuff in a single go or if it
-should break it into several portions (because the match crosses a paragraph, a
-list element, etc.).
-
-what should the tree cursor look like? to make things simpler, it should iterate
-over an array of (string) nodes. then we can implement a seek() method. problem
-with the generator is that we will mess up iteration if we modify the tree
-immediately.
-
-ideally, the stuff for normalizing strings should advance by arbitrary intervals
-(so that we can use a lexer later on).
-
+=====
 
 
 

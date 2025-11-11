@@ -1376,9 +1376,6 @@ def process_edition(t: tree.Tree, edition: tree.Tag):
 # also, don't really bother about redundant operations: better make it readable
 # and slower than the reverse.
 
-# XXX don't return t, because it makes it look like we are returning a new tree
-# while in fact we are modifying it in-place.
-
 def process(t: tree.Tree):
 	fix_search(t)
 	fix_languages(t)
@@ -1411,7 +1408,6 @@ def process(t: tree.Tree):
 	if (root := t.first("/document/edition/logical")):
 		add_edition_languages(root)
 	languages.finish_internal(t)
-	return t
 
 def make_pretty_printable(t: tree.Tree):
 	t.coalesce()
@@ -1431,7 +1427,7 @@ if __name__ == "__main__":
 		path = os.path.abspath(sys.argv[1])
 		f = texts.File("/", path)
 		t = tei.process_file(f).serialize()
-		t = process(t)
+		process(t)
 		make_pretty_printable(t)
 		sys.stdout.write(t.xml(add_xml_prefix=False))
 	try:

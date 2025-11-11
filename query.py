@@ -2,6 +2,8 @@ from dharma import common, tree
 
 class Cursor:
 
+	"Abstract class."
+
 	def __init__(self):
 		self.offset = -1
 
@@ -120,10 +122,11 @@ class Tokenizer(Cursor):
 		return ret
 
 	def translate(self, start, length) -> tuple[int, int]:
-		# After casefolding süße > süsse
-		# search "se": süs[se]; produce the interval sü[sse]
-		# search "üs": s[üs]se; produce the interval s[üss]e
-		# search "s": [s]ü[s][s]e; produce the intervals [s]ü[ss]e
+		"""After casefolding süße > süsse
+		search "se": süs[se]; produce the interval sü[sse]
+		search "üs": s[üs]se; produce the interval s[üss]e
+		search "s": [s]ü[s][s]e; produce the intervals [s]ü[ss]e
+		"""
 		assert start >= 0 and length > 0
 		dstart = -1
 		dlength = 0
