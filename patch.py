@@ -856,7 +856,9 @@ def fix_milestones_spaces(t: tree.Branch, physical=False):
 # split these elements if needed: a, para
 
 def unwrap_for_physical(root: tree.Node):
-	"Unwraps tags that are not necessary for the physical display."
+	"""Unwraps or deletes tags that are not necessary for the physical
+	display.
+	"""
 	for node in list(root):
 		if not isinstance(node, tree.Tag):
 			continue
@@ -1237,6 +1239,9 @@ def unwrap_child_blocks(root: tree.Tag):
 				if head:
 					head.delete()
 				node.unwrap()
+			case "head" if root.name == "verse":
+				i += 1
+				continue
 			case "para" | "head":
 				node.unwrap()
 			case "verse":
