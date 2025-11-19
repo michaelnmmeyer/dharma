@@ -162,7 +162,11 @@ class Parser(tree.Serializer):
 		assert short_title
 		entry = self.bib_entries.get(short_title)
 		if not entry:
-			if biblio.unsupported_entry(short_title):
+			db = common.db("texts")
+			# If the entry is in the full biblio_data table but not
+			# in the biblio table, it is because the entry has a
+			# type we cannot process.
+			if db.execute("select 1 from biblio_data where short_title = ?", (short_title,)).fetchone():
 				tip = "Unsupported entry type"
 			else:
 				tip = "Not in bibliography"

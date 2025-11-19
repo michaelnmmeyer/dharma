@@ -103,6 +103,7 @@ def zotero_deleted(latest_version):
 	return r.json().get("items", [])
 
 def insert_entry(db, entry):
+	db.execute("delete from biblio where key = ?", (entry["key"],))
 	db.execute("""insert or replace into biblio_data(key, json)
 		values(?, ?)""", (entry["key"], entry))
 	# Zotero adds a .data.deleted=1 flag to entries marked as duplicates.
@@ -110,7 +111,6 @@ def insert_entry(db, entry):
 	# See https://github.com/erc-dharma/project-documentation/issues/311
 	# for details.
 	if entry["data"].get("deleted"):
-		db.execute("delete from biblio where key = ?", (entry["key"],))
 		return
 	short_title = entry["data"].get("shortTitle")
 	if not short_title:
@@ -118,7 +118,7 @@ def insert_entry(db, entry):
 	sort_key = make_sort_key(entry["data"])
 	if not sort_key:
 		return
-	db.execute("""insert or replace into biblio(short_title, key, sort_key,
+	db.execute("""insert into biblio(short_title, key, sort_key,
 		data) values(?, ?, ?, ?)""", (short_title, entry["key"],
 		sort_key, entry["data"]))
 
@@ -1391,6 +1391,7 @@ def format_reference(rec, rend="default", location=[], external_link=True,
 			out.append("ibid.")
 			out.join()
 		case "siglum":
+			assert siglum is not None
 			# Add the entry's Author+year in the tooltip
 			out.top["tip"] = make_author_year(rec).html()
 			out.append(siglum)
@@ -1404,16 +1405,6 @@ def format_reference(rec, rend="default", location=[], external_link=True,
 	out.join() # ...</span>
 	assert len(out.stack) == 1
 	return out.tree
-
-def unsupported_entry(short_title):
-	"""True iff the entry in the global bibliography and if we can't display
-	it."""
-	db = common.db("texts")
-	ret = db.execute("""select 1
-		from biblio_data left join biblio on biblio_data.key = biblio.key
-		where biblio_data.short_title = ? and biblio.key is null""",
-		(short_title,))
-	return bool(ret.fetchone())
 
 def make_author_year(rec):
 	x = Writer()
