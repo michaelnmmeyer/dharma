@@ -9,8 +9,12 @@ snippets and such, so instead of display offsets, we should have a "real" cursor
 on the doc tree. it should store at least: string node where the passage starts
 and offset into it, string node where the passage ends and offset into it.
 
+we should be able to extract both the search string and the display string from
+a single span.
+
 for this to work, all strings should be present in the tree, so might need
-some adjustments to the internal representation.
+some adjustments to the internal representation: add some lone <search> tag
+with spaces or something.
 
 
 ### highlighting
