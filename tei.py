@@ -185,7 +185,7 @@ class Parser(tree.Serializer):
 			if not short_title:
 				short_title = "???"
 				tip = "Missing short title"
-			elif biblio.unsupported_entry(short_title):
+			elif common.db("texts").execute("select 1 from biblio_data where short_title = ?", (short_title,)).fetchone():
 				tip = "Unsupported entry type"
 			else:
 				tip = "Not in bibliography"
