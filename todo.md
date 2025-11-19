@@ -1,16 +1,6 @@
 # TODO
 
-déplacer dharma sur erc-dharma
-
 réafficher repo + id
-
-https://dharmalekha.info/texts/INSTamilNadu00616
-
-Pour Sivaramamurti1960_01; unsupported entry type
-
-créer dépîot varia-epigraphy
-
-ajotuer entrée menu resources sur site internet
 
 pour bestow, pour chaque traduction, ajouter l'auteur de la traduction (support
 <div type="translation" source="bib:Hultzsch1895_01">).
