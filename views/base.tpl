@@ -39,6 +39,7 @@
          <li><a href="/editorial-conventions">Editorial Conventions</a></li>
          <li><a href="/prosody">Prosodic Patterns</a></li>
       </ul>
+   </li>
    <li>
       <a href="/parallels">
       <i class="fa-solid fa-grip-lines-vertical"></i> Parallels</a>
