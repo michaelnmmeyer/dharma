@@ -1,21 +1,26 @@
 ## cursors
 
-write highlighting code for a basic cursor.
+we need at least two subsystems.
 
-the input is a cursor object for iterating over matches, plus the tree.
+the search system. for each matching document, it should return raw offsets that
+index the search representation, because we want to be able to rewrite it in a
+lower-level language later on. so, it should be able to return a list of matches
+as a series of intervals:
 
-we will probably need to look at the surrounding context while delimiting
-snippets and such, so instead of display offsets, we should have a "real" cursor
-on the doc tree. it should store at least: string node where the passage starts
-and offset into it, string node where the passage ends and offset into it.
+	start offset
+	match length
+	something indicating which (sub)query matched
+	maybe some other match attributes
 
-we should be able to extract both the search string and the display string from
-a single span.
+this info should be serializable. thus, results do not need to be returned
+lazily.
 
-for this to work, all strings should be present in the tree, so might need
-some adjustments to the internal representation: add some lone <search> tag
-with spaces or something.
-
+the highlighting+snippet selection system should translate these raw offsets
+into Selection() objects that represent an interval into the XML tree. these
+selection objects should hold at least: start node, start offset into this node;
+end node, end offset into this node. (these nodes should both be text nodes.) we
+should be able to extract both the search string (for debugging, mostly) and the
+display string from selection objects.
 
 ### highlighting
 
