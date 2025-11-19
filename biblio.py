@@ -118,7 +118,7 @@ def insert_entry(db, entry):
 	sort_key = make_sort_key(entry["data"])
 	if not sort_key:
 		return
-	db.execute("""insert into biblio(short_title, key, sort_key,
+	db.execute("""insert or replace into biblio(short_title, key, sort_key,
 		data) values(?, ?, ?, ?)""", (short_title, entry["key"],
 		sort_key, entry["data"]))
 
