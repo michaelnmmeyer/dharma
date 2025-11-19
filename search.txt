@@ -9,7 +9,7 @@ as a series of intervals:
 
 	start offset
 	match length
-	something indicating which (sub)query matched
+	maybe something indicating which (sub)query matched
 	maybe some other match attributes
 
 this info should be serializable. thus, results do not need to be returned
@@ -17,12 +17,16 @@ lazily.
 
 the highlighting+snippet selection system should translate these raw offsets
 into Selection() objects that represent an interval into the XML tree. these
-selection objects should hold at least: start node, start offset into this node;
-end node, end offset into this node. (these nodes should both be text nodes.) we
-should be able to extract both the search string (for debugging, mostly) and the
-display string from selection objects.
+selection objects should hold at least:
 
-### highlighting
+	start node, start offset into this node
+	end node, end offset into this node
+
+we should be able to extract both the search string (for debugging, mostly) and
+the display string from selection objects.
+
+
+## highlighting
 
 need a query tree for query evaluation. it should use cursor objects that work
 on the searchable text representation. for translating search offsets into
